@@ -1,3 +1,3 @@
-import { UUIBadgeElement } from './uui-bagde.element';
+import { UUIBadgeElement } from './uui-badge.element';
 
 customElements.define('uui-badge', UUIBadgeElement);

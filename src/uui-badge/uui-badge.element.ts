@@ -4,6 +4,16 @@ import { LitElement, html, css, property } from 'lit-element';
  *  @element uui-badge
  *  @slot - for badge contents
  */
+
+type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
+type ButtonStyle =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'gray';
+
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
@@ -39,16 +49,11 @@ export class UUIBadgeElement extends LitElement {
     `,
   ];
 
-  @property({ attribute: true }) size: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' =
-    'm';
+  @property({ attribute: true })
+  public size: BadgeSize = 'm';
 
-  @property({ attribute: true }) color:
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'gray' = 'gray';
+  @property({ attribute: true })
+  public color: ButtonStyle = 'gray';
 
   render() {
     return html`

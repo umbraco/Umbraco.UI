@@ -9,7 +9,7 @@
     "test": "tsc && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "storybook": "npm run analyze && concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
-    "storybook:build": "npm run analyza && build-storybook",
+    "storybook:build": "npm run analyze && build-storybook",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
     "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
     "start": "concurrently --kill-others --names tsc,web-dev-server \"npm run tsc:watch\" \"web-dev-server --app-index index.html --node-resolve --open --watch\"",
