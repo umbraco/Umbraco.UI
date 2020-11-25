@@ -1,11 +1,10 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { UUIEvent } from '../utils/UUIEvent';
 
-export class UUIButtonClickEvent extends UUIEvent {
-  detail: {
-    fromUUIButton: boolean;
-  };
-}
+type UUIButtonClickEventDetails = {
+  fromUUIButton: boolean;
+};
+export class UUIButtonClickEvent extends UUIEvent<UUIButtonClickEventDetails> {}
 
 /**
  *  @element uui-button

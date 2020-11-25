@@ -10,7 +10,6 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false, //should fix?
     "importHelpers": true,
     "outDir": "out-tsc",
     "sourceMap": true,

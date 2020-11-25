@@ -40,9 +40,9 @@ export class UUIInputElement extends LitElement {
     this._internals = (this as any).attachInternals();
   }
 
-  _v: string;
+  _v: string | null = null;
   @property()
-  get value(): string {
+  get value(): string | null {
     return this._v;
   }
   set value(newValue) {
@@ -57,7 +57,7 @@ export class UUIInputElement extends LitElement {
   }
 
   @property()
-  valid: boolean;
+  valid = true;
 
   onUpdate(e) {
     this.value = e.target.value;

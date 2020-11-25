@@ -49,6 +49,9 @@ export class UUIBadgeElement extends LitElement {
     `,
   ];
 
+  @property({ type: Boolean, attribute: true })
+  public boolTest = true;
+
   @property({ attribute: true })
   public size: BadgeSize = 'm';
 

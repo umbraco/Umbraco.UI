@@ -1,9 +1,9 @@
-export class UUIEvent extends Event {
+export class UUIEvent<DetailType> extends Event {
   static defaultInit = {
     bubbles: true,
     composed: true,
   };
-  detail: any;
+  detail: DetailType;
 
   constructor(evName, eventInit) {
     super(evName, {
