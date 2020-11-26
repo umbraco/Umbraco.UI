@@ -16,6 +16,13 @@ addParameters({
     iframeHeight: '200px',
   },
 });
+addParameters({
+  options: {
+    storySort: {
+      method: 'alphabetical',
+    },
+  },
+});
 
 async function run() {
   const customElements = await (
