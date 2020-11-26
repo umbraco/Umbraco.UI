@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['../**/out-tsc/src/**/*.story.js'],
+  stories: ['../**/out-tsc/src/**/*.stories.js'],
   addons: [
     'storybook-prebuilt/addon-knobs/register.js',
     'storybook-prebuilt/addon-docs/register.js',
