@@ -33,34 +33,34 @@ export class UUIInputElement extends LitElement {
 
   static formAssociated = true;
 
-  _internals;
+  private _internals;
 
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
   }
 
-  _v: string | null = null;
+  private _value: string | null = null;
   @property()
   get value(): string | null {
-    return this._v;
+    return this._value;
   }
   set value(newValue) {
-    this._v = newValue;
+    this._value = newValue;
     this.valid = !!this.value;
     if (this.valid) {
       this._internals.setValidity({});
     } else {
       this._internals.setValidity({ customError: true }, 'Cannot be empty');
     }
-    this._internals.setFormValue(this._v);
+    this._internals.setFormValue(this._value);
   }
 
   @property()
-  valid = true;
+  private valid = true;
 
-  onUpdate(e) {
-    this.value = e.target.value;
+  private onUpdate(e: Event) {
+    this.value = (e.target as HTMLInputElement).value;
   }
 
   render() {
@@ -69,8 +69,8 @@ export class UUIInputElement extends LitElement {
         type="text"
         value=${this.value}
         class=${classMap({ invalid: !this.valid })}
-        @change=${e => this.onUpdate(e)}
-        @keyup=${e => this.onUpdate(e)}
+        @change=${(e: Event) => this.onUpdate(e)}
+        @keyup=${(e: Event) => this.onUpdate(e)}
       />
     `;
   }

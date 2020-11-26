@@ -4,7 +4,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "noImplicitAny": false, // should fix?
     "lib": ["es2017", "dom"],
     "strict": true,
     "esModuleInterop": false,

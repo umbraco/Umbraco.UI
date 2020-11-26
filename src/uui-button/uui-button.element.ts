@@ -50,7 +50,7 @@ export class UUIButtonElement extends LitElement {
     | 'danger'
     | 'gray' = 'primary';
 
-  private onClick(e) {
+  private onClick(e: Event) {
     e.preventDefault();
     e.stopPropagation();
 

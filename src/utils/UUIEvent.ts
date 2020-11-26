@@ -5,7 +5,7 @@ export class UUIEvent<DetailType> extends Event {
   };
   detail: DetailType;
 
-  constructor(evName, eventInit) {
+  constructor(evName: string, eventInit: any) {
     super(evName, {
       ...UUIEvent.defaultInit,
       ...eventInit,
