@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Uui Input',
+  title: 'Basic/Input',
   component: 'uui-input',
 };
 
