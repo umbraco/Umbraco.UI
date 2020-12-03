@@ -1,5 +1,5 @@
 import { LitElement, html, css, property } from 'lit-element';
-import { UUIEvent } from '../utils/UUIEvent';
+import { UUIEvent } from '../../event/UUIEvent';
 
 type UUIButtonClickEventDetails = {
   fromUUIButton: boolean;

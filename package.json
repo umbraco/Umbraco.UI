@@ -8,13 +8,14 @@
     "format": "npm run format:eslint && npm run format:prettier",
     "test": "tsc && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
-    "storybook": "npm run analyze && concurrently --kill-others --names tsc --build --clean,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
+    "storybook": "npm run analyze && concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
     "storybook:build": "npm run analyze && build-storybook",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js",
+    "build": "npm run clean && rimraf dist && tsc && rollup -c rollup.config.js",
     "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
     "start": "concurrently --kill-others --names tsc,web-dev-server \"npm run tsc:watch\" \"web-dev-server --app-index index.html --node-resolve --open --watch\"",
     "tsc:watch": "tsc --watch",
-    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json"
+    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
+    "clean": "del-cli --force ./out-tsc"
   },
   "devDependencies": {
     "@open-wc/building-rollup": "^1.0.0",
@@ -29,6 +30,7 @@
     "@web/test-runner": "^0.7.41",
     "concurrently": "^5.1.0",
     "deepmerge": "^4.2.2",
+    "del-cli": "^3.0.1",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",
