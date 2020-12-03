@@ -54,7 +54,7 @@ export class UUITabsExamplePageElement extends LitElement {
       <button type="button" @click=${() => (this.activeId = '200')}>200</button>
       <button type="button" @click=${() => (this.activeId = '300')}>300</button>
       <button type="button" @click=${() => (this.activeId = null)}>
-        Set to empty string
+        Set to empty null
       </button>
       <div>${this.activeId}</div>
     `;
