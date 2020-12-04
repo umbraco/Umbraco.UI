@@ -29,7 +29,7 @@ export class UUIEditorTabGroupElement extends LitElement {
   private tabs: UUIEditorTabElement[] | null = null;
 
   private _active: string | null = null;
-  @property({ reflect: true })
+  @property()
   public get active(): string | null {
     return this._active;
   }
