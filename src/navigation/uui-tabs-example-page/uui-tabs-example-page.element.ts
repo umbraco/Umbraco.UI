@@ -1,3 +1,4 @@
+import { promises } from 'dns';
 import { LitElement, html, css, property } from 'lit-element';
 import { UUITabEvent } from '../../event/UUITabEvent';
 
@@ -17,33 +18,27 @@ export class UUITabsExamplePageElement extends LitElement {
   constructor() {
     super();
 
-    this.addEventListener(
-      'navigation-item-activate',
-      this.onChildActivated as EventListener
-    );
-    this.addEventListener(
-      'navigation-item-deactivate',
-      this.onChildDeactivated as EventListener
-    );
+    //Test, to emitate if a parent of this context cancels the change event.
+    this.addEventListener('change', e => {
+      e.stopPropagation();
+      e.preventDefault();
+    });
   }
 
-  private onChildActivated(e: UUITabEvent) {
-    console.log('# activate: event reached editors', e);
-    // to test that we can break the activation...
-    //e.preventDefault();
-    //this.activeId = e.detail.tabId;
-  }
-  private onChildDeactivated(e: UUITabEvent) {
-    console.log('# deactivate: event reached editors');
-    // to test that we can break the activation...
-    // TODO: test that we can stop propagation.
-    //e.preventDefault();
-    //this.activeId = null;
+  private async onChange(e: UUITabEvent) {
+    /*
+    //Wrap listener actions into this, if we want to accept to be stopped by a parent?
+
+    await Promise.resolve;
+
+    if(e.defaultPrevented !== true) {
+    */
+    this.activeKey = e.detail.key;
   }
 
   render() {
     return html`
-      <uui-tab-group .active=${this.activeKey}>
+      <uui-tab-group .active=${this.activeKey} @change=${this.onChange}>
         <uui-tab .key=${'123'}> Tab A </uui-tab>
         <uui-tab .key=${'200'}> Tab B </uui-tab>
         <uui-tab .key=${'300'}> Tab C </uui-tab>

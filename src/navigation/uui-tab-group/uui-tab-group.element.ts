@@ -35,46 +35,13 @@ export class UUITabGroupElement extends LitElement {
     return this._active;
   }
   public set active(key: string | null) {
-    console.log('set active', key);
     if (this._active !== key) {
       this._active = key;
       this.reflectActive();
     }
   }
 
-  constructor() {
-    super();
-
-    this.addEventListener(
-      'navigation-item-activate',
-      this.onChildActivated as any
-    );
-    // TODO: deactivate... to unset active..
-    this.updateComplete.then(() => {
-      console.log(
-        '## update Complete',
-        this.tabsSlot,
-        this.tabsSlot.childNodes.length
-      );
-    });
-  }
-
-  protected firstUpdated(changes: PropertyValues): void {
-    super.firstUpdated(changes);
-    console.log(
-      '## firstUpdated',
-      this.tabsSlot,
-      this.tabsSlot.childNodes.length
-    );
-  }
-
   private queryTabs(e: any): void {
-    console.log(
-      '## slot changed - queryTabs',
-      this.tabsSlot,
-      this.tabsSlot.childNodes.length,
-      e
-    );
     const firstTime = this.tabs === null;
     this.tabs = (this.tabsSlot as HTMLSlotElement)
       .assignedElements({ flatten: true })
@@ -87,7 +54,6 @@ export class UUITabGroupElement extends LitElement {
   }
 
   private reflectActive() {
-    console.log('- reflectActive', this._active, this.tabs?.length);
     if (this._active !== null) {
       this.activateTab(this._active);
     }
@@ -96,9 +62,7 @@ export class UUITabGroupElement extends LitElement {
 
   public activateTab(key: string) {
     const tab = this.tabs?.find(tab => tab.key === key);
-    console.log(' --- active tab', tab);
     if (tab) {
-      console.log(' --- setting active tab', tab);
       tab.active = true;
     }
   }
@@ -111,24 +75,37 @@ export class UUITabGroupElement extends LitElement {
     });
   }
 
-  // TODO: Make tabEvent..
-  private async onChildActivated(childEvent: UUITabEvent) {
-    // TODO:
-    // Allow event to be cancelled from event capture phase.
-    await Promise.resolve;
+  private async onTabActivate(childEvent: UUITabEvent) {
+    // We do not want to propagate the activate event outside the scope of this group, instead we want implementors to use the change event.
+    childEvent.stopPropagation();
 
     // If cancelled do not continue.
-    if (childEvent.defaultPrevented === true) return;
+    if (childEvent.defaultPrevented === true) {
+      return;
+    }
 
     // Lets notify that tabs are going to change.
-    const event = new UUITabGroupEvent('change', {
+    const changeEvent = new UUITabGroupEvent('change', {
       cancelable: true,
       detail: { key: childEvent.detail.key },
     });
-    this.dispatchEvent(event);
+
+    this.dispatchEvent(changeEvent);
+
+    // Allow event to be cancelled from event bubbling phase.
+    await Promise.resolve;
+
+    /*
+    if we didnt chose to stopPropagation of the childEvent, then we should implement this check:
+    // Check if the activate event has been cancelled by any parent listeners.
+    if (childEvent.defaultPrevented === true) {
+      changeEvent.preventDefault();
+      return;
+    }
+    */
 
     // If this event was cancelled, we will cancel the child event.
-    if (event.defaultPrevented === true) {
+    if (changeEvent.defaultPrevented === true) {
       childEvent.preventDefault();
       return;
     }
@@ -136,10 +113,41 @@ export class UUITabGroupElement extends LitElement {
     // Try out Radio Buttons, to see which events and how they work.
     this._active = childEvent.detail.key;
     this.reflectInactive();
-    console.log('event approved for tab group', this._active);
+  }
+
+  // TODO: refactor, so we dont have dublicate code.
+  private async onTabDeactivate(childEvent: UUITabEvent) {
+    // We do not want to propagate the activate event outside the scope of this group, instead we want implementors to use the change event.
+    childEvent.stopPropagation();
+
+    // If cancelled do not continue.
+    if (childEvent.defaultPrevented === true) return;
+
+    // Lets notify that tabs are going to change.
+    const changeEvent = new UUITabGroupEvent('change', {
+      cancelable: true,
+      detail: { key: childEvent.detail.key },
+    });
+    this.dispatchEvent(changeEvent);
+
+    // If this event was cancelled, we will cancel the child event.
+    if (changeEvent.defaultPrevented === true) {
+      childEvent.preventDefault();
+      return;
+    }
+
+    this._active = null;
+    this.reflectInactive();
+    console.log('deactivate event approved for tab group', this._active);
   }
 
   render() {
-    return html` <slot @slotchange=${this.queryTabs}></slot> `;
+    return html`
+      <slot
+        @activate=${this.onTabActivate}
+        @deactivate=${this.onTabDeactivate}
+        @slotchange=${this.queryTabs}
+      ></slot>
+    `;
   }
 }

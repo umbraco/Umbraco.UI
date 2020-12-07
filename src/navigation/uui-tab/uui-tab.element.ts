@@ -69,16 +69,9 @@ export class UUITabElement extends LitElement {
   @property({ type: String })
   public key: string | null = null;
 
-  /*
-  constructor() {
-    super();
-  }
-  */
-
   protected firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
     this.setAttribute('role', 'tab');
-    console.log('init tab: ', this.key);
     this.key = this.key || `uui-tab-${TabIdCounter++}`;
   }
 
@@ -98,17 +91,16 @@ export class UUITabElement extends LitElement {
     this.activate();
   }
 
-  setActive(state: boolean) {
-    console.log('setActive', state);
-
-    const eventName: string = state
-      ? 'navigation-item-activate'
-      : 'navigation-item-deactivate';
+  async setActive(state: boolean) {
+    const eventName: string = state ? 'activate' : 'deactivate';
     const event = new UUITabEvent(eventName, {
       cancelable: true,
       detail: { key: this.key },
     });
     this.dispatchEvent(event);
+
+    // Allow event to be cancelled from event bubbling phase.
+    await Promise.resolve;
 
     if (event.defaultPrevented !== true) {
       this.active = state;
