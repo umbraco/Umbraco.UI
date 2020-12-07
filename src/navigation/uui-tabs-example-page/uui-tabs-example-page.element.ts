@@ -12,20 +12,18 @@ export class UUITabsExamplePageElement extends LitElement {
   ];
   */
   @property()
-  private activeId: string | null = '123';
+  private activeKey: string | null = '123';
 
   constructor() {
     super();
 
     this.addEventListener(
       'navigation-item-activate',
-      this.onChildActivated as EventListener,
-      true
+      this.onChildActivated as EventListener
     );
     this.addEventListener(
       'navigation-item-deactivate',
-      this.onChildDeactivated as EventListener,
-      true
+      this.onChildDeactivated as EventListener
     );
   }
 
@@ -39,24 +37,30 @@ export class UUITabsExamplePageElement extends LitElement {
     console.log('# deactivate: event reached editors');
     // to test that we can break the activation...
     // TODO: test that we can stop propagation.
-    e.preventDefault();
+    //e.preventDefault();
     //this.activeId = null;
   }
 
   render() {
     return html`
-      <uui-editor-tab-group .active=${this.activeId}>
-        <uui-editor-tab id="123"> Editor Tab A </uui-editor-tab>
-        <uui-editor-tab id="200"> Editor Tab B </uui-editor-tab>
-        <uui-editor-tab id="300"> Editor Tab C </uui-editor-tab>
-      </uui-editor-tab-group>
-      <button type="button" @click=${() => (this.activeId = '123')}>123</button>
-      <button type="button" @click=${() => (this.activeId = '200')}>200</button>
-      <button type="button" @click=${() => (this.activeId = '300')}>300</button>
-      <button type="button" @click=${() => (this.activeId = null)}>
+      <uui-tab-group .active=${this.activeKey}>
+        <uui-tab .key=${'123'}> Tab A </uui-tab>
+        <uui-tab .key=${'200'}> Tab B </uui-tab>
+        <uui-tab .key=${'300'}> Tab C </uui-tab>
+      </uui-tab-group>
+      <button type="button" @click=${() => (this.activeKey = '123')}>
+        open 123
+      </button>
+      <button type="button" @click=${() => (this.activeKey = '200')}>
+        open 200
+      </button>
+      <button type="button" @click=${() => (this.activeKey = '300')}>
+        open 300
+      </button>
+      <button type="button" @click=${() => (this.activeKey = null)}>
         Set to empty null
       </button>
-      <div>${this.activeId}</div>
+      <div>${this.activeKey}</div>
     `;
   }
 }

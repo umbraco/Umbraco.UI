@@ -4,4 +4,4 @@ type DetailType = {
   key: string;
 };
 
-export class UUITabEvent extends UUIEvent<DetailType> {}
+export class UUITabGroupEvent extends UUIEvent<DetailType> {}

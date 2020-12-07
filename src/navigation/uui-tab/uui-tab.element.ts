@@ -6,7 +6,7 @@ let TabIdCounter = 0;
 /**
  *  @element uui-editor-tab
  */
-export class UUIEditorTabElement extends LitElement {
+export class UUITabElement extends LitElement {
   static styles = [
     css`
       button {
@@ -32,6 +32,7 @@ export class UUIEditorTabElement extends LitElement {
       }
 
       button:active {
+        cursor: default;
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
       }
@@ -51,19 +52,22 @@ export class UUIEditorTabElement extends LitElement {
         transition: all 0.2s linear;
       }
 
-      button.--active {
+      :host([active]) button {
         color: blue;
         cursor: default;
       }
-      button.--active::before {
+      :host([active]) button::before {
         opacity: 1;
         height: 4px;
       }
     `,
   ];
 
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, attribute: 'active', reflect: true })
   public active = false;
+
+  @property({ type: String })
+  public key: string | null = null;
 
   /*
   constructor() {
@@ -74,7 +78,8 @@ export class UUIEditorTabElement extends LitElement {
   protected firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
     this.setAttribute('role', 'tab');
-    this.id = this.id || `uui-tab-${TabIdCounter++}`;
+    console.log('init tab: ', this.key);
+    this.key = this.key || `uui-tab-${TabIdCounter++}`;
   }
 
   activate() {
@@ -101,7 +106,7 @@ export class UUIEditorTabElement extends LitElement {
       : 'navigation-item-deactivate';
     const event = new UUITabEvent(eventName, {
       cancelable: true,
-      detail: { tabId: this.id },
+      detail: { key: this.key },
     });
     this.dispatchEvent(event);
 
@@ -111,18 +116,13 @@ export class UUIEditorTabElement extends LitElement {
   }
 
   private onClick(event: Event) {
-    this.toggle();
+    this.activate();
   }
 
-  //class=${classMap({ '--active': this._active })}
   render() {
     return html`
-      <button
-        type="button"
-        class="${this.active ? '--active' : ''}"
-        @click=${(e: Event) => this.onClick(e)}
-      >
-        <slot> </slot>
+      <button type="button" @click=${(e: Event) => this.onClick(e)}>
+        <slot></slot>
       </button>
     `;
   }

@@ -29,11 +29,11 @@ export class UUIButtonElement extends LitElement {
         box-shadow: none;
         border-radius: 3px;
       }
-      button.success {
+      :host([button-style='success']) button {
         background: #2bc37c;
       }
 
-      button.loading:before {
+      :host[loading] button:before {
         content: '⏳';
       }
     `,
@@ -64,10 +64,7 @@ export class UUIButtonElement extends LitElement {
   }
   render() {
     return html`
-      <button
-        @click=${this.onClick}
-        class="${this.loading ? 'loading' : ''} ${this.buttonStyle || ''}"
-      >
+      <button @click=${this.onClick}>
         <slot></slot>
       </button>
     `;
