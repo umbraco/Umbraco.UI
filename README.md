@@ -18,11 +18,12 @@ Once the project is "ready", it shall be released on npm for consumption.
 - UI-events should be unique types that extend from our UUIEvent (see utils/) (for typing reasons)
 - Elements are exported side-effect free (no registration) in the *.element.ts file, and with the registration in the index.ts file
 
-## Before new elements can me merged
-- Elements must have tests and pass them
-- Elements must pass basic a11y test
-- Elements must have a storybook setup
-- Source-code must follow the eslint rules
+## Before a new element can me merged
+- Element name must be prefixed with “UUI-”.
+- Element must have tests and pass them.
+- Element must pass basic Accessibility tests.
+- Element must have a storybook setup.
+- Source-code must follow the ES-lint rules.
 
 ## Scripts
 - `storybook` opens storybook for the elements

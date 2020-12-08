@@ -6,10 +6,12 @@ import { LitElement, html, css, property } from 'lit-element';
  */
 
 type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
-type ButtonStyle =
+
+// TODO: Should be refactored to a shared type, as we use these symbolic colors in multiple places. Lets think about how we can keep styling/colors aligned with the type definition.
+type BadgeColor =
   | 'primary'
   | 'secondary'
-  | 'success'
+  | 'positive'
   | 'warning'
   | 'danger'
   | 'gray';
@@ -17,7 +19,8 @@ type ButtonStyle =
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
-      div {
+      :host {
+        position: relative;
         display: inline-block;
         -webkit-appearance: none;
         border: 0;
@@ -30,39 +33,36 @@ export class UUIBadgeElement extends LitElement {
         padding: 10px 20px;
         border-radius: 4px;
         transition: all 0.2s ease;
-        position: relative;
       }
 
-      .success {
+      :host([color='positive']) {
         background: #2bc37c;
         color: #fff;
       }
+      :host([color='danger']) {
+        background: red;
+        color: #fff;
+      }
 
-      .s {
+      :host([size='s']) {
         font-size: 10px;
         padding: 5px 10px;
       }
-      .xl {
+      :host([size='xl']) {
         font-size: 18px;
         padding: 15px 30px;
       }
     `,
   ];
 
-  @property({ type: Boolean, attribute: true })
-  public boolTest = true;
-
   @property({ attribute: true })
   public size: BadgeSize = 'm';
 
   @property({ attribute: true })
-  public color: ButtonStyle = 'gray';
+  public color: BadgeColor = 'gray';
 
   render() {
-    return html`
-      <div class="${this.size + ' ' + this.color}">
-        <slot></slot>
-      </div>
-    `;
+    console.log(UUIBadgeElement.styles);
+    return html` <slot></slot> `;
   }
 }

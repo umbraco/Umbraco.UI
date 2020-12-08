@@ -15,25 +15,18 @@ export class UUITabsExamplePageElement extends LitElement {
   @property()
   private activeKey: string | null = '123';
 
-  constructor() {
-    super();
+  private changeActiveKey(key: string | null) {
+    // If we like this
 
-    //Test, to emitate if a parent of this context cancels the change event.
-    this.addEventListener('change', e => {
-      e.stopPropagation();
-      e.preventDefault();
-    });
+    this.activeKey = key;
   }
 
   private async onChange(e: UUITabEvent) {
-    /*
-    //Wrap listener actions into this, if we want to accept to be stopped by a parent?
-
+    //Wrap listener actions into this, if we want to accept this to be stopped by a parent?
     await Promise.resolve;
-
-    if(e.defaultPrevented !== true) {
-    */
-    this.activeKey = e.detail.key;
+    if (e.defaultPrevented !== true) {
+      this.activeKey = e.detail.key;
+    }
   }
 
   render() {
@@ -43,16 +36,16 @@ export class UUITabsExamplePageElement extends LitElement {
         <uui-tab .key=${'200'}> Tab B </uui-tab>
         <uui-tab .key=${'300'}> Tab C </uui-tab>
       </uui-tab-group>
-      <button type="button" @click=${() => (this.activeKey = '123')}>
+      <button type="button" @click=${() => this.changeActiveKey('123')}>
         open 123
       </button>
-      <button type="button" @click=${() => (this.activeKey = '200')}>
+      <button type="button" @click=${() => this.changeActiveKey('200')}>
         open 200
       </button>
-      <button type="button" @click=${() => (this.activeKey = '300')}>
+      <button type="button" @click=${() => this.changeActiveKey('300')}>
         open 300
       </button>
-      <button type="button" @click=${() => (this.activeKey = null)}>
+      <button type="button" @click=${() => this.changeActiveKey(null)}>
         Set to empty null
       </button>
       <div>${this.activeKey}</div>

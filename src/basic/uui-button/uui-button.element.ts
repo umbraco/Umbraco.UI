@@ -1,10 +1,5 @@
 import { LitElement, html, css, property } from 'lit-element';
-import { UUIEvent } from '../../event/UUIEvent';
-
-type UUIButtonClickEventDetails = {
-  fromUUIButton: boolean;
-};
-export class UUIButtonClickEvent extends UUIEvent<UUIButtonClickEventDetails> {}
+import { UUIButtonClickEvent } from '../../event/UUIButtonClickEvent';
 
 /**
  *  @element uui-button
@@ -29,7 +24,7 @@ export class UUIButtonElement extends LitElement {
         box-shadow: none;
         border-radius: 3px;
       }
-      :host([button-style='success']) button {
+      :host([button-style='positive']) button {
         background: #2bc37c;
       }
 
@@ -45,7 +40,7 @@ export class UUIButtonElement extends LitElement {
   @property({ type: String, attribute: 'button-style' }) buttonStyle:
     | 'primary'
     | 'secondary'
-    | 'success'
+    | 'positive'
     | 'warning'
     | 'danger'
     | 'gray' = 'primary';
@@ -54,13 +49,7 @@ export class UUIButtonElement extends LitElement {
     e.preventDefault();
     e.stopPropagation();
 
-    this.dispatchEvent(
-      new UUIButtonClickEvent('click', {
-        detail: {
-          fromUUIButton: true,
-        },
-      })
-    );
+    this.dispatchEvent(new UUIButtonClickEvent());
   }
   render() {
     return html`
