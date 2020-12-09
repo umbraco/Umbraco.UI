@@ -7,7 +7,7 @@ import { LitElement, html, css, property } from 'lit-element';
 
 type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
 
-// TODO: Should be refactored to a shared type, as we use these symbolic colors in multiple places. Lets think about how we can keep styling/colors aligned with the type definition.
+//TODO: Refactor to use a shared Type and style definition. As we use these symbolic colors in multiple places.
 type BadgeColor =
   | 'primary'
   | 'secondary'

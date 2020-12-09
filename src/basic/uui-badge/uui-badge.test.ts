@@ -1,12 +1,12 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
 import '.';
-import { UUIButtonElement } from './uui-button.element';
+import { UUIBadgeElement } from './uui-badge.element';
 
 describe('UuiButton', () => {
-  let element: UUIButtonElement;
+  let element: UUIBadgeElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-button>Hello uui-button</uui-button> `);
+    element = await fixture(html` <uui-badge>Badge description</uui-badge> `);
   });
 
   it('renders a slot', () => {
@@ -16,9 +16,5 @@ describe('UuiButton', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
-  });
-
-  it('test that disable works', async () => {
-    return true;
   });
 });

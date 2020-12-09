@@ -34,9 +34,15 @@ export class UUIButtonElement extends LitElement {
     `,
   ];
 
+  // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
+  @property({ type: Boolean, attribute: true })
+  disabled = false;
+
+  // TODO: I'm not sure we will need a loading state, but lets concider having a waiting state, as waiting for a request to complete like Save.
   @property({ type: Boolean, attribute: true })
   loading = false;
 
+  //TODO: Refactor to use a shared Type and style definition. As we use these symbolic colors in multiple places.
   @property({ type: String, attribute: 'button-style' }) buttonStyle:
     | 'primary'
     | 'secondary'
@@ -53,7 +59,7 @@ export class UUIButtonElement extends LitElement {
   }
   render() {
     return html`
-      <button @click=${this.onClick}>
+      <button @click=${this.onClick} disabled=${this.disabled}>
         <slot></slot>
       </button>
     `;
