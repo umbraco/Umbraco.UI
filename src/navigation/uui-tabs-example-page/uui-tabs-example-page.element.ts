@@ -22,7 +22,7 @@ export class UUITabsExamplePageElement extends LitElement {
   }
 
   private async onChange(e: UUITabEvent) {
-    //Wrap listener actions into this, if we want to accept this to be stopped by a parent?
+    //Wrap listener actions into this, if we want to enable this to be stopped by a parent?
     await Promise.resolve;
     if (e.defaultPrevented !== true) {
       this.activeKey = e.detail.key;
