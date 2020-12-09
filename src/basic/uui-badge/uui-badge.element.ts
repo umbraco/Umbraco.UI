@@ -62,7 +62,6 @@ export class UUIBadgeElement extends LitElement {
   public color: BadgeColor = 'gray';
 
   render() {
-    console.log(UUIBadgeElement.styles);
     return html` <slot></slot> `;
   }
 }
