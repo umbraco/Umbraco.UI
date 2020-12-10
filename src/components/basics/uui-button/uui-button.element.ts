@@ -25,7 +25,8 @@ export class UUIButtonElement extends LitElement {
         border-radius: 3px;
       }
       :host([button-style='positive']) button {
-        background: #2bc37c;
+        background: var(--uui-button-positive-background-color);
+        color: var(--uui-button-positive-text-color);
       }
 
       :host[loading] button:before {
