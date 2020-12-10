@@ -1,5 +1,4 @@
-import { promises } from 'dns';
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, property } from 'lit-element';
 import { UUITabEvent } from '../../event/UUITabEvent';
 
 /**
