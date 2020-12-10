@@ -1,3 +1,3 @@
 import './uui-button';
 import './uui-bagde';
-import './uui-input';
+import './uui-textfield';

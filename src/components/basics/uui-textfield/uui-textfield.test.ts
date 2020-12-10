@@ -1,12 +1,14 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 
 import '.';
-import { UUIInputElement } from './uui-input.element';
+import { UUITextFieldElement } from './uui-textfield.element';
 
-describe('UuiButton', () => {
-  let element: UUIInputElement;
+describe('UuiTextfield', () => {
+  let element: UUITextFieldElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-input>Hello uui-button</uui-input> `);
+    element = await fixture(
+      html` <uui-textfield>Hello uui-textfield</uui-textfield> `
+    );
   });
 
   it('passes the a11y audit', async () => {

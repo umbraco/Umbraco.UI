@@ -1,5 +1,5 @@
 import { LitElement, html, css, property } from 'lit-element';
-import { UUIButtonClickEvent } from '../../event/UUIButtonClickEvent';
+import { UUIButtonClickEvent } from '../../../event/UUIButtonClickEvent';
 
 /**
  *  @element uui-button

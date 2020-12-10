@@ -1,10 +1,25 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 
+export type TextFieldType =
+  | 'text'
+  | 'search'
+  | 'tel'
+  | 'url'
+  | 'email'
+  | 'password'
+  | 'date'
+  | 'month'
+  | 'week'
+  | 'time'
+  | 'datetime-local'
+  | 'number'
+  | 'color';
+
 /**
- *  @element uui-input
+ *  @element uui-textfield
  */
-export class UUIInputElement extends LitElement {
+export class UUITextFieldElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -56,6 +71,8 @@ export class UUIInputElement extends LitElement {
     this._internals.setFormValue(this._value);
   }
 
+  @property({ type: String }) type: TextFieldType = 'text';
+
   @property()
   private valid = true;
 
@@ -66,7 +83,7 @@ export class UUIInputElement extends LitElement {
   render() {
     return html`
       <input
-        type="text"
+        type="${this.type}"
         value=${this.value}
         class=${classMap({ invalid: !this.valid })}
         @change=${(e: Event) => this.onUpdate(e)}

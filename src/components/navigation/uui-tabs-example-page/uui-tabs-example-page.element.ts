@@ -1,8 +1,8 @@
 import { LitElement, html, property } from 'lit-element';
-import { UUITabEvent } from '../../event/UUITabEvent';
+import { UUITabEvent } from '../../../event/UUITabEvent';
 
 /**
- *  @element uui-input
+ *  @element uui-tabs-example-page
  */
 export class UUITabsExamplePageElement extends LitElement {
   /*

@@ -1,5 +1,5 @@
 import { LitElement, html, css, property, PropertyValues } from 'lit-element';
-import { UUITabEvent } from '../../event/UUITabEvent';
+import { UUITabEvent } from '../../../event/UUITabEvent';
 
 let TabIdCounter = 0;
 

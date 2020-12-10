@@ -6,12 +6,12 @@ import {
   PropertyValues,
   query,
 } from 'lit-element';
-import { UUITabEvent } from '../../event/UUITabEvent';
-import { UUITabGroupEvent } from '../../event/UUITabGroupEvent';
+import { UUITabEvent } from '../../../event/UUITabEvent';
+import { UUITabGroupEvent } from '../../../event/UUITabGroupEvent';
 import { UUITabElement } from '../uui-tab/uui-tab.element';
 
 /**
- *  @element uui-input
+ *  @element uui-tab-group
  */
 export class UUITabGroupElement extends LitElement {
   static styles = [

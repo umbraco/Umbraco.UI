@@ -2,8 +2,8 @@ import { html } from 'lit-html';
 //import './index';
 
 export default {
-  title: 'Layers/Popup notification',
-  //component: 'uui-popup-notification',
+  title: 'Fragments/Dialog',
+  //component: 'uui-dialog',
 };
 
 export const Basic = () => html` To be made `;
