@@ -113,7 +113,7 @@ In this way we do not need to define defaults in usage of these.
 @property --uui-interface-background-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: var(--uui-color-white;)
+  initial-value: var(--uui-color-white);
 }
 @property --uui-interface-background-hover-color {
   syntax: '<color>';
