@@ -109,7 +109,7 @@ In this way we do not need to define defaults in usage of these.
   --uui-color-danger: var(--uui-color-maroon-flush);
 }
 
-
+/** Example of interface specific props which are not begin used specificly by components, but mapped further into variables for each component **/
 @property --uui-interface-background-color {
   syntax: '<color>';
   inherits: true;
