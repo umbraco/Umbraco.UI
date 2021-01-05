@@ -6,4 +6,10 @@ export default {
   component: 'uui-toggle',
 };
 
-export const Basic = () => html`<uui-toggle></uui-toggle>`;
+export const Basic = () => html`
+  <uui-toggle rounded></uui-toggle>
+  <uui-toggle rounded label-position="right"></uui-toggle>
+  <uui-toggle rounded label-position="top"></uui-toggle>
+  <uui-toggle rounded label-position="bottom"></uui-toggle>
+  <uui-toggle></uui-toggle>
+`;
