@@ -17,12 +17,13 @@ export class UUIToggleElement extends LitElement {
         flex-basis: 0;
         align-items: center;
         margin: 0.2em;
+        box-sizing: border-box;
       }
 
       input {
-        height: 0;
-        width: 0;
-        visibility: hidden;
+        height: 0px;
+        width: 0px;
+        /* visibility: hidden;   what is best practice here? */
       }
 
       label {
@@ -30,11 +31,11 @@ export class UUIToggleElement extends LitElement {
 
         width: calc(2 * var(--size));
         height: var(--size);
-
+        border: var(--uui-color-spanish-pink) 0px outset;
         background: lightgrey;
         display: block;
-
         position: relative;
+        transition: 0.2s ease;
       }
 
       :host([rounded]) label {
@@ -54,7 +55,7 @@ export class UUIToggleElement extends LitElement {
         width: calc(0.8 * var(--size));
         height: calc(0.8 * var(--size));
 
-        background: #fff;
+        background: var(--uui-color-white);
         /* border-radius: 90px; */
         transition: 0.2s ease;
       }
@@ -72,7 +73,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       input:checked + label {
-        background: lightblue;
+        background: var(--uui-color-violet-blue);
       }
 
       input:checked + label:after {
@@ -84,8 +85,21 @@ export class UUIToggleElement extends LitElement {
         width: calc(1.2 * var(--size));
       }
 
+      :host([disabled]) {
+        filter: brightness(1.1);
+      }
+
+      input[disabled] + label:active {
+        animation: shake 0.6s ease backwards;
+      }
+
       input[disabled] + label:active:after {
         width: calc(0.8 * var(--size));
+      }
+
+      input:focus ~ label,
+      input:not([disabled]) ~ label:active {
+        border: var(--uui-color-spanish-pink) 2px outset;
       }
 
       :host([label-position='left']) {
@@ -112,6 +126,29 @@ export class UUIToggleElement extends LitElement {
 
       .toggle-label {
         margin: 0.7em;
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translateX(-1px);
+        }
+
+        20%,
+        80% {
+          transform: translateX(2px);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translateX(-3px);
+        }
+
+        40%,
+        60% {
+          transform: translateX(3px);
+        }
       }
     `,
   ];
@@ -140,7 +177,7 @@ export class UUIToggleElement extends LitElement {
     return html`
       <input type="checkbox" id="switch" ?disabled="${this.disabled}" />
       <label for="switch" @click="${this._handleClick}"></label>
-      <span class="toggle-label">${this.label}</span> ${this.checked}
+      <span class="toggle-label">${this.label}</span>
     `;
   }
 }
