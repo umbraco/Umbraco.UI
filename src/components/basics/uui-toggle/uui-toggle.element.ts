@@ -4,6 +4,8 @@ import { LitElement, html, property, css } from 'lit-element';
  *  @element uui-toggle
  */
 
+type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
+
 export class UUIToggleElement extends LitElement {
   static styles = [
     css`
@@ -12,6 +14,7 @@ export class UUIToggleElement extends LitElement {
         font-family: Lato, Helvetica, Arial, 'sans-serif';
         font-size: 0.8rem;
         display: flex;
+        flex-basis: 0;
         align-items: center;
         margin: 0.2em;
       }
@@ -56,6 +59,18 @@ export class UUIToggleElement extends LitElement {
         transition: 0.2s ease;
       }
 
+      label:before {
+        content: 'X';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: calc(0.3 * var(--size));
+        font-size: 0.7rem;
+        font-weight: bold;
+        color: lightgrey;
+        filter: brightness(0.5);
+      }
+
       input:checked + label {
         background: lightblue;
       }
@@ -67,6 +82,10 @@ export class UUIToggleElement extends LitElement {
 
       label:active:after {
         width: calc(1.2 * var(--size));
+      }
+
+      input[disabled] + label:active:after {
+        width: calc(0.8 * var(--size));
       }
 
       :host([label-position='left']) {
@@ -82,11 +101,13 @@ export class UUIToggleElement extends LitElement {
       :host([label-position='top']) {
         flex-direction: column-reverse;
         justify-content: flex-start;
+        align-items: flex-start;
       }
 
       :host([label-position='bottom']) {
         flex-direction: column;
         justify-content: flex-start;
+        align-items: flex-start;
       }
 
       .toggle-label {
@@ -99,16 +120,27 @@ export class UUIToggleElement extends LitElement {
   rounded = true;
 
   @property({ type: String, attribute: 'label-position', reflect: true })
-  labelPosition = 'left';
+  labelPosition: LabelPosition = 'left';
 
   @property({ type: String, reflect: true })
   label = 'Label';
 
+  @property({ type: Boolean, reflect: true })
+  checked = false;
+
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  private _handleClick() {
+    if (!this.disabled) this.checked = !this.checked;
+    console.log('clicked');
+  }
+
   render() {
     return html`
-      <input type="checkbox" id="switch" />
-      <label for="switch"></label>
-      <span class="toggle-label">${this.label}</span>
+      <input type="checkbox" id="switch" ?disabled="${this.disabled}" />
+      <label for="switch" @click="${this._handleClick}"></label>
+      <span class="toggle-label">${this.label}</span> ${this.checked}
     `;
   }
 }
