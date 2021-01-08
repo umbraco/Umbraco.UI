@@ -1,8 +1,10 @@
-import { LitElement, html, property, css } from 'lit-element';
+import { LitElement, html, property, css, query } from 'lit-element';
 
 /**
  *  @element uui-toggle
  */
+
+//  #d8d7d9
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -10,43 +12,75 @@ export class UUIToggleElement extends LitElement {
   static styles = [
     css`
       :host {
-        --size: 30px;
+        --size: 2rem;
+        --switch-width: calc(2 * var(--size));
         font-family: Lato, Helvetica, Arial, 'sans-serif';
         font-size: 0.8rem;
-        display: flex;
-        flex-basis: 0;
-        align-items: center;
         margin: 0.2em;
-        box-sizing: border-box;
+      }
+
+      label {
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: max-content var(--switch-width) max-content;
+        grid-template-rows: max-content var(--size) max-content;
+        grid-template-areas:
+          'top-left top top-right'
+          'left center right'
+          'bottom-left bottom bottom-right';
+        grid-gap: calc(var(--size) / 4);
       }
 
       input {
         height: 0px;
         width: 0px;
-        /* visibility: hidden;   what is best practice here? */
+        position: absolute;
       }
 
-      label {
-        cursor: pointer;
-
-        width: calc(2 * var(--size));
-        height: var(--size);
-        border: var(--uui-color-spanish-pink) 0px outset;
-        background: lightgrey;
-        display: block;
-        position: relative;
+      #slider {
+        place-self: stretch;
         transition: 0.2s ease;
+        outline: var(--uui-color-spanish-pink) 0px solid;
+        background: lightgrey;
+        position: relative;
+        grid-area: center;
       }
 
-      :host([rounded]) label {
+      :host([hide-label]) #label-text {
+        height: 0;
+        width: 0;
+        opacity: 0;
+      }
+
+      :host([label-position='left']) #label-text {
+        grid-area: left;
+        place-self: center;
+      }
+
+      :host([label-position='right']) #label-text {
+        grid-area: right;
+        place-self: center;
+      }
+
+      :host([label-position='top']) #label-text {
+        grid-area: top;
+        place-self: center;
+      }
+
+      :host([label-position='bottom']) #label-text {
+        grid-area: bottom;
+        place-self: center;
+      }
+
+      :host([rounded]) #slider {
         border-radius: 100px;
       }
 
-      :host([rounded]) label:after {
+      :host([rounded]) #slider:after {
         border-radius: 100px;
       }
 
-      label:after {
+      #slider:after {
         content: '';
         position: absolute;
 
@@ -60,7 +94,7 @@ export class UUIToggleElement extends LitElement {
         transition: 0.2s ease;
       }
 
-      label:before {
+      #slider:before {
         content: 'X';
         position: absolute;
         top: 50%;
@@ -72,60 +106,35 @@ export class UUIToggleElement extends LitElement {
         filter: brightness(0.5);
       }
 
-      input:checked + label {
+      input:checked + #slider {
         background: var(--uui-color-violet-blue);
       }
 
-      input:checked + label:after {
+      input:checked + #slider:after {
         left: calc(100% - (0.1 * var(--size)));
         transform: translateX(-100%);
       }
 
-      label:active:after {
+      #slider:active:after {
         width: calc(1.2 * var(--size));
       }
 
-      :host([disabled]) {
-        filter: brightness(1.1);
+      :host([disabled]) label {
+        filter: brightness(1.15);
       }
 
-      input[disabled] + label:active {
+      input[disabled] + #slider:active {
         animation: shake 0.6s ease backwards;
       }
 
-      input[disabled] + label:active:after {
+      input[disabled] + #slider:active:after {
         width: calc(0.8 * var(--size));
       }
 
-      input:focus ~ label,
-      input:not([disabled]) ~ label:active {
-        border: var(--uui-color-spanish-pink) 2px outset;
-      }
-
-      :host([label-position='left']) {
-        flex-direction: row-reverse;
-        justify-content: flex-end;
-      }
-
-      :host([label-position='right']) {
-        flex-direction: row;
-        justify-content: flex-start;
-      }
-
-      :host([label-position='top']) {
-        flex-direction: column-reverse;
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
-
-      :host([label-position='bottom']) {
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
-
-      .toggle-label {
-        margin: 0.7em;
+      input:focus ~ #slider,
+      input:not([disabled]) ~ #slider:active {
+        outline: var(--uui-color-spanish-pink) 2px solid;
+        /* maybe change border to something else that can have a transformation applied with origin at the center */
       }
 
       @keyframes shake {
@@ -153,20 +162,30 @@ export class UUIToggleElement extends LitElement {
     `,
   ];
 
+  @query('#switch')
+  protected _input!: HTMLInputElement;
+
   @property({ type: Boolean })
   rounded = true;
 
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'left';
 
+  @property({ type: Boolean, attribute: 'hide-label' })
+  hideLabel = false;
+
   @property({ type: String, reflect: true })
-  label = 'Label';
+  label = 'Toggle';
 
   @property({ type: Boolean, reflect: true })
   checked = false;
 
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  firstUpdated() {
+    if (this.checked) this._input.checked = true;
+  }
 
   private _handleClick() {
     if (!this.disabled) this.checked = !this.checked;
@@ -175,9 +194,11 @@ export class UUIToggleElement extends LitElement {
 
   render() {
     return html`
-      <input type="checkbox" id="switch" ?disabled="${this.disabled}" />
-      <label for="switch" @click="${this._handleClick}"></label>
-      <span class="toggle-label">${this.label}</span>
+      <label for="switch" @click="${this._handleClick}">
+        <input type="checkbox" id="switch" ?disabled="${this.disabled}" />
+        <div id="slider"></div>
+        <div id="label-text">${this.label}</div>
+      </label>
     `;
   }
 }
