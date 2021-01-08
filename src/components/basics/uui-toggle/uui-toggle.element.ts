@@ -6,11 +6,13 @@ import {
   query,
   internalProperty,
 } from 'lit-element';
+import { UUIToggleEvent } from '../../../event/UUIToggleEvent';
 
 /**
  *  @element uui-toggle
  */
 
+//TODO -color property -size property
 //  #d8d7d9
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -239,6 +241,9 @@ export class UUIToggleElement extends LitElement {
   private _handleInputChange() {
     if (this._input.checked) this._value = 'on';
     else this._value = 'off';
+    this.dispatchEvent(
+      new UUIToggleEvent('change', { detail: { value: this.value } })
+    );
   }
 
   render() {
