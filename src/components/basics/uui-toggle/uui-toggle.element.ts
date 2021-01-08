@@ -1,4 +1,11 @@
-import { LitElement, html, property, css, query } from 'lit-element';
+import {
+  LitElement,
+  html,
+  property,
+  css,
+  query,
+  internalProperty,
+} from 'lit-element';
 
 /**
  *  @element uui-toggle
@@ -7,6 +14,8 @@ import { LitElement, html, property, css, query } from 'lit-element';
 //  #d8d7d9
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
+
+type ToggleValue = 'on' | 'off';
 
 export class UUIToggleElement extends LitElement {
   static styles = [
@@ -162,8 +171,36 @@ export class UUIToggleElement extends LitElement {
     `,
   ];
 
+  static formAssociated = true;
+
+  private _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
+  }
+
+  @internalProperty()
+  _value: ToggleValue = 'off';
+
+  @property({ type: String, reflect: true })
+  get value(): ToggleValue {
+    return this._value;
+  }
+
+  set value(newValue: ToggleValue) {
+    this._value = newValue;
+    this._internals.setFormValue(this._value);
+  }
+
   @query('#switch')
   protected _input!: HTMLInputElement;
+
+  @property({ type: String })
+  label = 'Toggle';
+
+  @property({ type: String, reflect: true })
+  name = '';
 
   @property({ type: Boolean })
   rounded = true;
@@ -174,9 +211,6 @@ export class UUIToggleElement extends LitElement {
   @property({ type: Boolean, attribute: 'hide-label' })
   hideLabel = false;
 
-  @property({ type: String, reflect: true })
-  label = 'Toggle';
-
   @property({ type: Boolean, reflect: true })
   checked = false;
 
@@ -184,18 +218,38 @@ export class UUIToggleElement extends LitElement {
   disabled = false;
 
   firstUpdated() {
-    if (this.checked) this._input.checked = true;
+    if (this.checked) {
+      this._input.checked = true;
+      this._value = 'on';
+    }
+
+    if (this.label && !this.name) {
+      this.name = this.label;
+    }
   }
+
+  // updated() {
+  //
+  // }
 
   private _handleClick() {
     if (!this.disabled) this.checked = !this.checked;
-    console.log('clicked');
+  }
+
+  private _handleInputChange() {
+    if (this._input.checked) this._value = 'on';
+    else this._value = 'off';
   }
 
   render() {
     return html`
       <label for="switch" @click="${this._handleClick}">
-        <input type="checkbox" id="switch" ?disabled="${this.disabled}" />
+        <input
+          type="checkbox"
+          id="switch"
+          ?disabled="${this.disabled}"
+          @change="${this._handleInputChange}"
+        />
         <div id="slider"></div>
         <div id="label-text">${this.label}</div>
       </label>
