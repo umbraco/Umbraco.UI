@@ -4,4 +4,4 @@ type DetailType = {
   value: string;
 };
 
-export class UUIToggleEvent extends UUIEvent<DetailType> {}
+export class UUIToggleChangeEvent extends UUIEvent<DetailType> {}

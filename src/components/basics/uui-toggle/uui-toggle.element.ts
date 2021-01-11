@@ -6,7 +6,7 @@ import {
   query,
   internalProperty,
 } from 'lit-element';
-import { UUIToggleEvent } from '../../../event/UUIToggleEvent';
+import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
 
 /**
  *  @element uui-toggle
@@ -19,6 +19,7 @@ import { UUIToggleEvent } from '../../../event/UUIToggleEvent';
 // -add check on ENTER
 // -add named icons slots for on and off
 // - add roles
+// - validation - required option
 
 //  #d8d7d9
 
@@ -34,7 +35,7 @@ export class UUIToggleElement extends LitElement {
         --switch-width: calc(2 * var(--size));
         font-family: Lato, Helvetica, Arial, 'sans-serif';
         font-size: 0.8rem;
-        margin: 0.2em;
+        display: block;
       }
 
       label {
@@ -237,21 +238,23 @@ export class UUIToggleElement extends LitElement {
     }
   }
 
-  private _handleClick() {
-    if (!this.disabled) this.checked = !this.checked;
-  }
-
   private _handleInputChange() {
-    if (this._input.checked) this._value = 'on';
-    else this._value = 'off';
+    if (this._input.checked) {
+      this._value = 'on';
+      this.checked = true;
+    } else {
+      this._value = 'off';
+      this.checked = false;
+    }
+
     this.dispatchEvent(
-      new UUIToggleEvent('change', { detail: { value: this.value } })
+      new UUIToggleChangeEvent('change', { detail: { value: this.value } })
     );
   }
 
   render() {
     return html`
-      <label for="switch" @click="${this._handleClick}">
+      <label for="switch">
         <input
           type="checkbox"
           id="switch"

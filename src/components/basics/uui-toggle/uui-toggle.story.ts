@@ -24,8 +24,9 @@ export const LabelPosition = () => html`
 `;
 
 export const NoLabel = () =>
-  html`<uui-toggle hide-label></uui-toggle
-    ><uui-toggle hide-label rounded></uui-toggle>`;
+  html`<uui-toggle hide-label name="Hidden Label"></uui-toggle
+    ><uui-toggle hide-label rounded name="Hidden Label 2"></uui-toggle>
+    <p>label can be set via name attribute</p>`;
 
 export const Disabled = () => html`
   <uui-toggle label="Active" rounded></uui-toggle>
