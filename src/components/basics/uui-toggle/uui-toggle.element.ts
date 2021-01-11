@@ -12,7 +12,14 @@ import { UUIToggleEvent } from '../../../event/UUIToggleEvent';
  *  @element uui-toggle
  */
 
-//TODO -color property -size property
+// TODO -color property
+// -size property
+// -better focused style
+// -aria?
+// -add check on ENTER
+// -add named icons slots for on and off
+// - add roles
+
 //  #d8d7d9
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -229,10 +236,6 @@ export class UUIToggleElement extends LitElement {
       this.name = this.label;
     }
   }
-
-  // updated() {
-  //
-  // }
 
   private _handleClick() {
     if (!this.disabled) this.checked = !this.checked;

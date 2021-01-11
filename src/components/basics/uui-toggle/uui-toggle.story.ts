@@ -1,15 +1,6 @@
 import { html } from 'lit-html';
 import './index';
 
-// const LabelPosition = {
-//   Top: 'top',
-//   Bottom: 'bottom',
-//   Left: 'left',
-//   Right: 'right'
-// }
-
-// const LabelSelect = select('Label position', LabelPosition, 'left');
-
 export default {
   title: 'Basics/Toggle',
   component: 'uui-toggle',
