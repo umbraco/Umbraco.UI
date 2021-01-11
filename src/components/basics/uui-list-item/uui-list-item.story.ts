@@ -6,4 +6,5 @@ export default {
   component: 'uui-list-item',
 };
 
-export const Basic = () => html`<uui-list-item></uui-list-item> hoihihihi`;
+export const Basic = () =>
+  html`<uui-list-item>This is list item</uui-list-item>`;

@@ -1,7 +1,8 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css, property } from 'lit-element';
 
 /**
  *  @element uui-list
+ *  @slot  for list items
  *
  */
 
@@ -9,12 +10,24 @@ export class UUIListElement extends LitElement {
   static styles = [
     css`
       :host {
-        background-color: red;
+        display: block;
+        color: red;
+      }
+
+      ::slotted(*) {
+        margin: 0.5em 0;
+      }
+
+      :host([dense]) ::slotted(*) {
+        margin: 0.2em 0;
       }
     `,
   ];
 
+  @property({ type: Boolean })
+  dense = false;
+
   render() {
-    return html` hello i'll be a list `;
+    return html` <slot></slot> `;
   }
 }
