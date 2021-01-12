@@ -31,8 +31,8 @@ export class UUIToggleElement extends LitElement {
   static styles = [
     css`
       :host {
-        --size: 2rem;
-        --switch-width: calc(2 * var(--size));
+        --uui-toggle-size: 2rem;
+        --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
         font-family: Lato, Helvetica, Arial, 'sans-serif';
         font-size: 0.8rem;
         display: block;
@@ -42,12 +42,12 @@ export class UUIToggleElement extends LitElement {
         cursor: pointer;
         display: grid;
         grid-template-columns: max-content var(--switch-width) max-content;
-        grid-template-rows: max-content var(--size) max-content;
+        grid-template-rows: max-content var(--uui-toggle-size) max-content;
         grid-template-areas:
           'top-left top top-right'
           'left center right'
           'bottom-left bottom bottom-right';
-        grid-gap: calc(var(--size) / 4);
+        grid-gap: calc(var(--uui-toggle-size) / 4);
       }
 
       input {
@@ -103,10 +103,10 @@ export class UUIToggleElement extends LitElement {
         content: '';
         position: absolute;
 
-        top: calc(0.1 * var(--size));
-        left: calc(0.1 * var(--size));
-        width: calc(0.8 * var(--size));
-        height: calc(0.8 * var(--size));
+        top: calc(0.1 * var(--uui-toggle-size));
+        left: calc(0.1 * var(--uui-toggle-size));
+        width: calc(0.8 * var(--uui-toggle-size));
+        height: calc(0.8 * var(--uui-toggle-size));
 
         background: var(--uui-color-white);
         /* border-radius: 90px; */
@@ -118,7 +118,7 @@ export class UUIToggleElement extends LitElement {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        right: calc(0.3 * var(--size));
+        right: calc(0.3 * var(--uui-toggle-size));
         font-size: 0.7rem;
         font-weight: bold;
         color: lightgrey;
@@ -130,12 +130,12 @@ export class UUIToggleElement extends LitElement {
       }
 
       input:checked + #slider:after {
-        left: calc(100% - (0.1 * var(--size)));
+        left: calc(100% - (0.1 * var(--uui-toggle-size)));
         transform: translateX(-100%);
       }
 
       #slider:active:after {
-        width: calc(1.2 * var(--size));
+        width: calc(1.2 * var(--uui-toggle-size));
       }
 
       :host([disabled]) label {
@@ -147,7 +147,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       input[disabled] + #slider:active:after {
-        width: calc(0.8 * var(--size));
+        width: calc(0.8 * var(--uui-toggle-size));
       }
 
       input:focus ~ #slider,
