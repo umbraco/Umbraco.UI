@@ -1,5 +1,7 @@
 # Umbraco UI components
 
+## A.K.A Umbazing UI :question: :wink:
+
 ---
 
 ## Table of Content
@@ -32,6 +34,8 @@
 - [Toggle](#toggle)
 - [Tooltip](#tooltip)
 - [Tree](#tree)
+
+:arrow_right: [Template to copy and add to the list](#template)
 
 ---
 
@@ -933,3 +937,46 @@ Toggle switch, based on checkbox
 [:arrow_up: top](#Table-of-content)
 
 ---
+
+---
+
+# Template
+
+<!--TEMPLATE START-->
+
+## Component Name
+
+### `<uui-component-tag>`
+
+Part of form: :heavy_check_mark: || :x:
+
+<!--:heavy_check_mark: for yes || :x: for no -->
+
+#### Properties
+
+| Name                | Type | Detail                |
+| ------------------- | ---- | --------------------- |
+| Content from cell 1 | bool | here goes description |
+| Content from cell 1 | bool | here goes description |
+
+#### Slots
+
+| Name                | Detail                |
+| ------------------- | --------------------- |
+| Content from cell 1 | here goes description |
+| Content from cell 1 | here goes description |
+
+#### Events
+
+| Name                | Detail                |
+| ------------------- | --------------------- |
+| Content from cell 1 | here goes description |
+| Content from cell 1 | here goes description |
+
+#### Notes
+
+Write your thoughts here.
+
+[:arrow_up: top](#Table-of-content)
+
+<!--TEMPLATE END-->
