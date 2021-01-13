@@ -34,22 +34,46 @@ export class UUIListElement extends LitElement {
     return [];
   }
 
+  // this listener may go on ul, this is jusst an example of how to wriote that when TS shouts on you
   connectedCallback() {
     super.connectedCallback();
-    // this.addEventListener('list-item-select', this._handleSelect);
+    this.addEventListener(
+      'list-item-select',
+      this._handleSelect as EventListener
+    ); //works like that
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener(
+      'list-itemselect',
+      this._handleSelect as EventListener
+    );
   }
 
   private _handleSelect(e: UUIListItemClickEvent) {
     console.log(e.target);
-  }
+    const listElements: ListElement[] = this.listElements;
+    let selectedElement: ListElement;
+    let selectedIndex: number | null;
 
-  updated() {
-    console.log(this.listElements);
+    listElements.forEach(el => {
+      if (el === e.target) {
+        selectedElement = el;
+        selectedIndex = listElements.indexOf(el);
+      }
+    });
+
+    listElements
+      .filter(el => el !== selectedElement)
+      .forEach(el => {
+        if (el.selected) el.removeAttribute('selected');
+      });
   }
 
   render() {
     return html`
-      <ul @list-item-select="${this._handleSelect}">
+      <ul>
         <slot></slot>
       </ul>
     `;
