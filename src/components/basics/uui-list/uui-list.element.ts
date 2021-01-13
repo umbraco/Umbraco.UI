@@ -1,3 +1,9 @@
+//TODO
+//multiple
+//dispatch event with selected elements indexes values?
+//maybe add subheader element and divider?
+//two line list items?
+
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
 
@@ -17,6 +23,10 @@ export class UUIListElement extends LitElement {
         display: block;
         font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
       }
+
+      :host([non-interactive]) ::slotted(*) {
+        pointer-events: none;
+      }
     `,
   ];
 
@@ -33,6 +43,9 @@ export class UUIListElement extends LitElement {
 
     return [];
   }
+
+  @property({ type: Boolean, reflect: true, attribute: 'non-interactive' })
+  nonInteractive = false;
 
   // this listener may go on ul, this is jusst an example of how to wriote that when TS shouts on you
   connectedCallback() {
@@ -52,7 +65,8 @@ export class UUIListElement extends LitElement {
   }
 
   private _handleSelect(e: UUIListItemClickEvent) {
-    console.log(e.target);
+    if (this.nonInteractive) return;
+
     const listElements: ListElement[] = this.listElements;
     let selectedElement: ListElement;
     let selectedIndex: number | null;
