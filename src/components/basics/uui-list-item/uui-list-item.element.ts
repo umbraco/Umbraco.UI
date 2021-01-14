@@ -1,5 +1,7 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
+import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
+
 /**
  *  @element uui-list-item
  *
@@ -42,14 +44,23 @@ export class UUIListItemElement extends LitElement {
     } else this.selected = false;
     this.dispatchEvent(
       new UUIListItemClickEvent('list-item-select', {
-        detail: { source: 'somethi8ng', selected: this.selected },
+        detail: { source: 'something', selected: this.selected },
       })
     );
   }
 
+  private _onFocus(e: Event) {
+    e.stopPropagation();
+    this.dispatchEvent(new UUIListItemFocusEvent());
+  }
+
   render() {
     return html`
-      <button id="list-item" @click="${this._onClick}">
+      <button
+        id="list-item"
+        @click="${this._onClick}"
+        @focus="${this._onFocus}"
+      >
         <slot name="left"></slot>
         <span><slot></slot></span>
         <slot name="right"></slot>
