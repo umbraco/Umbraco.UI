@@ -1,4 +1,4 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
 import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
 
@@ -37,6 +37,17 @@ export class UUIListItemElement extends LitElement {
 
   @property({ type: Boolean, reflect: true })
   selected = false;
+
+  @property({ type: Boolean, reflect: true })
+  focused = false;
+
+  @query('#list-item') protected button!: HTMLButtonElement;
+
+  //this is works but throws an error
+  attributeChangedCallback() {
+    super.attributeChangedCallback('focused', null, null);
+    this.button.focus();
+  }
 
   private _onClick() {
     if (!this.selected) {
