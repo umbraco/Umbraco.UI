@@ -77,9 +77,8 @@ export class UUIListElement extends LitElement {
     this._focusedElementIndex = this.listElements.findIndex(
       el => el === e.target
     );
-    // console.log(this._focusedElementIndex);
   }
-
+  //make this better when element is foicused but other element is selected
   private _handleSelect(e: UUIListItemClickEvent) {
     if (this.nonInteractive) return;
 
@@ -101,24 +100,37 @@ export class UUIListElement extends LitElement {
       });
   }
 
-  private _onKeyDown(e: KeyboardEvent) {
-    //focus does not work because the custom element is not focusable, this has to acces the button element inside list element shadow root
-
-    if (e.keyCode === 38) {
-      if (this._focusedElementIndex !== null && this._focusedElementIndex > 0)
-        this.listElements[this._focusedElementIndex - 1].setAttribute(
-          'focused',
-          'true'
-        );
-      else this.listElements[0].setAttribute('focused', 'true');
-    } else if (e.keyCode === 40 && this._focusedElementIndex !== null) {
-      this.listElements[this._focusedElementIndex + 1].setAttribute(
+  private _focusPrevious() {
+    if (this._focusedElementIndex !== null && this._focusedElementIndex > 0) {
+      this.listElements[this._focusedElementIndex - 1].setAttribute(
         'focused',
         'true'
       );
     }
+  }
 
-    return;
+  private _focusNext() {
+    if (
+      this._focusedElementIndex !== null &&
+      this._focusedElementIndex + 1 < this.listElements.length
+    )
+      this.listElements[this._focusedElementIndex + 1].setAttribute(
+        'focused',
+        'true'
+      );
+  }
+
+  private _onKeyDown(e: KeyboardEvent) {
+    switch (e.code) {
+      case 'ArrowUp': {
+        this._focusPrevious();
+        break;
+      }
+      case 'ArrowDown': {
+        this._focusNext();
+        break;
+      }
+    }
   }
 
   render() {

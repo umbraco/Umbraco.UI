@@ -44,8 +44,9 @@ export class UUIListItemElement extends LitElement {
   @query('#list-item') protected button!: HTMLButtonElement;
 
   //this is works but throws an error
-  attributeChangedCallback() {
+  async attributeChangedCallback() {
     super.attributeChangedCallback('focused', null, null);
+    await this.updateComplete;
     this.button.focus();
   }
 
