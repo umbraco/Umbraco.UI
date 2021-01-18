@@ -1,10 +1,3 @@
-//TODO
-//keyboard
-//multiple
-//dispatch event with selected elements indexes values?
-//maybe add subheader element and divider?
-//two line list items?
-
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
 import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
@@ -16,6 +9,12 @@ import { UUIListItemElement } from '../uui-list-item/uui-list-item.element';
  *
  */
 
+// TODO
+// keyboard [v]
+// multiple [x]
+// dispatch event with selected elements indexes values?
+// maybe add subheader element and divider?
+// two line list items?
 export class UUIListElement extends LitElement {
   static styles = [
     css`
@@ -32,16 +31,15 @@ export class UUIListElement extends LitElement {
 
   @query('slot') protected slotElement!: HTMLSlotElement;
 
+  //returns an Array of ListElements if they're in the slot or empty array
   protected get listElements(): UUIListItemElement[] {
-    const slot = this.slotElement;
-
-    if (slot) {
-      return slot
-        .assignedElements({ flatten: true })
-        .filter(el => el instanceof UUIListItemElement) as UUIListItemElement[];
-    }
-
-    return [];
+    return this.slotElement
+      ? (this.slotElement
+          .assignedElements({ flatten: true })
+          .filter(
+            el => el instanceof UUIListItemElement
+          ) as UUIListItemElement[])
+      : [];
   }
 
   @property({ type: Boolean, reflect: true, attribute: 'non-interactive' })
@@ -71,33 +69,34 @@ export class UUIListElement extends LitElement {
     );
   }
 
-  private _focusedElementIndex: number | null = null;
+  private _focusedElementIndex = -1;
+
+  private _lastSelectedIndex: number | null = null;
 
   private _findFocusedElement(e: UUIListItemFocusEvent) {
     this._focusedElementIndex = this.listElements.findIndex(
       el => el === e.target
     );
   }
-  //make this better when element is foicused but other element is selected
+  // TODO make this pretty!
   private _handleSelect(e: UUIListItemClickEvent) {
     if (this.nonInteractive) return;
 
     const listElements = this.listElements;
     let selectedElement: UUIListItemElement;
-    let selectedIndex: number | null;
 
     listElements.forEach(el => {
       if (el === e.target) {
         selectedElement = el;
-        selectedIndex = listElements.indexOf(el);
+        this._lastSelectedIndex = listElements.indexOf(el);
       }
     });
 
-    listElements
-      .filter(el => el !== selectedElement)
-      .forEach(el => {
-        if (el.selected) el.removeAttribute('selected');
-      });
+    const filtered = listElements.filter(el => el !== selectedElement);
+
+    filtered.forEach(el => {
+      el.removeAttribute('selected');
+    });
   }
 
   private _focusPrevious() {
@@ -113,11 +112,12 @@ export class UUIListElement extends LitElement {
     if (
       this._focusedElementIndex !== null &&
       this._focusedElementIndex + 1 < this.listElements.length
-    )
+    ) {
       this.listElements[this._focusedElementIndex + 1].setAttribute(
         'focused',
         'true'
       );
+    }
   }
 
   private _onKeyDown(e: KeyboardEvent) {

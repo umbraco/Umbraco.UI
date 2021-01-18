@@ -43,26 +43,26 @@ export class UUIListItemElement extends LitElement {
 
   @query('#list-item') protected button!: HTMLButtonElement;
 
-  //this is works but throws an error
-  async attributeChangedCallback() {
-    super.attributeChangedCallback('focused', null, null);
-    await this.updateComplete;
-    this.button.focus();
+  updated() {
+    if (this.focused) this.button.focus();
   }
 
   private _onClick() {
-    if (!this.selected) {
-      this.selected = true;
-    } else this.selected = false;
+    this.selected = !this.selected;
     this.dispatchEvent(
       new UUIListItemClickEvent('list-item-select', {
-        detail: { source: 'something', selected: this.selected },
+        detail: { selected: this.selected },
       })
     );
   }
 
   private _onFocus(e: Event) {
-    e.stopPropagation();
+    this.focused = true;
+    this.dispatchEvent(new UUIListItemFocusEvent());
+  }
+
+  private _onBlur(e: Event) {
+    this.focused = false;
     this.dispatchEvent(new UUIListItemFocusEvent());
   }
 
@@ -72,6 +72,7 @@ export class UUIListItemElement extends LitElement {
         id="list-item"
         @click="${this._onClick}"
         @focus="${this._onFocus}"
+        @blur="${this._onBlur}"
       >
         <slot name="left"></slot>
         <span><slot></slot></span>
@@ -80,3 +81,4 @@ export class UUIListItemElement extends LitElement {
     `;
   }
 }
+// /  @keydown="${(e: KeyboardEvent) => {if (e.code === 'Enter') this._onClick;}}"
