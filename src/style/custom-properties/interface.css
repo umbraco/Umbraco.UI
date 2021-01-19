@@ -1,0 +1,16 @@
+/** Example of interface specific props which are not begin used specificly by components, but mapped further into variables for each component **/
+@property --uui-interface-background-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: var(--uui-color-white);
+}
+@property --uui-interface-background-hover-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: var(--uui-color-white-smoke);
+}
+@property --uui-interface-background-active-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: var(--uui-color-white-smoke);/* TODO: should be even darker... */
+}

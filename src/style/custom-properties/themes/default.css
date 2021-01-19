@@ -1,0 +1,30 @@
+/* Theme properties */
+
+@property --uui-color-identity {
+  syntax: '<color>';
+  inherits: true;
+  /*initial-value: var(--uui-color-space-cadet);*/
+}
+:root {
+  --uui-color-positive: var(--uui-color-space-cadet);
+}
+
+
+@property --uui-color-positive {
+  syntax: '<color>';
+  inherits: true;
+  /*initial-value: green;*/
+}
+:root {
+  --uui-color-positive: var(--uui-color-jungle-green);
+}
+
+
+@property --uui-color-danger {
+  syntax: '<color>';
+  inherits: true;
+  /*initial-value: red;*/
+}
+:root {
+  --uui-color-danger: var(--uui-color-maroon-flush);
+}

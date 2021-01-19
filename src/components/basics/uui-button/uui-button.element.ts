@@ -18,18 +18,25 @@ export class UUIButtonElement extends LitElement {
         line-height: 20px;
         text-align: center;
         vertical-align: middle;
-        cursor: pointer;
         color: #fff;
         border: none;
         box-shadow: none;
         border-radius: 3px;
+        cursor: pointer;
       }
+
+      button[disabled] {
+        /* Idea on how to make disabled state fit with given style/colors */
+        filter: grayscale(0.2) contrast(0.3) brightness(1.4);
+        cursor: default;
+      }
+
       :host([button-style='positive']) button {
         background: var(--uui-button-positive-background-color);
         color: var(--uui-button-positive-text-color);
       }
 
-      :host[loading] button:before {
+      :host([loading]) button:before {
         content: '⏳';
       }
     `,
@@ -60,7 +67,7 @@ export class UUIButtonElement extends LitElement {
   }
   render() {
     return html`
-      <button @click=${this.onClick} disabled=${this.disabled}>
+      <button @click=${this.onClick} ?disabled=${this.disabled}>
         <slot></slot>
       </button>
     `;

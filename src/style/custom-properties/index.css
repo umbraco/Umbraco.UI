@@ -1,0 +1,8 @@
+@import "./sizes.css";
+@import "./colors.css";
+@import "./animations.css";
+
+@import "./themes/default.css";
+@import "./themes/darkmode.css";
+@import "./interface.css";
+@import "./components.css";
