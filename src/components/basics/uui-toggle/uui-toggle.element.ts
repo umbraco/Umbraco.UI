@@ -7,6 +7,7 @@ import {
   internalProperty,
 } from 'lit-element';
 import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
+import { uuiShake } from '../../../animations/uui-shake';
 
 /**
  *  @element uui-toggle
@@ -29,6 +30,7 @@ type ToggleValue = 'on' | 'off';
 
 export class UUIToggleElement extends LitElement {
   static styles = [
+    uuiShake,
     css`
       :host {
         --uui-toggle-size: 2rem;
@@ -143,6 +145,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       input[disabled] + #slider:active {
+        animation: var(--uui-animation-shake-horizontal);
         animation: shake 0.6s ease backwards;
       }
 
@@ -153,30 +156,6 @@ export class UUIToggleElement extends LitElement {
       input:focus ~ #slider,
       input:not([disabled]) ~ #slider:active {
         outline: var(--uui-color-spanish-pink) 2px solid;
-        /* maybe change border to something else that can have a transformation applied with origin at the center */
-      }
-
-      @keyframes shake {
-        10%,
-        90% {
-          transform: translateX(-1px);
-        }
-
-        20%,
-        80% {
-          transform: translateX(2px);
-        }
-
-        30%,
-        50%,
-        70% {
-          transform: translateX(-3px);
-        }
-
-        40%,
-        60% {
-          transform: translateX(3px);
-        }
       }
     `,
   ];
@@ -238,7 +217,7 @@ export class UUIToggleElement extends LitElement {
     }
   }
 
-  private _handleInputChange() {
+  private _onInputChange() {
     if (this._input.checked) {
       this._value = 'on';
       this.checked = true;
@@ -259,7 +238,7 @@ export class UUIToggleElement extends LitElement {
           type="checkbox"
           id="switch"
           ?disabled="${this.disabled}"
-          @change="${this._handleInputChange}"
+          @change="${this._onInputChange}"
         />
         <div id="slider"></div>
         <div id="label-text">${this.label}</div>
