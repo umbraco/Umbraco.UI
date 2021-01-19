@@ -1,5 +1,10 @@
+/** Naming concept, any inputs are welcome.
+UUI - Mapping-level or specific component name - State - Name - Part - Overwrites
+*/
+
 @import "./sizes.css";
 @import "./colors.css";
+@import "./symbolic-colors.css";
 @import "./animations.css";
 
 @import "./themes/default.css";

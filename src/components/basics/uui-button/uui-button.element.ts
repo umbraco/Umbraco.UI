@@ -10,7 +10,6 @@ export class UUIButtonElement extends LitElement {
   static styles = [
     css`
       button {
-        background: #1b264f;
         display: inline-block;
         padding: 6px 14px;
         margin-bottom: 0;
@@ -18,11 +17,14 @@ export class UUIButtonElement extends LitElement {
         line-height: 20px;
         text-align: center;
         vertical-align: middle;
-        color: #fff;
         border: none;
         box-shadow: none;
         border-radius: 3px;
         cursor: pointer;
+
+        /* Default button-style: */
+        background: var(--uui-button-default-background-color);
+        color: var(--uui-button-default-text-color);
       }
 
       button[disabled] {

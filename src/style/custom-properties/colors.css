@@ -65,5 +65,18 @@
 @property --uui-color-white {
   syntax: '<color>';
   inherits: true;
-  initial-value: #FFF;
+  initial-value: #F9F9F9;
 }
+@property --uui-color-black {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #060606;
+}
+
+/** TODO: Grey color and nuances, come up with a naming strategy that makes sense... */
+@property --uui-color-grey {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #C4C4C4;
+}
+

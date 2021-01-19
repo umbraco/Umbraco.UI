@@ -1,16 +1,61 @@
-/** Example of interface specific props which are not begin used specificly by components, but mapped further into variables for each component **/
-@property --uui-interface-background-color {
+/** Example of interface specific props which are not begin used directly by components, but mapped to properties specific for each component. **/
+
+/** Ordinary symbolic style */
+
+@property --uui-interface-ordinary-background-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: var(--uui-color-white);
 }
-@property --uui-interface-background-hover-color {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: var(--uui-color-white-smoke);
+:root {
+  --uui-interface-ordinary-background-color: var(--uui-color-ordinary);
 }
-@property --uui-interface-background-active-color {
+@property --uui-interface-ordinary-background-color-hover {
   syntax: '<color>';
   inherits: true;
-  initial-value: var(--uui-color-white-smoke);/* TODO: should be even darker... */
+}
+:root {
+  --uui-interface-ordinary-background-color-hover: var(--uui-color-ordinary-light);
+}
+
+@property --uui-interface-ordinary-text-color {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-interface-ordinary-text-color: var(--uui-color-ordinary-contrast);
+}
+
+
+
+
+
+/** Positive symbolic style*/
+@property --uui-interface-positive-background-color {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-interface-positive-background-color: var(--uui-color-positive);
+}
+@property --uui-interface-positive-background-color-hover {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-interface-positive-background-color-hover: var(--uui-color-positive-tint);
+}
+@property --uui-interface-positive-background-color-active {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-interface-positive-background-color-active: var(--uui-color-positive-highligth);
+}
+
+@property --uui-interface-positive-text-color {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-interface-positive-text-color: var(--uui-color-white);
 }
