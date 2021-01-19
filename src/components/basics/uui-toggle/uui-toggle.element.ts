@@ -41,7 +41,6 @@ export class UUIToggleElement extends LitElement {
       label {
         cursor: pointer;
         display: grid;
-        grid-template-columns: max-content var(--switch-width) max-content;
         grid-template-rows: max-content var(--uui-toggle-size) max-content;
         grid-template-areas:
           'top-left top top-right'
@@ -144,6 +143,8 @@ export class UUIToggleElement extends LitElement {
 
       input[disabled] + #slider:active {
         animation: shake 0.6s ease backwards;
+
+        animation: var(--uui-animation-shake);
       }
 
       input[disabled] + #slider:active:after {
