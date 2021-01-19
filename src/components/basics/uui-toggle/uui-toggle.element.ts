@@ -41,6 +41,7 @@ export class UUIToggleElement extends LitElement {
       label {
         cursor: pointer;
         display: grid;
+        grid-template-columns: max-content var(--uui-toggle-switch-width) max-content;
         grid-template-rows: max-content var(--uui-toggle-size) max-content;
         grid-template-areas:
           'top-left top top-right'
@@ -142,7 +143,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       input[disabled] + #slider:active {
-        animation: var(--uui-animation-shake);
+        animation: shake 0.6s ease backwards;
       }
 
       input[disabled] + #slider:active:after {
@@ -153,6 +154,29 @@ export class UUIToggleElement extends LitElement {
       input:not([disabled]) ~ #slider:active {
         outline: var(--uui-color-spanish-pink) 2px solid;
         /* maybe change border to something else that can have a transformation applied with origin at the center */
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translateX(-1px);
+        }
+
+        20%,
+        80% {
+          transform: translateX(2px);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translateX(-3px);
+        }
+
+        40%,
+        60% {
+          transform: translateX(3px);
+        }
       }
     `,
   ];
