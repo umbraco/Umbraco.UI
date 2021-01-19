@@ -1,16 +1,30 @@
+@property --uui-button-ordinary-background-color {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-button-ordinary-background-color: var(--uui-interface-ordinary-background-color);
+}
+@property --uui-button-ordinary-text-color {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-button-ordinary-text-color: var(--uui-interface-ordinary-text-color);
+}
+
+
 @property --uui-button-positive-background-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: var(--uui-color-positive);/* TODO: This does not work, we might incorporate a Pre-CSS-Processor to help us with this.*/
 }
 :root {
-  --uui-button-positive-background-color: var(--uui-color-positive);
+  --uui-button-positive-background-color: var(--uui-interface-positive-background-color);
 }
 @property --uui-button-positive-text-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: var(--uui-color-white);
 }
 :root {
-  --uui-button-positive-text-color: var(--uui-color-white);
+  --uui-button-positive-text-color: var(--uui-interface-positive-text-color);
 }

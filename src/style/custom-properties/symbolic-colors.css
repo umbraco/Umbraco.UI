@@ -1,0 +1,90 @@
+/** ORDINARY */
+@property --uui-color-ordinary {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-ordinary: var(--uui-color-grey);
+}
+@property --uui-color-ordinary-light {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-ordinary-light: var(--uui-color-grey);
+}
+@property --uui-color-ordinary-dark {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-ordinary-dark: var(--uui-color-grey);
+}
+@property --uui-color-ordinary-contrast {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-ordinary-contrast: var(--uui-color-black);
+}
+
+
+/** POSITIVE */
+@property --uui-color-positive {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-positive: var(--uui-color-jungle-green);
+}
+@property --uui-color-positive-light {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-positive-light: var(--uui-color-jungle-green);
+}
+@property --uui-color-positive-dark {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-positive-dark: var(--uui-color-jungle-green);
+}
+@property --uui-color-positive-contrast {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-positive-contrast: var(--uui-color-white);
+}
+
+/** DANGER */
+@property --uui-color-danger {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-danger: var(--uui-color-maroon-flush);
+}
+@property --uui-color-danger-light {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-danger-light: var(--uui-color-maroon-flush);
+}
+@property --uui-color-danger-dark {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-danger-dark: var(--uui-color-maroon-flush);
+}
+@property --uui-color-danger-contrast {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-danger-contrast: var(--uui-color-white);
+}
