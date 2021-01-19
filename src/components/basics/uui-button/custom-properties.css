@@ -1,16 +1,16 @@
-@property --uui-button-default-background-color {
+@property --uui-button-ordinary-background-color {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-button-default-background-color: var(--uui-interface-ordinary-background-color);
+  --uui-button-ordinary-background-color: var(--uui-interface-ordinary-background-color);
 }
-@property --uui-button-default-text-color {
+@property --uui-button-ordinary-text-color {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-button-default-text-color: var(--uui-interface-ordinary-text-color);
+  --uui-button-ordinary-text-color: var(--uui-interface-ordinary-text-color);
 }
 
 

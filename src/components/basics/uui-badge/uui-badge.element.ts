@@ -1,4 +1,8 @@
 import { LitElement, html, css, property } from 'lit-element';
+import {
+  SymbolicColor,
+  SymbolicColorDefaultValue,
+} from '../../../type/SymbolicColor';
 
 /**
  *  @element uui-badge
@@ -6,15 +10,6 @@ import { LitElement, html, css, property } from 'lit-element';
  */
 
 type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
-
-//TODO: Refactor to use a shared Type and style definition. As we use these symbolic colors in multiple places.
-type BadgeColor =
-  | 'primary'
-  | 'secondary'
-  | 'positive'
-  | 'warning'
-  | 'danger'
-  | 'gray';
 
 export class UUIBadgeElement extends LitElement {
   static styles = [
@@ -59,7 +54,7 @@ export class UUIBadgeElement extends LitElement {
   public size: BadgeSize = 'm';
 
   @property({ attribute: true })
-  public color: BadgeColor = 'gray';
+  public color: SymbolicColor = SymbolicColorDefaultValue;
 
   render() {
     return html` <slot></slot> `;
