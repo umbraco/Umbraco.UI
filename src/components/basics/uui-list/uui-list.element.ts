@@ -1,4 +1,5 @@
 import { LitElement, html, css, property, query } from 'lit-element';
+import { UUIEvent } from '../../../event/UUIEvent';
 import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
 import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
 import { UUIListItemElement } from '../uui-list-item/uui-list-item.element';
@@ -47,39 +48,30 @@ export class UUIListElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener(
-      'list-item-select',
-      this._handleSelect as EventListener
-    );
+    this.addEventListener('list-item-select', this._handleSelect);
     this.addEventListener('keydown', this._onKeyDown);
-    this.addEventListener('focus', this._findFocusedElement as EventListener);
+    this.addEventListener('focus', this._findFocusedElement);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener(
-      'list-itemselect',
-      this._handleSelect as EventListener
-    );
-    this.removeEventListener('keydown', this._onKeyDown as EventListener);
+    this.removeEventListener('list-itemselect', this._handleSelect);
+    this.removeEventListener('keydown', this._onKeyDown);
 
-    this.removeEventListener(
-      'focus',
-      this._findFocusedElement as EventListener
-    );
+    this.removeEventListener('focus', this._findFocusedElement);
   }
 
   private _focusedElementIndex = -1;
 
   private _lastSelectedIndex: number | null = null;
 
-  private _findFocusedElement(e: UUIListItemFocusEvent) {
+  private _findFocusedElement(e: Event) {
     this._focusedElementIndex = this.listElements.findIndex(
       el => el === e.target
     );
   }
   // TODO make this pretty!
-  private _handleSelect(e: UUIListItemClickEvent) {
+  private _handleSelect(e: Event) {
     if (this.nonInteractive) return;
 
     const listElements = this.listElements;
@@ -137,3 +129,10 @@ export class UUIListElement extends LitElement {
     return html` <slot></slot> `;
   }
 }
+
+//can someone explain to me why this works?
+// declare global {
+//   interface GlobalEventHandlersEventMap {
+//     'list-item-select': CustomEvent<UUIListItemClickEvent>;
+//   }
+// }
