@@ -1,5 +1,9 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { UUIButtonClickEvent } from '../../../event/UUIButtonClickEvent';
+import {
+  SymbolicColor,
+  SymbolicColorDefaultValue,
+} from '../../../type/SymbolicColor';
 
 /**
  *  @element uui-button
@@ -10,7 +14,6 @@ export class UUIButtonElement extends LitElement {
   static styles = [
     css`
       button {
-        background: #1b264f;
         display: inline-block;
         padding: 6px 14px;
         margin-bottom: 0;
@@ -18,11 +21,14 @@ export class UUIButtonElement extends LitElement {
         line-height: 20px;
         text-align: center;
         vertical-align: middle;
-        color: #fff;
         border: none;
         box-shadow: none;
         border-radius: 3px;
         cursor: pointer;
+
+        /* Default button-style: */
+        background: var(--uui-button-ordinary-background-color);
+        color: var(--uui-button-ordinary-text-color);
       }
 
       button[disabled] {
@@ -50,14 +56,8 @@ export class UUIButtonElement extends LitElement {
   @property({ type: Boolean, attribute: true })
   loading = false;
 
-  //TODO: Refactor to use a shared Type and style definition. As we use these symbolic colors in multiple places.
-  @property({ type: String, attribute: 'button-style' }) buttonStyle:
-    | 'primary'
-    | 'secondary'
-    | 'positive'
-    | 'warning'
-    | 'danger'
-    | 'gray' = 'primary';
+  @property({ type: String, attribute: 'button-style' })
+  buttonStyle: SymbolicColor = SymbolicColorDefaultValue;
 
   private onClick(e: Event) {
     e.preventDefault();
