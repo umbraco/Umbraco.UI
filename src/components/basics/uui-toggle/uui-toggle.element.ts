@@ -7,33 +7,27 @@ import {
   internalProperty,
 } from 'lit-element';
 import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
-import { uuiShake } from '../../../animations/uui-shake';
+import { uuiHorizontalShake } from '../../../animations/uui-shake';
 
 /**
  *  @element uui-toggle
  */
 
 // TODO -color property
-// -size property
-// -better focused style
-// -aria?
-// -add check on ENTER
-// -add named icons slots for on and off
-// - add roles
-// - validation - required option
-
-//  #d8d7d9
+// -size property - how to correctly do it
+// -add named icons slots for icons on and off
+// - validation - required option??? does it even make sense? if so what it should output
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
-type ToggleValue = 'on' | 'off';
+type ToggleValue = 'on' | 'off'; //should there be more?
 
 export class UUIToggleElement extends LitElement {
   static styles = [
-    uuiShake,
+    uuiHorizontalShake,
     css`
       :host {
-        --uui-toggle-size: 2rem;
+        --uui-toggle-size: 1.6rem;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
         font-family: Lato, Helvetica, Arial, 'sans-serif';
         font-size: 0.8rem;
@@ -61,8 +55,7 @@ export class UUIToggleElement extends LitElement {
       #slider {
         place-self: stretch;
         transition: 0.2s ease;
-        outline: var(--uui-color-spanish-pink) 0px solid;
-        background: lightgrey;
+        background: var(--uui-interface-ordinary-background-color);
         position: relative;
         grid-area: center;
       }
@@ -104,14 +97,11 @@ export class UUIToggleElement extends LitElement {
       #slider:after {
         content: '';
         position: absolute;
-
         top: calc(0.1 * var(--uui-toggle-size));
         left: calc(0.1 * var(--uui-toggle-size));
         width: calc(0.8 * var(--uui-toggle-size));
         height: calc(0.8 * var(--uui-toggle-size));
-
         background: var(--uui-color-white);
-        /* border-radius: 90px; */
         transition: 0.2s ease;
       }
 
@@ -128,7 +118,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       input:checked + #slider {
-        background: var(--uui-color-violet-blue);
+        background: var(--uui-color-identity);
       }
 
       input:checked + #slider:after {
@@ -146,7 +136,7 @@ export class UUIToggleElement extends LitElement {
 
       input[disabled] + #slider:active {
         animation: var(--uui-animation-shake-horizontal);
-        animation: shake 0.6s ease backwards;
+        animation: uui-horizontal-shake 0.6s ease backwards;
       }
 
       input[disabled] + #slider:active:after {
@@ -155,7 +145,7 @@ export class UUIToggleElement extends LitElement {
 
       input:focus ~ #slider,
       input:not([disabled]) ~ #slider:active {
-        outline: var(--uui-color-spanish-pink) 2px solid;
+        box-shadow: 0 0 2px 2px var(--uui-color-grey);
       }
     `,
   ];
@@ -169,6 +159,9 @@ export class UUIToggleElement extends LitElement {
     this._internals = (this as any).attachInternals();
   }
 
+  @query('#switch')
+  protected _input!: HTMLInputElement;
+
   @internalProperty()
   _value: ToggleValue = 'off';
 
@@ -181,9 +174,6 @@ export class UUIToggleElement extends LitElement {
     this._value = newValue;
     this._internals.setFormValue(this._value);
   }
-
-  @query('#switch')
-  protected _input!: HTMLInputElement;
 
   @property({ type: String })
   label = 'Toggle';
@@ -215,6 +205,8 @@ export class UUIToggleElement extends LitElement {
     if (this.label && !this.name) {
       this.name = this.label;
     }
+
+    this._input.setAttribute('role', 'switch');
   }
 
   private _onInputChange() {

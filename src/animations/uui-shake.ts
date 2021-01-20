@@ -1,9 +1,9 @@
 import { css } from 'lit-element';
 
-//this works and seems to be a good way to make keyframes more universal
+//this works and seems to be a good way to make keyframes reusable
 
-export const uuiShake = css`
-  @keyframes shake {
+export const uuiHorizontalShake = css`
+  @keyframes uui-horizontal-shake {
     10%,
     90% {
       transform: translateX(-1px);
