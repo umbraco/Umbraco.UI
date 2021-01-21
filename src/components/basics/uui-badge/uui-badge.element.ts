@@ -1,4 +1,5 @@
 import { LitElement, html, css, property } from 'lit-element';
+import { Size } from '../../../type/Size';
 import {
   SymbolicColor,
   SymbolicColorDefaultValue,
@@ -9,7 +10,7 @@ import {
  *  @slot - for badge contents
  */
 
-type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
+//type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
 
 export class UUIBadgeElement extends LitElement {
   static styles = [
@@ -51,7 +52,7 @@ export class UUIBadgeElement extends LitElement {
   ];
 
   @property({ attribute: true })
-  public size: BadgeSize = 'm';
+  public size: Size = 'm';
 
   @property({ attribute: true })
   public color: SymbolicColor = SymbolicColorDefaultValue;
