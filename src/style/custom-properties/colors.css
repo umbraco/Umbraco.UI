@@ -1,0 +1,82 @@
+/* Currently used https://chir.ag/projects/name-that-color/ for naming inspiration */
+
+/* Color Properties */
+
+@property --uui-color-deep-saffron {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F79C37;
+}
+@property --uui-color-sunglow {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #FAD634;
+}
+@property --uui-color-spanish-pink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F5C1BC;
+}
+@property --uui-color-dark-gunmetal {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #162335;
+}
+@property --uui-color-space-cadet {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #1B264F;
+}
+@property --uui-color-violet-blue {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #3544B1;
+}
+@property --uui-color-maroon-flush {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #D42054;
+}
+@property --uui-color-jungle-green {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #2BC37C;
+}
+@property --uui-color-chamoisee {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #9D8057;
+}
+@property --uui-color-timberwolf {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #E2DAD4;
+}
+@property --uui-color-alabaster {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F2EBE6;
+}
+@property --uui-color-white-smoke {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F9F7F4;
+}
+@property --uui-color-white {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F9F9F9;
+}
+@property --uui-color-black {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #060606;
+}
+
+/** TODO: Grey color and nuances, come up with a naming strategy that makes sense... */
+@property --uui-color-grey {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #C4C4C4;
+}
+

@@ -1,0 +1,63 @@
+/* Theme properties */
+
+/* Each theme color should have main, dark, light, contrast(text) */
+
+@property --uui-color-identity {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-identity: var(--uui-color-space-cadet);
+}
+@property --uui-color-identity-dark {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-identity-dark: var(--uui-color-space-cadet);
+}
+@property --uui-color-identity-light {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-identity-light: var(--uui-color-space-cadet);
+}
+@property --uui-color-identity-contrast {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-identity-contrast: var(--uui-color-white);
+}
+
+
+
+@property --uui-color-accent {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-accent: var(--uui-color-spanish-pink);
+}
+@property --uui-color-accent-dark {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-accent-dark: var(--uui-color-spanish-pink);
+}
+@property --uui-color-accent-light {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-accent-light: var(--uui-color-spanish-pink);
+}
+@property --uui-color-accent-contrast {
+  syntax: '<color>';
+  inherits: true;
+}
+:root {
+  --uui-color-accent-contrast: var(--uui-color-dark-gunmetal);
+}
