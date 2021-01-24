@@ -4,6 +4,7 @@ import {
   SymbolicColor,
   SymbolicColorDefaultValue,
 } from '../../../type/SymbolicColor';
+import { stateColorUtil } from './state-color-util';
 
 /**
  *  @element uui-icon
@@ -16,8 +17,9 @@ export class UUIIconElement extends LitElement {
       :host {
         --uui-icon-base-size: 24px;
         display: inline-block;
-        width: 16px;
+        width: var(--uui-icon-base-size);
         margin: 5px;
+        --uui-icon-fill: blue;
       }
 
       :host([size='xxs']) {
@@ -45,9 +47,10 @@ export class UUIIconElement extends LitElement {
       }
 
       ::slotted(svg) {
-        fill: var(--uui-color-identity);
+        fill: var(--uui-icon-fill);
       }
     `,
+    stateColorUtil('fill', 'uui-icon', '::slotted(svg)'),
   ];
 
   @property({ reflect: true })

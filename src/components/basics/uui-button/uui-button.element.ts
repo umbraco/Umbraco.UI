@@ -13,6 +13,13 @@ import {
 export class UUIButtonElement extends LitElement {
   static styles = [
     css`
+      :host {
+        --uui-button-background-color: var(
+          --uui-button-ordinary-background-color,
+          pink
+        );
+      }
+
       button {
         display: inline-block;
         padding: 6px 14px;
@@ -27,7 +34,7 @@ export class UUIButtonElement extends LitElement {
         cursor: pointer;
 
         /* Default button-style: */
-        background: var(--uui-button-ordinary-background-color);
+        background: var(--uui-button-background-color);
         color: var(--uui-button-ordinary-text-color);
       }
 
