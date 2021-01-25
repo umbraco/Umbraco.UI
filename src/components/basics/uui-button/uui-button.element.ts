@@ -27,7 +27,7 @@ export class UUIButtonElement extends LitElement {
         cursor: pointer;
 
         /* Default button-style: */
-        background: var(--uui-button-ordinary-background-color);
+        background: var(--uui-interface-ordinary-background-color);
         color: var(--uui-button-ordinary-text-color);
       }
 
