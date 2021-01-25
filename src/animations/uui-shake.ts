@@ -2,7 +2,7 @@ import { css } from 'lit-element';
 
 //this works and seems to be a good way to make keyframes reusable
 
-export const uuiHorizontalShake = css`
+export const uuiHorizontalShakeKeyframes = css`
   @keyframes uui-horizontal-shake {
     10%,
     90% {
@@ -26,3 +26,5 @@ export const uuiHorizontalShake = css`
     }
   }
 `;
+
+export const uuiHorizontalShake = css`uui-horizontal-shake 0.6s ease backwards`;

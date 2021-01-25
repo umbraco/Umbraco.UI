@@ -7,7 +7,10 @@ import {
   internalProperty,
 } from 'lit-element';
 import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
-import { uuiHorizontalShake } from '../../../animations/uui-shake';
+import {
+  uuiHorizontalShakeKeyframes,
+  uuiHorizontalShake,
+} from '../../../animations/uui-shake';
 
 /**
  *  @element uui-toggle
@@ -24,7 +27,7 @@ type ToggleValue = 'on' | 'off'; //should there be more?
 
 export class UUIToggleElement extends LitElement {
   static styles = [
-    uuiHorizontalShake,
+    uuiHorizontalShakeKeyframes,
     css`
       :host {
         --uui-toggle-size: 1.6rem;
@@ -135,8 +138,9 @@ export class UUIToggleElement extends LitElement {
       }
 
       input[disabled] + #slider:active {
-        animation: var(--uui-animation-shake-horizontal);
-        animation: uui-horizontal-shake 0.6s ease backwards;
+        /* animation: var(--uui-animation-shake-horizontal); */
+        /* animation: uui-horizontal-shake 0.6s ease backwards; */
+        animation: ${uuiHorizontalShake};
       }
 
       input[disabled] + #slider:active:after {
