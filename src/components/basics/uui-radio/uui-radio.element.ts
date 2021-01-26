@@ -26,6 +26,10 @@ export class UUIRadioElement extends LitElement {
     this.dispatchEvent(new UUIRadioChangeEvent());
   }
 
+  public uncheck() {
+    this.checked = false;
+  }
+
   render() {
     return html` <input
         id="input"

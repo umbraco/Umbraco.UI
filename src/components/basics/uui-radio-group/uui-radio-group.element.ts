@@ -61,7 +61,7 @@ export class UUIRadioGroup extends LitElement {
     const filtered = radios.filter(el => el !== selectedElement);
 
     filtered.forEach(el => {
-      el.removeAttribute('checked');
+      el.uncheck();
     });
   }
 
