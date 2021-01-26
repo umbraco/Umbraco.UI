@@ -46,6 +46,8 @@ export class UUIListElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'non-interactive' })
   nonInteractive = false;
 
+
+//those listeners should be attached on constructor
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('list-item-select', this._handleSelect);
