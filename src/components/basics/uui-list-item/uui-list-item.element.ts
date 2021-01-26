@@ -7,6 +7,8 @@ import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
  *
  */
 
+//TODO add the deselect method
+
 export class UUIListItemElement extends LitElement {
   static styles = [
     css`
