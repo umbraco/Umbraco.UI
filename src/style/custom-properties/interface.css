@@ -2,6 +2,8 @@
 
 /** Ordinary symbolic style */
 
+/* How about standard instead of ordinary */
+
 @property --uui-interface-ordinary-background-color {
   syntax: '<color>';
   inherits: true;
@@ -14,7 +16,9 @@
   inherits: true;
 }
 :root {
-  --uui-interface-ordinary-background-color-hover: var(--uui-color-ordinary-light);
+  --uui-interface-ordinary-background-color-hover: var(
+    --uui-color-ordinary-light
+  );
 }
 
 @property --uui-interface-ordinary-text-color {
@@ -24,10 +28,6 @@
 :root {
   --uui-interface-ordinary-text-color: var(--uui-color-ordinary-contrast);
 }
-
-
-
-
 
 /** Positive symbolic style*/
 @property --uui-interface-positive-background-color {
@@ -42,14 +42,18 @@
   inherits: true;
 }
 :root {
-  --uui-interface-positive-background-color-hover: var(--uui-color-positive-tint);
+  --uui-interface-positive-background-color-hover: var(
+    --uui-color-positive-tint
+  );
 }
 @property --uui-interface-positive-background-color-active {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-interface-positive-background-color-active: var(--uui-color-positive-highligth);
+  --uui-interface-positive-background-color-active: var(
+    --uui-color-positive-highligth
+  );
 }
 
 @property --uui-interface-positive-text-color {
