@@ -8,11 +8,11 @@ export default {
 
 const styles = css`
   uui-button {
-    --uui-button-background-color: blue;
+    --uui-button-ordinary-background-color: blue;
   }
 
   .red {
-    --uui-button-background-color: red;
+    --uui-button-ordinary-background-color: red;
   }
 
   uui-card {

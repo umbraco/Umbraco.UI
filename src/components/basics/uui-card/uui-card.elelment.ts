@@ -38,7 +38,9 @@ export class UUICardElement extends LitElement {
       }
 
       #hardcoded-button {
-        --uui-button-background-color: var(--uui-card-button-background-color);
+        --uui-button-ordinary-background-color: var(
+          --uui-card-button-background-color
+        );
       }
 
       slot[name='subtitle']::slotted(h2) {
