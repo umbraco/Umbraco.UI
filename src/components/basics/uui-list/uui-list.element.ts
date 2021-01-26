@@ -88,6 +88,7 @@ export class UUIListElement extends LitElement {
 
     const filtered = listElements.filter(el => el !== selectedElement);
 
+    //change this to a method specific to parcitular elemnent
     filtered.forEach(el => {
       el.removeAttribute('selected');
     });
