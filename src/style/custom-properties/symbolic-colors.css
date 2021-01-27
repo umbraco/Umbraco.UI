@@ -1,31 +1,31 @@
-/** ORDINARY */
-@property --uui-color-ordinary {
+/** STANDART */
+@property --uui-color-standard {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-color-ordinary: var(--uui-color-grey);
+  --uui-color-standard: var(--uui-color-grey);
 }
-@property --uui-color-ordinary-light {
+@property --uui-color-standard-light {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-color-ordinary-light: var(--uui-color-grey);
+  --uui-color-standard-light: var(--uui-color-grey);
 }
-@property --uui-color-ordinary-dark {
+@property --uui-color-standard-dark {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-color-ordinary-dark: var(--uui-color-grey);
+  --uui-color-standard-dark: var(--uui-color-grey);
 }
-@property --uui-color-ordinary-contrast {
+@property --uui-color-standard-contrast {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-color-ordinary-contrast: var(--uui-color-black);
+  --uui-color-standard-contrast: var(--uui-color-black);
 }
 
 

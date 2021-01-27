@@ -1,9 +1,9 @@
 export type SymbolicColor =
-  | 'ordinary'
+  | 'standard'
   | 'primary'
   | 'secondary'
   | 'positive'
   | 'warning'
   | 'danger';
 
-export const SymbolicColorDefaultValue = 'ordinary';
+export const SymbolicColorDefaultValue = 'standard';

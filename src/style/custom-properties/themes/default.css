@@ -1,6 +1,13 @@
 /* Theme properties */
 
-/* Each theme color should have main, dark, light, contrast(text) */
+/* Each theme-color should have following set of variants:
+  main,
+  dark,
+  light,
+  tint,
+  highlight
+  contrast( text)
+*/
 
 @property --uui-color-identity {
   syntax: '<color>';

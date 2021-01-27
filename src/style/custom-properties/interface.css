@@ -1,28 +1,28 @@
-/** Example of interface specific props which are not begin used directly by components, but mapped to properties specific for each component. **/
+/** Example of interface specific props. **/
 
-/** Ordinary symbolic style */
+/** Standard symbolic style */
 
-@property --uui-interface-ordinary-background-color {
+@property --uui-interface-standard-background-color {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-interface-ordinary-background-color: var(--uui-color-ordinary);
+  --uui-interface-standard-background-color: var(--uui-color-standard);
 }
-@property --uui-interface-ordinary-background-color-hover {
+@property --uui-interface-standard-background-color-hover {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-interface-ordinary-background-color-hover: var(--uui-color-ordinary-light);
+  --uui-interface-standard-background-color-hover: var(--uui-color-standard-light);
 }
 
-@property --uui-interface-ordinary-text-color {
+@property --uui-interface-standard-text-color {
   syntax: '<color>';
   inherits: true;
 }
 :root {
-  --uui-interface-ordinary-text-color: var(--uui-color-ordinary-contrast);
+  --uui-interface-standard-text-color: var(--uui-color-standard-contrast);
 }
 
 
