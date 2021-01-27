@@ -15,16 +15,16 @@ export class UUIButtonElement extends LitElement {
     css`
       button {
         display: inline-block;
-        padding: 6px 14px;
-        margin-bottom: 0;
-        font-size: 15px;
-        line-height: 20px;
+        /* example of using the base-unit prop for sizing, it can be usefull to hardcode a minor adjustment for the right look, notice + 2px in this exmample: */
+        padding: var(--uui-size-base-unit)
+          calc((var(--uui-size-base-unit) * 2) + 2px);
         text-align: center;
         vertical-align: middle;
         border: none;
         box-shadow: none;
-        border-radius: 3px;
+        border-radius: var(--uui-size-border-radius);
         cursor: pointer;
+        font-weight: 800;
 
         /* Default button-style: */
         background: var(--uui-interface-standard-background-color);
