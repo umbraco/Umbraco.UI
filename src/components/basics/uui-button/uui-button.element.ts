@@ -27,8 +27,8 @@ export class UUIButtonElement extends LitElement {
         cursor: pointer;
 
         /* Default button-style: */
-        background: var(--uui-button-ordinary-background-color);
-        color: var(--uui-button-ordinary-text-color);
+        background: var(--uui-interface-standard-background-color);
+        color: var(--uui-interface-standard-text-color);
       }
 
       button[disabled] {
@@ -38,8 +38,8 @@ export class UUIButtonElement extends LitElement {
       }
 
       :host([button-style='positive']) button {
-        background: var(--uui-button-positive-background-color);
-        color: var(--uui-button-positive-text-color);
+        background: var(--uui-interface-positive-background-color);
+        color: var(--uui-interface-positive-text-color);
       }
 
       :host([loading]) button:before {

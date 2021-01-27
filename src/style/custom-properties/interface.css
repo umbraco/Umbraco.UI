@@ -1,28 +1,11 @@
-/** Example of interface specific props which are not begin used directly by components, but mapped to properties specific for each component. **/
+/** Example of interface specific props. **/
 
-/** Ordinary symbolic style */
+/** Standard symbolic style */
 
-@property --uui-interface-ordinary-background-color {
-  syntax: '<color>';
-  inherits: true;
-}
 :root {
-  --uui-interface-ordinary-background-color: var(--uui-color-ordinary);
-}
-@property --uui-interface-ordinary-background-color-hover {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-background-color-hover: var(--uui-color-ordinary-light);
-}
-
-@property --uui-interface-ordinary-text-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-text-color: var(--uui-color-ordinary-contrast);
+  --uui-interface-standard-background-color: var(--uui-color-standard);
+  --uui-interface-standard-background-color-hover: var(--uui-color-standard-light);
+  --uui-interface-standard-text-color: var(--uui-color-standard-contrast);
 }
 
 
@@ -30,32 +13,9 @@
 
 
 /** Positive symbolic style*/
-@property --uui-interface-positive-background-color {
-  syntax: '<color>';
-  inherits: true;
-}
 :root {
   --uui-interface-positive-background-color: var(--uui-color-positive);
-}
-@property --uui-interface-positive-background-color-hover {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
   --uui-interface-positive-background-color-hover: var(--uui-color-positive-tint);
-}
-@property --uui-interface-positive-background-color-active {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
   --uui-interface-positive-background-color-active: var(--uui-color-positive-highligth);
-}
-
-@property --uui-interface-positive-text-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
   --uui-interface-positive-text-color: var(--uui-color-white);
 }
