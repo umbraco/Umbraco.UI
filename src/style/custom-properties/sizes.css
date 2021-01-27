@@ -1,5 +1,9 @@
 /* Size Properties */
 
 :root {
+
+  --uui-size-base-unit: 6px;
+
   --uui-size-border-radius: 3px;
+
 }
