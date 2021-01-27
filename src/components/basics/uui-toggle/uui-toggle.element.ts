@@ -11,19 +11,20 @@ import {
   uuiHorizontalShakeKeyframes,
   uuiHorizontalShake,
 } from '../../../animations/uui-shake';
+import { iconWrong, iconCheck } from './toggle-icons';
 
 /**
  *  @element uui-toggle
  */
 
 // TODO -color property
-// -size property - how to correctly do it
-// -add named icons slots for icons on and off
-// - validation - required option??? does it even make sense? if so what it should output
+// TODO -size property - how to correctly do it
+// TODO -add named icons slots for icons on and off?
+// TODO - validation - required option??? does it even make sense? if so what it should output
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
-type ToggleValue = 'on' | 'off'; //should there be more?
+type ToggleValue = 'on' | 'off'; //should there be more? this is what the form will recieve. it is based on what native checkbox does
 
 export class UUIToggleElement extends LitElement {
   static styles = [
@@ -32,8 +33,10 @@ export class UUIToggleElement extends LitElement {
       :host {
         --uui-toggle-size: 1.6rem;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
-        font-family: Lato, Helvetica, Arial, 'sans-serif';
-        font-size: 0.8rem;
+        --uui-toggle-grid-gap: calc(var(--uui-toggle-size) / 3);
+        --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
+        font-family: inherit;
+        font-size: 1rem;
         display: block;
       }
 
@@ -46,7 +49,7 @@ export class UUIToggleElement extends LitElement {
           'top-left top top-right'
           'left center right'
           'bottom-left bottom bottom-right';
-        grid-gap: calc(var(--uui-toggle-size) / 4);
+        grid-gap: var(--uui-toggle-grid-gap);
       }
 
       input {
@@ -57,10 +60,37 @@ export class UUIToggleElement extends LitElement {
 
       #slider {
         place-self: stretch;
-        transition: 0.2s ease;
-        background: var(--uui-interface-ordinary-background-color);
+        transition: all 0.2s ease;
+        background: var(--uui-interface-standard-background-color);
         position: relative;
         grid-area: center;
+      }
+
+      #icon-container-check,
+      #icon-container-wrong {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        /* top: calc(0.1 * var(--uui-toggle-size));
+         */
+        width: calc(0.6 * var(--uui-toggle-size));
+        height: calc(0.6 * var(--uui-toggle-size));
+      }
+
+      #icon-container-check {
+        left: calc(0.2 * var(--uui-toggle-size));
+        fill: var(--uui-color-identity-contrast);
+      }
+
+      #icon-container-wrong {
+        right: calc(0.2 * var(--uui-toggle-size));
+        fill: var(--uui-color-identity);
+      }
+
+      label:hover #slider {
+        background: var(--uui-interface-standard-background-color-hover);
+        box-shadow: 0 0 0px 1px var(--uui-color-grey);
+        /* what to set box-shadow to? */
       }
 
       :host([hide-label]) #label-text {
@@ -104,12 +134,12 @@ export class UUIToggleElement extends LitElement {
         left: calc(0.1 * var(--uui-toggle-size));
         width: calc(0.8 * var(--uui-toggle-size));
         height: calc(0.8 * var(--uui-toggle-size));
-        background: var(--uui-color-white);
+        background: var(--uui-color-identity-contrast);
         transition: 0.2s ease;
       }
 
       #slider:before {
-        content: 'X';
+        content: '';
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -122,6 +152,7 @@ export class UUIToggleElement extends LitElement {
 
       input:checked + #slider {
         background: var(--uui-color-identity);
+        /* should that be set to primary? */
       }
 
       input:checked + #slider:after {
@@ -138,8 +169,6 @@ export class UUIToggleElement extends LitElement {
       }
 
       input[disabled] + #slider:active {
-        /* animation: var(--uui-animation-shake-horizontal); */
-        /* animation: uui-horizontal-shake 0.6s ease backwards; */
         animation: ${uuiHorizontalShake};
       }
 
@@ -147,9 +176,14 @@ export class UUIToggleElement extends LitElement {
         width: calc(0.8 * var(--uui-toggle-size));
       }
 
-      input:focus ~ #slider,
-      input:not([disabled]) ~ #slider:active {
-        box-shadow: 0 0 2px 2px var(--uui-color-grey);
+      input[disabled] + #slider > #icon-container-wrong {
+        fill: darkgray;
+        /* should probably be var(--uui-color-standard-light) but it */
+      }
+
+      input:focus + #slider,
+      input:not([disabled]) + #slider:active {
+        box-shadow: var(--uui-toggle-focus-outline);
       }
     `,
   ];
@@ -222,9 +256,7 @@ export class UUIToggleElement extends LitElement {
       this.checked = false;
     }
 
-    this.dispatchEvent(
-      new UUIToggleChangeEvent('change', { detail: { value: this.value } })
-    );
+    this.dispatchEvent(new UUIToggleChangeEvent());
   }
 
   render() {
@@ -236,7 +268,10 @@ export class UUIToggleElement extends LitElement {
           ?disabled="${this.disabled}"
           @change="${this._onInputChange}"
         />
-        <div id="slider"></div>
+        <div id="slider">
+          <div id="icon-container-check">${iconCheck}</div>
+          <div id="icon-container-wrong">${iconWrong}</div>
+        </div>
         <div id="label-text">${this.label}</div>
       </label>
     `;

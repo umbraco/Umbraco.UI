@@ -11,18 +11,18 @@ export const uuiHorizontalShakeKeyframes = css`
 
     20%,
     80% {
-      transform: translateX(2px);
+      transform: translateX(1px);
     }
 
     30%,
     50%,
     70% {
-      transform: translateX(-3px);
+      transform: translateX(-2px);
     }
 
     40%,
     60% {
-      transform: translateX(3px);
+      transform: translateX(2px);
     }
   }
 `;

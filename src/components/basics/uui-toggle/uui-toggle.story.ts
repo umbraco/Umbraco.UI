@@ -36,3 +36,10 @@ export const Disabled = () => html`
   <uui-toggle disabled label="Can't touch this"></uui-toggle>
   <uui-toggle rounded disabled label="Can't touch this"></uui-toggle>
 `;
+
+export const LongLabel = () => html`
+  <uui-toggle
+    label="Let's see how it looks when someone out of reason put's the label in."
+    rounded
+  ></uui-toggle>
+`;
