@@ -2,6 +2,7 @@
 UUI - Mapping-level or specific component name - State - Name - Part - Overwrites
 */
 
+@import "./app-state.css";
 @import "./sizes.css";
 @import "./colors.css";
 @import "./symbolic-colors.css";
