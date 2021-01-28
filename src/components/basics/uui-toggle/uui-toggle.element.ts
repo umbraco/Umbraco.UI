@@ -20,7 +20,7 @@ import { iconWrong, iconCheck } from './toggle-icons';
 // TODO -color property
 // TODO -size property - how to correctly do it
 // TODO -add named icons slots for icons on and off?
-// TODO - validation - required option??? does it even make sense? if so what it should output
+// TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -31,7 +31,7 @@ export class UUIToggleElement extends LitElement {
     uuiHorizontalShakeKeyframes,
     css`
       :host {
-        --uui-toggle-size: 1.6rem;
+        --uui-toggle-size: calc(4 * var(--uui-size-base-unit));
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
         --uui-toggle-grid-gap: calc(var(--uui-toggle-size) / 3);
         --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
@@ -71,8 +71,6 @@ export class UUIToggleElement extends LitElement {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        /* top: calc(0.1 * var(--uui-toggle-size));
-         */
         width: calc(0.6 * var(--uui-toggle-size));
         height: calc(0.6 * var(--uui-toggle-size));
       }
