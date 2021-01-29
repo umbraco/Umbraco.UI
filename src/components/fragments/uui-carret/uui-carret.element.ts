@@ -32,6 +32,7 @@ export class UUICarretElement extends LitElement {
   isOpen = false;
 
   firstUpdated() {
+    //can you increase the performace of that if you define that as static?
     this._animation = this.svg.animate(this._keyframes, this._options);
     this._animation.pause();
   }
