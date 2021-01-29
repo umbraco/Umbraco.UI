@@ -32,16 +32,23 @@ export class UUITextFieldElement extends LitElement {
         margin-bottom: 10px;
         font-size: 15px;
         line-height: 20px;
-        color: #303033;
+        color: inherit;
         border-radius: 0;
         vertical-align: middle;
         box-sizing: border-box;
-        background-color: #fff;
-        border: 1px solid #d8d7d9;
+        background-color: var(--uui-interface-background);
+        border: 1px solid var(--uui-interface-border);
         width: 100%;
+        outline: none;
+      }
+      input:hover {
+        border-color: var(--uui-interface-border-hover);
+      }
+      input:focus {
+        border-color: var(--uui-interface-border-focus);
       }
       .invalid {
-        border-color: #d42054;
+        border-color: var(--uui-color-danger-background);
       }
     `,
   ];

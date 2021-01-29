@@ -4,22 +4,109 @@
 
 :root {
 
-  --uui-color-deep-saffron: #F79C37;
-  --uui-color-sunglow: #FAD634;
-  --uui-color-spanish-pink: #F5C1BC;
-  --uui-color-dark-gunmetal: #162335;
-  --uui-color-space-cadet: #1B264F;
-  --uui-color-violet-blue: #3544B1;
-  --uui-color-maroon-flush: #D42054;
-  --uui-color-jungle-green: #2BC37C;
-  --uui-color-chamoisee: #9D8057;
-  --uui-color-timberwolf: #E2DAD4;
-  --uui-color-alabaster: #F2EBE6;
-  --uui-color-white-smoke: #F9F7F4;
-  --uui-color-white: #F9F9F9;
-  --uui-color-black: #060606;
+  $deep-saffron:#F79C37;
+  --uui-color-deep-saffron: $deep-saffron;
+  --uui-color-deep-saffron-light: color($deep-saffron lightness(+ 10%));
+  --uui-color-deep-saffron-dark: color($deep-saffron blackness(+ 10%));
+  --uui-color-deep-saffron-dimmed: color($deep-saffron saturation(- 74%) blackness(+ 1%));
 
-  /** TODO: Grey color and nuances, come up with a naming strategy that makes sense... */
-  --uui-color-grey: #C4C4C4;
+  $sunglow:#FAD634;
+  --uui-color-sunglow: $sunglow;
+  --uui-color-sunglow-light: color($sunglow lightness(+ 5%));
+  --uui-color-sunglow-dark: color($sunglow blackness(+ 5%));
+  --uui-color-sunglow-dimmed: color($sunglow saturation(- 78%) blackness(+ 1%));
+
+  $spanish-pink:#F5C1BC;
+  --uui-color-spanish-pink: $spanish-pink;
+  --uui-color-spanish-pink-light: color($spanish-pink lightness(+ 5%));
+  --uui-color-spanish-pink-dark: color($spanish-pink blackness(+ 5%));
+  --uui-color-spanish-pink-dimmed: color($spanish-pink saturation(- 60%) blackness(+ 1%));
+
+  $gunmetal: #162335;
+  --uui-color-gunmetal: $gunmetal;
+  --uui-color-gunmetal-light: color($gunmetal lightness(+ 8%));
+  --uui-color-gunmetal-dark: color($gunmetal blackness(+ 8%));
+  --uui-color-gunmetal-dimmed: color($gunmetal saturation(- 50%) lightness(+ 6%));
+
+  $space-cadet: #1B264F;
+  --uui-color-space-cadet: $space-cadet;
+  --uui-color-space-cadet-light: color($space-cadet lightness(+ 8%));
+  --uui-color-space-cadet-dark: color($space-cadet blackness(+ 8%));
+  --uui-color-space-cadet-dimmed: color($space-cadet saturation(- 30%));
+
+  $violet-blue: #3544B1;
+  --uui-color-violet-blue: $violet-blue;
+  --uui-color-violet-blue-light: color($violet-blue lightness(+ 8%));
+  --uui-color-violet-blue-dark: color($violet-blue blackness(+ 8%));
+  --uui-color-violet-blue-dimmed: color($violet-blue saturation(- 30%) blackness(+ 22%));
+
+  $matisse: #2152A3;
+  --uui-color-matisse: $matisse;
+  --uui-color-matisse-light: color($matisse lightness(+ 8%));
+  --uui-color-matisse-dark: color($matisse blackness(+ 8%));
+  --uui-color-matisse-dimmed: color($matisse saturation(- 30%) blackness(+ 22%));
+
+  $malibu: #3879FF;
+  --uui-color-malibu: $malibu;
+  --uui-color-malibu-light: color($malibu lightness(+ 8%));
+  --uui-color-malibu-dark: color($malibu blackness(+ 8%));
+  --uui-color-malibu-dimmed: color($malibu saturation(- 30%) blackness(+ 22%));
+
+  $maroon-flush: #D42054;
+  --uui-color-maroon-flush: $maroon-flush;
+  --uui-color-maroon-flush-light: color($maroon-flush lightness(+ 8%));
+  --uui-color-maroon-flush-dark: color($maroon-flush blackness(+ 8%));
+  --uui-color-maroon-flush-dimmed: color($maroon-flush saturation(- 62%) blackness(+ 2%));
+
+  $jungle-green: #2BC37C;
+  --uui-color-jungle-green: $jungle-green;
+  --uui-color-jungle-green-light: color($jungle-green lightness(+ 8%));
+  --uui-color-jungle-green-dark: color($jungle-green blackness(+ 8%));
+  --uui-color-jungle-green-dimmed: color($jungle-green saturation(- 50%) blackness(+ 1%));
+
+  $cocoa-black: #191715;
+  --uui-color-cocoa-black: $cocoa-black;
+  --uui-color-cocoa-black-light: color($cocoa-black lightness(+ 5%));
+  --uui-color-cocoa-black-dark: color($cocoa-black blackness(+ 5%));
+  --uui-color-cocoa-black-dimmed: color($cocoa-black saturation(- 20%) lightness(+ 10%));
+
+  $cocoa-brown: #332A24;
+  --uui-color-cocoa-brown: $cocoa-brown;
+  --uui-color-cocoa-brown-light: color($cocoa-brown lightness(+ 5%));
+  --uui-color-cocoa-brown-dark: color($cocoa-brown blackness(+ 5%));
+  --uui-color-cocoa-brown-dimmed: color($cocoa-brown saturation(- 40%) blackness(+ 2%));
+
+  $chamoisee: #9D8057;
+  --uui-color-chamoisee: $chamoisee;
+  --uui-color-chamoisee-light: color($chamoisee lightness(+ 8%));
+  --uui-color-chamoisee-dark: color($chamoisee blackness(+ 8%));
+  --uui-color-chamoisee-dimmed: color($chamoisee saturation(- 18%) blackness(+ 8%));
+
+
+  $timberwolf: #E2DAD4;
+  --uui-color-timberwolf: $timberwolf;
+  --uui-color-timberwolf-light: color($timberwolf lightness(+ 8%));
+  --uui-color-timberwolf-dark: color($timberwolf blackness(+ 8%));
+  --uui-color-timberwolf-dimmed: color($timberwolf saturation(- 82%) blackness(+ 6%));
+
+
+  $white: #FEFEFE;
+  --uui-color-white: $white;
+  --uui-color-white-light: color($white lightness(+ 2%));
+  --uui-color-white-dark: color($white blackness(+ 2%));
+  --uui-color-white-dimmed: color($white saturation(- 100%) blackness(+ 12%));
+
+  $black: #040404;
+  --uui-color-black: #060606;
+  --uui-color-black-light: color($black lightness(+ 8%));
+  --uui-color-black-dark: color($black blackness(+ 8%));
+  --uui-color-black-dimmed: color($black saturation(- 100%) lightness(+ 12%));
+
+  $grey: #C4C4C4;
+  --uui-color-grey: $grey;
+  --uui-color-grey-light: color($grey lightness(+ 10%));
+  --uui-color-grey-dark: color($grey blackness(+ 10%));
+  --uui-color-grey-dimmed: color($grey saturation(- 100%) blackness(+ 4%));
+
 
 }

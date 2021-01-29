@@ -8,7 +8,7 @@ UUI - Mapping-level or specific component name - State - Name - Part - Overwrite
 @import "./symbolic-colors.css";
 @import "./animations.css";
 
+@import "./interface.css";
 @import "./themes/default.css";
 @import "./themes/darkmode.css";
-@import "./interface.css";
 @import "./components.css";
