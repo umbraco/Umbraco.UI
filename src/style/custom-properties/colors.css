@@ -108,5 +108,10 @@
   --uui-color-grey-dark: color($grey blackness(+ 10%));
   --uui-color-grey-dimmed: color($grey saturation(- 100%) blackness(+ 4%));
 
+  $dustygrey: #9B9B9B;
+  --uui-color-dusty-grey: $dustygrey;
+  --uui-color-dusty-grey-light: color($dustygrey lightness(+ 8%));
+  --uui-color-dusty-grey-dark: color($dustygrey blackness(+ 10%));
+  --uui-color-dusty-grey-dimmed: color($dustygrey saturation(- 100%) blackness(+ 4%));
 
 }
