@@ -1,65 +1,45 @@
-/** Example of interface specific props which are not begin used directly by components, but mapped to properties specific for each component. **/
+/** Example of interface specific props. **/
 
-/** Ordinary symbolic style */
+/** Standart interface style*/
+:root {
+  --uui-interface-background: var(--uui-color-white);
+  --uui-interface-background-hover: var(--uui-color-white-dark);
+  --uui-interface-background-disabled: var(--uui-color-white-dimmed);
+  --uui-interface-background-focus: var(--uui-color-white);
 
-/* How about standard instead of ordinary */
+  --uui-interface-contrast: var(--uui-color-black);
+  --uui-interface-contrast-hover: var(--uui-color-gunmetal);
+  --uui-interface-contrast-disabled: var(--uui-color-black-dimmed);
+  --uui-interface-contrast-focus: var(--uui-color-black);
 
-@property --uui-interface-ordinary-background-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-background-color: var(--uui-color-ordinary);
-}
-@property --uui-interface-ordinary-background-color-hover {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-background-color-hover: var(
-    --uui-color-ordinary-light
-  );
-}
+  --uui-interface-border: var(--uui-color-grey);
+  --uui-interface-border-hover: var(--uui-color-grey-light);
+  --uui-interface-border-disabled: var(--uui-color-grey-dimmed);
+  --uui-interface-border-focus: var(--uui-color-grey-dark);
 
-@property --uui-interface-ordinary-text-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-text-color: var(--uui-color-ordinary-contrast);
-}
+  --uui-interface-active: var(--uui-color-spanish-pink);
+  --uui-interface-active-hover: var(--uui-color-spanish-pink);
+  --uui-interface-active-disabled: var(--uui-color-spanish-pink-dimmed);
+  --uui-interface-active-focus: var(--uui-color-spanish-pink);
+  /*
+  --uui-interface-background-alt-(Default|Hover|Disabled|Focus)
+  --uui-interface-selected-(Default|Hover|Disabled|Focus)
+  --uui-interface-selectedContrast-(Default|Hover|Disabled|Focus)
+  --uui-interface-active-(Default|Hover|Disabled|Focus)
+  --uui-interface-activeContrast-(Default|Hover|Disabled|Focus)
+  --uui-interface-border-(Default|Hover|Disabled|Focus)
 
-/** Positive symbolic style*/
-@property --uui-interface-positive-background-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-background-color: var(--uui-color-positive);
-}
-@property --uui-interface-positive-background-color-hover {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-background-color-hover: var(
-    --uui-color-positive-tint
-  );
-}
-@property --uui-interface-positive-background-color-active {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-background-color-active: var(
-    --uui-color-positive-highligth
-  );
-}
 
-@property --uui-interface-positive-text-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-text-color: var(--uui-color-white);
+
+
+
+
+  default
+  focus
+  hover
+  disabled
+
+  active
+  selected(/checked/on)
+*/
 }
