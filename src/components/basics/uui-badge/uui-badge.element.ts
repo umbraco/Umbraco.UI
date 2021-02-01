@@ -1,6 +1,6 @@
 import { LitElement, html, css, property } from 'lit-element';
 import {
-  SymbolicColor,
+  SymbolicColorType,
   SymbolicColorDefaultValue,
 } from '../../../type/SymbolicColor';
 
@@ -54,7 +54,7 @@ export class UUIBadgeElement extends LitElement {
   public size: BadgeSize = 'm';
 
   @property({ attribute: true })
-  public color: SymbolicColor = SymbolicColorDefaultValue;
+  public color: SymbolicColorType = SymbolicColorDefaultValue;
 
   render() {
     return html` <slot></slot> `;

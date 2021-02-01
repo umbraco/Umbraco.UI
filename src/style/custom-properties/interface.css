@@ -1,61 +1,47 @@
-/** Example of interface specific props which are not begin used directly by components, but mapped to properties specific for each component. **/
+/** Example of interface specific props. **/
 
-/** Ordinary symbolic style */
 
-@property --uui-interface-ordinary-background-color {
-  syntax: '<color>';
-  inherits: true;
-}
+
+/** Standart interface style*/
 :root {
-  --uui-interface-ordinary-background-color: var(--uui-color-ordinary);
-}
-@property --uui-interface-ordinary-background-color-hover {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-background-color-hover: var(--uui-color-ordinary-light);
-}
+  --uui-interface-background: var(--uui-color-white);
+  --uui-interface-background-hover: var(--uui-color-white-dark);
+  --uui-interface-background-disabled: var(--uui-color-white-dimmed);
+  --uui-interface-background-focus: var(--uui-color-white);
 
-@property --uui-interface-ordinary-text-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-ordinary-text-color: var(--uui-color-ordinary-contrast);
-}
+  --uui-interface-background-alt: var(--uui-color-dusty-grey);
+  --uui-interface-background-alt-hover: var(--uui-color-dusty-grey-light);
+  --uui-interface-background-alt-disabled: var(--uui-color-dusty-grey-dimmed);
+  --uui-interface-background-alt-focus: var(--uui-color-dusty-grey);
 
+  --uui-interface-contrast: var(--uui-color-black);
+  --uui-interface-contrast-hover: var(--uui-color-gunmetal);
+  --uui-interface-contrast-disabled: var(--uui-color-black-dimmed);
+  --uui-interface-contrast-focus: var(--uui-color-black);
 
+  --uui-interface-border: var(--uui-color-grey);
+  --uui-interface-border-hover: var(--uui-color-grey-light);
+  --uui-interface-border-disabled: var(--uui-color-grey-dimmed);
+  --uui-interface-border-focus: var(--uui-color-grey-dark);
 
+  --uui-interface-active: var(--uui-color-spanish-pink);
+  --uui-interface-active-hover: var(--uui-color-spanish-pink);
+  --uui-interface-active-disabled: var(--uui-color-spanish-pink-dimmed);
+  --uui-interface-active-focus: var(--uui-color-spanish-pink);
 
+  --uui-interface-active-contrast: var(--uui-color-gunmetal);
+  --uui-interface-active-contrast-hover: var(--uui-color-space-cadet);
+  --uui-interface-active-contrast-disabled: var(--uui-color-gunmetal-dimmed);
+  --uui-interface-active-contrast-focus: var(--uui-color-gunmetal);
 
-/** Positive symbolic style*/
-@property --uui-interface-positive-background-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-background-color: var(--uui-color-positive);
-}
-@property --uui-interface-positive-background-color-hover {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-background-color-hover: var(--uui-color-positive-tint);
-}
-@property --uui-interface-positive-background-color-active {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-background-color-active: var(--uui-color-positive-highligth);
-}
+  --uui-interface-selected: var(--uui-color-space-cadet);
+  --uui-interface-selected-hover: var(--uui-color-space-cadet-light);
+  --uui-interface-selected-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-interface-selected-focus: var(--uui-color-space-cadet);
 
-@property --uui-interface-positive-text-color {
-  syntax: '<color>';
-  inherits: true;
-}
-:root {
-  --uui-interface-positive-text-color: var(--uui-color-white);
+  --uui-interface-selected-contrast: var(--uui-color-white);
+  --uui-interface-selected-contrast-hover: var(--uui-color-white);
+  --uui-interface-selected-contrast-disabled: var(--uui-color-white-dimmed);
+  --uui-interface-selected-contrast-focus: var(--uui-color-white);
+
 }
