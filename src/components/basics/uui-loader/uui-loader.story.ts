@@ -13,7 +13,7 @@ export const Overview = () =>
 
     <h2>White (Styled with css custom properties)</h2>
     <div style="position: relative; background-color: black; display: inline-block; padding: 10px;">
-      <uui-loader style="--uui-loader-background-color: white;"></uui-loader>
+      <uui-loader style="--uui-loader-background: white;"></uui-loader>
     </div>
 
     <h2>Centered in container</h2>

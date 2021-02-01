@@ -13,10 +13,7 @@ export class UUILoaderElement extends LitElement {
         height: 6px;
         border-radius: 100%;
         border: 2px solid
-          var(
-            --uui-loader-background-color,
-            var(--uui-color-primary-background)
-          );
+          var(--uui-loader-background, var(--uui-color-primary-background));
         animation: loaderAnimation 1.4s infinite;
       }
 
@@ -36,7 +33,7 @@ export class UUILoaderElement extends LitElement {
         0% {
           transform: scale(0.5);
           background: var(
-            --uui-loader-background-color,
+            --uui-loader-background,
             var(--uui-color-primary-background)
           );
         }
@@ -47,7 +44,7 @@ export class UUILoaderElement extends LitElement {
         100% {
           transform: scale(0.5);
           background: var(
-            --uui-loader-background-color,
+            --uui-loader-background,
             var(--uui-color-primary-background)
           );
         }
