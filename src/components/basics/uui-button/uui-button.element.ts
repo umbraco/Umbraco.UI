@@ -29,8 +29,10 @@ export class UUIButtonElement extends LitElement {
         font-size: inherit;
         font-family: inherit;
 
-        /* Default button-style: */
-        background-color: var(--uui-interface-background);
+        background-color: var(
+          --uui-button-background,
+          --uui-interface-background
+        );
         color: var(--uui-interface-contrast);
 
         transition: background-color 80ms;
@@ -49,9 +51,14 @@ export class UUIButtonElement extends LitElement {
       :host([loading]) button:before {
         content: '⏳';
       }
+
+      /** Styling for button with button-style value. */
+      :host([button-style]:not([button-style=''])) button {
+        font-weight: 700;
+      }
     `,
     SymbolicColorCSSCreator(
-      (symbolicColorName: any): CSSResult =>
+      symbolicColorName =>
         css`
           :host([button-style='${symbolicColorName}']) button {
             background-color: var(--uui-color-${symbolicColorName}-background);

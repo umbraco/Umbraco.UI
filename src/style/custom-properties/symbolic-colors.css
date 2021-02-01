@@ -39,6 +39,18 @@
   --uui-color-positive-contrast-focus: var(--uui-color-white);
 }
 
+/** WARNING */
+:root {
+  --uui-color-warning-background: var(--uui-color-sunglow);
+  --uui-color-warning-background-hover: var(--uui-color-sunglow-light);
+  --uui-color-warning-background-disabled: var(--uui-color-sunglow-dimmed);
+  --uui-color-warning-background-focus: var(--uui-color-sunglow);
+  --uui-color-warning-contrast: var(--uui-color-black);
+  --uui-color-warning-contrast-hover: var(--uui-color-black);
+  --uui-color-warning-contrast-disabled: var(--uui-color-black);
+  --uui-color-warning-contrast-focus: var(--uui-color-black);
+}
+
 /** DANGER */
 :root {
   --uui-color-danger-background: var(--uui-color-maroon-flush);
