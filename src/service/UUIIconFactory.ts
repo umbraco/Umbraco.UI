@@ -17,7 +17,7 @@ export class UUIIconFactory {
       const promise = new UUIIcon();
       UUIIconFactory.Promises[iconName] = promise;
 
-      // TODO: Missing event to let icon service react to the request.
+      // TODO: Missing event to let icon service react to the request of a new icon.
 
       return promise.getPromise();
     }
