@@ -34,9 +34,9 @@ export const Sizes = () => html`
     ${AvatarSizes.map(
       (avatarSize: AvatarSizeType) =>
         html`<uui-avatar
-          decorate="primary"
           size="${avatarSize}"
-          text="First Last"
+          img-src="${avatarSrcSet[0]}"
+          img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
         >
         </uui-avatar>`
     )}

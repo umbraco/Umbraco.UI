@@ -119,7 +119,7 @@ export class UUIAvatarElement extends LitElement {
             alt="${this.text}"
             class="image"
           />`
-        : html`<span>${this.initials || this.unknownCharacter}</span>`}
+        : html`${this.initials || this.unknownCharacter}`}
     `;
   }
 }
