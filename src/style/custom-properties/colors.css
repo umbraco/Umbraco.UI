@@ -108,16 +108,16 @@
   --uui-color-grey-dark: color($grey blackness(+ 10%));
   --uui-color-grey-dimmed: color($grey saturation(- 100%) blackness(+ 4%));
 
-  $dustygrey: #9B9B9B;
-  --uui-color-dusty-grey: $dustygrey;
-  --uui-color-dusty-grey-light: color($dustygrey lightness(+ 8%));
-  --uui-color-dusty-grey-dark: color($dustygrey blackness(+ 10%));
-  --uui-color-dusty-grey-dimmed: color($dustygrey saturation(- 100%) blackness(+ 4%));
+  $dusty-grey: #9B9B9B;
+  --uui-color-dusty-grey: $dusty-grey;
+  --uui-color-dusty-grey-light: color($dusty-grey lightness(+ 8%));
+  --uui-color-dusty-grey-dark: color($dusty-grey blackness(+ 10%));
+  --uui-color-dusty-grey-dimmed: color($dusty-grey saturation(- 100%) blackness(+ 4%));
 
-  $minegrey: #3E3E3E;
-  --uui-color-mine-grey: $minegrey;
-  --uui-color-mine-grey-light: color($minegrey lightness(+ 8%));
-  --uui-color-mine-grey-dark: color($minegrey blackness(+ 10%));
-  --uui-color-mine-grey-dimmed: color($minegrey saturation(- 100%) blackness(+ 4%));
+  $mine-grey: #3E3E3E;
+  --uui-color-mine-grey: $mine-grey;
+  --uui-color-mine-grey-light: color($mine-grey lightness(+ 8%));
+  --uui-color-mine-grey-dark: color($mine-grey blackness(+ 10%));
+  --uui-color-mine-grey-dimmed: color($mine-grey saturation(- 100%) blackness(+ 4%));
 
 }
