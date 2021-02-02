@@ -12,8 +12,8 @@
 
   $sunglow:#FAD634;
   --uui-color-sunglow: $sunglow;
-  --uui-color-sunglow-light: color($sunglow lightness(+ 5%));
-  --uui-color-sunglow-dark: color($sunglow blackness(+ 5%));
+  --uui-color-sunglow-light: color($sunglow lightness(+ 10%));
+  --uui-color-sunglow-dark: color($sunglow blackness(+ 10%));
   --uui-color-sunglow-dimmed: color($sunglow saturation(- 78%) blackness(+ 1%));
 
   $spanish-pink:#F5C1BC;
@@ -60,8 +60,8 @@
 
   $jungle-green: #2BC37C;
   --uui-color-jungle-green: $jungle-green;
-  --uui-color-jungle-green-light: color($jungle-green lightness(+ 8%));
-  --uui-color-jungle-green-dark: color($jungle-green blackness(+ 8%));
+  --uui-color-jungle-green-light: color($jungle-green lightness(+ 6%));
+  --uui-color-jungle-green-dark: color($jungle-green blackness(+ 6%));
   --uui-color-jungle-green-dimmed: color($jungle-green saturation(- 50%) blackness(+ 1%));
 
   $cocoa-black: #191715;
@@ -108,5 +108,16 @@
   --uui-color-grey-dark: color($grey blackness(+ 10%));
   --uui-color-grey-dimmed: color($grey saturation(- 100%) blackness(+ 4%));
 
+  $dusty-grey: #9B9B9B;
+  --uui-color-dusty-grey: $dusty-grey;
+  --uui-color-dusty-grey-light: color($dusty-grey lightness(+ 8%));
+  --uui-color-dusty-grey-dark: color($dusty-grey blackness(+ 10%));
+  --uui-color-dusty-grey-dimmed: color($dusty-grey saturation(- 100%) blackness(+ 4%));
+
+  $mine-grey: #3E3E3E;
+  --uui-color-mine-grey: $mine-grey;
+  --uui-color-mine-grey-light: color($mine-grey lightness(+ 8%));
+  --uui-color-mine-grey-dark: color($mine-grey blackness(+ 10%));
+  --uui-color-mine-grey-dimmed: color($mine-grey saturation(- 100%) blackness(+ 4%));
 
 }

@@ -7,6 +7,11 @@
   --uui-interface-background-disabled: var(--uui-color-white-dimmed);
   --uui-interface-background-focus: var(--uui-color-white);
 
+  --uui-interface-background-alt: var(--uui-color-dusty-grey);
+  --uui-interface-background-alt-hover: var(--uui-color-dusty-grey-light);
+  --uui-interface-background-alt-disabled: var(--uui-color-dusty-grey-dimmed);
+  --uui-interface-background-alt-focus: var(--uui-color-dusty-grey);
+
   --uui-interface-contrast: var(--uui-color-black);
   --uui-interface-contrast-hover: var(--uui-color-gunmetal);
   --uui-interface-contrast-disabled: var(--uui-color-black-dimmed);
@@ -21,25 +26,19 @@
   --uui-interface-active-hover: var(--uui-color-spanish-pink);
   --uui-interface-active-disabled: var(--uui-color-spanish-pink-dimmed);
   --uui-interface-active-focus: var(--uui-color-spanish-pink);
-  /*
-  --uui-interface-background-alt-(Default|Hover|Disabled|Focus)
-  --uui-interface-selected-(Default|Hover|Disabled|Focus)
-  --uui-interface-selectedContrast-(Default|Hover|Disabled|Focus)
-  --uui-interface-active-(Default|Hover|Disabled|Focus)
-  --uui-interface-activeContrast-(Default|Hover|Disabled|Focus)
-  --uui-interface-border-(Default|Hover|Disabled|Focus)
 
+  --uui-interface-active-contrast: var(--uui-color-gunmetal);
+  --uui-interface-active-contrast-hover: var(--uui-color-space-cadet);
+  --uui-interface-active-contrast-disabled: var(--uui-color-gunmetal-dimmed);
+  --uui-interface-active-contrast-focus: var(--uui-color-gunmetal);
 
+  --uui-interface-selected: var(--uui-color-space-cadet);
+  --uui-interface-selected-hover: var(--uui-color-space-cadet-light);
+  --uui-interface-selected-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-interface-selected-focus: var(--uui-color-space-cadet);
 
-
-
-
-  default
-  focus
-  hover
-  disabled
-
-  active
-  selected(/checked/on)
-*/
+  --uui-interface-selected-contrast: var(--uui-color-white);
+  --uui-interface-selected-contrast-hover: var(--uui-color-white);
+  --uui-interface-selected-contrast-disabled: var(--uui-color-white-dimmed);
+  --uui-interface-selected-contrast-focus: var(--uui-color-white);
 }
