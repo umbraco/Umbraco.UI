@@ -9,11 +9,10 @@ export class UUILoaderElement extends LitElement {
     css`
       .bubble {
         display: inline-block;
-        width: 6px;
-        height: 6px;
+        width: var(--uui-size-base-unit);
+        height: var(--uui-size-base-unit);
         border-radius: 100%;
-        border: 2px solid
-          var(--uui-loader-background, var(--uui-color-primary-background));
+        border: 2px solid currentColor;
         animation: loaderAnimation 1.4s infinite;
       }
 
@@ -32,10 +31,7 @@ export class UUILoaderElement extends LitElement {
       @keyframes loaderAnimation {
         0% {
           transform: scale(0.5);
-          background: var(
-            --uui-loader-background,
-            var(--uui-color-primary-background)
-          );
+          background: currentColor;
         }
         50% {
           transform: scale(1);
@@ -43,10 +39,7 @@ export class UUILoaderElement extends LitElement {
         }
         100% {
           transform: scale(0.5);
-          background: var(
-            --uui-loader-background,
-            var(--uui-color-primary-background)
-          );
+          background: currentColor;
         }
       }
     `,
