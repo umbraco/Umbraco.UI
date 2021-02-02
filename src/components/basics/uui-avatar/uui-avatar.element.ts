@@ -1,125 +1,66 @@
 import { LitElement, html, property, css } from 'lit-element';
+import {
+  SymbolicColorType,
+  SymbolicColorDefaultValue,
+  SymbolicColorCSSCreator,
+} from '../../../type/SymbolicColor';
 
 /**
  *  @element uui-avatar
  */
 
-// TODO Global sizes type?
-type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+export type AvatarSizeType = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 
-// TODO Global color type?
-type AvatarColor =
-  | 'primary'
-  | 'secondary'
-  | 'positive'
-  | 'warning'
-  | 'danger'
-  | 'white'
-  | 'gray';
+export const AvatarSizes: Readonly<AvatarSizeType[]> = [
+  'xxl',
+  'xl',
+  'l',
+  'm',
+  's',
+  'xs',
+  'xxs',
+] as const;
 
 export class UUIAvatarElement extends LitElement {
-  // TODO Maybe look into making the default avatar size fully responsive?
-  // TODO Update color themes when color variables are ready
   static styles = [
     css`
       :host {
-        overflow: hidden;
-        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
+        border-radius: 50%;
         font-weight: bold;
-        box-sizing: border-box;
-
-        color: #000000;
-        background-color: transparent;
-
-        width: 100%;
-        height: 100%;
-        font-size: 16px;
+        width: 2.17em;
+        height: 2.17em;
       }
 
       :host([size='xxs']) {
-        width: 26px;
-        height: 26px;
         font-size: 12px;
       }
 
       :host([size='xs']) {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
-      }
-
-      :host([size='s']) {
-        width: 40px;
-        height: 40px;
         font-size: 14px;
       }
 
+      :host([size='s']) {
+        font-size: 18px;
+      }
+
       :host([size='m']) {
-        width: 50px;
-        height: 50px;
-        font-size: 16px;
+        font-size: 23px;
       }
 
       :host([size='l']) {
-        width: 70px;
-        height: 70px;
-        font-size: 18px;
-      }
-
-      :host([size='l']) {
-        width: 70px;
-        height: 70px;
-        font-size: 18px;
+        font-size: 32px;
       }
 
       :host([size='xl']) {
-        width: 100px;
-        height: 100px;
-        font-size: 20px;
+        font-size: 46px;
       }
 
       :host([size='xxl']) {
-        width: 150px;
-        height: 150px;
-        font-size: 36px;
-      }
-
-      :host([color='primary']) {
-        background-color: pink;
-        color: black;
-      }
-
-      :host([color='secondary']) {
-        background-color: blue;
-        color: white;
-      }
-
-      :host([color='success']) {
-        background: green;
-        color: white;
-      }
-
-      :host([color='warning']) {
-        background: yellow;
-        color: black;
-      }
-
-      :host([color='danger']) {
-        background: red;
-        color: white;
-      }
-
-      :host([color='white']) {
-        background: white;
-        color: black;
-      }
-
-      :host([color='gray']) {
-        background: whitesmoke;
-        color: black;
+        font-size: 70px;
       }
 
       .image {
@@ -127,15 +68,20 @@ export class UUIAvatarElement extends LitElement {
         height: 100%;
         width: 100%;
       }
-
-      text {
-        width: 100%;
-      }
     `,
+    SymbolicColorCSSCreator(
+      symbolicColorName =>
+        css`
+          :host([decorate='${symbolicColorName}']) {
+            background-color: var(--uui-color-${symbolicColorName}-background);
+            color: var(--uui-color-${symbolicColorName}-contrast);
+          }
+        `
+    ),
   ];
 
   @property({ type: String, attribute: true })
-  public size: AvatarSize = 'm';
+  public size: AvatarSizeType = 'm';
 
   @property({ type: String, attribute: 'img-src' })
   public imgSrc = '';
@@ -144,21 +90,21 @@ export class UUIAvatarElement extends LitElement {
   public imgSrcset = '';
 
   @property({ type: String, attribute: true })
-  public color: AvatarColor = 'primary';
+  public decorate: SymbolicColorType = SymbolicColorDefaultValue;
 
   @property({ type: String, attribute: true })
-  public name = '';
+  public text = '';
 
   @property({ type: String })
   unknownCharacter = '?';
 
-  get initials() {
+  get initials(): string {
     let initials = '';
-    const names = this.name.split(' ');
-    initials = names[0].substring(0, 1);
+    const words = this.text.split(' ');
+    initials = words[0].substring(0, 1);
 
-    if (names.length > 1) {
-      initials += names[names.length - 1].substring(0, 1);
+    if (words.length > 1) {
+      initials += words[words.length - 1].substring(0, 1);
     }
 
     return initials;
@@ -170,7 +116,7 @@ export class UUIAvatarElement extends LitElement {
         ? html`<img
             src="${this.imgSrc}"
             srcset="${this.imgSrcset}"
-            alt="${this.name}"
+            alt="${this.text}"
             class="image"
           />`
         : html`<span>${this.initials || this.unknownCharacter}</span>`}
