@@ -1,8 +1,13 @@
 import { LitElement, html, css, property } from 'lit-element';
+import {
+  UUIHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
+} from '../../../animations/uui-shake';
 import { UUIButtonClickEvent } from '../../../event/UUIButtonClickEvent';
 import {
-  SymbolicColor,
+  SymbolicColorType,
   SymbolicColorDefaultValue,
+  SymbolicColorCSSCreator,
 } from '../../../type/SymbolicColor';
 
 /**
@@ -12,40 +17,75 @@ import {
  */
 export class UUIButtonElement extends LitElement {
   static styles = [
+    UUIHorizontalShakeKeyframes,
     css`
       button {
         display: inline-block;
-        padding: 6px 14px;
-        margin-bottom: 0;
-        font-size: 15px;
-        line-height: 20px;
+        /* example of using the base-unit prop for sizing, it can be usefull to hardcode a minor adjustment for the right look, notice + 2px in this example: */
+        padding: var(--uui-size-base-unit)
+          calc((var(--uui-size-base-unit) * 2) + 2px);
         text-align: center;
         vertical-align: middle;
         border: none;
         box-shadow: none;
-        border-radius: 3px;
+        border-radius: var(--uui-size-border-radius);
         cursor: pointer;
+        font-weight: 500;
+        font-size: inherit;
+        font-family: inherit;
 
-        /* Default button-style: */
-        background: var(--uui-button-ordinary-background-color);
-        color: var(--uui-button-ordinary-text-color);
+        background-color: var(
+          --uui-button-background,
+          --uui-interface-background
+        );
+        color: var(--uui-interface-contrast);
+
+        transition: background-color 80ms;
+      }
+      button:hover {
+        background-color: var(--uui-interface-background-hover);
+        color: var(--uui-interface-contrast-hover);
       }
 
       button[disabled] {
-        /* Idea on how to make disabled state fit with given style/colors */
-        filter: grayscale(0.2) contrast(0.3) brightness(1.4);
+        background-color: var(--uui-interface-background-disabled);
+        color: var(--uui-interface-contrast-disabled);
         cursor: default;
       }
-
-      :host([button-style='positive']) button {
-        background: var(--uui-button-positive-background-color);
-        color: var(--uui-button-positive-text-color);
+      button[disabled]:active {
+        animation: ${UUIHorizontalShakeAnimationValue};
       }
 
       :host([loading]) button:before {
         content: '⏳';
       }
+
+      /** Styling for button with button-style value. */
+      :host([button-style]:not([button-style=''])) button {
+        font-weight: 700;
+      }
     `,
+    SymbolicColorCSSCreator(
+      symbolicColorName =>
+        css`
+          :host([button-style='${symbolicColorName}']) button {
+            background-color: var(--uui-color-${symbolicColorName}-background);
+            color: var(--uui-color-${symbolicColorName}-contrast);
+          }
+          :host([button-style='${symbolicColorName}']) button:hover {
+            background-color: var(
+              --uui-color-${symbolicColorName}-background-hover
+            );
+            color: var(--uui-color-${symbolicColorName}-contrast-hover);
+          }
+          :host([button-style='${symbolicColorName}']) button[disabled] {
+            background-color: var(
+              --uui-color-${symbolicColorName}-background-disabled
+            );
+            color: var(--uui-color-${symbolicColorName}-contrast-disabled);
+          }
+        `
+    ),
   ];
 
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
@@ -56,8 +96,10 @@ export class UUIButtonElement extends LitElement {
   @property({ type: Boolean, attribute: true })
   loading = false;
 
+  // Note: We should not adapt the failed or good state from current backoffice, its bad UX and no need to enable that ongoing.
+
   @property({ type: String, attribute: 'button-style' })
-  buttonStyle: SymbolicColor = SymbolicColorDefaultValue;
+  buttonStyle: SymbolicColorType = SymbolicColorDefaultValue;
 
   private onClick(e: Event) {
     e.preventDefault();

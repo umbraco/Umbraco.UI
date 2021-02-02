@@ -1,7 +1,9 @@
 /* Size Properties */
 
-@property --uui-size-border-radius {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 3px;
+:root {
+
+  --uui-size-base-unit: 6px;
+
+  --uui-size-border-radius: 3px;
+
 }

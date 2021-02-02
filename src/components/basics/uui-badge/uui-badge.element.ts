@@ -1,7 +1,7 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { Size } from '../../../type/Size';
 import {
-  SymbolicColor,
+  SymbolicColorType,
   SymbolicColorDefaultValue,
 } from '../../../type/SymbolicColor';
 
@@ -55,7 +55,7 @@ export class UUIBadgeElement extends LitElement {
   public size: Size = 'm';
 
   @property({ attribute: true })
-  public color: SymbolicColor = SymbolicColorDefaultValue;
+  public color: SymbolicColorType = SymbolicColorDefaultValue;
 
   render() {
     return html` <slot></slot> `;

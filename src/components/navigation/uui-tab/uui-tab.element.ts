@@ -18,17 +18,20 @@ export class UUITabElement extends LitElement {
         text-align: center;
         padding: 4px 20px 0 20px;
         border: none;
-        border-right: 1px solid lightgray;
+        border-right: 1px solid var(--uui-interface-border);
         box-sizing: border-box;
         height: 75px;
         min-width: 75px;
-        color: darkblue;
-        background-color: transparent;
+        background-color: var(--uui-interface-background);
+        color: var(--uui-interface-contrast);
         cursor: pointer;
+
+        transition: background-color 80ms;
       }
 
       button:hover {
-        color: blue;
+        background-color: var(--uui-interface-background-hover);
+        color: var(--uui-interface-contrast-hover);
       }
 
       button:active {
@@ -45,15 +48,18 @@ export class UUITabElement extends LitElement {
         width: calc(100% - 16px);
         left: auto;
         right: auto;
-        background-color: pink;
+        background-color: var(--uui-interface-active);
         bottom: 0;
         border-radius: 3px 3px 0 0;
         opacity: 0;
         transition: all 0.2s linear;
       }
+      button:hover::before {
+        background-color: var(--uui-interface-active-hover);
+      }
 
       :host([active]) button {
-        color: blue;
+        color: var(--uui-interface-contrast-active);
         cursor: default;
       }
       :host([active]) button::before {
