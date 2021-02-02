@@ -240,15 +240,24 @@ export class UUIToggleElement extends LitElement {
       this.name = this.label;
     }
 
+    if (this.checked) {
+      this.value = 'on';
+    }
+
     this._input.setAttribute('role', 'switch');
   }
 
+  updated() {
+    this._input.checked = this.checked;
+    this.value = this.checked ? 'on' : 'off';
+    // console.log('native input value', this._input.checked, this.value)
+  }
+
   private _onInputChange() {
-    if (this._input.checked) {
-      this.value = 'on';
-    } else {
-      this.value = 'off';
-    }
+    this.checked = this._input.checked;
+    this.value = this.checked ? 'on' : 'off';
+
+    //console.log(this.checked, this._input.checked, 'input event fired', this.value);
 
     this.dispatchEvent(new UUIToggleChangeEvent());
   }
@@ -260,7 +269,7 @@ export class UUIToggleElement extends LitElement {
           type="checkbox"
           id="switch"
           ?disabled="${this.disabled}"
-          @change="${this._onInputChange}"
+          @input="${this._onInputChange}"
           .checked="${this.checked}"
         />
         <div id="slider">
@@ -272,3 +281,5 @@ export class UUIToggleElement extends LitElement {
     `;
   }
 }
+
+//
