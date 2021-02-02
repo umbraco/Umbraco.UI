@@ -1,24 +1,65 @@
 /** STANDART */
 :root {
-  --uui-color-standard: var(--uui-color-grey);
-  --uui-color-standard-light: var(--uui-color-grey);
-  --uui-color-standard-dark: var(--uui-color-grey);
-  --uui-color-standard-contrast: var(--uui-color-black);
+  /* nothing. */
 }
 
+/** PRIMARY */
+:root {
+  --uui-color-primary-background: var(--uui-color-space-cadet);
+  --uui-color-primary-background-hover: var(--uui-color-violet-blue);
+  --uui-color-primary-background-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-color-primary-background-focus: var(--uui-color-space-cadet);
+  --uui-color-primary-contrast: var(--uui-color-white);
+  --uui-color-primary-contrast-hover: var(--uui-color-white);
+  --uui-color-primary-contrast-disabled: var(--uui-color-white);
+  --uui-color-primary-contrast-focus: var(--uui-color-white);
+}
+
+/** SECONDARY */
+:root {
+  --uui-color-secondary-background: var(--uui-color-timberwolf);
+  --uui-color-secondary-background-hover: var(--uui-color-timberwolf-light);
+  --uui-color-secondary-background-disabled: var(--uui-color-timberwolf-dimmed);
+  --uui-color-secondary-background-focus: var(--uui-color-timberwolf);
+  --uui-color-secondary-contrast: var(--uui-color-space-cadet);
+  --uui-color-secondary-contrast-hover: var(--uui-color-violet-blue);
+  --uui-color-secondary-contrast-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-color-secondary-contrast-focus: var(--uui-color-space-cadet);
+}
 
 /** POSITIVE */
 :root {
-  --uui-color-positive: var(--uui-color-jungle-green);
-  --uui-color-positive-light: var(--uui-color-jungle-green);
-  --uui-color-positive-dark: var(--uui-color-jungle-green);
+  --uui-color-positive-background: var(--uui-color-jungle-green);
+  --uui-color-positive-background-hover: var(--uui-color-jungle-green-light);
+  --uui-color-positive-background-disabled: var(--uui-color-jungle-green-dimmed);
+  --uui-color-positive-background-focus: var(--uui-color-jungle-green);
   --uui-color-positive-contrast: var(--uui-color-white);
+  --uui-color-positive-contrast-hover: var(--uui-color-white);
+  --uui-color-positive-contrast-disabled: var(--uui-color-white);
+  --uui-color-positive-contrast-focus: var(--uui-color-white);
+}
+
+/** WARNING */
+:root {
+  --uui-color-warning-background: var(--uui-color-sunglow);
+  --uui-color-warning-background-hover: var(--uui-color-sunglow-light);
+  --uui-color-warning-background-disabled: var(--uui-color-sunglow-dimmed);
+  --uui-color-warning-background-focus: var(--uui-color-sunglow);
+  --uui-color-warning-contrast: var(--uui-color-black);
+  --uui-color-warning-contrast-hover: var(--uui-color-black);
+  --uui-color-warning-contrast-disabled: var(--uui-color-black);
+  --uui-color-warning-contrast-focus: var(--uui-color-black);
 }
 
 /** DANGER */
 :root {
-  --uui-color-danger: var(--uui-color-maroon-flush);
-  --uui-color-danger-light: var(--uui-color-maroon-flush);
-  --uui-color-danger-dark: var(--uui-color-maroon-flush);
+  --uui-color-danger-background: var(--uui-color-maroon-flush);
+  --uui-color-danger-background-hover: var(--uui-color-maroon-flush-light);
+  --uui-color-danger-background-disabled: var(--uui-color-maroon-flush-dimmed);
+  --uui-color-danger-background-focus: var(--uui-color-maroon-flush);
   --uui-color-danger-contrast: var(--uui-color-white);
+  --uui-color-danger-contrast-hover: var(--uui-color-white);
+  --uui-color-danger-contrast-disabled: var(--uui-color-white);
+  --uui-color-danger-contrast-focus: var(--uui-color-white);
 }
+
