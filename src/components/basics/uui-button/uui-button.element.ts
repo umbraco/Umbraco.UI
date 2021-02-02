@@ -1,4 +1,8 @@
-import { LitElement, html, css, property, CSSResult } from 'lit-element';
+import { LitElement, html, css, property } from 'lit-element';
+import {
+  UUIHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
+} from '../../../animations/uui-shake';
 import { UUIButtonClickEvent } from '../../../event/UUIButtonClickEvent';
 import {
   SymbolicColorType,
@@ -13,6 +17,7 @@ import {
  */
 export class UUIButtonElement extends LitElement {
   static styles = [
+    UUIHorizontalShakeKeyframes,
     css`
       button {
         display: inline-block;
@@ -46,6 +51,9 @@ export class UUIButtonElement extends LitElement {
         background-color: var(--uui-interface-background-disabled);
         color: var(--uui-interface-contrast-disabled);
         cursor: default;
+      }
+      button[disabled]:active {
+        animation: ${UUIHorizontalShakeAnimationValue};
       }
 
       :host([loading]) button:before {

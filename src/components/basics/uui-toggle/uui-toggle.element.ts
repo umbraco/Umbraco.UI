@@ -8,8 +8,8 @@ import {
 } from 'lit-element';
 import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
 import {
-  uuiHorizontalShakeKeyframes,
-  uuiHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
+  UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
 
@@ -28,7 +28,7 @@ type ToggleValue = 'on' | 'off'; //should there be more? this is what the form w
 
 export class UUIToggleElement extends LitElement {
   static styles = [
-    uuiHorizontalShakeKeyframes,
+    UUIHorizontalShakeKeyframes,
     css`
       :host {
         --uui-toggle-size: 18px;
@@ -165,7 +165,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       :host([disabled]) #slider:active {
-        animation: ${uuiHorizontalShakeAnimationValue};
+        animation: ${UUIHorizontalShakeAnimationValue};
       }
 
       :host([disabled]) #slider:active:after {
