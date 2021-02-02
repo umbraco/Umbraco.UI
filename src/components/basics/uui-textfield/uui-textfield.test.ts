@@ -27,7 +27,7 @@ describe('UuiTextfield with label', () => {
   });
 });
 
-describe('UuiToggle in Form', () => {
+describe('UuiTextfield in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUITextFieldElement;
   beforeEach(async () => {
