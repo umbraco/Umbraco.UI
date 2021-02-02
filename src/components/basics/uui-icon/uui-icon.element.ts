@@ -1,11 +1,4 @@
 import { LitElement, html, css, property } from 'lit-element';
-import { Size } from '../../../type/Size';
-import {
-  SymbolicColor,
-  SymbolicColorDefaultValue,
-} from '../../../type/SymbolicColor';
-import { stateColorUtil } from './state-color-util';
-
 /**
  *  @element uui-icon
  *
@@ -15,49 +8,29 @@ export class UUIIconElement extends LitElement {
   static styles = [
     css`
       :host {
-        --uui-icon-base-size: 24px;
         display: inline-block;
-        width: var(--uui-icon-base-size);
+        width: 1em;
+        height: 1em;
         margin: 5px;
-        --uui-icon-fill: blue;
-      }
-
-      :host([size='xxs']) {
-        width: calc(0.3 * var(--uui-icon-base-size));
-      }
-
-      :host([size='xs']) {
-        width: calc(0.6 * var(--uui-icon-base-size));
-      }
-
-      :host([size='s']) {
-        width: var(--uui-icon-base-size);
-      }
-
-      :host([size='m']) {
-        width: calc(1.5 * var(--uui-icon-base-size));
-      }
-
-      :host([size='l']) {
-        width: calc(2 * var(--uui-icon-base-size));
-      }
-
-      :host([size='xl']) {
-        width: calc(2.5 * var(--uui-icon-base-size));
       }
 
       ::slotted(svg) {
-        fill: var(--uui-icon-fill);
+        fill: currentColor;
       }
     `,
-    stateColorUtil('fill', 'uui-icon', '::slotted(svg)'),
   ];
 
-  @property({ reflect: true })
-  size: Size = 'm';
-
+  private _name: string | null = null;
   @property()
-  color: SymbolicColor | null = null;
+  get name(): string | null {
+    return this._name;
+  }
+  set name(newValue) {
+    this._name = newValue;
+    if (this._name !== '' && this._name !== null) {
+      console.log('HPPY');
+    }
+  }
 
   render() {
     return html` <slot></slot> `;
