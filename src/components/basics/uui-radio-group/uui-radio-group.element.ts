@@ -1,15 +1,22 @@
-import { LitElement, html, css, property, query } from 'lit-element';
+import {
+  LitElement,
+  html,
+  css,
+  property,
+  query,
+  internalProperty,
+} from 'lit-element';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 /**
  *  @element uui-radio-group
  *
  */
 
-//TODO internals and expose a form value
 //TODO required
 //TODO disabled
-//TODO styles - where can i find it
+//TODO focused style
 //TODO keyboard nav and focus
+//TODO porogramatically change the value
 //? what types should we allow as a value of that?
 
 export class UUIRadioGroup extends LitElement {
@@ -23,6 +30,15 @@ export class UUIRadioGroup extends LitElement {
     super();
     this._internals = (this as any).attachInternals();
     this.addEventListener('change', this._handleSelect);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'radio-group');
+  }
+
+  firstUpdated() {
+    this.radioElements[0].setAttribute('tabindex', '0');
   }
 
   @query('slot') protected slotElement!: HTMLSlotElement;
@@ -46,6 +62,9 @@ export class UUIRadioGroup extends LitElement {
       : [];
   }
 
+  @internalProperty()
+  selected: number | null = null;
+
   //how to abstract this method so it's reusable?
   private _handleSelect(e: Event) {
     const radios = this.radioElements;
@@ -54,6 +73,7 @@ export class UUIRadioGroup extends LitElement {
     radios.forEach(el => {
       if (el === e.target) {
         selectedElement = el;
+        // this.selected = radios.findIndex()
         this._value = selectedElement.value;
       }
     });
@@ -66,6 +86,6 @@ export class UUIRadioGroup extends LitElement {
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html` <slot></slot> `;
   }
 }

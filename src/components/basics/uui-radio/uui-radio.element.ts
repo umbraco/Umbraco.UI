@@ -6,8 +6,86 @@ import { UUIRadioChangeEvent } from '../../../event/UUIRadioChangeEvent';
  *
  */
 
+//? should there be selected disabled combination
+//TODO add shake to disabled?
+
 export class UUIRadioElement extends LitElement {
-  static styles = [css``];
+  static styles = [
+    css`
+      :host {
+        font-family: inherit;
+        color: inherit;
+        --uui-radio-button-size: calc(var(--uui-size-base-unit) * 3);
+      }
+
+      label {
+        display: block;
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      #input {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        margin: 0;
+      }
+
+      #button {
+        display: inline-block;
+        width: var(--uui-radio-button-size, 18px);
+        height: var(--uui-radio-button-size, 18px);
+        background-color: var(--uui-interface-background, white);
+        border: 1px solid var(--uui-interface-border, #d8d7d9);
+        border-radius: 100%;
+        margin-right: 10px;
+        position: relative;
+      }
+
+      #button::after {
+        content: '';
+        width: calc(var(--uui-radio-button-size) / 2);
+        height: calc(var(--uui-radio-button-size) / 2);
+        background-color: var(--uui-interface-selected, #1b264f);
+        border-radius: 100%;
+        position: absolute;
+        top: calc(var(--uui-radio-button-size) / 2);
+        left: calc(var(--uui-radio-button-size) / 2);
+        transform: translate(-50%, -50%) scale(0);
+        transition: all 0.15s ease-in-out;
+      }
+
+      input:checked ~ #button::after {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      label:hover #button {
+        border: 1px solid var(--uui-interface-border-hover, #c4c4c4);
+      }
+
+      input:checked ~ #button {
+        border: 1px solid var(--uui-interface-selected, #1b264f);
+      }
+
+      input:checked:hover ~ #button {
+        border: 1px solid var(--uui-interface-selected-hover, #2152a3);
+      }
+
+      input:checked:hover ~ #button::after {
+        background-color: var(--uui-interface-selected-hover, #2152a3);
+      }
+
+      input:disabled ~ #button {
+        border: 1px solid var(--uui-interface-border-disabled);
+      }
+
+      input:disabled ~ #label {
+        color: var(--uui-interface-contrast-disabled);
+      }
+    `,
+  ];
 
   @query('#input')
   private inputElement!: HTMLInputElement;
@@ -18,29 +96,59 @@ export class UUIRadioElement extends LitElement {
   @property({ type: String, reflect: true })
   public value = '';
 
+  @property({ type: String })
+  public label = '';
+
   @property({ type: Boolean, reflect: true })
   public checked = false;
 
+  @property({ type: Boolean, reflect: true })
+  public disabled = false;
+
   private _onChange() {
-    this.checked = this.inputElement.checked;
+    if (this.inputElement.checked) this.check();
+    else this.uncheck();
+
+    //this.checked = this.inputElement.checked;
     this.dispatchEvent(new UUIRadioChangeEvent());
   }
 
   public uncheck() {
     this.checked = false;
+    this.setAttribute('tabindex', '-1');
+    this.setAttribute('aria-checked', 'false');
+  }
+
+  public check() {
+    this.checked = true;
+    this.setAttribute('tabindex', '0');
+    this.setAttribute('aria-checked', 'true');
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
+    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
+    if (!this.hasAttribute('aria-checked'))
+      this.setAttribute('aria-checked', 'false');
   }
 
   render() {
-    return html` <input
+    return html` <label id="radio-label">
+      <input
         id="input"
-        aria-labelledby="label"
+        aria-labelledby="radio-label"
         type="radio"
         name=${this.name}
         value=${this.value}
         .checked=${this.checked}
+        ?disabled=${this.disabled}
         @change=${this._onChange}
       />
-      <span id="button"></span>
-      <label id="label"><slot></slot></label>`;
+      <div id="button"></div>
+      <div id="label">
+        ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}
+      </div>
+    </label>`;
   }
 }
