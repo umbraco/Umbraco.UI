@@ -36,5 +36,15 @@
     --uui-interface-border-disabled: var(--uui-color-grey-dimmed);
     --uui-interface-border-focus: var(--uui-color-white-dark);
 
+    --uui-interface-selected: var(--uui-color-violet-blue);
+    --uui-interface-selected-hover: var(--uui-color-violet-blue-light);
+    --uui-interface-selected-disabled: var(--uui-color-violet-blue-dimmed);
+    --uui-interface-selected-focus: var(--uui-color-violet-blue);
+
+    --uui-interface-selected-contrast: var(--uui-color-black);
+    --uui-interface-selected-contrast-hover: var(--uui-color-black);
+    --uui-interface-selected-contrast-disabled: var(--uui-color-black-dimmed);
+    --uui-interface-selected-contrast-focus: var(--uui-color-black);
+
   }
 }
