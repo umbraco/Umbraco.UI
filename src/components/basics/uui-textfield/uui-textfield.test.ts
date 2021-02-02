@@ -8,13 +8,22 @@ describe('UuiTextfield', () => {
   beforeEach(async () => {
     element = await fixture(html` <uui-textfield></uui-textfield> `);
   });
-
-  it('passes the a11y audit', async () => {
-    //await expect(element).shadowDom.to.be.accessible();
-  });
-
   it('test that disable works', async () => {
     return true;
+  });
+});
+
+describe('UuiTextfield with label', () => {
+  let dom: Element;
+  beforeEach(async () => {
+    dom = await fixture(html`
+      <label for="test">TextField</label>
+      <uui-textfield id="test"></uui-textfield>
+    `);
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(dom).shadowDom.to.be.accessible();
   });
 });
 
