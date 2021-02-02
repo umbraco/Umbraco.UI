@@ -95,6 +95,17 @@
   --uui-color-timberwolf-dark: color($timberwolf blackness(+ 8%));
   --uui-color-timberwolf-dimmed: color($timberwolf saturation(- 82%) blackness(+ 6%));
 
+  $gravel: #d8d7d9;
+  --uui-color-gravel: $gravel;
+  --uui-color-gravel-light: color($gravel lightness(+ 8%));
+  --uui-color-gravel-dark: color($gravel blackness(+ 8%));
+  --uui-color-gravel-dimmed: color($gravel saturation(- 82%) blackness(+ 6%));
+
+  $sand: #f3f3f5;
+  --uui-color-sand: $sand;
+  --uui-color-sand-light: color($sand lightness(+ 8%));
+  --uui-color-sand-dark: color($sand blackness(+ 8%));
+  --uui-color-sand-dimmed: color($sand saturation(- 82%) blackness(+ 6%));
 
   $white: #FEFEFE;
   --uui-color-white: $white;
