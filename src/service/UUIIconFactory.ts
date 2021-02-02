@@ -1,18 +1,25 @@
+import { UUIIcon } from './UUIIcon';
+
 export class UUIIconFactory {
-  private static Promises: Record<string, Promise<string>> = {};
+  private static Promises: Record<string, UUIIcon> = {};
 
   public static DefineIcon(iconName: string, svgString: string) {
     if (UUIIconFactory.Promises[iconName]) {
-      //throw error?
+      UUIIconFactory.Promises[iconName].svg = svgString;
     }
-    UUIIconFactory.Promises[iconName] = Promise.resolve(svgString);
+    UUIIconFactory.Promises[iconName] = new UUIIcon(svgString);
   }
 
-  public static GetIcon(iconName: string): Promise<string> | null {
+  public static GetIcon(iconName: string): Promise<string> {
     if (UUIIconFactory.Promises[iconName]) {
-      return UUIIconFactory.Promises[iconName];
+      return UUIIconFactory.Promises[iconName].getPromise();
     } else {
-      return null;
+      const promise = new UUIIcon();
+      UUIIconFactory.Promises[iconName] = promise;
+
+      // TODO: Missing event to let icon service react to the request.
+
+      return promise.getPromise();
     }
   }
 }

@@ -1,4 +1,5 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, query } from 'lit-element';
+import { UUIIconFactory } from '../../../service/UUIIconFactory';
 /**
  *  @element uui-icon
  *
@@ -11,10 +12,9 @@ export class UUIIconElement extends LitElement {
         display: inline-block;
         width: 1em;
         height: 1em;
-        margin: 5px;
       }
 
-      ::slotted(svg) {
+      :host svg {
         fill: currentColor;
       }
     `,
@@ -28,11 +28,12 @@ export class UUIIconElement extends LitElement {
   set name(newValue) {
     this._name = newValue;
     if (this._name !== '' && this._name !== null) {
-      console.log('HPPY');
+      UUIIconFactory.GetIcon(this._name)?.then(svg => {
+        //this._svg = svg;
+        if (this.shadowRoot) {
+          this.shadowRoot.innerHTML = svg;
+        }
+      });
     }
-  }
-
-  render() {
-    return html` <slot></slot> `;
   }
 }
