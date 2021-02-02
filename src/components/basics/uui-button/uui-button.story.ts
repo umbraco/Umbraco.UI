@@ -20,6 +20,7 @@ export const Loading = () =>
 
 export const Styles = () => html`
   <uui-button>Default style</uui-button>
+  <uui-button button-style="">Default style</uui-button>
   ${SymbolicColorNames.map(
     (symbolicColorName: SymbolicColorType) =>
       html`<uui-button button-style="${symbolicColorName}"
