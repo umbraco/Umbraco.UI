@@ -9,7 +9,7 @@ import {
 import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
 import {
   uuiHorizontalShakeKeyframes,
-  uuiHorizontalShake,
+  uuiHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
 
@@ -31,64 +31,111 @@ export class UUIToggleElement extends LitElement {
     uuiHorizontalShakeKeyframes,
     css`
       :host {
-        --uui-toggle-size: calc(4 * var(--uui-size-base-unit));
+        --uui-toggle-size: 18px;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
-        --uui-toggle-grid-gap: calc(var(--uui-toggle-size) / 3);
+        /*
         --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
-        font-family: inherit;
-        font-size: 1rem;
-        display: block;
+        */
       }
 
       label {
         cursor: pointer;
+        user-select: none;
         display: grid;
-        grid-template-columns: max-content var(--uui-toggle-switch-width) max-content;
-        grid-template-rows: max-content var(--uui-toggle-size) max-content;
+        grid-template-columns: max-content 1fr max-content;
+        grid-template-rows: max-content 1fr max-content;
         grid-template-areas:
           'top-left top top-right'
           'left center right'
           'bottom-left bottom bottom-right';
-        grid-gap: var(--uui-toggle-grid-gap);
+        grid-gap: var(--uui-size-base-unit);
       }
 
       input {
+        position: absolute;
         height: 0px;
         width: 0px;
-        position: absolute;
       }
 
       #slider {
-        place-self: stretch;
-        transition: all 0.2s ease;
-        background: var(--uui-interface-standard-background-color);
         position: relative;
         grid-area: center;
+        display: flex;
+        align-items: center;
+
+        width: var(--uui-toggle-switch-width);
+        height: var(--uui-toggle-size);
+        border-radius: 100px;
+
+        background-color: var(--uui-interface-background-alt);
+        border: 1px solid var(--uui-interface-border);
+        font-size: calc(var(--uui-toggle-size) * 0.6);
+      }
+      label:hover input:not([disabled]) + #slider {
+        border-color: var(--uui-interface-border-hover);
+        background-color: var(--uui-interface-background-alt-hover);
+      }
+      label:focus #slider {
+        border-color: var(--uui-interface-border-focus);
+        background-color: var(--uui-interface-background-alt-focus);
+      }
+      input:checked + #slider {
+        background-color: var(--uui-interface-selected);
+      }
+      label:hover input:checked:not([disabled]) + #slider {
+        background-color: var(--uui-interface-selected-hover);
+      }
+      label:focus input:checked + #slider {
+        background-color: var(--uui-interface-selected-focus);
       }
 
       #icon-container-check,
       #icon-container-wrong {
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: calc(0.6 * var(--uui-toggle-size));
-        height: calc(0.6 * var(--uui-toggle-size));
+        vertical-align: middle;
+        width: 1em;
+        height: 1em;
+        line-height: 0;
+        transition: fill 120ms;
       }
 
       #icon-container-check {
-        left: calc(0.2 * var(--uui-toggle-size));
-        fill: var(--uui-color-identity-contrast);
+        margin-left: -0.5em;
+        left: calc(var(--uui-toggle-size) * 0.5);
+        fill: var(--uui-interface-contrast);
       }
 
       #icon-container-wrong {
-        right: calc(0.2 * var(--uui-toggle-size));
-        fill: var(--uui-color-identity);
+        margin-right: -0.5em;
+        right: calc(var(--uui-toggle-size) * 0.5);
+        fill: var(--uui-interface-selected);
       }
 
-      label:hover #slider {
-        background: var(--uui-interface-standard-background-color-hover);
-        box-shadow: 0 0 0px 1px var(--uui-color-grey);
-        /* what to set box-shadow to? */
+      input:checked + #slider #icon-container-check {
+        fill: var(--uui-interface-selected-contrast);
+      }
+
+      #slider:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: calc(var(--uui-toggle-size) - 4px);
+        height: calc(var(--uui-toggle-size) - 4px);
+        border-radius: 100px;
+        background-color: var(--uui-interface-background);
+        transition: width 120ms ease, left 120ms ease, transform 120ms ease,
+          background-color 120ms;
+      }
+
+      input:checked + #slider:after {
+        left: calc(100% - 2px);
+        transform: translateX(-100%);
+      }
+
+      #slider:active:after {
+        /** Stretch when mouse down */
+        width: calc(1.06 * var(--uui-toggle-size));
       }
 
       :host([hide-label]) #label-text {
@@ -99,90 +146,49 @@ export class UUIToggleElement extends LitElement {
 
       :host([label-position='left']) #label-text {
         grid-area: left;
-        place-self: center;
       }
 
       :host([label-position='right']) #label-text {
         grid-area: right;
-        place-self: center;
       }
 
       :host([label-position='top']) #label-text {
         grid-area: top;
-        place-self: center;
       }
 
       :host([label-position='bottom']) #label-text {
         grid-area: bottom;
-        place-self: center;
       }
 
-      :host([rounded]) #slider {
-        border-radius: 100px;
+      :host([disabled]) #label-text {
+        opacity: 0.5;
       }
 
-      :host([rounded]) #slider:after {
-        border-radius: 100px;
+      :host([disabled]) #slider:active {
+        animation: ${uuiHorizontalShakeAnimationValue};
       }
 
-      #slider:after {
-        content: '';
-        position: absolute;
-        top: calc(0.1 * var(--uui-toggle-size));
-        left: calc(0.1 * var(--uui-toggle-size));
-        width: calc(0.8 * var(--uui-toggle-size));
-        height: calc(0.8 * var(--uui-toggle-size));
-        background: var(--uui-color-identity-contrast);
-        transition: 0.2s ease;
-      }
-
-      #slider:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: calc(0.3 * var(--uui-toggle-size));
-        font-size: 0.7rem;
-        font-weight: bold;
-        color: lightgrey;
-        filter: brightness(0.5);
-      }
-
-      input:checked + #slider {
-        background: var(--uui-color-identity);
-        /* should that be set to primary? */
-      }
-
-      input:checked + #slider:after {
-        left: calc(100% - (0.1 * var(--uui-toggle-size)));
-        transform: translateX(-100%);
-      }
-
-      #slider:active:after {
-        width: calc(1.2 * var(--uui-toggle-size));
-      }
-
-      :host([disabled]) label {
-        filter: brightness(1.15);
-      }
-
-      input[disabled] + #slider:active {
-        animation: ${uuiHorizontalShake};
-      }
-
-      input[disabled] + #slider:active:after {
+      :host([disabled]) #slider:active:after {
         width: calc(0.8 * var(--uui-toggle-size));
       }
 
-      input[disabled] + #slider > #icon-container-wrong {
-        fill: darkgray;
-        /* should probably be var(--uui-color-standard-light) but it */
+      :host([disabled]) #slider {
+        background-color: var(--uui-interface-background-alt-disabled);
+      }
+      :host([disabled]) #slider:after {
+        background-color: var(--uui-interface-background-disabled);
       }
 
+      :host([disabled]) #slider > #icon-container-wrong {
+        fill: var(--uui-interface-contrast-disabled);
+      }
+
+      /*
       input:focus + #slider,
       input:not([disabled]) + #slider:active {
         box-shadow: var(--uui-toggle-focus-outline);
       }
+      */
     `,
   ];
 
@@ -217,9 +223,6 @@ export class UUIToggleElement extends LitElement {
   @property({ type: String, reflect: true })
   name = '';
 
-  @property({ type: Boolean })
-  rounded = true;
-
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'left';
 
@@ -233,11 +236,6 @@ export class UUIToggleElement extends LitElement {
   disabled = false;
 
   firstUpdated() {
-    if (this.checked) {
-      this._input.checked = true;
-      this._value = 'on';
-    }
-
     if (this.label && !this.name) {
       this.name = this.label;
     }
@@ -247,11 +245,9 @@ export class UUIToggleElement extends LitElement {
 
   private _onInputChange() {
     if (this._input.checked) {
-      this._value = 'on';
-      this.checked = true;
+      this.value = 'on';
     } else {
-      this._value = 'off';
-      this.checked = false;
+      this.value = 'off';
     }
 
     this.dispatchEvent(new UUIToggleChangeEvent());
@@ -259,12 +255,13 @@ export class UUIToggleElement extends LitElement {
 
   render() {
     return html`
-      <label for="switch">
+      <label>
         <input
           type="checkbox"
           id="switch"
           ?disabled="${this.disabled}"
           @change="${this._onInputChange}"
+          .checked="${this.checked}"
         />
         <div id="slider">
           <div id="icon-container-check">${iconCheck}</div>

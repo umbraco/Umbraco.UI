@@ -27,4 +27,8 @@ export const uuiHorizontalShakeKeyframes = css`
   }
 `;
 
-export const uuiHorizontalShake = css`uui-horizontal-shake 0.6s ease backwards`;
+export const uuiHorizontalShakeAnimationValue = css`uui-horizontal-shake 0.6s ease backwards`;
+
+export const uuiHorizontalShakeAnimation = css`
+  ${uuiHorizontalShakeKeyframes} animation: ${uuiHorizontalShakeAnimationValue}
+`;
