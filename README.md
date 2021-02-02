@@ -4,7 +4,7 @@ This is a WIP UI-library for Umbraco CMS and friends. This means that all elemen
 
 The elements are built with LitElement and is meant to be displayed with storybook. You can build the library as a single bundle (with dependencies), or you can just import source directly and build yourself. 
 
-The storybook knobs and docs are automatically created from the source, so please make sure to add the appropriate jsdoc-comments. See an existing element (eg. uui-button) for inpiration, or checkout [web-component-analyzer](https://github.com/runem/web-component-analyzer) for docs.
+The storybook knobs and docs are automatically created from the source, so please make sure to add the appropriate jsdoc-comments. See an existing element (eg. uui-button) for inspiration, or checkout [web-component-analyzer](https://github.com/runem/web-component-analyzer) for docs.
 
 Once the project is "ready", it shall be released on npm for consumption. 
 

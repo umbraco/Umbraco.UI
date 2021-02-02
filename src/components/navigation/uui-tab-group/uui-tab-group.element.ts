@@ -20,7 +20,6 @@ export class UUITabGroupElement extends LitElement {
         display: flex;
         flex-wrap: wrap;
       }
-    }
     `,
   ];
 

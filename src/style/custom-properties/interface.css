@@ -14,7 +14,7 @@
 
   --uui-interface-contrast: var(--uui-color-black);
   --uui-interface-contrast-hover: var(--uui-color-gunmetal);
-  --uui-interface-contrast-disabled: var(--uui-color-black-dimmed);
+  --uui-interface-contrast-disabled: var(--uui-color-chamoisee-dimmed);
   --uui-interface-contrast-focus: var(--uui-color-black);
 
   --uui-interface-border: var(--uui-color-grey);
