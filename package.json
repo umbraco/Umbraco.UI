@@ -7,7 +7,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
     "test": "tsc && web-test-runner --coverage",
-    "test:watch": "web-test-runner --watch",
+    "test:watch": "tsc:watch && web-test-runner --watch",
     "storybook": "npm run analyze && npm run css && concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"npm run css:watch\" \"start-storybook --node-resolve --watch --open\"",
     "storybook:build": "npm run analyze && build-storybook",
     "build": "npm run clean && rimraf dist && tsc && rollup -c rollup.config.js",
