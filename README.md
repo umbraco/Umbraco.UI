@@ -8,25 +8,39 @@ The storybook knobs and docs are automatically created from the source, so pleas
 
 Once the project is "ready", it shall be released on npm for consumption. 
 
-## Best practices for contributing to this library
-- Properties should only use attr-reflection for styling - don’t map component-state to classes - use attr-reflection!
-- New dependencies can only be added by HQ-team and only after scrutinizing debate (to keep size down)
-- Components can’t assume Umbraco context
-- Elements shouldn’t depend on TagNames - their own or children - instead use :host or this and use classes/id’s for selection
-- Elements always use a shadow-root (shadowDOM - for encapsulation)
-- Styles should have as simple rules as possible
-- UI-events should be unique types that extend from our UUIEvent (see utils/) (for typing reasons)
-- Elements are exported side-effect free (no registration) in the *.element.ts file, and with the registration in the index.ts file
+## Get started
+### Installation:
 
-## Before a new element can me merged
-- Element name must be prefixed with “UUI-”.
-- Element must have tests and pass them.
-- Element must pass basic Accessibility tests.
-- Element must have a storybook setup.
-- Source-code must follow the ES-lint rules.
+This project uses nodejs, so you should install `nodejs` as the package manager on your machine. See [installation guide](https://nodejs.org/en/).
 
-## Scripts
+```sh
+git clone https://github.com/umbraco/Umbraco.UI.git
+npm install
+```
+
+### Run storybook
+
+This command will build the project, start a server running storybook and watch for changes.
+
+```sh
+npm run storybook
+```
+
+### Run tests
+
+This command will build the project and run tests.
+
+```sh
+npm run test
+```
+
+
+### Scripts overview
 - `storybook` opens storybook for the elements
 - `test` runs your test suite with Web Test Runner
 ' `format` runs autoformatter
 - `lint` runs the linter for your project
+
+## Contributions
+- 📥 Pull requests and 🌟 Stars are always welcome.
+- Read our [contributing guide](CONTRIBUTING.md) to get started.
