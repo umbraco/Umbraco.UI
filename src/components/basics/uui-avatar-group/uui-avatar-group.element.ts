@@ -61,13 +61,10 @@ export class UUIAvatarGroupElement extends LitElement {
   }
 
   private toggleAvatarVisibility() {
-    if (this.limit === 0) {
-      return;
-    }
-
     this.avatars.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
-      avatar.style.display = avatarNumber > this.limit ? 'none' : '';
+      avatar.style.display =
+        avatarNumber <= this.limit || this.limit === 0 ? '' : 'none';
     });
   }
 

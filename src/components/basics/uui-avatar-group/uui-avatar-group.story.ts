@@ -1,8 +1,5 @@
 import { html } from 'lit-html';
 import './index';
-import { UUIAvatarGroupExampleElement } from './uui-avatar-group-example.element';
-
-customElements.define('uui-avatar-group-example', UUIAvatarGroupExampleElement);
 
 export default {
   title: 'Basics/Avatar Group',
