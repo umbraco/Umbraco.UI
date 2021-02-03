@@ -9,6 +9,11 @@ export default {
   component: 'uui-avatar-group',
 };
 
-export const Overview = () => html`
-  <uui-avatar-group-example></uui-avatar-group-example>
+export const Basic = () => html`
+  <uui-avatar-group limit="2" size="m" look="primary">
+    <uui-avatar text="First Last" size="m" look="primary"></uui-avatar>
+    <uui-avatar text="First Last" size="m" look="primary"></uui-avatar>
+    <uui-avatar text="First Last" size="m" look="primary"></uui-avatar>
+    <uui-avatar text="First Last" size="m" look="primary"></uui-avatar>
+  </uui-avatar-group>
 `;
