@@ -9,9 +9,9 @@ import {
  *  @element uui-avatar
  */
 
-export type AvatarSizeType = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 
-export const AvatarSizes: Readonly<AvatarSizeType[]> = [
+export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
   'xxl',
   'xl',
   'l',
@@ -21,6 +21,7 @@ export const AvatarSizes: Readonly<AvatarSizeType[]> = [
   'xxs',
 ] as const;
 
+export const AvatarSizeDefaultValue = '';
 export class UUIAvatarElement extends LitElement {
   static styles = [
     css`
@@ -72,7 +73,7 @@ export class UUIAvatarElement extends LitElement {
     SymbolicColorCSSCreator(
       symbolicColorName =>
         css`
-          :host([decorate='${symbolicColorName}']) {
+          :host([look='${symbolicColorName}']) {
             background-color: var(--uui-color-${symbolicColorName}-background);
             color: var(--uui-color-${symbolicColorName}-contrast);
           }
@@ -81,7 +82,7 @@ export class UUIAvatarElement extends LitElement {
   ];
 
   @property({ type: String, attribute: true })
-  public size: AvatarSizeType = 'm';
+  public size: AvatarSizeType = AvatarSizeDefaultValue;
 
   @property({ type: String, attribute: 'img-src' })
   public imgSrc = '';
@@ -90,7 +91,7 @@ export class UUIAvatarElement extends LitElement {
   public imgSrcset = '';
 
   @property({ type: String, attribute: true })
-  public decorate: SymbolicColorType = SymbolicColorDefaultValue;
+  public look: SymbolicColorType = SymbolicColorDefaultValue;
 
   @property({ type: String, attribute: true })
   public text = '';
@@ -119,7 +120,11 @@ export class UUIAvatarElement extends LitElement {
             alt="${this.text}"
             class="image"
           />`
-        : html`${this.initials || this.unknownCharacter}`}
+        : html``}
+      ${!this.imgSrc && this.text
+        ? html`${this.initials || this.unknownCharacter}`
+        : ``}
+      <slot></slot>
     `;
   }
 }

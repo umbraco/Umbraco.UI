@@ -1,5 +1,8 @@
 import { html } from 'lit-html';
 import './index';
+import { UUIAvatarGroupExampleElement } from './uui-avatar-group-example.element';
+
+customElements.define('uui-avatar-group-example', UUIAvatarGroupExampleElement);
 
 export default {
   title: 'Basics/Avatar Group',
@@ -7,5 +10,5 @@ export default {
 };
 
 export const Overview = () => html`
-  <div>Avatar group story will be here</div>
+  <uui-avatar-group-example></uui-avatar-group-example>
 `;

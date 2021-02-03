@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import './index';
-import { AvatarSizes, AvatarSizeType } from './uui-avatar.element';
+import { AvatarSizeNames, AvatarSizeType } from './uui-avatar.element';
 import {
   SymbolicColorNames,
   SymbolicColorType,
@@ -31,20 +31,22 @@ export const Overview = () => html`
 
 export const Sizes = () => html`
   <div style="display: flex; align-items: center;">
-    ${AvatarSizes.map(
+    ${AvatarSizeNames.map(
       (avatarSize: AvatarSizeType) =>
-        html`<uui-avatar
-          size="${avatarSize}"
-          img-src="${avatarSrcSet[0]}"
-          img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-        >
-        </uui-avatar>`
+        html`
+          <uui-avatar
+            size="${avatarSize}"
+            img-src="${avatarSrcSet[0]}"
+            img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+          >
+          </uui-avatar>
+        `
     )}
   </div>
 `;
 
 export const Text = () => html`
-  <uui-avatar text="First Last" size="xl" decorate="primary"></uui-avatar>
+  <uui-avatar text="First Last" size="xl" look="primary"></uui-avatar>
 `;
 
 export const Styles = () => html`
@@ -53,10 +55,16 @@ export const Styles = () => html`
     ${SymbolicColorNames.map(
       (symbolicColorName: SymbolicColorType) =>
         html`<uui-avatar
-          decorate="${symbolicColorName}"
+          look="${symbolicColorName}"
           size="xl"
           text="First Last"
         ></uui-avatar>`
     )}
+  </div>
+`;
+
+export const SlottedContent = () => html`
+  <div style="display: flex; align-items: center;">
+    <uui-avatar size="xl" look="primary">+10</uui-avatar>
   </div>
 `;
