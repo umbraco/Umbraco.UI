@@ -61,6 +61,10 @@ export class UUIAvatarGroupElement extends LitElement {
   }
 
   private toggleAvatarVisibility() {
+    if (this.limit === 0) {
+      return;
+    }
+
     this.avatars.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
       avatar.style.display = avatarNumber > this.limit ? 'none' : '';
@@ -68,7 +72,7 @@ export class UUIAvatarGroupElement extends LitElement {
   }
 
   get overflow(): number {
-    return this.avatars.length - this.limit;
+    return this.limit === 0 ? 0 : this.avatars.length - this.limit;
   }
 
   get overflowIsVisible(): boolean {
