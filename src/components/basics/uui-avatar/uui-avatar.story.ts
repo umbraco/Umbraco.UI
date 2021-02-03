@@ -20,7 +20,7 @@ const avatarSrcSet = [
   `${avatarSrc}&h=300&w=300`,
 ];
 
-export const Overview = () => html`
+export const Basic = () => html`
   <uui-avatar
     size="xl"
     img-src="${avatarSrcSet[0]}"
