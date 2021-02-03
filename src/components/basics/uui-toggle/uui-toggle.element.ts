@@ -1,15 +1,8 @@
-import {
-  LitElement,
-  html,
-  property,
-  css,
-  query,
-  internalProperty,
-} from 'lit-element';
+import { LitElement, html, property, css, query } from 'lit-element';
 import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
 import {
-  uuiHorizontalShakeKeyframes,
-  uuiHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
+  UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
 
@@ -17,18 +10,12 @@ import { iconWrong, iconCheck } from './toggle-icons';
  *  @element uui-toggle
  */
 
-// TODO -color property
-// TODO -size property - how to correctly do it
-// TODO -add named icons slots for icons on and off?
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
-
-type ToggleValue = 'on' | 'off'; //should there be more? this is what the form will recieve. it is based on what native checkbox does
-
 export class UUIToggleElement extends LitElement {
   static styles = [
-    uuiHorizontalShakeKeyframes,
+    UUIHorizontalShakeKeyframes,
     css`
       :host {
         --uui-toggle-size: 18px;
@@ -165,7 +152,7 @@ export class UUIToggleElement extends LitElement {
       }
 
       :host([disabled]) #slider:active {
-        animation: ${uuiHorizontalShakeAnimationValue};
+        animation: ${UUIHorizontalShakeAnimationValue};
       }
 
       :host([disabled]) #slider:active:after {
@@ -204,21 +191,25 @@ export class UUIToggleElement extends LitElement {
   @query('#switch')
   protected _input!: HTMLInputElement;
 
-  @internalProperty()
-  _value: ToggleValue = 'off';
+  private _value = 'on';
 
-  @property({ type: String, reflect: true })
-  get value(): ToggleValue {
+  @property({ reflect: true })
+  get value() {
     return this._value;
   }
 
-  set value(newValue: ToggleValue) {
-    this._value = newValue;
-    this._internals.setFormValue(this._value);
+  set value(newVal) {
+    const oldValue = this._value;
+    this._value = newVal;
+    this._internals.setFormValue(this._checked ? this._value : null);
+    this.requestUpdate('value', oldValue);
   }
 
   @property({ type: String })
-  label = 'Toggle';
+  label = 'Toggle switch';
+
+  @property()
+  form: string | null = null;
 
   @property({ type: String, reflect: true })
   name = '';
@@ -229,8 +220,19 @@ export class UUIToggleElement extends LitElement {
   @property({ type: Boolean, attribute: 'hide-label' })
   hideLabel = false;
 
+  private _checked = false;
+
   @property({ type: Boolean, reflect: true })
-  checked = false;
+  get checked() {
+    return this._checked;
+  }
+
+  set checked(newVal) {
+    const oldValue = this._checked;
+    this._checked = newVal;
+    this._internals.setFormValue(this._checked ? this._value : null);
+    this.requestUpdate('checked', oldValue);
+  }
 
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -239,18 +241,12 @@ export class UUIToggleElement extends LitElement {
     if (this.label && !this.name) {
       this.name = this.label;
     }
-
     this._input.setAttribute('role', 'switch');
   }
 
   private _onInputChange() {
-    if (this._input.checked) {
-      this.value = 'on';
-    } else {
-      this.value = 'off';
-    }
-
     this.dispatchEvent(new UUIToggleChangeEvent());
+    this.checked = this._input.checked;
   }
 
   render() {
@@ -262,6 +258,7 @@ export class UUIToggleElement extends LitElement {
           ?disabled="${this.disabled}"
           @change="${this._onInputChange}"
           .checked="${this.checked}"
+          aria-checked="${this.checked ? 'true' : 'false'}"
         />
         <div id="slider">
           <div id="icon-container-check">${iconCheck}</div>
@@ -272,3 +269,5 @@ export class UUIToggleElement extends LitElement {
     `;
   }
 }
+
+//

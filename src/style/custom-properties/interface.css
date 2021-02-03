@@ -7,10 +7,10 @@
   --uui-interface-background-disabled: var(--uui-color-white-dimmed);
   --uui-interface-background-focus: var(--uui-color-white);
 
-  --uui-interface-background-alt: var(--uui-color-dusty-grey);
-  --uui-interface-background-alt-hover: var(--uui-color-dusty-grey-light);
-  --uui-interface-background-alt-disabled: var(--uui-color-dusty-grey-dimmed);
-  --uui-interface-background-alt-focus: var(--uui-color-dusty-grey);
+  --uui-interface-background-alt: var(--uui-color-gravel);
+  --uui-interface-background-alt-hover: var(--uui-color-gravel-dark);
+  --uui-interface-background-alt-disabled: var(--uui-color-gravel-dimmed);
+  --uui-interface-background-alt-focus: var(--uui-color-gravel);
 
   --uui-interface-contrast: var(--uui-color-black);
   --uui-interface-contrast-hover: var(--uui-color-gunmetal);
