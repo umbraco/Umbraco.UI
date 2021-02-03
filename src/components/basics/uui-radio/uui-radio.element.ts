@@ -108,18 +108,20 @@ export class UUIRadioElement extends LitElement {
   private _onChange() {
     if (this.inputElement.checked) this.check();
     else this.uncheck();
-
-    //this.checked = this.inputElement.checked;
     this.dispatchEvent(new UUIRadioChangeEvent());
   }
 
   public uncheck() {
+    if (this.disabled) return;
+
     this.checked = false;
     this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-checked', 'false');
   }
 
   public check() {
+    if (this.disabled) return;
+
     this.checked = true;
     this.setAttribute('tabindex', '0');
     this.setAttribute('aria-checked', 'true');
@@ -142,7 +144,7 @@ export class UUIRadioElement extends LitElement {
         name=${this.name}
         value=${this.value}
         .checked=${this.checked}
-        ?disabled=${this.disabled}
+        .disabled=${this.disabled}
         @change=${this._onChange}
       />
       <div id="button"></div>
