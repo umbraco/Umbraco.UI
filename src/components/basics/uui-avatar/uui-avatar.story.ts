@@ -22,7 +22,7 @@ const avatarSrcSet = [
 
 export const Basic = () => html`
   <uui-avatar
-    size="xl"
+    size="m"
     img-src="${avatarSrcSet[0]}"
     img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
   >
@@ -46,17 +46,17 @@ export const Sizes = () => html`
 `;
 
 export const Text = () => html`
-  <uui-avatar text="First Last" size="xl" look="primary"></uui-avatar>
+  <uui-avatar text="First Last" size="m" look="primary"></uui-avatar>
 `;
 
 export const Looks = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="xl" text="First Last"></uui-avatar>
+    <uui-avatar size="m" text="First Last"></uui-avatar>
     ${SymbolicColorNames.map(
       (symbolicColorName: SymbolicColorType) =>
         html`<uui-avatar
           look="${symbolicColorName}"
-          size="xl"
+          size="m"
           text="First Last"
         ></uui-avatar>`
     )}
@@ -65,6 +65,6 @@ export const Looks = () => html`
 
 export const SlottedContent = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="xl" look="primary">+10</uui-avatar>
+    <uui-avatar size="m" look="primary">+10</uui-avatar>
   </div>
 `;
