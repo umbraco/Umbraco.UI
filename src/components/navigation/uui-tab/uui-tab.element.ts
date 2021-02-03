@@ -19,7 +19,6 @@ export class UUITabElement extends LitElement {
         text-align: center;
         padding: 4px 20px 0 20px;
         border: none;
-        border-right: 1px solid var(--uui-interface-border);
         box-sizing: border-box;
         height: 75px;
         min-width: 75px;
