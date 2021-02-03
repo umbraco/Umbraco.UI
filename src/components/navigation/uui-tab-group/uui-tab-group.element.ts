@@ -20,6 +20,10 @@ export class UUITabGroupElement extends LitElement {
         display: flex;
         flex-wrap: wrap;
       }
+
+      ::slotted(*:not(:last-of-type)) {
+        border-right: 1px solid var(--uui-interface-border);
+      }
     `,
   ];
 
