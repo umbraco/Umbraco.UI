@@ -49,7 +49,7 @@ export const Text = () => html`
   <uui-avatar text="First Last" size="xl" look="primary"></uui-avatar>
 `;
 
-export const Styles = () => html`
+export const Looks = () => html`
   <div style="display: flex; align-items: center;">
     <uui-avatar size="xl" text="First Last"></uui-avatar>
     ${SymbolicColorNames.map(
