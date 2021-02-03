@@ -12,50 +12,35 @@ describe('UuiToggle', () => {
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
-
-  it('test that disable works', async () => {
-    return true;
-  });
-
-  // it ('has value off if not checked', async () => {
-  //   element.checked = false;
-  //   await expect(element.value).to.equal('off');
-  // })
-
-  it('has value on if checked', async () => {
-    element.checked = true;
-    await expect(element.value).to.equal('on');
-  });
 });
 
-describe('UuiToggle in Form', () => {
+describe('UuiToggle in a Form', () => {
   let formElement: HTMLFormElement;
   let element: UUIToggleElement;
   beforeEach(async () => {
     formElement = await fixture(
-      html` <form id="myForm">
+      html` <form>
         <uui-toggle name="test"></uui-toggle>
       </form>`
     );
     element = formElement.querySelector('uui-toggle') as any;
   });
 
-  it('form output', async () => {
+  it('form output is null if element not checked', () => {
     const formData = new FormData(formElement);
-    await expect(formData.get(`${element.name}`)).to.be.equal('off');
+    expect(formData.get(`${element.name}`)).to.be.equal(null);
   });
 
-  it('is not checked', async () => {
-    element.checked = false;
-    await expect(element.checked).to.be.false;
-  });
-
-  it('is checked', async () => {
+  it('form output is on if element is checked and has no value attribute', () => {
     element.checked = true;
-    await expect(element.checked).to.be.true;
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.be.equal('on');
   });
 
-  it('has name attribute', async () => {
-    await expect(element).to.haveOwnProperty.name;
+  it('element hav value atribute form value should be the same', () => {
+    element.value = 'bike';
+    element.checked = true;
+    const formData = new FormData(formElement);
+    expect(formData.get(`test`)).to.equal('bike');
   });
 });
