@@ -70,6 +70,12 @@
   --uui-color-cocoa-black-dark: color($cocoa-black blackness(+ 5%));
   --uui-color-cocoa-black-dimmed: color($cocoa-black saturation(- 20%) lightness(+ 10%));
 
+  $dune-black: #2E2B29;
+  --uui-color-dune-black: $dune-black;
+  --uui-color-dune-black-light: color($dune-black lightness(+ 4%));
+  --uui-color-dune-black-dark: color($dune-black blackness(+ 10%));
+  --uui-color-dune-black-dimmed: color($dune-black saturation(- 30%) lightness(+ 8%));
+
   $cocoa-brown: #332A24;
   --uui-color-cocoa-brown: $cocoa-brown;
   --uui-color-cocoa-brown-light: color($cocoa-brown lightness(+ 5%));
@@ -89,6 +95,17 @@
   --uui-color-timberwolf-dark: color($timberwolf blackness(+ 8%));
   --uui-color-timberwolf-dimmed: color($timberwolf saturation(- 82%) blackness(+ 6%));
 
+  $gravel: #d8d7d9;
+  --uui-color-gravel: $gravel;
+  --uui-color-gravel-light: color($gravel lightness(+ 8%));
+  --uui-color-gravel-dark: color($gravel blackness(+ 8%));
+  --uui-color-gravel-dimmed: color($gravel saturation(- 82%) blackness(+ 6%));
+
+  $sand: #f3f3f5;
+  --uui-color-sand: $sand;
+  --uui-color-sand-light: color($sand lightness(+ 8%));
+  --uui-color-sand-dark: color($sand blackness(+ 8%));
+  --uui-color-sand-dimmed: color($sand saturation(- 82%) blackness(+ 6%));
 
   $white: #FEFEFE;
   --uui-color-white: $white;
@@ -112,12 +129,12 @@
   --uui-color-dusty-grey: $dusty-grey;
   --uui-color-dusty-grey-light: color($dusty-grey lightness(+ 8%));
   --uui-color-dusty-grey-dark: color($dusty-grey blackness(+ 10%));
-  --uui-color-dusty-grey-dimmed: color($dusty-grey saturation(- 100%) blackness(+ 4%));
+  --uui-color-dusty-grey-dimmed: color($dusty-grey saturation(- 100%) lightness(+ 12%));
 
   $mine-grey: #3E3E3E;
   --uui-color-mine-grey: $mine-grey;
   --uui-color-mine-grey-light: color($mine-grey lightness(+ 8%));
   --uui-color-mine-grey-dark: color($mine-grey blackness(+ 10%));
-  --uui-color-mine-grey-dimmed: color($mine-grey saturation(- 100%) blackness(+ 4%));
+  --uui-color-mine-grey-dimmed: color($mine-grey saturation(- 100%) lightness(+ 10%));
 
 }
