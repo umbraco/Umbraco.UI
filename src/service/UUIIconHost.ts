@@ -1,4 +1,4 @@
-export class UUIIcon {
+export class UUIIconHost {
   public promise: Promise<string>;
   private resolve: any;
 
