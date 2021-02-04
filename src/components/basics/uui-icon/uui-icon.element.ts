@@ -28,8 +28,7 @@ export class UUIIconElement extends LitElement {
   set name(newValue) {
     this._name = newValue;
     if (this._name !== '' && this._name !== null) {
-      UUIIconFactory.GetIcon(this._name)?.then(svg => {
-        //this._svg = svg;
+      UUIIconFactory.GetIcon(this._name).then(svg => {
         if (this.shadowRoot) {
           this.shadowRoot.innerHTML = svg;
         }
