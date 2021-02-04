@@ -7,39 +7,39 @@ import { LitElement, html, css } from 'lit-element';
 export class UUILoaderElement extends LitElement {
   static styles = [
     css`
-      .bubble {
+      div {
         display: inline-block;
         width: var(--uui-size-base-unit);
         height: var(--uui-size-base-unit);
-        border-radius: 100%;
         border: 2px solid currentColor;
+        border-radius: 100%;
         animation: loaderAnimation 1.4s infinite;
       }
 
-      .bubble:nth-child(1n) {
+      div:nth-child(1n) {
         animation-delay: 0s;
       }
 
-      .bubble:nth-child(2n) {
+      div:nth-child(2n) {
         animation-delay: 0.15s;
       }
 
-      .bubble:nth-child(3n) {
+      div:nth-child(3n) {
         animation-delay: 0.3s;
       }
 
       @keyframes loaderAnimation {
         0% {
           transform: scale(0.5);
-          background: currentColor;
+          background-color: currentColor;
         }
         50% {
           transform: scale(1);
-          background: transparent;
+          background-color: transparent;
         }
         100% {
           transform: scale(0.5);
-          background: currentColor;
+          background-color: currentColor;
         }
       }
     `,
@@ -47,9 +47,9 @@ export class UUILoaderElement extends LitElement {
 
   render() {
     return html`
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
+      <div></div>
+      <div></div>
+      <div></div>
     `;
   }
 }

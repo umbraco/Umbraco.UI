@@ -9,6 +9,7 @@ export const SymbolicColorNames: Readonly<SymbolicColorType[]> = [
 ] as const;
 
 export type SymbolicColorType =
+  | null
   | ''
   | 'primary'
   | 'secondary'

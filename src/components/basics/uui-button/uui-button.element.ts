@@ -98,7 +98,7 @@ export class UUIButtonElement extends LitElement {
 
   // Note: We should not adapt the failed or good state from current backoffice, its bad UX and no need to enable that ongoing.
 
-  @property({ type: String, attribute: 'button-style' })
+  @property({ attribute: 'button-style' })
   buttonStyle: SymbolicColorType = SymbolicColorDefaultValue;
 
   private onClick(e: Event) {
