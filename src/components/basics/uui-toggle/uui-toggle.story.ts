@@ -32,7 +32,7 @@ export const NoLabel = () =>
 export const Disabled = () => html`
   <uui-toggle label="Active"></uui-toggle>
   <uui-toggle disabled label="Can't touch this"></uui-toggle>
-  <uui-toggle disabled label="Can't touch this"></uui-toggle>
+  <uui-toggle disabled label="Can't touch this" checked></uui-toggle>
 `;
 
 export const LongLabel = () => html`
