@@ -24,9 +24,10 @@ export class UUIAvatarGroupElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        margin-left: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
       }
 
       ::slotted(uui-avatar),
