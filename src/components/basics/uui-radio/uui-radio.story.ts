@@ -6,4 +6,8 @@ export default {
   component: 'uui-radio',
 };
 
-export const Overview = () => html`<uui-radio>Option</uui-radio>`;
+export const Default = () => html` <uui-radio>Label</uui-radio>`;
+
+export const Disabled = () => html` <uui-radio>Active</uui-radio>
+  <uui-radio disabled>Disabled</uui-radio>
+  <uui-radio disabled checked>Selected disabled</uui-radio>`;

@@ -1,20 +1,22 @@
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIRadioChangeEvent } from '../../../event/UUIRadioChangeEvent';
+import {
+  UUIHorizontalShakeKeyframes,
+  UUIHorizontalShakeAnimationValue,
+} from '../../../animations/uui-shake';
 /**
  *  @element uui-radio
  *  @slot - for label
  *
  */
 
-//? should there be selected disabled combination
-//TODO add shake to disabled?
-
 export class UUIRadioElement extends LitElement {
   static styles = [
+    UUIHorizontalShakeKeyframes,
     css`
       :host {
         font-family: inherit;
-        color: inherit;
+        color: currentColor;
         --uui-radio-button-size: calc(var(--uui-size-base-unit) * 3);
       }
 
@@ -83,6 +85,22 @@ export class UUIRadioElement extends LitElement {
 
       input:disabled ~ #label {
         color: var(--uui-interface-contrast-disabled);
+      }
+
+      :host([disabled]) label {
+        cursor: default;
+      }
+
+      :host([disabled]) input:checked ~ #button {
+        border: 1px solid var(--uui-interface-selected-disabled);
+      }
+
+      :host([disabled]) input:checked ~ #button::after {
+        background-color: var(--uui-interface-selected-disabled);
+      }
+
+      :host([disabled]) #button:active {
+        animation: ${UUIHorizontalShakeAnimationValue};
       }
     `,
   ];
