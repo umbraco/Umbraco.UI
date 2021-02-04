@@ -6,7 +6,8 @@ export default {
   component: 'uui-toggle',
 };
 
-export const Basic = () => html` <uui-toggle label="Toggle me"></uui-toggle> `;
+export const Basic = () =>
+  html` <uui-toggle label="Toggle me" value="bike"></uui-toggle> `;
 
 export const Preselected = () =>
   html` <uui-toggle label="Toggle me" checked></uui-toggle>`;

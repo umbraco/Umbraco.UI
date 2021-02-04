@@ -1,8 +1,8 @@
 import { LitElement, html, css, property } from 'lit-element';
-import { Size } from '../../../type/Size';
 import {
   SymbolicColorType,
   SymbolicColorDefaultValue,
+  SymbolicColorCSSCreator,
 } from '../../../type/SymbolicColor';
 
 /**
@@ -10,52 +10,63 @@ import {
  *  @slot - for badge contents
  */
 
-//type BadgeSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
+type BadgeSize = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
       :host {
-        position: relative;
         display: inline-block;
-        -webkit-appearance: none;
-        border: 0;
-        font-weight: bold;
-        color: #1a2650;
+        font-family: inherit;
         line-height: 1;
-        background-color: rgba(216, 215, 217, 0.5);
-        font-size: 13px;
-        margin: 0 7px 7px 0;
-        padding: 10px 20px;
-        border-radius: 4px;
-        transition: all 0.2s ease;
+        font-size: var(--uui-badge-font-size, 0.9em);
+        margin: var(--uui-badge-margin, var(--uui-size-base-unit));
+        padding: var(--uui-badge-size-unit, var(--uui-size-base-unit))
+          calc(var(--uui-badge-size-unit, var(--uui-size-base-unit)) * 3);
+        border-radius: calc(
+          var(--uui-badge-size-unit, var(--uui-size-base-unit)) * 2
+        );
+        background-color: var(--uui-interface-background);
+        color: var(--uui-interface-contrast);
+
+        transition: background-color 120ms, color 120ms;
       }
 
-      :host([color='positive']) {
-        background: #2bc37c;
-        color: #fff;
+      :host([size='xs']) {
+        --uui-badge-size-unit: 4px;
+        --uui-badge-font-size: 10px;
       }
-      :host([color='danger']) {
-        background: red;
-        color: #fff;
-      }
-
       :host([size='s']) {
-        font-size: 10px;
-        padding: 5px 10px;
+        --uui-badge-size-unit: 4px;
+        --uui-badge-font-size: 11px;
+      }
+      :host([size='m']) {
+        --uui-badge-size-unit: 5px;
+        --uui-badge-font-size: 14px;
+      }
+      :host([size='l']) {
+        --uui-badge-size-unit: 6px;
       }
       :host([size='xl']) {
-        font-size: 18px;
-        padding: 15px 30px;
+        --uui-badge-size-unit: 8px;
       }
     `,
+    SymbolicColorCSSCreator(
+      symbolicColorName =>
+        css`
+          :host([look='${symbolicColorName}']) {
+            background-color: var(--uui-color-${symbolicColorName}-background);
+            color: var(--uui-color-${symbolicColorName}-contrast);
+          }
+        `
+    ),
   ];
 
   @property({ attribute: true })
-  public size: Size = 'm';
+  public size: BadgeSize = 'm';
 
   @property({ attribute: true })
-  public color: SymbolicColorType = SymbolicColorDefaultValue;
+  public look: SymbolicColorType = SymbolicColorDefaultValue;
 
   render() {
     return html` <slot></slot> `;

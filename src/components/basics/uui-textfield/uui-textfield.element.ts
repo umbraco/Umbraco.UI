@@ -63,6 +63,7 @@ export class UUITextFieldElement extends LitElement {
   }
 
   private _value: string | null = null;
+
   @property()
   get value(): string | null {
     return this._value;

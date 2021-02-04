@@ -3,7 +3,7 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../../animations/uui-shake';
-import { UUIButtonClickEvent } from '../../../event/UUIButtonClickEvent';
+import { UUIButtonClickEvent } from './UUIButtonClickEvent';
 import {
   SymbolicColorType,
   SymbolicColorDefaultValue,

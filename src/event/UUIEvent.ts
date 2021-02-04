@@ -1,11 +1,14 @@
 export class UUIEvent<
-  DetailType extends Record<string, any> = Record<string, any>
+  DetailType extends Record<string, any> = Record<string, any>,
+  EventTargetType extends EventTarget | null = EventTarget | null
 > extends Event {
   static defaultInit = {
     bubbles: true,
     composed: true,
   };
+
   detail: DetailType;
+  readonly target!: EventTargetType;
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {

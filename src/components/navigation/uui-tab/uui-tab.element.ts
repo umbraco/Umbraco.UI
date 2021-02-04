@@ -1,7 +1,8 @@
 import { LitElement, html, css, property, PropertyValues } from 'lit-element';
-import { UUITabEvent } from '../../../event/UUITabEvent';
+import { UUIEvent } from '../../../event/UUIEvent';
+import { UUITabEvent } from './UUITabEvent';
 
-let TabIdCounter = 0;
+let TabKeyCounter = 0;
 
 /**
  *  @element uui-editor-tab
@@ -18,7 +19,6 @@ export class UUITabElement extends LitElement {
         text-align: center;
         padding: 4px 20px 0 20px;
         border: none;
-        border-right: 1px solid var(--uui-interface-border);
         box-sizing: border-box;
         height: 75px;
         min-width: 75px;
@@ -35,7 +35,6 @@ export class UUITabElement extends LitElement {
       }
 
       button:active {
-        cursor: default;
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
       }
@@ -78,7 +77,7 @@ export class UUITabElement extends LitElement {
   protected firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
     this.setAttribute('role', 'tab');
-    this.key = this.key || `uui-tab-${TabIdCounter++}`;
+    this.key = this.key || `uui-tab-${TabKeyCounter++}`;
   }
 
   activate() {
@@ -98,28 +97,16 @@ export class UUITabElement extends LitElement {
   }
 
   async setActive(state: boolean) {
+    this.active = state;
+
     const eventName: string = state ? 'activate' : 'deactivate';
-    const event = new UUITabEvent(eventName, {
-      cancelable: true,
-      detail: { key: this.key },
-    });
+    const event = new UUITabEvent(eventName);
     this.dispatchEvent(event);
-
-    // Allow event to be cancelled from event bubbling phase.
-    await Promise.resolve;
-
-    if (event.defaultPrevented !== true) {
-      this.active = state;
-    }
-  }
-
-  private onClick(event: Event) {
-    this.activate();
   }
 
   render() {
     return html`
-      <button type="button" @click=${(e: Event) => this.onClick(e)}>
+      <button type="button" @click=${this.activate}>
         <slot></slot>
       </button>
     `;
