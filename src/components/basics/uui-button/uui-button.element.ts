@@ -21,10 +21,9 @@ export class UUIButtonElement extends LitElement {
     UUIHorizontalShakeKeyframes,
     css`
       button {
+        position: relative;
         display: inline-block;
-        /* example of using the base-unit prop for sizing, it can be useful to hardcode a minor adjustment for the right look, notice + 2px in this example: */
-        padding: var(--uui-size-base-unit)
-          calc((var(--uui-size-base-unit) * 2) + 2px);
+        padding: 0;
         text-align: center;
         vertical-align: middle;
         border: none;
@@ -77,8 +76,29 @@ export class UUIButtonElement extends LitElement {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
+      button > slot {
+        display: block;
+        /* example of using the base-unit prop for sizing, it can be useful to hardcode a minor adjustment for the right look, notice + 2px in this example: */
+        padding: var(--uui-size-base-unit)
+          calc((var(--uui-size-base-unit) * 2) + 2px);
+      }
+
+      ::slotted(*) {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      :host([loading]) > button > slot {
+        opacity: 0;
+      }
       :host([loading]) button:before {
         content: '⏳';
+        position: absolute;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
       }
     `,
     InterfaceLookCSSCreator(
@@ -125,7 +145,7 @@ export class UUIButtonElement extends LitElement {
   render() {
     return html`
       <button @click=${this.onClick} ?disabled=${this.disabled}>
-        <slot></slot>
+        <slot part="inner"></slot>
       </button>
     `;
   }

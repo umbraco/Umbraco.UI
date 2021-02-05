@@ -18,11 +18,19 @@ export const Disabled = () =>
 export const Loading = () =>
   html` <uui-button loading>Button waiting for something</uui-button> `;
 
+export const WithIcon = () =>
+  html`
+    <uui-button
+      ><uui-icon .name=${'bug'}></uui-icon>Button waiting for
+      something</uui-button
+    >
+  `;
+
 export const Styles = () => html`
   <uui-button>Default style</uui-button>
-  <uui-button look="">Default style</uui-button>
+  <uui-button look="">Empty look</uui-button>
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
-      html`<uui-button look="${lookName}">${lookName} style</uui-button>`
+      html`<uui-button look="${lookName}">${lookName} look</uui-button>`
   )}
 `;
