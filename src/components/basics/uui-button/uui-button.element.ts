@@ -21,14 +21,17 @@ export class UUIButtonElement extends LitElement {
     css`
       button {
         display: inline-block;
-        /* example of using the base-unit prop for sizing, it can be usefull to hardcode a minor adjustment for the right look, notice + 2px in this example: */
+        /* example of using the base-unit prop for sizing, it can be useful to hardcode a minor adjustment for the right look, notice + 2px in this example: */
         padding: var(--uui-size-base-unit)
           calc((var(--uui-size-base-unit) * 2) + 2px);
         text-align: center;
         vertical-align: middle;
         border: none;
         box-shadow: none;
-        border-radius: var(--uui-size-border-radius);
+        border-radius: var(
+          --uui-button-border-radius,
+          var(--uui-size-border-radius)
+        );
         cursor: pointer;
         font-weight: 500;
         font-size: inherit;
@@ -36,20 +39,32 @@ export class UUIButtonElement extends LitElement {
 
         background-color: var(
           --uui-button-background,
-          --uui-interface-background
+          var(--uui-interface-background)
         );
-        color: var(--uui-interface-contrast);
+        color: var(--uui-button-contrast, var(--uui-interface-contrast));
 
         transition: background-color 80ms;
       }
       button:hover {
-        background-color: var(--uui-interface-background-hover);
-        color: var(--uui-interface-contrast-hover);
+        background-color: var(
+          --uui-button-background-hover,
+          var(--uui-interface-background-hover)
+        );
+        color: var(
+          --uui-button-contrast-hover,
+          var(--uui-interface-contrast-hover)
+        );
       }
 
       button[disabled] {
-        background-color: var(--uui-interface-background-disabled);
-        color: var(--uui-interface-contrast-disabled);
+        background-color: var(
+          --uui-button-background-disabled,
+          var(--uui-interface-background-disabled)
+        );
+        color: var(
+          --uui-button-contrast-disabled,
+          var(--uui-interface-contrast-disabled)
+        );
         cursor: default;
       }
       button[disabled]:active {
@@ -92,7 +107,7 @@ export class UUIButtonElement extends LitElement {
   @property({ type: Boolean, attribute: true })
   disabled = false;
 
-  // TODO: I'm not sure we will need a loading state, but lets concider having a waiting state, as waiting for a request to complete like Save.
+  // TODO: I'm not sure we will need a loading state, but lets consider having a loading state, as waiting for a request to complete like Save.
   @property({ type: Boolean, attribute: true })
   loading = false;
 
