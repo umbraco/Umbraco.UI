@@ -12,9 +12,9 @@ import {
   AvatarSizeDefaultValue,
 } from '../uui-avatar/uui-avatar.element';
 import {
-  SymbolicColorType,
-  SymbolicColorDefaultValue,
-} from '../../../type/SymbolicColor';
+  InterfaceLookType,
+  InterfaceLookDefaultValue,
+} from '../../../type/InterfaceLook';
 
 /**
  *  @element uui-avatar-group
@@ -42,7 +42,7 @@ export class UUIAvatarGroupElement extends LitElement {
   public limit = 0;
 
   @property({ type: String, attribute: true })
-  public look: SymbolicColorType = SymbolicColorDefaultValue;
+  public look: InterfaceLookType = InterfaceLookDefaultValue;
 
   @property({ type: String, attribute: true })
   public size: AvatarSizeType = AvatarSizeDefaultValue;

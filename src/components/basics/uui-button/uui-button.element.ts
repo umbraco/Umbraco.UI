@@ -5,10 +5,10 @@ import {
 } from '../../../animations/uui-shake';
 import { UUIButtonClickEvent } from './UUIButtonClickEvent';
 import {
-  SymbolicColorType,
-  SymbolicColorDefaultValue,
-  SymbolicColorCSSCreator,
-} from '../../../type/SymbolicColor';
+  InterfaceLookType,
+  InterfaceLookDefaultValue,
+  InterfaceLookCSSCreator,
+} from '../../../type/InterfaceLook';
 
 /**
  *  @element uui-button
@@ -29,6 +29,8 @@ export class UUIButtonElement extends LitElement {
         vertical-align: middle;
         border: none;
         box-shadow: none;
+        border: 1px solid
+          var(--uui-button-background, var(--uui-interface-background));
         border-radius: var(
           --uui-button-border-radius,
           var(--uui-size-border-radius)
@@ -79,28 +81,24 @@ export class UUIButtonElement extends LitElement {
         content: '⏳';
       }
     `,
-    SymbolicColorCSSCreator(
-      symbolicColorName =>
+    InterfaceLookCSSCreator(
+      lookName =>
         css`
-          :host([look='${symbolicColorName}']) button {
-            background-color: var(--uui-color-${symbolicColorName}-background);
-            color: var(--uui-color-${symbolicColorName}-contrast);
-            border-color: var(--uui-color-${symbolicColorName}-border);
-            font-weight: var(--uui-color-${symbolicColorName}-font-weight);
+          :host([look='${lookName}']) button {
+            background-color: var(--uui-look-${lookName}-background);
+            color: var(--uui-look-${lookName}-contrast);
+            border-color: var(--uui-look-${lookName}-border);
+            font-weight: var(--uui-look-${lookName}-font-weight);
           }
-          :host([look='${symbolicColorName}']) button:hover {
-            background-color: var(
-              --uui-color-${symbolicColorName}-background-hover
-            );
-            color: var(--uui-color-${symbolicColorName}-contrast-hover);
-            border-color: var(--uui-color-${symbolicColorName}-border-hover);
+          :host([look='${lookName}']) button:hover {
+            background-color: var(--uui-look-${lookName}-background-hover);
+            color: var(--uui-look-${lookName}-contrast-hover);
+            border-color: var(--uui-look-${lookName}-border-hover);
           }
-          :host([look='${symbolicColorName}']) button[disabled] {
-            background-color: var(
-              --uui-color-${symbolicColorName}-background-disabled
-            );
-            color: var(--uui-color-${symbolicColorName}-contrast-disabled);
-            border-color: var(--uui-color-${symbolicColorName}-border-disabled);
+          :host([look='${lookName}']) button[disabled] {
+            background-color: var(--uui-look-${lookName}-background-disabled);
+            color: var(--uui-look-${lookName}-contrast-disabled);
+            border-color: var(--uui-look-${lookName}-border-disabled);
           }
         `
     ),
@@ -116,7 +114,7 @@ export class UUIButtonElement extends LitElement {
   // Note: We should bake in the failed or good state from current backoffice, its not the most optimal UX and no stick to it ongoing.
 
   @property({ attribute: 'look' })
-  look: SymbolicColorType = SymbolicColorDefaultValue;
+  look?: InterfaceLookType = InterfaceLookDefaultValue;
 
   private onClick(e: Event) {
     e.preventDefault();

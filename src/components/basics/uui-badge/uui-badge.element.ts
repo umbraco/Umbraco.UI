@@ -1,17 +1,15 @@
 import { LitElement, html, css, property } from 'lit-element';
 import {
-  SymbolicColorType,
-  SymbolicColorDefaultValue,
-  SymbolicColorCSSCreator,
-} from '../../../type/SymbolicColor';
+  InterfaceLookType,
+  InterfaceLookDefaultValue,
+  InterfaceLookCSSCreator,
+} from '../../../type/InterfaceLook';
+import { Size } from '../../../type/Size';
 
 /**
  *  @element uui-badge
  *  @slot - for badge contents
  */
-
-type BadgeSize = 'xs' | 's' | 'm' | 'l' | 'xl';
-
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
@@ -51,22 +49,22 @@ export class UUIBadgeElement extends LitElement {
         --uui-badge-size-unit: 8px;
       }
     `,
-    SymbolicColorCSSCreator(
-      symbolicColorName =>
+    InterfaceLookCSSCreator(
+      lookName =>
         css`
-          :host([look='${symbolicColorName}']) {
-            background-color: var(--uui-color-${symbolicColorName}-background);
-            color: var(--uui-color-${symbolicColorName}-contrast);
+          :host([look='${lookName}']) {
+            background-color: var(--uui-color-${lookName}-background);
+            color: var(--uui-color-${lookName}-contrast);
           }
         `
     ),
   ];
 
   @property({ attribute: true })
-  public size: BadgeSize = 'm';
+  public size: Size = 'm';
 
   @property({ attribute: true })
-  public look: SymbolicColorType = SymbolicColorDefaultValue;
+  public look: InterfaceLookType = InterfaceLookDefaultValue;
 
   render() {
     return html` <slot></slot> `;

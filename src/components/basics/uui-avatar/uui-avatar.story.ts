@@ -2,9 +2,9 @@ import { html } from 'lit-html';
 import './index';
 import { AvatarSizeNames, AvatarSizeType } from './uui-avatar.element';
 import {
-  SymbolicColorNames,
-  SymbolicColorType,
-} from '../../../type/SymbolicColor';
+  InterfaceLookNames,
+  InterfaceLookType,
+} from '../../../type/InterfaceLook';
 
 export default {
   title: 'Basics/Avatar',
@@ -52,8 +52,8 @@ export const Text = () => html`
 export const Looks = () => html`
   <div style="display: flex; align-items: center;">
     <uui-avatar size="m" text="First Last"></uui-avatar>
-    ${SymbolicColorNames.map(
-      (symbolicColorName: SymbolicColorType) =>
+    ${InterfaceLookNames.map(
+      (symbolicColorName: InterfaceLookType) =>
         html`<uui-avatar
           look="${symbolicColorName}"
           size="m"

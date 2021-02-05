@@ -1,9 +1,9 @@
 import { LitElement, html, property, css } from 'lit-element';
 import {
-  SymbolicColorType,
-  SymbolicColorDefaultValue,
-  SymbolicColorCSSCreator,
-} from '../../../type/SymbolicColor';
+  InterfaceLookType,
+  InterfaceLookDefaultValue,
+  InterfaceLookCSSCreator,
+} from '../../../type/InterfaceLook';
 
 /**
  *  @element uui-avatar
@@ -70,7 +70,7 @@ export class UUIAvatarElement extends LitElement {
         width: 100%;
       }
     `,
-    SymbolicColorCSSCreator(
+    InterfaceLookCSSCreator(
       symbolicColorName =>
         css`
           :host([look='${symbolicColorName}']) {
@@ -91,7 +91,7 @@ export class UUIAvatarElement extends LitElement {
   public imgSrcset = '';
 
   @property({ type: String, attribute: true })
-  public look: SymbolicColorType = SymbolicColorDefaultValue;
+  public look: InterfaceLookType = InterfaceLookDefaultValue;
 
   @property({ type: String, attribute: true })
   public text = '';
