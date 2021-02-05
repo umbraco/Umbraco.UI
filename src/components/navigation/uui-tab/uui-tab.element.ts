@@ -1,5 +1,4 @@
 import { LitElement, html, css, property, PropertyValues } from 'lit-element';
-import { UUIEvent } from '../../../event/UUIEvent';
 import { UUITabEvent } from './UUITabEvent';
 
 let TabKeyCounter = 0;

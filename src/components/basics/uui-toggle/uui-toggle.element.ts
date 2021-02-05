@@ -1,5 +1,5 @@
 import { LitElement, html, property, css, query } from 'lit-element';
-import { UUIToggleChangeEvent } from '../../../event/UUIToggleChangeEvent';
+import { UUIToggleChangeEvent } from './UUIToggleChangeEvent';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
