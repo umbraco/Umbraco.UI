@@ -1,13 +1,22 @@
-import { LitElement, html, css, property, query } from 'lit-element';
+import {
+  LitElement,
+  html,
+  css,
+  property,
+  query,
+  internalProperty,
+} from 'lit-element';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 /**
  *  @element uui-radio-group
  *  @slot for uui-radio elements
  */
 
-//TODO required
-//TODO proper form and test
+//TODO required?
+//TODO proper form and test either here or in the children
 //TODO focused style
+
+//fix the disabled selected
 
 //? what types should we allow as a value of that?
 
@@ -37,7 +46,8 @@ export class UUIRadioGroup extends LitElement {
   }
 
   firstUpdated() {
-    this.radioElements[0].setAttribute('tabindex', '0');
+    if (this.radioElements.length > 0)
+      this.radioElements[0].setAttribute('tabindex', '0');
     this._addNameToRadios(this.name);
     if (this.disabled) this._toggleDisableOnChildren(true);
   }
@@ -83,14 +93,16 @@ export class UUIRadioGroup extends LitElement {
     this._toggleDisableOnChildren(newVal);
   }
 
-  private _value: string | null = null;
-  @property()
+  private _value: FormDataEntryValue = '';
+  @internalProperty()
   get value() {
     return this._value;
   }
   set value(newValue) {
+    const oldVal = this._value;
     this._value = newValue;
     this._internals.setFormValue(this._value);
+    this.requestUpdate('value', oldVal);
   }
 
   private _name = '';
@@ -116,6 +128,7 @@ export class UUIRadioGroup extends LitElement {
     const oldVal = this._selected;
     this._selected = newVal;
     this._selectSingleElement(newVal);
+    this.value = newVal ? this.enabledRadioElements[newVal].value : '';
     this.requestUpdate('selected', oldVal);
   }
 

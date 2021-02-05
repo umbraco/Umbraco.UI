@@ -1,4 +1,5 @@
-import { LitElement, html, css, property, query } from 'lit-element';
+import { html, css, property, query, LitElement } from 'lit-element';
+
 import { UUIRadioChangeEvent } from '../../../event/UUIRadioChangeEvent';
 import {
   UUIHorizontalShakeKeyframes,
@@ -111,14 +112,33 @@ export class UUIRadioElement extends LitElement {
   @property({ type: String, reflect: true })
   public name = '';
 
+  //private _value: FormDataEntryValue = '';
   @property({ type: String, reflect: true })
   public value = '';
+  // get value() {
+  //   return this._value;
+  // }
+  // set value(newVal) {
+  //   const oldValue = this._value;
+  //   this._value = newVal;
+  //   this.requestUpdate('value', oldValue);
+  // }
 
   @property({ type: String })
   public label = '';
 
+  //private _checked = false;
   @property({ type: Boolean, reflect: true })
   public checked = false;
+  // get checked() {
+  //   return this._checked;
+  // }
+
+  // set checked(newVal) {
+  //   const oldValue = this._checked;
+  //   this._checked = newVal;
+  //   this.requestUpdate('checked', oldValue);
+  // }
 
   @property({ type: Boolean, reflect: true })
   public disabled = false;
@@ -131,7 +151,6 @@ export class UUIRadioElement extends LitElement {
 
   public uncheck() {
     if (this.disabled) return;
-
     this.checked = false;
     this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-checked', 'false');
@@ -139,7 +158,6 @@ export class UUIRadioElement extends LitElement {
 
   public check() {
     if (this.disabled) return;
-
     this.checked = true;
     this.setAttribute('tabindex', '0');
     this.setAttribute('aria-checked', 'true');
