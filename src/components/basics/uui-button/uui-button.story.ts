@@ -1,9 +1,9 @@
 import { html } from 'lit-html';
 import './index';
 import {
-  SymbolicColorNames,
-  SymbolicColorType,
-} from '../../../type/SymbolicColor';
+  InterfaceLookNames,
+  InterfaceLookType,
+} from '../../../type/InterfaceLook';
 
 export default {
   title: 'Basics/Button',
@@ -18,13 +18,19 @@ export const Disabled = () =>
 export const Loading = () =>
   html` <uui-button loading>Button waiting for something</uui-button> `;
 
+export const WithIcon = () =>
+  html`
+    <uui-button
+      ><uui-icon .name=${'bug'}></uui-icon>Button waiting for
+      something</uui-button
+    >
+  `;
+
 export const Styles = () => html`
   <uui-button>Default style</uui-button>
-  <uui-button button-style="">Default style</uui-button>
-  ${SymbolicColorNames.map(
-    (symbolicColorName: SymbolicColorType) =>
-      html`<uui-button button-style="${symbolicColorName}"
-        >${symbolicColorName} style</uui-button
-      >`
+  <uui-button look="">Empty look</uui-button>
+  ${InterfaceLookNames.map(
+    (lookName: InterfaceLookType) =>
+      html`<uui-button look="${lookName}">${lookName} look</uui-button>`
   )}
 `;
