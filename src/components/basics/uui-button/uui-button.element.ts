@@ -14,6 +14,7 @@ import {
  *  @element uui-button
  *  @fires {UUIButtonClickEvent} click - fires when the element is clicked
  *  @slot - for button contents
+ *  @description - All-round button
  */
 export class UUIButtonElement extends LitElement {
   static styles = [
@@ -33,7 +34,10 @@ export class UUIButtonElement extends LitElement {
           var(--uui-size-border-radius)
         );
         cursor: pointer;
-        font-weight: 500;
+        font-weight: var(
+          --uui-button-font-weight,
+          var(--uui-interface-font-weight)
+        );
         font-size: inherit;
         font-family: inherit;
 
@@ -74,30 +78,29 @@ export class UUIButtonElement extends LitElement {
       :host([loading]) button:before {
         content: '⏳';
       }
-
-      /** Styling for button with button-style value. */
-      :host([button-style]:not([button-style=''])) button {
-        font-weight: 700;
-      }
     `,
     SymbolicColorCSSCreator(
       symbolicColorName =>
         css`
-          :host([button-style='${symbolicColorName}']) button {
+          :host([look='${symbolicColorName}']) button {
             background-color: var(--uui-color-${symbolicColorName}-background);
             color: var(--uui-color-${symbolicColorName}-contrast);
+            border-color: var(--uui-color-${symbolicColorName}-border);
+            font-weight: var(--uui-color-${symbolicColorName}-font-weight);
           }
-          :host([button-style='${symbolicColorName}']) button:hover {
+          :host([look='${symbolicColorName}']) button:hover {
             background-color: var(
               --uui-color-${symbolicColorName}-background-hover
             );
             color: var(--uui-color-${symbolicColorName}-contrast-hover);
+            border-color: var(--uui-color-${symbolicColorName}-border-hover);
           }
-          :host([button-style='${symbolicColorName}']) button[disabled] {
+          :host([look='${symbolicColorName}']) button[disabled] {
             background-color: var(
               --uui-color-${symbolicColorName}-background-disabled
             );
             color: var(--uui-color-${symbolicColorName}-contrast-disabled);
+            border-color: var(--uui-color-${symbolicColorName}-border-disabled);
           }
         `
     ),
@@ -107,14 +110,13 @@ export class UUIButtonElement extends LitElement {
   @property({ type: Boolean, attribute: true })
   disabled = false;
 
-  // TODO: I'm not sure we will need a loading state, but lets consider having a loading state, as waiting for a request to complete like Save.
   @property({ type: Boolean, attribute: true })
   loading = false;
 
-  // Note: We should not adapt the failed or good state from current backoffice, its bad UX and no need to enable that ongoing.
+  // Note: We should bake in the failed or good state from current backoffice, its not the most optimal UX and no stick to it ongoing.
 
-  @property({ attribute: 'button-style' })
-  buttonStyle: SymbolicColorType = SymbolicColorDefaultValue;
+  @property({ attribute: 'look' })
+  look: SymbolicColorType = SymbolicColorDefaultValue;
 
   private onClick(e: Event) {
     e.preventDefault();

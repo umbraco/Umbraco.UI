@@ -24,6 +24,8 @@
   --uui-interface-border-disabled: var(--uui-color-grey-dimmed);
   --uui-interface-border-focus: var(--uui-color-grey-dark);
 
+  --uui-interface-font-weight: 500;
+
   --uui-interface-active: var(--uui-color-spanish-pink);
   --uui-interface-active-hover: var(--uui-color-spanish-pink);
   --uui-interface-active-disabled: var(--uui-color-spanish-pink-dimmed);

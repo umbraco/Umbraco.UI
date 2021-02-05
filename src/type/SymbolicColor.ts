@@ -3,6 +3,7 @@ import { CSSResult, unsafeCSS } from 'lit-element';
 export const SymbolicColorNames: Readonly<SymbolicColorType[]> = [
   'primary',
   'secondary',
+  'outline',
   'positive',
   'warning',
   'danger',
@@ -13,6 +14,7 @@ export type SymbolicColorType =
   | ''
   | 'primary'
   | 'secondary'
+  | 'outline'
   | 'positive'
   | 'warning'
   | 'danger';
