@@ -1,5 +1,5 @@
 import { LitElement, html, property } from 'lit-element';
-import { UUITabEvent } from '../../../event/UUITabEvent';
+import { UUITabGroupEvent } from '../uui-tab-group/UUITabGroupEvent';
 
 /**
  *  @element uui-tabs-example-page
@@ -12,42 +12,36 @@ export class UUITabsExamplePageElement extends LitElement {
   ];
   */
   @property()
-  private activeKey: string | null = '123';
+  private activeKey: string | null = 'A';
 
-  private changeActiveKey(key: string | null) {
-    // If we like this
-
+  private changeActive(key: string | null) {
     this.activeKey = key;
   }
 
-  private async onChange(e: UUITabEvent) {
-    //Wrap listener actions into this, if we want to enable this to be stopped by a parent?
-    await Promise.resolve;
-    if (e.defaultPrevented !== true) {
-      this.activeKey = e.detail.key;
-    }
+  private onChange(e: UUITabGroupEvent) {
+    this.activeKey = e.target.active;
   }
 
   render() {
     return html`
       <uui-tab-group .active=${this.activeKey} @change=${this.onChange}>
-        <uui-tab .key=${'123'}> Tab A </uui-tab>
-        <uui-tab .key=${'200'}> Tab B </uui-tab>
-        <uui-tab .key=${'300'}> Tab C </uui-tab>
+        <uui-tab .key=${'A'}> Tab A </uui-tab>
+        <uui-tab .key=${'B'}> Tab B </uui-tab>
+        <uui-tab .key=${'C'}> Tab C </uui-tab>
       </uui-tab-group>
-      <button type="button" @click=${() => this.changeActiveKey('123')}>
-        open 123
+      <button type="button" @click=${() => this.changeActive('A')}>
+        open A
       </button>
-      <button type="button" @click=${() => this.changeActiveKey('200')}>
-        open 200
+      <button type="button" @click=${() => this.changeActive('B')}>
+        open B
       </button>
-      <button type="button" @click=${() => this.changeActiveKey('300')}>
-        open 300
+      <button type="button" @click=${() => this.changeActive('C')}>
+        open C
       </button>
-      <button type="button" @click=${() => this.changeActiveKey(null)}>
-        Set to empty null
+      <button type="button" @click=${() => this.changeActive(null)}>
+        Reset active
       </button>
-      <div>${this.activeKey}</div>
+      <div>Currently active: ${this.activeKey}</div>
     `;
   }
 }

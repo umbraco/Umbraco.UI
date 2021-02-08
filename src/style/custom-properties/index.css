@@ -2,12 +2,13 @@
 UUI - Mapping-level or specific component name - State - Name - Part - Overwrites
 */
 
+@import "./app-state.css";
 @import "./sizes.css";
 @import "./colors.css";
-@import "./symbolic-colors.css";
 @import "./animations.css";
 
+@import "./interface.css";
+@import "./interface-look.css";
 @import "./themes/default.css";
 @import "./themes/darkmode.css";
-@import "./interface.css";
 @import "./components.css";

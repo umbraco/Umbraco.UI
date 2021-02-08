@@ -1,4 +1,4 @@
-import { UUIEvent } from './UUIEvent';
+import { UUIEvent } from '../../../event/UUIEvent';
 
 export class UUIButtonClickEvent extends UUIEvent {
   constructor() {
