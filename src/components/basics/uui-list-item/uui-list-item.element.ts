@@ -17,22 +17,26 @@ export class UUIListItemElement extends LitElement {
       }
 
       button {
+        color: var(--uui-interface-contrast);
+        box-sizing: border-box;
         display: block;
         font-size: 1rem;
+        font-family: inherit;
         border: none;
         box-shadow: none;
         cursor: pointer;
         height: 100%;
         width: 100%;
         padding: 0.5em;
+        background-color: var(--uui-interface-background);
       }
 
       button:hover {
-        background-color: lightgrey;
+        background-color: var(--uui-interface-background-hover);
       }
 
       :host([selected]) button {
-        background-color: pink;
+        background-color: var(--uui-interface-active);
       }
     `,
   ];
@@ -83,4 +87,3 @@ export class UUIListItemElement extends LitElement {
     `;
   }
 }
-// /  @keydown="${(e: KeyboardEvent) => {if (e.code === 'Enter') this._onClick;}}"

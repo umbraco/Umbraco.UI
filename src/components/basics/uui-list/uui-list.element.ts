@@ -1,7 +1,4 @@
 import { LitElement, html, css, property, query } from 'lit-element';
-import { UUIEvent } from '../../../event/UUIEvent';
-import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
-import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
 import { UUIListItemElement } from '../uui-list-item/uui-list-item.element';
 
 /**
@@ -21,7 +18,6 @@ export class UUIListElement extends LitElement {
     css`
       :host {
         display: block;
-        font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
       }
 
       :host([non-interactive]) ::slotted(*) {
@@ -46,8 +42,7 @@ export class UUIListElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'non-interactive' })
   nonInteractive = false;
 
-
-//those listeners should be attached on constructor
+  //those listeners should be attached on constructor
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('list-item-select', this._handleSelect);
