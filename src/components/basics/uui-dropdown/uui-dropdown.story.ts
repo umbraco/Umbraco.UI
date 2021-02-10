@@ -40,7 +40,6 @@ const options = [
 export const Overview = () => html`
   <uui-dropdown>
     <uui-button slot="input">Click <uui-carret></uui-carret></uui-button>
-
     <uui-overflow-container style="min-width: 400px">
       <uui-list>
         ${options.map(

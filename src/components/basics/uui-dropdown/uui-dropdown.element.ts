@@ -5,7 +5,7 @@ import {
   query,
   property,
   internalProperty,
-  queryAll,
+  queryAssignedNodes,
 } from 'lit-element';
 import { UUICarretElement } from '../../fragments/uui-carret/uui-carret.element';
 
@@ -55,17 +55,19 @@ export class UUIDropdownElement extends LitElement {
   @query('slot:not([name="input"])')
   _slot!: HTMLSlotElement;
 
-  protected get _slottedElements() {
-    return this._slot ? this._slot.assignedElements({ flatten: false }) : [];
-  }
+  //   @queryAssignedNodes(undefined, true)
+  //   _slottedElements: any;
+  //   protected get _slottedElements() {
+  //     return this._slot ? this._slot.assignedElements({ flatten: false }) : [];
+  //   }
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('mouseup', this.closeDropdownOnOutsideClick);
+    document.addEventListener('mouseup', this.closeDropdownOnOutsideClick);
   }
 
   disconnectedCallback() {
-    window.removeEventListener('mouseup', this.closeDropdownOnOutsideClick);
+    document.removeEventListener('mouseup', this.closeDropdownOnOutsideClick);
     super.disconnectedCallback();
   }
 
@@ -111,9 +113,7 @@ export class UUIDropdownElement extends LitElement {
     const oldVal = this._isOpen;
     this._isOpen = newVal;
 
-    this.requestUpdate('isOpen', oldVal).then(() => {
-      this.toggleOpen(newVal);
-    });
+    this.requestUpdate('isOpen', oldVal).then(() => this.toggleOpen(newVal));
   }
 
   public toggleOpen(isOpen: boolean) {
@@ -127,9 +127,10 @@ export class UUIDropdownElement extends LitElement {
   protected closeDropdownOnOutsideClick = (e: MouseEvent) => {
     const path = e.composedPath();
 
-    if (!path.includes(this)) {
-      this.isOpen = false;
+    if (path.includes(this)) {
+      return;
     }
+    if (this.isOpen) this.isOpen = false;
   };
 
   render() {

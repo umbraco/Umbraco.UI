@@ -62,6 +62,7 @@ export class UUITextFieldElement extends LitElement {
     this._internals = (this as any).attachInternals();
   }
 
+  //! type of this should probably be FormDataEntryValue, and initialized as ''
   private _value: string | null = null;
 
   @property()
