@@ -38,11 +38,25 @@ const options = [
 ];
 
 export const Overview = () => html`
-  <uui-dropdown style="max-width: 300px">
-    <uui-overflow-container>
+  <uui-dropdown>
+    <uui-button slot="input">Click <uui-carret></uui-carret></uui-button>
+
+    <uui-overflow-container style="min-width: 400px">
       <uui-list>
         ${options.map(
-          option => html`<uui-list-item>${option.color}</uui-list-item>`
+          option =>
+            html`<uui-list-item
+              ><uui-icon
+                slot="left"
+                name="bug"
+                .style="color: ${option.value}"
+              ></uui-icon
+              >${option.color}<uui-icon
+                slot="right"
+                name="bug"
+                .style="color: ${option.value}"
+              ></uui-icon
+            ></uui-list-item>`
         )}
       </uui-list>
     </uui-overflow-container>

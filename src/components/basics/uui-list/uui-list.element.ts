@@ -7,7 +7,7 @@ import { UUIListItemElement } from '../uui-list-item/uui-list-item.element';
  *
  */
 
-// TODO
+// TODO reneame this top uui-select-list, add roles
 // keyboard [v]
 // multiple [x]
 // dispatch event with selected elements indexes values?

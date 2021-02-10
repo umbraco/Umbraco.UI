@@ -8,6 +8,7 @@ import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
  */
 
 //TODO add the deselect method
+//TODO rename that to select-list-item
 
 export class UUIListItemElement extends LitElement {
   static styles = [
@@ -19,7 +20,9 @@ export class UUIListItemElement extends LitElement {
       button {
         color: var(--uui-interface-contrast);
         box-sizing: border-box;
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-size: 1rem;
         font-family: inherit;
         border: none;
@@ -36,7 +39,8 @@ export class UUIListItemElement extends LitElement {
       }
 
       :host([selected]) button {
-        background-color: var(--uui-interface-active);
+        background-color: var(--uui-color-space-cadet);
+        color: var(--uui-color-white);
       }
     `,
   ];
@@ -80,8 +84,10 @@ export class UUIListItemElement extends LitElement {
         @focus="${this._onFocus}"
         @blur="${this._onBlur}"
       >
-        <slot name="left"></slot>
-        <span><slot></slot></span>
+        <div>
+          <slot name="left"></slot>
+          <span><slot></slot></span>
+        </div>
         <slot name="right"></slot>
       </button>
     `;
