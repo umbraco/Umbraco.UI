@@ -41,10 +41,10 @@ export const Overview = () => html`
   <uui-dropdown>
     <uui-button slot="input">Click <uui-carret></uui-carret></uui-button>
     <uui-overflow-container style="min-width: 400px">
-      <uui-list>
+      <uui-select-list>
         ${options.map(
           option =>
-            html`<uui-list-item
+            html`<uui-select-list-item
               ><uui-icon
                 slot="left"
                 name="bug"
@@ -55,9 +55,9 @@ export const Overview = () => html`
                 name="bug"
                 .style="color: ${option.value}"
               ></uui-icon
-            ></uui-list-item>`
+            ></uui-select-list-item>`
         )}
-      </uui-list>
+      </uui-select-list>
     </uui-overflow-container>
   </uui-dropdown>
 `;

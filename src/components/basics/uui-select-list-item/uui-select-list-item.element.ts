@@ -1,6 +1,5 @@
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
-import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
 
 /**
  *  @element uui-list-item
@@ -10,7 +9,7 @@ import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
 //TODO add the deselect method
 //TODO rename that to select-list-item
 
-export class UUIListItemElement extends LitElement {
+export class UUISelectListItemElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -66,14 +65,12 @@ export class UUIListItemElement extends LitElement {
     );
   }
 
-  private _onFocus(e: Event) {
+  private _onFocus() {
     this.focused = true;
-    this.dispatchEvent(new UUIListItemFocusEvent());
   }
 
-  private _onBlur(e: Event) {
+  private _onBlur() {
     this.focused = false;
-    this.dispatchEvent(new UUIListItemFocusEvent());
   }
 
   render() {

@@ -1,5 +1,5 @@
 import { LitElement, html, css, property, query } from 'lit-element';
-import { UUIListItemElement } from '../uui-list-item/uui-list-item.element';
+import { UUISelectListItemElement } from '../uui-select-list-item/uui-select-list-item.element';
 
 /**
  *  @element uui-list
@@ -13,7 +13,7 @@ import { UUIListItemElement } from '../uui-list-item/uui-list-item.element';
 // dispatch event with selected elements indexes values?
 // maybe add subheader element and divider?
 // two line list items?
-export class UUIListElement extends LitElement {
+export class UUISelectListElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -29,13 +29,13 @@ export class UUIListElement extends LitElement {
   @query('slot') protected slotElement!: HTMLSlotElement;
 
   //returns an Array of ListElements if they're in the slot or empty array
-  protected get listElements(): UUIListItemElement[] {
+  protected get listElements(): UUISelectListItemElement[] {
     return this.slotElement
       ? (this.slotElement
           .assignedElements({ flatten: true })
           .filter(
-            el => el instanceof UUIListItemElement
-          ) as UUIListItemElement[])
+            el => el instanceof UUISelectListItemElement
+          ) as UUISelectListItemElement[])
       : [];
   }
 
@@ -72,7 +72,7 @@ export class UUIListElement extends LitElement {
     if (this.nonInteractive) return;
 
     const listElements = this.listElements;
-    let selectedElement: UUIListItemElement;
+    let selectedElement: UUISelectListItemElement;
 
     listElements.forEach(el => {
       if (el === e.target) {
@@ -113,10 +113,12 @@ export class UUIListElement extends LitElement {
   private _onKeyDown(e: KeyboardEvent) {
     switch (e.code) {
       case 'ArrowUp': {
+        e.preventDefault();
         this._focusPrevious();
         break;
       }
       case 'ArrowDown': {
+        // e.preventDefault();
         this._focusNext();
         break;
       }

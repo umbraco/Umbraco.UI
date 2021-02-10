@@ -3,8 +3,8 @@ import './index';
 
 export default {
   title: 'Basics/List Item',
-  component: 'uui-list-item',
+  component: 'uui-select-list-item',
 };
 
 export const Basic = () =>
-  html`<uui-list-item>This is list item</uui-list-item>`;
+  html`<uui-select-list-item>This is list item</uui-select-list-item>`;
