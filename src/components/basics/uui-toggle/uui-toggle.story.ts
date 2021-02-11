@@ -40,3 +40,9 @@ export const LongLabel = () => html`
     label="Let's see how it looks when someone out of reason put's the label in."
   ></uui-toggle>
 `;
+
+export const InAForm = () => html`
+  <form action="">
+    <uui-toggle label="Lol"></uui-toggle>
+  </form>
+`;

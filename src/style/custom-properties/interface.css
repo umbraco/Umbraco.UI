@@ -1,7 +1,5 @@
 /** Example of interface specific props. **/
 
-
-
 /** Standart interface style*/
 :root {
   --uui-interface-background: var(--uui-color-white);
@@ -45,5 +43,4 @@
   --uui-interface-selected-contrast-hover: var(--uui-color-white);
   --uui-interface-selected-contrast-disabled: var(--uui-color-white-dimmed);
   --uui-interface-selected-contrast-focus: var(--uui-color-white);
-
 }
