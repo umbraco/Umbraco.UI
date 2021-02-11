@@ -8,11 +8,17 @@ import {
   queryAssignedNodes,
 } from 'lit-element';
 import { UUICarretElement } from '../../fragments/uui-carret/uui-carret.element';
+import { UUIEvent } from '../../../event/UUIEvent';
 
 /**
  *  @element uui-dropdown
+ * @event dropdown-close fired when dropdown is closing
+ * @event dropdown-open fired when dropdown is opening
+ * @slot input for whatever is suppose to be visible
+ * @slot for dropdopwn content
  */
 
+//TODO - rename that to something with popover or popup proxy and add other sides, not only down
 export class UUIDropdownElement extends LitElement {
   static styles = [
     css`
@@ -20,13 +26,13 @@ export class UUIDropdownElement extends LitElement {
         position: relative;
       }
 
-      /* #selected-container {
+      #flex-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 0.5em;
         box-sizing: border-box;
-      } */
+      }
 
       /* uui-carret {
         height: 100%;
@@ -35,12 +41,16 @@ export class UUIDropdownElement extends LitElement {
 
       #data-container {
         position: absolute;
-        left: -1px;
 
         transform-origin: top center;
         box-sizing: border-box;
+        border-radius: var(--uui-size-border-radius);
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
         /* width: calc(100% + 2px); */
+      }
+
+      ::slotted(*) {
+        border-radius: var(--uui-size-border-radius);
       }
       //TODO shadow instead of border and rounded corners
     `,
@@ -51,15 +61,6 @@ export class UUIDropdownElement extends LitElement {
 
   @query('#data-container')
   _dropdownContainer!: HTMLElement;
-
-  @query('slot:not([name="input"])')
-  _slot!: HTMLSlotElement;
-
-  //   @queryAssignedNodes(undefined, true)
-  //   _slottedElements: any;
-  //   protected get _slottedElements() {
-  //     return this._slot ? this._slot.assignedElements({ flatten: false }) : [];
-  //   }
 
   connectedCallback() {
     super.connectedCallback();
@@ -103,6 +104,9 @@ export class UUIDropdownElement extends LitElement {
     this._animation.pause();
   }
 
+  private openEvent = new UUIEvent('dropdown-open');
+  private closeEvent = new UUIEvent('dropdown-close');
+
   private _isOpen = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
   get isOpen() {
@@ -112,7 +116,8 @@ export class UUIDropdownElement extends LitElement {
   set isOpen(newVal) {
     const oldVal = this._isOpen;
     this._isOpen = newVal;
-
+    if (newVal) this.dispatchEvent(this.openEvent);
+    else this.dispatchEvent(this.closeEvent);
     this.requestUpdate('isOpen', oldVal).then(() => this.toggleOpen(newVal));
   }
 
@@ -135,8 +140,13 @@ export class UUIDropdownElement extends LitElement {
 
   render() {
     return html`
-      <slot name="input" @click="${() => (this.isOpen = !this.isOpen)}"></slot>
-
+      <div id="flex-container">
+        <slot name="input"></slot>
+        <slot
+          name="button"
+          @click="${() => (this.isOpen = !this.isOpen)}"
+        ></slot>
+      </div>
       <div id="data-container" part="data-container">
         <slot></slot>
       </div>

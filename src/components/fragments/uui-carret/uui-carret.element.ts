@@ -13,7 +13,7 @@ export class UUICarretElement extends LitElement {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: auto 6px;
+        padding: 0.5em;
       }
 
       #carret-container svg {

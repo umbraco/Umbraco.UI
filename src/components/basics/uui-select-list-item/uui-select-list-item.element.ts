@@ -1,5 +1,12 @@
-import { LitElement, html, css, property, query } from 'lit-element';
-import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
+import {
+  LitElement,
+  html,
+  css,
+  property,
+  query,
+  queryAssignedNodes,
+} from 'lit-element';
+import { UUIEvent } from '../../../event/UUIEvent';
 
 /**
  *  @element uui-list-item
@@ -14,9 +21,6 @@ export class UUISelectListItemElement extends LitElement {
     css`
       :host {
         display: block;
-      }
-
-      button {
         color: var(--uui-interface-contrast);
         box-sizing: border-box;
         display: flex;
@@ -24,28 +28,59 @@ export class UUISelectListItemElement extends LitElement {
         justify-content: space-between;
         font-size: 1rem;
         font-family: inherit;
-        border: none;
-        box-shadow: none;
         cursor: pointer;
-        height: 100%;
-        width: 100%;
         padding: 0.5em;
         background-color: var(--uui-interface-background);
       }
 
-      button:hover {
+      :host(:hover) {
         background-color: var(--uui-interface-background-hover);
       }
 
-      :host([selected]) button {
+      :host([selected]) {
         background-color: var(--uui-color-space-cadet);
         color: var(--uui-color-white);
       }
     `,
   ];
 
+  @queryAssignedNodes('', true)
+  _slot!: Node[];
+
+  @property({ type: String })
+  value = '';
+
+  constructor() {
+    super();
+    this.addEventListener('click', this.toggleSelectElement);
+  }
+
+  //! this should probably traverse all the nodes and pick the correct one somehow, and then assign the value...
+  firstUpdated() {
+    if (this._slot[0].textContent) this.value = this._slot[0].textContent;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'option');
+    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
+    if (!this.hasAttribute('aria-selected'))
+      this.setAttribute('aria-checked', 'false');
+  }
+
+  private _selected = false;
   @property({ type: Boolean, reflect: true })
-  selected = false;
+  get selected() {
+    return this._selected;
+  }
+
+  set selected(newVal) {
+    const oldVal = this._selected;
+    this._selected = newVal;
+    this.setAttribute('aria-checked', `${newVal}`);
+    this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
+    this.requestUpdate('selected', oldVal);
+  }
 
   @property({ type: Boolean, reflect: true })
   focused = false;
@@ -56,37 +91,18 @@ export class UUISelectListItemElement extends LitElement {
     if (this.focused) this.button.focus();
   }
 
-  private _onClick() {
+  toggleSelectElement() {
     this.selected = !this.selected;
-    this.dispatchEvent(
-      new UUIListItemClickEvent('list-item-select', {
-        detail: { selected: this.selected },
-      })
-    );
-  }
-
-  private _onFocus() {
-    this.focused = true;
-  }
-
-  private _onBlur() {
-    this.focused = false;
+    // console.log(this._slot[0].textContent);
   }
 
   render() {
     return html`
-      <button
-        id="list-item"
-        @click="${this._onClick}"
-        @focus="${this._onFocus}"
-        @blur="${this._onBlur}"
-      >
-        <div>
-          <slot name="left"></slot>
-          <span><slot></slot></span>
-        </div>
-        <slot name="right"></slot>
-      </button>
+      <div id="list-item">
+        <slot name="left"></slot>
+        <span><slot></slot></span>
+      </div>
+      <slot name="right"></slot>
     `;
   }
 }

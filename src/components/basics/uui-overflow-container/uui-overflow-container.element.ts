@@ -8,7 +8,7 @@ export class UUIOverflowContainer extends LitElement {
   static styles = [
     css`
       :host {
-        --uui-overflow-container-height: 150px;
+        --uui-overflow-container-height: 200px;
       }
 
       :host {
@@ -17,7 +17,7 @@ export class UUIOverflowContainer extends LitElement {
         scrollbar-color: var(--uui-interface-contrast-disabled)
           var(--uui-interface-background-alt);
         overflow-y: scroll;
-        height: var(--uui-overflow-container-height);
+        max-height: var(--uui-overflow-container-height);
       }
 
       :host::-webkit-scrollbar {
