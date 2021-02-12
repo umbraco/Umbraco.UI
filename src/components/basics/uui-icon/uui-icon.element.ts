@@ -1,10 +1,11 @@
-import { LitElement, html, css, property, query } from 'lit-element';
+import { LitElement, css, property } from 'lit-element';
 import { UUIIconFactory } from '../../../service/UUIIconFactory';
 /**
  *  @element uui-icon
  *
  */
 
+// TODO: Allow for slotted SVG.
 export class UUIIconElement extends LitElement {
   static styles = [
     css`
