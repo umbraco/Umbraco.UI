@@ -1,12 +1,4 @@
-import {
-  LitElement,
-  html,
-  css,
-  query,
-  property,
-  internalProperty,
-  queryAssignedNodes,
-} from 'lit-element';
+import { LitElement, html, css, query, property } from 'lit-element';
 import { UUICarretElement } from '../../fragments/uui-carret/uui-carret.element';
 import { UUIEvent } from '../../../event/UUIEvent';
 
@@ -34,11 +26,6 @@ export class UUIDropdownElement extends LitElement {
         box-sizing: border-box;
       }
 
-      /* uui-carret {
-        height: 100%;
-        color: currentColor;
-      } */
-
       #data-container {
         position: absolute;
 
@@ -46,13 +33,11 @@ export class UUIDropdownElement extends LitElement {
         box-sizing: border-box;
         border-radius: var(--uui-size-border-radius);
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
-        /* width: calc(100% + 2px); */
       }
 
       ::slotted(*) {
         border-radius: var(--uui-size-border-radius);
       }
-      //TODO shadow instead of border and rounded corners
     `,
   ];
 
@@ -85,7 +70,7 @@ export class UUIDropdownElement extends LitElement {
   }
 
   private _options: KeyframeAnimationOptions = {
-    duration: 350,
+    duration: 250,
     fill: 'both',
     easing: `${
       this._reducedMotion() //? can it be like that? it works if you dont change mediaQuerry on the fly

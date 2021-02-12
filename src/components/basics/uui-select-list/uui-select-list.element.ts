@@ -1,6 +1,6 @@
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUISelectListItemElement } from '../uui-select-list-item/uui-select-list-item.element';
-
+import { UUIEvent } from '../../../event/UUIEvent';
 /**
  *  @element uui-list
  *  @slot  for list items
@@ -42,87 +42,62 @@ export class UUISelectListElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'non-interactive' })
   nonInteractive = false;
 
-  //those listeners should be attached on constructor
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('list-item-select', this._handleSelect);
-    this.addEventListener('keydown', this._onKeyDown);
-    this.addEventListener('focus', this._findFocusedElement);
+  firstUpdated() {
+    if (this.listElements.length > 0)
+      this.listElements[0].setAttribute('tabindex', '0');
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('list-itemselect', this._handleSelect);
-    this.removeEventListener('keydown', this._onKeyDown);
-
-    this.removeEventListener('focus', this._findFocusedElement);
+  constructor() {
+    super();
+    this.addEventListener('click', this._handleSelectOnClick);
+    //this.addEventListener('keydown', this._onKeydown);
   }
 
-  private _focusedElementIndex = -1;
-
-  private _lastSelectedIndex: number | null = null;
-
-  private _findFocusedElement(e: Event) {
-    this._focusedElementIndex = this.listElements.findIndex(
-      el => el === e.target
-    );
+  private _value: FormDataEntryValue = '';
+  @property()
+  get value() {
+    return this._value;
   }
-  // TODO make this pretty!
-  private _handleSelect(e: Event) {
-    if (this.nonInteractive) return;
+  set value(newValue) {
+    const oldVal = this._value;
+    this._value = newValue;
+    this.requestUpdate('value', oldVal);
+    this.dispatchEvent(this._changeValue);
+  }
 
-    const listElements = this.listElements;
+  private _changeValue = new UUIEvent('value-change');
+
+  private _selected: number | null = null;
+  @property({ type: Number, reflect: true })
+  get selected() {
+    return this._selected;
+  }
+
+  set selected(newVal) {
+    const oldVal = this._selected;
+    this._selected = newVal;
+    //this._selectSingleElement(newVal);
+    this.value = newVal ? this.listElements[newVal].value : '';
+    this.requestUpdate('selected', oldVal);
+  }
+
+  private _handleSelectOnClick(e: Event) {
+    const radios = this.listElements;
     let selectedElement: UUISelectListItemElement;
 
-    listElements.forEach(el => {
+    radios.forEach(el => {
       if (el === e.target) {
         selectedElement = el;
-        this._lastSelectedIndex = listElements.indexOf(el);
+        this.selected = radios.indexOf(el);
+        this.value = selectedElement.value;
       }
     });
 
-    const filtered = listElements.filter(el => el !== selectedElement);
+    const filtered = radios.filter(el => el !== selectedElement);
 
-    //change this to a method specific to parcitular elemnent
     filtered.forEach(el => {
-      el.removeAttribute('selected');
+      el.selected = false;
     });
-  }
-
-  private _focusPrevious() {
-    if (this._focusedElementIndex !== null && this._focusedElementIndex > 0) {
-      this.listElements[this._focusedElementIndex - 1].setAttribute(
-        'focused',
-        'true'
-      );
-    }
-  }
-
-  private _focusNext() {
-    if (
-      this._focusedElementIndex !== null &&
-      this._focusedElementIndex + 1 < this.listElements.length
-    ) {
-      this.listElements[this._focusedElementIndex + 1].setAttribute(
-        'focused',
-        'true'
-      );
-    }
-  }
-
-  private _onKeyDown(e: KeyboardEvent) {
-    switch (e.code) {
-      case 'ArrowUp': {
-        e.preventDefault();
-        this._focusPrevious();
-        break;
-      }
-      case 'ArrowDown': {
-        // e.preventDefault();
-        this._focusNext();
-        break;
-      }
-    }
   }
 
   render() {
