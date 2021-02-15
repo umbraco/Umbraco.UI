@@ -16,7 +16,7 @@ UUIIconService.defineIcon(
 
 // Example of how to implement a listener, emitted when a icon is begin requested:
 UUIIconService.on<UUIIconServiceEvent>(
-  UUIIconServiceEvent.ICONREQUEST,
+  UUIIconServiceEvent.ICON_REQUEST,
   (event: UUIIconServiceEvent) => {
     if (event.iconName === 'check') {
       UUIIconService.defineIcon(

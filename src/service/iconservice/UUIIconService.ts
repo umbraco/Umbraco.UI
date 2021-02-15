@@ -20,7 +20,7 @@ class UUIIconServiceClass extends UUIVirtualEventEmitter {
       this.icons[iconName] = icon;
 
       this.emit(
-        new UUIIconServiceEvent(UUIIconServiceEvent.ICONREQUEST, iconName)
+        new UUIIconServiceEvent(UUIIconServiceEvent.ICON_REQUEST, iconName)
       );
 
       return icon.promise;
