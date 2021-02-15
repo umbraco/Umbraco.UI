@@ -84,8 +84,8 @@ export class UUIButtonElement extends LitElement {
       }
 
       ::slotted(*) {
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: calc(var(--uui-size-base-unit) * 2);
+        margin-right: calc(var(--uui-size-base-unit) * 2);
       }
 
       :host([loading]) > button > slot {
