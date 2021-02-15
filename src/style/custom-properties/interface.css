@@ -4,15 +4,15 @@
 
 /** Standart interface style*/
 :root {
-  --uui-interface-background: var(--uui-color-white);
-  --uui-interface-background-hover: var(--uui-color-white-dark);
-  --uui-interface-background-disabled: var(--uui-color-white-dimmed);
-  --uui-interface-background-focus: var(--uui-color-white);
+  --uui-interface-surface: var(--uui-color-white);
+  --uui-interface-surface-hover: var(--uui-color-white-dark);
+  --uui-interface-surface-disabled: var(--uui-color-white-dimmed);
+  --uui-interface-surface-focus: var(--uui-color-white);
 
-  --uui-interface-background-alt: var(--uui-color-gravel);
-  --uui-interface-background-alt-hover: var(--uui-color-gravel-dark);
-  --uui-interface-background-alt-disabled: var(--uui-color-gravel-dimmed);
-  --uui-interface-background-alt-focus: var(--uui-color-gravel);
+  --uui-interface-surface-alt: var(--uui-color-gravel);
+  --uui-interface-surface-alt-hover: var(--uui-color-gravel-dark);
+  --uui-interface-surface-alt-disabled: var(--uui-color-gravel-dimmed);
+  --uui-interface-surface-alt-focus: var(--uui-color-gravel);
 
   --uui-interface-contrast: var(--uui-color-black);
   --uui-interface-contrast-hover: var(--uui-color-gunmetal);
