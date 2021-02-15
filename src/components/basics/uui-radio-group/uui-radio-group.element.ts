@@ -85,7 +85,7 @@ export class UUIRadioGroup extends LitElement {
         el.checked = false;
       });
       throw new Error(
-        'There can only be one checked element among the radio group children'
+        'There can only be one checked element among the <uui-radio-group> children'
       );
     }
     console.log(checkedRadios.length === 1);
@@ -144,25 +144,50 @@ export class UUIRadioGroup extends LitElement {
   set selected(newVal) {
     const oldVal = this._selected;
     this._selected = newVal;
+    if (newVal === null) {
+      this.radioElements[0].setAttribute('tabindex', '0');
+    }
     this._selectSingleElement(newVal);
-    this.value = newVal ? this.enabledRadioElements[newVal].value : '';
+    this.value = newVal !== null ? this.radioElements[newVal].value : '';
     this.requestUpdate('selected', oldVal);
   }
 
+  protected get enabledElementsIndexes() {
+    const indexes: number[] = [];
+    this.radioElements.forEach(el => {
+      if (el.disabled === false) indexes.push(this.radioElements.indexOf(el));
+    });
+    return indexes;
+  }
+
+  private _previousSelected = 0;
   private _selectPreviousElement() {
-    if (this.selected === 0) {
-      this.selected = this.enabledRadioElements.length - 1;
-    } else if (this.selected !== null) {
-      this.selected--;
-    } else this.selected = 0;
+    if (
+      this.selected === null ||
+      this.selected === this.enabledElementsIndexes[0]
+    ) {
+      this.selected = this.enabledElementsIndexes[
+        this.enabledElementsIndexes.length - 1
+      ];
+      this._previousSelected = this.enabledElementsIndexes.length - 1;
+    } else {
+      this._previousSelected--;
+      this.selected = this.enabledElementsIndexes[this._previousSelected];
+    }
   }
 
   private _selectNextElement() {
-    if (this.selected === this.enabledRadioElements.length - 1) {
-      this.selected = 0;
-    } else if (this.selected !== null) {
-      this.selected++;
-    } else this.selected = 0; //when nothing is selected select first element
+    if (
+      this.selected === null ||
+      this.selected ===
+        this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1]
+    ) {
+      this.selected = this.enabledElementsIndexes[0];
+      this._previousSelected = 0;
+    } else {
+      this._previousSelected++;
+      this.selected = this.enabledElementsIndexes[this._previousSelected];
+    }
   }
 
   private _onKeydown(e: KeyboardEvent) {
@@ -181,29 +206,24 @@ export class UUIRadioGroup extends LitElement {
       }
 
       case SPACE: {
-        if (this.selected === null) this.selected = 0;
+        if (this.selected === null)
+          this.selected = this.enabledElementsIndexes[0];
       }
     }
   }
 
-  //add another argument - an array of element, but what type? We need globally declared type of all our elements.
   private _selectSingleElement(indexOfSelected: number | null) {
-    const notSelected = this.enabledRadioElements.filter(
-      el => this.enabledRadioElements.indexOf(el) !== indexOfSelected
+    const notSelected = this.radioElements.filter(
+      el => this.radioElements.indexOf(el) !== indexOfSelected
     );
-
     if (indexOfSelected !== null) {
-      this.enabledRadioElements[indexOfSelected].check();
-    }
-    if (this._selected === null) {
-      this.enabledRadioElements[0].setAttribute('tabindex', '0');
+      this.radioElements[indexOfSelected].check();
     }
     notSelected.forEach(el => el.uncheck());
   }
 
-  //how to abstract this method so it's reusable?
   private _handleSelectOnClick(e: Event) {
-    const radios = this.enabledRadioElements;
+    const radios = this.radioElements;
     let selectedElement: UUIRadioElement;
 
     radios.forEach(el => {

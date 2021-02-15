@@ -150,14 +150,12 @@ export class UUIRadioElement extends LitElement {
   }
 
   public uncheck() {
-    if (this.disabled) return;
     this.checked = false;
     this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-checked', 'false');
   }
 
   public check() {
-    if (this.disabled) return;
     this.checked = true;
     this.setAttribute('tabindex', '0');
     this.setAttribute('aria-checked', 'true');
