@@ -2,6 +2,8 @@
 
 
 ### For RFC prototype:
+- Avatar
+- Avatar Group
 - Button
 - Toggle
 
@@ -18,7 +20,7 @@
 - Button Group
 - Base Card (We will be having generic and maybe more specific card types, so why not share the base, concepts: Node, Media, User, Member, DocumentType, CloudProject...)
 - Checkbox
-- Checkbox List / Checkbox Group?
+- Checkbox Group?
 - Color picker
 - Date & Time picker
 - Base Dropdown (Open towards, picked entry-display and unfold-display.)
@@ -29,7 +31,7 @@
 - Progress circle
 - Pagination
 - Radio
-- Radio List
+- Radio Group
 - Range Slider
 - List
 - Grid (Show any type of card)
