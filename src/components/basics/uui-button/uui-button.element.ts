@@ -140,7 +140,7 @@ export class UUIButtonElement extends LitElement {
     e.preventDefault();
     e.stopPropagation();
 
-    this.dispatchEvent(new UUIButtonClickEvent());
+    this.dispatchEvent(new UUIButtonClickEvent(UUIButtonClickEvent.CLICK));
   }
   render() {
     return html`
