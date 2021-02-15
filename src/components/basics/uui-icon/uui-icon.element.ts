@@ -1,5 +1,5 @@
 import { LitElement, css, property } from 'lit-element';
-import { UUIIconService } from '../../../service/UUIIconService';
+import { UUIIconService } from '../../../service/iconservice/UUIIconService';
 /**
  *  @element uui-icon
  *

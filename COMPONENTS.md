@@ -6,6 +6,7 @@
 - Avatar Group
 - Button
 - Toggle
+- Icon (As it shows how our Virtual Events can be used for integrations)
 
 - Dialog
 - Delete Dialog

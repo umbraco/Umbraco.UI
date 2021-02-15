@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
-import { UUIIconService } from '../../../service/UUIIconService';
-import { UUIIconServiceEvent } from '../../../service/UUIIconServiceEvent';
+import { UUIIconService } from '../../../service/iconservice/UUIIconService';
+import { UUIIconServiceEvent } from '../../../service/iconservice/UUIIconServiceEvent';
 import './index';
 
 export default {

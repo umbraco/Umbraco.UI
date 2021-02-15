@@ -1,5 +1,5 @@
 import { UUIIconHost } from './UUIIconHost';
-import { UUIVirtualEventEmitter } from '../event/UUIVirtualEventEmitter';
+import { UUIVirtualEventEmitter } from '../../event/UUIVirtualEventEmitter';
 import { UUIIconServiceEvent } from './UUIIconServiceEvent';
 
 class UUIIconServiceClass extends UUIVirtualEventEmitter {

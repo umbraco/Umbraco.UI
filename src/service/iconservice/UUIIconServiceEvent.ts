@@ -1,4 +1,4 @@
-import { UUIVirtualEvent } from '../event/UUIVirtualEvent';
+import { UUIVirtualEvent } from '../../event/UUIVirtualEvent';
 
 export class UUIIconServiceEvent extends UUIVirtualEvent {
   public static ICONREQUEST: Readonly<'icon_request'> = 'icon_request';
