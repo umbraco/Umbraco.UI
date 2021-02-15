@@ -1,15 +1,15 @@
 # Umbraco UI components
 
-
 ### For RFC prototype:
+
 - Button
 - Toggle
 
 - Dialog
 - Delete Dialog
 
-
 ### Basics
+
 - Avatar
 - Avatar Group
 - Badge
@@ -39,12 +39,15 @@
 - TextAreaField?
 - Select List
 - Select List Item
+
 ### Fragments
+
 - Dialog
 - Notification
 - Tooltip
 
 ### Navigation
+
 - Breadcrumbs
 - Overlay
 - Overlay Manager

@@ -50,6 +50,8 @@ export class UUIRadioGroup extends LitElement {
       this.radioElements[0].setAttribute('tabindex', '0');
     this._addNameToRadios(this.name);
     if (this.disabled) this._toggleDisableOnChildren(true);
+
+    this._checkForSelected();
   }
 
   @query('slot') protected slotElement!: HTMLSlotElement;
@@ -73,6 +75,21 @@ export class UUIRadioGroup extends LitElement {
   //i feel like i'm reapating myself with putting everything to setters. why?
   private _toggleDisableOnChildren(value: boolean) {
     this.radioElements.forEach(el => (el.disabled = value));
+  }
+
+  private _checkForSelected() {
+    const checkedRadios = this.radioElements.filter(el => el.checked === true);
+
+    if (checkedRadios.length > 1) {
+      this.radioElements.forEach(el => {
+        el.checked = false;
+      });
+      throw new Error(
+        'There can only be one checked element among the radio group children'
+      );
+    }
+    console.log(checkedRadios.length === 1);
+    return checkedRadios.length === 1;
   }
 
   //? How to do this
