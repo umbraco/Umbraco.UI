@@ -169,7 +169,6 @@ export class UUIRadioGroup extends LitElement {
     }
   }
 
-  //add another argument - an array of element, but what type? We need globally declared type of all our elements.
   private _selectSingleElement(indexOfSelected: number | null) {
     const notSelected = this.enabledRadioElements.filter(
       el => this.enabledRadioElements.indexOf(el) !== indexOfSelected
@@ -184,7 +183,6 @@ export class UUIRadioGroup extends LitElement {
     notSelected.forEach(el => el.uncheck());
   }
 
-  //how to abstract this method so it's reusable?
   private _handleSelectOnClick(e: Event) {
     const radios = this.enabledRadioElements;
     let selectedElement: UUIRadioElement;

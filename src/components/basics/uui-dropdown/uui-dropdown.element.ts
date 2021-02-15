@@ -116,7 +116,7 @@ export class UUIDropdownElement extends LitElement {
 
   protected closeDropdownOnOutsideClick = (e: MouseEvent) => {
     const path = e.composedPath();
-
+    //console.log(path);
     if (path.includes(this)) {
       return;
     }

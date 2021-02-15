@@ -7,7 +7,7 @@ import { UUISelectListElement } from '../uui-select-list/uui-select-list.element
  *  @slot - for stuff
  */
 
-//? shpould this have role of
+//TODO add label
 export class UUISelectElement extends LitElement {
   static styles = [
     css`
@@ -43,7 +43,7 @@ export class UUISelectElement extends LitElement {
     this.setAttribute('tabindex', '0');
     this.setAttribute('role', 'combobox');
     this.setAttribute('aria-haspopup', 'listbox');
-    this.setAttribute('aria-controls', 'list');
+    this.setAttribute('aria-controls', 'list'); //! it doesn't see the shadowed ID
   }
 
   @query('uui-dropdown')
@@ -84,9 +84,9 @@ export class UUISelectElement extends LitElement {
             id="selected-value"
             slot="input"
             @click=${() => (this.isOpen = !this.isOpen)}
-            >${this.selected}</span
+            >${this.value}</span
           >`}
-
+      //TODO fix the click area
       <uui-carret slot="button" ?open=${this.isOpen}></uui-carret>
       <uui-overflow-container
         ><uui-select-list
