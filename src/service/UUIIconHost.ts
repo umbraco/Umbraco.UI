@@ -1,10 +1,12 @@
 export class UUIIconHost {
   public promise: Promise<string>;
-  private resolve: any;
+  private resolve!: Function;
+  public reject!: Function;
 
   constructor(svg?: string) {
-    this.promise = new Promise<string>((resolveMethod, reject) => {
+    this.promise = new Promise<string>((resolveMethod, rejectMethod) => {
       this.resolve = resolveMethod;
+      this.reject = rejectMethod;
     });
 
     if (svg) {
@@ -14,9 +16,5 @@ export class UUIIconHost {
 
   public set svg(svg: string) {
     this.resolve(svg);
-  }
-
-  public getPromise(): Promise<string> {
-    return this.promise;
   }
 }
