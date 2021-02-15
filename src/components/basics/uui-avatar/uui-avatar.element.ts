@@ -74,7 +74,7 @@ export class UUIAvatarElement extends LitElement {
       interfaceLookName =>
         css`
           :host([look='${interfaceLookName}']) {
-            background-color: var(--uui-look-${interfaceLookName}-background);
+            background-color: var(--uui-look-${interfaceLookName}-surface);
             color: var(--uui-look-${interfaceLookName}-contrast);
           }
         `

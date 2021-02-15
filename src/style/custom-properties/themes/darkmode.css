@@ -2,16 +2,16 @@
   :root {
 
     /** PRIMARY */
-    --uui-color-primary-background: var(--uui-color-violet-blue);
-    --uui-color-primary-background-hover: var(--uui-color-violet-blue-light);
-    --uui-color-primary-background-disabled: var(--uui-color-violet-blue-dimmed);
-    --uui-color-primary-background-focus: var(--uui-color-violet-blue);
+    --uui-color-primary-surface: var(--uui-color-violet-blue);
+    --uui-color-primary-surface-hover: var(--uui-color-violet-blue-light);
+    --uui-color-primary-surface-disabled: var(--uui-color-violet-blue-dimmed);
+    --uui-color-primary-surface-focus: var(--uui-color-violet-blue);
 
     /** SECONDARY */
-    --uui-color-secondary-background: var(--uui-color-mine-grey);
-    --uui-color-secondary-background-hover: var(--uui-color-mine-grey-light);
-    --uui-color-secondary-background-disabled: var(--uui-color-mine-grey-dimmed);
-    --uui-color-secondary-background-focus: var(--uui-color-mine-grey);
+    --uui-color-secondary-surface: var(--uui-color-mine-grey);
+    --uui-color-secondary-surface-hover: var(--uui-color-mine-grey-light);
+    --uui-color-secondary-surface-disabled: var(--uui-color-mine-grey-dimmed);
+    --uui-color-secondary-surface-focus: var(--uui-color-mine-grey);
     --uui-color-secondary-contrast: var(--uui-color-white);
     --uui-color-secondary-contrast-hover: var(--uui-color-white);
     --uui-color-secondary-contrast-disabled: var(--uui-color-white-dimmed);
@@ -19,16 +19,15 @@
 
 
     /** Interface */
-    --uui-interface-background: var(--uui-color-cocoa-black);
-    --uui-interface-background-hover: var(--uui-color-cocoa-black-dark);
-    --uui-interface-background-disabled: var(--uui-color-cocoa-black-dimmed);
-    --uui-interface-background-focus: var(--uui-color-cocoa-black);
-    --uui-interface-background-active: var(--uui-color-cocoa-black);
+    --uui-interface-surface: var(--uui-color-cocoa-black);
+    --uui-interface-surface-hover: var(--uui-color-cocoa-black-dark);
+    --uui-interface-surface-disabled: var(--uui-color-cocoa-black-dimmed);
+    --uui-interface-surface-focus: var(--uui-color-cocoa-black);
 
-    --uui-interface-background-alt: var(--uui-color-dune-black);
-    --uui-interface-background-alt-hover: var(--uui-color-dune-black-light);
-    --uui-interface-background-alt-disabled: var(--uui-color-dune-black-dimmed);
-    --uui-interface-background-alt-focus: var(--uui-color-dune-black);
+    --uui-interface-surface-alt: var(--uui-color-dune-black);
+    --uui-interface-surface-alt-hover: var(--uui-color-dune-black-light);
+    --uui-interface-surface-alt-disabled: var(--uui-color-dune-black-dimmed);
+    --uui-interface-surface-alt-focus: var(--uui-color-dune-black);
 
     --uui-interface-contrast: var(--uui-color-white);
     --uui-interface-contrast-hover: var(--uui-color-malibu);

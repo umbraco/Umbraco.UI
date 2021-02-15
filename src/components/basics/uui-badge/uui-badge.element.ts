@@ -24,7 +24,7 @@ export class UUIBadgeElement extends LitElement {
         border-radius: calc(
           var(--uui-badge-size-unit, var(--uui-size-base-unit)) * 2
         );
-        background-color: var(--uui-interface-background);
+        background-color: var(--uui-interface-surface);
         color: var(--uui-interface-contrast);
 
         transition: background-color 120ms, color 120ms;
@@ -53,7 +53,7 @@ export class UUIBadgeElement extends LitElement {
       lookName =>
         css`
           :host([look='${lookName}']) {
-            background-color: var(--uui-color-${lookName}-background);
+            background-color: var(--uui-color-${lookName}-surface);
             color: var(--uui-color-${lookName}-contrast);
           }
         `

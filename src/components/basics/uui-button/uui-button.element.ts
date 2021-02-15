@@ -29,7 +29,7 @@ export class UUIButtonElement extends LitElement {
         border: none;
         box-shadow: none;
         border: 1px solid
-          var(--uui-button-background, var(--uui-interface-background));
+          var(--uui-button-background-color, var(--uui-interface-surface));
         border-radius: var(
           --uui-button-border-radius,
           var(--uui-size-border-radius)
@@ -43,8 +43,8 @@ export class UUIButtonElement extends LitElement {
         font-family: inherit;
 
         background-color: var(
-          --uui-button-background,
-          var(--uui-interface-background)
+          --uui-button-background-color,
+          var(--uui-interface-surface)
         );
         color: var(--uui-button-contrast, var(--uui-interface-contrast));
 
@@ -52,8 +52,8 @@ export class UUIButtonElement extends LitElement {
       }
       button:hover {
         background-color: var(
-          --uui-button-background-hover,
-          var(--uui-interface-background-hover)
+          --uui-button-background-color-hover,
+          var(--uui-interface-surface-hover)
         );
         color: var(
           --uui-button-contrast-hover,
@@ -63,8 +63,8 @@ export class UUIButtonElement extends LitElement {
 
       button[disabled] {
         background-color: var(
-          --uui-button-background-disabled,
-          var(--uui-interface-background-disabled)
+          --uui-button-background-color-disabled,
+          var(--uui-interface-surface-disabled)
         );
         color: var(
           --uui-button-contrast-disabled,
@@ -105,18 +105,18 @@ export class UUIButtonElement extends LitElement {
       lookName =>
         css`
           :host([look='${lookName}']) button {
-            background-color: var(--uui-look-${lookName}-background);
+            background-color: var(--uui-look-${lookName}-surface);
             color: var(--uui-look-${lookName}-contrast);
             border-color: var(--uui-look-${lookName}-border);
             font-weight: var(--uui-look-${lookName}-font-weight);
           }
           :host([look='${lookName}']) button:hover {
-            background-color: var(--uui-look-${lookName}-background-hover);
+            background-color: var(--uui-look-${lookName}-surface-hover);
             color: var(--uui-look-${lookName}-contrast-hover);
             border-color: var(--uui-look-${lookName}-border-hover);
           }
           :host([look='${lookName}']) button[disabled] {
-            background-color: var(--uui-look-${lookName}-background-disabled);
+            background-color: var(--uui-look-${lookName}-surface-disabled);
             color: var(--uui-look-${lookName}-contrast-disabled);
             border-color: var(--uui-look-${lookName}-border-disabled);
           }
