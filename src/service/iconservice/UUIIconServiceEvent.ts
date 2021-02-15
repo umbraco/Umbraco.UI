@@ -1,9 +1,9 @@
 import { UUIVirtualEvent } from '../../event/UUIVirtualEvent';
 
 export class UUIIconServiceEvent extends UUIVirtualEvent {
-  public static ICONREQUEST: Readonly<'icon_request'> = 'icon_request';
+  public static readonly ICONREQUEST: 'icon_request' = 'icon_request';
 
-  public iconName!: Readonly<string>;
+  public readonly iconName!: string;
 
   constructor(type: string, iconName: string) {
     super(type);

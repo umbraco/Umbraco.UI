@@ -10,7 +10,7 @@ export class UUIEvent<
     composed: true,
   };
 
-  detail: DetailType;
+  readonly detail: DetailType;
   readonly target!: EventTargetType;
 
   constructor(evName: string, eventInit: any | null = {}) {
