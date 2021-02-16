@@ -44,3 +44,19 @@ export const InFrorm = () =>
       </uui-radio-group>
     </form>
   `;
+
+export const SelectDisabled = () =>
+  html`
+    <form action="">
+      <uui-radio-group name="Test">
+        <uui-radio value="Value 1">Option 1</uui-radio>
+        <uui-radio
+          value="Value 2"
+          disabled
+          checked
+          label="Option 2"
+        ></uui-radio>
+        <uui-radio value="Value 3">Option 3</uui-radio>
+      </uui-radio-group>
+    </form>
+  `;

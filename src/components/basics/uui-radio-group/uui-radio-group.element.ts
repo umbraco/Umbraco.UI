@@ -7,18 +7,15 @@ import {
   internalProperty,
 } from 'lit-element';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
+
 /**
  *  @element uui-radio-group
  *  @slot for uui-radio elements
  */
 
 //TODO required?
-//TODO proper form and test either here or in the children
 //TODO focused style
-
-//fix the disabled selected
-
-//? what types should we allow as a value of that?
+//TODO fix the disabled selected - how that should behave
 
 const ARROW_LEFT = 'ArrowLeft';
 const ARROW_UP = 'ArrowUp';
@@ -68,11 +65,11 @@ export class UUIRadioGroup extends LitElement {
     return this.radioElements.filter(el => !el.disabled);
   }
 
+  //someone help me refactor these two to one method
   private _addNameToRadios(name: string) {
     this.radioElements.forEach(el => (el.name = name));
   }
 
-  //i feel like i'm reapating myself with putting everything to setters. why?
   private _toggleDisableOnChildren(value: boolean) {
     this.radioElements.forEach(el => (el.disabled = value));
   }
@@ -88,14 +85,8 @@ export class UUIRadioGroup extends LitElement {
         'There can only be one checked element among the <uui-radio-group> children'
       );
     }
-    console.log(checkedRadios.length === 1);
-    return checkedRadios.length === 1;
+    if (checkedRadios.length === 1) this.value = checkedRadios[0].value;
   }
-
-  //? How to do this
-  // private _modifyPropertyonRadios(propertyName: any, value: any) {
-  //   this.radioElements.forEach(el => el.propertyName = value);
-  // }
 
   private _disabled = false;
   @property({ type: Boolean, reflect: true })
@@ -160,7 +151,7 @@ export class UUIRadioGroup extends LitElement {
     return indexes;
   }
 
-  private _previousSelected = 0;
+  private _lastSelected = 0;
   private _selectPreviousElement() {
     if (
       this.selected === null ||
@@ -169,10 +160,10 @@ export class UUIRadioGroup extends LitElement {
       this.selected = this.enabledElementsIndexes[
         this.enabledElementsIndexes.length - 1
       ];
-      this._previousSelected = this.enabledElementsIndexes.length - 1;
+      this._lastSelected = this.enabledElementsIndexes.length - 1;
     } else {
-      this._previousSelected--;
-      this.selected = this.enabledElementsIndexes[this._previousSelected];
+      this._lastSelected--;
+      this.selected = this.enabledElementsIndexes[this._lastSelected];
     }
   }
 
@@ -183,10 +174,10 @@ export class UUIRadioGroup extends LitElement {
         this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1]
     ) {
       this.selected = this.enabledElementsIndexes[0];
-      this._previousSelected = 0;
+      this._lastSelected = 0;
     } else {
-      this._previousSelected++;
-      this.selected = this.enabledElementsIndexes[this._previousSelected];
+      this._lastSelected++;
+      this.selected = this.enabledElementsIndexes[this._lastSelected];
     }
   }
 
