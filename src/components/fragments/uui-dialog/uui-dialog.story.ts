@@ -21,8 +21,8 @@ export const WithContent = () => html`
       <p>Some description for this dialog</p>
     </div>
     <div slot="actions">
-      <uui-button>Cancel</uui-button
-      ><uui-button look="positive">Confirm</uui-button>
+      <uui-button>Cancel</uui-button>
+      <uui-button look="positive">Confirm</uui-button>
     </div>
   </uui-dialog>
 `;
