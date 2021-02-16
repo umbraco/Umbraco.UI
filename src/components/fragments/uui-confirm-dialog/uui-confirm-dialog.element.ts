@@ -44,7 +44,7 @@ export class UUIConfirmDialogElement extends LitElement {
           .look=${this.look}
           @click=${() =>
             this.dispatchEvent(
-              new UUIConfirmDialogEvent(UUIConfirmDialogEvent.CONFIRM, this)
+              new UUIConfirmDialogEvent(UUIConfirmDialogEvent.SUBMIT, this)
             )}
         >
           ${this.submitLabel}
