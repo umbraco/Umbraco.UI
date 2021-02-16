@@ -1,10 +1,10 @@
 import { html, css, property, query, LitElement } from 'lit-element';
 
-import { UUIRadioChangeEvent } from '../../../event/UUIRadioChangeEvent';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
+import { UUIEvent } from '../../../event/UUIEvent';
 /**
  *  @element uui-radio
  *  @slot - for label
@@ -109,10 +109,10 @@ export class UUIRadioElement extends LitElement {
   @query('#input')
   private inputElement!: HTMLInputElement;
 
-  @property({ type: String, reflect: true })
+  @property({ type: String })
   public name = '';
 
-  @property({ type: String, reflect: true })
+  @property({ type: String })
   public value = '';
 
   @property({ type: String })
@@ -124,10 +124,12 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
+  private _changeEvent = new UUIEvent('radio-checked');
+
   private _onChange() {
     if (this.inputElement.checked) this.check();
     else this.uncheck();
-    this.dispatchEvent(new UUIRadioChangeEvent());
+    this.dispatchEvent(this._changeEvent);
   }
 
   public uncheck() {
@@ -138,9 +140,13 @@ export class UUIRadioElement extends LitElement {
 
   public check() {
     this.checked = true;
-    this.setAttribute('tabindex', '0');
-    this.setAttribute('aria-checked', 'true');
-    this.focus();
+
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '0');
+      this.setAttribute('aria-checked', 'true');
+      this.focus();
+      this.dispatchEvent(this._changeEvent);
+    }
   }
 
   connectedCallback() {

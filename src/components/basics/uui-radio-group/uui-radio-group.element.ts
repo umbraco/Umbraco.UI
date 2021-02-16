@@ -33,7 +33,7 @@ export class UUIRadioGroup extends LitElement {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
-    this.addEventListener('change', this._handleSelectOnClick);
+    this.addEventListener('radio-checked', this._handleSelectOnClick);
     this.addEventListener('keydown', this._onKeydown);
   }
 
@@ -85,7 +85,10 @@ export class UUIRadioGroup extends LitElement {
         'There can only be one checked element among the <uui-radio-group> children'
       );
     }
-    if (checkedRadios.length === 1) this.value = checkedRadios[0].value;
+    if (checkedRadios.length === 1) {
+      this.selected = this.radioElements.indexOf(checkedRadios[0]);
+      this.value = checkedRadios[0].value;
+    }
   }
 
   private _disabled = false;
@@ -114,7 +117,7 @@ export class UUIRadioGroup extends LitElement {
   }
 
   private _name = '';
-  @property({ type: String, reflect: true })
+  @property({ type: String })
   get name() {
     return this._name;
   }
@@ -127,7 +130,7 @@ export class UUIRadioGroup extends LitElement {
   }
 
   private _selected: number | null = null;
-  @property({ type: Number, reflect: true })
+  @property({ type: Number })
   get selected() {
     return this._selected;
   }
