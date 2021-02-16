@@ -3,7 +3,7 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../../animations/uui-shake';
-import { UUIButtonClickEvent } from './UUIButtonClickEvent';
+import { UUIButtonEvent } from './UUIButtonEvent';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
@@ -12,7 +12,7 @@ import {
 
 /**
  *  @element uui-button
- *  @fires {UUIButtonClickEvent} click - fires when the element is clicked
+ *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
  *  @description - All-round button
  */
@@ -138,7 +138,7 @@ export class UUIButtonElement extends LitElement {
     e.preventDefault();
     e.stopPropagation();
 
-    this.dispatchEvent(new UUIButtonClickEvent(UUIButtonClickEvent.CLICK));
+    this.dispatchEvent(new UUIButtonEvent(UUIButtonEvent.CLICK));
   }
   render() {
     return html`
