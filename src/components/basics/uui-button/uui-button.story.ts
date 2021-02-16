@@ -28,9 +28,9 @@ export const WithIcon = () =>
 
 export const Styles = () => html`
   <uui-button>Default style</uui-button>
-  <uui-button look="">Empty look</uui-button>
+  <uui-button .look=${''}>Empty look</uui-button>
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
-      html`<uui-button look="${lookName}">${lookName} look</uui-button>`
+      html`<uui-button .look=${lookName}>${lookName} look</uui-button>`
   )}
 `;

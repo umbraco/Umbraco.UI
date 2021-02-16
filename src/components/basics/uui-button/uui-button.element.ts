@@ -125,16 +125,14 @@ export class UUIButtonElement extends LitElement {
   ];
 
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
-  @property({ type: Boolean, attribute: true })
+  @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  @property({ type: Boolean, attribute: true })
+  @property({ type: Boolean, reflect: true })
   loading = false;
 
-  // Note: We should bake in the failed or good state from current backoffice, its not the most optimal UX and no stick to it ongoing.
-
-  @property({ attribute: 'look' })
-  look?: InterfaceLookType = InterfaceLookDefaultValue;
+  @property({ reflect: true })
+  look: InterfaceLookType = InterfaceLookDefaultValue;
 
   private onClick(e: Event) {
     e.preventDefault();
@@ -145,7 +143,7 @@ export class UUIButtonElement extends LitElement {
   render() {
     return html`
       <button @click=${this.onClick} ?disabled=${this.disabled}>
-        <slot part="inner"></slot>
+        <slot></slot>
       </button>
     `;
   }
