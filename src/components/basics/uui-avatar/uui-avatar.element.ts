@@ -71,11 +71,11 @@ export class UUIAvatarElement extends LitElement {
       }
     `,
     InterfaceLookCSSCreator(
-      symbolicColorName =>
+      interfaceLookName =>
         css`
-          :host([look='${symbolicColorName}']) {
-            background-color: var(--uui-color-${symbolicColorName}-background);
-            color: var(--uui-color-${symbolicColorName}-contrast);
+          :host([look='${interfaceLookName}']) {
+            background-color: var(--uui-look-${interfaceLookName}-surface);
+            color: var(--uui-look-${interfaceLookName}-contrast);
           }
         `
     ),

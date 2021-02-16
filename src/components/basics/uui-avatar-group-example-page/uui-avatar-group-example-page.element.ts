@@ -46,20 +46,18 @@ export class UUIAvatarGroupExamplePageElement extends LitElement {
       <uui-avatar-group .limit="${this.limit}" size="l" look="primary">
         ${this.avatars.map(
           avatar => html`
-            <uui-avatar text="${avatar.name}" size="l" look="primary">
+            <uui-avatar .text="${avatar.name}" size="l" look="primary">
             </uui-avatar>
           `
         )}
       </uui-avatar-group>
       <div>Limit: ${this.limit}</div>
       <div>Avatars in total: ${this.totalAvatars}</div>
-      <button type="button" @click="${() => this.addAvatar()}">
-        Add avatar
-      </button>
-      <button type="button" @click="${() => this.increaseLimit()}">
+      <button type="button" @click="${this.addAvatar}">Add avatar</button>
+      <button type="button" @click="${this.increaseLimit}">
         Increase limit
       </button>
-      <button type="button" @click="${() => this.decreaseLimit()}">
+      <button type="button" @click="${this.decreaseLimit}">
         Decrease limit
       </button>
     `;

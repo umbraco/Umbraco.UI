@@ -54,17 +54,33 @@ export class UUIToggleElement extends LitElement {
         height: var(--uui-toggle-size);
         border-radius: 100px;
 
-        background-color: var(--uui-interface-background-alt);
-        border: 1px solid var(--uui-interface-border);
+        background-color: var(
+          --uui-toggle-background-color,
+          var(--uui-interface-surface-alt)
+        );
+        border: 1px solid
+          var(--uui-toggle-border-color, var(--uui-interface-border));
         font-size: calc(var(--uui-toggle-size) * 0.6);
       }
       label:hover input:not([disabled]) + #slider {
-        border-color: var(--uui-interface-border-hover);
-        background-color: var(--uui-interface-background-alt-hover);
+        border-color: var(
+          --uui-toggle-border-color-hover,
+          var(--uui-interface-border-hover)
+        );
+        background-color: var(
+          --uui-toggle-background-color-hover,
+          var(--uui-interface-surface-alt-hover)
+        );
       }
       label:focus #slider {
-        border-color: var(--uui-interface-border-focus);
-        background-color: var(--uui-interface-background-alt-focus);
+        border-color: var(
+          --uui-toggle-border-color-focus,
+          var(--uui-interface-border-focus)
+        );
+        background-color: var(
+          --uui-toggle-background-color-focus,
+          var(--uui-interface-surface-alt-focus)
+        );
       }
       input:checked + #slider {
         background-color: var(--uui-interface-selected);
@@ -110,7 +126,7 @@ export class UUIToggleElement extends LitElement {
         width: calc(var(--uui-toggle-size) - 4px);
         height: calc(var(--uui-toggle-size) - 4px);
         border-radius: 100px;
-        background-color: var(--uui-interface-background);
+        background-color: var(--uui-interface-surface);
         transition: width 120ms ease, left 120ms ease, transform 120ms ease,
           background-color 120ms;
       }
@@ -160,10 +176,10 @@ export class UUIToggleElement extends LitElement {
       }
 
       :host([disabled]) #slider {
-        background-color: var(--uui-interface-background-alt-disabled);
+        background-color: var(--uui-interface-surface-alt-disabled);
       }
       :host([disabled]) #slider:after {
-        background-color: var(--uui-interface-background-disabled);
+        background-color: var(--uui-interface-surface-disabled);
       }
 
       :host([disabled]) #slider > #icon-container-wrong {

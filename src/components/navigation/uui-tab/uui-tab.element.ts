@@ -21,7 +21,7 @@ export class UUITabElement extends LitElement {
         box-sizing: border-box;
         height: 75px;
         min-width: 75px;
-        background-color: var(--uui-interface-background);
+        background-color: var(--uui-interface-surface);
         color: var(--uui-interface-contrast);
         cursor: pointer;
 
@@ -29,7 +29,7 @@ export class UUITabElement extends LitElement {
       }
 
       button:hover {
-        background-color: var(--uui-interface-background-hover);
+        background-color: var(--uui-interface-surface-hover);
         color: var(--uui-interface-contrast-hover);
       }
 
