@@ -10,6 +10,5 @@ UUI - Mapping-level or specific component name - State - Name - Part - Overwrite
 
 @import "./interface.css";
 @import "./interface-look.css";
-@import "./themes/default.css";
 @import "./themes/darkmode.css";
 @import "./components.css";
