@@ -1,8 +1,7 @@
 import { UUIIconHost } from './UUIIconHost';
-import { UUIVirtualEventEmitter } from '../../event/UUIVirtualEventEmitter';
 import { UUIIconServiceEvent } from './UUIIconServiceEvent';
 
-class UUIIconServiceClass extends UUIVirtualEventEmitter {
+class UUIIconServiceClass extends EventTarget {
   private icons: Record<string, UUIIconHost> = {};
 
   public defineIcon(iconName: string, svgString: string) {
@@ -19,8 +18,10 @@ class UUIIconServiceClass extends UUIVirtualEventEmitter {
       const icon = new UUIIconHost();
       this.icons[iconName] = icon;
 
-      this.emit(
-        new UUIIconServiceEvent(UUIIconServiceEvent.ICON_REQUEST, iconName)
+      this.dispatchEvent(
+        new UUIIconServiceEvent(UUIIconServiceEvent.ICON_REQUEST, {
+          detail: { iconName },
+        })
       );
 
       return icon.promise;

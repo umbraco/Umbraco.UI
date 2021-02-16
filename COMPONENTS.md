@@ -20,6 +20,7 @@
 - Caret Button?
 - Button Group
 - Base Card (We will be having generic and maybe more specific card types, so why not share the base, concepts: Node, Media, User, Member, DocumentType, CloudProject...)
+- Base Node Display (currently known as Node-Preview, will be used for creating specific types for Content, Media)
 - Checkbox
 - Checkbox Group?
 - Color picker
