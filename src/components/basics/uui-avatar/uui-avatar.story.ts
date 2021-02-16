@@ -46,18 +46,18 @@ export const Sizes = () => html`
 `;
 
 export const Text = () => html`
-  <uui-avatar text="First Last" size="m" look="primary"></uui-avatar>
+  <uui-avatar .text="${'First Last'}" size="m" look="primary"></uui-avatar>
 `;
 
 export const Looks = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="m" text="First Last"></uui-avatar>
+    <uui-avatar size="m" .text="${'First Last'}"></uui-avatar>
     ${InterfaceLookNames.map(
       (symbolicColorName: InterfaceLookType) =>
         html`<uui-avatar
           look="${symbolicColorName}"
           size="m"
-          text="First Last"
+          .text="${'First Last'}"
         ></uui-avatar>`
     )}
   </div>

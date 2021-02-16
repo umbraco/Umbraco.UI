@@ -36,16 +36,26 @@ export class UUITextFieldElement extends LitElement {
         border-radius: 0;
         vertical-align: middle;
         box-sizing: border-box;
-        background-color: var(--uui-interface-background);
-        border: 1px solid var(--uui-interface-border);
+        background-color: var(
+          --uui-text-field-background-color,
+          var(--uui-interface-surface)
+        );
+        border: 1px solid
+          var(--uui-text-field-border-color, var(--uui-interface-border));
         width: 100%;
         outline: none;
       }
       input:hover {
-        border-color: var(--uui-interface-border-hover);
+        border-color: var(
+          --uui-text-field-border-color-hover,
+          var(--uui-interface-border-hover)
+        );
       }
       input:focus {
-        border-color: var(--uui-interface-border-focus);
+        border-color: var(
+          --uui-text-field-border-color-focus,
+          var(--uui-interface-border-focus)
+        );
       }
       .invalid {
         border-color: var(--uui-color-danger-background);

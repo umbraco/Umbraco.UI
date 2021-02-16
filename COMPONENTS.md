@@ -2,8 +2,11 @@
 
 
 ### For RFC prototype:
+- Avatar
+- Avatar Group
 - Button
 - Toggle
+- Icon (As it shows how our Virtual Events can be used for integrations)
 
 - Dialog
 - Delete Dialog
@@ -17,8 +20,9 @@
 - Caret Button?
 - Button Group
 - Base Card (We will be having generic and maybe more specific card types, so why not share the base, concepts: Node, Media, User, Member, DocumentType, CloudProject...)
+- Base Node Display (currently known as Node-Preview, will be used for creating specific types for Content, Media, DocumentType, User, Member, Form, etc.)
 - Checkbox
-- Checkbox List / Checkbox Group?
+- Checkbox Group?
 - Color picker
 - Date & Time picker
 - Base Dropdown (Open towards, picked entry-display and unfold-display.)
@@ -29,7 +33,7 @@
 - Progress circle
 - Pagination
 - Radio
-- Radio List
+- Radio Group
 - Range Slider
 - List
 - Grid (Show any type of card)
