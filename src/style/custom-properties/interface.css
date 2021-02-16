@@ -1,8 +1,4 @@
-/** Example of interface specific props. **/
-
-
-
-/** Standart interface style*/
+/** Standard interface style*/
 :root {
   --uui-interface-surface: var(--uui-color-white);
   --uui-interface-surface-hover: var(--uui-color-white-dark);
@@ -18,9 +14,11 @@
   --uui-interface-contrast-hover: var(--uui-color-gunmetal);
   --uui-interface-contrast-disabled: var(--uui-color-chamoisee-dimmed);
   --uui-interface-contrast-focus: var(--uui-color-black);
+  --uui-interface-contrast-selected: var(--uui-color-space-cadet);
+  --uui-interface-contrast-active: var(--uui-color-spanish-pink);
 
   --uui-interface-border: var(--uui-color-grey);
-  --uui-interface-border-hover: var(--uui-color-grey-light);
+  --uui-interface-border-hover: var(--uui-color-grey-dark);
   --uui-interface-border-disabled: var(--uui-color-grey-dimmed);
   --uui-interface-border-focus: var(--uui-color-grey-dark);
 
