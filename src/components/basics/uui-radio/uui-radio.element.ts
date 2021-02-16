@@ -4,7 +4,7 @@ import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
-import { UUIEvent } from '../../../event/UUIEvent';
+import { UUIRadioEvent } from './UUIRadioEvent';
 /**
  *  @element uui-radio
  *  @slot - for label
@@ -124,7 +124,7 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
-  private _changeEvent = new UUIEvent('radio-checked');
+  private _changeEvent = new UUIRadioEvent(UUIRadioEvent.CHANGE);
 
   private _onChange() {
     if (this.inputElement.checked) this.check();
@@ -145,7 +145,6 @@ export class UUIRadioElement extends LitElement {
       this.setAttribute('tabindex', '0');
       this.setAttribute('aria-checked', 'true');
       this.focus();
-      this.dispatchEvent(this._changeEvent);
     }
   }
 

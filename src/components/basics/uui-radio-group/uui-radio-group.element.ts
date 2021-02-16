@@ -33,7 +33,7 @@ export class UUIRadioGroup extends LitElement {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
-    this.addEventListener('radio-checked', this._handleSelectOnClick);
+    this.addEventListener('change', this._handleSelectOnClick);
     this.addEventListener('keydown', this._onKeydown);
   }
 
@@ -141,6 +141,7 @@ export class UUIRadioGroup extends LitElement {
     if (newVal === null) {
       this.radioElements[0].setAttribute('tabindex', '0');
     }
+    console.log(newVal, 'newVal');
     this._selectSingleElement(newVal);
     this.value = newVal !== null ? this.radioElements[newVal].value : '';
     this.requestUpdate('selected', oldVal);
@@ -156,6 +157,7 @@ export class UUIRadioGroup extends LitElement {
 
   private _lastSelected = 0;
   private _selectPreviousElement() {
+    console.log(this._lastSelected, 'last-selectd');
     if (
       this.selected === null ||
       this.selected === this.enabledElementsIndexes[0]
@@ -171,6 +173,7 @@ export class UUIRadioGroup extends LitElement {
   }
 
   private _selectNextElement() {
+    console.log(this._lastSelected, 'last-selectd');
     if (
       this.selected === null ||
       this.selected ===
@@ -207,6 +210,7 @@ export class UUIRadioGroup extends LitElement {
   }
 
   private _selectSingleElement(indexOfSelected: number | null) {
+    console.log('index of selected', indexOfSelected);
     const notSelected = this.radioElements.filter(
       el => this.radioElements.indexOf(el) !== indexOfSelected
     );
@@ -224,6 +228,12 @@ export class UUIRadioGroup extends LitElement {
       if (el === e.target) {
         selectedElement = el;
         this.selected = radios.indexOf(el);
+        const x = this.enabledElementsIndexes.findIndex(
+          index => index === this.selected
+        );
+
+        this._lastSelected = x;
+
         this._value = selectedElement.value;
       }
     });
@@ -233,6 +243,12 @@ export class UUIRadioGroup extends LitElement {
     filtered.forEach(el => {
       el.uncheck();
     });
+    console.log(
+      'this selected',
+      this.selected,
+      'last selectd',
+      this._lastSelected
+    );
   }
 
   render() {
