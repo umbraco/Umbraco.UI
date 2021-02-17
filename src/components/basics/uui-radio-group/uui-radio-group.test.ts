@@ -4,10 +4,10 @@ import { resolve } from 'path';
 import '.';
 import '../uui-radio/index';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
-import { UUIRadioGroup } from './uui-radio-group.element';
+import { UUIRadioGroupElement } from './uui-radio-group.element';
 
 describe('UuiToggle', () => {
-  let element: UUIRadioGroup;
+  let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
   beforeEach(async () => {
     element = await fixture(html`
@@ -36,7 +36,7 @@ describe('UuiToggle', () => {
 
 describe('UuiToggle in a Form', () => {
   let formElement: HTMLFormElement;
-  let element: UUIRadioGroup;
+  let element: UUIRadioGroupElement;
   beforeEach(async () => {
     formElement = await fixture(
       html` <form action="">

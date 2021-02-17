@@ -7,6 +7,8 @@ import {
   internalProperty,
 } from 'lit-element';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
+import { UUIRadioEvent } from '../uui-radio/UUIRadioEvent';
+import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
 /**
  *  @element uui-radio-group
@@ -23,7 +25,7 @@ const ARROW_RIGHT = 'ArrowRight';
 const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
 
-export class UUIRadioGroup extends LitElement {
+export class UUIRadioGroupElement extends LitElement {
   static styles = [css``];
 
   static formAssociated = true;
@@ -33,7 +35,6 @@ export class UUIRadioGroup extends LitElement {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
-    this.addEventListener('change', this._handleSelectOnClick);
     this.addEventListener('keydown', this._onKeydown);
   }
 
@@ -47,8 +48,6 @@ export class UUIRadioGroup extends LitElement {
       this.radioElements[0].setAttribute('tabindex', '0');
     this._addNameToRadios(this.name);
     if (this.disabled) this._toggleDisableOnChildren(true);
-
-    this._checkForSelected();
   }
 
   @query('slot') protected slotElement!: HTMLSlotElement;
@@ -74,7 +73,7 @@ export class UUIRadioGroup extends LitElement {
     this.radioElements.forEach(el => (el.disabled = value));
   }
 
-  private _checkForSelected() {
+  private _handleSlotChange() {
     const checkedRadios = this.radioElements.filter(el => el.checked === true);
 
     if (checkedRadios.length > 1) {
@@ -86,7 +85,7 @@ export class UUIRadioGroup extends LitElement {
       );
     }
     if (checkedRadios.length === 1) {
-      this.selected = this.radioElements.indexOf(checkedRadios[0]);
+      this._selected = this.radioElements.indexOf(checkedRadios[0]);
       this.value = checkedRadios[0].value;
     }
   }
@@ -137,14 +136,27 @@ export class UUIRadioGroup extends LitElement {
 
   set selected(newVal) {
     const oldVal = this._selected;
+    this._setSelected(newVal);
+    if (this._selected !== null) {
+      this.radioElements[this._selected].check();
+    }
+    this.requestUpdate('selected', oldVal);
+  }
+
+  private _setSelected(newVal: number | null) {
+    console.log(this.radioElements, newVal);
     this._selected = newVal;
+    this._lastSelectedIndex = this.enabledElementsIndexes.findIndex(
+      index => index === this._selected
+    );
     if (newVal === null) {
       this.radioElements[0].setAttribute('tabindex', '0');
     }
-    console.log(newVal, 'newVal');
-    this._selectSingleElement(newVal);
+    const notSelected = this.radioElements.filter(
+      el => this.radioElements.indexOf(el) !== this._selected
+    );
+    notSelected.forEach(el => el.uncheck());
     this.value = newVal !== null ? this.radioElements[newVal].value : '';
-    this.requestUpdate('selected', oldVal);
   }
 
   protected get enabledElementsIndexes() {
@@ -155,9 +167,9 @@ export class UUIRadioGroup extends LitElement {
     return indexes;
   }
 
-  private _lastSelected = 0;
+  //TODO rename those things so the names make more sense!!!!!
+  private _lastSelectedIndex = 0; //this is index in the array of enalbled radios indexes.
   private _selectPreviousElement() {
-    console.log(this._lastSelected, 'last-selectd');
     if (
       this.selected === null ||
       this.selected === this.enabledElementsIndexes[0]
@@ -165,26 +177,27 @@ export class UUIRadioGroup extends LitElement {
       this.selected = this.enabledElementsIndexes[
         this.enabledElementsIndexes.length - 1
       ];
-      this._lastSelected = this.enabledElementsIndexes.length - 1;
+      this._lastSelectedIndex = this.enabledElementsIndexes.length - 1;
     } else {
-      this._lastSelected--;
-      this.selected = this.enabledElementsIndexes[this._lastSelected];
+      this._lastSelectedIndex--;
+      this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
     }
+    this._fireChangeEvent();
   }
 
   private _selectNextElement() {
-    console.log(this._lastSelected, 'last-selectd');
     if (
       this.selected === null ||
       this.selected ===
         this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1]
     ) {
       this.selected = this.enabledElementsIndexes[0];
-      this._lastSelected = 0;
+      this._lastSelectedIndex = 0;
     } else {
-      this._lastSelected++;
-      this.selected = this.enabledElementsIndexes[this._lastSelected];
+      this._lastSelectedIndex++;
+      this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
     }
+    this._fireChangeEvent();
   }
 
   private _onKeydown(e: KeyboardEvent) {
@@ -209,49 +222,24 @@ export class UUIRadioGroup extends LitElement {
     }
   }
 
-  private _selectSingleElement(indexOfSelected: number | null) {
-    console.log('index of selected', indexOfSelected);
-    const notSelected = this.radioElements.filter(
-      el => this.radioElements.indexOf(el) !== indexOfSelected
-    );
-    if (indexOfSelected !== null) {
-      this.radioElements[indexOfSelected].check();
-    }
-    notSelected.forEach(el => el.uncheck());
+  private _fireChangeEvent() {
+    this.dispatchEvent(new UUIRadioGroupEvent(UUIRadioGroupEvent.CHANGE));
   }
 
-  private _handleSelectOnClick(e: Event) {
-    const radios = this.radioElements;
-    let selectedElement: UUIRadioElement;
-
-    radios.forEach(el => {
-      if (el === e.target) {
-        selectedElement = el;
-        this.selected = radios.indexOf(el);
-        const x = this.enabledElementsIndexes.findIndex(
-          index => index === this.selected
-        );
-
-        this._lastSelected = x;
-
-        this._value = selectedElement.value;
-      }
-    });
-
-    const filtered = radios.filter(el => el !== selectedElement);
-
-    filtered.forEach(el => {
-      el.uncheck();
-    });
-    console.log(
-      'this selected',
-      this.selected,
-      'last selectd',
-      this._lastSelected
-    );
+  //TODO add event
+  private _handleSelectOnClick(e: UUIRadioEvent) {
+    console.log('hkjhjjh');
+    e.stopPropagation();
+    this._setSelected(this.radioElements.indexOf(e.target));
+    this._fireChangeEvent();
   }
 
   render() {
-    return html` <slot></slot> `;
+    return html`
+      <slot
+        @slotchange=${this._handleSlotChange}
+        @change=${this._handleSelectOnClick}
+      ></slot>
+    `;
   }
 }

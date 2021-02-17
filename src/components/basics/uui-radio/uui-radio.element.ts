@@ -124,12 +124,9 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
-  private _changeEvent = new UUIRadioEvent(UUIRadioEvent.CHANGE);
-
   private _onChange() {
     if (this.inputElement.checked) this.check();
     else this.uncheck();
-    this.dispatchEvent(this._changeEvent);
   }
 
   public uncheck() {
@@ -140,7 +137,7 @@ export class UUIRadioElement extends LitElement {
 
   public check() {
     this.checked = true;
-
+    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
     if (!this.disabled) {
       this.setAttribute('tabindex', '0');
       this.setAttribute('aria-checked', 'true');
