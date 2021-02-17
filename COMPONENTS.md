@@ -1,18 +1,18 @@
 # Umbraco UI components
 
-
 ### For RFC prototype:
+
 - Avatar
 - Avatar Group
 - Button
 - Toggle
-- Icon (As it shows how our Virtual Events can be used for integrations)
+- Icon (As it shows how Events can be used for integrations)
 
 - Dialog
 - Delete Dialog
 
-
 ### Basics
+
 - Avatar
 - Avatar Group
 - Badge
@@ -43,12 +43,15 @@
 - TextAreaField?
 - Select List
 - Select List Item
+
 ### Fragments
+
 - Dialog
 - Notification
 - Tooltip
 
 ### Navigation
+
 - Breadcrumbs
 - Overlay
 - Overlay Manager

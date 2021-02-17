@@ -111,7 +111,7 @@ export class UUIToggleElement extends LitElement {
       #icon-container-wrong {
         margin-right: -0.5em;
         right: calc(var(--uui-toggle-size) * 0.5);
-        fill: var(--uui-interface-selected);
+        fill: var(--uui-interface-contrast);
       }
 
       input:checked + #slider #icon-container-check {
@@ -126,7 +126,7 @@ export class UUIToggleElement extends LitElement {
         width: calc(var(--uui-toggle-size) - 4px);
         height: calc(var(--uui-toggle-size) - 4px);
         border-radius: 100px;
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-interface-selected-contrast);
         transition: width 120ms ease, left 120ms ease, transform 120ms ease,
           background-color 120ms;
       }

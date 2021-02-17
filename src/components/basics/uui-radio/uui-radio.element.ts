@@ -1,10 +1,10 @@
 import { html, css, property, query, LitElement } from 'lit-element';
 
-import { UUIRadioChangeEvent } from '../../../event/UUIRadioChangeEvent';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
+import { UUIRadioEvent } from './UUIRadioEvent';
 /**
  *  @element uui-radio
  *  @slot - for label
@@ -109,36 +109,17 @@ export class UUIRadioElement extends LitElement {
   @query('#input')
   private inputElement!: HTMLInputElement;
 
-  @property({ type: String, reflect: true })
+  @property({ type: String })
   public name = '';
 
-  //private _value: FormDataEntryValue = '';
-  @property({ type: String, reflect: true })
+  @property({ type: String })
   public value = '';
-  // get value() {
-  //   return this._value;
-  // }
-  // set value(newVal) {
-  //   const oldValue = this._value;
-  //   this._value = newVal;
-  //   this.requestUpdate('value', oldValue);
-  // }
 
   @property({ type: String })
   public label = '';
 
-  //private _checked = false;
   @property({ type: Boolean, reflect: true })
   public checked = false;
-  // get checked() {
-  //   return this._checked;
-  // }
-
-  // set checked(newVal) {
-  //   const oldValue = this._checked;
-  //   this._checked = newVal;
-  //   this.requestUpdate('checked', oldValue);
-  // }
 
   @property({ type: Boolean, reflect: true })
   public disabled = false;
@@ -146,21 +127,22 @@ export class UUIRadioElement extends LitElement {
   private _onChange() {
     if (this.inputElement.checked) this.check();
     else this.uncheck();
-    this.dispatchEvent(new UUIRadioChangeEvent());
   }
 
   public uncheck() {
-    if (this.disabled) return;
     this.checked = false;
     this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-checked', 'false');
   }
 
   public check() {
-    if (this.disabled) return;
     this.checked = true;
-    this.setAttribute('tabindex', '0');
-    this.setAttribute('aria-checked', 'true');
+    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '0');
+      this.setAttribute('aria-checked', 'true');
+      this.focus();
+    }
   }
 
   connectedCallback() {

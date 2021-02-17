@@ -3,7 +3,7 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../../animations/uui-shake';
-import { UUIButtonClickEvent } from './UUIButtonClickEvent';
+import { UUIButtonEvent } from './UUIButtonEvent';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
@@ -12,7 +12,7 @@ import {
 
 /**
  *  @element uui-button
- *  @fires {UUIButtonClickEvent} click - fires when the element is clicked
+ *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
  *  @description - All-round button
  */
@@ -125,27 +125,25 @@ export class UUIButtonElement extends LitElement {
   ];
 
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
-  @property({ type: Boolean, attribute: true })
+  @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  @property({ type: Boolean, attribute: true })
+  @property({ type: Boolean, reflect: true })
   loading = false;
 
-  // Note: We should bake in the failed or good state from current backoffice, its not the most optimal UX and no stick to it ongoing.
-
-  @property({ attribute: 'look' })
-  look?: InterfaceLookType = InterfaceLookDefaultValue;
+  @property({ reflect: true })
+  look: InterfaceLookType = InterfaceLookDefaultValue;
 
   private onClick(e: Event) {
     e.preventDefault();
     e.stopPropagation();
 
-    this.dispatchEvent(new UUIButtonClickEvent(UUIButtonClickEvent.CLICK));
+    this.dispatchEvent(new UUIButtonEvent(UUIButtonEvent.CLICK));
   }
   render() {
     return html`
       <button @click=${this.onClick} ?disabled=${this.disabled}>
-        <slot part="inner"></slot>
+        <slot></slot>
       </button>
     `;
   }
