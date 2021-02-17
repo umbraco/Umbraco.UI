@@ -7,10 +7,17 @@ export default {
 };
 
 export const Basic = () =>
-  html` <uui-toggle label="Toggle me" value="bike"></uui-toggle> `;
+  html` <uui-toggle .label=${'Toggle label'} value="bike"></uui-toggle> `;
 
 export const Preselected = () =>
-  html` <uui-toggle label="Toggle me" checked></uui-toggle>`;
+  html` <uui-toggle label="Toggle me" value="bike" checked></uui-toggle>`;
+
+export const WithSlottedLabel = () =>
+  html`
+    <uui-toggle label="Toggle label" value="bike"
+      >Using <b>Slot</b> for displayed label</uui-toggle
+    >
+  `;
 
 export const LabelPosition = () => html`
   <div style="display: flex; justify-content: space-evenly;">
@@ -30,15 +37,8 @@ export const NoLabel = () =>
     </p>`;
 
 export const Disabled = () => html`
-  <uui-toggle label="Active"></uui-toggle>
   <uui-toggle disabled label="Can't touch this"></uui-toggle>
   <uui-toggle disabled label="Can't touch this" checked></uui-toggle>
-`;
-
-export const LongLabel = () => html`
-  <uui-toggle
-    label="Let's see how it looks when someone out of reason put's the label in."
-  ></uui-toggle>
 `;
 
 export const InAForm = () => html`

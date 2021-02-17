@@ -1,23 +1,35 @@
-import { LitElement, html, property, css, query } from 'lit-element';
-import { UUIToggleChangeEvent } from './UUIToggleChangeEvent';
+import {
+  LitElement,
+  html,
+  property,
+  css,
+  query,
+  internalProperty,
+} from 'lit-element';
+import { UUIToggleEvent } from './UUIToggleEvent';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
 
-/**
- *  @element uui-toggle
- */
+type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
-type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
+/**
+ *  @element uui-toggle
+ *  @fires {UUIToggleEvent} change - fires when the element is begin checked by a user action
+ *  @slot - to overwrite displayed label content
+ *  @description - A Umbraco Toggle-switch, toggles between off/on
+ */
 export class UUIToggleElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
       :host {
+        display: inline-block;
+
         --uui-toggle-size: 18px;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
         /*
@@ -136,15 +148,9 @@ export class UUIToggleElement extends LitElement {
         transform: translateX(-100%);
       }
 
-      #slider:active:after {
+      label:active #slider:after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
-      }
-
-      :host([hide-label]) #label-text {
-        height: 0;
-        width: 0;
-        opacity: 0;
       }
 
       :host([label-position='left']) #label-text {
@@ -167,28 +173,35 @@ export class UUIToggleElement extends LitElement {
         opacity: 0.5;
       }
 
-      :host([disabled]) #slider:active {
+      :host([disabled]) label:active #slider {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
-      :host([disabled]) #slider:active:after {
+      :host([disabled]) label:active #slider:after {
         width: calc(0.8 * var(--uui-toggle-size));
       }
 
       :host([disabled]) #slider {
         background-color: var(--uui-interface-surface-alt-disabled);
       }
+      :host([disabled]) input:checked + #slider {
+        background-color: var(--uui-interface-selected-disabled);
+      }
       :host([disabled]) #slider:after {
         background-color: var(--uui-interface-surface-disabled);
       }
 
-      :host([disabled]) #slider > #icon-container-wrong {
+      :host([disabled]) #slider #icon-container-wrong {
         fill: var(--uui-interface-contrast-disabled);
+      }
+
+      :host([disabled]) input:checked + #slider #icon-container-check {
+        fill: var(--uui-interface-selected-contrast-disabled);
       }
 
       /*
       input:focus + #slider,
-      input:not([disabled]) + #slider:active {
+      input:not([disabled]) + label:active #slider {
         box-shadow: var(--uui-toggle-focus-outline);
       }
       */
@@ -221,19 +234,19 @@ export class UUIToggleElement extends LitElement {
     this.requestUpdate('value', oldValue);
   }
 
-  @property({ type: String })
-  label = 'Toggle switch';
+  @property({ type: String, attribute: false })
+  label!: string;
 
-  @property()
+  @property({ type: String, attribute: false })
   form: string | null = null;
 
-  @property({ type: String, reflect: true })
+  @property({ type: String, attribute: false })
   name = '';
 
   @property({ type: String, attribute: 'label-position', reflect: true })
-  labelPosition: LabelPosition = 'left';
+  labelPosition: LabelPosition = 'right';
 
-  @property({ type: Boolean, attribute: 'hide-label' })
+  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
 
   private _checked = false;
@@ -253,16 +266,27 @@ export class UUIToggleElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  firstUpdated() {
-    if (this.label && !this.name) {
-      this.name = this.label;
+  connectedCallback() {
+    if (this.label) {
+      console.warn('UUI-Toggle needs a `label`');
     }
-    this._input.setAttribute('role', 'switch');
   }
 
   private _onInputChange() {
-    this.dispatchEvent(new UUIToggleChangeEvent());
+    this.dispatchEvent(new UUIToggleEvent(UUIToggleEvent.CHANGE));
     this.checked = this._input.checked;
+  }
+
+  @query('slot')
+  protected labelSlot!: HTMLSlotElement;
+
+  @internalProperty()
+  protected labelSlotHasContent = false;
+
+  private labelSlotChanged(): void {
+    this.labelSlotHasContent =
+      (this.labelSlot as HTMLSlotElement).assignedElements({ flatten: true })
+        .length > 0;
   }
 
   render() {
@@ -275,12 +299,19 @@ export class UUIToggleElement extends LitElement {
           @change="${this._onInputChange}"
           .checked="${this.checked}"
           aria-checked="${this.checked ? 'true' : 'false'}"
+          aria-label=${this.label}
+          role="switch"
         />
         <div id="slider">
           <div id="icon-container-check">${iconCheck}</div>
           <div id="icon-container-wrong">${iconWrong}</div>
         </div>
-        <div id="label-text">${this.label}</div>
+        <div id="label-text">
+          ${this.labelSlotHasContent === false && this.hideLabel === false
+            ? this.label
+            : ''}
+          <slot @slotchange=${this.labelSlotChanged}></slot>
+        </div>
       </label>
     `;
   }
