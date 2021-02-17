@@ -43,7 +43,12 @@ export class UUISelectElement extends LitElement {
     this.setAttribute('tabindex', '0');
     this.setAttribute('role', 'combobox');
     this.setAttribute('aria-haspopup', 'listbox');
-    this.setAttribute('aria-controls', 'list'); //! it doesn't see the shadowed ID
+    this.setAttribute('aria-controls', 'list');
+    this.setAttribute('aria-expanded', `false`);
+  }
+
+  firstUpdated() {
+    this.setAttribute('aria-label', this.label);
   }
 
   @query('uui-dropdown')
@@ -72,32 +77,51 @@ export class UUISelectElement extends LitElement {
   @property({ type: Boolean })
   autocomplete = false;
 
+  @property({ type: String })
+  label = 'label';
+
+  @property({ type: String })
+  title = 'title';
+
   render() {
-    return html`<uui-dropdown
-      ?open=${this.isOpen}
-      @dropdown-close="${() => (this.isOpen = false)}"
-      @dropdown-open="${() => (this.isOpen = true)}"
-    >
-      ${this.autocomplete
-        ? html`<input id="selected-value" type="text" slot="input" />`
-        : html`<span
-            id="selected-value"
-            slot="input"
-            @click=${() => (this.isOpen = !this.isOpen)}
-            >${this.value}</span
-          >`}
-      //TODO fix the click area
-      <uui-carret slot="button" ?open=${this.isOpen}></uui-carret>
-      <uui-overflow-container
-        ><uui-select-list
-          role="listbox"
-          id="list"
-          @value-change="${() => {
-            this.value = this.selectList.value;
-          }}"
-        >
-          <slot></slot> </uui-select-list
-      ></uui-overflow-container>
-    </uui-dropdown>`;
+    return html`
+      <uui-dropdown
+        ?open=${this.isOpen}
+        @dropdown-close="${() => (this.isOpen = false)}"
+        @dropdown-open="${() => (this.isOpen = true)}"
+      >
+        ${this.autocomplete
+          ? html`<input
+              id="selected-value"
+              type="text"
+              slot="input"
+              role="textbox"
+              .aria-label="${this.label}"
+            />`
+          : html`<span
+              id="selected-value"
+              slot="input"
+              role="textbox"
+              .aria-label="${this.label}"
+              .title="${this.title}"
+              @click=${() => (this.isOpen = !this.isOpen)}
+              >${this.value}</span
+            >`}
+        //TODO fix the click area
+        <uui-carret slot="button" ?open=${this.isOpen}></uui-carret>
+        <uui-overflow-container
+          ><uui-select-list
+            role="listbox"
+            id="list"
+            .title="${this.title}"
+            .aria-label="${this.label}"
+            @value-change="${() => {
+              this.value = this.selectList.value;
+            }}"
+          >
+            <slot></slot> </uui-select-list
+        ></uui-overflow-container>
+      </uui-dropdown>
+    `;
   }
 }
