@@ -40,3 +40,9 @@ export const Disabled = () => html`
   <uui-toggle disabled label="Can't touch this"></uui-toggle>
   <uui-toggle disabled label="Can't touch this" checked></uui-toggle>
 `;
+
+export const InAForm = () => html`
+  <form action="">
+    <uui-toggle label="Lol"></uui-toggle>
+  </form>
+`;

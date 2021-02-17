@@ -12,6 +12,14 @@ describe('UuiToggle', () => {
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
+
+  it('has internals', async () => {
+    await expect(element).to.have.property('_internals');
+  });
+
+  it('has value', () => {
+    expect(element.value).to.be.equal('on');
+  });
 });
 
 describe('UuiToggle in a Form', () => {
