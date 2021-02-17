@@ -17,7 +17,6 @@ import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
 //TODO required?
 //TODO focused style
-//TODO fix the disabled selected - how that should behave
 
 const ARROW_LEFT = 'ArrowLeft';
 const ARROW_UP = 'ArrowUp';
