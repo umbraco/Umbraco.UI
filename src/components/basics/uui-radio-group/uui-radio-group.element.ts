@@ -43,37 +43,45 @@ export class UUIRadioGroupElement extends LitElement {
     this.setAttribute('role', 'radiogroup');
   }
 
-  firstUpdated() {
+  private radioElements!: UUIRadioElement[];
+
+  private getRadioElements(): Promise<UUIRadioElement[]> {
+    return new Promise(resolve => {
+      const promisedRadios = this.slotElement
+        ? (this.slotElement
+            .assignedElements({ flatten: true })
+            .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[])
+        : [];
+      resolve(promisedRadios);
+    });
+  }
+
+  async firstUpdated() {
+    this.radioElements = await this.getRadioElements();
     if (this.radioElements.length > 0)
       this.radioElements[0].setAttribute('tabindex', '0');
-    this._addNameToRadios(this.name);
+    this._addNameToRadios(this.name, this.radioElements);
     if (this.disabled) this._toggleDisableOnChildren(true);
   }
 
   @query('slot') protected slotElement!: HTMLSlotElement;
-
-  protected get radioElements(): UUIRadioElement[] {
-    return this.slotElement
-      ? (this.slotElement
-          .assignedElements({ flatten: true })
-          .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[])
-      : [];
-  }
 
   protected get enabledRadioElements(): UUIRadioElement[] {
     return this.radioElements.filter(el => !el.disabled);
   }
 
   //someone help me refactor these two to one method
-  private _addNameToRadios(name: string) {
-    this.radioElements.forEach(el => (el.name = name));
+  private _addNameToRadios(name: string, radios: UUIRadioElement[]) {
+    radios.forEach(el => (el.name = name));
   }
 
   private _toggleDisableOnChildren(value: boolean) {
     this.radioElements.forEach(el => (el.disabled = value));
   }
 
-  private _handleSlotChange() {
+  private async _handleSlotChange() {
+    this.radioElements = await this.getRadioElements();
+
     const checkedRadios = this.radioElements.filter(el => el.checked === true);
 
     if (checkedRadios.length > 1) {
@@ -124,7 +132,8 @@ export class UUIRadioGroupElement extends LitElement {
   set name(newVal) {
     const oldVal = this._name;
     this._name = newVal;
-    this._addNameToRadios(this._name);
+    if (this.radioElements)
+      this._addNameToRadios(this._name, this.radioElements);
     this.requestUpdate('name', oldVal);
   }
 
@@ -144,7 +153,6 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _setSelected(newVal: number | null) {
-    console.log(this.radioElements, newVal);
     this._selected = newVal;
     this._lastSelectedIndex = this.enabledElementsIndexes.findIndex(
       index => index === this._selected
@@ -167,8 +175,7 @@ export class UUIRadioGroupElement extends LitElement {
     return indexes;
   }
 
-  //TODO rename those things so the names make more sense!!!!!
-  private _lastSelectedIndex = 0; //this is index in the array of enalbled radios indexes.
+  private _lastSelectedIndex = 0; //this is index in the array of enalbled radios indexes (this.enabledElementsIndexes)
   private _selectPreviousElement() {
     if (
       this.selected === null ||
@@ -228,7 +235,6 @@ export class UUIRadioGroupElement extends LitElement {
 
   //TODO add event
   private _handleSelectOnClick(e: UUIRadioEvent) {
-    console.log('hkjhjjh');
     e.stopPropagation();
     this._setSelected(this.radioElements.indexOf(e.target));
     this._fireChangeEvent();
