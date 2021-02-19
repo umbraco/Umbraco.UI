@@ -23,13 +23,15 @@ export class UUIButtonElement extends LitElement {
       button {
         position: relative;
         display: inline-block;
+        height: calc(
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6
+        );
         padding: 0;
         text-align: center;
         vertical-align: middle;
-        border: none;
         box-shadow: none;
-        border: 1px solid
-          var(--uui-button-background-color, var(--uui-interface-surface));
+        border: var(--uui-button-border-width, 1px) solid
+          var(--uui-button-border-color, var(--uui-interface-surface));
         border-radius: var(
           --uui-button-border-radius,
           var(--uui-size-border-radius)
@@ -48,11 +50,15 @@ export class UUIButtonElement extends LitElement {
         );
         color: var(--uui-button-contrast, var(--uui-interface-contrast));
 
-        transition: background-color 80ms;
+        transition: background-color 80ms, border-color 80ms, color 80ms;
       }
       button:hover {
         background-color: var(
           --uui-button-background-color-hover,
+          var(--uui-interface-surface-hover)
+        );
+        border-color: var(
+          --uui-button-border-color-hover,
           var(--uui-interface-surface-hover)
         );
         color: var(
@@ -78,14 +84,17 @@ export class UUIButtonElement extends LitElement {
 
       button > slot {
         display: block;
-        /* example of using the base-unit prop for sizing, it can be useful to hardcode a minor adjustment for the right look, notice + 2px in this example: */
-        padding: var(--uui-size-base-unit)
-          calc((var(--uui-size-base-unit) * 2) + 2px);
+        padding: 0
+          calc((var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3));
       }
 
       ::slotted(*) {
-        margin-left: calc(var(--uui-size-base-unit) * 2);
-        margin-right: calc(var(--uui-size-base-unit) * 2);
+        margin-left: calc(
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3
+        );
+        margin-right: calc(
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3
+        );
       }
 
       :host([loading]) > button > slot {
