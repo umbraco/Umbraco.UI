@@ -198,7 +198,7 @@ export const DesignSystem = () => html`
     <h5>Headline H5</h5>
     <p>
       The default font-size is 15px, for a nice reading experience this conforms
-      well with a line-height of 24px, which is our base-unit times 5.
+      well with a line-height of 24px, which is our base-unit times 4.
       <br />Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
       eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
       minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
