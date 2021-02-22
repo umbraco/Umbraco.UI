@@ -44,19 +44,16 @@ export class UUIRadioGroupElement extends LitElement {
 
   private radioElements!: UUIRadioElement[];
 
-  private getRadioElements(): Promise<UUIRadioElement[]> {
-    return new Promise(resolve => {
-      const promisedRadios = this.slotElement
-        ? (this.slotElement
-            .assignedElements({ flatten: true })
-            .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[])
-        : [];
-      resolve(promisedRadios);
-    });
+  private getRadioElements(): UUIRadioElement[] {
+    return this.slotElement
+      ? (this.slotElement
+          .assignedElements({ flatten: true })
+          .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[])
+      : [];
   }
 
-  async firstUpdated() {
-    this.radioElements = await this.getRadioElements();
+  firstUpdated() {
+    this.radioElements = this.getRadioElements();
     if (this.radioElements.length > 0)
       this.radioElements[0].setAttribute('tabindex', '0');
     this._addNameToRadios(this.name, this.radioElements);
@@ -69,7 +66,6 @@ export class UUIRadioGroupElement extends LitElement {
     return this.radioElements.filter(el => !el.disabled);
   }
 
-  //someone help me refactor these two to one method
   private _addNameToRadios(name: string, radios: UUIRadioElement[]) {
     radios.forEach(el => (el.name = name));
   }
