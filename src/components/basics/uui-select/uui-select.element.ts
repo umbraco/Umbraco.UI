@@ -31,7 +31,7 @@ export class UUISelectElement extends LitElement {
 
       uui-carret {
         display: inline-block;
-        padding: 0.5em;
+        padding: var(--uui-size-base-unit);
       }
 
       #selected-value {

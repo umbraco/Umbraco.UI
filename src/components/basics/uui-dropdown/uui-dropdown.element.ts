@@ -30,13 +30,13 @@ export class UUIDropdownElement extends LitElement {
       }
 
       :host([position='bottom']) #data-container {
-        margin-top: 8px;
+        margin-top: var(--uui-size-base-unit);
         transform-origin: top center;
       }
 
       :host([position='top']) #data-container {
         bottom: 100%;
-        margin-bottom: 8px;
+        margin-bottom: var(--uui-size-base-unit);
         transform-origin: bottom center;
       }
 
@@ -87,16 +87,21 @@ export class UUIDropdownElement extends LitElement {
   // /'cubic-bezier(.41,.98,.86,1.19)'
   private _animation!: Animation;
 
-  firstUpdated() {
+  async firstUpdated() {
     this._animation = this._dropdownContainer.animate(
       this._keyframes,
       this._options
     );
     this._animation.pause();
     this._animation.currentTime = 0;
+    await this.updateComplete;
+    this._popoutHeight = window.getComputedStyle(
+      this._dropdownContainer
+    ).height;
+    console.log(this._popoutHeight);
   }
 
-  //correct this
+  private _popoutHeight = '';
 
   private _isOpen = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })

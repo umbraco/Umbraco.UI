@@ -41,6 +41,11 @@ export class UUISelectListItemElement extends LitElement {
         background-color: var(--uui-color-space-cadet);
         color: var(--uui-color-white);
       }
+
+      #list-item {
+        display: flex;
+        align-items: center;
+      }
     `,
   ];
 

@@ -8,7 +8,7 @@ export class UUIOverflowContainer extends LitElement {
   static styles = [
     css`
       :host {
-        --uui-overflow-container-height: 200px;
+        --uui-overflow-container-height: 180px;
       }
 
       :host {
