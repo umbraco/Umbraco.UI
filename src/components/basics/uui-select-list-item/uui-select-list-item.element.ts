@@ -6,7 +6,7 @@ import {
   query,
   queryAssignedNodes,
 } from 'lit-element';
-import { UUIEvent } from '../../../event/UUIEvent';
+import { UUISelectListItemEvent } from './UUISelectListItemEvent';
 
 /**
  *  @element uui-list-item
@@ -85,15 +85,18 @@ export class UUISelectListItemElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   focused = false;
 
-  @query('#list-item') protected button!: HTMLButtonElement;
+  @query('#list-item') protected listItem!: HTMLButtonElement;
 
   updated() {
-    if (this.focused) this.button.focus();
+    if (this.focused) this.listItem.focus();
   }
 
-  toggleSelectElement() {
+  toggleSelectElement(e: Event) {
+    e.stopPropagation();
     this.selected = !this.selected;
-    // console.log(this._slot[0].textContent);
+    this.dispatchEvent(
+      new UUISelectListItemEvent(UUISelectListItemEvent.CHANGE)
+    );
   }
 
   render() {

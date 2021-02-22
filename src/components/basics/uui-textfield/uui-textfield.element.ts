@@ -29,7 +29,7 @@ export class UUITextFieldElement extends LitElement {
         display: inline-block;
         height: 32px;
         padding: 4px 6px;
-        margin-bottom: 10px;
+        /* margin-bottom: 10px; */
         font-size: 15px;
         line-height: 20px;
         color: inherit;

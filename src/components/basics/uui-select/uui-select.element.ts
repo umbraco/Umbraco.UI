@@ -20,20 +20,27 @@ export class UUISelectElement extends LitElement {
         border-radius: var(--uui-size-border-radius);
       }
 
+      uui-dropdown {
+        width: 100%;
+        height: 100%;
+      }
+
       uui-overflow-container {
         min-width: var(--uui-select-widht);
       }
 
-      /* uui-carret {
-        margin: 0.5em;
-      } */
+      uui-carret {
+        display: inline-block;
+        padding: 0.5em;
+      }
 
       #selected-value {
-        display: inline-block;
-        width: 100%;
-        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-family: inherit;
         font-size: 1rem;
+        padding-left: 1em;
       }
     `,
   ];
@@ -87,28 +94,26 @@ export class UUISelectElement extends LitElement {
     return html`
       <uui-dropdown
         ?open=${this.isOpen}
-        @dropdown-close="${() => (this.isOpen = false)}"
-        @dropdown-open="${() => (this.isOpen = true)}"
+        @close="${() => (this.isOpen = false)}"
+        @open="${() => (this.isOpen = true)}"
       >
         ${this.autocomplete
           ? html`<input
-              id="selected-value"
-              type="text"
-              slot="input"
-              role="textbox"
-              .aria-label="${this.label}"
-            />`
-          : html`<span
-              id="selected-value"
-              slot="input"
-              role="textbox"
-              .aria-label="${this.label}"
-              .title="${this.title}"
-              @click=${() => (this.isOpen = !this.isOpen)}
-              >${this.value}</span
-            >`}
-        //TODO fix the click area
-        <uui-carret slot="button" ?open=${this.isOpen}></uui-carret>
+                type="text"
+                slot="input"
+                role="textbox"
+                value=${this.value}
+                .aria-label="${this.label}"
+              /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
+          : html`<div id="selected-value" slot="toggle">
+              <span
+                role="textbox"
+                .aria-label="${this.label}"
+                .title="${this.title}"
+                >${this.value}</span
+              ><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
+            </div>`}
+
         <uui-overflow-container
           ><uui-select-list
             role="listbox"

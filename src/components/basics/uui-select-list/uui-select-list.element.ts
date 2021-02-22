@@ -49,7 +49,7 @@ export class UUISelectListElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('click', this._handleSelectOnClick);
+    this.addEventListener('change', this._handleSelectOnClick);
     //this.addEventListener('keydown', this._onKeydown);
   }
 
@@ -82,6 +82,7 @@ export class UUISelectListElement extends LitElement {
   }
 
   private _handleSelectOnClick(e: Event) {
+    e.stopPropagation();
     const radios = this.listElements;
     let selectedElement: UUISelectListItemElement;
 

@@ -5,15 +5,10 @@ const carret = svg`<svg viewBox="0 0 512 512"><path d="M255.125 361.35L88.193 14
 export class UUICarretElement extends LitElement {
   static styles = [
     css`
-      :host {
-        display: inline-block;
-      }
       #carret-container {
+        display: inline-block;
         width: 12px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5em;
+        vertical-align: middle;
       }
 
       #carret-container svg {

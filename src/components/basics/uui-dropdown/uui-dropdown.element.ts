@@ -1,12 +1,12 @@
 import { LitElement, html, css, query, property } from 'lit-element';
-import { UUICarretElement } from '../../fragments/uui-carret/uui-carret.element';
-import { UUIEvent } from '../../../event/UUIEvent';
+import { UUIDropdownEvent } from './UUIDropdownEvent';
 
 /**
  *  @element uui-dropdown
  * @event dropdown-close fired when dropdown is closing
  * @event dropdown-open fired when dropdown is opening
- * @slot input for whatever is suppose to be visible
+ * @slot interactive - for interactive element that will open dropdown
+ * @slot input - for input
  * @slot for dropdopwn content
  */
 
@@ -16,23 +16,28 @@ export class UUIDropdownElement extends LitElement {
     css`
       :host {
         position: relative;
-      }
+        display: inline-block;
+        vertical-align: middle;
 
-      #flex-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5em;
         box-sizing: border-box;
       }
 
       #data-container {
         position: absolute;
-
-        transform-origin: top center;
         box-sizing: border-box;
         border-radius: var(--uui-size-border-radius);
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
+      }
+
+      :host([position='bottom']) #data-container {
+        margin-top: 8px;
+        transform-origin: top center;
+      }
+
+      :host([position='top']) #data-container {
+        bottom: 100%;
+        margin-bottom: 8px;
+        transform-origin: bottom center;
       }
 
       ::slotted(*) {
@@ -41,26 +46,27 @@ export class UUIDropdownElement extends LitElement {
     `,
   ];
 
-  @query('uui-carret')
-  _carret!: UUICarretElement;
+  @property({ type: String, reflect: true })
+  position = 'bottom';
 
   @query('#data-container')
   _dropdownContainer!: HTMLElement;
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('mouseup', this.closeDropdownOnOutsideClick);
+    document.addEventListener('click', this.closeDropdownOnOutsideClick);
+    console.log(this.isOpen);
   }
 
   disconnectedCallback() {
-    document.removeEventListener('mouseup', this.closeDropdownOnOutsideClick);
+    document.removeEventListener('click', this.closeDropdownOnOutsideClick);
     super.disconnectedCallback();
   }
 
   private _keyframes = [
     { transform: 'scaleY(0)', opacity: 0 },
-    { opacity: 0, offset: 0.3 },
-    { opacity: 1, offset: 0.8 },
+    { opacity: 0, offset: 0.5 },
+    { opacity: 1, offset: 0.9 },
     { transform: 'scaleY(1)' },
   ];
 
@@ -70,15 +76,15 @@ export class UUIDropdownElement extends LitElement {
   }
 
   private _options: KeyframeAnimationOptions = {
-    duration: 250,
+    duration: 300,
     fill: 'both',
     easing: `${
       this._reducedMotion() //? can it be like that? it works if you dont change mediaQuerry on the fly
         ? 'steps(1)'
-        : 'cubic-bezier(.41,.98,.86,1.19)'
+        : 'cubic-bezier(.69,.67,.59,1.15)'
     }`,
   };
-
+  // /'cubic-bezier(.41,.98,.86,1.19)'
   private _animation!: Animation;
 
   firstUpdated() {
@@ -87,10 +93,10 @@ export class UUIDropdownElement extends LitElement {
       this._options
     );
     this._animation.pause();
+    this._animation.currentTime = 0;
   }
 
-  private openEvent = new UUIEvent('dropdown-open');
-  private closeEvent = new UUIEvent('dropdown-close');
+  //correct this
 
   private _isOpen = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
@@ -100,10 +106,16 @@ export class UUIDropdownElement extends LitElement {
 
   set isOpen(newVal) {
     const oldVal = this._isOpen;
-    this._isOpen = newVal;
-    if (newVal) this.dispatchEvent(this.openEvent);
-    else this.dispatchEvent(this.closeEvent);
-    this.requestUpdate('isOpen', oldVal).then(() => this.toggleOpen(newVal));
+    if (newVal != oldVal) {
+      this._isOpen = newVal;
+      if (newVal) {
+        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
+      } else {
+        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.CLOSE));
+      }
+      this.toggleOpen(newVal);
+      this.requestUpdate('isOpen', oldVal);
+    }
   }
 
   public toggleOpen(isOpen: boolean) {
@@ -115,23 +127,22 @@ export class UUIDropdownElement extends LitElement {
   }
 
   protected closeDropdownOnOutsideClick = (e: MouseEvent) => {
+    e.stopPropagation();
     const path = e.composedPath();
-    //console.log(path);
+
     if (path.includes(this)) {
       return;
     }
-    if (this.isOpen) this.isOpen = false;
+    if (this.isOpen) {
+      this.isOpen = false;
+    }
   };
 
   render() {
     return html`
-      <div id="flex-container">
-        <slot name="input"></slot>
-        <slot
-          name="button"
-          @click="${() => (this.isOpen = !this.isOpen)}"
-        ></slot>
-      </div>
+      <slot name="input"></slot>
+      <slot name="toggle" @click="${() => (this.isOpen = !this.isOpen)}"></slot>
+
       <div id="data-container" part="data-container">
         <slot></slot>
       </div>
