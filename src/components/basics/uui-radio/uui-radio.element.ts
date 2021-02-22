@@ -43,7 +43,7 @@ export class UUIRadioElement extends LitElement {
         display: inline-block;
         width: var(--uui-radio-button-size, 18px);
         height: var(--uui-radio-button-size, 18px);
-        background-color: var(--uui-interface-background, white);
+        background-color: var(--uui-interface-surface, white);
         border: 1px solid var(--uui-interface-border, #d8d7d9);
         border-radius: 100%;
         margin-right: var(--uui-size-base-unit);
@@ -105,6 +105,16 @@ export class UUIRadioElement extends LitElement {
 
       :host([disabled]) #button:active {
         animation: ${UUIHorizontalShakeAnimationValue};
+      }
+
+      @media (prefers-reduced-motion) {
+        :host([disabled]) #button:active {
+          animation: none;
+        }
+
+        #button::after {
+          transition: none;
+        }
       }
     `,
   ];
