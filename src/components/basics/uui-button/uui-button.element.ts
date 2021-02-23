@@ -140,6 +140,9 @@ export class UUIButtonElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   loading = false;
 
+  @property({ type: String, attribute: 'aria-label' })
+  ariaLabel?: string;
+
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
@@ -151,7 +154,11 @@ export class UUIButtonElement extends LitElement {
   }
   render() {
     return html`
-      <button @click=${this.onClick} ?disabled=${this.disabled}>
+      <button
+        @click=${this.onClick}
+        ?disabled=${this.disabled}
+        aria-label="${this.ariaLabel || ''}"
+      >
         <slot></slot>
       </button>
     `;
