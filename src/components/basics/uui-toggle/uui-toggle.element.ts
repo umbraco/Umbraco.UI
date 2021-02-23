@@ -10,7 +10,7 @@ import { UUICheckboxBaseElement } from '../uui-checkbox/uui-checkbox-base.elemen
 
 /**
  *  @element uui-toggle
- *  @fires {UUIToggleEvent} change - fires when the element is begin checked by a user action
+ *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
  */
@@ -75,8 +75,8 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         background-color: var(--uui-interface-selected-focus);
       }
 
-      #icon-container-check,
-      #icon-container-wrong {
+      #icon-check,
+      #icon-wrong {
         position: absolute;
         vertical-align: middle;
         width: 1em;
@@ -85,19 +85,18 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         transition: fill 120ms;
       }
 
-      #icon-container-check {
+      #icon-check {
         margin-left: -0.5em;
         left: calc(var(--uui-toggle-size) * 0.5);
         fill: var(--uui-interface-contrast);
       }
 
-      #icon-container-wrong {
+      #icon-wrong {
         margin-right: -0.5em;
         right: calc(var(--uui-toggle-size) * 0.5);
         fill: var(--uui-interface-contrast);
       }
-
-      input:checked + #slider #icon-container-check {
+      input:checked + #slider #icon-check {
         fill: var(--uui-interface-selected-contrast);
       }
 
@@ -133,13 +132,13 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
       :host([disabled]) #slider:after {
         background-color: var(--uui-interface-surface-disabled);
       }
-      :host([disabled]) #slider #icon-container-wrong {
+      :host([disabled]) #slider #icon-wrong {
         fill: var(--uui-interface-contrast-disabled);
       }
       :host([disabled]) label:active #slider {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
-      :host([disabled]) input:checked + #slider #icon-container-check {
+      :host([disabled]) input:checked + #slider #icon-check {
         fill: var(--uui-interface-selected-contrast-disabled);
       }
 
@@ -161,11 +160,9 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
   renderCheckbox() {
     return html`
       <div id="slider">
-        <div id="icon-container-check">${iconCheck}</div>
-        <div id="icon-container-wrong">${iconWrong}</div>
+        <div id="icon-check">${iconCheck}</div>
+        <div id="icon-wrong">${iconWrong}</div>
       </div>
     `;
   }
 }
-
-//
