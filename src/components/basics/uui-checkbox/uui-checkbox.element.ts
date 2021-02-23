@@ -155,10 +155,6 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
 
   static formAssociated = true;
 
-  constructor() {
-    super();
-  }
-
   renderCheckbox() {
     return html`
       <div id="ticker">
