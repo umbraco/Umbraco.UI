@@ -1,6 +1,6 @@
 import { LitElement, html, css, query, property } from 'lit-element';
 import { UUIDropdownEvent } from './UUIDropdownEvent';
-
+import { createPopper } from './popper';
 /**
  *  @element uui-dropdown
  * @event dropdown-close fired when dropdown is closing
@@ -15,15 +15,15 @@ export class UUIDropdownElement extends LitElement {
   static styles = [
     css`
       :host {
-        position: relative;
+        /* position: relative; */
         display: inline-block;
         vertical-align: middle;
-
+        margin: 300vh 0;
         box-sizing: border-box;
       }
 
       #data-container {
-        position: absolute;
+        /* position: absolute; */
         box-sizing: border-box;
         border-radius: var(--uui-size-border-radius);
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
@@ -35,7 +35,7 @@ export class UUIDropdownElement extends LitElement {
       }
 
       :host([position='top']) #data-container {
-        bottom: 100%;
+        /* bottom: 100%; */
         margin-bottom: var(--uui-size-base-unit);
         transform-origin: bottom center;
       }
@@ -46,6 +46,8 @@ export class UUIDropdownElement extends LitElement {
     `,
   ];
 
+  private _popper!: any;
+
   @property({ type: String, reflect: true })
   position = 'bottom';
 
@@ -55,7 +57,7 @@ export class UUIDropdownElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('click', this.closeDropdownOnOutsideClick);
-    console.log(this.isOpen);
+    console.log(this.shadowRoot);
   }
 
   disconnectedCallback() {
@@ -87,21 +89,31 @@ export class UUIDropdownElement extends LitElement {
   // /'cubic-bezier(.41,.98,.86,1.19)'
   private _animation!: Animation;
 
-  async firstUpdated() {
-    this._animation = this._dropdownContainer.animate(
-      this._keyframes,
-      this._options
-    );
-    this._animation.pause();
-    this._animation.currentTime = 0;
-    await this.updateComplete;
-    this._popoutHeight = window.getComputedStyle(
-      this._dropdownContainer
-    ).height;
-    console.log(this._popoutHeight);
-  }
+  firstUpdated() {
+    // this._animation = this._dropdownContainer.animate(
+    //   this._keyframes,
+    //   this._options
+    // );
+    // this._animation.pause();
+    // this._animation.currentTime = 0;
+    this._popper = createPopper(this, this._dropdownContainer, {
+      placement: 'bottom',
+      modifiers: [
+        {
+          name: 'flip',
+          options: {
+            padding: 8,
+          },
+        },
+      ],
+    });
 
-  private _popoutHeight = '';
+    // await this.updateComplete;
+    // this._popoutHeight = window.getComputedStyle(
+    //   this._dropdownContainer
+    // ).height;
+    console.log(this._popper);
+  }
 
   private _isOpen = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
@@ -115,10 +127,12 @@ export class UUIDropdownElement extends LitElement {
       this._isOpen = newVal;
       if (newVal) {
         this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
+
+        this._popper.update();
       } else {
         this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.CLOSE));
       }
-      this.toggleOpen(newVal);
+      // this.toggleOpen(newVal);
       this.requestUpdate('isOpen', oldVal);
     }
   }
