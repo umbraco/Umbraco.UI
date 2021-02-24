@@ -25,7 +25,7 @@ export class UUITagElement extends LitElement {
         border-radius: calc(
           var(--uui-tag-size-unit, var(--uui-size-base-unit)) * 2
         );
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-interface-surface-alt);
         color: var(--uui-interface-contrast);
 
         transition: background-color 120ms, color 120ms;
@@ -54,8 +54,8 @@ export class UUITagElement extends LitElement {
       lookName =>
         css`
           :host([look='${lookName}']) {
-            background-color: var(--uui-color-${lookName}-surface);
-            color: var(--uui-color-${lookName}-contrast);
+            background-color: var(--uui-look-${lookName}-surface);
+            color: var(--uui-look-${lookName}-contrast);
           }
         `
     ),
