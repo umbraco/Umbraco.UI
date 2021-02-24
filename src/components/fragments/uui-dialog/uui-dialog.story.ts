@@ -7,10 +7,16 @@ export default {
   component: 'uui-dialog',
 };
 
-export const Default = () => html`
+export const Default = () => html` <uui-dialog> </uui-dialog> `;
+
+export const Slots = () => html`
   <uui-dialog>
-    <div>content slot</div>
-    <div slot="actions">actions slot</div>
+    <uui-button look="slot" style="width:100%; height: 96px;"
+      >Default slot</uui-button
+    >
+    <uui-button look="slot" style="width:50%;" slot="actions"
+      >Actions slot</uui-button
+    >
   </uui-dialog>
 `;
 
