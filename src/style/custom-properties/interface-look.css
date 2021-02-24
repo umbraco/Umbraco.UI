@@ -1,4 +1,4 @@
-/** PRIMARY */
+/** PRIMARY look */
 :root {
   --uui-look-primary-surface: var(--uui-color-space-cadet);
   --uui-look-primary-surface-hover: var(--uui-color-violet-blue);
@@ -15,7 +15,7 @@
   --uui-look-primary-font-weight: 700;
 }
 
-/** SECONDARY */
+/** SECONDARY look */
 :root {
   --uui-look-secondary-surface: var(--uui-color-timberwolf);
   --uui-look-secondary-surface-hover: var(--uui-color-timberwolf-light);
@@ -32,7 +32,7 @@
   --uui-look-secondary-font-weight: 500;
 }
 
-/** POSITIVE */
+/** POSITIVE look */
 :root {
   --uui-look-positive-surface: var(--uui-color-jungle-green);
   --uui-look-positive-surface-hover: var(--uui-color-jungle-green-light);
@@ -49,7 +49,7 @@
   --uui-look-positive-font-weight: 700;
 }
 
-/** WARNING */
+/** WARNING look */
 :root {
   --uui-look-warning-surface: var(--uui-color-sunglow);
   --uui-look-warning-surface-hover: var(--uui-color-sunglow-light);
@@ -66,7 +66,7 @@
   --uui-look-warning-font-weight: 700;
 }
 
-/** DANGER */
+/** DANGER look */
 :root {
   --uui-look-danger-surface: var(--uui-color-maroon-flush);
   --uui-look-danger-surface-hover: var(--uui-color-maroon-flush-light);
@@ -83,7 +83,7 @@
   --uui-look-danger-font-weight: 700;
 }
 
-/** OUTLINE */
+/** OUTLINE look */
 :root {
   --uui-look-outline-surface: transparent;
   --uui-look-outline-surface-hover: transparent;
@@ -100,21 +100,21 @@
   --uui-look-outline-font-weight: 700;
 }
 
-/** SLOT */
+/** PLACEHOLDER look */
 :root {
-  --uui-look-slot-surface: transparent;
-  --uui-look-slot-surface-hover: transparent;
-  --uui-look-slot-surface-disabled: transparent;
-  --uui-look-slot-surface-focus: transparent;
-  --uui-look-slot-contrast: var(--uui-color-space-cadet);
-  --uui-look-slot-contrast-hover: var(--uui-color-violet-blue);
-  --uui-look-slot-contrast-disabled: var(--uui-color-space-cadet-dimmed);
-  --uui-look-slot-contrast-focus: var(--uui-color-space-cadet);
-  --uui-look-slot-border: var(--uui-color-space-cadet);
-  --uui-look-slot-border-hover: var(--uui-color-violet-blue);
-  --uui-look-slot-border-disabled: var(--uui-color-space-cadet-dimmed);
-  --uui-look-slot-border-focus: var(--uui-color-space-cadet);
-  --uui-look-slot-font-weight: 400;
-  --uui-look-slot-border-style: dashed;
+  --uui-look-placeholder-surface: transparent;
+  --uui-look-placeholder-surface-hover: transparent;
+  --uui-look-placeholder-surface-disabled: transparent;
+  --uui-look-placeholder-surface-focus: transparent;
+  --uui-look-placeholder-contrast: var(--uui-color-space-cadet);
+  --uui-look-placeholder-contrast-hover: var(--uui-color-violet-blue);
+  --uui-look-placeholder-contrast-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-look-placeholder-contrast-focus: var(--uui-color-space-cadet);
+  --uui-look-placeholder-border: var(--uui-color-space-cadet);
+  --uui-look-placeholder-border-hover: var(--uui-color-violet-blue);
+  --uui-look-placeholder-border-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-look-placeholder-border-focus: var(--uui-color-space-cadet);
+  --uui-look-placeholder-font-weight: 400;
+  --uui-look-placeholder-border-style: dashed;
 }
 

@@ -4,7 +4,7 @@ export const InterfaceLookNames: Readonly<InterfaceLookType[]> = [
   'primary',
   'secondary',
   'outline',
-  'slot',
+  'placeholder',
   'positive',
   'warning',
   'danger',
@@ -15,7 +15,7 @@ export type InterfaceLookType =
   | 'primary'
   | 'secondary'
   | 'outline'
-  | 'slot'
+  | 'placeholder'
   | 'positive'
   | 'warning'
   | 'danger';

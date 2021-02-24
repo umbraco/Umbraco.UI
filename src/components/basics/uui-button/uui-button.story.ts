@@ -17,8 +17,8 @@ export const PrimaryButton = () => html`
   <uui-button look="primary">Basic button</uui-button>
 `;
 
-export const SlotButton = () => html`
-  <uui-button look="slot" style="width:480px;">Add content</uui-button>
+export const PlaceholderButton = () => html`
+  <uui-button look="placeholder" style="width:480px;">Add content</uui-button>
 `;
 
 export const Disabled = () => html`
