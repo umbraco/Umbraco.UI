@@ -131,7 +131,7 @@ export abstract class UUICheckboxBaseElement extends LitElement {
 
   firstUpdated() {
     if (!this.label) {
-      console.warn(typeof this + ' needs a `label`');
+      console.warn(this.tagName + ' needs a `label`');
     }
   }
 

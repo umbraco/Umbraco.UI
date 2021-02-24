@@ -6,7 +6,7 @@ import { UUICheckboxElement } from './uui-checkbox.element';
 describe('UuiToggle', () => {
   let element: UUICheckboxElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-toggle></uui-toggle> `);
+    element = await fixture(html` <uui-checkbox></uui-checkbox> `);
   });
 
   it('passes the a11y audit', async () => {
@@ -28,10 +28,10 @@ describe('UuiToggle in a Form', () => {
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
-        <uui-toggle name="test"></uui-toggle>
+        <uui-checkbox name="test"></uui-checkbox>
       </form>`
     );
-    element = formElement.querySelector('uui-toggle') as any;
+    element = formElement.querySelector('uui-checkbox') as any;
   });
 
   it('form output is null if element not checked', () => {
