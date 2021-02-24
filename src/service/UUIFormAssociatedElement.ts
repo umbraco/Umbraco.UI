@@ -3,7 +3,7 @@ import { LitElement, property } from 'lit-element';
 //this is not used anywhere. YET!!!
 
 export class UUIFormAssociatedElement extends LitElement {
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   private _internals;
 

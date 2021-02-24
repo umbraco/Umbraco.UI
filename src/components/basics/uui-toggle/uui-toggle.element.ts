@@ -151,7 +151,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
     `,
   ];
 
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   constructor() {
     super('switch');

@@ -69,7 +69,7 @@ export abstract class UUICheckboxBaseElement extends LitElement {
     `,
   ];
 
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   private _internals;
   private inputRole: 'checkbox' | 'switch';

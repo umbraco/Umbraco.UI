@@ -81,7 +81,7 @@ export class UUITextFieldElement extends LitElement {
     `,
   ];
 
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   private _internals;
 

@@ -153,7 +153,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
     `,
   ];
 
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   renderCheckbox() {
     return html`
