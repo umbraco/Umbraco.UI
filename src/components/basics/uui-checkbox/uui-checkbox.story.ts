@@ -7,7 +7,7 @@ export default {
 };
 
 export const Basic = () =>
-  html` <uui-checkbox .label=${'checkbox label'} value="bike"></uui-checkbox> `;
+  html` <uui-checkbox .label=${'Checkbox label'} value="bike"></uui-checkbox> `;
 
 export const Preselected = () =>
   html` <uui-checkbox label="Checkbox me" value="bike" checked></uui-checkbox>`;
