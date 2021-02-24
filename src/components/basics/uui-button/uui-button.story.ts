@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import './index';
+import '../uui-icon/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
