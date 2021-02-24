@@ -22,9 +22,12 @@ export const Slots = () => html`
 
 export const WithContent = () => html`
   <uui-dialog>
-    <h3>Headline</h3>
-    <p>Some description for this dialog</p>
+    <h4>Publish with descendants?</h4>
+    <p>
+      Publish <b>This example</b> and all content items underneath and thereby
+      making their content publicly available.
+    </p>
     <uui-button slot="actions">Cancel</uui-button>
-    <uui-button slot="actions" look="positive">Confirm</uui-button>
+    <uui-button slot="actions" look="positive">Publish</uui-button>
   </uui-dialog>
 `;

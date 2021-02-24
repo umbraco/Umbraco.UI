@@ -45,8 +45,8 @@ export const Styles = () => html`
   <uui-button .look=${''} style="margin-left:12px;">Empty look</uui-button>
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
-      html`<uui-button .look=${lookName} style="margin-left:12px;"
-        >${uppercaseFirstLetter(lookName)} look</uui-button
-      >`
+      html`<uui-button .look=${lookName} style="margin-left:12px;">
+        ${uppercaseFirstLetter(lookName)} look
+      </uui-button>`
   )}
 `;
