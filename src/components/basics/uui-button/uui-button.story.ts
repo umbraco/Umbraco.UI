@@ -12,19 +12,24 @@ export default {
 
 export const Default = () => html` <uui-button>Basic button</uui-button> `;
 
-export const Disabled = () =>
-  html` <uui-button disabled>Disabled button</uui-button> `;
+export const PrimaryButton = () => html`
+  <uui-button look="primary">Basic button</uui-button>
+`;
 
-export const Loading = () =>
-  html` <uui-button loading>Button waiting for something</uui-button> `;
+export const Disabled = () => html`
+  <uui-button disabled>Disabled button</uui-button>
+`;
 
-export const WithIcon = () =>
-  html`
-    <uui-button
-      ><uui-icon .name=${'bug'}></uui-icon>Button waiting for
-      something</uui-button
-    >
-  `;
+export const Loading = () => html`
+  <uui-button loading>Button waiting for something</uui-button>
+`;
+
+export const WithIcon = () => html`
+  <uui-button>
+    <uui-icon .name=${'bug'}></uui-icon>
+    Button waiting for something
+  </uui-button>
+`;
 
 export const Styles = () => html`
   <uui-button>Default style</uui-button>
