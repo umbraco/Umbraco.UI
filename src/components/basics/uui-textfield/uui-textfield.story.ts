@@ -19,14 +19,6 @@ export const Placeholder = () =>
     <uui-textfield placeholder="Type something..." label=""></uui-textfield>
   `;
 
-export const labelOutside = () =>
-  html`
-    <label for="something">
-      Label with ${'<label>'} tag outside component
-      <uui-textfield id="something" value="Hello"></uui-textfield>
-    </label>
-  `;
-
 export const Color = () =>
   html`
     <uui-textfield value="Hello" label="Color" type="color"></uui-textfield>
