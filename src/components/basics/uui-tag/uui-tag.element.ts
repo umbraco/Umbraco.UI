@@ -32,8 +32,8 @@ export class UUITagElement extends LitElement {
       }
 
       :host([size='xs']) {
-        --uui-badge-size-unit: 3px;
-        --uui-badge-font-size: 9px;
+        --uui-tag-size-unit: 4px;
+        --uui-tag-font-size: 10px;
       }
       :host([size='s']) {
         --uui-tag-size-unit: 4px;
