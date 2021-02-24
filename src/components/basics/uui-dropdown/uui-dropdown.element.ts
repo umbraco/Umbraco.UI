@@ -61,8 +61,9 @@ export class UUIDropdownElement extends LitElement {
   }
 
   disconnectedCallback() {
-    document.removeEventListener('click', this.closeDropdownOnOutsideClick);
     super.disconnectedCallback();
+    document.removeEventListener('click', this.closeDropdownOnOutsideClick);
+    if (this._popper) this._popper.destroy();
   }
 
   private _keyframes = [
@@ -98,7 +99,14 @@ export class UUIDropdownElement extends LitElement {
     // this._animation.currentTime = 0;
     this._popper = createPopper(this, this._dropdownContainer, {
       placement: 'bottom',
+
       modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 6],
+          },
+        },
         {
           name: 'flip',
           options: {
