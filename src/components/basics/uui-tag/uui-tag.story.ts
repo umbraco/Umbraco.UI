@@ -2,8 +2,8 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Badge',
-  component: 'uui-badge',
+  title: 'Basics/Tag',
+  component: 'uui-tag',
 };
 
 export const Overview = () =>
