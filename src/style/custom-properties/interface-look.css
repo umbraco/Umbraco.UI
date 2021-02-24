@@ -100,3 +100,21 @@
   --uui-look-outline-font-weight: 700;
 }
 
+/** SLOT */
+:root {
+  --uui-look-slot-surface: transparent;
+  --uui-look-slot-surface-hover: transparent;
+  --uui-look-slot-surface-disabled: transparent;
+  --uui-look-slot-surface-focus: transparent;
+  --uui-look-slot-contrast: var(--uui-color-space-cadet);
+  --uui-look-slot-contrast-hover: var(--uui-color-violet-blue);
+  --uui-look-slot-contrast-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-look-slot-contrast-focus: var(--uui-color-space-cadet);
+  --uui-look-slot-border: var(--uui-color-space-cadet);
+  --uui-look-slot-border-hover: var(--uui-color-violet-blue);
+  --uui-look-slot-border-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-look-slot-border-focus: var(--uui-color-space-cadet);
+  --uui-look-slot-font-weight: 400;
+  --uui-look-slot-border-style: dashed;
+}
+

@@ -20,12 +20,16 @@ export class UUIButtonElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
-      button {
+      :host {
         position: relative;
         display: inline-block;
-        height: calc(
+      }
+      button {
+        height: 100%;
+        min-height: calc(
           var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6
         );
+        width: 100%;
         padding: 0;
         text-align: center;
         vertical-align: middle;
@@ -116,6 +120,17 @@ export class UUIButtonElement extends LitElement {
           :host([look='${lookName}']) button {
             background-color: var(--uui-look-${lookName}-surface);
             color: var(--uui-look-${lookName}-contrast);
+            border-style: var(
+              --uui-button-border-style,
+              var(--uui-look-${lookName}-border-style, solid)
+            );
+            border-radius: var(
+              --uui-button-border-radius,
+              var(
+                --uui-look-${lookName}-border-radius,
+                var(--uui-size-border-radius)
+              )
+            );
             border-color: var(--uui-look-${lookName}-border);
             font-weight: var(--uui-look-${lookName}-font-weight);
           }
