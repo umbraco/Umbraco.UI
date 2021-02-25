@@ -18,7 +18,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
     UUIHorizontalShakeKeyframes,
     css`
       :host {
-        --uui-checkbox-size: 20px;
+        --uui-checkbox-size: 18px;
         /*
         --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
         */
@@ -31,6 +31,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         align-items: center;
         justify-content: center;
 
+        box-sizing: border-box;
         width: var(--uui-checkbox-size);
         height: var(--uui-checkbox-size);
         border-radius: var(

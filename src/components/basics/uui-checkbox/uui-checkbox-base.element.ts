@@ -37,6 +37,7 @@ export abstract class UUICheckboxBaseElement extends LitElement {
           'left center right'
           'bottom-left bottom bottom-right';
         grid-gap: var(--uui-size-xsmall);
+        row-gap: var(--uui-size-half-base-unit);
         align-items: center;
         justify-items: center;
       }
