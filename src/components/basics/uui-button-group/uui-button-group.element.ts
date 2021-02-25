@@ -43,18 +43,6 @@ export class UUIButtonGroupElement extends LitElement {
     `,
   ];
 
-  @queryAssignedNodes(undefined, true)
-  slottedButtons!: UUIButtonElement[];
-
-  firstUpdated() {
-    console.log(this.slottedButtons);
-    // this.slottedButtons[0].setAttribute('first-group-button', 'true');
-    // this.slottedButtons[this.slottedButtons.length - 1].setAttribute(
-    //   'last-group-button',
-    //   'true'
-    // );
-  }
-
   @property({ reflect: true })
   render() {
     return html` <slot></slot> `;
