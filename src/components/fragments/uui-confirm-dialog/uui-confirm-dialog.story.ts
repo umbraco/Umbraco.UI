@@ -9,11 +9,11 @@ export default {
 
 export const Danger = () => html`
   <uui-confirm-dialog
-    .title=${'Are you sure about this?'}
-    .look=${'danger'}
+    title="Are you sure about this?"
+    look="danger"
     @cancel=${(e: UUIEvent) => console.log('Cancelled', e)}
     @submit=${(e: UUIEvent) => console.log('Submitted', e)}
-    .submitLabel=${'Delete'}
+    submitLabel="Delete"
   >
     Description of this very dangerous dialog
   </uui-confirm-dialog>
@@ -21,8 +21,8 @@ export const Danger = () => html`
 
 export const Positive = () => html`
   <uui-confirm-dialog
-    .title=${'Would you like to make it happen?'}
-    .look=${'positive'}
+    title="Would you like to make it happen?"
+    look="positive"
     @cancel=${(e: UUIEvent) => console.log('Cancelled', e)}
     @submit=${(e: UUIEvent) => console.log('Submitted', e)}
   >
