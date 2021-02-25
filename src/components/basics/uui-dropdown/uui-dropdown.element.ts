@@ -18,6 +18,7 @@ export class UUIDropdownElement extends LitElement {
         display: inline-block;
         vertical-align: middle;
         box-sizing: border-box;
+        --uui-button-group-border-radius: var(--uui-size-border-radius);
       }
 
       #data-container {
@@ -36,6 +37,10 @@ export class UUIDropdownElement extends LitElement {
 
       ::slotted(*) {
         border-radius: var(--uui-size-border-radius);
+      }
+
+      slot[name='toggle']::slotted(uui-button) {
+        --uui-button-border-radius: var(--uui-button-group-border-radius);
       }
     `,
   ];
