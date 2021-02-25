@@ -3,7 +3,7 @@ import { UUIEvent } from '../../../event/UUIEvent';
 import './index';
 
 export default {
-  title: 'Fragments/Dialog/Confirm Dialog',
+  title: 'Fragments/Confirm Dialog',
   component: 'uui-confirm-dialog',
 };
 

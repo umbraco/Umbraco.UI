@@ -20,12 +20,17 @@ export class UUIButtonElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
-      button {
+      :host {
         position: relative;
         display: inline-block;
-        height: calc(
+        --uui-button-border-radius: var(--uui-size-border-radius);
+      }
+      button {
+        height: 100%;
+        min-height: calc(
           var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6
         );
+        width: 100%;
         padding: 0;
         text-align: center;
         vertical-align: middle;
@@ -116,6 +121,17 @@ export class UUIButtonElement extends LitElement {
           :host([look='${lookName}']) button {
             background-color: var(--uui-look-${lookName}-surface);
             color: var(--uui-look-${lookName}-contrast);
+            border-style: var(
+              --uui-button-border-style,
+              var(--uui-look-${lookName}-border-style, solid)
+            );
+            border-radius: var(
+              --uui-button-border-radius,
+              var(
+                --uui-look-${lookName}-border-radius,
+                var(--uui-size-border-radius)
+              )
+            );
             border-color: var(--uui-look-${lookName}-border);
             font-weight: var(--uui-look-${lookName}-font-weight);
           }
@@ -131,6 +147,16 @@ export class UUIButtonElement extends LitElement {
           }
         `
     ),
+    //! do not change order of this, it has to be the last one!
+    css`
+      :host([first-group-button='true']) button {
+        border-radius: 3px 0 0 3px;
+      }
+
+      :host([last-group-button='true']) button {
+        border-radius: 0 3px 3px 0;
+      }
+    `,
   ];
 
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
@@ -139,6 +165,9 @@ export class UUIButtonElement extends LitElement {
 
   @property({ type: Boolean, reflect: true })
   loading = false;
+
+  @property({ type: String, attribute: 'aria-label' })
+  ariaLabel?: string;
 
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
@@ -151,7 +180,11 @@ export class UUIButtonElement extends LitElement {
   }
   render() {
     return html`
-      <button @click=${this.onClick} ?disabled=${this.disabled}>
+      <button
+        @click=${this.onClick}
+        ?disabled=${this.disabled}
+        aria-label="${this.ariaLabel || ''}"
+      >
         <slot></slot>
       </button>
     `;

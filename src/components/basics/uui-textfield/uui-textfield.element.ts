@@ -27,14 +27,12 @@ export class UUITextFieldElement extends LitElement {
       }
       input {
         display: inline-block;
-        height: 32px;
-        padding: 4px 6px;
-        /* margin-bottom: 10px; */
+        height: 30px;
+        padding: 3px 6px 1px 6px;
+        font-family: inherit;
         font-size: 15px;
-        line-height: 20px;
         color: inherit;
         border-radius: 0;
-        vertical-align: middle;
         box-sizing: border-box;
         background-color: var(
           --uui-text-field-background-color,
@@ -60,10 +58,30 @@ export class UUITextFieldElement extends LitElement {
       .invalid {
         border-color: var(--uui-color-danger-background);
       }
+
+      input[type='color'] {
+        width: 30px;
+        padding: 0;
+        border: none;
+      }
+
+      input[disabled] {
+        background-color: var(
+          --uui-text-field-background-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
+        border: 1px solid
+          var(
+            --uui-text-field-border-color-disabled,
+            var(--uui-interface-border-disable)
+          );
+
+        color: var(--uui-interface-contrast-disabled);
+      }
     `,
   ];
 
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   private _internals;
 
@@ -72,11 +90,25 @@ export class UUITextFieldElement extends LitElement {
     this._internals = (this as any).attachInternals();
   }
 
-  //! type of this should probably be FormDataEntryValue, and initialized as ''
-  private _value: string | null = null;
+  @property()
+  label = '';
+
+  @property({})
+  placeholder = '';
+
+  @property({ type: Boolean })
+  disabled = false;
+
+  firstUpdated() {
+    if (!this.label) {
+      console.warn(this.tagName + ' needs a `label`');
+    }
+  }
+
+  private _value: FormDataEntryValue = '';
 
   @property()
-  get value(): string | null {
+  get value() {
     return this._value;
   }
   set value(newValue) {
@@ -92,7 +124,7 @@ export class UUITextFieldElement extends LitElement {
 
   @property({ type: String }) type: TextFieldType = 'text';
 
-  @property()
+  @property({ type: Boolean })
   private valid = true;
 
   private onUpdate(e: Event) {
@@ -104,6 +136,9 @@ export class UUITextFieldElement extends LitElement {
       <input
         type="${this.type}"
         value=${this.value}
+        placeholder=${this.placeholder}
+        aria-label=${this.label}
+        ?disabled=${this.disabled}
         class=${classMap({ invalid: !this.valid })}
         @change=${(e: Event) => this.onUpdate(e)}
         @keyup=${(e: Event) => this.onUpdate(e)}

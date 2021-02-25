@@ -6,7 +6,9 @@ import { UUITextFieldElement } from './uui-textfield.element';
 describe('UuiTextfield', () => {
   let element: UUITextFieldElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-textfield></uui-textfield> `);
+    element = await fixture(
+      html` <uui-textfield label="a textfield label"></uui-textfield> `
+    );
   });
   it('test that disable works', async () => {
     return true;
@@ -18,7 +20,7 @@ describe('UuiTextfield with label', () => {
   beforeEach(async () => {
     dom = await fixture(html`
       <label for="test">TextField</label>
-      <uui-textfield id="test"></uui-textfield>
+      <uui-textfield id="test" label="a textfield label"></uui-textfield>
     `);
   });
 
@@ -34,6 +36,7 @@ describe('UuiTextfield in Form', () => {
     formElement = await fixture(
       html` <form>
         <uui-textfield
+          label="a textfield label"
           name="textfield"
           value="Hello uui-textfield"
         ></uui-textfield>

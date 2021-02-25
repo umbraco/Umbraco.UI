@@ -1,59 +1,30 @@
-import {
-  LitElement,
-  html,
-  property,
-  css,
-  query,
-  internalProperty,
-} from 'lit-element';
-import { UUIToggleEvent } from './UUIToggleEvent';
+import { html, css } from 'lit-element';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '../../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
-
-type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
+import { UUICheckboxBaseElement } from '../uui-checkbox/uui-checkbox-base.element';
 
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
 /**
  *  @element uui-toggle
- *  @fires {UUIToggleEvent} change - fires when the element is begin checked by a user action
+ *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
  */
-export class UUIToggleElement extends LitElement {
+export class UUIToggleElement extends UUICheckboxBaseElement {
   static styles = [
+    ...UUICheckboxBaseElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {
-        display: inline-block;
-
         --uui-toggle-size: 18px;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
         /*
         --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
         */
-      }
-
-      label {
-        cursor: pointer;
-        user-select: none;
-        display: grid;
-        grid-template-columns: max-content 1fr max-content;
-        grid-template-rows: max-content 1fr max-content;
-        grid-template-areas:
-          'top-left top top-right'
-          'left center right'
-          'bottom-left bottom bottom-right';
-        grid-gap: var(--uui-size-base-unit);
-      }
-
-      input {
-        position: absolute;
-        height: 0px;
-        width: 0px;
       }
 
       #slider {
@@ -104,8 +75,8 @@ export class UUIToggleElement extends LitElement {
         background-color: var(--uui-interface-selected-focus);
       }
 
-      #icon-container-check,
-      #icon-container-wrong {
+      #icon-check,
+      #icon-wrong {
         position: absolute;
         vertical-align: middle;
         width: 1em;
@@ -114,19 +85,18 @@ export class UUIToggleElement extends LitElement {
         transition: fill 120ms;
       }
 
-      #icon-container-check {
+      #icon-check {
         margin-left: -0.5em;
         left: calc(var(--uui-toggle-size) * 0.5);
         fill: var(--uui-interface-contrast);
       }
 
-      #icon-container-wrong {
+      #icon-wrong {
         margin-right: -0.5em;
         right: calc(var(--uui-toggle-size) * 0.5);
         fill: var(--uui-interface-contrast);
       }
-
-      input:checked + #slider #icon-container-check {
+      input:checked + #slider #icon-check {
         fill: var(--uui-interface-selected-contrast);
       }
 
@@ -148,37 +118,9 @@ export class UUIToggleElement extends LitElement {
         transform: translateX(-100%);
       }
 
-      label:active #slider:after {
+      :host(:not([disabled])) label:active #slider:after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
-      }
-
-      :host([label-position='left']) #label-text {
-        grid-area: left;
-      }
-
-      :host([label-position='right']) #label-text {
-        grid-area: right;
-      }
-
-      :host([label-position='top']) #label-text {
-        grid-area: top;
-      }
-
-      :host([label-position='bottom']) #label-text {
-        grid-area: bottom;
-      }
-
-      :host([disabled]) #label-text {
-        opacity: 0.5;
-      }
-
-      :host([disabled]) label:active #slider {
-        animation: ${UUIHorizontalShakeAnimationValue};
-      }
-
-      :host([disabled]) label:active #slider:after {
-        width: calc(0.8 * var(--uui-toggle-size));
       }
 
       :host([disabled]) #slider {
@@ -190,12 +132,13 @@ export class UUIToggleElement extends LitElement {
       :host([disabled]) #slider:after {
         background-color: var(--uui-interface-surface-disabled);
       }
-
-      :host([disabled]) #slider #icon-container-wrong {
+      :host([disabled]) #slider #icon-wrong {
         fill: var(--uui-interface-contrast-disabled);
       }
-
-      :host([disabled]) input:checked + #slider #icon-container-check {
+      :host([disabled]) label:active #slider {
+        animation: ${UUIHorizontalShakeAnimationValue};
+      }
+      :host([disabled]) input:checked + #slider #icon-check {
         fill: var(--uui-interface-selected-contrast-disabled);
       }
 
@@ -208,113 +151,18 @@ export class UUIToggleElement extends LitElement {
     `,
   ];
 
-  static formAssociated = true;
-
-  private _internals;
+  static readonly formAssociated = true;
 
   constructor() {
-    super();
-    this._internals = (this as any).attachInternals();
+    super('switch');
   }
 
-  @query('#switch')
-  protected _input!: HTMLInputElement;
-
-  private _value = 'on';
-
-  @property({ reflect: true })
-  get value() {
-    return this._value;
-  }
-
-  set value(newVal) {
-    const oldValue = this._value;
-    this._value = newVal;
-    this._internals.setFormValue(this._checked ? this._value : null);
-    this.requestUpdate('value', oldValue);
-  }
-
-  @property({ type: String, attribute: false })
-  label!: string;
-
-  @property({ type: String, attribute: false })
-  form: string | null = null;
-
-  @property({ type: String, attribute: false })
-  name = '';
-
-  @property({ type: String, attribute: 'label-position', reflect: true })
-  labelPosition: LabelPosition = 'right';
-
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
-
-  private _checked = false;
-
-  @property({ type: Boolean, reflect: true })
-  get checked() {
-    return this._checked;
-  }
-
-  set checked(newVal) {
-    const oldValue = this._checked;
-    this._checked = newVal;
-    this._internals.setFormValue(this._checked ? this._value : null);
-    this.requestUpdate('checked', oldValue);
-  }
-
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  connectedCallback() {
-    if (this.label) {
-      console.warn('UUI-Toggle needs a `label`');
-    }
-  }
-
-  private _onInputChange() {
-    this.dispatchEvent(new UUIToggleEvent(UUIToggleEvent.CHANGE));
-    this.checked = this._input.checked;
-  }
-
-  @query('slot')
-  protected labelSlot!: HTMLSlotElement;
-
-  @internalProperty()
-  protected labelSlotHasContent = false;
-
-  private labelSlotChanged(): void {
-    this.labelSlotHasContent =
-      (this.labelSlot as HTMLSlotElement).assignedElements({ flatten: true })
-        .length > 0;
-  }
-
-  render() {
+  renderCheckbox() {
     return html`
-      <label>
-        <input
-          type="checkbox"
-          id="switch"
-          ?disabled="${this.disabled}"
-          @change="${this._onInputChange}"
-          .checked="${this.checked}"
-          aria-checked="${this.checked ? 'true' : 'false'}"
-          aria-label=${this.label}
-          role="switch"
-        />
-        <div id="slider">
-          <div id="icon-container-check">${iconCheck}</div>
-          <div id="icon-container-wrong">${iconWrong}</div>
-        </div>
-        <div id="label-text">
-          ${this.labelSlotHasContent === false && this.hideLabel === false
-            ? this.label
-            : ''}
-          <slot @slotchange=${this.labelSlotChanged}></slot>
-        </div>
-      </label>
+      <div id="slider">
+        <div id="icon-check">${iconCheck}</div>
+        <div id="icon-wrong">${iconWrong}</div>
+      </div>
     `;
   }
 }
-
-//

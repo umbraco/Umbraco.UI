@@ -21,6 +21,7 @@ export class UUIRadioElement extends LitElement {
         font-family: inherit;
         color: currentColor;
         --uui-radio-button-size: calc(var(--uui-size-base-unit) * 3);
+        margin: var(--uui-size-base-unit) 0;
       }
 
       label {
@@ -29,6 +30,7 @@ export class UUIRadioElement extends LitElement {
         display: flex;
         align-items: center;
         cursor: pointer;
+        line-height: 18px;
       }
 
       #input {
@@ -36,6 +38,10 @@ export class UUIRadioElement extends LitElement {
         height: 0;
         opacity: 0;
         margin: 0;
+      }
+
+      #label {
+        margin-top: 2px;
       }
 
       #button {
@@ -46,7 +52,7 @@ export class UUIRadioElement extends LitElement {
         background-color: var(--uui-interface-surface, white);
         border: 1px solid var(--uui-interface-border, #d8d7d9);
         border-radius: 100%;
-        margin-right: var(--uui-size-base-unit);
+        margin-right: calc(var(--uui-size-base-unit) * 2);
         position: relative;
       }
 

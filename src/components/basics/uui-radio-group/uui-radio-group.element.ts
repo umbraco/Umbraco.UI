@@ -27,7 +27,7 @@ const SPACE = ' ';
 export class UUIRadioGroupElement extends LitElement {
   static styles = [css``];
 
-  static formAssociated = true;
+  static readonly formAssociated = true;
 
   private _internals;
 

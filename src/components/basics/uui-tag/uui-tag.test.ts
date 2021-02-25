@@ -1,12 +1,12 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
 import '.';
-import { UUIBadgeElement } from './uui-badge.element';
+import { UUITagElement } from './uui-tag.element';
 
-describe('UuiBadge', () => {
-  let element: UUIBadgeElement;
+describe('UuiTag', () => {
+  let element: UUITagElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-badge>Hello uui-button</uui-badge> `);
+    element = await fixture(html` <uui-tag>Tag description</uui-tag> `);
   });
 
   it('renders a slot', () => {

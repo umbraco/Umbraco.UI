@@ -2,6 +2,11 @@
   :root {
 
     /** Interface */
+    --uui-interface-background: var(--uui-color-black);
+    --uui-interface-background-hover: var(--uui-color-black-dark);
+    --uui-interface-background-disabled: var(--uui-color-black-dimmed);
+    --uui-interface-background-focus: var(--uui-color-black);
+
     --uui-interface-surface: var(--uui-color-cocoa-black);
     --uui-interface-surface-hover: var(--uui-color-cocoa-black-dark);
     --uui-interface-surface-disabled: var(--uui-color-cocoa-black-dimmed);
@@ -77,6 +82,17 @@
     --uui-look-outline-border-hover: var(--uui-color-malibu);
     --uui-look-outline-border-disabled: var(--uui-color-white-dimmed);
     --uui-look-outline-border-focus: var(--uui-color-white);
+
+    /** PLACEHOLDER */
+    --uui-look-placeholder-contrast: var(--uui-color-white);
+    --uui-look-placeholder-contrast-hover: var(--uui-color-malibu);
+    --uui-look-placeholder-contrast-disabled: var(--uui-color-white-dimmed);
+    --uui-look-placeholder-contrast-focus: var(--uui-color-white);
+
+    --uui-look-placeholder-border: var(--uui-color-white);
+    --uui-look-placeholder-border-hover: var(--uui-color-malibu);
+    --uui-look-placeholder-border-disabled: var(--uui-color-white-dimmed);
+    --uui-look-placeholder-border-focus: var(--uui-color-white);
   }
 
 }
