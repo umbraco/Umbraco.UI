@@ -12,7 +12,7 @@ export const Overview = () =>
   html`<uui-button-group
     >${buttons.map(
       el => html`<uui-button look="secondary">${el}</uui-button>`
-    )}<uui-button look="danger">Hello</uui-button></uui-button-group
+    )}</uui-button-group
   >`;
 
 export const Outline = () =>
@@ -24,8 +24,23 @@ export const Outline = () =>
 
 export const Look = () =>
   html`<uui-button-group
-    >${buttons.map(el => html`<uui-button>${el}</uui-button>`)}<uui-button
-      look="danger"
-      >Hello</uui-button
-    ></uui-button-group
+    >${buttons.map(
+      el => html`<uui-button look="secondary">${el}</uui-button>`
+    )}<uui-button look="danger">Hello</uui-button></uui-button-group
   >`;
+
+export const withDropdown = () =>
+  html`<uui-button-group
+    ><uui-dropdown>
+      <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
+      <div
+        style="height: 180px; width: 290px; background-color: blue;"
+      ></div> </uui-dropdown
+    >${buttons.map(
+      el => html`<uui-button look="secondary">${el}</uui-button>`
+    )}<uui-dropdown>
+      <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
+      <div
+        style="height: 180px; width: 600px; background-color: blue;"
+      ></div> </uui-dropdown
+  ></uui-button-group>`;
