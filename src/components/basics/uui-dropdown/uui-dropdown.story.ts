@@ -113,3 +113,31 @@ export const top = () => html`
     </uui-overflow-container>
   </uui-dropdown>
 `;
+
+export const auto = () => html`
+  <div style="height: 100vh;">scroll down...</div>
+  <uui-dropdown .position=${'top'}>
+    <uui-textfield slot="input"></uui-textfield>
+    <uui-button slot="toggle" look="positive">Click</uui-button>
+    <uui-overflow-container style="min-width: 400px">
+      <uui-select-list>
+        ${options.map(
+          option =>
+            html`<uui-select-list-item
+              ><uui-icon
+                slot="left"
+                name="bug"
+                .style="color: ${option.value}"
+              ></uui-icon
+              >${option.color}<uui-icon
+                slot="right"
+                name="bug"
+                .style="color: ${option.value}"
+              ></uui-icon
+            ></uui-select-list-item>`
+        )}
+      </uui-select-list>
+    </uui-overflow-container>
+  </uui-dropdown>
+  <div style="height: 100vh;"></div>
+`;
