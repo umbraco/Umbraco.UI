@@ -58,7 +58,7 @@
   --uui-color-maroon-flush-dark: color($maroon-flush blackness(+ 8%));
   --uui-color-maroon-flush-dimmed: color($maroon-flush saturation(- 62%) blackness(+ 2%));
 
-  $jungle-green: #2BC37C;
+  $jungle-green: #25aa60;/* A11Y acceptable color. Originally #2BC37C*/
   --uui-color-jungle-green: $jungle-green;
   --uui-color-jungle-green-light: color($jungle-green lightness(+ 6%));
   --uui-color-jungle-green-dark: color($jungle-green blackness(+ 6%));
