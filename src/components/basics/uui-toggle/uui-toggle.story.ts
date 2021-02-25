@@ -29,8 +29,16 @@ export const LabelPosition = () => html`
 `;
 
 export const NoLabel = () =>
-  html`<uui-toggle hide-label name="Hidden Label"></uui-toggle
-    ><uui-toggle hide-label name="Hidden Label 2"></uui-toggle>
+  html`<uui-toggle
+      hide-label
+      label="Toggle label"
+      name="Hidden Label"
+    ></uui-toggle
+    ><uui-toggle
+      hide-label
+      label="Toggle label"
+      name="Hidden Label 2"
+    ></uui-toggle>
     <p>
       label is set via label attribute. Hide it by adding hide-label bool
       attribute
