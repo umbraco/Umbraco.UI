@@ -96,6 +96,8 @@ export class UUISelectElement extends LitElement {
         ?open=${this.isOpen}
         @close="${() => (this.isOpen = false)}"
         @open="${() => (this.isOpen = true)}"
+        same-widht
+        position="bottom"
       >
         ${this.autocomplete
           ? html`<input

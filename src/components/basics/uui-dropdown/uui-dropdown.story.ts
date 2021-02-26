@@ -90,9 +90,8 @@ export const withInput = () => html`
 
 export const top = () => html`
   <uui-dropdown .position=${'top'} style="position: relative; top: 50vh">
-    <uui-textfield slot="input"></uui-textfield>
     <uui-button slot="toggle" look="positive">Click</uui-button>
-    <uui-overflow-container style="min-width: 400px">
+    <uui-overflow-container style="min-width: 200px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -115,8 +114,8 @@ export const top = () => html`
 `;
 
 export const auto = () => html`
-  <div style="height: 100vh;">scroll down...</div>
-  <uui-dropdown .position=${'top'}>
+  <div style="height: 150vh;">scroll down...</div>
+  <uui-dropdown position="bottom" auto>
     <uui-textfield slot="input"></uui-textfield>
     <uui-button slot="toggle" look="positive">Click</uui-button>
     <uui-overflow-container style="min-width: 400px">
@@ -139,5 +138,19 @@ export const auto = () => html`
       </uui-select-list>
     </uui-overflow-container>
   </uui-dropdown>
-  <div style="height: 100vh;"></div>
+  <div style="height: 150vh;"></div>
+`;
+
+export const sameWidth = () => html`
+  <uui-dropdown position="bottom" same-widht>
+    <uui-button slot="toggle" look="positive">Click</uui-button>
+    <div style="height: 180px; background-color: blue;"></div>
+  </uui-dropdown>
+`;
+
+export const closeOnOutsideClickDisabled = () => html`
+  <uui-dropdown position="bottom" same-widht disable-outside-click>
+    <uui-button slot="toggle" look="positive">Click</uui-button>
+    <div style="height: 180px; background-color: blue;"></div>
+  </uui-dropdown>
 `;

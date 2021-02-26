@@ -1,11 +1,12 @@
 import { LitElement, html, css, query, property } from 'lit-element';
 import { UUIDropdownEvent } from './UUIDropdownEvent';
-import { createPopper, Instance } from './popper';
+import { createPopper, Instance, Modifier } from './popper';
+import { Placement } from '@popperjs/core/lib/enums';
 /**
- *  @element uui-dropdown
+ * @element uui-dropdown
  * @event dropdown-close fired when dropdown is closing
  * @event dropdown-open fired when dropdown is opening
- * @slot interactive - for interactive element that will open dropdown
+ * @slot toggle - for interactive element that will toggle dropdown
  * @slot input - for input
  * @slot for dropdopwn content
  */
@@ -35,6 +36,14 @@ export class UUIDropdownElement extends LitElement {
         transform-origin: bottom center;
       }
 
+      #popper[data-popper-placement='left'] #data-container {
+        transform-origin: center right;
+      }
+
+      #popper[data-popper-placement='right'] #data-container {
+        transform-origin: center left;
+      }
+
       ::slotted(*) {
         border-radius: var(--uui-size-border-radius);
       }
@@ -47,8 +56,17 @@ export class UUIDropdownElement extends LitElement {
 
   private _popper!: Instance;
 
-  @property({ type: String, reflect: true })
-  position = 'bottom';
+  @property({ type: String })
+  position: Placement = 'bottom';
+
+  @property({ type: Boolean })
+  auto = false;
+
+  @property({ type: Boolean, attribute: 'same-widht' })
+  sameWidht = false;
+
+  @property({ type: Boolean, attribute: 'disable-outside-click' })
+  outsideClick = false;
 
   @query('#data-container')
   _dropdownContainer!: HTMLElement;
@@ -59,7 +77,6 @@ export class UUIDropdownElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('click', this.closeDropdownOnOutsideClick);
-    console.log(this.shadowRoot);
   }
 
   disconnectedCallback() {
@@ -99,8 +116,26 @@ export class UUIDropdownElement extends LitElement {
     );
     this._animation.pause();
     this._animation.currentTime = 0;
+    this.createPopperInstance();
+  }
+
+  private createPopperInstance() {
+    const sameWidth: Modifier<any, any> = {
+      name: 'sameWidth',
+      enabled: this.sameWidht,
+      phase: 'beforeWrite',
+      requires: ['computeStyles'],
+      fn: ({ state }) => {
+        state.styles.popper.width = `${state.rects.reference.width}px`;
+      },
+      effect: ({ state }) => {
+        const ref = state.elements.reference as HTMLElement;
+        state.elements.popper.style.width = `${ref.offsetWidth}px`;
+      },
+    };
+
     this._popper = createPopper(this, this._popperWrapper, {
-      placement: 'bottom',
+      placement: this.position,
 
       modifiers: [
         {
@@ -111,10 +146,9 @@ export class UUIDropdownElement extends LitElement {
         },
         {
           name: 'flip',
-          options: {
-            padding: 8,
-          },
+          enabled: this.auto,
         },
+        sameWidth,
       ],
     });
   }
@@ -151,13 +185,15 @@ export class UUIDropdownElement extends LitElement {
 
   protected closeDropdownOnOutsideClick = (e: MouseEvent) => {
     e.stopPropagation();
-    const path = e.composedPath();
+    if (!this.outsideClick) {
+      const path = e.composedPath();
 
-    if (path.includes(this)) {
-      return;
-    }
-    if (this.isOpen) {
-      this.isOpen = false;
+      if (path.includes(this)) {
+        return;
+      }
+      if (this.isOpen) {
+        this.isOpen = false;
+      }
     }
   };
 

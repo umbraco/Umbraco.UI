@@ -8,9 +8,13 @@ declare module '@popperjs/core/dist/esm/popper-lite.js' {
 }
 
 declare module '@popperjs/core/dist/esm/types.js' {
-  import { Instance } from '@popperjs/core/lib/types.js';
+  import { Instance, Modifier } from '@popperjs/core/lib/types.js';
 
   export { Instance };
+}
+
+declare module '@popperjs/core/dist/esm/types.js' {
+  export { Modifier };
 }
 
 declare module '@popperjs/core/dist/esm/enums.js' {
@@ -31,11 +35,11 @@ declare module '@popperjs/core/dist/esm/modifiers/preventOverflow.js' {
   export default preventOverflow;
 }
 
-declare module '@popperjs/core/dist/esm/modifiers/arrow.js' {
-  import arrow from '@popperjs/core/lib/modifiers/arrow.js';
+// declare module '@popperjs/core/dist/esm/modifiers/arrow.js' {
+//   import arrow from '@popperjs/core/lib/modifiers/arrow.js';
 
-  export default arrow;
-}
+//   export default arrow;
+// }
 
 declare module '@popperjs/core/dist/esm/modifiers/offset.js' {
   import offset from '@popperjs/core/lib/modifiers/offset.js';
