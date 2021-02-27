@@ -10,13 +10,8 @@ declare module '@popperjs/core/dist/esm/popper-lite.js' {
 declare module '@popperjs/core/dist/esm/types.js' {
   import { Instance, Modifier } from '@popperjs/core/lib/types.js';
 
-  export { Instance };
+  export { Instance, Modifier };
 }
-
-declare module '@popperjs/core/dist/esm/types.js' {
-  export { Modifier };
-}
-
 declare module '@popperjs/core/dist/esm/enums.js' {
   import { Placement } from '@popperjs/core/lib/enums.js';
 
