@@ -51,6 +51,12 @@ export class UUIDropdownElement extends LitElement {
       slot[name='toggle']::slotted(uui-button) {
         --uui-button-border-radius: var(--uui-button-group-border-radius);
       }
+
+      @media (prefers-color-scheme: dark) {
+        #data-container {
+          border: 1px solid var(--uui-interface-border);
+        }
+      }
     `,
   ];
 

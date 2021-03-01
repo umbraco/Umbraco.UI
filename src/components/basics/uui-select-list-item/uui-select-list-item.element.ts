@@ -14,7 +14,6 @@ import { UUISelectListItemEvent } from './UUISelectListItemEvent';
  */
 
 //TODO add the deselect method
-//TODO rename that to select-list-item
 
 export class UUISelectListItemElement extends LitElement {
   static styles = [
@@ -30,16 +29,16 @@ export class UUISelectListItemElement extends LitElement {
         font-family: inherit;
         cursor: pointer;
         padding: 0.5em;
-        background-color: var(--uui-interface-background);
+        background-color: var(--uui-interface-surface);
       }
 
       :host(:hover) {
-        background-color: var(--uui-interface-background-hover);
+        background-color: var(--uui-interface-surface-hover);
       }
 
       :host([selected]) {
-        background-color: var(--uui-color-space-cadet);
-        color: var(--uui-color-white);
+        background-color: var(--uui-interface-selected);
+        color: var(--uui-interface-selected-contrast);
       }
 
       #list-item {
@@ -55,9 +54,12 @@ export class UUISelectListItemElement extends LitElement {
   @property({ type: String })
   value = '';
 
+  @property({ type: Boolean, reflect: true })
+  public disabled = false;
+
   constructor() {
     super();
-    this.addEventListener('click', this.toggleSelectElement);
+    this.addEventListener('click', this.handleClick);
   }
 
   //! this should probably traverse all the nodes and pick the correct one somehow, and then assign the value...
@@ -70,22 +72,11 @@ export class UUISelectListItemElement extends LitElement {
     if (!this.hasAttribute('role')) this.setAttribute('role', 'option');
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-selected'))
-      this.setAttribute('aria-checked', 'false');
+      this.setAttribute('aria-selected', 'false');
   }
 
-  private _selected = false;
   @property({ type: Boolean, reflect: true })
-  get selected() {
-    return this._selected;
-  }
-
-  set selected(newVal) {
-    const oldVal = this._selected;
-    this._selected = newVal;
-    this.setAttribute('aria-checked', `${newVal}`);
-    this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
-    this.requestUpdate('selected', oldVal);
-  }
+  selected = false;
 
   @property({ type: Boolean, reflect: true })
   focused = false;
@@ -96,12 +87,27 @@ export class UUISelectListItemElement extends LitElement {
     if (this.focused) this.listItem.focus();
   }
 
-  toggleSelectElement(e: Event) {
+  private handleClick(e: Event) {
     e.stopPropagation();
-    this.selected = !this.selected;
+    this.select();
+  }
+
+  public select() {
+    this.selected = true;
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '0');
+      this.setAttribute('aria-selected', 'true');
+      this.focus();
+    }
     this.dispatchEvent(
       new UUISelectListItemEvent(UUISelectListItemEvent.CHANGE)
     );
+  }
+
+  public deselect() {
+    this.selected = false;
+    this.setAttribute('tabindex', '-1');
+    this.setAttribute('aria-selected', 'false');
   }
 
   render() {

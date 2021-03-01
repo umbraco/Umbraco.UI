@@ -1,6 +1,7 @@
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUISelectListElement } from '../uui-select-list/uui-select-list.element';
+import { UUISelectListEvent } from '../uui-select-list/UUISelectListEvent';
 
 /**
  *  @element uui-select
@@ -18,6 +19,10 @@ export class UUISelectElement extends LitElement {
         display: inline-block;
         border: 1px solid var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius);
+      }
+
+      slot:focus-within {
+        border: 1px solid green;
       }
 
       uui-dropdown {
@@ -42,19 +47,28 @@ export class UUISelectElement extends LitElement {
         font-size: 1rem;
         padding-left: 1em;
       }
+
+      input {
+        border: none;
+        width: 80%;
+        height: 100%;
+        padding: 0.5em;
+        box-sizing: border-box;
+        font-family: inherit;
+        background-color: var(--uui-interface-surface);
+        font-size: 1rem;
+        padding-left: 1em;
+      }
     `,
   ];
 
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('tabindex', '0');
+    //this.setAttribute('tabindex', '0');
     this.setAttribute('role', 'combobox');
     this.setAttribute('aria-haspopup', 'listbox');
     this.setAttribute('aria-controls', 'list');
     this.setAttribute('aria-expanded', `false`);
-  }
-
-  firstUpdated() {
     this.setAttribute('aria-label', this.label);
   }
 
@@ -79,7 +93,7 @@ export class UUISelectElement extends LitElement {
   }
 
   @property({ reflect: true })
-  value: FormDataEntryValue = '';
+  value = '';
 
   @property({ type: Boolean })
   autocomplete = false;
@@ -104,17 +118,20 @@ export class UUISelectElement extends LitElement {
                 type="text"
                 slot="input"
                 role="textbox"
-                value=${this.value}
+                .value=${this.value}
                 .aria-label="${this.label}"
               /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
-          : html`<div id="selected-value" slot="toggle">
-              <span
+          : html`
+              <input
                 role="textbox"
+                type="text"
+                slot="toggle"
+                disabled
                 .aria-label="${this.label}"
                 .title="${this.title}"
-                >${this.value}</span
-              ><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
-            </div>`}
+                .value=${this.value}
+              /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
+            `}
 
         <uui-overflow-container
           ><uui-select-list
@@ -122,8 +139,9 @@ export class UUISelectElement extends LitElement {
             id="list"
             .title="${this.title}"
             .aria-label="${this.label}"
-            @value-change="${() => {
-              this.value = this.selectList.value;
+            @change="${(e: UUISelectListEvent) => {
+              e.stopPropagation();
+              this.value = this.selectList.value as string;
             }}"
           >
             <slot></slot> </uui-select-list
