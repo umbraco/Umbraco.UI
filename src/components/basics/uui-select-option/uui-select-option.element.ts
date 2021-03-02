@@ -6,7 +6,7 @@ import {
   query,
   queryAssignedNodes,
 } from 'lit-element';
-import { UUISelectListItemEvent } from './UUISelectListItemEvent';
+import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 /**
  *  @element uui-list-item
@@ -15,7 +15,7 @@ import { UUISelectListItemEvent } from './UUISelectListItemEvent';
 
 //TODO add the deselect method
 
-export class UUISelectListItemElement extends LitElement {
+export class UUISelectOptionElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -48,14 +48,32 @@ export class UUISelectListItemElement extends LitElement {
     `,
   ];
 
+  static UniqueIdCounter = 1;
+
+  @property({ reflect: true })
+  id = `uui-select-${UUISelectOptionElement.UniqueIdCounter++}`;
+
   @queryAssignedNodes('', true)
   _slot!: Node[];
 
   @property({ type: String })
   value = '';
 
+  private _disabled = false;
   @property({ type: Boolean, reflect: true })
-  public disabled = false;
+  get disabled() {
+    return this._disabled;
+  }
+
+  set disabled(newVal) {
+    const oldVal = this._disabled;
+    this._disabled = newVal;
+    if (newVal) {
+      this.setAttribute('aria-hidden', 'true');
+      this.setAttribute('tabindex', '-1');
+    }
+    this.requestUpdate('disabled', oldVal);
+  }
 
   constructor() {
     super();
@@ -99,9 +117,7 @@ export class UUISelectListItemElement extends LitElement {
       this.setAttribute('aria-selected', 'true');
       this.focus();
     }
-    this.dispatchEvent(
-      new UUISelectListItemEvent(UUISelectListItemEvent.CHANGE)
-    );
+    this.dispatchEvent(new UUISelectOptionEvent(UUISelectOptionEvent.CHANGE));
   }
 
   public deselect() {

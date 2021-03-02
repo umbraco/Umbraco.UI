@@ -42,7 +42,7 @@ export const Overview = () => html`
   <uui-select label="hello">
     ${options.map(
       option =>
-        html`<uui-select-list-item
+        html`<uui-select-option
           ><uui-icon
             slot="left"
             name="bug"
@@ -53,7 +53,7 @@ export const Overview = () => html`
             name="bug"
             .style="color: ${option.value}"
           ></uui-icon
-        ></uui-select-list-item>`
+        ></uui-select-option>`
     )}
   </uui-select>
   <button>focus</button>
@@ -63,7 +63,7 @@ export const WithInput = () => html`
   <uui-select autocomplete>
     ${options.map(
       option =>
-        html`<uui-select-list-item
+        html`<uui-select-option
           ><uui-icon
             slot="left"
             name="bug"
@@ -74,7 +74,7 @@ export const WithInput = () => html`
             name="bug"
             .style="color: ${option.value}"
           ></uui-icon
-        ></uui-select-list-item>`
+        ></uui-select-option>`
     )}
   </uui-select>
 `;

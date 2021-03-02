@@ -1,15 +1,22 @@
-import { LitElement, html, css, property, query } from 'lit-element';
+import { html, css, property, query } from 'lit-element';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
-import { UUISelectListElement } from '../uui-select-list/uui-select-list.element';
-import { UUISelectListEvent } from '../uui-select-list/UUISelectListEvent';
+import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
+import { UUISelectEvent } from './UUISelectEvent';
 
 /**
  *  @element uui-select
  *  @slot - for stuff
  */
 
+const ARROW_UP = 'ArrowUp';
+const ARROW_DOWN = 'ArrowDown';
+const SPACE = ' ';
+const ENTER = 'Enter';
+const ESCAPE = 'Escape';
+const TAB = 'Tab;';
+
 //TODO add label
-export class UUISelectElement extends LitElement {
+export class UUISelectElement extends UUISingleSelectBaseElement {
   static styles = [
     css`
       :host {
@@ -21,8 +28,8 @@ export class UUISelectElement extends LitElement {
         border-radius: var(--uui-size-border-radius);
       }
 
-      slot:focus-within {
-        border: 1px solid green;
+      :host(:focus-within) {
+        box-shadow: 0 0 2px 1px var(--uui-interface-border-focus);
       }
 
       uui-dropdown {
@@ -48,7 +55,9 @@ export class UUISelectElement extends LitElement {
         padding-left: 1em;
       }
 
-      input {
+      input,
+      #combo {
+        display: inline-block;
         border: none;
         width: 80%;
         height: 100%;
@@ -58,25 +67,39 @@ export class UUISelectElement extends LitElement {
         background-color: var(--uui-interface-surface);
         font-size: 1rem;
         padding-left: 1em;
+        outline: none;
       }
     `,
   ];
 
-  connectedCallback() {
-    super.connectedCallback();
-    //this.setAttribute('tabindex', '0');
-    this.setAttribute('role', 'combobox');
-    this.setAttribute('aria-haspopup', 'listbox');
-    this.setAttribute('aria-controls', 'list');
-    this.setAttribute('aria-expanded', `false`);
-    this.setAttribute('aria-label', this.label);
+  static readonly formAssociated = true;
+
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   this.setAttribute('tabindex', '0');
+  //   this.setAttribute('role', 'combobox');
+  //   this.setAttribute('aria-haspopup', 'listbox');
+  //   this.setAttribute('aria-controls', 'list');
+  //   this.setAttribute('aria-expanded', `false`);
+  //   this.setAttribute('aria-label', this.label);
+  // }
+
+  constructor() {
+    super();
+    this.addEventListener('keydown', this._onKeydown);
+    // this.addEventListener('blur', this._closeOnBlur);
   }
+
+  private _closeOnBlur = () => {
+    console.log('blurrrr');
+    this.isOpen = false;
+  };
 
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
 
   @query('uui-select-list')
-  selectList!: UUISelectListElement;
+  selectList!: UUISingleSelectBaseElement;
 
   private _isOpen = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
@@ -92,8 +115,8 @@ export class UUISelectElement extends LitElement {
     );
   }
 
-  @property({ reflect: true })
-  value = '';
+  // @property({ reflect: true })
+  // value = '';
 
   @property({ type: Boolean })
   autocomplete = false;
@@ -103,6 +126,37 @@ export class UUISelectElement extends LitElement {
 
   @property({ type: String })
   title = 'title';
+
+  private _onKeydown(e: KeyboardEvent) {
+    switch (e.key) {
+      case ARROW_UP: {
+        e.preventDefault();
+        if (!this.isOpen) this.isOpen = true;
+        this._selectPreviousElement();
+        break;
+      }
+
+      case ARROW_DOWN: {
+        e.preventDefault();
+        if (!this.isOpen) this.isOpen = true;
+        this._selectNextElement();
+        break;
+      }
+
+      case SPACE:
+      case ENTER: {
+        e.preventDefault();
+        this.isOpen = !this.isOpen;
+        break;
+      }
+
+      case ESCAPE: {
+        e.preventDefault();
+        if (this.isOpen) this.isOpen = false;
+        break;
+      }
+    }
+  }
 
   render() {
     return html`
@@ -122,30 +176,37 @@ export class UUISelectElement extends LitElement {
                 .aria-label="${this.label}"
               /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
           : html`
-              <input
+              <div
+                id="combo"
                 role="textbox"
                 type="text"
                 slot="toggle"
-                disabled
+                tabindex="0"
                 .aria-label="${this.label}"
                 .title="${this.title}"
-                .value=${this.value}
-              /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
+              >
+                ${this.value}
+              </div>
+              <uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
             `}
 
         <uui-overflow-container
-          ><uui-select-list
-            role="listbox"
-            id="list"
-            .title="${this.title}"
-            .aria-label="${this.label}"
-            @change="${(e: UUISelectListEvent) => {
-              e.stopPropagation();
-              this.value = this.selectList.value as string;
-            }}"
-          >
-            <slot></slot> </uui-select-list
-        ></uui-overflow-container>
+          role="listbox"
+          id="list"
+          .title="${this.title}"
+          .aria-label="${this.label}"
+          @change=${(e: UUISelectEvent) => {
+            e.stopPropagation();
+            this.value = this.selectList.value as string;
+          }}
+        >
+          <slot
+            @slotchange=${() => {
+              this.listElements = this.getlistElements();
+            }}
+            @change=${this._handleSelectOnClick}
+          ></slot>
+        </uui-overflow-container>
       </uui-dropdown>
     `;
   }

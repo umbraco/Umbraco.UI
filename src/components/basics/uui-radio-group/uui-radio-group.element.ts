@@ -55,7 +55,10 @@ export class UUIRadioGroupElement extends LitElement {
   firstUpdated() {
     this.radioElements = this.getRadioElements();
     if (this.radioElements.length > 0)
-      this.radioElements[0].setAttribute('tabindex', '0');
+      this.radioElements[this.enabledElementsIndexes[0]].setAttribute(
+        'tabindex',
+        '0'
+      );
     this._addNameToRadios(this.name, this.radioElements);
     if (this.disabled) this._toggleDisableOnChildren(true);
   }
