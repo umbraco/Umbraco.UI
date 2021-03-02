@@ -26,14 +26,14 @@ export class UUIAvatarGroupElement extends LitElement {
       :host {
         display: inline-flex;
         align-items: center;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 3px;
+        padding-right: 3px;
       }
 
       ::slotted(uui-avatar),
       uui-avatar {
-        margin-left: -5px;
-        margin-right: -5px;
+        margin-left: -3px;
+        margin-right: -3px;
       }
     `,
   ];
