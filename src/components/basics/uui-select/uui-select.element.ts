@@ -1,20 +1,12 @@
 import { html, css, property, query } from 'lit-element';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
-
+import { keys } from './keys';
 /**
  *  @element uui-select
  *  @slot - for stuff
  */
 
-const ARROW_UP = 'ArrowUp';
-const ARROW_DOWN = 'ArrowDown';
-const SPACE = ' ';
-const ENTER = 'Enter';
-const ESCAPE = 'Escape';
-const TAB = 'Tab;';
-
-//TODO add label
 export class UUISelectElement extends UUISingleSelectBaseElement {
   static styles = [
     css`
@@ -32,22 +24,24 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
       }
 
       uui-dropdown {
+        display: flex;
         width: 100%;
         height: 100%;
       }
 
-      /* uui-dropdown:focus {
+      uui-dropdown:focus {
         outline: none;
-      } */
+      }
 
       uui-overflow-container {
         min-width: var(--uui-select-widht);
-        /* outline: none; */
+        outline: none;
       }
 
       uui-carret {
         display: inline-block;
         padding: var(--uui-size-base-unit);
+        padding-right: 1em;
       }
 
       #selected-value {
@@ -61,41 +55,34 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
 
       input,
       #combo {
-        display: inline-block;
+        display: flex;
+        align-items: center;
         border: none;
-        width: 80%;
-        height: 100%;
-        padding: 0.5em;
+        width: 100%;
+        height: calc(var(--uui-size-base-unit) * 6);
+        /* padding: 0.5em; */
         box-sizing: border-box;
         font-family: inherit;
         background-color: var(--uui-interface-surface);
         font-size: 1rem;
         padding-left: 1em;
         outline: none;
+        cursor: default;
+      }
+
+      #placeholder {
+        font-style: italic;
+        color: var(--uui-interface-contrast-disabled);
       }
     `,
   ];
 
   static readonly formAssociated = true;
 
-  // connectedCallback() {
-  //   super.connectedCallback();
-  //   this.setAttribute('tabindex', '0');
-  //   this.setAttribute('role', 'combobox');
-  //   this.setAttribute('aria-haspopup', 'listbox');
-  //   this.setAttribute('aria-controls', 'list');
-  //   this.setAttribute('aria-expanded', `false`);
-  //   this.setAttribute('aria-label', this.label);
-  // }
-
   constructor() {
     super();
     this.addEventListener('keydown', this._onKeydown);
   }
-
-  // private _closeOnBlur() {
-  //   if (this.isOpen) this.isOpen = false;
-  // }
 
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
@@ -123,16 +110,19 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   @property({ type: String })
   title = '';
 
+  @property()
+  placeholder = '';
+
   private _onKeydown(e: KeyboardEvent) {
     switch (e.key) {
-      case ARROW_UP: {
+      case keys.ARROW_UP: {
         e.preventDefault();
         if (!this.isOpen) this.isOpen = true;
         this._selectPreviousElement();
         break;
       }
 
-      case ARROW_DOWN: {
+      case keys.ARROW_DOWN: {
         e.preventDefault();
 
         if (!this.isOpen) this.isOpen = true;
@@ -140,16 +130,39 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         break;
       }
 
-      case SPACE:
-      case ENTER: {
+      case keys.SPACE:
+      case keys.ENTER: {
         e.preventDefault();
         this.isOpen = !this.isOpen;
         break;
       }
 
-      case ESCAPE: {
+      case keys.ESCAPE: {
         e.preventDefault();
         if (this.isOpen) this.isOpen = false;
+        break;
+      }
+
+      case keys.TAB: {
+        if (this.isOpen) this.isOpen = false;
+        break;
+      }
+
+      case keys.HOME: {
+        if (this.isOpen) {
+          this.selected = this.enabledElementsIndexes[0];
+          this.listElements[this.selected].select();
+        }
+        break;
+      }
+
+      case keys.END: {
+        if (this.isOpen) {
+          this.selected = this.enabledElementsIndexes[
+            this.enabledElementsIndexes.length - 1
+          ];
+          this.listElements[this.selected].select();
+        }
         break;
       }
     }
@@ -186,7 +199,9 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
                 slot="toggle"
                 .title="${this.title}"
               >
-                ${this.value}
+                ${this.value
+                  ? html`<span>${this.value}</span>`
+                  : html`<span id="placeholder">${this.placeholder}</span>`}
               </div>
               <uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
             `}
@@ -200,10 +215,9 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
           aria-activedescendant="${this.selectedID}"
           @change=${this._handleSelectOnClick}
         >
-          <slot></slot>
+          <slot @slotchange=${this.onSlotChange}></slot>
         </uui-overflow-container>
       </uui-dropdown>
     `;
   }
 }
-// /@blur=${this._closeOnBlur}

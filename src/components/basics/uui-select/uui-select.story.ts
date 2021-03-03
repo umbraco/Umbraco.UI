@@ -38,7 +38,7 @@ const options = [
 ];
 
 export const Overview = () => html`
-  <uui-select label="Select the color">
+  <uui-select label="Select the color" placeholder="Choose the color">
     ${options.map(
       option =>
         html`<uui-select-option

@@ -39,7 +39,9 @@ export class UUISingleSelectBaseElement extends LitElement {
   @query('uui-overflow-container')
   overflow!: UUIOverflowContainer;
 
-  firstUpdated() {
+  // firstUpdated() {}
+
+  protected onSlotChange() {
     this.slottedChildren = this.getlistElements();
 
     //move slotted elements inside the shadow dom
@@ -138,7 +140,7 @@ export class UUISingleSelectBaseElement extends LitElement {
     }
     this.listElements[this.selected].scrollIntoView({
       behavior: 'smooth',
-      block: 'end',
+      block: 'nearest',
       inline: 'nearest',
     });
     this._fireChangeEvent();
@@ -160,20 +162,9 @@ export class UUISingleSelectBaseElement extends LitElement {
     }
     this.listElements[this.selected].scrollIntoView({
       behavior: 'smooth',
-      block: 'end',
+      block: 'nearest',
       inline: 'nearest',
     });
     this._fireChangeEvent();
   }
-
-  //   render() {
-  //     return html`
-  //       <slot
-  //         @slotchange=${() => {
-  //           this.listElements = this.getlistElements();
-  //         }}
-  //         @change=${this._handleSelectOnClick}
-  //       ></slot>
-  //     `;
-  //   }
 }
