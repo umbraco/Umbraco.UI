@@ -89,7 +89,7 @@ export class UUISingleSelectBaseElement extends LitElement {
     this._lastSelectedIndex = this.enabledElementsIndexes.findIndex(
       index => index === this._selected
     );
-    if (newVal === null) {
+    if (newVal !== null) {
       //this.selectedID = this.listElements[this.enabledElementsIndexes[0]].id;
       //this.listElements[0].setAttribute('tabindex', '0');
     }
@@ -136,6 +136,11 @@ export class UUISingleSelectBaseElement extends LitElement {
       this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
       this.listElements[this.selected].select();
     }
+    this.listElements[this.selected].scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
     this._fireChangeEvent();
   }
 
@@ -153,6 +158,11 @@ export class UUISingleSelectBaseElement extends LitElement {
       this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
       this.listElements[this.selected].select();
     }
+    this.listElements[this.selected].scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
     this._fireChangeEvent();
   }
 

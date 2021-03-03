@@ -91,13 +91,11 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   constructor() {
     super();
     this.addEventListener('keydown', this._onKeydown);
-    //this.addEventListener('blur', this._closeOnBlur);
   }
 
-  private _closeOnBlur = () => {
-    console.log('blurrrz');
-    if (this.isOpen) this.isOpen = false;
-  };
+  // private _closeOnBlur() {
+  //   if (this.isOpen) this.isOpen = false;
+  // }
 
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
@@ -115,9 +113,6 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
     else this.dropdown.focus();
     this.requestUpdate('isOpen', oldVal);
   }
-
-  // @property({ reflect: true })
-  // value = '';
 
   @property({ type: Boolean })
   autocomplete = false;
@@ -139,6 +134,7 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
 
       case ARROW_DOWN: {
         e.preventDefault();
+
         if (!this.isOpen) this.isOpen = true;
         this._selectNextElement();
         break;
@@ -156,12 +152,6 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         if (this.isOpen) this.isOpen = false;
         break;
       }
-
-      // case TAB: {
-
-      //   this._closeOnBlur();
-      //   break;
-      // }
     }
   }
 
@@ -176,17 +166,15 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         .title="${this.title}"
         tabindex="0"
         role="combobox"
-        aria-haspopup="listbox"
+        aria-haspopup="true"
         aria-controls="list"
         aria-autocomplete="none"
         aria-expanded="${this.isOpen}"
-        aria-label="${this.label}"
       >
         ${this.autocomplete
           ? html`<input
                 type="text"
                 slot="input"
-                role="textbox"
                 .value=${this.value}
                 aria-label="${this.label}"
               /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
@@ -194,7 +182,6 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
               <div
                 id="combo"
                 type="text"
-                role="textbox"
                 aria-label="${this.label}"
                 slot="toggle"
                 .title="${this.title}"
@@ -219,3 +206,4 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
     `;
   }
 }
+// /@blur=${this._closeOnBlur}
