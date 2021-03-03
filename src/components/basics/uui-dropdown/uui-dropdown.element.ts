@@ -125,6 +125,9 @@ export class UUIDropdownElement extends LitElement {
     this.createPopperInstance();
   }
 
+  @property({ attribute: false })
+  popperOwner: HTMLElement | undefined = undefined;
+
   private createPopperInstance() {
     const sameWidth: Modifier<any, any> = {
       name: 'sameWidth',
@@ -140,7 +143,9 @@ export class UUIDropdownElement extends LitElement {
       },
     };
 
-    this._popper = createPopper(this, this._popperWrapper, {
+    const PopperOwner = this.popperOwner ? this.popperOwner : this;
+
+    this._popper = createPopper(PopperOwner, this._popperWrapper, {
       placement: this.position,
 
       modifiers: [

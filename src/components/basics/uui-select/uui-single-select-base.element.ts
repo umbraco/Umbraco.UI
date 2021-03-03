@@ -2,6 +2,8 @@ import { internalProperty, LitElement, property, query } from 'lit-element';
 import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
 import { UUISelectOptionEvent } from '../uui-select-option/UUISelectOptionEvent';
 import { UUISelectEvent } from './UUISelectEvent';
+import { UUIOverflowContainer } from '../uui-overflow-container/uui-overflow-container.element';
+
 /**
  *  @element uui-list
  *  @slot  for list items
@@ -32,13 +34,25 @@ export class UUISingleSelectBaseElement extends LitElement {
       : [];
   }
 
+  protected slottedChildren!: UUISelectOptionElement[];
+
+  @query('uui-overflow-container')
+  overflow!: UUIOverflowContainer;
+
   firstUpdated() {
-    this.listElements = this.getlistElements();
-    if (this.listElements.length > 0)
-      this.listElements[this.enabledElementsIndexes[0]].setAttribute(
-        'tabindex',
-        '0'
-      );
+    this.slottedChildren = this.getlistElements();
+
+    this.slottedChildren.forEach(el => {
+      this.overflow.appendChild(el);
+    });
+    const children = Array.from(
+      this.overflow.childNodes
+    ) as UUISelectOptionElement[];
+
+    this.listElements = children.filter(
+      el => el instanceof UUISelectOptionElement
+    );
+    console.log(this.listElements);
   }
 
   private _value = '';
@@ -76,12 +90,14 @@ export class UUISingleSelectBaseElement extends LitElement {
       index => index === this._selected
     );
     if (newVal === null) {
-      this.listElements[0].setAttribute('tabindex', '0');
+      //this.selectedID = this.listElements[this.enabledElementsIndexes[0]].id;
+      //this.listElements[0].setAttribute('tabindex', '0');
     }
     const notSelected = this.listElements.filter(
       el => this.listElements.indexOf(el) !== this._selected
     );
     notSelected.forEach(el => el.deselect());
+
     this.value = newVal !== null ? this.listElements[newVal].value : '';
     this.selectedID = newVal !== null ? this.listElements[newVal].id : '';
   }
@@ -124,6 +140,7 @@ export class UUISingleSelectBaseElement extends LitElement {
   }
 
   protected _selectNextElement() {
+    console.log(this.listElements);
     if (
       this.selected === null ||
       this.selected ===

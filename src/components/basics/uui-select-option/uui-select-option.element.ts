@@ -88,7 +88,7 @@ export class UUISelectOptionElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'option');
-    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
+    //if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-selected'))
       this.setAttribute('aria-selected', 'false');
   }
@@ -113,7 +113,7 @@ export class UUISelectOptionElement extends LitElement {
   public select() {
     this.selected = true;
     if (!this.disabled) {
-      this.setAttribute('tabindex', '0');
+      //this.setAttribute('tabindex', '0');
       this.setAttribute('aria-selected', 'true');
       this.focus();
     }
@@ -122,7 +122,7 @@ export class UUISelectOptionElement extends LitElement {
 
   public deselect() {
     this.selected = false;
-    this.setAttribute('tabindex', '-1');
+    // this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-selected', 'false');
   }
 

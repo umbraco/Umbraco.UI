@@ -1,6 +1,8 @@
 import { html, css, property, query } from 'lit-element';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
+import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
+
 import { UUISelectEvent } from './UUISelectEvent';
 
 /**
@@ -98,9 +100,6 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
 
-  @query('uui-select-list')
-  selectList!: UUISingleSelectBaseElement;
-
   private _isOpen = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
   get isOpen() {
@@ -110,9 +109,9 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   set isOpen(newVal) {
     const oldVal = this._isOpen;
     this._isOpen = newVal;
-    this.requestUpdate('isOpen', oldVal).then(() =>
-      this.setAttribute('aria-expanded', `${newVal}`)
-    );
+    if (newVal) this.overflow.focus();
+    else this.dropdown.focus();
+    this.requestUpdate('isOpen', oldVal);
   }
 
   // @property({ reflect: true })
@@ -166,6 +165,14 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         @open="${() => (this.isOpen = true)}"
         same-widht
         position="bottom"
+        .title="${this.title}"
+        tabindex="0"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-controls="list"
+        aria-autocomplete="none"
+        aria-expanded="${this.isOpen}"
+        .aria-label="${this.label}"
       >
         ${this.autocomplete
           ? html`<input
@@ -176,36 +183,20 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
                 .aria-label="${this.label}"
               /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
           : html`
-              <div
-                id="combo"
-                role="textbox"
-                type="text"
-                slot="toggle"
-                tabindex="0"
-                .aria-label="${this.label}"
-                .title="${this.title}"
-              >
-                ${this.value}
-              </div>
+              <div id="combo" type="text" slot="toggle">${this.value}</div>
               <uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
             `}
 
         <uui-overflow-container
           role="listbox"
           id="list"
+          tabindex="0"
           .title="${this.title}"
           .aria-label="${this.label}"
-          @change=${(e: UUISelectEvent) => {
-            e.stopPropagation();
-            this.value = this.selectList.value as string;
-          }}
+          aria-activedescendant="${this.selectedID}"
+          @change=${this._handleSelectOnClick}
         >
-          <slot
-            @slotchange=${() => {
-              this.listElements = this.getlistElements();
-            }}
-            @change=${this._handleSelectOnClick}
-          ></slot>
+          <slot></slot>
         </uui-overflow-container>
       </uui-dropdown>
     `;
