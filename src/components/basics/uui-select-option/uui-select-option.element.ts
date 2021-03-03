@@ -70,7 +70,6 @@ export class UUISelectOptionElement extends LitElement {
     this._disabled = newVal;
     if (newVal) {
       this.setAttribute('aria-hidden', 'true');
-      this.setAttribute('tabindex', '-1');
     }
     this.requestUpdate('disabled', oldVal);
   }
@@ -88,7 +87,6 @@ export class UUISelectOptionElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'option');
-    //if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-selected'))
       this.setAttribute('aria-selected', 'false');
   }

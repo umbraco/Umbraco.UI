@@ -1,9 +1,6 @@
 import { html, css, property, query } from 'lit-element';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
-import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
-
-import { UUISelectEvent } from './UUISelectEvent';
 
 /**
  *  @element uui-select
@@ -39,8 +36,13 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         height: 100%;
       }
 
+      /* uui-dropdown:focus {
+        outline: none;
+      } */
+
       uui-overflow-container {
         min-width: var(--uui-select-widht);
+        /* outline: none; */
       }
 
       uui-carret {
@@ -89,12 +91,12 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   constructor() {
     super();
     this.addEventListener('keydown', this._onKeydown);
-    // this.addEventListener('blur', this._closeOnBlur);
+    //this.addEventListener('blur', this._closeOnBlur);
   }
 
   private _closeOnBlur = () => {
-    console.log('blurrrr');
-    this.isOpen = false;
+    console.log('blurrrz');
+    if (this.isOpen) this.isOpen = false;
   };
 
   @query('uui-dropdown')
@@ -121,10 +123,10 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   autocomplete = false;
 
   @property({ type: String })
-  label = 'label';
+  label = '';
 
   @property({ type: String })
-  title = 'title';
+  title = '';
 
   private _onKeydown(e: KeyboardEvent) {
     switch (e.key) {
@@ -154,6 +156,12 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         if (this.isOpen) this.isOpen = false;
         break;
       }
+
+      // case TAB: {
+
+      //   this._closeOnBlur();
+      //   break;
+      // }
     }
   }
 
@@ -172,7 +180,7 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
         aria-controls="list"
         aria-autocomplete="none"
         aria-expanded="${this.isOpen}"
-        .aria-label="${this.label}"
+        aria-label="${this.label}"
       >
         ${this.autocomplete
           ? html`<input
@@ -180,19 +188,28 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
                 slot="input"
                 role="textbox"
                 .value=${this.value}
-                .aria-label="${this.label}"
+                aria-label="${this.label}"
               /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
           : html`
-              <div id="combo" type="text" slot="toggle">${this.value}</div>
+              <div
+                id="combo"
+                type="text"
+                role="textbox"
+                aria-label="${this.label}"
+                slot="toggle"
+                .title="${this.title}"
+              >
+                ${this.value}
+              </div>
               <uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
             `}
 
         <uui-overflow-container
           role="listbox"
           id="list"
-          tabindex="0"
+          tabindex="${this.isOpen ? '0' : '-1'}"
           .title="${this.title}"
-          .aria-label="${this.label}"
+          aria-label="${this.label}"
           aria-activedescendant="${this.selectedID}"
           @change=${this._handleSelectOnClick}
         >

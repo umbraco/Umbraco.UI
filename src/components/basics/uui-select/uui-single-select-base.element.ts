@@ -42,6 +42,7 @@ export class UUISingleSelectBaseElement extends LitElement {
   firstUpdated() {
     this.slottedChildren = this.getlistElements();
 
+    //move slotted elements inside the shadow dom
     this.slottedChildren.forEach(el => {
       this.overflow.appendChild(el);
     });
@@ -52,7 +53,6 @@ export class UUISingleSelectBaseElement extends LitElement {
     this.listElements = children.filter(
       el => el instanceof UUISelectOptionElement
     );
-    console.log(this.listElements);
   }
 
   private _value = '';
@@ -140,7 +140,6 @@ export class UUISingleSelectBaseElement extends LitElement {
   }
 
   protected _selectNextElement() {
-    console.log(this.listElements);
     if (
       this.selected === null ||
       this.selected ===

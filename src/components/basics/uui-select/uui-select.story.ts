@@ -38,9 +38,7 @@ const options = [
 ];
 
 export const Overview = () => html`
-  <button>focus</button>
-
-  <uui-select label="xxx">
+  <uui-select label="Select the color">
     ${options.map(
       option =>
         html`<uui-select-option
@@ -57,8 +55,6 @@ export const Overview = () => html`
         ></uui-select-option>`
     )}
   </uui-select>
-
-  <button>yes</button>
 `;
 
 export const WithInput = () => html`
