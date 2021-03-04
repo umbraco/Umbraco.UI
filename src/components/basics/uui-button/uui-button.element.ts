@@ -147,16 +147,6 @@ export class UUIButtonElement extends LitElement {
           }
         `
     ),
-    //! do not change order of this, it has to be the last one!
-    css`
-      :host([first-group-button='true']) button {
-        border-radius: 3px 0 0 3px;
-      }
-
-      :host([last-group-button='true']) button {
-        border-radius: 0 3px 3px 0;
-      }
-    `,
   ];
 
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.

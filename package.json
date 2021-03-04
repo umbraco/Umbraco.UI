@@ -78,6 +78,7 @@
   "description": "A library of UI-components, build with love from Umbraco",
   "license": "MIT",
   "dependencies": {
+    "@popperjs/core": "^2.8.3",
     "lit-element": "^2.0.1",
     "lit-html": "^1.0.0"
   }
