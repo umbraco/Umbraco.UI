@@ -96,8 +96,10 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   set isOpen(newVal) {
     const oldVal = this._isOpen;
     this._isOpen = newVal;
-    if (newVal) this.overflow.focus();
-    else this.dropdown.focus();
+    if (this.overflow && this.dropdown) {
+      if (newVal) this.overflow.focus();
+      else this.dropdown.focus();
+    }
     this.requestUpdate('isOpen', oldVal);
   }
 
