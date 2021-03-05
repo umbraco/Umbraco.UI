@@ -6,4 +6,6 @@ export default {
   component: 'uui-slider',
 };
 
-export const Default = () => html` <uui-slider></uui-slider> `;
+export const Default = () => html` <uui-slider label="Slider"></uui-slider> `;
+
+export const LabelInTheSlot = () => html` <uui-slider> Slider</uui-slider> `;

@@ -26,6 +26,7 @@ export class UUISliderElement extends LitElement {
         display: inline-block;
         width: 100%;
         position: relative;
+        padding: 30px 0;
       }
 
       #track {
@@ -41,14 +42,14 @@ export class UUISliderElement extends LitElement {
         bottom: 0;
         left: 0;
         width: 100%;
-
+        transform-origin: center left;
         background-color: blue;
         border-radius: 3px;
       }
 
       #thumb {
         position: absolute;
-        left: 50%;
+
         height: 24px;
         width: 24px;
         background-color: pink;
@@ -58,14 +59,23 @@ export class UUISliderElement extends LitElement {
     `,
   ];
 
-  @property({ type: Number, reflect: true })
+  @query('input')
+  input!: HTMLInputElement;
+
+  @property({})
+  label = '';
+
+  @property({ type: Number })
   min = 0;
 
-  @property({ type: Number, reflect: true })
+  @property({ type: Number })
   max = 100;
 
+  @property({ type: Number })
+  step = 1;
+
   private _value = '50';
-  @property({ type: String, reflect: true })
+  @property({ type: String })
   get value() {
     return this._value;
   }
@@ -73,21 +83,22 @@ export class UUISliderElement extends LitElement {
   set value(newVal) {
     const oldVal = this._value;
     this._value = newVal;
-    this.calculateThumbPosition(newVal);
+    this.calculateSliderPosition(newVal);
     this.requestUpdate('value', oldVal);
   }
 
   @internalProperty()
   protected sliderPosition = '50%';
 
-  @query('input')
-  input!: HTMLInputElement;
+  @internalProperty()
+  protected fillScale = '0.5';
 
-  private calculateThumbPosition(newVal: string) {
-    const position = `${Math.floor(
-      ((parseInt(newVal) - this.min) / (this.max - this.min)) * 100
-    )}%`;
-    this.sliderPosition = position;
+  private calculateSliderPosition(newVal: string) {
+    const ratio = (parseInt(newVal) - this.min) / (this.max - this.min);
+
+    this.fillScale = `${ratio}`;
+    this.sliderPosition = `${Math.floor(ratio * 100)}%`;
+    console.log;
   }
 
   private thumbDynamicStyles() {
@@ -95,37 +106,30 @@ export class UUISliderElement extends LitElement {
   }
 
   private fillDynamicStyles() {
-    return { width: this.sliderPosition };
+    return { transform: `scaleX(${this.fillScale})` };
   }
 
   private onInput() {
     this.value = this.input.value;
-
-    console.log(
-      this.sliderPosition,
-      this.input.value,
-      this.thumbDynamicStyles()
-    );
   }
 
   render() {
     return html`
-      <label for="input1">Label</label>
-
+      <label for="input1"><slot></slot></label>
       <input
         type="range"
         min="${this.min}"
         max="${this.max}"
         .value="${this.value}"
         id="input1"
-        step="1"
+        aria-label="${this.label}"
+        step="${this.step}"
         @input=${this.onInput}
       />
       <div id="track" aria-hidden="true">
-        <span id="fill" style=${styleMap(this.fillDynamicStyles())}></span>
-        <span id="thumb" style=${styleMap(this.thumbDynamicStyles())}></span>
+        <div id="fill" style=${styleMap(this.fillDynamicStyles())}></div>
+        <div id="thumb" style=${styleMap(this.thumbDynamicStyles())}></div>
       </div>
-      <output for="input1" aria-hidden="true">50</output>
     `;
   }
 }
