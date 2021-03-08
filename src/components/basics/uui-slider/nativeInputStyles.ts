@@ -7,7 +7,7 @@ export const nativeInputStyles = css`
     top: 0;
     width: 100%;
     z-index: 2;
-    transform: translateX(-12px);
+
     height: 100%;
     -webkit-appearance: none;
     margin: 0px;
@@ -16,6 +16,7 @@ export const nativeInputStyles = css`
     background: transparent;
     color: transparent;
     overflow: visible;
+    border: 1px solid red;
   }
   input[type='range']:focus {
     outline: none;
@@ -26,15 +27,16 @@ export const nativeInputStyles = css`
     -webkit-appearance: none;
     margin: 0px;
     padding: 0px;
-    border: 2px yellowgreen solid;
-    background: transparent;
+    border: none;
+    background: rgba(234, 60, 124, 0.2);
     color: transparent;
     overflow: visible;
+    order: 1px solid red;
   }
 
   input[type='range']:focus::-webkit-slider-runnable-track {
     background: transparent;
-    border: 2px green solid;
+    border: none;
   }
 
   input[type='range']::-moz-range-track {
@@ -71,8 +73,8 @@ export const nativeInputStyles = css`
   }
 
   input[type='range']::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 12px;
     border: 0 none;
     background: transparent;
@@ -80,18 +82,18 @@ export const nativeInputStyles = css`
   }
 
   input[type='range']::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 12px;
-    border: 3px red solid;
+    border: 4px solid green;
     background: transparent;
     cursor: pointer;
     -webkit-appearance: none;
   }
 
   input[type='range']::-ms-thumb {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 12px;
     border: 0 none;
     background: transparent;

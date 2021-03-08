@@ -15,6 +15,33 @@ import { nativeInputStyles } from './nativeInputStyles';
  *  @element uui-slider
  *  @description - Native input type="range" wrapper.
  */
+
+const renderSVG = (steps: number[], stepWidht: number) => {
+  return svg`
+  ${steps.map(el => {
+    if (stepWidht / 6 >= 5)
+      return svg`<circle class="uui-slider-circle" cx="${
+        stepWidht * steps.indexOf(el)
+      }" cy="50%" r="4.5" fill="black" />`;
+  })}
+`;
+};
+
+const renderValues = (steps: number[], stepWidht: number, show: boolean) => {
+  if (show) {
+    return html`<div id="steps-values">
+      ${steps.map(
+        el =>
+          html` <span class="uui-slider-step">
+            ${steps.length <= 15 || stepWidht / 6 >= 5
+              ? el.toFixed(0)
+              : nothing}
+          </span>`
+      )}
+    </div>`;
+  }
+};
+
 export class UUISliderElement extends LitElement {
   static styles = [
     nativeInputStyles,
@@ -28,17 +55,19 @@ export class UUISliderElement extends LitElement {
         display: inline-block;
         width: 100%;
         position: relative;
-        padding: 30px 0;
+        margin: 12px 0;
+        min-height: 30px;
+        border: 1px solid blue;
       }
 
       #track {
-        position: relative;
+        position: absolute;
+        top: 50%;
         height: 12px;
         width: 100%;
-
         display: flex;
       }
-
+      /* 
       #fill {
         position: absolute;
         top: 0;
@@ -49,35 +78,78 @@ export class UUISliderElement extends LitElement {
         background-color: blue;
         border-radius: 3px;
         opacity: 0.3;
-      }
+      } */
 
       #thumb {
         position: absolute;
+        top: 0;
+        bottom: 0;
         left: 0;
-        height: 24px;
-        width: 24px;
+        height: 18px;
+        width: 18px;
         background-color: transparent;
         border-radius: 50%;
         box-sizing: border-box;
-        border: 1px solid fuchsia;
-        margin-left: -12px;
-        transform: translateY(-25%);
+        border: 1px solid var(--uui-interface-selected);
+        margin-left: -9px;
       }
 
-      #track > span {
+      #thumb:after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 9px;
+        width: 9px;
+        background-color: var(--uui-interface-selected);
+        border-radius: 50%;
+      }
+
+      #stepper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      #steps-values {
+        display: flex;
+        align-items: flex-end;
+        box-sizing: border-box;
+        padding-top: 30px;
+      }
+
+      /* TODO add dynamic translation value */
+
+      #steps-values > span {
         flex-basis: 0;
         flex-grow: 1;
-        margin-top: 10px;
-        border-left: 1px solid purple;
-        height: 100%;
+        transform: translateX(-50%);
+        display: inline-block;
+        text-align: center;
       }
 
-      #track > span:last-of-type {
-        border-right: 1px solid purple;
+      #steps-values :first-child {
+        opacity: 0;
       }
 
       svg > circle:first-of-type {
         fill: none;
+      }
+
+      #stepper {
+        width: 100%;
+      }
+
+      #slider-line {
+        stroke: var(--uui-interface-border);
+        stroke-width: 1px;
+      }
+
+      .uui-slider-circle {
+        fill: var(--uui-interface-border);
       }
     `,
   ];
@@ -90,6 +162,9 @@ export class UUISliderElement extends LitElement {
 
   @property({})
   label = '';
+
+  @property({ type: Boolean, attribute: 'show-step-values' })
+  showStepValues = true;
 
   @property({ type: Number })
   min = 0;
@@ -158,12 +233,11 @@ export class UUISliderElement extends LitElement {
     return { left: this.sliderPosition };
   }
 
-  private fillDynamicStyles() {
-    return {
-      transform: `scaleX(${this.fillScale})`,
-      //   backgroundImage: `url(${this.renderSVG()})`,
-    };
-  }
+  // private fillDynamicStyles() {
+  //   return {
+  //     transform: `scaleX(${this.fillScale})`,
+  //   };
+  // }
 
   private onInput() {
     this.value = this.input.value;
@@ -190,33 +264,29 @@ export class UUISliderElement extends LitElement {
         @input=${this.onInput}
       />
       <div id="track" aria-hidden="true">
-        <div id="fill" style=${styleMap(this.fillDynamicStyles())}></div>
+        <div id="stepper">
+          <svg height="100%" width="100%" class="uui-slider-step">
+            <line
+              x1="0"
+              y1="50%"
+              x2="100%"
+              y2="50%"
+              stroke="black"
+              id="slider-line"
+            />
+            ${this.step !== 'any'
+              ? renderSVG(this.steps, this.stepWidht)
+              : nothing}
+          </svg>
+        </div>
+
         <div id="thumb" style=${styleMap(this.thumbDynamicStyles())}></div>
-        <svg height="100%" width="100%" class="uui-slider-step">
-          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="black" />
-          ${this.steps.map(el => {
-            if (this.stepWidht / 6 >= 5)
-              return svg`<circle class="uui-slider-circle" cx="${
-                this.stepWidht *
-                this.range(
-                  this.min,
-                  this.max - 1,
-                  parseFloat(this.step)
-                ).indexOf(el)
-              }" cy="6" r="6" fill="red" />`;
-          })}
-        </svg>
       </div>
+      ${this.step !== 'any'
+        ? renderValues(this.steps, this.stepWidht, this.showStepValues)
+        : nothing}
     `;
   }
 }
 
-// ${this.range(this.min, this.max - 1, parseFloat(this.step)).map(
-//   el =>
-//     html` <span class="uui-slider-step">
-//       ${this.range(this.min, this.max - 1, parseFloat(this.step))
-//         .length <= 10
-//         ? el.toFixed(0)
-//         : nothing}
-//     </span>`
-// )}
+//<div id="fill" style=${styleMap(this.fillDynamicStyles())}></div>
