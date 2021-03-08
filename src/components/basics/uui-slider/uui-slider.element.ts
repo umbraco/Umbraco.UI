@@ -33,9 +33,9 @@ export class UUISliderElement extends LitElement {
 
       #track {
         position: relative;
-        height: 8px;
+        height: 12px;
         width: 100%;
-        background-color: lightblue;
+
         display: flex;
       }
 
@@ -48,20 +48,20 @@ export class UUISliderElement extends LitElement {
         transform-origin: center left;
         background-color: blue;
         border-radius: 3px;
+        opacity: 0.3;
       }
 
       #thumb {
         position: absolute;
         left: 0;
-        transform-box: inherit;
-        /* transform: translateX(100%); */
         height: 24px;
         width: 24px;
-        background-color: fuchsia;
+        background-color: transparent;
         border-radius: 50%;
+        box-sizing: border-box;
+        border: 1px solid fuchsia;
         margin-left: -12px;
-        /* will-change: left;
-        transition: left 10ms; */
+        transform: translateY(-25%);
       }
 
       #track > span {
@@ -75,11 +75,18 @@ export class UUISliderElement extends LitElement {
       #track > span:last-of-type {
         border-right: 1px solid purple;
       }
+
+      svg > circle:first-of-type {
+        fill: none;
+      }
     `,
   ];
 
   @query('input')
   input!: HTMLInputElement;
+
+  @query('#track')
+  track!: HTMLInputElement;
 
   @property({})
   label = '';
@@ -106,6 +113,35 @@ export class UUISliderElement extends LitElement {
     this.requestUpdate('value', oldVal);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('resize', this.onWindowResize);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.onWindowResize);
+    super.disconnectedCallback();
+  }
+
+  firstUpdated() {
+    this.steps = this.range(this.min, this.max - 1, parseFloat(this.step));
+    this.stepWidht = this.calculateStepWidth();
+  }
+
+  @internalProperty()
+  private stepWidht = 0;
+
+  private calculateStepWidth() {
+    return this.track.getBoundingClientRect().width / this.steps.length;
+  }
+
+  private onWindowResize = () => {
+    this.stepWidht = this.calculateStepWidth();
+  };
+
+  @internalProperty()
+  protected steps: number[] = [];
+
   @internalProperty()
   protected sliderPosition = '50%';
 
@@ -114,10 +150,8 @@ export class UUISliderElement extends LitElement {
 
   private calculateSliderPosition(newVal: string) {
     const ratio = (parseFloat(newVal) - this.min) / (this.max - this.min);
-
     this.fillScale = `${ratio}`;
     this.sliderPosition = `${Math.floor(ratio * 100)}%`;
-    console.log;
   }
 
   private thumbDynamicStyles() {
@@ -133,7 +167,7 @@ export class UUISliderElement extends LitElement {
 
   private onInput() {
     this.value = this.input.value;
-    console.log(this.input.value);
+    console.log();
   }
 
   private range = (start: number, stop: number, step: number) =>
@@ -141,10 +175,6 @@ export class UUISliderElement extends LitElement {
       { length: (stop - start) / step + 1 },
       (_, i) => start + i * step
     );
-
-  renderSVG() {
-    return `"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 790.39 715.45'%3E%3Cdefs%3E%3Cstyle%3E .cls-1 %7B fill: %23fbf7f7; %7D .cls-2 %7B fill: %239d8057; %7D .cls-3 %7B fill: %233544b1; %7D .cls-4 %7B fill: %23f5c1bc; %7D .cls-5 %7B fill: %23f2ebe6; %7D %3C/style%3E%3C/defs%3E%3Ctitle%3E_CG20_heart%3C/title%3E%3Cg id='Heart'%3E%3Cpolygon class='cls-1' points='394.87 77.68 78.25 396.76 394.52 396.65 394.87 77.68' /%3E%3Cpolyline class='cls-2' points='713.34 396.06 394.02 715.45 76.5 396.76 713.34 396.13' /%3E%3Cpolygon class='cls-3' points='713.34 396.13 713.77 395.7 393.8 76.73 393.8 396.1 713.27 396.13 713.34 396.06 713.34 396.13' /%3E%3Cpath class='cls-4' d='M724.44,66C636.51-22,493.94-22,406,66L394.5,77.43,713.42,395.35l11-11C812.37,296.44,812.37,153.88,724.44,66Z' /%3E%3Cpath class='cls-5' d='M394.69,77.62,384.37,67.34C296.44-20.59,153.88-20.59,66,67.34S-22,297.83,66,385.77L78,397.8Z' /%3E%3C/g%3E%3C/svg%3E"`;
-  }
 
   render() {
     return html`
@@ -160,20 +190,33 @@ export class UUISliderElement extends LitElement {
         @input=${this.onInput}
       />
       <div id="track" aria-hidden="true">
-        ${this.range(this.min, this.max - 1, parseFloat(this.step)).map(
-          el =>
-            html`<span class="uui-slider-step">
-              ${this.range(this.min, this.max - 1, parseFloat(this.step))
-                .length <= 10
-                ? el.toFixed(0)
-                : nothing}
-            </span>`
-        )}
         <div id="fill" style=${styleMap(this.fillDynamicStyles())}></div>
         <div id="thumb" style=${styleMap(this.thumbDynamicStyles())}></div>
+        <svg height="100%" width="100%" class="uui-slider-step">
+          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="black" />
+          ${this.steps.map(el => {
+            if (this.stepWidht / 6 >= 5)
+              return svg`<circle class="uui-slider-circle" cx="${
+                this.stepWidht *
+                this.range(
+                  this.min,
+                  this.max - 1,
+                  parseFloat(this.step)
+                ).indexOf(el)
+              }" cy="6" r="6" fill="red" />`;
+          })}
+        </svg>
       </div>
     `;
   }
 }
 
-//background-image: url(\"data:image/svg+svg+xml;utf8,${this.renderSVG()}\")
+// ${this.range(this.min, this.max - 1, parseFloat(this.step)).map(
+//   el =>
+//     html` <span class="uui-slider-step">
+//       ${this.range(this.min, this.max - 1, parseFloat(this.step))
+//         .length <= 10
+//         ? el.toFixed(0)
+//         : nothing}
+//     </span>`
+// )}

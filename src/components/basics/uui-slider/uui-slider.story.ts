@@ -10,6 +10,7 @@ export const Default = () => html`
   <uui-slider label="Slider"></uui-slider>
   <uui-slider label="Slider" min="-10" max="10" step="1"></uui-slider>
   <uui-slider label="Slider" step="10"></uui-slider>
+  <uui-slider label="Slider" step="4"></uui-slider>
   <uui-slider label="Slider" step="1"></uui-slider>
 `;
 
