@@ -10,7 +10,11 @@ import {
 import { nothing } from 'lit-html';
 import { styleMap } from 'lit-html/directives/style-map';
 import { nativeInputStyles } from './nativeInputStyles';
-
+import {
+  UUIHorizontalPulseKeyframes,
+  UUIHorizontalPulseAnimationValue,
+} from '../../../animations/uui-pulse';
+import { UUISliderEvent } from './UUISliderEvents';
 /**
  *  @element uui-slider
  *  @description - Native input type="range" wrapper.
@@ -22,7 +26,7 @@ const renderSVG = (steps: number[], stepWidht: number) => {
     if (stepWidht / 6 >= 5)
       return svg`<circle class="uui-slider-circle" cx="${
         stepWidht * steps.indexOf(el)
-      }" cy="50%" r="4.5" fill="black" />`;
+      }" cy="50%" r="4.2" />`;
   })}
 `;
 };
@@ -33,7 +37,7 @@ const renderValues = (steps: number[], stepWidht: number, show: boolean) => {
       ${steps.map(
         el =>
           html` <span class="uui-slider-step">
-            ${steps.length <= 15 || stepWidht / 6 >= 5
+            ${steps.length <= 20 && stepWidht / 6 >= 5
               ? el.toFixed(0)
               : nothing}
           </span>`
@@ -44,11 +48,11 @@ const renderValues = (steps: number[], stepWidht: number, show: boolean) => {
 
 export class UUISliderElement extends LitElement {
   static styles = [
+    UUIHorizontalPulseKeyframes,
     nativeInputStyles,
     css`
       input[type='range'] {
         box-sizing: border-box;
-        width: calc(100% + 24px);
       }
 
       :host {
@@ -57,13 +61,14 @@ export class UUISliderElement extends LitElement {
         position: relative;
         margin: 12px 0;
         min-height: 30px;
-        border: 1px solid blue;
+        border: none;
+        user-select: none;
       }
 
       #track {
-        position: absolute;
+        position: relative;
         top: 50%;
-        height: 12px;
+        height: 18px;
         width: 100%;
         display: flex;
       }
@@ -92,6 +97,7 @@ export class UUISliderElement extends LitElement {
         box-sizing: border-box;
         border: 1px solid var(--uui-interface-selected);
         margin-left: -9px;
+        transition: 0.1s left ease;
       }
 
       #thumb:after {
@@ -106,6 +112,58 @@ export class UUISliderElement extends LitElement {
         border-radius: 50%;
       }
 
+      #thumb:before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform-origin: center center;
+        transform: translate(-50%, -50%);
+        height: 24px;
+        width: 24px;
+        background-color: transparent;
+        border: 1px solid var(--uui-interface-selected);
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      input:hover ~ #track #thumb:before {
+        animation: ${UUIHorizontalPulseAnimationValue};
+      }
+
+      input:hover ~ #track #thumb:after {
+        background-color: var(--uui-interface-selected-hover);
+      }
+
+      input:hover ~ #track #thumb {
+        border: 1px solid var(--uui-interface-selected-hover);
+      }
+
+      #value {
+        position: relative;
+        box-sizing: border-box;
+        font-weight: 600;
+        bottom: 150%;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        color: var(--uui-interface-selected);
+        transition: 0.2s opacity ease;
+      }
+
+      input:hover ~ #track #value {
+        opacity: 1;
+      }
+
+      #track svg {
+        opacity: 0.5;
+        transition: 0.2s opacity ease;
+      }
+
+      input:focus ~ #track svg {
+        opacity: 1;
+      }
+
       #stepper {
         position: absolute;
         top: 0;
@@ -118,10 +176,7 @@ export class UUISliderElement extends LitElement {
         display: flex;
         align-items: flex-end;
         box-sizing: border-box;
-        padding-top: 30px;
       }
-
-      /* TODO add dynamic translation value */
 
       #steps-values > span {
         flex-basis: 0;
@@ -129,6 +184,8 @@ export class UUISliderElement extends LitElement {
         transform: translateX(-50%);
         display: inline-block;
         text-align: center;
+        font-size: 12px;
+        color: var(--uui-interface-contrast-disabled);
       }
 
       #steps-values :first-child {
@@ -144,12 +201,49 @@ export class UUISliderElement extends LitElement {
       }
 
       #slider-line {
-        stroke: var(--uui-interface-border);
+        stroke: var(--uui-interface-contrast-disabled);
         stroke-width: 1px;
       }
 
       .uui-slider-circle {
-        fill: var(--uui-interface-border);
+        fill: var(--uui-interface-contrast-disabled);
+      }
+
+      label {
+        display: inline-block;
+        margin-top: 6px;
+        position: relative;
+
+        font-weight: 2100;
+      }
+
+      /* label:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        transform-origin: top center;
+        transform: scaleY(0);
+        border-radius: 6px;
+        background-color: var(--uui-interface-active);
+        transition: 0.3s all ease;
+      }
+
+      input:focus ~ label:before {
+        transform: scaleY(1);
+      } */
+
+      @media (prefers-reduced-motion) {
+        input:focus ~ #track #thumb:before {
+          /* opacity: 1;
+        transform: translate(-50%, -50%) scale(1); */
+          animation: none;
+        }
+
+        label:before {
+          transition: none;
+        }
       }
     `,
   ];
@@ -241,7 +335,7 @@ export class UUISliderElement extends LitElement {
 
   private onInput() {
     this.value = this.input.value;
-    console.log();
+    this.dispatchEvent(new UUISliderEvent(UUISliderEvent.INPUT));
   }
 
   private range = (start: number, stop: number, step: number) =>
@@ -251,9 +345,7 @@ export class UUISliderElement extends LitElement {
     );
 
   render() {
-    return html`
-      <label for="input1"><slot></slot></label>
-      <input
+    return html` <input
         type="range"
         min="${this.min}"
         max="${this.max}"
@@ -280,12 +372,14 @@ export class UUISliderElement extends LitElement {
           </svg>
         </div>
 
-        <div id="thumb" style=${styleMap(this.thumbDynamicStyles())}></div>
+        <div id="thumb" style=${styleMap(this.thumbDynamicStyles())}>
+          <div id="value">${this.value}</div>
+        </div>
       </div>
       ${this.step !== 'any'
         ? renderValues(this.steps, this.stepWidht, this.showStepValues)
         : nothing}
-    `;
+      <label for="input1"><slot></slot></label>`;
   }
 }
 

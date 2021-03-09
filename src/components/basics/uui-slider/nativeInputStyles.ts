@@ -5,6 +5,7 @@ export const nativeInputStyles = css`
     left: 0;
     position: absolute;
     top: 0;
+    height: 100%;
     width: 100%;
     z-index: 2;
 
@@ -16,7 +17,7 @@ export const nativeInputStyles = css`
     background: transparent;
     color: transparent;
     overflow: visible;
-    border: 1px solid red;
+    border: none;
   }
   input[type='range']:focus {
     outline: none;
@@ -28,10 +29,10 @@ export const nativeInputStyles = css`
     margin: 0px;
     padding: 0px;
     border: none;
-    background: rgba(234, 60, 124, 0.2);
+    background: transparent;
     color: transparent;
     overflow: visible;
-    order: 1px solid red;
+    order: none;
   }
 
   input[type='range']:focus::-webkit-slider-runnable-track {
@@ -85,7 +86,7 @@ export const nativeInputStyles = css`
     width: 18px;
     height: 18px;
     border-radius: 12px;
-    border: 4px solid green;
+    border: 0 none;
     background: transparent;
     cursor: pointer;
     -webkit-appearance: none;
