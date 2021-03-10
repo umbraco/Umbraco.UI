@@ -248,6 +248,8 @@ export class UUISliderElement extends LitElement {
     `,
   ];
 
+  static readonly formAssociated = true;
+
   @query('input')
   input!: HTMLInputElement;
 
@@ -279,7 +281,15 @@ export class UUISliderElement extends LitElement {
     const oldVal = this._value;
     this._value = newVal;
     this.calculateSliderPosition(newVal);
+    this._internals.setFormValue(this._value);
     this.requestUpdate('value', oldVal);
+  }
+
+  private _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
   }
 
   connectedCallback() {
