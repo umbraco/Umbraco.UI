@@ -30,7 +30,7 @@ export const WithImage = () =>
 const callback = () => {
   alert('You clicked on doggo!');
 };
-export const WithaAllbackOnTitleClick = () =>
+export const WithCallbackOnTitleClick = () =>
   html`
     <uui-card selectable title="Doggo 1" .clickCallback=${callback}
       ><img slot="img" src="https://placedog.net/1447/?random"

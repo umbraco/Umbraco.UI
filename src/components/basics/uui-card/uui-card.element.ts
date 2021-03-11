@@ -2,10 +2,12 @@ import { LitElement, html, css, property, svg } from 'lit-element';
 import { UUICardEvent } from './UUICardEvents';
 /**
  *  @element uui-card
- *
+ *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
+ *  @slot - for things
+ * @slot {img} - for things
+ *  @description - Card to display your media or conmtent nodes
  */
 
-// TODO: Allow for slotted SVG.
 export class UUICardElement extends LitElement {
   static styles = [
     css`
@@ -13,11 +15,8 @@ export class UUICardElement extends LitElement {
         position: relative;
         display: flex;
         justify-content: center;
-        /* box-sizing: border-box; */
-
         box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
         border-radius: 3px;
-        max-width: 200px;
         min-width: 125px;
         min-height: 125px;
         margin: 6px;
@@ -51,11 +50,6 @@ export class UUICardElement extends LitElement {
         cursor: pointer;
       }
 
-      /* :host(:hover) {
-        box-shadow: 0px 0px 0px 2px #3544b154, 0 0 6px 1px #1d266354,
-          0 0 2px 0px #1d266354;
-      } */
-
       :host([selected])::before {
         border: 2px solid #3544b1;
         box-shadow: 0 0 4px 0 #1d2663, inset 0 0 2px 0 #1d2663;
@@ -71,7 +65,9 @@ export class UUICardElement extends LitElement {
       slot[name='img']::slotted(img) {
         align-self: center;
         border-radius: 3px;
+        object-fit: cover;
         width: 100%;
+        height: 100%;
       }
 
       #details {
@@ -106,6 +102,10 @@ export class UUICardElement extends LitElement {
         display: flex;
         height: var(--uui-size-medium);
       }
+
+      #details > span:hover {
+        text-decoration: underline;
+      }
     `,
   ];
 
@@ -125,7 +125,7 @@ export class UUICardElement extends LitElement {
 
   @property({ type: Object, attribute: false })
   clickCallback: Function = () => {
-    console.log('Hello');
+    return;
   };
 
   toggleSelect() {
@@ -140,7 +140,8 @@ export class UUICardElement extends LitElement {
     this.selected = false;
   }
 
-  handleClick() {
+  handleClick(e: Event) {
+    e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
     if (this.clickCallback) this.clickCallback();
   }
