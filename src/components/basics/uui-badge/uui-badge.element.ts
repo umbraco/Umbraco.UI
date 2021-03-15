@@ -28,7 +28,7 @@ export class UUIBadgeElement extends LitElement {
         min-width: var(--uui-size-small);
         min-height: var(--uui-size-small);
 
-        border-radius: 100%;
+        border-radius: var(--uui-size-small);
         background-color: var(
           --uui-badge-background-color,
           var(--uui-interface-surface)

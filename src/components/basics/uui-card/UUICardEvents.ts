@@ -3,4 +3,5 @@ import { UUICardElement } from './uui-card.element';
 
 export class UUICardEvent extends UUIEvent<{}, UUICardElement> {
   public static readonly CLICK_TITLE = 'click-title';
+  public static readonly SELECTED = 'selected';
 }
