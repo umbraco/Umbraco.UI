@@ -1,5 +1,6 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
+import { UUITextFieldEvent } from './UUITextFieldEvent';
 
 export type TextFieldType =
   | 'text'
@@ -129,6 +130,7 @@ export class UUITextFieldElement extends LitElement {
 
   private onUpdate(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
+    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.CHANGE));
   }
 
   render() {
