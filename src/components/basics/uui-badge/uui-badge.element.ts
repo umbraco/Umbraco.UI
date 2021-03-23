@@ -9,18 +9,23 @@ import {
  *  @slot - for badge contents
  *  @description - A badge to notify that there is something that requires attention of the user.
  */
+
+//TODO this should be change to look better when it's not round
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
       :host {
         position: absolute;
-        top: -8px;
-        right: -8px;
-        padding: 3px;
+
+        /* top: -8px;
+        right: -8px; */
+        padding: 3px 5px;
+        --uui-badge-inset: -8px -8px auto auto;
+        inset: var(--uui-badge-inset);
 
         text-align: center;
-        font-size: 11px;
-        line-height: 11px;
+        font-size: 12px;
+        line-height: 16px;
         font-weight: 900;
 
         margin-right: 0 !important;
@@ -34,6 +39,9 @@ export class UUIBadgeElement extends LitElement {
           var(--uui-interface-surface)
         );
         color: var(--uui-badge-contrast, var(--uui-interface-contrast));
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     `,
     InterfaceLookCSSCreator(

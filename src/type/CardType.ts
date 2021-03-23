@@ -1,6 +1,6 @@
 export type CardType =
-  | 'picture'
   | 'file'
+  | 'image'
   | 'audio'
   | 'video'
   | 'node'

@@ -1,13 +1,4 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  internalProperty,
-} from 'lit-element';
-import { nothing } from 'lit-html';
-import { UUIIconElement } from '../uui-icon/uui-icon.element';
+import { LitElement, html, css, property, query } from 'lit-element';
 import { CardType } from '../../../type/CardType';
 import { UUICardEvent } from './UUICardEvents';
 /**
@@ -58,7 +49,7 @@ export class UUICardElement extends LitElement {
         opacity: 0.3;
       }
 
-      :host([selectable]) {
+      :host([selectable]) #details {
         cursor: pointer;
       }
 
@@ -76,11 +67,12 @@ export class UUICardElement extends LitElement {
         opacity: 0.6;
       }
 
-      :host([type='node']) {
+      :host([type='node']),
+      :host([type='user']) {
         min-width: 250px;
       }
 
-      :host([type='file']) {
+      :host([type='media']) {
         max-width: 200px;
       }
 
@@ -97,6 +89,12 @@ export class UUICardElement extends LitElement {
         line-height: calc(2 * var(--uui-size-xsmall, 9px));
       }
 
+      :host([type='user']) ::slotted(:not(uui-avatar)) {
+        font-size: var(--uui-size-small, 12px);
+        line-height: calc(2 * var(--uui-size-xsmall, 9px));
+        text-align: center;
+      }
+
       slot[name='asset']::slotted(uui-icon) {
         align-self: center;
         font-size: var(--uui-size-xlarge);
@@ -110,15 +108,30 @@ export class UUICardElement extends LitElement {
         );
       }
 
-      /* slot[name='badge']::slotted(uui-badge) {
-        position: absolute;
-        top: 0;
-        left: 0;
-      } */
+      slot[name='badge']::slotted(uui-badge) {
+        --uui-badge-inset: 12px 12px auto auto;
+      }
+
+      slot[name='avatar']::slotted(uui-avatar) {
+        margin-bottom: 12px;
+      }
 
       #card-content {
         width: 100%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-between;
         padding: var(--uui-size-space-4, 24px);
+      }
+
+      :host([type='user']) #card-content,
+      :host([type='node']) #card-content {
+        padding: var(--uui-size-space-3, 12px);
+      }
+
+      :host([type='user']) #card-content {
+        align-items: center;
       }
 
       #title-area {
@@ -127,12 +140,27 @@ export class UUICardElement extends LitElement {
         font-weight: 700;
         align-items: center;
 
-        margin: calc(-1 * var(--uui-size-base-unit, 6px))
-          calc(-1 * var(--uui-size-base-unit, 6px)) var(--uui-size-small, 12px);
+        /* margin: calc(-1 * var(--uui-size-base-unit, 6px))
+          calc(-1 * var(--uui-size-base-unit, 6px)) var(--uui-size-small, 12px); */
+      }
+
+      slot[name='icon']::slotted(uui-icon) {
+        font-size: 1.2em;
+      }
+
+      :host([type='user']) #title-area {
+        margin: 0 0 3px 0;
       }
 
       #title-area > span {
         vertical-align: center;
+        margin-left: 0.5em;
+        margin-top: 3px;
+        /* line-height: var(--uui-size-small, 12px); */
+      }
+
+      #title-area:hover > span {
+        text-decoration: underline;
       }
 
       #details {
@@ -219,63 +247,62 @@ export class UUICardElement extends LitElement {
     this.selected = false;
   }
 
-  @internalProperty()
-  hasAsset = false;
-
-  @internalProperty()
-  hasImage = false;
-
-  private getAssets(): Array<UUIIconElement | HTMLImageElement> {
-    return this.assetSlot
-      ? (this.assetSlot
-          .assignedNodes({ flatten: true })
-          .filter(
-            el => el instanceof UUIIconElement || el instanceof HTMLImageElement
-          ) as Array<UUIIconElement | HTMLImageElement>)
-      : [];
-  }
-
   handleClick(e: Event) {
+    console.log('zabba');
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
     if (this.clickCallback) this.clickCallback();
   }
 
-  // checkSlottedInstance(el) {
+  //* Templates to specifiuc card types
 
-  // }
+  //* types: user, node
+  get nodeUserTemplate() {
+    return html`<div id="card-content">
+      <slot name="badge"></slot>
+      <slot name="avatar"></slot>
+      <div id="title-area" @click=${this.handleClick}>
+        <slot name="icon"></slot>
+        <span> ${this.title} </span>
+      </div>
+      <slot></slot>
+    </div>`;
+  }
 
-  handleSlotChnage() {
-    const slotted = this.getAssets();
+  //* types: image, file
+  get mediaTemplate() {
+    return html`<slot name="asset"></slot>
+      <div id="details" @click=${this.handleClick}>
+        <uui-icon
+          id="info-icon"
+          name="info"
+          style="color:currentColor"
+        ></uui-icon
+        ><span> ${this.title} </span>
+      </div>`;
+  }
 
-    this.hasAsset = !!slotted.length;
-    this.hasImage = slotted.some(el => el instanceof HTMLImageElement);
-    if (this.hasImage) this.type = 'picture';
+  //* No type
+  get noTypeTemplate() {
+    return html`<slot></slot>`;
+  }
+
+  private _renderCardType(type: CardType) {
+    switch (type) {
+      case 'file':
+      case 'image':
+        return this.mediaTemplate;
+
+      case 'user':
+      case 'node':
+        return this.nodeUserTemplate;
+
+      case null:
+        return this.noTypeTemplate;
+    }
   }
 
   render() {
-    return html`${!this.hasAsset
-        ? html`<div id="card-content">
-            <div id="title-area">
-              <slot name="icon"></slot>
-              <span> ${this.title} </span>
-              <slot name="badge"></slot>
-            </div>
-            <div>
-              <slot></slot>
-            </div>
-          </div>`
-        : nothing}
-      <slot name="asset" @slotchange=${this.handleSlotChnage}></slot>
-      ${this.hasAsset
-        ? html`<div id="details" @click=${this.handleClick}>
-            <uui-icon
-              id="info-icon"
-              name="info"
-              style="color:currentColor"
-            ></uui-icon
-            ><span> ${this.title} </span>
-          </div>`
-        : nothing}`;
+    return html`${this._renderCardType(this.type)}`;
   }
 }
