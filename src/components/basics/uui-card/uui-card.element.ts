@@ -1,5 +1,5 @@
-import { LitElement, html, css, property, query } from 'lit-element';
-import { CardType } from '../../../type/CardType';
+import { LitElement, html, css, property, query, unsafeCSS } from 'lit-element';
+import { CardType, CardTypeNames } from '../../../type/CardType';
 import { UUICardEvent } from './UUICardEvents';
 /**
  *  @element uui-card
@@ -8,6 +8,12 @@ import { UUICardEvent } from './UUICardEvents';
  * @slot {img} - for things
  *  @description - Card to display your media or conmtent nodes
  */
+
+//TODO dont show hover border when hovering on the clickable link part
+
+const allCardTypesSelector = `${CardTypeNames.map(
+  cardType => `[type="${cardType}"]`
+).join(',')}`;
 
 export class UUICardElement extends LitElement {
   static styles = [
@@ -22,10 +28,8 @@ export class UUICardElement extends LitElement {
         min-height: calc(var(--uui-size-xxlarge, 66px) * 2);
         margin: 6px;
         background-color: var(--uui-interface-surface, white);
-
-        /* background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill-opacity=".25"><path d="M50 0h50v50H50zM0 50h50v50H0z"/></svg>'); */
-        /* background-size: 10px 10px;
-        background-repeat: repeat; */
+        /* --uui-card-before-opacity: 0; */
+        transition: --uui-card-before-opacity 0.15s ease-in-out;
       }
 
       :host:before {
@@ -38,7 +42,7 @@ export class UUICardElement extends LitElement {
         bottom: -2px;
         border-radius: var(--uui-size-border-radius, 3px);
         pointer-events: none;
-        opacity: 0;
+        opacity: var(--uui-card-before-opacity);
         transition: all 0.15s ease-in-out;
       }
 
@@ -46,7 +50,8 @@ export class UUICardElement extends LitElement {
         border: 2px solid var(--uui-interface-selected, #1b264f);
         box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
           inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
-        opacity: 0.3;
+
+        opacity: var(--uui-card-before-opacity);
       }
 
       :host([selectable]) #details {
@@ -57,14 +62,14 @@ export class UUICardElement extends LitElement {
         border: 2px solid var(--uui-interface-selected, #1b264f);
         box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
           inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
-        opacity: 1;
+        opacity: var(--uui-card-before-opacity);
       }
 
       :host([selected]:hover)::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
+        /* border: 2px solid var(--uui-interface-selected, #1b264f);
         box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
-        opacity: 0.6;
+          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f); */
+        opacity: var(--uui-card-before-opacity);
       }
 
       :host([type='node']),
@@ -84,14 +89,13 @@ export class UUICardElement extends LitElement {
         height: 100%;
       }
 
-      ::slotted(ul) {
+      :host([type='user'], [type='node'])
+        ::slotted(:not(uui-avatar, uui-tag, uui-badge)) {
         font-size: var(--uui-size-small, 12px);
         line-height: calc(2 * var(--uui-size-xsmall, 9px));
       }
 
-      :host([type='user']) ::slotted(:not(uui-avatar)) {
-        font-size: var(--uui-size-small, 12px);
-        line-height: calc(2 * var(--uui-size-xsmall, 9px));
+      :host([type='user']) ::slotted(*) {
         text-align: center;
       }
 
@@ -108,8 +112,10 @@ export class UUICardElement extends LitElement {
         );
       }
 
-      slot[name='badge']::slotted(uui-badge) {
-        --uui-badge-inset: 12px 12px auto auto;
+      slot[name='tag']::slotted(uui-tag) {
+        position: absolute;
+        top: 6px;
+        right: 6px;
       }
 
       slot[name='avatar']::slotted(uui-avatar) {
@@ -122,12 +128,14 @@ export class UUICardElement extends LitElement {
         position: relative;
         flex-direction: column;
         justify-content: space-between;
-        padding: var(--uui-size-space-4, 24px);
       }
 
-      :host([type='user']) #card-content,
-      :host([type='node']) #card-content {
+      :host([type='user'], [type='node']) #card-content {
         padding: var(--uui-size-space-3, 12px);
+      }
+
+      :host(:not(${unsafeCSS(allCardTypesSelector)})) {
+        padding: var(--uui-size-space-4, 24px);
       }
 
       :host([type='user']) #card-content {
@@ -139,6 +147,7 @@ export class UUICardElement extends LitElement {
         position: relative;
         font-weight: 700;
         align-items: center;
+        cursor: pointer;
 
         /* margin: calc(-1 * var(--uui-size-base-unit, 6px))
           calc(-1 * var(--uui-size-base-unit, 6px)) var(--uui-size-small, 12px); */
@@ -213,24 +222,41 @@ export class UUICardElement extends LitElement {
   constructor() {
     super();
     this.addEventListener('click', this.toggleSelect);
+    this.addEventListener('mouseenter', this.handleMouseEneter);
+    this.addEventListener('mouseleave', this.handleMouseLeave);
   }
 
   @query('slot[name="asset"]')
   assetSlot!: HTMLSlotElement;
 
+  @query(':host::before')
+  hostBefore!: HTMLElement;
+
+  @query('#title-area')
+  titleArea!: HTMLElement;
+
   @property({ type: Boolean, reflect: true })
   selectable = false;
 
+  private _selected = false;
   @property({ type: Boolean, reflect: true })
-  selected = false;
+  get selected() {
+    return this._selected;
+  }
+
+  set selected(newVal) {
+    const oldVal = this._selected;
+    this._selected = newVal;
+    this.style.setProperty(
+      '--uui-card-before-opacity',
+      `${newVal ? '1' : '0.3'}`
+    );
+
+    this.requestUpdate('selected', oldVal);
+  }
 
   @property()
   title = '';
-
-  @property({ attribute: false })
-  clickCallback: Function = () => {
-    return;
-  };
 
   @property({ reflect: true })
   type: CardType = null;
@@ -251,20 +277,49 @@ export class UUICardElement extends LitElement {
     console.log('zabba');
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
-    if (this.clickCallback) this.clickCallback();
   }
 
-  //* Templates to specifiuc card types
+  handleMouseEneter(e: MouseEvent) {
+    if (e.target === this && !this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '0.3');
+
+    if (e.target === this && this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '0.6');
+
+    if (e.target === this.titleArea && this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '0');
+  }
+
+  handleMouseLeave(e: MouseEvent) {
+    if (e.target === this && !this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '0');
+
+    if (e.target === this && this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '1');
+
+    if (e.target === this.titleArea && this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '0.6');
+    if (e.target === this.titleArea && !this.selected)
+      this.style.setProperty('--uui-card-before-opacity', '0.3');
+  }
+
+  //* Templates to specific card types
 
   //* types: user, node
   get nodeUserTemplate() {
     return html`<div id="card-content">
-      <slot name="badge"></slot>
+      <slot name="tag"></slot>
       <slot name="avatar"></slot>
-      <div id="title-area" @click=${this.handleClick}>
+      <div
+        id="title-area"
+        @click=${this.handleClick}
+        @mouseenter=${this.handleMouseEneter}
+        @mouseleave=${this.handleMouseLeave}
+      >
         <slot name="icon"></slot>
         <span> ${this.title} </span>
       </div>
+
       <slot></slot>
     </div>`;
   }

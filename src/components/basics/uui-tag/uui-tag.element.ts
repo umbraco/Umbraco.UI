@@ -7,8 +7,8 @@ import {
 import { Size } from '../../../type/Size';
 
 /**
- *  @element uui-badge
- *  @slot - for badge contents
+ *  @element uui-tag
+ *  @slot - for tag contents
  *  @description
  */
 export class UUITagElement extends LitElement {

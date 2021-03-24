@@ -9,8 +9,9 @@ export default {
 export const Basic = () => html`
   <div style="width: 300px">
     <uui-card
-      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
-      dolore?</uui-card
+      ><uui-button look="placeholder" style="width:100%;"
+        >Main slot</uui-button
+      ></uui-card
     >
   </div>
 `;
@@ -19,7 +20,7 @@ export const ContentNode = () => html`
   <div style="width: 300px">
     <uui-card title="The card" type="node" selectable
       ><uui-icon slot="icon" name="bug"></uui-icon
-      ><uui-badge slot="badge" look="positive">Published</uui-badge>
+      ><uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
         <li><span style="font-weight: 700">Created:</span> Yesterday</li>
         <li>
@@ -37,8 +38,16 @@ export const ContentNode = () => html`
 export const Selectable = () =>
   html`
     <div style="width: 130px">
-      <uui-card selectable title="Card 1"></uui-card>
-      <uui-card selectable selected title="Card 2"></uui-card>
+      <uui-card selectable title="Card 1"
+        ><uui-button look="placeholder" style="width:100%;"
+          >Main slot</uui-button
+        ></uui-card
+      >
+      <uui-card selectable selected title="Card 2"
+        ><uui-button look="placeholder" style="width:100%;"
+          >Main slot</uui-button
+        ></uui-card
+      >
     </div>
   `;
 
@@ -46,7 +55,7 @@ export const User = () =>
   html`
     <div style="width: 130px">
       <uui-card selectable title="Sherlock Holmes" type="user">
-        <uui-badge slot="badge" look="positive">Invited</uui-badge
+        <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag
         ><uui-avatar slot="avatar" text="Sherlock Holmes" size="m"></uui-avatar>
         <div style="margin-bottom: 12px">Editors</div>
         <div>Last login</div>
@@ -81,22 +90,6 @@ export const Picture = () =>
       /></uui-card>
       <uui-card selectable title="Doggo 3" type="image"
         ><img slot="asset" src="https://placedog.net/110/?random"
-      /></uui-card>
-    </div>
-  `;
-
-const callback = () => {
-  alert('You clicked on doggo!');
-};
-export const WithCallbackOnTitleClick = () =>
-  html`
-    <div style="width: 50vw">
-      <uui-card
-        selectable
-        title="Doggo 1"
-        .clickCallback=${callback}
-        type="image"
-        ><img slot="asset" src="https://placedog.net/1447/?random"
       /></uui-card>
     </div>
   `;

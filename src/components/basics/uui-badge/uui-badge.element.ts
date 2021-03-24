@@ -10,7 +10,6 @@ import {
  *  @description - A badge to notify that there is something that requires attention of the user.
  */
 
-//TODO this should be change to look better when it's not round
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
@@ -21,6 +20,7 @@ export class UUIBadgeElement extends LitElement {
         right: -8px; */
         padding: 3px 5px;
         --uui-badge-inset: -8px -8px auto auto;
+        /* 4 different ones */
         inset: var(--uui-badge-inset);
 
         text-align: center;
