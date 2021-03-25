@@ -28,8 +28,12 @@ export class UUICardElement extends LitElement {
         min-height: calc(var(--uui-size-xxlarge, 66px) * 2);
         margin: 6px;
         background-color: var(--uui-interface-surface, white);
-        /* --uui-card-before-opacity: 0; */
+        --uui-card-before-opacity: 0;
         transition: --uui-card-before-opacity 0.15s ease-in-out;
+      }
+
+      :host(:focus) {
+        outline-color: #6ab4f0;
       }
 
       :host:before {
@@ -46,7 +50,7 @@ export class UUICardElement extends LitElement {
         transition: all 0.15s ease-in-out;
       }
 
-      :host([selectable]:hover)::before {
+      :host([selectable])::before {
         border: 2px solid var(--uui-interface-selected, #1b264f);
         box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
           inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
@@ -65,19 +69,20 @@ export class UUICardElement extends LitElement {
         opacity: var(--uui-card-before-opacity);
       }
 
-      :host([selected]:hover)::before {
-        /* border: 2px solid var(--uui-interface-selected, #1b264f);
+      /* :host([selected]:hover)::before {
+        border: 2px solid var(--uui-interface-selected, #1b264f);
         box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f); */
+          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
         opacity: var(--uui-card-before-opacity);
-      }
+      } */
 
       :host([type='node']),
       :host([type='user']) {
         min-width: 250px;
       }
 
-      :host([type='media']) {
+      :host([type='file']),
+      :host([type='image']) {
         max-width: 200px;
       }
 
@@ -130,7 +135,8 @@ export class UUICardElement extends LitElement {
         justify-content: space-between;
       }
 
-      :host([type='user'], [type='node']) #card-content {
+      :host([type='node']) #card-content,
+      :host([type='user']) #card-content {
         padding: var(--uui-size-space-3, 12px);
       }
 
@@ -168,8 +174,10 @@ export class UUICardElement extends LitElement {
         /* line-height: var(--uui-size-small, 12px); */
       }
 
-      #title-area:hover > span {
+      #title-area:hover,
+      #title-area:focus {
         text-decoration: underline;
+        outline-color: #6ab4f0;
       }
 
       #details {
@@ -187,24 +195,25 @@ export class UUICardElement extends LitElement {
         font-size: var(--uui-size-small, 12px);
         box-sizing: border-box;
         padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
-        transform: translateY(20%);
+        /* transform: translateY(20%); */
         transition: all 0.3s ease-in-out;
       }
 
       :host([type='file']) #details {
         opacity: 0.9;
-        transform: translateY(0%);
+        /* transform: translateY(0%); */
         border-top: 1px solid rgba(0, 0, 0, 0.04);
       }
 
-      :host(:hover) #details {
+      :host(:hover) #details,
+      :host(:focus, :focus-within) #details {
         opacity: 0.9;
-        transform: translateY(0%);
+        /* transform: translateY(0%); */
       }
 
       :host([selected]) #details {
         opacity: 0.9;
-        transform: translateY(0%);
+        /* transform: translateY(0%); */
       }
 
       #info-icon {
@@ -213,8 +222,10 @@ export class UUICardElement extends LitElement {
         height: var(--uui-size-medium, 24px);
       }
 
-      #details > span:hover {
+      #details:hover,
+      #details:focus {
         text-decoration: underline;
+        outline-color: #6ab4f0;
       }
     `,
   ];
@@ -224,6 +235,10 @@ export class UUICardElement extends LitElement {
     this.addEventListener('click', this.toggleSelect);
     this.addEventListener('mouseenter', this.handleMouseEneter);
     this.addEventListener('mouseleave', this.handleMouseLeave);
+    this.addEventListener('keydown', this.handleKeydown);
+    this.addEventListener('focus', () => {
+      this.changeBorderOpacity(0.6, 0.3);
+    });
   }
 
   @query('slot[name="asset"]')
@@ -235,8 +250,22 @@ export class UUICardElement extends LitElement {
   @query('#title-area')
   titleArea!: HTMLElement;
 
+  @query('#details')
+  detailsArea!: HTMLElement;
+
+  private _selectable = false;
   @property({ type: Boolean, reflect: true })
-  selectable = false;
+  get selectable() {
+    return this._selectable;
+  }
+
+  set selectable(newVal) {
+    const oldVal = this._selectable;
+    this._selectable = newVal;
+    this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
+
+    this.requestUpdate('selected', oldVal);
+  }
 
   private _selected = false;
   @property({ type: Boolean, reflect: true })
@@ -249,7 +278,7 @@ export class UUICardElement extends LitElement {
     this._selected = newVal;
     this.style.setProperty(
       '--uui-card-before-opacity',
-      `${newVal ? '1' : '0.3'}`
+      `${newVal ? `${this._mouseOver ? '0.6' : '1'}` : '0'}`
     );
 
     this.requestUpdate('selected', oldVal);
@@ -263,6 +292,8 @@ export class UUICardElement extends LitElement {
 
   toggleSelect() {
     if (this.selectable) this.selected = !this.selected;
+    if (this.selected)
+      this.dispatchEvent(new UUICardEvent(UUICardEvent.SELECTED));
   }
 
   select() {
@@ -273,34 +304,56 @@ export class UUICardElement extends LitElement {
     this.selected = false;
   }
 
-  handleClick(e: Event) {
-    console.log('zabba');
+  private _handleTitleClick(e: Event) {
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
   }
 
+  private handleKeydown(e: KeyboardEvent) {
+    if (e.key !== ' ' && e.key !== 'Enter') return;
+    e.preventDefault();
+    this.toggleSelect();
+  }
+
+  private handleTitleKeydown(e: KeyboardEvent) {
+    if (e.key !== ' ' && e.key !== 'Enter') return;
+    e.preventDefault();
+    e.stopPropagation();
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
+  }
+
+  private changeBorderOpacity(selectedValue: number, deselectedValue: number) {
+    if (!this.selected)
+      this.style.setProperty('--uui-card-before-opacity', `${deselectedValue}`);
+
+    if (this.selected)
+      this.style.setProperty('--uui-card-before-opacity', `${selectedValue}`);
+  }
+
+  private _mouseOver = false;
   handleMouseEneter(e: MouseEvent) {
-    if (e.target === this && !this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '0.3');
+    if (e.target === this) {
+      this._mouseOver = true;
+      this.changeBorderOpacity(0.6, 0.3);
+    }
 
-    if (e.target === this && this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '0.6');
+    if (e.target === this.titleArea || e.target === this.detailsArea) {
+      e.stopPropagation();
 
-    if (e.target === this.titleArea && this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '0');
+      this.changeBorderOpacity(1, 0);
+    }
   }
 
   handleMouseLeave(e: MouseEvent) {
-    if (e.target === this && !this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '0');
+    if (e.target === this) {
+      this._mouseOver = false;
+      this.changeBorderOpacity(1, 0);
+    }
 
-    if (e.target === this && this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '1');
-
-    if (e.target === this.titleArea && this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '0.6');
-    if (e.target === this.titleArea && !this.selected)
-      this.style.setProperty('--uui-card-before-opacity', '0.3');
+    if (e.target === this.titleArea || e.target === this.detailsArea) {
+      e.stopPropagation();
+      this.changeBorderOpacity(0.6, 0.3);
+    }
   }
 
   //* Templates to specific card types
@@ -312,9 +365,12 @@ export class UUICardElement extends LitElement {
       <slot name="avatar"></slot>
       <div
         id="title-area"
-        @click=${this.handleClick}
+        tabindex="0"
+        @click=${this._handleTitleClick}
         @mouseenter=${this.handleMouseEneter}
         @mouseleave=${this.handleMouseLeave}
+        @keydown=${this.handleTitleKeydown}
+        @focus=${() => this.changeBorderOpacity(1, 0)}
       >
         <slot name="icon"></slot>
         <span> ${this.title} </span>
@@ -327,7 +383,15 @@ export class UUICardElement extends LitElement {
   //* types: image, file
   get mediaTemplate() {
     return html`<slot name="asset"></slot>
-      <div id="details" @click=${this.handleClick}>
+      <div
+        id="details"
+        tabindex="0"
+        @click=${this._handleTitleClick}
+        @mouseenter=${this.handleMouseEneter}
+        @mouseleave=${this.handleMouseLeave}
+        @keydown=${this.handleTitleKeydown}
+        @focus=${() => this.changeBorderOpacity(1, 0)}
+      >
         <uui-icon
           id="info-icon"
           name="info"
