@@ -9,12 +9,11 @@ import { UUICardEvent } from './UUICardEvents';
  *  @description - Card to display your media or conmtent nodes
  */
 
-//TODO dont show hover border when hovering on the clickable link part
-
 const allCardTypesSelector = `${CardTypeNames.map(
   cardType => `[type="${cardType}"]`
 ).join(',')}`;
 
+//TODO error indication
 export class UUICardElement extends LitElement {
   static styles = [
     css`
@@ -34,6 +33,12 @@ export class UUICardElement extends LitElement {
 
       :host(:focus) {
         outline-color: #6ab4f0;
+      }
+
+      :host([error]) {
+        border: 2px solid var(--uui-look-danger-border, #d42054);
+        box-shadow: 0 0 4px 0 var(--uui-look-danger-border, #d42054),
+          inset 0 0 2px 0 var(--uui-look-danger-border, #d42054);
       }
 
       :host:before {
@@ -68,13 +73,6 @@ export class UUICardElement extends LitElement {
           inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
         opacity: var(--uui-card-before-opacity);
       }
-
-      /* :host([selected]:hover)::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
-        opacity: var(--uui-card-before-opacity);
-      } */
 
       :host([type='node']),
       :host([type='user']) {
@@ -239,6 +237,9 @@ export class UUICardElement extends LitElement {
     this.addEventListener('focus', () => {
       this.changeBorderOpacity(0.6, 0.3);
     });
+    this.addEventListener('blur', () => {
+      this.changeBorderOpacity(1, 0);
+    });
   }
 
   @query('slot[name="asset"]')
@@ -286,6 +287,9 @@ export class UUICardElement extends LitElement {
 
   @property()
   title = '';
+
+  @property({ type: Boolean, reflect: true })
+  error = false;
 
   @property({ reflect: true })
   type: CardType = null;
@@ -370,7 +374,10 @@ export class UUICardElement extends LitElement {
         @mouseenter=${this.handleMouseEneter}
         @mouseleave=${this.handleMouseLeave}
         @keydown=${this.handleTitleKeydown}
-        @focus=${() => this.changeBorderOpacity(1, 0)}
+        @focus=${(e: Event) => {
+          e.stopPropagation();
+          this.changeBorderOpacity(1, 0);
+        }}
       >
         <slot name="icon"></slot>
         <span> ${this.title} </span>
@@ -390,7 +397,10 @@ export class UUICardElement extends LitElement {
         @mouseenter=${this.handleMouseEneter}
         @mouseleave=${this.handleMouseLeave}
         @keydown=${this.handleTitleKeydown}
-        @focus=${() => this.changeBorderOpacity(1, 0)}
+        @focus=${(e: Event) => {
+          e.stopPropagation();
+          this.changeBorderOpacity(1, 0);
+        }}
       >
         <uui-icon
           id="info-icon"

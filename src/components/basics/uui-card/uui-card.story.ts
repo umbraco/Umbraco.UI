@@ -93,3 +93,12 @@ export const Picture = () =>
       /></uui-card>
     </div>
   `;
+
+export const Error = () =>
+  html`
+    <div style="width: 50vw">
+      <uui-card selectable title="Doggo 1" type="image" error
+        ><img slot="asset" src="https://placedog.net/1447/?random"
+      /></uui-card>
+    </div>
+  `;
