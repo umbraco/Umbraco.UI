@@ -59,7 +59,8 @@
   },
   "prettier": {
     "singleQuote": true,
-    "arrowParens": "avoid"
+    "arrowParens": "avoid",
+    "jsxBracketSameLine": true
   },
   "husky": {
     "hooks": {
