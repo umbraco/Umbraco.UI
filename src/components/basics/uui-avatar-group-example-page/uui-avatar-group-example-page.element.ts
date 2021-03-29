@@ -6,7 +6,7 @@ import { LitElement, html, internalProperty } from 'lit-element';
 
 export class UUIAvatarGroupExamplePageElement extends LitElement {
   @internalProperty()
-  private limit = 3;
+  private limit = 0;
 
   @internalProperty()
   private avatars = [
@@ -18,9 +18,6 @@ export class UUIAvatarGroupExamplePageElement extends LitElement {
     },
     {
       name: 'Mikhael Khshayarsha',
-    },
-    {
-      name: 'John Domino',
     },
   ];
 
@@ -46,13 +43,14 @@ export class UUIAvatarGroupExamplePageElement extends LitElement {
 
   render() {
     return html`
-      <uui-avatar-group .limit="${this.limit}">
+      <uui-avatar-group .limit="${this.limit}" size="l" look="primary">
         ${this.avatars.map(
-          avatar => html` <uui-avatar .text="${avatar.name}"> </uui-avatar> `
+          avatar => html`
+            <uui-avatar .text="${avatar.name}" size="l" look="primary">
+            </uui-avatar>
+          `
         )}
       </uui-avatar-group>
-      <br />
-      <br />
       <div>Limit: ${this.limit}</div>
       <div>Avatars in total: ${this.totalAvatars}</div>
       <button type="button" @click="${this.addAvatar}">Add avatar</button>

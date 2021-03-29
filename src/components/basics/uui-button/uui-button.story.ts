@@ -1,7 +1,6 @@
 import { html } from 'lit-html';
 import '.';
 import '../uui-icon/index';
-import '../uui-badge/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
@@ -36,11 +35,6 @@ export const WithIcon = () => html`
     Button waiting for something
   </uui-button>
 `;
-
-export const WithBadge = () => html` <uui-button look="primary">
-  Button label
-  <uui-badge>!</uui-badge>
-</uui-button>`;
 
 function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);

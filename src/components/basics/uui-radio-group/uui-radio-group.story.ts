@@ -8,18 +8,15 @@ export default {
 
 export const Overview = () =>
   html`
-    MAKE SURE THERE CAN ALWAYS BE ONLY ONE SELECTED ELEMENT
-    <button>xxx</button>
     <uui-radio-group name="Test">
       <uui-radio value="Value 1" disabled>Option 1</uui-radio>
       <uui-radio value="Value 2" label="Option 2"></uui-radio>
       <uui-radio value="Value 3">Option 3</uui-radio>
       <uui-radio value="Value 4" disabled>Option 4</uui-radio>
-      <uui-radio value="Value 5" checked>Option 5</uui-radio>
+      <uui-radio value="Value 5">Option 5</uui-radio>
       <uui-radio value="Value 6">Option 6</uui-radio>
       <uui-radio value="Value 7" disabled>Option 7</uui-radio>
     </uui-radio-group>
-    <button>xxx</button>
   `;
 
 export const doubleSelect = () =>

@@ -13,16 +13,16 @@ import { UUIConfirmDialogEvent } from './UUIConfirmDialogEvent';
  *  @description - Confirm-dialog
  */
 export class UUIConfirmDialogElement extends LitElement {
-  @property({ type: String })
+  @property({ type: String, attribute: false })
   title!: string;
 
-  @property({ type: String })
+  @property({ type: String, attribute: false })
   submitLabel = 'Confirm';
 
-  @property({ type: String })
+  @property({ type: String, attribute: false })
   cancelLabel = 'Cancel';
 
-  @property({ reflect: true })
+  @property({ attribute: false })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
   render() {
