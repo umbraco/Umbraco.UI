@@ -1,10 +1,6 @@
 import { html } from 'lit-html';
 import './index';
 import { AvatarSizeNames, AvatarSizeType } from './uui-avatar.element';
-import {
-  InterfaceLookNames,
-  InterfaceLookType,
-} from '../../../type/InterfaceLook';
 
 export default {
   title: 'Basics/Avatar',
@@ -21,16 +17,37 @@ const avatarSrcSet = [
 ];
 
 export const Basic = () => html`
-  <uui-avatar
-    size="m"
-    img-src="${avatarSrcSet[0]}"
-    img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-  >
-  </uui-avatar>
+  <div style="display: flex; align-items: center;">
+    <uui-avatar .text="${'First Last'}"></uui-avatar>
+    <uui-avatar
+      img-src="${avatarSrcSet[0]}"
+      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+    >
+    </uui-avatar>
+  </div>
 `;
 
 export const Sizes = () => html`
   <div style="display: flex; align-items: center;">
+    <uui-avatar
+      img-src="${avatarSrcSet[0]}"
+      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+    >
+    </uui-avatar>
+    ${AvatarSizeNames.map(
+      (avatarSize: AvatarSizeType) =>
+        html`
+          <uui-avatar size="${avatarSize}" text="${avatarSize}"> </uui-avatar>
+        `
+    )}
+  </div>
+
+  <div style="display: flex; align-items: center;">
+    <uui-avatar
+      img-src="${avatarSrcSet[0]}"
+      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+    >
+    </uui-avatar>
     ${AvatarSizeNames.map(
       (avatarSize: AvatarSizeType) =>
         html`
@@ -49,17 +66,16 @@ export const Text = () => html`
   <uui-avatar .text="${'First Last'}" size="m" look="primary"></uui-avatar>
 `;
 
-export const Looks = () => html`
+export const Colors = () => html`
   <div style="display: flex; align-items: center;">
     <uui-avatar size="m" .text="${'First Last'}"></uui-avatar>
-    ${InterfaceLookNames.map(
-      (symbolicColorName: InterfaceLookType) =>
-        html`<uui-avatar
-          look="${symbolicColorName}"
-          size="m"
-          .text="${'First Last'}"
-        ></uui-avatar>`
-    )}
+    <uui-avatar
+      size="m"
+      .text="${'First Last'}"
+      style="
+        background-color: var(--uui-color-space-cadet);
+        color: var(--uui-color-spanish-pink);"
+    ></uui-avatar>
   </div>
 `;
 

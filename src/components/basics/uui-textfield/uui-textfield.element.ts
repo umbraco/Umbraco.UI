@@ -1,5 +1,6 @@
 import { LitElement, html, css, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
+import 'https://cdn.skypack.dev/element-internals-polyfill';
 
 export type TextFieldType =
   | 'text'

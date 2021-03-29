@@ -17,6 +17,18 @@ export const Default = () => html` <div
   <uui-badge>!</uui-badge>
 </div>`;
 
+export const WithText = () => html` <div
+  style="position:relative; width:50px; height:10px;"
+>
+  <uui-badge>Published</uui-badge>
+</div>`;
+
+export const WithIcon = () => html` <div
+  style="position:relative; width:20px; height:10px;"
+>
+  <uui-badge look="secondary"><uui-icon name="info"></uui-icon></uui-badge>
+</div>`;
+
 export const OnButton = () => html` <uui-button look="outline">
   Button label
   <uui-badge>!</uui-badge>

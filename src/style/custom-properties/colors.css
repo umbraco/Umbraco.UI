@@ -50,7 +50,7 @@
   --uui-color-malibu: $malibu;
   --uui-color-malibu-light: color($malibu lightness(+ 8%));
   --uui-color-malibu-dark: color($malibu blackness(+ 8%));
-  --uui-color-malibu-dimmed: color($malibu saturation(- 30%) blackness(+ 22%));
+  --uui-color-malibu-dimmed: color($malibu saturation(- 60%) blackness(+ 26%));
 
   $maroon-flush: #D42054;
   --uui-color-maroon-flush: $maroon-flush;
