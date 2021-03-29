@@ -6,17 +6,20 @@
 - Avatar Group
 - Badge
 - Button
-- Caret Button?
 - Button Group
 - Base Card (We will be having generic and maybe more specific card types, so why not share the base, concepts: Node, Media, User, Member, DocumentType, CloudProject...)
 - Base Node Display (currently known as Node-Preview, will be used for creating specific types for Content, Media, DocumentType, User, Member, Form, etc.)
+- Caret
 - Checkbox
 - Color picker
 - Date & Time picker
 - Base Dropdown (Open towards, picked entry-display and unfold-display.)
 - Dropdown Select List (A dropdown with select component baked in)
+- Dropzone
+- FileInput
 - Icon
 - Loader
+- Media-file-input
 - Progress bar
 - Progress circle
 - Pagination
