@@ -10,7 +10,10 @@ export class UUIFilePreviewElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         position: relative;
       }
 

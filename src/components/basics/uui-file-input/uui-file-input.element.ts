@@ -1,16 +1,6 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  internalProperty,
-  query,
-  queryAll,
-} from 'lit-element';
-import { nothing } from 'lit-html';
+import { LitElement, html, css, property, query, queryAll } from 'lit-element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.element';
-import { UUIFileUploaderEvent } from '../uui-file-uploader/UUIFileUploaderEvents';
 
 /**
  *  @element uui-file-input
@@ -22,17 +12,11 @@ export class UUIFileInputElement extends LitElement {
     css`
       :host {
         display: flex;
+        flex-direction: column;
         align-items: stretch;
         justify-content: center;
-        border: 1px var(--uui-look-placeholder-border-style)
-          var(--uui-look-placeholder-border);
 
         min-width: 600px;
-        min-height: 300px;
-      }
-
-      img {
-        width: 50px;
       }
     `,
   ];
@@ -73,18 +57,17 @@ export class UUIFileInputElement extends LitElement {
   }
 
   render() {
-    return html`
+    return html`<div id="files"></div>
       ${this.files === null
         ? html`<uui-file-uploader
             id="uploader"
             @file-drop=${this.handleFiles}
           ></uui-file-uploader>`
-        : html` <button @click=${this.removeFile}>
+        : html` <uui-button @click=${
+            this.removeFile
+          }><uui-icon name="delete"></uui-buttonicon>
             Remove
             ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
-          </button>`}
-
-      <div id="files"></div>
-    `;
+          </uui-button>`} `;
   }
 }
