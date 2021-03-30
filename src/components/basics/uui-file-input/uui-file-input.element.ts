@@ -45,19 +45,13 @@ export class UUIFileInputElement extends LitElement {
   }
 
   private previewFile(file: File) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      const filePreviewElement = document.createElement('uui-file-preview', {
-        is: 'uui-file-preview',
-      }) as UUIFilePreviewElement;
-      filePreviewElement.source = reader.result as string;
-      filePreviewElement.name = file.name;
-      filePreviewElement.addEventListener('remove-file', (e: Event) =>
-        this.removeFile(e)
-      );
-      this.fileContainer.appendChild(filePreviewElement);
-    };
+    const filePreviewElement = document.createElement('uui-file-preview', {
+      is: 'uui-file-preview',
+    }) as UUIFilePreviewElement;
+    filePreviewElement.file = file;
+    filePreviewElement.name = file.name;
+
+    this.fileContainer.appendChild(filePreviewElement);
   }
 
   @internalProperty()
@@ -75,7 +69,7 @@ export class UUIFileInputElement extends LitElement {
   @queryAll('uui-file-preview')
   previews!: HTMLElement[];
 
-  private removeFile(e: Event) {
+  private removeFile() {
     this.files = null;
     while (this.fileContainer.firstChild) {
       this.fileContainer.removeChild(this.fileContainer.firstChild);

@@ -30,13 +30,29 @@ export class UUIFilePreviewElement extends LitElement {
   @property({ attribute: false })
   name = '';
 
+  private _file: File | null = null;
+  @property({ attribute: false })
+  get file() {
+    return this._file;
+  }
+
+  set file(newValue) {
+    const oldValue = this._file;
+    this._file = newValue;
+    if (newValue) this._readFile(newValue);
+    this.requestUpdate('file', oldValue);
+  }
+
+  private _readFile(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      if (reader.result) this.source = reader.result as string;
+    };
+  }
+
   render() {
     return html`<img id="image-prev" src=${this.source} />
       <span id="file-name">${this.name}</span> `;
   }
-  // onButtonClick(): void {
-  //   this.dispatchEvent(
-  //     new UUIFilePreviewEvent(UUIFilePreviewEvent.REMOVE_FILE)
-  //   );
-  // }
 }
