@@ -5,8 +5,11 @@ import {
   property,
   internalProperty,
   query,
+  queryAll,
 } from 'lit-element';
+import { nothing } from 'lit-html';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
+import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.element';
 import { UUIFileUploaderEvent } from '../uui-file-uploader/UUIFileUploaderEvents';
 
 /**
@@ -34,52 +37,74 @@ export class UUIFileInputElement extends LitElement {
     `,
   ];
 
-  private _handleDrop(e: DragEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-    const dt = e.dataTransfer;
-    const files = dt?.files;
-
-    // this.handleFiles(files);
-    if (files) {
-      this.previewFile(files[0]);
-
-      this.files = Array.from(files);
-      console.log(this.files);
-    }
+  private handleFiles() {
+    this.files = this.uploader.files;
+    console.log(this.files);
+    if (this.files)
+      Array.from(this.files).forEach(file => this.previewFile(file));
   }
-
-  //   private handleFiles(files: any) {
-  //     files = [...files];
-  //     files.forEach(this.previewFile);
-  //   }
 
   private previewFile(file: File) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-
     reader.onloadend = () => {
-      const img = document.createElement('uui-file-preview', {
+      const filePreviewElement = document.createElement('uui-file-preview', {
         is: 'uui-file-preview',
       }) as UUIFilePreviewElement;
-      img.source = reader.result as string;
-      img.name = file.name;
-      this.fileContainer.appendChild(img);
+      filePreviewElement.source = reader.result as string;
+      filePreviewElement.name = file.name;
+      filePreviewElement.addEventListener('remove-file', (e: Event) =>
+        this.removeFile(e)
+      );
+      this.fileContainer.appendChild(filePreviewElement);
     };
   }
 
   @internalProperty()
   source = '';
 
-  @property({ type: Array, attribute: false })
-  files: Array<File> = [];
+  @property({ attribute: false })
+  files: FileList | null = null;
 
   @query('#files')
   fileContainer!: HTMLElement;
 
+  @query('#uploader')
+  uploader!: UUIFileUploaderElement;
+
+  @queryAll('uui-file-preview')
+  previews!: HTMLElement[];
+
+  private removeFile(e: Event) {
+    this.files = null;
+    while (this.fileContainer.firstChild) {
+      this.fileContainer.removeChild(this.fileContainer.firstChild);
+    }
+    // const target = e.target as ChildNode;
+    // const element = e.target as UUIFilePreviewElement;
+    // const fileName = element.name;
+    // const files = this.files.filter(el => el.name !== fileName);
+    // this.files = files;
+    // if (target) {
+    //   target.removeEventListener('remove-file', (e: Event) =>
+    //     this.removeFile(e)
+    //   );
+    //   target.remove();
+    // }
+  }
+
   render() {
     return html`
-      <uui-file-uploader @drop=${this._handleDrop}></uui-file-uploader>
+      ${this.files === null
+        ? html`<uui-file-uploader
+            id="uploader"
+            @file-drop=${this.handleFiles}
+          ></uui-file-uploader>`
+        : html` <button @click=${this.removeFile}>
+            Remove
+            ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
+          </button>`}
+
       <div id="files"></div>
     `;
   }
