@@ -36,8 +36,7 @@ export class UUIFileUploaderElement extends LitElement {
     this.addEventListener('drop', this.onDrop, false);
   }
   onDrop(e: DragEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+    this.preventDefaults(e);
     const dt = e.dataTransfer;
 
     if (dt?.files) {
@@ -49,31 +48,17 @@ export class UUIFileUploaderElement extends LitElement {
     );
   }
   onDragOver(e: DragEvent) {
-    console.log('over');
     this.active = true;
     this.preventDefaults(e);
   }
   onDragEnter(e: DragEvent) {
-    console.log('enter');
     this.active = true;
     this.preventDefaults(e);
   }
   onDragLeave(e: DragEvent) {
-    console.log('leave');
     this.active = false;
     this.preventDefaults(e);
   }
-
-  // private _handleDrop(e: DragEvent) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   const dt = e.dataTransfer;
-
-  //   if (dt?.files) {
-  //     const files = Array.from(dt.files);
-  //     this.files = [...this.files, ...files];
-  //   }
-  // }
 
   private preventDefaults(e: DragEvent) {
     e.preventDefault();

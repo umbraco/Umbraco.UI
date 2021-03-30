@@ -39,7 +39,6 @@ export class UUIFileInputElement extends LitElement {
 
   private handleFiles() {
     this.files = this.uploader.files;
-    console.log(this.files);
     if (this.files)
       Array.from(this.files).forEach(file => this.previewFile(file));
   }
@@ -53,9 +52,6 @@ export class UUIFileInputElement extends LitElement {
 
     this.fileContainer.appendChild(filePreviewElement);
   }
-
-  @internalProperty()
-  source = '';
 
   @property({ attribute: false })
   files: FileList | null = null;
@@ -74,17 +70,6 @@ export class UUIFileInputElement extends LitElement {
     while (this.fileContainer.firstChild) {
       this.fileContainer.removeChild(this.fileContainer.firstChild);
     }
-    // const target = e.target as ChildNode;
-    // const element = e.target as UUIFilePreviewElement;
-    // const fileName = element.name;
-    // const files = this.files.filter(el => el.name !== fileName);
-    // this.files = files;
-    // if (target) {
-    //   target.removeEventListener('remove-file', (e: Event) =>
-    //     this.removeFile(e)
-    //   );
-    //   target.remove();
-    // }
   }
 
   render() {

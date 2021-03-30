@@ -30,6 +30,9 @@ export class UUIFilePreviewElement extends LitElement {
   @property({ attribute: false })
   name = '';
 
+  @property({ attribute: false })
+  type = '';
+
   private _file: File | null = null;
   @property({ attribute: false })
   get file() {
@@ -44,6 +47,7 @@ export class UUIFilePreviewElement extends LitElement {
   }
 
   private _readFile(file: File) {
+    this.type = file.type;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -51,8 +55,17 @@ export class UUIFilePreviewElement extends LitElement {
     };
   }
 
+  fileTypeTemplate(type: string) {
+    if (type.startsWith('image'))
+      return html`<img id="image-prev" src=${this.source} />`;
+    else
+      return html`<uui-file-icon
+        type=${this.name.split('.')[1]}
+      ></uui-file-icon>`;
+  }
+
   render() {
-    return html`<img id="image-prev" src=${this.source} />
+    return html`${this.fileTypeTemplate(this.type)}
       <span id="file-name">${this.name}</span> `;
   }
 }
