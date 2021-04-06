@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import '.';
 
 export default {
-  title: 'Basics/File Uplader',
+  title: 'Basics/File Uploader',
   component: 'uui-file-uploader',
 };
 

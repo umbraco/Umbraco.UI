@@ -48,11 +48,17 @@ export class UUIFileUploaderElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   active = false;
 
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
   @query('#input')
   input!: HTMLInputElement;
 
   @property({ attribute: false })
   files: FileList | null = null;
+
+  @property({ type: Boolean, reflect: true })
+  multiple = true;
 
   constructor() {
     super();
@@ -67,12 +73,17 @@ export class UUIFileUploaderElement extends LitElement {
     const dt = e.dataTransfer;
 
     if (dt?.files) {
-      this.files = dt.files;
-    }
+      if (!this.multiple && dt.files.length > 1) {
+        this.error = false;
+        return;
+      }
 
-    this.dispatchEvent(
-      new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
-    );
+      this.files = dt.files;
+
+      this.dispatchEvent(
+        new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
+      );
+    }
   }
   onDragOver(e: DragEvent) {
     this.active = true;
@@ -81,9 +92,16 @@ export class UUIFileUploaderElement extends LitElement {
   onDragEnter(e: DragEvent) {
     this.active = true;
     this.preventDefaults(e);
+
+    const dt = e.dataTransfer;
+
+    if (dt?.items) {
+      if (!this.multiple && dt.items.length > 1) this.error = true;
+    }
   }
   onDragLeave(e: DragEvent) {
     this.active = false;
+    this.error = false;
     this.preventDefaults(e);
   }
 
@@ -110,15 +128,21 @@ export class UUIFileUploaderElement extends LitElement {
         id="upload-icon"
       >
         <path
-          d="M206.491 364.184h99.013V223.676h92.922L255.997 51.111 113.575 223.676h92.916zM85.043 398.311h341.912v62.578H85.043z"
+          d=${!this.error
+            ? 'M206.491 364.184h99.013V223.676h92.922L255.997 51.111 113.575 223.676h92.916zM85.043 398.311h341.912v62.578H85.043z'
+            : 'M254.501 38.16c-120.308 0-217.838 97.53-217.838 217.838 0 120.31 97.53 217.838 217.838 217.838 120.31 0 217.838-97.528 217.838-217.838 0-120.308-97.528-217.838-217.838-217.838zm151.667 217.838c0 29.861-8.711 57.708-23.671 81.209L173.293 128.002c23.499-14.961 51.345-23.67 81.208-23.67 83.629.001 151.667 68.037 151.667 151.666zm-303.332 0c0-29.859 8.71-57.707 23.67-81.204l209.201 209.201c-23.498 14.96-51.346 23.671-81.206 23.671-83.632 0-151.665-68.04-151.665-151.668z'}
         />
       </svg>
-      <span>Click or drag and drop files here to upload them</span>
+      ${!this.error
+        ? html`<span
+            >Click or drag & drop ${this.multiple ? 'files' : 'file'} here</span
+          >`
+        : html`<span>Only single file is allowed</span>`}
 
       <input
         id="input"
         type="file"
-        multiple
+        ?multiple=${this.multiple}
         @change=${this._onFileInputChange}
       />`;
   }

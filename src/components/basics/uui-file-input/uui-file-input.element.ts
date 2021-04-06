@@ -1,4 +1,12 @@
-import { LitElement, html, css, property, query, queryAll } from 'lit-element';
+import {
+  LitElement,
+  html,
+  css,
+  property,
+  query,
+  queryAll,
+  internalProperty,
+} from 'lit-element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.element';
 
@@ -18,24 +26,30 @@ export class UUIFileInputElement extends LitElement {
 
         min-width: 600px;
       }
+
+      #button-icon {
+        margin: 0;
+        color: var(--uui-color-maroon-flush, #d42054);
+      }
+
+      #files {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+      }
     `,
   ];
 
   private handleFiles() {
     this.files = this.uploader.files;
-    if (this.files)
-      Array.from(this.files).forEach(file => this.previewFile(file));
+    if (this.files) {
+      this.filesArray = Array.from(this.files);
+    } else this.filesArray = [];
   }
 
-  private previewFile(file: File) {
-    const filePreviewElement = document.createElement('uui-file-preview', {
-      is: 'uui-file-preview',
-    }) as UUIFilePreviewElement;
-    filePreviewElement.file = file;
-    filePreviewElement.name = file.name;
-
-    this.fileContainer.appendChild(filePreviewElement);
-  }
+  @internalProperty()
+  filesArray: File[] = [];
 
   @property({ attribute: false })
   files: FileList | null = null;
@@ -49,25 +63,36 @@ export class UUIFileInputElement extends LitElement {
   @queryAll('uui-file-preview')
   previews!: HTMLElement[];
 
+  @property({ type: Boolean, reflect: true })
+  multiple = false;
+
   private removeFile() {
     this.files = null;
-    while (this.fileContainer.firstChild) {
-      this.fileContainer.removeChild(this.fileContainer.firstChild);
-    }
+    this.filesArray = [];
   }
 
   render() {
-    return html`<div id="files"></div>
+    return html`
       ${this.files === null
         ? html`<uui-file-uploader
             id="uploader"
             @file-drop=${this.handleFiles}
+            .multiple=${this.multiple}
           ></uui-file-uploader>`
-        : html` <uui-button @click=${
-            this.removeFile
-          }><uui-icon name="delete"></uui-buttonicon>
-            Remove
-            ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
-          </uui-button>`} `;
+        : html` <div id="files">
+              ${this.filesArray.map(
+                file =>
+                  html`<uui-file-preview
+                    .file=${file}
+                    .name=${file.name}
+                  ></uui-file-preview>`
+              )}
+            </div>
+            <uui-button @click=${this.removeFile} look="outline"
+              ><uui-icon id="button-icon" name="delete"></uui-icon>
+              Remove
+              ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
+            </uui-button>`}
+    `;
   }
 }
