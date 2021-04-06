@@ -7,7 +7,6 @@ import {
   queryAll,
   internalProperty,
 } from 'lit-element';
-import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.element';
 
 /**
@@ -66,6 +65,9 @@ export class UUIFileInputElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   multiple = false;
 
+  @property({})
+  label = '';
+
   private removeFile() {
     this.files = null;
     this.filesArray = [];
@@ -78,6 +80,7 @@ export class UUIFileInputElement extends LitElement {
             id="uploader"
             @file-drop=${this.handleFiles}
             .multiple=${this.multiple}
+            .label=${this.label}
           ></uui-file-uploader>`
         : html` <div id="files">
               ${this.filesArray.map(

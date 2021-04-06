@@ -40,11 +40,13 @@ export class UUIFileUploaderElement extends LitElement {
         fill: var(--uui-color-maroon-flush, #d42054);
       }
 
-      #input {
+      #input,
+      #label {
         position: absolute;
         width: 0px;
         height: 0px;
         opacity: 0;
+        display: none;
       }
     `,
   ];
@@ -64,6 +66,9 @@ export class UUIFileUploaderElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   multiple = true;
 
+  @property({})
+  label = '';
+
   constructor() {
     super();
     this.addEventListener('dragenter', this.onDragEnter, false);
@@ -72,6 +77,13 @@ export class UUIFileUploaderElement extends LitElement {
     this.addEventListener('drop', this.onDrop, false);
     this.addEventListener('click', this.handleClick);
   }
+
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   this.setAttribute('tabindex', '0');
+
+  // }
+
   onDrop(e: DragEvent) {
     this.preventDefaults(e);
     const dt = e.dataTransfer;
@@ -120,7 +132,8 @@ export class UUIFileUploaderElement extends LitElement {
     );
   }
 
-  private handleClick() {
+  private handleClick(e: Event) {
+    e.stopPropagation();
     this.input.click();
   }
 
@@ -137,16 +150,17 @@ export class UUIFileUploaderElement extends LitElement {
         />
       </svg>
       ${!this.error
-        ? html`<span
-            >Click or drag & drop ${this.multiple ? 'files' : 'file'} here</span
+        ? html`<uui-button @click=${this.handleClick} aria-controls="input"
+            >Click or drag & drop ${this.multiple ? 'files' : 'file'}
+            here</uui-button
           >`
-        : html`<span>Only single file is allowed</span>`}
+        : html`<span>Only one file is allowed</span>`}
 
       <input
         id="input"
         type="file"
         ?multiple=${this.multiple}
         @change=${this._onFileInputChange}
-      />`;
+      /><label id="label" for="input">${this.label}</label>`;
   }
 }

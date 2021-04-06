@@ -1,5 +1,4 @@
 import { LitElement, html, css, property, internalProperty } from 'lit-element';
-import { UUIFilePreviewEvent } from './UUIFilePreviewEvents';
 import { UUIFileSize } from './UUIFileSize';
 
 /**

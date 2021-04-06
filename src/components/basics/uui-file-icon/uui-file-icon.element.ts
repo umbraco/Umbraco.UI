@@ -1,16 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  internalProperty,
-  query,
-  queryAll,
-} from 'lit-element';
+import { LitElement, html, css, property } from 'lit-element';
 import { nothing } from 'lit-html';
-import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
-import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.element';
-import { UUIFileUploaderEvent } from '../uui-file-uploader/UUIFileUploaderEvents';
 
 /**
  *  @element uui-file-icon
