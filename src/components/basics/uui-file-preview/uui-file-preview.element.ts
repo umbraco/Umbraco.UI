@@ -1,5 +1,6 @@
 import { LitElement, html, css, property, internalProperty } from 'lit-element';
 import { UUIFilePreviewEvent } from './UUIFilePreviewEvents';
+import { UUIFileSize } from './UUIFileSize';
 
 /**
  *  @element uui-file-preview
@@ -36,6 +37,9 @@ export class UUIFilePreviewElement extends LitElement {
   @property({ attribute: false })
   type = '';
 
+  @internalProperty({})
+  isDirectory = false;
+
   private _file: File | null = null;
   @property({ attribute: false })
   get file() {
@@ -55,6 +59,8 @@ export class UUIFilePreviewElement extends LitElement {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       if (reader.result) this.source = reader.result as string;
+      if (reader.error && reader.error.name === 'NotFoundError')
+        this.isDirectory = true;
     };
   }
 
@@ -63,12 +69,17 @@ export class UUIFilePreviewElement extends LitElement {
       return html`<img id="image-prev" src=${this.source} />`;
     else
       return html`<uui-file-icon
-        type=${this.name.split('.')[1]}
+        type=${this.isDirectory ? 'directory' : this.name.split('.')[1]}
+        .isDirectory=${this.isDirectory}
       ></uui-file-icon>`;
   }
 
   render() {
     return html`${this.fileTypeTemplate(this.type)}
-      <span id="file-name">${this.name}</span> `;
+      <span id="file-name"
+        >${this.name}${this.file?.size && !this.isDirectory
+          ? `/ ${UUIFileSize.humanFileSize(this.file?.size)}`
+          : ''}</span
+      > `;
   }
 }

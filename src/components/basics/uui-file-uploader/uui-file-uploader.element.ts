@@ -36,6 +36,10 @@ export class UUIFileUploaderElement extends LitElement {
         opacity: 1;
       }
 
+      :host([error]) #upload-icon {
+        fill: var(--uui-color-maroon-flush, #d42054);
+      }
+
       #input {
         position: absolute;
         width: 0px;
@@ -73,13 +77,14 @@ export class UUIFileUploaderElement extends LitElement {
     const dt = e.dataTransfer;
 
     if (dt?.files) {
+      console.log(dt.items[0].webkitGetAsEntry().isDirectory);
       if (!this.multiple && dt.files.length > 1) {
         this.error = false;
         return;
       }
 
       this.files = dt.files;
-
+      console.log(dt.files);
       this.dispatchEvent(
         new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
       );
