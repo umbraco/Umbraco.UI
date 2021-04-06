@@ -77,14 +77,12 @@ export class UUIFileUploaderElement extends LitElement {
     const dt = e.dataTransfer;
 
     if (dt?.files) {
-      console.log(dt.items[0].webkitGetAsEntry().isDirectory);
       if (!this.multiple && dt.files.length > 1) {
         this.error = false;
         return;
       }
 
       this.files = dt.files;
-      console.log(dt.files);
       this.dispatchEvent(
         new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
       );
