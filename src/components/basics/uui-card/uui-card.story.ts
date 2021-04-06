@@ -72,9 +72,9 @@ export const User = () =>
 
 export const File = () =>
   html`
-    <div style="width: 130px">
+    <div style="width: 200px">
       <uui-card selectable title="Card 1" type="file"
-        ><uui-icon name="bug" slot="asset"></uui-icon
+        ><uui-file-icon type="txt" slot="asset"></uui-file-icon
       ></uui-card>
     </div>
   `;

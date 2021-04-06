@@ -21,7 +21,7 @@ export const Media = () =>
           /></uui-card>`;
         else
           return html`<uui-card selectable title="File ${el}" type="file"
-            ><uui-icon slot="asset" name="bug"></uui-icon
+            ><uui-file-icon type="txt" slot="asset"></uui-file-icon
           ></uui-card>`;
       })}
     </uui-card-grid>
@@ -60,7 +60,7 @@ export const Files = () =>
     <uui-card-grid>
       ${randomArray(40, 100, 800).map(
         el => html`<uui-card selectable title="File ${el}" type="file"
-          ><uui-icon slot="asset" name="bug"></uui-icon
+          ><uui-file-icon type="txt" slot="asset"></uui-file-icon
         ></uui-card>`
       )}
     </uui-card-grid>

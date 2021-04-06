@@ -10,8 +10,10 @@ export class UUIFileIconElement extends LitElement {
     css`
       :host {
         display: block;
+        box-sizing: border-box;
         position: relative;
         max-width: 100px;
+        font-size: 12px;
       }
 
       #file-type {
@@ -19,7 +21,7 @@ export class UUIFileIconElement extends LitElement {
         position: absolute;
         top: 50%;
         left: 10%;
-        font-size: 12px;
+
         padding: 0 1em;
         font-weight: 800;
         background-color: pink;

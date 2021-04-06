@@ -115,6 +115,19 @@ export class UUICardElement extends LitElement {
         );
       }
 
+      slot[name='asset']::slotted(uui-file-icon) {
+        align-self: center;
+        margin: var(--uui-size-xlarge);
+        width: 80%;
+
+        transform: translateY(
+          calc(
+            -1 * var(--uui-size-medium, 24px) + var(--uui-size-base-unit, 6px) *
+              2
+          )
+        );
+      }
+
       slot[name='tag']::slotted(uui-tag) {
         position: absolute;
         top: 6px;
