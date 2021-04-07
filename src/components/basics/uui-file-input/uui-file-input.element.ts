@@ -14,6 +14,8 @@ import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.e
  */
 
 //todo auto upload
+//todo prevent folder
+//todo in a form
 export class UUIFileInputElement extends LitElement {
   static styles = [
     css`
@@ -51,7 +53,7 @@ export class UUIFileInputElement extends LitElement {
   filesArray: File[] = [];
 
   @property({ attribute: false })
-  files: FileList | null = null;
+  files: File[] = [];
 
   @query('#files')
   fileContainer!: HTMLElement;
@@ -68,14 +70,14 @@ export class UUIFileInputElement extends LitElement {
   @property({})
   label = '';
 
-  private removeFile() {
-    this.files = null;
+  private removeFiles() {
+    this.files = [];
     this.filesArray = [];
   }
 
   render() {
     return html`
-      ${this.files === null
+      ${this.files.length === 0
         ? html`<uui-file-uploader
             id="uploader"
             @file-drop=${this.handleFiles}
@@ -91,7 +93,7 @@ export class UUIFileInputElement extends LitElement {
                   ></uui-file-preview>`
               )}
             </div>
-            <uui-button @click=${this.removeFile} look="outline"
+            <uui-button @click=${this.removeFiles} look="outline"
               ><uui-icon id="button-icon" name="delete"></uui-icon>
               Remove
               ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}

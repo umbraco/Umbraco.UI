@@ -20,6 +20,12 @@ export class UUIFileUploaderElement extends LitElement {
           var(--uui-interface-border);
       }
 
+      :host(:focus-within) {
+        outline: 1px solid #6ab4f0;
+
+        box-shadow: inset 0px 0px 2px 0px #6ab4f0;
+      }
+
       :host([active]) {
         border: 1px var(--uui-look-placeholder-border-style)
           var(--uui-interface-border-hover);
@@ -48,6 +54,10 @@ export class UUIFileUploaderElement extends LitElement {
         opacity: 0;
         display: none;
       }
+
+      #input-button:focus {
+        outline: none;
+      }
     `,
   ];
 
@@ -61,7 +71,7 @@ export class UUIFileUploaderElement extends LitElement {
   input!: HTMLInputElement;
 
   @property({ attribute: false })
-  files: FileList | null = null;
+  files: File[] = [];
 
   @property({ type: Boolean, reflect: true })
   multiple = true;
@@ -78,11 +88,9 @@ export class UUIFileUploaderElement extends LitElement {
     this.addEventListener('click', this.handleClick);
   }
 
-  // connectedCallback() {
-  //   super.connectedCallback();
-  //   this.setAttribute('tabindex', '0');
-
-  // }
+  protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
+    return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
+  }
 
   onDrop(e: DragEvent) {
     this.preventDefaults(e);
@@ -93,8 +101,17 @@ export class UUIFileUploaderElement extends LitElement {
         this.error = false;
         return;
       }
+      const files: File[] = [];
 
-      this.files = dt.files;
+      for (let i = 0; i < dt.items.length; i++) {
+        console.log(this.checkIsItDirectory(dt.items[i]));
+        if (this.checkIsItDirectory(dt.items[i])) continue;
+        if (dt.items[i].getAsFile()) {
+          files.push(dt.items[i].getAsFile() as File);
+        }
+      }
+
+      this.files = files;
       this.dispatchEvent(
         new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
       );
@@ -126,7 +143,7 @@ export class UUIFileUploaderElement extends LitElement {
   }
 
   private _onFileInputChange() {
-    this.files = this.input.files;
+    this.files = this.input.files ? Array.from(this.input.files) : [];
     this.dispatchEvent(
       new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
     );
@@ -150,7 +167,10 @@ export class UUIFileUploaderElement extends LitElement {
         />
       </svg>
       ${!this.error
-        ? html`<uui-button @click=${this.handleClick} aria-controls="input"
+        ? html`<uui-button
+            @click=${this.handleClick}
+            aria-controls="input"
+            id="input-button"
             >Click or drag & drop ${this.multiple ? 'files' : 'file'}
             here</uui-button
           >`
