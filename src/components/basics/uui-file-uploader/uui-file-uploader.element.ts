@@ -1,3 +1,4 @@
+import { timeStamp } from 'console';
 import { LitElement, html, css, property, query } from 'lit-element';
 import { UUIFileUploaderEvent } from './UUIFileUploaderEvents';
 
@@ -67,6 +68,9 @@ export class UUIFileUploaderElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   error = false;
 
+  @property({ type: Boolean })
+  directory = false;
+
   @query('#input')
   input!: HTMLInputElement;
 
@@ -74,7 +78,7 @@ export class UUIFileUploaderElement extends LitElement {
   files: File[] = [];
 
   @property({ type: Boolean, reflect: true })
-  multiple = true;
+  multiple = false;
 
   @property({})
   label = '';
@@ -101,13 +105,18 @@ export class UUIFileUploaderElement extends LitElement {
         this.error = false;
         return;
       }
-      const files: File[] = [];
 
-      for (let i = 0; i < dt.items.length; i++) {
-        console.log(this.checkIsItDirectory(dt.items[i]));
-        if (this.checkIsItDirectory(dt.items[i])) continue;
-        if (dt.items[i].getAsFile()) {
-          files.push(dt.items[i].getAsFile() as File);
+      let files: File[] = [];
+
+      if (this.directory) {
+        files = Array.from(dt.files);
+        console.log('directory upload is not yet implemented');
+      } else {
+        for (let i = 0; i < dt.items.length; i++) {
+          if (this.checkIsItDirectory(dt.items[i])) continue;
+          if (dt.items[i].getAsFile()) {
+            files.push(dt.items[i].getAsFile() as File);
+          }
         }
       }
 

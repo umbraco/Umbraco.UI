@@ -12,13 +12,12 @@ export class UUIFilePreviewElement extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         position: relative;
         font-size: 0.8rem;
         margin: 16px;
         max-width: 200px;
-        height: 100%;
       }
 
       #image-prev {

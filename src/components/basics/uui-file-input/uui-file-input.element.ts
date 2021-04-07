@@ -34,10 +34,11 @@ export class UUIFileInputElement extends LitElement {
       }
 
       #files {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        justify-items: center;
+        grid-gap: 16px;
+        align-items: end;
       }
     `,
   ];
