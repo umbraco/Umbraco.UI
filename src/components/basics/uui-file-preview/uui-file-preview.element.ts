@@ -47,7 +47,11 @@ export class UUIFilePreviewElement extends LitElement {
   set file(newValue) {
     const oldValue = this._file;
     this._file = newValue;
-    if (newValue) this._readFile(newValue);
+    if (newValue) {
+      this._readFile(newValue);
+      this.name = newValue.name;
+    }
+
     this.requestUpdate('file', oldValue);
   }
 
@@ -76,7 +80,7 @@ export class UUIFilePreviewElement extends LitElement {
     return html`${this.fileTypeTemplate(this.type)}
       <span id="file-name"
         >${this.name}${this.file?.size && !this.isDirectory
-          ? `/ ${UUIFileSize.humanFileSize(this.file?.size)}`
+          ? `/ ${UUIFileSize.humanFileSize(this.file?.size, true)}`
           : ''}</span
       > `;
   }

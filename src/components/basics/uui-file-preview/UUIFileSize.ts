@@ -10,7 +10,7 @@
  */
 
 export class UUIFileSize {
-  static humanFileSize(bytes: number, si = false, dp = 1) {
+  static humanFileSize(bytes: number, si = false, decimalPlaces = 1) {
     const thresh = si ? 1000 : 1024;
 
     if (Math.abs(bytes) < thresh) {
@@ -21,7 +21,7 @@ export class UUIFileSize {
       ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
       : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
     let u = -1;
-    const r = 10 ** dp;
+    const r = 10 ** decimalPlaces;
 
     do {
       bytes /= thresh;
@@ -31,6 +31,6 @@ export class UUIFileSize {
       u < units.length - 1
     );
 
-    return bytes.toFixed(dp) + ' ' + units[u];
+    return bytes.toFixed(decimalPlaces) + ' ' + units[u];
   }
 }
