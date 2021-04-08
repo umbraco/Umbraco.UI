@@ -36,6 +36,8 @@
 - Select List
 - Select List Item
 
+- Inline create button (Vertical, Horizontal. the one from BL and MediaPicker v3)
+
 ### Fragments
 
 - Confirm Dialog
