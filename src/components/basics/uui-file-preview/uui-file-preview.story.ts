@@ -12,7 +12,6 @@ let imgFile: File;
     .then(response => response.blob())
     .then(blob => {
       imgFile = new File([blob], 'myFile', { type: 'image/jpeg' });
-      console.log(imgFile);
     }))();
 
 export const Default = () => html` <uui-file-preview></uui-file-preview> `;

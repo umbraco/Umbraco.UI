@@ -68,12 +68,16 @@ export class UUIFilePreviewElement extends LitElement {
 
   fileTypeTemplate(type: string) {
     if (type.startsWith('image'))
-      return html`<img id="image-prev" src=${this.source} />`;
-    else
-      return html`<uui-file-icon
-        type=${this.isDirectory ? 'directory' : this.name.split('.')[1]}
-        .isDirectory=${this.isDirectory}
-      ></uui-file-icon>`;
+      return html`<uui-image-symbol
+        id="image-prev"
+        .source=${this.source}
+      ></uui-image-symbol>`;
+
+    if (this.isDirectory) return html`<uui-folder-symbol></uui-folder-symbol>`;
+
+    return html`<uui-file-symbol
+      type=${this.name.split('.')[1]}
+    ></uui-file-symbol>`;
   }
 
   render() {

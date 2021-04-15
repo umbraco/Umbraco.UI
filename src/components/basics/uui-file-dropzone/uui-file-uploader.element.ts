@@ -7,7 +7,7 @@ import { UUIFileUploaderEvent } from './UUIFileUploaderEvents';
  */
 
 //todo auto upload
-export class UUIFileUploaderElement extends LitElement {
+export class UUIFileDropzoneElement extends LitElement {
   static styles = [
     css`
       :host {

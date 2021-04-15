@@ -7,7 +7,7 @@ import {
   queryAll,
   internalProperty,
 } from 'lit-element';
-import { UUIFileUploaderElement } from '../uui-file-uploader/uui-file-uploader.element';
+import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-uploader.element';
 
 /**
  *  @element uui-file-input
@@ -24,7 +24,7 @@ export class UUIFileInputElement extends LitElement {
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
-
+        min-height: 240px;
         min-width: 600px;
       }
 
@@ -60,7 +60,7 @@ export class UUIFileInputElement extends LitElement {
   fileContainer!: HTMLElement;
 
   @query('#uploader')
-  uploader!: UUIFileUploaderElement;
+  uploader!: UUIFileDropzoneElement;
 
   @queryAll('uui-file-preview')
   previews!: HTMLElement[];
@@ -79,12 +79,12 @@ export class UUIFileInputElement extends LitElement {
   render() {
     return html`
       ${this.files.length === 0
-        ? html`<uui-file-uploader
+        ? html`<uui-file-dropzone
             id="uploader"
             @file-drop=${this.handleFiles}
             .multiple=${this.multiple}
             .label=${this.label}
-          ></uui-file-uploader>`
+          ></uui-file-dropzone>`
         : html` <div id="files">
               ${this.filesArray.map(
                 file =>
