@@ -23,7 +23,8 @@ export class UUIFileSymbolElement extends LitElement {
 
         padding: 0 1em;
         font-weight: 800;
-        background-color: pink;
+        color: var(--uui-color-gunmetal, #162335);
+        background-color: var(--uui-color-spanish-pink, #f5c1bc);
       }
 
       #icon {
