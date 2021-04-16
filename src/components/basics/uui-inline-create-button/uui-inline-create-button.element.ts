@@ -18,6 +18,11 @@ export class UUIInlineCreateButtonElement extends LitElement {
         display: inline-block;
         width: 100%;
         position: relative;
+        opacity: 0;
+      }
+
+      :host(:hover) {
+        opacity: 1;
       }
 
       :host([vertical]) {
@@ -51,7 +56,7 @@ export class UUIInlineCreateButtonElement extends LitElement {
       :host([vertical]) #button-wrapper {
         height: 100%;
         width: auto;
-        margin-left: -9px;
+        margin-left: -12px;
         padding-left: 6px;
         margin-right: -6px;
       }
