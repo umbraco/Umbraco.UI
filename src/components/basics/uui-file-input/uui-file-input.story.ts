@@ -7,13 +7,13 @@ export default {
 };
 
 export const Default = () => html`
-  <div style="width: 800px;">
+  <div style="width: 60vw;">
     <uui-file-input label="Upload some files"></uui-file-input>
   </div>
 `;
 
 export const Multiple = () => html`
-  <div style="width: 800px;">
+  <div style="width: 60vw;">
     <uui-file-input multiple label="Upload some files"></uui-file-input>
   </div>
 `;

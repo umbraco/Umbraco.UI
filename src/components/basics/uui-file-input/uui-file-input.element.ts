@@ -24,8 +24,8 @@ export class UUIFileInputElement extends LitElement {
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
-        min-height: 240px;
-        min-width: 600px;
+        /* min-height: 240px;
+        min-width: 600px; */
       }
 
       #button-icon {
@@ -34,8 +34,9 @@ export class UUIFileInputElement extends LitElement {
       }
 
       #files {
+        width: 100%;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         place-items: stretch;
         grid-gap: 16px;
       }
