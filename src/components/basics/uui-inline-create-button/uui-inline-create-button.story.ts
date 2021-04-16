@@ -12,5 +12,9 @@ export default {
 };
 
 export const Default = () => html`
-  <uui-inline-create-button></uui-inline-create-button>
+  <div style="width: 50vw">
+    <uui-inline-create-button
+      @click=${(e: Event) => console.log(e)}
+    ></uui-inline-create-button>
+  </div>
 `;
