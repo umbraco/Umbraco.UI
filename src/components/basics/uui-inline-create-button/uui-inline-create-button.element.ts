@@ -20,9 +20,13 @@ export class UUIInlineCreateButtonElement extends LitElement {
         position: relative;
       }
 
+      :host([vertical]) {
+        height: 100%;
+      }
+
       #button-wrapper {
         position: absolute;
-        width: 100%;
+
         z-index: 1;
 
         outline: 0;
@@ -44,6 +48,14 @@ export class UUIInlineCreateButtonElement extends LitElement {
         -moz-appearance: none;
       }
 
+      :host([vertical]) #button-wrapper {
+        height: 100%;
+        width: auto;
+        margin-left: -9px;
+        padding-left: 6px;
+        margin-right: -6px;
+      }
+
       #button-wrapper:before {
         content: '';
         position: absolute;
@@ -58,6 +70,18 @@ export class UUIInlineCreateButtonElement extends LitElement {
         pointer-events: none;
         -webkit-animation: ${UUIBlinkAnimationValue};
         animation: ${UUIBlinkAnimationValue};
+      }
+
+      :host([vertical]) #button-wrapper:before {
+        height: 100%;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          rgba(33, 82, 163, 0) 0%,
+          rgba(33, 82, 163, 1) 30%,
+          rgba(33, 82, 163, 1) 70%,
+          rgba(33, 82, 163, 0) 100%
+        );
       }
 
       #plus {
@@ -82,7 +106,11 @@ export class UUIInlineCreateButtonElement extends LitElement {
         transition: all 0.1s ease-in;
       }
 
-      #button-wrapper:focus > #plus {
+      :host([vertical]) #plus {
+        left: 12px;
+      }
+
+      #button-wrapper:focus #plus {
         border: 2px solid #6ab4f0;
       }
 
@@ -101,7 +129,14 @@ export class UUIInlineCreateButtonElement extends LitElement {
   @internalProperty()
   position = 0;
 
+  @property({ type: Boolean, reflect: true })
+  vertical = false;
+
   private _onMouseMove(e: MouseEvent) {
+    if (this.vertical) {
+      this.position = e.offsetY;
+      return;
+    }
     this.position = e.offsetX;
   }
 
@@ -122,7 +157,9 @@ export class UUIInlineCreateButtonElement extends LitElement {
         <div
           id="plus"
           style=${styleMap({
-            transform: `translateX(${this.position}px)`,
+            transform: `translate${this.vertical ? 'Y' : 'X'}(${
+              this.position
+            }px)`,
           })}
         >
           <svg
