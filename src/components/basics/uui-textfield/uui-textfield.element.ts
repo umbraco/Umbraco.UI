@@ -1,4 +1,4 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, internalProperty } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import { UUITextFieldEvent } from './UUITextFieldEvent';
 
@@ -106,6 +106,7 @@ export class UUITextFieldElement extends LitElement {
     }
   }
 
+  @internalProperty()
   private _value: FormDataEntryValue = '';
 
   @property()
@@ -128,9 +129,19 @@ export class UUITextFieldElement extends LitElement {
   @property({ type: Boolean })
   private valid = true;
 
-  private onUpdate(e: Event) {
+  private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
-    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.CHANGE));
+    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.INPUT));
+  }
+
+  private onChange(e: Event) {
+    console.log(e);
+    // TODO - implement
+  }
+
+  private onKeyup(e: Event) {
+    console.log(e);
+    // TODO - implement
   }
 
   render() {
@@ -142,8 +153,9 @@ export class UUITextFieldElement extends LitElement {
         aria-label=${this.label}
         ?disabled=${this.disabled}
         class=${classMap({ invalid: !this.valid })}
-        @change=${(e: Event) => this.onUpdate(e)}
-        @keyup=${(e: Event) => this.onUpdate(e)}
+        @input=${(e: Event) => this.onInput(e)}
+        @change=${(e: Event) => this.onChange(e)}
+        @keyup=${(e: Event) => this.onKeyup(e)}
       />
     `;
   }
