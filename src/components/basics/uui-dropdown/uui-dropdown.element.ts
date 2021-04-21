@@ -19,7 +19,6 @@ export class UUIDropdownElement extends LitElement {
         display: inline-block;
         vertical-align: middle;
         box-sizing: border-box;
-        --uui-button-group-border-radius: var(--uui-size-border-radius);
       }
 
       #data-container {
@@ -44,12 +43,13 @@ export class UUIDropdownElement extends LitElement {
         transform-origin: center left;
       }
 
-      ::slotted(*) {
-        border-radius: var(--uui-size-border-radius);
-      }
-
       slot[name='toggle']::slotted(uui-button) {
-        --uui-button-border-radius: var(--uui-button-group-border-radius);
+        --uui-button-border-radius: var(
+          --uui-dropdown-toggle-slot-button-border-radius
+        );
+        --uui-button-merge-border-left: var(
+          --uui-dropdown-toggle-slot-button-merge-border-left
+        );
       }
 
       @media (prefers-color-scheme: dark) {
@@ -68,11 +68,11 @@ export class UUIDropdownElement extends LitElement {
   @property({ type: Boolean })
   auto = false;
 
-  @property({ type: Boolean, attribute: 'same-widht' })
-  sameWidht = false;
+  @property({ type: Boolean, attribute: 'same-width' })
+  sameWidth = false;
 
   @property({ type: Boolean, attribute: 'disable-outside-click' })
-  outsideClick = false;
+  disableOutsideClick = false;
 
   @query('#data-container')
   _dropdownContainer!: HTMLElement;
@@ -99,8 +99,8 @@ export class UUIDropdownElement extends LitElement {
   ];
 
   private _reducedMotion() {
-    const mediaQuerry = window.matchMedia('(prefers-reduced-motion: reduce)');
-    return !mediaQuerry || mediaQuerry.matches;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    return !mediaQuery || mediaQuery.matches;
   }
 
   private _options: KeyframeAnimationOptions = {
@@ -131,7 +131,7 @@ export class UUIDropdownElement extends LitElement {
   private createPopperInstance() {
     const sameWidth: Modifier<any, any> = {
       name: 'sameWidth',
-      enabled: this.sameWidht,
+      enabled: this.sameWidth,
       phase: 'beforeWrite',
       requires: ['computeStyles'],
       fn: ({ state }) => {
@@ -172,12 +172,11 @@ export class UUIDropdownElement extends LitElement {
 
   set isOpen(newVal) {
     const oldVal = this._isOpen;
-    if (newVal != oldVal) {
+    if (newVal !== this._isOpen) {
       this._isOpen = newVal;
       if (newVal) {
-        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
-
         this._popper.update();
+        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
       } else {
         this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.CLOSE));
       }
@@ -195,8 +194,9 @@ export class UUIDropdownElement extends LitElement {
   }
 
   protected closeDropdownOnOutsideClick = (e: MouseEvent) => {
-    e.stopPropagation();
-    if (!this.outsideClick) {
+    if (this.disableOutsideClick !== true) {
+      e.stopPropagation();
+      e.preventDefault();
       const path = e.composedPath();
 
       if (path.includes(this)) {

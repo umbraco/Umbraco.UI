@@ -23,7 +23,7 @@ export class UUIButtonElement extends LitElement {
       :host {
         position: relative;
         display: inline-block;
-        --uui-button-border-radius: var(--uui-size-border-radius);
+        margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
       }
       button {
         height: 100%;

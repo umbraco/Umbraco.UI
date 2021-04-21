@@ -142,14 +142,14 @@ export const auto = () => html`
 `;
 
 export const sameWidth = () => html`
-  <uui-dropdown position="bottom" same-widht>
+  <uui-dropdown position="bottom" same-width>
     <uui-button slot="toggle" look="positive">Click</uui-button>
     <div style="height: 180px; background-color: blue;"></div>
   </uui-dropdown>
 `;
 
 export const closeOnOutsideClickDisabled = () => html`
-  <uui-dropdown position="bottom" same-widht disable-outside-click>
+  <uui-dropdown position="bottom" same-width disable-outside-click>
     <uui-button slot="toggle" look="positive">Click</uui-button>
     <div style="height: 180px; background-color: blue;"></div>
   </uui-dropdown>
