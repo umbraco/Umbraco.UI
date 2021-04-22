@@ -3,7 +3,6 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../../animations/uui-shake';
-import { UUIButtonEvent } from './UUIButtonEvent';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
@@ -149,9 +148,22 @@ export class UUIButtonElement extends LitElement {
     ),
   ];
 
+  private _disabled = false;
+
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
   @property({ type: Boolean, reflect: true })
-  disabled = false;
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = value;
+    if (this._disabled === true) {
+      this.addEventListener('click', this.disableClick);
+    } else {
+      this.removeEventListener('click', this.disableClick);
+    }
+    this.requestUpdate();
+  }
 
   @property({ type: Boolean, reflect: true })
   loading = false;
@@ -162,19 +174,20 @@ export class UUIButtonElement extends LitElement {
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
-  private onClick(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._disabled === true) {
+      this.removeEventListener('click', this.disableClick);
+    }
+  }
 
-    this.dispatchEvent(new UUIButtonEvent(UUIButtonEvent.CLICK));
+  private disableClick(e: MouseEvent) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
   }
   render() {
     return html`
-      <button
-        @click=${this.onClick}
-        ?disabled=${this.disabled}
-        aria-label="${this.ariaLabel || ''}"
-      >
+      <button ?disabled=${this.disabled} aria-label="${this.ariaLabel || ''}">
         <slot></slot>
       </button>
     `;
