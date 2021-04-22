@@ -1,6 +1,6 @@
 import { timeStamp } from 'console';
 import { LitElement, html, css, property, query } from 'lit-element';
-import { UUIFileUploaderEvent } from './UUIFileUploaderEvents';
+import { UUIFileUploaderEvent } from './UUIFileDropzoneEvents';
 
 /**
  *  @element uui-file-input
