@@ -25,13 +25,15 @@ export class UUIButtonElement extends LitElement {
         position: relative;
         display: inline-block;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
-        --uui-button-slot-padding-x-factor: 3;
+        --uui-button-slot-margin-x-factor: 3;
         --uui-button-slot-padding-l-factor: 3;
         --uui-button-slot-padding-r-factor: 3;
       }
 
       :host([compact]) {
-        --uui-button-slot-padding-x-factor: 0.666;
+        --uui-button-slot-margin-x-factor: 0.666;
+        --uui-button-slot-padding-l-factor: 0.666;
+        --uui-button-slot-padding-r-factor: 0.666;
       }
 
       button {
@@ -117,11 +119,11 @@ export class UUIButtonElement extends LitElement {
       ::slotted(*) {
         margin-left: calc(
           var(--uui-button-base-unit, var(--uui-size-base-unit)) *
-            var(--uui-button-slot-padding-x-factor)
+            var(--uui-button-slot-margin-x-factor)
         );
         margin-right: calc(
           var(--uui-button-base-unit, var(--uui-size-base-unit)) *
-            var(--uui-button-slot-padding-x-factor)
+            var(--uui-button-slot-margin-x-factor)
         );
       }
     `,
@@ -168,6 +170,9 @@ export class UUIButtonElement extends LitElement {
 
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
+
+  @property({ type: Boolean, reflect: true })
+  compact = false;
 
   constructor() {
     super();

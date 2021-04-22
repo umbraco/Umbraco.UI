@@ -6,7 +6,7 @@ export class UUIActionGroupElement extends UUIButtonGroupElement {
     ...UUIButtonGroupElement.styles,
     css`
       ::slotted(*) {
-        --uui-button-slot-padding-x-factor: 0.3;
+        --uui-button-slot-margin-x-factor: 0.3;
         --uui-button-slot-padding-r-factor: 0.3;
         --uui-button-slot-padding-l-factor: 0.3;
       }
@@ -22,7 +22,7 @@ export class UUIActionGroupElement extends UUIButtonGroupElement {
 
       ::slotted([look='outline']),
       ::slotted([look='placeholder']) {
-        --uui-button-slot-padding-x-factor: 0.666;
+        --uui-button-slot-margin-x-factor: 0.666;
         --uui-button-slot-padding-r-factor: 0.666;
         --uui-button-slot-padding-l-factor: 0.666;
       }
