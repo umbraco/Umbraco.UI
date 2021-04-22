@@ -26,14 +26,18 @@ export const Disabled = () => html`
   <uui-button disabled>Disabled button</uui-button>
 `;
 
-export const Loading = () => html`
-  <uui-button loading>Button waiting for something</uui-button>
+export const WithIcon = () => html`
+  <uui-button look="danger">
+    <uui-icon .name=${'bug'}></uui-icon>
+  </uui-button>
 `;
 
-export const WithIcon = () => html`
-  <uui-button>
+export const Compact = () => html`
+  <uui-button look="danger" compact>
     <uui-icon .name=${'bug'}></uui-icon>
-    Button waiting for something
+  </uui-button>
+  <uui-button look="danger" compact>
+    I have less padding on the x axis
   </uui-button>
 `;
 

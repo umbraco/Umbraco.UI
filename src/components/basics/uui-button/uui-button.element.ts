@@ -15,6 +15,8 @@ import {
  *  @slot - for button contents
  *  @description - All-round button
  */
+
+//TODO add compact attribute
 export class UUIButtonElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -23,7 +25,13 @@ export class UUIButtonElement extends LitElement {
         position: relative;
         display: inline-block;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
+        --uui-button-slot-padding-x-factor: 3;
       }
+
+      :host([compact]) {
+        --uui-button-slot-padding-x-factor: 0.666;
+      }
+
       button {
         height: 100%;
         min-height: calc(
@@ -89,29 +97,23 @@ export class UUIButtonElement extends LitElement {
       button > slot {
         display: block;
         padding: 0
-          calc((var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3));
+          calc(
+            (
+              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+                var(--uui-button-slot-padding-x-factor)
+            )
+          );
       }
 
       ::slotted(*) {
         margin-left: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+            var(--uui-button-slot-padding-x-factor)
         );
         margin-right: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+            var(--uui-button-slot-padding-x-factor)
         );
-      }
-
-      :host([loading]) > button > slot {
-        opacity: 0;
-      }
-      :host([loading]) button:before {
-        content: '⏳';
-        position: absolute;
-        display: flex;
-        height: 100%;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
       }
     `,
     InterfaceLookCSSCreator(
@@ -165,14 +167,14 @@ export class UUIButtonElement extends LitElement {
     this.requestUpdate();
   }
 
-  @property({ type: Boolean, reflect: true })
-  loading = false;
-
   @property({ type: String, attribute: 'aria-label' })
   ariaLabel?: string;
 
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
+
+  @property({ type: Boolean, reflect: true })
+  compact = false;
 
   disconnectedCallback() {
     super.disconnectedCallback();
