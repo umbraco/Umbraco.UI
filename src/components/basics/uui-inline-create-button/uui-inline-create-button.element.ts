@@ -18,11 +18,6 @@ export class UUIInlineCreateButtonElement extends LitElement {
         display: inline-block;
         width: 100%;
         position: relative;
-        opacity: 0;
-      }
-
-      :host(:hover) {
-        opacity: 1;
       }
 
       :host([vertical]) {
@@ -51,6 +46,14 @@ export class UUIInlineCreateButtonElement extends LitElement {
         cursor: pointer;
         -webkit-appearance: none;
         -moz-appearance: none;
+
+        opacity: 0;
+      }
+
+      :host(:focus) #button-wrapper,
+      :host(:focus-within) #button-wrapper,
+      :host(:hover) #button-wrapper {
+        opacity: 1;
       }
 
       :host([vertical]) #button-wrapper {
@@ -108,7 +111,18 @@ export class UUIInlineCreateButtonElement extends LitElement {
         color: var(--uui-interface-selected, #2152a3);
         background-color: var(--uui-interface-surface, #fff);
         box-shadow: 0 0 0 2px var(--uui-interface-surface, #fff);
-        transition: all 0.1s ease-in;
+
+        opacity: 0;
+        transform: scale(0);
+        transition: transform 240ms ease-in, opacity 240ms;
+      }
+      :host(:focus) #plus,
+      :host(:focus-within) #plus,
+      :host(:hover) #plus {
+        opacity: 1;
+        transform: scale(1);
+        transition: transform 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 80ms;
       }
 
       :host([vertical]) #plus {
@@ -116,17 +130,17 @@ export class UUIInlineCreateButtonElement extends LitElement {
       }
 
       #button-wrapper:focus #plus {
+        /* TODO: implement focus outline system */
         border: 2px solid #6ab4f0;
       }
 
       #plus-icon {
         width: 50%;
         fill: currentColor;
-        transition: transform 0.1s cubic-bezier(0.72, 0.62, 0.7, 1.39);
       }
 
-      #button-wrapper:active #plus-icon {
-        transform: scale(1.3);
+      #button-wrapper:active #plus {
+        transform: scale(1.1);
       }
     `,
   ];
@@ -138,11 +152,7 @@ export class UUIInlineCreateButtonElement extends LitElement {
   vertical = false;
 
   private _onMouseMove(e: MouseEvent) {
-    if (this.vertical) {
-      this.position = e.offsetY;
-      return;
-    }
-    this.position = e.offsetX;
+    this.position = this.vertical ? e.offsetY : e.offsetX;
   }
 
   private _handleClick() {
@@ -162,9 +172,8 @@ export class UUIInlineCreateButtonElement extends LitElement {
         <div
           id="plus"
           style=${styleMap({
-            transform: `translate${this.vertical ? 'Y' : 'X'}(${
-              this.position
-            }px)`,
+            left: this.vertical ? '' : this.position + 'px',
+            top: this.vertical ? this.position + 'px' : '',
           })}
         >
           <svg
