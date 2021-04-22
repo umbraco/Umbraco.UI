@@ -2,7 +2,7 @@
 
 ### Basics
 
-- Action bar (used in Cards, Lists etc. ust a round cornered box holding some buttons)
+- Action bar (maybe just button-group, used in Cards, Lists etc. ust a round cornered box holding some buttons)
 - Avatar
 - Avatar Group
 - Badge
@@ -18,19 +18,18 @@
 - Date & Time picker
 - Base Dropdown (Open towards, picked entry-display and unfold-display.)
 - Dropdown Select List (A dropdown with select component baked in)
-- FileUpload Dropzone
-- FileUpload Input
-- (FileUpload Card)
-- (FileUpload Grid)
+- FileInput Dropzone
+- FileInput Input
+- FileInput Preview (Form data, displays one of three symbols:...)
 - File Symbol
 - Folder Symbol
+- Image-File Symbol (A frame on a thumbnail)
 - Icon
 - Inline create button (Vertical, Horizontal. the one from BL and MediaPicker v3)
 - Loader
 - Locked part (offen used for locking the Alias)
 - Menu item
 - Menu item list
-- Media-file-input
 - More symbol ( three dots )
 - Node Display (Today called: Node-Preview, this is a base component that will be used for creating specific types for Content, Media, Image, File, Folder, DocumentType, User, Member, Form, DataType, etc.)
 - Node Display List
@@ -49,17 +48,13 @@
 - Table-head-column (intractable, sortable, disabled)
 - Table-row (Selectable, disabled)
 - Table-column
-- Table-action?
 - Toggle
 - TextField
 - TextAreaField
 - Search input
-- Select List
-- Select List Item
 
 ### Fragments
 
-- Confirm Dialog
 - Dialog
 - Notification
 - Notification List
