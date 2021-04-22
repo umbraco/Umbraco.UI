@@ -19,6 +19,16 @@ export const Overview = () =>
     )}</uui-button-group
   >`;
 
+export const Icon = () =>
+  html`<uui-button-group
+    >${buttons.map(
+      el =>
+        html`<uui-button look="secondary"
+          ><uui-icon name="bug"></uui-icon
+        ></uui-button>`
+    )}</uui-button-group
+  >`;
+
 function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
