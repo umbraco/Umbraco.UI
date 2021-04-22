@@ -26,6 +26,8 @@ export class UUIButtonElement extends LitElement {
         display: inline-block;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-slot-padding-x-factor: 3;
+        --uui-button-slot-padding-l-factor: 3;
+        --uui-button-slot-padding-r-factor: 3;
       }
 
       :host([compact]) {
@@ -100,7 +102,14 @@ export class UUIButtonElement extends LitElement {
           calc(
             (
               var(--uui-button-base-unit, var(--uui-size-base-unit)) *
-                var(--uui-button-slot-padding-x-factor)
+                var(--uui-button-slot-padding-r-factor)
+            )
+          )
+          0
+          calc(
+            (
+              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+                var(--uui-button-slot-padding-l-factor)
             )
           );
       }

@@ -16,10 +16,7 @@ const buttons = ['bug', 'info', 'delete'];
 export const Basic = () =>
   html`<uui-action-group
     >${buttons.map(
-      el =>
-        html`<uui-button look="secondary"
-          ><uui-icon name="${el}"></uui-icon
-        ></uui-button>`
+      el => html`<uui-button><uui-icon name="${el}"></uui-icon></uui-button>`
     )}</uui-action-group
   >`;
 
