@@ -148,22 +148,9 @@ export class UUIButtonElement extends LitElement {
     ),
   ];
 
-  private _disabled = false;
-
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
   @property({ type: Boolean, reflect: true })
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = value;
-    if (this._disabled === true) {
-      this.addEventListener('click', this.disableClick);
-    } else {
-      this.removeEventListener('click', this.disableClick);
-    }
-    this.requestUpdate();
-  }
+  disabled = false;
 
   @property({ type: Boolean, reflect: true })
   loading = false;
@@ -174,16 +161,11 @@ export class UUIButtonElement extends LitElement {
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    if (this._disabled === true) {
-      this.removeEventListener('click', this.disableClick);
-    }
-  }
-
   private disableClick(e: MouseEvent) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
   }
   render() {
     return html`
