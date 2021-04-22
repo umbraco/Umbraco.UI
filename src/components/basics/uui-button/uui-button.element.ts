@@ -161,7 +161,12 @@ export class UUIButtonElement extends LitElement {
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
-  private disableClick(e: MouseEvent) {
+  constructor() {
+    super();
+    this.addEventListener('click', this.onHostClick);
+  }
+
+  private onHostClick(e: MouseEvent) {
     if (this.disabled) {
       e.preventDefault();
       e.stopImmediatePropagation();
