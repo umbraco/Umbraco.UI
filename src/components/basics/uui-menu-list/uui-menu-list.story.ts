@@ -7,9 +7,11 @@ export default {
 };
 
 export const Basic = () => html`
-  <uui-menu-list>
-    <uui-menu-item selected>One 0</uui-menu-item>
-    <uui-menu-item>Two 1</uui-menu-item>
+  <uui-menu-list style="width: 200px">
+    <uui-menu-item><button>LOLOL</button></uui-menu-item>
+    <uui-menu-item
+      ><uui-button look="outline">Does it work?</uui-button></uui-menu-item
+    >
     <uui-menu-item>Three 2</uui-menu-item>
   </uui-menu-list>
 `;

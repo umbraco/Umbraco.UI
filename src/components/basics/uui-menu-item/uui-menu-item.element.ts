@@ -1,6 +1,4 @@
 import { LitElement, html, css, property, query } from 'lit-element';
-import { UUIListItemClickEvent } from '../../../event/UUIListItemClickEvent';
-import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
 
 /**
  *  @element uui-list-item
@@ -8,6 +6,7 @@ import { UUIListItemFocusEvent } from '../../../event/UUIListItemFocusEvent';
  */
 
 //TODO add the deselect method
+//TODO implement propper style when it is ready
 
 export class UUIMenuItemElement extends LitElement {
   static styles = [
@@ -15,73 +14,42 @@ export class UUIMenuItemElement extends LitElement {
       :host {
         display: block;
         font-family: inherit;
-      }
-
-      button {
-        display: block;
         font-size: 1rem;
-        border: none;
-        box-shadow: none;
-        cursor: pointer;
-        height: 100%;
-        width: 100%;
         padding: 0.5em;
+        background-color: var(--uui-interface-surface, #fff);
       }
 
-      button:hover {
-        background-color: lightgrey;
+      :host(:hover) {
+        background-color: var(--uui-interface-surface-hover);
       }
 
-      :host([selected]) button {
-        background-color: pink;
+      :host([active]) {
+        background-color: var(--uui-interface-active, #f5c1bc);
+      }
+
+      :host([active]):hover {
+        background-color: var(--uui-interface-active, #f5c1bc);
+      }
+
+      :host(:focus-within) {
+        outline: 2px solid var(--uui-interface-selected, darkblue);
       }
     `,
   ];
 
   @property({ type: Boolean, reflect: true })
-  selected = false;
+  active = false;
 
-  @property({ type: Boolean, reflect: true })
-  focused = false;
+  // public _onClick() {
+  //   this.active = !this.active;
+  // }
 
-  @query('#list-item') protected button!: HTMLButtonElement;
-
-  updated() {
-    if (this.focused) this.button.focus();
-  }
-
-  private _onClick() {
-    this.selected = !this.selected;
-    this.dispatchEvent(
-      new UUIListItemClickEvent('list-item-select', {
-        detail: { selected: this.selected },
-      })
-    );
-  }
-
-  private _onFocus(e: Event) {
-    this.focused = true;
-    this.dispatchEvent(new UUIListItemFocusEvent());
-  }
-
-  private _onBlur(e: Event) {
-    this.focused = false;
-    this.dispatchEvent(new UUIListItemFocusEvent());
-  }
+  // constructor() {
+  //   super();
+  //   this.addEventListener('click', this._onClick);
+  // }
 
   render() {
-    return html`
-      <button
-        id="list-item"
-        @click="${this._onClick}"
-        @focus="${this._onFocus}"
-        @blur="${this._onBlur}"
-      >
-        <slot name="left"></slot>
-        <span><slot></slot></span>
-        <slot name="right"></slot>
-      </button>
-    `;
+    return html`<slot></slot>`;
   }
 }
-// /  @keydown="${(e: KeyboardEvent) => {if (e.code === 'Enter') this._onClick;}}"

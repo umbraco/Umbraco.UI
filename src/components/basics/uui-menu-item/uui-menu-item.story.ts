@@ -7,4 +7,5 @@ export default {
 };
 
 export const Basic = () =>
-  html`<uui-menu-item>This is list item</uui-menu-item>`;
+  html`<uui-menu-item>This is list item</uui-menu-item>
+    <uui-menu-item active>This is active list item</uui-menu-item>`;
