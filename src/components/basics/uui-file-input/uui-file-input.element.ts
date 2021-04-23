@@ -7,7 +7,7 @@ import {
   queryAll,
   internalProperty,
 } from 'lit-element';
-import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-uploader.element';
+import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 
 /**
  *  @element uui-file-input

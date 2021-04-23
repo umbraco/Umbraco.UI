@@ -6,7 +6,9 @@ import { UUIButtonElement } from './uui-button.element';
 describe('UuiButton', () => {
   let element: UUIButtonElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-button>Hello uui-button</uui-button> `);
+    element = await fixture(
+      html` <uui-button label="My label">Hello uui-button</uui-button> `
+    );
   });
 
   it('renders a slot', () => {
@@ -18,7 +20,21 @@ describe('UuiButton', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
-  it('test that disable works', async () => {
-    return true;
+  it('test click works', async () => {
+    let wasClicked = false;
+    element.addEventListener('click', () => {
+      wasClicked = true;
+    });
+    element.click();
+    expect(wasClicked).to.true;
+  });
+  it('test click does not work when disabled', async () => {
+    element.disabled = true;
+    let wasClicked = false;
+    element.addEventListener('click', () => {
+      wasClicked = true;
+    });
+    element.click();
+    expect(wasClicked).to.false;
   });
 });

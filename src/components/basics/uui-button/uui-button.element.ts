@@ -15,6 +15,8 @@ import {
  *  @slot - for button contents
  *  @description - All-round button
  */
+
+//TODO add compact attribute
 export class UUIButtonElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -23,7 +25,17 @@ export class UUIButtonElement extends LitElement {
         position: relative;
         display: inline-block;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
+        --uui-button-slot-margin-x-factor: 3;
+        --uui-button-slot-padding-l-factor: 3;
+        --uui-button-slot-padding-r-factor: 3;
       }
+
+      :host([compact]) {
+        --uui-button-slot-margin-x-factor: 0.666;
+        --uui-button-slot-padding-l-factor: 0.666;
+        --uui-button-slot-padding-r-factor: 0.666;
+      }
+
       button {
         height: 100%;
         min-height: calc(
@@ -89,29 +101,30 @@ export class UUIButtonElement extends LitElement {
       button > slot {
         display: block;
         padding: 0
-          calc((var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3));
+          calc(
+            (
+              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+                var(--uui-button-slot-padding-r-factor)
+            )
+          )
+          0
+          calc(
+            (
+              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+                var(--uui-button-slot-padding-l-factor)
+            )
+          );
       }
 
       ::slotted(*) {
         margin-left: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+            var(--uui-button-slot-margin-x-factor)
         );
         margin-right: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 3
+          var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+            var(--uui-button-slot-margin-x-factor)
         );
-      }
-
-      :host([loading]) > button > slot {
-        opacity: 0;
-      }
-      :host([loading]) button:before {
-        content: '⏳';
-        position: absolute;
-        display: flex;
-        height: 100%;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
       }
     `,
     InterfaceLookCSSCreator(
@@ -148,25 +161,9 @@ export class UUIButtonElement extends LitElement {
     ),
   ];
 
-  private _disabled = false;
-
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
   @property({ type: Boolean, reflect: true })
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = value;
-    if (this._disabled === true) {
-      this.addEventListener('click', this.disableClick);
-    } else {
-      this.removeEventListener('click', this.disableClick);
-    }
-    this.requestUpdate();
-  }
-
-  @property({ type: Boolean, reflect: true })
-  loading = false;
+  disabled = false;
 
   @property({ type: String, attribute: 'aria-label' })
   ariaLabel?: string;
@@ -174,16 +171,19 @@ export class UUIButtonElement extends LitElement {
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    if (this._disabled === true) {
-      this.removeEventListener('click', this.disableClick);
-    }
+  @property({ type: Boolean, reflect: true })
+  compact = false;
+
+  constructor() {
+    super();
+    this.addEventListener('click', this.onHostClick);
   }
 
-  private disableClick(e: MouseEvent) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
+  private onHostClick(e: MouseEvent) {
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
   }
   render() {
     return html`
