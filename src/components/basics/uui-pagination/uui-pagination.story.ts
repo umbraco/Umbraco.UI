@@ -6,4 +6,5 @@ export default {
   component: 'uui-pagination',
 };
 
-export const Overview = () => html` <uui-pagination></uui-pagination> `;
+export const Overview = () =>
+  html` <uui-pagination .count=${35} .range=${5}></uui-pagination> `;
