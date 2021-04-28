@@ -1,4 +1,5 @@
-import { LitElement, html, property, css } from 'lit-element';
+import { property } from 'lit/decorators';
+import { LitElement, html, css } from 'lit';
 
 /**
  *  @element uui-avatar

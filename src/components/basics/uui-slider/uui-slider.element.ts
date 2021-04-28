@@ -1,14 +1,7 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  internalProperty,
-  svg,
-} from 'lit-element';
-import { nothing } from 'lit-html';
-import { styleMap } from 'lit-html/directives/style-map';
+import { LitElement, html, css, svg, nothing } from 'lit';
+import { property, query, state } from 'lit/decorators';
+
+import { styleMap } from 'lit/directives/style-map';
 import { nativeInputStyles } from './nativeInputStyles';
 import {
   UUIHorizontalPulseKeyframes,
@@ -307,7 +300,7 @@ export class UUISliderElement extends LitElement {
     this.stepWidht = this.calculateStepWidth();
   }
 
-  @internalProperty()
+  @state()
   private stepWidht = 0;
 
   private calculateStepWidth() {
@@ -318,13 +311,13 @@ export class UUISliderElement extends LitElement {
     this.stepWidht = this.calculateStepWidth();
   };
 
-  @internalProperty()
+  @state()
   protected steps: number[] = [];
 
-  @internalProperty()
+  @state()
   protected sliderPosition = '50%';
 
-  @internalProperty()
+  @state()
   protected fillScale = '0.5';
 
   private calculateSliderPosition(newVal: string) {
@@ -362,7 +355,7 @@ export class UUISliderElement extends LitElement {
         .value="${this.value}"
         id="input1"
         aria-label="${this.label}"
-        step="${this.step}"
+        step="${+this.step}"
         @input=${this.onInput}
       />
       <div id="track" aria-hidden="true">

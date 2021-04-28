@@ -1,4 +1,4 @@
-import { CSSResult, unsafeCSS } from 'lit-element';
+import { CSSResult, CSSResultArray, CSSResultGroup, unsafeCSS } from 'lit';
 
 export const InterfaceLookNames: Readonly<InterfaceLookType[]> = [
   'primary',
@@ -23,8 +23,8 @@ export type InterfaceLookType =
 export const InterfaceLookDefaultValue = '';
 
 export function InterfaceLookCSSCreator(
-  loopMethod: (lookName: CSSResult) => CSSResult
-): CSSResult[] {
+  loopMethod: (lookName: CSSResult) => CSSResultGroup
+): CSSResultArray {
   return InterfaceLookNames.map((lookName: InterfaceLookType) => {
     return loopMethod(unsafeCSS(lookName));
   });

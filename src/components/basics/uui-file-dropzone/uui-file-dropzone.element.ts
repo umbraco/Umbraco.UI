@@ -1,5 +1,6 @@
 import { timeStamp } from 'console';
-import { LitElement, html, css, property, query } from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { query, property } from 'lit/decorators';
 import { UUIFileUploaderEvent } from './UUIFileDropzoneEvents';
 
 /**
