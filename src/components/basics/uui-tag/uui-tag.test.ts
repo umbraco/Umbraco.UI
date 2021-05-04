@@ -1,7 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
-
-import '.';
 import { UUITagElement } from './uui-tag.element';
+import '.';
 
 describe('UuiTag', () => {
   let element: UUITagElement;

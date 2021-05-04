@@ -1,10 +1,8 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { resolve } from 'path';
-
-import '.';
 import '../uui-radio/index';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 import { UUIRadioGroupElement } from './uui-radio-group.element';
+import '.';
 
 describe('UuiToggle', () => {
   let element: UUIRadioGroupElement;

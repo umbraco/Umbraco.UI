@@ -1,7 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
-
-import '.';
 import { UUILoaderElement } from './uui-loader.element';
+import '.';
 
 describe('UuiLoader', () => {
   let element: UUILoaderElement;

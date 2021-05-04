@@ -80,7 +80,6 @@
   "license": "MIT",
   "dependencies": {
     "@popperjs/core": "^2.8.3",
-    "lit-element": "^2.0.1",
-    "lit-html": "^1.0.0"
+    "lit": "^2.0.0-rc.1"
   }
 }

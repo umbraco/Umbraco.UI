@@ -1,4 +1,5 @@
-import { html, css, property, query } from 'lit-element';
+import { html, css } from 'lit';
+import { query, property } from 'lit/decorators';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
 import { keys } from './keys';

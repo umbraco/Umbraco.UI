@@ -1,12 +1,5 @@
-import {
-  LitElement,
-  html,
-  property,
-  css,
-  query,
-  internalProperty,
-  TemplateResult,
-} from 'lit-element';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { property, query, state } from 'lit/decorators';
 import { UUICheckboxEvent } from './UUICheckboxEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -144,7 +137,7 @@ export abstract class UUICheckboxBaseElement extends LitElement {
   @query('slot')
   protected labelSlot!: HTMLSlotElement;
 
-  @internalProperty()
+  @state()
   protected labelSlotHasContent = false;
 
   private labelSlotChanged(): void {

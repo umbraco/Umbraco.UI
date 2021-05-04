@@ -1,7 +1,6 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
-
-import '.';
 import { UUITextFieldElement } from './uui-textfield.element';
+import '.';
 
 describe('UuiTextfield', () => {
   let element: UUITextFieldElement;
