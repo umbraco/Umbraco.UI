@@ -1,5 +1,4 @@
 import { html } from 'lit-html';
-import '.';
 import '../uui-icon/index';
 import '../uui-badge/index';
 import {

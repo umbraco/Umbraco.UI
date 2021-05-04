@@ -1,11 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  queryAssignedNodes,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, query, queryAssignedNodes } from 'lit/decorators';
 import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 /**

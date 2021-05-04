@@ -1,5 +1,4 @@
 import { html } from 'lit-html';
-import '.';
 import '../../basics/uui-button';
 
 export default {

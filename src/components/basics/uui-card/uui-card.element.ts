@@ -1,6 +1,8 @@
-import { LitElement, html, css, property, query, unsafeCSS } from 'lit-element';
+import { LitElement, html, css, unsafeCSS } from 'lit';
+import { property, query } from 'lit/decorators';
 import { CardType, CardTypeNames } from '../../../type/CardType';
 import { UUICardEvent } from './UUICardEvents';
+
 /**
  *  @element uui-card
  *  @fires {UUICardEvent} click-title - fires when the media card title is clicked

@@ -1,5 +1,5 @@
-import { html, css, property, query, LitElement } from 'lit-element';
-
+import { html, css, LitElement } from 'lit';
+import { query, property } from 'lit/decorators';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,

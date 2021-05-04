@@ -3,7 +3,6 @@ import {
   InterfaceLookNames,
   InterfaceLookType,
 } from '../../../type/InterfaceLook';
-
 import './index';
 
 export default {

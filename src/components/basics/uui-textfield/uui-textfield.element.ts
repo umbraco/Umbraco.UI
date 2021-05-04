@@ -1,5 +1,6 @@
-import { LitElement, html, css, property, internalProperty } from 'lit-element';
-import { classMap } from 'lit-html/directives/class-map';
+import { LitElement, html, css } from 'lit';
+import { property, state } from 'lit/decorators';
+import { classMap } from 'lit/directives/class-map';
 import { UUITextFieldEvent } from './UUITextFieldEvent';
 
 export type TextFieldType =
@@ -106,7 +107,7 @@ export class UUITextFieldElement extends LitElement {
     }
   }
 
-  @internalProperty()
+  @state()
   private _value: FormDataEntryValue = '';
 
   @property()

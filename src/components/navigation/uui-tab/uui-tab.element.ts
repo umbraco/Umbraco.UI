@@ -1,4 +1,5 @@
-import { LitElement, html, css, property, PropertyValues } from 'lit-element';
+import { LitElement, html, css, PropertyValues } from 'lit';
+import { property } from 'lit/decorators';
 import { UUITabEvent } from './UUITabEvent';
 
 let TabKeyCounter = 0;
