@@ -34,6 +34,7 @@ export class UUICardElement extends LitElement {
       }
 
       :host(:focus) {
+        /** TODO: implement focus outline. */
         outline-color: #6ab4f0;
       }
 
