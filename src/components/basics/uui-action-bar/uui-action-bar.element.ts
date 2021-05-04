@@ -32,8 +32,8 @@ export class UUIActionBarElement extends UUIButtonGroupElement {
         --uui-button-border-radius: 100% 0 0 100%;
         --uui-button-slot-padding-l-factor: 0.8;
       }
-      ::slotted(uui-button[look='outline']:nth-last-child(1)),
-      ::slotted(uui-button[look='placeholder']:nth-last-child(1)) {
+      ::slotted(uui-button[look='outline']:last-child),
+      ::slotted(uui-button[look='placeholder']:last-child) {
         --uui-button-border-radius: 0 100% 100% 0;
         --uui-button-slot-padding-r-factor: 0.8;
       }

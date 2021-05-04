@@ -47,8 +47,12 @@ export class UUIButtonElement extends LitElement {
         text-align: center;
         vertical-align: middle;
         box-shadow: none;
-        border: var(--uui-button-border-width, 1px) solid
-          var(--uui-button-border-color, var(--uui-interface-surface));
+        border-width: var(--uui-button-border-width, 1px);
+        border-style: solid;
+        border-color: var(
+          --uui-button-border-color,
+          var(--uui-interface-surface)
+        );
         border-radius: var(
           --uui-button-border-radius,
           var(--uui-size-border-radius)
