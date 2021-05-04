@@ -31,8 +31,8 @@ export class UUISelectOptionElement extends LitElement {
       }
 
       :host([selected]) {
-        background-color: var(--uui-interface-selected);
-        color: var(--uui-interface-selected-contrast);
+        background-color: var(--uui-interface-select);
+        color: var(--uui-interface-select-contrast);
       }
 
       #list-item {

@@ -60,7 +60,7 @@ export class UUIRadioElement extends LitElement {
         content: '';
         width: calc(var(--uui-radio-button-size) / 2);
         height: calc(var(--uui-radio-button-size) / 2);
-        background-color: var(--uui-interface-selected, #1b264f);
+        background-color: var(--uui-interface-chosen, #1b264f);
         border-radius: 100%;
         position: absolute;
         top: 50%;
@@ -78,15 +78,15 @@ export class UUIRadioElement extends LitElement {
       }
 
       input:checked ~ #button {
-        border: 1px solid var(--uui-interface-selected, #1b264f);
+        border: 1px solid var(--uui-interface-chosen, #1b264f);
       }
 
       input:checked:hover ~ #button {
-        border: 1px solid var(--uui-interface-selected-hover, #2152a3);
+        border: 1px solid var(--uui-interface-chosen-hover, #2152a3);
       }
 
       input:checked:hover ~ #button::after {
-        background-color: var(--uui-interface-selected-hover, #2152a3);
+        background-color: var(--uui-interface-chosen-hover, #2152a3);
       }
 
       input:disabled ~ #button {
@@ -102,11 +102,11 @@ export class UUIRadioElement extends LitElement {
       }
 
       :host([disabled]) input:checked ~ #button {
-        border: 1px solid var(--uui-interface-selected-disabled);
+        border: 1px solid var(--uui-interface-chosen-disabled);
       }
 
       :host([disabled]) input:checked ~ #button::after {
-        background-color: var(--uui-interface-selected-disabled);
+        background-color: var(--uui-interface-chosen-disabled);
       }
 
       :host([disabled]) #button:active {

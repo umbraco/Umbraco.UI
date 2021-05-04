@@ -65,7 +65,7 @@ export class UUISliderElement extends LitElement {
         width: 100%;
         display: flex;
       }
-      /* 
+      /*
       #fill {
         position: absolute;
         top: 0;
@@ -88,7 +88,7 @@ export class UUISliderElement extends LitElement {
         background-color: transparent;
         border-radius: 50%;
         box-sizing: border-box;
-        border: 1px solid var(--uui-interface-selected);
+        border: 1px solid var(--uui-interface-select);
         margin-left: -9px;
         transition: 0.1s left ease;
       }
@@ -101,7 +101,7 @@ export class UUISliderElement extends LitElement {
         transform: translate(-50%, -50%);
         height: 9px;
         width: 9px;
-        background-color: var(--uui-interface-selected);
+        background-color: var(--uui-interface-select);
         border-radius: 50%;
       }
 
@@ -115,7 +115,7 @@ export class UUISliderElement extends LitElement {
         height: 24px;
         width: 24px;
         background-color: transparent;
-        border: 1px solid var(--uui-interface-selected);
+        border: 1px solid var(--uui-interface-select);
         border-radius: 50%;
         opacity: 0;
       }
@@ -125,11 +125,11 @@ export class UUISliderElement extends LitElement {
       }
 
       input:hover ~ #track #thumb:after {
-        background-color: var(--uui-interface-selected-hover);
+        background-color: var(--uui-interface-select-hover);
       }
 
       input:hover ~ #track #thumb {
-        border: 1px solid var(--uui-interface-selected-hover);
+        border: 1px solid var(--uui-interface-select-hover);
       }
 
       #value {
@@ -140,7 +140,7 @@ export class UUISliderElement extends LitElement {
         width: 100%;
         text-align: center;
         opacity: 0;
-        color: var(--uui-interface-selected);
+        color: var(--uui-interface-select);
         transition: 0.2s opacity ease;
       }
 

@@ -58,9 +58,9 @@ export class UUICardElement extends LitElement {
       }
 
       :host([selectable])::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
+        border: 2px solid var(--uui-interface-select, #1b264f);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
+          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
 
         opacity: var(--uui-card-before-opacity);
       }
@@ -70,9 +70,9 @@ export class UUICardElement extends LitElement {
       }
 
       :host([selected])::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
+        border: 2px solid var(--uui-interface-select, #1b264f);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
+          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
         opacity: var(--uui-card-before-opacity);
       }
 
@@ -246,7 +246,7 @@ export class UUICardElement extends LitElement {
   constructor() {
     super();
     this.addEventListener('click', this.toggleSelect);
-    this.addEventListener('mouseenter', this.handleMouseEneter);
+    this.addEventListener('mouseenter', this.handleMouseEnter);
     this.addEventListener('mouseleave', this.handleMouseLeave);
     this.addEventListener('keydown', this.handleKeydown);
     this.addEventListener('focus', () => {
@@ -350,7 +350,7 @@ export class UUICardElement extends LitElement {
   }
 
   private _mouseOver = false;
-  handleMouseEneter(e: MouseEvent) {
+  handleMouseEnter(e: MouseEvent) {
     if (e.target === this) {
       this._mouseOver = true;
       this.changeBorderOpacity(0.6, 0.3);
@@ -386,7 +386,7 @@ export class UUICardElement extends LitElement {
         id="title-area"
         tabindex="0"
         @click=${this._handleTitleClick}
-        @mouseenter=${this.handleMouseEneter}
+        @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}
         @keydown=${this.handleTitleKeydown}
         @focus=${(e: Event) => {
@@ -409,7 +409,7 @@ export class UUICardElement extends LitElement {
         id="details"
         tabindex="0"
         @click=${this._handleTitleClick}
-        @mouseenter=${this.handleMouseEneter}
+        @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}
         @keydown=${this.handleTitleKeydown}
         @focus=${(e: Event) => {

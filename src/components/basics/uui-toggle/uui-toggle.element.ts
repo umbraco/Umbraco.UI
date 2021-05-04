@@ -66,13 +66,13 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         );
       }
       input:checked + #slider {
-        background-color: var(--uui-interface-selected);
+        background-color: var(--uui-interface-select);
       }
       label:hover input:checked:not([disabled]) + #slider {
-        background-color: var(--uui-interface-selected-hover);
+        background-color: var(--uui-interface-select-hover);
       }
       label:focus input:checked + #slider {
-        background-color: var(--uui-interface-selected-focus);
+        background-color: var(--uui-interface-select-focus);
       }
 
       #icon-check,
@@ -97,7 +97,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         fill: var(--uui-interface-contrast);
       }
       input:checked + #slider #icon-check {
-        fill: var(--uui-interface-selected-contrast);
+        fill: var(--uui-interface-select-contrast);
       }
 
       #slider:after {
@@ -108,7 +108,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         width: calc(var(--uui-toggle-size) - 4px);
         height: calc(var(--uui-toggle-size) - 4px);
         border-radius: 100px;
-        background-color: var(--uui-interface-selected-contrast);
+        background-color: var(--uui-interface-select-contrast);
         transition: width 120ms ease, left 120ms ease, transform 120ms ease,
           background-color 120ms;
       }
@@ -127,7 +127,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         background-color: var(--uui-interface-surface-alt-disabled);
       }
       :host([disabled]) input:checked + #slider {
-        background-color: var(--uui-interface-selected-disabled);
+        background-color: var(--uui-interface-select-disabled);
       }
       :host([disabled]) #slider:after {
         background-color: var(--uui-interface-surface-disabled);
@@ -139,7 +139,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
       :host([disabled]) input:checked + #slider #icon-check {
-        fill: var(--uui-interface-selected-contrast-disabled);
+        fill: var(--uui-interface-select-contrast-disabled);
       }
 
       /*
