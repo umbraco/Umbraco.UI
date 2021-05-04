@@ -25,7 +25,7 @@ export class UUICardElement extends LitElement {
         justify-content: center;
         box-shadow: 0 1px 1px 0 var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius, 3px);
-        min-width: calc(var(--uui-size-xxlarge, 66px) * 2);
+        /* min-width: calc(var(--uui-size-xxlarge, 66px) * 2);*/
         min-height: calc(var(--uui-size-xxlarge, 66px) * 2);
         margin: 6px;
         background-color: var(--uui-interface-surface, white);
@@ -81,10 +81,10 @@ export class UUICardElement extends LitElement {
         min-width: 250px;
       }
 
-      :host([type='file']),
+      /* :host([type='file']),
       :host([type='image']) {
         max-width: 200px;
-      }
+      } */
 
       slot[name='asset']::slotted(img) {
         align-self: center;
