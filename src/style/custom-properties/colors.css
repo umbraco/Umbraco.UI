@@ -113,8 +113,8 @@
   --uui-color-white-dark: color($white blackness(+ 2%));
   --uui-color-white-dimmed: color($white saturation(- 100%) blackness(+ 12%));
 
-  $black: #040404;
-  --uui-color-black: #060606;
+  $black: #060606;
+  --uui-color-black: $black;
   --uui-color-black-light: color($black lightness(+ 8%));
   --uui-color-black-dark: color($black blackness(+ 8%));
   --uui-color-black-dimmed: color($black saturation(- 100%) lightness(+ 12%));

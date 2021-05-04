@@ -1,9 +1,5 @@
-import { LitElement, html, property, css } from 'lit-element';
-import {
-  InterfaceLookType,
-  InterfaceLookDefaultValue,
-  InterfaceLookCSSCreator,
-} from '../../../type/InterfaceLook';
+import { property } from 'lit/decorators';
+import { LitElement, html, css } from 'lit';
 
 /**
  *  @element uui-avatar
@@ -32,8 +28,11 @@ export class UUIAvatarElement extends LitElement {
         overflow: hidden;
         border-radius: 50%;
         font-weight: bold;
-        width: 2.17em;
-        height: 2.17em;
+        width: 2em;
+        height: 2em;
+
+        background-color: var(--uui-color-spanish-pink);
+        color: var(--uui-color-space-cadet);
       }
 
       :host([size='xxs']) {
@@ -70,15 +69,6 @@ export class UUIAvatarElement extends LitElement {
         width: 100%;
       }
     `,
-    InterfaceLookCSSCreator(
-      interfaceLookName =>
-        css`
-          :host([look='${interfaceLookName}']) {
-            background-color: var(--uui-look-${interfaceLookName}-surface);
-            color: var(--uui-look-${interfaceLookName}-contrast);
-          }
-        `
-    ),
   ];
 
   @property({ type: String, attribute: true })
@@ -91,13 +81,7 @@ export class UUIAvatarElement extends LitElement {
   public imgSrcset = '';
 
   @property({ type: String, attribute: true })
-  public look: InterfaceLookType = InterfaceLookDefaultValue;
-
-  @property({ type: String, attribute: true })
   public text = '';
-
-  @property({ type: String })
-  unknownCharacter = '?';
 
   get initials(): string {
     let initials = '';
@@ -108,7 +92,7 @@ export class UUIAvatarElement extends LitElement {
       initials += words[words.length - 1].substring(0, 1);
     }
 
-    return initials;
+    return initials.toUpperCase();
   }
 
   render() {
@@ -121,9 +105,7 @@ export class UUIAvatarElement extends LitElement {
             class="image"
           />`
         : html``}
-      ${!this.imgSrc && this.text
-        ? html`${this.initials || this.unknownCharacter}`
-        : ``}
+      ${!this.imgSrc && this.text ? html`${this.initials || '?'}` : ``}
       <slot></slot>
     `;
   }

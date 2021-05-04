@@ -1,4 +1,5 @@
-import { LitElement, html, css, query } from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { query } from 'lit/decorators';
 
 /**
  *  @element uui-design

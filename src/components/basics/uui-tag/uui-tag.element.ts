@@ -1,4 +1,5 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property } from 'lit/decorators';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,

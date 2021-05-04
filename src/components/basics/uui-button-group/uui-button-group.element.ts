@@ -1,11 +1,4 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  queryAssignedNodes,
-} from 'lit-element';
-import { UUIButtonElement } from '../uui-button/uui-button.element';
+import { LitElement, html, css } from 'lit';
 
 /**
  *  @element uui-button-group
@@ -16,32 +9,45 @@ export class UUIButtonGroupElement extends LitElement {
   static styles = [
     css`
       ::slotted(uui-button) {
-        --uui-size-border-radius: 0;
+        --uui-button-border-radius: 0;
+      }
+      ::slotted(uui-button:not(:first-child)) {
+        --uui-button-merge-border-left: 1;
+      }
+      ::slotted(uui-button:first-child) {
+        --uui-button-border-radius: var(--uui-button-border-radius, 3px) 0 0
+          var(--uui-button-border-radius, 3px);
+      }
+      ::slotted(uui-button:nth-last-child(1)) {
+        --uui-button-border-radius: 0 var(--uui-button-border-radius, 3px)
+          var(--uui-button-border-radius, 3px) 0;
       }
 
-      ::slotted(uui-button[look='outline']) {
-        margin-left: -1px;
+      ::slotted(uui-dropdown) {
+        --uui-dropdown-toggle-slot-button-border-radius: 0;
+      }
+      ::slotted(uui-dropdown:not(:first-child)) {
+        --uui-dropdown-toggle-slot-button-merge-border-left: 1;
+      }
+      ::slotted(uui-dropdown:first-child) {
+        --uui-dropdown-toggle-slot-button-border-radius: var(
+            --uui-button-border-radius,
+            3px
+          )
+          0 0 var(--uui-button-border-radius, 3px);
+      }
+      ::slotted(uui-dropdown:nth-last-child(1)) {
+        --uui-dropdown-toggle-slot-button-border-radius: 0
+          var(--uui-button-border-radius, 3px)
+          var(--uui-button-border-radius, 3px) 0;
       }
 
-      ::slotted(uui-button[look='outline']:hover) {
+      ::slotted(*:hover) {
         z-index: 1;
       }
     `,
   ];
 
-  @queryAssignedNodes(undefined, true, 'uui-button')
-  slottedButtons!: UUIButtonElement[];
-
-  firstUpdated() {
-    console.log(this.slottedButtons);
-    this.slottedButtons[0].setAttribute('first-group-button', 'true');
-    this.slottedButtons[this.slottedButtons.length - 1].setAttribute(
-      'last-group-button',
-      'true'
-    );
-  }
-
-  @property({ reflect: true })
   render() {
     return html` <slot></slot> `;
   }

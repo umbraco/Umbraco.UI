@@ -1,11 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  internalProperty,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { query, property, state } from 'lit/decorators';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 import { UUIRadioEvent } from '../uui-radio/UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
@@ -107,7 +101,7 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _value: FormDataEntryValue = '';
-  @internalProperty()
+  @state()
   get value() {
     return this._value;
   }

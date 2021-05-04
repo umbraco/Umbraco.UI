@@ -1,4 +1,4 @@
-import { css } from 'lit-element';
+import { css, unsafeCSS } from 'lit';
 
 //this works and seems to be a good way to make keyframes reusable
 
@@ -27,4 +27,6 @@ export const UUIHorizontalShakeKeyframes = css`
   }
 `;
 
-export const UUIHorizontalShakeAnimationValue = css`uui-horizontal-shake 0.6s ease backwards`;
+export const UUIHorizontalShakeAnimationValue = unsafeCSS(
+  'uui-horizontal-shake 600ms ease backwards'
+);
