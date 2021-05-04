@@ -5,7 +5,7 @@ import { property } from 'lit/decorators';
  *  @element uui-card-grid
  *
  */
-import { CardType } from '../../../type/CardType';
+import { CardType } from '../uui-card/UuiCardType';
 export class UUICardGridElement extends LitElement {
   static styles = [
     css`
@@ -23,6 +23,7 @@ export class UUICardGridElement extends LitElement {
     `,
   ];
 
+  // TODO: consider wether we should tread all cards the same, to provide the flexibility to combine as we like.
   @property({ reflect: true })
   type: CardType = null;
 
