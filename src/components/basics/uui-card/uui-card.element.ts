@@ -1,7 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators';
 import { CardType, CardTypeNames } from '../../../type/CardType';
-import { UUICardEvent } from './UUICardEvents';
+import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
