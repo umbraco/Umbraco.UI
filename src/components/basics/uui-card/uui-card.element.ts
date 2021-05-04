@@ -30,7 +30,7 @@ export class UUICardElement extends LitElement {
         margin: 6px;
         background-color: var(--uui-interface-surface, white);
         --uui-card-before-opacity: 0;
-        transition: --uui-card-before-opacity 0.15s ease-in-out;
+        transition: --uui-card-before-opacity 120ms;
       }
 
       :host(:focus) {
@@ -55,7 +55,6 @@ export class UUICardElement extends LitElement {
         border-radius: var(--uui-size-border-radius, 3px);
         pointer-events: none;
         opacity: var(--uui-card-before-opacity);
-        transition: all 0.15s ease-in-out;
       }
 
       :host([selectable])::before {
@@ -210,7 +209,7 @@ export class UUICardElement extends LitElement {
         box-sizing: border-box;
         padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
         /* transform: translateY(20%); */
-        transition: all 0.3s ease-in-out;
+        transition: opacity 120ms;
       }
 
       :host([type='file']) #details {
