@@ -2,15 +2,15 @@
 :root {
   --uui-look-primary-surface: var(--uui-color-space-cadet);
   --uui-look-primary-surface-hover: var(--uui-color-violet-blue);
-  --uui-look-primary-surface-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-look-primary-surface-disabled: var(--uui-color-malibu-dimmed);
   --uui-look-primary-surface-focus: var(--uui-color-space-cadet);
   --uui-look-primary-contrast: var(--uui-color-white);
   --uui-look-primary-contrast-hover: var(--uui-color-white);
-  --uui-look-primary-contrast-disabled: var(--uui-color-white);
+  --uui-look-primary-contrast-disabled: var(--uui-color-white-dimmed);
   --uui-look-primary-contrast-focus: var(--uui-color-white);
   --uui-look-primary-border: var(--uui-color-space-cadet);
   --uui-look-primary-border-hover: var(--uui-color-violet-blue);
-  --uui-look-primary-border-disabled: var(--uui-color-space-cadet-dimmed);
+  --uui-look-primary-border-disabled: var(--uui-color-malibu-dimmed);
   --uui-look-primary-border-focus: var(--uui-color-space-cadet);
   --uui-look-primary-font-weight: 700;
 }

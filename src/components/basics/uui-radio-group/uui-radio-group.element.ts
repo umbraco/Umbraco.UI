@@ -49,16 +49,15 @@ export class UUIRadioGroupElement extends LitElement {
   firstUpdated() {
     this.radioElements = this.getRadioElements();
     if (this.radioElements.length > 0)
-      this.radioElements[0].setAttribute('tabindex', '0');
+      this.radioElements[this.enabledElementsIndexes[0]].setAttribute(
+        'tabindex',
+        '0'
+      );
     this._addNameToRadios(this.name, this.radioElements);
     if (this.disabled) this._toggleDisableOnChildren(true);
   }
 
   @query('slot') protected slotElement!: HTMLSlotElement;
-
-  protected get enabledRadioElements(): UUIRadioElement[] {
-    return this.radioElements.filter(el => !el.disabled);
-  }
 
   private _addNameToRadios(name: string, radios: UUIRadioElement[]) {
     radios.forEach(el => (el.name = name));
@@ -68,8 +67,8 @@ export class UUIRadioGroupElement extends LitElement {
     this.radioElements.forEach(el => (el.disabled = value));
   }
 
-  private async _handleSlotChange() {
-    this.radioElements = await this.getRadioElements();
+  private _handleSlotChange() {
+    this.radioElements = this.getRadioElements();
 
     const checkedRadios = this.radioElements.filter(el => el.checked === true);
 

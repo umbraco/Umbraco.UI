@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import '../uui-icon/index';
+import '../uui-badge/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
@@ -38,6 +39,11 @@ export const Compact = () => html`
     I have less padding on the x axis
   </uui-button>
 `;
+
+export const WithBadge = () => html` <uui-button look="primary">
+  Button label
+  <uui-badge>!</uui-badge>
+</uui-button>`;
 
 function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);

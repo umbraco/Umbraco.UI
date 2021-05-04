@@ -140,8 +140,21 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   public checked = false;
 
+  private _disabled = false;
   @property({ type: Boolean, reflect: true })
-  public disabled = false;
+  get disabled() {
+    return this._disabled;
+  }
+
+  set disabled(newVal) {
+    const oldVal = this._disabled;
+    this._disabled = newVal;
+    if (newVal) {
+      this.setAttribute('aria-hidden', 'true');
+      this.setAttribute('tabindex', '-1');
+    }
+    this.requestUpdate('disabled', oldVal);
+  }
 
   private _onChange() {
     if (this.inputElement.checked) this.check();

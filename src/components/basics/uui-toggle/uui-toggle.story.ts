@@ -45,8 +45,8 @@ export const NoLabel = () =>
     </p>`;
 
 export const Disabled = () => html`
-  <uui-toggle disabled label="Can't touch this"></uui-toggle>
-  <uui-toggle disabled label="Can't touch this" checked></uui-toggle>
+  <uui-toggle disabled label="Disabled"></uui-toggle>
+  <uui-toggle disabled label="Disabled & checked" checked></uui-toggle>
 `;
 
 export const InAForm = () => html`
