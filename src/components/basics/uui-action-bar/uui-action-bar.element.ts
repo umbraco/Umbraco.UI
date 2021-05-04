@@ -1,7 +1,7 @@
 import { css } from 'lit';
 import { UUIButtonGroupElement } from '../uui-button-group/uui-button-group.element';
 
-export class UUIActionGroupElement extends UUIButtonGroupElement {
+export class UUIActionBarElement extends UUIButtonGroupElement {
   static styles = [
     ...UUIButtonGroupElement.styles,
     css`
