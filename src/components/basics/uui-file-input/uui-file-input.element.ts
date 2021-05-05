@@ -31,7 +31,7 @@ export class UUIFileInputElement extends LitElement {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         place-items: stretch;
-        grid-gap: 16px;
+        grid-gap: var(--uui-size-layout-0);
       }
     `,
   ];

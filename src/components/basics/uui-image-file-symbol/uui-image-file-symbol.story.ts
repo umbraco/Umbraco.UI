@@ -7,6 +7,7 @@ export default {
 };
 
 let imgFile: string;
+let fileType: string;
 (() =>
   fetch('https://placekitten.com/300/300')
     .then(response => response.blob())
@@ -15,11 +16,17 @@ let imgFile: string;
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        if (reader.result) imgFile = reader.result as string;
+        if (reader.result) {
+          imgFile = reader.result as string;
+          fileType = imgFile.slice(
+            imgFile.indexOf('/') + 1,
+            imgFile.indexOf(';')
+          );
+        }
       };
     }))();
 
 export const Default = () =>
-  html` <div width="300px">
-    <uui-image-symbol type="pdf" .source=${imgFile}></uui-image-symbol></uui-image-symbol>
+  html` <div style="width:300px;">
+    <uui-image-symbol .type=${fileType} .source=${imgFile}></uui-image-symbol></uui-image-symbol>
   </div> `;
