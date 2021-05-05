@@ -14,84 +14,32 @@ export class UUINodeCardElement extends UUICardElement {
     css`
       :host {
         min-width: 250px;
-      }
-      /*
-
-      :host([type='node']),
-
-
-      slot[name='asset']::slotted(img) {
-        align-self: center;
-        border-radius: var(--uui-size-border-radius, 3px);
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-      }
-
-      :host([type='user'], [type='node'])
-        ::slotted(:not(uui-avatar, uui-tag, uui-badge)) {
-        font-size: var(--uui-size-small, 12px);
-        line-height: calc(2 * var(--uui-size-xsmall, 9px));
-      }
-
-      :host([type='user']) ::slotted(*) {
-        text-align: center;
-      }
-
-      slot[name='asset']::slotted(uui-icon) {
-        align-self: center;
-        font-size: var(--uui-size-xlarge);
-        // change this color to something more suitable
-        color: var(--uui-interface-contrast-disabled);
-        transform: translateY(
-          calc(
-            -1 * var(--uui-size-medium, 24px) + var(--uui-size-base-unit, 6px) *
-              2
-          )
-        );
-      }
-
-      slot[name='asset']::slotted(uui-file-icon) {
-        align-self: center;
-        margin: var(--uui-size-xlarge);
-        width: 80%;
-
-        transform: translateY(
-          calc(
-            -1 * var(--uui-size-medium, 24px) + var(--uui-size-base-unit, 6px) *
-              2
-          )
-        );
-      }
-
-      slot[name='tag']::slotted(uui-tag) {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-      }
-
-      slot[name='avatar']::slotted(uui-avatar) {
-        margin-bottom: 12px;
-      }
-
-      #card-content {
         width: 100%;
         display: flex;
         position: relative;
         flex-direction: column;
         justify-content: space-between;
-      }
-
-      :host([type='node']) #card-content,
-      :host([type='user']) #card-content {
         padding: var(--uui-size-space-3, 12px);
       }
 
-      :host([type='user']) #card-content {
-        align-items: center;
+      slot[name='tag'] {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        display: flex;
+        justify-content: right;
       }
 
-      #title-area {
+      slot:not([name])::slotted(*) {
+        font-size: var(--uui-size-small, 12px);
+        line-height: calc(2 * var(--uui-size-xsmall, 9px));
+      }
+
+      #icon {
+        font-size: 1.2em;
+      }
+
+      #open-part {
         display: flex;
         position: relative;
         font-weight: 700;
@@ -99,120 +47,41 @@ export class UUINodeCardElement extends UUICardElement {
         cursor: pointer;
       }
 
-      slot[name='icon']::slotted(uui-icon) {
-        font-size: 1.2em;
-      }
-
-      :host([type='user']) #title-area {
-        margin: 0 0 3px 0;
-      }
-
-      #title-area > span {
+      #open-part > span {
         vertical-align: center;
         margin-left: 0.5em;
         margin-top: 3px;
       }
 
-      #title-area:hover,
-      #title-area:focus {
+      #open-part:hover {
         text-decoration: underline;
-        outline-color: #6ab4f0;
+        color: var(--uui-interface-contrast-hover);
       }
-
-      #details {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        background-color: var(--uui-color-white, #ffff);
-        color: var(--uui-color-black, #0000);
-        opacity: 0;
-        border-radius: 0 0 var(--uui-size-border-radius, 3px)
-          var(--uui-size-border-radius, 3px);
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: var(--uui-size-small, 12px);
-        box-sizing: border-box;
-        padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
-        transition: opacity 120ms;
-      }
-
-      :host([type='file']) #details {
-        opacity: 0.9;
-        border-top: 1px solid rgba(0, 0, 0, 0.04);
-      }
-
-      :host(:hover) #details,
-      :host(:focus, :focus-within) #details {
-        opacity: 0.9;
-      }
-
-      :host([selected]) #details {
-        opacity: 0.9;
-      }
-
-      #info-icon {
-        margin-right: var(--uui-size-base-unit, 6px);
-        display: flex;
-        height: var(--uui-size-medium, 24px);
-      }
-
-      #details:hover,
-      #details:focus {
-        text-decoration: underline;
-        outline-color: #6ab4f0;
-      }
-      */
     `,
   ];
 
   @property({ type: String })
   name = '';
 
+  @property({ type: String })
+  icon = '';
+
   public render() {
-    return html`<div id="card-content">
+    return html`
       <slot name="tag"></slot>
-      <uui-avatar .text="${this.name}"></uui-avatar>
       <div
         id="open-part"
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
       >
+        <uui-icon id="icon" name=${this.icon}></uui-icon>
         <span> ${this.name} </span>
       </div>
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
 
       <slot></slot>
-    </div>`;
+    `;
   }
-
-  /*
-  // types: image, file
-  get mediaTemplate() {
-    return html`<slot name="asset"></slot>
-      <div
-        id="open-part"
-        tabindex="0"
-        @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}
-      >
-        <uui-icon
-          id="info-icon"
-          name="info"
-          style="color:currentColor"
-        ></uui-icon
-        ><span> ${this.title} </span>
-      </div>
-      <!-- Select border must be right after .open-part -->
-      <div id="select-border"></div>`;
-  }
-
-  // No type
-  get noTypeTemplate() {
-    return html`<slot></slot>`;
-  }
-
-  */
 }
