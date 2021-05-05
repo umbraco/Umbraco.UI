@@ -82,7 +82,7 @@ export class UUIMediaCardElement extends UUICardElement {
   @property({ type: String })
   image = '';
 
-  private renderMedia() {
+  protected renderMedia() {
     if (this.fileExt === '' && this.image === '') {
       return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
     } else if (this.fileExt !== '' && this.image === '') {
