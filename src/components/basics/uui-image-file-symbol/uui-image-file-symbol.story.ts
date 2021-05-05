@@ -2,8 +2,8 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Image Symbol',
-  component: 'uui-image-symbol',
+  title: 'Basics/Image File Symbol',
+  component: 'uui-image-file-symbol',
 };
 
 let imgFile: string;
@@ -27,6 +27,11 @@ let fileType: string;
     }))();
 
 export const Default = () =>
-  html` <div style="width:300px;">
-    <uui-image-symbol .type=${fileType} .source=${imgFile}></uui-image-symbol></uui-image-symbol>
-  </div> `;
+  html`
+    <div style="width:300px;">
+      <uui-image-file-symbol
+        .type=${fileType}
+        .source=${imgFile}
+      ></uui-image-file-symbol>
+    </div>
+  `;
