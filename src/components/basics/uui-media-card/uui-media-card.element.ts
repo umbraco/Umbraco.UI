@@ -55,7 +55,7 @@ export class UUIMediaCardElement extends UUICardElement {
 
       :host([image]:not([image=''])) #open-part {
         transition: opacity 120ms;
-        transition-delay: 1s;
+        transition-delay: 0.5s;
         opacity: 0;
       }
 
