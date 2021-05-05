@@ -64,12 +64,10 @@ export class UUICardElement extends LitElement {
         opacity: 0.66;
       }
 
-      :host([selectable]:not([selected]):hover)
-        #open-part:hover
-        + #select-border {
+      :host([selectable]:not([selected])) #open-part:hover + #select-border {
         opacity: 0;
       }
-      :host([selectable][selected]:hover) #open-part:hover + #select-border {
+      :host([selectable][selected]) #open-part:hover + #select-border {
         opacity: 1;
       }
 
