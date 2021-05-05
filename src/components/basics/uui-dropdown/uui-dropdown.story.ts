@@ -44,7 +44,7 @@ export const Overview = () => html`
       <uui-select-list>
         ${options.map(
           option =>
-            html`<uui-select-list-item
+            html`<uui-select-option
               ><uui-icon
                 slot="left"
                 name="bug"
@@ -55,7 +55,7 @@ export const Overview = () => html`
                 name="bug"
                 .style="color: ${option.value}"
               ></uui-icon
-            ></uui-select-list-item>`
+            ></uui-select-option>`
         )}
       </uui-select-list>
     </uui-overflow-container>
@@ -70,7 +70,7 @@ export const withInput = () => html`
       <uui-select-list>
         ${options.map(
           option =>
-            html`<uui-select-list-item
+            html`<uui-select-option
               ><uui-icon
                 slot="left"
                 name="bug"
@@ -81,7 +81,7 @@ export const withInput = () => html`
                 name="bug"
                 .style="color: ${option.value}"
               ></uui-icon
-            ></uui-select-list-item>`
+            ></uui-select-option>`
         )}
       </uui-select-list>
     </uui-overflow-container>
@@ -95,7 +95,7 @@ export const top = () => html`
       <uui-select-list>
         ${options.map(
           option =>
-            html`<uui-select-list-item
+            html`<uui-select-option
               ><uui-icon
                 slot="left"
                 name="bug"
@@ -106,7 +106,7 @@ export const top = () => html`
                 name="bug"
                 .style="color: ${option.value}"
               ></uui-icon
-            ></uui-select-list-item>`
+            ></uui-select-option>`
         )}
       </uui-select-list>
     </uui-overflow-container>
@@ -122,7 +122,7 @@ export const auto = () => html`
       <uui-select-list>
         ${options.map(
           option =>
-            html`<uui-select-list-item
+            html`<uui-select-option
               ><uui-icon
                 slot="left"
                 name="bug"
@@ -133,7 +133,7 @@ export const auto = () => html`
                 name="bug"
                 .style="color: ${option.value}"
               ></uui-icon
-            ></uui-select-list-item>`
+            ></uui-select-option>`
         )}
       </uui-select-list>
     </uui-overflow-container>
