@@ -233,7 +233,8 @@ export class UUIRadioGroupElement extends LitElement {
       <slot
         @slotchange=${this._handleSlotChange}
         @change=${this._handleSelectOnClick}
-      ></slot>
+      >
+      </slot>
     `;
   }
 }
