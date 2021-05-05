@@ -3,24 +3,13 @@ import './index';
 
 export default {
   title: 'Basics/Card',
-  component: 'uui-card',
 };
 
-export const Basic = () => html`
+export const Overview = () => html`
   <div style="width: 300px">
-    <uui-card>
-      <uui-button look="placeholder" style="width:100%;">
-        Main slot
-      </uui-button>
-    </uui-card>
-  </div>
-`;
-
-export const ContentNode = () => html`
-  <div style="width: 300px">
-    <uui-card title="The card" type="node" selectable
-      ><uui-icon slot="icon" name="bug"></uui-icon
-      ><uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-node-card selectable name="The card" icon="bug">
+      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+      <!-- TODO: we should make some kind of component for this data layout: -->
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
         <li><span style="font-weight: 700">Created:</span> Yesterday</li>
         <li>
@@ -30,79 +19,16 @@ export const ContentNode = () => html`
         <li>
           <span style="font-weight: 700">Another property:</span> Another value
         </li>
-      </ul></uui-card
-    >
+      </ul>
+    </uui-node-card>
+    <uui-media-card selectable name="Doggo 1" file-ext="image" image="https://placedog.net/1447/?random"/></uui-media-card>
+    <uui-media-card selectable name="File 1"/></uui-media-card>
+    <uui-media-card selectable name="File 1" file-ext="txt"/></uui-media-card>
+    <uui-user-card selectable name="Sherlock Holmes" group-name="Editors">
+      <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag>
+      <div style="margin-bottom: 12px">Editors</div>
+      <div>Last login</div>
+      <div>March 19, 2021 9:14 AM</div>
+    </uui-user-card>
   </div>
 `;
-
-export const Selectable = () =>
-  html`
-    <div style="width: 130px">
-      <uui-card selectable title="Card 1">
-        <uui-button look="placeholder" class="open-part" style="width:100%;"
-          >Main slot</uui-button
-        >
-        <!-- Select border must be right after .open-part -->
-        <div id="select-border"></div
-      ></uui-card>
-      <uui-card selectable selected title="Card 2">
-        <uui-button look="placeholder" class="open-part" style="width:100%;">
-          Main slot
-        </uui-button>
-        <!-- Select border must be right after .open-part -->
-        <div id="select-border"></div>
-      </uui-card>
-    </div>
-  `;
-
-export const User = () =>
-  html`
-    <div style="width: 130px">
-      <uui-card selectable title="Sherlock Holmes" type="user">
-        <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag
-        ><uui-avatar slot="avatar" text="Sherlock Holmes" size="m"></uui-avatar>
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Last login</div>
-        <div>March 19, 2021 9:14 AM</div></uui-card
-      >
-      <uui-card selectable selected title="John Watson" type="user"
-        ><uui-avatar slot="avatar" text="John Watson" size="m"> </uui-avatar>
-        <div style="margin-bottom: 12px">Editors</div>
-
-        <div>Has not logegd in yet</div></uui-card
-      >
-    </div>
-  `;
-
-export const File = () =>
-  html`
-    <div style="width: 200px">
-      <uui-card selectable title="Card 1" type="file"
-        ><uui-file-icon type="txt" slot="asset"></uui-file-icon
-      ></uui-card>
-    </div>
-  `;
-
-export const Picture = () =>
-  html`
-    <div style="width: 50vw">
-      <uui-card selectable title="Doggo 1" type="image"
-        ><img slot="asset" src="https://placedog.net/1447/?random"
-      /></uui-card>
-      <uui-card selectable title="Doggo 2" type="image"
-        ><img slot="asset" src="https://placedog.net/240/?random"
-      /></uui-card>
-      <uui-card selectable title="Doggo 3" type="image"
-        ><img slot="asset" src="https://placedog.net/110/?random"
-      /></uui-card>
-    </div>
-  `;
-
-export const Error = () =>
-  html`
-    <div style="width: 50vw">
-      <uui-card selectable title="Doggo 1" type="image" error
-        ><img slot="asset" src="https://placedog.net/1447/?random"
-      /></uui-card>
-    </div>
-  `;
