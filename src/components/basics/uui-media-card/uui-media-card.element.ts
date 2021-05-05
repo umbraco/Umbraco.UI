@@ -82,14 +82,21 @@ export class UUIMediaCardElement extends UUICardElement {
   @property({ type: String })
   image = '';
 
+  private renderMedia() {
+    if (this.fileExt === '' && this.image === '') {
+      return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
+    } else if (this.fileExt !== '' && this.image === '') {
+      return html`<uui-file-symbol
+        id="file-symbol"
+        type="txt"
+      ></uui-file-symbol>`;
+    } else if (this.image !== '') {
+      return html` <img src=${this.image} />`;
+    }
+  }
+
   public render() {
-    return html` ${this.fileExt === '' && this.image === ''
-        ? html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`
-        : ''}
-      ${this.fileExt !== '' && this.image === ''
-        ? html`<uui-file-symbol id="file-symbol" type="txt"></uui-file-symbol>`
-        : ''}
-      ${this.image !== '' ? html`<img src=${this.image} />` : ''}
+    return html` ${this.renderMedia()}
       <div
         id="open-part"
         tabindex="0"
