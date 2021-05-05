@@ -2,19 +2,9 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card',
-  component: 'uui-card',
+  title: 'Basics/Card/Node Card',
+  component: 'uui-node-card',
 };
-
-export const Basic = () => html`
-  <div style="width: 300px">
-    <uui-card>
-      <uui-button look="placeholder" style="width:100%;">
-        Main slot
-      </uui-button>
-    </uui-card>
-  </div>
-`;
 
 export const ContentNode = () => html`
   <div style="width: 300px">
@@ -34,45 +24,6 @@ export const ContentNode = () => html`
     >
   </div>
 `;
-
-export const Selectable = () =>
-  html`
-    <div style="width: 130px">
-      <uui-card selectable title="Card 1">
-        <uui-button look="placeholder" class="open-part" style="width:100%;"
-          >Main slot</uui-button
-        >
-        <!-- Select border must be right after .open-part -->
-        <div id="select-border"></div
-      ></uui-card>
-      <uui-card selectable selected title="Card 2">
-        <uui-button look="placeholder" class="open-part" style="width:100%;">
-          Main slot
-        </uui-button>
-        <!-- Select border must be right after .open-part -->
-        <div id="select-border"></div>
-      </uui-card>
-    </div>
-  `;
-
-export const User = () =>
-  html`
-    <div style="width: 130px">
-      <uui-card selectable title="Sherlock Holmes" type="user">
-        <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag
-        ><uui-avatar slot="avatar" text="Sherlock Holmes" size="m"></uui-avatar>
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Last login</div>
-        <div>March 19, 2021 9:14 AM</div></uui-card
-      >
-      <uui-card selectable selected title="John Watson" type="user"
-        ><uui-avatar slot="avatar" text="John Watson" size="m"> </uui-avatar>
-        <div style="margin-bottom: 12px">Editors</div>
-
-        <div>Has not logegd in yet</div></uui-card
-      >
-    </div>
-  `;
 
 export const File = () =>
   html`
