@@ -29,7 +29,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
 
       #slider {
         position: relative;
-        grid-area: center;
+        grid-area: 'input';
         display: flex;
         align-items: center;
 

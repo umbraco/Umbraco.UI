@@ -26,7 +26,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
 
       #ticker {
         position: relative;
-        grid-area: center;
+        grid-area: 'input';
         display: flex;
         align-items: center;
         justify-content: center;
