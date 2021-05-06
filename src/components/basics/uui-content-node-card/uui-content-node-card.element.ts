@@ -3,12 +3,12 @@ import { property } from 'lit/decorators';
 import { UUICardElement } from '../uui-card/uui-card.element';
 
 /**
- *  @element uui-node-card
- *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
- *  @description - Card component for displaying a node.
+ *  @element uui-content-node-card
+ *  @fires {UUICardEvent} click-title - fires when the card title is clicked
+ *  @description - Card component for displaying a content-node.
  */
 
-export class UUINodeCardElement extends UUICardElement {
+export class UUIContentNodeCardElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`

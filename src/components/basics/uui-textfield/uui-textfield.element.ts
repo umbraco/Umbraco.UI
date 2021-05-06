@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators';
-import { classMap } from 'lit/directives/class-map';
 import { UUITextFieldEvent } from './UUITextFieldEvent';
 
 export type TextFieldType =
