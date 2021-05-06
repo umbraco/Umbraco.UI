@@ -8,17 +8,17 @@ import { LitElement, html, css } from 'lit';
 export class UUIButtonGroupElement extends LitElement {
   static styles = [
     css`
-      ::slotted(uui-button) {
+      ::slotted(*) {
         --uui-button-border-radius: 0;
       }
-      ::slotted(uui-button:not(:first-child)) {
+      ::slotted(*:not(:first-child)) {
         --uui-button-merge-border-left: 1;
       }
-      ::slotted(uui-button:first-child) {
+      ::slotted(*:first-child) {
         --uui-button-border-radius: var(--uui-size-border-radius, 3px) 0 0
           var(--uui-size-border-radius, 3px);
       }
-      ::slotted(uui-button:last-child) {
+      ::slotted(*:last-child) {
         --uui-button-border-radius: 0 var(--uui-size-border-radius, 3px)
           var(--uui-size-border-radius, 3px) 0;
       }
@@ -49,6 +49,6 @@ export class UUIButtonGroupElement extends LitElement {
   ];
 
   render() {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }

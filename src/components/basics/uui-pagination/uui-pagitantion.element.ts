@@ -1,17 +1,10 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { property, queryAll, state } from 'lit/decorators';
 import { UUIPaginationButtonElement } from './uui-pagination-button.element';
 
 //TODO maybe use repeat directive?
 export class UUIPaginationElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-        border: 1px solid red;
-      }
-    `,
-  ];
+  static styles = [];
 
   connectedCallback() {
     super.connectedCallback();
@@ -55,22 +48,6 @@ export class UUIPaginationElement extends LitElement {
     return val < min ? min : val > max ? max : val;
   }
 
-  private _doCrazyStuff(current: number, previous: number) {
-    const delta = previous - current;
-    const moveBack = delta > 0;
-    const moveForward = delta < 0;
-
-    this.pages = this._filterPages(this.current);
-
-    console.log(
-      this.current,
-      delta,
-      `forward ${moveForward}`,
-      `backward ${moveBack}`,
-      this.pages
-    );
-  }
-
   @queryAll('uui-pagination-button')
   pageButtons!: Array<UUIPaginationButtonElement>;
 
@@ -95,20 +72,36 @@ export class UUIPaginationElement extends LitElement {
       newValue > this.count ? this.count : newValue <= 1 ? 1 : newValue;
     this.previous = oldValue;
 
-    this._doCrazyStuff(this._current, this.previous);
+    this.pages = this._filterPages(this._current);
 
     this.requestUpdate('current', oldValue);
-    console.log(this._current);
   }
 
   updated() {
     if (this.pageButtons) {
       const buttons = Array.from(this.pageButtons);
       buttons.forEach(button => {
-        if (button.page === this._current) button.disabled = true;
-        else button.disabled = false;
+        if (button.page === this._current) {
+          button.disabled = true;
+          button.look = 'primary';
+        } else {
+          button.disabled = false;
+          button.look = 'outline';
+        }
       });
     }
+  }
+
+  public goToNextPage() {
+    this.current++;
+  }
+
+  public goToPreviousPage() {
+    this.current--;
+  }
+
+  public goToPage(page: number) {
+    this.current = page;
   }
 
   @state()
@@ -123,22 +116,36 @@ export class UUIPaginationElement extends LitElement {
   @state()
   pages: number[] = [];
 
+  buttonsL() {
+    return html`${this.pages.includes(1)
+      ? ''
+      : html`<uui-pagination-button
+            look="outline"
+            @click=${() => this.goToPage(1)}
+            >First</uui-pagination-button
+          ><uui-pagination-button look="outline">...</uui-pagination-button>`}`;
+  }
+
   render() {
-    return html`
-      <span>Previous</span> ${this.current < this.range
-        ? ''
-        : html`<span>First</span>`}
-      ${this.pages.includes(1) ? '' : html`<span>...</span>`}
-      ${this.pages.map(
+    // prettier-ignore
+    return html`<uui-button-group role="list"
+      ><uui-pagination-button look="outline" @click=${this.goToPreviousPage}>Previous</uui-pagination-button
+      >${this.buttonsL()}${this.pages.map(
         page =>
           html`<uui-pagination-button
+            look="outline"
             .page=${page}
             @click=${this.setCurrentPage}
-          ></uui-pagination-button>`
-      )}
-      ${this.pages.includes(this.count) ? '' : html`<span>...</span>`}
-      ${this.current > this.count - this.range ? '' : html`<span>Last </span>`}
-      <span>Next</span>
-    `;
+            >${page}</uui-pagination-button
+          >`
+      )}${this.pages.includes(this.count)
+        ? ''
+        : html`<uui-pagination-button look="outline">...</uui-pagination-button
+            ><uui-pagination-button look="outline" @click=${() => this.goToPage(this.count)}
+              >Last</uui-pagination-button
+            >`}<uui-pagination-button look="outline" @click=${this.goToNextPage}
+        >Next</uui-pagination-button
+      ></uui-button-group
+    >`;
   }
 }
