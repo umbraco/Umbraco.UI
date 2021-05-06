@@ -135,14 +135,12 @@ export class UUITextFieldElement extends LitElement {
     this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.INPUT));
   }
 
-  private onChange(e: Event) {
-    console.log(e);
-    // TODO - implement
+  private onChange() {
+    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.CHANGE));
   }
 
-  private onKeyup(e: Event) {
-    console.log(e);
-    // TODO - implement
+  private onKeyup() {
+    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.KEYUP));
   }
 
   render() {
@@ -154,9 +152,9 @@ export class UUITextFieldElement extends LitElement {
         aria-label=${this.label}
         ?disabled=${this.disabled}
         class=${classMap({ invalid: !this.valid })}
-        @input=${(e: Event) => this.onInput(e)}
-        @change=${(e: Event) => this.onChange(e)}
-        @keyup=${(e: Event) => this.onKeyup(e)}
+        @input=${this.onInput}
+        @change=${this.onChange}
+        @keyup=${this.onKeyup}
       />
     `;
   }
