@@ -57,7 +57,7 @@ export class UUITextFieldElement extends LitElement {
           var(--uui-interface-border-focus)
         );
       }
-      .invalid {
+      :host([invalid]) {
         border-color: var(--uui-color-danger-background);
       }
 
@@ -116,18 +116,20 @@ export class UUITextFieldElement extends LitElement {
   }
   set value(newValue) {
     this._value = newValue;
+    /*
     this.valid = !!this.value;
     if (this.valid) {
       this._internals.setValidity({});
     } else {
       this._internals.setValidity({ customError: true }, 'Cannot be empty');
     }
+    */
     this._internals.setFormValue(this._value);
   }
 
   @property({ type: String }) type: TextFieldType = 'text';
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   private valid = true;
 
   private onInput(e: Event) {
@@ -151,7 +153,6 @@ export class UUITextFieldElement extends LitElement {
         placeholder=${this.placeholder}
         aria-label=${this.label}
         ?disabled=${this.disabled}
-        class=${classMap({ invalid: !this.valid })}
         @input=${this.onInput}
         @change=${this.onChange}
         @keyup=${this.onKeyup}
