@@ -1,10 +1,19 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { property, queryAll, state } from 'lit/decorators';
 import { UUIPaginationButtonElement } from './uui-pagination-button.element';
 
 //TODO maybe use repeat directive?
 export class UUIPaginationElement extends LitElement {
-  static styles = [];
+  static styles = [
+    css`
+      uui-pagination-button {
+        min-width: 36px;
+        --uui-button-slot-margin-x-factor: 1;
+        --uui-button-slot-padding-l-factor: 1;
+        --uui-button-slot-padding-r-factor: 1;
+      }
+    `,
+  ];
 
   connectedCallback() {
     super.connectedCallback();
@@ -121,29 +130,38 @@ export class UUIPaginationElement extends LitElement {
       ? ''
       : html`<uui-pagination-button
             look="outline"
+            role="listitem"
+            aria-label="Go to first page"
             @click=${() => this.goToPage(1)}
             >First</uui-pagination-button
-          ><uui-pagination-button look="outline">...</uui-pagination-button>`}`;
+          ><uui-pagination-button look="outline" tabindex="-1"
+            >...</uui-pagination-button
+          >`}`;
   }
 
   render() {
     // prettier-ignore
     return html`<uui-button-group role="list"
-      ><uui-pagination-button look="outline" @click=${this.goToPreviousPage}>Previous</uui-pagination-button
+      ><uui-pagination-button look="outline" role="listitem"
+            aria-label="Go to previous page" @click=${this.goToPreviousPage}>Previous</uui-pagination-button
       >${this.buttonsL()}${this.pages.map(
         page =>
           html`<uui-pagination-button
             look="outline"
+            role="listitem"
+            .ariaLabel='Go to page ${page}'
             .page=${page}
             @click=${this.setCurrentPage}
             >${page}</uui-pagination-button
           >`
       )}${this.pages.includes(this.count)
         ? ''
-        : html`<uui-pagination-button look="outline">...</uui-pagination-button
-            ><uui-pagination-button look="outline" @click=${() => this.goToPage(this.count)}
+        : html`<uui-pagination-button look="outline" tabindex="-1">...</uui-pagination-button
+            ><uui-pagination-button role="listitem"
+            aria-label="Go to last page" look="outline" @click=${() => this.goToPage(this.count)}
               >Last</uui-pagination-button
-            >`}<uui-pagination-button look="outline" @click=${this.goToNextPage}
+            >`}<uui-pagination-button role="listitem"
+            aria-label="Go to next page" look="outline" @click=${this.goToNextPage}
         >Next</uui-pagination-button
       ></uui-button-group
     >`;
