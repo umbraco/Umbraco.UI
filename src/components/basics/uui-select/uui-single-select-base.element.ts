@@ -1,4 +1,5 @@
-import { internalProperty, LitElement, property, query } from 'lit-element';
+import { LitElement } from 'lit';
+import { state, property, query } from 'lit/decorators';
 import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
 import { UUISelectOptionEvent } from '../uui-select-option/UUISelectOptionEvent';
 import { UUISelectEvent } from './UUISelectEvent';
@@ -82,7 +83,7 @@ export class UUISingleSelectBaseElement extends LitElement {
     this.requestUpdate('selected', oldVal);
   }
 
-  @internalProperty()
+  @state()
   selectedID = '';
 
   private _setSelected(newVal: number | null) {

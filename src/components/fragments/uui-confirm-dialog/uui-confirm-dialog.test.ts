@@ -1,7 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
-
-import '.';
 import { UUIConfirmDialogElement } from './uui-confirm-dialog.element';
+import '.';
 
 describe('UuiConfirmDialog', () => {
   let element: UUIConfirmDialogElement;

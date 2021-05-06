@@ -1,4 +1,4 @@
-import { html, css } from 'lit-element';
+import { html, css } from 'lit';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
@@ -26,7 +26,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
 
       #ticker {
         position: relative;
-        grid-area: center;
+        grid-area: 'input';
         display: flex;
         align-items: center;
         justify-content: center;
@@ -39,7 +39,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
           var(--uui-size-border-radius)
         );
 
-        color: var(--uui-toggle-color, var(--uui-interface-selected-contrast));
+        color: var(--uui-toggle-color, var(--uui-interface-chosen-contrast));
         background-color: var(
           --uui-toggle-background-color,
           var(--uui-interface-surface)
@@ -69,13 +69,13 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         );
       }
       input:checked + #ticker {
-        border-color: var(--uui-interface-selected);
+        border-color: var(--uui-interface-chosen);
       }
       label:hover input:checked:not([disabled]) + #ticker {
-        border-color: var(--uui-interface-selected-hover);
+        border-color: var(--uui-interface-chosen-hover);
       }
       label:focus input:checked + #ticker {
-        border-color: var(--uui-interface-selected-focus);
+        border-color: var(--uui-interface-chosen-focus);
       }
 
       #icon-check {
@@ -85,7 +85,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         height: 1em;
         line-height: 0;
         transition: fill 120ms, opacity 120ms;
-        fill: var(--uui-interface-selected-contrast);
+        fill: var(--uui-interface-chosen-contrast);
         opacity: 0;
       }
 
@@ -101,13 +101,13 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         border-radius: calc(
           var(--uui-checkbox-border-radius, var(--uui-size-border-radius)) * 0.5
         );
-        background-color: var(--uui-interface-selected);
+        background-color: var(--uui-interface-chosen);
         transition: transform 120ms ease, opacity 120ms, background-color 120ms;
         transform: scale(0);
         opacity: 0;
       }
       label:hover input:checked:not([disabled]) + #ticker:before {
-        background-color: var(--uui-interface-selected-hover);
+        background-color: var(--uui-interface-chosen-hover);
       }
 
       input:checked + #ticker:before {
@@ -118,7 +118,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         opacity: 1;
       }
       label:focus input:checked + #ticker {
-        background-color: var(--uui-interface-selected-focus);
+        background-color: var(--uui-interface-chosen-focus);
       }
 
       :host(:not([disabled])) label:active input:checked + #ticker:before {
@@ -130,7 +130,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         background-color: var(--uui-interface-surface-disabled);
       }
       :host([disabled]) input:checked + #ticker {
-        background-color: var(--uui-interface-selected-disabled);
+        background-color: var(--uui-interface-chosen-disabled);
       }
       :host([disabled]) #ticker:after {
         background-color: var(--uui-interface-surface-disabled);
@@ -142,7 +142,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
       :host([disabled]) input:checked + #ticker #icon-check {
-        fill: var(--uui-interface-selected-contrast-disabled);
+        fill: var(--uui-interface-chosen-contrast-disabled);
       }
 
       /*

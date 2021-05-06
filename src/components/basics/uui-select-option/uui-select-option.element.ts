@@ -1,11 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  queryAssignedNodes,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, query, queryAssignedNodes } from 'lit/decorators';
 import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 /**
@@ -37,8 +31,8 @@ export class UUISelectOptionElement extends LitElement {
       }
 
       :host([selected]) {
-        background-color: var(--uui-interface-selected);
-        color: var(--uui-interface-selected-contrast);
+        background-color: var(--uui-interface-select);
+        color: var(--uui-interface-select-contrast);
       }
 
       #list-item {

@@ -1,11 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  PropertyValues,
-  query,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { query, property } from 'lit/decorators';
 import { UUITabEvent } from '../uui-tab/UUITabEvent';
 import { UUITabGroupEvent } from './UUITabGroupEvent';
 import { UUITabElement } from '../uui-tab/uui-tab.element';

@@ -1,11 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  query,
-  property,
-  internalProperty,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, query, state } from 'lit/decorators';
 import {
   UUIAvatarElement,
   AvatarSizeType,
@@ -47,7 +41,7 @@ export class UUIAvatarGroupElement extends LitElement {
   @property({ type: String, attribute: true })
   public size: AvatarSizeType = AvatarSizeDefaultValue;
 
-  @internalProperty()
+  @state()
   private avatars: UUIAvatarElement[] = [];
 
   @query('slot')

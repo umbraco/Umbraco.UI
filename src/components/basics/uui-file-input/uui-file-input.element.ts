@@ -1,12 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  queryAll,
-  internalProperty,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, query, queryAll, state } from 'lit/decorators';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 
 /**
@@ -38,7 +31,7 @@ export class UUIFileInputElement extends LitElement {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         place-items: stretch;
-        grid-gap: 16px;
+        grid-gap: var(--uui-size-layout-0);
       }
     `,
   ];
@@ -50,7 +43,7 @@ export class UUIFileInputElement extends LitElement {
     } else this.filesArray = [];
   }
 
-  @internalProperty()
+  @state()
   filesArray: File[] = [];
 
   @property({ attribute: false })

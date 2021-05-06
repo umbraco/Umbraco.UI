@@ -1,5 +1,4 @@
-import { html } from 'lit-html';
-import '.';
+import { html } from 'lit-element';
 import '../uui-icon/index';
 import {
   InterfaceLookNames,

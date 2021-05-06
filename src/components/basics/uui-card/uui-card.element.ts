@@ -1,19 +1,13 @@
-import { LitElement, html, css, property, query, unsafeCSS } from 'lit-element';
-import { CardType, CardTypeNames } from '../../../type/CardType';
-import { UUICardEvent } from './UUICardEvents';
+import { LitElement, css, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators';
+import { UUICardEvent } from './UUICardEvent';
+
 /**
  *  @element uui-card
  *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
- *  @slot - for things
- * @slot {img} - for things
- *  @description - Card to display your media or conmtent nodes
+ *  @description - Base card component to be extended by specific cards.
  */
 
-const allCardTypesSelector = `${CardTypeNames.map(
-  cardType => `[type="${cardType}"]`
-).join(',')}`;
-
-//TODO error indication
 export class UUICardElement extends LitElement {
   static styles = [
     css`
@@ -23,15 +17,16 @@ export class UUICardElement extends LitElement {
         justify-content: center;
         box-shadow: 0 1px 1px 0 var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius, 3px);
-        min-width: calc(var(--uui-size-xxlarge, 66px) * 2);
+        /* min-width: calc(var(--uui-size-xxlarge, 66px) * 2);*/
         min-height: calc(var(--uui-size-xxlarge, 66px) * 2);
         margin: 6px;
         background-color: var(--uui-interface-surface, white);
         --uui-card-before-opacity: 0;
-        transition: --uui-card-before-opacity 0.15s ease-in-out;
+        transition: --uui-card-before-opacity 120ms;
       }
 
       :host(:focus) {
+        /** TODO: implement focus outline. */
         outline-color: #6ab4f0;
       }
 
@@ -41,47 +36,46 @@ export class UUICardElement extends LitElement {
           inset 0 0 2px 0 var(--uui-look-danger-border, #d42054);
       }
 
-      :host:before {
-        content: '';
+      :host([selectable]) {
+        cursor: pointer;
+      }
+      :host([selectable]) #select-border {
         position: absolute;
         z-index: 2;
         top: -2px;
         left: -2px;
         right: -2px;
         bottom: -2px;
-        border-radius: var(--uui-size-border-radius, 3px);
+        border: 2px solid var(--uui-interface-select, #1b264f);
+        border-radius: calc(var(--uui-size-border-radius, 3px) + 2px);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
+          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
         pointer-events: none;
-        opacity: var(--uui-card-before-opacity);
-        transition: all 0.15s ease-in-out;
+        opacity: 0;
+        transition: opacity 80ms;
+      }
+      :host([selected]) #select-border {
+        opacity: 1;
+      }
+      :host([selectable]:not([selected]):hover) #select-border {
+        opacity: 0.33;
+      }
+      :host([selectable][selected]:hover) #select-border {
+        opacity: 0.66;
       }
 
-      :host([selectable])::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
-
-        opacity: var(--uui-card-before-opacity);
+      :host([selectable]:not([selected])) #open-part:hover + #select-border {
+        opacity: 0;
+      }
+      :host([selectable][selected]) #open-part:hover + #select-border {
+        opacity: 1;
       }
 
-      :host([selectable]) #details {
-        cursor: pointer;
-      }
-
-      :host([selected])::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
-        opacity: var(--uui-card-before-opacity);
-      }
+      /*
 
       :host([type='node']),
       :host([type='user']) {
         min-width: 250px;
-      }
-
-      :host([type='file']),
-      :host([type='image']) {
-        max-width: 200px;
       }
 
       slot[name='asset']::slotted(img) {
@@ -105,7 +99,7 @@ export class UUICardElement extends LitElement {
       slot[name='asset']::slotted(uui-icon) {
         align-self: center;
         font-size: var(--uui-size-xlarge);
-        /* change this color to something more suitable */
+        // change this color to something more suitable
         color: var(--uui-interface-contrast-disabled);
         transform: translateY(
           calc(
@@ -151,10 +145,6 @@ export class UUICardElement extends LitElement {
         padding: var(--uui-size-space-3, 12px);
       }
 
-      :host(:not(${unsafeCSS(allCardTypesSelector)})) {
-        padding: var(--uui-size-space-4, 24px);
-      }
-
       :host([type='user']) #card-content {
         align-items: center;
       }
@@ -165,9 +155,6 @@ export class UUICardElement extends LitElement {
         font-weight: 700;
         align-items: center;
         cursor: pointer;
-
-        /* margin: calc(-1 * var(--uui-size-base-unit, 6px))
-          calc(-1 * var(--uui-size-base-unit, 6px)) var(--uui-size-small, 12px); */
       }
 
       slot[name='icon']::slotted(uui-icon) {
@@ -182,7 +169,6 @@ export class UUICardElement extends LitElement {
         vertical-align: center;
         margin-left: 0.5em;
         margin-top: 3px;
-        /* line-height: var(--uui-size-small, 12px); */
       }
 
       #title-area:hover,
@@ -206,25 +192,21 @@ export class UUICardElement extends LitElement {
         font-size: var(--uui-size-small, 12px);
         box-sizing: border-box;
         padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
-        /* transform: translateY(20%); */
-        transition: all 0.3s ease-in-out;
+        transition: opacity 120ms;
       }
 
       :host([type='file']) #details {
         opacity: 0.9;
-        /* transform: translateY(0%); */
         border-top: 1px solid rgba(0, 0, 0, 0.04);
       }
 
       :host(:hover) #details,
       :host(:focus, :focus-within) #details {
         opacity: 0.9;
-        /* transform: translateY(0%); */
       }
 
       :host([selected]) #details {
         opacity: 0.9;
-        /* transform: translateY(0%); */
       }
 
       #info-icon {
@@ -238,34 +220,15 @@ export class UUICardElement extends LitElement {
         text-decoration: underline;
         outline-color: #6ab4f0;
       }
+      */
     `,
   ];
 
   constructor() {
     super();
     this.addEventListener('click', this.toggleSelect);
-    this.addEventListener('mouseenter', this.handleMouseEneter);
-    this.addEventListener('mouseleave', this.handleMouseLeave);
-    this.addEventListener('keydown', this.handleKeydown);
-    this.addEventListener('focus', () => {
-      this.changeBorderOpacity(0.6, 0.3);
-    });
-    this.addEventListener('blur', () => {
-      this.changeBorderOpacity(1, 0);
-    });
+    this.addEventListener('keydown', this.handleSelectKeydown);
   }
-
-  @query('slot[name="asset"]')
-  assetSlot!: HTMLSlotElement;
-
-  @query(':host::before')
-  hostBefore!: HTMLElement;
-
-  @query('#title-area')
-  titleArea!: HTMLElement;
-
-  @query('#details')
-  detailsArea!: HTMLElement;
 
   private _selectable = false;
   @property({ type: Boolean, reflect: true })
@@ -277,37 +240,16 @@ export class UUICardElement extends LitElement {
     const oldVal = this._selectable;
     this._selectable = newVal;
     this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
-
     this.requestUpdate('selected', oldVal);
   }
 
-  private _selected = false;
   @property({ type: Boolean, reflect: true })
-  get selected() {
-    return this._selected;
-  }
-
-  set selected(newVal) {
-    const oldVal = this._selected;
-    this._selected = newVal;
-    this.style.setProperty(
-      '--uui-card-before-opacity',
-      `${newVal ? `${this._mouseOver ? '0.6' : '1'}` : '0'}`
-    );
-
-    this.requestUpdate('selected', oldVal);
-  }
-
-  @property()
-  title = '';
+  selected = false;
 
   @property({ type: Boolean, reflect: true })
   error = false;
 
-  @property({ reflect: true })
-  type: CardType = null;
-
-  toggleSelect() {
+  private toggleSelect() {
     if (this.selectable) this.selected = !this.selected;
     if (this.selected)
       this.dispatchEvent(new UUICardEvent(UUICardEvent.SELECTED));
@@ -321,99 +263,57 @@ export class UUICardElement extends LitElement {
     this.selected = false;
   }
 
-  private _handleTitleClick(e: Event) {
-    e.stopPropagation();
-    this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
-  }
-
-  private handleKeydown(e: KeyboardEvent) {
+  private handleSelectKeydown(e: KeyboardEvent) {
+    // TODO: Is it correct to both be able to select with space and enter?
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     this.toggleSelect();
   }
 
-  private handleTitleKeydown(e: KeyboardEvent) {
+  protected handleOpenClick(e: Event) {
+    e.stopPropagation();
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
+  }
+  protected handleOpenKeydown(e: KeyboardEvent) {
+    // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
   }
 
-  private changeBorderOpacity(selectedValue: number, deselectedValue: number) {
-    if (!this.selected)
-      this.style.setProperty('--uui-card-before-opacity', `${deselectedValue}`);
-
-    if (this.selected)
-      this.style.setProperty('--uui-card-before-opacity', `${selectedValue}`);
-  }
-
-  private _mouseOver = false;
-  handleMouseEneter(e: MouseEvent) {
-    if (e.target === this) {
-      this._mouseOver = true;
-      this.changeBorderOpacity(0.6, 0.3);
-    }
-
-    if (e.target === this.titleArea || e.target === this.detailsArea) {
-      e.stopPropagation();
-
-      this.changeBorderOpacity(1, 0);
-    }
-  }
-
-  handleMouseLeave(e: MouseEvent) {
-    if (e.target === this) {
-      this._mouseOver = false;
-      this.changeBorderOpacity(1, 0);
-    }
-
-    if (e.target === this.titleArea || e.target === this.detailsArea) {
-      e.stopPropagation();
-      this.changeBorderOpacity(0.6, 0.3);
-    }
-  }
-
   //* Templates to specific card types
 
-  //* types: user, node
+  /*
+  // types: user, node
   get nodeUserTemplate() {
     return html`<div id="card-content">
       <slot name="tag"></slot>
       <slot name="avatar"></slot>
       <div
-        id="title-area"
+        id="open-part"
         tabindex="0"
-        @click=${this._handleTitleClick}
-        @mouseenter=${this.handleMouseEneter}
-        @mouseleave=${this.handleMouseLeave}
-        @keydown=${this.handleTitleKeydown}
-        @focus=${(e: Event) => {
-          e.stopPropagation();
-          this.changeBorderOpacity(1, 0);
-        }}
+        @click=${this.handleOpenClick}
+        @keydown=${this.handleOpenKeydown}
       >
         <slot name="icon"></slot>
         <span> ${this.title} </span>
       </div>
+      <!-- Select border must be right after .open-part -->
+      <div id="select-border"></div>
 
       <slot></slot>
     </div>`;
   }
 
-  //* types: image, file
+  // types: image, file
   get mediaTemplate() {
     return html`<slot name="asset"></slot>
       <div
-        id="details"
+        id="open-part"
         tabindex="0"
-        @click=${this._handleTitleClick}
-        @mouseenter=${this.handleMouseEneter}
-        @mouseleave=${this.handleMouseLeave}
-        @keydown=${this.handleTitleKeydown}
-        @focus=${(e: Event) => {
-          e.stopPropagation();
-          this.changeBorderOpacity(1, 0);
-        }}
+        @click=${this.handleOpenClick}
+        @keydown=${this.handleOpenKeydown}
       >
         <uui-icon
           id="info-icon"
@@ -421,30 +321,15 @@ export class UUICardElement extends LitElement {
           style="color:currentColor"
         ></uui-icon
         ><span> ${this.title} </span>
-      </div>`;
+      </div>
+      <!-- Select border must be right after .open-part -->
+      <div id="select-border"></div>`;
   }
 
-  //* No type
+  // No type
   get noTypeTemplate() {
     return html`<slot></slot>`;
   }
 
-  private _renderCardType(type: CardType) {
-    switch (type) {
-      case 'file':
-      case 'image':
-        return this.mediaTemplate;
-
-      case 'user':
-      case 'node':
-        return this.nodeUserTemplate;
-
-      case null:
-        return this.noTypeTemplate;
-    }
-  }
-
-  render() {
-    return html`${this._renderCardType(this.type)}`;
-  }
+  */
 }

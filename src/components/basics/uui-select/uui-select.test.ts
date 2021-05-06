@@ -1,9 +1,7 @@
 import { html, fixture, expect } from '@open-wc/testing';
-
-import '.';
 import { UUISelectElement } from './uui-select.element';
 import '../uui-select-option/index';
-import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
+import '.';
 
 const options = [
   {

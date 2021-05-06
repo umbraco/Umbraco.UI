@@ -1,4 +1,5 @@
-import { LitElement, html, css, property, internalProperty } from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, state } from 'lit/decorators';
 import { UUIFileSize } from './UUIFileSize';
 
 /**
@@ -15,13 +16,8 @@ export class UUIFilePreviewElement extends LitElement {
         justify-content: center;
         align-items: center;
         position: relative;
-        font-size: 0.8rem;
-        margin: 16px;
-        max-width: 200px;
-      }
-
-      #image-prev {
-        width: 100%;
+        font-size: 12px;
+        text-align: center;
       }
     `,
   ];
@@ -30,12 +26,15 @@ export class UUIFilePreviewElement extends LitElement {
   source = '';
 
   @property({ attribute: false })
+  sourceFileExt = '';
+
+  @property({ attribute: false })
   name = '';
 
   @property({ attribute: false })
   type = '';
 
-  @internalProperty({})
+  @state({})
   isDirectory = false;
 
   private _file: File | null = null;
@@ -60,7 +59,13 @@ export class UUIFilePreviewElement extends LitElement {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      if (reader.result) this.source = reader.result as string;
+      if (reader.result) {
+        this.source = reader.result as string;
+        this.sourceFileExt = this.source.slice(
+          this.source.indexOf('/') + 1,
+          this.source.indexOf(';')
+        );
+      }
       if (reader.error && reader.error.name === 'NotFoundError')
         this.isDirectory = true;
     };
@@ -68,24 +73,28 @@ export class UUIFilePreviewElement extends LitElement {
 
   fileTypeTemplate(type: string) {
     if (type.startsWith('image'))
-      return html`<uui-image-symbol
-        id="image-prev"
+      return html`<uui-image-file-symbol
+        .type=${this.sourceFileExt}
         .source=${this.source}
-      ></uui-image-symbol>`;
+      ></uui-image-file-symbol>`;
 
     if (this.isDirectory) return html`<uui-folder-symbol></uui-folder-symbol>`;
 
     return html`<uui-file-symbol
-      type=${this.name.split('.')[1]}
+      .type=${this.sourceFileExt}
     ></uui-file-symbol>`;
   }
 
   render() {
-    return html`${this.fileTypeTemplate(this.type)}
-      <span id="file-name"
-        >${this.name}${this.file?.size && !this.isDirectory
-          ? `/ ${UUIFileSize.humanFileSize(this.file?.size, true)}`
-          : ''}</span
-      > `;
+    return html`
+      ${this.fileTypeTemplate(this.type)}
+      <span id="file-name">
+        ${this.name}
+        ${this.file?.size && !this.isDirectory
+          ? html`<br />
+              ${UUIFileSize.humanFileSize(this.file?.size, true)}`
+          : ''}
+      </span>
+    `;
   }
 }

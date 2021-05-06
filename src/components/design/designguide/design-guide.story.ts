@@ -13,17 +13,16 @@ export const DesignSystem = () => html`
       <br />
       <br />
       <br />
-      <h1>Design System</h1>
+      <h1>Design Guide</h1>
       <uui-lead>
         Following predictable rhythms, will form harmonious arrangements<br />
         — ensuring a calm & friendly visual experience.
       </uui-lead>
       <p>
         The following guide will take you through the concepts of the Umbraco
-        Design System. The main purpose is to establish a common visual
-        appearance by incorporating a common mathematical rhythm for spacing and
-        sizing. This guide will suit you for contributing or implementing the
-        system.
+        Design. The main purpose is to establish a common visual appearance by
+        incorporating a common mathematical rhythm for spacing and sizing. This
+        guide will suit you for contributing or implementing our design.
       </p>
     </uui-design>
   </div>
@@ -216,5 +215,104 @@ export const DesignSystem = () => html`
       nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
       culpa qui officia deserunt mollit anim id est laborum.</small
     >
+
+    <h2>Colors</h2>
+    <p>
+      We provide all the Umbraco Identity colors as css custom properties, but
+      we do not recommend using those directly. All interface should be based on
+      interface color properties. Here is an overview of colors:
+    </p>
+    <div
+      style="background:var(--uui-color-deep-saffron); width:60px; height:60px;"
+    >
+      deep-saffron
+    </div>
+    <div style="background:var(--uui-color-sunglow); width:60px; height:60px;">
+      sunglow
+    </div>
+    <div
+      style="background:var(--uui-color-spanish-pink); width:60px; height:60px;"
+    >
+      spanish-pink
+    </div>
+    <div style="background:var(--uui-color-gunmetal); width:60px; height:60px;">
+      gunmetal
+    </div>
+    <div
+      style="background:var(--uui-color-space-cadet); width:60px; height:60px;"
+    >
+      space-cadet
+    </div>
+    <div
+      style="background:var(--uui-color-violet-blue); width:60px; height:60px;"
+    >
+      violet-blue
+    </div>
+    <div style="background:var(--uui-color-matisse); width:60px; height:60px;">
+      matisse
+    </div>
+    <div style="background:var(--uui-color-malibu); width:60px; height:60px;">
+      malibu
+    </div>
+    <div
+      style="background:var(--uui-color-maroon-flush); width:60px; height:60px;"
+    >
+      maroon-flush
+    </div>
+    <div
+      style="background:var(--uui-color-jungle-green); width:60px; height:60px;"
+    >
+      jungle-green
+    </div>
+    <div
+      style="background:var(--uui-color-cocoa-black); width:60px; height:60px;"
+    >
+      cocoa-black
+    </div>
+    <div
+      style="background:var(--uui-color-dune-black); width:60px; height:60px;"
+    >
+      dune-black
+    </div>
+    <div
+      style="background:var(--uui-color-cocoa-brown); width:60px; height:60px;"
+    >
+      cocoa-brown
+    </div>
+    <div
+      style="background:var(--uui-color-chamoisee); width:60px; height:60px;"
+    >
+      chamoisee
+    </div>
+    <div
+      style="background:var(--uui-color-timberwolf); width:60px; height:60px;"
+    >
+      timberwolf
+    </div>
+    <div style="background:var(--uui-color-gravel); width:60px; height:60px;">
+      gravel
+    </div>
+    <div style="background:var(--uui-color-sand); width:60px; height:60px;">
+      sand
+    </div>
+    <div style="background:var(--uui-color-white); width:60px; height:60px;">
+      white
+    </div>
+    <div style="background:var(--uui-color-black); width:60px; height:60px;">
+      black
+    </div>
+    <div style="background:var(--uui-color-grey); width:60px; height:60px;">
+      grey
+    </div>
+    <div
+      style="background:var(--uui-color-dusty-grey); width:60px; height:60px;"
+    >
+      dusty-grey
+    </div>
+    <div
+      style="background:var(--uui-color-mine-grey); width:60px; height:60px;"
+    >
+      mine-grey
+    </div>
   </uui-design>
 `;

@@ -1,12 +1,5 @@
-import {
-  LitElement,
-  html,
-  property,
-  css,
-  query,
-  internalProperty,
-  TemplateResult,
-} from 'lit-element';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { property, query, state } from 'lit/decorators';
 import { UUICheckboxEvent } from './UUICheckboxEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -29,17 +22,12 @@ export abstract class UUICheckboxBaseElement extends LitElement {
       label {
         cursor: pointer;
         user-select: none;
-        display: grid;
-        grid-template-columns: max-content 1fr max-content;
-        grid-template-rows: max-content 1fr max-content;
-        grid-template-areas:
-          'top-left top top-right'
-          'left center right'
-          'bottom-left bottom bottom-right';
-        grid-gap: var(--uui-size-xsmall);
-        row-gap: var(--uui-size-half-base-unit);
+
+        display: flex;
+        flex-wrap: nowrap;
         align-items: center;
         justify-items: center;
+        gap: var(--uui-size-xsmall);
       }
 
       input {
@@ -48,20 +36,18 @@ export abstract class UUICheckboxBaseElement extends LitElement {
         width: 0px;
       }
 
-      :host([label-position='left']) #label-display {
-        grid-area: left;
+      :host([label-position='left']) label {
+        flex-direction: row-reverse;
       }
 
-      :host([label-position='right']) #label-display {
-        grid-area: right;
+      :host([label-position='top']) label {
+        gap: var(--uui-size-half-base-unit);
+        flex-direction: column-reverse;
       }
 
-      :host([label-position='top']) #label-display {
-        grid-area: top;
-      }
-
-      :host([label-position='bottom']) #label-display {
-        grid-area: bottom;
+      :host([label-position='bottom']) label {
+        gap: var(--uui-size-half-base-unit);
+        flex-direction: column;
       }
 
       :host([disabled]) #label-display {
@@ -144,7 +130,7 @@ export abstract class UUICheckboxBaseElement extends LitElement {
   @query('slot')
   protected labelSlot!: HTMLSlotElement;
 
-  @internalProperty()
+  @state()
   protected labelSlotHasContent = false;
 
   private labelSlotChanged(): void {
