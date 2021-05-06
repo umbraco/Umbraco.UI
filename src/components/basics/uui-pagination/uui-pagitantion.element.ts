@@ -9,6 +9,8 @@ import { UUIPaginationButtonElement } from './uui-pagination-button.element';
 
 //?? button group-within button-group
 
+const BUTTON_MIN_WIDTH = 36;
+const BUTTON_MAX_WIDTH = 72;
 export class UUIPaginationElement extends LitElement {
   static styles = [
     css`
@@ -35,7 +37,24 @@ export class UUIPaginationElement extends LitElement {
     this.setAttribute('role', 'navigation');
     //this.setAttribute('aria-label', `Pagination ${this.label}. Current page ${this.current}`);
     this.visiblePages = this._generateVisiblePages(this.current + 1);
+    window.addEventListener('resize', this.calculateRange);
   }
+  firstUpdated() {
+    this.calculateRange();
+  }
+
+  private _containerWidth = 0;
+
+  private calculateRange = () => {
+    this._containerWidth = this.offsetWidth;
+
+    const rangeBaseWidth =
+      this._containerWidth - 2 * BUTTON_MIN_WIDTH - 4 * BUTTON_MAX_WIDTH;
+    const range = rangeBaseWidth / BUTTON_MIN_WIDTH / 2;
+    this.range = Math.floor(range);
+
+    //console.log('range', this.range, ' width', this._containerWidth);
+  };
 
   private _generateArrayOfNumbers(start: number, stop: number) {
     return Array.from({ length: stop - start + 1 }, (_, i) => start + i);
@@ -140,8 +159,19 @@ export class UUIPaginationElement extends LitElement {
   @property({ type: Number, reflect: true })
   total = 10;
 
+  private _range = 3;
   @property({ type: Number })
-  range = 3;
+  get range() {
+    return this._range;
+  }
+
+  set range(newValue: number) {
+    const oldValue = this._range;
+    this._range = newValue <= 0 ? 1 : newValue;
+    this.visiblePages = this._generateVisiblePages(this.current);
+
+    this.requestUpdate('range', oldValue);
+  }
 
   @state()
   visiblePages: number[] = [];
