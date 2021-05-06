@@ -2,13 +2,13 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card/Node Card',
-  component: 'uui-node-card',
+  title: 'Basics/Card/Content Node Card',
+  component: 'uui-content-node-card',
 };
 
 export const Default = () => html`
   <div style="width: 300px">
-    <uui-node-card selectable name="The card" icon="bug">
+    <uui-content-node-card selectable name="The card" icon="bug">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <!-- TODO: we should make some kind of component for this data layout: -->
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
@@ -21,6 +21,6 @@ export const Default = () => html`
           <span style="font-weight: 700">Another property:</span> Another value
         </li>
       </ul>
-    </uui-node-card>
+    </uui-content-node-card>
   </div>
 `;

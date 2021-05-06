@@ -272,14 +272,14 @@ export class UUICardElement extends LitElement {
 
   protected handleOpenClick(e: Event) {
     e.stopPropagation();
-    this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
   protected handleOpenKeydown(e: KeyboardEvent) {
     // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
-    this.dispatchEvent(new UUICardEvent(UUICardEvent.CLICK_TITLE));
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
 
   //* Templates to specific card types
