@@ -8,8 +8,14 @@ import { LitElement, html, css } from 'lit';
 export class UUIButtonGroupElement extends LitElement {
   static styles = [
     css`
+      :host {
+        display: inline-flex;
+        align-items: stretch;
+      }
+
       ::slotted(*) {
         --uui-button-border-radius: 0;
+        flex-grow: 1;
       }
       ::slotted(*:not(:first-child)) {
         --uui-button-merge-border-left: 1;

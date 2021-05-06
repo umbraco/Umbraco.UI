@@ -7,4 +7,4 @@ export default {
 };
 
 export const Overview = () =>
-  html` <uui-pagination .count=${20} .range=${5}></uui-pagination> `;
+  html` <uui-pagination .total=${1000} .range=${5}></uui-pagination> `;
