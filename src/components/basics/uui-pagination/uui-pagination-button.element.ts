@@ -17,14 +17,14 @@ export class UUIPaginationButtonElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('click', this._captureClick);
+    //this.addEventListener('click', this._captureClick);
   }
 
-  private _captureClick(e: MouseEvent) {
-    if (this.disabled === false) return;
-    e.stopImmediatePropagation();
-    e.preventDefault();
-  }
+  // private _captureClick(e: MouseEvent) {
+  //   if (this.disabled === false) return;
+  //   e.stopImmediatePropagation();
+  //   e.preventDefault();
+  // }
 
   @property({ type: Number })
   page = 0;
