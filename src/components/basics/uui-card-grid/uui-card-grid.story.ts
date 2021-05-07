@@ -20,7 +20,7 @@ export const Media = () =>
             selectable
             name="Doggo ${el}"
             file-ext="jpg"
-            ><img slot="preview" src="https://placedog.net/${el}/?random"
+            ><img src="https://placedog.net/${el}/?random"
           /></uui-media-card>`;
         else
           return html`<uui-media-card

@@ -19,10 +19,9 @@ export class UUIMediaCardElement extends UUICardElement {
         width: 80%;
       }
 
-      slot[name='icon']::slotted(*) {
-        font-size: 1.2em;
-      }
-      slot[name='preview']::slotted(*) {
+      /* TODO: slot for tag */
+
+      slot:not([name])::slotted(*) {
         align-self: center;
         border-radius: var(--uui-size-border-radius, 3px);
         object-fit: cover;
@@ -94,6 +93,12 @@ export class UUIMediaCardElement extends UUICardElement {
     this.requestUpdate('hasPreview', oldValue);
   }
 
+  private queryPreviews(e: any): void {
+    this.hasPreview =
+      (e.path[0] as HTMLSlotElement).assignedElements({ flatten: true })
+        .length > 0;
+  }
+
   protected renderMedia() {
     if (this.hasPreview === false) {
       if (this.fileExt === '') {
@@ -106,15 +111,10 @@ export class UUIMediaCardElement extends UUICardElement {
       }
     }
   }
-  private queryPreviews(e: any): void {
-    this.hasPreview =
-      (e.path[0] as HTMLSlotElement).assignedElements({ flatten: true })
-        .length > 0;
-  }
 
   public render() {
     return html` ${this.renderMedia()}
-      <slot name="preview" @slotchange=${this.queryPreviews}></slot>
+      <slot @slotchange=${this.queryPreviews}></slot>
       <div
         id="open-part"
         tabindex="0"
