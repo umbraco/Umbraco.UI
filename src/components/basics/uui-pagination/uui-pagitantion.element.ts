@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { property, queryAll, state } from 'lit/decorators';
 import { UUIPaginationButtonElement } from './uui-pagination-button.element';
-
+import { UUIPaginationEvent } from './UUIPaginationEvent';
 //TODO maybe use repeat directive?
 //TODO change event
 //TODO change focus after click
@@ -52,8 +52,6 @@ export class UUIPaginationElement extends LitElement {
       this._containerWidth - 2 * BUTTON_MIN_WIDTH - 4 * BUTTON_MAX_WIDTH;
     const range = rangeBaseWidth / BUTTON_MIN_WIDTH / 2;
     this.range = Math.floor(range);
-
-    //console.log('range', this.range, ' width', this._containerWidth);
   };
 
   private _generateArrayOfNumbers(start: number, stop: number) {
@@ -107,6 +105,7 @@ export class UUIPaginationElement extends LitElement {
   setCurrentPage(e: MouseEvent) {
     const element = e.target as UUIPaginationButtonElement;
     this.current = element.page;
+    this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
   private _current = 1;
