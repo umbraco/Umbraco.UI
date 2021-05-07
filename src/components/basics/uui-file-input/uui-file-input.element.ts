@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
+import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
+import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
 
 /**
  *  @element uui-file-input
@@ -56,7 +58,7 @@ export class UUIFileInputElement extends LitElement {
   uploader!: UUIFileDropzoneElement;
 
   @queryAll('uui-file-preview')
-  previews!: HTMLElement[];
+  previews!: UUIFilePreviewElement[];
 
   @property({ type: Boolean, reflect: true })
   multiple = false;
@@ -69,29 +71,48 @@ export class UUIFileInputElement extends LitElement {
     this.filesArray = [];
   }
 
+  protected removeFile(e: UUIFilePreviewEvent) {
+    const file = e.target.file;
+    const removeIndex = this.files.findIndex(el => {
+      el === file;
+    });
+    this.files.splice(removeIndex, 1);
+    this.filesArray.splice(removeIndex, 1);
+    this.requestUpdate();
+    console.log('hello!');
+  }
+
+  fileDropzoneTemplate() {
+    return html`<uui-file-dropzone
+      id="uploader"
+      @file-drop=${this.handleFiles}
+      .multiple=${this.multiple}
+      .label=${this.label}
+    ></uui-file-dropzone>`;
+  }
+
+  removeButtonTemplate() {
+    return html`<uui-button @click=${this.removeFiles} look="outline"
+      ><uui-icon id="button-icon" name="delete"></uui-icon>
+      Remove ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
+    </uui-button>`;
+  }
+
   render() {
     return html`
       ${this.files.length === 0
-        ? html`<uui-file-dropzone
-            id="uploader"
-            @file-drop=${this.handleFiles}
-            .multiple=${this.multiple}
-            .label=${this.label}
-          ></uui-file-dropzone>`
+        ? this.fileDropzoneTemplate()
         : html` <div id="files">
               ${this.filesArray.map(
                 file =>
                   html`<uui-file-preview
                     .file=${file}
                     .name=${file.name}
+                    @remove-file=${this.removeFile}
                   ></uui-file-preview>`
               )}
             </div>
-            <uui-button @click=${this.removeFiles} look="outline"
-              ><uui-icon id="button-icon" name="delete"></uui-icon>
-              Remove
-              ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
-            </uui-button>`}
+            ${this.removeButtonTemplate()}`}
     `;
   }
 }
