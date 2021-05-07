@@ -21,7 +21,7 @@ export const Overview = () => html`
         </li>
       </ul>
     </uui-node-card>
-    <uui-media-card selectable name="Doggo 1" file-ext="image" image="https://placedog.net/1447/?random"/></uui-media-card>
+    <uui-media-card selectable name="Doggo 1" file-ext="image" /><img slot="preview" src="https://placedog.net/1447/?random"></uui-media-card>
     <uui-media-card selectable name="File 1"/></uui-media-card>
     <uui-media-card selectable name="File 1" file-ext="txt"/></uui-media-card>
     <uui-user-card selectable name="Sherlock Holmes" group-name="Editors">
