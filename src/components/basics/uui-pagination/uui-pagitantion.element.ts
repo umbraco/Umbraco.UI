@@ -2,10 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { property, queryAll, state } from 'lit/decorators';
 import { UUIPaginationButtonElement } from './uui-pagination-button.element';
 import { UUIPaginationEvent } from './UUIPaginationEvent';
-//TODO maybe use repeat directive?
-//TODO change event
 //TODO change focus after click
-//todo make template prettier (refactor)
 
 //?? button group-within button-group
 
@@ -39,8 +36,35 @@ export class UUIPaginationElement extends LitElement {
     this.visiblePages = this._generateVisiblePages(this.current + 1);
     window.addEventListener('resize', this.calculateRange);
   }
+
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.calculateRange);
+  }
+
   firstUpdated() {
     this.calculateRange();
+  }
+
+  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('current') || changedProperties.has('label'))
+      this.ariaLabel = `Pagination ${
+        this.label ? this.label : 'navigation'
+      }. Current page: ${this.current}.`;
+  }
+
+  updated() {
+    if (this.pageButtons) {
+      const buttons = Array.from(this.pageButtons);
+      buttons.forEach(button => {
+        if (button.page === this._current) {
+          button.disabled = true;
+          button.look = 'primary';
+        } else {
+          button.disabled = false;
+          button.look = 'outline';
+        }
+      });
+    }
   }
 
   private _containerWidth = 0;
@@ -74,16 +98,15 @@ export class UUIPaginationElement extends LitElement {
         : this.total;
 
     const pages = this._generateArrayOfNumbers(
-      this.valueLimit(start, 1, this.total),
-      this.valueLimit(stop, 1, this.total)
+      this._valueLimit(start, 1, this.total),
+      this._valueLimit(stop, 1, this.total)
     );
 
     return pages;
   }
 
-  private valueLimit(val: number, min: number, max: number) {
+  private _valueLimit(val: number, min: number, max: number) {
     return Math.min(Math.max(val, min), max);
-    //return val < min ? min : val > max ? max : val;
   }
 
   @queryAll('uui-pagination-button')
@@ -94,63 +117,6 @@ export class UUIPaginationElement extends LitElement {
 
   @property({ reflect: true, attribute: 'aria-label' })
   ariaLabel = `Pagination Navigation. Current page 1`;
-
-  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
-    if (changedProperties.has('current') || changedProperties.has('label'))
-      this.ariaLabel = `Pagination ${
-        this.label ? this.label : 'navigation'
-      }. Current page: ${this.current}.`;
-  }
-
-  setCurrentPage(e: MouseEvent) {
-    const element = e.target as UUIPaginationButtonElement;
-    this.current = element.page;
-    this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
-  }
-
-  private _current = 1;
-  @property({ type: Number, reflect: true })
-  get current() {
-    return this._current;
-  }
-
-  set current(newValue: number) {
-    const oldValue = this._current;
-
-    this._current = this.valueLimit(newValue, 1, this.total);
-    this.previous = oldValue;
-
-    this.visiblePages = this._generateVisiblePages(this._current);
-
-    this.requestUpdate('current', oldValue);
-  }
-
-  updated() {
-    if (this.pageButtons) {
-      const buttons = Array.from(this.pageButtons);
-      buttons.forEach(button => {
-        if (button.page === this._current) {
-          button.disabled = true;
-          button.look = 'primary';
-        } else {
-          button.disabled = false;
-          button.look = 'outline';
-        }
-      });
-    }
-  }
-
-  public goToNextPage() {
-    this.current++;
-  }
-
-  public goToPreviousPage() {
-    this.current--;
-  }
-
-  public goToPage(page: number) {
-    this.current = page;
-  }
 
   @state()
   previous = 0;
@@ -168,75 +134,132 @@ export class UUIPaginationElement extends LitElement {
     const oldValue = this._range;
     this._range = newValue <= 0 ? 1 : newValue;
     this.visiblePages = this._generateVisiblePages(this.current);
-
     this.requestUpdate('range', oldValue);
   }
 
   @state()
   visiblePages: number[] = [];
 
-  buttonsL() {
-    return html`${this.visiblePages.includes(1)
-        ? ''
-        : html`<uui-pagination-button
-            class="nav-button"
-            look="outline"
-            role="listitem"
-            aria-label="Go to first page"
-            @click=${() => this.goToPage(1)}
-            >First</uui-pagination-button
-          >`}<uui-pagination-button
-        look="outline"
-        class="nav-button"
-        role="listitem"
-        aria-label="Go to first page"
-        @click=${this.goToPreviousPage}
-        >Previous</uui-pagination-button
-      >${this.visiblePages.includes(1)
-        ? ''
-        : html`<uui-pagination-button look="outline" tabindex="-1"
-            >...</uui-pagination-button
-          >`}`;
+  private _current = 1;
+  @property({ type: Number, reflect: true })
+  get current() {
+    return this._current;
   }
 
-  buttonsR() {
+  set current(newValue: number) {
+    const oldValue = this._current;
+    this._current = this._valueLimit(newValue, 1, this.total);
+    this.previous = oldValue;
+    this.visiblePages = this._generateVisiblePages(this._current);
+    this.requestUpdate('current', oldValue);
+  }
+
+  public setCurrentPage(e: MouseEvent) {
+    const element = e.target as UUIPaginationButtonElement;
+    this.current = element.page;
+    this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
+  }
+
+  public goToNextPage() {
+    this.current++;
+  }
+
+  public goToPreviousPage() {
+    this.current--;
+  }
+
+  public goToPage(page: number) {
+    this.current = page;
+  }
+
+  buttonFirstTemplate() {
+    return html`<uui-pagination-button
+      class="nav-button"
+      look="outline"
+      role="listitem"
+      aria-label="Go to first page"
+      @click=${() => this.goToPage(1)}
+      >First</uui-pagination-button
+    >`;
+  }
+
+  buttonPreviousTemplate() {
+    return html`<uui-pagination-button
+      look="outline"
+      class="nav-button"
+      role="listitem"
+      aria-label="Go to previous page"
+      @click=${this.goToPreviousPage}
+      >Previous</uui-pagination-button
+    >`;
+  }
+
+  buttonNextTemplate() {
+    return html`<uui-pagination-button
+      role="listitem"
+      class="nav-button"
+      aria-label="Go to next page"
+      look="outline"
+      @click=${this.goToNextPage}
+      >Next</uui-pagination-button
+    >`;
+  }
+
+  buttonLastTemplate() {
+    return html`<uui-pagination-button
+      role="listitem"
+      class="nav-button"
+      aria-label="Go to last page"
+      look="outline"
+      @click=${() => this.goToPage(this.total)}
+      >Last</uui-pagination-button
+    >`;
+  }
+
+  buttonDotsTemplate() {
+    return html`<uui-pagination-button look="outline" tabindex="-1"
+      >...</uui-pagination-button
+    >`;
+  }
+
+  buttonPageTemplate(page: number) {
+    return html`<uui-pagination-button
+      look="outline"
+      role="listitem"
+      .ariaLabel="Go to page ${page}"
+      .page=${page}
+      @click=${this.setCurrentPage}
+      >${page}</uui-pagination-button
+    >`;
+  }
+
+  buttonsLTemplate() {
+    return html`${this.visiblePages.includes(1)
+      ? ''
+      : this.buttonFirstTemplate()}${this.buttonPreviousTemplate()}${this.visiblePages.includes(
+      1
+    )
+      ? ''
+      : this.buttonDotsTemplate()}`;
+  }
+
+  buttonsRTemplate() {
     return html`${this.visiblePages.includes(this.total)
-        ? ''
-        : html`<uui-pagination-button look="outline" tabindex="-1"
-            >...</uui-pagination-button
-          >`}<uui-pagination-button
-        role="listitem"
-        class="nav-button"
-        aria-label="Go to next page"
-        look="outline"
-        @click=${this.goToNextPage}
-        >Next</uui-pagination-button
-      >${!this.visiblePages.includes(this.total)
-        ? html`<uui-pagination-button
-            role="listitem"
-            class="nav-button"
-            aria-label="Go to last page"
-            look="outline"
-            @click=${() => this.goToPage(this.total)}
-            >Last</uui-pagination-button
-          >`
-        : ''}`;
+      ? ''
+      : this.buttonDotsTemplate()}${this.buttonNextTemplate()}${!this.visiblePages.includes(
+      this.total
+    )
+      ? this.buttonLastTemplate()
+      : ''}`;
   }
 
   render() {
     // prettier-ignore
     return html`<uui-button-group role="list"
-      >${this.buttonsL()}${this.visiblePages.map(
+      >${this.buttonsLTemplate()}${this.visiblePages.map(
         page =>
-          html`<uui-pagination-button
-            look="outline"
-            role="listitem"
-            .ariaLabel='Go to page ${page}'
-            .page=${page}
-            @click=${this.setCurrentPage}
-            >${page}</uui-pagination-button
-          >`
-      )}${this.buttonsR()}</uui-button-group
+          this.buttonPageTemplate(page)
+      )}${this.buttonsRTemplate()}</uui-button-group
     >`;
   }
 }
