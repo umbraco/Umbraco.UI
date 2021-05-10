@@ -94,7 +94,7 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
         color: var(--uui-interface-select-contrast);
       }
       :host([selected]) button:hover {
-        color: var(--uui-interface-active-select-hover);
+        color: var(--uui-interface-select-contrast-hover);
       }
       :host([selected]) #label-button-background {
         background-color: var(--uui-interface-select);
@@ -103,7 +103,7 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
         background-color: var(--uui-interface-select-hover);
       }
       :host([selected][disabled]) {
-        color: var(--uui-interface-active-select-disabled);
+        color: var(--uui-interface-select-contrast-disabled);
         background-color: var(--uui-interface-select-disabled);
       }
       /*
