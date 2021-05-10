@@ -9,7 +9,9 @@ export class UUIFileDropzoneButtonElement extends UUIFileDropzoneBaseElement {
   static styles = [
     css`
       :host {
-        outline: 1px solid red;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
       }
     `,
     UUIFileDropzoneBaseElement.styles,
@@ -21,6 +23,6 @@ export class UUIFileDropzoneButtonElement extends UUIFileDropzoneBaseElement {
   }
 
   renderFileDropzone() {
-    return html`hello`;
+    return html`<span>Drop your stuff here</span>`;
   }
 }

@@ -39,6 +39,7 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
 
   constructor() {
     super();
+
     this.addEventListener('dragenter', this.onDragEnter, false);
     this.addEventListener('dragleave', this.onDragLeave, false);
     this.addEventListener('dragover', this.onDragOver, false);
@@ -80,9 +81,11 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
     }
   }
   onDragOver(e: DragEvent) {
+    console.log(this);
     this.active = true;
     this.preventDefaults(e);
   }
+
   onDragEnter(e: DragEvent) {
     this.active = true;
     this.preventDefaults(e);

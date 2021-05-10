@@ -34,6 +34,23 @@ export class UUIFileInputElement extends LitElement {
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         place-items: stretch;
         grid-gap: var(--uui-size-layout-0);
+        position: relative;
+      }
+
+      #dropzone {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: all 350ms linear;
+        outline: 0px dashed red;
+        background-color: transparent;
+      }
+
+      #dropzone[active] {
+        background-color: var(--uui-interface-surface, #fff);
+        outline: 1px dashed red;
       }
     `,
   ];
@@ -79,7 +96,6 @@ export class UUIFileInputElement extends LitElement {
     this.files.splice(removeIndex, 1);
     this.filesArray.splice(removeIndex, 1);
     this.requestUpdate();
-    console.log('hello!');
   }
 
   fileDropzoneTemplate() {
@@ -110,7 +126,9 @@ export class UUIFileInputElement extends LitElement {
                     .name=${file.name}
                     @remove-file=${this.removeFile}
                   ></uui-file-preview>`
-              )}<uui-file-dropzone-button></uui-file-dropzone-button>
+              )}<uui-file-dropzone-button
+                id="dropzone"
+              ></uui-file-dropzone-button>
             </div>
             ${this.removeButtonTemplate()}`}
     `;
