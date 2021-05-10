@@ -1,12 +1,5 @@
-import {
-  LitElement,
-  html,
-  css,
-  property,
-  query,
-  queryAll,
-  internalProperty,
-} from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, query, queryAll, state } from 'lit/decorators';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 
 /**
@@ -50,7 +43,7 @@ export class UUIFileInputElement extends LitElement {
     } else this.filesArray = [];
   }
 
-  @internalProperty()
+  @state()
   filesArray: File[] = [];
 
   @property({ attribute: false })

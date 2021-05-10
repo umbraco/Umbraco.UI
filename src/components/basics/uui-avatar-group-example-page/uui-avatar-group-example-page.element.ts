@@ -1,14 +1,14 @@
-import { LitElement, html, internalProperty } from 'lit-element';
-
+import { LitElement, html } from 'lit';
+import { state } from 'lit/decorators';
 /**
  *  @element uui-avatar-group
  */
 
 export class UUIAvatarGroupExamplePageElement extends LitElement {
-  @internalProperty()
+  @state()
   private limit = 3;
 
-  @internalProperty()
+  @state()
   private avatars = [
     {
       name: 'Gaufrid Milko',

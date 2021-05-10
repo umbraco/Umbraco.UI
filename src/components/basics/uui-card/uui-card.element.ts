@@ -1,6 +1,8 @@
-import { LitElement, html, css, property, query, unsafeCSS } from 'lit-element';
+import { LitElement, html, css, unsafeCSS } from 'lit';
+import { property, query } from 'lit/decorators';
 import { CardType, CardTypeNames } from '../../../type/CardType';
 import { UUICardEvent } from './UUICardEvents';
+
 /**
  *  @element uui-card
  *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
@@ -23,7 +25,7 @@ export class UUICardElement extends LitElement {
         justify-content: center;
         box-shadow: 0 1px 1px 0 var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius, 3px);
-        min-width: calc(var(--uui-size-xxlarge, 66px) * 2);
+        /* min-width: calc(var(--uui-size-xxlarge, 66px) * 2);*/
         min-height: calc(var(--uui-size-xxlarge, 66px) * 2);
         margin: 6px;
         background-color: var(--uui-interface-surface, white);
@@ -32,6 +34,7 @@ export class UUICardElement extends LitElement {
       }
 
       :host(:focus) {
+        /** TODO: implement focus outline. */
         outline-color: #6ab4f0;
       }
 
@@ -56,9 +59,9 @@ export class UUICardElement extends LitElement {
       }
 
       :host([selectable])::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
+        border: 2px solid var(--uui-interface-select, #1b264f);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
+          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
 
         opacity: var(--uui-card-before-opacity);
       }
@@ -68,9 +71,9 @@ export class UUICardElement extends LitElement {
       }
 
       :host([selected])::before {
-        border: 2px solid var(--uui-interface-selected, #1b264f);
-        box-shadow: 0 0 4px 0 var(--uui-interface-selected, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-selected, #1b264f);
+        border: 2px solid var(--uui-interface-select, #1b264f);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
+          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
         opacity: var(--uui-card-before-opacity);
       }
 
@@ -79,10 +82,10 @@ export class UUICardElement extends LitElement {
         min-width: 250px;
       }
 
-      :host([type='file']),
+      /* :host([type='file']),
       :host([type='image']) {
         max-width: 200px;
-      }
+      } */
 
       slot[name='asset']::slotted(img) {
         align-self: center;
@@ -244,7 +247,7 @@ export class UUICardElement extends LitElement {
   constructor() {
     super();
     this.addEventListener('click', this.toggleSelect);
-    this.addEventListener('mouseenter', this.handleMouseEneter);
+    this.addEventListener('mouseenter', this.handleMouseEnter);
     this.addEventListener('mouseleave', this.handleMouseLeave);
     this.addEventListener('keydown', this.handleKeydown);
     this.addEventListener('focus', () => {
@@ -348,7 +351,7 @@ export class UUICardElement extends LitElement {
   }
 
   private _mouseOver = false;
-  handleMouseEneter(e: MouseEvent) {
+  handleMouseEnter(e: MouseEvent) {
     if (e.target === this) {
       this._mouseOver = true;
       this.changeBorderOpacity(0.6, 0.3);
@@ -384,7 +387,7 @@ export class UUICardElement extends LitElement {
         id="title-area"
         tabindex="0"
         @click=${this._handleTitleClick}
-        @mouseenter=${this.handleMouseEneter}
+        @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}
         @keydown=${this.handleTitleKeydown}
         @focus=${(e: Event) => {
@@ -407,7 +410,7 @@ export class UUICardElement extends LitElement {
         id="details"
         tabindex="0"
         @click=${this._handleTitleClick}
-        @mouseenter=${this.handleMouseEneter}
+        @mouseenter=${this.handleMouseEnter}
         @mouseleave=${this.handleMouseLeave}
         @keydown=${this.handleTitleKeydown}
         @focus=${(e: Event) => {

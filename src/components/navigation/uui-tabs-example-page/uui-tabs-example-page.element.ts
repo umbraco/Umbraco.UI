@@ -1,4 +1,5 @@
-import { LitElement, html, property } from 'lit-element';
+import { LitElement, html } from 'lit';
+import { property } from 'lit/decorators';
 import { UUITabGroupEvent } from '../uui-tab-group/UUITabGroupEvent';
 
 /**

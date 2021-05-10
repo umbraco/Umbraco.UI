@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
-import '.';
 import '../../basics/uui-button';
+import './index';
 
 export default {
   title: 'Fragments/Dialog',

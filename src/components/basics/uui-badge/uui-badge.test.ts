@@ -1,5 +1,4 @@
 import { html, fixture, expect } from '@open-wc/testing';
-
 import '.';
 import { UUIBadgeElement } from './uui-badge.element';
 

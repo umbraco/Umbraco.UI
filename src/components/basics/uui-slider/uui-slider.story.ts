@@ -1,6 +1,5 @@
 import { html } from 'lit-html';
-import '.';
-
+import './index';
 export default {
   title: 'Basics/Slider',
   component: 'uui-slider',

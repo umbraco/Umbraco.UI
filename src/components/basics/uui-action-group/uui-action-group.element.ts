@@ -1,4 +1,4 @@
-import { css } from 'lit-element';
+import { css } from 'lit';
 import { UUIButtonGroupElement } from '../uui-button-group/uui-button-group.element';
 
 export class UUIActionGroupElement extends UUIButtonGroupElement {

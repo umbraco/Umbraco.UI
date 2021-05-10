@@ -1,4 +1,5 @@
-import { LitElement, html, css, svg, query, property } from 'lit-element';
+import { LitElement, html, css, svg } from 'lit';
+import { query, property } from 'lit/decorators';
 
 const carret = svg`<svg viewBox="0 0 512 512"><path d="M255.125 361.35L88.193 149.765h333.862z"></path></svg>`;
 

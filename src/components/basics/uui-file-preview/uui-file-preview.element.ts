@@ -1,4 +1,5 @@
-import { LitElement, html, css, property, internalProperty } from 'lit-element';
+import { LitElement, html, css } from 'lit';
+import { property, state } from 'lit/decorators';
 import { UUIFileSize } from './UUIFileSize';
 
 /**
@@ -35,7 +36,7 @@ export class UUIFilePreviewElement extends LitElement {
   @property({ attribute: false })
   type = '';
 
-  @internalProperty({})
+  @state({})
   isDirectory = false;
 
   private _file: File | null = null;
