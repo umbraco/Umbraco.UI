@@ -110,7 +110,7 @@ export class UUIFileInputElement extends LitElement {
                     .name=${file.name}
                     @remove-file=${this.removeFile}
                   ></uui-file-preview>`
-              )}
+              )}<uui-file-dropzone-button></uui-file-dropzone-button>
             </div>
             ${this.removeButtonTemplate()}`}
     `;
