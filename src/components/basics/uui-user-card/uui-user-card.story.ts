@@ -15,12 +15,12 @@ export const Default = () =>
         <div>Last login</div>
         <div>March 19, 2021 9:14 AM</div>
       </uui-user-card>
-      <uui-user-card selectable selected name="John Watson" type="user">
+      <uui-user-card selectable selected name="John Watson" group-name="Editors">
         <div style="margin-bottom: 12px">Editors</div>
         <div>Has not logged in yet</div>
       </uui-user-card>
       </uui-user-card>
-      <uui-user-card selectable selected error name="John Error" type="user">
+      <uui-user-card selectable selected error name="John Error" group-name="Editors">
         <div style="margin-bottom: 12px">Editors</div>
         <div>Has not logged in yet</div>
       </uui-user-card>

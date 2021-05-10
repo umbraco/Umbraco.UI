@@ -1,5 +1,5 @@
 import { css, html } from 'lit';
-import { property } from 'lit/decorators';
+import { property, state } from 'lit/decorators';
 import { UUICardElement } from '../uui-card/uui-card.element';
 
 /**
@@ -12,14 +12,6 @@ export class UUIMediaCardElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
-      img {
-        align-self: center;
-        border-radius: var(--uui-size-border-radius, 3px);
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-      }
-
       #file-symbol,
       #folder-symbol {
         align-self: center;
@@ -27,8 +19,14 @@ export class UUIMediaCardElement extends UUICardElement {
         width: 80%;
       }
 
-      slot[name='icon']::slotted(*) {
-        font-size: 1.2em;
+      /* TODO: slot for tag */
+
+      slot:not([name])::slotted(*) {
+        align-self: center;
+        border-radius: var(--uui-size-border-radius, 3px);
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
       }
 
       #open-part {
@@ -79,24 +77,44 @@ export class UUIMediaCardElement extends UUICardElement {
   @property({ type: String, attribute: 'file-ext' })
   fileExt = '';
 
-  @property({ type: String })
-  image = '';
+  private _hasPreview = false;
+  @state()
+  protected get hasPreview(): boolean {
+    return this._hasPreview;
+  }
+  protected set hasPreview(newValue: boolean) {
+    const oldValue = this._hasPreview;
+    this._hasPreview = newValue;
+    if (this._hasPreview) {
+      this.setAttribute('has-preview', 'true');
+    } else {
+      this.removeAttribute('has-preview');
+    }
+    this.requestUpdate('hasPreview', oldValue);
+  }
+
+  private queryPreviews(e: any): void {
+    this.hasPreview =
+      (e.path[0] as HTMLSlotElement).assignedElements({ flatten: true })
+        .length > 0;
+  }
 
   protected renderMedia() {
-    if (this.fileExt === '' && this.image === '') {
-      return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
-    } else if (this.fileExt !== '' && this.image === '') {
-      return html`<uui-file-symbol
-        id="file-symbol"
-        type="txt"
-      ></uui-file-symbol>`;
-    } else if (this.image !== '') {
-      return html` <img src=${this.image} />`;
+    if (this.hasPreview === false) {
+      if (this.fileExt === '') {
+        return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
+      } else if (this.fileExt !== '') {
+        return html`<uui-file-symbol
+          id="file-symbol"
+          type="txt"
+        ></uui-file-symbol>`;
+      }
     }
   }
 
   public render() {
     return html` ${this.renderMedia()}
+      <slot @slotchange=${this.queryPreviews}></slot>
       <div
         id="open-part"
         tabindex="0"
