@@ -26,19 +26,19 @@ export const WithSlottedLabel = () =>
 export const LabelPosition = () => html`
   <div style="display: flex; justify-content: space-evenly;">
     <uui-checkbox
-      .label=${'Checkbox label'}
+      .label=${'Checkbox left label'}
       label-position="left"
     ></uui-checkbox>
     <uui-checkbox
-      .label=${'Checkbox label'}
+      .label=${'Checkbox top label'}
       label-position="top"
     ></uui-checkbox>
     <uui-checkbox
-      .label=${'Checkbox label'}
+      .label=${'Checkbox right label'}
       label-position="right"
     ></uui-checkbox>
     <uui-checkbox
-      .label=${'Checkbox label'}
+      .label=${'Checkbox bottom label'}
       label-position="bottom"
     ></uui-checkbox>
   </div>
@@ -62,7 +62,12 @@ export const NoLabel = () =>
 
 export const Disabled = () => html`
   <uui-checkbox disabled .label=${'Checkbox label'}></uui-checkbox>
-  <uui-checkbox disabled .label=${'Checkbox label'} checked></uui-checkbox>
+  <uui-checkbox
+    disabled
+    .label=${'Checkbox label'}
+    style="margin-left: 20px;"
+    checked
+  ></uui-checkbox>
 `;
 
 export const InAForm = () => html`

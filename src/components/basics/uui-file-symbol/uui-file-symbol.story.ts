@@ -6,4 +6,6 @@ export default {
 };
 
 export const Default = () =>
-  html` <uui-file-symbol type="pdf"></uui-file-symbol> `;
+  html`<div style="width: 240px">
+    <uui-file-symbol type="pdf"></uui-file-symbol>
+  </div>`;

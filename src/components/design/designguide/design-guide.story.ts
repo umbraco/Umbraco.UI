@@ -13,17 +13,16 @@ export const DesignSystem = () => html`
       <br />
       <br />
       <br />
-      <h1>Design System</h1>
+      <h1>Design Guide</h1>
       <uui-lead>
         Following predictable rhythms, will form harmonious arrangements<br />
         — ensuring a calm & friendly visual experience.
       </uui-lead>
       <p>
         The following guide will take you through the concepts of the Umbraco
-        Design System. The main purpose is to establish a common visual
-        appearance by incorporating a common mathematical rhythm for spacing and
-        sizing. This guide will suit you for contributing or implementing the
-        system.
+        Design. The main purpose is to establish a common visual appearance by
+        incorporating a common mathematical rhythm for spacing and sizing. This
+        guide will suit you for contributing or implementing our design.
       </p>
     </uui-design>
   </div>
@@ -300,7 +299,7 @@ export const DesignSystem = () => html`
       white
     </div>
     <div style="background:var(--uui-color-black); width:60px; height:60px;">
-      #060606
+      black
     </div>
     <div style="background:var(--uui-color-grey); width:60px; height:60px;">
       grey

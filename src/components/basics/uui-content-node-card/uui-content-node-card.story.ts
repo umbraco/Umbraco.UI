@@ -2,12 +2,13 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card',
+  title: 'Basics/Card/Content Node Card',
+  component: 'uui-content-node-card',
 };
 
-export const Overview = () => html`
+export const Default = () => html`
   <div style="width: 300px">
-    <uui-node-card selectable name="The card" icon="bug">
+    <uui-content-node-card selectable name="The card" icon="bug">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <!-- TODO: we should make some kind of component for this data layout: -->
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
@@ -20,15 +21,6 @@ export const Overview = () => html`
           <span style="font-weight: 700">Another property:</span> Another value
         </li>
       </ul>
-    </uui-node-card>
-    <uui-media-card selectable name="Doggo 1" file-ext="image" /><img src="https://placedog.net/1447/?random"></uui-media-card>
-    <uui-media-card selectable name="File 1"/></uui-media-card>
-    <uui-media-card selectable name="File 1" file-ext="txt"/></uui-media-card>
-    <uui-user-card selectable name="Sherlock Holmes" group-name="Editors">
-      <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag>
-      <div style="margin-bottom: 12px">Editors</div>
-      <div>Last login</div>
-      <div>March 19, 2021 9:14 AM</div>
-    </uui-user-card>
+    </uui-content-node-card>
   </div>
 `;

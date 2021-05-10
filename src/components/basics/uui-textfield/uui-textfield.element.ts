@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators';
-import { classMap } from 'lit/directives/class-map';
 import { UUITextFieldEvent } from './UUITextFieldEvent';
 
 export type TextFieldType =
@@ -57,7 +56,7 @@ export class UUITextFieldElement extends LitElement {
           var(--uui-interface-border-focus)
         );
       }
-      .invalid {
+      :host([invalid]) {
         border-color: var(--uui-color-danger-background);
       }
 
@@ -116,18 +115,20 @@ export class UUITextFieldElement extends LitElement {
   }
   set value(newValue) {
     this._value = newValue;
+    /*
     this.valid = !!this.value;
     if (this.valid) {
       this._internals.setValidity({});
     } else {
       this._internals.setValidity({ customError: true }, 'Cannot be empty');
     }
+    */
     this._internals.setFormValue(this._value);
   }
 
   @property({ type: String }) type: TextFieldType = 'text';
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   private valid = true;
 
   private onInput(e: Event) {
@@ -135,14 +136,12 @@ export class UUITextFieldElement extends LitElement {
     this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.INPUT));
   }
 
-  private onChange(e: Event) {
-    console.log(e);
-    // TODO - implement
+  private onChange() {
+    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.CHANGE));
   }
 
-  private onKeyup(e: Event) {
-    console.log(e);
-    // TODO - implement
+  private onKeyup() {
+    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.KEYUP));
   }
 
   render() {
@@ -153,10 +152,9 @@ export class UUITextFieldElement extends LitElement {
         placeholder=${this.placeholder}
         aria-label=${this.label}
         ?disabled=${this.disabled}
-        class=${classMap({ invalid: !this.valid })}
-        @input=${(e: Event) => this.onInput(e)}
-        @change=${(e: Event) => this.onChange(e)}
-        @keyup=${(e: Event) => this.onKeyup(e)}
+        @input=${this.onInput}
+        @change=${this.onChange}
+        @keyup=${this.onKeyup}
       />
     `;
   }
