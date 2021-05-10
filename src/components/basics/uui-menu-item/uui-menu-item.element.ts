@@ -32,6 +32,7 @@ export class UUIMenuItemElement extends LitElement {
       }
 
       :host(:focus-within) {
+        /* TODO: implement proper focus outline */
         outline: 2px solid var(--uui-interface-selected, darkblue);
       }
     `,
