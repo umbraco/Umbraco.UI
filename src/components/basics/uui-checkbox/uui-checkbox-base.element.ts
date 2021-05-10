@@ -1,5 +1,6 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
-import { property, query, state } from 'lit/decorators';
+import { property, query } from 'lit/decorators';
+import { LabelComponent } from '../../../mixins/LabelComponent';
 import { UUICheckboxEvent } from './UUICheckboxEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -12,7 +13,10 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
  */
-export abstract class UUICheckboxBaseElement extends LitElement {
+export abstract class UUICheckboxBaseElement extends LabelComponent(
+  '',
+  LitElement
+) {
   static styles = [
     css`
       :host {
@@ -90,9 +94,6 @@ export abstract class UUICheckboxBaseElement extends LitElement {
   @property({ type: String })
   name = '';
 
-  @property({ type: String })
-  label!: string;
-
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'right';
 
@@ -116,27 +117,9 @@ export abstract class UUICheckboxBaseElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  firstUpdated() {
-    if (!this.label) {
-      console.warn(this.tagName + ' needs a `label`');
-    }
-  }
-
   private _onInputChange() {
     this.dispatchEvent(new UUICheckboxEvent(UUICheckboxEvent.CHANGE));
     this.checked = this._input.checked;
-  }
-
-  @query('slot')
-  protected labelSlot!: HTMLSlotElement;
-
-  @state()
-  protected labelSlotHasContent = false;
-
-  private labelSlotChanged(): void {
-    this.labelSlotHasContent =
-      (this.labelSlot as HTMLSlotElement).assignedElements({ flatten: true })
-        .length > 0;
   }
 
   protected abstract renderCheckbox(): TemplateResult;
@@ -156,10 +139,7 @@ export abstract class UUICheckboxBaseElement extends LitElement {
         />
         ${this.renderCheckbox()}
         <div id="label-display" aria-hidden="true">
-          ${this.labelSlotHasContent === false && this.hideLabel === false
-            ? this.label
-            : ''}
-          <slot @slotchange=${this.labelSlotChanged}></slot>
+          ${this.hideLabel === false ? this.renderLabel() : ''}
         </div>
       </label>
     `;
