@@ -9,9 +9,8 @@ export const LabelComponent = (
     @property({ type: String })
     public label!: string;
 
-    /** TODO: investigate what we can do to ensure that firstUpdated does get called, someone might overwrite but forget to call super. */
-    firstUpdated(_changedProperties: PropertyValues) {
-      super.firstUpdated(_changedProperties);
+    connectedCallback() {
+      super.connectedCallback();
       if (!this.label) {
         console.warn(this.tagName + ' needs a `label`');
       }
