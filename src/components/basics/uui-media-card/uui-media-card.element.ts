@@ -77,21 +77,8 @@ export class UUIMediaCardElement extends UUICardElement {
   @property({ type: String, attribute: 'file-ext' })
   fileExt = '';
 
-  private _hasPreview = false;
   @state()
-  protected get hasPreview(): boolean {
-    return this._hasPreview;
-  }
-  protected set hasPreview(newValue: boolean) {
-    const oldValue = this._hasPreview;
-    this._hasPreview = newValue;
-    if (this._hasPreview) {
-      this.setAttribute('has-preview', 'true');
-    } else {
-      this.removeAttribute('has-preview');
-    }
-    this.requestUpdate('hasPreview', oldValue);
-  }
+  protected hasPreview = false;
 
   private queryPreviews(e: any): void {
     this.hasPreview =
