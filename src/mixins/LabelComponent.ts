@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators';
 
 export const LabelComponent = (
   labelName: string | null,
-  superClass: typeof LitElement
+  superClass: typeof LitElement = LitElement
 ) => {
   class LabelComponent extends superClass {
     @property({ type: String })
