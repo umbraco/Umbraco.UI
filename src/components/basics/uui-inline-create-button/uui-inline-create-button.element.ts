@@ -71,7 +71,7 @@ export class UUIInlineCreateButtonElement extends LitElement {
         right: 0;
         left: 0;
         height: 2px;
-        background-color: var(--uui-interface-selected, #2152a3);
+        background-color: var(--uui-interface-select, #2152a3);
         border-top: 1px solid var(--uui-interface-surface, #fff);
         border-bottom: 1px solid var(--uui-interface-surface, #fff);
         border-radius: 2px;
