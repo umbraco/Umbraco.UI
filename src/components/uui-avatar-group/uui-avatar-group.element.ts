@@ -29,14 +29,15 @@ export class UUIAvatarGroupElement extends LitElement {
         margin-left: -3px;
         margin-right: -3px;
       }
+
+      #overflow-indication {
+        margin-left: 6px;
+      }
     `,
   ];
 
   @property({ type: Number, attribute: true })
-  public limit = 0;
-
-  @property({ type: String, attribute: true })
-  public look: InterfaceLookType = InterfaceLookDefaultValue;
+  limit = 0;
 
   @property({ type: String, attribute: true })
   public size: AvatarSizeType = AvatarSizeDefaultValue;
@@ -63,14 +64,6 @@ export class UUIAvatarGroupElement extends LitElement {
     });
   }
 
-  get overflow(): number {
-    return this.limit === 0 ? 0 : this.avatars.length - this.limit;
-  }
-
-  get overflowIsVisible(): boolean {
-    return this.overflow > 0;
-  }
-
   updated() {
     this.toggleAvatarVisibility();
   }
@@ -78,11 +71,11 @@ export class UUIAvatarGroupElement extends LitElement {
   render() {
     return html`
       <slot @slotchange=${this.queryAvatars}></slot>
-      ${this.overflowIsVisible
-        ? html`<uui-avatar size="${this.size}" look="${this.look}"
-            >+${this.overflow}</uui-avatar
+      ${this.limit !== 0 && this.avatars.length > this.limit
+        ? html`<small id="overflow-indication"
+            >+${this.avatars.length - this.limit}</small
           >`
-        : ``}
+        : ''}
     `;
   }
 }

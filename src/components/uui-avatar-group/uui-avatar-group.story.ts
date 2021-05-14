@@ -8,18 +8,18 @@ export default {
 
 export const Basic = () => html`
   <uui-avatar-group>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
   </uui-avatar-group>
 `;
 
 export const Limit = () => html`
   <uui-avatar-group .limit="${2}">
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
   </uui-avatar-group>
 `;

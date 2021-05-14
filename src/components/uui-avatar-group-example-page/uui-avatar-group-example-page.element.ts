@@ -48,7 +48,7 @@ export class UUIAvatarGroupExamplePageElement extends LitElement {
     return html`
       <uui-avatar-group .limit="${this.limit}">
         ${this.avatars.map(
-          avatar => html` <uui-avatar .text="${avatar.name}"> </uui-avatar> `
+          avatar => html` <uui-avatar title="${avatar.name}"> </uui-avatar> `
         )}
       </uui-avatar-group>
       <br />

@@ -18,10 +18,11 @@ const avatarSrcSet = [
 
 export const Basic = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar .text="${'First Last'}"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar
       img-src="${avatarSrcSet[0]}"
       img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+      title="First Last"
     >
     </uui-avatar>
   </div>
@@ -37,7 +38,7 @@ export const Sizes = () => html`
     ${AvatarSizeNames.map(
       (avatarSize: AvatarSizeType) =>
         html`
-          <uui-avatar size="${avatarSize}" text="${avatarSize}"> </uui-avatar>
+          <uui-avatar size="${avatarSize}" name="${avatarSize}"> </uui-avatar>
         `
     )}
   </div>
@@ -63,15 +64,15 @@ export const Sizes = () => html`
 `;
 
 export const Text = () => html`
-  <uui-avatar .text="${'First Last'}" size="m" look="primary"></uui-avatar>
+  <uui-avatar title="First Last" size="m"></uui-avatar>
 `;
 
 export const Colors = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="m" .text="${'First Last'}"></uui-avatar>
+    <uui-avatar size="m" title="First Last"></uui-avatar>
     <uui-avatar
       size="m"
-      .text="${'First Last'}"
+      title="First Last"
       style="
         background-color: var(--uui-color-space-cadet);
         color: var(--uui-color-spanish-pink);"
@@ -81,6 +82,6 @@ export const Colors = () => html`
 
 export const SlottedContent = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="m" look="primary">+10</uui-avatar>
+    <uui-avatar size="m">+10</uui-avatar>
   </div>
 `;
