@@ -13,6 +13,14 @@ export const File = () =>
     </div>
   `;
 
+export const NotSelectable = () =>
+  html`
+    <div style="width: 200px">
+      <uui-media-card name="File 1" file-ext="txt"/></uui-media-card>
+      <uui-media-card name="File 1" file-ext="txt"/></uui-media-card>
+    </div>
+  `;
+
 export const Folder = () =>
   html`
     <div style="width: 200px">

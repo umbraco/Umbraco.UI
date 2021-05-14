@@ -35,6 +35,8 @@ export class UUIMediaCardElement extends UUICardElement {
         width: 100%;
         background-color: var(--uui-color-white, #ffff);
         color: var(--uui-color-black, #0000);
+        border: none;
+        cursor: pointer;
         border-top: 1px solid rgba(0, 0, 0, 0.04);
         border-radius: 0 0 var(--uui-size-border-radius, 3px)
           var(--uui-size-border-radius, 3px);
@@ -46,7 +48,8 @@ export class UUIMediaCardElement extends UUICardElement {
         padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
       }
 
-      #open-part:hover {
+      #open-part:hover,
+      #open-part:focus {
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
@@ -102,7 +105,7 @@ export class UUIMediaCardElement extends UUICardElement {
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
-      <div
+      <button
         id="open-part"
         tabindex="0"
         @click=${this.handleOpenClick}
@@ -114,7 +117,7 @@ export class UUIMediaCardElement extends UUICardElement {
           style="color: currentColor"
         ></uui-icon
         ><span> ${this.name} </span>
-      </div>
+      </button>
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>`;
   }
