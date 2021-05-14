@@ -1,5 +1,6 @@
-import { LitElement, css, unsafeCSS } from 'lit';
+import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators';
+import { SelectableMixin } from '../../../mixins/SelectableComponent';
 import { UUICardEvent } from './UUICardEvent';
 
 /**
@@ -8,7 +9,7 @@ import { UUICardEvent } from './UUICardEvent';
  *  @description - Base card component to be extended by specific cards.
  */
 
-export class UUICardElement extends LitElement {
+export class UUICardElement extends SelectableMixin(LitElement) {
   static styles = [
     css`
       :host {
@@ -46,13 +47,20 @@ export class UUICardElement extends LitElement {
         left: -2px;
         right: -2px;
         bottom: -2px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      :host([selectable]) #select-border::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
         border: 2px solid var(--uui-interface-select, #1b264f);
         border-radius: calc(var(--uui-size-border-radius, 3px) + 2px);
         box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
           inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 80ms;
       }
       :host([selected]) #select-border {
         opacity: 1;
@@ -61,7 +69,7 @@ export class UUICardElement extends LitElement {
         opacity: 0.33;
       }
       :host([selectable][selected]:hover) #select-border {
-        opacity: 0.66;
+        opacity: 0.8;
       }
 
       :host([selectable]:not([selected])) #open-part:hover + #select-border {
@@ -69,6 +77,35 @@ export class UUICardElement extends LitElement {
       }
       :host([selectable][selected]) #open-part:hover + #select-border {
         opacity: 1;
+      }
+
+      :host([selectable]:not([selected]):hover) #select-border::after {
+        animation: not-selected--hover 1.2s infinite;
+      }
+      @keyframes not-selected--hover {
+        0%,
+        100% {
+          opacity: 0.66;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      :host([selectable][selected]:hover) #select-border::after {
+        animation: selected--hover 1.4s infinite;
+      }
+      @keyframes selected--hover {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.66;
+        }
+      }
+      :host([selectable]) #open-part:hover + #select-border::after {
+        animation: none;
       }
     `,
   ];
@@ -78,22 +115,6 @@ export class UUICardElement extends LitElement {
     this.addEventListener('click', this.toggleSelect);
     this.addEventListener('keydown', this.handleSelectKeydown);
   }
-
-  private _selectable = false;
-  @property({ type: Boolean, reflect: true })
-  get selectable() {
-    return this._selectable;
-  }
-
-  set selectable(newVal) {
-    const oldVal = this._selectable;
-    this._selectable = newVal;
-    this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
-    this.requestUpdate('selected', oldVal);
-  }
-
-  @property({ type: Boolean, reflect: true })
-  selected = false;
 
   @property({ type: Boolean, reflect: true })
   error = false;

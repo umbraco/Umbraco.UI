@@ -7,7 +7,7 @@ export default {
 
 export const Overview = () => html`
   <div style="width: 300px">
-    <uui-node-card selectable name="The card" icon="bug">
+    <uui-content-node-card selectable name="The card" icon="bug">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <!-- TODO: we should make some kind of component for this data layout: -->
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
@@ -20,7 +20,7 @@ export const Overview = () => html`
           <span style="font-weight: 700">Another property:</span> Another value
         </li>
       </ul>
-    </uui-node-card>
+    </uui-content-node-card>
     <uui-media-card selectable name="Doggo 1" file-ext="image" /><img src="https://placedog.net/1447/?random"></uui-media-card>
     <uui-media-card selectable name="File 1"/></uui-media-card>
     <uui-media-card selectable name="File 1" file-ext="txt"/></uui-media-card>
