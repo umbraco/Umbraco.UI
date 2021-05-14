@@ -9,9 +9,11 @@ export class UUIMoreSymbolElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: flex;
-        font-size: 12px;
-        white-space: nowrap;
+        display: inline-block;
+        font-size: 0.8em;
+        vertical-align: top;
+        margin-top: 0.27em;
+        line-height: 1em;
       }
       :host[size='small'] {
         font-size: 9px;
