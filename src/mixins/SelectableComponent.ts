@@ -18,8 +18,6 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     @property({ type: Boolean, reflect: true })
     public selected = false;
   }
-  return (SelectableMixinClass as unknown) as Constructor<
-    SelectableMixinInterface
-  > &
-    T;
+  // prettier-ignore
+  return (SelectableMixinClass as unknown) as Constructor<SelectableMixinInterface> & T;
 };
