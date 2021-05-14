@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import '../../basics/uui-button';
+import '../uui-button';
 import './index';
 
 export default {
