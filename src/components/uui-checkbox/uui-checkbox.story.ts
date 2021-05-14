@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Checkbox',
+  title: 'Inputs/Checkbox',
   component: 'uui-checkbox',
 };
 

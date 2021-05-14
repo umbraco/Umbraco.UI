@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Overflow Container',
+  title: 'Compositions/Overflow Container',
   component: 'uui-overflow-container',
 };
 

@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Fragments/Dialog Example',
+  title: 'Compositions/Dialog Example',
   component: 'uui-dialog-example',
 };
 

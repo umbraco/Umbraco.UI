@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card/User Card',
+  title: 'Displays/Card/User Card',
   component: 'uui-user-card',
 };
 

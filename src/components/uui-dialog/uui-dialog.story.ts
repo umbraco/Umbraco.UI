@@ -3,7 +3,7 @@ import '../uui-button';
 import './index';
 
 export default {
-  title: 'Fragments/Dialog',
+  title: 'Compositions/Dialog',
   component: 'uui-dialog',
 };
 

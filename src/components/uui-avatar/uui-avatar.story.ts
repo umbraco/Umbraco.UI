@@ -3,7 +3,7 @@ import './index';
 import { AvatarSizeNames, AvatarSizeType } from './uui-avatar.element';
 
 export default {
-  title: 'Basics/Avatar',
+  title: 'Displays/Avatar',
   component: 'uui-avatar',
 };
 

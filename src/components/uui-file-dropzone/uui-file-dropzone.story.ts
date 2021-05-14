@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/File dropzone',
+  title: 'Symbols/File dropzone',
   component: 'uui-file-dropzone',
 };
 

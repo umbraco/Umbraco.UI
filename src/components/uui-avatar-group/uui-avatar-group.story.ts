@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Avatar Group',
+  title: 'Displays/Avatar Group',
   component: 'uui-avatar-group',
 };
 

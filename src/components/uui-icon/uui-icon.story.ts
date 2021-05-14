@@ -4,7 +4,7 @@ import { UUIIconServiceEvent } from '../../service/iconservice/UUIIconServiceEve
 import './index';
 
 export default {
-  title: 'Basics/Icon',
+  title: 'Symbols/Icon',
   component: 'uui-icon',
 };
 

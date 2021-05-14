@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card/Media Card',
+  title: 'Displays/Card/Media Card',
   component: 'uui-media-card',
 };
 

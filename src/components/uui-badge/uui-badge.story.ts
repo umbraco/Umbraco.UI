@@ -6,7 +6,7 @@ import {
 } from '../../type/InterfaceLook';
 
 export default {
-  title: 'Basics/Badge',
+  title: 'Misc/Badge',
   component: 'uui-badge',
 };
 

@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card/Content Node Card',
+  title: 'Displays/Card/Content Node Card',
   component: 'uui-content-node-card',
 };
 

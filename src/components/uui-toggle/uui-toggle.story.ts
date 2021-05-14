@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Toggle',
+  title: 'Inputs/Toggle',
   component: 'uui-toggle',
 };
 

@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Radio Group',
+  title: 'Inputs/Radio Group',
   component: 'uui-radio-group',
 };
 

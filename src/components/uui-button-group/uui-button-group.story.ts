@@ -6,7 +6,7 @@ import {
 import './index';
 
 export default {
-  title: 'Basics/Button Group',
+  title: 'Buttons/Button Group',
   component: 'uui-button-group',
 };
 

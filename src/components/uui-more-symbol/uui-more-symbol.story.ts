@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import './index';
 export default {
-  title: 'Basics/More Symbol',
+  title: 'Symbols/More Symbol',
   component: 'uui-more-symbol',
 };
 

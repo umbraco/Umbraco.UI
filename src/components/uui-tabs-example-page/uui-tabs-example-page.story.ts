@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Navigation/Tab Group/Example Page',
+  title: 'Buttons/Tab Group/Example Page',
   component: 'uui-tabs-example-page',
 };
 

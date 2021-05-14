@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import './index';
 export default {
-  title: 'Basics/Folder Symbol',
+  title: 'Symbols/Folder Symbol',
   component: 'uui-folder-symbol',
 };
 

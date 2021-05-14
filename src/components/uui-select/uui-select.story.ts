@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Select',
+  title: 'Inputs/Select',
   component: 'uui-select',
 };
 

@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Image File Symbol',
+  title: 'Symbols/Image File Symbol',
   component: 'uui-image-file-symbol',
 };
 

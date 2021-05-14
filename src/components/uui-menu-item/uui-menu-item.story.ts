@@ -4,7 +4,7 @@ import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 export default {
-  title: 'Basics/Menu Item',
+  title: 'Buttons/Menu Item',
   component: 'uui-menu-item',
 };
 

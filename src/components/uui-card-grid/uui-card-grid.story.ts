@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Card Grid',
+  title: 'Displays/Card Grid',
   component: 'uui-card-grid',
 };
 

@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Radio',
+  title: 'Inputs/Radio',
   component: 'uui-radio',
 };
 

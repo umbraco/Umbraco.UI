@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Menu List',
+  title: 'Buttons/Menu List',
   component: 'uui-menu-list',
 };
 

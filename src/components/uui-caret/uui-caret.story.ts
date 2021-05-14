@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Fragments/Caret',
+  title: 'Symbols/Caret',
   component: 'uui-caret',
 };
 

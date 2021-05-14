@@ -7,7 +7,7 @@ import {
 } from '../../type/InterfaceLook';
 
 export default {
-  title: 'Basics/Button',
+  title: 'Buttons/Button',
   component: 'uui-button',
 };
 

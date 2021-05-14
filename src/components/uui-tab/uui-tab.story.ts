@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Navigation/Tab',
+  title: 'Buttons/Tab',
   component: 'uui-tab',
 };
 

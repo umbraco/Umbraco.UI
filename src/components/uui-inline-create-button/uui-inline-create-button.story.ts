@@ -1,13 +1,9 @@
 import { html } from 'lit-html';
 import '.';
 import '../uui-icon/index';
-import {
-  InterfaceLookNames,
-  InterfaceLookType,
-} from '../../type/InterfaceLook';
 
 export default {
-  title: 'Basics/Inline Create Button',
+  title: 'Buttons/Inline Create Button',
   component: 'uui-inline-create-button',
 };
 

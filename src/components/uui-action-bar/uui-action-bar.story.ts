@@ -6,7 +6,7 @@ import {
 import './index';
 
 export default {
-  title: 'Basics/Action Bar',
+  title: 'Buttons/Action Bar',
   component: 'uui-action-bar',
 };
 

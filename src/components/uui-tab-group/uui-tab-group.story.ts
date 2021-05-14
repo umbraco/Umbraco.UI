@@ -3,7 +3,7 @@ import './index';
 import '../uui-tab/index';
 
 export default {
-  title: 'Navigation/Tab Group',
+  title: 'Buttons/Tab Group',
   component: 'uui-tab-group',
 };
 

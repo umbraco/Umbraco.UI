@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Basics/Select Option',
+  title: 'Inputs/Select Option',
   component: 'uui-select-option',
 };
 
