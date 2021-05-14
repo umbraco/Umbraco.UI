@@ -19,11 +19,11 @@ export const WithChildren = () =>
       @click-label=${handleClickLabel}
     >
       <uui-menu-item
-        label="Child list item"
+        label="Child list item 1"
         @click-label=${handleClickLabel}
       ></uui-menu-item>
       <uui-menu-item
-        label="Child list item"
+        label="Child list item 2"
         @click-label=${handleClickLabel}
       ></uui-menu-item>
       <uui-menu-item
