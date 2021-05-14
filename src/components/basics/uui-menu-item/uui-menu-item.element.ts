@@ -11,7 +11,6 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  */
 
 //TODO add the deselect method
-//TODO implement propper style when it is ready
 
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))

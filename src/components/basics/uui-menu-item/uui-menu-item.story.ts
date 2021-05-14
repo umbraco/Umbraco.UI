@@ -1,87 +1,68 @@
 import { html } from 'lit-html';
 import './index';
 import { UUIMenuItemElement } from './uui-menu-item.element';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 export default {
   title: 'Basics/Menu Item',
   component: 'uui-menu-item',
 };
 
+function handleClickLabel(e: UUIMenuItemEvent) {
+  e.target.active = !e.target.active;
+}
+
 export const WithChildren = () =>
   html` <uui-menu-item
       label="This is list item"
       has-children
-      @click-label=${(e: any) => {
-        e.target.active = !e.target.active;
-      }}
+      @click-label=${handleClickLabel}
     >
       <uui-menu-item
         label="Child list item"
-        @click-label=${(e: any) => {
-          e.target.active = !e.target.active;
-        }}
+        @click-label=${handleClickLabel}
       ></uui-menu-item>
       <uui-menu-item
         label="Child list item"
-        @click-label=${(e: any) => {
-          e.target.active = !e.target.active;
-        }}
+        @click-label=${handleClickLabel}
       ></uui-menu-item>
       <uui-menu-item
         label="Child list item"
-        @click-label=${(e: any) => {
-          e.target.active = !e.target.active;
-        }}
+        @click-label=${handleClickLabel}
       ></uui-menu-item>
     </uui-menu-item>
     <uui-menu-item
       label="Has children"
       has-children
       show-children
-      @click-label=${(e: any) => {
-        e.target.active = !e.target.active;
-      }}
+      @click-label=${handleClickLabel}
     >
       <uui-menu-item
         label="Child list item"
         has-children
         show-children
-        @click-label=${(e: any) => {
-          console.log('CLICKED', e);
-          e.target.active = !e.target.active;
-        }}
+        @click-label=${handleClickLabel}
       >
         <uui-menu-item
           label="Child list item"
-          @click-label=${(e: any) => {
-            console.log('CLICKED', e);
-            e.target.active = !e.target.active;
-          }}
+          @click-label=${handleClickLabel}
         ></uui-menu-item>
         <uui-menu-item
           label="Child list item"
-          @click-label=${(e: any) => {
-            e.target.active = !e.target.active;
-          }}
+          @click-label=${handleClickLabel}
         ></uui-menu-item>
         <uui-menu-item
           label="Child list item"
-          @click-label=${(e: any) => {
-            e.target.active = !e.target.active;
-          }}
+          @click-label=${handleClickLabel}
         ></uui-menu-item>
       </uui-menu-item>
       <uui-menu-item
         label="Child list item"
-        @click-label=${(e: any) => {
-          e.target.active = !e.target.active;
-        }}
+        @click-label=${handleClickLabel}
       ></uui-menu-item>
       <uui-menu-item
         label="Child list item"
-        @click-label=${(e: any) => {
-          e.target.active = !e.target.active;
-        }}
+        @click-label=${handleClickLabel}
       ></uui-menu-item>
     </uui-menu-item>`;
 
@@ -132,9 +113,9 @@ export const WithActions = () =>
       label="This is activatable list item"
     >
       <uui-action-bar slot="actions">
-        <uui-button label="Open actions menu"
-          ><uui-more-symbol></uui-more-symbol
-        ></uui-button>
+        <uui-button label="Open actions menu">
+          <uui-more-symbol></uui-more-symbol>
+        </uui-button>
       </uui-action-bar>
     </uui-menu-item>
   `;
