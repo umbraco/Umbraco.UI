@@ -7,7 +7,7 @@ export default {
   component: 'uui-menu-item',
 };
 
-export const Basic = () =>
+export const WithChildren = () =>
   html` <uui-menu-item
       label="This is list item"
       has-children
@@ -15,6 +15,24 @@ export const Basic = () =>
         e.target.active = !e.target.active;
       }}
     >
+      <uui-menu-item
+        label="Child list item"
+        @click-label=${(e: any) => {
+          e.target.active = !e.target.active;
+        }}
+      ></uui-menu-item>
+      <uui-menu-item
+        label="Child list item"
+        @click-label=${(e: any) => {
+          e.target.active = !e.target.active;
+        }}
+      ></uui-menu-item>
+      <uui-menu-item
+        label="Child list item"
+        @click-label=${(e: any) => {
+          e.target.active = !e.target.active;
+        }}
+      ></uui-menu-item>
     </uui-menu-item>
     <uui-menu-item
       label="Has children"
@@ -24,7 +42,47 @@ export const Basic = () =>
         e.target.active = !e.target.active;
       }}
     >
-      <div slot="children">This is the children</div>
+      <uui-menu-item
+        label="Child list item"
+        has-children
+        show-children
+        @click-label=${(e: any) => {
+          console.log('CLICKED', e);
+          e.target.active = !e.target.active;
+        }}
+      >
+        <uui-menu-item
+          label="Child list item"
+          @click-label=${(e: any) => {
+            console.log('CLICKED', e);
+            e.target.active = !e.target.active;
+          }}
+        ></uui-menu-item>
+        <uui-menu-item
+          label="Child list item"
+          @click-label=${(e: any) => {
+            e.target.active = !e.target.active;
+          }}
+        ></uui-menu-item>
+        <uui-menu-item
+          label="Child list item"
+          @click-label=${(e: any) => {
+            e.target.active = !e.target.active;
+          }}
+        ></uui-menu-item>
+      </uui-menu-item>
+      <uui-menu-item
+        label="Child list item"
+        @click-label=${(e: any) => {
+          e.target.active = !e.target.active;
+        }}
+      ></uui-menu-item>
+      <uui-menu-item
+        label="Child list item"
+        @click-label=${(e: any) => {
+          e.target.active = !e.target.active;
+        }}
+      ></uui-menu-item>
     </uui-menu-item>`;
 
 export const Selectable = () =>
@@ -53,14 +111,30 @@ export const Active = () =>
         (e.target as UUIMenuItemElement).active = !(e.target as UUIMenuItemElement)
           .active;
       }}
-      label="This is activable list item"
+      label="This is activatable list item"
     ></uui-menu-item>
     <uui-menu-item
       @click-label=${(e: Event) => {
         (e.target as UUIMenuItemElement).active = !(e.target as UUIMenuItemElement)
           .active;
       }}
-      label="This is activable list item"
+      label="This is activatable list item"
       active
     ></uui-menu-item>
+  `;
+export const WithActions = () =>
+  html`
+    <uui-menu-item
+      @click-label=${(e: Event) => {
+        (e.target as UUIMenuItemElement).active = !(e.target as UUIMenuItemElement)
+          .active;
+      }}
+      label="This is activatable list item"
+    >
+      <uui-action-bar slot="actions">
+        <uui-button label="Open actions menu"
+          ><uui-more-symbol></uui-more-symbol
+        ></uui-button>
+      </uui-action-bar>
+    </uui-menu-item>
   `;

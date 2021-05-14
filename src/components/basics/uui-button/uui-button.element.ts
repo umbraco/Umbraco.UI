@@ -4,6 +4,7 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../../animations/uui-shake';
+import { LabelMixin } from '../../../mixins/LabelMixin';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
@@ -16,9 +17,7 @@ import {
  *  @slot - for button contents
  *  @description - All-round button
  */
-
-//TODO add compact attribute
-export class UUIButtonElement extends LitElement {
+export class UUIButtonElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
@@ -26,21 +25,20 @@ export class UUIButtonElement extends LitElement {
         position: relative;
         display: inline-block;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
-        --uui-button-slot-margin-x-factor: 3;
         --uui-button-slot-padding-l-factor: 3;
         --uui-button-slot-padding-r-factor: 3;
       }
 
       :host([compact]) {
-        --uui-button-slot-margin-x-factor: 0.666;
-        --uui-button-slot-padding-l-factor: 0.666;
-        --uui-button-slot-padding-r-factor: 0.666;
+        --uui-button-slot-padding-l-factor: 1;
+        --uui-button-slot-padding-r-factor: 1;
       }
 
       button {
         height: 100%;
-        min-height: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6
+        min-height: var(
+          --uui-button-height,
+          calc(var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6)
         );
         width: 100%;
         padding: 0;
@@ -120,17 +118,6 @@ export class UUIButtonElement extends LitElement {
             )
           );
       }
-
-      ::slotted(*) {
-        margin-left: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) *
-            var(--uui-button-slot-margin-x-factor)
-        );
-        margin-right: calc(
-          var(--uui-button-base-unit, var(--uui-size-base-unit)) *
-            var(--uui-button-slot-margin-x-factor)
-        );
-      }
     `,
     InterfaceLookCSSCreator(
       lookName =>
@@ -169,10 +156,6 @@ export class UUIButtonElement extends LitElement {
   // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
   @property({ type: Boolean, reflect: true })
   disabled = false;
-
-  @property({ type: String, attribute: 'aria-label' })
-  ariaLabel?: string;
-
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
@@ -192,8 +175,8 @@ export class UUIButtonElement extends LitElement {
   }
   render() {
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.ariaLabel || ''}">
-        <slot></slot>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">
+        ${this.renderLabel()}
       </button>
     `;
   }

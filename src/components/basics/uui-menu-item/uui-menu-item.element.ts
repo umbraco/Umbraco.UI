@@ -1,6 +1,8 @@
 import { LitElement, css, html } from 'lit';
 import { property } from 'lit/decorators';
-import { LabelComponent } from '../../../mixins/LabelComponent';
+import { ActiveMixin } from '../../../mixins/ActiveComponent';
+import { LabelMixin } from '../../../mixins/LabelMixin';
+import { SelectableMixin } from '../../../mixins/SelectableComponent';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**
@@ -11,19 +13,26 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 //TODO add the deselect method
 //TODO implement propper style when it is ready
 
-export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
+export class UUIMenuItemElement extends SelectableMixin(
+  ActiveMixin(LabelMixin('label', LitElement))
+) {
   static styles = [
     css`
       :host {
         display: block;
         background-color: var(--uui-interface-surface);
         /** consider transparent. */
+        --uui-menu-item-child-indent: calc(var(--uui-menu-item-indent, 0) + 1);
+        --uui-menu-item-child-base-unit: calc(var(--uui-size-base-unit) * 0.5);
       }
 
       #menu-item {
         position: relative;
         display: flex;
         align-items: stretch;
+        padding-left: calc(
+          var(--uui-menu-item-indent, 0) * var(--uui-size-layout-0, 24px)
+        );
       }
 
       button {
@@ -60,11 +69,8 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
         background-color: var(--uui-interface-surface-hover);
       }
 
-      :host([disabled]) button {
-        color: var(--uui-interface-contrast-disabled);
-      }
-      :host([disabled]) button:hover {
-        color: var(--uui-interface-contrast-disabled);
+      :host([disabled]) #label-button {
+        color: var(--uui-interface-surface-contrast-disabled);
       }
       :host([disabled]) #label-button-background {
         background-color: var(--uui-interface-surface-disabled);
@@ -85,7 +91,7 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
       :host([active]) #label-button:hover + #label-button-background {
         background-color: var(--uui-interface-active-hover);
       }
-      :host([active][disabled]) button {
+      :host([active][disabled]) #label-button {
         color: var(--uui-interface-active-contrast-disabled);
         background-color: var(--uui-interface-active-disabled);
       }
@@ -102,7 +108,7 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
       :host([selected]) #label-button:hover + #label-button-background {
         background-color: var(--uui-interface-select-hover);
       }
-      :host([selected][disabled]) {
+      :host([selected][disabled]) #label-button {
         color: var(--uui-interface-select-contrast-disabled);
         background-color: var(--uui-interface-select-disabled);
       }
@@ -112,10 +118,27 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
       }
       */
 
-      slot[name='children'] {
+      slot:not([name]) {
         position: relative;
         display: block;
         width: 100%;
+      }
+      slot:not([name]) {
+        --uui-menu-item-indent: var(--uui-menu-item-child-indent);
+      }
+
+      slot[name='actions'] {
+        display: flex;
+        align-items: center;
+        --uui-button-height: calc(var(--uui-size-base-unit) * 4);
+        margin-right: var(--uui-size-base-unit);
+      }
+      #actions-container {
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      #menu-item:hover #actions-container {
+        opacity: 1;
       }
     `,
   ];
@@ -123,31 +146,13 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
-  @property({ type: Boolean, reflect: true })
-  public active = false;
-
-  @property({ type: Boolean, reflect: true })
-  public selected = false;
-
   @property({ type: Boolean, reflect: true, attribute: 'show-children' })
   public showChildren = false;
 
-  @property({ type: Boolean, reflect: true, attribute: 'has-children' })
+  @property({ type: Boolean, attribute: 'has-children' })
   public hasChildren = false;
 
   /** TODO: implement loading property */
-
-  constructor() {
-    super();
-    this.addEventListener('click', this.onHostClick);
-  }
-
-  private onHostClick(e: MouseEvent) {
-    if (this.disabled) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
 
   private onCaretClicked() {
     this.showChildren = !this.showChildren;
@@ -180,9 +185,9 @@ export class UUIMenuItemElement extends LabelComponent('label', LitElement) {
           ${this.renderLabel()}
         </button>
         <div id="label-button-background"></div>
-        <slot name="actions"></slot>
+        <slot id="actions-container" name="actions"></slot>
       </div>
-      ${this.showChildren ? html`<slot name="children"></slot>` : ''}
+      ${this.showChildren ? html`<slot></slot>` : ''}
     `;
   }
 }

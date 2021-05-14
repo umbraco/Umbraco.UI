@@ -29,6 +29,21 @@ export const WithIcon = () => html`
   <uui-button look="danger">
     <uui-icon .name=${'bug'}></uui-icon>
   </uui-button>
+  <br />
+  <br />
+  <uui-button look="danger">
+    <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
+  </uui-button>
+  <br />
+  <br />
+  <p>
+    For buttons displaying an icon, its important to parse a aria-label
+    attribute to ensure accessibility. The default sixing for a button with just
+    a icon is generally too wide, there please use with the 'compact' attribute.
+  </p>
+  <uui-button look="positive" compact>
+    <uui-icon name="info"></uui-icon>
+  </uui-button>
 `;
 
 export const Compact = () => html`

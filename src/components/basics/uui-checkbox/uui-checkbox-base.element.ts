@@ -1,6 +1,6 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators';
-import { LabelComponent } from '../../../mixins/LabelComponent';
+import { LabelMixin } from '../../../mixins/LabelMixin';
 import { UUICheckboxEvent } from './UUICheckboxEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -13,7 +13,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
  */
-export abstract class UUICheckboxBaseElement extends LabelComponent(
+export abstract class UUICheckboxBaseElement extends LabelMixin(
   '',
   LitElement
 ) {

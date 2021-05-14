@@ -1,11 +1,18 @@
-import { html, LitElement, PropertyValues } from 'lit';
+import { html, LitElement, TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators';
 
-export const LabelComponent = (
+type Constructor<T = {}> = new (...args: any[]) => T;
+
+export declare class LabelMixinInterface {
+  label: string;
+  protected renderLabel(): TemplateResult;
+}
+
+export const LabelMixin = <T extends Constructor<LitElement>>(
   labelName: string | null,
-  superClass: typeof LitElement = LitElement
+  superClass: T
 ) => {
-  class LabelComponent extends superClass {
+  class LabelMixinClass extends superClass {
     @property({ type: String })
     public label!: string;
 
@@ -35,5 +42,5 @@ export const LabelComponent = (
       `;
     }
   }
-  return LabelComponent;
+  return (LabelMixinClass as unknown) as Constructor<LabelMixinInterface> & T;
 };
