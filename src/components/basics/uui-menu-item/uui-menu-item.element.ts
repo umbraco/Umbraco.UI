@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { property } from 'lit/decorators';
-import { ActiveMixin } from '../../../mixins/ActiveComponent';
+import { ActiveMixin } from '../../../mixins/ActiveMixin';
 import { LabelMixin } from '../../../mixins/LabelMixin';
 import { SelectableMixin } from '../../../mixins/SelectableComponent';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
