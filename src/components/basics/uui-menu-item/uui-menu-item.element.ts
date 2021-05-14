@@ -23,7 +23,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: var(--uui-interface-surface);
         /** consider transparent. */
         --uui-menu-item-child-indent: calc(var(--uui-menu-item-indent, 0) + 1);
-        --uui-menu-item-child-base-unit: calc(var(--uui-size-base-unit) * 0.5);
+        /*--uui-menu-item-child-base-unit: calc(var(--uui-size-base-unit) * 0.5);*/
       }
 
       #menu-item {
