@@ -16,6 +16,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         position: relative;
         display: flex;
         justify-content: center;
+        box-sizing: border-box;
         box-shadow: 0 1px 1px 0 var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius, 3px);
         /* min-width: calc(var(--uui-size-xxlarge, 66px) * 2);*/
