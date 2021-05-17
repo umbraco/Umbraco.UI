@@ -28,6 +28,7 @@ export class UUITagElement extends LitElement {
         );
         background-color: var(--uui-interface-surface-alt);
         color: var(--uui-interface-contrast);
+        user-select: none;
 
         transition: background-color 120ms, color 120ms;
       }
