@@ -14,9 +14,6 @@ export class UUIUserCardElement extends UUICardElement {
     css`
       :host {
         min-width: 250px;
-
-        display: flex;
-        position: relative;
         flex-direction: column;
         justify-content: space-between;
         padding: var(--uui-size-space-3, 12px);
