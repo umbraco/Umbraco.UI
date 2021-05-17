@@ -14,9 +14,6 @@ export class UUIContentNodeCardElement extends UUICardElement {
     css`
       :host {
         min-width: 250px;
-        width: 100%;
-        display: flex;
-        position: relative;
         flex-direction: column;
         justify-content: space-between;
         padding: var(--uui-size-space-3, 12px);
@@ -78,7 +75,7 @@ export class UUIContentNodeCardElement extends UUICardElement {
         <uui-icon id="icon" name=${this.icon}></uui-icon>
         <span> ${this.name} </span>
       </div>
-      <!-- Select border must be right after .open-part -->
+      <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
       <slot></slot>

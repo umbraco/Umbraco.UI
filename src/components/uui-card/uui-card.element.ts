@@ -15,13 +15,12 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       :host {
         position: relative;
         display: flex;
+        width: 100%;
         justify-content: center;
         box-sizing: border-box;
         box-shadow: 0 1px 1px 0 var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius, 3px);
-        /* min-width: calc(var(--uui-size-xxlarge, 66px) * 2);*/
-        min-height: calc(var(--uui-size-xxlarge, 66px) * 2);
-        margin: 6px;
+        min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface, white);
         --uui-card-before-opacity: 0;
         transition: --uui-card-before-opacity 120ms;
