@@ -37,6 +37,21 @@ export const doubleSelect = () =>
     </uui-radio-group>
   `;
 
+export const checkedFurtherDownTheList = () =>
+  html`
+    If you add more then 1 child with "checked" attribiute it will throw an
+    error in the console and no option will be selected
+    <uui-radio-group name="Test">
+      <uui-radio .value=${'Value 1'}>Option 1</uui-radio>
+      <uui-radio .value=${'Value 2'} label="Option 2"></uui-radio>
+      <uui-radio .value=${'Value 3'}>Option 3</uui-radio>
+      <uui-radio .value=${'Value 4'} disabled>Option 4</uui-radio>
+      <uui-radio .value=${'Value 5'} checked>Option 5</uui-radio>
+      <uui-radio .value=${'Value 6'}>Option 6</uui-radio>
+      <uui-radio .value=${'Value 7'} disabled>Option 7</uui-radio>
+    </uui-radio-group>
+  `;
+
 export const InFrorm = () =>
   html`
     <form action="">

@@ -19,8 +19,6 @@ const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
 
 export class UUIRadioGroupElement extends LitElement {
-  static styles = [css``];
-
   static readonly formAssociated = true;
 
   private _internals;
@@ -46,17 +44,6 @@ export class UUIRadioGroupElement extends LitElement {
       : [];
   }
 
-  firstUpdated() {
-    this.radioElements = this.getRadioElements();
-    if (this.radioElements.length > 0)
-      this.radioElements[this.enabledElementsIndexes[0]].setAttribute(
-        'tabindex',
-        '0'
-      );
-    this._addNameToRadios(this.name, this.radioElements);
-    if (this.disabled) this._toggleDisableOnChildren(true);
-  }
-
   @query('slot') protected slotElement!: HTMLSlotElement;
 
   private _addNameToRadios(name: string, radios: UUIRadioElement[]) {
@@ -68,7 +55,24 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _handleSlotChange() {
+    if (this.radioElements) {
+      this.radioElements.forEach(el => {
+        el.removeEventListener(
+          UUIRadioEvent.CHANGE,
+          this._handleSelectOnClick as EventHandlerNonNull
+        );
+      });
+    }
+
     this.radioElements = this.getRadioElements();
+    console.log('update', this.radioElements);
+
+    this.radioElements.forEach(el => {
+      el.addEventListener(
+        UUIRadioEvent.CHANGE,
+        this._handleSelectOnClick as EventHandlerNonNull
+      );
+    });
 
     const checkedRadios = this.radioElements.filter(el => el.checked === true);
 
@@ -84,6 +88,16 @@ export class UUIRadioGroupElement extends LitElement {
       this._selected = this.radioElements.indexOf(checkedRadios[0]);
       this.value = checkedRadios[0].value;
     }
+
+    // TODO: Make sure we set the tabindex on the actual checked element not just the first.
+    if (this.radioElements.length > 0) {
+      this.radioElements[this.enabledElementsIndexes[0]].setAttribute(
+        'tabindex',
+        '0'
+      );
+    }
+    this._addNameToRadios(this.name, this.radioElements);
+    if (this.disabled) this._toggleDisableOnChildren(true);
   }
 
   private _disabled = false;
@@ -155,6 +169,7 @@ export class UUIRadioGroupElement extends LitElement {
     this.value = newVal !== null ? this.radioElements[newVal].value : '';
   }
 
+  // TODO: Need to move away from using this getter method for this.
   protected get enabledElementsIndexes() {
     const indexes: number[] = [];
     this.radioElements.forEach(el => {
@@ -222,19 +237,12 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   //TODO add event
-  private _handleSelectOnClick(e: UUIRadioEvent) {
-    e.stopPropagation();
+  private _handleSelectOnClick = (e: UUIRadioEvent) => {
     this._setSelected(this.radioElements.indexOf(e.target));
     this._fireChangeEvent();
-  }
+  };
 
   render() {
-    return html`
-      <slot
-        @slotchange=${this._handleSlotChange}
-        @change=${this._handleSelectOnClick}
-      >
-      </slot>
-    `;
+    return html` <slot @slotchange=${this._handleSlotChange}> </slot> `;
   }
 }
