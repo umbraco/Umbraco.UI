@@ -1,5 +1,10 @@
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
+
+/**
+ *  @element uui-loader-bar
+ * @description - Linear loader for indicating loading.
+ */
 
 export class UUILoaderBarElement extends LitElement {
   static styles = [
@@ -7,112 +12,82 @@ export class UUILoaderBarElement extends LitElement {
       :host {
         display: block;
         position: relative;
-        height: 3px;
+        height: var(--uui-size-half-base-unit, 3px);
         overflow: hidden;
-        border-radius: 6px;
-        background-color: yellow;
+        border-radius: var(--uui-size-half-base-unit, 3px);
+        transform: scaleY(1);
+        transform-origin: top center;
+        background-color: var(--uui-interface-chosen, #1b264f);
+        transition: transform 300ms ease-in;
       }
 
-      .bar {
+      :host([hidden]) {
+        transform: scaleY(0);
+      }
+
+      #bar1 {
         position: absolute;
         left: 0;
         top: 0;
         bottom: 0;
         width: 100%;
-      }
-
-      #bar1 {
-        background-color: pink;
+        background-color: var(--uui-interface-chosen, #1b264f);
+        filter: brightness(1.5);
         transform-origin: top left;
         transform: translateX(-150%);
-        animation: bar1 2000ms 2s infinite linear;
+        filter: brightness(250%);
+        animation: translate-bar 1.5s infinite linear,
+          light-up 1.5s infinite linear;
       }
 
-      #bar2 {
-        background-color: lightseagreen;
-      }
-
-      @keyframes bar1 {
+      @keyframes translate-bar {
         0% {
           transform: translateX(-150%);
+          filter: brightness(150%);
         }
 
         10% {
           transform: translateX(-150%);
-          animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
+          animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.45);
+          filter: brightness(150%);
         }
 
         50% {
-          animation-timing-function: cubic-bezier(
-            0.302435,
-            0.381352,
-            0.55,
-            0.956352
-          );
+          animation-timing-function: cubic-bezier(0.3, 0.4, 0.5, 0.9);
           transform: translateX(-61%);
+          filter: brightness(330%);
         }
 
         100% {
           transform: translateX(100%);
+          filter: brightness(150%);
         }
       }
 
-      @keyframes primary-indeterminate-scale {
+      @keyframes light-up {
         0% {
-          transform: scaleX(0.08);
+          filter: brightness(100%);
         }
 
-        36.65% {
-          animation-timing-function: cubic-bezier(
-            0.334731,
-            0.12482,
-            0.785844,
-            1
-          );
-          transform: scaleX(0.08);
+        10% {
+          filter: brightness(150%);
         }
 
-        69.15% {
-          animation-timing-function: cubic-bezier(0.06, 0.11, 0.6, 1);
-          transform: scaleX(0.661479);
+        50% {
+          filter: brightness(330%);
         }
 
         100% {
-          transform: scaleX(0.08);
-        }
-      }
-
-      @keyframes start {
-        from {
-          max-height: 0;
-          opacity: 0;
-        }
-        to {
-          max-height: 3px;
-          opacity: 1;
-        }
-      }
-
-      @keyframes end {
-        from {
-          max-height: 0;
-          opacity: 0;
-        }
-        to {
-          max-height: 3px;
-          opacity: 1;
+          filter: brightness(100%);
         }
       }
     `,
   ];
 
   @property({ type: Boolean, reflect: true })
-  indeterminate = true;
+  hidden = false;
 
   render() {
-    return html`
-      <div class="bar" id="bar2"></div>
-      <div class="bar" id="bar1"></div>
-    `;
+    return html` <div id="bar1"></div>`;
   }
 }
