@@ -1,5 +1,6 @@
 import { property } from '@lit/reactive-element/decorators/property';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, svg } from 'lit';
+import { styleMap } from 'lit/directives/style-map';
 import { Size } from '../../type/Size';
 
 /**
@@ -12,7 +13,13 @@ export class UUILoaderCircleElement extends LitElement {
     css`
       :host {
         --uui-loader-circle-size: var(--uui-size-small, 12px);
-        --uui-loader-circle-thickness: 0.6;
+
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      :host([size='s']) {
+        --uui-loader-circle-size: var(--uui-size-small, 12px);
       }
 
       :host([size='m']) {
@@ -32,27 +39,56 @@ export class UUILoaderCircleElement extends LitElement {
       }
 
       #svg-container {
-        vertical-align: middle;
         overflow: hidden;
-        display: inline-block;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
         width: var(--uui-loader-circle-size);
+        height: var(--uui-loader-circle-size);
+      }
+
+      :host([indefinite]) #spinner {
+        animation: 3s linear infinite svg-animation;
+      }
+
+      :host([indefinite]) #circle {
+        animation: 1.4s ease-in infinite circle-animation;
       }
 
       #spinner {
         width: 100%;
-        animation: 3s linear infinite svg-animation;
       }
 
       #circle {
-        animation: 1.4s ease-in infinite circle-animation;
         display: block;
         fill: transparent;
         stroke: var(--uui-interface-chosen);
         stroke-linecap: round;
-        stroke-dasharray: 283;
-        stroke-dashoffset: 283;
-        stroke-width: 12px;
+        stroke-dasharray: 0 100;
+        /* stroke-dashoffset: 361; */
+        stroke-width: 6px;
         transform-origin: 50% 50%;
+        transform: rotate(-90deg);
+      }
+
+      #circle2 {
+        fill: transparent;
+        stroke: var(--uui-interface-chosen);
+        stroke-width: 6px;
+        opacity: 0.5;
+      }
+
+      #progress-display {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        right: 0;
+        stroke: var(--uui-interface-chosen);
+        transform: translateY(-50%);
+        font-size: 10px;
+        font-weight: 700;
+        text-align: center;
       }
 
       @keyframes svg-animation {
@@ -67,32 +103,59 @@ export class UUILoaderCircleElement extends LitElement {
       @keyframes circle-animation {
         0%,
         25% {
-          stroke-dashoffset: 283;
+          stroke-dashoffset: 100;
           transform: rotate(0);
         }
 
         50%,
         75% {
-          stroke-dashoffset: 75;
+          stroke-dashoffset: 20;
           transform: rotate(45deg);
         }
 
         100% {
-          stroke-dashoffset: 283;
+          stroke-dashoffset: 100;
           transform: rotate(360deg);
         }
       }
     `,
   ];
 
+  private strokeDashOffset() {
+    return { strokeDasharray: `${this.progress}, 100` };
+  }
+
+  private largeSizes = ['l', 'xl'];
+
   @property({ reflect: true })
   size: Size = 's';
 
+  @property({ type: Boolean, reflect: true })
+  indefinite = false;
+
+  @property({ type: Number })
+  progress = 100;
+
+  @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
+  showProgress = false;
+
   render() {
     return html`<div id="svg-container">
-      <svg id="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle id="circle" cx="50" cy="50" r="40" />
+      <svg id="spinner" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle id="circle2" cx="50%" cy="50%" r="15.9155" />
+        <circle
+          id="circle"
+          cx="50%"
+          cy="50%"
+          r="15.9155"
+          style=${styleMap(this.strokeDashOffset())}
+        />
       </svg>
+      ${this.largeSizes.includes(this.size) &&
+      this.indefinite === false &&
+      this.showProgress
+        ? html`<span id="progress-display">${this.progress}</span>`
+        : ''}
     </div>`;
   }
 }
