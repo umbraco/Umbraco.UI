@@ -1,7 +1,8 @@
-import './components/basics/uui-button';
-import './components/basics/uui-tag';
-import './components/basics/uui-textfield';
-import './components/basics/uui-toggle';
-import './components/basics/uui-loader';
-import './components/basics/uui-avatar';
-import './components/basics/uui-avatar-group';
+import './components/uui-button';
+import './components/uui-tag';
+import './components/uui-textfield';
+import './components/uui-toggle';
+import './components/uui-loader';
+import './components/uui-avatar';
+import './components/uui-avatar-group';
+import './components/uui-loader-bar';
