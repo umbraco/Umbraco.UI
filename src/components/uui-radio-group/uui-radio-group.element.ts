@@ -31,7 +31,7 @@ export class UUIRadioGroupElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'radiogroup');
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
   }
 
   private radioElements!: UUIRadioElement[];
