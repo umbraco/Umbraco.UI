@@ -20,6 +20,9 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
   active = false;
 
   @property({ type: Boolean, reflect: true })
+  hidden = false;
+
+  @property({ type: Boolean, reflect: true })
   error = false;
 
   @property({ type: Boolean })
@@ -81,9 +84,8 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
     }
   }
   onDragOver(e: DragEvent) {
-    console.log(this);
-    this.active = true;
     this.preventDefaults(e);
+    this.active = true;
   }
 
   onDragEnter(e: DragEvent) {

@@ -12,7 +12,7 @@ export class UUIFileDropzoneElement extends UUIFileDropzoneBaseElement {
       :host {
         display: flex;
         flex-direction: column;
-        height: 100%;
+
         align-items: center;
         justify-content: center;
         padding: var(--uui-size-medium, 24px);
@@ -32,14 +32,18 @@ export class UUIFileDropzoneElement extends UUIFileDropzoneBaseElement {
       }
 
       #upload-icon {
-        width: 15%;
         fill: var(--uui-interface-border);
+        width: 100px;
         opacity: 0.5;
         transition: opacity 0.3s ease;
       }
 
       :host([active]) #upload-icon {
         opacity: 1;
+      }
+
+      :host([hidden]) {
+        display: none;
       }
 
       :host([error]) #upload-icon {

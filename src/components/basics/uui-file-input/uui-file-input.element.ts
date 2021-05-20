@@ -19,6 +19,7 @@ export class UUIFileInputElement extends LitElement {
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
+        position: relative;
         /* min-height: 240px;
         min-width: 600px; */
       }
@@ -37,33 +38,39 @@ export class UUIFileInputElement extends LitElement {
         position: relative;
       }
 
-      #dropzone {
+      #uploader {
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
-        transition: all 350ms linear;
-        outline: 0px dashed red;
-        background-color: transparent;
-      }
-
-      #dropzone[active] {
-        background-color: var(--uui-interface-surface, #fff);
-        outline: 1px dashed red;
+        width: 100%;
+        z-index: 3;
       }
     `,
   ];
 
   private handleFiles() {
-    this.files = this.uploader.files;
-    if (this.files) {
-      this.filesArray = Array.from(this.files);
-    } else this.filesArray = [];
+    this.uploader.hidden = true;
+    this.files = [...this.uploader.files, ...this.files];
+    // if (this.files) {
+    //   this.filesArray = Array.from(this.files);
+    // } else this.filesArray = [];
   }
 
-  @state()
-  filesArray: File[] = [];
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('dragover', this.showDropzone);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('dragover', this.showDropzone);
+  }
+
+  protected showDropzone = () => {
+    if (this.files.length === 0) return;
+    console.log('drag over window');
+    this.dropzone.hidden = false;
+  };
 
   @property({ attribute: false })
   files: File[] = [];
@@ -73,6 +80,9 @@ export class UUIFileInputElement extends LitElement {
 
   @query('#uploader')
   uploader!: UUIFileDropzoneElement;
+
+  @query('#uploader')
+  dropzone!: UUIFileDropzoneElement;
 
   @queryAll('uui-file-preview')
   previews!: UUIFilePreviewElement[];
@@ -85,7 +95,6 @@ export class UUIFileInputElement extends LitElement {
 
   private removeFiles() {
     this.files = [];
-    this.filesArray = [];
   }
 
   protected removeFile(e: UUIFilePreviewEvent) {
@@ -94,7 +103,6 @@ export class UUIFileInputElement extends LitElement {
       el === file;
     });
     this.files.splice(removeIndex, 1);
-    this.filesArray.splice(removeIndex, 1);
     this.requestUpdate();
   }
 
@@ -108,29 +116,31 @@ export class UUIFileInputElement extends LitElement {
   }
 
   removeButtonTemplate() {
-    return html`<uui-button @click=${this.removeFiles} look="outline"
-      ><uui-icon id="button-icon" name="delete"></uui-icon>
-      Remove ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
-    </uui-button>`;
+    if (this.files.length > 0)
+      return html`<uui-button @click=${this.removeFiles} look="outline"
+        ><uui-icon id="button-icon" name="delete"></uui-icon>
+        Remove
+        ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
+      </uui-button>`;
   }
 
   render() {
-    return html`
-      ${this.files.length === 0
-        ? this.fileDropzoneTemplate()
-        : html` <div id="files">
-              ${this.filesArray.map(
-                file =>
-                  html`<uui-file-preview
-                    .file=${file}
-                    .name=${file.name}
-                    @remove-file=${this.removeFile}
-                  ></uui-file-preview>`
-              )}<uui-file-dropzone-button
-                id="dropzone"
-              ></uui-file-dropzone-button>
-            </div>
-            ${this.removeButtonTemplate()}`}
-    `;
+    return html`${this.fileDropzoneTemplate()}
+      <div id="files">
+        ${this.files.map(
+          file =>
+            html`<uui-file-preview
+              .file=${file}
+              .name=${file.name}
+              @remove-file=${this.removeFile}
+            ></uui-file-preview>`
+        )}
+      </div>
+      ${this.removeButtonTemplate()}`;
   }
 }
+
+// <uui-file-dropzone-button
+//           @file-drop=${this.handleFiles}
+//           id="dropzone"
+//         ></uui-file-dropzone-button>
