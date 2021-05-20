@@ -73,7 +73,7 @@ export class UUIRadioElement extends LitElement {
         transform: translate(-50%, -50%) scale(1);
       }
 
-      label:hover #button {
+      :host(:hover) #button {
         border: 1px solid var(--uui-interface-border-hover, #c4c4c4);
       }
 
@@ -89,16 +89,15 @@ export class UUIRadioElement extends LitElement {
         background-color: var(--uui-interface-chosen-hover, #2152a3);
       }
 
-      input:disabled ~ #button {
-        border: 1px solid var(--uui-interface-border-disabled);
+      :host([disabled]) label {
+        cursor: default;
       }
-
-      input:disabled ~ #label {
+      :host([disabled]) #label {
         color: var(--uui-interface-contrast-disabled);
       }
 
-      :host([disabled]) label {
-        cursor: default;
+      :host([disabled]) input ~ #button {
+        border: 1px solid var(--uui-interface-border-disabled);
       }
 
       :host([disabled]) input:checked ~ #button {
@@ -109,12 +108,12 @@ export class UUIRadioElement extends LitElement {
         background-color: var(--uui-interface-chosen-disabled);
       }
 
-      :host([disabled]) #button:active {
+      :host([disabled]:active) #button {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
       @media (prefers-reduced-motion) {
-        :host([disabled]) #button:active {
+        :host([disabled]:active) #button {
           animation: none;
         }
 
