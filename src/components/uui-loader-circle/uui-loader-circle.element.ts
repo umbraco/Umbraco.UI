@@ -1,9 +1,6 @@
+import { property } from '@lit/reactive-element/decorators/property';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
-import {
-  InterfaceLookCSSCreator,
-  InterfaceLookType,
-} from '../../type/InterfaceLook';
+import { Size } from '../../type/Size';
 
 /**
  *  @element uui-loader-circle
@@ -18,27 +15,43 @@ export class UUILoaderCircleElement extends LitElement {
         --uui-loader-circle-thickness: 0.6;
       }
 
+      :host([size='m']) {
+        --uui-loader-circle-size: var(--uui-size-medium, 24px);
+      }
+
+      :host([size='l']) {
+        --uui-loader-circle-size: var(--uui-size-large, 30px);
+      }
+
+      :host([size='xl']) {
+        --uui-loader-circle-size: var(--uui-size-xlarge, 42px);
+      }
+
+      :host([size='xxl']) {
+        --uui-loader-circle-size: var(--uui-size-xlarge, 66px);
+      }
+
       #svg-container {
         vertical-align: middle;
         overflow: hidden;
         display: inline-block;
-        width: 100%;
+        width: var(--uui-loader-circle-size);
       }
 
-      svg {
+      #spinner {
         width: 100%;
-        animation: 2s linear infinite svg-animation;
+        animation: 3s linear infinite svg-animation;
       }
 
-      circle {
-        animation: 1.4s ease-in-out infinite both circle-animation;
+      #circle {
+        animation: 1.4s ease-in infinite circle-animation;
         display: block;
         fill: transparent;
-        stroke: #2f3d4c;
+        stroke: var(--uui-interface-chosen);
         stroke-linecap: round;
         stroke-dasharray: 283;
-        stroke-dashoffset: 280;
-        stroke-width: 15px;
+        stroke-dashoffset: 283;
+        stroke-width: 12px;
         transform-origin: 50% 50%;
       }
 
@@ -54,7 +67,7 @@ export class UUILoaderCircleElement extends LitElement {
       @keyframes circle-animation {
         0%,
         25% {
-          stroke-dashoffset: 280;
+          stroke-dashoffset: 283;
           transform: rotate(0);
         }
 
@@ -65,17 +78,20 @@ export class UUILoaderCircleElement extends LitElement {
         }
 
         100% {
-          stroke-dashoffset: 280;
+          stroke-dashoffset: 283;
           transform: rotate(360deg);
         }
       }
     `,
   ];
 
+  @property({ reflect: true })
+  size: Size = 's';
+
   render() {
     return html`<div id="svg-container">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="40" />
+      <svg id="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle id="circle" cx="50" cy="50" r="40" />
       </svg>
     </div>`;
   }
