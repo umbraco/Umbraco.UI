@@ -43,6 +43,7 @@ export class UUIMediaCardElement extends UUICardElement {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        font-family: inherit;
         font-size: var(--uui-size-small, 12px);
         box-sizing: border-box;
         padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
