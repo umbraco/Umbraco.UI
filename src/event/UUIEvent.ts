@@ -6,7 +6,6 @@ export class UUIEvent<
   EventTargetType extends EventTarget | null = EventTarget | null
 > extends Event {
   static defaultInit = {
-    bubbles: true,
     composed: true,
   };
 
