@@ -44,24 +44,24 @@ export class UUILoaderBarElement extends LitElement {
       @keyframes translate-bar {
         0% {
           transform: translateX(-150%);
-          filter: brightness(150%);
+          filter: brightness(100%);
         }
 
         10% {
           transform: translateX(-150%);
           animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.45);
-          filter: brightness(150%);
+          filter: brightness(130%);
         }
 
         50% {
           animation-timing-function: cubic-bezier(0.3, 0.4, 0.5, 0.9);
           transform: translateX(-61%);
-          filter: brightness(250%);
+          filter: brightness(150%);
         }
 
         100% {
           transform: translateX(100%);
-          filter: brightness(150%);
+          filter: brightness(130%);
         }
       }
 

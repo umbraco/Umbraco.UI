@@ -1,9 +1,5 @@
 import { html } from 'lit-html';
-import {
-  InterfaceLookNames,
-  InterfaceLookType,
-} from '../../type/InterfaceLook';
-import { sizes } from '../../type/Size';
+import { Size, sizes } from '../../type/Size';
 import './index';
 
 export default {
@@ -45,7 +41,7 @@ export const ShowProgressNumber = () =>
             progress => html`<uui-loader-circle
               show-progress
               progress=${progress}
-              size="${size as string}"
+              size="${size as Size}"
             ></uui-loader-circle>`
           )}<br />`
     )} <br />
@@ -58,7 +54,7 @@ export const Overview = () => html`
       html`<span>Size ${size}</span>${progress.map(
           progress => html`<uui-loader-circle
             progress=${progress}
-            size="${size as string}"
+            size="${size as Size}"
           ></uui-loader-circle>`
         )}<br />`
   )}
@@ -70,7 +66,7 @@ export const IndefiniteSate = () =>
       size =>
         html`<uui-loader-circle
             indefinite
-            size="${size as string}"
+            size="${size as Size}"
           ></uui-loader-circle
           ><br />`
     )}
