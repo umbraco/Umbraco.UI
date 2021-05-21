@@ -41,7 +41,7 @@ export const ShowProgressNumber = () =>
             progress => html`<uui-loader-circle
               show-progress
               progress=${progress}
-              size="${size as Size}"
+              size="${size}"
             ></uui-loader-circle>`
           )}<br />`
     )} <br />
@@ -54,7 +54,7 @@ export const Overview = () => html`
       html`<span>Size ${size}</span>${progress.map(
           progress => html`<uui-loader-circle
             progress=${progress}
-            size="${size as Size}"
+            size="${size}"
           ></uui-loader-circle>`
         )}<br />`
   )}
@@ -64,10 +64,7 @@ export const IndefiniteSate = () =>
   html`
     ${sizes.map(
       size =>
-        html`<uui-loader-circle
-            indefinite
-            size="${size as Size}"
-          ></uui-loader-circle
+        html`<uui-loader-circle indefinite size="${size}"></uui-loader-circle
           ><br />`
     )}
   `;
@@ -87,3 +84,8 @@ export const Colors = () =>
       proprty</span
     >
   `;
+
+export const InAButton = () =>
+  html`<uui-button look="secondary"
+    >Loading... <uui-loader-circle size="s" indefinite></uui-loader-circle
+  ></uui-button>`;

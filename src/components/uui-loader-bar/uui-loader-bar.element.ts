@@ -6,6 +6,7 @@ import { property } from 'lit/decorators.js';
  * @description - Linear loader for indicating loading.
  */
 
+// TODO try changing brightness hack to opacity
 export class UUILoaderBarElement extends LitElement {
   static styles = [
     css`

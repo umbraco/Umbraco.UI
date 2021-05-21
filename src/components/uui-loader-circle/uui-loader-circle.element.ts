@@ -70,10 +70,11 @@ export class UUILoaderCircleElement extends LitElement {
         stroke: var(--uui-loader-circle-color);
         stroke-linecap: round;
         stroke-dasharray: 0 100;
-        /* stroke-dashoffset: 361; */
+
         stroke-width: 6px;
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
+        transition: stroke-dasharray 500ms ease;
       }
 
       #circle2 {
