@@ -72,6 +72,13 @@ export class UUIPaginationElement extends LitElement {
   private calculateRange = () => {
     this._containerWidth = this.offsetWidth;
 
+    const navButtonWidth = Array.from(this.navButtons).reduce(
+      (totalWidth, button) => {
+        return totalWidth + button.getBoundingClientRect().width;
+      },
+      0
+    );
+    console.log(navButtonWidth); //? why is this returning 0?
     const rangeBaseWidth =
       this._containerWidth - 2 * BUTTON_MIN_WIDTH - 4 * BUTTON_MAX_WIDTH;
     const range = rangeBaseWidth / BUTTON_MIN_WIDTH / 2;
@@ -111,6 +118,9 @@ export class UUIPaginationElement extends LitElement {
 
   @queryAll('uui-pagination-button')
   pageButtons!: Array<UUIPaginationButtonElement>;
+
+  @queryAll('uui-pagination-button.nav-button')
+  navButtons!: Array<UUIPaginationButtonElement>;
 
   @property()
   label = '';
