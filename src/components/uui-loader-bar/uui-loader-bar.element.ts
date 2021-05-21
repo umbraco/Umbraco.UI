@@ -10,6 +10,7 @@ export class UUILoaderBarElement extends LitElement {
   static styles = [
     css`
       :host {
+        --uui-loader-bar-color: var(--uui-interface-chosen, #1b264f);
         display: block;
         position: relative;
         height: var(--uui-size-half-base-unit, 3px);
@@ -17,7 +18,7 @@ export class UUILoaderBarElement extends LitElement {
         border-radius: var(--uui-size-half-base-unit, 3px);
         transform: scaleY(1);
         transform-origin: top center;
-        background-color: var(--uui-interface-chosen, #1b264f);
+        background-color: var(--uui-loader-bar-color, #1b264f);
         transition: transform 300ms ease-in;
       }
 
@@ -31,7 +32,7 @@ export class UUILoaderBarElement extends LitElement {
         top: 0;
         bottom: 0;
         width: 100%;
-        background-color: var(--uui-interface-chosen, #1b264f);
+        background-color: var(--uui-loader-bar-color, #1b264f);
         filter: brightness(1.5);
         transform-origin: top left;
         transform: translateX(-150%);
@@ -55,7 +56,7 @@ export class UUILoaderBarElement extends LitElement {
         50% {
           animation-timing-function: cubic-bezier(0.3, 0.4, 0.5, 0.9);
           transform: translateX(-61%);
-          filter: brightness(330%);
+          filter: brightness(250%);
         }
 
         100% {

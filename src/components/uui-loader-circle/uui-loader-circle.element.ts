@@ -13,9 +13,13 @@ export class UUILoaderCircleElement extends LitElement {
     css`
       :host {
         --uui-loader-circle-size: var(--uui-size-small, 12px);
-
+        --uui-loader-circle-color: var(--uui-interface-chosen, #1b264f);
         display: inline-block;
         vertical-align: middle;
+      }
+
+      :host([size='xs']) {
+        --uui-loader-circle-size: var(--uui-size-xsmall, 9px);
       }
 
       :host([size='s']) {
@@ -63,7 +67,7 @@ export class UUILoaderCircleElement extends LitElement {
       #circle {
         display: block;
         fill: transparent;
-        stroke: var(--uui-interface-chosen);
+        stroke: var(--uui-loader-circle-color);
         stroke-linecap: round;
         stroke-dasharray: 0 100;
         /* stroke-dashoffset: 361; */
@@ -74,7 +78,7 @@ export class UUILoaderCircleElement extends LitElement {
 
       #circle2 {
         fill: transparent;
-        stroke: var(--uui-interface-chosen);
+        stroke: var(--uui-loader-circle-color);
         stroke-width: 6px;
         opacity: 0.5;
       }
@@ -84,7 +88,7 @@ export class UUILoaderCircleElement extends LitElement {
         left: 0;
         top: 50%;
         right: 0;
-        stroke: var(--uui-interface-chosen);
+        stroke: var(--uui-loader-circle-color);
         transform: translateY(-50%);
         font-size: 10px;
         font-weight: 700;
