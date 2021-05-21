@@ -72,14 +72,21 @@
     --uui-look-secondary-border-focus: var(--uui-color-mine-grey);
 
     /** POSITIVE */
-    --uui-look-positive-surface: var(--uui-color-jungle-green-dark);
-    --uui-look-positive-surface-hover: var(--uui-color-jungle-green);
-    --uui-look-positive-surface-disabled: var(--uui-color-jungle-green-dimmed);
-    --uui-look-positive-surface-focus: var(--uui-color-jungle-green-dark);
-    --uui-look-positive-border: var(--uui-color-jungle-green-dark);
-    --uui-look-positive-border-hover: var(--uui-color-jungle-green-light);
-    --uui-look-positive-border-disabled: var(--uui-color-jungle-green-dimmed);
-    --uui-look-positive-border-focus: var(--uui-color-jungle-green-dark);
+    --uui-look-positive-surface: var(--uui-color-dark-green);
+    --uui-look-positive-surface-hover: var(--uui-color-dark-green);
+    --uui-look-positive-surface-disabled: var(--uui-color-dark-green-dimmed);
+    --uui-look-positive-surface-focus: var(--uui-color-dark-green-dark);
+    --uui-look-positive-border: var(--uui-color-dark-green);
+    --uui-look-positive-border-hover: var(--uui-color-dark-green-light);
+    --uui-look-positive-border-disabled: var(--uui-color-dark-green-dimmed);
+    --uui-look-positive-border-focus: var(--uui-color-dark-green-dark);
+
+
+    /** WARNING look */
+    --uui-look-warning-surface: var(--uui-color-sunglow-dark);
+
+    /** DANGER look */
+    --uui-look-danger-surface: var(--uui-color-maroon-flush-dark);
 
 
     /** OUTLINE */
