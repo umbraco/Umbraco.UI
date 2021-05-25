@@ -18,18 +18,32 @@ export const WithChildren = () =>
       has-children
       @click-label=${handleClickLabel}
     >
-      <uui-menu-item
-        label="Child list item 1"
-        @click-label=${handleClickLabel}
-      ></uui-menu-item>
-      <uui-menu-item
-        label="Child list item 2"
-        @click-label=${handleClickLabel}
-      ></uui-menu-item>
-      <uui-menu-item
-        label="Child list item"
-        @click-label=${handleClickLabel}
-      ></uui-menu-item>
+      <uui-action-bar slot="actions">
+        <uui-button label="Open actions menu">
+          <uui-more-symbol></uui-more-symbol>
+        </uui-button>
+      </uui-action-bar>
+      <uui-menu-item label="Child list item 1" @click-label=${handleClickLabel}>
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">
+            <uui-more-symbol></uui-more-symbol>
+          </uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
+      <uui-menu-item label="Child list item 2" @click-label=${handleClickLabel}>
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">
+            <uui-more-symbol></uui-more-symbol>
+          </uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
+      <uui-menu-item label="Child list item" @click-label=${handleClickLabel}>
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">
+            <uui-more-symbol></uui-more-symbol>
+          </uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
     </uui-menu-item>
     <uui-menu-item
       label="Has children"
@@ -37,33 +51,59 @@ export const WithChildren = () =>
       show-children
       @click-label=${handleClickLabel}
     >
+      <uui-action-bar slot="actions">
+        <uui-button label="Open actions menu">
+          <uui-more-symbol></uui-more-symbol>
+        </uui-button>
+      </uui-action-bar>
       <uui-menu-item
         label="Child list item"
         has-children
         show-children
         @click-label=${handleClickLabel}
       >
-        <uui-menu-item
-          label="Child list item"
-          @click-label=${handleClickLabel}
-        ></uui-menu-item>
-        <uui-menu-item
-          label="Child list item"
-          @click-label=${handleClickLabel}
-        ></uui-menu-item>
-        <uui-menu-item
-          label="Child list item"
-          @click-label=${handleClickLabel}
-        ></uui-menu-item>
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">
+            <uui-more-symbol></uui-more-symbol>
+          </uui-button>
+        </uui-action-bar>
+
+        <uui-menu-item label="Child list item" @click-label=${handleClickLabel}>
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu">
+              <uui-more-symbol></uui-more-symbol>
+            </uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Child list item" @click-label=${handleClickLabel}>
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu">
+              <uui-more-symbol></uui-more-symbol>
+            </uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Child list item" @click-label=${handleClickLabel}>
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu">
+              <uui-more-symbol></uui-more-symbol>
+            </uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
       </uui-menu-item>
-      <uui-menu-item
-        label="Child list item"
-        @click-label=${handleClickLabel}
-      ></uui-menu-item>
-      <uui-menu-item
-        label="Child list item"
-        @click-label=${handleClickLabel}
-      ></uui-menu-item>
+      <uui-menu-item label="Child list item" @click-label=${handleClickLabel}>
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">
+            <uui-more-symbol></uui-more-symbol>
+          </uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
+      <uui-menu-item label="Child list item" @click-label=${handleClickLabel}>
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">
+            <uui-more-symbol></uui-more-symbol>
+          </uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
     </uui-menu-item>`;
 
 export const Selectable = () =>
