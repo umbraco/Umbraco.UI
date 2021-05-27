@@ -1,16 +1,19 @@
-import { LitElement, html, css, property, internalProperty } from 'lit-element';
+import { state } from '@lit/reactive-element/decorators/state';
+import { LitElement, html, css } from 'lit';
 import { styleMap } from 'lit-html/directives/style-map';
+import { property } from 'lit/decorators';
 import {
   UUIBlinkKeyframes,
   UUIBlinkAnimationValue,
 } from '../../animations/uui-blink';
+import { LabelMixin } from '../../mixins/LabelMixin';
 import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
 /**
  *  @element uui-badge
  *  @description - Special button for creating new elements some editors
  */
 
-export class UUIInlineCreateButtonElement extends LitElement {
+export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIBlinkKeyframes,
     css`
@@ -76,7 +79,6 @@ export class UUIInlineCreateButtonElement extends LitElement {
         border-bottom: 1px solid var(--uui-interface-surface, #fff);
         border-radius: 2px;
         pointer-events: none;
-        -webkit-animation: ${UUIBlinkAnimationValue};
         animation: ${UUIBlinkAnimationValue};
       }
 
@@ -145,7 +147,7 @@ export class UUIInlineCreateButtonElement extends LitElement {
     `,
   ];
 
-  @internalProperty()
+  @state()
   position = 0;
 
   @property({ type: Boolean, reflect: true })
@@ -156,7 +158,6 @@ export class UUIInlineCreateButtonElement extends LitElement {
   }
 
   private _handleClick() {
-    console.log('button clicked');
     this.dispatchEvent(
       new UUIInlineCreateButtonEvent(UUIInlineCreateButtonEvent.CLICK)
     );
