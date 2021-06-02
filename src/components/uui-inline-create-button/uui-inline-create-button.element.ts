@@ -1,7 +1,6 @@
-import { state } from '@lit/reactive-element/decorators/state';
 import { LitElement, html, css } from 'lit';
-import { styleMap } from 'lit-html/directives/style-map';
-import { property } from 'lit/decorators';
+import { styleMap } from 'lit/directives/style-map.js';
+import { property, state } from 'lit/decorators.js';
 import {
   UUIBlinkKeyframes,
   UUIBlinkAnimationValue,
@@ -9,8 +8,8 @@ import {
 import { LabelMixin } from '../../mixins/LabelMixin';
 import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
 /**
- *  @element uui-badge
- *  @description - Special button for creating new elements some editors
+ *  @element uui-inline-create-button
+ *  @description - Special button for creating new elements
  */
 
 export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
