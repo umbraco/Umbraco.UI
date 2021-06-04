@@ -67,8 +67,18 @@ export const withDropdown = () =>
   html`
     <uui-button-group>
       <uui-dropdown same-width position="bottom">
-        <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
-        <div style="height: 180px;  background-color: blue;"></div>
+        <uui-button
+          look="secondary"
+          @click=${(e: any) => {
+            console.log(e);
+            e.target.parentElement.open = !e.target.parentElement.open;
+          }}
+          >Open dropdown</uui-button
+        >
+        <div
+          slot="dropdown"
+          style="height: 180px;  background-color: blue;"
+        ></div>
       </uui-dropdown>
 
       ${buttons.map(
@@ -76,8 +86,15 @@ export const withDropdown = () =>
       )}
 
       <uui-dropdown same-width position="bottom">
-        <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
-        <div style="height: 180px; background-color: blue;">
+        <uui-button
+          look="secondary"
+          @click=${(e: any) => {
+            console.log(e);
+            e.target.parentElement.open = !e.target.parentElement.open;
+          }}
+          >Open dropdown</uui-button
+        >
+        <div slot="dropdown" style="height: 180px; background-color: blue;">
           <uui-button look="primary">Inside button</uui-button>
         </div>
       </uui-dropdown>
@@ -87,8 +104,18 @@ export const withDropdown = () =>
       )}
 
       <uui-dropdown same-width position="right">
-        <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
-        <div style="height: 180px;  background-color: blue;"></div>
+        <uui-button
+          look="secondary"
+          @click=${(e: any) => {
+            console.log(e);
+            e.target.parentElement.open = !e.target.parentElement.open;
+          }}
+          >Open dropdown</uui-button
+        >
+        <div
+          slot="dropdown"
+          style="height: 180px;  background-color: blue;"
+        ></div>
       </uui-dropdown>
     </uui-button-group>
   `;
@@ -100,12 +127,32 @@ export const withDropdownInTheMiddle = () =>
         el => html`<uui-button look="secondary">${el}</uui-button>`
       )}
       <uui-dropdown same-width position="bottom">
-        <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
-        <div style="height: 180px;  background-color: blue;"></div>
+        <uui-button
+          look="secondary"
+          @click=${(e: any) => {
+            console.log(e);
+            e.target.parentElement.open = !e.target.parentElement.open;
+          }}
+          >Open dropdown</uui-button
+        >
+        <div
+          slot="dropdown"
+          style="height: 180px;  background-color: blue;"
+        ></div>
       </uui-dropdown>
       <uui-dropdown same-width position="bottom">
-        <uui-button slot="toggle" look="secondary">Open dropdown</uui-button>
-        <div style="height: 180px;  background-color: blue;"></div>
+        <uui-button
+          look="secondary"
+          @click=${(e: any) => {
+            console.log(e);
+            e.target.parentElement.open = !e.target.parentElement.open;
+          }}
+          >Open dropdown</uui-button
+        >
+        <div
+          slot="dropdown"
+          style="height: 180px;  background-color: blue;"
+        ></div>
       </uui-dropdown>
       ${buttons.map(
         el => html`<uui-button look="secondary">${el}</uui-button>`

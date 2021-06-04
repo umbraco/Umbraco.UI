@@ -20,12 +20,14 @@ import { UUIOverflowContainer } from '../uui-overflow-container/uui-overflow-con
 
 //UUISelectSingleBase
 export class UUISingleSelectBaseElement extends LitElement {
-  @query('slot') protected slotElement!: HTMLSlotElement;
+  @query('uui-overflow-container')
+  overflow!: UUIOverflowContainer;
 
+  @query('slot') protected slotElement!: HTMLSlotElement;
   protected listElements!: UUISelectOptionElement[];
 
   //returns an Array of ListElements if they're in the slot or empty array
-  protected getlistElements(): UUISelectOptionElement[] {
+  protected getListElements(): UUISelectOptionElement[] {
     return this.slotElement
       ? (this.slotElement
           .assignedElements({ flatten: true })
@@ -35,27 +37,25 @@ export class UUISingleSelectBaseElement extends LitElement {
       : [];
   }
 
-  protected slottedChildren!: UUISelectOptionElement[];
-
-  @query('uui-overflow-container')
-  overflow!: UUIOverflowContainer;
-
-  // firstUpdated() {}
-
   protected onSlotChange() {
-    this.slottedChildren = this.getlistElements();
-
-    //move slotted elements inside the shadow dom
-    this.slottedChildren.forEach(el => {
-      this.overflow.appendChild(el);
+    if (this.listElements) {
+      this.listElements.forEach(el => {
+        el.removeEventListener(
+          'change',
+          this.onListElementChange as EventListener
+        );
+      });
+    }
+    this.listElements =
+      (this.slotElement
+        .assignedElements({ flatten: true })
+        .filter(
+          el => el instanceof UUISelectOptionElement
+        ) as UUISelectOptionElement[]) || [];
+    this.updateSelectedElement();
+    this.listElements.forEach(el => {
+      el.addEventListener('change', this.onListElementChange as EventListener);
     });
-    const children = Array.from(
-      this.overflow.childNodes
-    ) as UUISelectOptionElement[];
-
-    this.listElements = children.filter(
-      el => el instanceof UUISelectOptionElement
-    );
   }
 
   private _value = '';
@@ -66,106 +66,85 @@ export class UUISingleSelectBaseElement extends LitElement {
   set value(newValue) {
     const oldVal = this._value;
     this._value = newValue;
+    this.updateSelectedElement();
+    this.deselectChildren();
     this.requestUpdate('value', oldVal);
   }
 
-  private _selected: number | null = null;
-  @property({ type: Number })
-  get selected() {
-    return this._selected;
-  }
-
-  set selected(newVal) {
-    const oldVal = this._selected;
-    this._selected = newVal;
-    this._setSelected(newVal);
-    // this.value = newVal ? this.listElements[newVal].value : '';
-    this.requestUpdate('selected', oldVal);
-  }
-
   @state()
-  selectedID = '';
+  protected selectedElement: UUISelectOptionElement | null = null;
+  protected updateSelectedElement() {
+    this.selectedElement =
+      this.listElements?.find(el => el.value === this._value) || null;
+  }
 
-  private _setSelected(newVal: number | null) {
-    this._selected = newVal;
-
-    this._lastSelectedIndex = this.enabledElementsIndexes.findIndex(
-      index => index === this._selected
-    );
-    if (newVal !== null) {
-      //this.selectedID = this.listElements[this.enabledElementsIndexes[0]].id;
-      //this.listElements[0].setAttribute('tabindex', '0');
+  private deselectChildren() {
+    if (this.listElements) {
+      const notValue = this.listElements.filter(el => el.value !== this._value);
+      notValue.forEach(el => el.deselect());
     }
-    const notSelected = this.listElements.filter(
-      el => this.listElements.indexOf(el) !== this._selected
-    );
-    notSelected.forEach(el => el.deselect());
-
-    this.value = newVal !== null ? this.listElements[newVal].value : '';
-    this.selectedID = newVal !== null ? this.listElements[newVal].id : '';
   }
 
-  protected _handleSelectOnClick(e: UUISelectOptionEvent) {
-    e.stopPropagation();
-    this._setSelected(this.listElements.indexOf(e.target));
-    this._fireChangeEvent();
-  }
+  protected onListElementChange = (e: UUISelectOptionEvent) => {
+    if (e.target.selected === true) {
+      this.value = e.target.value;
+      this._fireChangeEvent();
+    }
+  };
 
   private _fireChangeEvent() {
     this.dispatchEvent(new UUISelectEvent(UUISelectEvent.CHANGE));
   }
 
-  protected get enabledElementsIndexes() {
-    const indexes: number[] = [];
-    this.listElements.forEach(el => {
-      if (el.disabled === false) indexes.push(this.listElements.indexOf(el));
-    });
-    return indexes;
-  }
-
-  private _lastSelectedIndex = 0; //this is index in the array of enalbled radios indexes (this.enabledElementsIndexes)
-  protected _selectPreviousElement() {
-    if (
-      this.selected === null ||
-      this.selected === this.enabledElementsIndexes[0]
-    ) {
-      this.selected = this.enabledElementsIndexes[
-        this.enabledElementsIndexes.length - 1
-      ];
-      this._lastSelectedIndex = this.enabledElementsIndexes.length - 1;
-      if (this.selected !== null) this.listElements[this.selected].select();
-    } else {
-      this._lastSelectedIndex--;
-      this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
-      this.listElements[this.selected].select();
+  protected selectIndex(index: number) {
+    if (this.listElements && index < this.listElements.length) {
+      this.select(this.listElements[index]);
+      this._fireChangeEvent();
     }
-    this.listElements[this.selected].scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'nearest',
-    });
-    this._fireChangeEvent();
   }
-
-  protected _selectNextElement() {
-    if (
-      this.selected === null ||
-      this.selected ===
-        this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1]
-    ) {
-      this.selected = this.enabledElementsIndexes[0];
-      this._lastSelectedIndex = 0;
-      if (this.selected !== null) this.listElements[this.selected].select();
-    } else {
-      this._lastSelectedIndex++;
-      this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
-      this.listElements[this.selected].select();
+  protected select(newSelection: UUISelectOptionElement) {
+    newSelection.select();
+    this.value = newSelection.value;
+  }
+  protected selectPreviousElement() {
+    this.moveSelection(-1);
+  }
+  protected selectNextElement() {
+    this.moveSelection(1);
+  }
+  private moveSelection(move: number) {
+    let newSelection: UUISelectOptionElement | null = null;
+    if (this.listElements && this.listElements.length > 0) {
+      if (this.selectedElement) {
+        const index: number = this.listElements.indexOf(this.selectedElement);
+        if (index !== -1) {
+          newSelection = this.getNextEnabledElement(index, index, move);
+        }
+      } else {
+        newSelection = this.listElements[
+          move > 0 ? 0 : this.listElements.length - 1
+        ];
+      }
+      if (newSelection) {
+        this.select(newSelection);
+      }
     }
-    this.listElements[this.selected].scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'nearest',
-    });
-    this._fireChangeEvent();
+  }
+  private getNextEnabledElement(
+    originalIndex: number,
+    index: number,
+    move: number
+  ): UUISelectOptionElement | null {
+    let nextIndex = (index + move) % this.listElements.length;
+    if (nextIndex < 0) {
+      nextIndex += this.listElements.length;
+    }
+    if (originalIndex === nextIndex) {
+      return null;
+    }
+    if (this.listElements[nextIndex].disabled !== true) {
+      return this.listElements[nextIndex];
+    }
+    return this.getNextEnabledElement(originalIndex, nextIndex, move);
   }
 }

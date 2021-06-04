@@ -39,8 +39,15 @@ const options = [
 
 export const Overview = () => html`
   <uui-dropdown>
-    <uui-button slot="toggle" look="positive">Click</uui-button>
-    <uui-overflow-container style="min-width: 400px">
+    <uui-button
+      look="positive"
+      @click=${(e: any) => {
+        console.log(e);
+        e.target.parentElement.open = !e.target.parentElement.open;
+      }}
+      >Click</uui-button
+    >
+    <uui-overflow-container slot="dropdown" style="min-width: 400px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -64,9 +71,16 @@ export const Overview = () => html`
 
 export const withInput = () => html`
   <uui-dropdown>
-    <uui-textfield slot="input"></uui-textfield>
-    <uui-button slot="toggle" look="positive">Click</uui-button>
-    <uui-overflow-container style="min-width: 400px">
+    <uui-textfield></uui-textfield>
+    <uui-button
+      look="positive"
+      @click=${(e: any) => {
+        console.log(e);
+        e.target.parentElement.open = !e.target.parentElement.open;
+      }}
+      >Click</uui-button
+    >
+    <uui-overflow-container slot="dropdown" style="min-width: 400px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -90,8 +104,15 @@ export const withInput = () => html`
 
 export const top = () => html`
   <uui-dropdown .position=${'top'} style="position: relative; top: 50vh">
-    <uui-button slot="toggle" look="positive">Click</uui-button>
-    <uui-overflow-container style="min-width: 200px">
+    <uui-button
+      look="positive"
+      @click=${(e: any) => {
+        console.log(e);
+        e.target.parentElement.open = !e.target.parentElement.open;
+      }}
+      >Click</uui-button
+    >
+    <uui-overflow-container slot="dropdown" style="min-width: 200px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -116,9 +137,16 @@ export const top = () => html`
 export const auto = () => html`
   <div style="height: 150vh;">scroll down...</div>
   <uui-dropdown position="bottom" auto>
-    <uui-textfield slot="input"></uui-textfield>
-    <uui-button slot="toggle" look="positive">Click</uui-button>
-    <uui-overflow-container style="min-width: 400px">
+    <uui-textfield></uui-textfield>
+    <uui-button
+      look="positive"
+      @click=${(e: any) => {
+        console.log(e);
+        e.target.parentElement.open = !e.target.parentElement.open;
+      }}
+      >Click</uui-button
+    >
+    <uui-overflow-container slot="dropdown" style="min-width: 400px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -143,14 +171,28 @@ export const auto = () => html`
 
 export const sameWidth = () => html`
   <uui-dropdown position="bottom" same-width>
-    <uui-button slot="toggle" look="positive">Click</uui-button>
-    <div style="height: 180px; background-color: blue;"></div>
+    <uui-button
+      look="positive"
+      @click=${(e: any) => {
+        console.log(e);
+        e.target.parentElement.open = !e.target.parentElement.open;
+      }}
+      >Click</uui-button
+    >
+    <div slot="dropdown" style="height: 180px; background-color: blue;"></div>
   </uui-dropdown>
 `;
 
 export const closeOnOutsideClickDisabled = () => html`
   <uui-dropdown position="bottom" same-width disable-outside-click>
-    <uui-button slot="toggle" look="positive">Click</uui-button>
-    <div style="height: 180px; background-color: blue;"></div>
+    <uui-button
+      look="positive"
+      @click=${(e: any) => {
+        console.log(e);
+        e.target.parentElement.open = !e.target.parentElement.open;
+      }}
+      >Click</uui-button
+    >
+    <div slot="dropdown" style="height: 180px; background-color: blue;"></div>
   </uui-dropdown>
 `;

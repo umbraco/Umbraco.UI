@@ -13,8 +13,9 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
     css`
       :host {
         font-family: inherit;
-        --uui-select-widht: 200px;
-        width: var(--uui-select-widht);
+        /* TODO: I don't think we need a custom prop for this, as impl can just set width on the comp. */
+        --uui-select-width: 200px;
+        width: var(--uui-select-width);
         display: inline-block;
         border: 1px solid var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius);
@@ -35,40 +36,31 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
       }
 
       uui-overflow-container {
-        min-width: var(--uui-select-widht);
+        min-width: var(--uui-select-width);
         outline: none;
-      }
-
-      uui-carret {
-        display: inline-block;
-        padding: var(--uui-size-base-unit);
-        padding-right: 1em;
       }
 
       #selected-value {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+
+        width: 100%;
+
         font-family: inherit;
         font-size: 1rem;
-        padding-left: 1em;
+        padding: var(--uui-size-small);
       }
 
-      input,
-      #combo {
-        display: flex;
-        align-items: center;
-        border: none;
-        width: 100%;
-        height: calc(var(--uui-size-base-unit) * 6);
-        /* padding: 0.5em; */
-        box-sizing: border-box;
+      #caret {
+        margin-left: auto;
+      }
+
+      button {
+        font-size: inherit;
         font-family: inherit;
-        background-color: var(--uui-interface-surface);
-        font-size: 1rem;
-        padding-left: 1em;
-        outline: none;
-        cursor: default;
+        border: 0;
+        padding: 0;
+        background-color: transparent;
       }
 
       #placeholder {
@@ -78,34 +70,37 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
     `,
   ];
 
+  // TODO: assign with form etc.
   static readonly formAssociated = true;
 
-  constructor() {
-    super();
+  connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('keydown', this._onKeydown);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this._onKeydown);
   }
 
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
 
-  private _isOpen = false;
+  private _open = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
-  get isOpen() {
-    return this._isOpen;
+  get open() {
+    return this._open;
   }
 
-  set isOpen(newVal) {
-    const oldVal = this._isOpen;
-    this._isOpen = newVal;
+  set open(newVal) {
+    const oldVal = this._open;
+    this._open = newVal;
     if (this.overflow && this.dropdown) {
       if (newVal) this.overflow.focus();
       else this.dropdown.focus();
     }
-    this.requestUpdate('isOpen', oldVal);
+    this.requestUpdate('open', oldVal);
   }
-
-  @property({ type: Boolean })
-  autocomplete = false;
 
   @property({ type: String })
   label = '';
@@ -120,52 +115,44 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
     switch (e.key) {
       case keys.ARROW_UP: {
         e.preventDefault();
-        if (!this.isOpen) this.isOpen = true;
-        this._selectPreviousElement();
+        if (!this.open) this.open = true;
+        this.selectPreviousElement();
         break;
       }
 
       case keys.ARROW_DOWN: {
         e.preventDefault();
 
-        if (!this.isOpen) this.isOpen = true;
-        this._selectNextElement();
+        if (!this.open) this.open = true;
+        this.selectNextElement();
         break;
       }
 
       case keys.SPACE:
       case keys.ENTER: {
         e.preventDefault();
-        this.isOpen = !this.isOpen;
+        this.open = !this.open;
         break;
       }
 
       case keys.ESCAPE: {
         e.preventDefault();
-        if (this.isOpen) this.isOpen = false;
+        if (this.open) this.open = false;
         break;
       }
 
       case keys.TAB: {
-        if (this.isOpen) this.isOpen = false;
+        if (this.open) this.open = false;
         break;
       }
 
       case keys.HOME: {
-        if (this.isOpen) {
-          this.selected = this.enabledElementsIndexes[0];
-          this.listElements[this.selected].select();
-        }
+        this.selectIndex(0);
         break;
       }
 
       case keys.END: {
-        if (this.isOpen) {
-          this.selected = this.enabledElementsIndexes[
-            this.enabledElementsIndexes.length - 1
-          ];
-          this.listElements[this.selected].select();
-        }
+        this.selectIndex(this.listElements.length - 1);
         break;
       }
     }
@@ -174,49 +161,35 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   render() {
     return html`
       <uui-dropdown
-        ?open=${this.isOpen}
-        @close="${() => (this.isOpen = false)}"
-        @open="${() => (this.isOpen = true)}"
-        same-widht
+        .open=${this.open}
+        same-width
         position="bottom"
         .title="${this.title}"
         tabindex="0"
         role="combobox"
-        aria-haspopup="true"
         aria-controls="list"
-        aria-autocomplete="none"
-        aria-expanded="${this.isOpen}"
       >
-        ${this.autocomplete
-          ? html`<input
-                type="text"
-                slot="input"
-                .value=${this.value}
-                aria-label="${this.label}"
-              /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
-          : html`
-              <div
-                id="combo"
-                type="text"
-                aria-label="${this.label}"
-                slot="toggle"
-                .title="${this.title}"
-              >
-                ${this.value
-                  ? html`<span>${this.value}</span>`
-                  : html`<span id="placeholder">${this.placeholder}</span>`}
-              </div>
-              <uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
-            `}
+        <button
+          id="selected-value"
+          type="button"
+          @click="${() => {
+            console.log('click');
+            this.open = !this.open;
+          }}"
+          aria-label="${this.label}"
+        >
+          ${this.selectedElement
+            ? html`<span>${this.selectedElement.label}</span>`
+            : html`<span id="placeholder">${this.placeholder}</span>`}
+          <uui-caret id="caret" ?open=${this._open}></uui-caret>
+        </button>
 
         <uui-overflow-container
+          slot="dropdown"
           role="listbox"
-          id="list"
-          tabindex="${this.isOpen ? '0' : '-1'}"
-          .title="${this.title}"
-          aria-label="${this.label}"
-          aria-activedescendant="${this.selectedID}"
-          @change=${this._handleSelectOnClick}
+          tabindex="${this.open ? '0' : '-1'}"
+          aria-activedescendant="TODO"
+          @change=${this.onListElementChange}
         >
           <slot @slotchange=${this.onSlotChange}></slot>
         </uui-overflow-container>

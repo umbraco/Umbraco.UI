@@ -10,10 +10,10 @@ describe('UuiToggle', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <uui-radio-group>
-        <uui-radio .value=${'Value 1'}>Option 1</uui-radio>
+        <uui-radio .value=${'Value 1'} label="Option 1">Option 1</uui-radio>
         <uui-radio .value=${'Value 2'} label="Option 2"></uui-radio>
-        <uui-radio .value=${'Value 3'}>Option 3</uui-radio></uui-radio-group
-      >
+        <uui-radio .value=${'Value 3'} label="Option 3">Option 3</uui-radio>
+      </uui-radio-group>
     `);
     radios = Array.from(element.querySelectorAll('uui-radio'));
   });
@@ -39,9 +39,9 @@ describe('UuiToggle in a Form', () => {
     formElement = await fixture(
       html` <form action="">
         <uui-radio-group name="Test">
-          <uui-radio value="Value 1">Option 1</uui-radio>
+          <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
           <uui-radio value="Value 2" label="Option 2" checked></uui-radio>
-          <uui-radio value="Value 3">Option 3</uui-radio>
+          <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
         </uui-radio-group>
       </form>`
     );
