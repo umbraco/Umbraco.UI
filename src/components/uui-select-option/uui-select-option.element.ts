@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { property, query, queryAssignedNodes } from 'lit/decorators';
+import { LitElement, css } from 'lit';
+import { property, query } from 'lit/decorators';
 import { LabelMixin } from '../../mixins/LabelMixin';
 import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
@@ -49,9 +49,6 @@ export class UUISelectOptionElement extends LabelMixin('', LitElement) {
 
   @property({ reflect: true })
   id = `uui-select-option-${UUISelectOptionElement.UniqueIdCounter++}`;
-
-  @queryAssignedNodes('', true)
-  _slot!: Node[];
 
   @property({ type: String })
   value = '';
