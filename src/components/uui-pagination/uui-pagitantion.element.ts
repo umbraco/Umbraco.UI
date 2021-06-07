@@ -6,6 +6,15 @@ import { UUIPaginationEvent } from './UUIPaginationEvent';
 
 //?? button group-within button-group
 
+/**
+ * Pagination
+ *
+ * @element uui-pagination
+ *
+ * @fires change - When clicked on the page button fires change event
+ *
+ */
+
 const BUTTON_MIN_WIDTH = 36;
 const BUTTON_MAX_WIDTH = 72;
 export class UUIPaginationElement extends LitElement {
