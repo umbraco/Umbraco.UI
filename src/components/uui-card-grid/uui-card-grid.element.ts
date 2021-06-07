@@ -20,6 +20,12 @@ export class UUICardGridElement extends LitElement {
       :host([type='user']) {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       }
+
+      :host([type='mixed']) {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        place-items: end;
+        justify-content: space-between;
+      }
     `,
   ];
 

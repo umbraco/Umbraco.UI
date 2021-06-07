@@ -6,6 +6,7 @@ export type CardType =
   | 'node'
   | 'package'
   | 'user'
+  | 'mixed'
   | null;
 
 export const CardTypeNames: Readonly<CardType[]> = [
@@ -16,4 +17,5 @@ export const CardTypeNames: Readonly<CardType[]> = [
   'node',
   'package',
   'user',
+  'mixed',
 ] as const;
