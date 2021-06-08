@@ -42,10 +42,18 @@ export class UUISelectElement extends LitElement {
         outline: none;
       }
 
-      #selected-value {
+      button#selected-value {
         display: flex;
         align-items: center;
 
+        width: 100%;
+
+        font-family: inherit;
+        font-size: 1rem;
+        padding: var(--uui-size-small);
+      }
+
+      input#selected-value {
         width: 100%;
 
         font-family: inherit;
@@ -88,6 +96,9 @@ export class UUISelectElement extends LitElement {
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
 
+  @query('#selected-value')
+  selectedValueElement!: HTMLButtonElement;
+
   private _open = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
   get open() {
@@ -98,8 +109,13 @@ export class UUISelectElement extends LitElement {
     const oldVal = this._open;
     this._open = newVal;
     if (this.overflow && this.dropdown) {
-      if (newVal) this.overflow.focus();
-      else this.dropdown.focus();
+      if (newVal) {
+        if (this.input === false) {
+          this.overflow.focus();
+        }
+      } else {
+        this.selectedValueElement.focus();
+      }
     }
     this.requestUpdate('open', oldVal);
   }
@@ -109,6 +125,9 @@ export class UUISelectElement extends LitElement {
 
   @property({ type: String })
   title = '';
+
+  @property({ type: Boolean, reflect: true })
+  input = false;
 
   @property()
   placeholder = '';
@@ -229,12 +248,23 @@ export class UUISelectElement extends LitElement {
     if (e.target.selected === true) {
       this.value = e.target.value;
       this._fireChangeEvent();
+      this.open = false;
     }
   };
 
   private _fireChangeEvent() {
     this.dispatchEvent(new UUISelectEvent(UUISelectEvent.CHANGE));
   }
+
+  protected onInputInput = () => {
+    this.dispatchEvent(new UUISelectEvent(UUISelectEvent.INPUT));
+  };
+  protected onInputFocus = () => {
+    this.open = true;
+  };
+  protected onDropdownClose = () => {
+    this.open = false;
+  };
 
   protected selectIndex(index: number) {
     if (this.listElements && index < this.listElements.length) {
@@ -298,21 +328,34 @@ export class UUISelectElement extends LitElement {
         tabindex="0"
         role="combobox"
         aria-controls="list"
+        @close=${this.onDropdownClose}
       >
-        <button
-          id="selected-value"
-          type="button"
-          @click="${() => {
-            console.log('click');
-            this.open = !this.open;
-          }}"
-          aria-label="${this.label}"
-        >
-          ${this.selectedElement
-            ? html`<span>${this.selectedElement.label}</span>`
-            : html`<span id="placeholder">${this.placeholder}</span>`}
-          <uui-caret id="caret" ?open=${this._open}></uui-caret>
-        </button>
+        ${this.input
+          ? html`
+            <input
+              id="input-field"
+              type="text"
+              @focus=${this.onInputFocus}
+              @input=${this.onInputInput}
+              aria-label="${this.label}"
+            ></input>
+          `
+          : html`
+              <button
+                id="selected-value"
+                type="button"
+                @click="${() => {
+                  console.log('click');
+                  this.open = !this.open;
+                }}"
+                aria-label="${this.label}"
+              >
+                ${this.selectedElement
+                  ? html`<span>${this.selectedElement.label}</span>`
+                  : html`<span id="placeholder">${this.placeholder}</span>`}
+                <uui-caret id="caret" ?open=${this._open}></uui-caret>
+              </button>
+            `}
 
         <uui-overflow-container
           slot="dropdown"
