@@ -110,6 +110,13 @@ export const Mixed = () =>
               </li>
             </ul></uui-content-node-card
           >`;
+        } else {
+          return html`<uui-product-card
+            available
+            name="Product ${el}"
+            price=${el}
+            ><img src="https://placedog.net/${el}/?random"
+          /></uui-product-card>`;
         }
       })}
     </uui-card-grid>

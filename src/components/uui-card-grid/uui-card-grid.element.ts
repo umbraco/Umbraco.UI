@@ -23,9 +23,13 @@ export class UUICardGridElement extends LitElement {
 
       :host([type='mixed']) {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        place-items: end;
+        place-items: start;
         justify-content: space-between;
       }
+
+      /* :host([type='mixed']) ::slotted(*) {
+        place-self: end;
+      } */
     `,
   ];
 
