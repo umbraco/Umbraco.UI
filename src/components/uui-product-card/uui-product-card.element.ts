@@ -12,7 +12,7 @@ export class UUIProductCardElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
-      #open-part {
+      #product-info {
         position: absolute;
         bottom: 0;
         width: 100%;
@@ -33,9 +33,8 @@ export class UUIProductCardElement extends UUICardElement {
         padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
       }
 
-      #open-part:hover,
-      #open-part:focus {
-        /* text-decoration: underline; */
+      #product-info:hover,
+      #product-info:focus {
         color: var(--uui-interface-contrast-hover);
       }
 
@@ -54,18 +53,6 @@ export class UUIProductCardElement extends UUICardElement {
         display: flex;
         justify-content: right;
       }
-
-      /* :host([image]:not([image=''])) #open-part {
-        transition: opacity 0.5s 0.5s;
-        opacity: 0;
-      }
-
-      :host([image]:not([image='']):hover, [image]:not([image='']):focus, [image]:not([image='']):focus-within, [selected][image]:not([image='']), [error][image]:not([image='']))
-        #open-part {
-        opacity: 1;
-        transition-duration: 120ms;
-        transition-delay: 0s;
-      } */
 
       #tag {
         position: absolute;
@@ -88,6 +75,7 @@ export class UUIProductCardElement extends UUICardElement {
         margin-right: var(--uui-size-base-unit, 6px);
         display: inline-flex;
         height: var(--uui-size-medium, 24px);
+        color: currentColor;
       }
     `,
   ];
@@ -108,22 +96,16 @@ export class UUIProductCardElement extends UUICardElement {
   }
 
   public render() {
-    return html`${this.showAvailibility()}<slot></slot>
-      <button
-        id="open-part"
-        tabindex="0"
-        @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}
-      >
+    return html`${this.showAvailibility()}
+      <slot></slot>
+      <button id="product-info">
         <div id="name-container">
-          <uui-icon
-            id="info-icon"
-            name="bug"
-            style="color: currentColor"
-          ></uui-icon
+          <uui-icon id="info-icon" name="bug"></uui-icon
           ><span id="name"> ${this.name} </span>
         </div>
-        <div id="price-container"><span id="price"> ${this.price}$ </span></div>
+        <div id="price-container">
+          <span id="price"> ${this.price}$ </span>
+        </div>
       </button>`;
   }
 }
