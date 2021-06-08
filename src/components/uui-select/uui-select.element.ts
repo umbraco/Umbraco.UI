@@ -274,6 +274,11 @@ export class UUISelectElement extends LitElement {
   }
   protected select(newSelection: UUISelectOptionElement) {
     newSelection.select();
+    newSelection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'nearest',
+    });
     this.value = newSelection.value;
   }
   protected selectPreviousElement() {
