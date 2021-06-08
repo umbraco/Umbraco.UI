@@ -81,10 +81,10 @@ export class UUIProductCardElement extends UUICardElement {
   ];
 
   @property()
-  name = 'Recycle your mind';
+  name = '';
 
   @property({ type: Number })
-  price = 99.99;
+  price = 0;
 
   @property({ type: Boolean })
   available = false;
