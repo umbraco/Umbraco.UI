@@ -94,7 +94,7 @@ export class UUIMediaCardElement extends UUICardElement {
     if (this.hasPreview === false) {
       if (this.fileExt === '') {
         return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
-      } else if (this.fileExt !== '') {
+      } else {
         return html`<uui-file-symbol
           id="file-symbol"
           type="txt"
