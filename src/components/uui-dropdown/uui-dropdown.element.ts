@@ -28,6 +28,10 @@ export class UUIDropdownElement extends LitElement {
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
       }
 
+      #popper {
+        z-index: 1;
+      }
+
       #popper[data-popper-placement='bottom'] #data-container {
         transform-origin: top center;
       }
@@ -183,7 +187,9 @@ export class UUIDropdownElement extends LitElement {
       const oldVal = this._open;
       this._open = newVal;
       if (newVal === true) {
-        this._popper.update();
+        if (this._popper) {
+          this._popper.update();
+        }
         this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
         this.setAttribute('aria-expanded', 'true');
       } else {

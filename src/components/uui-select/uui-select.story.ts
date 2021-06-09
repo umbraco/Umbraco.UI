@@ -50,7 +50,7 @@ export const Overview = () => html`
 `;
 
 export const WithInput = () => html`
-  <uui-select autocomplete>
+  <uui-select input>
     ${options.map(
       option =>
         html`<uui-select-option value="${option.color}" label="${option.color}">
