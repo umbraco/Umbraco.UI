@@ -37,6 +37,10 @@ const options = [
   },
 ];
 
+function open(e: any) {
+  e.target.parentElement.open = !e.target.parentElement.open;
+}
+
 export const Overview = () => html`
   <uui-dropdown>
     <uui-button
@@ -170,15 +174,9 @@ export const auto = () => html`
 `;
 
 export const sameWidth = () => html`
-  <uui-dropdown position="bottom" same-width>
-    <uui-button
-      look="positive"
-      @click=${(e: any) => {
-        console.log(e);
-        e.target.parentElement.open = !e.target.parentElement.open;
-      }}
-      >Click</uui-button
-    >
+  <uui-dropdown same-width>
+    <uui-button look="primary" @click=${open}> Click to open </uui-button>
+
     <div slot="dropdown" style="height: 180px; background-color: blue;"></div>
   </uui-dropdown>
 `;
