@@ -34,8 +34,11 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
 
     protected renderLabel() {
       return html`
-        ${this.labelSlotHasContent === false ? this.label : ''}
+        ${this.labelSlotHasContent === false
+          ? html`<span id="label">${this.label}</span>`
+          : ''}
         <slot
+          id="label"
           name=${labelName ? labelName : ''}
           @slotchange=${this.labelSlotChanged}
         ></slot>
