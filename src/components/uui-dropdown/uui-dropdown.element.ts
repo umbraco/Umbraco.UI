@@ -187,7 +187,9 @@ export class UUIDropdownElement extends LitElement {
       const oldVal = this._open;
       this._open = newVal;
       if (newVal === true) {
-        this._popper.update();
+        if (this._popper) {
+          this._popper.update();
+        }
         this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
         this.setAttribute('aria-expanded', 'true');
       } else {
