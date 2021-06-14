@@ -37,6 +37,10 @@ const options = [
   },
 ];
 
+function open(e: any) {
+  e.target.parentElement.open = !e.target.parentElement.open;
+}
+
 export const Overview = () => html`
   <uui-dropdown>
     <uui-button
@@ -169,8 +173,8 @@ export const auto = () => html`
   <div style="height: 150vh;"></div>
 `;
 
-export const sameWidth = () => html`
-  <uui-dropdown position="bottom" same-width>
+export const closeOnOutsideClickDisabled = () => html`
+  <uui-dropdown position="bottom" same-width disable-outside-click>
     <uui-button
       look="positive"
       @click=${(e: any) => {
@@ -183,16 +187,23 @@ export const sameWidth = () => html`
   </uui-dropdown>
 `;
 
-export const closeOnOutsideClickDisabled = () => html`
-  <uui-dropdown position="bottom" same-width disable-outside-click>
-    <uui-button
-      look="positive"
-      @click=${(e: any) => {
-        console.log(e);
-        e.target.parentElement.open = !e.target.parentElement.open;
-      }}
-      >Click</uui-button
-    >
+export const sameWidth = () => html`
+  <uui-dropdown same-width>
+    <uui-button look="primary" @click=${open}> Click to open </uui-button>
+
     <div slot="dropdown" style="height: 180px; background-color: blue;"></div>
+  </uui-dropdown>
+`;
+
+export const slots = () => html`
+  <uui-dropdown same-width>
+    <uui-button look="placeholder" @click=${open}>Default slot</uui-button>
+
+    <uui-button
+      slot="dropdown"
+      look="placeholder"
+      style="height: 180px; background-color: white;"
+      >Dropdown slot</uui-button
+    >
   </uui-dropdown>
 `;

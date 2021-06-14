@@ -5,26 +5,26 @@ import { property } from 'lit/decorators';
  *  @element uui-card-grid
  *
  */
-import { CardType } from '../../type/CardType';
 export class UUICardGridElement extends LitElement {
   static styles = [
     css`
       :host {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         grid-gap: var(--uui-size-medium, 24px);
-        place-items: strech;
+        place-items: start;
+        justify-content: space-between;
       }
 
-      :host([type='node']),
-      :host([type='user']) {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      :host([type='media']) {
+        place-items: stretch;
       }
     `,
   ];
 
+  // TODO: consider wether we can eliminate this, evt. make a media-card-grid specific for this scenario.
   @property({ reflect: true })
-  type: CardType = null;
+  type: 'media' | null = null;
 
   render() {
     return html`<slot></slot>`;
