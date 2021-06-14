@@ -5,8 +5,7 @@ export class UUIPaginationButtonElement extends UUIButtonElement {
   static styles = [...UUIButtonElement.styles];
 
   firstUpdated() {
-    // this.buttonWidth = this.getBoundingClientRect().width;
-    // console.log(this.buttonWidth);
+    this.setAttribute('compact', '');
   }
 
   @property({ attribute: false })
