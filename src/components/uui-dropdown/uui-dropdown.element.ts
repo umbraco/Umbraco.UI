@@ -174,6 +174,10 @@ export class UUIDropdownElement extends LitElement {
         sameWidth,
       ],
     });
+
+    if (this._open === true) {
+      this.toggleOpen(true);
+    }
   }
 
   private _open = false;
@@ -202,8 +206,10 @@ export class UUIDropdownElement extends LitElement {
   }
 
   public toggleOpen(open: boolean) {
-    this._animation.playbackRate = open ? 1 : -1;
-    this._animation.play();
+    if (this._animation) {
+      this._animation.playbackRate = open ? 1 : -1;
+      this._animation.play();
+    }
   }
 
   protected onOutsideClick = (e: MouseEvent) => {
