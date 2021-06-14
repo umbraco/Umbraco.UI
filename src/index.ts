@@ -1,3 +1,4 @@
+import './components/cdg-product-card';
 import './components/uui-action-bar';
 import './components/uui-avatar';
 import './components/uui-avatar-group';
