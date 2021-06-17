@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, queryAll, state } from 'lit/decorators';
-import { UUIPaginationButtonElement } from './uui-button.element';
+import { UUIButtonElement } from '../uui-button/uui-button.element';
 import { UUIPaginationEvent } from './UUIPaginationEvent';
 //TODO change focus after click
 
@@ -116,11 +116,8 @@ export class UUIPaginationElement extends LitElement {
     return Math.min(Math.max(val, min), max);
   }
 
-  @queryAll('uui-button')
-  pageButtons!: Array<UUIPaginationButtonElement>;
-
   @queryAll('uui-button.nav-button')
-  navButtons!: Array<UUIPaginationButtonElement>;
+  navButtons!: Array<UUIButtonElement>;
 
   @property()
   label = '';
