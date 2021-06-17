@@ -32,8 +32,8 @@ export class UUIFileInputElement extends LitElement {
       #files {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        place-items: stretch;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        place-items: start stretch;
         grid-gap: var(--uui-size-layout-0);
         position: relative;
       }
@@ -42,7 +42,10 @@ export class UUIFileInputElement extends LitElement {
         position: absolute;
         top: 0;
         left: 0;
+        bottom: 0;
+        padding: 0;
         width: 100%;
+        min-height: 200px;
         z-index: 3;
       }
     `,
@@ -95,14 +98,18 @@ export class UUIFileInputElement extends LitElement {
 
   private removeFiles() {
     this.files = [];
+    this.uploader.hidden = false;
   }
 
   protected removeFile(e: UUIFilePreviewEvent) {
     const file = e.target.file;
-    const removeIndex = this.files.findIndex(el => {
-      el === file;
-    });
-    this.files.splice(removeIndex, 1);
+    // const removeIndex = this.files.findIndex(el => {
+    //   el === file;
+    // });
+    console.log(file);
+    this.files = this.files.filter(el => el !== file);
+    // this.files.splice(removeIndex, 1);
+    console.log(this.files);
     this.requestUpdate();
   }
 

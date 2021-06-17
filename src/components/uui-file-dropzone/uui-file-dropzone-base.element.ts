@@ -110,7 +110,6 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
   }
 
   protected openNativeInput() {
-    console.log('open native input bvase class');
     this.input.click();
   }
 

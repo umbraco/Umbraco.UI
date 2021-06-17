@@ -25,9 +25,8 @@ export class UUIFilePreviewElement extends LitElement {
         position: absolute;
         top: 0;
         right: 0;
-        color: red;
-        font-size: 2rem;
         z-index: 6;
+        --uui-button-height: 28px;
       }
     `,
   ];
@@ -104,7 +103,11 @@ export class UUIFilePreviewElement extends LitElement {
 
   render() {
     return html`<div @click=${this._dispatchRemoveEvent} id="delete-button">
-        <uui-icon name="delete"></uui-icon>
+        <uui-action-bar
+          ><uui-button look="danger"
+            ><uui-icon name="delete"></uui-icon
+          ></uui-button>
+        </uui-action-bar>
       </div>
       ${this.fileTypeTemplate(this.type)}
       <span id="file-name">
