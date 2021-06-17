@@ -28,6 +28,10 @@ export class UUIDropdownElement extends LitElement {
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
       }
 
+      #popper {
+        z-index: 1;
+      }
+
       #popper[data-popper-placement='bottom'] #data-container {
         transform-origin: top center;
       }
@@ -44,7 +48,7 @@ export class UUIDropdownElement extends LitElement {
         transform-origin: center left;
       }
 
-      slot[name='toggle']::slotted(uui-button) {
+      slot:not([name])::slotted(uui-button) {
         --uui-button-border-radius: var(
           --uui-dropdown-toggle-slot-button-border-radius
         );
@@ -81,14 +85,18 @@ export class UUIDropdownElement extends LitElement {
   @query('#popper')
   _popperWrapper!: HTMLElement;
 
+  constructor() {
+    super();
+    this.setAttribute('aria-haspopup', 'true');
+  }
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('click', this.closeDropdownOnOutsideClick);
+    document.addEventListener('click', this.onOutsideClick);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('click', this.closeDropdownOnOutsideClick);
+    document.removeEventListener('click', this.onOutsideClick);
     if (this._popper) this._popper.destroy();
   }
 
@@ -123,6 +131,9 @@ export class UUIDropdownElement extends LitElement {
     );
     this._animation.pause();
     this._animation.currentTime = 0;
+    this._animation.finished.then(() => {
+      this._animation.pause();
+    });
     this.createPopperInstance();
   }
 
@@ -163,38 +174,45 @@ export class UUIDropdownElement extends LitElement {
         sameWidth,
       ],
     });
-  }
 
-  private _isOpen = false;
-  @property({ type: Boolean, reflect: true, attribute: 'open' })
-  get isOpen() {
-    return this._isOpen;
-  }
-
-  set isOpen(newVal) {
-    const oldVal = this._isOpen;
-    if (newVal !== this._isOpen) {
-      this._isOpen = newVal;
-      if (newVal) {
-        this._popper.update();
-        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
-      } else {
-        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.CLOSE));
-      }
-      this.toggleOpen(newVal);
-      this.requestUpdate('isOpen', oldVal);
+    if (this._open === true) {
+      this.toggleOpen(true);
     }
   }
 
-  public toggleOpen(isOpen: boolean) {
-    this._animation.play();
-    this._animation.finished.then(() => {
-      this._animation.pause();
-      this._animation.playbackRate = isOpen ? -1 : 1;
-    });
+  private _open = false;
+  @property({ type: Boolean, reflect: true, attribute: 'open' })
+  get open() {
+    return this._open;
   }
 
-  protected closeDropdownOnOutsideClick = (e: MouseEvent) => {
+  set open(newVal) {
+    if (newVal !== this._open) {
+      const oldVal = this._open;
+      this._open = newVal;
+      if (newVal === true) {
+        if (this._popper) {
+          this._popper.update();
+        }
+        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.OPEN));
+        this.setAttribute('aria-expanded', 'true');
+      } else {
+        this.dispatchEvent(new UUIDropdownEvent(UUIDropdownEvent.CLOSE));
+        this.setAttribute('aria-expanded', 'false');
+      }
+      this.toggleOpen(newVal);
+      this.requestUpdate('open', oldVal);
+    }
+  }
+
+  public toggleOpen(open: boolean) {
+    if (this._animation) {
+      this._animation.playbackRate = open ? 1 : -1;
+      this._animation.play();
+    }
+  }
+
+  protected onOutsideClick = (e: MouseEvent) => {
     if (this.disableOutsideClick !== true) {
       e.stopPropagation();
       e.preventDefault();
@@ -203,20 +221,19 @@ export class UUIDropdownElement extends LitElement {
       if (path.includes(this)) {
         return;
       }
-      if (this.isOpen) {
-        this.isOpen = false;
+      if (this.open) {
+        this.open = false;
       }
     }
   };
 
   render() {
     return html`
-      <slot name="input"></slot>
-      <slot name="toggle" @click="${() => (this.isOpen = !this.isOpen)}"></slot>
+      <slot></slot>
 
       <div id="popper">
         <div id="data-container" part="data-container">
-          <slot></slot>
+          <slot name="dropdown"></slot>
         </div>
       </div>
     `;

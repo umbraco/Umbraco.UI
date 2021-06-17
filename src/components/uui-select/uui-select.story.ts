@@ -41,38 +41,22 @@ export const Overview = () => html`
   <uui-select label="Select the color" placeholder="Choose the color">
     ${options.map(
       option =>
-        html`<uui-select-option
-          ><uui-icon
-            slot="left"
-            name="bug"
-            .style="color: ${option.value}"
-          ></uui-icon
-          >${option.color}<uui-icon
-            slot="right"
-            name="bug"
-            .style="color: ${option.value}"
-          ></uui-icon
-        ></uui-select-option>`
+        html`<uui-select-option value="${option.color}" label="${option.color}">
+          <uui-icon name="bug" .style="color: ${option.value}"> </uui-icon>
+          ${option.color}
+        </uui-select-option>`
     )}
   </uui-select>
 `;
 
 export const WithInput = () => html`
-  <uui-select autocomplete>
+  <uui-select input>
     ${options.map(
       option =>
-        html`<uui-select-option
-          ><uui-icon
-            slot="left"
-            name="bug"
-            .style="color: ${option.value}"
-          ></uui-icon
-          >${option.color}<uui-icon
-            slot="right"
-            name="bug"
-            .style="color: ${option.value}"
-          ></uui-icon
-        ></uui-select-option>`
+        html`<uui-select-option value="${option.color}" label="${option.color}">
+          <uui-icon name="bug" .style="color: ${option.value}"></uui-icon>
+          ${option.color}</uui-select-option
+        >`
     )}
   </uui-select>
 `;

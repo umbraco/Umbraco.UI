@@ -1,20 +1,23 @@
-import { html, css } from 'lit';
-import { query, property } from 'lit/decorators';
+import { html, css, LitElement } from 'lit';
+import { query, property, state } from 'lit/decorators';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
-import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
-import { keys } from './keys';
+import { UUIOverflowContainer } from '../uui-overflow-container/uui-overflow-container.element';
+import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
+import { UUISelectEvent } from './UUISelectEvent';
+import { UUISelectOptionEvent } from '../uui-select-option/UUISelectOptionEvent';
 /**
  *  @element uui-select
  *  @slot - for stuff
  */
 
-export class UUISelectElement extends UUISingleSelectBaseElement {
+export class UUISelectElement extends LitElement {
   static styles = [
     css`
       :host {
         font-family: inherit;
-        --uui-select-widht: 200px;
-        width: var(--uui-select-widht);
+        /* TODO: I don't think we need a custom prop for this, as impl can just set width on the comp. */
+        --uui-select-width: 200px;
+        width: var(--uui-select-width);
         display: inline-block;
         border: 1px solid var(--uui-interface-border);
         border-radius: var(--uui-size-border-radius);
@@ -35,40 +38,39 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
       }
 
       uui-overflow-container {
-        min-width: var(--uui-select-widht);
+        min-width: var(--uui-select-width);
         outline: none;
       }
 
-      uui-carret {
-        display: inline-block;
-        padding: var(--uui-size-base-unit);
-        padding-right: 1em;
-      }
-
-      #selected-value {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: inherit;
-        font-size: 1rem;
-        padding-left: 1em;
-      }
-
-      input,
-      #combo {
+      button#selected-value {
         display: flex;
         align-items: center;
-        border: none;
+
         width: 100%;
-        height: calc(var(--uui-size-base-unit) * 6);
-        /* padding: 0.5em; */
-        box-sizing: border-box;
+
         font-family: inherit;
-        background-color: var(--uui-interface-surface);
         font-size: 1rem;
-        padding-left: 1em;
-        outline: none;
-        cursor: default;
+        padding: var(--uui-size-small);
+      }
+
+      input#selected-value {
+        width: 100%;
+
+        font-family: inherit;
+        font-size: 1rem;
+        padding: var(--uui-size-small);
+      }
+
+      #caret {
+        margin-left: auto;
+      }
+
+      button {
+        font-size: inherit;
+        font-family: inherit;
+        border: 0;
+        padding: 0;
+        background-color: transparent;
       }
 
       #placeholder {
@@ -78,34 +80,45 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
     `,
   ];
 
+  // TODO: assign with form etc.
   static readonly formAssociated = true;
 
-  constructor() {
-    super();
+  connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('keydown', this._onKeydown);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this._onKeydown);
   }
 
   @query('uui-dropdown')
   dropdown!: UUIDropdownElement;
 
-  private _isOpen = false;
+  @query('#selected-value')
+  selectedValueElement!: HTMLButtonElement;
+
+  private _open = false;
   @property({ type: Boolean, reflect: true, attribute: 'open' })
-  get isOpen() {
-    return this._isOpen;
+  get open() {
+    return this._open;
   }
 
-  set isOpen(newVal) {
-    const oldVal = this._isOpen;
-    this._isOpen = newVal;
+  set open(newVal) {
+    const oldVal = this._open;
+    this._open = newVal;
     if (this.overflow && this.dropdown) {
-      if (newVal) this.overflow.focus();
-      else this.dropdown.focus();
+      if (newVal) {
+        if (this.input === false) {
+          this.overflow.focus();
+        }
+      } else {
+        this.selectedValueElement.focus();
+      }
     }
-    this.requestUpdate('isOpen', oldVal);
+    this.requestUpdate('open', oldVal);
   }
-
-  @property({ type: Boolean })
-  autocomplete = false;
 
   @property({ type: String })
   label = '';
@@ -113,110 +126,248 @@ export class UUISelectElement extends UUISingleSelectBaseElement {
   @property({ type: String })
   title = '';
 
+  @property({ type: Boolean, reflect: true })
+  input = false;
+
   @property()
   placeholder = '';
 
+  @query('uui-overflow-container')
+  overflow!: UUIOverflowContainer;
+
+  @query('slot') protected slotElement!: HTMLSlotElement;
+  protected listElements!: UUISelectOptionElement[];
+
+  //returns an Array of ListElements if they're in the slot or empty array
+  protected getListElements(): UUISelectOptionElement[] {
+    return this.slotElement
+      ? (this.slotElement
+          .assignedElements({ flatten: true })
+          .filter(
+            el => el instanceof UUISelectOptionElement
+          ) as UUISelectOptionElement[])
+      : [];
+  }
+
+  protected onSlotChange() {
+    if (this.listElements) {
+      this.listElements.forEach(el => {
+        el.removeEventListener(
+          'change',
+          this.onListElementChange as EventListener
+        );
+      });
+    }
+    this.listElements =
+      (this.slotElement
+        .assignedElements({ flatten: true })
+        .filter(
+          el => el instanceof UUISelectOptionElement
+        ) as UUISelectOptionElement[]) || [];
+    this.updateSelectedElement();
+    this.listElements.forEach(el => {
+      el.addEventListener('change', this.onListElementChange as EventListener);
+    });
+  }
+
+  private _value = '';
+  @property()
+  get value() {
+    return this._value;
+  }
+  set value(newValue) {
+    const oldVal = this._value;
+    this._value = newValue;
+    this.updateSelectedElement();
+    this.deselectChildren();
+    this.requestUpdate('value', oldVal);
+  }
+
+  @state()
+  protected selectedElement: UUISelectOptionElement | null = null;
+  protected updateSelectedElement() {
+    this.selectedElement =
+      this.listElements?.find(el => el.value === this._value) || null;
+  }
+
   private _onKeydown(e: KeyboardEvent) {
     switch (e.key) {
-      case keys.ARROW_UP: {
+      case 'ArrowUp': {
         e.preventDefault();
-        if (!this.isOpen) this.isOpen = true;
-        this._selectPreviousElement();
+        if (!this.open) this.open = true;
+        this.selectPreviousElement();
         break;
       }
 
-      case keys.ARROW_DOWN: {
+      case 'ArrowDown': {
         e.preventDefault();
 
-        if (!this.isOpen) this.isOpen = true;
-        this._selectNextElement();
+        if (!this.open) this.open = true;
+        this.selectNextElement();
         break;
       }
 
-      case keys.SPACE:
-      case keys.ENTER: {
+      case ' ':
+      case 'Enter': {
         e.preventDefault();
-        this.isOpen = !this.isOpen;
+        this.open = !this.open;
         break;
       }
 
-      case keys.ESCAPE: {
+      case 'Escape': {
         e.preventDefault();
-        if (this.isOpen) this.isOpen = false;
+        if (this.open) this.open = false;
         break;
       }
 
-      case keys.TAB: {
-        if (this.isOpen) this.isOpen = false;
+      case 'Tab': {
+        if (this.open) this.open = false;
         break;
       }
 
-      case keys.HOME: {
-        if (this.isOpen) {
-          this.selected = this.enabledElementsIndexes[0];
-          this.listElements[this.selected].select();
-        }
+      case 'Home': {
+        this.selectIndex(0);
         break;
       }
 
-      case keys.END: {
-        if (this.isOpen) {
-          this.selected = this.enabledElementsIndexes[
-            this.enabledElementsIndexes.length - 1
-          ];
-          this.listElements[this.selected].select();
-        }
+      case 'End': {
+        this.selectIndex(this.listElements.length - 1);
         break;
       }
     }
   }
 
+  private deselectChildren() {
+    if (this.listElements) {
+      const notValue = this.listElements.filter(el => el.value !== this._value);
+      notValue.forEach(el => el.deselect());
+    }
+  }
+
+  protected onListElementChange = (e: UUISelectOptionEvent) => {
+    if (e.target.selected === true) {
+      this.value = e.target.value;
+      this._fireChangeEvent();
+      this.open = false;
+    }
+  };
+
+  private _fireChangeEvent() {
+    this.dispatchEvent(new UUISelectEvent(UUISelectEvent.CHANGE));
+  }
+
+  protected onInputInput = () => {
+    this.dispatchEvent(new UUISelectEvent(UUISelectEvent.INPUT));
+  };
+  protected onInputFocus = () => {
+    this.open = true;
+  };
+  protected onDropdownClose = () => {
+    this.open = false;
+  };
+
+  protected selectIndex(index: number) {
+    if (this.listElements && index < this.listElements.length) {
+      this.select(this.listElements[index]);
+      this._fireChangeEvent();
+    }
+  }
+  protected select(newSelection: UUISelectOptionElement) {
+    newSelection.select();
+    newSelection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'nearest',
+    });
+    this.value = newSelection.value;
+  }
+  protected selectPreviousElement() {
+    this.moveSelection(-1);
+  }
+  protected selectNextElement() {
+    this.moveSelection(1);
+  }
+  private moveSelection(move: number) {
+    let newSelection: UUISelectOptionElement | null = null;
+    if (this.listElements && this.listElements.length > 0) {
+      if (this.selectedElement) {
+        const index: number = this.listElements.indexOf(this.selectedElement);
+        if (index !== -1) {
+          newSelection = this.getNextEnabledElement(index, index, move);
+        }
+      } else {
+        newSelection = this.listElements[
+          move > 0 ? 0 : this.listElements.length - 1
+        ];
+      }
+      if (newSelection) {
+        this.select(newSelection);
+      }
+    }
+  }
+  private getNextEnabledElement(
+    originalIndex: number,
+    index: number,
+    move: number
+  ): UUISelectOptionElement | null {
+    let nextIndex = (index + move) % this.listElements.length;
+    if (nextIndex < 0) {
+      nextIndex += this.listElements.length;
+    }
+    if (originalIndex === nextIndex) {
+      return null;
+    }
+    if (this.listElements[nextIndex].disabled !== true) {
+      return this.listElements[nextIndex];
+    }
+    return this.getNextEnabledElement(originalIndex, nextIndex, move);
+  }
+
   render() {
     return html`
       <uui-dropdown
-        ?open=${this.isOpen}
-        @close="${() => (this.isOpen = false)}"
-        @open="${() => (this.isOpen = true)}"
-        same-widht
+        .open=${this.open}
+        same-width
         position="bottom"
         .title="${this.title}"
         tabindex="0"
         role="combobox"
-        aria-haspopup="true"
         aria-controls="list"
-        aria-autocomplete="none"
-        aria-expanded="${this.isOpen}"
+        @close=${this.onDropdownClose}
       >
-        ${this.autocomplete
-          ? html`<input
-                type="text"
-                slot="input"
-                .value=${this.value}
-                aria-label="${this.label}"
-              /><uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>`
+        ${this.input
+          ? html`
+            <input
+              id="input-field"
+              type="text"
+              @focus=${this.onInputFocus}
+              @input=${this.onInputInput}
+              aria-label="${this.label}"
+            ></input>
+          `
           : html`
-              <div
-                id="combo"
-                type="text"
+              <button
+                id="selected-value"
+                type="button"
+                @click="${() => {
+                  console.log('click');
+                  this.open = !this.open;
+                }}"
                 aria-label="${this.label}"
-                slot="toggle"
-                .title="${this.title}"
               >
-                ${this.value
-                  ? html`<span>${this.value}</span>`
+                ${this.selectedElement
+                  ? html`<span>${this.selectedElement.label}</span>`
                   : html`<span id="placeholder">${this.placeholder}</span>`}
-              </div>
-              <uui-carret slot="toggle" ?open=${this.isOpen}></uui-carret>
+                <uui-caret id="caret" ?open=${this._open}></uui-caret>
+              </button>
             `}
 
         <uui-overflow-container
+          slot="dropdown"
           role="listbox"
-          id="list"
-          tabindex="${this.isOpen ? '0' : '-1'}"
-          .title="${this.title}"
-          aria-label="${this.label}"
-          aria-activedescendant="${this.selectedID}"
-          @change=${this._handleSelectOnClick}
+          tabindex="${this.open ? '0' : '-1'}"
+          aria-activedescendant="TODO"
+          @change=${this.onListElementChange}
         >
           <slot @slotchange=${this.onSlotChange}></slot>
         </uui-overflow-container>

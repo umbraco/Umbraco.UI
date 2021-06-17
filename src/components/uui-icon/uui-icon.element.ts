@@ -24,6 +24,7 @@ export class UUIIconElement extends LitElement {
   ];
 
   private _name: string | null = null;
+
   @property()
   get name(): string | null {
     return this._name;
@@ -36,6 +37,26 @@ export class UUIIconElement extends LitElement {
           this.shadowRoot.innerHTML = svg;
         }
       });
+    }
+  }
+
+  private _svg: string | null = null;
+
+  @property()
+  get svg(): string | null {
+    return null;
+  }
+  set svg(newValue: string | null) {
+    this._svg = newValue;
+    if (this.shadowRoot) {
+      this.shadowRoot.innerHTML = newValue || '';
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (this._svg) {
+      (this.shadowRoot as ShadowRoot).innerHTML = this._svg;
     }
   }
 }
