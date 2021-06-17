@@ -21,12 +21,15 @@ export class UUIFilePreviewElement extends LitElement {
         text-align: center;
       }
 
-      #delete-button {
+      slot[name='action'] {
+        --uui-button-height: 28px;
+      }
+
+      slot[name='action']::slotted(*) {
         position: absolute;
         top: 0;
         right: 0;
-        z-index: 6;
-        --uui-button-height: 28px;
+        z-index: 2;
       }
     `,
   ];
@@ -102,13 +105,12 @@ export class UUIFilePreviewElement extends LitElement {
   }
 
   render() {
-    return html`<div @click=${this._dispatchRemoveEvent} id="delete-button">
-        <uui-action-bar
-          ><uui-button look="danger"
-            ><uui-icon name="delete"></uui-icon
-          ></uui-button>
-        </uui-action-bar>
-      </div>
+    return html`<slot
+        name="action"
+        @click=${this._dispatchRemoveEvent}
+        id="delete-button"
+      >
+      </slot>
       ${this.fileTypeTemplate(this.type)}
       <span id="file-name">
         ${this.name}
