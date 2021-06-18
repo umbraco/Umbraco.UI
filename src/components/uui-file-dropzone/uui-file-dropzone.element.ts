@@ -12,7 +12,6 @@ export class UUIFileDropzoneElement extends UUIFileDropzoneBaseElement {
       :host {
         display: flex;
         flex-direction: column;
-
         align-items: center;
         justify-content: center;
         padding: var(--uui-size-medium, 24px);
@@ -31,15 +30,36 @@ export class UUIFileDropzoneElement extends UUIFileDropzoneBaseElement {
           var(--uui-interface-border-hover);
       }
 
+      :host::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        background-color: var(--uui-interface-surface);
+        opacity: 0.6;
+        z-index: 1;
+      }
+
+      :host([active])::before {
+        opacity: 0.8;
+      }
+
       #upload-icon {
         fill: var(--uui-interface-border);
         width: 100px;
-        opacity: 0.5;
-        transition: opacity 0.3s ease;
+        transition: fill 0.3s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      #input-button {
+        position: relative;
+        z-index: 2;
       }
 
       :host([active]) #upload-icon {
-        opacity: 1;
+        fill: var(--uui-interface-border-hover);
       }
 
       :host([hidden]) {

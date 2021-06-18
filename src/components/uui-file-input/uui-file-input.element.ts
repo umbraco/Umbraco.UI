@@ -32,7 +32,7 @@ export class UUIFileInputElement extends LitElement {
       #files {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         place-items: start stretch;
         grid-gap: var(--uui-size-layout-0);
         position: relative;
@@ -53,6 +53,7 @@ export class UUIFileInputElement extends LitElement {
 
   private handleFiles() {
     this.uploader.hidden = true;
+    this.uploader.active = false;
     this.files = [...this.uploader.files, ...this.files];
     // if (this.files) {
     //   this.filesArray = Array.from(this.files);
@@ -62,17 +63,26 @@ export class UUIFileInputElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('dragover', this.showDropzone);
+    window.addEventListener('drop', this.hideDropzone);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     window.removeEventListener('dragover', this.showDropzone);
+    window.removeEventListener('drop', this.hideDropzone);
   }
 
-  protected showDropzone = () => {
+  protected showDropzone = (e: DragEvent) => {
+    if (this.multiple === false) return;
     if (this.files.length === 0) return;
-    console.log('drag over window');
+    e.preventDefault();
     this.dropzone.hidden = false;
+  };
+
+  protected hideDropzone = (e: DragEvent) => {
+    if (this.multiple === false) return;
+    e.preventDefault();
+    this.dropzone.hidden = true;
   };
 
   @property({ attribute: false })
@@ -103,14 +113,9 @@ export class UUIFileInputElement extends LitElement {
 
   protected removeFile(e: UUIFilePreviewEvent) {
     const file = e.target.file;
-    // const removeIndex = this.files.findIndex(el => {
-    //   el === file;
-    // });
-    console.log(file);
     this.files = this.files.filter(el => el !== file);
-    // this.files.splice(removeIndex, 1);
-    console.log(this.files);
     this.requestUpdate();
+    if (this.files.length === 0) this.uploader.hidden = false;
   }
 
   fileDropzoneTemplate() {
@@ -132,14 +137,19 @@ export class UUIFileInputElement extends LitElement {
   }
 
   render() {
-    return html`${this.fileDropzoneTemplate()}
-      <div id="files">
+    return html` <div id="files">
+        ${this.fileDropzoneTemplate()}
         ${this.files.map(
           file =>
             html`<uui-file-preview
               .file=${file}
               .name=${file.name}
               @remove-file=${this.removeFile}
+            >
+              <uui-action-bar slot="action"
+                ><uui-button look="danger"
+                  ><uui-icon name="delete"></uui-icon
+                ></uui-button> </uui-action-bar
             ></uui-file-preview>`
         )}
       </div>
