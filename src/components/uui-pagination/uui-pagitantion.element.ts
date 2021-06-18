@@ -15,8 +15,8 @@ import { UUIPaginationEvent } from './UUIPaginationEvent';
  *
  */
 
-const BUTTON_MIN_WIDTH = 36;
-const BUTTON_MAX_WIDTH = 72;
+const PAGE_BUTTON_MAX_WIDTH = 45;
+
 export class UUIPaginationElement extends LitElement {
   static styles = [
     css`
@@ -71,17 +71,20 @@ export class UUIPaginationElement extends LitElement {
   private calculateRange = () => {
     this._containerWidth = this.offsetWidth;
 
-    const navButtonWidth = Array.from(this.navButtons).reduce(
+    // get all the buttons with .nav-button class and sum up thier widths
+    const navButtonsWidth = Array.from(this.navButtons).reduce(
       (totalWidth, button) => {
         return totalWidth + button.getBoundingClientRect().width;
       },
       0
     );
-    //TODO: use navButtonWidth for something. I´m confused by the math below, so please add description to it, or lets go through it, maybe it can be simplified.
-    const rangeBaseWidth =
-      this._containerWidth - 2 * BUTTON_MIN_WIDTH - 4 * BUTTON_MAX_WIDTH;
 
-    const range = rangeBaseWidth / BUTTON_MIN_WIDTH / 2;
+    // substract width of navbuttons from the pagination container
+    const rangeBaseWidth = this._containerWidth - navButtonsWidth;
+
+    // divide remaining width by max-width of page button (when it has 3 digits), then divide by 2 to get the range.
+    // Range is number of buttons visible on either "side" of current pag button. So, if range === 5 we shall see 11 buttons in total - 5 before the curent page and 5 after. This is why we divide by 2.
+    const range = rangeBaseWidth / PAGE_BUTTON_MAX_WIDTH / 2;
     this.range = Math.floor(range);
   };
 
@@ -191,6 +194,7 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       class="nav-button"
       role="listitem"
+      .disabled=${this.current === 1}
       aria-label="Go to previous page"
       @click=${this.goToPreviousPage}
       >Previous</uui-button
@@ -204,6 +208,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav-button"
       aria-label="Go to next page"
       look="outline"
+      .disabled=${this.current === this.total}
       @click=${this.goToNextPage}
       >Next</uui-button
     >`;
