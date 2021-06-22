@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators';
 
-export class UUIBreadcrumbItem extends LitElement {
+export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [
     css`
       :host {

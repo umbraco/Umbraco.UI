@@ -1,5 +1,5 @@
-import { UUIBreadcrumbItem } from './uui-breadcrumb-item.element';
-import { UUIBreadcrumbs } from './uui-breadcrumbs.element';
+import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
+import { UUIBreadcrumbsElement } from './uui-breadcrumbs.element';
 
-customElements.define('uui-breadcrumb-item', UUIBreadcrumbItem);
-customElements.define('uui-breadcrumbs', UUIBreadcrumbs);
+customElements.define('uui-breadcrumb-item', UUIBreadcrumbItemElement);
+customElements.define('uui-breadcrumbs', UUIBreadcrumbsElement);

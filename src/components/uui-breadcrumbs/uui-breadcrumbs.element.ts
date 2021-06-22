@@ -1,18 +1,28 @@
 import { css, html, LitElement } from 'lit';
 import { queryAssignedNodes } from 'lit/decorators';
-import { UUIBreadcrumbItem } from './uui-breadcrumb-item.element';
+import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
-export class UUIBreadcrumbs extends LitElement {
+export class UUIBreadcrumbsElement extends LitElement {
   static styles = [
     css`
       :host {
         display: flex;
       }
+
+      #breadcrumbs-list {
+        display: flex;
+        list-style-type: decimal;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 0px;
+      }
     `,
   ];
 
   @queryAssignedNodes()
-  _breadcrumbs?: UUIBreadcrumbItem[];
+  _breadcrumbs?: UUIBreadcrumbItemElement[];
 
   protected setLastItem() {
     console.log('are you working', this._breadcrumbs);
@@ -32,10 +42,8 @@ export class UUIBreadcrumbs extends LitElement {
   }
 
   render() {
-    return html`<ol>
+    return html`<ol id="breadcrumbs-list">
       <slot @slotchange=${this.setLastItem}></slot>
     </ol>`;
   }
 }
-
-// after element with content / and the last of type slotted selector with no content
