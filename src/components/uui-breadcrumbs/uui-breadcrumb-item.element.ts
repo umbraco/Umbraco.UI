@@ -9,6 +9,11 @@ export class UUIBreadcrumbItem extends LitElement {
         color: #515054;
       }
 
+      a,
+      a:visited {
+        color: #515054;
+      }
+
       :host(:last-of-type) [part='separator'],
       :host([last-step]) [part='separator'] {
         display: none;
@@ -23,23 +28,39 @@ export class UUIBreadcrumbItem extends LitElement {
         color: var(--uui-interface-border, #c4c4c4);
       }
 
-      #link {
-        cursor: pointer;
+      #link,
+      #last-item {
         padding: 0 4px;
         max-width: 150px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
+      #link {
+        cursor: pointer;
+      }
     `,
   ];
+
+  connectedCallback() {
+    super.connectedCallback();
+    // this.setAttribute('aria-label', 'breadcrumb');
+    this.setAttribute('role', 'listitem');
+  }
 
   @property()
   href = '#';
 
+  @property({ type: Boolean })
+  lastItem = false;
+
   render() {
-    return html`<a id="link" .href=${this.href}><slot></slot></a
-      ><span part="separator"></span>`;
+    return html`${this.lastItem
+        ? html`<span id="last-item"><slot></slot></span>`
+        : html`<a id="link" .href=${this.href}><slot></slot></a>`}<span
+        part="separator"
+      ></span>`;
   }
 }
 
