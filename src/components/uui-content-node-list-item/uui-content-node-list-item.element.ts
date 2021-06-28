@@ -28,7 +28,6 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
 
         display: flex;
         position: relative;
-        font-weight: 700;
         align-items: center;
         cursor: pointer;
       }
@@ -46,15 +45,26 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         font-weight: 700;
       }
 
-      #open-part:hover #icon {
+      :host(:not([disabled])) #open-part:hover #icon {
         color: var(--uui-interface-contrast-hover);
       }
-      #open-part:hover #name {
+      :host(:not([disabled])) #open-part:hover #name {
+        font-weight: 700;
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
-      #open-part:hover #url {
+      :host(:not([disabled])) #open-part:hover #url {
         color: var(--uui-interface-contrast-hover);
+      }
+
+      :host([disabled]) #icon {
+        color: var(--uui-interface-contrast-disabled);
+      }
+      :host([disabled]) #name {
+        color: var(--uui-interface-contrast-disabled);
+      }
+      :host([disabled]) #url {
+        color: var(--uui-interface-contrast-disabled);
       }
 
       slot[name='tag'] {
@@ -84,6 +94,7 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
+        ?disabled=${this.disabled}
       >
         <uui-icon id="icon" name=${this.icon}></uui-icon>
         <div id="info">
