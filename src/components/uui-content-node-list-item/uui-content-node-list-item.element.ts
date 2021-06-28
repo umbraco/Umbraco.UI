@@ -14,7 +14,7 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
     css`
       :host {
         min-width: 250px;
-        padding: var(--uui-size-space-2);
+        padding: calc(var(--uui-size-space-2) + 1px);
       }
 
       #open-part {
@@ -42,6 +42,10 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
 
       #name {
         font-weight: 700;
+      }
+
+      #url {
+        font-size: var(--uui-type-small-size);
       }
 
       :host(:not([disabled])) #open-part:hover #icon {

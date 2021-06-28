@@ -22,9 +22,6 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         box-sizing: border-box;
         border-radius: var(--uui-size-border-radius, 3px);
         background-color: var(--uui-interface-surface, white);
-
-        border: 1px solid var(--uui-interface-border);
-
         --uui-card-before-opacity: 0;
         transition: --uui-card-before-opacity 120ms;
       }
@@ -32,13 +29,6 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
       :host(:focus) {
         /** TODO: implement focus outline. */
         outline-color: #6ab4f0;
-      }
-      :host(:not([disabled])):hover {
-        border-color: var(--uui-interface-border-hover);
-      }
-
-      :host([disabled]) {
-        border-color: var(--uui-interface-border-disabled);
       }
 
       :host([error]) {
