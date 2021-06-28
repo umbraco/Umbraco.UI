@@ -14,13 +14,7 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
     css`
       :host {
         min-width: 250px;
-        width: 100%;
         padding: var(--uui-size-space-2);
-      }
-
-      #icon {
-        font-size: 1.2em;
-        margin-left: var(--uui-size-space-2);
       }
 
       #open-part {
@@ -30,6 +24,11 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         position: relative;
         align-items: center;
         cursor: pointer;
+      }
+
+      #icon {
+        font-size: 1.2em;
+        margin-left: var(--uui-size-space-2);
       }
 
       #info {
@@ -65,14 +64,6 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
       }
       :host([disabled]) #url {
         color: var(--uui-interface-contrast-disabled);
-      }
-
-      slot[name='tag'] {
-        flex-grow: 1;
-
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
       }
     `,
   ];

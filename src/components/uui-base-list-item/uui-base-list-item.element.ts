@@ -17,6 +17,7 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
 
         box-sizing: border-box;
         border-radius: var(--uui-size-border-radius, 3px);
@@ -143,11 +144,13 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         cursor: default;
       }
 
-      /*
       slot[name='tag'] {
+        flex-grow: 1;
 
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
       }
-      */
     `,
   ];
 
