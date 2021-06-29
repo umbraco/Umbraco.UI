@@ -3,24 +3,18 @@ import { property } from 'lit/decorators';
 import { UUIBaseListItemElement } from '../uui-base-list-item/uui-base-list-item.element';
 
 /**
- *  @element uui-content-node-list-item
- *  @fires {UUICardEvent} click-title - fires when the list-item title is clicked
- *  @description - List-item component for displaying a content-node.
+ *  @element uui-node-list-item
+ *  @fires {UUIListItemEvent} click-title - fires when the list-item title is clicked
+ *  @description - List-item component for displaying a nodes in general.
  */
 
-export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
+export class UUINodeListItemElement extends UUIBaseListItemElement {
   static styles = [
     ...UUIBaseListItemElement.styles,
     css`
       :host {
         min-width: 250px;
-        width: 100%;
-        padding: var(--uui-size-space-2);
-      }
-
-      #icon {
-        font-size: 1.2em;
-        margin-left: var(--uui-size-space-2);
+        padding: calc(var(--uui-size-space-2) + 1px);
       }
 
       #open-part {
@@ -28,9 +22,13 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
 
         display: flex;
         position: relative;
-        font-weight: 700;
         align-items: center;
         cursor: pointer;
+      }
+
+      #icon {
+        font-size: 1.2em;
+        margin-left: var(--uui-size-space-2);
       }
 
       #info {
@@ -46,23 +44,30 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         font-weight: 700;
       }
 
-      #open-part:hover #icon {
+      #detail {
+        font-size: var(--uui-type-small-size);
+      }
+
+      :host(:not([disabled])) #open-part:hover #icon {
         color: var(--uui-interface-contrast-hover);
       }
-      #open-part:hover #name {
+      :host(:not([disabled])) #open-part:hover #name {
+        font-weight: 700;
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
-      #open-part:hover #url {
+      :host(:not([disabled])) #open-part:hover #detail {
         color: var(--uui-interface-contrast-hover);
       }
 
-      slot[name='tag'] {
-        flex-grow: 1;
-
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+      :host([disabled]) #icon {
+        color: var(--uui-interface-contrast-disabled);
+      }
+      :host([disabled]) #name {
+        color: var(--uui-interface-contrast-disabled);
+      }
+      :host([disabled]) #detail {
+        color: var(--uui-interface-contrast-disabled);
       }
     `,
   ];
@@ -71,10 +76,16 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
   name = '';
 
   @property({ type: String })
-  url = '';
+  detail = '';
 
   @property({ type: String })
   icon = '';
+
+  protected renderDetail() {
+    return html`<small id="detail"
+      >${this.detail}<slot name="detail"></slot
+    ></small>`;
+  }
 
   public render() {
     return html`
@@ -84,18 +95,20 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
+        ?disabled=${this.disabled}
       >
         <uui-icon id="icon" name=${this.icon}></uui-icon>
         <div id="info">
           <div id="name">${this.name}</div>
-          <small id="url">${this.url}</small>
+          ${this.renderDetail()}
         </div>
       </button>
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
+      <slot></slot>
       <slot name="tag"></slot>
-      <slot id="actions-container" name="actions"></slot>
+      <slot name="actions" id="actions-container"></slot>
     `;
   }
 }

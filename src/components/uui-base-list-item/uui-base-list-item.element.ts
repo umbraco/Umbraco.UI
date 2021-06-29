@@ -17,6 +17,7 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
 
         box-sizing: border-box;
         border-radius: var(--uui-size-border-radius, 3px);
@@ -113,6 +114,7 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         border: 0;
         padding: 0;
         background-color: transparent;
+        text-align: left;
       }
 
       slot[name='actions'] {
@@ -129,13 +131,26 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         opacity: 1;
       }
 
-      /*
-      slot[name='tag'] {
-
+      :host([disabled]) #open-part {
+        cursor: default;
       }
-      */
+
+      slot[name='tag'] {
+        flex-grow: 1;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
     `,
   ];
+
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  // TODO: display error.
+  @property({ type: Boolean, reflect: true })
+  error = false;
 
   constructor() {
     super();
@@ -143,11 +158,10 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
     this.addEventListener('keydown', this.handleSelectKeydown);
   }
 
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
   private toggleSelect() {
-    if (this.selectable) this.selected = !this.selected;
+    if (this.selectable === false) return;
+
+    this.selected = !this.selected;
     if (this.selected)
       this.dispatchEvent(new UUIListItemEvent(UUIListItemEvent.SELECTED));
   }
