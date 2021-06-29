@@ -9,12 +9,8 @@ export const UmbracoWords: Readonly<string[]> = [
 ] as const;
 
 export function GetRandomUmbracoWord(): string {
-  const a = UmbracoWords[Math.floor(Math.random() * UmbracoWords.length)];
-  console.log(a);
-  return a;
+  return UmbracoWords[Math.floor(Math.random() * UmbracoWords.length)];
 }
 export function ArrayOfUmbracoWords(arrayLength: number): string[] {
-  const b = [...Array(arrayLength)].map(() => GetRandomUmbracoWord());
-  console.log(b);
-  return b;
+  return [...Array(arrayLength)].map(() => GetRandomUmbracoWord());
 }

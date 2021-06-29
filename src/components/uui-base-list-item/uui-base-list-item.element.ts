@@ -114,6 +114,7 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         border: 0;
         padding: 0;
         background-color: transparent;
+        text-align: left;
       }
 
       slot[name='actions'] {
@@ -147,6 +148,7 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  // TODO: display error.
   @property({ type: Boolean, reflect: true })
   error = false;
 
@@ -157,7 +159,9 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
   }
 
   private toggleSelect() {
-    if (this.selectable) this.selected = !this.selected;
+    if (this.selectable === false) return;
+
+    this.selected = !this.selected;
     if (this.selected)
       this.dispatchEvent(new UUIListItemEvent(UUIListItemEvent.SELECTED));
   }

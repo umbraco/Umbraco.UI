@@ -3,12 +3,12 @@ import { property } from 'lit/decorators';
 import { UUIBaseListItemElement } from '../uui-base-list-item/uui-base-list-item.element';
 
 /**
- *  @element uui-content-node-list-item
- *  @fires {UUICardEvent} click-title - fires when the list-item title is clicked
- *  @description - List-item component for displaying a content-node.
+ *  @element uui-node-list-item
+ *  @fires {UUIListItemEvent} click-title - fires when the list-item title is clicked
+ *  @description - List-item component for displaying a nodes in general.
  */
 
-export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
+export class UUINodeListItemElement extends UUIBaseListItemElement {
   static styles = [
     ...UUIBaseListItemElement.styles,
     css`
@@ -44,7 +44,7 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         font-weight: 700;
       }
 
-      #url {
+      #detail {
         font-size: var(--uui-type-small-size);
       }
 
@@ -56,7 +56,7 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
-      :host(:not([disabled])) #open-part:hover #url {
+      :host(:not([disabled])) #open-part:hover #detail {
         color: var(--uui-interface-contrast-hover);
       }
 
@@ -66,7 +66,7 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
       :host([disabled]) #name {
         color: var(--uui-interface-contrast-disabled);
       }
-      :host([disabled]) #url {
+      :host([disabled]) #detail {
         color: var(--uui-interface-contrast-disabled);
       }
     `,
@@ -76,10 +76,16 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
   name = '';
 
   @property({ type: String })
-  url = '';
+  detail = '';
 
   @property({ type: String })
   icon = '';
+
+  protected renderDetail() {
+    return html`<small id="detail"
+      >${this.detail}<slot name="detail"></slot
+    ></small>`;
+  }
 
   public render() {
     return html`
@@ -94,14 +100,15 @@ export class UUIContentNodeListItemElement extends UUIBaseListItemElement {
         <uui-icon id="icon" name=${this.icon}></uui-icon>
         <div id="info">
           <div id="name">${this.name}</div>
-          <small id="url">${this.url}</small>
+          ${this.renderDetail()}
         </div>
       </button>
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
+      <slot></slot>
       <slot name="tag"></slot>
-      <slot id="actions-container" name="actions"></slot>
+      <slot name="actions" id="actions-container"></slot>
     `;
   }
 }
