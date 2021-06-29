@@ -14,9 +14,9 @@ export const Default = () => html`
       icon="bug"
       alias="productPageAlias"
     >
-      <uui-action-bar slot="actions"
-        ><uui-button>Remove</uui-button></uui-action-bar
-      >
+      <uui-action-bar slot="actions">
+        <uui-button>Remove</uui-button>
+      </uui-action-bar>
     </uui-document-type-list-item>
   </div>
 `;
@@ -29,9 +29,9 @@ export const Selectable = () => html`
       icon="bug"
       alias="productPageAlias"
     >
-      <uui-action-bar slot="actions"
-        ><uui-button>Remove</uui-button></uui-action-bar
-      >
+      <uui-action-bar slot="actions">
+        <uui-button>Remove</uui-button>
+      </uui-action-bar>
     </uui-document-type-list-item>
   </div>
 `;
@@ -43,8 +43,8 @@ export const Disabled = () => html`
       icon="bug"
       alias="productPageAlias"
     >
-      <uui-action-bar slot="actions"
-        ><uui-button>Remove</uui-button></uui-action-bar
+      <uui-action-bar slot="actions">
+        <uui-button>Remove</uui-button></uui-action-bar
       >
     </uui-document-type-list-item>
   </div>
@@ -59,9 +59,9 @@ export const Listed = () => html`
         icon="bug"
         alias="productPageAlias"
       >
-        <uui-action-bar slot="actions"
-          ><uui-button look="outline">Remove</uui-button></uui-action-bar
-        >
+        <uui-action-bar slot="actions">
+          <uui-button>Remove</uui-button>
+        </uui-action-bar>
       </uui-document-type-list-item>`
     )}
   </uui-list>
