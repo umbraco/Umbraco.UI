@@ -5,9 +5,11 @@ export class UUITableElement extends LitElement {
     css`
       :host {
         display: table;
-        border: 1px solid red;
-        border-collapse: collapse;
-        border-spacing: 5px;
+        width: 100%;
+        font-size: 14px;
+        box-shadow: 0 1px 1px 0 rgb(0 0 0 / 16%);
+        border-radius: 3px;
+        background-color: var(--uui-interface-surface);
       }
     `,
   ];

@@ -7,6 +7,10 @@ export class UUITableHeadElement extends LitElement {
         display: table-header-group;
         font-weight: bold;
       }
+
+      ::slotted(uui-table-cell) {
+        border-top: none;
+      }
     `,
   ];
 

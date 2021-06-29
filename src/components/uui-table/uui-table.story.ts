@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import './index';
+import { ArrayOfUmbracoWords } from '../../storybook/helper/UmbracoWordGenerator';
 
 export default {
   title: 'Misc/Table',
@@ -8,20 +9,24 @@ export default {
 
 export const Basic = () =>
   html`
-    <uui-table
-      ><uui-table-head
-        ><uui-table-cell>Hello</uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell></uui-table-head
-      ><uui-table-row
-        ><uui-table-cell>Hello</uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell></uui-table-row
-      ><uui-table-row
-        ><uui-table-cell>Hello</uui-table-cell><uui-table-cell></uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell
-        ><uui-table-cell>Hello</uui-table-cell></uui-table-row
-      ></uui-table
-    >
+    <div style="width: 100%;">
+      <uui-table>
+        <uui-table-column
+          style="width: 5%; font-weight: bold"
+        ></uui-table-column>
+        <uui-table-head
+          >${ArrayOfUmbracoWords(5).map(
+            el => html`<uui-table-cell>${el}</uui-table-cell>`
+          )}</uui-table-head
+        ><uui-table-row
+          >${ArrayOfUmbracoWords(5).map(
+            el => html`<uui-table-cell>${el}</uui-table-cell>`
+          )}</uui-table-row
+        ><uui-table-row
+          >${ArrayOfUmbracoWords(5).map(
+            el => html`<uui-table-cell>${el}</uui-table-cell>`
+          )}</uui-table-row
+        ></uui-table
+      >
+    </div>
   `;

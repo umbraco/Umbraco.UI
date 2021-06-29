@@ -6,7 +6,12 @@ export class UUITableCellElement extends LitElement {
       :host {
         display: table-cell;
         padding: 1em;
-        border: 1px solid red;
+        color: currentColor;
+        border-top: 1px solid #e9e9eb;
+      }
+
+      ::slotted(*) {
+        color: currentColor;
       }
     `,
   ];

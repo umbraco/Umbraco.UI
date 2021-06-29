@@ -5,6 +5,12 @@ export class UUITableRowElement extends LitElement {
     css`
       :host {
         display: table-row;
+        border-top: 1px solid #e9e9eb;
+        --column-number: 3;
+      }
+
+      ::slotted(uui-table-cell:nth-child(3)) {
+        background-color: yellow;
       }
     `,
   ];

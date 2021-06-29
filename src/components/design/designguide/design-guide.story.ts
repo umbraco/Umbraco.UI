@@ -1,7 +1,6 @@
 import { html } from 'lit-html';
 import './index';
 import '../../layout/uui-lead/index';
-import '../../layout/uui-table/index';
 
 export default {
   title: 'Design',
