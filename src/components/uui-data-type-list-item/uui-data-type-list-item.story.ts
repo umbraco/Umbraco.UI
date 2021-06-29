@@ -10,14 +10,14 @@ export default {
 export const Default = () => html`
   <div style="max-width: 420px;">
     <uui-data-type-list-item
+      border
       name="TextField"
       icon="bug"
       alias="Umbraco.TextField"
     >
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
-      ></uui-action-bar>
+      <uui-action-bar slot="actions">
+        <uui-button>Remove</uui-button>
+      </uui-action-bar>
     </uui-data-type-list-item>
   </div>
 `;
@@ -30,10 +30,9 @@ export const Selectable = () => html`
       icon="bug"
       alias="Umbraco.TextField"
     >
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
-      ></uui-action-bar>
+      <uui-action-bar slot="actions">
+        <uui-button>Remove</uui-button>
+      </uui-action-bar>
     </uui-data-type-list-item>
   </div>
 `;
@@ -45,10 +44,9 @@ export const Disabled = () => html`
       icon="bug"
       alias="Umbraco.TextField"
     >
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
-      ></uui-action-bar>
+      <uui-action-bar slot="actions">
+        <uui-button>Remove</uui-button>
+      </uui-action-bar>
     </uui-data-type-list-item>
   </div>
 `;
@@ -62,10 +60,9 @@ export const Listed = () => html`
         icon="bug"
         alias="Umbraco.TextField"
       >
-        <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-        <uui-action-bar slot="actions"
-          ><uui-button><uui-icon name="bug"></uui-icon></uui-button
-        ></uui-action-bar>
+        <uui-action-bar slot="actions">
+          <uui-button>Remove</uui-button>
+        </uui-action-bar>
       </uui-data-type-list-item>`
     )}
   </uui-list>

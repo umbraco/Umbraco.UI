@@ -14,6 +14,14 @@ export class UUIUserListItemElement extends UUINodeListItemElement {
   @property({ type: String, attribute: 'group-name' })
   groupName = '';
 
+  constructor() {
+    super();
+    //TODO: replace with user icon.
+    if (this.icon === '') {
+      this.icon = 'bug';
+    }
+  }
+
   protected renderDetail() {
     const details: string[] = [];
     if (this.detail !== '') {

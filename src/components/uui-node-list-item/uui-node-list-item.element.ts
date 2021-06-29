@@ -29,6 +29,7 @@ export class UUINodeListItemElement extends UUIBaseListItemElement {
       #icon {
         font-size: 1.2em;
         margin-left: var(--uui-size-space-2);
+        margin-right: var(--uui-size-space-1);
       }
 
       #info {
