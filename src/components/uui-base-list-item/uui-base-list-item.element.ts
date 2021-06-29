@@ -37,6 +37,10 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
           inset 0 0 2px 0 var(--uui-look-danger-border, #d42054);
       }
 
+      :host([border]) {
+        border: 1px solid var(--uui-interface-border);
+      }
+
       :host([selectable]) {
         cursor: pointer;
       }
@@ -131,8 +135,16 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         opacity: 1;
       }
 
+      :host([border]:not([disabled]):hover) {
+        border-color: var(--uui-interface-border-hover);
+      }
+
       :host([disabled]) #open-part {
         cursor: default;
+      }
+
+      :host([border][disabled]) {
+        border-color: var(--uui-interface-border-disabled);
       }
 
       slot[name='tag'] {

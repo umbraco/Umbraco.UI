@@ -22,15 +22,15 @@ export const Default = () => html`
   </div>
 `;
 
-export const PackageExample = () => html`
+export const Border = () => html`
   <div style="max-width: 420px;">
     <uui-node-list-item
+      border
       name="Rabbit suit product page"
       icon="bug"
-      version="1.0"
-      author="Unicorn Devs"
+      detail="path/to/nowhere"
     >
-      <uui-tag size="s" slot="tag" look="warning">Upgrade available</uui-tag>
+      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
       ></uui-action-bar>
@@ -53,9 +53,41 @@ export const Selectable = () => html`
     </uui-node-list-item>
   </div>
 `;
+export const BorderAndSelectable = () => html`
+  <div style="max-width: 420px;">
+    <uui-node-list-item
+      selectable
+      border
+      name="Rabbit suit product page"
+      icon="bug"
+      detail="path/to/nowhere"
+    >
+      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+      <uui-action-bar slot="actions"
+        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+      ></uui-action-bar>
+    </uui-node-list-item>
+  </div>
+`;
 export const Disabled = () => html`
   <div style="max-width: 420px;">
     <uui-node-list-item
+      disabled
+      name="Rabbit suit product page"
+      icon="bug"
+      detail="path/to/nowhere"
+    >
+      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+      <uui-action-bar slot="actions"
+        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+      ></uui-action-bar>
+    </uui-node-list-item>
+  </div>
+`;
+export const BorderAndDisabled = () => html`
+  <div style="max-width: 420px;">
+    <uui-node-list-item
+      border
       disabled
       name="Rabbit suit product page"
       icon="bug"

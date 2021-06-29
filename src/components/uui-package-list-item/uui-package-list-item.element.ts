@@ -17,6 +17,14 @@ export class UUIPackageListItemElement extends UUINodeListItemElement {
   @property({ type: String })
   author = '';
 
+  constructor() {
+    super();
+    //TODO: replace with package icon.
+    if (this.icon === '') {
+      this.icon = 'bug';
+    }
+  }
+
   protected renderDetail() {
     const details: string[] = [];
     if (this.detail !== '') {

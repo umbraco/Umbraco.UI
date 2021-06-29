@@ -1,3 +1,4 @@
+import { html } from 'lit';
 import { property } from 'lit/decorators';
 import { UUINodeListItemElement } from '../uui-node-list-item/uui-node-list-item.element';
 
@@ -11,13 +12,19 @@ export class UUIDocumentTypeListItemElement extends UUINodeListItemElement {
   static styles = [...UUINodeListItemElement.styles];
 
   @property({ type: String })
-  get alias() {
-    return this.detail;
-  }
+  alias = '';
 
-  set alias(newValue) {
-    const oldValue = newValue;
-    this.detail = newValue;
-    this.requestUpdate('detail', oldValue);
+  protected renderDetail() {
+    const details: string[] = [];
+
+    if (this.alias !== '') {
+      details.push(this.alias);
+    }
+    if (this.detail !== '') {
+      details.push(this.detail);
+    }
+    return html`<small id="detail"
+      >${details.join(' | ')}<slot name="detail"></slot
+    ></small>`;
   }
 }
