@@ -6,16 +6,26 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
     css`
       :host {
         display: table-row;
-        border-top: 1px solid #e9e9eb;
-        --column-number: 3;
         position: relative;
       }
 
-      :host([selected])::after {
+      :host([selectable]) {
+        cursor: pointer;
+      }
+      :host([selectable]) #select-border {
+        position: absolute;
+        z-index: 2;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      :host([selectable]) #select-border::after {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
@@ -24,10 +34,55 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
         box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
           inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
       }
-
-      ::slotted(uui-table-cell:nth-child(3)) {
-        background-color: yellow;
+      :host([selected]) #select-border {
+        opacity: 1;
       }
+      :host([selectable]:not([selected]):hover) #select-border {
+        opacity: 0.33;
+      }
+      :host([selectable][selected]:hover) #select-border {
+        opacity: 0.8;
+      }
+
+      :host([selectable]:not([selected])) #open-part:hover + #select-border {
+        opacity: 0;
+      }
+      :host([selectable][selected]) #open-part:hover + #select-border {
+        opacity: 1;
+      }
+
+      :host([selectable]:not([selected]):hover) #select-border::after {
+        animation: not-selected--hover 1.2s infinite;
+      }
+      @keyframes not-selected--hover {
+        0%,
+        100% {
+          opacity: 0.66;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      :host([selectable][selected]:hover) #select-border::after {
+        animation: selected--hover 1.4s infinite;
+      }
+      @keyframes selected--hover {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.66;
+        }
+      }
+      :host([selectable]) #open-part:hover + #select-border::after {
+        animation: none;
+      }
+
+      /* ::slotted(uui-table-cell:nth-child(3)) {
+        background-color: yellow;
+      } */
     `,
   ];
 
@@ -37,6 +92,7 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
   }
 
   toggleSelect() {
+    if (this.selectable === false) return;
     this.selected = !this.selected;
   }
 
