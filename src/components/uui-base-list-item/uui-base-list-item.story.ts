@@ -1,7 +1,12 @@
 import { html } from 'lit-html';
 
 export default {
-  title: 'Displays/List-Item',
+  title: 'Displays/List Item/Base List Item',
 };
 
-export const Overview = () => html` <div style="width: 300px"></div> `;
+export const Default = () => html`
+  <p>
+    Base List Item is a Component that provides the basics for a List Item. This
+    can be extended in code to match a certain need.
+  </p>
+`;
