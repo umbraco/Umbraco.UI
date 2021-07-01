@@ -1,3 +1,3 @@
-import { UUIPaginationElement } from './uui-pagitantion.element';
+import { UUIPaginationElement } from './uui-pagination.element';
 
 customElements.define('uui-pagination', UUIPaginationElement);

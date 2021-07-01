@@ -32,6 +32,14 @@ export class UUIPaginationElement extends LitElement {
       uui-button-group {
         width: 100%;
       }
+
+      .dots-button {
+        pointer-events: none;
+      }
+
+      .active-button {
+        pointer-events: none;
+      }
     `,
   ];
 
@@ -129,10 +137,10 @@ export class UUIPaginationElement extends LitElement {
   @property({ reflect: true, attribute: 'aria-label' })
   ariaLabel = '';
 
-  @property({ type: Number, reflect: true })
-  total = 10;
+  @property({ type: Number })
+  total = 1;
 
-  private _range = 3;
+  protected _range = 0;
   @property({ type: Number })
   get range() {
     return this._range;
@@ -148,7 +156,7 @@ export class UUIPaginationElement extends LitElement {
   @state()
   visiblePages: number[] = [];
 
-  private _current = 1;
+  protected _current = 1;
   @property({ type: Number, reflect: true })
   get current() {
     return this._current;
@@ -161,109 +169,129 @@ export class UUIPaginationElement extends LitElement {
     this.requestUpdate('current', oldValue);
   }
 
-  public goToNextPage() {
+  protected goToNextPage() {
     this.current++;
     this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
-  public goToPreviousPage() {
+  protected goToPreviousPage() {
     this.current--;
     this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
-  public goToPage(page: number) {
+  protected goToPage(page: number) {
     this.current = page;
     this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
-  firstButtonTemplate() {
+  /** When having limited display of page-buttons and clicking a page-button that changes the current range, the focus stays on the position of the clicked button which is not anymore representing the number clicked, therefor we move focus to the button that represents the current page. */
+  protected setFocusActivePageButton() {
+    requestAnimationFrame(() => {
+      // for none range changing clicks we need to ensure a rendering before querying.
+      const activeButtonElement = this.renderRoot.querySelector<HTMLElement>(
+        '.active-button'
+      );
+      if (activeButtonElement) {
+        activeButtonElement.focus();
+      }
+    });
+  }
+
+  protected firstButtonTemplate() {
     return html`<uui-button
       compact
-      class="nav-button"
       look="outline"
+      class="nav-button"
       role="listitem"
       aria-label="Go to first page"
+      .disabled=${1 === this._current}
       @click=${() => this.goToPage(1)}
-      >First</uui-button
-    >`;
+    >
+      First
+    </uui-button>`;
   }
 
-  previousButtonTemplate() {
+  protected previousButtonTemplate() {
     return html`<uui-button
       compact
       look="outline"
       class="nav-button"
       role="listitem"
-      .disabled=${this.current === 1}
       aria-label="Go to previous page"
+      .disabled=${this.current === 1}
       @click=${this.goToPreviousPage}
-      >Previous</uui-button
-    >`;
+    >
+      Previous
+    </uui-button>`;
   }
 
-  nextButtonTemplate() {
+  protected nextButtonTemplate() {
     return html`<uui-button
       compact
+      look="outline"
       role="listitem"
       class="nav-button"
       aria-label="Go to next page"
-      look="outline"
       .disabled=${this.current === this.total}
       @click=${this.goToNextPage}
-      >Next</uui-button
-    >`;
+    >
+      Next
+    </uui-button>`;
   }
 
-  lastButtonTemplate() {
+  protected lastButtonTemplate() {
+    return html`
+      <uui-button
+        compact
+        look="outline"
+        role="listitem"
+        class="nav-button"
+        aria-label="Go to last page"
+        ?disabled=${this.total === this._current}
+        @click=${() => this.goToPage(this.total)}
+      >
+        Last
+      </uui-button>
+    `;
+  }
+
+  protected dotsTemplate() {
     return html`<uui-button
       compact
-      role="listitem"
-      class="nav-button"
-      aria-label="Go to last page"
       look="outline"
-      @click=${() => this.goToPage(this.total)}
-      >Last</uui-button
-    >`;
-  }
-
-  dotsTemplate() {
-    return html`<uui-button compact look="outline" tabindex="-1" disabled
+      tabindex="-1"
+      class="dots-button"
       >...</uui-button
     > `;
   }
 
-  pageTemplate(page: number) {
+  protected pageTemplate(page: number) {
     return html`<uui-button
       compact
       look=${page === this._current ? 'primary' : 'outline'}
-      ?disabled=${page === this._current}
       role="listitem"
       aria-label="Go to page ${page}"
+      class=${page === this._current ? 'active-button' : ''}
+      tabindex=${page === this._current ? '-1' : ''}
       @click=${() => {
+        if (page === this._current) return;
         this.goToPage(page);
+        this.setFocusActivePageButton();
       }}
       >${page}</uui-button
     >`;
   }
 
-  navigationLeftTemplate() {
-    return html`${this.visiblePages.includes(1)
-      ? ''
-      : this.firstButtonTemplate()}${this.previousButtonTemplate()}${this.visiblePages.includes(
-      1
-    )
-      ? ''
-      : this.dotsTemplate()}`;
+  protected navigationLeftTemplate() {
+    return html` ${this.firstButtonTemplate()} ${this.previousButtonTemplate()}
+    ${this.visiblePages.includes(1) ? '' : this.dotsTemplate()}`;
   }
 
-  navigationRightTemplate() {
+  protected navigationRightTemplate() {
     return html`${this.visiblePages.includes(this.total)
       ? ''
-      : this.dotsTemplate()}${this.nextButtonTemplate()}${!this.visiblePages.includes(
-      this.total
-    )
-      ? this.lastButtonTemplate()
-      : ''}`;
+      : this.dotsTemplate()}
+    ${this.nextButtonTemplate()} ${this.lastButtonTemplate()}`;
   }
 
   render() {
