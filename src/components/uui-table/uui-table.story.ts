@@ -11,11 +11,11 @@ export const Basic = () =>
   html`
     <uui-table>
       <uui-table-column
-        style="width: 10px; background-color: green;"
+        style="width: 50px; background-color: green;"
       ></uui-table-column>
       <uui-table-head
         >${ArrayOfUmbracoWords(5).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
         )}</uui-table-head
       ><uui-table-row
         >${ArrayOfUmbracoWords(5).map(
@@ -36,7 +36,7 @@ export const SelectableRows = () =>
         <uui-table-column style="width: 5%;"></uui-table-column>
         <uui-table-head
           >${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
+            el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
           )}</uui-table-head
         ><uui-table-row selectable
           >${ArrayOfUmbracoWords(5).map(

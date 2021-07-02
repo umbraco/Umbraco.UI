@@ -6,7 +6,6 @@ export class UUITableCellElement extends LitElement {
       :host {
         display: table-cell;
         padding: 1em;
-        color: currentColor;
         border-top: 1px solid #e9e9eb;
         max-width: 0;
         overflow: hidden;
@@ -32,6 +31,7 @@ export class UUITableCellElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('resize', this.onResize);
+    this.setAttribute('role', 'cell');
   }
 
   disconnectedCallback() {

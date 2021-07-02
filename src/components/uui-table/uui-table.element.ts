@@ -9,21 +9,18 @@ export class UUITableElement extends LitElement {
         border-radius: 3px;
         background-color: var(--uui-interface-surface);
         user-select: none;
-        display: block;
-
-        border: 1px solid red;
-      }
-
-      #table-wrapper {
         display: table;
         width: 100%;
       }
     `,
   ];
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'table');
+  }
+
   render() {
-    return html`<div id="table-wrapper">
-      <slot></slot>
-    </div>`;
+    return html`<slot></slot>`;
   }
 }
