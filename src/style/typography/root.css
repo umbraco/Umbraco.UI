@@ -1,12 +1,24 @@
 :root {
+  /** Type props */
+  --uui-type-default-size: 15px;
+  --uui-type-small-size: 12px;
+
+
+  --uui-type-h1-size: var(--uui-size-xxlarge);
+  --uui-type-h2-size: var(--uui-size-xlarge);
+  --uui-type-h3-size: var(--uui-size-large);
+  --uui-type-h4-size: 21px;
+  --uui-type-h5-size: var(--uui-type-default-size);
+}
+:root {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: var(--uui-type-default-size);
   line-height: var(--uui-size-medium);
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
 }
 h1 {
-  font-size: var(--uui-size-xxlarge);
+  font-size: var(--uui-type-h1-size);
   line-height: var(--uui-size-xxlarge);
   font-weight: 300;
   margin-left: -5px;
@@ -18,7 +30,7 @@ h1:not(:first-child) {
 }
 
 h2 {
-  font-size: var(--uui-size-xlarge);
+  font-size: var(--uui-type-h2-size);
   line-height: var(--uui-size-xlarge);
   font-weight: 300;
   padding-top: 1px;
@@ -32,7 +44,7 @@ h2:not(:first-child) {
 }
 
 h3 {
-  font-size: var(--uui-size-large);
+  font-size: var(--uui-type-h3-size);
   line-height: var(--uui-size-large);
   font-weight: 300;
   padding-top: var(--uui-size-half-base-unit);
@@ -46,7 +58,7 @@ h3:not(:first-child) {
 }
 
 h4 {
-  font-size: 21px;
+  font-size: var(--uui-type-h4-size);
   line-height: 21px;
   font-weight: 400;
   margin-left: -1px;
@@ -58,7 +70,7 @@ h4:not(:first-child) {
 }
 
 h5 {
-  font-size: 15px;
+  font-size: var(--uui-type-h5-size);
   margin-top: var(--uui-size-medium);
   margin-bottom: 0;
 }
@@ -86,7 +98,7 @@ small {
 
 blockquote {
   float:right;
-  font-size: 15px;
+  font-size: var(--uui-type-default-size);
   font-weight: 700;
   font-style: italic;
   padding-top: var(--uui-size-half-base-unit);

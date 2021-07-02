@@ -110,14 +110,16 @@ export class UUICardElement extends SelectableMixin(LitElement) {
     `,
   ];
 
+  // TODO: implement Disable state.
+
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
   constructor() {
     super();
     this.addEventListener('click', this.toggleSelect);
     this.addEventListener('keydown', this.handleSelectKeydown);
   }
-
-  @property({ type: Boolean, reflect: true })
-  error = false;
 
   private toggleSelect() {
     if (this.selectable) this.selected = !this.selected;
