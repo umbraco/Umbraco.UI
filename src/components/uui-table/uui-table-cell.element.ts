@@ -6,7 +6,7 @@ export class UUITableCellElement extends LitElement {
       :host {
         display: table-cell;
         padding: 1em;
-        border-top: 1px solid #e9e9eb;
+        border-bottom: 1px solid #e9e9eb;
         max-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;

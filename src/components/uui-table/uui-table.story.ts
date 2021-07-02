@@ -11,7 +11,7 @@ export const Basic = () =>
   html`
     <uui-table>
       <uui-table-column
-        style="width: 50px; background-color: green;"
+        style="width: 50px; background-color: var(--uui-color-spanish-pink);"
       ></uui-table-column>
       <uui-table-head
         >${ArrayOfUmbracoWords(5).map(
