@@ -25,7 +25,6 @@ export class UUIBreadcrumbsElement extends LitElement {
   _breadcrumbs?: UUIBreadcrumbItemElement[];
 
   protected setLastItem() {
-    console.log('are you working', this._breadcrumbs);
     if (this._breadcrumbs) {
       this._breadcrumbs[this._breadcrumbs.length - 1].lastItem = true;
       this._breadcrumbs[this._breadcrumbs.length - 1].setAttribute(
