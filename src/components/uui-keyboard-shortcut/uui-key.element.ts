@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-
+import { queryAssignedNodes } from 'lit/decorators.js';
 export class UUIKeyElement extends LitElement {
   static styles = [
     css`
@@ -18,7 +18,20 @@ export class UUIKeyElement extends LitElement {
     `,
   ];
 
+  @queryAssignedNodes()
+  private slotNodes!: NodeList;
+
+  private _changeCase() {
+    console.log(this.slotNodes);
+    if (this.slotNodes[0] !== null && this.slotNodes[0].nodeValue) {
+      this.slotNodes.forEach(node => {
+        if (node.nodeName === '#text' && node.nodeValue)
+          node.nodeValue = node.nodeValue?.toLowerCase();
+      });
+    }
+  }
+
   render() {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this._changeCase}></slot>`;
   }
 }

@@ -8,6 +8,7 @@ export default {
 
 export const Basic = () => html`
   <uui-keyboard-shortcut>
-    <uui-key>alt</uui-key>+<uui-key>shift</uui-key>+<uui-key>Z</uui-key>
+    <uui-key>ALT</uui-key
+    >+<uui-key>shift</uui-key>+<uui-key>&#8593;</uui-key>+<uui-key>z</uui-key>
   </uui-keyboard-shortcut>
 `;
