@@ -22,8 +22,7 @@ export class UUIKeyElement extends LitElement {
   private slotNodes!: NodeList;
 
   private _changeCase() {
-    console.log(this.slotNodes);
-    if (this.slotNodes[0] !== null && this.slotNodes[0].nodeValue) {
+    if (this.slotNodes !== null) {
       this.slotNodes.forEach(node => {
         if (node.nodeName === '#text' && node.nodeValue)
           node.nodeValue = node.nodeValue?.toLowerCase();
