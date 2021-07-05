@@ -73,17 +73,6 @@ export class UUIFileDropzoneElement extends UUIFileDropzoneBaseElement {
     UUIFileDropzoneBaseElement.styles,
   ];
 
-  constructor() {
-    super();
-    this.addEventListener('click', this.handleClick);
-  }
-
-  private handleClick(e: Event) {
-    console.log('click');
-    e.stopImmediatePropagation();
-    this.openNativeInput();
-  }
-
   renderFileDropzone() {
     return html`<svg
         xmlns="http://www.w3.org/2000/svg"

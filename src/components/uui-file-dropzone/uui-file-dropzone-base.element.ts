@@ -1,12 +1,16 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { query, property } from 'lit/decorators';
 import { UUIFileUploaderEvent } from './UUIFileDropzoneEvents';
+import { LabelMixin } from './../../mixins/LabelMixin';
 
-export abstract class UUIFileDropzoneBaseElement extends LitElement {
+export abstract class UUIFileDropzoneBaseElement extends LabelMixin(
+  '',
+  LitElement
+) {
   static styles = [
     css`
       #input,
-      #label {
+      #input-label {
         position: absolute;
         width: 0px;
         height: 0px;
@@ -18,9 +22,6 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
 
   @property({ type: Boolean, reflect: true })
   active = false;
-
-  @property({ type: Boolean, reflect: true })
-  hidden = false;
 
   @property({ type: Boolean, reflect: true })
   error = false;
@@ -37,9 +38,6 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   multiple = false;
 
-  @property({})
-  label = '';
-
   constructor() {
     super();
 
@@ -47,6 +45,12 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
     this.addEventListener('dragleave', this.onDragLeave, false);
     this.addEventListener('dragover', this.onDragOver, false);
     this.addEventListener('drop', this.onDrop, false);
+    this.addEventListener('click', this.handleClick);
+  }
+
+  private handleClick(e: Event) {
+    e.stopImmediatePropagation();
+    this.openNativeInput();
   }
 
   protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
@@ -129,6 +133,6 @@ export abstract class UUIFileDropzoneBaseElement extends LitElement {
         type="file"
         ?multiple=${this.multiple}
         @change=${this._onFileInputChange}
-      /><label id="label" for="input">${this.label}</label>`;
+      /><label id="input-label" for="input">${this.renderLabel()}</label>`;
   }
 }

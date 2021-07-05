@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, queryAll, state } from 'lit/decorators';
+import { property, query, queryAll } from 'lit/decorators';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
@@ -20,8 +20,6 @@ export class UUIFileInputElement extends LitElement {
         align-items: stretch;
         justify-content: center;
         position: relative;
-        /* min-height: 240px;
-        min-width: 600px; */
       }
 
       #button-icon {
@@ -55,9 +53,6 @@ export class UUIFileInputElement extends LitElement {
     this.uploader.hidden = true;
     this.uploader.active = false;
     this.files = [...this.uploader.files, ...this.files];
-    // if (this.files) {
-    //   this.filesArray = Array.from(this.files);
-    // } else this.filesArray = [];
   }
 
   connectedCallback() {
@@ -76,13 +71,13 @@ export class UUIFileInputElement extends LitElement {
     if (this.multiple === false) return;
     if (this.files.length === 0) return;
     e.preventDefault();
-    this.dropzone.hidden = false;
+    this.uploader.hidden = false;
   };
 
   protected hideDropzone = (e: DragEvent) => {
     if (this.multiple === false) return;
     e.preventDefault();
-    this.dropzone.hidden = true;
+    this.uploader.hidden = true;
   };
 
   @property({ attribute: false })
@@ -93,9 +88,6 @@ export class UUIFileInputElement extends LitElement {
 
   @query('#uploader')
   uploader!: UUIFileDropzoneElement;
-
-  @query('#uploader')
-  dropzone!: UUIFileDropzoneElement;
 
   @queryAll('uui-file-preview')
   previews!: UUIFilePreviewElement[];
@@ -156,8 +148,3 @@ export class UUIFileInputElement extends LitElement {
       ${this.removeButtonTemplate()}`;
   }
 }
-
-// <uui-file-dropzone-button
-//           @file-drop=${this.handleFiles}
-//           id="dropzone"
-//         ></uui-file-dropzone-button>
