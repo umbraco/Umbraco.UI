@@ -6,6 +6,7 @@ export class UUIKeyboardShortcutElement extends LitElement {
       :host {
         display: inline-flex;
         align-items: center;
+        font-family: inherit;
         font-size: var(--uui-size-small, 12px);
         line-height: 20px;
       }
