@@ -6,7 +6,6 @@ export class UUIKeyElement extends LitElement {
       :host {
         background: var(--uui-interface-surface, #fff);
         border: 1px solid var(--uui-interface-border, #d8d7d9);
-        color: #515054;
         font-family: inherit;
         font-size: var(--uui-size-small, 12px);
         border-radius: 5px;
