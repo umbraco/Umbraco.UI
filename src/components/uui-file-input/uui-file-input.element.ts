@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, queryAll } from 'lit/decorators';
+import { property, query, queryAll, state } from 'lit/decorators';
+import { UUIFileDropzoneSymbolElement } from '../uui-file-dropzone/uui-file-dropzone-symbol.element';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
@@ -37,6 +38,8 @@ export class UUIFileInputElement extends LitElement {
       }
 
       #uploader {
+        border: 1px var(--uui-look-placeholder-border-style)
+          var(--uui-interface-border);
         position: absolute;
         top: 0;
         left: 0;
@@ -44,14 +47,46 @@ export class UUIFileInputElement extends LitElement {
         padding: 0;
         width: 100%;
         min-height: 200px;
-        z-index: 3;
+        display: none;
+        place-content: center;
+      }
+
+      :host([active]) #uploader {
+        display: grid;
+        border: 1px var(--uui-look-placeholder-border-style)
+          var(--uui-interface-border-hover);
+      }
+
+      #uploader:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        background-color: var(--uui-interface-surface);
+        opacity: 0.6;
+        z-index: 1;
+      }
+
+      :host([active]) #uploader::before {
+        opacity: 0.8;
+      }
+
+      .move-to-top {
+        position: relative;
+        z-index: 2;
       }
     `,
   ];
 
   private handleFiles() {
-    this.uploader.hidden = true;
-    this.uploader.active = false;
+    this.active = false;
+    console.log(this.multiple, this.files.length);
+    if (this.multiple === false && this.files.length > 0) {
+      console.log('error');
+      this.error = true;
+      return;
+    }
     this.files = [...this.uploader.files, ...this.files];
   }
 
@@ -68,17 +103,24 @@ export class UUIFileInputElement extends LitElement {
   }
 
   protected showDropzone = (e: DragEvent) => {
-    if (this.multiple === false) return;
+    //if (this.multiple === false) return;
     if (this.files.length === 0) return;
+    if (this.multiple === false && this.files.length > 0) {
+      this.error = true;
+    }
     e.preventDefault();
-    this.uploader.hidden = false;
+    this.active = true;
   };
 
   protected hideDropzone = (e: DragEvent) => {
-    if (this.multiple === false) return;
+    // if (this.multiple === false) return;
     e.preventDefault();
-    this.uploader.hidden = true;
+    this.error = false;
+    this.active = false;
   };
+
+  @property({ type: Boolean, reflect: true })
+  active = true;
 
   @property({ attribute: false })
   files: File[] = [];
@@ -100,15 +142,27 @@ export class UUIFileInputElement extends LitElement {
 
   private removeFiles() {
     this.files = [];
-    this.uploader.hidden = false;
+    this.error = false;
+    this.active = true;
   }
 
   protected removeFile(e: UUIFilePreviewEvent) {
     const file = e.target.file;
     this.files = this.files.filter(el => el !== file);
     this.requestUpdate();
-    if (this.files.length === 0) this.uploader.hidden = false;
+    if (this.files.length === 0) {
+      this.active = true;
+    }
   }
+
+  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('files')) {
+      console.log('i trigger update');
+    }
+  }
+
+  @property({ type: Boolean, reflect: true })
+  error = false;
 
   fileDropzoneTemplate() {
     return html`<uui-file-dropzone
@@ -116,7 +170,24 @@ export class UUIFileInputElement extends LitElement {
       @file-drop=${this.handleFiles}
       .multiple=${this.multiple}
       .label=${this.label}
-    ></uui-file-dropzone>`;
+      .error=${this.error}
+      ><uui-file-dropzone-symbol
+        id="dropzone-symbol"
+        .error=${this.error}
+        class="move-to-top"
+      ></uui-file-dropzone-symbol
+      >${this.error === false
+        ? html`<uui-button
+            aria-controls="uploader"
+            id="dropzone-button"
+            class="move-to-top"
+            >Click or drag & drop ${this.multiple ? 'files' : 'file'}
+            here</uui-button
+          >`
+        : html`<span class="move-to-top"
+            >Only one file is allowed</span
+          >`}</uui-file-dropzone
+    >`;
   }
 
   removeButtonTemplate() {

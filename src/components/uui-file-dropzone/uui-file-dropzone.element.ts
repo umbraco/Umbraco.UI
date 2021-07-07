@@ -1,95 +1,157 @@
-import { html, css } from 'lit';
-import { UUIFileDropzoneBaseElement } from './uui-file-dropzone-base.element';
+import { LitElement, html, css } from 'lit';
+import { query, property, queryAssignedNodes } from 'lit/decorators';
+import { UUIFileUploaderEvent } from './UUIFileDropzoneEvents';
+import { LabelMixin } from '../../mixins/LabelMixin';
+import { UUIFileDropzoneSymbolElement } from './uui-file-dropzone-symbol.element';
 
-/**
- *  @element uui-file-input
- */
-
-//todo auto upload
-export class UUIFileDropzoneElement extends UUIFileDropzoneBaseElement {
+export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   static styles = [
     css`
-      :host {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: var(--uui-size-medium, 24px);
-        border: 1px var(--uui-look-placeholder-border-style)
-          var(--uui-interface-border);
-      }
-
-      :host(:focus-within) {
-        outline: 1px solid #6ab4f0;
-
-        box-shadow: inset 0px 0px 2px 0px #6ab4f0;
-      }
-
-      :host([active]) {
-        border: 1px var(--uui-look-placeholder-border-style)
-          var(--uui-interface-border-hover);
-      }
-
-      :host::before {
-        content: '';
-        width: 100%;
-        height: 100%;
+      #input,
+      #input-label {
         position: absolute;
-        left: 0;
-        background-color: var(--uui-interface-surface);
-        opacity: 0.6;
-        z-index: 1;
-      }
-
-      :host([active])::before {
-        opacity: 0.8;
-      }
-
-      #upload-icon {
-        fill: var(--uui-interface-border);
-        width: 100px;
-        transition: fill 0.3s ease;
-        position: relative;
-        z-index: 2;
-      }
-
-      #input-button {
-        position: relative;
-        z-index: 2;
-      }
-
-      :host([active]) #upload-icon {
-        fill: var(--uui-interface-border-hover);
-      }
-
-      :host([hidden]) {
+        width: 0px;
+        height: 0px;
+        opacity: 0;
         display: none;
       }
-
-      :host([error]) #upload-icon {
-        fill: var(--uui-color-maroon-flush, #d42054);
-      }
     `,
-    UUIFileDropzoneBaseElement.styles,
   ];
 
-  renderFileDropzone() {
-    return html`<svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        id="upload-icon"
-      >
-        <path
-          d=${!this.error
-            ? 'M206.491 364.184h99.013V223.676h92.922L255.997 51.111 113.575 223.676h92.916zM85.043 398.311h341.912v62.578H85.043z'
-            : 'M254.501 38.16c-120.308 0-217.838 97.53-217.838 217.838 0 120.31 97.53 217.838 217.838 217.838 120.31 0 217.838-97.528 217.838-217.838 0-120.308-97.528-217.838-217.838-217.838zm151.667 217.838c0 29.861-8.711 57.708-23.671 81.209L173.293 128.002c23.499-14.961 51.345-23.67 81.208-23.67 83.629.001 151.667 68.037 151.667 151.666zm-303.332 0c0-29.859 8.71-57.707 23.67-81.204l209.201 209.201c-23.498 14.96-51.346 23.671-81.206 23.671-83.632 0-151.665-68.04-151.665-151.668z'}
-        />
-      </svg>
-      ${!this.error
-        ? html`<uui-button aria-controls="input" id="input-button"
-            >Click or drag & drop ${this.multiple ? 'files' : 'file'}
-            here</uui-button
-          >`
-        : html`<span>Only one file is allowed</span>`}`;
+  @property({ type: Boolean })
+  directory = false;
+
+  @query('#input')
+  input!: HTMLInputElement;
+
+  @property({ attribute: false })
+  files: File[] = [];
+
+  @property({ type: Boolean })
+  multiple = false;
+
+  @property({ type: Boolean })
+  active = false;
+
+  @property({ type: Boolean })
+  error = false;
+
+  constructor() {
+    super();
+
+    this.addEventListener('dragenter', this.onDragEnter, false);
+    this.addEventListener('dragleave', this.onDragLeave, false);
+    this.addEventListener('dragover', this.onDragOver, false);
+    this.addEventListener('drop', this.onDrop, false);
+    this.addEventListener('click', this.handleClick);
+  }
+
+  private handleClick(e: Event) {
+    e.stopImmediatePropagation();
+    this.openNativeInput();
+  }
+
+  protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
+    return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
+  }
+
+  onDrop(e: DragEvent) {
+    this.preventDefaults(e);
+    const dt = e.dataTransfer;
+
+    if (dt?.files) {
+      if (this.multiple === false && dt.files.length > 1) {
+        this.error = false;
+        return;
+      }
+
+      let files: File[] = [];
+
+      if (this.directory) {
+        files = Array.from(dt.files);
+        console.log('directory upload is not yet implemented');
+      } else {
+        for (let i = 0; i < dt.items.length; i++) {
+          if (this.checkIsItDirectory(dt.items[i])) continue;
+          if (dt.items[i].getAsFile()) {
+            files.push(dt.items[i].getAsFile() as File);
+          }
+        }
+      }
+
+      this.files = files;
+      this.dispatchEvent(
+        new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
+      );
+    }
+  }
+  onDragOver(e: DragEvent) {
+    this.preventDefaults(e);
+    this.active = true;
+    const dt = e.dataTransfer;
+    if (dt?.items) {
+      this._checkForError(dt);
+    }
+  }
+
+  @queryAssignedNodes()
+  private _slottedElements!: Node[];
+
+  private _dropzoneSymbol: UUIFileDropzoneSymbolElement[] = [];
+
+  private _findSymbol() {
+    this._dropzoneSymbol = Array.from(this._slottedElements).filter(
+      el => el instanceof UUIFileDropzoneSymbolElement
+    ) as UUIFileDropzoneSymbolElement[];
+  }
+
+  onDragEnter(e: DragEvent) {
+    this.active = true;
+    this.preventDefaults(e);
+  }
+  onDragLeave(e: DragEvent) {
+    this.active = false;
+    this.error = false;
+    this.preventDefaults(e);
+  }
+
+  private _checkForError(dt: DataTransfer) {
+    if (this.multiple) return;
+    if (dt.items.length > 1) this.error = true;
+  }
+
+  private preventDefaults(e: DragEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  protected openNativeInput() {
+    this.input.click();
+  }
+
+  private _onFileInputChange() {
+    this.files = this.input.files ? Array.from(this.input.files) : [];
+    this.dispatchEvent(
+      new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
+    );
+  }
+
+  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('error') && this._dropzoneSymbol.length > 0) {
+      this._dropzoneSymbol.forEach(el => (el.error = this.error));
+    }
+  }
+
+  //protected abstract renderFileDropzone(): TemplateResult; ${this.renderFileDropzone()}
+
+  render() {
+    return html`<slot @slotchange=${this._findSymbol}></slot
+      ><input
+        @click=${(e: Event) => e.stopImmediatePropagation()}
+        id="input"
+        type="file"
+        ?multiple=${this.multiple}
+        @change=${this._onFileInputChange}
+      /><label id="input-label" for="input">${this.renderLabel()}</label>`;
   }
 }
