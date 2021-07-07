@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { query, property } from 'lit/decorators';
-import { UUIFileUploaderEvent } from './UUIFileDropzoneEvents';
+import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { LabelMixin } from '../../mixins/LabelMixin';
 
 /**
@@ -61,7 +61,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       if (this.directory) {
         files = Array.from(dt.files);
-        console.log('directory upload is not yet implemented');
+        console.warn('directory upload is not yet implemented');
       } else {
         for (let i = 0; i < dt.items.length; i++) {
           if (this.checkIsItDirectory(dt.items[i])) continue;
@@ -73,7 +73,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       this.files = files;
       this.dispatchEvent(
-        new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
       );
     }
   }
@@ -100,7 +100,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   private _onFileInputChange() {
     this.files = this.input.files ? Array.from(this.input.files) : [];
     this.dispatchEvent(
-      new UUIFileUploaderEvent(UUIFileUploaderEvent.FILE_DROP)
+      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
     );
   }
 
