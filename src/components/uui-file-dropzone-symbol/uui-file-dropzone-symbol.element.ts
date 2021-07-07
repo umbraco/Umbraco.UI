@@ -2,7 +2,7 @@ import { html, css, LitElement } from 'lit';
 import { property } from 'lit/decorators';
 
 /**
- *  @element uui-file-input
+ *  @element uui-file-dropzone-symbol
  */
 
 //todo auto upload
