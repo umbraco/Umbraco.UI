@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators';
-import { UUIFileDropzoneSymbolElement } from '../uui-file-dropzone/uui-file-dropzone-symbol.element';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
@@ -84,18 +83,19 @@ export class UUIFileInputElement extends LitElement {
   ];
 
   private handleFiles() {
-    if (this.error === true) {
+    if (this.error === true && this.files.length === 0) {
       this.active = true;
       this.error = false;
       return;
     }
-    this.active = false;
-    console.log(this.multiple, this.files.length);
+
     if (this.multiple === false && this.files.length > 0) {
       this.error = true;
+      this.active = false;
       return;
     }
 
+    this.active = false;
     this.files = [...this.uploader.files, ...this.files];
   }
 
@@ -113,13 +113,16 @@ export class UUIFileInputElement extends LitElement {
 
   protected showDropzone = (e: DragEvent) => {
     this.error = false;
+    if (this.files.length === 0) return;
+
     if (this.multiple === false && e.dataTransfer?.items) {
       if (e.dataTransfer.items.length > 1) {
         this.error = true;
       }
     }
-    if (this.files.length === 0) return;
+
     if (this.multiple === false && this.files.length > 0) {
+      this.active = false;
       this.error = true;
     }
     e.preventDefault();

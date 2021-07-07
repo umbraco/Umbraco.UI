@@ -3,6 +3,10 @@ import { query, property } from 'lit/decorators';
 import { UUIFileUploaderEvent } from './UUIFileDropzoneEvents';
 import { LabelMixin } from '../../mixins/LabelMixin';
 
+/**
+ *  @element uui-file-dropzone
+ */
+
 export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   static styles = [
     css`
