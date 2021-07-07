@@ -30,11 +30,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   @property({ type: Boolean })
   multiple = false;
 
-  @property({ type: Boolean })
-  active = false;
+  // @property({ type: Boolean })
+  // active = false;
 
-  @property({ type: Boolean })
-  error = false;
+  // @property({ type: Boolean })
+  // error = false;
 
   constructor() {
     super();
@@ -60,10 +60,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const dt = e.dataTransfer;
 
     if (dt?.files) {
-      if (this.multiple === false && dt.files.length > 1) {
-        this.error = false;
-        return;
-      }
+      // if (this.multiple === false && dt.files.length > 1) {
+      //   this.error = false;
+      //   return;
+      // }
 
       let files: File[] = [];
 
@@ -87,11 +87,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
   onDragOver(e: DragEvent) {
     this.preventDefaults(e);
-    this.active = true;
+    //this.active = true;
     const dt = e.dataTransfer;
-    if (dt?.items) {
-      this._checkForError(dt);
-    }
+    // if (dt?.items) {
+    //   this._checkForError(dt);
+    // }
   }
 
   @queryAssignedNodes()
@@ -106,19 +106,19 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   onDragEnter(e: DragEvent) {
-    this.active = true;
+    //this.active = true;
     this.preventDefaults(e);
   }
   onDragLeave(e: DragEvent) {
-    this.active = false;
-    this.error = false;
+    // this.active = false;
+    // this.error = false;
     this.preventDefaults(e);
   }
 
-  private _checkForError(dt: DataTransfer) {
-    if (this.multiple) return;
-    if (dt.items.length > 1) this.error = true;
-  }
+  // private _checkForError(dt: DataTransfer) {
+  //   if (this.multiple) return;
+  //   if (dt.items.length > 1) this.error = true;
+  // }
 
   private preventDefaults(e: DragEvent) {
     e.preventDefault();
@@ -136,11 +136,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     );
   }
 
-  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
-    if (changedProperties.has('error') && this._dropzoneSymbol.length > 0) {
-      this._dropzoneSymbol.forEach(el => (el.error = this.error));
-    }
-  }
+  // willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
+  //   if (changedProperties.has('error') && this._dropzoneSymbol.length > 0) {
+  //     this._dropzoneSymbol.forEach(el => (el.error = this.error));
+  //   }
+  // }
 
   //protected abstract renderFileDropzone(): TemplateResult; ${this.renderFileDropzone()}
 

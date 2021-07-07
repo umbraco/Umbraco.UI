@@ -27,9 +27,9 @@ export class UUIFilePreviewElement extends LitElement {
 
       slot[name='action']::slotted(*) {
         position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 2;
+        top: 5px;
+        right: 5px;
+        z-index: 1;
       }
     `,
   ];

@@ -14,24 +14,12 @@ export class UUIFileDropzoneSymbolElement extends LitElement {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* padding: var(--uui-size-medium, 24px); */
-      }
-
-      :host(:focus-within) {
-        outline: 1px solid #6ab4f0;
-
-        box-shadow: inset 0px 0px 2px 0px #6ab4f0;
       }
 
       #upload-icon {
         fill: var(--uui-interface-border);
         width: 100px;
         transition: fill 0.3s ease;
-        position: relative;
-        z-index: 2;
-      }
-
-      #input-button {
         position: relative;
         z-index: 2;
       }

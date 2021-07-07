@@ -65,28 +65,37 @@ export class UUIFileInputElement extends LitElement {
         left: 0;
         background-color: var(--uui-interface-surface);
         opacity: 0.6;
-        z-index: 1;
+        z-index: 3;
       }
 
       :host([active]) #uploader::before {
         opacity: 0.8;
       }
 
+      #dropzone-symbol {
+        pointer-events: none;
+      }
+
       .move-to-top {
         position: relative;
-        z-index: 2;
+        z-index: 4;
       }
     `,
   ];
 
   private handleFiles() {
+    if (this.error === true) {
+      this.active = true;
+      this.error = false;
+      return;
+    }
     this.active = false;
     console.log(this.multiple, this.files.length);
     if (this.multiple === false && this.files.length > 0) {
-      console.log('error');
       this.error = true;
       return;
     }
+
     this.files = [...this.uploader.files, ...this.files];
   }
 
@@ -103,7 +112,12 @@ export class UUIFileInputElement extends LitElement {
   }
 
   protected showDropzone = (e: DragEvent) => {
-    //if (this.multiple === false) return;
+    this.error = false;
+    if (this.multiple === false && e.dataTransfer?.items) {
+      if (e.dataTransfer.items.length > 1) {
+        this.error = true;
+      }
+    }
     if (this.files.length === 0) return;
     if (this.multiple === false && this.files.length > 0) {
       this.error = true;
@@ -113,7 +127,6 @@ export class UUIFileInputElement extends LitElement {
   };
 
   protected hideDropzone = (e: DragEvent) => {
-    // if (this.multiple === false) return;
     e.preventDefault();
     this.error = false;
     this.active = false;
@@ -152,6 +165,7 @@ export class UUIFileInputElement extends LitElement {
     this.requestUpdate();
     if (this.files.length === 0) {
       this.active = true;
+      this.error = false;
     }
   }
 
