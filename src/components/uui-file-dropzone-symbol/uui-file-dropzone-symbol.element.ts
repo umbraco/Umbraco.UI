@@ -5,7 +5,6 @@ import { property } from 'lit/decorators';
  *  @element uui-file-dropzone-symbol
  */
 
-//todo auto upload
 export class UUIFileDropzoneSymbolElement extends LitElement {
   static styles = [
     css`
