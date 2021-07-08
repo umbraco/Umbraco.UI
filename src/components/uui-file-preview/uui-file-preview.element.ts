@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators';
+import { UUIFilePreviewEvent } from './UUIFilePreviewEvents';
 import { UUIFileSize } from './UUIFileSize';
 
 /**
@@ -18,6 +19,17 @@ export class UUIFilePreviewElement extends LitElement {
         position: relative;
         font-size: 12px;
         text-align: center;
+      }
+
+      slot[name='action'] {
+        --uui-button-height: 28px;
+      }
+
+      slot[name='action']::slotted(*) {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 1;
       }
     `,
   ];
@@ -71,6 +83,13 @@ export class UUIFilePreviewElement extends LitElement {
     };
   }
 
+  private _dispatchRemoveEvent() {
+    console.log('dispatchmethodFired');
+    this.dispatchEvent(
+      new UUIFilePreviewEvent(UUIFilePreviewEvent.REMOVE_FILE)
+    );
+  }
+
   fileTypeTemplate(type: string) {
     if (type.startsWith('image'))
       return html`<uui-image-file-symbol
@@ -86,7 +105,12 @@ export class UUIFilePreviewElement extends LitElement {
   }
 
   render() {
-    return html`
+    return html`<slot
+        name="action"
+        @click=${this._dispatchRemoveEvent}
+        id="delete-button"
+      >
+      </slot>
       ${this.fileTypeTemplate(this.type)}
       <span id="file-name">
         ${this.name}
@@ -94,7 +118,6 @@ export class UUIFilePreviewElement extends LitElement {
           ? html`<br />
               ${UUIFileSize.humanFileSize(this.file?.size, true)}`
           : ''}
-      </span>
-    `;
+      </span> `;
   }
 }
