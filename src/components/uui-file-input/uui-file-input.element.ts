@@ -27,7 +27,7 @@ export class UUIFileInputElement extends LitElement {
         color: var(--uui-color-maroon-flush, #d42054);
       }
 
-      #files {
+      #file-container {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -141,7 +141,7 @@ export class UUIFileInputElement extends LitElement {
   @property({ attribute: false })
   files: File[] = [];
 
-  @query('#files')
+  @query('#file-container')
   fileContainer!: HTMLElement;
 
   @query('#uploader')
@@ -217,7 +217,7 @@ export class UUIFileInputElement extends LitElement {
   }
 
   render() {
-    return html` <div id="files">
+    return html` <div id="file-container">
         ${this.fileDropzoneTemplate()}
         ${this.files.map(
           file =>
