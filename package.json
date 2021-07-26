@@ -5,6 +5,10 @@
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git"
+  },
   "dependencies": {
     "@popperjs/core": "^2.8.3",
     "lit": "^2.0.0-rc.1"
