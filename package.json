@@ -9,17 +9,17 @@
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git"
   },
-	"bugs": {
-		"url": "https://github.com/umbraco/Umbraco.UI/issues"
-	},
-	"homepage": "https://github.com/umbraco/Umbraco.UI/#readme",
-	"keywords": [
-		"umbraco",
-		"backoffice",
-		"web-components",
-		"shadow-dom",
-		"custom-elements"
-	],
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "homepage": "https://github.com/umbraco/Umbraco.UI/#readme",
+  "keywords": [
+    "umbraco",
+    "backoffice",
+    "web-components",
+    "shadow-dom",
+    "custom-elements"
+  ],
   "dependencies": {
     "@popperjs/core": "^2.8.3",
     "lit": "^2.0.0-rc.1"
