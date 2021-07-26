@@ -22,7 +22,7 @@
     "css:watch": "postcss src/style --base src --dir out-css --watch"
   },
   "devDependencies": {
-    "@open-wc/building-rollup": "^1.0.0",
+    "@open-wc/building-rollup": "^1.1.0",
     "@open-wc/demoing-storybook": "^2.0.0",
     "@open-wc/eslint-config": "^4.0.0",
     "@open-wc/testing": "^2.0.0",
