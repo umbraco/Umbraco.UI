@@ -1,7 +1,7 @@
 import { UUIEvent } from '../../event/UUIEvent';
-import { UUILayerElement } from './uui-layer.element';
+import { UUIModalElement } from './uui-modal.element';
 
-export class UUILayerEvent extends UUIEvent<{}, UUILayerElement> {
+export class UUIModalEvent extends UUIEvent<{}, UUIModalElement> {
   public static readonly CLOSE = 'close';
   public static readonly CLOSED = 'closed';
 }

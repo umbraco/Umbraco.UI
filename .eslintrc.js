@@ -16,6 +16,6 @@ module.exports = {
     'import/named': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'import/no-unresolved': 'off',
-    'no-inferrable-types': false
+    'no-inferrable-types': 0
   },
 };

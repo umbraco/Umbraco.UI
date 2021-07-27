@@ -41,3 +41,6 @@ import './components/uui-tag';
 import './components/uui-textfield';
 import './components/uui-toggle';
 import './components/uui-user-card';
+import './components/uui-modal';
+import './components/uui-modal-container';
+import './components/uui-backdrop';

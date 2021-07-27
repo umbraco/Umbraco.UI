@@ -1,9 +1,9 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUILayerContainerElement } from './uui-layer-container.element';
+import { UUIModalContainerElement } from './uui-modal-container.element';
 import '.';
 
 describe('UuiLayerContainer', () => {
-  let element: UUILayerContainerElement;
+  let element: UUIModalContainerElement;
   beforeEach(async () => {
     element = await fixture(html` <uui-layer>Hello uui-dialog</uui-layer> `);
   });

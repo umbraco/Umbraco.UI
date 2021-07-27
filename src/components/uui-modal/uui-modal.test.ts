@@ -1,11 +1,11 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUILayerElement } from './uui-layer.element';
+import { UUIModalElement } from './uui-modal.element';
 import '.';
 
-describe('UuiDialog', () => {
-  let element: UUILayerElement;
+describe('UuiModal', () => {
+  let element: UUIModalElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-layer>Hello uui-dialog</uui-layer> `);
+    element = await fixture(html` <uui-modal>Hello uui-dialog</uui-modal> `);
   });
 
   it('renders a slot', () => {
