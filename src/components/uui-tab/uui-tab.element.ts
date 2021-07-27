@@ -6,9 +6,7 @@ import { LabelMixin } from '../../mixins/LabelMixin';
 /**
  *  @element uui-editor-tab
  */
-export class UUITabElement extends ActiveMixin(
-  LabelMixin('label', LitElement)
-) {
+export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
       button {
@@ -18,10 +16,11 @@ export class UUITabElement extends ActiveMixin(
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: var(--uui-size-space-3) var(--uui-size-space-4)
-          var(--uui-size-space-3) var(--uui-size-space-4);
+        padding: var(--uui-size-space-2) var(--uui-size-space-4)
+          var(--uui-size-space-1) var(--uui-size-space-4);
         border: none;
         box-sizing: border-box;
+        min-height: 32px;
         max-height: 75px;
         min-width: 75px;
         background-color: var(--uui-interface-surface);
@@ -76,6 +75,11 @@ export class UUITabElement extends ActiveMixin(
       :host([disabled]) button::before {
         background-color: var(--uui-interface-active-disabled);
       }
+
+      ::slotted(uui-icon) {
+        font-size: 1.5em;
+        margin-bottom: var(--uui-size-space-2);
+      }
     `,
   ];
 
@@ -102,7 +106,7 @@ export class UUITabElement extends ActiveMixin(
   render() {
     return html`
       <button type="button" ?disabled=${this.disabled}>
-        <slot></slot>
+        ${this.renderLabel()}
       </button>
     `;
   }
