@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import { UUIModalElement } from '../uui-modal/uui-modal.element';
+import { UUIConfirmDialogElement } from '../uui-confirm-dialog/uui-confirm-dialog.element';
 import './index';
 
 export default {
@@ -10,11 +11,16 @@ export default {
 function addModal() {
   const con = document.querySelector('uui-modal-container');
   const modal = new UUIModalElement();
-  //const demoEl = document.createElement('div');
-  modal.style.width = '200px';
-  modal.style.height = '200px';
-  modal.style.backgroundColor = 'red';
-  //modal.appendChild(demoEl);
+  modal.style.left = Math.floor(Math.random() * 70).toString() + '%';
+  modal.style.top = Math.floor(Math.random() * 50).toString() + '%';
+
+  const demoDialog = new UUIConfirmDialogElement();
+  demoDialog.setAttribute('look', 'danger');
+  demoDialog.setAttribute('title', 'Are you sure about this?');
+  demoDialog.innerHTML =
+    'This action needs confirmation, please make sure to consider this action.';
+  modal.appendChild(demoDialog);
+
   if (con) {
     con.appendChild(modal);
   }
@@ -40,7 +46,7 @@ function closeModal() {
 
 export const Default = () => html`
   <uui-modal-container
-    style="position:relative; display: block; width: 400px; height: 400px;"
+    style="position:relative; display: block; width: 100%; height: 50vh;"
   >
   </uui-modal-container>
   <button @click=${addModal}>Open</button>

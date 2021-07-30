@@ -1,12 +1,14 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUIModalContainerElement } from './uui-modal-container.element';
+import { UUIModalStackContainerElement } from './uui-modal-stack-container.element';
 import '.';
 
-describe('UuiModalContainer', () => {
-  let element: UUIModalContainerElement;
+describe('UuiModalStackContainer', () => {
+  let element: UUIModalStackContainerElement;
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-modal-container>Hello uui-dialog</uui-modal-container> `
+      html`
+        <uui-modal-stack-container>Hello uui-dialog</uui-modal-stack-container>
+      `
     );
   });
 

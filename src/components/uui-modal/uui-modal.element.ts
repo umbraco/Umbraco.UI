@@ -1,21 +1,6 @@
 import { LitElement, html, css } from 'lit';
+import { property } from 'lit/decorators';
 import { UUIModalEvent } from './UUIModalEvent';
-
-function reducedMotion() {
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  return !mediaQuery || mediaQuery.matches;
-}
-
-const _keyframes = [
-  { transform: 'translateX(200%)' },
-  { transform: 'translateX(0%)' },
-];
-
-const _options: KeyframeAnimationOptions = {
-  duration: 480,
-  fill: 'both',
-  easing: `${reducedMotion() ? 'steps(1)' : 'cubic-bezier(.3,.7,.8,1)'}`,
-};
 
 /**
  *  @element uui-modal
@@ -26,46 +11,41 @@ export class UUIModalElement extends LitElement {
     css`
       :host {
         position: absolute;
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     `,
   ];
 
-  public visibleModal = false;
+  private modalMovementTimeout?: number;
 
-  private animation!: Animation;
-
-  firstUpdated() {
-    this.animation = this.animate(_keyframes, _options);
-    if (this.visibleModal === false) {
-      this.animation.pause();
-      this.animation.currentTime = 0;
-    }
-    this.animation.finished.then(() => {
-      this.animation.pause();
-    });
-  }
+  @property({ type: Boolean, reflect: true })
+  public modalVisible = false;
 
   public openModal() {
-    this.visibleModal = true;
-    if (this.animation) {
-      this.animation.playbackRate = 1;
-      this.animation.play();
-    }
+    window.clearTimeout(this.modalMovementTimeout as number);
+    this.updateComplete.then(() => {
+      window.requestAnimationFrame(() => {
+        this.modalVisible = true;
+        this.dispatchEvent(new UUIModalEvent(UUIModalEvent.OPEN, this));
+      });
+    });
   }
   public closeModal() {
-    this.visibleModal = false;
-    this.dispatchEvent(new UUIModalEvent(UUIModalEvent.CLOSE, this));
-    this.animation.playbackRate = -1;
-    this.animation.play();
-    this.animation.finished.then(() => {
-      if (this.animation.playbackRate === -1) {
-        this.dispatchEvent(new UUIModalEvent(UUIModalEvent.CLOSED, this));
-        if (this.parentNode) {
-          this.parentNode.removeChild(this);
+    if (this.modalVisible === true) {
+      this.modalVisible = false;
+      this.dispatchEvent(new UUIModalEvent(UUIModalEvent.CLOSE, this));
+
+      this.modalMovementTimeout = window.setTimeout(() => {
+        if (this.modalVisible === false) {
+          this.dispatchEvent(new UUIModalEvent(UUIModalEvent.CLOSED, this));
+          if (this.parentNode) {
+            this.parentNode.removeChild(this);
+          }
         }
-      }
-    });
+      }, 480);
+    }
   }
 
   render() {

@@ -25,13 +25,20 @@ export class UUIModalContainerElement extends LitElement {
         height: 100%;
       }
 
-      ::slotted(.backdrop) {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
+      ::slotted(*:not(uui-backdrop)) {
         left: 0;
-        background-color: rgba(0, 0, 0, 0.25);
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        opacity: 0;
+        transform: scale(90%);
+        transition: transform 480ms cubic-bezier(0.3, 0.7, 0.8, 1),
+          opacity 480ms;
+      }
+      ::slotted(*:not(uui-backdrop)[modalvisible]) {
+        transform: none;
+        opacity: 1;
       }
     `,
   ];
@@ -59,6 +66,10 @@ export class UUIModalContainerElement extends LitElement {
         UUIModalEvent.CLOSED,
         this.onModalClosed as EventHandlerNonNull
       );
+      el.addEventListener(
+        UUIModalEvent.OPEN,
+        this.onModalOpen as EventHandlerNonNull
+      );
       el.openModal();
     });
 
@@ -67,6 +78,9 @@ export class UUIModalContainerElement extends LitElement {
     }
   };
 
+  private onModalOpen = (e: UUIModalEvent) => {
+    this.updateBackdrop();
+  };
   private onModalClose = (e: UUIModalEvent) => {
     this.updateBackdrop();
   };
@@ -110,26 +124,38 @@ export class UUIModalContainerElement extends LitElement {
 
   private currentBackdrop: UUIBackdropElement | null = null;
 
+  protected levelsUpdated(
+    visibleModals: UUIModalElement[],
+    frontModal: UUIModalElement | null
+  ) {
+    // extension point, not implemented in this class
+  }
+
   private updateBackdrop() {
     // Find the top layer, thats visible and provide shadow for it.
-    const visibleModals = this.modals.filter(el => el.visibleModal === true);
-    const first =
+    const visibleModals = this.modals.filter(el => el.modalVisible === true);
+    const modalInFront =
       visibleModals.length > 0 ? visibleModals[visibleModals.length - 1] : null;
 
     if (this.currentBackdrop) {
-      // We are in the front, ups, we don't want that lets instead swap placement instantly.
+      // We are suddenly in the front(happened if lever has been removed, not animated.), ups, we don't want that lets instead swap placement instantly.
       if (this.currentBackdrop.nextSibling === null) {
-        if (first) {
-          this.insertBefore(this.currentBackdrop, first);
+        if (modalInFront) {
+          this.insertBefore(this.currentBackdrop, modalInFront);
         } else {
           this.removeChild(this.currentBackdrop);
+          this.currentBackdrop.removeEventListener(
+            UUIBackdropEvent.HIDDEN,
+            this.onBackdropHidden as EventHandlerNonNull
+          );
           this.currentBackdrop = null;
         }
+        this.levelsUpdated(visibleModals, modalInFront);
         return;
       }
 
       // check position of current backdrop to ensure we need update..
-      if (this.currentBackdrop.nextSibling === first) {
+      if (this.currentBackdrop.nextSibling === modalInFront) {
         return;
       }
       this.currentBackdrop.addEventListener(
@@ -140,12 +166,13 @@ export class UUIModalContainerElement extends LitElement {
       this.currentBackdrop = null;
     }
 
-    if (first) {
+    if (modalInFront) {
       this.currentBackdrop = document.createElement(
         'uui-backdrop'
       ) as UUIBackdropElement;
-      this.insertBefore(this.currentBackdrop, first);
+      this.insertBefore(this.currentBackdrop, modalInFront);
     }
+    this.levelsUpdated(visibleModals, modalInFront);
   }
 
   private onBackdropHidden = (e: UUIBackdropEvent) => {
