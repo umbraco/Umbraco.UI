@@ -1,6 +1,5 @@
 import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators';
-import { UUITabGroupEvent } from '../uui-tab-group/UUITabGroupEvent';
+import { state } from 'lit/decorators';
 
 /**
  *  @element uui-tabs-example-page
@@ -12,37 +11,50 @@ export class UUITabsExamplePageElement extends LitElement {
     `,
   ];
   */
-  @property()
-  private activeKey: string | null = 'A';
-
-  private changeActive(key: string | null) {
-    this.activeKey = key;
-  }
-
-  private onChange(e: UUITabGroupEvent) {
-    this.activeKey = e.target.active;
-  }
+  @state()
+  private activeIndex: number | null = 0;
 
   render() {
     return html`
-      <uui-tab-group .active=${this.activeKey} @change=${this.onChange}>
-        <uui-tab .key=${'A'}> Tab A </uui-tab>
-        <uui-tab .key=${'B'}> Tab B </uui-tab>
-        <uui-tab .key=${'C'}> Tab C </uui-tab>
+      <uui-tab-group>
+        <uui-tab
+          .active=${this.activeIndex === 0}
+          @click=${() => {
+            this.activeIndex = 0;
+          }}
+        >
+          Tab A
+        </uui-tab>
+        <uui-tab
+          .active=${this.activeIndex === 1}
+          @click=${() => {
+            this.activeIndex = 1;
+          }}
+        >
+          Tab B
+        </uui-tab>
+        <uui-tab
+          .active=${this.activeIndex === 2}
+          @click=${() => {
+            this.activeIndex = 2;
+          }}
+        >
+          Tab C
+        </uui-tab>
       </uui-tab-group>
-      <button type="button" @click=${() => this.changeActive('A')}>
+      <button type="button" @click=${() => (this.activeIndex = 0)}>
         open A
       </button>
-      <button type="button" @click=${() => this.changeActive('B')}>
+      <button type="button" @click=${() => (this.activeIndex = 1)}>
         open B
       </button>
-      <button type="button" @click=${() => this.changeActive('C')}>
+      <button type="button" @click=${() => (this.activeIndex = 2)}>
         open C
       </button>
-      <button type="button" @click=${() => this.changeActive(null)}>
+      <button type="button" @click=${() => (this.activeIndex = null)}>
         Reset active
       </button>
-      <div>Currently active: ${this.activeKey}</div>
+      <div>Currently active: ${this.activeIndex}</div>
     `;
   }
 }
