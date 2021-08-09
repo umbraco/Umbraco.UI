@@ -18,7 +18,7 @@ export class UUILoaderBarElement extends LitElement {
         overflow: hidden;
         border-radius: var(--uui-size-half-base-unit, 3px);
         transform: scaleY(1);
-        transform-origin: top center;
+        transform-origin: 0 50%;
         background-color: var(--uui-loader-bar-color, #1b264f);
         transition: transform 300ms ease-in;
       }
