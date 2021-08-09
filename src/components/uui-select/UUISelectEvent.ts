@@ -1,7 +1,7 @@
 import { UUIEvent } from '../../event/UUIEvent';
-import { UUISingleSelectBaseElement } from './uui-single-select-base.element';
+import { UUISelectElement } from './uui-select.element';
 
-export class UUISelectEvent extends UUIEvent<{}, UUISingleSelectBaseElement> {
+export class UUISelectEvent extends UUIEvent<{}, UUISelectElement> {
   public static readonly CHANGE = 'change';
-  public static readonly SPACE = 'space';
+  public static readonly INPUT = 'input';
 }

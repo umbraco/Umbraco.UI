@@ -1,5 +1,6 @@
-import { LitElement, html, css } from 'lit';
-import { property, query, queryAssignedNodes } from 'lit/decorators';
+import { LitElement, css } from 'lit';
+import { property, query } from 'lit/decorators';
+import { LabelMixin } from '../../mixins/LabelMixin';
 import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 /**
@@ -9,19 +10,20 @@ import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 //TODO add the deselect method
 
-export class UUISelectOptionElement extends LitElement {
+export class UUISelectOptionElement extends LabelMixin('', LitElement) {
   static styles = [
     css`
       :host {
-        display: block;
-        color: var(--uui-interface-contrast);
-        box-sizing: border-box;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+
         font-size: 1rem;
         font-family: inherit;
+        color: var(--uui-interface-contrast);
+
+        box-sizing: border-box;
         cursor: pointer;
+
         padding: 0.5em;
         background-color: var(--uui-interface-surface);
       }
@@ -42,13 +44,11 @@ export class UUISelectOptionElement extends LitElement {
     `,
   ];
 
+  // Do we need an id and do we need to ensure an unique id?
   static UniqueIdCounter = 1;
 
   @property({ reflect: true })
-  id = `uui-select-${UUISelectOptionElement.UniqueIdCounter++}`;
-
-  @queryAssignedNodes('', true)
-  _slot!: Node[];
+  id = `uui-select-option-${UUISelectOptionElement.UniqueIdCounter++}`;
 
   @property({ type: String })
   value = '';
@@ -73,16 +73,14 @@ export class UUISelectOptionElement extends LitElement {
     this.addEventListener('click', this.handleClick);
   }
 
-  //! this should probably traverse all the nodes and pick the correct one somehow, and then assign the value...
-  firstUpdated() {
-    if (this._slot[0].textContent) this.value = this._slot[0].textContent;
-  }
-
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'option');
     if (!this.hasAttribute('aria-selected'))
       this.setAttribute('aria-selected', 'false');
+    if (!this.value) {
+      console.warn(this.tagName + ' needs a `value`');
+    }
   }
 
   @property({ type: Boolean, reflect: true })
@@ -93,13 +91,10 @@ export class UUISelectOptionElement extends LitElement {
 
   @query('#list-item') protected listItem!: HTMLButtonElement;
 
-  updated() {
-    if (this.focused) this.listItem.focus();
-  }
-
   private handleClick(e: Event) {
     e.stopPropagation();
     this.select();
+    this.dispatchEvent(new UUISelectOptionEvent(UUISelectOptionEvent.CHANGE));
   }
 
   public select() {
@@ -109,7 +104,6 @@ export class UUISelectOptionElement extends LitElement {
       this.setAttribute('aria-selected', 'true');
       this.focus();
     }
-    this.dispatchEvent(new UUISelectOptionEvent(UUISelectOptionEvent.CHANGE));
   }
 
   public deselect() {
@@ -119,12 +113,6 @@ export class UUISelectOptionElement extends LitElement {
   }
 
   render() {
-    return html`
-      <div id="list-item">
-        <slot name="left"></slot>
-        <span><slot></slot></span>
-      </div>
-      <slot name="right"></slot>
-    `;
+    return this.renderLabel();
   }
 }

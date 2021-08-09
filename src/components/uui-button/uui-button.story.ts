@@ -14,7 +14,11 @@ export default {
 export const Default = () => html` <uui-button>Basic button</uui-button> `;
 
 export const PrimaryButton = () => html`
-  <uui-button look="primary">Basic button</uui-button>
+  <uui-button look="primary" label="Basic button"></uui-button>
+`;
+
+export const PositiveButton = () => html`
+  <uui-button look="positive">Positive button</uui-button>
 `;
 
 export const PlaceholderButton = () => html`

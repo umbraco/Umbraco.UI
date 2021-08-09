@@ -178,18 +178,18 @@ export class UUIRadioElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
+    //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
       this.setAttribute('aria-checked', 'false');
   }
 
   render() {
-    return html` <label id="radio-label">
+    return html` <label>
       <input
         id="input"
-        aria-labelledby="radio-label"
         type="radio"
+        role="radio"
         name=${this.name}
         value=${this.value}
         .checked=${this.checked}

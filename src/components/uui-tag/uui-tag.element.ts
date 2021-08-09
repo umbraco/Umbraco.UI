@@ -18,19 +18,28 @@ export class UUITagElement extends LitElement {
       :host {
         display: inline-block;
         font-family: inherit;
-        line-height: 1;
+        font-weight: 700;
+        line-height: 1.1;
+
         font-size: var(--uui-tag-font-size, 0.9em);
         margin: var(--uui-tag-margin, var(--uui-size-base-unit));
         padding: var(--uui-tag-size-unit, var(--uui-size-base-unit))
-          calc(var(--uui-tag-size-unit, var(--uui-size-base-unit)) * 3);
-        border-radius: calc(
-          var(--uui-tag-size-unit, var(--uui-size-base-unit)) * 2
+          calc(var(--uui-tag-size-unit, var(--uui-size-base-unit)) * 2);
+
+        --uui-button-border-radius: calc(
+          var(--uui-tag-size-unit, var(--uui-size-base-unit)) * 3
         );
+        border-radius: var(--uui-button-border-radius);
         background-color: var(--uui-interface-surface-alt);
         color: var(--uui-interface-contrast);
         user-select: none;
 
         transition: background-color 120ms, color 120ms;
+      }
+
+      slot {
+        display: flex;
+        align-items: center;
       }
 
       :host([size='xs']) {
@@ -43,7 +52,7 @@ export class UUITagElement extends LitElement {
       }
       :host([size='m']) {
         --uui-tag-size-unit: 5px;
-        --uui-tag-font-size: 14px;
+        --uui-tag-font-size: 12px;
       }
       :host([size='l']) {
         --uui-tag-size-unit: 6px;

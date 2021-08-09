@@ -32,7 +32,7 @@
   --uui-color-space-cadet: $space-cadet;
   --uui-color-space-cadet-light: color($space-cadet lightness(+ 8%));
   --uui-color-space-cadet-dark: color($space-cadet blackness(+ 8%));
-  --uui-color-space-cadet-dimmed: color($space-cadet saturation(- 30%));
+  --uui-color-space-cadet-dimmed: color($space-cadet saturation(- 30%) lightness(+ 30%));
 
   $violet-blue: #3544B1;
   --uui-color-violet-blue: $violet-blue;
@@ -63,6 +63,13 @@
   --uui-color-jungle-green-light: color($jungle-green lightness(+ 6%));
   --uui-color-jungle-green-dark: color($jungle-green blackness(+ 6%));
   --uui-color-jungle-green-dimmed: color($jungle-green saturation(- 50%) blackness(+ 1%));
+
+  /*TODO: color needs proper name*/
+  $dark-green: #0b8152;
+  --uui-color-dark-green: $dark-green;
+  --uui-color-dark-green-light: color($dark-green lightness(+ 6%));
+  --uui-color-dark-green-dark: color($dark-green blackness(+ 6%));
+  --uui-color-dark-green-dimmed: color($dark-green saturation(- 50%) blackness(+ 1%));
 
   $cocoa-black: #191715;
   --uui-color-cocoa-black: $cocoa-black;

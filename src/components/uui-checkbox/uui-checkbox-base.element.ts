@@ -54,7 +54,7 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
         flex-direction: column;
       }
 
-      :host([disabled]) #label-display {
+      :host([disabled]) #label {
         opacity: 0.5;
       }
     `,
@@ -138,9 +138,7 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
           role="${this.inputRole}"
         />
         ${this.renderCheckbox()}
-        <div id="label-display" aria-hidden="true">
-          ${this.hideLabel === false ? this.renderLabel() : ''}
-        </div>
+        ${this.hideLabel === false ? this.renderLabel() : ''}
       </label>
     `;
   }
