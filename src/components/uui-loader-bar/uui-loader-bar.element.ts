@@ -34,12 +34,8 @@ export class UUILoaderBarElement extends LitElement {
         bottom: 0;
         width: 100%;
         background-color: var(--uui-loader-bar-color, #1b264f);
-        filter: brightness(1.5);
         transform-origin: top left;
-        transform: translateX(-150%);
-        filter: brightness(250%);
-        animation: translate-bar 1.5s infinite linear,
-          light-up 1.5s infinite linear;
+        animation: translate-bar 1.5s infinite linear;
       }
 
       @keyframes translate-bar {
@@ -49,37 +45,19 @@ export class UUILoaderBarElement extends LitElement {
         }
 
         10% {
-          transform: translateX(-150%);
           animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.45);
-          filter: brightness(130%);
+          transform: translateX(-150%);
+          filter: brightness(150%);
         }
 
         50% {
           animation-timing-function: cubic-bezier(0.3, 0.4, 0.5, 0.9);
           transform: translateX(-61%);
-          filter: brightness(150%);
-        }
-
-        100% {
-          transform: translateX(100%);
-          filter: brightness(130%);
-        }
-      }
-
-      @keyframes light-up {
-        0% {
-          filter: brightness(100%);
-        }
-
-        10% {
-          filter: brightness(150%);
-        }
-
-        50% {
           filter: brightness(330%);
         }
 
         100% {
+          transform: translateX(100%);
           filter: brightness(100%);
         }
       }
