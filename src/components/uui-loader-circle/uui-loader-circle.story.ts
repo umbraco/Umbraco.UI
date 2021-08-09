@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { Size, sizes } from '../../type/Size';
+import { sizes } from '../../type/Size';
 import './index';
 
 export default {
@@ -33,6 +33,9 @@ const colors = [
 ];
 const progress = [10, 25, 33, 50, 75, 100];
 
+export const Basic = () =>
+  html` <uui-loader-circle indefinite></uui-loader-circle> `;
+
 export const ShowProgressNumber = () =>
   html`
     ${sizes.map(
@@ -48,7 +51,7 @@ export const ShowProgressNumber = () =>
     <span>Number will not be visible with smaller sizes</span>
   `;
 
-export const Overview = () => html`
+export const Sizes = () => html`
   ${sizes.map(
     size =>
       html`<span>Size ${size}</span>${progress.map(
@@ -69,20 +72,19 @@ export const IndefiniteSate = () =>
     )}
   `;
 
-export const Colors = () =>
+export const WithColor = () =>
   html`
     ${colors.map(
       color =>
         html`<uui-loader-circle
           indefinite
           size="xl"
-          style=${`--uui-loader-circle-color: ${color}`}
+          style="color: ${color}"
         ></uui-loader-circle>`
     )}<br />
-    <span
-      >Color of the spinner can be changes with --uui-loader-circle-color custom
-      proprty</span
-    >
+    <span>
+      Color of the spinner can be changed by changing css property color
+    </span>
   `;
 
 export const InAButton = () =>

@@ -11,7 +11,7 @@ export class UUILoaderBarElement extends LitElement {
   static styles = [
     css`
       :host {
-        --uui-loader-bar-color: var(--uui-interface-chosen, #1b264f);
+        /* currently this components color is defined through currentColor, if we like to use a different color, we need to implemenet a --uui-interface- color which will be set/overwritten when looks are set, aka. if this element is used within a button with the look danger, then this component would get an appropriate color. */
         display: block;
         position: relative;
         height: var(--uui-size-half-base-unit, 3px);
@@ -19,7 +19,7 @@ export class UUILoaderBarElement extends LitElement {
         border-radius: var(--uui-size-half-base-unit, 3px);
         transform: scaleY(1);
         transform-origin: 0 50%;
-        background-color: var(--uui-loader-bar-color, #1b264f);
+        background-color: currentColor;
         transition: transform 300ms ease-in;
       }
 
@@ -33,7 +33,7 @@ export class UUILoaderBarElement extends LitElement {
         top: 0;
         bottom: 0;
         width: 100%;
-        background-color: var(--uui-loader-bar-color, #1b264f);
+        background-color: currentColor;
         transform-origin: top left;
         animation: translate-bar 1.5s infinite linear;
       }

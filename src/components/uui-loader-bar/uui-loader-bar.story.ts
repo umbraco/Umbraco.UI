@@ -31,12 +31,12 @@ const colors = [
   '#3E3E3E',
 ];
 
-export const Overview = () => html` <uui-loader-bar></uui-loader-bar> `;
+export const Default = () => html` <uui-loader-bar></uui-loader-bar> `;
 
-export const Colors = () =>
+export const WithColor = () =>
   html`${colors.map(
     color =>
       html`<uui-loader-bar
-        style=${`--uui-loader-bar-color: ${color}; margin-bottom: 40px`}
+        style=${`color: ${color}; margin-bottom: 40px`}
       ></uui-loader-bar>`
   )}`;
