@@ -28,18 +28,19 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
 
     private labelSlotChanged(e: any): void {
       this.labelSlotHasContent =
-        (e.target as HTMLSlotElement).assignedElements({ flatten: true })
-          .length > 0;
+        (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length >
+        0;
     }
 
     // TODO does this slot must have an ID? It makes it fail the accesibility test within storybook.
     protected renderLabel() {
       return html`
         ${this.labelSlotHasContent === false
-          ? html`<span id="label">${this.label}</span>`
+          ? html`<span class="label">${this.label}</span>`
           : ''}
         <slot
-          id="label"
+          class="label"
+          style=${this.labelSlotHasContent ? '' : 'visibility: hidden'}
           name=${labelName ? labelName : ''}
           @slotchange=${this.labelSlotChanged}
         ></slot>

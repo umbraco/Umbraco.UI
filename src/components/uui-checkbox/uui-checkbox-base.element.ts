@@ -54,7 +54,7 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
         flex-direction: column;
       }
 
-      :host([disabled]) #label {
+      :host([disabled]) .label {
         opacity: 0.5;
       }
     `,

@@ -101,7 +101,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
-      button > #label {
+      button > .label {
         display: block;
         padding: 0
           calc(
