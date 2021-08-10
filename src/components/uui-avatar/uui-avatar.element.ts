@@ -1,6 +1,20 @@
 import { property, state } from 'lit/decorators';
 import { LitElement, html, css } from 'lit';
 
+export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+
+export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
+  'xxl',
+  'xl',
+  'l',
+  'm',
+  's',
+  'xs',
+  'xxs',
+] as const;
+
+export const AvatarSizeDefaultValue = '';
+
 /**
  *  @element uui-avatar
  *  @description Anatar for displaying users
@@ -62,7 +76,7 @@ export class UUIAvatarElement extends LitElement {
   ];
 
   @property({ type: String, reflect: true })
-  public size: AvatarSizeType = '';
+  public size: AvatarSizeType = AvatarSizeDefaultValue;
 
   @property({ type: String, attribute: 'img-src' })
   public imgSrc = '';
@@ -87,7 +101,7 @@ export class UUIAvatarElement extends LitElement {
     }
     this.initials = initials.toUpperCase();
 
-    this.requestUpdate('name', oldValue);
+    this.requestUpdate('title', oldValue);
   }
 
   @state()
@@ -108,17 +122,3 @@ export class UUIAvatarElement extends LitElement {
     `;
   }
 }
-
-export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-
-export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
-  'xxl',
-  'xl',
-  'l',
-  'm',
-  's',
-  'xs',
-  'xxs',
-] as const;
-
-//export const AvatarSizeDefaultValue = '';
