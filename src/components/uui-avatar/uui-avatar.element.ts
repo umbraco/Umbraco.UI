@@ -3,21 +3,10 @@ import { LitElement, html, css } from 'lit';
 
 /**
  *  @element uui-avatar
+ *  @description Anatar for displaying users
+ *  @slot for anything other then initials
  */
 
-export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-
-export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
-  'xxl',
-  'xl',
-  'l',
-  'm',
-  's',
-  'xs',
-  'xxs',
-] as const;
-
-export const AvatarSizeDefaultValue = '';
 export class UUIAvatarElement extends LitElement {
   static styles = [
     css`
@@ -73,7 +62,7 @@ export class UUIAvatarElement extends LitElement {
   ];
 
   @property({ type: String, reflect: true })
-  public size: AvatarSizeType = AvatarSizeDefaultValue;
+  public size: AvatarSizeType = '';
 
   @property({ type: String, attribute: 'img-src' })
   public imgSrc = '';
@@ -119,3 +108,17 @@ export class UUIAvatarElement extends LitElement {
     `;
   }
 }
+
+export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+
+export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
+  'xxl',
+  'xl',
+  'l',
+  'm',
+  's',
+  'xs',
+  'xxs',
+] as const;
+
+//export const AvatarSizeDefaultValue = '';
