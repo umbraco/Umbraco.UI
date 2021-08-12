@@ -1,10 +1,6 @@
 import { property, state } from 'lit/decorators';
 import { LitElement, html, css } from 'lit';
 
-/**
- *  @element uui-avatar
- */
-
 export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
@@ -18,6 +14,13 @@ export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
 ] as const;
 
 export const AvatarSizeDefaultValue = '';
+
+/**
+ *  @element uui-avatar
+ *  @description Anatar for displaying users
+ *  @slot for anything other then initials
+ */
+
 export class UUIAvatarElement extends LitElement {
   static styles = [
     css`
@@ -98,7 +101,7 @@ export class UUIAvatarElement extends LitElement {
     }
     this.initials = initials.toUpperCase();
 
-    this.requestUpdate('name', oldValue);
+    this.requestUpdate('title', oldValue);
   }
 
   @state()

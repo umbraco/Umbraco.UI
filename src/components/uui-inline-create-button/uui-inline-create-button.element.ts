@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
-import { property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map';
+import { property, state } from 'lit/decorators';
 import {
   UUIBlinkKeyframes,
   UUIBlinkAnimationValue,
@@ -10,6 +10,8 @@ import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
 /**
  *  @element uui-inline-create-button
  *  @description - Special button for creating new elements
+ *  @attr {Boolean} vertical - display vertical version of the button
+ *  @fires click on user click
  */
 
 export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
@@ -168,6 +170,7 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
         id="button-wrapper"
         @mousemove=${this._onMouseMove}
         @click=${this._handleClick}
+        aria-label=${this.label ? this.label : 'create new element'}
       >
         <div
           id="plus"
