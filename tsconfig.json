@@ -15,6 +15,7 @@
     "inlineSources": true,
     "rootDir": "./src/",
     "forceConsistentCasingInFileNames": true,
+    "declaration": true,
   },
   "include": ["**/*.ts"]
 }

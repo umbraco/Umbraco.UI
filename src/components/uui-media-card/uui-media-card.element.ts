@@ -3,9 +3,10 @@ import { property, state } from 'lit/decorators';
 import { UUICardElement } from '../uui-card/uui-card.element';
 
 /**
- *  @element uui-node-card
+ *  @element uui-media-card
  *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
- *  @description - Card component for displaying a node.
+ *  @description - Card component for displaying a media item.
+ *  @slot - for image element
  */
 
 export class UUIMediaCardElement extends UUICardElement {

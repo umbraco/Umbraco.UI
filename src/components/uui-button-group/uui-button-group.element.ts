@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 /**
  *  @element uui-button-group
  *  @slot - for buttons
- *  @description
+ *  @description Place <uui-button> elements in the slot. They will nbe nicely displayed. Works also with uui-dropdown component.
  */
 export class UUIButtonGroupElement extends LitElement {
   static styles = [

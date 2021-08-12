@@ -34,7 +34,7 @@ export const Media = () =>
 
 export const FewCards = () =>
   html`
-    <uui-card-grid type="node">
+    <uui-card-grid>
       ${randomArray(2, 100, 800).map(
         el => html` <uui-content-node-card
           selectable
@@ -81,7 +81,7 @@ export const WithCreateButton = () =>
   html`
     <uui-card-grid>
       ${randomArray(40, 100, 800).map(
-        el => html`<div style="display: flex;">
+        el => html`<div style="display: flex; height:100%">
           <uui-inline-create-button
             vertical
             style="width:0;"
@@ -99,7 +99,7 @@ export const WithCreateButton = () =>
 
 export const Nodes = () =>
   html`
-    <uui-card-grid type="node">
+    <uui-card-grid>
       ${randomArray(40, 100, 800).map(
         el => html` <uui-content-node-card
           selectable

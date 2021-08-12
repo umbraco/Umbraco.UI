@@ -1,13 +1,12 @@
-import { LitElement, html, css, PropertyValues } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators';
-import { UUITabEvent } from './UUITabEvent';
-
-let TabKeyCounter = 0;
+import { ActiveMixin } from '../../mixins/ActiveMixin';
+import { LabelMixin } from '../../mixins/LabelMixin';
 
 /**
  *  @element uui-editor-tab
  */
-export class UUITabElement extends LitElement {
+export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
       button {
@@ -17,10 +16,12 @@ export class UUITabElement extends LitElement {
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 4px 20px 0 20px;
+        padding: var(--uui-size-space-2) var(--uui-size-space-4)
+          var(--uui-size-space-1) var(--uui-size-space-4);
         border: none;
         box-sizing: border-box;
-        height: 75px;
+        min-height: 32px;
+        max-height: 75px;
         min-width: 75px;
         background-color: var(--uui-interface-surface);
         color: var(--uui-interface-contrast);
@@ -29,14 +30,23 @@ export class UUITabElement extends LitElement {
         transition: background-color 80ms;
       }
 
-      button:hover {
+      :host(:not([active]):not([disabled])) button:hover {
         background-color: var(--uui-interface-surface-hover);
         color: var(--uui-interface-contrast-hover);
       }
 
-      button:active {
+      :host(:not([active]):not([disabled])) button:active {
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      :host([active]) button {
+        color: var(--uui-interface-contrast-active);
+        cursor: default;
+      }
+      :host([disabled]) button {
+        color: var(--uui-interface-contrast-disabled);
+        cursor: default;
       }
 
       button::before {
@@ -51,63 +61,52 @@ export class UUITabElement extends LitElement {
         bottom: 0;
         border-radius: 3px 3px 0 0;
         opacity: 0;
-        transition: all 0.2s linear;
+        transition: opacity ease-in 120ms, height ease-in 120ms;
       }
       button:hover::before {
         background-color: var(--uui-interface-active-hover);
       }
-
-      :host([active]) button {
-        color: var(--uui-interface-contrast-active);
-        cursor: default;
-      }
       :host([active]) button::before {
         opacity: 1;
         height: 4px;
+        transition: opacity 120ms, height ease-out 120ms;
+      }
+
+      :host([disabled]) button::before {
+        background-color: var(--uui-interface-active-disabled);
+      }
+
+      ::slotted(uui-icon) {
+        font-size: 1.5em;
+        margin-bottom: var(--uui-size-space-2);
       }
     `,
   ];
 
-  @property({ type: Boolean, attribute: 'active', reflect: true })
-  public active = false;
+  @property({ type: Boolean, reflect: true })
+  public disabled = false;
 
-  @property({ type: String })
-  public key: string | null = null;
-
-  protected firstUpdated(changes: PropertyValues): void {
-    super.firstUpdated(changes);
-    this.setAttribute('role', 'tab');
-    this.key = this.key || `uui-tab-${TabKeyCounter++}`;
+  constructor() {
+    super();
+    this.addEventListener('click', this.onHostClick);
   }
 
-  activate() {
-    this.setActive(true);
-  }
-
-  deactivate() {
-    this.setActive(false);
-  }
-
-  toggle() {
-    if (this.active === true) {
-      this.deactivate();
-      return;
+  private onHostClick(e: MouseEvent) {
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
     }
-    this.activate();
   }
 
-  async setActive(state: boolean) {
-    this.active = state;
-
-    const eventName: string = state ? 'activate' : 'deactivate';
-    const event = new UUITabEvent(eventName);
-    this.dispatchEvent(event);
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'tab');
   }
 
   render() {
     return html`
-      <button type="button" @click=${this.activate}>
-        <slot></slot>
+      <button type="button" ?disabled=${this.disabled}>
+        ${this.renderLabel()}
       </button>
     `;
   }

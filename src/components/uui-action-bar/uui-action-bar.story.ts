@@ -19,6 +19,11 @@ export const Basic = () =>
     )}</uui-action-bar
   >`;
 
+export const Single = () =>
+  html`<uui-action-bar
+    ><uui-button look="outline"><uui-icon name="delete"></uui-icon></uui-button>
+  </uui-action-bar>`;
+
 export const AllStyles = () => html`
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
