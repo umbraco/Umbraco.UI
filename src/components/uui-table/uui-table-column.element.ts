@@ -8,8 +8,4 @@ export class UUITableColumnElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html``;
-  }
 }
