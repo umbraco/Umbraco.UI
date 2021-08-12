@@ -1,5 +1,10 @@
 import { css, html, LitElement } from 'lit';
 
+/**
+ *  @element uui-table-cell
+ *  @description Table cell that detects if it has overflow and if so it'll add a title attribute to itself to display full text.
+ *  @slot for table cell content
+ */
 export class UUITableCellElement extends LitElement {
   static styles = [
     css`
@@ -39,11 +44,7 @@ export class UUITableCellElement extends LitElement {
     window.removeEventListener('resize', this.onResize);
   }
 
-  firstUpdated() {
-    this._detectOverflow();
-  }
-
   render() {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this._detectOverflow}></slot>`;
   }
 }
