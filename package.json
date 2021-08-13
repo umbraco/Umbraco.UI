@@ -85,7 +85,7 @@
   "prettier": {
     "singleQuote": true,
     "arrowParens": "avoid",
-    "jsxBracketSameLine": false
+    "jsxBracketSameLine": true
   },
   "husky": {
     "hooks": {

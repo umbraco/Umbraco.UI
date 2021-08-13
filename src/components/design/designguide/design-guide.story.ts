@@ -1,7 +1,6 @@
 import { html } from 'lit-html';
 import './index';
 import '../../layout/uui-lead/index';
-import '../../layout/uui-table/index';
 
 export default {
   title: 'Design',
@@ -54,8 +53,17 @@ export const DesignSystem = () => html`
     </p>
     <p>Our selection of sizes to be used in most cases:</p>
 
-    <uui-table style="width: 100%; margin-bottom: 11px;">
+    <div style="width: 100%; margin-bottom: 11px;">
       <style>
+        table {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          border: solid 1px #ddeeee;
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+
         th {
           background-color: #e7e7e7;
           border: solid 1px #e7e7e7;
@@ -165,7 +173,7 @@ export const DesignSystem = () => html`
           </tr>
         </tbody>
       </table>
-    </uui-table>
+    </div>
 
     <p>
       The first part of the selection is based on the base unit of 6, the medium
