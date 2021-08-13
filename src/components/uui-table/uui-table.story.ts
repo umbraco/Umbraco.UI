@@ -9,9 +9,21 @@ export default {
 
 export const Basic = () =>
   html`
-    <uui-table>
+    <div id="table-decription">
+      This is a table containing random Umbraco-related words with no particular
+      connection between them. Hover on overflowed element to see it's value.
+    </div>
+    <uui-table
+      aria-label="Random Umbraco Words"
+      aria-describedby="table-decription"
+    >
       <uui-table-column
         style="width: 50px; background-color: var(--uui-color-spanish-pink);"
+      >
+      </uui-table-column>
+      <uui-table-column> </uui-table-column>
+      <uui-table-column
+        style="width: 25%; background-color: yellow; font-weight: 600"
       >
       </uui-table-column>
       <uui-table-head>

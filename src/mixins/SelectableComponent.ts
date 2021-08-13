@@ -13,6 +13,12 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 ) => {
   class SelectableMixinClass extends superClass {
     private _selectable = false;
+
+    /**
+     * Set to true if you want to be able to select this particular element on.
+     * @prop
+     * @type boolean
+     * */
     @property({ type: Boolean, reflect: true })
     get selectable() {
       return this._selectable;
@@ -25,6 +31,11 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.requestUpdate('selected', oldVal);
     }
 
+    /**
+     * Attribute applied when the element is selected.
+     * @prop
+     * @type boolean
+     * */
     @property({ type: Boolean, reflect: true })
     public selected = false;
   }
