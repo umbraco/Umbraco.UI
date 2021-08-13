@@ -34,7 +34,7 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
     this.setAttribute('role', 'row');
   }
 
-  toggleSelect() {
+  protected toggleSelect() {
     if (this.selectable === false) return;
     this.selected = !this.selected;
   }
