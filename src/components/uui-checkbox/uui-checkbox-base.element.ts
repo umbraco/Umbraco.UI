@@ -8,7 +8,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
 /**
- *  @element uui-toggle
+ *  @element uui-checkbox-base
  *  @fires {UUIToggleEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
@@ -62,7 +62,7 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
 
   static readonly formAssociated = true;
 
-  private _internals;
+  readonly _internals;
   private inputRole: 'checkbox' | 'switch';
 
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
@@ -71,15 +71,18 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
     this._internals = (this as any).attachInternals();
   }
 
-  @property({ type: String })
-  form: string | null = null;
-
   @query('#input')
   protected _input!: HTMLInputElement;
 
   private _value = 'on';
 
-  @property({ reflect: true })
+  /**
+   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native <input type="checkbox"> element and its value attribute.
+   * @type {string}
+   * @attr
+   * @default ['on']
+   */
+  @property({ type: String })
   get value() {
     return this._value;
   }
@@ -87,21 +90,47 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
   set value(newVal) {
     const oldValue = this._value;
     this._value = newVal;
-    this._internals.setFormValue(this._checked ? this._value : null);
+    this._internals.setFormValue(
+      this._checked && this.name !== '' ? this._value : null
+    );
     this.requestUpdate('value', oldValue);
   }
 
+  /**
+   * This is a name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native <input type="checkbox"> element and its name attribute.
+   * @type {string}
+   * @attr
+   * @default ['']
+   */
   @property({ type: String })
   name = '';
 
+  /**
+   * Specifies the label position of the checkbox or the toggle
+   * @type {'left' | 'right' | 'top' | 'bottom'}
+   * @attr label-position
+   * @default ['right']
+   */
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'right';
 
+  /**
+   * Set to true to hide the labeling provided by the component.
+   * @type {boolean}
+   * @attr hide-label
+   * @default [false]
+   */
   @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
 
   private _checked = false;
 
+  /**
+   * Reflects the state of the element. True if checkbox or toggle is checked. Change this to switch the state programatically.
+   * @type {boolean}
+   * @attr
+   * @default [false]
+   */
   @property({ type: Boolean, reflect: true })
   get checked() {
     return this._checked;
@@ -114,6 +143,12 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
     this.requestUpdate('checked', oldValue);
   }
 
+  /**
+   * Reflects the disabled state of the element. True if checkbox or toggle is disabled. Change this to switch the state programatically.
+   * @type {boolean}
+   * @attr
+   * @default [false]
+   */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 

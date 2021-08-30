@@ -7,10 +7,10 @@ import { iconCheck } from './checkbox-icons';
 import { UUICheckboxBaseElement } from './uui-checkbox-base.element';
 
 /**
- *  @element uui-toggle
+ *  @element uui-checkbox
  *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
- *  @description - A Umbraco Toggle-switch, toggles between off/on
+ *  @description - A Umbraco checkbox, toggles between checked
  */
 export class UUICheckboxElement extends UUICheckboxBaseElement {
   static styles = [
