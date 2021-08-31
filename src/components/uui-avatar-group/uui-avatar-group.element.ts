@@ -64,7 +64,7 @@ export class UUIAvatarGroupElement extends LitElement {
   }
 
   get shouldShowLimitNumber() {
-    return this.avatarArray.length > this._limit;
+    return this._limit !== 0 && this.avatarArray.length > this._limit;
   }
 
   private onSlotChange() {
