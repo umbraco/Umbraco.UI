@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, state } from 'lit/decorators';
+import { property, query, queryAssignedNodes, state } from 'lit/decorators';
 import { UUIAvatarElement } from '../uui-avatar/uui-avatar.element';
 
 /**
@@ -29,34 +29,33 @@ export class UUIAvatarGroupElement extends LitElement {
   ];
 
   @property({ type: Number, attribute: true })
-  get() {
+  get limit() {
     return this._limit;
   }
-  set(value: number) {
-    this._limit = value;
+  set limit(newVal: number) {
+    const oldVal = this._limit;
+    this._limit = newVal;
     this.updateAvatarVisibility();
+    this.requestUpdate('value', oldVal);
   }
+  private _limit = 0;
 
   @property({ type: String }) borderColor = 'white';
 
-  @state() _limit = 0;
-
-  @state()
-  private avatars: UUIAvatarElement[] = [];
+  @state() avatarArray: UUIAvatarElement[] = [];
 
   @query('slot')
   protected avatarsSlot!: HTMLSlotElement;
 
-  private queryAvatars(): void {
-    this.avatars = (this.avatarsSlot as HTMLSlotElement)
-      .assignedElements({ flatten: true })
-      .filter((e: Node) => e instanceof UUIAvatarElement) as UUIAvatarElement[];
+  @queryAssignedNodes(undefined, true, 'uui-avatar')
+  private avatarNodes?: UUIAvatarElement[];
 
-    this.updateAvatarVisibility();
+  firstUpdated() {
+    this.setAvatarArray();
   }
 
   private updateAvatarVisibility() {
-    this.avatars.forEach((avatar: UUIAvatarElement, index: number) => {
+    this.avatarArray.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
       avatar.style.border = `0.1em solid ${this.borderColor}`;
       avatar.style.display =
@@ -64,20 +63,25 @@ export class UUIAvatarGroupElement extends LitElement {
     });
   }
 
-  updated() {
+  get shouldShowLimitNumber() {
+    return this.avatarArray.length > this._limit;
+  }
+
+  private onSlotChange() {
+    this.setAvatarArray();
     this.updateAvatarVisibility();
   }
 
-  firstUpdated() {
-    this.queryAvatars();
+  private setAvatarArray() {
+    this.avatarArray = this.avatarNodes ? this.avatarNodes : [];
   }
 
   render() {
     return html`
-      <slot @slotchange=${this.queryAvatars}></slot>
-      ${this._limit !== 0 && this.avatars.length > this._limit
+      <slot @slotchange=${this.onSlotChange}></slot>
+      ${this.shouldShowLimitNumber
         ? html`<small id="overflow-indication"
-            >+${this.avatars.length - this._limit}</small
+            >+${this.avatarArray.length - this._limit}</small
           >`
         : ''}
     `;
