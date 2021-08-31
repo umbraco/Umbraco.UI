@@ -1,14 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, query, state } from 'lit/decorators';
-import {
-  UUIAvatarElement,
-  AvatarSizeType,
-  AvatarSizeDefaultValue,
-} from '../uui-avatar/uui-avatar.element';
-import {
-  InterfaceLookType,
-  InterfaceLookDefaultValue,
-} from '../../type/InterfaceLook';
+import { UUIAvatarElement } from '../uui-avatar/uui-avatar.element';
 
 /**
  *  @element uui-avatar-group
@@ -26,8 +18,8 @@ export class UUIAvatarGroupElement extends LitElement {
 
       ::slotted(uui-avatar),
       uui-avatar {
-        margin-left: -3px;
-        margin-right: -3px;
+        margin-left: -0.2em;
+        margin-right: -0.2em;
       }
 
       #overflow-indication {
@@ -37,10 +29,17 @@ export class UUIAvatarGroupElement extends LitElement {
   ];
 
   @property({ type: Number, attribute: true })
-  limit = 0;
+  get() {
+    return this._limit;
+  }
+  set(value: number) {
+    this._limit = value;
+    this.updateAvatarVisibility();
+  }
 
-  @property({ type: String, attribute: true })
-  public size: AvatarSizeType = AvatarSizeDefaultValue;
+  @property({ type: String }) borderColor = 'white';
+
+  @state() _limit = 0;
 
   @state()
   private avatars: UUIAvatarElement[] = [];
@@ -53,27 +52,32 @@ export class UUIAvatarGroupElement extends LitElement {
       .assignedElements({ flatten: true })
       .filter((e: Node) => e instanceof UUIAvatarElement) as UUIAvatarElement[];
 
-    this.toggleAvatarVisibility();
+    this.updateAvatarVisibility();
   }
 
-  private toggleAvatarVisibility() {
+  private updateAvatarVisibility() {
     this.avatars.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
+      avatar.style.border = `0.1em solid ${this.borderColor}`;
       avatar.style.display =
-        avatarNumber <= this.limit || this.limit === 0 ? '' : 'none';
+        avatarNumber <= this._limit || this._limit === 0 ? '' : 'none';
     });
   }
 
   updated() {
-    this.toggleAvatarVisibility();
+    this.updateAvatarVisibility();
+  }
+
+  firstUpdated() {
+    this.queryAvatars();
   }
 
   render() {
     return html`
       <slot @slotchange=${this.queryAvatars}></slot>
-      ${this.limit !== 0 && this.avatars.length > this.limit
+      ${this._limit !== 0 && this.avatars.length > this._limit
         ? html`<small id="overflow-indication"
-            >+${this.avatars.length - this.limit}</small
+            >+${this.avatars.length - this._limit}</small
           >`
         : ''}
     `;
