@@ -24,9 +24,7 @@ const tag = unsafeStatic(tagName);
 describe('UUI Boolean input base class', () => {
   let element: any;
   beforeEach(async () => {
-    element = await fixture(
-      html`<${tag}> label="test label" ><${tag} /></${tag}>`
-    );
+    element = await fixture(html`<${tag} label="test label"></${tag}>`);
   });
 
   it('exists', () => {
@@ -53,69 +51,59 @@ describe('UUI Boolean input base class', () => {
   });
 });
 
-// describe('UuiToggle in a Form', () => {
-//   let formElement: HTMLFormElement;
-//   let element: BooleanInputTestElement;
-//   beforeEach(async () => {
-//     formElement = await fixture(
-//       html` <form>
-//         <uui-boolean-input-base-class-test
-//           label="test label"
-//           name="test"
-//           value="testValue"
-//         ></uui-boolean-input-base-class-test>
-//       </form>`
-//     );
-//     element = formElement.querySelector('uui-toggle') as any;
-//   });
+describe('UuiToggle in a Form', () => {
+  let formElement: HTMLFormElement;
+  let element: any;
+  beforeEach(async () => {
+    formElement = await fixture(
+      html`<form><${tag} name="test" value="testValue"
+      label="test label"></${tag}></form>`
+    );
+    element = formElement.firstChild;
+  });
 
-//   it('the form property on element internals is equal the form element', () => {
-//     expect(element._internals.form).to.be.equal(formElement);
-//   });
-//   it('form output is null if element not checked', () => {
-//     const formData = new FormData(formElement);
-//     expect(formData.get(`${element.name}`)).to.be.equal(null);
-//   });
+  it('the form property on element internals is equal the form element', () => {
+    expect(element._internals.form).to.be.equal(formElement);
+  });
+  it('form output is null if element not checked', () => {
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.be.equal(null);
+  });
 
-//   it('form output is on if element is checked and has no value attribute', () => {
-//     element.checked = true;
-//     const formData = new FormData(formElement);
-//     expect(formData.get(`${element.name}`)).to.be.equal('testValue');
-//   });
+  it('form output is equal to value if element is checked and has a value attribute', () => {
+    element.checked = true;
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.be.equal('testValue');
+  });
 
-//   it('if element has value atribute form value should be the same', () => {
-//     element.value = 'bike';
-//     element.checked = true;
-//     const formData = new FormData(formElement);
-//     expect(formData.get(`test`)).to.equal('bike');
-//   });
-// });
+  it('if element has value atribute form value should be the same', () => {
+    element.value = 'bike';
+    element.checked = true;
+    const formData = new FormData(formElement);
+    expect(formData.get(`test`)).to.equal('bike');
+  });
+});
 
-// describe('element in a Form with no attributes', () => {
-//   let formElement: HTMLFormElement;
-//   let element: BooleanInputTestElement;
-//   beforeEach(async () => {
-//     formElement = await fixture(
-//       html` <form>
-//         <uui-boolean-input-base-class-test
-//           label="test label"
-//         ></uui-boolean-input-base-class-test>
-//       </form>`
-//     );
-//     element = formElement.querySelector('uui-toggle') as any;
-//   });
+describe('element in a Form with no attributes', () => {
+  let formElement: HTMLFormElement;
+  let element: any;
+  beforeEach(async () => {
+    formElement = await fixture(
+      html`<form><${tag} label="test label"></${tag}></form>`
+    );
+    element = formElement.firstChild;
+  });
 
-//   it('element does not create form value if no name is provided', () => {
-//     element.name = '';
+  it('element does not create form value if no name is provided', () => {
+    element.name = '';
+    element.checked = true;
+    const formData = new FormData(formElement);
+    const formDataKeys: Array<any> = [];
 
-//     element.checked = true;
+    formData.forEach(key => {
+      formDataKeys.push(key);
+    });
 
-//     const formData = new FormData(formElement);
-//     const formDataKeys: Array<any> = [];
-//     formData.forEach(key => {
-//       formDataKeys.push(key);
-//     });
-
-//     expect(formDataKeys.length).to.equal(0);
-//   });
-// });
+    expect(formDataKeys.length).to.equal(0);
+  });
+});
