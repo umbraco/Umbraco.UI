@@ -28,6 +28,12 @@ export class UUIAvatarGroupElement extends LitElement {
     `,
   ];
 
+  /**
+   * This sets a limit of how many avatars can be shown. It will ad a +{number} after the avatars to show the number of hidden avatars.
+   * @type {Number}
+   * @attr
+   * @default [0]
+   */
   @property({ type: Number, attribute: true })
   get limit() {
     return this._limit;
@@ -40,9 +46,15 @@ export class UUIAvatarGroupElement extends LitElement {
   }
   private _limit = 0;
 
+  /**
+   * This sets the color of the borders around the avatars, usually set this to the color of the background of the element the group is on. Change to "transparent" if you dont want a border.
+   * @type {String}
+   * @attr
+   * @default ['white']
+   */
   @property({ type: String }) borderColor = 'white';
 
-  @state() avatarArray: UUIAvatarElement[] = [];
+  @state() private avatarArray: UUIAvatarElement[] = [];
 
   @query('slot')
   protected avatarsSlot!: HTMLSlotElement;
@@ -63,7 +75,7 @@ export class UUIAvatarGroupElement extends LitElement {
     });
   }
 
-  get shouldShowLimitNumber() {
+  shouldShowLimitNumber() {
     return this._limit !== 0 && this.avatarArray.length > this._limit;
   }
 
@@ -79,7 +91,7 @@ export class UUIAvatarGroupElement extends LitElement {
   render() {
     return html`
       <slot @slotchange=${this.onSlotChange}></slot>
-      ${this.shouldShowLimitNumber
+      ${this.shouldShowLimitNumber()
         ? html`<small id="overflow-indication"
             >+${this.avatarArray.length - this._limit}</small
           >`
