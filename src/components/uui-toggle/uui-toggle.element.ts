@@ -6,13 +6,13 @@ import {
 import { iconWrong, iconCheck } from './toggle-icons';
 import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
-// TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
-
 /**
  *  @element uui-toggle
  *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
+ * @cssprop --uui-toggle-size - Define the toggle size.
+ * @cssprop --uui-toggle-switch-width - Define the slider width.
  */
 export class UUIToggleElement extends UUIBooleanInputBaseElement {
   static styles = [
@@ -22,9 +22,6 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
       :host {
         --uui-toggle-size: 18px;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
-        /*
-        --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
-        */
       }
 
       #slider {
@@ -100,7 +97,7 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
         fill: var(--uui-interface-select-contrast);
       }
 
-      #slider:after {
+      #slider::after {
         content: '';
         position: absolute;
         top: 2px;
@@ -113,12 +110,12 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
           background-color 120ms;
       }
 
-      input:checked + #slider:after {
+      input:checked + #slider::after {
         left: calc(100% - 2px);
         transform: translateX(-100%);
       }
 
-      :host(:not([disabled])) label:active #slider:after {
+      :host(:not([disabled])) label:active #slider::after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
       }
@@ -129,7 +126,7 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
       :host([disabled]) input:checked + #slider {
         background-color: var(--uui-interface-select-disabled);
       }
-      :host([disabled]) #slider:after {
+      :host([disabled]) #slider::after {
         background-color: var(--uui-interface-surface-disabled);
       }
       :host([disabled]) #slider #icon-wrong {
@@ -141,13 +138,6 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
       :host([disabled]) input:checked + #slider #icon-check {
         fill: var(--uui-interface-select-contrast-disabled);
       }
-
-      /*
-      input:focus + #slider,
-      input:not([disabled]) + label:active #slider {
-        box-shadow: var(--uui-toggle-focus-outline);
-      }
-      */
     `,
   ];
 

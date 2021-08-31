@@ -11,6 +11,7 @@ import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-inp
  *  @fires {UUIBooleanInputBaseEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco checkbox, toggles between checked
+ *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
  */
 export class UUICheckboxElement extends UUIBooleanInputBaseElement {
   static styles = [
@@ -19,9 +20,6 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
     css`
       :host {
         --uui-checkbox-size: 18px;
-        /*
-        --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
-        */
       }
 
       #ticker {
@@ -89,9 +87,7 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
         opacity: 0;
       }
 
-      /** before? */
-
-      #ticker:before {
+      #ticker::before {
         content: '';
         position: absolute;
         top: 0;
@@ -106,11 +102,11 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
         transform: scale(0);
         opacity: 0;
       }
-      label:hover input:checked:not([disabled]) + #ticker:before {
+      label:hover input:checked:not([disabled]) + #ticker::before {
         background-color: var(--uui-interface-chosen-hover);
       }
 
-      input:checked + #ticker:before {
+      input:checked + #ticker::before {
         transform: scale(1);
         opacity: 1;
       }
@@ -121,7 +117,7 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
         background-color: var(--uui-interface-chosen-focus);
       }
 
-      :host(:not([disabled])) label:active input:checked + #ticker:before {
+      :host(:not([disabled])) label:active input:checked + #ticker::before {
         /** Stretch when mouse down */
         transform: scale(0.9);
       }
@@ -144,13 +140,6 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
       :host([disabled]) input:checked + #ticker #icon-check {
         fill: var(--uui-interface-chosen-contrast-disabled);
       }
-
-      /*
-      input:focus + #slider,
-      input:not([disabled]) + label:active #slider {
-        box-shadow: var(--uui-toggle-focus-outline);
-      }
-      */
     `,
   ];
 
@@ -164,5 +153,3 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
     `;
   }
 }
-
-//

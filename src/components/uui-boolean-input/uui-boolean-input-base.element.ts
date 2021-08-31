@@ -8,7 +8,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
 /**
- * Base class wrapping native <input type="checkbox"/>. Use if you need a boolean input.
+ * Base class wrapping native <input type="checkbox"/>. Use if you need a boolean input. Chenge the role of the input by passing a 'checkbox' || 'switch' to the super() when extending this class. Default is checkbox.
  * @extends LabelMixin
  */
 export abstract class UUIBooleanInputBaseElement extends LabelMixin(
@@ -78,7 +78,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native <input type="checkbox"> element and its value attribute.
    * @type {string}
    * @attr
-   * @default ['on']
+   * @default 'on'
    */
   @property({ type: String })
   get value() {
@@ -98,7 +98,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * This is a name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native <input type="checkbox"> element and its name attribute.
    * @type {string}
    * @attr
-   * @default ['']
+   * @default ''
    */
   @property({ type: String })
   name = '';
@@ -107,7 +107,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * Specifies the label position of the checkbox or the toggle
    * @type {'left' | 'right' | 'top' | 'bottom'}
    * @attr label-position
-   * @default ['right']
+   * @default 'right'
    */
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'right';
@@ -116,7 +116,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * Set to true to hide the labeling provided by the component.
    * @type {boolean}
    * @attr hide-label
-   * @default [false]
+   * @default false
    */
   @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
@@ -127,7 +127,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * Reflects the state of the element. True if checkbox or toggle is checked. Change this to switch the state programatically.
    * @type {boolean}
    * @attr
-   * @default [false]
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   get checked() {
@@ -145,7 +145,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * Reflects the disabled state of the element. True if checkbox or toggle is disabled. Change this to switch the state programatically.
    * @type {boolean}
    * @attr
-   * @default [false]
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -176,5 +176,3 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     `;
   }
 }
-
-//

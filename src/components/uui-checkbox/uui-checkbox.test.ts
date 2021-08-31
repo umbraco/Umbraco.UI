@@ -6,13 +6,11 @@ describe('UuiToggle', () => {
   let element: UUICheckboxElement;
   let input: HTMLInputElement | null | undefined;
   let iconCheck: HTMLElement;
-  let ticker: HTMLElement;
   beforeEach(async () => {
     element = await fixture(
       html` <uui-checkbox label="test label" name="test"></uui-checkbox> `
     );
     input = element.shadowRoot?.querySelector('#input');
-    ticker = element.shadowRoot?.querySelector('#ticker') as HTMLElement;
     iconCheck = element.shadowRoot?.querySelector('#icon-check') as HTMLElement;
   });
 
@@ -29,6 +27,4 @@ describe('UuiToggle', () => {
     await elementUpdated(element);
     expect(window.getComputedStyle(iconCheck as Element).opacity).to.equal('1');
   });
-
-  //test label text in the dom with slots way to
 });
