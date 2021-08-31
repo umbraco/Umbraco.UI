@@ -52,11 +52,11 @@ export class UUIAvatarGroupElement extends LitElement {
     this.avatars = (this.avatarsSlot as HTMLSlotElement)
       .assignedElements({ flatten: true })
       .filter((e: Node) => e instanceof UUIAvatarElement) as UUIAvatarElement[];
-
     this.toggleAvatarVisibility();
   }
 
   private toggleAvatarVisibility() {
+    // console.log(this.avatars);
     this.avatars.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
       avatar.style.display =
@@ -64,13 +64,25 @@ export class UUIAvatarGroupElement extends LitElement {
     });
   }
 
-  updated() {
+  firstUpdated() {
+    this.queryAvatars();
     this.toggleAvatarVisibility();
+    console.log(this.avatars, 'first updated');
+  }
+
+  updated() {
+    console.log(this.avatars, 'updated');
+
+    this.toggleAvatarVisibility();
+  }
+
+  onslotchange() {
+    console.log(this.avatars, 'onslotchange');
   }
 
   render() {
     return html`
-      <slot @slotchange=${this.queryAvatars}></slot>
+      <slot @slotchange=${this.onslotchange}></slot>
       ${this.limit !== 0 && this.avatars.length > this.limit
         ? html`<small id="overflow-indication"
             >+${this.avatars.length - this.limit}</small
