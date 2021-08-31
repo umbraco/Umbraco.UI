@@ -31,11 +31,11 @@ describe('UUI Boolean input base class', () => {
     expect(element).to.exist;
   });
 
-  //   it('extends the correct base class', () => {
-  //     expect(
-  //       BooleanInputTestElement.prototype instanceof UUIBooleanInputBaseElement
-  //     ).to.be.true;
-  //   });
+  it('renders all the elements to shadow dom', () => {
+    expect(element).shadowDom.to.equal(
+      ` <label><input aria-checked="false" aria-label="test label" id="input" role="checkbox" type="checkbox"><div id="testCheckbox"></div><span class="label">test label</span><slot class="label" name="" style="visibility: hidden"></slot></label>`
+    );
+  });
 
   it('has internals', async () => {
     await expect(element).to.have.property('_internals');
