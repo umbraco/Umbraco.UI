@@ -1,19 +1,17 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators';
 import { LabelMixin } from '../../mixins/LabelMixin';
-import { UUICheckboxEvent } from './UUICheckboxEvent';
+import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
 /**
- *  @element uui-checkbox-base
- *  @fires {UUIToggleEvent} change - fires when the element is begin checked by a user action
- *  @slot - to overwrite displayed label content
- *  @description - A Umbraco Toggle-switch, toggles between off/on
+ * Base class wrapping native <input type="checkbox"/>. Use if you need a boolean input.
+ * @extends LabelMixin
  */
-export abstract class UUICheckboxBaseElement extends LabelMixin(
+export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   '',
   LitElement
 ) {
@@ -153,7 +151,7 @@ export abstract class UUICheckboxBaseElement extends LabelMixin(
   disabled = false;
 
   private _onInputChange() {
-    this.dispatchEvent(new UUICheckboxEvent(UUICheckboxEvent.CHANGE));
+    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
     this.checked = this._input.checked;
   }
 

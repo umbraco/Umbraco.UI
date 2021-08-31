@@ -4,17 +4,17 @@ import {
   UUIHorizontalShakeAnimationValue,
 } from '../../animations/uui-shake';
 import { iconCheck } from './checkbox-icons';
-import { UUICheckboxBaseElement } from './uui-checkbox-base.element';
+import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
 /**
  *  @element uui-checkbox
- *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
+ *  @fires {UUIBooleanInputBaseEvent} change - fires when the element is begin checked by a user action
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco checkbox, toggles between checked
  */
-export class UUICheckboxElement extends UUICheckboxBaseElement {
+export class UUICheckboxElement extends UUIBooleanInputBaseElement {
   static styles = [
-    ...UUICheckboxBaseElement.styles,
+    ...UUIBooleanInputBaseElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {

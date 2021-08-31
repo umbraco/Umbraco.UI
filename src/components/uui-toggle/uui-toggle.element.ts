@@ -4,7 +4,7 @@ import {
   UUIHorizontalShakeAnimationValue,
 } from '../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
-import { UUICheckboxBaseElement } from '../uui-checkbox/uui-checkbox-base.element';
+import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
 // TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
 
@@ -14,9 +14,9 @@ import { UUICheckboxBaseElement } from '../uui-checkbox/uui-checkbox-base.elemen
  *  @slot - to overwrite displayed label content
  *  @description - A Umbraco Toggle-switch, toggles between off/on
  */
-export class UUIToggleElement extends UUICheckboxBaseElement {
+export class UUIToggleElement extends UUIBooleanInputBaseElement {
   static styles = [
-    ...UUICheckboxBaseElement.styles,
+    ...UUIBooleanInputBaseElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {

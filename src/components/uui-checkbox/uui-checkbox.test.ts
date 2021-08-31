@@ -66,16 +66,17 @@ describe('UuiChebox in a Form', () => {
   });
 });
 
-describe('UuiToggle in a Form with no attributes', () => {
+describe('UuiCheckbox in a Form with no attributes', () => {
   let formElement: HTMLFormElement;
   let element: UUICheckboxElement;
+
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
         <uui-checkbox label="test label"></uui-checkbox>
       </form>`
     );
-    element = formElement.querySelector('uui-toggle') as any;
+    element = formElement.querySelector('uui-checkbox') as any;
   });
 
   it('element does not create form value if no name is provided', () => {
