@@ -138,6 +138,14 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
       :host([disabled]) input:checked + #slider #icon-check {
         fill: var(--uui-interface-select-contrast-disabled);
       }
+
+      :host([error]) #slider {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
+      :host([error]) label:hover #slider {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
     `,
   ];
 
