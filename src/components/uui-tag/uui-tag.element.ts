@@ -10,7 +10,9 @@ import { Size } from '../../type/Size';
 /**
  *  @element uui-tag
  *  @slot - for tag contents
- *  @description
+ *  @description Tag component from Umbraco UI components library.
+ *  @cssprop --uui-tag-font-size - Define the components font size.
+ * @cssprop --uui-tag-size-unit - Base unit for components padding and mnargin
  */
 export class UUITagElement extends LitElement {
   static styles = [
@@ -72,13 +74,25 @@ export class UUITagElement extends LitElement {
     ),
   ];
 
-  @property({ attribute: true })
+  /**
+   * Defines the size of the tag.
+   * @type {'xs' | 's' | 'm' | 'l' | 'xl'}
+   * @attr
+   * @default m
+   */
+  @property({ reflect: true })
   public size: Size = 'm';
 
-  @property({ attribute: true })
+  /**
+   * Defines the look of the tag.
+   * @type {'primary'|'secondary'|'outline'|'placeholder'|'positive'|'warning'|'danger'}
+   * @attr
+   * @default ''
+   */
+  @property({ reflect: true })
   public look: InterfaceLookType = InterfaceLookDefaultValue;
 
   render() {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
