@@ -24,10 +24,12 @@ const tag = unsafeStatic(tagName);
 
 describe('UUI Boolean input base class', () => {
   let element: any;
+  let label: HTMLLabelElement;
   let input: HTMLInputElement | null | undefined;
   beforeEach(async () => {
     element = await fixture(html`<${tag} label="test label"></${tag}>`);
     input = element.shadowRoot?.querySelector('#input');
+    label = element.shadowRoot?.querySelector('label') as HTMLLabelElement;
   });
 
   it('exists', () => {
@@ -57,16 +59,23 @@ describe('UUI Boolean input base class', () => {
     await expect(input).to.exist;
   });
 
-  it('if disabled disables the native input', async () => {
+  it('if disabled, disables the native input', async () => {
     element.disabled = true;
     await elementUpdated(element);
     expect(input?.disabled).to.equal(true);
   });
 
-  it('if checked checks the native input', async () => {
+  it('if checked, checks the native input', async () => {
     element.checked = true;
     await elementUpdated(element);
     expect(input?.checked).to.equal(true);
+  });
+
+  it('emits an event when the input changes', async () => {
+    let clicked = false;
+    element.addEventListener('change', () => (clicked = true));
+    label.click();
+    expect(clicked).to.equal(true);
   });
 });
 
