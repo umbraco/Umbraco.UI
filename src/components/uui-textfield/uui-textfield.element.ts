@@ -185,7 +185,7 @@ export class UUITextFieldElement extends LabelMixin(
    * This property specifies the type of input that will be rendered.
    * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
    * @attr
-   * @default false
+   * @default text
    */
   @property({ type: String })
   type: TextFieldType = 'text';
