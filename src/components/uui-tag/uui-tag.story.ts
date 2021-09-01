@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import './index';
+import { InterfaceLookNames } from './../../type/InterfaceLook';
 
 export default {
   title: 'Misc/Tag',
@@ -8,27 +9,18 @@ export default {
 
 export const Basic = () => html` <uui-tag>Hello</uui-tag> `;
 
-export const Overview = () =>
+export const Looks = () =>
+  html`${InterfaceLookNames.map(
+    look => html`<uui-tag size="m" look="${look}">${look}</uui-tag>`
+  )} `;
+
+export const Sizes = () =>
   html`
-    <uui-tag>Hello</uui-tag>
-    <br />
-    <uui-tag size="xs" look="primary">extra small danger</uui-tag>
-    <uui-tag size="s" look="primary">small danger</uui-tag>
-    <uui-tag size="m" look="primary">medium danger</uui-tag>
-    <uui-tag size="l" look="primary">large danger</uui-tag>
-    <uui-tag size="xl" look="primary">extra large danger</uui-tag>
-    <br />
-    <uui-tag size="xs" look="danger">extra small danger</uui-tag>
-    <uui-tag size="s" look="danger">small danger</uui-tag>
-    <uui-tag size="m" look="danger">medium danger</uui-tag>
-    <uui-tag size="l" look="danger">large danger</uui-tag>
-    <uui-tag size="xl" look="danger">extra large danger</uui-tag>
-    <br />
-    <uui-tag size="xs" look="positive">extra small positive</uui-tag>
-    <uui-tag size="s" look="positive">small positive</uui-tag>
-    <uui-tag size="m" look="positive">medium positive</uui-tag>
-    <uui-tag size="l" look="positive">large positive</uui-tag>
-    <uui-tag size="xl" look="positive">extra large positive</uui-tag>
+    <uui-tag size="xs" look="primary">extra small</uui-tag>
+    <uui-tag size="s" look="primary">small</uui-tag>
+    <uui-tag size="m" look="primary">medium</uui-tag>
+    <uui-tag size="l" look="primary">large</uui-tag>
+    <uui-tag size="xl" look="primary">extra large</uui-tag>
   `;
 
 export const WithButton = () =>
@@ -40,6 +32,20 @@ export const WithButton = () =>
         look="primary"
         compact
         style="margin-right:-10px; --uui-button-height:2em;"
+      >
+        <uui-icon
+          svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M401.431 167.814l-58.757-58.76-88.029 88.026-88.028-88.026-58.76 58.76 88.026 88.027-88.026 88.024 58.76 58.768 88.028-88.031 88.029 88.031 58.757-58.768-88.027-88.024z"/></svg>'
+        ></uui-icon>
+      </uui-button>
+    </uui-tag>
+    <br />
+    <uui-tag look="danger" size="m">
+      <span>Hello</span>
+      <uui-button
+        label="delete this"
+        look="danger"
+        compact
+        style="margin-right:-10px; --uui-button-height:1em;"
       >
         <uui-icon
           svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M401.431 167.814l-58.757-58.76-88.029 88.026-88.028-88.026-58.76 58.76 88.026 88.027-88.026 88.024 58.76 58.768 88.028-88.031 88.029 88.031 58.757-58.768-88.027-88.024z"/></svg>'
