@@ -106,6 +106,14 @@ export class UUITextFieldElement extends LabelMixin(
         font-size: var(--uui-type-small-size, 12px);
         line-height: calc(var(--uui-size-base-unit) * 3);
       }
+
+      :host([error]) input {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
+      :host([error]) input[disabled] {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
     `,
   ];
 

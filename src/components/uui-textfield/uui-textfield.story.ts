@@ -21,6 +21,17 @@ export const Disabled = () =>
     ></uui-textfield>
   `;
 
+export const Error = () =>
+  html`
+    <uui-textfield value="Hello" label="Error" error></uui-textfield>
+    <uui-textfield
+      value="Hello"
+      label="Error Disabled"
+      .disabled=${true}
+      error
+    ></uui-textfield>
+  `;
+
 export const Placeholder = () =>
   html`
     <uui-textfield
