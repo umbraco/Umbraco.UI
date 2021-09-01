@@ -122,6 +122,21 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
         transform: scale(0.9);
       }
 
+      :host([error]) #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
+      :host([error]) label:hover #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
+      :host([error]) label:hover input:checked:not([disabled]) + #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+      :host([error]) label:focus input:checked + #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
       :host([disabled]) #ticker {
         background-color: var(--uui-interface-surface-disabled);
       }

@@ -70,6 +70,24 @@ export const Disabled = () => html`
   ></uui-checkbox>
 `;
 
+export const Error = () => html`
+  <uui-checkbox .label=${'Checkbox label'} error></uui-checkbox>
+  <uui-checkbox
+    error
+    .label=${'Checkbox label'}
+    style="margin-left: 20px;"
+    checked
+  ></uui-checkbox>
+  <uui-checkbox disabled .label=${'Checkbox label'} error></uui-checkbox>
+  <uui-checkbox
+    error
+    disabled
+    .label=${'Checkbox label'}
+    style="margin-left: 20px;"
+    checked
+  ></uui-checkbox>
+`;
+
 export const InAForm = () => html`
   <form action="">
     <uui-checkbox .label=${'Checkbox label'}></uui-checkbox>
