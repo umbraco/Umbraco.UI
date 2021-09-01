@@ -4,13 +4,23 @@ import '.';
 
 describe('UuiTextfield', () => {
   let element: UUITextFieldElement;
+  let input: HTMLInputElement;
   beforeEach(async () => {
     element = await fixture(
       html` <uui-textfield label="a textfield label"></uui-textfield> `
     );
+    input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
   it('test that disable works', async () => {
-    return true;
+    element.disabled = true;
+    await elementUpdated(element);
+    expect(input.disabled).to.be.true;
+  });
+
+  it('changes the value to the input value when input event is emited', async () => {
+    input.value = 'test value';
+    input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    expect(element.value).to.equal('test value');
   });
 });
 

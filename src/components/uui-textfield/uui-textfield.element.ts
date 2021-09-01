@@ -200,15 +200,6 @@ export class UUITextFieldElement extends LabelMixin(
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
-    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.INPUT));
-  }
-
-  private onChange() {
-    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.CHANGE));
-  }
-
-  private onKeyup() {
-    this.dispatchEvent(new UUITextFieldEvent(UUITextFieldEvent.KEYUP));
   }
 
   render() {
@@ -219,10 +210,8 @@ export class UUITextFieldElement extends LabelMixin(
         .name=${this.name}
         placeholder=${this.placeholder}
         aria-label=${this.label}
-        ?disabled=${this.disabled}
+        .disabled=${this.disabled}
         @input=${this.onInput}
-        @change=${this.onChange}
-        @keyup=${this.onKeyup}
       />
       ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
