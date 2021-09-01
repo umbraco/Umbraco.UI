@@ -121,6 +121,15 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
 
+  /**
+   * Set to true if the component should have an error state.Property is reflected to the coresponding attribute.
+   * @type {boolean}
+   * @attr error
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
   private _checked = false;
 
   /**
