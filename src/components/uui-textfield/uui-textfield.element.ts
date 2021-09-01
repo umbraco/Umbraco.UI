@@ -23,8 +23,8 @@ export type TextFieldType =
  * @slot textfield label - for the input label text.
  * @description - Custom element wrappicng the native <input> element.
  * @fires UUITextFieldEvent#change on change
- * @fires UUITextFieldEvent#input on input
- * @fires UUITextFieldEvent#keyup on keyup
+ * @fires InputEvent#input on input
+ * @fires KeyboardEvent#keyup on keyup
  */
 export class UUITextFieldElement extends LabelMixin(
   'textfield label',
@@ -202,6 +202,12 @@ export class UUITextFieldElement extends LabelMixin(
     this.value = (e.target as HTMLInputElement).value;
   }
 
+  private onChange() {
+    this.dispatchEvent(
+      new UUITextFieldEvent(UUITextFieldEvent.CHANGE, { bubbles: true })
+    );
+  }
+
   render() {
     return html`
       <input
@@ -212,6 +218,7 @@ export class UUITextFieldElement extends LabelMixin(
         aria-label=${this.label}
         .disabled=${this.disabled}
         @input=${this.onInput}
+        @change=${this.onChange}
       />
       ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
