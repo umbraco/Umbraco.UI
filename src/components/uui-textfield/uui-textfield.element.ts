@@ -18,7 +18,13 @@ export type TextFieldType =
   | 'color';
 
 /**
- *  @element uui-textfield
+ * @element uui-textfield
+ * @extends LabelMixin(LitElement)
+ * @slot textfield label - for the input label text.
+ * @description - Custom element wrappicng the native <input> element.
+ * @fires UUITextFieldEvent#change on change
+ * @fires UUITextFieldEvent#input on input
+ * @fires UUITextFieldEvent#keyup on keyup
  */
 export class UUITextFieldElement extends LabelMixin(
   'textfield label',
@@ -112,12 +118,21 @@ export class UUITextFieldElement extends LabelMixin(
     this._internals = (this as any).attachInternals();
   }
 
-  @property()
-  label = '';
-
+  /**
+   * Defins the input placeholder.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property()
   placeholder = '';
 
+  /**
+   * Disables the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
@@ -130,36 +145,50 @@ export class UUITextFieldElement extends LabelMixin(
   @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
 
-  // firstUpdated() {
-  //   if (!this.label) {
-  //     console.warn(this.tagName + ' needs a `label`');
-  //   }
-  // }
-
   @state()
-  private _value: FormDataEntryValue = '';
+  private _value = '';
 
+  /**
+   * This is a value property of the uui-textfield.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property()
   get value() {
     return this._value;
   }
   set value(newValue) {
     this._value = newValue;
-    /*
-    this.valid = !!this.value;
-    if (this.valid) {
-      this._internals.setValidity({});
-    } else {
-      this._internals.setValidity({ customError: true }, 'Cannot be empty');
-    }
-    */
     this._internals.setFormValue(this._value);
   }
 
-  @property({ type: String }) type: TextFieldType = 'text';
+  /**
+   * This is a name property of the uui-textfield component. It reflects the behaviour of the native <input> element and its name attribute.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  name = '';
 
+  /**
+   * Set to true if the component should have an error state.Property is reflected to the coresponding attribute.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
-  private valid = true;
+  error = false;
+
+  /**
+   * This property specifies the type of input that will be rendered.
+   * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
+   * @attr
+   * @default false
+   */
+  @property({ type: String })
+  type: TextFieldType = 'text';
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
@@ -177,8 +206,9 @@ export class UUITextFieldElement extends LabelMixin(
   render() {
     return html`
       <input
-        type="${this.type}"
-        value=${this.value}
+        .type=${this.type}
+        .value=${this.value}
+        .name=${this.name}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         ?disabled=${this.disabled}

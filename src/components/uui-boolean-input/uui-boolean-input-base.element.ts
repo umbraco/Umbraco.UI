@@ -10,6 +10,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 /**
  * Base class wrapping native <input type="checkbox"/>. Use if you need a boolean input. Chenge the role of the input by passing a 'checkbox' || 'switch' to the super() when extending this class. Default is checkbox.
  * @extends LabelMixin
+ * @fires UUIBooleanInputEvent#change on change
  */
 export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   '',
