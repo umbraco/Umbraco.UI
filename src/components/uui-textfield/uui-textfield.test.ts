@@ -22,6 +22,15 @@ describe('UuiTextfield', () => {
     input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
     expect(element.value).to.equal('test value');
   });
+
+  it('emits a change event when native input fires one', async () => {
+    let event: Event | null = null;
+    element.addEventListener('change', e => (event = e));
+    input.dispatchEvent(
+      new Event('change', { bubbles: true, composed: false })
+    );
+    expect(event!.target).to.equal(element);
+  });
 });
 
 describe('UuiTextfield with label', () => {
