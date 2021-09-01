@@ -2,6 +2,11 @@ import { css, html, LitElement } from 'lit';
 import { queryAssignedNodes } from 'lit/decorators';
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
+/**
+ *  @element uui-breadcrumbs
+ *  @slot - to display nested breadcrumb items
+ *  @description - A breadcrumbs component to be used in combination with breadcrumb-item.
+ */
 export class UUIBreadcrumbsElement extends LitElement {
   static styles = [
     css`
@@ -21,7 +26,7 @@ export class UUIBreadcrumbsElement extends LitElement {
     `,
   ];
 
-  @queryAssignedNodes()
+  @queryAssignedNodes(undefined, true, 'uui-breadcrumb-item')
   _breadcrumbs?: UUIBreadcrumbItemElement[];
 
   protected setLastItem() {
