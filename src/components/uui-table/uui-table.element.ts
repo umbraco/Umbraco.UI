@@ -15,7 +15,6 @@ export class UUITableElement extends LitElement {
         border-radius: var(--uui-size-border-radius, 3px);
         background-color: var(--uui-interface-surface, #fefefe);
         cursor: default;
-        /* user-select: none; */
       }
     `,
   ];
