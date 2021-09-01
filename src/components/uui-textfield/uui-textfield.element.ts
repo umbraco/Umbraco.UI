@@ -1,10 +1,10 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators';
+import { LabelMixin } from '../../mixins/LabelMixin';
 import { UUITextFieldEvent } from './UUITextFieldEvent';
 
 export type TextFieldType =
   | 'text'
-  | 'search'
   | 'tel'
   | 'url'
   | 'email'
@@ -20,7 +20,10 @@ export type TextFieldType =
 /**
  *  @element uui-textfield
  */
-export class UUITextFieldElement extends LitElement {
+export class UUITextFieldElement extends LabelMixin(
+  'textfield label',
+  LitElement
+) {
   static styles = [
     css`
       :host {
@@ -60,6 +63,15 @@ export class UUITextFieldElement extends LitElement {
         border-color: var(--uui-color-danger-background);
       }
 
+      :host([type='color']) {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      :host([type='color']) .label {
+        margin-left: var(--uui-size-base-unit, 6px);
+      }
+
       input[type='color'] {
         width: 30px;
         padding: 0;
@@ -79,6 +91,15 @@ export class UUITextFieldElement extends LitElement {
 
         color: var(--uui-interface-contrast-disabled);
       }
+
+      :host([disabled]) .label {
+        color: var(--uui-interface-contrast-disabled);
+      }
+
+      .label {
+        font-size: var(--uui-type-small-size, 12px);
+        line-height: calc(var(--uui-size-base-unit) * 3);
+      }
     `,
   ];
 
@@ -94,17 +115,26 @@ export class UUITextFieldElement extends LitElement {
   @property()
   label = '';
 
-  @property({})
+  @property()
   placeholder = '';
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  firstUpdated() {
-    if (!this.label) {
-      console.warn(this.tagName + ' needs a `label`');
-    }
-  }
+  /**
+   * Set to true to hide the labeling provided by the component.
+   * @type {boolean}
+   * @attr hide-label
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
+  hideLabel = false;
+
+  // firstUpdated() {
+  //   if (!this.label) {
+  //     console.warn(this.tagName + ' needs a `label`');
+  //   }
+  // }
 
   @state()
   private _value: FormDataEntryValue = '';
@@ -156,6 +186,7 @@ export class UUITextFieldElement extends LitElement {
         @change=${this.onChange}
         @keyup=${this.onKeyup}
       />
+      ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
   }
 }
