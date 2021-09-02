@@ -18,10 +18,10 @@ export type TextFieldType =
   | 'color';
 
 /**
+ * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm
  * @element uui-textfield
  * @extends LabelMixin(LitElement)
  * @slot textfield label - for the input label text.
- * @description - Custom element wrappicng the native <input> element.
  * @fires UUITextFieldEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
@@ -127,7 +127,7 @@ export class UUITextFieldElement extends LabelMixin(
   }
 
   /**
-   * Defins the input placeholder.
+   * Defines the input placeholder.
    * @type {string}
    * @attr
    * @default ''
@@ -181,7 +181,7 @@ export class UUITextFieldElement extends LabelMixin(
   name = '';
 
   /**
-   * Set to true if the component should have an error state.Property is reflected to the coresponding attribute.
+   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr
    * @default false

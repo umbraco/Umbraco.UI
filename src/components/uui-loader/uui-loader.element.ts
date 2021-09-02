@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit';
 
 /**
+ *  A basic loader.
  *  @element uui-loader
- *  @description - A basic loader.
  */
 export class UUILoaderElement extends LitElement {
   static styles = [
