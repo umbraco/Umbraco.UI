@@ -3,6 +3,7 @@ import { property, query, queryAssignedNodes, state } from 'lit/decorators';
 import { UUIAvatarElement } from '../uui-avatar/uui-avatar.element';
 
 /**
+ * This element is designed to hold uui-avatars. It displays them slightly overlapped, so they are presented nicely. Use it if you need to display many avatars in one place. Set a limit to display certain number of avatars and a number of the ones remaining out of view.
  *  @element uui-avatar-group
  */
 
@@ -28,42 +29,39 @@ export class UUIAvatarGroupElement extends LitElement {
     `,
   ];
 
-  /**
-   * This sets a limit of how many avatars can be shown. It will ad a +{number} after the avatars to show the number of hidden avatars.
-   * @type {Number}
-   * @attr
-   * @default [0]
-   */
-  @property({ type: Number, attribute: true })
-  get limit() {
-    return this._limit;
-  }
-  set limit(newVal: number) {
-    const oldVal = this._limit;
-    this._limit = newVal;
-    this.updateAvatarVisibility();
-    this.requestUpdate('value', oldVal);
-  }
-  private _limit = 0;
-
-  /**
-   * This sets the color of the borders around the avatars, usually set this to the color of the background of the element the group is on. Change to "transparent" if you dont want a border.
-   * @type {String}
-   * @attr
-   * @default ['white']
-   */
-  @property({ type: String }) borderColor = 'white';
-
-  @state() private avatarArray: UUIAvatarElement[] = [];
-
   @query('slot')
   protected avatarsSlot!: HTMLSlotElement;
 
   @queryAssignedNodes(undefined, true, 'uui-avatar')
   private avatarNodes?: UUIAvatarElement[];
 
+  /**
+   * This sets a limit of how many avatars can be shown. It will ad a +{number} after the avatars to show the number of hidden avatars.
+   * @type {Number}
+   * @attr
+   * @default 0
+   */
+  @property({ type: Number, attribute: true })
+  limit = 0;
+
+  /**
+   * This sets the color of the borders around the avatars, usually set this to the color of the background of the element the group is on. Change to "transparent" if you dont want a border. Accepts any valid css color or a custom property (https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
+   * @type {String}
+   * @attr
+   * @default 'white'
+   */
+  @property({ type: String })
+  borderColor = 'white';
+
+  @state()
+  private avatarArray: UUIAvatarElement[] = [];
+
   firstUpdated() {
     this.setAvatarArray();
+  }
+
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('limit')) this.updateAvatarVisibility();
   }
 
   private updateAvatarVisibility() {
@@ -71,12 +69,8 @@ export class UUIAvatarGroupElement extends LitElement {
       const avatarNumber: number = index + 1;
       avatar.style.border = `0.1em solid ${this.borderColor}`;
       avatar.style.display =
-        avatarNumber <= this._limit || this._limit === 0 ? '' : 'none';
+        avatarNumber <= this.limit || this.limit === 0 ? '' : 'none';
     });
-  }
-
-  shouldShowLimitNumber() {
-    return this._limit !== 0 && this.avatarArray.length > this._limit;
   }
 
   private onSlotChange() {
@@ -88,13 +82,16 @@ export class UUIAvatarGroupElement extends LitElement {
     this.avatarArray = this.avatarNodes ? this.avatarNodes : [];
   }
 
+  private shouldShowLimitNumber() {
+    return this.limit !== 0 && this.avatarArray.length > this.limit;
+  }
+
   render() {
     return html`
       <slot @slotchange=${this.onSlotChange}></slot>
       ${this.shouldShowLimitNumber()
-        ? html`<small id="overflow-indication"
-            >+${this.avatarArray.length - this._limit}</small
-          >`
+        ? //prettier-ignore
+          html`<small id="overflow-indication">+${this.avatarArray.length - this.limit}</small>`
         : ''}
     `;
   }
