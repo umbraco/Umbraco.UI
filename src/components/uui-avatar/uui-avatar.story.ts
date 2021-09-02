@@ -56,7 +56,7 @@ export const Colors = () => html`
 
 export const SlottedContent = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar>Hello world</uui-avatar>
+    <uui-avatar>A</uui-avatar>
   </div>
 `;
 
