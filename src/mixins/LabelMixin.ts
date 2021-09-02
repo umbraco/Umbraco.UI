@@ -8,11 +8,23 @@ export declare class LabelMixinInterface {
   protected renderLabel(): TemplateResult;
 }
 
+/**
+ * This mixin rpovides label functionality to other components. In the mixed component the label can be provided either via reactive label property, or through slot that this mixin contains. You can style the label template through .label selector.
+ *
+ * @param {string} labelSlotName - Name that will be assigned for the label slot
+ * @param {Object} superClass - suerclass to be extended.
+ * @mixin
+ */
 export const LabelMixin = <T extends Constructor<LitElement>>(
-  labelName: string | null,
+  labelSlotName: string | null,
   superClass: T
 ) => {
   class LabelMixinClass extends superClass {
+    /**
+     * Text with wich component should be labeled
+     * @type {string}
+     * @attr
+     */
     @property({ type: String })
     public label!: string;
 
@@ -32,6 +44,11 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
         0;
     }
 
+    /**
+     * Call in the mixed element to render the label template. It contains a slot. This is optional.
+     * @method renderLabel
+     * @returns {TemplateResult}
+     */
     protected renderLabel() {
       return html`
         ${this.labelSlotHasContent === false
@@ -40,7 +57,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
         <slot
           class="label"
           style=${this.labelSlotHasContent ? '' : 'visibility: hidden'}
-          name=${labelName ? labelName : ''}
+          name=${labelSlotName ? labelSlotName : ''}
           @slotchange=${this.labelSlotChanged}
         ></slot>
       `;
