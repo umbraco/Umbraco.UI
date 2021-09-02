@@ -17,7 +17,7 @@ describe('UuiTextfield', () => {
     expect(input.disabled).to.be.true;
   });
 
-  it('changes the value to the input value when input event is emited', async () => {
+  it('changes the value to the input value when input event is emitted', async () => {
     input.value = 'test value';
     input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
     expect(element.value).to.equal('test value');

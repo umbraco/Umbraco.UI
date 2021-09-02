@@ -18,7 +18,7 @@ export type TextFieldType =
   | 'color';
 
 /**
- * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm
+ * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-textfield
  * @extends LabelMixin(LitElement)
  * @slot textfield label - for the input label text.
