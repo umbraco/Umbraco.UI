@@ -28,13 +28,6 @@ describe('UuiBreadcrumbs', () => {
     expect(breadcrumb.lastItem).to.be.true;
   });
 
-  it('renders all breadcrumbs', () => {
-    const slot = element.shadowRoot!.querySelector('slot')!;
-    const breadcrumbs = slot.assignedElements();
-
-    expect(breadcrumbs.length).to.equal(3);
-  });
-
   it('passes the a11y audit', () => {
     expect(element).shadowDom.to.be.accessible();
   });
