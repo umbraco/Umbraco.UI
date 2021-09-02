@@ -7,10 +7,10 @@ import { iconCheck } from './checkbox-icons';
 import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
 /**
+ *  Umbraco checkbox, toggles between checked and uncheck
  *  @element uui-checkbox
- *  @fires {UUIBooleanInputBaseEvent} change - fires when the element is begin checked by a user action
- *  @slot - to overwrite displayed label content
- *  @description - A Umbraco checkbox, toggles between checked
+ *  @fires UUIBooleanInputBaseEvent#change - fires when the element is begin checked by a user action
+ *  @slot to overwrite displayed label content
  *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
  */
 export class UUICheckboxElement extends UUIBooleanInputBaseElement {
