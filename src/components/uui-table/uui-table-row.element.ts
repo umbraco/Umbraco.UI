@@ -35,7 +35,7 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
   }
 
   /**
-   *  Toggles row selecion
+   *  Toggles row selection
    * @method
    */
   protected toggleSelect() {

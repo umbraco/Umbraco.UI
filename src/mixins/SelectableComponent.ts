@@ -7,7 +7,12 @@ export declare class SelectableMixinInterface {
   selectable: boolean;
   selected: boolean;
 }
-
+/**
+ * This mixin provides selectable functionality to other components. The mixed component will have selectable and selected reactive properties and corresponding attributes. you can use them to style the selectable state.
+ *
+ * @param {Object} superClass - superclass to be extended.
+ * @mixin
+ */
 export const SelectableMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
@@ -16,7 +21,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Set to true if you want to be able to select this particular element on.
-     * @prop
+     * @attr
      * @type boolean
      * */
     @property({ type: Boolean, reflect: true })
@@ -33,7 +38,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Attribute applied when the element is selected.
-     * @prop
+     * @attr
      * @type boolean
      * */
     @property({ type: Boolean, reflect: true })
