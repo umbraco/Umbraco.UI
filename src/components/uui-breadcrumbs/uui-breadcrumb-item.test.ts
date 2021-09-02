@@ -13,7 +13,7 @@ describe('UuiBreadcrumbItem', () => {
 
   it('is a span if last item', async () => {
     const element = await fixture(
-      html` <uui-breadcrumb-item lastItem>One</uui-breadcrumb-item> `
+      html` <uui-breadcrumb-item last-item>One</uui-breadcrumb-item> `
     );
     const span = element.shadowRoot!.querySelector('span')!;
     expect(span).to.exist;

@@ -2,9 +2,10 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators';
 
 /**
+ * A breadcrumb-item to be used with the breadcrumbs component.
  *  @element uui-breadcrumb-item
  *  @slot - to show display an element inside the breadcrumb
- *  @description - A breadcrumb-item to be used with the breadcrumbs component.
+ * @csspart separator - chnage the content of the after element of this part to change the separator
  */
 export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [
@@ -20,7 +21,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
       }
 
       :host(:last-of-type) [part='separator'],
-      :host([last-step]) [part='separator'] {
+      :host([last-item]) [part='separator'] {
         display: none;
       }
 
@@ -56,17 +57,18 @@ export class UUIBreadcrumbItemElement extends LitElement {
   /**
    * Specifies the link href.
    * @type {String}
-   * @default ['#']
+   * @default '#'
    */
   @property()
   href = '#';
 
   /**
-   * Specifies if the element is the last item. Last item will not render as a link
+   * Specifies if the element is the last item in the uui-breadcrumbs. Last item will not render as a link
    * @type {Boolean}
-   * @default ['false']
+   * @attr last-item
+   * @default 'false'
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, attribute: 'last-item' })
   lastItem = false;
 
   render() {
@@ -77,5 +79,3 @@ export class UUIBreadcrumbItemElement extends LitElement {
       ></span>`;
   }
 }
-
-// after element with content / and the last of type slotted selector with no content

@@ -3,9 +3,9 @@ import { queryAssignedNodes } from 'lit/decorators';
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
 /**
+ * A breadcrumbs component to be used in combination with the uui-breadcrumb-item.
  *  @element uui-breadcrumbs
- *  @slot - to display nested breadcrumb items
- *  @description - A breadcrumbs component to be used in combination with breadcrumb-item.
+ *  @slot to display nested breadcrumb items
  */
 export class UUIBreadcrumbsElement extends LitElement {
   static styles = [
