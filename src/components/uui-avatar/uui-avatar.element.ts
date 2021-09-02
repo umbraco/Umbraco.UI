@@ -2,11 +2,10 @@ import { property, state } from 'lit/decorators';
 import { LitElement, html, css } from 'lit';
 
 /**
+ *  Avatar for displaying users
  *  @element uui-avatar
- *  @description Anatar for displaying users
  *  @slot For anything other than initials (no more than 2-3 characters)
  */
-
 export class UUIAvatarElement extends LitElement {
   static styles = [
     css`
@@ -45,7 +44,7 @@ export class UUIAvatarElement extends LitElement {
    * Set to true to prevent content from getting hidden if going outside the parent. Useful in combination with something like a Badge.
    * @type {boolean}
    * @attr overflow
-   * @default [false]
+   * @default false
    */
   @property({ type: Boolean, attribute: true, reflect: true })
   public overflow = false;
@@ -54,7 +53,7 @@ export class UUIAvatarElement extends LitElement {
    * Use this to apply a image src
    * @type {String}
    * @attr img-src
-   * @default ['']
+   * @default ''
    */
   @property({ type: String, attribute: 'img-src' })
   public imgSrc = '';
@@ -63,16 +62,16 @@ export class UUIAvatarElement extends LitElement {
    * Use this to apply a image srcset
    * @type {String}
    * @attr img-srcset
-   * @default ['']
+   * @default ''
    */
   @property({ type: String, attribute: 'img-srcset' })
   public imgSrcset = '';
 
   /**
-   * This controls the initials displayed when no scr or scrset is set.
+   * This controls the initials displayed when no src or srcset is set.
    * @type {String}
    * @attr
-   * @default ['']
+   * @default ''
    */
   @property({ type: String })
   get title() {
@@ -81,15 +80,7 @@ export class UUIAvatarElement extends LitElement {
   set title(newVal) {
     const oldValue = this._title;
     this._title = newVal;
-
-    let initials = '';
-    const words = this._title.split(' ');
-    initials = words[0].substring(0, 1);
-    if (words.length > 1) {
-      initials += words[words.length - 1].substring(0, 1);
-    }
-    this.initials = initials.toUpperCase();
-
+    this.initials = this.createInitials(this._title);
     this.requestUpdate('title', oldValue);
   }
   private _title = '';
@@ -97,7 +88,17 @@ export class UUIAvatarElement extends LitElement {
   @state()
   private initials = '';
 
-  renderImage() {
+  private createInitials(title: string) {
+    let initials = '';
+    const words = title.split(' ');
+    initials = words[0].substring(0, 1);
+    if (words.length > 1) {
+      initials += words[words.length - 1].substring(0, 1);
+    }
+    return initials.toUpperCase();
+  }
+
+  private renderImage() {
     return html` <img
       src="${this.imgSrc}"
       srcset="${this.imgSrcset}"
@@ -110,7 +111,7 @@ export class UUIAvatarElement extends LitElement {
     return html`
       ${this.imgSrc ? this.renderImage() : ''}
       ${!this.imgSrc ? this.initials : ''}
-      <slot> </slot>
+      <slot></slot>
     `;
   }
 }
