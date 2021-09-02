@@ -79,7 +79,7 @@ describe('UUI Boolean input base class', () => {
   });
 });
 
-describe('UuiToggle in a Form', () => {
+describe('BooleanInputBaseElement in a Form', () => {
   let formElement: HTMLFormElement;
   let element: any;
   beforeEach(async () => {
@@ -104,11 +104,18 @@ describe('UuiToggle in a Form', () => {
     expect(formData.get(`${element.name}`)).to.be.equal('testValue');
   });
 
-  it('if element has value atribute form value should be the same', () => {
+  it('if element has value attribute form value should be the same', () => {
     element.value = 'bike';
     element.checked = true;
     const formData = new FormData(formElement);
     expect(formData.get(`test`)).to.equal('bike');
+  });
+
+  it('if no value is provided and the element is checked the formValue should be on', () => {
+    element.value = '';
+    element.checked = true;
+    const formData = new FormData(formElement);
+    expect(formData.get(`test`)).to.equal('on');
   });
 });
 
@@ -117,7 +124,7 @@ describe('element in a Form with no attributes', () => {
   let element: any;
   beforeEach(async () => {
     formElement = await fixture(
-      html`<form><${tag} label="test label"></${tag}></form>`
+      html`<form><${tag} label="test label" name="test"></${tag}></form>`
     );
     element = formElement.firstChild;
   });
@@ -133,5 +140,12 @@ describe('element in a Form with no attributes', () => {
     });
 
     expect(formDataKeys.length).to.equal(0);
+  });
+
+  it('form value is on if not specified with attribute', async () => {
+    element.name = 'test';
+    element.checked = true;
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.equal('on');
   });
 });

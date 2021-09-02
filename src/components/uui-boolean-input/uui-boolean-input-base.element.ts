@@ -5,12 +5,11 @@ import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
-// TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
-
 /**
- * Base class wrapping native <input type="checkbox"/>. Use if you need a boolean input. Chenge the role of the input by passing a 'checkbox' || 'switch' to the super() when extending this class. Default is checkbox.
+ * Base class wrapping native input type="checkbox". Extend if you need to make a custom boolean input. Change the role of the input by passing a 'checkbox' || 'switch' to the super() when extending this class. Default is checkbox. Extending this class will make your element formAssociated, meaning it can participate in the native form element.
  * @extends LabelMixin
  * @fires UUIBooleanInputEvent#change on change
+ * @abstract
  */
 export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   '',
@@ -76,7 +75,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   private _value = 'on';
 
   /**
-   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native <input type="checkbox"> element and its value attribute.
+   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
    * @type {string}
    * @attr
    * @default 'on'
@@ -92,11 +91,12 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     this._internals.setFormValue(
       this._checked && this.name !== '' ? this._value : null
     );
+
     this.requestUpdate('value', oldValue);
   }
 
   /**
-   * This is a name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native <input type="checkbox"> element and its name attribute.
+   * This is the name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native input type="checkbox" element and its name attribute.
    * @type {string}
    * @attr
    * @default ''
@@ -108,7 +108,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * Specifies the label position of the checkbox or the toggle
    * @type {'left' | 'right' | 'top' | 'bottom'}
    * @attr label-position
-   * @default 'right'
+   * @default right
    */
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'right';
@@ -123,7 +123,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   hideLabel = false;
 
   /**
-   * Set to true if the component should have an error state.Property is reflected to the coresponding attribute.
+   * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr error
    * @default false
@@ -134,7 +134,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   private _checked = false;
 
   /**
-   * Reflects the state of the element. True if checkbox or toggle is checked. Change this to switch the state programatically.
+   * Reflects the state of the element. True if checkbox or toggle is checked. Change this to switch the state programmatically.
    * @type {boolean}
    * @attr
    * @default false
@@ -147,12 +147,18 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   set checked(newVal) {
     const oldValue = this._checked;
     this._checked = newVal;
-    this._internals.setFormValue(this._checked ? this._value : null);
+    this._internals.setFormValue(
+      this._checked && this.name !== ''
+        ? this._value
+          ? this._value
+          : 'on'
+        : null
+    );
     this.requestUpdate('checked', oldValue);
   }
 
   /**
-   * Reflects the disabled state of the element. True if checkbox or toggle is disabled. Change this to switch the state programatically.
+   * Reflects the disabled state of the element. True if checkbox or toggle is disabled. Change this to switch the state programmatically.
    * @type {boolean}
    * @attr
    * @default false
@@ -161,10 +167,19 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   disabled = false;
 
   private _onInputChange() {
-    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
+    this.dispatchEvent(
+      new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE, { bubbles: true })
+    );
     this.checked = this._input.checked;
   }
 
+  /**
+   * When extending UUIBooleanInputBase class you need to implement this abstract method. It should return a template of your input.
+   *
+   * @returns {TemplateResult}
+   * @abstract
+   * @method
+   */
   protected abstract renderCheckbox(): TemplateResult;
 
   render() {
