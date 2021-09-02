@@ -1,17 +1,22 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators';
 
+/**
+ *  @element uui-breadcrumb-item
+ *  @slot - to show display an element inside the breadcrumb
+ *  @description - A breadcrumb-item to be used with the breadcrumbs component.
+ */
 export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [
     css`
       :host {
         font-size: var(--uui-size-small, 12px);
-        color: #515054;
+        color: currentColor;
       }
 
       a,
       a:visited {
-        color: #515054;
+        color: currentColor;
       }
 
       :host(:last-of-type) [part='separator'],
@@ -21,7 +26,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
 
       [part='separator']::after {
         content: '/';
-        speak: none;
+        speak: never;
         position: relative;
         top: 1px;
         margin: -3px 1px 0;
@@ -45,13 +50,22 @@ export class UUIBreadcrumbItemElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    // this.setAttribute('aria-label', 'breadcrumb');
     this.setAttribute('role', 'listitem');
   }
 
+  /**
+   * Specifies the link href.
+   * @type {String}
+   * @default ['#']
+   */
   @property()
   href = '#';
 
+  /**
+   * Specifies if the element is the last item. Last item will not render as a link
+   * @type {Boolean}
+   * @default ['false']
+   */
   @property({ type: Boolean })
   lastItem = false;
 
