@@ -1,14 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, state } from 'lit/decorators';
-import {
-  UUIAvatarElement,
-  AvatarSizeType,
-  AvatarSizeDefaultValue,
-} from '../uui-avatar/uui-avatar.element';
-import {
-  InterfaceLookType,
-  InterfaceLookDefaultValue,
-} from '../../type/InterfaceLook';
+import { property, query, queryAssignedNodes, state } from 'lit/decorators';
+import { UUIAvatarElement } from '../uui-avatar/uui-avatar.element';
 
 /**
  *  @element uui-avatar-group
@@ -26,8 +18,8 @@ export class UUIAvatarGroupElement extends LitElement {
 
       ::slotted(uui-avatar),
       uui-avatar {
-        margin-left: -3px;
-        margin-right: -3px;
+        margin-left: -0.2em;
+        margin-right: -0.2em;
       }
 
       #overflow-indication {
@@ -36,56 +28,72 @@ export class UUIAvatarGroupElement extends LitElement {
     `,
   ];
 
+  /**
+   * This sets a limit of how many avatars can be shown. It will ad a +{number} after the avatars to show the number of hidden avatars.
+   * @type {Number}
+   * @attr
+   * @default [0]
+   */
   @property({ type: Number, attribute: true })
-  limit = 0;
+  get limit() {
+    return this._limit;
+  }
+  set limit(newVal: number) {
+    const oldVal = this._limit;
+    this._limit = newVal;
+    this.updateAvatarVisibility();
+    this.requestUpdate('value', oldVal);
+  }
+  private _limit = 0;
 
-  @property({ type: String, attribute: true })
-  public size: AvatarSizeType = AvatarSizeDefaultValue;
+  /**
+   * This sets the color of the borders around the avatars, usually set this to the color of the background of the element the group is on. Change to "transparent" if you dont want a border.
+   * @type {String}
+   * @attr
+   * @default ['white']
+   */
+  @property({ type: String }) borderColor = 'white';
 
-  @state()
-  private avatars: UUIAvatarElement[] = [];
+  @state() private avatarArray: UUIAvatarElement[] = [];
 
   @query('slot')
   protected avatarsSlot!: HTMLSlotElement;
 
-  private queryAvatars(): void {
-    this.avatars = (this.avatarsSlot as HTMLSlotElement)
-      .assignedElements({ flatten: true })
-      .filter((e: Node) => e instanceof UUIAvatarElement) as UUIAvatarElement[];
-    this.toggleAvatarVisibility();
+  @queryAssignedNodes(undefined, true, 'uui-avatar')
+  private avatarNodes?: UUIAvatarElement[];
+
+  firstUpdated() {
+    this.setAvatarArray();
   }
 
-  private toggleAvatarVisibility() {
-    // console.log(this.avatars);
-    this.avatars.forEach((avatar: UUIAvatarElement, index: number) => {
+  private updateAvatarVisibility() {
+    this.avatarArray.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
+      avatar.style.border = `0.1em solid ${this.borderColor}`;
       avatar.style.display =
-        avatarNumber <= this.limit || this.limit === 0 ? '' : 'none';
+        avatarNumber <= this._limit || this._limit === 0 ? '' : 'none';
     });
   }
 
-  firstUpdated() {
-    this.queryAvatars();
-    this.toggleAvatarVisibility();
-    console.log(this.avatars, 'first updated');
+  shouldShowLimitNumber() {
+    return this._limit !== 0 && this.avatarArray.length > this._limit;
   }
 
-  updated() {
-    console.log(this.avatars, 'updated');
-
-    this.toggleAvatarVisibility();
+  private onSlotChange() {
+    this.setAvatarArray();
+    this.updateAvatarVisibility();
   }
 
-  onslotchange() {
-    console.log(this.avatars, 'onslotchange');
+  private setAvatarArray() {
+    this.avatarArray = this.avatarNodes ? this.avatarNodes : [];
   }
 
   render() {
     return html`
-      <slot @slotchange=${this.onslotchange}></slot>
-      ${this.limit !== 0 && this.avatars.length > this.limit
+      <slot @slotchange=${this.onSlotChange}></slot>
+      ${this.shouldShowLimitNumber()
         ? html`<small id="overflow-indication"
-            >+${this.avatars.length - this.limit}</small
+            >+${this.avatarArray.length - this._limit}</small
           >`
         : ''}
     `;

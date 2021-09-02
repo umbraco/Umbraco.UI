@@ -1,24 +1,10 @@
 import { property, state } from 'lit/decorators';
 import { LitElement, html, css } from 'lit';
 
-export type AvatarSizeType = '' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-
-export const AvatarSizeNames: Readonly<AvatarSizeType[]> = [
-  'xxl',
-  'xl',
-  'l',
-  'm',
-  's',
-  'xs',
-  'xxs',
-] as const;
-
-export const AvatarSizeDefaultValue = '';
-
 /**
  *  @element uui-avatar
  *  @description Anatar for displaying users
- *  @slot for anything other then initials
+ *  @slot For anything other than initials (no more than 2-3 characters)
  */
 
 export class UUIAvatarElement extends LitElement {
@@ -28,63 +14,66 @@ export class UUIAvatarElement extends LitElement {
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
         overflow: hidden;
         border-radius: 50%;
         font-weight: bold;
         width: 2em;
         height: 2em;
         user-select: none;
+        /* box-sizing: border-box; */
 
         background-color: var(--uui-color-spanish-pink);
         color: var(--uui-color-space-cadet);
       }
 
-      :host([size='xxs']) {
-        font-size: 12px;
-      }
-
-      :host([size='xs']) {
-        font-size: 14px;
-      }
-
-      :host([size='s']) {
-        font-size: 18px;
-      }
-
-      :host([size='m']) {
-        font-size: 23px;
-      }
-
-      :host([size='l']) {
-        font-size: 32px;
-      }
-
-      :host([size='xl']) {
-        font-size: 46px;
-      }
-
-      :host([size='xxl']) {
-        font-size: 70px;
+      :host([overflow]) {
+        overflow: unset;
       }
 
       img {
         object-fit: cover;
         height: 100%;
         width: 100%;
+        overflow: hidden;
+        border-radius: 50%;
       }
     `,
   ];
 
-  @property({ type: String, reflect: true })
-  public size: AvatarSizeType = AvatarSizeDefaultValue;
+  /**
+   * Set to true to prevent content from getting hidden if going outside the parent. Useful in combination with something like a Badge.
+   * @type {boolean}
+   * @attr overflow
+   * @default [false]
+   */
+  @property({ type: Boolean, attribute: true, reflect: true })
+  public overflow = false;
 
+  /**
+   * Use this to apply a image src
+   * @type {String}
+   * @attr img-src
+   * @default ['']
+   */
   @property({ type: String, attribute: 'img-src' })
   public imgSrc = '';
 
+  /**
+   * Use this to apply a image srcset
+   * @type {String}
+   * @attr img-srcset
+   * @default ['']
+   */
   @property({ type: String, attribute: 'img-srcset' })
   public imgSrcset = '';
 
-  private _title = '';
+  /**
+   * This controls the initials displayed when no scr or scrset is set.
+   * @type {String}
+   * @attr
+   * @default ['']
+   */
   @property({ type: String })
   get title() {
     return this._title;
@@ -103,22 +92,25 @@ export class UUIAvatarElement extends LitElement {
 
     this.requestUpdate('title', oldValue);
   }
+  private _title = '';
 
   @state()
   private initials = '';
 
+  renderImage() {
+    return html` <img
+      src="${this.imgSrc}"
+      srcset="${this.imgSrcset}"
+      alt="${this.initials}"
+      title="${this.title}"
+    />`;
+  }
+
   render() {
     return html`
-      ${this.imgSrc
-        ? html`<img
-            src="${this.imgSrc}"
-            srcset="${this.imgSrcset}"
-            alt="${this.initials}"
-            title="${this.title}"
-          />`
-        : ''}
+      ${this.imgSrc ? this.renderImage() : ''}
       ${!this.imgSrc ? this.initials : ''}
-      <slot></slot>
+      <slot> </slot>
     `;
   }
 }
