@@ -7,12 +7,13 @@ import { iconWrong, iconCheck } from './toggle-icons';
 import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
 /**
+ *  Umbraco Toggle-switch, toggles between off/on.
  *  @element uui-toggle
- *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
- *  @slot - to overwrite displayed label content
- *  @description - A Umbraco Toggle-switch, toggles between off/on
+ *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
+ *  @slot to overwrite displayed label content
  * @cssprop --uui-toggle-size - Define the toggle size.
  * @cssprop --uui-toggle-switch-width - Define the slider width.
+ * @extends UUIBooleanInputBaseElement
  */
 export class UUIToggleElement extends UUIBooleanInputBaseElement {
   static styles = [
