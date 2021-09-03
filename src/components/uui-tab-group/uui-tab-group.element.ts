@@ -25,6 +25,7 @@ export class UUITabGroupElement extends LitElement {
       this.tabElements.forEach(el => {
         el.removeEventListener(
           'click',
+          // @ts-ignore TODO: fix typescript error
           this.onTabActive as EventHandlerNonNull
         );
       });
@@ -34,6 +35,7 @@ export class UUITabGroupElement extends LitElement {
       .filter(el => el instanceof UUITabElement) as UUITabElement[];
 
     this.tabElements.forEach(el => {
+      // @ts-ignore TODO: fix typescript error
       el.addEventListener('click', this.onTabActive as EventHandlerNonNull);
     });
   }

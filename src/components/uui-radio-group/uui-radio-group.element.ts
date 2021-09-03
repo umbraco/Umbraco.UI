@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { query, property, state } from 'lit/decorators.js';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 import { UUIRadioEvent } from '../uui-radio/UUIRadioEvent';
@@ -59,6 +59,7 @@ export class UUIRadioGroupElement extends LitElement {
       this.radioElements.forEach(el => {
         el.removeEventListener(
           UUIRadioEvent.CHANGE,
+          // @ts-ignore TODO: fix typescript error
           this._handleSelectOnClick as EventHandlerNonNull
         );
       });
@@ -70,6 +71,7 @@ export class UUIRadioGroupElement extends LitElement {
     this.radioElements.forEach(el => {
       el.addEventListener(
         UUIRadioEvent.CHANGE,
+        // @ts-ignore TODO: fix typescript error
         this._handleSelectOnClick as EventHandlerNonNull
       );
     });

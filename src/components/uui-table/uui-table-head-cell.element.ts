@@ -7,7 +7,7 @@ import { UUITableCellElement } from './uui-table-cell.element';
  */
 export class UUITableHeadCellElement extends UUITableCellElement {
   static styles = [
-    UUITableCellElement.styles,
+    ...UUITableCellElement.styles,
     css`
       :host {
         border-top: none;

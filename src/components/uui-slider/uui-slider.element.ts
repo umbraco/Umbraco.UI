@@ -13,30 +13,32 @@ import { UUISliderEvent } from './UUISliderEvents';
  *  @description - Native input type="range" wrapper.
  */
 
-const renderSVG = (steps: number[], stepWidht: number) => {
+const renderSVG = (steps: number[], stepWidth: number) => {
   return svg`
   ${steps.map(el => {
-    if (stepWidht / 6 >= 5)
+    if (stepWidth / 6 >= 5)
       return svg`<circle class="uui-slider-circle" cx="${
-        stepWidht * steps.indexOf(el)
+        stepWidth * steps.indexOf(el)
       }" cy="50%" r="4.2" />`;
+      return svg``;
   })}
 `;
 };
 
-const renderValues = (steps: number[], stepWidht: number, show: boolean) => {
+const renderValues = (steps: number[], stepWidth: number, show: boolean) => {
   if (show) {
     return html`<div id="steps-values">
       ${steps.map(
         el =>
           html` <span class="uui-slider-step">
-            ${steps.length <= 20 && stepWidht / 6 >= 5
+            ${steps.length <= 20 && stepWidth / 6 >= 5
               ? el.toFixed(0)
               : nothing}
           </span>`
       )}
     </div>`;
   }
+  return html``;
 };
 
 export class UUISliderElement extends LitElement {
