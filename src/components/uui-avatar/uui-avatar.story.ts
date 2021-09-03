@@ -14,12 +14,14 @@ export default {
 const avatarSrc =
   "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&s=b616b2c5b373a80ffc9636ba24f7a4a9";
 
+  // @ts-ignore
 const avatarSrcSet = [
   `${avatarSrc}&h=100&w=100`,
   `${avatarSrc}&h=200&w=200`,
   `${avatarSrc}&h=300&w=300`,
 ];
 
+// @ts-ignore
 const sizes = [0, 1, 2, 3, 4, 5];
 
 const avatar = (props: any, style?: string) =>

@@ -1,7 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUIToggleElement } from './uui-toggle.element';
 import '.';
-import { property } from 'lit/decorators.js';
 
 describe('UuiToggle', () => {
   let element: UUIToggleElement;

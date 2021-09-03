@@ -22,7 +22,7 @@ export const Overview = () =>
 export const Icon = () =>
   html`<uui-button-group
     >${buttons.map(
-      el =>
+      () =>
         html`<uui-button look="secondary"
           ><uui-icon name="bug"></uui-icon
         ></uui-button>`

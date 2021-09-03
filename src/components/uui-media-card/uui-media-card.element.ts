@@ -91,6 +91,7 @@ export class UUIMediaCardElement extends UUICardElement {
         .length > 0;
   }
 
+  // @ts-ignore TODO: fix typescript error
   protected renderMedia() {
     if (this.hasPreview === false) {
       if (this.fileExt === '') {

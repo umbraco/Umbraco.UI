@@ -49,6 +49,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
+    // @ts-ignore TODO: fix typescript error
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 

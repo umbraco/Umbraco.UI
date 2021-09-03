@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, queryAll, state } from 'lit/decorators.js';
+import { property, query, queryAll } from 'lit/decorators.js';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
@@ -206,14 +206,16 @@ export class UUIFileInputElement extends LitElement {
           >`}</uui-file-dropzone
     >`;
   }
-
+  
   removeButtonTemplate() {
-    if (this.files.length > 0)
+    if (this.files.length > 0) {
       return html`<uui-button @click=${this.removeFiles} look="outline"
         ><uui-icon id="button-icon" name="delete"></uui-icon>
         Remove
         ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
       </uui-button>`;
+    }
+    return html``;
   }
 
   render() {

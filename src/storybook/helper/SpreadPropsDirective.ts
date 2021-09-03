@@ -6,6 +6,7 @@ class SpreadPropsDirective extends AsyncDirective {
   element!: Element;
   prevData: { [key: string]: unknown } = {};
 
+  // @ts-ignore
   render(spreadData: { [key: string]: unknown }) {
     return nothing;
   }

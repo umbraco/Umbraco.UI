@@ -81,7 +81,7 @@ export const WithCreateButton = () =>
   html`
     <uui-card-grid>
       ${randomArray(40, 100, 800).map(
-        el => html`<div style="display: flex; height:100%">
+        () => html`<div style="display: flex; height:100%">
           <uui-inline-create-button
             vertical
             style="width:0;"
