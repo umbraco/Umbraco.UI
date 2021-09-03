@@ -6,6 +6,9 @@ import "./index";
 export default {
   title: "Displays/Avatar",
   component: "uui-avatar",
+  args: {
+    title: "First Last",
+  },
 };
 
 const avatarSrc =
@@ -21,70 +24,45 @@ const avatarSrcSet = [
 // @ts-ignore
 const sizes = [0, 1, 2, 3, 4, 5];
 
-const avatar = (props: any) => html`<uui-avatar ${spreadProps(props)} .imgSrc=${avatarSrc}></uui-avatar>`;
+const avatar = (props: any, style?: string) =>
+  html`<uui-avatar ${spreadProps(props)} style=${style!}
+    >${props.slot}</uui-avatar
+  >`;
 
-export const ItWorks: Story = (props) => avatar(props);
-// ItWorks.args = {title: "Hello World", overflow: true}  
+export const Basic: Story = (props) => avatar(props);
 
+export const Picture: Story = (props) => avatar(props);
+Picture.args = { imgSrc: avatarSrcSet[0] };
+Picture.parameters = { controls: { include: ["imgSrc", "title"] } };
 
-// ControlsWork.args = {title: "Hello World", overflow: true}
+export const Sizes: Story = (props) => html`
+  <div style="display: flex">
+    ${sizes.map((size) => avatar(props, `font-size: ${1 + size / 2}em;`))}
+  </div>
+`;
+Sizes.parameters = { controls: { include: ["title"] } };
 
-// ------------------ OLD STORIES ------------------
+export const Colors: Story = (props) => avatar(props, `background-color: ${props.backgroundColor}; color: ${props.textColor}`);
 
-// export const Basic = () => html`
-//   <div style="display: flex; align-items: center;">
-//     <uui-avatar title="First Last"></uui-avatar>
-//     <uui-avatar
-//       img-src="${avatarSrcSet[0]}"
-//       img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-//       title="First Last"
-//     >
-//     </uui-avatar>
-//   </div>
-// `;
+Colors.parameters = { controls: { include: ["title", "backgroundColor", "textColor"] } };
+Colors.args = { textColor: "white", backgroundColor: "blue" };
 
-// export const Sizes = () => html`
-//   <div style="display: flex">
-//     ${sizes.map(
-//       size => html`<uui-avatar
-//         style="font-size: ${1 + size / 2}em;"
-//         title="First Last"
-//       ></uui-avatar>`
-//     )}
-//   </div>
-// `;
+export const SlottedContent: Story = (props) => avatar(props);
+SlottedContent.parameters = {
+  controls: { include: ["title", "overflow", "slot"] },
+};
+SlottedContent.args = { slot: "Hello" };
 
-// export const Text = () => html` <uui-avatar title="First Last"></uui-avatar> `;
-
-// export const Colors = () => html`
-//   <div style="display: flex; align-items: center;">
-//     <uui-avatar title="First Last"></uui-avatar>
-//     <uui-avatar
-//       title="First Last"
-//       style="
-//         background-color: var(--uui-color-space-cadet);
-//         color: var(--uui-color-spanish-pink);"
-//     ></uui-avatar>
-//   </div>
-// `;
-
-// export const SlottedContent = () => html`
-//   <div style="display: flex; align-items: center;">
-//     <uui-avatar>A</uui-avatar>
-//   </div>
-// `;
-
-// export const WidthBadge = () => html`
-//   <div style="display: flex; align-items: center;">
-//     <uui-avatar overflow title="First Last"
-//       ><uui-badge>!</uui-badge></uui-avatar
-//     >
-//     <uui-avatar
-//       overflow
-//       img-src="${avatarSrcSet[0]}"
-//       img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-//       title="First Last"
-//       ><uui-badge>!</uui-badge></uui-avatar
-//     >
-//   </div>
-// `;
+export const WidthBadge: Story = (props) => html`
+  <div style="font-size: 1.5em; display: flex; align-items: center;">
+    <uui-avatar ${spreadProps(props)}><uui-badge>!</uui-badge></uui-avatar>
+    <uui-avatar
+      ${spreadProps(props)}
+      img-src="${avatarSrcSet[0]}"
+      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+      ><uui-badge>!</uui-badge></uui-avatar
+    >
+  </div>
+`;
+WidthBadge.args = { overflow: true };
+WidthBadge.parameters = { controls: { include: ["title", "overflow"] } };

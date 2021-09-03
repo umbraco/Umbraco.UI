@@ -11,6 +11,13 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  argTypes: {
+    styles: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 }
 
 setCustomElements(customElements);
