@@ -23,9 +23,12 @@
     "build": "tsc && vite build",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "npm run analyze && build-storybook",
-    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json"
+    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
+    "test": "tsc && web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch"
   },
   "dependencies": {
+    "@open-wc/testing": "^2.5.33",
     "lit": "^2.0.0-rc.3",
     "web-component-analyzer": "^1.1.6"
   },

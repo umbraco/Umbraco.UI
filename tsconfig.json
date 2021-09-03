@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "es2018",
     "module": "esnext",
+    "noEmitOnError": true,
     "lib": ["es2017", "dom", "dom.iterable"],
+    "esModuleInterop": false,
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./types",
@@ -16,7 +18,10 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "importHelpers": true,
+    "sourceMap": true,
+    "inlineSources": true,
   },
   "include": ["src/**/*.ts"],
   "exclude": []
