@@ -1,7 +1,7 @@
 import { LitElement, html, css, svg, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 import { nativeInputStyles } from './nativeInputStyles';
 import {
   UUIHorizontalPulseKeyframes,

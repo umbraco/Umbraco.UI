@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 import { property, state } from 'lit/decorators.js';
 import {
   UUIBlinkKeyframes,
