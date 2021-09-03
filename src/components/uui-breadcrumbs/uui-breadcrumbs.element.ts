@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-import { queryAssignedNodes } from 'lit/decorators';
+import { queryAssignedNodes } from 'lit/decorators.js';
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
 /**

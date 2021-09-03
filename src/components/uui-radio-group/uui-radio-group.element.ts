@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { query, property, state } from 'lit/decorators';
+import { query, property, state } from 'lit/decorators.js';
 import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 import { UUIRadioEvent } from '../uui-radio/UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';

@@ -1,5 +1,5 @@
 import { LitElement, css } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 import { UUIIconService } from '../../service/iconservice/UUIIconService';
 /**
  *  @element uui-icon

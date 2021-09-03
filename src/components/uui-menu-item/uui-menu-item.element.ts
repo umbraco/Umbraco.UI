@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 import { ActiveMixin } from '../../mixins/ActiveMixin';
 import { LabelMixin } from '../../mixins/LabelMixin';
 import { SelectableMixin } from '../../mixins/SelectableComponent';

@@ -1,5 +1,5 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
-import { property, query } from 'lit/decorators';
+import { property, query } from 'lit/decorators.js';
 import { LabelMixin } from '../../mixins/LabelMixin';
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 

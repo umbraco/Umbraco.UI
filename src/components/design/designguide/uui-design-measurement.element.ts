@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { query } from 'lit/decorators';
+import { query } from 'lit/decorators.js';
 
 /**
  *  @element uui-design

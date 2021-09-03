@@ -1,5 +1,5 @@
 import { html, css, LitElement } from 'lit';
-import { query, property, state } from 'lit/decorators';
+import { query, property, state } from 'lit/decorators.js';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUIOverflowContainer } from '../uui-overflow-container/uui-overflow-container.element';
 import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';

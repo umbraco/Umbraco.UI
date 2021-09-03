@@ -1,5 +1,5 @@
 import { css, html } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 import { UUIBaseListItemElement } from '../uui-base-list-item/uui-base-list-item.element';
 
 /**

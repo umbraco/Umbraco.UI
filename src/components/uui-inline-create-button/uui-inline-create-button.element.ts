@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { styleMap } from 'lit/directives/style-map';
-import { property, state } from 'lit/decorators';
+import { property, state } from 'lit/decorators.js';
 import {
   UUIBlinkKeyframes,
   UUIBlinkAnimationValue,

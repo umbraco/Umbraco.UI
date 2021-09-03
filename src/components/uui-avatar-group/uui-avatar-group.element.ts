@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, queryAssignedNodes, state } from 'lit/decorators';
+import { property, query, queryAssignedNodes, state } from 'lit/decorators.js';
 import { UUIAvatarElement } from '../uui-avatar/uui-avatar.element';
 
 /**

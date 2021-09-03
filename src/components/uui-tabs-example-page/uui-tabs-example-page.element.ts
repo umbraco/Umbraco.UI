@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { state } from 'lit/decorators';
+import { state } from 'lit/decorators.js';
 
 /**
  *  @element uui-tabs-example-page

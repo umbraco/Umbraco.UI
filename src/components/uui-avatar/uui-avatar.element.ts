@@ -1,4 +1,4 @@
-import { property, state } from 'lit/decorators';
+import { property, state } from 'lit/decorators.js';
 import { LitElement, html, css } from 'lit';
 
 /**

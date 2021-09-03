@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 
 /**
  * A breadcrumb-item to be used with the breadcrumbs component.

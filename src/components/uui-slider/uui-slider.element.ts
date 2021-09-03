@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg, nothing } from 'lit';
-import { property, query, state } from 'lit/decorators';
+import { property, query, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map';
 import { nativeInputStyles } from './nativeInputStyles';

@@ -1,5 +1,5 @@
 import { LitElement, css } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 import { SelectableMixin } from '../../mixins/SelectableComponent';
 import { UUIListItemEvent } from './UUIListItemEvent';
 

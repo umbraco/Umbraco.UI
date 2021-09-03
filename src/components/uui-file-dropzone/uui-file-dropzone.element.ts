@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { query, property } from 'lit/decorators';
+import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { LabelMixin } from '../../mixins/LabelMixin';
 

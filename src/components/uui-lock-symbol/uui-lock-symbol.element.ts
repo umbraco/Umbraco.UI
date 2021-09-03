@@ -1,5 +1,5 @@
 import { LitElement, css, svg } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 
 export class UUILockSymbolElement extends LitElement {
   static styles = [

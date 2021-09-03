@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators';
+import { property, state } from 'lit/decorators.js';
 import { UUIFilePreviewEvent } from './UUIFilePreviewEvents';
 import { UUIFileSize } from './UUIFileSize';
 

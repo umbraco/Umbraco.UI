@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { query, property } from 'lit/decorators';
+import { query, property } from 'lit/decorators.js';
 import { UUIDropdownEvent } from './UUIDropdownEvent';
 import { createPopper, Instance, Modifier } from './popper';
 import { Placement } from '@popperjs/core/lib/enums';

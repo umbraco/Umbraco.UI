@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, queryAll, state } from 'lit/decorators';
+import { property, queryAll, state } from 'lit/decorators.js';
 import { UUIButtonElement } from '../uui-button/uui-button.element';
 import { UUIPaginationEvent } from './UUIPaginationEvent';
 //TODO change focus after click

@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, queryAll, state } from 'lit/decorators';
+import { property, query, queryAll, state } from 'lit/decorators.js';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
