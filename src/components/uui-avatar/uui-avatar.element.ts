@@ -51,7 +51,7 @@ export class UUIAvatarElement extends LitElement {
 
   /**
    * Use this to apply a image src
-   * @type {String}
+   * @type {string}
    * @attr img-src
    * @default ''
    */
@@ -60,7 +60,7 @@ export class UUIAvatarElement extends LitElement {
 
   /**
    * Use this to apply a image srcset
-   * @type {String}
+   * @type {string}
    * @attr img-srcset
    * @default ''
    */
@@ -69,7 +69,7 @@ export class UUIAvatarElement extends LitElement {
 
   /**
    * This controls the initials displayed when no src or srcset is set.
-   * @type {String}
+   * @type {string}
    * @attr
    * @default ''
    */
