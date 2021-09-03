@@ -28,12 +28,12 @@
     "test:watch": "web-test-runner --watch"
   },
   "dependencies": {
-    "@open-wc/testing": "^2.5.33",
     "lit": "^2.0.0-rc.3",
     "web-component-analyzer": "^1.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
+    "@open-wc/testing": "^2.5.33",
     "@storybook/addon-actions": "^6.3.7",
     "@storybook/addon-essentials": "^6.3.7",
     "@storybook/addon-links": "^6.3.7",
