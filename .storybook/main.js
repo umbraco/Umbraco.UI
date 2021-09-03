@@ -1,15 +1,13 @@
 module.exports = {
-  stories: ['../out-tsc/**/*.story.js'],
-  addons: [
-    'storybook-prebuilt/addon-knobs/register.js',
-    'storybook-prebuilt/addon-docs/register.js',
-    'storybook-prebuilt/addon-viewport/register.js',
-    'storybook-prebuilt/addon-a11y/register.js',
+  "stories": [
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/**/*.story.mdx",
+    "../src/**/*.story.@(js|jsx|ts|tsx)"
   ],
-  esDevServer: {
-    // custom es-dev-server options
-    nodeResolve: true,
-    watch: true,
-    open: true,
-  },
-};
+  "addons": [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials"
+  ],
+  core: { builder: "storybook-builder-vite" }
+}

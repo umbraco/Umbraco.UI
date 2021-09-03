@@ -1,6 +1,6 @@
-import { addons } from 'storybook-prebuilt/addons.js';
-import uuiTheme from './theme.js';
+import { addons } from '@storybook/addons';
+import umbracoTheme from './umbraco-theme';
 
 addons.setConfig({
-  theme: uuiTheme,
+  theme: umbracoTheme,
 });

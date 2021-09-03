@@ -1,102 +1,35 @@
 {
-  "name": "@umbraco/umbraco-ui",
-  "version": "0.0.1",
-  "description": "A library of UI-components, build with love from Umbraco",
-  "license": "MIT",
-  "main": "index.js",
-  "module": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/umbraco/Umbraco.UI.git"
+  "name": "umbraco-ui",
+  "version": "0.0.0",
+  "main": "dist/my-element.es.js",
+  "exports": {
+    ".": "./dist/my-element.es.js"
   },
-  "bugs": {
-    "url": "https://github.com/umbraco/Umbraco.UI/issues"
-  },
-  "homepage": "https://github.com/umbraco/Umbraco.UI/#readme",
-  "keywords": [
-    "umbraco",
-    "backoffice",
-    "web-components",
-    "shadow-dom",
-    "custom-elements"
+  "types": "types/my-element.d.ts",
+  "files": [
+    "dist",
+    "types"
   ],
-  "dependencies": {
-    "@popperjs/core": "^2.8.3",
-    "lit": "^2.0.0-rc.1"
-  },
   "scripts": {
-    "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
-    "lint": "npm run lint:eslint && npm run lint:prettier",
-    "format": "npm run format:eslint && npm run format:prettier",
-    "test": "tsc && web-test-runner --coverage",
-    "test:watch": "web-test-runner --watch",
-    "storybook": "npm run analyze && npm run css && concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"npm run css:watch\" \"start-storybook --node-resolve --watch --open\"",
-    "storybook:build": "npm run analyze && build-storybook",
-    "build": "npm run clean && rimraf dist && tsc && rollup -c rollup.config.js",
-    "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
-    "start": "concurrently --kill-others --names tsc,web-dev-server \"npm run tsc:watch\" \"web-dev-server --app-index index.html --node-resolve --open --watch\"",
-    "tsc:watch": "tsc --watch",
-    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
-    "clean": "npm run clean:ts && npm run clean:style",
-    "clean:ts": "del-cli --force ./out-tsc",
-    "clean:style": "del-cli --force ./out-css",
-    "css": "postcss src/style --base src --dir out-css",
-    "css:watch": "postcss src/style --base src --dir out-css --watch"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json"
   },
-  "devDependencies": {
-    "@open-wc/building-rollup": "^1.1.0",
-    "@open-wc/demoing-storybook": "^2.0.0",
-    "@open-wc/eslint-config": "^4.0.0",
-    "@open-wc/testing": "^2.0.0",
-    "@storybook/addon-a11y": "^6.0.28",
-    "@types/node": "13.11.1",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
-    "@web/dev-server": "^0.0.12",
-    "@web/test-runner": "^0.7.41",
-    "autoprefixer": "^10.2.3",
-    "concurrently": "^5.1.0",
-    "deepmerge": "^4.2.2",
-    "del-cli": "^3.0.1",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.11.0",
-    "husky": "^1.0.0",
-    "lint-staged": "^10.0.0",
-    "postcss": "^8.3.6",
-    "postcss-advanced-variables": "^3.0.1",
-    "postcss-cli": "^8.3.1",
-    "postcss-color-function": "^4.1.0",
-    "prettier": "^2.0.4",
-    "rimraf": "^2.6.3",
-    "rollup": "^2.3.4",
-    "tslib": "^1.11.0",
-    "typescript": "~4.0.3",
+  "dependencies": {
+    "lit": "^2.0.0-rc.3",
     "web-component-analyzer": "^1.1.6"
   },
-  "eslintConfig": {
-    "extends": [
-      "@open-wc/eslint-config",
-      "eslint-config-prettier"
-    ]
-  },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "jsxBracketSameLine": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/web-components": "^6.3.7",
+    "babel-loader": "^8.2.2",
+    "storybook-builder-vite": "0.0.12",
+    "typescript": "^4.3.2",
+    "vite": "^2.5.2"
   }
 }
