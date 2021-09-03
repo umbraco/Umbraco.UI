@@ -1,10 +1,6 @@
-import { setCustomElements, Story } from "@storybook/web-components";
+import { Story } from "@storybook/web-components";
 import { html } from "lit";
-import { spreadProps } from "./spreadProps";
-
-/* @ts-ignore */
-import customElements from "../../../custom-elements.json";
-setCustomElements(customElements);
+import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
 import "./index";
 
 export default {
