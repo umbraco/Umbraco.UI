@@ -5,7 +5,6 @@ UUI - Mapping-level or specific component name - State - Name - Part - Overwrite
 @import "./app-state.css";
 @import "./sizes.css";
 @import "./colors.css";
-@import "./animations.css";
 @import "./shadow.css";
 
 @import "./interface.css";
