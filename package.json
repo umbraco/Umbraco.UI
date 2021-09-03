@@ -22,7 +22,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "storybook:build": "npm run analyze && build-storybook",
     "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json"
   },
   "dependencies": {
