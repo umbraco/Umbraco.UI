@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../index.ts"],"names":[],"mappings":";AAAA,MAAM,MAAM;IACR,YAAY,KAAa;QACrB,OAAO,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC;IAGvB,CAAC;CACJ","sourcesContent":["class bubber {\r\n    constructor(hejsa: string) {\r\n        console.log(hejsa);\r\n        \r\n        \r\n    }\r\n}"]}

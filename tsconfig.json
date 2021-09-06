@@ -24,5 +24,7 @@
     "inlineSources": true,
   },
   "include": ["src/**/*.ts"],
-  "exclude": []
+  "exclude": [],
+  "files": [],
+  "references": [{ "path": "./packages/uui-avatar" }]
 }
