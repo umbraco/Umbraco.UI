@@ -23,8 +23,8 @@
     "sourceMap": true,
     "inlineSources": true,
   },
-  "include": ["src/**/*.ts"],
+  "include": ["packages/**/*.ts"],
   "exclude": [],
   "files": [],
-  "references": [{ "path": "./packages/uui-avatar" }]
+  // "references": [{ "path": "./packages/uui-avatar" }]
 }

@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import './index';
-import { InterfaceLookNames } from './../../type/InterfaceLook';
+import { InterfaceLookNames } from '@umbraco-ui/uui-base/InterfaceLook';
 
 export default {
   title: 'Misc/Tag',

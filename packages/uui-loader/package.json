@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-avatar-group",
+  "name": "@umbraco-ui/uui-loader",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "@umbraco-ui/uui-avatar": "0.0.1"
-  },
-  "type": "module"
+    "@umbraco-ui/uui-base": "0.0.1"
+  }
 }
