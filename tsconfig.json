@@ -7,8 +7,8 @@
     "esModuleInterop": false,
     "declaration": true,
     //"emitDeclarationOnly": true,
-    "outDir": "out-tsc",
-    "rootDir": "./src",
+    // "outDir": "out-tsc",
+    // "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -23,8 +23,8 @@
     "sourceMap": true,
     "inlineSources": true,
   },
-  "include": ["packages/**/*.ts"],
-  "exclude": [],
+  // "include": ["packages/**/*.ts"],
+  "exclude": ["src/**/*.ts"],
   "files": [],
-  // "references": [{ "path": "./packages/uui-avatar" }]
+  "references": [{ "path": "./packages" }]
 }
