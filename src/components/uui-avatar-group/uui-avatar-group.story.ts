@@ -12,7 +12,7 @@ export default {
   }
 };
 
-export const Basic: Story = (props) => html`
+export const Overview: Story = (props) => html`
   <uui-avatar-group style="font-size: 2rem" ${spreadProps(props)}>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>

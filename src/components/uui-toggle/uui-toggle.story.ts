@@ -12,10 +12,10 @@ export default {
   }
 };
 
-export const AAAOverview: Story = (props) =>
+export const Overview: Story = (props) =>
   html` <uui-toggle ${spreadProps(props)} ></uui-toggle> `;
-  AAAOverview.storyName="Overview"
-  AAAOverview.args={label: "I am a label"}
+  Overview.storyName="Overview"
+  Overview.args={label: "I am a label"}
 
 export const Error: Story = () =>
   html`

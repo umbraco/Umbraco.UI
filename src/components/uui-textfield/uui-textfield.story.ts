@@ -33,8 +33,7 @@ export default {
 
 const Template: Story = (props) => html` <uui-textfield ${spreadProps(props)}></uui-textfield> `;
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = "Overview";
+export const Overview = Template.bind({});
 
 export const Text = Template.bind({});
 Text.args = { type: "text" };

@@ -33,15 +33,13 @@ const Template: Story = (props: any) => html`<uui-avatar ${spreadProps(props)} s
 >${props.slot}</uui-avatar
 >`;
 
-
-export const AAAOverview = Template.bind({})
-AAAOverview.args = { color: '#1b264f', backgroundColor: '#f5c1bc', fontSize: 1 }
-AAAOverview.argTypes = {
+export const Overview = Template.bind({})
+Overview.args = { color: '#1b264f', backgroundColor: '#f5c1bc', fontSize: 1 }
+Overview.argTypes = {
   color: { table: { category: 'inline styling' } },
   backgroundColor: { table: { category: 'inline styling' } },
   fontSize: { table: { category: 'inline styling' } },
 }
-AAAOverview.storyName ="Overview"
 
 
 export const Picture = Template.bind({})
