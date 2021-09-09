@@ -1,20 +1,36 @@
 import { html } from 'lit-html';
 import './index';
 import { InterfaceLookNames } from './../../type/InterfaceLook';
+import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
+import { Story } from '@storybook/web-components';
+
 
 export default {
   title: 'Misc/Tag',
   component: 'uui-tag',
+  args: {
+    size: 'm',
+    look: 'primary'
+  },
+  argTypes: {
+    size: {
+      options: ['xs', 's', 'm', 'l', 'xl'],
+    },
+    look: {
+      options: ['primary', 'secondary', 'outline', 'placeholder', 'positive', 'warning', 'danger']
+    }
+  }
+
 };
 
-export const Basic = () => html` <uui-tag>Hello</uui-tag> `;
+export const Basic: Story = (props) => html` <uui-tag ${spreadProps(props)}>Hello</uui-tag> `;
 
-export const Looks = () =>
+export const Looks: Story = () =>
   html`${InterfaceLookNames.map(
     look => html`<uui-tag size="m" look="${look}">${look}</uui-tag>`
   )} `;
 
-export const Sizes = () =>
+export const Sizes: Story = () =>
   html`
     <uui-tag size="xs" look="primary">extra small</uui-tag>
     <uui-tag size="s" look="primary">small</uui-tag>
@@ -23,7 +39,7 @@ export const Sizes = () =>
     <uui-tag size="xl" look="primary">extra large</uui-tag>
   `;
 
-export const WithButton = () =>
+export const WithButton: Story = () =>
   html`
     <uui-tag look="primary" size="xl">
       <span>Hello</span>
