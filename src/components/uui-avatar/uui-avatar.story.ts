@@ -9,10 +9,11 @@ export default {
   args: {
     title: "First Last"
   },
-  argTypes: {
-    'img-src': { table: { disable: true } },
-    'img-srcset': { table: { disable: true } }
-  }
+  // argTypes: {
+  //   'img-src': { table: { disable: true } },
+  //   'img-srcset': { table: { disable: true } },
+  // },
+  // parameters: { controls: { exclude: ["img-src"] } }
 };
 
 const avatarSrc =
@@ -28,27 +29,26 @@ const avatarSrcSet = [
 // @ts-ignore
 const sizes = [0, 1, 2, 3, 4, 5];
 
-const avatar = (props: any) =>
-  html`<uui-avatar ${spreadProps(props)} style="font-size: ${1 + props.fontSize / 2}em; background-color: ${props.backgroundColor}; color: ${props.color}"
-    >${props.slot}</uui-avatar
-  >`;
+const Template: Story = (props: any) => html`<uui-avatar ${spreadProps(props)} style="font-size: ${1 + props.fontSize / 2}em; background-color: ${props.backgroundColor}; color: ${props.color}"
+>${props.slot}</uui-avatar
+>`;
 
-export const Basic: Story = (props) => avatar(props);
-Basic.args = { color: '#1b264f', backgroundColor: '#f5c1bc', fontSize: 1 }
-Basic.argTypes = {
+
+export const AAAOverview = Template.bind({})
+AAAOverview.args = { color: '#1b264f', backgroundColor: '#f5c1bc', fontSize: 1 }
+AAAOverview.argTypes = {
   color: { table: { category: 'inline styling' } },
   backgroundColor: { table: { category: 'inline styling' } },
   fontSize: { table: { category: 'inline styling' } },
-  slot: { table: { category: 'slots' } }
 }
-Basic.parameters = { controls: { exclude: [""] } };
+AAAOverview.storyName ="Overview"
 
 
-export const Picture: Story = (props) => avatar(props);
+export const Picture = Template.bind({})
 Picture.args = { imgSrc: avatarSrcSet[0] };
 Picture.parameters = { controls: { include: ["imgSrc", "imgSrcset", "title"] } };
 
-export const Sizes: Story = (props) => html`${avatar(props)}`;
+export const Sizes = Template.bind({})
 Sizes.args = { fontSize: 4 };
 Sizes.argTypes = {
   fontSize: { table: { category: 'inline styling' } }
@@ -56,7 +56,7 @@ Sizes.argTypes = {
 Sizes.parameters = { controls: { include: ["fontSize", "title"] } };
 
 
-export const Colors: Story = (props) => avatar(props);
+export const Colors = Template.bind({});
 Colors.args = { color: 'white', backgroundColor: 'blue', fontSize: 1 }
 Colors.argTypes = {
   color: { table: { category: 'inline styling' } },
@@ -65,13 +65,13 @@ Colors.argTypes = {
 Colors.parameters = { controls: { include: ["backgroundColor", "color", "title"] } };
 
 
-export const SlottedContent: Story = (props) => avatar(props);
+export const SlottedContent = Template.bind({});
 SlottedContent.args = { slot: 'what' }
-SlottedContent.argTypes = { slot: { table: { category: 'slots' } } }
+SlottedContent.argTypes = { slot: { table: { category: 'slots' }, control: { type: 'text' } }, }
 SlottedContent.parameters = { controls: { include: ["slot", "overflow", "title"] } };
 
 
-export const WidthBadge: Story = (props) => avatar(props);
+export const WidthBadge = Template.bind({});
 WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>` }
+WidthBadge.argTypes = { slot: { table: { category: 'slots' }, control: { type: 'text' } }, }
 WidthBadge.parameters = { controls: { include: ["slot", "overflow", "title"] } };
-WidthBadge.argTypes = { slot: { table: { category: 'slots' }, control: { type: 'text'} } }

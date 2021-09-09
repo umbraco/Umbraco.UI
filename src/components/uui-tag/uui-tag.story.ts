@@ -23,7 +23,8 @@ export default {
 
 };
 
-export const Basic: Story = (props) => html` <uui-tag ${spreadProps(props)}>Hello</uui-tag> `;
+export const AAAOverview: Story = (props) => html` <uui-tag ${spreadProps(props)}>Hello</uui-tag> `;
+AAAOverview.storyName = "Overview"
 
 export const Looks: Story = () =>
   html`${InterfaceLookNames.map(

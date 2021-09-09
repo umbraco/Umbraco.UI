@@ -1,15 +1,23 @@
-import { html } from 'lit-html';
+import { Story } from '@storybook/web-components';
+import { html } from 'lit';
+import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
+
 import './index';
 
 export default {
   title: 'Inputs/Toggle',
   component: 'uui-toggle',
+  argTypes: {
+    labelPosition: {options: ['left' , 'right' , 'top' , 'bottom']}
+  }
 };
 
-export const Basic = () =>
-  html` <uui-toggle .label=${'Toggle label'} value="bike"></uui-toggle> `;
+export const AAAOverview: Story = (props) =>
+  html` <uui-toggle ${spreadProps(props)} ></uui-toggle> `;
+  AAAOverview.storyName="Overview"
+  AAAOverview.args={label: "I am a label"}
 
-export const Error = () =>
+export const Error: Story = () =>
   html`
     <uui-toggle error .label=${'Toggle label'} value="bike"></uui-toggle><br />
     <uui-toggle error label="Toggle me" value="bike" checked></uui-toggle
@@ -17,17 +25,17 @@ export const Error = () =>
     <uui-toggle disabled checked error label="Disabled"></uui-toggle>
   `;
 
-export const Preselected = () =>
+export const Preselected: Story  = () =>
   html` <uui-toggle label="Toggle me" value="bike" checked></uui-toggle>`;
 
-export const WithSlottedLabel = () =>
+export const WithSlottedLabel: Story  = () =>
   html`
     <uui-toggle label="Toggle label" value="bike"
       >Using <b>Slot</b> for displayed label</uui-toggle
     >
   `;
 
-export const LabelPosition = () => html`
+export const LabelPosition: Story  = () => html`
   <div style="display: flex; justify-content: space-evenly;">
     <uui-toggle label="Left" label-position="left"></uui-toggle>
     <uui-toggle label="Top" label-position="top"></uui-toggle>
@@ -36,7 +44,7 @@ export const LabelPosition = () => html`
   </div>
 `;
 
-export const NoLabel = () =>
+export const NoLabel: Story  = () =>
   html`<uui-toggle
       hide-label
       label="Toggle label"
@@ -52,12 +60,12 @@ export const NoLabel = () =>
       attribute
     </p>`;
 
-export const Disabled = () => html`
+export const Disabled: Story  = () => html`
   <uui-toggle disabled label="Disabled"></uui-toggle>
   <uui-toggle disabled label="Disabled & checked" checked></uui-toggle>
 `;
 
-export const InAForm = () => html`
+export const InAForm: Story  = () => html`
   <form action="">
     <uui-toggle label="Lol"></uui-toggle>
   </form>

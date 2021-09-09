@@ -1,78 +1,69 @@
-import { html } from 'lit-html';
-import './index';
+import { Story } from "@storybook/web-components";
+import { html } from "lit-html";
+import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
+import "./index";
 
 export default {
-  title: 'Inputs/Textfield',
-  component: 'uui-textfield',
+  title: "Inputs/Textfield",
+  component: "uui-textfield",
+  args: {
+    value: "Hello World",
+    label: "I am a label!",
+    placeholder: "Type something...",
+  },
+  argTypes: {
+    type: {
+      options: [
+        "text",
+        "tel",
+        "url",
+        "email",
+        "password",
+        "date",
+        "month",
+        "week",
+        "time",
+        "datetime-local",
+        "number",
+        "color",
+      ],
+    },
+  },
 };
 
-export const Text = () =>
-  html` <uui-textfield value="Hello" label="Text"></uui-textfield> `;
+const Template: Story = (props) => html` <uui-textfield ${spreadProps(props)}></uui-textfield> `;
 
-export const HideLabel = () =>
-  html` <uui-textfield hide-label value="Hello" label="Text"></uui-textfield> `;
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = "Overview";
 
-export const Disabled = () =>
-  html`
-    <uui-textfield
-      value="Hello"
-      label="Disabled"
-      .disabled=${true}
-    ></uui-textfield>
-  `;
+export const Text = Template.bind({});
+Text.args = { type: "text" };
+Text.parameters = { controls: { include: ["type", "value"] } };
 
-export const Error = () =>
-  html`
-    <uui-textfield value="Hello" label="Error" error></uui-textfield>
-    <uui-textfield
-      value="Hello"
-      label="Error Disabled"
-      .disabled=${true}
-      error
-    ></uui-textfield>
-  `;
+export const Password = Template.bind({});
+Password.args = { type: "password", label: "Password" };
+Password.parameters = { controls: { include: ["value", "type"] } };
 
-export const Placeholder = () =>
-  html`
-    <uui-textfield
-      placeholder="Type something..."
-      label="Placeholder"
-    ></uui-textfield>
-  `;
+export const Disabled = Template.bind({});
+Disabled.args = { disabled: true };
+Disabled.parameters = { controls: { include: ["disabled", "type", "value"] } };
 
-export const Color = () =>
-  html`
-    <uui-textfield value="Hello" label="Color" type="color"></uui-textfield>
-  `;
+export const Error = Template.bind({});
+Error.args = { error: true, label: "Error" };
+Error.parameters = { controls: { include: ["error", "type", "value"] } };
 
-export const Date = () =>
-  html`
-    <uui-textfield value="Hello" label="Date" type="date"></uui-textfield>
-  `;
+export const Placeholder = Template.bind({});
+Placeholder.args = {value: ''}
+Placeholder.parameters = { controls: { include: ["placeholder", "type"] } };
 
-export const Password = () =>
-  html`
-    <uui-textfield
-      value="Hello"
-      label="Password"
-      type="password"
-    ></uui-textfield>
-  `;
+export const Color = Template.bind({});
+Color.args = { type: "color", label: "Color" };
+Color.parameters = { controls: { include: ["type"] } };
 
-export const DateTime = () =>
-  html`
-    <uui-textfield
-      label="Date time"
-      type="datetime-local"
-      label="Date Time"
-    ></uui-textfield>
-  `;
+export const Date = Template.bind({});
+Date.args = { type: "date", label: "Date" };
+Date.parameters = { controls: { include: ["type"] } };
 
-export const Week = () =>
-  html`
-    <uui-textfield
-      label="Date time"
-      type="datetime-local"
-      label="Week"
-    ></uui-textfield>
-  `;
+export const DateTime = Template.bind({});
+DateTime.args = { type: "datetime-local", label: "Date Time" };
+DateTime.parameters = { controls: { include: ["type"] } };
