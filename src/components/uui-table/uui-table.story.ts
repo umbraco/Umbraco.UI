@@ -8,7 +8,7 @@ export default {
   component: "uui-table",
 };
 
-export const AAAOverview: Story = () =>
+export const AAAOverview: Story = (props) =>
   html`
     <div id="table-decription">
       This is a table containing random Umbraco-related words with no particular
@@ -92,7 +92,7 @@ ColumnColors.parameters = {
   },
 };
 
-export const SelectableRows = () =>
+export const SelectableRows: Story = (props) =>
   html`
     <div style="width: 100%;">
       <uui-table>
