@@ -8,9 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "date-fns": "^2.23.0"
+    "lit": "^2.0.0-rc.3"
   },
   "type": "module"
 }

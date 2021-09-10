@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import '../packages/uui-tag/src/index';
-import { InterfaceLookNames } from '@umbraco-ui/uui-base/InterfaceLook';
+import { InterfaceLookNames } from '@umbraco-ui/uui-base/types/InterfaceLook';
 import { spreadProps } from "./helper/SpreadPropsDirective";
 import { Story } from '@storybook/web-components';
 

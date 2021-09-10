@@ -1,8 +1,8 @@
 import { Story } from '@storybook/web-components';
-import { html } from 'lit';
-import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
+import { html } from 'lit-html';
+import { spreadProps } from "./helper/SpreadPropsDirective";
 
-import './index';
+import '@umbraco-ui/uui-toggle/src/index';
 
 export default {
   title: 'Inputs/Toggle',

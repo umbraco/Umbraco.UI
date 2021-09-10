@@ -1,4 +1,4 @@
-import { UUIEvent } from '../../event/UUIEvent';
+import { UUIEvent } from '../events/UUIEvent';
 import { UUIBooleanInputBaseElement } from './uui-boolean-input-base.element';
 
 export class UUIBooleanInputEvent extends UUIEvent<

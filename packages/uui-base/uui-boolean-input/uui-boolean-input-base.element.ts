@@ -1,6 +1,6 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { LabelMixin } from '../../mixins/LabelMixin';
+import { LabelMixin } from '../mixins/LabelMixin';
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
