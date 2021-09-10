@@ -1,7 +1,7 @@
 import { html } from "lit-html";
-import "./index";
-import { ArrayOfUmbracoWords } from "../../storybook/helper/UmbracoWordGenerator";
+import { ArrayOfUmbracoWords } from "./helper/UmbracoWordGenerator";
 import { Story } from "@storybook/web-components";
+import "@umbraco-ui/uui-table/src/index";
 
 export default {
   title: "Misc/Table",
