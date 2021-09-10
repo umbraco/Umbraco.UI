@@ -1,0 +1,9 @@
+{
+  "name": "@umbraco-ui/uui-avatar",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "lit": "^2.0.0-rc.3"
+  },
+  "type": "module"
+}

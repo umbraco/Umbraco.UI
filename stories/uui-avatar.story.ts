@@ -1,7 +1,7 @@
 import { Story } from "@storybook/web-components";
-import { html } from "lit";
-import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
-import "./index";
+import { html } from "lit-html";
+import { spreadProps } from "./helper/SpreadPropsDirective";
+import "@umbraco-ui/uui-avatar/src/index";
 
 export default {
   title: "Displays/Avatar",
