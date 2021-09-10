@@ -1,0 +1,9 @@
+{
+  "name": "@umbraco-ui/uui-breadcrumbs",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@umbraco-ui/uui-base": "0.0.1"
+  }
+}

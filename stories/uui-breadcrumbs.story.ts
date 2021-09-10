@@ -1,7 +1,7 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
-import './index';
+import '@umbraco-ui/uui-breadcrumbs/src/index';
 
 export default {
   title: 'Basics/Breadcrumbs',
