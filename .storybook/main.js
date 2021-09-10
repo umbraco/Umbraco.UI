@@ -1,6 +1,6 @@
 module.exports = {
   "stories": [
-    "../packages/**/*.story.ts"
+    "../stories/**/*.story.ts"
   ],
   "addons": [
     "@storybook/addon-links",
