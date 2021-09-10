@@ -1,13 +1,19 @@
+import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { spreadProps } from "../../storybook/helper/SpreadPropsDirective";
 import './index';
 
 export default {
   title: 'Displays/Avatar Group',
   component: 'uui-avatar-group',
+  args: {
+    limit: 0,
+    borderColor: 'white'
+  }
 };
 
-export const Basic = () => html`
-  <uui-avatar-group style="font-size: 2rem">
+export const Overview: Story = (props) => html`
+  <uui-avatar-group style="font-size: 2rem" ${spreadProps(props)}>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
@@ -15,16 +21,18 @@ export const Basic = () => html`
   </uui-avatar-group>
 `;
 
-export const Limit = () => html`
-  <uui-avatar-group style="font-size: 2rem" .limit="${2}">
+export const Limit: Story = ({limit}) => html`
+  <uui-avatar-group style="font-size: 2rem" .limit=${limit}>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
   </uui-avatar-group>
 `;
+Limit.args = {limit: 2};
+Limit.parameters = { controls: { include: ["limit"] } };
 
-export const Sizes = () => html`
+export const Sizes: Story = () => html`
   <uui-avatar-group style="font-size: 1rem">
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>

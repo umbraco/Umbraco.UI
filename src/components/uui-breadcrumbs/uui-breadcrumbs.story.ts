@@ -1,3 +1,4 @@
+import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 import './index';
@@ -13,7 +14,7 @@ const links = [
   { name: 'Cars', link: '#Cars' },
 ];
 
-export const Basic = () =>
+export const Basic: Story = () =>
   html`<uui-breadcrumbs
     >${links.map(
       link =>

@@ -1,3 +1,4 @@
+import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import './index';
 
@@ -6,4 +7,4 @@ export default {
   component: 'uui-loader',
 };
 
-export const Overview = () => html` <uui-loader></uui-loader> `;
+export const Overview: Story = () => html` <uui-loader></uui-loader> `;

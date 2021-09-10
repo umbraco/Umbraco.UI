@@ -37,7 +37,7 @@ export class UUIAvatarGroupElement extends LitElement {
 
   /**
    * This sets a limit of how many avatars can be shown. It will ad a +{number} after the avatars to show the number of hidden avatars.
-   * @type {Number}
+   * @type {number}
    * @attr
    * @default 0
    */
@@ -46,7 +46,7 @@ export class UUIAvatarGroupElement extends LitElement {
 
   /**
    * This sets the color of the borders around the avatars, usually set this to the color of the background of the element the group is on. Change to "transparent" if you dont want a border. Accepts any valid css color or a custom property (https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
-   * @type {String}
+   * @type {string}
    * @attr
    * @default 'white'
    */

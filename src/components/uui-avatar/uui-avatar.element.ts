@@ -44,10 +44,10 @@ export class UUIAvatarElement extends LitElement {
    * Set to true to prevent content from getting hidden if going outside the parent. Useful in combination with something like a Badge.
    * @type {boolean}
    * @attr overflow
-   * @default false
+   * @default true
    */
   @property({ type: Boolean, attribute: true, reflect: true })
-  public overflow = false;
+  public overflow = true;
 
   /**
    * Use this to apply a image src
