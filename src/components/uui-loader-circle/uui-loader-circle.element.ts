@@ -1,5 +1,5 @@
 import { property } from '@lit/reactive-element/decorators/property';
-import { css, html, LitElement, svg } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { styleMap } from 'lit/directives/style-map';
 import { Size } from '../../type/Size';
 
@@ -52,11 +52,11 @@ export class UUILoaderCircleElement extends LitElement {
         height: var(--uui-loader-circle-size);
       }
 
-      :host([indefinite]) #spinner {
+      .animate #spinner {
         animation: 3s linear infinite svg-animation;
       }
 
-      :host([indefinite]) #circle {
+      .animate #circle {
         animation: 1.4s ease-in infinite circle-animation;
       }
 
@@ -127,7 +127,11 @@ export class UUILoaderCircleElement extends LitElement {
   ];
 
   private strokeDashOffset() {
-    return { strokeDasharray: `${this.progress}, 100` };
+    if (this.progress) {
+      return { strokeDasharray: `${this.progress}, 100` };
+    } else {
+      return { strokeDasharray: '100' };
+    }
   }
 
   private largeSizes = ['l', 'xl'];
@@ -135,17 +139,14 @@ export class UUILoaderCircleElement extends LitElement {
   @property({ reflect: true })
   size: Size = 's';
 
-  @property({ type: Boolean, reflect: true })
-  indefinite = false;
-
   @property({ type: Number })
-  progress = 100;
+  progress = 0;
 
   @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
   showProgress = false;
 
   render() {
-    return html`<div id="svg-container">
+    return html`<div id="svg-container" class=${this.progress ? '' : 'animate'}>
       <svg id="spinner" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
         <circle id="circle2" cx="50%" cy="50%" r="15.9155" />
         <circle
@@ -157,7 +158,7 @@ export class UUILoaderCircleElement extends LitElement {
         />
       </svg>
       ${this.largeSizes.includes(this.size) &&
-      this.indefinite === false &&
+      this.progress &&
       this.showProgress
         ? html`<span id="progress-display">${this.progress}</span>`
         : ''}
