@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { nothing } from "lit/html.js";
 import { directive, AsyncDirective } from "lit/async-directive.js";
 

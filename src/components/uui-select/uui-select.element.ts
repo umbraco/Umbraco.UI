@@ -332,6 +332,7 @@ export class UUISelectElement extends LitElement {
         .title="${this.title}"
         tabindex="0"
         role="combobox"
+        aria-expanded=${this.open}
         aria-controls="list"
         @close=${this.onDropdownClose}
       >

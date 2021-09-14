@@ -62,7 +62,7 @@ export const NoLabel: Story  = () =>
 
 export const Disabled: Story  = () => html`
   <uui-toggle disabled label="Disabled"></uui-toggle>
-  <uui-toggle disabled label="Disabled & checked" checked></uui-toggle>
+  <uui-toggle disabled label="Disabled &amp; checked" checked></uui-toggle>
 `;
 
 export const InAForm: Story  = () => html`

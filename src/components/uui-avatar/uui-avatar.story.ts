@@ -26,9 +26,6 @@ const avatarSrcSet = [
   `${avatarSrc}&h=300&w=300`,
 ];
 
-// @ts-ignore
-const sizes = [0, 1, 2, 3, 4, 5];
-
 const Template: Story = (props: any) => html`<uui-avatar ${spreadProps(props)} style="font-size: ${1 + props.fontSize / 2}em; background-color: ${props.backgroundColor}; color: ${props.color}"
 >${props.slot}</uui-avatar
 >`;

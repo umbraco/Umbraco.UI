@@ -105,6 +105,8 @@ export class UUIFilePreviewElement extends LitElement {
   }
 
   render() {
+    // TODO: FIX
+    // eslint-disable-next-line lit-a11y/click-events-have-key-events
     return html`<slot
         name="action"
         @click=${this._dispatchRemoveEvent}

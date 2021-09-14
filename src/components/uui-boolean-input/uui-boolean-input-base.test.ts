@@ -1,3 +1,5 @@
+/* eslint-disable lit/no-invalid-html */
+/* eslint-disable lit/binding-positions */
 import {
   defineCE,
   elementUpdated,
