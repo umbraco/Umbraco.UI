@@ -193,8 +193,7 @@ export class UUIRadioElement extends LitElement {
         value=${this.value}
         .checked=${this.checked}
         .disabled=${this.disabled}
-        @change=${this._onChange}
-      />
+        @change=${this._onChange} />
       <div id="button"></div>
       <div id="label">
         ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}

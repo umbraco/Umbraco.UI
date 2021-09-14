@@ -71,8 +71,7 @@ export const SelectDisabled = () =>
         .value=${'Value 2'}
         disabled
         checked
-        label="Option 2"
-      ></uui-radio>
+        label="Option 2"></uui-radio>
       <uui-radio .value=${'Value 3'}>Option 3</uui-radio>
     </uui-radio-group>
   `;

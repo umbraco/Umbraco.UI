@@ -112,7 +112,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         id="input"
         type="file"
         ?multiple=${this.multiple}
-        @change=${this._onFileInputChange}
-      /><label id="input-label" for="input">${this.renderLabel()}</label>`;
+        @change=${this._onFileInputChange} /><label id="input-label" for="input"
+        >${this.renderLabel()}</label
+      >`;
   }
 }

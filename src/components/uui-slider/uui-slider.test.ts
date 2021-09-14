@@ -37,8 +37,7 @@ describe('UuiSlider in Form', () => {
           label="a slideruui-slider label"
           name="slider"
           value="28"
-          step="1"
-        ></uui-slider>
+          step="1"></uui-slider>
       </form>`
     );
     element = formElement.querySelector('uui-slider') as any;

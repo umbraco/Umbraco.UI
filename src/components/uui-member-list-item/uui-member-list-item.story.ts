@@ -11,8 +11,7 @@ export const Default = () => html`
   <div style="max-width: 420px;">
     <uui-member-list-item
       name="Arnold Vitz"
-      group-name="Visitor, Registered-Member"
-    >
+      group-name="Visitor, Registered-Member">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -25,8 +24,7 @@ export const Selectable = () => html`
     <uui-member-list-item
       selectable
       name="Arnold Vitz"
-      group-name="Visitor, Registered-Member"
-    >
+      group-name="Visitor, Registered-Member">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -38,8 +36,7 @@ export const Disabled = () => html`
     <uui-member-list-item
       disabled
       name="Arnold Vitz"
-      group-name="Visitor, Registered-Member"
-    >
+      group-name="Visitor, Registered-Member">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -53,8 +50,7 @@ export const Listed = () => html`
     ${listOfNodeNames.map(
       name => html`<uui-member-list-item
         name=${name}
-        group-name="Visitor, Registered-Member"
-      >
+        group-name="Visitor, Registered-Member">
         <uui-action-bar slot="actions"
           ><uui-button>Remove</uui-button></uui-action-bar
         >

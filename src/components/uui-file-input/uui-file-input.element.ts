@@ -191,8 +191,7 @@ export class UUIFileInputElement extends LitElement {
       ><uui-file-dropzone-symbol
         id="dropzone-symbol"
         .error=${this.error}
-        class="move-to-top"
-      ></uui-file-dropzone-symbol
+        class="move-to-top"></uui-file-dropzone-symbol
       >${this.error === false
         ? html`<uui-button
             aria-controls="uploader"
@@ -226,8 +225,7 @@ export class UUIFileInputElement extends LitElement {
             html`<uui-file-preview
               .file=${file}
               .name=${file.name}
-              @remove-file=${this.removeFile}
-            >
+              @remove-file=${this.removeFile}>
               <uui-action-bar slot="action"
                 ><uui-button look="danger"
                   ><uui-icon name="delete"></uui-icon

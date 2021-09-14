@@ -13,8 +13,7 @@ export const Default = () => html`
       border
       name="TextField"
       icon="bug"
-      alias="Umbraco.TextField"
-    >
+      alias="Umbraco.TextField">
       <uui-action-bar slot="actions">
         <uui-button>Remove</uui-button>
       </uui-action-bar>
@@ -28,8 +27,7 @@ export const Selectable = () => html`
       selectable
       name="TextField"
       icon="bug"
-      alias="Umbraco.TextField"
-    >
+      alias="Umbraco.TextField">
       <uui-action-bar slot="actions">
         <uui-button>Remove</uui-button>
       </uui-action-bar>
@@ -42,8 +40,7 @@ export const Disabled = () => html`
       disabled
       name="TextField"
       icon="bug"
-      alias="Umbraco.TextField"
-    >
+      alias="Umbraco.TextField">
       <uui-action-bar slot="actions">
         <uui-button>Remove</uui-button>
       </uui-action-bar>
@@ -58,8 +55,7 @@ export const Listed = () => html`
       name => html`<uui-data-type-list-item
         name=${name}
         icon="bug"
-        alias="Umbraco.TextField"
-      >
+        alias="Umbraco.TextField">
         <uui-action-bar slot="actions">
           <uui-button>Remove</uui-button>
         </uui-action-bar>

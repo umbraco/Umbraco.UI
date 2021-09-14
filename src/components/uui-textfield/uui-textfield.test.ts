@@ -56,8 +56,7 @@ describe('UuiTextfield in Form', () => {
         <uui-textfield
           label="a textfield label"
           name="textfield"
-          value="Hello uui-textfield"
-        ></uui-textfield>
+          value="Hello uui-textfield"></uui-textfield>
       </form>`
     );
     element = formElement.querySelector('uui-textfield') as any;

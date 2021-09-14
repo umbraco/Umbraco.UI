@@ -48,13 +48,11 @@ export const NoLabel: Story = () =>
   html`<uui-toggle
       hide-label
       label="Toggle label"
-      name="Hidden Label"
-    ></uui-toggle
+      name="Hidden Label"></uui-toggle
     ><uui-toggle
       hide-label
       label="Toggle label"
-      name="Hidden Label 2"
-    ></uui-toggle>
+      name="Hidden Label 2"></uui-toggle>
     <p>
       label is set via label attribute. Hide it by adding hide-label bool
       attribute

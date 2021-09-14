@@ -13,8 +13,7 @@ export const Preselected = () =>
   html` <uui-checkbox
     .label=${'Checkbox label'}
     value="bike"
-    checked
-  ></uui-checkbox>`;
+    checked></uui-checkbox>`;
 
 export const WithSlottedLabel = () =>
   html`
@@ -27,20 +26,16 @@ export const LabelPosition = () => html`
   <div style="display: flex; justify-content: space-evenly;">
     <uui-checkbox
       .label=${'Checkbox left label'}
-      label-position="left"
-    ></uui-checkbox>
+      label-position="left"></uui-checkbox>
     <uui-checkbox
       .label=${'Checkbox top label'}
-      label-position="top"
-    ></uui-checkbox>
+      label-position="top"></uui-checkbox>
     <uui-checkbox
       .label=${'Checkbox right label'}
-      label-position="right"
-    ></uui-checkbox>
+      label-position="right"></uui-checkbox>
     <uui-checkbox
       .label=${'Checkbox bottom label'}
-      label-position="bottom"
-    ></uui-checkbox>
+      label-position="bottom"></uui-checkbox>
   </div>
 `;
 
@@ -48,13 +43,11 @@ export const NoLabel = () =>
   html`<uui-checkbox
       hide-label
       .label=${'Checkbox label'}
-      name="Hidden Label"
-    ></uui-checkbox
+      name="Hidden Label"></uui-checkbox
     ><uui-checkbox
       hide-label
       .label=${'Checkbox label'}
-      name="Hidden Label 2"
-    ></uui-checkbox>
+      name="Hidden Label 2"></uui-checkbox>
     <p>
       label is set via label attribute. Hide it by adding hide-label bool
       attribute
@@ -66,8 +59,7 @@ export const Disabled = () => html`
     disabled
     .label=${'Checkbox label'}
     style="margin-left: 20px;"
-    checked
-  ></uui-checkbox>
+    checked></uui-checkbox>
 `;
 
 export const Error = () => html`
@@ -76,16 +68,14 @@ export const Error = () => html`
     error
     .label=${'Checkbox label'}
     style="margin-left: 20px;"
-    checked
-  ></uui-checkbox>
+    checked></uui-checkbox>
   <uui-checkbox disabled .label=${'Checkbox label'} error></uui-checkbox>
   <uui-checkbox
     error
     disabled
     .label=${'Checkbox label'}
     style="margin-left: 20px;"
-    checked
-  ></uui-checkbox>
+    checked></uui-checkbox>
 `;
 
 export const InAForm = () => html`

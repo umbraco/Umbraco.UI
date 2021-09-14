@@ -58,8 +58,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
           class="label"
           style=${this.labelSlotHasContent ? '' : 'visibility: hidden'}
           name=${labelSlotName ? labelSlotName : ''}
-          @slotchange=${this.labelSlotChanged}
-        ></slot>
+          @slotchange=${this.labelSlotChanged}></slot>
       `;
     }
   }

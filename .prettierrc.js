@@ -1,6 +1,6 @@
 module.exports = {
-  singleQuote: false,
-  arrowParens: "avoid",
+  singleQuote: true,
+  arrowParens: 'avoid',
   tabWidth: 2,
-  trailingComma: "none"
+  bracketSameLine: true,
 };

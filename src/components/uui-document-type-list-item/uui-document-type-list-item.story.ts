@@ -12,8 +12,7 @@ export const Default = () => html`
     <uui-document-type-list-item
       name="Product Page"
       icon="bug"
-      alias="productPageAlias"
-    >
+      alias="productPageAlias">
       <uui-action-bar slot="actions">
         <uui-button>Remove</uui-button>
       </uui-action-bar>
@@ -27,8 +26,7 @@ export const Selectable = () => html`
       selectable
       name="Product Page"
       icon="bug"
-      alias="productPageAlias"
-    >
+      alias="productPageAlias">
       <uui-action-bar slot="actions">
         <uui-button>Remove</uui-button>
       </uui-action-bar>
@@ -41,8 +39,7 @@ export const Disabled = () => html`
       disabled
       name="Product Page"
       icon="bug"
-      alias="productPageAlias"
-    >
+      alias="productPageAlias">
       <uui-action-bar slot="actions">
         <uui-button>Remove</uui-button></uui-action-bar
       >
@@ -57,8 +54,7 @@ export const Listed = () => html`
       name => html`<uui-document-type-list-item
         name=${name}
         icon="bug"
-        alias="productPageAlias"
-      >
+        alias="productPageAlias">
         <uui-action-bar slot="actions">
           <uui-button>Remove</uui-button>
         </uui-action-bar>

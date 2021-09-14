@@ -56,8 +56,7 @@ export const WithButton: Story = () =>
         label="delete this"
         look="primary"
         compact
-        style="margin-right:-10px; --uui-button-height:2em;"
-      >
+        style="margin-right:-10px; --uui-button-height:2em;">
         <uui-icon svg=${svg}></uui-icon>
       </uui-button>
     </uui-tag>
@@ -68,8 +67,7 @@ export const WithButton: Story = () =>
         label="delete this"
         look="danger"
         compact
-        style="margin-right:-10px; --uui-button-height:1em;"
-      >
+        style="margin-right:-10px; --uui-button-height:1em;">
         <uui-icon svg=${svg}></uui-icon>
       </uui-button>
     </uui-tag>

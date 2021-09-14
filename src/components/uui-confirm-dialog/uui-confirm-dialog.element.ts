@@ -36,8 +36,7 @@ export class UUIConfirmDialogElement extends LitElement {
           @click=${() =>
             this.dispatchEvent(
               new UUIConfirmDialogEvent(UUIConfirmDialogEvent.CANCEL, this)
-            )}
-        >
+            )}>
           ${this.cancelLabel}
         </uui-button>
         <uui-button
@@ -46,8 +45,7 @@ export class UUIConfirmDialogElement extends LitElement {
           @click=${() =>
             this.dispatchEvent(
               new UUIConfirmDialogEvent(UUIConfirmDialogEvent.SUBMIT, this)
-            )}
-        >
+            )}>
           ${this.submitLabel}
         </uui-button>
       </uui-dialog>

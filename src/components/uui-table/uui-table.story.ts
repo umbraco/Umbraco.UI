@@ -16,8 +16,7 @@ export const Overview: Story = () =>
     </div>
     <uui-table
       aria-label="Random Umbraco Words"
-      aria-describedby="table-decription"
-    >
+      aria-describedby="table-decription">
       <uui-table-column style="width: 50px;"> </uui-table-column>
       <uui-table-column> </uui-table-column>
       <uui-table-column style="width: 25%; font-weight: 600">
@@ -48,17 +47,14 @@ export const ColumnColors: Story = props =>
     </div>
     <uui-table
       aria-label="Random Umbraco Words"
-      aria-describedby="table-decription"
-    >
+      aria-describedby="table-decription">
       <uui-table-column style="background-color: ${props.backgroundColor1}">
       </uui-table-column>
       <uui-table-column
-        style="width: 40%; background-color: ${props.backgroundColor2}"
-      >
+        style="width: 40%; background-color: ${props.backgroundColor2}">
       </uui-table-column>
       <uui-table-column
-        style="width: 40%; background-color: ${props.backgroundColor3}"
-      >
+        style="width: 40%; background-color: ${props.backgroundColor3}">
       </uui-table-column>
       <uui-table-head>
         ${ArrayOfUmbracoWords(3).map(
@@ -98,8 +94,7 @@ export const SelectableRows: Story = () =>
     <div style="width: 100%;">
       <uui-table>
         <uui-table-column
-          style="width: 5%; min-width: 32px; max-width: 48px;"
-        ></uui-table-column>
+          style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
         <uui-table-head>
           ${ArrayOfUmbracoWords(5).map(
             el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`

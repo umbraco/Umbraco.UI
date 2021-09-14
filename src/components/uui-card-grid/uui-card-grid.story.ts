@@ -26,8 +26,7 @@ export const Media = () =>
           return html`<uui-media-card
             selectable
             name="File ${el}"
-            file-ext="txt"
-          ></uui-media-card>`;
+            file-ext="txt"></uui-media-card>`;
       })}
     </uui-card-grid>
   `;
@@ -39,12 +38,10 @@ export const FewCards = () =>
         el => html` <uui-content-node-card
           selectable
           name="Doggo ${el}"
-          icon="bug"
-        >
+          icon="bug">
           <uui-badge slot="badge" look="positive">Published</uui-badge>
           <ul
-            style="list-style: none; padding-inline-start: 0px; margin-block-start: 0px; margin-block-end: 0px;"
-          >
+            style="list-style: none; padding-inline-start: 0px; margin-block-start: 0px; margin-block-end: 0px;">
             <li><span style="font-weight: 700">Created:</span> Yesterday</li>
             <li>
               <span style="font-weight: 700">Last Edited: </span> 2021-03-15
@@ -71,8 +68,7 @@ export const Files = () =>
           html`<uui-media-card
             selectable
             name="File ${el}"
-            file-ext="txt"
-          ></uui-media-card>`
+            file-ext="txt"></uui-media-card>`
       )}
     </uui-card-grid>
   `;
@@ -84,14 +80,12 @@ export const WithCreateButton = () =>
         () => html`<div style="display: flex; height:100%">
           <uui-inline-create-button
             vertical
-            style="width:0;"
-          ></uui-inline-create-button>
+            style="width:0;"></uui-inline-create-button>
 
           <uui-media-card
             selectable
             name="File "
-            file-ext="txt"
-          ></uui-media-card>
+            file-ext="txt"></uui-media-card>
         </div>`
       )}
     </uui-card-grid>
@@ -104,12 +98,10 @@ export const Nodes = () =>
         el => html` <uui-content-node-card
           selectable
           name="Blog post ${el}"
-          icon="bug"
-        >
+          icon="bug">
           <uui-badge slot="badge" look="positive">Published</uui-badge>
           <ul
-            style="list-style: none; padding-inline-start: 0px; margin-block-start: 0px; margin-block-end: 0px;"
-          >
+            style="list-style: none; padding-inline-start: 0px; margin-block-start: 0px; margin-block-end: 0px;">
             <li><span style="font-weight: 700">Created:</span> Yesterday</li>
             <li>
               <span style="font-weight: 700">Last Edited: </span> 2021-03-15

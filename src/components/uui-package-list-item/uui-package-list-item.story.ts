@@ -13,8 +13,7 @@ export const Default = () => html`
       name="TextField"
       icon="bug"
       version="1.2"
-      author="Unicorn Devs"
-    >
+      author="Unicorn Devs">
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -30,8 +29,7 @@ export const Selectable = () => html`
       name="TextField"
       icon="bug"
       version="1.2"
-      author="Unicorn Devs"
-    >
+      author="Unicorn Devs">
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
       ></uui-action-bar>
@@ -45,8 +43,7 @@ export const Disabled = () => html`
       name="TextField"
       icon="bug"
       version="1.2"
-      author="Unicorn Devs"
-    >
+      author="Unicorn Devs">
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
       ></uui-action-bar>
@@ -61,8 +58,7 @@ export const Listed = () => html`
       name => html`<uui-package-list-item
         name=${name}
         icon="bug"
-        alias="Umbraco.TextField"
-      >
+        alias="Umbraco.TextField">
         <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
         <uui-action-bar slot="actions"
           ><uui-button><uui-icon name="bug"></uui-icon></uui-button

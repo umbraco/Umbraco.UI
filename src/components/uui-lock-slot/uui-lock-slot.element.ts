@@ -88,8 +88,7 @@ export class UUILockSlotElement extends LitElement {
         ?disabled=${this.disabled}
         @click=${() => {
           this.locked = !this.locked;
-        }}
-      >
+        }}>
         <uui-lock-symbol ?open=${this.locked === false}></uui-lock-symbol>
       </button>
       <slot @slotchange=${this.onSlotChanged}></slot>

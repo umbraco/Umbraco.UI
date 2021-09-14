@@ -78,8 +78,7 @@ export class UUIUserCardElement extends UUICardElement {
         id="open-part"
         tabindex="0"
         @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}
-      >
+        @keydown=${this.handleOpenKeydown}>
         <span> ${this.name} </span>
       </div>
       <!-- Select border must be right after .open-part -->

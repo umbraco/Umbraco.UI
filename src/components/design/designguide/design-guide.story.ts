@@ -95,8 +95,7 @@ export const DesignSystem = () => html`
             <td>6 / 2</td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:3px; height:3px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:3px; height:3px;"></div>
             </td>
           </tr>
 
@@ -107,8 +106,7 @@ export const DesignSystem = () => html`
             <td></td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:6px; height:6px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:6px; height:6px;"></div>
             </td>
           </tr>
 
@@ -119,8 +117,7 @@ export const DesignSystem = () => html`
             <td>6 * 2</td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:12px; height:12px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:12px; height:12px;"></div>
             </td>
           </tr>
 
@@ -131,8 +128,7 @@ export const DesignSystem = () => html`
             <td>6 * 4</td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:24px; height:24px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:24px; height:24px;"></div>
             </td>
           </tr>
 
@@ -143,8 +139,7 @@ export const DesignSystem = () => html`
             <td>24 + 6</td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:30px; height:30px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:30px; height:30px;"></div>
             </td>
           </tr>
 
@@ -155,8 +150,7 @@ export const DesignSystem = () => html`
             <td>30 + 12</td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:42px; height:42px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:42px; height:42px;"></div>
             </td>
           </tr>
 
@@ -167,8 +161,7 @@ export const DesignSystem = () => html`
             <td>42 + 18</td>
             <td>
               <div
-                style="background:var(--uui-color-space-cadet); width:60px; height:60px;"
-              ></div>
+                style="background:var(--uui-color-space-cadet); width:60px; height:60px;"></div>
             </td>
           </tr>
         </tbody>
@@ -231,29 +224,25 @@ export const DesignSystem = () => html`
       interface color properties. Here is an overview of colors:
     </p>
     <div
-      style="background:var(--uui-color-deep-saffron); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-deep-saffron); width:60px; height:60px;">
       deep-saffron
     </div>
     <div style="background:var(--uui-color-sunglow); width:60px; height:60px;">
       sunglow
     </div>
     <div
-      style="background:var(--uui-color-spanish-pink); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-spanish-pink); width:60px; height:60px;">
       spanish-pink
     </div>
     <div style="background:var(--uui-color-gunmetal); width:60px; height:60px;">
       gunmetal
     </div>
     <div
-      style="background:var(--uui-color-space-cadet); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-space-cadet); width:60px; height:60px;">
       space-cadet
     </div>
     <div
-      style="background:var(--uui-color-violet-blue); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-violet-blue); width:60px; height:60px;">
       violet-blue
     </div>
     <div style="background:var(--uui-color-matisse); width:60px; height:60px;">
@@ -263,38 +252,31 @@ export const DesignSystem = () => html`
       malibu
     </div>
     <div
-      style="background:var(--uui-color-maroon-flush); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-maroon-flush); width:60px; height:60px;">
       maroon-flush
     </div>
     <div
-      style="background:var(--uui-color-jungle-green); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-jungle-green); width:60px; height:60px;">
       jungle-green
     </div>
     <div
-      style="background:var(--uui-color-cocoa-black); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-cocoa-black); width:60px; height:60px;">
       cocoa-black
     </div>
     <div
-      style="background:var(--uui-color-dune-black); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-dune-black); width:60px; height:60px;">
       dune-black
     </div>
     <div
-      style="background:var(--uui-color-cocoa-brown); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-cocoa-brown); width:60px; height:60px;">
       cocoa-brown
     </div>
     <div
-      style="background:var(--uui-color-chamoisee); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-chamoisee); width:60px; height:60px;">
       chamoisee
     </div>
     <div
-      style="background:var(--uui-color-timberwolf); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-timberwolf); width:60px; height:60px;">
       timberwolf
     </div>
     <div style="background:var(--uui-color-gravel); width:60px; height:60px;">
@@ -313,13 +295,11 @@ export const DesignSystem = () => html`
       grey
     </div>
     <div
-      style="background:var(--uui-color-dusty-grey); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-dusty-grey); width:60px; height:60px;">
       dusty-grey
     </div>
     <div
-      style="background:var(--uui-color-mine-grey); width:60px; height:60px;"
-    >
+      style="background:var(--uui-color-mine-grey); width:60px; height:60px;">
       mine-grey
     </div>
   </uui-design>

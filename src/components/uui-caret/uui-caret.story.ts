@@ -12,6 +12,5 @@ export const Overview = () =>
       @click=${(e: MouseEvent) => {
         console.log('Click');
         (e.target as any).open = !(e.target as any).open;
-      }}
-    ></uui-caret>
+      }}></uui-caret>
   `;
