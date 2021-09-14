@@ -23,6 +23,7 @@ import './components/uui-icon';
 import './components/uui-image-file-symbol';
 import './components/uui-inline-create-button';
 import './components/uui-loader';
+import './components/uui-loader-bar';
 import './components/uui-media-card';
 import './components/uui-menu-item';
 import './components/uui-menu-list';
