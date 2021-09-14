@@ -20,7 +20,13 @@
   ],
   "scripts": {
     "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
-    "lint:eslint:fix": "eslint --fix --ext .ts,.html . --ignore-path .gitignore",
+
+    "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "storybook": "start-storybook -p 6006",
@@ -65,9 +71,8 @@
   },
   "prettier": {
     "singleQuote": true,
-    "arrowParens": "avoid",
-    "jsxBracketSameLine": true
-  },
+    "arrowParens": "avoid"
+    },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

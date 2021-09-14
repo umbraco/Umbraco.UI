@@ -63,5 +63,5 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
       `;
     }
   }
-  return (LabelMixinClass as unknown) as Constructor<LabelMixinInterface> & T;
+  return LabelMixinClass as unknown as Constructor<LabelMixinInterface> & T;
 };

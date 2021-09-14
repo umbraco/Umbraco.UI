@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { nothing } from "lit/html.js";
-import { directive, AsyncDirective } from "lit/async-directive.js";
+import { nothing } from 'lit/html.js';
+import { directive, AsyncDirective } from 'lit/async-directive.js';
 
 class SpreadPropsDirective extends AsyncDirective {
   host!: EventTarget;
@@ -11,7 +11,7 @@ class SpreadPropsDirective extends AsyncDirective {
   render(spreadData: { [key: string]: unknown }) {
     return nothing;
   }
-  update(part: any, [spreadData]: Parameters<this["render"]>) {
+  update(part: any, [spreadData]: Parameters<this['render']>) {
     if (this.element !== part.element) {
       this.element = part.element;
     }

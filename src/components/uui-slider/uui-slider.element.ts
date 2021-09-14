@@ -20,7 +20,7 @@ const renderSVG = (steps: number[], stepWidth: number) => {
       return svg`<circle class="uui-slider-circle" cx="${
         stepWidth * steps.indexOf(el)
       }" cy="50%" r="4.2" />`;
-      return svg``;
+    return svg``;
   })}
 `;
 };

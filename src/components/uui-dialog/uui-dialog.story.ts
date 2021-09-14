@@ -38,7 +38,12 @@ export const LeftAligned: Story = () => html`
       Publish <b>This example</b> and all content items underneath and thereby
       making their content publicly available.
     </p>
-    <uui-button slot="actions" look="secondary" style="margin-right: auto; margin-left: 0">Cancel</uui-button>
+    <uui-button
+      slot="actions"
+      look="secondary"
+      style="margin-right: auto; margin-left: 0"
+      >Cancel</uui-button
+    >
     <uui-button slot="actions">Save</uui-button>
     <uui-button slot="actions" look="positive">Publish</uui-button>
   </uui-dialog>

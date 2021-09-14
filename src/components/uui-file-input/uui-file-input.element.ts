@@ -206,7 +206,7 @@ export class UUIFileInputElement extends LitElement {
           >`}</uui-file-dropzone
     >`;
   }
-  
+
   removeButtonTemplate() {
     if (this.files.length > 0) {
       return html`<uui-button @click=${this.removeFiles} look="outline"

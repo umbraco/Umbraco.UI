@@ -110,15 +110,17 @@ export const Selectable = () =>
   html`
     <uui-menu-item
       @click-label=${(e: Event) => {
-        (e.target as UUIMenuItemElement).selected = !(e.target as UUIMenuItemElement)
-          .selected;
+        (e.target as UUIMenuItemElement).selected = !(
+          e.target as UUIMenuItemElement
+        ).selected;
       }}
       label="This is selectable list item"
     ></uui-menu-item>
     <uui-menu-item
       @click-label=${(e: Event) => {
-        (e.target as UUIMenuItemElement).selected = !(e.target as UUIMenuItemElement)
-          .selected;
+        (e.target as UUIMenuItemElement).selected = !(
+          e.target as UUIMenuItemElement
+        ).selected;
       }}
       label="This is selectable list item"
       selected
@@ -129,15 +131,17 @@ export const Active = () =>
   html`
     <uui-menu-item
       @click-label=${(e: Event) => {
-        (e.target as UUIMenuItemElement).active = !(e.target as UUIMenuItemElement)
-          .active;
+        (e.target as UUIMenuItemElement).active = !(
+          e.target as UUIMenuItemElement
+        ).active;
       }}
       label="This is activatable list item"
     ></uui-menu-item>
     <uui-menu-item
       @click-label=${(e: Event) => {
-        (e.target as UUIMenuItemElement).active = !(e.target as UUIMenuItemElement)
-          .active;
+        (e.target as UUIMenuItemElement).active = !(
+          e.target as UUIMenuItemElement
+        ).active;
       }}
       label="This is activatable list item"
       active
@@ -147,8 +151,9 @@ export const WithActions = () =>
   html`
     <uui-menu-item
       @click-label=${(e: Event) => {
-        (e.target as UUIMenuItemElement).active = !(e.target as UUIMenuItemElement)
-          .active;
+        (e.target as UUIMenuItemElement).active = !(
+          e.target as UUIMenuItemElement
+        ).active;
       }}
       label="This is activatable list item"
     >

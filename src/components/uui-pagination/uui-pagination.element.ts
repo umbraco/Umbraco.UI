@@ -188,9 +188,8 @@ export class UUIPaginationElement extends LitElement {
   protected setFocusActivePageButton() {
     requestAnimationFrame(() => {
       // for none range changing clicks we need to ensure a rendering before querying.
-      const activeButtonElement = this.renderRoot.querySelector<HTMLElement>(
-        '.active-button'
-      );
+      const activeButtonElement =
+        this.renderRoot.querySelector<HTMLElement>('.active-button');
       if (activeButtonElement) {
         activeButtonElement.focus();
       }

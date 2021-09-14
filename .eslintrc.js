@@ -7,8 +7,8 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
-    "plugin:lit/recommended",
-    "plugin:lit-a11y/recommended",
+    'plugin:lit/recommended',
+    'plugin:lit-a11y/recommended',
   ],
   rules: {
     // disable the rule for all files
@@ -16,6 +16,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
-    '@typescript-eslint/ban-types' : 'off' //TODO: Remove (maybe)
+    '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
   },
 };

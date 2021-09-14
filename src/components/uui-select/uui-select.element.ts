@@ -296,9 +296,8 @@ export class UUISelectElement extends LitElement {
           newSelection = this.getNextEnabledElement(index, index, move);
         }
       } else {
-        newSelection = this.listElements[
-          move > 0 ? 0 : this.listElements.length - 1
-        ];
+        newSelection =
+          this.listElements[move > 0 ? 0 : this.listElements.length - 1];
       }
       if (newSelection) {
         this.select(newSelection);
