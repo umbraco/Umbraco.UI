@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
-    "lit": "^2.0.0-rc.3"
+    "@umbraco-ui/uui-base": "0.0.1"
   },
   "type": "module"
 }

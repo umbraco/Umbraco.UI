@@ -1,0 +1,10 @@
+{
+  "name": "@umbraco-ui/uui-avatar-group",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "@umbraco-ui/uui-base": "0.0.1",
+    "@umbraco-ui/uui-avatar": "0.0.1"
+  },
+  "type": "module"
+}
