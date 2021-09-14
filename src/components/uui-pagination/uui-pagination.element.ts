@@ -188,9 +188,8 @@ export class UUIPaginationElement extends LitElement {
   protected setFocusActivePageButton() {
     requestAnimationFrame(() => {
       // for none range changing clicks we need to ensure a rendering before querying.
-      const activeButtonElement = this.renderRoot.querySelector<HTMLElement>(
-        '.active-button'
-      );
+      const activeButtonElement =
+        this.renderRoot.querySelector<HTMLElement>('.active-button');
       if (activeButtonElement) {
         activeButtonElement.focus();
       }
@@ -205,8 +204,7 @@ export class UUIPaginationElement extends LitElement {
       role="listitem"
       aria-label="Go to first page"
       .disabled=${1 === this._current}
-      @click=${() => this.goToPage(1)}
-    >
+      @click=${() => this.goToPage(1)}>
       First
     </uui-button>`;
   }
@@ -219,8 +217,7 @@ export class UUIPaginationElement extends LitElement {
       role="listitem"
       aria-label="Go to previous page"
       .disabled=${this.current === 1}
-      @click=${this.goToPreviousPage}
-    >
+      @click=${this.goToPreviousPage}>
       Previous
     </uui-button>`;
   }
@@ -233,8 +230,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav-button"
       aria-label="Go to next page"
       .disabled=${this.current === this.total}
-      @click=${this.goToNextPage}
-    >
+      @click=${this.goToNextPage}>
       Next
     </uui-button>`;
   }
@@ -248,8 +244,7 @@ export class UUIPaginationElement extends LitElement {
         class="nav-button"
         aria-label="Go to last page"
         ?disabled=${this.total === this._current}
-        @click=${() => this.goToPage(this.total)}
-      >
+        @click=${() => this.goToPage(this.total)}>
         Last
       </uui-button>
     `;

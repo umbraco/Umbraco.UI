@@ -1,14 +1,14 @@
-import { html } from "lit-html";
-import { ArrayOfUmbracoWords } from "./helper/UmbracoWordGenerator";
-import { Story } from "@storybook/web-components";
-import "@umbraco-ui/uui-table/src/index";
+import { html } from 'lit-html';
+import { ArrayOfUmbracoWords } from './helper/UmbracoWordGenerator';
+import { Story } from '@storybook/web-components';
+import '@umbraco-ui/uui-table/src/index';
 
 export default {
-  title: "Misc/Table",
-  component: "uui-table",
+  title: 'Misc/Table',
+  component: 'uui-table',
 };
 
-export const Overview: Story = (props) =>
+export const Overview: Story = () =>
   html`
     <div id="table-decription">
       This is a table containing random Umbraco-related words with no particular
@@ -16,36 +16,30 @@ export const Overview: Story = (props) =>
     </div>
     <uui-table
       aria-label="Random Umbraco Words"
-      aria-describedby="table-decription"
-    >
-      <uui-table-column
-        style="width: 50px;"
-      >
-      </uui-table-column>
+      aria-describedby="table-decription">
+      <uui-table-column style="width: 50px;"> </uui-table-column>
       <uui-table-column> </uui-table-column>
-      <uui-table-column
-        style="width: 25%; font-weight: 600"
-      >
+      <uui-table-column style="width: 25%; font-weight: 600">
       </uui-table-column>
       <uui-table-head>
         ${ArrayOfUmbracoWords(5).map(
-          (el) => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
         )}
       </uui-table-head>
       <uui-table-row>
         ${ArrayOfUmbracoWords(5).map(
-          (el) => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`
         )}
       </uui-table-row>
       <uui-table-row>
         ${ArrayOfUmbracoWords(5).map(
-          (el) => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`
         )}
       </uui-table-row>
     </uui-table>
   `;
-  
-export const ColumnColors: Story = (props) =>
+
+export const ColumnColors: Story = props =>
   html`
     <div id="table-decription">
       This is a table containing random Umbraco-related words with no particular
@@ -53,64 +47,67 @@ export const ColumnColors: Story = (props) =>
     </div>
     <uui-table
       aria-label="Random Umbraco Words"
-      aria-describedby="table-decription"
-    >
+      aria-describedby="table-decription">
       <uui-table-column style="background-color: ${props.backgroundColor1}">
       </uui-table-column>
-      <uui-table-column style="width: 40%; background-color: ${props.backgroundColor2}"> </uui-table-column>
       <uui-table-column
-        style="width: 40%; background-color: ${props.backgroundColor3}"
-      >
+        style="width: 40%; background-color: ${props.backgroundColor2}">
+      </uui-table-column>
+      <uui-table-column
+        style="width: 40%; background-color: ${props.backgroundColor3}">
       </uui-table-column>
       <uui-table-head>
         ${ArrayOfUmbracoWords(3).map(
-          (el) => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
         )}
       </uui-table-head>
       <uui-table-row>
         ${ArrayOfUmbracoWords(3).map(
-          (el) => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`
         )}
       </uui-table-row>
       <uui-table-row>
         ${ArrayOfUmbracoWords(3).map(
-          (el) => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`
         )}
       </uui-table-row>
     </uui-table>
   `;
-ColumnColors.args = { backgroundColor1: "#8d9fc2", backgroundColor2: "#afc0e1" ,backgroundColor3: "#c7d4ee" };
+ColumnColors.args = {
+  backgroundColor1: '#8d9fc2',
+  backgroundColor2: '#afc0e1',
+  backgroundColor3: '#c7d4ee',
+};
 ColumnColors.argTypes = {
-  backgroundColor1: { table: { category: "Column styling" }, control: "color" },
-  backgroundColor2: { table: { category: "Column styling" }, control: "color" },
-  backgroundColor3: { table: { category: "Column styling" }, control: "color" },
+  backgroundColor1: { table: { category: 'Column styling' }, control: 'color' },
+  backgroundColor2: { table: { category: 'Column styling' }, control: 'color' },
+  backgroundColor3: { table: { category: 'Column styling' }, control: 'color' },
 };
 ColumnColors.parameters = {
   controls: {
-    include: ["backgroundColor1", "backgroundColor2", "backgroundColor3"],
+    include: ['backgroundColor1', 'backgroundColor2', 'backgroundColor3'],
   },
 };
 
-export const SelectableRows: Story = (props) =>
+export const SelectableRows: Story = () =>
   html`
     <div style="width: 100%;">
       <uui-table>
         <uui-table-column
-          style="width: 5%; min-width: 32px; max-width: 48px;"
-        ></uui-table-column>
+          style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
         <uui-table-head>
           ${ArrayOfUmbracoWords(5).map(
-            (el) => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
+            el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
           )}
         </uui-table-head>
         <uui-table-row selectable>
           ${ArrayOfUmbracoWords(5).map(
-            (el) => html`<uui-table-cell>${el}</uui-table-cell>`
+            el => html`<uui-table-cell>${el}</uui-table-cell>`
           )}
         </uui-table-row>
         <uui-table-row selectable>
           ${ArrayOfUmbracoWords(5).map(
-            (el) => html`<uui-table-cell>${el}</uui-table-cell>`
+            el => html`<uui-table-cell>${el}</uui-table-cell>`
           )}
         </uui-table-row>
       </uui-table>

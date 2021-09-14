@@ -14,5 +14,5 @@ export const ActiveMixin = <T extends Constructor<LitElement>>(
     @property({ type: Boolean, reflect: true })
     public active = false;
   }
-  return (ActiveMixinClass as unknown) as Constructor<ActiveMixinInterface> & T;
+  return ActiveMixinClass as unknown as Constructor<ActiveMixinInterface> & T;
 };

@@ -74,8 +74,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
   render() {
     return html`${this.lastItem
         ? html`<span id="last-item"><slot></slot></span>`
-        : html`<a id="link" .href=${this.href}><slot></slot></a>`}<span
-        part="separator"
-      ></span>`;
+        : html`<a id="link" href=${this.href}><slot></slot></a>`}<span
+        part="separator"></span>`;
   }
 }

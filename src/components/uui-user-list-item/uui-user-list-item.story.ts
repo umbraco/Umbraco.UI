@@ -22,8 +22,7 @@ export const Selectable = () => html`
     <uui-user-list-item
       selectable
       name="Arnold Edits"
-      group-name="Editors, Translators"
-    >
+      group-name="Editors, Translators">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -35,8 +34,7 @@ export const Disabled = () => html`
     <uui-user-list-item
       disabled
       name="Arnold Edits"
-      group-name="Editors, Translators"
-    >
+      group-name="Editors, Translators">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -50,8 +48,7 @@ export const Listed = () => html`
     ${listOfNodeNames.map(
       name => html`<uui-user-list-item
         name=${name}
-        group-name="Editors, Translators"
-      >
+        group-name="Editors, Translators">
         <uui-action-bar slot="actions"
           ><uui-button>Remove</uui-button></uui-action-bar
         >

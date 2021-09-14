@@ -12,8 +12,7 @@ describe('UuiTable', () => {
       html`
         <uui-table
           aria-label="Random Umbraco Words"
-          aria-describedby="table-decription"
-        >
+          aria-describedby="table-decription">
           <uui-table-column style="width: 95%"> </uui-table-column>
           <uui-table-column style="width: 95%"> </uui-table-column>
           <uui-table-column style="width: 1%"> </uui-table-column>

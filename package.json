@@ -19,35 +19,69 @@
     "custom-elements"
   ],
   "scripts": {
+    "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "buildts": "tsc -b",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "npm run analyze && build-storybook",
+    "storybook": "npm run lint && npm run analyze && start-storybook -p 6006",
+    "storybook:build": "npm run lint && npm run analyze && build-storybook",
     "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
     "test": "tsc && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch"
   },
+  "engines": {
+    "node": ">=16.8.0",
+    "npm": ">= 7.21.0"
+  },
   "dependencies": {
-    "lit": "^2.0.0-rc.3",
-    "web-component-analyzer": "^1.1.6"
+    "lit": "^2.0.0-rc.3"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@open-wc/testing": "^2.5.33",
-    "@storybook/addon-actions": "^6.3.7",
-    "@storybook/addon-essentials": "^6.3.7",
-    "@storybook/addon-links": "^6.3.7",
-    "@storybook/web-components": "^6.3.7",
+    "@storybook/addon-a11y": "^6.3.8",
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/web-components": "^6.3.8",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
     "@web/test-runner": "^0.13.17",
     "babel-loader": "^8.2.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-lit": "^1.5.1",
+    "eslint-plugin-lit-a11y": "^1.1.0-next.1",
+    "husky": "^7.0.2",
+    "lint-staged": "^10.0.0",
     "postcss-advanced-variables": "^3.0.1",
     "postcss-color-function": "^4.1.0",
+    "prettier": "2.4.0",
     "storybook-builder-vite": "0.0.12",
     "typescript": "^4.3.2",
-    "vite": "^2.5.2"
+    "vite": "^2.5.2",
+    "web-component-analyzer": "^1.1.6"
   },
   "workspaces": [
     "./packages/*"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
 }

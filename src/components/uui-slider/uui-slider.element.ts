@@ -20,7 +20,7 @@ const renderSVG = (steps: number[], stepWidth: number) => {
       return svg`<circle class="uui-slider-circle" cx="${
         stepWidth * steps.indexOf(el)
       }" cy="50%" r="4.2" />`;
-      return svg``;
+    return svg``;
   })}
 `;
 };
@@ -358,8 +358,7 @@ export class UUISliderElement extends LitElement {
         id="input1"
         aria-label="${this.label}"
         step="${+this.step}"
-        @input=${this.onInput}
-      />
+        @input=${this.onInput} />
       <div id="track" aria-hidden="true">
         <div id="stepper">
           <svg height="100%" width="100%" class="uui-slider-step">
@@ -369,8 +368,7 @@ export class UUISliderElement extends LitElement {
               x2="100%"
               y2="50%"
               stroke="black"
-              id="slider-line"
-            />
+              id="slider-line" />
             ${this.step !== 'any'
               ? renderSVG(this.steps, this.stepWidht)
               : nothing}

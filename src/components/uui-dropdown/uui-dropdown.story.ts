@@ -59,13 +59,11 @@ export const Overview = () => html`
               ><uui-icon
                 slot="left"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
               >${option.color}<uui-icon
                 slot="right"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
             ></uui-select-option>`
         )}
       </uui-select-list>
@@ -92,13 +90,11 @@ export const withInput = () => html`
               ><uui-icon
                 slot="left"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
               >${option.color}<uui-icon
                 slot="right"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
             ></uui-select-option>`
         )}
       </uui-select-list>
@@ -124,13 +120,11 @@ export const top = () => html`
               ><uui-icon
                 slot="left"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
               >${option.color}<uui-icon
                 slot="right"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
             ></uui-select-option>`
         )}
       </uui-select-list>
@@ -158,13 +152,11 @@ export const auto = () => html`
               ><uui-icon
                 slot="left"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
               >${option.color}<uui-icon
                 slot="right"
                 name="bug"
-                .style="color: ${option.value}"
-              ></uui-icon
+                .style="color: ${option.value}"></uui-icon
             ></uui-select-option>`
         )}
       </uui-select-list>

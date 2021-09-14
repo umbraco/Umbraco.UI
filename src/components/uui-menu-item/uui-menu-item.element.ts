@@ -178,8 +178,7 @@ export class UUIMenuItemElement extends SelectableMixin(
           id="label-button"
           @click=${this.onLabelClicked}
           ?disabled=${this.disabled}
-          aria-label="${this.label}"
-        >
+          aria-label="${this.label}">
           ${this.renderLabel()}
         </button>
         <div id="label-button-background"></div>

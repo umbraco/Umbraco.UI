@@ -96,8 +96,7 @@ export class UUINodeListItemElement extends UUIBaseListItemElement {
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
-        ?disabled=${this.disabled}
-      >
+        ?disabled=${this.disabled}>
         <uui-icon id="icon" name=${this.icon}></uui-icon>
         <div id="info">
           <div id="name">${this.name}</div>

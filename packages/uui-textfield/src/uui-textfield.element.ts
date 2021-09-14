@@ -218,8 +218,7 @@ export class UUITextFieldElement extends LabelMixin(
         aria-label=${this.label}
         .disabled=${this.disabled}
         @input=${this.onInput}
-        @change=${this.onChange}
-      />
+        @change=${this.onChange} />
       ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
   }

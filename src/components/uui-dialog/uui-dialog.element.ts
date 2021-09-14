@@ -32,6 +32,7 @@ export class UUIDialogElement extends LitElement {
         display: flex;
         justify-content: flex-end;
       }
+
       ::slotted([slot='actions']) {
         margin-left: var(--uui-size-small);
       }

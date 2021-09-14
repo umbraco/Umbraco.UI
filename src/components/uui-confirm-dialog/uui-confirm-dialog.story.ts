@@ -13,8 +13,7 @@ export const Danger = () => html`
     look="danger"
     @cancel=${(e: UUIEvent) => console.log('Cancelled', e)}
     @submit=${(e: UUIEvent) => console.log('Submitted', e)}
-    submitLabel="Delete"
-  >
+    submitLabel="Delete">
     Description of this very dangerous dialog
   </uui-confirm-dialog>
 `;
@@ -24,8 +23,7 @@ export const Positive = () => html`
     title="Would you like to make it happen?"
     look="positive"
     @cancel=${(e: UUIEvent) => console.log('Cancelled', e)}
-    @submit=${(e: UUIEvent) => console.log('Submitted', e)}
-  >
+    @submit=${(e: UUIEvent) => console.log('Submitted', e)}>
     Description of this very positive dialog
   </uui-confirm-dialog>
 `;

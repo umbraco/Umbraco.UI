@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { spreadProps } from "./helper/SpreadPropsDirective";
+import { spreadProps } from './helper/SpreadPropsDirective';
 import '@umbraco-ui/uui-avatar/src/index';
 
 export default {
@@ -8,11 +8,11 @@ export default {
   component: 'uui-avatar-group',
   args: {
     limit: 0,
-    borderColor: 'white'
-  }
+    borderColor: 'white',
+  },
 };
 
-export const Overview: Story = (props) => html`
+export const Overview: Story = props => html`
   <uui-avatar-group style="font-size: 2rem" ${spreadProps(props)}>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
@@ -21,7 +21,7 @@ export const Overview: Story = (props) => html`
   </uui-avatar-group>
 `;
 
-export const Limit: Story = ({limit}) => html`
+export const Limit: Story = ({ limit }) => html`
   <uui-avatar-group style="font-size: 2rem" .limit=${limit}>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
@@ -29,8 +29,8 @@ export const Limit: Story = ({limit}) => html`
     <uui-avatar title="First Last"></uui-avatar>
   </uui-avatar-group>
 `;
-Limit.args = {limit: 2};
-Limit.parameters = { controls: { include: ["limit"] } };
+Limit.args = { limit: 2 };
+Limit.parameters = { controls: { include: ['limit'] } };
 
 export const Sizes: Story = () => html`
   <uui-avatar-group style="font-size: 1rem">

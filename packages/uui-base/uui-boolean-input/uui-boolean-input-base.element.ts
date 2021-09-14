@@ -193,8 +193,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
           .checked="${this.checked}"
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
-          role="${this.inputRole}"
-        />
+          role="${this.inputRole}" />
         ${this.renderCheckbox()}
         ${this.hideLabel === false ? this.renderLabel() : ''}
       </label>

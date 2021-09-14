@@ -186,9 +186,8 @@ export class UUIRadioGroupElement extends LitElement {
       this.selected === null ||
       this.selected === this.enabledElementsIndexes[0]
     ) {
-      this.selected = this.enabledElementsIndexes[
-        this.enabledElementsIndexes.length - 1
-      ];
+      this.selected =
+        this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1];
       this._lastSelectedIndex = this.enabledElementsIndexes.length - 1;
     } else {
       this._lastSelectedIndex--;

@@ -31,7 +31,6 @@ export const Default = () =>
     <div style="width:300px;">
       <uui-image-file-symbol
         .type=${fileType}
-        .source=${imgFile}
-      ></uui-image-file-symbol>
+        .source=${imgFile}></uui-image-file-symbol>
     </div>
   `;

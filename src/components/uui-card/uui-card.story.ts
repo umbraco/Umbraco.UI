@@ -23,13 +23,15 @@ export const Overview = () => html`
         </li>
       </ul>
     </uui-content-node-card>
-    <br/>
-    <uui-media-card selectable name="Doggo 1" file-ext="image" /><img src="https://placedog.net/1447/?random"></uui-media-card>
-    <br/>
-    <uui-media-card selectable name="File 1"/></uui-media-card>
-    <br/>
-    <uui-media-card selectable name="File 1" file-ext="txt"/></uui-media-card>
-    <br/>
+    <br />
+    <uui-media-card selectable name="Doggo 1" file-ext="image"
+      ><img src="https://placedog.net/1447/?random" alt=""
+    /></uui-media-card>
+    <br />
+    <uui-media-card selectable name="File 1"></uui-media-card>
+    <br />
+    <uui-media-card selectable name="File 1" file-ext="txt"></uui-media-card>
+    <br />
     <uui-user-card selectable name="Sherlock Holmes" group-name="Editors">
       <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag>
       <div style="margin-bottom: 12px">Editors</div>

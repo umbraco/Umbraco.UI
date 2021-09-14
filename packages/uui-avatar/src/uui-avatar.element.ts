@@ -103,8 +103,7 @@ export class UUIAvatarElement extends LitElement {
       src="${this.imgSrc}"
       srcset="${this.imgSrcset}"
       alt="${this.initials}"
-      title="${this.title}"
-    />`;
+      title="${this.title}" />`;
   }
 
   render() {

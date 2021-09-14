@@ -77,8 +77,7 @@ export const withDropdown = () =>
         >
         <div
           slot="dropdown"
-          style="height: 180px;  background-color: blue;"
-        ></div>
+          style="height: 180px;  background-color: blue;"></div>
       </uui-dropdown>
 
       ${buttons.map(
@@ -114,8 +113,7 @@ export const withDropdown = () =>
         >
         <div
           slot="dropdown"
-          style="height: 180px;  background-color: blue;"
-        ></div>
+          style="height: 180px;  background-color: blue;"></div>
       </uui-dropdown>
     </uui-button-group>
   `;
@@ -137,8 +135,7 @@ export const withDropdownInTheMiddle = () =>
         >
         <div
           slot="dropdown"
-          style="height: 180px;  background-color: blue;"
-        ></div>
+          style="height: 180px;  background-color: blue;"></div>
       </uui-dropdown>
       <uui-dropdown same-width position="bottom">
         <uui-button
@@ -151,8 +148,7 @@ export const withDropdownInTheMiddle = () =>
         >
         <div
           slot="dropdown"
-          style="height: 180px;  background-color: blue;"
-        ></div>
+          style="height: 180px;  background-color: blue;"></div>
       </uui-dropdown>
       ${buttons.map(
         el => html`<uui-button look="secondary">${el}</uui-button>`

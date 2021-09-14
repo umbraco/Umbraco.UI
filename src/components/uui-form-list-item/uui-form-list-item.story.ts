@@ -11,8 +11,7 @@ export const Default = () => html`
   <div style="max-width: 420px;">
     <uui-form-list-item
       name="Newsletter Signup"
-      detail="Accept and signup for newsletter"
-    >
+      detail="Accept and signup for newsletter">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -25,8 +24,7 @@ export const Selectable = () => html`
     <uui-form-list-item
       selectable
       name="Newsletter Signup"
-      detail="Accept and signup for newsletter"
-    >
+      detail="Accept and signup for newsletter">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >
@@ -38,8 +36,7 @@ export const Disabled = () => html`
     <uui-form-list-item
       disabled
       name="Newsletter Signup"
-      detail="Accept and signup for newsletter"
-    >
+      detail="Accept and signup for newsletter">
       <uui-action-bar slot="actions"
         ><uui-button>Remove</uui-button></uui-action-bar
       >

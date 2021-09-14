@@ -296,9 +296,8 @@ export class UUISelectElement extends LitElement {
           newSelection = this.getNextEnabledElement(index, index, move);
         }
       } else {
-        newSelection = this.listElements[
-          move > 0 ? 0 : this.listElements.length - 1
-        ];
+        newSelection =
+          this.listElements[move > 0 ? 0 : this.listElements.length - 1];
       }
       if (newSelection) {
         this.select(newSelection);
@@ -332,9 +331,9 @@ export class UUISelectElement extends LitElement {
         .title="${this.title}"
         tabindex="0"
         role="combobox"
+        aria-expanded=${this.open}
         aria-controls="list"
-        @close=${this.onDropdownClose}
-      >
+        @close=${this.onDropdownClose}>
         ${this.input
           ? html`
             <input
@@ -353,8 +352,7 @@ export class UUISelectElement extends LitElement {
                   console.log('click');
                   this.open = !this.open;
                 }}"
-                aria-label="${this.label}"
-              >
+                aria-label="${this.label}">
                 ${this.selectedElement
                   ? html`<span>${this.selectedElement.label}</span>`
                   : html`<span id="placeholder">${this.placeholder}</span>`}
@@ -367,8 +365,7 @@ export class UUISelectElement extends LitElement {
           role="listbox"
           tabindex="${this.open ? '0' : '-1'}"
           aria-activedescendant="TODO"
-          @change=${this.onListElementChange}
-        >
+          @change=${this.onListElementChange}>
           <slot @slotchange=${this.onSlotChange}></slot>
         </uui-overflow-container>
       </uui-dropdown>

@@ -1,21 +1,19 @@
-
-import { setCustomElements } from "@storybook/web-components";
-import customElements from "../custom-elements.json";
+import { setCustomElements } from '@storybook/web-components';
+import customElements from '../custom-elements.json';
 import '../src/style/index.css';
 
 const sort = (a, b) => {
-
-  if(a[1].name === "Overview"){
+  if (a[1].name === 'Overview') {
     return 0;
   }
-  if(b[1].name === "Overview"){
+  if (b[1].name === 'Overview') {
     return 1;
   }
-  return (a[0] > b[0]);
-}
+  return a[0] > b[0];
+};
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,
@@ -24,7 +22,7 @@ export const parameters = {
   },
   options: {
     method: 'alphabetical',
-    storySort: sort
+    storySort: sort,
   },
   // Hides the CSS: [] property on the docs page.
   argTypes: {
@@ -34,6 +32,6 @@ export const parameters = {
       },
     },
   },
-}
+};
 
 setCustomElements(customElements);

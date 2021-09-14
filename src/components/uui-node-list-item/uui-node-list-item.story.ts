@@ -12,8 +12,7 @@ export const Default = () => html`
     <uui-node-list-item
       name="Rabbit suit product page"
       icon="bug"
-      detail="path/to/nowhere"
-    >
+      detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -28,8 +27,7 @@ export const Border = () => html`
       border
       name="Rabbit suit product page"
       icon="bug"
-      detail="path/to/nowhere"
-    >
+      detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -44,8 +42,7 @@ export const Selectable = () => html`
       selectable
       name="Rabbit suit product page"
       icon="bug"
-      detail="path/to/nowhere"
-    >
+      detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -60,8 +57,7 @@ export const BorderAndSelectable = () => html`
       border
       name="Rabbit suit product page"
       icon="bug"
-      detail="path/to/nowhere"
-    >
+      detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -75,8 +71,7 @@ export const Disabled = () => html`
       disabled
       name="Rabbit suit product page"
       icon="bug"
-      detail="path/to/nowhere"
-    >
+      detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -91,8 +86,7 @@ export const BorderAndDisabled = () => html`
       disabled
       name="Rabbit suit product page"
       icon="bug"
-      detail="path/to/nowhere"
-    >
+      detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="bug"></uui-icon></uui-button
@@ -108,8 +102,7 @@ export const Listed = () => html`
       name => html`<uui-node-list-item
         name=${name}
         icon="bug"
-        detail="path/to/nowhere"
-      >
+        detail="path/to/nowhere">
         <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
         <uui-action-bar slot="actions"
           ><uui-button><uui-icon name="bug"></uui-icon></uui-button
