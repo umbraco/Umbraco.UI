@@ -1,6 +1,5 @@
 import { html } from 'lit-html';
 import './index';
-import { AvatarSizeNames, AvatarSizeType } from './uui-avatar.element';
 
 export default {
   title: 'Displays/Avatar',
@@ -16,6 +15,8 @@ const avatarSrcSet = [
   `${avatarSrc}&h=300&w=300`,
 ];
 
+const sizes = [0, 1, 2, 3, 4, 5];
+
 export const Basic = () => html`
   <div style="display: flex; align-items: center;">
     <uui-avatar title="First Last"></uui-avatar>
@@ -29,49 +30,22 @@ export const Basic = () => html`
 `;
 
 export const Sizes = () => html`
-  <div style="display: flex; align-items: center;">
-    <uui-avatar
-      img-src="${avatarSrcSet[0]}"
-      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-    >
-    </uui-avatar>
-    ${AvatarSizeNames.map(
-      (avatarSize: AvatarSizeType) =>
-        html`
-          <uui-avatar size="${avatarSize}" name="${avatarSize}"> </uui-avatar>
-        `
-    )}
-  </div>
-
-  <div style="display: flex; align-items: center;">
-    <uui-avatar
-      img-src="${avatarSrcSet[0]}"
-      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-    >
-    </uui-avatar>
-    ${AvatarSizeNames.map(
-      (avatarSize: AvatarSizeType) =>
-        html`
-          <uui-avatar
-            size="${avatarSize}"
-            img-src="${avatarSrcSet[0]}"
-            img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
-          >
-          </uui-avatar>
-        `
+  <div style="display: flex">
+    ${sizes.map(
+      size => html`<uui-avatar
+        style="font-size: ${1 + size / 2}em;"
+        title="First Last"
+      ></uui-avatar>`
     )}
   </div>
 `;
 
-export const Text = () => html`
-  <uui-avatar title="First Last" size="m"></uui-avatar>
-`;
+export const Text = () => html` <uui-avatar title="First Last"></uui-avatar> `;
 
 export const Colors = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="m" title="First Last"></uui-avatar>
+    <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar
-      size="m"
       title="First Last"
       style="
         background-color: var(--uui-color-space-cadet);
@@ -82,6 +56,21 @@ export const Colors = () => html`
 
 export const SlottedContent = () => html`
   <div style="display: flex; align-items: center;">
-    <uui-avatar size="m">Hello world</uui-avatar>
+    <uui-avatar>A</uui-avatar>
+  </div>
+`;
+
+export const WidthBadge = () => html`
+  <div style="display: flex; align-items: center;">
+    <uui-avatar overflow title="First Last"
+      ><uui-badge>!</uui-badge></uui-avatar
+    >
+    <uui-avatar
+      overflow
+      img-src="${avatarSrcSet[0]}"
+      img-srcset="${avatarSrcSet[1]} 2x, ${avatarSrcSet[2]} 3x"
+      title="First Last"
+      ><uui-badge>!</uui-badge></uui-avatar
+    >
   </div>
 `;

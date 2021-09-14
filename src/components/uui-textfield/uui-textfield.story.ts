@@ -7,16 +7,37 @@ export default {
 };
 
 export const Text = () =>
-  html` <uui-textfield value="Hello" label=""></uui-textfield> `;
+  html` <uui-textfield value="Hello" label="Text"></uui-textfield> `;
+
+export const HideLabel = () =>
+  html` <uui-textfield hide-label value="Hello" label="Text"></uui-textfield> `;
 
 export const Disabled = () =>
   html`
-    <uui-textfield value="Hello" label="" .disabled=${true}></uui-textfield>
+    <uui-textfield
+      value="Hello"
+      label="Disabled"
+      .disabled=${true}
+    ></uui-textfield>
+  `;
+
+export const Error = () =>
+  html`
+    <uui-textfield value="Hello" label="Error" error></uui-textfield>
+    <uui-textfield
+      value="Hello"
+      label="Error Disabled"
+      .disabled=${true}
+      error
+    ></uui-textfield>
   `;
 
 export const Placeholder = () =>
   html`
-    <uui-textfield placeholder="Type something..." label=""></uui-textfield>
+    <uui-textfield
+      placeholder="Type something..."
+      label="Placeholder"
+    ></uui-textfield>
   `;
 
 export const Color = () =>
@@ -38,15 +59,20 @@ export const Password = () =>
     ></uui-textfield>
   `;
 
-export const Search = () =>
-  html`
-    <uui-textfield value="Hello" label="Password" type="search"></uui-textfield>
-  `;
 export const DateTime = () =>
   html`
     <uui-textfield
-      value="Hello"
       label="Date time"
       type="datetime-local"
+      label="Date Time"
+    ></uui-textfield>
+  `;
+
+export const Week = () =>
+  html`
+    <uui-textfield
+      label="Date time"
+      type="datetime-local"
+      label="Week"
     ></uui-textfield>
   `;

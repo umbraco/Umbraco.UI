@@ -40,7 +40,7 @@ export class UUIRadioElement extends LitElement {
         margin: 0;
       }
 
-      #label {
+      .label {
         margin-top: 2px;
       }
 
@@ -92,7 +92,7 @@ export class UUIRadioElement extends LitElement {
       :host([disabled]) label {
         cursor: default;
       }
-      :host([disabled]) #label {
+      :host([disabled]) .label {
         color: var(--uui-interface-contrast-disabled);
       }
 

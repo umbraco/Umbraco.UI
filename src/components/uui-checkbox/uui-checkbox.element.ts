@@ -4,24 +4,22 @@ import {
   UUIHorizontalShakeAnimationValue,
 } from '../../animations/uui-shake';
 import { iconCheck } from './checkbox-icons';
-import { UUICheckboxBaseElement } from './uui-checkbox-base.element';
+import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
 /**
- *  @element uui-toggle
- *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
- *  @slot - to overwrite displayed label content
- *  @description - A Umbraco Toggle-switch, toggles between off/on
+ *  Umbraco checkbox, toggles between checked and uncheck
+ *  @element uui-checkbox
+ *  @fires UUIBooleanInputBaseEvent#change - fires when the element is begin checked by a user action
+ *  @slot to overwrite displayed label content
+ *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
  */
-export class UUICheckboxElement extends UUICheckboxBaseElement {
+export class UUICheckboxElement extends UUIBooleanInputBaseElement {
   static styles = [
-    ...UUICheckboxBaseElement.styles,
+    ...UUIBooleanInputBaseElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {
         --uui-checkbox-size: 18px;
-        /*
-        --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
-        */
       }
 
       #ticker {
@@ -89,9 +87,7 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         opacity: 0;
       }
 
-      /** before? */
-
-      #ticker:before {
+      #ticker::before {
         content: '';
         position: absolute;
         top: 0;
@@ -106,11 +102,11 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         transform: scale(0);
         opacity: 0;
       }
-      label:hover input:checked:not([disabled]) + #ticker:before {
+      label:hover input:checked:not([disabled]) + #ticker::before {
         background-color: var(--uui-interface-chosen-hover);
       }
 
-      input:checked + #ticker:before {
+      input:checked + #ticker::before {
         transform: scale(1);
         opacity: 1;
       }
@@ -121,9 +117,24 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
         background-color: var(--uui-interface-chosen-focus);
       }
 
-      :host(:not([disabled])) label:active input:checked + #ticker:before {
+      :host(:not([disabled])) label:active input:checked + #ticker::before {
         /** Stretch when mouse down */
         transform: scale(0.9);
+      }
+
+      :host([error]) #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
+      :host([error]) label:hover #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+
+      :host([error]) label:hover input:checked:not([disabled]) + #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
+      :host([error]) label:focus input:checked + #ticker {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
       }
 
       :host([disabled]) #ticker {
@@ -144,13 +155,6 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
       :host([disabled]) input:checked + #ticker #icon-check {
         fill: var(--uui-interface-chosen-contrast-disabled);
       }
-
-      /*
-      input:focus + #slider,
-      input:not([disabled]) + label:active #slider {
-        box-shadow: var(--uui-toggle-focus-outline);
-      }
-      */
     `,
   ];
 
@@ -164,5 +168,3 @@ export class UUICheckboxElement extends UUICheckboxBaseElement {
     `;
   }
 }
-
-//

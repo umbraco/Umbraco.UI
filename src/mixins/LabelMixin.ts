@@ -8,11 +8,23 @@ export declare class LabelMixinInterface {
   protected renderLabel(): TemplateResult;
 }
 
+/**
+ * This mixin provides label functionality to other components. In the mixed component the label can be provided either via reactive label property, or through slot that this mixin contains. You can style the label template through .label selector.
+ *
+ * @param {string} labelSlotName - Name that will be assigned for the label slot
+ * @param {Object} superClass - superclass to be extended.
+ * @mixin
+ */
 export const LabelMixin = <T extends Constructor<LitElement>>(
-  labelName: string | null,
+  labelSlotName: string | null,
   superClass: T
 ) => {
   class LabelMixinClass extends superClass {
+    /**
+     * Text with which component should be labeled
+     * @type {string}
+     * @attr
+     */
     @property({ type: String })
     public label!: string;
 
@@ -28,19 +40,24 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
 
     private labelSlotChanged(e: any): void {
       this.labelSlotHasContent =
-        (e.target as HTMLSlotElement).assignedElements({ flatten: true })
-          .length > 0;
+        (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length >
+        0;
     }
 
-    // TODO does this slot must have an ID? It makes it fail the accesibility test within storybook.
+    /**
+     * Call in the mixed element to render the label template. It contains a slot. This is optional.
+     * @method renderLabel
+     * @returns {TemplateResult}
+     */
     protected renderLabel() {
       return html`
         ${this.labelSlotHasContent === false
-          ? html`<span id="label">${this.label}</span>`
+          ? html`<span class="label">${this.label}</span>`
           : ''}
         <slot
-          id="label"
-          name=${labelName ? labelName : ''}
+          class="label"
+          style=${this.labelSlotHasContent ? '' : 'visibility: hidden'}
+          name=${labelSlotName ? labelSlotName : ''}
           @slotchange=${this.labelSlotChanged}
         ></slot>
       `;

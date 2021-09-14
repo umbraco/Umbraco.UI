@@ -4,7 +4,7 @@ import { UUIRadioElement } from '../uui-radio/uui-radio.element';
 import { UUIRadioGroupElement } from './uui-radio-group.element';
 import '.';
 
-describe('UuiToggle', () => {
+describe('UuiRadio', () => {
   let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
   beforeEach(async () => {
@@ -32,7 +32,7 @@ describe('UuiToggle', () => {
   });
 });
 
-describe('UuiToggle in a Form', () => {
+describe('UuiRadio in a Form', () => {
   let formElement: HTMLFormElement;
   let element: UUIRadioGroupElement;
   beforeEach(async () => {

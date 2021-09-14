@@ -4,27 +4,25 @@ import {
   UUIHorizontalShakeAnimationValue,
 } from '../../animations/uui-shake';
 import { iconWrong, iconCheck } from './toggle-icons';
-import { UUICheckboxBaseElement } from '../uui-checkbox/uui-checkbox-base.element';
-
-// TODO - validation - required option??? does it even make sense? if so what it should output. make it possible that it has to be checked.
+import { UUIBooleanInputBaseElement } from '../uui-boolean-input/uui-boolean-input-base.element';
 
 /**
+ *  Umbraco Toggle-switch, toggles between off/on.
  *  @element uui-toggle
- *  @fires {UUICheckboxEvent} change - fires when the element is begin checked by a user action
- *  @slot - to overwrite displayed label content
- *  @description - A Umbraco Toggle-switch, toggles between off/on
+ *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
+ *  @slot to overwrite displayed label content
+ * @cssprop --uui-toggle-size - Define the toggle size.
+ * @cssprop --uui-toggle-switch-width - Define the slider width.
+ * @extends UUIBooleanInputBaseElement
  */
-export class UUIToggleElement extends UUICheckboxBaseElement {
+export class UUIToggleElement extends UUIBooleanInputBaseElement {
   static styles = [
-    ...UUICheckboxBaseElement.styles,
+    ...UUIBooleanInputBaseElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {
         --uui-toggle-size: 18px;
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
-        /*
-        --uui-toggle-focus-outline: 0 0 1px 1.5px var(--uui-color-violet-blue);
-        */
       }
 
       #slider {
@@ -100,7 +98,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         fill: var(--uui-interface-select-contrast);
       }
 
-      #slider:after {
+      #slider::after {
         content: '';
         position: absolute;
         top: 2px;
@@ -113,12 +111,12 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
           background-color 120ms;
       }
 
-      input:checked + #slider:after {
+      input:checked + #slider::after {
         left: calc(100% - 2px);
         transform: translateX(-100%);
       }
 
-      :host(:not([disabled])) label:active #slider:after {
+      :host(:not([disabled])) label:active #slider::after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
       }
@@ -129,7 +127,7 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
       :host([disabled]) input:checked + #slider {
         background-color: var(--uui-interface-select-disabled);
       }
-      :host([disabled]) #slider:after {
+      :host([disabled]) #slider::after {
         background-color: var(--uui-interface-surface-disabled);
       }
       :host([disabled]) #slider #icon-wrong {
@@ -142,12 +140,13 @@ export class UUIToggleElement extends UUICheckboxBaseElement {
         fill: var(--uui-interface-select-contrast-disabled);
       }
 
-      /*
-      input:focus + #slider,
-      input:not([disabled]) + label:active #slider {
-        box-shadow: var(--uui-toggle-focus-outline);
+      :host([error]) #slider {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
       }
-      */
+
+      :host([error]) label:hover #slider {
+        border: 1px solid var(--uui-look-danger-border, #d42054);
+      }
     `,
   ];
 

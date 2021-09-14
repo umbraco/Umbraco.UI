@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit';
 import { state } from 'lit/decorators';
 /**
- *  @element uui-avatar-group
+ *  @element uui-avatar-group-example-page
  */
 
 export class UUIAvatarGroupExamplePageElement extends LitElement {

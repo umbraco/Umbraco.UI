@@ -9,6 +9,14 @@ export default {
 export const Basic = () =>
   html` <uui-toggle .label=${'Toggle label'} value="bike"></uui-toggle> `;
 
+export const Error = () =>
+  html`
+    <uui-toggle error .label=${'Toggle label'} value="bike"></uui-toggle><br />
+    <uui-toggle error label="Toggle me" value="bike" checked></uui-toggle
+    ><br /><uui-toggle disabled error label="Disabled"></uui-toggle><br />
+    <uui-toggle disabled checked error label="Disabled"></uui-toggle>
+  `;
+
 export const Preselected = () =>
   html` <uui-toggle label="Toggle me" value="bike" checked></uui-toggle>`;
 
