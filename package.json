@@ -27,6 +27,10 @@
     "test": "tsc && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch"
   },
+  "engines": {
+    "node": ">=16.8.0",
+    "npm": ">= 7.21.0"
+  },
   "dependencies": {
     "lit": "^2.0.0-rc.3",
     "web-component-analyzer": "^1.1.6"
