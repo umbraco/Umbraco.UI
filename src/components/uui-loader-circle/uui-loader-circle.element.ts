@@ -1,5 +1,5 @@
-import { property } from '@lit/reactive-element/decorators/property';
 import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map';
 import { Size } from '../../type/Size';
 
