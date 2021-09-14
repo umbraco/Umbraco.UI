@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { UUIEvent } from '../../event/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/events/UUIEvent';
 import './index';
 
 export default {

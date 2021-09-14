@@ -1,6 +1,6 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { SelectableMixin } from '../../mixins/SelectableComponent';
+import { SelectableMixin } from '@umbraco-ui/uui-base/mixins/SelectableComponent';
 import { UUICardEvent } from './UUICardEvent';
 
 /**

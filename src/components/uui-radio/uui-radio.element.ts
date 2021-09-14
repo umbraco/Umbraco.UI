@@ -3,7 +3,7 @@ import { query, property } from 'lit/decorators.js';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
-} from '../../animations/uui-shake';
+} from '@umbraco-ui/uui-base/animations/uui-shake';
 import { UUIRadioEvent } from './UUIRadioEvent';
 /**
  *  @element uui-radio

@@ -4,7 +4,7 @@ import '../uui-badge/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '../../type/InterfaceLook';
+} from '@umbraco-ui/uui-base/types/InterfaceLook';
 
 export default {
   title: 'Buttons/Button',

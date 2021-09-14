@@ -4,8 +4,8 @@ import { property, state } from 'lit/decorators.js';
 import {
   UUIBlinkKeyframes,
   UUIBlinkAnimationValue,
-} from '../../animations/uui-blink';
-import { LabelMixin } from '../../mixins/LabelMixin';
+} from '@umbraco-ui/uui-base/animations/uui-blink';
+import { LabelMixin } from '@umbraco-ui/uui-base/mixins/LabelMixin';
 import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
 /**
  *  @element uui-inline-create-button

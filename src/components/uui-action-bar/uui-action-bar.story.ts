@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '../../type/InterfaceLook';
+} from '@umbraco-ui/uui-base/types/InterfaceLook';
 import './index';
 
 export default {

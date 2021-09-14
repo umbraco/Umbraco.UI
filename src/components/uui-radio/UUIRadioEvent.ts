@@ -1,4 +1,4 @@
-import { UUIEvent } from '../../event/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/events/UUIEvent';
 import { UUIRadioElement } from './uui-radio.element';
 
 export class UUIRadioEvent extends UUIEvent<{}, UUIRadioElement> {
