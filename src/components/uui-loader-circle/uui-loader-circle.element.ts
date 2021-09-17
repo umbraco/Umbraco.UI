@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 import { Size } from '../../type/Size';
 
 /**
@@ -154,8 +154,7 @@ export class UUILoaderCircleElement extends LitElement {
           cx="50%"
           cy="50%"
           r="15.9155"
-          style=${styleMap(this.strokeDashOffset())}
-        />
+          style=${styleMap(this.strokeDashOffset())} />
       </svg>
       ${this.largeSizes.includes(this.size) &&
       this.progress &&

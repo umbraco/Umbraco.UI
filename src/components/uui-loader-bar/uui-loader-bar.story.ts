@@ -37,6 +37,5 @@ export const WithColor = () =>
   html`${colors.map(
     color =>
       html`<uui-loader-bar
-        style=${`color: ${color}; margin-bottom: 40px`}
-      ></uui-loader-bar>`
+        style=${`color: ${color}; margin-bottom: 40px`}></uui-loader-bar>`
   )}`;

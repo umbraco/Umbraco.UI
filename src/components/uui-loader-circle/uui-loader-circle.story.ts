@@ -44,8 +44,7 @@ export const ShowProgressNumber = () =>
             progress => html`<uui-loader-circle
               show-progress
               progress=${progress}
-              size="${size}"
-            ></uui-loader-circle>`
+              size="${size}"></uui-loader-circle>`
           )}<br />`
     )} <br />
     <span>Number will not be visible with smaller sizes</span>
@@ -57,8 +56,7 @@ export const Sizes = () => html`
       html`<span>Size ${size}</span>${progress.map(
           progress => html`<uui-loader-circle
             progress=${progress}
-            size="${size}"
-          ></uui-loader-circle>`
+            size="${size}"></uui-loader-circle>`
         )}<br />`
   )}
 `;
@@ -79,8 +77,7 @@ export const WithColor = () =>
         html`<uui-loader-circle
           indefinite
           size="xl"
-          style="color: ${color}"
-        ></uui-loader-circle>`
+          style="color: ${color}"></uui-loader-circle>`
     )}<br />
     <span>
       Color of the spinner can be changed by changing css property color
