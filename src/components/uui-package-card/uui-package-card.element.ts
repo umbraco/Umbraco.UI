@@ -168,8 +168,19 @@ export class UUIPackageCardElement extends UUICardElement {
 
   @property({ type: String })
   name = '';
+  icon = '';
 
   public render() {
-    return html`TO BE DONE`;
+    return html`
+      <slot name="tag"></slot>
+      <div
+        id="open-part"
+        tabindex="0"
+        @click=${this.handleOpenClick}
+        @keydown=${this.handleOpenKeydown}
+      ></div>
+
+      <slot></slot>
+    `;
   }
 }
