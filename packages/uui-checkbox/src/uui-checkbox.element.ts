@@ -2,9 +2,9 @@ import { html, css } from 'lit';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
-} from '@umbraco-ui/uui-base/animations/uui-shake';
+} from '@umbraco-ui/uui-base/animations';
 import { iconCheck } from './checkbox-icons';
-import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/uui-boolean-input/uui-boolean-input-base.element';
+import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/uui-boolean-input';
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck

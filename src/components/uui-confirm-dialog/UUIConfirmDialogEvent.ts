@@ -1,4 +1,4 @@
-import { UUIEvent } from '@umbraco-ui/uui-base/events/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/events';
 import { UUIConfirmDialogElement } from './uui-confirm-dialog.element';
 
 export class UUIConfirmDialogEvent extends UUIEvent<

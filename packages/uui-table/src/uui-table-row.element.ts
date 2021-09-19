@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { SelectableMixin } from '@umbraco-ui/uui-base/mixins/SelectableComponent';
+import { SelectableMixin } from '@umbraco-ui/uui-base/mixins';
 
 /**
  *  Table row element with option to set is as selectable. Parent for uui-table-cell. Must be a child of uui-table.

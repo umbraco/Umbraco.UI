@@ -1,5 +1,5 @@
 import { UUITabElement } from './uui-tab.element';
-import { UUIEvent } from '@umbraco-ui/uui-base/events/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/events';
 
 type DetailType = {};
 

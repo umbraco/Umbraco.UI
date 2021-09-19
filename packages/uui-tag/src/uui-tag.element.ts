@@ -1,11 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import {
-  InterfaceLookType,
-  InterfaceLookDefaultValue,
-  InterfaceLookCSSCreator,
-} from '@umbraco-ui/uui-base/types/InterfaceLook';
-import { Size } from '@umbraco-ui/uui-base/types/Size';
+import { InterfaceLookType, InterfaceLookDefaultValue, InterfaceLookCSSCreator, Size } from '@umbraco-ui/uui-base/types';
 
 /**
  *  @element uui-tag

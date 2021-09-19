@@ -14,10 +14,10 @@ export const UUIProdConfig = ({
       return {
         input: `src/${name}.ts`,
         output: {
-          file: `${name}.mjs`,
+          file: `./lib/${name}.mjs`,
           format: 'es',
         },
-        plugins: [esbuild()],
+        plugins: [typescript2({ clean: true }), esbuild()],
       };
     }),
     ...bundles.map(name => {
@@ -28,7 +28,7 @@ export const UUIProdConfig = ({
           format: 'umd',
           sourcemap: true,
         },
-        plugins: [typescript2({ clean: true }), esbuild()],
+        plugins: [esbuild()],
       };
     }),
     /*

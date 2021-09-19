@@ -4,7 +4,7 @@ import {
   UUIHorizontalShakeAnimationValue,
 } from '@umbraco-ui/uui-base/animations';
 import { iconWrong, iconCheck } from './toggle-icons';
-import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/uui-boolean-input/uui-boolean-input-base.element';
+import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/uui-boolean-input';
 
 /**
  *  Umbraco Toggle-switch, toggles between off/on.
