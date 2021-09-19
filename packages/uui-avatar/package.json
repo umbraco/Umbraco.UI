@@ -2,9 +2,9 @@
   "name": "@umbraco-ui/uui-avatar",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "./dist/uui-avatar.js",
+  "main": "./dist/index.js",
   "module": "index.mjs",
-  "types": "./dist/uui-avatar.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

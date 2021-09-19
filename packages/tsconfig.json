@@ -1,5 +1,16 @@
 {
   "extends": "../tsconfig.json",
-  // "exclude": ["./**/src/*.test.ts", "./**/src/*.story.ts"],
-  // "references": [{ "path": "./uui-base" }, { "path": "./uui-loader" }, { "path": "./uui-tag" }]
+  "exclude": ["./**/src/*.test.ts", "./**/src/*.story.ts"],
+  "references": [
+    { "path": "./uui-avatar" }, 
+    { "path": "./uui-avatar-group" }, 
+    { "path": "./uui-base" },
+    { "path": "./uui-breadcrumbs" },
+    { "path": "./uui-checkbox" },
+    { "path": "./uui-loader" },
+    { "path": "./uui-table" },
+    { "path": "./uui-tag" },
+    { "path": "./uui-textfield" },
+    { "path": "./uui-toggle" }
+  ]
 }

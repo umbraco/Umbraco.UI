@@ -27,7 +27,7 @@
   "exclude": ["src/**/*.ts", "stories/**/.ts"],
   "files": [],
   "paths": {
-    "@umbraco-ui/*": ["packages/**/src"]
+    "@umbraco-ui/*": ["packages/*"]
   },
   "references": [{ "path": "./packages" }]
 }

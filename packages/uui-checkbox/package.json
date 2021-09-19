@@ -2,9 +2,9 @@
   "name": "@umbraco-ui/uui-checkbox",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "./dist/uui-checkbox.js",
+  "main": "./dist/index.js",
   "module": "index.mjs",
-  "types": "./dist/uui-checkbox.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

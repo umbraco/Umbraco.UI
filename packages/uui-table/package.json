@@ -2,8 +2,16 @@
   "name": "@umbraco-ui/uui-table",
   "version": "0.0.1",
   "license": "MIT",
-  "type": "module",
+  "main": "./dist/index.js",
+  "module": "index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
   }
 }

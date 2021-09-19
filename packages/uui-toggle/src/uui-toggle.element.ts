@@ -2,7 +2,7 @@ import { html, css } from 'lit';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
-} from '@umbraco-ui/uui-base/animations/uui-shake';
+} from '@umbraco-ui/uui-base/animations';
 import { iconWrong, iconCheck } from './toggle-icons';
 import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/uui-boolean-input/uui-boolean-input-base.element';
 

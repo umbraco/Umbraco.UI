@@ -6,5 +6,6 @@
         "composite": true
     },
     "include": ["./src/**/*.ts"],
-    "exclude": ["./dist", "./src/**/*.test.ts"]
+    "exclude": ["./dist", "./src/**/*.test.ts"],
+    "references": [{ "path": "../uui-base" }]
 }
