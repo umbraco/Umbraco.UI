@@ -1,7 +1,7 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { spreadProps } from './helper/SpreadPropsDirective';
-import '@umbraco-ui/uui-textfield/src/index';
+import '@umbraco-ui/uui-textfield/index';
 
 export default {
   title: 'Inputs/Textfield',

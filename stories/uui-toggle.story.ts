@@ -1,7 +1,7 @@
 import { Story } from '@storybook/web-components';
 import { spreadProps } from './helper/SpreadPropsDirective';
 import { html } from 'lit';
-import '@umbraco-ui/uui-toggle/src/index';
+import '@umbraco-ui/uui-toggle/index';
 
 export default {
   title: 'Inputs/Toggle',

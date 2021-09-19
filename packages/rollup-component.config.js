@@ -12,9 +12,9 @@ export const UUIProdConfig = ({
   return [
     ...entryPoints.map(name => {
       return {
-        input: `src/${name}.ts`,
+        input: `${name}.ts`,
         output: {
-          file: `./lib/${name}.mjs`,
+          file: `${name}.mjs`,
           format: 'es',
         },
         plugins: [typescript2({ clean: true }), esbuild()],

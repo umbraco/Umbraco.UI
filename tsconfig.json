@@ -22,6 +22,7 @@
     "importHelpers": true,
     "sourceMap": true,
     "inlineSources": true,
+    "isolatedModules": true
   },
   // "include": ["packages/**/*.ts"],
   "exclude": ["src/**/*.ts", "stories/**/.ts"],

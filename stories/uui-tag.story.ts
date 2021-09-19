@@ -1,8 +1,8 @@
 import { html } from 'lit-html';
-import { InterfaceLookNames } from '@umbraco-ui/uui-base/types';
+import { InterfaceLookNames } from '../packages/uui-base/types';
 import { spreadProps } from './helper/SpreadPropsDirective';
 import { Story } from '@storybook/web-components';
-import '@umbraco-ui/uui-tag/src/index';
+import '@umbraco-ui/uui-tag/index';
 
 export default {
   title: 'Misc/Tag',
