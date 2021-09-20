@@ -6,9 +6,6 @@
     "lib": ["es2017", "dom", "dom.iterable"],
     "esModuleInterop": false,
     "declaration": true,
-    //"emitDeclarationOnly": true,
-    // "outDir": "out-tsc",
-    // "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -22,13 +19,14 @@
     "importHelpers": true,
     "sourceMap": true,
     "inlineSources": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@umbraco-ui/*": ["*/src"]
+    },
   },
   // "include": ["packages/**/*.ts"],
-  "exclude": ["src/**/*.ts", "stories/**/.ts"],
-  "files": [],
-  "paths": {
-    "@umbraco-ui/*": ["packages/*"]
-  },
-  "references": [{ "path": "./packages" }]
+  // "exclude": ["src/**/*.ts", "stories/**/.ts"],
+  // "files": [],
+  // "references": [{ "path": "./packages" }]
 }

@@ -1,6 +1,6 @@
 import esbuild from 'rollup-plugin-esbuild';
 import typescript2 from 'rollup-plugin-typescript2';
-import dts from 'rollup-plugin-dts';
+//import dts from 'rollup-plugin-dts';
 
 const packageName = require('./package.json').name.replace('@umbraco-ui/', '');
 
@@ -12,7 +12,7 @@ export const UUIProdConfig = ({
   return [
     ...entryPoints.map(name => {
       return {
-        input: `${name}.ts`,
+        input: `src/${name}.ts`,
         output: {
           file: `${name}.mjs`,
           format: 'es',

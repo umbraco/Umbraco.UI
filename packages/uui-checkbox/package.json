@@ -12,6 +12,6 @@
     "@umbraco-ui/uui-base": "0.0.1"
   },
   "scripts": {
-    "build": ""
+    "build": "rollup -c rollup.config.js"
   }
 }
