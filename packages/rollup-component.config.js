@@ -14,7 +14,7 @@ export const UUIProdConfig = ({
       return {
         input: `src/${name}.ts`,
         output: {
-          file: `./dist/${name}.mjs`,
+          file: `./${name}.mjs`,
           format: 'es',
         },
         plugins: [typescript2({ clean: true }), esbuild()],
