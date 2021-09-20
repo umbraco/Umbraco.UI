@@ -6,22 +6,6 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    "./animations": "./lib/animations.mjs",
-    "./events": "./lib/events.mjs",
-    "./mixins": "./lib/mixins.mjs",
-    "./types": "./lib/types.mjs",
-    "./uui-boolean-input": "./lib/uui-boolean-input.mjs"
-  },
-  "typesVersions": {
-    "*": {
-      "animations": ["lib/animations.d.ts"],
-      "events": ["lib/events.d.ts"],
-      "mixins": ["lib/mixins.d.ts"],
-      "types": ["lib/types.d.ts"],
-      "uui-boolean-input": ["./lib/uui-boolean-input.d.ts"]
-    }
-  },
   "dependencies": {
     "lit": "^2.0.0-rc.3"
   },
