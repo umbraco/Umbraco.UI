@@ -1,3 +1,4 @@
+import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import './index';
 
@@ -31,12 +32,11 @@ const colors = [
   '#3E3E3E',
 ];
 
-export const Default = () => html` <uui-loader-bar></uui-loader-bar> `;
+export const Default: Story = () => html` <uui-loader-bar></uui-loader-bar> `;
 
-export const WithColor = () =>
+export const WithColor: Story = () =>
   html`${colors.map(
     color =>
       html`<uui-loader-bar
-        style=${`color: ${color}; margin-bottom: 40px`}
-      ></uui-loader-bar>`
+        style=${`color: ${color}; margin-bottom: 40px`}></uui-loader-bar>`
   )}`;

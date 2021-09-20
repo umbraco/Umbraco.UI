@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  *  @element uui-loader-bar
@@ -98,12 +98,10 @@ export class UUILoaderBarElement extends LitElement {
       <div id="bar-container" class=${this.progress ? '' : 'animate'}>
         <div
           id="bar"
-          style=${this.progress ? styleMap(this.getProgressStyle()) : ''}
-        ></div>
+          style=${this.progress ? styleMap(this.getProgressStyle()) : ''}></div>
         <div
           id="bar-anim"
-          style="animation-duration: ${this.animationDuration}s"
-        ></div>
+          style="animation-duration: ${this.animationDuration}s"></div>
         <div id="bar-background"></div>
       </div>
     `;
