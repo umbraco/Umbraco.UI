@@ -1,7 +1,6 @@
 import { html } from 'lit-html';
 import './index';
 import { InterfaceLookNames } from './../../type/InterfaceLook';
-import { spreadProps } from '../../storybook/helper/SpreadPropsDirective';
 import { Story } from '@storybook/web-components';
 
 export default {
@@ -30,7 +29,7 @@ export default {
 };
 
 export const Overview: Story = props =>
-  html` <uui-tag ${spreadProps(props)}>Hello</uui-tag> `;
+  html` <uui-tag .look=${props.look} .size=${props.size} .>Hello</uui-tag> `;
 
 export const Looks: Story = () =>
   html`${InterfaceLookNames.map(
