@@ -4,7 +4,9 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "files": [
-    "dist"
+    "./dist",
+    "*.d.ts",
+    "*.mjs"
   ],
   "dependencies": {
     "lit": "^2.0.0-rc.3"
