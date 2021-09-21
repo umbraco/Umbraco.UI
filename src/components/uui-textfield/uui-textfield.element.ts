@@ -105,6 +105,7 @@ export class UUITextFieldElement extends LabelMixin(
       .label {
         font-size: var(--uui-type-small-size, 12px);
         line-height: calc(var(--uui-size-base-unit) * 3);
+        font-weight: bold;
       }
 
       :host([error]) input {
@@ -210,6 +211,7 @@ export class UUITextFieldElement extends LabelMixin(
 
   render() {
     return html`
+      ${this.hideLabel === false ? this.renderLabel() : ''}
       <input
         .type=${this.type}
         .value=${this.value}
@@ -219,7 +221,6 @@ export class UUITextFieldElement extends LabelMixin(
         .disabled=${this.disabled}
         @input=${this.onInput}
         @change=${this.onChange} />
-      ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
   }
 }
