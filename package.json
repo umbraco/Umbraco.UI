@@ -30,7 +30,7 @@
     "buildts": "tsc -b",
     "storybook": "npm run analyze && start-storybook -p 6006",
     "storybook:build": "npm run lint && npm run analyze && build-storybook",
-    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "tsc && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch"
   },
