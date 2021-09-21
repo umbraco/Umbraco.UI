@@ -1,6 +1,5 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { spreadProps } from './helper/SpreadPropsDirective';
 import '@umbraco-ui/uui-textfield/src/index';
 
 export default {
@@ -32,7 +31,17 @@ export default {
 };
 
 const Template: Story = props =>
-  html` <uui-textfield ${spreadProps(props)}></uui-textfield> `;
+  html`
+    <uui-textfield
+      .disabled=${props.disabled}
+      .error=${props.error}
+      .hideLabel=${props.hideLabel}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}></uui-textfield>
+  `;
 
 export const Overview = Template.bind({});
 

@@ -1,6 +1,5 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { spreadProps } from './helper/SpreadPropsDirective';
 import '@umbraco-ui/uui-avatar-group/src/index';
 
 export default {
@@ -13,7 +12,10 @@ export default {
 };
 
 export const Overview: Story = props => html`
-  <uui-avatar-group style="font-size: 2rem" ${spreadProps(props)}>
+  <uui-avatar-group
+    style="font-size: 2rem"
+    .borderColor=${props.borderColor}
+    .limit=${props.limit}>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>
     <uui-avatar title="First Last"></uui-avatar>

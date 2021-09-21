@@ -1,6 +1,5 @@
 import { Story } from '@storybook/web-components';
-import { spreadProps } from './helper/SpreadPropsDirective';
-import { html } from 'lit';
+import { html } from 'lit-html';
 import '@umbraco-ui/uui-toggle/src/index';
 
 export default {
@@ -12,7 +11,7 @@ export default {
 };
 
 export const Overview: Story = props =>
-  html` <uui-toggle ${spreadProps(props)}></uui-toggle> `;
+  html` <uui-toggle .value=${props.value}></uui-toggle> `;
 Overview.storyName = 'Overview';
 Overview.args = { label: 'I am a label' };
 

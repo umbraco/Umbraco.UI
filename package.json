@@ -28,7 +28,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "buildts": "tsc -b",
-    "storybook": "npm run lint && npm run analyze && start-storybook -p 6006",
+    "storybook": "npm run analyze && start-storybook -p 6006",
     "storybook:build": "npm run lint && npm run analyze && build-storybook",
     "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
     "test": "tsc && web-test-runner --coverage",

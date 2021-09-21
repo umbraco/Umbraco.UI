@@ -1,6 +1,5 @@
 import { Story } from '@storybook/web-components';
-import { html } from 'lit';
-import { spreadProps } from './helper/SpreadPropsDirective';
+import { html } from 'lit-html';
 import '@umbraco-ui/uui-avatar/src/index';
 
 export default {
@@ -27,7 +26,10 @@ const avatarSrcSet = [
 ];
 
 const Template: Story = (props: any) => html`<uui-avatar
-  ${spreadProps(props)}
+  .overflow=${props.overflow}
+  .imgSrc=${props.imgSrc}
+  .imgSrcset=${props.imgSrcset}
+  .title=${props.title}
   style="font-size: ${1 +
   props.fontSize /
     2}em; background-color: ${props.backgroundColor}; color: ${props.color}"
@@ -75,7 +77,7 @@ SlottedContent.parameters = {
 };
 
 export const WidthBadge = Template.bind({});
-WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>` };
+WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
 WidthBadge.argTypes = {
   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 };

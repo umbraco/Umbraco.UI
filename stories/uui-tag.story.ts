@@ -1,6 +1,5 @@
 import { html } from 'lit-html';
 import { InterfaceLookNames } from '@umbraco-ui/uui-base/types/InterfaceLook';
-import { spreadProps } from './helper/SpreadPropsDirective';
 import { Story } from '@storybook/web-components';
 import '@umbraco-ui/uui-tag/src/index';
 
@@ -30,7 +29,7 @@ export default {
 };
 
 export const Overview: Story = props =>
-  html` <uui-tag ${spreadProps(props)}>Hello</uui-tag> `;
+  html` <uui-tag .look=${props.look} .size=${props.size} .>Hello</uui-tag> `;
 
 export const Looks: Story = () =>
   html`${InterfaceLookNames.map(
