@@ -2,10 +2,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import typescript2 from 'rollup-plugin-typescript2';
 //import dts from 'rollup-plugin-dts';
 
-export const UUIProdConfig = ({
-  entryPoints = [],
-  bundles = [],
-  }) => {
+export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
   return [
     ...entryPoints.map(name => {
       return {
@@ -17,11 +14,12 @@ export const UUIProdConfig = ({
         plugins: [
           typescript2({
             tsconfigOverride: {
-              compilerOptions: { paths: null }
+              compilerOptions: { paths: null },
             },
-            clean: true
+            clean: true,
           }),
-          esbuild()],
+          esbuild(),
+        ],
       };
     }),
     ...bundles.map(name => {

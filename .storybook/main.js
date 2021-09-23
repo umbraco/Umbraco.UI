@@ -13,6 +13,6 @@ module.exports = {
 
     config.plugins.push(tsconfigPaths());
 
-    return config
+    return config;
   },
 };

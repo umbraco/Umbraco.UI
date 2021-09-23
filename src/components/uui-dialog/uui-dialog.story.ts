@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '../uui-button';
+import '@umbraco-ui/uui-button';
 import './index';
 
 export default {

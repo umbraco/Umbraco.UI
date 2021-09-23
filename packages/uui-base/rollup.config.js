@@ -7,6 +7,6 @@ export default UUIProdConfig({
     'events',
     'mixins',
     'types',
-    'uui-boolean-input'
-  ]
+    'uui-boolean-input',
+  ],
 });
