@@ -4,7 +4,7 @@ import { html } from 'lit-html';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '@umbraco-ui/uui-base/src/types';
+} from '@umbraco-ui/uui-base/types';
 
 export default {
   title: 'Buttons/Button',

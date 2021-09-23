@@ -20,10 +20,42 @@
     "sourceMap": true,
     "inlineSources": true,
     "isolatedModules": true,
-    "baseUrl": "./packages",
-    "paths": {
-      "@umbraco-ui/*": ["*/src"]
-    },
+    "baseUrl": ".",
+    "paths": { // TODO: Can we do this smarter?
+      "@umbraco-ui/uui-avatar/*": [
+        "packages/uui-avatar/src/*"
+      ],
+      "@umbraco-ui/uui-avatar-group/*": [
+        "packages/uui-avatar-group/src/*"
+      ],
+      "@umbraco-ui/uui-base/*": [
+        "packages/uui-base/src/*"
+      ],
+      "@umbraco-ui/uui-breadcrumbs/*": [
+        "packages/uui-breadcrumbs/src/*"
+      ],
+      "@umbraco-ui/uui-button/*": [
+        "packages/uui-button/src/*"
+      ],
+      "@umbraco-ui/uui-checkbox/*": [
+        "packages/uui-checkbox/src/*"
+      ],
+      "@umbraco-ui/uui-loader/*": [
+        "packages/uui-loader/src/*"
+      ],
+      "@umbraco-ui/uui-table/*": [
+        "packages/uui-table/src/*"
+      ],
+      "@umbraco-ui/uui-tag/*": [
+        "packages/uui-tag/src/*"
+      ],
+      "@umbraco-ui/uui-textfield/*": [
+        "packages/uui-textfield/src/*"
+      ],
+      "@umbraco-ui/uui-toggle/*": [
+        "packages/uui-toggle/src/*"
+      ]
+    }
   },
   // "include": ["packages/**/*.ts"],
   // "exclude": ["src/**/*.ts", "stories/**/.ts"],
