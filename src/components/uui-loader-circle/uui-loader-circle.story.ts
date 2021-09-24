@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { sizes } from '../../type/Size';
+import { sizes } from '@umbraco-ui/uui-base/types';
 import './index';
 
 export default {
