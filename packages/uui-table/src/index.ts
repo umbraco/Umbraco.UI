@@ -6,9 +6,9 @@ import { UUITableHeadElement } from './uui-table-head.element';
 import { UUITableColumnElement } from './uui-table-column.element';
 import { UUITableElement } from './uui-table.element';
 
-customElements.define('uui-table-column', UUITableColumnElement);
-customElements.define('uui-table-head-cell', UUITableHeadCellElement);
-customElements.define('uui-table-head', UUITableHeadElement);
-customElements.define('uui-table-cell', UUITableCellElement);
-customElements.define('uui-table-row', UUITableRowElement);
-customElements.define('uui-table', UUITableElement);
+customElements.define('uui-table-column', UUITableColumnElement as any);
+customElements.define('uui-table-head-cell', UUITableHeadCellElement as any);
+customElements.define('uui-table-head', UUITableHeadElement as any);
+customElements.define('uui-table-cell', UUITableCellElement as any);
+customElements.define('uui-table-row', UUITableRowElement as any);
+customElements.define('uui-table', UUITableElement as any);

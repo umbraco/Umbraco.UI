@@ -1,4 +1,4 @@
-import { UUIEvent } from '@umbraco-ui/uui-base/events/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/events';
 import { UUITextFieldElement } from './uui-textfield.element';
 
 export class UUITextFieldEvent extends UUIEvent<{}, UUITextFieldElement> {

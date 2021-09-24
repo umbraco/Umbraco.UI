@@ -1,9 +1,14 @@
 {
-    "extends": "../tsconfig.json",
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": ".",
+        "outDir": "./",
+        "rootDir": "./src",
         "composite": true
     },
-    "include": ["./**/*.ts"]
+    "include": ["./**/*.ts"],
+    "exclude": ["./dist", "./**/*.test.ts"],
+    "references": [
+        { "path": "../uui-base" },
+        { "path": "../uui-avatar" }
+    ]
 }

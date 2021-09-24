@@ -1,4 +1,4 @@
-import { UUIEvent } from '@umbraco-ui/uui-base/events/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/events';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 
 export class UUIFileDropzoneEvent extends UUIEvent<{}, UUIFileDropzoneElement> {

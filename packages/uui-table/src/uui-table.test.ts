@@ -1,9 +1,7 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
-import '../../../src/components/uui-select-option/index';
-import '.';
-import { UUITabElement } from '../../../src/components/uui-tab/uui-tab.element';
 import { UUITableRowElement } from './uui-table-row.element';
 import { UUITableCellElement } from './uui-table-cell.element';
+import '.';
 
 describe('UuiTable', () => {
   let table: UUITabElement;

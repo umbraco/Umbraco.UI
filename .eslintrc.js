@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'html'],
+  plugins: ['@typescript-eslint', 'html', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
@@ -17,5 +17,14 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
     '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: './',
   },
 };

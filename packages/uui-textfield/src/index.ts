@@ -1,3 +1,3 @@
 import { UUITextFieldElement } from './uui-textfield.element';
 
-customElements.define('uui-textfield', UUITextFieldElement);
+customElements.define('uui-textfield', UUITextFieldElement as any);

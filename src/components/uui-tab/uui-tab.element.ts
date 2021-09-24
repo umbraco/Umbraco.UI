@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ActiveMixin } from '@umbraco-ui/uui-base/mixins/ActiveMixin';
-import { LabelMixin } from '@umbraco-ui/uui-base/mixins/LabelMixin';
+import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/mixins';
 
 /**
  *  @element uui-editor-tab

@@ -4,8 +4,8 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
   InterfaceLookCSSCreator,
-} from '@umbraco-ui/uui-base/types/InterfaceLook';
-import { Size } from '@umbraco-ui/uui-base/types/Size';
+  Size,
+} from '@umbraco-ui/uui-base/types';
 
 /**
  *  @element uui-tag

@@ -1,5 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "exclude": ["./**/src/*.test.ts", "./**/src/*.story.ts"],
-  "references": [{ "path": "./uui-base" }, { "path": "./uui-loader" }, { "path": "./uui-tag" }]
-}

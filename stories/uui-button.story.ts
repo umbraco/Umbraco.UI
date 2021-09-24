@@ -1,10 +1,10 @@
 import { html } from 'lit-html';
-import '../uui-icon/index';
-import '../uui-badge/index';
+// import '../uui-icon/index';
+// import '../uui-badge/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '@umbraco-ui/uui-base/types/InterfaceLook';
+} from '@umbraco-ui/uui-base/types';
 
 export default {
   title: 'Buttons/Button',
@@ -29,26 +29,26 @@ export const Disabled = () => html`
   <uui-button disabled>Disabled button</uui-button>
 `;
 
-export const WithIcon = () => html`
-  <uui-button look="danger">
-    <uui-icon .name=${'bug'}></uui-icon>
-  </uui-button>
-  <br />
-  <br />
-  <uui-button look="danger">
-    <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
-  </uui-button>
-  <br />
-  <br />
-  <p>
-    For buttons displaying an icon, its important to parse a aria-label
-    attribute to ensure accessibility. The default sixing for a button with just
-    a icon is generally too wide, there please use with the 'compact' attribute.
-  </p>
-  <uui-button look="positive" compact>
-    <uui-icon name="info"></uui-icon>
-  </uui-button>
-`;
+// export const WithIcon = () => html`
+//   <uui-button look="danger">
+//     <uui-icon .name=${'bug'}></uui-icon>
+//   </uui-button>
+//   <br />
+//   <br />
+//   <uui-button look="danger">
+//     <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
+//   </uui-button>
+//   <br />
+//   <br />
+//   <p>
+//     For buttons displaying an icon, its important to parse a aria-label
+//     attribute to ensure accessibility. The default sixing for a button with just
+//     a icon is generally too wide, there please use with the 'compact' attribute.
+//   </p>
+//   <uui-button look="positive" compact>
+//     <uui-icon name="info"></uui-icon>
+//   </uui-button>
+// `;
 
 export const Compact = () => html`
   <uui-button look="danger" compact>
@@ -59,10 +59,10 @@ export const Compact = () => html`
   </uui-button>
 `;
 
-export const WithBadge = () => html` <uui-button look="primary">
-  Button label
-  <uui-badge>!</uui-badge>
-</uui-button>`;
+// export const WithBadge = () => html` <uui-button look="primary">
+//   Button label
+//   <uui-badge>!</uui-badge>
+// </uui-button>`;
 
 function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
