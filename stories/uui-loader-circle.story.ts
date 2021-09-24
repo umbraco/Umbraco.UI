@@ -1,7 +1,7 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { sizes } from '@umbraco-ui/uui-base/types';
-import './index';
+import '@umbraco-ui/uui-loader-circle/index';
 
 export default {
   title: 'Symbols/Loader Circle',

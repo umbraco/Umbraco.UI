@@ -54,6 +54,12 @@
       ],
       "@umbraco-ui/uui-toggle/*": [
         "packages/uui-toggle/src/*"
+      ],
+      "@umbraco-ui/uui-loader-bar/*": [
+        "packages/uui-loader-bar/src/*"
+      ],
+      "@umbraco-ui/uui-loader-circle/*": [
+        "packages/uui-loader-circle/src/*"
       ]
     }
   },
