@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
-import './index';
-import '../uui-tab/index';
+import '@umbraco-ui/uui-tab-group/index';
+import '@umbraco-ui/uui-tab/index';
 
 export default {
   title: 'Buttons/Tab Group',

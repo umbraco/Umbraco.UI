@@ -21,48 +21,25 @@
     "inlineSources": true,
     "isolatedModules": true,
     "baseUrl": ".",
-    "paths": { // TODO: Can we do this smarter?
-      "@umbraco-ui/uui-avatar/*": [
-        "packages/uui-avatar/src/*"
-      ],
-      "@umbraco-ui/uui-avatar-group/*": [
-        "packages/uui-avatar-group/src/*"
-      ],
-      "@umbraco-ui/uui-base/*": [
-        "packages/uui-base/src/*"
-      ],
-      "@umbraco-ui/uui-breadcrumbs/*": [
-        "packages/uui-breadcrumbs/src/*"
-      ],
-      "@umbraco-ui/uui-button/*": [
-        "packages/uui-button/src/*"
-      ],
-      "@umbraco-ui/uui-checkbox/*": [
-        "packages/uui-checkbox/src/*"
-      ],
-      "@umbraco-ui/uui-loader/*": [
-        "packages/uui-loader/src/*"
-      ],
-      "@umbraco-ui/uui-table/*": [
-        "packages/uui-table/src/*"
-      ],
-      "@umbraco-ui/uui-tag/*": [
-        "packages/uui-tag/src/*"
-      ],
-      "@umbraco-ui/uui-textfield/*": [
-        "packages/uui-textfield/src/*"
-      ],
-      "@umbraco-ui/uui-toggle/*": [
-        "packages/uui-toggle/src/*"
-      ],
-      "@umbraco-ui/uui-loader-bar/*": [
-        "packages/uui-loader-bar/src/*"
-      ],
-      "@umbraco-ui/uui-loader-circle/*": [
-        "packages/uui-loader-circle/src/*"
-      ]
+    "paths": {
+      // TODO: Can we do this smarter?
+      "@umbraco-ui/uui-avatar/*": ["packages/uui-avatar/src/*"],
+      "@umbraco-ui/uui-avatar-group/*": ["packages/uui-avatar-group/src/*"],
+      "@umbraco-ui/uui-base/*": ["packages/uui-base/src/*"],
+      "@umbraco-ui/uui-breadcrumbs/*": ["packages/uui-breadcrumbs/src/*"],
+      "@umbraco-ui/uui-button/*": ["packages/uui-button/src/*"],
+      "@umbraco-ui/uui-checkbox/*": ["packages/uui-checkbox/src/*"],
+      "@umbraco-ui/uui-loader/*": ["packages/uui-loader/src/*"],
+      "@umbraco-ui/uui-table/*": ["packages/uui-table/src/*"],
+      "@umbraco-ui/uui-tag/*": ["packages/uui-tag/src/*"],
+      "@umbraco-ui/uui-textfield/*": ["packages/uui-textfield/src/*"],
+      "@umbraco-ui/uui-toggle/*": ["packages/uui-toggle/src/*"],
+      "@umbraco-ui/uui-loader-bar/*": ["packages/uui-loader-bar/src/*"],
+      "@umbraco-ui/uui-loader-circle/*": ["packages/uui-loader-circle/src/*"],
+      "@umbraco-ui/uui-tab/*": ["packages/uui-tab/src/*"],
+      "@umbraco-ui/uui-tab-group/*": ["packages/uui-tab-group/src/*"]
     }
-  },
+  }
   // "include": ["packages/**/*.ts"],
   // "exclude": ["src/**/*.ts", "stories/**/.ts"],
   // "files": [],

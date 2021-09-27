@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { UUITabElement } from '../uui-tab/uui-tab.element';
+import { UUITabElement } from '@umbraco-ui/uui-tab/uui-tab.element';
 
 /**
  *  @element uui-tab-group
