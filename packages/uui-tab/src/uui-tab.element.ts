@@ -22,7 +22,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         min-height: 32px;
         max-height: 75px;
         min-width: 75px;
-        background-color: var(--uui-interface-surface);
+        background: none;
         color: var(--uui-interface-contrast);
         cursor: pointer;
 
@@ -30,7 +30,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       :host(:not([active]):not([disabled])) button:hover {
-        background-color: var(--uui-interface-surface-hover);
         color: var(--uui-interface-contrast-hover);
       }
 
