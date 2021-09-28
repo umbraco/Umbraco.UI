@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import './index';
+import '@umbraco-ui/uui-slider/index';
 export default {
   title: 'Inputs/Slider',
   component: 'uui-slider',

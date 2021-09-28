@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["./dist", "./**/*.test.ts"],
+  "references": [{ "path": "../uui-base" }, { "path": "../uui-radio" }]
+}

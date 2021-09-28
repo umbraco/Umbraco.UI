@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-tab",
+  "name": "@umbraco-ui/uui-radio-group",
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -12,6 +12,9 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
+  },
+  "devDependencies": {
+    "@umbraco-ui/uui-radio": "0.0.1"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js"

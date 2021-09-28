@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
-import './index';
+import '@umbraco-ui/uui-radio-group/index';
+import '@umbraco-ui/uui-radio/index';
 
 export default {
   title: 'Inputs/Radio Group',
