@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { UUITabElement } from '@umbraco-ui/uui-tab/uui-tab.element';
+import { queryAssignedNodes } from 'lit/decorators.js';
 
 /**
  *  @element uui-tab-group
@@ -18,9 +19,17 @@ export class UUITabGroupElement extends LitElement {
     `,
   ];
 
+  @queryAssignedNodes(undefined, true, 'uui-tab')
+  private slotNodes?: UUITabElement[];
+
   private tabElements: UUITabElement[] = [];
 
-  private onSlotChange(e: any) {
+  private setTabArray() {
+    this.tabElements = this.slotNodes ? this.slotNodes : [];
+  }
+
+  private onSlotChange() {
+    this.setTabArray();
     if (this.tabElements) {
       this.tabElements.forEach(el => {
         el.removeEventListener(
@@ -30,9 +39,6 @@ export class UUITabGroupElement extends LitElement {
         );
       });
     }
-    this.tabElements = (e.target as HTMLSlotElement)
-      .assignedElements({ flatten: true })
-      .filter(el => el instanceof UUITabElement) as UUITabElement[];
 
     this.tabElements.forEach(el => {
       // @ts-ignore TODO: fix typescript error

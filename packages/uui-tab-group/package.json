@@ -13,6 +13,9 @@
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
   },
+  "devDependencies": {
+    "@umbraco-ui/uui-tab": "0.0.1"
+  },
   "scripts": {
     "build": "rollup -c rollup.config.js"
   }
