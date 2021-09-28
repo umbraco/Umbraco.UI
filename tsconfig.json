@@ -32,7 +32,7 @@
       "@umbraco-ui/uui-loader/*": ["packages/uui-loader/src/*"],
       "@umbraco-ui/uui-table/*": ["packages/uui-table/src/*"],
       "@umbraco-ui/uui-tag/*": ["packages/uui-tag/src/*"],
-      "@umbraco-ui/uui-textfield/*": ["packages/uui-textfield/src/*"],
+      "@umbraco-ui/uui-input/*": ["packages/uui-input/src/*"],
       "@umbraco-ui/uui-toggle/*": ["packages/uui-toggle/src/*"],
       "@umbraco-ui/uui-loader-bar/*": ["packages/uui-loader-bar/src/*"],
       "@umbraco-ui/uui-loader-circle/*": ["packages/uui-loader-circle/src/*"],

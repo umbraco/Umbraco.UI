@@ -1,10 +1,10 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-textfield/index';
+import '@umbraco-ui/uui-input/index';
 
 export default {
-  title: 'Inputs/Textfield',
-  component: 'uui-textfield',
+  title: 'Inputs/Input',
+  component: 'uui-input',
   args: {
     value: 'Hello World',
     label: 'I am a label!',
@@ -32,7 +32,7 @@ export default {
 
 const Template: Story = props =>
   html`
-    <uui-textfield
+    <uui-input
       .disabled=${props.disabled}
       .error=${props.error}
       .hideLabel=${props.hideLabel}
@@ -40,7 +40,7 @@ const Template: Story = props =>
       .type=${props.type}
       .name=${props.name}
       .placeholder=${props.placeholder}
-      .value=${props.value}></uui-textfield>
+      .value=${props.value}></uui-input>
   `;
 
 export const Overview = Template.bind({});

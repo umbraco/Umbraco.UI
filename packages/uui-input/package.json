@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-textfield",
+  "name": "@umbraco-ui/uui-input",
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",

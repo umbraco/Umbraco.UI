@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { LabelMixin } from '@umbraco-ui/uui-base/mixins';
-import { UUITextFieldEvent } from './UUITextFieldEvent';
+import { UUIInputEvent } from './UUIInputEvent';
 
-export type TextFieldType =
+export type InputType =
   | 'text'
   | 'tel'
   | 'url'
@@ -19,17 +19,14 @@ export type TextFieldType =
 
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
- * @element uui-textfield
+ * @element uui-input
  * @extends LabelMixin(LitElement)
- * @slot textfield label - for the input label text.
- * @fires UUITextFieldEvent#change on change
+ * @slot input label - for the input label text.
+ * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
-export class UUITextFieldElement extends LabelMixin(
-  'textfield label',
-  LitElement
-) {
+export class UUIInputElement extends LabelMixin('input label', LitElement) {
   static styles = [
     css`
       :host {
@@ -158,7 +155,7 @@ export class UUITextFieldElement extends LabelMixin(
   private _value = '';
 
   /**
-   * This is a value property of the uui-textfield.
+   * This is a value property of the uui-input.
    * @type {string}
    * @attr
    * @default ''
@@ -173,7 +170,7 @@ export class UUITextFieldElement extends LabelMixin(
   }
 
   /**
-   * This is a name property of the uui-textfield component. It reflects the behaviour of the native <input> element and its name attribute.
+   * This is a name property of the uui-input component. It reflects the behaviour of the native <input> element and its name attribute.
    * @type {string}
    * @attr
    * @default ''
@@ -197,7 +194,7 @@ export class UUITextFieldElement extends LabelMixin(
    * @default text
    */
   @property({ type: String })
-  type: TextFieldType = 'text';
+  type: InputType = 'text';
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
@@ -205,7 +202,7 @@ export class UUITextFieldElement extends LabelMixin(
 
   private onChange() {
     this.dispatchEvent(
-      new UUITextFieldEvent(UUITextFieldEvent.CHANGE, { bubbles: true })
+      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
     );
   }
 

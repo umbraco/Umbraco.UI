@@ -1,13 +1,13 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
-import { UUITextFieldElement } from './uui-textfield.element';
+import { UUIInputElement } from './uui-input.element';
 import '.';
 
-describe('UuiTextfield', () => {
-  let element: UUITextFieldElement;
+describe('UuiInput', () => {
+  let element: UUIInputElement;
   let input: HTMLInputElement;
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-textfield label="a textfield label"></uui-textfield> `
+      html` <uui-input label="a input label"></uui-input> `
     );
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
@@ -33,12 +33,12 @@ describe('UuiTextfield', () => {
   });
 });
 
-describe('UuiTextfield with label', () => {
+describe('UuiInput with label', () => {
   let dom: Element;
   beforeEach(async () => {
     dom = await fixture(html`
-      <label for="test">TextField</label>
-      <uui-textfield id="test" label="a textfield label"></uui-textfield>
+      <label for="test">Input</label>
+      <uui-input id="test" label="a input label"></uui-input>
     `);
   });
 
@@ -47,33 +47,33 @@ describe('UuiTextfield with label', () => {
   });
 });
 
-describe('UuiTextfield in Form', () => {
+describe('UuiInput in Form', () => {
   let formElement: HTMLFormElement;
-  let element: UUITextFieldElement;
+  let element: UUIInputElement;
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
-        <uui-textfield
-          label="a textfield label"
-          name="textfield"
-          value="Hello uui-textfield"></uui-textfield>
+        <uui-input
+          label="a input label"
+          name="input"
+          value="Hello uui-input"></uui-input>
       </form>`
     );
-    element = formElement.querySelector('uui-textfield') as any;
+    element = formElement.querySelector('uui-input') as any;
   });
 
   it('value is correct', async () => {
-    await expect(element.value).to.be.equal('Hello uui-textfield');
+    await expect(element.value).to.be.equal('Hello uui-input');
   });
 
   it('form output', async () => {
     const formData = new FormData(formElement);
-    await expect(formData.get('textfield')).to.be.equal('Hello uui-textfield');
+    await expect(formData.get('input')).to.be.equal('Hello uui-input');
   });
 
   it('change value and check output', async () => {
     element.value = 'anotherValue';
     const formData = new FormData(formElement);
-    await expect(formData.get('textfield')).to.be.equal('anotherValue');
+    await expect(formData.get('input')).to.be.equal('anotherValue');
   });
 });
