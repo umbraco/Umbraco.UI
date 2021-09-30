@@ -45,6 +45,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@open-wc/testing": "^2.5.33",
+    "@rollup/plugin-node-resolve": "^13.0.5",
     "@storybook/addon-a11y": "^6.3.8",
     "@storybook/addon-actions": "^6.3.8",
     "@storybook/addon-essentials": "^6.3.8",

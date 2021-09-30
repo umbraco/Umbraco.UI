@@ -1,5 +1,6 @@
 import esbuild from 'rollup-plugin-esbuild';
 import typescript2 from 'rollup-plugin-typescript2';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 //import dts from 'rollup-plugin-dts';
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
@@ -30,7 +31,7 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           format: 'umd',
           sourcemap: true,
         },
-        plugins: [esbuild()],
+        plugins: [nodeResolve(), esbuild()],
       };
     }),
     /*
