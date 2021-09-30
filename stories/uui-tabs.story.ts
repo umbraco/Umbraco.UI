@@ -1,9 +1,9 @@
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-tab/index';
+import '@umbraco-ui/uui-tabs/index';
 import { Story } from '@storybook/web-components';
 
 export default {
-  title: 'Buttons/Tab',
+  title: 'Buttons/Tabs',
   component: 'uui-tab',
 };
 
