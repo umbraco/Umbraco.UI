@@ -37,10 +37,8 @@
       "@umbraco-ui/uui-loader-bar/*": ["packages/uui-loader-bar/src/*"],
       "@umbraco-ui/uui-loader-circle/*": ["packages/uui-loader-circle/src/*"],
       "@umbraco-ui/uui-tab/*": ["packages/uui-tab/src/*"],
-      "@umbraco-ui/uui-tab-group/*": ["packages/uui-tab-group/src/*"],
       "@umbraco-ui/uui-slider/*": ["packages/uui-slider/src/*"],
-      "@umbraco-ui/uui-radio/*": ["packages/uui-radio/src/*"],
-      "@umbraco-ui/uui-radio-group/*": ["packages/uui-radio-group/src/*"]
+      "@umbraco-ui/uui-radio/*": ["packages/uui-radio/src/*"]
     }
   }
   // "include": ["packages/**/*.ts"],

@@ -4,6 +4,6 @@
 import { UUIProdConfig } from '../rollup-component.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'uui-tab.element'],
+  entryPoints: ['index', 'uui-tab.element', 'uui-tab-group.element'],
   bundles: ['index'],
 });
