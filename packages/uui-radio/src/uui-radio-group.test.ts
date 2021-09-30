@@ -1,6 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import '../uui-radio/index';
-import { UUIRadioElement } from '../uui-radio/uui-radio.element';
+import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioGroupElement } from './uui-radio-group.element';
 import '.';
 
