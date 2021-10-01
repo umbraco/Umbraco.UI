@@ -5,6 +5,7 @@ import * as fs from 'fs/promises';
 import path from 'path';
 import postcssCustomProperties from 'postcss-custom-properties';
 import * as ts from 'typescript'
+import * as postCssValueParser from 'postcss-values-parser';
 import valueParser from 'postcss-value-parser';
 
 
@@ -53,7 +54,7 @@ export default function addFallbackValues(options = {}) {
   return {
     name: 'add-fallback-values',
     async buildStart() {
-      console.log('buildStart');
+      //console.log('buildStart');
       properties = await extractCustomProperties();
     },
     async transform(code) {
@@ -99,7 +100,7 @@ export default function addFallbackValues(options = {}) {
                     }
                   })
 
-                  console.log(values.toString())
+                  //console.log(values.toString())
                   cssNode.value = values.toString();
 
                 });
