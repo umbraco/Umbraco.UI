@@ -30,10 +30,11 @@
     "storybook": "npm run analyze && start-storybook -p 6006",
     "storybook:build": "npm run lint && npm run analyze && build-storybook",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
-    "test": "tsc && web-test-runner --coverage",
+    "test": "lerna run buildts && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "bootstrap": "lerna bootstrap --ci",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "buildts": "lerna run buildts"
   },
   "engines": {
     "node": ">=16.8.0",

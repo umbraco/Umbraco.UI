@@ -1,5 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import '.';
+import './index';
 import { UUIAvatarElement } from './uui-avatar.element';
 
 describe('UuiAvatar', () => {

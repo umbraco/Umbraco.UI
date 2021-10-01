@@ -2,9 +2,9 @@ import { html, css } from 'lit';
 import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
-} from '@umbraco-ui/uui-base/animations';
+} from '@umbraco-ui/uui-base/lib/animations';
 import { iconWrong, iconCheck } from './toggle-icons';
-import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/uui-boolean-input';
+import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
 
 /**
  *  Umbraco Toggle-switch, toggles between off/on.

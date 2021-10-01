@@ -1,11 +1,11 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "outDir": "./",
+        "outDir": "./lib",
         "rootDir": "./src",
         "composite": true
     },
     "include": ["./**/*.ts"],
-    "exclude": ["./dist", "./**/*.test.ts"],
+    "exclude": ["./lib"],
     "references": [{ "path": "../uui-base" }]
 }

@@ -6,7 +6,7 @@ import { nativeInputStyles } from './nativeInputStyles';
 import {
   UUIHorizontalPulseKeyframes,
   UUIHorizontalPulseAnimationValue,
-} from '@umbraco-ui/uui-base/animations';
+} from '@umbraco-ui/uui-base/lib/animations';
 import { UUISliderEvent } from './UUISliderEvents';
 /**
  *  @element uui-slider

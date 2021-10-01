@@ -3,13 +3,13 @@ import { property } from 'lit/decorators.js';
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
-} from '@umbraco-ui/uui-base/animations';
-import { LabelMixin } from '@umbraco-ui/uui-base/mixins';
+} from '@umbraco-ui/uui-base/lib/animations';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
   InterfaceLookCSSCreator,
-} from '@umbraco-ui/uui-base/types';
+} from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  @element uui-button

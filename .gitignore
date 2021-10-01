@@ -18,6 +18,8 @@
 # build
 /_site/
 **/dist/
+/packages/**/out/
+/packages/**/lib/
 /out-tsc/
 
 

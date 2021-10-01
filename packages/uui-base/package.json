@@ -3,15 +3,11 @@
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
-  "files": [
-    "./dist",
-    "*.d.ts",
-    "*.mjs"
-  ],
   "dependencies": {
     "lit": "^2.0.0-rc.3"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "buildts": "tsc"
   }
 }

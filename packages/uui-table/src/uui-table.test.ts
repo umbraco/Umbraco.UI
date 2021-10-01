@@ -2,7 +2,7 @@ import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUITableElement } from './uui-table.element';
 import { UUITableRowElement } from './uui-table-row.element';
 import { UUITableCellElement } from './uui-table-cell.element';
-import '.';
+import './index';
 
 describe('UuiTable', () => {
   let table: UUITableElement;

@@ -1,6 +1,6 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIInputElement } from './uui-input.element';
-import '.';
+import './index';
 
 describe('UuiInput', () => {
   let element: UUIInputElement;

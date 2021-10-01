@@ -41,8 +41,4 @@
       "@umbraco-ui/uui-radio/*": ["packages/uui-radio/src/*"]
     }
   }
-  // "include": ["packages/**/*.ts"],
-  // "exclude": ["src/**/*.ts", "stories/**/.ts"],
-  // "files": [],
-  // "references": [{ "path": "./packages" }]
 }

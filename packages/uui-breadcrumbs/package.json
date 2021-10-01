@@ -3,17 +3,13 @@
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
-  "module": "index.mjs",
+  "module": "./lib/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "./dist",
-    "*.d.ts",
-    "*.mjs"
-  ],
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "buildts": "tsc"
   }
 }
