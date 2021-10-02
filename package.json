@@ -69,6 +69,8 @@
     "lint-staged": "^10.0.0",
     "postcss-advanced-variables": "^3.0.1",
     "postcss-color-function": "^4.1.0",
+    "postcss-custom-properties": "^12.0.0",
+    "postcss-value-parser": "^4.1.0",
     "prettier": "2.4.0",
     "rollup": "^2.56.3",
     "rollup-plugin-dts": "^4.0.0",
