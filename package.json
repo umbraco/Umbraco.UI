@@ -28,11 +28,11 @@
     "format": "npm run format:eslint && npm run format:prettier",
     "dev": "vite",
     "storybook": "npm run analyze && start-storybook -p 6006",
-    "storybook:build": "npm run lint && npm run analyze && build-storybook",
+    "storybook:build": "npm run analyze && npm run build && build-storybook",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "lerna run build && web-test-runner --coverage",
     "bootstrap": "lerna bootstrap --ci",
-    "build": "lerna run build"
+    "build": "npm run lint && lerna run build"
   },
   "engines": {
     "node": ">=16.8.0",

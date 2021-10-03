@@ -1,6 +1,6 @@
 import { LitElement, css } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/mixins';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 /**

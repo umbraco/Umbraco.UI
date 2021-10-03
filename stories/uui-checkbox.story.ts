@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-checkbox/index';
+import '@umbraco-ui/uui-checkbox/lib/index';
 
 export default {
   title: 'Inputs/Checkbox',

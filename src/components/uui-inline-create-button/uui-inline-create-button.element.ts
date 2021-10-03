@@ -5,7 +5,7 @@ import {
   UUIBlinkKeyframes,
   UUIBlinkAnimationValue,
 } from '@umbraco-ui/uui-base/animations';
-import { LabelMixin } from '@umbraco-ui/uui-base/mixins';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
 /**
  *  @element uui-inline-create-button

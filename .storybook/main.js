@@ -11,15 +11,17 @@ module.exports = {
   async viteFinal(config, { configType }) {
     // customize the Vite config here
 
-    // add plugins
-    config.plugins.push(tsconfigPaths());
+    if (configType === 'DEVELOPMENT') {
+      // add plugins
+      config.plugins.push(tsconfigPaths());
 
-    // pre bundle dependencies for faster startup time
-    config.optimizeDeps.include.push('@storybook/web-components');
-    config.optimizeDeps.include.push('lit-html');
-    config.optimizeDeps.include.push('lit');
-    config.optimizeDeps.include.push('lit/decorators.js');
-    config.optimizeDeps.include.push('lit/directives/style-map.js');
+      // pre bundle dependencies for faster startup time
+      config.optimizeDeps.include.push('@storybook/web-components');
+      config.optimizeDeps.include.push('lit-html');
+      config.optimizeDeps.include.push('lit');
+      config.optimizeDeps.include.push('lit/decorators.js');
+      config.optimizeDeps.include.push('lit/directives/style-map.js');
+    }
 
     return config;
   },
