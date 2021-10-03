@@ -17,9 +17,9 @@
 
 # build
 /_site/
-**/dist/
-/packages/**/out/
+/packages/**/dist/
 /packages/**/lib/
+tsconfig.tsbuildinfo
 /out-tsc/
 
 

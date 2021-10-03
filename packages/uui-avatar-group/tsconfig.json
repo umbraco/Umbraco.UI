@@ -6,7 +6,7 @@
         "composite": true
     },
     "include": ["./**/*.ts"],
-    "exclude": ["./lib"],
+    "exclude": ["./lib", "./**/*.test.ts"],
     "references": [
         { "path": "../uui-base" },
         { "path": "../uui-avatar" }

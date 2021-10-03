@@ -4,12 +4,11 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./lib/index.d.ts",
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "buildts": "tsc"
+    "build": "tsc --build --clean && tsc --build && rollup -c rollup.config.js"
   }
 }

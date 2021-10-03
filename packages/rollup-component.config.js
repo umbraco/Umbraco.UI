@@ -1,26 +1,16 @@
 import esbuild from 'rollup-plugin-esbuild';
-import typescript2 from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-//import dts from 'rollup-plugin-dts';
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
   return [
     ...entryPoints.map(name => {
       return {
-        input: `src/${name}.ts`,
+        input: `./src/${name}.ts`,
         output: {
-          file: `./${name}.mjs`,
+          file: `./lib/${name}.js`,
           format: 'es',
         },
-        plugins: [
-          typescript2({
-            tsconfigOverride: {
-              compilerOptions: { paths: null },
-            },
-            clean: true,
-          }),
-          esbuild(),
-        ],
+        plugins: [esbuild()],
       };
     }),
     ...bundles.map(name => {
@@ -34,17 +24,5 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
         plugins: [nodeResolve(), esbuild()],
       };
     }),
-    /*
-    ...bundles.map(name => {
-      return {
-        input: `${name}.d.ts`,
-        output: {
-          file: `dist/${name}.d.ts`,
-          format: 'es'
-        },
-        plugins: [dts()]
-      }
-    }),
-    */
   ];
 };

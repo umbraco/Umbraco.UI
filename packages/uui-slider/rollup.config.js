@@ -4,6 +4,6 @@
 import { UUIProdConfig } from '../rollup-component.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'uui-slider.element'],
+  entryPoints: ['index', 'uui-slider.element', 'uui-slider.test'],
   bundles: ['index'],
 });

@@ -6,5 +6,5 @@
         "composite": true
     },
     "include": ["./**/*.ts"],
-    "exclude": ["./lib"]
+    "exclude": ["./lib", "./**/*.test.ts"]
 }

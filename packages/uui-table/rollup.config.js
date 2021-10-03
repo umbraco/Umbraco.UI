@@ -9,6 +9,7 @@ export default UUIProdConfig({
     'uui-table-column.element',
     'uui-table-head.element',
     'uui-table-head-cell.element',
+    'uui-table.test',
   ],
   bundles: ['index'],
 });
