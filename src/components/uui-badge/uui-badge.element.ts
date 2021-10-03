@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import {
   InterfaceLookType,
   InterfaceLookCSSCreator,
-} from '@umbraco-ui/uui-base/types';
+} from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  @element uui-badge

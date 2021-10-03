@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { Size } from '@umbraco-ui/uui-base/types';
+import { Size } from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  @element uui-loader-circle
