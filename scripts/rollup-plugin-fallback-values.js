@@ -17,7 +17,7 @@ export default function processLitCSS(options = {}) {
   return {
     name: 'add-fallback-values',
     async buildStart() {
-      properties = await extractCustomProperties(masterCSSPath);
+      properties = await extractCustomProperties(options.mainStylesPath);
     },
     async transform(code, id) {
       
