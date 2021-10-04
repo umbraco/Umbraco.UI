@@ -16,6 +16,7 @@
     "@umbraco-ui/uui-avatar": "0.0.1"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js"
+    "build": "tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib"
   }
 }
