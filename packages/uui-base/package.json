@@ -11,6 +11,6 @@
     "lit": "^2.0.0-rc.3"
   },
   "scripts": {
-    "build": "tsc --build --clean && tsc --build && rollup -c rollup.config.js"
+    "build": "tsc --build --force && rollup -c rollup.config.js"
   }
 }
