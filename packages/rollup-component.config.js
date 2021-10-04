@@ -8,7 +8,8 @@ import processLitCSS from '../scripts/rollup-plugin-fallback-values';
 const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: ['**/uui-base/src/events/**'],
-  mainStylesPath: '../../out-css/style/index.css'
+  mainStylesPath: '../../out-css/style/index.css',
+  autoprefixerEnv: 'last 1 version'
 };
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
