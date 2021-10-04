@@ -27,4 +27,8 @@ module.exports = {
     project: './tsconfig.json',
     tsconfigRootDir: './',
   },
+  env: {
+    browser: true,
+    node: true
+}
 };
