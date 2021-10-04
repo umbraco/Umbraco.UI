@@ -1,3 +1,3 @@
 export * from './ActiveMixin';
 export * from './LabelMixin';
-export * from './SelectableComponent';
+export * from './SelectableComponentMixin';
