@@ -31,7 +31,8 @@
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "lerna run build && web-test-runner --coverage",
     "bootstrap": "lerna bootstrap --ci",
-    "build": "lerna run build",
+    "css": "postcss src/style --base src --dir out-css",
+    "build": "npm run css && lerna run build",
     "clean": "lerna run clean"
   },
   "engines": {
@@ -66,7 +67,9 @@
     "husky": "^7.0.2",
     "lerna": "^4.0.0",
     "lint-staged": "^10.0.0",
+    "postcss": "^8.3.8",
     "postcss-advanced-variables": "^3.0.1",
+    "postcss-cli": "^9.0.1",
     "postcss-color-function": "^4.1.0",
     "postcss-custom-properties": "^12.0.0",
     "postcss-custom-properties-fallback": "^1.0.1",
