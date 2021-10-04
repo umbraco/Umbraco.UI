@@ -24,6 +24,7 @@
     "baseUrl": ".",
     "paths": {
       // TODO: Can we do this smarter?
+      "@umbraco-ui/uui/lib/*": ["packages/uui/src/*"],
       "@umbraco-ui/uui-avatar/lib/*": ["packages/uui-avatar/src/*"],
       "@umbraco-ui/uui-avatar-group/lib/*": ["packages/uui-avatar-group/src/*"],
       "@umbraco-ui/uui-base/lib/*": ["packages/uui-base/src/*"],

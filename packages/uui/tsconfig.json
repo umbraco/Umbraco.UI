@@ -1,0 +1,28 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./lib",
+        "rootDir": "./src",
+        "composite": true
+    },
+    "include": ["./**/*.ts"],
+    "exclude": ["./lib", "./**/*.test.ts"],
+    "references": [
+        { "path": "../uui-avatar" },
+        { "path": "../uui-avatar-group" },
+        { "path": "../uui-base" },
+        { "path": "../uui-breadcrumbs" },
+        { "path": "../uui-button" },
+        { "path": "../uui-checkbox" },
+        { "path": "../uui-input" },
+        { "path": "../uui-loader" },
+        { "path": "../uui-loader-bar" },
+        { "path": "../uui-loader-circle" },
+        { "path": "../uui-radio" },
+        { "path": "../uui-slider" },
+        { "path": "../uui-table" },
+        { "path": "../uui-tabs" },
+        { "path": "../uui-tag" },
+        { "path": "../uui-toggle" }
+    ]
+}
