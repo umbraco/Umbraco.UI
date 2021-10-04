@@ -1,8 +1,14 @@
 import esbuild from 'rollup-plugin-esbuild';
 import typescript2 from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import  processLitCSS  from '../scripts/rollup-plugin-fallback-values'
+import processLitCSS from '../scripts/rollup-plugin-fallback-values';
 //import dts from 'rollup-plugin-dts';
+
+//const excludePatterns = ['**/events.ts'];
+const processLitCSSOptions = {
+  include: ['**/uui-*.ts', '**/*Mixin.ts'],
+  exclude: ['**/uui-base/src/events/**'],
+};
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
   return [
@@ -13,9 +19,7 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           file: `./${name}.mjs`,
           format: 'es',
         },
-        plugins: [processLitCSS(),
-          esbuild(),
-        ],
+        plugins: [processLitCSS(processLitCSSOptions), esbuild()],
       };
     }),
     // ...bundles.map(name => {
@@ -26,7 +30,7 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
     //       format: 'umd',
     //       sourcemap: true,
     //     },
-    //     plugins: [nodeResolve(),addFallbackValues(), esbuild()],
+    //     plugins: [nodeResolve(),processLitCSS(processLitCSSOptions), esbuild()],
     //   };
     // }),
     /*
