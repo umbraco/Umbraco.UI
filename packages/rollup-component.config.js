@@ -6,13 +6,10 @@ import processLitCSS from '../scripts/rollup-plugin-fallback-values';
 
 //const excludePatterns = ['**/events.ts'];
 const processLitCSSOptions = {
-  include: ['**/uui-*.ts', '**/*Mixin.ts'],
+  include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: ['**/uui-base/src/events/**'],
   mainStylesPath: '../../out-css/style/index.css'
 };
-
-
-
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
   return [

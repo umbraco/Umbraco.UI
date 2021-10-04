@@ -1,15 +1,11 @@
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-empty-function */
 import postcss from 'postcss';
 import syntax from 'postcss-syntax';
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
 import {extractCustomProperties} from './extract-custom-properties'
 import { createFilter } from '@rollup/pluginutils';
 
-const masterCSSPath = '../../out-css/style/index.css';
-
 export default function processLitCSS(options = {}) {
-  var filter = createFilter(options.include, options.exclude, {
+  var filter = createFilter(options?.include, options?.exclude, {
   });
   
   let properties = null;
