@@ -5,6 +5,10 @@
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
   },

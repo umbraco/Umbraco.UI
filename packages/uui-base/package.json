@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "dependencies": {
     "lit": "^2.0.0-rc.3"
   },
