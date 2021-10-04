@@ -33,7 +33,8 @@
     "test": "tsc && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "bootstrap": "lerna bootstrap --ci",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "hello": "lerna run hello"
   },
   "engines": {
     "node": ">=16.8.0",
@@ -69,6 +70,9 @@
     "postcss-advanced-variables": "^3.0.1",
     "postcss-color-function": "^4.1.0",
     "postcss-custom-properties": "^12.0.0",
+    "postcss-custom-properties-fallback": "^1.0.1",
+    "postcss-jsx": "^0.36.4",
+    "postcss-syntax": "^0.36.2",
     "postcss-values-parser": "^6.0.0",
     "prettier": "2.4.0",
     "rollup": "^2.56.3",

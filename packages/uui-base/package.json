@@ -12,6 +12,7 @@
     "lit": "^2.0.0-rc.3"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "hello": "rollup -c rollup.config.js"
   }
 }

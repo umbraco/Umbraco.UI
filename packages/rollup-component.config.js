@@ -1,7 +1,7 @@
 import esbuild from 'rollup-plugin-esbuild';
 import typescript2 from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import  addFallbackValues  from '../scripts/rollup-plugin-fallback-values'
+import  processLitCSS  from '../scripts/rollup-plugin-fallback-values'
 //import dts from 'rollup-plugin-dts';
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
@@ -13,28 +13,22 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           file: `./${name}.mjs`,
           format: 'es',
         },
-        plugins: [addFallbackValues(),
-          typescript2({
-            tsconfigOverride: {
-              compilerOptions: { paths: null },
-            },
-            clean: true,
-          }),
+        plugins: [processLitCSS(),
           esbuild(),
         ],
       };
     }),
-    ...bundles.map(name => {
-      return {
-        input: `src/${name}.ts`,
-        output: {
-          dir: './dist',
-          format: 'umd',
-          sourcemap: true,
-        },
-        plugins: [nodeResolve(),addFallbackValues(), esbuild()],
-      };
-    }),
+    // ...bundles.map(name => {
+    //   return {
+    //     input: `src/${name}.ts`,
+    //     output: {
+    //       dir: './dist',
+    //       format: 'umd',
+    //       sourcemap: true,
+    //     },
+    //     plugins: [nodeResolve(),addFallbackValues(), esbuild()],
+    //   };
+    // }),
     /*
     ...bundles.map(name => {
       return {
