@@ -7,6 +7,7 @@ export default {
   component: 'uui-avatar',
   args: {
     title: 'First Last',
+    fontSize: 32,
   },
   // argTypes: {
   //   'img-src': { table: { disable: true } },
@@ -30,14 +31,12 @@ const Template: Story = (props: any) => html`<uui-avatar
   .imgSrc=${props.imgSrc}
   .imgSrcset=${props.imgSrcset}
   .title=${props.title}
-  style="font-size: ${1 +
-  props.fontSize /
-    2}em; background-color: ${props.backgroundColor}; color: ${props.color}"
+  style="font-size: ${props.fontSize}px; background-color: ${props.backgroundColor}; color: ${props.color}"
   >${props.slot}</uui-avatar
 >`;
 
 export const Overview = Template.bind({});
-Overview.args = { color: '#1b264f', backgroundColor: '#f5c1bc', fontSize: 1 };
+Overview.args = { color: '#1b264f', backgroundColor: '#f5c1bc' };
 Overview.argTypes = {
   color: { table: { category: 'inline styling' } },
   backgroundColor: { table: { category: 'inline styling' } },
@@ -51,14 +50,13 @@ Picture.parameters = {
 };
 
 export const Sizes = Template.bind({});
-Sizes.args = { fontSize: 4 };
 Sizes.argTypes = {
   fontSize: { table: { category: 'inline styling' } },
 };
 Sizes.parameters = { controls: { include: ['fontSize', 'title'] } };
 
 export const Colors = Template.bind({});
-Colors.args = { color: 'white', backgroundColor: 'blue', fontSize: 1 };
+Colors.args = { color: 'white', backgroundColor: 'blue' };
 Colors.argTypes = {
   color: { table: { category: 'inline styling' } },
   backgroundColor: { table: { category: 'inline styling' } },
@@ -68,7 +66,7 @@ Colors.parameters = {
 };
 
 export const SlottedContent = Template.bind({});
-SlottedContent.args = { slot: 'what', title: '' };
+SlottedContent.args = { slot: 'overflow', title: '' };
 SlottedContent.argTypes = {
   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 };
