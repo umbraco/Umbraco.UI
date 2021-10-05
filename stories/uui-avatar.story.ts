@@ -68,7 +68,7 @@ Colors.parameters = {
 };
 
 export const SlottedContent = Template.bind({});
-SlottedContent.args = { slot: 'what' };
+SlottedContent.args = { slot: 'what', title: '' };
 SlottedContent.argTypes = {
   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 };
@@ -76,11 +76,12 @@ SlottedContent.parameters = {
   controls: { include: ['slot', 'overflow', 'title'] },
 };
 
-export const WidthBadge = Template.bind({});
-WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
-WidthBadge.argTypes = {
-  slot: { table: { category: 'slots' }, control: { type: 'text' } },
-};
-WidthBadge.parameters = {
-  controls: { include: ['slot', 'overflow', 'title'] },
-};
+// TODO: Uncomment when we get the bagde element added to packages
+// export const WidthBadge = Template.bind({});
+// WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
+// WidthBadge.argTypes = {
+//   slot: { table: { category: 'slots' }, control: { type: 'text' } },
+// };
+// WidthBadge.parameters = {
+//   controls: { include: ['slot', 'overflow', 'title'] },
+// };
