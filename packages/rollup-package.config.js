@@ -1,11 +1,12 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import processLitCSS from '../scripts/rollup-plugin-fallback-values';
+import path from 'path'
 
 const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: ['**/uui-base/src/events/**'],
-  mainStylesPath: '../../out-css/style/index.css',
+  mainStylesPath: '../uui-base/lib/styles/index.css',
   autoprefixerEnv: 'last 1 version'
 };
 
