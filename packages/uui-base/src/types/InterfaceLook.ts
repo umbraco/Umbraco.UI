@@ -22,6 +22,7 @@ export type InterfaceLookType =
 
 export const InterfaceLookDefaultValue = '';
 
+//TODO implement that in next released, so it can print out fallback values
 export function InterfaceLookCSSCreator(
   loopMethod: (lookName: CSSResult) => CSSResultGroup
 ): CSSResultArray {
