@@ -5,38 +5,35 @@ import '@umbraco-ui/uui-loader-bar/index';
 export default {
   title: 'Symbols/Loader Bar',
   component: 'uui-loader-bar',
+  args: {
+    animationDuration: 1.5,
+  },
 };
 
-const colors = [
-  '#F79C37',
-  '#FAD634',
-  '#F5C1BC',
-  '#162335',
-  '#1B264F',
-  '#3544B1',
-  '#2152A3',
-  '#3879FF',
-  '#D42054',
-  '#25aa60',
-  '#191715',
-  '#2E2B29',
-  '#332A24',
-  '#9D8057',
-  '#E2DAD4',
-  '#d8d7d9',
-  '#f3f3f5',
-  '#FEFEFE',
-  '#060606',
-  '#C4C4C4',
-  '#9B9B9B',
-  '#3E3E3E',
-];
+const Template: Story = props =>
+  html`
+    <uui-loader-bar
+      progress=${props.progress}
+      animationDuration=${props.animationDuration}
+      ?hidden=${props.hidden}
+      style="color: ${props.color}"></uui-loader-bar>
+  `;
 
-export const Default: Story = () => html` <uui-loader-bar></uui-loader-bar> `;
+export const Overview = Template.bind({});
+Overview.args = { color: 'black' };
+Overview.argTypes = {
+  color: { table: { category: 'inline styling' } },
+};
 
-export const WithColor: Story = () =>
-  html`${colors.map(
-    color =>
-      html`<uui-loader-bar
-        style=${`color: ${color}; margin-bottom: 40px`}></uui-loader-bar>`
-  )}`;
+export const Color = Template.bind({});
+Color.args = { color: 'blue' };
+Color.argTypes = {
+  color: { table: { category: 'inline styling' } },
+};
+Color.parameters = { controls: { include: ['color', 'animationDuration'] } };
+
+export const Progress = Template.bind({});
+Progress.args = { progress: 75 };
+Progress.parameters = {
+  controls: { include: ['progress', 'animationDuration'] },
+};
