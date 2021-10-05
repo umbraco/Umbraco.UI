@@ -14,6 +14,8 @@
     "build": "tsc --build --force && npm run build:css && rollup -c rollup.config.js",
     "build:css": "postcss src/styles/index.css --base src --dir lib",
     "clean": "tsc --build --clean && rimraf dist lib"
-
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
