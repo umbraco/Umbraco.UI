@@ -29,10 +29,10 @@
     "storybook": "npm run analyze && start-storybook -p 6006",
     "storybook:build": "npm run analyze && npm run build && build-storybook",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
-    "test": "lerna run build && web-test-runner --coverage",
+    "test": "npm run build && web-test-runner --coverage",
     "bootstrap": "lerna bootstrap --ci",
     "css": "postcss src/style --base src --dir out-css",
-    "build": "npm run css && lerna run build",
+    "build": "npm run clean && npm run css && lerna run build",
     "clean": "lerna run clean"
   },
   "engines": {
