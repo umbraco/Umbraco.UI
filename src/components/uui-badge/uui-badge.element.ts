@@ -1,10 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  InterfaceLookType,
-  InterfaceLookCSSCreator,
-} from '@umbraco-ui/uui-base/lib/types';
+import { InterfaceLookType } from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  @element uui-badge
@@ -45,16 +42,42 @@ export class UUIBadgeElement extends LitElement {
         justify-content: center;
         align-items: center;
       }
+
+      :host([look='primary']) {
+        background-color: var(--uui-look-primary-surface);
+        color: var(--uui-look-primary-contrast);
+      }
+
+      :host([look='secondary']) {
+        background-color: var(--uui-look-secondary-surface);
+        color: var(--uui-look-secondary-contrast);
+      }
+
+      :host([look='outline']) {
+        background-color: var(--uui-look-outline-surface);
+        color: var(--uui-look-outline-contrast);
+      }
+
+      :host([look='placeholder']) {
+        background-color: var(--uui-look-placeholder-surface);
+        color: var(--uui-look-placeholder-contrast);
+      }
+
+      :host([look='positive']) {
+        background-color: var(--uui-look-positive-surface);
+        color: var(--uui-look-positive-contrast);
+      }
+
+      :host([look='warning']) {
+        background-color: var(--uui-look-warning-surface);
+        color: var(--uui-look-warning-contrast);
+      }
+
+      :host([look='danger']) {
+        background-color: var(--uui-look-danger-surface);
+        color: var(--uui-look-danger-contrast);
+      }
     `,
-    InterfaceLookCSSCreator(
-      lookName =>
-        css`
-          :host([look='${lookName}']) {
-            background-color: var(--uui-look-${lookName}-surface);
-            color: var(--uui-look-${lookName}-contrast);
-          }
-        `
-    ),
   ];
 
   @property({ reflect: true })
