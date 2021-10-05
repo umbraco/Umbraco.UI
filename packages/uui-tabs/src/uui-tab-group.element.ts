@@ -11,10 +11,14 @@ export class UUITabGroupElement extends LitElement {
       :host {
         display: flex;
         flex-wrap: wrap;
+        color: var(--uui-tab-text);
+        background: var(--uui-tab-background, none);
+        height: 100%;
+        min-height: 48px;
       }
 
       ::slotted(*:not(:last-of-type)) {
-        border-right: 1px solid var(--uui-interface-border);
+        border-right: 1px solid var(--uui-tab-divider, none);
       }
     `,
   ];

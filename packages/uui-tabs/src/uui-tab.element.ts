@@ -3,11 +3,19 @@ import { property } from 'lit/decorators.js';
 import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/mixins';
 
 /**
- *  @element uui-editor-tab
+ *  @element uui-tabs
+ * @cssprop --uui-tab-text - Define the tab text color
+ * @cssprop --uui-tab-text-hover - Define the tab text hover color
+ * @cssprop --uui-tab-text-active - Define the tab text active color
+ * @cssprop --uui-tab-background - Define the tab group background color
  */
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
+      :host {
+        color: var(--uui-tab-text, var(--uui-interface-contrast, black));
+      }
+
       button {
         position: relative;
         display: flex;
@@ -20,17 +28,19 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         border: none;
         box-sizing: border-box;
         min-height: 32px;
-        max-height: 75px;
+        font-size: inherit;
+        height: 100%;
         min-width: 75px;
         background: none;
-        color: var(--uui-interface-contrast);
+        color: inherit;
         cursor: pointer;
-
-        transition: background-color 80ms;
       }
 
       :host(:not([active]):not([disabled])) button:hover {
-        color: var(--uui-interface-contrast-hover);
+        color: var(
+          --uui-tab-text-hover,
+          var(--uui-look-primary-surface-hover, white)
+        );
       }
 
       :host(:not([active]):not([disabled])) button:active {
@@ -39,7 +49,10 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       :host([active]) button {
-        color: var(--uui-interface-contrast-active);
+        color: var(
+          --uui-tab-text-active,
+          var(--uui-look-primary-surface-hover, white)
+        );
         cursor: default;
       }
       :host([disabled]) button {
@@ -51,7 +64,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         content: '';
         position: absolute;
         height: 0px;
-        max-width: 50px;
+        /* max-width: 50px; */
         width: calc(100% - 16px);
         left: auto;
         right: auto;
@@ -75,7 +88,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       ::slotted(uui-icon) {
-        font-size: 1.5em;
         margin-bottom: var(--uui-size-space-2);
       }
     `,
