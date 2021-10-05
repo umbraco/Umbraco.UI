@@ -7,4 +7,9 @@ export default {
   component: 'uui-loader',
 };
 
-export const Overview: Story = () => html`<uui-loader></uui-loader>`;
+export const Overview: Story = props =>
+  html`<uui-loader style="color: ${props.color}"></uui-loader>`;
+Overview.args = { color: 'black' };
+Overview.argTypes = {
+  color: { table: { category: 'inline styling' } },
+};
