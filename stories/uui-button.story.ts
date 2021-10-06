@@ -1,4 +1,5 @@
 import { html } from 'lit-html';
+import '@umbraco-ui/uui-button/lib/index';
 // import '../uui-icon/index';
 // import '../uui-badge/index';
 import {
