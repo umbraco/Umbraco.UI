@@ -13,7 +13,7 @@ export default {
 
 export const Overview: Story = props => html`
   <uui-avatar-group
-    style="font-size: 2rem"
+    style="font-size: ${props.fontSize}em"
     .borderColor=${props.borderColor}
     .limit=${props.limit}>
     <uui-avatar title="First Last"></uui-avatar>
@@ -22,6 +22,10 @@ export const Overview: Story = props => html`
     <uui-avatar title="First Last"></uui-avatar>
   </uui-avatar-group>
 `;
+Overview.args = { fontSize: 2 };
+Overview.argTypes = {
+  fontSize: { table: { category: 'inline styling' } },
+};
 
 export const Limit: Story = ({ limit }) => html`
   <uui-avatar-group style="font-size: 2rem" .limit=${limit}>
@@ -33,26 +37,3 @@ export const Limit: Story = ({ limit }) => html`
 `;
 Limit.args = { limit: 2 };
 Limit.parameters = { controls: { include: ['limit'] } };
-
-export const Sizes: Story = () => html`
-  <uui-avatar-group style="font-size: 1rem">
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-  </uui-avatar-group>
-  <br />
-  <uui-avatar-group style="font-size: 2rem">
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-  </uui-avatar-group>
-  <br />
-  <uui-avatar-group style="font-size: 3rem">
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-    <uui-avatar title="First Last"></uui-avatar>
-  </uui-avatar-group>
-`;
