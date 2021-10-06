@@ -5,12 +5,29 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Buttons/Tabs',
   component: 'uui-tabs',
+  args: {
+    '--uui-tab-divider': 'rgba(0,0,0,0)',
+  },
+  argTypes: {
+    '--uui-tab-text': { control: { type: 'color' } },
+    '--uui-tab-text-hover': { control: { type: 'color' } },
+    '--uui-tab-text-active': { control: { type: 'color' } },
+    '--uui-tab-background': { control: { type: 'color' } },
+    '--uui-tab-divider': { control: { type: 'color' } },
+  },
 };
 
-export const TabGroup: Story = () => html`
-  <uui-tab-group>
+export const Overview: Story = props => html`
+  <uui-tab-group
+    style="
+    --uui-tab-text: ${props['--uui-tab-text']}; 
+    --uui-tab-text-hover: ${props['--uui-tab-text-hover']}; 
+    --uui-tab-text-active: ${props['--uui-tab-text-active']}; 
+    --uui-tab-background: ${props['--uui-tab-background']}; 
+    --uui-tab-divider: ${props['--uui-tab-divider']}; 
+    ${props.inlineStyles}">
     <uui-tab active> Content </uui-tab>
-    <uui-tab> Packages </uui-tab>
+    <uui-tab ?disabled=${props.disabled}> Packages </uui-tab>
     <uui-tab> Media </uui-tab>
   </uui-tab-group>
 `;

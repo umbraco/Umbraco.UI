@@ -8,6 +8,7 @@ import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/mixins';
  * @cssprop --uui-tab-text-hover - Define the tab text hover color
  * @cssprop --uui-tab-text-active - Define the tab text active color
  * @cssprop --uui-tab-background - Define the tab group background color
+ * @cssprop --uui-tab-divider - Define the tab dividers color
  */
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
