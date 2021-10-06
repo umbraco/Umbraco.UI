@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-avatar/index';
+import '@umbraco-ui/uui-avatar/lib/index';
 
 export default {
   title: 'Displays/Avatar',

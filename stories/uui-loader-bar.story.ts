@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-loader-bar/index';
+import '@umbraco-ui/uui-loader-bar/lib/index';
 
 export default {
   title: 'Symbols/Loader Bar',

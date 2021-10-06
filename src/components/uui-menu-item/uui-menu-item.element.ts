@@ -4,7 +4,7 @@ import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
-} from '@umbraco-ui/uui-base/mixins';
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**

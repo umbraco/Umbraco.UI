@@ -1,6 +1,6 @@
-import { UUIProdConfig } from '../rollup-component.config';
+import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'uui-loader-bar.element'],
+  entryPoints: ['index', 'uui-loader-bar.element', 'uui-loader-bar.test'],
   bundles: ['index'],
 });

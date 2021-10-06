@@ -1,9 +1,6 @@
-// import componentConfig from '../rollup-component.config';
-// export default componentConfig;
-
-import { UUIProdConfig } from '../rollup-component.config';
+import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'uui-button.element'],
+  entryPoints: ['index', 'uui-button.element', 'uui-button.test'],
   bundles: ['index'],
 });

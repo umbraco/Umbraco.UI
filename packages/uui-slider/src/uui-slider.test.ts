@@ -1,6 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUISliderElement } from './uui-slider.element';
-import '.';
+import './index';
 
 describe('UuiSlider', () => {
   let element: UUISliderElement;

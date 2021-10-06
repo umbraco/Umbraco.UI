@@ -3,17 +3,21 @@
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
-  "module": "index.mjs",
-  "types": "./dist/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
-    "./dist",
-    "*.d.ts",
-    "*.mjs"
+    "dist",
+    "lib"
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.1"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js"
-  }
+    "build": "tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "a059c6197ae72d997371eb55ac47b63784076752"
 }

@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
-import { LabelMixin } from '@umbraco-ui/uui-base/mixins';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  *  @element uui-file-dropzone

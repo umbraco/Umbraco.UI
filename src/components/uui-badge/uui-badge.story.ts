@@ -3,7 +3,7 @@ import '../uui-icon/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '@umbraco-ui/uui-base/types';
+} from '@umbraco-ui/uui-base/lib/types';
 
 export default {
   title: 'Misc/Badge',

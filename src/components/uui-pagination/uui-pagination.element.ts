@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, queryAll, state } from 'lit/decorators.js';
-import { UUIButtonElement } from '@umbraco-ui/uui-button/uui-button.element';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
 
 import { UUIPaginationEvent } from './UUIPaginationEvent';
 //TODO change focus after click

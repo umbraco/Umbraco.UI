@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import {
   InterfaceLookDefaultValue,
   InterfaceLookType,
-} from '@umbraco-ui/uui-base/types';
+} from '@umbraco-ui/uui-base/lib/types';
 import { UUIConfirmDialogEvent } from './UUIConfirmDialogEvent';
 
 /**

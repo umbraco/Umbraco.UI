@@ -1,6 +1,6 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUICheckboxElement } from './uui-checkbox.element';
-import '.';
+import './index';
 
 describe('UuiToggle', () => {
   let element: UUICheckboxElement;

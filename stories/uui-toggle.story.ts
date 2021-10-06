@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-toggle/index';
+import '@umbraco-ui/uui-toggle/lib/index';
 
 export default {
   title: 'Inputs/Toggle',

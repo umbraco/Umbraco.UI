@@ -2,11 +2,11 @@ import { LitElement, html, css, svg, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
-import { nativeInputStyles } from './nativeInputStyles';
+import { nativeInputStyles } from './native-input.styles';
 import {
   UUIHorizontalPulseKeyframes,
   UUIHorizontalPulseAnimationValue,
-} from '@umbraco-ui/uui-base/animations';
+} from '@umbraco-ui/uui-base/lib/animations';
 import { UUISliderEvent } from './UUISliderEvents';
 /**
  *  @element uui-slider

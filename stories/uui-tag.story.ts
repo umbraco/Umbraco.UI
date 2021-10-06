@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
-import { InterfaceLookNames } from '@umbraco-ui/uui-base/types';
+import { InterfaceLookNames } from '@umbraco-ui/uui-base/lib/types';
 import { Story } from '@storybook/web-components';
-import '@umbraco-ui/uui-tag/index';
+import '@umbraco-ui/uui-tag/lib/index';
 
 export default {
   title: 'Misc/Tag',

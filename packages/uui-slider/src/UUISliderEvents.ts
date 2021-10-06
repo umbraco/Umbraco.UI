@@ -1,4 +1,4 @@
-import { UUIEvent } from '@umbraco-ui/uui-base/events';
+import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUISliderElement } from './uui-slider.element';
 
 export class UUISliderEvent extends UUIEvent<{}, UUISliderElement> {

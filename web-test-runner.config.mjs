@@ -1,4 +1,14 @@
+import fs from 'fs';
+
+const packages = fs
+  .readdirSync('packages')
+  .filter(dir => fs.statSync(`packages/${dir}`).isDirectory());
+
 export default {
-  files: 'out-tsc/**/*.test.js',
-  nodeResolve: true
+  nodeResolve: true,
+  groups: packages.map(pkg => ({
+    name: pkg,
+    files: `packages/${pkg}/**/*.test.js`,
+    rootDir: './src'
+  })),
 };

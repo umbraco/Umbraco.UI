@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-tabs/index';
+import '@umbraco-ui/uui-tabs/lib/index';
 import { Story } from '@storybook/web-components';
 
 export default {

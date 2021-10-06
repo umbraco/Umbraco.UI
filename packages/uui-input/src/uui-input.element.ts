@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/mixins';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =

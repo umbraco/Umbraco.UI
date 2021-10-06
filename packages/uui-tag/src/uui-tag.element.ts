@@ -3,9 +3,8 @@ import { property } from 'lit/decorators.js';
 import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
-  InterfaceLookCSSCreator,
   Size,
-} from '@umbraco-ui/uui-base/types';
+} from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  @element uui-tag
@@ -54,16 +53,43 @@ export class UUITagElement extends LitElement {
       :host([size='xl']) {
         --uui-tag-font-size: 14px;
       }
+
+      /* Looks */
+      :host([look='primary']) {
+        background-color: var(--uui-look-primary-surface);
+        color: var(--uui-look-primary-contrast);
+      }
+
+      :host([look='secondary']) {
+        background-color: var(--uui-look-secondary-surface);
+        color: var(--uui-look-secondary-contrast);
+      }
+
+      :host([look='outline']) {
+        background-color: var(--uui-look-outline-surface);
+        color: var(--uui-look-outline-contrast);
+      }
+
+      :host([look='placeholder']) {
+        background-color: var(--uui-look-placeholder-surface);
+        color: var(--uui-look-placeholder-contrast);
+      }
+
+      :host([look='positive']) {
+        background-color: var(--uui-look-positive-surface);
+        color: var(--uui-look-positive-contrast);
+      }
+
+      :host([look='warning']) {
+        background-color: var(--uui-look-warning-surface);
+        color: var(--uui-look-warning-contrast);
+      }
+
+      :host([look='danger']) {
+        background-color: var(--uui-look-danger-surface);
+        color: var(--uui-look-danger-contrast);
+      }
     `,
-    InterfaceLookCSSCreator(
-      lookName =>
-        css`
-          :host([look='${lookName}']) {
-            background-color: var(--uui-look-${lookName}-surface);
-            color: var(--uui-look-${lookName}-contrast);
-          }
-        `
-    ),
   ];
 
   /**
