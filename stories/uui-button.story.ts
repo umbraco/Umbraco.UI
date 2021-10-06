@@ -22,6 +22,10 @@ export const PositiveButton = () => html`
   <uui-button look="positive">Positive button</uui-button>
 `;
 
+export const Outline = () => html`
+  <uui-button look="outline" style="width:480px;">Add content</uui-button>
+`;
+
 export const PlaceholderButton = () => html`
   <uui-button look="placeholder" style="width:480px;">Add content</uui-button>
 `;

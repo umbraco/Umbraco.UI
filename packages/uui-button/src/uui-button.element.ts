@@ -45,7 +45,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         text-align: center;
         vertical-align: middle;
         box-shadow: none;
-        border-width: var(--uui-button-border-width);
+        border-width: var(--uui-button-border-width, 1px);
         border-style: solid;
         border-color: var(
           --uui-button-border-color,
