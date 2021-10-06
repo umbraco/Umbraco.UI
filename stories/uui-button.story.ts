@@ -6,33 +6,71 @@ import {
   InterfaceLookNames,
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
+import { Story } from '@storybook/web-components';
 
 export default {
   title: 'Buttons/Button',
   component: 'uui-button',
+  args: {
+    look: 'primary',
+  },
+  argTypes: {
+    look: {
+      options: [
+        'primary',
+        'secondary',
+        'outline',
+        'placeholder',
+        'positive',
+        'warning',
+        'danger',
+      ],
+      control: { type: 'select' },
+    },
+  },
 };
 
-export const Default = () => html` <uui-button>Basic button</uui-button> `;
+const Template: Story = props =>
+  html`
+    <uui-button
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      label=${props.label}
+      >${props.content}</uui-button
+    >
+  `;
 
-export const PrimaryButton = () => html`
-  <uui-button look="primary" label="Basic button"></uui-button>
-`;
+export const Overview = Template.bind({});
+Overview.args = { label: 'Basic' };
 
-export const PositiveButton = () => html`
-  <uui-button look="positive">Positive button</uui-button>
-`;
+export const Disabled = Template.bind({});
+Disabled.args = { label: 'Disabled', disabled: true };
 
-export const Outline = () => html`
-  <uui-button look="outline" style="width:480px;">Add content</uui-button>
-`;
+export const Compact = Template.bind({});
+Compact.args = { label: 'Compact', compact: true };
 
-export const PlaceholderButton = () => html`
-  <uui-button look="placeholder" style="width:480px;">Add content</uui-button>
-`;
+function uppercaseFirstLetter(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
-export const Disabled = () => html`
-  <uui-button disabled>Disabled button</uui-button>
+export const Looks: Story = props => html`
+  <uui-button
+    ?disabled=${props.disabled}
+    ?compact=${props.compact}
+    look=${props.look}
+    label=${props.label}
+    >${props.content}</uui-button
+  >
+  <h5>Looks</h5>
+  ${InterfaceLookNames.map(
+    (lookName: InterfaceLookType) =>
+      html`<uui-button .look=${lookName} style="margin-right:12px;">
+        ${uppercaseFirstLetter(lookName)} look
+      </uui-button>`
+  )}
 `;
+Looks.args = { label: 'Button' };
 
 // export const WithIcon = () => html`
 //   <uui-button look="danger">
@@ -55,31 +93,7 @@ export const Disabled = () => html`
 //   </uui-button>
 // `;
 
-export const Compact = () => html`
-  <uui-button look="danger" compact>
-    <uui-icon .name=${'bug'}></uui-icon>
-  </uui-button>
-  <uui-button look="danger" compact>
-    I have less padding on the x axis
-  </uui-button>
-`;
-
 // export const WithBadge = () => html` <uui-button look="primary">
 //   Button label
 //   <uui-badge>!</uui-badge>
 // </uui-button>`;
-
-function uppercaseFirstLetter(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-export const Styles = () => html`
-  <uui-button>Default style</uui-button>
-  <uui-button .look=${''} style="margin-left:12px;">Empty look</uui-button>
-  ${InterfaceLookNames.map(
-    (lookName: InterfaceLookType) =>
-      html`<uui-button .look=${lookName} style="margin-left:12px;">
-        ${uppercaseFirstLetter(lookName)} look
-      </uui-button>`
-  )}
-`;
