@@ -1,7 +1,7 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import processLitCSS from '../scripts/rollup-plugin-fallback-values';
-import path from 'path'
+import minifyHTML from 'rollup-plugin-minify-html-literals';
 
 const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
@@ -9,6 +9,9 @@ const processLitCSSOptions = {
   mainStylesPath: '../uui-base/lib/styles/index.css',
   autoprefixerEnv: 'last 1 version'
 };
+
+
+const esbuidOptions = {minify: true};
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
   return [
@@ -19,7 +22,7 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           file: `./lib/${name}.js`,
           format: 'es',
         },
-        plugins: [processLitCSS(processLitCSSOptions), esbuild()],
+        plugins: [processLitCSS(processLitCSSOptions),minifyHTML(), esbuild(esbuidOptions)],
       };
     }),
     ...bundles.map(name => {
@@ -30,7 +33,7 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           format: 'umd',
           sourcemap: true,
         },
-        plugins: [nodeResolve(), processLitCSS(processLitCSSOptions), esbuild()],
+        plugins: [nodeResolve(), processLitCSS(processLitCSSOptions),minifyHTML(), esbuild(esbuidOptions)],
       };
     }),
   ];
