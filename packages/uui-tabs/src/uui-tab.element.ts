@@ -14,7 +14,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
       :host {
-        color: var(--uui-tab-text, var(--uui-interface-contrast, black));
+        color: var(--uui-tab-text, var(--uui-interface-contrast));
+        font-family: inherit;
       }
 
       button {
@@ -35,6 +36,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         background: none;
         color: inherit;
         cursor: pointer;
+        font-family: inherit;
       }
 
       :host(:not([active]):not([disabled])) button:hover {
