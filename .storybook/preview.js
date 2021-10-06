@@ -31,6 +31,11 @@ export const parameters = {
         disable: true,
       },
     },
+    '': {
+      table: {
+        disable: true,
+      },
+    },
   },
 };
 
