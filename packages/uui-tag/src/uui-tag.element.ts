@@ -68,11 +68,13 @@ export class UUITagElement extends LitElement {
       :host([look='outline']) {
         background-color: var(--uui-look-outline-surface);
         color: var(--uui-look-outline-contrast);
+        border: 1px solid var(--uui-look-outline-border);
       }
 
       :host([look='placeholder']) {
         background-color: var(--uui-look-placeholder-surface);
         color: var(--uui-look-placeholder-contrast);
+        border: 1px dashed var(--uui-look-placeholder-border);
       }
 
       :host([look='positive']) {
