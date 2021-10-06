@@ -22,7 +22,7 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           file: `./lib/${name}.js`,
           format: 'es',
         },
-        plugins: [processLitCSS(processLitCSSOptions),minifyHTML(), esbuild(esbuidOptions)],
+        plugins: [processLitCSS(processLitCSSOptions), esbuild()],
       };
     }),
     ...bundles.map(name => {
