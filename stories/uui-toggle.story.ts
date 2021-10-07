@@ -41,8 +41,7 @@ export const Overview: Story = props =>
       >${props.slot}</uui-toggle
     >
   `;
-Overview.storyName = 'Overview';
-Overview.args = { label: 'I am a label' };
+Overview.args = { label: 'label' };
 Overview.argTypes = {
   labelPosition: { options: ['left', 'right', 'top', 'bottom'] },
   slot: { control: { type: 'text' } },
@@ -116,11 +115,14 @@ LabelPosition.parameters = {
 export const NoLabel: Story = props =>
   html`
     <uui-toggle
-      label="Toggle label"
+      label="label"
       ?checked=${props.checked}
       ?hide-label=${props['hide-label']}
       value="toggle"></uui-toggle>
   `;
+NoLabel.args = {
+  'hide-label': true,
+};
 NoLabel.parameters = {
   controls: { include: ['checked', 'hide-label'] },
 };
