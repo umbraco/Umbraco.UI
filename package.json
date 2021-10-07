@@ -35,7 +35,7 @@
     "build": "npm run clean && lerna run build",
     "clean": "lerna run clean",
     "build:css": "lerna run build:css",
-    "publish:all": "npm run build && lerna publish",
+    "lerna:publish": "lerna publish",
     "version:patch": "lerna version patch",
     "diff": "lerna diff"
   },
