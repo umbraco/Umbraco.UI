@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-avatar-group",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
@@ -10,10 +10,10 @@
     "lib"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.1"
+    "@umbraco-ui/uui-base": "^0.0.2"
   },
   "devDependencies": {
-    "@umbraco-ui/uui-avatar": "0.0.1"
+    "@umbraco-ui/uui-avatar": "^0.0.2"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
