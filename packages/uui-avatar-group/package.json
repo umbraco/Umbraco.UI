@@ -19,5 +19,5 @@
     "build": "tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib"
   },
-  "gitHead": "a059c6197ae72d997371eb55ac47b63784076752"
+  "gitHead": "08d3b7c983d2f996ffa290dfe42b0bbdb27d9a2f"
 }
