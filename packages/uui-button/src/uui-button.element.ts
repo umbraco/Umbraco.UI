@@ -201,7 +201,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         color: var(--uui-look-placeholder-contrast);
         border-style: var(
           --uui-button-border-style,
-          var(--uui-look-placeholder-border-style, solid)
+          var(--uui-look-placeholder-border-style, dashed)
         );
         border-radius: var(
           --uui-button-border-radius,
