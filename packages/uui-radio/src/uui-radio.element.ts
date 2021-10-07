@@ -49,8 +49,8 @@ export class UUIRadioElement extends LitElement {
         display: inline-block;
         width: var(--uui-radio-button-size, 18px);
         height: var(--uui-radio-button-size, 18px);
-        background-color: var(--uui-interface-surface, white);
-        border: 1px solid var(--uui-interface-border, #d8d7d9);
+        background-color: var(--uui-interface-surface);
+        border: 1px solid var(--uui-interface-border);
         border-radius: 100%;
         margin-right: calc(var(--uui-size-base-unit) * 2);
         position: relative;
@@ -60,7 +60,7 @@ export class UUIRadioElement extends LitElement {
         content: '';
         width: calc(var(--uui-radio-button-size) / 2);
         height: calc(var(--uui-radio-button-size) / 2);
-        background-color: var(--uui-interface-chosen, #1b264f);
+        background-color: var(--uui-interface-chosen);
         border-radius: 100%;
         position: absolute;
         top: 50%;
@@ -74,23 +74,24 @@ export class UUIRadioElement extends LitElement {
       }
 
       :host(:hover) #button {
-        border: 1px solid var(--uui-interface-border-hover, #c4c4c4);
+        border: 1px solid var(--uui-interface-border-hover);
       }
 
       input:checked ~ #button {
-        border: 1px solid var(--uui-interface-chosen, #1b264f);
+        border: 1px solid var(--uui-interface-chosen);
       }
 
       input:checked:hover ~ #button {
-        border: 1px solid var(--uui-interface-chosen-hover, #2152a3);
+        border: 1px solid var(--uui-interface-chosen-hover);
       }
 
       input:checked:hover ~ #button::after {
-        background-color: var(--uui-interface-chosen-hover, #2152a3);
+        background-color: var(--uui-interface-chosen-hover);
       }
 
       :host([disabled]) label {
         cursor: default;
+        opacity: 0.5;
       }
       :host([disabled]) .label {
         color: var(--uui-interface-contrast-disabled);
