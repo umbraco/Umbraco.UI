@@ -36,7 +36,8 @@
     "clean": "lerna run clean",
     "build:css": "lerna run build:css",
     "publish:all": "lerna publish from-package",
-    "version:patch": "lerna version patch"
+    "version:patch": "lerna version patch",
+    "diff": "lerna diff"
   },
   "engines": {
     "node": ">=16.8.0",
