@@ -298,8 +298,21 @@ export class UUISliderElement extends LitElement {
   }
 
   firstUpdated() {
+    this.updateSteps();
+  }
+
+  updateSteps() {
     this.steps = this.range(this.min, this.max - 1, parseFloat(this.step));
     this.stepWidht = this.calculateStepWidth();
+  }
+
+  updated(changedProperties: any) {
+    if (
+      changedProperties.get('max') ||
+      changedProperties.get('min') ||
+      changedProperties.get('step')
+    )
+      this.updateSteps();
   }
 
   @state()
