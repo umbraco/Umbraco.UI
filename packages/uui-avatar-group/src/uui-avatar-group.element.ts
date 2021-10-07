@@ -44,15 +44,6 @@ export class UUIAvatarGroupElement extends LitElement {
   @property({ type: Number, attribute: true })
   limit = 0;
 
-  /**
-   * This sets the color of the borders around the avatars, usually set this to the color of the background of the element the group is on. Change to "transparent" if you dont want a border. Accepts any valid css color or a custom property (https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
-   * @type {string}
-   * @attr
-   * @default 'white'
-   */
-  @property({ type: String })
-  borderColor = 'white';
-
   @state()
   private avatarArray: UUIAvatarElement[] = [];
 
@@ -67,7 +58,7 @@ export class UUIAvatarGroupElement extends LitElement {
   private updateAvatarVisibility() {
     this.avatarArray.forEach((avatar: UUIAvatarElement, index: number) => {
       const avatarNumber: number = index + 1;
-      avatar.style.border = `0.1em solid ${this.borderColor}`;
+      avatar.style.border = `0.1em solid var(--uui-avatar-border-color)`;
       avatar.style.display =
         avatarNumber <= this.limit || this.limit === 0 ? '' : 'none';
     });

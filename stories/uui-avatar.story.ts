@@ -71,7 +71,7 @@ SlottedContent.argTypes = {
   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 };
 SlottedContent.parameters = {
-  controls: { include: ['slot', 'overflow', 'title'] },
+  controls: { include: ['slot', 'overflow'] },
 };
 
 // TODO: Uncomment when we get the bagde element added to packages
