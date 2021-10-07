@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 
 const packages = fs
   .readdirSync('packages')
@@ -11,4 +12,5 @@ export default {
     files: `packages/${pkg}/**/*.test.js`,
     rootDir: './src'
   })),
+  plugins: [esbuildPlugin({ ts: true, target: 'auto' })],
 };
