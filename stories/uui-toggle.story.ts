@@ -19,7 +19,7 @@ export default {
   },
   parameters: {
     controls: {
-      exclude: ['formAssociated', 'change-'],
+      exclude: ['change-'],
     },
   },
 };
@@ -129,10 +129,7 @@ NoLabel.parameters = {
 
 export const Disabled: Story = props => html`
   <uui-toggle ?disabled=${props.disabled} label="Disabled"></uui-toggle>
-  <uui-toggle
-    ?disabled=${props.disabled}
-    label="Disabled &amp; checked"
-    checked></uui-toggle>
+  <uui-toggle label="Disabled &amp; checked" checked></uui-toggle>
 `;
 Disabled.args = { disabled: true };
 Disabled.parameters = {

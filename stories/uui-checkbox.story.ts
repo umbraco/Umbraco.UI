@@ -18,7 +18,7 @@ export default {
   },
   parameters: {
     controls: {
-      exclude: ['formAssociated', 'change'],
+      exclude: ['change'],
     },
   },
 };
