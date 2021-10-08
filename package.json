@@ -80,6 +80,7 @@
     "postcss-color-function": "^4.1.0",
     "postcss-custom-properties": "^12.0.0",
     "postcss-custom-properties-fallback": "^1.0.1",
+    "postcss-jsx": "^0.36.4",
     "postcss-syntax": "^0.36.2",
     "postcss-values-parser": "^6.0.0",
     "prettier": "2.4.0",
