@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
@@ -20,7 +20,7 @@
     "@umbraco-ui/uui-loader": "^0.0.4",
     "@umbraco-ui/uui-loader-bar": "^0.0.4",
     "@umbraco-ui/uui-loader-circle": "^0.0.4",
-    "@umbraco-ui/uui-radio": "^0.0.4",
+    "@umbraco-ui/uui-radio": "^0.0.5",
     "@umbraco-ui/uui-slider": "^0.0.4",
     "@umbraco-ui/uui-table": "^0.0.4",
     "@umbraco-ui/uui-tabs": "^0.0.4",
