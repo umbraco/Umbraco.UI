@@ -35,9 +35,10 @@
     "build": "npm run clean && lerna run build",
     "clean": "lerna run clean",
     "build:css": "lerna run build:css",
-    "lerna:publish": "lerna publish from-package",
+    "lerna:publish": "lerna publish from-package && npm run lerna-fix",
     "lerna:version-patch": "lerna version patch",
-    "diff": "lerna diff"
+    "diff": "lerna diff",
+    "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs"
   },
   "engines": {
     "node": ">=16.8.0",
