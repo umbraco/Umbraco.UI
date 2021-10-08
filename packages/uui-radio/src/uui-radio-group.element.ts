@@ -66,7 +66,6 @@ export class UUIRadioGroupElement extends LitElement {
     }
 
     this.radioElements = this.getRadioElements();
-    console.log('update', this.radioElements);
 
     this.radioElements.forEach(el => {
       el.addEventListener(
