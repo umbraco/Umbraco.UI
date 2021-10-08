@@ -5,9 +5,11 @@
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "custom-elements.json"
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "^0.0.5"
@@ -17,7 +19,8 @@
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib"
+    "clean": "tsc --build --clean && rimraf dist lib",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
   "publishConfig": {
     "access": "public"

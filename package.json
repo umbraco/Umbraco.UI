@@ -35,6 +35,7 @@
     "build": "npm run clean && lerna run build",
     "clean": "lerna run clean",
     "build:css": "lerna run build:css",
+    "lerna:analyze": "lerna run analyze",
     "lerna:publish": "npm run build && lerna publish from-package && npm run lerna-fix",
     "lerna:version-patch": "lerna version patch",
     "diff": "lerna diff",
