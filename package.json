@@ -30,7 +30,6 @@
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "npm run build && web-test-runner --coverage",
     "test:watch": "web-test-runner \"**/packages/**/src/**/*.test.ts\" --node-resolve --watch",
-    "bootstrap": "lerna bootstrap --ci",
     "css": "postcss src/style --base src --dir out-css",
     "build": "npm run clean && lerna run build",
     "clean": "lerna run clean",
@@ -39,7 +38,9 @@
     "lerna:publish": "npm run build && lerna publish from-package && npm run lerna-fix",
     "lerna:version-patch": "lerna version patch",
     "diff": "lerna diff",
-    "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs"
+    "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
+    "postinstall": "npm run bootstrap",
+    "bootstrap": "node ./scripts/generate-ts-config.js"
   },
   "engines": {
     "node": ">=16.8.0",
