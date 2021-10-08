@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-tabs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
@@ -10,7 +10,7 @@
     "lib"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.3"
+    "@umbraco-ui/uui-base": "^0.0.4"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
