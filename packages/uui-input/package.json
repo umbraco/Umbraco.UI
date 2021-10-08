@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
@@ -10,7 +10,7 @@
     "lib"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.4"
+    "@umbraco-ui/uui-base": "^0.0.5"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
