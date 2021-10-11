@@ -97,7 +97,7 @@ export class UUILoaderBarElement extends LitElement {
 
   private _animationDuration = 1;
   /**
-   * Set this to a number greater them 0 to define the length of loader animation in seconds.
+   * Set this to a number greater then 0 to define the length of loader animation in seconds. Passing 0 or a negative number as a value will set it to 1 second. This is because negative values are illegal in the `animation-duration` css property, and value of 0 just stops the animation.
    * @type {number}
    * @attr
    * @default 1
@@ -109,7 +109,7 @@ export class UUILoaderBarElement extends LitElement {
 
   set animationDuration(newVal) {
     const oldVal = this._animationDuration;
-    this._animationDuration = newVal >= 0 ? newVal : 0;
+    this._animationDuration = newVal >= 0 ? newVal : 1;
     this.requestUpdate('animationDuration', oldVal);
   }
 
