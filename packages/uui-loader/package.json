@@ -2,6 +2,8 @@
   "name": "@umbraco-ui/uui-loader",
   "version": "0.0.5",
   "license": "MIT",
+  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Loader"],
+  "description": "A basic loader element",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
