@@ -41,8 +41,9 @@ const Template: Story = props =>
     >
   `;
 
-export const Overview = Template.bind({});
-Overview.args = { label: 'Basic' };
+export const AAAOverview = Template.bind({});
+AAAOverview.args = { label: 'Basic' };
+AAAOverview.storyName = 'Overview';
 
 export const Disabled = Template.bind({});
 Disabled.args = { label: 'Disabled', disabled: true };

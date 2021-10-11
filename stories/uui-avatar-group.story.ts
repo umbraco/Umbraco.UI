@@ -10,7 +10,7 @@ export default {
   },
 };
 
-export const Overview: Story = props => html`
+export const AAAOverview: Story = props => html`
   <uui-avatar-group
     style="font-size: ${props.fontSize}em; --uui-avatar-border-color: ${props[
       '--uui-avatar-border-color'
@@ -22,11 +22,13 @@ export const Overview: Story = props => html`
     <uui-avatar title="First Last"></uui-avatar>
   </uui-avatar-group>
 `;
-Overview.args = { fontSize: 2, '--uui-avatar-border-color': 'white' };
-Overview.argTypes = {
+AAAOverview.args = { fontSize: 2, '--uui-avatar-border-color': 'white' };
+AAAOverview.argTypes = {
   fontSize: { table: { category: 'inline styling' } },
   '--uui-avatar-border-color': { control: { type: 'color' } },
 };
+
+AAAOverview.storyName = 'Overview';
 
 export const Limit: Story = ({ limit }) => html`
   <uui-avatar-group

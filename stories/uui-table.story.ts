@@ -8,7 +8,7 @@ export default {
   component: 'uui-table',
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html`
     <uui-table
       aria-label="Random Umbraco Words"
@@ -38,17 +38,19 @@ export const Overview: Story = props =>
       </uui-table-row>
     </uui-table>
   `;
-Overview.args = {
+AAAOverview.storyName = 'Overview';
+
+AAAOverview.args = {
   backgroundColor1: '#8d9fc2',
   backgroundColor2: '#afc0e1',
   backgroundColor3: '#c7d4ee',
 };
-Overview.argTypes = {
+AAAOverview.argTypes = {
   backgroundColor1: { table: { category: 'Column styling' }, control: 'color' },
   backgroundColor2: { table: { category: 'Column styling' }, control: 'color' },
   backgroundColor3: { table: { category: 'Column styling' }, control: 'color' },
 };
-Overview.parameters = {
+AAAOverview.parameters = {
   controls: {
     include: ['backgroundColor1', 'backgroundColor2', 'backgroundColor3'],
   },

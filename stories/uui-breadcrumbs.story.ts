@@ -13,7 +13,7 @@ const links = [
   { name: 'Cars', link: '#Cars' },
 ];
 
-export const Basic: Story = () =>
+export const Overview: Story = () =>
   html`<uui-breadcrumbs
     >${links.map(
       link =>

@@ -35,9 +35,10 @@ const Template: Story = (props: any) => html`<uui-avatar
   >${props.slot}</uui-avatar
 >`;
 
-export const Overview = Template.bind({});
-Overview.args = { color: '#1b264f', backgroundColor: '#f5c1bc' };
-Overview.argTypes = {
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = 'Overview';
+AAAOverview.args = { color: '#1b264f', backgroundColor: '#f5c1bc' };
+AAAOverview.argTypes = {
   color: { table: { category: 'inline styling' } },
   backgroundColor: { table: { category: 'inline styling' } },
   fontSize: { table: { category: 'inline styling' } },

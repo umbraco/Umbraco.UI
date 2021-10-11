@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const Overview: Story = props => html`
+export const AAAOverview: Story = props => html`
   <uui-tab-group
     style="
     --uui-tab-text: ${props['--uui-tab-text']}; 
@@ -31,6 +31,7 @@ export const Overview: Story = props => html`
     <uui-tab> Media </uui-tab>
   </uui-tab-group>
 `;
+AAAOverview.storyName = 'Overview';
 
 export const Styles: Story = () => html`
   <h3>Default</h3>

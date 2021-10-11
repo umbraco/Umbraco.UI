@@ -23,7 +23,7 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html`
     <uui-checkbox
       style="--uui-checkbox-size: ${props['--uui-checkbox-size']}"
@@ -38,8 +38,10 @@ export const Overview: Story = props =>
       >${props.slot}</uui-checkbox
     >
   `;
-Overview.args = { label: 'label' };
-Overview.argTypes = {
+AAAOverview.args = { label: 'label' };
+AAAOverview.storyName = 'Overview';
+
+AAAOverview.argTypes = {
   labelPosition: {
     options: ['left', 'right', 'top', 'bottom'],
     control: 'select',

@@ -43,8 +43,10 @@ const Template: Story = props =>
       .value=${props.value}></uui-input>
   `;
 
-export const Overview = Template.bind({});
-Overview.args = { type: 'text', hideLabel: false };
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = 'Overview';
+
+AAAOverview.args = { type: 'text', hideLabel: false };
 
 export const Label = Template.bind({});
 Label.args = { type: 'text', hideLabel: false };

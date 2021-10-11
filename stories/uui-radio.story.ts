@@ -12,7 +12,7 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html` <uui-radio
     .value=${props.value}
     .label=${props.label}
@@ -21,6 +21,7 @@ export const Overview: Story = props =>
     ?checked=${props.checked}
     >Label</uui-radio
   >`;
+AAAOverview.storyName = 'Overview';
 
 export const Disabled: Story = props => html` <uui-radio disabled
     >Disabled</uui-radio

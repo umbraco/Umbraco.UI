@@ -35,7 +35,8 @@ const Template: Story = props =>
     <uui-tag .look=${props.look} .size=${props.size}>${props.slot}</uui-tag>
   `;
 
-export const Overview = Template.bind({});
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = 'Overview';
 
 export const Looks: Story = props =>
   html`

@@ -19,9 +19,11 @@ const Template: Story = props =>
       style="color: ${props.color}"></uui-loader-bar>
   `;
 
-export const Overview = Template.bind({});
-Overview.args = { color: 'black' };
-Overview.argTypes = {
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = 'Overview';
+
+AAAOverview.args = { color: 'black' };
+AAAOverview.argTypes = {
   color: { table: { category: 'inline styling' } },
 };
 

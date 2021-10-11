@@ -24,7 +24,7 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html`
     <uui-toggle
       style="--uui-toggle-size: ${props[
@@ -41,8 +41,10 @@ export const Overview: Story = props =>
       >${props.slot}</uui-toggle
     >
   `;
-Overview.args = { label: 'label' };
-Overview.argTypes = {
+AAAOverview.storyName = 'Overview';
+
+AAAOverview.args = { label: 'label' };
+AAAOverview.argTypes = {
   labelPosition: { options: ['left', 'right', 'top', 'bottom'] },
   slot: { control: { type: 'text' } },
   '--uui-toggle-size': { control: { type: 'text' } },

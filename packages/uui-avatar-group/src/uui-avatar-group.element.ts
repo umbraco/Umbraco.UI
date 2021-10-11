@@ -5,6 +5,7 @@ import { UUIAvatarElement } from '@umbraco-ui/uui-avatar/lib/uui-avatar.element'
 /**
  * This element is designed to hold uui-avatars. It displays them slightly overlapped, so they are presented nicely. Use it if you need to display many avatars in one place. Set a limit to display certain number of avatars and a number of the ones remaining out of view.
  *  @element uui-avatar-group
+ * @slot for uui-avatar elements
  */
 
 export class UUIAvatarGroupElement extends LitElement {
