@@ -301,12 +301,30 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     `,
   ];
 
-  // TODO: This need to be tested and implemented correctly. We need it not to be focusable, clickable and the styling should be fitted as well.
+  /**
+   * Disables the button, changes the looks of it and prevents if from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {""|"primary"|"secondary"|"outline"|"placeholder"|"positive"|"warning"|"danger"}
+   * @attr
+   * @default ""
+   */
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
+  /**
+   * Makes the left and right padding of the button narrower.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   compact = false;
 
