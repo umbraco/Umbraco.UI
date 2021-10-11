@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
  * A breadcrumb-item to be used with the breadcrumbs component.
  *  @element uui-breadcrumb-item
  *  @slot - to show display an element inside the breadcrumb
- * @csspart separator - change the content of the after element of this part to change the separator
+ *  @csspart separator - change the content of the after element of this part to change the separator
  */
 export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [

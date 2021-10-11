@@ -29,7 +29,7 @@ export class UUIBreadcrumbsElement extends LitElement {
   @queryAssignedNodes(undefined, true, 'uui-breadcrumb-item')
   _breadcrumbs?: UUIBreadcrumbItemElement[];
 
-  protected setLastItem() {
+  private _setLastItem() {
     if (this._breadcrumbs) {
       this._breadcrumbs[this._breadcrumbs.length - 1].lastItem = true;
       this._breadcrumbs[this._breadcrumbs.length - 1].setAttribute(
@@ -47,7 +47,7 @@ export class UUIBreadcrumbsElement extends LitElement {
 
   render() {
     return html`<ol id="breadcrumbs-list">
-      <slot @slotchange=${this.setLastItem}></slot>
+      <slot @slotchange=${this._setLastItem}></slot>
     </ol>`;
   }
 }

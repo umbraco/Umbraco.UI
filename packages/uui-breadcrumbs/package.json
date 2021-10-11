@@ -2,6 +2,8 @@
   "name": "@umbraco-ui/uui-breadcrumbs",
   "version": "0.0.5",
   "license": "MIT",
+  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Breadcrumbs","Breadcrumb","Navigation"],
+  "description": "This package contains two web components - uui-breadcrumb-item and uui-breadcrumbs. They can be used as an additional navigation to allow users to keep track and maintain awareness of their location.",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
