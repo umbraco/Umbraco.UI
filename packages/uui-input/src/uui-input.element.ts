@@ -170,7 +170,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   }
 
   /**
-   * This is a name property of the uui-input component. It reflects the behaviour of the native <input> element and its name attribute.
+   * This is a name property of the `<uui-input>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
    * @type {string}
    * @attr
    * @default ''
