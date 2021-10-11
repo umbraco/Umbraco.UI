@@ -1,12 +1,12 @@
 import { html } from 'lit-html';
-import './index';
+import '@umbraco-ui/uui-keyboard-shortcut/lib/index';
 
 export default {
   title: 'Displays/Keyboard Shortcut',
   component: 'uui-keyboard-shortcut',
 };
 
-export const Basic = () => html`
+export const Overview = () => html`
   <uui-keyboard-shortcut>
     <uui-key>ALT</uui-key>
     +
