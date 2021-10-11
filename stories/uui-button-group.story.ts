@@ -3,8 +3,7 @@ import {
   InterfaceLookNames,
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
-import './index';
-
+import '@umbraco-ui/uui-button-group/lib/index';
 export default {
   title: 'Buttons/Button Group',
   component: 'uui-button-group',
