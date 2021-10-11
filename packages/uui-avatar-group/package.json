@@ -11,6 +11,8 @@
     "lib",
     "custom-elements.json"
   ],
+  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Avatar"],
+  "description": "This element is designed to hold uui-avatars. It displays them slightly overlapped, so they are presented nicely. Use it if you need to display many avatars in one place. Set a limit to display certain number of avatars and a number of the ones remaining out of view.",
   "dependencies": {
     "@umbraco-ui/uui-base": "^0.0.5"
   },
