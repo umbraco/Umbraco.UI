@@ -15,7 +15,6 @@ const Template: Story = props =>
     <uui-loader-bar
       progress=${props.progress}
       animationDuration=${props.animationDuration}
-      ?hidden=${props.hidden}
       style="color: ${props.color}"></uui-loader-bar>
   `;
 
