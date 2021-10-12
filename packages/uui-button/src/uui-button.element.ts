@@ -15,6 +15,18 @@ import {
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
  *  @description - All-round button
+ *  @cssprop --uui-button-height - set the button height
+ *  @cssprop --uui-button-border-width - set the border width
+ *  @cssprop --uui-button-border-color - set the border color
+ *  @cssprop --uui-button-border-radius - set the border radius
+ *  @cssprop --uui-button-font-weight - set the font weight
+ *  @cssprop --uui-button-background-color - set the background color
+ *  @cssprop --uui-button-background-color-hover - set the background color for hover state
+ *  @cssprop --uui-button-border-color-hover - set the border color for hover state
+ *  @cssprop --uui-button-contrast - set the text color
+ *  @cssprop --uui-button-contrast-hover - set the text color for hover state
+ *  @cssprop --uui-button-background-color-disabled - set the background color for disabled state
+ *  @cssprop --uui-button-contrast-disabled - set the text color for disabled state
  */
 export class UUIButtonElement extends LabelMixin('', LitElement) {
   static styles = [

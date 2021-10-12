@@ -12,7 +12,19 @@ export default {
   title: 'Buttons/Button',
   component: 'uui-button',
   args: {
-    look: 'primary',
+    look: '',
+    '--uui-button-height': '36px',
+    '--uui-button-border-width': '0px',
+    '--uui-button-border-color': 'transparent',
+    '--uui-button-border-radius': '3px',
+    '--uui-button-font-weight': '400',
+    '--uui-button-background-color': 'white',
+    '--uui-button-background-color-hover': '#fafafa',
+    '--uui-button-border-color-hover': '#fafafa',
+    '--uui-button-contrast': 'black',
+    '--uui-button-contrast-hover': 'black',
+    '--uui-button-background-color-disabled': '#e4e4e4',
+    '--uui-button-contrast-disabled': '#73716e',
   },
   argTypes: {
     look: {
@@ -27,12 +39,37 @@ export default {
       ],
       control: { type: 'select' },
     },
+    '--uui-button-height': { control: { type: 'text' } },
+    '--uui-button-border-width': { control: { type: 'text' } },
+    '--uui-button-border-color': { control: { type: 'color' } },
+    '--uui-button-border-radius': { control: { type: 'text' } },
+    '--uui-button-font-weight': { control: { type: 'text' } },
+    '--uui-button-background-color': { control: { type: 'color' } },
+    '--uui-button-background-color-hover': { control: { type: 'color' } },
+    '--uui-button-border-color-hover': { control: { type: 'color' } },
+    '--uui-button-contrast-hover': { control: { type: 'color' } },
+    '--uui-button-contrast': { control: { type: 'color' } },
+    '--uui-button-background-color-disabled': { control: { type: 'color' } },
+    '--uui-button-contrast-disabled': { control: { type: 'color' } },
   },
 };
 
+//prettier-ignore
 const Template: Story = props =>
   html`
     <uui-button
+      style="--uui-button-height: ${props['--uui-button-height']};    
+    --uui-button-border-width: ${props['--uui-button-border-width']};    
+    --uui-button-border-color: ${props['--uui-button-border-color']};
+    --uui-button-border-radius: ${props['--uui-button-border-radius']};    
+    --uui-button-font-weight: ${props['--uui-button-font-weight']};    
+    --uui-button-background-color: ${props['--uui-button-background-color']};
+    --uui-button-background-color-hover: ${props['--uui-button-background-color-hover']};
+    --uui-button-border-color-hover: ${props['--uui-button-border-color-hover']};
+    --uui-button-contrast: ${props['--uui-button-contrast']};
+    --uui-button-contrast-hover: ${props['--uui-button-contrast-hover']};
+    --uui-button-background-color-disabled: ${props['--uui-button-background-color-disabled']};
+    --uui-button-contrast-disabled: ${props['--uui-button-contrast-disabled']};"
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       look=${props.look}
@@ -63,7 +100,7 @@ Disabled.parameters = {
 };
 
 export const Compact = Template.bind({});
-Compact.args = { label: 'Compact', compact: true };
+Compact.args = { label: 'Compact', compact: true, look: 'secondary' };
 Compact.parameters = {
   docs: {
     source: {
@@ -77,6 +114,7 @@ function uppercaseFirstLetter(s: string) {
 }
 
 export const Looks: Story = props => html`
+  <h5>Default look</h5>
   <uui-button
     ?disabled=${props.disabled}
     ?compact=${props.compact}
