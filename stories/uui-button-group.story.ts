@@ -4,6 +4,7 @@ import {
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
 import '@umbraco-ui/uui-button-group/lib/index';
+import { Story } from '@storybook/web-components';
 export default {
   title: 'Buttons/Button Group',
   component: 'uui-button-group',
@@ -11,12 +12,24 @@ export default {
 
 const buttons = ['development', 'staging', 'live'];
 
-export const Overview = () =>
+export const AAAOverview: Story = () =>
   html`<uui-button-group
     >${buttons.map(
       el => html`<uui-button look="secondary">${el}</uui-button>`
     )}</uui-button-group
   >`;
+AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: html`<uui-button-group>
+        <uui-button look="secondary">development</uui-button>
+        <uui-button look="secondary">staging</uui-button>
+        <uui-button look="secondary">live</uui-button>
+      </uui-button-group>`.strings,
+    },
+  },
+};
 
 function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -44,6 +57,19 @@ export const MixedLooks = () =>
       el => html`<uui-button look="secondary">${el}</uui-button>`
     )}<uui-button look="danger">World</uui-button></uui-button-group
   >`;
+MixedLooks.parameters = {
+  docs: {
+    source: {
+      code: html`<uui-button-group>
+        <uui-button look="primary">Hello</uui-button>
+        <uui-button>development</uui-button>
+        <uui-button>staging</uui-button>
+        <uui-button>live</uui-button>
+        <uui-button look="danger">World</uui-button>
+      </uui-button-group>`.strings,
+    },
+  },
+};
 
 // export const Icon = () =>
 // html`<uui-button-group
