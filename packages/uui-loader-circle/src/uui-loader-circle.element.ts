@@ -7,7 +7,6 @@ import { Size } from '@umbraco-ui/uui-base/lib/types';
  *  @element uui-loader-circle
  * @description - Circular loader for indicating loading. You can put in in a button ;)
  */
-
 export class UUILoaderCircleElement extends LitElement {
   static styles = [
     css`
@@ -126,7 +125,7 @@ export class UUILoaderCircleElement extends LitElement {
     `,
   ];
 
-  private strokeDashOffset() {
+  private _strokeDashOffset() {
     if (this.progress) {
       return { strokeDasharray: `${this.progress}, 100` };
     } else {
@@ -134,14 +133,32 @@ export class UUILoaderCircleElement extends LitElement {
     }
   }
 
-  private largeSizes = ['l', 'xl'];
+  private _largeSizes = ['l', 'xl'];
 
+  /**
+   * Sets the size of the loader
+   * @attr
+   * @type {''|'xs' | 's' | 'm' | 'l' | 'xl'}
+   * @default ''
+   */
   @property({ reflect: true })
   size: Size = 's';
 
+  /**
+   * Sets the progress that loader shows
+   * @type {number}
+   * @attr
+   * @default 0
+   */
   @property({ type: Number })
   progress = 0;
 
+  /**
+   * If true then element displays progress number for sizes `l` and `xl`.
+   * @type {boolean}
+   * @attr show-progress
+   * @default false
+   */
   @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
   showProgress = false;
 
@@ -154,9 +171,9 @@ export class UUILoaderCircleElement extends LitElement {
           cx="50%"
           cy="50%"
           r="15.9155"
-          style=${styleMap(this.strokeDashOffset())} />
+          style=${styleMap(this._strokeDashOffset())} />
       </svg>
-      ${this.largeSizes.includes(this.size) &&
+      ${this._largeSizes.includes(this.size) &&
       this.progress &&
       this.showProgress
         ? html`<span id="progress-display">${this.progress}</span>`
