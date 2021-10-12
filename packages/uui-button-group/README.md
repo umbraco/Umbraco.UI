@@ -1,26 +1,29 @@
-# uui-input
+# uui-button-group
 
 ## Usage
 
 ```zsh
-npm i @umbraco-ui/uui-input
+npm i @umbraco-ui/uui-button-group
 ```
 
-Import the registration of `<uui-input>` via:
+Import the registration of `<uui-button-group>` via:
 
 ```javascript
-import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-button-group/lib';
 ```
 
-When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUIButtonGroupElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputElement } from '@umbraco-ui/uui-input/lib/uui-input.element';
+import { UUIButtonGroupElement } from '@umbraco-ui/uui-button-group/lib/uui-button-group.element';
 ```
 
 ## Example
 
 ```html
-  <uui-input label="Username" type="text" placeholder="Enter your username..."></uui-input>
-  <uui-input label="Password" type="password" placeholder="Enter your password..."></uui-input>
+<uui-button-group>
+  <uui-button look="primary">development</uui-button>
+  <uui-button look="secondary">staging</uui-button>
+  <uui-button look="success">live</uui-button>
+</uui-button-group>
 ```
