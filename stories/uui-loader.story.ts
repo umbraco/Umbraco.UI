@@ -5,6 +5,13 @@ import '@umbraco-ui/uui-loader/lib/index';
 export default {
   title: 'Symbols/Loader',
   component: 'uui-loader',
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-loader></uui-loader>`,
+      },
+    },
+  },
 };
 
 export const Overview: Story = props =>

@@ -43,11 +43,23 @@ AAAOverview.argTypes = {
   backgroundColor: { table: { category: 'inline styling' } },
   fontSize: { table: { category: 'inline styling' } },
 };
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `<uui-avatar title="First Last"></uui-avatar>`,
+    },
+  },
+};
 
 export const Picture = Template.bind({});
 Picture.args = { imgSrc: avatarSrcSet[0] };
 Picture.parameters = {
   controls: { include: ['imgSrc', 'imgSrcset', 'title'] },
+  docs: {
+    source: {
+      code: `<uui-avatar src="..."></uui-avatar>`,
+    },
+  },
 };
 
 export const Sizes = Template.bind({});
@@ -73,6 +85,11 @@ SlottedContent.argTypes = {
 };
 SlottedContent.parameters = {
   controls: { include: ['slot', 'overflow'] },
+  docs: {
+    source: {
+      code: `<uui-avatar>overflow</uui-avatar>`,
+    },
+  },
 };
 
 // TODO: Uncomment when we get the bagde element added to packages

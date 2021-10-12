@@ -27,6 +27,18 @@ AAAOverview.argTypes = {
   fontSize: { table: { category: 'inline styling' } },
   '--uui-avatar-border-color': { control: { type: 'color' } },
 };
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: html`<uui-avatar-group>
+        <uui-avatar title="First Last"></uui-avatar>
+        <uui-avatar title="First Last"></uui-avatar>
+        <uui-avatar title="First Last"></uui-avatar>
+        <uui-avatar title="First Last"></uui-avatar>
+      </uui-avatar-group>`.strings,
+    },
+  },
+};
 
 AAAOverview.storyName = 'Overview';
 
@@ -41,4 +53,16 @@ export const Limit: Story = ({ limit }) => html`
   </uui-avatar-group>
 `;
 Limit.args = { limit: 2 };
-Limit.parameters = { controls: { include: ['limit'] } };
+Limit.parameters = {
+  controls: { include: ['limit'] },
+  docs: {
+    source: {
+      code: html`<uui-avatar-group limit="2">
+        <uui-avatar title="First Last"></uui-avatar>
+        <uui-avatar title="First Last"></uui-avatar>
+        <uui-avatar title="First Last"></uui-avatar>
+        <uui-avatar title="First Last"></uui-avatar>
+      </uui-avatar-group>`.strings,
+    },
+  },
+};

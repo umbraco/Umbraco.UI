@@ -48,16 +48,43 @@ AAAOverview.storyName = 'Overview';
 
 AAAOverview.args = { type: 'text', hideLabel: false };
 
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: '<uui-input><uui-input/>',
+    },
+  },
+};
+
 export const Label = Template.bind({});
 Label.args = { type: 'text', hideLabel: false };
 Label.parameters = {
   controls: { include: ['type', 'value', 'label', 'hideLabel'] },
+  docs: {
+    source: {
+      code: html`<uui-input label="Label"></uui-input>`.strings,
+    },
+  },
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = { disabled: true };
-Disabled.parameters = { controls: { include: ['disabled', 'type', 'value'] } };
+Disabled.parameters = {
+  controls: { include: ['disabled', 'type', 'value'] },
+  docs: {
+    source: {
+      code: html`<uui-input disabled></uui-input>`.strings,
+    },
+  },
+};
 
 export const Error = Template.bind({});
 Error.args = { error: true, label: 'Error' };
-Error.parameters = { controls: { include: ['error', 'type', 'value'] } };
+Error.parameters = {
+  controls: { include: ['error', 'type', 'value'] },
+  docs: {
+    source: {
+      code: html`<uui-input error></uui-input>`.strings,
+    },
+  },
+};

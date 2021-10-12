@@ -44,12 +44,33 @@ const Template: Story = props =>
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = { label: 'Basic' };
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button label="Basic">Basic</uui-button>`,
+    },
+  },
+};
 
 export const Disabled = Template.bind({});
 Disabled.args = { label: 'Disabled', disabled: true };
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
+    },
+  },
+};
 
 export const Compact = Template.bind({});
 Compact.args = { label: 'Compact', compact: true };
+Compact.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button label="Compact" compact>Compact</uui-button>`,
+    },
+  },
+};
 
 function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -72,6 +93,14 @@ export const Looks: Story = props => html`
   )}
 `;
 Looks.args = { label: 'Button' };
+Looks.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-button look="primary">Primary look</uui-button>`,
+    },
+  },
+};
 
 // export const WithIcon = () => html`
 //   <uui-button look="danger">

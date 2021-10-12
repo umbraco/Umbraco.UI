@@ -2,13 +2,23 @@
   "name": "@umbraco-ui/uui-base",
   "version": "0.0.5",
   "license": "MIT",
+  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit"],
+  "description": "This is a base dependency for Umbraco UI components. It contains mixins, animations, abstract base classes, UUIEvent base class, and universal types for properties shared by different components ",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-base"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
   "main": "./dist/index.js",
   "files": [
     "dist",
     "lib"
   ],
   "dependencies": {
-    "lit": "^2.0.0-rc.3"
+    "lit": "^2.0.0"
   },
   "scripts": {
     "build": "tsc --build --force && npm run build:css && rollup -c rollup.config.js",

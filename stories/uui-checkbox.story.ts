@@ -20,6 +20,11 @@ export default {
     controls: {
       exclude: ['change'],
     },
+    docs: {
+      source: {
+        code: `<uui-checkbox label="Checkbox"></uui-checkbox>`,
+      },
+    },
   },
 };
 
@@ -71,6 +76,11 @@ export const Error: Story = props => html`
 Error.args = { error: true };
 Error.parameters = {
   controls: { include: ['error'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox label="Checkbox" error></uui-checkbox>`,
+    },
+  },
 };
 
 export const WithSlottedLabel: Story = props =>
@@ -79,11 +89,16 @@ export const WithSlottedLabel: Story = props =>
       .label=${'Checkbox label'}
       ?checked=${props.checked}
       value="checkbox"
-      >Using <b>Slot</b> for displayed label
+      >Using <b>Slot</b> to display label
     </uui-checkbox>
   `;
 WithSlottedLabel.parameters = {
   controls: { include: ['checked'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox>Using <b>Slot</b> to display label</uui-checkbox>`,
+    },
+  },
 };
 
 export const LabelPosition: Story = props => html`
@@ -109,6 +124,11 @@ export const LabelPosition: Story = props => html`
 `;
 LabelPosition.parameters = {
   controls: { include: ['checked'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox label-position="bottom"></uui-checkbox>`,
+    },
+  },
 };
 
 export const NoLabel: Story = props =>
@@ -122,6 +142,11 @@ NoLabel.args = {
 };
 NoLabel.parameters = {
   controls: { include: ['checked', 'hide-label'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox hide-label></uui-checkbox>`,
+    },
+  },
 };
 
 export const Disabled: Story = props => html`
@@ -137,4 +162,9 @@ export const Disabled: Story = props => html`
 Disabled.args = { disabled: true };
 Disabled.parameters = {
   controls: { include: ['disabled'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox label="Checkbox label" disabled></uui-checkbox>`,
+    },
+  },
 };

@@ -4,9 +4,17 @@
   "license": "MIT",
   "description": "All-round button, Umbraco backoffice style.",
   "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Button"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-button"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "types": "./lib/uui-button.element.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
