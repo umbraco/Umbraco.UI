@@ -102,6 +102,13 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _disabled = false;
+
+  /**
+   * Disables the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   get disabled() {
     return this._disabled;
@@ -127,6 +134,12 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _name = '';
+  /**
+   * This is a name property of the `<uui-radio-group>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   get name() {
     return this._name;
@@ -141,6 +154,12 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _selected: number | null = null;
+
+  /**
+   * This is an index of
+   * @type {number | null}
+   * @default null
+   */
   @property({ type: Number })
   get selected() {
     return this._selected;

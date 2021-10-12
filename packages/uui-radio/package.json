@@ -2,6 +2,26 @@
   "name": "@umbraco-ui/uui-radio",
   "version": "0.0.6",
   "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Radio",
+    "Input",
+    "formAssociated",
+    "form"
+  ],
+  "description": "Radio input, Umbraco backoffice style. Package contains two custom elements, <uui-radio> and <uui-radio-group>. You must wrap radio elements in the group, to make the input work. Can participate in native form element.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-avatar-group"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",

@@ -5,12 +5,15 @@ import {
   UUIHorizontalShakeAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { UUIRadioEvent } from './UUIRadioEvent';
+
 /**
  *  @element uui-radio
+ *  @description - a single radio, should never be use as a stand-alone. Must be wrapped in `<uui-radio-group></uui-radio-group>` element.
  *  @slot - for label
+ * @cssprop --uui-radio-button-size - Sets the size of the radio button.
+ * @fires change - on input change
  *
  */
-
 export class UUIRadioElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -128,9 +131,21 @@ export class UUIRadioElement extends LitElement {
   @query('#input')
   private inputElement!: HTMLInputElement;
 
+  /**
+   * This is a name property of the `<uui-radio>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   public name = '';
 
+  /**
+   * This is a value property of the `<uui-radio>`.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   public value = '';
 
@@ -141,6 +156,13 @@ export class UUIRadioElement extends LitElement {
   public checked = false;
 
   private _disabled = false;
+
+  /**
+   * Disables the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   get disabled() {
     return this._disabled;
@@ -161,14 +183,31 @@ export class UUIRadioElement extends LitElement {
     else this.uncheck();
   }
 
+  /**
+   * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
+   * @method uncheck
+   *
+   */
   public uncheck() {
     this.checked = false;
     this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-checked', 'false');
   }
 
+  /**
+   * Call to check the element.
+   * @method uncheck
+   * @fires UUIRadioEvent#change
+   *
+   */
   public check() {
     this.checked = true;
+    /**
+     * Change event.
+     *
+     * @event UUIRadioEvent#change
+     * @type {object}
+     */
     this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
     if (!this.disabled) {
       this.setAttribute('tabindex', '0');
