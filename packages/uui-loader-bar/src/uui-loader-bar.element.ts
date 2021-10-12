@@ -37,7 +37,7 @@ export class UUILoaderBarElement extends LitElement {
 
       #bar-container {
         width: 100%;
-        height: 10px;
+        height: 4px;
         position: relative;
         overflow: hidden;
       }

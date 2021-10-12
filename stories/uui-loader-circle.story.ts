@@ -7,12 +7,14 @@ export default {
   component: 'uui-loader-circle',
   args: {
     size: 'xl',
+    progress: 0,
   },
   argTypes: {
     size: {
       type: 'select',
       options: ['xs', 's', 'm', 'l', 'xl'],
     },
+    progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
   },
 };
 
@@ -38,7 +40,7 @@ Color.args = { color: 'blue' };
 Color.argTypes = {
   color: { table: { category: 'inline styling' } },
 };
-Color.parameters = { controls: { include: ['color', 'size'] } };
+Color.parameters = { controls: { include: ['color', 'size', 'progress'] } };
 
 export const Progress = Template.bind({});
 Progress.args = { progress: 75, showProgress: true };
