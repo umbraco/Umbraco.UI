@@ -2,6 +2,23 @@
   "name": "@umbraco-ui/uui-loader-bar",
   "version": "0.0.5",
   "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Loader"
+  ],
+  "description": "A loader element in form of bar. Can show progress",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-loader-bar"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
