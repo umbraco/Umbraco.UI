@@ -30,6 +30,10 @@ export class UUIFileSymbolElement extends LitElement {
     `,
   ];
 
+  /**
+   * The text that will appear on the file icon
+   * @type {string}
+   */
   @property({ type: String })
   type = '';
 

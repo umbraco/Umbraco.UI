@@ -43,7 +43,11 @@
       "@umbraco-ui/uui-tabs/lib/*": ["packages/uui-tabs/src/*"],
       "@umbraco-ui/uui-slider/lib/*": ["packages/uui-slider/src/*"],
       "@umbraco-ui/uui-radio/lib/*": ["packages/uui-radio/src/*"],
-      "@umbraco-ui/uui-button-group/lib/*": ["packages/uui-button-group/src/*"]
+      "@umbraco-ui/uui-button-group/lib/*": ["packages/uui-button-group/src/*"],
+      "@umbraco-ui/uui-file-symbol/lib/*": ["packages/uui-file-symbol/src/*"],
+      "@umbraco-ui/uui-folder-symbol/lib/*": [
+        "packages/uui-folder-symbol/src/*"
+      ]
     }
   }
 }

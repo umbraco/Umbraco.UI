@@ -1,9 +1,16 @@
 import { html } from 'lit-html';
-import './index';
+import '@umbraco-ui/uui-folder-symbol/lib/index';
 export default {
   title: 'Symbols/Folder Symbol',
   component: 'uui-folder-symbol',
 };
 
-export const Default = () =>
-  html` <uui-folder-symbol type="pdf"></uui-folder-symbol> `;
+export const Overview = () => html` <uui-folder-symbol></uui-folder-symbol> `;
+
+Overview.parameters = {
+  docs: {
+    source: {
+      code: '<uui-folder-symbol></uui-folder-symbol>',
+    },
+  },
+};
