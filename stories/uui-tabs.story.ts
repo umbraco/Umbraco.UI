@@ -15,6 +15,17 @@ export default {
     '--uui-tab-background': { control: { type: 'color' } },
     '--uui-tab-divider': { control: { type: 'color' } },
   },
+  parameters: {
+    docs: {
+      source: {
+        code: html`<uui-tab-group>
+          <uui-tab>Tab A</uui-tab>
+          <uui-tab>Tab B</uui-tab>
+          <uui-tab>Tab C</uui-tab>
+        </uui-tab-group>`.strings,
+      },
+    },
+  },
 };
 
 export const AAAOverview: Story = props => html`
@@ -33,16 +44,7 @@ export const AAAOverview: Story = props => html`
 `;
 AAAOverview.storyName = 'Overview';
 
-export const Styles: Story = () => html`
-  <h3>Default</h3>
-  <div>
-    <uui-tab-group>
-      <uui-tab active> Content </uui-tab>
-      <uui-tab> Packages </uui-tab>
-      <uui-tab> Media </uui-tab>
-    </uui-tab-group>
-  </div>
-  <br />
+export const WithBorders: Story = () => html`
   <h3>With Borders</h3>
   <div
     style="
@@ -60,7 +62,9 @@ export const Styles: Story = () => html`
       <uui-tab active> Media </uui-tab>
     </uui-tab-group>
   </div>
-  <br />
+`;
+
+export const Navbar: Story = () => html`
   <h3>Navbar</h3>
   <div
     style="

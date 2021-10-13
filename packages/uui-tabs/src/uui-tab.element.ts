@@ -3,12 +3,14 @@ import { property } from 'lit/decorators.js';
 import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- *  @element uui-tabs
+ * A single tab. Should be put into `<uui-tab-group>`,
+ * @element uui-tabs
  * @cssprop --uui-tab-text - Define the tab text color
  * @cssprop --uui-tab-text-hover - Define the tab text hover color
  * @cssprop --uui-tab-text-active - Define the tab text active color
  * @cssprop --uui-tab-background - Define the tab group background color
  * @cssprop --uui-tab-divider - Define the tab dividers color
+ * @slot for tab content.
  */
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
@@ -96,6 +98,12 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
     `,
   ];
 
+  /**
+   * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 

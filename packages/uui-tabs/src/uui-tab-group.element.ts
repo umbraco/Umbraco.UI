@@ -51,6 +51,7 @@ export class UUITabGroupElement extends LitElement {
   }
 
   private onTabActive = (e: MouseEvent) => {
+    //? should this contain stopPropagation?
     const selectedElement: UUITabElement = e.target as UUITabElement;
     selectedElement.active = true;
 
@@ -60,6 +61,11 @@ export class UUITabGroupElement extends LitElement {
       el.active = false;
     });
   };
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
+  }
 
   render() {
     return html` <slot @slotchange=${this.onSlotChange}></slot> `;
