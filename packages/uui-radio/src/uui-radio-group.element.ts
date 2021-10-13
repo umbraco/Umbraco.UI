@@ -4,11 +4,6 @@ import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioEvent } from './UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
-/**
- *  @element uui-radio-group
- *  @slot for uui-radio elements
- */
-
 //TODO required?
 //TODO focused style
 
@@ -18,7 +13,15 @@ const ARROW_RIGHT = 'ArrowRight';
 const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
 
+/**
+ *  @element uui-radio-group
+ *  @slot for uui-radio elements
+ */
 export class UUIRadioGroupElement extends LitElement {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
   static readonly formAssociated = true;
 
   private _internals;
