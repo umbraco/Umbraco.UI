@@ -37,6 +37,9 @@ export const parameters = {
         disable: true,
       },
     },
+    formAssociated: {
+      control: false,
+    },
   },
 };
 
