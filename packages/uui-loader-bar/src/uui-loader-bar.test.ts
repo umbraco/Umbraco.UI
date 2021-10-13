@@ -24,6 +24,6 @@ describe('UuiTextfield with steps', () => {
 
   it('clamps the animationDuriation value to number greater then 0', async () => {
     element.animationDuration = -20;
-    await expect(element.animationDuration).to.equal(0);
+    await expect(element.animationDuration).to.equal(1);
   });
 });

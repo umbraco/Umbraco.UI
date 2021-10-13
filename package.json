@@ -36,7 +36,7 @@
     "clean": "lerna run clean",
     "build:css": "lerna run build:css",
     "lerna:analyze": "lerna run analyze",
-    "lerna:publish": "npm run build && lerna publish from-package && npm run lerna-fix",
+    "lerna:publish": "npm run lint && npm run test && lerna publish from-package && npm run lerna-fix",
     "lerna:version-patch": "lerna version patch",
     "diff": "lerna diff",
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs"
