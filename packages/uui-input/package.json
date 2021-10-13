@@ -1,8 +1,16 @@
 {
   "name": "@umbraco-ui/uui-input",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Input", "Form element"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Input",
+    "Form element"
+  ],
   "description": "Custom element wrapping the native input element. This is a formAssociated element, meaning it can participate in a native HTMLForm. In browsers other then Chrome it may require a polyfill.",
   "repository": {
     "type": "git",
@@ -22,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",

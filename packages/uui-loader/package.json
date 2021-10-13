@@ -1,8 +1,15 @@
 {
   "name": "@umbraco-ui/uui-loader",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Loader"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Loader"
+  ],
   "description": "A basic loader element",
   "repository": {
     "type": "git",
@@ -22,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",

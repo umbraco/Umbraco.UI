@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-toggle",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./lib/index.js",
@@ -12,7 +12,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",

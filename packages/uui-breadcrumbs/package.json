@@ -1,8 +1,17 @@
 {
   "name": "@umbraco-ui/uui-breadcrumbs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Breadcrumbs","Breadcrumb","Navigation"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Breadcrumbs",
+    "Breadcrumb",
+    "Navigation"
+  ],
   "description": "This package contains two web components - uui-breadcrumb-item and uui-breadcrumbs. They can be used as an additional navigation to allow users to keep track and maintain awareness of their location.",
   "repository": {
     "type": "git",
@@ -22,7 +31,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",

@@ -1,8 +1,14 @@
 {
   "name": "@umbraco-ui/uui-base",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit"
+  ],
   "description": "This is a base dependency for Umbraco UI components. It contains mixins, animations, abstract base classes, UUIEvent base class, and universal types for properties shared by different components ",
   "repository": {
     "type": "git",

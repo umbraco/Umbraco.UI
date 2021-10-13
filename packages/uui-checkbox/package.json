@@ -1,8 +1,18 @@
 {
   "name": "@umbraco-ui/uui-checkbox",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Checkbox", "Form control", "Form element", "Input"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Checkbox",
+    "Form control",
+    "Form element",
+    "Input"
+  ],
   "description": "Umbraco checkbox custom element, toggles between checked and uncheck",
   "repository": {
     "type": "git",
@@ -12,7 +22,6 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -23,7 +32,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
