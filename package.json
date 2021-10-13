@@ -26,7 +26,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
     "storybook": "npm run analyze && start-storybook -p 6006 -s ./.storybook/images",
-    "storybook:build": "npm run analyze && npm run build && build-storybook",
+    "storybook:build": "npm run analyze && npm run build && build-storybook -s ./.storybook/images",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "npm run build && web-test-runner --coverage",
     "test:watch": "web-test-runner \"**/packages/**/src/**/*.test.ts\" --node-resolve --watch",

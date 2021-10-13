@@ -8,5 +8,6 @@ UUI - Mapping-level or specific component name - State - Name - Part - Overwrite
 
 @import './interface.css';
 @import './interface-look.css';
-@import './themes/darkmode.css';
-@import './themes/highcontrast.css';
+/* TODO implement themes */
+/* @import './themes/darkmode.css';
+@import './themes/highcontrast.css'; */
