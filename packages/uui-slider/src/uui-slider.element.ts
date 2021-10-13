@@ -8,10 +8,7 @@ import {
   UUIHorizontalPulseAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { UUISliderEvent } from './UUISliderEvents';
-/**
- *  @element uui-slider
- *  @description - Native input type="range" wrapper.
- */
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 const renderSVG = (steps: number[], stepWidth: number) => {
   return svg`
@@ -25,23 +22,28 @@ const renderSVG = (steps: number[], stepWidth: number) => {
 `;
 };
 
-const renderValues = (steps: number[], stepWidth: number, show: boolean) => {
-  if (show) {
-    return html`<div id="steps-values">
-      ${steps.map(
-        el =>
-          html` <span class="uui-slider-step">
-            ${steps.length <= 20 && stepWidth / 6 >= 5
-              ? el.toFixed(0)
-              : nothing}
-          </span>`
-      )}
-    </div>`;
-  }
-  return html``;
+const renderValues = (steps: number[], stepWidth: number, hide: boolean) => {
+  if (hide) return html``;
+
+  return html`<div id="steps-values">
+    ${steps.map(
+      el =>
+        html` <span class="uui-slider-step">
+          ${steps.length <= 20 && stepWidth / 6 >= 5 ? el.toFixed(0) : nothing}
+        </span>`
+    )}
+  </div>`;
 };
 
-export class UUISliderElement extends LitElement {
+/**
+ *  @element uui-slider
+ *  @description - Native `<input type="range">` wrapper.
+ *  @extends LabelMixin(LitElement)
+ *  @slot label - for the input label text.
+ *  @fires UUISliderEvent#input on input
+ *
+ */
+export class UUISliderElement extends LabelMixin('label', LitElement) {
   static styles = [
     UUIHorizontalPulseKeyframes,
     nativeInputStyles,
@@ -67,18 +69,6 @@ export class UUISliderElement extends LitElement {
         width: 100%;
         display: flex;
       }
-      /*
-      #fill {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        transform-origin: center left;
-        background-color: blue;
-        border-radius: 3px;
-        opacity: 0.3;
-      } */
 
       #thumb {
         position: absolute;
@@ -212,27 +202,8 @@ export class UUISliderElement extends LitElement {
         font-weight: 2100;
       }
 
-      /* label:before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        transform-origin: top center;
-        transform: scaleY(0);
-        border-radius: 6px;
-        background-color: var(--uui-interface-active);
-        transition: 0.3s all ease;
-      }
-
-      input:focus ~ label:before {
-        transform: scaleY(1);
-      } */
-
       @media (prefers-reduced-motion) {
         input:focus ~ #track #thumb:before {
-          /* opacity: 1;
-        transform: translate(-50%, -50%) scale(1); */
           animation: none;
         }
 
@@ -243,30 +214,61 @@ export class UUISliderElement extends LitElement {
     `,
   ];
 
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
   static readonly formAssociated = true;
 
   @query('input')
-  input!: HTMLInputElement;
+  private input!: HTMLInputElement;
 
   @query('#track')
-  track!: HTMLInputElement;
+  private track!: HTMLInputElement;
 
-  @property({})
-  label = '';
+  /**
+   * Hides the numbers representing the value of each steps. Dots will still be visible
+   * @type {boolean}
+   * @attr 'hide-step-values'
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-step-values' })
+  hideStepValues = false;
 
-  @property({ type: Boolean, attribute: 'show-step-values' })
-  showStepValues = true;
-
+  /**
+   * This is a minimum value of the input.
+   * @type {number}
+   * @attr
+   * @default 100
+   */
   @property({ type: Number })
   min = 0;
 
+  /**
+   * This is a maximum value of the input.
+   * @type {number}
+   * @attr
+   * @default 100
+   */
   @property({ type: Number })
   max = 100;
 
-  @property({ type: String })
-  step = 'any';
+  /**
+   * This reflects the behavior of a native input step attribute.
+   * @type {number}
+   * @attr
+   * @default 1
+   */
+  @property({ type: Number })
+  step = 1;
 
   private _value = '';
+  /**
+   * This is a value property of the uui-slider.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   get value() {
     return this._value;
@@ -275,10 +277,19 @@ export class UUISliderElement extends LitElement {
   set value(newVal) {
     const oldVal = this._value;
     this._value = newVal;
-    this.calculateSliderPosition(newVal);
+    this._calculateSliderPosition(newVal);
     this._internals.setFormValue(this._value);
     this.requestUpdate('value', oldVal);
   }
+
+  /**
+   * Set to true to visually hide the labeling provided by the component. The element will still have label for accessibility purposes
+   * @type {boolean}
+   * @attr hide-label
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
+  hideLabel = false;
 
   private _internals;
 
@@ -298,12 +309,12 @@ export class UUISliderElement extends LitElement {
   }
 
   firstUpdated() {
-    this.updateSteps();
+    this._updateSteps();
   }
 
-  updateSteps() {
-    this.steps = this.range(this.min, this.max - 1, parseFloat(this.step));
-    this.stepWidht = this.calculateStepWidth();
+  private _updateSteps() {
+    this.steps = this._range(this.min, this.max - 1, parseFloat(this.step));
+    this.stepWidth = this._calculateStepWidth();
   }
 
   updated(changedProperties: any) {
@@ -312,18 +323,18 @@ export class UUISliderElement extends LitElement {
       changedProperties.get('min') ||
       changedProperties.get('step')
     )
-      this.updateSteps();
+      this._updateSteps();
   }
 
   @state()
-  private stepWidht = 0;
+  private stepWidth = 0;
 
-  private calculateStepWidth() {
+  private _calculateStepWidth() {
     return this.track.getBoundingClientRect().width / this.steps.length;
   }
 
   private onWindowResize = () => {
-    this.stepWidht = this.calculateStepWidth();
+    this.stepWidth = this._calculateStepWidth();
   };
 
   @state()
@@ -335,35 +346,31 @@ export class UUISliderElement extends LitElement {
   @state()
   protected fillScale = '0.5';
 
-  private calculateSliderPosition(newVal: string) {
+  private _calculateSliderPosition(newVal: string) {
     const ratio = (parseFloat(newVal) - this.min) / (this.max - this.min);
     this.fillScale = `${ratio}`;
     this.sliderPosition = `${Math.floor(ratio * 100)}%`;
   }
 
-  private thumbDynamicStyles() {
+  private _thumbDynamicStyles() {
     return { left: this.sliderPosition };
   }
 
-  // private fillDynamicStyles() {
-  //   return {
-  //     transform: `scaleX(${this.fillScale})`,
-  //   };
-  // }
-
-  private onInput() {
+  private _onInput() {
+    console.log(this.input.value);
     this.value = this.input.value;
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.INPUT));
   }
 
-  private range = (start: number, stop: number, step: number) =>
+  private _range = (start: number, stop: number, step: number) =>
     Array.from(
       { length: (stop - start) / step + 1 },
       (_, i) => start + i * step
     );
 
   render() {
-    return html` <input
+    return html`
+      <input
         type="range"
         min="${this.min}"
         max="${this.max}"
@@ -371,7 +378,7 @@ export class UUISliderElement extends LitElement {
         id="input1"
         aria-label="${this.label}"
         step="${+this.step}"
-        @input=${this.onInput} />
+        @input=${this._onInput} />
       <div id="track" aria-hidden="true">
         <div id="stepper">
           <svg height="100%" width="100%" class="uui-slider-step">
@@ -383,20 +390,19 @@ export class UUISliderElement extends LitElement {
               stroke="black"
               id="slider-line" />
             ${this.step !== 'any'
-              ? renderSVG(this.steps, this.stepWidht)
+              ? renderSVG(this.steps, this.stepWidth)
               : nothing}
           </svg>
         </div>
 
-        <div id="thumb" style=${styleMap(this.thumbDynamicStyles())}>
+        <div id="thumb" style=${styleMap(this._thumbDynamicStyles())}>
           <div id="value">${this.value}</div>
         </div>
       </div>
       ${this.step !== 'any'
-        ? renderValues(this.steps, this.stepWidht, this.showStepValues)
+        ? renderValues(this.steps, this.stepWidth, this.hideStepValues)
         : nothing}
-      <label for="input1"><slot></slot></label>`;
+      ${this.hideLabel === false ? this.renderLabel() : ''}
+    `;
   }
 }
-
-//<div id="fill" style=${styleMap(this.fillDynamicStyles())}></div>
