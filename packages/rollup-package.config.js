@@ -7,11 +7,10 @@ const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: ['**/uui-base/src/events/**'],
   mainStylesPath: '../uui-base/lib/styles/index.css',
-  autoprefixerEnv: 'last 1 version'
+  autoprefixerEnv: 'last 1 version',
 };
 
-
-const esbuidOptions = {minify: true};
+const esbuidOptions = { minify: true };
 
 export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
   return [
@@ -33,7 +32,12 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           format: 'umd',
           sourcemap: true,
         },
-        plugins: [nodeResolve(), processLitCSS(processLitCSSOptions),minifyHTML(), esbuild(esbuidOptions)],
+        plugins: [
+          nodeResolve(),
+          processLitCSS(processLitCSSOptions),
+          minifyHTML(),
+          esbuild(esbuidOptions),
+        ],
       };
     }),
   ];
