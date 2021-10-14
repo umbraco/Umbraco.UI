@@ -34,7 +34,6 @@
     "build": "npm run build:css && lerna run build",
     "build:css": "postcss src/styles/index.css --base src/styles --dir out-css",
     "clean": "rimraf out-css && lerna run clean",
-    "lerna:analyze": "lerna run analyze",
     "lerna:publish": "npm run lint && npm run test && lerna publish from-package && npm run lerna-fix",
     "lerna:version-patch": "lerna version patch",
     "diff": "lerna diff",

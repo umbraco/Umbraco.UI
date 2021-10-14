@@ -35,7 +35,7 @@
     "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/**/*.js lib/**/*.js.map lib/**/*.d.ts",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
