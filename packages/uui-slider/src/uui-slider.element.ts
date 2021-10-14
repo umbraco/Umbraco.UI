@@ -278,7 +278,13 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
     const oldVal = this._value;
     this._value = newVal;
     this._calculateSliderPosition(newVal);
-    this._internals.setFormValue(this._value);
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(this._value);
+    }
     this.requestUpdate('value', oldVal);
   }
 

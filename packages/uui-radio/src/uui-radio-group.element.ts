@@ -132,7 +132,13 @@ export class UUIRadioGroupElement extends LitElement {
   set value(newValue) {
     const oldVal = this._value;
     this._value = newValue;
-    this._internals.setFormValue(this._value);
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(this._value);
+    }
     this.requestUpdate('value', oldVal);
   }
 

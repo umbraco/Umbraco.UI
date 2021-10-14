@@ -170,7 +170,13 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   }
   set value(newValue) {
     this._value = newValue;
-    this._internals.setFormValue(this._value);
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(this._value);
+    }
   }
 
   /**
