@@ -13,22 +13,23 @@ export default {
   component: 'uui-button',
   args: {
     look: '',
-    '--uui-button-height': '36px',
-    '--uui-button-border-width': '0px',
-    '--uui-button-border-color': 'transparent',
-    '--uui-button-border-radius': '3px',
-    '--uui-button-font-weight': '400',
-    '--uui-button-background-color': 'white',
-    '--uui-button-background-color-hover': '#fafafa',
-    '--uui-button-border-color-hover': '#fafafa',
-    '--uui-button-contrast': 'black',
-    '--uui-button-contrast-hover': 'black',
-    '--uui-button-background-color-disabled': '#e4e4e4',
-    '--uui-button-contrast-disabled': '#73716e',
+    // '--uui-button-height': '36px',
+    // '--uui-button-border-width': '0px',
+    // '--uui-button-border-color': 'transparent',
+    // '--uui-button-border-radius': '3px',
+    // '--uui-button-font-weight': '400',
+    // '--uui-button-background-color': 'white',
+    // '--uui-button-background-color-hover': '#fafafa',
+    // '--uui-button-border-color-hover': '#fafafa',
+    // '--uui-button-contrast': 'black',
+    // '--uui-button-contrast-hover': 'black',
+    // '--uui-button-background-color-disabled': '#e4e4e4',
+    // '--uui-button-contrast-disabled': '#73716e',
   },
   argTypes: {
     look: {
       options: [
+        '',
         'primary',
         'secondary',
         'outline',
@@ -47,29 +48,43 @@ export default {
     '--uui-button-background-color': { control: { type: 'color' } },
     '--uui-button-background-color-hover': { control: { type: 'color' } },
     '--uui-button-border-color-hover': { control: { type: 'color' } },
-    '--uui-button-contrast-hover': { control: { type: 'color' } },
     '--uui-button-contrast': { control: { type: 'color' } },
+    '--uui-button-contrast-hover': { control: { type: 'color' } },
     '--uui-button-background-color-disabled': { control: { type: 'color' } },
     '--uui-button-contrast-disabled': { control: { type: 'color' } },
   },
 };
 
-//prettier-ignore
-const Template: Story = props =>
-  html`
+const cssProps = [
+  '--uui-button-height',
+  '--uui-button-border-width',
+  '--uui-button-border-color',
+  '--uui-button-border-radius',
+  '--uui-button-font-weight',
+  '--uui-button-background-color',
+  '--uui-button-background-color-hover',
+  '--uui-button-border-color-hover',
+  '--uui-button-contrast',
+  '--uui-button-contrast-hover',
+  '--uui-button-background-color-disabled',
+  '--uui-button-contrast-disabled',
+];
+
+const reducer = (prev: string, next: string, i: number) =>
+  (prev = next ? `${prev}${i === 1 ? ';' : ''} ${next};` : prev);
+
+const Template: Story = props => {
+  console.log(
+    cssProps
+      .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+      .reduce(reducer)
+  );
+
+  return html`
     <uui-button
-      style="--uui-button-height: ${props['--uui-button-height']};    
-    --uui-button-border-width: ${props['--uui-button-border-width']};    
-    --uui-button-border-color: ${props['--uui-button-border-color']};
-    --uui-button-border-radius: ${props['--uui-button-border-radius']};    
-    --uui-button-font-weight: ${props['--uui-button-font-weight']};    
-    --uui-button-background-color: ${props['--uui-button-background-color']};
-    --uui-button-background-color-hover: ${props['--uui-button-background-color-hover']};
-    --uui-button-border-color-hover: ${props['--uui-button-border-color-hover']};
-    --uui-button-contrast: ${props['--uui-button-contrast']};
-    --uui-button-contrast-hover: ${props['--uui-button-contrast-hover']};
-    --uui-button-background-color-disabled: ${props['--uui-button-background-color-disabled']};
-    --uui-button-contrast-disabled: ${props['--uui-button-contrast-disabled']};"
+      style="${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}"
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       look=${props.look}
@@ -77,6 +92,7 @@ const Template: Story = props =>
       >${props.content}</uui-button
     >
   `;
+};
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
