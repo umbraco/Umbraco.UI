@@ -1,44 +1,46 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { UUITabGroupElement } from './uui-tab-group.element';
-
-import './index';
 import { UUITabElement } from './uui-tab.element';
+import './index';
 
 describe('UuiTab', () => {
-  let tabs: UUITabGroupElement;
+  let element: UUITabGroupElement;
+  let tabs: UUITabElement[];
+
   beforeEach(async () => {
-    tabs = await fixture(
+    element = await fixture(
       html`
         <uui-tab-group>
-          <uui-tab> Content </uui-tab>
-          <uui-tab> Packages </uui-tab>
-          <uui-tab active> Media </uui-tab>
+          <uui-tab label="Content">Content</uui-tab>
+          <uui-tab label="Packages">Packages</uui-tab>
+          <uui-tab label="Media" active>Media</uui-tab>
         </uui-tab-group>
       `
     );
+
+    tabs = Array.from(element.querySelectorAll('uui-tab'));
   });
 
-  it('passes the a11y audit', () => {
-    expect(tabs).shadowDom.to.be.accessible();
+  it('it selects an item', () => {
+    tabs[1].click();
+    expect(tabs[0].active).to.be.false;
+    expect(tabs[1].active).to.be.true;
+    expect(tabs[2].active).to.be.false;
+
+    tabs[2].click();
+    expect(tabs[0].active).to.be.false;
+    expect(tabs[1].active).to.be.false;
+    expect(tabs[2].active).to.be.true;
   });
 
-  //   it('changes the active element after click', () => {
-  //     const slot = tabs.shadowRoot!.querySelector('slot');
-  //     const tabsArray = slot!.assignedNodes({
-  //       flatten: false,
-  //     }) as UUITabElement[];
-  //     tabsArray[0].click();
-  //     expect(tabsArray[0].hasAttribute('active')).to.be.true;
-  //   });
-});
-
-describe('UuiTabElement', () => {
-  let tab: UUITabGroupElement;
-  beforeEach(async () => {
-    tab = await fixture(html`<uui-tab> Content </uui-tab>`);
+  it('it emits a click event', async () => {
+    const listener = oneEvent(element, 'click');
+    tabs[0].click();
+    const ev = await listener;
+    expect(ev.type).to.equal('click');
   });
 
-  it('passes the a11y audit', () => {
-    expect(tab).shadowDom.to.be.accessible();
+  it('passes the a11y audit', async () => {
+    await expect(element).shadowDom.to.be.accessible();
   });
 });

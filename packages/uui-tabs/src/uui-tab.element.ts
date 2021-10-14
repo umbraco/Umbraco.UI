@@ -119,14 +119,9 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'tab');
-  }
-
   render() {
     return html`
-      <button type="button" ?disabled=${this.disabled}>
+      <button type="button" ?disabled=${this.disabled} role="tab">
         ${this.renderLabel()}
       </button>
     `;
