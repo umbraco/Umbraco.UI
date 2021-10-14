@@ -1,5 +1,5 @@
 import { LitElement, html, css, property, query } from 'lit-element';
-import { UUIMenuItemElement } from '../uui-menu-item/uui-menu-item.element';
+import { UUIMenuItemElement } from './uui-menu-item.element';
 
 /**
  *  @element uui-list
@@ -50,6 +50,7 @@ export class UUIMenuListElement extends LitElement {
 
   private _handleSelect(e: MouseEvent) {
     if (this.nonInteractive) return;
+    console.log('WHAT', e.target);
 
     let selectedElement: UUIMenuItemElement;
 

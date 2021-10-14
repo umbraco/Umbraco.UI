@@ -37,10 +37,14 @@
       "@umbraco-ui/uui-input/lib/*": ["packages/uui-input/src/*"],
       "@umbraco-ui/uui-toggle/lib/*": ["packages/uui-toggle/src/*"],
       "@umbraco-ui/uui-loader-bar/lib/*": ["packages/uui-loader-bar/src/*"],
-      "@umbraco-ui/uui-loader-circle/lib/*": ["packages/uui-loader-circle/src/*"],
+      "@umbraco-ui/uui-loader-circle/lib/*": [
+        "packages/uui-loader-circle/src/*"
+      ],
       "@umbraco-ui/uui-tabs/lib/*": ["packages/uui-tabs/src/*"],
       "@umbraco-ui/uui-slider/lib/*": ["packages/uui-slider/src/*"],
-      "@umbraco-ui/uui-radio/lib/*": ["packages/uui-radio/src/*"]
+      "@umbraco-ui/uui-radio/lib/*": ["packages/uui-radio/src/*"],
+      "@umbraco-ui/uui-menu-list/lib/*": ["packages/uui-menu-list/src/*"],
+      "@umbraco-ui/uui-caret/lib/*": ["packages/uui-caret/src/*"]
     }
   }
 }

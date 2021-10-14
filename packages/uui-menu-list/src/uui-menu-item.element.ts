@@ -33,6 +33,11 @@ export class UUIMenuItemElement extends SelectableMixin(
         padding-left: calc(
           var(--uui-menu-item-indent, 0) * var(--uui-size-layout-0, 24px)
         );
+
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        grid-template-rows: 1fr;
+        white-space: nowrap;
       }
 
       button {
@@ -45,7 +50,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: transparent;
         cursor: pointer;
         z-index: 1;
-        padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit);
+        /* padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit); */
         min-height: calc(var(--uui-size-base-unit) * 6);
       }
       button:hover {
@@ -54,9 +59,14 @@ export class UUIMenuItemElement extends SelectableMixin(
 
       #label-button {
         flex-grow: 1;
+        grid-column-start: 2;
       }
       #caret-button + #label-button {
         padding-left: 0;
+      }
+      #caret-button {
+        justify-self: center;
+        margin-top: -1px;
       }
       #label-button-background {
         position: absolute;
@@ -67,6 +77,14 @@ export class UUIMenuItemElement extends SelectableMixin(
       }
       #label-button:hover + #label-button-background {
         background-color: var(--uui-interface-surface-hover);
+      }
+      #actions-container {
+        opacity: 0;
+        transition: opacity 120ms;
+        grid-column-start: 3;
+      }
+      #menu-item:hover #actions-container {
+        opacity: 1;
       }
 
       :host([disabled]) #label-button {
@@ -133,13 +151,6 @@ export class UUIMenuItemElement extends SelectableMixin(
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
         margin-right: var(--uui-size-base-unit);
       }
-      #actions-container {
-        opacity: 0;
-        transition: opacity 120ms;
-      }
-      #menu-item:hover #actions-container {
-        opacity: 1;
-      }
     `,
   ];
 
@@ -152,7 +163,7 @@ export class UUIMenuItemElement extends SelectableMixin(
   @property({ type: Boolean, attribute: 'has-children' })
   public hasChildren = false;
 
-  /** TODO: implement loading property */
+  // TODO: implement loading property
 
   private onCaretClicked() {
     this.showChildren = !this.showChildren;

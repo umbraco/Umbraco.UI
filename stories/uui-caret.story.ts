@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import './index';
+import '@umbraco-ui/uui-caret/lib/index';
 
 export default {
   title: 'Symbols/Caret',

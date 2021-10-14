@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
-import './index';
-import { UUIMenuItemElement } from './uui-menu-item.element';
-import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import '@umbraco-ui/uui-menu-list/lib/index';
+import { UUIMenuItemElement } from '@umbraco-ui/uui-menu-list/lib/uui-menu-item.element';
+import { UUIMenuItemEvent } from '@umbraco-ui/uui-menu-list/lib/UUIMenuItemEvent';
 
 export default {
   title: 'Buttons/Menu Item',
@@ -150,9 +150,7 @@ export const WithActions = () =>
       }}
       label="This is activatable list item">
       <uui-action-bar slot="actions">
-        <uui-button label="Open actions menu">
-          <uui-more-symbol></uui-more-symbol>
-        </uui-button>
+        <uui-button label="Open actions menu">•••</uui-button>
       </uui-action-bar>
     </uui-menu-item>
   `;
