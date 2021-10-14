@@ -389,9 +389,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
               y2="50%"
               stroke="black"
               id="slider-line" />
-            ${this.step
-              ? renderSVG(this.steps, this.stepWidth)
-              : nothing}
+            ${this.step ? renderSVG(this.steps, this.stepWidth) : nothing}
           </svg>
         </div>
 

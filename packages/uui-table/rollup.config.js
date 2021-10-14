@@ -8,7 +8,7 @@ export default UUIProdConfig({
     'uui-table-cell.element',
     'uui-table-column.element',
     'uui-table-head.element',
-    'uui-table-head-cell.element'
+    'uui-table-head-cell.element',
   ],
   bundles: ['index'],
 });
