@@ -1,6 +1,6 @@
 import { setCustomElements } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
-import '../packages/uui-base/src/styles/index.css';
+import '../packages/uui-base/lib/styles/index.css';
 
 const sort = (a, b) => {
   if (a[1].name === 'Overview') {
