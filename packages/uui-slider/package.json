@@ -26,7 +26,8 @@
   "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {

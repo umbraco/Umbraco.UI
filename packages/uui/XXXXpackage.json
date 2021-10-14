@@ -8,7 +8,9 @@
   "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib"
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
   ],
   "dependencies": {
     "@umbraco-ui/uui-avatar": "^0.0.5",

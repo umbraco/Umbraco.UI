@@ -21,14 +21,15 @@
   "main": "./dist/index.js",
   "files": [
     "dist",
-    "lib"
+    "lib/**/*.d.ts",
+    "lib/**/*.js"
   ],
   "dependencies": {
     "lit": "^2.0.0"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json"
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js"
   },
   "publishConfig": {
     "access": "public"
