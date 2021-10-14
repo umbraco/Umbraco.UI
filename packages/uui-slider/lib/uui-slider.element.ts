@@ -313,7 +313,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
   }
 
   private _updateSteps() {
-    this.steps = this._range(this.min, this.max - 1, parseFloat(this.step));
+    this.steps = this._range(this.min, this.max - 1, this.step);
     this.stepWidth = this._calculateStepWidth();
   }
 
@@ -389,7 +389,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
               y2="50%"
               stroke="black"
               id="slider-line" />
-            ${this.step !== 'any'
+            ${this.step
               ? renderSVG(this.steps, this.stepWidth)
               : nothing}
           </svg>
@@ -399,7 +399,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
           <div id="value">${this.value}</div>
         </div>
       </div>
-      ${this.step !== 'any'
+      ${this.step
         ? renderValues(this.steps, this.stepWidth, this.hideStepValues)
         : nothing}
       ${this.hideLabel === false ? this.renderLabel() : ''}
