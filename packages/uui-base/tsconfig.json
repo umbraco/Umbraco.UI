@@ -11,7 +11,8 @@
     "./**/*.ts"
   ],
   "exclude": [
-    "./**/*.test.ts"
+    "./**/*.test.ts",
+    "./**/*.story.ts"
   ],
   "references": []
 }

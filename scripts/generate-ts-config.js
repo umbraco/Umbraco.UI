@@ -17,7 +17,7 @@ const tsConfigBase = {
     composite: true,
   },
   include: ['./**/*.ts'],
-  exclude: ['./**/*.test.ts'],
+  exclude: ['./**/*.test.ts', './**/*.story.ts'],
 };
 
 const generatePackageTSConfig = () => {
