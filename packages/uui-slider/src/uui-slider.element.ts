@@ -357,7 +357,6 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
   }
 
   private _onInput() {
-    console.log(this.input.value);
     this.value = this.input.value;
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.INPUT));
   }
