@@ -2,6 +2,23 @@
   "name": "@umbraco-ui/uui-toggle",
   "version": "0.0.6",
   "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Toggle"
+  ],
+  "description": "Umbraco style toggle component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/toggle"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",

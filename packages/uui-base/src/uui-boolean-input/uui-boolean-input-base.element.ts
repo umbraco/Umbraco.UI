@@ -82,7 +82,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
    * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
    * @type {string}
    * @attr
-   * @default 'on'
+   * @default on
    */
   @property({ type: String })
   get value() {
@@ -179,7 +179,6 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
 
   /**
    * When extending UUIBooleanInputBase class you need to implement this abstract method. It should return a template of your input.
-   *
    * @returns {TemplateResult}
    * @abstract
    * @method

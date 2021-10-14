@@ -11,9 +11,15 @@ import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean
  *  @element uui-toggle
  *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
  *  @slot to overwrite displayed label content
- * @cssprop --uui-toggle-size - Define the toggle size.
- * @cssprop --uui-toggle-switch-width - Define the slider width.
- * @extends UUIBooleanInputBaseElement
+ *  @cssprop --uui-toggle-size - Define the toggle size.
+ *  @cssprop --uui-toggle-switch-width - Define the slider width.
+ *  @cssprop --uui-toggle-background-color - Set the toggle background color
+ *  @cssprop --uui-toggle-border-color - Set the toggle border color
+ *  @cssprop --uui-toggle-border-color-hover - Set the toggle background color when hovered
+ *  @cssprop --uui-toggle-background-color-hover - Set the toggle background color when hovered
+ *  @cssprop --uui-toggle-border-color-focus - Set the toggle background color when focused
+ *  @cssprop --uui-toggle-background-color-focus - Set the toggle background color when focused
+ *  @extends UUIBooleanInputBaseElement
  */
 export class UUIToggleElement extends UUIBooleanInputBaseElement {
   static styles = [
