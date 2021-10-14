@@ -8,7 +8,7 @@ export default {
   component: 'uui-tag',
   args: {
     size: 'm',
-    look: 'primary',
+    look: '',
     slot: 'Hello',
   },
   argTypes: {
@@ -37,6 +37,13 @@ const Template: Story = props =>
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `<uui-tag>Hello</uui-tag>`,
+    },
+  },
+};
 
 export const Looks: Story = props =>
   html`
@@ -46,6 +53,22 @@ export const Looks: Story = props =>
       look => html`<uui-tag size="m" look="${look}">${look}</uui-tag>`
     )}
   `;
+
+Looks.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tag size="m" look="primary">primary</uui-tag>
+      <uui-tag size="m" look="secondary">secondary</uui-tag>
+      <uui-tag size="m" look="outline">outline</uui-tag>
+      <uui-tag size="m" look="placeholder">placeholder</uui-tag>
+      <uui-tag size="m" look="positive">positive</uui-tag>
+      <uui-tag size="m" look="warning">warning</uui-tag>
+      <uui-tag size="m" look="danger">danger</uui-tag>
+      `,
+    },
+  },
+};
 
 export const Sizes: Story = props =>
   html`
@@ -58,7 +81,23 @@ export const Sizes: Story = props =>
     <uui-tag size="xl" look="primary">extra large</uui-tag>
   `;
 
-// Would you ever put a button inside a tag?
+Sizes.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tag size="xs">extra small</uui-tag>
+      <uui-tag size="s">small</uui-tag>
+      <uui-tag size="m">medium</uui-tag>
+      <uui-tag size="l">large</uui-tag>
+      <uui-tag size="xl">extra large</uui-tag>
+      `,
+    },
+  },
+};
+
+// - Would you ever put a button inside a tag? - asked Jesper.
+// - Yes, when the tag has to have an action on it, if for example user needs to remove it. - I replied.
+
 // export const WithButton: Story = () =>
 //   html`
 //     <uui-tag look="primary" size="xl">

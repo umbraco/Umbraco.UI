@@ -7,10 +7,10 @@ import {
 } from '@umbraco-ui/uui-base/lib/types';
 
 /**
+ *  Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
  *  @element uui-tag
  *  @slot - for tag contents
- *  @description Tag component from Umbraco UI components library.
- *  @cssprop --uui-tag-font-size - Define the components font size.
+ *  @cssprop --uui-tag-font-size - Set the components font size. Setting this property overwrites what comes from size attribute.
  */
 export class UUITagElement extends LitElement {
   static styles = [
@@ -95,7 +95,7 @@ export class UUITagElement extends LitElement {
   ];
 
   /**
-   * Defines the size of the tag.
+   * Defines the size of the tag. It changes the `--uui-tag-font-size` value.
    * @type {'xs' | 's' | 'm' | 'l' | 'xl'}
    * @attr
    * @default m
@@ -105,7 +105,7 @@ export class UUITagElement extends LitElement {
 
   /**
    * Defines the look of the tag.
-   * @type {'primary'|'secondary'|'outline'|'placeholder'|'positive'|'warning'|'danger'}
+   * @type {''|'primary'|'secondary'|'outline'|'placeholder'|'positive'|'warning'|'danger'}
    * @attr
    * @default ''
    */
