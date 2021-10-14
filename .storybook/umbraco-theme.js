@@ -2,7 +2,7 @@ import { create } from '@storybook/theming';
 
 export default create({
   base: 'light',
-  colorPrimary: '#f5c1bc',
+  colorPrimary: '#1b264f',
   colorSecondary: '#3544b1',
 
   // UI
@@ -12,8 +12,8 @@ export default create({
   appBorderRadius: 4,
 
   // Typography
-  fontBase: '"Lato", sans-serif',
-  fontCode: 'monospace',
+  // fontBase: '"Lato", sans-serif',
+  // fontCode: 'monospace',
 
   // Text colors
   textColor: '#162335',

@@ -278,7 +278,13 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
     const oldVal = this._value;
     this._value = newVal;
     this._calculateSliderPosition(newVal);
-    this._internals.setFormValue(this._value);
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(this._value);
+    }
     this.requestUpdate('value', oldVal);
   }
 
@@ -313,7 +319,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
   }
 
   private _updateSteps() {
-    this.steps = this._range(this.min, this.max - 1, parseFloat(this.step));
+    this.steps = this._range(this.min, this.max - 1, this.step);
     this.stepWidth = this._calculateStepWidth();
   }
 
@@ -388,9 +394,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
               y2="50%"
               stroke="black"
               id="slider-line" />
-            ${this.step !== 'any'
-              ? renderSVG(this.steps, this.stepWidth)
-              : nothing}
+            ${renderSVG(this.steps, this.stepWidth)}
           </svg>
         </div>
 
@@ -398,9 +402,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
           <div id="value">${this.value}</div>
         </div>
       </div>
-      ${this.step !== 'any'
-        ? renderValues(this.steps, this.stepWidth, this.hideStepValues)
-        : nothing}
+      ${renderValues(this.steps, this.stepWidth, this.hideStepValues)}
       ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
   }
