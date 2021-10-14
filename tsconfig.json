@@ -21,26 +21,6 @@
     "sourceMap": true,
     "inlineSources": true,
     "isolatedModules": true,
-    "baseUrl": ".",
-    "paths": {
-      // TODO: Can we do this smarter?
-      "@umbraco-ui/uui/lib/*": ["packages/uui/src/*"],
-      "@umbraco-ui/uui-avatar/lib/*": ["packages/uui-avatar/src/*"],
-      "@umbraco-ui/uui-avatar-group/lib/*": ["packages/uui-avatar-group/src/*"],
-      "@umbraco-ui/uui-base/lib/*": ["packages/uui-base/src/*"],
-      "@umbraco-ui/uui-breadcrumbs/lib/*": ["packages/uui-breadcrumbs/src/*"],
-      "@umbraco-ui/uui-button/lib/*": ["packages/uui-button/src/*"],
-      "@umbraco-ui/uui-checkbox/lib/*": ["packages/uui-checkbox/src/*"],
-      "@umbraco-ui/uui-loader/lib/*": ["packages/uui-loader/src/*"],
-      "@umbraco-ui/uui-table/lib/*": ["packages/uui-table/src/*"],
-      "@umbraco-ui/uui-tag/lib/*": ["packages/uui-tag/src/*"],
-      "@umbraco-ui/uui-input/lib/*": ["packages/uui-input/src/*"],
-      "@umbraco-ui/uui-toggle/lib/*": ["packages/uui-toggle/src/*"],
-      "@umbraco-ui/uui-loader-bar/lib/*": ["packages/uui-loader-bar/src/*"],
-      "@umbraco-ui/uui-loader-circle/lib/*": ["packages/uui-loader-circle/src/*"],
-      "@umbraco-ui/uui-tabs/lib/*": ["packages/uui-tabs/src/*"],
-      "@umbraco-ui/uui-slider/lib/*": ["packages/uui-slider/src/*"],
-      "@umbraco-ui/uui-radio/lib/*": ["packages/uui-radio/src/*"]
-    }
+    "baseUrl": "."
   }
 }
