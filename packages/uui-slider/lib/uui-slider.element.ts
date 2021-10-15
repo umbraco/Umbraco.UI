@@ -394,7 +394,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
               y2="50%"
               stroke="black"
               id="slider-line" />
-            ${this.step ? renderSVG(this.steps, this.stepWidth) : nothing}
+            ${renderSVG(this.steps, this.stepWidth)}
           </svg>
         </div>
 
@@ -402,9 +402,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
           <div id="value">${this.value}</div>
         </div>
       </div>
-      ${this.step
-        ? renderValues(this.steps, this.stepWidth, this.hideStepValues)
-        : nothing}
+      ${renderValues(this.steps, this.stepWidth, this.hideStepValues)}
       ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
   }
