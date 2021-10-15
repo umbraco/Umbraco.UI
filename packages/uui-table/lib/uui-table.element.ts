@@ -11,9 +11,8 @@ export class UUITableElement extends LitElement {
       :host {
         display: table;
         width: 100%;
-        box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.1);
-        border-radius: var(--uui-size-border-radius, 3px);
-        background-color: var(--uui-interface-surface, #fefefe);
+        border-radius: var(--uui-size-border-radius);
+        background-color: var(--uui-interface-surface);
         cursor: default;
       }
     `,
