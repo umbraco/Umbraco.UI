@@ -8,6 +8,5 @@ export default UUIProdConfig({
     'mixins/index',
     'types/index',
     'uui-boolean-input/index',
-    'uui-boolean-input/uui-boolean-input-base.test',
   ],
 });

@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { ArrayOfUmbracoWords } from './helper/UmbracoWordGenerator';
+import { ArrayOfUmbracoWords } from '../../../src/helper/UmbracoWordGenerator';
 import { Story } from '@storybook/web-components';
 import '@umbraco-ui/uui-table/lib/index';
 

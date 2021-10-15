@@ -8,7 +8,9 @@
   "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib"
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
   ],
   "dependencies": {
     "@umbraco-ui/uui-avatar": "^0.0.5",
@@ -29,8 +31,8 @@
     "@umbraco-ui/uui-toggle": "^0.0.5"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib",
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   }
 }

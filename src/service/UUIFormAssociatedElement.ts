@@ -30,7 +30,13 @@ export class UUIFormAssociatedElement extends LitElement {
     const oldValue = this._value;
     //how to put additional logic here?
     this._value = newVal;
-    this._internals.setFormValue(this._value);
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(this._value);
+    }
     this.requestUpdate('value', oldValue);
   }
 }
