@@ -38,6 +38,7 @@
     "lerna:version-patch": "lerna version patch",
     "diff": "lerna diff",
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
+    "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
     "bootstrap": "node ./scripts/generate-ts-config.js"
   },
