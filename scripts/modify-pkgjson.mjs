@@ -9,8 +9,8 @@ if (args.length <= 2) {
   console.error(`
   This script needs minimum two arguments.
   1: action type 'add' | 'remove' | 'modify'
-  2: key
-  3: value
+  2: key 
+  3: value (optional)
 
   example node modify-pkgjson.mjs add homepage https://github.com
 
@@ -23,9 +23,15 @@ args.splice(0, 2);
 const PKG_NAME = path.basename(path.resolve(process.cwd()));
 
 const action = args[0]; //add, remove, modify
-const key = args[1].replace(/PKG_NAME/g, PKG_NAME);
-const value = args[2].replace(/PKG_NAME/g, PKG_NAME);
-
+const key = args[1].includes('PKG_NAME')
+  ? args[1].replace(/PKG_NAME/g, PKG_NAME)
+  : args[1];
+const value =
+  args.length > 2
+    ? args[2].includes('PKG_NAME')
+      ? args[2].replace(/PKG_NAME/g, PKG_NAME)
+      : args[2]
+    : undefined;
 function main() {
   const folder = fs.realpathSync('.');
   const pkg = readPackageJson(folder);
