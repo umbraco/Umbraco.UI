@@ -8,6 +8,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Buttons/Button Group',
   component: 'uui-button-group',
+  id: 'uui-button-group',
 };
 
 const buttons = ['development', 'staging', 'live'];
