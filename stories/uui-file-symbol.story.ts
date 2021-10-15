@@ -4,6 +4,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Symbols/File Symbol',
   component: 'uui-file-symbol',
+  id: 'uui-file-symbol',
 };
 
 export const Overview: Story = props =>

@@ -3,6 +3,7 @@ import '@umbraco-ui/uui-folder-symbol/lib/index';
 export default {
   title: 'Symbols/Folder Symbol',
   component: 'uui-folder-symbol',
+  id: 'uui-folder-symbol',
 };
 
 export const Overview = () => html` <uui-folder-symbol></uui-folder-symbol> `;
