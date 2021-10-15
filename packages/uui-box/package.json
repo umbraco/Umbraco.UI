@@ -20,7 +20,6 @@
   },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./lib/uui-box.element.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
