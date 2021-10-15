@@ -4,6 +4,7 @@ import '@umbraco-ui/uui-avatar-group/lib/index';
 
 export default {
   title: 'Displays/Avatar Group',
+  id: 'uui-avatar-group',
   component: 'uui-avatar-group',
   args: {
     limit: 0,

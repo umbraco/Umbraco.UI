@@ -6,6 +6,7 @@ import '@umbraco-ui/uui-tag/lib/index';
 export default {
   title: 'Misc/Tag',
   component: 'uui-tag',
+  id: 'uui-tag',
   args: {
     size: 'm',
     look: '',

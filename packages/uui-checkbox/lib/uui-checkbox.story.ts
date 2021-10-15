@@ -5,6 +5,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Inputs/Checkbox',
   component: 'uui-checkbox',
+  id: 'uui-checkbox',
   args: {
     value: 'toggle',
     name: 'toggle',

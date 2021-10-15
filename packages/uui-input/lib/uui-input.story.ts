@@ -5,6 +5,7 @@ import '@umbraco-ui/uui-input/lib/index';
 export default {
   title: 'Inputs/Input',
   component: 'uui-input',
+  id: 'uui-input',
   args: {
     value: '',
     label: 'Label',

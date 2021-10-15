@@ -4,6 +4,7 @@ import '@umbraco-ui/uui-breadcrumbs/lib/index';
 
 export default {
   title: 'Basics/Breadcrumbs',
+  id: 'uui-breadcrumbs',
   component: 'uui-breadcrumbs',
 };
 

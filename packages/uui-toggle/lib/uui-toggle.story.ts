@@ -5,6 +5,7 @@ import '@umbraco-ui/uui-toggle/lib/index';
 export default {
   title: 'Inputs/Toggle',
   component: 'uui-toggle',
+  id: 'uui-toggle',
   args: {
     value: 'toggle',
     name: 'toggle',
