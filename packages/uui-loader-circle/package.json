@@ -1,25 +1,43 @@
 {
   "name": "@umbraco-ui/uui-loader-circle",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Loader"
+  ],
+  "description": "A circular, animated loader that can display progress",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-loader-circle"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.6"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib",
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-loader-circle"
 }

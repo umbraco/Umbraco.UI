@@ -1,5 +1,7 @@
 # uui-toggle
 
+Umbraco style toggle component.
+
 ## Usage
 
 ```zsh
@@ -21,5 +23,5 @@ import { UUIToggleElement } from '@umbraco-ui/uui-toggle/lib/uui-toggle.element'
 ## Example
 
 ```html
-  <uui-toggle label="Toggle" value="bike"></uui-toggle>
+<uui-toggle label="Toggle" value="bike"></uui-toggle>
 ```
