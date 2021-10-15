@@ -175,6 +175,8 @@ export class UUIMenuItemElement extends SelectableMixin(
   }
 
   private onLabelClicked() {
+    console.log('BEFORE');
+
     const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
     this.dispatchEvent(event);
   }
