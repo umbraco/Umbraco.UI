@@ -4,6 +4,7 @@ import '@umbraco-ui/uui-keyboard-shortcut/lib/index';
 export default {
   title: 'Displays/Keyboard Shortcut',
   component: 'uui-keyboard-shortcut',
+  id: 'uui-keyboard-shortcut',
 };
 
 export const Overview = () => html`
