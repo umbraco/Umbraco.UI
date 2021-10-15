@@ -1,6 +1,6 @@
 import { setCustomElements } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
-import '../packages/uui-base/src/styles/index.css';
+import '../src/styles/index.css';
 import 'https://cdn.skypack.dev/element-internals-polyfill';
 
 const sort = (a, b) => {
