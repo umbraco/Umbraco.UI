@@ -19,7 +19,7 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
       }
 
       :host([selected]) {
-        outline: 1px solid var(--uui-interface-select, #1b264f);
+        outline: 1px solid var(--uui-interface-select);
       }
     `,
   ];
