@@ -9,6 +9,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Misc/Badge',
   component: 'uui-badge',
+  id: 'uui-badge',
   argTypes: {
     look: {
       options: [
