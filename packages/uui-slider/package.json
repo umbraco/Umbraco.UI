@@ -22,7 +22,6 @@
   },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
@@ -40,5 +39,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-slider"
 }

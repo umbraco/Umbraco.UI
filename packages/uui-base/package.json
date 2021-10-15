@@ -33,5 +33,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-base"
 }
