@@ -5,6 +5,7 @@ import '@umbraco-ui/uui-loader-bar/lib/index';
 export default {
   title: 'Symbols/Loader Bar',
   component: 'uui-loader-bar',
+  id: 'uui-loader-bar',
   args: {
     animationDuration: 1.5,
     progress: 0,

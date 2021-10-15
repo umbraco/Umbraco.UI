@@ -5,6 +5,7 @@ import '@umbraco-ui/uui-loader/lib/index';
 export default {
   title: 'Symbols/Loader',
   component: 'uui-loader',
+  id: 'uui-loader',
   parameters: {
     docs: {
       source: {

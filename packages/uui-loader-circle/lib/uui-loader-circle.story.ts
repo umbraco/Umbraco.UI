@@ -5,6 +5,7 @@ import '@umbraco-ui/uui-loader-circle/lib/index';
 export default {
   title: 'Symbols/Loader Circle',
   component: 'uui-loader-circle',
+  id: 'uui-loader-circle',
   args: {
     size: 'xl',
     progress: 0,

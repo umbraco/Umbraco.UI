@@ -11,20 +11,10 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Buttons/Button',
   component: 'uui-button',
+  id: 'uui-button',
+
   args: {
     look: '',
-    // '--uui-button-height': '36px',
-    // '--uui-button-border-width': '0px',
-    // '--uui-button-border-color': 'transparent',
-    // '--uui-button-border-radius': '3px',
-    // '--uui-button-font-weight': '400',
-    // '--uui-button-background-color': 'white',
-    // '--uui-button-background-color-hover': '#fafafa',
-    // '--uui-button-border-color-hover': '#fafafa',
-    // '--uui-button-contrast': 'black',
-    // '--uui-button-contrast-hover': 'black',
-    // '--uui-button-background-color-disabled': '#e4e4e4',
-    // '--uui-button-contrast-disabled': '#73716e',
   },
   argTypes: {
     look: {

@@ -4,6 +4,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Inputs/Slider',
   component: 'uui-slider',
+  id: 'uui-slider',
   args: {
     min: -100,
     max: 100,

@@ -4,6 +4,7 @@ import '@umbraco-ui/uui-avatar/lib/index';
 
 export default {
   title: 'Displays/Avatar',
+  id: 'uui-avatar',
   component: 'uui-avatar',
   args: {
     title: 'First Last',

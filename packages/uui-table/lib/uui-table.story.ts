@@ -6,6 +6,7 @@ import '@umbraco-ui/uui-table/lib/index';
 export default {
   title: 'Misc/Table',
   component: 'uui-table',
+  id: 'uui-table',
 };
 
 export const AAAOverview: Story = props =>

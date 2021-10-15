@@ -5,6 +5,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Inputs/Radio',
   component: 'uui-radio',
+  id: 'uui-radio',
   args: {
     label: 'label',
     checked: false,

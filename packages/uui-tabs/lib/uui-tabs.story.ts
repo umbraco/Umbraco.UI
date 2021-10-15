@@ -5,6 +5,7 @@ import { Story } from '@storybook/web-components';
 export default {
   title: 'Buttons/Tabs',
   component: 'uui-tabs',
+  id: 'uui-tabs',
   args: {
     '--uui-tab-divider': 'rgba(0,0,0,0)',
   },
