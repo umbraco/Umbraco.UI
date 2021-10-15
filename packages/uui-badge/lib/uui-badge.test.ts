@@ -13,6 +13,10 @@ describe('UuiBadge', () => {
     expect(slot).to.exist;
   });
 
+  it('fails', () => {
+    expect(true).to.be.false;
+  });
+
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
