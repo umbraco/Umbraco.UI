@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 //THIS IS A WORK IN PROGRESS
+//! DO NOT PASS STRINGS WITH SPACES AS ARGUMENTS
 
 const args = process.argv;
 
@@ -36,7 +37,6 @@ function main() {
   const folder = fs.realpathSync('.');
   const pkg = readPackageJson(folder);
 
-  console.log(key, value);
   if (action === 'add') {
     const fpath = path.join(folder, 'package.json');
     console.debug(`Adding "${key}":"${value}" to ${fpath}...`);
@@ -47,7 +47,6 @@ function main() {
 
   if (action === 'remove') {
     const fpath = path.join(folder, 'package.json');
-    console.log(!(key in pkg));
     if (!(key in pkg)) {
       throw new Error(`There is no ${key} in ${fpath}`);
     } else {
