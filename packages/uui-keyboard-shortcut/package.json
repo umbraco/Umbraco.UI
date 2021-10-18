@@ -9,7 +9,7 @@
     "UI",
     "Lit"
   ],
-  "description": "",
+  "description": "This package contains two web components - uui-key and uui-keyboard-shortcut. They can be used to illustrate key combination for keyboard shortcuts",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
