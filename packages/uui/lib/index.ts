@@ -1,0 +1,21 @@
+import '@umbraco-ui/uui-base/lib/index';
+import '@umbraco-ui/uui-base/lib/animations';
+import '@umbraco-ui/uui-base/lib/events';
+import '@umbraco-ui/uui-base/lib/mixins';
+import '@umbraco-ui/uui-base/lib/types';
+
+import '@umbraco-ui/uui-avatar/lib/index';
+import '@umbraco-ui/uui-avatar-group/lib/index';
+import '@umbraco-ui/uui-breadcrumbs/lib/index';
+import '@umbraco-ui/uui-button/lib/index';
+import '@umbraco-ui/uui-checkbox/lib/index';
+import '@umbraco-ui/uui-input/lib/index';
+import '@umbraco-ui/uui-loader/lib/index';
+import '@umbraco-ui/uui-loader-bar/lib/index';
+import '@umbraco-ui/uui-loader-circle/lib/index';
+import '@umbraco-ui/uui-radio/lib/index';
+import '@umbraco-ui/uui-slider/lib/index';
+import '@umbraco-ui/uui-table/lib/index';
+import '@umbraco-ui/uui-tabs/lib/index';
+import '@umbraco-ui/uui-tag/lib/index';
+import '@umbraco-ui/uui-toggle/lib/index';

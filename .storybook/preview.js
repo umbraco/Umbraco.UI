@@ -1,6 +1,7 @@
 import { setCustomElements } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
-import '../src/style/index.css';
+import '../src/styles/index.css';
+import 'https://cdn.skypack.dev/element-internals-polyfill';
 
 const sort = (a, b) => {
   if (a[1].name === 'Overview') {
@@ -36,6 +37,9 @@ export const parameters = {
       table: {
         disable: true,
       },
+    },
+    formAssociated: {
+      control: false,
     },
   },
 };
