@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - run: npm -v
       - run: npm install
 
       - run: npm run build:prod
@@ -32,7 +33,7 @@ jobs:
         uses: jgierer12/npm-auth-gpr@v1.0.1
         with:
           token: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
-          
+
       - name: Publish package
         run: npm run lerna:publish
   
