@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "@umbraco-ui:registry=http://registry.npmjs.org/" > .npmrc
           echo "registry=http://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=$UMBRACO_PUBLISH_NPM_TOKEN" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
