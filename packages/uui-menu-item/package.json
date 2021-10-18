@@ -32,6 +32,10 @@
   "dependencies": {
     "@umbraco-ui/uui-base": "^0.0.5"
   },
+  "devDependencies": {
+    "@umbraco-ui/uui-caret": "^0.0.1",
+    "@umbraco-ui/uui-loader-bar": "^0.0.5"
+  },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib",

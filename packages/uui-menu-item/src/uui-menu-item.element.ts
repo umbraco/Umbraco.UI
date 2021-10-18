@@ -11,9 +11,6 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @element uui-list-item
  *
  */
-
-//TODO add the deselect method
-
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
 ) {
@@ -60,6 +57,9 @@ export class UUIMenuItemElement extends SelectableMixin(
       #label-button {
         flex-grow: 1;
         grid-column-start: 2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       #caret-button + #label-button {
         padding-left: 0;
@@ -85,6 +85,12 @@ export class UUIMenuItemElement extends SelectableMixin(
       }
       #menu-item:hover #actions-container {
         opacity: 1;
+      }
+
+      #loader {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
       }
 
       :host([disabled]) #label-button {
@@ -130,11 +136,6 @@ export class UUIMenuItemElement extends SelectableMixin(
         color: var(--uui-interface-select-contrast-disabled);
         background-color: var(--uui-interface-select-disabled);
       }
-      /*
-      slot:not([name]):focus-within {
-        TODO: implement proper focus outline
-      }
-      */
 
       slot:not([name]) {
         position: relative;
@@ -160,10 +161,12 @@ export class UUIMenuItemElement extends SelectableMixin(
   @property({ type: Boolean, reflect: true, attribute: 'show-children' })
   public showChildren = false;
 
+  // TODO: Should this be a getter that just checks on its own if there is any children?
   @property({ type: Boolean, attribute: 'has-children' })
   public hasChildren = false;
 
-  // TODO: implement loading property
+  @property({ type: Boolean, attribute: 'loading' })
+  public loading = false;
 
   private onCaretClicked() {
     this.showChildren = !this.showChildren;
@@ -175,8 +178,6 @@ export class UUIMenuItemElement extends SelectableMixin(
   }
 
   private onLabelClicked() {
-    console.log('BEFORE');
-
     const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
     this.dispatchEvent(event);
   }
@@ -198,6 +199,9 @@ export class UUIMenuItemElement extends SelectableMixin(
         </button>
         <div id="label-button-background"></div>
         <slot id="actions-container" name="actions"></slot>
+        ${this.loading
+          ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
+          : ''}
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
