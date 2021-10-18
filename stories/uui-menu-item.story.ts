@@ -65,6 +65,15 @@ AAAOverview.args = {
   hasChildren: false,
   showChildren: false,
 };
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: html`<uui-menu-item label="Content Templates">
+        <uui-menu-item label="i am a nested item"></uui-menu-item>
+      </uui-menu-item>`.strings,
+    },
+  },
+};
 
 export const Nested = () =>
   html`
@@ -91,6 +100,20 @@ export const OneIsActive = () =>
       </uui-menu-item>
     </div>
   `;
+OneIsActive.parameters = {
+  docs: {
+    source: {
+      code: html` <uui-menu-item
+        has-children
+        show-children
+        label="Content Templates">
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+        <uui-menu-item active label="Content Templates"> </uui-menu-item>
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+      </uui-menu-item>`.strings,
+    },
+  },
+};
 
 export const OneIsLoading = () =>
   html`
@@ -102,6 +125,20 @@ export const OneIsLoading = () =>
       </uui-menu-item>
     </div>
   `;
+OneIsLoading.parameters = {
+  docs: {
+    source: {
+      code: html` <uui-menu-item
+        has-children
+        show-children
+        label="Content Templates">
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+        <uui-menu-item loading label="Content Templates"> </uui-menu-item>
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+      </uui-menu-item>`.strings,
+    },
+  },
+};
 
 export const OneIsDisabled = () =>
   html`
@@ -127,6 +164,20 @@ export const OneIsDisabled = () =>
       </uui-menu-item>
     </div>
   `;
+OneIsDisabled.parameters = {
+  docs: {
+    source: {
+      code: html` <uui-menu-item
+        has-children
+        show-children
+        label="Content Templates">
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+        <uui-menu-item disabled label="Content Templates"> </uui-menu-item>
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+      </uui-menu-item>`.strings,
+    },
+  },
+};
 
 export const WithActions = () =>
   html`
@@ -153,3 +204,32 @@ export const WithActions = () =>
       </uui-menu-item>
     </div>
   `;
+WithActions.parameters = {
+  docs: {
+    source: {
+      code: html` <uui-menu-item
+        has-children
+        show-children
+        label="Content Templates">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu">•••</uui-button>
+        </uui-action-bar>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu">•••</uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu">•••</uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu">•••</uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+      </uui-menu-item>`.strings,
+    },
+  },
+};
