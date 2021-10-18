@@ -405,7 +405,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     if (changedProperties.has('state')) {
       this.disabled = !!this.state;
       if (this.state === 'success' || this.state === 'failed') {
-        setTimeout(() => (this.state = null), 3000);
+        setTimeout(() => (this.state = null), 2000);
       }
     }
     console.log('CHANGED', changedProperties.has('state'));
