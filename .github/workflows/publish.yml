@@ -7,42 +7,32 @@ on:
 
 jobs:
   build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-     strategy:
+    
+    strategy:
       matrix:
         node-version: [16.x]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it      
+      - uses: actions/checkout@v2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      # - name: Configure CI Git User
-      #   run: |
-      #     git config --global user.name '@bennypowers'
-      #     git config --global user.email 'bennypowers@users.noreply.github.com'
-      #     git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_PAT@github.com/bennypowers/apollo-elements
-      #   env:
-      #     GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+      - run: npm install
 
-      # - name: Checkout and pull branch
-      #   run: git checkout "${GITHUB_REF:11}" && git pull
+      - run: npm run build:prod
 
-      - name: Install Dependencies
-        run: npm install
-
-     - name: Authenticate npm with the GPR
-       uses: jgierer12/npm-auth-gpr@v1.0.1
+      - name: Authenticate npm with the GPR
+        uses: jgierer12/npm-auth-gpr@v1.0.1
         with:
-       token: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
-
-
+          token: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
+          
       - name: Publish package
         run: npm run lerna:publish
-        # env:
-        #   GH_TOKEN: ${{ secrets.GITHUB_PAT }}
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
-        #   NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
+  
