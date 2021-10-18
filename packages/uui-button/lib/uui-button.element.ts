@@ -10,6 +10,7 @@ import {
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
 
+export type ButtonState = null | undefined | 'waiting' | 'success' | 'failed';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
@@ -44,6 +45,26 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       :host([compact]) {
         --uui-button-slot-padding-l-factor: 1;
         --uui-button-slot-padding-r-factor: 1;
+      }
+
+      :host([state]:not([state=''])) span.label {
+        opacity: 0;
+      }
+
+      span.label {
+        transition: opacity 150ms linear;
+      }
+
+      #state {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        animation-name: fadeIn;
+        animation-delay: 50ms;
+        animation-duration: 500ms;
+        animation-fill-mode: forwards;
+        opacity: 0;
       }
 
       button {
@@ -129,6 +150,25 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
                 var(--uui-button-slot-padding-l-factor)
             )
           );
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
 
       /* LOOKS */
@@ -340,6 +380,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   @property({ type: Boolean, reflect: true })
   compact = false;
 
+  @property({ type: String, reflect: true })
+  state: ButtonState = null;
+
   constructor() {
     super();
     this.addEventListener('click', this.onHostClick);
@@ -351,10 +394,46 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       e.stopImmediatePropagation();
     }
   }
+  // TODO: Check if the loader-circle is registered.
+  // connectedCallback() {
+  // super.connectedCallback()
+  // CustomElementRegistry
+  // }
+
+  // Reset the state after 3sec if it is 'success'
+  updated(changedProperties: any) {
+    if (changedProperties.has('state')) {
+      this.disabled = !!this.state;
+      if (this.state === 'success' || this.state === 'failed') {
+        setTimeout(() => (this.state = null), 3000);
+      }
+    }
+    console.log('CHANGED', changedProperties.has('state'));
+  }
+
+  renderState() {
+    let element = html``;
+    switch (this.state) {
+      case 'waiting':
+        element = html`<uui-loader-circle size="m"></uui-loader-circle>`;
+        break;
+      case 'success':
+        element = html`<span style="font-size: 24px">✔</span>`;
+        break;
+      case 'failed':
+        element = html`<span style="font-size: 24px; line-height: 1;">🗙</span>`;
+        break;
+      default:
+        return '';
+    }
+
+    return html`<div id="state">${element}</div>`;
+  }
+
   render() {
     return html`
       <button ?disabled=${this.disabled} aria-label="${this.label}">
-        ${this.renderLabel()}
+        ${this.renderLabel()} ${this.renderState()}
       </button>
     `;
   }
