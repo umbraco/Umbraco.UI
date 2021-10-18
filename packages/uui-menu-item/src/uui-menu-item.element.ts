@@ -8,8 +8,9 @@ import {
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**
- *  @element uui-list-item
- *
+ *  @element uui-menu-item
+ *  @cssprop --uui-menu-item-indent - set indentation of the menu items
+ *  @property label - This functions both as the visible label as well as the aria label.
  */
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
@@ -155,16 +156,40 @@ export class UUIMenuItemElement extends SelectableMixin(
     `,
   ];
 
+  /**
+   * Disables the menu item, changes the looks of it and prevents if from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
+  /**
+   * Controls if nested items should be shown.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true, attribute: 'show-children' })
   public showChildren = false;
 
   // TODO: Should this be a getter that just checks on its own if there is any children?
+  /**
+   * Shows/hides the caret.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'has-children' })
   public hasChildren = false;
 
+  /**
+   * Shows/hides the loading indicator
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'loading' })
   public loading = false;
 

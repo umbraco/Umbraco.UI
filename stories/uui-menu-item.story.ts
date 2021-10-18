@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-menu-item/lib/index';
 import { UUIMenuItemEvent } from '@umbraco-ui/uui-menu-item/lib/UUIMenuItemEvent';
+import { Story } from '@storybook/web-components';
 
 export default {
   title: 'Buttons/Menu Item',
@@ -47,7 +48,25 @@ const renderItems: any = (count = 5, iteration = 5) => {
   return elements;
 };
 
-export const Overview = () =>
+export const AAAOverview: Story = props =>
+  html`<uui-menu-item
+    .label=${props.label}
+    ?loading=${props.loading}
+    ?disabled=${props.disabled}
+    ?has-children=${props.hasChildren}
+    ?show-children=${props.showChildren}>
+    <uui-menu-item label="i am a nested item"></uui-menu-item>
+  </uui-menu-item>`;
+AAAOverview.storyName = 'Overview';
+AAAOverview.args = {
+  label: 'Content Templates',
+  loading: false,
+  disabled: false,
+  hasChildren: false,
+  showChildren: false,
+};
+
+export const Nested = () =>
   html`
     <div style="max-width: 500px; border: 1px solid black">
       ${labelNames.map(
