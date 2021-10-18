@@ -7,9 +7,7 @@ export default {
   id: 'uui-keyboard-shortcut',
 };
 
-export const AAAOverview = () => html`
-  <uui-key>Enter</uui-key>
-`;
+export const AAAOverview = () => html` <uui-key>Enter</uui-key> `;
 
 AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
