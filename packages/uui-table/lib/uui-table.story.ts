@@ -23,7 +23,8 @@ export const AAAOverview: Story = props =>
       <uui-table-column
         style="width: 40%; background-color: ${props.backgroundColor3}">
       </uui-table-column>
-      <uui-table-head style="background-color: ${props.headBackgroundColor}; color: ${props.headColor}">
+      <uui-table-head
+        style="background-color: ${props.headBackgroundColor}; color: ${props.headColor}">
         ${ArrayOfUmbracoWords(3).map(
           el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
         )}
@@ -50,15 +51,41 @@ AAAOverview.args = {
   backgroundColor3: '',
 };
 AAAOverview.argTypes = {
-  headBackgroundColor: { name: 'Table Head Background Color', table: { category: 'Styling' }, control: 'color' },
-  headColor: { name: 'Table Head Color', table: { category: 'Styling' }, control: 'color' },
-  backgroundColor1: { name: 'Column 1 Background Color', table: { category: 'Styling' }, control: 'color' },
-  backgroundColor2: { name: 'Column 2 Background Color', table: { category: 'Styling' }, control: 'color' },
-  backgroundColor3: { name: 'Column 3 Background Color', table: { category: 'Styling' }, control: 'color' },
+  headBackgroundColor: {
+    name: 'Table Head Background Color',
+    table: { category: 'Styling' },
+    control: 'color',
+  },
+  headColor: {
+    name: 'Table Head Color',
+    table: { category: 'Styling' },
+    control: 'color',
+  },
+  backgroundColor1: {
+    name: 'Column 1 Background Color',
+    table: { category: 'Styling' },
+    control: 'color',
+  },
+  backgroundColor2: {
+    name: 'Column 2 Background Color',
+    table: { category: 'Styling' },
+    control: 'color',
+  },
+  backgroundColor3: {
+    name: 'Column 3 Background Color',
+    table: { category: 'Styling' },
+    control: 'color',
+  },
 };
 AAAOverview.parameters = {
   controls: {
-    include: ['Table Head Background Color', 'Table Head Color', 'Column 1 Background Color', 'Column 2 Background Color', 'Column 3 Background Color'],
+    include: [
+      'Table Head Background Color',
+      'Table Head Color',
+      'Column 1 Background Color',
+      'Column 2 Background Color',
+      'Column 3 Background Color',
+    ],
   },
   docs: {
     source: {
@@ -170,7 +197,6 @@ export const OverflowDetection: Story = () =>
       </uui-table>
     </div>
   `;
-
 
 export const InABox: Story = () =>
   html`
