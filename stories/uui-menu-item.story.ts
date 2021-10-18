@@ -68,7 +68,7 @@ AAAOverview.args = {
 
 export const Nested = () =>
   html`
-    <div style="max-width: 500px; border: 1px solid black">
+    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
       ${labelNames.map(
         (name: string) =>
           html` <uui-menu-item
@@ -83,25 +83,46 @@ export const Nested = () =>
 
 export const OneIsActive = () =>
   html`
-    <div style="max-width: 500px; border: 1px solid">
+    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
       <uui-menu-item has-children show-children label="Content Templates">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu">•••</uui-button>
-        </uui-action-bar>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+        <uui-menu-item active label="Content Templates"> </uui-menu-item>
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+      </uui-menu-item>
+    </div>
+  `;
+
+export const OneIsLoading = () =>
+  html`
+    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+      <uui-menu-item has-children show-children label="Content Templates">
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+        <uui-menu-item loading label="Content Templates"> </uui-menu-item>
+        <uui-menu-item label="Content Templates"> </uui-menu-item>
+      </uui-menu-item>
+    </div>
+  `;
+
+export const OneIsDisabled = () =>
+  html`
+    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+      <uui-menu-item
+        @click-label=${handleSelectItem}
+        has-children
+        show-children
+        label="Content Templates">
+        <uui-menu-item
+          @click-label=${handleSelectItem}
+          label="Content Templates">
         </uui-menu-item>
-        <uui-menu-item active label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
+        <uui-menu-item
+          @click-label=${handleSelectItem}
+          disabled
+          label="Content Templates">
         </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
+        <uui-menu-item
+          @click-label=${handleSelectItem}
+          label="Content Templates">
         </uui-menu-item>
       </uui-menu-item>
     </div>
@@ -109,8 +130,8 @@ export const OneIsActive = () =>
 
 export const WithActions = () =>
   html`
-    <div style="max-width: 500px; border: 1px solid">
-      <uui-menu-item has-children label="Content Templates">
+    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+      <uui-menu-item has-children show-children label="Content Templates">
         <uui-action-bar slot="actions">
           <uui-button label="Open actions menu">•••</uui-button>
         </uui-action-bar>
