@@ -34,7 +34,7 @@
     "build:css": "postcss src/styles/index.css --base src/styles --dir out-css",
     "build:prod": "npm run clean && npm run lint && npm run test && npm run build",
     "clean": "rimraf out-css && lerna run clean",
-    "lerna:publish": "npm run lint && npm run test && lerna publish from-package && npm run lerna-fix",
+    "lerna:publish": "npm run build:prod && lerna publish from-package --yes && npm run lerna-fix",
     "lerna:version-patch": "lerna version patch",
     "diff": "lerna diff",
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
@@ -44,7 +44,7 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": ">=16.8.0",
+    "node": ">=16.0.0",
     "npm": ">= 7.21.0"
   },
   "dependencies": {
