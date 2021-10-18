@@ -3,13 +3,13 @@ import { property, state } from 'lit/decorators.js';
 import { UUICardElement } from '../uui-card/uui-card.element';
 
 /**
- *  @element uui-media-card
+ *  @element uui-card-media
  *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
  *  @description - Card component for displaying a media item.
  *  @slot - for image element
  */
 
-export class UUIMediaCardElement extends UUICardElement {
+export class UUICardMediaElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`

@@ -3,12 +3,12 @@ import { property } from 'lit/decorators.js';
 import { UUICardElement } from '../uui-card/uui-card.element';
 
 /**
- *  @element uui-user-card
- *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
- *  @description - Card component for displaying a user node.
+ *  @element uui-card-content-node
+ *  @fires {UUICardEvent} click-title - fires when the card title is clicked
+ *  @description - Card component for displaying a content-node.
  */
 
-export class UUIUserCardElement extends UUICardElement {
+export class UUICardContentNodeElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
@@ -17,16 +17,6 @@ export class UUIUserCardElement extends UUICardElement {
         flex-direction: column;
         justify-content: space-between;
         padding: var(--uui-size-space-3, 12px);
-        align-items: center;
-      }
-
-      slot:not([name])::slotted(*) {
-        font-size: var(--uui-size-small, 12px);
-        line-height: calc(2 * var(--uui-size-xsmall, 9px));
-      }
-
-      ::slotted(*) {
-        text-align: center;
       }
 
       slot[name='tag'] {
@@ -37,11 +27,12 @@ export class UUIUserCardElement extends UUICardElement {
         justify-content: right;
       }
 
-      #avatar {
-        margin: var(--uui-size-space-3, 12px);
+      slot:not([name])::slotted(*) {
+        font-size: var(--uui-size-small, 12px);
+        line-height: calc(2 * var(--uui-size-xsmall, 9px));
       }
 
-      slot[name='icon']::slotted(*) {
+      #icon {
         font-size: 1.2em;
       }
 
@@ -51,7 +42,6 @@ export class UUIUserCardElement extends UUICardElement {
         font-weight: 700;
         align-items: center;
         cursor: pointer;
-        margin: 0 0 3px 0;
       }
 
       #open-part > span {
@@ -70,18 +60,21 @@ export class UUIUserCardElement extends UUICardElement {
   @property({ type: String })
   name = '';
 
+  @property({ type: String })
+  icon = '';
+
   public render() {
     return html`
       <slot name="tag"></slot>
-      <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
+        <uui-icon id="icon" name=${this.icon}></uui-icon>
         <span> ${this.name} </span>
       </div>
-      <!-- Select border must be right after .open-part -->
+      <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
       <slot></slot>

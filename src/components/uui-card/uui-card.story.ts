@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
-import '../uui-content-node-card/index';
-import '../uui-media-card/index';
-import '../uui-user-card/index';
+import '../uui-card-content-node/index';
+import '../uui-card-media/index';
+import '../uui-card-user/index';
 
 export default {
   title: 'Displays/Card',

@@ -3,12 +3,12 @@ import './index';
 
 export default {
   title: 'Displays/Card/Content Node Card',
-  component: 'uui-content-node-card',
+  component: 'uui-card-content-node',
 };
 
 export const Default = () => html`
   <div style="width: 300px">
-    <uui-content-node-card selectable name="The card" icon="bug">
+    <uui-card-content-node selectable name="The card" icon="bug">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <!-- TODO: we should make some kind of component for this data layout: -->
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
@@ -21,6 +21,6 @@ export const Default = () => html`
           <span style="font-weight: 700">Another property:</span> Another value
         </li>
       </ul>
-    </uui-content-node-card>
+    </uui-card-content-node>
   </div>
 `;
