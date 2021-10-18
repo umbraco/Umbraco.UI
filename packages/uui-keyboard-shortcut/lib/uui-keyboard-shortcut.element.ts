@@ -4,18 +4,18 @@ export class UUIKeyboardShortcutElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-flex;
+        display: block;
         align-items: center;
         font-family: inherit;
         font-size: var(--uui-size-small, 12px);
         line-height: 20px;
       }
 
-      ::slotted(*:first-child) {
+      ::slotted(*:first-child)uui-key {
         margin-left: 0px;
       }
 
-      ::slotted(*:last-child) {
+      ::slotted(*:last-child)uui-key {
         margin-right: 0px;
       }
     `,

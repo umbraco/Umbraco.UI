@@ -10,7 +10,7 @@ export class UUIKeyElement extends LitElement {
         font-size: var(--uui-size-small, 12px);
         border-radius: 5px;
         margin: 0px 5px;
-        padding: 1px 7px;
+        padding: 5px 7px;
         box-sizing: border-box;
         user-select: none;
       }
