@@ -40,7 +40,8 @@
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
-    "bootstrap": "node ./scripts/generate-ts-config.js"
+    "bootstrap": "node ./scripts/generate-ts-config.js",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=16.8.0",
@@ -72,7 +73,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-lit": "^1.5.1",
     "eslint-plugin-lit-a11y": "^1.1.0-next.1",
-    "husky": "^7.0.2",
+    "husky": "^7.0.0",
     "lerna": "^4.0.0",
     "lint-staged": "^10.0.0",
     "postcss": "^8.3.9",
