@@ -24,28 +24,30 @@ const createEsModulesConfig = (entryPoints = []) => {
         },
         plugins: [processLitCSS(processLitCSSOptions), esbuild()],
       };
-    })
+    }),
   ];
 };
 
-const createBundleConfig = (bundle) => {
+const createBundleConfig = bundle => {
   const packageJson = readPackageJson('./');
   const bundleName = packageJson.name.replace('@umbraco-ui/', '');
-  
-  return bundle ? {
-    input: `lib/${bundle}.ts`,
-    output: {
-      file: `./dist/${bundleName}.min.js`,
-      format: 'umd',
-      sourcemap: true,
-    },
-    plugins: [
-      nodeResolve(),
-      processLitCSS(processLitCSSOptions),
-      minifyHTML(),
-      esbuild(esbuidOptions),
-    ],
-  } : undefined;
+
+  return bundle
+    ? {
+        input: `lib/${bundle}.ts`,
+        output: {
+          file: `./dist/${bundleName}.min.js`,
+          format: 'umd',
+          sourcemap: true,
+        },
+        plugins: [
+          nodeResolve(),
+          processLitCSS(processLitCSSOptions),
+          minifyHTML(),
+          esbuild(esbuidOptions),
+        ],
+      }
+    : undefined;
 };
 
 export const UUIProdConfig = ({ entryPoints = [], bundle }) => {
