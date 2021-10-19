@@ -7,7 +7,8 @@
     "Custom elements",
     "Web components",
     "UI",
-    "Lit"
+    "Lit",
+    "Keyboard shortcuts"
   ],
   "description": "This package contains two web components - uui-key and uui-keyboard-shortcut. They can be used to illustrate key combination for keyboard shortcuts",
   "repository": {

@@ -1,5 +1,10 @@
 import { css, html, LitElement } from 'lit';
 
+/**
+ *  A visual representation of a keyboard shortcut.
+ *  @element uui-keyboard-shortcut
+ *  @slot - for `<uui-key></uui-key>` elements
+ */
 export class UUIKeyboardShortcutElement extends LitElement {
   static styles = [
     css`
