@@ -2,5 +2,10 @@
   "packages": ["packages/*"],
   "version": "independent",
   "npmClient": "npm",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "verifyAccess": false
+    }
+  }
 }

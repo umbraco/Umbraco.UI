@@ -1,21 +1,24 @@
 import { css, html, LitElement } from 'lit';
 
+/**
+ *  A visual representation of a keyboard shortcut.
+ *  @element uui-keyboard-shortcut
+ *  @slot - for `<uui-key></uui-key>` elements
+ */
 export class UUIKeyboardShortcutElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-flex;
-        align-items: center;
+        display: inline-block;
         font-family: inherit;
-        font-size: var(--uui-size-small, 12px);
-        line-height: 20px;
+        font-size: var(--uui-size-small);
       }
 
-      ::slotted(*:first-child) {
+      ::slotted(*:first-child)uui-key {
         margin-left: 0px;
       }
 
-      ::slotted(*:last-child) {
+      ::slotted(*:last-child)uui-key {
         margin-right: 0px;
       }
     `,
