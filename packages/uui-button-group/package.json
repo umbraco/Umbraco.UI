@@ -12,8 +12,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5",
-    "@umbraco-ui/uui-button": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.7",
+    "@umbraco-ui/uui-button": "^0.0.8"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
