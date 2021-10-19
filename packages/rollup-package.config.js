@@ -2,6 +2,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import processLitCSS from '../scripts/rollup-plugin-fallback-values';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
+import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 
 const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
@@ -12,7 +13,7 @@ const processLitCSSOptions = {
 
 const esbuidOptions = { minify: true };
 
-export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
+const createEsModulesConfig = (entryPoints = []) => {
   return [
     ...entryPoints.map(name => {
       return {
@@ -24,11 +25,18 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
         plugins: [processLitCSS(processLitCSSOptions), esbuild()],
       };
     }),
-    ...bundles.map(name => {
-      return {
-        input: `lib/${name}.ts`,
+  ];
+};
+
+const createBundleConfig = bundle => {
+  const packageJson = readPackageJson('./');
+  const bundleName = packageJson.name.replace('@umbraco-ui/', '');
+
+  return bundle
+    ? {
+        input: `lib/${bundle}.ts`,
         output: {
-          dir: './dist',
+          file: `./dist/${bundleName}.min.js`,
           format: 'umd',
           sourcemap: true,
         },
@@ -38,7 +46,12 @@ export const UUIProdConfig = ({ entryPoints = [], bundles = [] }) => {
           minifyHTML(),
           esbuild(esbuidOptions),
         ],
-      };
-    }),
-  ];
+      }
+    : undefined;
+};
+
+export const UUIProdConfig = ({ entryPoints = [], bundle }) => {
+  const esModulesConfig = createEsModulesConfig(entryPoints);
+  const bundleConfig = createBundleConfig(bundle);
+  return [...esModulesConfig, bundleConfig].filter(x => x);
 };
