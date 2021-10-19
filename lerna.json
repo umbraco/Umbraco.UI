@@ -3,7 +3,9 @@
   "version": "independent",
   "npmClient": "npm",
   "useWorkspaces": true,
-  "publish": {
-    "verifyAccess": false
+  "command": {
+    "publish": {
+      "verifyAccess": false
+    }
   }
 }
