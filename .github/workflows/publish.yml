@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "@umbraco-ui:registry=https://registry.npmjs.org/" > .npmrc
           echo "registry=https://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
           npm whoami
         env:
           NPM_TOKEN: ${{ secrets.JULCZKA_AUTOMATION_NPM_TOKEN}}
