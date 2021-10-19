@@ -3,7 +3,7 @@ import '@umbraco-ui/uui-badge/lib/index';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types';
+} from '@umbraco-ui/uui-base/lib/types/index';
 import { Story } from '@storybook/web-components';
 
 export default {
@@ -37,11 +37,33 @@ AAAOverview.args = {
   slot: '!',
 };
 AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: ` 
+<div style="position:relative;">
+  <uui-badge>!</uui-badge>
+</div>
+    `,
+    },
+  },
+};
 
 export const WithText = Template.bind({});
 WithText.args = {
   look: 'positive',
   slot: 'Published',
+};
+WithText.parameters = {
+  docs: {
+    source: {
+      code: `
+<div style="position:relative;">
+  <uui-badge look="positive">Published</uui-badge>
+</div>
+    `,
+    },
+  },
 };
 
 // TODO: Uncomment when we fix the icon package.
@@ -58,8 +80,20 @@ OnButton.args = {
   look: 'danger',
   slot: '!',
 };
+OnButton.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-button look="outline">
+  <uui-badge look="positive">!</uui-badge>
+  Button label
+</uui-button>
+    `,
+    },
+  },
+};
 
-export const Styles: Story = props => html`
+export const Looks: Story = props => html`
   <div
     style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-bottom: 16px">
     <uui-badge .look=${props.look}>${props.slot}</uui-badge>
@@ -72,7 +106,7 @@ export const Styles: Story = props => html`
       </div>`
   )}
 `;
-Styles.args = {
+Looks.args = {
   look: 'primary',
   slot: '!',
 };

@@ -4,11 +4,10 @@ import { property } from 'lit/decorators.js';
 import { InterfaceLookType } from '@umbraco-ui/uui-base/lib/types';
 
 /**
+ *  A badge to notify that there is something that requires attention of the user. The badge is positioned with `position: absolute`. It will determine its position against the first ancestor with `position: relative`.
  *  @element uui-badge
  *  @slot - for badge contents
- *  @description - A badge to notify that there is something that requires attention of the user.
  */
-
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
@@ -122,6 +121,12 @@ export class UUIBadgeElement extends LitElement {
     `,
   ];
 
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {""|"primary"|"secondary"|"outline"|"placeholder"|"positive"|"warning"|"danger"}
+   * @attr
+   * @default danger
+   */
   @property({ type: String, reflect: true })
   look: InterfaceLookType = 'danger';
 
