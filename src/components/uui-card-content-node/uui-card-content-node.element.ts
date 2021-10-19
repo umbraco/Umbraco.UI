@@ -1,6 +1,6 @@
 import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUICardElement } from '../uui-card/uui-card.element';
+import { UUICardElement } from 'packages/uui-card/lib/uui-card.element';
 
 /**
  *  @element uui-card-content-node

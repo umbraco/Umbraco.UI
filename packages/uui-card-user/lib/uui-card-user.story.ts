@@ -8,7 +8,8 @@ export default {
 
 export const Default = () =>
   html`
-    <div style="width: 130px">
+  <input type="text">
+    <div style="width: 130px; display: grid; gap: 16px">
       <uui-card-user selectable name="Sherlock Holmes">
         <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag>
         <div style="margin-bottom: 12px">Editors</div>

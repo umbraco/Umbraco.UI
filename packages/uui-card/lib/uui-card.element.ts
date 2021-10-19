@@ -29,83 +29,40 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       :host(:focus) {
         /** TODO: implement focus outline. */
         outline-color: #6ab4f0;
+        outline-width: 3px;
+        outline-style: solid;
+        outline-offset: 3px;
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-look-danger-border, #d42054);
-        box-shadow: 0 0 4px 0 var(--uui-look-danger-border, #d42054),
-          inset 0 0 2px 0 var(--uui-look-danger-border, #d42054);
+        border: 3px solid var(--uui-look-danger-border, #d42054);
       }
 
       :host([selectable]) {
         cursor: pointer;
       }
-      :host([selectable]) #select-border {
-        position: absolute;
-        z-index: 2;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 120ms;
-      }
-      :host([selectable]) #select-border::after {
+
+      :host::after {
         content: '';
         position: absolute;
-        width: 100%;
-        height: 100%;
+        inset: -3px; /* -3px = border width */
+        width: calc(100% + 6px); /* 6px = 2 * border width */
+        height: calc(100% + 6px); /* 6px = 2 * border width */
         box-sizing: border-box;
-        border: 2px solid var(--uui-interface-select, #1b264f);
+        border: 3px solid var(--uui-interface-select, #1b264f);
         border-radius: calc(var(--uui-size-border-radius, 3px) + 2px);
-        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
-      }
-      :host([selected]) #select-border {
-        opacity: 1;
-      }
-      :host([selectable]:not([selected]):hover) #select-border {
-        opacity: 0.33;
-      }
-      :host([selectable][selected]:hover) #select-border {
-        opacity: 0.8;
-      }
-
-      :host([selectable]:not([selected])) #open-part:hover + #select-border {
+        transition: opacity 100ms ease-out;
         opacity: 0;
       }
-      :host([selectable][selected]) #open-part:hover + #select-border {
+
+      :host(:hover)::after {
+        opacity: 0.33;
+      }
+      :host([selected]:hover)::after {
+        opacity: 0.66;
+      }
+      :host([selected])::after {
         opacity: 1;
-      }
-
-      :host([selectable]:not([selected]):hover) #select-border::after {
-        animation: not-selected--hover 1.2s infinite;
-      }
-      @keyframes not-selected--hover {
-        0%,
-        100% {
-          opacity: 0.66;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-
-      :host([selectable][selected]:hover) #select-border::after {
-        animation: selected--hover 1.4s infinite;
-      }
-      @keyframes selected--hover {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.66;
-        }
-      }
-      :host([selectable]) #open-part:hover + #select-border::after {
-        animation: none;
       }
     `,
   ];

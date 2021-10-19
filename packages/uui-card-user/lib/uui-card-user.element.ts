@@ -1,6 +1,6 @@
 import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUICardElement } from '../uui-card/uui-card.element';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
  *  @element uui-card-user
@@ -81,9 +81,6 @@ export class UUICardUserElement extends UUICardElement {
         @keydown=${this.handleOpenKeydown}>
         <span> ${this.name} </span>
       </div>
-      <!-- Select border must be right after .open-part -->
-      <div id="select-border"></div>
-
       <slot></slot>
     `;
   }
