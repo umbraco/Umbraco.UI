@@ -1,19 +1,11 @@
-# This is a basic workflow to help you get started with Actions
+name: Publish
 
-name: Tests
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the dev branch
-  pull_request:
-    branches: [ dev ]
+   push:
+    branches:
+      - main
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -26,9 +18,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it      
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+
+      - run: npm -v
+      - run: npm ci
+
       - run: npm run build:prod
+
+      - name: Authenticate with Registry
+        run: |
+          echo "@umbraco-ui:registry=https://registry.npmjs.org/" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
+
+      - name: Publish package
+        run: npm run lerna:publish
+  
