@@ -36,7 +36,7 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
         env:
-          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.JULCZKA_AUTOMATION_NPM_TOKEN}}
 
       - name: Publish package
         run: npm run lerna:publish
