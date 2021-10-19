@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-avatar",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "description": "An avatar web component for displaying user avatars.",
   "keywords": [

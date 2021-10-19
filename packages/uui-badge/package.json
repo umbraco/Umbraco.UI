@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-badge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "A badge to notify that there is something that requires attention of the user.",
   "keywords": [
