@@ -38,7 +38,7 @@ jobs:
       - run: npm -v
       - run: npm ci
 
-      - run: npm run build:prod
+      - run: npm run test
 
       - name: Authenticate with Registry
         run: |
