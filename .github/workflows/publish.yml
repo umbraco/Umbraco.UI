@@ -18,6 +18,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it      
       - uses: actions/checkout@v2
+        with:
+      # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -40,4 +43,6 @@ jobs:
 
       - name: Publish package
         run: npm run lerna:publish
+        env:
+          NPM_TOKEN: ${{ secrets.JULCZKA_AUTOMATION_NPM_TOKEN}}
   
