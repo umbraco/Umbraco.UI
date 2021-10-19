@@ -18,13 +18,23 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         width: 100%;
         justify-content: center;
         box-sizing: border-box;
-        box-shadow: 0 1px 1px 0 var(--uui-interface-border);
+        box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-size-border-radius, 3px);
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface, white);
-        --uui-card-before-opacity: 0;
         --uui-card-border-width: 3px;
-        transition: --uui-card-before-opacity 120ms;
+        transition: box-shadow 100ms ease-out;
+      }
+
+      :host(*) * {
+        outline-color: #6ab4f0;
+        outline-offset: 4px;
+      }
+
+      :host(:hover),
+      :host(:focus),
+      :host(:focus-within) {
+        box-shadow: var(--uui-shadow-depth-2);
       }
 
       :host(:focus) {
@@ -43,9 +53,17 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         cursor: pointer;
       }
 
-      :host::after {
+      :host([disabled]) {
+        opacity: 0.6;
+        filter: saturate(0.5);
+        pointer-events: none;
+        background: var(--uui-interface-surface-disabled);
+      }
+
+      :host(:not([disabled]))::after {
         content: '';
         position: absolute;
+        pointer-events: none;
         inset: calc(var(--uui-card-border-width) * -1);
         width: calc(100% + var(--uui-card-border-width) * 2);
         height: calc(100% + var(--uui-card-border-width) * 2);
@@ -75,7 +93,8 @@ export class UUICardElement extends SelectableMixin(LitElement) {
     `,
   ];
 
-  // TODO: implement Disable state.
+  @property({ type: Boolean, reflect: true, attribute: 'disabled' })
+  disabled = false;
 
   @property({ type: Boolean, reflect: true })
   error = false;
@@ -87,20 +106,16 @@ export class UUICardElement extends SelectableMixin(LitElement) {
   }
 
   private toggleSelect() {
+    if (this.disabled) return;
+
     if (this.selectable) this.selected = !this.selected;
     if (this.selected)
       this.dispatchEvent(new UUICardEvent(UUICardEvent.SELECTED));
   }
 
-  select() {
-    this.selected = true;
-  }
-
-  deselect() {
-    this.selected = false;
-  }
-
   private handleSelectKeydown(e: KeyboardEvent) {
+    if (this.disabled) return;
+
     // TODO: Is it correct to both be able to select with space and enter?
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
@@ -108,10 +123,14 @@ export class UUICardElement extends SelectableMixin(LitElement) {
   }
 
   protected handleOpenClick(e: Event) {
+    if (this.disabled) return;
+
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
   protected handleOpenKeydown(e: KeyboardEvent) {
+    if (this.disabled) return;
+
     // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();

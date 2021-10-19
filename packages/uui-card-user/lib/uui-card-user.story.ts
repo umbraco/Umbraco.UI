@@ -8,7 +8,6 @@ export default {
 
 export const Default = () =>
   html`
-  <input type="text">
     <div style="width: 130px; display: grid; gap: 16px">
       <uui-card-user selectable name="Sherlock Holmes">
         <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag>
@@ -20,8 +19,12 @@ export const Default = () =>
         <div style="margin-bottom: 12px">Editors</div>
         <div>Has not logged in yet</div>
       </uui-card-user>
+      <uui-card-user disabled selected name="John Disabled">
+        <div style="margin-bottom: 12px">Editors</div>
+        <div>Has not logged in yet</div>
       </uui-card-user>
-      <uui-card-user selectable selected error name="John Error">
+      </uui-card-user>
+      <uui-card-user selectable  error name="John Error">
         <div style="margin-bottom: 12px">Editors</div>
         <div>Has not logged in yet</div>
       </uui-card-user>

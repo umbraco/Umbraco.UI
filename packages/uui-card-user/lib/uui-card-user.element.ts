@@ -56,7 +56,6 @@ export class UUICardUserElement extends UUICardElement {
 
       #open-part > span {
         vertical-align: center;
-        margin-left: 0.5em;
         margin-top: 3px;
       }
 
@@ -76,7 +75,7 @@ export class UUICardUserElement extends UUICardElement {
       <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
-        tabindex="0"
+        tabindex=${this.disabled ? '-1' : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         <span> ${this.name} </span>
