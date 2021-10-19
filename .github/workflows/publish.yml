@@ -21,6 +21,14 @@ jobs:
         with:
       # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: "0"
+          
+      - name: Configure CI Git User
+        run: |
+          git config --global user.name '@julczka'
+          git config --global user.email 'julczka@users.noreply.github.com'
+          git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_PAT@github.com/umbraco/Umbraco.UI
+        env:
+          GITHUB_PAT: ${{ secrets.JULCZKA_PAT }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -44,5 +52,7 @@ jobs:
       - name: Publish package
         run: npm run lerna:publish
         env:
+          GH_TOKEN: ${{ secrets.JULCZKA_PAT }}
+          GITHUB_TOKEN: ${{ secrets.JULCZKA_PAT }}
           NPM_TOKEN: ${{ secrets.JULCZKA_AUTOMATION_NPM_TOKEN}}
   
