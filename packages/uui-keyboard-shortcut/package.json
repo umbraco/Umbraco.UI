@@ -1,6 +1,6 @@
 {
-  "name": "@umbraco-ui/uui-loader",
-  "version": "0.0.8",
+  "name": "@umbraco-ui/uui-keyboard-shortcut",
+  "version": "0.0.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -8,13 +8,13 @@
     "Web components",
     "UI",
     "Lit",
-    "Loader"
+    "Keyboard shortcuts"
   ],
-  "description": "A basic loader element",
+  "description": "This package contains two web components - uui-key and uui-keyboard-shortcut. They can be used to illustrate key combination for keyboard shortcuts",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-loader"
+    "directory": "packages/uui-keyboard-shortcut"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -38,6 +38,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-loader"
+  }
 }

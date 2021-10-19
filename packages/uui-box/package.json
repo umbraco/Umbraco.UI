@@ -1,20 +1,19 @@
 {
-  "name": "@umbraco-ui/uui-loader",
-  "version": "0.0.8",
+  "name": "@umbraco-ui/uui-box",
+  "version": "0.0.3",
   "license": "MIT",
+  "description": "A box web component for grouping elements",
   "keywords": [
     "Umbraco",
     "Custom elements",
     "Web components",
     "UI",
-    "Lit",
-    "Loader"
+    "Lit"
   ],
-  "description": "A basic loader element",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-loader"
+    "directory": "packages/uui-box"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -38,6 +37,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-loader"
+  }
 }

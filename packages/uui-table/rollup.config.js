@@ -10,5 +10,5 @@ export default UUIProdConfig({
     'uui-table-head.element',
     'uui-table-head-cell.element',
   ],
-  bundles: ['index'],
+  bundle: 'index',
 });
