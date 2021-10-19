@@ -23,19 +23,20 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface, white);
         --uui-card-before-opacity: 0;
+        --uui-card-border-width: 3px;
         transition: --uui-card-before-opacity 120ms;
       }
 
       :host(:focus) {
-        /** TODO: implement focus outline. */
         outline-color: #6ab4f0;
-        outline-width: 3px;
+        outline-width: var(--uui-card-border-width);
         outline-style: solid;
-        outline-offset: 3px;
+        outline-offset: var(--uui-card-border-width);
       }
 
       :host([error]) {
-        border: 3px solid var(--uui-look-danger-border, #d42054);
+        border: var(--uui-card-border-width) solid
+          var(--uui-look-danger-border, #d42054);
       }
 
       :host([selectable]) {
@@ -45,16 +46,18 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       :host::after {
         content: '';
         position: absolute;
-        inset: -3px; /* -3px = border width */
-        width: calc(100% + 6px); /* 6px = 2 * border width */
-        height: calc(100% + 6px); /* 6px = 2 * border width */
+        inset: calc(var(--uui-card-border-width) * -1);
+        width: calc(100% + var(--uui-card-border-width) * 2);
+        height: calc(100% + var(--uui-card-border-width) * 2);
         box-sizing: border-box;
-        border: 3px solid var(--uui-interface-select, #1b264f);
-        border-radius: calc(var(--uui-size-border-radius, 3px) + 2px);
+        border: var(--uui-card-border-width) solid
+          var(--uui-interface-select, #1b264f);
+        border-radius: calc(
+          var(--uui-size-border-radius, 3px) + var(--uui-card-border-width)
+        );
         transition: opacity 100ms ease-out;
         opacity: 0;
       }
-
       :host(:hover)::after {
         opacity: 0.33;
       }
@@ -63,6 +66,11 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       }
       :host([selected])::after {
         opacity: 1;
+      }
+      :host([error])::after {
+        inset: calc(var(--uui-card-border-width) * -2);
+        width: calc(100% + calc(var(--uui-card-border-width) * 4));
+        height: calc(100% + calc(var(--uui-card-border-width) * 4));
       }
     `,
   ];
