@@ -2,11 +2,11 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "outDir": "./lib",
-        "rootDir": "./src",
+        "rootDir": "./lib",
         "composite": true
     },
     "include": ["./**/*.ts"],
-    "exclude": ["./lib", "./**/*.test.ts"],
+    "exclude": ["./**/*.test.ts"],
     "references": [
         { "path": "../uui-avatar" },
         { "path": "../uui-avatar-group" },
