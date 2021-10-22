@@ -1,5 +1,7 @@
 # uui-tag
 
+Tag component from Umbraco UI components library.
+
 ## Usage
 
 ```zsh
@@ -21,6 +23,6 @@ import { UUITagElement } from '@umbraco-ui/uui-tag/lib/uui-tag.element';
 ## Example
 
 ```html
-  <uui-tag look="primary">Tag 1</uui-tag>
-  <uui-tag look="secondary">Tag 2</uui-tag>
+<uui-tag look="primary">Tag 1</uui-tag>
+<uui-tag look="secondary">Tag 2</uui-tag>
 ```

@@ -1,0 +1,38 @@
+{
+  "name": "@umbraco-ui/uui",
+  "version": "0.0.6",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "customElements": "custom-elements.json",
+  "files": [
+    "dist",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
+  ],
+  "dependencies": {
+    "@umbraco-ui/uui-avatar": "^0.0.5",
+    "@umbraco-ui/uui-avatar-group": "^0.0.5",
+    "@umbraco-ui/uui-base": "^0.0.5",
+    "@umbraco-ui/uui-breadcrumbs": "^0.0.5",
+    "@umbraco-ui/uui-button": "^0.0.5",
+    "@umbraco-ui/uui-checkbox": "^0.0.5",
+    "@umbraco-ui/uui-input": "^0.0.5",
+    "@umbraco-ui/uui-loader": "^0.0.5",
+    "@umbraco-ui/uui-loader-bar": "^0.0.5",
+    "@umbraco-ui/uui-loader-circle": "^0.0.5",
+    "@umbraco-ui/uui-radio": "^0.0.6",
+    "@umbraco-ui/uui-slider": "^0.0.5",
+    "@umbraco-ui/uui-table": "^0.0.5",
+    "@umbraco-ui/uui-tabs": "^0.0.5",
+    "@umbraco-ui/uui-tag": "^0.0.5",
+    "@umbraco-ui/uui-toggle": "^0.0.5"
+  },
+  "scripts": {
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  }
+}

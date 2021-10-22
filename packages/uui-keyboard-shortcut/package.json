@@ -1,0 +1,42 @@
+{
+  "name": "@umbraco-ui/uui-keyboard-shortcut",
+  "version": "0.0.3",
+  "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Keyboard shortcuts"
+  ],
+  "description": "This package contains two web components - uui-key and uui-keyboard-shortcut. They can be used to illustrate key combination for keyboard shortcuts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-keyboard-shortcut"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./lib/index.js",
+  "customElements": "custom-elements.json",
+  "files": [
+    "dist",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
+  ],
+  "dependencies": {
+    "@umbraco-ui/uui-base": "^0.0.7"
+  },
+  "scripts": {
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

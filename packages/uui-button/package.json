@@ -1,9 +1,16 @@
 {
   "name": "@umbraco-ui/uui-button",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "license": "MIT",
   "description": "All-round button, Umbraco backoffice style.",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Button"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Button"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
@@ -14,22 +21,23 @@
   },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./lib/uui-button.element.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.7"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib",
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-button"
 }

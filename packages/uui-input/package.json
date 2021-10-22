@@ -1,8 +1,16 @@
 {
   "name": "@umbraco-ui/uui-input",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "license": "MIT",
-  "keywords": ["Umbraco", "Custom elements", "Web components", "UI", "Lit", "Input", "Form element"],
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Input",
+    "Form element"
+  ],
   "description": "Custom element wrapping the native input element. This is a formAssociated element, meaning it can participate in a native HTMLForm. In browsers other then Chrome it may require a polyfill.",
   "repository": {
     "type": "git",
@@ -14,22 +22,23 @@
   },
   "main": "./dist/index.js",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
-    "lib",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.5"
+    "@umbraco-ui/uui-base": "^0.0.7"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib",
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-input"
 }

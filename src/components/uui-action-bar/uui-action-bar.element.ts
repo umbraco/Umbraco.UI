@@ -1,5 +1,5 @@
 import { css } from 'lit';
-import { UUIButtonGroupElement } from '../uui-button-group/uui-button-group.element';
+import { UUIButtonGroupElement } from '@umbraco-ui/uui-button-group/lib/uui-button-group.element';
 
 /**
  *  @element uui-action-bar
