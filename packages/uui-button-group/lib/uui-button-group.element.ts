@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
 
 /**
+ *  Place <uui-button> elements in the slot. They will be nicely displayed.
  *  @element uui-button-group
  *  @slot - for buttons
- *  @description Place <uui-button> elements in the slot. They will nbe nicely displayed. Works also with uui-dropdown component.
  */
 export class UUIButtonGroupElement extends LitElement {
   static styles = [

@@ -6,7 +6,7 @@ import { LitElement, html, css } from 'lit';
  *  @slot header - header area for title
  *  @slot main - main content area
  *  @slot area with no padding
- * 
+ *
  */
 export class UUIBoxElement extends LitElement {
   static styles = [

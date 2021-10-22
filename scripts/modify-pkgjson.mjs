@@ -58,12 +58,12 @@ function main() {
   }
 }
 
-function readJsonFile(fpath) {
+export function readJsonFile(fpath) {
   const content = fs.readFileSync(fpath);
   return JSON.parse(content);
 }
 
-function readPackageJson(folder) {
+export function readPackageJson(folder) {
   const packageJsonPath = path.join(folder, 'package.json');
   return readJsonFile(packageJsonPath);
 }
