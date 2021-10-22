@@ -10,7 +10,7 @@ import {
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
 
-export type ButtonState = null | undefined | 'waiting' | 'success' | 'failed';
+export type ButtonState = null | 'waiting' | 'success' | 'failed';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
@@ -380,6 +380,12 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   @property({ type: Boolean, reflect: true })
   compact = false;
 
+  /**
+   * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
+   * @type {null |'waiting' | 'success' | 'failed'}
+   * @attr
+   * @default null
+   */
   @property({ type: String, reflect: true })
   state: ButtonState = null;
 
@@ -394,11 +400,13 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       e.stopImmediatePropagation();
     }
   }
-  // TODO: Check if the loader-circle is registered.
-  // connectedCallback() {
-  // super.connectedCallback()
-  // CustomElementRegistry
-  // }
+  connectedCallback() {
+    super.connectedCallback();
+    if (!customElements.get('uui-loader'))
+      console.warn(
+        'To properly render the waiting state, the uui-loader element has to be registered'
+      );
+  }
 
   // Reset the state after 3sec if it is 'success'
   updated(changedProperties: any) {
@@ -408,10 +416,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         setTimeout(() => (this.state = null), 2000);
       }
     }
-    console.log('CHANGED', changedProperties.has('state'));
   }
 
-  renderState() {
+  private __renderState() {
     let element = html``;
     switch (this.state) {
       case 'waiting':
@@ -433,7 +440,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   render() {
     return html`
       <button ?disabled=${this.disabled} aria-label="${this.label}">
-        ${this.renderLabel()} ${this.renderState()}
+        ${this.renderLabel()} ${this.__renderState()}
       </button>
     `;
   }
