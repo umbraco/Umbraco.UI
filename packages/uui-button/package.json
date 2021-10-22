@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-button",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "All-round button, Umbraco backoffice style.",
   "keywords": [
