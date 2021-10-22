@@ -30,6 +30,10 @@ export default {
       ],
       control: { type: 'select' },
     },
+    state: {
+      options: [null, 'waiting', 'success', 'failed'],
+      control: { type: 'select' },
+    },
     '--uui-button-height': { control: { type: 'text' } },
     '--uui-button-border-width': { control: { type: 'text' } },
     '--uui-button-border-color': { control: { type: 'color' } },
@@ -64,12 +68,6 @@ const reducer = (prev: string, next: string, i: number) =>
   (prev = next ? `${prev}${i === 1 ? ';' : ''} ${next};` : prev);
 
 const Template: Story = props => {
-  console.log(
-    cssProps
-      .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
-      .reduce(reducer)
-  );
-
   return html`
     <uui-button
       style="${cssProps
@@ -79,6 +77,7 @@ const Template: Story = props => {
       ?compact=${props.compact}
       look=${props.look}
       label=${props.label}
+      state=${props.state}
       >${props.content}</uui-button
     >
   `;

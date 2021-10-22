@@ -15,6 +15,7 @@ export class UUILoaderCircleElement extends LitElement {
         --uui-loader-circle-size: var(--uui-size-small, 12px);
         display: inline-block;
         vertical-align: middle;
+        line-height: 0;
       }
 
       :host([size='xs']) {
