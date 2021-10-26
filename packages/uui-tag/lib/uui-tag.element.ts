@@ -20,16 +20,12 @@ export class UUITagElement extends LitElement {
         font-family: inherit;
         font-weight: 700;
         line-height: 1.1;
-
         font-size: var(--uui-tag-font-size, 0.9em);
-        margin: var(--uui-tag-margin, var(--uui-size-base-unit));
-
         padding: calc(var(--uui-tag-font-size) / 2.3) var(--uui-tag-font-size);
         border-radius: 1000px;
         background-color: var(--uui-interface-surface-alt);
         color: var(--uui-interface-contrast);
         user-select: none;
-
         transition: background-color 120ms, color 120ms;
       }
 
