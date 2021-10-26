@@ -17,6 +17,7 @@ export class UUITableCellElement extends LitElement {
         text-overflow: ellipsis;
         white-space: nowrap;
         box-sizing: border-box;
+        vertical-align: middle;
       }
     `,
   ];
