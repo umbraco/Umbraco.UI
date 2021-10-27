@@ -30,7 +30,7 @@ export type ButtonState = null | 'waiting' | 'success' | 'failed';
  *  @cssprop --uui-button-background-color-disabled - set the background color for disabled state
  *  @cssprop --uui-button-contrast-disabled - set the text color for disabled state
  */
-export class UUIButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonElement extends LabelMixin('label', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
@@ -48,12 +48,16 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         --uui-button-slot-padding-r-factor: 1;
       }
 
-      :host([state]:not([state=''])) span.label {
+      :host([state]:not([state=''])) .label {
         opacity: 0;
       }
 
-      span.label {
+      .label {
         transition: opacity 150ms linear;
+        display: none;
+      }
+
+      button > span.label {
       }
 
       #state {
@@ -135,8 +139,8 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
-      button > .label {
-        display: block;
+      button {
+        /* display: block; */
         padding: 0
           calc(
             (
@@ -422,7 +426,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     if (changedProperties.has('state')) {
       this.disabled = !!this.state;
       if (this.state === 'success' || this.state === 'failed') {
-        //setTimeout(() => (this.state = null), 2000);
+        setTimeout(() => (this.state = null), 2000);
       }
     }
   }
@@ -448,10 +452,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   }
 
   render() {
+    //prettier-ignore
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">
-        ${this.renderLabel()} ${this.__renderState()}
-      </button>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">${this.renderLabel()}${this.__renderState()}<slot></slot></button>
     `;
   }
 }

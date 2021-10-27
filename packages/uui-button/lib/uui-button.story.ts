@@ -15,6 +15,7 @@ export default {
 
   args: {
     look: '',
+    content: 'Button',
   },
   argTypes: {
     look: {
@@ -97,6 +98,43 @@ AAAOverview.parameters = {
 export const Disabled = Template.bind({});
 Disabled.args = { label: 'Disabled', disabled: true };
 Disabled.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
+    },
+  },
+};
+
+export const WithBadge: Story = props => {
+  return html`
+    <uui-button
+      ?disabled=${props.disabled}
+      look=${props.look}
+      state=${props.state}
+      ><uui-badge>!</uui-badge>I can has badge</uui-button
+    >
+  `;
+};
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
+    },
+  },
+};
+
+//prettier-ignore
+const labelTemplate: Story = props => {
+  return html`<uui-button
+  ?disabled=${props.disabled}
+  look=${props.look}
+  state=${props.state}
+  label="humpf">Something</uui-button>`;
+};
+
+export const slotLabelTest = labelTemplate.bind({});
+slotLabelTest.args = { look: 'secondary', state: null };
+slotLabelTest.parameters = {
   docs: {
     source: {
       code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
