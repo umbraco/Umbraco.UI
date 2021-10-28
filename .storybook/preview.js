@@ -23,7 +23,7 @@ export const parameters = {
     },
   },
   docs: {
-    source: { state: 'open' }
+    source: { state: 'open' },
   },
   options: {
     method: 'alphabetical',
