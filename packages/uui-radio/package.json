@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/uui-radio.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
