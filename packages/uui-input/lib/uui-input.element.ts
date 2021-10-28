@@ -100,8 +100,9 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
 
       .label {
-        font-size: var(--uui-type-small-size, 12px);
-        line-height: calc(var(--uui-size-base-unit) * 3);
+        /* line-height: calc(var(--uui-size-base-unit) * 3); */
+        display: inline-block;
+        margin-bottom: 4px;
         font-weight: bold;
       }
 
