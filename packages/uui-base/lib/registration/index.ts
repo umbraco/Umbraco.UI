@@ -5,12 +5,17 @@
  * @param {string} constructor - Constructor for the new custom element.
  * @param {string} [options] - Object that controls how the element is defined.
  */
-export const defineElement = (name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions | undefined) => {
-
+export const defineElement = (
+  name: string,
+  constructor: CustomElementConstructor,
+  options?: ElementDefinitionOptions | undefined
+) => {
   const isValidElementName = name.indexOf('-') > -1;
 
   if (isValidElementName === false) {
-    console.error(`${name} is not a valid custom element name. A custom element name must contain a hyphen.`);
+    console.error(
+      `${name} is not a valid custom element name. A custom element name must contain a hyphen.`
+    );
     return;
   }
 
@@ -19,4 +24,4 @@ export const defineElement = (name: string, constructor: CustomElementConstructo
   } else {
     customElements.define(name, constructor, options);
   }
-}
+};
