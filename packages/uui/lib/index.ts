@@ -1,15 +1,13 @@
-import '@umbraco-ui/uui-base/lib/index';
-import '@umbraco-ui/uui-base/lib/animations';
-import '@umbraco-ui/uui-base/lib/events';
-import '@umbraco-ui/uui-base/lib/mixins';
-import '@umbraco-ui/uui-base/lib/types';
-
 import '@umbraco-ui/uui-avatar/lib/index';
 import '@umbraco-ui/uui-avatar-group/lib/index';
+import '@umbraco-ui/uui-badge/lib/index';
+import '@umbraco-ui/uui-box/lib/index';
 import '@umbraco-ui/uui-breadcrumbs/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
+import '@umbraco-ui/uui-button-group/lib/index';
 import '@umbraco-ui/uui-checkbox/lib/index';
 import '@umbraco-ui/uui-input/lib/index';
+import '@umbraco-ui/uui-keyboard-shortcut/lib/index';
 import '@umbraco-ui/uui-loader/lib/index';
 import '@umbraco-ui/uui-loader-bar/lib/index';
 import '@umbraco-ui/uui-loader-circle/lib/index';

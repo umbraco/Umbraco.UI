@@ -23,6 +23,7 @@
 /packages/**/lib/**/*.d.ts
 tsconfig.tsbuildinfo
 /out-tsc/
+/packages/**/node_modules/
 
 
 custom-elements.json
