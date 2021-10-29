@@ -1,5 +1,7 @@
 # uui
 
+The full Umbraco UI Library. The package includes and registers all UUI Web Components.
+
 ## Usage
 
 ```zsh

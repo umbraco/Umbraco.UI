@@ -3,6 +3,23 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Components library"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "homepage": "https://uui.umbraco.com/",
   "main": "./dist/uui.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
