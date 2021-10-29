@@ -1,3 +1,4 @@
 import { UUIToggleElement } from './uui-toggle.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-toggle', UUIToggleElement as any);
+defineElement('uui-toggle', UUIToggleElement as any);

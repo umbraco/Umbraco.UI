@@ -7,6 +7,7 @@ export default UUIProdConfig({
     'events/index',
     'mixins/index',
     'types/index',
+    'registration/index',
     'uui-boolean-input/index',
   ],
 });

@@ -1,5 +1,6 @@
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 import { UUIBreadcrumbsElement } from './uui-breadcrumbs.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-breadcrumb-item', UUIBreadcrumbItemElement);
-customElements.define('uui-breadcrumbs', UUIBreadcrumbsElement);
+defineElement('uui-breadcrumb-item', UUIBreadcrumbItemElement);
+defineElement('uui-breadcrumbs', UUIBreadcrumbsElement);
