@@ -54,5 +54,8 @@
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
