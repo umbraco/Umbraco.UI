@@ -10,11 +10,11 @@ export const defineElement = (
   constructor: CustomElementConstructor,
   options?: ElementDefinitionOptions | undefined
 ) => {
-  const isValidElementName = name.indexOf('-') > -1;
+  const isValidElementName = name.indexOf('-') > 0;
 
   if (isValidElementName === false) {
     console.error(
-      `${name} is not a valid custom element name. A custom element name must contain a hyphen.`
+      `${name} is not a valid custom element name. A custom element name should consist of at least two words separated by a hyphen.`
     );
     return;
   }
