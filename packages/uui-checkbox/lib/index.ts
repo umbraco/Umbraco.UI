@@ -1,3 +1,4 @@
 import { UUICheckboxElement } from './uui-checkbox.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-checkbox', UUICheckboxElement as any);
+defineElement('uui-checkbox', UUICheckboxElement as any);

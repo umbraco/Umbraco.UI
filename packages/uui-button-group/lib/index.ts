@@ -1,3 +1,4 @@
 import { UUIButtonGroupElement } from './uui-button-group.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-button-group', UUIButtonGroupElement);
+defineElement('uui-button-group', UUIButtonGroupElement);
