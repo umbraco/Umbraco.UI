@@ -32,8 +32,6 @@
   --uui-size-96: 288px;
   --uui-size-100: 300px;
 
-  --uui-size-base-unit: 3px;
-  --uui-size-xsmall: 9px;
   /** Other size props: */
   --uui-border-radius: var(--uui-size-1);
 }

@@ -71,7 +71,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         height: 100%;
         min-height: var(
           --uui-button-height,
-          calc(var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6)
+          calc(var(--uui-button-base-unit, var(--uui-size-2)) * 6)
         );
         width: 100%;
         padding: 0;
@@ -86,7 +86,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-size-border-radius)
+          var(--uui-border-radius)
         );
         cursor: pointer;
         font-weight: var(
@@ -139,14 +139,14 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         padding: 0
           calc(
             (
-              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+              var(--uui-button-base-unit, var(--uui-size-2)) *
                 var(--uui-button-slot-padding-r-factor)
             )
           )
           0
           calc(
             (
-              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+              var(--uui-button-base-unit, var(--uui-size-2)) *
                 var(--uui-button-slot-padding-l-factor)
             )
           );
@@ -182,7 +182,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-primary-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-primary-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-primary-border);
         font-weight: var(--uui-look-primary-font-weight);
@@ -207,7 +207,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-secondary-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-secondary-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-secondary-border);
         font-weight: var(--uui-look-secondary-font-weight);
@@ -232,7 +232,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-outline-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-outline-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-outline-border);
         font-weight: var(--uui-look-outline-font-weight);
@@ -257,10 +257,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(
-            --uui-look-placeholder-border-radius,
-            var(--uui-size-border-radius)
-          )
+          var(--uui-look-placeholder-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-placeholder-border);
         font-weight: var(--uui-look-placeholder-font-weight);
@@ -285,7 +282,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-positive-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-positive-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-positive-border);
         font-weight: var(--uui-look-positive-font-weight);
@@ -310,7 +307,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-warning-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-warning-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-warning-border);
         font-weight: var(--uui-look-warning-font-weight);
@@ -335,7 +332,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-danger-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-danger-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-danger-border);
         font-weight: var(--uui-look-danger-font-weight);
