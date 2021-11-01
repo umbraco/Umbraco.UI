@@ -1,22 +1,24 @@
 :root {
-  /** Type props */
-  --uui-type-default-size: 15px;
-  --uui-type-small-size: 12px;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
 
+/* 
 
+:root {
+ 
+  --uui-type-default-size: var(--uui-size-5);
+  --uui-type-small-size: var(--uui-size-3);
   --uui-type-h1-size: var(--uui-size-xxlarge);
   --uui-type-h2-size: var(--uui-size-xlarge);
   --uui-type-h3-size: var(--uui-size-large);
   --uui-type-h4-size: 21px;
   --uui-type-h5-size: var(--uui-type-default-size);
 }
-:root {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: var(--uui-type-default-size);
-  line-height: var(--uui-size-medium);
-  -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-}
+
 h1 {
   font-size: var(--uui-type-h1-size);
   line-height: var(--uui-size-xxlarge);
@@ -79,7 +81,6 @@ h5:not(:first-child) {
 }
 
 p {
-  /* The padding adjustments is to make font baseline stay on the baseline-grid. */
   padding-top: var(--uui-size-half-base-unit);
   padding-bottom: var(--uui-size-half-base-unit);
   margin-top: 0;
@@ -97,24 +98,24 @@ small {
 }
 
 blockquote {
-  float:right;
-  font-size: var(--uui-type-default-size);
+  float: right;
+  font-size: 15px;
   font-weight: 700;
   font-style: italic;
   padding-top: var(--uui-size-half-base-unit);
   padding-bottom: var(--uui-size-half-base-unit);
   margin-top: 0;
   margin-bottom: var(--uui-size-medium);
-  margin-right: -.035em;
+  margin-right: -0.035em;
   max-width: 16em;
-  quotes: "“" "”" "‘" "’";
+  quotes: '“' '”' '‘' '’';
   line-height: inherit;
 }
 
 blockquote:before {
   content: open-quote;
-  margin-left: -.46em;
-  margin-right: .08em;
+  margin-left: -0.46em;
+  margin-right: 0.08em;
   vertical-align: bottom;
   font-weight: 400;
   font-size: 2em;
@@ -122,11 +123,11 @@ blockquote:before {
 
 blockquote:after {
   content: close-quote;
-  margin-left: .08em;
-  margin-right: -.46em;
+  margin-left: 0.08em;
+  margin-right: -0.46em;
   vertical-align: bottom;
   font-weight: 400;
   font-size: 2em;
   margin-bottom: -2px;
   display: inline-block;
-}
+} */

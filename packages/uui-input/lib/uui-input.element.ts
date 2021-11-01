@@ -72,7 +72,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
 
       :host([type='color']) .label {
-        margin-left: var(--uui-size-base-unit, 6px);
+        margin-left: var(--uui-size-2);
       }
 
       input[type='color'] {
@@ -100,18 +100,17 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
 
       .label {
-        /* line-height: calc(var(--uui-size-base-unit) * 3); */
         display: inline-block;
         margin-bottom: 4px;
         font-weight: bold;
       }
 
       :host([error]) input {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+        border: 1px solid var(--uui-look-danger-border);
       }
 
       :host([error]) input[disabled] {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+        border: 1px solid var(--uui-look-danger-border);
       }
     `,
   ];

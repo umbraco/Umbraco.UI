@@ -16,7 +16,7 @@ export class UUIMediaCardElement extends UUICardElement {
       #file-symbol,
       #folder-symbol {
         align-self: center;
-        margin: var(--uui-size-xlarge);
+        margin: var(--uui-size-14);
         width: 80%;
       }
 
@@ -24,7 +24,7 @@ export class UUIMediaCardElement extends UUICardElement {
 
       slot:not([name])::slotted(*) {
         align-self: center;
-        border-radius: var(--uui-size-border-radius, 3px);
+        border-radius: var(--uui-border-radius);
         object-fit: cover;
         width: 100%;
         height: 100%;
@@ -34,20 +34,19 @@ export class UUIMediaCardElement extends UUICardElement {
         position: absolute;
         bottom: 0;
         width: 100%;
-        background-color: var(--uui-color-white, #ffff);
+        background-color: var(--uui-color-white);
         color: var(--uui-color-black, #0000);
         border: none;
         cursor: pointer;
         border-top: 1px solid rgba(0, 0, 0, 0.04);
-        border-radius: 0 0 var(--uui-size-border-radius, 3px)
-          var(--uui-size-border-radius, 3px);
+        border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
         display: flex;
         justify-content: flex-start;
         align-items: center;
         font-family: inherit;
-        font-size: var(--uui-size-small, 12px);
+        font-size: var(--uui-size-4);
         box-sizing: border-box;
-        padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
+        padding: var(--uui-size-2) var(--uui-size-4);
       }
 
       #open-part:hover,
@@ -69,9 +68,9 @@ export class UUIMediaCardElement extends UUICardElement {
       }
 
       #info-icon {
-        margin-right: var(--uui-size-base-unit, 6px);
+        margin-right: var(--uui-size-2);
         display: flex;
-        height: var(--uui-size-medium, 24px);
+        height: var(--uui-size-8);
       }
     `,
   ];

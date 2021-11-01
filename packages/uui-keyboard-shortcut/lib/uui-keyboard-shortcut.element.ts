@@ -11,7 +11,7 @@ export class UUIKeyboardShortcutElement extends LitElement {
       :host {
         display: inline-block;
         font-family: inherit;
-        font-size: var(--uui-size-small);
+        font-size: var(--uui-size-4);
       }
 
       ::slotted(*:first-child)uui-key {

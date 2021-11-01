@@ -17,8 +17,8 @@ export class UUIFileSymbolElement extends LitElement {
         position: absolute;
         bottom: 24%;
         left: 25.5%;
-        margin-left: calc(var(--uui-size-space-3) * -1);
-        padding: 0px var(--uui-size-space-3);
+        margin-left: calc(var(--uui-size-3) * -1);
+        padding: 0px var(--uui-size-3);
         font-weight: 700;
         color: var(--uui-color-gunmetal, #162335);
         background-color: var(--uui-color-spanish-pink, #f5c1bc);
