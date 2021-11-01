@@ -133,7 +133,6 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
       }
 
       button {
-        /* display: block; */
         padding: 0
           calc(
             (
@@ -421,8 +420,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     }
   }
 
-  private __renderState() {
-    console.log('switch state');
+  private _renderState() {
     let element = html``;
     switch (this.state) {
       case 'waiting':
@@ -444,7 +442,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
   render() {
     //prettier-ignore
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">${this.__renderState()}<slot name="badge"></slot><slot id="main-slot"></slot></slot></button>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">${this._renderState()}<slot name="badge"></slot><slot id="main-slot"></slot></button>
     `;
   }
 }
