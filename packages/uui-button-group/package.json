@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-button-group",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "An element to group buttons.",
   "keywords": [
@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.9"
+    "@umbraco-ui/uui-base": "0.0.10"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
