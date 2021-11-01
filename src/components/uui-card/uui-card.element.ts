@@ -19,7 +19,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         justify-content: center;
         box-sizing: border-box;
         box-shadow: 0 1px 1px 0 var(--uui-interface-border);
-        border-radius: var(--uui-size-border-radius, 3px);
+        border-radius: var(--uui-border-radius);
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface, white);
         --uui-card-before-opacity: 0;
@@ -32,9 +32,9 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-look-danger-border, #d42054);
-        box-shadow: 0 0 4px 0 var(--uui-look-danger-border, #d42054),
-          inset 0 0 2px 0 var(--uui-look-danger-border, #d42054);
+        border: 2px solid var(--uui-look-danger-border);
+        box-shadow: 0 0 4px 0 var(--uui-look-danger-border),
+          inset 0 0 2px 0 var(--uui-look-danger-border);
       }
 
       :host([selectable]) {
@@ -57,10 +57,10 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border: 2px solid var(--uui-interface-select, #1b264f);
-        border-radius: calc(var(--uui-size-border-radius, 3px) + 2px);
-        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
+        border: 2px solid var(--uui-interface-select);
+        border-radius: calc(var(--uui-border-radius) + 2px);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select),
+          inset 0 0 2px 0 var(--uui-interface-select);
       }
       :host([selected]) #select-border {
         opacity: 1;

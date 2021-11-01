@@ -14,8 +14,8 @@ export class UUILeadElement extends LitElement {
         font-size: 20px;
         padding-top: 2px;
         padding-bottom: 4px;
-        margin-top: var(--uui-size-large);
-        margin-bottom: var(--uui-size-medium);
+        margin-top: var(--uui-size-10);
+        margin-bottom: var(--uui-size-8);
       }
     `,
   ];

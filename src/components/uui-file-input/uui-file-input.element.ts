@@ -24,7 +24,7 @@ export class UUIFileInputElement extends LitElement {
 
       #button-icon {
         margin: 0;
-        color: var(--uui-color-maroon-flush, #d42054);
+        color: var(--uui-color-maroon-flush);
       }
 
       #file-container {
@@ -32,7 +32,7 @@ export class UUIFileInputElement extends LitElement {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         place-items: start stretch;
-        grid-gap: var(--uui-size-layout-0);
+        grid-gap: var(--uui-size-8);
         position: relative;
       }
 

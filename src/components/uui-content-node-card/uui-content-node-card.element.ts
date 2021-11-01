@@ -16,7 +16,7 @@ export class UUIContentNodeCardElement extends UUICardElement {
         min-width: 250px;
         flex-direction: column;
         justify-content: space-between;
-        padding: var(--uui-size-space-3, 12px);
+        padding: var(--uui-size-3);
       }
 
       slot[name='tag'] {
@@ -28,8 +28,8 @@ export class UUIContentNodeCardElement extends UUICardElement {
       }
 
       slot:not([name])::slotted(*) {
-        font-size: var(--uui-size-small, 12px);
-        line-height: calc(2 * var(--uui-size-xsmall, 9px));
+        font-size: var(--uui-size-4);
+        line-height: calc(2 * var(--uui-size-3));
       }
 
       #icon {

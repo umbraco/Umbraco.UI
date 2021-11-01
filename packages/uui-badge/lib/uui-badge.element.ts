@@ -28,8 +28,8 @@ export class UUIBadgeElement extends LitElement {
 
         margin-right: 0 !important;
 
-        min-width: var(--uui-size-small);
-        min-height: var(--uui-size-small);
+        min-width: var(--uui-size-4);
+        min-height: var(--uui-size-4);
 
         border-width: var(--uui-badge-border-width, 1px);
         border-style: solid;
@@ -37,7 +37,7 @@ export class UUIBadgeElement extends LitElement {
           --uui-badge-border-color,
           var(--uui-interface-surface)
         );
-        border-radius: var(--uui-size-small);
+        border-radius: var(--uui-size-4);
 
         background-color: var(
           --uui-badge-background-color,

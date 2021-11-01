@@ -24,7 +24,7 @@ export class UUIDropdownElement extends LitElement {
 
       #data-container {
         box-sizing: border-box;
-        border-radius: var(--uui-size-border-radius);
+        border-radius: var(--uui-border-radius);
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
       }
 
