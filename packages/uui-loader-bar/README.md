@@ -1,6 +1,8 @@
 # uui-loader-bar
 
-## Usage
+## Installation
+
+### ES imports
 
 ```zsh
 npm i @umbraco-ui/uui-loader-bar
@@ -18,8 +20,20 @@ When looking to leverage the `UUILoaderBarElement` base class as a type and/or f
 import { UUILoaderBarElement } from '@umbraco-ui/uui-loader-bar/lib/uui-loader-bar.element';
 ```
 
-## Example
+### CDN
+
+The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
 
 ```html
-  <uui-loader-bar></uui-loader-bar>
+<!-- Latest Version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-loader-bar@latest/dist/uui-loader-bar.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-loader-bar@X.X.X/dist/uui-loader-bar.min.js"></script>
+```
+
+## Usage
+
+```html
+<uui-loader-bar></uui-loader-bar>
 ```

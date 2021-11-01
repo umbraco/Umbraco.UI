@@ -1,6 +1,8 @@
 # uui-loader-circle
 
-## Usage
+## Installation
+
+### ES imports
 
 ```zsh
 npm i @umbraco-ui/uui-loader-circle
@@ -18,8 +20,20 @@ When looking to leverage the `UUILoaderCircleElement` base class as a type and/o
 import { UUILoaderCircleElement } from '@umbraco-ui/uui-loader-circle/lib/uui-loader-circle.element';
 ```
 
-## Example
+### CDN
+
+The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
 
 ```html
-  <uui-loader-circle></uui-loader-circle>
+<!-- Latest Version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-loader-circle@latest/dist/uui-loader-circle.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-loader-circle@X.X.X/dist/uui-loader-circle.min.js"></script>
+```
+
+## Usage
+
+```html
+<uui-loader-circle></uui-loader-circle>
 ```
