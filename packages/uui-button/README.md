@@ -1,6 +1,8 @@
 # uui-button
 
-## Usage
+## Installation
+
+### ES imports
 
 ```zsh
 npm i @umbraco-ui/uui-button
@@ -18,7 +20,19 @@ When looking to leverage the `UUIButtonElement` base class as a type and/or for 
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
 ```
 
-## Example
+### CDN
+
+The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
+
+```html
+<!-- Latest Version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-button@latest/dist/uui-button.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-button@X.X.X/dist/uui-button.min.js"></script>
+```
+
+## Usage
 
 ```html
   <uui-button label="Basic Button" look="primary">Basic button</uui-button>
