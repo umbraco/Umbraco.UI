@@ -16,6 +16,7 @@ export type ButtonState = null | 'waiting' | 'success' | 'failed';
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
+ *  @slot badge - for badge
  *  @description - All-round button
  *  @cssprop --uui-button-height - set the button height
  *  @cssprop --uui-button-border-width - set the border width
@@ -48,16 +49,8 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
         --uui-button-slot-padding-r-factor: 1;
       }
 
-      :host([state]:not([state=''])) .label {
-        opacity: 0;
-      }
-
-      .label {
-        transition: opacity 150ms linear;
-        display: none;
-      }
-
-      button > span.label {
+      :host([state]:not([state=''])) #main-slot {
+        visibility: hidden;
       }
 
       #state {
@@ -451,7 +444,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
   render() {
     //prettier-ignore
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">${this.renderLabel()}${this.__renderState()}<slot></slot></button>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">${this.__renderState()}<slot name="badge"></slot><slot id="main-slot"></slot></slot></button>
     `;
   }
 }

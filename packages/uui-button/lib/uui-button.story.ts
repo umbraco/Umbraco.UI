@@ -111,33 +111,14 @@ export const WithBadge: Story = props => {
       ?disabled=${props.disabled}
       look=${props.look}
       state=${props.state}
-      ><uui-badge>!</uui-badge>I can has badge</uui-button
+      ><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button
     >
   `;
 };
-Disabled.parameters = {
+WithBadge.parameters = {
   docs: {
     source: {
-      code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
-    },
-  },
-};
-
-//prettier-ignore
-const labelTemplate: Story = props => {
-  return html`<uui-button
-  ?disabled=${props.disabled}
-  look=${props.look}
-  state=${props.state}
-  label="humpf">Something</uui-button>`;
-};
-
-export const slotLabelTest = labelTemplate.bind({});
-slotLabelTest.args = { look: 'secondary', state: null };
-slotLabelTest.parameters = {
-  docs: {
-    source: {
-      code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
+      code: `<uui-button><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button>`,
     },
   },
 };
@@ -203,8 +184,3 @@ Looks.parameters = {
 //     <uui-icon name="info"></uui-icon>
 //   </uui-button>
 // `;
-
-// export const WithBadge = () => html` <uui-button look="primary">
-//   Button label
-//   <uui-badge>!</uui-badge>
-// </uui-button>`;
