@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-button",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "All-round button, Umbraco backoffice style.",
   "keywords": [
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/uui-button.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.7"
+    "@umbraco-ui/uui-base": "^0.0.9"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

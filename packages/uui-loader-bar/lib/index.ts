@@ -1,3 +1,4 @@
 import { UUILoaderBarElement } from './uui-loader-bar.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-loader-bar', UUILoaderBarElement as any);
+defineElement('uui-loader-bar', UUILoaderBarElement as any);

@@ -1,3 +1,4 @@
 import { UUIBoxElement } from './uui-box.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-box', UUIBoxElement);
+defineElement('uui-box', UUIBoxElement);

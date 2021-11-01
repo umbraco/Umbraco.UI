@@ -22,6 +22,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    source: { state: 'open' },
+  },
   options: {
     method: 'alphabetical',
     storySort: sort,
