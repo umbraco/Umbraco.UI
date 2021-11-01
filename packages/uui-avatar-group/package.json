@@ -31,9 +31,6 @@
   "dependencies": {
     "@umbraco-ui/uui-base": "^0.0.9"
   },
-  "devDependencies": {
-    "@umbraco-ui/uui-avatar": "^0.0.11"
-  },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
