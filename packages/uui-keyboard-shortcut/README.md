@@ -1,4 +1,6 @@
-# uui-input
+# uui-keyboard-shortcut
+
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-keyboard-shortcut?logoColor=%231B264F)
 
 ## Installation
 

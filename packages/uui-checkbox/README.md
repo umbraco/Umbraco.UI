@@ -1,5 +1,7 @@
 # uui-checkbox
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-checkbox?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports

@@ -1,5 +1,7 @@
 # uui-avatar-group
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-avatar-group?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports

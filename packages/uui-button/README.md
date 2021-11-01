@@ -1,5 +1,7 @@
 # uui-button
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports
@@ -35,5 +37,5 @@ The component is available via CDN. This means it can be added to your applicati
 ## Usage
 
 ```html
-  <uui-button label="Basic Button" look="primary">Basic button</uui-button>
+<uui-button label="Basic Button" look="primary">Basic button</uui-button>
 ```
