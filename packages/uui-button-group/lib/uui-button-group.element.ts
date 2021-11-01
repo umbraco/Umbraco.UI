@@ -21,12 +21,12 @@ export class UUIButtonGroupElement extends LitElement {
         --uui-button-merge-border-left: 1;
       }
       ::slotted(*:first-child) {
-        --uui-button-border-radius: var(--uui-size-border-radius, 3px) 0 0
-          var(--uui-size-border-radius, 3px);
+        --uui-button-border-radius: var(--uui-border-radius) 0 0
+          var(--uui-border-radius);
       }
       ::slotted(*:last-child) {
-        --uui-button-border-radius: 0 var(--uui-size-border-radius, 3px)
-          var(--uui-size-border-radius, 3px) 0;
+        --uui-button-border-radius: 0 var(--uui-border-radius)
+          var(--uui-border-radius) 0;
       }
 
       ::slotted(uui-dropdown) {
@@ -37,15 +37,13 @@ export class UUIButtonGroupElement extends LitElement {
       }
       ::slotted(uui-dropdown:first-child) {
         --uui-dropdown-toggle-slot-button-border-radius: var(
-            --uui-size-border-radius,
-            3px
+            --uui-border-radius
           )
-          0 0 var(--uui-size-border-radius, 3px);
+          0 0 var(--uui-border-radius);
       }
       ::slotted(uui-dropdown:last-child) {
         --uui-dropdown-toggle-slot-button-border-radius: 0
-          var(--uui-size-border-radius, 3px) var(--uui-size-border-radius, 3px)
-          0;
+          var(--uui-border-radius) var(--uui-border-radius) 0;
       }
 
       ::slotted(*:hover) {

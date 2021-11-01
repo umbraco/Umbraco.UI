@@ -21,8 +21,8 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         width: 100%;
 
         box-sizing: border-box;
-        border-radius: var(--uui-size-border-radius, 3px);
-        background-color: var(--uui-interface-surface, white);
+        border-radius: var(--uui-border-radius);
+        background-color: var(--uui-interface-surface);
         --uui-card-before-opacity: 0;
         transition: --uui-card-before-opacity 120ms;
       }
@@ -33,9 +33,9 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-look-danger-border, #d42054);
-        box-shadow: 0 0 4px 0 var(--uui-look-danger-border, #d42054),
-          inset 0 0 2px 0 var(--uui-look-danger-border, #d42054);
+        border: 2px solid var(--uui-look-danger-border);
+        box-shadow: 0 0 4px 0 var(--uui-look-danger-border),
+          inset 0 0 2px 0 var(--uui-look-danger-border);
       }
 
       :host([border]) {
@@ -62,10 +62,10 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border: 2px solid var(--uui-interface-select, #1b264f);
-        border-radius: calc(var(--uui-size-border-radius, 3px) + 2px);
-        box-shadow: 0 0 4px 0 var(--uui-interface-select, #1b264f),
-          inset 0 0 2px 0 var(--uui-interface-select, #1b264f);
+        border: 2px solid var(--uui-interface-select);
+        border-radius: calc(var(--uui-border-radius) + 2px);
+        box-shadow: 0 0 4px 0 var(--uui-interface-select),
+          inset 0 0 2px 0 var(--uui-interface-select);
       }
       :host([selected]) #select-border {
         opacity: 1;
@@ -125,8 +125,8 @@ export class UUIBaseListItemElement extends SelectableMixin(LitElement) {
       slot[name='actions'] {
         display: flex;
         align-items: center;
-        --uui-button-height: calc(var(--uui-size-base-unit) * 4);
-        margin-right: var(--uui-size-base-unit);
+        --uui-button-height: calc(var(--uui-size-2) * 4);
+        margin-right: var(--uui-size-2);
       }
       #actions-container {
         opacity: 0;

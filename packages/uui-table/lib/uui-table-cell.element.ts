@@ -10,7 +10,7 @@ export class UUITableCellElement extends LitElement {
     css`
       :host {
         display: table-cell;
-        padding: var(--uui-size-space-3);
+        padding: var(--uui-size-3);
         border-top: 1px solid var(--uui-interface-border);
         max-width: 0;
         overflow: hidden;

@@ -14,7 +14,7 @@ export class UUINodeListItemElement extends UUIBaseListItemElement {
     css`
       :host {
         min-width: 250px;
-        padding: calc(var(--uui-size-space-2) + 1px);
+        padding: calc(var(--uui-size-2) + 1px);
       }
 
       #open-part {
@@ -28,8 +28,8 @@ export class UUINodeListItemElement extends UUIBaseListItemElement {
 
       #icon {
         font-size: 1.2em;
-        margin-left: var(--uui-size-space-2);
-        margin-right: var(--uui-size-space-1);
+        margin-left: var(--uui-size-2);
+        margin-right: var(--uui-size-1);
       }
 
       #info {
@@ -38,7 +38,7 @@ export class UUINodeListItemElement extends UUIBaseListItemElement {
         align-items: start;
         justify-content: center;
         height: 100%;
-        padding-left: var(--uui-size-space-2);
+        padding-left: var(--uui-size-2);
       }
 
       #name {
@@ -46,7 +46,7 @@ export class UUINodeListItemElement extends UUIBaseListItemElement {
       }
 
       #detail {
-        font-size: var(--uui-type-small-size);
+        font-size: var(--uui-size-4);
       }
 
       :host(:not([disabled])) #open-part:hover #icon {

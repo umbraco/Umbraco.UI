@@ -30,9 +30,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: relative;
         display: flex;
         align-items: stretch;
-        padding-left: calc(
-          var(--uui-menu-item-indent, 0) * var(--uui-size-layout-0, 24px)
-        );
+        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-8));
       }
 
       button {
@@ -45,8 +43,8 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: transparent;
         cursor: pointer;
         z-index: 1;
-        padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit);
-        min-height: calc(var(--uui-size-base-unit) * 6);
+        padding: 0 var(--uui-size-2) 0 var(--uui-size-2);
+        min-height: var(--uui-size-12);
       }
       button:hover {
         color: var(--uui-interface-contrast-hover);
@@ -130,8 +128,8 @@ export class UUIMenuItemElement extends SelectableMixin(
       slot[name='actions'] {
         display: flex;
         align-items: center;
-        --uui-button-height: calc(var(--uui-size-base-unit) * 4);
-        margin-right: var(--uui-size-base-unit);
+        --uui-button-height: var(--uui-size-8);
+        margin-right: var(--uui-size-2);
       }
       #actions-container {
         opacity: 0;
