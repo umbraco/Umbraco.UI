@@ -15,6 +15,7 @@ export default {
 
   args: {
     look: '',
+    content: 'Button',
   },
   argTypes: {
     look: {
@@ -104,6 +105,24 @@ Disabled.parameters = {
   },
 };
 
+export const WithBadge: Story = props => {
+  return html`
+    <uui-button
+      ?disabled=${props.disabled}
+      look=${props.look}
+      state=${props.state}
+      ><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button
+    >
+  `;
+};
+WithBadge.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button>`,
+    },
+  },
+};
+
 export const Compact = Template.bind({});
 Compact.args = { label: 'Compact', compact: true, look: 'secondary' };
 Compact.parameters = {
@@ -165,8 +184,3 @@ Looks.parameters = {
 //     <uui-icon name="info"></uui-icon>
 //   </uui-button>
 // `;
-
-// export const WithBadge = () => html` <uui-button look="primary">
-//   Button label
-//   <uui-badge>!</uui-badge>
-// </uui-button>`;

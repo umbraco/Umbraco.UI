@@ -9,12 +9,14 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
+import { iconCheck, iconWrong } from './button-icons';
 
 export type ButtonState = null | 'waiting' | 'success' | 'failed';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
+ *  @slot badge - for badge
  *  @description - All-round button
  *  @cssprop --uui-button-height - set the button height
  *  @cssprop --uui-button-border-width - set the border width
@@ -29,7 +31,7 @@ export type ButtonState = null | 'waiting' | 'success' | 'failed';
  *  @cssprop --uui-button-background-color-disabled - set the background color for disabled state
  *  @cssprop --uui-button-contrast-disabled - set the text color for disabled state
  */
-export class UUIButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonElement extends LabelMixin('label', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
@@ -47,12 +49,8 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         --uui-button-slot-padding-r-factor: 1;
       }
 
-      :host([state]:not([state=''])) span.label {
-        opacity: 0;
-      }
-
-      span.label {
-        transition: opacity 150ms linear;
+      :host([state]:not([state=''])) #main-slot {
+        visibility: hidden;
       }
 
       #state {
@@ -134,8 +132,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
-      button > .label {
-        display: block;
+      button {
         padding: 0
           calc(
             (
@@ -150,6 +147,14 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
                 var(--uui-button-slot-padding-l-factor)
             )
           );
+      }
+
+      #icon-check,
+      #icon-wrong {
+        fill: currentColor;
+        display: grid;
+        place-items: center;
+        width: 1.5em;
       }
 
       /* ANIMATIONS */
@@ -415,17 +420,17 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     }
   }
 
-  private __renderState() {
+  private _renderState() {
     let element = html``;
     switch (this.state) {
       case 'waiting':
         element = html`<uui-loader-circle size="m"></uui-loader-circle>`;
         break;
       case 'success':
-        element = html`<span style="font-size: 24px">✔</span>`;
+        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
         break;
       case 'failed':
-        element = html`<span style="font-size: 24px; line-height: 1;">🗙</span>`;
+        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
         break;
       default:
         return '';
@@ -435,10 +440,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   }
 
   render() {
+    //prettier-ignore
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">
-        ${this.renderLabel()} ${this.__renderState()}
-      </button>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">${this._renderState()}<slot name="badge"></slot><slot id="main-slot"></slot></button>
     `;
   }
 }
