@@ -1,0 +1,19 @@
+import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
+import '@umbraco-ui/{{> tagnamePartial }}/lib/index';
+
+export default {
+   title: '{{displayName name}}',
+    component: '{{> tagnamePartial}}',
+  id: '{{> tagnamePartial}}',
+  parameters: {
+    docs: {
+      source: {
+        code: `<{{> tagnamePartial}}></{{> tagnamePartial}}>`,
+      },
+    },
+  },
+};
+
+export const Overview: Story = props =>
+  html`<{{> tagnamePartial}}></{{> tagnamePartial}}>`;

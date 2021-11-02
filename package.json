@@ -41,7 +41,8 @@
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
     "bootstrap": "node ./scripts/generate-ts-config.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "new-package": "plop"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -76,6 +77,7 @@
     "husky": "^7.0.0",
     "lerna": "^4.0.0",
     "lint-staged": "^10.0.0",
+    "plop": "^2.7.6",
     "postcss": "^8.3.9",
     "postcss-advanced-variables": "^3.0.1",
     "postcss-cli": "^9.0.1",

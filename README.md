@@ -8,6 +8,12 @@ This is a UI-library for [Umbraco CMS](https://umbraco.com/) and friends. It is 
 
 The elements are web components built with [Lit](https://lit.dev/) and are meant to be displayed with [UI Library Storybook](https://uui.umbraco.com/).
 
+The Storybook is also a development environment for the components.
+
+If you want to use a component in your project find it in the table below and follow the instructions from components readme.
+
+If you want to develop a component or contribute to the repository go to ["Get started"](#get-started) section.
+
 ## Components
 
 | Component                                                                                                  | Status                                                                                     |
