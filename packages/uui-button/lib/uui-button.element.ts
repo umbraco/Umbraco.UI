@@ -404,10 +404,11 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
   }
   connectedCallback() {
     super.connectedCallback();
-    if (!customElements.get('uui-loader'))
+    if (!customElements.get('uui-loader-circle')) {
       console.warn(
-        'To properly render the waiting state, the uui-loader element has to be registered'
+        'To properly render the waiting state, the uui-loader-circle element has to be registered'
       );
+    }
   }
 
   // Reset the state after 3sec if it is 'success'
