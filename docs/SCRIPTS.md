@@ -99,3 +99,7 @@ npm run lerna:modify-package remove homepage
 ## `bootstrap`
 
 Generate `tsconfig` for each package.
+
+## `new-package`
+
+Scaffolds files for new components.

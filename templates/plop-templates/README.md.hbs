@@ -1,29 +1,42 @@
-## Description
+# {{> tagnamePartial}}
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/{{> tagnamePartial}}?logoColor=%231B264F)
 
+Umbraco style {{name}} component.
 
-### Usage
+## Installation
 
-[![See it on NPM!](https://img.shields.io/npm/v/@spectrum-web-components/{{ name }}?style=for-the-badge)](https://www.npmjs.com/package/@spectrum-web-components/{{ name }})
-[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/@spectrum-web-components/{{ name }}?style=for-the-badge)](https://bundlephobia.com/result?p=@spectrum-web-components/{{ name }})
+## ES imports
 
+```zsh
+npm i @umbraco-ui/{{> tagnamePartial}}
 ```
-yarn add @spectrum-web-components/{{ name }}
-```
 
-Import the side effectful registration of `<{{> tagnamePartial}}>` via:
+Import the registration of `<{{> tagnamePartial}}>` via:
 
-```
-import '@spectrum-web-components/{{ name }}/{{> tagnamePartial}}.js';
+```javascript
+import '@umbraco-ui/{{> tagnamePartial}}/lib';
 ```
 
 When looking to leverage the `{{className name}}` base class as a type and/or for extension purposes, do so via:
 
-```
-import { {{className name}} } from '@spectrum-web-components/{{ name }}';
+```javascript
+import { {{className name}} } from '@umbraco-ui/{{> tagnamePartial}}/lib/{{> tagnamePartial}}.element';
 ```
 
-## Example
+### CDN
+
+The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
+
+```html
+<!-- Latest Version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/{{> tagnamePartial}}@latest/dist/{{> tagnamePartial}}.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/{{> tagnamePartial}}@X.X.X/dist/{{> tagnamePartial}}.min.js"></script>
+```
+
+## Usage
 
 ```html
 <{{> tagnamePartial}}></{{> tagnamePartial}}>

@@ -11,7 +11,7 @@ module.exports = function (plop) {
     });
     camel[0] = camel[0].toUpperCase();
     const capitalized = camel.charAt(0).toUpperCase() + camel.substring(1);
-    return capitalized;
+    return `UUI${capitalized}Element`;
   });
   // uui-base version
   plop.setHelper('uuiBaseVersion', function () {
@@ -26,15 +26,6 @@ module.exports = function (plop) {
     camel[0] = camel[0].toUpperCase();
     const capitalized = camel.charAt(0).toUpperCase() + camel.substring(1);
     return capitalized;
-  });
-  plop.setActionType('install deps', function (answers) {
-    // execSync(
-    //   `cd ../../ && yarn lerna add @spectrum-web-components/base --scope=@spectrum-web-components/${answers.name} --no-bootstrap`
-    // );
-    // execSync(
-    //   `cd ../../ && yarn lerna add @spectrum-css/${answers.spectrum} --scope=@spectrum-web-components/${answers.name} --dev --no-bootstrap`
-    // );
-    execSync(`npm i`);
   });
   plop.setGenerator('component', {
     description: 'application controller logic',
@@ -92,6 +83,11 @@ module.exports = function (plop) {
       //     path: './packages/{{> tagnamePartial }}/tsconfig.json',
       //     templateFile: './templates/plop-templates/tsconfig.json.hbs',
       //   },
+      {
+        type: 'add',
+        path: './packages/{{> tagnamePartial }}/rollup.config.js',
+        templateFile: './templates/plop-templates/rollup.config.hbs',
+      },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/package.json',
