@@ -68,7 +68,9 @@ npm run test
 - `test` runs your test suite with Web Test Runner
 - `format` runs linter and autoformatter
 
+See the rest of [the scripts here](docs/SCRIPTS.md).
+
 ## Contributions
 
 - 📥 Pull requests and 🌟 Stars are always welcome.
-- Read our [contributing guide](CONTRIBUTING.md) to get started.
+- Read our [contributing guide](docs/CONTRIBUTING.md) to get started.
