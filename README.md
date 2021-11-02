@@ -1,10 +1,12 @@
 ![UI Library](docs/images/UI.png)
 
-# Umbraco.UI
+# [Umbraco UI Library](https://uui.umbraco.com/)
 
-This is a UI-library for Umbraco CMS and friends. This means that all elements should make sense in any context.
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE.md) [![Twitter](https://img.shields.io/twitter/follow/umbraco.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=umbraco)
 
-The elements are web components built with [Lit](https://lit.dev/) and are meant to be displayed with [UI Library Storybook](https://uui.umbraco.com/). The storybook knobs and docs are automatically created from the source, so please make sure to add the appropriate jsdoc-comments. See an existing element (eg. uui-button) for inspiration, or checkout [web-component-analyzer](https://github.com/runem/web-component-analyzer) for docs.
+This is a UI-library for [Umbraco CMS](https://umbraco.com/) and friends. It is a collection of user interface components that can be used to build Umbraco style interfaces.
+
+The elements are web components built with [Lit](https://lit.dev/) and are meant to be displayed with [UI Library Storybook](https://uui.umbraco.com/).
 
 ## Components
 
@@ -30,12 +32,13 @@ The elements are web components built with [Lit](https://lit.dev/) and are meant
 | [`<uui-tabs>`](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui-tabs)                           | ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-tabs?logoColor=%231B264F)              |
 | [`<uui-tag>`](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui-tag)                             | ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-tag?logoColor=%231B264F)               |
 | [`<uui-toggle>`](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui-toggle)                       | ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toggle?logoColor=%231B264F)            |
+| [`uui` bundle package](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui)                        | ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui?logoColor=%231B264F)                   |
 
 ## Get started
 
 ### Installation
 
-This project uses nodejs, so you should install `nodejs` as the package manager on your machine. See [installation guide](https://nodejs.org/en/).
+This project uses nodejs, so you should install `nodejs` as the package manager on your machine. See [installation guide](https://nodejs.org/en/). The UI Library requires npm in version 7 or higher, due to the use of npm workspaces.
 
 ```sh
 git clone https://github.com/umbraco/Umbraco.UI.git
@@ -44,7 +47,7 @@ npm install
 
 ### Run storybook
 
-This command will build the project, start a server running storybook and watch for changes.
+This command will start a server running storybook and watch for changes.
 
 ```sh
 npm run storybook
