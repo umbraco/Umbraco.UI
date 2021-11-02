@@ -1,73 +1,72 @@
 # Umbraco UI components
 
-### Basics
+:hammer_and_wrench: - WIP in [`./src/components`](https://github.com/umbraco/Umbraco.UI/tree/dev/src/components)
+:package: - released
 
-- Action bar (maybe just button-group, used in Cards, Lists etc. ust a round cornered box holding some buttons)
-- Avatar
-- Avatar Group
-- Badge
-- Button
-- Button Group
+without emoji - untouched idea
+
+## Basics
+
+- :hammer_and_wrench: Action bar (maybe just button-group, used in Cards, Lists etc. ust a round cornered box holding some buttons)
+- :package: Avatar
+- :package: Avatar Group
+- :package: Badge
+- :package: Button
+- :package: Button Group
 - Button Grid (use for Icon selector, Colors)
-- Cards (One base and maybe more specific card types, concepts: Node, Media, Image, File, Folder, DocumentType, User, Member, Form, DataType, CloudProject...)
-- Card Grid (Show any type of card)
+- :hammer_and_wrench: Cards (One base and maybe more specific card types, concepts: Node, Media, Image, File, Folder, DocumentType, User, Member, Form, DataType, CloudProject...)
+- :hammer_and_wrench: Card Grid (Show any type of card)
 - Card Grid Create Button
-- Caret symbol
-- Checkbox
+- :hammer_and_wrench: Caret symbol
+- :package: Checkbox
 - Color picker
-- Date & Time picker
-- Base Dropdown (Open towards, picked entry-display and unfold-display.)
-- Dropdown Select List (A dropdown with select component baked in)
-- FileInput Dropzone
-- FileInput Input
-- FileInput Preview (Form data, displays one of three symbols:...)
-- File Symbol
-- Folder Symbol
-- Image-File Symbol (A frame on a thumbnail)
-- Icon
-- Inline create button (Vertical, Horizontal. the one from BL and MediaPicker v3)
-- Loader
-- Locked part (offen used for locking the Alias)
-- Menu item
-- Menu item list
-- More symbol ( three dots )
+- :hammer_and_wrench: Date & Time picker
+- :hammer_and_wrench: Base Dropdown (Open towards, picked entry-display and unfold-display.)
+- :hammer_and_wrench: Dropdown Select List (A dropdown with select component baked in)
+- :hammer_and_wrench: FileInput Dropzone
+- :hammer_and_wrench: FileInput Input
+- :hammer_and_wrench: FileInput Preview (Form data, displays one of three symbols:...)
+- :hammer_and_wrench: File Symbol
+- :hammer_and_wrench: Folder Symbol
+- :hammer_and_wrench: Image-File Symbol (A frame on a thumbnail)
+- :hammer_and_wrench: Icon
+- :hammer_and_wrench: Inline create button (Vertical, Horizontal. the one from BL and MediaPicker v3)
+- :package: Input
+- :package: Loader
+- :hammer_and_wrench: Locked part (often used for locking the Alias)
+- :hammer_and_wrench: Menu item
+- :hammer_and_wrench: Menu item list
+- :hammer_and_wrench: More symbol ( three dots )
 - Node Display (Today called: Node-Preview, this is a base component that will be used for creating specific types for Content, Media, Image, File, Folder, DocumentType, User, Member, Form, DataType, etc.)
 - Node Display List
-- Overflow container
-- Password input
-- Progress bar
-- Progress circle
-- Radio
-- Radio Group
+- :hammer_and_wrench: Overflow container
+- :hammer_and_wrench: Password input
+- :package: Progress bar
+- :package: Progress circle
+- :package: Radio
 - Rich text Editor
-- Single Slider
+- :package: Single Slider
 - Range Slider
-- Tag
-- Table
-- Table-head
-- Table-head-column (intractable, sortable, disabled)
-- Table-row (Selectable, disabled)
-- Table-column
-- Toggle
-- TextField
+- :package: Tag
+- :package: Table
+- :package: Toggle
 - TextAreaField
 - Search input
 
-### Fragments
+## Fragments
 
-- Dialog
+- :hammer_and_wrench: Dialog
 - Notification
 - Notification List
 - Tooltip
 - Tooltip button (Little i, which can be clicked to get more info)
 
-### Navigation
+## Navigation
 
-- Breadcrumbs
+- :package: Breadcrumbs
 - Overlay
 - Overlay Manager (ability to stack overlays, left, right, animate in and out)
 - Tree
-- Tab
-- Tab Group
+- :package: Tabs
 - Typeahead
-- Pagination
+- :hammer_and_wrench: Pagination
