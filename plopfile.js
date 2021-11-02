@@ -1,4 +1,3 @@
-const { execSync } = require('child_process');
 const { kebabCase } = require('lodash');
 
 module.exports = function (plop) {
@@ -33,24 +32,16 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'UUI element name (i.e. color-area)',
+        message:
+          'UUI element name (i.e. color-area). uui- prefix will be added automatically',
         validate: answer => {
           if (answer.length < 1) {
             return "There is no way we're moving forward without a name for your component.";
           } else return true;
         },
-        // Convert the input into kebab case if not provided as such and strip swc- prefixing if present
+        // Convert the input into kebab case if not provided as such and strip prefix
         filter: response => kebabCase(response.replace(/^uui-/, '')),
       },
-      //   {
-      //     type: 'input',
-      //     name: 'stuff',
-      //     message: 'The name for your package (i.e. colorarea)',
-      //     // Remove the package prefix if provided and strip out any dashes or spaces in the result
-      //     filter: response => {
-      //       return response.replace(/^\@umbraco-ui\//, '').replace(/[-|\s]/g, '');
-      //     },
-      //   },
     ],
     actions: [
       {
@@ -78,11 +69,6 @@ module.exports = function (plop) {
         path: './packages/{{> tagnamePartial }}/README.md',
         templateFile: './templates/plop-templates/README.md.hbs',
       },
-      //   {
-      //     type: 'add',
-      //     path: './packages/{{> tagnamePartial }}/tsconfig.json',
-      //     templateFile: './templates/plop-templates/tsconfig.json.hbs',
-      //   },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/rollup.config.js',
