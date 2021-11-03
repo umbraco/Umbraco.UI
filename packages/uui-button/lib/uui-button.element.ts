@@ -357,14 +357,14 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
       }
     `,
   ];
-    /**
+  /**
    * Specifies the type of button.
    * @type { "submit" | "button" | "reset" }
    * @attr
    * @default "submit"
    */
-     @property({ type: String, reflect: true })
-     type: UUIButtonType = 'submit';
+  @property({ type: String, reflect: true })
+  type: UUIButtonType = 'submit';
 
   /**
    * Disables the button, changes the looks of it and prevents if from emitting the click event
@@ -420,7 +420,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     }
 
     if (this._internals?.form) {
-      switch(this.type) {
+      switch (this.type) {
         case 'reset':
           this._internals.form.reset();
           break;

@@ -80,7 +80,8 @@ const Template: Story = props => {
       look=${props.look}
       label=${props.label}
       state=${props.state}
-      >${props.content}</uui-button>
+      >${props.content}</uui-button
+    >
   `;
 };
 

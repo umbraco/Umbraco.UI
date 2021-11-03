@@ -6,7 +6,7 @@ describe('UuiButton', () => {
   let formElement: HTMLFormElement;
   let inputElement: HTMLInputElement;
   let element: UUIButtonElement;
-  
+
   beforeEach(async () => {
     formElement = await fixture(
       html`
@@ -16,7 +16,7 @@ describe('UuiButton', () => {
         </form>
       `
     );
-    
+
     inputElement = formElement.querySelector('input');
     element = formElement.querySelector('uui-button');
   });
@@ -36,18 +36,18 @@ describe('UuiButton', () => {
     beforeEach(async () => {
       wasSubmitted = false;
 
-      formElement.addEventListener('submit', (event) => {
+      formElement.addEventListener('submit', event => {
         event.preventDefault();
         wasSubmitted = true;
       });
     });
 
-    it('submits a form by default', async () => {  
+    it('submits a form by default', async () => {
       element.click();
       expect(wasSubmitted).to.true;
     });
 
-    it ('can submit a form when type is submit', async () => {
+    it('can submit a form when type is submit', async () => {
       element.setAttribute('type', 'submit');
       element.click();
       expect(wasSubmitted).to.true;
@@ -58,7 +58,6 @@ describe('UuiButton', () => {
       element.click();
       expect(wasSubmitted).to.false;
     });
-
   });
 
   describe('reset', () => {
@@ -75,20 +74,20 @@ describe('UuiButton', () => {
       });
     });
 
-    it ('can reset a form when type is reset', async () => {
+    it('can reset a form when type is reset', async () => {
       element.click();
       expect(wasReset).to.true;
-  
+
       const formData = new FormData(formElement);
       expect(formData.get('test')).to.equal('');
     });
 
-    it ('does not reset when disabled', async () => {
+    it('does not reset when disabled', async () => {
       element.disabled = true;
-  
+
       element.click();
       expect(wasReset).to.false;
-  
+
       const formData = new FormData(formElement);
       expect(formData.get('test')).to.equal('Test value');
     });
@@ -105,18 +104,16 @@ describe('UuiButton', () => {
         wasClicked = true;
       });
     });
-    
+
     it('dispatches click event when type is button', async () => {
       element.click();
       expect(wasClicked).to.true;
     });
-  
+
     it('does not click when disabled', async () => {
       element.disabled = true;
       element.click();
       expect(wasClicked).to.false;
     });
-
   });
-
 });
