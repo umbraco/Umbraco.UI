@@ -1,5 +1,7 @@
 # uui-radio
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-radio?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports
@@ -36,10 +38,10 @@ The component is available via CDN. This means it can be added to your applicati
 ## Usage
 
 ```html
-  <uui-radio-group name="Options">
-    <uui-radio value="1">Option 1</uui-radio>
-    <uui-radio value="2">Option 2</uui-radio>
-    <uui-radio value="3">Option 3</uui-radio>
-    <uui-radio value="4">Option 4</uui-radio>
-  </uui-radio-group>
+<uui-radio-group name="Options">
+  <uui-radio value="1">Option 1</uui-radio>
+  <uui-radio value="2">Option 2</uui-radio>
+  <uui-radio value="3">Option 3</uui-radio>
+  <uui-radio value="4">Option 4</uui-radio>
+</uui-radio-group>
 ```

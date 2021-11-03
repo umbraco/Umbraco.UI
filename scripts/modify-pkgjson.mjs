@@ -9,7 +9,7 @@ const args = process.argv;
 if (args.length <= 2) {
   console.error(`
   This script needs minimum two arguments.
-  1: action type 'add' | 'remove' | 'modify'
+  1: action type 'add' | 'remove' 
   2: key 
   3: value (optional)
 

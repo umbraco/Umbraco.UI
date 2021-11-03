@@ -1,5 +1,7 @@
 # uui-table
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-table?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports

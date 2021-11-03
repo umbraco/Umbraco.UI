@@ -1,5 +1,7 @@
 # uui-breadcrumbs
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-breadcrumbs?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports

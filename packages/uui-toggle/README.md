@@ -1,5 +1,7 @@
 # uui-toggle
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toggle?logoColor=%231B264F)
+
 Umbraco style toggle component.
 
 ## Installation

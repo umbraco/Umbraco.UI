@@ -1,5 +1,7 @@
 # uui-slider
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-slider?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports

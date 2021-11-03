@@ -1,5 +1,7 @@
 # uui-input
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-input?logoColor=%231B264F)
+
 ## Installation
 
 ### ES imports
@@ -35,6 +37,12 @@ The component is available via CDN. This means it can be added to your applicati
 ## Usage
 
 ```html
-  <uui-input label="Username" type="text" placeholder="Enter your username..."></uui-input>
-  <uui-input label="Password" type="password" placeholder="Enter your password..."></uui-input>
+<uui-input
+  label="Username"
+  type="text"
+  placeholder="Enter your username..."></uui-input>
+<uui-input
+  label="Password"
+  type="password"
+  placeholder="Enter your password..."></uui-input>
 ```

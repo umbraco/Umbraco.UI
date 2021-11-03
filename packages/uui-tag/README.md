@@ -1,5 +1,7 @@
 # uui-tag
 
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-tag?logoColor=%231B264F)
+
 Tag component from Umbraco UI components library.
 
 ## Installation
