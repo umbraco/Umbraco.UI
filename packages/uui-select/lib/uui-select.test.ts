@@ -6,9 +6,7 @@ describe('UUISelectElement', () => {
   let element: UUISelectElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-select></uui-select> `
-    );
+    element = await fixture(html` <uui-select></uui-select> `);
   });
 
   it('passes the a11y audit', async () => {
