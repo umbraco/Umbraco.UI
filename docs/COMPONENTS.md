@@ -1,9 +1,8 @@
 # Umbraco UI components
 
-:hammer_and_wrench: - WIP in [`./src/components`](https://github.com/umbraco/Umbraco.UI/tree/dev/src/components)
-:package: - released
-
-without emoji - untouched idea
+- :hammer_and_wrench: - WIP in [`./src/components`](https://github.com/umbraco/Umbraco.UI/tree/dev/src/components)
+- :package: - released
+- without emoji - untouched idea
 
 ## Basics
 
