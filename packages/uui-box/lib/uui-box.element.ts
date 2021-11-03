@@ -23,7 +23,7 @@ export class UUIBoxElement extends LitElement {
         border-bottom: 1px solid var(--uui-interface-border);
         padding: var(--uui-size-4) var(--uui-size-5);
       }
-      
+
       ::slotted([slot='main']) {
         padding: var(--uui-size-5);
       }
