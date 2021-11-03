@@ -12,6 +12,9 @@ import {
 import { iconCheck, iconWrong } from './button-icons';
 
 export type ButtonState = null | 'waiting' | 'success' | 'failed';
+
+export type UUIButtonType = 'submit' | 'button' | 'reset';
+
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
@@ -354,6 +357,14 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
       }
     `,
   ];
+    /**
+   * Specifies the type of button.
+   * @type { "submit" | "button" | "reset" }
+   * @attr
+   * @default "submit"
+   */
+     @property({ type: String, reflect: true })
+     type: UUIButtonType = 'submit';
 
   /**
    * Disables the button, changes the looks of it and prevents if from emitting the click event
@@ -391,8 +402,13 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
   @property({ type: String, reflect: true })
   state: ButtonState = null;
 
+  static readonly formAssociated = true;
+
+  private _internals;
+
   constructor() {
     super();
+    this._internals = (this as any).attachInternals();
     this.addEventListener('click', this.onHostClick);
   }
 
@@ -400,8 +416,23 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     if (this.disabled) {
       e.preventDefault();
       e.stopImmediatePropagation();
+      return;
+    }
+
+    if (this._internals?.form) {
+      switch(this.type) {
+        case 'reset':
+          this._internals.form.reset();
+          break;
+        case 'button':
+          break;
+        default:
+          this._internals.form.requestSubmit();
+          break;
+      }
     }
   }
+
   connectedCallback() {
     super.connectedCallback();
     if (!customElements.get('uui-loader-circle')) {
