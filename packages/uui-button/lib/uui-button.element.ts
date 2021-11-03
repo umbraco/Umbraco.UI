@@ -11,7 +11,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/types';
 import { iconCheck, iconWrong } from './button-icons';
 
-export type ButtonState = null | 'waiting' | 'success' | 'failed';
+export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
 
@@ -400,7 +400,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
    * @default null
    */
   @property({ type: String, reflect: true })
-  state: ButtonState = null;
+  state: UUIButtonState = null;
 
   static readonly formAssociated = true;
 
