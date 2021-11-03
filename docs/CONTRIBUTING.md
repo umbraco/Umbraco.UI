@@ -22,6 +22,8 @@ Please follow the [pull request template](PULL_REQUEST_TEMPLATE.md) when submitt
 
 The UI Library components are [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) built with [Lit](https://lit.dev/) and Typescript. Lit is a light-weight base class that makes development of web components easier and handles all the necessary things, attaching shadow root, reactivity, attribute reflection etc. We strongly encourage you to take a look at Lit documentation before starting development.
 
+Using Typescript is mandatory when contributing to this repository, although it is not necessary to use it when consuming the components.
+
 ### New component
 
 You can create a new component and that way contribute to the UI library. But before you do that, go to the [`./src/components`](https://github.com/umbraco/Umbraco.UI/tree/dev/src/components) and check if it's not already there. Components from that folder are very much WIP will be gradually moved to packages. You may also look for an inspiration in this [components list](COMPONENTS.md), where you can check what component is in what stage.
@@ -50,6 +52,23 @@ npm i
 ```
 
 `tsconfig.json` file is generated automatically when `postinstall` script runs.
+
+### Properties and attributes
+
+[Reactive properties](https://lit.dev/docs/components/properties/) are what creates the component's public api API. They all have corresponding attribute, through which the property can be initialized when the custom element gets instantiated and connected to the DOM. By default the property is not reflected to the attribute, meaning if property value changes the attribute in the markup will keep its initial value, but it will stay observed - changing its value wil change the property. [Attributes can also be reflected](https://lit.dev/docs/components/properties/#reflected-attributes), and used for styling purposes for example.
+
+Each property you create should be documented with a jsdoc snippet. You can see an example of a property below.
+
+```javascript
+  /**
+   * Disables the button, changes the looks of it and prevents if from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+```
 
 ### Best practices for contributing to this library
 
