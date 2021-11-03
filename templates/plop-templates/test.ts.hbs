@@ -3,8 +3,9 @@ import { {{className name}} } from './{{> tagnamePartial}}.element';
 import '.';
 
 describe('{{className name}}', () => {
+  let element: {{className name}};
 
-    beforeEach(async () => {
+  beforeEach(async () => {
     element = await fixture(
       html` <{{> tagnamePartial}}></{{> tagnamePartial}}> `
     );
