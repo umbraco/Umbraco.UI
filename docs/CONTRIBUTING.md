@@ -14,13 +14,17 @@ Before you submit a new PR, make sure you run `npm run test`. PR must pass all t
 
 **As a PR submitter**, you should reference the issue if there is one, include a short description of what you contributed and, if it is a code change, instructions for how to manually test out the change.
 
-Please follow the [pull request template](PULL_REQUEST_TEMPLATE.md) when submitting a pull request!
+Please follow the [pull request template](../.github/pull_request_template.md) when submitting a pull request!
+
+
 
 > NOTE: Although the latest released version of Umbraco UI corresponds to the `main` branch, then development happens in the `dev` branch. If you submit a PR, branch off `dev` and target your PR to `dev`.
 
 ## Development Guide
 
 The UI Library components are [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) built with [Lit](https://lit.dev/) and Typescript. Lit is a light-weight base class that makes development of web components easier and handles all the necessary things, attaching shadow root, reactivity, attribute reflection etc. We strongly encourage you to take a look at Lit documentation before starting development.
+
+Using Typescript is mandatory when contributing to this repository, although it is not necessary to use it when consuming the components.
 
 ### New component
 
@@ -50,6 +54,23 @@ npm i
 ```
 
 `tsconfig.json` file is generated automatically when `postinstall` script runs.
+
+### Properties and attributes
+
+[Reactive properties](https://lit.dev/docs/components/properties/) are what creates the component's public api API. They all have corresponding attribute, through which the property can be initialized when the custom element gets instantiated and connected to the DOM. By default the property is not reflected to the attribute, meaning if property value changes the attribute in the markup will keep its initial value, but it will stay observed - changing its value wil change the property. [Attributes can also be reflected](https://lit.dev/docs/components/properties/#reflected-attributes), and used for styling purposes for example.
+
+Each property you create should be documented with a jsdoc snippet. You can see an example of a property below.
+
+```javascript
+  /**
+   * Disables the button, changes the looks of it and prevents if from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+```
 
 ### Best practices for contributing to this library
 
