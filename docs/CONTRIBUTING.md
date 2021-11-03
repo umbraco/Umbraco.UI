@@ -14,7 +14,9 @@ Before you submit a new PR, make sure you run `npm run test`. PR must pass all t
 
 **As a PR submitter**, you should reference the issue if there is one, include a short description of what you contributed and, if it is a code change, instructions for how to manually test out the change.
 
-Please follow the [pull request template](PULL_REQUEST_TEMPLATE.md) when submitting a pull request!
+Please follow the [pull request template](../.github/pull_request_template.md) when submitting a pull request!
+
+
 
 > NOTE: Although the latest released version of Umbraco UI corresponds to the `main` branch, then development happens in the `dev` branch. If you submit a PR, branch off `dev` and target your PR to `dev`.
 
