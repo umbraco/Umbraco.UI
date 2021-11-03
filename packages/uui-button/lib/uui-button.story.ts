@@ -71,6 +71,7 @@ const reducer = (prev: string, next: string, i: number) =>
 const Template: Story = props => {
   return html`
     <uui-button
+      type="button"
       style="${cssProps
         .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
         .reduce(reducer)}"
@@ -79,8 +80,7 @@ const Template: Story = props => {
       look=${props.look}
       label=${props.label}
       state=${props.state}
-      >${props.content}</uui-button
-    >
+      >${props.content}</uui-button>
   `;
 };
 
