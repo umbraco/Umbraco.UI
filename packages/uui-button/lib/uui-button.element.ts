@@ -402,6 +402,11 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
   @property({ type: String, reflect: true })
   state: UUIButtonState = null;
 
+  
+    /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
   static readonly formAssociated = true;
 
   private _internals;
