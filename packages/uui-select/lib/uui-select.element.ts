@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, queryAssignedNodes } from 'lit/decorators.js';
 
 export class UUISelectElement extends LitElement {
   static styles = [
@@ -44,7 +44,7 @@ export class UUISelectElement extends LitElement {
   ];
 
   @property({ type: Array, attribute: false })
-  options = [];
+  options: any[] = [];
 
   @property()
   value: any = '';
@@ -68,21 +68,28 @@ export class UUISelectElement extends LitElement {
   //   this.caret.open = !this.caret.open;
   // }
 
+  @query('#native')
+  private _select?: HTMLSelectElement;
+
+  @queryAssignedNodes(undefined, true)
+  _options: any;
+
+  private _addSlotToSelect() {
+    const selectLastChild = this._select?.lastElementChild as HTMLOptionElement;
+
+    while (this._select?.firstChild) {
+      if (!selectLastChild.value) break;
+      this._select.removeChild(selectLastChild);
+    }
+    for (const option of this._options) {
+      this._select?.appendChild(option.cloneNode(true));
+    }
+  }
+
   render() {
-    return html`<label for="">
-      <select
-        @change=${this.setValue}
-        .value=${this.value}
-        ?disabled=${this.disabled}>
-        <option value="" disabled selected>Select your option</option>
-        ${this.options.map(
-          (option: any) =>
-            html`<option .value=${option?.id}>
-              ${option?.name} ${option?.mandatory ? '(Mandatory)' : ''}
-            </option>`
-        )}
-      </select>
-      <!-- <uui-caret></uui-caret> -->
-    </label>`;
+    return html` <div style="display: none">
+        <slot @slotchange="${this._addSlotToSelect}"></slot>
+      </div>
+      <select @change=${this.setValue} id="native"></select>`;
   }
 }

@@ -6,9 +6,7 @@ describe('UUICaretElement', () => {
   let element: UUICaretElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-caret></uui-caret> `
-    );
+    element = await fixture(html` <uui-caret></uui-caret> `);
   });
 
   it('passes the a11y audit', async () => {

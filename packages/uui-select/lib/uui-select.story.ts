@@ -15,4 +15,10 @@ export default {
   },
 };
 
-export const Overview: Story = props => html`<uui-select></uui-select>`;
+export const Overview: Story = props =>
+  html`<uui-select
+    ><option>HEllo</option>
+    <option>Goodbye</option>
+    <option>See you</option>
+    /uui-select></uui-select
+  >`;
