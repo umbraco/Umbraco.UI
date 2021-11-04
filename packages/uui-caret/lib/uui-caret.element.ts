@@ -12,6 +12,7 @@ export class UUICaretElement extends LitElement {
 
       svg {
         fill: currentColor;
+        transform-origin: 50% 50%;
         transition: transform 320ms cubic-bezier(0.17, -0.88, 0.82, 1.84); /* Julia's beloved easing */
       }
 
@@ -26,7 +27,7 @@ export class UUICaretElement extends LitElement {
 
   render() {
     return html`<svg viewBox="0 0 512 512">
-      <path d="M255.125 361.35L88.193 149.765h333.862z"></path>
+      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
     </svg>`;
   }
 }
