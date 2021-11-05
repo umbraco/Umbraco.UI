@@ -1,6 +1,10 @@
 import { LitElement, css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 
+/**
+ *  A caret that rotates on click. Color will be `currentColor`
+ *  @element uui-caret
+ */
 export class UUICaretElement extends LitElement {
   static styles = [
     css`
@@ -22,6 +26,11 @@ export class UUICaretElement extends LitElement {
     `,
   ];
 
+  /**
+   * Turns the arrow around.
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   public open = false;
 

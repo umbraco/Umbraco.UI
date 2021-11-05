@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-caret/lib/index';
 
 export default {
   id: 'uui-caret',
-  title: 'Caret',
+  title: 'Symbols/Caret',
   component: 'uui-caret',
   parameters: {
     docs: {
