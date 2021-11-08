@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, state, query } from 'lit/decorators.js';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
 
@@ -32,6 +32,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       :host {
         display: inline-block;
       }
+
       input {
         display: inline-block;
         height: var(--uui-size-11);
@@ -50,20 +51,19 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         width: 100%;
         outline: none;
       }
+
       input:hover {
         border-color: var(
           --uui-input-border-color-hover,
           var(--uui-interface-border-hover)
         );
       }
+
       input:focus {
         border-color: var(
           --uui-input-border-color-focus,
           var(--uui-interface-border-focus)
         );
-      }
-      :host([invalid]) {
-        border-color: var(--uui-color-danger-background);
       }
 
       :host([type='color']) {
@@ -105,13 +105,15 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         font-weight: bold;
       }
 
-      :host([error]) input {
+      :host(:invalid) input {
         border: 1px solid var(--uui-look-danger-border);
       }
 
-      :host([error]) input[disabled] {
+      /*
+      :host([error]) input {
         border: 1px solid var(--uui-look-danger-border);
       }
+      */
     `,
   ];
 
@@ -122,6 +124,8 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   static readonly formAssociated = true;
 
   private _internals;
+  private _error: Boolean = false;
+  private _validityState: any = {};
 
   constructor() {
     super();
@@ -169,14 +173,26 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
     return this._value;
   }
   set value(newValue) {
+    const oldValue = this._value;
     this._value = newValue;
-    if (
-      'ElementInternals' in window &&
-      //@ts-ignore
-      'setFormValue' in window.ElementInternals.prototype
-    ) {
-      this._internals.setFormValue(this._value);
-    }
+    this._internals.setFormValue(this._value);
+    this.requestUpdate('value', oldValue);
+  }
+
+  /**
+   * This is a value property of the uui-input.
+   * @type {boolean}
+   * @attr
+   * @default ''
+   */
+  @property({ type: Boolean, reflect: true })
+  get error() {
+    return this._error;
+  }
+  set error(newValue) {
+    const oldValue = this._error;
+    this._error = newValue;
+    this.requestUpdate('error', oldValue);
   }
 
   /**
@@ -187,15 +203,6 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
    */
   @property({ type: String })
   name = '';
-
-  /**
-   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
 
   /**
    * This property specifies the type of input that will be rendered.
@@ -210,10 +217,60 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
     this.value = (e.target as HTMLInputElement).value;
   }
 
+  @query('input')
+  private _input?: HTMLInputElement;
+
   private onChange() {
     this.dispatchEvent(
       new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
     );
+  }
+
+  updated () {
+    this._setValidity();
+  }
+
+  private _setValidity () {
+
+    if (this.hasAttribute('required') && this.value === '') {
+      this._validityState.valueMissing = true;
+      this._internals.setValidity(this._validityState, 'The field is required', this._input);
+    }
+    else {
+      this._validityState.valueMissing = false;
+    }
+
+    if (this._error) {
+      this._validityState.customError = true;
+      this._internals.setValidity(this._validityState, 'The field is invalid', this._input);
+    }
+    else {
+      this._validityState.customError = false;
+    }
+
+
+    let hasError = false;
+
+    for (const [key, value] of Object.entries(this._validityState)) {
+      if (value === true) {
+        hasError = true;
+      }
+    }
+
+    if (hasError === false) {
+      this._internals.setValidity({});
+    }
+
+    console.log('Has error', hasError);
+  }
+  
+  // FORM CONTROLS
+  public formResetCallback() {
+    this.value = this.getAttribute('value') || '';
+  }
+  
+  public checkValidity () {
+    return this._internals?.checkValidity();
   }
 
   render() {
