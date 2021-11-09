@@ -221,28 +221,28 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderGrouped() {
-    if (this._groups.length > 0) {
-      return html`
-        ${this._groups.map(
-          group => html`<optgroup
-            label=${group}
-            ?disabled=${this._disabledGroups.some(
-              disabled => disabled.toLowerCase() === group.toLowerCase()
-            )}>
-            ${this.options.map(option =>
-              option.group === group
-                ? this._renderOption(
-                    option.name,
-                    option.value,
-                    option.selected,
-                    option.disabled
-                  )
-                : ''
-            )}
-          </optgroup>`
-        )}
-      `;
-    }
+    if (this._groups.length === 0) return html``;
+
+    return html`
+      ${this._groups.map(
+        group => html`<optgroup
+          label=${group}
+          ?disabled=${this._disabledGroups.some(
+            disabled => disabled.toLowerCase() === group.toLowerCase()
+          )}>
+          ${this.options.map(option =>
+            option.group === group
+              ? this._renderOption(
+                  option.name,
+                  option.value,
+                  option.selected,
+                  option.disabled
+                )
+              : ''
+          )}
+        </optgroup>`
+      )}
+    `;
   }
 
   render() {
