@@ -14,7 +14,7 @@ export class UUIDialogElement extends LitElement {
         display: block;
         max-width: 400px;
 
-        padding: var(--uui-size-large) var(--uui-size-xlarge);
+        padding: var(--uui-size-10) var(--uui-size-14);
 
         background-color: var(
           --uui-dialog-background-color,
@@ -23,18 +23,18 @@ export class UUIDialogElement extends LitElement {
         box-shadow: var(--uui-dialog-box-shadow, var(--uui-shadow-depth-5));
         border-radius: var(
           --uui-dialog-border-radius,
-          calc(var(--uui-size-border-radius) * 2)
+          calc(var(--uui-border-radius) * 2)
         );
       }
 
       .actions {
-        margin-top: var(--uui-size-medium);
+        margin-top: var(--uui-size-8);
         display: flex;
         justify-content: flex-end;
       }
 
       ::slotted([slot='actions']) {
-        margin-left: var(--uui-size-small);
+        margin-left: var(--uui-size-4);
       }
     `,
   ];

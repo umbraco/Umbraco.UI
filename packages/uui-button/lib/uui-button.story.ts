@@ -15,6 +15,7 @@ export default {
 
   args: {
     look: '',
+    content: 'Button',
   },
   argTypes: {
     look: {
@@ -28,6 +29,10 @@ export default {
         'warning',
         'danger',
       ],
+      control: { type: 'select' },
+    },
+    state: {
+      options: [null, 'waiting', 'success', 'failed'],
       control: { type: 'select' },
     },
     '--uui-button-height': { control: { type: 'text' } },
@@ -64,14 +69,9 @@ const reducer = (prev: string, next: string, i: number) =>
   (prev = next ? `${prev}${i === 1 ? ';' : ''} ${next};` : prev);
 
 const Template: Story = props => {
-  console.log(
-    cssProps
-      .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
-      .reduce(reducer)
-  );
-
   return html`
     <uui-button
+      type="button"
       style="${cssProps
         .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
         .reduce(reducer)}"
@@ -79,6 +79,7 @@ const Template: Story = props => {
       ?compact=${props.compact}
       look=${props.look}
       label=${props.label}
+      state=${props.state}
       >${props.content}</uui-button
     >
   `;
@@ -101,6 +102,24 @@ Disabled.parameters = {
   docs: {
     source: {
       code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
+    },
+  },
+};
+
+export const WithBadge: Story = props => {
+  return html`
+    <uui-button
+      ?disabled=${props.disabled}
+      look=${props.look}
+      state=${props.state}
+      ><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button
+    >
+  `;
+};
+WithBadge.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button>`,
     },
   },
 };
@@ -166,8 +185,3 @@ Looks.parameters = {
 //     <uui-icon name="info"></uui-icon>
 //   </uui-button>
 // `;
-
-// export const WithBadge = () => html` <uui-button look="primary">
-//   Button label
-//   <uui-badge>!</uui-badge>
-// </uui-button>`;

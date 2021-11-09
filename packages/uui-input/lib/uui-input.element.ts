@@ -34,31 +34,31 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
       input {
         display: inline-block;
-        height: 30px;
-        padding: 3px 6px 1px 6px;
+        height: var(--uui-size-11);
+        padding: var(--uui-size-1) var(--uui-size-2);
         font-family: inherit;
         font-size: 15px;
         color: inherit;
         border-radius: 0;
         box-sizing: border-box;
         background-color: var(
-          --uui-text-field-background-color,
+          --uui-input-background-color,
           var(--uui-interface-surface)
         );
         border: 1px solid
-          var(--uui-text-field-border-color, var(--uui-interface-border));
+          var(--uui-input-border-color, var(--uui-interface-border));
         width: 100%;
         outline: none;
       }
       input:hover {
         border-color: var(
-          --uui-text-field-border-color-hover,
+          --uui-input-border-color-hover,
           var(--uui-interface-border-hover)
         );
       }
       input:focus {
         border-color: var(
-          --uui-text-field-border-color-focus,
+          --uui-input-border-color-focus,
           var(--uui-interface-border-focus)
         );
       }
@@ -72,7 +72,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
 
       :host([type='color']) .label {
-        margin-left: var(--uui-size-base-unit, 6px);
+        margin-left: var(--uui-size-2);
       }
 
       input[type='color'] {
@@ -83,12 +83,12 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
 
       input[disabled] {
         background-color: var(
-          --uui-text-field-background-color-disabled,
+          --uui-input-background-color-disabled,
           var(--uui-interface-surface-disabled)
         );
         border: 1px solid
           var(
-            --uui-text-field-border-color-disabled,
+            --uui-input-border-color-disabled,
             var(--uui-interface-border-disable)
           );
 
@@ -100,17 +100,17 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
 
       .label {
-        font-size: var(--uui-type-small-size, 12px);
-        line-height: calc(var(--uui-size-base-unit) * 3);
+        display: inline-block;
+        margin-bottom: var(--uui-size-1);
         font-weight: bold;
       }
 
       :host([error]) input {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+        border: 1px solid var(--uui-look-danger-border);
       }
 
       :host([error]) input[disabled] {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+        border: 1px solid var(--uui-look-danger-border);
       }
     `,
   ];

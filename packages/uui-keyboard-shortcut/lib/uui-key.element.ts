@@ -13,7 +13,7 @@ export class UUIKeyElement extends LitElement {
         background: var(--uui-interface-surface, #fff);
         border: 1px solid var(--uui-interface-border, #d8d7d9);
         font-family: inherit;
-        font-size: var(--uui-size-small, 12px);
+        font-size: var(--uui-size-4);
         border-radius: 5px;
         margin: 0px 5px;
         padding: 5px 7px;

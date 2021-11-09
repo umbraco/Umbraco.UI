@@ -22,6 +22,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    source: { state: 'open' },
+  },
   options: {
     method: 'alphabetical',
     storySort: sort,
@@ -29,11 +32,6 @@ export const parameters = {
   // Hides the CSS: [] property on the docs page.
   argTypes: {
     styles: {
-      table: {
-        disable: true,
-      },
-    },
-    '': {
       table: {
         disable: true,
       },

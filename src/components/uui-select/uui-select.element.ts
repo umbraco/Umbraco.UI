@@ -20,7 +20,7 @@ export class UUISelectElement extends LitElement {
         width: var(--uui-select-width);
         display: inline-block;
         border: 1px solid var(--uui-interface-border);
-        border-radius: var(--uui-size-border-radius);
+        border-radius: var(--uui-border-radius);
       }
 
       :host(:focus-within) {
@@ -50,7 +50,7 @@ export class UUISelectElement extends LitElement {
 
         font-family: inherit;
         font-size: 1rem;
-        padding: var(--uui-size-small);
+        padding: var(--uui-size-4);
       }
 
       input#selected-value {
@@ -58,7 +58,7 @@ export class UUISelectElement extends LitElement {
 
         font-family: inherit;
         font-size: 1rem;
-        padding: var(--uui-size-small);
+        padding: var(--uui-size-4);
       }
 
       #caret {

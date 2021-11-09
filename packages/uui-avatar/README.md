@@ -1,6 +1,10 @@
 # uui-avatar
 
-## Usage
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-avatar?logoColor=%231B264F)
+
+## Installation
+
+### ES imports
 
 ```zsh
 npm i @umbraco-ui/uui-avatar
@@ -18,9 +22,20 @@ When looking to leverage the `UUIAvatarElement` base class as a type and/or for 
 import { UUIAvatarElement } from '@umbraco-ui/uui-avatar/lib/uui-avatar.element';
 ```
 
-## Example
+### CDN
+
+The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
 
 ```html
-<uui-avatar title="First Last"></uui-avatar>
-<uui-avatar src="..."></uui-avatar>
+<!-- Latest Version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-avatar@latest/dist/uui-avatar.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-avatar@X.X.X/dist/uui-avatar.min.js"></script>
+```
+
+## Usage
+
+```html
+<uui-avatar title="First Last"></uui-avatar> <uui-avatar src="..."></uui-avatar>
 ```

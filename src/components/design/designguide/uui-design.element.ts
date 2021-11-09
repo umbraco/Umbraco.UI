@@ -9,7 +9,7 @@ export class UUIDesignElement extends LitElement {
     css`
       :host {
         display: block;
-        padding: var(--uui-size-layout-4) var(--uui-size-layout-5);
+        padding: var(--uui-size-28) var(--uui-size-36);
         max-width: 800px;
       }
     `,

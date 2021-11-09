@@ -29,7 +29,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
         flex-wrap: nowrap;
         align-items: center;
         justify-items: center;
-        gap: var(--uui-size-xsmall);
+        gap: var(--uui-size-3);
       }
 
       input {
