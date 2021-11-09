@@ -13,11 +13,15 @@ export default {
       },
     },
   },
+  args: {
+    rotation: 0,
+  },
+  argTypes: {
+    value: {
+      rotation: { type: 'number' },
+    },
+  },
 };
 
 export const Overview: Story = props =>
-  html` <uui-caret
-    @click=${(e: MouseEvent) => {
-      console.log('Click');
-      (e.target as any).open = !(e.target as any).open;
-    }}></uui-caret>`;
+  html` <uui-caret rotation=${props.rotation}></uui-caret>`;

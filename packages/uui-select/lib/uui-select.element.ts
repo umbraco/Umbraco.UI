@@ -1,40 +1,43 @@
 import { css, html, LitElement } from 'lit';
-import { property, query, queryAssignedNodes } from 'lit/decorators.js';
+import { property, query, queryAssignedNodes, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { UUICaretElement } from '@umbraco-ui/uui-caret/lib/uui-caret.element';
 
+declare global {
+  interface Option {
+    name: string;
+    value: string;
+    group?: string;
+    selected?: boolean;
+  }
+}
 export class UUISelectElement extends LitElement {
   static styles = [
     css`
-      label {
-        display: block;
+      :host {
         position: relative;
-      }
-      select {
-        -webkit-appearance: none;
-        padding: 7px 40px 7px 12px;
-        display: inline-block;
-        height: 30px;
-        padding: 3px 6px 1px 6px;
         font-family: inherit;
-        font-size: 15px;
-        color: inherit;
+      }
+
+      #native {
+        appearance: none;
+        display: inline-block;
+        font-family: inherit;
+        font-size: var(--uui-select-font-size, var(--uui-size-5));
+        height: var(--uui-select-height, var(--uui-size-11));
+        width: 100%;
+        padding: var(--uui-select-padding-y, var(--uui-size-1))
+          var(--uui-select-padding-x, var(--uui-size-2));
+        color: currentColor;
         border-radius: 0;
         box-sizing: border-box;
-        background-color: var(
-          --uui-text-field-background-color,
-          var(--uui-interface-surface)
-        );
+        background-color: transparent;
         border: 1px solid
-          var(--uui-text-field-border-color, var(--uui-interface-border));
-        width: 100%;
-        outline: none;
+          var(--uui-select-border-color, var(--uui-interface-border));
         transition: all 150ms ease;
       }
 
-      option {
-        color: #223254;
-      }
-
-      uui-caret {
+      #caret {
         position: absolute;
         right: 12px;
         top: 50%;
@@ -43,8 +46,15 @@ export class UUISelectElement extends LitElement {
     `,
   ];
 
+  private _toggleOpen() {
+    this._open = !this._open;
+  }
+
+  @state()
+  private _open = false;
+
   @property({ type: Array, attribute: false })
-  options: any[] = [];
+  options: Option[] = [];
 
   @property()
   value: any = '';
@@ -52,8 +62,8 @@ export class UUISelectElement extends LitElement {
   @property({ type: Boolean })
   disabled = false;
 
-  // @query('uui-caret')
-  // caret!: any;
+  @query('#caret')
+  caret?: UUICaretElement;
 
   protected setValue(e: Event): void {
     const target = e.target as HTMLSelectElement;
@@ -64,32 +74,27 @@ export class UUISelectElement extends LitElement {
     );
   }
 
-  // private _toggleCaret() {
-  //   this.caret.open = !this.caret.open;
-  // }
-
   @query('#native')
   private _select?: HTMLSelectElement;
 
   @queryAssignedNodes(undefined, true)
   _options: any;
 
-  private _addSlotToSelect() {
-    const selectLastChild = this._select?.lastElementChild as HTMLOptionElement;
-
-    while (this._select?.firstChild) {
-      if (!selectLastChild.value) break;
-      this._select.removeChild(selectLastChild);
-    }
-    for (const option of this._options) {
-      this._select?.appendChild(option.cloneNode(true));
-    }
-  }
-
   render() {
-    return html` <div style="display: none">
-        <slot @slotchange="${this._addSlotToSelect}"></slot>
-      </div>
-      <select @change=${this.setValue} id="native"></select>`;
+    return html` <select
+        @change=${this.setValue}
+        id="native"
+        @focus=${this._toggleOpen}
+        @blur=${this._toggleOpen}>
+        ${this.options.map(
+          option =>
+            html`<option
+              value="${option.value}"
+              selected="${ifDefined(option.selected)}">
+              ${option.name}
+            </option>`
+        )}
+      </select>
+      <uui-caret id="caret" .rotation=${this._open ? 180 : 0}></uui-caret>`;
   }
 }
