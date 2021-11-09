@@ -4,7 +4,7 @@ import { LitElement, html, css } from 'lit';
  * @element uui-textarea
  */
 export class UUITextareaElement extends LitElement {
-      static styles = [
+  static styles = [
     css`
       :host {
         /* Styles goes here */
@@ -12,9 +12,7 @@ export class UUITextareaElement extends LitElement {
     `,
   ];
 
-    render(){
-        return html`
-            Markup goes here
-        `;
-    }
+  render() {
+    return html` Markup goes here `;
+  }
 }

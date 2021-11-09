@@ -6,9 +6,7 @@ describe('UUITextareaElement', () => {
   let element: UUITextareaElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-textarea></uui-textarea> `
-    );
+    element = await fixture(html` <uui-textarea></uui-textarea> `);
   });
 
   it('passes the a11y audit', async () => {
