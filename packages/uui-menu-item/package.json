@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-menu-item",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -8,10 +8,9 @@
     "Web components",
     "UI",
     "Lit",
-    "menu",
-    "item"
+    "Menu Item"
   ],
-  "description": "Menu items to create expandable menu trees.",
+  "description": "Umbraco UI menu-item component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
@@ -20,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/uui-menu-item.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -30,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.7"
+    "@umbraco-ui/uui-base": "0.0.11"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

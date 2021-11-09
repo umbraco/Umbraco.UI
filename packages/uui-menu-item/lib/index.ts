@@ -1,3 +1,4 @@
 import { UUIMenuItemElement } from './uui-menu-item.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-menu-item', UUIMenuItemElement);
+defineElement('uui-menu-item', UUIMenuItemElement as any);
