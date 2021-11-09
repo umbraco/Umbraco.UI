@@ -95,7 +95,6 @@
     "rollup-plugin-minify-html-literals": "^1.2.6",
     "rollup-plugin-typescript2": "^0.30.0",
     "storybook-builder-vite": "0.0.12",
-    "tsc-files": "^1.1.2",
     "typescript": "^4.3.2",
     "vite": "^2.5.2",
     "vite-tsconfig-paths": "^3.3.14",
@@ -105,7 +104,6 @@
     "./packages/*"
   ],
   "lint-staged": {
-    "**/*.ts": "tsc-files --noEmit",
     "**/*.{ts, js, mjs}": "eslint --cache --fix",
     "*": "prettier --ignore-unknown --write"
   }
