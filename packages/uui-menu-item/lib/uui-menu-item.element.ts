@@ -29,7 +29,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         display: flex;
         align-items: stretch;
         padding-left: calc(
-          var(--uui-menu-item-indent, 0) * var(--uui-size-layout-0, 24px)
+          var(--uui-menu-item-indent, 0) * var(--uui-size-8, 24px)
         );
 
         display: grid;
@@ -49,7 +49,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         cursor: pointer;
         z-index: 1;
         /* padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit); */
-        min-height: calc(var(--uui-size-base-unit) * 6);
+        min-height: var(--uui-size-12);
       }
       button:hover {
         color: var(--uui-interface-contrast-hover);
@@ -66,8 +66,14 @@ export class UUIMenuItemElement extends SelectableMixin(
         padding-left: 0;
       }
       #caret-button {
-        justify-self: center;
-        margin-top: -1px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #caret-button:hover {
+        background-color: var(--uui-interface-surface-hover);
       }
       #label-button-background {
         position: absolute;
