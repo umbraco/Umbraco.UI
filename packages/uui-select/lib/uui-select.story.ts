@@ -11,23 +11,15 @@ const options: Array<Option> = [
   { name: 'Strawberry', value: 'red' },
 ];
 
-const preselectedOptions: Array<Option> = [
-  { name: 'Carrot', value: 'orange', group: 'vegetables' },
-  { name: 'Cucumber', value: 'green', group: 'vegetables' },
-  { name: 'Aubergine', value: 'purple', group: 'vegetables', selected: true },
-  { name: 'Blueberry', value: 'Blue', group: 'fruits' },
-  { name: 'Banana', value: 'yellow', group: 'fruits' },
-  { name: 'Strawberry', value: 'red', group: 'fruits' },
-];
+const preselectedOptions: Array<Option> = options.map(option => {
+  if (option.name === 'Aubergine') return { ...option, selected: true };
+  return option;
+});
 
-const groupedOptions: Array<Option> = [
-  { name: 'Carrot', value: 'orange', group: 'vegetables' },
-  { name: 'Cucumber', value: 'green', group: 'vegetables' },
-  { name: 'Aubergine', value: 'purple', group: 'vegetables', selected: true },
-  { name: 'Blueberry', value: 'Blue', group: 'fruits' },
-  { name: 'Banana', value: 'yellow', group: 'fruits' },
-  { name: 'Strawberry', value: 'red', group: 'fruits' },
-];
+const groupedOptions: Array<Option> = options.map(option => {
+  if (options.indexOf(option) <= 2) return { ...option, group: 'Vegetables' };
+  return { ...option, group: 'Fruits' };
+});
 
 export default {
   id: 'uui-select',
@@ -58,8 +50,18 @@ export const Preselected: Story = () =>
     .options=${preselectedOptions}
     label="Preselected"></uui-select>`;
 
-export const Groups: Story = () =>
-  html`<uui-select .options=${groupedOptions} label="Grouped"></uui-select>`;
+export const Groups: Story = props =>
+  html`<uui-select
+    .options=${groupedOptions}
+    label="Grouped"
+    .placeholder=${props.placeholder}></uui-select>`;
+
+export const DisabledGroups: Story = props =>
+  html`<uui-select
+    .options=${groupedOptions}
+    label="Disabled Group"
+    disabledGroups="vegetables"
+    .placeholder=${props.placeholder}></uui-select>`;
 
 export const NoLabel: Story = () =>
   html`<uui-select .options=${preselectedOptions}> </uui-select>`;

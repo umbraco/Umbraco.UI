@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUISelectEvent } from './UUISelectEvent';
 declare global {
   interface Option {
     name: string;
@@ -144,6 +145,21 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   @state()
   private _groups: string[] = [];
 
+  /**
+   * An array of options to be rendered by the element. This strin
+   */
+  @property()
+  disabledGroups = '';
+
+  @state()
+  private _disabledGroups: string[] = [];
+
+  private _createDisabledGroups() {
+    if (this.disabledGroups.length === 0) return;
+    this._disabledGroups = this.disabledGroups.split(',');
+    console.log(this._disabledGroups);
+  }
+
   private _extractGroups() {
     if (this.options.length === 0) return;
 
@@ -158,14 +174,17 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('options')) this._extractGroups();
+    if (changedProperties.has('disabledGroups')) this._createDisabledGroups();
   }
 
   protected setValue(e: Event): void {
     const target = e.target as HTMLSelectElement;
-
     if (e.target) this.value = target.value;
     this.dispatchEvent(
-      new CustomEvent('change', { bubbles: true, composed: true })
+      new UUISelectEvent(UUISelectEvent.CHANGE, {
+        bubbles: true,
+        composed: false,
+      })
     );
   }
 
@@ -190,7 +209,11 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
     if (this._groups.length > 0) {
       return html`
         ${this._groups.map(
-          group => html`<optgroup label=${group}>
+          group => html`<optgroup
+            label=${group}
+            ?disabled=${this._disabledGroups.some(
+              disabled => disabled.toLowerCase() === group.toLowerCase()
+            )}>
             ${this.options.map(option =>
               option.group === group
                 ? this._renderOption(
