@@ -1,17 +1,25 @@
 import { css, html, LitElement } from 'lit';
-import { property, query, queryAssignedNodes, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { UUICaretElement } from '@umbraco-ui/uui-caret/lib/uui-caret.element';
-
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 declare global {
   interface Option {
     name: string;
     value: string;
     group?: string;
     selected?: boolean;
+    disabled?: boolean;
   }
 }
-export class UUISelectElement extends LitElement {
+
+/**
+ * Custom element wrapping the native select element. It for it to print options you need to pass an array of options to it. This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
+ * @element uui-select
+ * @extends LabelMixin(LitElement)
+ * @slot label - for the label
+ * @fires change - when the user changes value
+ */
+export class UUISelectElement extends LabelMixin('label', LitElement) {
   static styles = [
     css`
       :host {
@@ -37,6 +45,14 @@ export class UUISelectElement extends LitElement {
         transition: all 150ms ease;
       }
 
+      #native:hover {
+        border: 1px solid
+          var(
+            --uui-select-border-color-hover,
+            var(--uui-interface-border-hover)
+          );
+      }
+
       #native:focus {
         outline-color: #6ab4f0;
       }
@@ -47,30 +63,102 @@ export class UUISelectElement extends LitElement {
         top: 50%;
         transform: translateY(-50%);
       }
+
+      .label {
+        display: inline-block;
+        margin-bottom: var(--uui-size-1);
+        font-weight: bold;
+      }
     `,
   ];
 
-  private _toggleOpen() {
-    this._open = !this._open;
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+  readonly _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
   }
 
-  @state()
-  private _open = false;
-
-  @property({ type: Array, attribute: false })
-  options: Option[] = [];
-
+  /**
+   * Defines the select's placeholder.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property()
   placeholder = '';
 
-  @property()
-  value: any = '';
-
-  @property({ type: Boolean })
+  /**
+   * Disables the select.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  @query('#caret')
-  caret?: UUICaretElement;
+  /**
+   * This is the name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native input type="checkbox" element and its name attribute.
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  name = '';
+
+  private _value = '';
+  /**
+   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
+   * @type {string}
+   * @attr
+   * @default on
+   */
+  @property({ type: String })
+  get value() {
+    return this._value;
+  }
+
+  set value(newVal) {
+    const oldValue = this._value;
+    this._value = newVal;
+    this._internals.setFormValue(this.name !== '' ? this._value : null);
+    this.requestUpdate('value', oldValue);
+  }
+
+  /**
+   * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties: `interface Option {
+    name: string;
+    value: string;
+    group?: string;
+    selected?: boolean;
+    disabled?: boolean;
+  }`
+   */
+  @property({ type: Array, attribute: false })
+  options: Option[] = [];
+
+  @state()
+  private _groups: string[] = [];
+
+  private _extractGroups() {
+    if (this.options.length === 0) return;
+
+    this._groups = [
+      ...new Set(
+        this.options
+          .filter(option => option.group)
+          .map(option => option.group as string)
+      ),
+    ];
+  }
+
+  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('options')) this._extractGroups();
+  }
 
   protected setValue(e: Event): void {
     const target = e.target as HTMLSelectElement;
@@ -84,24 +172,61 @@ export class UUISelectElement extends LitElement {
   @query('#native')
   private _select?: HTMLSelectElement;
 
-  @queryAssignedNodes(undefined, true)
-  _options: any;
+  private _renderOption(
+    name: string,
+    value: string,
+    selected: boolean | undefined,
+    disabled: boolean | undefined
+  ) {
+    return html`<option
+      value="${value}"
+      selected=${ifDefined(selected)}
+      disabled=${ifDefined(disabled)}>
+      ${name}
+    </option>`;
+  }
+
+  private _renderGrouped() {
+    if (this._groups.length > 0) {
+      return html`
+        ${this._groups.map(
+          group => html`<optgroup label=${group}>
+            ${this.options.map(option =>
+              option.group === group
+                ? this._renderOption(
+                    option.name,
+                    option.value,
+                    option.selected,
+                    option.disabled
+                  )
+                : ''
+            )}
+          </optgroup>`
+        )}
+      `;
+    }
+  }
 
   render() {
-    return html` <select
-      @change=${this.setValue}
-      id="native"
-      @focus=${this._toggleOpen}
-      @blur=${this._toggleOpen}>
-      <option disabled selected value="" hidden>${this.placeholder}</option>
-      ${this.options.map(
-        option =>
-          html`<option
-            value="${option.value}"
-            selected="${ifDefined(option.selected)}">
-            ${option.name}
-          </option>`
-      )}
-    </select>`;
+    return html` ${this.renderLabel()}
+      <select
+        id="native"
+        aria-label=${this.label}
+        @change=${this.setValue}
+        ?disabled=${this.disabled}
+        .name=${this.name}>
+        <option disabled selected value="" hidden>${this.placeholder}</option>
+        ${this._renderGrouped()}
+        ${this.options
+          .filter(option => !option.group)
+          .map(option =>
+            this._renderOption(
+              option.name,
+              option.value,
+              option.selected,
+              option.disabled
+            )
+          )}
+      </select>`;
   }
 }
