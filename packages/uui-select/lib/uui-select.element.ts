@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUISelectEvent } from './UUISelectEvent';
@@ -16,7 +16,7 @@ declare global {
 /**
  * Custom element wrapping the native select element. It for it to print options you need to pass an array of options to it. This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-select
- * @extends LabelMixin(LitElement)
+ * @mixes LabelMixin
  * @slot label - for the label
  * @fires change - when the user changes value
  */
@@ -40,10 +40,18 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
         border-radius: 0;
         box-sizing: border-box;
         background-color: transparent;
-        outline-color: #6ab4f0;
+        outline-color: var(--uui-select-outline-color, var(--uui-color-malibu));
         border: 1px solid
           var(--uui-select-border-color, var(--uui-interface-border));
         transition: all 150ms ease;
+      }
+
+      #native[disabled] {
+        cursor: not-allowed;
+        background-color: var(
+          --uui-select-disabled-background-color,
+          var(--uui-interface-surface-disabled)
+        );
       }
 
       #native:hover {
@@ -54,8 +62,16 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
           );
       }
 
+      option:checked {
+        background: var(
+          --uui-select-selected-option-background-color,
+          var(--uui-interface-active)
+        );
+      }
+
+      /* TODO: a proper focus style has to be implemented. it needs it's own variables */
       #native:focus {
-        outline-color: #6ab4f0;
+        outline-color: var(--uui-select-outline-color, var(--uui-color-malibu));
       }
 
       #caret {
@@ -66,9 +82,11 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
       }
 
       .label {
-        display: inline-block;
         margin-bottom: var(--uui-size-1);
         font-weight: bold;
+      }
+      span.label {
+        display: inline-block;
       }
     `,
   ];
@@ -89,7 +107,6 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
    * Defines the select's placeholder.
    * @type {string}
    * @attr
-   * @default ''
    */
   @property()
   placeholder = '';
@@ -131,7 +148,8 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   }
 
   /**
-   * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties: `interface Option {
+   * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties: 
+   * `interface Option {
     name: string;
     value: string;
     group?: string;
@@ -146,7 +164,7 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   private _groups: string[] = [];
 
   /**
-   * An array of options to be rendered by the element. This strin
+   * An array of options to be rendered by the element. Put the names of the groups you wanna disable, separated by a coma: `disabledGroups='fruits, vegetables'`. It's not case sensitive
    */
   @property()
   disabledGroups = '';
@@ -177,7 +195,7 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
     if (changedProperties.has('disabledGroups')) this._createDisabledGroups();
   }
 
-  protected setValue(e: Event): void {
+  protected setValue(e: Event) {
     const target = e.target as HTMLSelectElement;
     if (e.target) this.value = target.value;
     this.dispatchEvent(
@@ -187,9 +205,6 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
       })
     );
   }
-
-  @query('#native')
-  private _select?: HTMLSelectElement;
 
   private _renderOption(
     name: string,
