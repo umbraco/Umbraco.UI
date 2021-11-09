@@ -1,5 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUISelectElement } from './uui-select.element';
+import { UUICustomSelectElement } from './uui-custom-select.element';
 import '../uui-select-option/index';
 import '.';
 
@@ -35,7 +35,7 @@ const options = [
 ];
 
 describe('UuiButton', () => {
-  let element: UUISelectElement;
+  let element: UUICustomSelectElement;
   beforeEach(async () => {
     element = await fixture(html` <uui-select>
       ${options.map(

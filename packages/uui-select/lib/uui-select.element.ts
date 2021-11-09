@@ -20,7 +20,6 @@ export class UUISelectElement extends LitElement {
       }
 
       #native {
-        appearance: none;
         display: inline-block;
         font-family: inherit;
         font-size: var(--uui-select-font-size, var(--uui-size-5));
@@ -32,9 +31,14 @@ export class UUISelectElement extends LitElement {
         border-radius: 0;
         box-sizing: border-box;
         background-color: transparent;
+        outline-color: #6ab4f0;
         border: 1px solid
           var(--uui-select-border-color, var(--uui-interface-border));
         transition: all 150ms ease;
+      }
+
+      #native:focus {
+        outline-color: #6ab4f0;
       }
 
       #caret {
@@ -55,6 +59,9 @@ export class UUISelectElement extends LitElement {
 
   @property({ type: Array, attribute: false })
   options: Option[] = [];
+
+  @property()
+  placeholder = '';
 
   @property()
   value: any = '';
@@ -82,19 +89,19 @@ export class UUISelectElement extends LitElement {
 
   render() {
     return html` <select
-        @change=${this.setValue}
-        id="native"
-        @focus=${this._toggleOpen}
-        @blur=${this._toggleOpen}>
-        ${this.options.map(
-          option =>
-            html`<option
-              value="${option.value}"
-              selected="${ifDefined(option.selected)}">
-              ${option.name}
-            </option>`
-        )}
-      </select>
-      <uui-caret id="caret" .rotation=${this._open ? 180 : 0}></uui-caret>`;
+      @change=${this.setValue}
+      id="native"
+      @focus=${this._toggleOpen}
+      @blur=${this._toggleOpen}>
+      <option disabled selected value="" hidden>${this.placeholder}</option>
+      ${this.options.map(
+        option =>
+          html`<option
+            value="${option.value}"
+            selected="${ifDefined(option.selected)}">
+            ${option.name}
+          </option>`
+      )}
+    </select>`;
   }
 }
