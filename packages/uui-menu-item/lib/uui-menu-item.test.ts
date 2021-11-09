@@ -6,7 +6,9 @@ describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-menu-item></uui-menu-item> `);
+    element = await fixture(
+      html` <uui-menu-item role="menu" label="menuitem"></uui-menu-item> `
+    );
   });
 
   it('passes the a11y audit', async () => {
