@@ -8,9 +8,10 @@
     "Web components",
     "UI",
     "Lit",
-    "Textarea"
+    "Textarea",
+    "Form element"
   ],
-  "description": "Umbraco UI textarea component",
+  "description": "Custom element wrapping the native textarea element. This is a formAssociated element, meaning it can participate in a native HTMLForm. In browsers other then Chrome it may require a polyfill.",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
