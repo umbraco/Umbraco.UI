@@ -122,19 +122,19 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
         transform: scale(0.9);
       }
 
-      :host([error]) #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:invalid) #ticker {
+        border: 1px solid var(--uui-look-danger-border);
       }
 
-      :host([error]) label:hover #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:invalid) label:hover #ticker {
+        border: 1px solid var(--uui-look-danger-border);
       }
 
-      :host([error]) label:hover input:checked:not([disabled]) + #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:invalid) label:hover input:checked:not([disabled]) + #ticker {
+        border: 1px solid var(--uui-look-danger-border);
       }
-      :host([error]) label:focus input:checked + #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:invalid) label:focus input:checked + #ticker {
+        border: 1px solid var(--uui-look-danger-border);
       }
 
       :host([disabled]) #ticker {
@@ -157,12 +157,6 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
       }
     `,
   ];
-
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
 
   renderCheckbox() {
     return html`
