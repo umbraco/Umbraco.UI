@@ -1,6 +1,6 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { LabelMixin } from '../mixins/LabelMixin';
+import { FormControlMixin, LabelMixin } from '../mixins';
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -11,10 +11,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputBaseElement extends LabelMixin(
-  '',
-  LitElement
-) {
+export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
       :host {
@@ -58,28 +55,21 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     `,
   ];
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  readonly _internals;
   private inputRole: 'checkbox' | 'switch';
 
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();
+    this._value = 'on';
     this.inputRole = inputRole;
-    this._internals = (this as any).attachInternals();
   }
 
   @query('#input')
   protected _input!: HTMLInputElement;
-
-  private _value = 'on';
-
+  
   /**
-   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
+   * This is a value property of the uui-checkbox or the uui-toggle component. 
+   * The default value of this property is 'on'. 
+   * It reflects the behaviour of the native input type="checkbox" element and its value attribute.
    * @type {string}
    * @attr
    * @default on
@@ -92,21 +82,9 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   set value(newVal) {
     const oldValue = this._value;
     this._value = newVal;
-    this._internals.setFormValue(
-      this._checked && this.name !== '' ? this._value : null
-    );
-
+    this._internals.setFormValue(this._checked && this.name !== '' ? this._value : null);
     this.requestUpdate('value', oldValue);
   }
-
-  /**
-   * This is the name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native input type="checkbox" element and its name attribute.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
 
   /**
    * Specifies the label position of the checkbox or the toggle
@@ -126,19 +104,11 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
 
-  /**
-   * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
-   * @type {boolean}
-   * @attr error
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
   private _checked = false;
 
   /**
-   * Reflects the state of the element. True if checkbox or toggle is checked. Change this to switch the state programmatically.
+   * Reflects the state of the element. 
+   * True if checkbox or toggle is checked. Change this to switch the state programmatically.
    * @type {boolean}
    * @attr
    * @default false
@@ -161,20 +131,64 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     this.requestUpdate('checked', oldValue);
   }
 
-  /**
-   * Reflects the disabled state of the element. True if checkbox or toggle is disabled. Change this to switch the state programmatically.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
   private _onInputChange() {
     this.checked = this._input.checked;
     this.dispatchEvent(
       new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE, { bubbles: true })
     );
+  }
+
+  updated () {
+    this._setValidity();
+  }
+
+  // Validation
+  private _validityState: any = {};
+
+  /**
+   * Set to true if the component should be required. 
+   * Property is reflected to the corresponding attribute.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  /**
+   * Set to true if the component should have an error state. 
+   * Property is reflected to the corresponding attribute.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
+  private _setValidity () {
+    // check for required
+    if (this.required && !this.checked) {
+      this._validityState.valueMissing = true;
+      this._internals.setValidity(this._validityState, 'The field is required', this._input);
+    }
+    else {
+      this._validityState.valueMissing = false;
+    }
+
+    // check for custom error
+    if (this.error) {
+      this._validityState.customError = true;
+      this._internals.setValidity(this._validityState, 'The field is invalid', this._input);
+    }
+    else {
+      this._validityState.customError = false;
+    }
+
+    const hasError = Object.values(this._validityState).includes(true);
+
+    if (hasError === false) {
+      this._internals.setValidity({});
+    }
   }
 
   /**
