@@ -235,6 +235,9 @@ export class UUIRadioGroupElement extends FormControlMixin(
     this._setValidity();
   }
 
+  @query('#radioGroup')
+  private _radioGroup?: HTMLElement;
+
   /**
    * This is a value property of the uui-input.
    * @type {boolean}
@@ -263,7 +266,7 @@ export class UUIRadioGroupElement extends FormControlMixin(
       this._internals.setValidity(
         this._validityState,
         'The field is required',
-        this._input
+        this._radioGroup
       );
     } else {
       this._validityState.valueMissing = false;
@@ -276,7 +279,7 @@ export class UUIRadioGroupElement extends FormControlMixin(
       this._internals.setValidity(
         this._validityState,
         'The field is invalid',
-        this._input
+        this._radioGroup
       );
     } else {
       this._validityState.customError = false;
@@ -286,7 +289,9 @@ export class UUIRadioGroupElement extends FormControlMixin(
   render() {
     return html`
       ${this.hideLabel === false ? this.renderLabel() : ''}
-      <slot @slotchange=${this._handleSlotChange}></slot>
+      <div id="radioGroup">
+        <slot @slotchange=${this._handleSlotChange}></slot>
+      </div>
     `;
   }
 }
