@@ -92,5 +92,5 @@ Error.parameters = {
   },
 };
 
-
-export const Form: Story = () => html`<uui-input-example-element></uui-input-example-element>`;
+export const Form: Story = () =>
+  html`<uui-input-example-element></uui-input-example-element>`;
