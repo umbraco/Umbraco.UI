@@ -1,8 +1,5 @@
 import { html, css } from 'lit';
-import {
-  UUIHorizontalShakeKeyframes,
-  UUIHorizontalShakeAnimationValue,
-} from '@umbraco-ui/uui-base/lib/animations';
+import { UUIHorizontalShakeKeyframes, UUIHorizontalShakeAnimationValue } from '@umbraco-ui/uui-base/lib/animations';
 import { iconWrong, iconCheck } from './toggle-icons';
 import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
 
@@ -146,21 +143,15 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
         fill: var(--uui-interface-select-contrast-disabled);
       }
 
-      :host([error]) #slider {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:invalid) #slider {
+        border: 1px solid var(--uui-look-danger-border);
       }
 
-      :host([error]) label:hover #slider {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:invalid) label:hover #slider {
+        border: 1px solid var(--uui-look-danger-border);
       }
     `,
   ];
-
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
 
   constructor() {
     super('switch');
