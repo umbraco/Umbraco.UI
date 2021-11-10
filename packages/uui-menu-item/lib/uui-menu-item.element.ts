@@ -8,12 +8,10 @@ import {
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**
- *  @element uui-list-item
- *
+ *  @element uui-menu-item
+ *  @cssprop --uui-menu-item-indent - set indentation of the menu items
+ *  @property label - This functions both as the visible label as well as the aria label.
  */
-
-//TODO add the deselect method
-
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
 ) {
@@ -30,7 +28,14 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: relative;
         display: flex;
         align-items: stretch;
-        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-8));
+        padding-left: calc(
+          var(--uui-menu-item-indent, 0) * var(--uui-size-8, 24px)
+        );
+
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        grid-template-rows: 1fr;
+        white-space: nowrap;
       }
 
       button {
@@ -43,7 +48,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: transparent;
         cursor: pointer;
         z-index: 1;
-        padding: 0 var(--uui-size-2) 0 var(--uui-size-2);
+        /* padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit); */
         min-height: var(--uui-size-12);
       }
       button:hover {
@@ -52,9 +57,23 @@ export class UUIMenuItemElement extends SelectableMixin(
 
       #label-button {
         flex-grow: 1;
+        grid-column-start: 2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       #caret-button + #label-button {
         padding-left: 0;
+      }
+      #caret-button {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #caret-button:hover {
+        background-color: var(--uui-interface-surface-hover);
       }
       #label-button-background {
         position: absolute;
@@ -65,6 +84,20 @@ export class UUIMenuItemElement extends SelectableMixin(
       }
       #label-button:hover + #label-button-background {
         background-color: var(--uui-interface-surface-hover);
+      }
+      #actions-container {
+        opacity: 0;
+        transition: opacity 120ms;
+        grid-column-start: 3;
+      }
+      #menu-item:hover #actions-container {
+        opacity: 1;
+      }
+
+      #loader {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
       }
 
       :host([disabled]) #label-button {
@@ -110,11 +143,6 @@ export class UUIMenuItemElement extends SelectableMixin(
         color: var(--uui-interface-select-contrast-disabled);
         background-color: var(--uui-interface-select-disabled);
       }
-      /*
-      slot:not([name]):focus-within {
-        TODO: implement proper focus outline
-      }
-      */
 
       slot:not([name]) {
         position: relative;
@@ -128,29 +156,48 @@ export class UUIMenuItemElement extends SelectableMixin(
       slot[name='actions'] {
         display: flex;
         align-items: center;
-        --uui-button-height: var(--uui-size-8);
-        margin-right: var(--uui-size-2);
-      }
-      #actions-container {
-        opacity: 0;
-        transition: opacity 120ms;
-      }
-      #menu-item:hover #actions-container {
-        opacity: 1;
+        --uui-button-height: calc(var(--uui-size-base-unit) * 4);
+        margin-right: var(--uui-size-base-unit);
       }
     `,
   ];
 
+  /**
+   * Disables the menu item, changes the looks of it and prevents if from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
+  /**
+   * Controls if nested items should be shown.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true, attribute: 'show-children' })
   public showChildren = false;
 
+  // TODO: Should this be a getter that just checks on its own if there is any children?
+  /**
+   * Shows/hides the caret.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'has-children' })
   public hasChildren = false;
 
-  /** TODO: implement loading property */
+  /**
+   * Shows/hides the loading indicator
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'loading' })
+  public loading = false;
 
   private onCaretClicked() {
     this.showChildren = !this.showChildren;
@@ -168,7 +215,7 @@ export class UUIMenuItemElement extends SelectableMixin(
 
   render() {
     return html`
-      <div id="menu-item">
+      <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
           ? html`<button id="caret-button" @click=${this.onCaretClicked}>
               <uui-caret ?open=${this.showChildren}></uui-caret>
@@ -183,6 +230,9 @@ export class UUIMenuItemElement extends SelectableMixin(
         </button>
         <div id="label-button-background"></div>
         <slot id="actions-container" name="actions"></slot>
+        ${this.loading
+          ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
+          : ''}
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
