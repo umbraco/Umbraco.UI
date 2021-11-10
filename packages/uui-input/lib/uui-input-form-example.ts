@@ -2,6 +2,9 @@ import { LitElement, html, css } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { UUIInputElement } from './uui-input.element';
 import '@umbraco-ui/uui-checkbox/lib';
+import '@umbraco-ui/uui-slider/lib';
+import '@umbraco-ui/uui-radio/lib';
+import '@umbraco-ui/uui-toggle/lib';
 
 @customElement('uui-input-example-element')
 export class UUIInputInFormExampleElement extends LitElement {
@@ -9,6 +12,14 @@ export class UUIInputInFormExampleElement extends LitElement {
   static styles = css`
     #nativeInput:invalid {
       border: 1px solid red;
+    }
+
+    uui-input {
+      width: 100%;
+    }
+
+    form {
+      max-width: 600px;
     }
   `;
 
@@ -24,8 +35,8 @@ export class UUIInputInFormExampleElement extends LitElement {
   @query('#password')
   _passwordElement: UUIInputElement | undefined;
 
-  private _showValidation;
-  private _customValidationInputIsInvalid;
+  private _showValidation: Boolean = false;
+  private _customValidationInputIsInvalid: Boolean = false;
 
   _onEmailInput (event: any) {
     console.log('EMAIL', event);
@@ -68,6 +79,14 @@ export class UUIInputInFormExampleElement extends LitElement {
     this.requestUpdate();
 
     console.log('IS VALID', this._form.checkValidity());
+
+    const formData = new FormData(this._form);
+
+    const nativeCheckboxValue = formData.get('nativeCheckbox');
+    const uuiSliderValue = formData.get('slider');
+    const radioGroup = formData.get('myRadioGroup');
+
+    debugger
 
     /*
     const formData = new FormData(this._form);
@@ -113,53 +132,98 @@ export class UUIInputInFormExampleElement extends LitElement {
         </div>
 
         <div>
-          <input id="nativeCheckbox" type="checkbox" value="" required />
-        </div>
-
-        <div>
           <uui-checkbox id="checkbox" value="" required></uui-checkbox>
         </div>
         -->
+
+        <!--
+        <div>
+          <label style="display: block;">Native checkbox</label>
+          <input type="checkbox" id="nativeCheckbox" name="nativeCheckbox" required />
+        </div>
 
         <div>
           <label style="display: block;">Text</label>
           <input type="text" id="nativeInput" name="native" value="" required />
         </div>
+        -->
 
-        <div style="margin-bottom: 10px;">
+        <div style="margin-bottom: 15px;">
+          <uui-checkbox
+            id="checkbox"
+            name="checkbox"
+            value="Bike"
+            label="This is my checkbox2"
+            required>
+            Hello
+          </uui-checkbox>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <uui-toggle
+            id="toggle"
+            name="toggle"
+            label="This is my toggle"
+            required>
+            This is my toggle
+          </uui-toggle>
+        </div>
+
+        <div style="margin-bottom: 15px;">
           <uui-input 
             id="email" 
             name="email" 
-            value="" 
-            type="text" 
-            @input="${this._onEmailInput}" 
+            value=""
+            type="text"
             label="Email" 
-            required
-            ?showvalidation="${this._showValidation}">
+            @input="${this._onEmailInput}"
+            required>
           </uui-input>
         </div>
 
-        <div style="margin-bottom: 10px;">
+        <div style="margin-bottom: 15px;">
           <uui-input
             type="password"
             id="password"
             name="password"
-            @input="${this._onPasswordInput}"
             label="Password"
-            required
-            ?showvalidation="${this._showValidation}">
+            @input="${this._onPasswordInput}"
+            required>
           </uui-input>
         </div>
 
-        <div style="margin-bottom: 10px;">
+        <div style="margin-bottom: 15px;">
           <uui-input
             type="text"
             id="customValidation"
             name="customValidation"
+            label="Custom Validation"
+            placeholder="Write 'test'..."
             @input="${this._onCustomValidationInput}"
-            label="customValidation"
             ?error="${this._customValidationInputIsInvalid}">
           </uui-input>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <uui-slider
+            label="Slider"
+            id="slider"
+            name="slider"
+            value=""
+            min="0"
+            max="10"
+            step="1"
+            required>
+          </uui-slider>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <uui-radio-group label="Radio group" name="myRadioGroup" required>
+            <uui-radio value="Value 1">Option 1</uui-radio>
+            <uui-radio value="Value 2">Option 2</uui-radio>
+            <uui-radio value="Value 3">Option 3</uui-radio>
+            <uui-radio value="Value 4">Option 4</uui-radio>
+          </uui-radio-group>
         </div>
 
         <div>
