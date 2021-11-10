@@ -276,6 +276,10 @@ export class UUISliderElement extends FormControlMixin(
   }
 
   set value(newVal) {
+    if (newVal instanceof File) {
+      return;
+    }
+
     const oldVal = this._value;
     this._value = newVal;
     this._calculateSliderPosition(newVal);
