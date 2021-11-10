@@ -5,11 +5,11 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class FormControlMixinInterface {
   formAssociated: boolean;
-  get value(): string;
-  set value(a:string);
+  get value(): FormDataEntryValue;
+  set value(newValue: FormDataEntryValue);
   name: string;
   disabled: boolean;
-  _value: string;
+  _value: FormDataEntryValue;
   _internals: any;
 }
 
@@ -54,7 +54,13 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     set value(newValue) {
       const oldValue = this._value;
       this._value = newValue;
-      this._internals.setFormValue(this._value);
+      if (
+        'ElementInternals' in window &&
+        //@ts-ignore
+        'setFormValue' in window.ElementInternals.prototype
+      ) {
+        this._internals.setFormValue(this._value);
+      }
       this.requestUpdate('value', oldValue);
     }
 
@@ -67,9 +73,8 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     @property({ type: Boolean, reflect: true })
     disabled = false;
 
-    @state()
-    private _value = '';
 
+    private _value: FormDataEntryValue = '';
     private _internals: any;
 
     constructor(...args: any[]) {
