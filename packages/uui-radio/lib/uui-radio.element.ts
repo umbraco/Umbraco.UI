@@ -23,7 +23,7 @@ export class UUIRadioElement extends LitElement {
         box-sizing: border-box;
         font-family: inherit;
         color: currentColor;
-        --uui-radio-button-size: calc(var(--uui-size-2) * 3);
+        --uui-radio-button-size: var(--uui-size-6);
         margin: var(--uui-size-2) 0;
       }
 
