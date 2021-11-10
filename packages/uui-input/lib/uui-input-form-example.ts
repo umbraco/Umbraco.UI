@@ -8,7 +8,6 @@ import '@umbraco-ui/uui-toggle/lib';
 
 @customElement('uui-input-example-element')
 export class UUIInputInFormExampleElement extends LitElement {
-
   static styles = css`
     #nativeInput:invalid {
       border: 1px solid red;
@@ -38,7 +37,7 @@ export class UUIInputInFormExampleElement extends LitElement {
   private _showValidation = false;
   private _customValidationInputIsInvalid = false;
 
-  _onEmailInput (event: any) {
+  _onEmailInput(event: any) {
     console.log('EMAIL', event);
     const value = event?.target?.value || '';
 
@@ -49,25 +48,27 @@ export class UUIInputInFormExampleElement extends LitElement {
     */
   }
 
-  _onPasswordInput (event: Event) {
+  _onPasswordInput(event: Event) {
     console.log('PASSWORD', event);
   }
 
-  _onCustomValidationInput (event: InputEvent) {
+  _onCustomValidationInput(event: InputEvent) {
     const target = event.target as UUIInputElement;
-    this._customValidationInputIsInvalid = !this._myCustomValidation(target.value);
+    this._customValidationInputIsInvalid = !this._myCustomValidation(
+      target.value
+    );
     this.requestUpdate();
   }
 
-  _myCustomValidation (value: string) {
+  _myCustomValidation(value: FormDataEntryValue) {
     return value === 'test';
   }
 
-  _validateEmail (email: string) {
+  _validateEmail(email: string) {
     return email === '';
   }
 
-  _onSubmit (event: Event) {
+  _onSubmit(event: Event) {
     event.preventDefault();
 
     if (!this._form) {
@@ -82,11 +83,11 @@ export class UUIInputInFormExampleElement extends LitElement {
 
     const formData = new FormData(this._form);
 
+    this._showValidation = true;
+
     const nativeCheckboxValue = formData.get('nativeCheckbox');
     const uuiSliderValue = formData.get('slider');
     const radioGroup = formData.get('myRadioGroup');
-
-    debugger
 
     /*
     const formData = new FormData(this._form);
@@ -107,47 +108,26 @@ export class UUIInputInFormExampleElement extends LitElement {
     */
   }
 
-  _onReset (event: Event) {
+  _onReset(event: Event) {
     console.log('RESET', event);
     this._showValidation = false;
     this.requestUpdate();
   }
 
-  connectedCallback () {
+  connectedCallback() {
     super.connectedCallback();
-    
+
     this._showValidation = false;
     this._customValidationInputIsInvalid = !this._myCustomValidation('');
   }
 
   render() {
     return html`
-      <!-- novalidate -->
-      <form @submit="${this._onSubmit}" @reset="${this._onReset}" novalidate>
-
-        <!--
-        <div>
-          <label style="display: block;">Number</label>
-          <input type="number" id="nativeNumber" name="nativeNumber" value="" min="5" max="10" required />
-        </div>
-
-        <div>
-          <uui-checkbox id="checkbox" value="" required></uui-checkbox>
-        </div>
-        -->
-
-        <!--
-        <div>
-          <label style="display: block;">Native checkbox</label>
-          <input type="checkbox" id="nativeCheckbox" name="nativeCheckbox" required />
-        </div>
-
-        <div>
-          <label style="display: block;">Text</label>
-          <input type="text" id="nativeInput" name="native" value="" required />
-        </div>
-        -->
-
+      <form
+        @submit="${this._onSubmit}"
+        @reset="${this._onReset}"
+        ?show-validation=${this._showValidation}
+        novalidate>
         <div style="margin-bottom: 15px;">
           <uui-checkbox
             id="checkbox"
@@ -170,12 +150,12 @@ export class UUIInputInFormExampleElement extends LitElement {
         </div>
 
         <div style="margin-bottom: 15px;">
-          <uui-input 
-            id="email" 
-            name="email" 
+          <uui-input
+            id="email"
+            name="email"
             value=""
             type="text"
-            label="Email" 
+            label="Email"
             @input="${this._onEmailInput}"
             required>
           </uui-input>
@@ -217,7 +197,7 @@ export class UUIInputInFormExampleElement extends LitElement {
           </uui-slider>
         </div>
 
-        <div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 30px;">
           <uui-radio-group label="Radio group" name="myRadioGroup" required>
             <uui-radio value="Value 1">Option 1</uui-radio>
             <uui-radio value="Value 2">Option 2</uui-radio>
@@ -227,17 +207,11 @@ export class UUIInputInFormExampleElement extends LitElement {
         </div>
 
         <div>
-          <uui-button
-            type="submit"
-            label="Submit"
-            look="positive">
+          <uui-button type="submit" label="Submit" look="positive">
             Submit
           </uui-button>
 
-          <uui-button
-            type="reset"
-            label="Reset"
-            look="secondary">
+          <uui-button type="reset" label="Reset" look="secondary">
             Reset
           </uui-button>
         </div>
