@@ -112,8 +112,6 @@ export class UUIInputElement extends FormControlMixin(LabelMixin('input label', 
     `,
   ];
 
-  private _validityState: any = {};
-
   /**
    * Defines the input placeholder.
    * @type {string}
@@ -159,6 +157,8 @@ export class UUIInputElement extends FormControlMixin(LabelMixin('input label', 
   }
 
   // Validation
+  private _validityState: any = {};
+  
   /**
    * This is a value property of the uui-input.
    * @type {boolean}
