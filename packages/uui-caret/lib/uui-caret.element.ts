@@ -18,7 +18,7 @@ export class UUICaretElement extends LitElement {
       svg {
         fill: currentColor;
         transform-origin: 50% 50%;
-        transition: transform 320ms cubic-bezier(0.17, -0.88, 0.82, 1.84); /* Julia's beloved easing */
+        transition: transform 280ms cubic-bezier(0.17, -0.88, 0.82, 1.84); /* Julia's beloved easing */
       }
     `,
   ];
