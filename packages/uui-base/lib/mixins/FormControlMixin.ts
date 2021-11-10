@@ -23,9 +23,8 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
   class FormControlMixinClass extends superClass {
-
     /**
-     * This is a static class field indicating that the element is can be used inside a native form and participate in its events. 
+     * This is a static class field indicating that the element is can be used inside a native form and participate in its events.
      * It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.
      * Read more about form controls here https://web.dev/more-capable-form-controls/
      * @type {boolean}
@@ -73,7 +72,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     @property({ type: Boolean, reflect: true })
     disabled = false;
 
-
     private _value: FormDataEntryValue = '';
     private _internals: any;
 
@@ -85,11 +83,11 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     public formResetCallback() {
       this.value = this.getAttribute('value') || '';
     }
-    
-    public checkValidity () {
+
+    public checkValidity() {
       return this._internals?.checkValidity();
     }
-
   }
-  return FormControlMixinClass as unknown as Constructor<FormControlMixinInterface> & T;
+  return FormControlMixinClass as unknown as Constructor<FormControlMixinInterface> &
+    T;
 };

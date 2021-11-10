@@ -1,5 +1,8 @@
 import { html, css } from 'lit';
-import { UUIHorizontalShakeKeyframes, UUIHorizontalShakeAnimationValue } from '@umbraco-ui/uui-base/lib/animations';
+import {
+  UUIHorizontalShakeKeyframes,
+  UUIHorizontalShakeAnimationValue,
+} from '@umbraco-ui/uui-base/lib/animations';
 import { iconWrong, iconCheck } from './toggle-icons';
 import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
 

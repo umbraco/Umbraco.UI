@@ -3,7 +3,10 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 import { nativeInputStyles } from './native-input.styles';
-import { UUIHorizontalPulseKeyframes, UUIHorizontalPulseAnimationValue } from '@umbraco-ui/uui-base/lib/animations';
+import {
+  UUIHorizontalPulseKeyframes,
+  UUIHorizontalPulseAnimationValue,
+} from '@umbraco-ui/uui-base/lib/animations';
 import { UUISliderEvent } from './UUISliderEvents';
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
@@ -40,7 +43,9 @@ const renderValues = (steps: number[], stepWidth: number, hide: boolean) => {
  *  @fires UUISliderEvent#input on input
  *
  */
-export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitElement)) {
+export class UUISliderElement extends FormControlMixin(
+  LabelMixin('label', LitElement)
+) {
   static styles = [
     UUIHorizontalPulseKeyframes,
     nativeInputStyles,
@@ -214,7 +219,6 @@ export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitEl
       :host(:invalid) #thumb:after {
         background-color: var(--uui-look-danger-surface);
       }
-
     `,
   ];
 
@@ -314,7 +318,11 @@ export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitEl
   }
 
   updated(changedProperties: any) {
-    if (changedProperties.has('max') || changedProperties.has('min') || changedProperties.has('step')) {
+    if (
+      changedProperties.has('max') ||
+      changedProperties.has('min') ||
+      changedProperties.has('step')
+    ) {
       this._updateSteps();
     }
 
@@ -364,7 +372,7 @@ export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitEl
 
   // Validation
   private _validityState: any = {};
-  
+
   /**
    * This is a value property of the uui-input.
    * @type {boolean}
@@ -383,22 +391,28 @@ export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitEl
   @property({ type: Boolean, reflect: true })
   error = false;
 
-  private _setValidity () {
+  private _setValidity() {
     // check for required
     if (this.required && this.value === '') {
       this._validityState.valueMissing = true;
-      this._internals.setValidity(this._validityState, 'The field is required', this.input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is required',
+        this.input
+      );
+    } else {
       this._validityState.valueMissing = false;
     }
 
     // check for custom error
     if (this.error) {
       this._validityState.customError = true;
-      this._internals.setValidity(this._validityState, 'The field is invalid', this.input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is invalid',
+        this.input
+      );
+    } else {
       this._validityState.customError = false;
     }
 

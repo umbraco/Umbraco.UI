@@ -26,7 +26,9 @@ export type InputType =
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
-export class UUIInputElement extends FormControlMixin(LabelMixin('input label', LitElement)) {
+export class UUIInputElement extends FormControlMixin(
+  LabelMixin('input label', LitElement)
+) {
   static styles = [
     css`
       :host {
@@ -152,13 +154,13 @@ export class UUIInputElement extends FormControlMixin(LabelMixin('input label', 
     );
   }
 
-  updated () {
+  updated() {
     this._setValidity();
   }
 
   // Validation
   private _validityState: any = {};
-  
+
   /**
    * This is a value property of the uui-input.
    * @type {boolean}
@@ -177,22 +179,28 @@ export class UUIInputElement extends FormControlMixin(LabelMixin('input label', 
   @property({ type: Boolean, reflect: true })
   error = false;
 
-  private _setValidity () {
+  private _setValidity() {
     // check for required
     if (this.required && this.value === '') {
       this._validityState.valueMissing = true;
-      this._internals.setValidity(this._validityState, 'The field is required', this._input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is required',
+        this._input
+      );
+    } else {
       this._validityState.valueMissing = false;
     }
 
     // check for custom error
     if (this.error) {
       this._validityState.customError = true;
-      this._internals.setValidity(this._validityState, 'The field is invalid', this._input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is invalid',
+        this._input
+      );
+    } else {
       this._validityState.customError = false;
     }
 

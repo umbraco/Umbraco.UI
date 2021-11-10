@@ -11,7 +11,9 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelMixin('', LitElement)) {
+export abstract class UUIBooleanInputBaseElement extends FormControlMixin(
+  LabelMixin('', LitElement)
+) {
   static styles = [
     css`
       :host {
@@ -65,10 +67,10 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
 
   @query('#input')
   protected _input!: HTMLInputElement;
-  
+
   /**
-   * This is a value property of the uui-checkbox or the uui-toggle component. 
-   * The default value of this property is 'on'. 
+   * This is a value property of the uui-checkbox or the uui-toggle component.
+   * The default value of this property is 'on'.
    * It reflects the behaviour of the native input type="checkbox" element and its value attribute.
    * @type {string}
    * @attr
@@ -82,7 +84,9 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
   set value(newVal) {
     const oldValue = this._value;
     this._value = newVal;
-    this._internals.setFormValue(this._checked && this.name !== '' ? this._value : null);
+    this._internals.setFormValue(
+      this._checked && this.name !== '' ? this._value : null
+    );
     this.requestUpdate('value', oldValue);
   }
 
@@ -107,7 +111,7 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
   private _checked = false;
 
   /**
-   * Reflects the state of the element. 
+   * Reflects the state of the element.
    * True if checkbox or toggle is checked. Change this to switch the state programmatically.
    * @type {boolean}
    * @attr
@@ -138,7 +142,7 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
     );
   }
 
-  updated () {
+  updated() {
     this._setValidity();
   }
 
@@ -146,7 +150,7 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
   private _validityState: any = {};
 
   /**
-   * Set to true if the component should be required. 
+   * Set to true if the component should be required.
    * Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr
@@ -156,7 +160,7 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
   required = false;
 
   /**
-   * Set to true if the component should have an error state. 
+   * Set to true if the component should have an error state.
    * Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr
@@ -165,22 +169,28 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(LabelM
   @property({ type: Boolean, reflect: true })
   error = false;
 
-  private _setValidity () {
+  private _setValidity() {
     // check for required
     if (this.required && !this.checked) {
       this._validityState.valueMissing = true;
-      this._internals.setValidity(this._validityState, 'The field is required', this._input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is required',
+        this._input
+      );
+    } else {
       this._validityState.valueMissing = false;
     }
 
     // check for custom error
     if (this.error) {
       this._validityState.customError = true;
-      this._internals.setValidity(this._validityState, 'The field is invalid', this._input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is invalid',
+        this._input
+      );
+    } else {
       this._validityState.customError = false;
     }
 

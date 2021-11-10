@@ -18,8 +18,9 @@ const SPACE = ' ';
  *  @element uui-radio-group
  *  @slot for uui-radio elements
  */
-export class UUIRadioGroupElement extends FormControlMixin(LabelMixin('', LitElement)) {
-
+export class UUIRadioGroupElement extends FormControlMixin(
+  LabelMixin('', LitElement)
+) {
   static styles = css`
     .label {
       display: inline-block;
@@ -222,12 +223,12 @@ export class UUIRadioGroupElement extends FormControlMixin(LabelMixin('', LitEle
     this._fireChangeEvent();
   };
 
-  updated (changedProperties: any) {
-    if(changedProperties.has('disabled')) {
+  updated(changedProperties: any) {
+    if (changedProperties.has('disabled')) {
       this._toggleDisableOnChildren(changedProperties.get('disabled'));
     }
 
-    if(changedProperties.has('name') && this.radioElements) {
+    if (changedProperties.has('name') && this.radioElements) {
       this._addNameToRadios(changedProperties.get('name'), this.radioElements);
     }
 
@@ -245,7 +246,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LabelMixin('', LitEle
 
   private _validityState: any = {};
 
-  private _setValidity () {
+  private _setValidity() {
     this._setRequired();
     this._setCustomError();
 
@@ -256,22 +257,28 @@ export class UUIRadioGroupElement extends FormControlMixin(LabelMixin('', LitEle
     }
   }
 
-  private _setRequired () {
+  private _setRequired() {
     if (this.hasAttribute('required') && this.value === '') {
       this._validityState.valueMissing = true;
-      this._internals.setValidity(this._validityState, 'The field is required', this._input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is required',
+        this._input
+      );
+    } else {
       this._validityState.valueMissing = false;
     }
   }
 
-  private _setCustomError () {
+  private _setCustomError() {
     if (this.error) {
       this._validityState.customError = true;
-      this._internals.setValidity(this._validityState, 'The field is invalid', this._input);
-    }
-    else {
+      this._internals.setValidity(
+        this._validityState,
+        'The field is invalid',
+        this._input
+      );
+    } else {
       this._validityState.customError = false;
     }
   }
