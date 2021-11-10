@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-caret",
+  "name": "@umbraco-ui/uui-menu-item",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Caret"
+    "Menu Item"
   ],
-  "description": "A caret with an open and close animation",
+  "description": "Umbraco UI menu-item component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-caret"
+    "directory": "packages/uui-menu-item"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-caret.min.js",
+  "main": "./dist/uui-menu-item.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -39,5 +39,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-caret"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-menu-item"
 }
