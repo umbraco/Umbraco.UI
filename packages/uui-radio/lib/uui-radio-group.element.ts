@@ -1,8 +1,9 @@
-import { LitElement, html } from 'lit';
-import { query, property, state } from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { query, property } from 'lit/decorators.js';
 import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioEvent } from './UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
+import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 //TODO required?
 //TODO focused style
@@ -17,18 +18,18 @@ const SPACE = ' ';
  *  @element uui-radio-group
  *  @slot for uui-radio elements
  */
-export class UUIRadioGroupElement extends LitElement {
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
+export class UUIRadioGroupElement extends FormControlMixin(LabelMixin('', LitElement)) {
 
-  private _internals;
+  static styles = css`
+    .label {
+      display: inline-block;
+      margin-bottom: var(--uui-size-1);
+      font-weight: bold;
+    }
+  `;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
     this.addEventListener('keydown', this._onKeydown);
   }
 
@@ -54,7 +55,7 @@ export class UUIRadioGroupElement extends LitElement {
   }
 
   private _toggleDisableOnChildren(value: boolean) {
-    this.radioElements.forEach(el => (el.disabled = value));
+    this.radioElements?.forEach(el => (el.disabled = value));
   }
 
   private _handleSlotChange() {
@@ -104,63 +105,14 @@ export class UUIRadioGroupElement extends LitElement {
     if (this.disabled) this._toggleDisableOnChildren(true);
   }
 
-  private _disabled = false;
-
   /**
-   * Disables the input.
+   * Set to true to hide the labeling provided by the component.
    * @type {boolean}
-   * @attr
+   * @attr hide-label
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
-  get disabled() {
-    return this._disabled;
-  }
-
-  set disabled(newVal) {
-    const oldVal = this._disabled;
-    this._disabled = newVal;
-    this.requestUpdate('disabled', oldVal);
-    this._toggleDisableOnChildren(newVal);
-  }
-
-  private _value: FormDataEntryValue = '';
-  @state()
-  get value() {
-    return this._value;
-  }
-  set value(newValue) {
-    const oldVal = this._value;
-    this._value = newValue;
-    if (
-      'ElementInternals' in window &&
-      //@ts-ignore
-      'setFormValue' in window.ElementInternals.prototype
-    ) {
-      this._internals.setFormValue(this._value);
-    }
-    this.requestUpdate('value', oldVal);
-  }
-
-  private _name = '';
-  /**
-   * This is a name property of the `<uui-radio-group>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  get name() {
-    return this._name;
-  }
-
-  set name(newVal) {
-    const oldVal = this._name;
-    this._name = newVal;
-    if (this.radioElements)
-      this._addNameToRadios(this._name, this.radioElements);
-    this.requestUpdate('name', oldVal);
-  }
+  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
+  hideLabel = false;
 
   private _selected: number | null = null;
 
@@ -270,7 +222,64 @@ export class UUIRadioGroupElement extends LitElement {
     this._fireChangeEvent();
   };
 
+  updated (changedProperties: any) {
+    if(changedProperties.has('disabled')) {
+      this._toggleDisableOnChildren(changedProperties.get('disabled'));
+    }
+
+    if(changedProperties.has('name') && this.radioElements) {
+      this._addNameToRadios(changedProperties.get('name'), this.radioElements);
+    }
+
+    this._setValidity();
+  }
+
+  /**
+   * This is a value property of the uui-input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
+  private _validityState: any = {};
+
+  private _setValidity () {
+    this._setRequired();
+    this._setCustomError();
+
+    const hasError = Object.values(this._validityState).includes(true);
+
+    if (hasError === false) {
+      this._internals.setValidity({});
+    }
+  }
+
+  private _setRequired () {
+    if (this.hasAttribute('required') && this.value === '') {
+      this._validityState.valueMissing = true;
+      this._internals.setValidity(this._validityState, 'The field is required', this._input);
+    }
+    else {
+      this._validityState.valueMissing = false;
+    }
+  }
+
+  private _setCustomError () {
+    if (this.error) {
+      this._validityState.customError = true;
+      this._internals.setValidity(this._validityState, 'The field is invalid', this._input);
+    }
+    else {
+      this._validityState.customError = false;
+    }
+  }
+
   render() {
-    return html` <slot @slotchange=${this._handleSlotChange}> </slot> `;
+    return html`
+      ${this.hideLabel === false ? this.renderLabel() : ''}
+      <slot @slotchange=${this._handleSlotChange}></slot>
+    `;
   }
 }
