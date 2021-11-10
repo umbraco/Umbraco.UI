@@ -193,7 +193,7 @@ export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitEl
 
       .label {
         display: inline-block;
-        margin-bottom: var(--uui-size-2);
+        margin-bottom: var(--uui-size-5);
         font-weight: bold;
       }
 
