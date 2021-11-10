@@ -5,18 +5,19 @@ export class UUICaretElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
         width: 12px;
         vertical-align: middle;
+        transform: rotateZ(-90deg);
       }
 
       svg {
         fill: currentColor;
-        transition: transform 320ms cubic-bezier(0.17, -0.88, 0.82, 1.84); /* Julia's beloved easing */
+        transition: transform 100ms ease-out;
       }
 
       :host([open]) svg {
-        transform: rotate(180deg);
+        transform: rotateZ(90deg);
       }
     `,
   ];
