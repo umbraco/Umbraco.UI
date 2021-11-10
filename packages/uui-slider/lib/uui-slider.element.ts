@@ -3,12 +3,9 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 import { nativeInputStyles } from './native-input.styles';
-import {
-  UUIHorizontalPulseKeyframes,
-  UUIHorizontalPulseAnimationValue,
-} from '@umbraco-ui/uui-base/lib/animations';
+import { UUIHorizontalPulseKeyframes, UUIHorizontalPulseAnimationValue } from '@umbraco-ui/uui-base/lib/animations';
 import { UUISliderEvent } from './UUISliderEvents';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 const renderSVG = (steps: number[], stepWidth: number) => {
   return svg`
@@ -43,7 +40,7 @@ const renderValues = (steps: number[], stepWidth: number, hide: boolean) => {
  *  @fires UUISliderEvent#input on input
  *
  */
-export class UUISliderElement extends LabelMixin('label', LitElement) {
+export class UUISliderElement extends FormControlMixin(LabelMixin('label', LitElement)) {
   static styles = [
     UUIHorizontalPulseKeyframes,
     nativeInputStyles,
@@ -194,12 +191,10 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
         fill: var(--uui-interface-contrast-disabled);
       }
 
-      label {
+      .label {
         display: inline-block;
-        margin-top: 6px;
-        position: relative;
-
-        font-weight: 2100;
+        margin-bottom: var(--uui-size-2);
+        font-weight: bold;
       }
 
       @media (prefers-reduced-motion) {
@@ -211,14 +206,17 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
           transition: none;
         }
       }
+
+      :host(:invalid) #thumb {
+        border: 1px solid var(--uui-look-danger-border);
+      }
+
+      :host(:invalid) #thumb:after {
+        background-color: var(--uui-look-danger-surface);
+      }
+
     `,
   ];
-
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
 
   @query('input')
   private input!: HTMLInputElement;
@@ -262,7 +260,6 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
   @property({ type: Number })
   step = 1;
 
-  private _value = '';
   /**
    * This is a value property of the uui-slider.
    * @type {string}
@@ -297,13 +294,6 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
   @property({ type: Boolean, attribute: 'hide-label', reflect: true })
   hideLabel = false;
 
-  private _internals;
-
-  constructor() {
-    super();
-    this._internals = (this as any).attachInternals();
-  }
-
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('resize', this.onWindowResize);
@@ -324,12 +314,11 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
   }
 
   updated(changedProperties: any) {
-    if (
-      changedProperties.get('max') ||
-      changedProperties.get('min') ||
-      changedProperties.get('step')
-    )
+    if (changedProperties.has('max') || changedProperties.has('min') || changedProperties.has('step')) {
       this._updateSteps();
+    }
+
+    this._setValidity();
   }
 
   @state()
@@ -373,8 +362,56 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
       (_, i) => start + i * step
     );
 
+  // Validation
+  private _validityState: any = {};
+  
+  /**
+   * This is a value property of the uui-input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  /**
+   * This is a value property of the uui-input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
+  private _setValidity () {
+    // check for required
+    if (this.required && this.value === '') {
+      this._validityState.valueMissing = true;
+      this._internals.setValidity(this._validityState, 'The field is required', this.input);
+    }
+    else {
+      this._validityState.valueMissing = false;
+    }
+
+    // check for custom error
+    if (this.error) {
+      this._validityState.customError = true;
+      this._internals.setValidity(this._validityState, 'The field is invalid', this.input);
+    }
+    else {
+      this._validityState.customError = false;
+    }
+
+    const hasError = Object.values(this._validityState).includes(true);
+
+    if (hasError === false) {
+      this._internals.setValidity({});
+    }
+  }
+
   render() {
     return html`
+      ${this.hideLabel === false ? this.renderLabel() : ''}
       <input
         type="range"
         min="${this.min}"
@@ -403,7 +440,6 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
         </div>
       </div>
       ${renderValues(this.steps, this.stepWidth, this.hideStepValues)}
-      ${this.hideLabel === false ? this.renderLabel() : ''}
     `;
   }
 }
