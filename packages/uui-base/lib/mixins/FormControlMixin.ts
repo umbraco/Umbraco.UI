@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
