@@ -35,8 +35,8 @@ export class UUIInputInFormExampleElement extends LitElement {
   @query('#password')
   _passwordElement: UUIInputElement | undefined;
 
-  private _showValidation: Boolean = false;
-  private _customValidationInputIsInvalid: Boolean = false;
+  private _showValidation = false;
+  private _customValidationInputIsInvalid = false;
 
   _onEmailInput (event: any) {
     console.log('EMAIL', event);
@@ -153,7 +153,7 @@ export class UUIInputInFormExampleElement extends LitElement {
             id="checkbox"
             name="checkbox"
             value="Bike"
-            label="This is my checkbox2"
+            label="This is my checkbox"
             required>
             Hello
           </uui-checkbox>
