@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUISliderElement } from './uui-slider.element';
 import './index';
 
@@ -57,4 +57,62 @@ describe('UuiSlider in Form', () => {
     const formData = new FormData(formElement);
     await expect(formData.get('slider')).to.be.equal('90');
   });
+
+  describe('validation', () => {
+    describe('required', () => {
+      beforeEach(async () => {
+        element.setAttribute('required', 'true');
+        element.value = '';
+        await elementUpdated(element);
+      });
+    
+      it('sets element to invalid when value is empty', async () => {    
+        expect(element.checkValidity()).to.be.false;
+      });
+    
+      it('sets element to valid when it has a value', async () => {      
+        element.value = '90';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+    
+      it('sets the form to invalid when value is empty', async () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+    
+      it('sets the form to valid when it has a value', async () => {
+        element.value = '90';
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+    
+    describe('custom error', () => {
+      beforeEach(async () => {
+        element.setAttribute('error', 'true');
+        await elementUpdated(element);
+      });
+    
+      it('sets element to invalid when it has a custom error attribute', async () => {
+        expect(element.checkValidity()).to.be.false;
+      });
+    
+      it('sets element to valid when it doesnt have a custom error attribute', async () => {      
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+    
+      it('sets the form to invalid when value is empty', async () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+    
+      it('sets the form to valid when it doesnt have a custom error attribute', async () => {
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+  });
+
 });
