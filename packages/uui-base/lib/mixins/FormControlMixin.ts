@@ -9,6 +9,8 @@ export declare class FormControlMixinInterface {
   set value(newValue: FormDataEntryValue);
   name: string;
   disabled: boolean;
+  formResetCallback: Function;
+  checkValidity: Function;
   _value: FormDataEntryValue;
   _internals: any;
 }
