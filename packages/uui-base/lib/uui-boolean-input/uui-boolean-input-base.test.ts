@@ -119,6 +119,71 @@ describe('BooleanInputBaseElement in a Form', () => {
     const formData = new FormData(formElement);
     expect(formData.get(`test`)).to.equal('on');
   });
+
+  describe('validation', () => {
+    let formElement: HTMLFormElement;
+    let element: any;
+    beforeEach(async () => {
+      formElement = await fixture(
+        html`<form><${tag} label="test label" name="test"></${tag}></form>`
+      );
+      element = formElement.firstChild;
+    });
+  
+    describe('required', () => {
+      beforeEach(async () => {
+        element.setAttribute('required', 'true');
+        await elementUpdated(element);
+      });
+    
+      it('sets element to invalid when value is empty', async () => {    
+        expect(element.checkValidity()).to.be.false;
+      });
+    
+      it('sets element to valid when it has a value', async () => {      
+        element.checked = true;
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+    
+      it('sets the form to invalid when value is empty', async () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+    
+      it('sets the form to valid when it has a value', async () => {
+        element.checked = true;
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+    
+    describe('custom error', () => {
+      beforeEach(async () => {
+        element.setAttribute('error', 'true');
+        await elementUpdated(element);
+      });
+    
+      it('sets element to invalid when it has a custom error attribute', async () => {
+        expect(element.checkValidity()).to.be.false;
+      });
+    
+      it('sets element to valid when it doesnt have a custom error attribute', async () => {      
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+    
+      it('sets the form to invalid when value is empty', async () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+    
+      it('sets the form to valid when it doesnt have a custom error attribute', async () => {
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+  });
 });
 
 describe('element in a Form with no attributes', () => {
