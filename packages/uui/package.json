@@ -49,7 +49,8 @@
     "@umbraco-ui/uui-table": "0.0.14",
     "@umbraco-ui/uui-tabs": "0.0.14",
     "@umbraco-ui/uui-tag": "0.0.14",
-    "@umbraco-ui/uui-toggle": "0.0.14"
+    "@umbraco-ui/uui-toggle": "0.0.14",
+    "@umbraco-ui/uui-menu-item": "0.0.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
