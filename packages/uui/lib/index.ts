@@ -17,3 +17,5 @@ import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-tabs/lib/index';
 import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-toggle/lib/index';
+import '@umbraco-ui/uui-caret/lib/index';
+import '@umbraco-ui/uui-menu-item/lib/index';
