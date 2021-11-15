@@ -1,7 +1,7 @@
 import postcss from 'postcss';
 import syntax from 'postcss-syntax';
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
-import { extractCustomProperties } from './extract-custom-properties';
+import { extractCustomProperties } from './extract-custom-properties.mjs';
 import { createFilter } from '@rollup/pluginutils';
 import autoprefixer from 'autoprefixer';
 

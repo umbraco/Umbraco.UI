@@ -27,6 +27,7 @@ tsconfig.tsbuildinfo
 
 
 custom-elements.json
+custom-properties.json
 storybook-static
 debug.log
 out-css
