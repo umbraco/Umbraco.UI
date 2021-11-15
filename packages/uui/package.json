@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -30,6 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
+    "@umbraco-ui/menu-item": "0.0.1",
     "@umbraco-ui/uui-avatar": "0.0.14",
     "@umbraco-ui/uui-avatar-group": "0.0.14",
     "@umbraco-ui/uui-badge": "0.0.7",
@@ -37,6 +38,7 @@
     "@umbraco-ui/uui-breadcrumbs": "0.0.14",
     "@umbraco-ui/uui-button": "0.1.5",
     "@umbraco-ui/uui-button-group": "0.0.7",
+    "@umbraco-ui/uui-caret": "0.0.3",
     "@umbraco-ui/uui-checkbox": "0.0.14",
     "@umbraco-ui/uui-input": "0.0.14",
     "@umbraco-ui/uui-keyboard-shortcut": "0.0.8",
@@ -48,9 +50,7 @@
     "@umbraco-ui/uui-table": "0.0.14",
     "@umbraco-ui/uui-tabs": "0.0.14",
     "@umbraco-ui/uui-tag": "0.0.14",
-    "@umbraco-ui/uui-toggle": "0.0.14",
-    "@umbraco-ui/uui-caret": "0.0.2",
-    "@umbraco-ui/menu-item": "0.0.1"
+    "@umbraco-ui/uui-toggle": "0.0.14"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
