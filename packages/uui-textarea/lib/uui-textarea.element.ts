@@ -215,15 +215,10 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
     }
   }
 
-  getMaxLengthClasses() {
-    if (this.maxLength && this.value) {
-      return this.value.length >= this.maxLength ? 'maxed' : '';
-    }
-    return '';
-  }
-
   renderMaxLength() {
-    return html`<span id="char-count" class=${this.getMaxLengthClasses()}
+    return html`<span
+      id="char-count"
+      class=${this.value.length >= this.maxLength! ? 'maxed' : ''}
       >${this.value ? this.value.length : 0}/${this.maxLength}</span
     >`;
   }
