@@ -10,7 +10,6 @@ export const Overview = () =>
   html`
     <uui-caret
       @click=${(e: MouseEvent) => {
-        console.log('Click');
         (e.target as any).open = !(e.target as any).open;
       }}></uui-caret>
   `;
