@@ -25,7 +25,7 @@
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
-    "storybook": "npm run custom-properties-cache && npm run bootstrap && npm run storybook:analyze && start-storybook -p 6006 -s ./.storybook/images",
+    "storybook": "npm run build:css && npm run bootstrap && npm run storybook:analyze && start-storybook -p 6006 -s ./.storybook/images",
     "storybook:build": "npm run custom-properties-cache && npm run bootstrap && npm run storybook:analyze && build-storybook -s ./.storybook/images",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "web-test-runner --coverage",
@@ -43,7 +43,7 @@
     "bootstrap": "node ./scripts/generate-ts-config.js",
     "prepare": "husky install",
     "new-package": "plop && npm i",
-    "custom-properties-cache": "npm run build:css && node ./scripts/update-custom-properties-cache.mjs"
+    "custom-properties-cache": "node ./scripts/update-custom-properties-cache.mjs"
   },
   "engines": {
     "node": ">=16.0.0",
