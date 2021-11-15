@@ -30,7 +30,6 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/menu-item": "0.0.1",
     "@umbraco-ui/uui-avatar": "0.0.14",
     "@umbraco-ui/uui-avatar-group": "0.0.14",
     "@umbraco-ui/uui-badge": "0.0.7",
