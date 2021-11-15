@@ -14,8 +14,8 @@ export default {
   title: 'Design/Design',
 };
 
-export const DesignSystem = () => html`
-  <div style="background-color: var(--uui-color-cocoa-black); color:white;">
+export const DesignSystem = () => html` <div
+    style="background-color: var(--uui-color-cocoa-black); color:white;">
     <div class="design">
       <br />
       <br />
@@ -198,405 +198,411 @@ export const DesignSystem = () => html`
       pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
       qui officia deserunt mollit anim id est laborum.</small
     >
+  </div>`;
 
-    <h2>Interface Colors</h2>
-    <p>
-      THe UI Library components use predefined custom properties.If you want
-      your element to fit into umbraco's backoffice you can use following custom
-      properties. The fallback values are inserted automatically during build.
-    </p>
+export const Colors = () => html` <h2>Interface Colors</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('interface'))
-          .map(
-            property => html` <tr>
-            <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td><div style="display: flex; justify-content: space-between">
-                <code>${property.value}</code><uui-button compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.value
-              )}>${copyIcon}</uui-button>
-              </div></td>
-              <td><div
-                    style="background:var(${
-                      property.key
-                    }); width:60px; height:60px;">
-                  </div></td>
+
+<h2>Looks</h2>
+<p>
+  These are used to overwrite selected interface properties to get a
+  specific look.
+</p>
+
+<h3>Primary Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-primary'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
             </div>
-          </tr>`
-          )}
-      </tbody>
-    </table>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
 
-    <h2>Looks</h2>
-    <p>
-      These are used to overwrite selected interface properties to get a
-      specitic look.
-    </p>
+<h3>Secondary Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-secondary'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
 
-    <h3>Primary Look</h3>
-    <table>
-      <thead>
+<h3>Positive Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-positive'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
+
+<h3>Warning Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-warning'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
+
+<h3>Danger Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-danger'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
+
+<h3>Placeholder Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-placeholder'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
+
+<h3>OutLine Look</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('look-outline'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
+
+<h2>Colors</h2>
+<p>
+  We provide all the Umbraco Identity colors as css custom properties, but
+  we do not recommend using those directly. All interface should be based on
+  interface color properties. Here is an overview of colors:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Custom property name</th>
+      <th>Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${propertiesArray
+      .filter(property => property.key.includes('color'))
+      .map(
+        property => html` <tr>
+          <td><div style="display: flex; justify-content: space-between">
+          ${
+            property.key
+          }<uui-button title="Copy custom property name" compact @click=${() =>
+          navigator.clipboard.writeText(
+            property.key
+          )}>${copyIcon}</uui-button></td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code
+              ><uui-button
+                compact
+                @click=${() => navigator.clipboard.writeText(property.value)}
+                >${copyIcon}</uui-button
+              >
+            </div>
+          </td>
+          <td>
+            <div
+              style="background:var(${
+                property.key
+              }); width:60px; height:60px;"></div>
+          </td>
+        </tr>`
+      )}
+  </tbody>
+</table>
+</div>`;
+
+export const InterfaceColors = () => html`
+  <p>
+    THe UI Library components use predefined custom properties.If you want your
+    element to fit into umbraco's backoffice you can use following custom
+    properties. The fallback values are inserted automatically during build.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Custom property name</th>
+        <th>Value</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${propertiesArray
+        .filter(property => property.key.includes('interface'))
+        .map(
+          property => html`
         <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-primary'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+            ${
+              property.key
+            }<uui-button title="Copy custom property name" compact @click=${() =>
+            navigator.clipboard.writeText(
+              property.key
+            )}>${copyIcon}</uui-button>
+            </div>
+          </td>
 
-    <h3>Secondary Look</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-secondary'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-
-    <h3>Positive Look</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-positive'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-
-    <h3>Warning Look</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-warning'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-
-    <h3>Danger Look</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-danger'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-
-    <h3>Placeholder Look</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-placeholder'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-
-    <h3>OutLine Look</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('look-outline'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-
-    <h2>Colors</h2>
-    <p>
-      We provide all the Umbraco Identity colors as css custom properties, but
-      we do not recommend using those directly. All interface should be based on
-      interface color properties. Here is an overview of colors:
-    </p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Custom property name</th>
-          <th>Value</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${propertiesArray
-          .filter(property => property.key.includes('color'))
-          .map(
-            property => html` <tr>
-              <td><div style="display: flex; justify-content: space-between">
-              ${
-                property.key
-              }<uui-button title="Copy custom property name" compact @click=${() =>
-              navigator.clipboard.writeText(
-                property.key
-              )}>${copyIcon}</uui-button></td>
-              <td>
-                <div style="display: flex; justify-content: space-between">
-                  <code>${property.value}</code
-                  ><uui-button
-                    compact
-                    @click=${() =>
-                      navigator.clipboard.writeText(property.value)}
-                    >${copyIcon}</uui-button
-                  >
-                </div>
-              </td>
-              <td>
-                <div
-                  style="background:var(${
-                    property.key
-                  }); width:60px; height:60px;"></div>
-              </td>
-            </tr>`
-          )}
-      </tbody>
-    </table>
-  </div>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <code>${property.value}</code>
+              <uui-button compact @click=${() =>
+                navigator.clipboard.writeText(
+                  property.value
+                )}>${copyIcon}</uui-button>
+            </div>
+          </td>
+          <td>
+            <div
+                style="background:var(${
+                  property.key
+                }); width:60px; height:60px;">
+              </div>
+            </td>
+        </div>
+      </tr>`
+        )}
+    </tbody>
+  </table>
 `;
