@@ -162,7 +162,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
    * @default undefined
    */
   @property({ type: Number })
-  maxLength: number | undefined = undefined;
+  maxLength = 0;
 
   /**
    * Enables automatic height adjustment. The height will be confined within the min and max height if defined.
@@ -206,13 +206,26 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   }
 
   private autoUpdateHeight() {
+    const host = this.shadowRoot!.host! as HTMLElement;
     const input = this._textarea;
+
+    // Temporarily lock the height of the shadowroot host to prevent
+    // the page scroll from moving when changing the textarea height
+    const scrollTop = host.scrollTop;
+    const hostHeight = getComputedStyle(host).height;
+    host.style.display = 'block';
+    host.style.height = hostHeight;
 
     input.style.height = 'auto';
 
     if (input.scrollHeight > input.clientHeight) {
       input.style.height = input.scrollHeight + 'px';
     }
+
+    // Reset host styles and scroll to where we were
+    host.style.removeProperty('display');
+    host.style.removeProperty('height');
+    host.scrollTop = scrollTop;
   }
 
   renderMaxLength() {
@@ -227,7 +240,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
     return html`
       ${this.hideLabel === false ? this.renderLabel() : ''}
       <textarea
-        maxlength=${ifDefined(this.maxLength)}
+        maxlength=${ifDefined(this.maxLength > 0 ? this.maxLength : undefined)}
         style="min-height: ${this.minHeight}; max-height: ${this.maxHeight}"
         id="textarea"
         .value=${this.value}
@@ -238,7 +251,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
         @input=${this.onInput}
         @change=${this.onChange}>
       </textarea>
-      ${this.maxLength ? this.renderMaxLength() : ''}
+      ${this.maxLength > 0 ? this.renderMaxLength() : ''}
     `;
   }
 }
