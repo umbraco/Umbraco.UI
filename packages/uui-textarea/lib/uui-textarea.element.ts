@@ -23,6 +23,9 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
       :host([error]) textarea[disabled] {
         border: 1px solid var(--uui-look-danger-border) !important;
       }
+      :host([auto-height]) textarea {
+        resize: none;
+      }
       textarea[disabled] {
         cursor: not-allowed;
         background-color: var(
@@ -44,7 +47,6 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
         border: 1px solid
           var(--uui-textarea-border-color, var(--uui-interface-border));
         border-radius: 0;
-        resize: none;
       }
       #char-count {
         display: inline-block;
@@ -193,7 +195,6 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
     this.value = (e.target as HTMLInputElement).value;
 
     if (this.autoHeight) {
-      this._textarea.rows = 0;
       this.autoUpdateHeight();
     }
   }
@@ -205,36 +206,13 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   }
 
   private autoUpdateHeight() {
-    let computedStyles = getComputedStyle(this._textarea);
-    let height = Number.parseFloat(computedStyles.height);
-    let maxHeight = Number.parseFloat(computedStyles.maxHeight);
-    let heightCheck = maxHeight ? height < maxHeight : true;
+    const input = this._textarea;
 
-    if (this.checkOverflow(this._textarea) && heightCheck) {
-      this._textarea.rows = this._textarea.rows + 1;
+    input.style.height = 'auto';
 
-      computedStyles = getComputedStyle(this._textarea);
-      height = Number.parseFloat(computedStyles.height);
-      maxHeight = Number.parseFloat(computedStyles.maxHeight);
-      heightCheck = maxHeight ? height < maxHeight : true;
-
-      if (this.checkOverflow(this._textarea) && heightCheck) {
-        this.autoUpdateHeight();
-      }
+    if (input.scrollHeight > input.clientHeight) {
+      input.style.height = input.scrollHeight + 'px';
     }
-  }
-
-  private checkOverflow(el: HTMLElement) {
-    const curOverflow = el.style.overflow;
-
-    if (!curOverflow || curOverflow === 'visible') el.style.overflow = 'hidden';
-
-    const isOverflowing =
-      el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
-
-    el.style.overflow = curOverflow;
-
-    return isOverflowing;
   }
 
   getMaxLengthClasses() {
