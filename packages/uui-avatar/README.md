@@ -37,5 +37,6 @@ The component is available via CDN. This means it can be added to your applicati
 ## Usage
 
 ```html
-<uui-avatar title="First Last"></uui-avatar> <uui-avatar src="..."></uui-avatar>
+<uui-avatar title="First Last"></uui-avatar>
+<uui-avatar img-src="..."></uui-avatar>
 ```
