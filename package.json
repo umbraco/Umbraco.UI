@@ -26,7 +26,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
     "storybook": "npm run build:css && npm run bootstrap && npm run storybook:analyze && start-storybook -p 6006 -s ./.storybook/images",
-    "storybook:build": "npm run custom-properties-cache && npm run bootstrap && npm run storybook:analyze && build-storybook -s ./.storybook/images",
+    "storybook:build": "npm run build:css && npm run bootstrap && npm run storybook:analyze && build-storybook -s ./.storybook/images",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
