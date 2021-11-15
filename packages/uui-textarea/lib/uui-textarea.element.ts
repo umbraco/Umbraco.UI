@@ -5,8 +5,16 @@ import { UUITextareaEvent } from './UUITextareaEvent';
 import { ifDefined } from 'lit/directives/if-defined.js';
 /**
  * @element uui-textarea
+ * @extends LabelMixin(LitElement)
+ * @slot textarea label - for the textarea label text.
+ * @fires UUITextareaEvent#change on change
+ * @fires InputEvent#input on input
+ * @fires KeyboardEvent#keyup on keyup
  */
-export class UUITextareaElement extends LabelMixin('input label', LitElement) {
+export class UUITextareaElement extends LabelMixin(
+  'textarea label',
+  LitElement
+) {
   static styles = [
     css`
       :host {
@@ -83,7 +91,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   }
 
   /**
-   * Defines the input placeholder.
+   * Defines the textarea placeholder.
    * @type {string}
    * @attr
    * @default ''
@@ -92,7 +100,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   placeholder = '';
 
   /**
-   * Disables the input.
+   * Disables the textarea.
    * @type {boolean}
    * @attr
    * @default false
@@ -113,7 +121,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   private _value = '';
 
   /**
-   * This is a value property of the uui-input.
+   * This is a value property of the uui-textarea.
    * @type {string}
    * @attr
    * @default ''
@@ -135,7 +143,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   }
 
   /**
-   * This is a name property of the `<uui-input>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
+   * This is a name property of the `<uui-textarea>` component. It reflects the behaviour of the native `<textarea>` element and its name attribute.
    * @type {string}
    * @attr
    * @default ''
@@ -144,7 +152,7 @@ export class UUITextareaElement extends LabelMixin('input label', LitElement) {
   name = '';
 
   /**
-   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
+   * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr
    * @default false
