@@ -11,14 +11,14 @@ const copyIcon = svg`<svg style="pointer-events: none" aria-hidden="true" height
 </svg>`;
 
 export default {
-  title: 'Design/Design',
+  title: 'Design/Custom properties',
 };
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
 };
 
-const propertyTemplate = (property: any) => html` <tr>
+const propertyColorTemplate = (property: any) => html` <tr>
 <td><div style="display: flex; justify-content: space-between">
 ${property.key}<uui-button title="Copy to clipboard" compact @click=${(
   e: MouseEvent
@@ -48,6 +48,32 @@ ${property.key}<uui-button title="Copy to clipboard" compact @click=${(
 </td>
 </tr>`;
 
+const propertySizeTemplate = (property: any) => html` <tr>
+<td><div style="display: flex; justify-content: space-between">
+${property.key}<uui-button title="Copy to clipboard" compact @click=${(
+  e: MouseEvent
+) => {
+  copyToClipboard(property.key);
+  const button = e.target as any;
+  button.state = 'success';
+}}>${copyIcon}</uui-button></td>
+<td>
+  <div style="display: flex; justify-content: space-between">
+    <code>${property.value}</code
+    ><uui-button
+    title="Copy to clipboard"
+      compact
+      @click=${(e: MouseEvent) => {
+        copyToClipboard(property.value);
+        const button = e.target as any;
+        button.state = 'success';
+      }}
+      >${copyIcon}</uui-button
+    >
+  </div>
+</td>
+</tr>`;
+
 export const Looks = () => html` <h2>Looks</h2>
   <p>
     These are used to overwrite selected interface properties to get a specific
@@ -66,7 +92,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-primary'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 
@@ -82,7 +108,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-secondary'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 
@@ -98,7 +124,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-positive'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 
@@ -114,7 +140,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-warning'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 
@@ -130,7 +156,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-danger'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 
@@ -146,7 +172,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-placeholder'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 
@@ -162,7 +188,7 @@ export const Looks = () => html` <h2>Looks</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('look-outline'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>`;
 
@@ -184,7 +210,7 @@ export const InterfaceColors = () => html`
     <tbody>
       ${properties
         .filter(property => property.key.includes('interface'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>
 `;
@@ -207,9 +233,27 @@ export const BrandColors = () => html`<h2>Colors</h2>
     <tbody>
       ${properties
         .filter(property => property.key.includes('color'))
-        .map(property => propertyTemplate(property))}
+        .map(property => propertyColorTemplate(property))}
     </tbody>
   </table>`;
+
+export const Sizing = () => html`
+  <h2>Sizing</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Custom property name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${properties
+        .filter(property => property.key.includes('size'))
+        .map(property => propertySizeTemplate(property))}
+    </tbody>
+  </table>
+`;
 
 //TODO update and uncomment when the spacing system is set in stone
 // export const DesignSystem = () => html` <div
