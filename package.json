@@ -39,7 +39,7 @@
     "lerna:diff": "lerna diff",
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
-    "postinstall": "npm run bootstrap",
+    "postinstall": "npm run build:css && npm run bootstrap",
     "bootstrap": "node ./scripts/generate-ts-config.js",
     "prepare": "husky install",
     "new-package": "plop && npm i",
