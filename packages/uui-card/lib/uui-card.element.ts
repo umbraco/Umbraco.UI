@@ -19,7 +19,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         justify-content: center;
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-1);
-        border-radius: var(--uui-size-border-radius, 3px);
+        border-radius: var(--uui-border-radius);
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface, white);
         --uui-card-border-width: 3px;
@@ -66,7 +66,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         box-sizing: border-box;
         border: var(--uui-card-border-width) solid var(--uui-interface-select);
         border-radius: calc(
-          var(--uui-size-border-radius) + var(--uui-card-border-width)
+          var(--uui-border-radius) + var(--uui-card-border-width)
         );
         transition: opacity 100ms ease-out;
         opacity: 0;

@@ -3,13 +3,13 @@ import { property } from 'lit/decorators.js';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
- *  @element uui-card-user
- *  @fires {UUICardEvent} open - fires when the user card title is clicked
+ *  @element uui-card-content-node
+ *  @fires {UUICardEvent} open - fires when the card title is clicked
  *  @fires {UUICardEvent} selected - fires when the card is selected
- *  @description - Card component for displaying a user node.
+ *  @description - Card component for displaying a content-node.
  */
 
-export class UUICardUserElement extends UUICardElement {
+export class UUICardContentNodeElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
@@ -18,16 +18,6 @@ export class UUICardUserElement extends UUICardElement {
         flex-direction: column;
         justify-content: space-between;
         padding: var(--uui-size-3);
-        align-items: center;
-      }
-
-      slot:not([name])::slotted(*) {
-        font-size: var(--uui-size-4);
-        line-height: var(--uui-size-6);
-      }
-
-      ::slotted(*) {
-        text-align: center;
       }
 
       slot[name='tag'] {
@@ -38,11 +28,12 @@ export class UUICardUserElement extends UUICardElement {
         justify-content: right;
       }
 
-      #avatar {
-        margin: var(--uui-size-3);
+      slot:not([name])::slotted(*) {
+        font-size: var(--uui-size-4);
+        line-height: calc(2 * var(--uui-size-3));
       }
 
-      slot[name='icon']::slotted(*) {
+      #icon {
         font-size: 1.2em;
       }
 
@@ -52,11 +43,11 @@ export class UUICardUserElement extends UUICardElement {
         font-weight: 700;
         align-items: center;
         cursor: pointer;
-        margin: 0 0 3px 0;
       }
 
       #open-part > span {
         vertical-align: center;
+        margin-left: 0.5em;
         margin-top: 3px;
       }
 
@@ -70,17 +61,23 @@ export class UUICardUserElement extends UUICardElement {
   @property({ type: String })
   name = '';
 
+  @property({ type: String })
+  icon = '';
+
   public render() {
     return html`
       <slot name="tag"></slot>
-      <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
-        tabindex=${this.disabled ? '-1' : '0'}
+        tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
+        <uui-icon id="icon" name=${this.icon}></uui-icon>
         <span> ${this.name} </span>
       </div>
+      <!-- Select border must be right after #open-part -->
+      <div id="select-border"></div>
+
       <slot></slot>
     `;
   }
