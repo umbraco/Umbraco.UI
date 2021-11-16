@@ -17,13 +17,13 @@ export class UUICardUserElement extends UUICardElement {
         min-width: 250px;
         flex-direction: column;
         justify-content: space-between;
-        padding: var(--uui-size-space-3, 12px);
+        padding: var(--uui-size-3);
         align-items: center;
       }
 
       slot:not([name])::slotted(*) {
-        font-size: var(--uui-size-small, 12px);
-        line-height: calc(2 * var(--uui-size-xsmall, 9px));
+        font-size: var(--uui-size-4);
+        line-height: var(--uui-size-6);
       }
 
       ::slotted(*) {
@@ -39,7 +39,7 @@ export class UUICardUserElement extends UUICardElement {
       }
 
       #avatar {
-        margin: var(--uui-size-space-3, 12px);
+        margin: var(--uui-size-3);
       }
 
       slot[name='icon']::slotted(*) {

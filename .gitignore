@@ -23,6 +23,7 @@
 /packages/**/lib/**/*.d.ts
 tsconfig.tsbuildinfo
 /out-tsc/
+/packages/**/node_modules/
 
 
 custom-elements.json
@@ -30,3 +31,4 @@ storybook-static
 debug.log
 out-css
 *.log
+.eslintcache

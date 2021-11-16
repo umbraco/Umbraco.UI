@@ -12,33 +12,34 @@ export class UUILoaderCircleElement extends LitElement {
     css`
       :host {
         /* currently this components color is defined through currentColor, if we like to use a different color, we need to implemenet a --uui-interface- color which will be set/overwritten when looks are set, aka. if this element is used within a button with the look danger, then this component would get an appropriate color. */
-        --uui-loader-circle-size: var(--uui-size-small, 12px);
+        --uui-loader-circle-size: var(--uui-size-4);
         display: inline-block;
         vertical-align: middle;
+        line-height: 0;
       }
 
       :host([size='xs']) {
-        --uui-loader-circle-size: var(--uui-size-xsmall, 9px);
+        --uui-loader-circle-size: var(--uui-size-3);
       }
 
       :host([size='s']) {
-        --uui-loader-circle-size: var(--uui-size-small, 12px);
+        --uui-loader-circle-size: var(--uui-size-4);
       }
 
       :host([size='m']) {
-        --uui-loader-circle-size: var(--uui-size-medium, 24px);
+        --uui-loader-circle-size: var(--uui-size-8);
       }
 
       :host([size='l']) {
-        --uui-loader-circle-size: var(--uui-size-large, 30px);
+        --uui-loader-circle-size: var(--uui-size-10);
       }
 
       :host([size='xl']) {
-        --uui-loader-circle-size: var(--uui-size-xlarge, 42px);
+        --uui-loader-circle-size: var(--uui-size-14);
       }
 
       :host([size='xxl']) {
-        --uui-loader-circle-size: var(--uui-size-xlarge, 66px);
+        --uui-loader-circle-size: var(--uui-size-20);
       }
 
       #svg-container {

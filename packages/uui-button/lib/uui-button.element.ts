@@ -9,11 +9,17 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
+import { iconCheck, iconWrong } from './button-icons';
+
+export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
+
+export type UUIButtonType = 'submit' | 'button' | 'reset';
 
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
+ *  @slot badge - for badge
  *  @description - All-round button
  *  @cssprop --uui-button-height - set the button height
  *  @cssprop --uui-button-border-width - set the border width
@@ -28,7 +34,7 @@ import {
  *  @cssprop --uui-button-background-color-disabled - set the background color for disabled state
  *  @cssprop --uui-button-contrast-disabled - set the text color for disabled state
  */
-export class UUIButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonElement extends LabelMixin('label', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
@@ -46,11 +52,27 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         --uui-button-slot-padding-r-factor: 1;
       }
 
+      :host([state]:not([state=''])) #main-slot {
+        visibility: hidden;
+      }
+
+      #state {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        animation-name: fadeIn;
+        animation-delay: 50ms;
+        animation-duration: 500ms;
+        animation-fill-mode: forwards;
+        opacity: 0;
+      }
+
       button {
         height: 100%;
         min-height: var(
           --uui-button-height,
-          calc(var(--uui-button-base-unit, var(--uui-size-base-unit)) * 6)
+          calc(var(--uui-button-base-unit, var(--uui-size-2)) * 6)
         );
         width: 100%;
         padding: 0;
@@ -65,7 +87,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-size-border-radius)
+          var(--uui-border-radius)
         );
         cursor: pointer;
         font-weight: var(
@@ -113,22 +135,48 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
 
-      button > .label {
-        display: block;
+      button {
         padding: 0
           calc(
             (
-              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+              var(--uui-button-base-unit, var(--uui-size-2)) *
                 var(--uui-button-slot-padding-r-factor)
             )
           )
           0
           calc(
             (
-              var(--uui-button-base-unit, var(--uui-size-base-unit)) *
+              var(--uui-button-base-unit, var(--uui-size-2)) *
                 var(--uui-button-slot-padding-l-factor)
             )
           );
+      }
+
+      #icon-check,
+      #icon-wrong {
+        fill: currentColor;
+        display: grid;
+        place-items: center;
+        width: 1.5em;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
 
       /* LOOKS */
@@ -142,7 +190,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-primary-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-primary-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-primary-border);
         font-weight: var(--uui-look-primary-font-weight);
@@ -167,7 +215,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-secondary-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-secondary-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-secondary-border);
         font-weight: var(--uui-look-secondary-font-weight);
@@ -192,7 +240,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-outline-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-outline-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-outline-border);
         font-weight: var(--uui-look-outline-font-weight);
@@ -217,10 +265,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(
-            --uui-look-placeholder-border-radius,
-            var(--uui-size-border-radius)
-          )
+          var(--uui-look-placeholder-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-placeholder-border);
         font-weight: var(--uui-look-placeholder-font-weight);
@@ -245,7 +290,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-positive-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-positive-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-positive-border);
         font-weight: var(--uui-look-positive-font-weight);
@@ -270,7 +315,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-warning-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-warning-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-warning-border);
         font-weight: var(--uui-look-warning-font-weight);
@@ -295,7 +340,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-look-danger-border-radius, var(--uui-size-border-radius))
+          var(--uui-look-danger-border-radius, var(--uui-border-radius))
         );
         border-color: var(--uui-look-danger-border);
         font-weight: var(--uui-look-danger-font-weight);
@@ -312,6 +357,14 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       }
     `,
   ];
+  /**
+   * Specifies the type of button.
+   * @type { "submit" | "button" | "reset" }
+   * @attr
+   * @default "submit"
+   */
+  @property({ type: String, reflect: true })
+  type: UUIButtonType = 'submit';
 
   /**
    * Disables the button, changes the looks of it and prevents if from emitting the click event
@@ -340,8 +393,26 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   @property({ type: Boolean, reflect: true })
   compact = false;
 
+  /**
+   * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
+   * @type {null |'waiting' | 'success' | 'failed'}
+   * @attr
+   * @default null
+   */
+  @property({ type: String, reflect: true })
+  state: UUIButtonState = null;
+
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
+  private _internals;
+
   constructor() {
     super();
+    this._internals = (this as any).attachInternals();
     this.addEventListener('click', this.onHostClick);
   }
 
@@ -349,13 +420,65 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     if (this.disabled) {
       e.preventDefault();
       e.stopImmediatePropagation();
+      return;
+    }
+
+    if (this._internals?.form) {
+      switch (this.type) {
+        case 'reset':
+          this._internals.form.reset();
+          break;
+        case 'button':
+          break;
+        default:
+          this._internals.form.requestSubmit();
+          break;
+      }
     }
   }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!customElements.get('uui-loader-circle')) {
+      console.warn(
+        'To properly render the waiting state, the uui-loader-circle element has to be registered'
+      );
+    }
+  }
+
+  // Reset the state after 3sec if it is 'success'
+  updated(changedProperties: any) {
+    if (changedProperties.has('state')) {
+      this.disabled = !!this.state;
+      if (this.state === 'success' || this.state === 'failed') {
+        setTimeout(() => (this.state = null), 2000);
+      }
+    }
+  }
+
+  private _renderState() {
+    let element = html``;
+    switch (this.state) {
+      case 'waiting':
+        element = html`<uui-loader-circle size="m"></uui-loader-circle>`;
+        break;
+      case 'success':
+        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
+        break;
+      case 'failed':
+        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
+        break;
+      default:
+        return '';
+    }
+
+    return html`<div id="state">${element}</div>`;
+  }
+
   render() {
+    //prettier-ignore
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">
-        ${this.renderLabel()}
-      </button>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">${this._renderState()}<slot name="badge"></slot><slot id="main-slot"></slot></button>
     `;
   }
 }

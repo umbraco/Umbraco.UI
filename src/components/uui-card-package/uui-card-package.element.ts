@@ -22,7 +22,7 @@ export class UUICardPackageElement extends UUICardElement {
 
       slot[name='asset']::slotted(img) {
         align-self: center;
-        border-radius: var(--uui-size-border-radius, 3px);
+        border-radius: var(--uui-border-radius);
         object-fit: cover;
         width: 100%;
         height: 100%;
@@ -30,8 +30,8 @@ export class UUICardPackageElement extends UUICardElement {
 
       :host([type='user'], [type='node'])
         ::slotted(:not(uui-avatar, uui-tag, uui-badge)) {
-        font-size: var(--uui-size-small, 12px);
-        line-height: calc(2 * var(--uui-size-xsmall, 9px));
+        font-size: var(--uui-size-4);
+        line-height: calc(2 * var(--uui-size-3));
       }
 
       :host([type='user']) ::slotted(*) {
@@ -40,12 +40,12 @@ export class UUICardPackageElement extends UUICardElement {
 
       slot[name='asset']::slotted(uui-icon) {
         align-self: center;
-        font-size: var(--uui-size-xlarge);
+        font-size: var(--uui-size-14);
         // change this color to something more suitable
         color: var(--uui-interface-contrast-disabled);
         transform: translateY(
           calc(
-            -1 * var(--uui-size-medium, 24px) + var(--uui-size-base-unit, 6px) *
+            -1 * var(--uui-size-8) + var(--uui-size-2) *
               2
           )
         );
@@ -53,12 +53,12 @@ export class UUICardPackageElement extends UUICardElement {
 
       slot[name='asset']::slotted(uui-file-icon) {
         align-self: center;
-        margin: var(--uui-size-xlarge);
+        margin: var(--uui-size-14);
         width: 80%;
 
         transform: translateY(
           calc(
-            -1 * var(--uui-size-medium, 24px) + var(--uui-size-base-unit, 6px) *
+            -1 * var(--uui-size-8) + var(--uui-size-2) *
               2
           )
         );
@@ -84,7 +84,7 @@ export class UUICardPackageElement extends UUICardElement {
 
       :host([type='node']) #card-content,
       :host([type='user']) #card-content {
-        padding: var(--uui-size-space-3, 12px);
+        padding: var(--uui-size-3, 12px);
       }
 
       :host([type='user']) #card-content {
@@ -126,14 +126,14 @@ export class UUICardPackageElement extends UUICardElement {
         background-color: var(--uui-color-white, #ffff);
         color: var(--uui-color-black, #0000);
         opacity: 0;
-        border-radius: 0 0 var(--uui-size-border-radius, 3px)
-          var(--uui-size-border-radius, 3px);
+        border-radius: 0 0 var(--uui-border-radius)
+          var(--uui-border-radius);
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        font-size: var(--uui-size-small, 12px);
+        font-size: var(--uui-size-4);
         box-sizing: border-box;
-        padding: var(--uui-size-base-unit, 6px) var(--uui-size-small, 12px);
+        padding: var(--uui-size-2) var(--uui-size-4);
         transition: opacity 120ms;
       }
 
@@ -152,9 +152,9 @@ export class UUICardPackageElement extends UUICardElement {
       }
 
       #info-icon {
-        margin-right: var(--uui-size-base-unit, 6px);
+        margin-right: var(--uui-size-2);
         display: flex;
-        height: var(--uui-size-medium, 24px);
+        height: var(--uui-size-8);
       }
 
       #details:hover,

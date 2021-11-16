@@ -1,3 +1,4 @@
 import { UUIInputElement } from './uui-input.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-input', UUIInputElement as any);
+defineElement('uui-input', UUIInputElement as any);

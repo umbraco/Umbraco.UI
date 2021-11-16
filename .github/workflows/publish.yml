@@ -18,21 +18,32 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it      
       - uses: actions/checkout@v2
-
+        with:
+      # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
+          
+  
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: npm install
+      - run: npm -v
+      - run: npm ci
 
-      - run: npm run build:prod
+      - run: npm run test
 
-      - name: Authenticate npm with the GPR
-        uses: jgierer12/npm-auth-gpr@v1.0.1
-        with:
-          token: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
-          
+      - name: Authenticate with Registry
+        run: |
+          echo "@umbraco-ui:registry=https://registry.npmjs.org/" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
+
       - name: Publish package
         run: npm run lerna:publish
+        env:
+          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
   

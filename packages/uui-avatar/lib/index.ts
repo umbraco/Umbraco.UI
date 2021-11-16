@@ -1,3 +1,4 @@
 import { UUIAvatarElement } from './uui-avatar.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-avatar', UUIAvatarElement);
+defineElement('uui-avatar', UUIAvatarElement);

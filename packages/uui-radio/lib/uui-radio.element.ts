@@ -23,8 +23,8 @@ export class UUIRadioElement extends LitElement {
         box-sizing: border-box;
         font-family: inherit;
         color: currentColor;
-        --uui-radio-button-size: calc(var(--uui-size-base-unit) * 3);
-        margin: var(--uui-size-base-unit) 0;
+        --uui-radio-button-size: calc(var(--uui-size-2) * 3);
+        margin: var(--uui-size-2) 0;
       }
 
       label {
@@ -55,7 +55,7 @@ export class UUIRadioElement extends LitElement {
         background-color: var(--uui-interface-surface);
         border: 1px solid var(--uui-interface-border);
         border-radius: 100%;
-        margin-right: calc(var(--uui-size-base-unit) * 2);
+        margin-right: calc(var(--uui-size-2) * 2);
         position: relative;
       }
 

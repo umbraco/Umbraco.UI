@@ -10,17 +10,17 @@ export class UUIDesignMeasurementBoxElement extends LitElement {
       :host {
         position: relative;
         display: inline-block;
-        margin-top: calc(var(--uui-size-base-unit) * 3);
-        margin-right: calc(var(--uui-size-base-unit) * 3);
+        margin-top: calc(var(--uui-size-2) * 3);
+        margin-right: calc(var(--uui-size-2) * 3);
       }
 
       .top {
-        top: calc(var(--uui-size-base-unit) * -3);
+        top: calc(var(--uui-size-2) * -3);
         width: 100%;
       }
 
       .right {
-        right: calc(var(--uui-size-base-unit) * -3);
+        right: calc(var(--uui-size-2) * -3);
         height: 100%;
       }
     `,

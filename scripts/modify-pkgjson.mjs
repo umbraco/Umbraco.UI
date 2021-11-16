@@ -9,7 +9,7 @@ const args = process.argv;
 if (args.length <= 2) {
   console.error(`
   This script needs minimum two arguments.
-  1: action type 'add' | 'remove' | 'modify'
+  1: action type 'add' | 'remove' 
   2: key 
   3: value (optional)
 
@@ -58,12 +58,12 @@ function main() {
   }
 }
 
-function readJsonFile(fpath) {
+export function readJsonFile(fpath) {
   const content = fs.readFileSync(fpath);
   return JSON.parse(content);
 }
 
-function readPackageJson(folder) {
+export function readPackageJson(folder) {
   const packageJsonPath = path.join(folder, 'package.json');
   return readJsonFile(packageJsonPath);
 }
