@@ -31,7 +31,7 @@
     "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "build": "npm run build:css && lerna run build",
-    "build:css": "npm run custom-properties-cache && postcss src/styles/index.css --base src/styles --dir out-css",
+    "build:css": "postcss src/styles/index.css --base src/styles --dir out-css && npm run custom-properties-cache",
     "build:prod": "npm run clean && npm run lint && npm run test && npm run build",
     "clean": "rimraf out-css && lerna run clean",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
