@@ -11,18 +11,24 @@ class UUIIconServiceClass extends EventTarget {
     this.icons[iconName] = new UUIIconHost(svgString);
   }
 
-  public getIcon(iconName: string): Promise<string> {
+  public async getIcon(iconName: string): Promise<string> {
     if (this.icons[iconName]) {
       return this.icons[iconName].promise;
     } else {
       const icon = new UUIIconHost();
       this.icons[iconName] = icon;
 
-      this.dispatchEvent(
-        new UUIIconServiceEvent(UUIIconServiceEvent.ICON_REQUEST, {
-          detail: { iconName },
-        })
-      );
+      const event = new UUIIconServiceEvent(UUIIconServiceEvent.ICON_REQUEST, {
+        cancelable: true,
+        detail: { iconName },
+      });
+      this.dispatchEvent(event);
+
+      if(event.defaultPrevented === false) {
+        // as no one prevented default we will reject, to show fallback.
+        console.log("reject")
+        icon.reject();
+      }
 
       return icon.promise;
     }

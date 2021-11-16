@@ -1,7 +1,10 @@
 export class UUIIconHost {
+
   public readonly promise: Promise<string>;
   private readonly resolve!: Function;
   public readonly reject!: Function;
+
+  public preventDefault = true;
 
   constructor(svg?: string) {
     this.promise = new Promise<string>((resolveMethod, rejectMethod) => {

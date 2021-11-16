@@ -35,6 +35,10 @@ export class UUIIconElement extends LitElement {
         if (this.shadowRoot) {
           this.shadowRoot.innerHTML = svg;
         }
+      }).catch(() => {
+        if (this.fallback && this.shadowRoot) {
+          this.shadowRoot.innerHTML = this.fallback;
+        }
       });
     }
   }
@@ -51,6 +55,9 @@ export class UUIIconElement extends LitElement {
       this.shadowRoot.innerHTML = newValue || '';
     }
   }
+
+  @property()
+  fallback: string | null = null;
 
   connectedCallback() {
     super.connectedCallback();
