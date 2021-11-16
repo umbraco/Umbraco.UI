@@ -1,4 +1,5 @@
 import { html, svg } from 'lit-html';
+// eslint-disable-line import/no-unresolved
 import customProperties from './../custom-properties.json';
 
 const properties = Object.keys(customProperties.customProperties).map(
