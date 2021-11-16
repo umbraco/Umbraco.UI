@@ -27,6 +27,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       }
 
       :host(*) * {
+        /* TODO: implement globaly shared outline style */
         outline-color: var(--uui-interface-outline);
         outline-offset: 4px;
       }
