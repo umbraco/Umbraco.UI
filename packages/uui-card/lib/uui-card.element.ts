@@ -30,13 +30,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         outline-color: var(--uui-interface-outline);
         outline-offset: 4px;
       }
-/*
-      :host(:hover),
-      :host(:focus),
-      :host(:focus-within) {
-        box-shadow: var(--uui-shadow-depth-2);
-      }
-*/
+
       :host(:focus) {
         outline-color: var(--uui-interface-outline);
         outline-width: var(--uui-card-border-width);
