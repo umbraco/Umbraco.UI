@@ -36,7 +36,7 @@
     "clean": "rimraf out-css && lerna run clean",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
     "lerna:version": "lerna version --exact && rimraf package-lock.json && npm i",
-    "diff": "lerna diff",
+    "lerna:diff": "lerna diff",
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
@@ -76,7 +76,7 @@
     "eslint-plugin-lit-a11y": "^1.1.0-next.1",
     "husky": "^7.0.0",
     "lerna": "^4.0.0",
-    "lint-staged": "^10.0.0",
+    "lint-staged": "^10.5.4",
     "plop": "^2.7.6",
     "postcss": "^8.3.9",
     "postcss-advanced-variables": "^3.0.1",
@@ -95,6 +95,7 @@
     "rollup-plugin-minify-html-literals": "^1.2.6",
     "rollup-plugin-typescript2": "^0.30.0",
     "storybook-builder-vite": "0.0.12",
+    "tsc-files": "^1.1.2",
     "typescript": "^4.3.2",
     "vite": "^2.5.2",
     "vite-tsconfig-paths": "^3.3.14",
@@ -102,5 +103,10 @@
   },
   "workspaces": [
     "./packages/*"
-  ]
+  ],
+  "lint-staged": {
+    "**/*.ts": "tsc-files --project tsconfig-lint-staged.json",
+    "**/*.{ts, js, mjs}": "eslint --cache --fix",
+    "*": "prettier --ignore-unknown --write"
+  }
 }
