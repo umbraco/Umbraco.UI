@@ -4,7 +4,8 @@ import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
  *  @element uui-card-user
- *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
+ *  @fires {UUICardEvent} open - fires when the media card title is clicked
+ *  @fires {UUICardEvent} selected - fires when the media card title is selected
  *  @description - Card component for displaying a user node.
  */
 

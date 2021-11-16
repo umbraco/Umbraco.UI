@@ -24,6 +24,7 @@
 
   --uui-interface-border-style: solid;
   --uui-interface-font-weight: 400;
+  --uui-interface-outline: var(--uui-color-outline-blue);
 
   --uui-interface-active: var(--uui-color-spanish-pink);
   --uui-interface-active-hover: var(--uui-color-spanish-pink);

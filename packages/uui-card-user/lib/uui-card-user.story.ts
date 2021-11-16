@@ -23,8 +23,15 @@ export const Default = () =>
         <div style="margin-bottom: 12px">Editors</div>
         <div>Has not logged in yet</div>
       </uui-card-user>
+      <uui-card-user disabled error name="John Disabled">
+        <div style="margin-bottom: 12px">Editors</div>
+        <div>Has not logged in yet</div>
       </uui-card-user>
-      <uui-card-user selectable  error name="John Error">
+      <uui-card-user selectable disabled error name="John Disabled">
+        <div style="margin-bottom: 12px">Editors</div>
+        <div>Has not logged in yet</div>
+      </uui-card-user>
+      <uui-card-user selectable error name="John Error">
         <div style="margin-bottom: 12px">Editors</div>
         <div>Has not logged in yet</div>
       </uui-card-user>

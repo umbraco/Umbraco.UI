@@ -27,26 +27,25 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       }
 
       :host(*) * {
-        outline-color: #6ab4f0;
+        outline-color: var(--uui-interface-outline);
         outline-offset: 4px;
       }
-
+/*
       :host(:hover),
       :host(:focus),
       :host(:focus-within) {
         box-shadow: var(--uui-shadow-depth-2);
       }
-
+*/
       :host(:focus) {
-        outline-color: #6ab4f0;
+        outline-color: var(--uui-interface-outline);
         outline-width: var(--uui-card-border-width);
         outline-style: solid;
         outline-offset: var(--uui-card-border-width);
       }
 
       :host([error]) {
-        border: var(--uui-card-border-width) solid
-          var(--uui-look-danger-border, #d42054);
+        border: var(--uui-card-border-width) solid var(--uui-look-danger-border);
       }
 
       :host([selectable]) {
@@ -54,13 +53,15 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       }
 
       :host([disabled]) {
+        background: var(--uui-interface-surface-disabled);
+      }
+      :host([disabled]) > * {
         opacity: 0.6;
         filter: saturate(0.5);
         pointer-events: none;
-        background: var(--uui-interface-surface-disabled);
       }
 
-      :host(:not([disabled]))::after {
+      :host([selectable])::after {
         content: '';
         position: absolute;
         pointer-events: none;
@@ -68,21 +69,20 @@ export class UUICardElement extends SelectableMixin(LitElement) {
         width: calc(100% + var(--uui-card-border-width) * 2);
         height: calc(100% + var(--uui-card-border-width) * 2);
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid
-          var(--uui-interface-select, #1b264f);
+        border: var(--uui-card-border-width) solid var(--uui-interface-select);
         border-radius: calc(
-          var(--uui-size-border-radius, 3px) + var(--uui-card-border-width)
+          var(--uui-size-border-radius) + var(--uui-card-border-width)
         );
         transition: opacity 100ms ease-out;
         opacity: 0;
       }
-      :host(:hover)::after {
+      :host([selectable]:hover)::after {
         opacity: 0.33;
       }
-      :host([selected]:hover)::after {
+      :host([selectable][selected]:hover)::after {
         opacity: 0.66;
       }
-      :host([selected])::after {
+      :host([selectable][selected])::after {
         opacity: 1;
       }
       :host([error])::after {
@@ -93,6 +93,13 @@ export class UUICardElement extends SelectableMixin(LitElement) {
     `,
   ];
 
+  /**
+   * Set to true to prevent opening of this item.
+   * This does not prevent selection, selection is controlled by property 'selectable'
+   * @type {boolean}
+   * @attr disabled
+   * @default false
+   */
   @property({ type: Boolean, reflect: true, attribute: 'disabled' })
   disabled = false;
 
@@ -106,17 +113,12 @@ export class UUICardElement extends SelectableMixin(LitElement) {
   }
 
   private toggleSelect() {
-    if (this.disabled) return;
-
     if (this.selectable) this.selected = !this.selected;
     if (this.selected)
       this.dispatchEvent(new UUICardEvent(UUICardEvent.SELECTED));
   }
 
   private handleSelectKeydown(e: KeyboardEvent) {
-    if (this.disabled) return;
-
-    // TODO: Is it correct to both be able to select with space and enter?
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     this.toggleSelect();
@@ -130,9 +132,8 @@ export class UUICardElement extends SelectableMixin(LitElement) {
   }
   protected handleOpenKeydown(e: KeyboardEvent) {
     if (this.disabled) return;
+    if (e.key !== 'Enter') return;
 
-    // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
-    if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));

@@ -4,7 +4,7 @@ import { html } from 'lit-html';
 // import '../uui-card-user/index';
 
 export default {
-  title: 'Displays/Card',
+  title: 'Displays/Cards',
 };
 
 // export const Overview = () => html`
