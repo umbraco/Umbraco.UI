@@ -28,18 +28,18 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: relative;
         display: flex;
         align-items: stretch;
-        padding-left: calc(
-          var(--uui-menu-item-indent, 0) * var(--uui-size-8, 24px)
-        );
+        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-8));
 
         display: grid;
-        grid-template-columns: 24px 1fr;
+        grid-template-columns: var(--uui-size-8) 1fr;
         grid-template-rows: 1fr;
         white-space: nowrap;
       }
 
       button {
         display: block;
+        font-family: inherit;
+
         padding: 0;
         text-align: left;
         box-shadow: none;
@@ -51,9 +51,9 @@ export class UUIMenuItemElement extends SelectableMixin(
         /* padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit); */
         min-height: var(--uui-size-12);
       }
-      button:hover {
+      /* button:hover {
         color: var(--uui-interface-contrast-hover);
-      }
+      } */
 
       #label-button {
         flex-grow: 1;
@@ -72,9 +72,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         align-items: center;
         justify-content: center;
       }
-      #caret-button:hover {
-        background-color: var(--uui-interface-surface-hover);
-      }
+
       #label-button-background {
         position: absolute;
         top: 0;
@@ -82,9 +80,11 @@ export class UUIMenuItemElement extends SelectableMixin(
         right: 0;
         bottom: 0;
       }
-      #label-button:hover + #label-button-background {
+      #label-button:hover + #label-button-background,
+      #caret-button:hover ~ #label-button-background {
         background-color: var(--uui-interface-surface-hover);
       }
+
       #actions-container {
         opacity: 0;
         transition: opacity 120ms;
@@ -136,7 +136,8 @@ export class UUIMenuItemElement extends SelectableMixin(
       :host([selected]) #label-button-background {
         background-color: var(--uui-interface-select);
       }
-      :host([selected]) #label-button:hover + #label-button-background {
+      :host([selected]) #label-button:hover + #label-button-background,
+      :host([selected]) #caret-button:hover ~ #label-button-background {
         background-color: var(--uui-interface-select-hover);
       }
       :host([selected][disabled]) #label-button {
@@ -218,7 +219,7 @@ export class UUIMenuItemElement extends SelectableMixin(
       <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
           ? html`<button id="caret-button" @click=${this.onCaretClicked}>
-              <uui-caret ?open=${this.showChildren}></uui-caret>
+              <uui-caret .rotation=${this.showChildren ? 0 : -90}></uui-caret>
             </button>`
           : ''}
         <button

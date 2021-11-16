@@ -1,6 +1,6 @@
 import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'uui-caret.element'],
+  entryPoints: ['index', 'uui-select.element'],
   bundle: 'index',
 });

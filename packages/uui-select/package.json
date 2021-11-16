@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-caret",
+  "name": "@umbraco-ui/uui-select",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Caret"
+    "Select"
   ],
-  "description": "A caret with an open and close animation",
+  "description": "Umbraco UI select component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-caret"
+    "directory": "packages/uui-select"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-caret.min.js",
+  "main": "./dist/uui-select.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "^0.0.12"
+    "@umbraco-ui/uui-base": "0.0.11"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -39,5 +39,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-caret"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-select"
 }
