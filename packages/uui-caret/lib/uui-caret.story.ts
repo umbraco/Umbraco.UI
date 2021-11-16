@@ -13,14 +13,6 @@ export default {
       },
     },
   },
-  args: {
-    rotation: 0,
-  },
-  argTypes: {
-    value: {
-      rotation: { type: 'number' },
-    },
-  },
 };
 
 export const Overview: Story = props =>

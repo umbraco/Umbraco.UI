@@ -94,6 +94,7 @@ export const Groups: Story = props =>
     .placeholder=${props.placeholder}></uui-select>`;
 
 Groups.parameters = {
+  controls: { include: ['placeholder'] },
   docs: {
     source: {
       code: `      
@@ -121,6 +122,7 @@ export const DisabledGroups: Story = props =>
     disabledGroups="vegetables"
     .placeholder=${props.placeholder}></uui-select>`;
 DisabledGroups.parameters = {
+  controls: { include: ['placeholder'] },
   docs: {
     source: {
       code: `      
