@@ -40,7 +40,11 @@ export const extractCustomProperties = async (masterCSSPath, cache = false) => {
       let json = JSON.stringify(customProperties);
 
       try {
-        await fs.writeFile('./custom-properties.json', json, 'utf8');
+        await fs.writeFile(
+          './custom-properties.js',
+          `export default ${json}`,
+          'utf8'
+        );
       } catch (err) {
         console.error(err);
       }
