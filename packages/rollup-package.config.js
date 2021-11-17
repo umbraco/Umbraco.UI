@@ -1,13 +1,14 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import processLitCSS from '../scripts/rollup-plugin-fallback-values';
+import processLitCSSFallbackValues from '../scripts/rollup-plugin-fallback-values';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
+import importCss from "rollup-plugin-import-css";
 
 const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: ['**/uui-base/lib/events/**'],
-  mainStylesPath: '../../out-css/index.css',
+  mainStylesPath: '../uui-css/dist/root.css',
   autoprefixerEnv: 'last 1 version',
 };
 
@@ -22,7 +23,7 @@ const createEsModulesConfig = (entryPoints = []) => {
           file: `./lib/${name}.js`,
           format: 'es',
         },
-        plugins: [processLitCSS(processLitCSSOptions), esbuild()],
+        plugins: [importCss, processLitCSSFallbackValues(processLitCSSOptions), esbuild()],
       };
     }),
   ];
@@ -42,7 +43,7 @@ const createBundleConfig = bundle => {
         },
         plugins: [
           nodeResolve(),
-          processLitCSS(processLitCSSOptions),
+          processLitCSSFallbackValues(processLitCSSOptions),
           minifyHTML(),
           esbuild(esbuidOptions),
         ],

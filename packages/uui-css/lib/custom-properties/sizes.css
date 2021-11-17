@@ -32,6 +32,29 @@
   --uui-size-96: 288px;
   --uui-size-100: 300px;
 
+  /** space and layout sizes for simpler usage of sizes: */
+  --uui-size-space-1: 3px;
+  --uui-size-space-2: 6px;
+  --uui-size-space-3: 12px;
+  --uui-size-space-4: 24px;
+  --uui-size-space-5: 36px;
+
+  --uui-size-layout-0: 24px;
+  --uui-size-layout-1: 30px;
+  --uui-size-layout-2: 42px;
+  --uui-size-layout-3: 66px;
+  --uui-size-layout-4: 80px;
+  --uui-size-layout-5: 110px;
+
   /** Other size props: */
   --uui-border-radius: var(--uui-size-1);
+
+  /** Typography */
+  --uui-type-default-size: var(--uui-size-5);
+  --uui-type-small-size: var(--uui-size-3);
+  --uui-type-h1-size: 66px;
+  --uui-type-h2-size: 42px;
+  --uui-type-h3-size: 30px;
+  --uui-type-h4-size: 21px;
+  --uui-type-h5-size: var(--uui-type-default-size);
 }
