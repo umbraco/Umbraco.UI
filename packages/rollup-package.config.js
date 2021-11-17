@@ -3,7 +3,6 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import processLitCSSFallbackValues from '../scripts/rollup-plugin-fallback-values';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
-import importCss from "rollup-plugin-import-css";
 
 const processLitCSSOptions = {
   include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
@@ -23,7 +22,7 @@ const createEsModulesConfig = (entryPoints = []) => {
           file: `./lib/${name}.js`,
           format: 'es',
         },
-        plugins: [importCss, processLitCSSFallbackValues(processLitCSSOptions), esbuild()],
+        plugins: [processLitCSSFallbackValues(processLitCSSOptions), esbuild()],
       };
     }),
   ];

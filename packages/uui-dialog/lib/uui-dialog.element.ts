@@ -41,25 +41,17 @@ export class UUIDialogElement extends LitElement {
     `,
   ];
 
-  render() {
+  protected renderContent() {
+    return html`<slot></slot>`;
+  }
+  protected renderActions() {
+    return html`<slot name="actions"></slot>`;
+  }
 
+  render() {
     return html`
-      <h4>Publish with descendants?</h4>
-      <p>
-        Publish <b>This example</b> and all content items underneath and thereby
-        making their content publicly available.
-      </p>
-      <uui-button
-        slot="actions"
-        look="secondary"
-        style="margin-right: auto; margin-left: 0"
-        >Cancel</uui-button
-      >
-      <uui-button slot="actions">Save</uui-button>
-      <uui-button slot="actions" look="positive">Publish</uui-button>
-      <h1>The original stuff:</h1>
-      <slot></slot>
-      <div class="actions"><slot name="actions"></slot></div>
+      ${this.renderContent()}
+      <div class="actions">${this.renderActions()}</div>
     `;
   }
 }
