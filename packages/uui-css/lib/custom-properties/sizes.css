@@ -41,12 +41,12 @@
   --uui-size-space-4: 15px; /*--uui-size-5*/
   --uui-size-space-5: 21px; /*--uui-size-7*/
 
-  --uui-size-layout-0: 24px; /*--uui-size-8*/
-  --uui-size-layout-1: 30px; /*--uui-size-10*/
-  --uui-size-layout-2: 42px; /*--uui-size-14*/
-  --uui-size-layout-3: 66px; /*--uui-size-22*/
-  --uui-size-layout-4: 96px; /*--uui-size-32*/
-  --uui-size-layout-4: 138px; /*--uui-size-46*/
+  --uui-size-layout-1: 24px; /*--uui-size-8*/
+  --uui-size-layout-2: 30px; /*--uui-size-10*/
+  --uui-size-layout-3: 42px; /*--uui-size-14*/
+  --uui-size-layout-4: 66px; /*--uui-size-22*/
+  --uui-size-layout-5: 96px; /*--uui-size-32*/
+  --uui-size-layout-6: 138px; /*--uui-size-46*/
 
   /** Other size props: */
   --uui-border-radius: var(--uui-size-1);
@@ -54,9 +54,9 @@
   /** Typography */
   --uui-type-default-size: var(--uui-size-5);
   --uui-type-small-size: var(--uui-size-3);
-  --uui-type-h1-size: 66px;
-  --uui-type-h2-size: 42px;
-  --uui-type-h3-size: 30px;
+  --uui-type-h1-size: 66px; /*--uui-size-22*/
+  --uui-type-h2-size: 42px; /*--uui-size-14*/
+  --uui-type-h3-size: 30px; /*--uui-size-10*/
   --uui-type-h4-size: 21px;
   --uui-type-h5-size: var(--uui-type-default-size);
 }
