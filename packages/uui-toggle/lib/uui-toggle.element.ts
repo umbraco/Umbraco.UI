@@ -146,11 +146,12 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
         fill: var(--uui-interface-select-contrast-disabled);
       }
 
-      :host(:invalid) #slider {
-        border: 1px solid var(--uui-look-danger-border);
-      }
-
-      :host(:invalid) label:hover #slider {
+      :host([show-validation]:invalid) #slider,
+      :host([show-validation]:invalid) label:hover #slider,
+      /* polyfill support */
+      :host([show-validation][internals-invalid]) #slider,
+      :host([show-validation][internals-invalid]) label:hover #slider
+      {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,

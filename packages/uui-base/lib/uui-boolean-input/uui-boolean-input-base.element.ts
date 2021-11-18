@@ -150,6 +150,15 @@ export abstract class UUIBooleanInputBaseElement extends FormControlMixin(
   private _validityState: any = {};
 
   /**
+   * Set to true to show validation errors
+   * @type {boolean}
+   * @attr show-validation
+   * @default false
+   */
+      @property({ type: Boolean, attribute: 'show-validation', reflect: true })
+      showValidation = false;
+
+  /**
    * Set to true if the component should be required.
    * Property is reflected to the corresponding attribute.
    * @type {boolean}

@@ -212,12 +212,20 @@ export class UUISliderElement extends FormControlMixin(
         }
       }
 
-      :host(:invalid) #thumb {
+      :host([show-validation]:invalid) #thumb {
         border: 1px solid var(--uui-look-danger-border);
       }
 
-      :host(:invalid) #thumb:after {
+      :host([show-validation]:invalid) #thumb:after {
         background-color: var(--uui-look-danger-surface);
+      }
+
+      :host([show-validation]:invalid) input:hover ~ #track #thumb:after {
+        background-color: var(--uui-look-danger-surface);
+      }
+
+      :host([show-validation]:invalid) input:hover ~ #track #thumb {
+        border: 1px solid var(--uui-look-danger-border);
       }
     `,
   ];
@@ -376,6 +384,15 @@ export class UUISliderElement extends FormControlMixin(
 
   // Validation
   private _validityState: any = {};
+
+  /**
+   * Set to true to show validation errors
+   * @type {boolean}
+   * @attr show-validation
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'show-validation', reflect: true })
+  showValidation = false;
 
   /**
    * This is a value property of the uui-input.

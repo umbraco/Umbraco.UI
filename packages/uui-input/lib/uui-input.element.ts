@@ -107,8 +107,9 @@ export class UUIInputElement extends FormControlMixin(
         font-weight: bold;
       }
 
-      :host(:invalid) input,
-      :host([internals-invalid]) input {
+      :host([show-validation]:invalid) input,
+      /* polyfill support */
+      :host([show-validation][internals-invalid]) input {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,
@@ -160,6 +161,15 @@ export class UUIInputElement extends FormControlMixin(
 
   // Validation
   private _validityState: any = {};
+
+  /**
+   * Set to true to show validation errors
+   * @type {boolean}
+   * @attr show-validation
+   * @default false
+   */
+   @property({ type: Boolean, attribute: 'show-validation', reflect: true })
+   showValidation = false;
 
   /**
    * This is a value property of the uui-input.
