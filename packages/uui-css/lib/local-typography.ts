@@ -1,4 +1,3 @@
-import { unsafeCSS } from "lit";
-import css from './local-typography.css';
+import { unsafeCSS } from 'lit';
 
-export const LocalTypography = unsafeCSS(css);
+export const LocalTypography = unsafeCSS("@import \"./typography/local.css\";\n");

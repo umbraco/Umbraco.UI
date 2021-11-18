@@ -28,7 +28,7 @@ const createEsModulesConfig = (entryPoints = []) => {
   ];
 };
 
-const createBundleConfig = bundle => {
+const createBundleConfig = (bundle, namespace) => {
   const packageJson = readPackageJson('./');
   const bundleName = packageJson.name.replace('@umbraco-ui/', '');
 
@@ -39,6 +39,7 @@ const createBundleConfig = bundle => {
           file: `./dist/${bundleName}.min.js`,
           format: 'umd',
           sourcemap: true,
+          name: namespace
         },
         plugins: [
           nodeResolve(),
@@ -50,8 +51,8 @@ const createBundleConfig = bundle => {
     : undefined;
 };
 
-export const UUIProdConfig = ({ entryPoints = [], bundle }) => {
+export const UUIProdConfig = ({ entryPoints = [], bundle, namespace = '' }) => {
   const esModulesConfig = createEsModulesConfig(entryPoints);
-  const bundleConfig = createBundleConfig(bundle);
+  const bundleConfig = createBundleConfig(bundle, namespace);
   return [...esModulesConfig, bundleConfig].filter(x => x);
 };

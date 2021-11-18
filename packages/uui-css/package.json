@@ -32,7 +32,7 @@
     "@umbraco-ui/uui-base": "0.0.12"
   },
   "scripts": {
-    "build": "postcss lib/custom-properties.css --base lib/ --dir dist && postcss lib/local-typography.css --base lib/ --dir dist && postcss lib/root.css --base lib/ --dir dist && npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "build": "postcss lib/custom-properties.css --base lib/ --dir dist && postcss lib/local-typography.css --base lib/ --dir dist && postcss lib/root.css --base lib/ --dir dist && tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },

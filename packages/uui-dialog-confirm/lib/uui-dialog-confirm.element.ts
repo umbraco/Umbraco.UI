@@ -39,7 +39,6 @@ export class UUIDialogConfirmElement extends UUIDialogElement {
   protected renderActions() {
     return html`<slot name="actions"></slot>
       <uui-button
-        slot="actions"
         @click=${() =>
           this.dispatchEvent(
             new UUIDialogConfirmEvent(UUIDialogConfirmEvent.CANCEL, this)
@@ -47,7 +46,6 @@ export class UUIDialogConfirmElement extends UUIDialogElement {
         ${this.cancelLabel}
       </uui-button>
       <uui-button
-        slot="actions"
         .look=${this.look}
         @click=${() =>
           this.dispatchEvent(
