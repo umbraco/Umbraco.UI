@@ -39,7 +39,7 @@ const createBundleConfig = (bundle, namespace) => {
           file: `./dist/${bundleName}.min.js`,
           format: 'umd',
           sourcemap: true,
-          name: namespace
+          name: namespace,
         },
         plugins: [
           nodeResolve(),
