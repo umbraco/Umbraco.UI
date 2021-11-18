@@ -41,7 +41,7 @@
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
     "bootstrap": "node ./scripts/generate-ts-config.js",
-    "prepare": "husky install",
+    "prepare": "husky install && echo 'PATH=$PATH:'$PATH >> .husky/_/husky.sh",
     "new-package": "plop && npm i"
   },
   "engines": {
