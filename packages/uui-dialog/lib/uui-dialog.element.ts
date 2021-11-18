@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import {LocalTypography} from '@umbraco-ui/uui-css/lib/local-typography';
+import { LocalTypography } from '@umbraco-ui/uui-css/lib/local-typography';
 
 /**
  *  @element uui-dialog
@@ -8,8 +8,8 @@ import {LocalTypography} from '@umbraco-ui/uui-css/lib/local-typography';
  *  @description - All-round dialog
  */
 export class UUIDialogElement extends LitElement {
-
-  static styles = [LocalTypography,
+  static styles = [
+    LocalTypography,
     css`
       :host {
         position: relative;

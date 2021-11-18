@@ -5,7 +5,7 @@ import {
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
 import { UUIDialogConfirmEvent } from './UUIDialogConfirmEvent';
-import {UUIDialogElement} from '@umbraco-ui/uui-dialog/lib/uui-dialog.element';
+import { UUIDialogElement } from '@umbraco-ui/uui-dialog/lib/uui-dialog.element';
 
 /**
  *  @element uui-confirm-dialog
@@ -15,7 +15,6 @@ import {UUIDialogElement} from '@umbraco-ui/uui-dialog/lib/uui-dialog.element';
  *  @description - Confirm-dialog
  */
 export class UUIDialogConfirmElement extends UUIDialogElement {
-
   static styles = UUIDialogElement.styles;
 
   @property({ type: String })
@@ -30,7 +29,6 @@ export class UUIDialogConfirmElement extends UUIDialogElement {
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
-
   protected renderContent() {
     return html`
       <h4>${this.title}</h4>
@@ -40,22 +38,22 @@ export class UUIDialogConfirmElement extends UUIDialogElement {
 
   protected renderActions() {
     return html`<slot name="actions"></slot>
-    <uui-button
-      slot="actions"
-      @click=${() =>
-        this.dispatchEvent(
-          new UUIDialogConfirmEvent(UUIDialogConfirmEvent.CANCEL, this)
-        )}>
-      ${this.cancelLabel}
-    </uui-button>
-    <uui-button
-      slot="actions"
-      .look=${this.look}
-      @click=${() =>
-        this.dispatchEvent(
-          new UUIDialogConfirmEvent(UUIDialogConfirmEvent.SUBMIT, this)
-        )}>
-      ${this.submitLabel}
-    </uui-button>`;
+      <uui-button
+        slot="actions"
+        @click=${() =>
+          this.dispatchEvent(
+            new UUIDialogConfirmEvent(UUIDialogConfirmEvent.CANCEL, this)
+          )}>
+        ${this.cancelLabel}
+      </uui-button>
+      <uui-button
+        slot="actions"
+        .look=${this.look}
+        @click=${() =>
+          this.dispatchEvent(
+            new UUIDialogConfirmEvent(UUIDialogConfirmEvent.SUBMIT, this)
+          )}>
+        ${this.submitLabel}
+      </uui-button>`;
   }
 }

@@ -6,9 +6,7 @@ describe('UUIDialogConfirmElement', () => {
   let element: UUIDialogConfirmElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-dialog-confirm></uui-dialog-confirm> `
-    );
+    element = await fixture(html` <uui-dialog-confirm></uui-dialog-confirm> `);
   });
 
   it('passes the a11y audit', async () => {

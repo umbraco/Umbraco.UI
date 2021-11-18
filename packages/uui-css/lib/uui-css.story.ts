@@ -14,5 +14,4 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
-  html`<h1>missing story</h1>`;
+export const Overview: Story = props => html`<h1>missing story</h1>`;

@@ -6,9 +6,7 @@ describe('UUIDialogElement', () => {
   let element: UUIDialogElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-dialog></uui-dialog> `
-    );
+    element = await fixture(html` <uui-dialog></uui-dialog> `);
   });
 
   it('passes the a11y audit', async () => {
