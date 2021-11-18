@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-dialog-confirm/lib/index';
-import { UUIEvent } from 'packages/uui-base/lib/events/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
 
 export default {
   id: 'uui-dialog-confirm',
