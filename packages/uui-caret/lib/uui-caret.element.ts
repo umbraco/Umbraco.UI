@@ -7,7 +7,6 @@ import { styleMap } from 'lit/directives/style-map.js';
  *  @element uui-caret
  */
 export class UUICaretElement extends LitElement {
-  // HELLO TEST
   static styles = [
     css`
       :host {
