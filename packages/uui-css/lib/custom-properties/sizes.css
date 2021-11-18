@@ -16,12 +16,14 @@
   --uui-size-14: 42px;
   --uui-size-16: 48px;
   --uui-size-20: 60px;
+  --uui-size-22: 66px;
   --uui-size-24: 72px;
   --uui-size-28: 84px;
   --uui-size-32: 96px;
   --uui-size-36: 108px;
   --uui-size-40: 120px;
   --uui-size-44: 132px;
+  --uui-size-46: 138px;
   --uui-size-48: 144px;
   --uui-size-52: 156px;
   --uui-size-56: 168px;
@@ -33,18 +35,18 @@
   --uui-size-100: 300px;
 
   /** space and layout sizes for simpler usage of sizes: */
-  --uui-size-space-1: 3px;
-  --uui-size-space-2: 6px;
-  --uui-size-space-3: 12px;
-  --uui-size-space-4: 24px;
-  --uui-size-space-5: 36px;
+  --uui-size-space-1: 3px; /*--uui-size-1*/
+  --uui-size-space-2: 6px; /*--uui-size-2*/
+  --uui-size-space-3: 12px; /*--uui-size-4*/
+  --uui-size-space-4: 15px; /*--uui-size-5*/
+  --uui-size-space-5: 21px; /*--uui-size-7*/
 
-  --uui-size-layout-0: 24px;
-  --uui-size-layout-1: 30px;
-  --uui-size-layout-2: 42px;
-  --uui-size-layout-3: 66px;
-  --uui-size-layout-4: 80px;
-  --uui-size-layout-5: 110px;
+  --uui-size-layout-0: 24px; /*--uui-size-8*/
+  --uui-size-layout-1: 30px; /*--uui-size-10*/
+  --uui-size-layout-2: 42px; /*--uui-size-14*/
+  --uui-size-layout-3: 66px; /*--uui-size-22*/
+  --uui-size-layout-4: 96px; /*--uui-size-32*/
+  --uui-size-layout-4: 138px; /*--uui-size-46*/
 
   /** Other size props: */
   --uui-border-radius: var(--uui-size-1);
