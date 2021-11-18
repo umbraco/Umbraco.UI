@@ -1,4 +1,3 @@
-import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-dialog-confirm/lib/index';
 import { UUIEvent } from 'packages/uui-base/lib/events/UUIEvent';
