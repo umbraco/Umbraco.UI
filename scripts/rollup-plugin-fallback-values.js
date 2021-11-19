@@ -1,31 +1,15 @@
 import postcss from 'postcss';
 import syntax from 'postcss-syntax';
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
-//import { extractCustomProperties } from './extract-custom-properties.mjs';
 import { createFilter } from '@rollup/pluginutils';
 import autoprefixer from 'autoprefixer';
-import * as fs from 'fs/promises';
+import properties from '../packages/uui-css/custom-properties';
 
 export default function processLitCSS(options = {}) {
   var filter = createFilter(options?.include, options?.exclude, {});
 
-  let properties = null;
-
   return {
     name: 'add-fallback-values',
-    async buildStart() {
-      console.log('buildStart ##################################');
-      //properties = await extractCustomProperties(options.mainStylesPath);
-      try {
-        properties = await fs.readFile(
-          './packages/uui-css/custom-properties.js'
-        );
-        console.log(properties);
-        // TODO: Fix this.
-      } catch (err) {
-        console.error(err);
-      }
-    },
     async transform(code, id) {
       if (!filter(id)) return;
 

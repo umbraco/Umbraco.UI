@@ -8,20 +8,20 @@ export const extractCustomProperties = async (masterCSSPath, cache = false) => {
   const CSS_PATH = path.resolve(masterCSSPath);
 
   try {
-    const customProperties = { customProperties: {} };
+    const fileData = { customProperties: {} };
 
     const cssFile = await fs.readFile(CSS_PATH, 'utf8');
 
-    const cssResult = await postcss([
+    await postcss([
       postcssCustomProperties({
         importFrom: [CSS_PATH],
-        exportTo: customProperties,
+        exportTo: fileData,
       }),
     ]).process(cssFile, { from: CSS_PATH, to: './css-test.css' });
 
-    for (const key in customProperties.customProperties) {
+    for (const key in fileData.customProperties) {
       const valueNode = postCssValueParser.parse(
-        customProperties.customProperties[key]
+        fileData.customProperties[key]
       );
       const onlyVars = valueNode.nodes.filter(node => node.isVar);
       if (onlyVars.length === 1) {
@@ -29,13 +29,12 @@ export const extractCustomProperties = async (masterCSSPath, cache = false) => {
           .trim()
           .substring(1, onlyVars[0].params.length - 1);
 
-        customProperties.customProperties[key] =
-          customProperties.customProperties[keyToFind];
+        fileData.customProperties[key] = fileData.customProperties[keyToFind];
       }
     }
 
     if (cache) {
-      let json = JSON.stringify(customProperties);
+      let json = JSON.stringify(fileData);
 
       try {
         await fs.writeFile(
@@ -48,7 +47,7 @@ export const extractCustomProperties = async (masterCSSPath, cache = false) => {
       }
     }
 
-    return customProperties;
+    return fileData;
   } catch (err) {
     console.log(err);
   }
