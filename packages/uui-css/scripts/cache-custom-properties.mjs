@@ -4,7 +4,7 @@ import path from 'path';
 import postcssCustomProperties from 'postcss-custom-properties';
 import * as postCssValueParser from 'postcss-values-parser';
 
-export const extractCustomProperties = async (masterCSSPath, cache = false) => {
+export const CacheCustomProperties = async masterCSSPath => {
   const CSS_PATH = path.resolve(masterCSSPath);
 
   try {
@@ -33,22 +33,18 @@ export const extractCustomProperties = async (masterCSSPath, cache = false) => {
       }
     }
 
-    if (cache) {
-      let json = JSON.stringify(fileData);
+    let json = JSON.stringify(fileData);
 
-      try {
-        await fs.writeFile(
-          './custom-properties.js',
-          `export default ${json}`,
-          'utf8'
-        );
-      } catch (err) {
-        console.error(err);
-      }
+    try {
+      await fs.writeFile(
+        './custom-properties.js',
+        `export default ${json}`,
+        'utf8'
+      );
+    } catch (err) {
+      console.error(err);
     }
-
-    return fileData;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
