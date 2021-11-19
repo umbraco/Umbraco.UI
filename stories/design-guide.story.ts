@@ -250,7 +250,7 @@ export const Sizing = () => html`
     </thead>
     <tbody>
       ${properties
-        .filter(property => property.key.includes('size'))
+        .filter(property => property.key.includes('--uui-size'))
         .map(property => propertySizeTemplate(property))}
     </tbody>
   </table>
