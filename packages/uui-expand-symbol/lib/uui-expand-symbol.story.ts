@@ -13,7 +13,20 @@ export default {
       },
     },
   },
+  args: {
+    open: false,
+  },
+  argTypes: {
+    value: {
+      open: { type: 'boolean' },
+    },
+  },
 };
 
 export const Overview: Story = props =>
-  html`<uui-expand-symbol open=${props.open}></uui-expand-symbol>`;
+  html`<uui-expand-symbol
+    open=${props.open}
+    @click=${(e: MouseEvent) => {
+      (e.target as any).open = !(e.target as any).open;
+    }}>
+  </uui-expand-symbol>`;
