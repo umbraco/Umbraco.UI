@@ -1,6 +1,6 @@
 import { html, svg } from 'lit-html';
 // @ts-ignore
-import customProperties from 'packages/uui-css/custom-properties.js';
+import customProperties from '../custom-properties.js';
 
 const properties = Object.keys(customProperties.customProperties).map(
   // @ts-ignore:
