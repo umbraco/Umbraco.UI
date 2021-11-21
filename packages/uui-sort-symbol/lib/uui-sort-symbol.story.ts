@@ -27,6 +27,17 @@ export default {
 
 export const Overview: Story = props =>
   html`<style>
+      button {
+        padding: 6px 6px 6px 12px;
+        background-color: transparent;
+        color: inherit;
+        border: none;
+        border-bottom: 1px solid currentColor;
+        cursor: pointer;
+      }
+      uui-sort-symbol {
+        margin-left: 20px;
+      }
       button:hover {
         --uui-sort-symbol--hover: 1;
         /* We want to provide the hover indication on the sorting arrow for the full interactive element. */
