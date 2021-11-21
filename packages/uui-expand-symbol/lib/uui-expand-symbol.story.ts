@@ -25,7 +25,7 @@ export default {
 
 export const Overview: Story = props =>
   html`<uui-expand-symbol
-    open=${props.open}
+    ?open=${props.open}
     @click=${(e: MouseEvent) => {
       (e.target as any).open = !(e.target as any).open;
     }}>

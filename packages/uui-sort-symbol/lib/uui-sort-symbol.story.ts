@@ -13,7 +13,42 @@ export default {
       },
     },
   },
+  args: {
+    active: false,
+    descending: false,
+  },
+  argTypes: {
+    value: {
+      active: { type: 'boolean' },
+      descending: { type: 'boolean' },
+    },
+  },
 };
 
 export const Overview: Story = props =>
-  html`<uui-sort-symbol sort=${props.sort}></uui-sort-symbol>`;
+  html`<style>
+      button:hover {
+        --uui-sort-symbol--hover: 1;
+        /* We want to provide the hover indication on the sorting arrow for the full interactive element. */
+      }
+    </style>
+
+    <button
+      @click=${(e: MouseEvent) => {
+        const sortArrowEl = (e.target as any).querySelector('uui-sort-symbol');
+        // sorting algorithm/behaviour is not part of the symbol, therefor we need to do something like this in our implementation.
+        if (sortArrowEl.active !== true) {
+          sortArrowEl.active = true;
+          return;
+        }
+        if (sortArrowEl.descending !== true) {
+          sortArrowEl.descending = true;
+        } else {
+          sortArrowEl.descending = false;
+          sortArrowEl.active = false;
+        }
+      }}>
+      Header example
+      <uui-sort-symbol ?active=${props.active} ?descending=${props.descending}>
+      </uui-sort-symbol>
+    </button>`;

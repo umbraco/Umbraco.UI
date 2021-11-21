@@ -1,18 +1,44 @@
 import { LitElement, html, css } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
- * @element uui-expand-symbol
+ *  A symbol indicating weather related composition is expanded or collapsed
+ *  @element uui-expand-symbol
+ *  @property open - Set this boolean to true for a open/expanded look.
  */
 export class UUIExpandSymbolElement extends LitElement {
   static styles = [
     css`
       :host {
-        /* Styles goes here */
+        display: inline-block;
+        width: 12px;
+        vertical-align: middle;
+      }
+
+      svg {
+        fill: currentColor;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        transition: transform 120ms ease-in-out;
+      }
+
+      :host([open]) svg {
+        transform: rotate(0deg);
       }
     `,
   ];
 
+  /**
+   * Turns the arrow around.
+   * @type {boolean}
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  public open = false;
+
   render() {
-    return html` Markup goes here `;
+    return html`<svg viewBox="0 0 512 512">
+      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+    </svg>`;
   }
 }
