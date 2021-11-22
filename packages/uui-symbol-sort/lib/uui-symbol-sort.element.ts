@@ -4,7 +4,7 @@ import { ActiveMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  *  @element uui-symbol-sort
- *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting in ascending or descending.
+ *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting is ascending or descending.
  *  Please define aria-sort on the header for the composition.
  *  @property active - Set this boolean to true for then the related composition is sorted.
  *  @property descending - Set this boolean to true for displaying descending sort is active.
