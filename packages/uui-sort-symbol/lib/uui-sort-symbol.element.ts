@@ -34,42 +34,38 @@ export class UUISortSymbolElement extends ActiveMixin(LitElement) {
 
       #up {
         transform: rotate(180deg);
-      }
-      #up {
         margin-top: -0.7em;
       }
       #down {
         margin-top: -0.3em;
       }
       :host([active]) #up {
-        margin-top: calc(-0.5em - (0.2em * var(--uui-sort-symbol--hover, 0)));
+        margin-top: calc(-0.5em - (0.2em * var(--uui-sort-symbol-hover, 0)));
       }
       :host([active]) #down {
-        margin-top: calc(-0.5em + (0.2em * var(--uui-sort-symbol--hover, 0)));
+        margin-top: calc(-0.5em + (0.2em * var(--uui-sort-symbol-hover, 0)));
       }
 
       :host(:hover) {
-        --uui-sort-symbol--hover: 1;
+        --uui-sort-symbol-hover: 1;
       }
-      :host(:not([active])) #up {
-        opacity: calc(0.25 * var(--uui-sort-symbol--hover, 0));
-      }
+      :host(:not([active])) #up,
       :host(:not([active])) #down {
-        opacity: calc(0.25 * var(--uui-sort-symbol--hover, 0));
+        opacity: calc(0.25 * var(--uui-sort-symbol-hover, 0));
       }
 
       :host([active]:not([descending])) #down {
         opacity: 1;
       }
       :host([active]:not([descending])) #up {
-        opacity: calc(0.25 * var(--uui-sort-symbol--hover, 0));
+        opacity: calc(0.25 * var(--uui-sort-symbol-hover, 0));
       }
 
       :host([active][descending]) #up {
         opacity: 1;
       }
       :host([active][descending]) #down {
-        opacity: calc(0.25 * var(--uui-sort-symbol--hover, 0));
+        opacity: calc(0.25 * var(--uui-sort-symbol-hover, 0));
       }
     `,
   ];

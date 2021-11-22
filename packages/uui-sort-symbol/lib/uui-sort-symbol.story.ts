@@ -39,7 +39,7 @@ export const Overview: Story = props =>
         margin-left: 20px;
       }
       button:hover {
-        --uui-sort-symbol--hover: 1;
+        --uui-sort-symbol-hover: 1;
         /* We want to provide the hover indication on the sorting arrow for the full interactive element. */
       }
     </style>
