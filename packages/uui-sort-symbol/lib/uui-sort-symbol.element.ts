@@ -80,14 +80,6 @@ export class UUISortSymbolElement extends ActiveMixin(LitElement) {
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public active = false;
-
-  /**
-   * Turns the arrow around.
-   * @type {boolean}
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
   public descending = false;
 
   render() {
