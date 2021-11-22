@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-file-symbol",
+  "name": "@umbraco-ui/uui-symbol-folder",
   "version": "0.0.5",
   "license": "MIT",
   "keywords": [
@@ -13,7 +13,7 @@
     "Form element",
     "Input"
   ],
-  "description": "Umbraco file-symbol custom element, displays a file",
+  "description": "Umbraco symbol-folder custom element, displays a folder",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
@@ -35,12 +35,12 @@
     "@umbraco-ui/uui-base": "0.0.12"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf dist lib",
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-file-symbol"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-symbol-folder"
 }

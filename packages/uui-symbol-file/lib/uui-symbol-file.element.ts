@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
  *  @element uui-file-symbol
  */
 
-export class UUIFileSymbolElement extends LitElement {
+export class UUISymbolFileElement extends LitElement {
   static styles = [
     css`
       :host {
