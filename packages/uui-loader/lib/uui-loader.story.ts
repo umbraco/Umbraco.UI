@@ -3,7 +3,7 @@ import { html } from 'lit-html';
 import '@umbraco-ui/uui-loader/lib/index';
 
 export default {
-  title: 'Symbols/Loader',
+  title: 'Loaders/Loader',
   component: 'uui-loader',
   id: 'uui-loader',
   parameters: {
