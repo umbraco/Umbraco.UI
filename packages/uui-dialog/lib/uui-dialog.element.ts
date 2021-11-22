@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { LocalTypography } from '@umbraco-ui/uui-css/lib/local-typography';
+import { LocalTypography } from '@umbraco-ui/uui-css/lib/local-typography.styles';
 
 /**
  *  @element uui-dialog
