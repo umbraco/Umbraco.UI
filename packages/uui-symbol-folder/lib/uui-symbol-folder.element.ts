@@ -4,7 +4,7 @@ import { LitElement, html, css } from 'lit';
  *  @element uui-folder-symbol
  */
 
-export class UUIFolderSymbolElement extends LitElement {
+export class UUISymbolFolderElement extends LitElement {
   static styles = [
     css`
       :host {
