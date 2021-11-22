@@ -32,8 +32,9 @@
     "lit": "^2.0.0"
   },
   "scripts": {
-    "build": "npm run build:css && npm run custom-properties-cache && tsc --build --force && rollup -c rollup.config.js",
-    "build:css": "postcss lib/custom-properties.css --base lib/ --dir dist && postcss lib/local-typography.css --base lib/ --dir dist && postcss lib/root.css --base lib/ --dir dist",
+    "build": "npm run build:cssprops && npm run build:rootcss && tsc --build --force && rollup -c rollup.config.js",
+    "build:cssprops": "postcss lib/custom-properties.css --base lib/ --dir dist && npm run custom-properties-cache",
+    "build:rootcss": "postcss lib/root.css --base lib/ --dir dist",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json custom-properties.js",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "custom-properties-cache": "node ./scripts/update-custom-properties-cache.mjs"

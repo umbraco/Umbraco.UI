@@ -5,7 +5,7 @@ import { createFilter } from '@rollup/pluginutils';
 import autoprefixer from 'autoprefixer';
 import properties from '../packages/uui-css/custom-properties';
 
-export default function processLitCSS(options = {}) {
+export default function litCSSFallbackValuesPlugin(options = {}) {
   var filter = createFilter(options?.include, options?.exclude, {});
 
   return {
