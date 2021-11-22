@@ -219,7 +219,8 @@ export class UUIMenuItemElement extends SelectableMixin(
       <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
           ? html`<button id="caret-button" @click=${this.onCaretClicked}>
-              <uui-caret .rotation=${this.showChildren ? 0 : -90}></uui-caret>
+              <uui-expand-symbol
+                ?open=${this.showChildren ? 0 : -90}></uui-expand-symbol>
             </button>`
           : ''}
         <button

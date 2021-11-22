@@ -1,11 +1,12 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
- *  A caret that rotates on click. Color will be `currentColor`
- *  @element uui-caret
+ *  A symbol indicating weather related composition is expanded or collapsed
+ *  @element uui-symbol-expand
+ *  @property open - Set this boolean to true for a open/expanded look.
  */
-export class UUICaretElement extends LitElement {
+export class UUISymbolExpandElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -16,12 +17,13 @@ export class UUICaretElement extends LitElement {
 
       svg {
         fill: currentColor;
+        transform: rotate(-90deg);
         transform-origin: 50% 50%;
-        transition: transform 280ms cubic-bezier(0.17, -0.88, 0.82, 1.84); /* Julia's beloved easing */
+        transition: transform 120ms ease-in-out;
       }
 
       :host([open]) svg {
-        transform: rotate(180deg);
+        transform: rotate(0deg);
       }
     `,
   ];
