@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-expand-symbol",
+  "name": "@umbraco-ui/uui-symbol-sort",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Expand Symbol"
+    "Sort Symbol"
   ],
-  "description": "Umbraco UI expand-symbol component",
+  "description": "Umbraco UI sort symbol component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-expand-symbol"
+    "directory": "packages/uui-symbol-sort"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-expand-symbol.min.js",
+  "main": "./dist/uui-symbol-sort.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -39,5 +39,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-expand-symbol"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-symbol-sort"
 }

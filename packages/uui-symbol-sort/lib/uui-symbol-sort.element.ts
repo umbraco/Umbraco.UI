@@ -3,13 +3,13 @@ import { property } from 'lit/decorators.js';
 import { ActiveMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- *  @element uui-expand-symbol
+ *  @element uui-symbol-sort
  *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting in ascending or descending.
  *  Please define aria-sort on the header for the composition.
  *  @property active - Set this boolean to true for then the related composition is sorted.
  *  @property descending - Set this boolean to true for displaying descending sort is active.
  */
-export class UUISortSymbolElement extends ActiveMixin(LitElement) {
+export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   static styles = [
     css`
       :host {
@@ -40,32 +40,32 @@ export class UUISortSymbolElement extends ActiveMixin(LitElement) {
         margin-top: -0.3em;
       }
       :host([active]) #up {
-        margin-top: calc(-0.5em - (0.2em * var(--uui-sort-symbol-hover, 0)));
+        margin-top: calc(-0.5em - (0.2em * var(--uui-symbol-sort-hover, 0)));
       }
       :host([active]) #down {
-        margin-top: calc(-0.5em + (0.2em * var(--uui-sort-symbol-hover, 0)));
+        margin-top: calc(-0.5em + (0.2em * var(--uui-symbol-sort-hover, 0)));
       }
 
       :host(:hover) {
-        --uui-sort-symbol-hover: 1;
+        --uui-symbol-sort-hover: 1;
       }
       :host(:not([active])) #up,
       :host(:not([active])) #down {
-        opacity: calc(0.25 * var(--uui-sort-symbol-hover, 0));
+        opacity: calc(0.25 * var(--uui-symbol-sort-hover, 0));
       }
 
       :host([active]:not([descending])) #down {
         opacity: 1;
       }
       :host([active]:not([descending])) #up {
-        opacity: calc(0.25 * var(--uui-sort-symbol-hover, 0));
+        opacity: calc(0.25 * var(--uui-symbol-sort-hover, 0));
       }
 
       :host([active][descending]) #up {
         opacity: 1;
       }
       :host([active][descending]) #down {
-        opacity: calc(0.25 * var(--uui-sort-symbol-hover, 0));
+        opacity: calc(0.25 * var(--uui-symbol-sort-hover, 0));
       }
     `,
   ];

@@ -1,15 +1,15 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-sort-symbol/lib/index';
+import '@umbraco-ui/uui-symbol-sort/lib/index';
 
 export default {
-  id: 'uui-sort-symbol',
-  title: 'Symbols/Sort Symbol',
-  component: 'uui-sort-symbol',
+  id: 'uui-symbol-sort',
+  title: 'Symbols/Sort',
+  component: 'uui-symbol-sort',
   parameters: {
     docs: {
       source: {
-        code: `<uui-sort-symbol></uui-sort-symbol>`,
+        code: `<uui-symbol-sort></uui-symbol-sort>`,
       },
     },
   },
@@ -35,18 +35,18 @@ export const Overview: Story = props =>
         border-bottom: 1px solid currentColor;
         cursor: pointer;
       }
-      uui-sort-symbol {
+      uui-symbol-sort {
         margin-left: 20px;
       }
       button:hover {
-        --uui-sort-symbol-hover: 1;
+        --uui-symbol-sort-hover: 1;
         /* We want to provide the hover indication on the sorting arrow for the full interactive element. */
       }
     </style>
 
     <button
       @click=${(e: MouseEvent) => {
-        const sortArrowEl = (e.target as any).querySelector('uui-sort-symbol');
+        const sortArrowEl = (e.target as any).querySelector('uui-symbol-sort');
         // sorting algorithm/behaviour is not part of the symbol, therefor we need to do something like this in our implementation.
         if (sortArrowEl.active !== true) {
           sortArrowEl.active = true;
@@ -60,6 +60,7 @@ export const Overview: Story = props =>
         }
       }}>
       Header example
-      <uui-sort-symbol ?active=${props.active} ?descending=${props.descending}>
-      </uui-sort-symbol>
+      <uui-symbol-sort
+        ?active=${props.active}
+        ?descending=${props.descending}></uui-symbol-sort>
     </button>`;

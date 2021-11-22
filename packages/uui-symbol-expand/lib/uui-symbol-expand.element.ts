@@ -3,10 +3,10 @@ import { property } from 'lit/decorators.js';
 
 /**
  *  A symbol indicating weather related composition is expanded or collapsed
- *  @element uui-expand-symbol
+ *  @element uui-symbol-expand
  *  @property open - Set this boolean to true for a open/expanded look.
  */
-export class UUIExpandSymbolElement extends LitElement {
+export class UUISymbolExpandElement extends LitElement {
   static styles = [
     css`
       :host {
