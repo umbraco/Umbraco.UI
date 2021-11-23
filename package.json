@@ -41,7 +41,7 @@
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
     "bootstrap": "node ./scripts/generate-ts-config.js",
-    "prepare": "husky install",
+    "prepare": "husky install && echo 'PATH=$PATH:'$PATH >> .husky/_/husky.sh",
     "new-package": "plop && npm i"
   },
   "engines": {
@@ -106,7 +106,6 @@
   ],
   "lint-staged": {
     "**/*.ts": "tsc-files --project tsconfig-lint-staged.json",
-    "**/*.{ts, js, mjs}": "eslint --cache --fix",
     "*": "prettier --ignore-unknown --write"
   }
 }

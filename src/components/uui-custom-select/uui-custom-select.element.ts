@@ -3,14 +3,14 @@ import { query, property, state } from 'lit/decorators.js';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
 import { UUIOverflowContainer } from '../uui-overflow-container/uui-overflow-container.element';
 import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
-import { UUISelectEvent } from './UUISelectEvent';
+import { UUICustomSelectEvent } from './UUICustomSelectEvent';
 import { UUISelectOptionEvent } from '../uui-select-option/UUISelectOptionEvent';
 /**
- *  @element uui-select
+ *  @element uui-custom-select
  *  @slot - for stuff
  */
 
-export class UUISelectElement extends LitElement {
+export class UUICustomSelectElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -257,11 +257,11 @@ export class UUISelectElement extends LitElement {
   };
 
   private _fireChangeEvent() {
-    this.dispatchEvent(new UUISelectEvent(UUISelectEvent.CHANGE));
+    this.dispatchEvent(new UUICustomSelectEvent(UUICustomSelectEvent.CHANGE));
   }
 
   protected onInputInput = () => {
-    this.dispatchEvent(new UUISelectEvent(UUISelectEvent.INPUT));
+    this.dispatchEvent(new UUICustomSelectEvent(UUICustomSelectEvent.INPUT));
   };
   protected onInputFocus = () => {
     this.open = true;

@@ -179,57 +179,59 @@ OneIsDisabled.parameters = {
   },
 };
 
-export const WithActions = () =>
-  html`
-    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
-      <uui-menu-item has-children show-children label="Content Templates">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu">•••</uui-button>
-        </uui-action-bar>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-      </uui-menu-item>
-    </div>
-  `;
-WithActions.parameters = {
-  docs: {
-    source: {
-      code: html` <uui-menu-item
-        has-children
-        show-children
-        label="Content Templates">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu">•••</uui-button>
-        </uui-action-bar>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu">•••</uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-      </uui-menu-item>`.strings,
-    },
-  },
-};
+//TODO turn on when uui-action-bar is made into a package
+
+// export const WithActions = () =>
+//   html`
+//     <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+//       <uui-menu-item has-children show-children label="Content Templates">
+//         <uui-action-bar slot="actions">
+//           <uui-button label="Open actions menu">•••</uui-button>
+//         </uui-action-bar>
+//         <uui-menu-item label="Content Templates">
+//           <uui-action-bar slot="actions">
+//             <uui-button label="Open actions menu">•••</uui-button>
+//           </uui-action-bar>
+//         </uui-menu-item>
+//         <uui-menu-item label="Content Templates">
+//           <uui-action-bar slot="actions">
+//             <uui-button label="Open actions menu">•••</uui-button>
+//           </uui-action-bar>
+//         </uui-menu-item>
+//         <uui-menu-item label="Content Templates">
+//           <uui-action-bar slot="actions">
+//             <uui-button label="Open actions menu">•••</uui-button>
+//           </uui-action-bar>
+//         </uui-menu-item>
+//       </uui-menu-item>
+//     </div>
+//   `;
+// WithActions.parameters = {
+//   docs: {
+//     source: {
+//       code: html` <uui-menu-item
+//         has-children
+//         show-children
+//         label="Content Templates">
+//         <uui-action-bar slot="actions">
+//           <uui-button label="Open actions menu">•••</uui-button>
+//         </uui-action-bar>
+//         <uui-menu-item label="Content Templates">
+//           <uui-action-bar slot="actions">
+//             <uui-button label="Open actions menu">•••</uui-button>
+//           </uui-action-bar>
+//         </uui-menu-item>
+//         <uui-menu-item label="Content Templates">
+//           <uui-action-bar slot="actions">
+//             <uui-button label="Open actions menu">•••</uui-button>
+//           </uui-action-bar>
+//         </uui-menu-item>
+//         <uui-menu-item label="Content Templates">
+//           <uui-action-bar slot="actions">
+//             <uui-button label="Open actions menu">•••</uui-button>
+//           </uui-action-bar>
+//         </uui-menu-item>
+//       </uui-menu-item>`.strings,
+//     },
+//   },
+// };

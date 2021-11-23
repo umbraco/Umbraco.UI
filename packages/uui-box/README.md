@@ -1,6 +1,6 @@
 # uui-box
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-box?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-box?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-box)
 
 ## Installation
 

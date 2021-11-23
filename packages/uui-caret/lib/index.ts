@@ -1,3 +1,4 @@
 import { UUICaretElement } from './uui-caret.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-caret', UUICaretElement);
+defineElement('uui-caret', UUICaretElement as any);
