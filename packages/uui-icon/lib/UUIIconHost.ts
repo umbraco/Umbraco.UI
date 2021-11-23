@@ -3,8 +3,6 @@ export class UUIIconHost {
   private readonly resolve!: Function;
   public readonly reject!: Function;
 
-  public preventDefault = true;
-
   constructor(svg?: string) {
     this.promise = new Promise<string>((resolveMethod, rejectMethod) => {
       (this as any).resolve = resolveMethod; // Intentionally skipping type checking as we want to be able to set the method in this line.
