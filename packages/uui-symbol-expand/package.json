@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-select",
+  "name": "@umbraco-ui/uui-symbol-expand",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Select"
+    "Expand Symbol"
   ],
-  "description": "Umbraco UI select component",
+  "description": "Umbraco UI expand symbol component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-select"
+    "directory": "packages/uui-symbol-expand"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-select.min.js",
+  "main": "./dist/uui-symbol-expand.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.11"
+    "@umbraco-ui/uui-base": "0.0.12"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -39,5 +39,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-select"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-symbol-expand"
 }
