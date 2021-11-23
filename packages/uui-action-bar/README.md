@@ -39,5 +39,9 @@ The component is available via CDN. This means it can be added to your applicati
 ## Usage
 
 ```html
-<uui-action-bar></uui-action-bar>
+<uui-action-bar>
+  <uui-button type="button" look="secondary">Button 1</uui-button>
+  <uui-button type="button" look="secondary">Button 2</uui-button>
+  <uui-button type="button" look="secondary">Button 3</uui-button>
+</uui-action-bar>
 ```
