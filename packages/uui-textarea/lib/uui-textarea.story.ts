@@ -15,6 +15,7 @@ export const AAAOverview: Story = props =>
   html`<uui-textarea
     .label=${props.label}
     ?auto-height=${props.autoHeight}
+    .minLength=${props.minLength}
     .maxLength=${props.maxLength}
     .minHeight=${props.minHeight}
     .maxHeight=${props.maxHeight}

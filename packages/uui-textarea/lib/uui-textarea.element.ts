@@ -17,12 +17,8 @@ export class UUITextareaElement extends LabelMixin(
 ) {
   static styles = [
     css`
-      :host {
-        display: flex;
-        flex-direction: column;
-      }
       :host([disabled]) .label,
-      :host([disabled]) #char-count {
+      :host([disabled]) #max-length-counter {
         color: var(--uui-interface-contrast-disabled);
       }
       :host([error]) textarea {
@@ -33,6 +29,11 @@ export class UUITextareaElement extends LabelMixin(
       }
       :host([auto-height]) textarea {
         resize: none;
+      }
+      .label {
+        display: inline-block;
+        margin-bottom: var(--uui-size-1);
+        font-weight: bold;
       }
       textarea[disabled] {
         cursor: not-allowed;
@@ -48,19 +49,30 @@ export class UUITextareaElement extends LabelMixin(
 
         color: var(--uui-interface-contrast-disabled);
       }
-
-      #textarea {
+      textarea {
+        font-family: inherit;
+        box-sizing: border-box;
         min-width: 100%;
         max-width: 100%;
+        font-size: var(--uui-size-5);
+        padding: var(--uui-size-2);
         border: 1px solid
           var(--uui-textarea-border-color, var(--uui-interface-border));
         border-radius: 0;
+        outline: none;
       }
-      #char-count {
+      #lengths-container {
+        display: flex;
+      }
+      #min-length-counter {
+        color: var(--uui-look-danger-surface);
+        margin-right: 1em;
+      }
+      #max-length-counter {
         display: inline-block;
         width: min-content;
       }
-      #char-count.maxed {
+      #max-length-counter.maxed {
         animation-name: maxed;
         animation-duration: 0.1s;
         animation-direction: alternate;
@@ -164,6 +176,15 @@ export class UUITextareaElement extends LabelMixin(
   protected _textarea!: HTMLInputElement;
 
   /**
+   * Defines the min length of the textarea.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  minLength = 0;
+
+  /**
    * Defines the max length of the textarea.
    * @type {number}
    * @attr
@@ -201,6 +222,9 @@ export class UUITextareaElement extends LabelMixin(
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
+    this.dispatchEvent(
+      new UUITextareaEvent(UUITextareaEvent.INPUT, { bubbles: true })
+    );
 
     if (this.autoHeight) {
       this.autoUpdateHeight();
@@ -238,10 +262,18 @@ export class UUITextareaElement extends LabelMixin(
 
   renderMaxLength() {
     return html`<span
-      id="char-count"
+      id="max-length-counter"
       class=${this.value.length >= this.maxLength! ? 'maxed' : ''}
       >${this.value ? this.value.length : 0}/${this.maxLength}</span
     >`;
+  }
+  renderMinLength() {
+    const shouldRender = this.minLength - this.value.length > 0;
+    return shouldRender
+      ? html`<span id="min-length-counter">
+          ${this.minLength - this.value.length}
+        </span>`
+      : '';
   }
 
   render() {
@@ -249,6 +281,7 @@ export class UUITextareaElement extends LabelMixin(
       ${this.hideLabel === false ? this.renderLabel() : ''}
       <textarea
         maxlength=${ifDefined(this.maxLength > 0 ? this.maxLength : undefined)}
+        minlength=${this.minLength}
         style="min-height: ${this.minHeight}; max-height: ${this.maxHeight}"
         id="textarea"
         .value=${this.value}
@@ -259,7 +292,10 @@ export class UUITextareaElement extends LabelMixin(
         @input=${this.onInput}
         @change=${this.onChange}>
       </textarea>
-      ${this.maxLength > 0 ? this.renderMaxLength() : ''}
+      <div id="lengths-container">
+        ${this.minLength > 0 ? this.renderMinLength() : ''}
+        ${this.maxLength > 0 ? this.renderMaxLength() : ''}
+      </div>
     `;
   }
 }
