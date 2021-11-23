@@ -1,12 +1,10 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIIconService } from '../../service/iconservice/UUIIconService';
-/**
- *  @element uui-icon
- *
- */
+import { iconRegistry } from './UUIIconRegistry';
 
-// TODO: Allow for slotted SVG.
+/**
+ * @element uui-icon
+ */
 export class UUIIconElement extends LitElement {
   static styles = [
     css`
@@ -32,11 +30,18 @@ export class UUIIconElement extends LitElement {
   set name(newValue) {
     this._name = newValue;
     if (this._name !== '' && this._name !== null) {
-      UUIIconService.getIcon(this._name).then((svg: string) => {
-        if (this.shadowRoot) {
-          this.shadowRoot.innerHTML = svg;
-        }
-      });
+      iconRegistry
+        .getIcon(this._name)
+        .then((svg: string) => {
+          if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = svg;
+          }
+        })
+        .catch(() => {
+          if (this.fallback && this.shadowRoot) {
+            this.shadowRoot.innerHTML = this.fallback;
+          }
+        });
     }
   }
 
@@ -52,6 +57,9 @@ export class UUIIconElement extends LitElement {
       this.shadowRoot.innerHTML = newValue || '';
     }
   }
+
+  @property()
+  fallback: string | null = null;
 
   connectedCallback() {
     super.connectedCallback();
