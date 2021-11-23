@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
+import '@umbraco-ui/uui-icon/lib/index';
 import '.';
-import '../uui-icon/index';
 
 export default {
   title: 'Buttons/Inline Create Button',
