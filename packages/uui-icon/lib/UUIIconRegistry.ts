@@ -1,7 +1,7 @@
 import { UUIIconHost } from './UUIIconHost';
-import { UUIIconServiceEvent } from './UUIIconServiceEvent';
+import { UUIIconRegistryEvent } from './UUIIconRegistryEvent';
 
-class UUIIconServiceClass extends EventTarget {
+export class UUIIconRegistry extends EventTarget {
   private icons: Record<string, UUIIconHost> = {};
 
   public defineIcon(iconName: string, svgString: string) {
@@ -18,10 +18,13 @@ class UUIIconServiceClass extends EventTarget {
       const icon = new UUIIconHost();
       this.icons[iconName] = icon;
 
-      const event = new UUIIconServiceEvent(UUIIconServiceEvent.ICON_REQUEST, {
-        cancelable: true,
-        detail: { iconName },
-      });
+      const event = new UUIIconRegistryEvent(
+        UUIIconRegistryEvent.ICON_REQUEST,
+        {
+          cancelable: true,
+          detail: { iconName },
+        }
+      );
       this.dispatchEvent(event);
 
       if (event.defaultPrevented === false) {
@@ -35,4 +38,4 @@ class UUIIconServiceClass extends EventTarget {
   }
 }
 
-export const UUIIconService = new UUIIconServiceClass();
+export const iconRegistry = new UUIIconRegistry();

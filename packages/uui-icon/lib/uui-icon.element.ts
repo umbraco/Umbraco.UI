@@ -1,6 +1,6 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIIconService } from './UUIIconService';
+import { iconRegistry } from './UUIIconRegistry';
 
 /**
  * @element uui-icon
@@ -30,7 +30,8 @@ export class UUIIconElement extends LitElement {
   set name(newValue) {
     this._name = newValue;
     if (this._name !== '' && this._name !== null) {
-      UUIIconService.getIcon(this._name)
+      iconRegistry
+        .getIcon(this._name)
         .then((svg: string) => {
           if (this.shadowRoot) {
             this.shadowRoot.innerHTML = svg;
