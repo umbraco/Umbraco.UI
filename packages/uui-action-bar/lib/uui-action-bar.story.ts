@@ -20,8 +20,6 @@ export default {
   },
 };
 
-// TEST comit v2
-
 const buttons = ['bug', 'info', 'delete'];
 
 export const Basic = () =>
