@@ -1,7 +1,7 @@
 import { html, svg } from 'lit-html';
 // @ts-ignore-start
-// @typescript-eslint/ban-ts-comment // @ts-ignore
-import customProperties from '../custom-properties.js'; // eslint-disable-line no-use-before-define
+// eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
+import customProperties from '../custom-properties.js'; // eslint-disable-line
 // @ts-ignore-end
 
 const properties = Object.keys(customProperties.customProperties).map(
