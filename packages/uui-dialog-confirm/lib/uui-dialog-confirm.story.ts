@@ -35,3 +35,12 @@ export const Positive = () => html`
     Description of this very positive dialog
   </uui-dialog-confirm>
 `;
+
+export const NoTitle = () => html`
+  <uui-dialog-confirm
+    look="positive"
+    @cancel=${(e: UUIEvent) => console.log('Cancelled', e)}
+    @submit=${(e: UUIEvent) => console.log('Submitted', e)}>
+    Description of this dialog with no title
+  </uui-dialog-confirm>
+`;

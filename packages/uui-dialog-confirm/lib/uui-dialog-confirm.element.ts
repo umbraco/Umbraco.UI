@@ -31,7 +31,7 @@ export class UUIDialogConfirmElement extends UUIDialogElement {
 
   protected renderContent() {
     return html`
-      <h4>${this.title}</h4>
+      ${this.title ? html`<h4>${this.title}</h4>` : ''}
       <slot></slot>
     `;
   }
