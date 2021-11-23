@@ -1,5 +1,4 @@
 export class UUIIconHost {
-
   public readonly promise: Promise<string>;
   private readonly resolve!: Function;
   public readonly reject!: Function;

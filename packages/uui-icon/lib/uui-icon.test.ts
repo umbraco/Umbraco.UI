@@ -6,9 +6,7 @@ describe('UUIIconElement', () => {
   let element: UUIIconElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-icon></uui-icon> `
-    );
+    element = await fixture(html` <uui-icon></uui-icon> `);
   });
 
   it('passes the a11y audit', async () => {

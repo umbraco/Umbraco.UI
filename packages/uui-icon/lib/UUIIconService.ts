@@ -24,9 +24,9 @@ class UUIIconServiceClass extends EventTarget {
       });
       this.dispatchEvent(event);
 
-      if(event.defaultPrevented === false) {
+      if (event.defaultPrevented === false) {
         // as no one prevented default we will reject, to show fallback.
-        console.log("reject")
+        console.log('reject');
         icon.reject();
       }
 
