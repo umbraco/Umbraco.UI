@@ -13,7 +13,9 @@ export default {
 
 export const AAAOverview: Story = props =>
   html`<uui-textarea
-    style="--uui-textarea-min-height: ${props['--uui-textarea-min-height']}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
+    style="--uui-textarea-min-height: ${props[
+      '--uui-textarea-min-height'
+    ]}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
     .label=${props.label}
     ?auto-height=${props.autoHeight}
     .minLength=${props.minLength}
@@ -46,9 +48,10 @@ AAAOverview.parameters = {
   },
 };
 
-
 export const MaxLength: Story = props =>
-  html`<uui-textarea label="Label" maxLength=${props.maxLength}></uui-textarea>`;
+  html`<uui-textarea
+    label="Label"
+    maxLength=${props.maxLength}></uui-textarea>`;
 
 MaxLength.args = { maxLength: 20 };
 MaxLength.parameters = {
@@ -61,7 +64,9 @@ MaxLength.parameters = {
 };
 
 export const MinLength: Story = props =>
-  html`<uui-textarea label="Label" minLength=${props.minLength}></uui-textarea>`;
+  html`<uui-textarea
+    label="Label"
+    minLength=${props.minLength}></uui-textarea>`;
 
 MinLength.args = { minLength: 20 };
 MinLength.parameters = {
@@ -106,23 +111,31 @@ Placeholder.parameters = {
 };
 
 export const AutoHeight: Story = props =>
-  html`
-    <uui-textarea
-      label="Label"
-      style="--uui-textarea-min-height: ${props['--uui-textarea-min-height']}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
-      ?auto-height=${props.autoHeight}></uui-textarea>`;
+  html` <uui-textarea
+    label="Label"
+    style="--uui-textarea-min-height: ${props[
+      '--uui-textarea-min-height'
+    ]}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
+    ?auto-height=${props.autoHeight}></uui-textarea>`;
 
-AutoHeight.args = { 
+AutoHeight.args = {
   autoHeight: true,
   '--uui-textarea-min-height': '100px',
   '--uui-textarea-max-height': '300px',
 };
 
 AutoHeight.parameters = {
-  controls: { include: ['autoHeight', '--uui-textarea-min-height', '--uui-textarea-max-height'] },
+  controls: {
+    include: [
+      'autoHeight',
+      '--uui-textarea-min-height',
+      '--uui-textarea-max-height',
+    ],
+  },
   docs: {
     description: {
-      story: "The height will confine itself within the max and min height if defined"
+      story:
+        'The height will confine itself within the max and min height if defined',
     },
     source: {
       code: `<uui-textarea label="Label" style="--uui-textarea-min-height: 100px; --uui-textarea-max-height: 300px;" auto-height></uui-textarea>`,

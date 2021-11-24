@@ -58,7 +58,8 @@ export class UUITextareaElement extends LabelMixin(
         max-width: 100%;
         font-size: var(--uui-size-5);
         padding: var(--uui-size-2);
-        border: 1px solid var(--uui-textarea-border-color, var(--uui-interface-border));
+        border: 1px solid
+          var(--uui-textarea-border-color, var(--uui-interface-border));
         border-radius: 0;
         outline: none;
         min-height: var(--uui-textarea-min-height);
@@ -252,7 +253,7 @@ export class UUITextareaElement extends LabelMixin(
       >${this.value ? this.value.length : 0}/${this.maxLength}</span
     >`;
   }
-  
+
   renderMinLength() {
     const shouldRender = this.minLength - this.value.length > 0;
     return shouldRender
