@@ -106,7 +106,7 @@
   ],
   "lint-staged": {
     "**/*.ts": "tsc-files --project tsconfig-lint-staged.json",
-    "**/*.{ts, js, mjs}": "eslint --cache --fix",
+    "**/*.{mjs}": "eslint --cache --fix -c .eslintrc.js",
     "*": "prettier --ignore-unknown --write"
   }
 }
