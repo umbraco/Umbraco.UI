@@ -134,3 +134,16 @@ AutoHeight.argTypes = {
   '--uui-textarea-min-height': { control: { type: 'text' } },
   '--uui-textarea-max-height': { control: { type: 'text' } },
 };
+
+export const Error: Story = props =>
+  html`<uui-textarea label="Label" ?error=${props.error}></uui-textarea>`;
+
+Error.args = { error: true };
+Error.parameters = {
+  controls: { include: ['error'] },
+  docs: {
+    source: {
+      code: `<uui-textarea label="Label" error></uui-textarea>`,
+    },
+  },
+};
