@@ -10,6 +10,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @fires UUITextareaEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
+ * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
+ * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  */
 export class UUITextareaElement extends LabelMixin(
   'textarea label',
@@ -56,10 +58,11 @@ export class UUITextareaElement extends LabelMixin(
         max-width: 100%;
         font-size: var(--uui-size-5);
         padding: var(--uui-size-2);
-        border: 1px solid
-          var(--uui-textarea-border-color, var(--uui-interface-border));
+        border: 1px solid var(--uui-textarea-border-color, var(--uui-interface-border));
         border-radius: 0;
         outline: none;
+        min-height: var(--uui-textarea-min-height);
+        max-height: var(--uui-textarea-max-height);
       }
       #lengths-container {
         display: flex;
@@ -202,24 +205,6 @@ export class UUITextareaElement extends LabelMixin(
   @property({ type: Boolean, attribute: 'auto-height', reflect: true })
   autoHeight = false;
 
-  /**
-   * Defines the minimum height of the textarea.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  minHeight: String = '';
-
-  /**
-   * Defines the maximum height of the textarea.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  maxHeight: String = '';
-
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
     this.dispatchEvent(
@@ -267,6 +252,7 @@ export class UUITextareaElement extends LabelMixin(
       >${this.value ? this.value.length : 0}/${this.maxLength}</span
     >`;
   }
+  
   renderMinLength() {
     const shouldRender = this.minLength - this.value.length > 0;
     return shouldRender
@@ -282,7 +268,6 @@ export class UUITextareaElement extends LabelMixin(
       <textarea
         maxlength=${ifDefined(this.maxLength > 0 ? this.maxLength : undefined)}
         minlength=${this.minLength}
-        style="min-height: ${this.minHeight}; max-height: ${this.maxHeight}"
         id="textarea"
         .value=${this.value}
         .name=${this.name}

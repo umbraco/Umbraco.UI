@@ -13,12 +13,11 @@ export default {
 
 export const AAAOverview: Story = props =>
   html`<uui-textarea
+    style="--uui-textarea-min-height: ${props['--uui-textarea-min-height']}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
     .label=${props.label}
     ?auto-height=${props.autoHeight}
     .minLength=${props.minLength}
     .maxLength=${props.maxLength}
-    .minHeight=${props.minHeight}
-    .maxHeight=${props.maxHeight}
     .placeholder=${props.placeholder}
     ?disabled=${props.disabled}
     .name=${props.name}
@@ -27,12 +26,18 @@ export const AAAOverview: Story = props =>
     ?hide-label=${props.hideLabel}></uui-textarea>`;
 
 AAAOverview.storyName = 'Overview';
+
 AAAOverview.args = {
   label: 'Label',
-  maxLength: 200,
-  minHeight: '100px',
-  maxHeight: '200px',
+  '--uui-textarea-min-height': '',
+  '--uui-textarea-max-height': '',
 };
+
+AAAOverview.argTypes = {
+  '--uui-textarea-min-height': { control: { type: 'text' } },
+  '--uui-textarea-max-height': { control: { type: 'text' } },
+};
+
 AAAOverview.parameters = {
   docs: {
     source: {
@@ -41,17 +46,16 @@ AAAOverview.parameters = {
   },
 };
 
+
 export const MaxLength: Story = props =>
-  html`<uui-textarea
-    label="textarea"
-    maxLength=${props.maxLength}></uui-textarea>`;
+  html`<uui-textarea label="Label" maxLength=${props.maxLength}></uui-textarea>`;
 
 MaxLength.args = { maxLength: 20 };
 MaxLength.parameters = {
   controls: { include: ['maxLength'] },
   docs: {
     source: {
-      code: `<uui-textarea label="textarea" maxLength="20"></uui-textarea>`,
+      code: `<uui-textarea label="Label" maxLength="20"></uui-textarea>`,
     },
   },
 };
@@ -74,75 +78,46 @@ export const Placeholder: Story = props =>
     label="Label"
     placeholder=${props.placeholder}></uui-textarea>`;
 
-Placeholder.args = { placeholder: 'I am a placeholder...' };
+Placeholder.args = { placeholder: 'Placeholder...' };
 Placeholder.parameters = {
   controls: { include: ['placeholder'] },
   docs: {
     source: {
-      code: `<uui-textarea
-      label="Label"
-      placeholder="I am a placeholder..."></uui-textarea>`,
+      code: `
+<uui-textarea
+  label="Label"
+  placeholder="Placeholder...">
+</uui-textarea>`,
     },
   },
 };
 
-export const MaxAndMinHeight: Story = props =>
-  html`<uui-textarea
-    label="Label"
-    minHeight=${props.minHeight}
-    maxHeight=${props.maxHeight}></uui-textarea>`;
-
-MaxAndMinHeight.args = { minHeight: '100px', maxHeight: '200px' };
-MaxAndMinHeight.parameters = {
-  controls: { include: ['minHeight', 'maxHeight'] },
-  docs: {
-    source: {
-      code: `<uui-textarea
-      label="Label"
-      minHeight="100px"
-      maxHeight="200px"></uui-textarea>`,
-    },
-  },
-};
-
-export const AutomaticHeightAdjustment: Story = props =>
-  html` the height wil confine itself within the max and min height if defined.
+export const AutoHeight: Story = props =>
+  html`
     <uui-textarea
       label="Label"
+      style="--uui-textarea-min-height: ${props['--uui-textarea-min-height']}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
       ?auto-height=${props.autoHeight}></uui-textarea>`;
 
-AutomaticHeightAdjustment.args = { autoHeight: true };
-AutomaticHeightAdjustment.parameters = {
-  controls: { include: ['autoHeight'] },
-  docs: {
-    source: {
-      code: `<uui-textarea label="Label" auto-height></uui-textarea>`,
-    },
-  },
-};
-
-export const AutomaticHeightAdjustmentWithHeightLimits: Story = props =>
-  html` the height wil confine itself within the max and min height if defined.
-    <uui-textarea
-      label="Label"
-      auto-height
-      minHeight="100px"
-      maxHeight="200px"></uui-textarea>`;
-
-AutomaticHeightAdjustmentWithHeightLimits.args = {
-  minHeight: '100px',
-  maxHeight: '200px',
+AutoHeight.args = { 
   autoHeight: true,
+  '--uui-textarea-min-height': '100px',
+  '--uui-textarea-max-height': '300px',
 };
-AutomaticHeightAdjustmentWithHeightLimits.parameters = {
-  controls: { include: ['minHeight', 'maxHeight', 'autoHeight'] },
+
+AutoHeight.parameters = {
+  controls: { include: ['autoHeight', '--uui-textarea-min-height', '--uui-textarea-max-height'] },
   docs: {
+    description: {
+      story: "The height will confine itself within the max and min height if defined"
+    },
     source: {
-      code: `<uui-textarea
-      label="Label"
-      auto-height
-      minHeight="100px"
-      maxHeight="200px"></uui-textarea>`,
+      code: `<uui-textarea label="Label" style="--uui-textarea-min-height: 100px; --uui-textarea-max-height: 300px;" auto-height></uui-textarea>`,
     },
   },
+};
+
+AutoHeight.argTypes = {
+  '--uui-textarea-min-height': { control: { type: 'text' } },
+  '--uui-textarea-max-height': { control: { type: 'text' } },
 };
