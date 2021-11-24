@@ -60,6 +60,19 @@ MaxLength.parameters = {
   },
 };
 
+export const MinLength: Story = props =>
+  html`<uui-textarea label="Label" minLength=${props.minLength}></uui-textarea>`;
+
+MinLength.args = { minLength: 20 };
+MinLength.parameters = {
+  controls: { include: ['minLength'] },
+  docs: {
+    source: {
+      code: `<uui-textarea label="Label" minLength="20"></uui-textarea>`,
+    },
+  },
+};
+
 export const Disabled: Story = props =>
   html`<uui-textarea label="Label" ?disabled=${props.disabled}></uui-textarea>`;
 
