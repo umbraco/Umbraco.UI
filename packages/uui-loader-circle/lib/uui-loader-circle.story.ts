@@ -3,7 +3,7 @@ import { html } from 'lit-html';
 import '@umbraco-ui/uui-loader-circle/lib/index';
 
 export default {
-  title: 'Symbols/Loader Circle',
+  title: 'Loaders/Loader Circle',
   component: 'uui-loader-circle',
   id: 'uui-loader-circle',
   args: {

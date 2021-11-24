@@ -31,3 +31,5 @@ storybook-static
 debug.log
 out-css
 *.log
+.eslintcache
+custom-properties.js
