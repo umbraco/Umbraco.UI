@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-action-bar",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -29,8 +29,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.13",
-    "@umbraco-ui/uui-button-group": "0.0.8"
+    "@umbraco-ui/uui-base": "0.0.12",
+    "@umbraco-ui/uui-button-group": "0.0.7"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
