@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-icon",
+  "name": "@umbraco-ui/uui-action-bar",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Icon"
+    "Action Bar"
   ],
-  "description": "Umbraco UI icon component",
+  "description": "Umbraco UI action-bar component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-icon"
+    "directory": "packages/uui-action-bar"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-icon.min.js",
+  "main": "./dist/uui-action-bar.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -29,7 +29,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.12"
+    "@umbraco-ui/uui-base": "0.0.12",
+    "@umbraco-ui/uui-button-group": "0.0.7"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -39,5 +40,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-icon"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-action-bar"
 }

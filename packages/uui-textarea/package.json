@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-icon",
+  "name": "@umbraco-ui/uui-textarea",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,19 @@
     "Web components",
     "UI",
     "Lit",
-    "Icon"
+    "Textarea",
+    "Form element"
   ],
-  "description": "Umbraco UI icon component",
+  "description": "Custom element wrapping the native textarea element. This is a formAssociated element, meaning it can participate in a native HTMLForm. In browsers other then Chrome it may require a polyfill.",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-icon"
+    "directory": "packages/uui-textarea"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-icon.min.js",
+  "main": "./dist/uui-textarea.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -29,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.12"
+    "@umbraco-ui/uui-base": "0.0.11"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -39,5 +40,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-icon"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-textarea"
 }
