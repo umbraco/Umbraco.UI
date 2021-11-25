@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const path = require('path');
 const fs = require('fs');
+const prettier = require('prettier');
 const {
   packageDirectoryNames,
   packagesRoot,
@@ -51,10 +52,10 @@ const generatePackageTSConfig = () => {
       const tsConfig = { ...tsConfigBase, references };
       const tsconfigPath = path.join(packageDirectory, 'tsconfig.json');
 
-      fs.writeFileSync(
-        tsconfigPath,
-        TSCONFIG_COMMENT + JSON.stringify(tsConfig, null, '  ')
-      );
+      const content = TSCONFIG_COMMENT + JSON.stringify(tsConfig, null, '  ');
+      const formattedContent = prettier.format(content, { parser: 'json' });
+
+      fs.writeFileSync(tsconfigPath, formattedContent);
 
       console.log(`Generated tsconfig for ${packageJSONData.name}`);
     }
