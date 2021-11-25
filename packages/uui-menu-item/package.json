@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-menu-item",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.13"
+    "@umbraco-ui/uui-base": "0.0.14"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
