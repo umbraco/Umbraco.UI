@@ -65,10 +65,10 @@
       "path": "../uui-radio"
     },
     {
-      "path": "../uui-slider"
+      "path": "../uui-select"
     },
     {
-      "path": "../uui-select"
+      "path": "../uui-slider"
     },
     {
       "path": "../uui-symbol-expand"
