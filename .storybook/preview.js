@@ -14,6 +14,9 @@ const sort = (a, b) => {
 };
 
 export const parameters = {
+  backgrounds: {
+    default: 'light',
+  },
   layout: 'padded',
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
