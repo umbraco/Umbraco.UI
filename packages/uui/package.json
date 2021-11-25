@@ -37,7 +37,7 @@
     "@umbraco-ui/uui-breadcrumbs": "0.0.14",
     "@umbraco-ui/uui-button": "0.1.5",
     "@umbraco-ui/uui-button-group": "0.0.7",
-    "@umbraco-ui/uui-caret": "0.0.0",
+    "@umbraco-ui/uui-caret": "0.0.4",
     "@umbraco-ui/uui-checkbox": "0.0.14",
     "@umbraco-ui/uui-input": "0.0.14",
     "@umbraco-ui/uui-keyboard-shortcut": "0.0.8",
