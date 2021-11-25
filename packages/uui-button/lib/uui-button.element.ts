@@ -44,7 +44,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-slot-padding-l-factor: 3;
         --uui-button-slot-padding-r-factor: 3;
-        background-color: var(--uui-interface-surface);
+        background-color: transparent;
       }
 
       :host([compact]) {
