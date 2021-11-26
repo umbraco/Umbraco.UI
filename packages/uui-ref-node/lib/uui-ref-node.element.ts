@@ -6,6 +6,9 @@ import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
  *  @element uui-ref-node
  *  @fires {UUIRefEvent} click-title - fires when the ref title is clicked
  *  @description - Component for displaying a reference to a generic node.
+ *  @slot - for content
+ *  @slot tag - for a tag
+ *  @slot actions - for actions
  */
 
 export class UUIRefNodeElement extends UUIRefElement {
@@ -73,12 +76,30 @@ export class UUIRefNodeElement extends UUIRefElement {
     `,
   ];
 
+  /**
+   * Node name
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   name = '';
 
+  /**
+   * Node details
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   detail = '';
 
+  /**
+   * Node icon
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   icon = '';
 
