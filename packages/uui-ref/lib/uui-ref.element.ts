@@ -4,7 +4,7 @@ import { SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIRefEvent } from './UUIRefEvent';
 
 /**
- *  @element uui-ref element.
+ *  @element uui-ref
  *  @fires {UUIRefEvent} selected - fires when the ref is selected
  *  @fires {UUIRefEvent} open
  *  @description - Base ref component to be extended by specific ref elements. Does not have a tag.
