@@ -4,7 +4,7 @@ import './index';
 
 export default {
   id: 'uui-ref',
-  title: 'Displays/Refs/Base',
+  title: 'Displays/References/Ref',
   component: 'uui-ref',
   parameters: {
     docs: {

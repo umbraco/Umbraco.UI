@@ -11,14 +11,11 @@ const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 export const ContentReferenceList = () => html`
   <uui-ref-list style="max-width: 640px;">
     ${listOfNodeNames.map(
-      name => html`<uui-ref-node-content
-        name=${name}
-        icon="bug"
-        url="path/to/nowhere">
+      name => html`<uui-ref-node name=${name} icon="bug" url="path/to/nowhere">
         <uui-action-bar slot="actions">
-          <uui-button>Remove</uui-button>
+          <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
-      </uui-ref-node-content>`
+      </uui-ref-node>`
     )}
   </uui-ref-list>
 `;
