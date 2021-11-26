@@ -25,7 +25,7 @@ export const Overview: Story = () => html`
       author="Unicorn Devs">
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node-package>
   </div>
@@ -40,7 +40,7 @@ export const Selectable = () => html`
       version="1.2"
       author="Unicorn Devs">
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node-package>
   </div>
@@ -55,7 +55,7 @@ export const Disabled = () => html`
       version="1.2"
       author="Unicorn Devs">
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node-package>
   </div>
@@ -71,7 +71,7 @@ export const Listed = () => html`
         alias="Umbraco.TextField">
         <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
         <uui-action-bar slot="actions"
-          ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+          ><uui-button><uui-icon name="delete"></uui-icon></uui-button
         ></uui-action-bar>
       </uui-ref-node-package>`
     )}

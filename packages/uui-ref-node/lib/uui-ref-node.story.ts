@@ -24,7 +24,7 @@ export const Overview: Story = () => html`
       detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node>
   </div>
@@ -39,7 +39,7 @@ export const Border = () => html`
       border>
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node>
   </div>
@@ -54,7 +54,7 @@ export const Selectable = () => html`
       detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node>
   </div>
@@ -70,7 +70,7 @@ export const BorderAndSelectable = () => html`
       detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node>
   </div>
@@ -85,7 +85,7 @@ export const Disabled = () => html`
       detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node>
   </div>
@@ -101,7 +101,7 @@ export const BorderAndDisabled = () => html`
       detail="path/to/nowhere">
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
       <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
     </uui-ref-node>
   </div>
@@ -117,7 +117,7 @@ export const Listed = () => html`
         detail="path/to/nowhere">
         <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
         <uui-action-bar slot="actions"
-          ><uui-button><uui-icon name="bug"></uui-icon></uui-button
+          ><uui-button><uui-icon name="delete"></uui-icon></uui-button
         ></uui-action-bar>
       </uui-ref-node>`
     )}
