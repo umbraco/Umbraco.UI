@@ -7,12 +7,7 @@
     "rootDir": "./lib",
     "composite": true
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./**/*.test.ts",
-    "./**/*.story.ts"
-  ],
+  "include": ["./**/*.ts"],
+  "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": []
 }
