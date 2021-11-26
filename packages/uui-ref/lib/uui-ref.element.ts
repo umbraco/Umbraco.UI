@@ -158,10 +158,21 @@ export class UUIRefElement extends SelectableMixin(LitElement) {
     `,
   ];
 
+  /**
+   * Set tot true to disable
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  // TODO: display error.
+  /**
+   * Set to true to display error state
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   error = false;
 
