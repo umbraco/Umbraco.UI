@@ -6,7 +6,7 @@ import { UUIRefEvent } from './UUIRefEvent';
 /**
  *  @element uui-ref
  *  @fires {UUIRefEvent} selected - fires when the ref is selected
- *  @fires {UUIRefEvent} open
+ *  @fires {UUIRefEvent} open - fires when the ref is opened
  *  @description - Base ref component to be extended by specific ref elements. Does not have a tag.
  */
 
