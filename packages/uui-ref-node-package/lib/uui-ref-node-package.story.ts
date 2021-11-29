@@ -7,22 +7,18 @@ export default {
   id: 'uui-ref-node-package',
   title: 'Displays/References/Package',
   component: 'uui-ref-node-package',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-ref-node-package></uui-ref-node-package>`,
-      },
-    },
-  },
 };
 
-export const Overview: Story = () => html`
+const Template: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-package
-      name="TextField"
-      icon="bug"
-      version="1.2"
-      author="Unicorn Devs">
+      name="${props.name}"
+      icon="${props.icon}"
+      version="${props.version}"
+      author="${props.author}"
+      ?selectable=${props.selectable}
+      ?error=${props.error}
+      ?disabled=${props.disabled}>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="delete"></uui-icon></uui-button
@@ -31,49 +27,200 @@ export const Overview: Story = () => html`
   </div>
 `;
 
-export const Selectable = () => html`
+export const AAAOverview = Template.bind({});
+AAAOverview.args = {
+  name: 'Umbraco Starter Kit',
+  icon: 'bug',
+  version: '1.1',
+  author: 'Umbraco HQ',
+};
+AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-package
+  name="Umbraco Starter Kit"
+  icon="bug"
+  version="1.1"
+  author="Umbraco HQ">
+  <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+  <uui-action-bar slot="actions"
+    ><uui-button><uui-icon name="delete"></uui-icon></uui-button
+  ></uui-action-bar>
+</uui-ref-node-package>
+    `,
+    },
+  },
+};
+
+export const Border: Story = () => html`
   <div style="max-width: 420px;">
     <uui-ref-node-package
-      selectable
-      name="TextField"
+      border
+      name="Umbraco Starter Kit"
       icon="bug"
-      version="1.2"
-      author="Unicorn Devs">
-      <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
-      ></uui-action-bar>
+      version="1.1"
+      author="Umbraco HQ">
+      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-action-bar slot="actions">
+        <uui-button type="button" label="Delete"
+          ><uui-icon name="delete"></uui-icon
+        ></uui-button>
+      </uui-action-bar>
     </uui-ref-node-package>
   </div>
 `;
 
-export const Disabled = () => html`
+Border.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-package
+  border
+  name="Umbraco Starter Kit"
+  icon="bug"
+  version="1.1"
+  author="Umbraco HQ">
+  <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+  <uui-action-bar slot="actions"
+    ><uui-button><uui-icon name="delete"></uui-icon></uui-button
+  ></uui-action-bar>
+</uui-ref-node-package>
+    `,
+    },
+  },
+};
+
+export const Selectable: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-package
-      disabled
-      name="TextField"
+      ?selectable="${props.selectable}"
+      name="Umbraco Starter Kit"
       icon="bug"
-      version="1.2"
-      author="Unicorn Devs">
-      <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
-      ></uui-action-bar>
+      version="1.1"
+      author="Umbraco HQ">
+      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-action-bar slot="actions">
+        <uui-button type="button" label="Delete"
+          ><uui-icon name="delete"></uui-icon
+        ></uui-button>
+      </uui-action-bar>
     </uui-ref-node-package>
   </div>
 `;
+
+Selectable.args = {
+  selectable: true,
+};
+
+Selectable.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-package
+  selectable
+  name="Umbraco Starter Kit"
+  icon="bug"
+  version="1.1"
+  author="Umbraco HQ">
+  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-action-bar slot="actions">
+    <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
+  </uui-action-bar>
+</uui-ref-node-package>
+    `,
+    },
+  },
+};
+
+export const Disabled: Story = props => html`
+  <div style="max-width: 420px;">
+    <uui-ref-node-package
+      ?disabled="${props.disabled}"
+      name="Umbraco Starter Kit"
+      icon="bug"
+      version="1.1"
+      author="Umbraco HQ">
+      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-action-bar slot="actions">
+        <uui-button type="button" label="Delete"
+          ><uui-icon name="delete"></uui-icon
+        ></uui-button>
+      </uui-action-bar>
+    </uui-ref-node-package>
+  </div>
+`;
+
+Disabled.args = {
+  disabled: true,
+};
+
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-package
+  disabled
+  name="Umbraco Starter Kit"
+  icon="bug"
+  version="1.1"
+  author="Umbraco HQ">
+  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-action-bar slot="actions">
+    <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
+  </uui-action-bar>
+</uui-ref-node-package>
+    `,
+    },
+  },
+};
 
 const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
-export const Listed = () => html`
+export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
       name => html`<uui-ref-node-package
-        name=${name}
+        name="${name}"
         icon="bug"
-        alias="Umbraco.TextField">
-        <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-        <uui-action-bar slot="actions"
-          ><uui-button><uui-icon name="delete"></uui-icon></uui-button
-        ></uui-action-bar>
+        version="1.1"
+        author="Umbraco HQ">
+        <uui-action-bar slot="actions">
+          <uui-button type="button" label="Delete"
+            ><uui-icon name="delete"></uui-icon
+          ></uui-button>
+        </uui-action-bar>
       </uui-ref-node-package>`
     )}
   </uui-ref-list>
 `;
+
+Listed.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-list>
+  
+  <uui-ref-node-package name="Package 1" icon="bug" version="1.1" author="Umbraco HQ">
+    <uui-action-bar slot="actions">
+      <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
+    </uui-action-bar>
+  </uui-ref-node-package>
+
+  <uui-ref-node-package name="Package 2" icon="bug" version="1.1" author="Umbraco HQ">
+    <uui-action-bar slot="actions">
+      <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
+    </uui-action-bar>
+  </uui-ref-node-package>
+  
+  <uui-ref-node-package name="Package 3" icon="bug" version="1.1" author="Umbraco HQ">
+    <uui-action-bar slot="actions">
+      <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
+    </uui-action-bar>
+  </uui-ref-node-package>
+
+</uui-ref-list>
+    `,
+    },
+  },
+};
