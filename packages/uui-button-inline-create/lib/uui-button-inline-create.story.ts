@@ -2,6 +2,8 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-button-inline-create/lib/index';
 
+import { GetRandomUmbracoWord } from '../../../src/helper/UmbracoWordGenerator';
+
 export default {
   id: 'uui-button-inline-create',
   title: 'Buttons/Button Inline Create',
@@ -15,20 +17,12 @@ export default {
   },
 };
 
-const words = ['Hello', 'World', 'Umbraco', 'Code', 'Cloud', 'Friendly'];
-
-const getRandomWord = () => {
-  const index = Math.floor(Math.random() * (words.length - 1));
-
-  return words[index];
-};
-
 const insertBox = (e: any) => {
   const div = document.createElement('div');
   const button = document.createElement('uui-button');
   const buttonInline = document.createElement('uui-button-inline-create');
   buttonInline.addEventListener('click', insertBox);
-  button.innerHTML = getRandomWord();
+  button.innerHTML = GetRandomUmbracoWord();
   button.setAttribute('look', 'outline');
   button.style.width = '100%';
   button.style.height = '50px';
@@ -41,7 +35,7 @@ const insertBox = (e: any) => {
 
 const createBox = () => html`<div>
   <uui-button look="outline" style="width: 100%; height: 50px;"
-    >${getRandomWord()}</uui-button
+    >${GetRandomUmbracoWord()}</uui-button
   >
   <uui-button-inline-create @click=${insertBox}></uui-button-inline-create>
 </div>`;
