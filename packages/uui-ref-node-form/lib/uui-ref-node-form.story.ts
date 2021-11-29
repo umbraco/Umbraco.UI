@@ -13,11 +13,11 @@ const Template: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-form
       name="${props.name}"
-      icon="${props.icon}"
       detail="${props.detail}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -28,7 +28,6 @@ const Template: Story = props => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   name: 'Newsletter Signup',
-  icon: 'bug',
   detail: 'Accept and signup for newsletter',
 };
 AAAOverview.storyName = 'Overview';
@@ -38,8 +37,8 @@ AAAOverview.parameters = {
       code: `
 <uui-ref-node-form
   name="Newsletter Signup"
-  icon="bug"
   alias="Signup for newsletter">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -54,8 +53,8 @@ export const Border: Story = () => html`
     <uui-ref-node-form
       border
       name="Newsletter Signup"
-      icon="bug"
       detail="Signup for newsletter">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -70,8 +69,8 @@ Border.parameters = {
 <uui-ref-node-form
   border
   name="Newsletter Signup"
-  icon="bug"
   detail="Signup for newsletter">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -86,8 +85,8 @@ export const Selectable: Story = props => html`
     <uui-ref-node-form
       ?selectable="${props.selectable}"
       name="Newsletter Signup"
-      icon="bug"
       detail="Signup for newsletter">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -106,8 +105,8 @@ Selectable.parameters = {
 <uui-ref-node-form
   selectable
   name="Newsletter Signup"
-  icon="bug"
   detail="Signup for newsletter">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -122,8 +121,8 @@ export const Disabled: Story = props => html`
     <uui-ref-node-document-type
       ?disabled="${props.disabled}"
       name="Newsletter Signup"
-      icon="bug"
       detail="Signup for newsletter">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -142,8 +141,8 @@ Disabled.parameters = {
 <uui-ref-node-form
   disabled
   name="Newsletter Signup"
-  icon="bug"
   alias="Signup for newsletter">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -157,10 +156,8 @@ const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
-      name => html`<uui-ref-node-form
-        name=${name}
-        icon="bug"
-        detail="Description here...">
+      name => html`<uui-ref-node-form name=${name} detail="Description here...">
+        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
@@ -175,19 +172,22 @@ Listed.parameters = {
       code: `
 <uui-ref-list>
   
-  <uui-ref-node-form name="Form 1" icon="bug" detail="Description here...">
+  <uui-ref-node-form name="Form 1" detail="Description here...">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-form>
 
-  <uui-ref-node-form name="Form 2" icon="bug" detail="Description here...">
+  <uui-ref-node-form name="Form 2" detail="Description here...">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-form>
 
-  <uui-ref-node-form name="Form 3" icon="bug" detail="Description here...">
+  <uui-ref-node-form name="Form 3" detail="Description here...">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>

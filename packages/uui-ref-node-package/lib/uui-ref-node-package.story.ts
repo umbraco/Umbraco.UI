@@ -13,12 +13,12 @@ const Template: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-package
       name="${props.name}"
-      icon="${props.icon}"
       version="${props.version}"
       author="${props.author}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="delete"></uui-icon></uui-button
@@ -30,7 +30,6 @@ const Template: Story = props => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   name: 'Umbraco Starter Kit',
-  icon: 'bug',
   version: '1.1',
   author: 'Umbraco HQ',
 };
@@ -41,9 +40,9 @@ AAAOverview.parameters = {
       code: `
 <uui-ref-node-package
   name="Umbraco Starter Kit"
-  icon="bug"
   version="1.1"
   author="Umbraco HQ">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
   <uui-action-bar slot="actions"
     ><uui-button><uui-icon name="delete"></uui-icon></uui-button
@@ -59,9 +58,9 @@ export const Border: Story = () => html`
     <uui-ref-node-package
       border
       name="Umbraco Starter Kit"
-      icon="bug"
       version="1.1"
       author="Umbraco HQ">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
@@ -79,9 +78,9 @@ Border.parameters = {
 <uui-ref-node-package
   border
   name="Umbraco Starter Kit"
-  icon="bug"
   version="1.1"
   author="Umbraco HQ">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
   <uui-action-bar slot="actions"
     ><uui-button><uui-icon name="delete"></uui-icon></uui-button
@@ -97,9 +96,9 @@ export const Selectable: Story = props => html`
     <uui-ref-node-package
       ?selectable="${props.selectable}"
       name="Umbraco Starter Kit"
-      icon="bug"
       version="1.1"
       author="Umbraco HQ">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
@@ -121,9 +120,9 @@ Selectable.parameters = {
 <uui-ref-node-package
   selectable
   name="Umbraco Starter Kit"
-  icon="bug"
   version="1.1"
   author="Umbraco HQ">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
@@ -139,9 +138,9 @@ export const Disabled: Story = props => html`
     <uui-ref-node-package
       ?disabled="${props.disabled}"
       name="Umbraco Starter Kit"
-      icon="bug"
       version="1.1"
       author="Umbraco HQ">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
@@ -163,9 +162,9 @@ Disabled.parameters = {
 <uui-ref-node-package
   disabled
   name="Umbraco Starter Kit"
-  icon="bug"
   version="1.1"
   author="Umbraco HQ">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
@@ -182,9 +181,9 @@ export const Listed: Story = () => html`
     ${listOfNodeNames.map(
       name => html`<uui-ref-node-package
         name="${name}"
-        icon="bug"
         version="1.1"
         author="Umbraco HQ">
+        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button type="button" label="Delete"
             ><uui-icon name="delete"></uui-icon
@@ -201,19 +200,22 @@ Listed.parameters = {
       code: `
 <uui-ref-list>
   
-  <uui-ref-node-package name="Package 1" icon="bug" version="1.1" author="Umbraco HQ">
+  <uui-ref-node-package name="Package 1" version="1.1" author="Umbraco HQ">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>
   </uui-ref-node-package>
 
-  <uui-ref-node-package name="Package 2" icon="bug" version="1.1" author="Umbraco HQ">
+  <uui-ref-node-package name="Package 2" version="1.1" author="Umbraco HQ">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>
   </uui-ref-node-package>
   
-  <uui-ref-node-package name="Package 3" icon="bug" version="1.1" author="Umbraco HQ">
+  <uui-ref-node-package name="Package 3" version="1.1" author="Umbraco HQ">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>

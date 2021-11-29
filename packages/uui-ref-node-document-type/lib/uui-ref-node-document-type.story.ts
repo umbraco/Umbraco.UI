@@ -13,11 +13,11 @@ const Template: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-document-type
       name="${props.name}"
-      icon="${props.icon}"
       alias="${props.alias}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -28,7 +28,6 @@ const Template: Story = props => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   name: 'Product Page',
-  icon: 'bug',
   alias: 'productPage',
 };
 AAAOverview.storyName = 'Overview';
@@ -38,8 +37,8 @@ AAAOverview.parameters = {
       code: `
 <uui-ref-node-document-type
   name="Product Page"
-  icon="bug"
   alias="productPage">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -51,11 +50,8 @@ AAAOverview.parameters = {
 
 export const Border: Story = () => html`
   <div style="max-width: 420px;">
-    <uui-ref-node-document-type
-      border
-      name="Product Page"
-      icon="bug"
-      alias="productPage">
+    <uui-ref-node-document-type border name="Product Page" alias="productPage">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -70,8 +66,8 @@ Border.parameters = {
 <uui-ref-node-document-type
   border
   name="Product Page"
-  icon="bug"
   alias="productPage">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -86,8 +82,8 @@ export const Selectable: Story = props => html`
     <uui-ref-node-document-type
       ?selectable="${props.selectable}"
       name="Product Page"
-      icon="bug"
       alias="productPage">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -106,8 +102,8 @@ Selectable.parameters = {
 <uui-ref-node-document-type
   selectable
   name="Product Page"
-  icon="bug"
   alias="productPage">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -122,8 +118,8 @@ export const Disabled: Story = props => html`
     <uui-ref-node-document-type
       ?disabled="${props.disabled}"
       name="Product Page"
-      icon="bug"
       alias="productPage">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -142,8 +138,8 @@ Disabled.parameters = {
 <uui-ref-node-document-type
   disabled
   name="Product Page"
-  icon="bug"
   alias="productPage">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -157,10 +153,8 @@ const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
-      name => html`<uui-ref-node-document-type
-        name=${name}
-        icon="bug"
-        alias="alias">
+      name => html`<uui-ref-node-document-type name=${name} alias="alias">
+        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
@@ -175,19 +169,22 @@ Listed.parameters = {
       code: `
 <uui-ref-list>
   
-  <uui-ref-node-document-type name="Document Type 1" icon="bug" alias="alias">
+  <uui-ref-node-document-type name="Document Type 1" alias="alias">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-document-type>
 
-  <uui-ref-node-document-type name="Document Type 2" icon="bug" alias="alias">
+  <uui-ref-node-document-type name="Document Type 2" alias="alias">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-document-type>
 
-  <uui-ref-node-document-type name="Document Type 3" icon="bug" alias="alias">
+  <uui-ref-node-document-type name="Document Type 3" alias="alias">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>

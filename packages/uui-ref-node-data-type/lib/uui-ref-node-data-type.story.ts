@@ -13,11 +13,11 @@ const Template: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-data-type
       name="${props.name}"
-      icon="${props.icon}"
       alias="${props.alias}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -28,7 +28,6 @@ const Template: Story = props => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   name: 'TextField',
-  icon: 'bug',
   alias: 'Umbraco.TextField',
 };
 AAAOverview.storyName = 'Overview';
@@ -38,8 +37,8 @@ AAAOverview.parameters = {
       code: `
 <uui-ref-node-data-type
   name="TextField"
-  icon="bug"
   alias="Umbraco.TextField">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -51,11 +50,8 @@ AAAOverview.parameters = {
 
 export const Border: Story = () => html`
   <div style="max-width: 420px;">
-    <uui-ref-node-data-type
-      border
-      name="TextField"
-      icon="bug"
-      alias="Umbraco.TextField">
+    <uui-ref-node-data-type border name="TextField" alias="Umbraco.TextField">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -70,8 +66,8 @@ Border.parameters = {
 <uui-ref-node-data-type
   border
   name="TextField"
-  icon="bug"
   alias="Umbraco.TextField">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -86,8 +82,8 @@ export const Selectable: Story = props => html`
     <uui-ref-node-data-type
       ?selectable="${props.selectable}"
       name="TextField"
-      icon="bug"
       alias="Umbraco.TextField">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -106,8 +102,8 @@ Selectable.parameters = {
 <uui-ref-node-data-type
   selectable
   name="TextField"
-  icon="bug"
   alias="Umbraco.TextField">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -122,8 +118,8 @@ export const Disabled: Story = props => html`
     <uui-ref-node-data-type
       ?disabled="${props.disabled}"
       name="TextField"
-      icon="bug"
       alias="Umbraco.TextField">
+      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -142,8 +138,8 @@ Disabled.parameters = {
 <uui-ref-node-data-type
   disabled
   name="TextField"
-  icon="bug"
   alias="Umbraco.TextField">
+  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -159,8 +155,8 @@ export const Listed: Story = () => html`
     ${listOfNodeNames.map(
       name => html`<uui-ref-node-data-type
         name=${name}
-        icon="bug"
         alias="Umbraco.TextField">
+        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
@@ -175,19 +171,22 @@ Listed.parameters = {
       code: `
 <uui-ref-list>
   
-  <uui-ref-node-data-type name="Data Type 1" icon="bug" alias="Umbraco.TextField">
+  <uui-ref-node-data-type name="Data Type 1" alias="Umbraco.TextField">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-data-type>
 
-  <uui-ref-node-data-type name="Data Type 2" icon="bug" alias="Umbraco.TextField">
+  <uui-ref-node-data-type name="Data Type 2" alias="Umbraco.TextField">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-data-type>
 
-  <uui-ref-node-data-type name="Data Type 3" icon="bug" alias="Umbraco.TextField">
+  <uui-ref-node-data-type name="Data Type 3" alias="Umbraco.TextField">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>

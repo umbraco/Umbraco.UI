@@ -12,10 +12,8 @@ const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 const Template: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
-      name => html`<uui-ref-node
-        name=${name}
-        icon="bug"
-        detail="path/to/nowhere">
+      name => html`<uui-ref-node name=${name} detail="path/to/nowhere">
+        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
@@ -32,20 +30,23 @@ AAAOverview.parameters = {
       code: `
 <uui-ref-list>
 
-  <uui-ref-node name="Node 1" icon="bug" detail="path/to/nowhere">
+  <uui-ref-node name="Node 1" detail="path/to/nowhere">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node>
 
-  <uui-ref-node name="Node 2" icon="bug" detail="path/to/nowhere">
+  <uui-ref-node name="Node 2" detail="path/to/nowhere">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node>
   
-  <uui-ref-node name="Node 3" icon="bug" detail="path/to/nowhere">
+  <uui-ref-node name="Node 3" detail="path/to/nowhere">
+    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>

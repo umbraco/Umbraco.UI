@@ -7,6 +7,7 @@ import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
  *  @fires {UUIRefEvent} click-title - fires when the ref title is clicked
  *  @description - Component for displaying a reference to a generic node.
  *  @slot - for content
+ *  @slot icon - for an icon
  *  @slot tag - for a tag
  *  @slot actions - for actions
  */
@@ -94,15 +95,6 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   detail = '';
 
-  /**
-   * Node icon
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  icon = '';
-
   protected renderDetail() {
     return html`<small id="detail"
       >${this.detail}<slot name="detail"></slot
@@ -118,7 +110,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
         ?disabled=${this.disabled}>
-        <uui-icon id="icon" name=${this.icon}></uui-icon>
+        <span id="icon"><slot name="icon"></slot></span>
         <div id="info">
           <div id="name">${this.name}</div>
           ${this.renderDetail()}

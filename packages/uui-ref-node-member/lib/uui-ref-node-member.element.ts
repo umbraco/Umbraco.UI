@@ -20,14 +20,6 @@ export class UUIRefNodeMemberElement extends UUIRefNodeElement {
   @property({ type: String, attribute: 'group-name' })
   groupName = '';
 
-  constructor() {
-    super();
-    //TODO: replace with member icon.
-    if (this.icon === '') {
-      this.icon = 'bug';
-    }
-  }
-
   protected renderDetail() {
     const details: string[] = [];
     if (this.detail !== '') {

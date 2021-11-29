@@ -8,12 +8,4 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.ele
 
 export class UUIRefNodeFormElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
-
-  constructor() {
-    super();
-    //TODO: replace with form icon.
-    if (this.icon === '') {
-      this.icon = 'bug';
-    }
-  }
 }
