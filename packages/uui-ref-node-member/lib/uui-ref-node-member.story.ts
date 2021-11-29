@@ -7,64 +7,194 @@ export default {
   id: 'uui-ref-node-member',
   title: 'Displays/References/Member',
   component: 'uui-ref-node-member',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-ref-node-member></uui-ref-node-member>`,
-      },
+};
+
+const Template: Story = props => html`
+  <div style="max-width: 420px;">
+    <uui-ref-node-member
+      name="${props.name}"
+      icon="${props.icon}"
+      group-name="${props.groupName}"
+      ?selectable=${props.selectable}
+      ?error=${props.error}
+      ?disabled=${props.disabled}>
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
+    </uui-ref-node-member>
+  </div>
+`;
+
+export const AAAOverview = Template.bind({});
+AAAOverview.args = {
+  name: 'Arnold Vitz',
+  icon: 'bug',
+  groupName: 'Visitor, Registered-Member',
+};
+AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-member
+  name="Arnold Vitz"
+  icon="bug"
+  group-name="Visitor, Registered-Member">
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+</uui-ref-node-member>
+    `,
     },
   },
 };
 
-export const Overview: Story = () => html`
+export const Border: Story = () => html`
   <div style="max-width: 420px;">
     <uui-ref-node-member
+      border
       name="Arnold Vitz"
+      icon="bug"
       group-name="Visitor, Registered-Member">
-      <uui-action-bar slot="actions"
-        ><uui-button>Remove</uui-button></uui-action-bar
-      >
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
     </uui-ref-node-member>
   </div>
 `;
 
-export const Selectable = () => html`
+Border.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-member
+  border
+  name="Arnold Vitz"
+  icon="bug"
+  group-name="Visitor, Registered-Member">
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+</uui-ref-node-member>
+    `,
+    },
+  },
+};
+
+export const Selectable: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-member
-      selectable
+      ?selectable="${props.selectable}"
       name="Arnold Vitz"
+      icon="bug"
       group-name="Visitor, Registered-Member">
-      <uui-action-bar slot="actions"
-        ><uui-button>Remove</uui-button></uui-action-bar
-      >
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
     </uui-ref-node-member>
   </div>
 `;
 
-export const Disabled = () => html`
+Selectable.args = {
+  selectable: true,
+};
+
+Selectable.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-member
+  selectable
+  name="Arnold Vitz"
+  icon="bug"
+  group-name="Visitor, Registered-Member">
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+</uui-ref-node-member>
+    `,
+    },
+  },
+};
+
+export const Disabled: Story = props => html`
   <div style="max-width: 420px;">
     <uui-ref-node-member
-      disabled
+      ?disabled="${props.disabled}"
       name="Arnold Vitz"
+      icon="bug"
       group-name="Visitor, Registered-Member">
-      <uui-action-bar slot="actions"
-        ><uui-button>Remove</uui-button></uui-action-bar
-      >
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
     </uui-ref-node-member>
   </div>
 `;
+
+Disabled.args = {
+  disabled: true,
+};
+
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-member
+  disabled
+  name="TextField"
+  icon="bug"
+  alias="Umbraco.TextField">
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+</uui-ref-node-member>
+    `,
+    },
+  },
+};
 
 const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
-export const Listed = () => html`
+export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
       name => html`<uui-ref-node-member
         name=${name}
-        group-name="Visitor, Registered-Member">
-        <uui-action-bar slot="actions"
-          ><uui-button>Remove</uui-button></uui-action-bar
-        >
+        icon="bug"
+        group-name="Group name">
+        <uui-action-bar slot="actions">
+          <uui-button label="Remove">Remove</uui-button>
+        </uui-action-bar>
       </uui-ref-node-member>`
     )}
   </uui-ref-list>
 `;
+
+Listed.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-list>
+  
+  <uui-ref-node-member name="Member 1" icon="bug" group-name="Group name">
+    <uui-action-bar slot="actions">
+      <uui-button label="Remove">Remove</uui-button>
+    </uui-action-bar>
+  </uui-ref-node-member>
+
+  <uui-ref-node-member name="Member 2" icon="bug" group-name="Group name">
+    <uui-action-bar slot="actions">
+      <uui-button label="Remove">Remove</uui-button>
+    </uui-action-bar>
+  </uui-ref-node-member>
+
+  <uui-ref-node-member name="Member 3" icon="bug" group-name="Group name">
+    <uui-action-bar slot="actions">
+      <uui-button label="Remove">Remove</uui-button>
+    </uui-action-bar>
+  </uui-ref-node-member>
+
+</uui-ref-list>
+    `,
+    },
+  },
+};
