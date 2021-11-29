@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.element';
 
 /**
- *  @element uui-ref-node-data-type
+ *  @element uui-ref-node-package
  *  @fires {UUIRefEvent} click-title - fires when the ref title is clicked
  *  @description - Component for displaying a reference to a Package node.
  */
@@ -11,9 +11,21 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.ele
 export class UUIRefNodePackageElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 
+  /**
+   * Package version
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   version = '';
 
+  /**
+   * Package author
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   author = '';
 

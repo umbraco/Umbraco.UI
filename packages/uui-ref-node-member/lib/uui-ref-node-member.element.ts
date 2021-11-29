@@ -11,6 +11,12 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.ele
 export class UUIRefNodeMemberElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 
+  /**
+   * Group name
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String, attribute: 'group-name' })
   groupName = '';
 
