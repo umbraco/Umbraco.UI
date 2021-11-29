@@ -6,7 +6,7 @@ import {
   UUIBlinkAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
+import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
 /**
  *  @element uui-inline-create-button
  *  @description - Special button for creating new elements
@@ -14,14 +14,16 @@ import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
  *  @fires click on user click
  */
 
-export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIBlinkKeyframes,
     css`
       :host {
-        display: inline-block;
+        display: flex;
+        height: 20px;
         width: 100%;
         position: relative;
+        margin: -8px 0;
       }
 
       :host([vertical]) {
@@ -29,19 +31,19 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
       }
 
       #button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         position: absolute;
-
         z-index: 1;
-
         outline: 0;
-        height: 12px;
-        margin-top: -9px;
-        padding-top: 6px;
-        margin-bottom: -6px;
         transition: opacity 0.24s;
         display: inline-flex;
         width: 100%;
         border: none;
+        height: 100%;
+        padding: 0;
 
         text-decoration: none;
         background: transparent;
@@ -71,7 +73,8 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
       #button-wrapper:before {
         content: '';
         position: absolute;
-        top: 5px;
+        top: 50%;
+        transform: translateY(-50%);
         right: 0;
         left: 0;
         height: 2px;
@@ -95,10 +98,12 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host(:not(:hover)) #plus:not(:focus) {
+        left: 50% !important;
+      }
+
       #plus {
         position: absolute;
-        top: 9px;
-        left: 14px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -106,8 +111,7 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
         box-sizing: border-box;
         width: 28px;
         height: 28px;
-        margin-left: -24px;
-        margin-top: -16px;
+        margin-left: -12px;
         border-radius: 3em;
         font-size: 14px;
         border: 2px solid var(--uui-interface-selected, #2152a3);
@@ -117,7 +121,8 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
 
         opacity: 0;
         transform: scale(0);
-        transition: transform 240ms ease-in, opacity 240ms;
+        transition: transform 240ms ease-in, opacity 240ms,
+          left 100ms linear 150ms;
       }
       :host(:focus) #plus,
       :host(:focus-within) #plus,
@@ -158,9 +163,12 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
     this.position = this.vertical ? e.offsetY : e.offsetX;
   }
 
-  private _handleClick() {
+  private _handleClick(e: MouseEvent) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
     this.dispatchEvent(
-      new UUIInlineCreateButtonEvent(UUIInlineCreateButtonEvent.CLICK)
+      new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
     );
   }
 
