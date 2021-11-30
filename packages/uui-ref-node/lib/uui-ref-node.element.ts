@@ -1,5 +1,6 @@
 import { css, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { property, state } from 'lit/decorators.js';
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
 
 /**
@@ -34,6 +35,13 @@ export class UUIRefNodeElement extends UUIRefElement {
         font-size: 1.2em;
         margin-left: var(--uui-size-2);
         margin-right: var(--uui-size-1);
+      }
+
+      #icon-fallback {
+        display: inline-block;
+        vertical-align: bottom;
+        width: 1.15em;
+        height: 1.15em;
       }
 
       #info {
@@ -95,10 +103,28 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   detail = '';
 
+  @state()
+  private _iconSlotHasContent = false;
+
+  protected fallbackIcon =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M396.441 138.878l-83.997-83.993-7.331-7.333H105.702v416.701h298.071V146.214l-7.332-7.336zM130.74 439.217V72.591h141.613c37.201 0 19.274 88.18 19.274 88.18s86-20.901 87.104 18.534v259.912H130.74z"></path></svg>';
+
+  private _onSlotIconChange(event: Event) {
+    this._iconSlotHasContent =
+      (event.target as HTMLSlotElement).assignedNodes({ flatten: true })
+        .length > 0;
+  }
+
   protected renderDetail() {
     return html`<small id="detail"
       >${this.detail}<slot name="detail"></slot
     ></small>`;
+  }
+
+  private _renderFallbackIcon() {
+    return html`<span id="icon-fallback"
+      >${unsafeHTML(this.fallbackIcon)}</span
+    >`;
   }
 
   public render() {
@@ -110,7 +136,12 @@ export class UUIRefNodeElement extends UUIRefElement {
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
         ?disabled=${this.disabled}>
-        <span id="icon"><slot name="icon"></slot></span>
+        <span id="icon">
+          <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+          ${this._iconSlotHasContent === false
+            ? this._renderFallbackIcon()
+            : ''}
+        </span>
         <div id="info">
           <div id="name">${this.name}</div>
           ${this.renderDetail()}

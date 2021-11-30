@@ -18,7 +18,6 @@ const Template: Story = props => html`
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="delete"></uui-icon></uui-button
@@ -42,11 +41,42 @@ AAAOverview.parameters = {
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">
-  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
   <uui-action-bar slot="actions"
     ><uui-button><uui-icon name="delete"></uui-icon></uui-button
   ></uui-action-bar>
+</uui-ref-node-package>
+    `,
+    },
+  },
+};
+
+export const CustomIcon: Story = () => html`
+  <div style="max-width: 420px;">
+    <uui-ref-node-package
+      name="Umbraco Starter Kit"
+      version="1.1"
+      author="Umbraco HQ">
+      <uui-icon slot="icon" name="wand"></uui-icon>
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
+    </uui-ref-node-package>
+  </div>
+`;
+
+CustomIcon.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-package
+  name="Umbraco Starter Kit"
+  version="1.1"
+  author="Umbraco HQ">
+  <uui-icon slot="icon" name="wand"></uui-icon>
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
 </uui-ref-node-package>
     `,
     },
@@ -60,7 +90,6 @@ export const Border: Story = () => html`
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
@@ -98,7 +127,6 @@ export const Selectable: Story = props => html`
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
@@ -122,7 +150,6 @@ Selectable.parameters = {
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">
-  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
@@ -140,7 +167,6 @@ export const Disabled: Story = props => html`
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
@@ -164,7 +190,6 @@ Disabled.parameters = {
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">
-  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
@@ -183,7 +208,6 @@ export const Listed: Story = () => html`
         name="${name}"
         version="1.1"
         author="Umbraco HQ">
-        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button type="button" label="Delete"
             ><uui-icon name="delete"></uui-icon
@@ -201,21 +225,18 @@ Listed.parameters = {
 <uui-ref-list>
   
   <uui-ref-node-package name="Package 1" version="1.1" author="Umbraco HQ">
-    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>
   </uui-ref-node-package>
 
   <uui-ref-node-package name="Package 2" version="1.1" author="Umbraco HQ">
-    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>
   </uui-ref-node-package>
   
   <uui-ref-node-package name="Package 3" version="1.1" author="Umbraco HQ">
-    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>

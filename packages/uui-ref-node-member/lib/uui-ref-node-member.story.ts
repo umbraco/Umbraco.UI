@@ -17,7 +17,6 @@ const Template: Story = props => html`
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -38,7 +37,36 @@ AAAOverview.parameters = {
 <uui-ref-node-member
   name="Arnold Vitz"
   group-name="Visitor, Registered-Member">
-  <uui-icon slot="icon" name="bug"></uui-icon>
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+</uui-ref-node-member>
+    `,
+    },
+  },
+};
+
+export const CustomIcon: Story = () => html`
+  <div style="max-width: 420px;">
+    <uui-ref-node-member
+      name="Arnold Vitz"
+      group-name="Visitor, Registered-Member">
+      <uui-icon slot="icon" name="crown-alt"></uui-icon>
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
+    </uui-ref-node-member>
+  </div>
+`;
+
+CustomIcon.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node-member
+  name="Arnold Vitz"
+  group-name="Visitor, Registered-Member">
+  <uui-icon slot="icon" name="crown-alt"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -54,7 +82,6 @@ export const Border: Story = () => html`
       border
       name="Arnold Vitz"
       group-name="Visitor, Registered-Member">
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -70,7 +97,6 @@ Border.parameters = {
   border
   name="Arnold Vitz"
   group-name="Visitor, Registered-Member">
-  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -86,7 +112,6 @@ export const Selectable: Story = props => html`
       ?selectable="${props.selectable}"
       name="Arnold Vitz"
       group-name="Visitor, Registered-Member">
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -106,7 +131,6 @@ Selectable.parameters = {
   selectable
   name="Arnold Vitz"
   group-name="Visitor, Registered-Member">
-  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -122,7 +146,6 @@ export const Disabled: Story = props => html`
       ?disabled="${props.disabled}"
       name="Arnold Vitz"
       group-name="Visitor, Registered-Member">
-      <uui-icon slot="icon" name="bug"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -142,7 +165,6 @@ Disabled.parameters = {
   disabled
   name="TextField"
   alias="Umbraco.TextField">
-  <uui-icon slot="icon" name="bug"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
@@ -157,7 +179,6 @@ export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
       name => html`<uui-ref-node-member name=${name} group-name="Group name">
-        <uui-icon slot="icon" name="bug"></uui-icon>
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
@@ -173,21 +194,18 @@ Listed.parameters = {
 <uui-ref-list>
   
   <uui-ref-node-member name="Member 1" group-name="Group name">
-    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-member>
 
   <uui-ref-node-member name="Member 2" group-name="Group name">
-    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
   </uui-ref-node-member>
 
   <uui-ref-node-member name="Member 3" group-name="Group name">
-    <uui-icon slot="icon" name="bug"></uui-icon>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>
