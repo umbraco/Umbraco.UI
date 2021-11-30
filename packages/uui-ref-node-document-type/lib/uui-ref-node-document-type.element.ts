@@ -11,6 +11,12 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.ele
 export class UUIRefNodeDocumentTypeElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 
+  /**
+   * Alias
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   alias = '';
 
