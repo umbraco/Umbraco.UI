@@ -3,6 +3,7 @@ import { property, query, queryAll, state } from 'lit/decorators.js';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
 import { UUIPaginationEvent } from './UUIPaginationEvent';
 
+//this is how wide the button gets when it has 3 digits inside.
 const PAGE_BUTTON_MAX_WIDTH = 45;
 
 const valueLimit = (val: number, min: number, max: number) => {
