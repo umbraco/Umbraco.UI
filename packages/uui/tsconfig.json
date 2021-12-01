@@ -96,6 +96,9 @@
     },
     {
       "path": "../uui-toggle"
+    },
+    {
+      "path": "../uui-pagination"
     }
   ]
 }
