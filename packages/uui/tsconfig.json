@@ -11,6 +11,9 @@
   "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": [
     {
+      "path": "../uui-action-bar"
+    },
+    {
       "path": "../uui-avatar"
     },
     {
@@ -38,6 +41,9 @@
       "path": "../uui-checkbox"
     },
     {
+      "path": "../uui-icon"
+    },
+    {
       "path": "../uui-input"
     },
     {
@@ -59,7 +65,22 @@
       "path": "../uui-radio"
     },
     {
+      "path": "../uui-select"
+    },
+    {
       "path": "../uui-slider"
+    },
+    {
+      "path": "../uui-symbol-expand"
+    },
+    {
+      "path": "../uui-symbol-file"
+    },
+    {
+      "path": "../uui-symbol-folder"
+    },
+    {
+      "path": "../uui-symbol-sort"
     },
     {
       "path": "../uui-table"
@@ -69,6 +90,9 @@
     },
     {
       "path": "../uui-tag"
+    },
+    {
+      "path": "../uui-textarea"
     },
     {
       "path": "../uui-toggle"
