@@ -6,9 +6,9 @@ export default create({
   colorSecondary: '#3544b1',
 
   // UI
-  appBg: '#f6f4f4',
-  appContentBg: 'white',
-  appBorderColor: '#e9e9eb',
+  // appBg: '#f6f4f4',
+  // appContentBg: 'white',
+  // appBorderColor: '#e9e9eb',
   appBorderRadius: 4,
 
   // Typography
@@ -16,18 +16,18 @@ export default create({
   // fontCode: 'monospace',
 
   // Text colors
-  textColor: '#162335',
-  textInverseColor: 'rgba(255,255,255,0.9)',
+  // textColor: '#162335',
+  // textInverseColor: 'rgba(255,255,255,0.9)',
 
   // Toolbar default and active colors
-  barTextColor: '#7e7e7e',
+  // barTextColor: '#7e7e7e',
   barSelectedColor: '#3544b1',
-  barBg: 'white',
+  // barBg: 'white',
 
   // Form colors
-  inputBg: 'white',
-  inputBorder: '#d8d7d9',
-  inputTextColor: '#303033',
+  // inputBg: 'white',
+  // inputBorder: '#d8d7d9',
+  // inputTextColor: '#303033',
   inputBorderRadius: 4,
 
   brandTitle: 'Umbraco UI',
