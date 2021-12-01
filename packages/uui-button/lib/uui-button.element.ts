@@ -160,6 +160,10 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
         width: 1.5em;
       }
 
+      #loader {
+        font-size: 20px;
+      }
+
       /* ANIMATIONS */
       @keyframes fadeIn {
         0% {
@@ -460,7 +464,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     let element = html``;
     switch (this.state) {
       case 'waiting':
-        element = html`<uui-loader-circle size="m"></uui-loader-circle>`;
+        element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
         element = html`<div id="icon-check" style="">${iconCheck}</div>`;
