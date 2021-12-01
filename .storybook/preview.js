@@ -1,6 +1,6 @@
 import { setCustomElements } from '@storybook/web-components';
 import { themes } from '@storybook/theming';
-import umbracoTheme from './umbraco-theme';
+import { umbracoLight, umbracoDark } from './umbraco-themes';
 import customElements from '../custom-elements.json';
 import '../src/styles/index.css';
 import 'https://cdn.skypack.dev/element-internals-polyfill';
@@ -20,10 +20,9 @@ export const parameters = {
     default: 'light',
   },
   darkMode: {
-    // Override the default dark theme
-    dark: { ...umbracoTheme, ...themes.dark },
-    // Override the default light theme
-    light: { ...umbracoTheme, ...themes.normal },
+    stylePreview: true,
+    light: umbracoLight,
+    dark: umbracoDark,
   },
   layout: 'padded',
   actions: { argTypesRegex: '^on[A-Z].*' },

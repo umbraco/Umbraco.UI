@@ -5,6 +5,99 @@
     position: relative;
     padding: 40px !important;
   }
+
+  .sbdocs-preview {
+    background: none !important;
+  }
+
+  /* light theme */
+  body.light body {
+    background: #dadada;
+  }
+
+  /* dark theme */
+  body.dark.sb-main-fullscreen {
+    background: #2f2f2f !important;
+    transition-duration: 0ms !important;
+  }
+  body.dark .css-zgt7u1 {
+    background: #2f2f2f !important;
+  }
+  body.dark .sbdocs-title,
+  body.dark .sbdocs-p,
+  body.dark .css-6hhrgj.css-6hhrgj th {
+    color: #dadada !important;
+  }
+
+  body.dark .css-176m6r9,
+  body.dark .css-1lg570m {
+    color: #dadada !important;
+  }
+
+  /* STORIES */
+  body.dark .css-vcinso {
+    background: none;
+  }
+
+  body.dark .docblock-argstable-body > tr.css-59p8vf > td,
+  body.dark .css-p1dfi6 {
+    background: #2f2f2f !important;
+    background-color: #2f2f2f !important;
+    color: #dadada;
+  }
+
+  body.dark .css-6hhrgj tbody td {
+    background: #333333 !important;
+    background-color: #333333 !important;
+    color: #dadada;
+  }
+
+  body.dark select,
+  body.dark input,
+  body.dark textarea,
+  body.dark button.css-miardl {
+    background: #404040 !important;
+    color: #dadada !important;
+    border-color: #2f2f2f !important;
+  }
+
+  /* TOGGLE START*/
+  body.dark .css-1utwwx4 input {
+    background: none !important;
+  }
+
+  body.dark .css-1utwwx4 span {
+    color: #404040 !important;
+  }
+
+  body.dark .css-1utwwx4 input:checked ~ span:last-of-type,
+  body.dark .css-1utwwx4 input:not(:checked) ~ span:first-of-type {
+    color: #dadada !important;
+    background: #404040 !important;
+  }
+
+  body.dark .css-16d4d7t,
+  body.dark .css-1521b8c code {
+    background: #404040 !important;
+    color: #dadada !important;
+    border-color: #404040 !important;
+  }
+
+  body.dark td,
+  body.dark td.css-11nj37o {
+    background: #404040 !important;
+    color: #dadada !important;
+  }
+
+  /* TOGGLE END */
+
+  body.dark .css-6hhrgj tbody tr:not(:first-child),
+  body.dark.sbdocs-preview,
+  body.dark.docs-root,
+  body.dark h2 {
+    border-color: #404040 !important;
+  }
+
   body[baseline-grid]::after {
     content: '';
     position: absolute;
@@ -22,6 +115,8 @@
     window.addEventListener('load', () => {
       var body = document.querySelector('body');
       window.addEventListener('keydown', e => {
+        console.log(body.className);
+        console.log('yo');
         if (e.ctrlKey === true && e.key === 'g') {
           if (body.hasAttribute('baseline-grid')) {
             body.removeAttribute('baseline-grid');
