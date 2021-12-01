@@ -20,14 +20,20 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
     css`
       :host {
         display: flex;
+        position: relative;
+        z-index: 1;
+      }
+
+      :host(:not([vertical])) {
         height: 20px;
         width: 100%;
-        position: relative;
         margin: -8px 0;
       }
 
       :host([vertical]) {
         height: 100%;
+        width: 20px;
+        margin: 0 -8px;
       }
 
       #button-wrapper {
@@ -62,19 +68,15 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
         opacity: 1;
       }
 
-      :host([vertical]) #button-wrapper {
+      /* :host([vertical]) #button-wrapper {
         height: 100%;
         width: auto;
-        margin-left: -12px;
-        padding-left: 6px;
-        margin-right: -6px;
-      }
+
+      } */
 
       #button-wrapper:before {
         content: '';
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
         right: 0;
         left: 0;
         height: 2px;
@@ -86,20 +88,31 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
         animation: ${UUIBlinkAnimationValue};
       }
 
+      :host(:not([vertical])) #button-wrapper:before {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
       :host([vertical]) #button-wrapper:before {
         height: 100%;
         width: 2px;
-        background: linear-gradient(
+        left: 50%;
+        transform: translateX(-50%);
+        /* background: linear-gradient(
           180deg,
           rgba(33, 82, 163, 0) 0%,
           rgba(33, 82, 163, 1) 30%,
           rgba(33, 82, 163, 1) 70%,
           rgba(33, 82, 163, 0) 100%
-        );
+        ); */
       }
 
-      :host(:not(:hover)) #plus:not(:focus) {
-        left: 50% !important;
+      :host(:not([vertical]):not(:hover)) #plus:not(:focus) {
+        left: calc(50% - 2px) !important;
+      }
+
+      :host([vertical]:not(:hover)) #plus:not(:focus) {
+        top: calc(50% - 2px) !important;
       }
 
       #plus {
@@ -111,7 +124,6 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
         box-sizing: border-box;
         width: 28px;
         height: 28px;
-        margin-left: -12px;
         border-radius: 3em;
         font-size: 14px;
         border: 2px solid var(--uui-interface-selected, #2152a3);
@@ -122,7 +134,7 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
         opacity: 0;
         transform: scale(0);
         transition: transform 240ms ease-in, opacity 240ms,
-          left 100ms linear 150ms;
+          left 100ms linear 150ms, top 100ms linear 150ms;
       }
       :host(:focus) #plus,
       :host(:focus-within) #plus,
@@ -133,8 +145,13 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
           opacity 80ms;
       }
 
+      :host(:not([vertical])) #plus {
+        margin-left: -12px;
+      }
+
       :host([vertical]) #plus {
-        left: 12px;
+        left: -4px;
+        margin-top: -12px;
       }
 
       #button-wrapper:focus #plus {

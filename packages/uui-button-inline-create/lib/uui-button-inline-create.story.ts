@@ -27,23 +27,33 @@ const insertBox = (e: any) => {
   button.style.width = '100%';
   button.style.height = '50px';
 
+  if (e.target.vertical) {
+    console.log('YES');
+    buttonInline.setAttribute('vertical', 'true');
+    div.style.display = 'grid';
+    div.style.gridTemplateColumns = '1fr auto';
+  }
+
   div.appendChild(button);
   div.appendChild(buttonInline);
 
   e.target.parentElement.insertAdjacentElement('afterend', div);
 };
 
-const createBox = () => html`<div>
+const createBox = (vertical: Boolean) => html`<div
+  style="${vertical ? 'display: grid; grid-template-columns: 1fr auto' : ''}">
   <uui-button look="outline" style="width: 100%; height: 50px;"
     >${GetRandomUmbracoWord()}</uui-button
   >
-  <uui-button-inline-create @click=${insertBox}></uui-button-inline-create>
+  <uui-button-inline-create
+    ?vertical=${vertical}
+    @click=${insertBox}></uui-button-inline-create>
 </div>`;
 
-const createBoxes = (count: Number) => {
+const createBoxes = (count: Number, vertical = false) => {
   const boxes = [];
   for (let index = 0; index < count; index++) {
-    boxes.push(createBox());
+    boxes.push(createBox(vertical));
   }
   return boxes;
 };
@@ -51,13 +61,7 @@ const createBoxes = (count: Number) => {
 export const Vertical: Story = () =>
   html`<div id="container" style="max-width: 500px">${createBoxes(5)}</div>`;
 
-// export const Default = () => html`
-//   <div style="width: 50vw">
-//     <uui-button-inline-create></uui-button-inline-create>
-//   </div>
-// `;
-// export const Vertical = () => html`
-//   <div style="height: 20vw">
-//     <uui-button-inline-create vertical></uui-button-inline-create>
-//   </div>
-// `;
+export const Horizontal: Story = () =>
+  html`<div id="container-vertical" style="display: flex;">
+    ${createBoxes(5, true)}
+  </div>`;
