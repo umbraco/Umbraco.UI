@@ -128,10 +128,10 @@ export class UUILoaderCircleElement extends LitElement {
   showProgress = false;
 
   @query('#svg-container')
-  container: any;
+  private container: any;
 
-  resizeObserver = new ResizeObserver(() => this.checkIsLargeChange());
-  isLarge = false;
+  private resizeObserver = new ResizeObserver(() => this.checkIsLargeChange());
+  private isLarge = false;
 
   firstUpdated() {
     this.resizeObserver.observe(this.container);
