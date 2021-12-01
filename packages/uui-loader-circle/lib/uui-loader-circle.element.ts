@@ -11,7 +11,6 @@ export class UUILoaderCircleElement extends LitElement {
     css`
       :host {
         /* currently this components color is defined through currentColor, if we like to use a different color, we need to implemenet a --uui-interface- color which will be set/overwritten when looks are set, aka. if this element is used within a button with the look danger, then this component would get an appropriate color. */
-        --uui-loader-circle-size: var(--uui-size-4);
         display: inline-block;
         vertical-align: middle;
         line-height: 0;
