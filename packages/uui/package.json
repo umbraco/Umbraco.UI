@@ -53,6 +53,7 @@
     "@umbraco-ui/uui-symbol-expand": "0.0.1",
     "@umbraco-ui/uui-symbol-file": "0.0.1",
     "@umbraco-ui/uui-symbol-folder": "0.0.1",
+    "@umbraco-ui/uui-symbol-more": "0.0.0",
     "@umbraco-ui/uui-symbol-sort": "0.0.1",
     "@umbraco-ui/uui-table": "0.0.15",
     "@umbraco-ui/uui-tabs": "0.0.15",
