@@ -9,15 +9,14 @@ export default {
   id: 'uui-menu-item',
 };
 
-function handleSelectItem(e: UUIMenuItemEvent) {
-  e.target.selected = !e.target.selected;
+function handleActivateItem(e: UUIMenuItemEvent) {
+  e.target.active = !e.target.active;
 }
 
 const labelNames = [
   'Content',
   'Media',
   'Data Types',
-  'This label is very long, so long that it hopefully shows how text overflows the container.',
   'Macros',
   'Relation Types',
   'Content Templates',
@@ -35,7 +34,6 @@ const renderItems: any = (count = 5, iteration = 5) => {
     const index = Math.floor(Math.random() * labelNames.length);
     const element = html`<uui-menu-item
       label="${labelNames[index]}"
-      @click-label="${handleSelectItem}"
       ?has-children=${localIteration > 0}
       >${localIteration > 0
         ? renderItems(count, localIteration)
@@ -50,7 +48,6 @@ const renderItems: any = (count = 5, iteration = 5) => {
 
 export const AAAOverview: Story = props =>
   html`<uui-menu-item
-    @click-label="${handleSelectItem}"
     .label=${props.label}
     ?loading=${props.loading}
     ?disabled=${props.disabled}
@@ -59,14 +56,13 @@ export const AAAOverview: Story = props =>
     ?selected=${props.selected}
     ?active=${props.active}
     ?selectable=${props.selectable}>
-    <uui-menu-item label="i am a nested item"></uui-menu-item>
   </uui-menu-item>`;
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
-  label: 'Content Templates',
+  label: 'Menu Item 1',
   loading: false,
   disabled: false,
-  hasChildren: true,
+  hasChildren: false,
   showChildren: false,
   selected: false,
   active: false,
@@ -75,184 +71,165 @@ AAAOverview.args = {
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: html`<uui-menu-item label="Content Templates">
-        <uui-menu-item label="i am a nested item"></uui-menu-item>
-      </uui-menu-item>`.strings,
+      code: html` <uui-menu-item label="Menu Item 1"></uui-menu-item> `.strings,
     },
   },
 };
 
 export const Nested = () =>
   html`
-    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+    <div style="max-width: 500px;">
       ${labelNames.map(
         (name: string) =>
-          html` <uui-menu-item
-            @click-label="${handleSelectItem}"
-            label="${name}"
-            has-children>
+          html` <uui-menu-item label="${name}" has-children>
             ${renderItems()}
           </uui-menu-item>`
       )}
     </div>
   `;
-
-export const OneIsActive = () =>
-  html`
-    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
-      <uui-menu-item has-children show-children label="Content Templates">
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-        <uui-menu-item active label="Content Templates"> </uui-menu-item>
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-      </uui-menu-item>
-    </div>
-  `;
-OneIsActive.parameters = {
+Nested.parameters = {
   docs: {
     source: {
-      code: html` <uui-menu-item
-        has-children
-        show-children
-        label="Content Templates">
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-        <uui-menu-item active label="Content Templates"> </uui-menu-item>
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-      </uui-menu-item>`.strings,
+      code: html`
+        <uui-menu-item label="Menu Item 1" has-children>
+          <uui-menu-item label="Nested Menu Item 1"></uui-menu-item>
+          <uui-menu-item label="Nested Menu Item 2"></uui-menu-item>
+        </uui-menu-item>
+      `.strings,
     },
   },
 };
 
-export const OneIsLoading = () =>
+export const Active = () =>
   html`
-    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
-      <uui-menu-item has-children show-children label="Content Templates">
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-        <uui-menu-item loading label="Content Templates"> </uui-menu-item>
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-      </uui-menu-item>
+    <div style="max-width: 500px;">
+      <uui-menu-item label="Menu Item 1"></uui-menu-item>
+      <uui-menu-item label="Menu Item 2" active></uui-menu-item>
+      <uui-menu-item label="Menu Item 3"></uui-menu-item>
+      <uui-menu-item label="Menu Item 4"></uui-menu-item>
     </div>
   `;
-OneIsLoading.parameters = {
+Active.parameters = {
   docs: {
     source: {
-      code: html` <uui-menu-item
-        has-children
-        show-children
-        label="Content Templates">
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-        <uui-menu-item loading label="Content Templates"> </uui-menu-item>
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-      </uui-menu-item>`.strings,
+      code: html` <uui-menu-item label="Menu Item 2" active></uui-menu-item> `
+        .strings,
     },
   },
 };
 
-export const OneIsDisabled = () =>
+export const Loading = () =>
   html`
-    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+    <div style="max-width: 500px;">
+      <uui-menu-item label="Menu Item 1"></uui-menu-item>
+      <uui-menu-item label="Menu Item 2" loading></uui-menu-item>
+      <uui-menu-item label="Menu Item 3"></uui-menu-item>
+      <uui-menu-item label="Menu Item 4"></uui-menu-item>
+    </div>
+  `;
+Loading.parameters = {
+  docs: {
+    source: {
+      code: html` <uui-menu-item label="Menu Item 2" loading></uui-menu-item> `
+        .strings,
+    },
+  },
+};
+
+export const Disabled = () =>
+  html`
+    <div style="max-width: 500px;">
       <uui-menu-item
-        @click-label=${handleSelectItem}
-        has-children
-        show-children
-        label="Content Templates">
-        <uui-menu-item
-          @click-label=${handleSelectItem}
-          label="Content Templates">
-        </uui-menu-item>
-        <uui-menu-item
-          @click-label=${handleSelectItem}
-          disabled
-          label="Content Templates">
-        </uui-menu-item>
-        <uui-menu-item
-          @click-label=${handleSelectItem}
-          label="Content Templates">
-        </uui-menu-item>
-      </uui-menu-item>
+        @click-label=${handleActivateItem}
+        label="Menu Item 1"></uui-menu-item>
+      <uui-menu-item
+        @click-label=${handleActivateItem}
+        label="Menu Item 2"
+        disabled></uui-menu-item>
+      <uui-menu-item
+        @click-label=${handleActivateItem}
+        label="Menu Item 3"></uui-menu-item>
+      <uui-menu-item
+        @click-label=${handleActivateItem}
+        label="Menu Item 4"></uui-menu-item>
     </div>
   `;
-OneIsDisabled.parameters = {
+Disabled.parameters = {
   docs: {
     source: {
-      code: html` <uui-menu-item
-        has-children
-        show-children
-        label="Content Templates">
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-        <uui-menu-item disabled label="Content Templates"> </uui-menu-item>
-        <uui-menu-item label="Content Templates"> </uui-menu-item>
-      </uui-menu-item>`.strings,
+      code: html` <uui-menu-item label="Menu Item 2" disabled></uui-menu-item> `
+        .strings,
     },
   },
 };
 
 export const WithActions = () =>
   html`
-    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
-      <uui-menu-item has-children show-children label="Content Templates">
+    <div style="max-width: 500px;">
+      <uui-menu-item label="Menu Item 1">
         <uui-action-bar slot="actions">
           <uui-button label="Open actions menu"
             ><uui-symbol-more></uui-symbol-more
           ></uui-button>
         </uui-action-bar>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu"
-              ><uui-symbol-more></uui-symbol-more
-            ></uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu"
-              ><uui-symbol-more></uui-symbol-more
-            ></uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu"
-              ><uui-symbol-more></uui-symbol-more
-            ></uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
+      </uui-menu-item>
+
+      <uui-menu-item label="Menu Item 2">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu"
+            ><uui-symbol-more></uui-symbol-more
+          ></uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
+
+      <uui-menu-item label="Menu Item 3">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu"
+            ><uui-symbol-more></uui-symbol-more
+          ></uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
+
+      <uui-menu-item label="Menu Item 4">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu"
+            ><uui-symbol-more></uui-symbol-more
+          ></uui-button>
+        </uui-action-bar>
       </uui-menu-item>
     </div>
   `;
 WithActions.parameters = {
   docs: {
     source: {
-      code: html` <uui-menu-item
-        has-children
-        show-children
-        label="Content Templates">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu"
-            ><uui-symbol-more></uui-symbol-more
-          ></uui-button>
-        </uui-action-bar>
-        <uui-menu-item label="Content Templates">
+      code: html`
+        <uui-menu-item label="Menu Item 2">
           <uui-action-bar slot="actions">
             <uui-button label="Open actions menu"
               ><uui-symbol-more></uui-symbol-more
             ></uui-button>
           </uui-action-bar>
         </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu"
-              ><uui-symbol-more></uui-symbol-more
-            ></uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-        <uui-menu-item label="Content Templates">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu"
-              ><uui-symbol-more></uui-symbol-more
-            ></uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-      </uui-menu-item>`.strings,
+      `.strings,
+    },
+  },
+};
+
+export const Selectable = () =>
+  html`
+    <div style="max-width: 500px;">
+      <uui-menu-item label="Menu Item 1" selectable></uui-menu-item>
+      <uui-menu-item label="Menu Item 2" selectable></uui-menu-item>
+      <uui-menu-item label="Menu Item 3" selectable></uui-menu-item>
+      <uui-menu-item label="Menu Item 4" selectable></uui-menu-item>
+    </div>
+  `;
+Selectable.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item label="Menu Item 2" selectable></uui-menu-item>
+      `.strings,
     },
   },
 };
