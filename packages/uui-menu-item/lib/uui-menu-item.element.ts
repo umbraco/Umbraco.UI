@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import {
   ActiveMixin,
   LabelMixin,
@@ -65,9 +65,11 @@ export class UUIMenuItemElement extends SelectableMixin(
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
       #caret-button + #label-button {
         padding-left: 0;
       }
+
       #caret-button {
         width: 100%;
         height: 100%;
@@ -101,6 +103,13 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: absolute;
         width: 100%;
         bottom: 0;
+      }
+
+      #icon {
+        font-size: 16px;
+        margin-bottom: var(--uui-size-1);
+        margin-right: var(--uui-size-2);
+        display: inline-block;
       }
 
       :host([disabled]) #label-button {
@@ -227,6 +236,14 @@ export class UUIMenuItemElement extends SelectableMixin(
     this.selected = !this.selected;
   }
 
+  @state()
+  private iconSlotHasContent = false;
+
+  private iconSlotChanged(e: any): void {
+    this.iconSlotHasContent =
+      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+  }
+
   render() {
     return html`
       <div id="menu-item" aria-label="menuitem" role="menuitem">
@@ -240,6 +257,11 @@ export class UUIMenuItemElement extends SelectableMixin(
           @click=${this.onLabelClicked}
           ?disabled=${this.disabled}
           aria-label="${this.label}">
+          <slot
+            name="icon"
+            id="icon"
+            style=${this.iconSlotHasContent ? '' : 'display: none;'}
+            @slotchange=${this.iconSlotChanged}></slot>
           ${this.renderLabel()}
         </button>
         <div id="label-button-background"></div>

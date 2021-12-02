@@ -1,17 +1,15 @@
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-menu-item/lib/index';
-import { UUIMenuItemEvent } from '@umbraco-ui/uui-menu-item/lib/UUIMenuItemEvent';
 import { Story } from '@storybook/web-components';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import { UUIMenuItemElement } from './uui-menu-item.element';
+import './index';
 
 export default {
   title: 'Buttons/Menu Item',
   component: 'uui-menu-item',
   id: 'uui-menu-item',
 };
-
-function handleActivateItem(e: UUIMenuItemEvent) {
-  e.target.active = !e.target.active;
-}
 
 const labelNames = [
   'Content',
@@ -100,13 +98,32 @@ Nested.parameters = {
   },
 };
 
+let activeStoryActiveItem: UUIMenuItemElement | null = null;
+
+function activeStoryOnClick(e: UUIMenuItemEvent) {
+  if (activeStoryActiveItem) {
+    activeStoryActiveItem.active = false;
+  }
+
+  activeStoryActiveItem = e.target;
+  e.target.active = !e.target.active;
+}
+
 export const Active = () =>
   html`
     <div style="max-width: 500px;">
-      <uui-menu-item label="Menu Item 1"></uui-menu-item>
-      <uui-menu-item label="Menu Item 2" active></uui-menu-item>
-      <uui-menu-item label="Menu Item 3"></uui-menu-item>
-      <uui-menu-item label="Menu Item 4"></uui-menu-item>
+      <uui-menu-item
+        label="Menu Item 1"
+        @click-label=${activeStoryOnClick}></uui-menu-item>
+      <uui-menu-item
+        label="Menu Item 2"
+        @click-label=${activeStoryOnClick}></uui-menu-item>
+      <uui-menu-item
+        label="Menu Item 3"
+        @click-label=${activeStoryOnClick}></uui-menu-item>
+      <uui-menu-item
+        label="Menu Item 4"
+        @click-label=${activeStoryOnClick}></uui-menu-item>
     </div>
   `;
 Active.parameters = {
@@ -136,21 +153,32 @@ Loading.parameters = {
   },
 };
 
+let disabledStoryActiveItem: UUIMenuItemElement | null = null;
+
+function disabledStoryOnClick(e: UUIMenuItemEvent) {
+  if (disabledStoryActiveItem) {
+    disabledStoryActiveItem.active = false;
+  }
+
+  disabledStoryActiveItem = e.target;
+  e.target.active = !e.target.active;
+}
+
 export const Disabled = () =>
   html`
     <div style="max-width: 500px;">
       <uui-menu-item
-        @click-label=${handleActivateItem}
+        @click-label=${disabledStoryOnClick}
         label="Menu Item 1"></uui-menu-item>
       <uui-menu-item
-        @click-label=${handleActivateItem}
+        @click-label=${disabledStoryOnClick}
         label="Menu Item 2"
         disabled></uui-menu-item>
       <uui-menu-item
-        @click-label=${handleActivateItem}
+        @click-label=${disabledStoryOnClick}
         label="Menu Item 3"></uui-menu-item>
       <uui-menu-item
-        @click-label=${handleActivateItem}
+        @click-label=${disabledStoryOnClick}
         label="Menu Item 4"></uui-menu-item>
     </div>
   `;
@@ -229,6 +257,35 @@ Selectable.parameters = {
     source: {
       code: html`
         <uui-menu-item label="Menu Item 2" selectable></uui-menu-item>
+      `.strings,
+    },
+  },
+};
+
+export const WithIcon = () =>
+  html`
+    <div style="max-width: 500px;">
+      <uui-menu-item label="Menu Item 1">
+        <uui-icon slot="icon" name="info"></uui-icon>
+      </uui-menu-item>
+      <uui-menu-item label="Menu Item 2">
+        <uui-icon slot="icon" name="bug"></uui-icon>
+      </uui-menu-item>
+      <uui-menu-item label="Menu Item 3">
+        <uui-icon slot="icon" name="info"></uui-icon>
+      </uui-menu-item>
+      <uui-menu-item label="Menu Item 4">
+        <uui-icon slot="icon" name="bug"></uui-icon>
+      </uui-menu-item>
+    </div>
+  `;
+WithIcon.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item label="Menu Item 1">
+          <uui-icon slot="icon" name="info"></uui-icon>
+        </uui-menu-item>
       `.strings,
     },
   },
