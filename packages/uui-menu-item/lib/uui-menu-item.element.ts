@@ -14,6 +14,10 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
+ *  @slot default slot for nested menu items
+ *  @slot icon - icon area
+ *  @slot actions - actions area
+ *
  */
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
