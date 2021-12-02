@@ -11,6 +11,9 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
  *  @property label - This functions both as the visible label as well as the aria label.
+ *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
+ *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
+ *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
  */
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
