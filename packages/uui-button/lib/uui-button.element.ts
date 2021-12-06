@@ -9,7 +9,8 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
-import { iconCheck, iconWrong } from './button-icons';
+import IconCheck from '@umbraco-ui/uui-base/lib/svgs/icon-check';
+import IconWrong from '@umbraco-ui/uui-base/lib/svgs/icon-wrong';
 
 export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 
@@ -433,12 +434,17 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     }
   }
 
+  private _resetStateTimeout?: number;
+
   // Reset the state after 2sec if it is 'success' or 'failed'.
   updated(changedProperties: any) {
     if (changedProperties.has('state')) {
-      this.disabled = !!this.state;
+      clearTimeout(this._resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
-        setTimeout(() => (this.state = null), 2000);
+        this._resetStateTimeout = setTimeout(
+          () => (this.state = null),
+          2000
+        ) as any;
       }
     }
   }
@@ -450,10 +456,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
-        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
+        element = html`<div id="icon-check" style="">${IconCheck}</div>`;
         break;
       case 'failed':
-        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
+        element = html`<div id="icon-wrong" style="">${IconWrong}</div>`;
         break;
       default:
         return '';

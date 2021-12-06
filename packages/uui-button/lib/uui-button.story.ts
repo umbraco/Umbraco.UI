@@ -141,18 +141,21 @@ export const Sizing: Story = props => {
     <uui-button
       style="font-size:9px; font-weight:bold;"
       look=${props.look}
+      state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       label=${props.label}></uui-button>
     <uui-button
       style="font-size:12px"
       look=${props.look}
+      state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       label=${props.label}></uui-button>
     <uui-button
       style="font-size:15px"
       look=${props.look}
+      state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       label=${props.label}></uui-button>
@@ -187,7 +190,12 @@ export const Looks: Story = props => html`
   <h5>Looks</h5>
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
-      html`<uui-button .look=${lookName} style="margin-right:12px;">
+      html`<uui-button
+        .look=${lookName}
+        state=${props.state}
+        ?disabled=${props.disabled}
+        ?compact=${props.compact}
+        style="margin-right:12px;">
         ${uppercaseFirstLetter(lookName)} look
       </uui-button>`
   )}
