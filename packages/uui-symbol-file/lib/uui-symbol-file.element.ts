@@ -11,17 +11,17 @@ export class UUISymbolFileElement extends LitElement {
       :host {
         position: relative;
         display: block;
+      }
 
-        #file-type {
-          position: absolute;
-          bottom: 24%;
-          left: 25.5%;
-          margin-left: calc(var(--uui-size-3) * -1);
-          padding: 0px var(--uui-size-3);
-          font-weight: 700;
-          color: var(--uui-color-gunmetal);
-          background-color: var(--uui-color-spanish-pink);
-        }
+      #file-type {
+        position: absolute;
+        bottom: 24%;
+        left: 25.5%;
+        margin-left: calc(var(--uui-size-3) * -1);
+        padding: 0px var(--uui-size-3);
+        font-weight: 700;
+        color: var(--uui-color-gunmetal);
+        background-color: var(--uui-color-spanish-pink);
       }
 
       #icon {
