@@ -80,9 +80,9 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
         right: 0;
         left: 0;
         height: 2px;
-        background-color: var(--uui-interface-select, #2152a3);
-        border-top: 1px solid var(--uui-interface-surface, #fff);
-        border-bottom: 1px solid var(--uui-interface-surface, #fff);
+        background-color: var(--uui-interface-select);
+        border-top: 1px solid var(--uui-interface-surface);
+        border-bottom: 1px solid var(--uui-interface-surface);
         border-radius: 2px;
         pointer-events: none;
         animation: ${UUIBlinkAnimationValue};
@@ -126,10 +126,10 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
         height: 28px;
         border-radius: 3em;
         font-size: 14px;
-        border: 2px solid var(--uui-interface-selected, #2152a3);
-        color: var(--uui-interface-selected, #2152a3);
-        background-color: var(--uui-interface-surface, #fff);
-        box-shadow: 0 0 0 2px var(--uui-interface-surface, #fff);
+        border: 2px solid var(--uui-interface-select);
+        color: var(--uui-interface-select);
+        background-color: var(--uui-interface-surface);
+        box-shadow: 0 0 0 2px var(--uui-interface-surface);
 
         opacity: 0;
         transform: scale(0);
@@ -146,12 +146,12 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
       }
 
       :host(:not([vertical])) #plus {
-        margin-left: -12px;
+        margin-left: -21px;
       }
 
       :host([vertical]) #plus {
         left: -4px;
-        margin-top: -12px;
+        margin-top: -21px;
       }
 
       #button-wrapper:focus #plus {
