@@ -1,22 +1,17 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import litCSSFallbackValuesPlugin from '../scripts/litCSSFallbackValuesPlugin';
-import postCSSFallbackValuesPlugins from '../scripts/postCSSFallbackValuesPlugins';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 import rollupPostcss from 'rollup-plugin-postcss';
+import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
 import path from 'path';
+import processLitCSSPlugin from '../scripts/rollup.processLitCSSPlugin.mjs';
 import importCss from 'rollup-plugin-import-css';
 
-const processLitCSSOptions = {
-  include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
-  exclude: ['**/uui-base/lib/events/**'],
-  mainStylesPath: '../uui-css/dist/root.css', // NOT USED!
-  autoprefixerEnv: 'last 1 version',
-};
-const processPostCSSOptions = {
-  autoprefixerEnv: 'last 1 version',
-};
+// @ts-ignore-start
+// eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
+import properties from '../packages/uui-css/custom-properties.module.js'; // eslint-disable-line
+// @ts-ignore-end
 
 const esbuidOptions = { minify: true };
 
@@ -31,7 +26,7 @@ const createEsModulesConfig = (entryPoints = []) => {
         },
         plugins: [
           importCss({ from: undefined }),
-          litCSSFallbackValuesPlugin(processLitCSSOptions),
+          processLitCSSPlugin(),
           esbuild(),
         ],
       };
@@ -49,8 +44,10 @@ const createCSSFilesConfig = (cssFiles = []) => {
         },
         plugins: [
           rollupPostcss({
+            plugins: [
+              postcssCustomPropertiesFallback({ importFrom: properties }),
+            ],
             extract: path.resolve(`./dist/${name}.css`),
-            plugins: postCSSFallbackValuesPlugins(processPostCSSOptions),
           }),
         ],
       };
@@ -74,7 +71,7 @@ const createBundleConfig = (bundle, namespace) => {
         plugins: [
           nodeResolve(),
           importCss(),
-          litCSSFallbackValuesPlugin(processLitCSSOptions),
+          processLitCSSPlugin(),
           minifyHTML(),
           esbuild(esbuidOptions),
         ],

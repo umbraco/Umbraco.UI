@@ -11,21 +11,21 @@ export class UUISymbolFileElement extends LitElement {
       :host {
         position: relative;
         display: block;
-      }
 
-      #file-type {
-        position: absolute;
-        bottom: 24%;
-        left: 25.5%;
-        margin-left: calc(var(--uui-size-3) * -1);
-        padding: 0px var(--uui-size-3);
-        font-weight: 700;
-        color: var(--uui-color-gunmetal, #162335);
-        background-color: var(--uui-color-spanish-pink, #f5c1bc);
+        #file-type {
+          position: absolute;
+          bottom: 24%;
+          left: 25.5%;
+          margin-left: calc(var(--uui-size-3) * -1);
+          padding: 0px var(--uui-size-3);
+          font-weight: 700;
+          color: var(--uui-color-gunmetal);
+          background-color: var(--uui-color-spanish-pink);
+        }
       }
 
       #icon {
-        fill: var(--uui-interface-border, lightgray);
+        fill: var(--uui-interface-border);
       }
     `,
   ];
@@ -38,6 +38,7 @@ export class UUISymbolFileElement extends LitElement {
   type = '';
 
   render() {
+    console.log(UUISymbolFileElement.styles);
     return html`<svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
