@@ -16,16 +16,16 @@ export class UUIActionBarElement extends UUIButtonGroupElement {
 
       ::slotted(uui-button:first-child) {
         --uui-button-border-radius: 50px 0 0 50px;
-        --uui-button-padding-left-factor: 1.5;
+        --uui-button-padding-left-factor: 2;
       }
       ::slotted(uui-button:last-child) {
         --uui-button-border-radius: 0 50px 50px 0;
-        --uui-button-padding-right-factor: 1.5;
+        --uui-button-padding-right-factor: 2;
       }
       ::slotted(uui-button:first-child:last-child) {
         --uui-button-border-radius: 50px 50px 50px 50px;
-        --uui-button-padding-left-factor: 1;
-        --uui-button-padding-right-factor: 1;
+        --uui-button-padding-left-factor: 2;
+        --uui-button-padding-right-factor: 2;
       }
 
       ::slotted([look='outline']),

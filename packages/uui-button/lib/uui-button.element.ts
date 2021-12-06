@@ -19,7 +19,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
  *  @slot - for button contents
- *  @slot badge - for badge
+ *  @slot extra - for extra
  *  @description - All-round button
  *  @cssprop --uui-button-height - set the button height
  *  @cssprop --uui-button-border-width - set the border width
@@ -34,7 +34,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-background-color-disabled - set the background color for disabled state
  *  @cssprop --uui-button-contrast-disabled - set the text color for disabled state
  */
-export class UUIButtonElement extends LabelMixin('label', LitElement) {
+export class UUIButtonElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
@@ -52,7 +52,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
         --uui-button-padding-right-factor: 1;
       }
 
-      :host([state]:not([state=''])) #main-slot {
+      :host([state]:not([state=''])) .label {
         visibility: hidden;
       }
 
@@ -70,12 +70,13 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
 
       button {
         height: 100%;
-        min-height: var(
-          --uui-button-height,
-          calc(var(--uui-button-base-unit, var(--uui-size-2)) * 6)
-        );
+        min-height: var(--uui-button-height, auto);
         width: 100%;
-        padding: 0;
+
+        padding: calc(8 / 15 * 1em)
+          calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
+          calc(8 / 15 * 1em)
+          calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
         text-align: center;
         vertical-align: middle;
         box-shadow: none;
@@ -134,24 +135,6 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
       button[disabled]:active {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
-
-      button {
-        padding: 0
-          calc(
-            (
-              var(--uui-button-base-unit, var(--uui-size-2)) *
-                var(--uui-button-padding-right-factor)
-            )
-          )
-          0
-          calc(
-            (
-              var(--uui-button-base-unit, var(--uui-size-2)) *
-                var(--uui-button-padding-left-factor)
-            )
-          );
-      }
-
       #icon-check,
       #icon-wrong {
         fill: currentColor;
@@ -450,7 +433,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     }
   }
 
-  // Reset the state after 3sec if it is 'success'
+  // Reset the state after 2sec if it is 'success'
   updated(changedProperties: any) {
     if (changedProperties.has('state')) {
       this.disabled = !!this.state;
@@ -460,7 +443,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     }
   }
 
-  private _renderState() {
+  private renderState() {
     let element = html``;
     switch (this.state) {
       case 'waiting':
@@ -480,9 +463,11 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
   }
 
   render() {
-    //prettier-ignore
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">${this._renderState()}<slot name="badge"></slot><slot id="main-slot"></slot></button>
+      <button ?disabled=${this.disabled} aria-label="${this.label}">
+        ${this.renderState()} ${this.renderLabel()}
+        <slot name="extra"></slot>
+      </button>
     `;
   }
 }

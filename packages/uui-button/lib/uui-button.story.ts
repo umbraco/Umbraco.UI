@@ -111,9 +111,10 @@ export const WithBadge: Story = props => {
     <uui-button
       ?disabled=${props.disabled}
       look=${props.look}
-      state=${props.state}
-      ><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button
-    >
+      state=${props.state}>
+      <uui-badge slot="badge">!</uui-badge>
+      I have a badge
+    </uui-button>
   `;
 };
 WithBadge.parameters = {
@@ -130,6 +131,42 @@ Compact.parameters = {
   docs: {
     source: {
       code: `<uui-button label="Compact" compact>Compact</uui-button>`,
+    },
+  },
+};
+
+export const Sizing: Story = props => {
+  return html`
+    <p>Not a good approach but available for those who really need it.</p>
+    <uui-button
+      style="font-size:9px; font-weight:bold;"
+      look=${props.look}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      label=${props.label}></uui-button>
+    <uui-button
+      style="font-size:12px"
+      look=${props.look}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      label=${props.label}></uui-button>
+    <uui-button
+      style="font-size:15px"
+      look=${props.look}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      label=${props.label}></uui-button>
+  `;
+};
+Sizing.args = {
+  label: 'Controlled by font-size',
+  compact: false,
+  look: 'primary',
+};
+Sizing.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button style="font-size: 15px;">I can be controlled by font-size.</uui-button>`,
     },
   },
 };
