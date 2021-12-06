@@ -44,6 +44,10 @@ export class UUIRefNodeElement extends UUIRefElement {
         height: 1.15em;
       }
 
+      #icon-fallback svg {
+        fill: currentColor;
+      }
+
       #info {
         display: flex;
         flex-direction: column;
