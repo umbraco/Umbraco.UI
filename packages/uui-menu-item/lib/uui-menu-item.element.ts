@@ -35,7 +35,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: relative;
         display: flex;
         align-items: stretch;
-        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-8));
+        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-4));
 
         display: grid;
         grid-template-columns: var(--uui-size-8) 1fr;
