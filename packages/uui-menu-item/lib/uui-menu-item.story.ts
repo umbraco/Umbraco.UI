@@ -50,11 +50,15 @@ const renderItems: any = (count = 5, iteration = 5) => {
 
 export const AAAOverview: Story = props =>
   html`<uui-menu-item
+    @click-label="${handleSelectItem}"
     .label=${props.label}
     ?loading=${props.loading}
     ?disabled=${props.disabled}
     ?has-children=${props.hasChildren}
-    ?show-children=${props.showChildren}>
+    ?show-children=${props.showChildren}
+    ?selected=${props.selected}
+    ?active=${props.active}
+    ?selectable=${props.selectable}>
     <uui-menu-item label="i am a nested item"></uui-menu-item>
   </uui-menu-item>`;
 AAAOverview.storyName = 'Overview';
@@ -62,8 +66,11 @@ AAAOverview.args = {
   label: 'Content Templates',
   loading: false,
   disabled: false,
-  hasChildren: false,
+  hasChildren: true,
   showChildren: false,
+  selected: false,
+  active: false,
+  selectable: false,
 };
 AAAOverview.parameters = {
   docs: {
@@ -179,59 +186,73 @@ OneIsDisabled.parameters = {
   },
 };
 
-//TODO turn on when uui-action-bar is made into a package
-
-// export const WithActions = () =>
-//   html`
-//     <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
-//       <uui-menu-item has-children show-children label="Content Templates">
-//         <uui-action-bar slot="actions">
-//           <uui-button label="Open actions menu">•••</uui-button>
-//         </uui-action-bar>
-//         <uui-menu-item label="Content Templates">
-//           <uui-action-bar slot="actions">
-//             <uui-button label="Open actions menu">•••</uui-button>
-//           </uui-action-bar>
-//         </uui-menu-item>
-//         <uui-menu-item label="Content Templates">
-//           <uui-action-bar slot="actions">
-//             <uui-button label="Open actions menu">•••</uui-button>
-//           </uui-action-bar>
-//         </uui-menu-item>
-//         <uui-menu-item label="Content Templates">
-//           <uui-action-bar slot="actions">
-//             <uui-button label="Open actions menu">•••</uui-button>
-//           </uui-action-bar>
-//         </uui-menu-item>
-//       </uui-menu-item>
-//     </div>
-//   `;
-// WithActions.parameters = {
-//   docs: {
-//     source: {
-//       code: html` <uui-menu-item
-//         has-children
-//         show-children
-//         label="Content Templates">
-//         <uui-action-bar slot="actions">
-//           <uui-button label="Open actions menu">•••</uui-button>
-//         </uui-action-bar>
-//         <uui-menu-item label="Content Templates">
-//           <uui-action-bar slot="actions">
-//             <uui-button label="Open actions menu">•••</uui-button>
-//           </uui-action-bar>
-//         </uui-menu-item>
-//         <uui-menu-item label="Content Templates">
-//           <uui-action-bar slot="actions">
-//             <uui-button label="Open actions menu">•••</uui-button>
-//           </uui-action-bar>
-//         </uui-menu-item>
-//         <uui-menu-item label="Content Templates">
-//           <uui-action-bar slot="actions">
-//             <uui-button label="Open actions menu">•••</uui-button>
-//           </uui-action-bar>
-//         </uui-menu-item>
-//       </uui-menu-item>`.strings,
-//     },
-//   },
-// };
+export const WithActions = () =>
+  html`
+    <div style="max-width: 500px; border: 2px dashed rgba(0,0,0,.1)">
+      <uui-menu-item has-children show-children label="Content Templates">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu"
+            ><uui-symbol-more></uui-symbol-more
+          ></uui-button>
+        </uui-action-bar>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu"
+              ><uui-symbol-more></uui-symbol-more
+            ></uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu"
+              ><uui-symbol-more></uui-symbol-more
+            ></uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu"
+              ><uui-symbol-more></uui-symbol-more
+            ></uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+      </uui-menu-item>
+    </div>
+  `;
+WithActions.parameters = {
+  docs: {
+    source: {
+      code: html` <uui-menu-item
+        has-children
+        show-children
+        label="Content Templates">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu"
+            ><uui-symbol-more></uui-symbol-more
+          ></uui-button>
+        </uui-action-bar>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu"
+              ><uui-symbol-more></uui-symbol-more
+            ></uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu"
+              ><uui-symbol-more></uui-symbol-more
+            ></uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+        <uui-menu-item label="Content Templates">
+          <uui-action-bar slot="actions">
+            <uui-button label="Open actions menu"
+              ><uui-symbol-more></uui-symbol-more
+            ></uui-button>
+          </uui-action-bar>
+        </uui-menu-item>
+      </uui-menu-item>`.strings,
+    },
+  },
+};
