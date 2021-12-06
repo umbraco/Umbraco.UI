@@ -433,7 +433,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     }
   }
 
-  // Reset the state after 2sec if it is 'success'
+  // Reset the state after 2sec if it is 'success' or 'failed'.
   updated(changedProperties: any) {
     if (changedProperties.has('state')) {
       this.disabled = !!this.state;
