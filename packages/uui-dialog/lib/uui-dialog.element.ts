@@ -3,8 +3,8 @@ import { LocalTypography } from '@umbraco-ui/uui-css/lib/local-typography.styles
 
 /**
  *  @element uui-dialog
- *  @slot - for dialog contents
- *  @slot - for dialog actions
+ *  @slot for dialog content
+ *  @slot actions - for dialog actions
  *  @description - All-round dialog
  */
 export class UUIDialogElement extends LitElement {
@@ -42,9 +42,22 @@ export class UUIDialogElement extends LitElement {
     `,
   ];
 
+  /**
+   * Renders default slot
+   * @returns {TemplateResult}
+   * @protected
+   * @method
+   */
   protected renderContent() {
     return html`<slot></slot>`;
   }
+
+  /**
+   * Renders actions slot
+   * @returns {TemplateResult}
+   * @protected
+   * @method
+   */
   protected renderActions() {
     return html`<slot name="actions"></slot>`;
   }
