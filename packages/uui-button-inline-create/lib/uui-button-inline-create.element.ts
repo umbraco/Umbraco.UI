@@ -6,7 +6,7 @@ import {
   UUIBlinkAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
+import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
 /**
  *  @element uui-inline-create-button
  *  @description - Special button for creating new elements
@@ -14,34 +14,42 @@ import { UUIInlineCreateButtonEvent } from './UUIInlineCreateButtonEvent';
  *  @fires click on user click
  */
 
-export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIBlinkKeyframes,
     css`
       :host {
-        display: inline-block;
-        width: 100%;
+        display: flex;
         position: relative;
+        z-index: 1;
+      }
+
+      :host(:not([vertical])) {
+        height: 20px;
+        width: 100%;
+        margin: -8px 0;
       }
 
       :host([vertical]) {
         height: 100%;
+        width: 20px;
+        margin: 0 -8px;
       }
 
       #button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         position: absolute;
-
         z-index: 1;
-
         outline: 0;
-        height: 12px;
-        margin-top: -9px;
-        padding-top: 6px;
-        margin-bottom: -6px;
         transition: opacity 0.24s;
         display: inline-flex;
         width: 100%;
         border: none;
+        height: 100%;
+        padding: 0;
 
         text-decoration: none;
         background: transparent;
@@ -60,45 +68,55 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
         opacity: 1;
       }
 
-      :host([vertical]) #button-wrapper {
+      /* :host([vertical]) #button-wrapper {
         height: 100%;
         width: auto;
-        margin-left: -12px;
-        padding-left: 6px;
-        margin-right: -6px;
-      }
+
+      } */
 
       #button-wrapper:before {
         content: '';
         position: absolute;
-        top: 5px;
         right: 0;
         left: 0;
         height: 2px;
-        background-color: var(--uui-interface-select, #2152a3);
-        border-top: 1px solid var(--uui-interface-surface, #fff);
-        border-bottom: 1px solid var(--uui-interface-surface, #fff);
+        background-color: var(--uui-interface-select);
+        border-top: 1px solid var(--uui-interface-surface);
+        border-bottom: 1px solid var(--uui-interface-surface);
         border-radius: 2px;
         pointer-events: none;
         animation: ${UUIBlinkAnimationValue};
       }
 
+      :host(:not([vertical])) #button-wrapper:before {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
       :host([vertical]) #button-wrapper:before {
         height: 100%;
         width: 2px;
-        background: linear-gradient(
+        left: 50%;
+        transform: translateX(-50%);
+        /* background: linear-gradient(
           180deg,
           rgba(33, 82, 163, 0) 0%,
           rgba(33, 82, 163, 1) 30%,
           rgba(33, 82, 163, 1) 70%,
           rgba(33, 82, 163, 0) 100%
-        );
+        ); */
+      }
+
+      :host(:not([vertical]):not(:hover)) #plus:not(:focus) {
+        left: calc(50% - 2px) !important;
+      }
+
+      :host([vertical]:not(:hover)) #plus:not(:focus) {
+        top: calc(50% - 2px) !important;
       }
 
       #plus {
         position: absolute;
-        top: 9px;
-        left: 14px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -106,18 +124,17 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
         box-sizing: border-box;
         width: 28px;
         height: 28px;
-        margin-left: -24px;
-        margin-top: -16px;
         border-radius: 3em;
         font-size: 14px;
-        border: 2px solid var(--uui-interface-selected, #2152a3);
-        color: var(--uui-interface-selected, #2152a3);
-        background-color: var(--uui-interface-surface, #fff);
-        box-shadow: 0 0 0 2px var(--uui-interface-surface, #fff);
+        border: 2px solid var(--uui-interface-select);
+        color: var(--uui-interface-select);
+        background-color: var(--uui-interface-surface);
+        box-shadow: 0 0 0 2px var(--uui-interface-surface);
 
         opacity: 0;
         transform: scale(0);
-        transition: transform 240ms ease-in, opacity 240ms;
+        transition: transform 240ms ease-in, opacity 240ms,
+          left 100ms linear 150ms, top 100ms linear 150ms;
       }
       :host(:focus) #plus,
       :host(:focus-within) #plus,
@@ -128,8 +145,13 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
           opacity 80ms;
       }
 
+      :host(:not([vertical])) #plus {
+        margin-left: -21px;
+      }
+
       :host([vertical]) #plus {
-        left: 12px;
+        left: -4px;
+        margin-top: -21px;
       }
 
       #button-wrapper:focus #plus {
@@ -158,9 +180,12 @@ export class UUIInlineCreateButtonElement extends LabelMixin('', LitElement) {
     this.position = this.vertical ? e.offsetY : e.offsetX;
   }
 
-  private _handleClick() {
+  private _handleClick(e: MouseEvent) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
     this.dispatchEvent(
-      new UUIInlineCreateButtonEvent(UUIInlineCreateButtonEvent.CLICK)
+      new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
     );
   }
 
