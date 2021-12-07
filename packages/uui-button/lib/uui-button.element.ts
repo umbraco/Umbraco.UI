@@ -44,7 +44,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-slot-padding-l-factor: 3;
         --uui-button-slot-padding-r-factor: 3;
-        background-color: var(--uui-interface-surface);
+        background-color: transparent;
       }
 
       :host([compact]) {
@@ -158,6 +158,10 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
         display: grid;
         place-items: center;
         width: 1.5em;
+      }
+
+      #loader {
+        font-size: 20px;
       }
 
       /* ANIMATIONS */
@@ -460,7 +464,7 @@ export class UUIButtonElement extends LabelMixin('label', LitElement) {
     let element = html``;
     switch (this.state) {
       case 'waiting':
-        element = html`<uui-loader-circle size="m"></uui-loader-circle>`;
+        element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
         element = html`<div id="icon-check" style="">${iconCheck}</div>`;

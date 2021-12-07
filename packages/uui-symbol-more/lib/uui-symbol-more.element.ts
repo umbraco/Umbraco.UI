@@ -1,11 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
-
 /**
- *  @element uui-file-symbol
+ * @element uui-symbol-more
  */
-
-export class UUIMoreSymbolElement extends LitElement {
+export class UUISymbolMoreElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -14,15 +11,10 @@ export class UUIMoreSymbolElement extends LitElement {
         vertical-align: top;
         margin-top: 0.27em;
         line-height: 1em;
-      }
-      :host[size='small'] {
-        font-size: 9px;
+        user-select: none;
       }
     `,
   ];
-
-  @property({ type: String })
-  type = '';
 
   render() {
     return html`•••`;
