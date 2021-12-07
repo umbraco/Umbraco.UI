@@ -3,7 +3,7 @@ const processLitCSSPlugin =
   require('../scripts/vite.processLitCSSPlugin').default;
 
 module.exports = {
-  stories: ['../packages/**/*.story.ts', '../stories/**/*.story.ts'],
+  stories: ['../packages/**/*.story.ts'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
