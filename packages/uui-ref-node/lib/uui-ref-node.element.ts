@@ -1,5 +1,4 @@
 import { css, html } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { property, state } from 'lit/decorators.js';
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
 
@@ -35,17 +34,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         font-size: 1.2em;
         margin-left: var(--uui-size-2);
         margin-right: var(--uui-size-1);
-      }
-
-      #icon-fallback {
-        display: inline-block;
-        vertical-align: bottom;
-        width: 1.15em;
-        height: 1.15em;
-      }
-
-      #icon-fallback svg {
-        fill: currentColor;
       }
 
       #info {
@@ -126,9 +114,7 @@ export class UUIRefNodeElement extends UUIRefElement {
   }
 
   private _renderFallbackIcon() {
-    return html`<span id="icon-fallback"
-      >${unsafeHTML(this.fallbackIcon)}</span
-    >`;
+    return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 
   public render() {
