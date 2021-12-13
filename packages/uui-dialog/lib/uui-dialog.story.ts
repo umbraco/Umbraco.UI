@@ -11,35 +11,19 @@ export default {
 
 const Template: Story = () => html`
   <uui-dialog>
-    <h4>Publish with descendants?</h4>
+    <h4>Short headline</h4>
     <p>
-      Publish <b>This example</b> and all content items underneath and thereby
-      making their content publicly available.
+      Make a short description and <b>highlight</b> the affected data.<br /><br />
+      Keep actions concrete, if asking a question in headline make sure to have
+      actions that answers it.
     </p>
     <uui-button slot="actions">Cancel</uui-button>
-    <uui-button slot="actions" look="positive">Publish</uui-button>
+    <uui-button slot="actions" look="positive">Primary action</uui-button>
   </uui-dialog>
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-dialog>
-  <h4>Publish with descendants?</h4>
-  <p>
-    Publish <b>This example</b> and all content items underneath and thereby
-    making their content publicly available.
-  </p>
-  <uui-button slot="actions">Cancel</uui-button>
-  <uui-button slot="actions" look="positive">Publish</uui-button>
-</uui-dialog>
-    `,
-    },
-  },
-};
 
 export const Slots: Story = () => html`
   <uui-dialog>
@@ -58,51 +42,30 @@ Slots.parameters = {
       code: `
 <uui-dialog>
   <div>Default slot</div>
-  <uui-button slot="actions">Action</uui-button>
+  <div slot="actions">Action</div>
 </uui-dialog>
     `,
     },
   },
 };
 
-export const LeftAlignedAction: Story = () => html`
+export const ConfirmDialogPositive: Story = () => html`
   <uui-dialog>
-    <h4>Publish with descendants?</h4>
+    <h4>Publish with descendants</h4>
     <p>
       Publish <b>This example</b> and all content items underneath and thereby
       making their content publicly available.
     </p>
-    <uui-button
-      slot="actions"
-      look="secondary"
-      style="margin-right: auto; margin-left: 0"
-      >Cancel</uui-button
-    >
-    <uui-button slot="actions">Save</uui-button>
+    <uui-button slot="actions">Cancel</uui-button>
     <uui-button slot="actions" look="positive">Publish</uui-button>
   </uui-dialog>
 `;
 
-LeftAlignedAction.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-dialog>
-  <h4>Publish with descendants?</h4>
-  <p>
-    Publish <b>This example</b> and all content items underneath and thereby
-    making their content publicly available.
-  </p>
-  <uui-button
-    slot="actions"
-    look="secondary"
-    style="margin-right: auto; margin-left: 0">
-    Cancel
-  </uui-button>
-  <uui-button slot="actions">Save</uui-button>
-  <uui-button slot="actions" look="positive">Publish</uui-button>
-</uui-dialog>
-    `,
-    },
-  },
-};
+export const ConfirmDialogDanger: Story = () => html`
+  <uui-dialog>
+    <h4>Delete</h4>
+    <p>Delete <b>This example</b> and all items underneath.</p>
+    <uui-button slot="actions">Cancel</uui-button>
+    <uui-button slot="actions" look="danger">Delete</uui-button>
+  </uui-dialog>
+`;
