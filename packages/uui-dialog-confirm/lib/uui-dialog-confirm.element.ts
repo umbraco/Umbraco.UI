@@ -12,6 +12,7 @@ import { UUIDialogElement } from '@umbraco-ui/uui-dialog/lib/uui-dialog.element'
  *  @fires {UUIDialogConfirmEvent} confirm - fires when the confirm-button is clicked
  *  @fires {UUIDialogConfirmEvent} reject - fires when the reject-button is clicked
  *  @slot - Confirm dialog description
+ *  @slot actions - for additional dialog actions
  *  @description - Confirm-dialog
  */
 export class UUIDialogConfirmElement extends UUIDialogElement {
