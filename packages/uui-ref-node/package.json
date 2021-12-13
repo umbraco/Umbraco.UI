@@ -32,6 +32,7 @@
     "@umbraco-ui/uui-base": "0.0.13"
   },
   "peerDependencies": {
+    "@umbraco-ui/uui-ref": "0.0.0",
     "@umbraco-ui/uui-icon": "0.0.1"
   },
   "scripts": {
