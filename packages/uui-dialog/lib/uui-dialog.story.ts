@@ -18,7 +18,7 @@ const Template: Story = () => html`
       actions that answers it.
     </p>
     <uui-button slot="actions">Cancel</uui-button>
-    <uui-button slot="actions" look="positive">Primary action</uui-button>
+    <uui-button slot="actions" look="positive">Action</uui-button>
   </uui-dialog>
 `;
 
