@@ -22,6 +22,7 @@ import '@umbraco-ui/uui-ref-node-member/lib/index';
 import '@umbraco-ui/uui-ref-node-package/lib/index';
 import '@umbraco-ui/uui-ref-node-user/lib/index';
 import '@umbraco-ui/uui-slider/lib/index';
+import '@umbraco-ui/uui-symbol-more/lib/index';
 import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-tabs/lib/index';
 import '@umbraco-ui/uui-tag/lib/index';
