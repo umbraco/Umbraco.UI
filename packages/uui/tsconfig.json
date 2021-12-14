@@ -65,6 +65,33 @@
       "path": "../uui-radio"
     },
     {
+      "path": "../uui-ref"
+    },
+    {
+      "path": "../uui-ref-list"
+    },
+    {
+      "path": "../uui-ref-node"
+    },
+    {
+      "path": "../uui-ref-node-data-type"
+    },
+    {
+      "path": "../uui-ref-node-document-type"
+    },
+    {
+      "path": "../uui-ref-node-form"
+    },
+    {
+      "path": "../uui-ref-node-member"
+    },
+    {
+      "path": "../uui-ref-node-package"
+    },
+    {
+      "path": "../uui-ref-node-user"
+    },
+    {
       "path": "../uui-select"
     },
     {
