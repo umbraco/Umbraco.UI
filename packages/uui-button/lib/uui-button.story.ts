@@ -137,23 +137,22 @@ Compact.parameters = {
 
 export const Sizing: Story = props => {
   return html`
-    <p>Not a good approach but available for those who really need it.</p>
     <uui-button
-      style="font-size:9px; font-weight:bold;"
+      style="font-size: 9px;"
       look=${props.look}
       state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       label=${props.label}></uui-button>
     <uui-button
-      style="font-size:12px"
+      style="font-size: 12px;"
       look=${props.look}
       state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       label=${props.label}></uui-button>
     <uui-button
-      style="font-size:15px"
+      style="font-size: 15px;"
       look=${props.look}
       state=${props.state}
       ?disabled=${props.disabled}
