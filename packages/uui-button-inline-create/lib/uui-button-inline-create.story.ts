@@ -2,7 +2,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-button-inline-create/lib/index';
 
-import { GetRandomUmbracoWord } from '../../../src/helper/UmbracoWordGenerator';
+import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
   id: 'uui-button-inline-create',

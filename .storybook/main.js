@@ -26,6 +26,8 @@ module.exports = {
       config.optimizeDeps.include.push('lit');
       config.optimizeDeps.include.push('lit/decorators.js');
       config.optimizeDeps.include.push('lit/directives/style-map.js');
+      config.optimizeDeps.include.push('lit/directives/if-defined.js');
+      config.optimizeDeps.include.push('lit/directives/unsafe-html.js');
     }
 
     return config;
