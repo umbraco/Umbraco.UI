@@ -2,42 +2,20 @@
 
 ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-css?logoColor=%231B264F)
 
-Umbraco style css component.
+UUI-CSS package contains css files which can be included in your project or components if needed
+
+- **custom-properties.css** — use this if you like to include our custom properties in your project.
+- **local-typography.css** — use this if you like to declare styles for typography, this is needed when using ex.: H1 in a Shadow DOM.
+- **root.css** — If you like your project to be styled for Umbraco UI, then include this in the root of your project.
 
 ## Installation
-
-### ES imports
 
 ```zsh
 npm i @umbraco-ui/uui-css
 ```
 
-Import the registration of `<uui-css>` via:
-
-```javascript
-import '@umbraco-ui/uui-css/lib';
-```
-
-When looking to leverage the `UUICssElement` base class as a type and/or for extension purposes, do so via:
-
-```javascript
-import { UUICssElement } from '@umbraco-ui/uui-css/lib/uui-css.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@latest/dist/uui-css.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@X.X.X/dist/uui-css.min.js"></script>
-```
-
 ## Usage
 
 ```html
-<uui-css></uui-css>
+<style src="@umbraco-ui/uui-css/root.css"></style>
 ```
