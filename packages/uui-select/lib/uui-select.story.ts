@@ -130,3 +130,24 @@ DisabledGroups.parameters = {
     },
   },
 };
+
+export const Disabled: Story = props =>
+  html`<uui-select
+    .options=${groupedOptions}
+    label="Label"
+    .placeholder=${props.placeholder}
+    .disabled=${props.disabled}></uui-select> `;
+
+Disabled.args = {
+  disabled: true,
+};
+
+Disabled.parameters = {
+  controls: { include: ['disabled'] },
+  docs: {
+    source: {
+      code: `      
+<uui-select disabled></uui-select>`,
+    },
+  },
+};
