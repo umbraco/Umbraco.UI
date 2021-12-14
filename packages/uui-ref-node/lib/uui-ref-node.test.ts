@@ -18,7 +18,7 @@ describe('UUIRefNodeElement', () => {
   });
 
   it('passes the a11y audit', async () => {
-    expect(element).shadowDom.to.be.accessible();
+    await expect(element).shadowDom.to.be.accessible();
   });
 
   describe('properties', () => {
