@@ -21,61 +21,77 @@ const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
 };
 
-const propertyColorTemplate = (property: any) => html` <tr>
-<td><div style="display: flex; justify-content: space-between">
-${property.key}<uui-button title="Copy to clipboard" compact @click=${(
-  e: MouseEvent
-) => {
-  copyToClipboard(property.key);
-  const button = e.target as any;
-  button.state = 'success';
-}}>${copyIcon}</uui-button></td>
-<td>
-  <div style="display: flex; justify-content: space-between">
-    <code>${property.value}</code
-    ><uui-button
-    title="Copy to clipboard"
-      compact
-      @click=${(e: MouseEvent) => {
-        copyToClipboard(property.value);
-        const button = e.target as any;
-        button.state = 'success';
-      }}
-      >${copyIcon}</uui-button
-    >
-  </div>
-</td>
-<td>
-  <div
-    style="background:var(${property.key}); width:60px; height:60px;"></div>
-</td>
-</tr>`;
+const propertyColorTemplate = (property: any) => html` <uui-table-row>
+  <uui-table-cell
+    ><div
+      style="display: flex; justify-content: space-between; align-items: center;">
+      ${property.key}<uui-button
+        title="Copy to clipboard"
+        compact
+        @click=${(e: MouseEvent) => {
+          copyToClipboard(property.key);
+          const button = e.target as any;
+          button.state = 'success';
+        }}
+        >${copyIcon}</uui-button
+      >
+    </div></uui-table-cell
+  >
+  <uui-table-cell>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center;">
+      <code>${property.value}</code
+      ><uui-button
+        title="Copy to clipboard"
+        compact
+        @click=${(e: MouseEvent) => {
+          copyToClipboard(property.value);
+          const button = e.target as any;
+          button.state = 'success';
+        }}
+        >${copyIcon}</uui-button
+      >
+    </div>
+  </uui-table-cell>
+  <uui-table-cell>
+    <div
+      style="background:var(${property.key}); width:60px; height:60px;"></div>
+  </uui-table-cell>
+</uui-table-row>`;
 
-const propertySizeTemplate = (property: any) => html` <tr>
-<td><div style="display: flex; justify-content: space-between">
-${property.key}<uui-button title="Copy to clipboard" compact @click=${(
-  e: MouseEvent
-) => {
-  copyToClipboard(property.key);
-  const button = e.target as any;
-  button.state = 'success';
-}}>${copyIcon}</uui-button></td>
-<td>
-  <div style="display: flex; justify-content: space-between">
-    <code>${property.value}</code
-    ><uui-button
-    title="Copy to clipboard"
-      compact
-      @click=${(e: MouseEvent) => {
-        copyToClipboard(property.value);
-        const button = e.target as any;
-        button.state = 'success';
-      }}
-      >${copyIcon}</uui-button
-    >
-  </div>
-</td>
-</tr>`;
+const propertySizeTemplate = (property: any) => html` <uui-table-row>
+  <uui-table-cell
+    ><div
+      style="display: flex; justify-content: space-between; align-items: center;">
+      ${property.key}<uui-button
+        title="Copy to clipboard"
+        compact
+        @click=${(e: MouseEvent) => {
+          copyToClipboard(property.key);
+          const button = e.target as any;
+          button.state = 'success';
+        }}
+        >${copyIcon}</uui-button
+      >
+    </div></uui-table-cell
+  >
+  <uui-table-cell>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center;">
+      <code>${property.value}</code
+      ><uui-button
+        title="Copy to clipboard"
+        compact
+        @click=${(e: MouseEvent) => {
+          copyToClipboard(property.value);
+          const button = e.target as any;
+          button.state = 'success';
+        }}
+        >${copyIcon}</uui-button
+      >
+    </div>
+  </uui-table-cell>
+</uui-table-row>`;
 
 export const Looks = () => html` <h2>Looks</h2>
   <p>
@@ -84,116 +100,88 @@ export const Looks = () => html` <h2>Looks</h2>
   </p>
 
   <h3>Primary Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-primary'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-primary'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 
   <h3>Secondary Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-secondary'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-secondary'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 
   <h3>Positive Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-positive'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-positive'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 
   <h3>Warning Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-warning'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-warning'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 
   <h3>Danger Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-danger'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-danger'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 
   <h3>Placeholder Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-placeholder'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-placeholder'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 
   <h3>OutLine Look</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('look-outline'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>`;
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('look-outline'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>`;
 
 export const InterfaceColors = () => html`
   <p>
@@ -202,20 +190,16 @@ export const InterfaceColors = () => html`
     properties. The fallback values are inserted automatically during build.
   </p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('interface'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('interface'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>
 `;
 
 export const BrandColors = () => html`<h2>Colors</h2>
@@ -225,37 +209,29 @@ export const BrandColors = () => html`<h2>Colors</h2>
     interface color properties. Here is an overview of colors:
   </p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-        <th>Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('color'))
-        .map(property => propertyColorTemplate(property))}
-    </tbody>
-  </table>`;
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+      <uui-table-head-cell>Example</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('color'))
+      .map(property => propertyColorTemplate(property))}
+  </uui-table>`;
 
 export const Sizing = () => html`
   <h2>Sizing</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Custom property name</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${properties
-        .filter(property => property.key.includes('--uui-size'))
-        .map(property => propertySizeTemplate(property))}
-    </tbody>
-  </table>
+  <uui-table>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('--uui-size'))
+      .map(property => propertySizeTemplate(property))}
+  </uui-table>
 `;
 
 //TODO update and uncomment when the spacing system is set in stone
