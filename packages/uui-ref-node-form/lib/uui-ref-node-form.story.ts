@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { ArrayOfUmbracoWords } from '../../../src/helper/UmbracoWordGenerator';
+import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 import './index';
 
 export default {
@@ -192,7 +192,7 @@ Listed.parameters = {
     source: {
       code: `
 <uui-ref-list>
-  
+
   <uui-ref-node-form name="Form 1" detail="Description here...">
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>

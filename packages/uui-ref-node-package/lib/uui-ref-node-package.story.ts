@@ -1,6 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { ArrayOfUmbracoWords } from '../../../src/helper/UmbracoWordGenerator';
+import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 import './index';
 
 export default {
@@ -223,7 +223,7 @@ Listed.parameters = {
     source: {
       code: `
 <uui-ref-list>
-  
+
   <uui-ref-node-package name="Package 1" version="1.1" author="Umbraco HQ">
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
@@ -235,7 +235,7 @@ Listed.parameters = {
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>
   </uui-ref-node-package>
-  
+
   <uui-ref-node-package name="Package 3" version="1.1" author="Umbraco HQ">
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
