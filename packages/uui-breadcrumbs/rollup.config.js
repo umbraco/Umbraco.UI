@@ -7,5 +7,5 @@ export default UUIProdConfig({
     'uui-breadcrumb-item.element',
     'uui-breadcrumbs.test',
   ],
-  bundles: ['index'],
+  bundle: 'index',
 });

@@ -1,21 +1,31 @@
-import '@umbraco-ui/uui-base/lib/index';
-import '@umbraco-ui/uui-base/lib/animations';
-import '@umbraco-ui/uui-base/lib/events';
-import '@umbraco-ui/uui-base/lib/mixins';
-import '@umbraco-ui/uui-base/lib/types';
-
 import '@umbraco-ui/uui-avatar/lib/index';
 import '@umbraco-ui/uui-avatar-group/lib/index';
+import '@umbraco-ui/uui-badge/lib/index';
+import '@umbraco-ui/uui-box/lib/index';
 import '@umbraco-ui/uui-breadcrumbs/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
+import '@umbraco-ui/uui-button-group/lib/index';
 import '@umbraco-ui/uui-checkbox/lib/index';
 import '@umbraco-ui/uui-input/lib/index';
+import '@umbraco-ui/uui-keyboard-shortcut/lib/index';
 import '@umbraco-ui/uui-loader/lib/index';
 import '@umbraco-ui/uui-loader-bar/lib/index';
 import '@umbraco-ui/uui-loader-circle/lib/index';
 import '@umbraco-ui/uui-radio/lib/index';
+// import '@umbraco-ui/uui-ref/lib/index'; // TODO: We need to solve exports
+import '@umbraco-ui/uui-ref-list/lib/index';
+import '@umbraco-ui/uui-ref-node/lib/index';
+import '@umbraco-ui/uui-ref-node-data-type/lib/index';
+import '@umbraco-ui/uui-ref-node-document-type/lib/index';
+import '@umbraco-ui/uui-ref-node-form/lib/index';
+import '@umbraco-ui/uui-ref-node-member/lib/index';
+import '@umbraco-ui/uui-ref-node-package/lib/index';
+import '@umbraco-ui/uui-ref-node-user/lib/index';
 import '@umbraco-ui/uui-slider/lib/index';
+import '@umbraco-ui/uui-symbol-more/lib/index';
 import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-tabs/lib/index';
 import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-toggle/lib/index';
+import '@umbraco-ui/uui-caret/lib/index';
+import '@umbraco-ui/uui-menu-item/lib/index';

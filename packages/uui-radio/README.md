@@ -1,6 +1,10 @@
 # uui-radio
 
-## Usage
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-radio?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-radio)
+
+## Installation
+
+### ES imports
 
 ```zsh
 npm i @umbraco-ui/uui-radio
@@ -19,13 +23,25 @@ import { UUIRadioGroupElement } from '@umbraco-ui/uui-radio/lib/uui-radio-group.
 import { UUIRadioElement } from '@umbraco-ui/uui-radio/lib/uui-radio.element';
 ```
 
-## Example
+### CDN
+
+The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
 
 ```html
-  <uui-radio-group name="Options">
-    <uui-radio value="1">Option 1</uui-radio>
-    <uui-radio value="2">Option 2</uui-radio>
-    <uui-radio value="3">Option 3</uui-radio>
-    <uui-radio value="4">Option 4</uui-radio>
-  </uui-radio-group>
+<!-- Latest Version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-radio@latest/dist/uui-radio.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-radio@X.X.X/dist/uui-radio.min.js"></script>
+```
+
+## Usage
+
+```html
+<uui-radio-group name="Options">
+  <uui-radio value="1">Option 1</uui-radio>
+  <uui-radio value="2">Option 2</uui-radio>
+  <uui-radio value="3">Option 3</uui-radio>
+  <uui-radio value="4">Option 4</uui-radio>
+</uui-radio-group>
 ```

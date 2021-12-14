@@ -31,7 +31,7 @@ AAAOverview.parameters = {
   },
 };
 
-export const Disabled: Story = props => html` <uui-radio disabled
+export const Disabled: Story = () => html` <uui-radio disabled
     >Disabled</uui-radio
   >
   <uui-radio disabled checked>Selected disabled</uui-radio>`;
@@ -40,7 +40,7 @@ Disabled.parameters = {
   controls: { include: [] },
 };
 
-export const GroupedOverview: Story = props =>
+export const GroupedOverview: Story = () =>
   html`
     <uui-radio-group name="Test">
       <uui-radio value="Value 1" disabled>Option 1</uui-radio>
@@ -69,7 +69,7 @@ GroupedOverview.parameters = {
   },
 };
 
-export const GroupedSelectDisabled: Story = props =>
+export const GroupedSelectDisabled: Story = () =>
   html`
     <uui-radio-group name="Test">
       <uui-radio .value=${'Value 1'}>Option 1</uui-radio>

@@ -101,7 +101,7 @@ export const DesignSystem = () => html`
 
           <tr>
             <td>Base unit</td>
-            <td>--uui-size-base-unit</td>
+            <td>--uui-size-2</td>
             <td>6</td>
             <td></td>
             <td>
@@ -112,7 +112,7 @@ export const DesignSystem = () => html`
 
           <tr>
             <td>Small</td>
-            <td>--uui-size-small</td>
+            <td>--uui-size-4</td>
             <td>12</td>
             <td>6 * 2</td>
             <td>
@@ -123,7 +123,7 @@ export const DesignSystem = () => html`
 
           <tr>
             <td>Medium</td>
-            <td>--uui-size-medium</td>
+            <td>--uui-size-8</td>
             <td>24</td>
             <td>6 * 4</td>
             <td>
@@ -134,7 +134,7 @@ export const DesignSystem = () => html`
 
           <tr>
             <td>Large</td>
-            <td>--uui-size-large</td>
+            <td>--uui-size-10</td>
             <td>30</td>
             <td>24 + 6</td>
             <td>
@@ -145,7 +145,7 @@ export const DesignSystem = () => html`
 
           <tr>
             <td>Extra Large</td>
-            <td>--uui-size-xlarge</td>
+            <td>--uui-size-14</td>
             <td>42</td>
             <td>30 + 12</td>
             <td>
@@ -156,7 +156,7 @@ export const DesignSystem = () => html`
 
           <tr>
             <td>Extra Extra Large</td>
-            <td>--uui-size-xxlarge</td>
+            <td>--uui-size-20</td>
             <td>60</td>
             <td>42 + 18</td>
             <td>

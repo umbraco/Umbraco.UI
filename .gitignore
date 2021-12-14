@@ -23,10 +23,14 @@
 /packages/**/lib/**/*.d.ts
 tsconfig.tsbuildinfo
 /out-tsc/
+/packages/**/node_modules/
 
 
 custom-elements.json
+/packages/uui-css/custom-properties.js
+/packages/uui-css/custom-properties.module.js
 storybook-static
 debug.log
 out-css
 *.log
+.eslintcache

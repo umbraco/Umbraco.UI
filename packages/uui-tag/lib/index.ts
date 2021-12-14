@@ -1,3 +1,4 @@
 import { UUITagElement } from './uui-tag.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-tag', UUITagElement);
+defineElement('uui-tag', UUITagElement);

@@ -11,7 +11,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [
     css`
       :host {
-        font-size: var(--uui-size-small, 12px);
+        font-size: var(--uui-size-4);
         color: currentColor;
       }
 

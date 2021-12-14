@@ -1,3 +1,4 @@
 import { UUIAvatarGroupElement } from './uui-avatar-group.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-avatar-group', UUIAvatarGroupElement);
+defineElement('uui-avatar-group', UUIAvatarGroupElement);

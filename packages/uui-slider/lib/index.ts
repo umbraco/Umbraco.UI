@@ -1,3 +1,4 @@
 import { UUISliderElement } from './uui-slider.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-slider', UUISliderElement);
+defineElement('uui-slider', UUISliderElement);

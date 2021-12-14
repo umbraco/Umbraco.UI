@@ -3,18 +3,14 @@ import { html } from 'lit-html';
 import '@umbraco-ui/uui-loader-circle/lib/index';
 
 export default {
-  title: 'Symbols/Loader Circle',
+  title: 'Loaders/Loader Circle',
   component: 'uui-loader-circle',
   id: 'uui-loader-circle',
   args: {
-    size: 'xl',
     progress: 0,
+    fontSize: '4em',
   },
   argTypes: {
-    size: {
-      type: 'select',
-      options: ['xs', 's', 'm', 'l', 'xl'],
-    },
     progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
   },
 };
@@ -22,8 +18,7 @@ export default {
 const Template: Story = props =>
   html`
     <uui-loader-circle
-      style="color: ${props.color}"
-      size=${props.size}
+      style="color: ${props.color}; font-size: ${props.fontSize}"
       progress=${props.progress}
       ?show-progress=${props.showProgress}></uui-loader-circle>
   `;
@@ -49,7 +44,7 @@ Color.argTypes = {
   color: { table: { category: 'inline styling' } },
 };
 Color.parameters = {
-  controls: { include: ['color', 'size', 'progress'] },
+  controls: { include: ['color', 'progress'] },
   docs: {
     source: {
       code: `<uui-loader-circle style="color: blue"></uui-loader-circle>`,

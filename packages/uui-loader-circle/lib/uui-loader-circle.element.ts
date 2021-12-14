@@ -1,7 +1,6 @@
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { Size } from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  @element uui-loader-circle
@@ -12,33 +11,9 @@ export class UUILoaderCircleElement extends LitElement {
     css`
       :host {
         /* currently this components color is defined through currentColor, if we like to use a different color, we need to implemenet a --uui-interface- color which will be set/overwritten when looks are set, aka. if this element is used within a button with the look danger, then this component would get an appropriate color. */
-        --uui-loader-circle-size: var(--uui-size-small, 12px);
         display: inline-block;
         vertical-align: middle;
-      }
-
-      :host([size='xs']) {
-        --uui-loader-circle-size: var(--uui-size-xsmall, 9px);
-      }
-
-      :host([size='s']) {
-        --uui-loader-circle-size: var(--uui-size-small, 12px);
-      }
-
-      :host([size='m']) {
-        --uui-loader-circle-size: var(--uui-size-medium, 24px);
-      }
-
-      :host([size='l']) {
-        --uui-loader-circle-size: var(--uui-size-large, 30px);
-      }
-
-      :host([size='xl']) {
-        --uui-loader-circle-size: var(--uui-size-xlarge, 42px);
-      }
-
-      :host([size='xxl']) {
-        --uui-loader-circle-size: var(--uui-size-xlarge, 66px);
+        line-height: 0;
       }
 
       #svg-container {
@@ -47,8 +22,8 @@ export class UUILoaderCircleElement extends LitElement {
         justify-content: center;
         align-items: center;
         position: relative;
-        width: var(--uui-loader-circle-size);
-        height: var(--uui-loader-circle-size);
+        width: 1em;
+        height: 1em;
       }
 
       .animate #spinner {
@@ -90,7 +65,7 @@ export class UUILoaderCircleElement extends LitElement {
         right: 0;
         stroke: currentColor;
         transform: translateY(-50%);
-        font-size: 10px;
+        font-size: 0.3em;
         font-weight: 700;
         text-align: center;
       }
@@ -133,17 +108,6 @@ export class UUILoaderCircleElement extends LitElement {
     }
   }
 
-  private _largeSizes = ['l', 'xl'];
-
-  /**
-   * Sets the size of the loader
-   * @attr
-   * @type {''|'xs' | 's' | 'm' | 'l' | 'xl'}
-   * @default ''
-   */
-  @property({ reflect: true })
-  size: Size = 's';
-
   /**
    * Sets the progress that loader shows
    * @type {number}
@@ -154,13 +118,42 @@ export class UUILoaderCircleElement extends LitElement {
   progress = 0;
 
   /**
-   * If true then element displays progress number for sizes `l` and `xl`.
+   * If true then element displays progress number at bigger sizes
    * @type {boolean}
    * @attr show-progress
    * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
   showProgress = false;
+
+  @query('#svg-container')
+  private container: any;
+
+  private resizeObserver = new ResizeObserver(() => this.checkIsLargeChange());
+  private isLarge = false;
+
+  firstUpdated() {
+    this.resizeObserver.observe(this.container);
+  }
+
+  disconnectedCallback() {
+    this.resizeObserver.disconnect();
+  }
+
+  checkIsLargeChange() {
+    const newIsLarge = Number.parseFloat(this.container.clientHeight) >= 30;
+
+    if (this.isLarge != newIsLarge) {
+      this.isLarge = newIsLarge;
+      this.requestUpdate();
+    }
+  }
+
+  renderProgress() {
+    return this.isLarge && this.progress && this.showProgress
+      ? html`<span id="progress-display">${this.progress}</span>`
+      : '';
+  }
 
   render() {
     return html`<div id="svg-container" class=${this.progress ? '' : 'animate'}>
@@ -173,11 +166,7 @@ export class UUILoaderCircleElement extends LitElement {
           r="15.9155"
           style=${styleMap(this._strokeDashOffset())} />
       </svg>
-      ${this._largeSizes.includes(this.size) &&
-      this.progress &&
-      this.showProgress
-        ? html`<span id="progress-display">${this.progress}</span>`
-        : ''}
+      ${this.renderProgress()}
     </div>`;
   }
 }

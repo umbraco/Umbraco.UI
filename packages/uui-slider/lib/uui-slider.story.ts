@@ -40,7 +40,7 @@ AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `<uui-slider label="Slider label" step="100"></uui-slider>`,
+      code: `<uui-slider label="Slider label" step="1"></uui-slider>`,
     },
   },
 };

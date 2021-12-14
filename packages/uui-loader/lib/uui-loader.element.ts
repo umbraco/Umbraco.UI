@@ -13,8 +13,8 @@ export class UUILoaderElement extends LitElement {
 
       div {
         display: inline-block;
-        width: var(--uui-size-base-unit);
-        height: var(--uui-size-base-unit);
+        width: var(--uui-size-2);
+        height: var(--uui-size-2);
         border: 2px solid currentColor;
         border-radius: 100%;
         animation: loaderAnimation 1.4s infinite;

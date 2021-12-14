@@ -1,6 +1,6 @@
 import { setCustomElements } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
-import '../src/styles/index.css';
+import '../packages/uui-css/lib/root.css';
 import 'https://cdn.skypack.dev/element-internals-polyfill';
 
 const sort = (a, b) => {
@@ -22,6 +22,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    source: { state: 'open' },
+  },
   options: {
     method: 'alphabetical',
     storySort: sort,
@@ -29,11 +32,6 @@ export const parameters = {
   // Hides the CSS: [] property on the docs page.
   argTypes: {
     styles: {
-      table: {
-        disable: true,
-      },
-    },
-    '': {
       table: {
         disable: true,
       },

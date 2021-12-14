@@ -27,8 +27,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: var(--uui-size-space-2) var(--uui-size-space-4)
-          var(--uui-size-space-1) var(--uui-size-space-4);
+        padding: var(--uui-size-2) var(--uui-size-4);
         border: none;
         box-sizing: border-box;
         min-height: 32px;
@@ -93,7 +92,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       ::slotted(uui-icon) {
-        margin-bottom: var(--uui-size-space-2);
+        margin-bottom: var(--uui-size-2);
       }
     `,
   ];
