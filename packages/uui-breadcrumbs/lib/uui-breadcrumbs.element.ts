@@ -37,7 +37,7 @@ export class UUIBreadcrumbsElement extends LitElement {
       breadcrumbNodes
     ) as UUIBreadcrumbItemElement[];
 
-    if (breadcrumbs) {
+    if (breadcrumbs?.length > 0) {
       breadcrumbs[breadcrumbs.length - 1].lastItem = true;
       breadcrumbs[breadcrumbs.length - 1].setAttribute('aria-current', 'page');
     }
