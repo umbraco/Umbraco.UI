@@ -6,13 +6,6 @@ export default {
   title: 'Displays/Cards/Media Card',
   component: 'uui-card-media',
   id: 'uui-card-media',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-card-media name="Media Name" fileExt="jpg"></uui-card-media>`,
-      },
-    },
-  },
   args: {
     name: 'The card',
     fileExt: 'jpg',
@@ -23,53 +16,97 @@ export default {
   },
 };
 
+export const AAAOverview: Story = props =>
+  html`
+    <div style="width: 200px">
+      <uui-card-media
+        name=${props.name}
+        .fileExt=${props.name}
+        ?selectable=${props.selectable}
+        ?selected=${props.selected}
+        ?error=${props.error}
+        ?disabled=${props.disabled}></uui-card-media>
+    </div>
+  `;
+AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-media name="Media Name" file-ext="jpg"></uui-card-media>`,
+    },
+  },
+};
+
 export const File: Story = props =>
   html`
     <div style="width: 200px">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
         ?disabled=${props.disabled}></uui-card-media>
     </div>
   `;
+
 export const Tag: Story = props =>
   html`
     <div style="width: 200px">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
-        ?disabled=${props.disabled}></uui-card-media>
-      <uui-tag slot="tag" size="s" look="positive">Published</uui-tag>
+        ?disabled=${props.disabled}>
+        <uui-tag slot="tag" size="s" look="positive">Published</uui-tag>
+      </uui-card-media>
     </div>
   `;
+Tag.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-media name="Folder Name">
+        <uui-tag slot="tag" size="s" look="positive">Published</uui-tag>
+      </uui-card-media>`,
+    },
+  },
+};
+
 export const Actions: Story = props =>
   html`
     <div style="width: 200px">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
-        ?disabled=${props.disabled}></uui-card-media>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
+        ?disabled=${props.disabled}>
+        <uui-action-bar slot="actions">
+          <uui-button label="Remove">Remove</uui-button>
+        </uui-action-bar>
+      </uui-card-media>
     </div>
   `;
+Actions.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-media name="Folder Name">
+        <uui-action-bar slot="actions">
+          <uui-button label="Remove">Remove</uui-button>
+        </uui-action-bar>
+      </uui-card-media>`,
+    },
+  },
+};
 
 export const Folder: Story = props =>
   html`
     <div style="width: 200px">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
@@ -77,7 +114,14 @@ export const Folder: Story = props =>
     </div>
   `;
 Folder.args = {
-  fileExt: null,
+  fileExt: '',
+};
+Folder.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-media name="Folder Name"></uui-card-media>`,
+    },
+  },
 };
 
 export const Picture: Story = props =>
@@ -85,7 +129,7 @@ export const Picture: Story = props =>
     <div style="width: 50vw; max-width: 450px;">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
@@ -94,7 +138,7 @@ export const Picture: Story = props =>
       /></uui-card-media>
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
@@ -103,7 +147,7 @@ export const Picture: Story = props =>
       /></uui-card-media>
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
@@ -118,7 +162,7 @@ export const Error: Story = props =>
     <div style="width: 50vw; max-width: 450px;">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
@@ -136,7 +180,7 @@ export const ErrorAndSelectable: Story = props =>
     <div style="width: 50vw; max-width: 450px;">
       <uui-card-media
         name=${props.name}
-        fileExt=${props.name}
+        .fileExt=${props.name}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}

@@ -5,16 +5,16 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
-import { UUICardMediaElement } from './uui-card-media.element';
+import { UUICardUserElement } from './uui-card-user.element';
 import '.';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib/UUICardEvent';
 
-describe('UUICardMediaElement', () => {
-  let element: UUICardMediaElement;
+describe('UUICardUserElement', () => {
+  let element: UUICardUserElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-card-media name="Media item"></uui-card-media> `
+      html` <uui-card-user name="John Rabbit"></uui-card-user> `
     );
   });
 
@@ -41,10 +41,6 @@ describe('UUICardMediaElement', () => {
 
     it('has a name property', () => {
       expect(element).to.have.property('name');
-    });
-
-    it('has a fileExt property', () => {
-      expect(element).to.have.property('fileExt');
     });
   });
 

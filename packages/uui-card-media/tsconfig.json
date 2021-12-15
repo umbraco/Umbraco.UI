@@ -12,12 +12,6 @@
   "references": [
     {
       "path": "../uui-base"
-    },
-    {
-      "path": "../uui-card"
-    },
-    {
-      "path": "../uui-icon"
     }
   ]
 }

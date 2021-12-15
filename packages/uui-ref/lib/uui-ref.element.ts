@@ -186,8 +186,11 @@ export class UUIRefElement extends SelectableMixin(LitElement) {
     if (this.selectable === false) return;
 
     this.selected = !this.selected;
-    if (this.selected)
-      this.dispatchEvent(new UUIRefEvent(UUIRefEvent.SELECTED));
+    this.dispatchEvent(
+      new UUIRefEvent(
+        this.selected ? UUIRefEvent.SELECTED : UUIRefEvent.UNSELECTED
+      )
+    );
   }
 
   select() {

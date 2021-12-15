@@ -27,7 +27,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       }
 
       :host(*) * {
-        /* TODO: implement globaly shared outline style */
+        /* TODO: implement globally shared outline style */
         outline-color: var(--uui-interface-outline);
         outline-offset: 4px;
       }
@@ -104,9 +104,21 @@ export class UUICardElement extends SelectableMixin(LitElement) {
   }
 
   private toggleSelect() {
-    if (this.selectable) this.selected = !this.selected;
-    if (this.selected)
-      this.dispatchEvent(new UUICardEvent(UUICardEvent.SELECTED));
+    if (this.selectable === false) return;
+    this.selected = !this.selected;
+    this.dispatchEvent(
+      new UUICardEvent(
+        this.selected ? UUICardEvent.SELECTED : UUICardEvent.UNSELECTED
+      )
+    );
+  }
+
+  select() {
+    this.selected = true;
+  }
+
+  deselect() {
+    this.selected = false;
   }
 
   private handleSelectKeydown(e: KeyboardEvent) {

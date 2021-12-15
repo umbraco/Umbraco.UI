@@ -38,6 +38,8 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 0;
         transition: opacity 120ms;
       }
+      :host(:focus) slot[name='actions'],
+      :host(:focus-within) slot[name='actions'],
       :host(:hover) slot[name='actions'] {
         opacity: 1;
       }
@@ -69,8 +71,11 @@ export class UUICardMediaElement extends UUICardElement {
         padding: var(--uui-size-2) var(--uui-size-4);
       }
 
-      #open-part:hover,
-      #open-part:focus {
+      :host([disabled]) #open-part {
+        pointer-events: none;
+      }
+
+      #open-part:hover {
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
@@ -110,17 +115,17 @@ export class UUICardMediaElement extends UUICardElement {
         .length > 0;
   }
 
-  // @ts-ignore TODO: fix typescript error
   protected renderMedia() {
     if (this.hasPreview === false) {
       if (this.fileExt === '') {
-        return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
+        return html`<uui-symbol-folder id="folder-symbol"></uui-symbol-folder>`;
       } else {
-        return html`<uui-file-symbol
+        return html`<uui-symbol-file
           id="file-symbol"
-          type="txt"></uui-file-symbol>`;
+          type="txt"></uui-symbol-file>`;
       }
     }
+    return '';
   }
 
   public render() {

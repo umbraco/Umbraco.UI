@@ -38,6 +38,22 @@ export class UUICardUserElement extends UUICardElement {
         justify-content: right;
       }
 
+      slot[name='actions'] {
+        position: absolute;
+        top: var(--uui-size-4);
+        right: var(--uui-size-4);
+        display: flex;
+        justify-content: right;
+
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      :host(:focus) slot[name='actions'],
+      :host(:focus-within) slot[name='actions'],
+      :host(:hover) slot[name='actions'] {
+        opacity: 1;
+      }
+
       #avatar {
         margin: var(--uui-size-3);
       }
@@ -53,6 +69,10 @@ export class UUICardUserElement extends UUICardElement {
         align-items: center;
         cursor: pointer;
         margin: 0 0 3px 0;
+      }
+
+      :host([disabled]) #open-part {
+        pointer-events: none;
       }
 
       #open-part > span {
@@ -73,6 +93,7 @@ export class UUICardUserElement extends UUICardElement {
   public render() {
     return html`
       <slot name="tag"></slot>
+      <slot name="actions"></slot>
       <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"

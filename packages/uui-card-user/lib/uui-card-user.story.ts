@@ -1,39 +1,87 @@
+import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import './index';
 
 export default {
   title: 'Displays/Cards/User Card',
   component: 'uui-card-user',
+  id: 'uui-card-user',
+  args: {
+    name: 'John Rabbit',
+    selectable: false,
+    selected: false,
+    error: false,
+    disabled: false,
+  },
 };
 
-export const Default = () =>
-  html`
-    <div style="width: 130px; display: grid; gap: 16px">
-      <uui-card-user selectable name="Sherlock Holmes">
-        <uui-tag size="s" slot="tag" look="positive">Invited</uui-tag>
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Last login</div>
-        <div>March 19, 2021 9:14 AM</div>
-      </uui-card-user>
-      <uui-card-user selectable selected name="John Watson">
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Has not logged in yet</div>
-      </uui-card-user>
-      <uui-card-user disabled selected name="John Disabled">
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Has not logged in yet</div>
-      </uui-card-user>
-      <uui-card-user disabled error name="John Disabled">
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Has not logged in yet</div>
-      </uui-card-user>
-      <uui-card-user selectable disabled error name="John Disabled">
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Has not logged in yet</div>
-      </uui-card-user>
-      <uui-card-user selectable error name="John Error">
-        <div style="margin-bottom: 12px">Editors</div>
-        <div>Has not logged in yet</div>
-      </uui-card-user>
-    </div>
-  `;
+const Template: Story = props => html`
+  <div style="width: 200px">
+    <uui-card-user
+      name=${props.name}
+      ?selectable=${props.selectable}
+      ?selected=${props.selected}
+      ?error=${props.error}
+      ?disabled=${props.disabled}>
+      <div style="margin-bottom: 12px">Editors</div>
+      <div>Has not logged in yet</div>
+    </uui-card-user>
+  </div>
+`;
+
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-user name="John Rabbit"></uui-card-user>`,
+    },
+  },
+};
+
+export const Selectable: Story = Template.bind({});
+Selectable.args = {
+  selectable: true,
+};
+
+export const Disabled: Story = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};
+
+export const Error: Story = Template.bind({});
+Error.args = {
+  error: true,
+};
+
+export const Actions: Story = props => html`
+  <div style="width: 200px">
+    <uui-card-user
+      name=${props.name}
+      ?selectable=${props.selectable}
+      ?selected=${props.selected}
+      ?error=${props.error}
+      ?disabled=${props.disabled}>
+      <div style="margin-bottom: 12px">Editors</div>
+      <div>Has not logged in yet</div>
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
+    </uui-card-user>
+  </div>
+`;
+
+export const Tags: Story = props => html`
+  <div style="width: 200px">
+    <uui-card-user
+      name=${props.name}
+      ?selectable=${props.selectable}
+      ?selected=${props.selected}
+      ?error=${props.error}
+      ?disabled=${props.disabled}>
+      <div style="margin-bottom: 12px">Editors</div>
+      <div>Has not logged in yet</div>
+      <uui-tag slot="tag" size="s" look="positive">Published</uui-tag>
+    </uui-card-user>
+  </div>
+`;

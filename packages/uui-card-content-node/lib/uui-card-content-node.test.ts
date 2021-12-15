@@ -103,5 +103,19 @@ describe('UUICardContentNodeElement', () => {
         expect(element.selected).to.be.true;
       });
     });
+
+    describe('unselect', () => {
+      it('emits a unselected event when preselected', async () => {
+        element.selectable = true;
+        element.selected = true;
+        await elementUpdated(element);
+        const listener = oneEvent(element, UUICardEvent.UNSELECTED);
+        element.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUICardEvent.UNSELECTED);
+        expect(element.selected).to.be.false;
+      });
+    });
   });
 });

@@ -38,6 +38,8 @@ export class UUICardContentNodeElement extends UUICardElement {
         opacity: 0;
         transition: opacity 120ms;
       }
+      :host(:focus) slot[name='actions'],
+      :host(:focus-within) slot[name='actions'],
       :host(:hover) slot[name='actions'] {
         opacity: 1;
       }
