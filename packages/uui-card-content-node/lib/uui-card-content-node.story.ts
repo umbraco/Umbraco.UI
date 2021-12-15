@@ -3,7 +3,7 @@ import '@umbraco-ui/uui-card-content-node/lib/index';
 import { Story } from '@storybook/web-components';
 
 export default {
-  title: 'Displays/Cards/Content Node Card',
+  title: 'Displays/Cards/Content Node',
   component: 'uui-card-content-node',
   id: 'uui-card-content-node',
   args: {

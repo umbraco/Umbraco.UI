@@ -3,7 +3,7 @@ import { html } from 'lit-html';
 import './index';
 
 export default {
-  title: 'Displays/Cards/User Card',
+  title: 'Displays/Cards/User',
   component: 'uui-card-user',
   id: 'uui-card-user',
   args: {
