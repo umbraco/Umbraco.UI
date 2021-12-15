@@ -65,10 +65,7 @@ export class UUIPaginationElement extends LitElement {
     this.observer.observe(this.buttonGroup);
 
     this.updateLabel();
-    // Wait for first rendering complete:
-    window.requestAnimationFrame(() => {
-      this.calculateRange();
-    });
+    this.calculateRange();
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
@@ -236,7 +233,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav-button"
       role="listitem"
       aria-label="Go to first page"
-      .disabled=${1 === this._current}
+      ?disabled=${this.current === 1}
       @click=${() => this.goToPage(1)}>
       First
     </uui-button>`;
@@ -249,7 +246,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav-button"
       role="listitem"
       aria-label="Go to previous page"
-      .disabled=${this.current === 1}
+      ?disabled=${this.current === 1}
       @click=${this.goToPreviousPage}>
       Previous
     </uui-button>`;
@@ -262,7 +259,7 @@ export class UUIPaginationElement extends LitElement {
       role="listitem"
       class="nav-button"
       aria-label="Go to next page"
-      .disabled=${this.current === this.total}
+      ?disabled=${this.current === this.total}
       @click=${this.goToNextPage}>
       Next
     </uui-button>`;
