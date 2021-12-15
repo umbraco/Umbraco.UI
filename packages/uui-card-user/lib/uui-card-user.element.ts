@@ -87,6 +87,12 @@ export class UUICardUserElement extends UUICardElement {
     `,
   ];
 
+  /**
+   * User name
+   * @type {boolean}
+   * @attr name
+   * @default ''
+   */
   @property({ type: String })
   name = '';
 

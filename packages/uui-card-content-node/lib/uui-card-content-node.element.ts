@@ -83,11 +83,14 @@ export class UUICardContentNodeElement extends UUICardElement {
     `,
   ];
 
+  /**
+   * Node name
+   * @type {boolean}
+   * @attr name
+   * @default ''
+   */
   @property({ type: String })
   name = '';
-
-  @property({ type: String })
-  icon = '';
 
   @state()
   private _iconSlotHasContent = false;

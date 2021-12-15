@@ -5,7 +5,9 @@ import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
- *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
+ *  @fires {UUICardEvent} open - fires when the media card title is clicked
+ *  @fires {UUICardEvent} select - fires when the media card is selected
+ *  @fires {UUICardEvent} unselect - fires when the media card is unselected
  *  @description - Base card component to be extended by specific cards.
  */
 
@@ -94,6 +96,12 @@ export class UUICardElement extends SelectableMixin(LitElement) {
   @property({ type: Boolean, reflect: true, attribute: 'disabled' })
   disabled = false;
 
+  /**
+   * Set to true to highlight there is an error with this item.
+   * @type {boolean}
+   * @attr error
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   error = false;
 
@@ -113,6 +121,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
     );
   }
 
+  /** TODO: Move these methods to SelectMixin? */
   select() {
     this.selected = true;
   }

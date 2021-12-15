@@ -100,9 +100,21 @@ export class UUICardMediaElement extends UUICardElement {
     `,
   ];
 
+  /**
+   * Media name
+   * @type {boolean}
+   * @attr name
+   * @default ''
+   */
   @property({ type: String })
   name = '';
 
+  /**
+   * Media file extension, without "."
+   * @type {boolean}
+   * @attr file-ext
+   * @default ''
+   */
   @property({ type: String, attribute: 'file-ext' })
   fileExt = '';
 
