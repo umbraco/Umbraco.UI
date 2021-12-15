@@ -3,7 +3,7 @@ import { html } from 'lit-html';
 import '@umbraco-ui/uui-card-media/lib/index';
 
 export default {
-  title: 'Displays/Cards/Media Card',
+  title: 'Displays/Cards/Media',
   component: 'uui-card-media',
   id: 'uui-card-media',
   args: {
@@ -193,4 +193,22 @@ ErrorAndSelectable.args = {
   selectable: true,
   selected: true,
   error: true,
+};
+
+export const Selectable: Story = props =>
+  html`
+    <div style="width: 50vw; max-width: 450px;">
+      <uui-card-media
+        name=${props.name}
+        .fileExt=${props.name}
+        ?selectable=${props.selectable}
+        ?selected=${props.selected}
+        ?error=${props.error}
+        ?disabled=${props.disabled}
+        ><img src="https://placedog.net/1447/?random" alt=""
+      /></uui-card-media>
+    </div>
+  `;
+Selectable.args = {
+  selectable: true,
 };
