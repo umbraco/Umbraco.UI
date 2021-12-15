@@ -14,7 +14,9 @@ describe('UUICardContentNodeElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-card-content-node></uui-card-content-node> `
+      html`
+        <uui-card-content-node name="Content Node Name"></uui-card-content-node>
+      `
     );
   });
 
@@ -29,6 +31,14 @@ describe('UUICardContentNodeElement', () => {
 
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
+    });
+
+    it('has a selectable property', () => {
+      expect(element).to.have.property('selectable');
+    });
+
+    it('has a selected property', () => {
+      expect(element).to.have.property('selected');
     });
 
     it('has a name property', () => {

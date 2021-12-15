@@ -34,8 +34,7 @@ export class UUICardContentNodeElement extends UUICardElement {
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
-      }
-      slot[name='actions'] {
+
         opacity: 0;
         transition: opacity 120ms;
       }
@@ -67,14 +66,17 @@ export class UUICardContentNodeElement extends UUICardElement {
         cursor: pointer;
       }
 
+      :host([disabled]) #open-part {
+        pointer-events: none;
+      }
+
       #open-part:hover {
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
 
       #name {
-        vertical-align: center;
-        margin-top: 3px;
+        margin-top: 4px;
       }
     `,
   ];

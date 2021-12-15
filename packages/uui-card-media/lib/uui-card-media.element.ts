@@ -20,7 +20,27 @@ export class UUICardMediaElement extends UUICardElement {
         width: 80%;
       }
 
-      /* TODO: slot for tag */
+      slot[name='tag'] {
+        position: absolute;
+        top: var(--uui-size-4);
+        right: var(--uui-size-4);
+        display: flex;
+        justify-content: right;
+      }
+
+      slot[name='actions'] {
+        position: absolute;
+        top: var(--uui-size-4);
+        right: var(--uui-size-4);
+        display: flex;
+        justify-content: right;
+
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      :host(:hover) slot[name='actions'] {
+        opacity: 1;
+      }
 
       slot:not([name])::slotted(*) {
         align-self: center;
@@ -106,6 +126,8 @@ export class UUICardMediaElement extends UUICardElement {
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
       <button
         id="open-part"
         tabindex="0"

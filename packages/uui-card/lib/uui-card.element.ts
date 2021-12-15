@@ -49,11 +49,7 @@ export class UUICardElement extends SelectableMixin(LitElement) {
 
       :host([disabled]) {
         background: var(--uui-interface-surface-disabled);
-      }
-      :host([disabled]) > * {
-        opacity: 0.6;
-        filter: saturate(0.5);
-        pointer-events: none;
+        color: var(--uui-interface-contrast-disabled);
       }
 
       :host([selectable])::after {
