@@ -29,6 +29,7 @@ export default {
     label: 'Favorite green',
     placeholder: 'Select an option',
     disabled: false,
+    error: false,
     name: 'Favorite Green',
     value: '',
   },
@@ -59,7 +60,8 @@ export const AAAOverview: Story = props =>
     .options=${options}
     .placeholder=${props.placeholder}
     .disabled=${props.disabled}
-    .label=${props.label}></uui-select>`;
+    .label=${props.label}
+    ?error=${props.error}></uui-select>`;
 AAAOverview.storyName = 'Overview';
 
 export const Preselected: Story = () =>
@@ -127,6 +129,48 @@ DisabledGroups.parameters = {
     source: {
       code: `      
 <uui-select disabledGroups="vegetables"></uui-select>`,
+    },
+  },
+};
+
+export const Disabled: Story = props =>
+  html`<uui-select
+    .options=${options}
+    label="Label"
+    .placeholder=${props.placeholder}
+    .disabled=${props.disabled}></uui-select> `;
+
+Disabled.args = {
+  disabled: true,
+};
+
+Disabled.parameters = {
+  controls: { include: ['disabled'] },
+  docs: {
+    source: {
+      code: `      
+<uui-select disabled></uui-select>`,
+    },
+  },
+};
+
+export const Error: Story = props =>
+  html`<uui-select
+    .options=${options}
+    label="Label"
+    .placeholder=${props.placeholder}
+    ?error=${props.error}></uui-select>`;
+
+Error.args = {
+  error: true,
+};
+
+Error.parameters = {
+  controls: { include: ['error'] },
+  docs: {
+    source: {
+      code: `      
+<uui-select error></uui-select>`,
     },
   },
 };

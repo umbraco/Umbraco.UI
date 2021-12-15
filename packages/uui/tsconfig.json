@@ -16,6 +16,9 @@
   ],
   "references": [
     {
+      "path": "../uui-action-bar"
+    },
+    {
       "path": "../uui-avatar"
     },
     {
@@ -43,6 +46,9 @@
       "path": "../uui-checkbox"
     },
     {
+      "path": "../uui-icon"
+    },
+    {
       "path": "../uui-input"
     },
     {
@@ -64,7 +70,52 @@
       "path": "../uui-radio"
     },
     {
+      "path": "../uui-ref"
+    },
+    {
+      "path": "../uui-ref-list"
+    },
+    {
+      "path": "../uui-ref-node"
+    },
+    {
+      "path": "../uui-ref-node-data-type"
+    },
+    {
+      "path": "../uui-ref-node-document-type"
+    },
+    {
+      "path": "../uui-ref-node-form"
+    },
+    {
+      "path": "../uui-ref-node-member"
+    },
+    {
+      "path": "../uui-ref-node-package"
+    },
+    {
+      "path": "../uui-ref-node-user"
+    },
+    {
+      "path": "../uui-select"
+    },
+    {
       "path": "../uui-slider"
+    },
+    {
+      "path": "../uui-symbol-expand"
+    },
+    {
+      "path": "../uui-symbol-file"
+    },
+    {
+      "path": "../uui-symbol-folder"
+    },
+    {
+      "path": "../uui-symbol-more"
+    },
+    {
+      "path": "../uui-symbol-sort"
     },
     {
       "path": "../uui-table"
@@ -74,6 +125,9 @@
     },
     {
       "path": "../uui-tag"
+    },
+    {
+      "path": "../uui-textarea"
     },
     {
       "path": "../uui-toggle"

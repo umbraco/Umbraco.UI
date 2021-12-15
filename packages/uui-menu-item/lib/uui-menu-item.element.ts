@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import {
   ActiveMixin,
   LabelMixin,
@@ -11,6 +11,13 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
  *  @property label - This functions both as the visible label as well as the aria label.
+ *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
+ *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
+ *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
+ *  @slot default slot for nested menu items
+ *  @slot icon - icon area
+ *  @slot actions - actions area
+ *
  */
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
@@ -28,7 +35,7 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: relative;
         display: flex;
         align-items: stretch;
-        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-8));
+        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-4));
 
         display: grid;
         grid-template-columns: var(--uui-size-8) 1fr;
@@ -62,9 +69,11 @@ export class UUIMenuItemElement extends SelectableMixin(
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
       #caret-button + #label-button {
         padding-left: 0;
       }
+
       #caret-button {
         width: 100%;
         height: 100%;
@@ -98,6 +107,13 @@ export class UUIMenuItemElement extends SelectableMixin(
         position: absolute;
         width: 100%;
         bottom: 0;
+      }
+
+      #icon {
+        font-size: 16px;
+        margin-bottom: var(--uui-size-1);
+        margin-right: var(--uui-size-2);
+        display: inline-block;
       }
 
       :host([disabled]) #label-button {
@@ -212,6 +228,24 @@ export class UUIMenuItemElement extends SelectableMixin(
   private onLabelClicked() {
     const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
     this.dispatchEvent(event);
+    this.toggleSelect();
+  }
+
+  /**
+   *  Toggles row selection
+   * @method
+   */
+  protected toggleSelect() {
+    if (this.selectable === false) return;
+    this.selected = !this.selected;
+  }
+
+  @state()
+  private iconSlotHasContent = false;
+
+  private iconSlotChanged(e: any): void {
+    this.iconSlotHasContent =
+      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
   }
 
   render() {
@@ -219,7 +253,7 @@ export class UUIMenuItemElement extends SelectableMixin(
       <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
           ? html`<button id="caret-button" @click=${this.onCaretClicked}>
-              <uui-caret .rotation=${this.showChildren ? 0 : -90}></uui-caret>
+              <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}
         <button
@@ -227,6 +261,11 @@ export class UUIMenuItemElement extends SelectableMixin(
           @click=${this.onLabelClicked}
           ?disabled=${this.disabled}
           aria-label="${this.label}">
+          <slot
+            name="icon"
+            id="icon"
+            style=${this.iconSlotHasContent ? '' : 'display: none;'}
+            @slotchange=${this.iconSlotChanged}></slot>
           ${this.renderLabel()}
         </button>
         <div id="label-button-background"></div>

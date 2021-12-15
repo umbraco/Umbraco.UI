@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUISelectElement } from './uui-select.element';
 import '.';
 
@@ -28,6 +28,8 @@ describe('UUISelectElement', () => {
 describe('UUISelect in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUISelectElement;
+  let select: HTMLSelectElement;
+
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
@@ -39,6 +41,7 @@ describe('UUISelect in Form', () => {
       </form>`
     );
     element = formElement.querySelector('uui-select') as any;
+    select = element.shadowRoot?.querySelector('select') as HTMLSelectElement;
   });
 
   it('value is correct', async () => {
@@ -54,5 +57,11 @@ describe('UUISelect in Form', () => {
     element.value = 'purple';
     const formData = new FormData(formElement);
     await expect(formData.get('bar')).to.be.equal('purple');
+  });
+
+  it('can be disabled', async () => {
+    element.disabled = true;
+    await elementUpdated(element);
+    expect(select.disabled).to.be.true;
   });
 });

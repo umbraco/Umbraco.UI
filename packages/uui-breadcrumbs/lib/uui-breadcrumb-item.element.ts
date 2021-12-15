@@ -20,11 +20,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
         color: currentColor;
       }
 
-      :host(:last-of-type) [part='separator'],
-      :host([last-item]) [part='separator'] {
-        display: none;
-      }
-
       [part='separator']::after {
         content: '/';
         speak: never;
@@ -71,10 +66,18 @@ export class UUIBreadcrumbItemElement extends LitElement {
   @property({ type: Boolean, attribute: 'last-item' })
   lastItem = false;
 
+  renderLinkAndSeparator() {
+    return html`<a id="link" href=${this.href}><slot></slot></a
+      ><span part="separator"></span>`;
+  }
+
+  renderCurrent() {
+    return html`<span id="last-item"><slot></slot></span>`;
+  }
+
   render() {
     return html`${this.lastItem
-        ? html`<span id="last-item"><slot></slot></span>`
-        : html`<a id="link" href=${this.href}><slot></slot></a>`}<span
-        part="separator"></span>`;
+      ? this.renderCurrent()
+      : this.renderLinkAndSeparator()}`;
   }
 }

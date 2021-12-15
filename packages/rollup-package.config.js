@@ -1,15 +1,17 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import processLitCSS from '../scripts/rollup-plugin-fallback-values';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
+import rollupPostcss from 'rollup-plugin-postcss';
+import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
+import path from 'path';
+import processLitCSSPlugin from '../scripts/rollup.processLitCSSPlugin.mjs';
+import importCss from 'rollup-plugin-import-css';
 
-const processLitCSSOptions = {
-  include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
-  exclude: ['**/uui-base/lib/events/**'],
-  mainStylesPath: '../../out-css/index.css',
-  autoprefixerEnv: 'last 1 version',
-};
+// @ts-ignore-start
+// eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
+import properties from '../packages/uui-css/custom-properties.module.js'; // eslint-disable-line
+// @ts-ignore-end
 
 const esbuidOptions = { minify: true };
 
@@ -22,13 +24,38 @@ const createEsModulesConfig = (entryPoints = []) => {
           file: `./lib/${name}.js`,
           format: 'es',
         },
-        plugins: [processLitCSS(processLitCSSOptions), esbuild()],
+        plugins: [
+          importCss({ from: undefined }),
+          processLitCSSPlugin(),
+          esbuild(),
+        ],
       };
     }),
   ];
 };
 
-const createBundleConfig = bundle => {
+const createCSSFilesConfig = (cssFiles = []) => {
+  return [
+    ...cssFiles.map(name => {
+      return {
+        input: `./lib/${name}.css`,
+        output: {
+          file: `./dist/${name}.css`,
+        },
+        plugins: [
+          rollupPostcss({
+            plugins: [
+              postcssCustomPropertiesFallback({ importFrom: properties }),
+            ],
+            extract: path.resolve(`./dist/${name}.css`),
+          }),
+        ],
+      };
+    }),
+  ];
+};
+
+const createBundleConfig = (bundle, namespace) => {
   const packageJson = readPackageJson('./');
   const bundleName = packageJson.name.replace('@umbraco-ui/', '');
 
@@ -39,10 +66,12 @@ const createBundleConfig = bundle => {
           file: `./dist/${bundleName}.min.js`,
           format: 'umd',
           sourcemap: true,
+          name: namespace,
         },
         plugins: [
           nodeResolve(),
-          processLitCSS(processLitCSSOptions),
+          importCss(),
+          processLitCSSPlugin(),
           minifyHTML(),
           esbuild(esbuidOptions),
         ],
@@ -50,8 +79,14 @@ const createBundleConfig = bundle => {
     : undefined;
 };
 
-export const UUIProdConfig = ({ entryPoints = [], bundle }) => {
+export const UUIProdConfig = ({
+  entryPoints = [],
+  cssFiles = [],
+  bundle,
+  namespace = '',
+}) => {
+  const cssFilesConfig = createCSSFilesConfig(cssFiles);
   const esModulesConfig = createEsModulesConfig(entryPoints);
-  const bundleConfig = createBundleConfig(bundle);
-  return [...esModulesConfig, bundleConfig].filter(x => x);
+  const bundleConfig = createBundleConfig(bundle, namespace);
+  return [...cssFilesConfig, ...esModulesConfig, bundleConfig].filter(x => x);
 };

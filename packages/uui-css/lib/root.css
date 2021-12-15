@@ -1,0 +1,4 @@
+@import "./custom-properties.css";
+@import "./typography/lato.css";
+@import "./typography/root.css";
+@import "./typography/local.css";
