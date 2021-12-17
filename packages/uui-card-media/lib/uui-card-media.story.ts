@@ -3,17 +3,9 @@ import { html } from 'lit-html';
 import '@umbraco-ui/uui-card-media/lib/index';
 
 export default {
+  id: 'uui-card-media',
   title: 'Displays/Cards/Media',
   component: 'uui-card-media',
-  id: 'uui-card-media',
-  args: {
-    name: 'The card',
-    fileExt: 'jpg',
-    selectable: false,
-    selected: false,
-    error: false,
-    disabled: false,
-  },
 };
 
 export const AAAOverview: Story = props =>
@@ -21,7 +13,7 @@ export const AAAOverview: Story = props =>
     <div style="width: 200px">
       <uui-card-media
         name=${props.name}
-        .fileExt=${props.name}
+        file-ext=${props.fileExt}
         ?selectable=${props.selectable}
         ?selected=${props.selected}
         ?error=${props.error}
@@ -29,18 +21,21 @@ export const AAAOverview: Story = props =>
     </div>
   `;
 AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-card-media name="Media Name" file-ext="jpg"></uui-card-media>`,
-    },
-  },
+
+AAAOverview.args = {
+  name: 'The card',
+  fileExt: 'jpg',
+  selectable: false,
+  selected: false,
+  error: false,
+  disabled: false,
 };
 
 export const File: Story = props =>
   html`
     <div style="width: 200px">
-      <uui-card-media name="File name" .fileExt=${props.name}> </uui-card-media>
+      <uui-card-media name="File name" .fileExt=${props.fileExt}>
+      </uui-card-media>
     </div>
   `;
 
