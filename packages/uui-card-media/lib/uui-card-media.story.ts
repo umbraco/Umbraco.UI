@@ -39,7 +39,12 @@ export const File: Story = props =>
     </div>
   `;
 
+File.args = {
+  fileExt: 'txt',
+};
+
 File.parameters = {
+  controls: { include: ['fileExt'] },
   docs: {
     source: {
       code: `
@@ -97,6 +102,7 @@ export const Folder: Story = () =>
     </div>
   `;
 Folder.parameters = {
+  controls: { include: ['error'] },
   docs: {
     source: {
       code: `<uui-card-media name="Folder Name"></uui-card-media>`,
@@ -114,6 +120,7 @@ export const Image: Story = () =>
   `;
 
 Image.parameters = {
+  controls: { include: ['error'] },
   docs: {
     source: {
       code: `
@@ -138,6 +145,7 @@ Error.args = {
 };
 
 Error.parameters = {
+  controls: { include: ['error'] },
   docs: {
     source: {
       code: `<uui-card-media name="File name" error></uui-card-media>`,
@@ -161,9 +169,32 @@ Selectable.args = {
 };
 
 Selectable.parameters = {
+  controls: { include: ['selectable, selected'] },
   docs: {
     source: {
       code: `<uui-card-media name="File name" selectable></uui-card-media>`,
+    },
+  },
+};
+
+export const Disabled: Story = props =>
+  html`
+    <div style="width: 200px;">
+      <uui-card-media name="File name" ?disabled=${props.disabled}
+        ><img src="https://placedog.net/1447/?random" alt=""
+      /></uui-card-media>
+    </div>
+  `;
+
+Disabled.args = {
+  disabled: true,
+};
+
+Disabled.parameters = {
+  controls: { include: ['disabled'] },
+  docs: {
+    source: {
+      code: `<uui-card-media name="File name" disabled></uui-card-media>`,
     },
   },
 };
