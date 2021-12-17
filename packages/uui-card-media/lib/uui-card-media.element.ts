@@ -102,7 +102,7 @@ export class UUICardMediaElement extends UUICardElement {
 
   /**
    * Media name
-   * @type {boolean}
+   * @type {string}
    * @attr name
    * @default ''
    */
@@ -111,7 +111,7 @@ export class UUICardMediaElement extends UUICardElement {
 
   /**
    * Media file extension, without "."
-   * @type {boolean}
+   * @type {string}
    * @attr file-ext
    * @default ''
    */
