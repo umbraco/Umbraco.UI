@@ -134,7 +134,7 @@ export class UUICardMediaElement extends UUICardElement {
       } else {
         return html`<uui-symbol-file
           id="file-symbol"
-          type="txt"></uui-symbol-file>`;
+          type="${this.fileExt}"></uui-symbol-file>`;
       }
     }
     return '';
