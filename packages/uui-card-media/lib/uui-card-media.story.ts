@@ -40,60 +40,53 @@ AAAOverview.parameters = {
 export const File: Story = props =>
   html`
     <div style="width: 200px">
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}></uui-card-media>
+      <uui-card-media name="File name" .fileExt=${props.name}> </uui-card-media>
     </div>
   `;
 
-export const Tag: Story = props =>
+File.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-card-media name="File name" file-ext="txt"></uui-card-media>`,
+    },
+  },
+};
+
+export const Tag: Story = () =>
   html`
     <div style="width: 200px">
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}>
-        <uui-tag slot="tag" size="s" look="positive">Published</uui-tag>
+      <uui-card-media name="File name">
+        <uui-tag slot="tag" size="s" look="danger">Trashed</uui-tag>
+        <img src="https://placedog.net/1447/?random" alt="" />
       </uui-card-media>
     </div>
   `;
 Tag.parameters = {
   docs: {
     source: {
-      code: `<uui-card-media name="Folder Name">
-        <uui-tag slot="tag" size="s" look="positive">Published</uui-tag>
+      code: `<uui-card-media name="File name">
+        <uui-tag slot="tag" size="s" look="danger">Trashed</uui-tag>
       </uui-card-media>`,
     },
   },
 };
 
-export const Actions: Story = props =>
+export const Actions: Story = () =>
   html`
     <div style="width: 200px">
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}>
+      <uui-card-media name="File name">
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
+        <img src="https://placedog.net/1447/?random" alt="" />
       </uui-card-media>
     </div>
   `;
 Actions.parameters = {
   docs: {
     source: {
-      code: `<uui-card-media name="Folder Name">
+      code: `<uui-card-media name="File name">
         <uui-action-bar slot="actions">
           <uui-button label="Remove">Remove</uui-button>
         </uui-action-bar>
@@ -102,20 +95,12 @@ Actions.parameters = {
   },
 };
 
-export const Folder: Story = props =>
+export const Folder: Story = () =>
   html`
     <div style="width: 200px">
-      <uui-card-media
-        name=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}></uui-card-media>
+      <uui-card-media name="Folder Name"></uui-card-media>
     </div>
   `;
-Folder.args = {
-  fileExt: '',
-};
 Folder.parameters = {
   docs: {
     source: {
@@ -124,91 +109,66 @@ Folder.parameters = {
   },
 };
 
-export const Picture: Story = props =>
+export const Image: Story = () =>
   html`
-    <div style="width: 50vw; max-width: 450px;">
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}
+    <div style="width: 200px;">
+      <uui-card-media name="File name">
+        <img src="https://placedog.net/1447/?random" alt="" />
+      </uui-card-media>
+    </div>
+  `;
+
+Image.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-card-media name="File name">
+  <img src="https://placedog.net/1447/?random" alt="" />
+</uui-card-media>`,
+    },
+  },
+};
+
+export const Error: Story = props =>
+  html`
+    <div style="width: 200px;">
+      <uui-card-media name="File name" ?error=${props.error}
         ><img src="https://placedog.net/1447/?random" alt=""
-      /></uui-card-media>
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}
-        ><img src="https://placedog.net/240/?random" alt=""
-      /></uui-card-media>
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}
-        ><img src="https://placedog.net/110/?random" alt=""
       /></uui-card-media>
     </div>
   `;
 
-export const Error: Story = props =>
-  html`
-    <div style="width: 50vw; max-width: 450px;">
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}
-        ><img src="https://placedog.net/1447/?random" alt=""
-      /></uui-card-media>
-    </div>
-  `;
 Error.args = {
   error: true,
 };
 
-export const ErrorAndSelectable: Story = props =>
-  html`
-    <div style="width: 50vw; max-width: 450px;">
-      <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}
-        ><img src="https://placedog.net/1447/?random" alt=""
-      /></uui-card-media>
-    </div>
-  `;
-ErrorAndSelectable.args = {
-  selectable: true,
-  selected: true,
-  error: true,
+Error.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-media name="File name" error></uui-card-media>`,
+    },
+  },
 };
 
 export const Selectable: Story = props =>
   html`
-    <div style="width: 50vw; max-width: 450px;">
+    <div style="width: 200px;">
       <uui-card-media
-        name=${props.name}
-        .fileExt=${props.name}
+        name="File name"
         ?selectable=${props.selectable}
         ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}
         ><img src="https://placedog.net/1447/?random" alt=""
       /></uui-card-media>
     </div>
   `;
 Selectable.args = {
   selectable: true,
+};
+
+Selectable.parameters = {
+  docs: {
+    source: {
+      code: `<uui-card-media name="File name" selectable></uui-card-media>`,
+    },
+  },
 };
