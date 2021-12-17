@@ -57,7 +57,7 @@ export class UUICardMediaElement extends UUICardElement {
         bottom: 0;
         width: 100%;
         background-color: var(--uui-color-white);
-        color: var(--uui-color-black, #0000);
+        color: var(--uui-color-black);
         border: none;
         cursor: pointer;
         border-top: 1px solid rgba(0, 0, 0, 0.04);
