@@ -126,10 +126,10 @@ export class UUIPaginationElement extends LitElement {
   }
 
   @queryAll('uui-button.nav-button')
-  navButtons!: Array<UUIButtonElement>;
+  private navButtons!: Array<UUIButtonElement>;
 
   @query('#group')
-  buttonGroup!: any;
+  private buttonGroup!: any;
 
   /**
    * This property is used to generate a proper `aria-label`. It will be announced by screen reader as: "<<this.label>>. Current page: <<this.current>>"
@@ -170,7 +170,7 @@ export class UUIPaginationElement extends LitElement {
   }
 
   @state()
-  visiblePages: number[] = [];
+  private visiblePages: number[] = [];
 
   protected _current = 1;
   /**
@@ -192,6 +192,7 @@ export class UUIPaginationElement extends LitElement {
 
   /**
    * This method will change the page to a next one.
+   * @memberof UUIPaginationElement
    */
   goToNextPage() {
     this.current++;
@@ -199,7 +200,8 @@ export class UUIPaginationElement extends LitElement {
   }
 
   /**
-   * This method will change the page to a previous one.
+   * Change the page to a previous one.
+   * @memberof UUIPaginationElement
    */
   goToPreviousPage() {
     this.current--;
@@ -207,7 +209,9 @@ export class UUIPaginationElement extends LitElement {
   }
 
   /**
-   * This method will change the page to the one passed as an argument to this method.
+   * Change the page to the one passed as an argument to this method.
+   * @param {number} page
+   * @memberof UUIPaginationElement
    */
   goToPage(page: number) {
     this.current = page;
