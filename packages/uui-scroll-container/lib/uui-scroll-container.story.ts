@@ -126,3 +126,18 @@ export const Overview: Story = () =>
       <p>and now I have transitions</p>
     </uui-scroll-container>
   `;
+
+export const NotEnoughContent: Story = () =>
+  html`
+    <uui-scroll-container style="width:400px; height:400px;">
+      Very little text, no Scrollbar appearing
+    </uui-scroll-container>
+  `;
+
+export const VeryWideContent: Story = () =>
+  html`
+    <uui-scroll-container style="width:400px; height:400px;">
+      line is way toooo long
+      WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br />
+    </uui-scroll-container>
+  `;
