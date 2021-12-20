@@ -24,6 +24,7 @@ import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element;
 
 class MyCardElement extends UUICardElement {}
     `,
+      language: 'js',
     },
   },
 };
