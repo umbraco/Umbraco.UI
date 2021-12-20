@@ -1,23 +1,26 @@
 import { LitElement, html, css } from 'lit';
-import { property, queryAll, state } from 'lit/decorators.js';
+import { property, query, queryAll, state } from 'lit/decorators.js';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
-
 import { UUIPaginationEvent } from './UUIPaginationEvent';
-//TODO change focus after click
 
-//?? button group-within button-group
+//this is how wide the button gets when it has 3 digits inside.
+const PAGE_BUTTON_MAX_WIDTH = 45;
+
+const valueLimit = (val: number, min: number, max: number) => {
+  return Math.min(Math.max(val, min), max);
+};
+
+const generateArrayOfNumbers = (start: number, stop: number) => {
+  return Array.from({ length: stop - start + 1 }, (_, i) => start + i);
+};
 
 /**
- * Pagination
+ * Umbraco UI pagination component. By implementing a resizeObserver it changes the number of visible buttons to fit the width of the container it sits in. Based on uui-button and uui-button-group.
  *
  * @element uui-pagination
- *
  * @fires change - When clicked on the page button fires change event
  *
  */
-
-const PAGE_BUTTON_MAX_WIDTH = 45;
-
 export class UUIPaginationElement extends LitElement {
   static styles = [
     css`
@@ -48,19 +51,21 @@ export class UUIPaginationElement extends LitElement {
     super.connectedCallback();
     this.setAttribute('role', 'navigation');
     this.visiblePages = this._generateVisiblePages(this.current);
-    window.addEventListener('resize', this.calculateRange);
   }
 
   disconnectedCallback() {
-    window.removeEventListener('resize', this.calculateRange);
+    this.observer.disconnect();
   }
 
+  private observer = new ResizeObserver(() => {
+    this.calculateRange();
+  });
+
   firstUpdated() {
+    this.observer.observe(this.buttonGroup);
+
     this.updateLabel();
-    // Wait for first rendering complete:
-    window.requestAnimationFrame(() => {
-      this.calculateRange();
-    });
+    this.calculateRange();
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
@@ -80,7 +85,7 @@ export class UUIPaginationElement extends LitElement {
   private calculateRange = () => {
     this._containerWidth = this.offsetWidth;
 
-    // get all the buttons with .nav-button class and sum up thier widths
+    // get all the buttons with .nav-button class and sum up their widths
     const navButtonsWidth = Array.from(this.navButtons).reduce(
       (totalWidth, button) => {
         return totalWidth + button.getBoundingClientRect().width;
@@ -88,18 +93,14 @@ export class UUIPaginationElement extends LitElement {
       0
     );
 
-    // substract width of navbuttons from the pagination container
+    // subtract width of navbuttons from the pagination container
     const rangeBaseWidth = this._containerWidth - navButtonsWidth;
 
     // divide remaining width by max-width of page button (when it has 3 digits), then divide by 2 to get the range.
-    // Range is number of buttons visible on either "side" of current pag button. So, if range === 5 we shall see 11 buttons in total - 5 before the curent page and 5 after. This is why we divide by 2.
+    // Range is number of buttons visible on either "side" of current pag button. So, if range === 5 we shall see 11 buttons in total - 5 before the current page and 5 after. This is why we divide by 2.
     const range = rangeBaseWidth / PAGE_BUTTON_MAX_WIDTH / 2;
     this.range = Math.floor(range);
   };
-
-  private _generateArrayOfNumbers(start: number, stop: number) {
-    return Array.from({ length: stop - start + 1 }, (_, i) => start + i);
-  }
 
   private _generateVisiblePages(current: number) {
     const start =
@@ -116,33 +117,47 @@ export class UUIPaginationElement extends LitElement {
         ? current + this._range
         : this.total;
 
-    const pages = this._generateArrayOfNumbers(
-      this._valueLimit(start, 1, this.total),
-      this._valueLimit(stop, 1, this.total)
+    const pages = generateArrayOfNumbers(
+      valueLimit(start, 1, this.total),
+      valueLimit(stop, 1, this.total)
     );
 
     return pages;
   }
 
-  private _valueLimit(val: number, min: number, max: number) {
-    return Math.min(Math.max(val, min), max);
-  }
-
   @queryAll('uui-button.nav-button')
-  navButtons!: Array<UUIButtonElement>;
+  private navButtons!: Array<UUIButtonElement>;
 
+  @query('#group')
+  private buttonGroup!: any;
+
+  /**
+   * This property is used to generate a proper `aria-label`. It will be announced by screen reader as: "<<this.label>>. Current page: <<this.current>>"
+   * @type {string}
+   * @attr
+   */
   @property()
   label = '';
 
   // TODO: Handle localization
+  /**
+   * With this property you can overwrite aria-label.
+   * @type {string}
+   * @attr
+   */
   @property({ reflect: true, attribute: 'aria-label' })
   ariaLabel = '';
 
+  /**
+   * With this property You can set how many buttons the pagination should have. Mind that the number of visible buttons will change with the width of the container.
+   * @type {number}
+   * @attr
+   */
   @property({ type: Number })
   total = 1;
 
   protected _range = 0;
-  @property({ type: Number })
+  @state()
   get range() {
     return this._range;
   }
@@ -155,37 +170,55 @@ export class UUIPaginationElement extends LitElement {
   }
 
   @state()
-  visiblePages: number[] = [];
+  private visiblePages: number[] = [];
 
   protected _current = 1;
-  @property({ type: Number, reflect: true })
+  /**
+   * This property says which page is currently shown.
+   * @type {number}
+   * @attr
+   */
+  @property({ type: Number })
   get current() {
     return this._current;
   }
 
   set current(newValue: number) {
     const oldValue = this._current;
-    this._current = this._valueLimit(newValue, 1, this.total);
+    this._current = valueLimit(newValue, 1, this.total);
     this.visiblePages = this._generateVisiblePages(this._current);
     this.requestUpdate('current', oldValue);
   }
 
-  protected goToNextPage() {
+  /**
+   * This method will change the page to a next one.
+   * @memberof UUIPaginationElement
+   */
+  goToNextPage() {
     this.current++;
     this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
-  protected goToPreviousPage() {
+  /**
+   * Change the page to a previous one.
+   * @memberof UUIPaginationElement
+   */
+  goToPreviousPage() {
     this.current--;
     this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
-  protected goToPage(page: number) {
+  /**
+   * Change the page to the one passed as an argument to this method.
+   * @param {number} page
+   * @memberof UUIPaginationElement
+   */
+  goToPage(page: number) {
     this.current = page;
     this.dispatchEvent(new UUIPaginationEvent(UUIPaginationEvent.CHANGE));
   }
 
-  /** When having limited display of page-buttons and clicking a page-button that changes the current range, the focus stays on the position of the clicked button which is not anymore representing the number clicked, therefor we move focus to the button that represents the current page. */
+  /** When having limited display of page-buttons and clicking a page-button that changes the current range, the focus stays on the position of the clicked button which is not anymore representing the number clicked, therefore we move focus to the button that represents the current page. */
   protected setFocusActivePageButton() {
     requestAnimationFrame(() => {
       // for none range changing clicks we need to ensure a rendering before querying.
@@ -204,7 +237,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav-button"
       role="listitem"
       aria-label="Go to first page"
-      .disabled=${1 === this._current}
+      ?disabled=${this.current === 1}
       @click=${() => this.goToPage(1)}>
       First
     </uui-button>`;
@@ -217,7 +250,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav-button"
       role="listitem"
       aria-label="Go to previous page"
-      .disabled=${this.current === 1}
+      ?disabled=${this.current === 1}
       @click=${this.goToPreviousPage}>
       Previous
     </uui-button>`;
@@ -230,7 +263,7 @@ export class UUIPaginationElement extends LitElement {
       role="listitem"
       class="nav-button"
       aria-label="Go to next page"
-      .disabled=${this.current === this.total}
+      ?disabled=${this.current === this.total}
       @click=${this.goToNextPage}>
       Next
     </uui-button>`;
@@ -292,7 +325,7 @@ export class UUIPaginationElement extends LitElement {
 
   render() {
     // prettier-ignore
-    return html`<uui-button-group role="list">
+    return html`<uui-button-group role="list" id="group">
       ${this.navigationLeftTemplate()}${this.visiblePages.map(
         page =>
           this.pageTemplate(page)

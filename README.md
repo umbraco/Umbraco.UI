@@ -41,6 +41,7 @@ If you want to develop a component or contribute to the repository go to ["Get s
 | [`uui` bundle package](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui)                        | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui)                             |
 | [`<uui-caret>`](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui-caret)                         | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-caret?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-caret)                 |
 | [`<uui-menu-item>`](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui-menu-item)                 | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-menu-item?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-menu-item)         |
+| [`<uui-pagination>`](https://github.com/umbraco/Umbraco.UI/tree/dev/packages/uui-pagination)               | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-pagination?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-pagination)       |
 
 ## Get started
 
