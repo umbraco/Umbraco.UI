@@ -15,6 +15,12 @@
     },
     {
       "path": "../uui-card"
+    },
+    {
+      "path": "../uui-symbol-folder"
+    },
+    {
+      "path": "../uui-symbol-file"
     }
   ]
 }
