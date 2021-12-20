@@ -1,14 +1,15 @@
 import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUICardElement } from '../uui-card/uui-card.element';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
- *  @element uui-user-card
- *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
+ *  @element uui-card-user
+ *  @fires {UUICardEvent} open - fires when the user card title is clicked
+ *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a user node.
  */
 
-export class UUIUserCardElement extends UUICardElement {
+export class UUICardUserElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
@@ -37,6 +38,22 @@ export class UUIUserCardElement extends UUICardElement {
         justify-content: right;
       }
 
+      slot[name='actions'] {
+        position: absolute;
+        top: var(--uui-size-4);
+        right: var(--uui-size-4);
+        display: flex;
+        justify-content: right;
+
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      :host(:focus) slot[name='actions'],
+      :host(:focus-within) slot[name='actions'],
+      :host(:hover) slot[name='actions'] {
+        opacity: 1;
+      }
+
       #avatar {
         margin: var(--uui-size-3);
       }
@@ -54,9 +71,12 @@ export class UUIUserCardElement extends UUICardElement {
         margin: 0 0 3px 0;
       }
 
+      :host([disabled]) #open-part {
+        pointer-events: none;
+      }
+
       #open-part > span {
         vertical-align: center;
-        margin-left: 0.5em;
         margin-top: 3px;
       }
 
@@ -67,23 +87,27 @@ export class UUIUserCardElement extends UUICardElement {
     `,
   ];
 
+  /**
+   * User name
+   * @type {string}
+   * @attr name
+   * @default ''
+   */
   @property({ type: String })
   name = '';
 
   public render() {
     return html`
       <slot name="tag"></slot>
+      <slot name="actions"></slot>
       <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
-        tabindex="0"
+        tabindex=${this.disabled ? '-1' : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         <span> ${this.name} </span>
       </div>
-      <!-- Select border must be right after .open-part -->
-      <div id="select-border"></div>
-
       <slot></slot>
     `;
   }

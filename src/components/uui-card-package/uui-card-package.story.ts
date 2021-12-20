@@ -3,9 +3,9 @@ import './index';
 
 export default {
   title: 'Displays/Card/Package Card',
-  component: 'uui-package-card',
+  component: 'uui-card-package',
 };
 
 export const Default = () => html`
-  <uui-package-card selectable> </uui-package-card>
+  <uui-card-package selectable> </uui-card-package>
 `;

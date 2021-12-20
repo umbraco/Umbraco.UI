@@ -1,15 +1,15 @@
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUICardElement } from '../uui-card/uui-card.element';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
- *  @element uui-media-card
- *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
+ *  @element uui-card-media
+ *  @fires {UUICardEvent} open - fires when the media card title is clicked
+ *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a media item.
- *  @slot - for image element
  */
 
-export class UUIMediaCardElement extends UUICardElement {
+export class UUICardMediaElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
@@ -20,7 +20,29 @@ export class UUIMediaCardElement extends UUICardElement {
         width: 80%;
       }
 
-      /* TODO: slot for tag */
+      slot[name='tag'] {
+        position: absolute;
+        top: var(--uui-size-4);
+        right: var(--uui-size-4);
+        display: flex;
+        justify-content: right;
+      }
+
+      slot[name='actions'] {
+        position: absolute;
+        top: var(--uui-size-4);
+        right: var(--uui-size-4);
+        display: flex;
+        justify-content: right;
+
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      :host(:focus) slot[name='actions'],
+      :host(:focus-within) slot[name='actions'],
+      :host(:hover) slot[name='actions'] {
+        opacity: 1;
+      }
 
       slot:not([name])::slotted(*) {
         align-self: center;
@@ -35,7 +57,7 @@ export class UUIMediaCardElement extends UUICardElement {
         bottom: 0;
         width: 100%;
         background-color: var(--uui-color-white);
-        color: var(--uui-color-black, #0000);
+        color: var(--uui-color-black);
         border: none;
         cursor: pointer;
         border-top: 1px solid rgba(0, 0, 0, 0.04);
@@ -49,8 +71,11 @@ export class UUIMediaCardElement extends UUICardElement {
         padding: var(--uui-size-2) var(--uui-size-4);
       }
 
-      #open-part:hover,
-      #open-part:focus {
+      :host([disabled]) #open-part {
+        pointer-events: none;
+      }
+
+      #open-part:hover {
         text-decoration: underline;
         color: var(--uui-interface-contrast-hover);
       }
@@ -67,17 +92,31 @@ export class UUIMediaCardElement extends UUICardElement {
         transition-delay: 0s;
       }
 
+      /*
       #info-icon {
         margin-right: var(--uui-size-2);
         display: flex;
         height: var(--uui-size-8);
       }
+      */
     `,
   ];
 
+  /**
+   * Media name
+   * @type {string}
+   * @attr name
+   * @default ''
+   */
   @property({ type: String })
   name = '';
 
+  /**
+   * Media file extension, without "."
+   * @type {string}
+   * @attr file-ext
+   * @default ''
+   */
   @property({ type: String, attribute: 'file-ext' })
   fileExt = '';
 
@@ -90,32 +129,38 @@ export class UUIMediaCardElement extends UUICardElement {
         .length > 0;
   }
 
-  // @ts-ignore TODO: fix typescript error
   protected renderMedia() {
     if (this.hasPreview === false) {
       if (this.fileExt === '') {
-        return html`<uui-folder-symbol id="folder-symbol"></uui-folder-symbol>`;
+        return html`<uui-symbol-folder id="folder-symbol"></uui-symbol-folder>`;
       } else {
-        return html`<uui-file-symbol
+        return html`<uui-symbol-file
           id="file-symbol"
-          type="txt"></uui-file-symbol>`;
+          type="${this.fileExt}"></uui-symbol-file>`;
       }
     }
+    return '';
   }
 
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
       <button
         id="open-part"
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
+        <!--
+        TODO: Implement when pop-out is ready
         <uui-icon
           id="info-icon"
           name="info"
-          style="color: currentColor"></uui-icon
-        ><span> ${this.name} </span>
+          style="color: currentColor">
+        </uui-icon>
+        -->
+        <span>${this.name}</span>
       </button>
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>`;

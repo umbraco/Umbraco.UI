@@ -34,6 +34,8 @@ export class UUITagElement extends LitElement {
         align-items: center;
       }
 
+      /** TODO: Revisit size options: */
+
       :host([size='xs']) {
         --uui-tag-font-size: 10px;
       }

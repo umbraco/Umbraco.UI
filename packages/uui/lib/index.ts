@@ -5,6 +5,10 @@ import '@umbraco-ui/uui-box/lib/index';
 import '@umbraco-ui/uui-breadcrumbs/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-button-group/lib/index';
+// import '@umbraco-ui/uui-card/lib/index'; // TODO: We need to solve exports
+import '@umbraco-ui/uui-card-content-node/lib/index';
+import '@umbraco-ui/uui-card-media/lib/index';
+import '@umbraco-ui/uui-card-user/lib/index';
 import '@umbraco-ui/uui-checkbox/lib/index';
 import '@umbraco-ui/uui-input/lib/index';
 import '@umbraco-ui/uui-keyboard-shortcut/lib/index';

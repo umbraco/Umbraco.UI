@@ -2,15 +2,15 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 export default {
-  id: 'uui-ref',
-  title: 'Displays/References/Ref',
-  component: 'uui-ref',
+  id: 'uui-card',
+  title: 'Displays/Cards/Card',
+  component: 'uui-card',
 };
 
 const Template: Story = () => html`
   <p>
-    Ref is a Component that provides the basics for a Ref component. This can be
-    extended in code to match a certain need.
+    Card is a Component that provides the basics for a Card component. This can
+    be extended in code to match a certain need.
   </p>
 `;
 
@@ -20,9 +20,9 @@ AAAOverview.parameters = {
   docs: {
     source: {
       code: `
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element;
+import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element;
 
-class MyRefElement extends UUIRefElement {}
+class MyCardElement extends UUICardElement {}
     `,
       language: 'js',
     },

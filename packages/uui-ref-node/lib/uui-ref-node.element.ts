@@ -4,7 +4,9 @@ import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
 
 /**
  *  @element uui-ref-node
- *  @fires {UUIRefEvent} click-title - fires when the ref title is clicked
+ *  @fires {UUIRefEvent} open - fires when the ref title is clicked
+ *  @fires {UUIRefEvent} selected - fires when the ref is selected
+ *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
  *  @description - Component for displaying a reference to a generic node.
  *  @slot - for content
  *  @slot icon - for an icon

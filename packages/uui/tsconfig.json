@@ -38,6 +38,18 @@
       "path": "../uui-caret"
     },
     {
+      "path": "../uui-card"
+    },
+    {
+      "path": "../uui-card-content-node"
+    },
+    {
+      "path": "../uui-card-media"
+    },
+    {
+      "path": "../uui-card-user"
+    },
+    {
       "path": "../uui-checkbox"
     },
     {
