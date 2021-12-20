@@ -1,10 +1,4 @@
-import {
-  html,
-  fixture,
-  expect,
-  waitUntil,
-  elementUpdated,
-} from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIPaginationElement } from './uui-pagination.element';
 import '.';
 
@@ -31,17 +25,14 @@ describe('UUIPaginationElement', () => {
   // });
 
   it('sets active class on current page', async () => {
-    await waitUntil(() => element.visiblePages.length > 1);
     element.current = 2;
+    await elementUpdated(element);
     const button = element.shadowRoot?.querySelector('#group')!
       .children[3] as HTMLElement;
-    await elementUpdated(button);
-
     expect(button).to.have.class('active-button');
   });
 
   it('goes to selected page on click', async () => {
-    await waitUntil(() => element.visiblePages.length > 1);
     const button = element.shadowRoot?.querySelector('#group')!
       .children[3] as HTMLElement;
     button.click();
@@ -53,8 +44,9 @@ describe('UUIPaginationElement', () => {
   });
 
   it('goes to previous page on click', async () => {
-    await waitUntil(() => element.visiblePages.length > 1);
     element.current = 2;
+    await elementUpdated(element);
+
     const buttons = element.shadowRoot?.querySelector('#group')!.children;
     const prevButton = buttons![1] as HTMLElement;
     const activeButton = buttons![2] as HTMLElement;
@@ -67,21 +59,19 @@ describe('UUIPaginationElement', () => {
   });
 
   it('goes to next page on click', async () => {
-    await waitUntil(() => element.visiblePages.length > 1);
     element.current = 2;
+    await elementUpdated(element);
+
     const buttons = element.shadowRoot?.querySelector('#group')?.children;
     const nextButton = buttons![6] as HTMLElement;
     const activeButton = buttons![3] as HTMLElement;
     nextButton.click();
-
-    await elementUpdated(element);
 
     expect(element.current).to.equal(3);
     expect(activeButton).to.have.class('active-button');
   });
 
   it('goes to last page on click  and disables last and next buttons', async () => {
-    await waitUntil(() => element.visiblePages.length > 1);
     let buttons = element.shadowRoot?.querySelector('#group')?.children;
     const lastButton = buttons![7] as HTMLElement;
     const nextButton = buttons![6] as HTMLElement;
@@ -99,16 +89,16 @@ describe('UUIPaginationElement', () => {
   });
 
   it('goes to first page on click and disables first and previous buttons', async () => {
-    await waitUntil(() => element.visiblePages.length > 1);
     element.current = 3;
+    await elementUpdated(element);
+
     const buttons = element.shadowRoot?.querySelector('#group')?.children;
     const firstButton = buttons![0] as HTMLElement;
     const previousButton = buttons![1] as HTMLElement;
-    const activeButton = buttons![2] as HTMLElement;
     firstButton.click();
-
     await elementUpdated(element);
 
+    const activeButton = buttons![2] as HTMLElement;
     expect(element.current).to.equal(1);
     expect(activeButton).to.have.class('active-button');
     expect(firstButton).to.have.attribute('disabled');
