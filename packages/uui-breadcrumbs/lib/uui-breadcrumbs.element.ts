@@ -1,5 +1,4 @@
 import { css, html, LitElement } from 'lit';
-import { queryAssignedNodes } from 'lit/decorators.js';
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
 /**
@@ -26,28 +25,27 @@ export class UUIBreadcrumbsElement extends LitElement {
     `,
   ];
 
-  @queryAssignedNodes(undefined, true, 'uui-breadcrumb-item')
-  _breadcrumbs?: UUIBreadcrumbItemElement[];
-
-  private _setLastItem() {
-    if (this._breadcrumbs) {
-      this._breadcrumbs[this._breadcrumbs.length - 1].lastItem = true;
-      this._breadcrumbs[this._breadcrumbs.length - 1].setAttribute(
-        'aria-current',
-        'page'
-      );
-    }
-  }
-
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('aria-label', 'breadcrumb');
     this.setAttribute('role', 'navigation');
   }
 
+  handleSlotChange() {
+    const breadcrumbNodes = this.querySelectorAll('uui-breadcrumb-item');
+    const breadcrumbs = Array.from(
+      breadcrumbNodes
+    ) as UUIBreadcrumbItemElement[];
+
+    if (breadcrumbs?.length > 0) {
+      breadcrumbs[breadcrumbs.length - 1].lastItem = true;
+      breadcrumbs[breadcrumbs.length - 1].setAttribute('aria-current', 'page');
+    }
+  }
+
   render() {
     return html`<ol id="breadcrumbs-list">
-      <slot @slotchange=${this._setLastItem}></slot>
+      <slot @slotchange=${this.handleSlotChange}></slot>
     </ol>`;
   }
 }

@@ -38,8 +38,13 @@ const generatePackageTSConfig = () => {
       const packageJSONData = JSON.parse(
         fs.readFileSync(packageJSONPath).toString()
       );
-      const { dependencies, devDependencies } = packageJSONData;
-      const allDependencies = { ...dependencies, ...devDependencies };
+      const { dependencies, devDependencies, peerDependencies } =
+        packageJSONData;
+      const allDependencies = {
+        ...dependencies,
+        ...devDependencies,
+        ...peerDependencies,
+      };
       const dependencyNames = Object.keys(allDependencies);
       const internalDependencies = dependencyNames.filter(name =>
         name.startsWith(packageNamespace)

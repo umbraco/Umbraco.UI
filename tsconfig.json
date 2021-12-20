@@ -21,6 +21,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "isolatedModules": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "resolveJsonModule": true
   }
 }
