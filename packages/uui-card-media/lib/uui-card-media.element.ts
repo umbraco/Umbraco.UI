@@ -92,11 +92,13 @@ export class UUICardMediaElement extends UUICardElement {
         transition-delay: 0s;
       }
 
+      /*
       #info-icon {
         margin-right: var(--uui-size-2);
         display: flex;
         height: var(--uui-size-8);
       }
+      */
     `,
   ];
 
@@ -150,11 +152,15 @@ export class UUICardMediaElement extends UUICardElement {
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
+        <!--
+        TODO: Implement when pop-out is ready
         <uui-icon
           id="info-icon"
           name="info"
-          style="color: currentColor"></uui-icon
-        ><span> ${this.name} </span>
+          style="color: currentColor">
+        </uui-icon>
+        -->
+        <span>${this.name}</span>
       </button>
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>`;
