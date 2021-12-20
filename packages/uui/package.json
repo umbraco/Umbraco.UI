@@ -72,7 +72,8 @@
     "@umbraco-ui/uui-tabs": "0.0.15",
     "@umbraco-ui/uui-tag": "0.0.15",
     "@umbraco-ui/uui-textarea": "0.0.1",
-    "@umbraco-ui/uui-toggle": "0.0.15"
+    "@umbraco-ui/uui-toggle": "0.0.15",
+    "@umbraco-ui/uui-pagination": "0.0.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
