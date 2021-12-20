@@ -89,7 +89,7 @@ export class UUICardUserElement extends UUICardElement {
 
   /**
    * User name
-   * @type {boolean}
+   * @type {string}
    * @attr name
    * @default ''
    */
