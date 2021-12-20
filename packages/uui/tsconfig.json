@@ -35,7 +35,7 @@
       "path": "../uui-button-group"
     },
     {
-      "path": "../uui-caret"
+      "path": "../uui-button-inline-create"
     },
     {
       "path": "../uui-card"
@@ -50,7 +50,16 @@
       "path": "../uui-card-user"
     },
     {
+      "path": "../uui-caret"
+    },
+    {
       "path": "../uui-checkbox"
+    },
+    {
+      "path": "../uui-css"
+    },
+    {
+      "path": "../uui-dialog"
     },
     {
       "path": "../uui-icon"
@@ -72,6 +81,9 @@
     },
     {
       "path": "../uui-menu-item"
+    },
+    {
+      "path": "../uui-pagination"
     },
     {
       "path": "../uui-radio"
@@ -138,9 +150,6 @@
     },
     {
       "path": "../uui-toggle"
-    },
-    {
-      "path": "../uui-pagination"
     }
   ]
 }
