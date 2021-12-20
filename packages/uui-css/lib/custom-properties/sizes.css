@@ -53,7 +53,7 @@
 
   /** Typography */
   --uui-type-default-size: var(--uui-size-5);
-  --uui-type-small-size: var(--uui-size-3);
+  --uui-type-small-size: var(--uui-size-4);
   --uui-type-h1-size: 66px; /*--uui-size-22*/
   --uui-type-h2-size: 42px; /*--uui-size-14*/
   --uui-type-h3-size: 30px; /*--uui-size-10*/

@@ -5,8 +5,9 @@ import { UUIRefEvent } from './UUIRefEvent';
 
 /**
  *  @element uui-ref
- *  @fires {UUIRefEvent} selected - fires when the ref is selected
  *  @fires {UUIRefEvent} open - fires when the ref is opened
+ *  @fires {UUIRefEvent} selected - fires when the ref is selected
+ *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
  *  @description - Base ref component to be extended by specific ref elements. Does not have a tag.
  */
 
@@ -186,8 +187,11 @@ export class UUIRefElement extends SelectableMixin(LitElement) {
     if (this.selectable === false) return;
 
     this.selected = !this.selected;
-    if (this.selected)
-      this.dispatchEvent(new UUIRefEvent(UUIRefEvent.SELECTED));
+    this.dispatchEvent(
+      new UUIRefEvent(
+        this.selected ? UUIRefEvent.SELECTED : UUIRefEvent.UNSELECTED
+      )
+    );
   }
 
   select() {

@@ -1,14 +1,14 @@
 import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUICardElement } from '../uui-card/uui-card.element';
+import { UUICardElement } from 'packages/uui-card/lib/uui-card.element';
 
 /**
- *  @element uui-package-card
+ *  @element uui-card-package
  *  @fires {UUICardEvent} click-title - fires when the media card title is clicked
  *  @description - Card component for displaying a package.
  */
 
-export class UUIPackageCardElement extends UUICardElement {
+export class UUICardPackageElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`

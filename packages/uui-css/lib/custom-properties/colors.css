@@ -52,6 +52,12 @@
   --uui-color-malibu-dark: color($malibu blackness(+ 8%));
   --uui-color-malibu-dimmed: color($malibu saturation(- 60%) blackness(+ 26%));
 
+  $outline-blue: #3879FF;
+  --uui-color-outline-blue: $outline-blue;
+  --uui-color-outline-blue-light: color($outline-blue lightness(+ 8%));
+  --uui-color-outline-blue-dark: color($outline-blue blackness(+ 8%));
+  --uui-color-outline-blue-dimmed: color($outline-blue saturation(- 60%) blackness(+ 26%));
+
   $maroon-flush: #D42054;
   --uui-color-maroon-flush: $maroon-flush;
   --uui-color-maroon-flush-light: color($maroon-flush lightness(+ 8%));
