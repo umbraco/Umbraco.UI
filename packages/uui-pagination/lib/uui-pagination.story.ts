@@ -20,20 +20,6 @@ export const AAAOverview: Story = () =>
   html` <uui-pagination .total=${100}></uui-pagination> `;
 AAAOverview.storyName = 'Overview';
 
-export const TwoPages: Story = () =>
-  html` <uui-pagination .total=${2}></uui-pagination> `;
-
-TwoPages.parameters = {
-  docs: {
-    source: {
-      code: `      
-      <uui-pagination total="2"></uui-pagination>`,
-    },
-  },
-};
-
-export const OnePage: Story = () => html` <uui-pagination></uui-pagination> `;
-
 export const Resize: Story = () => html`
   <h4>
     Resize the orange container to see how the number of pagination buttons
