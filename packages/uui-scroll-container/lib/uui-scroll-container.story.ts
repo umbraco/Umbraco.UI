@@ -6,13 +6,6 @@ export default {
   id: 'uui-scroll-container',
   title: 'Displays/Scroll Container',
   component: 'uui-scroll-container',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-scroll-container></uui-scroll-container>`,
-      },
-    },
-  },
 };
 
 export const Overview: Story = () =>
