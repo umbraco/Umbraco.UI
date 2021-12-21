@@ -38,8 +38,8 @@
   --uui-size-space-1: 3px; /*--uui-size-1*/
   --uui-size-space-2: 6px; /*--uui-size-2*/
   --uui-size-space-3: 12px; /*--uui-size-4*/
-  --uui-size-space-4: 15px; /*--uui-size-5*/
-  --uui-size-space-5: 21px; /*--uui-size-7*/
+  --uui-size-space-4: 18px; /*--uui-size-6*/
+  --uui-size-space-5: 24px; /*--uui-size-8*/
 
   --uui-size-layout-1: 24px; /*--uui-size-8*/
   --uui-size-layout-2: 30px; /*--uui-size-10*/
@@ -59,4 +59,5 @@
   --uui-type-h3-size: 30px; /*--uui-size-10*/
   --uui-type-h4-size: 21px;
   --uui-type-h5-size: var(--uui-type-default-size);
+  --uui-type-h6-size: var(--uui-type-small-size);
 }

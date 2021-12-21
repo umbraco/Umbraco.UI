@@ -16,7 +16,10 @@ export default {
   },
 };
 
-export const Overview: Story = () => html`<h2>CSS</h2>
+export const Overview: Story = () => html` <article
+  class="uui-root uui-text"
+  style="max-width:580px;">
+  <h2>CSS</h2>
   <p>
     UUI-CSS package contains css files which can be included in your project or
     components if needed.
@@ -27,12 +30,17 @@ export const Overview: Story = () => html`<h2>CSS</h2>
       properties in your project.
     </li>
     <li>
-      <b>uui-text.css</b> — use the .uui-text class if you like to declare
-      styles for typography, this is needed when using ex.: H1 in a Shadow DOM.
+      <b>uui-root.css</b> — use the .uui-root class if you like to declare the
+      Umbraco typography, this is needed for getting the Umbraco typography.
     </li>
     <li>
-      <b>uui-root.css</b> — Set the .uui-root class on the root of your
-      application that should be styled as Umbraco UI. This includes the other
-      stylesheets.
+      <b>uui-text.css</b> — use the .uui-text class if you like to declare
+      styles for typography, must be used together with .uui-root. This is
+      needed for having proper styling for H1, H2, P etc.
     </li>
-  </ul>`;
+    <li>
+      <b>uui-css.css</b>
+      This stylesheet includes all of the above stylesheets.
+    </li>
+  </ul>
+</article>`;
