@@ -61,6 +61,7 @@
     "@umbraco-ui/uui-ref-node-member": "0.0.0",
     "@umbraco-ui/uui-ref-node-package": "0.0.0",
     "@umbraco-ui/uui-ref-node-user": "0.0.0",
+    "@umbraco-ui/uui-scroll-container": "0.0.0",
     "@umbraco-ui/uui-select": "0.0.1",
     "@umbraco-ui/uui-slider": "0.0.15",
     "@umbraco-ui/uui-symbol-expand": "0.0.1",
