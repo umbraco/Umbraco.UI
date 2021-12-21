@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 
 /**
- *  @element uui-overflow-container
+ *  @element uui-scroll-container
  *  @slot - for content
  *  @description - Component for displaying a larger amount of .
  */
