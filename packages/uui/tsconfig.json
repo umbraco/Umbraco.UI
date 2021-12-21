@@ -104,6 +104,9 @@
       "path": "../uui-ref-node-user"
     },
     {
+      "path": "../uui-scroll-container"
+    },
+    {
       "path": "../uui-select"
     },
     {
