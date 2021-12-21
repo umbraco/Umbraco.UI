@@ -5,7 +5,7 @@ export default {
 };
 
 export const Layout = () => html`
-  <article class="uui-root uui-text" style="max-width:580px;">
+  <article style="max-width:580px;">
     <div
       style="display:block; border-bottom: 1px solid var(--uui-color-cocoa-black); padding-top: var(--uui-size-layout-5); margin-bottom:var(--uui-size-layout-3); padding-bottom:var(--uui-size-layout-1);">
       <h1>Layout Style Guide</h1>
@@ -74,7 +74,7 @@ export const Layout = () => html`
 `;
 
 export const Typography = () => html`
-  <article class="uui-root uui-text" style="max-width:580px;">
+  <article style="max-width:580px;">
     <div
       style="display:block; border-bottom: 1px solid var(--uui-color-cocoa-black); padding-top: var(--uui-size-layout-5); margin-bottom:var(--uui-size-layout-3); padding-bottom:var(--uui-size-layout-1);">
       <h1>Typography Style Guide</h1>

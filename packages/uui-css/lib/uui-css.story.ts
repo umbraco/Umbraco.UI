@@ -16,9 +16,7 @@ export default {
   },
 };
 
-export const Overview: Story = () => html` <article
-  class="uui-root uui-text"
-  style="max-width:580px;">
+export const Overview: Story = () => html` <article style="max-width:580px;">
   <h2>CSS</h2>
   <p>
     UUI-CSS package contains css files which can be included in your project or
