@@ -27,11 +27,12 @@ export const Overview: Story = () => html`<h2>CSS</h2>
       properties in your project.
     </li>
     <li>
-      <b>local-typography.css</b> — use this if you like to declare styles for
-      typography, this is needed when using ex.: H1 in a Shadow DOM.
+      <b>uui-text.css</b> — use the .uui-text class if you like to declare
+      styles for typography, this is needed when using ex.: H1 in a Shadow DOM.
     </li>
     <li>
-      <b>root.css</b> — If you like your project to be styled for Umbraco UI,
-      then include this in the root of your project.
+      <b>uui-root.css</b> — Set the .uui-root class on the root of your
+      application that should be styled as Umbraco UI. This includes the other
+      stylesheets.
     </li>
   </ul>`;
