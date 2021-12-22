@@ -51,6 +51,7 @@
     "@umbraco-ui/uui-loader-bar": "0.0.16",
     "@umbraco-ui/uui-loader-circle": "0.0.16",
     "@umbraco-ui/uui-menu-item": "0.0.2",
+    "@umbraco-ui/uui-progress-bar": "0.0.0",
     "@umbraco-ui/uui-radio": "0.0.16",
     "@umbraco-ui/uui-ref": "0.0.0",
     "@umbraco-ui/uui-ref-list": "0.0.0",
