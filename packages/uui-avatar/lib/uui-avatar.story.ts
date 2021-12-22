@@ -1,14 +1,15 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-avatar/lib/index';
+import { GetRandomUmbracoWordOfWordCount } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
   title: 'Displays/Avatar',
   id: 'uui-avatar',
   component: 'uui-avatar',
   args: {
-    title: 'First Last',
-    fontSize: 32,
+    title: GetRandomUmbracoWordOfWordCount(2),
+    fontSize: 12,
   },
   // argTypes: {
   //   'img-src': { table: { disable: true } },
@@ -47,7 +48,7 @@ AAAOverview.argTypes = {
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `<uui-avatar title="First Last"></uui-avatar>`,
+      code: `<uui-avatar title="Firstname Lastname"></uui-avatar>`,
     },
   },
 };
@@ -58,7 +59,7 @@ Picture.parameters = {
   controls: { include: ['imgSrc', 'imgSrcset', 'title'] },
   docs: {
     source: {
-      code: `<uui-avatar src="..."></uui-avatar>`,
+      code: `<uui-avatar src="..." title="Firstname Lastname"></uui-avatar>`,
     },
   },
 };
@@ -88,7 +89,26 @@ SlottedContent.parameters = {
   controls: { include: ['slot', 'overflow'] },
   docs: {
     source: {
-      code: `<uui-avatar>overflow</uui-avatar>`,
+      code: `<uui-avatar overflow title="overflow title">overflow content</uui-avatar>`,
+    },
+  },
+};
+
+export const InlineWithText = (props: any) => html`
+  <div>
+    Text
+    <uui-avatar
+      title="Hello world"
+      style="background-color: ${props.backgroundColor}; color: ${props.color}"
+      >${props.slot}</uui-avatar
+    >
+    around
+  </div>
+`;
+InlineWithText.parameters = {
+  docs: {
+    source: {
+      code: `Text <uui-avatar title="Hello world">overflow</uui-avatar> around`,
     },
   },
 };

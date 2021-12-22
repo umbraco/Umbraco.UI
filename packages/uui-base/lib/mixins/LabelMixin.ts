@@ -31,7 +31,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     connectedCallback() {
       super.connectedCallback();
       if (!this.label) {
-        console.warn(this.tagName + ' needs a `label`');
+        console.warn(this.tagName + ' needs a `label`', this);
       }
     }
 
