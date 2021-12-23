@@ -53,7 +53,7 @@ export class UUIPaginationElement extends LitElement {
     `,
   ];
 
-  private observer = new ResizeObserver(this.calculateRange.bind(this));
+  private _observer = new ResizeObserver(this._calculateRange.bind(this));
 
   connectedCallback() {
     super.connectedCallback();
@@ -62,14 +62,14 @@ export class UUIPaginationElement extends LitElement {
   }
 
   disconnectedCallback() {
-    this.observer.disconnect();
+    this._observer.disconnect();
   }
 
   firstUpdated() {
-    this.observer.observe(this._pagesGroup);
+    this._observer.observe(this._pagesGroup);
 
     this.updateLabel();
-    this.calculateRange();
+    this._calculateRange();
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
@@ -85,7 +85,7 @@ export class UUIPaginationElement extends LitElement {
     }.`;
   }
 
-  private calculateRange() {
+  private _calculateRange() {
     const containerWidth = this.offsetWidth;
 
     // get all the buttons with .nav-button class and sum up their widths
