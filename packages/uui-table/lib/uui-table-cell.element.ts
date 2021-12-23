@@ -12,13 +12,12 @@ export class UUITableCellElement extends LitElement {
       :host {
         display: table-cell;
         height: var(--uui-size-12);
-        padding: var(--uui-size-4) var(--uui-size-5);
+        padding: var(
+          --uui-table-cell-padding,
+          var(--uui-size-4) var(--uui-size-5)
+        );
         border-top: 1px solid var(--uui-interface-border);
         vertical-align: middle;
-      }
-
-      :host([no-padding]) {
-        padding: 0;
       }
 
       :host([overflow-ellipsis]) {

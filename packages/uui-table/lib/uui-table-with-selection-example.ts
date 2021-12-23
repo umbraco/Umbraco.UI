@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { customElement, state } from 'lit/decorators.js';
 import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-box/lib/index';
@@ -199,7 +200,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
 
   renderHeaderCellTemplate(column: TableColumn) {
     return html`
-      <uui-table-head-cell no-padding>
+      <uui-table-head-cell style="--uui-table-cell-padding: 0">
         <button
           style="padding: var(--uui-size-4) var(--uui-size-5);"
           @click="${() => this._sortingHandler(column)}">
@@ -213,7 +214,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
     `;
   }
 
-  renderRowTemplate(item: TableItem) {
+  protected renderRowTemplate = (item: TableItem) => {
     return html` <uui-table-row
       ?selectable="${this._selectionMode === true}"
       ?selected="${this._isSelected(item.key)}">
@@ -235,7 +236,8 @@ export class UUITableWithSelectionExampleElement extends LitElement {
           style="margin-top: 12px; display: block;"
           progress="${item.progress * 25}">
         </uui-progress-bar>
-        <small style="margin-top: 1px; text-align: right; display:block;">
+        <small
+          style="margin-top: 1px; text-align: right; display:block; margin-bottom:0;">
           Completed ${item.progress} of 4 steps
         </small>
       </uui-table-cell>
@@ -247,7 +249,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         >
       </uui-table-cell>
     </uui-table-row>`;
-  }
+  };
 
   render() {
     return html`
@@ -259,8 +261,9 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         <uui-table-column style="width: 60px;"></uui-table-column>
 
         <uui-table-head>
-          <uui-table-head-cell>
+          <uui-table-head-cell style="--uui-table-cell-padding: 0">
             <uui-checkbox
+              style="padding: var(--uui-size-4) var(--uui-size-5);"
               @change="${this._selectAllHandler}"
               ?checked="${this._selection.length ===
               this._items.length}"></uui-checkbox>
@@ -268,7 +271,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
           ${this._columns.map(column => this.renderHeaderCellTemplate(column))}
         </uui-table-head>
 
-        ${this._items.map(item => this.renderRowTemplate(item))}
+        ${repeat(this._items, item => item.key, this.renderRowTemplate)}
       </uui-table>
 
       ${this._selection.map(key => html`<div>${key}</div>`)}
