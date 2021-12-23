@@ -1,4 +1,5 @@
 import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  *  Table cell that detects if it has overflow and if so it'll add a title attribute to itself to display full text. Must be a child of uui-table-row
@@ -12,15 +13,31 @@ export class UUITableCellElement extends LitElement {
         display: table-cell;
         padding: var(--uui-size-4) var(--uui-size-5);
         border-top: 1px solid var(--uui-interface-border);
+        vertical-align: middle;
+      }
+
+      :host([overflow-ellipsis]) {
         max-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         box-sizing: border-box;
-        vertical-align: middle;
       }
     `,
   ];
+
+  /**
+   * Some description here
+   * @type {number}
+   * @attr
+   * @default 0
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'overflow-ellipsis' })
+  overflowEllipsis = false;
+
+  private _observer = new ResizeObserver(() => {
+    this._detectOverflow();
+  });
 
   private _detectOverflow() {
     if (this.scrollWidth > this.clientWidth) {
@@ -30,22 +47,27 @@ export class UUITableCellElement extends LitElement {
     }
   }
 
-  private onResize = () => {
-    this._detectOverflow();
-  };
-
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('resize', this.onResize);
     this.setAttribute('role', 'cell');
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this.onResize);
+    this._observer.disconnect();
+  }
+
+  updated(changedProperties: any) {
+    if (changedProperties.has('overflowEllipsis')) {
+      if (this.overflowEllipsis) {
+        this._observer.observe(this);
+      } else {
+        this._observer.disconnect();
+      }
+    }
   }
 
   render() {
-    return html` <slot @slotchange=${this._detectOverflow}></slot> `;
+    return html` <slot @slotchange=${this._detectOverflow}></slot>`;
   }
 }
