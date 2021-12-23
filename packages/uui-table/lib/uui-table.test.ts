@@ -40,12 +40,14 @@ describe('UuiTable', () => {
     expect(slot).to.exist;
   });
 
-  it('CELL: detects overflow', () => {
+  it('CELL: detects overflow', async () => {
     const slot = table.shadowRoot!.querySelector('slot');
     const row = slot?.assignedElements()[5] as UUITableRowElement;
     const cell = row
       .shadowRoot!.querySelector('slot')
       ?.assignedElements()[2] as UUITableCellElement;
+    cell.setAttribute('overflow-ellipsis', 'true');
+    await elementUpdated(cell);
     expect(cell.title).to.equal('Hello 3');
   });
 

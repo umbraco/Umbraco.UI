@@ -60,6 +60,7 @@ export class UUITableCellElement extends LitElement {
   updated(changedProperties: any) {
     if (changedProperties.has('overflowEllipsis')) {
       if (this.overflowEllipsis) {
+        this._detectOverflow();
         this._observer.observe(this);
       } else {
         this._observer.disconnect();
