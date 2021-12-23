@@ -11,9 +11,14 @@ export class UUITableCellElement extends LitElement {
     css`
       :host {
         display: table-cell;
+        height: var(--uui-size-12);
         padding: var(--uui-size-4) var(--uui-size-5);
         border-top: 1px solid var(--uui-interface-border);
         vertical-align: middle;
+      }
+
+      :host([no-padding]) {
+        padding: 0;
       }
 
       :host([overflow-ellipsis]) {
@@ -27,8 +32,14 @@ export class UUITableCellElement extends LitElement {
   ];
 
   /**
-   * Some description here
-   * @type {number}
+   * Remove padding in order to have element going to the edge of the cell.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'no-padding' })
+  noPadding = false;
+
   /**
    * Enable overflow ellipsis
    * @type {boolean}

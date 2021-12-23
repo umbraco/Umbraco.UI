@@ -199,8 +199,10 @@ export class UUITableWithSelectionExampleElement extends LitElement {
 
   renderHeaderCellTemplate(column: TableColumn) {
     return html`
-      <uui-table-head-cell>
-        <button @click="${() => this._sortingHandler(column)}">
+      <uui-table-head-cell no-padding>
+        <button
+          style="padding: var(--uui-size-4) var(--uui-size-5);"
+          @click="${() => this._sortingHandler(column)}">
           ${column.name}
           <uui-symbol-sort
             ?active=${this._sortingColumn === column.name}
