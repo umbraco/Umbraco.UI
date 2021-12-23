@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUITableRowEvent } from './UUITableRowEvent';
 
 /**
  *  Table row element with option to set is as selectable. Parent for uui-table-cell. Must be a child of uui-table.
@@ -27,7 +28,7 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
 
   constructor() {
     super();
-    this.addEventListener('click', this.toggleSelect);
+    this.addEventListener('click', this._toggleSelect);
   }
 
   connectedCallback() {
@@ -35,13 +36,15 @@ export class UUITableRowElement extends SelectableMixin(LitElement) {
     this.setAttribute('role', 'row');
   }
 
-  /**
-   *  Toggles row selection
-   * @method
-   */
-  protected toggleSelect() {
+  private _toggleSelect() {
     if (this.selectable === false) return;
     this.selected = !this.selected;
+
+    this.dispatchEvent(
+      new UUITableRowEvent(
+        this.selected ? UUITableRowEvent.SELECTED : UUITableRowEvent.UNSELECTED
+      )
+    );
   }
 
   render() {
