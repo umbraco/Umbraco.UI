@@ -10,6 +10,11 @@ export default {
   title: 'Displays/Badge',
   component: 'uui-badge',
   id: 'uui-badge',
+  args: {
+    look: 'primary',
+    slot: '1',
+    attention: false,
+  },
   argTypes: {
     look: {
       options: [
@@ -28,13 +33,16 @@ export default {
 
 const Template: Story = props => html` <div
   style="position:relative; width:80px; height:80px; border: 2px dashed black;">
-  <uui-badge .look=${props.look}>${props.slot}</uui-badge>
+  <uui-badge .look=${props.look} ?attention=${props.attention}
+    >${props.slot}</uui-badge
+  >
 </div>`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
-  look: 'danger',
-  slot: '!',
+  look: 'primary',
+  slot: '1',
+  attention: false,
 };
 AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
@@ -42,11 +50,18 @@ AAAOverview.parameters = {
     source: {
       code: `
 <div style="position:relative;">
-  <uui-badge>!</uui-badge>
+  <uui-badge>1</uui-badge>
 </div>
     `,
     },
   },
+};
+
+export const WithAttention = Template.bind({});
+WithAttention.args = {
+  look: 'danger',
+  slot: '!',
+  attention: true,
 };
 
 export const WithText = Template.bind({});
@@ -58,19 +73,17 @@ WithText.parameters = {
   docs: {
     source: {
       code: `
-<div style="position:relative;">
   <uui-badge look="positive">Published</uui-badge>
-</div>
     `,
     },
   },
 };
 
-// TODO: Uncomment when we fix the icon package.
-// export const WithIcon = () => html` <div
-//   style="position:relative; width:20px; height:10px;">
-//   <uui-badge look="secondary"><uui-icon name="info"></uui-icon></uui-badge>
-// </div>`;
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  look: 'positive',
+  slot: html`<uui-icon name="info"></uui-icon>`,
+};
 
 export const OnButton: Story = props => html` <uui-button look="outline">
   Button label
@@ -94,15 +107,13 @@ OnButton.parameters = {
 };
 
 export const Looks: Story = props => html`
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-bottom: 16px">
-    <uui-badge .look=${props.look}>${props.slot}</uui-badge>
-  </div>
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
       html`<div
         style="position:relative; display:inline-block; width:10px; height:10px; margin-right: 16px;">
-        <uui-badge .look=${lookName}> 1 </uui-badge>
+        <uui-badge .look=${lookName} ?attention=${props.attention}
+          >${props.slot}</uui-badge
+        >
       </div>`
   )}
 `;
