@@ -6,30 +6,32 @@ import {
 } from '@umbraco-ui/uui-base/lib/types';
 
 /**
- *  Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
+ *
  *  @element uui-tag
+ *  @description Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
  *  @slot - for tag contents
+ *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
  */
 export class UUITagElement extends LitElement {
   static styles = [
     css`
       :host {
         display: inline-block;
-        font-family: inherit;
+        font-size: var(--uui-tag-font-size, var(--uui-type-small-size));
         font-weight: 700;
-        line-height: 1.1; /* should have have another line height, lets check with multiple line tag. */
-        /*font-size: var(--uui-tag-font-size, 0.9em);*/
-        padding: 0.5em 1em;
-        border-radius: 1000px;
+        line-height: 1;
+        padding: var(--uui-size-space-1) calc(var(--uui-size-space-1) + 0.5em);
+        border-radius: 100px;
         background-color: var(--uui-interface-surface-alt);
         color: var(--uui-interface-contrast);
         user-select: none;
-        transition: background-color 120ms, color 120ms;
       }
 
       slot {
         display: flex;
         align-items: center;
+        justify-content: center;
+        margin: 2px;
       }
 
       /* Looks */
