@@ -103,6 +103,10 @@ export class UUITableWithSelectionExampleElement extends LitElement {
     this._items = column.sort(this._items, this._sortingDesc);
   }
 
+  private _isSelected(key: string) {
+    return this._selection.includes(key);
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -208,12 +212,14 @@ export class UUITableWithSelectionExampleElement extends LitElement {
   }
 
   renderRowTemplate(item: TableItem) {
-    return html` <uui-table-row ?selectable="${this._selectionMode === true}">
+    return html` <uui-table-row
+      ?selectable="${this._selectionMode === true}"
+      ?selected="${this._isSelected(item.key)}">
       <uui-table-cell>
         <uui-icon name="wand" style="font-size: 20px;"></uui-icon>
         <uui-checkbox
           @change=${(event: Event) => this._selectHandler(event, item)}
-          ?checked="${this._selection.includes(item.key)}"></uui-checkbox>
+          ?checked="${this._isSelected(item.key)}"></uui-checkbox>
       </uui-table-cell>
       <uui-table-cell>
         <div style="display: flex; align-items: center;">
