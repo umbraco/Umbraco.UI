@@ -29,8 +29,11 @@ export class UUITableCellElement extends LitElement {
   /**
    * Some description here
    * @type {number}
+  /**
+   * Enable overflow ellipsis
+   * @type {boolean}
    * @attr
-   * @default 0
+   * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'overflow-ellipsis' })
   overflowEllipsis = false;
