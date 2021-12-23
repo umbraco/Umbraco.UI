@@ -5,7 +5,7 @@ import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-box/lib/index';
 
 export default {
-  title: 'Misc/Table',
+  title: 'Layout/Table',
   component: 'uui-table',
   id: 'uui-table',
 };

@@ -1,4 +1,4 @@
-import { html } from 'lit-element';
+import { html } from 'lit';
 import '@umbraco-ui/uui-badge/lib/index';
 import {
   InterfaceLookNames,
@@ -7,7 +7,7 @@ import {
 import { Story } from '@storybook/web-components';
 
 export default {
-  title: 'Misc/Badge',
+  title: 'Displays/Badge',
   component: 'uui-badge',
   id: 'uui-badge',
   argTypes: {
@@ -40,7 +40,7 @@ AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: ` 
+      code: `
 <div style="position:relative;">
   <uui-badge>!</uui-badge>
 </div>

@@ -4,7 +4,7 @@ import { Story } from '@storybook/web-components';
 import '@umbraco-ui/uui-tag/lib/index';
 
 export default {
-  title: 'Misc/Tag',
+  title: 'Displays/Tag',
   component: 'uui-tag',
   id: 'uui-tag',
   args: {

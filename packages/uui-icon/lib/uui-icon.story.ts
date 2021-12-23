@@ -6,7 +6,7 @@ import { UUIIconRegistryEvent } from './UUIIconRegistryEvent';
 
 export default {
   id: 'uui-icon',
-  title: 'Basics/Icon',
+  title: 'Symbols/Icon',
   component: 'uui-icon',
   parameters: {
     docs: {
