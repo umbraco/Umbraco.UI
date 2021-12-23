@@ -233,9 +233,9 @@ export class UUITableWithSelectionExampleElement extends LitElement {
           style="margin-top: 12px; display: block;"
           progress="${item.progress * 25}">
         </uui-progress-bar>
-        <div style="margin-top: 3px; font-size: 13px; text-align: right;">
+        <small style="margin-top: 1px; text-align: right; display:block;">
           Completed ${item.progress} of 4 steps
-        </div>
+        </small>
       </uui-table-cell>
       <uui-table-cell>${item.signUpDate}</uui-table-cell>
       <uui-table-cell>${item.email}</uui-table-cell>
