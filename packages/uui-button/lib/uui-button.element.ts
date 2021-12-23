@@ -53,8 +53,12 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         --uui-button-padding-right-factor: 1;
       }
 
+      .label {
+        display: block;
+        transition: opacity 120ms;
+      }
       :host([state]:not([state=''])) .label {
-        visibility: hidden;
+        opacity: 0;
       }
 
       #state {
@@ -62,11 +66,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         transform: translate(-50%, -50%);
         top: 50%;
         left: 50%;
-        animation-name: fadeIn;
-        animation-delay: 50ms;
-        animation-duration: 500ms;
-        animation-fill-mode: forwards;
         opacity: 0;
+        animation-name: fadeIn;
+        animation-delay: 40ms;
+        animation-duration: 360ms;
+        animation-fill-mode: forwards;
       }
 
       button {
@@ -401,10 +405,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
-    this.addEventListener('click', this.onHostClick);
+    this.addEventListener('click', this._onHostClick);
   }
 
-  private onHostClick(e: MouseEvent) {
+  private _onHostClick(e: MouseEvent) {
     if (this.disabled) {
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -449,7 +453,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     }
   }
 
-  private renderState() {
+  protected renderState() {
     let element = html``;
     switch (this.state) {
       case 'waiting':
