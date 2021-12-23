@@ -28,7 +28,6 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     get selectable() {
       return this._selectable;
     }
-
     set selectable(newVal) {
       const oldVal = this._selectable;
       this._selectable = newVal;

@@ -58,7 +58,7 @@ export class UUIPaginationElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'navigation');
-    this.visiblePages = this._generateVisiblePages(this.current);
+    this._visiblePages = this._generateVisiblePages(this.current);
   }
 
   disconnectedCallback() {
@@ -66,7 +66,7 @@ export class UUIPaginationElement extends LitElement {
   }
 
   firstUpdated() {
-    this.observer.observe(this.buttonGroup);
+    this.observer.observe(this._pagesGroup);
 
     this.updateLabel();
     this.calculateRange();
@@ -89,7 +89,7 @@ export class UUIPaginationElement extends LitElement {
     const containerWidth = this.offsetWidth;
 
     // get all the buttons with .nav-button class and sum up their widths
-    const navButtonsWidth = Array.from(this.navButtons).reduce(
+    const navButtonsWidth = Array.from(this._navButtons).reduce(
       (totalWidth, button) => {
         return totalWidth + button.getBoundingClientRect().width;
       },
@@ -102,7 +102,8 @@ export class UUIPaginationElement extends LitElement {
     // divide remaining width by max-width of page button (when it has 3 digits), then divide by 2 to get the range.
     // Range is number of buttons visible on either "side" of current pag button. So, if range === 5 we shall see 11 buttons in total - 5 before the current page and 5 after. This is why we divide by 2.
     const range = rangeBaseWidth / PAGE_BUTTON_MAX_WIDTH / 2;
-    this.range = Math.floor(range);
+    this._range = Math.max(1, Math.floor(range));
+    this._visiblePages = this._generateVisiblePages(this.current);
   }
 
   private _generateVisiblePages(current: number) {
@@ -129,10 +130,10 @@ export class UUIPaginationElement extends LitElement {
   }
 
   @queryAll('uui-button.nav')
-  private navButtons!: Array<UUIButtonElement>;
+  private _navButtons!: Array<UUIButtonElement>;
 
-  @query('#group')
-  private buttonGroup!: any;
+  @query('#pages')
+  private _pagesGroup!: any;
 
   /**
    * This property is used to generate a proper `aria-label`. It will be announced by screen reader as: "<<this.label>>. Current page: <<this.current>>"
@@ -160,21 +161,11 @@ export class UUIPaginationElement extends LitElement {
   @property({ type: Number })
   total = 1;
 
+  @state()
   private _range = 0;
-  @state()
-  get range() {
-    return this._range;
-  }
-
-  set range(newValue: number) {
-    const oldValue = this._range;
-    this._range = newValue <= 0 ? 1 : newValue;
-    this.visiblePages = this._generateVisiblePages(this.current);
-    this.requestUpdate('range', oldValue);
-  }
 
   @state()
-  private visiblePages: number[] = [];
+  private _visiblePages: number[] = [];
 
   private _current = 1;
 
@@ -190,7 +181,7 @@ export class UUIPaginationElement extends LitElement {
   set current(newValue: number) {
     const oldValue = this._current;
     this._current = limit(newValue, 1, this.total);
-    this.visiblePages = this._generateVisiblePages(this._current);
+    this._visiblePages = this._generateVisiblePages(this._current);
     this.requestUpdate('current', oldValue);
   }
 
@@ -313,11 +304,11 @@ export class UUIPaginationElement extends LitElement {
 
   protected renderNavigationLeft() {
     return html` ${this.renderFirst()} ${this.renderPrevious()}
-    ${this.visiblePages.includes(1) ? '' : this.renderDots()}`;
+    ${this._visiblePages.includes(1) ? '' : this.renderDots()}`;
   }
 
   protected renderNavigationRight() {
-    return html`${this.visiblePages.includes(this.total)
+    return html`${this._visiblePages.includes(this.total)
       ? ''
       : this.renderDots()}
     ${this.renderNext()} ${this.renderLast()}`;
@@ -325,9 +316,9 @@ export class UUIPaginationElement extends LitElement {
 
   render() {
     // prettier-ignore
-    return html`<uui-button-group role="list" id="group">
+    return html`<uui-button-group role="list" id="pages">
       ${this.renderNavigationLeft()}
-      ${this.visiblePages.map(
+      ${this._visiblePages.map(
         page =>
           this.renderPage(page)
       )}
