@@ -149,7 +149,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       }
 
       #loader {
-        font-size: 20px;
+        font-size: 1.5em;
       }
 
       /* ANIMATIONS */
