@@ -78,7 +78,7 @@ export class UUIPaginationElement extends LitElement {
     }
   }
 
-  updateLabel() {
+  protected updateLabel() {
     // TODO: make translatable:
     this.ariaLabel = `${this.label || 'Pagination navigation'}. Current page: ${
       this.current
@@ -152,14 +152,15 @@ export class UUIPaginationElement extends LitElement {
   ariaLabel = '';
 
   /**
-   * With this property You can set how many buttons the pagination should have. Mind that the number of visible buttons will change with the width of the container.
+   * Set the amount of pages to navigate.
    * @type {number}
    * @attr
+   * @default: 1
    */
   @property({ type: Number })
   total = 1;
 
-  protected _range = 0;
+  private _range = 0;
   @state()
   get range() {
     return this._range;
@@ -175,9 +176,10 @@ export class UUIPaginationElement extends LitElement {
   @state()
   private visiblePages: number[] = [];
 
-  protected _current = 1;
+  private _current = 1;
+
   /**
-   * This property says which page is currently shown.
+   * Define the current active page.
    * @type {number}
    * @attr
    */
@@ -185,7 +187,6 @@ export class UUIPaginationElement extends LitElement {
   get current() {
     return this._current;
   }
-
   set current(newValue: number) {
     const oldValue = this._current;
     this._current = limit(newValue, 1, this.total);
@@ -240,7 +241,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav"
       role="listitem"
       aria-label="Go to first page"
-      ?disabled=${this.current === 1}
+      ?disabled=${this._current === 1}
       @click=${() => this.goToPage(1)}>
       First
     </uui-button>`;
@@ -253,7 +254,7 @@ export class UUIPaginationElement extends LitElement {
       class="nav"
       role="listitem"
       aria-label="Go to previous page"
-      ?disabled=${this.current === 1}
+      ?disabled=${this._current === 1}
       @click=${this.goToPreviousPage}>
       Previous
     </uui-button>`;
@@ -266,7 +267,7 @@ export class UUIPaginationElement extends LitElement {
       role="listitem"
       class="nav"
       aria-label="Go to next page"
-      ?disabled=${this.current === this.total}
+      ?disabled=${this._current === this.total}
       @click=${this.goToNextPage}>
       Next
     </uui-button>`;
@@ -305,9 +306,9 @@ export class UUIPaginationElement extends LitElement {
         if (page === this._current) return;
         this.goToPage(page);
         this.focusActivePage();
-      }}
-      >${page}</uui-button
-    >`;
+      }}>
+      ${page}
+    </uui-button>`;
   }
 
   protected renderNavigationLeft() {
