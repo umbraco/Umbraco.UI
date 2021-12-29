@@ -63,8 +63,8 @@ CustomIcon.parameters = {
     source: {
       code: `
 <uui-ref-node-data-type
-  name="TextField"
-  alias="Umbraco.TextField">
+  name="Color Picker"
+  alias="Umbraco.ColorPicker">
   <uui-icon slot="icon" name="colorpicker"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
