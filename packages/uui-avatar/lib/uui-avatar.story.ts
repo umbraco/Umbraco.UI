@@ -68,7 +68,14 @@ export const Sizes = Template.bind({});
 Sizes.argTypes = {
   fontSize: { table: { category: 'inline styling' } },
 };
-Sizes.parameters = { controls: { include: ['fontSize', 'title'] } };
+Sizes.parameters = {
+  controls: { include: ['fontSize', 'title'] },
+  docs: {
+    source: {
+      code: `<uui-avatar style="font-size: 12px;"></uui-avatar>`,
+    },
+  },
+};
 
 export const Colors = Template.bind({});
 Colors.args = { color: 'white', backgroundColor: 'blue' };
@@ -78,6 +85,11 @@ Colors.argTypes = {
 };
 Colors.parameters = {
   controls: { include: ['backgroundColor', 'color', 'title'] },
+  docs: {
+    source: {
+      code: `<uui-avatar style="background-color: blue; color: white"></uui-avatar>`,
+    },
+  },
 };
 
 export const SlottedContent = Template.bind({});
