@@ -13,23 +13,27 @@ export class UUIBadgeElement extends LitElement {
     css`
       :host {
         position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         /* top: -8px;
         right: -8px; */
-        padding: 3px 5px;
+        padding: var(--uui-size-1) var(--uui-size-2);
         --uui-badge-inset: -8px -8px auto auto;
         /* 4 different ones */
         inset: var(--uui-badge-inset);
 
         text-align: center;
-        font-size: 12px;
-        line-height: 16px;
+        font-size: var(--uui-badge-font-size, var(--uui-type-small-size));
         font-weight: 900;
+        line-height: 1;
 
         margin-right: 0 !important;
 
-        min-width: var(--uui-size-4);
-        min-height: var(--uui-size-4);
+        min-width: var(--uui-size-8);
+        min-height: var(--uui-size-8);
+        box-sizing: border-box;
 
         border-width: var(--uui-badge-border-width, 1px);
         border-style: solid;
@@ -44,9 +48,44 @@ export class UUIBadgeElement extends LitElement {
           var(--uui-interface-surface)
         );
         color: var(--uui-badge-contrast, var(--uui-interface-contrast));
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      }
+
+      /** TODO: we didn't want to target elements by name, but what else can we do? */
+      ::slotted(uui-icon) {
+        margin-left: -0.2em;
+        margin-right: -0.2em;
+      }
+
+      @keyframes --uui-badge-bounce {
+        0% {
+          transform: translateY(0);
+        }
+        20% {
+          transform: translateY(-6px);
+        }
+        40% {
+          transform: translateY(0);
+        }
+        55% {
+          transform: translateY(-3px);
+        }
+        70% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      :host([attention]) {
+        animation-duration: 1.4s;
+        animation-iteration-count: infinite;
+        animation-name: --uui-badge-bounce;
+        animation-timing-function: ease;
+      }
+      @media (prefers-reduced-motion) {
+        :host([attention]) {
+          animation: none;
+        }
       }
 
       :host([look='primary']) {
@@ -129,6 +168,15 @@ export class UUIBadgeElement extends LitElement {
    */
   @property({ type: String, reflect: true })
   look: InterfaceLookType = 'danger';
+
+  /**
+   * Bring attention to this badge by applying a bounce animation.
+   * @type Boolean
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  attention = false;
 
   render() {
     return html` <slot></slot> `;

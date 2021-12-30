@@ -86,6 +86,9 @@
       "path": "../uui-pagination"
     },
     {
+      "path": "../uui-progress-bar"
+    },
+    {
       "path": "../uui-radio"
     },
     {
@@ -114,6 +117,9 @@
     },
     {
       "path": "../uui-ref-node-user"
+    },
+    {
+      "path": "../uui-scroll-container"
     },
     {
       "path": "../uui-select"

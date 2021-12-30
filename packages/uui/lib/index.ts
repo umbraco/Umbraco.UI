@@ -23,6 +23,7 @@ import '@umbraco-ui/uui-loader-bar/lib/index';
 import '@umbraco-ui/uui-loader-circle/lib/index';
 import '@umbraco-ui/uui-menu-item/lib/index';
 import '@umbraco-ui/uui-pagination/lib/index';
+import '@umbraco-ui/uui-progress-bar/lib/index';
 import '@umbraco-ui/uui-radio/lib/index';
 // import '@umbraco-ui/uui-ref/lib/index'; // TODO: We need to solve exports
 import '@umbraco-ui/uui-ref-list/lib/index';
@@ -33,6 +34,7 @@ import '@umbraco-ui/uui-ref-node-form/lib/index';
 import '@umbraco-ui/uui-ref-node-member/lib/index';
 import '@umbraco-ui/uui-ref-node-package/lib/index';
 import '@umbraco-ui/uui-ref-node-user/lib/index';
+import '@umbraco-ui/uui-scroll-container/lib/index';
 import '@umbraco-ui/uui-select/lib/index';
 import '@umbraco-ui/uui-slider/lib/index';
 import '@umbraco-ui/uui-symbol-expand/lib/index';

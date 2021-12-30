@@ -21,7 +21,6 @@ module.exports = {
 
       // pre bundle dependencies for faster startup time
       config.optimizeDeps.include.push('@storybook/web-components');
-      config.optimizeDeps.include.push('lit-element');
       config.optimizeDeps.include.push('lit-html');
       config.optimizeDeps.include.push('lit');
       config.optimizeDeps.include.push('lit/decorators.js');

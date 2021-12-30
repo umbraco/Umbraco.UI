@@ -13,7 +13,6 @@ export const UmbracoWords: Readonly<string[]> = [
   'Infinite Editing',
   'Umbraco Socks',
   '24 days in Umbraco',
-  'FAF',
   'Spark',
   'Package Manifest Podcast',
   'Skrift.io',
@@ -21,10 +20,7 @@ export const UmbracoWords: Readonly<string[]> = [
   'Slave & Eagle',
   'Community Teams',
   'IRememberBeingDirty',
-  'GDPR',
-  'Unicore',
   'Media Picker v3',
-  'Marco',
   'Dependency Injection',
   'umbraCoffee',
   'Community Corner',
@@ -34,7 +30,6 @@ export const UmbracoWords: Readonly<string[]> = [
   'The Friendly CMS',
   'Block List Editor',
   'ImageSharp',
-  'Smidge',
   'ContentService',
   'ContentFlow',
   'Package Migrations',
@@ -59,8 +54,6 @@ export const UmbracoWords: Readonly<string[]> = [
   'Section',
   'IUrlProvider',
   'The Friendly CMS',
-  'Gulp',
-  'End of life',
   'Long term support',
   'Code of conduct',
   'Surface Controller',
@@ -85,6 +78,13 @@ export const UmbracoWords: Readonly<string[]> = [
 
 export function GetRandomUmbracoWord(): string {
   return UmbracoWords[Math.floor(Math.random() * UmbracoWords.length)];
+}
+export function GetRandomUmbracoWordOfWordCount(wordCount: number): string {
+  const dictionary = UmbracoWords.filter((x: string) => {
+    const result = x.match(/(\w+)/g);
+    return result ? result.length === wordCount : false;
+  });
+  return dictionary[Math.floor(Math.random() * dictionary.length)];
 }
 export function ArrayOfUmbracoWords(arrayLength: number): string[] {
   return [...Array(arrayLength)].map(() => GetRandomUmbracoWord());

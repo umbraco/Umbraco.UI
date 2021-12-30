@@ -39,6 +39,7 @@ export default function () {
             ]).process(code, {
               syntax: syntax,
               map: null, // provide source map if available
+              from: undefined,
             });
 
             return {

@@ -2,7 +2,7 @@ import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
   namespace: 'UUICSS',
-  entryPoints: ['local-typography.styles'],
-  cssFiles: ['local-typography'],
-  bundle: 'local-typography.styles',
+  entryPoints: ['uui-text.styles'],
+  cssFiles: ['uui-root', 'uui-text'],
+  bundle: 'uui-text.styles',
 });
