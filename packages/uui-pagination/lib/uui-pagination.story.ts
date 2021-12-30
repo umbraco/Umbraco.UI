@@ -38,7 +38,6 @@ export const AAAOverview: Story = props => html`
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = { total: 100, current: 1 };
 AAAOverview.parameters = {
-  controls: { exclude: ['styles'] },
   docs: {
     source: {
       code: `<uui-pagination total=100></uui-pagination>`,
