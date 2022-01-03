@@ -52,7 +52,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     protected renderLabel() {
       return html`
         ${this._labelSlotHasContent === false
-          ? html`<span class="label">${this.label}</span>`
+          ? html`<span class="label" part="label">${this.label}</span>`
           : ''}
         <slot
           class="label"
