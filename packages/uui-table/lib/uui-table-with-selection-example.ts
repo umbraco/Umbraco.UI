@@ -34,12 +34,12 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       }
 
       uui-table-row:hover uui-icon,
-      uui-table-row[selectable] uui-icon {
+      uui-table-row[select-only] uui-icon {
         display: none;
       }
 
       uui-table-row:hover uui-checkbox,
-      uui-table-row[selectable] uui-checkbox {
+      uui-table-row[select-only] uui-checkbox {
         display: inline-block;
       }
 
@@ -94,6 +94,16 @@ export class UUITableWithSelectionExampleElement extends LitElement {
     this._selection = checkboxElement.checked
       ? [...this._selection, item.key]
       : this._selection.filter(selectionKey => selectionKey !== item.key);
+    this._selectionMode = this._selection.length > 0;
+  }
+  private _selectRowHandler(item: TableItem) {
+    this._selection = [...this._selection, item.key];
+    this._selectionMode = this._selection.length > 0;
+  }
+  private _unselectRowHandler(item: TableItem) {
+    this._selection = this._selection.filter(
+      selectionKey => selectionKey !== item.key
+    );
     this._selectionMode = this._selection.length > 0;
   }
 
@@ -216,22 +226,25 @@ export class UUITableWithSelectionExampleElement extends LitElement {
 
   protected renderRowTemplate = (item: TableItem) => {
     return html` <uui-table-row
-      ?selectable="${this._selectionMode === true}"
-      ?selected="${this._isSelected(item.key)}">
-      <uui-table-cell>
+      selectable
+      ?select-only=${this._selectionMode}
+      ?selected=${this._isSelected(item.key)}
+      @selected=${() => this._selectRowHandler(item)}
+      @unselected=${() => this._unselectRowHandler(item)}>
+      <uui-table-cell @click=${(e: MouseEvent) => e.stopPropagation()}>
         <uui-icon name="wand" style="font-size: 20px;"></uui-icon>
         <uui-checkbox
           @change=${(event: Event) => this._selectHandler(event, item)}
           ?checked="${this._isSelected(item.key)}"></uui-checkbox>
       </uui-table-cell>
-      <uui-table-cell>
+      <uui-table-cell @click=${(e: MouseEvent) => e.stopPropagation()}>
         <div style="display: flex; align-items: center;">
           <uui-avatar title="${item.name}" style="margin-right: 10px;">
           </uui-avatar>
           <a style="font-weight: bold;" href="http://">${item.name}</a>
         </div>
       </uui-table-cell>
-      <uui-table-cell>
+      <uui-table-cell @click=${(e: MouseEvent) => e.stopPropagation()}>
         <uui-progress-bar
           style="margin-top: 12px; display: block;"
           progress="${item.progress * 25}">

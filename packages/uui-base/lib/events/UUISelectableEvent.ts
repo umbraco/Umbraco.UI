@@ -1,7 +1,7 @@
 import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
-import { UUITableRowElement } from './uui-table-row.element';
+import { SelectableMixinInterface } from '../mixins';
 
-export class UUITableRowEvent extends UUIEvent<{}, UUITableRowElement> {
+export class UUISelectableEvent extends UUIEvent<{}, SelectableMixinInterface> {
   public static readonly SELECTED = 'selected';
   public static readonly UNSELECTED = 'unselected';
 }

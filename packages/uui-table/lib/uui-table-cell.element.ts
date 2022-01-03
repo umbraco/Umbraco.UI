@@ -27,8 +27,30 @@ export class UUITableCellElement extends LitElement {
         white-space: nowrap;
         box-sizing: border-box;
       }
+
+      :host([disable-child-interaction]) ::slotted(*) {
+        pointer-events: none;
+      }
+
+      :host([disable-child-interaction])::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+      }
     `,
   ];
+
+  /**
+   * Used to enforce selection interaction by preventing other interactions, primary set by table-row for select-only mode.
+   * @attr
+   * @type boolean
+   */
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'disable-child-interaction',
+  })
+  disableChildInteraction = false;
 
   /**
    * Remove padding in order to have element going to the edge of the cell.
