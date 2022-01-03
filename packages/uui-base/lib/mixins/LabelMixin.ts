@@ -14,6 +14,7 @@ export declare class LabelMixinInterface {
  * @param {string} labelSlotName - Name that will be assigned for the label slot
  * @param {Object} superClass - superclass to be extended.
  * @mixin
+ * @csspart label - for styling label rendered from property
  */
 export const LabelMixin = <T extends Constructor<LitElement>>(
   labelSlotName: string | null,

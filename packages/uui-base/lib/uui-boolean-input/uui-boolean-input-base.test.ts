@@ -40,7 +40,7 @@ describe('UUI Boolean input base class', () => {
 
   it('renders all the elements to shadow dom', () => {
     expect(element).shadowDom.to.equal(
-      ` <label><input aria-checked="false" aria-label="test label" id="input" role="checkbox" type="checkbox"><div id="testCheckbox"></div><span class="label">test label</span><slot class="label" name="" style="visibility: hidden"></slot></label>`
+      ` <label><input aria-checked="false" aria-label="test label" id="input" role="checkbox" type="checkbox"><div id="testCheckbox"></div><span part="label" class="label">test label</span><slot class="label" name="" style="visibility: hidden"></slot></label>`
     );
   });
 
