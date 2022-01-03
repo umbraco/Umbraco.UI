@@ -49,6 +49,13 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     constructor(...args: any[]) {
       super(...args);
       this.addEventListener('click', this._toggleSelect);
+      this.addEventListener('keydown', this.handleSelectKeydown);
+    }
+
+    private handleSelectKeydown(e: KeyboardEvent) {
+      if (e.key !== ' ' && e.key !== 'Enter') return;
+      e.preventDefault();
+      this._toggleSelect();
     }
 
     private _toggleSelect() {
