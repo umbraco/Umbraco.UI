@@ -1,17 +1,22 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  SelectableMixin,
+  SelectOnlyMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIRefEvent } from './UUIRefEvent';
 
 /**
  *  @element uui-ref
  *  @fires {UUIRefEvent} open - fires when the ref is opened
- *  @fires {UUIRefEvent} selected - fires when the ref is selected
- *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
+ *  @fires {UUISelectableEvent} selected - fires when the ref is selected
+ *  @fires {UUISelectableEvent} unselected - fires when the ref is unselected
  *  @description - Base ref component to be extended by specific ref elements. Does not have a tag.
  */
 
-export class UUIRefElement extends SelectableMixin(LitElement) {
+export class UUIRefElement extends SelectOnlyMixin(
+  SelectableMixin(LitElement)
+) {
   static styles = [
     css`
       :host {
@@ -114,6 +119,11 @@ export class UUIRefElement extends SelectableMixin(LitElement) {
         animation: none;
       }
 
+      :host([select-only]) *,
+      :host([select-only]) ::slotted(*) {
+        pointer-events: none;
+      }
+
       button {
         font-size: inherit;
         font-family: inherit;
@@ -176,38 +186,6 @@ export class UUIRefElement extends SelectableMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   error = false;
-
-  constructor() {
-    super();
-    this.addEventListener('click', this.toggleSelect);
-    this.addEventListener('keydown', this.handleSelectKeydown);
-  }
-
-  private toggleSelect() {
-    if (this.selectable === false) return;
-
-    this.selected = !this.selected;
-    this.dispatchEvent(
-      new UUIRefEvent(
-        this.selected ? UUIRefEvent.SELECTED : UUIRefEvent.UNSELECTED
-      )
-    );
-  }
-
-  select() {
-    this.selected = true;
-  }
-
-  deselect() {
-    this.selected = false;
-  }
-
-  private handleSelectKeydown(e: KeyboardEvent) {
-    // TODO: Is it correct to both be able to select with space and enter?
-    if (e.key !== ' ' && e.key !== 'Enter') return;
-    e.preventDefault();
-    this.toggleSelect();
-  }
 
   protected handleOpenClick(e: Event) {
     e.stopPropagation();
