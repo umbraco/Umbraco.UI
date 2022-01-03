@@ -46,6 +46,8 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
+        --uui-button-padding-top-factor: 1;
+        --uui-button-padding-bottom-factor: 1;
       }
 
       :host([compact]) {
@@ -78,9 +80,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         min-height: var(--uui-button-height, auto);
         width: 100%;
 
-        padding: calc(8 / 15 * 1em)
+        padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
-          calc(8 / 15 * 1em)
+          calc(calc(8 / 15 * 1em) * var(--uui-button-padding-bottom-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
         text-align: center;
         vertical-align: middle;
