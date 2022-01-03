@@ -32,21 +32,33 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       :host {
         display: inline-block;
       }
-      input {
-        display: inline-block;
+      #wrapper {
+        display: flex;
+        align-items: center;
         height: var(--uui-size-11);
-        padding: var(--uui-size-1) var(--uui-size-2);
-        font-family: inherit;
         font-size: 15px;
-        color: inherit;
-        border-radius: 0;
         box-sizing: border-box;
+        width: 100%;
+        outline: none;
         background-color: var(
           --uui-input-background-color,
           var(--uui-interface-surface)
         );
         border: 1px solid
           var(--uui-input-border-color, var(--uui-interface-border));
+      }
+      #wrapper:focus-within {
+        border-color: var(--uui-interface-select);
+      }
+      input {
+        font-family: inherit;
+        padding: var(--uui-size-1) var(--uui-size-2);
+        font-size: 15px;
+        color: inherit;
+        border-radius: 0;
+        box-sizing: border-box;
+        border: none;
+        background: none;
         width: 100%;
         outline: none;
       }
@@ -204,7 +216,13 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
    * @default text
    */
   @property({ type: String })
-  type: InputType = 'text';
+  private _type: InputType = 'text';
+  public get type(): InputType {
+    return this._type;
+  }
+  public set type(value: InputType) {
+    this._type = value;
+  }
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
@@ -216,18 +234,28 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
     );
   }
 
+  protected renderPrepend() {
+    return html`<slot name="prepend"></slot>`;
+  }
+
+  protected renderAppend() {
+    return html`<slot name="append"></slot>`;
+  }
+
   render() {
-    return html`
-      ${this.hideLabel === false ? this.renderLabel() : ''}
-      <input
-        .type=${this.type}
-        .value=${this.value}
-        .name=${this.name}
-        placeholder=${this.placeholder}
-        aria-label=${this.label}
-        .disabled=${this.disabled}
-        @input=${this.onInput}
-        @change=${this.onChange} />
-    `;
+    return html`${this.hideLabel === false ? this.renderLabel() : ''}
+      <div id="wrapper">
+        ${this.renderPrepend()}
+        <input
+          .type=${this.type}
+          .value=${this.value}
+          .name=${this.name}
+          placeholder=${this.placeholder}
+          aria-label=${this.label}
+          .disabled=${this.disabled}
+          @input=${this.onInput}
+          @change=${this.onChange} />
+        ${this.renderAppend()}
+      </div>`;
   }
 }
