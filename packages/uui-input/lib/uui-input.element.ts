@@ -25,6 +25,17 @@ export type InputType =
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
+ * @cssprop --uui-input-height - overwrite the input height
+ * @cssprop --uui-input-padding-y - overwrite the input padding top and bottom (y-axis)
+ * @cssprop --uui-input-padding-x - overwrite the input padding left and right (x-axis)
+ * @cssprop --uui-input-font-size - overwrite the input font size
+ * @cssprop --uui-input-background-color - overwrite the input background color
+ * @cssprop --uui-input-border-color - overwrite the input border color
+ * @cssprop --uui-input-border-color-hover - overwrite the input border color on hover
+ * @cssprop --uui-input-border-color-focus - overwrite the input border color on focus
+ * @cssprop --uui-input-border-color-invalid - overwrite the input border color on invalid or error
+ * @cssprop  --uui-input-background-color-disabled - overwrite the input background color on disabled
+ *
  */
 export class UUIInputElement extends LabelMixin('input label', LitElement) {
   static styles = [
@@ -34,10 +45,11 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
       input {
         display: inline-block;
-        height: var(--uui-size-11);
-        padding: var(--uui-size-1) var(--uui-size-2);
+        height: var(--uui-input-height, var(--uui-size-11));
+        padding: var(--uui-input-padding-y, var(--uui-size-1))
+          var(--uui-input-padding-x, var(--uui-size-2));
         font-family: inherit;
-        font-size: 15px;
+        font-size: var(--uui-input-font-size, 15px);
         color: inherit;
         border-radius: 0;
         box-sizing: border-box;
@@ -63,7 +75,10 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         );
       }
       :host([invalid]) {
-        border-color: var(--uui-color-danger-background);
+        border-color: var(
+          --uui-input-border-color-invalid,
+          var(--uui-look-danger-border)
+        );
       }
 
       :host([type='color']) {
@@ -106,11 +121,13 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       }
 
       :host([error]) input {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid
+          var(--uui-input-border-color-invalid, var(--uui-look-danger-border));
       }
 
       :host([error]) input[disabled] {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid
+          var(--uui-input-border-color-invalid, var(--uui-look-danger-border));
       }
     `,
   ];
