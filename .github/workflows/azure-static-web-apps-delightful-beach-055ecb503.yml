@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  # This is how azure builds staging environments
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
 
 jobs:
   test:
