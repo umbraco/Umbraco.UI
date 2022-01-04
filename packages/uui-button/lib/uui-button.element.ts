@@ -26,6 +26,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-border-width - overwrite the border width
  *  @cssprop --uui-button-border-radius - overwrite the border radius
  *  @cssprop --uui-button-font-weight - overwrite the font weight
+ *  @cssprop --uui-button-font-size - overwrite the font size
  *  @cssprop --uui-button-background-color - overwrite the background color
  *  @cssprop --uui-button-background-color-hover - overwrite the background color for hover state
  *  @cssprop --uui-button-background-color-disabled - overwrite the background color for disabled state
@@ -100,7 +101,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-font-weight,
           var(--uui-interface-font-weight)
         );
-        font-size: inherit;
+        font-size: var(--uui-button-font-size, inherit);
         font-family: inherit;
 
         background-color: var(
