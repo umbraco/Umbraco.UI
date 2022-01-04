@@ -14,10 +14,10 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-card"
+      "path": "../uui-avatar"
     },
     {
-      "path": "../uui-avatar"
+      "path": "../uui-card"
     }
   ]
 }
