@@ -5,7 +5,7 @@ import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-input/lib/index';
 
 export default {
-  title: 'Displays/Box',
+  title: 'Layout/Box',
   component: 'uui-box',
   id: 'uui-box',
 };

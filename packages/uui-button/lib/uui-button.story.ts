@@ -1,7 +1,8 @@
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-button/lib/index';
-// import '../uui-icon/index';
-// import '../uui-badge/index';
+import '@umbraco-ui/uui-icon/lib/index';
+import '@umbraco-ui/uui-badge/lib/index';
+
 import {
   InterfaceLookNames,
   InterfaceLookType,
@@ -111,11 +112,13 @@ export const WithBadge: Story = props => {
     <uui-button
       ?disabled=${props.disabled}
       look=${props.look}
-      state=${props.state}
-      ><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button
-    >
+      state=${props.state}>
+      <uui-badge>!</uui-badge>
+      I have a badge
+    </uui-button>
   `;
 };
+WithBadge.args = { look: 'primary' };
 WithBadge.parameters = {
   docs: {
     source: {
@@ -130,6 +133,44 @@ Compact.parameters = {
   docs: {
     source: {
       code: `<uui-button label="Compact" compact>Compact</uui-button>`,
+    },
+  },
+};
+
+export const Sizing: Story = props => {
+  return html`
+    <uui-button
+      style="font-size: 9px;"
+      look=${props.look}
+      state=${props.state}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      label=${props.label}></uui-button>
+    <uui-button
+      style="font-size: 12px;"
+      look=${props.look}
+      state=${props.state}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      label=${props.label}></uui-button>
+    <uui-button
+      style="font-size: 15px;"
+      look=${props.look}
+      state=${props.state}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      label=${props.label}></uui-button>
+  `;
+};
+Sizing.args = {
+  label: 'Controlled by font-size',
+  compact: false,
+  look: 'primary',
+};
+Sizing.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button style="font-size: 15px;">I can be controlled by font-size.</uui-button>`,
     },
   },
 };
@@ -150,7 +191,12 @@ export const Looks: Story = props => html`
   <h5>Looks</h5>
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
-      html`<uui-button .look=${lookName} style="margin-right:12px;">
+      html`<uui-button
+        .look=${lookName}
+        state=${props.state}
+        ?disabled=${props.disabled}
+        ?compact=${props.compact}
+        style="margin-right:12px;">
         ${uppercaseFirstLetter(lookName)} look
       </uui-button>`
   )}
@@ -165,23 +211,23 @@ Looks.parameters = {
   },
 };
 
-// export const WithIcon = () => html`
-//   <uui-button look="danger">
-//     <uui-icon .name=${'bug'}></uui-icon>
-//   </uui-button>
-//   <br />
-//   <br />
-//   <uui-button look="danger">
-//     <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
-//   </uui-button>
-//   <br />
-//   <br />
-//   <p>
-//     For buttons displaying an icon, its important to parse a aria-label
-//     attribute to ensure accessibility. The default sixing for a button with just
-//     a icon is generally too wide, there please use with the 'compact' attribute.
-//   </p>
-//   <uui-button look="positive" compact>
-//     <uui-icon name="info"></uui-icon>
-//   </uui-button>
-// `;
+export const WithIcon = () => html`
+  <uui-button look="danger">
+    <uui-icon .name=${'bug'}></uui-icon>
+  </uui-button>
+  <br />
+  <br />
+  <uui-button look="danger">
+    <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
+  </uui-button>
+  <br />
+  <br />
+  <p>
+    For buttons displaying an icon, its important to parse a aria-label
+    attribute to ensure accessibility. The default sixing for a button with just
+    a icon is generally too wide, there please use with the 'compact' attribute.
+  </p>
+  <uui-button look="positive" compact>
+    <uui-icon name="info"></uui-icon>
+  </uui-button>
+`;

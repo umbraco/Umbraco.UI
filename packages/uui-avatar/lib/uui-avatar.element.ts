@@ -10,15 +10,16 @@ export class UUIAvatarElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         position: relative;
         overflow: hidden;
         border-radius: 50%;
-        font-weight: bold;
-        width: 2em;
-        height: 2em;
+        font-weight: 700;
+        -webkit-font-smoothing: subpixel-antialiased;
+        width: calc(2em + 4px);
+        height: calc(2em + 4px);
         user-select: none;
         /* box-sizing: border-box; */
 
@@ -73,7 +74,7 @@ export class UUIAvatarElement extends LitElement {
    * @attr
    * @default ''
    */
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   get title() {
     return this._title;
   }
@@ -88,13 +89,22 @@ export class UUIAvatarElement extends LitElement {
   @state()
   private initials = '';
 
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.title) {
+      console.warn(this.tagName + ' needs a `title`', this);
+    }
+  }
+
   private createInitials(title: string) {
     let initials = '';
 
-    const words = (title || '').split(' ');
-    initials = words[0].substring(0, 1);
-    if (words.length > 1) {
-      initials += words[words.length - 1].substring(0, 1);
+    if (title) {
+      const words = title.match(/(\w+)/g) || [];
+      initials = words[0].substring(0, 1);
+      if (words.length > 1) {
+        initials += words[words.length - 1].substring(0, 1);
+      }
     }
     return initials.toUpperCase();
   }

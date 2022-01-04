@@ -88,6 +88,14 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
       span.label {
         display: inline-block;
       }
+
+      :host([error]) #native {
+        border: 1px solid var(--uui-look-danger-border);
+      }
+
+      :host([error]) #native[disabled] {
+        border: 1px solid var(--uui-look-danger-border);
+      }
     `,
   ];
 
@@ -119,6 +127,15 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
 
   /**
    * This is the name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native input type="checkbox" element and its name attribute.

@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit';
 import { query, property, state } from 'lit/decorators.js';
 import { UUIDropdownElement } from '../uui-dropdown/uui-dropdown.element';
-import { UUIOverflowContainer } from '../uui-overflow-container/uui-overflow-container.element';
+import { UUIScrollContainerElement } from '@umbraco-ui/uui-scroll-container/lib/uui-scroll-container.element';
 import { UUISelectOptionElement } from '../uui-select-option/uui-select-option.element';
 import { UUICustomSelectEvent } from './UUICustomSelectEvent';
 import { UUISelectOptionEvent } from '../uui-select-option/UUISelectOptionEvent';
@@ -37,7 +37,7 @@ export class UUICustomSelectElement extends LitElement {
         outline: none;
       }
 
-      uui-overflow-container {
+      uui-scroll-container {
         min-width: var(--uui-select-width);
         outline: none;
       }
@@ -136,8 +136,8 @@ export class UUICustomSelectElement extends LitElement {
   @property()
   placeholder = '';
 
-  @query('uui-overflow-container')
-  overflow!: UUIOverflowContainer;
+  @query('uui-scroll-container')
+  overflow!: UUIScrollContainerElement;
 
   @query('slot') protected slotElement!: HTMLSlotElement;
   protected listElements!: UUISelectOptionElement[];
@@ -364,14 +364,14 @@ export class UUICustomSelectElement extends LitElement {
               </button>
             `}
 
-        <uui-overflow-container
+        <uui-scroll-container
           slot="dropdown"
           role="listbox"
           tabindex="${this.open ? '0' : '-1'}"
           aria-activedescendant="TODO"
           @change=${this.onListElementChange}>
           <slot @slotchange=${this.onSlotChange}></slot>
-        </uui-overflow-container>
+        </uui-scroll-container>
       </uui-dropdown>
     `;
   }

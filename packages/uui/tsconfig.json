@@ -35,10 +35,31 @@
       "path": "../uui-button-group"
     },
     {
+      "path": "../uui-button-inline-create"
+    },
+    {
+      "path": "../uui-card"
+    },
+    {
+      "path": "../uui-card-content-node"
+    },
+    {
+      "path": "../uui-card-media"
+    },
+    {
+      "path": "../uui-card-user"
+    },
+    {
       "path": "../uui-caret"
     },
     {
       "path": "../uui-checkbox"
+    },
+    {
+      "path": "../uui-css"
+    },
+    {
+      "path": "../uui-dialog"
     },
     {
       "path": "../uui-icon"
@@ -62,7 +83,43 @@
       "path": "../uui-menu-item"
     },
     {
+      "path": "../uui-pagination"
+    },
+    {
+      "path": "../uui-progress-bar"
+    },
+    {
       "path": "../uui-radio"
+    },
+    {
+      "path": "../uui-ref"
+    },
+    {
+      "path": "../uui-ref-list"
+    },
+    {
+      "path": "../uui-ref-node"
+    },
+    {
+      "path": "../uui-ref-node-data-type"
+    },
+    {
+      "path": "../uui-ref-node-document-type"
+    },
+    {
+      "path": "../uui-ref-node-form"
+    },
+    {
+      "path": "../uui-ref-node-member"
+    },
+    {
+      "path": "../uui-ref-node-package"
+    },
+    {
+      "path": "../uui-ref-node-user"
+    },
+    {
+      "path": "../uui-scroll-container"
     },
     {
       "path": "../uui-select"
@@ -78,6 +135,9 @@
     },
     {
       "path": "../uui-symbol-folder"
+    },
+    {
+      "path": "../uui-symbol-more"
     },
     {
       "path": "../uui-symbol-sort"

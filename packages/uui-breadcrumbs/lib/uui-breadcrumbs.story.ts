@@ -3,7 +3,7 @@ import { html } from 'lit-html';
 import '@umbraco-ui/uui-breadcrumbs/lib/index';
 
 export default {
-  title: 'Basics/Breadcrumbs',
+  title: 'Buttons/Breadcrumbs',
   id: 'uui-breadcrumbs',
   component: 'uui-breadcrumbs',
 };
