@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - main
+  # This is how azure builds staging environments
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
 
 jobs:
   test:
     # The type of runner that the job will run on
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
 
     strategy:
