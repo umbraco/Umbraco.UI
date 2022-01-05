@@ -4,6 +4,9 @@ import { UUIIconRegistry } from './UUIIconRegistry';
 
 /**
  * @element uui-icon-registry
+ * @description - Icon Registry component delivers icons for any child of this component.
+ * The UUIIconRegistryElement holds an empty registry of which icons can be added to.
+ * @see UUIIconRegistryEssentialElement for a registry of the most essential icons.
  */
 export class UUIIconRegistryElement extends LitElement {
   constructor(public registry: UUIIconRegistry = new UUIIconRegistry()) {

@@ -4,6 +4,10 @@ import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 
 /**
  * @element uui-icon
+ * @fires {UUIIconRequestEvent} icon_request - fires when the name property is defined to retrieve the icon source.
+ * @description - Icon component for displaying icons.
+ * @cssprop --uui-icon-color - overwrite the icon color.
+ * @see UUIIconRegistryElement Ideally used together with a icon registry.
  */
 export class UUIIconElement extends LitElement {
   static styles = [
@@ -16,13 +20,20 @@ export class UUIIconElement extends LitElement {
       }
 
       :host svg {
-        fill: currentColor;
+        fill: var(--uui-icon-color, currentColor);
       }
     `,
   ];
 
   private _name: string | null = null;
 
+  /**
+   * Icon name is used to retrieve the icon from a parent Icon Registry.
+   * If no Icon Registry responds to the given name, the fallback svg will be used.
+   * @type {string}
+   * @attr
+   * @default null
+   */
   @property()
   get name(): string | null {
     return this._name;
@@ -38,9 +49,9 @@ export class UUIIconElement extends LitElement {
       });
       this.dispatchEvent(event);
       if (event.icon !== null) {
-        event.icon.then((svg: string) => {
+        event.icon.then((iconSvg: string) => {
           if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = svg;
+            this.shadowRoot.innerHTML = iconSvg;
           }
         });
       } else if (this.fallback && this.shadowRoot) {
@@ -51,6 +62,12 @@ export class UUIIconElement extends LitElement {
 
   private _svg: string | null = null;
 
+  /**
+   * Define the raw SVG string to be displayed by this component.
+   * @type {string}
+   * @attr
+   * @default null
+   */
   @property()
   get svg(): string | null {
     return null;
@@ -62,6 +79,12 @@ export class UUIIconElement extends LitElement {
     }
   }
 
+  /**
+   * Fallback SVG is a raw SVG string t be used then 'name' hasn't been accepted by any parent Icon Registry.
+   * @type {string}
+   * @attr
+   * @default null
+   */
   @property()
   fallback: string | null = null;
 
