@@ -1,18 +1,12 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-icon/lib/index';
+import '@umbraco-ui/uui-icon-registry-essential/lib/index';
 
 export default {
   id: 'uui-icon',
   title: 'Symbols/Icon',
   component: 'uui-icon',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-icon></uui-icon>`,
-      },
-    },
-  },
 };
 
 const fallbackSVG =
@@ -44,5 +38,8 @@ export const Overview: Story = () => html`
   <p>
     Its recommended to use a icon-registry to provide the icons, this makes it
     possible to define an icon with the name attribute.<br />
+    <uui-icon-registry-essential>
+      <uui-icon name="check"></uui-icon>
+    </uui-icon-registry-essential>
   </p>
 `;

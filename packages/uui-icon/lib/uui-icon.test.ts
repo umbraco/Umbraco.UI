@@ -31,23 +31,15 @@ describe('UUIIconElement', () => {
     });
   });
 
-  describe('template', () => {
-    it('renders a default slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
-    });
-  });
-
   describe('events', () => {
     describe('ICON_REQUEST', () => {
-      it('emits a open event when open-part is clicked', async () => {
+      it('emits a icon request event when name is set', async () => {
         const listener = oneEvent(element, UUIIconRequestEvent.ICON_REQUEST);
-        const infoElement: HTMLElement | null =
-          element.shadowRoot!.querySelector('#open-part');
-        infoElement?.click();
+        element.name = 'test';
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUIIconRequestEvent.ICON_REQUEST);
+        expect(event.detail.iconName).to.equal('test');
       });
     });
   });

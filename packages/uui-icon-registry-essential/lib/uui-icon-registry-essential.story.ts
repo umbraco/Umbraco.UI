@@ -23,7 +23,6 @@ export const Overview: Story = () => {
   registryElement.registry.getIconNames().forEach(name => {
     const icon = new UUIIconElement();
     icon.name = name;
-    console.log(name);
     registryElement.appendChild(icon);
   });
 
