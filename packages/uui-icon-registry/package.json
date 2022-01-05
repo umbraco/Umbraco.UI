@@ -1,0 +1,43 @@
+{
+  "name": "@umbraco-ui/uui-icon-registry",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Icon Registry"
+  ],
+  "description": "Umbraco UI icon-registry component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-icon-registry"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "main": "./dist/uui-icon-registry.min.js",
+  "module": "./lib/index.js",
+  "customElements": "custom-elements.json",
+  "files": [
+    "dist",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
+  ],
+  "dependencies": {
+    "@umbraco-ui/uui-base": "0.0.14"
+  },
+  "scripts": {
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-icon-registry"
+}

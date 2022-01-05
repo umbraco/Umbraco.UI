@@ -1,6 +1,6 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { iconRegistry } from './UUIIconRegistry';
+import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 
 /**
  * @element uui-icon
@@ -29,19 +29,23 @@ export class UUIIconElement extends LitElement {
   }
   set name(newValue) {
     this._name = newValue;
+    this.requestIcon();
+  }
+  private requestIcon() {
     if (this._name !== '' && this._name !== null) {
-      iconRegistry
-        .getIcon(this._name)
-        .then((svg: string) => {
+      const event = new UUIIconRequestEvent(UUIIconRequestEvent.ICON_REQUEST, {
+        detail: { iconName: this._name },
+      });
+      this.dispatchEvent(event);
+      if (event.icon !== null) {
+        event.icon.then((svg: string) => {
           if (this.shadowRoot) {
             this.shadowRoot.innerHTML = svg;
           }
-        })
-        .catch(() => {
-          if (this.fallback && this.shadowRoot) {
-            this.shadowRoot.innerHTML = this.fallback;
-          }
         });
+      } else if (this.fallback && this.shadowRoot) {
+        this.shadowRoot.innerHTML = this.fallback;
+      }
     }
   }
 
@@ -63,7 +67,9 @@ export class UUIIconElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    if (this._svg) {
+    if (this.name) {
+      this.requestIcon();
+    } else if (this._svg) {
       (this.shadowRoot as ShadowRoot).innerHTML = this._svg;
     }
   }
