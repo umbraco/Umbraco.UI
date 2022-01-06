@@ -9,8 +9,7 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
-import IconCheck from '@umbraco-ui/uui-base/lib/svgs/icon-check';
-import IconWrong from '@umbraco-ui/uui-base/lib/svgs/icon-wrong';
+import { iconCheck, iconWrong } from '@umbraco-ui/uui-base/lib/svgs';
 
 export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 
@@ -587,10 +586,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
-        element = html`<div id="icon-check" style="">${IconCheck}</div>`;
+        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
         break;
       case 'failed':
-        element = html`<div id="icon-wrong" style="">${IconWrong}</div>`;
+        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
         break;
       default:
         return '';

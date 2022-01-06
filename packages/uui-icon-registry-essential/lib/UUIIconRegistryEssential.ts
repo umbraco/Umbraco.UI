@@ -1,7 +1,6 @@
 import { UUIIconRegistry } from '@umbraco-ui/uui-icon-registry/lib/UUIIconRegistry';
-import iconCheck from '@umbraco-ui/uui-base/lib/svgs/icon-check';
-import iconWrong from '@umbraco-ui/uui-base/lib/svgs/icon-wrong';
-import iconPicture from './svgs/icon-picture';
+import { iconCheck, iconWrong } from '@umbraco-ui/uui-base/lib/svgs';
+import { iconPicture } from './svgs/icon-picture';
 
 export class UUIIconRegistryEssential extends UUIIconRegistry {
   constructor() {

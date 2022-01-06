@@ -8,6 +8,7 @@ export default UUIProdConfig({
     'mixins/index',
     'types/index',
     'registration/index',
+    'svg/index',
     'uui-boolean-input/index',
   ],
 });

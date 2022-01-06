@@ -40,12 +40,12 @@ export class UUIIconRegistry {
       return icon;
     }
 
-   */
+    protected loadIcon(iconName?: string): UUIIconHost | null {
+      //const icon = new UUIIconHost();
+      return iconName ? null : null;
+    }
 
-  protected loadIcon(iconName?: string): UUIIconHost | null {
-    //const icon = new UUIIconHost();
-    return iconName ? null : null;
-  }
+   */
 
   public getIconNames(): string[] {
     return Object.keys(this.icons);
