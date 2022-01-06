@@ -1,6 +1,6 @@
 import { UUIIconHost } from './UUIIconHost';
 
-export class UUIIconRegistry extends EventTarget {
+export class UUIIconRegistry {
   private icons: Record<string, UUIIconHost> = {};
 
   public defineIcon(iconName: string, svgString: string) {
