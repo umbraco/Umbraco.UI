@@ -26,6 +26,7 @@ export class UUIIconElement extends LitElement {
   ];
 
   private _name: string | null = null;
+  private _iconSvg?: string;
 
   /**
    * Icon name is used to retrieve the icon from a parent Icon Registry.
@@ -50,6 +51,7 @@ export class UUIIconElement extends LitElement {
       this.dispatchEvent(event);
       if (event.icon !== null) {
         event.icon.then((iconSvg: string) => {
+          this._iconSvg = iconSvg;
           if (this.shadowRoot) {
             this.shadowRoot.innerHTML = iconSvg;
           }
@@ -90,10 +92,18 @@ export class UUIIconElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    if (this.name) {
-      this.requestIcon();
+    if (this._name !== '' && this._name !== null) {
+      if (this._iconSvg) {
+        (this.shadowRoot as ShadowRoot).innerHTML = this._iconSvg;
+      } else {
+        this.requestIcon();
+      }
     } else if (this._svg) {
       (this.shadowRoot as ShadowRoot).innerHTML = this._svg;
     }
+  }
+
+  disconnectedCallback(): void {
+    delete this._iconSvg;
   }
 }

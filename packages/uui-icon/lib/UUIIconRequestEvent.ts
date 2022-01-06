@@ -7,13 +7,13 @@ export class UUIIconRequestEvent extends UUIEvent<{ iconName: string }> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true, cancelable: true },
+      ...{ bubbles: true },
       ...eventInit,
     });
   }
 
   public acceptRequest(icon: Promise<string>) {
     this.icon = icon;
-    this.preventDefault();
+    this.stopImmediatePropagation();
   }
 }

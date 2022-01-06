@@ -1,7 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-icon-registry/lib/index';
-
 export default {
   id: 'uui-icon-registry',
   title: 'Design/Icon Registry',

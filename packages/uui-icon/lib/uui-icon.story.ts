@@ -2,6 +2,9 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-icon/lib/index';
 import '@umbraco-ui/uui-icon-registry-essential/lib/index';
+import { LitElement } from 'lit';
+import { UUIIconElement } from './uui-icon.element';
+import { query } from 'lit/decorators.js';
 
 export default {
   id: 'uui-icon',
@@ -42,4 +45,20 @@ export const Overview: Story = () => html`
       <uui-icon name="check"></uui-icon>
     </uui-icon-registry-essential>
   </p>
+`;
+
+class TestIconElement extends LitElement {
+  @query('#myIcon')
+  public iconElement!: UUIIconElement;
+
+  render() {
+    return html`<uui-icon id="myIcon" name="picture"></uui-icon>`;
+  }
+}
+customElements.define('uui-test-icon', TestIconElement);
+
+export const WorkingThroughShadowDOMTest: Story = () => html`
+  <uui-icon-registry-essential>
+    <uui-test-icon></uui-test-icon>
+  </uui-icon-registry-essential>
 `;
