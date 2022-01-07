@@ -8,7 +8,7 @@ import '@umbraco-ui/uui-avatar/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-progress-bar/lib/index';
 import '@umbraco-ui/uui-icon/lib/index';
-import { LocalTypography } from '@umbraco-ui/uui-css/lib/local-typography.styles';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
 
 interface TableColumn {
   name: string;
@@ -27,7 +27,7 @@ interface TableItem {
 @customElement('uui-table-with-selection-example')
 export class UUITableWithSelectionExampleElement extends LitElement {
   static styles = [
-    LocalTypography,
+    UUITextStyles,
     css`
       uui-table-row uui-checkbox {
         display: none;
