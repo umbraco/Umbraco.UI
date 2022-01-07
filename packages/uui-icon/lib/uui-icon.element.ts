@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 
 /**
@@ -57,8 +57,11 @@ export class UUIIconElement extends LitElement {
             this.shadowRoot.innerHTML = iconSvg;
           }
         });
-      } else if (this.fallback && this.shadowRoot) {
-        this.shadowRoot.innerHTML = this.fallback;
+      } else {
+        this._useFallback = true;
+        if (this.fallback && this.shadowRoot) {
+          this.shadowRoot.innerHTML = this.fallback;
+        }
       }
     }
   }
@@ -83,13 +86,16 @@ export class UUIIconElement extends LitElement {
   }
 
   /**
-   * Fallback SVG is a raw SVG string t be used then 'name' hasn't been accepted by any parent Icon Registry.
+   * Fallback SVG is a raw SVG string, this is used then 'name' hasn't been accepted by any parent Icon Registry.
    * @type {string}
    * @attr
    * @default null
    */
   @property({ attribute: false })
   fallback: string | null = null;
+
+  @state()
+  private _useFallback = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -108,7 +114,13 @@ export class UUIIconElement extends LitElement {
     delete this._iconSvg;
   }
 
+  /**
+   * TODO: You can end up having multiple icons currently. so using slots and props are dangerous.
+   */
   render() {
-    return html`<slot></slot>`;
+    return html`
+      ${this._useFallback === false ? html`<slot></slot>` : ''}
+      ${this._useFallback === true ? html`<slot name="fallback"></slot>` : ''}
+    `;
   }
 }
