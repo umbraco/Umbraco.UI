@@ -12,6 +12,9 @@ import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib/uui-ic
 const TEST_SVG =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"></svg>';
 
+const TEST_FALLBACK_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="red"></rect></svg>';
+
 describe('UUIIconElement', () => {
   let element: UUIIconElement;
 
@@ -21,6 +24,15 @@ describe('UUIIconElement', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
+    //fallback slot first appears if name didn't pick up an icon from a icon registry.
+    // therefor this is tested further down.
   });
 
   describe('properties', () => {
@@ -55,7 +67,7 @@ describe('UUIIconElement with svg', () => {
   let element: UUIIconElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-icon svg=${TEST_SVG}></uui-icon> `);
+    element = await fixture(html` <uui-icon .svg=${TEST_SVG}></uui-icon> `);
   });
 
   it('contains svg of icon', async () => {
@@ -72,12 +84,67 @@ describe('UUIIconElement with fallback', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-icon name="not_existing" fallback=${TEST_SVG}></uui-icon> `
+      html`
+        <uui-icon name="not_existing" .fallback=${TEST_FALLBACK_SVG}></uui-icon>
+      `
     );
   });
 
   it('contains svg of icon', async () => {
-    await expect(element).shadowDom.to.equal(TEST_SVG);
+    await expect(element).shadowDom.to.equal(TEST_FALLBACK_SVG);
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(element).shadowDom.to.be.accessible();
+  });
+});
+
+describe('UUIIconElement without fallback slot pr default', () => {
+  let element: UUIIconElement;
+
+  beforeEach(async () => {
+    element = await fixture(
+      html`
+        <uui-icon
+          ><svg
+            name="fallback"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512">
+            <rect width="512" height="512" fill="red"></rect></svg
+        ></uui-icon>
+      `
+    );
+  });
+
+  it('renders a fallback slot', () => {
+    const slot = element.shadowRoot!.querySelector('slot[name="fallback"]')!;
+    expect(slot).not.to.exist;
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(element).shadowDom.to.be.accessible();
+  });
+});
+describe('UUIIconElement with fallback slot when name failed', () => {
+  let element: UUIIconElement;
+
+  beforeEach(async () => {
+    element = await fixture(
+      html`
+        <uui-icon name="not_existing"
+          ><svg
+            name="fallback"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512">
+            <rect width="512" height="512" fill="red"></rect></svg
+        ></uui-icon>
+      `
+    );
+  });
+
+  it('renders a fallback slot', () => {
+    const slot = element.shadowRoot!.querySelector('slot[name="fallback"]')!;
+    expect(slot).to.exist;
   });
 
   it('passes the a11y audit', async () => {
