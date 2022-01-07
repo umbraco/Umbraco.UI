@@ -27,7 +27,7 @@ export class UUIIconElement extends LitElement {
   ];
 
   private _name: string | null = null;
-  private _iconSvg?: string;
+  private _nameSvg?: string;
 
   /**
    * Icon name is used to retrieve the icon from a parent Icon Registry.
@@ -52,7 +52,8 @@ export class UUIIconElement extends LitElement {
       this.dispatchEvent(event);
       if (event.icon !== null) {
         event.icon.then((iconSvg: string) => {
-          this._iconSvg = iconSvg;
+          this._useFallback = false;
+          this._nameSvg = iconSvg;
           if (this.shadowRoot) {
             this.shadowRoot.innerHTML = iconSvg;
           }
@@ -100,8 +101,8 @@ export class UUIIconElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     if (this._name !== '' && this._name !== null) {
-      if (this._iconSvg) {
-        (this.shadowRoot as ShadowRoot).innerHTML = this._iconSvg;
+      if (this._nameSvg) {
+        (this.shadowRoot as ShadowRoot).innerHTML = this._nameSvg;
       } else {
         this.requestIcon();
       }
@@ -111,16 +112,20 @@ export class UUIIconElement extends LitElement {
   }
 
   disconnectedCallback(): void {
-    delete this._iconSvg;
+    delete this._nameSvg;
+    (this.shadowRoot as ShadowRoot).innerHTML = '';
   }
 
-  /**
-   * TODO: You can end up having multiple icons currently. so using slots and props are dangerous.
-   */
   render() {
     return html`
-      ${this._useFallback === false ? html`<slot></slot>` : ''}
-      ${this._useFallback === true ? html`<slot name="fallback"></slot>` : ''}
+      ${this._useFallback === false &&
+      this._svg === null &&
+      this._nameSvg === null
+        ? html`<slot></slot>`
+        : ''}
+      ${this._useFallback === true && this.fallback === null
+        ? html`<slot name="fallback"></slot>`
+        : ''}
     `;
   }
 }
