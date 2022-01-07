@@ -271,7 +271,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         Selected ${this._selection.length} of ${this._items.length}
       </div>
 
-      <uui-table>
+      <uui-table class="uui-text">
         <uui-table-column style="width: 60px;"></uui-table-column>
 
         <uui-table-head>
