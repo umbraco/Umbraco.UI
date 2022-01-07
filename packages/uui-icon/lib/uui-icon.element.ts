@@ -19,7 +19,8 @@ export class UUIIconElement extends LitElement {
         height: 1.15em;
       }
 
-      :host svg {
+      :host svg,
+      ::slotted(svg) {
         fill: var(--uui-icon-color, currentColor);
       }
     `,
