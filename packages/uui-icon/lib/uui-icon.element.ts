@@ -27,7 +27,7 @@ export class UUIIconElement extends LitElement {
   ];
 
   private _name: string | null = null;
-  private _nameSvg?: string;
+  private _nameSvg: string | null = null;
 
   /**
    * Icon name is used to retrieve the icon from a parent Icon Registry.
@@ -112,7 +112,7 @@ export class UUIIconElement extends LitElement {
   }
 
   disconnectedCallback(): void {
-    delete this._nameSvg;
+    this._nameSvg = null;
     (this.shadowRoot as ShadowRoot).innerHTML = '';
   }
 
