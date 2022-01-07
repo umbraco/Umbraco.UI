@@ -231,20 +231,21 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       ?selected=${this._isSelected(item.key)}
       @selected=${() => this._selectRowHandler(item)}
       @unselected=${() => this._unselectRowHandler(item)}>
-      <uui-table-cell @click=${(e: MouseEvent) => e.stopPropagation()}>
+      <uui-table-cell>
         <uui-icon name="wand" style="font-size: 20px;"></uui-icon>
         <uui-checkbox
+          @click=${(e: MouseEvent) => e.stopPropagation()}
           @change=${(event: Event) => this._selectHandler(event, item)}
           ?checked="${this._isSelected(item.key)}"></uui-checkbox>
       </uui-table-cell>
-      <uui-table-cell @click=${(e: MouseEvent) => e.stopPropagation()}>
+      <uui-table-cell>
         <div style="display: flex; align-items: center;">
           <uui-avatar title="${item.name}" style="margin-right: 10px;">
           </uui-avatar>
           <a style="font-weight: bold;" href="http://">${item.name}</a>
         </div>
       </uui-table-cell>
-      <uui-table-cell @click=${(e: MouseEvent) => e.stopPropagation()}>
+      <uui-table-cell>
         <uui-progress-bar
           style="margin-top: 12px; display: block;"
           progress="${item.progress * 25}">
