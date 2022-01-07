@@ -17,8 +17,8 @@ describe('UuiButton', () => {
       `
     );
 
-    inputElement = formElement.querySelector('input');
-    element = formElement.querySelector('uui-button');
+    inputElement = formElement.querySelector('input') as any;
+    element = formElement.querySelector('uui-button') as any;
   });
 
   it('renders a slot', () => {
@@ -28,6 +28,19 @@ describe('UuiButton', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  describe('properties', () => {
+    it('has a label property', () => {
+      expect(element).to.have.property('label');
+    });
+  });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
   });
 
   describe('submit', () => {

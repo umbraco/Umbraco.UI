@@ -6,7 +6,7 @@ import '@umbraco-ui/uui-box/lib/index';
 import './uui-table-with-selection-example';
 
 export default {
-  title: 'Misc/Table',
+  title: 'Layout/Table',
   component: 'uui-table',
   id: 'uui-table',
 };

@@ -1,7 +1,8 @@
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-button/lib/index';
-// import '../uui-icon/index';
-// import '../uui-badge/index';
+import '@umbraco-ui/uui-icon/lib/index';
+import '@umbraco-ui/uui-badge/lib/index';
+
 import {
   InterfaceLookNames,
   InterfaceLookType,
@@ -112,11 +113,12 @@ export const WithBadge: Story = props => {
       ?disabled=${props.disabled}
       look=${props.look}
       state=${props.state}>
-      <uui-badge slot="badge">!</uui-badge>
+      <uui-badge>!</uui-badge>
       I have a badge
     </uui-button>
   `;
 };
+WithBadge.args = { look: 'primary' };
 WithBadge.parameters = {
   docs: {
     source: {
@@ -209,23 +211,23 @@ Looks.parameters = {
   },
 };
 
-// export const WithIcon = () => html`
-//   <uui-button look="danger">
-//     <uui-icon .name=${'bug'}></uui-icon>
-//   </uui-button>
-//   <br />
-//   <br />
-//   <uui-button look="danger">
-//     <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
-//   </uui-button>
-//   <br />
-//   <br />
-//   <p>
-//     For buttons displaying an icon, its important to parse a aria-label
-//     attribute to ensure accessibility. The default sixing for a button with just
-//     a icon is generally too wide, there please use with the 'compact' attribute.
-//   </p>
-//   <uui-button look="positive" compact>
-//     <uui-icon name="info"></uui-icon>
-//   </uui-button>
-// `;
+export const WithIcon = () => html`
+  <uui-button look="danger">
+    <uui-icon .name=${'bug'}></uui-icon>
+  </uui-button>
+  <br />
+  <br />
+  <uui-button look="danger">
+    <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
+  </uui-button>
+  <br />
+  <br />
+  <p>
+    For buttons displaying an icon, its important to parse a aria-label
+    attribute to ensure accessibility. The default sixing for a button with just
+    a icon is generally too wide, there please use with the 'compact' attribute.
+  </p>
+  <uui-button look="positive" compact>
+    <uui-icon name="info"></uui-icon>
+  </uui-button>
+`;

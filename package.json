@@ -42,7 +42,8 @@
     "postinstall": "npm run bootstrap",
     "bootstrap": "lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
     "prepare": "husky install && echo 'PATH=$PATH:'$PATH >> .husky/_/husky.sh",
-    "new-package": "plop && npm i"
+    "new-package": "plop && npm i",
+    "pack-all": "node ./scripts/pack-packages.js"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -62,11 +63,11 @@
     "@storybook/web-components": "6.4.8",
     "@typescript-eslint/eslint-plugin": "5.7.0",
     "@typescript-eslint/parser": "5.7.0",
-    "@web/dev-server-esbuild": "0.2.14",
+    "@web/dev-server-esbuild": "0.2.16",
     "@web/test-runner": "0.13.17",
     "autoprefixer": "10.3.6",
     "babel-loader": "8.2.2",
-    "esbuild": "0.12.28",
+    "esbuild": "0.14.10",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-import-resolver-typescript": "2.5.0",
@@ -92,7 +93,7 @@
     "rimraf": "3.0.2",
     "rollup": "2.56.3",
     "rollup-plugin-dts": "4.0.0",
-    "rollup-plugin-esbuild": "4.5.0",
+    "rollup-plugin-esbuild": "4.8.2",
     "rollup-plugin-import-css": "3.0.2",
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
