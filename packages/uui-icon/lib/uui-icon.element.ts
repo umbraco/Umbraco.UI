@@ -1,4 +1,4 @@
-import { LitElement, css } from 'lit';
+import { LitElement, css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 
@@ -70,7 +70,7 @@ export class UUIIconElement extends LitElement {
    * @attr
    * @default null
    */
-  @property()
+  @property({ attribute: false })
   get svg(): string | null {
     return null;
   }
@@ -87,7 +87,7 @@ export class UUIIconElement extends LitElement {
    * @attr
    * @default null
    */
-  @property()
+  @property({ attribute: false })
   fallback: string | null = null;
 
   connectedCallback() {
@@ -105,5 +105,9 @@ export class UUIIconElement extends LitElement {
 
   disconnectedCallback(): void {
     delete this._iconSvg;
+  }
+
+  render() {
+    return html`<slot></slot>`;
   }
 }
