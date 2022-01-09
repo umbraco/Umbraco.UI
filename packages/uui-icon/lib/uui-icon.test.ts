@@ -105,13 +105,14 @@ describe('UUIIconElement without fallback slot pr default', () => {
   beforeEach(async () => {
     element = await fixture(
       html`
-        <uui-icon
-          ><svg
+        <uui-icon>
+          <svg
             name="fallback"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512">
-            <rect width="512" height="512" fill="red"></rect></svg
-        ></uui-icon>
+            <rect width="512" height="512" fill="red"></rect>
+          </svg>
+        </uui-icon>
       `
     );
   });
@@ -131,13 +132,14 @@ describe('UUIIconElement with fallback slot when name failed', () => {
   beforeEach(async () => {
     element = await fixture(
       html`
-        <uui-icon name="not_existing"
-          ><svg
+        <uui-icon name="not_existing">
+          <svg
             name="fallback"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512">
-            <rect width="512" height="512" fill="red"></rect></svg
-        ></uui-icon>
+            <rect width="512" height="512" fill="red"></rect>
+          </svg>
+        </uui-icon>
       `
     );
   });
