@@ -4,16 +4,13 @@ import '.';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 import '@umbraco-ui/uui-icon-registry/lib/index';
 import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib/uui-icon-registry.element';
-//import '@umbraco-ui/uui-icon-registry-essential/lib/index';
-//import { UUIIconRegistryEssentialElement } from '@umbraco-ui/uui-icon-registry-essential/lib/uui-icon-registry-essential.element';
-//import { LitElement } from 'lit';
-//import { property, query } from 'lit/decorators.js';
+import { LitElement } from 'lit';
 
 const TEST_SVG =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" id="TestIcon" viewBox="0 0 512 512"></svg>';
 
 const TEST_FALLBACK_SVG =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="red"></rect></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" id="TestFallbackIcon" viewBox="0 0 512 512"><rect width="512" height="512" fill="red"></rect></svg>';
 
 describe('UUIIconElement', () => {
   let element: UUIIconElement;
@@ -32,7 +29,7 @@ describe('UUIIconElement', () => {
       expect(slot).to.exist;
     });
     //fallback slot first appears if name didn't pick up an icon from a icon registry.
-    // therefor this is tested further down.
+    // therefor this is tested further below.
   });
 
   describe('properties', () => {
@@ -99,7 +96,7 @@ describe('UUIIconElement with fallback', () => {
   });
 });
 
-describe('UUIIconElement without fallback slot pr default', () => {
+describe('UUIIconElement does not render fallback slot unless name failed', () => {
   let element: UUIIconElement;
 
   beforeEach(async () => {
@@ -107,7 +104,7 @@ describe('UUIIconElement without fallback slot pr default', () => {
       html`
         <uui-icon>
           <svg
-            name="fallback"
+            slot="fallback"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512">
             <rect width="512" height="512" fill="red"></rect>
@@ -126,7 +123,7 @@ describe('UUIIconElement without fallback slot pr default', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 });
-describe('UUIIconElement with fallback slot when name failed', () => {
+describe('UUIIconElement renders fallback slot when name failed', () => {
   let element: UUIIconElement;
 
   beforeEach(async () => {
@@ -145,7 +142,7 @@ describe('UUIIconElement with fallback slot when name failed', () => {
   });
 
   it('renders a fallback slot', () => {
-    const slot = element.shadowRoot!.querySelector('slot[name="fallback"]')!;
+    const slot = element.shadowRoot!.querySelector('slot[name="fallback"]');
     expect(slot).to.exist;
   });
 
@@ -156,75 +153,56 @@ describe('UUIIconElement with fallback slot when name failed', () => {
 
 describe('UUIIconElement using UUIIconRegistry', () => {
   let registryElement: UUIIconRegistryElement;
+  let iconElement: UUIIconElement;
 
   beforeEach(async () => {
     registryElement = await fixture(
-      html`
-        <uui-icon-registry>
-          <uui-icon name="testIcon"></uui-icon>
-        </uui-icon-registry>
-      `
+      html` <uui-icon-registry></uui-icon-registry> `
     );
-  });
-
-  it('Child uui-icon retrieves the right SVG data', async () => {
     registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
-    await expect(
-      registryElement.querySelector('uui-icon[name="testIcon"]')
-    ).shadowDom.to.equal(TEST_SVG);
+    iconElement = await fixture(html` <uui-icon name="testIcon"></uui-icon> `);
+    registryElement.appendChild(iconElement);
+  });
+
+  it('Child uui-icon retrieves icon of registry', async () => {
+    await expect(iconElement).shadowDom.to.equal(TEST_SVG);
   });
 });
 
-/*
-
-TODO: Make this test work, its work in story but i have not been able to make it work here in test.
-class TestIconElement extends LitElement {
-
-  @query('#myIcon')
+class TestShadowDOMElement extends LitElement {
   public iconElement!: UUIIconElement;
 
-  render() {
-    return html`<uui-icon id='myIcon' name='picture'></uui-icon>`;
+  constructor() {
+    super();
+    this.iconElement = new UUIIconElement();
+    this.iconElement.setAttribute('name', 'testIcon');
+  }
+
+  protected firstUpdated(_: any): void {
+    super.firstUpdated(_);
+    this.shadowRoot!.appendChild(this.iconElement);
   }
 }
-customElements.define("uui-test-icon", TestIconElement)
+customElements.define('uui-test-shadow-dom', TestShadowDOMElement);
 
-
-
-
-
-describe('UUIIconElement using UUIIconRegistry across shadow DOMs', () => {
-
-  let registryElement: UUIIconRegistryEssentialElement;
-  let testElement: TestIconElement;
+describe('UUIIconElement can use UUIIconRegistry across shadowDOMs', () => {
+  let registryElement: UUIIconRegistryElement;
+  let testElement: TestShadowDOMElement;
 
   beforeEach(async () => {
     registryElement = await fixture(
-      html`
-        <uui-icon-registry-essential>
-        </uui-icon-registry-essential>
-      `
+      html` <uui-icon-registry></uui-icon-registry> `
     );
+    registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
     testElement = await fixture(
-      html`<uui-test-icon></uui-test-icon>`
+      html`<uui-test-shadow-dom></uui-test-shadow-dom>`
     );
-
     registryElement.appendChild(testElement);
   });
 
   it('Child uui-icon retrieves the right SVG data through shadow-dom', async () => {
-
-    console.log((registryElement.querySelector('uui-test-icon') as TestIconElement));
-
-    const timeout = ((ms: number) => {return new Promise(resolve => setTimeout(resolve, ms))});
-    await timeout(1500);
-
-    await expect(testElement.querySelector('uui-icon[name="picture"]')).shadowDom.to.equal(TEST_SVG);
+    await expect(testElement.iconElement).shadowDom.to.equal(TEST_SVG);
   });
-
-
 });
-
-*/
