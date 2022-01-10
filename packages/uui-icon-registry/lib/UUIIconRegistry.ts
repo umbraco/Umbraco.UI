@@ -6,46 +6,59 @@ export class UUIIconRegistry {
   public defineIcon(iconName: string, svgString: string) {
     if (this.icons[iconName]) {
       this.icons[iconName].svg = svgString;
+      return;
     }
     this.icons[iconName] = new UUIIconHost(svgString);
   }
 
   public getIcon(iconName: string): Promise<string> | null {
-    if (this.icons[iconName]) {
+    if (!!this.icons[iconName] || this.acceptIcon(iconName)) {
       return this.icons[iconName].promise;
     }
     return null;
   }
 
   /**
+   * Declare that this registry will be providing a icon for this name
+   * @param {string} iconName the name of the icon to be provided.
+   */
+  protected provideIcon(iconName: string): UUIIconHost {
+    return (this.icons[iconName] = new UUIIconHost());
+  }
+
+  /**
+   * extend this method to provide your own logic.
+   * @param iconName
+   * @returns
+   */
+  //@ts-ignore-start
+  // eslint-disable-next-line
+  protected acceptIcon(iconName: string): boolean {
+    return false;
+  }
+  //@ts-ignore-end
+
+  /**
    * Dynamic concept by extending this class:
    * extend getIcon in this way:
 
-    public getIcon(iconName: string): Promise<string> | null {
+    protected acceptIcon(iconName: string): boolean {
 
-      // If we already have it cached then we will use that.
-      let icon = super.getIcon(iconName);
+      // Check if this is something we want to accept and provide.
+      if(iconName === "myCustomIcon") {
 
-      // If not we will check if this is something we want to provide.
-      if(icon === null) {
+        // Inform that we will be providing this.
+        const icon = this.provideIcon(iconName);
 
-        // If iconName is good to be provided by this, then create a new UUIIconHost set it on the icon-variable.
-        // Load this icon as well.
+        // When data is available set it on this icon object, this can be done at any point in time:
+        icon.svg = "...";
 
-        if(icon !== null) {
-          this.icons[iconName] = icon;
-          return icon.promise;
-        }
+        return true;
       }
-      return icon;
-    }
 
-    protected loadIcon(iconName?: string): UUIIconHost | null {
-      //const icon = new UUIIconHost();
-      return iconName ? null : null;
+      return false;
     }
-
-   */
+  */
 
   public getIconNames(): string[] {
     return Object.keys(this.icons);
