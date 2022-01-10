@@ -15,6 +15,7 @@ const Template: Story = props => html`
       name="${props.name}"
       detail="${props.detail}"
       ?selectable=${props.selectable}
+      ?selectOnly=${props.selectOnly}
       ?error=${props.error}
       ?disabled=${props.disabled}>
       <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
