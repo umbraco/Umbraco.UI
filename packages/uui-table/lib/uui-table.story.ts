@@ -3,7 +3,7 @@ import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator'
 import { Story } from '@storybook/web-components';
 import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-box/lib/index';
-import './uui-table-with-selection-example';
+import './uui-table-advanced-example';
 
 export default {
   title: 'Layout/Table',
