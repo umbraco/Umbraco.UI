@@ -228,16 +228,6 @@ export class UUIMenuItemElement extends SelectableMixin(
   private onLabelClicked() {
     const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
     this.dispatchEvent(event);
-    this.toggleSelect();
-  }
-
-  /**
-   *  Toggles row selection
-   * @method
-   */
-  protected toggleSelect() {
-    if (this.selectable === false) return;
-    this.selected = !this.selected;
   }
 
   @state()

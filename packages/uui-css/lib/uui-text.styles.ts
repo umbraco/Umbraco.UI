@@ -4,4 +4,4 @@ import { unsafeCSS } from 'lit';
 import css from '../dist/uui-text.css'; // eslint-disable-line
 // @ts-ignore-end
 
-export const LocalTypography = unsafeCSS(css);
+export const UUITextStyles = unsafeCSS(css);

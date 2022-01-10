@@ -127,7 +127,12 @@ LabelPosition.parameters = {
   controls: { include: ['checked'] },
   docs: {
     source: {
-      code: `<uui-checkbox label-position="bottom"></uui-checkbox>`,
+      code: `
+      <uui-checkbox label-position="left"></uui-checkbox>
+      <uui-checkbox label-position="top"></uui-checkbox>
+      <uui-checkbox label-position="right"></uui-checkbox>
+      <uui-checkbox label-position="bottom"></uui-checkbox>
+      `,
     },
   },
 };

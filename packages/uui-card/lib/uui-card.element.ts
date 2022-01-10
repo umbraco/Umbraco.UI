@@ -1,17 +1,22 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  SelectableMixin,
+  SelectOnlyMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
  *  @fires {UUICardEvent} open - fires when the media card title is clicked
- *  @fires {UUICardEvent} select - fires when the media card is selected
- *  @fires {UUICardEvent} unselect - fires when the media card is unselected
+ *  @fires {UUISelectableEvent} select - fires when the media card is selected
+ *  @fires {UUISelectableEvent} unselect - fires when the media card is unselected
  *  @description - Base card component to be extended by specific cards.
  */
 
-export class UUICardElement extends SelectableMixin(LitElement) {
+export class UUICardElement extends SelectOnlyMixin(
+  SelectableMixin(LitElement)
+) {
   static styles = [
     css`
       :host {
@@ -79,10 +84,44 @@ export class UUICardElement extends SelectableMixin(LitElement) {
       :host([selectable][selected])::after {
         opacity: 1;
       }
+
+      :host([selectable]:not([selected]):hover) #select-border::after {
+        animation: not-selected--hover 1.2s infinite;
+      }
+      @keyframes not-selected--hover {
+        0%,
+        100% {
+          opacity: 0.66;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      :host([selectable][selected]:hover) #select-border::after {
+        animation: selected--hover 1.4s infinite;
+      }
+      @keyframes selected--hover {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.66;
+        }
+      }
+      :host([selectable]) #open-part:hover + #select-border::after {
+        animation: none;
+      }
       :host([error])::after {
         inset: calc(var(--uui-card-border-width) * -2);
         width: calc(100% + calc(var(--uui-card-border-width) * 4));
         height: calc(100% + calc(var(--uui-card-border-width) * 4));
+      }
+
+      :host([select-only]) *,
+      :host([select-only]) ::slotted(*) {
+        pointer-events: none;
       }
     `,
   ];
@@ -105,37 +144,6 @@ export class UUICardElement extends SelectableMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   error = false;
-
-  constructor() {
-    super();
-    this.addEventListener('click', this.toggleSelect);
-    this.addEventListener('keydown', this.handleSelectKeydown);
-  }
-
-  private toggleSelect() {
-    if (this.selectable === false) return;
-    this.selected = !this.selected;
-    this.dispatchEvent(
-      new UUICardEvent(
-        this.selected ? UUICardEvent.SELECTED : UUICardEvent.UNSELECTED
-      )
-    );
-  }
-
-  /** TODO: Move these methods to SelectMixin? */
-  select() {
-    this.selected = true;
-  }
-
-  deselect() {
-    this.selected = false;
-  }
-
-  private handleSelectKeydown(e: KeyboardEvent) {
-    if (e.key !== ' ' && e.key !== 'Enter') return;
-    e.preventDefault();
-    this.toggleSelect();
-  }
 
   protected handleOpenClick(e: Event) {
     if (this.disabled) return;
