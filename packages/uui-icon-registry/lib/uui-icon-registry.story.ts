@@ -16,6 +16,29 @@ export const ProvideCustomIcon: Story = () =>
       <uui-icon name="myCustomIcon"></uui-icon>
     </uui-icon-registry>
   `;
+ProvideCustomIcon.parameters = {
+  docs: {
+    source: {
+      code: `
+Lit:
+
+<uui-icon-registry .icons=\${{'myCustomIcon': '<svg>...</svg>'}}>
+  <uui-icon name="myCustomIcon"></uui-icon>
+</uui-icon-registry>
+
+
+JS:
+
+const MyIconRegistry = document.getElementById('MyRegistry');
+MyIconRegistry.registry.defineIcon('myCustomIcon', '<svg>...</svg>');
+
+<uui-icon-registry id="MyRegistry">
+  <uui-icon name="myCustomIcon"></uui-icon>
+</uui-icon-registry>
+      `,
+    },
+  },
+};
 
 export const ProvideDynamicCustomIconRegistry: Story = () =>
   html`
@@ -23,23 +46,35 @@ export const ProvideDynamicCustomIconRegistry: Story = () =>
     Element holds a empty icon registry pr. default. This registry can be access
     or replaced to provide icons of your interest. This example shows how to
     build a custom icon registry that provides an icon loaded externally:
-
-    <code type="typescript">
-      class MyCustomIconRegistry extends UUIIconRegistry { protected
-      acceptIcon(iconName: string): boolean { if(iconName ===
-      "anIconNameIAccept") { const icon = this.provideIcon(iconName); // Load
-      SVG and set it on this icon-object: icon.svg = "..."; return true; }
-      return false; } } const MyIconRegistry =
-      document.getElementById('MyRegistry'); MyIconRegistry.registry = new
-      MyCustomIconRegistry();
-    </code>
-
-    <code type="html">
-      <uui-icon-registry id="MyRegistry">
-        <uui-icon name="MyIcon"></uui-icon>
-      </uui-icon-registry>
-    </code>
   `;
+
+ProvideDynamicCustomIconRegistry.parameters = {
+  docs: {
+    source: {
+      code: `
+
+class MyCustomIconRegistry extends UUIIconRegistry {
+  protected acceptIcon(iconName: string): boolean {
+    if(iconName === "anIconNameIAccept") {
+      const icon = this.provideIcon(iconName);
+      // Load SVG and set it on this icon-object:
+      icon.svg = "<svg>...</svg>";
+      return true;
+    }
+  return false;
+  }
+}
+const MyIconRegistry = document.getElementById('MyRegistry');
+MyIconRegistry.registry = new MyCustomIconRegistry();
+
+<uui-icon-registry id="MyRegistry">
+  <uui-icon name="myCustomIcon"></uui-icon>
+</uui-icon-registry>
+
+      `,
+    },
+  },
+};
 
 /*
 
