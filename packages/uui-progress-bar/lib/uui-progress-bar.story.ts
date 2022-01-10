@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-progress-bar/lib/index';
 
 export default {
   id: 'uui-progress-bar',
-  title: 'Progress Bar',
+  title: 'Displays/Progress Bar',
   component: 'uui-progress-bar',
   args: {
     progress: 25,
