@@ -21,7 +21,7 @@ export const Overview: Story = () => {
   const registryElement = new UUIIconRegistryEssentialElement();
 
   registryElement.registry.getIconNames().forEach(name => {
-    const icon = new UUIIconElement();
+    const icon = document.createElement('uui-icon') as UUIIconElement;
     icon.name = name;
     registryElement.appendChild(icon);
   });
