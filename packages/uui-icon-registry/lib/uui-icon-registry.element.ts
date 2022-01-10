@@ -9,12 +9,19 @@ import { UUIIconRegistry } from './UUIIconRegistry';
  * @see UUIIconRegistryEssentialElement for a registry of the most essential icons.
  */
 export class UUIIconRegistryElement extends LitElement {
-  constructor(public registry: UUIIconRegistry = new UUIIconRegistry()) {
+  public registry!: UUIIconRegistry;
+
+  constructor() {
     super();
     this.addEventListener(
       UUIIconRequestEvent.ICON_REQUEST,
       this.onIconRequest as EventListener
     );
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.registry = this.registry || new UUIIconRegistry();
   }
 
   private onIconRequest = (event: UUIIconRequestEvent) => {

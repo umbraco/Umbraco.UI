@@ -8,6 +8,7 @@ import { UUIIconRegistryEssential } from './UUIIconRegistryEssential';
  */
 export class UUIIconRegistryEssentialElement extends UUIIconRegistryElement {
   constructor() {
-    super(new UUIIconRegistryEssential());
+    super();
+    this.registry = new UUIIconRegistryEssential();
   }
 }
