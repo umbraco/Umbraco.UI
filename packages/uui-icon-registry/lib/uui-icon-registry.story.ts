@@ -30,7 +30,7 @@ Lit:
 JS:
 
 const MyIconRegistry = document.getElementById('MyRegistry');
-MyIconRegistry.registry.defineIcon('myCustomIcon', '<svg>...</svg>');
+MyIconRegistry.icons = {'myCustomIcon': '<svg>...</svg>'};
 
 <uui-icon-registry id="MyRegistry">
   <uui-icon name="myCustomIcon"></uui-icon>
