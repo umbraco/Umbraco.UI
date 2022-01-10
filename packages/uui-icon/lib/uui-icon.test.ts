@@ -175,7 +175,7 @@ class TestShadowDOMElement extends LitElement {
 
   constructor() {
     super();
-    this.iconElement = new UUIIconElement();
+    this.iconElement = document.createElement('uui-icon') as UUIIconElement;
     this.iconElement.setAttribute('name', 'testIcon');
   }
 
@@ -192,7 +192,7 @@ describe('UUIIconElement can use UUIIconRegistry across shadowDOMs', () => {
 
   beforeEach(async () => {
     registryElement = await fixture(
-      html` <uui-icon-registry></uui-icon-registry> `
+      html`<uui-icon-registry></uui-icon-registry>`
     );
     registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
@@ -203,6 +203,10 @@ describe('UUIIconElement can use UUIIconRegistry across shadowDOMs', () => {
   });
 
   it('Child uui-icon retrieves the right SVG data through shadow-dom', async () => {
+    await expect(testElement).to.exist;
+    await expect(testElement.iconElement).to.exist;
+    await expect(testElement.iconElement).to.have.property('name');
     await expect(testElement.iconElement).shadowDom.to.equal(TEST_SVG);
+    await expect(testElement.iconElement).shadowDom.to.be.accessible();
   });
 });
