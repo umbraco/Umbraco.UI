@@ -187,12 +187,12 @@ export const OverflowDetection: Story = () =>
         </uui-table-head>
         <uui-table-row>
           ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell overflow-ellipsis>${el}</uui-table-cell>`
+            el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
           )}
         </uui-table-row>
         <uui-table-row>
           ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell overflow-ellipsis>${el}</uui-table-cell>`
+            el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
           )}
         </uui-table-row>
       </uui-table>
@@ -212,13 +212,13 @@ OverflowDetection.parameters = {
     </uui-table-head>
 
     <uui-table-row>
-      <uui-table-cell overflow-ellipsis>Cell 1</uui-table-cell>
-      <uui-table-cell overflow-ellipsis>Cell 2</uui-table-cell>
+      <uui-table-cell clip-text>Cell 1</uui-table-cell>
+      <uui-table-cell clip-text>Cell 2</uui-table-cell>
     </uui-table-row>
 
     <uui-table-row>
-      <uui-table-cell overflow-ellipsis>Cell 3</uui-table-cell>
-      <uui-table-cell overflow-ellipsis>Cell 4</uui-table-cell>
+      <uui-table-cell clip-text>Cell 3</uui-table-cell>
+      <uui-table-cell clip-text>Cell 4</uui-table-cell>
     </uui-table-row>
 
   </uui-table>

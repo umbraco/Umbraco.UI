@@ -20,7 +20,7 @@ export class UUITableCellElement extends LitElement {
         vertical-align: middle;
       }
 
-      :host([overflow-ellipsis]) {
+      :host([clip-text]) {
         max-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -67,8 +67,8 @@ export class UUITableCellElement extends LitElement {
    * @attr
    * @default false
    */
-  @property({ type: Boolean, reflect: true, attribute: 'overflow-ellipsis' })
-  overflowEllipsis = false;
+  @property({ type: Boolean, reflect: true, attribute: 'clip-text' })
+  clipText = false;
 
   private _observer = new ResizeObserver(() => {
     this._detectOverflow();
@@ -93,8 +93,8 @@ export class UUITableCellElement extends LitElement {
   }
 
   updated(changedProperties: any) {
-    if (changedProperties.has('overflowEllipsis')) {
-      if (this.overflowEllipsis) {
+    if (changedProperties.has('clipText')) {
+      if (this.clipText) {
         this._detectOverflow();
         this._observer.observe(this);
       } else {

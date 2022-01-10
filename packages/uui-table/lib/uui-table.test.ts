@@ -46,7 +46,7 @@ describe('UuiTable', () => {
     const cell = row
       .shadowRoot!.querySelector('slot')
       ?.assignedElements()[2] as UUITableCellElement;
-    cell.setAttribute('overflow-ellipsis', 'true');
+    cell.setAttribute('clip-text', 'true');
     await elementUpdated(cell);
     expect(cell.title).to.equal('Hello 3');
   });
