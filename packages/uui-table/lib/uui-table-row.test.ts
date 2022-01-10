@@ -6,10 +6,13 @@ import {
   oneEvent,
 } from '@open-wc/testing';
 import { UUITableRowElement } from './uui-table-row.element';
+import { UUITableElement } from './uui-table.element';
 import './index';
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;
+  let tableElement: UUITableElement;
+
   beforeEach(async () => {
     element = await fixture(
       html`
@@ -20,10 +23,12 @@ describe('UuiTableRow', () => {
         </uui-table-row>
       `
     );
+
+    tableElement = await fixture(html` <uui-table> ${element} </uui-table> `);
   });
 
-  it('passes the a11y audit', () => {
-    expect(element).shadowDom.to.be.accessible();
+  it('passes the a11y audit', done => {
+    expect(tableElement).shadowDom.to.be.accessible({ done });
   });
 
   describe('properties', () => {

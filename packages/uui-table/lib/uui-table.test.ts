@@ -67,7 +67,7 @@ describe('UuiTable', () => {
     expect(row.selected).to.be.false;
   });
 
-  it('passes the a11y audit', () => {
-    expect(table).shadowDom.to.be.accessible();
+  it('passes the a11y audit', done => {
+    expect(table).shadowDom.to.be.accessible({ done });
   });
 });
