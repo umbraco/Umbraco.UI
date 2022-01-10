@@ -287,8 +287,6 @@ export class UUITableWithSelectionExampleElement extends LitElement {
 
         ${repeat(this._items, item => item.key, this.renderRowTemplate)}
       </uui-table>
-
-      ${this._selection.map(key => html`<div>${key}</div>`)}
     `;
   }
 }
