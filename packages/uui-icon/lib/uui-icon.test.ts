@@ -1,4 +1,10 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import {
+  html,
+  fixture,
+  expect,
+  oneEvent,
+  elementUpdated,
+} from '@open-wc/testing';
 import { UUIIconElement } from './uui-icon.element';
 import '.';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
@@ -87,8 +93,8 @@ describe('UUIIconElement with fallback', () => {
     );
   });
 
-  it('contains svg of icon', async () => {
-    await expect(element).shadowDom.to.equal(TEST_FALLBACK_SVG);
+  it('contains svg of icon', () => {
+    expect(element).shadowDom.to.equal(TEST_FALLBACK_SVG);
   });
 
   it('passes the a11y audit', async () => {
@@ -200,13 +206,18 @@ describe('UUIIconElement can use UUIIconRegistry across shadowDOMs', () => {
       html`<uui-test-shadow-dom></uui-test-shadow-dom>`
     );
     registryElement.appendChild(testElement);
+
+    await elementUpdated(testElement);
   });
 
-  it('Child uui-icon retrieves the right SVG data through shadow-dom', async () => {
-    await expect(testElement).to.exist;
-    await expect(testElement.iconElement).to.exist;
-    await expect(testElement.iconElement).to.have.property('name');
-    await expect(testElement.iconElement).shadowDom.to.equal(TEST_SVG);
+  it('Child uui-icon retrieves the right SVG data through shadow-dom', () => {
+    expect(testElement).to.exist;
+    expect(testElement.iconElement).to.exist;
+    expect(testElement.iconElement).to.have.property('name');
+    expect(testElement.iconElement).shadowDom.to.equal(TEST_SVG);
+  });
+
+  it('Child uui-icon passes the a11y audit', async () => {
     await expect(testElement.iconElement).shadowDom.to.be.accessible();
   });
 });
