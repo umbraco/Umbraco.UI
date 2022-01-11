@@ -480,10 +480,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
    * Specifies the type of button.
    * @type { "submit" | "button" | "reset" }
    * @attr
-   * @default "submit"
+   * @default "button"
    */
   @property({ type: String, reflect: true })
-  type: UUIButtonType = 'submit';
+  type: UUIButtonType = 'button';
 
   /**
    * Disables the button, changes the looks of it and prevents if from emitting the click event
