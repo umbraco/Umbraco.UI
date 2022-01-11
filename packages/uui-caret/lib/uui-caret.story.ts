@@ -16,4 +16,4 @@ export default {
 };
 
 export const Overview: Story = props =>
-  html` <uui-caret rotation=${props.rotation}></uui-caret>`;
+  html` <uui-caret .open=${props.open}></uui-caret>`;

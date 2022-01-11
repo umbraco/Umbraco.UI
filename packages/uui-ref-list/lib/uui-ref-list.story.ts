@@ -30,7 +30,6 @@ AAAOverview.parameters = {
 <uui-ref-list>
 
   <uui-ref-node name="Node 1" detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
     </uui-action-bar>

@@ -122,7 +122,7 @@ WithBadge.args = { look: 'primary' };
 WithBadge.parameters = {
   docs: {
     source: {
-      code: `<uui-button><uui-badge slot="badge">!</uui-badge>I can has badge</uui-button>`,
+      code: `<uui-button><uui-badge slot="extra">!</uui-badge>I can has badge</uui-button>`,
     },
   },
 };
