@@ -45,7 +45,8 @@ export const ProvideDynamicCustomIconRegistry: Story = () =>
     Icon Registry Element is a element that provides a Icon Registry. The
     Element holds a empty icon registry pr. default. This registry can be access
     or replaced to provide icons of your interest. This example shows how to
-    build a custom icon registry that provides an icon loaded externally:
+    build a custom icon registry that provides an icon loaded externally: [see
+    code]
   `;
 
 ProvideDynamicCustomIconRegistry.parameters = {
