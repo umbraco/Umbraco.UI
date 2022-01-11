@@ -7,7 +7,10 @@ describe('UUIButtonInlineCreateElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-button-inline-create></uui-button-inline-create> `
+      html`
+        <uui-button-inline-create
+          label="Provide a A11Y label"></uui-button-inline-create>
+      `
     );
   });
 
