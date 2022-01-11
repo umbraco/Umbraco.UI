@@ -64,8 +64,6 @@ export class UUIIconElement extends LitElement {
     }
   }
 
-  private _svg: string | null = null;
-
   /**
    * Define the raw SVG string to be displayed by this component.
    * @type {string}
@@ -73,12 +71,7 @@ export class UUIIconElement extends LitElement {
    * @default null
    */
   @property({ attribute: false })
-  get svg(): string | null {
-    return null;
-  }
-  set svg(newValue: string | null) {
-    this._svg = newValue;
-  }
+  public svg: string | null = null;
 
   /**
    * Fallback SVG is a raw SVG string, this is used then 'name' hasn't been accepted by any parent Icon Registry.
@@ -118,8 +111,8 @@ export class UUIIconElement extends LitElement {
       return unsafeHTML(this._nameSvg);
     }
 
-    if (this._svg !== null) {
-      return unsafeHTML(this._svg);
+    if (this.svg !== null) {
+      return unsafeHTML(this.svg);
     }
 
     return html`<slot></slot>`;
