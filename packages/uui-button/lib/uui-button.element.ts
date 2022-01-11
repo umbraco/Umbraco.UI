@@ -556,15 +556,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    if (!customElements.get('uui-loader-circle')) {
-      console.warn(
-        'To properly render the waiting state, the uui-loader-circle element has to be registered'
-      );
-    }
-  }
-
   private _resetStateTimeout?: number;
 
   // Reset the state after 2sec if it is 'success' or 'failed'.
@@ -584,6 +575,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     let element = html``;
     switch (this.state) {
       case 'waiting':
+        if (!customElements.get('uui-loader-circle')) {
+          console.warn(
+            'To properly render the waiting state, the uui-loader-circle element has to be registered'
+          );
+        }
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
