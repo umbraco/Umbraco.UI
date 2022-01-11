@@ -5,13 +5,15 @@ import { UUIAvatarElement } from './uui-avatar.element';
 describe('UuiAvatar', () => {
   let element: UUIAvatarElement;
   beforeEach(async () => {
-    element = await fixture(html`<uui-avatar></uui-avatar>`);
+    element = await fixture(html`<uui-avatar title="My Avatar"></uui-avatar>`);
   });
 
   it('renders an image when imgSrc is set', async () => {
-    const avatar = await fixture(html`<uui-avatar img-src="src"></uui-avatar>`);
+    const avatar = await fixture(
+      html`<uui-avatar img-src="src" title="My Avatar"></uui-avatar>`
+    );
     expect(avatar).shadowDom.to.equal(
-      '<img alt="" src="src" srcset="" title="" /><slot></<slot>'
+      '<img alt="MA" src="src" srcset="" title="My Avatar" /><slot></<slot>'
     );
   });
 
