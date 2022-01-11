@@ -178,7 +178,6 @@ describe('UUIIconElement', () => {
 
     it('Child uui-icon retrieves icon of registry', () => {
       expect(iconElement.shadowRoot!.querySelector('#TestIcon')).to.exist;
-      expect(iconElement.shadowRoot!.innerHTML).to.equal(TEST_SVG);
     });
   });
 
@@ -220,7 +219,8 @@ describe('UUIIconElement', () => {
       expect(testElement).to.exist;
       expect(testElement.iconElement).to.exist;
       expect(testElement.iconElement).to.have.property('name');
-      expect(testElement.iconElement.shadowRoot!.innerHTML).to.equal(TEST_SVG);
+      expect(testElement.iconElement.shadowRoot!.querySelector('#TestIcon')).to
+        .exist;
     });
 
     it('Child uui-icon passes the a11y audit', async () => {

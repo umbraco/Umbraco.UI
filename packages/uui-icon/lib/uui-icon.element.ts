@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 /**
  * @element uui-icon
@@ -27,6 +28,8 @@ export class UUIIconElement extends LitElement {
   ];
 
   private _name: string | null = null;
+
+  @state()
   private _nameSvg: string | null = null;
 
   /**
@@ -54,15 +57,9 @@ export class UUIIconElement extends LitElement {
         event.icon.then((iconSvg: string) => {
           this._useFallback = false;
           this._nameSvg = iconSvg;
-          if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = iconSvg;
-          }
         });
       } else {
         this._useFallback = true;
-        if (this.fallback && this.shadowRoot) {
-          this.shadowRoot.innerHTML = this.fallback;
-        }
       }
     }
   }
@@ -81,9 +78,6 @@ export class UUIIconElement extends LitElement {
   }
   set svg(newValue: string | null) {
     this._svg = newValue;
-    if (this.shadowRoot) {
-      this.shadowRoot.innerHTML = newValue || '';
-    }
   }
 
   /**
@@ -101,31 +95,33 @@ export class UUIIconElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     if (this._name !== '' && this._name !== null) {
-      if (this._nameSvg) {
-        (this.shadowRoot as ShadowRoot).innerHTML = this._nameSvg;
-      } else {
+      if (this._nameSvg === null) {
         this.requestIcon();
       }
-    } else if (this._svg) {
-      (this.shadowRoot as ShadowRoot).innerHTML = this._svg;
     }
   }
 
   disconnectedCallback(): void {
     this._nameSvg = null;
-    (this.shadowRoot as ShadowRoot).innerHTML = '';
   }
 
   render() {
-    return html`
-      ${this._useFallback === false &&
-      this._svg === null &&
-      this._nameSvg === null
-        ? html`<slot></slot>`
-        : ''}
-      ${this._useFallback === true && this.fallback === null
-        ? html`<slot name="fallback"></slot>`
-        : ''}
-    `;
+    if (this._useFallback === true) {
+      if (this.fallback === null) {
+        return html`<slot name="fallback"></slot>`;
+      } else {
+        return unsafeHTML(this.fallback);
+      }
+    }
+
+    if (this._nameSvg !== null) {
+      return unsafeHTML(this._nameSvg);
+    }
+
+    if (this._svg !== null) {
+      return unsafeHTML(this._svg);
+    }
+
+    return html`<slot></slot>`;
   }
 }

@@ -52,7 +52,6 @@ describe('UUIIconRegistryElement', () => {
 
     it('Child uui-icon retrieves the right SVG data through shadow-dom', () => {
       expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.exist;
-      expect(iconElement.shadowRoot?.innerHTML).to.equal(myCustomSVGData);
     });
   });
 
@@ -90,7 +89,6 @@ describe('UUIIconRegistryElement', () => {
     it('Child uui-icon retrieves the custom SVG data', async () => {
       await elementUpdated(iconElement);
       expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.exist;
-      expect(iconElement.shadowRoot?.innerHTML).to.equal(myCustomSVGData);
     });
   });
 });
