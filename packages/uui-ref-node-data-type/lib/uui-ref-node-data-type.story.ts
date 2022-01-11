@@ -14,6 +14,7 @@ const Template: Story = props => html`
     <uui-ref-node-data-type
       name="${props.name}"
       alias="${props.alias}"
+      detail="${props.detail}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
@@ -62,8 +63,8 @@ CustomIcon.parameters = {
     source: {
       code: `
 <uui-ref-node-data-type
-  name="TextField"
-  alias="Umbraco.TextField">
+  name="Color Picker"
+  alias="Umbraco.ColorPicker">
   <uui-icon slot="icon" name="colorpicker"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>

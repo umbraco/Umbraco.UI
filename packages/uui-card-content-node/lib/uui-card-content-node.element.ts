@@ -85,7 +85,7 @@ export class UUICardContentNodeElement extends UUICardElement {
 
   /**
    * Node name
-   * @type {boolean}
+   * @type {string}
    * @attr name
    * @default ''
    */

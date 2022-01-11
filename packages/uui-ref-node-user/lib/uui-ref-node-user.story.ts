@@ -14,6 +14,7 @@ const Template: Story = props => html`
     <uui-ref-node-user
       name="${props.name}"
       group-name="${props.groupName}"
+      detail="${props.detail}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
