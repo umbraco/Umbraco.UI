@@ -33,18 +33,21 @@ export class UUIIconRegistryElement extends LitElement {
 
   public registry!: UUIIconRegistry;
 
-  constructor() {
-    super();
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.registry = this.registry || new UUIIconRegistry();
+    this.defineIconsInRegistry();
     this.addEventListener(
       UUIIconRequestEvent.ICON_REQUEST,
       this.onIconRequest as EventListener
     );
   }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-    this.registry = this.registry || new UUIIconRegistry();
-    this.defineIconsInRegistry();
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener(
+      UUIIconRequestEvent.ICON_REQUEST,
+      this.onIconRequest as EventListener
+    );
   }
 
   private onIconRequest = (event: UUIIconRequestEvent) => {
