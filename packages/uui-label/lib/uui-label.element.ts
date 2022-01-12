@@ -9,21 +9,41 @@ import { property } from 'lit/decorators.js';
 export class UUILabelElement extends LitElement {
   static styles = [
     css`
-      :host {
-        /* Styles goes here */
+      :host([for]) {
+        cursor: pointer;
+      }
+      :host([disabled]) {
+        cursor: default;
       }
     `,
   ];
 
+  /**
+   * Disables the label.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Define the related element to this label.
+   * @type {string | HTMLElement}
+   * @attr for
+   * @default null
+   */
   @property({ reflect: false, attribute: true })
   for: string | HTMLElement | null = null;
 
   constructor() {
     super();
-    this.addEventListener('click', this.onFocusFor);
+    this.addEventListener('click', this._onClick);
   }
 
-  private onFocusFor() {
+  private _onClick() {
+    if (this.disabled) return;
+
     const el = this.getForElement();
     if (el) {
       el.focus();
@@ -36,7 +56,6 @@ export class UUILabelElement extends LitElement {
       const scope = this.getRootNode();
       return (scope as DocumentFragment)?.getElementById(this.for) || null;
     }
-    console.log(this.for);
     return this.for || null;
   }
 
