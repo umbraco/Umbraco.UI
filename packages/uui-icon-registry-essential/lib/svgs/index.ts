@@ -2,6 +2,7 @@ export * from './iconAdd';
 export * from './iconAlert';
 export * from './iconAttachment';
 export * from './iconCalendar';
+export * from './iconClipboard';
 export * from './iconCode';
 export * from './iconColorPicker';
 export * from './iconCopy';
