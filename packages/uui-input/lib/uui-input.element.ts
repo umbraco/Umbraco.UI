@@ -215,9 +215,7 @@ export class UUIInputElement extends LitElement {
   }
 
   private onChange() {
-    this.dispatchEvent(
-      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
-    );
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
   render() {
