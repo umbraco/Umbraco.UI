@@ -12,21 +12,6 @@ export class UUIInputPasswordElement extends UUIInputElement {
   static styles = [
     ...UUIInputElement.styles,
     css`
-      :host {
-        /* Styles goes here */
-      }
-      /* #phone {
-        height: 100%;
-        padding: 0 6px;
-        border-right: 1px solid
-          var(--uui-input-border-color, var(--uui-interface-border));
-        background: #ececec;
-        color: grey;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      } */
-
       #eye {
         height: 100%;
         margin-left: -6px;
@@ -65,10 +50,6 @@ export class UUIInputPasswordElement extends UUIInputElement {
       ? html`<uui-icon name="check"></uui-icon>`
       : html`<uui-icon name="bug"></uui-icon>`;
   }
-
-  // renderPrepend() {
-  //   return html`<div id="phone">+45</div>`;
-  // }
 
   renderAppend() {
     return html`<uui-button

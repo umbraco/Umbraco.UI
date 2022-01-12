@@ -89,3 +89,45 @@ Error.parameters = {
     },
   },
 };
+
+export const PrependAndAppend: Story = props =>
+  html`
+    <uui-input
+      .disabled=${props.disabled}
+      .error=${props.error}
+      .hideLabel=${props.hideLabel}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}>
+      <div
+        style="
+        height: 100%;
+        padding: 0 6px;
+        border-right: 1px solid
+          var(--uui-input-border-color, var(--uui-interface-border));
+        background: #ececec;
+        color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;"
+        slot="prepend">
+        umbraco@
+      </div>
+      <div
+        slot="append"
+        style="
+        height: 100%;
+        padding: 0 6px;
+        border-left: 1px solid
+          var(--uui-input-border-color, var(--uui-interface-border));
+        background: #ececec;
+        color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;">
+        .com
+      </div>
+    </uui-input>
+  `;
