@@ -15,9 +15,8 @@ export class UUIInputPasswordElement extends UUIInputElement {
       :host {
         /* Styles goes here */
       }
-      #phone {
+      /* #phone {
         height: 100%;
-        /* aspect-ratio: 1; */
         padding: 0 6px;
         border-right: 1px solid
           var(--uui-input-border-color, var(--uui-interface-border));
@@ -26,7 +25,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
         display: flex;
         justify-content: center;
         align-items: center;
-      }
+      } */
 
       #eye {
         height: 100%;
@@ -40,15 +39,14 @@ export class UUIInputPasswordElement extends UUIInputElement {
   ];
 
   @state()
-  passwordType: InputType = 'password';
+  private passwordType: InputType = 'password';
 
   @property()
   get type() {
     return this.passwordType;
   }
-  set type(_newValue) {
-    this.type = this.passwordType;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  set type(_newValue) {}
 
   onPasswordToggle() {
     if (this.passwordType === 'password') {
@@ -62,17 +60,24 @@ export class UUIInputPasswordElement extends UUIInputElement {
     return this.passwordType === 'password' ? 'bug' : 'check';
   }
 
-  renderPrepend() {
-    return html`<div id="phone">+45</div>`;
+  renderIcon() {
+    return this.passwordType === 'password'
+      ? html`<uui-icon name="check"></uui-icon>`
+      : html`<uui-icon name="bug"></uui-icon>`;
   }
+
+  // renderPrepend() {
+  //   return html`<div id="phone">+45</div>`;
+  // }
 
   renderAppend() {
     return html`<uui-button
+      .disabled=${this.disabled}
       @click=${this.onPasswordToggle}
       style="--uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0"
       compact
-      id="eye"
-      ><uui-icon .name=${this.getIconName()}></uui-icon
-    ></uui-button>`;
+      id="eye">
+      ${this.renderIcon()}
+    </uui-button>`;
   }
 }

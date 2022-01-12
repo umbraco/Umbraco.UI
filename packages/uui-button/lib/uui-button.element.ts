@@ -133,6 +133,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-background-color-disabled,
           var(--uui-interface-surface-disabled)
         );
+        border-color: var(
+          --uui-button-border-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
         color: var(
           --uui-button-contrast-disabled,
           var(--uui-interface-contrast-disabled)

@@ -4,8 +4,13 @@ import '@umbraco-ui/uui-input-password/lib/index';
 
 export default {
   id: 'uui-input-password',
-  title: 'Input Password',
+  title: 'Inputs/Input Password',
   component: 'uui-input-password',
+  args: {
+    value: '',
+    label: 'Label',
+    hideLabel: false,
+  },
   parameters: {
     docs: {
       source: {
@@ -15,5 +20,14 @@ export default {
   },
 };
 
-export const Overview: Story = () =>
-  html`<uui-input-password></uui-input-password>`;
+export const AAAOverview: Story = props =>
+  html`<uui-input-password
+    .disabled=${props.disabled}
+    .error=${props.error}
+    .hideLabel=${props.hideLabel}
+    .label=${props.label}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}></uui-input-password>`;
+
+AAAOverview.storyName = 'Overview';

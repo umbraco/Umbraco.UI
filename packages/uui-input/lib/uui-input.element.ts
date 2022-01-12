@@ -30,7 +30,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   static styles = [
     css`
       :host {
-        display: inline-block;
+        /* display: inline-block; */
       }
       #wrapper {
         display: flex;
@@ -50,6 +50,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
       #wrapper:focus-within {
         border-color: var(--uui-interface-select);
       }
+
       input {
         font-family: inherit;
         padding: var(--uui-size-1) var(--uui-size-2);
@@ -93,7 +94,25 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         border: none;
       }
 
-      input[disabled] {
+      /* input[disabled] {
+        background-color: var(
+          --uui-input-background-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
+        border: 1px solid
+          var(
+            --uui-input-border-color-disabled,
+            var(--uui-interface-border-disable)
+          );
+
+        color: var(--uui-interface-contrast-disabled);
+      } */
+
+      :host([disabled]) .label {
+        color: var(--uui-interface-contrast-disabled);
+      }
+
+      :host([disabled]) #wrapper {
         background-color: var(
           --uui-input-background-color-disabled,
           var(--uui-interface-surface-disabled)
@@ -107,21 +126,17 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         color: var(--uui-interface-contrast-disabled);
       }
 
-      :host([disabled]) .label {
-        color: var(--uui-interface-contrast-disabled);
-      }
-
       .label {
         display: inline-block;
         margin-bottom: var(--uui-size-1);
         font-weight: bold;
       }
 
-      :host([error]) input {
+      :host([error]) #wrapper {
         border: 1px solid var(--uui-look-danger-border);
       }
 
-      :host([error]) input[disabled] {
+      :host([error]) #wrapper[disabled] {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,
