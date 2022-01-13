@@ -20,25 +20,6 @@ AAAOverview.args = {
 };
 AAAOverview.storyName = 'Overview';
 
-/*
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-  <uui-action-bar slot="actions"
-    ><uui-button><uui-icon name="delete"></uui-icon></uui-button
-  ></uui-action-bar>
-</uui-ref-node>
-    `,
-    },
-  },
-};
-*/
-
 export const ConnectWithFormControl: Story = () => html`
 <uui-label for="MyInput">My Label</uui-label>
 <uui-input id="MyInput" label="My A11Y Label"></uui-input>
