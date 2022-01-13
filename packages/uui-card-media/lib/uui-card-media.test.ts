@@ -8,6 +8,7 @@ import {
 import { UUICardMediaElement } from './uui-card-media.element';
 import '.';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib/UUICardEvent';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events/UUISelectableEvent';
 
 describe('UUICardMediaElement', () => {
   let element: UUICardMediaElement;
@@ -33,6 +34,10 @@ describe('UUICardMediaElement', () => {
 
     it('has a selectable property', () => {
       expect(element).to.have.property('selectable');
+    });
+
+    it('has a selectOnly property', () => {
+      expect(element).to.have.property('selectOnly');
     });
 
     it('has a selected property', () => {
@@ -82,12 +87,26 @@ describe('UUICardMediaElement', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUICardEvent.SELECTED);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
         element.click();
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUICardEvent.SELECTED);
+        expect(event.type).to.equal(UUISelectableEvent.SELECTED);
         expect(element.selected).to.be.true;
+      });
+    });
+
+    describe('unselect', () => {
+      it('emits a unselected event when preselected', async () => {
+        element.selectable = true;
+        element.selected = true;
+        await elementUpdated(element);
+        const listener = oneEvent(element, UUISelectableEvent.UNSELECTED);
+        element.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.UNSELECTED);
+        expect(element.selected).to.be.false;
       });
     });
   });

@@ -52,7 +52,7 @@ AAAOverview.args = { type: 'text', hideLabel: false };
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: '<uui-input><uui-input/>',
+      code: '<uui-input></uui-input>',
     },
   },
 };

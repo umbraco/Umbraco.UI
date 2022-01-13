@@ -34,3 +34,4 @@ debug.log
 out-css
 *.log
 .eslintcache
+*.tgz

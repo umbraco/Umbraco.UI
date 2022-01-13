@@ -16,6 +16,7 @@ const Template: Story = props => html`
     <uui-card-user
       name=${props.name}
       ?selectable=${props.selectable}
+      ?select-only=${props.selectOnly}
       ?selected=${props.selected}
       ?error=${props.error}
       ?disabled=${props.disabled}>
@@ -31,6 +32,7 @@ AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
   selectable: false,
   selected: false,
+  selectOnly: false,
   error: false,
   disabled: false,
 };
@@ -41,6 +43,22 @@ Selectable.args = {
 };
 
 Selectable.parameters = {
+  controls: { include: ['selectable'] },
+  docs: {
+    source: {
+      code: `
+<uui-card-user name="John Rabbit" selectable></uui-card-user>`,
+    },
+  },
+};
+
+export const SelectOnly: Story = Template.bind({});
+SelectOnly.args = {
+  selectable: true,
+  selectOnly: true,
+};
+
+SelectOnly.parameters = {
   controls: { include: ['selectable'] },
   docs: {
     source: {
@@ -94,7 +112,7 @@ Actions.parameters = {
   docs: {
     source: {
       code: `
-    <uui-card-user 
+    <uui-card-user
       name="John Rabbit">
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>

@@ -17,12 +17,6 @@ export default {
     active: false,
     descending: false,
   },
-  argTypes: {
-    value: {
-      active: { type: 'boolean' },
-      descending: { type: 'boolean' },
-    },
-  },
 };
 
 export const Overview: Story = props =>
