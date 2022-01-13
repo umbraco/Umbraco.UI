@@ -73,9 +73,9 @@ const Template: Story = props => {
   return html`
     <uui-button
       type="button"
-      style="${cssProps
+      style=${cssProps
         .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
-        .reduce(reducer)}"
+        .reduce(reducer)}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       look=${props.look}

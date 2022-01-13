@@ -3,7 +3,7 @@ import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
-import { iconCheck } from './checkbox-icons';
+import { iconCheck } from '@umbraco-ui/uui-base/lib/svgs';
 import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
 
 /**

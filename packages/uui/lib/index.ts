@@ -15,7 +15,9 @@ import '@umbraco-ui/uui-caret/lib/index';
 import '@umbraco-ui/uui-checkbox/lib/index';
 // import '@umbraco-ui/uui-css/lib/index'; // TODO: figure out how we include this
 import '@umbraco-ui/uui-dialog/lib/index';
-// import '@umbraco-ui/uui-icon/lib/index'; // TODO: figure out how we include this
+import '@umbraco-ui/uui-icon/lib/index';
+import '@umbraco-ui/uui-icon-registry/lib/index';
+import '@umbraco-ui/uui-icon-registry-essential/lib/index';
 import '@umbraco-ui/uui-input/lib/index';
 import '@umbraco-ui/uui-keyboard-shortcut/lib/index';
 import '@umbraco-ui/uui-loader/lib/index';
