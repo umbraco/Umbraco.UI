@@ -31,11 +31,10 @@ export class UUIIconRegistryElement extends LitElement {
     );
   }
 
-  public registry!: UUIIconRegistry;
+  public registry: UUIIconRegistry = new UUIIconRegistry();
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.registry = this.registry || new UUIIconRegistry();
     this.defineIconsInRegistry();
     this.addEventListener(
       UUIIconRequestEvent.ICON_REQUEST,
