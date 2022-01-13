@@ -1,22 +1,16 @@
 import { LitElement, html, css } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUITextareaEvent } from './UUITextareaEvent';
 import { ifDefined } from 'lit/directives/if-defined.js';
 /**
  * @element uui-textarea
- * @extends LabelMixin(LitElement)
- * @slot textarea label - for the textarea label text.
  * @fires UUITextareaEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  */
-export class UUITextareaElement extends LabelMixin(
-  'textarea label',
-  LitElement
-) {
+export class UUITextareaElement extends LitElement {
   static styles = [
     css`
       :host([disabled]) .label,
@@ -94,19 +88,6 @@ export class UUITextareaElement extends LabelMixin(
   ];
 
   /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  private _internals;
-
-  constructor() {
-    super();
-    this._internals = (this as any).attachInternals();
-  }
-
-  /**
    * Defines the textarea placeholder.
    * @type {string}
    * @attr
@@ -123,15 +104,6 @@ export class UUITextareaElement extends LabelMixin(
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
-
-  /**
-   * Set to true to hide the labeling provided by the component.
-   * @type {boolean}
-   * @attr hide-label
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
 
   @state()
   private _value = '';
@@ -206,6 +178,41 @@ export class UUITextareaElement extends LabelMixin(
   @property({ type: Boolean, attribute: 'auto-height', reflect: true })
   autoHeight = false;
 
+  /**
+   * Label to be used for aria-label and eventually as visual label
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  public label!: string;
+
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
+  private _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.label) {
+      console.warn(this.tagName + ' needs a `label`', this);
+    }
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  focus() {
+    this._textarea?.focus();
+  }
+
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
     this.dispatchEvent(
@@ -265,7 +272,6 @@ export class UUITextareaElement extends LabelMixin(
 
   render() {
     return html`
-      ${this.hideLabel === false ? this.renderLabel() : ''}
       <textarea
         maxlength=${ifDefined(this.maxLength > 0 ? this.maxLength : undefined)}
         minlength=${this.minLength}

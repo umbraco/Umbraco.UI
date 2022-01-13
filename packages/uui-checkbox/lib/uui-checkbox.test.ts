@@ -57,6 +57,26 @@ describe('UuiToggle', () => {
     });
   });
 
+  describe('methods', () => {
+    it('has a focus method', () => {
+      expect(element).to.have.property('focus').that.is.a('function');
+    });
+    it('focus method sets focus', async () => {
+      expect(document.activeElement).not.to.equal(element);
+      element.focus();
+      expect(document.activeElement).to.equal(element);
+    });
+
+    it('has a click method', () => {
+      expect(element).to.have.property('click').that.is.a('function');
+    });
+    it('click method changes value', async () => {
+      expect(element.checked).not.to.be.true;
+      element.click();
+      expect(element.checked).to.be.true;
+    });
+  });
+
   describe('events', () => {
     describe('click', () => {
       it('emits a click event when clicked', async () => {
