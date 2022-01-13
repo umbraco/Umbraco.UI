@@ -5,6 +5,11 @@ import {
 } from '@umbraco-ui/uui-input/lib/uui-input.element';
 import { property, state } from 'lit/decorators.js';
 
+import {
+  iconSee,
+  iconUnsee,
+} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+
 /**
  * @element uui-input-password
  */
@@ -49,8 +54,10 @@ export class UUIInputPasswordElement extends UUIInputElement {
 
   renderIcon() {
     return this.passwordType === 'password'
-      ? html`<uui-icon name="check"></uui-icon>`
-      : html`<uui-icon name="bug"></uui-icon>`;
+      ? html`<uui-icon name="see" .fallback=${iconSee.strings[0]}></uui-icon>`
+      : html`<uui-icon
+          name="unsee"
+          .fallback=${iconUnsee.strings[0]}></uui-icon>`;
   }
 
   renderAppend() {
