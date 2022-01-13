@@ -12,6 +12,17 @@ describe('UuiSlider', () => {
   it('test that disable works', async () => {
     expect(element).to.exist;
   });
+
+  describe('methods', () => {
+    it('has a focus method', () => {
+      expect(element).to.have.property('focus').that.is.a('function');
+    });
+    it('focus method sets focus', async () => {
+      expect(document.activeElement).not.to.equal(element);
+      element.focus();
+      expect(document.activeElement).to.equal(element);
+    });
+  });
 });
 
 describe('UuiTextfield with steps', () => {

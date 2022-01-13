@@ -1,20 +1,69 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import {
+  html,
+  fixture,
+  expect,
+  elementUpdated,
+  oneEvent,
+} from '@open-wc/testing';
 import { UUIInputElement } from './uui-input.element';
 import './index';
 
 describe('UuiInput', () => {
   let element: UUIInputElement;
   let input: HTMLInputElement;
+
   beforeEach(async () => {
     element = await fixture(
       html` <uui-input label="a input label"></uui-input> `
     );
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
-  it('test that disable works', async () => {
-    element.disabled = true;
-    await elementUpdated(element);
-    expect(input.disabled).to.be.true;
+
+  describe('properties', () => {
+    it('has a name property', () => {
+      expect(element).to.have.property('name');
+    });
+    it('has a error property', () => {
+      expect(element).to.have.property('error');
+    });
+    it('has a type property', () => {
+      expect(element).to.have.property('type');
+    });
+    it('has a value property', () => {
+      expect(element).to.have.property('value');
+    });
+    it('has a placeholder property', () => {
+      expect(element).to.have.property('placeholder');
+    });
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
+    });
+
+    it('disable property set input to disabled', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+      expect(input.disabled).to.be.true;
+    });
+  });
+
+  describe('events', () => {
+    describe('focus', () => {
+      it('emits a focus event when focused', async () => {
+        const listener = oneEvent(element, 'focus');
+        element.focus();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal('focus');
+      });
+    });
+    describe('change', () => {
+      it('emits a change event when native input fires one', async () => {
+        let event: Event | null = null;
+        element.addEventListener('change', e => (event = e));
+        input.dispatchEvent(new Event('change'));
+        expect(event!.target).to.equal(element);
+      });
+    });
   });
 
   it('changes the value to the input value when input event is emitted', async () => {
@@ -22,16 +71,9 @@ describe('UuiInput', () => {
     input.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
   });
-
-  it('emits a change event when native input fires one', async () => {
-    let event: Event | null = null;
-    element.addEventListener('change', e => (event = e));
-    input.dispatchEvent(new Event('change'));
-    expect(event!.target).to.equal(element);
-  });
 });
 
-describe('UuiInput with label', () => {
+describe('UuiInput with native label element', () => {
   let dom: Element;
   beforeEach(async () => {
     dom = await fixture(html`

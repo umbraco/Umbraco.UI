@@ -58,21 +58,6 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     `,
   ];
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  readonly _internals;
-  private inputRole: 'checkbox' | 'switch';
-
-  constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
-    super();
-    this.inputRole = inputRole;
-    this._internals = (this as any).attachInternals();
-  }
-
   @query('#input')
   protected _input!: HTMLInputElement;
 
@@ -118,15 +103,6 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   labelPosition: LabelPosition = 'right';
 
   /**
-   * Set to true to hide the labeling provided by the component.
-   * @type {boolean}
-   * @attr hide-label
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
-
-  /**
    * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr error
@@ -170,6 +146,31 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
+  readonly _internals;
+  private inputRole: 'checkbox' | 'switch';
+
+  constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
+    super();
+    this.inputRole = inputRole;
+    this._internals = (this as any).attachInternals();
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  focus() {
+    (this.shadowRoot?.querySelector('#input') as any).focus();
+  }
+  click() {
+    (this.shadowRoot?.querySelector('#input') as any).click();
+  }
+
   private _onInputChange() {
     this.checked = this._input.checked;
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
@@ -195,8 +196,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
           role="${this.inputRole}" />
-        ${this.renderCheckbox()}
-        ${this.hideLabel === false ? this.renderLabel() : ''}
+        ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
     `;
   }

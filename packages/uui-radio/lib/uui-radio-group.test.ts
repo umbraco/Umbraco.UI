@@ -25,6 +25,21 @@ describe('UuiRadio', () => {
     await expect(element).to.have.property('_internals');
   });
 
+  //describe('methods', () => {
+  /*
+    it('has a focus method', () => {
+      expect(element).to.have.property('focus').that.is.a('function');
+    });
+    */
+  /*
+    it('focus method sets focus', async () => {
+      expect(document.activeElement).not.to.equal(element);
+      element.focus();
+      expect(document.activeElement).to.equal(element);
+    });
+    */
+  //});
+
   it('it selects an item', async () => {
     radios[1].check();
     await expect(element.selected).to.equal(1);
