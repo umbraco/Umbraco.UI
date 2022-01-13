@@ -25,7 +25,6 @@ export * from './iconSee';
 export * from './iconSettings';
 export * from './iconSubtract';
 export * from './iconSync';
-export * from './iconUmbraco';
 export * from './iconUnlock';
 export * from './iconUnsee';
 export * from './iconWand';

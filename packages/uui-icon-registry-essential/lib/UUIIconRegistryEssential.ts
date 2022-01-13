@@ -28,7 +28,6 @@ import {
   iconSettings,
   iconSubtract,
   iconSync,
-  iconUmbraco,
   iconUnlock,
   iconUnsee,
   iconWand,
@@ -70,7 +69,6 @@ export class UUIIconRegistryEssential extends UUIIconRegistry {
     this.defineIcon('settings', iconSettings.strings[0]);
     this.defineIcon('subtract', iconSubtract.strings[0]);
     this.defineIcon('sync', iconSync.strings[0]);
-    this.defineIcon('umbraco', iconUmbraco.strings[0]);
     this.defineIcon('unlock', iconUnlock.strings[0]);
     this.defineIcon('unsee', iconUnsee.strings[0]);
     this.defineIcon('wand', iconWand.strings[0]);
