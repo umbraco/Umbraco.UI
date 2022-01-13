@@ -131,3 +131,24 @@ export const PrependAndAppend: Story = props =>
       </div>
     </uui-input>
   `;
+
+export const MultipleInputs: Story = props =>
+  html`
+    <uui-input
+      .disabled=${props.disabled}
+      .error=${props.error}
+      .hideLabel=${props.hideLabel}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}>
+      <uui-input
+        slot="prepend"
+        placeholder="+45"
+        style="text-align:right; width: 60px;">
+      </uui-input>
+      <uui-input slot="append" placeholder="(extra)" style="width: 100px;">
+      </uui-input>
+    </uui-input>
+  `;
