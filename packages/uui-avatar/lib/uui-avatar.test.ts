@@ -22,10 +22,10 @@ describe('UuiAvatar', () => {
 
   it('renders an image with alt text when imgSrc and text is set', async () => {
     const avatar = await fixture(
-      html`<uui-avatar img-src="src" title="alt text"></uui-avatar>`
+      html`<uui-avatar img-src="${avatarSrc}" title="alt text"></uui-avatar>`
     );
     expect(avatar).shadowDom.to.equal(
-      '<img alt="AT" src="src" srcset="" title="alt text" /><slot></<slot>'
+      `<img alt="AT" src="${avatarSrc}" srcset="" title="alt text" /><slot></<slot>`
     );
   });
 
