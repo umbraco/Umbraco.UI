@@ -32,75 +32,37 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   static styles = [
     css`
       :host {
-        /* display: inline-block; */
-      }
-      #wrapper {
-        display: flex;
+        position: relative;
+        display: inline-flex;
         align-items: center;
         height: var(--uui-size-11);
         font-size: 15px;
+        text-align: left;
         box-sizing: border-box;
-        width: 100%;
         outline: none;
         background-color: var(
           --uui-input-background-color,
           var(--uui-interface-surface)
         );
-        border: 1px solid
+        border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-interface-border));
       }
-      :host(:focus-within) #wrapper {
-        border-color: var(--uui-interface-select);
-      }
-
-      input {
-        font-family: inherit;
-        padding: var(--uui-size-1) var(--uui-size-2);
-        font-size: 15px;
-        color: inherit;
-        border-radius: 0;
-        box-sizing: border-box;
-        border: none;
-        background: none;
-        width: 100%;
-        outline: none;
-      }
-      input:hover {
+      :host(:hover) {
         border-color: var(
           --uui-input-border-color-hover,
           var(--uui-interface-border-hover)
         );
       }
-      input:focus {
+      :host(:focus-within) {
         border-color: var(
           --uui-input-border-color-focus,
           var(--uui-interface-border-focus)
         );
       }
-      :host([invalid]) {
-        border-color: var(--uui-color-danger-background);
+      :host([error]) {
+        border-color: var(--uui-look-danger-border);
       }
-
-      :host([type='color']) {
-        display: inline-flex;
-        align-items: center;
-      }
-
-      :host([type='color']) .label {
-        margin-left: var(--uui-size-2);
-      }
-
-      input[type='color'] {
-        width: 30px;
-        padding: 0;
-        border: none;
-      }
-
-      :host([disabled]) .label {
-        color: var(--uui-interface-contrast-disabled);
-      }
-
-      :host([disabled]) #wrapper {
+      :host([disabled]) {
         background-color: var(
           --uui-input-background-color-disabled,
           var(--uui-interface-surface-disabled)
@@ -114,18 +76,37 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         color: var(--uui-interface-contrast-disabled);
       }
 
-      .label {
-        display: inline-block;
-        margin-bottom: var(--uui-size-1);
-        font-weight: bold;
+      input {
+        font-family: inherit;
+        padding: var(--uui-size-1) var(--uui-size-2);
+        font-size: 15px;
+        color: inherit;
+        border-radius: 0;
+        box-sizing: border-box;
+        border: none;
+        background: none;
+        width: 100%;
+        outline: none;
+        text-align: inherit;
       }
 
-      :host([error]) #wrapper {
-        border: 1px solid var(--uui-look-danger-border);
+      input::placeholder {
+        transition: opacity 120ms;
+      }
+      input:focus::placeholder {
+        opacity: 0;
       }
 
-      :host([error]) #wrapper[disabled] {
-        border: 1px solid var(--uui-look-danger-border);
+      /* TODO: make sure color looks good, or remove it as an option as we want to provide color-picker component */
+      input[type='color'] {
+        width: 30px;
+        padding: 0;
+        border: none;
+      }
+
+      ::slotted(uui-input) {
+        height: 100%;
+        --uui-input-border-width: 0;
       }
     `,
   ];
@@ -246,19 +227,18 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   }
 
   render() {
-    return html`${this.hideLabel === false ? this.renderLabel() : ''}
-      <div id="wrapper">
-        ${this.renderPrepend()}
-        <input
-          .type=${this.type}
-          .value=${this.value}
-          .name=${this.name}
-          placeholder=${this.placeholder}
-          aria-label=${this.label}
-          .disabled=${this.disabled}
-          @input=${this.onInput}
-          @change=${this.onChange} />
-        ${this.renderAppend()}
-      </div>`;
+    return html`
+      ${this.renderPrepend()}
+      <input
+        .type=${this.type}
+        .value=${this.value}
+        .name=${this.name}
+        placeholder=${this.placeholder}
+        aria-label=${this.label}
+        .disabled=${this.disabled}
+        @input=${this.onInput}
+        @change=${this.onChange} />
+      ${this.renderAppend()}
+    `;
   }
 }
