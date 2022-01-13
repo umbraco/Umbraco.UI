@@ -78,7 +78,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
 
       input {
         font-family: inherit;
-        padding: var(--uui-size-1) var(--uui-size-2);
+        padding: var(--uui-size-1) var(--uui-size-space-3);
         font-size: 15px;
         color: inherit;
         border-radius: 0;

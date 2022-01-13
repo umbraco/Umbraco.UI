@@ -103,8 +103,13 @@ export const PrependAndAppend: Story = props =>
       .value=${props.value}>
       <div
         style="
+        user-select:none;
         height: 100%;
-        padding-left: 6px;
+        padding: 0 var(--uui-size-space-3);
+        border-right: 1px solid
+          var(--uui-input-border-color, var(--uui-interface-border));
+        background: #f3f3f3;
+        color: grey;
         display: flex;
         justify-content: center;
         align-items: center;"
@@ -114,8 +119,13 @@ export const PrependAndAppend: Story = props =>
       <div
         slot="append"
         style="
+        user-select:none;
         height: 100%;
-        padding-right: 6px;
+        padding: 0 var(--uui-size-space-3);
+        border-left: 1px solid
+          var(--uui-input-border-color, var(--uui-interface-border));
+        background: #f3f3f3;
+        color: grey;
         display: flex;
         justify-content: center;
         align-items: center;">
