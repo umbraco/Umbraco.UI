@@ -49,7 +49,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         border: 1px solid
           var(--uui-input-border-color, var(--uui-interface-border));
       }
-      #wrapper:focus-within {
+      :host(:focus-within) #wrapper {
         border-color: var(--uui-interface-select);
       }
 
