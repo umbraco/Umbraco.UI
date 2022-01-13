@@ -19,16 +19,14 @@ describe('UuiInput', () => {
 
   it('changes the value to the input value when input event is emitted', async () => {
     input.value = 'test value';
-    input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    input.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
   });
 
   it('emits a change event when native input fires one', async () => {
     let event: Event | null = null;
     element.addEventListener('change', e => (event = e));
-    input.dispatchEvent(
-      new Event('change', { bubbles: true, composed: false })
-    );
+    input.dispatchEvent(new Event('change'));
     expect(event!.target).to.equal(element);
   });
 });

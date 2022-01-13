@@ -172,9 +172,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
 
   private _onInputChange() {
     this.checked = this._input.checked;
-    this.dispatchEvent(
-      new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE, { bubbles: true })
-    );
+    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
   }
 
   /**
