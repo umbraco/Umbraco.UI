@@ -103,15 +103,6 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
   labelPosition: LabelPosition = 'right';
 
   /**
-   * Set to true to hide the labeling provided by the component.
-   * @type {boolean}
-   * @attr hide-label
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
-
-  /**
    * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr error
@@ -205,8 +196,7 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
           role="${this.inputRole}" />
-        ${this.renderCheckbox()}
-        ${this.hideLabel === false ? this.renderLabel() : ''}
+        ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
     `;
   }
