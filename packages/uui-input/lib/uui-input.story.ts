@@ -104,11 +104,7 @@ export const PrependAndAppend: Story = props =>
       <div
         style="
         height: 100%;
-        padding: 0 6px;
-        border-right: 1px solid
-          var(--uui-input-border-color, var(--uui-interface-border));
-        background: #ececec;
-        color: grey;
+        padding-left: 6px;
         display: flex;
         justify-content: center;
         align-items: center;"
@@ -119,11 +115,7 @@ export const PrependAndAppend: Story = props =>
         slot="append"
         style="
         height: 100%;
-        padding: 0 6px;
-        border-left: 1px solid
-          var(--uui-input-border-color, var(--uui-interface-border));
-        background: #ececec;
-        color: grey;
+        padding-right: 6px;
         display: flex;
         justify-content: center;
         align-items: center;">
