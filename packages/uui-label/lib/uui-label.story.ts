@@ -28,7 +28,7 @@ export const ConnectWithFormControl: Story = () => html`
 <br />
 
 <uui-label for="MyCheckbox">My Label</uui-label>
-<uui-checkbox id="MyCheckbox" label="My A11Y Label"></uui-checkbox>
+<uui-checkbox id="MyCheckbox" label="My A11Y Label">Option 1</uui-checkbox>
 
 <br />
 <br />
