@@ -6,7 +6,7 @@ import { UUIIconRegistryEssential } from './UUIIconRegistryEssential';
 
 export default {
   id: 'uui-icon-registry-essential',
-  title: 'Design/Icon Registry Essential',
+  title: 'Symbols/Icon Registry Essential',
   component: 'uui-icon-registry-essential',
   parameters: {
     docs: {
