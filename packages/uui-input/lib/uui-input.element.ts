@@ -22,6 +22,8 @@ export type InputType =
  * @element uui-input
  * @extends LabelMixin(LitElement)
  * @slot input label - for the input label text.
+ * @slot prepend - for components to render to the left of the input.
+ * @slot append - for components to render to the right of the input.
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
@@ -93,20 +95,6 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         padding: 0;
         border: none;
       }
-
-      /* input[disabled] {
-        background-color: var(
-          --uui-input-background-color-disabled,
-          var(--uui-interface-surface-disabled)
-        );
-        border: 1px solid
-          var(
-            --uui-input-border-color-disabled,
-            var(--uui-interface-border-disable)
-          );
-
-        color: var(--uui-interface-contrast-disabled);
-      } */
 
       :host([disabled]) .label {
         color: var(--uui-interface-contrast-disabled);

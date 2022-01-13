@@ -26,7 +26,9 @@ export class UUIInputPasswordElement extends UUIInputElement {
   @state()
   private passwordType: InputType = 'password';
 
+  // this overrides the inherited type property, and moves the input's type handling to the passwordType state.
   @property()
+  // @ts-ignore
   get type() {
     return this.passwordType;
   }
