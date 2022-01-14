@@ -34,11 +34,44 @@ describe('UuiButton', () => {
     it('has a label property', () => {
       expect(element).to.have.property('label');
     });
+
+    it('has a type property', () => {
+      expect(element).to.have.property('type');
+    });
+    it('type property defaults to "button"', () => {
+      expect(element.type).to.equal('button');
+    });
+
+    it('has a disable property', () => {
+      expect(element).to.have.property('disabled');
+    });
+    it('disable property defaults to false', () => {
+      expect(element.disabled).to.false;
+    });
+
+    it('has a look property', () => {
+      expect(element).to.have.property('look');
+    });
+
+    it('has a compact property', () => {
+      expect(element).to.have.property('compact');
+    });
+    it('compact property defaults to false', () => {
+      expect(element.compact).to.false;
+    });
+
+    it('has a state property', () => {
+      expect(element).to.have.property('state');
+    });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
+    it('renders a extra slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=extra]')!;
       expect(slot).to.exist;
     });
   });
@@ -55,9 +88,9 @@ describe('UuiButton', () => {
       });
     });
 
-    it('submits a form by default', async () => {
+    it('does not submit a form by default', async () => {
       element.click();
-      expect(wasSubmitted).to.true;
+      expect(wasSubmitted).to.false;
     });
 
     it('can submit a form when type is submit', async () => {

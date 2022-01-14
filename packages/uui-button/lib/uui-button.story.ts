@@ -16,7 +16,8 @@ export default {
 
   args: {
     look: '',
-    content: 'Button',
+    type: '',
+    label: 'Button',
   },
   argTypes: {
     look: {
@@ -30,6 +31,10 @@ export default {
         'warning',
         'danger',
       ],
+      control: { type: 'select' },
+    },
+    type: {
+      options: ['', 'submit', 'button', 'reset'],
       control: { type: 'select' },
     },
     state: {
@@ -72,7 +77,7 @@ const reducer = (prev: string, next: string, i: number) =>
 const Template: Story = props => {
   return html`
     <uui-button
-      type="button"
+      type=${props.type}
       style=${cssProps
         .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
         .reduce(reducer)}
@@ -92,7 +97,7 @@ AAAOverview.args = { label: 'Basic' };
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `<uui-button label="Basic">Basic</uui-button>`,
+      type: 'dynamic',
     },
   },
 };
@@ -102,7 +107,7 @@ Disabled.args = { label: 'Disabled', disabled: true };
 Disabled.parameters = {
   docs: {
     source: {
-      code: `<uui-button label="Disabled" disabled>Disabled</uui-button>`,
+      code: `<uui-button label="Disabled" disabled></uui-button>`,
     },
   },
 };
@@ -110,8 +115,14 @@ Disabled.parameters = {
 export const WithBadge: Story = props => {
   return html`
     <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
       ?disabled=${props.disabled}
+      ?compact=${props.compact}
       look=${props.look}
+      label=${props.label}
       state=${props.state}>
       <uui-badge>!</uui-badge>
       I have a badge
@@ -122,7 +133,7 @@ WithBadge.args = { look: 'primary' };
 WithBadge.parameters = {
   docs: {
     source: {
-      code: `<uui-button><uui-badge slot="extra">!</uui-badge>I can has badge</uui-button>`,
+      code: `<uui-button><uui-badge slot="extra" label="A11Y label">!</uui-badge>I can have badge</uui-button>`,
     },
   },
 };
@@ -132,7 +143,17 @@ Compact.args = { label: 'Compact', compact: true, look: 'secondary' };
 Compact.parameters = {
   docs: {
     source: {
-      code: `<uui-button label="Compact" compact>Compact</uui-button>`,
+      code: `<uui-button label="Compact" compact></uui-button>`,
+    },
+  },
+};
+
+export const ContentAndLabel = Template.bind({});
+ContentAndLabel.args = { label: 'A11Y Label', content: 'Visual Label' };
+ContentAndLabel.parameters = {
+  docs: {
+    source: {
+      code: `<uui-button label="A11Y Label">Visual Label</uui-button>`,
     },
   },
 };
@@ -141,6 +162,7 @@ export const Sizing: Story = props => {
   return html`
     <uui-button
       style="font-size: 9px;"
+      type=${props.type}
       look=${props.look}
       state=${props.state}
       ?disabled=${props.disabled}
@@ -148,6 +170,7 @@ export const Sizing: Story = props => {
       label=${props.label}></uui-button>
     <uui-button
       style="font-size: 12px;"
+      type=${props.type}
       look=${props.look}
       state=${props.state}
       ?disabled=${props.disabled}
@@ -155,6 +178,7 @@ export const Sizing: Story = props => {
       label=${props.label}></uui-button>
     <uui-button
       style="font-size: 15px;"
+      type=${props.type}
       look=${props.look}
       state=${props.state}
       ?disabled=${props.disabled}
@@ -182,6 +206,7 @@ function uppercaseFirstLetter(s: string) {
 export const Looks: Story = props => html`
   <h5>Default look</h5>
   <uui-button
+    type=${props.type}
     ?disabled=${props.disabled}
     ?compact=${props.compact}
     look=${props.look}
@@ -192,6 +217,7 @@ export const Looks: Story = props => html`
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
       html`<uui-button
+        type=${props.type}
         .look=${lookName}
         state=${props.state}
         ?disabled=${props.disabled}
@@ -212,22 +238,29 @@ Looks.parameters = {
 };
 
 export const WithIcon = () => html`
-  <uui-button look="danger">
+  <uui-button look="danger" label="A11Y proper label">
     <uui-icon .name=${'bug'}></uui-icon>
   </uui-button>
   <br />
   <br />
-  <uui-button look="danger">
-    <uui-icon .name=${'bug'}></uui-icon><span>Hello button with icon</span>
+  <uui-button look="danger" label="A11Y proper label">
+    <uui-icon .name=${'bug'}></uui-icon>Button with icon
   </uui-button>
   <br />
   <br />
   <p>
-    For buttons displaying an icon, its important to parse a aria-label
-    attribute to ensure accessibility. The default sixing for a button with just
-    a icon is generally too wide, there please use with the 'compact' attribute.
+    The default sizing for a button with only an icon is generally too wide,
+    there please use with the 'compact' attribute.
   </p>
-  <uui-button look="positive" compact>
+  <uui-button look="positive" compact label="A11Y proper label">
     <uui-icon name="info"></uui-icon>
   </uui-button>
 `;
+WithIcon.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-button look="primary" label="A11Y proper abel"><uui-icon name="info"></uui-icon>Button Label</uui-button>`,
+    },
+  },
+};
