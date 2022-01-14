@@ -9,7 +9,10 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
-import { iconCheck, iconWrong } from '@umbraco-ui/uui-base/lib/svgs';
+import {
+  iconCheck,
+  iconWrong,
+} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 
