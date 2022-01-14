@@ -8,14 +8,12 @@ import {
 import { UUIInputElement } from './uui-input.element';
 import './index';
 
-describe('UuiInput', () => {
+describe('UuiInputElement', () => {
   let element: UUIInputElement;
   let input: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-input label="a input label"></uui-input> `
-    );
+    element = await fixture(html` <uui-input label="label"></uui-input> `);
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
 
@@ -115,5 +113,27 @@ describe('UuiInput in Form', () => {
     element.value = 'anotherValue';
     const formData = new FormData(formElement);
     await expect(formData.get('input')).to.be.equal('anotherValue');
+  });
+});
+
+describe('UuiInput Misc', () => {
+  let element: UUIInputElement;
+  let input: HTMLInputElement;
+  beforeEach(async () => {
+    element = await fixture(
+      html` <uui-input label="a input label"></uui-input> `
+    );
+    input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
+  });
+  it('test that disable works', async () => {
+    element.disabled = true;
+    await elementUpdated(element);
+    expect(input.disabled).to.be.true;
+  });
+
+  it('changes the value to the input value when input event is emitted', async () => {
+    input.value = 'test value';
+    input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    expect(element.value).to.equal('test value');
   });
 });
