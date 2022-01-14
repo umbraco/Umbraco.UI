@@ -7,6 +7,7 @@ import {
 } from '@open-wc/testing';
 import { UUIInputElement } from './uui-input.element';
 import './index';
+import { UUIInputEvent } from './UUIInputEvent';
 
 describe('UuiInputElement', () => {
   let element: UUIInputElement;
@@ -15,6 +16,10 @@ describe('UuiInputElement', () => {
   beforeEach(async () => {
     element = await fixture(html` <uui-input label="label"></uui-input> `);
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(element).shadowDom.to.be.accessible();
   });
 
   describe('properties', () => {
@@ -44,6 +49,23 @@ describe('UuiInputElement', () => {
     });
   });
 
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
+
+    it('renders a prepend slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=prepend]')!;
+      expect(slot).to.exist;
+    });
+
+    it('renders an append slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=append]')!;
+      expect(slot).to.exist;
+    });
+  });
+
   describe('events', () => {
     describe('focus', () => {
       it('emits a focus event when focused', async () => {
@@ -56,9 +78,13 @@ describe('UuiInputElement', () => {
     });
     describe('change', () => {
       it('emits a change event when native input fires one', async () => {
-        let event: Event | null = null;
-        element.addEventListener('change', e => (event = e));
+        const listener = oneEvent(element, UUIInputEvent.CHANGE);
+
         input.dispatchEvent(new Event('change'));
+
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIInputEvent.CHANGE);
         expect(event!.target).to.equal(element);
       });
     });
