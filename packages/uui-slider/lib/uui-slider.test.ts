@@ -63,6 +63,8 @@ describe('UuiSlider', () => {
       element.focus();
       expect(document.activeElement).to.equal(element);
     });
+  });
+  describe('events', () => {
     describe('change', () => {
       it('emits a change event when native input fires one', async () => {
         const listener = oneEvent(element, UUISliderEvent.CHANGE);
