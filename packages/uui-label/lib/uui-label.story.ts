@@ -35,4 +35,35 @@ export const ConnectWithFormControl: Story = () => html`
 
 <uui-label for="MyNativeInput">My Label</uui-label>
 <input type="text" id="MyNativeInput" label="My A11Y Label"></input>
+
+<br />
+<br />
+
+<uui-label for="MyToggle">My Label</uui-label>
+<uui-toggle id="MyToggle" label="My A11Y Label">Toggle this</uui-toggle>
+
+<br />
+<br />
+
+<uui-label for="MyTextArea">My Label</uui-label>
+<uui-textarea id="MyTextArea" label="My A11Y Label"></uui-textarea>
+
+<br />
+<br />
+
+<uui-label for="MySlider">My Label</uui-label>
+<uui-slider id="MySlider" label="My A11Y Label">My Slider label</uui-slider>
+
+<br />
+<br />
+
+<uui-label for="MySelect">My Label</uui-label>
+<uui-select id="MySelect" label="My A11Y Label" .options=${[
+  { name: 'Carrot', value: 'orange' },
+  { name: 'Cucumber', value: 'green' },
+  { name: 'Aubergine', value: 'purple', selected: true },
+  { name: 'Blueberry', value: 'Blue' },
+  { name: 'Banana', value: 'yellow' },
+  { name: 'Strawberry', value: 'red' },
+]}></uui-select>
 `;
