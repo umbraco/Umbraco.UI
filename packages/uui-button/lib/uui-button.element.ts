@@ -9,8 +9,7 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
-import IconCheck from '@umbraco-ui/uui-base/lib/svgs/icon-check';
-import IconWrong from '@umbraco-ui/uui-base/lib/svgs/icon-wrong';
+import { iconCheck, iconWrong } from '@umbraco-ui/uui-base/lib/svgs';
 
 export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 
@@ -47,6 +46,8 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
+        --uui-button-padding-top-factor: 1;
+        --uui-button-padding-bottom-factor: 1;
       }
 
       :host([compact]) {
@@ -79,9 +80,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         min-height: var(--uui-button-height, auto);
         width: 100%;
 
-        padding: calc(8 / 15 * 1em)
+        padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
-          calc(8 / 15 * 1em)
+          calc(calc(8 / 15 * 1em) * var(--uui-button-padding-bottom-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
         text-align: center;
         vertical-align: middle;
@@ -130,6 +131,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       button[disabled] {
         background-color: var(
           --uui-button-background-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
+        border-color: var(
+          --uui-button-border-color-disabled,
           var(--uui-interface-surface-disabled)
         );
         color: var(
@@ -587,10 +592,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
-        element = html`<div id="icon-check" style="">${IconCheck}</div>`;
+        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
         break;
       case 'failed':
-        element = html`<div id="icon-wrong" style="">${IconWrong}</div>`;
+        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
         break;
       default:
         return '';

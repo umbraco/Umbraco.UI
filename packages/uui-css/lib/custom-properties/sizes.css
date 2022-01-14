@@ -37,9 +37,10 @@
   /** space and layout sizes for simpler usage of sizes: */
   --uui-size-space-1: 3px; /*--uui-size-1*/
   --uui-size-space-2: 6px; /*--uui-size-2*/
-  --uui-size-space-3: 12px; /*--uui-size-4*/
-  --uui-size-space-4: 18px; /*--uui-size-6*/
-  --uui-size-space-5: 24px; /*--uui-size-8*/
+  --uui-size-space-3: 9px; /*--uui-size-3*/
+  --uui-size-space-4: 12px; /*--uui-size-4*/
+  --uui-size-space-5: 18px; /*--uui-size-6*/
+  --uui-size-space-6: 24px; /*--uui-size-8*/
 
   --uui-size-layout-1: 24px; /*--uui-size-8*/
   --uui-size-layout-2: 30px; /*--uui-size-10*/
