@@ -14,6 +14,17 @@ describe('UUITextareaElement', () => {
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
+
+  describe('methods', () => {
+    it('has a focus method', () => {
+      expect(element).to.have.property('focus').that.is.a('function');
+    });
+    it('focus method sets focus', async () => {
+      expect(document.activeElement).not.to.equal(element);
+      element.focus();
+      expect(document.activeElement).to.equal(element);
+    });
+  });
 });
 
 describe('UUITextareaElement', () => {
@@ -35,18 +46,14 @@ describe('UUITextareaElement', () => {
 
   it('changes the value to the textarea value when textarea event is emitted', async () => {
     textarea.value = 'test value';
-    textarea.dispatchEvent(
-      new Event('input', { bubbles: true, composed: true })
-    );
+    textarea.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
   });
 
   it('emits a change event when native textarea fires one', async () => {
     let event: Event | null = null;
     element.addEventListener('change', e => (event = e));
-    textarea.dispatchEvent(
-      new Event('change', { bubbles: true, composed: false })
-    );
+    textarea.dispatchEvent(new Event('change'));
     expect(event!.target).to.equal(element);
   });
 });

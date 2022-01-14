@@ -7,87 +7,71 @@ import {
 } from '@open-wc/testing';
 import { UUIInputElement } from './uui-input.element';
 import './index';
-import { UUIInputEvent } from './UUIInputEvent';
 
 describe('UuiInputElement', () => {
   let element: UUIInputElement;
+  let input: HTMLInputElement;
 
   beforeEach(async () => {
     element = await fixture(html` <uui-input label="label"></uui-input> `);
-  });
-
-  it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
 
   describe('properties', () => {
-    it('has an error property', () => {
+    it('has a name property', () => {
+      expect(element).to.have.property('name');
+    });
+    it('has a error property', () => {
       expect(element).to.have.property('error');
     });
-
+    it('has a type property', () => {
+      expect(element).to.have.property('type');
+    });
+    it('has a value property', () => {
+      expect(element).to.have.property('value');
+    });
+    it('has a placeholder property', () => {
+      expect(element).to.have.property('placeholder');
+    });
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
     });
 
-    it('has a placeholder property', () => {
-      expect(element).to.have.property('placeholder');
-    });
-
-    it('has a hideLabel property', () => {
-      expect(element).to.have.property('hideLabel');
-    });
-
-    it('has a name property', () => {
-      expect(element).to.have.property('name');
-    });
-
-    it('has a value property', () => {
-      expect(element).to.have.property('value');
-    });
-
-    it('has a type property', () => {
-      expect(element).to.have.property('type');
-    });
-  });
-
-  describe('template', () => {
-    it('renders a default slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
-    });
-
-    it('renders a prepend slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot[name=prepend]')!;
-      expect(slot).to.exist;
-    });
-
-    it('renders an append slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot[name=append]')!;
-      expect(slot).to.exist;
+    it('disable property set input to disabled', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+      expect(input.disabled).to.be.true;
     });
   });
 
   describe('events', () => {
-    describe('change', () => {
-      it('emits a change event on input', async () => {
-        const inputElement = element.shadowRoot?.querySelector(
-          'input'
-        ) as HTMLInputElement;
-        const listener = oneEvent(element, UUIInputEvent.CHANGE);
-
-        inputElement.dispatchEvent(
-          new Event('change', { bubbles: true, composed: false })
-        );
-
+    describe('focus', () => {
+      it('emits a focus event when focused', async () => {
+        const listener = oneEvent(element, 'focus');
+        element.focus();
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUIInputEvent.CHANGE);
+        expect(event.type).to.equal('focus');
+      });
+    });
+    describe('change', () => {
+      it('emits a change event when native input fires one', async () => {
+        let event: Event | null = null;
+        element.addEventListener('change', e => (event = e));
+        input.dispatchEvent(new Event('change'));
+        expect(event!.target).to.equal(element);
       });
     });
   });
+
+  it('changes the value to the input value when input event is emitted', async () => {
+    input.value = 'test value';
+    input.dispatchEvent(new Event('input'));
+    expect(element.value).to.equal('test value');
+  });
 });
 
-describe('UuiInput with label', () => {
+describe('UuiInput with native label element', () => {
   let dom: Element;
   beforeEach(async () => {
     dom = await fixture(html`

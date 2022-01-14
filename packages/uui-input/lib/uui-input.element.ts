@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =
@@ -20,7 +19,6 @@ export type InputType =
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
- * @extends LabelMixin(LitElement)
  * @slot input label - for the input label text.
  * @slot prepend - for components to render to the left of the input.
  * @slot append - for components to render to the right of the input.
@@ -28,7 +26,7 @@ export type InputType =
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
-export class UUIInputElement extends LabelMixin('input label', LitElement) {
+export class UUIInputElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -112,16 +110,18 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   ];
 
   /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
+   * Label for input element.
+   * @type {string}
+   * @attr
    */
-  static readonly formAssociated = true;
+  @property({ type: String })
+  public label!: string;
 
-  private _internals;
-
-  constructor() {
-    super();
-    this._internals = (this as any).attachInternals();
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  focus() {
+    (this.shadowRoot?.querySelector('#input') as any).focus();
   }
 
   /**
@@ -141,15 +141,6 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
-
-  /**
-   * Set to true to hide the labeling provided by the component.
-   * @type {boolean}
-   * @attr hide-label
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
 
   @state()
   private _value = '';
@@ -185,7 +176,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   name = '';
 
   /**
-   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
+   * Set to true if the component should have an error state.
    * @type {boolean}
    * @attr
    * @default false
@@ -208,14 +199,25 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
     this._type = value;
   }
 
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
+  private _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
+  }
+
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
   }
 
   private onChange() {
-    this.dispatchEvent(
-      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
-    );
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
   protected renderPrepend() {
@@ -230,6 +232,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
     return html`
       ${this.renderPrepend()}
       <input
+        id="input"
         .type=${this.type}
         .value=${this.value}
         .name=${this.name}

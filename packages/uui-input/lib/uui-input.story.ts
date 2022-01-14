@@ -36,7 +36,6 @@ const Template: Story = props =>
     <uui-input
       .disabled=${props.disabled}
       .error=${props.error}
-      .hideLabel=${props.hideLabel}
       .label=${props.label}
       .type=${props.type}
       .name=${props.name}
@@ -47,7 +46,7 @@ const Template: Story = props =>
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 
-AAAOverview.args = { type: 'text', hideLabel: false };
+AAAOverview.args = { type: 'text' };
 
 AAAOverview.parameters = {
   docs: {
@@ -58,9 +57,9 @@ AAAOverview.parameters = {
 };
 
 export const Label = Template.bind({});
-Label.args = { type: 'text', hideLabel: false };
+Label.args = { type: 'text' };
 Label.parameters = {
-  controls: { include: ['type', 'value', 'label', 'hideLabel'] },
+  controls: { include: ['type', 'value', 'label'] },
   docs: {
     source: {
       code: html`<uui-input label="Label"></uui-input>`.strings,

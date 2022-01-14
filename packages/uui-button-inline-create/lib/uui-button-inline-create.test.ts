@@ -9,7 +9,7 @@ describe('UUIButtonInlineCreateElement', () => {
     element = await fixture(
       html`
         <uui-button-inline-create
-          label="Provide a A11Y label"></uui-button-inline-create>
+          label="Create something here"></uui-button-inline-create>
       `
     );
   });

@@ -304,6 +304,13 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
     this._internals = (this as any).attachInternals();
   }
 
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  focus() {
+    (this.shadowRoot?.querySelector('#input') as any).focus();
+  }
+
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('resize', this.onWindowResize);
@@ -380,7 +387,7 @@ export class UUISliderElement extends LabelMixin('label', LitElement) {
         min="${this.min}"
         max="${this.max}"
         .value="${this.value}"
-        id="input1"
+        id="input"
         aria-label="${this.label}"
         step="${+this.step}"
         @input=${this._onInput} />
