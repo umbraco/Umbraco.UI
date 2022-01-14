@@ -1,0 +1,45 @@
+{
+  "name": "@umbraco-ui/uui-input-password",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Input Password"
+  ],
+  "description": "Umbraco UI input-password component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-input-password"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "main": "./dist/uui-input-password.min.js",
+  "module": "./lib/index.js",
+  "customElements": "custom-elements.json",
+  "files": [
+    "dist",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
+  ],
+  "dependencies": {
+    "@umbraco-ui/uui-base": "0.0.14",
+    "@umbraco-ui/uui-input": "0.0.16",
+    "@umbraco-ui/uui-icon-registry-essential": "0.0.0"
+  },
+  "scripts": {
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-input-password"
+}

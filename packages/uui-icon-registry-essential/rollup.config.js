@@ -5,6 +5,7 @@ export default UUIProdConfig({
     'index',
     'uui-icon-registry-essential.element',
     'UUIIconRegistryEssential',
+    'svgs/index',
   ],
   bundle: 'index',
 });
