@@ -89,3 +89,68 @@ Error.parameters = {
     },
   },
 };
+
+export const PrependAndAppend: Story = props =>
+  html`
+    <uui-input
+      .disabled=${props.disabled}
+      .error=${props.error}
+      .hideLabel=${props.hideLabel}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}>
+      <div
+        style="
+        user-select:none;
+        height: 100%;
+        padding: 0 var(--uui-size-space-3);
+        border-right: 1px solid
+          var(--uui-input-border-color, var(--uui-interface-border));
+        background: #f3f3f3;
+        color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;"
+        slot="prepend">
+        umbraco@
+      </div>
+      <div
+        slot="append"
+        style="
+        user-select:none;
+        height: 100%;
+        padding: 0 var(--uui-size-space-3);
+        border-left: 1px solid
+          var(--uui-input-border-color, var(--uui-interface-border));
+        background: #f3f3f3;
+        color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;">
+        .com
+      </div>
+    </uui-input>
+  `;
+
+export const MultipleInputs: Story = props =>
+  html`
+    <uui-input
+      .disabled=${props.disabled}
+      .error=${props.error}
+      .hideLabel=${props.hideLabel}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}>
+      <uui-input
+        slot="prepend"
+        placeholder="+45"
+        style="text-align:right; width: 60px;">
+      </uui-input>
+      <uui-input slot="append" placeholder="(extra)" style="width: 100px;">
+      </uui-input>
+    </uui-input>
+  `;
