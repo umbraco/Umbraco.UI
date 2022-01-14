@@ -65,6 +65,11 @@ export class UUITextareaElement extends LitElement {
           var(--uui-interface-border-focus)
         );
       }
+
+      textarea:focus {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
     `,
   ];
 

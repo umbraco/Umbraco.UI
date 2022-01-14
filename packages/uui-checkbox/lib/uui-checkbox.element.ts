@@ -117,6 +117,11 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
         background-color: var(--uui-interface-chosen-focus);
       }
 
+      input:focus + #ticker {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+
       :host(:not([disabled])) label:active input:checked + #ticker::before {
         /** Stretch when mouse down */
         transform: scale(0.9);

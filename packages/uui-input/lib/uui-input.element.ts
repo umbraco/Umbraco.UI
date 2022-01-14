@@ -37,7 +37,6 @@ export class UUIInputElement extends LitElement {
         font-size: 15px;
         text-align: left;
         box-sizing: border-box;
-        outline: none;
         background-color: var(
           --uui-input-background-color,
           var(--uui-interface-surface)
@@ -52,6 +51,14 @@ export class UUIInputElement extends LitElement {
         );
       }
       :host(:focus-within) {
+        border-color: var(
+          --uui-input-border-color-focus,
+          var(--uui-interface-border-focus)
+        );
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+      :host(:focus) {
         border-color: var(
           --uui-input-border-color-focus,
           var(--uui-interface-border-focus)
@@ -84,8 +91,8 @@ export class UUIInputElement extends LitElement {
         border: none;
         background: none;
         width: 100%;
-        outline: none;
         text-align: inherit;
+        outline: none;
       }
 
       input::placeholder {

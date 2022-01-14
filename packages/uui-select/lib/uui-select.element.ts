@@ -36,10 +36,14 @@ export class UUISelectElement extends LitElement {
         border-radius: 0;
         box-sizing: border-box;
         background-color: transparent;
-        outline-color: var(--uui-select-outline-color, var(--uui-color-malibu));
         border: 1px solid
           var(--uui-select-border-color, var(--uui-interface-border));
         transition: all 150ms ease;
+      }
+
+      #native:focus {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
       }
 
       #native[disabled] {

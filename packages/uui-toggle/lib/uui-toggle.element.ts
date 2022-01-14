@@ -125,6 +125,11 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
         transform: translateX(-100%);
       }
 
+      input:focus + #slider {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+
       :host(:not([disabled])) label:active #slider::after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));

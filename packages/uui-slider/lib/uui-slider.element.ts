@@ -90,6 +90,11 @@ export class UUISliderElement extends LitElement {
         fill: var(--uui-interface-border-hover);
       }
 
+      input:focus ~ #track svg {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+
       .track-step {
         fill: var(--uui-interface-border);
       }
@@ -282,6 +287,18 @@ export class UUISliderElement extends LitElement {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
+
+    this.style.setProperty('--uui-show-focus-outline', '0');
+    const onKeyUp = () => {
+      this.style.setProperty('--uui-show-focus-outline', '1');
+      this.removeEventListener('keyup', onKeyUp);
+    };
+    this.addEventListener('focus', () => {
+      this.addEventListener('keyup', onKeyUp);
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
   }
 
   /**
