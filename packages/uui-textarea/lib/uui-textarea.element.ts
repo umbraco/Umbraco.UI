@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { UUITextareaEvent } from './UUITextareaEvent';
-import { ifDefined } from 'lit/directives/if-defined.js';
 /**
  * @element uui-textarea
  * @fires UUITextareaEvent#change on change
@@ -13,9 +12,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 export class UUITextareaElement extends LitElement {
   static styles = [
     css`
-      :host([disabled]) .label,
-      :host([disabled]) #max-length-counter {
-        color: var(--uui-interface-contrast-disabled);
+      :host {
+        position: relative;
       }
       :host([error]) textarea {
         border: 1px solid var(--uui-look-danger-border) !important;
@@ -59,30 +57,13 @@ export class UUITextareaElement extends LitElement {
         min-height: var(--uui-textarea-min-height);
         max-height: var(--uui-textarea-max-height);
       }
-      #lengths-container {
-        display: flex;
-      }
-      #min-length-counter {
-        color: var(--uui-look-danger-surface);
-        margin-right: 1em;
-      }
-      #max-length-counter {
-        display: inline-block;
-        width: min-content;
-      }
-      #max-length-counter.maxed {
-        animation-name: maxed;
-        animation-duration: 0.1s;
-        animation-direction: alternate;
-        animation-iteration-count: 2;
-      }
-      @keyframes maxed {
-        from {
-          transform: scale(1);
-        }
-        to {
-          transform: scale(1.1);
-        }
+      :host(:hover) textarea,
+      :host(:focus-within) textarea,
+      :host(:focus) textarea {
+        border-color: var(
+          --uui-textarea-border-color,
+          var(--uui-interface-border-focus)
+        );
       }
     `,
   ];
@@ -152,24 +133,6 @@ export class UUITextareaElement extends LitElement {
   protected _textarea!: HTMLInputElement;
 
   /**
-   * Defines the min length of the textarea.
-   * @type {number}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: Number })
-  minLength = 0;
-
-  /**
-   * Defines the max length of the textarea.
-   * @type {number}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: Number })
-  maxLength = 0;
-
-  /**
    * Enables automatic height adjustment. The height will be confined within the min and max height if defined.
    * @type {boolean}
    * @attr
@@ -215,19 +178,16 @@ export class UUITextareaElement extends LitElement {
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
-    this.dispatchEvent(
-      new UUITextareaEvent(UUITextareaEvent.INPUT, { bubbles: true })
-    );
 
     if (this.autoHeight) {
       this.autoUpdateHeight();
     }
+
+    this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
   }
 
   private onChange() {
-    this.dispatchEvent(
-      new UUITextareaEvent(UUITextareaEvent.CHANGE, { bubbles: true })
-    );
+    this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.CHANGE));
   }
 
   private autoUpdateHeight() {
@@ -253,28 +213,9 @@ export class UUITextareaElement extends LitElement {
     host.scrollTop = scrollTop;
   }
 
-  renderMaxLength() {
-    return html`<span
-      id="max-length-counter"
-      class=${this.value.length >= this.maxLength! ? 'maxed' : ''}
-      >${this.value ? this.value.length : 0}/${this.maxLength}</span
-    >`;
-  }
-
-  renderMinLength() {
-    const shouldRender = this.minLength - this.value.length > 0;
-    return shouldRender
-      ? html`<span id="min-length-counter">
-          ${this.minLength - this.value.length}
-        </span>`
-      : '';
-  }
-
   render() {
     return html`
       <textarea
-        maxlength=${ifDefined(this.maxLength > 0 ? this.maxLength : undefined)}
-        minlength=${this.minLength}
         id="textarea"
         .value=${this.value}
         .name=${this.name}
@@ -284,10 +225,6 @@ export class UUITextareaElement extends LitElement {
         @input=${this.onInput}
         @change=${this.onChange}>
       </textarea>
-      <div id="lengths-container">
-        ${this.minLength > 0 ? this.renderMinLength() : ''}
-        ${this.maxLength > 0 ? this.renderMaxLength() : ''}
-      </div>
     `;
   }
 }

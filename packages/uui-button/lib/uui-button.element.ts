@@ -9,7 +9,10 @@ import {
   InterfaceLookType,
   InterfaceLookDefaultValue,
 } from '@umbraco-ui/uui-base/lib/types';
-import { iconCheck, iconWrong } from '@umbraco-ui/uui-base/lib/svgs';
+import {
+  iconCheck,
+  iconWrong,
+} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 
@@ -485,10 +488,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
    * Specifies the type of button.
    * @type { "submit" | "button" | "reset" }
    * @attr
-   * @default "submit"
+   * @default "button"
    */
   @property({ type: String, reflect: true })
-  type: UUIButtonType = 'submit';
+  type: UUIButtonType = 'button';
 
   /**
    * Disables the button, changes the looks of it and prevents if from emitting the click event
@@ -561,15 +564,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    if (!customElements.get('uui-loader-circle')) {
-      console.warn(
-        'To properly render the waiting state, the uui-loader-circle element has to be registered'
-      );
-    }
-  }
-
   private _resetStateTimeout?: number;
 
   // Reset the state after 2sec if it is 'success' or 'failed'.
@@ -589,6 +583,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     let element = html``;
     switch (this.state) {
       case 'waiting':
+        if (!customElements.get('uui-loader-circle')) {
+          console.warn(
+            'To properly render the waiting state, the uui-loader-circle element has to be registered'
+          );
+        }
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':

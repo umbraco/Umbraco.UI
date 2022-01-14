@@ -1,10 +1,10 @@
 import { UUIIconRegistry } from '@umbraco-ui/uui-icon-registry/lib/UUIIconRegistry';
-import { iconCheck, iconWrong } from '@umbraco-ui/uui-base/lib/svgs';
 import {
   iconAdd,
   iconAlert,
   iconAttachment,
   iconCalendar,
+  iconCheck,
   iconClipboard,
   iconCode,
   iconColorPicker,
@@ -31,21 +31,18 @@ import {
   iconUnlock,
   iconUnsee,
   iconWand,
+  iconWrong,
 } from './svgs';
 
 export class UUIIconRegistryEssential extends UUIIconRegistry {
   constructor() {
     super();
 
-    // From base:
-    this.defineIcon('check', iconCheck.strings[0]);
-    this.defineIcon('wrong', iconWrong.strings[0]);
-
-    // From this package:
     this.defineIcon('add', iconAdd.strings[0]);
     this.defineIcon('alert', iconAlert.strings[0]);
     this.defineIcon('attachment', iconAttachment.strings[0]);
     this.defineIcon('calendar', iconCalendar.strings[0]);
+    this.defineIcon('check', iconCheck.strings[0]);
     this.defineIcon('clipboard', iconClipboard.strings[0]);
     this.defineIcon('code', iconCode.strings[0]);
     this.defineIcon('colorpicker', iconColorPicker.strings[0]);
@@ -72,5 +69,6 @@ export class UUIIconRegistryEssential extends UUIIconRegistry {
     this.defineIcon('unlock', iconUnlock.strings[0]);
     this.defineIcon('unsee', iconUnsee.strings[0]);
     this.defineIcon('wand', iconWand.strings[0]);
+    this.defineIcon('wrong', iconWrong.strings[0]);
   }
 }

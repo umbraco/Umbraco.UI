@@ -46,18 +46,14 @@ describe('UUITextareaElement', () => {
 
   it('changes the value to the textarea value when textarea event is emitted', async () => {
     textarea.value = 'test value';
-    textarea.dispatchEvent(
-      new Event('input', { bubbles: true, composed: true })
-    );
+    textarea.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
   });
 
   it('emits a change event when native textarea fires one', async () => {
     let event: Event | null = null;
     element.addEventListener('change', e => (event = e));
-    textarea.dispatchEvent(
-      new Event('change', { bubbles: true, composed: false })
-    );
+    textarea.dispatchEvent(new Event('change'));
     expect(event!.target).to.equal(element);
   });
 });
