@@ -53,7 +53,12 @@
   font-weight: 700;
   margin-left: 0;
   margin-top: var(--uui-size-layout-1);
-  margin-bottom: var(--uui-size-layout-1);
+  margin-bottom: 0;
+}
+
+.uui-text h5:first-child,
+.uui-text .uui-h5:first-child {
+  margin-top: 0;
 }
 
 .uui-text p {
