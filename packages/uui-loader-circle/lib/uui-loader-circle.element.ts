@@ -27,6 +27,7 @@ export class UUILoaderCircleElement extends LitElement {
       }
       #spinner g {
         transform-origin: 50% 50%;
+        animation: 18s linear infinite spinner-animation;
       }
       #spinner.animate g {
         animation: 800ms linear infinite spinner-animation;
@@ -70,7 +71,7 @@ export class UUILoaderCircleElement extends LitElement {
 
       #circle {
         stroke-linecap: round;
-        stroke-dasharray: 0 301.592894745;
+        stroke-dasharray: 0 0;
 
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
@@ -93,7 +94,7 @@ export class UUILoaderCircleElement extends LitElement {
 
   private _circleStyle() {
     if (this.progress) {
-      return { strokeDasharray: `${this.progress}, 100` };
+      return { strokeDasharray: `${this.progress} 100` };
     } else {
       return { strokeDasharray: '100 100' };
     }
