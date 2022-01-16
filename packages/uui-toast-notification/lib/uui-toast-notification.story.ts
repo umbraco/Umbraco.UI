@@ -6,26 +6,47 @@ export default {
   id: 'uui-toast-notification',
   title: 'Displays/Toast Notification',
   component: 'uui-toast-notification',
-  args: {
-    headline: 'Headline',
+  argTypes: {
+    look: {
+      options: ['', 'primary', 'positive', 'warning', 'danger'],
+      control: { type: 'select' },
+    },
   },
 };
+const Template: Story = props => html`<uui-toast-notification
+  .headline=${props.headline}
+  .look=${props.look}>
+  This version is now available.
+</uui-toast-notification>`;
 
-export const AAAOverview: Story = props =>
-  html`<uui-toast-notification>
-    <h5>${props.headline}</h5>
-    Hello world, this is a great message with a bit too much text but its
-    showing a great example of what this can do.
-  </uui-toast-notification>`;
-
+export const AAAOverview: Story = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
-  label: 'Document has been published!',
+  headline: 'Document has been published!',
 };
 AAAOverview.parameters = {
   docs: {
     source: {
       code: `<uui-toast-notification headline="My headline"></uui-toast-notification>`,
+    },
+  },
+};
+
+export const ErrorStyle: Story = props => html`<uui-toast-notification
+  .headline=${props.headline}
+  .look=${props.look}>
+  An error occurred while attempting to contact the server. Please check your
+  internet connection.
+  <uui-button slot="actions" look="danger">Retry</uui-button>
+</uui-toast-notification>`;
+ErrorStyle.args = {
+  headline: 'Document could not be published!',
+  look: 'danger',
+};
+ErrorStyle.parameters = {
+  docs: {
+    source: {
+      code: `<uui-toast-notification look="danger" headline="Error title">Description</uui-toast-notification>`,
     },
   },
 };
