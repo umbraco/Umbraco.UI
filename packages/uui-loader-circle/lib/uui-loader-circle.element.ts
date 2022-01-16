@@ -10,13 +10,8 @@ export class UUILoaderCircleElement extends LitElement {
   static styles = [
     css`
       :host {
-        /* currently this components color is defined through currentColor, if we like to use a different color, we need to implemenet a --uui-interface- color which will be set/overwritten when looks are set, aka. if this element is used within a button with the look danger, then this component would get an appropriate color. */
-        display: inline-block;
         vertical-align: middle;
         line-height: 0;
-      }
-
-      #svg-container {
         overflow: hidden;
         display: inline-flex;
         justify-content: center;
@@ -26,36 +21,60 @@ export class UUILoaderCircleElement extends LitElement {
         height: 1em;
       }
 
-      .animate #spinner {
-        animation: 3s linear infinite svg-animation;
-      }
-
-      .animate #circle {
-        animation: 1.4s ease-in infinite circle-animation;
-      }
-
       #spinner {
         width: 100%;
+        height: 100%;
+      }
+      #spinner g {
+        transform-origin: 50% 50%;
+      }
+      #spinner.animate g {
+        animation: 800ms linear infinite spinner-animation;
+      }
+
+      @keyframes spinner-animation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #spinner.animate #circle {
+        animation: 1400ms ease-in infinite circle-animation;
+        /** ease-in */
+      }
+
+      @keyframes circle-animation {
+        0% {
+          stroke-dashoffset: -55;
+        }
+        38% {
+          stroke-dashoffset: -88;
+        }
+        100% {
+          stroke-dashoffset: -55;
+        }
+      }
+
+      svg circle {
+        fill: transparent;
+        stroke: currentColor;
+        stroke-width: 6px;
+      }
+
+      #bg {
+        opacity: 0.5;
       }
 
       #circle {
-        display: block;
-        fill: transparent;
-        stroke: currentColor;
         stroke-linecap: round;
         stroke-dasharray: 0 301.592894745;
 
-        stroke-width: 6px;
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
-        transition: stroke-dasharray 500ms ease;
-      }
-
-      #circle2 {
-        fill: transparent;
-        stroke: currentColor;
-        stroke-width: 6px;
-        opacity: 0.5;
+        transition: stroke-dasharray 120ms ease;
       }
 
       #progress-display {
@@ -69,42 +88,14 @@ export class UUILoaderCircleElement extends LitElement {
         font-weight: 700;
         text-align: center;
       }
-
-      @keyframes svg-animation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes circle-animation {
-        0%,
-        25% {
-          stroke-dashoffset: 100;
-          transform: rotate(0);
-        }
-
-        50%,
-        75% {
-          stroke-dashoffset: 20;
-          transform: rotate(45deg);
-        }
-
-        100% {
-          stroke-dashoffset: 100;
-          transform: rotate(360deg);
-        }
-      }
     `,
   ];
 
-  private _strokeDashOffset() {
+  private _circleStyle() {
     if (this.progress) {
       return { strokeDasharray: `${this.progress}, 100` };
     } else {
-      return { strokeDasharray: '100' };
+      return { strokeDasharray: '100 100' };
     }
   }
 
@@ -127,46 +118,52 @@ export class UUILoaderCircleElement extends LitElement {
   showProgress = false;
 
   @query('#svg-container')
-  private container: any;
+  private _container: any;
 
-  private resizeObserver = new ResizeObserver(() => this.checkIsLargeChange());
-  private isLarge = false;
+  private _resizeObserver = new ResizeObserver(() => this.onResize());
+  private _isLarge = false;
 
   firstUpdated() {
-    this.resizeObserver.observe(this.container);
+    this._resizeObserver.observe(this._container);
   }
 
   disconnectedCallback() {
-    this.resizeObserver.disconnect();
+    this._resizeObserver.disconnect();
   }
 
-  checkIsLargeChange() {
-    const newIsLarge = Number.parseFloat(this.container.clientHeight) >= 30;
+  onResize() {
+    const newIsLarge = Number.parseFloat(this._container.clientHeight) >= 30;
 
-    if (this.isLarge != newIsLarge) {
-      this.isLarge = newIsLarge;
+    if (this._isLarge != newIsLarge) {
+      this._isLarge = newIsLarge;
       this.requestUpdate();
     }
   }
 
-  renderProgress() {
-    return this.isLarge && this.progress && this.showProgress
+  protected renderProgress() {
+    return this._isLarge && this.progress && this.showProgress
       ? html`<span id="progress-display">${this.progress}</span>`
       : '';
   }
 
   render() {
-    return html`<div id="svg-container" class=${this.progress ? '' : 'animate'}>
-      <svg id="spinner" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle id="circle2" cx="50%" cy="50%" r="15.9155" />
-        <circle
-          id="circle"
-          cx="50%"
-          cy="50%"
-          r="15.9155"
-          style=${styleMap(this._strokeDashOffset())} />
+    return html`
+      <svg
+        id="spinner"
+        class=${this.progress ? '' : 'animate'}
+        viewBox="0 0 40 40"
+        xmlns="http://www.w3.org/2000/svg">
+        <circle id="bg" cx="50%" cy="50%" r="16" />
+        <g>
+          <circle
+            id="circle"
+            cx="50%"
+            cy="50%"
+            r="16"
+            style=${styleMap(this._circleStyle())} />
+        </g>
       </svg>
       ${this.renderProgress()}
-    </div>`;
+    `;
   }
 }
