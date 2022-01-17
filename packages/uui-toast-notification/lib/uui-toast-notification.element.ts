@@ -17,24 +17,44 @@ export class UUIToastNotificationElement extends LitElement {
     UUITextStyles,
     css`
       :host {
+        --uui-toast-notification-margin: var(--uui-size-space-2);
+
         position: relative;
         display: block;
         width: 100%;
         max-width: 400px;
+        margin: 0 var(--uui-size-space-2);
+        box-sizing: border-box;
 
         height: 0;
         pointer-events: none;
 
-        transition: height 480ms;
+        transition: height 480ms ease-in-out;
       }
       :host([is-open]) {
         pointer-events: all;
+        transition-timing-function: cubic-bezier(
+          0.19,
+          1,
+          0.22,
+          1
+        ); /* easeOutExpo */
       }
+
       #toast {
         position: relative;
+        display: block;
+        padding: calc(var(--uui-toast-notification-margin) * 0.5) 0;
         width: 100%;
-        min-width: 100%;
         max-width: 400px;
+      }
+      #toast.animate {
+        position: absolute;
+      }
+
+      #toast > div {
+        position: relative;
+        display: block;
 
         box-sizing: border-box;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.21);
@@ -47,12 +67,7 @@ export class UUIToastNotificationElement extends LitElement {
         opacity: 0;
         transition: opacity 480ms;
       }
-
-      #toast.animate {
-        position: absolute;
-      }
-
-      :host([is-open]) #toast {
+      :host([is-open]) #toast > div {
         opacity: 1;
       }
 
@@ -86,20 +101,20 @@ export class UUIToastNotificationElement extends LitElement {
         justify-content: flex-end;
       }
 
-      :host([look='primary']) #toast {
+      :host([look='primary']) #toast > div {
         background-color: var(--uui-look-primary-surface);
         color: var(--uui-look-primary-contrast);
       }
-      :host([look='positive']) #toast {
+      :host([look='positive']) #toast > div {
         background-color: var(--uui-look-positive-surface);
         color: var(--uui-look-positive-contrast);
       }
-      :host([look='warning']) #toast {
+      :host([look='warning']) #toast > div {
         background-color: var(--uui-look-warning-surface);
         color: var(--uui-look-warning-contrast);
         border-color: var(--uui-look-warning-border);
       }
-      :host([look='danger']) #toast {
+      :host([look='danger']) #toast > div {
         background-color: var(--uui-look-danger-surface);
         color: var(--uui-look-danger-contrast);
         border-color: var(--uui-look-danger-border);
@@ -226,56 +241,60 @@ export class UUIToastNotificationElement extends LitElement {
   private _makeClose() {
     this._open = false;
     if (this.isOpen === true) {
-      window.clearTimeout(this._animationTimeout as number);
-      this.isOpen = false;
-
-      this.style.height = this._toastEl.getBoundingClientRect().height + 'px';
-      this._animate = true;
-
       window.requestAnimationFrame(() => {
-        this.style.height = '';
-      });
+        window.clearTimeout(this._animationTimeout as number);
+        this.isOpen = false;
 
-      this.dispatchEvent(
-        new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSE, this)
-      );
+        this.style.height = this._toastEl.getBoundingClientRect().height + 'px';
+        this._animate = true;
 
-      this._animationTimeout = window.setTimeout(() => {
-        if (this.isOpen === false) {
-          this._animate = false;
-          this._timer?.pause();
+        window.requestAnimationFrame(() => {
+          this.style.height = '0';
+        });
 
-          this.dispatchEvent(
-            new UUIToastNotificationEvent(
-              UUIToastNotificationEvent.CLOSED,
-              this
-            )
-          );
-          if (this.parentNode) {
-            this.parentNode.removeChild(this);
+        this.dispatchEvent(
+          new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSE, this)
+        );
+
+        this._animationTimeout = window.setTimeout(() => {
+          if (this.isOpen === false) {
+            this._animate = false;
+            this._timer?.pause();
+
+            this.dispatchEvent(
+              new UUIToastNotificationEvent(
+                UUIToastNotificationEvent.CLOSED,
+                this
+              )
+            );
+            if (this.parentNode) {
+              this.parentNode.removeChild(this);
+            }
           }
-        }
-      }, 480);
+        }, 480);
+      });
     }
   }
 
   render() {
     return html`
       <div id="toast" class=${this._animate ? 'animate' : ''}>
-        <div id="layout">
-          <div id="message" class="uui-text">
-            ${this.headline ? html`<h5>${this.headline}</h5>` : ''}
-            <slot></slot>
+        <div>
+          <div id="layout">
+            <div id="message" class="uui-text">
+              ${this.headline ? html`<h5>${this.headline}</h5>` : ''}
+              <slot></slot>
+            </div>
+            <div id="close">
+              <uui-button .look=${this.look}>
+                <uui-icon
+                  name="remove"
+                  .fallback=${iconRemove.strings[0]}></uui-icon>
+              </uui-button>
+            </div>
           </div>
-          <div id="close">
-            <uui-button .look=${this.look}>
-              <uui-icon
-                name="remove"
-                .fallback=${iconRemove.strings[0]}></uui-icon>
-            </uui-button>
-          </div>
+          <slot name="actions"></slot>
         </div>
-        <slot name="actions"></slot>
       </div>
     `;
   }

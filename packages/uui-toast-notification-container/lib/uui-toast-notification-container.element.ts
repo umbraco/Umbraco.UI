@@ -15,19 +15,26 @@ export class UUIToastNotificationContainerElement extends LitElement {
         max-width: 100%;
         height: 100%;
 
+        pointer-events: none;
+        box-sizing: border-box;
+      }
+
+      slot {
         display: flex;
         flex-direction: column;
         align-items: end;
 
-        pointer-events: none;
-      }
+        height: 100%;
+        box-sizing: border-box;
 
-      :host([bottom-up]) {
+        padding-top: var(--uui-size-space-1);
+        padding-bottom: var(--uui-size-space-1);
+      }
+      :host([bottom-up]) slot {
         justify-content: end;
       }
-
-      :host() > * {
-        padding: var(--uui-size-layout-2);
+      :host([left-align]) slot {
+        align-items: start;
       }
     `,
   ];
