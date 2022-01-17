@@ -186,6 +186,16 @@ export class UUIRadioElement extends LitElement {
     this.requestUpdate('disabled', oldVal);
   }
 
+  constructor() {
+    super();
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '1');
+    });
+  }
+
   private _onChange() {
     if (this.inputElement.checked) this.check();
     else this.uncheck();

@@ -161,6 +161,26 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     this._internals = (this as any).attachInternals();
   }
 
+  protected firstUpdated(): void {
+    const labelEl = this.shadowRoot?.querySelector('label') as HTMLLabelElement;
+
+    // hide outline if mouse-interaction:
+    let hadMouseDown = false;
+    this._input.addEventListener('blur', () => {
+      if (hadMouseDown === false) {
+        this.style.setProperty('--uui-show-focus-outline', '1');
+      }
+      hadMouseDown = false;
+    });
+    labelEl.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+      hadMouseDown = true;
+    });
+    labelEl.addEventListener('mouseup', () => {
+      hadMouseDown = false;
+    });
+  }
+
   /**
    * This method enables <label for="..."> to focus the input
    */
