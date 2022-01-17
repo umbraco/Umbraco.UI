@@ -1,8 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import {
-  iconRemove,
-  iconAlert,
-} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
 import { property } from 'lit/decorators.js';
 import {
   InterfaceLookType,
@@ -33,17 +30,6 @@ export class UUIToastNotificationElement extends LitElement {
       #layout {
         display: flex;
         width: 100%;
-      }
-
-      #icon {
-        display: none;
-        flex-grow: 0;
-        flex-shrink: 0;
-        /*display: flex;
-        align-items: center;
-        justify-content: center;*/
-        margin-right: var(--uui-size-layout-1);
-        font-size: var(--uui-type-h3-size);
       }
 
       #message {
@@ -102,15 +88,6 @@ export class UUIToastNotificationElement extends LitElement {
   look: InterfaceLookType = InterfaceLookDefaultValue;
 
   /**
-   * Icon.
-   * @type string
-   * @attr
-   * @default ""
-   */
-  @property({ type: String, reflect: true })
-  icon = 'alert';
-
-  /**
    * Headline for this notification.
    * @type string
    * @attr
@@ -122,11 +99,6 @@ export class UUIToastNotificationElement extends LitElement {
   render() {
     return html`
       <div id="layout">
-        <div id="icon">
-          <uui-icon
-            .name=${this.icon}
-            .fallback=${iconAlert.strings[0]}></uui-icon>
-        </div>
         <div id="message" class="uui-text">
           ${this.headline ? html`<h5>${this.headline}</h5>` : ''}
           <slot></slot>
