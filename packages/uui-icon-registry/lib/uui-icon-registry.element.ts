@@ -1,6 +1,5 @@
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIIconRequestEvent } from '@umbraco-ui/uui-icon/lib/UUIIconRequestEvent';
 import { UUIIconRegistry } from './UUIIconRegistry';
 
 /**
@@ -20,41 +19,40 @@ export class UUIIconRegistryElement extends LitElement {
   }
   set icons(icons) {
     this._icons = icons;
-    if (this.registry) {
+    if (this._registry) {
       this.defineIconsInRegistry();
     }
   }
 
   private defineIconsInRegistry() {
     Object.entries(this._icons).forEach(([key, value]) =>
-      this.registry.defineIcon(key, value)
+      this._registry.defineIcon(key, value)
     );
   }
 
-  public registry: UUIIconRegistry = new UUIIconRegistry();
+  private _registry: UUIIconRegistry = new UUIIconRegistry();
+
+  public get registry(): UUIIconRegistry {
+    return this._registry;
+  }
+  public set registry(newRegistry: UUIIconRegistry) {
+    if (this.shadowRoot) {
+      if (this.registry) {
+        this.registry.detach(this);
+      }
+      newRegistry.attach(this);
+    }
+    this._registry = newRegistry;
+  }
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.defineIconsInRegistry();
-    this.addEventListener(
-      UUIIconRequestEvent.ICON_REQUEST,
-      this.onIconRequest as EventListener
-    );
+    this.registry.attach(this);
   }
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.removeEventListener(
-      UUIIconRequestEvent.ICON_REQUEST,
-      this.onIconRequest as EventListener
-    );
+    this.registry.detach(this);
   }
-
-  private onIconRequest = (event: UUIIconRequestEvent) => {
-    const icon = this.registry.getIcon(event.detail.iconName);
-    if (icon !== null) {
-      event.acceptRequest(icon);
-    }
-  };
 
   render() {
     return html`<slot></slot>`;
