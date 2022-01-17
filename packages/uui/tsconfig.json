@@ -23,6 +23,9 @@
       "path": "../uui-badge"
     },
     {
+      "path": "../uui-boolean-input"
+    },
+    {
       "path": "../uui-box"
     },
     {
@@ -74,7 +77,13 @@
       "path": "../uui-input"
     },
     {
+      "path": "../uui-input-password"
+    },
+    {
       "path": "../uui-keyboard-shortcut"
+    },
+    {
+      "path": "../uui-label"
     },
     {
       "path": "../uui-loader"

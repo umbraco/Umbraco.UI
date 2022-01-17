@@ -43,7 +43,8 @@
     "bootstrap": "lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
     "prepare": "husky install && echo 'PATH=$PATH:'$PATH >> .husky/_/husky.sh",
     "new-package": "plop && npm i",
-    "pack-all": "npm run build:prod && node ./scripts/pack-packages.js"
+    "pack-all": "npm run build:prod && node ./scripts/pack-packages.js",
+    "pack-all-no-build": "node ./scripts/pack-packages.js"
   },
   "engines": {
     "node": ">=16.0.0",
