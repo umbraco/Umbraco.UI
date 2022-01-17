@@ -31,6 +31,9 @@
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.14"
   },
+  "devDependencies": {
+    "@umbraco-ui/uui-boolean-input": "0.0.0"
+  },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",

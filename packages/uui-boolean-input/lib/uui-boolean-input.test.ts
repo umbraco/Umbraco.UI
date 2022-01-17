@@ -3,16 +3,17 @@
 import {
   defineCE,
   elementUpdated,
-  expect,
-  fixture,
   html,
+  fixture,
+  expect,
   unsafeStatic,
 } from '@open-wc/testing';
+import { UUIBooleanInputElement } from './uui-boolean-input.element';
+import '.';
 import { html as litHTMLLiteral } from 'lit';
-import { UUIBooleanInputBaseElement } from './uui-boolean-input-base.element';
 
 const tagName = defineCE(
-  class BooleanInputTestElement extends UUIBooleanInputBaseElement {
+  class BooleanInputTestElement extends UUIBooleanInputElement {
     renderCheckbox() {
       return litHTMLLiteral`
             <div id="testCheckbox">
@@ -24,7 +25,7 @@ const tagName = defineCE(
 
 const tag = unsafeStatic(tagName);
 
-describe('UUI Boolean input base class', () => {
+describe('UUIBooleanInputElement', () => {
   let element: any;
   let label: HTMLLabelElement;
   let input: HTMLInputElement | null | undefined;

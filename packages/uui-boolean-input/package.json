@@ -1,6 +1,6 @@
 {
-  "name": "@umbraco-ui/uui-checkbox",
-  "version": "0.0.16",
+  "name": "@umbraco-ui/uui-boolean-input",
+  "version": "0.0.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -8,21 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Checkbox",
-    "Form control",
-    "Form element",
-    "Input"
+    "Boolean Input"
   ],
-  "description": "Umbraco checkbox custom element, toggles between checked and uncheck",
+  "description": "Umbraco UI boolean-input component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-checkbox"
+    "directory": "packages/uui-boolean-input"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-checkbox.min.js",
+  "main": "./dist/uui-boolean-input.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -34,9 +31,6 @@
   "dependencies": {
     "@umbraco-ui/uui-base": "0.0.14"
   },
-  "devDependencies": {
-    "@umbraco-ui/uui-boolean-input": "0.0.0"
-  },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
@@ -45,5 +39,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-checkbox"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-boolean-input"
 }

@@ -1,17 +1,17 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { LabelMixin } from '../mixins/LabelMixin';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
 /**
- * Base class wrapping native input type="checkbox". Extend if you need to make a custom boolean input. Change the role of the input by passing a 'checkbox' || 'switch' to the super() when extending this class. Default is checkbox. Extending this class will make your element formAssociated, meaning it can participate in the native form element.
+ * Base class wrapping native input type="checkbox". Extend for custom boolean input.
  * @extends LabelMixin
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputBaseElement extends LabelMixin(
+export abstract class UUIBooleanInputElement extends LabelMixin(
   '',
   LitElement
 ) {

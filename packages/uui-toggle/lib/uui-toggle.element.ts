@@ -7,7 +7,7 @@ import {
   iconWrong,
   iconCheck,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
 
 /**
  *  Umbraco Toggle-switch, toggles between off/on.
@@ -22,11 +22,11 @@ import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean
  *  @cssprop --uui-toggle-background-color-hover - Set the toggle background color when hovered
  *  @cssprop --uui-toggle-border-color-focus - Set the toggle background color when focused
  *  @cssprop --uui-toggle-background-color-focus - Set the toggle background color when focused
- *  @extends UUIBooleanInputBaseElement
+ *  @extends UUIBooleanInputElement
  */
-export class UUIToggleElement extends UUIBooleanInputBaseElement {
+export class UUIToggleElement extends UUIBooleanInputElement {
   static styles = [
-    ...UUIBooleanInputBaseElement.styles,
+    ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {
