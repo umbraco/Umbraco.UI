@@ -15,7 +15,7 @@ function addToast() {
   const toast = document.createElement(
     'uui-toast-notification'
   ) as unknown as UUIToastNotificationElement;
-  toast.look = 'positive';
+  toast.look = ['', 'positive', 'danger'][Math.floor(Math.random() * 3)] as any;
   toast.headline = 'Demo toast';
 
   const pEl = document.createElement('span');
@@ -30,7 +30,7 @@ function removeToast() {
   const con = document.querySelector('uui-toast-notification-container');
   if (con) {
     const last = con.querySelector(
-      'uui-toast-notification:last-of-type'
+      'uui-toast-notification:first-of-type'
     ) as unknown as UUIToastNotificationElement;
     if (last) {
       con.removeChild(last);
@@ -41,7 +41,7 @@ function closeToast() {
   const con = document.querySelector('uui-toast-notification-container');
   if (con) {
     const last = con.querySelector(
-      'uui-toast-notification:last-of-type'
+      'uui-toast-notification:first-of-type'
     ) as unknown as UUIToastNotificationElement;
     if (last) {
       last.open = false;
@@ -56,6 +56,6 @@ export const Overview: Story = () =>
     <button @click=${closeToast}>Close one</button>
 
     <uui-toast-notification-container
-      bottom-up
+      auto-close="3000"
       style="top:0; left:0; right:0; height: 100vh;"></uui-toast-notification-container>
   `;

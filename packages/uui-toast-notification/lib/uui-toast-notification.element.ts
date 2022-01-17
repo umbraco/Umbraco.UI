@@ -7,6 +7,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/types';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
+import { Timer } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * @element uui-toast-notification
@@ -26,7 +27,7 @@ export class UUIToastNotificationElement extends LitElement {
 
         transition: height 480ms;
       }
-      :host([is-open]) #toast {
+      :host([is-open]) {
         pointer-events: all;
       }
       #toast {
@@ -124,6 +125,53 @@ export class UUIToastNotificationElement extends LitElement {
   @property({ reflect: true })
   headline: string | null = null;
 
+  /**
+   * Set an auto-close timer.
+   * @type number
+   * @attr
+   * @default null
+   */
+  @property({ type: Number })
+  private _autoClose: number | null = null;
+  public get autoClose(): number | null {
+    return this._autoClose;
+  }
+  public set autoClose(value: number | null) {
+    this._autoClose = value;
+    if (value !== null) {
+      if (this._timer === null) {
+        this._timer = new Timer(this._onOpenTimerComplete, value);
+      } else {
+        this._timer.setDuration(value);
+      }
+      if (this.isOpen === true && this._animate === false) {
+        this._timer.start();
+      }
+    } else {
+      this._timer?.destroy();
+      this._timer = null;
+    }
+  }
+
+  public pauseAutoClose() {
+    if (this._timer !== null) {
+      this._timer.pause();
+    }
+  }
+  public resumeAutoClose() {
+    if (this._timer !== null) {
+      this._timer.resume();
+    }
+  }
+
+  private _onOpenTimerComplete = () => {
+    if (this._open) {
+      this.open = false;
+    }
+  };
+
+  private _timer: Timer | null = null;
+
   @query('#toast')
   private _toastEl!: HTMLInputElement;
 
@@ -140,15 +188,19 @@ export class UUIToastNotificationElement extends LitElement {
   public get open() {
     return this._open;
   }
-  public set open(value) {
+  public set open(value: boolean) {
     if (value === true) {
-      this.makeOpen();
+      this._makeOpen();
     } else {
-      this.makeClose();
+      this._makeClose();
     }
   }
 
-  public makeOpen() {
+  private _makeOpen() {
+    if (this._open === true) {
+      return;
+    }
+    this._open = true;
     this.updateComplete.then(() => {
       window.requestAnimationFrame(() => {
         window.clearTimeout(this._animationTimeout as number);
@@ -165,12 +217,14 @@ export class UUIToastNotificationElement extends LitElement {
           if (this.isOpen === true) {
             this.style.height = 'auto';
             this._animate = false;
+            this._timer?.start();
           }
         }, 480);
       });
     });
   }
-  public makeClose() {
+  private _makeClose() {
+    this._open = false;
     if (this.isOpen === true) {
       window.clearTimeout(this._animationTimeout as number);
       this.isOpen = false;
@@ -178,14 +232,18 @@ export class UUIToastNotificationElement extends LitElement {
       this.style.height = this._toastEl.getBoundingClientRect().height + 'px';
       this._animate = true;
 
+      window.requestAnimationFrame(() => {
+        this.style.height = '';
+      });
+
       this.dispatchEvent(
         new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSE, this)
       );
 
       this._animationTimeout = window.setTimeout(() => {
         if (this.isOpen === false) {
-          this.style.height = 'auto';
           this._animate = false;
+          this._timer?.pause();
 
           this.dispatchEvent(
             new UUIToastNotificationEvent(

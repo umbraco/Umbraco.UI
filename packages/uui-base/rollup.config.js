@@ -9,5 +9,6 @@ export default UUIProdConfig({
     'types/index',
     'registration/index',
     'uui-boolean-input/index',
+    'utils/index',
   ],
 });
