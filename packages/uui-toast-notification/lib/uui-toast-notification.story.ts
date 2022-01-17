@@ -6,6 +6,9 @@ export default {
   id: 'uui-toast-notification',
   title: 'Displays/Toast Notification',
   component: 'uui-toast-notification',
+  args: {
+    open: true,
+  },
   argTypes: {
     look: {
       options: ['', 'primary', 'positive', 'warning', 'danger'],
@@ -14,6 +17,7 @@ export default {
   },
 };
 const Template: Story = props => html`<uui-toast-notification
+  .open=${props.open}
   .headline=${props.headline}
   .look=${props.look}>
   This page is now available.
@@ -34,6 +38,7 @@ AAAOverview.parameters = {
 };
 
 export const ErrorStyle: Story = props => html`<uui-toast-notification
+  .open=${props.open}
   .headline=${props.headline}
   look="danger">
   An error occurred while attempting to contact the server. Please check your
