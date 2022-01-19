@@ -165,7 +165,11 @@ export class UUIToastNotificationElement extends LitElement {
       } else {
         this._timer.setDuration(value);
       }
-      if (this.isOpen === true && this._animate === false) {
+      if (
+        this._pauseTimer === false &&
+        this.isOpen === true &&
+        this._animate === false
+      ) {
         this._timer.start();
       }
     } else {
@@ -178,6 +182,7 @@ export class UUIToastNotificationElement extends LitElement {
    * Pause the auto close timer.
    */
   public pauseAutoClose() {
+    this._pauseTimer = true;
     if (this._timer !== null) {
       this._timer.pause();
     }
@@ -186,7 +191,12 @@ export class UUIToastNotificationElement extends LitElement {
    * Resume the auto close timer.
    */
   public resumeAutoClose() {
-    if (this._timer !== null) {
+    this._pauseTimer = false;
+    if (
+      this._timer !== null &&
+      this.isOpen === true &&
+      this._animate === false
+    ) {
       this._timer.resume();
     }
   }
@@ -198,6 +208,7 @@ export class UUIToastNotificationElement extends LitElement {
   };
 
   private _timer: Timer | null = null;
+  private _pauseTimer: boolean = false;
 
   @query('#toast')
   private _toastEl!: HTMLInputElement;
@@ -228,13 +239,27 @@ export class UUIToastNotificationElement extends LitElement {
     }
   }
 
+  constructor() {
+    super();
+    this.addEventListener('keyup', (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        this.open = false;
+      }
+    });
+  }
+
+  private _requestAnimationUpdate = 0;
   private _makeOpen() {
     if (this._open === true) {
       return;
     }
     this._open = true;
     this.updateComplete.then(() => {
-      window.requestAnimationFrame(() => {
+      if (this._open !== true) {
+        return;
+      }
+      window.cancelAnimationFrame(this._requestAnimationUpdate);
+      this._requestAnimationUpdate = window.requestAnimationFrame(() => {
         window.clearTimeout(this._animationTimeout as number);
         this.isOpen = true;
         this.setAttribute('is-open', '');
@@ -250,16 +275,23 @@ export class UUIToastNotificationElement extends LitElement {
           if (this.isOpen === true) {
             this.style.height = 'auto';
             this._animate = false;
-            this._timer?.start();
+            if (this._pauseTimer === false) {
+              this._timer?.start();
+            }
           }
         }, 480);
       });
     });
   }
   private _makeClose() {
+    if (this._open === false) {
+      return;
+    }
     this._open = false;
+    this._timer?.pause();
+    window.cancelAnimationFrame(this._requestAnimationUpdate); // do cancel though isOpen wasn't set jet.
     if (this.isOpen === true) {
-      window.requestAnimationFrame(() => {
+      this._requestAnimationUpdate = window.requestAnimationFrame(() => {
         window.clearTimeout(this._animationTimeout as number);
         this.isOpen = false;
         this.removeAttribute('is-open');
@@ -278,7 +310,6 @@ export class UUIToastNotificationElement extends LitElement {
         this._animationTimeout = window.setTimeout(() => {
           if (this.isOpen === false) {
             this._animate = false;
-            this._timer?.pause();
 
             this.dispatchEvent(
               new UUIToastNotificationEvent(
@@ -305,7 +336,9 @@ export class UUIToastNotificationElement extends LitElement {
               <slot></slot>
             </div>
             <div id="close">
-              <uui-button .look=${this.look}>
+              <uui-button
+                .look=${this.look}
+                @click=${() => (this.open = false)}>
                 <uui-icon
                   name="remove"
                   .fallback=${iconRemove.strings[0]}></uui-icon>
