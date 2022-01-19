@@ -44,7 +44,8 @@
     "prepare": "husky install && echo 'PATH=$PATH:'$PATH >> .husky/_/husky.sh",
     "new-package": "plop && npm i",
     "pack-all": "npm run build:prod && node ./scripts/pack-packages.js",
-    "pack-all-no-build": "node ./scripts/pack-packages.js"
+    "pack-all-no-build": "node ./scripts/pack-packages.js",
+    "pack": "node ./scripts/pack-package.js"
   },
   "engines": {
     "node": ">=16.0.0",
