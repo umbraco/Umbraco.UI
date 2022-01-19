@@ -56,7 +56,7 @@ export const Overview: Story = () =>
     <button @click=${closeToast}>Close one</button>
 
     <uui-toast-notification-container
-      auto-close="8000"
+      auto-close="7000"
       bottom-up
       style="top:0; left:0; right:0; height: 100vh; padding: var(--uui-size-layout-1);"></uui-toast-notification-container>
   `;

@@ -29,13 +29,6 @@ AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
   headline: 'Document has been published!',
 };
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-toast-notification headline="My headline"></uui-toast-notification>`,
-    },
-  },
-};
 
 export const ErrorStyle: Story = props => html`<uui-toast-notification
   .open=${props.open}

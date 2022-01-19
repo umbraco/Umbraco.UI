@@ -41,9 +41,9 @@ export class UUIToastNotificationContainerElement extends LitElement {
 
   /**
    * Set an auto-close timer, the timer will be paused on mouse-hover.
-   * @type string
+   * @type number | null
    * @attr
-   * @default ""
+   * @default null
    */
   @property({ type: Number, reflect: true, attribute: 'auto-close' })
   private _autoClose: number | null = null;
@@ -70,6 +70,10 @@ export class UUIToastNotificationContainerElement extends LitElement {
     }
   };
 
+  /**
+   * Instantly remove a toast element.
+   * @param  {UUIToastNotificationElement} toast The toast element to remove
+   */
   public removeToast(toast?: UUIToastNotificationElement) {
     if (!toast) {
       toast = this._toasts[this._toasts.length - 1];
@@ -82,18 +86,13 @@ export class UUIToastNotificationContainerElement extends LitElement {
       );
       return;
     }
-    toast.removeEventListener(
-      UUIToastNotificationEvent.CLOSED,
-      this.onToastClosed as any
-    );
-
-    toast.removeEventListener('mouseover', this._onInteractionEnter);
-    toast.removeEventListener('mouseout', this._onInteractionLeave);
-    toast.removeEventListener('focus', this._onInteractionEnter);
-    toast.removeEventListener('blur', this._onInteractionLeave);
-
     this.removeChild(toast);
   }
+
+  /**
+   * Close a toast element, this will animate out and then be removed.
+   * @param  {UUIToastNotificationElement} toast The toast element to close and remove
+   */
   public closeToast(modal?: UUIToastNotificationElement) {
     let _modal = modal;
     if (!_modal) {
@@ -116,6 +115,20 @@ export class UUIToastNotificationContainerElement extends LitElement {
       .filter(
         (e: Node) => e instanceof UUIToastNotificationElement
       ) as UUIToastNotificationElement[];
+
+    const oldToasts = existingModals.filter(
+      modal => this._toasts.indexOf(modal) === -1
+    );
+    oldToasts.forEach(toast => {
+      toast.removeEventListener(
+        UUIToastNotificationEvent.CLOSED,
+        this.onToastClosed as any
+      );
+      toast.removeEventListener('mouseover', this._onInteractionEnter);
+      toast.removeEventListener('mouseout', this._onInteractionLeave);
+      toast.removeEventListener('focus', this._onInteractionEnter);
+      toast.removeEventListener('blur', this._onInteractionLeave);
+    });
 
     const newToasts = this._toasts.filter(
       modal => existingModals.indexOf(modal) === -1

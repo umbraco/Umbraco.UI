@@ -10,7 +10,13 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 import { Timer } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
- * @element uui-toast-notification
+ *  @element uui-toast-notification
+ *  @fires {UUIToastNotificationEvent} open - fires when the toast is starting to open
+ *  @fires {UUIToastNotificationEvent} close - fires when the toast is starting to close
+ *  @fires {UUIToastNotificationEvent} closed - fires when the toast is closed
+ *  @description - Component for displaying a toast notification, preferably used in toast-notification-container.
+ *  @slot - for content
+ *  @slot actions - for actions
  */
 export class UUIToastNotificationElement extends LitElement {
   static styles = [
@@ -168,11 +174,17 @@ export class UUIToastNotificationElement extends LitElement {
     }
   }
 
+  /**
+   * Pause the auto close timer.
+   */
   public pauseAutoClose() {
     if (this._timer !== null) {
       this._timer.pause();
     }
   }
+  /**
+   * Resume the auto close timer.
+   */
   public resumeAutoClose() {
     if (this._timer !== null) {
       this._timer.resume();
@@ -192,12 +204,17 @@ export class UUIToastNotificationElement extends LitElement {
 
   private _animationTimeout?: number;
 
-  @property({ type: Boolean, reflect: true, attribute: 'is-open' })
   protected isOpen = false;
 
   @state()
   private _animate = false;
 
+  /**
+   * define if this toast should open or close.
+   * @type boolean
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   private _open = false;
   public get open() {
@@ -220,6 +237,7 @@ export class UUIToastNotificationElement extends LitElement {
       window.requestAnimationFrame(() => {
         window.clearTimeout(this._animationTimeout as number);
         this.isOpen = true;
+        this.setAttribute('is-open', '');
 
         this.style.height = this._toastEl.getBoundingClientRect().height + 'px';
         this._animate = true;
@@ -244,6 +262,7 @@ export class UUIToastNotificationElement extends LitElement {
       window.requestAnimationFrame(() => {
         window.clearTimeout(this._animationTimeout as number);
         this.isOpen = false;
+        this.removeAttribute('is-open');
 
         this.style.height = this._toastEl.getBoundingClientRect().height + 'px';
         this._animate = true;
