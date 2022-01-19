@@ -8,7 +8,7 @@ import {
 import { UUIToastNotificationElement } from './uui-toast-notification.element';
 import '.';
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
-import { UUIButtonElement } from 'packages/uui-button/lib/uui-button.element';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));

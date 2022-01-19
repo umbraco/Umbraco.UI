@@ -337,6 +337,7 @@ export class UUIToastNotificationElement extends LitElement {
             </div>
             <div id="close">
               <uui-button
+                .label=${'close'}
                 .look=${this.look}
                 @click=${() => (this.open = false)}>
                 <uui-icon
