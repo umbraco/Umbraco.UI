@@ -1,8 +1,43 @@
+import { UUIIconRequestEvent } from '@umbraco-ui/uui-icon/lib/UUIIconRequestEvent';
 import { UUIIconHost } from './UUIIconHost';
 
 export class UUIIconRegistry {
   private icons: Record<string, UUIIconHost> = {};
 
+  /**
+   * Attach an element to provide this registry. Use detach when disconnected.
+   * @param {EventTarget} element the element of which to provide this icon-set.
+   */
+  public attach(element: EventTarget) {
+    element.addEventListener(
+      UUIIconRequestEvent.ICON_REQUEST,
+      this._onIconRequest as EventListener
+    );
+  }
+
+  /**
+   * Detach an element from providing this registry.
+   * @param {EventTarget} element the element of which to stop providing this icon-set.
+   */
+  public detach(element: EventTarget) {
+    element.removeEventListener(
+      UUIIconRequestEvent.ICON_REQUEST,
+      this._onIconRequest as EventListener
+    );
+  }
+
+  private _onIconRequest = (event: UUIIconRequestEvent) => {
+    const icon = this.getIcon(event.detail.iconName);
+    if (icon !== null) {
+      event.acceptRequest(icon);
+    }
+  };
+
+  /**
+   * Define a icon to be served by this registry.
+   * @param {string} iconName the name to use for this icon.
+   * @param {string} svgString the svg source for this icon.
+   */
   public defineIcon(iconName: string, svgString: string) {
     if (this.icons[iconName]) {
       this.icons[iconName].svg = svgString;
@@ -11,6 +46,10 @@ export class UUIIconRegistry {
     this.icons[iconName] = new UUIIconHost(svgString);
   }
 
+  /**
+   * Retrieve the SVG source of an icon, Returns ´null´ if the name does not exist.
+   * @param {string} iconName the name of the icon to retrieve.
+   */
   public getIcon(iconName: string): Promise<string> | null {
     if (!!this.icons[iconName] || this.acceptIcon(iconName)) {
       return this.icons[iconName].promise;

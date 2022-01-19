@@ -288,16 +288,11 @@ export class UUISliderElement extends LitElement {
     super();
     this._internals = (this as any).attachInternals();
 
-    this.style.setProperty('--uui-show-focus-outline', '0');
-    const onKeyUp = () => {
-      this.style.setProperty('--uui-show-focus-outline', '1');
-      this.removeEventListener('keyup', onKeyUp);
-    };
-    this.addEventListener('focus', () => {
-      this.addEventListener('keyup', onKeyUp);
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
     });
     this.addEventListener('blur', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
+      this.style.setProperty('--uui-show-focus-outline', '');
     });
   }
 

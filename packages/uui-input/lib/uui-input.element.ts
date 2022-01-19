@@ -50,6 +50,7 @@ export class UUIInputElement extends LitElement {
           var(--uui-interface-border-hover)
         );
       }
+      /* TODO: Fix so we dont get double outline when there is focus on things in the slot. */
       :host(:focus-within) {
         border-color: var(
           --uui-input-border-color-focus,
@@ -123,13 +124,6 @@ export class UUIInputElement extends LitElement {
    */
   @property({ type: String })
   public label!: string;
-
-  /**
-   * This method enables <label for="..."> to focus the input
-   */
-  focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
-  }
 
   /**
    * Defines the input placeholder.
@@ -217,6 +211,20 @@ export class UUIInputElement extends LitElement {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
+
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '');
+    });
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  focus() {
+    (this.shadowRoot?.querySelector('#input') as any).focus();
   }
 
   private onInput(e: Event) {

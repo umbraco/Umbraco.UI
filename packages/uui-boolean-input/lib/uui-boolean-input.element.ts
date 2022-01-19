@@ -1,17 +1,17 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { LabelMixin } from '../mixins/LabelMixin';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 
 /**
- * Base class wrapping native input type="checkbox". Extend if you need to make a custom boolean input. Change the role of the input by passing a 'checkbox' || 'switch' to the super() when extending this class. Default is checkbox. Extending this class will make your element formAssociated, meaning it can participate in the native form element.
+ * Base class wrapping native input type="checkbox". Extend for custom boolean input.
  * @extends LabelMixin
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputBaseElement extends LabelMixin(
+export abstract class UUIBooleanInputElement extends LabelMixin(
   '',
   LitElement
 ) {
@@ -159,6 +159,26 @@ export abstract class UUIBooleanInputBaseElement extends LabelMixin(
     super();
     this.inputRole = inputRole;
     this._internals = (this as any).attachInternals();
+  }
+
+  protected firstUpdated(): void {
+    const labelEl = this.shadowRoot?.querySelector('label') as HTMLLabelElement;
+
+    // hide outline if mouse-interaction:
+    let hadMouseDown = false;
+    this._input.addEventListener('blur', () => {
+      if (hadMouseDown === false) {
+        this.style.setProperty('--uui-show-focus-outline', '1');
+      }
+      hadMouseDown = false;
+    });
+    labelEl.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+      hadMouseDown = true;
+    });
+    labelEl.addEventListener('mouseup', () => {
+      hadMouseDown = false;
+    });
   }
 
   /**

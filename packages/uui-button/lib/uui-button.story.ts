@@ -264,3 +264,17 @@ WithIcon.parameters = {
     },
   },
 };
+
+export const WaitingState = () => html`
+  <uui-button state="waiting" label="A11Y proper label">
+    Loading button
+  </uui-button>
+`;
+WaitingState.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-button state="waiting" label="A11Y proper label">Loading button</uui-button>`,
+    },
+  },
+};

@@ -187,6 +187,13 @@ export class UUISelectElement extends LitElement {
   constructor() {
     super();
     this._internals = (this as any).attachInternals();
+
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '');
+    });
   }
 
   /**
