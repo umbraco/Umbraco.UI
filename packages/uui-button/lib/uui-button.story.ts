@@ -45,6 +45,7 @@ export default {
     '--uui-button-border-width': { control: { type: 'text' } },
     '--uui-button-border-color': { control: { type: 'color' } },
     '--uui-button-border-radius': { control: { type: 'text' } },
+    '--uui-button-font-size': { control: { type: 'text' } },
     '--uui-button-font-weight': { control: { type: 'text' } },
     '--uui-button-background-color': { control: { type: 'color' } },
     '--uui-button-background-color-hover': { control: { type: 'color' } },
@@ -61,6 +62,7 @@ const cssProps = [
   '--uui-button-border-width',
   '--uui-button-border-color',
   '--uui-button-border-radius',
+  '--uui-button-font-size',
   '--uui-button-font-weight',
   '--uui-button-background-color',
   '--uui-button-background-color-hover',
@@ -253,14 +255,14 @@ export const WithIcon = () => html`
     there please use with the 'compact' attribute.
   </p>
   <uui-button look="positive" compact label="A11Y proper label">
-    <uui-icon name="info"></uui-icon>
+    <uui-icon name="alert"></uui-icon>
   </uui-button>
 `;
 WithIcon.parameters = {
   docs: {
     source: {
       code: `
-      <uui-button look="primary" label="A11Y proper abel"><uui-icon name="info"></uui-icon>Button Label</uui-button>`,
+      <uui-button look="primary" label="A11Y proper abel"><uui-icon name="alert"></uui-icon>Button Label</uui-button>`,
     },
   },
 };
