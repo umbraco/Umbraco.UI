@@ -113,7 +113,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
     this._toasts = event.target
       .assignedElements({ flatten: true })
       .filter(
-        (e: Node) => e instanceof UUIToastNotificationElement
+        (e: Node) => e.nodeName === 'UUI-TOAST-NOTIFICATION'
       ) as UUIToastNotificationElement[];
 
     const oldToasts = existingModals.filter(
