@@ -52,14 +52,22 @@ export class UUIToastNotificationContainerElement extends LitElement {
   }
   public set autoClose(value: number | null) {
     this._autoClose = value;
+    this._toasts?.forEach(el => (el.autoClose = value));
   }
 
   private _autoClosePause = false;
-  private _onInteractionEnter = () => {
+
+  /**
+   * pause all auto close timer, including later coming.
+   */
+  public pauseAutoClose = () => {
     this._autoClosePause = true;
     this._toasts?.forEach(el => el.pauseAutoClose());
   };
-  private _onInteractionLeave = () => {
+  /**
+   * resume the auto close timers.
+   */
+  public resumeAutoClose = () => {
     // Only reset autoClose if we have it and if one of the children does not have focus.
     if (
       this._autoClose &&
@@ -124,10 +132,10 @@ export class UUIToastNotificationContainerElement extends LitElement {
         UUIToastNotificationEvent.CLOSED,
         this.onToastClosed as any
       );
-      toast.removeEventListener('mouseover', this._onInteractionEnter);
-      toast.removeEventListener('mouseout', this._onInteractionLeave);
-      toast.removeEventListener('focus', this._onInteractionEnter);
-      toast.removeEventListener('blur', this._onInteractionLeave);
+      toast.removeEventListener('mouseover', this.pauseAutoClose);
+      toast.removeEventListener('mouseout', this.resumeAutoClose);
+      toast.removeEventListener('focus', this.pauseAutoClose);
+      toast.removeEventListener('blur', this.resumeAutoClose);
     });
 
     const newToasts = this._toasts.filter(
@@ -139,13 +147,16 @@ export class UUIToastNotificationContainerElement extends LitElement {
         this.onToastClosed as any
       );
 
-      toast.addEventListener('mouseover', this._onInteractionEnter);
-      toast.addEventListener('mouseout', this._onInteractionLeave);
-      toast.addEventListener('focus', this._onInteractionEnter);
-      toast.addEventListener('blur', this._onInteractionLeave);
+      toast.addEventListener('mouseover', this.pauseAutoClose);
+      toast.addEventListener('mouseout', this.resumeAutoClose);
+      toast.addEventListener('focus', this.pauseAutoClose);
+      toast.addEventListener('blur', this.resumeAutoClose);
 
-      if (this._autoClose && this._autoClosePause === false) {
+      if (this._autoClose) {
         toast.autoClose = this._autoClose;
+      }
+      if (this._autoClosePause === true) {
+        toast.pauseAutoClose();
       }
       toast.open = true;
     });
