@@ -16,6 +16,7 @@ export default {
     },
   },
 };
+
 const Template: Story = props => html`<uui-toast-notification
   .open=${props.open}
   .headline=${props.headline}
@@ -28,6 +29,13 @@ export const AAAOverview: Story = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
   headline: 'Document has been published!',
+};
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      type: 'dynamic',
+    },
+  },
 };
 
 export const ErrorStyle: Story = props => html`<uui-toast-notification
