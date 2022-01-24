@@ -7,7 +7,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/types';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
-import { Timer } from '@umbraco-ui/uui-base/lib/utils';
+import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  *  @element uui-toast-notification
@@ -246,6 +246,9 @@ export class UUIToastNotificationElement extends LitElement {
         this.open = false;
       }
     });
+
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-icon');
   }
 
   private _requestAnimationUpdate = 0;
