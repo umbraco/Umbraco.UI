@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-toast-notification",
+  "name": "@umbraco-ui/uui-toast-notification-layout",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,18 +8,18 @@
     "Web components",
     "UI",
     "Lit",
-    "Toast Notification"
+    "Toast Notification Layout"
   ],
-  "description": "Umbraco UI toast-notification component",
+  "description": "Umbraco UI toast-notification-layout component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-toast-notification"
+    "directory": "packages/uui-toast-notification-layout"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-toast-notification.min.js",
+  "main": "./dist/uui-toast-notification-layout.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -32,7 +32,10 @@
     "@umbraco-ui/uui-base": "0.0.14"
   },
   "peerDependencies": {
-    "@umbraco-ui/uui-css": "0.0.1"
+    "@umbraco-ui/uui-button": "0.1.7",
+    "@umbraco-ui/uui-css": "0.0.1",
+    "@umbraco-ui/uui-icon": "0.0.2",
+    "@umbraco-ui/uui-icon-registry-essential": "0.0.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -42,5 +45,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-toast-notification"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-toast-notification-layout"
 }

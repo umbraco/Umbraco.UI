@@ -1,4 +1,4 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
 import { property, query, state } from 'lit/decorators.js';
 import {
@@ -11,12 +11,11 @@ import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  *  @element uui-toast-notification
- *  @fires {UUIToastNotificationEvent} open - fires when the toast is starting to open
- *  @fires {UUIToastNotificationEvent} close - fires when the toast is starting to close
+ *  @fires {UUIToastNotificationEvent} opening - fires when the toast is starting to open
+ *  @fires {UUIToastNotificationEvent} closing - fires when the toast is starting to close
  *  @fires {UUIToastNotificationEvent} closed - fires when the toast is closed
  *  @description - Component for displaying a toast notification, preferably used in toast-notification-container.
- *  @slot - for content
- *  @slot actions - for actions
+ *  @slot - for dialog layout/content
  */
 export class UUIToastNotificationElement extends LitElement {
   static styles = [
@@ -29,7 +28,7 @@ export class UUIToastNotificationElement extends LitElement {
         display: block;
         width: 100%;
         max-width: 400px;
-        margin: 0 var(--uui-size-space-2);
+        margin: 0 var(--uui-toast-notification-margin);
         box-sizing: border-box;
 
         height: 0;
@@ -77,19 +76,9 @@ export class UUIToastNotificationElement extends LitElement {
         opacity: 1;
       }
 
-      #layout {
-        display: flex;
-        width: 100%;
-      }
-
-      #message {
-        flex-grow: 1;
-      }
-
       #close {
-        flex-grow: 0;
-        flex-shrink: 0;
-        margin-left: var(--uui-size-space-2);
+        position: absolute;
+        right: var(--uui-size-layout-2); /*same as #toast > div*/
         margin-top: -7px;
       }
 
@@ -99,12 +88,6 @@ export class UUIToastNotificationElement extends LitElement {
         --uui-button-padding-right-factor: 1.5;
 
         margin-right: -6px;
-      }
-
-      #actions {
-        display: flex;
-        width: 100%;
-        justify-content: flex-end;
       }
 
       :host([look='primary']) #toast > div {
@@ -136,15 +119,6 @@ export class UUIToastNotificationElement extends LitElement {
    */
   @property({ reflect: true })
   look: InterfaceLookType = InterfaceLookDefaultValue;
-
-  /**
-   * Headline for this notification.
-   * @type string
-   * @attr
-   * @default ""
-   */
-  @property({ reflect: true })
-  headline: string | null = null;
 
   private _autoClose: number | null = null;
   /**
@@ -211,7 +185,7 @@ export class UUIToastNotificationElement extends LitElement {
   private _pauseTimer: boolean = false;
 
   @query('#toast')
-  private _toastEl!: HTMLInputElement;
+  private _toastEl!: HTMLElement;
 
   private _animationTimeout?: number;
 
@@ -220,6 +194,8 @@ export class UUIToastNotificationElement extends LitElement {
   @state()
   private _animate = false;
 
+  private _open = false;
+
   /**
    * define if this toast should open or close.
    * @type boolean
@@ -227,7 +203,6 @@ export class UUIToastNotificationElement extends LitElement {
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  private _open = false;
   public get open() {
     return this._open;
   }
@@ -271,7 +246,7 @@ export class UUIToastNotificationElement extends LitElement {
         this._animate = true;
 
         this.dispatchEvent(
-          new UUIToastNotificationEvent(UUIToastNotificationEvent.OPEN, this)
+          new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENING)
         );
 
         this._animationTimeout = window.setTimeout(() => {
@@ -290,6 +265,17 @@ export class UUIToastNotificationElement extends LitElement {
     if (this._open === false) {
       return;
     }
+
+    const event = new UUIToastNotificationEvent(
+      UUIToastNotificationEvent.CLOSING,
+      { cancelable: true }
+    );
+    this.dispatchEvent(event);
+
+    if (event.defaultPrevented === true) {
+      return;
+    }
+
     this._open = false;
     this._timer?.pause();
     cancelAnimationFrame(this._requestAnimationUpdate); // do cancel though isOpen wasn't set jet.
@@ -307,19 +293,12 @@ export class UUIToastNotificationElement extends LitElement {
           this.style.height = '0';
         });
 
-        this.dispatchEvent(
-          new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSE, this)
-        );
-
         this._animationTimeout = window.setTimeout(() => {
           if (this.isOpen === false) {
             this._animate = false;
 
             this.dispatchEvent(
-              new UUIToastNotificationEvent(
-                UUIToastNotificationEvent.CLOSED,
-                this
-              )
+              new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSED)
             );
             if (this.parentNode) {
               this.parentNode.removeChild(this);
@@ -330,38 +309,21 @@ export class UUIToastNotificationElement extends LitElement {
     }
   }
 
-  protected renderHeadline(): TemplateResult {
-    return html` ${this.headline ? html`<h5>${this.headline}</h5>` : ''} `;
-  }
-
-  protected renderMessage(): TemplateResult {
-    return html` <slot></slot> `;
-  }
-
-  protected renderActions(): TemplateResult {
-    return html` <slot name="actions"></slot> `;
-  }
-
   render() {
     return html`
       <div id="toast" class=${this._animate ? 'animate' : ''}>
         <div>
-          <div id="layout">
-            <div id="message" class="uui-text">
-              ${this.renderHeadline()} ${this.renderMessage()}
-            </div>
-            <div id="close">
-              <uui-button
-                .label=${'close'}
-                .look=${this.look}
-                @click=${() => (this.open = false)}>
-                <uui-icon
-                  name="remove"
-                  .fallback=${iconRemove.strings[0]}></uui-icon>
-              </uui-button>
-            </div>
+          <div id="close">
+            <uui-button
+              .label=${'close'}
+              .look=${this.look}
+              @click=${() => (this.open = false)}>
+              <uui-icon
+                name="remove"
+                .fallback=${iconRemove.strings[0]}></uui-icon>
+            </uui-button>
           </div>
-          <div id="actions">${this.renderActions()}</div>
+          <slot></slot>
         </div>
       </div>
     `;

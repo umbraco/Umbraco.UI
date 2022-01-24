@@ -9,6 +9,8 @@ import { UUIToastNotificationElement } from './uui-toast-notification.element';
 import '.';
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
+import '@umbraco-ui/uui-button/lib/index';
+import '@umbraco-ui/uui-icon/lib/index';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -30,9 +32,6 @@ describe('UUIToastNotificationElement', () => {
   describe('properties', () => {
     it('look', () => {
       expect(element).to.have.property('look');
-    });
-    it('headline', () => {
-      expect(element).to.have.property('headline');
     });
     it('autoClose', () => {
       expect(element).to.have.property('autoClose');
@@ -56,56 +55,67 @@ describe('UUIToastNotificationElement', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
       expect(slot).to.exist;
     });
-    it('renders a actions slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot[name="actions"]')!;
-      expect(slot).to.exist;
-    });
   });
 
   describe('events', () => {
-    describe('open', () => {
-      it('emits a open event when elements starts to open', async () => {
-        const listener = oneEvent(element, UUIToastNotificationEvent.OPEN);
+    describe('opening', () => {
+      it('emits a opening event when elements starts to opening', async () => {
+        const listener = oneEvent(element, UUIToastNotificationEvent.OPENING);
         element.open = true;
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUIToastNotificationEvent.OPEN);
+        expect(event.type).to.equal(UUIToastNotificationEvent.OPENING);
         expect(element.open).to.be.true;
       });
     });
 
-    describe('close', () => {
-      it('emits a close event when elements starts to close', async () => {
+    describe('closing', () => {
+      it('emits a closing event when elements starts to closing', async () => {
         element.open = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUIToastNotificationEvent.CLOSE);
-        await sleep(600); // enough time for open animation to be done.
+        const listener = oneEvent(element, UUIToastNotificationEvent.CLOSING);
+        await sleep(600); // enough time for opening-animation to be done.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUIToastNotificationEvent.CLOSE);
+        expect(event.type).to.equal(UUIToastNotificationEvent.CLOSING);
         expect(element.open).to.be.false;
       });
-      it('emits a close event though toast is running its open animation', async () => {
+      it('emits a closing event though toast is running its opening-animation', async () => {
         element.open = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUIToastNotificationEvent.CLOSE);
-        await sleep(100); // enough time for the rendering and open-animation to start.
+        const listener = oneEvent(element, UUIToastNotificationEvent.CLOSING);
+        await sleep(100); // enough time for the rendering and opening-animation to start.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUIToastNotificationEvent.CLOSE);
+        expect(event.type).to.equal(UUIToastNotificationEvent.CLOSING);
         expect(element.open).to.be.false;
+      });
+      it('emits a closing event can preventDefault to cancel the close', async () => {
+        element.open = true;
+        await elementUpdated(element);
+        const listener = oneEvent(element, UUIToastNotificationEvent.CLOSING);
+        element.addEventListener(UUIToastNotificationEvent.CLOSING, e => {
+          e.preventDefault();
+        });
+        await sleep(100); // enough time for the rendering and opening-animation to start.
+        expect(element.open).to.be.true;
+        element.open = false;
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIToastNotificationEvent.CLOSING);
+        expect(element.open).to.be.true;
       });
     });
     describe('closed', () => {
-      it('emits a open event when elements is closed', async () => {
+      it('emits a opening event when elements is closed', async () => {
         element.open = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUIToastNotificationEvent.CLOSED);
-        await sleep(600); // enough time for open animation to be done.
+        await sleep(600); // enough time for opening-animation to be done.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -113,11 +123,11 @@ describe('UUIToastNotificationElement', () => {
         expect(event.type).to.equal(UUIToastNotificationEvent.CLOSED);
         expect(element.open).to.be.false;
       });
-      it('emits a close event though toast is still running its open animation', async () => {
+      it('emits a close event though toast is still running its opening-animation', async () => {
         element.open = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUIToastNotificationEvent.CLOSED);
-        await sleep(100); // enough time for the rendering and open-animation to start.
+        await sleep(100); // enough time for the rendering and opening-animation to start.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -128,24 +138,27 @@ describe('UUIToastNotificationElement', () => {
     });
 
     describe('sequence', () => {
-      it('ensure events goes as following: open, close, closed, open', async () => {
-        const openListener = oneEvent(element, UUIToastNotificationEvent.OPEN);
+      it('ensure events goes as following: opening, closing, closed, opening', async () => {
+        const openListener = oneEvent(
+          element,
+          UUIToastNotificationEvent.OPENING
+        );
         element.open = true;
         const openEvent = await openListener;
         expect(openEvent).to.exist;
-        expect(openEvent.type).to.equal(UUIToastNotificationEvent.OPEN);
+        expect(openEvent.type).to.equal(UUIToastNotificationEvent.OPENING);
         expect(element.open).to.be.true;
 
-        await sleep(100); // enough time for the rendering and open-animation to start.
+        await sleep(100); // enough time for the rendering and opening-animation to start.
 
         const closeListener = oneEvent(
           element,
-          UUIToastNotificationEvent.CLOSE
+          UUIToastNotificationEvent.CLOSING
         );
         element.open = false;
         const closeEvent = await closeListener;
         expect(closeEvent).to.exist;
-        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSE);
+        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSING);
         expect(element.open).to.be.false;
 
         const closedListener = oneEvent(
@@ -157,12 +170,15 @@ describe('UUIToastNotificationElement', () => {
         expect(closedEvent.type).to.equal(UUIToastNotificationEvent.CLOSED);
         expect(element.open).to.be.false;
 
-        // Check again that we can get an open event:
-        const openListener2 = oneEvent(element, UUIToastNotificationEvent.OPEN);
+        // Check again that we can get an opening event:
+        const openListener2 = oneEvent(
+          element,
+          UUIToastNotificationEvent.OPENING
+        );
         element.open = true;
         const openEvent2 = await openListener2;
         expect(openEvent2).to.exist;
-        expect(openEvent2.type).to.equal(UUIToastNotificationEvent.OPEN);
+        expect(openEvent2.type).to.equal(UUIToastNotificationEvent.OPENING);
         expect(element.open).to.be.true;
       });
     });
@@ -177,11 +193,11 @@ describe('UUIToastNotificationElement', () => {
 
         const closeListener = oneEvent(
           element,
-          UUIToastNotificationEvent.CLOSE
+          UUIToastNotificationEvent.CLOSING
         );
         const closeEvent = await closeListener;
         expect(closeEvent).to.exist;
-        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSE);
+        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSING);
         expect(element.open).to.be.false;
 
         const closedListener = oneEvent(
@@ -200,23 +216,23 @@ describe('UUIToastNotificationElement', () => {
         element.autoClose = 200;
         element.open = true;
 
-        await sleep(600); // enough time for open animation to be done.
+        await sleep(600); // enough time for opening animation to be done.
 
         expect(element.open).to.be.true;
         element.pauseAutoClose();
 
-        await sleep(500); // enough time for open animation to be done.
+        await sleep(500); // enough time for opening animation to be done.
 
         element.resumeAutoClose();
         expect(element.open).to.be.true;
 
         const closeListener = oneEvent(
           element,
-          UUIToastNotificationEvent.CLOSE
+          UUIToastNotificationEvent.CLOSING
         );
         const closeEvent = await closeListener;
         expect(closeEvent).to.exist;
-        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSE);
+        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSING);
         expect(element.open).to.be.false;
 
         const closedListener = oneEvent(
@@ -237,18 +253,18 @@ describe('UUIToastNotificationElement', () => {
 
         element.pauseAutoClose();
 
-        await sleep(600); // enough time for open animation to be done.
+        await sleep(600); // enough time for opening animation to be done.
 
         element.resumeAutoClose();
         expect(element.open).to.be.true;
 
         const closeListener = oneEvent(
           element,
-          UUIToastNotificationEvent.CLOSE
+          UUIToastNotificationEvent.CLOSING
         );
         const closeEvent = await closeListener;
         expect(closeEvent).to.exist;
-        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSE);
+        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSING);
         expect(element.open).to.be.false;
 
         const closedListener = oneEvent(

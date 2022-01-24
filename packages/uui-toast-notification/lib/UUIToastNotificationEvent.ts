@@ -5,7 +5,7 @@ export class UUIToastNotificationEvent extends UUIEvent<
   {},
   UUIToastNotificationElement
 > {
-  public static readonly OPEN = 'open';
-  public static readonly CLOSE = 'close';
+  public static readonly OPENING = 'opening';
+  public static readonly CLOSING = 'closing';
   public static readonly CLOSED = 'closed';
 }

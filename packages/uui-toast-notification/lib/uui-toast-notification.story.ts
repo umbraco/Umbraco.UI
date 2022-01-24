@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-toast-notification/lib/index';
 
 export default {
   id: 'uui-toast-notification',
-  title: 'Displays/Toast Notification',
+  title: 'Displays/Toast Notification/Toast Notification',
   component: 'uui-toast-notification',
   args: {
     open: true,
@@ -19,10 +19,11 @@ export default {
 
 const Template: Story = props => html`<uui-toast-notification
   .open=${props.open}
-  .headline=${props.headline}
   .look=${props.look}>
-  This page is now available.
-  <uui-button slot="actions">Open website</uui-button>
+  <uui-toast-notification-layout .headline=${props.headline}>
+    This page is now available.
+    <uui-button slot="actions">Open website</uui-button>
+  </uui-toast-notification-layout>
 </uui-toast-notification>`;
 
 export const AAAOverview: Story = Template.bind({});
@@ -40,11 +41,12 @@ AAAOverview.parameters = {
 
 export const ErrorStyle: Story = props => html`<uui-toast-notification
   .open=${props.open}
-  .headline=${props.headline}
   look="danger">
-  An error occurred while attempting to contact the server. Please check your
-  internet connection.
-  <uui-button slot="actions" look="danger">Retry</uui-button>
+  <uui-toast-notification-layout .headline=${props.headline}>
+    An error occurred while attempting to contact the server. Please check your
+    internet connection.
+    <uui-button slot="actions" look="danger">Retry</uui-button>
+  </uui-toast-notification-layout>
 </uui-toast-notification>`;
 ErrorStyle.args = {
   headline: 'Document could not be published!',
@@ -53,26 +55,7 @@ ErrorStyle.args = {
 ErrorStyle.parameters = {
   docs: {
     source: {
-      code: `<uui-toast-notification look="danger" headline="Error title">Description</uui-toast-notification>`,
-    },
-  },
-};
-
-export const Progress: Story = props => html`<uui-toast-notification
-  .headline=${props.headline}
-  look="danger">
-  An error occurred while attempting to contact the server. Please check your
-  internet connection.
-  <uui-button slot="actions" look="danger">Retry</uui-button>
-</uui-toast-notification>`;
-ErrorStyle.args = {
-  headline: 'Document could not be published!',
-  look: 'danger',
-};
-ErrorStyle.parameters = {
-  docs: {
-    source: {
-      code: `<uui-toast-notification look="danger" headline="Error title">Description</uui-toast-notification>`,
+      code: `<uui-toast-notification look="danger"><uui-toast-notification-layout headline="Error title">Description</uui-toast-notification-layout></uui-toast-notification>`,
     },
   },
 };
