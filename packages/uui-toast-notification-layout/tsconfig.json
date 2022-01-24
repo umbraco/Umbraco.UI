@@ -14,10 +14,10 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-css"
+      "path": "../uui-button"
     },
     {
-      "path": "../uui-button"
+      "path": "../uui-css"
     },
     {
       "path": "../uui-icon"

@@ -177,6 +177,9 @@
     },
     {
       "path": "../uui-toast-notification-container"
+    },
+    {
+      "path": "../uui-toast-notification-layout"
     }
   ]
 }
