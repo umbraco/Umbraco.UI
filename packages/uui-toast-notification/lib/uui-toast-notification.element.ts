@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, TemplateResult } from 'lit';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
 import { property, query, state } from 'lit/decorators.js';
 import {
@@ -101,7 +101,7 @@ export class UUIToastNotificationElement extends LitElement {
         margin-right: -6px;
       }
 
-      slot[name='actions'] {
+      #actions {
         display: flex;
         width: 100%;
         justify-content: flex-end;
@@ -146,6 +146,7 @@ export class UUIToastNotificationElement extends LitElement {
   @property({ reflect: true })
   headline: string | null = null;
 
+  private _autoClose: number | null = null;
   /**
    * Set an auto-close timer.
    * @type number
@@ -153,7 +154,6 @@ export class UUIToastNotificationElement extends LitElement {
    * @default null
    */
   @property({ type: Number })
-  private _autoClose: number | null = null;
   public get autoClose(): number | null {
     return this._autoClose;
   }
@@ -261,9 +261,9 @@ export class UUIToastNotificationElement extends LitElement {
       if (this._open !== true) {
         return;
       }
-      window.cancelAnimationFrame(this._requestAnimationUpdate);
-      this._requestAnimationUpdate = window.requestAnimationFrame(() => {
-        window.clearTimeout(this._animationTimeout as number);
+      cancelAnimationFrame(this._requestAnimationUpdate);
+      this._requestAnimationUpdate = requestAnimationFrame(() => {
+        clearTimeout(this._animationTimeout as number);
         this.isOpen = true;
         this.setAttribute('is-open', '');
 
@@ -292,17 +292,18 @@ export class UUIToastNotificationElement extends LitElement {
     }
     this._open = false;
     this._timer?.pause();
-    window.cancelAnimationFrame(this._requestAnimationUpdate); // do cancel though isOpen wasn't set jet.
+    cancelAnimationFrame(this._requestAnimationUpdate); // do cancel though isOpen wasn't set jet.
     if (this.isOpen === true) {
-      this._requestAnimationUpdate = window.requestAnimationFrame(() => {
-        window.clearTimeout(this._animationTimeout as number);
+      this._requestAnimationUpdate = requestAnimationFrame(() => {
+        clearTimeout(this._animationTimeout as number);
         this.isOpen = false;
         this.removeAttribute('is-open');
 
         this.style.height = this._toastEl.getBoundingClientRect().height + 'px';
         this._animate = true;
 
-        window.requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Dont overwrite the height instantly, but instead wait one frame to ensure animate is set before setting the goal of the animation.
           this.style.height = '0';
         });
 
@@ -329,14 +330,25 @@ export class UUIToastNotificationElement extends LitElement {
     }
   }
 
+  protected renderHeadline(): TemplateResult {
+    return html` ${this.headline ? html`<h5>${this.headline}</h5>` : ''} `;
+  }
+
+  protected renderMessage(): TemplateResult {
+    return html` <slot></slot> `;
+  }
+
+  protected renderActions(): TemplateResult {
+    return html` <slot name="actions"></slot> `;
+  }
+
   render() {
     return html`
       <div id="toast" class=${this._animate ? 'animate' : ''}>
         <div>
           <div id="layout">
             <div id="message" class="uui-text">
-              ${this.headline ? html`<h5>${this.headline}</h5>` : ''}
-              <slot></slot>
+              ${this.renderHeadline()} ${this.renderMessage()}
             </div>
             <div id="close">
               <uui-button
@@ -349,7 +361,7 @@ export class UUIToastNotificationElement extends LitElement {
               </uui-button>
             </div>
           </div>
-          <slot name="actions"></slot>
+          <div id="actions">${this.renderActions()}</div>
         </div>
       </div>
     `;
