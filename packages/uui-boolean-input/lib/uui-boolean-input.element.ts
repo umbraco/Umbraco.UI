@@ -60,6 +60,23 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   @query('#input')
   protected _input!: HTMLInputElement;
 
+  set value(newVal: string) {
+    const oldValue = this._value;
+    this._value = newVal;
+
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(
+        this._checked && this.name !== '' ? this._value : null
+      );
+    }
+
+    this.requestUpdate('value', oldValue);
+  }
+
   /**
    * Specifies the label position of the checkbox or the toggle
    * @type {'left' | 'right' | 'top' | 'bottom'}
