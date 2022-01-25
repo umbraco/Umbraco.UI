@@ -16,9 +16,9 @@ const tagName = defineCE(
   class BooleanInputTestElement extends UUIBooleanInputElement {
     renderCheckbox() {
       return litHTMLLiteral`
-            <div id="testCheckbox">
-            </div>
-          `;
+      <div id="testCheckbox">
+      </div>
+    `;
     }
   }
 );
@@ -45,8 +45,8 @@ describe('UUIBooleanInputElement', () => {
     expect(label).to.exist;
   });
 
-  it('has internals', async () => {
-    await expect(element).to.have.property('_internals');
+  it('has internals', () => {
+    expect(element).to.have.property('_internals');
   });
 
   it('has default value equal to on', () => {

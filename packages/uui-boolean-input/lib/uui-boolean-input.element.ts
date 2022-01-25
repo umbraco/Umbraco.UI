@@ -60,6 +60,9 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   @query('#input')
   protected _input!: HTMLInputElement;
 
+  get value() {
+    return this._value as string;
+  }
   set value(newVal: string) {
     const oldValue = this._value;
     this._value = newVal;
@@ -99,7 +102,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   get checked() {
     return this._checked;
   }
-
   set checked(newVal) {
     const oldValue = this._checked;
     this._checked = newVal;
@@ -111,15 +113,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
         : null
     );
     this.requestUpdate('checked', oldValue);
-  }
-
-  private _onInputChange() {
-    this.checked = this._input.checked;
-    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
-  }
-
-  updated() {
-    this._setValidity();
   }
 
   // Validation
@@ -153,38 +146,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   @property({ type: Boolean, reflect: true })
   error = false;
 
-  private _setValidity() {
-    // check for required
-    if (this.required && !this.checked) {
-      this._validityState.valueMissing = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is required',
-        this._input
-      );
-    } else {
-      this._validityState.valueMissing = false;
-    }
-
-    // check for custom error
-    if (this.error) {
-      this._validityState.customError = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is invalid',
-        this._input
-      );
-    } else {
-      this._validityState.customError = false;
-    }
-
-    const hasError = Object.values(this._validityState).includes(true);
-
-    if (hasError === false) {
-      this._internals.setValidity({});
-    }
-  }
-
   /*
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -195,7 +156,9 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
 
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();
-    this._value = this._value || 'on';
+    if (this._value === '') {
+      this._value = 'on';
+    }
     this.inputRole = inputRole;
   }
 
@@ -227,6 +190,47 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   }
   click() {
     (this.shadowRoot?.querySelector('#input') as any).click();
+  }
+
+  private _onInputChange() {
+    this.checked = this._input.checked;
+    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
+  }
+
+  updated() {
+    this._setValidity();
+  }
+
+  private _setValidity() {
+    // check for required
+    if (this.required && !this.checked) {
+      this._validityState.valueMissing = true;
+      this._internals.setValidity(
+        this._validityState,
+        'The field is required',
+        this._input
+      );
+    } else {
+      this._validityState.valueMissing = false;
+    }
+
+    // check for custom error
+    if (this.error) {
+      this._validityState.customError = true;
+      this._internals.setValidity(
+        this._validityState,
+        'The field is invalid',
+        this._input
+      );
+    } else {
+      this._validityState.customError = false;
+    }
+
+    const hasError = Object.values(this._validityState).includes(true);
+
+    if (hasError === false) {
+      this._internals.setValidity({});
+    }
   }
 
   /**
