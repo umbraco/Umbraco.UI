@@ -1,16 +1,100 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import {
+  html,
+  fixture,
+  expect,
+  elementUpdated,
+  oneEvent,
+} from '@open-wc/testing';
 import { UUISliderElement } from './uui-slider.element';
 import './index';
+import { UUISliderEvent } from './UUISliderEvents';
 
 describe('UuiSlider', () => {
   let element: UUISliderElement;
+  let input: HTMLInputElement;
+
   beforeEach(async () => {
     element = await fixture(
       html` <uui-slider label="a slider label"></uui-slider> `
     );
+    input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
-  it('test that disable works', async () => {
-    expect(element).to.exist;
+
+  it('passes the a11y audit', async () => {
+    await expect(element).shadowDom.to.be.accessible();
+  });
+
+  describe('properties', () => {
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
+    });
+    it('disable property set input to disabled', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+      expect(input.disabled).to.be.true;
+    });
+
+    it('has a value property', () => {
+      expect(element).to.have.property('value');
+    });
+    it('has a label property', () => {
+      expect(element).to.have.property('label');
+    });
+    it('has a min property', () => {
+      expect(element).to.have.property('min');
+    });
+    it('has a max property', () => {
+      expect(element).to.have.property('max');
+    });
+    it('has a step property', () => {
+      expect(element).to.have.property('step');
+    });
+    it('has a hideStepValues property', () => {
+      expect(element).to.have.property('hideStepValues');
+    });
+  });
+
+  describe('methods', () => {
+    it('has a focus method', () => {
+      expect(element).to.have.property('focus').that.is.a('function');
+    });
+    it('focus method sets focus', async () => {
+      expect(document.activeElement).not.to.equal(element);
+      element.focus();
+      expect(document.activeElement).to.equal(element);
+    });
+  });
+  describe('events', () => {
+    describe('change', () => {
+      it('emits a change event when native input fires one', async () => {
+        const listener = oneEvent(element, UUISliderEvent.CHANGE);
+
+        input.dispatchEvent(new Event('change'));
+
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISliderEvent.CHANGE);
+        expect(event!.target).to.equal(element);
+      });
+    });
+    describe('input', () => {
+      it('emits a input event when native input fires one', async () => {
+        const listener = oneEvent(element, UUISliderEvent.INPUT);
+
+        input.dispatchEvent(new Event('input'));
+
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISliderEvent.INPUT);
+        expect(event!.target).to.equal(element);
+      });
+    });
+  });
+
+  it('changes the value to the input value when input event is emitted', async () => {
+    input.value = '10';
+    input.dispatchEvent(new Event('input'));
+    expect(element.value).to.equal('10');
   });
 });
 
@@ -57,62 +141,4 @@ describe('UuiSlider in Form', () => {
     const formData = new FormData(formElement);
     await expect(formData.get('slider')).to.be.equal('90');
   });
-
-  describe('validation', () => {
-    describe('required', () => {
-      beforeEach(async () => {
-        element.setAttribute('required', 'true');
-        element.value = '';
-        await elementUpdated(element);
-      });
-    
-      it('sets element to invalid when value is empty', async () => {    
-        expect(element.checkValidity()).to.be.false;
-      });
-    
-      it('sets element to valid when it has a value', async () => {      
-        element.value = '90';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
-      });
-    
-      it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.be.false;
-      });
-    
-      it('sets the form to valid when it has a value', async () => {
-        element.value = '90';
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.be.true;
-      });
-    });
-    
-    describe('custom error', () => {
-      beforeEach(async () => {
-        element.setAttribute('error', 'true');
-        await elementUpdated(element);
-      });
-    
-      it('sets element to invalid when it has a custom error attribute', async () => {
-        expect(element.checkValidity()).to.be.false;
-      });
-    
-      it('sets element to valid when it doesnt have a custom error attribute', async () => {      
-        element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
-      });
-    
-      it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.be.false;
-      });
-    
-      it('sets the form to valid when it doesnt have a custom error attribute', async () => {
-        element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.be.true;
-      });
-    });
-  });
-
 });

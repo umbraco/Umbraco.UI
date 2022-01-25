@@ -40,12 +40,14 @@ describe('UuiTable', () => {
     expect(slot).to.exist;
   });
 
-  it('CELL: detects overflow', () => {
+  it('CELL: detects overflow', async () => {
     const slot = table.shadowRoot!.querySelector('slot');
     const row = slot?.assignedElements()[5] as UUITableRowElement;
     const cell = row
       .shadowRoot!.querySelector('slot')
       ?.assignedElements()[2] as UUITableCellElement;
+    cell.setAttribute('clip-text', 'true');
+    await elementUpdated(cell);
     expect(cell.title).to.equal('Hello 3');
   });
 
@@ -65,7 +67,7 @@ describe('UuiTable', () => {
     expect(row.selected).to.be.false;
   });
 
-  it('passes the a11y audit', () => {
-    expect(table).shadowDom.to.be.accessible();
+  it('passes the a11y audit', done => {
+    expect(table).shadowDom.to.be.accessible({ done });
   });
 });

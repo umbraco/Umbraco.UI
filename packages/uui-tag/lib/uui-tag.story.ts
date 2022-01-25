@@ -4,18 +4,14 @@ import { Story } from '@storybook/web-components';
 import '@umbraco-ui/uui-tag/lib/index';
 
 export default {
-  title: 'Misc/Tag',
+  title: 'Displays/Tag',
   component: 'uui-tag',
   id: 'uui-tag',
   args: {
-    size: 'm',
     look: '',
     slot: 'Hello',
   },
   argTypes: {
-    size: {
-      options: ['xs', 's', 'm', 'l', 'xl'],
-    },
     slot: { table: { category: 'slots' }, control: { type: 'text' } },
     look: {
       options: [
@@ -31,10 +27,9 @@ export default {
   },
 };
 
-const Template: Story = props =>
-  html`
-    <uui-tag .look=${props.look} .size=${props.size}>${props.slot}</uui-tag>
-  `;
+const Template: Story = props => html`
+  <uui-tag .look=${props.look}>${props.slot}</uui-tag>
+`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
@@ -46,12 +41,10 @@ AAAOverview.parameters = {
   },
 };
 
-export const Looks: Story = props =>
+export const Looks: Story = () =>
   html`
-    <uui-tag .look=${props.look} .size=${props.size}>${props.slot}</uui-tag>
-    <h5>Looks</h5>
     ${InterfaceLookNames.map(
-      look => html`<uui-tag size="m" look="${look}">${look}</uui-tag>`
+      look => html`<uui-tag look="${look}">${look}</uui-tag><br />`
     )}
   `;
 
@@ -59,38 +52,35 @@ Looks.parameters = {
   docs: {
     source: {
       code: `
-      <uui-tag size="m" look="primary">primary</uui-tag>
-      <uui-tag size="m" look="secondary">secondary</uui-tag>
-      <uui-tag size="m" look="outline">outline</uui-tag>
-      <uui-tag size="m" look="placeholder">placeholder</uui-tag>
-      <uui-tag size="m" look="positive">positive</uui-tag>
-      <uui-tag size="m" look="warning">warning</uui-tag>
-      <uui-tag size="m" look="danger">danger</uui-tag>
+      <uui-tag look="primary">primary</uui-tag>
+      <uui-tag look="secondary">secondary</uui-tag>
+      <uui-tag look="outline">outline</uui-tag>
+      <uui-tag look="placeholder">placeholder</uui-tag>
+      <uui-tag look="positive">positive</uui-tag>
+      <uui-tag look="warning">warning</uui-tag>
+      <uui-tag look="danger">danger</uui-tag>
       `,
     },
   },
 };
 
-export const Sizes: Story = props =>
+export const Sizing: Story = props =>
   html`
-    <uui-tag .look=${props.look} .size=${props.size}>${props.slot}</uui-tag>
-    <h5>Sizes</h5>
-    <uui-tag size="xs" look="primary">extra small</uui-tag>
-    <uui-tag size="s" look="primary">small</uui-tag>
-    <uui-tag size="m" look="primary">medium</uui-tag>
-    <uui-tag size="l" look="primary">large</uui-tag>
-    <uui-tag size="xl" look="primary">extra large</uui-tag>
+    <uui-tag style="font-size:9px;" .look=${props.look}>Extra small</uui-tag
+    ><br />
+    <uui-tag style="font-size:12px;" .look=${props.look}>Default</uui-tag><br />
+    <uui-tag style="font-size:15px;" .look=${props.look}>Medium</uui-tag><br />
+    <uui-tag style="font-size:18px;" .look=${props.look}>Large</uui-tag>
   `;
 
-Sizes.parameters = {
+Sizing.parameters = {
   docs: {
     source: {
       code: `
-      <uui-tag size="xs">extra small</uui-tag>
-      <uui-tag size="s">small</uui-tag>
-      <uui-tag size="m">medium</uui-tag>
-      <uui-tag size="l">large</uui-tag>
-      <uui-tag size="xl">extra large</uui-tag>
+      <uui-tag style="font-size:9px;" look="primary">Extra small</uui-tag>
+      <uui-tag style="font-size:12px;" look="primary">Default</uui-tag>
+      <uui-tag style="font-size:15px;" look="primary">Medium</uui-tag>
+      <uui-tag style="font-size:18px;" look="primary">Large</uui-tag>
       `,
     },
   },

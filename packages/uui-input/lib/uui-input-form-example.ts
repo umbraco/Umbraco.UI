@@ -25,7 +25,9 @@ export class UUIInputInFormExampleElement extends LitElement {
 
   _onCustomValidationInput(event: InputEvent) {
     const target = event.target as UUIInputElement;
-    this._customValidationInputIsInvalid = !this._myCustomValidation(target.value);
+    this._customValidationInputIsInvalid = !this._myCustomValidation(
+      target.value
+    );
     this.requestUpdate();
   }
 
@@ -49,7 +51,7 @@ export class UUIInputInFormExampleElement extends LitElement {
     const formData = new FormData(this._form);
 
     console.log('----SUBMITTED----');
-    
+
     for (const value of formData.values()) {
       console.log(value);
     }
@@ -72,10 +74,7 @@ export class UUIInputInFormExampleElement extends LitElement {
 
   render() {
     return html`
-      <form
-        @submit="${this._onSubmit}"
-        @reset="${this._onReset}"
-        novalidate>
+      <form @submit="${this._onSubmit}" @reset="${this._onReset}" novalidate>
         <div style="margin-bottom: 15px;">
           <uui-checkbox
             id="checkbox"

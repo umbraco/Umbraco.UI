@@ -7,14 +7,12 @@
     "rootDir": "./lib",
     "composite": true
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./**/*.test.ts",
-    "./**/*.story.ts"
-  ],
+  "include": ["./**/*.ts"],
+  "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": [
+    {
+      "path": "../uui-action-bar"
+    },
     {
       "path": "../uui-avatar"
     },
@@ -23,6 +21,9 @@
     },
     {
       "path": "../uui-badge"
+    },
+    {
+      "path": "../uui-boolean-input"
     },
     {
       "path": "../uui-box"
@@ -37,13 +38,52 @@
       "path": "../uui-button-group"
     },
     {
+      "path": "../uui-button-inline-create"
+    },
+    {
+      "path": "../uui-card"
+    },
+    {
+      "path": "../uui-card-content-node"
+    },
+    {
+      "path": "../uui-card-media"
+    },
+    {
+      "path": "../uui-card-user"
+    },
+    {
+      "path": "../uui-caret"
+    },
+    {
       "path": "../uui-checkbox"
+    },
+    {
+      "path": "../uui-css"
+    },
+    {
+      "path": "../uui-dialog"
+    },
+    {
+      "path": "../uui-icon"
+    },
+    {
+      "path": "../uui-icon-registry"
+    },
+    {
+      "path": "../uui-icon-registry-essential"
     },
     {
       "path": "../uui-input"
     },
     {
+      "path": "../uui-input-password"
+    },
+    {
       "path": "../uui-keyboard-shortcut"
+    },
+    {
+      "path": "../uui-label"
     },
     {
       "path": "../uui-loader"
@@ -55,10 +95,67 @@
       "path": "../uui-loader-circle"
     },
     {
+      "path": "../uui-menu-item"
+    },
+    {
+      "path": "../uui-pagination"
+    },
+    {
+      "path": "../uui-progress-bar"
+    },
+    {
       "path": "../uui-radio"
     },
     {
+      "path": "../uui-ref"
+    },
+    {
+      "path": "../uui-ref-list"
+    },
+    {
+      "path": "../uui-ref-node"
+    },
+    {
+      "path": "../uui-ref-node-data-type"
+    },
+    {
+      "path": "../uui-ref-node-document-type"
+    },
+    {
+      "path": "../uui-ref-node-form"
+    },
+    {
+      "path": "../uui-ref-node-member"
+    },
+    {
+      "path": "../uui-ref-node-package"
+    },
+    {
+      "path": "../uui-ref-node-user"
+    },
+    {
+      "path": "../uui-scroll-container"
+    },
+    {
+      "path": "../uui-select"
+    },
+    {
       "path": "../uui-slider"
+    },
+    {
+      "path": "../uui-symbol-expand"
+    },
+    {
+      "path": "../uui-symbol-file"
+    },
+    {
+      "path": "../uui-symbol-folder"
+    },
+    {
+      "path": "../uui-symbol-more"
+    },
+    {
+      "path": "../uui-symbol-sort"
     },
     {
       "path": "../uui-table"
@@ -68,6 +165,9 @@
     },
     {
       "path": "../uui-tag"
+    },
+    {
+      "path": "../uui-textarea"
     },
     {
       "path": "../uui-toggle"

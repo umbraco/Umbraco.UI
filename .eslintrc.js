@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['vite.*.js', 'src/**/*'],
   root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'html', 'import'],

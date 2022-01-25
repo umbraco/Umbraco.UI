@@ -43,7 +43,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     name = '';
 
     /**
-     * This is a value property
+     * Value of this form control.
      * @type {string}
      * @attr
      * @default ''

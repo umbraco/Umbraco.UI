@@ -34,6 +34,13 @@ export class UUIRadioGroupElement extends FormControlMixin(
     this.addEventListener('keydown', this._onKeydown);
   }
 
+  /**
+   * This method enables <label for="..."> to focus the select
+   */
+  focus() {
+    this.radioElements[this._selected || 0]?.focus();
+  }
+
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
@@ -217,7 +224,6 @@ export class UUIRadioGroupElement extends FormControlMixin(
     this.dispatchEvent(new UUIRadioGroupEvent(UUIRadioGroupEvent.CHANGE));
   }
 
-  //TODO add event
   private _handleSelectOnClick = (e: UUIRadioEvent) => {
     this._setSelected(this.radioElements.indexOf(e.target));
     this._fireChangeEvent();

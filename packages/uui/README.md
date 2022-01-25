@@ -1,6 +1,6 @@
 # uui
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui)
 
 The full Umbraco UI Library. The package includes and registers all UUI Web Components.
 

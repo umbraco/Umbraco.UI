@@ -79,7 +79,7 @@ export class UUISelectOptionElement extends LabelMixin('', LitElement) {
     if (!this.hasAttribute('aria-selected'))
       this.setAttribute('aria-selected', 'false');
     if (!this.value) {
-      console.warn(this.tagName + ' needs a `value`');
+      console.warn(this.tagName + ' needs a `value`', this);
     }
   }
 

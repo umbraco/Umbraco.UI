@@ -3,8 +3,11 @@ import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
-import { iconWrong, iconCheck } from './toggle-icons';
-import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
+import {
+  iconWrong,
+  iconCheck,
+} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
 
 /**
  *  Umbraco Toggle-switch, toggles between off/on.
@@ -19,11 +22,11 @@ import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean
  *  @cssprop --uui-toggle-background-color-hover - Set the toggle background color when hovered
  *  @cssprop --uui-toggle-border-color-focus - Set the toggle background color when focused
  *  @cssprop --uui-toggle-background-color-focus - Set the toggle background color when focused
- *  @extends UUIBooleanInputBaseElement
+ *  @extends UUIBooleanInputElement
  */
-export class UUIToggleElement extends UUIBooleanInputBaseElement {
+export class UUIToggleElement extends UUIBooleanInputElement {
   static styles = [
-    ...UUIBooleanInputBaseElement.styles,
+    ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {
@@ -122,6 +125,11 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
         transform: translateX(-100%);
       }
 
+      input:focus + #slider {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+
       :host(:not([disabled])) label:active #slider::after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
@@ -150,8 +158,7 @@ export class UUIToggleElement extends UUIBooleanInputBaseElement {
       :host([show-validation]:invalid) label:hover #slider,
       /* polyfill support */
       :host([show-validation][internals-invalid]) #slider,
-      :host([show-validation][internals-invalid]) label:hover #slider
-      {
+      :host([show-validation][internals-invalid]) label:hover #slider {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,

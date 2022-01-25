@@ -51,7 +51,7 @@ export const Overview = () => html`
       }}
       >Click</uui-button
     >
-    <uui-overflow-container slot="dropdown" style="min-width: 400px">
+    <uui-scroll-container slot="dropdown" style="min-width: 400px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -67,7 +67,7 @@ export const Overview = () => html`
             ></uui-select-option>`
         )}
       </uui-select-list>
-    </uui-overflow-container>
+    </uui-scroll-container>
   </uui-dropdown>
 `;
 
@@ -82,7 +82,7 @@ export const withInput = () => html`
       }}
       >Click</uui-button
     >
-    <uui-overflow-container slot="dropdown" style="min-width: 400px">
+    <uui-scroll-container slot="dropdown" style="min-width: 400px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -98,7 +98,7 @@ export const withInput = () => html`
             ></uui-select-option>`
         )}
       </uui-select-list>
-    </uui-overflow-container>
+    </uui-scroll-container>
   </uui-dropdown>
 `;
 
@@ -112,7 +112,7 @@ export const top = () => html`
       }}
       >Click</uui-button
     >
-    <uui-overflow-container slot="dropdown" style="min-width: 200px">
+    <uui-scroll-container slot="dropdown" style="min-width: 200px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -128,7 +128,7 @@ export const top = () => html`
             ></uui-select-option>`
         )}
       </uui-select-list>
-    </uui-overflow-container>
+    </uui-scroll-container>
   </uui-dropdown>
 `;
 
@@ -144,7 +144,7 @@ export const auto = () => html`
       }}
       >Click</uui-button
     >
-    <uui-overflow-container slot="dropdown" style="min-width: 400px">
+    <uui-scroll-container slot="dropdown" style="min-width: 400px">
       <uui-select-list>
         ${options.map(
           option =>
@@ -160,7 +160,7 @@ export const auto = () => html`
             ></uui-select-option>`
         )}
       </uui-select-list>
-    </uui-overflow-container>
+    </uui-scroll-container>
   </uui-dropdown>
   <div style="height: 150vh;"></div>
 `;

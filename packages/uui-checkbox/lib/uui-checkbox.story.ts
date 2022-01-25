@@ -14,7 +14,6 @@ export default {
     labelPosition: 'right',
     disabled: false,
     checked: false,
-    'hide-label': false,
     '--uui-checkbox-size': '18px',
   },
   parameters: {
@@ -40,7 +39,6 @@ export const AAAOverview: Story = props =>
       .labelPosition=${props.labelPosition}
       ?disabled=${props.disabled}
       ?checked=${props.checked}
-      ?hide-label=${props['hide-label']}
       >${props.slot}</uui-checkbox
     >
   `;
@@ -127,25 +125,12 @@ LabelPosition.parameters = {
   controls: { include: ['checked'] },
   docs: {
     source: {
-      code: `<uui-checkbox label-position="bottom"></uui-checkbox>`,
-    },
-  },
-};
-
-export const NoLabel: Story = props =>
-  html`<uui-checkbox
-    label="label"
-    ?checked=${props.checked}
-    ?hide-label=${props['hide-label']}
-    value="checkbox"></uui-checkbox>`;
-NoLabel.args = {
-  'hide-label': true,
-};
-NoLabel.parameters = {
-  controls: { include: ['checked', 'hide-label'] },
-  docs: {
-    source: {
-      code: `<uui-checkbox hide-label></uui-checkbox>`,
+      code: `
+      <uui-checkbox label-position="left"></uui-checkbox>
+      <uui-checkbox label-position="top"></uui-checkbox>
+      <uui-checkbox label-position="right"></uui-checkbox>
+      <uui-checkbox label-position="bottom"></uui-checkbox>
+      `,
     },
   },
 };

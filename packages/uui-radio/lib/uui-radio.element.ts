@@ -72,12 +72,20 @@ export class UUIRadioElement extends LitElement {
         transition: all 0.15s ease-in-out;
       }
 
-      input:checked ~ #button::after {
-        transform: translate(-50%, -50%) scale(1);
-      }
-
       :host(:hover) #button {
         border: 1px solid var(--uui-interface-border-hover);
+      }
+
+      :host(:focus) {
+        outline: none;
+      }
+      :host(:focus) #button {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+
+      input:checked ~ #button::after {
+        transform: translate(-50%, -50%) scale(1);
       }
 
       input:checked ~ #button {
@@ -176,6 +184,16 @@ export class UUIRadioElement extends LitElement {
       this.setAttribute('tabindex', '-1');
     }
     this.requestUpdate('disabled', oldVal);
+  }
+
+  constructor() {
+    super();
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '1');
+    });
   }
 
   private _onChange() {

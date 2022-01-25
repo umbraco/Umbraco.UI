@@ -1,6 +1,6 @@
 # uui-slider
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-slider?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-slide?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-slider)
 
 ## Installation
 

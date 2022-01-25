@@ -21,7 +21,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
 ) => {
   class LabelMixinClass extends superClass {
     /**
-     * Text with which component should be labeled
+     * Label to be used for aria-label and eventually as visual label
      * @type {string}
      * @attr
      */
@@ -31,15 +31,15 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     connectedCallback() {
       super.connectedCallback();
       if (!this.label) {
-        console.warn(this.tagName + ' needs a `label`');
+        console.warn(this.tagName + ' needs a `label`', this);
       }
     }
 
     @state()
-    private labelSlotHasContent = false;
+    private _labelSlotHasContent = false;
 
     private labelSlotChanged(e: any): void {
-      this.labelSlotHasContent =
+      this._labelSlotHasContent =
         (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length >
         0;
     }
@@ -51,17 +51,14 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
      */
     protected renderLabel() {
       return html`
-        ${this.labelSlotHasContent === false
+        ${this._labelSlotHasContent === false
           ? html`<span class="label">${this.label}</span>`
           : ''}
-        ${this.labelSlotHasContent
-          ? html`
-              <slot
-                class="label"
-                name=${labelSlotName ? labelSlotName : ''}
-                @slotchange=${this.labelSlotChanged}></slot>
-            `
-          : ''}
+        <slot
+          class="label"
+          style=${this._labelSlotHasContent ? '' : 'visibility: hidden'}
+          name=${labelSlotName ? labelSlotName : ''}
+          @slotchange=${this.labelSlotChanged}></slot>
       `;
     }
   }
