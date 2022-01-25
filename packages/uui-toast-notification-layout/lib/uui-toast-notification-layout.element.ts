@@ -13,17 +13,25 @@ export class UUIToastNotificationLayoutElement extends LitElement {
   static styles = [
     UUITextStyles,
     css`
-      #message {
-        display: block;
-        margin-right: calc(
-          1em + var(--uui-size-space-2) * 4
-        ); /* Must fit width and margin of close button of toast-notification */
+      #message > h5 {
       }
-
       #actions {
+        /*
         display: flex;
         width: 100%;
         justify-content: flex-end;
+        */
+        display: block;
+        float: right;
+
+        margin-top: var(--uui-size-space-3);
+        margin-bottom: calc(var(--uui-size-space-2) * -1);
+      }
+
+      #message::after {
+        content: '';
+        display: block;
+        clear: both;
       }
     `,
   ];
@@ -34,16 +42,16 @@ export class UUIToastNotificationLayoutElement extends LitElement {
    * @attr
    * @default null
    */
-  @property({ reflect: true })
+  @property({ type: String })
   headline: string | null = null;
 
   @state()
   private _headlineSlotHasContent = false;
 
-  private _headlineSlotChanged(e: any): void {
+  private _headlineSlotChanged = (e: Event) => {
     this._headlineSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
-  }
+  };
 
   render() {
     return html`
@@ -51,13 +59,13 @@ export class UUIToastNotificationLayoutElement extends LitElement {
         <h5
           style=${this._headlineSlotHasContent || this.headline !== null
             ? ''
-            : 'visibility: hidden'}>
+            : 'display: none'}>
           ${this.headline}
           <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
         </h5>
         <slot></slot>
+        <slot id="actions" name="actions"></slot>
       </div>
-      <slot id="actions" name="actions"></slot>
     `;
   }
 }

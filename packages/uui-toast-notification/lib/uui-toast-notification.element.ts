@@ -65,7 +65,7 @@ export class UUIToastNotificationElement extends LitElement {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.21);
         background-color: var(--uui-interface-surface);
         padding: var(--uui-size-layout-1);
-        padding-right: var(--uui-size-layout-2);
+        padding-right: var(--uui-size-layout-1);
         padding-left: var(--uui-size-layout-3);
         border-radius: calc(var(--uui-border-radius) * 2);
 
@@ -77,17 +77,17 @@ export class UUIToastNotificationElement extends LitElement {
       }
 
       #close {
-        position: absolute;
-        right: var(--uui-size-layout-2); /*same as #toast > div*/
+        float: right;
         margin-top: -7px;
+        margin-left: var(--uui-size-space-1);
+        margin-bottom: calc(var(--uui-size-space-2) * -1);
+        margin-bottom: var(--uui-size-space-1);
       }
 
       #close > uui-button {
         --uui-button-border-radius: 50px 50px 50px 50px;
         --uui-button-padding-left-factor: 1.5;
         --uui-button-padding-right-factor: 1.5;
-
-        margin-right: -6px;
       }
 
       :host([look='primary']) #toast > div {
