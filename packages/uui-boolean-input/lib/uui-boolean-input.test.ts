@@ -35,14 +35,14 @@ describe('UUIBooleanInputElement', () => {
     label = element.shadowRoot?.querySelector('label') as HTMLLabelElement;
   });
 
-  it('exists', () => {
+  it('component element exists', () => {
     expect(element).to.exist;
   });
-
-  it('renders all the elements to shadow dom', () => {
-    expect(element).shadowDom.to.equal(
-      ` <label><input aria-checked="false" aria-label="test label" id="input" role="checkbox" type="checkbox"><div id="testCheckbox"></div><span class="label">test label</span></label>`
-    );
+  it('input exists', () => {
+    expect(input).to.exist;
+  });
+  it('label exists', () => {
+    expect(label).to.exist;
   });
 
   it('has internals', async () => {
