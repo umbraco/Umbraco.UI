@@ -144,7 +144,11 @@ export const Disabled: Story = props => html`
       ?selected=${props.selected}
       ?error=${props.error}
       ?disabled=${props.disabled}>
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove" ?disabled=${props.disabled}>
+          Remove
+        </uui-button>
+      </uui-action-bar>
       <!-- TODO: we should make some kind of component for this data layout: -->
       <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
         <li><span style="font-weight: 700">Created:</span> Yesterday</li>

@@ -145,8 +145,6 @@ export class UUICardMediaElement extends UUICardElement {
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
       <button
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : '0'}
@@ -163,6 +161,9 @@ export class UUICardMediaElement extends UUICardElement {
         <span>${this.name}</span>
       </button>
       <!-- Select border must be right after .open-part -->
-      <div id="select-border"></div>`;
+      <div id="select-border"></div>
+
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>`;
   }
 }
