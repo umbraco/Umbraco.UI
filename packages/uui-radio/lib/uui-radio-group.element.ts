@@ -1,9 +1,9 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { query, property } from 'lit/decorators.js';
 import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioEvent } from './UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
-import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 //TODO required?
 //TODO focused style
@@ -18,109 +18,8 @@ const SPACE = ' ';
  *  @element uui-radio-group
  *  @slot for uui-radio elements
  */
-export class UUIRadioGroupElement extends FormControlMixin(
-  LabelMixin('', LitElement)
-) {
-  static styles = css`
-    .label {
-      display: inline-block;
-      margin-bottom: var(--uui-size-1);
-      font-weight: bold;
-    }
-  `;
-
-  constructor() {
-    super();
-    this.addEventListener('keydown', this._onKeydown);
-  }
-
-  /**
-   * This method enables <label for="..."> to focus the select
-   */
-  focus() {
-    this.radioElements[this._selected || 0]?.focus();
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
-  }
-
-  private radioElements!: UUIRadioElement[];
-
-  private getRadioElements(): UUIRadioElement[] {
-    return this.slotElement
-      ? (this.slotElement
-          .assignedElements({ flatten: true })
-          .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[])
-      : [];
-  }
-
-  @query('slot') protected slotElement!: HTMLSlotElement;
-
-  private _addNameToRadios(name: string, radios: UUIRadioElement[]) {
-    radios.forEach(el => (el.name = name));
-  }
-
-  private _toggleDisableOnChildren(value: boolean) {
-    this.radioElements?.forEach(el => (el.disabled = value));
-  }
-
-  private _handleSlotChange() {
-    if (this.radioElements) {
-      this.radioElements.forEach(el => {
-        el.removeEventListener(
-          UUIRadioEvent.CHANGE,
-          // @ts-ignore TODO: fix typescript error
-          this._handleSelectOnClick as EventHandlerNonNull
-        );
-      });
-    }
-
-    this.radioElements = this.getRadioElements();
-
-    this.radioElements.forEach(el => {
-      el.addEventListener(
-        UUIRadioEvent.CHANGE,
-        // @ts-ignore TODO: fix typescript error
-        this._handleSelectOnClick as EventHandlerNonNull
-      );
-    });
-
-    const checkedRadios = this.radioElements.filter(el => el.checked === true);
-
-    if (checkedRadios.length > 1) {
-      this.radioElements.forEach(el => {
-        el.checked = false;
-      });
-      throw new Error(
-        'There can only be one checked element among the <uui-radio-group> children'
-      );
-    }
-    if (checkedRadios.length === 1) {
-      this._selected = this.radioElements.indexOf(checkedRadios[0]);
-      this.value = checkedRadios[0].value;
-    }
-
-    // TODO: Make sure we set the tabindex on the actual checked element not just the first.
-    if (this.radioElements.length > 0) {
-      this.radioElements[this.enabledElementsIndexes[0]].setAttribute(
-        'tabindex',
-        '0'
-      );
-    }
-    this._addNameToRadios(this.name, this.radioElements);
-    if (this.disabled) this._toggleDisableOnChildren(true);
-  }
-
-  /**
-   * Set to true to hide the labeling provided by the component.
-   * @type {boolean}
-   * @attr hide-label
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
+export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
+  static readonly formAssociated = true;
 
   private _selected: number | null = null;
 
@@ -143,13 +42,119 @@ export class UUIRadioGroupElement extends FormControlMixin(
     this.requestUpdate('selected', oldVal);
   }
 
+  /**
+   * This is a value property of the uui-input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
+  @query('#radioGroup')
+  private _radioGroup?: HTMLElement;
+
+  constructor() {
+    super();
+    this.addEventListener('keydown', this._onKeydown);
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the select
+   */
+  focus() {
+    this.radioElements[this._selected || 0]?.focus();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
+  }
+
+  private radioElements!: UUIRadioElement[];
+  private _setNameOnRadios(name: string) {
+    this.radioElements?.forEach(el => (el.name = name));
+  }
+
+  private _setDisableOnRadios(value: boolean) {
+    this.radioElements?.forEach(el => (el.disabled = value));
+  }
+
+  private _handleSlotChange(e: Event) {
+    // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
+
+    if (this.radioElements) {
+      this.radioElements.forEach(el => {
+        el.removeEventListener(
+          UUIRadioEvent.CHANGE,
+          // @ts-ignore TODO: fix typescript error
+          this._handleSelectOnClick as EventHandlerNonNull
+        );
+      });
+    }
+
+    this.radioElements = (e.target as HTMLSlotElement)
+      .assignedElements({ flatten: true })
+      .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[];
+
+    if (this.radioElements.length > 0) {
+      this.radioElements.forEach(el => {
+        el.addEventListener(
+          UUIRadioEvent.CHANGE,
+          // @ts-ignore TODO: fix typescript error
+          this._handleSelectOnClick as EventHandlerNonNull
+        );
+      });
+
+      const checkedRadios = this.radioElements.filter(
+        el => el.checked === true
+      );
+
+      if (checkedRadios.length > 1) {
+        this.radioElements.forEach(el => {
+          el.checked = false;
+        });
+        throw new Error(
+          'There can only be one checked element among the <uui-radio-group> children'
+        );
+        return;
+      }
+
+      if (checkedRadios.length === 1) {
+        this._selected = this.radioElements.indexOf(checkedRadios[0]);
+        this.value = checkedRadios[0].value;
+        if (checkedRadios[0].disabled === false) {
+          checkedRadios[0].makeFocusable();
+        } else {
+          this._makeFirstEnabledFocusable();
+        }
+
+        this._setNameOnRadios(this.name);
+        if (this.disabled) {
+          this._setDisableOnRadios(true);
+        }
+      } else {
+        this._makeFirstEnabledFocusable();
+      }
+    }
+  }
+
+  private _makeFirstEnabledFocusable() {
+    if (
+      this.radioElements.length > 0 &&
+      this.enabledElementsIndexes.length > 0
+    ) {
+      this.radioElements[this.enabledElementsIndexes[0]].makeFocusable();
+    }
+  }
+
   private _setSelected(newVal: number | null) {
     this._selected = newVal;
     this._lastSelectedIndex = this.enabledElementsIndexes.findIndex(
       index => index === this._selected
     );
     if (newVal === null) {
-      this.radioElements[0].setAttribute('tabindex', '0');
+      this._makeFirstEnabledFocusable();
     }
     const notSelected = this.radioElements.filter(
       el => this.radioElements.indexOf(el) !== this._selected
@@ -158,7 +163,7 @@ export class UUIRadioGroupElement extends FormControlMixin(
     this.value = newVal !== null ? this.radioElements[newVal].value : '';
   }
 
-  // TODO: Need to move away from using this getter method for this.
+  // TODO: Need to move away from using this getter method for this. Use a MutationObserver or something?
   protected get enabledElementsIndexes() {
     const indexes: number[] = [];
     this.radioElements.forEach(el => {
@@ -167,7 +172,7 @@ export class UUIRadioGroupElement extends FormControlMixin(
     return indexes;
   }
 
-  private _lastSelectedIndex = 0; //this is index in the array of enalbled radios indexes (this.enabledElementsIndexes)
+  private _lastSelectedIndex = 0; //this is index in the array of enabled radios indexes (this.enabledElementsIndexes)
   private _selectPreviousElement() {
     if (
       this.selected === null ||
@@ -231,28 +236,17 @@ export class UUIRadioGroupElement extends FormControlMixin(
 
   updated(changedProperties: any) {
     super.updated(changedProperties);
+
     if (changedProperties.has('disabled')) {
-      this._toggleDisableOnChildren(changedProperties.get('disabled'));
+      this._setDisableOnRadios(changedProperties.get('disabled'));
     }
 
-    if (changedProperties.has('name') && this.radioElements) {
-      this._addNameToRadios(changedProperties.get('name'), this.radioElements);
+    if (changedProperties.has('name')) {
+      this._setNameOnRadios(changedProperties.get('name'));
     }
 
     this._setValidity();
   }
-
-  @query('#radioGroup')
-  private _radioGroup?: HTMLElement;
-
-  /**
-   * This is a value property of the uui-input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
 
   private _validityState: any = {};
 
@@ -295,7 +289,6 @@ export class UUIRadioGroupElement extends FormControlMixin(
 
   render() {
     return html`
-      ${this.hideLabel === false ? this.renderLabel() : ''}
       <div id="radioGroup">
         <slot @slotchange=${this._handleSlotChange}></slot>
       </div>

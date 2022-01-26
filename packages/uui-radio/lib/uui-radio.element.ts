@@ -162,6 +162,7 @@ export class UUIRadioElement extends LitElement {
 
   @property({ type: Boolean, reflect: true })
   public checked = false;
+  // TODO: We are missing a setter method.
 
   private _disabled = false;
 
@@ -204,7 +205,6 @@ export class UUIRadioElement extends LitElement {
   /**
    * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
    * @method uncheck
-   *
    */
   public uncheck() {
     this.checked = false;
@@ -220,17 +220,21 @@ export class UUIRadioElement extends LitElement {
    */
   public check() {
     this.checked = true;
-    /**
-     * Change event.
-     *
-     * @event UUIRadioEvent#change
-     * @type {object}
-     */
+
     this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
     if (!this.disabled) {
       this.setAttribute('tabindex', '0');
       this.setAttribute('aria-checked', 'true');
       this.focus();
+    }
+  }
+  /**
+   * Call to make the element focusable, this sets tabindex to 0.
+   * @method makeFocusable
+   */
+  public makeFocusable() {
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '0');
     }
   }
 
