@@ -17,9 +17,9 @@ describe('UuiAvatarGroup', () => {
     const avatarGroup = await fixture(
       html`
         <uui-avatar-group
-          ><uui-avatar title="First Last"></uui-avatar
-          ><uui-avatar title="First Last"></uui-avatar
-          ><uui-avatar title="First Last"></uui-avatar
+          ><uui-avatar name="First Last"></uui-avatar
+          ><uui-avatar name="First Last"></uui-avatar
+          ><uui-avatar name="First Last"></uui-avatar
         ></uui-avatar-group>
       `
     );
@@ -33,35 +33,48 @@ describe('UuiAvatarGroup', () => {
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
+
+  describe('properties', () => {
+    it('has an limit property', () => {
+      expect(element).to.have.property('limit');
+    });
+  });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
+  });
 });
 
 describe('UuiAvatarGroup Limit', async () => {
   let avatarGroup: UUIAvatarGroupElement;
   beforeEach(async () => {
     avatarGroup = await fixture(html` <uui-avatar-group .limit="${2}">
-      <uui-avatar title="First Last"></uui-avatar>
-      <uui-avatar title="First Last"></uui-avatar>
-      <uui-avatar title="First Last"></uui-avatar>
-      <uui-avatar title="First Last"></uui-avatar>
+      <uui-avatar name="First Last"></uui-avatar>
+      <uui-avatar name="First Last"></uui-avatar>
+      <uui-avatar name="First Last"></uui-avatar>
+      <uui-avatar name="First Last"></uui-avatar>
     </uui-avatar-group>`);
   });
 
-  it('Hides avatars correctly', async () => {
+  it('Hides avatars correctly', () => {
     const slot = avatarGroup.shadowRoot!.querySelector('slot');
     const avatars = slot!.assignedElements({ flatten: true });
     const avatar = avatars[3];
     expect(avatar).not.to.be.displayed;
   });
 
-  it('Shows the limit text when there are more avatars than the set limit', async () => {
+  it('Shows the limit text when there are more avatars than the set limit', () => {
     const small = avatarGroup.shadowRoot!.querySelector('small');
     expect(small).to.exist.and.have.text('+2');
   });
 
   it('Does not show limit text when not set', async () => {
     avatarGroup = await fixture(html` <uui-avatar-group>
-      <uui-avatar title="First Last"></uui-avatar>
-      <uui-avatar title="First Last"></uui-avatar>
+      <uui-avatar name="First Last"></uui-avatar>
+      <uui-avatar name="First Last"></uui-avatar>
     </uui-avatar-group>`);
 
     const small = avatarGroup.shadowRoot!.querySelector('small');
