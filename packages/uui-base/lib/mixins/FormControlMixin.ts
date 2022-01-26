@@ -11,8 +11,8 @@ export declare class FormControlMixinInterface {
   disabled: boolean;
   formResetCallback: Function;
   checkValidity: Function;
-  _value: FormDataEntryValue;
-  _internals: any;
+  protected _value: FormDataEntryValue;
+  protected _internals: any;
 }
 
 /**
