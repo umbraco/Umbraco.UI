@@ -3,16 +3,33 @@ import { property } from 'lit/decorators.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export declare class FormControlMixinInterface {
+// TODO: make t possible to define FormDataEntryValue type.
+export declare abstract class FormControlMixinInterface {
   formAssociated: boolean;
   get value(): FormDataEntryValue;
   set value(newValue: FormDataEntryValue);
   name: string;
-  disabled: boolean;
   formResetCallback: Function;
   checkValidity: Function;
   protected _value: FormDataEntryValue;
   protected _internals: any;
+  protected abstract getFormElement(): HTMLElement;
+}
+
+type FlagTypes =
+  | 'valueMissing'
+  | 'typeMismatch'
+  | 'patternMismatch'
+  | 'tooLong'
+  | 'tooShort'
+  | 'rangeUnderflow'
+  | 'stepMismatch'
+  | 'badInput'
+  | 'customError';
+interface Validator {
+  flagKey: FlagTypes;
+  getMessage: () => String;
+  checkMethod: () => boolean;
 }
 
 /**
@@ -24,7 +41,7 @@ export declare class FormControlMixinInterface {
 export const FormControlMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
-  class FormControlMixinClass extends superClass {
+  abstract class FormControlMixinClass extends superClass {
     /**
      * This is a static class field indicating that the element is can be used inside a native form and participate in its events.
      * It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.
@@ -65,22 +82,143 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this.requestUpdate('value', oldValue);
     }
 
+    // Validation
+    private _validityState: any = {};
+
     /**
-     * Disables the input.
+     * Apply validation rule for requiring a value of this form control.
      * @type {boolean}
      * @attr
      * @default false
      */
     @property({ type: Boolean, reflect: true })
-    disabled = false;
+    required = false;
+
+    /**
+     * Required validation message.
+     * @type {boolean}
+     * @attr
+     * @default
+     */
+    @property({ type: String, attribute: 'required-message' })
+    requiredMessage = 'This field is required';
+
+    /**
+     * Apply custom error on this input.
+     * @type {boolean}
+     * @attr
+     * @default false
+     */
+    @property({ type: Boolean, reflect: true })
+    error = false;
+
+    /**
+     * Custom error message.
+     * @type {boolean}
+     * @attr
+     * @default
+     */
+    @property({ type: String, attribute: 'error-message' })
+    errorMessage = 'This field is invalid';
 
     private _value: FormDataEntryValue = '';
     private _internals: any;
+    private _form: HTMLFormElement | null = null;
+    private _validators: Validator[] = [];
 
     constructor(...args: any[]) {
       super(...args);
       this._internals = (this as any).attachInternals();
+
+      this.addValidator(
+        'valueMissing',
+        () => this.requiredMessage,
+        () => this.hasAttribute('required') && this.hasValue() === false
+      );
+      this.addValidator(
+        'customError',
+        () => this.errorMessage,
+        () => this.error
+      );
     }
+
+    public hasValue(): boolean {
+      return this.value !== '';
+    }
+
+    protected abstract getFormElement(): HTMLElement;
+
+    connectedCallback(): void {
+      super.connectedCallback();
+      this._removeFormListeners();
+      this._form = this._internals.form;
+      if (this._form) {
+        if (this._form.hasAttribute('hide-validation')) {
+          this.setAttribute('hide-validation', '');
+        }
+        this._form.addEventListener('submit', this._onFormSubmit);
+        this._form.addEventListener('reset', this._onFormReset);
+      }
+    }
+    disconnectedCallback(): void {
+      super.disconnectedCallback();
+      this._removeFormListeners();
+    }
+    private _removeFormListeners() {
+      if (this._form) {
+        this._form.removeEventListener('submit', this._onFormSubmit);
+        this._form.removeEventListener('reset', this._onFormReset);
+      }
+    }
+
+    protected addValidator(
+      flagKey: FlagTypes,
+      getMessageMethod: () => String,
+      checkMethod: () => boolean
+    ) {
+      this._validators.push({
+        flagKey: flagKey,
+        getMessage: getMessageMethod,
+        checkMethod: checkMethod,
+      });
+    }
+
+    private _runValidators() {
+      this._validators.forEach(validator => {
+        if (validator.checkMethod()) {
+          this._validityState[validator.flagKey] = true;
+          this._internals.setValidity(
+            this._validityState,
+            validator.getMessage(),
+            this.getFormElement()
+          );
+        } else {
+          this._validityState[validator.flagKey] = false;
+        }
+      });
+
+      const hasError = Object.values(this._validityState).includes(true);
+
+      if (hasError === false) {
+        this._internals.setValidity({});
+      }
+    }
+
+    updated(changedProperties: Map<string | number | symbol, unknown>) {
+      super.updated(changedProperties);
+      this._runValidators();
+    }
+
+    private _onFormSubmit = () => {
+      if (this._form && this._form.checkValidity() === false) {
+        this.removeAttribute('hide-validation');
+      } else {
+        this.setAttribute('hide-validation', '');
+      }
+    };
+    private _onFormReset = () => {
+      this.setAttribute('hide-validation', '');
+    };
 
     public formResetCallback() {
       this.value = this.getAttribute('value') || '';

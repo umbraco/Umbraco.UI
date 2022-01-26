@@ -57,9 +57,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     `,
   ];
 
-  @query('#input')
-  protected _input!: HTMLInputElement;
-
+  /** intentional overwrite of FormControlMixins value getter and setter method. */
   get value() {
     return this._value as string;
   }
@@ -115,42 +113,17 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     this.requestUpdate('checked', oldValue);
   }
 
-  // Validation
-  private _validityState: any = {};
-
   /**
-   * Set to true to show validation errors
-   * @type {boolean}
-   * @attr show-validation
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'show-validation', reflect: true })
-  showValidation = false;
-
-  /**
-   * Set to true if the component should be required.
-   * Property is reflected to the corresponding attribute.
+   * Disables the input.
    * @type {boolean}
    * @attr
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  required = false;
+  disabled = false;
 
-  /**
-   * Force error style on this input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  /*
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
+  @query('#input')
+  protected _input!: HTMLInputElement;
 
   private inputRole: 'checkbox' | 'switch';
 
@@ -160,6 +133,14 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
       this._value = 'on';
     }
     this.inputRole = inputRole;
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
+  }
+
+  public hasValue(): boolean {
+    return this.checked;
   }
 
   protected firstUpdated(): void {
@@ -186,52 +167,15 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
   }
   click() {
-    (this.shadowRoot?.querySelector('#input') as any).click();
+    this._input.click();
   }
 
   private _onInputChange() {
     this.checked = this._input.checked;
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
-  }
-
-  updated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
-    this._setValidity();
-  }
-
-  private _setValidity() {
-    // check for required
-    if (this.required && !this.checked) {
-      this._validityState.valueMissing = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is required',
-        this._input
-      );
-    } else {
-      this._validityState.valueMissing = false;
-    }
-
-    // check for custom error
-    if (this.error) {
-      this._validityState.customError = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is invalid',
-        this._input
-      );
-    } else {
-      this._validityState.customError = false;
-    }
-
-    const hasError = Object.values(this._validityState).includes(true);
-
-    if (hasError === false) {
-      this._internals.setValidity({});
-    }
   }
 
   /**
@@ -246,10 +190,10 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     return html`
       <label>
         <input
-          type="checkbox"
           id="input"
-          ?disabled="${this.disabled}"
+          type="checkbox"
           @change="${this._onInputChange}"
+          .disabled=${this.disabled}
           .checked="${this.checked}"
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}

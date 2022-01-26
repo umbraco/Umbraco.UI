@@ -1,12 +1,9 @@
-import { LitElement, html } from 'lit';
-import { query, property } from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { property } from 'lit/decorators.js';
 import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioEvent } from './UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
-
-//TODO required?
-//TODO focused style
 
 const ARROW_LEFT = 'ArrowLeft';
 const ARROW_UP = 'ArrowUp';
@@ -19,7 +16,21 @@ const SPACE = ' ';
  *  @slot for uui-radio elements
  */
 export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
   static readonly formAssociated = true;
+
+  static styles = [
+    css`
+      :host(:not([hide-validation]):invalid),
+      /* polyfill support */
+      :host(:not([hide-validation])[internals-invalid]) {
+        border: 1px solid var(--uui-look-danger-border);
+      }
+    `,
+  ];
 
   private _selected: number | null = null;
 
@@ -43,16 +54,13 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   }
 
   /**
-   * This is a value property of the uui-input.
+   * Disables the input.
    * @type {boolean}
    * @attr
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  error = false;
-
-  @query('#radioGroup')
-  private _radioGroup?: HTMLElement;
+  disabled = false;
 
   constructor() {
     super();
@@ -64,6 +72,10 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
    */
   focus() {
     this.radioElements[this._selected || 0]?.focus();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this.radioElements[this._selected || 0];
   }
 
   connectedCallback() {
@@ -234,64 +246,18 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     this._fireChangeEvent();
   };
 
-  updated(changedProperties: any) {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(changedProperties);
-
     if (changedProperties.has('disabled')) {
-      this._setDisableOnRadios(changedProperties.get('disabled'));
+      this._setDisableOnRadios(changedProperties.get('disabled') as boolean);
     }
 
     if (changedProperties.has('name')) {
-      this._setNameOnRadios(changedProperties.get('name'));
-    }
-
-    this._setValidity();
-  }
-
-  private _validityState: any = {};
-
-  private _setValidity() {
-    this._setRequired();
-    this._setCustomError();
-
-    const hasError = Object.values(this._validityState).includes(true);
-
-    if (hasError === false) {
-      this._internals.setValidity({});
-    }
-  }
-
-  private _setRequired() {
-    if (this.hasAttribute('required') && this.value === '') {
-      this._validityState.valueMissing = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is required',
-        this._radioGroup
-      );
-    } else {
-      this._validityState.valueMissing = false;
-    }
-  }
-
-  private _setCustomError() {
-    if (this.error) {
-      this._validityState.customError = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is invalid',
-        this._radioGroup
-      );
-    } else {
-      this._validityState.customError = false;
+      this._setNameOnRadios(changedProperties.get('name') as string);
     }
   }
 
   render() {
-    return html`
-      <div id="radioGroup">
-        <slot @slotchange=${this._handleSlotChange}></slot>
-      </div>
-    `;
+    return html` <slot @slotchange=${this._handleSlotChange}></slot> `;
   }
 }

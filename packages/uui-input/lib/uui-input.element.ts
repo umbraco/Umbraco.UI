@@ -86,9 +86,9 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         color: var(--uui-interface-contrast-disabled);
       }
 
-      :host([show-validation]:invalid),
+      :host(:not([hide-validation]):invalid),
       /* polyfill support */
-      :host([show-validation][internals-invalid]) {
+      :host(:not([hide-validation])[internals-invalid]) {
         border-color: var(--uui-look-danger-border);
       }
 
@@ -128,6 +128,15 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   ];
 
   /**
+   * Disables the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
    * Label for input element.
    * @type {string}
    * @attr
@@ -153,71 +162,8 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   @property({ type: String })
   type: InputType = 'text';
 
-  @query('input')
-  private _input?: HTMLInputElement;
-
-  private onInput(e: Event) {
-    this.value = (e.target as HTMLInputElement).value;
-  }
-
-  private onChange() {
-    this.dispatchEvent(
-      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
-    );
-  }
-
-  updated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
-    this._setValidity();
-  }
-
-  // Validation
-  private _validityState: any = {};
-
-  /**
-   * Set to true to show validation errors
-   * @type {boolean}
-   * @attr show-validation
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'show-validation', reflect: true })
-  showValidation = false;
-
-  /**
-   * Set to true if the component should have an error state.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  required = false;
-
-  /**
-   * Required message.
-   * @type {boolean}
-   * @attr
-   * @default
-   */
-  @property({ type: String, attribute: 'required-message' })
-  requiredMessage = 'This field is required';
-
-  /**
-   * Apply custom error on this input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  /**
-   * Custom error message.
-   * @type {boolean}
-   * @attr
-   * @default
-   */
-  @property({ type: String, attribute: 'error-message' })
-  errorMessage = 'This field is invalid';
+  @query('#input')
+  _input!: HTMLInputElement;
 
   constructor() {
     super();
@@ -234,39 +180,21 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
   }
 
-  private _setValidity() {
-    // check for required
-    if (this.required && this.value === '') {
-      this._validityState.valueMissing = true;
-      this._internals.setValidity(
-        this._validityState,
-        this.requiredMessage,
-        this._input
-      );
-    } else {
-      this._validityState.valueMissing = false;
-    }
+  protected getFormElement(): HTMLElement {
+    return this._input;
+  }
 
-    // check for custom error
-    if (this.error) {
-      this._validityState.customError = true;
-      this._internals.setValidity(
-        this._validityState,
-        this.errorMessage,
-        this._input
-      );
-    } else {
-      this._validityState.customError = false;
-    }
+  private onInput(e: Event) {
+    this.value = (e.target as HTMLInputElement).value;
+  }
 
-    const hasError = Object.values(this._validityState).includes(true);
-
-    if (hasError === false) {
-      this._internals.setValidity({});
-    }
+  private onChange() {
+    this.dispatchEvent(
+      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
+    );
   }
 
   protected renderPrepend() {
@@ -283,7 +211,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       <input
         id="input"
         .type=${this.type}
-        .value=${this.value}
+        .value=${this.value as string}
         .name=${this.name}
         placeholder=${this.placeholder}
         aria-label=${this.label}

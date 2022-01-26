@@ -10,7 +10,7 @@ import {
 import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
 
 /**
- *  Umbraco Toggle-switch, toggles between off/on.
+ *  Umbraco Toggle-switch, toggles between off/on. Technically a checkbox.
  *  @element uui-toggle
  *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
  *  @slot to overwrite displayed label content
@@ -25,6 +25,12 @@ import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-bo
  *  @extends UUIBooleanInputElement
  */
 export class UUIToggleElement extends UUIBooleanInputElement {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
@@ -154,11 +160,11 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         fill: var(--uui-interface-select-contrast-disabled);
       }
 
-      :host([show-validation]:invalid) #slider,
-      :host([show-validation]:invalid) label:hover #slider,
+      :host(:not([hide-validation]):invalid) #slider,
+      :host(:not([hide-validation]):invalid) label:hover #slider,
       /* polyfill support */
-      :host([show-validation][internals-invalid]) #slider,
-      :host([show-validation][internals-invalid]) label:hover #slider {
+      :host(:not([hide-validation])[internals-invalid]) #slider,
+      :host(:not([hide-validation])[internals-invalid]) label:hover #slider {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,

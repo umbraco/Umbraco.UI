@@ -53,6 +53,12 @@ const GenerateStepArray = (start: number, stop: number, step: number) =>
  *
  */
 export class UUISliderElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     UUIHorizontalPulseKeyframes,
     nativeInputStyles,
@@ -190,29 +196,14 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         flex-grow: 0;
       }
 
-      :host([show-validation]:invalid) #thumb {
-        border: 1px solid var(--uui-look-danger-border);
+      :host(:not([hide-validation]):invalid) #thumb {
+        border-color: var(--uui-look-danger-border);
       }
-
-      :host([show-validation]:invalid) #thumb:after {
+      :host(:not([hide-validation]):invalid) #thumb:after {
         background-color: var(--uui-look-danger-surface);
-      }
-
-      :host([show-validation]:invalid) input:hover ~ #track #thumb:after {
-        background-color: var(--uui-look-danger-surface);
-      }
-
-      :host([show-validation]:invalid) input:hover ~ #track #thumb {
-        border: 1px solid var(--uui-look-danger-border);
       }
     `,
   ];
-
-  @query('input')
-  private _input!: HTMLInputElement;
-
-  @query('#track')
-  private _track!: HTMLInputElement;
 
   /**
    * Hides the numbers representing the value of each steps. Dots will still be visible
@@ -280,7 +271,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   }
 
   /**
-   * Disables interaction.
+   * Disables the input.
    * @type {boolean}
    * @attr
    * @default false
@@ -296,6 +287,12 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   @property({ type: String })
   public label!: string;
 
+  @query('#input')
+  private _input!: HTMLInputElement;
+
+  @query('#track')
+  private _track!: HTMLElement;
+
   constructor() {
     super();
     this.addEventListener('mousedown', () => {
@@ -310,7 +307,11 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
   }
 
   connectedCallback() {
@@ -332,7 +333,6 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
     if (
       changedProperties.get('max') ||
       changedProperties.get('min') ||
@@ -348,7 +348,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       this.value = correctedValue.toString();
       this._updateSteps();
     }
-    this._setValidity();
+    super.updated(changedProperties);
   }
 
   private _updateSteps() {
@@ -390,76 +390,14 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.CHANGE));
   }
 
-  // Validation
-  private _validityState: any = {};
-
-  /**
-   * Set to true to show validation errors
-   * @type {boolean}
-   * @attr show-validation
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'show-validation', reflect: true })
-  showValidation = false;
-
-  /**
-   * This is a value property of the uui-input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  required = false;
-
-  /**
-   * This is a value property of the uui-input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  private _setValidity() {
-    // check for required
-    if (this.required && this.value === '') {
-      this._validityState.valueMissing = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is required',
-        this._input
-      );
-    } else {
-      this._validityState.valueMissing = false;
-    }
-
-    // check for custom error
-    if (this.error) {
-      this._validityState.customError = true;
-      this._internals.setValidity(
-        this._validityState,
-        'The field is invalid',
-        this._input
-      );
-    } else {
-      this._validityState.customError = false;
-    }
-
-    const hasError = Object.values(this._validityState).includes(true);
-
-    if (hasError === false) {
-      this._internals.setValidity({});
-    }
-  }
-
   render() {
     return html`
       <input
+        id="input"
         type="range"
         min="${this.min}"
         max="${this.max}"
-        .value="${this.value}"
-        id="input"
+        .value="${this.value as string}"
         aria-label="${this.label}"
         step="${+this.step}"
         ?disabled=${this.disabled}
