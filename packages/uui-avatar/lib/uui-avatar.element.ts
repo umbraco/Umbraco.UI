@@ -69,29 +69,30 @@ export class UUIAvatarElement extends LitElement {
   public imgSrcset = '';
 
   /**
-   * This controls the initials displayed when no src or srcset is set.
+   * Provide the name used for labels and to generate the initials.
+   * This is not used when an img or imgSrcset is provided.
    * @type {string}
    * @attr
    * @default ''
    */
   @property({ type: String, reflect: true })
-  get title() {
-    return this._title;
+  get name() {
+    return this._name;
   }
-  set title(newVal) {
-    const oldValue = this._title;
-    this._title = newVal;
-    this.initials = this.createInitials(this._title);
+  set name(newVal) {
+    const oldValue = this._name;
+    this._name = newVal;
+    this.initials = this.createInitials(this._name);
     this.requestUpdate('title', oldValue);
   }
-  private _title = '';
+  private _name = '';
 
   @state()
   private initials = '';
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this.title) {
+    if (!this.name) {
       console.warn(this.tagName + ' needs a `title`', this);
     }
   }
@@ -114,7 +115,7 @@ export class UUIAvatarElement extends LitElement {
       src="${this.imgSrc}"
       srcset="${this.imgSrcset}"
       alt="${this.initials}"
-      title="${this.title}" />`;
+      title="${this.name}" />`;
   }
 
   render() {
