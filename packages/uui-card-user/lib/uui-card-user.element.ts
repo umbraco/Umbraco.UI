@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
@@ -103,7 +103,7 @@ export class UUICardUserElement extends UUICardElement {
       <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
-        tabindex=${this.disabled ? '-1' : '0'}
+        tabindex=${this.disabled ? (nothing as any) : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         <span> ${this.name} </span>
