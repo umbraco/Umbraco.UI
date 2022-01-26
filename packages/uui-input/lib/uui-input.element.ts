@@ -28,6 +28,12 @@ export type InputType =
  * @fires KeyboardEvent#keyup on keyup
  */
 export class UUIInputElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     css`
       :host {
@@ -79,7 +85,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
 
         color: var(--uui-interface-contrast-disabled);
       }
-      :host([error]),
+
       :host([show-validation]:invalid),
       /* polyfill support */
       :host([show-validation][internals-invalid]) {
@@ -187,7 +193,16 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   required = false;
 
   /**
-   * Force error style on this input.
+   * Required message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'required-message' })
+  requiredMessage = 'This field is required';
+
+  /**
+   * Apply custom error on this input.
    * @type {boolean}
    * @attr
    * @default false
@@ -196,10 +211,13 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   error = false;
 
   /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * Custom error message.
    * @type {boolean}
+   * @attr
+   * @default
    */
-  static readonly formAssociated = true;
+  @property({ type: String, attribute: 'error-message' })
+  errorMessage = 'This field is invalid';
 
   constructor() {
     super();
@@ -225,7 +243,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       this._validityState.valueMissing = true;
       this._internals.setValidity(
         this._validityState,
-        'The field is required',
+        this.requiredMessage,
         this._input
       );
     } else {
@@ -237,7 +255,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       this._validityState.customError = true;
       this._internals.setValidity(
         this._validityState,
-        'The field is invalid',
+        this.errorMessage,
         this._input
       );
     } else {

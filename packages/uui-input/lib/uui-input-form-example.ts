@@ -21,20 +21,6 @@ export class UUIInputInFormExampleElement extends LitElement {
   @query('form')
   _form: HTMLFormElement | undefined;
 
-  private _customValidationInputIsInvalid = false;
-
-  _onCustomValidationInput(event: InputEvent) {
-    const target = event.target as UUIInputElement;
-    this._customValidationInputIsInvalid = !this._myCustomValidation(
-      target.value
-    );
-    this.requestUpdate();
-  }
-
-  _myCustomValidation(value: FormDataEntryValue) {
-    return value === 'test';
-  }
-
   _onSubmit(event: Event) {
     event.preventDefault();
 
@@ -45,8 +31,12 @@ export class UUIInputInFormExampleElement extends LitElement {
     const isValid = this._form.checkValidity();
 
     if (!isValid) {
+      console.log('not valid form.');
+      this._showValidation(true);
       return;
     }
+    console.log('valid form.');
+    this._showValidation(false);
 
     const formData = new FormData(this._form);
 
@@ -61,10 +51,30 @@ export class UUIInputInFormExampleElement extends LitElement {
     console.log('RESET', event);
   }
 
-  _onInvalid(event: any) {
-    if (event && event.target) {
-      event.target.showValidation = true;
+  private _showValidation(show: boolean) {
+    if (!this._form) {
+      return;
     }
+    const inputs = Array.from(this._form.elements);
+    inputs.forEach(el => {
+      if ((el as any).showValidation !== undefined) {
+        (el as any).showValidation = show;
+      }
+    });
+  }
+
+  private _customValidationInputIsInvalid = false;
+
+  _onCustomValidationInput(event: InputEvent) {
+    const target = event.target as UUIInputElement;
+    this._customValidationInputIsInvalid = !this._myCustomValidation(
+      target.value
+    );
+    this.requestUpdate();
+  }
+
+  _myCustomValidation(value: FormDataEntryValue) {
+    return value === 'test';
   }
 
   connectedCallback() {
@@ -81,7 +91,6 @@ export class UUIInputInFormExampleElement extends LitElement {
             name="checkbox"
             value="Bike"
             label="This is my checkbox"
-            @invalid="${this._onInvalid}"
             required>
             Hello
           </uui-checkbox>
@@ -92,20 +101,13 @@ export class UUIInputInFormExampleElement extends LitElement {
             id="toggle"
             name="toggle"
             label="This is my toggle"
-            @invalid="${this._onInvalid}"
             required>
             This is my toggle
           </uui-toggle>
         </div>
 
         <div style="margin-bottom: 15px;">
-          <uui-input
-            id="email"
-            name="email"
-            type="text"
-            label="Email"
-            @invalid="${this._onInvalid}"
-            required>
+          <uui-input id="email" name="email" type="text" label="Email" required>
           </uui-input>
         </div>
 
@@ -115,7 +117,6 @@ export class UUIInputInFormExampleElement extends LitElement {
             id="password"
             name="password"
             label="Password"
-            @invalid="${this._onInvalid}"
             required>
           </uui-input>
         </div>
@@ -126,9 +127,8 @@ export class UUIInputInFormExampleElement extends LitElement {
             id="customValidation"
             name="customValidation"
             label="Custom Validation"
-            placeholder="Write 'test'..."
+            placeholder="Write 'test'... custom validation invoked on connectedCallback"
             @input="${this._onCustomValidationInput}"
-            @invalid="${this._onInvalid}"
             ?error="${this._customValidationInputIsInvalid}">
           </uui-input>
         </div>
@@ -142,7 +142,6 @@ export class UUIInputInFormExampleElement extends LitElement {
             min="0"
             max="10"
             step="1"
-            @invalid="${this._onInvalid}"
             required>
           </uui-slider>
         </div>
