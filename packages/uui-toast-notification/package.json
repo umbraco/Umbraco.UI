@@ -1,0 +1,46 @@
+{
+  "name": "@umbraco-ui/uui-toast-notification",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Toast Notification"
+  ],
+  "description": "Umbraco UI toast-notification component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-toast-notification"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "main": "./dist/uui-toast-notification.min.js",
+  "module": "./lib/index.js",
+  "customElements": "custom-elements.json",
+  "files": [
+    "dist",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
+  ],
+  "dependencies": {
+    "@umbraco-ui/uui-base": "0.0.14"
+  },
+  "peerDependencies": {
+    "@umbraco-ui/uui-css": "0.0.1"
+  },
+  "scripts": {
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-toast-notification"
+}

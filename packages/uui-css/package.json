@@ -23,6 +23,7 @@
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
+    "assets",
     "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",

@@ -1,3 +1,11 @@
+.uui-text {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: calc(var(--uui-size-2) * 4);
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
 .uui-text h1,
 .uui-text .uui-h1 {
   font-size: var(--uui-type-h1-size);
@@ -10,6 +18,12 @@
 .uui-text p + h1,
 .uui-text p + .uui-h1 {
   margin-top: var(--uui-size-layout-4);
+}
+.uui-text h1.--no-top-margin,
+.uui-text h1:first-child,
+.uui-text .uui-h1.--no-top-margin,
+.uui-text .uui-h1:first-child {
+  margin-top: 0;
 }
 
 .uui-text h2,
@@ -25,6 +39,12 @@
 .uui-text p + .uui-h2 {
   margin-top: var(--uui-size-layout-3);
 }
+.uui-text h2.--no-top-margin,
+.uui-text h2:first-child,
+.uui-text .uui-h2.--no-top-margin,
+.uui-text .uui-h2:first-child {
+  margin-top: 0;
+}
 
 .uui-text h3,
 .uui-text .uui-h3 {
@@ -34,6 +54,12 @@
   margin-left: -2px;
   margin-top: var(--uui-size-layout-1);
   margin-bottom: var(--uui-size-layout-1);
+}
+.uui-text h3.--no-top-margin,
+.uui-text h3:first-child,
+.uui-text .uui-h3.--no-top-margin,
+.uui-text .uui-h3:first-child {
+  margin-top: 0;
 }
 
 .uui-text h4,
@@ -45,6 +71,12 @@
   margin-top: var(--uui-size-layout-1);
   margin-bottom: var(--uui-size-layout-1);
 }
+.uui-text h4.--no-top-margin,
+.uui-text h4:first-child,
+.uui-text .uui-h4.--no-top-margin,
+.uui-text .uui-h4:first-child {
+  margin-top: 0;
+}
 
 .uui-text h5,
 .uui-text .uui-h5 {
@@ -53,7 +85,14 @@
   font-weight: 700;
   margin-left: 0;
   margin-top: var(--uui-size-layout-1);
-  margin-bottom: var(--uui-size-layout-1);
+  margin-bottom: 0;
+}
+
+.uui-text h5.--no-top-margin,
+.uui-text h5:first-child,
+.uui-text .uui-h5.--no-top-margin,
+.uui-text .uui-h5:first-child {
+  margin-top: 0;
 }
 
 .uui-text p {

@@ -83,7 +83,10 @@
     "@umbraco-ui/uui-tabs": "0.0.16",
     "@umbraco-ui/uui-tag": "0.0.16",
     "@umbraco-ui/uui-textarea": "0.0.2",
-    "@umbraco-ui/uui-toggle": "0.0.16"
+    "@umbraco-ui/uui-toggle": "0.0.16",
+    "@umbraco-ui/uui-toast-notification": "0.0.0",
+    "@umbraco-ui/uui-toast-notification-container": "0.0.0",
+    "@umbraco-ui/uui-toast-notification-layout": "0.0.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

@@ -171,6 +171,15 @@
     },
     {
       "path": "../uui-toggle"
+    },
+    {
+      "path": "../uui-toast-notification"
+    },
+    {
+      "path": "../uui-toast-notification-container"
+    },
+    {
+      "path": "../uui-toast-notification-layout"
     }
   ]
 }
