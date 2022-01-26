@@ -197,7 +197,8 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
   }
 
-  updated() {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     this._setValidity();
   }
 

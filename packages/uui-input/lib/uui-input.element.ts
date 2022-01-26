@@ -160,7 +160,8 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     );
   }
 
-  updated() {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     this._setValidity();
   }
 

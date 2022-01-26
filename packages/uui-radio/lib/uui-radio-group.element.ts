@@ -230,6 +230,7 @@ export class UUIRadioGroupElement extends FormControlMixin(
   };
 
   updated(changedProperties: any) {
+    super.updated(changedProperties);
     if (changedProperties.has('disabled')) {
       this._toggleDisableOnChildren(changedProperties.get('disabled'));
     }

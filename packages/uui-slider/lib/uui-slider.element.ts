@@ -331,14 +331,15 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     this._updateSteps();
   }
 
-  updated(changedProperties: any) {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     if (
       changedProperties.get('max') ||
       changedProperties.get('min') ||
       changedProperties.get('step')
     ) {
       let correctedValue = Math.min(
-        Math.max(parseFloat(this._value), this.min),
+        Math.max(parseFloat(this._value as string), this.min),
         this.max
       );
       if (this.step > 0) {

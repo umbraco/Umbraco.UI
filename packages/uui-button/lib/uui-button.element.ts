@@ -567,7 +567,8 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
   private _resetStateTimeout?: number;
 
   // Reset the state after 2sec if it is 'success' or 'failed'.
-  updated(changedProperties: any) {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     if (changedProperties.has('state')) {
       clearTimeout(this._resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {

@@ -92,7 +92,8 @@ export class UUITableCellElement extends LitElement {
     this._observer.disconnect();
   }
 
-  updated(changedProperties: any) {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     if (changedProperties.has('clipText')) {
       if (this.clipText) {
         this._detectOverflow();
