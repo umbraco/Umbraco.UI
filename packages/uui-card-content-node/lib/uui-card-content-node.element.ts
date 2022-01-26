@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
@@ -114,7 +114,7 @@ export class UUICardContentNodeElement extends UUICardElement {
       <slot name="actions"></slot>
       <div
         id="open-part"
-        tabindex="0"
+        tabindex=${this.disabled ? (nothing as any) : 0}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         <span id="icon">

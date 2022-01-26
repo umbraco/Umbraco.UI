@@ -49,3 +49,6 @@ import '@umbraco-ui/uui-tabs/lib/index';
 import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-textarea/lib/index';
 import '@umbraco-ui/uui-toggle/lib/index';
+import '@umbraco-ui/uui-toast-notification/lib/index';
+import '@umbraco-ui/uui-toast-notification-container/lib/index';
+import '@umbraco-ui/uui-toast-notification-layout/lib/index';

@@ -36,4 +36,5 @@ out-css
 .eslintcache
 *.tgz
 
-/src/
+# old source
+/src

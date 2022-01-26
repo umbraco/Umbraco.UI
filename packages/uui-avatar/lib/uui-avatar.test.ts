@@ -7,8 +7,38 @@ const avatarSrc =
 
 describe('UuiAvatar', () => {
   let element: UUIAvatarElement;
+
   beforeEach(async () => {
     element = await fixture(html`<uui-avatar title="My Avatar"></uui-avatar>`);
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(element).shadowDom.to.be.accessible();
+  });
+
+  describe('properties', () => {
+    it('has an overflow property', () => {
+      expect(element).to.have.property('overflow');
+    });
+
+    it('has a imgSrc property', () => {
+      expect(element).to.have.property('imgSrc');
+    });
+
+    it('has a imgSrcset property', () => {
+      expect(element).to.have.property('imgSrcset');
+    });
+
+    it('has a title property', () => {
+      expect(element).to.have.property('title');
+    });
+  });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
   });
 
   it('renders an image when imgSrc is set', async () => {

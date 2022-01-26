@@ -12,4 +12,11 @@ describe('UUIActionBarElement', () => {
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
+  });
 });
