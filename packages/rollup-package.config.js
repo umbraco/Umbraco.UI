@@ -83,7 +83,7 @@ export const UUIProdConfig = ({
   entryPoints = [],
   cssFiles = [],
   bundle,
-  namespace = '',
+  namespace = 'uui',
 }) => {
   const cssFilesConfig = createCSSFilesConfig(cssFiles);
   const esModulesConfig = createEsModulesConfig(entryPoints);
