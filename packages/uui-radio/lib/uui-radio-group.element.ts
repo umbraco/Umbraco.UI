@@ -148,8 +148,11 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
           el.checked = false;
         });
         this.value = '';
-        throw new Error(
-          'There can only be one checked element among the <uui-radio-group> children'
+        console.error(
+          'There can only be one checked radio among the <' +
+            this.nodeName +
+            '> children',
+          this
         );
       }
 

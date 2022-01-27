@@ -111,7 +111,7 @@ describe('UuiRadioGroup value', () => {
     expect(element.value).to.equal(radios[1].value);
   });
 
-  it('value is changed when clicking another radio', () => {
+  it('value is changed when clicking another radio', async () => {
     radios[2].click();
     expect(element.value).to.equal(radios[2].value);
   });
@@ -137,13 +137,22 @@ describe('UuiRadioGroup in a Form', () => {
 
   it('form output is empty if element not checked', () => {
     const formData = new FormData(formElement);
-    expect(formData.get(`${element.name}`)).to.be.equal('');
+    expect(formData.get(`${element.name}`)).to.be.equal(null);
   });
 
   it('form output is equivalent to the value of the checked radio', () => {
     radios[1].click();
     const formData = new FormData(formElement);
     expect(formData.get(`${element.name}`)).to.be.equal('Value 2');
+  });
+
+  it('radio gets reset by form-reset', async () => {
+    const listener = oneEvent(element, UUIRadioGroupEvent.CHANGE);
+    radios[1].click();
+    await listener;
+    formElement.reset();
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.be.equal('');
   });
 });
 
@@ -165,9 +174,9 @@ describe('UuiRadioGroup fails if multiple radio childs are checked', () => {
     element = formElement.querySelector('uui-radio-group') as any;
   });
 
-  it('form output is empty if element not checked', () => {
+  it('form output is empty when multiple children was checked', () => {
     const formData = new FormData(formElement);
-    expect(formData.get(`${element.name}`)).to.be.equal('Value 2');
+    expect(formData.get(`${element.name}`)).to.be.equal('');
   });
 });
 
