@@ -258,8 +258,15 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     }
 
     const oldVal = this._value;
-    this._value = newVal;
-    this._calculateSliderPosition(newVal);
+
+    let correctedValue = newVal ? parseFloat(newVal as string) : 0;
+    correctedValue = Math.min(Math.max(correctedValue, this.min), this.max);
+    if (this.step > 0) {
+      correctedValue = Math.round(correctedValue / this.step) * this.step;
+    }
+
+    this._value = correctedValue.toString();
+    this._calculateSliderPosition();
     if (
       'ElementInternals' in window &&
       //@ts-ignore
@@ -329,56 +336,52 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   }
 
   firstUpdated() {
+    this._calculateSliderPosition();
     this._updateSteps();
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     if (
       changedProperties.get('max') ||
       changedProperties.get('min') ||
       changedProperties.get('step')
     ) {
-      let correctedValue = Math.min(
-        Math.max(parseFloat(this._value as string), this.min),
-        this.max
-      );
-      if (this.step > 0) {
-        correctedValue = Math.round(correctedValue / this.step) * this.step;
-      }
-      this.value = correctedValue.toString();
+      this.value = this.value as string;
       this._updateSteps();
     }
-    super.updated(changedProperties);
   }
 
   private _updateSteps() {
-    this.steps = GenerateStepArray(this.min, this.max, this.step);
-    this.stepWidth = this._calculateStepWidth();
+    this._steps = GenerateStepArray(this.min, this.max, this.step);
+    this._stepWidth = this._calculateStepWidth();
   }
 
   @state()
-  private stepWidth = 0;
+  private _stepWidth = 0;
 
   private _calculateStepWidth() {
     return (
       (this._track.getBoundingClientRect().width - TRACK_PADDING * 2) /
-      (this.steps.length - 1)
+      (this._steps.length - 1)
     );
   }
 
   private onWindowResize = () => {
-    this.stepWidth = this._calculateStepWidth();
+    this._stepWidth = this._calculateStepWidth();
   };
 
   @state()
-  protected steps: number[] = [];
+  protected _steps: number[] = [];
 
   @state()
-  protected sliderPosition = '0%';
+  protected _sliderPosition = '0%';
 
-  private _calculateSliderPosition(newVal: string) {
-    const ratio = (parseFloat(newVal) - this.min) / (this.max - this.min);
-    this.sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
+  private _calculateSliderPosition() {
+    const ratio =
+      (parseFloat((this._value || '0') as string) - this.min) /
+      (this.max - this.min);
+    this._sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
   }
 
   private _onInput() {
@@ -406,16 +409,16 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       <div id="track" aria-hidden="true">
         <svg height="100%" width="100%">
           <rect x="9" y="9" height="3" rx="2" />
-          ${RenderTrackSteps(this.steps, this.stepWidth)}
+          ${RenderTrackSteps(this._steps, this._stepWidth)}
         </svg>
 
         <div id="track-inner" aria-hidden="true">
-          <div id="thumb" style=${styleMap({ left: this.sliderPosition })}>
+          <div id="thumb" style=${styleMap({ left: this._sliderPosition })}>
             <div id="thumb-label">${this.value}</div>
           </div>
         </div>
       </div>
-      ${RenderStepValues(this.steps, this.stepWidth, this.hideStepValues)}
+      ${RenderStepValues(this._steps, this._stepWidth, this.hideStepValues)}
     `;
   }
 }
