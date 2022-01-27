@@ -1,4 +1,5 @@
 import '.';
+import '@umbraco-ui/uui-icon-registry/lib';
 
 import {
   elementUpdated,

@@ -1,5 +1,6 @@
 import '.';
 import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
 
 import {
   elementUpdated,
