@@ -1,8 +1,9 @@
+import '.';
+import '@umbraco-ui/uui-checkbox/lib';
+import '@umbraco-ui/uui-input/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-label/lib/index';
-import '@umbraco-ui/uui-input/lib/index';
-import '@umbraco-ui/uui-checkbox/lib/index';
 
 export default {
   id: 'uui-label',

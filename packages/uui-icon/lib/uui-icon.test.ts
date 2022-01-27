@@ -1,16 +1,17 @@
-import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
-import { UUIIconElement } from './uui-icon.element';
 import '.';
-import { UUIIconRequestEvent } from './UUIIconRequestEvent';
-import '@umbraco-ui/uui-icon-registry/lib/index';
-import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib/uui-icon-registry.element';
+
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
+} from '@open-wc/testing';
+import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib';
 import { LitElement } from 'lit';
+
+import { UUIIconElement } from './uui-icon.element';
+import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 
 const TEST_SVG =
   '<svg xmlns="http://www.w3.org/2000/svg" id="TestIcon" viewBox="0 0 512 512"></svg>';

@@ -1,11 +1,12 @@
-import { html } from 'lit-html';
-import '@umbraco-ui/uui-action-bar/lib/index';
-import '@umbraco-ui/uui-button/lib/index';
-import '@umbraco-ui/uui-icon/lib/index';
+import '@umbraco-ui/uui-action-bar/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
+
 import {
   InterfaceLookNames,
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
+import { html } from 'lit-html';
 
 export default {
   id: 'uui-action-bar',

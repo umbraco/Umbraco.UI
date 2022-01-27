@@ -1,9 +1,10 @@
-import { html } from 'lit-html';
-import '@umbraco-ui/uui-menu-item/lib/index';
+import '.';
+
 import { Story } from '@storybook/web-components';
-import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import { html } from 'lit-html';
+
 import { UUIMenuItemElement } from './uui-menu-item.element';
-import './index';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 export default {
   title: 'Buttons/Menu Item',
