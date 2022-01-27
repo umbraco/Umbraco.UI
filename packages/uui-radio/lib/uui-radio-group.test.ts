@@ -93,7 +93,7 @@ describe('UuiRadio', () => {
   });
 });
 
-describe('UuiRadio value', () => {
+describe('UuiRadioGroup value', () => {
   let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
   beforeEach(async () => {
@@ -117,7 +117,37 @@ describe('UuiRadio value', () => {
   });
 });
 
-describe('UuiRadio in a Form', () => {
+describe('UuiRadioGroup in a Form', () => {
+  let formElement: HTMLFormElement;
+  let element: UUIRadioGroupElement;
+  let radios: UUIRadioElement[];
+  beforeEach(async () => {
+    formElement = await fixture(
+      html` <form action="">
+        <uui-radio-group name="Test">
+          <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
+          <uui-radio value="Value 2" label="Option 2"></uui-radio>
+          <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
+        </uui-radio-group>
+      </form>`
+    );
+    element = formElement.querySelector('uui-radio-group') as any;
+    radios = Array.from(element.querySelectorAll('uui-radio'));
+  });
+
+  it('form output is empty if element not checked', () => {
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.be.equal('');
+  });
+
+  it('form output is equivalent to the value of the checked radio', () => {
+    radios[1].click();
+    const formData = new FormData(formElement);
+    expect(formData.get(`${element.name}`)).to.be.equal('Value 2');
+  });
+});
+
+describe('UuiRadioGroup fails if multiple radio childs are checked', () => {
   let formElement: HTMLFormElement;
   let element: UUIRadioGroupElement;
   beforeEach(async () => {
@@ -126,7 +156,9 @@ describe('UuiRadio in a Form', () => {
         <uui-radio-group name="Test">
           <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
           <uui-radio value="Value 2" label="Option 2" checked></uui-radio>
-          <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
+          <uui-radio value="Value 3" label="Option 3" checked
+            >Option 3</uui-radio
+          >
         </uui-radio-group>
       </form>`
     );
@@ -139,7 +171,6 @@ describe('UuiRadio in a Form', () => {
   });
 });
 
-//test double select
 //test proagramatically selection
 // with none checked
 //test if the click works .click()
