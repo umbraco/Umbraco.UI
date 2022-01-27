@@ -1,13 +1,14 @@
-import { LitElement, html, css } from 'lit';
-import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
-import { property, query, state } from 'lit/decorators.js';
 import {
-  InterfaceLookType,
   InterfaceLookDefaultValue,
+  InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
-import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
+import { css, html, LitElement } from 'lit';
+import { property, query, state } from 'lit/decorators.js';
+
+import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 
 /**
  *  @element uui-toast-notification

@@ -6,7 +6,7 @@ import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-progress-bar/lib';
 import '@umbraco-ui/uui-tag/lib';
 
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
