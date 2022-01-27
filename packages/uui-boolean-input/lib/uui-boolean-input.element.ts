@@ -64,7 +64,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   set value(newVal: string) {
     const oldValue = this._value;
     this._value = newVal;
-
     if (
       'ElementInternals' in window &&
       //@ts-ignore
@@ -96,7 +95,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
    * @attr
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean }) // Do not 'reflect' as the attribute is used as fallback.
   get checked() {
     return this._checked;
   }
@@ -141,6 +140,11 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
 
   public hasValue(): boolean {
     return this.checked;
+  }
+
+  public formResetCallback() {
+    super.formResetCallback();
+    this.checked = this.hasAttribute('checked');
   }
 
   protected firstUpdated(): void {
@@ -194,7 +198,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
           type="checkbox"
           @change="${this._onInputChange}"
           .disabled=${this.disabled}
-          .checked="${this.checked}"
+          .checked=${this.checked}
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
           role="${this.inputRole}" />

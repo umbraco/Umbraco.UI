@@ -9,11 +9,11 @@ export declare abstract class FormControlMixinInterface {
   get value(): FormDataEntryValue;
   set value(newValue: FormDataEntryValue);
   name: string;
-  formResetCallback: Function;
+  formResetCallback(): void;
   checkValidity: Function;
   protected _value: FormDataEntryValue;
   protected _internals: any;
-  protected abstract getFormElement(): HTMLElement;
+  protected abstract getFormElement(): HTMLElement | undefined;
 }
 
 type FlagTypes =
@@ -65,7 +65,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      * @attr
      * @default ''
      */
-    @property()
+    @property() // Do not 'reflect' as the attribute is used as fallback.
     get value() {
       return this._value;
     }
@@ -146,7 +146,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       return this.value !== '';
     }
 
-    protected abstract getFormElement(): HTMLElement;
+    protected abstract getFormElement(): HTMLElement | undefined;
 
     connectedCallback(): void {
       super.connectedCallback();

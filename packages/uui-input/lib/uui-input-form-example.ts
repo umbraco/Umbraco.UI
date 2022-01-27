@@ -51,23 +51,18 @@ export class UUIInputInFormExampleElement extends LitElement {
     const isValid = this._form.checkValidity();
 
     if (!isValid) {
-      console.log('not valid form.');
       this._form.removeAttribute('hide-validation');
       return;
     }
-    console.log('valid form.');
     this._form.setAttribute('hide-validation', '');
 
     const formData = new FormData(this._form);
-
-    console.log('----SUBMITTED----');
 
     for (const value of formData.values()) {
       console.log(value);
     }
   }
-  _onReset(event: Event) {
-    console.log('RESET', event);
+  _onReset() {
     if (!this._form) {
       return;
     }
@@ -87,9 +82,9 @@ export class UUIInputInFormExampleElement extends LitElement {
   }
 
   renderFormControls() {
-    return html`<div style="margin-bottom: 15px;">
+    return html`
+      <div style="margin-bottom: 15px;">
         <uui-checkbox
-          id="checkbox"
           name="checkbox"
           value="Bike"
           label="This is my checkbox"
@@ -99,21 +94,13 @@ export class UUIInputInFormExampleElement extends LitElement {
       </div>
 
       <div style="margin-bottom: 15px;">
-        <uui-toggle
-          id="toggle"
-          name="toggle"
-          label="This is my toggle"
-          required>
+        <uui-toggle name="toggle" label="This is my toggle" required>
           This is my toggle
         </uui-toggle>
       </div>
 
       <div style="margin-bottom: 15px;">
-        <uui-radio-group
-          id="radio"
-          name="radio"
-          label="This is my radio"
-          required>
+        <uui-radio-group name="radio" label="This is my radio" required>
           <uui-radio value="radio1" label="radio1" name="radio1"
             >Label</uui-radio
           >
@@ -127,15 +114,14 @@ export class UUIInputInFormExampleElement extends LitElement {
       </div>
 
       <div style="margin-bottom: 15px;">
-        <uui-input id="email" name="email" type="text" label="Email" required>
-        </uui-input>
+        <uui-input name="email" type="text" label="Email" required> </uui-input>
       </div>
 
       <div style="margin-bottom: 15px;">
         <uui-input
           type="password"
-          id="password"
           name="password"
+          value="MyPassword"
           label="Password"
           required>
         </uui-input>
@@ -156,9 +142,8 @@ export class UUIInputInFormExampleElement extends LitElement {
       <div style="margin-bottom: 15px;">
         <uui-slider
           label="Slider"
-          id="slider"
           name="slider"
-          value=""
+          value="5.5"
           min="0"
           max="10"
           step="1"
@@ -166,28 +151,31 @@ export class UUIInputInFormExampleElement extends LitElement {
         </uui-slider>
       </div>
 
-      <!--
-    <div style="margin-bottom: 30px;">
-      <uui-radio-group label="Radio group" name="myRadioGroup" required>
-        <uui-radio value="Value 1">Option 1</uui-radio>
-        <uui-radio value="Value 2">Option 2</uui-radio>
-        <uui-radio value="Value 3">Option 3</uui-radio>
-        <uui-radio value="Value 4">Option 4</uui-radio>
-      </uui-radio-group>
-    </div>
-    -->
+      <div style="margin-bottom: 15px;">
+        <input
+          name="nativeCheckbox"
+          label="Native input text"
+          type="checkbox"
+          value="NativeCheckboxValue"
+          placeholder="native text input"
+          checked
+          required />
+      </div>
 
       <div style="margin-bottom: 15px;">
         <input
+          name="nativeInput"
           label="Native input text"
           type="text"
-          value=""
+          default-value="default test value"
+          value="test value"
           placeholder="native text input"
           required />
       </div>
 
       <div style="margin-bottom: 15px;">
         <input
+          name="nativeInputNumber"
           label="Native input number"
           type="number"
           value=""
@@ -195,7 +183,8 @@ export class UUIInputInFormExampleElement extends LitElement {
           min="0"
           max="10"
           required />
-      </div> `;
+      </div>
+    `;
   }
 
   render() {
