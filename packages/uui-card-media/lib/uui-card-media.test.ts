@@ -7,8 +7,8 @@ import {
 } from '@open-wc/testing';
 import { UUICardMediaElement } from './uui-card-media.element';
 import '.';
-import { UUICardEvent } from '@umbraco-ui/uui-card/lib/UUICardEvent';
-import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events/UUISelectableEvent';
+import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 describe('UUICardMediaElement', () => {
   let element: UUICardMediaElement;
