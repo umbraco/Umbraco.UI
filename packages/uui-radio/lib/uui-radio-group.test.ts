@@ -25,6 +25,15 @@ describe('UuiRadio', () => {
     await expect(element).to.have.property('_internals');
   });
 
+  describe('properties', () => {
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
+    });
+    it('has a value property', () => {
+      expect(element).to.have.property('value');
+    });
+  });
+
   describe('methods', () => {
     it('has a focus method', () => {
       expect(element).to.have.property('focus').that.is.a('function');
@@ -38,9 +47,9 @@ describe('UuiRadio', () => {
     */
   });
 
-  it('it selects an item', async () => {
+  it('value is changed when a radio is selected', async () => {
     radios[1].check();
-    await expect(element.selected).to.equal(1);
+    await expect(element.value).to.equal(radios[1].value);
   });
 });
 
