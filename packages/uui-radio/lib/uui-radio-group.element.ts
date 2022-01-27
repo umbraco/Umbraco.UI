@@ -56,7 +56,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     if (newValue === null || newValue === '') {
       this._makeFirstEnabledFocusable();
     }
-    this.radioElements.forEach((el, index) => {
+    this._radioElements.forEach((el, index) => {
       if (el.value === newValue) {
         el.checked = true;
         this._selected = index;
@@ -77,15 +77,23 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
    * This method enables <label for="..."> to focus the select
    */
   focus() {
-    this.radioElements[this._selected || 0]?.focus();
+    if (this._selected !== null) {
+      this._radioElements[this._selected]?.focus();
+    } else {
+      this._findNextEnabledElement()?.focus();
+    }
   }
   click() {
-    this.radioElements[this._selected || 0]?.click();
+    if (this._selected !== null) {
+      this._radioElements[this._selected]?.click();
+    } else {
+      this._findNextEnabledElement()?.click();
+    }
   }
 
   protected getFormElement(): HTMLElement | undefined {
-    if (this.radioElements && this._selected) {
-      return this.radioElements[this._selected];
+    if (this._radioElements && this._selected) {
+      return this._radioElements[this._selected];
     }
     return undefined;
   }
@@ -95,20 +103,20 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
   }
 
-  private radioElements!: UUIRadioElement[];
+  private _radioElements!: UUIRadioElement[];
   private _setNameOnRadios(name: string) {
-    this.radioElements?.forEach(el => (el.name = name));
+    this._radioElements?.forEach(el => (el.name = name));
   }
 
   private _setDisableOnRadios(value: boolean) {
-    this.radioElements?.forEach(el => (el.disabled = value));
+    this._radioElements?.forEach(el => (el.disabled = value));
   }
 
   private _handleSlotChange(e: Event) {
     // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
 
-    if (this.radioElements) {
-      this.radioElements.forEach(el => {
+    if (this._radioElements) {
+      this._radioElements.forEach(el => {
         el.removeEventListener(
           UUIRadioEvent.CHANGE,
           // @ts-ignore TODO: fix typescript error
@@ -117,12 +125,13 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       });
     }
 
-    this.radioElements = (e.target as HTMLSlotElement)
+    this._selected = null;
+    this._radioElements = (e.target as HTMLSlotElement)
       .assignedElements({ flatten: true })
       .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[];
 
-    if (this.radioElements.length > 0) {
-      this.radioElements.forEach(el => {
+    if (this._radioElements.length > 0) {
+      this._radioElements.forEach(el => {
         el.addEventListener(
           UUIRadioEvent.CHANGE,
           // @ts-ignore TODO: fix typescript error
@@ -130,12 +139,12 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
         );
       });
 
-      const checkedRadios = this.radioElements.filter(
+      const checkedRadios = this._radioElements.filter(
         el => el.checked === true
       );
 
       if (checkedRadios.length > 1) {
-        this.radioElements.forEach(el => {
+        this._radioElements.forEach(el => {
           el.checked = false;
         });
         throw new Error(
@@ -146,6 +155,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
 
       if (checkedRadios.length === 1) {
         this.value = checkedRadios[0].value;
+        this._selected = this._radioElements.indexOf(checkedRadios[0]);
         if (checkedRadios[0].disabled === false) {
           checkedRadios[0].makeFocusable();
         } else {
@@ -170,19 +180,19 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   private _findNextEnabledElement(
     direction: number = 1
   ): UUIRadioElement | null {
-    if (!this.radioElements) {
+    if (!this._radioElements) {
       return null;
     }
     const origin = this._selected || 0;
-    const len = this.radioElements.length;
+    const len = this._radioElements.length;
     let i = this._selected === null ? 0 : 1; //If we have something selected we will skip checking it self.
     while (i < len) {
       let checkIndex = (origin + i * direction) % len;
       if (checkIndex < 0) {
         checkIndex += len;
       }
-      if (this.radioElements[checkIndex].disabled === false) {
-        return this.radioElements[checkIndex];
+      if (this._radioElements[checkIndex].disabled === false) {
+        return this._radioElements[checkIndex];
       }
       i++;
     }
@@ -191,11 +201,13 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
 
   private _selectPreviousElement() {
     this.value = this._findNextEnabledElement(-1)?.value || '';
+    this._radioElements[this._selected || 0]?.focus();
     this._fireChangeEvent();
   }
 
   private _selectNextElement() {
     this.value = this._findNextEnabledElement()?.value || '';
+    this._radioElements[this._selected || 0]?.focus();
     this._fireChangeEvent();
   }
 
@@ -227,18 +239,20 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   }
 
   private _handleSelectOnClick = (e: UUIRadioEvent) => {
-    this.value = e.target.value;
-    this._fireChangeEvent();
+    if (e.target.checked === true) {
+      this.value = e.target.value;
+      this._fireChangeEvent();
+    }
   };
 
-  updated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
-    if (changedProperties.has('disabled')) {
-      this._setDisableOnRadios(changedProperties.get('disabled') as boolean);
+  updated(_changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(_changedProperties);
+    if (_changedProperties.has('disabled')) {
+      this._setDisableOnRadios(_changedProperties.get('disabled') as boolean);
     }
 
-    if (changedProperties.has('name')) {
-      this._setNameOnRadios(changedProperties.get('name') as string);
+    if (_changedProperties.has('name')) {
+      this._setNameOnRadios(_changedProperties.get('name') as string);
     }
   }
 

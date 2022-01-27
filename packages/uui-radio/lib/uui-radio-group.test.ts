@@ -1,7 +1,8 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioGroupElement } from './uui-radio-group.element';
 import '.';
+import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
 describe('UuiRadio', () => {
   let element: UUIRadioGroupElement;
@@ -21,8 +22,8 @@ describe('UuiRadio', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
-  it('has internals', async () => {
-    await expect(element).to.have.property('_internals');
+  it('has internals', () => {
+    expect(element).to.have.property('_internals');
   });
 
   describe('properties', () => {
@@ -38,18 +39,81 @@ describe('UuiRadio', () => {
     it('has a focus method', () => {
       expect(element).to.have.property('focus').that.is.a('function');
     });
-    /*
-    it('focus method sets focus', async () => {
-      expect(document.activeElement).not.to.equal(element);
+    it('focus method sets focus on first radio element', () => {
+      expect(document.activeElement).not.to.equal(radios[0]);
       element.focus();
-      expect(document.activeElement).to.equal(element);
+      expect(document.activeElement).to.equal(radios[0]);
     });
-    */
+    it('focus method sets focus on first enabled radio', () => {
+      expect(document.activeElement).not.to.equal(radios[0]);
+      expect(document.activeElement).not.to.equal(radios[1]);
+      radios[0].disabled = true;
+      element.focus();
+      expect(document.activeElement).to.equal(radios[1]);
+    });
+
+    it('has a click method', () => {
+      expect(element).to.have.property('click').that.is.a('function');
+    });
+
+    it('click method clicks on first radio element', () => {
+      expect(document.activeElement).not.to.equal(radios[0]);
+      element.click();
+      expect(element.value).to.equal(radios[0].value);
+    });
+    it('click method clicks on first enabled radio', () => {
+      expect(document.activeElement).not.to.equal(radios[0]);
+      expect(document.activeElement).not.to.equal(radios[1]);
+      radios[0].disabled = true;
+      element.click();
+      expect(element.value).to.equal(radios[1].value);
+    });
+
+    it('click does nothing when there is a checked radio', async () => {
+      const listener = oneEvent(element, UUIRadioGroupEvent.CHANGE);
+      radios[2].click();
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal(UUIRadioGroupEvent.CHANGE);
+
+      expect(radios[2].checked).to.be.true;
+      expect(element.value).to.equal(radios[2].value);
+
+      // Click method on radio-group should then do nothing.
+      element.click();
+      expect(radios[2].checked).to.be.true;
+      expect(element.value).to.equal(radios[2].value);
+    });
   });
 
-  it('value is changed when a radio is selected', async () => {
+  it('value is changed when a radio is selected', () => {
     radios[1].click();
-    await expect(element.value).to.equal(radios[1].value);
+    expect(element.value).to.equal(radios[1].value);
+  });
+});
+
+describe('UuiRadio value', () => {
+  let element: UUIRadioGroupElement;
+  let radios: UUIRadioElement[];
+  beforeEach(async () => {
+    element = await fixture(html`
+      <uui-radio-group>
+        <uui-radio .value=${'Value 1'} label="Option 1">Option 1</uui-radio>
+        <uui-radio checked .value=${'Value 2'} label="Option 2"></uui-radio>
+        <uui-radio .value=${'Value 3'} label="Option 3">Option 3</uui-radio>
+      </uui-radio-group>
+    `);
+    radios = Array.from(element.querySelectorAll('uui-radio'));
+  });
+
+  it('value matched the checked radio', () => {
+    expect(element.value).to.equal(radios[1].value);
+  });
+
+  it('value is changed when clicking another radio', () => {
+    radios[2].click();
+    expect(element.value).to.equal(radios[2].value);
   });
 });
 

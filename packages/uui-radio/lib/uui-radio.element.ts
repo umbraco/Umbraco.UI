@@ -205,7 +205,7 @@ export class UUIRadioElement extends LitElement {
 
   private _onChange() {
     if (this.inputElement.checked) {
-      this.checked = false;
+      this.checked = true;
       this.setAttribute('aria-checked', 'true');
       if (!this.disabled) {
         this.setAttribute('tabindex', '0');
