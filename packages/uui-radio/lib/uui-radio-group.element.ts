@@ -156,12 +156,11 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       } else {
         this._makeFirstEnabledFocusable();
       }
-    } else {
-      this._makeFirstEnabledFocusable();
     }
   }
 
   private _makeFirstEnabledFocusable() {
+    this._selected = null;
     this._findNextEnabledElement()?.makeFocusable();
   }
 
