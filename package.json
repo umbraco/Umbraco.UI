@@ -33,7 +33,7 @@
     "dev": "npm run clean && npm run storybook",
     "build": "lerna run --scope @umbraco-ui/uui-css build && lerna run build",
     "build:prod": "npm run clean && npm run build && npm run test",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean --parallel",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
     "lerna:version": "lerna version --exact && rimraf package-lock.json && npm i",
     "lerna:diff": "lerna diff",
