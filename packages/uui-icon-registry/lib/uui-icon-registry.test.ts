@@ -2,7 +2,7 @@ import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIIconRegistryElement } from './uui-icon-registry.element';
 import { UUIIconRegistry } from './UUIIconRegistry';
 import '@umbraco-ui/uui-icon/lib';
-import { UUIIconElement } from '@umbraco-ui/uui-icon/lib/uui-icon.element';
+import { UUIIconElement } from '@umbraco-ui/uui-icon/lib';
 import '.';
 
 const myCustomSVGData =
