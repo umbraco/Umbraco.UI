@@ -1,4 +1,6 @@
 import { UUIIconRegistryElement } from './uui-icon-registry.element';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-defineElement('uui-icon-registry', UUIIconRegistryElement as any);
+defineElement('uui-icon-registry', UUIIconRegistryElement);
+
+export * from './uui-icon-registry.element';

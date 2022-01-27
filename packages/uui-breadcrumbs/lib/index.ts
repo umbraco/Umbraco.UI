@@ -4,3 +4,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 defineElement('uui-breadcrumb-item', UUIBreadcrumbItemElement);
 defineElement('uui-breadcrumbs', UUIBreadcrumbsElement);
+
+export * from './uui-breadcrumbs.element';
+export * from './uui-breadcrumb-item.element';
