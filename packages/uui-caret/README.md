@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-caret/lib';
 When looking to leverage the `UUICaretElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICaretElement } from '@umbraco-ui/uui-caret/lib/uui-caret.element';
+import { UUICaretElement } from '@umbraco-ui/uui-caret/lib';
 ```
 
 ### CDN

@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-toggle/lib';
 When looking to leverage the `UUIToggleElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIToggleElement } from '@umbraco-ui/uui-toggle/lib/uui-toggle.element';
+import { UUIToggleElement } from '@umbraco-ui/uui-toggle/lib';
 ```
 
 ### CDN

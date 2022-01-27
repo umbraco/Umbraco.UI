@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-box/lib';
 When looking to leverage the `UUIBoxElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBoxElement } from '@umbraco-ui/uui-box/lib/uui-box.element';
+import { UUIBoxElement } from '@umbraco-ui/uui-box/lib';
 ```
 
 ### CDN

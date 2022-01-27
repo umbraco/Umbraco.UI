@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-ref
 ## Usage
 
 ```javascript
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element;
+import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
 
 class MyRefElement extends UUIRefElement {}
 ```

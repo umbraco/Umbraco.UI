@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-button-group/lib';
 When looking to leverage the `UUIButtonGroupElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIButtonGroupElement } from '@umbraco-ui/uui-button-group/lib/uui-button-group.element';
+import { UUIButtonGroupElement } from '@umbraco-ui/uui-button-group/lib';
 ```
 
 ### CDN

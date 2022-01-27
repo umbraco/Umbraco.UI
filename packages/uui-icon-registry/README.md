@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-icon-registry/lib';
 When looking to leverage the `UUIIconRegistryElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib/uui-icon-registry.element';
+import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib';
 ```
 
 ### CDN

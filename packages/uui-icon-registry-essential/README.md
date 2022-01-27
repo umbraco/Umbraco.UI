@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 When looking to leverage the `UUIIconRegistryEssentialElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIIconRegistryEssentialElement } from '@umbraco-ui/uui-icon-registry-essential/lib/uui-icon-registry-essential.element';
+import { UUIIconRegistryEssentialElement } from '@umbraco-ui/uui-icon-registry-essential/lib';
 ```
 
 ### CDN

@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-button-inline-create/lib';
 When looking to leverage the `UUIButtonInlineCreateElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIButtonInlineCreateElement } from '@umbraco-ui/uui-button-inline-create/lib/uui-button-inline-create.element';
+import { UUIButtonInlineCreateElement } from '@umbraco-ui/uui-button-inline-create/lib';
 ```
 
 ### CDN

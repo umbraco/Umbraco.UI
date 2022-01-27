@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-ref-node-data-type/lib';
 When looking to leverage the `UUIRefNodeDataTypeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRefNodeDataTypeElement } from '@umbraco-ui/uui-ref-node-data-type/lib/uui-ref-node-data-type.element';
+import { UUIRefNodeDataTypeElement } from '@umbraco-ui/uui-ref-node-data-type/lib';
 ```
 
 ### CDN

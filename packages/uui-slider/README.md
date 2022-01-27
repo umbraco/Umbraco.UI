@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-slider/lib';
 When looking to leverage the `UUISliderElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISliderElement } from '@umbraco-ui/uui-slider/lib/uui-slider.element';
+import { UUISliderElement } from '@umbraco-ui/uui-slider/lib';
 ```
 
 ### CDN

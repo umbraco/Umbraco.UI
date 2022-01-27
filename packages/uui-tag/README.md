@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-tag/lib';
 When looking to leverage the `UUITagElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITagElement } from '@umbraco-ui/uui-tag/lib/uui-tag.element';
+import { UUITagElement } from '@umbraco-ui/uui-tag/lib';
 ```
 
 ### CDN

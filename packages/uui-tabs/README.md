@@ -19,8 +19,8 @@ import '@umbraco-ui/uui-tabs/lib';
 When looking to leverage the `UUITabGroupElement`, `UUITabElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITabGroupElement } from '@umbraco-ui/uui-tabs/lib/uui-tab-group.element';
-import { UUITabElement } from '@umbraco-ui/uui-tabs/lib/uui-tab.element';
+import { UUITabGroupElement } from '@umbraco-ui/uui-tabs/lib';
+import { UUITabElement } from '@umbraco-ui/uui-tabs/lib';
 ```
 
 ### CDN

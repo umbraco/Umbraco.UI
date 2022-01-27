@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-dialog/lib';
 When looking to leverage the `UUIDialogElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIDialogElement } from '@umbraco-ui/uui-dialog/lib/uui-dialog.element';
+import { UUIDialogElement } from '@umbraco-ui/uui-dialog/lib';
 ```
 
 ### CDN

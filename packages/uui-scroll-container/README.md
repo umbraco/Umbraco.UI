@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-scroll-container/lib';
 When looking to leverage the `UUIScrollContainerElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIScrollContainerElement } from '@umbraco-ui/uui-scroll-container/lib/uui-scroll-container.element';
+import { UUIScrollContainerElement } from '@umbraco-ui/uui-scroll-container/lib';
 ```
 
 ### CDN

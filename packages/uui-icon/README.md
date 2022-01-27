@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-icon/lib';
 When looking to leverage the `UUIIconElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIIconElement } from '@umbraco-ui/uui-icon/lib/uui-icon.element';
+import { UUIIconElement } from '@umbraco-ui/uui-icon/lib';
 ```
 
 ### CDN

@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-pagination/lib';
 When looking to leverage the `UUIPaginationElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIPaginationElement } from '@umbraco-ui/uui-pagination/lib/uui-pagination.element';
+import { UUIPaginationElement } from '@umbraco-ui/uui-pagination/lib';
 ```
 
 ### CDN

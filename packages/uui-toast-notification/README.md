@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-toast-notification/lib';
 When looking to leverage the `UUIToastNotificationElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification/lib/uui-toast-notification.element';
+import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification/lib';
 ```
 
 ### CDN

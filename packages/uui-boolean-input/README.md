@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-boolean-input/lib';
 When looking to leverage the `UUIBooleanInputElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 ```
 
 ### CDN

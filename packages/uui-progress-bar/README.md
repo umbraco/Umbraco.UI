@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-progress-bar/lib';
 When looking to leverage the `UUIProgressBarElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIProgressBarElement } from '@umbraco-ui/uui-progress-bar/lib/uui-progress-bar.element';
+import { UUIProgressBarElement } from '@umbraco-ui/uui-progress-bar/lib';
 ```
 
 ### CDN

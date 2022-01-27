@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-avatar-group/lib';
 When looking to leverage the `UUIAvatarGroupElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIAvatarGroupElement } from '@umbraco-ui/uui-avatar-group/lib/uui-avatar-group.element';
+import { UUIAvatarGroupElement } from '@umbraco-ui/uui-avatar-group/lib';
 ```
 
 ### CDN

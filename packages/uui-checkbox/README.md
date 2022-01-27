@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-checkbox/lib';
 When looking to leverage the `UUICheckboxElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICheckboxElement } from '@umbraco-ui/uui-checkbox/lib/uui-checkbox.element';
+import { UUICheckboxElement } from '@umbraco-ui/uui-checkbox/lib';
 ```
 
 ### CDN

@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-label/lib';
 When looking to leverage the `UUILabelElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUILabelElement } from '@umbraco-ui/uui-label/lib/uui-label.element';
+import { UUILabelElement } from '@umbraco-ui/uui-label/lib';
 ```
 
 ### CDN

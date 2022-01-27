@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-symbol-sort/lib';
 When looking to leverage the `UUISymbolSortElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISymbolSortElement } from '@umbraco-ui/uui-symbol-sort/lib/uui-symbol-sort.element';
+import { UUISymbolSortElement } from '@umbraco-ui/uui-symbol-sort/lib';
 ```
 
 ### CDN

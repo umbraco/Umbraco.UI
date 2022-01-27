@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-button/lib';
 When looking to leverage the `UUIButtonElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 ```
 
 ### CDN

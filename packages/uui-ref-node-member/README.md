@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-ref-node-member/lib';
 When looking to leverage the `UUIRefNodeMemberElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRefNodeMemberElement } from '@umbraco-ui/uui-ref-node-member/lib/uui-ref-node-member.element';
+import { UUIRefNodeMemberElement } from '@umbraco-ui/uui-ref-node-member/lib';
 ```
 
 ### CDN

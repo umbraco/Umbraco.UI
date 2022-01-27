@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-ref-node-form/lib';
 When looking to leverage the `UUIRefNodeFormElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRefNodeFormElement } from '@umbraco-ui/uui-ref-node-form/lib/uui-ref-node-form.element';
+import { UUIRefNodeFormElement } from '@umbraco-ui/uui-ref-node-form/lib';
 ```
 
 ### CDN

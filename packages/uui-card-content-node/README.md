@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-card-content-node/lib';
 When looking to leverage the `UUICardContentNodeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardContentNodeElement } from '@umbraco-ui/uui-card-content-node/lib/uui-card-content-node.element';
+import { UUICardContentNodeElement } from '@umbraco-ui/uui-card-content-node/lib';
 ```
 
 ### CDN

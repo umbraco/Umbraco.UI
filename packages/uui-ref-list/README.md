@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-ref-list/lib';
 When looking to leverage the `UUIRefListElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRefListElement } from '@umbraco-ui/uui-ref-list/lib/uui-ref-list.element';
+import { UUIRefListElement } from '@umbraco-ui/uui-ref-list/lib';
 ```
 
 ### CDN

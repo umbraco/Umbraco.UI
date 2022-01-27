@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-card-media/lib';
 When looking to leverage the `UUICardMediaElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardMediaElement } from '@umbraco-ui/uui-card-media/lib/uui-card-media.element';
+import { UUICardMediaElement } from '@umbraco-ui/uui-card-media/lib';
 ```
 
 ### CDN

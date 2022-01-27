@@ -15,7 +15,7 @@ import '@umbraco-ui/symbol-folder/lib';
 When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputElement } from '@umbraco-ui/symbol-folder/lib/symbol-folder.element';
+import { UUIInputElement } from '@umbraco-ui/symbol-folder/lib';
 ```
 
 ## Example

@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-action-bar/lib';
 When looking to leverage the `UUIActionBarElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIActionBarElement } from '@umbraco-ui/uui-action-bar/lib/uui-action-bar.element';
+import { UUIActionBarElement } from '@umbraco-ui/uui-action-bar/lib';
 ```
 
 ### CDN

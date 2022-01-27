@@ -19,12 +19,12 @@ import '@umbraco-ui/uui-table/lib';
 When looking to leverage the `UUITableElement`, `UUITableRowElement`, `UUITableCellElement`, `UUITableHeadElement`, `UUITableHeadCellElement`, `UUITableColumnElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITableElement } from '@umbraco-ui/uui-table/lib/uui-table.element';
-import { UUITableRowElement } from '@umbraco-ui/uui-table/lib/uui-table-row.element';
-import { UUITableCellElement } from '@umbraco-ui/uui-table/lib/uui-table-cell.element';
-import { UUITableHeadElement } from '@umbraco-ui/uui-table/lib/uui-table-head.element';
-import { UUITableHeadCellElement } from '@umbraco-ui/uui-table/lib/uui-table-head-cell.element';
-import { UUITableColumnElement } from '@umbraco-ui/uui-table/lib/uui-table-column.element';
+import { UUITableElement } from '@umbraco-ui/uui-table/lib';
+import { UUITableRowElement } from '@umbraco-ui/uui-table/lib';
+import { UUITableCellElement } from '@umbraco-ui/uui-table/lib';
+import { UUITableHeadElement } from '@umbraco-ui/uui-table/lib';
+import { UUITableHeadCellElement } from '@umbraco-ui/uui-table/lib';
+import { UUITableColumnElement } from '@umbraco-ui/uui-table/lib';
 ```
 
 ### CDN

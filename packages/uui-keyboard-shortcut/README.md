@@ -19,7 +19,7 @@ import '@umbraco-ui/uui-keyboard-shortcut/lib';
 When looking to leverage the `UUIKeyboardShortcutElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIKeyboardShortcutElement } from '@umbraco-ui/uui-keyboard-shortcut/lib/uui-keyboard-shortcut.element';
+import { UUIKeyboardShortcutElement } from '@umbraco-ui/uui-keyboard-shortcut/lib';
 ```
 
 ### CDN

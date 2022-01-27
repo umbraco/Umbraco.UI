@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-textarea/lib';
 When looking to leverage the `UUITextareaElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITextareaElement } from '@umbraco-ui/uui-textarea/lib/uui-textarea.element';
+import { UUITextareaElement } from '@umbraco-ui/uui-textarea/lib';
 ```
 
 ### CDN

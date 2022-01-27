@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-input-password/lib';
 When looking to leverage the `UUIInputPasswordElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputPasswordElement } from '@umbraco-ui/uui-input-password/lib/uui-input-password.element';
+import { UUIInputPasswordElement } from '@umbraco-ui/uui-input-password/lib';
 ```
 
 ### CDN

@@ -21,7 +21,7 @@ import '@umbraco-ui/uui-symbol-more/lib';
 When looking to leverage the `UUISymbolMoreElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISymbolMoreElement } from '@umbraco-ui/uui-symbol-more/lib/uui-symbol-more.element';
+import { UUISymbolMoreElement } from '@umbraco-ui/uui-symbol-more/lib';
 ```
 
 ### CDN
