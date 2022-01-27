@@ -69,6 +69,13 @@ GroupedOverview.parameters = {
   },
 };
 
+export const GroupWithOne: Story = () =>
+  html`
+    <uui-radio-group name="Test">
+      <uui-radio value="Value 1">Option 1</uui-radio>
+    </uui-radio-group>
+  `;
+
 export const GroupedSelectDisabled: Story = () =>
   html`
     <uui-radio-group name="Test">

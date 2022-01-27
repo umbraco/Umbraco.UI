@@ -24,6 +24,13 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
 
   static styles = [
     css`
+      :host {
+        display: inline-block;
+        padding-right: 3px;
+        border: 1px solid transparent;
+        border-radius: var(--uui-border-radius);
+      }
+
       :host(:not([hide-validation]):invalid),
       /* polyfill support */
       :host(:not([hide-validation])[internals-invalid]) {
@@ -31,27 +38,6 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       }
     `,
   ];
-
-  private _selected: number | null = null;
-
-  /**
-   * This is an index of
-   * @type {number | null}
-   * @default null
-   */
-  @property({ type: Number })
-  get selected() {
-    return this._selected;
-  }
-
-  set selected(newVal) {
-    const oldVal = this._selected;
-    this._setSelected(newVal);
-    if (this._selected !== null) {
-      this.radioElements[this._selected].check();
-    }
-    this.requestUpdate('selected', oldVal);
-  }
 
   /**
    * Disables the input.
@@ -61,6 +47,26 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  get value() {
+    return this._value;
+  }
+  set value(newValue) {
+    super.value = newValue;
+    if (newValue === null || newValue === '') {
+      this._makeFirstEnabledFocusable();
+    }
+    this.radioElements.forEach((el, index) => {
+      if (el.value === newValue) {
+        el.checked = true;
+        this._selected = index;
+      } else {
+        el.checked = false;
+      }
+    });
+  }
+
+  private _selected: number | null = null;
 
   constructor() {
     super();
@@ -74,8 +80,11 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     this.radioElements[this._selected || 0]?.focus();
   }
 
-  protected getFormElement(): HTMLElement {
-    return this.radioElements[this._selected || 0];
+  protected getFormElement(): HTMLElement | undefined {
+    if (this.radioElements && this._selected) {
+      return this.radioElements[this._selected];
+    }
+    return undefined;
   }
 
   connectedCallback() {
@@ -133,7 +142,6 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       }
 
       if (checkedRadios.length === 1) {
-        this._selected = this.radioElements.indexOf(checkedRadios[0]);
         this.value = checkedRadios[0].value;
         if (checkedRadios[0].disabled === false) {
           checkedRadios[0].makeFocusable();
@@ -148,70 +156,44 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       } else {
         this._makeFirstEnabledFocusable();
       }
+    } else {
+      this._makeFirstEnabledFocusable();
     }
   }
 
   private _makeFirstEnabledFocusable() {
-    if (
-      this.radioElements.length > 0 &&
-      this.enabledElementsIndexes.length > 0
-    ) {
-      this.radioElements[this.enabledElementsIndexes[0]].makeFocusable();
+    this._findNextEnabledElement()?.makeFocusable();
+  }
+
+  private _findNextEnabledElement(
+    direction: number = 1
+  ): UUIRadioElement | null {
+    if (!this.radioElements) {
+      return null;
     }
-  }
-
-  private _setSelected(newVal: number | null) {
-    this._selected = newVal;
-    this._lastSelectedIndex = this.enabledElementsIndexes.findIndex(
-      index => index === this._selected
-    );
-    if (newVal === null) {
-      this._makeFirstEnabledFocusable();
+    const origin = this._selected || 0;
+    const len = this.radioElements.length;
+    let i = this._selected === null ? 0 : 1; //If we have something selected we will skip checking it self.
+    while (i < len) {
+      let checkIndex = (origin + i * direction) % len;
+      if (checkIndex < 0) {
+        checkIndex += len;
+      }
+      if (this.radioElements[checkIndex].disabled === false) {
+        return this.radioElements[checkIndex];
+      }
+      i++;
     }
-    const notSelected = this.radioElements.filter(
-      el => this.radioElements.indexOf(el) !== this._selected
-    );
-    notSelected.forEach(el => el.uncheck());
-    this.value = newVal !== null ? this.radioElements[newVal].value : '';
+    return null;
   }
 
-  // TODO: Need to move away from using this getter method for this. Use a MutationObserver or something?
-  protected get enabledElementsIndexes() {
-    const indexes: number[] = [];
-    this.radioElements.forEach(el => {
-      if (el.disabled === false) indexes.push(this.radioElements.indexOf(el));
-    });
-    return indexes;
-  }
-
-  private _lastSelectedIndex = 0; //this is index in the array of enabled radios indexes (this.enabledElementsIndexes)
   private _selectPreviousElement() {
-    if (
-      this.selected === null ||
-      this.selected === this.enabledElementsIndexes[0]
-    ) {
-      this.selected =
-        this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1];
-      this._lastSelectedIndex = this.enabledElementsIndexes.length - 1;
-    } else {
-      this._lastSelectedIndex--;
-      this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
-    }
+    this.value = this._findNextEnabledElement(-1)?.value || '';
     this._fireChangeEvent();
   }
 
   private _selectNextElement() {
-    if (
-      this.selected === null ||
-      this.selected ===
-        this.enabledElementsIndexes[this.enabledElementsIndexes.length - 1]
-    ) {
-      this.selected = this.enabledElementsIndexes[0];
-      this._lastSelectedIndex = 0;
-    } else {
-      this._lastSelectedIndex++;
-      this.selected = this.enabledElementsIndexes[this._lastSelectedIndex];
-    }
+    this.value = this._findNextEnabledElement()?.value || '';
     this._fireChangeEvent();
   }
 
@@ -231,8 +213,9 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       }
 
       case SPACE: {
-        if (this.selected === null)
-          this.selected = this.enabledElementsIndexes[0];
+        if (this._selected === null) {
+          this.value = this._findNextEnabledElement()?.value as string;
+        }
       }
     }
   }
@@ -242,7 +225,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   }
 
   private _handleSelectOnClick = (e: UUIRadioEvent) => {
-    this._setSelected(this.radioElements.indexOf(e.target));
+    this.value = e.target.value;
     this._fireChangeEvent();
   };
 
