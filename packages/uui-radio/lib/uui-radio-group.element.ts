@@ -79,6 +79,9 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   focus() {
     this.radioElements[this._selected || 0]?.focus();
   }
+  click() {
+    this.radioElements[this._selected || 0]?.click();
+  }
 
   protected getFormElement(): HTMLElement | undefined {
     if (this.radioElements && this._selected) {

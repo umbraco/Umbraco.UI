@@ -48,7 +48,7 @@ describe('UuiRadio', () => {
   });
 
   it('value is changed when a radio is selected', async () => {
-    radios[1].check();
+    radios[1].click();
     await expect(element.value).to.equal(radios[1].value);
   });
 });

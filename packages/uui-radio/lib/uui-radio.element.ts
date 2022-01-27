@@ -196,6 +196,13 @@ export class UUIRadioElement extends LitElement {
     });
   }
 
+  focus() {
+    this.inputElement.focus();
+  }
+  click() {
+    this.inputElement.click();
+  }
+
   private _onChange() {
     if (this.inputElement.checked) {
       this.checked = false;
