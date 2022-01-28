@@ -151,6 +151,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     connectedCallback(): void {
       super.connectedCallback();
       this._removeFormListeners();
+      // TODO: try using formAssociatedCallback
       this._form = this._internals.form;
       if (this._form) {
         if (this._form.hasAttribute('hide-validation')) {
