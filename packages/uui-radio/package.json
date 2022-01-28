@@ -28,6 +28,7 @@
   "customElements": "custom-elements.json",
   "files": [
     "dist",
+    "define",
     "lib/**/*.d.ts",
     "lib/**/*.js",
     "custom-elements.json"
