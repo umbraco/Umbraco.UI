@@ -1,6 +1,6 @@
 import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'svgs/index'],
-  bundle: 'define',
+  entryPoints: ['index'],
+  bundle: './define/index.js',
 });

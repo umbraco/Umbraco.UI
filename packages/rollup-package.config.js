@@ -61,7 +61,7 @@ const createBundleConfig = (bundle, namespace) => {
 
   return bundle
     ? {
-        input: `lib/${bundle}.ts`,
+        input: bundle,
         output: {
           file: `./dist/${bundleName}.min.js`,
           format: 'umd',
@@ -83,7 +83,7 @@ export const UUIProdConfig = ({
   entryPoints = [],
   cssFiles = [],
   bundle,
-  namespace = 'uui',
+  namespace = '',
 }) => {
   const cssFilesConfig = createCSSFilesConfig(cssFiles);
   const esModulesConfig = createEsModulesConfig(entryPoints);
