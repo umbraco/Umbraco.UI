@@ -221,6 +221,7 @@ export const Looks: Story = props => html`
       html`<uui-button
         type=${props.type}
         .look=${lookName}
+        label="Button displaying the ${uppercaseFirstLetter(lookName)} look"
         state=${props.state}
         ?disabled=${props.disabled}
         ?compact=${props.compact}
