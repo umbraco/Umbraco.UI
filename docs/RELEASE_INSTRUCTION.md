@@ -1,6 +1,6 @@
 # UI Library Release workflow
 
-1. Create a new branch for the release. We need a good naming convention: `Release/<patch/minor/major>-<DDMMYY>` (example: `Release/Patch-040122`)
+1. Create a new branch for the release. We need a good naming convention: `Release/<patch/minor/major>-<YYMMDD>` (example: `Release/Patch-220128`)
 1. Review new release PR (either [on GitHub](https://github.com/umbraco/Umbraco.UI/compare/) or through `npm run lerna:diff`)
 1. Make a PR from the new branch to the main branch
 1. Wait for GitHub checks to pass.
