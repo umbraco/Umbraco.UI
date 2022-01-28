@@ -100,7 +100,7 @@ export class UUICardUserElement extends UUICardElement {
     return html`
       <slot name="tag"></slot>
       <slot name="actions"></slot>
-      <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
+      <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : '0'}
