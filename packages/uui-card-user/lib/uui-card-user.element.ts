@@ -98,7 +98,9 @@ export class UUICardUserElement extends UUICardElement {
 
   public render() {
     return html`
-      <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
+      <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : '0'}
@@ -106,10 +108,7 @@ export class UUICardUserElement extends UUICardElement {
         @keydown=${this.handleOpenKeydown}>
         <span> ${this.name} </span>
       </div>
-
       <slot></slot>
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
     `;
   }
 }

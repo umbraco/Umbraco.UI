@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-ref-node-member",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -29,10 +29,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.14"
-  },
-  "peerDependencies": {
-    "@umbraco-ui/uui-ref-node": "~0.0.0"
+    "@umbraco-ui/uui-base": "0.0.15",
+    "@umbraco-ui/uui-ref-node": "0.0.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
