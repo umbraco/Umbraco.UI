@@ -19,5 +19,4 @@ describe('UUIActionBarElement', () => {
       expect(slot).to.exist;
     });
   });
-
 });
