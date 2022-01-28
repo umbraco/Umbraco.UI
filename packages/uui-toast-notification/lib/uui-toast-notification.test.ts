@@ -1,6 +1,6 @@
 import '.';
-import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
 
 import {
   elementUpdated,
@@ -9,7 +9,7 @@ import {
   html,
   oneEvent,
 } from '@open-wc/testing';
-import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
 
 import { UUIToastNotificationElement } from './uui-toast-notification.element';
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';

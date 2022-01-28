@@ -1,9 +1,11 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import '.';
+import '@umbraco-ui/uui-icon/lib';
+
+import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+import { UUIIconElement } from '@umbraco-ui/uui-icon/lib/uui-icon.element';
+
 import { UUIIconRegistryElement } from './uui-icon-registry.element';
 import { UUIIconRegistry } from './UUIIconRegistry';
-import '@umbraco-ui/uui-icon/lib';
-import { UUIIconElement } from '@umbraco-ui/uui-icon/lib';
-import '.';
 
 const myCustomSVGData =
   '<svg xmlns="http://www.w3.org/2000/svg" id="MyCustomIcon" viewBox="0 0 512 512"><rect width="512" height="512" fill="green"></rect></svg>';

@@ -8,7 +8,7 @@ import {
   html,
   oneEvent,
 } from '@open-wc/testing';
-import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib';
+import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib/uui-icon-registry.element';
 import { LitElement } from 'lit';
 
 import { UUIIconElement } from './uui-icon.element';
