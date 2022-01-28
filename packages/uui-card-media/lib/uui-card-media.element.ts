@@ -1,6 +1,6 @@
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
  *  @element uui-card-media
