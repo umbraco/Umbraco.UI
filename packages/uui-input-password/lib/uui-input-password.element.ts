@@ -1,14 +1,10 @@
-import { html, css } from 'lit';
-import {
-  InputType,
-  UUIInputElement,
-} from '@umbraco-ui/uui-input/lib/uui-input.element';
-import { property, state } from 'lit/decorators.js';
-
 import {
   iconSee,
   iconUnsee,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { InputType, UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import { css, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
 /**
  * @element uui-input-password

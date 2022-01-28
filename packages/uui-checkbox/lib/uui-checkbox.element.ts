@@ -1,10 +1,10 @@
-import { html, css } from 'lit';
 import {
-  UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
+import { css, html } from 'lit';
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck

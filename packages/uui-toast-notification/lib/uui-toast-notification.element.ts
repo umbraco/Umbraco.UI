@@ -4,7 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/types';
 import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
