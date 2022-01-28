@@ -1,6 +1,8 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIDialogElement } from './uui-dialog.element';
-import '.';
 
 describe('UUIDialogElement', () => {
   let element: UUIDialogElement;

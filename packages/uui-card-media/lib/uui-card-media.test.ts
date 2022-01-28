@@ -1,14 +1,16 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
-import { UUICardMediaElement } from './uui-card-media.element';
-import '.';
-import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
+import { UUICardEvent } from '@umbraco-ui/uui-card/lib/UUICardEvent';
+
+import { UUICardMediaElement } from './uui-card-media.element';
 
 describe('UUICardMediaElement', () => {
   let element: UUICardMediaElement;

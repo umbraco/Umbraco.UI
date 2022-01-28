@@ -1,13 +1,15 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUITableRowElement } from './uui-table-row.element';
 import { UUITableElement } from './uui-table.element';
-import './index';
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;

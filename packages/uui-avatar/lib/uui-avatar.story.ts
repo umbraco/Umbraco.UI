@@ -1,4 +1,4 @@
-import '@umbraco-ui/uui-avatar/lib';
+import '@umbraco-ui/uui-avatar/lib/define';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';

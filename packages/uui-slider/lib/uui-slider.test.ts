@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUISliderElement } from './uui-slider.element';
-import './index';
 import { UUISliderEvent } from './UUISliderEvents';
 
 describe('UuiSlider', () => {

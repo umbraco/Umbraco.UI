@@ -1,6 +1,6 @@
-import '.';
-import '@umbraco-ui/uui-checkbox/lib';
-import '@umbraco-ui/uui-input/lib';
+import './define';
+import '@umbraco-ui/uui-checkbox/lib/define';
+import '@umbraco-ui/uui-input/lib/define';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';

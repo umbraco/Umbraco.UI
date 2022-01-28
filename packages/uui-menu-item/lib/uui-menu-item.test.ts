@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUIMenuItemElement } from './uui-menu-item.element';
-import '.';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;

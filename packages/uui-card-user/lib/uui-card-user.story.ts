@@ -1,6 +1,7 @@
+import './define';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import './index';
 
 export default {
   title: 'Displays/Cards/User',

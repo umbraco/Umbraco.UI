@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUIToggleElement } from './uui-toggle.element';
-import '.';
 
 describe('UuiToggle', () => {
   let element: UUIToggleElement;

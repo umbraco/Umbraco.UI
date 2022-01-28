@@ -1,10 +1,10 @@
-import '.';
-import '@umbraco-ui/uui-avatar/lib';
-import '@umbraco-ui/uui-box/lib';
+import './define';
+import '@umbraco-ui/uui-avatar/lib/define';
+import '@umbraco-ui/uui-box/lib/define';
 import '@umbraco-ui/uui-button/lib/define';
-import '@umbraco-ui/uui-icon/lib';
-import '@umbraco-ui/uui-progress-bar/lib';
-import '@umbraco-ui/uui-tag/lib';
+import '@umbraco-ui/uui-icon/lib/define';
+import '@umbraco-ui/uui-progress-bar/lib/define';
+import '@umbraco-ui/uui-tag/lib/define';
 
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';

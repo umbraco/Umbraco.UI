@@ -1,5 +1,7 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import './index';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIBoxElement } from './uui-box.element';
 
 describe('UUIBox', () => {

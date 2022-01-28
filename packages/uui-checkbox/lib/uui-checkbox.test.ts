@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUICheckboxElement } from './uui-checkbox.element';
-import './index';
 
 describe('UuiToggle', () => {
   let element: UUICheckboxElement;

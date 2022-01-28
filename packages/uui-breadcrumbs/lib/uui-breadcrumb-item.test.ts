@@ -1,5 +1,6 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import '.';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
 
 describe('UuiBreadcrumbItem', () => {
   it('is a link if not last item', async () => {

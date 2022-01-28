@@ -1,6 +1,8 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIScrollContainerElement } from './uui-scroll-container.element';
-import '.';
 
 describe('UUIScrollContainerElement', () => {
   let element: UUIScrollContainerElement;

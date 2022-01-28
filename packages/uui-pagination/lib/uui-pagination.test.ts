@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUIPaginationElement } from './uui-pagination.element';
-import '.';
 
 describe('UUIPaginationElement', () => {
   let element: UUIPaginationElement;

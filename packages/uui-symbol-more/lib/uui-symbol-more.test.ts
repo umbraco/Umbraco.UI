@@ -1,6 +1,8 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUISymbolMoreElement } from './uui-symbol-more.element';
-import '.';
 
 describe('UUISymbolMoreElement', () => {
   let element: UUISymbolMoreElement;

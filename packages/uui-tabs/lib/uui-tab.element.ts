@@ -1,6 +1,6 @@
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
 import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  * A single tab. Should be put into `<uui-tab-group>`,

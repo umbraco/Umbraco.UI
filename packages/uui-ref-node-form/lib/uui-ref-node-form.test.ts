@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUIRefNodeFormElement } from './uui-ref-node-form.element';
-import '.';
 
 describe('UUIRefNodeFormElement', () => {
   let element: UUIRefNodeFormElement;

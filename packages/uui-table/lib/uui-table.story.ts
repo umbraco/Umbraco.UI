@@ -1,6 +1,6 @@
-import '.';
+import './define';
 import './uui-table-advanced-example';
-import '@umbraco-ui/uui-box/lib';
+import '@umbraco-ui/uui-box/lib/define';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';

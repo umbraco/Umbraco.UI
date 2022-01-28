@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUIRefNodeDataTypeElement } from './uui-ref-node-data-type.element';
-import '.';
 
 describe('UUIRefNodeDataTypeElement', () => {
   let element: UUIRefNodeDataTypeElement;

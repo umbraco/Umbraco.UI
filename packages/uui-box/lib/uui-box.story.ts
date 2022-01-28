@@ -1,6 +1,6 @@
-import '.';
+import './define';
 import '@umbraco-ui/uui-button/lib/define';
-import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-input/lib/define';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';

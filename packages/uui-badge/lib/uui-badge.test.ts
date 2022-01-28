@@ -1,5 +1,7 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import '.';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIBadgeElement } from './uui-badge.element';
 
 describe('UuiBadge', () => {

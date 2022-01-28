@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUIRefNodeUserElement } from './uui-ref-node-user.element';
-import '.';
 
 describe('UUIRefNodeUserElement', () => {
   let element: UUIRefNodeUserElement;

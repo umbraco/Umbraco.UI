@@ -1,6 +1,8 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import './define';
+
+import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+
 import { UUITextareaElement } from './uui-textarea.element';
-import '.';
 
 describe('UUITextareaElement', () => {
   let element: UUITextareaElement;

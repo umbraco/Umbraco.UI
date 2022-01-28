@@ -1,17 +1,19 @@
-/* eslint-disable lit/no-invalid-html */
-/* eslint-disable lit/binding-positions */
+import './define';
+
 import {
   defineCE,
   elementUpdated,
-  html,
-  fixture,
   expect,
+  fixture,
+  html,
   unsafeStatic,
 } from '@open-wc/testing';
-import { UUIBooleanInputElement } from './uui-boolean-input.element';
-import '.';
 import { html as litHTMLLiteral } from 'lit';
 
+import { UUIBooleanInputElement } from './uui-boolean-input.element';
+
+/* eslint-disable lit/no-invalid-html */
+/* eslint-disable lit/binding-positions */
 const tagName = defineCE(
   class BooleanInputTestElement extends UUIBooleanInputElement {
     renderCheckbox() {

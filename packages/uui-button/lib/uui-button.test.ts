@@ -1,6 +1,8 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+
 import { UUIButtonElement } from './uui-button.element';
-import '.';
 
 describe('UuiButton', () => {
   let formElement: HTMLFormElement;

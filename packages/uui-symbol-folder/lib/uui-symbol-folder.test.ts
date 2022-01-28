@@ -1,6 +1,8 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUISymbolFolderElement } from './uui-symbol-folder.element';
-import '.';
 
 describe('UUISymbolFolderElement', () => {
   let element: UUISymbolFolderElement;

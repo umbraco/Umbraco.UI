@@ -1,6 +1,8 @@
+import './define';
+
 import { assert, expect } from '@open-wc/testing';
+
 import { UUIIconRegistry } from './UUIIconRegistry';
-import '.';
 
 const TEST_SVG =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"></svg>';

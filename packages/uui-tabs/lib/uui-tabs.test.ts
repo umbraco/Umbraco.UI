@@ -1,7 +1,9 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+
 import { UUITabGroupElement } from './uui-tab-group.element';
 import { UUITabElement } from './uui-tab.element';
-import './index';
 
 describe('UuiTab', () => {
   let element: UUITabGroupElement;

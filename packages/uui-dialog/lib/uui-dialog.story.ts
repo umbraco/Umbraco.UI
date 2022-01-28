@@ -1,4 +1,4 @@
-import '.';
+import './define';
 import '@umbraco-ui/uui-button/lib/define';
 
 import { Story } from '@storybook/web-components';

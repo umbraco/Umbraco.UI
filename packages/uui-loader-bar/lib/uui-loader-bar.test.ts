@@ -1,6 +1,8 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import './define';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUILoaderBarElement } from './uui-loader-bar.element';
-import './index';
 
 describe('UuiTextfield with steps', () => {
   let element: UUILoaderBarElement;

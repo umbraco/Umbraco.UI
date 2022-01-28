@@ -1,6 +1,6 @@
 import './define';
-import '@umbraco-ui/uui-badge/lib';
-import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-badge/lib/define';
+import '@umbraco-ui/uui-icon/lib/define';
 
 import { Story } from '@storybook/web-components';
 import {

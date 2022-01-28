@@ -1,12 +1,14 @@
+import './define';
+
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUILabelElement } from './uui-label.element';
-import '.';
 
 describe('UUILabelElement', () => {
   let element: UUILabelElement;

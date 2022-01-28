@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
@@ -38,7 +38,6 @@ export class UUISymbolFileElement extends LitElement {
   type = '';
 
   render() {
-    console.log(UUISymbolFileElement.styles);
     return html`<svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
