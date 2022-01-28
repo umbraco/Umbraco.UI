@@ -13,13 +13,13 @@ npm i @umbraco-ui/uui-avatar-group
 Import the registration of `<uui-avatar-group>` via:
 
 ```javascript
-import '@umbraco-ui/uui-avatar-group/lib';
+import '@umbraco-ui/uui-avatar-group';
 ```
 
 When looking to leverage the `UUIAvatarGroupElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIAvatarGroupElement } from '@umbraco-ui/uui-avatar-group/lib';
+import { UUIAvatarGroupElement } from '@umbraco-ui/uui-avatar-group';
 ```
 
 ### CDN

@@ -9,13 +9,13 @@ npm i @umbraco-ui/uui-symbol-file
 Import the registration of `<uui-symbol-file>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-file/lib';
+import '@umbraco-ui/uui-symbol-file';
 ```
 
 When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputElement } from '@umbraco-ui/uui-symbol-file/lib';
+import { UUIInputElement } from '@umbraco-ui/uui-symbol-file';
 ```
 
 ## Example

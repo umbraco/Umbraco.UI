@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-scroll-container
 Import the registration of `<uui-scroll-container>` via:
 
 ```javascript
-import '@umbraco-ui/uui-scroll-container/lib';
+import '@umbraco-ui/uui-scroll-container';
 ```
 
 When looking to leverage the `UUIScrollContainerElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIScrollContainerElement } from '@umbraco-ui/uui-scroll-container/lib';
+import { UUIScrollContainerElement } from '@umbraco-ui/uui-scroll-container';
 ```
 
 ### CDN

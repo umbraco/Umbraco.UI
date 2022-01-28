@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-caret
 Import the registration of `<uui-caret>` via:
 
 ```javascript
-import '@umbraco-ui/uui-caret/lib';
+import '@umbraco-ui/uui-caret';
 ```
 
 When looking to leverage the `UUICaretElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICaretElement } from '@umbraco-ui/uui-caret/lib';
+import { UUICaretElement } from '@umbraco-ui/uui-caret';
 ```
 
 ### CDN

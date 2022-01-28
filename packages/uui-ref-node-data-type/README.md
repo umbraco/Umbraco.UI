@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-ref-node-data-type
 Import the registration of `<uui-ref-node-data-type>` via:
 
 ```javascript
-import '@umbraco-ui/uui-ref-node-data-type/lib';
+import '@umbraco-ui/uui-ref-node-data-type';
 ```
 
 When looking to leverage the `UUIRefNodeDataTypeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRefNodeDataTypeElement } from '@umbraco-ui/uui-ref-node-data-type/lib';
+import { UUIRefNodeDataTypeElement } from '@umbraco-ui/uui-ref-node-data-type';
 ```
 
 ### CDN

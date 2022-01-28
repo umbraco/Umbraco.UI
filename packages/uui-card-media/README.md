@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-card-media
 Import the registration of `<uui-card-media>` via:
 
 ```javascript
-import '@umbraco-ui/uui-card-media/lib';
+import '@umbraco-ui/uui-card-media';
 ```
 
 When looking to leverage the `UUICardMediaElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardMediaElement } from '@umbraco-ui/uui-card-media/lib';
+import { UUICardMediaElement } from '@umbraco-ui/uui-card-media';
 ```
 
 ### CDN

@@ -13,14 +13,13 @@ npm i @umbraco-ui/uui-tabs
 Import the registration of `<uui-tab-group>`, `<uui-tab>` via:
 
 ```javascript
-import '@umbraco-ui/uui-tabs/lib';
+import '@umbraco-ui/uui-tabs';
 ```
 
 When looking to leverage the `UUITabGroupElement`, `UUITabElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITabGroupElement } from '@umbraco-ui/uui-tabs/lib';
-import { UUITabElement } from '@umbraco-ui/uui-tabs/lib';
+import { UUITabGroupElement, UUITabElement } from '@umbraco-ui/uui-tabs';
 ```
 
 ### CDN

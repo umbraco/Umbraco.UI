@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-select
 Import the registration of `<uui-select>` via:
 
 ```javascript
-import '@umbraco-ui/uui-select/lib';
+import '@umbraco-ui/uui-select';
 ```
 
 When looking to leverage the `UUISelectElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISelectElement } from '@umbraco-ui/uui-select/lib';
+import { UUISelectElement } from '@umbraco-ui/uui-select';
 ```
 
 ### CDN

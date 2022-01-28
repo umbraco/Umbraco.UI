@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-toggle
 Import the registration of `<uui-toggle>` via:
 
 ```javascript
-import '@umbraco-ui/uui-toggle/lib';
+import '@umbraco-ui/uui-toggle';
 ```
 
 When looking to leverage the `UUIToggleElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIToggleElement } from '@umbraco-ui/uui-toggle/lib';
+import { UUIToggleElement } from '@umbraco-ui/uui-toggle';
 ```
 
 ### CDN

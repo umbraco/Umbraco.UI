@@ -13,14 +13,16 @@ npm i @umbraco-ui/uui-breadcrumbs
 Import the registration of `<uui-breadcrumbs>`, `<uui-breadcrumb-item>` via:
 
 ```javascript
-import '@umbraco-ui/uui-breadcrumbs/lib';
+import '@umbraco-ui/uui-breadcrumbs';
 ```
 
 When looking to leverage the `UUIBreadcrumbsElement` or `UUIBreadcrumbItemElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBreadcrumbsElement } from '@umbraco-ui/uui-breadcrumbs/lib';
-import { UUIBreadcrumbItemElement } from '@umbraco-ui/uui-breadcrumbs/lib';
+import {
+  UUIBreadcrumbsElement,
+  UUIBreadcrumbItemElement,
+} from '@umbraco-ui/uui-breadcrumbs';
 ```
 
 ### CDN
