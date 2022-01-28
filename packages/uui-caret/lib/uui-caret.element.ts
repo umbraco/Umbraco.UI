@@ -34,6 +34,13 @@ export class UUICaretElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   public open = false;
 
+  constructor() {
+    super();
+    console.error(
+      '´uui-caret´ is deprecated, please use ´uui-symbol-expand´ or ´uui-symbol-sort´'
+    );
+  }
+
   render() {
     return html`<svg viewBox="0 0 512 512">
       <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
