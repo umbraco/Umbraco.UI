@@ -24,6 +24,7 @@
   },
   "main": "./dist/uui-radio.min.js",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "customElements": "custom-elements.json",
   "files": [
     "dist",
