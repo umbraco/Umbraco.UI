@@ -2,5 +2,5 @@ import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
   entryPoints: ['index'],
-  bundles: ['index'],
+  bundle: 'define',
 });

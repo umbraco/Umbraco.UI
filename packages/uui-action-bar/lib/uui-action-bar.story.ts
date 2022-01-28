@@ -1,9 +1,7 @@
 import '@umbraco-ui/uui-action-bar/lib';
-import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib/define';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
-
-import { html } from 'lit-html';
+import '@umbraco-ui/uui-icon/lib';
 
 import {
   InterfaceLookNames,
@@ -27,16 +25,11 @@ export default {
 const buttons = ['copy', 'remove', 'delete'];
 
 export const Basic = () =>
-  html`
-    <uui-icon-registry-essential>
-      <uui-action-bar
-        >${buttons.map(
-          el =>
-            html`<uui-button><uui-icon name="${el}"></uui-icon></uui-button>`
-        )}
-      </uui-action-bar>
-    </uui-icon-registry-essential>
-  `;
+  html`<uui-action-bar
+    >${buttons.map(
+      el => html`<uui-button><uui-icon name="${el}"></uui-icon></uui-button>`
+    )}</uui-action-bar
+  >`;
 
 export const Single = () =>
   html`
@@ -50,16 +43,14 @@ export const Single = () =>
   `;
 
 export const AllStyles = () => html`
-  <uui-icon-registry-essential>
-    ${InterfaceLookNames.map(
-      (lookName: InterfaceLookType) =>
-        html` <uui-action-bar>
-            ${buttons.map(
-              button => html`<uui-button .look=${lookName}>
-                <uui-icon name="${button}"></uui-icon>
-              </uui-button>`
-            )} </uui-action-bar
-          ><br /><br /><br />`
-    )}
-  </uui-icon-registry-essential>
+  ${InterfaceLookNames.map(
+    (lookName: InterfaceLookType) =>
+      html` <uui-action-bar>
+          ${buttons.map(
+            button => html`<uui-button .look=${lookName}>
+              <uui-icon name="${button}"></uui-icon>
+            </uui-button>`
+          )} </uui-action-bar
+        ><br /><br /><br />`
+  )}
 `;

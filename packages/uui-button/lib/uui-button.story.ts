@@ -1,4 +1,4 @@
-import '.';
+import './define';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 

@@ -1,7 +1,7 @@
 import '.';
 import '@umbraco-ui/uui-avatar/lib';
 import '@umbraco-ui/uui-box/lib';
-import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-button/lib/define';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-progress-bar/lib';
 import '@umbraco-ui/uui-tag/lib';

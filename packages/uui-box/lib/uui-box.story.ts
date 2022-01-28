@@ -1,5 +1,5 @@
 import '.';
-import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-button/lib/define';
 import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
