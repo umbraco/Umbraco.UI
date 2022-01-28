@@ -18,6 +18,7 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
         width: 0.8em;
         height: 1em;
         vertical-align: middle;
+        pointer-events: none;
       }
 
       svg {
