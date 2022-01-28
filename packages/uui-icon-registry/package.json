@@ -29,10 +29,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.14"
-  },
-  "peerDependencies": {
-    "@umbraco-ui/uui-icon": "0.0.2"
+    "@umbraco-ui/uui-base": "^0.0.14",
+    "@umbraco-ui/uui-icon": "^0.0.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

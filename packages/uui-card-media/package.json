@@ -29,12 +29,10 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.14"
-  },
-  "peerDependencies": {
-    "@umbraco-ui/uui-card": "~0.0.0",
-    "@umbraco-ui/uui-symbol-file": "~0.0.1",
-    "@umbraco-ui/uui-symbol-folder": "~0.0.1"
+    "@umbraco-ui/uui-base": "^0.0.14",
+    "@umbraco-ui/uui-card": "^0.0.1",
+    "@umbraco-ui/uui-symbol-file": "^0.0.2",
+    "@umbraco-ui/uui-symbol-folder": "^0.0.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
