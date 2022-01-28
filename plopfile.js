@@ -48,13 +48,13 @@ module.exports = function (/** @type {import('plop').NodePlopAPI} */ plop) {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/lib/index.ts',
         templateFile: './templates/plop-templates/index.ts.hbs',
-        force: true,
+        skipIfExists: true,
       },
       {
         type: 'add',
-        path: './packages/{{> tagnamePartial }}/lib/define.ts',
-        templateFile: './templates/plop-templates/define.ts.hbs',
-        force: true,
+        path: './packages/{{> tagnamePartial }}/define/index.js',
+        templateFile: './templates/plop-templates/define.js.hbs',
+        skipIfExists: true,
       },
       {
         type: 'add',
@@ -84,7 +84,7 @@ module.exports = function (/** @type {import('plop').NodePlopAPI} */ plop) {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/rollup.config.js',
         templateFile: './templates/plop-templates/rollup.config.hbs',
-        force: true,
+        skipIfExists: true,
       },
       {
         type: 'add',
