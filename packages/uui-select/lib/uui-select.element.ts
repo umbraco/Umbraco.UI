@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { UUISelectEvent } from './UUISelectEvent';
+
+// TODO: Dont set a global interface, we should expose a 'local' interface.
 declare global {
   interface Option {
     name: string;
@@ -12,11 +14,13 @@ declare global {
 }
 
 /**
- * Custom element wrapping the native select element. It for it to print options you need to pass an array of options to it. This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
+ * Custom element wrapping the native select element. Pass an array of options to it.
+ * This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-select
  * @fires change - when the user changes value
  */
 // TODO: Implement FormControlMixin
+// TODO: Consider if this should use child items instead of an array.
 export class UUISelectElement extends LitElement {
   static styles = [
     css`
