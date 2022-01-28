@@ -1,5 +1,5 @@
-import './define';
-import '@umbraco-ui/uui-icon/lib/define';
+import '../define';
+import '@umbraco-ui/uui-icon/define';
 
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { UUIIconElement } from '@umbraco-ui/uui-icon/lib/uui-icon.element';

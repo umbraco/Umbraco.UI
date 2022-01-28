@@ -1,5 +1,5 @@
-import './define';
-import '@umbraco-ui/uui-icon-registry/lib/define';
+import '../define';
+import '@umbraco-ui/uui-icon-registry/define';
 
 import {
   elementUpdated,

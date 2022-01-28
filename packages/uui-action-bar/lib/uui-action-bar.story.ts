@@ -1,7 +1,7 @@
-import '@umbraco-ui/uui-action-bar/lib/define';
-import '@umbraco-ui/uui-button/lib/define';
-import '@umbraco-ui/uui-icon-registry-essential/lib/define';
-import '@umbraco-ui/uui-icon/lib/define';
+import '@umbraco-ui/uui-action-bar/define';
+import '@umbraco-ui/uui-button/define';
+import '@umbraco-ui/uui-icon-registry-essential/define';
+import '@umbraco-ui/uui-icon/define';
 
 import {
   InterfaceLookNames,

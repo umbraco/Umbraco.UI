@@ -1,4 +1,4 @@
-import './define';
+import '../define';
 
 import { html } from 'lit-html';
 

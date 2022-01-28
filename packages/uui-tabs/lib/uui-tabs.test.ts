@@ -1,4 +1,4 @@
-import './define';
+import '../define';
 
 import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 

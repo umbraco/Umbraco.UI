@@ -1,4 +1,4 @@
-import './define';
+import '../define';
 
 import {
   defineCE,

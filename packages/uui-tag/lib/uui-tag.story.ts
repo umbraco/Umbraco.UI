@@ -1,4 +1,4 @@
-import './define';
+import '../define';
 
 import { Story } from '@storybook/web-components';
 import { InterfaceLookNames } from '@umbraco-ui/uui-base/lib/types';

@@ -1,7 +1,7 @@
-import './define';
-import '@umbraco-ui/uui-button/lib/define';
-import '@umbraco-ui/uui-icon/lib/define';
-import '@umbraco-ui/uui-toast-notification/lib/define';
+import '../define';
+import '@umbraco-ui/uui-button/define';
+import '@umbraco-ui/uui-icon/define';
+import '@umbraco-ui/uui-toast-notification/define';
 
 import {
   elementUpdated,

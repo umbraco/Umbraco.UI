@@ -1,4 +1,4 @@
-import './define';
+import '../define';
 
 import { assert, expect } from '@open-wc/testing';
 

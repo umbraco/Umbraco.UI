@@ -1,4 +1,4 @@
-import './define';
+import '../define';
 
 import { Story } from '@storybook/web-components';
 import { UUIToastNotificationLayoutElement } from '@umbraco-ui/uui-toast-notification-layout/lib';
