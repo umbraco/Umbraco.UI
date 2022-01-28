@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-textarea",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.15"
+    "@umbraco-ui/uui-base": "0.0.14"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

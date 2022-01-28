@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-card-media",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.15"
+    "@umbraco-ui/uui-base": "0.0.14"
   },
   "peerDependencies": {
     "@umbraco-ui/uui-card": "~0.0.0",
