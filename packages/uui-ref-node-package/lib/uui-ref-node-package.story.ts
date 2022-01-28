@@ -15,6 +15,7 @@ const Template: Story = props => html`
       name="${props.name}"
       version="${props.version}"
       author="${props.author}"
+      detail="${props.detail}"
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>

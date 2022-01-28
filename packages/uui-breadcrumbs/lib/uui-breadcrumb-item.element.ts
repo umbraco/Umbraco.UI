@@ -19,6 +19,12 @@ export class UUIBreadcrumbItemElement extends LitElement {
       a:visited {
         color: currentColor;
       }
+      a:hover {
+        color: var(--uui-interface-contrast-hover);
+      }
+      a:focus {
+        color: var(--uui-interface-contrast-focus);
+      }
 
       [part='separator']::after {
         content: '/';
@@ -48,6 +54,8 @@ export class UUIBreadcrumbItemElement extends LitElement {
     super.connectedCallback();
     this.setAttribute('role', 'listitem');
   }
+
+  // TODO: ability for adding aria-label?
 
   /**
    * Specifies the link href.

@@ -1,7 +1,5 @@
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUISelectEvent } from './UUISelectEvent';
 declare global {
   interface Option {
@@ -16,11 +14,9 @@ declare global {
 /**
  * Custom element wrapping the native select element. It for it to print options you need to pass an array of options to it. This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-select
- * @mixes LabelMixin
- * @slot label - for the label
  * @fires change - when the user changes value
  */
-export class UUISelectElement extends LabelMixin('label', LitElement) {
+export class UUISelectElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -40,10 +36,14 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
         border-radius: 0;
         box-sizing: border-box;
         background-color: transparent;
-        outline-color: var(--uui-select-outline-color, var(--uui-color-malibu));
         border: 1px solid
           var(--uui-select-border-color, var(--uui-interface-border));
         transition: all 150ms ease;
+      }
+
+      #native:focus {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
       }
 
       #native[disabled] {
@@ -81,14 +81,6 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
         transform: translateY(-50%);
       }
 
-      .label {
-        margin-bottom: var(--uui-size-1);
-        font-weight: bold;
-      }
-      span.label {
-        display: inline-block;
-      }
-
       :host([error]) #native {
         border: 1px solid var(--uui-look-danger-border);
       }
@@ -100,16 +92,12 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   ];
 
   /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
+   * Text with which component should be labeled
+   * @type {string}
+   * @attr
    */
-  static readonly formAssociated = true;
-  readonly _internals;
-
-  constructor() {
-    super();
-    this._internals = (this as any).attachInternals();
-  }
+  @property({ type: String })
+  public label!: string;
 
   /**
    * Defines the select's placeholder.
@@ -165,7 +153,7 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   }
 
   /**
-   * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties: 
+   * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties:
    * `interface Option {
     name: string;
     value: string;
@@ -188,6 +176,45 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
 
   @state()
   private _disabledGroups: string[] = [];
+
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+  readonly _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
+
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '');
+    });
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the select
+   */
+  focus() {
+    (this.shadowRoot?.querySelector('#native') as any).focus();
+  }
+  /**
+   * This method enables <label for="..."> to open the select
+   */
+  click() {
+    (this.shadowRoot?.querySelector('#native') as any).click();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.label) {
+      console.warn(this.tagName + ' needs a `label`', this);
+    }
+  }
 
   private _createDisabledGroups() {
     if (this.disabledGroups.length === 0) return;
@@ -231,8 +258,8 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   ) {
     return html`<option
       value="${value}"
-      selected=${ifDefined(selected)}
-      disabled=${ifDefined(disabled)}>
+      ?selected=${selected}
+      ?disabled=${disabled}>
       ${name}
     </option>`;
   }
@@ -263,25 +290,24 @@ export class UUISelectElement extends LabelMixin('label', LitElement) {
   }
 
   render() {
-    return html` ${this.renderLabel()}
-      <select
-        id="native"
-        aria-label=${this.label}
-        @change=${this.setValue}
-        ?disabled=${this.disabled}
-        .name=${this.name}>
-        <option disabled selected value="" hidden>${this.placeholder}</option>
-        ${this._renderGrouped()}
-        ${this.options
-          .filter(option => !option.group)
-          .map(option =>
-            this._renderOption(
-              option.name,
-              option.value,
-              option.selected,
-              option.disabled
-            )
-          )}
-      </select>`;
+    return html` <select
+      id="native"
+      aria-label=${this.label}
+      @change=${this.setValue}
+      ?disabled=${this.disabled}
+      .name=${this.name}>
+      <option disabled selected value="" hidden>${this.placeholder}</option>
+      ${this._renderGrouped()}
+      ${this.options
+        .filter(option => !option.group)
+        .map(option =>
+          this._renderOption(
+            option.name,
+            option.value,
+            option.selected,
+            option.disabled
+          )
+        )}
+    </select>`;
   }
 }

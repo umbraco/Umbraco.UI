@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-card-content-node/lib/index';
+import '@umbraco-ui/uui-icon-registry-essential/lib/index';
 import { Story } from '@storybook/web-components';
 
 export default {
@@ -54,28 +55,33 @@ AAAOverview.parameters = {
 };
 
 export const CustomIcon: Story = props => html`
-  <div style="width: 300px">
-    <uui-card-content-node
-      name=${props.name}
-      ?selectable=${props.selectable}
-      ?selected=${props.selected}
-      ?error=${props.error}
-      ?disabled=${props.disabled}>
-      <uui-icon slot="icon" name="bug"></uui-icon>
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <!-- TODO: we should make some kind of component for this data layout: -->
-      <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
-        <li><span style="font-weight: 700">Created:</span> Yesterday</li>
-        <li>
-          <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
-        </li>
-        <li><span style="font-weight: 700">Some property:</span> Some value</li>
-        <li>
-          <span style="font-weight: 700">Another property:</span> Another value
-        </li>
-      </ul>
-    </uui-card-content-node>
-  </div>
+  <uui-icon-registry-essential>
+    <div style="width: 300px">
+      <uui-card-content-node
+        name=${props.name}
+        ?selectable=${props.selectable}
+        ?selected=${props.selected}
+        ?error=${props.error}
+        ?disabled=${props.disabled}>
+        <uui-icon slot="icon" name="picture"></uui-icon>
+        <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+        <!-- TODO: we should make some kind of component for this data layout: -->
+        <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
+          <li><span style="font-weight: 700">Created:</span> Yesterday</li>
+          <li>
+            <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
+          </li>
+          <li>
+            <span style="font-weight: 700">Some property:</span> Some value
+          </li>
+          <li>
+            <span style="font-weight: 700">Another property:</span> Another
+            value
+          </li>
+        </ul>
+      </uui-card-content-node>
+    </div>
+  </uui-icon-registry-essential>
 `;
 
 CustomIcon.parameters = {

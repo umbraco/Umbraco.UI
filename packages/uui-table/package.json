@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-table",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.14"
+    "@umbraco-ui/uui-base": "0.0.15"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

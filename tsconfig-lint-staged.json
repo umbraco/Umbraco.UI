@@ -3,5 +3,6 @@
   "compilerOptions": {
     "emitDeclarationOnly": false,
     "noEmit": true
-  }
+  },
+  "exclude": ["src/**/*"]
 }

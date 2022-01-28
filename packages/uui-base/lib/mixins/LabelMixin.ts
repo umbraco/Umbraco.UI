@@ -21,7 +21,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
 ) => {
   class LabelMixinClass extends superClass {
     /**
-     * Text with which component should be labeled
+     * Label to be used for aria-label and eventually as visual label
      * @type {string}
      * @attr
      */

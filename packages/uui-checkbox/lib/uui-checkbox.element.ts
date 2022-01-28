@@ -3,19 +3,20 @@ import {
   UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
 } from '@umbraco-ui/uui-base/lib/animations';
-import { iconCheck } from './checkbox-icons';
-import { UUIBooleanInputBaseElement } from '@umbraco-ui/uui-base/lib/uui-boolean-input';
+import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck
  *  @element uui-checkbox
- *  @fires UUIBooleanInputBaseEvent#change - fires when the element is begin checked by a user action
+ *  @fires UUIBooleanInputEvent#change - fires when the element is begin checked by a user action
  *  @slot to overwrite displayed label content
  *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
+ *  @extends UUIBooleanInputElement
  */
-export class UUICheckboxElement extends UUIBooleanInputBaseElement {
+export class UUICheckboxElement extends UUIBooleanInputElement {
   static styles = [
-    ...UUIBooleanInputBaseElement.styles,
+    ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
     css`
       :host {
@@ -115,6 +116,11 @@ export class UUICheckboxElement extends UUIBooleanInputBaseElement {
       }
       label:focus input:checked + #ticker {
         background-color: var(--uui-interface-chosen-focus);
+      }
+
+      input:focus + #ticker {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
       }
 
       :host(:not([disabled])) label:active input:checked + #ticker::before {

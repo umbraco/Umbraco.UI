@@ -4,6 +4,7 @@ import { Story } from '@storybook/web-components';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import './index';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 export default {
   title: 'Buttons/Menu Item',
@@ -264,20 +265,22 @@ Selectable.parameters = {
 
 export const WithIcon = () =>
   html`
-    <div style="max-width: 500px;">
-      <uui-menu-item label="Menu Item 1">
-        <uui-icon slot="icon" name="info"></uui-icon>
-      </uui-menu-item>
-      <uui-menu-item label="Menu Item 2">
-        <uui-icon slot="icon" name="bug"></uui-icon>
-      </uui-menu-item>
-      <uui-menu-item label="Menu Item 3">
-        <uui-icon slot="icon" name="info"></uui-icon>
-      </uui-menu-item>
-      <uui-menu-item label="Menu Item 4">
-        <uui-icon slot="icon" name="bug"></uui-icon>
-      </uui-menu-item>
-    </div>
+    <uui-icon-registry-essential>
+      <div style="max-width: 500px;">
+        <uui-menu-item label="Menu Item 1">
+          <uui-icon slot="icon" name="document"></uui-icon>
+        </uui-menu-item>
+        <uui-menu-item label="Menu Item 2">
+          <uui-icon slot="icon" name="picture"></uui-icon>
+        </uui-menu-item>
+        <uui-menu-item label="Menu Item 3">
+          <uui-icon slot="icon" name="info"></uui-icon>
+        </uui-menu-item>
+        <uui-menu-item label="Menu Item 4">
+          <uui-icon slot="icon" name="document"></uui-icon>
+        </uui-menu-item>
+      </div>
+    </uui-icon-registry-essential>
   `;
 WithIcon.parameters = {
   docs: {

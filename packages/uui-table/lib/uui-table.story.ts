@@ -3,6 +3,7 @@ import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator'
 import { Story } from '@storybook/web-components';
 import '@umbraco-ui/uui-table/lib/index';
 import '@umbraco-ui/uui-box/lib/index';
+import './uui-table-advanced-example';
 
 export default {
   title: 'Layout/Table',
@@ -186,17 +187,45 @@ export const OverflowDetection: Story = () =>
         </uui-table-head>
         <uui-table-row>
           ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
+            el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
           )}
         </uui-table-row>
         <uui-table-row>
           ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
+            el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
           )}
         </uui-table-row>
       </uui-table>
     </div>
   `;
+
+OverflowDetection.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-box>
+  <uui-table aria-label="Example table" aria-describedby="#some-element-id">
+
+    <uui-table-head>
+      <uui-table-head-cell>Title 1</uui-table-head-cell>
+      <uui-table-head-cell>Title 2</uui-table-head-cell>
+    </uui-table-head>
+
+    <uui-table-row>
+      <uui-table-cell clip-text>Cell 1</uui-table-cell>
+      <uui-table-cell clip-text>Cell 2</uui-table-cell>
+    </uui-table-row>
+
+    <uui-table-row>
+      <uui-table-cell clip-text>Cell 3</uui-table-cell>
+      <uui-table-cell clip-text>Cell 4</uui-table-cell>
+    </uui-table-row>
+
+  </uui-table>
+</uui-box>`,
+    },
+  },
+};
 
 export const InABox: Story = () =>
   html`
@@ -220,6 +249,19 @@ export const InABox: Story = () =>
       </uui-table>
     </uui-box>
   `;
+
+InABox.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-box>
+  <uui-table>
+    ...
+  </uui-table>
+</uui-box>`,
+    },
+  },
+};
 
 SelectableRows.parameters = {
   docs: {
@@ -245,6 +287,19 @@ SelectableRows.parameters = {
 
   </uui-table>
 </uui-box>`,
+    },
+  },
+};
+
+export const Advanced: Story = () =>
+  html`<uui-table-with-selection-example></uui-table-with-selection-example>`;
+
+Advanced.parameters = {
+  docs: {
+    source: {
+      code: `
+        <!-- Example in progress -->
+      `,
     },
   },
 };

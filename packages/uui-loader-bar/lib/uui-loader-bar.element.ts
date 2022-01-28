@@ -1,6 +1,5 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 const clamp = (num: number, min: number, max: number) =>
   Math.min(Math.max(num, min), max);
@@ -12,43 +11,12 @@ const clamp = (num: number, min: number, max: number) =>
 export class UUILoaderBarElement extends LitElement {
   static styles = [
     css`
-      #bar-anim {
-        animation: bar-loading 1s infinite linear;
-        background: linear-gradient(
-          -90deg,
-          #ffffff45 0%,
-          white 25%,
-          transparent 100%
-        );
-      }
-
-      .animate #bar-anim {
-        background: linear-gradient(
-          -90deg,
-          currentColor 0%,
-          currentColor 25%,
-          transparent 100%
-        );
-      }
-
-      .animate #bar {
-        display: none;
-      }
-
-      #bar-container {
+      :host {
+        position: relative;
+        display: block;
         width: 100%;
         height: 4px;
-        position: relative;
         overflow: hidden;
-      }
-
-      #bar {
-        transition: max-width 250ms ease;
-      }
-
-      #bar-background,
-      #bar {
-        background: currentColor;
       }
 
       #bar,
@@ -59,19 +27,45 @@ export class UUILoaderBarElement extends LitElement {
         height: 100%;
       }
 
+      #bar-background,
+      #bar {
+        background: currentColor;
+      }
+
+      #bar {
+        transition: max-width 120ms ease;
+      }
+
       #bar-background {
         opacity: 0.3;
       }
 
+      #bar-anim {
+        transform: scaleX(0.4);
+        animation: bar-loading 1s infinite linear;
+        background: linear-gradient(
+          -90deg,
+          white 0%,
+          white 25%,
+          transparent 100%
+        );
+      }
+
+      #bar-anim.animate {
+        background: linear-gradient(
+          -90deg,
+          currentColor 0%,
+          currentColor 25%,
+          transparent 100%
+        );
+      }
+
       @keyframes bar-loading {
         0% {
-          transform: scaleX(0.4);
           transform-origin: -175% 0%;
         }
-
         100% {
           transform-origin: 175% 0%;
-          transform: scaleX(0.4);
         }
       }
     `,
@@ -113,21 +107,18 @@ export class UUILoaderBarElement extends LitElement {
     this.requestUpdate('animationDuration', oldVal);
   }
 
-  private getProgressStyle() {
-    return { maxWidth: `${this.progress}%` };
-  }
-
   render() {
     return html`
-      <div id="bar-container" class=${this.progress ? '' : 'animate'}>
-        <div
-          id="bar"
-          style=${this.progress ? styleMap(this.getProgressStyle()) : ''}></div>
-        <div
-          id="bar-anim"
-          style="animation-duration: ${this.animationDuration}s"></div>
-        <div id="bar-background"></div>
-      </div>
+      ${this.progress
+        ? html`<div
+            id="bar"
+            style="max-width: ${this.progress.toString()}%;"></div>`
+        : ''}
+      <div
+        id="bar-anim"
+        class=${this.progress ? '' : 'animate'}
+        style="animation-duration: ${this.animationDuration}s"></div>
+      <div id="bar-background"></div>
     `;
   }
 }

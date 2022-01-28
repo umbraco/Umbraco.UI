@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =
@@ -20,68 +19,56 @@ export type InputType =
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
- * @extends LabelMixin(LitElement)
  * @slot input label - for the input label text.
+ * @slot prepend - for components to render to the left of the input.
+ * @slot append - for components to render to the right of the input.
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
-export class UUIInputElement extends LabelMixin('input label', LitElement) {
+export class UUIInputElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-block;
-      }
-      input {
-        display: inline-block;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
         height: var(--uui-size-11);
-        padding: var(--uui-size-1) var(--uui-size-2);
-        font-family: inherit;
         font-size: 15px;
-        color: inherit;
-        border-radius: 0;
+        text-align: left;
         box-sizing: border-box;
         background-color: var(
           --uui-input-background-color,
           var(--uui-interface-surface)
         );
-        border: 1px solid
+        border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-interface-border));
-        width: 100%;
-        outline: none;
       }
-      input:hover {
+      :host(:hover) {
         border-color: var(
           --uui-input-border-color-hover,
           var(--uui-interface-border-hover)
         );
       }
-      input:focus {
+      /* TODO: Fix so we dont get double outline when there is focus on things in the slot. */
+      :host(:focus-within) {
+        border-color: var(
+          --uui-input-border-color-focus,
+          var(--uui-interface-border-focus)
+        );
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-interface-outline);
+      }
+      :host(:focus) {
         border-color: var(
           --uui-input-border-color-focus,
           var(--uui-interface-border-focus)
         );
       }
-      :host([invalid]) {
-        border-color: var(--uui-color-danger-background);
+      :host([error]) {
+        border-color: var(--uui-look-danger-border);
       }
-
-      :host([type='color']) {
-        display: inline-flex;
-        align-items: center;
-      }
-
-      :host([type='color']) .label {
-        margin-left: var(--uui-size-2);
-      }
-
-      input[type='color'] {
-        width: 30px;
-        padding: 0;
-        border: none;
-      }
-
-      input[disabled] {
+      :host([disabled]) {
         background-color: var(
           --uui-input-background-color-disabled,
           var(--uui-interface-surface-disabled)
@@ -95,38 +82,48 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         color: var(--uui-interface-contrast-disabled);
       }
 
-      :host([disabled]) .label {
-        color: var(--uui-interface-contrast-disabled);
+      input {
+        font-family: inherit;
+        padding: var(--uui-size-1) var(--uui-size-space-3);
+        font-size: 15px;
+        color: inherit;
+        border-radius: 0;
+        box-sizing: border-box;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: inherit;
+        outline: none;
       }
 
-      .label {
-        display: inline-block;
-        margin-bottom: var(--uui-size-1);
-        font-weight: bold;
+      input::placeholder {
+        transition: opacity 120ms;
+      }
+      input:focus::placeholder {
+        opacity: 0;
       }
 
-      :host([error]) input {
-        border: 1px solid var(--uui-look-danger-border);
+      /* TODO: make sure color looks good, or remove it as an option as we want to provide color-picker component */
+      input[type='color'] {
+        width: 30px;
+        padding: 0;
+        border: none;
       }
 
-      :host([error]) input[disabled] {
-        border: 1px solid var(--uui-look-danger-border);
+      ::slotted(uui-input) {
+        height: 100%;
+        --uui-input-border-width: 0;
       }
     `,
   ];
 
   /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
+   * Label for input element.
+   * @type {string}
+   * @attr
    */
-  static readonly formAssociated = true;
-
-  private _internals;
-
-  constructor() {
-    super();
-    this._internals = (this as any).attachInternals();
-  }
+  @property({ type: String })
+  public label!: string;
 
   /**
    * Defines the input placeholder.
@@ -145,15 +142,6 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
-
-  /**
-   * Set to true to hide the labeling provided by the component.
-   * @type {boolean}
-   * @attr hide-label
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-label', reflect: true })
-  hideLabel = false;
 
   @state()
   private _value = '';
@@ -189,7 +177,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
   name = '';
 
   /**
-   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
+   * Set to true if the component should have an error state.
    * @type {boolean}
    * @attr
    * @default false
@@ -204,22 +192,62 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
    * @default text
    */
   @property({ type: String })
-  type: InputType = 'text';
+  private _type: InputType = 'text';
+  public get type(): InputType {
+    return this._type;
+  }
+  public set type(value: InputType) {
+    this._type = value;
+  }
+
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
+  private _internals;
+
+  constructor() {
+    super();
+    this._internals = (this as any).attachInternals();
+
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+    });
+    this.addEventListener('blur', () => {
+      this.style.setProperty('--uui-show-focus-outline', '');
+    });
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  focus() {
+    (this.shadowRoot?.querySelector('#input') as any).focus();
+  }
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
   }
 
   private onChange() {
-    this.dispatchEvent(
-      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
-    );
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
+  }
+
+  protected renderPrepend() {
+    return html`<slot name="prepend"></slot>`;
+  }
+
+  protected renderAppend() {
+    return html`<slot name="append"></slot>`;
   }
 
   render() {
     return html`
-      ${this.hideLabel === false ? this.renderLabel() : ''}
+      ${this.renderPrepend()}
       <input
+        id="input"
         .type=${this.type}
         .value=${this.value}
         .name=${this.name}
@@ -228,6 +256,7 @@ export class UUIInputElement extends LabelMixin('input label', LitElement) {
         .disabled=${this.disabled}
         @input=${this.onInput}
         @change=${this.onChange} />
+      ${this.renderAppend()}
     `;
   }
 }

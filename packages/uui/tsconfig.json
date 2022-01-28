@@ -23,6 +23,9 @@
       "path": "../uui-badge"
     },
     {
+      "path": "../uui-boolean-input"
+    },
+    {
       "path": "../uui-box"
     },
     {
@@ -65,10 +68,22 @@
       "path": "../uui-icon"
     },
     {
+      "path": "../uui-icon-registry"
+    },
+    {
+      "path": "../uui-icon-registry-essential"
+    },
+    {
       "path": "../uui-input"
     },
     {
+      "path": "../uui-input-password"
+    },
+    {
       "path": "../uui-keyboard-shortcut"
+    },
+    {
+      "path": "../uui-label"
     },
     {
       "path": "../uui-loader"
@@ -153,6 +168,15 @@
     },
     {
       "path": "../uui-textarea"
+    },
+    {
+      "path": "../uui-toast-notification"
+    },
+    {
+      "path": "../uui-toast-notification-container"
+    },
+    {
+      "path": "../uui-toast-notification-layout"
     },
     {
       "path": "../uui-toggle"

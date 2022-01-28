@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -23,6 +23,7 @@
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
+    "assets",
     "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
