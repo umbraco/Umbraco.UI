@@ -35,7 +35,7 @@
     "build:prod": "npm run clean && npm run build && npm run test",
     "clean": "lerna run clean --parallel",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
-    "lerna:version": "lerna version --exact && rimraf package-lock.json && npm i",
+    "lerna:version": "lerna version --no-push --exact --no-git-tag-version && rimraf package-lock.json && npm i",
     "lerna:diff": "lerna diff",
     "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
