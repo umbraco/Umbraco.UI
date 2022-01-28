@@ -1,4 +1,5 @@
 import '.';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -265,20 +266,22 @@ Selectable.parameters = {
 
 export const WithIcon = () =>
   html`
-    <div style="max-width: 500px;">
-      <uui-menu-item label="Menu Item 1">
-        <uui-icon slot="icon" name="info"></uui-icon>
-      </uui-menu-item>
-      <uui-menu-item label="Menu Item 2">
-        <uui-icon slot="icon" name="bug"></uui-icon>
-      </uui-menu-item>
-      <uui-menu-item label="Menu Item 3">
-        <uui-icon slot="icon" name="info"></uui-icon>
-      </uui-menu-item>
-      <uui-menu-item label="Menu Item 4">
-        <uui-icon slot="icon" name="bug"></uui-icon>
-      </uui-menu-item>
-    </div>
+    <uui-icon-registry-essential>
+      <div style="max-width: 500px;">
+        <uui-menu-item label="Menu Item 1">
+          <uui-icon slot="icon" name="document"></uui-icon>
+        </uui-menu-item>
+        <uui-menu-item label="Menu Item 2">
+          <uui-icon slot="icon" name="picture"></uui-icon>
+        </uui-menu-item>
+        <uui-menu-item label="Menu Item 3">
+          <uui-icon slot="icon" name="info"></uui-icon>
+        </uui-menu-item>
+        <uui-menu-item label="Menu Item 4">
+          <uui-icon slot="icon" name="document"></uui-icon>
+        </uui-menu-item>
+      </div>
+    </uui-icon-registry-essential>
   `;
 WithIcon.parameters = {
   docs: {
