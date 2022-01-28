@@ -14,9 +14,10 @@
 
 ## How to clear tags
 
-If something goes wrong during the publish workflow, you might end up with tag numbers not corresponding to the current versions of the packages. Tags are stored both on remote and on local repository. Go to Github and remove all tags with higher versions then the last published version.
+If something goes wrong during the publish workflow, you might end up with tag numbers not corresponding to the current versions of the packages. Tags are stored both on remote and on local repository.
 
-Then delete all your local tags and replace them with the tags from the remote. To do that run the following inside your local repository.
+1. Go to Github and remove all tags with higher versions then the last published version.
+2. Then delete all your local tags and replace them with the tags from the remote. To do that run the following inside your local repository.
 
 OSX
 
