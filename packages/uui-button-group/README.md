@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-button-group
 Import the registration of `<uui-button-group>` via:
 
 ```javascript
-import '@umbraco-ui/uui-button-group';
+import '@umbraco-ui/uui-button-group/define';
 ```
 
 When looking to leverage the `UUIButtonGroupElement` base class as a type and/or for extension purposes, do so via:

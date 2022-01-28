@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-loader-circle
 Import the registration of `<uui-loader-circle>` via:
 
 ```javascript
-import '@umbraco-ui/uui-loader-circle';
+import '@umbraco-ui/uui-loader-circle/define';
 ```
 
 When looking to leverage the `UUILoaderCircleElement` base class as a type and/or for extension purposes, do so via:

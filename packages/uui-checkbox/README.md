@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-checkbox
 Import the registration of `<uui-checkbox>` via:
 
 ```javascript
-import '@umbraco-ui/uui-checkbox';
+import '@umbraco-ui/uui-checkbox/define';
 ```
 
 When looking to leverage the `UUICheckboxElement` base class as a type and/or for extension purposes, do so via:

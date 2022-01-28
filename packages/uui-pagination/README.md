@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-pagination
 Import the registration of `<uui-pagination>` via:
 
 ```javascript
-import '@umbraco-ui/uui-pagination';
+import '@umbraco-ui/uui-pagination/define';
 ```
 
 When looking to leverage the `UUIPaginationElement` base class as a type and/or for extension purposes, do so via:

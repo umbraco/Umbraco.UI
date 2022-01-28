@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-menu-item
 Import the registration of `<uui-menu-item>` via:
 
 ```javascript
-import '@umbraco-ui/uui-menu-item';
+import '@umbraco-ui/uui-menu-item/define';
 ```
 
 When looking to leverage the `UUIMenuItemElement` base class as a type and/or for extension purposes, do so via:

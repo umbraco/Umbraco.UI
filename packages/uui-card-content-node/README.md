@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-card-content-node
 Import the registration of `<uui-card-content-node>` via:
 
 ```javascript
-import '@umbraco-ui/uui-card-content-node';
+import '@umbraco-ui/uui-card-content-node/define';
 ```
 
 When looking to leverage the `UUICardContentNodeElement` base class as a type and/or for extension purposes, do so via:

@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-symbol-sort
 Import the registration of `<uui-symbol-sort>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-sort';
+import '@umbraco-ui/uui-symbol-sort/define';
 ```
 
 When looking to leverage the `UUISymbolSortElement` base class as a type and/or for extension purposes, do so via:

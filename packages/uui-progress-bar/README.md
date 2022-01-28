@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-progress-bar
 Import the registration of `<uui-progress-bar>` via:
 
 ```javascript
-import '@umbraco-ui/uui-progress-bar';
+import '@umbraco-ui/uui-progress-bar/define';
 ```
 
 When looking to leverage the `UUIProgressBarElement` base class as a type and/or for extension purposes, do so via:

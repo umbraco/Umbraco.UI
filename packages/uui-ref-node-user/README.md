@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-ref-node-user
 Import the registration of `<uui-ref-node-user>` via:
 
 ```javascript
-import '@umbraco-ui/uui-ref-node-user';
+import '@umbraco-ui/uui-ref-node-user/define';
 ```
 
 When looking to leverage the `UUIRefNodeUserElement` base class as a type and/or for extension purposes, do so via:

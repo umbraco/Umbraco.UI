@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-select
 Import the registration of `<uui-select>` via:
 
 ```javascript
-import '@umbraco-ui/uui-select';
+import '@umbraco-ui/uui-select/define';
 ```
 
 When looking to leverage the `UUISelectElement` base class as a type and/or for extension purposes, do so via:

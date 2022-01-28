@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-slider
 Import the registration of `<uui-slider>` via:
 
 ```javascript
-import '@umbraco-ui/uui-slider';
+import '@umbraco-ui/uui-slider/define';
 ```
 
 When looking to leverage the `UUISliderElement` base class as a type and/or for extension purposes, do so via:

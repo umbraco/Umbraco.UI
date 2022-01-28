@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-symbol-more
 Import the registration of `<uui-symbol-more>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-more';
+import '@umbraco-ui/uui-symbol-more/define';
 ```
 
 When looking to leverage the `UUISymbolMoreElement` base class as a type and/or for extension purposes, do so via:

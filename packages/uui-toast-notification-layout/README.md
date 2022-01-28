@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-toast-notification-layout
 Import the registration of `<uui-toast-notification-layout>` via:
 
 ```javascript
-import '@umbraco-ui/uui-toast-notification-layout';
+import '@umbraco-ui/uui-toast-notification-layout/define';
 ```
 
 When looking to leverage the `UUIToastNotificationLayoutElement` base class as a type and/or for extension purposes, do so via:

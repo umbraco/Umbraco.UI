@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-symbol-expand
 Import the registration of `<uui-symbol-expand>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-expand';
+import '@umbraco-ui/uui-symbol-expand/define';
 ```
 
 When looking to leverage the `UUISymbolExpandElement` base class as a type and/or for extension purposes, do so via:

@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-boolean-input
 Import the registration of `<uui-boolean-input>` via:
 
 ```javascript
-import '@umbraco-ui/uui-boolean-input';
+import '@umbraco-ui/uui-boolean-input/define';
 ```
 
 When looking to leverage the `UUIBooleanInputElement` base class as a type and/or for extension purposes, do so via:

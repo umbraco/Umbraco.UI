@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-keyboard-shortcut
 Import the registration of `<uui-keyboard-shortcut>` via:
 
 ```javascript
-import '@umbraco-ui/uui-keyboard-shortcut';
+import '@umbraco-ui/uui-keyboard-shortcut/define';
 ```
 
 When looking to leverage the `UUIKeyboardShortcutElement` base class as a type and/or for extension purposes, do so via:

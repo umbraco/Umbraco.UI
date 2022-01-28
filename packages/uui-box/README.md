@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-box
 Import the registration of `<uui-box>` via:
 
 ```javascript
-import '@umbraco-ui/uui-box';
+import '@umbraco-ui/uui-box/define';
 ```
 
 When looking to leverage the `UUIBoxElement` base class as a type and/or for extension purposes, do so via:

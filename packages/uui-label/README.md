@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-label
 Import the registration of `<uui-label>` via:
 
 ```javascript
-import '@umbraco-ui/uui-label';
+import '@umbraco-ui/uui-label/define';
 ```
 
 When looking to leverage the `UUILabelElement` base class as a type and/or for extension purposes, do so via:

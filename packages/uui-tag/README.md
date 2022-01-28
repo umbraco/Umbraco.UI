@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-tag
 Import the registration of `<uui-tag>` via:
 
 ```javascript
-import '@umbraco-ui/uui-tag';
+import '@umbraco-ui/uui-tag/define';
 ```
 
 When looking to leverage the `UUITagElement` base class as a type and/or for extension purposes, do so via:

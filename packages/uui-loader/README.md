@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-loader
 Import the registration of `<uui-loader>` via:
 
 ```javascript
-import '@umbraco-ui/uui-loader';
+import '@umbraco-ui/uui-loader/define';
 ```
 
 When looking to leverage the `UUILoaderElement` base class as a type and/or for extension purposes, do so via:

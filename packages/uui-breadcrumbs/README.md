@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-breadcrumbs
 Import the registration of `<uui-breadcrumbs>`, `<uui-breadcrumb-item>` via:
 
 ```javascript
-import '@umbraco-ui/uui-breadcrumbs';
+import '@umbraco-ui/uui-breadcrumbs/define';
 ```
 
 When looking to leverage the `UUIBreadcrumbsElement` or `UUIBreadcrumbItemElement` base class as a type and/or for extension purposes, do so via:

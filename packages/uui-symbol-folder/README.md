@@ -9,7 +9,7 @@ npm i @umbraco-ui/symbol-folder
 Import the registration of `<symbol-folder>` via:
 
 ```javascript
-import '@umbraco-ui/symbol-folder';
+import '@umbraco-ui/symbol-folder/define';
 ```
 
 When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:

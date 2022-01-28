@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-icon-registry
 Import the registration of `<uui-icon-registry>` via:
 
 ```javascript
-import '@umbraco-ui/uui-icon-registry';
+import '@umbraco-ui/uui-icon-registry/define';
 ```
 
 When looking to leverage the `UUIIconRegistryElement` base class as a type and/or for extension purposes, do so via:

@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-ref-node-document-type
 Import the registration of `<uui-ref-node-document-type>` via:
 
 ```javascript
-import '@umbraco-ui/uui-ref-node-document-type';
+import '@umbraco-ui/uui-ref-node-document-type/define';
 ```
 
 When looking to leverage the `UUIRefNodeDocumentTypeElement` base class as a type and/or for extension purposes, do so via:

@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-radio
 Import the registration of `<uui-radio-group>` and `<uui-radio>` via:
 
 ```javascript
-import '@umbraco-ui/uui-radio';
+import '@umbraco-ui/uui-radio/define';
 ```
 
 When looking to leverage the `UUIRadioGroupElement` or `UUIRadioElement` base class as a type and/or for extension purposes, do so via:

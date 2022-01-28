@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-textarea
 Import the registration of `<uui-textarea>` via:
 
 ```javascript
-import '@umbraco-ui/uui-textarea';
+import '@umbraco-ui/uui-textarea/define';
 ```
 
 When looking to leverage the `UUITextareaElement` base class as a type and/or for extension purposes, do so via:

@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui-ref-list
 Import the registration of `<uui-ref-list>` via:
 
 ```javascript
-import '@umbraco-ui/uui-ref-list';
+import '@umbraco-ui/uui-ref-list/define';
 ```
 
 When looking to leverage the `UUIRefListElement` base class as a type and/or for extension purposes, do so via:

@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-avatar
 Import the registration of `<uui-avatar>` via:
 
 ```javascript
-import '@umbraco-ui/uui-avatar';
+import '@umbraco-ui/uui-avatar/define';
 ```
 
 When looking to leverage the `UUIAvatarElement` base class as a type and/or for extension purposes, do so via:
