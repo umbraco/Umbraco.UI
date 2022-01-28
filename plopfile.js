@@ -1,6 +1,6 @@
 const { kebabCase } = require('lodash');
 
-module.exports = function (plop) {
+module.exports = function (/** @type {import('plop').NodePlopAPI} */ plop) {
   // name of custom element tag
   plop.setPartial('tagnamePartial', 'uui-{{name}}');
   // name of LitElement class
@@ -48,36 +48,49 @@ module.exports = function (plop) {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/lib/index.ts',
         templateFile: './templates/plop-templates/index.ts.hbs',
+        force: true,
+      },
+      {
+        type: 'add',
+        path: './packages/{{> tagnamePartial }}/lib/define.ts',
+        templateFile: './templates/plop-templates/define.ts.hbs',
+        force: true,
       },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/lib/{{> tagnamePartial }}.element.ts',
         templateFile: './templates/plop-templates/component.ts.hbs',
+        skipIfExists: true,
       },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/lib/{{> tagnamePartial }}.test.ts',
         templateFile: './templates/plop-templates/test.ts.hbs',
+        skipIfExists: true,
       },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/lib/{{> tagnamePartial }}.story.ts',
         templateFile: './templates/plop-templates/stories.ts.hbs',
+        skipIfExists: true,
       },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/README.md',
         templateFile: './templates/plop-templates/README.md.hbs',
+        skipIfExists: true,
       },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/rollup.config.js',
         templateFile: './templates/plop-templates/rollup.config.hbs',
+        force: true,
       },
       {
         type: 'add',
         path: './packages/{{> tagnamePartial }}/package.json',
         templateFile: './templates/plop-templates/package.json.hbs',
+        skipIfExists: true,
       },
     ],
   });
