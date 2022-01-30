@@ -70,7 +70,6 @@ export class UUIAvatarElement extends LitElement {
 
   /**
    * Provide the name used for labels and to generate the initials.
-   * This is not used when an img or imgSrcset is provided.
    * @type {string}
    * @attr
    * @default ''
@@ -93,15 +92,15 @@ export class UUIAvatarElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     if (!this.name) {
-      console.warn(this.tagName + ' needs a `title`', this);
+      console.warn(this.tagName + ' needs a `name`', this);
     }
   }
 
-  private createInitials(title: string) {
+  private createInitials(name: string) {
     let initials = '';
 
-    if (title) {
-      const words = title.match(/(\w+)/g) || [];
+    if (name) {
+      const words = name.match(/(\w+)/g) || [];
       initials = words[0].substring(0, 1);
       if (words.length > 1) {
         initials += words[words.length - 1].substring(0, 1);

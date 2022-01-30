@@ -9,7 +9,7 @@ describe('UuiAvatar', () => {
   let element: UUIAvatarElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<uui-avatar title="My Avatar"></uui-avatar>`);
+    element = await fixture(html`<uui-avatar name="My Avatar"></uui-avatar>`);
   });
 
   it('passes the a11y audit', async () => {
@@ -29,8 +29,8 @@ describe('UuiAvatar', () => {
       expect(element).to.have.property('imgSrcset');
     });
 
-    it('has a title property', () => {
-      expect(element).to.have.property('title');
+    it('has a name property', () => {
+      expect(element).to.have.property('name');
     });
   });
 
@@ -43,7 +43,7 @@ describe('UuiAvatar', () => {
 
   it('renders an image when imgSrc is set', async () => {
     const avatar = await fixture(
-      html`<uui-avatar img-src="${avatarSrc}" title="My Avatar"></uui-avatar>`
+      html`<uui-avatar img-src="${avatarSrc}" name="My Avatar"></uui-avatar>`
     );
     expect(avatar).shadowDom.to.equal(
       `<img alt="MA" src="${avatarSrc}" srcset="" title="My Avatar" /><slot></<slot>`
@@ -52,7 +52,7 @@ describe('UuiAvatar', () => {
 
   it('renders an image with alt text when imgSrc and text is set', async () => {
     const avatar = await fixture(
-      html`<uui-avatar img-src="${avatarSrc}" title="alt text"></uui-avatar>`
+      html`<uui-avatar img-src="${avatarSrc}" name="alt text"></uui-avatar>`
     );
     expect(avatar).shadowDom.to.equal(
       `<img alt="AT" src="${avatarSrc}" srcset="" title="alt text" /><slot></<slot>`
@@ -60,13 +60,13 @@ describe('UuiAvatar', () => {
   });
 
   it('shows the first initial when text is used and there is no image', async () => {
-    const avatar = await fixture(html`<uui-avatar title="First"></uui-avatar>`);
+    const avatar = await fixture(html`<uui-avatar name="First"></uui-avatar>`);
     expect(avatar).shadowDom.to.equal('F<slot></<slot>');
   });
 
   it('shows the first and last initial when text is used and there is no image', async () => {
     const avatar = await fixture(
-      html`<uui-avatar title="First Second Last"></uui-avatar>`
+      html`<uui-avatar name="First Second Last"></uui-avatar>`
     );
     expect(avatar).shadowDom.to.equal('FL<slot></<slot>');
   });

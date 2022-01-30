@@ -14,10 +14,10 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-input"
+      "path": "../uui-icon-registry-essential"
     },
     {
-      "path": "../uui-icon-registry-essential"
+      "path": "../uui-input"
     }
   ]
 }
