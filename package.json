@@ -70,6 +70,7 @@
     "@web/test-runner": "0.13.17",
     "autoprefixer": "10.3.6",
     "babel-loader": "8.2.2",
+    "element-internals-polyfill": "^0.1.54",
     "esbuild": "0.14.10",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
