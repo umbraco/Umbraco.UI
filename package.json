@@ -30,6 +30,8 @@
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --node-resolve --coverage",
+    "test:coverage-for": "node ./scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
     "build": "lerna run --scope @umbraco-ui/uui-css build && lerna run build",
     "build:prod": "npm run clean && npm run build && npm run test",
