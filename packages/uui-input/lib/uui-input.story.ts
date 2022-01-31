@@ -1,4 +1,7 @@
 import '.';
+import './uui-input-form-example';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -89,6 +92,9 @@ Error.parameters = {
     },
   },
 };
+
+export const Form: Story = () =>
+  html`<uui-input-example-element></uui-input-example-element>`;
 
 export const PrependAndAppend: Story = props =>
   html`

@@ -98,8 +98,6 @@ export class UUICardUserElement extends UUICardElement {
 
   public render() {
     return html`
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
       <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
@@ -109,6 +107,8 @@ export class UUICardUserElement extends UUICardElement {
         <span> ${this.name} </span>
       </div>
       <slot></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
     `;
   }
 }

@@ -16,9 +16,9 @@ const tagName = defineCE(
   class BooleanInputTestElement extends UUIBooleanInputElement {
     renderCheckbox() {
       return litHTMLLiteral`
-            <div id="testCheckbox">
-            </div>
-          `;
+      <div id="testCheckbox">
+      </div>
+    `;
     }
   }
 );
@@ -35,18 +35,18 @@ describe('UUIBooleanInputElement', () => {
     label = element.shadowRoot?.querySelector('label') as HTMLLabelElement;
   });
 
-  it('exists', () => {
+  it('component element exists', () => {
     expect(element).to.exist;
   });
-
-  it('renders all the elements to shadow dom', () => {
-    expect(element).shadowDom.to.equal(
-      ` <label><input aria-checked="false" aria-label="test label" id="input" role="checkbox" type="checkbox"><div id="testCheckbox"></div><span class="label">test label</span><slot class="label" name="" style="visibility: hidden"></slot></label>`
-    );
+  it('input exists', () => {
+    expect(input).to.exist;
+  });
+  it('label exists', () => {
+    expect(label).to.exist;
   });
 
-  it('has internals', async () => {
-    await expect(element).to.have.property('_internals');
+  it('has internals', () => {
+    expect(element).to.have.property('_internals');
   });
 
   it('has default value equal to on', () => {
@@ -119,6 +119,71 @@ describe('BooleanInputBaseElement in a Form', () => {
     element.checked = true;
     const formData = new FormData(formElement);
     expect(formData.get(`test`)).to.equal('on');
+  });
+
+  describe('validation', () => {
+    let formElement: HTMLFormElement;
+    let element: any;
+    beforeEach(async () => {
+      formElement = await fixture(
+        html`<form><${tag} label="test label" name="test"></${tag}></form>`
+      );
+      element = formElement.firstChild;
+    });
+
+    describe('required', () => {
+      beforeEach(async () => {
+        element.setAttribute('required', 'true');
+        await elementUpdated(element);
+      });
+
+      it('sets element to invalid when value is empty', async () => {
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('sets element to valid when it has a value', async () => {
+        element.checked = true;
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('sets the form to invalid when value is empty', async () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+
+      it('sets the form to valid when it has a value', async () => {
+        element.checked = true;
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+
+    describe('custom error', () => {
+      beforeEach(async () => {
+        element.setAttribute('error', 'true');
+        await elementUpdated(element);
+      });
+
+      it('sets element to invalid when it has a custom error attribute', async () => {
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('sets element to valid when it doesnt have a custom error attribute', async () => {
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('sets the form to invalid when value is empty', async () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+
+      it('sets the form to valid when it doesnt have a custom error attribute', async () => {
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
   });
 });
 
