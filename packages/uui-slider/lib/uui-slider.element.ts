@@ -216,7 +216,7 @@ export class UUISliderElement extends LitElement {
    * This is a minimum value of the input.
    * @type {number}
    * @attr
-   * @default 100
+   * @default 0
    */
   @property({ type: Number })
   min = 0;
