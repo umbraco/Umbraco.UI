@@ -37,4 +37,4 @@ out-css
 *.tgz
 
 # old source
-/src/**/*
+/src

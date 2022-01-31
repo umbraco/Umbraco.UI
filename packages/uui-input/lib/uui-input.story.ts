@@ -1,6 +1,8 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '@umbraco-ui/uui-input/lib/index';
+import '@umbraco-ui/uui-button/lib/index';
+import './uui-input-form-example';
 
 export default {
   title: 'Inputs/Input',
@@ -88,6 +90,9 @@ Error.parameters = {
     },
   },
 };
+
+export const Form: Story = () =>
+  html`<uui-input-example-element></uui-input-example-element>`;
 
 export const PrependAndAppend: Story = props =>
   html`

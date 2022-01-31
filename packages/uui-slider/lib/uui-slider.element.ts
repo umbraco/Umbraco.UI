@@ -5,6 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { nativeInputStyles } from './native-input.styles';
 import { UUIHorizontalPulseKeyframes } from '@umbraco-ui/uui-base/lib/animations';
 import { UUISliderEvent } from './UUISliderEvents';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
@@ -51,7 +52,13 @@ const GenerateStepArray = (start: number, stop: number, step: number) =>
  *  @fires UUISliderEvent#input on input
  *
  */
-export class UUISliderElement extends LitElement {
+export class UUISliderElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     UUIHorizontalPulseKeyframes,
     nativeInputStyles,
@@ -188,20 +195,15 @@ export class UUISliderElement extends LitElement {
         width: 0;
         flex-grow: 0;
       }
+
+      :host(:not([hide-validation]):invalid) #thumb {
+        border-color: var(--uui-look-danger-border);
+      }
+      :host(:not([hide-validation]):invalid) #thumb:after {
+        background-color: var(--uui-look-danger-surface);
+      }
     `,
   ];
-
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  @query('input')
-  private _input!: HTMLInputElement;
-
-  @query('#track')
-  private _track!: HTMLInputElement;
 
   /**
    * Hides the numbers representing the value of each steps. Dots will still be visible
@@ -239,7 +241,6 @@ export class UUISliderElement extends LitElement {
   @property({ type: Number })
   step = 1;
 
-  private _value = '';
   /**
    * This is a value property of the uui-slider.
    * @type {string}
@@ -252,9 +253,20 @@ export class UUISliderElement extends LitElement {
   }
 
   set value(newVal) {
+    if (newVal instanceof File) {
+      return;
+    }
+
     const oldVal = this._value;
-    this._value = newVal;
-    this._calculateSliderPosition(newVal);
+
+    let correctedValue = newVal ? parseFloat(newVal as string) : 0;
+    correctedValue = Math.min(Math.max(correctedValue, this.min), this.max);
+    if (this.step > 0) {
+      correctedValue = Math.round(correctedValue / this.step) * this.step;
+    }
+
+    this._value = correctedValue.toString();
+    this._calculateSliderPosition();
     if (
       'ElementInternals' in window &&
       //@ts-ignore
@@ -266,7 +278,7 @@ export class UUISliderElement extends LitElement {
   }
 
   /**
-   * Disables interaction.
+   * Disables the input.
    * @type {boolean}
    * @attr
    * @default false
@@ -282,12 +294,14 @@ export class UUISliderElement extends LitElement {
   @property({ type: String })
   public label!: string;
 
-  private _internals;
+  @query('#input')
+  private _input!: HTMLInputElement;
+
+  @query('#track')
+  private _track!: HTMLElement;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
-
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
     });
@@ -300,7 +314,11 @@ export class UUISliderElement extends LitElement {
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
   }
 
   connectedCallback() {
@@ -318,55 +336,52 @@ export class UUISliderElement extends LitElement {
   }
 
   firstUpdated() {
+    this._calculateSliderPosition();
     this._updateSteps();
   }
 
-  updated(changedProperties: any) {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     if (
       changedProperties.get('max') ||
       changedProperties.get('min') ||
       changedProperties.get('step')
     ) {
-      let correctedValue = Math.min(
-        Math.max(parseFloat(this._value), this.min),
-        this.max
-      );
-      if (this.step > 0) {
-        correctedValue = Math.round(correctedValue / this.step) * this.step;
-      }
-      this.value = correctedValue.toString();
+      this.value = this.value as string;
       this._updateSteps();
     }
   }
 
   private _updateSteps() {
-    this.steps = GenerateStepArray(this.min, this.max, this.step);
-    this.stepWidth = this._calculateStepWidth();
+    this._steps = GenerateStepArray(this.min, this.max, this.step);
+    this._stepWidth = this._calculateStepWidth();
   }
 
   @state()
-  private stepWidth = 0;
+  private _stepWidth = 0;
 
   private _calculateStepWidth() {
     return (
       (this._track.getBoundingClientRect().width - TRACK_PADDING * 2) /
-      (this.steps.length - 1)
+      (this._steps.length - 1)
     );
   }
 
   private onWindowResize = () => {
-    this.stepWidth = this._calculateStepWidth();
+    this._stepWidth = this._calculateStepWidth();
   };
 
   @state()
-  protected steps: number[] = [];
+  protected _steps: number[] = [];
 
   @state()
-  protected sliderPosition = '0%';
+  protected _sliderPosition = '0%';
 
-  private _calculateSliderPosition(newVal: string) {
-    const ratio = (parseFloat(newVal) - this.min) / (this.max - this.min);
-    this.sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
+  private _calculateSliderPosition() {
+    const ratio =
+      (parseFloat((this._value || '0') as string) - this.min) /
+      (this.max - this.min);
+    this._sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
   }
 
   private _onInput() {
@@ -381,11 +396,11 @@ export class UUISliderElement extends LitElement {
   render() {
     return html`
       <input
+        id="input"
         type="range"
         min="${this.min}"
         max="${this.max}"
-        .value="${this.value}"
-        id="input"
+        .value="${this.value as string}"
         aria-label="${this.label}"
         step="${+this.step}"
         ?disabled=${this.disabled}
@@ -394,16 +409,16 @@ export class UUISliderElement extends LitElement {
       <div id="track" aria-hidden="true">
         <svg height="100%" width="100%">
           <rect x="9" y="9" height="3" rx="2" />
-          ${RenderTrackSteps(this.steps, this.stepWidth)}
+          ${RenderTrackSteps(this._steps, this._stepWidth)}
         </svg>
 
         <div id="track-inner" aria-hidden="true">
-          <div id="thumb" style=${styleMap({ left: this.sliderPosition })}>
+          <div id="thumb" style=${styleMap({ left: this._sliderPosition })}>
             <div id="thumb-label">${this.value}</div>
           </div>
         </div>
       </div>
-      ${RenderStepValues(this.steps, this.stepWidth, this.hideStepValues)}
+      ${RenderStepValues(this._steps, this._stepWidth, this.hideStepValues)}
     `;
   }
 }

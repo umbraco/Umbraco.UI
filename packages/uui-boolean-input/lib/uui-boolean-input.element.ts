@@ -1,6 +1,6 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -11,9 +11,8 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputElement extends LabelMixin(
-  '',
-  LitElement
+export abstract class UUIBooleanInputElement extends FormControlMixin(
+  LabelMixin('', LitElement)
 ) {
   static styles = [
     css`
@@ -58,40 +57,25 @@ export abstract class UUIBooleanInputElement extends LabelMixin(
     `,
   ];
 
-  @query('#input')
-  protected _input!: HTMLInputElement;
-
-  private _value = 'on';
-
-  /**
-   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
-   * @type {string}
-   * @attr
-   * @default on
-   */
-  @property({ type: String })
+  /** intentional overwrite of FormControlMixins value getter and setter method. */
   get value() {
-    return this._value;
+    return this._value as string;
   }
-
-  set value(newVal) {
+  set value(newVal: string) {
     const oldValue = this._value;
     this._value = newVal;
-    this._internals.setFormValue(
-      this._checked && this.name !== '' ? this._value : null
-    );
+    if (
+      'ElementInternals' in window &&
+      //@ts-ignore
+      'setFormValue' in window.ElementInternals.prototype
+    ) {
+      this._internals.setFormValue(
+        this._checked && this.name !== '' ? this._value : null
+      );
+    }
 
     this.requestUpdate('value', oldValue);
   }
-
-  /**
-   * This is the name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native input type="checkbox" element and its name attribute.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
 
   /**
    * Specifies the label position of the checkbox or the toggle
@@ -102,28 +86,19 @@ export abstract class UUIBooleanInputElement extends LabelMixin(
   @property({ type: String, attribute: 'label-position', reflect: true })
   labelPosition: LabelPosition = 'right';
 
-  /**
-   * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
-   * @type {boolean}
-   * @attr error
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
   private _checked = false;
 
   /**
-   * Reflects the state of the element. True if checkbox or toggle is checked. Change this to switch the state programmatically.
+   * Reflects the state of the element.
+   * True if checkbox or toggle is checked. Change this to switch the state programmatically.
    * @type {boolean}
    * @attr
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean }) // Do not 'reflect' as the attribute is used as fallback.
   get checked() {
     return this._checked;
   }
-
   set checked(newVal) {
     const oldValue = this._checked;
     this._checked = newVal;
@@ -138,7 +113,7 @@ export abstract class UUIBooleanInputElement extends LabelMixin(
   }
 
   /**
-   * Reflects the disabled state of the element. True if checkbox or toggle is disabled. Change this to switch the state programmatically.
+   * Disables the input.
    * @type {boolean}
    * @attr
    * @default false
@@ -146,19 +121,30 @@ export abstract class UUIBooleanInputElement extends LabelMixin(
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
+  @query('#input')
+  protected _input!: HTMLInputElement;
 
-  readonly _internals;
   private inputRole: 'checkbox' | 'switch';
 
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();
+    if (this._value === '') {
+      this._value = 'on';
+    }
     this.inputRole = inputRole;
-    this._internals = (this as any).attachInternals();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
+  }
+
+  public hasValue(): boolean {
+    return this.checked;
+  }
+
+  public formResetCallback() {
+    super.formResetCallback();
+    this.checked = this.hasAttribute('checked');
   }
 
   protected firstUpdated(): void {
@@ -185,10 +171,10 @@ export abstract class UUIBooleanInputElement extends LabelMixin(
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
   }
   click() {
-    (this.shadowRoot?.querySelector('#input') as any).click();
+    this._input.click();
   }
 
   private _onInputChange() {
@@ -208,11 +194,11 @@ export abstract class UUIBooleanInputElement extends LabelMixin(
     return html`
       <label>
         <input
-          type="checkbox"
           id="input"
-          ?disabled="${this.disabled}"
+          type="checkbox"
           @change="${this._onInputChange}"
-          .checked="${this.checked}"
+          .disabled=${this.disabled}
+          .checked=${this.checked}
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
           role="${this.inputRole}" />

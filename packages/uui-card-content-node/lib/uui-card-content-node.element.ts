@@ -110,8 +110,6 @@ export class UUICardContentNodeElement extends UUICardElement {
 
   public render() {
     return html`
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
       <div
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : 0}
@@ -129,6 +127,8 @@ export class UUICardContentNodeElement extends UUICardElement {
       <div id="select-border"></div>
 
       <slot></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
     `;
   }
 }

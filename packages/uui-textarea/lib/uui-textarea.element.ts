@@ -9,6 +9,7 @@ import { UUITextareaEvent } from './UUITextareaEvent';
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  */
+// TODO: Implement FormControlMixin
 export class UUITextareaElement extends LitElement {
   static styles = [
     css`
