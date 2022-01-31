@@ -87,9 +87,10 @@ export class UUIInputInFormExampleElement extends LitElement {
         <uui-checkbox
           name="checkbox"
           value="Bike"
-          label="This is my checkbox"
+          label="This is my checked checkbox"
+          checked
           required>
-          Hello
+          This is my checked checkbox
         </uui-checkbox>
       </div>
 
