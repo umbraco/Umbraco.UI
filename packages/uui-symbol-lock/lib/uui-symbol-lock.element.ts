@@ -1,7 +1,10 @@
 import { LitElement, css, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 
-export class UUILockSymbolElement extends LitElement {
+/**
+ * @element uui-symbol-lock
+ */
+export class UUISymbolLockElement extends LitElement {
   static styles = [
     css`
       :host {
