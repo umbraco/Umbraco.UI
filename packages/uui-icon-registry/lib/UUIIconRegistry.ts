@@ -1,4 +1,5 @@
-import { UUIIconRequestEvent } from '@umbraco-ui/uui-icon/lib/UUIIconRequestEvent';
+import { UUIIconRequestEvent } from '@umbraco-ui/uui-icon/lib';
+
 import { UUIIconHost } from './UUIIconHost';
 
 export class UUIIconRegistry {

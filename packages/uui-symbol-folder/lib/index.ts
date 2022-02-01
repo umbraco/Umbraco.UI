@@ -1,3 +1,6 @@
 import { UUISymbolFolderElement } from './uui-symbol-folder.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-symbol-folder', UUISymbolFolderElement);
+defineElement('uui-symbol-folder', UUISymbolFolderElement);
+
+export * from './uui-symbol-folder.element';

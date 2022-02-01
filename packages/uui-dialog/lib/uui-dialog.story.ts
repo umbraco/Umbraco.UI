@@ -1,7 +1,8 @@
+import '.';
+import '@umbraco-ui/uui-button/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-dialog/lib/index';
-import '@umbraco-ui/uui-button/lib/index';
 
 export default {
   id: 'uui-dialog',

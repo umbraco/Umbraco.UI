@@ -1,6 +1,6 @@
+import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
 
 /**
  *  @element uui-ref-node

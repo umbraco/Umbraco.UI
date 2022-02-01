@@ -3,5 +3,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 defineElement(
   'uui-toast-notification-container',
-  UUIToastNotificationContainerElement as any
+  UUIToastNotificationContainerElement
 );
+
+export * from './uui-toast-notification-container.element';
