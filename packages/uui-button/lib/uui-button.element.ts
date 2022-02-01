@@ -1,18 +1,18 @@
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import {
-  InterfaceLookType,
   InterfaceLookDefaultValue,
+  InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
 import {
   iconCheck,
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
 

@@ -1,5 +1,7 @@
+import '.';
+
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-symbol-folder/lib/index';
+
 export default {
   title: 'Symbols/Folder',
   component: 'uui-symbol-folder',

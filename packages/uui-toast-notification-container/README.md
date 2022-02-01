@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-toast-notification-container
 Import the registration of `<uui-toast-notification-container>` via:
 
 ```javascript
-import '@umbraco-ui/uui-toast-notification-container/lib';
+import '@umbraco-ui/uui-toast-notification-container';
 ```
 
 When looking to leverage the `UUIToastNotificationContainerElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIToastNotificationContainerElement } from '@umbraco-ui/uui-toast-notification-container/lib/uui-toast-notification-container.element';
+import { UUIToastNotificationContainerElement } from '@umbraco-ui/uui-toast-notification-container';
 ```
 
 ### CDN

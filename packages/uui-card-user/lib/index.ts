@@ -1,3 +1,6 @@
 import { UUICardUserElement } from './uui-card-user.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-customElements.define('uui-card-user', UUICardUserElement);
+defineElement('uui-card-user', UUICardUserElement);
+
+export * from './uui-card-user.element';

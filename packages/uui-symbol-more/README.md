@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-symbol-more
 Import the registration of `<uui-symbol-more>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-more/lib';
+import '@umbraco-ui/uui-symbol-more';
 ```
 
 When looking to leverage the `UUISymbolMoreElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISymbolMoreElement } from '@umbraco-ui/uui-symbol-more/lib/uui-symbol-more.element';
+import { UUISymbolMoreElement } from '@umbraco-ui/uui-symbol-more';
 ```
 
 ### CDN

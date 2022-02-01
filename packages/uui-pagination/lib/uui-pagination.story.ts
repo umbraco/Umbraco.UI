@@ -1,7 +1,7 @@
-import { html } from 'lit-html';
-import { Story } from '@storybook/web-components';
+import '.';
 
-import '@umbraco-ui/uui-pagination/lib/index';
+import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
 
 export default {
   id: 'uui-pagination',

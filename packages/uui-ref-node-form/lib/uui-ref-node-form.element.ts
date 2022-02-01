@@ -1,4 +1,4 @@
-import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.element';
+import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
 
 /**
  *  @element uui-ref-node-form
