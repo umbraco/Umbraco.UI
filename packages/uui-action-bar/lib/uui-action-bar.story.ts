@@ -9,7 +9,6 @@ import {
   InterfaceLookNames,
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
-import { html } from 'lit-html';
 
 export default {
   id: 'uui-action-bar',
