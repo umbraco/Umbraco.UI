@@ -115,15 +115,14 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   private _handleSlotChange(e: Event) {
     // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
 
-    if (this._radioElements) {
-      this._radioElements.forEach(el => {
-        el.removeEventListener(
-          UUIRadioEvent.CHANGE,
-          // @ts-ignore TODO: fix typescript error
-          this._handleSelectOnClick as EventHandlerNonNull
-        );
-      });
-    }
+    this._radioElements?.forEach(el => {
+      el.removeEventListener(
+        UUIRadioEvent.CHANGE,
+        // @ts-ignore TODO: fix typescript error
+        this._handleSelectOnClick as EventHandlerNonNull
+      );
+      el.removeEventListener('blur', this._onChildBlur);
+    });
 
     this._selected = null;
     this._radioElements = (e.target as HTMLSlotElement)
@@ -137,6 +136,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
           // @ts-ignore TODO: fix typescript error
           this._handleSelectOnClick as EventHandlerNonNull
         );
+        el.addEventListener('blur', this._onChildBlur);
       });
 
       const checkedRadios = this._radioElements.filter(
@@ -160,6 +160,9 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
         this.value = checkedRadios[0].value;
         this._selected = this._radioElements.indexOf(checkedRadios[0]);
         if (checkedRadios[0].disabled === false) {
+          this._radioElements.forEach(el => {
+            el.makeUnfocusable();
+          });
           checkedRadios[0].makeFocusable();
         } else {
           this._makeFirstEnabledFocusable();
@@ -177,6 +180,9 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
 
   private _makeFirstEnabledFocusable() {
     this._selected = null;
+    this._radioElements?.forEach(el => {
+      el.makeUnfocusable();
+    });
     this._findNextEnabledElement()?.makeFocusable();
   }
 
@@ -242,6 +248,10 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     this.pristine = false;
     this.dispatchEvent(new UUIRadioGroupEvent(UUIRadioGroupEvent.CHANGE));
   }
+
+  private _onChildBlur = () => {
+    this.pristine = false;
+  };
 
   private _handleSelectOnClick = (e: UUIRadioEvent) => {
     if (e.target.checked === true) {

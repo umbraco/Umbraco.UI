@@ -5,6 +5,7 @@ import '@umbraco-ui/uui-checkbox/lib';
 import '@umbraco-ui/uui-slider/lib';
 import '@umbraco-ui/uui-radio/lib';
 import '@umbraco-ui/uui-toggle/lib';
+import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent';
 
 export default {
   id: 'uui-form',
@@ -12,7 +13,13 @@ export default {
   component: 'uui-form',
 };
 
-export const Overview: Story = () => html` <form is="uui-form">
+const _onRadioGroupChanged = (e: UUIRadioGroupEvent) => {
+  e.target.error = e.target.value !== 'radio2';
+};
+
+export const Overview: Story = () => html` <form
+  is="uui-form"
+  style="max-width: 800px;">
   <div style="margin-bottom: 15px;">
     <uui-checkbox
       name="checkbox"
@@ -31,7 +38,11 @@ export const Overview: Story = () => html` <form is="uui-form">
   </div>
 
   <div style="margin-bottom: 15px;">
-    <uui-radio-group name="radio" label="This is my radio" required>
+    <uui-radio-group
+      name="radio"
+      label="This is my radio"
+      required
+      @change=${_onRadioGroupChanged}>
       <uui-radio value="radio1" label="radio1" name="radio1">Label</uui-radio>
       <uui-radio value="radio2" label="radio2" name="radio2">Label</uui-radio>
       <uui-radio value="radio3" label="radio3" name="radio3">Label</uui-radio>
