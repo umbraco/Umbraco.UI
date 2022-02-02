@@ -232,12 +232,14 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       case SPACE: {
         if (this._selected === null) {
           this.value = this._findNextEnabledElement()?.value as string;
+          this._fireChangeEvent();
         }
       }
     }
   }
 
   private _fireChangeEvent() {
+    this.pristine = false;
     this.dispatchEvent(new UUIRadioGroupEvent(UUIRadioGroupEvent.CHANGE));
   }
 

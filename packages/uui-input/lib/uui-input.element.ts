@@ -187,14 +187,15 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     return this._input;
   }
 
-  private onInput(e: Event) {
+  private _onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
+
+    // TODO: Do we miss an input event?
   }
 
-  private onChange() {
-    this.dispatchEvent(
-      new UUIInputEvent(UUIInputEvent.CHANGE, { bubbles: true })
-    );
+  private _onChange() {
+    this.pristine = false;
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
   protected renderPrepend() {
@@ -216,8 +217,8 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
-        @input=${this.onInput}
-        @change=${this.onChange} />
+        @input=${this._onInput}
+        @change=${this._onChange} />
       ${this.renderAppend()}
     `;
   }

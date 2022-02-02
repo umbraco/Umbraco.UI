@@ -40,16 +40,12 @@ export class UUIInputPasswordElement extends UUIInputElement {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   set type(_newValue) {}
 
-  onPasswordToggle() {
+  _onPasswordToggle() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
     } else {
       this.passwordType = 'password';
     }
-  }
-
-  getIconName() {
-    return this.passwordType === 'password' ? 'bug' : 'check';
   }
 
   renderIcon() {
@@ -63,7 +59,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
   renderAppend() {
     return html`<uui-button
       .disabled=${this.disabled}
-      @click=${this.onPasswordToggle}
+      @click=${this._onPasswordToggle}
       style="--uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0"
       compact
       id="eye">

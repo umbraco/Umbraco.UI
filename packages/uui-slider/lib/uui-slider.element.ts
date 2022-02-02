@@ -390,6 +390,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   }
 
   private _onChange() {
+    this.pristine = false;
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.CHANGE));
   }
 
