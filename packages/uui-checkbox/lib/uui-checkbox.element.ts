@@ -134,15 +134,15 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         transform: scale(0.9);
       }
 
-      :host(:not([hide-validation]):invalid) #ticker,
-      :host(:not([hide-validation]):invalid) label:hover #ticker,
-      :host(:not([hide-validation]):invalid) label:hover input:checked:not([disabled]) + #ticker,
-      :host(:not([hide-validation]):invalid) label:focus input:checked + #ticker,
+      :host(:not([pristine]):invalid) #ticker,
+      :host(:not([pristine]):invalid) label:hover #ticker,
+      :host(:not([pristine]):invalid) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([pristine]):invalid) label:focus input:checked + #ticker,
       /* polyfill support */
-      :host(:not([hide-validation])[internals-invalid]) #ticker,
-      :host(:not([hide-validation])[internals-invalid]) label:hover #ticker,
-      :host(:not([hide-validation])[internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
-      :host(:not([hide-validation])[internals-invalid]) label:focus input:checked + #ticker {
+      :host(:not([pristine])[internals-invalid]) #ticker,
+      :host(:not([pristine])[internals-invalid]) label:hover #ticker,
+      :host(:not([pristine])[internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([pristine])[internals-invalid]) label:focus input:checked + #ticker {
         border: 1px solid var(--uui-look-danger-border);
       }
 
