@@ -86,9 +86,9 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         color: var(--uui-interface-contrast-disabled);
       }
 
-      :host(:not([hide-validation]):invalid),
+      :host(:invalid),
       /* polyfill support */
-      :host(:not([hide-validation])[internals-invalid]) {
+      :host([internals-invalid]) {
         border-color: var(--uui-look-danger-border);
       }
 
