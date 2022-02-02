@@ -1,18 +1,33 @@
-import { LitElement, html, css } from 'lit';
-
 /**
  * @element uui-form
  */
-export class UUIFormElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        /* Styles goes here */
-      }
-    `,
-  ];
+export class UUIFormElement extends HTMLFormElement {
+  constructor() {
+    super();
+    this.setAttribute('novalidate', '');
+    this.addEventListener('submit', this._onSubmit);
+    this.addEventListener('reset', this._onReset);
+  }
 
-  render() {
-    return html` Markup goes here `;
+  private _onSubmit(event: Event) {
+    event.preventDefault();
+
+    const isValid = this.checkValidity();
+
+    if (!isValid) {
+      this.setAttribute('submit-invalid', '');
+      return;
+    }
+    this.removeAttribute('submit-invalid');
+
+    const formData = new FormData(this);
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+  }
+
+  private _onReset() {
+    this.removeAttribute('submit-invalid');
   }
 }

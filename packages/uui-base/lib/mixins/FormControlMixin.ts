@@ -222,7 +222,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._removeFormListeners();
       this._form = this._internals.form;
       if (this._form) {
-        // TODO: How can we ensure that we can know about this state without a Form Component?
+        // This relies on the form begin a 'uui-form':
         if (this._form.hasAttribute('invalid-submit')) {
           this.pristine = false;
         }
