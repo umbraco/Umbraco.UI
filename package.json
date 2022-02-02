@@ -33,9 +33,9 @@
     "test:coverage": "web-test-runner --node-resolve --coverage",
     "test:coverage-for": "node ./scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
-    "build": "lerna run --scope @umbraco-ui/uui-css build && lerna run build",
-    "build:prod": "npm run clean && npm run build && npm run test",
-    "clean": "lerna run clean --parallel",
+    "build": "turbo run build",
+    "build:prod": "npm run clean && npm run build",
+    "clean": "turbo run clean --parallel",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
     "lerna:version": "lerna version --no-push --exact --no-git-tag-version && rimraf package-lock.json && npm i",
     "lerna:diff": "lerna diff",
@@ -103,6 +103,7 @@
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
     "storybook-builder-vite": "0.1.13",
+    "turbo": "*",
     "tsc-files": "1.1.2",
     "typescript": "4.5.2",
     "vite": "2.6.14",
@@ -116,5 +117,6 @@
     "**/*.ts": "tsc-files --project tsconfig-lint-staged.json",
     "**/*.{mjs}": "eslint --cache --fix -c .eslintrc.js",
     "*": "prettier --ignore-unknown --write"
-  }
+  },
+  "packageManager": "npm@8.3.0"
 }
