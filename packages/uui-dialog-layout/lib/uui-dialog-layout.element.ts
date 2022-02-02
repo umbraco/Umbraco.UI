@@ -39,6 +39,22 @@ export class UUIDialogLayoutElement extends LitElement {
   };
 
   /**
+   * Renders a h3 with the headline slot nested
+   * @returns {TemplateResult}
+   * @protected
+   * @method
+   */
+  protected renderHeadline() {
+    return html` <h3
+      style=${this._headlineSlotHasContent || this.headline !== null
+        ? ''
+        : 'display: none'}>
+      ${this.headline}
+      <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
+    </h3>`;
+  }
+
+  /**
    * Renders default slot
    * @returns {TemplateResult}
    * @protected
@@ -59,15 +75,7 @@ export class UUIDialogLayoutElement extends LitElement {
   }
 
   render() {
-    return html`
-      <h3
-        style=${this._headlineSlotHasContent || this.headline !== null
-          ? ''
-          : 'display: none'}>
-        ${this.headline}
-        <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-      </h3>
-      ${this.renderContent()} ${this.renderActions()}
-    `;
+    return html`${this.renderHeadline()} ${this.renderContent()}
+    ${this.renderActions()} `;
   }
 }
