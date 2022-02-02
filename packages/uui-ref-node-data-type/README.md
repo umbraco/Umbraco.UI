@@ -24,18 +24,6 @@ When looking to leverage the `UUIRefNodeDataTypeElement` base class as a type an
 import { UUIRefNodeDataTypeElement } from '@umbraco-ui/uui-ref-node-data-type';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-ref-node-data-type@latest/dist/uui-ref-node-data-type.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-ref-node-data-type@X.X.X/dist/uui-ref-node-data-type.min.js"></script>
-```
-
 ## Usage
 
 ```html
