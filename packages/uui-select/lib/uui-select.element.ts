@@ -224,7 +224,6 @@ export class UUISelectElement extends LitElement {
   private _createDisabledGroups() {
     if (this.disabledGroups.length === 0) return;
     this._disabledGroups = this.disabledGroups.split(',');
-    console.log(this._disabledGroups);
   }
 
   private _extractGroups() {
