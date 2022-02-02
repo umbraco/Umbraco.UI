@@ -44,8 +44,11 @@ export class UUIInputInFormExampleElement extends LitElement {
 
     const isValid = this._form.checkValidity();
     if (!isValid) {
+      this._form.setAttribute('invalid-submit', '');
       return;
     }
+
+    this._form.removeAttribute('invalid-submit');
 
     const formData = new FormData(this._form);
 

@@ -222,6 +222,9 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._removeFormListeners();
       this._form = this._internals.form;
       if (this._form) {
+        if (this._form.hasAttribute('invalid-submit')) {
+          this.pristine = false;
+        }
         this._form.addEventListener('submit', this._onFormSubmit);
       }
     }
