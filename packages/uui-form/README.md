@@ -12,7 +12,7 @@ Umbraco style form component.
 npm i @umbraco-ui/uui-form
 ```
 
-Import the registration of `<uui-form>` via:
+Import the registration of `<form is="uui-form">` via:
 
 ```javascript
 import '@umbraco-ui/uui-form/lib';
@@ -39,5 +39,5 @@ The component is available via CDN. This means it can be added to your applicati
 ## Usage
 
 ```html
-<uui-form></uui-form>
+<form is="uui-form"></form>
 ```
