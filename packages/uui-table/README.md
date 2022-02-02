@@ -13,18 +13,20 @@ npm i @umbraco-ui/uui-table
 Import the registration of `<uui-table>`, `<uui-table-row>`, `<uui-table-cell>`, `<uui-table-head>`, `<uui-table-head-cell>`, `<uui-table-column>` via:
 
 ```javascript
-import '@umbraco-ui/uui-table/lib';
+import '@umbraco-ui/uui-table';
 ```
 
 When looking to leverage the `UUITableElement`, `UUITableRowElement`, `UUITableCellElement`, `UUITableHeadElement`, `UUITableHeadCellElement`, `UUITableColumnElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITableElement } from '@umbraco-ui/uui-table/lib/uui-table.element';
-import { UUITableRowElement } from '@umbraco-ui/uui-table/lib/uui-table-row.element';
-import { UUITableCellElement } from '@umbraco-ui/uui-table/lib/uui-table-cell.element';
-import { UUITableHeadElement } from '@umbraco-ui/uui-table/lib/uui-table-head.element';
-import { UUITableHeadCellElement } from '@umbraco-ui/uui-table/lib/uui-table-head-cell.element';
-import { UUITableColumnElement } from '@umbraco-ui/uui-table/lib/uui-table-column.element';
+import {
+  UUITableElement,
+  UUITableRowElement,
+  UUITableCellElement,
+  UUITableHeadElement,
+  UUITableHeadCellElement,
+  UUITableColumnElement,
+} from '@umbraco-ui/uui-table';
 ```
 
 ### CDN

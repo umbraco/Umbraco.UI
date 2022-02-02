@@ -1,8 +1,10 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import { UUIToastNotificationLayoutElement } from './uui-toast-notification-layout.element';
 import '.';
-import '@umbraco-ui/uui-button/lib/index';
-import '@umbraco-ui/uui-icon/lib/index';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
+
+import { expect, fixture, html } from '@open-wc/testing';
+
+import { UUIToastNotificationLayoutElement } from './uui-toast-notification-layout.element';
 
 describe('UUIToastNotificationLayoutElement', () => {
   let element: UUIToastNotificationLayoutElement;

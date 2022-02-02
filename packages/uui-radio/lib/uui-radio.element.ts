@@ -206,7 +206,7 @@ export class UUIRadioElement extends LitElement {
   private _onChange() {
     if (this.inputElement.checked) {
       this.checked = true;
-      this.setAttribute('aria-checked', 'true');
+      this.setAttribute('aria-checked', '');
       if (!this.disabled) {
         this.setAttribute('tabindex', '0');
         this.focus();
@@ -214,7 +214,7 @@ export class UUIRadioElement extends LitElement {
     } else {
       this.checked = false;
       this.setAttribute('tabindex', '-1');
-      this.setAttribute('aria-checked', 'false');
+      this.removeAttribute('aria-checked');
     }
     this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
   }
@@ -249,7 +249,7 @@ export class UUIRadioElement extends LitElement {
     //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
-      this.setAttribute('aria-checked', 'false');
+      this.removeAttribute('aria-checked');
   }
 
   render() {

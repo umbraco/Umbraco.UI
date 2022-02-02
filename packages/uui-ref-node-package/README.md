@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-ref-node-package
 Import the registration of `<uui-ref-node-package>` via:
 
 ```javascript
-import '@umbraco-ui/uui-ref-node-package/lib';
+import '@umbraco-ui/uui-ref-node-package';
 ```
 
 When looking to leverage the `UUIRefNodePackageElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRefNodePackageElement } from '@umbraco-ui/uui-ref-node-package/lib/uui-ref-node-package.element';
+import { UUIRefNodePackageElement } from '@umbraco-ui/uui-ref-node-package';
 ```
 
 ### CDN

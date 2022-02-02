@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-progress-bar/lib/index';
 
 export default {
   id: 'uui-progress-bar',

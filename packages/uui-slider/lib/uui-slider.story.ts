@@ -1,6 +1,8 @@
-import { html } from 'lit-html';
-import '@umbraco-ui/uui-slider/lib/index';
+import '.';
+
 import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
+
 export default {
   title: 'Inputs/Slider',
   component: 'uui-slider',

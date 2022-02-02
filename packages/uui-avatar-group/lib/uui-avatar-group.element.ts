@@ -1,6 +1,6 @@
-import { LitElement, html, css } from 'lit';
+import { UUIAvatarElement } from '@umbraco-ui/uui-avatar/lib';
+import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import { UUIAvatarElement } from '@umbraco-ui/uui-avatar/lib/uui-avatar.element';
 
 /**
  * Group a set of avatars, set a limit to minimize the visual space.

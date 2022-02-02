@@ -1,10 +1,12 @@
-import { html } from 'lit-html';
+import '.';
+
+import { Story } from '@storybook/web-components';
 import {
   InterfaceLookNames,
   InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
-import '@umbraco-ui/uui-button-group/lib/index';
-import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
+
 export default {
   title: 'Buttons/Button Group',
   component: 'uui-button-group',

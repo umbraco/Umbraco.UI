@@ -1,14 +1,16 @@
-import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
-import { UUICardUserElement } from './uui-card-user.element';
 import '.';
-import { UUICardEvent } from '@umbraco-ui/uui-card/lib/UUICardEvent';
-import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events/UUISelectableEvent';
+
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
+} from '@open-wc/testing';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
+import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
+
+import { UUICardUserElement } from './uui-card-user.element';
 
 describe('UUICardUserElement', () => {
   let element: UUICardUserElement;

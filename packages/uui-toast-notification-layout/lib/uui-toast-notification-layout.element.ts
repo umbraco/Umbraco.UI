@@ -1,6 +1,6 @@
-import { LitElement, html, css } from 'lit';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
 
 /**
  *  @element uui-toast-notification-layout

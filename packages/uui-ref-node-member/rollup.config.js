@@ -1,6 +1,6 @@
 import { UUIProdConfig } from '../rollup-package.config';
 
 export default UUIProdConfig({
-  entryPoints: ['index', 'uui-ref-node-member.element'],
+  entryPoints: ['index'],
   bundle: 'index',
 });

@@ -1,5 +1,6 @@
+import '.';
+
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-keyboard-shortcut/lib/index';
 
 export default {
   title: 'Displays/Keyboard Shortcut',
@@ -33,7 +34,7 @@ export const KeyCombination = () => html`
 KeyCombination.parameters = {
   docs: {
     source: {
-      code: `  
+      code: `
 <uui-keyboard-shortcut>
   <uui-key>ALT</uui-key>
   +

@@ -1,6 +1,7 @@
-import { LitElement, html, css } from 'lit';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
-import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
+
 import { UUIPaginationEvent } from './UUIPaginationEvent';
 
 //this is how wide the button gets when it has 3 digits inside.
@@ -319,9 +320,9 @@ export class UUIPaginationElement extends LitElement {
     return html`<uui-button-group role="list" id="pages">
       ${this.renderNavigationLeft()}
       ${this._visiblePages.map(
-        page =>
-          this.renderPage(page)
-      )}
+      page =>
+        this.renderPage(page)
+    )}
       ${this.renderNavigationRight()}
     </uui-button-group>
     `;

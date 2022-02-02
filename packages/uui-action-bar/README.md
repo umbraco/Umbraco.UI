@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui-action-bar
 Import the registration of `<uui-action-bar>` via:
 
 ```javascript
-import '@umbraco-ui/uui-action-bar/lib';
+import '@umbraco-ui/uui-action-bar';
 ```
 
 When looking to leverage the `UUIActionBarElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIActionBarElement } from '@umbraco-ui/uui-action-bar/lib/uui-action-bar.element';
+import { UUIActionBarElement } from '@umbraco-ui/uui-action-bar';
 ```
 
 ### CDN

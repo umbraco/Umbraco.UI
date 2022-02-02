@@ -13,13 +13,13 @@ npm i @umbraco-ui/uui-input
 Import the registration of `<uui-input>` via:
 
 ```javascript
-import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-input';
 ```
 
 When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputElement } from '@umbraco-ui/uui-input/lib/uui-input.element';
+import { UUIInputElement } from '@umbraco-ui/uui-input';
 ```
 
 ### CDN
