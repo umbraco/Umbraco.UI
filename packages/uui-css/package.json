@@ -22,13 +22,11 @@
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "customElements": "custom-elements.json",
   "files": [
     "assets",
     "dist",
     "lib/**/*.d.ts",
-    "lib/**/*.js",
-    "custom-elements.json"
+    "lib/**/*.js"
   ],
   "dependencies": {
     "lit": "^2.0.0"
