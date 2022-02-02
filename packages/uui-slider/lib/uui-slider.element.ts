@@ -196,10 +196,10 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         flex-grow: 0;
       }
 
-      :host(:invalid) #thumb {
+      :host(:not([hide-validation]):invalid) #thumb {
         border-color: var(--uui-look-danger-border);
       }
-      :host(:invalid) #thumb:after {
+      :host(:not([hide-validation]):invalid) #thumb:after {
         background-color: var(--uui-look-danger-surface);
       }
     `,

@@ -134,15 +134,15 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         transform: scale(0.9);
       }
 
-      :host(:invalid) #ticker,
-      :host(:invalid) label:hover #ticker,
-      :host(:invalid) label:hover input:checked:not([disabled]) + #ticker,
-      :host(:invalid) label:focus input:checked + #ticker,
+      :host(:not([hide-validation]):invalid) #ticker,
+      :host(:not([hide-validation]):invalid) label:hover #ticker,
+      :host(:not([hide-validation]):invalid) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([hide-validation]):invalid) label:focus input:checked + #ticker,
       /* polyfill support */
-      :host([internals-invalid]) #ticker,
-      :host([internals-invalid]) label:hover #ticker,
-      :host([internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
-      :host([internals-invalid]) label:focus input:checked + #ticker {
+      :host(:not([hide-validation])[internals-invalid]) #ticker,
+      :host(:not([hide-validation])[internals-invalid]) label:hover #ticker,
+      :host(:not([hide-validation])[internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([hide-validation])[internals-invalid]) label:focus input:checked + #ticker {
         border: 1px solid var(--uui-look-danger-border);
       }
 
