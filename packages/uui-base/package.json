@@ -20,7 +20,6 @@
   },
   "main": "./lib/index.js",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js"
   ],
