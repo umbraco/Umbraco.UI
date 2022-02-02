@@ -161,7 +161,6 @@ export class UUIRadioElement extends LitElement {
   public label = '';
 
   @property({ type: Boolean, reflect: true })
-  private _checked = false;
   public get checked() {
     return this._checked;
   }
@@ -177,8 +176,7 @@ export class UUIRadioElement extends LitElement {
       this.removeAttribute('aria-checked');
     }
   }
-
-  private _disabled = false;
+  private _checked = false;
 
   /**
    * Disables the input.
@@ -190,7 +188,6 @@ export class UUIRadioElement extends LitElement {
   get disabled() {
     return this._disabled;
   }
-
   set disabled(newVal) {
     const oldVal = this._disabled;
     this._disabled = newVal;
@@ -200,6 +197,7 @@ export class UUIRadioElement extends LitElement {
     }
     this.requestUpdate('disabled', oldVal);
   }
+  private _disabled = false;
 
   constructor() {
     super();
