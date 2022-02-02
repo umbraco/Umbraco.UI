@@ -13,6 +13,7 @@ export class UUIAvatarElement extends LitElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
         position: relative;
         overflow: hidden;
         border-radius: 50%;
