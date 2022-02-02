@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-dialog-layout',
-  title: 'Dialog Layout',
+  title: 'Displays/Dialog Layout',
   component: 'uui-dialog-layout',
   parameters: {
     docs: {
