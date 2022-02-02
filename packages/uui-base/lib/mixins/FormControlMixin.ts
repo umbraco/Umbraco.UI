@@ -96,7 +96,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      * @attr
      * @default false
      */
-    @property({ type: Boolean })
+    @property({ type: Boolean, reflect: true })
     pristine: boolean = true;
 
     /**
@@ -189,9 +189,8 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     private _runValidators() {
-      console.log('_runValidators', this.pristine);
       this._validators.forEach(validator => {
-        if (this.pristine === false && validator.checkMethod()) {
+        if (validator.checkMethod()) {
           this._validityState[validator.flagKey] = true;
           this._internals.setValidity(
             this._validityState,
@@ -222,7 +221,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     public formAssociatedCallback() {
       this._removeFormListeners();
       this._form = this._internals.form;
-      console.log('FormControlMixin got form: ', this._form);
       if (this._form) {
         this._form.addEventListener('submit', this._onFormSubmit);
       }
