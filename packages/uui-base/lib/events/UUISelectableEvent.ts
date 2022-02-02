@@ -1,4 +1,4 @@
-import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
+import { UUIEvent } from '../events';
 import { SelectableMixinInterface } from '../mixins';
 
 export class UUISelectableEvent extends UUIEvent<{}, SelectableMixinInterface> {
