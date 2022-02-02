@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIDialogLayoutElement } from './uui-dialog-layout.element';
 import '.';
 
@@ -31,6 +31,22 @@ describe('UUIDialogLayoutElement', () => {
     it('renders a actions slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name="actions"]')!;
       expect(slot).to.exist;
+    });
+  });
+
+  describe('styling', () => {
+    it('set display none when no headline is provided', () => {
+      const display = element.shadowRoot!.querySelector('h3')!.style.display;
+
+      expect(display).to.equal('none');
+    });
+    it('set resets display when a headline is provided', async () => {
+      element.headline = 'headline';
+
+      await elementUpdated(element);
+      const display = element.shadowRoot!.querySelector('h3')!.style.display;
+
+      expect(display).to.equal('');
     });
   });
 });
