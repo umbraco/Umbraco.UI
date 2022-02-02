@@ -26,6 +26,20 @@ const Template: Story = () => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 
+export const Test = () => html`
+  <uui-dialog>
+    <uui-dialog-layout>
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quae
+        iusto porro impedit quasi odit, nihil facere pariatur vero! Quaerat sint
+        tempore ullam corporis nihil dolorum cum consequuntur ad provident.
+      </div>
+      <uui-button slot="actions">Cancel</uui-button>
+      <uui-button slot="actions" look="positive">Save</uui-button>
+    </uui-dialog-layout>
+  </uui-dialog>
+`;
+
 export const Slots: Story = () => html`
   <uui-dialog>
     <uui-button disabled look="placeholder" style="width:100%; height: 96px;">
