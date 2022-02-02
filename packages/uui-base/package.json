@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-base.min.js",
+  "main": "./lib/index.js",
   "files": [
     "dist",
     "lib/**/*.d.ts",
