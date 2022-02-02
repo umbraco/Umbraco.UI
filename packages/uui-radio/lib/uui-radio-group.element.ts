@@ -31,9 +31,9 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
         border-radius: var(--uui-border-radius);
       }
 
-      :host(:not([hide-validation]):invalid),
+      :host(:not([pristine]):invalid),
       /* polyfill support */
-      :host(:not([hide-validation])[internals-invalid]) {
+      :host(:not([pristine])[internals-invalid]) {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,
