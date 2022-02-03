@@ -1,4 +1,5 @@
-import { UUIIconRegistry } from '@umbraco-ui/uui-icon-registry/lib/UUIIconRegistry';
+import { UUIIconRegistry } from '@umbraco-ui/uui-icon-registry/lib';
+
 import {
   iconAdd,
   iconAlert,

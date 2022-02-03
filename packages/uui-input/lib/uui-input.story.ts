@@ -1,8 +1,10 @@
+import '.';
+import './uui-input-form-example';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-input/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-input/lib/index';
-import '@umbraco-ui/uui-button/lib/index';
-import './uui-input-form-example';
 
 export default {
   title: 'Inputs/Input',

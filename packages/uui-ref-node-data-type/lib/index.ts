@@ -1,4 +1,6 @@
 import { UUIRefNodeDataTypeElement } from './uui-ref-node-data-type.element';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-defineElement('uui-ref-node-data-type', UUIRefNodeDataTypeElement as any);
+defineElement('uui-ref-node-data-type', UUIRefNodeDataTypeElement);
+
+export * from './uui-ref-node-data-type.element';

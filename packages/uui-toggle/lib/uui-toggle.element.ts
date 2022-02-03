@@ -1,13 +1,13 @@
-import { html, css } from 'lit';
 import {
-  UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 import {
-  iconWrong,
   iconCheck,
+  iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
+import { css, html } from 'lit';
 
 /**
  *  Umbraco Toggle-switch, toggles between off/on. Technically a checkbox.
@@ -160,11 +160,11 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         fill: var(--uui-interface-select-contrast-disabled);
       }
 
-      :host(:not([hide-validation]):invalid) #slider,
-      :host(:not([hide-validation]):invalid) label:hover #slider,
+      :host(:not([pristine]):invalid) #slider,
+      :host(:not([pristine]):invalid) label:hover #slider,
       /* polyfill support */
-      :host(:not([hide-validation])[internals-invalid]) #slider,
-      :host(:not([hide-validation])[internals-invalid]) label:hover #slider {
+      :host(:not([pristine])[internals-invalid]) #slider,
+      :host(:not([pristine])[internals-invalid]) label:hover #slider {
         border: 1px solid var(--uui-look-danger-border);
       }
     `,

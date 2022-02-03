@@ -14,6 +14,11 @@ export declare abstract class FormControlMixinInterface {
   protected _value: FormDataEntryValue;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
+  pristine: boolean;
+  required: boolean;
+  requiredMessage: string;
+  error: boolean;
+  errorMessage: string;
 }
 
 type FlagTypes =
@@ -86,6 +91,15 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     private _validityState: any = {};
 
     /**
+     * Determines wether the form control has been touched or interacted with, this determines wether the validation-status of this form control should be made visible.
+     * @type {boolean}
+     * @attr
+     * @default false
+     */
+    @property({ type: Boolean, reflect: true })
+    pristine: boolean = true;
+
+    /**
      * Apply validation rule for requiring a value of this form control.
      * @type {boolean}
      * @attr
@@ -140,6 +154,10 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
         () => this.errorMessage,
         () => this.error
       );
+
+      this.addEventListener('blur', () => {
+        this.pristine = false;
+      });
     }
 
     public hasValue(): boolean {
@@ -148,19 +166,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     protected abstract getFormElement(): HTMLElement | undefined;
 
-    connectedCallback(): void {
-      super.connectedCallback();
-      this._removeFormListeners();
-      // TODO: try using formAssociatedCallback
-      this._form = this._internals.form;
-      if (this._form) {
-        if (this._form.hasAttribute('hide-validation')) {
-          this.setAttribute('hide-validation', '');
-        }
-        this._form.addEventListener('submit', this._onFormSubmit);
-        this._form.addEventListener('reset', this._onFormReset);
-      }
-    }
     disconnectedCallback(): void {
       super.disconnectedCallback();
       this._removeFormListeners();
@@ -168,7 +173,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     private _removeFormListeners() {
       if (this._form) {
         this._form.removeEventListener('submit', this._onFormSubmit);
-        this._form.removeEventListener('reset', this._onFormReset);
       }
     }
 
@@ -211,17 +215,22 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     private _onFormSubmit = () => {
-      if (this._form && this._form.checkValidity() === false) {
-        this.removeAttribute('hide-validation');
-      } else {
-        this.setAttribute('hide-validation', '');
-      }
-    };
-    private _onFormReset = () => {
-      this.setAttribute('hide-validation', '');
+      this.pristine = false;
     };
 
+    public formAssociatedCallback() {
+      this._removeFormListeners();
+      this._form = this._internals.form;
+      if (this._form) {
+        // This relies on the form begin a 'uui-form':
+        if (this._form.hasAttribute('invalid-submit')) {
+          this.pristine = false;
+        }
+        this._form.addEventListener('submit', this._onFormSubmit);
+      }
+    }
     public formResetCallback() {
+      this.pristine = true;
       this.value = this.getAttribute('value') || '';
     }
 

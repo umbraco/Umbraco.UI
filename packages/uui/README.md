@@ -15,7 +15,7 @@ npm i @umbraco-ui/uui
 Import the registration of all `uui` web components via:
 
 ```javascript
-import '@umbraco-ui/uui/lib';
+import '@umbraco-ui/uui';
 ```
 
 ### CDN

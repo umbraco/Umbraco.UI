@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-select/lib/index';
 
 const options: Array<Option> = [
   { name: 'Carrot', value: 'orange' },
@@ -36,7 +37,7 @@ export default {
   parameters: {
     docs: {
       source: {
-        code: `      
+        code: `
 <uui-select placeholder="Select an option"></uui-select>
 
 //this is an example of array you need to pass to the select component to print the options
@@ -71,7 +72,7 @@ export const Preselected: Story = () =>
 Preselected.parameters = {
   docs: {
     source: {
-      code: `      
+      code: `
 <uui-select placeholder="Select an option"></uui-select>
 
 //this is an example of array you need to pass to the select component to print the options
@@ -99,7 +100,7 @@ Groups.parameters = {
   controls: { include: ['placeholder'] },
   docs: {
     source: {
-      code: `      
+      code: `
 <uui-select placeholder="Select an option"></uui-select>
 
 //this is an example of array you need to pass to the select component to print the options
@@ -127,7 +128,7 @@ DisabledGroups.parameters = {
   controls: { include: ['placeholder'] },
   docs: {
     source: {
-      code: `      
+      code: `
 <uui-select disabledGroups="vegetables"></uui-select>`,
     },
   },
@@ -148,7 +149,7 @@ Disabled.parameters = {
   controls: { include: ['disabled'] },
   docs: {
     source: {
-      code: `      
+      code: `
 <uui-select disabled></uui-select>`,
     },
   },
@@ -169,7 +170,7 @@ Error.parameters = {
   controls: { include: ['error'] },
   docs: {
     source: {
-      code: `      
+      code: `
 <uui-select error></uui-select>`,
     },
   },

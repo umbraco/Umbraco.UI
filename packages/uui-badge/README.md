@@ -13,13 +13,13 @@ npm i @umbraco-ui/uui-badge
 Import the registration of `<uui-badge>` via:
 
 ```javascript
-import '@umbraco-ui/uui-badge/lib';
+import '@umbraco-ui/uui-badge';
 ```
 
 When looking to leverage the `UUIBadgeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBadgeElement } from '@umbraco-ui/uui-badge/lib/uui-badge.element';
+import { UUIBadgeElement } from '@umbraco-ui/uui-badge';
 ```
 
 ### CDN

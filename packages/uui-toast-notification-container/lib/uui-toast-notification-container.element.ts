@@ -1,6 +1,8 @@
-import { LitElement, html, css } from 'lit';
-import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification/lib/uui-toast-notification.element';
-import { UUIToastNotificationEvent } from '@umbraco-ui/uui-toast-notification/lib/UUIToastNotificationEvent';
+import {
+  UUIToastNotificationElement,
+  UUIToastNotificationEvent,
+} from '@umbraco-ui/uui-toast-notification/lib';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**

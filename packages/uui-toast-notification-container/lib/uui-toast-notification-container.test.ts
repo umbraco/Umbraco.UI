@@ -1,17 +1,20 @@
+import '.';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+import {
+  UUIToastNotificationElement,
+  UUIToastNotificationEvent,
+} from '@umbraco-ui/uui-toast-notification/lib';
+
 import { UUIToastNotificationContainerElement } from './uui-toast-notification-container.element';
-import '.';
-import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification/lib/uui-toast-notification.element';
-import '@umbraco-ui/uui-toast-notification/lib/index';
-import { UUIToastNotificationEvent } from '@umbraco-ui/uui-toast-notification/lib/UUIToastNotificationEvent';
-import '@umbraco-ui/uui-button/lib/index';
-import '@umbraco-ui/uui-icon/lib/index';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
