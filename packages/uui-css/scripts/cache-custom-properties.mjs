@@ -1,6 +1,6 @@
-import postcss from 'postcss';
 import * as fs from 'fs/promises';
 import path from 'path';
+import postcss from 'postcss';
 import postcssCustomProperties from 'postcss-custom-properties';
 import * as postCssValueParser from 'postcss-values-parser';
 
@@ -37,7 +37,7 @@ export const CacheCustomProperties = async masterCSSPath => {
 
     try {
       await fs.writeFile(
-        './custom-properties.js',
+        './custom-properties.cjs',
         `module.exports = ${json};`,
         'utf8'
       );

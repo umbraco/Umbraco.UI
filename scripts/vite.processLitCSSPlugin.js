@@ -11,7 +11,7 @@ const postcssConfig = require('postcss-load-config');
 
 // @ts-ignore-start
 // eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
-const customProperties = require('../packages/uui-css/custom-properties.js'); // eslint-disable-line
+const customProperties = require('../packages/uui-css/custom-properties.cjs'); // eslint-disable-line
 // @ts-ignore-end
 
 const options = {
