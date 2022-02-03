@@ -23,6 +23,11 @@
   "main": "./dist/uui.min.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
+  "exports": {
+    "import": "./lib/index.js",
+    "require": "./dist/uui.min.js"
+  },
   "customElements": "custom-elements.json",
   "files": [
     "dist",
@@ -90,9 +95,9 @@
     "@umbraco-ui/uui-toggle": "0.0.17"
   },
   "scripts": {
-    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
-    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+    "analyze": "web-component-analyzer ../**/*.element.ts --outFile custom-elements.json"
   },
   "publishConfig": {
     "access": "public"

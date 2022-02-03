@@ -24,18 +24,6 @@ When looking to leverage the `UUIActionBarElement` base class as a type and/or f
 import { UUIActionBarElement } from '@umbraco-ui/uui-action-bar';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-action-bar@latest/dist/uui-action-bar.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-action-bar@X.X.X/dist/uui-action-bar.min.js"></script>
-```
-
 ## Usage
 
 ```html
