@@ -178,6 +178,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   }
 
   private _onInputChange() {
+    this.pristine = false;
     this.checked = this._input.checked;
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
   }

@@ -16,12 +16,6 @@ export class UUIInputInFormExampleElement extends LitElement {
     form {
       max-width: 600px;
     }
-
-    select:invalid,
-    textarea:invalid,
-    input:invalid {
-      border: 1px solid red;
-    }
   `;
 
   @query('form')
@@ -49,12 +43,12 @@ export class UUIInputInFormExampleElement extends LitElement {
     }
 
     const isValid = this._form.checkValidity();
-
     if (!isValid) {
-      this._form.removeAttribute('hide-validation');
+      this._form.setAttribute('invalid-submit', '');
       return;
     }
-    this._form.setAttribute('hide-validation', '');
+
+    this._form.removeAttribute('invalid-submit');
 
     const formData = new FormData(this._form);
 
@@ -62,11 +56,10 @@ export class UUIInputInFormExampleElement extends LitElement {
       console.log(value);
     }
   }
-  _onReset() {
-    if (!this._form) {
-      return;
-    }
-    this._form.setAttribute('hide-validation', '');
+
+  _onRadioGroupChange(event: InputEvent) {
+    const target = event.target as UUIInputElement;
+    target.error = target.value !== 'radio2';
   }
 
   _onCustomValidationInput(event: InputEvent) {
@@ -101,7 +94,11 @@ export class UUIInputInFormExampleElement extends LitElement {
       </div>
 
       <div style="margin-bottom: 15px;">
-        <uui-radio-group name="radio" label="This is my radio" required>
+        <uui-radio-group
+          name="radio"
+          label="This is my radio"
+          required
+          @change="${this._onRadioGroupChange}">
           <uui-radio value="radio1" label="radio1" name="radio1"
             >Label</uui-radio
           >
@@ -190,11 +187,7 @@ export class UUIInputInFormExampleElement extends LitElement {
 
   render() {
     return html`
-      <form
-        @submit="${this._onSubmit}"
-        @reset="${this._onReset}"
-        novalidate
-        hide-validation>
+      <form @submit="${this._onSubmit}" novalidate>
         ${this.renderFormControls()}
         ${this.showExtraFields ? this.renderFormControls() : ''}
 
