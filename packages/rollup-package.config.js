@@ -24,6 +24,7 @@ const createEsModulesConfig = (entryPoints = []) => {
           file: `./lib/${name}.js`,
           format: 'es',
         },
+        external: [/^lit/, /^@umbraco-ui/],
         plugins: [
           importCss({ from: undefined }),
           processLitCSSPlugin(),
@@ -83,7 +84,7 @@ export const UUIProdConfig = ({
   entryPoints = [],
   cssFiles = [],
   bundle,
-  namespace = 'uui',
+  namespace = '',
 }) => {
   const cssFilesConfig = createCSSFilesConfig(cssFiles);
   const esModulesConfig = createEsModulesConfig(entryPoints);

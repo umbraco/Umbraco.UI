@@ -25,18 +25,6 @@ import {
 } from '@umbraco-ui/uui-breadcrumbs';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-breadcrumbs@latest/dist/uui-breadcrumbs.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-breadcrumbs@X.X.X/dist/uui-breadcrumbs.min.js"></script>
-```
-
 ## Usage
 
 ```html

@@ -27,6 +27,7 @@ module.exports = {
       config.optimizeDeps.include.push('lit/directives/style-map.js');
       config.optimizeDeps.include.push('lit/directives/if-defined.js');
       config.optimizeDeps.include.push('lit/directives/unsafe-html.js');
+      config.optimizeDeps.include.push('element-internals-polyfill');
     }
 
     return config;
