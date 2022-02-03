@@ -1,5 +1,6 @@
 import '.';
 import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -51,14 +52,16 @@ export const ConfirmDialogDanger: Story = () => html`
 `;
 
 export const HeadlineSlot: Story = () => html`
-  <uui-dialog>
-    <uui-dialog-layout>
-      <span slot="headline">
-        <uui-icon name="crown-alt"></uui-icon> With Icon
-      </span>
-      <p>This is using a <b>slot</b> for the headline.</p>
-      <uui-button slot="actions">Cancel</uui-button>
-      <uui-button slot="actions" look="danger">Delete</uui-button>
-    </uui-dialog-layout>
-  </uui-dialog>
+  <uui-icon-registry-essential>
+    <uui-dialog>
+      <uui-dialog-layout>
+        <span slot="headline">
+          <uui-icon name="code"></uui-icon> With Icon
+        </span>
+        <p>This is using a <b>slot</b> for the headline.</p>
+        <uui-button slot="actions">Cancel</uui-button>
+        <uui-button slot="actions" look="danger">Delete</uui-button>
+      </uui-dialog-layout>
+    </uui-dialog>
+  </uui-icon-registry-essential>
 `;
