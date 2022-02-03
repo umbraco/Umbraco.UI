@@ -24,18 +24,6 @@ When looking to leverage the `UUIIconElement` base class as a type and/or for ex
 import { UUIIconElement } from '@umbraco-ui/uui-icon';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-icon@latest/dist/uui-icon.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-icon@X.X.X/dist/uui-icon.min.js"></script>
-```
-
 ## Usage
 
 ```html

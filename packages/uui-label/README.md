@@ -24,18 +24,6 @@ When looking to leverage the `UUILabelElement` base class as a type and/or for e
 import { UUILabelElement } from '@umbraco-ui/uui-label';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-label@latest/dist/uui-label.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-label@X.X.X/dist/uui-label.min.js"></script>
-```
-
 ## Usage
 
 ```html

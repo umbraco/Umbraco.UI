@@ -161,9 +161,22 @@ export class UUIRadioElement extends LitElement {
   public label = '';
 
   @property({ type: Boolean, reflect: true })
-  public checked = false;
-
-  private _disabled = false;
+  public get checked() {
+    return this._checked;
+  }
+  public set checked(value) {
+    this._checked = value;
+    if (value === true) {
+      this.setAttribute('aria-checked', '');
+      if (!this.disabled) {
+        this.setAttribute('tabindex', '0');
+      }
+    } else {
+      this.setAttribute('tabindex', '-1');
+      this.removeAttribute('aria-checked');
+    }
+  }
+  private _checked = false;
 
   /**
    * Disables the input.
@@ -175,7 +188,6 @@ export class UUIRadioElement extends LitElement {
   get disabled() {
     return this._disabled;
   }
-
   set disabled(newVal) {
     const oldVal = this._disabled;
     this._disabled = newVal;
@@ -185,6 +197,7 @@ export class UUIRadioElement extends LitElement {
     }
     this.requestUpdate('disabled', oldVal);
   }
+  private _disabled = false;
 
   constructor() {
     super();
@@ -204,17 +217,10 @@ export class UUIRadioElement extends LitElement {
   }
 
   private _onChange() {
-    if (this.inputElement.checked) {
-      this.checked = true;
-      this.setAttribute('aria-checked', '');
-      if (!this.disabled) {
-        this.setAttribute('tabindex', '0');
-        this.focus();
-      }
-    } else {
-      this.checked = false;
-      this.setAttribute('tabindex', '-1');
-      this.removeAttribute('aria-checked');
+    const checked = this.inputElement.checked;
+    this.checked = checked;
+    if (checked) {
+      this.focus();
     }
     this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
   }
@@ -241,6 +247,15 @@ export class UUIRadioElement extends LitElement {
   public makeFocusable() {
     if (!this.disabled) {
       this.setAttribute('tabindex', '0');
+    }
+  }
+  /**
+   * Call to make the element focusable, this sets tabindex to 0.
+   * @method makeUnfocusable
+   */
+  public makeUnfocusable() {
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '-1');
     }
   }
 

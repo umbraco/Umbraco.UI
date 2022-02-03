@@ -24,18 +24,6 @@ When looking to leverage the `UUIIconRegistryEssentialElement` base class as a t
 import { UUIIconRegistryEssentialElement } from '@umbraco-ui/uui-icon-registry-essential';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-icon-registry-essential@latest/dist/uui-icon-registry-essential.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-icon-registry-essential@X.X.X/dist/uui-icon-registry-essential.min.js"></script>
-```
-
 ## Usage
 
 ```html

@@ -24,18 +24,6 @@ When looking to leverage the `UUIInputPasswordElement` base class as a type and/
 import { UUIInputPasswordElement } from '@umbraco-ui/uui-input-password';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-input-password@latest/dist/uui-input-password.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-input-password@X.X.X/dist/uui-input-password.min.js"></script>
-```
-
 ## Usage
 
 ```html
