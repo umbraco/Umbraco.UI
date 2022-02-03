@@ -23,7 +23,6 @@
   "main": "./dist/uui.min.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "type": "module",
   "exports": {
     "import": "./lib/index.js",
     "require": "./dist/uui.min.js"
