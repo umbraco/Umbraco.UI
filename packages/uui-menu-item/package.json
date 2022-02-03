@@ -22,6 +22,7 @@
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
   "customElements": "custom-elements.json",
   "files": [
     "lib/**/*.d.ts",
