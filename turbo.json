@@ -1,0 +1,24 @@
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "lib/**/*.js",
+        "lib/**/*.d.ts",
+        "dist/**",
+        "custom-elements.json"
+      ]
+    },
+    "test": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    }
+  },
+  "baseBranch": "origin/dev",
+  "globalDependencies": ["tsconfig.json"]
+}
