@@ -11,6 +11,7 @@ import {
   iconCheck,
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import '@umbraco-ui/uui-icon/lib';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -592,10 +593,14 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
-        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
+        element = html`<uui-icon
+          name="check"
+          .fallback=${iconCheck.strings[0]}></uui-icon>`;
         break;
       case 'failed':
-        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
+        element = html`<uui-icon
+          name="wrong"
+          .fallback=${iconWrong.strings[0]}></uui-icon>`;
         break;
       default:
         return '';
