@@ -28,6 +28,7 @@ export class UUIIconElement extends LitElement {
   ];
 
   private _name: string | null = null;
+  private _retrievedNameIcon: boolean = false;
 
   @state()
   private _nameSvg: string | null = null;
@@ -45,7 +46,9 @@ export class UUIIconElement extends LitElement {
   }
   set name(newValue) {
     this._name = newValue;
-    this.requestIcon();
+    if (this.shadowRoot) {
+      this.requestIcon();
+    }
   }
   private requestIcon() {
     if (this._name !== '' && this._name !== null) {
@@ -54,11 +57,13 @@ export class UUIIconElement extends LitElement {
       });
       this.dispatchEvent(event);
       if (event.icon !== null) {
+        this._retrievedNameIcon = true;
         event.icon.then((iconSvg: string) => {
           this._useFallback = false;
           this._nameSvg = iconSvg;
         });
       } else {
+        this._retrievedNameIcon = false;
         this._useFallback = true;
       }
     }
@@ -87,15 +92,20 @@ export class UUIIconElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    if (this._name !== '' && this._name !== null) {
-      if (this._nameSvg === null) {
-        this.requestIcon();
-      }
+    if (this._retrievedNameIcon === false) {
+      this.requestIcon();
     }
   }
 
   disconnectedCallback(): void {
-    this._nameSvg = null;
+    this._retrievedNameIcon = false;
+  }
+
+  firstUpdated() {
+    // Registry might not have been created then this icon was connected, so therefor we will make another attempt to retrieve the icon.
+    if (this._retrievedNameIcon === false) {
+      this.requestIcon();
+    }
   }
 
   render() {

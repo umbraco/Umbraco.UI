@@ -11,6 +11,8 @@ import { UUIIconRegistry } from './UUIIconRegistry';
 export class UUIIconRegistryElement extends LitElement {
   /**
    * Provide a Dictionary/Record/Object where key is the icon name and the value is the SVGs to define in the icon registry.
+   * @type {Record<string, string>}
+   * @default {}
    */
   @property({ attribute: false })
   private _icons: Record<string, string> = {};
@@ -20,14 +22,10 @@ export class UUIIconRegistryElement extends LitElement {
   set icons(icons) {
     this._icons = icons;
     if (this._registry) {
-      this.defineIconsInRegistry();
+      Object.entries(this._icons).forEach(([key, value]) =>
+        this._registry.defineIcon(key, value)
+      );
     }
-  }
-
-  private defineIconsInRegistry() {
-    Object.entries(this._icons).forEach(([key, value]) =>
-      this._registry.defineIcon(key, value)
-    );
   }
 
   private _registry: UUIIconRegistry = new UUIIconRegistry();
@@ -36,22 +34,16 @@ export class UUIIconRegistryElement extends LitElement {
     return this._registry;
   }
   public set registry(newRegistry: UUIIconRegistry) {
-    if (this.shadowRoot) {
-      if (this.registry) {
-        this.registry.detach(this);
-      }
-      newRegistry.attach(this);
+    if (this.registry) {
+      this.registry.detach(this);
     }
+    newRegistry.attach(this);
     this._registry = newRegistry;
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    this.registry.attach(this);
-  }
-  disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this.registry.detach(this);
+  constructor() {
+    super();
+    this._registry.attach(this);
   }
 
   render() {
