@@ -13,3 +13,9 @@ export class UUITableColumnElement extends LitElement {
     `,
   ];
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-column': UUITableColumnElement;
+  }
+}

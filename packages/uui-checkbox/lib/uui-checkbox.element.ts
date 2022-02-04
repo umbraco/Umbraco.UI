@@ -175,3 +175,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-checkbox': UUICheckboxElement;
+  }
+}

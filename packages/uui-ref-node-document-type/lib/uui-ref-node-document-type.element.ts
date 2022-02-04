@@ -39,3 +39,9 @@ export class UUIRefNodeDocumentTypeElement extends UUIRefNodeElement {
     ></small>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node-document-type': UUIRefNodeDocumentTypeElement;
+  }
+}

@@ -315,3 +315,9 @@ export class UUISelectElement extends LitElement {
     </select>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-select': UUISelectElement;
+  }
+}

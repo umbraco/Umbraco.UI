@@ -128,3 +128,9 @@ export class UUIIconElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-icon': UUIIconElement;
+  }
+}

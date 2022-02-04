@@ -284,3 +284,9 @@ export class UUIRadioElement extends LitElement {
     </label>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-radio': UUIRadioElement;
+  }
+}

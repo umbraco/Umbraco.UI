@@ -122,3 +122,9 @@ export class UUILoaderBarElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-loader-bar': UUILoaderBarElement;
+  }
+}

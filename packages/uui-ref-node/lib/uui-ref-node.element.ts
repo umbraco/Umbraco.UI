@@ -148,3 +148,9 @@ export class UUIRefNodeElement extends UUIRefElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node': UUIRefNodeElement;
+  }
+}

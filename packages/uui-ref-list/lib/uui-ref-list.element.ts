@@ -27,3 +27,9 @@ export class UUIRefListElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-list': UUIRefListElement;
+  }
+}

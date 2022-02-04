@@ -49,3 +49,9 @@ export class UUIBreadcrumbsElement extends LitElement {
     </ol>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-breadcrumbs': UUIBreadcrumbsElement;
+  }
+}

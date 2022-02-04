@@ -51,3 +51,9 @@ export class UUISymbolFileElement extends LitElement {
         : ''} `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-file': UUISymbolFileElement;
+  }
+}

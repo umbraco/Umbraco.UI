@@ -125,3 +125,9 @@ export class UUIAvatarElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-avatar': UUIAvatarElement;
+  }
+}

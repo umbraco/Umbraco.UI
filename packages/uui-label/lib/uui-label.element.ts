@@ -63,3 +63,9 @@ export class UUILabelElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-label': UUILabelElement;
+  }
+}

@@ -88,3 +88,9 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
       </svg>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-sort': UUISymbolSortElement;
+  }
+}

@@ -31,3 +31,9 @@ export class UUISymbolFolderElement extends LitElement {
     </svg> `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-folder': UUISymbolFolderElement;
+  }
+}

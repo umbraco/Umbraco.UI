@@ -167,3 +167,9 @@ export class UUICardMediaElement extends UUICardElement {
       <slot name="actions"></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card-media': UUICardMediaElement;
+  }
+}

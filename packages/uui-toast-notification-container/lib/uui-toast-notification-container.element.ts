@@ -168,3 +168,9 @@ export class UUIToastNotificationContainerElement extends LitElement {
     return html` <slot @slotchange=${this.onSlotChanged}></slot> `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification-container': UUIToastNotificationContainerElement;
+  }
+}

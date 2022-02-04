@@ -1,9 +1,10 @@
-import { LitElement, css, html } from 'lit';
 import {
   SelectableMixin,
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { css, html, LitElement } from 'lit';
 import { queryAssignedNodes } from 'lit/decorators.js';
+
 import { UUITableCellElement } from './uui-table-cell.element';
 
 /**
@@ -54,5 +55,11 @@ export class UUITableRowElement extends SelectOnlyMixin(
 
   render() {
     return html` <slot @slotchanged=${this.updateChildSelectOnly}></slot> `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-row': UUITableRowElement;
   }
 }

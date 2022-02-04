@@ -328,3 +328,9 @@ export class UUIPaginationElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-pagination': UUIPaginationElement;
+  }
+}

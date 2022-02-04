@@ -58,3 +58,9 @@ export class UUIProgressBarElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-progress-bar': UUIProgressBarElement;
+  }
+}

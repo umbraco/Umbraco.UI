@@ -241,3 +241,9 @@ export class UUITextareaElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-textarea': UUITextareaElement;
+  }
+}

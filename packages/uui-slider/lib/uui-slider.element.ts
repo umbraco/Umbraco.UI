@@ -423,3 +423,9 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-slider': UUISliderElement;
+  }
+}

@@ -132,3 +132,9 @@ export class UUICardContentNodeElement extends UUICardElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card-content-node': UUICardContentNodeElement;
+  }
+}

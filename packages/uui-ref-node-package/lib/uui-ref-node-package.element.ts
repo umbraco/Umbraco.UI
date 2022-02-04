@@ -50,3 +50,9 @@ export class UUIRefNodePackageElement extends UUIRefNodeElement {
     ></small>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node-package': UUIRefNodePackageElement;
+  }
+}

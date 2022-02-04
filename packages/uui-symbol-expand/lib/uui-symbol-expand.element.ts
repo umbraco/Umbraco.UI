@@ -42,3 +42,9 @@ export class UUISymbolExpandElement extends LitElement {
     </svg>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-expand': UUISymbolExpandElement;
+  }
+}

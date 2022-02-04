@@ -1,4 +1,5 @@
 import { css } from 'lit';
+
 import { UUITableCellElement } from './uui-table-cell.element';
 
 /**
@@ -18,5 +19,11 @@ export class UUITableHeadCellElement extends UUITableCellElement {
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'columnheader');
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-head-cell': UUITableHeadCellElement;
   }
 }

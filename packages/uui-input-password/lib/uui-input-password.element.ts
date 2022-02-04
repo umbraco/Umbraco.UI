@@ -63,3 +63,9 @@ export class UUIInputPasswordElement extends UUIInputElement {
     </uui-button>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input-password': UUIInputPasswordElement;
+  }
+}

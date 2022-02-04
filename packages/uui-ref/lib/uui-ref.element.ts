@@ -199,3 +199,9 @@ export class UUIRefElement extends SelectOnlyMixin(
     this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref': UUIRefElement;
+  }
+}

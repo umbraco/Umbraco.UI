@@ -31,3 +31,9 @@ export class UUIFormElement extends HTMLFormElement {
     this.removeAttribute('submit-invalid');
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-form': UUIFormElement;
+  }
+}

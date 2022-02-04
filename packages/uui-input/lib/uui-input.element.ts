@@ -223,3 +223,9 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input': UUIInputElement;
+  }
+}

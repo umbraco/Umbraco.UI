@@ -291,3 +291,9 @@ export class UUITableWithSelectionExampleElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-with-selection-example': UUITableWithSelectionExampleElement;
+  }
+}

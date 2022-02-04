@@ -29,3 +29,9 @@ export class UUITableElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table': UUITableElement;
+  }
+}

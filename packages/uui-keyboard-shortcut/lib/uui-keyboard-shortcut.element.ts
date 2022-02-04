@@ -28,3 +28,9 @@ export class UUIKeyboardShortcutElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-keyboard-shortcut': UUIKeyboardShortcutElement;
+  }
+}

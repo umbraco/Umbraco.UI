@@ -20,3 +20,9 @@ export class UUISymbolMoreElement extends LitElement {
     return html`•••`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-more': UUISymbolMoreElement;
+  }
+}

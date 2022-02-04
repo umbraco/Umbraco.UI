@@ -214,3 +214,9 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-button-inline-create': UUIButtonInlineCreateElement;
+  }
+}

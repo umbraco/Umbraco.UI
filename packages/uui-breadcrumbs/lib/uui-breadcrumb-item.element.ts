@@ -89,3 +89,9 @@ export class UUIBreadcrumbItemElement extends LitElement {
       : this.renderLinkAndSeparator()}`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-breadcrumb-item': UUIBreadcrumbItemElement;
+  }
+}

@@ -182,3 +182,9 @@ export class UUIBadgeElement extends LitElement {
     return html` <slot></slot> `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-badge': UUIBadgeElement;
+  }
+}

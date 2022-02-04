@@ -47,3 +47,9 @@ export class UUICaretElement extends LitElement {
     </svg>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-caret': UUICaretElement;
+  }
+}

@@ -208,3 +208,9 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-boolean-input': UUIBooleanInputElement;
+  }
+}

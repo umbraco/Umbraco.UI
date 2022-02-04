@@ -38,3 +38,9 @@ export class UUIRefNodeUserElement extends UUIRefNodeElement {
     ></small>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node-user': UUIRefNodeUserElement;
+  }
+}

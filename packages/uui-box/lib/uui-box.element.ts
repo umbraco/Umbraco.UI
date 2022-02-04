@@ -38,3 +38,9 @@ export class UUIBoxElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-box': UUIBoxElement;
+  }
+}

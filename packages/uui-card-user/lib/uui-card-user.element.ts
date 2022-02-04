@@ -112,3 +112,9 @@ export class UUICardUserElement extends UUICardElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card-user': UUICardUserElement;
+  }
+}

@@ -268,3 +268,9 @@ export class UUIMenuItemElement extends SelectableMixin(
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-menu-item': UUIMenuItemElement;
+  }
+}

@@ -47,3 +47,9 @@ export class UUIScrollContainerElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-scroll-container': UUIScrollContainerElement;
+  }
+}

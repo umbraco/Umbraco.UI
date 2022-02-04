@@ -56,3 +56,9 @@ export class UUIButtonGroupElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-button-group': UUIButtonGroupElement;
+  }
+}

@@ -69,3 +69,9 @@ export class UUIToastNotificationLayoutElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification-layout': UUIToastNotificationLayoutElement;
+  }
+}

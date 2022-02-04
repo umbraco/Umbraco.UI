@@ -57,3 +57,9 @@ export class UUILoaderElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-loader': UUILoaderElement;
+  }
+}

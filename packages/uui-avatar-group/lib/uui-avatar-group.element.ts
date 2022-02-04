@@ -88,3 +88,9 @@ export class UUIAvatarGroupElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-avatar-group': UUIAvatarGroupElement;
+  }
+}

@@ -330,3 +330,9 @@ export class UUIToastNotificationElement extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification': UUIToastNotificationElement;
+  }
+}

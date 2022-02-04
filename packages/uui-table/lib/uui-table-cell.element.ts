@@ -108,3 +108,9 @@ export class UUITableCellElement extends LitElement {
     return html` <slot @slotchange=${this._detectOverflow}></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-cell': UUITableCellElement;
+  }
+}

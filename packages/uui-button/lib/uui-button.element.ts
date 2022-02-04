@@ -1,3 +1,5 @@
+import '@umbraco-ui/uui-icon/lib';
+
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
@@ -11,7 +13,6 @@ import {
   iconCheck,
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import '@umbraco-ui/uui-icon/lib';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -616,5 +617,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         <slot name="extra"></slot>
       </button>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-button': UUIButtonElement;
   }
 }

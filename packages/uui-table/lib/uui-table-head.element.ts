@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit';
+import { css, html, LitElement } from 'lit';
 
 /**
  *  Table head element. Holds the styles for table head. Parent to uui-table-head-cell.
@@ -22,5 +22,11 @@ export class UUITableHeadElement extends LitElement {
 
   render() {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-head': UUITableHeadElement;
   }
 }

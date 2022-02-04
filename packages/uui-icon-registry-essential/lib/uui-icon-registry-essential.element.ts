@@ -13,3 +13,9 @@ export class UUIIconRegistryEssentialElement extends UUIIconRegistryElement {
     this.registry = new UUIIconRegistryEssential();
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-icon-registry-essential': UUIIconRegistryEssentialElement;
+  }
+}

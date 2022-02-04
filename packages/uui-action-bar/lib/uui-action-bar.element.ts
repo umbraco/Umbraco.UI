@@ -53,3 +53,9 @@ export class UUIActionBarElement extends UUIButtonGroupElement {
     `,
   ];
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-action-bar': UUIActionBarElement;
+  }
+}

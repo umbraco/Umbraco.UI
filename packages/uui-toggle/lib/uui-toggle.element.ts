@@ -183,3 +183,9 @@ export class UUIToggleElement extends UUIBooleanInputElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toggle': UUIToggleElement;
+  }
+}

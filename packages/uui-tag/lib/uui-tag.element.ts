@@ -87,3 +87,9 @@ export class UUITagElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-tag': UUITagElement;
+  }
+}

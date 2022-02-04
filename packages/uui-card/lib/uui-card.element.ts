@@ -160,3 +160,9 @@ export class UUICardElement extends SelectOnlyMixin(
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card': UUICardElement;
+  }
+}

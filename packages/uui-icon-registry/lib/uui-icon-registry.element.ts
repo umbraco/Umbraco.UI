@@ -50,3 +50,9 @@ export class UUIIconRegistryElement extends LitElement {
     return html`<slot></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-icon-registry': UUIIconRegistryElement;
+  }
+}
