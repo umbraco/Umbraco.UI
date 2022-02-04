@@ -10,6 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:lit/recommended',
     'plugin:lit-a11y/recommended',
+    'plugin:storybook/recommended',
   ],
   rules: {
     // disable the rule for all files

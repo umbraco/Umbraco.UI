@@ -24,18 +24,6 @@ When looking to leverage the `UUISymbolMoreElement` base class as a type and/or 
 import { UUISymbolMoreElement } from '@umbraco-ui/uui-symbol-more';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-symbol-more@latest/dist/uui-symbol-more.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-symbol-more@X.X.X/dist/uui-symbol-more.min.js"></script>
-```
-
 ## Usage
 
 ```html

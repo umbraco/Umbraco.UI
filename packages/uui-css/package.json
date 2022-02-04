@@ -19,16 +19,15 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-css.min.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "customElements": "custom-elements.json",
+  "type": "module",
   "files": [
     "assets",
     "dist",
     "lib/**/*.d.ts",
-    "lib/**/*.js",
-    "custom-elements.json"
+    "lib/**/*.js"
   ],
   "dependencies": {
     "lit": "^2.0.0"
@@ -37,7 +36,7 @@
     "build": "npm run build:cssprops && npm run build:rootcss && tsc --build --force && rollup -c rollup.config.js",
     "build:cssprops": "postcss lib/custom-properties.css --base lib/ --dir dist && npm run custom-properties-cache",
     "build:rootcss": "postcss lib/uui-css.css --base lib/ --dir dist",
-    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json custom-properties.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json custom-properties.*",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "custom-properties-cache": "node ./scripts/update-custom-properties-cache.mjs"
   },

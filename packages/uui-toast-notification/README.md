@@ -24,18 +24,6 @@ When looking to leverage the `UUIToastNotificationElement` base class as a type 
 import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-toast-notification@latest/dist/uui-toast-notification.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-toast-notification@X.X.X/dist/uui-toast-notification.min.js"></script>
-```
-
 ## Usage
 
 ```html

@@ -24,18 +24,6 @@ When looking to leverage the `UUIRefNodeDocumentTypeElement` base class as a typ
 import { UUIRefNodeDocumentTypeElement } from '@umbraco-ui/uui-ref-node-document-type';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-ref-node-document-type@latest/dist/uui-ref-node-document-type.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-ref-node-document-type@X.X.X/dist/uui-ref-node-document-type.min.js"></script>
-```
-
 ## Usage
 
 ```html

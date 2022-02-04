@@ -24,18 +24,6 @@ When looking to leverage the `UUIButtonInlineCreateElement` base class as a type
 import { UUIButtonInlineCreateElement } from '@umbraco-ui/uui-button-inline-create';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-button-inline-create@latest/dist/uui-button-inline-create.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-button-inline-create@X.X.X/dist/uui-button-inline-create.min.js"></script>
-```
-
 ## Usage
 
 ```html
