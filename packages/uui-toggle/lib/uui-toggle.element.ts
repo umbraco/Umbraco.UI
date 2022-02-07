@@ -8,6 +8,7 @@ import {
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 /**
  *  Umbraco Toggle-switch, toggles between off/on. Technically a checkbox.
@@ -24,6 +25,7 @@ import { css, html } from 'lit';
  *  @cssprop --uui-toggle-background-color-focus - Set the toggle background color when focused
  *  @extends UUIBooleanInputElement
  */
+@customElement('uui-toggle')
 export class UUIToggleElement extends UUIBooleanInputElement {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/

@@ -1,4 +1,5 @@
 import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  @element uui-ref-node-form
@@ -8,6 +9,7 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
  *  @description - Component for displaying a reference to a form node.
  */
 
+@defineElement('uui-ref-node-form')
 export class UUIRefNodeFormElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 

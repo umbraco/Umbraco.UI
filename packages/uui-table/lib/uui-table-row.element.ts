@@ -2,6 +2,7 @@ import {
   SelectableMixin,
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { queryAssignedNodes } from 'lit/decorators.js';
 
@@ -12,6 +13,7 @@ import { UUITableCellElement } from './uui-table-cell.element';
  *  @element uui-table-row
  *  @slot for <uui-table-cell> elements that should be in the row.
  */
+@defineElement('uui-table-row')
 export class UUITableRowElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
 ) {

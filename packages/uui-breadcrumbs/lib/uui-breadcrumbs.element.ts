@@ -1,4 +1,5 @@
 import { css, html, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
 /**
@@ -6,6 +7,7 @@ import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
  *  @element uui-breadcrumbs
  *  @slot to display nested breadcrumb items
  */
+@defineElement('uui-breadcrumbs')
 export class UUIBreadcrumbsElement extends LitElement {
   static styles = [
     css`

@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { UUIIconRegistry } from './UUIIconRegistry';
 
@@ -8,6 +9,7 @@ import { UUIIconRegistry } from './UUIIconRegistry';
  * The UUIIconRegistryElement holds an empty registry of which icons can be added to.
  * @see UUIIconRegistryEssentialElement for a registry of the most essential icons.
  */
+@defineElement('uui-icon-registry')
 export class UUIIconRegistryElement extends LitElement {
   /**
    * Provide a Dictionary/Record/Object where key is the icon name and the value is the SVGs to define in the icon registry.

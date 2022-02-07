@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  A box for grouping elements
@@ -8,6 +9,7 @@ import { LitElement, html, css } from 'lit';
  *  @slot area with no padding
  *
  */
+@defineElement('uui-box')
 export class UUIBoxElement extends LitElement {
   static styles = [
     css`

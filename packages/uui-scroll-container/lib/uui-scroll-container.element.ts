@@ -1,10 +1,12 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  @element uui-scroll-container
  *  @slot - for content
  *  @description - Component for displaying a larger amount of .
  */
+@defineElement('uui-scroll-container')
 export class UUIScrollContainerElement extends LitElement {
   static styles = [
     css`

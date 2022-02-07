@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { styleMap } from 'lit/directives/style-map.js';
 import { property, state } from 'lit/decorators.js';
 import {
@@ -14,6 +15,7 @@ import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
  *  @fires click on user click
  */
 
+@defineElement('uui-button-inline-create')
 export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIBlinkKeyframes,

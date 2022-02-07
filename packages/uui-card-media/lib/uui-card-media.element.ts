@@ -1,4 +1,5 @@
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -9,6 +10,7 @@ import { property, state } from 'lit/decorators.js';
  *  @description - Card component for displaying a media item.
  */
 
+@defineElement('uui-card-media')
 export class UUICardMediaElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,

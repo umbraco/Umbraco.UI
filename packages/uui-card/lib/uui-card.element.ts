@@ -1,4 +1,5 @@
 import { LitElement, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import {
   SelectableMixin,
@@ -14,6 +15,7 @@ import { UUICardEvent } from './UUICardEvent';
  *  @description - Base card component to be extended by specific cards.
  */
 
+@defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
 ) {

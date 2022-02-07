@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { ActiveMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
@@ -9,6 +10,7 @@ import { ActiveMixin } from '@umbraco-ui/uui-base/lib/mixins';
  *  @property active - Set this boolean to true for then the related composition is sorted.
  *  @property descending - Set this boolean to true for displaying descending sort is active.
  */
+@defineElement('uui-symbol-sort')
 export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   static styles = [
     css`

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
@@ -6,6 +7,7 @@ import { property } from 'lit/decorators.js';
  *  @element uui-symbol-expand
  *  @property open - Set this boolean to true for a open/expanded look.
  */
+@defineElement('uui-symbol-expand')
 export class UUISymbolExpandElement extends LitElement {
   static styles = [
     css`

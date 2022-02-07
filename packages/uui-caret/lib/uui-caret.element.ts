@@ -1,10 +1,12 @@
 import { LitElement, css, html } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
  *  A caret that rotates on click. Color will be `currentColor`
  *  @element uui-caret
  */
+@defineElement('uui-caret')
 export class UUICaretElement extends LitElement {
   static styles = [
     css`

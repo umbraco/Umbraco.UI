@@ -1,10 +1,12 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-file-symbol
  */
 
+@defineElement('uui-symbol-file')
 export class UUISymbolFileElement extends LitElement {
   static styles = [
     css`

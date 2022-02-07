@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -6,6 +7,7 @@ import { property } from 'lit/decorators.js';
  *  @element uui-table-cell
  *  @slot for table cell content
  */
+@defineElement('uui-table-cell')
 export class UUITableCellElement extends LitElement {
   static styles = [
     css`

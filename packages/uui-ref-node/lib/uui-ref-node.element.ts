@@ -1,4 +1,5 @@
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -14,6 +15,7 @@ import { property, state } from 'lit/decorators.js';
  *  @slot actions - for actions
  */
 
+@defineElement('uui-ref-node')
 export class UUIRefNodeElement extends UUIRefElement {
   static styles = [
     ...UUIRefElement.styles,

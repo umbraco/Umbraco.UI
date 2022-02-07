@@ -1,6 +1,7 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
-import { property, query } from 'lit/decorators.js';
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { css, html, LitElement, TemplateResult } from 'lit';
+import { property, query } from 'lit/decorators.js';
+
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -206,11 +207,5 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
         ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'uui-boolean-input': UUIBooleanInputElement;
   }
 }

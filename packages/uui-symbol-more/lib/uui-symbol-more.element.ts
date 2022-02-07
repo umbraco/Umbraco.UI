@@ -1,7 +1,9 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 /**
  * @element uui-symbol-more
  */
+@defineElement('uui-symbol-more')
 export class UUISymbolMoreElement extends LitElement {
   static styles = [
     css`

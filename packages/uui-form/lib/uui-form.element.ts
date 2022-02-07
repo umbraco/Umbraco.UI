@@ -1,6 +1,9 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+
 /**
  * @element uui-form
  */
+@defineElement('uui-form', { extends: 'form' })
 export class UUIFormElement extends HTMLFormElement {
   constructor() {
     super();

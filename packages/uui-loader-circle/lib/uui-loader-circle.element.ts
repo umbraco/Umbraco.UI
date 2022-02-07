@@ -1,4 +1,5 @@
 import { css, html, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -6,6 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
  *  @element uui-loader-circle
  * @description - Circular loader for indicating loading. You can put in in a button ;)
  */
+@defineElement('uui-loader-circle')
 export class UUILoaderCircleElement extends LitElement {
   static styles = [
     css`

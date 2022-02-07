@@ -1,4 +1,5 @@
 import '@umbraco-ui/uui-icon/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 import {
   UUIHorizontalShakeAnimationValue,
@@ -41,6 +42,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  */
+@defineElement('uui-button')
 export class UUIButtonElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,

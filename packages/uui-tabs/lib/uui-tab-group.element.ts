@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { queryAssignedNodes } from 'lit/decorators.js';
 
@@ -6,6 +7,7 @@ import { UUITabElement } from './uui-tab.element';
 /**
  *  @element uui-tab-group
  */
+@defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
   static styles = [
     css`

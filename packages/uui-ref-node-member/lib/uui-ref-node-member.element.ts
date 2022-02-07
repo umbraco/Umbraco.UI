@@ -1,4 +1,5 @@
 import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -10,6 +11,7 @@ import { property } from 'lit/decorators.js';
  *  @description - Component for displaying a reference to a Member node.
  */
 
+@defineElement('uui-ref-node-member')
 export class UUIRefNodeMemberElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 

@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 
 /**
@@ -5,6 +6,7 @@ import { css, html, LitElement } from 'lit';
  *  @element uui-table-head
  *  @slot for uui-table-head-cell elements.
  */
+@defineElement('uui-table-head')
 export class UUITableHeadElement extends LitElement {
   static styles = [
     css`

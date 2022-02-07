@@ -1,4 +1,5 @@
 import { LitElement, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import {
   SelectableMixin,
@@ -14,6 +15,7 @@ import { UUIRefEvent } from './UUIRefEvent';
  *  @description - Base ref component to be extended by specific ref elements. Does not have a tag.
  */
 
+@defineElement('uui-ref')
 export class UUIRefElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
 ) {
