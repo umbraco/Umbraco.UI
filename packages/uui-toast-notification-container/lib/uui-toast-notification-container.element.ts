@@ -131,8 +131,8 @@ export class UUIToastNotificationContainerElement extends LitElement {
         UUIToastNotificationEvent.CLOSED,
         this.onToastClosed as any
       );
-      toast.removeEventListener('mouseover', this.pauseAutoClose);
-      toast.removeEventListener('mouseout', this.resumeAutoClose);
+      toast.removeEventListener('mouseenter', this.pauseAutoClose);
+      toast.removeEventListener('mouseleave', this.resumeAutoClose);
       toast.removeEventListener('focus', this.pauseAutoClose);
       toast.removeEventListener('blur', this.resumeAutoClose);
     });
@@ -146,8 +146,8 @@ export class UUIToastNotificationContainerElement extends LitElement {
         this.onToastClosed as any
       );
 
-      toast.addEventListener('mouseover', this.pauseAutoClose);
-      toast.addEventListener('mouseout', this.resumeAutoClose);
+      toast.addEventListener('mouseenter', this.pauseAutoClose);
+      toast.addEventListener('mouseleave', this.resumeAutoClose);
       toast.addEventListener('focus', this.pauseAutoClose);
       toast.addEventListener('blur', this.resumeAutoClose);
 
