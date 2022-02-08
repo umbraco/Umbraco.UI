@@ -172,7 +172,7 @@ export class UUIToastNotificationElement extends LitElement {
       this.isOpen === true &&
       this._animate === false
     ) {
-      this._timer.resume();
+      this._timer.restart();
     }
   }
 
