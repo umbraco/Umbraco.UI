@@ -71,10 +71,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
    */
   public resumeAutoClose = () => {
     // Only reset autoClose if we have it and if one of the children does not have focus.
-    if (
-      this._autoClose &&
-      this.matches(':focus-within:not(:focus)') === false
-    ) {
+    if (this.matches(':focus-within:not(:focus)') === false) {
       this._autoClosePause = false;
       this._toasts?.forEach(el => el.resumeAutoClose());
     }
