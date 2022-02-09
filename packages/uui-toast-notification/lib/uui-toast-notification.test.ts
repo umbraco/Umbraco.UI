@@ -221,13 +221,19 @@ describe('UUIToastNotificationElement', () => {
         element.pauseAutoClose();
 
         // Wait for OPENED event
-        const openedListener = oneEvent(element, UUIToastNotificationEvent.OPENED);
+        const openedListener = oneEvent(
+          element,
+          UUIToastNotificationEvent.OPENED
+        );
         const openedEvent = await openedListener;
         expect(openedEvent).to.exist;
         expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
         element.resumeAutoClose();
-        expect(element.open, 'Element should still be open immediately after resuming').to.be.true;
+        expect(
+          element.open,
+          'Element should still be open immediately after resuming'
+        ).to.be.true;
 
         const closeListener = oneEvent(
           element,
@@ -256,7 +262,10 @@ describe('UUIToastNotificationElement', () => {
         element.open = true;
 
         // Wait for OPENED event
-        const openedListener = oneEvent(element, UUIToastNotificationEvent.OPENED);
+        const openedListener = oneEvent(
+          element,
+          UUIToastNotificationEvent.OPENED
+        );
         const openedEvent = await openedListener;
         expect(openedEvent).to.exist;
         expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
@@ -277,7 +286,10 @@ describe('UUIToastNotificationElement', () => {
         element.open = true;
 
         // Wait for OPENED event
-        const openedListener = oneEvent(element, UUIToastNotificationEvent.OPENED);
+        const openedListener = oneEvent(
+          element,
+          UUIToastNotificationEvent.OPENED
+        );
         const openedEvent = await openedListener;
         expect(openedEvent).to.exist;
         expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
