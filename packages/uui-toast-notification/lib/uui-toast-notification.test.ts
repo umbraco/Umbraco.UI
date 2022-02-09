@@ -213,41 +213,6 @@ describe('UUIToastNotificationElement', () => {
       });
     });
 
-    describe('autoClose can be paused after open-animation', () => {
-      it('did element close wait', async () => {
-        element.autoClose = 200;
-        element.open = true;
-
-        await sleep(600); // enough time for opening animation to be done.
-
-        expect(element.open).to.be.true;
-        element.pauseAutoClose();
-
-        await sleep(500); // enough time for opening animation to be done.
-
-        element.resumeAutoClose();
-        expect(element.open).to.be.true;
-
-        const closeListener = oneEvent(
-          element,
-          UUIToastNotificationEvent.CLOSING
-        );
-        const closeEvent = await closeListener;
-        expect(closeEvent).to.exist;
-        expect(closeEvent.type).to.equal(UUIToastNotificationEvent.CLOSING);
-        expect(element.open).to.be.false;
-
-        const closedListener = oneEvent(
-          element,
-          UUIToastNotificationEvent.CLOSED
-        );
-        const closedEvent = await closedListener;
-        expect(closedEvent).to.exist;
-        expect(closedEvent.type).to.equal(UUIToastNotificationEvent.CLOSED);
-        expect(element.open).to.be.false;
-      });
-    });
-
     describe('autoClose can be paused while opening', () => {
       it('did element close wait', async () => {
         element.autoClose = 20;
