@@ -186,7 +186,7 @@ describe('UUIToastNotificationContainerElement', () => {
       expect(toastElement.open).to.be.false;
     });
 
-    it('mouseover on child item will pause and resume autoClose', async () => {
+    it('mouseenter on child item will pause and resume autoClose', async () => {
       element.autoClose = 20;
 
       element.appendChild(toastElement);
@@ -194,7 +194,7 @@ describe('UUIToastNotificationContainerElement', () => {
       await elementUpdated(element);
       await sleep(100);
 
-      toastElement.dispatchEvent(new Event('mouseover'));
+      toastElement.dispatchEvent(new Event('mouseenter'));
 
       await sleep(400); // Enough time to cover if it did happen that the element opened and auto-closed.
 
@@ -202,7 +202,7 @@ describe('UUIToastNotificationContainerElement', () => {
       expect((toastElement as any)._animate).to.be.false; // Checking private _animate to ensure that guessed animation time was good.
       expect(toastElement.open).to.be.true;
 
-      toastElement.dispatchEvent(new Event('mouseout'));
+      toastElement.dispatchEvent(new Event('mouseleave'));
 
       await sleep(40); // Enough time to cover if it did happen that the element opened and auto-closed.
 
