@@ -1,12 +1,16 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+
 import { UUIFormElement } from './uui-form.element';
-import '.';
 
 describe('UUIFormElement', () => {
   let element: UUIFormElement;
 
   beforeEach(async () => {
     element = await fixture(html` <form is="uui-form"></form> `);
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIFormElement);
   });
 
   it('passes the a11y audit', async () => {

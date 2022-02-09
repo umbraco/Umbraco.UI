@@ -1,4 +1,5 @@
 import { css, html, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUISelectEvent } from './UUISelectEvent';
 
@@ -21,6 +22,7 @@ declare global {
  */
 // TODO: Implement FormControlMixin
 // TODO: Consider if this should use child items instead of an array.
+@defineElement('uui-select')
 export class UUISelectElement extends LitElement {
   static styles = [
     css`
@@ -313,5 +315,11 @@ export class UUISelectElement extends LitElement {
           )
         )}
     </select>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-select': UUISelectElement;
   }
 }

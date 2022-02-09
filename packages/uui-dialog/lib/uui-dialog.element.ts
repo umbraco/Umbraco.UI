@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  @element uui-dialog
@@ -6,6 +7,7 @@ import { LitElement, html, css } from 'lit';
  *  @slot actions - for dialog actions
  *  @description - All-round dialog
  */
+@defineElement('uui-dialog')
 export class UUIDialogElement extends LitElement {
   static styles = [
     css`
@@ -71,5 +73,11 @@ export class UUIDialogElement extends LitElement {
       ${this.renderContent()}
       <div class="actions">${this.renderActions()}</div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-dialog': UUIDialogElement;
   }
 }

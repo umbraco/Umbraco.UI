@@ -1,5 +1,5 @@
 import postcss from 'postcss';
-import syntax from 'postcss-syntax';
+import syntax from 'postcss-jsx';
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
 import { createFilter } from '@rollup/pluginutils';
 import postcssConfig from 'postcss-load-config';
@@ -10,12 +10,15 @@ import customProperties from '../packages/uui-css/custom-properties.module'; // 
 // @ts-ignore-end
 
 const options = {
-  include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
+  include: ['**/index.ts', '**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: [
     '**/uui-base/lib/events/**',
+    '**/uui-base/lib/registration/**',
+    '**/uui-base/lib/types/**',
+    '**/uui-base/lib/utils/**',
     '**/*.story.ts',
     '**/*.d.ts',
-    '../uui-css/**/*.ts',
+    '**/uui-css/**/*.ts',
   ],
 };
 

@@ -1,7 +1,9 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
-import { UUIRadioElement } from './uui-radio.element';
-import { UUIRadioGroupElement } from './uui-radio-group.element';
 import '.';
+
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+
+import { UUIRadioGroupElement } from './uui-radio-group.element';
+import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
 describe('UuiRadio', () => {

@@ -1,5 +1,5 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import './index';
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIBoxElement } from './uui-box.element';
 
 describe('UUIBox', () => {
@@ -9,6 +9,10 @@ describe('UUIBox', () => {
       <div slot="header">Header</div>
       <div slot="main">Main</div>
     </uui-box>`);
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIBoxElement);
   });
 
   it('passes the a11y audit', async () => {

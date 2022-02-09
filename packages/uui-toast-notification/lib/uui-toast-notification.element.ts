@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   InterfaceLookDefaultValue,
   InterfaceLookType,
@@ -18,6 +19,7 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
  *  @description - Component for displaying a toast notification, preferably used in toast-notification-container.
  *  @slot - for dialog layout/content
  */
+@defineElement('uui-toast-notification')
 export class UUIToastNotificationElement extends LitElement {
   static styles = [
     UUITextStyles,
@@ -328,5 +330,11 @@ export class UUIToastNotificationElement extends LitElement {
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification': UUIToastNotificationElement;
   }
 }

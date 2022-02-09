@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -7,6 +8,7 @@ import { property } from 'lit/decorators.js';
  *  @slot - to show display an element inside the breadcrumb
  *  @csspart separator - change the content of the after element of this part to change the separator
  */
+@defineElement('uui-breadcrumb-item')
 export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [
     css`
@@ -87,5 +89,11 @@ export class UUIBreadcrumbItemElement extends LitElement {
     return html`${this.lastItem
       ? this.renderCurrent()
       : this.renderLinkAndSeparator()}`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-breadcrumb-item': UUIBreadcrumbItemElement;
   }
 }

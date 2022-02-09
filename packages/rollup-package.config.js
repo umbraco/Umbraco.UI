@@ -27,8 +27,8 @@ const createEsModulesConfig = (entryPoints = []) => {
         external: [/^lit/, /^@umbraco-ui/],
         plugins: [
           importCss({ from: undefined }),
-          processLitCSSPlugin(),
           esbuild(),
+          processLitCSSPlugin(),
         ],
       };
     }),

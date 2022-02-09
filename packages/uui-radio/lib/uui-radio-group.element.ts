@@ -1,9 +1,11 @@
-import { LitElement, html, css } from 'lit';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+
 import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioEvent } from './UUIRadioEvent';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 const ARROW_LEFT = 'ArrowLeft';
 const ARROW_UP = 'ArrowUp';
@@ -15,6 +17,7 @@ const SPACE = ' ';
  *  @element uui-radio-group
  *  @slot for uui-radio elements
  */
+@defineElement('uui-radio-group')
 export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
@@ -273,5 +276,11 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
 
   render() {
     return html` <slot @slotchange=${this._handleSlotChange}></slot> `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-radio-group': UUIRadioGroupElement;
   }
 }

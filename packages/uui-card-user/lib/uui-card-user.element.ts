@@ -1,4 +1,5 @@
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -9,6 +10,7 @@ import { property } from 'lit/decorators.js';
  *  @description - Card component for displaying a user node.
  */
 
+@defineElement('uui-card-user')
 export class UUICardUserElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
@@ -110,5 +112,11 @@ export class UUICardUserElement extends UUICardElement {
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card-user': UUICardUserElement;
   }
 }
