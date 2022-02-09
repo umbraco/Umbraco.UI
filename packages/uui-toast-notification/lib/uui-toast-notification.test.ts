@@ -215,19 +215,18 @@ describe('UUIToastNotificationElement', () => {
 
     describe('autoClose can be paused after open-animation', () => {
       it('did element close wait', async () => {
-        element.autoClose = 210;
+        element.autoClose = 200;
         element.open = true;
 
-        await sleep(200); // enough time for opening animation to be done.
+        await sleep(600); // enough time for opening animation to be done.
 
         expect(element.open).to.be.true;
         element.pauseAutoClose();
 
-        await sleep(element.autoClose + 1); // wait for original autoClose to be done.
-
-        expect(element.open).to.be.true;
+        await sleep(500); // enough time for opening animation to be done.
 
         element.resumeAutoClose();
+        expect(element.open).to.be.true;
 
         const closeListener = oneEvent(
           element,
@@ -256,7 +255,7 @@ describe('UUIToastNotificationElement', () => {
 
         element.pauseAutoClose();
 
-        await sleep(element.autoClose); // enough time for opening animation to be done.
+        await sleep(600); // enough time for opening animation to be done.
 
         element.resumeAutoClose();
         expect(element.open).to.be.true;
