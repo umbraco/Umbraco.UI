@@ -10,7 +10,10 @@ export class Timer {
 
   public setDuration(duration: number) {
     this._duration = duration;
-    this.restart();
+    // TODO: Should calculate true offset of _remaining
+    if (this._timerId !== null) {
+      this.restart();
+    }
   }
 
   /** starts the timer */
