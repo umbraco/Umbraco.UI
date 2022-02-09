@@ -220,10 +220,14 @@ describe('UUIToastNotificationElement', () => {
 
         element.pauseAutoClose();
 
-        await sleep(600); // enough time for opening animation to be done.
+        // Wait for OPENED event
+        const openedListener = oneEvent(element, UUIToastNotificationEvent.OPENED);
+        const openedEvent = await openedListener;
+        expect(openedEvent).to.exist;
+        expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
         element.resumeAutoClose();
-        expect(element.open).to.be.true;
+        expect(element.open, 'Element should still be open immediately after resuming').to.be.true;
 
         const closeListener = oneEvent(
           element,
@@ -251,7 +255,12 @@ describe('UUIToastNotificationElement', () => {
       it('clicking on the close-button did close', async () => {
         element.open = true;
 
-        await sleep(100); // wait a bit.
+        // Wait for OPENED event
+        const openedListener = oneEvent(element, UUIToastNotificationEvent.OPENED);
+        const openedEvent = await openedListener;
+        expect(openedEvent).to.exist;
+        expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
+
         expect(element.open).to.be.true;
 
         const closeButton = element.shadowRoot!.querySelector(
@@ -267,7 +276,12 @@ describe('UUIToastNotificationElement', () => {
       it('pressing esc when focus did close', async () => {
         element.open = true;
 
-        await sleep(100); // wait a bit.
+        // Wait for OPENED event
+        const openedListener = oneEvent(element, UUIToastNotificationEvent.OPENED);
+        const openedEvent = await openedListener;
+        expect(openedEvent).to.exist;
+        expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
+
         expect(element.open).to.be.true;
 
         element.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape' }));
