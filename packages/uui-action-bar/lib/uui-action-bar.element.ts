@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIButtonGroupElement } from '@umbraco-ui/uui-button-group/lib';
 import { css } from 'lit';
 
@@ -5,6 +6,7 @@ import { css } from 'lit';
  *  @element uui-action-bar
  *  @description - Extends button group to hold buttons with icons that represent actions.
  */
+@defineElement('uui-action-bar')
 export class UUIActionBarElement extends UUIButtonGroupElement {
   static styles = [
     ...UUIButtonGroupElement.styles,
@@ -52,4 +54,10 @@ export class UUIActionBarElement extends UUIButtonGroupElement {
       }
     `,
   ];
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-action-bar': UUIActionBarElement;
+  }
 }

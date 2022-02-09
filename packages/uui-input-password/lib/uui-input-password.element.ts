@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   iconSee,
   iconUnsee,
@@ -9,6 +10,7 @@ import { property, state } from 'lit/decorators.js';
 /**
  * @element uui-input-password
  */
+@defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {
   static styles = [
     ...UUIInputElement.styles,
@@ -61,5 +63,11 @@ export class UUIInputPasswordElement extends UUIInputElement {
       id="eye">
       ${this.renderIcon()}
     </uui-button>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input-password': UUIInputPasswordElement;
   }
 }

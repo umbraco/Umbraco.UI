@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import {
   InterfaceLookType,
@@ -12,6 +13,7 @@ import {
  *  @slot - for tag contents
  *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
  */
+@defineElement('uui-tag')
 export class UUITagElement extends LitElement {
   static styles = [
     css`
@@ -85,5 +87,11 @@ export class UUITagElement extends LitElement {
 
   render() {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-tag': UUITagElement;
   }
 }

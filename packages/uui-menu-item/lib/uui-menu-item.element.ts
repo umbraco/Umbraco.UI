@@ -1,4 +1,5 @@
 import { LitElement, css, html } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import {
   ActiveMixin,
@@ -19,6 +20,7 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @slot actions - actions area
  *
  */
+@defineElement('uui-menu-item')
 export class UUIMenuItemElement extends SelectableMixin(
   ActiveMixin(LabelMixin('label', LitElement))
 ) {
@@ -266,5 +268,11 @@ export class UUIMenuItemElement extends SelectableMixin(
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-menu-item': UUIMenuItemElement;
   }
 }

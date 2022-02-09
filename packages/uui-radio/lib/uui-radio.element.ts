@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { query, property } from 'lit/decorators.js';
 import {
   UUIHorizontalShakeKeyframes,
@@ -14,6 +15,7 @@ import { UUIRadioEvent } from './UUIRadioEvent';
  * @fires change - on input change
  *
  */
+@defineElement('uui-radio')
 export class UUIRadioElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -282,5 +284,11 @@ export class UUIRadioElement extends LitElement {
         ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}
       </div>
     </label>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-radio': UUIRadioElement;
   }
 }

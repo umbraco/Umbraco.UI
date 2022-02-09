@@ -1,8 +1,10 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  * @element uui-ref-list
  */
+@defineElement('uui-ref-list')
 export class UUIRefListElement extends LitElement {
   static styles = [
     css`
@@ -25,5 +27,11 @@ export class UUIRefListElement extends LitElement {
 
   render() {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-list': UUIRefListElement;
   }
 }

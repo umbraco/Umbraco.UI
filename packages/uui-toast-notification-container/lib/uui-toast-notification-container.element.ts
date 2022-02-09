@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   UUIToastNotificationElement,
   UUIToastNotificationEvent,
@@ -8,6 +9,7 @@ import { property } from 'lit/decorators.js';
 /**
  * @element uui-toast-notification-container
  */
+@defineElement('uui-toast-notification-container')
 export class UUIToastNotificationContainerElement extends LitElement {
   static styles = [
     css`
@@ -163,5 +165,11 @@ export class UUIToastNotificationContainerElement extends LitElement {
 
   render() {
     return html` <slot @slotchange=${this.onSlotChanged}></slot> `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification-container': UUIToastNotificationContainerElement;
   }
 }

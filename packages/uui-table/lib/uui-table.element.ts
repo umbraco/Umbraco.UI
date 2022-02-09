@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 
 /**
@@ -5,6 +6,7 @@ import { css, html, LitElement } from 'lit';
  *  @element uui-table
  *  @slot for uui-table-head and uui-table-row elements. Make a table out of them.
  */
+@defineElement('uui-table')
 export class UUITableElement extends LitElement {
   static styles = [
     css`
@@ -27,5 +29,11 @@ export class UUITableElement extends LitElement {
 
   render() {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table': UUITableElement;
   }
 }

@@ -1,4 +1,5 @@
 import { UUIAvatarElement } from '@umbraco-ui/uui-avatar/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 
@@ -7,6 +8,7 @@ import { property, queryAssignedElements, state } from 'lit/decorators.js';
  * @element uui-avatar-group
  * @slot for uui-avatar elements
  */
+@defineElement('uui-avatar-group')
 export class UUIAvatarGroupElement extends LitElement {
   static styles = [
     css`
@@ -86,5 +88,11 @@ export class UUIAvatarGroupElement extends LitElement {
           html`<small id="overflow-indication">+${this._avatarArray.length - this.limit}</small>`
         : ''}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-avatar-group': UUIAvatarGroupElement;
   }
 }

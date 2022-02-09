@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
@@ -6,6 +7,7 @@ import { property } from 'lit/decorators.js';
  * @element uui-label
  * @slot - for the label text.
  */
+@defineElement('uui-label')
 export class UUILabelElement extends LitElement {
   static styles = [
     css`
@@ -61,5 +63,11 @@ export class UUILabelElement extends LitElement {
 
   render() {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-label': UUILabelElement;
   }
 }

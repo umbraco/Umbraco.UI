@@ -1,6 +1,9 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+
 /**
  * @element uui-form
  */
+@defineElement('uui-form', { extends: 'form' })
 export class UUIFormElement extends HTMLFormElement {
   constructor() {
     super();
@@ -29,5 +32,11 @@ export class UUIFormElement extends HTMLFormElement {
 
   private _onReset() {
     this.removeAttribute('submit-invalid');
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-form': UUIFormElement;
   }
 }

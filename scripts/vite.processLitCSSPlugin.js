@@ -15,12 +15,15 @@ const customProperties = require('../packages/uui-css/custom-properties.cjs'); /
 // @ts-ignore-end
 
 const options = {
-  include: ['**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
+  include: ['**/index.ts', '**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],
   exclude: [
     '**/uui-base/lib/events/**',
+    '**/uui-base/lib/registration/**',
+    '**/uui-base/lib/types/**',
+    '**/uui-base/lib/utils/**',
     '**/*.story.ts',
     '**/*.d.ts',
-    '../uui-css/**/*.ts',
+    '**/uui-css/**/*.ts',
   ],
 };
 
