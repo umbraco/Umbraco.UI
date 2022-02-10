@@ -48,7 +48,7 @@ export class UUIFormItemElement extends LitElement {
     this._controls = event.target
       .assignedElements({ flatten: true })
       .filter(
-        (e: any) => e.checkValidity !== undefined
+        (e: any) => e.validationMessage !== undefined
       ) as FormControlMixinInterface[];
 
     const oldControls = existingControls.filter(
