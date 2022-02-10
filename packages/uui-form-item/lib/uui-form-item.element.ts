@@ -65,10 +65,15 @@ export class UUIFormItemElement extends LitElement {
       );
     });
 
+    let oneOrMoreIsRequired = false;
+
     const newControls = this._controls.filter(
       control => existingControls.indexOf(control) === -1
     );
     newControls.forEach(control => {
+      if (control.required) {
+        oneOrMoreIsRequired = true;
+      }
       control.addEventListener(
         UUIFormControlEvent.INVALID as any,
         this._onControlInvalid
@@ -78,6 +83,8 @@ export class UUIFormItemElement extends LitElement {
         this._onControlValid
       );
     });
+
+    this._required = oneOrMoreIsRequired;
   };
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
