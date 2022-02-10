@@ -1,13 +1,15 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIFormValidationMessageElement } from './uui-form-validation-message.element';
 import '.';
+import '@umbraco-ui/uui-input/lib';
+import { UUIInputElement } from '@umbraco-ui/uui-input/lib/uui-input.element';
 
 describe('UUIFormValidationMessageElement', () => {
   let element: UUIFormValidationMessageElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-form-validation-message></uui-form-validation-message> `
+      html` <uui-form-validation-message></uui-form-validation-message>`
     );
   });
 
@@ -19,6 +21,57 @@ describe('UUIFormValidationMessageElement', () => {
     expect(element).to.be.instanceOf(UUIFormValidationMessageElement);
   });
 
-  // Use of slot.
-  // Use custom scope.
+  describe('properties', () => {
+    it('has a for property', () => {
+      expect(element).to.have.property('for');
+    });
+  });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot:not([name])')!;
+      expect(slot).to.exist;
+    });
+
+    it('renders an message slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=message]')!;
+      expect(slot).to.exist;
+    });
+  });
+
+  describe('Using slot', () => {
+    let element: HTMLFormElement;
+    let validationEl: UUIFormValidationMessageElement;
+    let input: UUIInputElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`
+          <form>
+            <uui-form-validation-message>
+              <uui-input
+                label="Label"
+                required
+                required-message="MyRequiredMessage"></uui-input>
+            </uui-form-validation-message>
+          </form>
+        `
+      );
+      await elementUpdated(element);
+      validationEl = element.querySelector(
+        'uui-form-validation-message'
+      ) as UUIFormValidationMessageElement;
+      input = validationEl.querySelector('uui-input') as UUIInputElement;
+    });
+
+    it('shows require message', async () => {
+      input.pristine = false;
+      input.checkValidity();
+
+      await elementUpdated(validationEl);
+      const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
+      const regex = /MyRequiredMessage/;
+      expect(regex.test(messagesCon.innerHTML)).to.be.true;
+    });
+  });
 });
