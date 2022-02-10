@@ -4,7 +4,7 @@ import { UUIFormControlEvent } from '../events';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-// TODO: make t possible to define FormDataEntryValue type.
+// TODO: make it possible to define FormDataEntryValue type.
 export declare abstract class FormControlMixinInterface extends LitElement {
   formAssociated: boolean;
   get value(): FormDataEntryValue;
