@@ -70,6 +70,45 @@ describe('UUIFormValidationMessageElement', () => {
 
       await elementUpdated(validationEl);
       const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
+
+      describe('Using for property', () => {
+        let element: HTMLFormElement;
+        let validationEl: UUIFormValidationMessageElement;
+        let input: UUIInputElement;
+
+        beforeEach(async () => {
+          element = await fixture(
+            html`
+              <form>
+                <uui-input
+                  id="MyMessageScope"
+                  label="Label"
+                  required
+                  required-message="MyRequiredMessage"></uui-input>
+                <uui-form-validation-message for="MyMessageScope">
+                </uui-form-validation-message>
+              </form>
+            `
+          );
+          await elementUpdated(element);
+          validationEl = element.querySelector(
+            'uui-form-validation-message'
+          ) as UUIFormValidationMessageElement;
+          input = element.querySelector('uui-input') as UUIInputElement;
+        });
+
+        it('shows require message', async () => {
+          input.pristine = false;
+          input.checkValidity();
+
+          await elementUpdated(validationEl);
+          const messagesCon =
+            validationEl.shadowRoot!.querySelector('#messages')!;
+          const regex = /MyRequiredMessage/;
+          expect(regex.test(messagesCon.innerHTML)).to.be.true;
+        });
+      });
+
       const regex = /MyRequiredMessage/;
       expect(regex.test(messagesCon.innerHTML)).to.be.true;
     });
