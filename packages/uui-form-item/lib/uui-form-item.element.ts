@@ -1,10 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUILabelElement } from '@umbraco-ui/uui-label/lib';
-import { property, query, state } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIFormControlEvent } from 'packages/uui-base/lib/events';
+
+// TODO: Make sure validation messages can be seen for the whole Form Item. Make them follow the screen if form controls are taller than available screen height.
 
 /**
  * @element uui-form-item
@@ -16,8 +18,11 @@ export class UUIFormItemElement extends LitElement {
       :host {
         /* Styles goes here */
       }
+      #label {
+        display: block;
+      }
       #messages {
-        color: var(--uui-color-danger);
+        color: var(--uui-look-danger-surface);
       }
     `,
   ];
@@ -25,70 +30,20 @@ export class UUIFormItemElement extends LitElement {
   @property({ type: String })
   label: string | null = null;
 
-  @state()
-  private _required = false;
+  /**
+   * Define the related element to this label.
+   * @type {string | HTMLElement}
+   * @attr for
+   * @default null
+   */
+  @property({ reflect: false, attribute: 'label-for' })
+  labelFor: string | HTMLElement | null = null;
 
   @query('uui-label')
   // @ts-ignore
   private _labelEl: UUILabelElement;
 
-  private _controls: FormControlMixinInterface[] = [];
-
   private _messages = new Map<FormControlMixinInterface, string>();
-
-  private _onSlotChanged = (event: any) => {
-    // Find first form control and set it for the label. (ability to overwrite the focus element)
-    //  this._labelEl.for =
-
-    const existingControls = [...this._controls];
-
-    this._controls = event.target
-      .assignedElements({ flatten: true })
-      .filter(
-        (e: any) => e.pristine !== undefined
-      ) as FormControlMixinInterface[];
-
-    const oldControls = existingControls.filter(
-      ctrl => this._controls.indexOf(ctrl) === -1
-    );
-    oldControls.forEach(ctrl => {
-      ctrl.removeEventListener(
-        UUIFormControlEvent.INVALID as any,
-        this._onControlInvalid
-      );
-      ctrl.removeEventListener(
-        UUIFormControlEvent.VALID as any,
-        this._onControlValid
-      );
-    });
-
-    let oneOrMoreIsRequired = false;
-
-    const newControls = this._controls.filter(
-      ctrl => existingControls.indexOf(ctrl) === -1
-    );
-    newControls.forEach(ctrl => {
-      if (ctrl.required) {
-        oneOrMoreIsRequired = true;
-      }
-      ctrl.addEventListener(
-        UUIFormControlEvent.INVALID as any,
-        this._onControlInvalid
-      );
-      ctrl.addEventListener(
-        UUIFormControlEvent.VALID as any,
-        this._onControlValid
-      );
-    });
-    if (newControls.length > 0) {
-      if (this._labelEl == null) {
-        console.log('Missing label element');
-      }
-      this._labelEl.for = newControls[0];
-    }
-
-    this._required = oneOrMoreIsRequired;
-  };
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
     const ctrl = e.target;
@@ -107,11 +62,12 @@ export class UUIFormItemElement extends LitElement {
 
   render() {
     return html`
-      <uui-label> ${this.label} ${this._required ? '*' : ''} </uui-label>
       <slot name="label"></slot>
-      <slot @slotchange=${this._onSlotChanged}></slot>
+      <slot
+        @invalid=${this._onControlInvalid}
+        @valid=${this._onControlValid}></slot>
       <div id="messages">
-        ${repeat(this._messages, item => html`${item[1]}`)}
+        ${repeat(this._messages, item => html`<div>${item[1]}</div>`)}
         <slot name="message"></slot>
       </div>
     `;

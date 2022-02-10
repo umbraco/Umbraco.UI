@@ -12,12 +12,15 @@ export default {
 };
 
 const Template: Story = props => html`
-  <uui-label ?disabled=${props.disabled}>Label</uui-label>
+  <uui-label ?disabled=${props.disabled} ?required=${props.required}
+    >Label</uui-label
+  >
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   disabled: false,
+  required: false,
 };
 AAAOverview.storyName = 'Overview';
 
