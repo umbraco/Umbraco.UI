@@ -207,7 +207,9 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       const hasError = Object.values(this._validityState).includes(true);
 
       if (hasError) {
-        this._internals.reportValidity();
+        this.dispatchEvent(
+          new UUIFormControlEvent(UUIFormControlEvent.INVALID)
+        );
       } else {
         this._internals.setValidity({});
         this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));

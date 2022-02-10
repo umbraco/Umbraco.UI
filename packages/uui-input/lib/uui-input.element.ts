@@ -178,21 +178,6 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     });
   }
 
-  protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>
-  ): void {
-    super.firstUpdated(_changedProperties);
-    console.log('_input firstUpdated', this._input);
-    this._input.addEventListener('invalid', () => {
-      console.log('_input invalid');
-      this.dispatchEvent(new Event('invalid'));
-    });
-    this._input.addEventListener('valid', () => {
-      console.log('_input valid');
-      this.dispatchEvent(new Event('valid'));
-    });
-  }
-
   /**
    * This method enables <label for="..."> to focus the input
    */

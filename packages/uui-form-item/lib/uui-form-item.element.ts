@@ -17,7 +17,7 @@ export class UUIFormItemElement extends LitElement {
         /* Styles goes here */
       }
       #messages {
-        color: red;
+        color: var(--uui-color-danger);
       }
     `,
   ];
@@ -37,9 +37,6 @@ export class UUIFormItemElement extends LitElement {
   private _messages = new Map<FormControlMixinInterface, string>();
 
   private _onSlotChanged = (event: any) => {
-    // gather form controls.
-    // Listen for validation, and display messages.
-    // Check if one or more is required and set the this._required = true;
     // Find first form control and set it for the label. (ability to overwrite the focus element)
     //  this._labelEl.for =
 
@@ -48,18 +45,18 @@ export class UUIFormItemElement extends LitElement {
     this._controls = event.target
       .assignedElements({ flatten: true })
       .filter(
-        (e: any) => e.validationMessage !== undefined
+        (e: any) => e.pristine !== undefined
       ) as FormControlMixinInterface[];
 
     const oldControls = existingControls.filter(
-      control => this._controls.indexOf(control) === -1
+      ctrl => this._controls.indexOf(ctrl) === -1
     );
-    oldControls.forEach(control => {
-      control.removeEventListener(
+    oldControls.forEach(ctrl => {
+      ctrl.removeEventListener(
         UUIFormControlEvent.INVALID as any,
         this._onControlInvalid
       );
-      control.removeEventListener(
+      ctrl.removeEventListener(
         UUIFormControlEvent.VALID as any,
         this._onControlValid
       );
@@ -68,27 +65,38 @@ export class UUIFormItemElement extends LitElement {
     let oneOrMoreIsRequired = false;
 
     const newControls = this._controls.filter(
-      control => existingControls.indexOf(control) === -1
+      ctrl => existingControls.indexOf(ctrl) === -1
     );
-    newControls.forEach(control => {
-      if (control.required) {
+    newControls.forEach(ctrl => {
+      if (ctrl.required) {
         oneOrMoreIsRequired = true;
       }
-      control.addEventListener(
+      ctrl.addEventListener(
         UUIFormControlEvent.INVALID as any,
         this._onControlInvalid
       );
-      control.addEventListener(
+      ctrl.addEventListener(
         UUIFormControlEvent.VALID as any,
         this._onControlValid
       );
     });
+    if (newControls.length > 0) {
+      if (this._labelEl == null) {
+        console.log('Missing label element');
+      }
+      this._labelEl.for = newControls[0];
+    }
 
     this._required = oneOrMoreIsRequired;
   };
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
-    this._messages.set(e.target, e.target.validationMessage);
+    const ctrl = e.target;
+    if (ctrl.pristine === false) {
+      this._messages.set(ctrl, ctrl.validationMessage);
+    } else {
+      this._messages.delete(ctrl);
+    }
     this.requestUpdate();
   };
 

@@ -170,15 +170,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     labelEl.addEventListener('mouseup', () => {
       hadMouseDown = false;
     });
-
-    this._input.addEventListener('invalid', () => {
-      console.log('_input invalid');
-      this.dispatchEvent(new Event('invalid'));
-    });
-    this._input.addEventListener('valid', () => {
-      console.log('_input valid');
-      this.dispatchEvent(new Event('valid'));
-    });
   }
 
   /**
