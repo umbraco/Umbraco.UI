@@ -85,3 +85,8 @@ export class UUIFormValidationMessageElement extends LitElement {
     `;
   }
 }
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-form-validation-message': UUIFormValidationMessageElement;
+  }
+}
