@@ -16,7 +16,7 @@ import { property } from 'lit/decorators.js';
 export class UUIFormValidationMessageElement extends LitElement {
   static styles = [
     css`
-      :host {
+      #messages {
         color: var(--uui-look-danger-surface);
       }
     `,
