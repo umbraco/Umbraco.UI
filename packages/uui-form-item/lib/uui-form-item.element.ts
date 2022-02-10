@@ -6,6 +6,8 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 /**
  * @element uui-form-item
  * @description - Form item composes label, input and validation-messages in a proper layout.
+ * @slot - for button contents
+ * @slot message - for extras in the messages container
  */
 
 @defineElement('uui-form-item')
@@ -22,6 +24,7 @@ export class UUIFormItemElement extends LitElement {
     return html`
       <uui-form-validation-message>
         <slot></slot>
+        <slot name="message" slot="message"></slot>
       </uui-form-validation-message>
     `;
   }

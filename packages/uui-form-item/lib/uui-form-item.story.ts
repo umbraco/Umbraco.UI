@@ -9,7 +9,7 @@ import '@umbraco-ui/uui-label/lib';
 
 export default {
   id: 'uui-form-item',
-  title: 'Input/Form Item',
+  title: 'Inputs/Form Item',
   component: 'uui-form-item',
 };
 

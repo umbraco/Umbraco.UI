@@ -8,6 +8,8 @@ import { property } from 'lit/decorators.js';
 /**
  * @element uui-form-validation-message
  * @description - Component for displaying one or more validation messages from Form Control within the given scope. Notice: Only supports components that build on the FormControlMixing.
+ * @slot - for button contents
+ * @slot message - for extras in the messages container
  */
 
 @defineElement('uui-form-validation-message')
@@ -20,13 +22,25 @@ export class UUIFormValidationMessageElement extends LitElement {
     `,
   ];
 
-  @property({ attribute: false })
-  public get scope(): HTMLElement | null {
-    return this._scope;
+  /**
+   * Set the element containing Form Controls of interest.
+   * @type {string}
+   * @attr for
+   * @default this
+   */
+  @property({ reflect: false, attribute: true })
+  public get for(): HTMLElement | string | null {
+    return this._for;
   }
-  public set scope(value: HTMLElement | null) {
-    const oldScope = this._scope;
-    const newScope = value || this;
+  public set for(value: HTMLElement | string | null) {
+    let queriedElement = null;
+    if (typeof value === 'string') {
+      const scope = this.getRootNode();
+      queriedElement = (scope as DocumentFragment)?.getElementById(value);
+    }
+    const newScope = queriedElement || this;
+    const oldScope = this._for;
+
     if (oldScope === newScope) {
       return;
     }
@@ -40,21 +54,23 @@ export class UUIFormValidationMessageElement extends LitElement {
         this._onControlValid as EventListener
       );
     }
-    this._scope = newScope;
-    this._scope.addEventListener(
+    this._for = newScope;
+    this._for.addEventListener(
       UUIFormControlEvent.INVALID,
       this._onControlInvalid as EventListener
     );
-    this._scope.addEventListener(
+    this._for.addEventListener(
       UUIFormControlEvent.VALID,
       this._onControlValid as EventListener
     );
   }
-  private _scope: HTMLElement | null = null;
+  private _for: HTMLElement | null = null;
 
   constructor() {
     super();
-    this.scope = this;
+    if (this.for === null) {
+      this.for = this;
+    }
   }
 
   private _messages = new Map<FormControlMixinInterface, string>();

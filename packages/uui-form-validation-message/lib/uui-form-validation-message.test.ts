@@ -14,4 +14,11 @@ describe('UUIFormValidationMessageElement', () => {
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIFormValidationMessageElement);
+  });
+
+  // Use of slot.
+  // Use custom scope.
 });

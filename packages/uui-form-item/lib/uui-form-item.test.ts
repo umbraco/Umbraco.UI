@@ -9,6 +9,10 @@ describe('UUIFormItemElement', () => {
     element = await fixture(html` <uui-form-item></uui-form-item> `);
   });
 
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIFormItemElement);
+  });
+
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
