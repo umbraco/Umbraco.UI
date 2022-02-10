@@ -13,41 +13,12 @@ export default {
   component: 'uui-form-item',
 };
 
-export const Overview: Story = () => html` <form
-  is="uui-form"
-  style="max-width: 800px;">
-  <uui-form-item label="Checkbox label">
-    <uui-checkbox
-      name="checkbox"
-      value="Bike"
-      label="This is my checked checkbox"
-      required
-      required-message="The checkbox must be checked">
-      This is my checked checkbox
-    </uui-checkbox>
-
-    <input
-      name="nativeCheckbox"
-      label="Native input text"
-      type="checkbox"
-      value="NativeCheckboxValue"
-      placeholder="native text input"
-      required />
-
-    <uui-input
-      type="password"
-      name="password"
-      value="MyPassword"
-      label="Password"
-      required
-      required-message="You must enter a password">
-    </uui-input>
+export const Overview: Story = () => html`
+  <uui-form-item>
+    Form item is a layout component, use the slots to append components of
+    interest. See the following stories for examples.
   </uui-form-item>
-
-  <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
-
-  <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
-</form>`;
+`;
 
 export const MultipleInputs: Story = () => html` <form
   is="uui-form"
@@ -59,7 +30,7 @@ export const MultipleInputs: Story = () => html` <form
         id="phoneInput"
         type="text"
         name="phone"
-        placeholder="+01"
+        placeholder="+00"
         required
         required-message="You must enter a area code"
         style="text-align:right; width: 75px;">
@@ -72,24 +43,6 @@ export const MultipleInputs: Story = () => html` <form
         required-message="You must enter a phone number">
       </uui-input>
     </div>
-  </uui-form-item>
-
-  <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
-
-  <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
-</form>`;
-
-export const WithoutLabel: Story = () => html` <form
-  is="uui-form"
-  style="max-width: 800px;">
-  <uui-form-item>
-    <uui-input
-      type="text"
-      name="text"
-      label="TextLabel"
-      required
-      required-message="You must enter some text">
-    </uui-input>
   </uui-form-item>
 
   <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
