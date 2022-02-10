@@ -148,7 +148,11 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     this.checked = this.hasAttribute('checked');
   }
 
-  protected firstUpdated(): void {
+  protected firstUpdated(
+    _changedProperties: Map<string | number | symbol, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+
     const labelEl = this.shadowRoot?.querySelector('label') as HTMLLabelElement;
 
     // hide outline if mouse-interaction:
@@ -165,6 +169,15 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     });
     labelEl.addEventListener('mouseup', () => {
       hadMouseDown = false;
+    });
+
+    this._input.addEventListener('invalid', () => {
+      console.log('_input invalid');
+      this.dispatchEvent(new Event('invalid'));
+    });
+    this._input.addEventListener('valid', () => {
+      console.log('_input valid');
+      this.dispatchEvent(new Event('valid'));
     });
   }
 

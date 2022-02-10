@@ -1,16 +1,18 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { UUIFormControlEvent } from '../events';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 // TODO: make t possible to define FormDataEntryValue type.
-export declare abstract class FormControlMixinInterface {
+export declare abstract class FormControlMixinInterface extends LitElement {
   formAssociated: boolean;
   get value(): FormDataEntryValue;
   set value(newValue: FormDataEntryValue);
   name: string;
   formResetCallback(): void;
-  checkValidity: Function;
+  checkValidity: () => boolean;
+  get validationMessage(): string;
   protected _value: FormDataEntryValue;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
@@ -204,14 +206,24 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
       const hasError = Object.values(this._validityState).includes(true);
 
-      if (hasError === false) {
+      if (hasError) {
+        this._internals.reportValidity();
+      } else {
         this._internals.setValidity({});
+        this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
       }
     }
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
       this._runValidators();
+      /*
+      if(changedProperties.has('pristine')) {
+        if(changedProperties.get('pristine') === false) {
+          this._internals.reportValidity();
+        }
+      }
+      */
     }
 
     private _onFormSubmit = () => {
@@ -236,6 +248,10 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     public checkValidity() {
       return this._internals?.checkValidity();
+    }
+
+    get validationMessage() {
+      return this._internals?.validationMessage;
     }
   }
   return FormControlMixinClass as unknown as Constructor<FormControlMixinInterface> &
