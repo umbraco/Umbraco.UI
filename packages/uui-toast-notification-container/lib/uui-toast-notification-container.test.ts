@@ -100,7 +100,16 @@ describe('UUIToastNotificationContainerElement', () => {
 
       element.appendChild(toastElement);
 
-      await sleep(600); // Enough time to cover if it did happen that the element opened and auto-closed.
+      // Wait for OPENED event
+      const openedListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENED
+      );
+      const openedEvent = await openedListener;
+      expect(openedEvent).to.exist;
+      expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
+
+      await sleep(element.autoClose + 1); // Enough time to cover if it did happen that the element opened and auto-closed.
 
       // Check that its open.
       expect(toastElement.open).to.be.true;
@@ -113,28 +122,51 @@ describe('UUIToastNotificationContainerElement', () => {
       element.appendChild(toastElement);
 
       await elementUpdated(element);
-      await sleep(100);
+
+      // Wait for OPENING event
+      const openingListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENING
+      );
+      const openingEvent = await openingListener;
+      expect(openingEvent).to.exist;
+      expect(openingEvent.type).to.equal(UUIToastNotificationEvent.OPENING);
 
       element.pauseAutoClose();
 
-      await sleep(500); // Enough time to cover if it did happen that the element opened and auto-closed.
+      // Wait for OPENED event
+      const openedListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENED
+      );
+      const openedEvent = await openedListener;
+      expect(openedEvent).to.exist;
+      expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
       // Check that its still open, pause actually did work.
       expect(toastElement.open).to.be.true;
     });
 
     it('pausing autoClose when open', async () => {
-      element.autoClose = 200;
+      element.autoClose = 20;
       await elementUpdated(element);
 
       element.appendChild(toastElement);
 
       await elementUpdated(element);
-      await sleep(500);
+
+      // Wait for OPENED event
+      const openedListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENED
+      );
+      const openedEvent = await openedListener;
+      expect(openedEvent).to.exist;
+      expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
       element.pauseAutoClose();
 
-      await sleep(300); // Enough time to cover if it did happen that the element auto-closed.
+      await sleep(element.autoClose + 1); // Enough time to cover if it did happen that the element auto-closed.
 
       // Check that its still open, pause actually did work.
       expect(toastElement.open).to.be.true;
@@ -146,7 +178,14 @@ describe('UUIToastNotificationContainerElement', () => {
 
       element.appendChild(toastElement);
 
-      await sleep(100); // Enough time to cover if it did happen that the element opened and auto-closed.
+      // Wait for OPENED event
+      const openedListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENED
+      );
+      const openedEvent = await openedListener;
+      expect(openedEvent).to.exist;
+      expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
       // Check that its still open, pause actually did work.
       expect(toastElement.open).to.be.true;
@@ -168,43 +207,57 @@ describe('UUIToastNotificationContainerElement', () => {
       element.appendChild(toastElement);
 
       await elementUpdated(element);
-      await sleep(100);
+
+      // Wait for OPENED event
+      const openedListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENED
+      );
+      const openedEvent = await openedListener;
+      expect(openedEvent).to.exist;
+      expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
       toastElement.dispatchEvent(new Event('focus'));
 
-      await sleep(400); // Enough time to cover if it did happen that the element opened and auto-closed.
+      await sleep(element.autoClose + 1); // Enough time to cover if it did happen that the element opened and auto-closed.
 
       // Check that its still open, pause actually did work.
-      expect((toastElement as any)._animate).to.be.false; // Checking private _animate to ensure that guessed animation time was good.
       expect(toastElement.open).to.be.true;
 
       toastElement.dispatchEvent(new Event('blur'));
 
-      await sleep(40); // Enough time to cover if it did happen that the element opened and auto-closed.
+      await sleep(element.autoClose + 1); // Enough time to cover if it did happen that the element opened and auto-closed.
 
       // Check that its still open, pause actually did work.
       expect(toastElement.open).to.be.false;
     });
 
-    it('mouseover on child item will pause and resume autoClose', async () => {
+    it('mouseenter on child item will pause and resume autoClose', async () => {
       element.autoClose = 20;
 
       element.appendChild(toastElement);
 
       await elementUpdated(element);
-      await sleep(100);
 
-      toastElement.dispatchEvent(new Event('mouseover'));
+      // Wait for OPENED event
+      const openedListener = oneEvent(
+        toastElement,
+        UUIToastNotificationEvent.OPENED
+      );
+      const openedEvent = await openedListener;
+      expect(openedEvent).to.exist;
+      expect(openedEvent.type).to.equal(UUIToastNotificationEvent.OPENED);
 
-      await sleep(400); // Enough time to cover if it did happen that the element opened and auto-closed.
+      toastElement.dispatchEvent(new Event('mouseenter'));
+
+      await sleep(element.autoClose + 1); // Enough time to cover if it did happen that the element opened and auto-closed.
 
       // Check that its still open, pause actually did work.
-      expect((toastElement as any)._animate).to.be.false; // Checking private _animate to ensure that guessed animation time was good.
       expect(toastElement.open).to.be.true;
 
-      toastElement.dispatchEvent(new Event('mouseout'));
+      toastElement.dispatchEvent(new Event('mouseleave'));
 
-      await sleep(40); // Enough time to cover if it did happen that the element opened and auto-closed.
+      await sleep(element.autoClose + 1); // Enough time to cover if it did happen that the element opened and auto-closed.
 
       // Check that its still open, pause actually did work.
       expect(toastElement.open).to.be.false;

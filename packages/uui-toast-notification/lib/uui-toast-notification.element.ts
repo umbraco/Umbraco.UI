@@ -14,6 +14,7 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 /**
  *  @element uui-toast-notification
  *  @fires {UUIToastNotificationEvent} opening - fires when the toast is starting to open
+ *  @fires {UUIToastNotificationEvent} opened - fires when the toast is open after the open-animation
  *  @fires {UUIToastNotificationEvent} closing - fires when the toast is starting to close
  *  @fires {UUIToastNotificationEvent} closed - fires when the toast is closed
  *  @description - Component for displaying a toast notification, preferably used in toast-notification-container.
@@ -174,7 +175,7 @@ export class UUIToastNotificationElement extends LitElement {
       this.isOpen === true &&
       this._animate === false
     ) {
-      this._timer.resume();
+      this._timer.restart();
     }
   }
 
@@ -259,6 +260,10 @@ export class UUIToastNotificationElement extends LitElement {
             if (this._pauseTimer === false) {
               this._timer?.start();
             }
+
+            this.dispatchEvent(
+              new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENED)
+            );
           }
         }, 480);
       });
