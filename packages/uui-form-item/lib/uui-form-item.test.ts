@@ -17,32 +17,15 @@ describe('UUIFormItemElement', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
-  describe('properties', () => {
-    it('has a disabled property', () => {
-      expect(element).to.have.property('disabled');
-    });
-    /*
-    it('disable property set input to disabled', async () => {
-      element.disabled = true;
-      await elementUpdated(element);
-      expect(input.disabled).to.be.true;
-    });
-    */
-  });
-
   describe('methods', () => {
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
+
   describe('template', () => {
     it('renders a default slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
-    });
-
-    it('renders a label slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot[name=label]')!;
+      const slot = element.shadowRoot!.querySelector('slot:not([name])')!;
       expect(slot).to.exist;
     });
 
@@ -50,21 +33,5 @@ describe('UUIFormItemElement', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=message]')!;
       expect(slot).to.exist;
     });
-  });
-
-  describe('events', () => {
-    /*
-    describe('open', () => {
-      it('emits a open event when open-part is clicked', async () => {
-        const listener = oneEvent(element, UUICardEvent.OPEN);
-        const infoElement: HTMLElement | null =
-          element.shadowRoot!.querySelector('#open-part');
-        infoElement?.click();
-        const event = await listener;
-        expect(event).to.exist;
-        expect(event.type).to.equal(UUICardEvent.OPEN);
-      });
-    });
-    */
   });
 });
