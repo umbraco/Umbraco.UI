@@ -7,7 +7,6 @@ import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback'
 import path from 'path';
 import processLitCSSPlugin from '../scripts/rollup.processLitCSSPlugin.mjs';
 import importCss from 'rollup-plugin-import-css';
-import postcssUrl from 'postcss-url';
 
 // @ts-ignore-start
 // eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
@@ -48,7 +47,6 @@ const createCSSFilesConfig = (cssFiles = []) => {
           rollupPostcss({
             plugins: [
               postcssCustomPropertiesFallback({ importFrom: properties }),
-              postcssUrl({ url: 'inline', filter: '**/*.woff2' }),
             ],
             extract: path.resolve(`./dist/${name}.css`),
           }),
