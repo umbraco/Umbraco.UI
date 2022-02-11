@@ -9,9 +9,13 @@ export default {
     docs: {
       source: {
         code: `
-          <link rel="stylesheet" href="@umbraco-ui/uui-css/dist/custom-properties.css" />
-          <link rel="stylesheet" href="@umbraco-ui/uui-css/dist/uui-font.css" />
-          <link rel="stylesheet" href="@umbraco-ui/uui-css/dist/uui-text.css" />
+          // Include each of the following:
+          import '@umbraco-ui/uui-css/dist/custom-properties.css';
+          import '@umbraco-ui/uui-css/dist/uui-font.css';
+          import '@umbraco-ui/uui-css/dist/uui-text.css';
+
+          // Alternatively include the compiled bundle
+          import '@umbraco-ui/uui-css/dist/uui-css.css';
         `,
       },
     },
