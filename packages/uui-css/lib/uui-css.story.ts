@@ -36,9 +36,5 @@ export const Overview: Story = () => html` <article style="max-width:580px;">
       styles for typography, must be used together with .uui-root. This is
       needed for having proper styling for H1, H2, P etc.
     </li>
-    <li>
-      <b>uui-css.css</b>
-      This stylesheet includes all of the above stylesheets.
-    </li>
   </ul>
 </article>`;
