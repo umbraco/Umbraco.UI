@@ -3,7 +3,7 @@ module.exports = () => {
     plugins: {
       'postcss-advanced-variables': {},
       'postcss-color-function': {},
-      'postcss-url': { url: 'inline', filter: '**/*.woff2' },
+      'postcss-url': {},
       autoprefixer: {},
     },
   };
