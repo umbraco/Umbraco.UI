@@ -1,3 +1,4 @@
 @import './custom-properties.css';
-@import './uui-root.css';
-@import './uui-text.css';
+@import './typography/lato.css';
+@import './typography/uui-root.css';
+@import './typography/uui-text.css';
