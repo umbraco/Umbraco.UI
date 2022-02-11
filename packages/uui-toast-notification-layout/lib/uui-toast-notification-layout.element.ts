@@ -1,4 +1,5 @@
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -9,6 +10,7 @@ import { property, state } from 'lit/decorators.js';
  *  @slot headline - for headline
  *  @slot actions - for actions
  */
+@defineElement('uui-toast-notification-layout')
 export class UUIToastNotificationLayoutElement extends LitElement {
   static styles = [
     UUITextStyles,
@@ -67,5 +69,11 @@ export class UUIToastNotificationLayoutElement extends LitElement {
         <slot id="actions" name="actions"></slot>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification-layout': UUIToastNotificationLayoutElement;
   }
 }

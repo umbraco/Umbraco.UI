@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state, query } from 'lit/decorators.js';
 import { UUITextareaEvent } from './UUITextareaEvent';
 /**
@@ -10,6 +11,7 @@ import { UUITextareaEvent } from './UUITextareaEvent';
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  */
 // TODO: Implement FormControlMixin
+@defineElement('uui-textarea')
 export class UUITextareaElement extends LitElement {
   static styles = [
     css`
@@ -239,5 +241,11 @@ export class UUITextareaElement extends LitElement {
         @change=${this.onChange}>
       </textarea>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-textarea': UUITextareaElement;
   }
 }

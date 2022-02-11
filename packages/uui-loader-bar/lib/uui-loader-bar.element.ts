@@ -1,4 +1,5 @@
 import { css, html, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 const clamp = (num: number, min: number, max: number) =>
@@ -8,6 +9,7 @@ const clamp = (num: number, min: number, max: number) =>
  *  @element uui-loader-bar
  * @description - Linear loader for indicating loading.
  */
+@defineElement('uui-loader-bar')
 export class UUILoaderBarElement extends LitElement {
   static styles = [
     css`
@@ -120,5 +122,11 @@ export class UUILoaderBarElement extends LitElement {
         style="animation-duration: ${this.animationDuration}s"></div>
       <div id="bar-background"></div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-loader-bar': UUILoaderBarElement;
   }
 }

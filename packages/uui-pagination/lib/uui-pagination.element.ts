@@ -1,4 +1,5 @@
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
 
@@ -20,6 +21,7 @@ const arrayOfNumbers = (start: number, stop: number) => {
  * @description Jump to a certain page and navigate to the next, last, previous or first page. The amount of visible page-buttons are adjusted to the available space.
  * @fires change - When clicked on the page button fires change event
  */
+@defineElement('uui-pagination')
 export class UUIPaginationElement extends LitElement {
   static styles = [
     css`
@@ -326,5 +328,11 @@ export class UUIPaginationElement extends LitElement {
       ${this.renderNavigationRight()}
     </uui-button-group>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-pagination': UUIPaginationElement;
   }
 }

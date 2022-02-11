@@ -10,7 +10,10 @@ export class Timer {
 
   public setDuration(duration: number) {
     this._duration = duration;
-    this.restart();
+    // TODO: Should calculate true offset of _remaining
+    if (this._timerId !== null) {
+      this.restart();
+    }
   }
 
   /** starts the timer */
@@ -22,10 +25,8 @@ export class Timer {
 
   /** restarts the timer by setting remaining time to duration. */
   public restart() {
-    if (this._timerId !== null) {
-      this._remaining = this._duration;
-      this.resume();
-    }
+    this._remaining = this._duration;
+    this.resume();
   }
 
   public pause() {

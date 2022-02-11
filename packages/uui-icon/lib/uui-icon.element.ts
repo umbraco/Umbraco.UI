@@ -1,4 +1,5 @@
 import { LitElement, css, html } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -10,6 +11,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
  * @cssprop --uui-icon-color - overwrite the icon color.
  * @see UUIIconRegistryElement Ideally used together with a icon registry.
  */
+@defineElement('uui-icon')
 export class UUIIconElement extends LitElement {
   static styles = [
     css`
@@ -126,5 +128,11 @@ export class UUIIconElement extends LitElement {
     }
 
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-icon': UUIIconElement;
   }
 }

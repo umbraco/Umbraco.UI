@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query } from 'lit/decorators.js';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
@@ -27,6 +28,7 @@ export type InputType =
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
+@defineElement('uui-input')
 export class UUIInputElement extends FormControlMixin(LitElement) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
@@ -221,5 +223,11 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         @change=${this._onChange} />
       ${this.renderAppend()}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input': UUIInputElement;
   }
 }

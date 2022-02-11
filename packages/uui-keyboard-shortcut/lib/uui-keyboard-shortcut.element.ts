@@ -1,10 +1,12 @@
 import { css, html, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  A visual representation of a keyboard shortcut.
  *  @element uui-keyboard-shortcut
  *  @slot - for `<uui-key></uui-key>` elements
  */
+@defineElement('uui-keyboard-shortcut')
 export class UUIKeyboardShortcutElement extends LitElement {
   static styles = [
     css`
@@ -26,5 +28,11 @@ export class UUIKeyboardShortcutElement extends LitElement {
 
   render() {
     return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-keyboard-shortcut': UUIKeyboardShortcutElement;
   }
 }

@@ -1,4 +1,5 @@
 import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -10,6 +11,7 @@ import { property } from 'lit/decorators.js';
  *  @description - Component for displaying a reference to a Data Type node.
  */
 
+@defineElement('uui-ref-node-data-type')
 export class UUIRefNodeDataTypeElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 
@@ -37,5 +39,11 @@ export class UUIRefNodeDataTypeElement extends UUIRefNodeElement {
     return html`<small id="detail"
       >${details.join(' | ')}<slot name="detail"></slot
     ></small>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node-data-type': UUIRefNodeDataTypeElement;
   }
 }

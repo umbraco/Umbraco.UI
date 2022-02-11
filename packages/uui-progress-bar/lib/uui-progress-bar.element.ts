@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -8,6 +9,7 @@ const clamp = (num: number, min: number, max: number) =>
 /**
  * @element uui-progress-bar
  */
+@defineElement('uui-progress-bar')
 export class UUIProgressBarElement extends LitElement {
   static styles = [
     css`
@@ -56,5 +58,11 @@ export class UUIProgressBarElement extends LitElement {
     return html`
       <div id="bar" style=${styleMap(this._getProgressStyle())}></div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-progress-bar': UUIProgressBarElement;
   }
 }
