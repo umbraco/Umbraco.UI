@@ -7,7 +7,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-dialog',
-  title: 'Displays/Dialog',
+  title: 'Displays/Dialog/Dialog',
   component: 'uui-dialog',
 };
 
