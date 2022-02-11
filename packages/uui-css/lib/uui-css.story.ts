@@ -9,7 +9,9 @@ export default {
     docs: {
       source: {
         code: `
-          <style src="@umbraco-ui/uui-css/root.css"></style>
+          <link rel="stylesheet" href="@umbraco-ui/uui-css/dist/custom-properties.css" />
+          <link rel="stylesheet" href="@umbraco-ui/uui-css/dist/uui-font.css" />
+          <link rel="stylesheet" href="@umbraco-ui/uui-css/dist/uui-text.css" />
         `,
       },
     },
@@ -28,7 +30,7 @@ export const Overview: Story = () => html` <article style="max-width:580px;">
       properties in your project.
     </li>
     <li>
-      <b>uui-root.css</b> — use the .uui-root class if you like to declare the
+      <b>uui-font.css</b> — use the .uui-root class if you like to declare the
       Umbraco typography, this is needed for getting the Umbraco typography.
     </li>
     <li>

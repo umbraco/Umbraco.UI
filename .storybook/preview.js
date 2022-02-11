@@ -1,6 +1,8 @@
 import { setCustomElements } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
-import '../packages/uui-css/lib/uui-css.css';
+import '../packages/uui-css/lib/custom-properties.css';
+import '../packages/uui-css/lib/uui-font.css';
+import '../packages/uui-css/lib/uui-text.css';
 import 'element-internals-polyfill';
 
 const sort = (a, b) => {
