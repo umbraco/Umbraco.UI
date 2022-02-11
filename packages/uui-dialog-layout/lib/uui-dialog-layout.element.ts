@@ -1,9 +1,11 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  * @element uui-dialog-layout
  */
+@defineElement('uui-dialog-layout')
 export class UUIDialogLayoutElement extends LitElement {
   static styles = [
     css`
