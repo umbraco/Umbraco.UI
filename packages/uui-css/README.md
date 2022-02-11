@@ -5,10 +5,34 @@
 UUI-CSS package contains css files which can be included in your project or components if needed
 
 - **custom-properties.css** — use this if you like to include our custom properties in your project.
-- **local-typography.css** — use this if you like to declare styles for typography, this is needed when using ex.: H1 in a Shadow DOM.
-- **root.css** — If you like your project to be styled for Umbraco UI, then include this in the root of your project.
+- **uui-font.css** — use this if you like to import our font in your project. You must set the `uui-root` class on your root element.
+- **uui-text.css** — use this if you like to declare styles for typography, this is needed when using ex.: H1 in a Shadow DOM. You must set the `uui-text` class in your root element.
+
+Bundle:
+
+- **uui-css.css** — If you like your project to be styled for Umbraco UI, then include this in the root of your project. This contains all the previous files, so make sure to only include this file in your project if you need to style your project.
+
+# Usage in your project
+
+## CDN
+
+For the best results you should include the `uui-css.css` bundle in your project, which contains all the css files and custom variables:
+
+```html
+<!-- Latest Version -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@latest/dist/uui-css.css" />
+
+<!-- Specific version -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@x.x.x/dist/uui-css.css" />
+```
 
 ## Installation
+
+If you want to have fine-grained control over the CSS files, you can install the `@umbraco-ui/uui-css` package.
 
 ```zsh
 npm i @umbraco-ui/uui-css
@@ -16,6 +40,18 @@ npm i @umbraco-ui/uui-css
 
 ## Usage
 
-```html
-<style src="@umbraco-ui/uui-css/root.css"></style>
+For a build system like _Vite_, the styling could be included like this if you want to control the styling and variables with the build system:
+
+```ts
+// app.ts
+import '@umbraco-ui/uui-css/dist/custom-properties.css';
+import '@umbraco-ui/uui-css/dist/uui-font.css';
+import '@umbraco-ui/uui-css/dist/uui-text.css';
+```
+
+Or you can just import the compiled bundle at once:
+
+```ts
+// app.ts
+import '@umbraco-ui/uui-css/dist/uui-css.css';
 ```
