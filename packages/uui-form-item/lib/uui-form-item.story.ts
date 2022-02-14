@@ -20,11 +20,14 @@ export const Overview: Story = () => html`
   </uui-form-item>
 `;
 
-export const MultipleInputs: Story = () => html` <form
+export const Example: Story = () => html` <form
   is="uui-form"
   style="max-width: 800px;">
   <uui-form-item>
     <uui-label slot="label" for="phoneInput" required>Phone number</uui-label>
+    <span slot="description"
+      >Form item accepts a description, keep it short.</span
+    >
     <div>
       <uui-input
         id="phoneInput"
@@ -44,7 +47,31 @@ export const MultipleInputs: Story = () => html` <form
       </uui-input>
     </div>
   </uui-form-item>
-
+  <uui-form-item>
+    <uui-label slot="label" for="cityinput">City</uui-label>
+    <span slot="description"></span>
+    <div>
+      <uui-input
+        id="cityinput"
+        type="text"
+        name="phone"
+        placeholder=""
+        required
+        required-message="You must enter a city">
+      </uui-input>
+    </div>
+  </uui-form-item>
+  <uui-form-item>
+    <div>
+      <uui-input
+        type="text"
+        name="postal"
+        placeholder=""
+        required
+        required-message="You must enter a postal number">
+      </uui-input>
+    </div>
+  </uui-form-item>
   <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
 
   <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
