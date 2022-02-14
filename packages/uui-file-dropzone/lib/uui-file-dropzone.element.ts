@@ -1,12 +1,13 @@
-import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- *  @element uui-file-dropzone
+ * @element uui-file-dropzone
  */
-
+@defineElement('uui-file-dropzone')
 export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   static styles = [
     css`
@@ -115,5 +116,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         @change=${this._onFileInputChange} /><label id="input-label" for="input"
         >${this.renderLabel()}</label
       >`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-file-dropzone': UUIFileDropzoneElement;
   }
 }

@@ -1,10 +1,23 @@
+import '.';
+
+import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import './index';
 
 export default {
-  title: 'Symbols/File dropzone',
+  id: 'uui-file-dropzone',
+  title: 'File Dropzone',
   component: 'uui-file-dropzone',
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-file-dropzone></uui-file-dropzone>`,
+      },
+    },
+  },
 };
+
+export const Overview: Story = () =>
+  html`<uui-file-dropzone></uui-file-dropzone>`;
 
 export const Default = () =>
   html`
