@@ -64,7 +64,7 @@ describe('UUIFormValidationMessageElement', () => {
       input = validationEl.querySelector('uui-input') as UUIInputElement;
     });
 
-    it('shows require message', async () => {
+    it('shows the validation message from FormControlMixin-element', async () => {
       input.pristine = false;
       input.checkValidity();
 

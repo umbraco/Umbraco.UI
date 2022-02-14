@@ -7,16 +7,9 @@ export default {
   id: 'uui-form-validation-message',
   title: 'Inputs/Form Validation Message',
   component: 'uui-form-validation-message',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-form-validation-message></uui-form-validation-message>`,
-      },
-    },
-  },
 };
 
-export const Overview: Story = () =>
+export const AAAOverview: Story = () =>
   html`<uui-form-validation-message>
     <uui-input
       id="phoneInput"
@@ -35,9 +28,15 @@ export const Overview: Story = () =>
       required-message="You must enter a phone number">
     </uui-input>
   </uui-form-validation-message>`;
+AAAOverview.storyName = 'Overview';
 
-export const UseCustomScope: Story = () =>
-  html` <div id="myCustomScope">
+export const ForAnotherElement: Story = () =>
+  html` <p>
+      The Form Validation Message element can also display validation messages
+      from another element than it self. This is done by setting the 'for'
+      attribute.
+    </p>
+    <div id="myCustomScope">
       <uui-input
         id="phoneInput"
         type="text"
@@ -57,3 +56,10 @@ export const UseCustomScope: Story = () =>
     </div>
     <uui-form-validation-message for="myCustomScope">
     </uui-form-validation-message>`;
+ForAnotherElement.parameters = {
+  docs: {
+    source: {
+      code: `<uui-input for="ElementID | JSElementReference"></uui-input>`,
+    },
+  },
+};
