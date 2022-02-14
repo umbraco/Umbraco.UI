@@ -3,6 +3,8 @@ module.exports = () => {
     plugins: {
       'postcss-advanced-variables': {},
       'postcss-color-function': {},
+      'postcss-url': {},
+      autoprefixer: {},
     },
   };
 };
