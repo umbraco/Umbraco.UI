@@ -1,6 +1,6 @@
 @import './typography/lato.css';
 
-.uui-root {
+.uui-font {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: calc(var(--uui-size-2) * 4);

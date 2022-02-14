@@ -34,12 +34,12 @@ export const Overview: Story = () => html` <article style="max-width:580px;">
       properties in your project.
     </li>
     <li>
-      <b>uui-font.css</b> — use the .uui-root class if you like to declare the
+      <b>uui-font.css</b> — use the .uui-font class if you like to declare the
       Umbraco typography, this is needed for getting the Umbraco typography.
     </li>
     <li>
       <b>uui-text.css</b> — use the .uui-text class if you like to declare
-      styles for typography, must be used together with .uui-root. This is
+      styles for typography, must be used together with .uui-font. This is
       needed for having proper styling for H1, H2, P etc.
     </li>
     <li>

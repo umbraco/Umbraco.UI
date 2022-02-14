@@ -5,7 +5,7 @@
 UUI-CSS package contains css files which can be included in your project or components if needed
 
 - **custom-properties.css** — use this if you like to include our custom properties in your project.
-- **uui-font.css** — use this if you like to import our font in your project. You must set the `uui-root` class on your root element.
+- **uui-font.css** — use this if you like to import our font in your project. You must set the `uui-font` class on your root element.
 - **uui-text.css** — use this if you like to declare styles for typography, this is needed when using ex.: H1 in a Shadow DOM. You must set the `uui-text` class in your root element.
 
 Bundle:
