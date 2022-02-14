@@ -4,6 +4,10 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  * @element uui-dialog-layout
+ * @slot default - Use this for the text content
+ * @slot headline - Use this for slotted headline
+ * @slot actions - Use this for actions
+ * @description - Default dialog layout
  */
 @defineElement('uui-dialog-layout')
 export class UUIDialogLayoutElement extends LitElement {
