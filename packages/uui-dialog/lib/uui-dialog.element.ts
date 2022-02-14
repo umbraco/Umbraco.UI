@@ -4,7 +4,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 /**
  *  @element uui-dialog
  *  @slot for dialog content
- *  @slot actions - for dialog actions
  *  @description - All-round dialog
  */
 @defineElement('uui-dialog')
