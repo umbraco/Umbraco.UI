@@ -38,7 +38,8 @@ export class UUIToastNotificationElement extends LitElement {
         height: 0;
         pointer-events: none;
 
-        transition: height 480ms ease-in-out;
+        transition: height
+          var(--uui-toast-notification-animation-duration, 480ms) ease-in-out;
       }
       :host([is-open]) {
         pointer-events: all;
@@ -74,7 +75,8 @@ export class UUIToastNotificationElement extends LitElement {
         border-radius: calc(var(--uui-border-radius) * 2);
 
         opacity: 0;
-        transition: opacity 480ms;
+        transition: opacity
+          var(--uui-toast-notification-animation-duration, 480ms);
       }
       :host([is-open]) #toast > div {
         opacity: 1;
@@ -230,6 +232,17 @@ export class UUIToastNotificationElement extends LitElement {
     demandCustomElement(this, 'uui-icon');
   }
 
+  private _getAnimationDuration(): number {
+    return (
+      parseInt(
+        getComputedStyle(this).getPropertyValue(
+          '--uui-toast-notification-animation-duration'
+        ),
+        10
+      ) || 480
+    );
+  }
+
   private _requestAnimationUpdate = 0;
   private _makeOpen() {
     if (this._open === true) {
@@ -265,7 +278,7 @@ export class UUIToastNotificationElement extends LitElement {
               new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENED)
             );
           }
-        }, 480);
+        }, this._getAnimationDuration());
       });
     });
   }
@@ -312,7 +325,7 @@ export class UUIToastNotificationElement extends LitElement {
               this.parentNode.removeChild(this);
             }
           }
-        }, 480);
+        }, this._getAnimationDuration());
       });
     }
   }
