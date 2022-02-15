@@ -68,7 +68,6 @@ describe('UUIToastNotificationContainerElement', () => {
     });
   });
 
-  // Test appending a toast will open automatically.
   describe('child toast notifications', () => {
     it('appended toast notification inherits the animation duration custom property', async () => {
       element.appendChild(toastElement);
@@ -86,7 +85,6 @@ describe('UUIToastNotificationContainerElement', () => {
 
       await elementUpdated(element);
 
-      //await sleep(100); // wait a bit.
       expect(toastElement.open).to.be.true;
     });
 
