@@ -24,7 +24,7 @@ export class UUICardUserElement extends UUICardElement {
       }
 
       slot:not([name])::slotted(*) {
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
         line-height: var(--uui-size-6);
       }
 

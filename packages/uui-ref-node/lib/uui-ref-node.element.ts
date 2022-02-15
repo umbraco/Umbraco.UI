@@ -54,7 +54,7 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       #detail {
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
       }
 
       :host(:not([disabled])) #open-part:hover #icon {
