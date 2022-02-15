@@ -31,7 +31,7 @@ describe('UUIToastNotificationContainerElement', () => {
         <uui-toast-notification-container></uui-toast-notification-container>
       `
     );
-    // Just set the prop on the container, we will test that it inherits.
+    // Set the prop on the container, we will use it to test that it inherits to the children.
     element.style.setProperty(
       '--uui-toast-notification-animation-duration',
       ANIMATION_DURATION + 'ms'
