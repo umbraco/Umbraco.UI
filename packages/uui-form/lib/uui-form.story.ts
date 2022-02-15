@@ -9,7 +9,7 @@ import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent
 
 export default {
   id: 'uui-form',
-  title: 'Inputs/Form',
+  title: 'Inputs/Form/Form',
   component: 'uui-form',
 };
 

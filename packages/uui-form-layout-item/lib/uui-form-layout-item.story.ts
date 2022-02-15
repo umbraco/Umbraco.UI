@@ -8,22 +8,24 @@ import '@umbraco-ui/uui-form/lib';
 import '@umbraco-ui/uui-label/lib';
 
 export default {
-  id: 'uui-form-item',
-  title: 'Inputs/Form Item',
-  component: 'uui-form-item',
+  id: 'uui-form-layout-item',
+  title: 'Inputs/Form/Form Layout Item',
+  component: 'uui-form-layout-item',
 };
 
-export const Overview: Story = () => html`
-  <uui-form-item>
-    Form item is a layout component, use the slots to append components of
-    interest. See the following stories for examples.
-  </uui-form-item>
+export const AAAOverview: Story = () => html`
+  <uui-form-layout-item>
+    Form layout item is a layout component, use the properties and slots to
+    append content/components of interest. See the following stories for
+    examples.
+  </uui-form-layout-item>
 `;
+AAAOverview.storyName = 'Overview';
 
 export const Example: Story = () => html` <form
   is="uui-form"
   style="max-width: 800px;">
-  <uui-form-item>
+  <uui-form-layout-item>
     <uui-label slot="label" for="phoneInput" required>Phone number</uui-label>
     <span slot="description"
       >Form item accepts a description, keep it short.</span
@@ -46,8 +48,8 @@ export const Example: Story = () => html` <form
         required-message="You must enter a phone number">
       </uui-input>
     </div>
-  </uui-form-item>
-  <uui-form-item>
+  </uui-form-layout-item>
+  <uui-form-layout-item>
     <uui-label slot="label" for="cityinput">City</uui-label>
     <span slot="description"></span>
     <div>
@@ -60,8 +62,8 @@ export const Example: Story = () => html` <form
         required-message="You must enter a city">
       </uui-input>
     </div>
-  </uui-form-item>
-  <uui-form-item>
+  </uui-form-layout-item>
+  <uui-form-layout-item>
     <div>
       <uui-input
         type="text"
@@ -71,7 +73,7 @@ export const Example: Story = () => html` <form
         required-message="You must enter a postal number">
       </uui-input>
     </div>
-  </uui-form-item>
+  </uui-form-layout-item>
   <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
 
   <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>

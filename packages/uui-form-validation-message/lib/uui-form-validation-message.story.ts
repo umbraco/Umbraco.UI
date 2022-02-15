@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-form-validation-message',
-  title: 'Inputs/Form Validation Message',
+  title: 'Inputs/Form/Form Validation Message',
   component: 'uui-form-validation-message',
 };
 
