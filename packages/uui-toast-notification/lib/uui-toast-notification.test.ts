@@ -90,7 +90,7 @@ describe('UUIToastNotificationElement', () => {
         element.open = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUIToastNotificationEvent.CLOSING);
-        await sleep(600); // enough time for opening-animation to be done.
+        await sleep(animationDuration + 1); // enough time for opening-animation to be done.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -102,7 +102,7 @@ describe('UUIToastNotificationElement', () => {
         element.open = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUIToastNotificationEvent.CLOSING);
-        await sleep(100); // enough time for the rendering and opening-animation to start.
+        await sleep(animationDuration / 2); // enough time for the rendering and opening-animation to start.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -117,7 +117,7 @@ describe('UUIToastNotificationElement', () => {
         element.addEventListener(UUIToastNotificationEvent.CLOSING, e => {
           e.preventDefault();
         });
-        await sleep(100); // enough time for the rendering and opening-animation to start.
+        await sleep(animationDuration / 2); // enough time for the rendering and opening-animation to start.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -131,7 +131,7 @@ describe('UUIToastNotificationElement', () => {
         element.open = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUIToastNotificationEvent.CLOSED);
-        await sleep(600); // enough time for opening-animation to be done.
+        await sleep(animationDuration + 1); // enough time for opening-animation to be done.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -143,7 +143,7 @@ describe('UUIToastNotificationElement', () => {
         element.open = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUIToastNotificationEvent.CLOSED);
-        await sleep(100); // enough time for the rendering and opening-animation to start.
+        await sleep(animationDuration / 2); // enough time for the rendering and opening-animation to start.
         expect(element.open).to.be.true;
         element.open = false;
         const event = await listener;
@@ -165,7 +165,7 @@ describe('UUIToastNotificationElement', () => {
         expect(openEvent.type).to.equal(UUIToastNotificationEvent.OPENING);
         expect(element.open).to.be.true;
 
-        await sleep(100); // enough time for the rendering and opening-animation to start.
+        await sleep(animationDuration / 2); // enough time for the rendering and opening-animation to start.
 
         const closeListener = oneEvent(
           element,
