@@ -16,8 +16,18 @@ export default {
   },
 };
 
-export const Overview: Story = () =>
-  html`<uui-file-dropzone></uui-file-dropzone>`;
+export const Overview: Story = props =>
+  html`
+    <uui-file-dropzone ?multiple=${props.multiple} ?directory=${props.directory}
+      ><uui-button look="placeholder"
+        ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
+        in the slot will serve as a dropzone. <br />
+        Get the files @file-drop event.
+        <br />
+        Click will open native input
+      </uui-button></uui-file-dropzone
+    >
+  `;
 
 export const Default = () =>
   html`

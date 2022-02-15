@@ -6,6 +6,9 @@ import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-file-dropzone
+ *  @fires {UUIFileDropzoneEvent} file-drop - fires when the a file has been selected.
+ *  @slot - For the content of the dropzone
+ *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
  */
 @defineElement('uui-file-dropzone')
 export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
@@ -22,15 +25,33 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     `,
   ];
 
+  /**
+   * Allows for directories to be selected.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean })
   directory = false;
 
   @query('#input')
   input!: HTMLInputElement;
 
+  /**
+   * Allows for directories to be selected.
+   * @type {File[]}
+   * @attr
+   * @default []
+   */
   @property({ attribute: false })
   files: File[] = [];
 
+  /**
+   * Allows for multiple files to be selected.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean })
   multiple = false;
 

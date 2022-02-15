@@ -30,6 +30,12 @@ export class UUISymbolFileDropzoneElement extends LitElement {
     `,
   ];
 
+  /**
+   * Renders a error symbol instead of the upload symbol
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   error = false;
 
