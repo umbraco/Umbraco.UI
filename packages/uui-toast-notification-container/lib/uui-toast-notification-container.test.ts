@@ -19,6 +19,7 @@ import { UUIToastNotificationContainerElement } from './uui-toast-notification-c
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+const ANIMATION_DURATION = 25;
 
 describe('UUIToastNotificationContainerElement', () => {
   let element: UUIToastNotificationContainerElement;
@@ -29,6 +30,11 @@ describe('UUIToastNotificationContainerElement', () => {
       html`
         <uui-toast-notification-container></uui-toast-notification-container>
       `
+    );
+    // Just set the prop on the container, we will test that it inherits.
+    element.style.setProperty(
+      '--uui-toast-notification-animation-duration',
+      ANIMATION_DURATION + 'ms'
     );
     toastElement = await fixture(
       html` <uui-toast-notification></uui-toast-notification> `
@@ -49,13 +55,10 @@ describe('UUIToastNotificationContainerElement', () => {
     it('has a removeToast method', () => {
       expect(element).to.have.property('removeToast').that.is.a('function');
     });
-    // TODO: test the method
 
     it('has a closeToast method', () => {
       expect(element).to.have.property('closeToast').that.is.a('function');
     });
-
-    // TODO: Test the method
   });
 
   describe('template', () => {
@@ -67,6 +70,17 @@ describe('UUIToastNotificationContainerElement', () => {
 
   // Test appending a toast will open automatically.
   describe('child toast notifications', () => {
+    it('appended toast notification inherits the animation duration custom property', async () => {
+      element.appendChild(toastElement);
+
+      await elementUpdated(element);
+      expect(
+        getComputedStyle(toastElement).getPropertyValue(
+          '--uui-toast-notification-animation-duration'
+        )
+      ).to.be.equal(ANIMATION_DURATION + 'ms');
+    });
+
     it('appended toast notification will open automatically', async () => {
       element.appendChild(toastElement);
 
