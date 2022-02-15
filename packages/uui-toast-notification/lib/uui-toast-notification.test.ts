@@ -18,12 +18,18 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const animationDuration: number = 25; // still needs to be some time, otherwise it goes too fast for the rendering and the test to work properly.
+
 describe('UUIToastNotificationElement', () => {
   let element: UUIToastNotificationElement;
 
   beforeEach(async () => {
     element = await fixture(
       html` <uui-toast-notification></uui-toast-notification> `
+    );
+    element.style.setProperty(
+      '--uui-toast-notification-animation-duration',
+      animationDuration + 'ms'
     );
   });
 
@@ -49,6 +55,14 @@ describe('UUIToastNotificationElement', () => {
     });
     it('has a resumeAutoClose method', () => {
       expect(element).to.have.property('resumeAutoClose').that.is.a('function');
+    });
+    it('private _getAnimationDuration', () => {
+      expect(element)
+        .to.have.property('_getAnimationDuration')
+        .that.is.a('function');
+      expect((element as any)._getAnimationDuration()).to.be.equal(
+        animationDuration
+      );
     });
   });
 
