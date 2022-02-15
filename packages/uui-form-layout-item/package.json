@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-form-item",
+  "name": "@umbraco-ui/uui-form-layout-item",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -10,16 +10,16 @@
     "Lit",
     "Form Item"
   ],
-  "description": "Umbraco UI form-item component",
+  "description": "Umbraco UI form-layout-item component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-form-item"
+    "directory": "packages/uui-form-layout-item"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-form-item.min.js",
+  "main": "./dist/uui-form-layout-item.min.js",
   "module": "./lib/index.js",
   "customElements": "custom-elements.json",
   "files": [
@@ -38,5 +38,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-form-item"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-form-layout-item"
 }

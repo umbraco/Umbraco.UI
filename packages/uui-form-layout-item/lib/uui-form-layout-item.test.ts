@@ -1,16 +1,18 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUIFormItemElement } from './uui-form-item.element';
+import { UUIFormLayoutItemElement } from './uui-form-layout-item.element';
 import '.';
 
-describe('UUIFormItemElement', () => {
-  let element: UUIFormItemElement;
+describe('UUIFormLayoutItemElement', () => {
+  let element: UUIFormLayoutItemElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-form-item></uui-form-item> `);
+    element = await fixture(
+      html` <uui-form-layout-item></uui-form-layout-item> `
+    );
   });
 
   it('is defined', () => {
-    expect(element).to.be.instanceOf(UUIFormItemElement);
+    expect(element).to.be.instanceOf(UUIFormLayoutItemElement);
   });
 
   it('passes the a11y audit', async () => {
@@ -26,6 +28,11 @@ describe('UUIFormItemElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot:not([name])')!;
+      expect(slot).to.exist;
+    });
+
+    it('renders an label slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=label]')!;
       expect(slot).to.exist;
     });
 

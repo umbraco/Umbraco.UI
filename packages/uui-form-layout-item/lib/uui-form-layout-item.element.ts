@@ -5,14 +5,14 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 // TODO: Make sure validation messages can be seen for the whole Form Item. Make them follow the screen if form controls are taller than available screen height.
 
 /**
- * @element uui-form-item
+ * @element uui-form-layout-item
  * @description - Form item composes label, input and validation-messages in a proper layout.
  * @slot - for button contents
  * @slot message - for extras in the messages container
  */
 
-@defineElement('uui-form-item')
-export class UUIFormItemElement extends LitElement {
+@defineElement('uui-form-layout-item')
+export class UUIFormLayoutItemElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -84,6 +84,6 @@ export class UUIFormItemElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-form-item': UUIFormItemElement;
+    'uui-form-layout-item': UUIFormLayoutItemElement;
   }
 }
