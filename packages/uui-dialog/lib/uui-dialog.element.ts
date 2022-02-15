@@ -4,7 +4,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 /**
  *  @element uui-dialog
  *  @slot for dialog content
- *  @slot actions - for dialog actions
  *  @description - All-round dialog
  */
 @defineElement('uui-dialog')
@@ -15,8 +14,6 @@ export class UUIDialogElement extends LitElement {
         position: relative;
         display: block;
         max-width: 400px;
-
-        padding: var(--uui-size-10) var(--uui-size-14);
 
         background-color: var(
           --uui-dialog-background-color,
@@ -34,45 +31,11 @@ export class UUIDialogElement extends LitElement {
           calc(var(--uui-border-radius) * 2)
         );
       }
-
-      .actions {
-        margin-top: var(--uui-size-8);
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      ::slotted([slot='actions']),
-      .actions > * {
-        margin-left: var(--uui-size-4);
-      }
     `,
   ];
 
-  /**
-   * Renders default slot
-   * @returns {TemplateResult}
-   * @protected
-   * @method
-   */
-  protected renderContent() {
-    return html`<slot></slot>`;
-  }
-
-  /**
-   * Renders actions slot
-   * @returns {TemplateResult}
-   * @protected
-   * @method
-   */
-  protected renderActions() {
-    return html`<slot name="actions"></slot>`;
-  }
-
   render() {
-    return html`
-      ${this.renderContent()}
-      <div class="actions">${this.renderActions()}</div>
-    `;
+    return html`<slot></slot>`;
   }
 }
 
