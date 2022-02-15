@@ -74,7 +74,7 @@ export const Example: Story = () => html` <form
       </uui-input>
     </div>
   </uui-form-layout-item>
-  <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
 
   <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
+  <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
 </form>`;
