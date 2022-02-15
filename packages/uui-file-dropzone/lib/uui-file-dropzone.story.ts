@@ -23,7 +23,7 @@ export const Default = () =>
   html`
     <uui-file-dropzone style="display: grid;">
       <uui-button look="placeholder"
-        ><uui-file-dropzone-symbol></uui-file-dropzone-symbol>Anything you put
+        ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
         in the slot will serve as a dropzone. <br />
         Get the files @file-drop event.
         <br />
@@ -36,7 +36,7 @@ export const Multiple = () =>
   html`
     <uui-file-dropzone multiple
       ><uui-button look="placeholder"
-        ><uui-file-dropzone-symbol></uui-file-dropzone-symbol>Anything you put
+        ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
         in the slot will serve as a dropzone. <br />
         Get the files @file-drop event.
         <br />
@@ -49,7 +49,7 @@ export const AcceptsDirectories = () =>
   html`
     <uui-file-dropzone multiple directory
       ><uui-button look="placeholder"
-        ><uui-file-dropzone-symbol></uui-file-dropzone-symbol>Anything you put
+        ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
         in the slot will serve as a dropzone. <br />
         Get the files @file-drop event.
         <br />
