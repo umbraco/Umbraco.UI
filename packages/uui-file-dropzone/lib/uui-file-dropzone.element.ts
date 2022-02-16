@@ -34,6 +34,15 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   @property({ type: Boolean })
   directory = false;
 
+  /**
+   * Accepted filetypes. Will allow all types if empty.
+   * @type {string}
+   * @attr
+   * @default false
+   */
+  @property({ type: String })
+  accept = '';
+
   @query('#input')
   input!: HTMLInputElement;
 
@@ -75,35 +84,106 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 
-  onDrop(e: DragEvent) {
-    this.preventDefaults(e);
-    const dt = e.dataTransfer;
-
-    if (dt?.files) {
-      let files: File[] = [];
-
-      if (this.directory) {
-        files = Array.from(dt.files);
-        console.warn('directory upload is not yet implemented');
-      } else {
-        for (let i = 0; i < dt.items.length; i++) {
-          if (this.checkIsItDirectory(dt.items[i])) continue;
-          if (dt.items[i].getAsFile()) {
-            files.push(dt.items[i].getAsFile() as File);
-          }
-        }
+  // Drop handler function to get all files
+  private async getAllFileEntries(dataTransferItemList: DataTransferItemList) {
+    const fileEntries: FileSystemFileEntry[] = [];
+    // Use BFS to traverse entire directory/file structure
+    const queue = [];
+    // Unfortunately dataTransferItemList is not iterable i.e. no forEach
+    for (let i = 0; i < dataTransferItemList.length; i++) {
+      queue.push(dataTransferItemList[i].webkitGetAsEntry());
+    }
+    while (queue.length > 0) {
+      const entry: FileSystemFileEntry = queue.shift()!;
+      if (entry.isFile) {
+        fileEntries.push(entry);
+      } else if (entry.isDirectory) {
+        queue.push(
+          ...(await this.readAllDirectoryEntries((entry as any).createReader()))
+        );
       }
+    }
+    return fileEntries;
+  }
 
+  // Get all the entries (files or sub-directories) in a directory
+  // by calling readEntries until it returns empty array
+  private async readAllDirectoryEntries(
+    directoryReader: FileSystemDirectoryReader
+  ) {
+    const entries: any = [];
+    let readEntries: any = await this.readEntriesPromise(directoryReader);
+    while (readEntries.length > 0) {
+      entries.push(...readEntries);
+      readEntries = await this.readEntriesPromise(directoryReader);
+    }
+    return entries;
+  }
+
+  private async readEntriesPromise(directoryReader: FileSystemDirectoryReader) {
+    try {
+      return await new Promise((resolve, reject) => {
+        directoryReader.readEntries(resolve, reject);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  private async getFile(fileEntry: FileSystemFileEntry): Promise<File> {
+    return await new Promise<File>((resolve, reject) =>
+      fileEntry.file(resolve, reject)
+    );
+  }
+
+  async onDrop(e: DragEvent) {
+    this.preventDefaults(e);
+    this.files = [];
+
+    const items = e.dataTransfer?.items;
+
+    if (items) {
+      const result = await this.getAllFileEntries(items);
+
+      const files: File[] = [];
+
+      for (const entry of result) {
+        const test: File = await this.getFile(entry);
+
+        files.push(test);
+      }
       this.files = files;
+
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
       );
     }
+
+    // const dt = e.dataTransfer;
+
+    // if (dt?.files) {
+    //   const files: File[] = [];
+
+    //   if (this.directory) {
+    //     console.warn('directory upload is not yet implemented', files);
+    //   } else {
+    //     for (let i = 0; i < dt.items.length; i++) {
+    //       if (this.checkIsItDirectory(dt.items[i])) continue;
+    //       if (dt.items[i].getAsFile()) {
+    //         files.push(dt.items[i].getAsFile() as File);
+    //       }
+    //     }
+    //   }
+
+    //   this.files = files;
+    //   this.dispatchEvent(
+    //     new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
+    //   );
+    // }
   }
   onDragOver(e: DragEvent) {
     this.preventDefaults(e);
   }
-
   onDragEnter(e: DragEvent) {
     this.preventDefaults(e);
   }
@@ -133,6 +213,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         @click=${(e: Event) => e.stopImmediatePropagation()}
         id="input"
         type="file"
+        accept=${this.accept}
         ?multiple=${this.multiple}
         @change=${this._onFileInputChange} /><label id="input-label" for="input"
         >${this.renderLabel()}</label
