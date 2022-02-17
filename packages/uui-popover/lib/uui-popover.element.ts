@@ -205,27 +205,24 @@ export class UUIPopoverElement extends LitElement {
 
   // TODO: When offset, keep listening for scroll.
   private intersectionCallback = (entries: IntersectionObserverEntry[]) => {
-    console.log(entries);
     entries.forEach(element => {
       if (element.isIntersecting === false) {
-        if (this.foundScrollParent) {
-          this.scrollParent.addEventListener('scroll', this.scrollEventHandler);
-        } else {
-          document.addEventListener('scroll', this.scrollEventHandler);
-        }
-      } else {
-        // only unsubscribe when the container has been inside the screen for x milliseconds
-        clearTimeout(this.scrollTimeout);
-        this.scrollTimeout = setTimeout(() => {
-          this.scrollParent.removeEventListener(
-            'scroll',
-            this.scrollEventHandler
-          );
-          document.removeEventListener('scroll', this.scrollEventHandler);
-        }, 200);
+        this.startScrollListener();
       }
     });
   };
+
+  private startScrollListener() {
+    if (this.foundScrollParent) {
+      this.scrollParent.addEventListener('scroll', this.scrollEventHandler);
+    } else {
+      document.addEventListener('scroll', this.scrollEventHandler);
+    }
+  }
+  private stopScrollListener() {
+    this.scrollParent.removeEventListener('scroll', this.scrollEventHandler);
+    document.removeEventListener('scroll', this.scrollEventHandler);
+  }
 
   // Close when clicking outside popover
   private onDocumentClick = (event: Event) => {
@@ -373,8 +370,11 @@ export class UUIPopoverElement extends LitElement {
         triggerRect.height * originY -
         marginY * (alignY * 2 - 1);
 
-      let clampXFinal = calcX;
-      let clampYFinal = calcY;
+      //let clampXFinal = calcX;
+      //let clampYFinal = calcY;
+
+      let posX = calcX;
+      let posY = calcY;
 
       const scrollParentY = this.foundScrollParent ? scrollParentRect.y : 0;
       const scrollParentX = this.foundScrollParent ? scrollParentRect.x : 0;
@@ -393,8 +393,8 @@ export class UUIPopoverElement extends LitElement {
             scrollParentX -
             (conRect.width - triggerRect.width) * (1 - originX);
 
-          const clampX = mathClamp(calcX, leftClamp, rightClamp);
-          clampXFinal = mathClamp(clampX, -conRect.width, triggerRect.width);
+          posX = mathClamp(calcX, leftClamp, rightClamp);
+          posX = mathClamp(posX, -conRect.width, triggerRect.width);
         }
 
         if (isLeftPlacement || isRightPlacement) {
@@ -408,13 +408,20 @@ export class UUIPopoverElement extends LitElement {
             scrollParentY -
             (conRect.height - triggerRect.height) * (1 - originY);
 
-          const clampY = mathClamp(calcY, topClamp, bottomClamp);
-          clampYFinal = mathClamp(clampY, -conRect.height, triggerRect.height);
+          posY = mathClamp(calcY, topClamp, bottomClamp);
+          posY = mathClamp(posY, -conRect.height, triggerRect.height);
         }
+      }
+      if (calcX !== posX || calcY !== posY) {
+        // Still offset.
+        //this.startScrollListener();
+      } else {
+        // Back on track.
+        this.stopScrollListener();
       }
 
       // return the positions
-      return { x: clampXFinal, y: clampYFinal };
+      return { x: posX, y: posY };
     } else {
       return { x: 0, y: 0 };
     }

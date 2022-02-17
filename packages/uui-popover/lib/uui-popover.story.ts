@@ -89,10 +89,36 @@ export const AAAOverview: Story = props => html`
 
 AAAOverview.storyName = 'Overview';
 
+export const ScrollBody: Story = props => html`
+  <div style="display: flex; min-height: 1400px; min-width: 1400px">
+    <uui-popover
+      id="pop-out"
+      style="margin: auto"
+      .margin=${props.margin}
+      .placement=${props.placement}
+      ?open=${props.open}
+      .useClamp=${props.useClamp}
+      .useAutoPlacement=${props.useAutoPlacement}>
+      <span
+        @click=${handleClick}
+        @keydown=${() => ''}
+        slot="trigger"
+        style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
+        I will open the dropdown
+      </span>
+      <div
+        slot="popover"
+        style="padding: .5rem; border: 1px solid; border-radius: 4px; width: 100px; height: 100px">
+        I am the dropdown container
+      </div>
+    </uui-popover>
+  </div>
+`;
+
 export const ScrollContainer: Story = props => html`
   <div
     style="display: flex; width: 500px; height: 500px; border: 1px solid; overflow: auto;">
-    <div style="display: flex; min-height: 1000px; min-width: 1000px">
+    <div style="display: flex; min-height: 1600px; min-width: 1600px">
       <uui-popover
         id="pop-out"
         style="margin: auto"
@@ -115,30 +141,5 @@ export const ScrollContainer: Story = props => html`
         </div>
       </uui-popover>
     </div>
-  </div>
-`;
-export const ScrollBody: Story = props => html`
-  <div style="display: flex; min-height: 1000px; min-width: 1000px">
-    <uui-popover
-      id="pop-out"
-      style="margin: auto"
-      .margin=${props.margin}
-      .placement=${props.placement}
-      ?open=${props.open}
-      .useClamp=${props.useClamp}
-      .useAutoPlacement=${props.useAutoPlacement}>
-      <span
-        @click=${handleClick}
-        @keydown=${() => ''}
-        slot="trigger"
-        style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
-        I will open the dropdown
-      </span>
-      <div
-        slot="popover"
-        style="padding: .5rem; border: 1px solid; border-radius: 4px; width: 100px; height: 100px">
-        I am the dropdown container
-      </div>
-    </uui-popover>
   </div>
 `;
