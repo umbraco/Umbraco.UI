@@ -412,11 +412,8 @@ export class UUIPopoverElement extends LitElement {
           posY = mathClamp(posY, -conRect.height, triggerRect.height);
         }
       }
-      if (calcX !== posX || calcY !== posY) {
-        // Still offset.
-        //this.startScrollListener();
-      } else {
-        // Back on track.
+      if (calcX === posX && calcY === posY) {
+        // Not offset anymore, so we can stop listening for scroll events:
         this.stopScrollListener();
       }
 
