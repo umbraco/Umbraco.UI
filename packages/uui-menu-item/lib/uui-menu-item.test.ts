@@ -21,6 +21,44 @@ describe('UUIMenuItemElement', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
+  describe('properties', () => {
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
+    });
+    it('disable property defaults to false', () => {
+      expect(element.disabled).to.false;
+    });
+
+    it('has a showChildren property', () => {
+      expect(element).to.have.property('showChildren');
+    });
+    it('showChildren property defaults to false', () => {
+      expect(element.showChildren).to.false;
+    });
+
+    it('has a hasChildren property', () => {
+      expect(element).to.have.property('hasChildren');
+    });
+    it('hasChildren property defaults to false', () => {
+      expect(element.hasChildren).to.false;
+    });
+
+    it('has a loading property', () => {
+      expect(element).to.have.property('loading');
+    });
+    it('loading property defaults to false', () => {
+      expect(element.loading).to.false;
+    });
+
+    it('has a href property', () => {
+      expect(element).to.have.property('href');
+    });
+
+    it('has a target property', () => {
+      expect(element).to.have.property('target');
+    });
+  });
+
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
