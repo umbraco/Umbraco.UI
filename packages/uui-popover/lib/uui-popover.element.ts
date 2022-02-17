@@ -186,11 +186,8 @@ export class UUIPopoverElement extends LitElement {
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
 
-    //let newParent = element;
-
     for (let parent = element; (parent = parent.parentElement as Element); ) {
       if (style.position === 'fixed') return document.body;
-      //newParent = element;
       style = getComputedStyle(parent);
       if (excludeStaticParent && style.position === 'static') {
         continue;
@@ -206,10 +203,9 @@ export class UUIPopoverElement extends LitElement {
         return parent;
       }
     }
-    // Recursive
-    // return this.getScrollParent(newParent.shadowRoot!.host);
   }
 
+  // TODO: When offset, keep listening for scroll.
   private intersectionCallback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach(element => {
       if (!element.isIntersecting) {
@@ -269,6 +265,7 @@ export class UUIPopoverElement extends LitElement {
     containerElement.style.top = `${result.y}px`;
   }
 
+  // TODO: Conciser adding Clamp for scroll-container inside scroll-container.
   private calculateOverlayPlacement(
     conRect: DOMRect,
     parentRect: DOMRect,
