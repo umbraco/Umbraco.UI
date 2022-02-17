@@ -54,7 +54,7 @@ export class UUIPopoverElement extends LitElement {
         position: absolute;
       }
       #root,
-      #parent {
+      #trigger {
         position: relative;
       }
     `,
@@ -77,7 +77,7 @@ export class UUIPopoverElement extends LitElement {
   @state()
   private _placement: PopoverPlacement = 'bottom-start';
   @state()
-  private parent?: Element;
+  private trigger?: Element;
   @state()
   private scrollParent!: Element;
 
@@ -116,7 +116,7 @@ export class UUIPopoverElement extends LitElement {
   protected firstUpdated() {
     const slot = this.shadowRoot!.querySelector('slot');
     const childNodes = slot!.assignedNodes({ flatten: true });
-    this.parent = childNodes[0] as HTMLElement;
+    this.trigger = childNodes[0] as HTMLElement;
 
     this.scrollParent = this.getScrollParent(this.shadowRoot!.host);
   }
@@ -158,7 +158,7 @@ export class UUIPopoverElement extends LitElement {
   // Use this when changing the open state from within this component.
   private forceClosePopover() {
     this.open = false;
-    // Notifies parent about changes.
+    // Notifies about changes.
     this.dispatchEvent(new UUIPopoverEvent(UUIPopoverEvent.CHANGE));
   }
 
@@ -205,8 +205,9 @@ export class UUIPopoverElement extends LitElement {
 
   // TODO: When offset, keep listening for scroll.
   private intersectionCallback = (entries: IntersectionObserverEntry[]) => {
+    console.log(entries);
     entries.forEach(element => {
-      if (!element.isIntersecting) {
+      if (element.isIntersecting === false) {
         if (this.foundScrollParent) {
           this.scrollParent.addEventListener('scroll', this.scrollEventHandler);
         } else {
@@ -245,17 +246,12 @@ export class UUIPopoverElement extends LitElement {
     }
 
     const conRect = this.containerElement!.getBoundingClientRect()!;
-    const parentRect = this.parent!.getBoundingClientRect()!;
+    const triggerRect = this.trigger!.getBoundingClientRect()!;
     const scrollParentRect = this.scrollParent.getBoundingClientRect();
-
-    containerElement.style.top = '';
-    containerElement.style.bottom = '';
-    containerElement.style.left = '';
-    containerElement.style.right = '';
 
     const result = this.calculatePopoverPlacement(
       conRect,
-      parentRect,
+      triggerRect,
       scrollParentRect
     );
 
@@ -266,10 +262,10 @@ export class UUIPopoverElement extends LitElement {
   // TODO: Conciser adding Clamp for scroll-container inside scroll-container.
   private calculatePopoverPlacement(
     conRect: DOMRect,
-    parentRect: DOMRect,
+    triggerRect: DOMRect,
     scrollParentRect: DOMRect
   ): { x: number; y: number } {
-    if (parentRect != null && conRect != null) {
+    if (triggerRect != null && conRect != null) {
       const isTopPlacement = this._placement.indexOf('top') !== -1;
       const isBottomPlacement = this._placement.indexOf('bottom') !== -1;
       const isLeftPlacement = this._placement.indexOf('left') !== -1;
@@ -277,8 +273,6 @@ export class UUIPopoverElement extends LitElement {
 
       const isStart = this._placement.indexOf('-start') !== -1;
       const isEnd = this._placement.indexOf('-end') !== -1;
-
-      //| 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end'
 
       // -------- | INITIATE MATH | --------
       let originX = 0;
@@ -294,12 +288,12 @@ export class UUIPopoverElement extends LitElement {
         const halfWindowY = this.scrollParent.clientHeight / 2;
 
         const dirX = mathClamp(
-          mathMap(halfWindowX - parentRect.x, 0, parentRect.width, 0, 1),
+          mathMap(halfWindowX - triggerRect.x, 0, triggerRect.width, 0, 1),
           0,
           1
         );
         let dirY = mathClamp(
-          mathMap(halfWindowY - parentRect.y, 0, parentRect.height, 0, 1),
+          mathMap(halfWindowY - triggerRect.y, 0, triggerRect.height, 0, 1),
           0,
           1
         );
@@ -372,11 +366,11 @@ export class UUIPopoverElement extends LitElement {
 
       const calcX =
         -conRect.width * alignX +
-        parentRect.width * originX -
+        triggerRect.width * originX -
         marginX * (alignX * 2 - 1);
       const calcY =
         -conRect.height * alignY +
-        parentRect.height * originY -
+        triggerRect.height * originY -
         marginY * (alignY * 2 - 1);
 
       let clampXFinal = calcX;
@@ -390,32 +384,32 @@ export class UUIPopoverElement extends LitElement {
       if (this.useClamp && !this.useAutoPlacement) {
         // Only do this clamp if popover is on the top or bottom of the parent.
         if (isTopPlacement || isBottomPlacement) {
-          const leftClamp = -parentRect.x + scrollParentX;
+          const leftClamp = -triggerRect.x + scrollParentX;
           const rightClamp =
             this.scrollParent.clientWidth -
-            parentRect.x -
-            parentRect.width +
+            triggerRect.x -
+            triggerRect.width +
             calcX +
             scrollParentX -
-            (conRect.width - parentRect.width) * (1 - originX);
+            (conRect.width - triggerRect.width) * (1 - originX);
 
           const clampX = mathClamp(calcX, leftClamp, rightClamp);
-          clampXFinal = mathClamp(clampX, -conRect.width, parentRect.width);
+          clampXFinal = mathClamp(clampX, -conRect.width, triggerRect.width);
         }
 
         if (isLeftPlacement || isRightPlacement) {
           // Only do this clamp if popover is on the sides of the parent.
-          const topClamp = -parentRect.y + scrollParentY;
+          const topClamp = -triggerRect.y + scrollParentY;
           const bottomClamp =
             this.scrollParent.clientHeight -
-            parentRect.y -
-            parentRect.height +
+            triggerRect.y -
+            triggerRect.height +
             calcY +
             scrollParentY -
-            (conRect.height - parentRect.height) * (1 - originY);
+            (conRect.height - triggerRect.height) * (1 - originY);
 
           const clampY = mathClamp(calcY, topClamp, bottomClamp);
-          clampYFinal = mathClamp(clampY, -conRect.height, parentRect.height);
+          clampYFinal = mathClamp(clampY, -conRect.height, triggerRect.height);
         }
       }
 
@@ -475,7 +469,7 @@ export class UUIPopoverElement extends LitElement {
   render() {
     return html`
       <div id="root">
-        <slot id="parent" name="parent"></slot>
+        <slot id="trigger" name="trigger"></slot>
         <div id="container">
           ${this._open ? html`<slot name="popover"></slot>` : ''}
         </div>

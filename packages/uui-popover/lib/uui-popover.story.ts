@@ -70,7 +70,7 @@ export const AAAOverview: Story = props => html`
       <span
         @click=${handleClick}
         @keydown=${() => ''}
-        slot="parent"
+        slot="trigger"
         style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
         I will open the dropdown
       </span>
@@ -104,7 +104,7 @@ export const ScrollContainer: Story = props => html`
         <span
           @click=${handleClick}
           @keydown=${() => ''}
-          slot="parent"
+          slot="trigger"
           style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
           I will open the dropdown
         </span>
@@ -130,7 +130,7 @@ export const ScrollBody: Story = props => html`
       <span
         @click=${handleClick}
         @keydown=${() => ''}
-        slot="parent"
+        slot="trigger"
         style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
         I will open the dropdown
       </span>
