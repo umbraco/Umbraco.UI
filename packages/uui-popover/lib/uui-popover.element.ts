@@ -62,8 +62,7 @@ export class UUIPopoverElement extends LitElement {
 
   // Cashed non-state variables //////////////////////////////
   private intersectionObserver?: IntersectionObserver;
-  private documentClickEventHandler = this.onDocumentClick.bind(this);
-  private scrollEventHandler = this.updateOverlay.bind(this);
+  private scrollEventHandler = this.updatePopover.bind(this);
   private scrollTimeout: any;
   private foundScrollParent = false;
   ////////////////////////////////////////////////////////////
@@ -101,7 +100,7 @@ export class UUIPopoverElement extends LitElement {
   }
   set placement(newValue: PopoverPlacement) {
     this._placement = newValue || 'bottom-start';
-    this.updateOverlay();
+    this.updatePopover();
   }
 
   // TODO: Docs/Description of this property
@@ -111,7 +110,7 @@ export class UUIPopoverElement extends LitElement {
   }
   set open(newValue) {
     this._open = newValue;
-    newValue ? this.openOverlay() : this.closeOverlay();
+    newValue ? this._openPopover() : this._closePopover();
   }
 
   protected firstUpdated() {
@@ -123,7 +122,7 @@ export class UUIPopoverElement extends LitElement {
   }
 
   public disconnectedCallback() {
-    document.removeEventListener('mousedown', this.documentClickEventHandler);
+    document.removeEventListener('mousedown', this.onDocumentClick);
     document.removeEventListener('scroll', this.scrollEventHandler);
 
     if (this.intersectionObserver) {
@@ -135,31 +134,29 @@ export class UUIPopoverElement extends LitElement {
     this.foundScrollParent = false;
   }
 
-  private openOverlay() {
+  private _openPopover() {
     if (this.containerElement) {
-      this.containerElement!.style.opacity = '0'; // Hide while measuring overlay size.
-      document.addEventListener('mousedown', this.documentClickEventHandler);
+      this.containerElement!.style.opacity = '0'; // Hide while measuring popover size.
+      document.addEventListener('mousedown', this.onDocumentClick);
 
-      requestAnimationFrame(this.openOverlayFinal.bind(this));
+      requestAnimationFrame(() => {
+        this.updatePopover();
+        this.createIntersectionObserver();
+        this.containerElement!.style.opacity = '1';
+      });
     }
   }
 
-  private openOverlayFinal() {
-    this.updateOverlay();
-    this.createIntersectionObserver();
-    this.containerElement!.style.opacity = '1';
-  }
-
-  private closeOverlay() {
+  private _closePopover() {
     if (this.intersectionObserver) {
       this.intersectionObserver.disconnect();
       delete this.intersectionObserver;
     }
-    document.removeEventListener('mousedown', this.documentClickEventHandler);
+    document.removeEventListener('mousedown', this.onDocumentClick);
   }
 
   // Use this when changing the open state from within this component.
-  private forceCloseOverlay() {
+  private forceClosePopover() {
     this.open = false;
     // Notifies parent about changes.
     this.dispatchEvent(new UUIPopoverEvent(UUIPopoverEvent.CHANGE));
@@ -229,14 +226,14 @@ export class UUIPopoverElement extends LitElement {
     });
   };
 
-  // Close when clicking outside overlay
-  private onDocumentClick(event: Event) {
+  // Close when clicking outside popover
+  private onDocumentClick = (event: Event) => {
     if (!event.composedPath().includes(this)) {
-      this.forceCloseOverlay();
+      this.forceClosePopover();
     }
-  }
+  };
 
-  private updateOverlay() {
+  private updatePopover() {
     if (!this.shadowRoot) {
       return;
     }
@@ -256,7 +253,7 @@ export class UUIPopoverElement extends LitElement {
     containerElement.style.left = '';
     containerElement.style.right = '';
 
-    const result = this.calculateOverlayPlacement(
+    const result = this.calculatePopoverPlacement(
       conRect,
       parentRect,
       scrollParentRect
@@ -267,7 +264,7 @@ export class UUIPopoverElement extends LitElement {
   }
 
   // TODO: Conciser adding Clamp for scroll-container inside scroll-container.
-  private calculateOverlayPlacement(
+  private calculatePopoverPlacement(
     conRect: DOMRect,
     parentRect: DOMRect,
     scrollParentRect: DOMRect
@@ -318,7 +315,7 @@ export class UUIPopoverElement extends LitElement {
         marginX = this.margin;
         marginY = this.margin;
       } else {
-        this.updateOverlayPosition(conRect, scrollParentRect);
+        this.updatePopoverPosition(conRect, scrollParentRect);
         // -------- TOP / BOT --------
         if (isTopPlacement) {
           alignY = 1;
@@ -389,9 +386,9 @@ export class UUIPopoverElement extends LitElement {
       const scrollParentX = this.foundScrollParent ? scrollParentRect.x : 0;
 
       // IF useClamp and not using autoplacement
-      // Clamps the overlay to the screen as long as parent is on screen
+      // Clamps the popover to the screen as long as parent is on screen
       if (this.useClamp && !this.useAutoPlacement) {
-        // Only do this clamp if overlay is on the top or bottom of the parent.
+        // Only do this clamp if popover is on the top or bottom of the parent.
         if (isTopPlacement || isBottomPlacement) {
           const leftClamp = -parentRect.x + scrollParentX;
           const rightClamp =
@@ -407,7 +404,7 @@ export class UUIPopoverElement extends LitElement {
         }
 
         if (isLeftPlacement || isRightPlacement) {
-          // Only do this clamp if overlay is on the sides of the parent.
+          // Only do this clamp if popover is on the sides of the parent.
           const topClamp = -parentRect.y + scrollParentY;
           const bottomClamp =
             this.scrollParent.clientHeight -
@@ -429,7 +426,7 @@ export class UUIPopoverElement extends LitElement {
     }
   }
 
-  private updateOverlayPosition(rect: DOMRect, scrollParentRect: DOMRect) {
+  private updatePopoverPosition(rect: DOMRect, scrollParentRect: DOMRect) {
     const sideSplit = this._placement.split('-');
     const currentSide = sideSplit[0];
     const sideSuffix: string | null = sideSplit[1] || null;
