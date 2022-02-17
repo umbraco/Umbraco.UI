@@ -8,26 +8,26 @@ export default {
   title: 'Displays/Popover',
   component: 'uui-popover',
   argTypes: {
-    overlayPos: {
+    placement: {
       options: [
-        'topLeft',
-        'topCenter',
-        'topRight',
-        'botLeft',
-        'botCenter',
-        'botRight',
-        'leftTop',
-        'leftCenter',
-        'leftBot',
-        'rightTop',
-        'rightCenter',
-        'rightBot',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
       ],
-      control: { overlayPos: 'select' },
+      control: { placement: 'select' },
     },
   },
   args: {
-    overlayPos: 'botLeft',
+    placement: 'bottom-start',
     margin: 8,
     useClamp: true,
   },
@@ -63,7 +63,7 @@ export const AAAOverview: Story = props => html`
       id="pop-out"
       style="margin: auto"
       .margin=${props.margin}
-      .overlayPos=${props.overlayPos || 'botLeft'}
+      .placement=${props.placement}
       .open=${props.open}
       .useClamp=${props.useClamp}
       .useAutoPlacement=${props.useAutoPlacement}>
@@ -97,7 +97,7 @@ export const ScrollContainer: Story = props => html`
         id="pop-out"
         style="margin: auto"
         .margin=${props.margin}
-        .overlayPos=${props.overlayPos}
+        .placement=${props.placement}
         .open=${props.open}
         .useClamp=${props.useClamp}
         .useAutoPlacement=${props.useAutoPlacement}>
@@ -123,7 +123,7 @@ export const ScrollBody: Story = props => html`
       id="pop-out"
       style="margin: auto"
       .margin=${props.margin}
-      .overlayPos=${props.overlayPos}
+      .placement=${props.placement}
       ?open=${props.open}
       .useClamp=${props.useClamp}
       .useAutoPlacement=${props.useAutoPlacement}>

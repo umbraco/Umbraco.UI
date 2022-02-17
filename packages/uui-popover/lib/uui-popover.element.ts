@@ -4,19 +4,19 @@ import { property, query, state } from 'lit/decorators.js';
 import { UUIPopoverEvent } from './UUIPopoverEvent';
 
 // Can we write full names?
-export type PopoverPosition =
-  | 'topLeft'
-  | 'topCenter'
-  | 'topRight'
-  | 'botLeft'
-  | 'botCenter'
-  | 'botRight'
-  | 'leftTop'
-  | 'leftCenter'
-  | 'leftBot'
-  | 'rightTop'
-  | 'rightCenter'
-  | 'rightBot';
+export type PopoverPlacement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end';
 
 // ------------------- Math extensions ---------------------
 function mathClamp(value: number, min: number, max: number) {
@@ -74,7 +74,7 @@ export class UUIPopoverElement extends LitElement {
   @state()
   private _open = false;
   @state()
-  private _overlayPos: PopoverPosition = 'botLeft';
+  private _placement: PopoverPlacement = 'bottom-start';
   @state()
   private parent?: Element;
   @state()
@@ -94,11 +94,11 @@ export class UUIPopoverElement extends LitElement {
 
   // TODO: name to Placement, use - and use the terms start / end, center should be default.
   @property({ type: String })
-  get overlayPos(): PopoverPosition {
-    return this._overlayPos;
+  get placement(): PopoverPlacement {
+    return this._placement;
   }
-  set overlayPos(newValue: PopoverPosition) {
-    this._overlayPos = newValue || 'botLeft';
+  set placement(newValue: PopoverPlacement) {
+    this._placement = newValue || 'bottom-start';
     this.updateOverlay();
   }
 
@@ -272,15 +272,15 @@ export class UUIPopoverElement extends LitElement {
     scrollParentRect: DOMRect
   ): { x: number; y: number } {
     if (parentRect != null && conRect != null) {
-      const isTopHorizontal = this._overlayPos.indexOf('top') !== -1;
-      const isBotHorizontal = this._overlayPos.indexOf('bot') !== -1;
-      const isLeftHorizontal = this._overlayPos.indexOf('Left') !== -1;
-      const isRightHorizontal = this._overlayPos.indexOf('Right') !== -1;
-      const isTopVertical = this._overlayPos.indexOf('Top') !== -1;
-      const isBotVertical = this._overlayPos.indexOf('Bot') !== -1;
-      const isLeftVertical = this._overlayPos.indexOf('left') !== -1;
-      const isRightVertical = this._overlayPos.indexOf('right') !== -1;
-      const isCenter = this._overlayPos.indexOf('Center') !== -1;
+      const isTopPlacement = this._placement.indexOf('top') !== -1;
+      const isBottomPlacement = this._placement.indexOf('bottom') !== -1;
+      const isLeftPlacement = this._placement.indexOf('left') !== -1;
+      const isRightPlacement = this._placement.indexOf('right') !== -1;
+
+      const isStart = this._placement.indexOf('-start') !== -1;
+      const isEnd = this._placement.indexOf('-end') !== -1;
+
+      //| 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end'
 
       // -------- | INITIATE MATH | --------
       let originX = 0;
@@ -319,60 +319,56 @@ export class UUIPopoverElement extends LitElement {
       } else {
         this.updateOverlayPosition(conRect, scrollParentRect);
         // -------- TOP / BOT --------
-        if (isTopHorizontal) {
+        if (isTopPlacement) {
           alignY = 1;
           originY = 0;
           marginY = this.margin;
         }
 
-        if (isBotHorizontal) {
+        if (isBottomPlacement) {
           alignY = 0;
           originY = 1;
           marginY = this.margin;
         }
 
-        if (isTopHorizontal || isBotHorizontal) {
-          if (isCenter) {
-            alignX = 0.5;
-            originX = 0.5;
-          }
-        }
+        if (isTopPlacement || isBottomPlacement) {
+          alignX = 0.5;
+          originX = 0.5;
 
-        if (isLeftHorizontal) {
-          alignX = 0;
-          originX = 0;
-        }
-        if (isRightHorizontal) {
-          alignX = 1;
-          originX = 1;
+          if (isStart) {
+            alignX = 0;
+            originX = 0;
+          }
+          if (isEnd) {
+            alignX = 1;
+            originX = 1;
+          }
         }
 
         // -------- LEFT / RIGHT --------
-        if (isLeftVertical) {
+        if (isLeftPlacement) {
           alignX = 1;
           originX = 0;
           marginX = this.margin;
         }
-        if (isRightVertical) {
+        if (isRightPlacement) {
           alignX = 0;
           originX = 1;
           marginX = this.margin;
         }
 
-        if (isLeftVertical || isRightVertical) {
-          if (isCenter) {
-            alignY = 0.5;
-            originY = 0.5;
-          }
-        }
+        if (isLeftPlacement || isRightPlacement) {
+          alignY = 0.5;
+          originY = 0.5;
 
-        if (isTopVertical) {
-          alignY = 0;
-          originY = 0;
-        }
-        if (isBotVertical) {
-          alignY = 1;
-          originY = 1;
+          if (isStart) {
+            alignY = 0;
+            originY = 0;
+          }
+          if (isEnd) {
+            alignY = 1;
+            originY = 1;
+          }
         }
       }
 
@@ -395,7 +391,7 @@ export class UUIPopoverElement extends LitElement {
       // Clamps the overlay to the screen as long as parent is on screen
       if (this.useClamp && !this.useAutoPlacement) {
         // Only do this clamp if overlay is on the top or bottom of the parent.
-        if (isTopHorizontal || isBotHorizontal) {
+        if (isTopPlacement || isBottomPlacement) {
           const leftClamp = -parentRect.x + scrollParentX;
           const rightClamp =
             this.scrollParent.clientWidth -
@@ -409,7 +405,7 @@ export class UUIPopoverElement extends LitElement {
           clampXFinal = mathClamp(clampX, -conRect.width, parentRect.width);
         }
 
-        if (isLeftVertical || isRightVertical) {
+        if (isLeftPlacement || isRightPlacement) {
           // Only do this clamp if overlay is on the sides of the parent.
           const topClamp = -parentRect.y + scrollParentY;
           const bottomClamp =
@@ -433,9 +429,10 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private updateOverlayPosition(rect: DOMRect, scrollParentRect: DOMRect) {
-    const sideSplit = this._overlayPos.split(/(?=[A-Z])/);
+    const sideSplit = this._placement.split('-');
     const currentSide = sideSplit[0];
-    const sideSuffix = sideSplit[1] || 'Center';
+    const sideSuffix: string | null = sideSplit[1] || null;
+
     const viewportHeight = this.foundScrollParent
       ? this.scrollParent.clientHeight
       : document.documentElement.clientHeight;
@@ -452,10 +449,10 @@ export class UUIPopoverElement extends LitElement {
     const buffer = 2;
 
     if (currentSide === 'top' && rect.y - buffer <= scrollParentY) {
-      flipSide = 'bot';
+      flipSide = 'bottom';
     }
     if (
-      currentSide === 'bot' &&
+      currentSide === 'bottom' &&
       rect.y + rect.height + buffer >= viewportHeight + scrollParentY
     ) {
       flipSide = 'top';
@@ -472,7 +469,8 @@ export class UUIPopoverElement extends LitElement {
 
     // If we need to flip, do it, otherwise dont do anything.
     if (flipSide) {
-      this._overlayPos = (flipSide + sideSuffix) as PopoverPosition;
+      this._placement = (flipSide +
+        (sideSuffix ? `-${sideSuffix}` : '')) as PopoverPlacement;
     }
   }
 
