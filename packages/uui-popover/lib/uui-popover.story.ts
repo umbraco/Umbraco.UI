@@ -75,7 +75,7 @@ export const AAAOverview: Story = props => html`
         I will open the dropdown
       </span>
       <div
-        slot="overlay"
+        slot="popover"
         style="padding: .5rem; border: 1px solid; border-radius: 4px; width: 200px">
         I am the dropdown container
         <div
@@ -109,7 +109,7 @@ export const ScrollContainer: Story = props => html`
           I will open the dropdown
         </span>
         <div
-          slot="overlay"
+          slot="popover"
           style="padding: .5rem; border: 1px solid; border-radius: 4px; width: 100px; height: 100px">
           I am the dropdown container
         </div>
@@ -135,7 +135,7 @@ export const ScrollBody: Story = props => html`
         I will open the dropdown
       </span>
       <div
-        slot="overlay"
+        slot="popover"
         style="padding: .5rem; border: 1px solid; border-radius: 4px; width: 100px; height: 100px">
         I am the dropdown container
       </div>

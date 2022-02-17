@@ -40,6 +40,8 @@ function mathMap(
 
 /**
  * @element uui-popover
+ * @description Open a modal aligned with the opening element.
+ * @fires change - When popover opens or closes.
  */
 @defineElement('uui-popover')
 export class UUIPopoverElement extends LitElement {
@@ -135,15 +137,14 @@ export class UUIPopoverElement extends LitElement {
 
   private openOverlay() {
     if (this.containerElement) {
-      this.containerElement!.style.opacity = '0';
+      this.containerElement!.style.opacity = '0'; // Hide while measuring overlay size.
       document.addEventListener('mousedown', this.documentClickEventHandler);
 
-      setTimeout(this.openOverlayFinal.bind(this), 0);
+      requestAnimationFrame(this.openOverlayFinal.bind(this));
     }
   }
 
   private openOverlayFinal() {
-    console.log(this);
     this.updateOverlay();
     this.createIntersectionObserver();
     this.containerElement!.style.opacity = '1';
@@ -479,7 +480,7 @@ export class UUIPopoverElement extends LitElement {
       <div id="root">
         <slot id="parent" name="parent"></slot>
         <div id="container">
-          ${this._open ? html`<slot name="overlay"></slot>` : ''}
+          ${this._open ? html`<slot name="popover"></slot>` : ''}
         </div>
       </div>
     `;
