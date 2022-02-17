@@ -60,7 +60,7 @@ export class UUIPaginationElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'navigation');
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'navigation');
     this._visiblePages = this._generateVisiblePages(this.current);
   }
 
