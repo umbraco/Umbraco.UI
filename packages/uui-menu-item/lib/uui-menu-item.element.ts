@@ -250,6 +250,11 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @state()
   private iconSlotHasContent = false;
 
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
+  }
+
   private iconSlotChanged(e: any): void {
     this.iconSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;

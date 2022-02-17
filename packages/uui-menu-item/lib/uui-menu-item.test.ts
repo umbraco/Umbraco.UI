@@ -13,8 +13,12 @@ describe('UUIMenuItemElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-menu-item role="menu" label="menuitem"></uui-menu-item>`
+      html`<uui-menu-item label="menuitem"></uui-menu-item>`
     );
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIMenuItemElement);
   });
 
   it('passes the a11y audit', async () => {
@@ -131,6 +135,44 @@ describe('UUIMenuItemElement', () => {
       await elementUpdated(element);
       labelElement?.click();
       expect(element.selected).to.be.false;
+    });
+  });
+
+  describe('HREF', () => {
+    let labelElement: HTMLElement;
+    let element: UUIMenuItemElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`<uui-menu-item
+          label="menuitem"
+          href="https://www.umbraco.com"></uui-menu-item>`
+      );
+      labelElement = element.shadowRoot!.querySelector(
+        '#label-button'
+      ) as HTMLElement;
+    });
+
+    it('label element is defined', () => {
+      expect(labelElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as an anchor tag', async () => {
+      await elementUpdated(element);
+      expect(labelElement.nodeName).to.be.equal('A');
+    });
+
+    it('target is applied to anchor tag', async () => {
+      element.target = '_self';
+      await elementUpdated(element);
+      expect(labelElement.getAttribute('target')).to.be.equal('_self');
+    });
+
+    it('when target is _blank rel=noopener is set.', async () => {
+      element.target = '_blank';
+      await elementUpdated(element);
+      expect(labelElement.getAttribute('target')).to.be.equal('_blank');
+      expect(labelElement.getAttribute('rel')).to.be.equal('noopener');
     });
   });
 });
