@@ -159,20 +159,6 @@ export class UUIPopoverElement extends LitElement {
     this.dispatchEvent(new UUIPopoverEvent(UUIPopoverEvent.CLOSE));
   }
 
-  private _createIntersectionObserver() {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 1,
-    };
-
-    this.intersectionObserver = new IntersectionObserver(
-      this._intersectionCallback,
-      options
-    );
-    this.intersectionObserver.observe(this.containerElement as Element);
-  }
-
   private _getScrollParent(element: Element): any {
     let style = getComputedStyle(element);
     const includeHidden = false;
@@ -200,11 +186,26 @@ export class UUIPopoverElement extends LitElement {
     }
   }
 
+  private _createIntersectionObserver() {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1,
+    };
+
+    this.intersectionObserver = new IntersectionObserver(
+      this._intersectionCallback,
+      options
+    );
+    this.intersectionObserver.observe(this.containerElement as Element);
+  }
+
   // TODO: When offset, keep listening for scroll.
   private _intersectionCallback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach(element => {
       if (element.isIntersecting === false) {
         this._startScrollListener();
+        this._updatePopover();
       }
     });
   };
@@ -259,6 +260,10 @@ export class UUIPopoverElement extends LitElement {
     scrollParentRect: DOMRect
   ): { x: number; y: number } {
     if (triggerRect != null && conRect != null) {
+      if (!this.useAutoPlacement) {
+        this._managePlacementFlip(conRect, scrollParentRect);
+      }
+
       const isTopPlacement = this._placement.indexOf('top') !== -1;
       const isBottomPlacement = this._placement.indexOf('bottom') !== -1;
       const isLeftPlacement = this._placement.indexOf('left') !== -1;
@@ -302,7 +307,6 @@ export class UUIPopoverElement extends LitElement {
         marginX = this.margin;
         marginY = this.margin;
       } else {
-        this._updatePopoverPosition(conRect, scrollParentRect);
         // -------- TOP / BOT --------
         if (isTopPlacement) {
           alignY = 1;
@@ -395,6 +399,8 @@ export class UUIPopoverElement extends LitElement {
 
         if (isLeftPlacement || isRightPlacement) {
           // Only do this clamp if popover is on the sides of the parent.
+
+          // TODO: figure why calculation does not match intersection: (?)
           const topClamp = -triggerRect.y + scrollParentY;
           const bottomClamp =
             this.scrollParent.clientHeight -
@@ -404,11 +410,13 @@ export class UUIPopoverElement extends LitElement {
             scrollParentY -
             (conRect.height - triggerRect.height) * (1 - originY);
 
+          //console.log("##", calcY, "more than: ", topClamp, -conRect.height, "less than: ", bottomClamp, triggerRect.height);
           posY = mathClamp(calcY, topClamp, bottomClamp);
           posY = mathClamp(posY, -conRect.height, triggerRect.height);
         }
       }
       if (calcX === posX && calcY === posY) {
+        console.log('Not offset anymore.');
         // Not offset anymore, so we can stop listening for scroll events:
         this._stopScrollListener();
       }
@@ -420,7 +428,7 @@ export class UUIPopoverElement extends LitElement {
     }
   }
 
-  private _updatePopoverPosition(rect: DOMRect, scrollParentRect: DOMRect) {
+  private _managePlacementFlip(rect: DOMRect, scrollParentRect: DOMRect) {
     const sideSplit = this._placement.split('-');
     const currentSide = sideSplit[0];
     const sideSuffix: string | null = sideSplit[1] || null;
@@ -435,7 +443,7 @@ export class UUIPopoverElement extends LitElement {
     const scrollParentY = this.foundScrollParent ? scrollParentRect.y : 0;
     const scrollParentX = this.foundScrollParent ? scrollParentRect.x : 0;
 
-    let flipSide = '';
+    let flipSide;
 
     // add this to the calculation make sure that the position checks are not off by e.g: 0.1 pixel.
     const buffer = 2;

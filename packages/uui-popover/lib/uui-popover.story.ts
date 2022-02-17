@@ -105,7 +105,7 @@ export const ScrollBody: Story = props => html`
         @keydown=${() => ''}
         slot="trigger"
         style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
-        I will open the dropdown
+        trigger
       </span>
       <div
         slot="popover"
