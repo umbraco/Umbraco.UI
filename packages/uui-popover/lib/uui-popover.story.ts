@@ -81,6 +81,7 @@ export const AAAOverview: Story = props => html`
         <div
           style="padding: 1rem; height: 100px; width: 100px; border: 1px solid">
           more content
+          <button type="button">CLICK</button>
         </div>
       </div>
     </uui-popover>
@@ -116,6 +117,7 @@ export const ScrollBody: Story = props => html`
 `;
 
 export const ScrollContainer: Story = props => html`
+  <div style="display:block; height: 1600px; width: 1600px"></div>
   <div
     style="display: flex; width: 500px; height: 500px; border: 1px solid; overflow: auto;">
     <div style="display: flex; min-height: 1600px; min-width: 1600px">
@@ -142,4 +144,5 @@ export const ScrollContainer: Story = props => html`
       </uui-popover>
     </div>
   </div>
+  <div style="display:block; height: 1600px; width: 1600px"></div>
 `;

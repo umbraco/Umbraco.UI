@@ -3,7 +3,6 @@ import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { UUIPopoverEvent } from './UUIPopoverEvent';
 
-// Can we write full names?
 export type PopoverPlacement =
   | 'top'
   | 'top-start'
@@ -40,8 +39,8 @@ function mathMap(
 
 /**
  * @element uui-popover
- * @description Open a modal aligned with the opening element.
- * @fires change - When popover opens or closes.
+ * @description Open a modal aligned with the opening element. This does not jet work within two layers of scroll containers.
+ * @fires close - When popover is closed by user interaction.
  */
 @defineElement('uui-popover')
 export class UUIPopoverElement extends LitElement {
@@ -62,8 +61,7 @@ export class UUIPopoverElement extends LitElement {
 
   // Cashed non-state variables //////////////////////////////
   private intersectionObserver?: IntersectionObserver;
-  private scrollEventHandler = this.updatePopover.bind(this);
-  private scrollTimeout: any;
+  private scrollEventHandler = this._updatePopover.bind(this);
   private foundScrollParent = false;
   ////////////////////////////////////////////////////////////
 
@@ -100,7 +98,7 @@ export class UUIPopoverElement extends LitElement {
   }
   set placement(newValue: PopoverPlacement) {
     this._placement = newValue || 'bottom-start';
-    this.updatePopover();
+    this._updatePopover();
   }
 
   // TODO: Docs/Description of this property
@@ -118,11 +116,11 @@ export class UUIPopoverElement extends LitElement {
     const childNodes = slot!.assignedNodes({ flatten: true });
     this.trigger = childNodes[0] as HTMLElement;
 
-    this.scrollParent = this.getScrollParent(this.shadowRoot!.host);
+    this.scrollParent = this._getScrollParent(this.shadowRoot!.host);
   }
 
   public disconnectedCallback() {
-    document.removeEventListener('mousedown', this.onDocumentClick);
+    document.removeEventListener('mousedown', this._onDocumentClick);
     document.removeEventListener('scroll', this.scrollEventHandler);
 
     if (this.intersectionObserver) {
@@ -130,18 +128,17 @@ export class UUIPopoverElement extends LitElement {
       delete this.intersectionObserver;
     }
 
-    clearTimeout(this.scrollTimeout);
     this.foundScrollParent = false;
   }
 
   private _openPopover() {
     if (this.containerElement) {
       this.containerElement!.style.opacity = '0'; // Hide while measuring popover size.
-      document.addEventListener('mousedown', this.onDocumentClick);
+      document.addEventListener('mousedown', this._onDocumentClick);
 
       requestAnimationFrame(() => {
-        this.updatePopover();
-        this.createIntersectionObserver();
+        this._updatePopover();
+        this._createIntersectionObserver();
         this.containerElement!.style.opacity = '1';
       });
     }
@@ -152,17 +149,17 @@ export class UUIPopoverElement extends LitElement {
       this.intersectionObserver.disconnect();
       delete this.intersectionObserver;
     }
-    document.removeEventListener('mousedown', this.onDocumentClick);
+    document.removeEventListener('mousedown', this._onDocumentClick);
   }
 
   // Use this when changing the open state from within this component.
-  private forceClosePopover() {
+  private _forceClosePopover() {
     this.open = false;
     // Notifies about changes.
-    this.dispatchEvent(new UUIPopoverEvent(UUIPopoverEvent.CHANGE));
+    this.dispatchEvent(new UUIPopoverEvent(UUIPopoverEvent.CLOSE));
   }
 
-  private createIntersectionObserver() {
+  private _createIntersectionObserver() {
     const options = {
       root: null,
       rootMargin: '0px',
@@ -170,13 +167,13 @@ export class UUIPopoverElement extends LitElement {
     };
 
     this.intersectionObserver = new IntersectionObserver(
-      this.intersectionCallback,
+      this._intersectionCallback,
       options
     );
     this.intersectionObserver.observe(this.containerElement as Element);
   }
 
-  private getScrollParent(element: Element): any {
+  private _getScrollParent(element: Element): any {
     let style = getComputedStyle(element);
     const includeHidden = false;
     const excludeStaticParent = style.position === 'absolute';
@@ -204,34 +201,34 @@ export class UUIPopoverElement extends LitElement {
   }
 
   // TODO: When offset, keep listening for scroll.
-  private intersectionCallback = (entries: IntersectionObserverEntry[]) => {
+  private _intersectionCallback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach(element => {
       if (element.isIntersecting === false) {
-        this.startScrollListener();
+        this._startScrollListener();
       }
     });
   };
 
-  private startScrollListener() {
+  private _startScrollListener() {
     if (this.foundScrollParent) {
       this.scrollParent.addEventListener('scroll', this.scrollEventHandler);
     } else {
       document.addEventListener('scroll', this.scrollEventHandler);
     }
   }
-  private stopScrollListener() {
+  private _stopScrollListener() {
     this.scrollParent.removeEventListener('scroll', this.scrollEventHandler);
     document.removeEventListener('scroll', this.scrollEventHandler);
   }
 
   // Close when clicking outside popover
-  private onDocumentClick = (event: Event) => {
+  private _onDocumentClick = (event: Event) => {
     if (!event.composedPath().includes(this)) {
-      this.forceClosePopover();
+      this._forceClosePopover();
     }
   };
 
-  private updatePopover() {
+  private _updatePopover() {
     if (!this.shadowRoot) {
       return;
     }
@@ -246,7 +243,7 @@ export class UUIPopoverElement extends LitElement {
     const triggerRect = this.trigger!.getBoundingClientRect()!;
     const scrollParentRect = this.scrollParent.getBoundingClientRect();
 
-    const result = this.calculatePopoverPlacement(
+    const result = this._calculatePopoverPlacement(
       conRect,
       triggerRect,
       scrollParentRect
@@ -256,8 +253,7 @@ export class UUIPopoverElement extends LitElement {
     containerElement.style.top = `${result.y}px`;
   }
 
-  // TODO: Conciser adding Clamp for scroll-container inside scroll-container.
-  private calculatePopoverPlacement(
+  private _calculatePopoverPlacement(
     conRect: DOMRect,
     triggerRect: DOMRect,
     scrollParentRect: DOMRect
@@ -306,7 +302,7 @@ export class UUIPopoverElement extends LitElement {
         marginX = this.margin;
         marginY = this.margin;
       } else {
-        this.updatePopoverPosition(conRect, scrollParentRect);
+        this._updatePopoverPosition(conRect, scrollParentRect);
         // -------- TOP / BOT --------
         if (isTopPlacement) {
           alignY = 1;
@@ -379,7 +375,7 @@ export class UUIPopoverElement extends LitElement {
       const scrollParentY = this.foundScrollParent ? scrollParentRect.y : 0;
       const scrollParentX = this.foundScrollParent ? scrollParentRect.x : 0;
 
-      // IF useClamp and not using autoplacement
+      // IF useClamp and not using auto-placement
       // Clamps the popover to the screen as long as parent is on screen
       if (this.useClamp && !this.useAutoPlacement) {
         // Only do this clamp if popover is on the top or bottom of the parent.
@@ -414,7 +410,7 @@ export class UUIPopoverElement extends LitElement {
       }
       if (calcX === posX && calcY === posY) {
         // Not offset anymore, so we can stop listening for scroll events:
-        this.stopScrollListener();
+        this._stopScrollListener();
       }
 
       // return the positions
@@ -424,7 +420,7 @@ export class UUIPopoverElement extends LitElement {
     }
   }
 
-  private updatePopoverPosition(rect: DOMRect, scrollParentRect: DOMRect) {
+  private _updatePopoverPosition(rect: DOMRect, scrollParentRect: DOMRect) {
     const sideSplit = this._placement.split('-');
     const currentSide = sideSplit[0];
     const sideSuffix: string | null = sideSplit[1] || null;
