@@ -25,7 +25,7 @@ export class UUIAvatarElement extends LitElement {
         height: calc(2em + 4px);
         user-select: none;
         /* box-sizing: border-box; */
-
+        aspect-ratio: 1;
         background-color: var(--uui-color-spanish-pink);
         color: var(--uui-color-space-cadet);
       }
