@@ -1,9 +1,10 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { UUIPopoverEvent } from './UUIPopoverEvent';
 
 export type PopoverPlacement =
+  | 'auto'
   | 'top'
   | 'top-start'
   | 'top-end'
@@ -52,7 +53,6 @@ export class UUIPopoverElement extends LitElement {
       #container {
         position: absolute;
       }
-      #root,
       #trigger {
         position: relative;
       }
@@ -66,59 +66,62 @@ export class UUIPopoverElement extends LitElement {
 
   @query('#container') private containerElement!: HTMLElement;
 
-  // TODO: Disabled.
-
-  // Maybe not need to be state:
-  @state()
   private _open = false;
-  @state()
   private _placement: PopoverPlacement = 'bottom-start';
-  @state()
+  private _currentPlacement: PopoverPlacement | null = null;
   private _trigger?: Element;
-  @state()
   private _scrollParents: Element[] = [];
 
-  // TODO: Docs/Description of this property
-  @property({ type: Boolean, attribute: 'use-clamp' })
-  useClamp = false;
-
-  // TODO: Docs/Description of this property
-  @property({ type: Boolean, attribute: 'use-auto-placement' })
-  useAutoPlacement = false;
-
-  // TODO: Docs/Description of this property
+  /**
+   * Set the distance between popover-modal and trigger.
+   * @type {number}
+   * @attr disabled
+   * @default false
+   */
   @property({ type: Number })
   margin = 0;
 
-  // TODO: name to Placement, use - and use the terms start / end, center should be default.
+  /**
+   * Define the placement of the popover-modal.
+   * @type {string}
+   * @attr placement
+   * @default 'bottom-start'
+   */
   @property({ type: String })
   get placement(): PopoverPlacement {
     return this._placement;
   }
   set placement(newValue: PopoverPlacement) {
+    const oldValue = this._placement;
     this._placement = newValue || 'bottom-start';
     this._updatePopover();
+    this.requestUpdate('placement', oldValue);
   }
 
-  // TODO: Docs/Description of this property
+  /**
+   * Opens the popover-modal.
+   * @type {boolean}
+   * @attr open
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   get open() {
     return this._open;
   }
   set open(newValue) {
+    const oldValue = this._open;
     this._open = newValue;
     newValue ? this._openPopover() : this._closePopover();
+    this.requestUpdate('open', oldValue);
   }
 
-  protected firstUpdated() {
-    const slot = this.shadowRoot!.querySelector('slot');
-    const childNodes = slot!.assignedNodes({ flatten: true });
-    this._trigger = childNodes[0] as HTMLElement;
-
+  connectedCallback(): void {
+    super.connectedCallback();
     this._getScrollParents();
   }
 
-  public disconnectedCallback() {
+  disconnectedCallback() {
+    super.disconnectedCallback();
     document.removeEventListener('mousedown', this._onDocumentClick);
     document.removeEventListener('scroll', this.scrollEventHandler);
 
@@ -129,6 +132,12 @@ export class UUIPopoverElement extends LitElement {
 
     this._scrollParents = [];
   }
+
+  private _onTriggerSlotChanged = (event: any) => {
+    this._trigger = event.target.assignedElements({
+      flatten: true,
+    })[0] as HTMLElement;
+  };
 
   private _openPopover() {
     if (this.containerElement) {
@@ -149,6 +158,7 @@ export class UUIPopoverElement extends LitElement {
       delete this.intersectionObserver;
     }
     document.removeEventListener('mousedown', this._onDocumentClick);
+    this._currentPlacement = null;
   }
 
   // Use this when changing the open state from within this component.
@@ -186,16 +196,7 @@ export class UUIPopoverElement extends LitElement {
       if (style.position === 'fixed') {
         return;
       }
-
-      /*
-      if (el === document.body) {
-        return el;
-      }
-      */
     }
-    console.log(document.documentElement);
-    console.log(document.body);
-    console.log(document.body === document.documentElement);
     this._scrollParents.push(document.body);
   }
 
@@ -213,7 +214,6 @@ export class UUIPopoverElement extends LitElement {
     this.intersectionObserver.observe(this.containerElement as Element);
   }
 
-  // TODO: When offset, keep listening for scroll.
   private _intersectionCallback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach(element => {
       if (element.isIntersecting === false) {
@@ -236,7 +236,6 @@ export class UUIPopoverElement extends LitElement {
     document.removeEventListener('scroll', this.scrollEventHandler);
   }
 
-  // Close when clicking outside popover
   private _onDocumentClick = (event: Event) => {
     if (!event.composedPath().includes(this)) {
       this._forceClosePopover();
@@ -261,25 +260,30 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private _calculatePopoverPlacement(): { x: number; y: number } {
-    const popoverRect = this.containerElement!.getBoundingClientRect()!;
-    const triggerRect = this._trigger!.getBoundingClientRect()!;
+    const popoverRect = this.containerElement?.getBoundingClientRect();
+    const triggerRect = this._trigger?.getBoundingClientRect();
 
     if (triggerRect != null && popoverRect != null) {
       const scrollParentRects = this._scrollParents.map(el =>
         el.getBoundingClientRect()
       );
 
-      if (!this.useAutoPlacement) {
-        this._managePlacementFlip(popoverRect, scrollParentRects);
+      this._currentPlacement = this._currentPlacement || this._placement;
+
+      if (this._placement !== 'auto') {
+        this._currentPlacement = this._managePlacementFlip(
+          popoverRect,
+          scrollParentRects
+        );
       }
 
-      const isTopPlacement = this._placement.indexOf('top') !== -1;
-      const isBottomPlacement = this._placement.indexOf('bottom') !== -1;
-      const isLeftPlacement = this._placement.indexOf('left') !== -1;
-      const isRightPlacement = this._placement.indexOf('right') !== -1;
+      const isTopPlacement = this._currentPlacement.indexOf('top') !== -1;
+      const isBottomPlacement = this._currentPlacement.indexOf('bottom') !== -1;
+      const isLeftPlacement = this._currentPlacement.indexOf('left') !== -1;
+      const isRightPlacement = this._currentPlacement.indexOf('right') !== -1;
 
-      const isStart = this._placement.indexOf('-start') !== -1;
-      const isEnd = this._placement.indexOf('-end') !== -1;
+      const isStart = this._currentPlacement.indexOf('-start') !== -1;
+      const isEnd = this._currentPlacement.indexOf('-end') !== -1;
 
       // -------- | INITIATE MATH | --------
       let originX = 0.5;
@@ -290,7 +294,7 @@ export class UUIPopoverElement extends LitElement {
       let marginX = 0;
       let marginY = 0;
 
-      if (this.useAutoPlacement) {
+      if (this.placement === 'auto') {
         const halfWindowX = this._scrollParents[0].clientWidth / 2;
         const halfWindowY = this._scrollParents[0].clientHeight / 2;
 
@@ -372,9 +376,8 @@ export class UUIPopoverElement extends LitElement {
       let posX = calcX;
       let posY = calcY;
 
-      // IF useClamp and not using auto-placement
-      // Clamps the popover to the screen as long as parent is on screen
-      if (this.useClamp && !this.useAutoPlacement) {
+      // Moves the popover to keep it fully visible on the screen as long as its still in contact with the trigger.
+      if (this.placement !== 'auto') {
         // Only do this clamp if popover is on the top or bottom of the parent.
         if (isTopPlacement || isBottomPlacement) {
           this._scrollParents.forEach((el, index) => {
@@ -390,7 +393,7 @@ export class UUIPopoverElement extends LitElement {
             posX = mathClamp(posX, leftClamp, rightClamp);
           });
 
-          // dont move away from the trigger, must be last:
+          // keep within contact of the trigger, must be last:
           posX = mathClamp(posX, -popoverRect.width, triggerRect.width);
         } else if (isLeftPlacement || isRightPlacement) {
           // Only do this clamp if popover is on the sides of the parent.
@@ -408,12 +411,12 @@ export class UUIPopoverElement extends LitElement {
             posY = mathClamp(posY, topClamp, bottomClamp);
           });
 
-          // dont move away from the trigger, must be last:
+          // keep within contact of the trigger, must be last:
           posY = mathClamp(posY, -popoverRect.height, triggerRect.height);
         }
       }
+
       if (calcX === posX && calcY === posY) {
-        console.log('Not offset anymore.');
         // Not offset anymore, so we can stop listening for scroll events:
         this._stopScrollListener();
       }
@@ -428,93 +431,60 @@ export class UUIPopoverElement extends LitElement {
   private _managePlacementFlip(
     popoverRect: DOMRect,
     scrollParentRects: DOMRect[]
-  ) {
-    // add this to the calculation make sure that the position checks are not off by e.g: 0.1 pixel.
-    const buffer = 2;
+  ): PopoverPlacement {
+    const buffer = 2; // add this to the calculation make sure that the position checks are not off by e.g: 0.1 pixel.
+
     const placementSplit = this._placement.split('-');
     const currentSide = placementSplit[0];
-    const sideSuffix: string | null = placementSplit[1] || null;
+    const placementAlign: string | null = placementSplit[1] || null;
 
-    let flipSide;
+    let sideFlip;
     this._scrollParents.some((el, index) => {
       const rectX = el === document.body ? 0 : scrollParentRects[index].x;
       const rectY = el === document.body ? 0 : scrollParentRects[index].y;
 
       if (currentSide === 'top' && popoverRect.y - buffer <= rectY) {
-        flipSide = 'bottom';
+        sideFlip = 'bottom';
         return true;
       }
       if (
         currentSide === 'bottom' &&
         popoverRect.y + popoverRect.height + buffer >= el.clientHeight + rectY
       ) {
-        flipSide = 'top';
+        sideFlip = 'top';
         return true;
       }
       if (currentSide === 'left' && popoverRect.x - buffer <= rectX) {
-        flipSide = 'right';
+        sideFlip = 'right';
         return true;
       }
       if (
         currentSide === 'right' &&
         popoverRect.x + popoverRect.width + buffer >= el.clientWidth + rectX
       ) {
-        flipSide = 'left';
+        sideFlip = 'left';
         return true;
       }
 
       return false;
-      this._startScrollListener();
     });
 
-    /*
-
-    const viewportHeight = this.foundScrollParent
-      ? this.scrollParent.clientHeight
-      : document.documentElement.clientHeight;
-    const viewportWidth = this.foundScrollParent
-      ? this.scrollParent.clientWidth
-      : document.documentElement.clientWidth;
-
-    const scrollParentY = this.foundScrollParent ? scrollParentRect.y : 0;
-    const scrollParentX = this.foundScrollParent ? scrollParentRect.x : 0;
-
-
-
-    if (currentSide === 'top' && conRect.y - buffer <= scrollParentY) {
-      flipSide = 'bottom';
+    if (sideFlip) {
+      this._startScrollListener();
+      return (sideFlip +
+        (placementAlign ? `-${placementAlign}` : '')) as PopoverPlacement;
     }
-    if (
-      currentSide === 'bottom' &&
-      conRect.y + conRect.height + buffer >= viewportHeight + scrollParentY
-    ) {
-      flipSide = 'top';
-    }
-    if (currentSide === 'left' && conRect.x - buffer <= scrollParentX) {
-      flipSide = 'right';
-    }
-    if (
-      currentSide === 'right' &&
-      conRect.x + conRect.width + buffer >= viewportWidth + scrollParentX
-    ) {
-      flipSide = 'left';
-    }
-    */
-
-    // If we need to flip, do it, otherwise dont do anything.
-    if (flipSide) {
-      this._placement = (flipSide +
-        (sideSuffix ? `-${sideSuffix}` : '')) as PopoverPlacement;
-    }
+    return this._placement;
   }
 
   render() {
     return html`
-      <div id="root">
-        <slot id="trigger" name="trigger"></slot>
-        <div id="container">
-          ${this._open ? html`<slot name="popover"></slot>` : ''}
-        </div>
+      <slot
+        id="trigger"
+        name="trigger"
+        @slotchange=${this._onTriggerSlotChanged}></slot>
+      <div id="container">
+        ${this._open ? html`<slot name="popover"></slot>` : ''}
       </div>
     `;
   }

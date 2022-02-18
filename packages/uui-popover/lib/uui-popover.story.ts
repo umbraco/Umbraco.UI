@@ -10,6 +10,7 @@ export default {
   argTypes: {
     placement: {
       options: [
+        'auto',
         'top',
         'top-start',
         'top-end',
@@ -29,7 +30,6 @@ export default {
   args: {
     placement: 'bottom-start',
     margin: 8,
-    useClamp: true,
   },
   parameters: {
     docs: {
@@ -64,9 +64,7 @@ export const AAAOverview: Story = props => html`
       style="margin: auto"
       .margin=${props.margin}
       .placement=${props.placement}
-      .open=${props.open}
-      .useClamp=${props.useClamp}
-      .useAutoPlacement=${props.useAutoPlacement}>
+      .open=${props.open}>
       <span
         @click=${handleClick}
         @keydown=${() => ''}
@@ -97,9 +95,7 @@ export const ScrollBody: Story = props => html`
       style="margin: auto"
       .margin=${props.margin}
       .placement=${props.placement}
-      ?open=${props.open}
-      .useClamp=${props.useClamp}
-      .useAutoPlacement=${props.useAutoPlacement}>
+      ?open=${props.open}>
       <span
         @click=${handleClick}
         @keydown=${() => ''}
@@ -126,9 +122,7 @@ export const ScrollContainer: Story = props => html`
         style="margin: auto"
         .margin=${props.margin}
         .placement=${props.placement}
-        .open=${props.open}
-        .useClamp=${props.useClamp}
-        .useAutoPlacement=${props.useAutoPlacement}>
+        .open=${props.open}>
         <span
           @click=${handleClick}
           @keydown=${() => ''}
