@@ -15,25 +15,13 @@ npm i @umbraco-ui/uui-select
 Import the registration of `<uui-select>` via:
 
 ```javascript
-import '@umbraco-ui/uui-select/lib';
+import '@umbraco-ui/uui-select';
 ```
 
 When looking to leverage the `UUISelectElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISelectElement } from '@umbraco-ui/uui-select/lib/uui-select.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-select@latest/dist/uui-select.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-select@X.X.X/dist/uui-select.min.js"></script>
+import { UUISelectElement } from '@umbraco-ui/uui-select';
 ```
 
 ## Usage

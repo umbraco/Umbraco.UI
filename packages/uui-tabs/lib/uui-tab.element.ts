@@ -1,6 +1,7 @@
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
 import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  * A single tab. Should be put into `<uui-tab-group>`,
@@ -12,6 +13,7 @@ import { ActiveMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
  * @cssprop --uui-tab-divider - Define the tab dividers color
  * @slot for tab content.
  */
+@defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
@@ -124,5 +126,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         ${this.renderLabel()}
       </button>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-tab': UUITabElement;
   }
 }

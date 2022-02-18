@@ -1,10 +1,11 @@
-import { html, css } from 'lit';
 import {
-  UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-boolean-input.element';
+import { css, html } from 'lit';
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck
@@ -14,7 +15,14 @@ import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib/uui-bo
  *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
  *  @extends UUIBooleanInputElement
  */
+@defineElement('uui-checkbox')
 export class UUICheckboxElement extends UUIBooleanInputElement {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
@@ -128,19 +136,16 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         transform: scale(0.9);
       }
 
-      :host([error]) #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
-      }
-
-      :host([error]) label:hover #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
-      }
-
-      :host([error]) label:hover input:checked:not([disabled]) + #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
-      }
-      :host([error]) label:focus input:checked + #ticker {
-        border: 1px solid var(--uui-look-danger-border, #d42054);
+      :host(:not([pristine]):invalid) #ticker,
+      :host(:not([pristine]):invalid) label:hover #ticker,
+      :host(:not([pristine]):invalid) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([pristine]):invalid) label:focus input:checked + #ticker,
+      /* polyfill support */
+      :host(:not([pristine])[internals-invalid]) #ticker,
+      :host(:not([pristine])[internals-invalid]) label:hover #ticker,
+      :host(:not([pristine])[internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([pristine])[internals-invalid]) label:focus input:checked + #ticker {
+        border: 1px solid var(--uui-look-danger-border);
       }
 
       :host([disabled]) #ticker {
@@ -164,17 +169,17 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
     `,
   ];
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
   renderCheckbox() {
     return html`
       <div id="ticker">
         <div id="icon-check">${iconCheck}</div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-checkbox': UUICheckboxElement;
   }
 }

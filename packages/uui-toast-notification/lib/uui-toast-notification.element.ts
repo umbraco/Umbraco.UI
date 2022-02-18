@@ -1,22 +1,26 @@
-import { LitElement, html, css } from 'lit';
-import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs/';
-import { property, query, state } from 'lit/decorators.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
-  InterfaceLookType,
   InterfaceLookDefaultValue,
+  InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
-import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { css, html, LitElement } from 'lit';
+import { property, query, state } from 'lit/decorators.js';
+
+import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 
 /**
  *  @element uui-toast-notification
  *  @fires {UUIToastNotificationEvent} opening - fires when the toast is starting to open
+ *  @fires {UUIToastNotificationEvent} opened - fires when the toast is open after the open-animation
  *  @fires {UUIToastNotificationEvent} closing - fires when the toast is starting to close
  *  @fires {UUIToastNotificationEvent} closed - fires when the toast is closed
  *  @description - Component for displaying a toast notification, preferably used in toast-notification-container.
  *  @slot - for dialog layout/content
  */
+@defineElement('uui-toast-notification')
 export class UUIToastNotificationElement extends LitElement {
   static styles = [
     UUITextStyles,
@@ -34,7 +38,8 @@ export class UUIToastNotificationElement extends LitElement {
         height: 0;
         pointer-events: none;
 
-        transition: height 480ms ease-in-out;
+        transition: height
+          var(--uui-toast-notification-animation-duration, 480ms) ease-in-out;
       }
       :host([is-open]) {
         pointer-events: all;
@@ -70,7 +75,8 @@ export class UUIToastNotificationElement extends LitElement {
         border-radius: calc(var(--uui-border-radius) * 2);
 
         opacity: 0;
-        transition: opacity 480ms;
+        transition: opacity
+          var(--uui-toast-notification-animation-duration, 480ms);
       }
       :host([is-open]) #toast > div {
         opacity: 1;
@@ -171,7 +177,7 @@ export class UUIToastNotificationElement extends LitElement {
       this.isOpen === true &&
       this._animate === false
     ) {
-      this._timer.resume();
+      this._timer.restart();
     }
   }
 
@@ -226,6 +232,17 @@ export class UUIToastNotificationElement extends LitElement {
     demandCustomElement(this, 'uui-icon');
   }
 
+  private _getAnimationDuration(): number {
+    return (
+      parseInt(
+        getComputedStyle(this).getPropertyValue(
+          '--uui-toast-notification-animation-duration'
+        ),
+        10
+      ) || 480
+    );
+  }
+
   private _requestAnimationUpdate = 0;
   private _makeOpen() {
     if (this._open === true) {
@@ -256,8 +273,12 @@ export class UUIToastNotificationElement extends LitElement {
             if (this._pauseTimer === false) {
               this._timer?.start();
             }
+
+            this.dispatchEvent(
+              new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENED)
+            );
           }
-        }, 480);
+        }, this._getAnimationDuration());
       });
     });
   }
@@ -304,7 +325,7 @@ export class UUIToastNotificationElement extends LitElement {
               this.parentNode.removeChild(this);
             }
           }
-        }, 480);
+        }, this._getAnimationDuration());
       });
     }
   }
@@ -327,5 +348,11 @@ export class UUIToastNotificationElement extends LitElement {
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification': UUIToastNotificationElement;
   }
 }

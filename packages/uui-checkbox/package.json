@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-checkbox",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -22,18 +22,19 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-checkbox.min.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "customElements": "custom-elements.json",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.15",
-    "@umbraco-ui/uui-boolean-input": "0.0.1"
+    "@umbraco-ui/uui-base": "0.0.16",
+    "@umbraco-ui/uui-boolean-input": "0.0.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

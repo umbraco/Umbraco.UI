@@ -1,10 +1,11 @@
-import { html } from 'lit';
-import '@umbraco-ui/uui-badge/lib/index';
+import '.';
+
+import { Story } from '@storybook/web-components';
 import {
   InterfaceLookNames,
   InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types/index';
-import { Story } from '@storybook/web-components';
+} from '@umbraco-ui/uui-base/lib/types';
+import { html } from 'lit';
 
 export default {
   title: 'Displays/Badge',

@@ -1,18 +1,16 @@
-import { html, css } from 'lit';
-import {
-  InputType,
-  UUIInputElement,
-} from '@umbraco-ui/uui-input/lib/uui-input.element';
-import { property, state } from 'lit/decorators.js';
-
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   iconSee,
   iconUnsee,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { InputType, UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import { css, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
 /**
  * @element uui-input-password
  */
+@defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {
   static styles = [
     ...UUIInputElement.styles,
@@ -40,16 +38,12 @@ export class UUIInputPasswordElement extends UUIInputElement {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   set type(_newValue) {}
 
-  onPasswordToggle() {
+  _onPasswordToggle() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
     } else {
       this.passwordType = 'password';
     }
-  }
-
-  getIconName() {
-    return this.passwordType === 'password' ? 'bug' : 'check';
   }
 
   renderIcon() {
@@ -63,11 +57,17 @@ export class UUIInputPasswordElement extends UUIInputElement {
   renderAppend() {
     return html`<uui-button
       .disabled=${this.disabled}
-      @click=${this.onPasswordToggle}
+      @click=${this._onPasswordToggle}
       style="--uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0"
       compact
       id="eye">
       ${this.renderIcon()}
     </uui-button>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input-password': UUIInputPasswordElement;
   }
 }

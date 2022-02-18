@@ -1,6 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
-import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
+
 import { UUIPaginationEvent } from './UUIPaginationEvent';
 
 //this is how wide the button gets when it has 3 digits inside.
@@ -19,6 +21,7 @@ const arrayOfNumbers = (start: number, stop: number) => {
  * @description Jump to a certain page and navigate to the next, last, previous or first page. The amount of visible page-buttons are adjusted to the available space.
  * @fires change - When clicked on the page button fires change event
  */
+@defineElement('uui-pagination')
 export class UUIPaginationElement extends LitElement {
   static styles = [
     css`
@@ -57,7 +60,7 @@ export class UUIPaginationElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'navigation');
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'navigation');
     this._visiblePages = this._generateVisiblePages(this.current);
   }
 
@@ -319,11 +322,17 @@ export class UUIPaginationElement extends LitElement {
     return html`<uui-button-group role="list" id="pages">
       ${this.renderNavigationLeft()}
       ${this._visiblePages.map(
-        page =>
-          this.renderPage(page)
-      )}
+      page =>
+        this.renderPage(page)
+    )}
       ${this.renderNavigationRight()}
     </uui-button-group>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-pagination': UUIPaginationElement;
   }
 }

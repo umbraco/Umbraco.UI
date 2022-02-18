@@ -1,9 +1,11 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  A basic loader.
  *  @element uui-loader
  */
+@defineElement('uui-loader')
 export class UUILoaderElement extends LitElement {
   static styles = [
     css`
@@ -55,5 +57,11 @@ export class UUILoaderElement extends LitElement {
       <div></div>
       <div></div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-loader': UUILoaderElement;
   }
 }

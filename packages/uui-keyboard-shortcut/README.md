@@ -13,25 +13,13 @@ npm i @umbraco-ui/uui-keyboard-shortcut
 Import the registration of `<uui-keyboard-shortcut>` via:
 
 ```javascript
-import '@umbraco-ui/uui-keyboard-shortcut/lib';
+import '@umbraco-ui/uui-keyboard-shortcut';
 ```
 
 When looking to leverage the `UUIKeyboardShortcutElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIKeyboardShortcutElement } from '@umbraco-ui/uui-keyboard-shortcut/lib/uui-keyboard-shortcut.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-keyboard-shortcut@latest/dist/uui-keyboard-shortcut.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-keyboard-shortcut@X.X.X/dist/uui-keyboard-shortcut.min.js"></script>
+import { UUIKeyboardShortcutElement } from '@umbraco-ui/uui-keyboard-shortcut';
 ```
 
 ## Usage

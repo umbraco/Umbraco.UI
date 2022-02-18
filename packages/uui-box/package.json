@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-box",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "MIT",
   "description": "A box web component for grouping elements",
   "keywords": [
@@ -18,17 +18,18 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-box.min.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "customElements": "custom-elements.json",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.15"
+    "@umbraco-ui/uui-base": "0.0.16"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

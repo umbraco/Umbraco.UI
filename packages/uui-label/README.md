@@ -15,25 +15,13 @@ npm i @umbraco-ui/uui-label
 Import the registration of `<uui-label>` via:
 
 ```javascript
-import '@umbraco-ui/uui-label/lib';
+import '@umbraco-ui/uui-label';
 ```
 
 When looking to leverage the `UUILabelElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUILabelElement } from '@umbraco-ui/uui-label/lib/uui-label.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-label@latest/dist/uui-label.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-label@X.X.X/dist/uui-label.min.js"></script>
+import { UUILabelElement } from '@umbraco-ui/uui-label';
 ```
 
 ## Usage

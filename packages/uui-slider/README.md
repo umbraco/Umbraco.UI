@@ -1,6 +1,6 @@
 # uui-slider
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-slide?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-slider)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-slider?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-slider)
 
 ## Installation
 
@@ -13,25 +13,13 @@ npm i @umbraco-ui/uui-slider
 Import the registration of `<uui-slider>` via:
 
 ```javascript
-import '@umbraco-ui/uui-slider/lib';
+import '@umbraco-ui/uui-slider';
 ```
 
 When looking to leverage the `UUISliderElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISliderElement } from '@umbraco-ui/uui-slider/lib/uui-slider.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-slider@latest/dist/uui-slider.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-slider@X.X.X/dist/uui-slider.min.js"></script>
+import { UUISliderElement } from '@umbraco-ui/uui-slider';
 ```
 
 ## Usage

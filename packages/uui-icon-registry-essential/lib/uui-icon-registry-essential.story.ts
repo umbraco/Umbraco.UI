@@ -1,7 +1,9 @@
+import '.';
+import '@umbraco-ui/uui-icon/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-icon-registry-essential/lib/index';
-import '@umbraco-ui/uui-icon/lib/index';
+
 import { UUIIconRegistryEssential } from './UUIIconRegistryEssential';
 
 export default {

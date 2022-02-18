@@ -1,6 +1,7 @@
-import { html } from 'lit-html';
-import '@umbraco-ui/uui-radio/lib/index';
+import '.';
+
 import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
 
 export default {
   title: 'Inputs/Radio',
@@ -68,6 +69,13 @@ GroupedOverview.parameters = {
     },
   },
 };
+
+export const GroupWithOne: Story = () =>
+  html`
+    <uui-radio-group name="Test">
+      <uui-radio value="Value 1">Option 1</uui-radio>
+    </uui-radio-group>
+  `;
 
 export const GroupedSelectDisabled: Story = () =>
   html`

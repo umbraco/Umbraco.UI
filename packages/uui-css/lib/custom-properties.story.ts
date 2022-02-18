@@ -3,7 +3,6 @@ import { html, svg } from 'lit-html';
 // eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
 import customProperties from '../custom-properties.module.js'; // eslint-disable-line
 // @ts-ignore-end
-
 const properties = Object.keys(customProperties.customProperties).map(
   // @ts-ignore
   key => ({ key: key, value: customProperties.customProperties[key] })
@@ -17,8 +16,13 @@ export default {
   title: 'Design/Custom properties',
 };
 
-const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text);
+const copyToClipboard = (e: Event) => {
+  const button = e.target as any;
+  const text = button.dataset.copyToClipboard;
+  if (text) {
+    navigator.clipboard.writeText(text);
+    button.state = 'success';
+  }
 };
 
 const propertyColorTemplate = (property: any) => html` <uui-table-row>
@@ -26,13 +30,10 @@ const propertyColorTemplate = (property: any) => html` <uui-table-row>
     ><div
       style="display: flex; justify-content: space-between; align-items: center;">
       ${property.key}<uui-button
-        title="Copy to clipboard"
+        data-copy-to-clipboard=${property.key}
+        title="Copy custom property to clipboard"
+        label="Copy custom property to clipboard"
         compact
-        @click=${(e: MouseEvent) => {
-          copyToClipboard(property.key);
-          const button = e.target as any;
-          button.state = 'success';
-        }}
         >${copyIcon}</uui-button
       >
     </div></uui-table-cell
@@ -42,13 +43,10 @@ const propertyColorTemplate = (property: any) => html` <uui-table-row>
       style="display: flex; justify-content: space-between; align-items: center;">
       <code>${property.value}</code
       ><uui-button
-        title="Copy to clipboard"
+        data-copy-to-clipboard=${property.value}
+        title="Copy color value to clipboard"
+        label="Copy color value to clipboard"
         compact
-        @click=${(e: MouseEvent) => {
-          copyToClipboard(property.value);
-          const button = e.target as any;
-          button.state = 'success';
-        }}
         >${copyIcon}</uui-button
       >
     </div>
@@ -64,13 +62,10 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
     ><div
       style="display: flex; justify-content: space-between; align-items: center;">
       ${property.key}<uui-button
-        title="Copy to clipboard"
+        data-copy-to-clipboard=${property.key}
+        title="Copy custom property to clipboard"
+        label="Copy custom property to clipboard"
         compact
-        @click=${(e: MouseEvent) => {
-          copyToClipboard(property.key);
-          const button = e.target as any;
-          button.state = 'success';
-        }}
         >${copyIcon}</uui-button
       >
     </div></uui-table-cell
@@ -80,13 +75,10 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
       style="display: flex; justify-content: space-between; align-items: center;">
       <code>${property.value}</code
       ><uui-button
-        title="Copy to clipboard"
+        data-copy-to-clipboard=${property.value}
+        title="Copy size value to clipboard"
+        label="Copy size value to clipboard"
         compact
-        @click=${(e: MouseEvent) => {
-          copyToClipboard(property.value);
-          const button = e.target as any;
-          button.state = 'success';
-        }}
         >${copyIcon}</uui-button
       >
     </div>
@@ -100,7 +92,7 @@ export const Looks = () => html` <h2>Looks</h2>
   </p>
 
   <h3>Primary Look</h3>
-  <uui-table>
+  <uui-table @click=${copyToClipboard}>
     <uui-table-head>
       <uui-table-head-cell>Custom property name</uui-table-head-cell>
       <uui-table-head-cell>Value</uui-table-head-cell>
@@ -190,7 +182,7 @@ export const InterfaceColors = () => html`
     properties. The fallback values are inserted automatically during build.
   </p>
 
-  <uui-table>
+  <uui-table @click=${copyToClipboard}>
     <uui-table-head>
       <uui-table-head-cell>Custom property name</uui-table-head-cell>
       <uui-table-head-cell>Value</uui-table-head-cell>
@@ -209,7 +201,7 @@ export const BrandColors = () => html`<h2>Colors</h2>
     interface color properties. Here is an overview of colors:
   </p>
 
-  <uui-table>
+  <uui-table @click=${copyToClipboard}>
     <uui-table-head>
       <uui-table-head-cell>Custom property name</uui-table-head-cell>
       <uui-table-head-cell>Value</uui-table-head-cell>
@@ -223,7 +215,7 @@ export const BrandColors = () => html`<h2>Colors</h2>
 export const Sizing = () => html`
   <h2>Sizing</h2>
 
-  <uui-table>
+  <uui-table @click=${copyToClipboard}>
     <uui-table-head>
       <uui-table-head-cell>Custom property name</uui-table-head-cell>
       <uui-table-head-cell>Value</uui-table-head-cell>

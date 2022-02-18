@@ -1,8 +1,9 @@
+import '.';
+import '@umbraco-ui/uui-checkbox/lib';
+import '@umbraco-ui/uui-input/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-label/lib/index';
-import '@umbraco-ui/uui-input/lib/index';
-import '@umbraco-ui/uui-checkbox/lib/index';
 
 export default {
   id: 'uui-label',
@@ -11,12 +12,15 @@ export default {
 };
 
 const Template: Story = props => html`
-  <uui-label ?disabled=${props.disabled}>Label</uui-label>
+  <uui-label ?disabled=${props.disabled} ?required=${props.required}
+    >Label</uui-label
+  >
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   disabled: false,
+  required: false,
 };
 AAAOverview.storyName = 'Overview';
 

@@ -1,10 +1,12 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-file-symbol
  */
 
+@defineElement('uui-symbol-file')
 export class UUISymbolFileElement extends LitElement {
   static styles = [
     css`
@@ -38,7 +40,6 @@ export class UUISymbolFileElement extends LitElement {
   type = '';
 
   render() {
-    console.log(UUISymbolFileElement.styles);
     return html`<svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
@@ -50,5 +51,11 @@ export class UUISymbolFileElement extends LitElement {
       ${this.type
         ? html`<span id="file-type">${this.type.toUpperCase()}</span>`
         : ''} `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-file': UUISymbolFileElement;
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-base",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -18,9 +18,8 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-base.min.js",
+  "main": "./lib/index.js",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js"
   ],

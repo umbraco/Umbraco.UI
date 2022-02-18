@@ -13,7 +13,7 @@ npm i @umbraco-ui/uui-card
 ## Usage
 
 ```javascript
-import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
+import { UUICardElement } from '@umbraco-ui/uui-card';
 
 class MyCardElement extends UUICardElement {}
 ```

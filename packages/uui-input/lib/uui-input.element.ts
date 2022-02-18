@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { property, query } from 'lit/decorators.js';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =
@@ -26,7 +28,14 @@ export type InputType =
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
-export class UUIInputElement extends LitElement {
+@defineElement('uui-input')
+export class UUIInputElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     css`
       :host {
@@ -65,9 +74,6 @@ export class UUIInputElement extends LitElement {
           var(--uui-interface-border-focus)
         );
       }
-      :host([error]) {
-        border-color: var(--uui-look-danger-border);
-      }
       :host([disabled]) {
         background-color: var(
           --uui-input-background-color-disabled,
@@ -80,6 +86,12 @@ export class UUIInputElement extends LitElement {
           );
 
         color: var(--uui-interface-contrast-disabled);
+      }
+
+      :host(:not([pristine]):invalid),
+      /* polyfill support */
+      :host(:not([pristine])[internals-invalid]) {
+        border-color: var(--uui-look-danger-border);
       }
 
       input {
@@ -118,6 +130,15 @@ export class UUIInputElement extends LitElement {
   ];
 
   /**
+   * Disables the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
    * Label for input element.
    * @type {string}
    * @attr
@@ -135,82 +156,19 @@ export class UUIInputElement extends LitElement {
   placeholder = '';
 
   /**
-   * Disables the input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  @state()
-  private _value = '';
-
-  /**
-   * This is a value property of the uui-input.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property()
-  get value() {
-    return this._value;
-  }
-  set value(newValue) {
-    this._value = newValue;
-    if (
-      'ElementInternals' in window &&
-      //@ts-ignore
-      'setFormValue' in window.ElementInternals.prototype
-    ) {
-      this._internals.setFormValue(this._value);
-    }
-  }
-
-  /**
-   * This is a name property of the `<uui-input>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
-
-  /**
-   * Set to true if the component should have an error state.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  /**
    * This property specifies the type of input that will be rendered.
    * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
    * @attr
    * @default text
    */
   @property({ type: String })
-  private _type: InputType = 'text';
-  public get type(): InputType {
-    return this._type;
-  }
-  public set type(value: InputType) {
-    this._type = value;
-  }
+  type: InputType = 'text';
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  private _internals;
+  @query('#input')
+  _input!: HTMLInputElement;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
 
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
@@ -224,14 +182,21 @@ export class UUIInputElement extends LitElement {
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
   }
 
-  private onInput(e: Event) {
+  protected getFormElement(): HTMLElement {
+    return this._input;
+  }
+
+  private _onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
+
+    // TODO: Do we miss an input event?
   }
 
-  private onChange() {
+  private _onChange() {
+    this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
@@ -249,14 +214,20 @@ export class UUIInputElement extends LitElement {
       <input
         id="input"
         .type=${this.type}
-        .value=${this.value}
+        .value=${this.value as string}
         .name=${this.name}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
-        @input=${this.onInput}
-        @change=${this.onChange} />
+        @input=${this._onInput}
+        @change=${this._onChange} />
       ${this.renderAppend()}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input': UUIInputElement;
   }
 }

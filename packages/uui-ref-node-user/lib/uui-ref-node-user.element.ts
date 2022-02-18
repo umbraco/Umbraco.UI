@@ -1,6 +1,7 @@
+import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.element';
 
 /**
  *  @element uui-ref-node-user
@@ -10,6 +11,7 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.ele
  *  @description - Component for displaying a reference to a user node.
  */
 
+@defineElement('uui-ref-node-user')
 export class UUIRefNodeUserElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 
@@ -36,5 +38,11 @@ export class UUIRefNodeUserElement extends UUIRefNodeElement {
     return html`<small id="detail"
       >${details.join(' | ')}<slot name="detail"></slot
     ></small>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node-user': UUIRefNodeUserElement;
   }
 }

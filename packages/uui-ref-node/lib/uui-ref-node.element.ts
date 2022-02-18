@@ -1,6 +1,7 @@
+import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
 
 /**
  *  @element uui-ref-node
@@ -14,6 +15,7 @@ import { UUIRefElement } from '@umbraco-ui/uui-ref/lib/uui-ref.element';
  *  @slot actions - for actions
  */
 
+@defineElement('uui-ref-node')
 export class UUIRefNodeElement extends UUIRefElement {
   static styles = [
     ...UUIRefElement.styles,
@@ -52,7 +54,7 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       #detail {
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
       }
 
       :host(:not([disabled])) #open-part:hover #icon {
@@ -146,5 +148,11 @@ export class UUIRefNodeElement extends UUIRefElement {
       <slot name="tag"></slot>
       <slot name="actions" id="actions-container"></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node': UUIRefNodeElement;
   }
 }

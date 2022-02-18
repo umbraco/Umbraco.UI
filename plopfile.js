@@ -79,6 +79,11 @@ module.exports = function (plop) {
         path: './packages/{{> tagnamePartial }}/package.json',
         templateFile: './templates/plop-templates/package.json.hbs',
       },
+      {
+        type: 'append',
+        path: './packages/uui/lib/index.ts',
+        template: "import '@umbraco-ui/{{> tagnamePartial }}/lib';",
+      },
     ],
   });
 };

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
@@ -6,14 +7,23 @@ import { property } from 'lit/decorators.js';
  * @element uui-label
  * @slot - for the label text.
  */
+@defineElement('uui-label')
 export class UUILabelElement extends LitElement {
   static styles = [
     css`
+      :host {
+        font-weight: 700;
+      }
       :host([for]) {
         cursor: pointer;
       }
       :host([disabled]) {
         cursor: default;
+      }
+      #required {
+        display: inline;
+        color: var(--uui-look-danger-surface);
+        font-weight: 900;
       }
     `,
   ];
@@ -33,8 +43,17 @@ export class UUILabelElement extends LitElement {
    * @attr for
    * @default null
    */
-  @property({ reflect: false, attribute: true })
+  @property({ reflect: true, attribute: true })
   for: string | HTMLElement | null = null;
+
+  /**
+   * Highlight that the related element is required.
+   * @type {boolean}
+   * @attr required
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
 
   constructor() {
     super();
@@ -60,6 +79,15 @@ export class UUILabelElement extends LitElement {
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`
+      <slot></slot>
+      ${this.required ? html`<div id="required">*</div>` : ''}
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-label': UUILabelElement;
   }
 }

@@ -1,8 +1,10 @@
-import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 
 /**
  * @element {{> tagnamePartial }}
  */
+@defineElement('{{> tagnamePartial }}')
 export class {{className name}} extends LitElement {
       static styles = [
     css`
@@ -17,4 +19,10 @@ export class {{className name}} extends LitElement {
             Markup goes here
         `;
     }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    '{{> tagnamePartial }}': {{className name}} ;
+  }
 }

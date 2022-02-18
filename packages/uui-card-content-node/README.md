@@ -15,25 +15,13 @@ npm i @umbraco-ui/uui-card-content-node
 Import the registration of `<uui-card-content-node>` via:
 
 ```javascript
-import '@umbraco-ui/uui-card-content-node/lib';
+import '@umbraco-ui/uui-card-content-node';
 ```
 
 When looking to leverage the `UUICardContentNodeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardContentNodeElement } from '@umbraco-ui/uui-card-content-node/lib/uui-card-content-node.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-card-content-node@latest/dist/uui-card-content-node.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-card-content-node@X.X.X/dist/uui-card-content-node.min.js"></script>
+import { UUICardContentNodeElement } from '@umbraco-ui/uui-card-content-node';
 ```
 
 ## Usage

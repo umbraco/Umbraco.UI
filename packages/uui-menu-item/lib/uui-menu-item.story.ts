@@ -1,15 +1,36 @@
-import { html } from 'lit-html';
-import '@umbraco-ui/uui-menu-item/lib/index';
-import { Story } from '@storybook/web-components';
-import { UUIMenuItemEvent } from './UUIMenuItemEvent';
-import { UUIMenuItemElement } from './uui-menu-item.element';
-import './index';
+import '.';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
+
+import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
+
+import { UUIMenuItemElement } from './uui-menu-item.element';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 export default {
   title: 'Buttons/Menu Item',
   component: 'uui-menu-item',
   id: 'uui-menu-item',
+  args: {
+    label: 'Menu Item 1',
+    loading: false,
+    disabled: false,
+    hasChildren: false,
+    showChildren: false,
+    selected: false,
+    active: false,
+    selectable: false,
+    href: undefined,
+    target: undefined,
+  },
+  argTypes: {
+    href: {
+      control: { type: 'text' },
+    },
+    target: {
+      control: { type: 'text' },
+    },
+  },
 };
 
 const labelNames = [
@@ -45,7 +66,7 @@ const renderItems: any = (count = 5, iteration = 5) => {
   return elements;
 };
 
-export const AAAOverview: Story = props =>
+export const AAAOverview: Story = (props: any) =>
   html`<uui-menu-item
     .label=${props.label}
     ?loading=${props.loading}
@@ -54,7 +75,8 @@ export const AAAOverview: Story = props =>
     ?show-children=${props.showChildren}
     ?selected=${props.selected}
     ?active=${props.active}
-    ?selectable=${props.selectable}>
+    ?selectable=${props.selectable}
+    ?select-only=${props.selectOnly}>
   </uui-menu-item>`;
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
@@ -64,6 +86,7 @@ AAAOverview.args = {
   hasChildren: false,
   showChildren: false,
   selected: false,
+  selectOnly: false,
   active: false,
   selectable: false,
 };
@@ -253,6 +276,9 @@ export const Selectable = () =>
       <uui-menu-item label="Menu Item 4" selectable></uui-menu-item>
     </div>
   `;
+Selectable.args = {
+  selectable: true,
+};
 Selectable.parameters = {
   docs: {
     source: {
@@ -263,22 +289,46 @@ Selectable.parameters = {
   },
 };
 
-export const WithIcon = () =>
+const MenuItems = [
+  {
+    title: 'Menu Item 1',
+    icon: 'document',
+  },
+  {
+    title: 'Menu Item 2',
+    icon: 'picture',
+  },
+  {
+    title: 'Menu Item 3',
+    icon: 'info',
+  },
+  {
+    title: 'Menu Item 4',
+    icon: 'document',
+  },
+];
+export const WithIcon = (props: any) =>
   html`
     <uui-icon-registry-essential>
       <div style="max-width: 500px;">
-        <uui-menu-item label="Menu Item 1">
-          <uui-icon slot="icon" name="document"></uui-icon>
-        </uui-menu-item>
-        <uui-menu-item label="Menu Item 2">
-          <uui-icon slot="icon" name="picture"></uui-icon>
-        </uui-menu-item>
-        <uui-menu-item label="Menu Item 3">
-          <uui-icon slot="icon" name="info"></uui-icon>
-        </uui-menu-item>
-        <uui-menu-item label="Menu Item 4">
-          <uui-icon slot="icon" name="document"></uui-icon>
-        </uui-menu-item>
+        ${MenuItems.map(
+          menuItem =>
+            html`
+              <uui-menu-item
+                label=${menuItem.title}
+                ?loading=${props.loading}
+                ?disabled=${props.disabled}
+                ?has-children=${props.hasChildren}
+                ?show-children=${props.showChildren}
+                ?selected=${props.selected}
+                ?active=${props.active}
+                ?selectable=${props.selectable}
+                href=${props.href}
+                target=${props.target}>
+                <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
+              </uui-menu-item>
+            `
+        )}
       </div>
     </uui-icon-registry-essential>
   `;
@@ -288,6 +338,44 @@ WithIcon.parameters = {
       code: html`
         <uui-menu-item label="Menu Item 1">
           <uui-icon slot="icon" name="info"></uui-icon>
+        </uui-menu-item>
+      `.strings,
+    },
+  },
+};
+
+export const AnchorTag = (props: any) =>
+  html`
+    <uui-icon-registry-essential>
+      <div style="max-width: 500px;">
+        <uui-menu-item
+          label=${props.label}
+          ?loading=${props.loading}
+          ?disabled=${props.disabled}
+          ?has-children=${props.hasChildren}
+          ?show-children=${props.showChildren}
+          ?selected=${props.selected}
+          ?active=${props.active}
+          ?selectable=${props.selectable}
+          href=${props.href}
+          target=${props.target}>
+          <uui-icon slot="icon" name="document"></uui-icon>
+        </uui-menu-item>
+      </div>
+    </uui-icon-registry-essential>
+  `;
+AnchorTag.args = {
+  href: 'https://www.umbraco.com',
+  target: '_blank',
+};
+AnchorTag.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item
+          label="Menu Item 1"
+          href="http://www.umbraco.com"
+          target="_blank">
         </uui-menu-item>
       `.strings,
     },

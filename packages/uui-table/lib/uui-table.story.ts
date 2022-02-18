@@ -1,9 +1,11 @@
-import { html } from 'lit-html';
-import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
-import { Story } from '@storybook/web-components';
-import '@umbraco-ui/uui-table/lib/index';
-import '@umbraco-ui/uui-box/lib/index';
+import '.';
 import './uui-table-advanced-example';
+import '@umbraco-ui/uui-box/lib';
+
+import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
+
+import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
   title: 'Layout/Table',
