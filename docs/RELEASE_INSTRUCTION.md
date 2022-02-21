@@ -13,7 +13,7 @@
 1. Merge PR into main - this will trigger two actions - `Publish`, and `Azure Static Web Apps CI/CD`. The `Publish` workflow is responsible for publishing packages to NPM. It will only publish the packages that have higher version that previously published ones. The azure workflow will build and publish UI library Storybook.
 1. Merge main branch into dev branch.
 
-## How to clear tags (maybe not relevant after update mentioned above...)
+## How to clear tags (not relevant after latest update, but I will keep those guide if we reintroduce tags by our choice of change-log system)
 
 If something goes wrong during the publish workflow, you might end up with tag numbers not corresponding to the current versions of the packages. Tags are stored both on remote and on local repository.
 
