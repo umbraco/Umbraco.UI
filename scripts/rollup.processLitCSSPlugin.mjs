@@ -1,6 +1,6 @@
 import postcss from 'postcss';
 import syntax from 'postcss-jsx';
-import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
+import postcssCustomPropertiesFallback from './postcss-custom-properties-fallback/plugin.cjs';
 import { createFilter } from '@rollup/pluginutils';
 import postcssConfig from 'postcss-load-config';
 

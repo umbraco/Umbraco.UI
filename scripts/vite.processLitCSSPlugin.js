@@ -6,7 +6,7 @@ TODO: Find solution to use same code in CommonJS and ESM.
 const createFilter = require('@rollup/pluginutils').createFilter;
 const postcss = require('postcss');
 const syntax = require('postcss-jsx');
-const postcssCustomPropertiesFallback = require('postcss-custom-properties-fallback');
+const postcssCustomPropertiesFallback = require('./postcss-custom-properties-fallback/plugin.cjs');
 const postcssConfig = require('postcss-load-config');
 
 // @ts-ignore-start
