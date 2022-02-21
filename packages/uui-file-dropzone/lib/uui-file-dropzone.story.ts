@@ -18,7 +18,10 @@ export default {
 
 export const Overview: Story = props =>
   html`
-    <uui-file-dropzone ?multiple=${props.multiple} ?directory=${props.directory}
+    <uui-file-dropzone
+      ?multiple=${props.multiple}
+      ?directory=${props.directory}
+      .accept=${props.accept}
       ><uui-button look="placeholder"
         ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
         in the slot will serve as a dropzone. <br />
@@ -57,7 +60,11 @@ export const Multiple = () =>
 
 export const AcceptsDirectories = () =>
   html`
-    <uui-file-dropzone multiple directory
+    <uui-file-dropzone
+      multiple
+      directory
+      accept=".mp4, image/*"
+      @file-drop=${(e: any) => console.log('EVENT: ', e.target.files)}
       ><uui-button look="placeholder"
         ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
         in the slot will serve as a dropzone. <br />

@@ -74,6 +74,12 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('click', this.handleClick);
   }
 
+  // protected firstUpdated(_changedProperties: PropertyValues<any>): void {
+  //   super.firstUpdated(_changedProperties);
+
+  //   this.files = this.input.files;
+  // }
+
   private handleClick(e: Event) {
     e.stopImmediatePropagation();
     this.openNativeInput();
@@ -86,6 +92,18 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   // Drop handler function to get all files
   private async getAllFileEntries(dataTransferItemList: DataTransferItemList) {
+    const acceptList: string[] = [];
+    const wildcards: string[] = [];
+
+    // Create the arrays defined above
+    this.accept.split(',').forEach(item => {
+      if (item.includes('*')) {
+        wildcards.push(item.split('*')[0].trim());
+      } else {
+        acceptList.push(item);
+      }
+    });
+
     const fileEntries: FileSystemFileEntry[] = [];
     // Use BFS to traverse entire directory/file structure
     const queue = [];
@@ -95,9 +113,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
     while (queue.length > 0) {
       const entry: FileSystemFileEntry = queue.shift()!;
-      if (entry.isFile) {
+      if (
+        entry.isFile &&
+        (await this.isAccepted(acceptList, wildcards, entry))
+      ) {
         fileEntries.push(entry);
       } else if (entry.isDirectory) {
+        fileEntries.push(entry);
         queue.push(
           ...(await this.readAllDirectoryEntries((entry as any).createReader()))
         );
@@ -136,28 +158,44 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     );
   }
 
+  private async isAccepted(
+    acceptList: string[],
+    wildcards: string[],
+    entry: FileSystemFileEntry
+  ) {
+    const file = await this.getFile(entry);
+    const fileType = file.type;
+    const fileExtension = '.' + file.name.split('.')[1];
+
+    if (acceptList.includes(fileExtension)) {
+      return true;
+    }
+    if (acceptList.includes(fileType)) {
+      return true;
+    }
+    if (wildcards.some(wildcard => fileType.startsWith(wildcard))) {
+      return true;
+    }
+
+    return false;
+  }
+
   async onDrop(e: DragEvent) {
     this.preventDefaults(e);
-    this.files = [];
 
     const items = e.dataTransfer?.items;
 
     if (items) {
       const result = await this.getAllFileEntries(items);
 
-      const files: File[] = [];
-
-      for (const entry of result) {
-        const test: File = await this.getFile(entry);
-
-        files.push(test);
-      }
-      this.files = files;
+      console.log('Accepted Items: ', result);
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
       );
     }
+
+    // ---- OLD IMPLEMENTATION ----
 
     // const dt = e.dataTransfer;
 
