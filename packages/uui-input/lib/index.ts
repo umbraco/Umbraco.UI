@@ -1,2 +1,2 @@
 export * from './uui-input.element';
-export * from './UUIInputEvent'
+export * from './UUIInputEvent';

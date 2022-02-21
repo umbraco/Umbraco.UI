@@ -1,2 +1,2 @@
 export * from './uui-button-inline-create.element';
-export * from './UUIButtonInlineCreateEvent'
+export * from './UUIButtonInlineCreateEvent';
