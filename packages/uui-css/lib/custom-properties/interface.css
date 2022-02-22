@@ -21,6 +21,7 @@
   --uui-interface-border-hover: var(--uui-color-grey-dark);
   --uui-interface-border-disabled: var(--uui-color-grey-dimmed);
   --uui-interface-border-focus: var(--uui-color-grey-dark);
+  --uui-interface-border-readonly: var(--uui-color-grey-light);
 
   --uui-interface-border-style: solid;
   --uui-interface-font-weight: 400;

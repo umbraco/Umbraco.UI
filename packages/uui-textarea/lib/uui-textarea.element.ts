@@ -1,7 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state, query } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { UUITextareaEvent } from './UUITextareaEvent';
+import { FormControlMixin } from 'packages/uui-base/lib/mixins';
+
 /**
  * @element uui-textarea
  * @fires UUITextareaEvent#change on change
@@ -10,9 +12,14 @@ import { UUITextareaEvent } from './UUITextareaEvent';
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  */
-// TODO: Implement FormControlMixin
 @defineElement('uui-textarea')
-export class UUITextareaElement extends LitElement {
+export class UUITextareaElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     css`
       :host {
@@ -69,6 +76,13 @@ export class UUITextareaElement extends LitElement {
         );
       }
 
+      textarea::placeholder {
+        transition: opacity 120ms;
+      }
+      :host(:not([readonly])) textarea:focus::placeholder {
+        opacity: 0;
+      }
+
       textarea:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-interface-outline);
@@ -94,30 +108,14 @@ export class UUITextareaElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  @state()
-  private _value = '';
-
   /**
-   * This is a value property of the uui-textarea.
-   * @type {string}
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
    * @attr
-   * @default ''
+   * @default false
    */
-  @property()
-  get value() {
-    return this._value;
-  }
-  set value(newValue) {
-    this._value = newValue;
-
-    if (
-      'ElementInternals' in window &&
-      //@ts-ignore
-      'setFormValue' in window.ElementInternals.prototype
-    ) {
-      this._internals.setFormValue(this._value);
-    }
-  }
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
 
   /**
    * This is a name property of the `<uui-textarea>` component. It reflects the behaviour of the native `<textarea>` element and its name attribute.
@@ -136,6 +134,42 @@ export class UUITextareaElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true })
   error = false;
+
+  /**
+   * This is a minimum value of the input.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  minlength?: number;
+
+  /**
+   * Minlength validation message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'minlength-message' })
+  minlengthMessage = 'This field need more characters';
+
+  /**
+   * This is a maximum value of the input.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  maxlength?: number;
+
+  /**
+   * Maxlength validation message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'maxlength-message' })
+  maxlengthMessage = 'This field exceeds the allowed amount of characters';
 
   @query('#textarea')
   protected _textarea!: HTMLInputElement;
@@ -157,17 +191,8 @@ export class UUITextareaElement extends LitElement {
   @property({ type: String })
   public label!: string;
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  private _internals;
-
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
 
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
@@ -175,6 +200,17 @@ export class UUITextareaElement extends LitElement {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+
+    this.addValidator(
+      'tooShort',
+      () => this.minlengthMessage,
+      () => !!this.minlength && (this._value as string).length < this.minlength
+    );
+    this.addValidator(
+      'tooLong',
+      () => this.maxlengthMessage,
+      () => !!this.maxlength && (this._value as string).length > this.maxlength
+    );
   }
 
   connectedCallback() {
@@ -191,6 +227,10 @@ export class UUITextareaElement extends LitElement {
     this._textarea?.focus();
   }
 
+  protected getFormElement(): HTMLElement {
+    return this._textarea;
+  }
+
   private onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
@@ -198,10 +238,12 @@ export class UUITextareaElement extends LitElement {
       this.autoUpdateHeight();
     }
 
-    this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
+    // TODO: Do we miss an input event?
+    //this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
   }
 
   private onChange() {
+    this.pristine = false;
     this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.CHANGE));
   }
 
@@ -232,11 +274,12 @@ export class UUITextareaElement extends LitElement {
     return html`
       <textarea
         id="textarea"
-        .value=${this.value}
+        .value=${this.value as string}
         .name=${this.name}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
+        ?readonly=${this.readonly}
         @input=${this.onInput}
         @change=${this.onChange}>
       </textarea>
