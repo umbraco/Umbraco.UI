@@ -64,7 +64,7 @@ export const AcceptsDirectories = () =>
       multiple
       directory
       accept=".mp4, image/*"
-      @file-drop=${(e: any) => console.log('EVENT: ', e.target.files)}
+      @file-drop=${(e: any) => console.log('EVENT: ', e.detail)}
       ><uui-button look="placeholder"
         ><uui-symbol-file-dropzone></uui-symbol-file-dropzone>Anything you put
         in the slot will serve as a dropzone. <br />

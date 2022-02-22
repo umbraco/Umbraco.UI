@@ -47,15 +47,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   input!: HTMLInputElement;
 
   /**
-   * Allows for directories to be selected.
-   * @type {File[]}
-   * @attr
-   * @default []
-   */
-  @property({ attribute: false })
-  files: File[] = [];
-
-  /**
    * Allows for multiple files to be selected.
    * @type {boolean}
    * @attr
@@ -73,12 +64,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('drop', this.onDrop, false);
     this.addEventListener('click', this.handleClick);
   }
-
-  // protected firstUpdated(_changedProperties: PropertyValues<any>): void {
-  //   super.firstUpdated(_changedProperties);
-
-  //   this.files = this.input.files;
-  // }
 
   private handleClick(e: Event) {
     e.stopImmediatePropagation();
@@ -98,9 +83,9 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     // Create the arrays defined above
     this.accept.split(',').forEach(item => {
       if (item.includes('*')) {
-        wildcards.push(item.split('*')[0].trim());
+        wildcards.push(item.split('*')[0].trim().toLowerCase());
       } else {
-        acceptList.push(item);
+        acceptList.push(item.trim().toLowerCase());
       }
     });
 
@@ -164,8 +149,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     entry: FileSystemFileEntry
   ) {
     const file = await this.getFile(entry);
-    const fileType = file.type;
-    const fileExtension = '.' + file.name.split('.')[1];
+    const fileType = file.type.toLowerCase();
+    const fileExtension = '.' + file.name.split('.')[1].toLowerCase();
 
     if (acceptList.includes(fileExtension)) {
       return true;
@@ -188,36 +173,19 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     if (items) {
       const result = await this.getAllFileEntries(items);
 
-      console.log('Accepted Items: ', result);
+      const files: File[] = [];
+
+      for (const entry of result) {
+        const file: File = await this.getFile(entry);
+        files.push(file);
+      }
 
       this.dispatchEvent(
-        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
+          detail: { files: files },
+        })
       );
     }
-
-    // ---- OLD IMPLEMENTATION ----
-
-    // const dt = e.dataTransfer;
-
-    // if (dt?.files) {
-    //   const files: File[] = [];
-
-    //   if (this.directory) {
-    //     console.warn('directory upload is not yet implemented', files);
-    //   } else {
-    //     for (let i = 0; i < dt.items.length; i++) {
-    //       if (this.checkIsItDirectory(dt.items[i])) continue;
-    //       if (dt.items[i].getAsFile()) {
-    //         files.push(dt.items[i].getAsFile() as File);
-    //       }
-    //     }
-    //   }
-
-    //   this.files = files;
-    //   this.dispatchEvent(
-    //     new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
-    //   );
-    // }
   }
   onDragOver(e: DragEvent) {
     this.preventDefaults(e);
@@ -239,9 +207,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private _onFileInputChange() {
-    this.files = this.input.files ? Array.from(this.input.files) : [];
+    const files = this.input.files ? Array.from(this.input.files) : [];
     this.dispatchEvent(
-      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP)
+      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
+        detail: { files: files },
+      })
     );
   }
 
