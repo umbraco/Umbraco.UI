@@ -11,6 +11,8 @@ export default {
   component: 'uui-input',
   id: 'uui-input',
   args: {
+    disabled: false,
+    readonly: false,
     value: '',
     label: 'Label',
     placeholder: 'Placeholder',
@@ -39,6 +41,7 @@ const Template: Story = props =>
   html`
     <uui-input
       .disabled=${props.disabled}
+      .readonly=${props.readonly}
       .error=${props.error}
       .label=${props.label}
       .type=${props.type}
@@ -100,6 +103,7 @@ export const PrependAndAppend: Story = props =>
   html`
     <uui-input
       .disabled=${props.disabled}
+      .readonly=${props.readonly}
       .error=${props.error}
       .hideLabel=${props.hideLabel}
       .label=${props.label}
@@ -144,6 +148,7 @@ export const MultipleInputs: Story = props =>
   html`
     <uui-input
       .disabled=${props.disabled}
+      .readonly=${props.readonly}
       .error=${props.error}
       .hideLabel=${props.hideLabel}
       .label=${props.label}

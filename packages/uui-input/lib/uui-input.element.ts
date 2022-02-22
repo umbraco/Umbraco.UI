@@ -79,13 +79,18 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
           --uui-input-background-color-disabled,
           var(--uui-interface-surface-disabled)
         );
-        border: 1px solid
-          var(
-            --uui-input-border-color-disabled,
-            var(--uui-interface-border-disable)
-          );
+        border-color: var(
+          --uui-input-border-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
 
         color: var(--uui-interface-contrast-disabled);
+      }
+      :host([readonly]) {
+        border-color: var(
+          --uui-input-border-color-readonly,
+          var(--uui-interface-border-readonly)
+        );
       }
 
       :host(:not([pristine]):invalid),
@@ -97,7 +102,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       input {
         font-family: inherit;
         padding: var(--uui-size-1) var(--uui-size-space-3);
-        font-size: 15px;
+        font-size: inherit;
         color: inherit;
         border-radius: 0;
         box-sizing: border-box;
@@ -111,7 +116,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       input::placeholder {
         transition: opacity 120ms;
       }
-      input:focus::placeholder {
+      :host(:not([readonly])) input:focus::placeholder {
         opacity: 0;
       }
 
@@ -137,6 +142,15 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
 
   /**
    * Label for input element.
@@ -219,6 +233,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
+        ?readonly=${this.readonly}
         @input=${this._onInput}
         @change=${this._onChange} />
       ${this.renderAppend()}

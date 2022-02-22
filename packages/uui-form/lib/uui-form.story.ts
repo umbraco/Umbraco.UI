@@ -76,6 +76,17 @@ export const Overview: Story = () => html` <form
   </div>
 
   <div style="margin-bottom: 15px;">
+    <uui-textarea
+      label="Textarea"
+      name="textarea"
+      value="Some long text that needs more space"
+      minlength="10"
+      maxlength="30"
+      required>
+    </uui-textarea>
+  </div>
+
+  <div style="margin-bottom: 15px;">
     <input
       name="nativeCheckbox"
       label="Native input text"

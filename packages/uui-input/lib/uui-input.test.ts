@@ -26,9 +26,6 @@ describe('UuiInputElement', () => {
     it('has a name property', () => {
       expect(element).to.have.property('name');
     });
-    it('has a error property', () => {
-      expect(element).to.have.property('error');
-    });
     it('has a type property', () => {
       expect(element).to.have.property('type');
     });
@@ -40,6 +37,21 @@ describe('UuiInputElement', () => {
     });
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
+    });
+    it('has a readOnly property', () => {
+      expect(element).to.have.property('readOnly');
+    });
+    it('has a error property', () => {
+      expect(element).to.have.property('error');
+    });
+    it('has a errorMessage property', () => {
+      expect(element).to.have.property('errorMessage');
+    });
+    it('has a required property', () => {
+      expect(element).to.have.property('required');
+    });
+    it('has a requiredMessage property', () => {
+      expect(element).to.have.property('requiredMessage');
     });
 
     it('disable property set input to disabled', async () => {
