@@ -1,13 +1,10 @@
+import { createFilter } from '@rollup/pluginutils';
 import postcss from 'postcss';
 import syntax from 'postcss-jsx';
-import postcssCustomPropertiesFallback from './postcss-custom-properties-fallback/plugin.mjs';
-import { createFilter } from '@rollup/pluginutils';
 import postcssConfig from 'postcss-load-config';
 
-// @ts-ignore-start
-// eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
-import customProperties from '../packages/uui-css/custom-properties.module'; // eslint-disable-line
-// @ts-ignore-end
+import customProperties from '../packages/uui-css/custom-properties.module.js';
+import postcssCustomPropertiesFallback from './postcss-custom-properties-fallback/plugin.mjs';
 
 const options = {
   include: ['**/index.ts', '**/uui-*.ts', '**/*Mixin.ts', '**/*.styles.ts'],

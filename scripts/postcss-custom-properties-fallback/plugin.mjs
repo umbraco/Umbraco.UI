@@ -8,7 +8,7 @@ const customPropertiesRegExp = /(^|[^\w-])var\([\W\w]+\)/; // var\([\W\w]+,[\W\w
 
 const isTransformableDecl = decl => customPropertiesRegExp.test(decl.value);
 
-import { nodeToString } from 'postcss-values-parser'; // eslint-disable-next-line no-empty-pattern
+import * as postcssValuesParser from 'postcss-values-parser'; // eslint-disable-next-line no-empty-pattern
 
 export default opts => ({
   postcssPlugin: 'postcss-custom-properties-fallback',
@@ -53,7 +53,9 @@ export default opts => ({
                 {
                   type: 'word',
                   value: fallback
-                    .map(fallbackNode => nodeToString(fallbackNode))
+                    .map(fallbackNode =>
+                      postcssValuesParser.nodeToString(fallbackNode)
+                    )
                     .join(' '),
                 }
               );

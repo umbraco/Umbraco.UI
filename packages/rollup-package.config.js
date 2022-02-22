@@ -5,7 +5,7 @@ import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 import rollupPostcss from 'rollup-plugin-postcss';
 import postcssCustomPropertiesFallback from '../scripts/postcss-custom-properties-fallback/plugin.mjs';
 import path from 'path';
-import processLitCSSPlugin from '../scripts/rollup.processLitCSSPlugin.mjs';
+import processLitCSSPlugin from '../scripts/processLitCSSPlugin.mjs';
 import importCss from 'rollup-plugin-import-css';
 
 // @ts-ignore-start
