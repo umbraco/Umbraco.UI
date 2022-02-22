@@ -39,20 +39,27 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         margin-bottom: var(--uui-size-1);
         font-weight: bold;
       }
+
+      textarea[readonly] {
+        border-color: var(
+          --uui-input-border-color-readonly,
+          var(--uui-interface-border-readonly)
+        );
+      }
       textarea[disabled] {
         cursor: not-allowed;
         background-color: var(
           --uui-textarea-background-color-disabled,
           var(--uui-interface-surface-disabled)
         );
-        border: 1px solid
-          var(
-            --uui-textarea-border-color-disabled,
-            var(--uui-interface-border-disable)
-          );
+        border-color: var(
+          --uui-textarea-border-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
 
         color: var(--uui-interface-contrast-disabled);
       }
+
       textarea {
         font-family: inherit;
         box-sizing: border-box;
@@ -67,8 +74,10 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         min-height: var(--uui-textarea-min-height);
         max-height: var(--uui-textarea-max-height);
       }
-      :host(:hover) textarea,
-      :host(:focus-within) textarea,
+      :host(:hover)
+        textarea:not([readonly]):not([disabled])
+        :host(:focus-within)
+        textarea,
       :host(:focus) textarea {
         border-color: var(
           --uui-textarea-border-color,
