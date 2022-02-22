@@ -8,6 +8,8 @@ module.exports = {
     '@storybook/addon-a11y',
   ],
   core: { builder: 'storybook-builder-vite' },
+  staticDirs: ['./images'],
+
   async viteFinal(config, { configType }) {
     // customize the Vite config here
 
