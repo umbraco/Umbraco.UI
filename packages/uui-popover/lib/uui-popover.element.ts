@@ -194,8 +194,7 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private _createIntersectionObserver() {
-
-    if(this.intersectionObserver) {
+    if (this.intersectionObserver) {
       // break out, as we already have it
       return;
     }
@@ -293,15 +292,20 @@ export class UUIPopoverElement extends LitElement {
       let marginY = 0;
 
       if (this.placement === 'auto') {
-
         const firstScrollParent = this._scrollParents[0];
         const scrollParentWidth = firstScrollParent.clientWidth;
         const scrollParentHeight = firstScrollParent.clientHeight;
 
         const spaceLeft = triggerRect.x - popoverRect.width;
-        const spaceRight = scrollParentWidth - (triggerRect.x + triggerRect.width) - popoverRect.width;
+        const spaceRight =
+          scrollParentWidth -
+          (triggerRect.x + triggerRect.width) -
+          popoverRect.width;
         const spaceTop = triggerRect.y - popoverRect.height;
-        const spaceBottom = scrollParentHeight - (triggerRect.y + triggerRect.height) - popoverRect.height;
+        const spaceBottom =
+          scrollParentHeight -
+          (triggerRect.y + triggerRect.height) -
+          popoverRect.height;
 
         let dirX = 0.5;
         let dirY = 0.5;
@@ -310,11 +314,11 @@ export class UUIPopoverElement extends LitElement {
         let vMaxSpace = Math.max(spaceTop, spaceBottom);
 
         // if we have more space below than above, and there is enough room, then we will pick below.
-        if(spaceBottom > spaceTop && spaceBottom > this.margin) {
+        if (spaceBottom > spaceTop && spaceBottom > this.margin) {
           vMaxSpace += 9999;
         }
 
-        if(hMaxSpace > vMaxSpace) {
+        if (hMaxSpace > vMaxSpace) {
           if (spaceLeft > spaceRight) {
             dirX = 0;
             isLeftPlacement = true;
@@ -338,7 +342,6 @@ export class UUIPopoverElement extends LitElement {
         originY = dirY;
         alignX = 1 - dirX;
         alignY = 1 - dirY;
-
       } else {
         // -------- TOP / BOT --------
         if (isTopPlacement) {
@@ -352,7 +355,6 @@ export class UUIPopoverElement extends LitElement {
         }
 
         if (isTopPlacement || isBottomPlacement) {
-
           marginY = this.margin;
 
           if (isStart) {
@@ -376,7 +378,6 @@ export class UUIPopoverElement extends LitElement {
         }
 
         if (isLeftPlacement || isRightPlacement) {
-
           marginX = this.margin;
 
           if (isStart) {
@@ -403,44 +404,43 @@ export class UUIPopoverElement extends LitElement {
       let posY = calcY;
 
       // Moves the popover to keep it fully visible on the screen as long as its still in contact with the trigger.
-      //if (this.placement !== 'auto') {
-        // Only do this clamp if popover is on the top or bottom of the parent.
-        if (isTopPlacement || isBottomPlacement) {
-          this._scrollParents.forEach((el, index) => {
-            const rectX = el === document.body ? 0 : scrollParentRects[index].x;
-            const leftClamp = -triggerRect.x + rectX;
-            const rightClamp =
-              el.clientWidth -
-              triggerRect.x -
-              triggerRect.width +
-              calcX +
-              rectX -
-              (popoverRect.width - triggerRect.width) * (1 - originX);
-            posX = mathClamp(posX, leftClamp, rightClamp);
-          });
 
-          // keep within contact of the trigger, must be last:
-          posX = mathClamp(posX, -popoverRect.width, triggerRect.width);
-        } else if (isLeftPlacement || isRightPlacement) {
-          // Only do this clamp if popover is on the sides of the parent.
+      // Only do this clamp if popover is on the top or bottom of the parent.
+      if (isTopPlacement || isBottomPlacement) {
+        this._scrollParents.forEach((el, index) => {
+          const rectX = el === document.body ? 0 : scrollParentRects[index].x;
+          const leftClamp = -triggerRect.x + rectX;
+          const rightClamp =
+            el.clientWidth -
+            triggerRect.x -
+            triggerRect.width +
+            calcX +
+            rectX -
+            (popoverRect.width - triggerRect.width) * (1 - originX);
+          posX = mathClamp(posX, leftClamp, rightClamp);
+        });
 
-          this._scrollParents.forEach((el, index) => {
-            const rectY = el === document.body ? 0 : scrollParentRects[index].y;
-            const topClamp = -triggerRect.y + rectY;
-            const bottomClamp =
-              el.clientHeight -
-              triggerRect.y -
-              triggerRect.height +
-              calcY +
-              rectY -
-              (popoverRect.height - triggerRect.height) * (1 - originY);
-            posY = mathClamp(posY, topClamp, bottomClamp);
-          });
+        // keep within contact of the trigger, must be last:
+        posX = mathClamp(posX, -popoverRect.width, triggerRect.width);
+      } else if (isLeftPlacement || isRightPlacement) {
+        // Only do this clamp if popover is on the sides of the parent.
 
-          // keep within contact of the trigger, must be last:
-          posY = mathClamp(posY, -popoverRect.height, triggerRect.height);
-        }
-      //}
+        this._scrollParents.forEach((el, index) => {
+          const rectY = el === document.body ? 0 : scrollParentRects[index].y;
+          const topClamp = -triggerRect.y + rectY;
+          const bottomClamp =
+            el.clientHeight -
+            triggerRect.y -
+            triggerRect.height +
+            calcY +
+            rectY -
+            (popoverRect.height - triggerRect.height) * (1 - originY);
+          posY = mathClamp(posY, topClamp, bottomClamp);
+        });
+
+        // keep within contact of the trigger, must be last:
+        posY = mathClamp(posY, -popoverRect.height, triggerRect.height);
+      }
 
       if (calcX === posX && calcY === posY) {
         // Not offset anymore, so we can stop listening for scroll events:
