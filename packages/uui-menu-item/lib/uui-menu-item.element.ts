@@ -116,6 +116,11 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         transition: opacity 120ms;
         grid-column-start: 3;
       }
+      :host(:not([disabled])) #menu-item:hover #actions-container,
+      :host(:not([disabled])) #menu-item:focus #actions-container,
+      :host(:not([disabled])) #menu-item:focus-within #actions-container {
+        opacity: 1;
+      }
 
       #loader {
         position: absolute;
