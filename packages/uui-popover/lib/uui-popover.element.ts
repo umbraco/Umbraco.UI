@@ -28,16 +28,6 @@ function mathClamp(value: number, min: number, max: number) {
   return value;
 }
 
-function mathMap(
-  value: number,
-  x1: number,
-  y1: number,
-  x2: number,
-  y2: number
-) {
-  return ((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
-}
-
 /**
  * @element uui-popover
  * @description Open a modal aligned with the opening element. This does not jet work within two layers of scroll containers.
@@ -49,6 +39,7 @@ export class UUIPopoverElement extends LitElement {
     css`
       :host {
         position: relative;
+        display: inline-block;
       }
       #container {
         position: absolute;
@@ -94,6 +85,7 @@ export class UUIPopoverElement extends LitElement {
   set placement(newValue: PopoverPlacement) {
     const oldValue = this._placement;
     this._placement = newValue || 'bottom-start';
+    this._currentPlacement = null;
     this._updatePopover();
     this.requestUpdate('placement', oldValue);
   }
@@ -143,6 +135,7 @@ export class UUIPopoverElement extends LitElement {
     if (this.containerElement) {
       this.containerElement!.style.opacity = '0'; // Hide while measuring popover size.
       document.addEventListener('mousedown', this._onDocumentClick);
+      this._currentPlacement = null;
 
       requestAnimationFrame(() => {
         this._updatePopover();
@@ -201,6 +194,12 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private _createIntersectionObserver() {
+
+    if(this.intersectionObserver) {
+      // break out, as we already have it
+      return;
+    }
+
     const options = {
       root: null,
       rootMargin: '0px',
@@ -277,10 +276,10 @@ export class UUIPopoverElement extends LitElement {
         );
       }
 
-      const isTopPlacement = this._currentPlacement.indexOf('top') !== -1;
-      const isBottomPlacement = this._currentPlacement.indexOf('bottom') !== -1;
-      const isLeftPlacement = this._currentPlacement.indexOf('left') !== -1;
-      const isRightPlacement = this._currentPlacement.indexOf('right') !== -1;
+      let isTopPlacement = this._currentPlacement.indexOf('top') !== -1;
+      let isBottomPlacement = this._currentPlacement.indexOf('bottom') !== -1;
+      let isLeftPlacement = this._currentPlacement.indexOf('left') !== -1;
+      let isRightPlacement = this._currentPlacement.indexOf('right') !== -1;
 
       const isStart = this._currentPlacement.indexOf('-start') !== -1;
       const isEnd = this._currentPlacement.indexOf('-end') !== -1;
@@ -290,35 +289,56 @@ export class UUIPopoverElement extends LitElement {
       let originY = 0.5;
       let alignX = 0.5;
       let alignY = 0.5;
-
       let marginX = 0;
       let marginY = 0;
 
       if (this.placement === 'auto') {
-        const halfWindowX = this._scrollParents[0].clientWidth / 2;
-        const halfWindowY = this._scrollParents[0].clientHeight / 2;
 
-        const dirX = mathClamp(
-          mathMap(halfWindowX - triggerRect.x, 0, triggerRect.width, 0, 1),
-          0,
-          1
-        );
-        let dirY = mathClamp(
-          mathMap(halfWindowY - triggerRect.y, 0, triggerRect.height, 0, 1),
-          0,
-          1
-        );
+        const firstScrollParent = this._scrollParents[0];
+        const scrollParentWidth = firstScrollParent.clientWidth;
+        const scrollParentHeight = firstScrollParent.clientHeight;
 
-        if (dirX > 0 && dirX < 1) {
-          dirY = Math.round(dirY);
+        const spaceLeft = triggerRect.x - popoverRect.width;
+        const spaceRight = scrollParentWidth - (triggerRect.x + triggerRect.width) - popoverRect.width;
+        const spaceTop = triggerRect.y - popoverRect.height;
+        const spaceBottom = scrollParentHeight - (triggerRect.y + triggerRect.height) - popoverRect.height;
+
+        let dirX = 0.5;
+        let dirY = 0.5;
+
+        const hMaxSpace = Math.max(spaceLeft, spaceRight);
+        let vMaxSpace = Math.max(spaceTop, spaceBottom);
+
+        // if we have more space below than above, and there is enough room, then we will pick below.
+        if(spaceBottom > spaceTop && spaceBottom > this.margin) {
+          vMaxSpace += 9999;
+        }
+
+        if(hMaxSpace > vMaxSpace) {
+          if (spaceLeft > spaceRight) {
+            dirX = 0;
+            isLeftPlacement = true;
+          } else {
+            dirX = 1;
+            isRightPlacement = true;
+          }
+          marginX = this.margin;
+        } else {
+          if (spaceTop > spaceBottom) {
+            dirY = 0;
+            isTopPlacement = true;
+          } else {
+            dirY = 1;
+            isBottomPlacement = true;
+          }
+          marginY = this.margin;
         }
 
         originX = dirX;
         originY = dirY;
         alignX = 1 - dirX;
         alignY = 1 - dirY;
-        marginX = this.margin;
-        marginY = this.margin;
+
       } else {
         // -------- TOP / BOT --------
         if (isTopPlacement) {
@@ -332,6 +352,9 @@ export class UUIPopoverElement extends LitElement {
         }
 
         if (isTopPlacement || isBottomPlacement) {
+
+          marginY = this.margin;
+
           if (isStart) {
             alignX = 0;
             originX = 0;
@@ -353,6 +376,9 @@ export class UUIPopoverElement extends LitElement {
         }
 
         if (isLeftPlacement || isRightPlacement) {
+
+          marginX = this.margin;
+
           if (isStart) {
             alignY = 0;
             originY = 0;
@@ -377,7 +403,7 @@ export class UUIPopoverElement extends LitElement {
       let posY = calcY;
 
       // Moves the popover to keep it fully visible on the screen as long as its still in contact with the trigger.
-      if (this.placement !== 'auto') {
+      //if (this.placement !== 'auto') {
         // Only do this clamp if popover is on the top or bottom of the parent.
         if (isTopPlacement || isBottomPlacement) {
           this._scrollParents.forEach((el, index) => {
@@ -414,7 +440,7 @@ export class UUIPopoverElement extends LitElement {
           // keep within contact of the trigger, must be last:
           posY = mathClamp(posY, -popoverRect.height, triggerRect.height);
         }
-      }
+      //}
 
       if (calcX === posX && calcY === posY) {
         // Not offset anymore, so we can stop listening for scroll events:
