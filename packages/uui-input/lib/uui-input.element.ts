@@ -135,6 +135,42 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   ];
 
   /**
+   * This is a minimum value of the input.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  minlength?: number;
+
+  /**
+   * Minlength validation message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'minlength-message' })
+  minlengthMessage = 'This field need more characters';
+
+  /**
+   * This is a maximum value of the input.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  maxlength?: number;
+
+  /**
+   * Maxlength validation message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'maxlength-message' })
+  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+
+  /**
    * Disables the input.
    * @type {boolean}
    * @attr
@@ -190,6 +226,17 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+
+    this.addValidator(
+      'tooShort',
+      () => this.minlengthMessage,
+      () => !!this.minlength && (this._value as string).length < this.minlength
+    );
+    this.addValidator(
+      'tooLong',
+      () => this.maxlengthMessage,
+      () => !!this.maxlength && (this._value as string).length > this.maxlength
+    );
   }
 
   /**
