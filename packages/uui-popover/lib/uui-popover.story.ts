@@ -46,31 +46,41 @@ function handleClick(e: MouseEvent) {
 }
 
 export const AAAOverview: Story = props => html`
-  <div style="display: flex; height: 100%; width: 100%">
-    <uui-popover
-      id="pop-out"
-      style="margin: auto"
-      .margin=${props.margin}
-      .placement=${props.placement}
-      .open=${props.open}>
-      <span
-        @click=${handleClick}
-        @keydown=${() => ''}
-        slot="trigger"
-        style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px;">
-        I will open the dropdown
-      </span>
-      <div
-        slot="popover"
-        style="padding: .5rem; border: 1px solid; border-radius: 4px; width: 200px">
-        I am the dropdown container
-        <div
-          style="padding: 1rem; height: 100px; width: 100px; border: 1px solid">
-          more content
-          <button type="button">CLICK</button>
-        </div>
+  <div
+    style="display: flex; border: 2px solid black; width: 100%; height: 100%; overflow: auto;">
+    <div style="display: flex; padding: 200%; flex-direction: column">
+      <div>
+        <h3 style="width: 300px">Scroll around to see how I react!</h3>
+        <p>
+          I will flip up or down if there's no room, and I will squeeze myself
+          onto the screen if I get to close the sides.
+        </p>
       </div>
-    </uui-popover>
+      <uui-popover
+        id="pop-out"
+        style="margin: auto"
+        .margin=${props.margin}
+        .placement=${props.placement}
+        .open=${props.open}>
+        <span
+          @click=${handleClick}
+          @keydown=${() => ''}
+          slot="trigger"
+          style="padding: .5rem 1rem; border: 1px solid; display: inline-block; cursor: pointer; user-select: none; border-radius: 4px; white-space: nowrap">
+          I will open the dropdown
+        </span>
+        <div
+          slot="popover"
+          style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid; border-radius: 4px; width: 200px; background: white; box-shadow: var(--uui-shadow-depth-3)">
+          <h3
+            style="text-align: center; line-height: normal; margin-bottom: 0;">
+            Dropdown content
+          </h3>
+          <p>This can contain any content: buttons, lists, images and so on.</p>
+          <uui-button look="primary">Button</uui-button>
+        </div>
+      </uui-popover>
+    </div>
   </div>
 `;
 
