@@ -38,8 +38,8 @@ describe('UuiInputElement', () => {
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
     });
-    it('has a readOnly property', () => {
-      expect(element).to.have.property('readOnly');
+    it('has a readonly property', () => {
+      expect(element).to.have.property('readonly');
     });
     it('has a error property', () => {
       expect(element).to.have.property('error');

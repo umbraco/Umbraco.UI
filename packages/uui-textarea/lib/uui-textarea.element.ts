@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query } from 'lit/decorators.js';
 import { UUITextareaEvent } from './UUITextareaEvent';
-import { FormControlMixin } from 'packages/uui-base/lib/mixins';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-textarea
