@@ -84,10 +84,9 @@ export class UUIToastNotificationElement extends LitElement {
 
       #close {
         float: right;
-        margin-top: -7px;
+        margin-top: -6px;
         margin-left: var(--uui-size-space-1);
-        margin-bottom: calc(var(--uui-size-space-2) * -1);
-        margin-bottom: var(--uui-size-space-1);
+        margin-bottom: -4px;
       }
 
       #close > uui-button {

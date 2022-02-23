@@ -16,6 +16,11 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   protected _value: FormDataEntryValue;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
+  protected addValidator: (
+    flagKey: FlagTypes,
+    getMessageMethod: () => String,
+    checkMethod: () => boolean
+  ) => void;
   pristine: boolean;
   required: boolean;
   requiredMessage: string;
@@ -23,16 +28,23 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   errorMessage: string;
 }
 
+/* FlagTypes type options originate from:
+ * https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
+ * */
 type FlagTypes =
-  | 'valueMissing'
-  | 'typeMismatch'
+  | 'badInput'
+  | 'customError'
   | 'patternMismatch'
-  | 'tooLong'
-  | 'tooShort'
+  | 'rangeOverflow'
   | 'rangeUnderflow'
   | 'stepMismatch'
+  | 'tooLong'
+  | 'tooShort'
+  | 'typeMismatch'
+  | 'valueMissing'
   | 'badInput'
-  | 'customError';
+  | 'valid';
+
 interface Validator {
   flagKey: FlagTypes;
   getMessage: () => String;

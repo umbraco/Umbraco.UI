@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-card-user",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -32,8 +32,8 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-avatar": "^0.0.15",
-    "@umbraco-ui/uui-base": "0.0.15",
-    "@umbraco-ui/uui-card": "0.0.2"
+    "@umbraco-ui/uui-base": "0.0.17",
+    "@umbraco-ui/uui-card": "0.0.4"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

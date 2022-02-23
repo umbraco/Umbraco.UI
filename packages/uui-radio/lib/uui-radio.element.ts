@@ -167,6 +167,7 @@ export class UUIRadioElement extends LitElement {
     return this._checked;
   }
   public set checked(value) {
+    const oldValue = this._checked;
     this._checked = value;
     if (value === true) {
       this.setAttribute('aria-checked', '');
@@ -177,6 +178,7 @@ export class UUIRadioElement extends LitElement {
       this.setAttribute('tabindex', '-1');
       this.removeAttribute('aria-checked');
     }
+    this.requestUpdate('checked', oldValue);
   }
   private _checked = false;
 
