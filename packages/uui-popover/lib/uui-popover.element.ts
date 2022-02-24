@@ -213,8 +213,8 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private _intersectionCallback = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(element => {
-      if (element.isIntersecting === false) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting === false) {
         this._startScrollListener();
         this._updatePopover();
       }
@@ -246,7 +246,6 @@ export class UUIPopoverElement extends LitElement {
     }
 
     const containerElement = this.containerElement;
-
     if (!containerElement) {
       return;
     }
@@ -270,6 +269,7 @@ export class UUIPopoverElement extends LitElement {
 
       if (this._placement !== 'auto') {
         this._currentPlacement = this._managePlacementFlip(
+          this._currentPlacement,
           popoverRect,
           scrollParentRects
         );
@@ -455,12 +455,13 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private _managePlacementFlip(
+    currentPlacement: PopoverPlacement,
     popoverRect: DOMRect,
     scrollParentRects: DOMRect[]
   ): PopoverPlacement {
     const buffer = 2; // add this to the calculation make sure that the position checks are not off by e.g: 0.1 pixel.
 
-    const placementSplit = this._placement.split('-');
+    const placementSplit = currentPlacement.split('-');
     const currentSide = placementSplit[0];
     const placementAlign: string | null = placementSplit[1] || null;
 
@@ -500,7 +501,7 @@ export class UUIPopoverElement extends LitElement {
       return (sideFlip +
         (placementAlign ? `-${placementAlign}` : '')) as PopoverPlacement;
     }
-    return this._placement;
+    return currentPlacement;
   }
 
   render() {
