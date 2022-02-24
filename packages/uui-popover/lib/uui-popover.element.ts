@@ -52,7 +52,7 @@ export class UUIPopoverElement extends LitElement {
 
   // Cashed non-state variables //////////////////////////////
   private intersectionObserver?: IntersectionObserver;
-  private scrollEventHandler = this._updatePopover.bind(this);
+  private scrollEventHandler = this._updatePlacement.bind(this);
   ////////////////////////////////////////////////////////////
 
   @query('#container') private containerElement!: HTMLElement;
@@ -86,7 +86,7 @@ export class UUIPopoverElement extends LitElement {
     const oldValue = this._placement;
     this._placement = newValue || 'bottom-start';
     this._currentPlacement = null;
-    this._updatePopover();
+    this._updatePlacement();
     this.requestUpdate('placement', oldValue);
   }
 
@@ -138,7 +138,7 @@ export class UUIPopoverElement extends LitElement {
       this._currentPlacement = null;
 
       requestAnimationFrame(() => {
-        this._updatePopover();
+        this._updatePlacement();
         this._createIntersectionObserver();
         this.containerElement!.style.opacity = '1';
       });
@@ -216,7 +216,7 @@ export class UUIPopoverElement extends LitElement {
     entries.forEach(entry => {
       if (entry.isIntersecting === false) {
         this._startScrollListener();
-        this._updatePopover();
+        this._updatePlacement();
       }
     });
   };
@@ -240,7 +240,7 @@ export class UUIPopoverElement extends LitElement {
     }
   };
 
-  private _updatePopover() {
+  private _updatePlacement() {
     if (!this.shadowRoot) {
       return;
     }
@@ -250,13 +250,13 @@ export class UUIPopoverElement extends LitElement {
       return;
     }
 
-    const result = this._calculatePopoverPlacement();
+    const result = this._calculatePlacement();
 
     containerElement.style.left = `${result.x}px`;
     containerElement.style.top = `${result.y}px`;
   }
 
-  private _calculatePopoverPlacement(): { x: number; y: number } {
+  private _calculatePlacement(): { x: number; y: number } {
     const popoverRect = this.containerElement?.getBoundingClientRect();
     const triggerRect = this._trigger?.getBoundingClientRect();
 
