@@ -75,7 +75,7 @@ export const AAAOverview: Story = props => {
           </uui-button>
           <div
             slot="popover"
-            style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid; border-radius: 4px; width: 200px; background: white; box-shadow: var(--uui-shadow-depth-3)">
+            style="display: flex; flex-direction: column; padding: 1rem; border-radius: 3px; width: 200px; background: white; box-shadow: var(--uui-shadow-depth-3)">
             <h3
               style="text-align: center; line-height: normal; margin-bottom: 0;">
               Dropdown content
