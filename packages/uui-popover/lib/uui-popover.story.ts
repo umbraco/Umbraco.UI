@@ -95,10 +95,12 @@ AAAOverview.args = {};
 AAAOverview.play = () => {
   const popover = document.getElementById('pop-out');
   if (popover) {
-    popover.scrollIntoView({
-      behavior: 'auto',
-      block: 'center',
-      inline: 'center',
-    });
+    setTimeout(() => {
+      popover.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center',
+      });
+    }, 100);
   }
 };
