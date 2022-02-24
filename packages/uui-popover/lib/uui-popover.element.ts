@@ -62,6 +62,8 @@ export class UUIPopoverElement extends LitElement {
   private _currentPlacement: PopoverPlacement | null = null;
   private _trigger?: Element;
   private _scrollParents: Element[] = [];
+  private _positionX?: number;
+  private _positionY?: number;
 
   /**
    * Set the distance between popover-modal and trigger.
@@ -250,13 +252,6 @@ export class UUIPopoverElement extends LitElement {
       return;
     }
 
-    const result = this._calculatePlacement();
-
-    containerElement.style.left = `${result.x}px`;
-    containerElement.style.top = `${result.y}px`;
-  }
-
-  private _calculatePlacement(): { x: number; y: number } {
     const popoverRect = this.containerElement?.getBoundingClientRect();
     const triggerRect = this._trigger?.getBoundingClientRect();
 
@@ -442,15 +437,18 @@ export class UUIPopoverElement extends LitElement {
         posY = mathClamp(posY, -popoverRect.height, triggerRect.height);
       }
 
-      if (calcX === posX && calcY === posY) {
-        // Not offset anymore, so we can stop listening for scroll events:
-        this._stopScrollListener();
-      }
+      if (this._positionX !== posX || this._positionY !== posY) {
+        this._positionX = posX;
+        this._positionY = posY;
 
-      // return the positions
-      return { x: posX, y: posY };
-    } else {
-      return { x: 0, y: 0 };
+        if (calcX === posX && calcY === posY) {
+          // Not offset anymore, so we can stop listening for scroll events:
+          this._stopScrollListener();
+        }
+
+        containerElement.style.left = `${this._positionX}px`;
+        containerElement.style.top = `${this._positionY}px`;
+      }
     }
   }
 
