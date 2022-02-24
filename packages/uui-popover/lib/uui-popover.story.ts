@@ -48,7 +48,7 @@ function handleClick(e: MouseEvent) {
 export const AAAOverview: Story = props => {
   return html`
     <div
-      style="display: flex; border: 2px solid black; width: 100%; height: 100%; overflow: auto;">
+      style="display: flex; border: 2px solid black; width: 100%; height: 100%; max-height: 80vh; overflow: auto;">
       <div style="display: flex; padding: 200%; flex-direction: column">
         <div>
           <h3 style="width: 300px; text-align: center">
@@ -91,7 +91,7 @@ export const AAAOverview: Story = props => {
   `;
 };
 AAAOverview.storyName = 'Overview';
-AAAOverview.args = { open: true };
+AAAOverview.args = {};
 AAAOverview.play = () => {
   const popover = document.getElementById('pop-out');
   if (popover) {
