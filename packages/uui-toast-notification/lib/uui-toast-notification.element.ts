@@ -67,7 +67,7 @@ export class UUIToastNotificationElement extends LitElement {
         display: block;
 
         box-sizing: border-box;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.21);
+        box-shadow: var(--uui-shadow-depth-1);
         background-color: var(--uui-interface-surface);
         padding: var(--uui-size-layout-1);
         padding-right: var(--uui-size-layout-1);
