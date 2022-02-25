@@ -15,8 +15,7 @@ export class UUIBoxElement extends LitElement {
     css`
       :host {
         display: block;
-        /* TODO: fix automatic fallback values for shadows shadows.*/
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
         background-color: var(--uui-interface-surface);
       }
