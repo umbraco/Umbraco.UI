@@ -1,7 +1,7 @@
-import { UUIPopoverElement } from '.';
-
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import '.';
+import { UUIPopoverElement } from './uui-popover.element';
 
 export default {
   id: 'uui-popover',
@@ -41,9 +41,18 @@ export default {
 };
 
 export const AAAOverview: Story = props => {
-  function handleClick(e: MouseEvent) {
+  const handleClick = (e: MouseEvent) => {
     //@ts-ignore
     e.target.parentNode.open = !e.target.parentNode.open;
+  };
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      const popover = document.querySelector(
+        'uui-popover'
+      ) as UUIPopoverElement;
+      popover.open = false;
+    }
   }
 
   return html`
@@ -64,7 +73,8 @@ export const AAAOverview: Story = props => {
           style="margin: auto"
           .margin=${props.margin}
           .placement=${props.placement}
-          .open=${props.open}>
+          .open=${props.open}
+          @keydown=${onKeyDown}>
           <uui-button
             look="primary"
             @click=${handleClick}
@@ -106,7 +116,7 @@ AAAOverview.play = () => {
 };
 
 export const Nested: Story = props => {
-  const openPopover = (id: string) => {
+  const togglePopover = (id: string) => {
     let popover = document.querySelector(id) as UUIPopoverElement;
 
     if (!popover) {
@@ -115,17 +125,55 @@ export const Nested: Story = props => {
       ] as UUIPopoverElement;
     }
 
-    console.log('HALLO', popover);
+    popover.open = !popover.open;
+  };
 
-    popover.open = true;
+  const getFirstPopover = (el: Node): Node => {
+    if (!(el instanceof UUIPopoverElement) && el !== document.body) {
+      return getFirstPopover(el.parentNode!);
+    } else {
+      return el;
+    }
+  };
+
+  const closePopover = async (id: string) => {
+    let popover = document.querySelector(id) as UUIPopoverElement;
+    if (!popover) {
+      popover = document.querySelector('#popover-content')!.children[
+        Number.parseInt(id.split('-')[1]) - 1
+      ] as UUIPopoverElement;
+    }
+
+    setTimeout(() => {
+      const root = popover.getRootNode();
+      // @ts-ignore
+      const active = root.activeElement;
+      const el = getFirstPopover(active);
+
+      if (popover !== el) {
+        popover.open = false;
+      }
+    }, 0);
+  };
+
+  const onkeydown = (e: KeyboardEvent, id: string) => {
+    if (e?.key === 'Escape') {
+      const popover = document.querySelector('#popover-content')!.children[
+        Number.parseInt(id.split('-')[1]) - 1
+      ] as UUIPopoverElement;
+
+      popover.open = false;
+    }
   };
 
   const createMenuItem = (id: string) => html`<uui-popover
     id=${id}
     placement="right-start"
-    @click=${() => openPopover(id)}>
+    @focusout=${() => closePopover(id)}
+    @keydown=${(e: KeyboardEvent) => onkeydown(e, id)}>
     <uui-button
       slot="trigger"
+      @click=${() => togglePopover(id)}
       style="--uui-button-border-radius: 0; width: 100%; z-index: 1"
       look="secondary"
       >Click me</uui-button
@@ -136,15 +184,16 @@ export const Nested: Story = props => {
       <h3 style="text-align: center">Content</h3>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
-        nesciunt fugiat, ipsa molestias maiores enim veniam numquam alias minus
-        delectus nam dignissimos assumenda, ullam, voluptates hic aut natus
-        nobis similique!
+        nesciunt fugiat, ipsa <b tabindex="0">FOCUSABLE</b> molestias maiores
+        enim veniam numquam alias minus delectus nam dignissimos assumenda,
+        ullam, voluptates hic <b tabindex="0">FOCUSABLE</b> aut natus nobis
+        similique!
       </p>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
-        nesciunt fugiat, ipsa molestias maiores enim veniam numquam alias minus
-        delectus nam dignissimos assumenda, ullam, voluptates hic aut natus
-        nobis similique!
+        nesciunt fugiat, <b tabindex="0">FOCUSABLE</b> ipsa molestias maiores
+        enim veniam numquam alias minus delectus nam dignissimos assumenda,
+        ullam, voluptates hic aut natus nobis similique!
       </p>
     </div>
   </uui-popover>`;
@@ -155,11 +204,10 @@ export const Nested: Story = props => {
       style="margin: auto"
       .margin=${props.margin}
       .placement=${props.placement}
-      .open=${props.open}
-      @click=${() => openPopover('#popover')}>
+      .open=${props.open}>
       <uui-button
         look="secondary"
-        @keydown=${() => ''}
+        @click=${() => togglePopover('#popover')}
         slot="trigger"
         style=" width: 220px; user-select: none; --uui-button-border-radius: 0">
         Click to open dropdown
