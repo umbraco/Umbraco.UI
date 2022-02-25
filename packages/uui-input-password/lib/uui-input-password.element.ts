@@ -9,6 +9,7 @@ import { property, state } from 'lit/decorators.js';
 
 /**
  * @element uui-input-password
+ * @extends uui-input
  */
 @defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {

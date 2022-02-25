@@ -43,7 +43,6 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         display: inline-flex;
         align-items: center;
         height: var(--uui-size-11);
-        font-size: 15px;
         text-align: left;
         box-sizing: border-box;
         background-color: var(
