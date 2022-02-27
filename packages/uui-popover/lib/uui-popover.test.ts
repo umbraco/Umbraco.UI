@@ -18,14 +18,6 @@ describe('UUIPopoverElement', () => {
   });
 
   describe('properties', () => {
-    it('has an useClamp property', () => {
-      expect(element).to.have.property('useClamp');
-    });
-
-    it('has a useAutoPlacement property', () => {
-      expect(element).to.have.property('useAutoPlacement');
-    });
-
     it('has a margin property', () => {
       expect(element).to.have.property('margin');
     });
@@ -38,18 +30,4 @@ describe('UUIPopoverElement', () => {
       expect(element).to.have.property('open');
     });
   });
-  /*
-  describe('events', () => {
-    describe('close', () => {
-      it('emits a close event when user clicks outside', async () => {
-        const listener = oneEvent(element, 'close');
-        element.open = true;
-        //element.parentElement?.click();
-        const event = await listener;
-        expect(event).to.exist;
-        expect(event.type).to.equal('close');
-      });
-    });
-  });
-*/
 });
