@@ -27,8 +27,7 @@ export class UUICardElement extends SelectOnlyMixin(
         width: 100%;
         justify-content: center;
         box-sizing: border-box;
-        /* TODO: fix automatic fallback values for shadows before we use them: var(--uui-shadow-depth-1)*/
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface);
