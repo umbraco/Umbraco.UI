@@ -57,3 +57,5 @@ import '@umbraco-ui/uui-toggle/lib';
 import '@umbraco-ui/uui-file-dropzone/lib';
 
 import '@umbraco-ui/uui-symbol-file-dropzone/lib';
+
+import '@umbraco-ui/uui-input-file/lib';
