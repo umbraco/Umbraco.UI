@@ -10,6 +10,11 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 export default {
   title: 'Buttons/Menu Item',
   component: 'uui-menu-item',
+  decorators: [
+    (story: any) => html`
+    <div style="max-width: 500px;">${story()}</div>
+    `,
+  ],
   id: 'uui-menu-item',
   args: {
     label: 'Menu Item 1',
@@ -100,14 +105,12 @@ AAAOverview.parameters = {
 
 export const Nested = () =>
   html`
-    <div style="max-width: 500px;">
       ${labelNames.map(
         (name: string) =>
           html` <uui-menu-item label="${name}" has-children>
             ${renderItems()}
           </uui-menu-item>`
       )}
-    </div>
   `;
 Nested.parameters = {
   docs: {
@@ -310,7 +313,6 @@ const MenuItems = [
 export const WithIcon = (props: any) =>
   html`
     <uui-icon-registry-essential>
-      <div style="max-width: 500px;">
         ${MenuItems.map(
           menuItem =>
             html`
@@ -329,7 +331,6 @@ export const WithIcon = (props: any) =>
               </uui-menu-item>
             `
         )}
-      </div>
     </uui-icon-registry-essential>
   `;
 WithIcon.parameters = {
@@ -347,7 +348,6 @@ WithIcon.parameters = {
 export const AnchorTag = (props: any) =>
   html`
     <uui-icon-registry-essential>
-      <div style="max-width: 500px;">
         <uui-menu-item
           label=${props.label}
           ?loading=${props.loading}
@@ -361,7 +361,6 @@ export const AnchorTag = (props: any) =>
           target=${props.target}>
           <uui-icon slot="icon" name="document"></uui-icon>
         </uui-menu-item>
-      </div>
     </uui-icon-registry-essential>
   `;
 AnchorTag.args = {
