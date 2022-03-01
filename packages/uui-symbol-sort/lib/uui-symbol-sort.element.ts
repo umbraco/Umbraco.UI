@@ -1,14 +1,12 @@
-import { LitElement, html, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
 import { ActiveMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-symbol-sort
  *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting is ascending or descending.
  *  Please define aria-sort on the header for the composition.
- *  @property active - Set this boolean to true for then the related composition is sorted.
- *  @property descending - Set this boolean to true for displaying descending sort is active.
  */
 @defineElement('uui-symbol-sort')
 export class UUISymbolSortElement extends ActiveMixin(LitElement) {
@@ -74,7 +72,7 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   ];
 
   /**
-   * Turns the arrow around.
+   * Turns the arrow around. Set this boolean to true for displaying descending sort is active.
    * @type {boolean}
    * @default false
    */
