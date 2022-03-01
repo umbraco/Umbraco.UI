@@ -14,8 +14,6 @@ export class UUIFilePreviewElement extends LitElement {
       :host {
         position: relative;
         display: grid;
-        border: 1px solid;
-        background: white;
         /* These have to be changed together */
         grid-template-rows: 100px 50px;
         width: 150px;
@@ -34,10 +32,11 @@ export class UUIFilePreviewElement extends LitElement {
         top: 8px;
         right: 8px;
         max-width: 100%;
-        height: 28px;
-        font-size: 12px;
+        height: 32px;
+        font-size: 13px;
         opacity: 0;
         z-index: 1;
+        transition: opacity 150ms;
       }
 
       #file-icon {

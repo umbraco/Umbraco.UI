@@ -30,7 +30,7 @@ export const Overview: Story = props =>
         ?isDirectory=${props.isDirectory}
         thumbnail=${props.thumbnail}>
         <uui-action-bar slot="actions">
-          <uui-button look="secondary">
+          <uui-button look="">
             <uui-icon name="copy"></uui-icon>
           </uui-button>
           <uui-button look="danger">
