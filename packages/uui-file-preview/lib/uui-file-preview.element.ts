@@ -72,11 +72,19 @@ export class UUIFilePreviewElement extends LitElement {
       #file-size {
         opacity: 0.6;
       }
+
+      .has-source:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     `,
   ];
 
   @property({ type: String })
   public name: string = '';
+
+  @property({ type: String })
+  public source: string = '';
 
   @property({ type: String })
   public extension: string = '';
@@ -89,6 +97,10 @@ export class UUIFilePreviewElement extends LitElement {
 
   @property({ type: Boolean })
   public isDirectory: boolean = false;
+
+  private openSource() {
+    window.open(this.source, '_blank');
+  }
 
   private fileTypeTemplate() {
     if (this.isDirectory) {
@@ -111,8 +123,13 @@ export class UUIFilePreviewElement extends LitElement {
       this.name.length - endCharCount,
       this.name.length
     );
+    //TODO Fix keyboard event listener
     return html`
-      <span id="file-name">
+      <span
+        id="file-name"
+        class=${this.source ? 'has-source' : ''}
+        @click=${() => (this.source ? this.openSource() : '')}
+        @keydown=${() => ''}>
         <span id="file-name-start">${nameStart}</span>
         <span id="file-name-end">${nameEnd}</span>
       </span>
@@ -122,7 +139,6 @@ export class UUIFilePreviewElement extends LitElement {
   render() {
     return html`
       <slot id="actions" name="actions"></slot>
-
       ${this.fileTypeTemplate()}
       <div id="file-info">
         ${this.renderLongName()}

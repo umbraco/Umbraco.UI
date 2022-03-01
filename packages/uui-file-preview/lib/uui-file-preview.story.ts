@@ -42,7 +42,7 @@ export const Overview: Story = props =>
   `;
 
 Overview.args = {
-  name: 'ThisFileHasAVeryandIMeanVeryLongName',
+  name: 'ThisFileHasAVeryAndIMeanVeryLongName',
   extension: 'pdf',
   size: '12376',
 };
