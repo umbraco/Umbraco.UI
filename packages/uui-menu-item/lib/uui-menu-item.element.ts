@@ -198,7 +198,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   ];
 
   /**
-   * Disables the menu item, changes the looks of it and prevents if from emitting the click event
+   * Disables the menu item, changes the looks of it and prevents it from emitting the click event
    * @type {boolean}
    * @attr
    * @default false
