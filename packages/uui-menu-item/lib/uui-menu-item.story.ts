@@ -12,9 +12,7 @@ export default {
   title: 'Buttons/Menu Item',
   component: 'uui-menu-item',
   decorators: [
-    (story: any) => html`
-    <div style="max-width: 500px;">${story()}</div>
-    `,
+    (story: any) => html` <div style="max-width: 500px;">${story()}</div> `,
   ],
   id: 'uui-menu-item',
   args: {
@@ -130,12 +128,12 @@ AAAOverview.parameters = {
 
 export const Nested = () =>
   html`
-      ${labelNames.map(
-    (name: string) =>
-      html` <uui-menu-item label="${name}" has-children>
-            ${renderItems()}
-          </uui-menu-item>`
-  )}
+    ${labelNames.map(
+      (name: string) =>
+        html` <uui-menu-item label="${name}" has-children>
+          ${renderItems()}
+        </uui-menu-item>`
+    )}
   `;
 Nested.parameters = {
   docs: {
@@ -163,12 +161,12 @@ function activeStoryOnClick(e: UUIMenuItemEvent) {
 
 export const Active = () =>
   html`
-      ${MenuItems.map(
-    menuItem =>
-      html`<uui-menu-item
+    ${MenuItems.map(
+      menuItem =>
+        html`<uui-menu-item
           label="${menuItem.title}"
           @click-label=${activeStoryOnClick}></uui-menu-item>`
-  )}
+    )}
   `;
 Active.parameters = {
   docs: {
@@ -181,10 +179,12 @@ Active.parameters = {
 
 export const Loading = () =>
   html`
-      ${MenuItems.map(
-    menuItem =>
-      html`<uui-menu-item label="${menuItem.title}" ?loading=${menuItem.loading}></uui-menu-item>`
-  )}
+    ${MenuItems.map(
+      menuItem =>
+        html`<uui-menu-item
+          label="${menuItem.title}"
+          ?loading=${menuItem.loading}></uui-menu-item>`
+    )}
   `;
 Loading.parameters = {
   docs: {
@@ -208,12 +208,14 @@ function disabledStoryOnClick(e: UUIMenuItemEvent) {
 
 export const Disabled = () =>
   html`
-      ${MenuItems.map(menuItem =>
-    html`
-      <uui-menu-item
-        @click-label=${disabledStoryOnClick}
-        label="${menuItem.title}"></uui-menu-item>
-      `)}
+    ${MenuItems.map(
+      menuItem =>
+        html`
+          <uui-menu-item
+            @click-label=${disabledStoryOnClick}
+            label="${menuItem.title}"></uui-menu-item>
+        `
+    )}
   `;
 Disabled.parameters = {
   docs: {
@@ -226,16 +228,18 @@ Disabled.parameters = {
 
 export const WithActions = () =>
   html`
-      ${MenuItems.map(menuItem =>
-    html`
-      <uui-menu-item label="${menuItem.title}">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu"
-            ><uui-symbol-more></uui-symbol-more
-          ></uui-button>
-        </uui-action-bar>
-      </uui-menu-item>
-      `)}
+    ${MenuItems.map(
+      menuItem =>
+        html`
+          <uui-menu-item label="${menuItem.title}">
+            <uui-action-bar slot="actions">
+              <uui-button label="Open actions menu"
+                ><uui-symbol-more></uui-symbol-more
+              ></uui-button>
+            </uui-action-bar>
+          </uui-menu-item>
+        `
+    )}
   `;
 WithActions.parameters = {
   docs: {
@@ -255,7 +259,10 @@ WithActions.parameters = {
 
 export const Selectable = () =>
   html`
-      ${MenuItems.map(menuItem => html`<uui-menu-item label="${menuItem.title}"></uui-menu-item>`)}
+    ${MenuItems.map(
+      menuItem =>
+        html`<uui-menu-item label="${menuItem.title}"></uui-menu-item>`
+    )}
   `;
 Selectable.args = {
   selectable: true,
@@ -273,24 +280,24 @@ Selectable.parameters = {
 export const WithIcon = (props: any) =>
   html`
     <uui-icon-registry-essential>
-        ${MenuItems.map(
-    menuItem =>
-      html`
-              <uui-menu-item
-                label=${menuItem.title}
-                ?loading=${props.loading}
-                ?disabled=${props.disabled}
-                ?has-children=${props.hasChildren}
-                ?show-children=${props.showChildren}
-                ?selected=${props.selected}
-                ?active=${props.active}
-                ?selectable=${props.selectable}
-                href=${props.href}
-                target=${props.target}>
-                <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
-              </uui-menu-item>
-            `
-  )}
+      ${MenuItems.map(
+        menuItem =>
+          html`
+            <uui-menu-item
+              label=${menuItem.title}
+              ?loading=${props.loading}
+              ?disabled=${props.disabled}
+              ?has-children=${props.hasChildren}
+              ?show-children=${props.showChildren}
+              ?selected=${props.selected}
+              ?active=${props.active}
+              ?selectable=${props.selectable}
+              href=${props.href}
+              target=${props.target}>
+              <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
+            </uui-menu-item>
+          `
+      )}
     </uui-icon-registry-essential>
   `;
 WithIcon.parameters = {
@@ -308,19 +315,19 @@ WithIcon.parameters = {
 export const AnchorTag = (props: any) =>
   html`
     <uui-icon-registry-essential>
-        <uui-menu-item
-          label=${props.label}
-          ?loading=${props.loading}
-          ?disabled=${props.disabled}
-          ?has-children=${props.hasChildren}
-          ?show-children=${props.showChildren}
-          ?selected=${props.selected}
-          ?active=${props.active}
-          ?selectable=${props.selectable}
-          href=${props.href}
-          target=${props.target}>
-          <uui-icon slot="icon" name="document"></uui-icon>
-        </uui-menu-item>
+      <uui-menu-item
+        label=${props.label}
+        ?loading=${props.loading}
+        ?disabled=${props.disabled}
+        ?has-children=${props.hasChildren}
+        ?show-children=${props.showChildren}
+        ?selected=${props.selected}
+        ?active=${props.active}
+        ?selectable=${props.selectable}
+        href=${props.href}
+        target=${props.target}>
+        <uui-icon slot="icon" name="document"></uui-icon>
+      </uui-menu-item>
     </uui-icon-registry-essential>
   `;
 AnchorTag.args = {
@@ -337,6 +344,27 @@ AnchorTag.parameters = {
           target="_blank">
         </uui-menu-item>
       `.strings,
+    },
+  },
+};
+
+export const ItemIndentation: Story = () =>
+  html`
+    ${MenuItems.map(
+      (menuItem, i) =>
+        html`
+          <uui-menu-item
+            label="${menuItem.title}"
+            style="${ifDefined(i === 1 ? '--uui-menu-item-indent: 1' : '')}">
+          </uui-menu-item>
+        `
+    )}
+  `;
+
+ItemIndentation.parameters = {
+  docs: {
+    source: {
+      code: `<uui-menu-item label="Menu Item 1" style="--uui-menu-item-indent: 1"></uui-menu-item>`,
     },
   },
 };
