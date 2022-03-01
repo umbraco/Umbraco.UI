@@ -1,12 +1,12 @@
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUIMenuItemElement } from './uui-menu-item.element';
-import '.';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
@@ -115,6 +115,15 @@ describe('UUIMenuItemElement', () => {
     beforeEach(async () => {
       labelElement = element.shadowRoot!.querySelector('#label-button');
       element.selectable = true;
+    });
+
+    it('label element is defined', () => {
+      expect(labelElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as a button tag', async () => {
+      await elementUpdated(element);
+      expect(labelElement?.nodeName).to.be.equal('BUTTON');
     });
 
     it('can be selected when selectable', async () => {
