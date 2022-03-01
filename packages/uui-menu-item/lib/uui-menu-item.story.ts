@@ -3,6 +3,7 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
@@ -35,6 +36,7 @@ export default {
     target: {
       control: { type: 'text' },
     },
+    '--uui-menu-item-indent': { control: { type: 'text' } },
   },
 };
 
@@ -46,6 +48,29 @@ const labelNames = [
   'Relation Types',
   'Content Templates',
   'Partial Views',
+];
+
+const MenuItems = [
+  {
+    title: 'Menu Item 1',
+    icon: 'document',
+    loading: false,
+  },
+  {
+    title: 'Menu Item 2',
+    icon: 'picture',
+    loading: true,
+  },
+  {
+    title: 'Menu Item 3',
+    icon: 'info',
+    loading: false,
+  },
+  {
+    title: 'Menu Item 4',
+    icon: 'document',
+    loading: false,
+  },
 ];
 
 const renderItems: any = (count = 5, iteration = 5) => {
@@ -106,11 +131,11 @@ AAAOverview.parameters = {
 export const Nested = () =>
   html`
       ${labelNames.map(
-        (name: string) =>
-          html` <uui-menu-item label="${name}" has-children>
+    (name: string) =>
+      html` <uui-menu-item label="${name}" has-children>
             ${renderItems()}
           </uui-menu-item>`
-      )}
+  )}
   `;
 Nested.parameters = {
   docs: {
@@ -138,20 +163,12 @@ function activeStoryOnClick(e: UUIMenuItemEvent) {
 
 export const Active = () =>
   html`
-    <div style="max-width: 500px;">
-      <uui-menu-item
-        label="Menu Item 1"
-        @click-label=${activeStoryOnClick}></uui-menu-item>
-      <uui-menu-item
-        label="Menu Item 2"
-        @click-label=${activeStoryOnClick}></uui-menu-item>
-      <uui-menu-item
-        label="Menu Item 3"
-        @click-label=${activeStoryOnClick}></uui-menu-item>
-      <uui-menu-item
-        label="Menu Item 4"
-        @click-label=${activeStoryOnClick}></uui-menu-item>
-    </div>
+      ${MenuItems.map(
+    menuItem =>
+      html`<uui-menu-item
+          label="${menuItem.title}"
+          @click-label=${activeStoryOnClick}></uui-menu-item>`
+  )}
   `;
 Active.parameters = {
   docs: {
@@ -164,12 +181,10 @@ Active.parameters = {
 
 export const Loading = () =>
   html`
-    <div style="max-width: 500px;">
-      <uui-menu-item label="Menu Item 1"></uui-menu-item>
-      <uui-menu-item label="Menu Item 2" loading></uui-menu-item>
-      <uui-menu-item label="Menu Item 3"></uui-menu-item>
-      <uui-menu-item label="Menu Item 4"></uui-menu-item>
-    </div>
+      ${MenuItems.map(
+    menuItem =>
+      html`<uui-menu-item label="${menuItem.title}" ?loading=${menuItem.loading}></uui-menu-item>`
+  )}
   `;
 Loading.parameters = {
   docs: {
@@ -193,21 +208,12 @@ function disabledStoryOnClick(e: UUIMenuItemEvent) {
 
 export const Disabled = () =>
   html`
-    <div style="max-width: 500px;">
+      ${MenuItems.map(menuItem =>
+    html`
       <uui-menu-item
         @click-label=${disabledStoryOnClick}
-        label="Menu Item 1"></uui-menu-item>
-      <uui-menu-item
-        @click-label=${disabledStoryOnClick}
-        label="Menu Item 2"
-        disabled></uui-menu-item>
-      <uui-menu-item
-        @click-label=${disabledStoryOnClick}
-        label="Menu Item 3"></uui-menu-item>
-      <uui-menu-item
-        @click-label=${disabledStoryOnClick}
-        label="Menu Item 4"></uui-menu-item>
-    </div>
+        label="${menuItem.title}"></uui-menu-item>
+      `)}
   `;
 Disabled.parameters = {
   docs: {
@@ -220,39 +226,16 @@ Disabled.parameters = {
 
 export const WithActions = () =>
   html`
-    <div style="max-width: 500px;">
-      <uui-menu-item label="Menu Item 1">
+      ${MenuItems.map(menuItem =>
+    html`
+      <uui-menu-item label="${menuItem.title}">
         <uui-action-bar slot="actions">
           <uui-button label="Open actions menu"
             ><uui-symbol-more></uui-symbol-more
           ></uui-button>
         </uui-action-bar>
       </uui-menu-item>
-
-      <uui-menu-item label="Menu Item 2">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu"
-            ><uui-symbol-more></uui-symbol-more
-          ></uui-button>
-        </uui-action-bar>
-      </uui-menu-item>
-
-      <uui-menu-item label="Menu Item 3">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu"
-            ><uui-symbol-more></uui-symbol-more
-          ></uui-button>
-        </uui-action-bar>
-      </uui-menu-item>
-
-      <uui-menu-item label="Menu Item 4">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu"
-            ><uui-symbol-more></uui-symbol-more
-          ></uui-button>
-        </uui-action-bar>
-      </uui-menu-item>
-    </div>
+      `)}
   `;
 WithActions.parameters = {
   docs: {
@@ -272,12 +255,7 @@ WithActions.parameters = {
 
 export const Selectable = () =>
   html`
-    <div style="max-width: 500px;">
-      <uui-menu-item label="Menu Item 1" selectable></uui-menu-item>
-      <uui-menu-item label="Menu Item 2" selectable></uui-menu-item>
-      <uui-menu-item label="Menu Item 3" selectable></uui-menu-item>
-      <uui-menu-item label="Menu Item 4" selectable></uui-menu-item>
-    </div>
+      ${MenuItems.map(menuItem => html`<uui-menu-item label="${menuItem.title}"></uui-menu-item>`)}
   `;
 Selectable.args = {
   selectable: true,
@@ -292,30 +270,12 @@ Selectable.parameters = {
   },
 };
 
-const MenuItems = [
-  {
-    title: 'Menu Item 1',
-    icon: 'document',
-  },
-  {
-    title: 'Menu Item 2',
-    icon: 'picture',
-  },
-  {
-    title: 'Menu Item 3',
-    icon: 'info',
-  },
-  {
-    title: 'Menu Item 4',
-    icon: 'document',
-  },
-];
 export const WithIcon = (props: any) =>
   html`
     <uui-icon-registry-essential>
         ${MenuItems.map(
-          menuItem =>
-            html`
+    menuItem =>
+      html`
               <uui-menu-item
                 label=${menuItem.title}
                 ?loading=${props.loading}
@@ -330,7 +290,7 @@ export const WithIcon = (props: any) =>
                 <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
               </uui-menu-item>
             `
-        )}
+  )}
     </uui-icon-registry-essential>
   `;
 WithIcon.parameters = {
