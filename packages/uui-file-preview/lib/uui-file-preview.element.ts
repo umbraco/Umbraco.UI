@@ -12,7 +12,51 @@ export class UUIFilePreviewElement extends LitElement {
   static styles = [
     css`
       :host {
-        /* Styles goes here */
+        display: inline-block;
+      }
+
+      :host(:hover) slot[name='actions']::slotted(*) {
+        opacity: 1;
+      }
+
+      #file-preview {
+        position: relative;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 2rem;
+        box-shadow: var(--uui-shadow-depth-1);
+        background: white;
+        width: 200px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        aspect-ratio: 1;
+      }
+
+      slot[name='actions']::slotted(*) {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        max-width: 100%;
+        height: 28px;
+        font-size: 12px;
+        opacity: 0;
+      }
+
+      #file-icon {
+        max-width: 50px;
+        margin: auto;
+      }
+
+      #file-info {
+        display: grid;
+        font-size: 0.8rem;
+        grid-template-columns: 1fr 1fr;
+        padding: 4px 8px;
+        border-top: 1px solid var(--uui-interface-border);
+      }
+
+      #file-size {
+        text-align: end;
       }
     `,
   ];
@@ -34,25 +78,33 @@ export class UUIFilePreviewElement extends LitElement {
 
   private fileTypeTemplate() {
     if (this.isDirectory) {
-      return html`<uui-symbol-file-thumbnail></uui-symbol-file-thumbnail>`;
+      return html`<uui-symbol-folder id="file-icon"></uui-symbol-folder>`;
     }
     if (this.thumbnail) {
-      return html`<uui-symbol-file-thumbnail></uui-symbol-file-thumbnail>`;
+      return html`<uui-symbol-file-thumbnail
+        id="file-icon"></uui-symbol-file-thumbnail>`;
     }
 
-    return html`<uui-symbol-file .type=${this.extension}></uui-symbol-file>`;
+    return html`<uui-symbol-file
+      id="file-icon"
+      .type=${this.extension}></uui-symbol-file>`;
   }
 
   render() {
-    return html`<slot name="actions"> </slot>
-      ${this.fileTypeTemplate()}
-      <span id="file-name">
-        ${this.name}
-        ${this.size && !this.isDirectory
-          ? html`<br />
-              ${UUIFileSize.humanFileSize(this.size, true)}`
-          : ''}
-      </span> `;
+    return html`
+      <div id="file-preview">
+        <slot id="actions" name="actions"></slot>
+        ${this.fileTypeTemplate()}
+        <div id="file-info">
+          <span id="file-name">${this.name}</span>
+          <span id="file-size">
+            ${this.size && !this.isDirectory
+              ? html`${UUIFileSize.humanFileSize(this.size, true)}`
+              : ''}
+          </span>
+        </div>
+      </div>
+    `;
   }
 }
 
