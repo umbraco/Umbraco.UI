@@ -41,4 +41,8 @@ export const Overview: Story = props =>
     </uui-icon-registry-essential>
   `;
 
-Overview.args = { name: 'How to code', extension: 'pdf', size: '12376' };
+Overview.args = {
+  name: 'ThisFileHasAVeryandIMeanVeryLongName',
+  extension: 'pdf',
+  size: '12376',
+};

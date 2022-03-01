@@ -12,24 +12,21 @@ export class UUIFilePreviewElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-block;
+        position: relative;
+        display: grid;
+        border: 1px solid;
+        background: white;
+        /* These have to be changed together */
+        grid-template-rows: 100px 50px;
+        width: 150px;
+        height: 150px;
+        /* --------------------------------- */
+        box-sizing: border-box;
+        aspect-ratio: 1;
       }
 
       :host(:hover) slot[name='actions']::slotted(*) {
         opacity: 1;
-      }
-
-      #file-preview {
-        position: relative;
-        display: grid;
-        grid-template-columns: 100%;
-        grid-template-rows: 1fr 2rem;
-        box-shadow: var(--uui-shadow-depth-1);
-        background: white;
-        width: 200px;
-        box-sizing: border-box;
-        border-radius: 4px;
-        aspect-ratio: 1;
       }
 
       slot[name='actions']::slotted(*) {
@@ -40,23 +37,41 @@ export class UUIFilePreviewElement extends LitElement {
         height: 28px;
         font-size: 12px;
         opacity: 0;
+        z-index: 1;
       }
 
       #file-icon {
-        max-width: 50px;
+        aspect-ratio: 1 / 1;
         margin: auto;
+        max-width: 100%;
+        max-height: 100%;
       }
 
       #file-info {
-        display: grid;
-        font-size: 0.8rem;
-        grid-template-columns: 1fr 1fr;
-        padding: 4px 8px;
-        border-top: 1px solid var(--uui-interface-border);
+        min-width: 0;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        font-size: 1rem;
+      }
+
+      #file-name {
+        display: flex;
+        justify-content: center;
+      }
+
+      #file-name-start {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      #file-name-end {
+        white-space: nowrap;
       }
 
       #file-size {
-        text-align: end;
+        opacity: 0.6;
       }
     `,
   ];
@@ -90,19 +105,33 @@ export class UUIFilePreviewElement extends LitElement {
       .type=${this.extension}></uui-symbol-file>`;
   }
 
+  private renderLongName() {
+    const endCharCount = 6;
+    const nameStart = this.name.substring(0, this.name.length - endCharCount);
+    const nameEnd = this.name.substring(
+      this.name.length - endCharCount,
+      this.name.length
+    );
+    return html`
+      <span id="file-name">
+        <span id="file-name-start">${nameStart}</span>
+        <span id="file-name-end">${nameEnd}</span>
+      </span>
+    `;
+  }
+
   render() {
     return html`
-      <div id="file-preview">
-        <slot id="actions" name="actions"></slot>
-        ${this.fileTypeTemplate()}
-        <div id="file-info">
-          <span id="file-name">${this.name}</span>
-          <span id="file-size">
-            ${this.size && !this.isDirectory
-              ? html`${UUIFileSize.humanFileSize(this.size, true)}`
-              : ''}
-          </span>
-        </div>
+      <slot id="actions" name="actions"></slot>
+
+      ${this.fileTypeTemplate()}
+      <div id="file-info">
+        ${this.renderLongName()}
+        <span id="file-size">
+          ${this.size && !this.isDirectory
+            ? html`${UUIFileSize.humanFileSize(this.size, true)}`
+            : ''}
+        </span>
       </div>
     `;
   }
