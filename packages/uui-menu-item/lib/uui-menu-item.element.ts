@@ -1,19 +1,19 @@
-import { LitElement, css, html } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
- *  @property label - This functions both as the visible label as well as the aria label.
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
@@ -296,7 +296,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     }
     return html` <a
       id="label-button"
-      href=${this.href}
+      href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}
       @click=${this.onLabelClicked}
