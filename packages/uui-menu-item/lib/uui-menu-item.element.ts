@@ -20,6 +20,7 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @slot default - nested menu items go here
  *  @slot icon - icon area
  *  @slot actions - actions area
+ *  @slot label-slot - area to place the label (name: label)
  */
 @defineElement('uui-menu-item')
 export class UUIMenuItemElement extends SelectOnlyMixin(
