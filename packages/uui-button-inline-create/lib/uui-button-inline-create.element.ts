@@ -1,13 +1,14 @@
-import { LitElement, html, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { styleMap } from 'lit/directives/style-map.js';
-import { property, state } from 'lit/decorators.js';
 import {
-  UUIBlinkKeyframes,
   UUIBlinkAnimationValue,
+  UUIBlinkKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+
 import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
+
 /**
  *  @element uui-inline-create-button
  *  @description - Special button for creating new elements
@@ -16,7 +17,7 @@ import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
  */
 
 @defineElement('uui-button-inline-create')
-export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
+export class UUIButtonInlineCreateElement extends LitElement {
   static styles = [
     UUIBlinkKeyframes,
     css`
@@ -175,6 +176,19 @@ export class UUIButtonInlineCreateElement extends LabelMixin('', LitElement) {
   @state()
   position = 0;
 
+  /**
+   * Label to be used for aria-label and eventually as visual label
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  public label?: string;
+
+  /**
+   * Place the button vertically
+   * @type {Boolean}
+   * @attr
+   */
   @property({ type: Boolean, reflect: true })
   vertical = false;
 
