@@ -17,10 +17,9 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
- *  @slot default slot for nested menu items
+ *  @slot default - nested menu items go here
  *  @slot icon - icon area
  *  @slot actions - actions area
- *
  */
 @defineElement('uui-menu-item')
 export class UUIMenuItemElement extends SelectOnlyMixin(
