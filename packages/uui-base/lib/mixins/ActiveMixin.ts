@@ -7,6 +7,12 @@ export declare class ActiveMixinInterface {
   active: boolean;
 }
 
+/**
+ * This mixin provides functionality to other components to be active using a common `active` property.
+ *
+ * @param {Object} superClass - superclass to be extended.
+ * @mixin
+ */
 export const ActiveMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
