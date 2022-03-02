@@ -187,7 +187,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   async onDrop(e: DragEvent) {
-    this.preventDefaults(e);
+    e.preventDefault();
 
     const items = e.dataTransfer?.items;
 
@@ -211,18 +211,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
   }
   onDragOver(e: DragEvent) {
-    this.preventDefaults(e);
+    e.preventDefault();
   }
   onDragEnter(e: DragEvent) {
-    this.preventDefaults(e);
+    e.preventDefault();
   }
   onDragLeave(e: DragEvent) {
-    this.preventDefaults(e);
-  }
-
-  private preventDefaults(e: DragEvent) {
     e.preventDefault();
-    e.stopPropagation();
   }
 
   protected openNativeInput() {
