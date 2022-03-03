@@ -23,12 +23,10 @@ export class UUIButtonGroupElement extends LitElement {
         --uui-button-merge-border-left: 1;
       }
       ::slotted(*:first-child) {
-        --uui-button-border-radius: var(--uui-border-radius) 0 0
-          var(--uui-border-radius);
+        --uui-button-border-radius: 0;
       }
       ::slotted(*:last-child) {
-        --uui-button-border-radius: 0 var(--uui-border-radius)
-          var(--uui-border-radius) 0;
+        --uui-button-border-radius: 0;
       }
 
       ::slotted(uui-dropdown) {
