@@ -11,7 +11,7 @@
     $deep-saffron saturation(- 74%) blackness(+ 1%)
   );
 
-  $sunglow: #fad634;
+  $sunglow: salmon;
   --uui-color-sunglow: $sunglow;
   --uui-color-sunglow-light: color($sunglow lightness(+ 10%));
   --uui-color-sunglow-dark: color($sunglow blackness(+ 10%));
