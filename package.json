@@ -47,7 +47,9 @@
     "new-package": "plop && npm i",
     "pack-all": "npm run build:prod && node ./scripts/pack-packages.js",
     "pack-all-no-build": "node ./scripts/pack-packages.js",
-    "pack": "node ./scripts/pack-package.js"
+    "pack": "node ./scripts/pack-package.js",
+    "chromatic": "npx chromatic --build-script-name storybook:build",
+    "chromatic:ci": "npm run chromatic -- --ci --exit-zero-on-changes"
   },
   "engines": {
     "node": ">=16.0.0",
