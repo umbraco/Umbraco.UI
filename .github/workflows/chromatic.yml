@@ -6,6 +6,10 @@ name: 'Chromatic'
 # Event for the workflow
 on:
   push:
+    paths:
+      - 'packages/*/package.json'
+      - 'packages/*/lib/**'
+      - 'packages/*/assets/**'
     branches-ignore:
       - 'dependabot/*'
 
