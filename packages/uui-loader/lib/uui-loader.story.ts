@@ -13,6 +13,7 @@ export default {
         code: `<uui-loader></uui-loader>`,
       },
     },
+    chromatic: { disableSnapshot: true },
   },
 };
 
