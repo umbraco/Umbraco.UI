@@ -79,13 +79,7 @@ export const UmbracoWords: Readonly<string[]> = [
 export function GetRandomUmbracoWord(): string {
   return UmbracoWords[Math.floor(Math.random() * UmbracoWords.length)];
 }
-export function GetRandomUmbracoWordOfWordCount(wordCount: number): string {
-  const dictionary = UmbracoWords.filter((x: string) => {
-    const result = x.match(/(\w+)/g);
-    return result ? result.length === wordCount : false;
-  });
-  return dictionary[Math.floor(Math.random() * dictionary.length)];
-}
+
 export function ArrayOfUmbracoWords(arrayLength: number): string[] {
   return [...Array(arrayLength)].map(() => GetRandomUmbracoWord());
 }
