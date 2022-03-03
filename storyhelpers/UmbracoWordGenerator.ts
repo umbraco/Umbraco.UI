@@ -1,3 +1,5 @@
+import isChromatic from 'chromatic/isChromatic';
+
 export const UmbracoWords: Readonly<string[]> = [
   'Unicorn',
   'ModelsBuilder',
@@ -74,9 +76,20 @@ export const UmbracoWords: Readonly<string[]> = [
   'ISearchableTree',
   'Virtual Codegarden',
   'Blazor',
-] as const;
+];
+
+const randomWordGenerator = (function* GenerateRandomWord() {
+  for (let i = 0; i <= UmbracoWords.length; i++) {
+    if (i === UmbracoWords.length) i = 0;
+    yield UmbracoWords[i];
+  }
+})();
 
 export function GetRandomUmbracoWord(): string {
+  if (isChromatic()) {
+    return randomWordGenerator.next().value ?? 'No more words';
+  }
+
   return UmbracoWords[Math.floor(Math.random() * UmbracoWords.length)];
 }
 
