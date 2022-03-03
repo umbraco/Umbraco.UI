@@ -3,14 +3,12 @@ import '@umbraco-ui/uui-avatar/lib';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
-import { GetRandomUmbracoWordOfWordCount } from '../../../storyhelpers/UmbracoWordGenerator';
-
 export default {
   title: 'Displays/Avatar',
   id: 'uui-avatar',
   component: 'uui-avatar',
   args: {
-    name: GetRandomUmbracoWordOfWordCount(2),
+    name: 'Umbraco HQ',
     fontSize: 12,
   },
   // argTypes: {
