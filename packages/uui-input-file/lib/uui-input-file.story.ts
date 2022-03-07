@@ -16,4 +16,23 @@ export default {
   },
 };
 
+const submit = (e: SubmitEvent) => {
+  e.preventDefault();
+  const formElement = e.target as HTMLFormElement;
+  const formData = new FormData(formElement);
+  // @ts-ignore // TODO: Fix
+  const formProps = Object.fromEntries(formData);
+
+  console.log('FORM: ', formProps);
+};
+
 export const Overview: Story = () => html`<uui-input-file></uui-input-file>`;
+
+export const Form: Story = () => html`
+  <form @submit=${submit}>
+    <div>asd</div>
+    <uui-input-file></uui-input-file>
+    <input name="test-input" type="text" />
+    <button type="submit">DO IT</button>
+  </form>
+`;

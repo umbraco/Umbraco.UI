@@ -6,6 +6,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-input-file
@@ -22,7 +23,7 @@ interface FileDisplay {
   file?: FileSystemFileEntry | File;
 }
 @defineElement('uui-input-file')
-export class UUIInputFileElement extends LitElement {
+export class UUIInputFileElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
@@ -112,11 +113,17 @@ export class UUIInputFileElement extends LitElement {
   @state()
   fileDisplays: FileDisplay[] = [];
 
+  static readonly formAssociated = true;
+
   constructor() {
     super();
     this.addEventListener('dragenter', () => this.setShowDropzone(true));
     this.addEventListener('dragleave', () => this.setShowDropzone(false));
     this.addEventListener('drop', () => this.setShowDropzone(false));
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this;
   }
 
   private async handleFileDrop(e: CustomEvent) {
