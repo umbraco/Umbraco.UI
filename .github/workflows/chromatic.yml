@@ -9,7 +9,7 @@ on:
     paths:
       - 'package.json'
       - 'package-lock.json'
-      - '.github/chromatic.yml'
+      - '.github/workflows/chromatic.yml'
       - '.storybook/**'
       - 'packages/*/package.json'
       - 'packages/*/lib/**'
