@@ -194,15 +194,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     if (items) {
       const result = await this.getAllFileEntries(items);
 
-      // const files: File[] = [];
-
-      // for (const entry of result) {
-      //   if (entry.isFile) {
-      //     const file: File = await this.getFile(entry);
-      //     files.push(file);
-      //   }
-      // }
-
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
           detail: { files: result },
@@ -226,6 +217,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   private _onFileInputChange() {
     const files = this.input.files ? Array.from(this.input.files) : [];
+
     this.dispatchEvent(
       new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
         detail: { files: files },

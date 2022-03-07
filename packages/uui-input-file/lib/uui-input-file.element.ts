@@ -10,6 +10,17 @@ import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 /**
  * @element uui-input-file
  */
+
+interface FileDisplay {
+  name: string;
+  extension: string;
+  isDirectory: boolean;
+  show: boolean;
+  size?: number;
+  thumbnail?: string;
+  source?: string;
+  file?: FileSystemFileEntry | File;
+}
 @defineElement('uui-input-file')
 export class UUIInputFileElement extends LitElement {
   static styles = [
@@ -34,7 +45,7 @@ export class UUIInputFileElement extends LitElement {
         box-sizing: border-box;
         justify-items: center;
         width: 100%;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 16px;
         padding: 16px;
         overflow: auto;
@@ -42,7 +53,7 @@ export class UUIInputFileElement extends LitElement {
       }
 
       #dropzone {
-        display: flex;
+        display: none;
         background: var(--uui-interface-surface-alt);
         position: absolute;
         inset: 0px;
@@ -96,25 +107,87 @@ export class UUIInputFileElement extends LitElement {
   fileInput: HTMLElement | undefined;
 
   @state()
-  files: FileSystemEntry[] = [];
+  allFiles: FileSystemFileEntry[] = [];
 
-  private handleFileDrop(e: CustomEvent) {
-    const newFiles = e.detail.files as FileSystemEntry[];
-    this.files = [...this.files, ...newFiles];
+  @state()
+  fileDisplays: FileDisplay[] = [];
 
-    const folders: FileSystemEntry[][] = [];
+  constructor() {
+    super();
+    this.addEventListener('dragenter', () => this.setShowDropzone(true));
+    this.addEventListener('dragleave', () => this.setShowDropzone(false));
+    this.addEventListener('drop', () => this.setShowDropzone(false));
+  }
 
-    const sortByFolderCount = this.files.sort((a, b) => this.pathCompare(a, b));
+  private async handleFileDrop(e: CustomEvent) {
+    const newFiles = e.detail.files as FileSystemFileEntry[] | FileList;
+    // this.allFiles = [...this.allFiles, ...newFiles];
+    // TODO: fix browse. Its broken. Files come as File and not FileSystemFileEntry
 
-    sortByFolderCount.forEach(file => {
-      const index = file.fullPath.split('/').length - 2;
+    console.log('FILES', newFiles);
 
-      if (!folders[index]) {
-        folders[index] = [];
+    for (const file of newFiles) {
+      // TODO Handle source and thumbnail
+
+      if (file instanceof File) {
+        const fileDisplay = this.fileDisplayFromFile(file);
+        this.fileDisplays.push(fileDisplay);
+      } else {
+        const fileDisplay = await this.fileDisplayFromFileSystemFileEntry(file);
+        this.fileDisplays.push(fileDisplay);
       }
+    }
 
-      folders[index].push(file);
-    });
+    // * Sort to make sure all the files that should be shown is first. Because of this we can break out of the
+    // * render loop as soon as we hit the first show=false
+    this.fileDisplays = this.fileDisplays.sort(
+      (a: FileDisplay, b: FileDisplay) => Number(b.show) - Number(a.show)
+    );
+
+    this.fileDisplays = [...this.fileDisplays];
+  }
+
+  private fileDisplayFromFile(file: File): FileDisplay {
+    return {
+      name: file.name.split('.')[0],
+      extension: file.name.split('.')[1],
+      isDirectory: false,
+      show: true,
+      size: file.size,
+      file: file,
+    };
+  }
+
+  private async fileDisplayFromFileSystemFileEntry(
+    file: FileSystemFileEntry
+  ): Promise<FileDisplay> {
+    const index = file.fullPath.split('/').length - 2;
+
+    const fileDisplay: FileDisplay = {
+      name: file.name.split('.')[0],
+      extension: file.name.split('.')[1],
+      isDirectory: file.isDirectory,
+      show: index === 0 ? true : false,
+      file: file,
+    };
+
+    if (file.isFile) {
+      const size = (await this.getFile(file)).size;
+      fileDisplay.size = size;
+    }
+
+    return fileDisplay;
+  }
+
+  private async getFile(fileEntry: FileSystemFileEntry): Promise<File> {
+    return await new Promise<File>((resolve, reject) =>
+      fileEntry.file(resolve, reject)
+    );
+  }
+
+  private removeFile(index: number) {
+    this.fileDisplays.splice(index, 1);
+    this.fileDisplays = [...this.fileDisplays]; // Updates the UI
   }
 
   private setShowDropzone(show: boolean) {
@@ -127,38 +200,12 @@ export class UUIInputFileElement extends LitElement {
     }
   }
 
-  // TODO: move to constructor
-  connectedCallback(): void {
-    super.connectedCallback();
-    this.addEventListener('dragstart', () => this.setShowDropzone(true));
-
-    this.addEventListener('dragenter', () => this.setShowDropzone(true));
-    this.addEventListener('dragleave', () => this.setShowDropzone(false));
-    this.addEventListener('drop', () => this.setShowDropzone(false));
-  }
-
-  private pathCompare(a: FileSystemEntry, b: FileSystemEntry) {
-    const aLength = a.fullPath.split('/').length;
-    const bLength = b.fullPath.split('/').length;
-
-    return aLength - bLength;
-  }
-
-  private removeFile(index: number) {
-    this.files.splice(index, 1);
-    // Makes it rerender with the new files value
-    this.files = [...this.files];
-  }
-
-  private renderFileItem(file: FileSystemEntry, index: number) {
-    const name = file.name.split('.')[0];
-    const extension = file.name.split('.')[1];
-
+  private renderFileItem(file: FileDisplay, index: number) {
     return html`<uui-file-preview
-      .name=${name}
-      .extension=${extension}
-      .source=${'https://umbraco.com'}
-      .size=${696969}
+      .name=${file.name}
+      .extension=${file.extension}
+      .source=${file.source}
+      .size=${file.size}
       .isDirectory=${file.isDirectory}>
       <uui-action-bar slot="actions">
         <uui-button
@@ -169,6 +216,25 @@ export class UUIInputFileElement extends LitElement {
         </uui-button>
       </uui-action-bar>
     </uui-file-preview>`;
+  }
+
+  private renderFiles() {
+    const result = [];
+
+    for (let index = 0; index < this.fileDisplays.length; index++) {
+      const file = this.fileDisplays[index];
+
+      if (file.show) {
+        result.push(file);
+      } else {
+        // * Because we sorted the fileDisplays by 'show' we can safely break on the first false value
+        break;
+      }
+    }
+
+    return html`${result.map((file: FileDisplay, index: number) =>
+      file.show ? this.renderFileItem(file, index) : ''
+    )}`;
   }
 
   render() {
@@ -182,9 +248,7 @@ export class UUIInputFileElement extends LitElement {
           </div>
         </uui-file-dropzone>
         <div id="files">
-          ${this.files.map((file: FileSystemEntry, index: number) =>
-            this.renderFileItem(file, index)
-          )}
+          ${this.renderFiles()}
           <uui-file-dropzone
             multiple
             id="add-zone"
