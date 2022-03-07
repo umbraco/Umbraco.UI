@@ -22,6 +22,10 @@ describe('UuiInputElement', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
+  it('is defined with its own instance', () => {
+    expect(element).to.be.instanceOf(UUIInputElement);
+  });
+
   describe('properties', () => {
     it('has a name property', () => {
       expect(element).to.have.property('name');

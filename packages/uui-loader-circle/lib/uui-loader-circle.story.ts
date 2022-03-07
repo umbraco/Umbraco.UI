@@ -14,6 +14,9 @@ export default {
   argTypes: {
     progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 const Template: Story = props =>
