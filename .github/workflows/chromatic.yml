@@ -7,6 +7,9 @@ name: 'Chromatic'
 on:
   push:
     paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/chromatic.yml'
       - '.storybook/**'
       - 'packages/*/package.json'
       - 'packages/*/lib/**'
