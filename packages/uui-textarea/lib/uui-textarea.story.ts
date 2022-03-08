@@ -30,8 +30,7 @@ export const AAAOverview: Story = props =>
     ?readonly=${props.readonly}
     .name=${props.name}
     .error=${props.error}
-    .value=${props.value}
-    ?hide-label=${props.hideLabel}></uui-textarea>`;
+    .value=${props.value}></uui-textarea>`;
 
 AAAOverview.storyName = 'Overview';
 
