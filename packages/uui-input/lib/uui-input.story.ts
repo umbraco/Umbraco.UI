@@ -105,7 +105,6 @@ export const PrependAndAppend: Story = props =>
       .disabled=${props.disabled}
       .readonly=${props.readonly}
       .error=${props.error}
-      .hideLabel=${props.hideLabel}
       .label=${props.label}
       .type=${props.type}
       .name=${props.name}
@@ -150,7 +149,6 @@ export const MultipleInputs: Story = props =>
       .disabled=${props.disabled}
       .readonly=${props.readonly}
       .error=${props.error}
-      .hideLabel=${props.hideLabel}
       .label=${props.label}
       .type=${props.type}
       .name=${props.name}
