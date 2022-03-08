@@ -92,7 +92,7 @@ describe('UUISelect in Form', () => {
 
   describe('validation', () => {
     let formElement: HTMLFormElement;
-    let element: HTMLSelectElement;
+    let element: UUISelectElement;
     beforeEach(async () => {
       formElement = await fixture(
         html`<form>
@@ -102,7 +102,7 @@ describe('UUISelect in Form', () => {
             .options=${options}></uui-select>
         </form>`
       );
-      element = formElement.firstChild as HTMLSelectElement;
+      element = formElement.querySelector('uui-select') as UUISelectElement;
     });
 
     describe('required', () => {
