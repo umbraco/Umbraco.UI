@@ -1,6 +1,8 @@
-import { css, html, LitElement } from 'lit';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
+import { css, html, LitElement } from 'lit';
+import { property, query, state } from 'lit/decorators.js';
+
 import { UUISelectEvent } from './UUISelectEvent';
 
 // TODO: Dont set a global interface, we should expose a 'local' interface.
@@ -184,12 +186,8 @@ export class UUISelectElement extends LitElement {
   @state()
   private _disabledGroups: string[] = [];
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-  readonly _internals;
+  @query('#native')
+  protected _input!: HTMLSelectElement;
 
   constructor() {
     super();
@@ -207,13 +205,13 @@ export class UUISelectElement extends LitElement {
    * This method enables <label for="..."> to focus the select
    */
   focus() {
-    (this.shadowRoot?.querySelector('#native') as any).focus();
+    this._input.focus();
   }
   /**
    * This method enables <label for="..."> to open the select
    */
   click() {
-    (this.shadowRoot?.querySelector('#native') as any).click();
+    this._input.click();
   }
 
   connectedCallback() {
