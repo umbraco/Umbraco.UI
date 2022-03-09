@@ -4,7 +4,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 export default {
-  title: 'Displays/Avatar',
+  title: 'Displays/Avatar/Avatar',
   id: 'uui-avatar',
   component: 'uui-avatar',
   args: {
