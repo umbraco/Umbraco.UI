@@ -9,8 +9,30 @@ export class UUIColorPickerSliderElement extends LitElement {
       static styles = [
     css`
       :host {
-        /* Styles goes here */
+        --slider-height: 15px;
+        --slider-handle-size: 17px;
+
+        display: inline-block;
       }
+
+      .color-picker__slider {
+        position: relative;
+        height: var(--slider-height);
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .color-picker__slider-handle {
+        position: absolute;
+        top: calc(50% - var(--slider-handle-size) / 2);
+        width: var(--slider-handle-size);
+        height: var(--slider-handle-size);
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+        margin-left: calc(var(--slider-handle-size) / -2);
+      }
+      
     `,
   ];
 
