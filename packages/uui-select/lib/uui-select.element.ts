@@ -145,7 +145,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   }
 
   set value(newVal) {
-    super.value = newVal;
+    this.value = newVal;
   }
 
   /**
