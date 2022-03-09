@@ -215,13 +215,13 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   private _extractGroups() {
     if (this.options.length === 0) return;
 
-    this._groups = [
-      ...new Set(
+    this._groups = Array.from(
+      new Set(
         this.options
           .filter(option => option.group)
           .map(option => option.group as string)
-      ),
-    ];
+      )
+    );
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {

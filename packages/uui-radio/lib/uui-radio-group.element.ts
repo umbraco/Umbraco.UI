@@ -55,7 +55,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     return this._value;
   }
   set value(newValue) {
-    super.value = newValue;
+    this.value = newValue;
     if (newValue === null || newValue === '') {
       this._makeFirstEnabledFocusable();
     }
