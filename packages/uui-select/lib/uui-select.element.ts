@@ -134,21 +134,6 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   error = false;
 
   /**
-   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
-   * @type {string}
-   * @attr
-   * @default on
-   */
-  @property({ type: String })
-  get value() {
-    return this._value;
-  }
-
-  set value(newVal) {
-    this.value = newVal;
-  }
-
-  /**
    * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties:
    * `interface Option {
     name: string;
