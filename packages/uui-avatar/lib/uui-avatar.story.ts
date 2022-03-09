@@ -125,12 +125,16 @@ InlineWithText.parameters = {
   },
 };
 
-// TODO: Uncomment when we get the bagde element added to packages
-// export const WidthBadge = Template.bind({});
-// WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
-// WidthBadge.argTypes = {
-//   slot: { table: { category: 'slots' }, control: { type: 'text' } },
-// };
-// WidthBadge.parameters = {
-//   controls: { include: ['slot', 'overflow', 'name'] },
-// };
+export const WithBadge = Template.bind({});
+WithBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
+WithBadge.argTypes = {
+  slot: { table: { category: 'slots' }, control: { type: 'text' } },
+};
+WithBadge.parameters = {
+  controls: { include: ['slot', 'overflow', 'name'] },
+  docs: {
+    source: {
+      code: `<uui-avatar name="Umbraco HQ"><uui-badge>!</uui-badge></uui-avatar>`,
+    },
+  },
+};
