@@ -1,14 +1,17 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 import { UUIColorPickerEvent } from './UUIColorPickerEvents';
 
 /**
- * @element uui-color-picker
+ *  @element uui-color-picker
+ *  @description 
  */
+ @defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LitElement {
-      static styles = [
+  static styles = [
     css`
       :host {
         /* Styles goes here */

@@ -1,12 +1,16 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { property } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
- * @element uui-color-swatches
+ *  @element uui-color-swatches
+ *  @description 
  */
+ @defineElement('uui-color-swatches')
 export class UUIColorSwatchesElement extends LitElement {
-      static styles = [
+  static styles = [
     css`
       :host {
         --swatch-size: 25px;

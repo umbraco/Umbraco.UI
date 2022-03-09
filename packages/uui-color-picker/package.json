@@ -10,7 +10,7 @@
     "Lit",
     "Color Picker"
   ],
-  "description": "Umbraco UI color-picker component",
+  "description": "Color picker",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
@@ -19,11 +19,12 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-color-picker.min.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "customElements": "custom-elements.json",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
     "custom-elements.json"

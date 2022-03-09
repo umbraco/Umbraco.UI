@@ -1,12 +1,16 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { property } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
- * @element uui-color-picker-slider
+ *  @element uui-color-picker-slider
+ *  @description 
  */
+@defineElement('uui-color-picker-slider')
 export class UUIColorPickerSliderElement extends LitElement {
-      static styles = [
+  static styles = [
     css`
       :host {
         --slider-height: 15px;
