@@ -48,7 +48,7 @@ AAAOverview.argTypes = {
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `<uui-avatar name="Firstname Lastname"></uui-avatar>`,
+      code: `<uui-avatar name="Umbraco HQ"></uui-avatar>`,
     },
   },
 };
@@ -87,7 +87,7 @@ Colors.parameters = {
   controls: { include: ['backgroundColor', 'color', 'name'] },
   docs: {
     source: {
-      code: `<uui-avatar style="background-color: blue; color: white"></uui-avatar>`,
+      code: `<uui-avatar style="background-color: blue; color: white" name="Umbraco HQ"></uui-avatar>`,
     },
   },
 };
