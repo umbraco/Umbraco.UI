@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { property, query } from 'lit/decorators.js';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =
@@ -26,7 +28,14 @@ export type InputType =
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
  */
-export class UUIInputElement extends LitElement {
+@defineElement('uui-input')
+export class UUIInputElement extends FormControlMixin(LitElement) {
+  /**
+   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
+   * @type {boolean}
+   */
+  static readonly formAssociated = true;
+
   static styles = [
     css`
       :host {
@@ -34,7 +43,6 @@ export class UUIInputElement extends LitElement {
         display: inline-flex;
         align-items: center;
         height: var(--uui-size-11);
-        font-size: 15px;
         text-align: left;
         box-sizing: border-box;
         background-color: var(
@@ -65,27 +73,35 @@ export class UUIInputElement extends LitElement {
           var(--uui-interface-border-focus)
         );
       }
-      :host([error]) {
-        border-color: var(--uui-look-danger-border);
-      }
       :host([disabled]) {
         background-color: var(
           --uui-input-background-color-disabled,
           var(--uui-interface-surface-disabled)
         );
-        border: 1px solid
-          var(
-            --uui-input-border-color-disabled,
-            var(--uui-interface-border-disable)
-          );
+        border-color: var(
+          --uui-input-border-color-disabled,
+          var(--uui-interface-surface-disabled)
+        );
 
         color: var(--uui-interface-contrast-disabled);
+      }
+      :host([readonly]) {
+        border-color: var(
+          --uui-input-border-color-readonly,
+          var(--uui-interface-border-readonly)
+        );
+      }
+
+      :host(:not([pristine]):invalid),
+      /* polyfill support */
+      :host(:not([pristine])[internals-invalid]) {
+        border-color: var(--uui-look-danger-border);
       }
 
       input {
         font-family: inherit;
         padding: var(--uui-size-1) var(--uui-size-space-3);
-        font-size: 15px;
+        font-size: inherit;
         color: inherit;
         border-radius: 0;
         box-sizing: border-box;
@@ -99,7 +115,7 @@ export class UUIInputElement extends LitElement {
       input::placeholder {
         transition: opacity 120ms;
       }
-      input:focus::placeholder {
+      :host(:not([readonly])) input:focus::placeholder {
         opacity: 0;
       }
 
@@ -116,6 +132,60 @@ export class UUIInputElement extends LitElement {
       }
     `,
   ];
+
+  /**
+   * This is a minimum value of the input.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  minlength?: number;
+
+  /**
+   * Minlength validation message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'minlength-message' })
+  minlengthMessage = 'This field need more characters';
+
+  /**
+   * This is a maximum value of the input.
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  maxlength?: number;
+
+  /**
+   * Maxlength validation message.
+   * @type {boolean}
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'maxlength-message' })
+  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+
+  /**
+   * Disables the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
 
   /**
    * Label for input element.
@@ -135,82 +205,19 @@ export class UUIInputElement extends LitElement {
   placeholder = '';
 
   /**
-   * Disables the input.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  @state()
-  private _value = '';
-
-  /**
-   * This is a value property of the uui-input.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property()
-  get value() {
-    return this._value;
-  }
-  set value(newValue) {
-    this._value = newValue;
-    if (
-      'ElementInternals' in window &&
-      //@ts-ignore
-      'setFormValue' in window.ElementInternals.prototype
-    ) {
-      this._internals.setFormValue(this._value);
-    }
-  }
-
-  /**
-   * This is a name property of the `<uui-input>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
-
-  /**
-   * Set to true if the component should have an error state.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  /**
    * This property specifies the type of input that will be rendered.
    * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
    * @attr
    * @default text
    */
   @property({ type: String })
-  private _type: InputType = 'text';
-  public get type(): InputType {
-    return this._type;
-  }
-  public set type(value: InputType) {
-    this._type = value;
-  }
+  type: InputType = 'text';
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  private _internals;
+  @query('#input')
+  _input!: HTMLInputElement;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
 
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
@@ -218,20 +225,38 @@ export class UUIInputElement extends LitElement {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+
+    this.addValidator(
+      'tooShort',
+      () => this.minlengthMessage,
+      () => !!this.minlength && (this._value as string).length < this.minlength
+    );
+    this.addValidator(
+      'tooLong',
+      () => this.maxlengthMessage,
+      () => !!this.maxlength && (this._value as string).length > this.maxlength
+    );
   }
 
   /**
    * This method enables <label for="..."> to focus the input
    */
   focus() {
-    (this.shadowRoot?.querySelector('#input') as any).focus();
+    this._input.focus();
   }
 
-  private onInput(e: Event) {
+  protected getFormElement(): HTMLElement {
+    return this._input;
+  }
+
+  private _onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
+
+    // TODO: Do we miss an input event?
   }
 
-  private onChange() {
+  private _onChange() {
+    this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
@@ -249,14 +274,21 @@ export class UUIInputElement extends LitElement {
       <input
         id="input"
         .type=${this.type}
-        .value=${this.value}
+        .value=${this.value as string}
         .name=${this.name}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
-        @input=${this.onInput}
-        @change=${this.onChange} />
+        ?readonly=${this.readonly}
+        @input=${this._onInput}
+        @change=${this._onChange} />
       ${this.renderAppend()}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-input': UUIInputElement;
   }
 }

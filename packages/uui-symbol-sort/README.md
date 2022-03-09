@@ -15,25 +15,13 @@ npm i @umbraco-ui/uui-symbol-sort
 Import the registration of `<uui-symbol-sort>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-sort/lib';
+import '@umbraco-ui/uui-symbol-sort';
 ```
 
 When looking to leverage the `UUISymbolSortElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISymbolSortElement } from '@umbraco-ui/uui-symbol-sort/lib/uui-symbol-sort.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-symbol-sort@latest/dist/uui-symbol-sort.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-symbol-sort@X.X.X/dist/uui-symbol-sort.min.js"></script>
+import { UUISymbolSortElement } from '@umbraco-ui/uui-symbol-sort';
 ```
 
 ## Usage

@@ -1,6 +1,11 @@
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
+
 import { UUISelectEvent } from './UUISelectEvent';
+
+// TODO: Dont set a global interface, we should expose a 'local' interface.
 declare global {
   interface Option {
     name: string;
@@ -12,11 +17,14 @@ declare global {
 }
 
 /**
- * Custom element wrapping the native select element. It for it to print options you need to pass an array of options to it. This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
+ * Custom element wrapping the native select element. Pass an array of options to it.
+ * This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-select
  * @fires change - when the user changes value
  */
-export class UUISelectElement extends LitElement {
+// TODO: Consider if this should use child items instead of an array.
+@defineElement('uui-select')
+export class UUISelectElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
@@ -126,33 +134,6 @@ export class UUISelectElement extends LitElement {
   error = false;
 
   /**
-   * This is the name property of the uui-checkbox or the uui-toggle component. It reflects the behaviour of the native input type="checkbox" element and its name attribute.
-   * @type {string}
-   * @attr
-   */
-  @property({ type: String })
-  name = '';
-
-  private _value = '';
-  /**
-   * This is a value property of the uui-checkbox or the uui-toggle component. The default value of this property is 'on'. It reflects the behaviour of the native input type="checkbox" element and its value attribute.
-   * @type {string}
-   * @attr
-   * @default on
-   */
-  @property({ type: String })
-  get value() {
-    return this._value;
-  }
-
-  set value(newVal) {
-    const oldValue = this._value;
-    this._value = newVal;
-    this._internals.setFormValue(this.name !== '' ? this._value : null);
-    this.requestUpdate('value', oldValue);
-  }
-
-  /**
    * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties:
    * `interface Option {
     name: string;
@@ -177,16 +158,11 @@ export class UUISelectElement extends LitElement {
   @state()
   private _disabledGroups: string[] = [];
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-  readonly _internals;
+  @query('#native')
+  protected _input!: HTMLSelectElement;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
 
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
@@ -200,13 +176,13 @@ export class UUISelectElement extends LitElement {
    * This method enables <label for="..."> to focus the select
    */
   focus() {
-    (this.shadowRoot?.querySelector('#native') as any).focus();
+    this._input.focus();
   }
   /**
    * This method enables <label for="..."> to open the select
    */
   click() {
-    (this.shadowRoot?.querySelector('#native') as any).click();
+    this._input.click();
   }
 
   connectedCallback() {
@@ -219,19 +195,18 @@ export class UUISelectElement extends LitElement {
   private _createDisabledGroups() {
     if (this.disabledGroups.length === 0) return;
     this._disabledGroups = this.disabledGroups.split(',');
-    console.log(this._disabledGroups);
   }
 
   private _extractGroups() {
     if (this.options.length === 0) return;
 
-    this._groups = [
-      ...new Set(
+    this._groups = Array.from(
+      new Set(
         this.options
           .filter(option => option.group)
           .map(option => option.group as string)
-      ),
-    ];
+      )
+    );
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
@@ -248,6 +223,10 @@ export class UUISelectElement extends LitElement {
         composed: false,
       })
     );
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
   }
 
   private _renderOption(
@@ -309,5 +288,11 @@ export class UUISelectElement extends LitElement {
           )
         )}
     </select>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-select': UUISelectElement;
   }
 }

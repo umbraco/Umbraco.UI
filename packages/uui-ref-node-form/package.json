@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-ref-node-form",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -19,20 +19,19 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-ref-node-form.min.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "customElements": "custom-elements.json",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.14"
-  },
-  "peerDependencies": {
-    "@umbraco-ui/uui-ref-node": "~0.0.0"
+    "@umbraco-ui/uui-base": "0.0.17",
+    "@umbraco-ui/uui-ref-node": "0.0.4"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

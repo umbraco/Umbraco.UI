@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-toast-notification/lib/index';
 
 export default {
   id: 'uui-toast-notification',
@@ -41,14 +42,15 @@ AAAOverview.parameters = {
 export const ErrorStyle: Story = props => html`<uui-toast-notification
   .open=${props.open}
   .look=${props.look}>
-  <uui-toast-notification-layout headline="Document could not be published!">
-    An error occurred while attempting to contact the server. Please check your
-    internet connection.
+  <uui-toast-notification-layout .headline=${props.headline}>
+    ${props.message}
     <uui-button slot="actions" look="danger">Retry</uui-button>
   </uui-toast-notification-layout>
 </uui-toast-notification>`;
 ErrorStyle.args = {
   headline: 'Document could not be published!',
+  message:
+    'An error occurred while attempting to contact the server. Please check your internet connection.',
   look: 'danger',
 };
 ErrorStyle.parameters = {
@@ -69,12 +71,13 @@ export const PositiveStyle: Story = props => html`<uui-toast-notification
   .open=${props.open}
   .look=${props.look}>
   <uui-toast-notification-layout .headline=${props.headline}>
-    <p>This document is now saved and published.</p>
+    ${props.message}
     <uui-button slot="actions" .look=${props.look}>View in browser</uui-button>
   </uui-toast-notification-layout>
 </uui-toast-notification>`;
 PositiveStyle.args = {
   headline: 'Document was published',
+  message: 'This document is now saved and published.',
   look: 'positive',
 };
 PositiveStyle.parameters = {

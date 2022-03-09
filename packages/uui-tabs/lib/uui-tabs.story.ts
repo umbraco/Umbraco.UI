@@ -1,6 +1,7 @@
-import { html } from 'lit-html';
-import '@umbraco-ui/uui-tabs/lib/index';
+import '.';
+
 import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
 
 export default {
   title: 'Buttons/Tabs',
@@ -32,11 +33,11 @@ export default {
 export const AAAOverview: Story = props => html`
   <uui-tab-group
     style="
-    --uui-tab-text: ${props['--uui-tab-text']}; 
-    --uui-tab-text-hover: ${props['--uui-tab-text-hover']}; 
-    --uui-tab-text-active: ${props['--uui-tab-text-active']}; 
-    --uui-tab-background: ${props['--uui-tab-background']}; 
-    --uui-tab-divider: ${props['--uui-tab-divider']}; 
+    --uui-tab-text: ${props['--uui-tab-text']};
+    --uui-tab-text-hover: ${props['--uui-tab-text-hover']};
+    --uui-tab-text-active: ${props['--uui-tab-text-active']};
+    --uui-tab-background: ${props['--uui-tab-background']};
+    --uui-tab-divider: ${props['--uui-tab-divider']};
     ${props.inlineStyles}">
     <uui-tab active> Content </uui-tab>
     <uui-tab ?disabled=${props.disabled}> Packages </uui-tab>
@@ -49,12 +50,12 @@ export const WithBorders: Story = () => html`
   <h3>With Borders</h3>
   <div
     style="
-    height: 48px; 
+    height: 48px;
     font-size: 14px;
-    --uui-tab-text: var(--uui-look-primary-surface); 
-    --uui-tab-text-hover: var(--uui-look-primary-surface-hover); 
-    --uui-tab-text-active: var(--uui-look-primary-surface-hover); 
-    --uui-tab-background: none; 
+    --uui-tab-text: var(--uui-look-primary-surface);
+    --uui-tab-text-hover: var(--uui-look-primary-surface-hover);
+    --uui-tab-text-active: var(--uui-look-primary-surface-hover);
+    --uui-tab-background: none;
     --uui-tab-divider: var(--uui-interface-border);
     ">
     <uui-tab-group>
@@ -69,12 +70,12 @@ export const Navbar: Story = () => html`
   <h3>Navbar</h3>
   <div
     style="
-    height: 60px; 
+    height: 60px;
     font-size: 16px;
     --uui-tab-text: var(--uui-look-primary-contrast-disabled);
-    --uui-tab-text-hover: var(--uui-look-primary-contrast-hover); 
-    --uui-tab-text-active: var(--uui-interface-active); 
-    --uui-tab-background: var(--uui-look-primary-surface); 
+    --uui-tab-text-hover: var(--uui-look-primary-contrast-hover);
+    --uui-tab-text-active: var(--uui-interface-active);
+    --uui-tab-background: var(--uui-look-primary-surface);
     ">
     <uui-tab-group>
       <uui-tab>

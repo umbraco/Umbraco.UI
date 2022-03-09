@@ -15,25 +15,13 @@ npm i @umbraco-ui/uui-card-media
 Import the registration of `<uui-card-media>` via:
 
 ```javascript
-import '@umbraco-ui/uui-card-media/lib';
+import '@umbraco-ui/uui-card-media';
 ```
 
 When looking to leverage the `UUICardMediaElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardMediaElement } from '@umbraco-ui/uui-card-media/lib/uui-card-media.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-card-media@latest/dist/uui-card-media.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-card-media@X.X.X/dist/uui-card-media.min.js"></script>
+import { UUICardMediaElement } from '@umbraco-ui/uui-card-media';
 ```
 
 ## Usage

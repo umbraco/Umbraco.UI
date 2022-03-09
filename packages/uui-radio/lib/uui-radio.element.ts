@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { query, property } from 'lit/decorators.js';
 import {
   UUIHorizontalShakeKeyframes,
@@ -14,6 +15,7 @@ import { UUIRadioEvent } from './UUIRadioEvent';
  * @fires change - on input change
  *
  */
+@defineElement('uui-radio')
 export class UUIRadioElement extends LitElement {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -23,7 +25,7 @@ export class UUIRadioElement extends LitElement {
         box-sizing: border-box;
         font-family: inherit;
         color: currentColor;
-        --uui-radio-button-size: calc(var(--uui-size-2) * 3);
+        --uui-radio-button-size: var(--uui-size-6);
         margin: var(--uui-size-2) 0;
       }
 
@@ -161,9 +163,24 @@ export class UUIRadioElement extends LitElement {
   public label = '';
 
   @property({ type: Boolean, reflect: true })
-  public checked = false;
-
-  private _disabled = false;
+  public get checked() {
+    return this._checked;
+  }
+  public set checked(value) {
+    const oldValue = this._checked;
+    this._checked = value;
+    if (value === true) {
+      this.setAttribute('aria-checked', '');
+      if (!this.disabled) {
+        this.setAttribute('tabindex', '0');
+      }
+    } else {
+      this.setAttribute('tabindex', '-1');
+      this.removeAttribute('aria-checked');
+    }
+    this.requestUpdate('checked', oldValue);
+  }
+  private _checked = false;
 
   /**
    * Disables the input.
@@ -175,7 +192,6 @@ export class UUIRadioElement extends LitElement {
   get disabled() {
     return this._disabled;
   }
-
   set disabled(newVal) {
     const oldVal = this._disabled;
     this._disabled = newVal;
@@ -185,6 +201,7 @@ export class UUIRadioElement extends LitElement {
     }
     this.requestUpdate('disabled', oldVal);
   }
+  private _disabled = false;
 
   constructor() {
     super();
@@ -196,41 +213,53 @@ export class UUIRadioElement extends LitElement {
     });
   }
 
+  focus() {
+    this.inputElement.focus();
+  }
+  click() {
+    this.inputElement.click();
+  }
+
   private _onChange() {
-    if (this.inputElement.checked) this.check();
-    else this.uncheck();
+    const checked = this.inputElement.checked;
+    this.checked = checked;
+    if (checked) {
+      this.focus();
+    }
+    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
   }
 
   /**
    * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
    * @method uncheck
-   *
    */
   public uncheck() {
     this.checked = false;
-    this.setAttribute('tabindex', '-1');
-    this.setAttribute('aria-checked', 'false');
   }
 
   /**
    * Call to check the element.
    * @method uncheck
-   * @fires UUIRadioEvent#change
-   *
    */
   public check() {
     this.checked = true;
-    /**
-     * Change event.
-     *
-     * @event UUIRadioEvent#change
-     * @type {object}
-     */
-    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
+  }
+  /**
+   * Call to make the element focusable, this sets tabindex to 0.
+   * @method makeFocusable
+   */
+  public makeFocusable() {
     if (!this.disabled) {
       this.setAttribute('tabindex', '0');
-      this.setAttribute('aria-checked', 'true');
-      this.focus();
+    }
+  }
+  /**
+   * Call to make the element focusable, this sets tabindex to 0.
+   * @method makeUnfocusable
+   */
+  public makeUnfocusable() {
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '-1');
     }
   }
 
@@ -239,7 +268,7 @@ export class UUIRadioElement extends LitElement {
     //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
-      this.setAttribute('aria-checked', 'false');
+      this.removeAttribute('aria-checked');
   }
 
   render() {
@@ -257,5 +286,11 @@ export class UUIRadioElement extends LitElement {
         ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}
       </div>
     </label>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-radio': UUIRadioElement;
   }
 }

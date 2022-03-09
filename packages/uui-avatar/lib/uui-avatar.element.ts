@@ -1,4 +1,5 @@
 import { property, state } from 'lit/decorators.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { LitElement, html, css } from 'lit';
 
 /**
@@ -6,6 +7,7 @@ import { LitElement, html, css } from 'lit';
  *  @element uui-avatar
  *  @slot For anything other than initials (no more than 2-3 characters)
  */
+@defineElement('uui-avatar')
 export class UUIAvatarElement extends LitElement {
   static styles = [
     css`
@@ -13,6 +15,7 @@ export class UUIAvatarElement extends LitElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
         position: relative;
         overflow: hidden;
         border-radius: 50%;
@@ -22,7 +25,7 @@ export class UUIAvatarElement extends LitElement {
         height: calc(2em + 4px);
         user-select: none;
         /* box-sizing: border-box; */
-
+        aspect-ratio: 1;
         background-color: var(--uui-color-spanish-pink);
         color: var(--uui-color-space-cadet);
       }
@@ -70,7 +73,6 @@ export class UUIAvatarElement extends LitElement {
 
   /**
    * Provide the name used for labels and to generate the initials.
-   * This is not used when an img or imgSrcset is provided.
    * @type {string}
    * @attr
    * @default ''
@@ -93,15 +95,15 @@ export class UUIAvatarElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     if (!this.name) {
-      console.warn(this.tagName + ' needs a `title`', this);
+      console.warn(this.tagName + ' needs a `name`', this);
     }
   }
 
-  private createInitials(title: string) {
+  private createInitials(name: string) {
     let initials = '';
 
-    if (title) {
-      const words = title.match(/(\w+)/g) || [];
+    if (name) {
+      const words = name.match(/(\w+)/g) || [];
       initials = words[0].substring(0, 1);
       if (words.length > 1) {
         initials += words[words.length - 1].substring(0, 1);
@@ -124,5 +126,11 @@ export class UUIAvatarElement extends LitElement {
       ${!this.imgSrc ? this.initials : ''}
       <slot></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-avatar': UUIAvatarElement;
   }
 }

@@ -1,6 +1,7 @@
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
  *  @element uui-card-content-node
@@ -9,6 +10,7 @@ import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
  *  @description - Card component for displaying a content-node.
  */
 
+@defineElement('uui-card-content-node')
 export class UUICardContentNodeElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
@@ -110,8 +112,6 @@ export class UUICardContentNodeElement extends UUICardElement {
 
   public render() {
     return html`
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
       <div
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : 0}
@@ -129,6 +129,14 @@ export class UUICardContentNodeElement extends UUICardElement {
       <div id="select-border"></div>
 
       <slot></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card-content-node': UUICardContentNodeElement;
   }
 }

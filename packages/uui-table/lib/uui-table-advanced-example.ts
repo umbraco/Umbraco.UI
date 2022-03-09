@@ -1,14 +1,15 @@
-import { LitElement, html, css } from 'lit';
-import { repeat } from 'lit/directives/repeat.js';
+import '.';
+import '@umbraco-ui/uui-avatar/lib';
+import '@umbraco-ui/uui-box/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-progress-bar/lib';
+import '@umbraco-ui/uui-tag/lib';
+
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import '@umbraco-ui/uui-table/lib/index';
-import '@umbraco-ui/uui-box/lib/index';
-import '@umbraco-ui/uui-tag/lib/index';
-import '@umbraco-ui/uui-avatar/lib/index';
-import '@umbraco-ui/uui-button/lib/index';
-import '@umbraco-ui/uui-progress-bar/lib/index';
-import '@umbraco-ui/uui-icon/lib/index';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
+import { repeat } from 'lit/directives/repeat.js';
 
 interface TableColumn {
   name: string;
@@ -240,7 +241,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       </uui-table-cell>
       <uui-table-cell>
         <div style="display: flex; align-items: center;">
-          <uui-avatar title="${item.name}" style="margin-right: 10px;">
+          <uui-avatar name="${item.name}" style="margin-right: 10px;">
           </uui-avatar>
           <a style="font-weight: bold;" href="http://">${item.name}</a>
         </div>

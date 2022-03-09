@@ -1,6 +1,7 @@
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
 
 /**
  *  @element uui-card-user
@@ -9,6 +10,7 @@ import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element';
  *  @description - Card component for displaying a user node.
  */
 
+@defineElement('uui-card-user')
 export class UUICardUserElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
@@ -22,7 +24,7 @@ export class UUICardUserElement extends UUICardElement {
       }
 
       slot:not([name])::slotted(*) {
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
         line-height: var(--uui-size-6);
       }
 
@@ -98,9 +100,7 @@ export class UUICardUserElement extends UUICardElement {
 
   public render() {
     return html`
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
-      <uui-avatar id="avatar" title=${this.name} size="m"></uui-avatar>
+      <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
       <div
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : '0'}
@@ -109,6 +109,14 @@ export class UUICardUserElement extends UUICardElement {
         <span> ${this.name} </span>
       </div>
       <slot></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-card-user': UUICardUserElement;
   }
 }

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 /**
  *  A box for grouping elements
@@ -8,13 +9,13 @@ import { LitElement, html, css } from 'lit';
  *  @slot area with no padding
  *
  */
+@defineElement('uui-box')
 export class UUIBoxElement extends LitElement {
   static styles = [
     css`
       :host {
         display: block;
-        /* TODO: fix automatic fallback values for shadows shadows.*/
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
         background-color: var(--uui-interface-surface);
       }
@@ -36,5 +37,11 @@ export class UUIBoxElement extends LitElement {
       <slot name="main"></slot>
       <slot></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-box': UUIBoxElement;
   }
 }

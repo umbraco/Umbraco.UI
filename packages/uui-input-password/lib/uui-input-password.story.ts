@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-input-password/lib/index';
 
 export default {
   id: 'uui-input-password',
@@ -9,7 +10,6 @@ export default {
   args: {
     value: '',
     label: 'Label',
-    hideLabel: false,
   },
   parameters: {
     docs: {
@@ -24,7 +24,6 @@ export const AAAOverview: Story = props =>
   html`<uui-input-password
     .disabled=${props.disabled}
     .error=${props.error}
-    .hideLabel=${props.hideLabel}
     .label=${props.label}
     .name=${props.name}
     .placeholder=${props.placeholder}

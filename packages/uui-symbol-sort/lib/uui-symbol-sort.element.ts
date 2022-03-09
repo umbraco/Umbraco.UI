@@ -1,14 +1,14 @@
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
 import { ActiveMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-symbol-sort
  *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting is ascending or descending.
  *  Please define aria-sort on the header for the composition.
- *  @property active - Set this boolean to true for then the related composition is sorted.
- *  @property descending - Set this boolean to true for displaying descending sort is active.
  */
+@defineElement('uui-symbol-sort')
 export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   static styles = [
     css`
@@ -18,6 +18,7 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
         width: 0.8em;
         height: 1em;
         vertical-align: middle;
+        pointer-events: none;
       }
 
       svg {
@@ -71,7 +72,7 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   ];
 
   /**
-   * Turns the arrow around.
+   * Turns the arrow around. Set this boolean to true for displaying descending sort is active.
    * @type {boolean}
    * @default false
    */
@@ -85,5 +86,11 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
       <svg id="down" viewBox="0 0 512 512">
         <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
       </svg>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-sort': UUISymbolSortElement;
   }
 }

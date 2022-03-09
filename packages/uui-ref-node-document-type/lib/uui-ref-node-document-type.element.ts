@@ -1,6 +1,7 @@
+import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.element';
 
 /**
  *  @element uui-ref-node-document-type
@@ -10,6 +11,7 @@ import { UUIRefNodeElement } from '@umbraco-ui/uui-ref-node/lib/uui-ref-node.ele
  *  @description - Component for displaying a reference to a Content type(Document Type, Media Type, Element Type etc.) node.
  */
 
+@defineElement('uui-ref-node-document-type')
 export class UUIRefNodeDocumentTypeElement extends UUIRefNodeElement {
   static styles = [...UUIRefNodeElement.styles];
 
@@ -37,5 +39,11 @@ export class UUIRefNodeDocumentTypeElement extends UUIRefNodeElement {
     return html`<small id="detail"
       >${details.join(' | ')}<slot name="detail"></slot
     ></small>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-ref-node-document-type': UUIRefNodeDocumentTypeElement;
   }
 }

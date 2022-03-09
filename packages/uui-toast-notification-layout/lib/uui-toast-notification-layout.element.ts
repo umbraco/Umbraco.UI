@@ -1,6 +1,7 @@
-import { LitElement, html, css } from 'lit';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
 
 /**
  *  @element uui-toast-notification-layout
@@ -9,11 +10,18 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib/uui-text.styles';
  *  @slot headline - for headline
  *  @slot actions - for actions
  */
+@defineElement('uui-toast-notification-layout')
 export class UUIToastNotificationLayoutElement extends LitElement {
   static styles = [
     UUITextStyles,
     css`
-      #message > h5 {
+      #message {
+        margin-bottom: calc(var(--uui-size-space-1) * -1);
+      }
+      #message::after {
+        content: '';
+        display: block;
+        clear: both;
       }
       #actions {
         /*
@@ -24,14 +32,8 @@ export class UUIToastNotificationLayoutElement extends LitElement {
         display: block;
         float: right;
 
-        margin-top: var(--uui-size-space-3);
+        margin-top: var(--uui-size-space-4);
         margin-bottom: calc(var(--uui-size-space-2) * -1);
-      }
-
-      #message::after {
-        content: '';
-        display: block;
-        clear: both;
       }
     `,
   ];
@@ -57,7 +59,8 @@ export class UUIToastNotificationLayoutElement extends LitElement {
     return html`
       <div id="message" class="uui-text">
         <h5
-          style=${this._headlineSlotHasContent || this.headline !== null
+          style=${this._headlineSlotHasContent ||
+          (this.headline && this.headline !== '')
             ? ''
             : 'display: none'}>
           ${this.headline}
@@ -67,5 +70,11 @@ export class UUIToastNotificationLayoutElement extends LitElement {
         <slot id="actions" name="actions"></slot>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification-layout': UUIToastNotificationLayoutElement;
   }
 }

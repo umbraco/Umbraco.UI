@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-loader-bar/lib/index';
 
 export default {
   title: 'Loaders/Loader Bar',
@@ -15,6 +16,9 @@ export default {
     animationDuration: {
       control: { type: 'number', min: 0, max: 100 },
     },
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
   },
 };
 

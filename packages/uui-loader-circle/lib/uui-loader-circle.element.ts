@@ -1,11 +1,13 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  *  @element uui-loader-circle
  * @description - Circular loader for indicating loading. You can put in in a button ;)
  */
+@defineElement('uui-loader-circle')
 export class UUILoaderCircleElement extends LitElement {
   static styles = [
     css`
@@ -88,6 +90,9 @@ export class UUILoaderCircleElement extends LitElement {
         font-size: 0.3em;
         font-weight: 700;
         text-align: center;
+
+        /* Center the text */
+        padding-top: 0.09em;
       }
     `,
   ];
@@ -118,14 +123,11 @@ export class UUILoaderCircleElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
   showProgress = false;
 
-  @query('#svg-container')
-  private _container: any;
-
   private _resizeObserver = new ResizeObserver(() => this.onResize());
   private _isLarge = false;
 
   firstUpdated() {
-    this._resizeObserver.observe(this._container);
+    this._resizeObserver.observe(this);
   }
 
   disconnectedCallback() {
@@ -133,7 +135,7 @@ export class UUILoaderCircleElement extends LitElement {
   }
 
   onResize() {
-    const newIsLarge = Number.parseFloat(this._container.clientHeight) >= 30;
+    const newIsLarge = this.clientHeight >= 30;
 
     if (this._isLarge != newIsLarge) {
       this._isLarge = newIsLarge;
@@ -166,5 +168,11 @@ export class UUILoaderCircleElement extends LitElement {
       </svg>
       ${this.renderProgress()}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-loader-circle': UUILoaderCircleElement;
   }
 }

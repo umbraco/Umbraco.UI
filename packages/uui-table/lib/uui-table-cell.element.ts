@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -6,6 +7,7 @@ import { property } from 'lit/decorators.js';
  *  @element uui-table-cell
  *  @slot for table cell content
  */
+@defineElement('uui-table-cell')
 export class UUITableCellElement extends LitElement {
   static styles = [
     css`
@@ -92,7 +94,8 @@ export class UUITableCellElement extends LitElement {
     this._observer.disconnect();
   }
 
-  updated(changedProperties: any) {
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     if (changedProperties.has('clipText')) {
       if (this.clipText) {
         this._detectOverflow();
@@ -105,5 +108,11 @@ export class UUITableCellElement extends LitElement {
 
   render() {
     return html` <slot @slotchange=${this._detectOverflow}></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-table-cell': UUITableCellElement;
   }
 }

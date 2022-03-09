@@ -1,6 +1,4 @@
-import { UUITabElement } from './uui-tab.element';
-import { UUITabGroupElement } from './uui-tab-group.element';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-
-defineElement('uui-tab', UUITabElement as any);
-defineElement('uui-tab-group', UUITabGroupElement as any);
+export * from './uui-tab.element';
+export * from './uui-tab-group.element';
+export * from './UUITabEvent';
+export * from './UUITabGroupEvent';

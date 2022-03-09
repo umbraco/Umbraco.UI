@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input-password",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -19,19 +19,20 @@
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
-  "main": "./dist/uui-input-password.min.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "customElements": "custom-elements.json",
   "files": [
-    "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.14",
-    "@umbraco-ui/uui-input": "0.0.16",
-    "@umbraco-ui/uui-icon-registry-essential": "0.0.0"
+    "@umbraco-ui/uui-base": "0.0.17",
+    "@umbraco-ui/uui-icon-registry-essential": "0.0.3",
+    "@umbraco-ui/uui-input": "0.0.19"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

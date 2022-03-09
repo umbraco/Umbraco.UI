@@ -1,7 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-avatar-group/lib/index';
-import { GetRandomUmbracoWordOfWordCount } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
   title: 'Displays/Avatar Group',
@@ -18,10 +18,10 @@ export const AAAOverview: Story = props => html`
       '--uui-avatar-border-color'
     ]};"
     .limit=${props.limit}>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
+    <uui-avatar name="Mads Rasmussen"></uui-avatar>
+    <uui-avatar name="Niels Lyngsøe"></uui-avatar>
+    <uui-avatar name="Jacob Overgaard"></uui-avatar>
+    <uui-avatar name="Jesper Møller Jensen"></uui-avatar>
   </uui-avatar-group>
 `;
 AAAOverview.args = { fontSize: 2, '--uui-avatar-border-color': 'white' };
@@ -33,10 +33,10 @@ AAAOverview.parameters = {
   docs: {
     source: {
       code: html`<uui-avatar-group>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
       </uui-avatar-group>`.strings,
     },
   },
@@ -48,10 +48,10 @@ export const Limit: Story = ({ limit }) => html`
   <uui-avatar-group
     style="font-size: 2rem; --uui-avatar-border-color: white;"
     .limit=${limit}>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
-    <uui-avatar title=${GetRandomUmbracoWordOfWordCount(2)}></uui-avatar>
+    <uui-avatar name="MR"></uui-avatar>
+    <uui-avatar name="NL"></uui-avatar>
+    <uui-avatar name="JJ"></uui-avatar>
+    <uui-avatar name="JO"></uui-avatar>
   </uui-avatar-group>
 `;
 Limit.args = { limit: 2 };
@@ -60,10 +60,10 @@ Limit.parameters = {
   docs: {
     source: {
       code: html`<uui-avatar-group limit="2">
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
-        <uui-avatar title="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
+        <uui-avatar name="Firstname Lastname"></uui-avatar>
       </uui-avatar-group>`.strings,
     },
   },

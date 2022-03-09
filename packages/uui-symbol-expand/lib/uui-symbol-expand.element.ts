@@ -1,11 +1,12 @@
-import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
  *  A symbol indicating weather related composition is expanded or collapsed
  *  @element uui-symbol-expand
- *  @property open - Set this boolean to true for a open/expanded look.
  */
+@defineElement('uui-symbol-expand')
 export class UUISymbolExpandElement extends LitElement {
   static styles = [
     css`
@@ -29,7 +30,7 @@ export class UUISymbolExpandElement extends LitElement {
   ];
 
   /**
-   * Turns the arrow around.
+   * Set this boolean to true for a open/expanded look.
    * @type {boolean}
    * @default false
    */
@@ -40,5 +41,11 @@ export class UUISymbolExpandElement extends LitElement {
     return html`<svg viewBox="0 0 512 512">
       <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
     </svg>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-expand': UUISymbolExpandElement;
   }
 }

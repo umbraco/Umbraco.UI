@@ -1,7 +1,7 @@
 import { setCustomElements } from '@storybook/web-components';
 import customElements from '../custom-elements.json';
 import '../packages/uui-css/lib/uui-css.css';
-import 'https://cdn.skypack.dev/element-internals-polyfill';
+import 'element-internals-polyfill';
 
 const sort = (a, b) => {
   if (a[1].name === 'Overview') {

@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-scroll-container/lib/index';
 
 export default {
   id: 'uui-scroll-container',

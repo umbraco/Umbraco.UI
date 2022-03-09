@@ -1,6 +1,7 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-toggle/lib/index';
 
 export default {
   title: 'Inputs/Toggle',
@@ -14,7 +15,6 @@ export default {
     labelPosition: 'right',
     disabled: false,
     checked: false,
-    hideLabel: false,
     '--uui-toggle-size': '18px',
     '--uui-toggle-switch-width': '36px',
   },
@@ -38,7 +38,6 @@ export const AAAOverview: Story = props =>
       .labelPosition=${props.labelPosition}
       ?disabled=${props.disabled}
       ?checked=${props.checked}
-      ?hide-label=${props.hideLabel}
       >${props.slot}</uui-toggle
     >
   `;
@@ -140,17 +139,13 @@ export const NoLabel: Story = props =>
     <uui-toggle
       label="label"
       ?checked=${props.checked}
-      ?hide-label=${props.hideLabel}
       value="toggle"></uui-toggle>
   `;
-NoLabel.args = {
-  hideLabel: true,
-};
 NoLabel.parameters = {
-  controls: { include: ['checked', 'hideLabel'] },
+  controls: { include: ['checked'] },
   docs: {
     source: {
-      code: `<uui-toggle label="Label" hide-label></uui-toggle>
+      code: `<uui-toggle></uui-toggle>
       `,
     },
   },

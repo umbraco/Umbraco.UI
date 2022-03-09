@@ -13,25 +13,13 @@ npm i @umbraco-ui/uui-checkbox
 Import the registration of `<uui-checkbox>` via:
 
 ```javascript
-import '@umbraco-ui/uui-checkbox/lib';
+import '@umbraco-ui/uui-checkbox';
 ```
 
 When looking to leverage the `UUICheckboxElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICheckboxElement } from '@umbraco-ui/uui-checkbox/lib/uui-checkbox.element';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-checkbox@latest/dist/uui-checkbox.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-checkbox@X.X.X/dist/uui-checkbox.min.js"></script>
+import { UUICheckboxElement } from '@umbraco-ui/uui-checkbox';
 ```
 
 ## Usage

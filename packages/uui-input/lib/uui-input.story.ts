@@ -1,12 +1,18 @@
+import '.';
+import './uui-input-form-example';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-input/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-input/lib/index';
 
 export default {
   title: 'Inputs/Input',
   component: 'uui-input',
   id: 'uui-input',
   args: {
+    disabled: false,
+    readonly: false,
     value: '',
     label: 'Label',
     placeholder: 'Placeholder',
@@ -35,6 +41,7 @@ const Template: Story = props =>
   html`
     <uui-input
       .disabled=${props.disabled}
+      .readonly=${props.readonly}
       .error=${props.error}
       .label=${props.label}
       .type=${props.type}
@@ -89,12 +96,15 @@ Error.parameters = {
   },
 };
 
+export const Form: Story = () =>
+  html`<uui-input-example-element></uui-input-example-element>`;
+
 export const PrependAndAppend: Story = props =>
   html`
     <uui-input
       .disabled=${props.disabled}
+      .readonly=${props.readonly}
       .error=${props.error}
-      .hideLabel=${props.hideLabel}
       .label=${props.label}
       .type=${props.type}
       .name=${props.name}
@@ -137,8 +147,8 @@ export const MultipleInputs: Story = props =>
   html`
     <uui-input
       .disabled=${props.disabled}
+      .readonly=${props.readonly}
       .error=${props.error}
-      .hideLabel=${props.hideLabel}
       .label=${props.label}
       .type=${props.type}
       .name=${props.name}

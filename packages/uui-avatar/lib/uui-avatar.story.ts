@@ -1,14 +1,14 @@
+import '@umbraco-ui/uui-avatar/lib';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '@umbraco-ui/uui-avatar/lib/index';
-import { GetRandomUmbracoWordOfWordCount } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
   title: 'Displays/Avatar',
   id: 'uui-avatar',
   component: 'uui-avatar',
   args: {
-    title: GetRandomUmbracoWordOfWordCount(2),
+    name: 'Umbraco HQ',
     fontSize: 12,
   },
   // argTypes: {
@@ -32,7 +32,7 @@ const Template: Story = (props: any) => html`<uui-avatar
   .overflow=${props.overflow}
   .imgSrc=${props.imgSrc}
   .imgSrcset=${props.imgSrcset}
-  .title=${props.title}
+  .name=${props.name}
   style="font-size: ${props.fontSize}px; background-color: ${props.backgroundColor}; color: ${props.color}"
   >${props.slot}</uui-avatar
 >`;
@@ -48,7 +48,7 @@ AAAOverview.argTypes = {
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `<uui-avatar title="Firstname Lastname"></uui-avatar>`,
+      code: `<uui-avatar name="Firstname Lastname"></uui-avatar>`,
     },
   },
 };
@@ -56,10 +56,10 @@ AAAOverview.parameters = {
 export const Picture = Template.bind({});
 Picture.args = { imgSrc: avatarSrcSet[0] };
 Picture.parameters = {
-  controls: { include: ['imgSrc', 'imgSrcset', 'title'] },
+  controls: { include: ['imgSrc', 'imgSrcset', 'name'] },
   docs: {
     source: {
-      code: `<uui-avatar src="..." title="Firstname Lastname"></uui-avatar>`,
+      code: `<uui-avatar src="..." name="Firstname Lastname"></uui-avatar>`,
     },
   },
 };
@@ -69,7 +69,7 @@ Sizes.argTypes = {
   fontSize: { table: { category: 'inline styling' } },
 };
 Sizes.parameters = {
-  controls: { include: ['fontSize', 'title'] },
+  controls: { include: ['fontSize', 'name'] },
   docs: {
     source: {
       code: `<uui-avatar style="font-size: 12px;"></uui-avatar>`,
@@ -84,7 +84,7 @@ Colors.argTypes = {
   backgroundColor: { table: { category: 'inline styling' } },
 };
 Colors.parameters = {
-  controls: { include: ['backgroundColor', 'color', 'title'] },
+  controls: { include: ['backgroundColor', 'color', 'name'] },
   docs: {
     source: {
       code: `<uui-avatar style="background-color: blue; color: white"></uui-avatar>`,
@@ -93,7 +93,7 @@ Colors.parameters = {
 };
 
 export const SlottedContent = Template.bind({});
-SlottedContent.args = { slot: 'overflow', title: '' };
+SlottedContent.args = { slot: 'overflow', name: '' };
 SlottedContent.argTypes = {
   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 };
@@ -101,7 +101,7 @@ SlottedContent.parameters = {
   controls: { include: ['slot', 'overflow'] },
   docs: {
     source: {
-      code: `<uui-avatar overflow title="overflow title">overflow content</uui-avatar>`,
+      code: `<uui-avatar overflow name="overflow name">overflow content</uui-avatar>`,
     },
   },
 };
@@ -110,7 +110,7 @@ export const InlineWithText = (props: any) => html`
   <div>
     Text
     <uui-avatar
-      title="Hello world"
+      name="Hello world"
       style="background-color: ${props.backgroundColor}; color: ${props.color}"
       >${props.slot}</uui-avatar
     >
@@ -120,7 +120,7 @@ export const InlineWithText = (props: any) => html`
 InlineWithText.parameters = {
   docs: {
     source: {
-      code: `Text <uui-avatar title="Hello world">overflow</uui-avatar> around`,
+      code: `Text <uui-avatar name="Hello world">overflow</uui-avatar> around`,
     },
   },
 };
@@ -132,5 +132,5 @@ InlineWithText.parameters = {
 //   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 // };
 // WidthBadge.parameters = {
-//   controls: { include: ['slot', 'overflow', 'title'] },
+//   controls: { include: ['slot', 'overflow', 'name'] },
 // };

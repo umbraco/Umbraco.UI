@@ -1,24 +1,66 @@
 import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
   elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
 } from '@open-wc/testing';
+
 import { UUIMenuItemElement } from './uui-menu-item.element';
-import '.';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-menu-item role="menu" label="menuitem"></uui-menu-item>`
+      html`<uui-menu-item label="menuitem"></uui-menu-item>`
     );
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIMenuItemElement);
   });
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  describe('properties', () => {
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
+    });
+    it('disable property defaults to false', () => {
+      expect(element.disabled).to.false;
+    });
+
+    it('has a showChildren property', () => {
+      expect(element).to.have.property('showChildren');
+    });
+    it('showChildren property defaults to false', () => {
+      expect(element.showChildren).to.false;
+    });
+
+    it('has a hasChildren property', () => {
+      expect(element).to.have.property('hasChildren');
+    });
+    it('hasChildren property defaults to false', () => {
+      expect(element.hasChildren).to.false;
+    });
+
+    it('has a loading property', () => {
+      expect(element).to.have.property('loading');
+    });
+    it('loading property defaults to false', () => {
+      expect(element.loading).to.false;
+    });
+
+    it('has a href property', () => {
+      expect(element).to.have.property('href');
+    });
+
+    it('has a target property', () => {
+      expect(element).to.have.property('target');
+    });
   });
 
   describe('template', () => {
@@ -75,6 +117,15 @@ describe('UUIMenuItemElement', () => {
       element.selectable = true;
     });
 
+    it('label element is defined', () => {
+      expect(labelElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as a button tag', async () => {
+      await elementUpdated(element);
+      expect(labelElement?.nodeName).to.be.equal('BUTTON');
+    });
+
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
       labelElement?.click();
@@ -93,6 +144,44 @@ describe('UUIMenuItemElement', () => {
       await elementUpdated(element);
       labelElement?.click();
       expect(element.selected).to.be.false;
+    });
+  });
+
+  describe('HREF', () => {
+    let labelElement: HTMLElement;
+    let element: UUIMenuItemElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`<uui-menu-item
+          label="menuitem"
+          href="https://www.umbraco.com"></uui-menu-item>`
+      );
+      labelElement = element.shadowRoot!.querySelector(
+        '#label-button'
+      ) as HTMLElement;
+    });
+
+    it('label element is defined', () => {
+      expect(labelElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as an anchor tag', async () => {
+      await elementUpdated(element);
+      expect(labelElement.nodeName).to.be.equal('A');
+    });
+
+    it('target is applied to anchor tag', async () => {
+      element.target = '_self';
+      await elementUpdated(element);
+      expect(labelElement.getAttribute('target')).to.be.equal('_self');
+    });
+
+    it('when target is _blank rel=noopener is set.', async () => {
+      element.target = '_blank';
+      await elementUpdated(element);
+      expect(labelElement.getAttribute('target')).to.be.equal('_blank');
+      expect(labelElement.getAttribute('rel')).to.be.equal('noopener');
     });
   });
 });

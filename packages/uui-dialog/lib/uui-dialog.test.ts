@@ -18,10 +18,5 @@ describe('UUIDialogElement', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
       expect(slot).to.exist;
     });
-
-    it('renders an action slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
-      expect(slot).to.exist;
-    });
   });
 });

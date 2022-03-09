@@ -1,26 +1,30 @@
-import { LitElement, css, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
 import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
+  SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
- *  @property label - This functions both as the visible label as well as the aria label.
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
- *  @slot default slot for nested menu items
+ *  @slot default - nested menu items go here
  *  @slot icon - icon area
  *  @slot actions - actions area
- *
+ *  @slot label-slot - area to place the label (name: label)
  */
-export class UUIMenuItemElement extends SelectableMixin(
-  ActiveMixin(LabelMixin('label', LitElement))
+@defineElement('uui-menu-item')
+export class UUIMenuItemElement extends SelectOnlyMixin(
+  SelectableMixin(ActiveMixin(LabelMixin('label', LitElement)))
 ) {
   static styles = [
     css`
@@ -29,6 +33,8 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: var(--uui-interface-surface);
         /** consider transparent. */
         --uui-menu-item-child-indent: calc(var(--uui-menu-item-indent, 0) + 1);
+
+        user-select: none;
       }
 
       #menu-item {
@@ -44,19 +50,20 @@ export class UUIMenuItemElement extends SelectableMixin(
       }
 
       button {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+
         font-family: inherit;
+        font-size: inherit;
 
         padding: 0;
         text-align: left;
-        box-shadow: none;
         border: none;
         color: inherit;
         background-color: transparent;
         cursor: pointer;
-        z-index: 1;
-        /* padding: 0 var(--uui-size-base-unit) 0 var(--uui-size-base-unit); */
         min-height: var(--uui-size-12);
+        z-index: 1;
       }
       /* button:hover {
         color: var(--uui-interface-contrast-hover);
@@ -68,6 +75,16 @@ export class UUIMenuItemElement extends SelectableMixin(
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: currentColor;
+        min-height: var(--uui-size-12);
+        z-index: 1;
+      }
+      span#label-button {
+        pointer-events: none; /* avoid hovering state on this. */
       }
 
       #caret-button + #label-button {
@@ -99,7 +116,9 @@ export class UUIMenuItemElement extends SelectableMixin(
         transition: opacity 120ms;
         grid-column-start: 3;
       }
-      #menu-item:hover #actions-container {
+      :host(:not([disabled])) #menu-item:hover #actions-container,
+      :host(:not([disabled])) #menu-item:focus #actions-container,
+      :host(:not([disabled])) #menu-item:focus-within #actions-container {
         opacity: 1;
       }
 
@@ -110,13 +129,12 @@ export class UUIMenuItemElement extends SelectableMixin(
       }
 
       #icon {
+        display: inline-flex;
         font-size: 16px;
-        margin-bottom: var(--uui-size-1);
         margin-right: var(--uui-size-2);
-        display: inline-block;
       }
 
-      :host([disabled]) #label-button {
+      :host([disabled]) {
         color: var(--uui-interface-surface-contrast-disabled);
       }
       :host([disabled]) #label-button-background {
@@ -126,10 +144,10 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: var(--uui-interface-surface-disabled);
       }
 
-      :host([active]) button {
+      :host([active]) {
         color: var(--uui-interface-active-contrast);
       }
-      :host([active]) button:hover {
+      :host([active]) #label-button:hover {
         color: var(--uui-interface-active-contrast-hover);
       }
       :host([active]) #label-button-background {
@@ -143,10 +161,10 @@ export class UUIMenuItemElement extends SelectableMixin(
         background-color: var(--uui-interface-active-disabled);
       }
 
-      :host([selected]) button {
+      :host([selected]) {
         color: var(--uui-interface-select-contrast);
       }
-      :host([selected]) button:hover {
+      :host([selected]) #label-button:hover {
         color: var(--uui-interface-select-contrast-hover);
       }
       :host([selected]) #label-button-background {
@@ -180,7 +198,7 @@ export class UUIMenuItemElement extends SelectableMixin(
   ];
 
   /**
-   * Disables the menu item, changes the looks of it and prevents if from emitting the click event
+   * Disables the menu item, changes the looks of it and prevents it from emitting the click event
    * @type {boolean}
    * @attr
    * @default false
@@ -216,6 +234,37 @@ export class UUIMenuItemElement extends SelectableMixin(
   @property({ type: Boolean, attribute: 'loading' })
   public loading = false;
 
+  /**
+   * Set an href, this will turns the label into a anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  @state()
+  private iconSlotHasContent = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
+  }
+
+  private iconSlotChanged(e: any): void {
+    this.iconSlotHasContent =
+      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+  }
+
   private onCaretClicked() {
     this.showChildren = !this.showChildren;
     const eventName: string = this.showChildren
@@ -230,12 +279,41 @@ export class UUIMenuItemElement extends SelectableMixin(
     this.dispatchEvent(event);
   }
 
-  @state()
-  private iconSlotHasContent = false;
+  private _renderLabelInside() {
+    return html` <slot
+        name="icon"
+        id="icon"
+        style=${this.iconSlotHasContent ? '' : 'display: none;'}
+        @slotchange=${this.iconSlotChanged}></slot>
+      ${this.renderLabel()}`;
+  }
 
-  private iconSlotChanged(e: any): void {
-    this.iconSlotHasContent =
-      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+  private _renderLabelAsAnchor() {
+    if (this.disabled) {
+      return html` <span id="label-button">
+        ${this._renderLabelInside()}
+      </span>`;
+    }
+    return html` <a
+      id="label-button"
+      href=${ifDefined(this.href)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}
+      @click=${this.onLabelClicked}
+      ?disabled=${this.disabled}
+      aria-label="${this.label}">
+      ${this._renderLabelInside()}
+    </a>`;
+  }
+
+  private _renderLabelAsButton() {
+    return html` <button
+      id="label-button"
+      @click=${this.onLabelClicked}
+      ?disabled=${this.disabled}
+      aria-label="${this.label}">
+      ${this._renderLabelInside()}
+    </button>`;
   }
 
   render() {
@@ -246,25 +324,23 @@ export class UUIMenuItemElement extends SelectableMixin(
               <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}
-        <button
-          id="label-button"
-          @click=${this.onLabelClicked}
-          ?disabled=${this.disabled}
-          aria-label="${this.label}">
-          <slot
-            name="icon"
-            id="icon"
-            style=${this.iconSlotHasContent ? '' : 'display: none;'}
-            @slotchange=${this.iconSlotChanged}></slot>
-          ${this.renderLabel()}
-        </button>
+        ${this.href ? this._renderLabelAsAnchor() : this._renderLabelAsButton()}
+
         <div id="label-button-background"></div>
-        <slot id="actions-container" name="actions"></slot>
+        ${this.selectOnly === false
+          ? html`<slot id="actions-container" name="actions"></slot>`
+          : ''}
         ${this.loading
           ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
           : ''}
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-menu-item': UUIMenuItemElement;
   }
 }
