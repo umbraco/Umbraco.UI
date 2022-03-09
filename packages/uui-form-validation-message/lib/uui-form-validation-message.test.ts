@@ -1,8 +1,9 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
-import { UUIFormValidationMessageElement } from './uui-form-validation-message.element';
-import '.';
 import '@umbraco-ui/uui-input/lib';
+
+import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib/uui-input.element';
+
+import { UUIFormValidationMessageElement } from './uui-form-validation-message.element';
 
 describe('UUIFormValidationMessageElement', () => {
   let element: UUIFormValidationMessageElement;
