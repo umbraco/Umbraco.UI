@@ -1,6 +1,7 @@
-import { css, html, LitElement } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+
 import { UUISelectEvent } from './UUISelectEvent';
 
 // TODO: Dont set a global interface, we should expose a 'local' interface.
@@ -231,13 +232,13 @@ export class UUISelectElement extends LitElement {
   private _extractGroups() {
     if (this.options.length === 0) return;
 
-    this._groups = [
-      ...new Set(
+    this._groups = Array.from(
+      new Set(
         this.options
           .filter(option => option.group)
           .map(option => option.group as string)
-      ),
-    ];
+      )
+    );
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
