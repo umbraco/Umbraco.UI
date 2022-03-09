@@ -1,5 +1,3 @@
-import '.';
-
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 
 import { UUISelectElement } from './uui-select.element';
@@ -26,6 +24,14 @@ describe('UUISelectElement', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  it('is defined with its own instance', () => {
+    expect(element).to.be.instanceOf(UUISelectElement);
+  });
+
+  it('has internals', () => {
+    expect(element).to.have.property('_internals');
   });
 
   it('input exists', () => {
