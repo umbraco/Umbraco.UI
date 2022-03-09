@@ -1,6 +1,6 @@
 import { css, html } from 'lit';
 import { property } from 'lit/decorators';
-import { UUICardElement } from '../uui-card/uui-card.element';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 
 /**
  *  @element uui-package-card

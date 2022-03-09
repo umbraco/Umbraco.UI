@@ -11,6 +11,5 @@ export const Overview = () =>
     <uui-lock-symbol
       @click=${(e: MouseEvent) => {
         (e.target as any).open = !(e.target as any).open;
-      }}
-    ></uui-lock-symbol>
+      }}></uui-lock-symbol>
   `;

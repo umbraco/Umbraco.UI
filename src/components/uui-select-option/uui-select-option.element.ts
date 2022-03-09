@@ -1,6 +1,6 @@
 import { LitElement, css } from 'lit';
-import { property, query } from 'lit/decorators';
-import { LabelMixin } from '../../mixins/LabelMixin';
+import { property, query } from 'lit/decorators.js';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUISelectOptionEvent } from './UUISelectOptionEvent';
 
 /**
@@ -79,7 +79,7 @@ export class UUISelectOptionElement extends LabelMixin('', LitElement) {
     if (!this.hasAttribute('aria-selected'))
       this.setAttribute('aria-selected', 'false');
     if (!this.value) {
-      console.warn(this.tagName + ' needs a `value`');
+      console.warn(this.tagName + ' needs a `value`', this);
     }
   }
 

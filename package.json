@@ -1,10 +1,8 @@
 {
-  "name": "@umbraco/umbraco-ui",
+  "name": "uui-monorepo",
   "version": "0.0.1",
   "description": "A library of UI-components, build with love from Umbraco",
   "license": "MIT",
-  "main": "index.js",
-  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git"
@@ -20,83 +18,108 @@
     "shadow-dom",
     "custom-elements"
   ],
-  "dependencies": {
-    "@popperjs/core": "^2.8.3",
-    "lit": "^2.0.0-rc.1"
-  },
   "scripts": {
-    "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint:eslint": "eslint --ext .ts,.html,.mjs,.cjs . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .ts,.html,.mjs,.cjs . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\"  --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
-    "test": "tsc && web-test-runner --coverage",
+    "storybook": "npm run bootstrap && npm run storybook:analyze && start-storybook -p 6006",
+    "storybook:build": "npm run bootstrap && npm run storybook:analyze && build-storybook",
+    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
+    "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
-    "storybook": "npm run analyze && npm run css && concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"npm run css:watch\" \"start-storybook --node-resolve --watch --open\"",
-    "storybook:build": "npm run analyze && build-storybook",
-    "build": "npm run clean && rimraf dist && tsc && rollup -c rollup.config.js",
-    "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
-    "start": "concurrently --kill-others --names tsc,web-dev-server \"npm run tsc:watch\" \"web-dev-server --app-index index.html --node-resolve --open --watch\"",
-    "tsc:watch": "tsc --watch",
-    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json",
-    "clean": "npm run clean:ts && npm run clean:style",
-    "clean:ts": "del-cli --force ./out-tsc",
-    "clean:style": "del-cli --force ./out-css",
-    "css": "postcss src/style --base src --dir out-css",
-    "css:watch": "postcss src/style --base src --dir out-css --watch"
+    "test:coverage": "web-test-runner --node-resolve --coverage",
+    "test:coverage-for": "node ./scripts/test-coverage-package.js",
+    "dev": "npm run clean && npm run storybook",
+    "build": "lerna run --scope @umbraco-ui/uui-css build && turbo run build",
+    "build:prod": "npm run clean && npm run build",
+    "clean": "turbo run clean --parallel",
+    "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
+    "lerna:version": "lerna version --no-push --exact --no-git-tag-version && rimraf package-lock.json && npm i",
+    "lerna:diff": "lerna diff",
+    "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
+    "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
+    "postinstall": "npm run bootstrap",
+    "bootstrap": "lerna run --scope @umbraco-ui/uui-css clean && lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
+    "check-updates": "npx ncu && npx lerna exec --no-bail -- npx ncu",
+    "prepare": "husky install",
+    "new-package": "plop && npm i",
+    "pack-all": "npm run build:prod && node ./scripts/pack-packages.js",
+    "pack-all-no-build": "node ./scripts/pack-packages.js",
+    "pack": "node ./scripts/pack-package.js",
+    "chromatic": "npx chromatic --build-script-name storybook:build"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.21.0"
+  },
+  "dependencies": {
+    "lit": "^2.0.0"
   },
   "devDependencies": {
-    "@open-wc/building-rollup": "^1.1.0",
-    "@open-wc/demoing-storybook": "^2.0.0",
-    "@open-wc/eslint-config": "^4.0.0",
-    "@open-wc/testing": "^2.0.0",
-    "@storybook/addon-a11y": "^6.0.28",
-    "@types/node": "13.11.1",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
-    "@web/dev-server": "^0.0.12",
-    "@web/test-runner": "^0.7.41",
-    "autoprefixer": "^10.2.3",
-    "concurrently": "^5.1.0",
-    "deepmerge": "^4.2.2",
-    "del-cli": "^3.0.1",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.11.0",
-    "husky": "^1.0.0",
-    "lint-staged": "^10.0.0",
-    "postcss": "^8.3.6",
-    "postcss-advanced-variables": "^3.0.1",
-    "postcss-cli": "^8.3.1",
-    "postcss-color-function": "^4.1.0",
-    "prettier": "^2.0.4",
-    "rimraf": "^2.6.3",
-    "rollup": "^2.3.4",
-    "tslib": "^1.11.0",
-    "typescript": "~4.0.3",
-    "web-component-analyzer": "^1.1.6"
+    "@babel/core": "7.17.5",
+    "@open-wc/testing": "3.1.2",
+    "@rollup/plugin-node-resolve": "13.1.3",
+    "@storybook/addon-a11y": "6.4.19",
+    "@storybook/addon-actions": "6.4.19",
+    "@storybook/addon-essentials": "6.4.19",
+    "@storybook/addon-links": "6.4.19",
+    "@storybook/web-components": "6.4.19",
+    "@types/chai": "4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.13.0",
+    "@typescript-eslint/parser": "5.13.0",
+    "@web/dev-server-esbuild": "0.2.16",
+    "@web/test-runner": "0.13.27",
+    "autoprefixer": "10.4.2",
+    "chromatic": "6.5.1",
+    "element-internals-polyfill": "1.0.3",
+    "esbuild": "0.14.24",
+    "eslint": "8.10.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-html": "6.2.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-lit": "1.6.1",
+    "eslint-plugin-lit-a11y": "2.2.0",
+    "eslint-plugin-storybook": "0.5.7",
+    "husky": "7.0.4",
+    "lerna": "4.0.0",
+    "npm-check-updates": "^12.4.0",
+    "lint-staged": "12.3.4",
+    "plop": "3.0.5",
+    "postcss": "8.4.7",
+    "postcss-advanced-variables": "3.0.1",
+    "postcss-cli": "9.1.0",
+    "postcss-color-function": "4.1.0",
+    "postcss-custom-properties": "12.1.4",
+    "postcss-jsx": "0.36.4",
+    "postcss-load-config": "3.1.3",
+    "postcss-url": "10.1.3",
+    "postcss-values-parser": "6.0.2",
+    "prettier": "2.5.1",
+    "rimraf": "3.0.2",
+    "rollup": "2.69.0",
+    "rollup-plugin-esbuild": "4.8.2",
+    "rollup-plugin-import-css": "3.0.2",
+    "rollup-plugin-minify-html-literals": "1.2.6",
+    "rollup-plugin-postcss": "4.0.2",
+    "storybook-builder-vite": "0.1.17",
+    "tsc-files": "1.1.3",
+    "turbo": "1.1.2",
+    "typescript": "4.5.2",
+    "vite": "2.8.6",
+    "vite-tsconfig-paths": "3.4.1",
+    "web-component-analyzer": "1.1.6"
   },
-  "eslintConfig": {
-    "extends": [
-      "@open-wc/eslint-config",
-      "eslint-config-prettier"
-    ]
-  },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "jsxBracketSameLine": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+  "workspaces": [
+    "./packages/*"
+  ],
   "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
-  }
+    "*.ts": "tsc-files --project tsconfig-lint-staged.json",
+    "*.{js,ts,mjs,cjs,html}": "eslint --cache --fix -c .eslintrc.js",
+    "*": "prettier --ignore-unknown --write"
+  },
+  "packageManager": "npm@8.3.0"
 }

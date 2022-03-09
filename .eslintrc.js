@@ -1,20 +1,37 @@
 module.exports = {
+  ignorePatterns: ['vite.*.js', 'src/**/*'],
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'import', 'html'],
+  plugins: ['@typescript-eslint', 'html', 'import'],
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
+    'plugin:lit/recommended',
+    'plugin:lit-a11y/recommended',
+    'plugin:storybook/recommended',
   ],
   rules: {
     // disable the rule for all files
-    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'import/named': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'import/no-unresolved': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
+    '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: './',
+  },
+  env: {
+    browser: true,
+    node: true,
   },
 };

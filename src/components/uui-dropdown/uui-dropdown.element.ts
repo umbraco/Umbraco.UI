@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { query, property } from 'lit/decorators';
+import { query, property } from 'lit/decorators.js';
 import { UUIDropdownEvent } from './UUIDropdownEvent';
 import { createPopper, Instance, Modifier } from './popper';
 import { Placement } from '@popperjs/core/lib/enums';
@@ -24,7 +24,7 @@ export class UUIDropdownElement extends LitElement {
 
       #data-container {
         box-sizing: border-box;
-        border-radius: var(--uui-size-border-radius);
+        border-radius: var(--uui-border-radius);
         box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
       }
 

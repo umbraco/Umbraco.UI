@@ -1,0 +1,20 @@
+import '.';
+
+import { Story } from '@storybook/web-components';
+import { html } from 'lit-html';
+
+export default {
+  id: '{{> tagnamePartial}}',
+  title: '{{displayName name}}',
+  component: '{{> tagnamePartial}}',
+  parameters: {
+    docs: {
+      source: {
+        code: `<{{> tagnamePartial}}></{{> tagnamePartial}}>`,
+      },
+    },
+  },
+};
+
+export const Overview: Story = props =>
+  html`<{{> tagnamePartial}}></{{> tagnamePartial}}>`;

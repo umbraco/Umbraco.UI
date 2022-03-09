@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-file-symbol
@@ -42,7 +42,7 @@ export class UUIImageFileSymbolElement extends LitElement {
       <!-- TODO: figure out how we use other components, so we dont use their custom element tag name. -->
       <uui-file-symbol .type=${this.type}></uui-file-symbol>
       <div id="image-wrapper">
-        <img .src=${this.source} />
+        <img .src=${this.source} alt="" />
       </div>
     `;
   }

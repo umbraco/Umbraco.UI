@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { query, property } from 'lit/decorators';
+import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
-import { LabelMixin } from '../../mixins/LabelMixin';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  *  @element uui-file-dropzone
@@ -49,6 +49,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
+    // @ts-ignore TODO: fix typescript error
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 
@@ -111,7 +112,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         id="input"
         type="file"
         ?multiple=${this.multiple}
-        @change=${this._onFileInputChange}
-      /><label id="input-label" for="input">${this.renderLabel()}</label>`;
+        @change=${this._onFileInputChange} /><label id="input-label" for="input"
+        >${this.renderLabel()}</label
+      >`;
   }
 }

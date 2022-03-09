@@ -1,4 +1,4 @@
-import { UUIEvent } from '../../event/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUIFilePreviewElement } from './uui-file-preview.element';
 
 export class UUIFilePreviewEvent extends UUIEvent<{}, UUIFilePreviewElement> {

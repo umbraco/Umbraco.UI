@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, query, queryAll, state } from 'lit/decorators';
+import { property, query, queryAll } from 'lit/decorators.js';
 import { UUIFileDropzoneElement } from '../uui-file-dropzone/uui-file-dropzone.element';
 import { UUIFilePreviewElement } from '../uui-file-preview/uui-file-preview.element';
 import { UUIFilePreviewEvent } from '../uui-file-preview/UUIFilePreviewEvents';
@@ -24,7 +24,7 @@ export class UUIFileInputElement extends LitElement {
 
       #button-icon {
         margin: 0;
-        color: var(--uui-color-maroon-flush, #d42054);
+        color: var(--uui-color-maroon-flush);
       }
 
       #file-container {
@@ -32,7 +32,7 @@ export class UUIFileInputElement extends LitElement {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         place-items: start stretch;
-        grid-gap: var(--uui-size-layout-0);
+        grid-gap: var(--uui-size-8);
         position: relative;
       }
 
@@ -191,8 +191,7 @@ export class UUIFileInputElement extends LitElement {
       ><uui-file-dropzone-symbol
         id="dropzone-symbol"
         .error=${this.error}
-        class="move-to-top"
-      ></uui-file-dropzone-symbol
+        class="move-to-top"></uui-file-dropzone-symbol
       >${this.error === false
         ? html`<uui-button
             aria-controls="uploader"
@@ -208,12 +207,14 @@ export class UUIFileInputElement extends LitElement {
   }
 
   removeButtonTemplate() {
-    if (this.files.length > 0)
+    if (this.files.length > 0) {
       return html`<uui-button @click=${this.removeFiles} look="outline"
         ><uui-icon id="button-icon" name="delete"></uui-icon>
         Remove
         ${this.files !== null && this.files.length > 1 ? 'files' : 'file'}
       </uui-button>`;
+    }
+    return html``;
   }
 
   render() {
@@ -224,8 +225,7 @@ export class UUIFileInputElement extends LitElement {
             html`<uui-file-preview
               .file=${file}
               .name=${file.name}
-              @remove-file=${this.removeFile}
-            >
+              @remove-file=${this.removeFile}>
               <uui-action-bar slot="action"
                 ><uui-button look="danger"
                   ><uui-icon name="delete"></uui-icon

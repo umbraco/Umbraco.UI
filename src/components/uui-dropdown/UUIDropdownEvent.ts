@@ -1,4 +1,4 @@
-import { UUIEvent } from '../../event/UUIEvent';
+import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUIDropdownElement } from './uui-dropdown.element';
 
 export class UUIDropdownEvent extends UUIEvent<{}, UUIDropdownElement> {

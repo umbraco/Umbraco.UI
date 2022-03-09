@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 
 type HTMLElementWithDisable = HTMLElement & { disabled: boolean };
 
@@ -88,8 +88,7 @@ export class UUILockSlotElement extends LitElement {
         ?disabled=${this.disabled}
         @click=${() => {
           this.locked = !this.locked;
-        }}
-      >
+        }}>
         <uui-lock-symbol ?open=${this.locked === false}></uui-lock-symbol>
       </button>
       <slot @slotchange=${this.onSlotChanged}></slot>

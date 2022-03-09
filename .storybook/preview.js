@@ -1,34 +1,47 @@
-import {
-  addDecorator,
-  addParameters,
-  setCustomElements,
-  withA11y,
-  withKnobs,
-  withWebComponentsKnobs,
-} from '@open-wc/demoing-storybook';
+import { setCustomElements } from '@storybook/web-components';
+import customElements from '../custom-elements.json';
+import '../packages/uui-css/lib/uui-css.css';
+import 'element-internals-polyfill';
 
-addDecorator(withA11y);
-addDecorator(withKnobs);
-addDecorator(withWebComponentsKnobs);
+const sort = (a, b) => {
+  if (a[1].name === 'Overview') {
+    return 0;
+  }
+  if (b[1].name === 'Overview') {
+    return 1;
+  }
+  return a[0] > b[0];
+};
 
-addParameters({
-  docs: {
-    iframeHeight: '200px',
-  },
-});
-addParameters({
-  options: {
-    storySort: {
-      method: 'alphabetical',
+export const parameters = {
+  layout: 'padded',
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
     },
   },
-});
+  docs: {
+    source: { state: 'open' },
+  },
+  options: {
+    method: 'alphabetical',
+    storySort: sort,
+  },
+  // Hides the CSS: [] property on the docs page.
+  argTypes: {
+    styles: {
+      table: {
+        disable: true,
+      },
+    },
+    formAssociated: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+};
 
-async function run() {
-  const customElements = await (
-    await fetch(new URL('../custom-elements.json', import.meta.url))
-  ).json();
-  setCustomElements(customElements);
-}
-
-run();
+setCustomElements(customElements);

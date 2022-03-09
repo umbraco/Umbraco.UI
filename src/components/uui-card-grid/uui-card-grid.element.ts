@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-grid
@@ -11,7 +11,7 @@ export class UUICardGridElement extends LitElement {
       :host {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-gap: var(--uui-size-medium, 24px);
+        grid-gap: var(--uui-size-8);
         place-items: start;
         justify-content: space-between;
       }

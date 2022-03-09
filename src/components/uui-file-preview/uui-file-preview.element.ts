@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators';
+import { property, state } from 'lit/decorators.js';
 import { UUIFilePreviewEvent } from './UUIFilePreviewEvents';
 import { UUIFileSize } from './UUIFileSize';
 
@@ -94,22 +94,21 @@ export class UUIFilePreviewElement extends LitElement {
     if (type.startsWith('image'))
       return html`<uui-image-file-symbol
         .type=${this.sourceFileExt}
-        .source=${this.source}
-      ></uui-image-file-symbol>`;
+        .source=${this.source}></uui-image-file-symbol>`;
 
     if (this.isDirectory) return html`<uui-folder-symbol></uui-folder-symbol>`;
 
     return html`<uui-file-symbol
-      .type=${this.sourceFileExt}
-    ></uui-file-symbol>`;
+      .type=${this.sourceFileExt}></uui-file-symbol>`;
   }
 
   render() {
+    // TODO: FIX
+    // eslint-disable-next-line lit-a11y/click-events-have-key-events
     return html`<slot
         name="action"
         @click=${this._dispatchRemoveEvent}
-        id="delete-button"
-      >
+        id="delete-button">
       </slot>
       ${this.fileTypeTemplate(this.type)}
       <span id="file-name">

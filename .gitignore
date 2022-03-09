@@ -17,11 +17,24 @@
 
 # build
 /_site/
-/dist/
+/packages/**/dist/
+/packages/**/lib/**/*.js
+/packages/**/lib/**/*.js.map
+/packages/**/lib/**/*.d.ts
+tsconfig.tsbuildinfo
 /out-tsc/
+/packages/**/node_modules/
 
 
 custom-elements.json
+/packages/uui-css/custom-properties.*
 storybook-static
 debug.log
 out-css
+*.log
+.eslintcache
+*.tgz
+.turbo
+
+# old source
+/src

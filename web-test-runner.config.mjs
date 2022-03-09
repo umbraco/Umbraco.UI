@@ -1,4 +1,7 @@
+import { esbuildPlugin } from '@web/dev-server-esbuild';
+
 export default {
-  files: 'out-tsc/**/*.test.js',
-  nodeResolve: true
+  nodeResolve: true,
+  files: 'packages/**/*.test.ts',
+  plugins: [esbuildPlugin({ ts: true, target: 'auto' })],
 };
