@@ -1,6 +1,6 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIFormLayoutItemElement } from './uui-form-layout-item.element';
-import '.';
 
 describe('UUIFormLayoutItemElement', () => {
   let element: UUIFormLayoutItemElement;

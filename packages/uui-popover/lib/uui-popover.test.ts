@@ -1,6 +1,6 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIPopoverElement } from './uui-popover.element';
-import '.';
 
 describe('UUIPopoverElement', () => {
   let element: UUIPopoverElement;

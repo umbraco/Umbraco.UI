@@ -177,8 +177,7 @@ export class UUIPackageCardElement extends UUICardElement {
         id="open-part"
         tabindex="0"
         @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}
-      ></div>
+        @keydown=${this.handleOpenKeydown}></div>
 
       <slot></slot>
     `;
