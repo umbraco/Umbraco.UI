@@ -3,7 +3,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
-import { UUIColorPickerEvent } from './UUIColorPickerEvents';
 
 /**
  *  @element uui-color-picker
