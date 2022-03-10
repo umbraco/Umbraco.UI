@@ -32,12 +32,14 @@ export default {
   },
 };
 
-const Template: Story = props => html` <div
-  style="position:relative; width:80px; height:80px; border: 2px dashed black;">
-  <uui-badge .look=${props.look} ?attention=${props.attention}
-    >${props.slot}</uui-badge
-  >
-</div>`;
+const Template: Story = props => html` <uui-icon-registry-essential>
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+    <uui-badge .look=${props.look} ?attention=${props.attention}
+      >${props.slot}</uui-badge
+    >
+  </div>
+</uui-icon-registry-essential>`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
@@ -50,7 +52,7 @@ AAAOverview.parameters = {
   docs: {
     source: {
       code: `
-<div style="position:relative;">
+<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
   <uui-badge>1</uui-badge>
 </div>
     `,
@@ -64,6 +66,17 @@ WithAttention.args = {
   slot: '!',
   attention: true,
 };
+WithAttention.parameters = {
+  docs: {
+    source: {
+      code: `
+<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+  <uui-badge look="danger" attention>!</uui-badge>
+</div>
+    `,
+    },
+  },
+};
 
 export const WithText = Template.bind({});
 WithText.args = {
@@ -74,7 +87,9 @@ WithText.parameters = {
   docs: {
     source: {
       code: `
+<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
   <uui-badge look="positive">Published</uui-badge>
+</div>
     `,
     },
   },
@@ -83,7 +98,22 @@ WithText.parameters = {
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   look: 'positive',
-  slot: html`<uui-icon name="info"></uui-icon>`,
+  slot: html`<uui-icon name="favorite"></uui-icon>`,
+};
+WithIcon.parameters = {
+  docs: {
+    source: {
+      code: `
+<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+  <uui-icon-registry-essential>
+    <uui-badge look="positive">
+      <uui-icon name="favorite"></uui-icon>
+    </uui-badge>
+  </uui-icon-registry-essential>
+</div>
+    `,
+    },
+  },
 };
 
 export const OnButton: Story = props => html` <uui-button look="outline">
@@ -99,7 +129,7 @@ OnButton.parameters = {
     source: {
       code: `
 <uui-button look="outline">
-  <uui-badge look="positive">!</uui-badge>
+  <uui-badge look="danger">!</uui-badge>
   Button label
 </uui-button>
     `,
@@ -121,4 +151,25 @@ export const Looks: Story = props => html`
 Looks.args = {
   look: 'primary',
   slot: '!',
+};
+
+// TODO: Can I loop over the looknames and build up this string?
+
+let lookNamesDocsCode = '';
+InterfaceLookNames.forEach((lookName: InterfaceLookType) => {
+  lookNamesDocsCode =
+    lookNamesDocsCode +
+    `
+  <div style="position:relative; display:inline-block; width:10px; height:10px; margin-right:16px;">
+    <uui-badge look="${lookName}">!</uui-badge>
+  </div>
+  `;
+});
+
+Looks.parameters = {
+  docs: {
+    source: {
+      code: lookNamesDocsCode,
+    },
+  },
 };
