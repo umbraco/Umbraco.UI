@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { queryAssignedNodes } from 'lit/decorators.js';
+import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUITabElement } from './uui-tab.element';
 
@@ -26,13 +26,24 @@ export class UUITabGroupElement extends LitElement {
     `,
   ];
 
-  @queryAssignedNodes(undefined, true, 'uui-tab')
-  private slotNodes?: UUITabElement[];
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-tab, .uui-tab, [role=tab]',
+  })
+  private slotNodes?: HTMLElement[];
 
   private tabElements: UUITabElement[] = [];
 
   private setTabArray() {
-    this.tabElements = this.slotNodes ? this.slotNodes : [];
+    if (this.slotNodes) {
+      this.tabElements = this.slotNodes.filter(this.elementIsTab);
+    } else {
+      this.tabElements = [];
+    }
+  }
+
+  private elementIsTab(el: unknown): el is UUITabElement {
+    return el instanceof UUITabElement;
   }
 
   private onSlotChange() {
@@ -55,7 +66,7 @@ export class UUITabGroupElement extends LitElement {
 
   private onTabActive = (e: MouseEvent) => {
     //? should this contain stopPropagation?
-    const selectedElement: UUITabElement = e.target as UUITabElement;
+    const selectedElement = e.target as UUITabElement;
     selectedElement.active = true;
 
     const filtered = this.tabElements.filter(el => el !== selectedElement);
