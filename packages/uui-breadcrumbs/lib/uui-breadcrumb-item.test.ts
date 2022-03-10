@@ -1,9 +1,18 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import '.';
+import { expect, fixture, html } from '@open-wc/testing';
+
+import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
 describe('UuiBreadcrumbItem', () => {
+  it('is defined', async () => {
+    const element = await fixture<UUIBreadcrumbItemElement>(
+      html` <uui-breadcrumb-item>One</uui-breadcrumb-item> `
+    );
+
+    expect(element).to.be.instanceOf(UUIBreadcrumbItemElement);
+  });
+
   it('is a link if not last item', async () => {
-    const element = await fixture(
+    const element = await fixture<UUIBreadcrumbItemElement>(
       html` <uui-breadcrumb-item>One</uui-breadcrumb-item> `
     );
 
@@ -12,17 +21,10 @@ describe('UuiBreadcrumbItem', () => {
   });
 
   it('is a span if last item', async () => {
-    const element = await fixture(
+    const element = await fixture<UUIBreadcrumbItemElement>(
       html` <uui-breadcrumb-item last-item>One</uui-breadcrumb-item> `
     );
     const span = element.shadowRoot!.querySelector('span')!;
     expect(span).to.exist;
-  });
-
-  it('passes the a11y audit', async () => {
-    const element = await fixture(
-      html` <uui-breadcrumb-item lastItem>One</uui-breadcrumb-item> `
-    );
-    expect(element).shadowDom.to.be.accessible();
   });
 });

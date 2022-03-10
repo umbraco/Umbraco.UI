@@ -1,4 +1,5 @@
 import { LitElement, html, css, svg, nothing } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
@@ -52,6 +53,7 @@ const GenerateStepArray = (start: number, stop: number, step: number) =>
  *  @fires UUISliderEvent#input on input
  *
  */
+@defineElement('uui-slider')
 export class UUISliderElement extends FormControlMixin(LitElement) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
@@ -421,5 +423,11 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       </div>
       ${RenderStepValues(this._steps, this._stepWidth, this.hideStepValues)}
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-slider': UUISliderElement;
   }
 }

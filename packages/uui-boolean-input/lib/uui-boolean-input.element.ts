@@ -1,6 +1,7 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
-import { property, query } from 'lit/decorators.js';
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { css, html, LitElement, TemplateResult } from 'lit';
+import { property, query } from 'lit/decorators.js';
+
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -147,7 +148,11 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     this.checked = this.hasAttribute('checked');
   }
 
-  protected firstUpdated(): void {
+  protected firstUpdated(
+    _changedProperties: Map<string | number | symbol, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+
     const labelEl = this.shadowRoot?.querySelector('label') as HTMLLabelElement;
 
     // hide outline if mouse-interaction:

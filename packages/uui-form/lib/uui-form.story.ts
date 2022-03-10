@@ -9,7 +9,7 @@ import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent
 
 export default {
   id: 'uui-form',
-  title: 'Inputs/Form',
+  title: 'Inputs/Form/Form',
   component: 'uui-form',
 };
 
@@ -76,6 +76,17 @@ export const Overview: Story = () => html` <form
   </div>
 
   <div style="margin-bottom: 15px;">
+    <uui-textarea
+      label="Textarea"
+      name="textarea"
+      value="Some long text that needs more space"
+      minlength="10"
+      maxlength="30"
+      required>
+    </uui-textarea>
+  </div>
+
+  <div style="margin-bottom: 15px;">
     <input
       name="nativeCheckbox"
       label="Native input text"
@@ -109,10 +120,9 @@ export const Overview: Story = () => html` <form
       required />
   </div>
   <div>
+    <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
     <uui-button type="submit" label="Submit" look="positive">
       Submit
     </uui-button>
-
-    <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
   </div>
 </form>`;

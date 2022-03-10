@@ -27,14 +27,14 @@ tsconfig.tsbuildinfo
 
 
 custom-elements.json
-/packages/uui-css/custom-properties.js
-/packages/uui-css/custom-properties.module.js
+/packages/uui-css/custom-properties.*
 storybook-static
 debug.log
 out-css
 *.log
 .eslintcache
 *.tgz
+.turbo
 
 # old source
 /src

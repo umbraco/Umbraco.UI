@@ -1,6 +1,4 @@
 const tsconfigPaths = require('vite-tsconfig-paths').default;
-const processLitCSSPlugin =
-  require('../scripts/vite.processLitCSSPlugin').default;
 
 module.exports = {
   stories: ['../packages/**/*.story.ts'],
@@ -10,9 +8,14 @@ module.exports = {
     '@storybook/addon-a11y',
   ],
   core: { builder: 'storybook-builder-vite' },
+  staticDirs: ['./images'],
+
   async viteFinal(config, { configType }) {
     // customize the Vite config here
 
+    const processLitCSSPlugin = (
+      await import('../scripts/processLitCSSPlugin.mjs')
+    ).default;
     config.plugins.push(processLitCSSPlugin());
 
     if (configType === 'DEVELOPMENT') {
@@ -27,6 +30,7 @@ module.exports = {
       config.optimizeDeps.include.push('lit/directives/style-map.js');
       config.optimizeDeps.include.push('lit/directives/if-defined.js');
       config.optimizeDeps.include.push('lit/directives/unsafe-html.js');
+      config.optimizeDeps.include.push('element-internals-polyfill');
     }
 
     return config;

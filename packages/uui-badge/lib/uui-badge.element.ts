@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 import { InterfaceLookType } from '@umbraco-ui/uui-base/lib/types';
@@ -8,6 +9,7 @@ import { InterfaceLookType } from '@umbraco-ui/uui-base/lib/types';
  *  @element uui-badge
  *  @slot - for badge contents
  */
+@defineElement('uui-badge')
 export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
@@ -180,5 +182,11 @@ export class UUIBadgeElement extends LitElement {
 
   render() {
     return html` <slot></slot> `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-badge': UUIBadgeElement;
   }
 }

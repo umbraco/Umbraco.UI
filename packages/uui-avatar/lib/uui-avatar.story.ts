@@ -3,14 +3,12 @@ import '@umbraco-ui/uui-avatar/lib';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
-import { GetRandomUmbracoWordOfWordCount } from '../../../storyhelpers/UmbracoWordGenerator';
-
 export default {
-  title: 'Displays/Avatar',
+  title: 'Displays/Avatar/Avatar',
   id: 'uui-avatar',
   component: 'uui-avatar',
   args: {
-    name: GetRandomUmbracoWordOfWordCount(2),
+    name: 'Umbraco HQ',
     fontSize: 12,
   },
   // argTypes: {
@@ -50,7 +48,7 @@ AAAOverview.argTypes = {
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `<uui-avatar name="Firstname Lastname"></uui-avatar>`,
+      code: `<uui-avatar name="Umbraco HQ"></uui-avatar>`,
     },
   },
 };
@@ -89,7 +87,7 @@ Colors.parameters = {
   controls: { include: ['backgroundColor', 'color', 'name'] },
   docs: {
     source: {
-      code: `<uui-avatar style="background-color: blue; color: white"></uui-avatar>`,
+      code: `<uui-avatar style="background-color: blue; color: white" name="Umbraco HQ"></uui-avatar>`,
     },
   },
 };
@@ -127,12 +125,16 @@ InlineWithText.parameters = {
   },
 };
 
-// TODO: Uncomment when we get the bagde element added to packages
-// export const WidthBadge = Template.bind({});
-// WidthBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
-// WidthBadge.argTypes = {
-//   slot: { table: { category: 'slots' }, control: { type: 'text' } },
-// };
-// WidthBadge.parameters = {
-//   controls: { include: ['slot', 'overflow', 'name'] },
-// };
+export const WithBadge = Template.bind({});
+WithBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
+WithBadge.argTypes = {
+  slot: { table: { category: 'slots' }, control: { type: 'text' } },
+};
+WithBadge.parameters = {
+  controls: { include: ['slot', 'overflow', 'name'] },
+  docs: {
+    source: {
+      code: `<uui-avatar name="Umbraco HQ"><uui-badge>!</uui-badge></uui-avatar>`,
+    },
+  },
+};

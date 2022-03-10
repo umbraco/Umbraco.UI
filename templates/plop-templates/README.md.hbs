@@ -15,25 +15,13 @@ npm i @umbraco-ui/{{> tagnamePartial}}
 Import the registration of `<{{> tagnamePartial}}>` via:
 
 ```javascript
-import '@umbraco-ui/{{> tagnamePartial}}/lib';
+import '@umbraco-ui/{{> tagnamePartial}}';
 ```
 
 When looking to leverage the `{{className name}}` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { {{className name}} } from '@umbraco-ui/{{> tagnamePartial}}/lib';
-```
-
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/{{> tagnamePartial}}@latest/dist/{{> tagnamePartial}}.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/{{> tagnamePartial}}@X.X.X/dist/{{> tagnamePartial}}.min.js"></script>
+import { {{className name}} } from '@umbraco-ui/{{> tagnamePartial}}';
 ```
 
 ## Usage

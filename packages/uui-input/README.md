@@ -22,18 +22,6 @@ When looking to leverage the `UUIInputElement` base class as a type and/or for e
 import { UUIInputElement } from '@umbraco-ui/uui-input';
 ```
 
-### CDN
-
-The component is available via CDN. This means it can be added to your application without the need of any bundler configuration. Here is how to use it with jsDelivr.
-
-```html
-<!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-input@latest/dist/uui-input.min.js"></script>
-
-<!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-input@X.X.X/dist/uui-input.min.js"></script>
-```
-
 ## Usage
 
 ```html

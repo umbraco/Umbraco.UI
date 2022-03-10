@@ -1,10 +1,12 @@
 import { LitElement, css, html } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
  *  A caret that rotates on click. Color will be `currentColor`
  *  @element uui-caret
  */
+@defineElement('uui-caret')
 export class UUICaretElement extends LitElement {
   static styles = [
     css`
@@ -45,5 +47,11 @@ export class UUICaretElement extends LitElement {
     return html`<svg viewBox="0 0 512 512">
       <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
     </svg>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-caret': UUICaretElement;
   }
 }

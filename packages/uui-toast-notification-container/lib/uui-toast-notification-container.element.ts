@@ -1,3 +1,4 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   UUIToastNotificationElement,
   UUIToastNotificationEvent,
@@ -8,6 +9,7 @@ import { property } from 'lit/decorators.js';
 /**
  * @element uui-toast-notification-container
  */
+@defineElement('uui-toast-notification-container')
 export class UUIToastNotificationContainerElement extends LitElement {
   static styles = [
     css`
@@ -71,10 +73,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
    */
   public resumeAutoClose = () => {
     // Only reset autoClose if we have it and if one of the children does not have focus.
-    if (
-      this._autoClose &&
-      this.matches(':focus-within:not(:focus)') === false
-    ) {
+    if (this.matches(':focus-within:not(:focus)') === false) {
       this._autoClosePause = false;
       this._toasts?.forEach(el => el.resumeAutoClose());
     }
@@ -134,8 +133,8 @@ export class UUIToastNotificationContainerElement extends LitElement {
         UUIToastNotificationEvent.CLOSED,
         this.onToastClosed as any
       );
-      toast.removeEventListener('mouseover', this.pauseAutoClose);
-      toast.removeEventListener('mouseout', this.resumeAutoClose);
+      toast.removeEventListener('mouseenter', this.pauseAutoClose);
+      toast.removeEventListener('mouseleave', this.resumeAutoClose);
       toast.removeEventListener('focus', this.pauseAutoClose);
       toast.removeEventListener('blur', this.resumeAutoClose);
     });
@@ -149,8 +148,8 @@ export class UUIToastNotificationContainerElement extends LitElement {
         this.onToastClosed as any
       );
 
-      toast.addEventListener('mouseover', this.pauseAutoClose);
-      toast.addEventListener('mouseout', this.resumeAutoClose);
+      toast.addEventListener('mouseenter', this.pauseAutoClose);
+      toast.addEventListener('mouseleave', this.resumeAutoClose);
       toast.addEventListener('focus', this.pauseAutoClose);
       toast.addEventListener('blur', this.resumeAutoClose);
 
@@ -166,5 +165,11 @@ export class UUIToastNotificationContainerElement extends LitElement {
 
   render() {
     return html` <slot @slotchange=${this.onSlotChanged}></slot> `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-toast-notification-container': UUIToastNotificationContainerElement;
   }
 }

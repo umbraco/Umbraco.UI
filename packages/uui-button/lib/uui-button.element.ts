@@ -1,8 +1,11 @@
+import '@umbraco-ui/uui-icon/lib';
+
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   InterfaceLookDefaultValue,
   InterfaceLookType,
@@ -21,7 +24,6 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
- *  @slot - for button contents
  *  @slot extra - for extra
  *  @description - All-round button
  *  @cssprop --uui-button-height - overwrite the button height
@@ -39,6 +41,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  */
+@defineElement('uui-button')
 export class UUIButtonElement extends LabelMixin('', LitElement) {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -592,10 +595,14 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
-        element = html`<div id="icon-check" style="">${iconCheck}</div>`;
+        element = html`<uui-icon
+          name="check"
+          .fallback=${iconCheck.strings[0]}></uui-icon>`;
         break;
       case 'failed':
-        element = html`<div id="icon-wrong" style="">${iconWrong}</div>`;
+        element = html`<uui-icon
+          name="wrong"
+          .fallback=${iconWrong.strings[0]}></uui-icon>`;
         break;
       default:
         return '';
@@ -611,5 +618,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         <slot name="extra"></slot>
       </button>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-button': UUIButtonElement;
   }
 }

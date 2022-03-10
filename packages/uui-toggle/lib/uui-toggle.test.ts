@@ -1,12 +1,13 @@
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
+
 import { UUIToggleElement } from './uui-toggle.element';
-import '.';
 
 describe('UuiToggle', () => {
   let element: UUIToggleElement;
@@ -18,7 +19,12 @@ describe('UuiToggle', () => {
     input = element.shadowRoot?.querySelector('#input') as HTMLInputElement;
   });
 
-  it('has input element', async () => {
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIToggleElement);
+    expect(element).to.be.instanceOf(UUIBooleanInputElement);
+  });
+
+  it('has input element', () => {
     expect(input).to.exist;
   });
 
@@ -26,7 +32,7 @@ describe('UuiToggle', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
-  it('native input has a correct role', async () => {
+  it('native input has a correct role', () => {
     expect(input).to.have.attr('role', 'switch');
   });
 
@@ -58,7 +64,7 @@ describe('UuiToggle', () => {
     it('has a focus method', () => {
       expect(element).to.have.property('focus').that.is.a('function');
     });
-    it('focus method sets focus', async () => {
+    it('focus method sets focus', () => {
       expect(document.activeElement).not.to.equal(element);
       element.focus();
       expect(document.activeElement).to.equal(element);
@@ -67,7 +73,7 @@ describe('UuiToggle', () => {
     it('has a click method', () => {
       expect(element).to.have.property('click').that.is.a('function');
     });
-    it('click method changes value', async () => {
+    it('click method changes value', () => {
       expect(element.checked).not.to.be.true;
       element.click();
       expect(element.checked).to.be.true;
@@ -85,7 +91,7 @@ describe('UuiToggle', () => {
       });
     });
     describe('change', () => {
-      it('emits a change event when native input fires one', async () => {
+      it('emits a change event when native input fires one', () => {
         let event: Event | null = null;
         element.addEventListener('change', e => (event = e));
         input.dispatchEvent(new Event('change'));

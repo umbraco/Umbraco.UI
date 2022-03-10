@@ -1,7 +1,7 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
-import { UUIRadioElement } from './uui-radio.element';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+
 import { UUIRadioGroupElement } from './uui-radio-group.element';
-import '.';
+import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
 describe('UuiRadio', () => {
@@ -20,6 +20,10 @@ describe('UuiRadio', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  it('is defined with its own instance', () => {
+    expect(element).to.be.instanceOf(UUIRadioGroupElement);
   });
 
   it('has internals', () => {

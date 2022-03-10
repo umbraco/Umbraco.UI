@@ -1,16 +1,18 @@
 /* eslint-disable lit/no-invalid-html */
 /* eslint-disable lit/binding-positions */
+import '.';
+
 import {
   defineCE,
   elementUpdated,
-  html,
-  fixture,
   expect,
+  fixture,
+  html,
   unsafeStatic,
 } from '@open-wc/testing';
-import { UUIBooleanInputElement } from './uui-boolean-input.element';
-import '.';
 import { html as litHTMLLiteral } from 'lit';
+
+import { UUIBooleanInputElement } from './uui-boolean-input.element';
 
 const tagName = defineCE(
   class BooleanInputTestElement extends UUIBooleanInputElement {
@@ -56,10 +58,6 @@ describe('UUIBooleanInputElement', () => {
   it('can be checked', () => {
     element.checked = true;
     expect(element.checked).to.be.equal(true);
-  });
-
-  it('contains a native input', async () => {
-    await expect(input).to.exist;
   });
 
   it('if disabled, disables the native input', async () => {

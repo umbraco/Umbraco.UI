@@ -1,12 +1,16 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { expect, fixture, html } from '@open-wc/testing';
+
 import { UUIActionBarElement } from './uui-action-bar.element';
-import '.';
 
 describe('UUIActionBarElement', () => {
   let element: UUIActionBarElement;
 
   beforeEach(async () => {
     element = await fixture(html` <uui-action-bar></uui-action-bar> `);
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIActionBarElement);
   });
 
   it('passes the a11y audit', async () => {

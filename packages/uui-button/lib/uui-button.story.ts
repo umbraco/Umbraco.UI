@@ -241,23 +241,25 @@ Looks.parameters = {
 };
 
 export const WithIcon = () => html`
-  <uui-button look="danger" label="A11Y proper label">
-    <uui-icon .name=${'bug'}></uui-icon>
-  </uui-button>
-  <br />
-  <br />
-  <uui-button look="danger" label="A11Y proper label">
-    <uui-icon .name=${'bug'}></uui-icon>Button with icon
-  </uui-button>
-  <br />
-  <br />
-  <p>
-    The default sizing for a button with only an icon is generally too wide,
-    there please use with the 'compact' attribute.
-  </p>
-  <uui-button look="positive" compact label="A11Y proper label">
-    <uui-icon name="alert"></uui-icon>
-  </uui-button>
+  <uui-icon-registry-essential>
+    <uui-button look="danger" label="A11Y proper label">
+      <uui-icon .name=${'favorite'}></uui-icon>
+    </uui-button>
+    <br />
+    <br />
+    <uui-button look="danger" label="A11Y proper label">
+      <uui-icon .name=${'favorite'}></uui-icon>Button with icon
+    </uui-button>
+    <br />
+    <br />
+    <p>
+      The default sizing for a button with only an icon is generally too wide,
+      there please use with the 'compact' attribute.
+    </p>
+    <uui-button look="positive" compact label="A11Y proper label">
+      <uui-icon name="favorite"></uui-icon>
+    </uui-button>
+  </uui-icon-registry-essential>
 `;
 WithIcon.parameters = {
   docs: {
