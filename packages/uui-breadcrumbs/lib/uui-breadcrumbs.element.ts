@@ -1,5 +1,7 @@
-import { css, html, LitElement } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { queryAssignedElements } from 'lit/decorators.js';
+
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 
 /**
@@ -27,6 +29,16 @@ export class UUIBreadcrumbsElement extends LitElement {
     `,
   ];
 
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-breadcrumb-item, [role=listitem]',
+  })
+  private slotNodes!: HTMLElement[];
+
+  private elementIsBreadcrumbItem(el: unknown): el is UUIBreadcrumbItemElement {
+    return el instanceof UUIBreadcrumbItemElement;
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('aria-label', 'breadcrumb');
@@ -34,14 +46,13 @@ export class UUIBreadcrumbsElement extends LitElement {
   }
 
   handleSlotChange() {
-    const breadcrumbNodes = this.querySelectorAll('uui-breadcrumb-item');
-    const breadcrumbs = Array.from(
-      breadcrumbNodes
-    ) as UUIBreadcrumbItemElement[];
+    if (this.slotNodes.length > 0) {
+      const lastItem = this.slotNodes[this.slotNodes.length - 1];
+      lastItem.setAttribute('aria-current', 'page');
 
-    if (breadcrumbs?.length > 0) {
-      breadcrumbs[breadcrumbs.length - 1].lastItem = true;
-      breadcrumbs[breadcrumbs.length - 1].setAttribute('aria-current', 'page');
+      if (this.elementIsBreadcrumbItem(lastItem)) {
+        lastItem.lastItem = true;
+      }
     }
   }
 
