@@ -33,6 +33,7 @@ export default {
 export const AAAOverview: Story = props => html`
   <uui-tab-group
     style="
+    height: 60px;
     --uui-tab-text: ${props['--uui-tab-text']};
     --uui-tab-text-hover: ${props['--uui-tab-text-hover']};
     --uui-tab-text-active: ${props['--uui-tab-text-active']};
