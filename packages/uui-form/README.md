@@ -1,12 +1,8 @@
-# uui-form-layout-item
+# uui-form
 
 ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-form?logoColor=%231B264F)
 
 Umbraco style form component.
-
-### See it in action
-
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-form-layout-item)
 
 ### See it in action
 
