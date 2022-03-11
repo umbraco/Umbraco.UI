@@ -32,8 +32,7 @@ export class UUIAvatarGroupElement extends LitElement {
   ];
 
   @queryAssignedElements({
-    slot: undefined,
-    selector: 'uui-avatar',
+    selector: 'uui-avatar, [uui-avatar]',
     flatten: true,
   })
   private _avatarNodes?: UUIAvatarElement[];
