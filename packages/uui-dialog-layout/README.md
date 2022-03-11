@@ -4,6 +4,10 @@
 
 Umbraco style dialog-layout component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-dialog-layout)
+
 ## Installation
 
 ### ES imports

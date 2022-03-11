@@ -4,6 +4,10 @@
 
 Umbraco style action-bar component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-action-bar)
+
 ## Installation
 
 ### ES imports

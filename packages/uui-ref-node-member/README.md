@@ -4,6 +4,10 @@
 
 Umbraco style ref-node-member component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-ref-node-member)
+
 ## Installation
 
 ### ES imports

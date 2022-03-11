@@ -4,6 +4,10 @@
 
 Tag component from Umbraco UI components library.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-tag)
+
 ## Installation
 
 ### ES imports

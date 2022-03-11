@@ -4,6 +4,10 @@
 
 Umbraco style pagination component. By implementing a resizeObserver it changes the number of visible buttons to fit the width of the container it sits in. Check this out in the [Storybook](https://uui.umbraco.com/?path=/story/uui-pagination--aaa-overview). Uses `<uui-button></uui-button>` and `<uui-button-group></uui-button-group>`.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-pagination)
+
 ## Installation
 
 ### ES imports

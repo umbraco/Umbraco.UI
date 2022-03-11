@@ -4,6 +4,10 @@
 
 Umbraco style input-lock component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-input-lock)
+
 ## Installation
 
 ### ES imports

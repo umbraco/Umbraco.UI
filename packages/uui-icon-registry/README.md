@@ -4,6 +4,10 @@
 
 Umbraco style icon-registry component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-icon-registry)
+
 ## Installation
 
 ### ES imports

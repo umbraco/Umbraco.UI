@@ -4,6 +4,10 @@
 
 Umbraco style progress-bar component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-progress-bar)
+
 ## Installation
 
 ### ES imports

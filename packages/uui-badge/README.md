@@ -2,6 +2,10 @@
 
 [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-badge?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-badge)
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-badge)
+
 ## Installation
 
 ### ES imports

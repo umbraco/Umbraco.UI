@@ -12,6 +12,10 @@ Bundle:
 
 - **uui-css.css** — If you like your project to be styled for Umbraco UI, then include this in the root of your project. This contains all the previous files, so make sure to only include this file in your project if you need to style your project.
 
+### See it in action
+
+Preview on [Storybook](http://localhost:6006/?path=/story/uui-)
+
 # Usage in your project
 
 ## CDN

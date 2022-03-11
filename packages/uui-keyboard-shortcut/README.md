@@ -2,6 +2,10 @@
 
 [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-keyboard-shortcut?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-keyboard-shortcut)
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-keyboard-shortcut)
+
 ## Installation
 
 ### ES imports

@@ -2,6 +2,10 @@
 
 [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-radio?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-radio)
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-radio)
+
 ## Installation
 
 ### ES imports

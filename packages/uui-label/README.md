@@ -4,6 +4,14 @@
 
 Umbraco style label component.
 
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-loader)
+
+### See it in action
+
+Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-label)
+
 ## Installation
 
 ### ES imports
