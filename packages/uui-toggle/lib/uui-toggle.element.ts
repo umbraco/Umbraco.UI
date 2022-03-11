@@ -60,7 +60,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           var(--uui-toggle-border-color, var(--uui-interface-border));
         font-size: calc(var(--uui-toggle-size) * 0.6);
       }
-      label:hover input:not([disabled]) + #slider {
+      label:hover input:not([disabled]) ~ #slider {
         border-color: var(
           --uui-toggle-border-color-hover,
           var(--uui-interface-border-hover)
@@ -80,13 +80,13 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           var(--uui-interface-surface-alt-focus)
         );
       }
-      input:checked + #slider {
+      input:checked ~ #slider {
         background-color: var(--uui-interface-select);
       }
-      label:hover input:checked:not([disabled]) + #slider {
+      label:hover input:checked:not([disabled]) ~ #slider {
         background-color: var(--uui-interface-select-hover);
       }
-      label:focus input:checked + #slider {
+      label:focus input:checked ~ #slider {
         background-color: var(--uui-interface-select-focus);
       }
 
@@ -111,7 +111,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         right: calc(var(--uui-toggle-size) * 0.5);
         fill: var(--uui-interface-contrast);
       }
-      input:checked + #slider #icon-check {
+      input:checked ~ #slider #icon-check {
         fill: var(--uui-interface-select-contrast);
       }
 
@@ -128,12 +128,12 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           background-color 120ms;
       }
 
-      input:checked + #slider::after {
+      input:checked ~ #slider::after {
         left: calc(100% - 2px);
         transform: translateX(-100%);
       }
 
-      input:focus + #slider {
+      input:focus ~ #slider {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-interface-outline);
       }
@@ -146,7 +146,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       :host([disabled]) #slider {
         background-color: var(--uui-interface-surface-alt-disabled);
       }
-      :host([disabled]) input:checked + #slider {
+      :host([disabled]) input:checked ~ #slider {
         background-color: var(--uui-interface-select-disabled);
       }
       :host([disabled]) #slider::after {
@@ -158,7 +158,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       :host([disabled]) label:active #slider {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
-      :host([disabled]) input:checked + #slider #icon-check {
+      :host([disabled]) input:checked #slider #icon-check {
         fill: var(--uui-interface-select-contrast-disabled);
       }
 
