@@ -42,7 +42,7 @@ export class UUITableRowElement extends SelectOnlyMixin(
 
   @queryAssignedElements({
     flatten: true,
-    selector: 'uui-table-cell, [role=cell]',
+    selector: 'uui-table-cell, [uui-table-cell], [role=cell]',
   })
   private slotCellNodes?: unknown[];
 

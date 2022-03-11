@@ -31,7 +31,7 @@ export class UUIBreadcrumbsElement extends LitElement {
 
   @queryAssignedElements({
     flatten: true,
-    selector: 'uui-breadcrumb-item, [role=listitem]',
+    selector: 'uui-breadcrumb-item, [uui-breadcrumb-item], [role=listitem]',
   })
   private slotNodes!: HTMLElement[];
 
