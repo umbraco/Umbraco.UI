@@ -55,3 +55,5 @@ import '@umbraco-ui/uui-toast-notification/lib';
 import '@umbraco-ui/uui-toggle/lib';
 
 // import '@umbraco-ui/uui-css/lib'; // TODO: figure out how we include this
+
+import '@umbraco-ui/uui-symbol-lock/lib';
