@@ -40,10 +40,7 @@ export class UUITabGroupElement extends LitElement {
 
   private onSlotChange() {
     this.tabElements.forEach(el => {
-      el.removeEventListener(
-        'click',
-        this.onTabActive
-      );
+      el.removeEventListener('click', this.onTabActive);
     });
 
     this.setTabArray();
