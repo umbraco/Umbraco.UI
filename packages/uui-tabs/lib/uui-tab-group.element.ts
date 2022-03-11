@@ -28,7 +28,7 @@ export class UUITabGroupElement extends LitElement {
 
   @queryAssignedElements({
     flatten: true,
-    selector: 'uui-tab, .uui-tab, [role=tab]',
+    selector: 'uui-tab, [uui-tab], [role=tab]',
   })
   private slotNodes?: HTMLElement[];
 
