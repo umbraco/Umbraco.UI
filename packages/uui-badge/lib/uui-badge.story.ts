@@ -153,8 +153,6 @@ Looks.args = {
   slot: '!',
 };
 
-// TODO: Can I loop over the looknames and build up this string?
-
 let lookNamesDocsCode = '';
 InterfaceLookNames.forEach((lookName: InterfaceLookType) => {
   lookNamesDocsCode =
