@@ -6,7 +6,7 @@ Umbraco style uui-form-layout-item component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-form-layout-item)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-form-layout-item)
 
 ## Installation
 

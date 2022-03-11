@@ -6,7 +6,7 @@ Umbraco style select component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-select)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-select)
 
 ## Installation
 

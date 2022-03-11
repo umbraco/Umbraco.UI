@@ -6,7 +6,7 @@ Umbraco style menu-item component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-menu-item)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-menu-item)
 
 ## Installation
 

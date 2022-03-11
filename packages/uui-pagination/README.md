@@ -6,7 +6,7 @@ Umbraco style pagination component. By implementing a resizeObserver it changes 
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-pagination)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-pagination)
 
 ## Installation
 

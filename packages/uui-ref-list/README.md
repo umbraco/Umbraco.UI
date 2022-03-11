@@ -6,7 +6,7 @@ Umbraco style ref-list component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-ref-list)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-ref-list)
 
 ## Installation
 

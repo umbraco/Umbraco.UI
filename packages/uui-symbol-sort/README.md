@@ -6,7 +6,7 @@ Umbraco style sort-symbol component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-symbol-sort)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-symbol-sort)
 
 ## Installation
 

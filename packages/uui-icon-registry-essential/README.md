@@ -6,7 +6,7 @@ Umbraco style icon-registry-essential component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-icon-registry-essential)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-icon-registry-essential)
 
 ## Installation
 

@@ -6,7 +6,7 @@ Umbraco style scroll-container component.
 
 ### See it in action
 
-Preview the component on [Storybook](http://localhost:6006/?path=/story/uui-scroll-container)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-scroll-container)
 
 ## Installation
 

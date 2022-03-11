@@ -14,7 +14,7 @@ Bundle:
 
 ### See it in action
 
-Preview on [Storybook](http://localhost:6006/?path=/story/uui-)
+Preview on [Storybook](https://uui.umbraco.com/?path=/story/uui-)
 
 # Usage in your project
 
