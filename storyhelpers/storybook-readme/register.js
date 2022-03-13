@@ -20,23 +20,26 @@ const Readme = props => {
   useEffect(() => {
     const api = props.api;
     api.on(STORY_RENDERED, eventData => {
+      setMarkdown('');
       const component = api.getCurrentStoryData().component;
-      const readme =
-        require(`!raw-loader!../../packages/${component}/README.md`).default;
+      if (component) {
+        const readme =
+          require(`!raw-loader!../../packages/${component}/README.md`).default;
 
-      setMarkdown(readme);
+        setMarkdown(readme);
 
-      const syntaxHighlighters = document.querySelectorAll(
-        '.storybook-readme-syntax-highlighter'
-      );
+        const syntaxHighlighters = document.querySelectorAll(
+          '.storybook-readme-syntax-highlighter'
+        );
 
-      if (syntaxHighlighters.length > 0) {
-        for (const item of syntaxHighlighters) {
-          item.style.display = 'none';
-          const children = item.children;
-          const parent = item.parentElement;
+        if (syntaxHighlighters.length > 0) {
+          for (const item of syntaxHighlighters) {
+            item.style.display = 'none';
+            const children = item.children;
+            const parent = item.parentElement;
 
-          parent.append(...children);
+            parent.append(...children);
+          }
         }
       }
     });
@@ -71,9 +74,15 @@ const Readme = props => {
     />
   );
 
+  const renderNoReadme = () => (
+    <div>
+      <h3>There's no readme for this component</h3>
+    </div>
+  );
+
   return (
     <div className="markdown-body" style={{ padding: '32px' }}>
-      {renderReadme()}
+      {markdown ? renderReadme() : renderNoReadme()}
     </div>
   );
 };
