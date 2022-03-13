@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import ReactMarkdown from 'react-markdown';
@@ -17,47 +17,63 @@ const PANEL_ID = `${ADDON_ID}/panel`;
 
 const Readme = props => {
   const [markdown, setMarkdown] = useState();
-
   useEffect(() => {
     const api = props.api;
     api.on(STORY_RENDERED, eventData => {
       const component = api.getCurrentStoryData().component;
-
       const readme =
         require(`!raw-loader!../../packages/${component}/README.md`).default;
 
       setMarkdown(readme);
+
+      const syntaxHighlighters = document.querySelectorAll(
+        '.storybook-readme-syntax-highlighter'
+      );
+
+      if (syntaxHighlighters.length > 0) {
+        for (const item of syntaxHighlighters) {
+          item.style.display = 'none';
+          const children = item.children;
+          const parent = item.parentElement;
+
+          parent.append(...children);
+        }
+      }
     });
     return () => {
       //TODO: find out how to remove the api event listener
     };
   }, []);
 
+  const renderReadme = () => (
+    <ReactMarkdown
+      children={markdown}
+      remarkPlugins={[remarkGfm]}
+      components={{
+        code({ node, inline, className, children, ...props }) {
+          const match = /language-(\w+)/.exec(className || '');
+          return !inline && match ? (
+            <SyntaxHighlighter
+              className="storybook-readme-syntax-highlighter"
+              children={String(children).replace(/\n$/, '')}
+              style={{ ...vs }}
+              language={match[1]}
+              PreTag={'div'}
+              {...props}
+            />
+          ) : (
+            <code className={className} {...props}>
+              {children}
+            </code>
+          );
+        },
+      }}
+    />
+  );
+
   return (
     <div className="markdown-body" style={{ padding: '32px' }}>
-      <ReactMarkdown
-        children={markdown}
-        remarkPlugins={[remarkGfm]}
-        components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || '');
-            console.log('HERE', props);
-            return !inline && match ? (
-              <SyntaxHighlighter
-                children={String(children).replace(/\n$/, '')}
-                style={vs}
-                language={match[1]}
-                PreTag={React.Fragment}
-                {...props}
-              />
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
-        }}
-      />
+      {renderReadme()}
     </div>
   );
 };
