@@ -34,7 +34,6 @@ const Readme = props => {
 
         if (syntaxHighlighters.length > 0) {
           for (const item of syntaxHighlighters) {
-            item.style.display = 'none';
             const children = item.children;
             const parent = item.parentElement;
 
@@ -59,7 +58,10 @@ const Readme = props => {
             <SyntaxHighlighter
               className="storybook-readme-syntax-highlighter"
               children={String(children).replace(/\n$/, '')}
-              style={{ ...vs }}
+              style={{
+                ...vs,
+                'pre[class*="language-"]': { display: 'none' },
+              }}
               language={match[1]}
               PreTag={'div'}
               {...props}
