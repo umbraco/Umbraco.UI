@@ -1,6 +1,8 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '.';
+
 import { UUIPopoverElement } from './uui-popover.element';
 
 export default {
@@ -37,6 +39,7 @@ export default {
         code: `<uui-popover></uui-popover>`,
       },
     },
+    chromatic: { disableSnapshot: true },
   },
 };
 
