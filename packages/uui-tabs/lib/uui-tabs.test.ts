@@ -1,7 +1,7 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+
 import { UUITabGroupElement } from './uui-tab-group.element';
 import { UUITabElement } from './uui-tab.element';
-import './index';
 
 describe('UuiTab', () => {
   let element: UUITabGroupElement;
@@ -19,6 +19,14 @@ describe('UuiTab', () => {
     );
 
     tabs = Array.from(element.querySelectorAll('uui-tab'));
+  });
+
+  it('is defined as its own instance', () => {
+    expect(element).to.be.instanceOf(UUITabGroupElement);
+  });
+
+  it('tab element defined as its own instance', () => {
+    expect(tabs[0]).to.be.instanceOf(UUITabElement);
   });
 
   it('it selects an item', () => {
@@ -42,5 +50,9 @@ describe('UuiTab', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  it('tab element passes the a11y audit', async () => {
+    await expect(tabs[0]).shadowDom.to.be.accessible();
   });
 });

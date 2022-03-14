@@ -1,7 +1,7 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { expect, fixture, html } from '@open-wc/testing';
+import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
+
 import { UUIInputLockElement } from './uui-input-lock.element';
-import '.';
-import { UUIInputElement } from '@umbraco-ui/uui-input/lib/';
 
 describe('UUIInputLockElement', () => {
   let element: UUIInputLockElement;
