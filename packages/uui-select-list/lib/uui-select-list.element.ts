@@ -62,6 +62,7 @@ export class UUISelectListElement extends LitElement {
   };
 
   private _onSlotChange = () => {
+    //TODO This should change the active property on select-option instead.
     this._options[this._index]?.classList.add('active');
   };
 
@@ -89,6 +90,7 @@ export class UUISelectListElement extends LitElement {
       if (this.multiple) {
         this._selected.push(newSelected);
       } else {
+        //TODO This should change the selected property on select-option instead.
         this._selected[0]?.classList.remove('selected');
         this._selected = [newSelected];
       }

@@ -15,6 +15,8 @@ export class UUISelectOptionElement extends LitElement {
     `,
   ];
 
+  //TODO: Add a selected and active state to manage the styling here.
+
   @property({ attribute: false })
   value: any = undefined;
 
