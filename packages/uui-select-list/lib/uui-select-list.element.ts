@@ -1,7 +1,8 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUISelectListEvent } from './UUISelectListEvent';
+import { UUISelectOptionElement } from './uui-select-option.element';
 
 /**
  * @element uui-select-list
@@ -13,21 +14,16 @@ export class UUISelectListElement extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        border: 5px solid;
         box-sizing: border-box;
       }
 
-      ::slotted(*) {
-        padding: 8px;
-        box-sizing: border-box;
-        border: 1px solid transparent;
-      }
       ::slotted(.active) {
         border-color: black;
+        background-color: #d5e6f1;
       }
 
       ::slotted(.selected) {
-        background-color: #b4d3e7;
+        background-color: #7ec0ec;
         font-weight: bold;
       }
     `,
@@ -37,11 +33,20 @@ export class UUISelectListElement extends LitElement {
   multiple = false;
 
   @state()
-  private _selected: Element[] = [];
+  private _selected: UUISelectOptionElement[] = [];
+
+  @queryAssignedElements({ flatten: true })
+  private _options!: UUISelectOptionElement[]; //TODO: Fix the !
+
+  private _index = 0;
 
   connectedCallback(): void {
     super.connectedCallback();
     document.addEventListener('keydown', this._onKeyDown);
+    this.addEventListener(
+      UUISelectListEvent.OPTION_CLICK,
+      this._onOptionClicked
+    );
   }
 
   disconnectedCallback(): void {
@@ -49,8 +54,14 @@ export class UUISelectListElement extends LitElement {
     document.removeEventListener('keydown', this._onKeyDown);
   }
 
+  private _onOptionClicked = (e: any) => {
+    const index = this._options.indexOf(e.target);
+    if (index >= 0) {
+      this._selectAtIndex(index);
+    }
+  };
+
   private _onSlotChange = () => {
-    this._options = this.shadowRoot!.querySelector('slot')!.assignedElements();
     this._options[this._index]?.classList.add('active');
   };
 
@@ -89,7 +100,7 @@ export class UUISelectListElement extends LitElement {
 
     this.dispatchEvent(
       new UUISelectListEvent(UUISelectListEvent.CHANGE, {
-        detail: { selected: this._selected },
+        detail: { selected: this._selected.map(option => option.value) },
       })
     );
   }
@@ -134,10 +145,6 @@ export class UUISelectListElement extends LitElement {
         break;
     }
   };
-
-  private _index = 0;
-
-  private _options: Element[] = [];
 
   render() {
     return html` <slot @slotchange=${this._onSlotChange}></slot> `;

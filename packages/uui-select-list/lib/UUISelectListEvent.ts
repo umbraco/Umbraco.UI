@@ -6,4 +6,12 @@ export class UUISelectListEvent extends UUIEvent<
   UUISelectListElement
 > {
   public static readonly CHANGE: string = 'change';
+  public static readonly OPTION_CLICK: string = 'option-click';
+
+  constructor(evName: string, eventInit: any | null = {}) {
+    super(evName, {
+      ...{ bubbles: true },
+      ...eventInit,
+    });
+  }
 }
