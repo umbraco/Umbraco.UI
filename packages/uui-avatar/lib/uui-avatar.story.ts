@@ -1,4 +1,4 @@
-import '@umbraco-ui/uui-avatar/lib';
+import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -34,7 +34,7 @@ const Template: Story = (props: any) => html`<uui-avatar
   .imgSrcset=${props.imgSrcset}
   .name=${props.name}
   style="font-size: ${props.fontSize}px; background-color: ${props.backgroundColor}; color: ${props.color}"
-  >${props.slot}</uui-avatar
+  >${props.default}</uui-avatar
 >`;
 
 export const AAAOverview = Template.bind({});
@@ -98,7 +98,7 @@ SlottedContent.argTypes = {
   slot: { table: { category: 'slots' }, control: { type: 'text' } },
 };
 SlottedContent.parameters = {
-  controls: { include: ['slot', 'overflow'] },
+  controls: { include: ['overflow'] },
   docs: {
     source: {
       code: `<uui-avatar overflow name="overflow name">overflow content</uui-avatar>`,
@@ -112,7 +112,7 @@ export const InlineWithText = (props: any) => html`
     <uui-avatar
       name="Hello world"
       style="background-color: ${props.backgroundColor}; color: ${props.color}"
-      >${props.slot}</uui-avatar
+      >${props.default}</uui-avatar
     >
     around
   </div>
@@ -126,12 +126,9 @@ InlineWithText.parameters = {
 };
 
 export const WithBadge = Template.bind({});
-WithBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
-WithBadge.argTypes = {
-  slot: { table: { category: 'slots' }, control: { type: 'text' } },
-};
+WithBadge.args = { default: html`<uui-badge>!</uui-badge>`, overflow: true };
 WithBadge.parameters = {
-  controls: { include: ['slot', 'overflow', 'name'] },
+  controls: { include: ['overflow', 'name'] },
   docs: {
     source: {
       code: `<uui-avatar name="Umbraco HQ"><uui-badge>!</uui-badge></uui-avatar>`,

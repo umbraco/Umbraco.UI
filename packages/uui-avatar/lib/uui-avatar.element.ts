@@ -1,11 +1,11 @@
-import { property, state } from 'lit/decorators.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { LitElement, html, css } from 'lit';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
 /**
  *  Avatar for displaying users
  *  @element uui-avatar
- *  @slot For anything other than initials (no more than 2-3 characters)
+ *  @slot default - For anything other than initials (no more than 2-3 characters)
  */
 @defineElement('uui-avatar')
 export class UUIAvatarElement extends LitElement {
