@@ -9,11 +9,6 @@ export default {
   id: 'uui-label',
   title: 'Inputs/Label',
   component: 'uui-label',
-  parameters: {
-    controls: {
-      include: ['disabled', 'required'],
-    },
-  },
 };
 
 const Template: Story = props => html`
