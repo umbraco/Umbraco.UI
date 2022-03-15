@@ -1,10 +1,10 @@
-import { css, html, LitElement } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 
 /**
  *  A visual representation of a keyboard shortcut.
  *  @element uui-keyboard-shortcut
- *  @slot - for `<uui-key></uui-key>` elements
+ *  @slot default - for `<uui-key></uui-key>` elements
  */
 @defineElement('uui-keyboard-shortcut')
 export class UUIKeyboardShortcutElement extends LitElement {
