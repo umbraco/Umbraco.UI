@@ -7,7 +7,7 @@ import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 /**
  * A breadcrumbs component to be used in combination with the uui-breadcrumb-item.
  *  @element uui-breadcrumbs
- *  @slot to display nested breadcrumb items
+ *  @slot default - Slot to display nested breadcrumb items. It supports `<uui-breadcrumb-item>` elements or elements containing the `role="listitem"` attribute
  */
 @defineElement('uui-breadcrumbs')
 export class UUIBreadcrumbsElement extends LitElement {
