@@ -35,7 +35,7 @@ export class UUISelectListElement extends LitElement {
   @state()
   private _selected: UUISelectOptionElement[] = [];
 
-  @queryAssignedElements({ flatten: true })
+  @queryAssignedElements({ flatten: true, selector: 'uui-select-option' })
   private _options!: UUISelectOptionElement[]; //TODO: Fix the !
 
   private _index = 0;
@@ -63,6 +63,7 @@ export class UUISelectListElement extends LitElement {
 
   private _onSlotChange = () => {
     //TODO This should change the active property on select-option instead.
+    this._goToIndex(this._index); //Makes sure the index stays within array length if an option is removed
     this._options[this._index]?.classList.add('active');
   };
 
@@ -76,6 +77,8 @@ export class UUISelectListElement extends LitElement {
   };
 
   private _goToIndex(index: number) {
+    index = Math.min(Math.max(index, 0), this._options.length - 1); //Makes sure the index stays within array length
+
     this._options[this._index]?.classList.remove('active');
     this._index = index;
     this._options[this._index]?.classList.add('active');
@@ -107,13 +110,9 @@ export class UUISelectListElement extends LitElement {
     );
   }
 
-  // // TODO: Fix
-  // private _deselectAtIndex(index: number) {
-  //   // this._options[index].classList.remove('selected');
-  //   // this._selectedOption = undefined;
-  // }
-
   private _onKeyDown = (e: KeyboardEvent) => {
+    if (this._options.length <= 0) return;
+
     switch (e.key) {
       case 'ArrowUp':
         e.preventDefault();
