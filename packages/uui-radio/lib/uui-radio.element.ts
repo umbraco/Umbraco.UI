@@ -1,19 +1,19 @@
-import { html, css, LitElement } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { query, property } from 'lit/decorators.js';
 import {
-  UUIHorizontalShakeKeyframes,
   UUIHorizontalShakeAnimationValue,
+  UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, query } from 'lit/decorators.js';
+
 import { UUIRadioEvent } from './UUIRadioEvent';
 
 /**
  *  @element uui-radio
  *  @description - a single radio, should never be use as a stand-alone. Must be wrapped in `<uui-radio-group></uui-radio-group>` element.
- *  @slot - for label
- * @cssprop --uui-radio-button-size - Sets the size of the radio button.
- * @fires change - on input change
- *
+ *  @slot default - slot to set the label if no `label` attribute is set.
+ *  @cssprop --uui-radio-button-size - Sets the size of the radio button.
+ *  @fires change - on input change
  */
 @defineElement('uui-radio')
 export class UUIRadioElement extends LitElement {
