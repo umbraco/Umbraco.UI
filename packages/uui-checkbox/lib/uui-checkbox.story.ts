@@ -40,7 +40,7 @@ export const AAAOverview: Story = props =>
       .labelPosition=${props.labelPosition}
       ?disabled=${props.disabled}
       ?checked=${props.checked}
-      >${props.slot}</uui-checkbox
+      >${props.default}</uui-checkbox
     >
   `;
 AAAOverview.args = { label: 'label' };
@@ -51,7 +51,7 @@ AAAOverview.argTypes = {
     options: ['left', 'right', 'top', 'bottom'],
     control: 'select',
   },
-  slot: { control: { type: 'text' } },
+  default: { control: { type: 'text' } },
   '--uui-checkbox-size': { control: { type: 'text' } },
 };
 
