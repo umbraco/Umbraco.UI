@@ -1,5 +1,5 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -8,6 +8,9 @@ import { property, state } from 'lit/decorators.js';
  *  @fires {UUICardEvent} open - fires when the media card title is clicked
  *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a media item.
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
+ *  @slot default - slot for the default content area
  */
 
 @defineElement('uui-card-media')
