@@ -1,12 +1,12 @@
-import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 
 /**
  *  A box for grouping elements
  *  @element uui-box
  *  @slot header - header area for title
  *  @slot main - main content area
- *  @slot area with no padding
+ *  @slot default - area with no padding
  *
  */
 @defineElement('uui-box')
