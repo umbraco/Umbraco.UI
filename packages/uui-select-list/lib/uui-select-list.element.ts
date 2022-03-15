@@ -17,7 +17,7 @@ export class UUISelectListElement extends LitElement {
         box-sizing: border-box;
       }
 
-      ::slotted(.active) {
+      /* ::slotted(.active) {
         border-color: black;
         background-color: #d5e6f1;
       }
@@ -25,7 +25,7 @@ export class UUISelectListElement extends LitElement {
       ::slotted(.selected) {
         background-color: #7ec0ec;
         font-weight: bold;
-      }
+      } */
     `,
   ];
 
@@ -64,7 +64,7 @@ export class UUISelectListElement extends LitElement {
   private _onSlotChange = () => {
     //TODO This should change the active property on select-option instead.
     this._goToIndex(this._index); //Makes sure the index stays within array length if an option is removed
-    this._options[this._index]?.classList.add('active');
+    this._options[this._index].active = true;
   };
 
   private _moveIndex = (index: number) => {
@@ -79,9 +79,9 @@ export class UUISelectListElement extends LitElement {
   private _goToIndex(index: number) {
     index = Math.min(Math.max(index, 0), this._options.length - 1); //Makes sure the index stays within array length
 
-    this._options[this._index]?.classList.remove('active');
+    this._options[this._index].active = false;
     this._index = index;
-    this._options[this._index]?.classList.add('active');
+    this._options[this._index].active = true;
   }
 
   // TODO: When we emit the change event spread the array ...
@@ -94,12 +94,12 @@ export class UUISelectListElement extends LitElement {
         this._selected.push(newSelected);
       } else {
         //TODO This should change the selected property on select-option instead.
-        this._selected[0]?.classList.remove('selected');
+        this._selected[0].selected = false;
         this._selected = [newSelected];
       }
-      newSelected.classList.add('selected');
+      newSelected.selected = true;
     } else {
-      this._options[index].classList.remove('selected');
+      this._options[index].selected = false;
       this._selected.splice(selectedIndex, 1);
     }
 
