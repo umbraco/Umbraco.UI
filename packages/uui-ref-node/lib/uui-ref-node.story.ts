@@ -9,23 +9,24 @@ export default {
   id: 'uui-ref-node',
   title: 'Displays/References/Node',
   component: 'uui-ref-node',
+  decorators: [
+    (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
+  ],
 };
 
 const Template: Story = props => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node
-      name="${props.name}"
-      detail="${props.detail}"
-      ?selectable=${props.selectable}
-      ?selectOnly=${props.selectOnly}
-      ?error=${props.error}
-      ?disabled=${props.disabled}>
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions"
-        ><uui-button><uui-icon name="delete"></uui-icon></uui-button
-      ></uui-action-bar>
-    </uui-ref-node>
-  </div>
+  <uui-ref-node
+    name="${props.name}"
+    detail="${props.detail}"
+    ?selectable=${props.selectable}
+    ?selectOnly=${props.selectOnly}
+    ?error=${props.error}
+    ?disabled=${props.disabled}>
+    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-action-bar slot="actions"
+      ><uui-button><uui-icon name="delete"></uui-icon></uui-button
+    ></uui-action-bar>
+  </uui-ref-node>
 `;
 
 export const AAAOverview = Template.bind({});
@@ -52,16 +53,14 @@ AAAOverview.parameters = {
 };
 
 export const CustomIcon: Story = () => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node-data-type
-      name="Rabbit Suit Product Page"
-      detail="path/to/nowhere">
-      <uui-icon slot="icon" name="shopping-basket-alt"></uui-icon>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node-data-type>
-  </div>
+  <uui-ref-node-data-type
+    name="Rabbit Suit Product Page"
+    detail="path/to/nowhere">
+    <uui-icon slot="icon" name="shopping-basket-alt"></uui-icon>
+    <uui-action-bar slot="actions">
+      <uui-button label="Remove">Remove</uui-button>
+    </uui-action-bar>
+  </uui-ref-node-data-type>
 `;
 
 CustomIcon.parameters = {
@@ -82,19 +81,14 @@ CustomIcon.parameters = {
 };
 
 export const Border: Story = () => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node
-      border
-      name="Rabbit Suit Product Page"
-      detail="path/to/nowhere">
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions">
-        <uui-button type="button" label="Delete"
-          ><uui-icon name="delete"></uui-icon
-        ></uui-button>
-      </uui-action-bar>
-    </uui-ref-node>
-  </div>
+  <uui-ref-node border name="Rabbit Suit Product Page" detail="path/to/nowhere">
+    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-action-bar slot="actions">
+      <uui-button type="button" label="Delete"
+        ><uui-icon name="delete"></uui-icon
+      ></uui-button>
+    </uui-action-bar>
+  </uui-ref-node>
 `;
 
 Border.parameters = {
@@ -116,19 +110,17 @@ Border.parameters = {
 };
 
 export const Selectable: Story = props => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node
-      ?selectable="${props.selectable}"
-      name="Rabbit Suit Product Page"
-      detail="path/to/nowhere">
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions">
-        <uui-button type="button" label="Delete"
-          ><uui-icon name="delete"></uui-icon
-        ></uui-button>
-      </uui-action-bar>
-    </uui-ref-node>
-  </div>
+  <uui-ref-node
+    ?selectable="${props.selectable}"
+    name="Rabbit Suit Product Page"
+    detail="path/to/nowhere">
+    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-action-bar slot="actions">
+      <uui-button type="button" label="Delete"
+        ><uui-icon name="delete"></uui-icon
+      ></uui-button>
+    </uui-action-bar>
+  </uui-ref-node>
 `;
 
 Selectable.args = {
@@ -154,19 +146,17 @@ Selectable.parameters = {
 };
 
 export const Disabled: Story = props => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node
-      ?disabled="${props.disabled}"
-      name="Rabbit Suit Product Page"
-      detail="path/to/nowhere">
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-      <uui-action-bar slot="actions">
-        <uui-button type="button" label="Delete"
-          ><uui-icon name="delete"></uui-icon
-        ></uui-button>
-      </uui-action-bar>
-    </uui-ref-node>
-  </div>
+  <uui-ref-node
+    ?disabled="${props.disabled}"
+    name="Rabbit Suit Product Page"
+    detail="path/to/nowhere">
+    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-action-bar slot="actions">
+      <uui-button type="button" label="Delete"
+        ><uui-icon name="delete"></uui-icon
+      ></uui-button>
+    </uui-action-bar>
+  </uui-ref-node>
 `;
 
 Disabled.args = {
@@ -193,7 +183,7 @@ Disabled.parameters = {
 
 const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 export const Listed: Story = () => html`
-  <uui-ref-list style="max-width: 420px;">
+  <uui-ref-list>
     ${listOfNodeNames.map(
       name => html`<uui-ref-node name=${name} detail="path/to/nowhere">
         <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
