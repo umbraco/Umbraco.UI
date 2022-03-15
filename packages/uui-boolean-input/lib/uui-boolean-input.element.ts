@@ -80,7 +80,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
 
   /**
    * Specifies the label position of the checkbox or the toggle
-   * @type {'left' | 'right' | 'top' | 'bottom'}
    * @attr label-position
    * @default right
    */

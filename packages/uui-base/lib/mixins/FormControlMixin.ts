@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+
 import { UUIFormControlEvent } from '../events';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -115,7 +116,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Apply validation rule for requiring a value of this form control.
-     * @type {boolean}
      * @attr
      * @default false
      */
@@ -124,27 +124,21 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Required validation message.
-     * @type {boolean}
      * @attr
-     * @default
      */
     @property({ type: String, attribute: 'required-message' })
     requiredMessage = 'This field is required';
 
     /**
      * Apply custom error on this input.
-     * @type {boolean}
      * @attr
-     * @default false
      */
     @property({ type: Boolean, reflect: true })
     error = false;
 
     /**
      * Custom error message.
-     * @type {boolean}
      * @attr
-     * @default
      */
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
