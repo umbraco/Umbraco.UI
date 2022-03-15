@@ -93,9 +93,9 @@ Colors.parameters = {
 };
 
 export const SlottedContent = Template.bind({});
-SlottedContent.args = { slot: 'overflow', name: '' };
+SlottedContent.args = { default: 'overflow', name: '' };
 SlottedContent.argTypes = {
-  slot: { table: { category: 'slots' }, control: { type: 'text' } },
+  default: { table: { category: 'slots' }, control: { type: 'text' } },
 };
 SlottedContent.parameters = {
   controls: { include: ['overflow'] },
