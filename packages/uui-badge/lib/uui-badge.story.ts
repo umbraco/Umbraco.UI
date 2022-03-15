@@ -13,7 +13,7 @@ export default {
   id: 'uui-badge',
   args: {
     look: 'primary',
-    slot: '1',
+    default: '1',
     attention: false,
   },
   argTypes: {
@@ -36,7 +36,7 @@ const Template: Story = props => html` <uui-icon-registry-essential>
   <div
     style="position:relative; width:80px; height:80px; border: 2px dashed black;">
     <uui-badge .look=${props.look} ?attention=${props.attention}
-      >${props.slot}</uui-badge
+      >${props.default}</uui-badge
     >
   </div>
 </uui-icon-registry-essential>`;
@@ -44,7 +44,7 @@ const Template: Story = props => html` <uui-icon-registry-essential>
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   look: 'primary',
-  slot: '1',
+  default: '1',
   attention: false,
 };
 AAAOverview.storyName = 'Overview';
@@ -63,7 +63,7 @@ AAAOverview.parameters = {
 export const WithAttention = Template.bind({});
 WithAttention.args = {
   look: 'danger',
-  slot: '!',
+  default: '!',
   attention: true,
 };
 WithAttention.parameters = {
@@ -81,7 +81,7 @@ WithAttention.parameters = {
 export const WithText = Template.bind({});
 WithText.args = {
   look: 'positive',
-  slot: 'Published',
+  default: 'Published',
 };
 WithText.parameters = {
   docs: {
@@ -98,7 +98,7 @@ WithText.parameters = {
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   look: 'positive',
-  slot: html`<uui-icon name="favorite"></uui-icon>`,
+  default: html`<uui-icon name="favorite"></uui-icon>`,
 };
 WithIcon.parameters = {
   docs: {
@@ -118,11 +118,11 @@ WithIcon.parameters = {
 
 export const OnButton: Story = props => html` <uui-button look="outline">
   Button label
-  <uui-badge .look=${props.look}>${props.slot}</uui-badge>
+  <uui-badge .look=${props.look}>${props.default}</uui-badge>
 </uui-button>`;
 OnButton.args = {
   look: 'danger',
-  slot: '!',
+  default: '!',
 };
 OnButton.parameters = {
   docs: {
@@ -143,14 +143,14 @@ export const Looks: Story = props => html`
       html`<div
         style="position:relative; display:inline-block; width:10px; height:10px; margin-right: 16px;">
         <uui-badge .look=${lookName} ?attention=${props.attention}
-          >${props.slot}</uui-badge
+          >${props.default}</uui-badge
         >
       </div>`
   )}
 `;
 Looks.args = {
   look: 'primary',
-  slot: '!',
+  default: '!',
 };
 
 let lookNamesDocsCode = '';
