@@ -1,11 +1,11 @@
-import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
  * Label element for Custom Element
  * @element uui-label
- * @slot - for the label text.
+ * @slot default - for the label text.
  */
 @defineElement('uui-label')
 export class UUILabelElement extends LitElement {
