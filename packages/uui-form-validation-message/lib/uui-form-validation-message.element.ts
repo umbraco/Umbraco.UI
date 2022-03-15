@@ -1,14 +1,14 @@
-import { LitElement, html, css } from 'lit';
-import { repeat } from 'lit/directives/repeat.js';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIFormControlEvent } from '@umbraco-ui/uui-base/lib/events';
+import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 
 /**
  * @element uui-form-validation-message
  * @description - Component for displaying one or more validation messages from Form Control within the given scope. Notice: Only supports components that build on the FormControlMixing.
- * @slot - for button contents
+ * @slot default - for button contents
  * @slot message - for extras in the messages container
  */
 
