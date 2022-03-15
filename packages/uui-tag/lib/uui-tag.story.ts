@@ -10,10 +10,10 @@ export default {
   id: 'uui-tag',
   args: {
     look: '',
-    slot: 'Hello',
+    default: 'Hello',
   },
   argTypes: {
-    slot: { table: { category: 'slots' }, control: { type: 'text' } },
+    default: { table: { category: 'slots' }, control: { type: 'text' } },
     look: {
       options: [
         'primary',
@@ -25,11 +25,12 @@ export default {
         'danger',
       ],
     },
+    '--uui-tag-font-size': { control: { type: 'text' } },
   },
 };
 
 const Template: Story = props => html`
-  <uui-tag .look=${props.look}>${props.slot}</uui-tag>
+  <uui-tag .look=${props.look}>${props.default}</uui-tag>
 `;
 
 export const AAAOverview = Template.bind({});
@@ -75,6 +76,9 @@ export const Sizing: Story = props =>
   `;
 
 Sizing.parameters = {
+  controls: {
+    include: ['look'],
+  },
   docs: {
     source: {
       code: `
