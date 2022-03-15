@@ -1,12 +1,12 @@
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-toast-notification-layout
  *  @description - Component for setting the layout for a toast notification, to be used within toast-notification.
- *  @slot - for content
+ *  @slot default - for content
  *  @slot headline - for headline
  *  @slot actions - for actions
  */
