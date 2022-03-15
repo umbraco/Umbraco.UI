@@ -1,5 +1,5 @@
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -9,7 +9,7 @@ import { property, state } from 'lit/decorators.js';
  *  @fires {UUIRefEvent} selected - fires when the ref is selected
  *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
  *  @description - Component for displaying a reference to a generic node.
- *  @slot - for content
+ *  @slot default - for content
  *  @slot icon - for an icon
  *  @slot tag - for a tag
  *  @slot actions - for actions
