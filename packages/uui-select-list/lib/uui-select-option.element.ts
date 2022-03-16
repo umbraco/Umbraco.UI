@@ -14,17 +14,31 @@ export class UUISelectOptionElement extends SelectableMixin(
   static styles = [
     css`
       :host {
+        position: relative;
         cursor: pointer;
+      }
+      :host::after {
+        position: absolute;
+        content: '';
+        outline-offset: -4px;
+        border-radius: 8px;
+        outline: 4px solid transparent;
+        inset: 0;
       }
 
       :host([disabled]) {
+        cursor: auto;
         color: var(--uui-interface-surface-contrast-disabled);
       }
-      :host([disabled]) #label-button-background {
+      :host([disabled]) {
         background-color: var(--uui-interface-surface-disabled);
       }
-      :host([disabled]) #label-button:hover + #label-button-background {
+      :host([disabled]:hover) {
         background-color: var(--uui-interface-surface-disabled);
+      }
+
+      :host([active])::after {
+        outline-color: var(--uui-interface-active);
       }
 
       :host([active]) {
@@ -74,15 +88,21 @@ export class UUISelectOptionElement extends SelectableMixin(
   connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('click', this._onClick);
+    this.addEventListener('mouseenter', this._onMouseEnter);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('click', this._onClick);
+    this.removeEventListener('mouseenter', this._onMouseEnter);
   }
 
   private _onClick = () => {
     this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.OPTION_CLICK));
+  };
+
+  private _onMouseEnter = () => {
+    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.OPTION_HOVER));
   };
 
   render() {

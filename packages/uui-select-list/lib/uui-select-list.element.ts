@@ -16,26 +16,19 @@ export class UUISelectListElement extends LitElement {
         flex-direction: column;
         box-sizing: border-box;
       }
-
-      /* ::slotted(.active) {
-        border-color: black;
-        background-color: #d5e6f1;
-      }
-
-      ::slotted(.selected) {
-        background-color: #7ec0ec;
-        font-weight: bold;
-      } */
     `,
   ];
 
   @property({ type: Boolean })
-  multiple = false;
+  public multiselect = false;
 
   @state()
   private _selected: UUISelectOptionElement[] = [];
 
-  @queryAssignedElements({ flatten: true, selector: 'uui-select-option' })
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-select-option:not([disabled])',
+  })
   private _options!: UUISelectOptionElement[]; //TODO: Fix the !
 
   private _index = 0;
@@ -47,12 +40,27 @@ export class UUISelectListElement extends LitElement {
       UUISelectListEvent.OPTION_CLICK,
       this._onOptionClicked
     );
+
+    this.addEventListener(UUISelectListEvent.OPTION_HOVER, this._onOptionHover);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     document.removeEventListener('keydown', this._onKeyDown);
+    this.removeEventListener(
+      UUISelectListEvent.OPTION_CLICK,
+      this._onOptionClicked
+    );
+
+    this.addEventListener(UUISelectListEvent.OPTION_HOVER, this._onOptionHover);
   }
+
+  private _onOptionHover = (e: any) => {
+    const index = this._options.indexOf(e.target);
+    if (index >= 0) {
+      this._goToIndex(index);
+    }
+  };
 
   private _onOptionClicked = (e: any) => {
     const index = this._options.indexOf(e.target);
@@ -62,43 +70,73 @@ export class UUISelectListElement extends LitElement {
   };
 
   private _onSlotChange = () => {
-    //TODO This should change the active property on select-option instead.
-    this._goToIndex(this._index); //Makes sure the index stays within array length if an option is removed
-    this._options[this._index].active = true;
+    this._goToIndex(this._index); // Makes sure the index stays within array length if an option is removed
   };
 
-  private _moveIndex = (index: number) => {
+  private _moveIndex = (distance: number) => {
     const newIndex = Math.min(
-      Math.max(this._index + index, 0),
+      Math.max(this._index + distance, 0),
       this._options.length - 1
     );
+
+    // const newIndex =
+    //   direction > 0
+    //     ? this._getNextAvailableIndex(this._index)
+    //     : this._getPreviousAvailableIndex(this._index);
 
     this._goToIndex(newIndex);
   };
 
+  // private _getNextAvailableIndex(startPosition: number): number {
+  //   const newStart = startPosition + 1;
+  //   const index = this._options
+  //     .slice(newStart)
+  //     .findIndex(option => option.disabled === false);
+  //   return index === -1 ? startPosition : newStart + index;
+  // }
+
+  // private _getPreviousAvailableIndex(startPosition: number): number {
+  //   const newStart = startPosition - 1;
+
+  //   const index = this._options
+  //     .slice(0, newStart + 1)
+  //     .reverse()
+  //     .findIndex(option => option.disabled === false);
+  //   return index === -1 ? startPosition : newStart - index;
+  // }
+
   private _goToIndex(index: number) {
-    index = Math.min(Math.max(index, 0), this._options.length - 1); //Makes sure the index stays within array length
+    index = Math.min(Math.max(index, 0), this._options.length - 1); // Makes sure the index stays within array length
 
     this._options[this._index].active = false;
     this._index = index;
     this._options[this._index].active = true;
+
+    this._options[this._index].scrollIntoView({
+      behavior: 'auto',
+      block: 'nearest',
+      inline: 'nearest',
+    });
   }
 
-  // TODO: When we emit the change event spread the array ...
   private _selectAtIndex(index: number) {
     const newSelected = this._options[index];
+
+    if (newSelected.disabled) return; // We shouldn't be able to select disabled options
+
     const selectedIndex = this._selected.indexOf(newSelected);
 
     if (selectedIndex < 0) {
-      if (this.multiple) {
+      // If option is already selected then deselect it
+      if (this.multiselect) {
         this._selected.push(newSelected);
       } else {
-        //TODO This should change the selected property on select-option instead.
         this._selected[0].selected = false;
         this._selected = [newSelected];
       }
       newSelected.selected = true;
     } else {
+      // If is not already selected then select it
       this._options[index].selected = false;
       this._selected.splice(selectedIndex, 1);
     }
@@ -116,12 +154,13 @@ export class UUISelectListElement extends LitElement {
     switch (e.key) {
       case 'ArrowUp':
         e.preventDefault();
-        this._moveIndex(-1);
+        e.ctrlKey ? this._moveIndex(-10) : this._moveIndex(-1);
         break;
 
       case 'ArrowDown':
         e.preventDefault();
-        this._moveIndex(1);
+        e.ctrlKey ? this._moveIndex(10) : this._moveIndex(1);
+
         break;
 
       case 'Home': {
@@ -148,6 +187,8 @@ export class UUISelectListElement extends LitElement {
   };
 
   render() {
+    console.log(this._options);
+
     return html` <slot @slotchange=${this._onSlotChange}></slot> `;
   }
 }

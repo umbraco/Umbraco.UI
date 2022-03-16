@@ -7,6 +7,7 @@ export class UUISelectListEvent extends UUIEvent<
 > {
   public static readonly CHANGE: string = 'change';
   public static readonly OPTION_CLICK: string = 'option-click';
+  public static readonly OPTION_HOVER: string = 'option-hover';
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
