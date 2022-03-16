@@ -11,6 +11,9 @@ export default {
     name: 'Umbraco HQ',
     fontSize: 12,
   },
+  argTypes: {
+    slot: { control: { type: 'text' } },
+  },
   // argTypes: {
   //   'img-src': { table: { disable: true } },
   //   'img-srcset': { table: { disable: true } },
@@ -34,7 +37,7 @@ const Template: Story = (props: any) => html`<uui-avatar
   .imgSrcset=${props.imgSrcset}
   .name=${props.name}
   style="font-size: ${props.fontSize}px; background-color: ${props.backgroundColor}; color: ${props.color}"
-  >${props.default}</uui-avatar
+  >${props.slot}</uui-avatar
 >`;
 
 export const AAAOverview = Template.bind({});
@@ -93,12 +96,9 @@ Colors.parameters = {
 };
 
 export const SlottedContent = Template.bind({});
-SlottedContent.args = { default: 'overflow', name: '' };
-SlottedContent.argTypes = {
-  default: { table: { category: 'slots' }, control: { type: 'text' } },
-};
+SlottedContent.args = { slot: 'overflow', name: '' };
 SlottedContent.parameters = {
-  controls: { include: ['overflow'] },
+  controls: { include: ['overflow', 'slot'] },
   docs: {
     source: {
       code: `<uui-avatar overflow name="overflow name">overflow content</uui-avatar>`,
@@ -112,7 +112,7 @@ export const InlineWithText = (props: any) => html`
     <uui-avatar
       name="Hello world"
       style="background-color: ${props.backgroundColor}; color: ${props.color}"
-      >${props.default}</uui-avatar
+      >${props.slot}</uui-avatar
     >
     around
   </div>
@@ -126,7 +126,7 @@ InlineWithText.parameters = {
 };
 
 export const WithBadge = Template.bind({});
-WithBadge.args = { default: html`<uui-badge>!</uui-badge>`, overflow: true };
+WithBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
 WithBadge.parameters = {
   controls: { include: ['overflow', 'name'] },
   docs: {

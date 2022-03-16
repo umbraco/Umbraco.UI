@@ -6,7 +6,7 @@ import { property, queryAssignedElements, state } from 'lit/decorators.js';
 /**
  * Group a set of avatars, set a limit to minimize the visual space.
  * @element uui-avatar-group
- * @slot - Insert the uui-avatar elements in the default slot
+ * @slot - Insert the `<uui-avatar>` elements in the default slot
  */
 @defineElement('uui-avatar-group')
 export class UUIAvatarGroupElement extends LitElement {
