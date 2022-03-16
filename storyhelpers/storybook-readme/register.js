@@ -42,9 +42,6 @@ const Readme = props => {
         }
       }
     });
-    return () => {
-      //TODO: find out how to remove the api event listener
-    };
   }, []);
 
   const renderReadme = () => (
