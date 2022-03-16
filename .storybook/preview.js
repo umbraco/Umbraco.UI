@@ -52,10 +52,18 @@ setCustomElements(customElements);
 
 function WebComponentFormatter(customElements) {
   for (let tag of customElements.tags || []) {
+    // Find all names of properties
+    const propertyNames = (tag.properties || []).map(p => p.name);
+
     for (let slot of tag.slots || []) {
       // Replace the name of the default slot so Storybook will show it
       if (typeof slot.name === 'string' && slot.name.length === 0) {
         slot.name = 'slot';
+      }
+
+      // If the slot has the same name as a property, then add the word 'slot' to the name
+      if (propertyNames.includes(slot.name)) {
+        slot.name = `${slot.name} slot`;
       }
 
       // Set type of slots
