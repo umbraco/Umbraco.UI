@@ -99,7 +99,7 @@
     "postcss-url": "10.1.3",
     "postcss-values-parser": "6.0.2",
     "prettier": "2.5.1",
-    "raw-loader": "^4.0.2",
+    "raw-loader": "4.0.2",
     "rimraf": "3.0.2",
     "rollup": "2.69.0",
     "rollup-plugin-esbuild": "4.8.2",
