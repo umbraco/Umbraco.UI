@@ -3,6 +3,8 @@ import '.';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
+import './country-select-example';
+
 export default {
   id: 'uui-select-list',
   title: 'Select List',
@@ -45,6 +47,9 @@ const renderOption = option => html`<uui-select-option
   <span style=${styles.display}>${option.country}</span>
   <span style=${styles.population}>${option.population}mil</span>
 </uui-select-option>`;
+
+export const CountrySelect: Story = () =>
+  html` <country-select-example></country-select-example> `;
 
 export const Overview: Story = ({ options }) =>
   html`<uui-select-list multiselect style=${styles.select} @change=${onChange}>

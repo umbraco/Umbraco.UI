@@ -131,7 +131,9 @@ export class UUISelectListElement extends LitElement {
       if (this.multiselect) {
         this._selected.push(newSelected);
       } else {
-        this._selected[0].selected = false;
+        if (this._selected[0]) {
+          this._selected[0].selected = false;
+        }
         this._selected = [newSelected];
       }
       newSelected.selected = true;
@@ -187,8 +189,6 @@ export class UUISelectListElement extends LitElement {
   };
 
   render() {
-    console.log(this._options);
-
     return html` <slot @slotchange=${this._onSlotChange}></slot> `;
   }
 }
