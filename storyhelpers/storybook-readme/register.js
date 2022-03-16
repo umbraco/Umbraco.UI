@@ -19,7 +19,7 @@ const Readme = props => {
   const [markdown, setMarkdown] = useState();
   useEffect(() => {
     const api = props.api;
-    api.on(STORY_RENDERED, eventData => {
+    api.on(STORY_RENDERED, () => {
       setMarkdown('');
       const component = api.getCurrentStoryData().component;
       if (component) {
