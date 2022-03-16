@@ -10,10 +10,10 @@ export default {
   id: 'uui-tag',
   args: {
     look: '',
-    default: 'Hello',
+    slot: 'Hello',
   },
   argTypes: {
-    default: { table: { category: 'slots' }, control: { type: 'text' } },
+    slot: { control: { type: 'text' } },
     look: {
       options: [
         'primary',
@@ -30,7 +30,7 @@ export default {
 };
 
 const Template: Story = props => html`
-  <uui-tag .look=${props.look}>${props.default}</uui-tag>
+  <uui-tag .look=${props.look}>${props.slot}</uui-tag>
 `;
 
 export const AAAOverview = Template.bind({});
