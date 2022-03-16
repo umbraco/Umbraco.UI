@@ -13,7 +13,7 @@ export default {
     disabled: false,
   },
   argTypes: {
-    default: { control: { type: 'text' } },
+    slot: { control: { type: 'text' } },
   },
 };
 
@@ -24,7 +24,7 @@ export const AAAOverview: Story = props =>
     .name=${props.name}
     ?disabled=${props.disabled}
     ?checked=${props.checked}
-    >${props.default}</uui-radio
+    >${props.slot}</uui-radio
   >`;
 AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
