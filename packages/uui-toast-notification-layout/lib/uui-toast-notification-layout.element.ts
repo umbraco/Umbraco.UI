@@ -40,12 +40,11 @@ export class UUIToastNotificationLayoutElement extends LitElement {
 
   /**
    * Headline for this notification, can also be set via the 'headline' slot.
-   * @type string
    * @attr
-   * @default null
+   * @default
    */
   @property({ type: String })
-  headline: string | null = null;
+  headline: string = '';
 
   @state()
   private _headlineSlotHasContent = false;

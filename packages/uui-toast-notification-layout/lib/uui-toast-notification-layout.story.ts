@@ -7,15 +7,14 @@ export default {
   id: 'uui-toast-notification-layout',
   title: 'Displays/Toast Notification/Toast Notification Layout',
   component: 'uui-toast-notification-layout',
-  args: {
-    headline: 'Headline',
-  },
   argTypes: {
-    headline: {
-      control: { type: 'text' },
-    },
     slot: {
       control: { type: 'text' },
+    },
+  },
+  parameters: {
+    controls: {
+      exclude: ['styles'],
     },
   },
   decorators: [
@@ -29,9 +28,13 @@ export const Overview: Story = props =>
     <uui-button slot="actions" look="primary" label="button"></uui-button>
   </uui-toast-notification-layout>`;
 
+Overview.args = {
+  headline: 'Headline',
+};
+
 export const SlottedContent: Story = props =>
   html`<uui-toast-notification-layout>
-    <h3 slot="headline">${props.headline}</h3>
+    <h3 slot="headline">${props['headline slot']}</h3>
     ${props.slot}
     <div slot="actions">
       <uui-icon-registry-essential>
@@ -48,11 +51,16 @@ export const SlottedContent: Story = props =>
   </uui-toast-notification-layout>`;
 
 SlottedContent.args = {
+  'headline slot': 'Headline',
   slot: 'This is the default slot',
+};
+
+SlottedContent.argTypes = {
+  'headline slot': { control: { type: 'text' } },
 };
 
 SlottedContent.parameters = {
   controls: {
-    include: ['headline', 'slot'],
+    include: ['headline slot', 'slot'],
   },
 };
