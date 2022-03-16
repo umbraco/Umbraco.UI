@@ -10,7 +10,7 @@ import { property } from 'lit/decorators.js';
  *
  *  @element uui-tag
  *  @description Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
- *  @slot default - slot for tag contents
+ *  @slot - slot for tag contents
  *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
  */
 @defineElement('uui-tag')

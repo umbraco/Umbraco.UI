@@ -11,7 +11,7 @@ import { UUIRadioEvent } from './UUIRadioEvent';
 /**
  *  @element uui-radio
  *  @description - a single radio, should never be use as a stand-alone. Must be wrapped in `<uui-radio-group></uui-radio-group>` element.
- *  @slot default - slot to set the label if no `label` attribute is set.
+ *  @slot - slot to set the label if no `label` attribute is set.
  *  @cssprop --uui-radio-button-size - Sets the size of the radio button.
  *  @fires change - on input change
  */

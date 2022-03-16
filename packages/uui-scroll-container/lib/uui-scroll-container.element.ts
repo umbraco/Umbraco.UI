@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 
 /**
  *  @element uui-scroll-container
- *  @slot default - for content
+ *  @slot - for content
  *  @description - Component for displaying a larger amount of .
  */
 @defineElement('uui-scroll-container')

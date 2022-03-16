@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 /**
  * Label element for Custom Element
  * @element uui-label
- * @slot default - for the label text.
+ * @slot - for the label text.
  */
 @defineElement('uui-label')
 export class UUILabelElement extends LitElement {

@@ -7,7 +7,7 @@ import { property, state } from 'lit/decorators.js';
 /**
  * @element uui-form-layout-item
  * @description - Form item composes label, input and validation-messages in a proper layout.
- * @slot default - for button contents
+ * @slot - for button contents
  * @slot message - for extras in the messages container
  * @slot description - for extras in the description container
  * @slot label - for label contents

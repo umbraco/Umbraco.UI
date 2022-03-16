@@ -5,7 +5,7 @@ import { property, state } from 'lit/decorators.js';
 /**
  *  Avatar for displaying users
  *  @element uui-avatar
- *  @slot default - For anything other than initials (no more than 2-3 characters)
+ *  @slot - For anything other than initials (no more than 2-3 characters)
  */
 @defineElement('uui-avatar')
 export class UUIAvatarElement extends LitElement {

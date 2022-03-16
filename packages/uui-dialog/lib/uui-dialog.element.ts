@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 
 /**
  *  @element uui-dialog
- *  @slot default - The slot for dialog content
+ *  @slot - The slot for dialog content
  *  @description - All-round dialog
  */
 @defineElement('uui-dialog')

@@ -6,7 +6,7 @@ import { property } from 'lit/decorators.js';
 /**
  *  A badge to notify that there is something that requires attention of the user. The badge is positioned with `position: absolute`. It will determine its position against the first ancestor with `position: relative`.
  *  @element uui-badge
- *  @slot default - The slot for badge contents
+ *  @slot - The slot for badge contents
  */
 @defineElement('uui-badge')
 export class UUIBadgeElement extends LitElement {

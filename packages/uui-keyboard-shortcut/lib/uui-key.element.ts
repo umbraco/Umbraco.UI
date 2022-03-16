@@ -4,7 +4,7 @@ import { queryAssignedNodes } from 'lit/decorators.js';
 /**
  *  A visual representation of a key on you keyboard. use inside `<uui-keyboard-shortcut></uui-keyboard-shortcut>`
  *  @element uui-key
- *  @slot default - for the key name. Anything you put in here will be lowercase.
+ *  @slot - for the key name. Anything you put in here will be lowercase.
  */
 export class UUIKeyElement extends LitElement {
   static styles = [

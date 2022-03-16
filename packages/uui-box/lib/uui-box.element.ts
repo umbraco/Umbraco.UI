@@ -6,7 +6,7 @@ import { css, html, LitElement } from 'lit';
  *  @element uui-box
  *  @slot header - header area for title
  *  @slot main - main content area
- *  @slot default - area with no padding
+ *  @slot - area with no padding
  *
  */
 @defineElement('uui-box')

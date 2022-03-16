@@ -6,7 +6,7 @@ import { property, state } from 'lit/decorators.js';
 /**
  *  @element uui-toast-notification-layout
  *  @description - Component for setting the layout for a toast notification, to be used within toast-notification.
- *  @slot default - for content
+ *  @slot - for content
  *  @slot headline - for headline
  *  @slot actions - for actions
  */

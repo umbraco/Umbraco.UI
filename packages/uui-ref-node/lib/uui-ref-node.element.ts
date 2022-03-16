@@ -9,7 +9,7 @@ import { property, state } from 'lit/decorators.js';
  *  @fires {UUIRefEvent} selected - fires when the ref is selected
  *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
  *  @description - Component for displaying a reference to a generic node.
- *  @slot default - for content
+ *  @slot - for content
  *  @slot icon - for an icon
  *  @slot tag - for a tag
  *  @slot actions - for actions

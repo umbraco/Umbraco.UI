@@ -8,7 +8,7 @@ import { repeat } from 'lit/directives/repeat.js';
 /**
  * @element uui-form-validation-message
  * @description - Component for displaying one or more validation messages from Form Control within the given scope. Notice: Only supports components that build on the FormControlMixing.
- * @slot default - for button contents
+ * @slot - for button contents
  * @slot message - for extras in the messages container
  */
 

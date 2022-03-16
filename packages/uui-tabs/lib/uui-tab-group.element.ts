@@ -6,7 +6,7 @@ import { UUITabElement } from './uui-tab.element';
 
 /**
  *  @element uui-tab-group
- *  @slot default - Default slot for the tab group
+ *  @slot - Default slot for the tab group
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {

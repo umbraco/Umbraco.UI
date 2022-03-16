@@ -4,7 +4,7 @@ import { css, html, LitElement } from 'lit';
 /**
  *  Place <uui-button> elements in the slot. They will be nicely displayed.
  *  @element uui-button-group
- *  @slot default - The slot for buttons. It supports `<uui-button>` elements out of the box.
+ *  @slot - The slot for buttons. It supports `<uui-button>` elements out of the box.
  */
 @defineElement('uui-button-group')
 export class UUIButtonGroupElement extends LitElement {
