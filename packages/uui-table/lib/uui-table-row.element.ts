@@ -4,7 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { queryAssignedNodes } from 'lit/decorators.js';
+import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUITableCellElement } from './uui-table-cell.element';
 
@@ -40,8 +40,11 @@ export class UUITableRowElement extends SelectOnlyMixin(
     this.setAttribute('role', 'row');
   }
 
-  @queryAssignedNodes(undefined, true, 'uui-table-cell')
-  private slotCellNodes?: UUITableCellElement[];
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-table-cell, [uui-table-cell], [role=cell]',
+  })
+  private slotCellNodes?: unknown[];
 
   protected updated(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('selectOnly')) this.updateChildSelectOnly();
@@ -50,9 +53,15 @@ export class UUITableRowElement extends SelectOnlyMixin(
   private updateChildSelectOnly() {
     if (this.slotCellNodes) {
       this.slotCellNodes.forEach(el => {
-        el.disableChildInteraction = this.selectOnly;
+        if (this.elementIsTableCell(el)) {
+          el.disableChildInteraction = this.selectOnly;
+        }
       });
     }
+  }
+
+  private elementIsTableCell(element: unknown): element is UUITableCellElement {
+    return element instanceof UUITableCellElement;
   }
 
   render() {

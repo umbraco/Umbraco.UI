@@ -4,7 +4,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 export default {
-  title: 'Displays/Avatar Group',
+  title: 'Displays/Avatar/Avatar Group',
   id: 'uui-avatar-group',
   component: 'uui-avatar-group',
   args: {
@@ -29,18 +29,7 @@ AAAOverview.argTypes = {
   fontSize: { table: { category: 'inline styling' } },
   '--uui-avatar-border-color': { control: { type: 'color' } },
 };
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: html`<uui-avatar-group>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-      </uui-avatar-group>`.strings,
-    },
-  },
-};
+AAAOverview.parameters = {};
 
 AAAOverview.storyName = 'Overview';
 
@@ -55,16 +44,7 @@ export const Limit: Story = ({ limit }) => html`
   </uui-avatar-group>
 `;
 Limit.args = { limit: 2 };
+Limit.argTypes = {};
 Limit.parameters = {
   controls: { include: ['limit'] },
-  docs: {
-    source: {
-      code: html`<uui-avatar-group limit="2">
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-        <uui-avatar name="Firstname Lastname"></uui-avatar>
-      </uui-avatar-group>`.strings,
-    },
-  },
 };

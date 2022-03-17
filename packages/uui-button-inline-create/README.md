@@ -4,6 +4,10 @@
 
 Umbraco style button-inline-create component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-button-inline-create)
+
 ## Installation
 
 ### ES imports
