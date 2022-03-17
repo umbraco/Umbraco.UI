@@ -4,6 +4,10 @@
 
 Umbraco style uui-form-layout-item component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-form-layout-item)
+
 ## Installation
 
 ### ES imports

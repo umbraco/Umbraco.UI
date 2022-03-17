@@ -1,5 +1,9 @@
 # symbol-folder
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-symbol-folder)
+
 ## Usage
 
 ```zsh
