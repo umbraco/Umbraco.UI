@@ -70,7 +70,7 @@ export class UUISelectListElement extends LitElement {
   };
 
   private _onSlotChange = () => {
-    this._goToIndex(this._index); // Makes sure the index stays within array length if an option is removed
+    this._goToIndex(0); // Makes sure the index stays within array length if an option is removed
   };
 
   private _moveIndex = (distance: number) => {
@@ -108,15 +108,18 @@ export class UUISelectListElement extends LitElement {
   private _goToIndex(index: number) {
     index = Math.min(Math.max(index, 0), this._options.length - 1); // Makes sure the index stays within array length
 
-    this._options[this._index].active = false;
+    if (this._options[this._index]) {
+      this._options[this._index].active = false;
+    }
     this._index = index;
-    this._options[this._index].active = true;
-
-    this._options[this._index].scrollIntoView({
-      behavior: 'auto',
-      block: 'nearest',
-      inline: 'nearest',
-    });
+    if (this._options[this._index]) {
+      this._options[this._index].active = true;
+      this._options[this._index].scrollIntoView({
+        behavior: 'auto',
+        block: 'nearest',
+        inline: 'nearest',
+      });
+    }
   }
 
   private _selectAtIndex(index: number) {

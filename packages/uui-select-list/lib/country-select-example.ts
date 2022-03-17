@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ActiveMixin, SelectableMixin } from 'packages/uui-base/lib/mixins';
 import { UUISelectListEvent } from './UUISelectListEvent';
 
@@ -49,6 +49,9 @@ export class CountrySelectExample extends LitElement {
   @property({ type: Boolean })
   multiselect = true;
 
+  @state()
+  search: string = '';
+
   private _renderCountry = (country: any) => html`<uui-select-option
     .value=${country}>
     ${country['Country or Area']}
@@ -59,21 +62,46 @@ export class CountrySelectExample extends LitElement {
     ${region.countries.map((country: any) => this._renderCountry(country))}
   `;
 
-  private _onChange = (e: any) => {
+  private _onSelectChange = (e: any) => {
     this.value = e.detail.selected;
   };
 
-  private getDisplay() {
+  private get valueDisplay() {
     return this.value.map(country => country['Country or Area']).join(', ');
   }
 
+  private _onInput = (e: any) => {
+    this.search = e.target.value;
+  };
+
+  private _filterOptions = (): any[] => {
+    const filteredRegions = regions.filter(region =>
+      region.countries.some((country: any) =>
+        country['Country or Area']
+          .toLowerCase()
+          .includes(this.search.toLowerCase())
+      )
+    );
+
+    const filterFinal = filteredRegions.map(region => ({
+      name: region.name,
+      countries: region.countries.filter((country: any) =>
+        country['Country or Area']
+          .toLowerCase()
+          .includes(this.search.toLowerCase())
+      ),
+    }));
+
+    return filterFinal;
+  };
+
   render() {
     return html`
-      <uui-input .value=${this.getDisplay()}></uui-input>
+      <input type="text" .value=${this.valueDisplay} @input=${this._onInput} />
       <uui-select-list
         ?multiselect=${this.multiselect}
-        @change=${this._onChange}>
-        ${regions.map(region => this._renderRegion(region))}
+        @change=${this._onSelectChange}>
+        ${this._filterOptions().map(region => this._renderRegion(region))}
       </uui-select-list>
     `;
   }
@@ -85,7 +113,7 @@ declare global {
   }
 }
 
-const regions = [
+const regions: Array<any> = [
   {
     name: 'Africa',
     countries: [
