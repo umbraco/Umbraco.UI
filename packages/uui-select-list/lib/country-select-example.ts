@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ActiveMixin, SelectableMixin } from 'packages/uui-base/lib/mixins';
 import { UUISelectListEvent } from './UUISelectListEvent';
 import flags from 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json';
@@ -20,7 +20,7 @@ export class CountrySelectExample extends LitElement {
         box-sizing: border-box;
         width: 400px;
         padding: 8px 12px;
-        border: 1px solid black;
+        border: 1px solid var(--uui-interface-border);
         border-radius: 6px;
         font-weight: bold;
         font-size: 1rem;
@@ -30,11 +30,20 @@ export class CountrySelectExample extends LitElement {
       uui-select-list {
         display: flex;
         flex-direction: column;
-        border: 1px solid black;
-        width: 400px;
+        width: 100%;
+        height: 100%;
         max-height: 500px;
         overflow: auto;
-        border: 1px solid #333333;
+      }
+
+      #dropdown {
+        overflow: hidden;
+        border: 1px solid var(--uui-interface-border);
+        border-radius: 6px;
+        width: 400px;
+        max-height: 500px;
+        box-sizing: border-box;
+        box-shadow: var(--uui-shadow-depth-3);
       }
 
       .region {
@@ -42,6 +51,9 @@ export class CountrySelectExample extends LitElement {
         padding: 8px;
         font-weight: bold;
         color: #333333;
+      }
+
+      .region:not(:first-child) {
         border-top: 1px solid #333333;
       }
 
@@ -64,8 +76,14 @@ export class CountrySelectExample extends LitElement {
   @property({ type: Boolean })
   multiselect = false;
 
+  @query('#input')
+  input!: HTMLInputElement;
+
   @state()
-  search: string = '';
+  search = '';
+
+  @state()
+  open = false;
 
   private _renderCountry = (country: any) => html`<uui-select-option
     .value=${country}>
@@ -81,7 +99,7 @@ export class CountrySelectExample extends LitElement {
   private _onSelectChange = (e: any) => {
     this.value = e.detail.selected;
 
-    console.log(this.value);
+    console.log('SELECTED', this.value);
 
     if (this.value.length === 0) {
       this.search = '';
@@ -115,16 +133,26 @@ export class CountrySelectExample extends LitElement {
 
   render() {
     return html`
-      <input
-        id="input"
-        type="text"
-        .value=${this.valueDisplay}
-        @input=${this._onInput} />
-      <uui-select-list
-        ?multiselect=${this.multiselect}
-        @change=${this._onSelectChange}>
-        ${this._filterOptions().map(region => this._renderRegion(region))}
-      </uui-select-list>
+      <uui-popover
+        .open=${this.open}
+        .margin=${10}
+        @close=${() => (this.open = false)}>
+        <input
+          slot="trigger"
+          id="input"
+          type="text"
+          @focus=${() => (this.open = true)}
+          @blur=${() => this.input.focus()}
+          .value=${this.valueDisplay}
+          @input=${this._onInput} />
+        <div id="dropdown" slot="popover">
+          <uui-select-list
+            ?multiselect=${this.multiselect}
+            @change=${this._onSelectChange}>
+            ${this._filterOptions().map(region => this._renderRegion(region))}
+          </uui-select-list>
+        </div>
+      </uui-popover>
     `;
   }
 }
