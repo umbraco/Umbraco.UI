@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { useArgs } from '@storybook/client-api';
 
 import './country-select-example';
 
@@ -48,8 +49,25 @@ const renderOption = option => html`<uui-select-option
   <span style=${styles.population}>${option.population}mil</span>
 </uui-select-option>`;
 
-export const CountrySelect: Story = () =>
-  html` <country-select-example></country-select-example> `;
+export const CountrySelect: Story = props => {
+  const [selected, updateSelected] = useArgs();
+
+  const handle = e => {
+    updateSelected({ ...props, selected: e.detail.selected });
+  };
+
+  return html`
+    <div style="width: 100%; display: flex; gap: 32px">
+      <country-select-example @change=${handle}></country-select-example>
+      <div>
+        ${props.selected.map(
+          country => html`<div>${country.countryName}</div>`
+        )}
+      </div>
+    </div>
+  `;
+};
+CountrySelect.args = { selected: [] };
 
 export const Overview: Story = ({ options }) =>
   html`<uui-select-list multiselect style=${styles.select} @change=${onChange}>

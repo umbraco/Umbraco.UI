@@ -4,6 +4,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { ActiveMixin, SelectableMixin } from 'packages/uui-base/lib/mixins';
 import { UUISelectListEvent } from './UUISelectListEvent';
 import flags from 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json';
+import { UUIEvent } from 'packages/uui-base/lib/events/UUIEvent';
 
 /**
  * @element country-select-example
@@ -98,8 +99,6 @@ export class CountrySelectExample extends LitElement {
 
   private _onSelectChange = (e: any) => {
     this.value = e.detail.selected;
-
-    console.log('SELECTED', this.value);
 
     if (this.value.length === 0) {
       this.search = '';

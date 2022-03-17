@@ -23,7 +23,9 @@ export class UUISelectListElement extends LitElement {
   public multiselect = false;
 
   @state()
-  private _selected: UUISelectOptionElement[] = [];
+  // private _selected: UUISelectOptionElement[] = [];
+  @state()
+  private _value: any[] = [];
 
   @queryAssignedElements({
     flatten: true,
@@ -70,7 +72,10 @@ export class UUISelectListElement extends LitElement {
   };
 
   private _onSlotChange = () => {
+    console.log('Slot updated');
+
     this._goToIndex(0); // Makes sure the index stays within array length if an option is removed
+    this._updateOptions();
   };
 
   private _moveIndex = (distance: number) => {
@@ -79,31 +84,8 @@ export class UUISelectListElement extends LitElement {
       this._options.length - 1
     );
 
-    // const newIndex =
-    //   direction > 0
-    //     ? this._getNextAvailableIndex(this._index)
-    //     : this._getPreviousAvailableIndex(this._index);
-
     this._goToIndex(newIndex);
   };
-
-  // private _getNextAvailableIndex(startPosition: number): number {
-  //   const newStart = startPosition + 1;
-  //   const index = this._options
-  //     .slice(newStart)
-  //     .findIndex(option => option.disabled === false);
-  //   return index === -1 ? startPosition : newStart + index;
-  // }
-
-  // private _getPreviousAvailableIndex(startPosition: number): number {
-  //   const newStart = startPosition - 1;
-
-  //   const index = this._options
-  //     .slice(0, newStart + 1)
-  //     .reverse()
-  //     .findIndex(option => option.disabled === false);
-  //   return index === -1 ? startPosition : newStart - index;
-  // }
 
   private _goToIndex(index: number) {
     index = Math.min(Math.max(index, 0), this._options.length - 1); // Makes sure the index stays within array length
@@ -122,33 +104,29 @@ export class UUISelectListElement extends LitElement {
     }
   }
 
+  private _updateOptions = () => {
+    for (const option of this._options) {
+      option.selected = this._value.includes(option.value);
+    }
+  };
+
   private _selectAtIndex(index: number) {
     const newSelected = this._options[index];
 
-    if (newSelected.disabled) return; // We shouldn't be able to select disabled options
-
-    const selectedIndex = this._selected.indexOf(newSelected);
+    const selectedIndex = this._value.indexOf(newSelected.value);
 
     if (selectedIndex < 0) {
-      // If option is already selected then deselect it
-      if (this.multiselect) {
-        this._selected.push(newSelected);
-      } else {
-        if (this._selected[0]) {
-          this._selected[0].selected = false;
-        }
-        this._selected = [newSelected];
-      }
-      newSelected.selected = true;
+      //TODO: Add multiselect
+      this._value = [newSelected.value];
     } else {
-      // If is not already selected then select it
-      this._options[index].selected = false;
-      this._selected.splice(selectedIndex, 1);
+      this._value.splice(selectedIndex, 1);
     }
+
+    this._updateOptions();
 
     this.dispatchEvent(
       new UUISelectListEvent(UUISelectListEvent.CHANGE, {
-        detail: { selected: this._selected.map(option => option.value) },
+        detail: { selected: this._value },
       })
     );
   }
