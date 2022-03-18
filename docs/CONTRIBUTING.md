@@ -16,8 +16,6 @@ Before you submit a new PR, make sure you run `npm run test`. PR must pass all t
 
 Please follow the [pull request template](../.github/pull_request_template.md) when submitting a pull request!
 
-
-
 > NOTE: Although the latest released version of Umbraco UI corresponds to the `main` branch, then development happens in the `dev` branch. If you submit a PR, branch off `dev` and target your PR to `dev`.
 
 ## Development Guide
@@ -82,7 +80,6 @@ Each property you create should be documented with a jsdoc snippet. You can see 
 - Elements always use a shadow-root (shadowDOM - for encapsulation)
 - Styles should have as simple rules as possible
 - UI-events should be unique types that extend from our UUIEvent (see `uui-base` package) (for typing reasons)
-- Elements are exported side-effect free (no registration) in the \*.element.ts file, and with the registration in the index.ts file
 - When applicable, elements should follow [aria accessibility patterns](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)
 
 ### Before a new element can me merged
