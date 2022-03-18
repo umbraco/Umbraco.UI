@@ -51,7 +51,7 @@ npm run new-package
 npm i
 ```
 
-`tsconfig.json` file is generated automatically when `postinstall` script runs.
+`tsconfig.json` file is generated automatically when the `postinstall` script runs.
 
 ### Properties and attributes
 
