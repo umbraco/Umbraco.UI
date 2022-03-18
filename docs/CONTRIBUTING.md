@@ -4,6 +4,29 @@ Please review this document to help to streamline the process and save everyone'
 
 This repo uses nodejs, so you should install `nodejs` as the package manager. See [installation guide](https://nodejs.org/en/).
 
+# Guidelines for contributions we welcome
+
+Not all changes are wanted, so on occasion we might close a PR without merging it. We will give you feedback why we can't accept your changes and we'll be nice about it, thanking you for spending your valuable time.
+
+Remember, it is always worth working on an issue from the `Up-for-grabs` list or even asking for some feedback before you send us a PR. This way, your PR will not be closed as unwanted.
+
+Feature requests or ideas should be submitted [as a discussion first](https://github.com/umbraco/Umbraco.UI/discussions/new?category=ideas) and may then later be converted into an issue.
+
+### Ownership and copyright
+
+It is your responsibility to make sure that you're allowed to share the code you're providing us.
+For example, you should have permission from your employer or customer to share code.
+
+Similarly, if your contribution is copied or adapted from somewhere else, make sure that the license allows you to reuse that for a contribution to Umbraco.UI and Umbraco-CMS.
+
+If you're not sure, leave a note on your contribution and we will be happy to guide you.
+
+When your contribution has been accepted, it will be [MIT licensed](https://github.com/umbraco/Umbraco.UI/blob/dev/LICENSE) from that time onwards.
+
+## What can I start with?
+
+Unsure where to begin contributing to the Umbraco UI library? You can start by looking through [these `Up-for-grabs` issues](https://github.com/umbraco/Umbraco.UI/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs)
+
 ## Pull Requests (PRs)
 
 We welcome all contributions. There are many ways you can help us. This is few of those ways:
