@@ -72,8 +72,6 @@ export class UUISelectListElement extends LitElement {
   };
 
   private _onSlotChange = () => {
-    console.log('Slot updated');
-
     this._goToIndex(0); // Makes sure the index stays within array length if an option is removed
     this._updateOptions();
   };
@@ -117,7 +115,11 @@ export class UUISelectListElement extends LitElement {
 
     if (selectedIndex < 0) {
       //TODO: Add multiselect
-      this._value = [newSelected.value];
+      if (this.multiselect) {
+        this._value.push(newSelected.value);
+      } else {
+        this._value = [newSelected.value];
+      }
     } else {
       this._value.splice(selectedIndex, 1);
     }

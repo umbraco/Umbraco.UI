@@ -59,9 +59,16 @@ export const CountrySelect: Story = props => {
   return html`
     <div style="width: 100%; display: flex; gap: 32px">
       <country-select-example @change=${handle}></country-select-example>
-      <div>
+      <div style="display: flex; flex-direction: column; gap: 16px">
         ${props.selected.map(
-          country => html`<div>${country.countryName}</div>`
+          country =>
+            html`<div
+              style="display: grid; grid-template-columns: 150px 1fr; gap: 8px">
+              <div>${country.countryName}</div>
+              <div style="word-break: break-all">
+                ${JSON.stringify(country)}
+              </div>
+            </div>`
         )}
       </div>
     </div>
