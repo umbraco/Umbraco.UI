@@ -1,13 +1,8 @@
 import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUISelectListElement } from './uui-select-list.element';
 
-export class UUISelectListEvent extends UUIEvent<
-  { selected: Element[] },
-  UUISelectListElement
-> {
+export class UUISelectListEvent extends UUIEvent<UUISelectListElement> {
   public static readonly CHANGE: string = 'change';
-  public static readonly OPTION_CLICK: string = 'option-click';
-  public static readonly OPTION_HOVER: string = 'option-hover';
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {

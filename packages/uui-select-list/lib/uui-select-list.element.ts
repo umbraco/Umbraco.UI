@@ -3,6 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUISelectListEvent } from './UUISelectListEvent';
 import { UUISelectOptionElement } from './uui-select-option.element';
+import { UUISelectableEvent } from 'packages/uui-base/lib/events';
 
 /**
  * @element uui-select-list
@@ -19,61 +20,94 @@ export class UUISelectListElement extends LitElement {
     `,
   ];
 
-  @property({ type: Boolean })
-  public multiselect = false;
-
-  @state()
-  // private _selected: UUISelectOptionElement[] = [];
-  @state()
-  private _value: any[] = [];
-
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-select-option:not([disabled])',
   })
   private _options!: UUISelectOptionElement[]; //TODO: Fix the !
 
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-select-option[selected]',
+  })
+  private _selectedOptions!: UUISelectOptionElement[]; //TODO: Fix the !
+
+  @state()
+  _value: any;
+
+  @property({ type: String })
+  public displayValue = '';
+
+  @property({ attribute: false })
+  public get value() {
+    return this._value;
+  }
+  public set value(newValue) {
+    const oldValue = this._value;
+    this._value = newValue;
+    this.updateOptionsState();
+    this.requestUpdate('value', oldValue);
+  }
+
   private _index = 0;
 
   connectedCallback(): void {
     super.connectedCallback();
     document.addEventListener('keydown', this._onKeyDown);
+    this.addEventListener(UUISelectableEvent.SELECTED, this._onOptionSelected);
     this.addEventListener(
-      UUISelectListEvent.OPTION_CLICK,
-      this._onOptionClicked
+      UUISelectableEvent.UNSELECTED,
+      this._onOptionUnselected
     );
-
-    this.addEventListener(UUISelectListEvent.OPTION_HOVER, this._onOptionHover);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     document.removeEventListener('keydown', this._onKeyDown);
     this.removeEventListener(
-      UUISelectListEvent.OPTION_CLICK,
-      this._onOptionClicked
+      UUISelectableEvent.SELECTED,
+      this._onOptionSelected
     );
-
-    this.addEventListener(UUISelectListEvent.OPTION_HOVER, this._onOptionHover);
+    this.removeEventListener(
+      UUISelectableEvent.UNSELECTED,
+      this._onOptionUnselected
+    );
   }
 
-  private _onOptionHover = (e: any) => {
-    const index = this._options.indexOf(e.target);
-    if (index >= 0) {
-      this._goToIndex(index);
-    }
+  private _onOptionSelected = (e: any) => {
+    const option = e.composedPath()[0];
+    this.selectOption(option);
   };
 
-  private _onOptionClicked = (e: any) => {
-    const index = this._options.indexOf(e.target);
-    if (index >= 0) {
-      this._selectAtIndex(index);
+  private _onOptionUnselected = () => {
+    this.deselectOption();
+  };
+
+  private selectOption(option: UUISelectOptionElement) {
+    this.value = option.value;
+    this.displayValue = option.displayValue || this.value;
+
+    for (const option of this._selectedOptions) {
+      option.selected = option.value === this.value;
+    }
+    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.CHANGE));
+  }
+
+  private deselectOption() {
+    this.value = undefined;
+    this.displayValue = '';
+    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.CHANGE));
+  }
+
+  private updateOptionsState = () => {
+    for (const option of this._options) {
+      option.selected = option.value === this._value;
     }
   };
 
   private _onSlotChange = () => {
     this._goToIndex(0); // Makes sure the index stays within array length if an option is removed
-    this._updateOptions();
+    this.updateOptionsState();
   };
 
   private _moveIndex = (distance: number) => {
@@ -102,34 +136,12 @@ export class UUISelectListElement extends LitElement {
     }
   }
 
-  private _updateOptions = () => {
-    for (const option of this._options) {
-      option.selected = this._value.includes(option.value);
-    }
-  };
-
   private _selectAtIndex(index: number) {
     const newSelected = this._options[index];
-    const selectedIndex = this._value.indexOf(newSelected.value);
 
-    if (selectedIndex < 0) {
-      //TODO: Add multiselect
-      if (this.multiselect) {
-        this._value.push(newSelected.value);
-      } else {
-        this._value = [newSelected.value];
-      }
-    } else {
-      this._value.splice(selectedIndex, 1);
-    }
-
-    this._updateOptions();
-
-    this.dispatchEvent(
-      new UUISelectListEvent(UUISelectListEvent.CHANGE, {
-        detail: { selected: this._value },
-      })
-    );
+    newSelected.selected
+      ? this.deselectOption()
+      : this.selectOption(newSelected);
   }
 
   private _onKeyDown = (e: KeyboardEvent) => {

@@ -79,15 +79,19 @@ export class UUISelectOptionElement extends SelectableMixin(
 
   //TODO: Add a selected and active state to manage the styling here.
 
-  @property({ attribute: false })
+  @property()
   public value: any = undefined;
 
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
+  @property({ type: String, attribute: 'display-value' })
+  displayValue: string = '';
+
+  @property({ attribute: 'selectable' })
+  selectable = true;
+
   render() {
-    // TODO: Fix
-    // eslint-disable-next-line lit-a11y/click-events-have-key-events
     return html`<slot></slot>`;
   }
 }

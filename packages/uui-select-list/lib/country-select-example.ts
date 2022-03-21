@@ -88,7 +88,7 @@ export class CountrySelectExample extends LitElement {
   open = false;
 
   private _renderCountry = (country: any) => html`<uui-select-option
-    .value=${country}
+    .value=${country.countryName}
     ><img
       src=${country.flag}
       alt=${country.countryName} />${country.countryName}
@@ -104,11 +104,13 @@ export class CountrySelectExample extends LitElement {
   `;
 
   private _onSelectChange = (e: any) => {
-    this.value = e.detail.selected;
+    console.log('WHAT', e.detail.selected);
 
-    if (this.value.length === 0) {
-      this.search = '';
-    }
+    // this.value = e.detail.selected;
+
+    // if (this.value.length === 0) {
+    //   this.search = '';
+    // }
   };
 
   private get valueDisplay() {
@@ -154,7 +156,7 @@ export class CountrySelectExample extends LitElement {
           <uui-select-list
             ?multiselect=${this.multiselect}
             @change=${this._onSelectChange}>
-            ${regions.map(region => this._renderRegion(region))}
+            ${this._filterOptions().map(region => this._renderRegion(region))}
           </uui-select-list>
         </div>
       </uui-popover>

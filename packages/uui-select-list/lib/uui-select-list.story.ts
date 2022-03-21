@@ -53,7 +53,7 @@ export const CountrySelect: Story = props => {
   const [selected, updateSelected] = useArgs();
 
   const handle = e => {
-    updateSelected({ ...props, selected: e.detail.selected });
+    // updateSelected({ ...props, selected: e.detail.selected });
   };
 
   return html`

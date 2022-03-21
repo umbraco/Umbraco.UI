@@ -59,3 +59,5 @@ import '@umbraco-ui/uui-toggle/lib';
 import '@umbraco-ui/uui-symbol-lock/lib';
 
 import '@umbraco-ui/uui-select-list/lib';
+
+import '@umbraco-ui/uui-select-custom/lib';
