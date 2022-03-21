@@ -1,8 +1,14 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, query, state } from 'lit/decorators.js';
+import {
+  property,
+  query,
+  queryAssignedElements,
+  state,
+} from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import { UUISelectCustomEvent } from './UUISelectCustomEvent';
 import { UUISelectListEvent } from 'packages/uui-select-list/lib/UUISelectListEvent';
+import { UUISelectOptionElement } from 'packages/uui-select-list/lib/uui-select-option.element';
 
 /**
  * @element uui-select-custom
@@ -72,7 +78,7 @@ export class UUISelectCustomElement extends LitElement {
   @query('#input')
   input!: HTMLInputElement;
 
-  @state()
+  @property({ type: String })
   search = '';
 
   @property({ type: Boolean })
@@ -94,13 +100,20 @@ export class UUISelectCustomElement extends LitElement {
     this.requestUpdate('value', oldValue);
   }
 
-  private _onInput = () => {
+  private _onInput = (e: any) => {
+    console.log('INPUT', this.search);
+
+    this.search = e.target.value;
     this.dispatchEvent(new UUISelectCustomEvent(UUISelectCustomEvent.INPUT));
   };
 
   private _onChange = (e: UUISelectListEvent) => {
-    this.value = e.composedPath()[0].value;
-    this.displayValue = e.composedPath()[0].displayValue;
+    this.value = (e.composedPath()[0] as UUISelectOptionElement)?.value;
+    this.displayValue = (
+      e.composedPath()[0] as UUISelectOptionElement
+    )?.displayValue;
+    this.search = this.value ? this.search : '';
+    this.dispatchEvent(new UUISelectCustomEvent(UUISelectCustomEvent.INPUT));
   };
 
   render() {
@@ -117,9 +130,9 @@ export class UUISelectCustomElement extends LitElement {
           .value=${this.displayValue}
           @input=${this._onInput} />
         <div id="dropdown" slot="popover">
-          <uui-select-list @change=${this._onChange}
-            ><slot></slot
-          ></uui-select-list>
+          <uui-select-list @change=${this._onChange}>
+            <slot></slot>
+          </uui-select-list>
         </div>
       </uui-popover>
     `;

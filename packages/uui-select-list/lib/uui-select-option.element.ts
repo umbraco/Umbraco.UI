@@ -21,7 +21,6 @@ export class UUISelectOptionElement extends SelectableMixin(
         position: absolute;
         content: '';
         outline-offset: -4px;
-        border-radius: 8px;
         outline: 4px solid transparent;
         inset: 0;
       }
@@ -77,19 +76,26 @@ export class UUISelectOptionElement extends SelectableMixin(
     `,
   ];
 
-  //TODO: Add a selected and active state to manage the styling here.
+  private _value: any;
 
   @property()
-  public value: any = undefined;
+  public get value() {
+    return this._value ? this._value : this.textContent;
+  }
+  public set value(newValue) {
+    const oldValue = this._value;
+    this._value = newValue;
+    this.requestUpdate('value', oldValue);
+  }
 
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
   @property({ type: String, attribute: 'display-value' })
-  displayValue: string = '';
+  public displayValue: string = '';
 
-  @property({ attribute: 'selectable' })
-  selectable = true;
+  @property({ type: Boolean })
+  public selectable = true;
 
   render() {
     return html`<slot></slot>`;

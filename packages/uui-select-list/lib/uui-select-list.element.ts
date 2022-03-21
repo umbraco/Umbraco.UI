@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUISelectListEvent } from './UUISelectListEvent';
 import { UUISelectOptionElement } from './uui-select-option.element';
@@ -33,10 +33,7 @@ export class UUISelectListElement extends LitElement {
   private _selectedOptions!: UUISelectOptionElement[]; //TODO: Fix the !
 
   @state()
-  _value: any;
-
-  @property({ type: String })
-  public displayValue = '';
+  private _value: any;
 
   @property({ attribute: false })
   public get value() {
@@ -48,6 +45,9 @@ export class UUISelectListElement extends LitElement {
     this.updateOptionsState();
     this.requestUpdate('value', oldValue);
   }
+
+  @property({ type: String })
+  public displayValue = '';
 
   private _index = 0;
 
@@ -85,7 +85,8 @@ export class UUISelectListElement extends LitElement {
 
   private selectOption(option: UUISelectOptionElement) {
     this.value = option.value;
-    this.displayValue = option.displayValue || this.value;
+    this.displayValue =
+      option.displayValue || option.textContent || this.value.toString();
 
     for (const option of this._selectedOptions) {
       option.selected = option.value === this.value;
