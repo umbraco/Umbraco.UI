@@ -101,8 +101,6 @@ export class UUISelectCustomElement extends LitElement {
   }
 
   private _onInput = (e: any) => {
-    console.log('INPUT', this.search);
-
     this.search = e.target.value;
     this.dispatchEvent(new UUISelectCustomEvent(UUISelectCustomEvent.INPUT));
   };
