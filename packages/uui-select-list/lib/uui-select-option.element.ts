@@ -85,26 +85,6 @@ export class UUISelectOptionElement extends SelectableMixin(
   @property({ type: Boolean, reflect: true })
   public disabled = false;
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    this.addEventListener('click', this._onClick);
-    this.addEventListener('mouseenter', this._onMouseEnter);
-  }
-
-  disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this.removeEventListener('click', this._onClick);
-    this.removeEventListener('mouseenter', this._onMouseEnter);
-  }
-
-  private _onClick = () => {
-    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.OPTION_CLICK));
-  };
-
-  private _onMouseEnter = () => {
-    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.OPTION_HOVER));
-  };
-
   render() {
     // TODO: Fix
     // eslint-disable-next-line lit-a11y/click-events-have-key-events

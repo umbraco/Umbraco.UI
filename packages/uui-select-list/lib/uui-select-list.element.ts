@@ -110,7 +110,6 @@ export class UUISelectListElement extends LitElement {
 
   private _selectAtIndex(index: number) {
     const newSelected = this._options[index];
-
     const selectedIndex = this._value.indexOf(newSelected.value);
 
     if (selectedIndex < 0) {

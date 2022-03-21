@@ -5,6 +5,7 @@ import { ActiveMixin, SelectableMixin } from 'packages/uui-base/lib/mixins';
 import { UUISelectListEvent } from './UUISelectListEvent';
 import flags from 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/index.json';
 import { UUIEvent } from 'packages/uui-base/lib/events/UUIEvent';
+import { repeat } from 'lit/directives/repeat.js';
 
 /**
  * @element country-select-example
@@ -87,14 +88,19 @@ export class CountrySelectExample extends LitElement {
   open = false;
 
   private _renderCountry = (country: any) => html`<uui-select-option
-    .value=${country}>
-    <img src=${country.flag} alt=${country.countryName} />
-    ${country.countryName}
+    .value=${country}
+    ><img
+      src=${country.flag}
+      alt=${country.countryName} />${country.countryName}
   </uui-select-option>`;
 
   private _renderRegion = (region: any) => html`
     <span class="region">${region.name}</span>
-    ${region.countries.map((country: any) => this._renderCountry(country))}
+    ${repeat(
+      region.countries,
+      item => item.ISOAlpha3Code,
+      item => this._renderCountry(item)
+    )}
   `;
 
   private _onSelectChange = (e: any) => {
@@ -148,7 +154,7 @@ export class CountrySelectExample extends LitElement {
           <uui-select-list
             ?multiselect=${this.multiselect}
             @change=${this._onSelectChange}>
-            ${this._filterOptions().map(region => this._renderRegion(region))}
+            ${regions.map(region => this._renderRegion(region))}
           </uui-select-list>
         </div>
       </uui-popover>
