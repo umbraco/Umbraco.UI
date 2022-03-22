@@ -17,21 +17,6 @@ export default {
   },
 };
 
-// const fruits = ['apple', 'orange', 'banana'];
-
-// export const Overview: Story = props =>
-//   html`<uui-select-custom
-//     @change=${(e: any) => console.log('CHANGE', e)}
-//     @input=${e => console.log('INPUT', e)}>
-//     <uui-select-option display-value="Banana" value="bannana"
-//       ><b>bananana</b></uui-select-option
-//     >
-//     <uui-select-option value="apple">i am apple</uui-select-option>
-//     <uui-select-option value="orange">i am orange, the fruit</uui-select-option>
-//     <uui-select-option value="pineapple">i am pineapple</uui-select-option>
-//     <uui-select-option value="kiwi">i am kiwi</uui-select-option>
-//   </uui-select-custom>`;
-
 const renderAvatar = (
   value: string,
   name: any,
@@ -48,7 +33,7 @@ const renderAvatar = (
 </uui-select-option>`;
 
 export const Avatars: Story = props => {
-  const [search, updateSearch] = useArgs();
+  const [, updateSearch] = useArgs();
 
   const handle = (e: any) => {
     updateSearch({ ...props, search: e.target.search });
@@ -88,27 +73,3 @@ Avatars.args = {
     },
   ],
 };
-
-// export const Fruits: Story = props => {
-//   const [search, updateSearch] = useArgs();
-
-//   const handle = (e: any) => {
-//     console.log('HALLO', e.target.search);
-
-//     updateSearch({ ...props, search: e.target.search });
-//   };
-
-//   return html`
-//     <uui-select-custom @input=${handle}>
-//       ${props.fruits
-//         .filter((f: string) => f.includes(props.search))
-//         .map(
-//           (fruit: any) => html`<uui-select-option>${fruit}</uui-select-option>`
-//         )}
-//     </uui-select-custom>
-//   `;
-// };
-
-// Fruits.args = {
-//   fruits: ['apple', 'orange', 'banana'],
-// };

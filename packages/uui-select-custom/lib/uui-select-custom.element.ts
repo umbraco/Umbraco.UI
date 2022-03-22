@@ -1,10 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import {
-  property,
-  query,
-  queryAssignedElements,
-  state,
-} from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import { UUISelectCustomEvent } from './UUISelectCustomEvent';
 import { UUISelectListEvent } from 'packages/uui-select-list/lib/UUISelectListEvent';
