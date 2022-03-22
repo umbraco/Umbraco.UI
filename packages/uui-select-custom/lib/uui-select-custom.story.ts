@@ -85,9 +85,11 @@ const renderCountry = (country: any) => html`<uui-select-option
     alt=${country.countryName} />${country.countryName}
 </uui-select-option>`;
 
-const renderRegion = (region: any) => html`
+const renderRegion = (region: any, index: number) => html`
   <span
-    style="position: sticky; top: 0; text-align: center; padding: 8px; font-weight: bold; color: #333333; background: white; z-index: 1; box-shadow: var(--uui-shadow-depth-1)">
+    style=${`${
+      index > 0 ? 'margin-top: 6px' : ''
+    }; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-interface-border,#c4c4c4);`}>
     ${region.name}
   </span>
   ${repeat(
@@ -97,6 +99,23 @@ const renderRegion = (region: any) => html`
   )}
 `;
 
+const filterOptions = (regions: any, search: string): any[] => {
+  const filteredRegions = regions.filter(region =>
+    region.countries.some((country: any) =>
+      country.countryName.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  const filterFinal = filteredRegions.map(region => ({
+    name: region.name,
+    countries: region.countries.filter((country: any) =>
+      country.countryName.toLowerCase().includes(search.toLowerCase())
+    ),
+  }));
+
+  return filterFinal;
+};
+
 export const CountrySelect: Story = props => {
   const [, updateSearch] = useArgs();
 
@@ -105,14 +124,17 @@ export const CountrySelect: Story = props => {
   };
 
   return html`<uui-select-custom
-    style="--uui-popover-dropdown-height: 300px; max-width: 300px;"
+    style="--uui-select-dropdown-max-height: 300px; max-width: 300px;"
     @input=${handle}
     @change=${(e: any) => console.log('CHANGE', e.target.value)}>
-    ${props.regions.map((region: any) => renderRegion(region))}
+    ${filterOptions(props.regions, props.search).map((region: any, i: number) =>
+      renderRegion(region, i)
+    )}
   </uui-select-custom>`;
 };
 
 CountrySelect.args = {
+  search: '',
   regions: [
     {
       name: 'Africa',

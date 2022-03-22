@@ -32,6 +32,12 @@ export class UUISelectListElement extends LitElement {
   })
   private _selectedOptions!: UUISelectOptionElement[]; //TODO: Fix the !
 
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-select-option[active]',
+  })
+  private _activeOptions!: UUISelectOptionElement[]; //TODO: Fix the !
+
   @state()
   private _value: any;
 
@@ -85,12 +91,12 @@ export class UUISelectListElement extends LitElement {
 
   private selectOption(option: UUISelectOptionElement) {
     this.value = option.value;
+    this._index = Math.max(this._options.indexOf(option), 0);
     this.displayValue =
       option.displayValue || option.textContent || this.value.toString();
 
-    for (const option of this._selectedOptions) {
-      option.selected = option.value === this.value;
-    }
+    this.updateOptionsState();
+
     this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.CHANGE));
   }
 
@@ -103,6 +109,9 @@ export class UUISelectListElement extends LitElement {
   private updateOptionsState = () => {
     for (const option of this._options) {
       option.selected = option.value === this._value;
+    }
+    for (const option of this._activeOptions) {
+      option.active = this._options[this._index] === option;
     }
   };
 
