@@ -1,7 +1,8 @@
-import { LitElement, html, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, query } from 'lit/decorators.js';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, query } from 'lit/decorators.js';
+
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =
@@ -211,10 +212,17 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
    * @default text
    */
   @property({ type: String })
-  type: InputType = 'text';
+  get type(): InputType {
+    return this._type;
+  }
+  set type(value: InputType) {
+    this._type = value;
+  }
 
   @query('#input')
   _input!: HTMLInputElement;
+
+  private _type: InputType = 'text';
 
   constructor() {
     super();

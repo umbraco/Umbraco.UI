@@ -4,6 +4,10 @@
 
 Umbraco style label component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-label)
+
 ## Installation
 
 ### ES imports

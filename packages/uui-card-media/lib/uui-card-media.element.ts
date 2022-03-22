@@ -1,15 +1,12 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-media
- *  @fires {UUICardEvent} open - fires when the media card title is clicked
- *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a media item.
  */
-
 @defineElement('uui-card-media')
 export class UUICardMediaElement extends UUICardElement {
   static styles = [

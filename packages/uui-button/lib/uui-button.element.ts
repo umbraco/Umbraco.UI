@@ -1,11 +1,11 @@
 import '@umbraco-ui/uui-icon/lib';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   InterfaceLookDefaultValue,
   InterfaceLookType,
@@ -24,7 +24,6 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
- *  @slot - for button contents
  *  @slot extra - for extra
  *  @description - All-round button
  *  @cssprop --uui-button-height - overwrite the button height

@@ -12,7 +12,6 @@ export default {
     max: 100,
     step: 1,
     label: 'Slider label',
-    hideLabel: false,
     hideStepValues: false,
     value: 0,
     disabled: false,
@@ -35,8 +34,7 @@ const Template: Story = props => html`
     max=${props.max}
     ?disabled=${props.disabled}
     .value=${props.value}
-    .hideStepValues=${props.hideStepValues}
-    .hideLabel=${props.hideLabel}></uui-slider>
+    .hideStepValues=${props.hideStepValues}></uui-slider>
 `;
 
 export const AAAOverview = Template.bind({});

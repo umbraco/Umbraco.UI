@@ -1,7 +1,7 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import { UUIInputPasswordElement } from './uui-input-password.element';
-import '.';
+import { expect, fixture, html } from '@open-wc/testing';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib/';
+
+import { UUIInputPasswordElement } from './uui-input-password.element';
 
 describe('UUIInputPasswordElement', () => {
   let element: UUIInputPasswordElement;

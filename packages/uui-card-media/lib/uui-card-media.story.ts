@@ -7,6 +7,9 @@ export default {
   id: 'uui-card-media',
   title: 'Displays/Cards/Media',
   component: 'uui-card-media',
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const AAAOverview: Story = props =>

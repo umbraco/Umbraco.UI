@@ -1,15 +1,12 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-content-node
- *  @fires {UUICardEvent} open - fires when the card title is clicked
- *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a content-node.
  */
-
 @defineElement('uui-card-content-node')
 export class UUICardContentNodeElement extends UUICardElement {
   static styles = [

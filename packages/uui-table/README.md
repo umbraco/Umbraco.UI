@@ -2,6 +2,10 @@
 
 [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-table?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-table)
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-table)
+
 ## Installation
 
 ### ES imports

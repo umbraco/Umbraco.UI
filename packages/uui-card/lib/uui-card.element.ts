@@ -1,20 +1,18 @@
-import { LitElement, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
 import {
   SelectableMixin,
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
+
 import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
- *  @fires {UUICardEvent} open - fires when the media card title is clicked
- *  @fires {UUISelectableEvent} select - fires when the media card is selected
- *  @fires {UUISelectableEvent} unselect - fires when the media card is unselected
+ *  @fires {UUICardEvent} open - fires when the card title is clicked
  *  @description - Base card component to be extended by specific cards.
  */
-
 @defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
