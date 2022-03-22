@@ -1,15 +1,12 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-user
- *  @fires {UUICardEvent} open - fires when the user card title is clicked
- *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a user node.
  */
-
 @defineElement('uui-card-user')
 export class UUICardUserElement extends UUICardElement {
   static styles = [
