@@ -40,12 +40,19 @@ export class UUIPopoverElement extends LitElement {
       :host {
         position: relative;
         display: inline-block;
+        width: 100%;
       }
       #container {
         position: absolute;
+        width: 100%;
+      }
+      slot[name='popover'] {
+        display: block;
+        height: var(--uui-popover-dropdown-height, 400px);
       }
       #trigger {
         position: relative;
+        width: 100%;
       }
     `,
   ];

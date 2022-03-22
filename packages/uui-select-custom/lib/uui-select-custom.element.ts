@@ -14,11 +14,12 @@ export class UUISelectCustomElement extends LitElement {
     css`
       :host {
         position: relative;
+        display: block;
       }
 
       #input {
         box-sizing: border-box;
-        width: 400px;
+        width: 100%;
         padding: 8px 12px;
         border: 1px solid var(--uui-interface-border);
         border-radius: 6px;
@@ -32,7 +33,6 @@ export class UUISelectCustomElement extends LitElement {
         flex-direction: column;
         width: 100%;
         height: 100%;
-        max-height: 500px;
         overflow: auto;
       }
 
@@ -40,8 +40,8 @@ export class UUISelectCustomElement extends LitElement {
         overflow: hidden;
         border: 1px solid var(--uui-interface-border);
         border-radius: 6px;
-        width: 400px;
-        max-height: 500px;
+        width: 100%;
+        height: 100%;
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
       }
