@@ -48,7 +48,6 @@ export class UUIPopoverElement extends LitElement {
       }
       slot[name='popover'] {
         display: block;
-        height: var(--uui-popover-dropdown-height, 400px);
       }
       #trigger {
         position: relative;
