@@ -61,4 +61,3 @@ import '@umbraco-ui/uui-symbol-lock/lib';
 import '@umbraco-ui/uui-select-list/lib';
 
 import '@umbraco-ui/uui-select-custom/lib';
-import '@umbraco-ui/uui-select-country/lib';
