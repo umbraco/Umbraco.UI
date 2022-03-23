@@ -15,9 +15,6 @@ export default {
     error: false,
     disabled: false,
   },
-  parameters: {
-    controls: { include: ['name', 'selected', 'disabled'] },
-  },
   decorators: [
     (Story: any) => html`<div style="width: 300px;">${Story()}</div>`,
   ],
@@ -152,6 +149,7 @@ Disabled.args = {
   disabled: true,
 };
 Disabled.parameters = {
+  controls: { include: ['disabled'] },
   docs: {
     source: {
       code: `
