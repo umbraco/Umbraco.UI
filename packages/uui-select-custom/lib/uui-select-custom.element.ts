@@ -48,33 +48,11 @@ export class UUISelectCustomElement extends LitElement {
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
       }
-
-      .region {
-        text-align: center;
-        padding: 8px;
-        font-weight: bold;
-        color: #333333;
-      }
-
-      .region:not(:first-child) {
-        border-top: 1px solid #333333;
-      }
-
-      uui-select-option {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 8px;
-      }
-
-      uui-select-option img {
-        height: 24px;
-      }
     `,
   ];
 
   @query('#input')
-  private _input!: HTMLInputElement;
+  private _input!: HTMLInputElement; // TODO: Replace with uui-input when it implements an input event.
 
   @property({ type: String })
   public search = '';
