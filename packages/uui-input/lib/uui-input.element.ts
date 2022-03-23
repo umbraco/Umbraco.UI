@@ -252,7 +252,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   private _onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
-    // TODO: Do we miss an input event?
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.INPUT));
   }
 
   private _onChange() {
