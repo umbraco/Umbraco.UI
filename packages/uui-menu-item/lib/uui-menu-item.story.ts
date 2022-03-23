@@ -237,9 +237,6 @@ export const WithActions = () =>
       menuItem =>
         html`
           <uui-menu-item label="${menuItem.title}">
-            ${menuItem.badge
-              ? html`<uui-badge slot="badge" look="warning">!</uui-badge>`
-              : ''}
             <uui-action-bar slot="actions">
               <uui-button label="Open actions menu"
                 ><uui-symbol-more></uui-symbol-more
@@ -259,6 +256,31 @@ WithActions.parameters = {
               ><uui-symbol-more></uui-symbol-more
             ></uui-button>
           </uui-action-bar>
+        </uui-menu-item>
+      `.strings,
+    },
+  },
+};
+
+export const WithBadge = () =>
+  html`
+    ${MenuItems.map(
+      menuItem =>
+        html`
+          <uui-menu-item label="${menuItem.title}">
+            ${menuItem.badge
+              ? html`<uui-badge slot="badge" look="warning">!</uui-badge>`
+              : ''}
+          </uui-menu-item>
+        `
+    )}
+  `;
+WithBadge.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item label="Menu Item 2">
+          <uui-badge slot="badge" look="warning">!</uui-badge>
         </uui-menu-item>
       `.strings,
     },
