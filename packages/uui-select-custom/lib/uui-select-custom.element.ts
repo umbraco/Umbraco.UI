@@ -113,7 +113,13 @@ export class UUISelectCustomElement extends LitElement {
   }
 
   private _onMouseDown = () => requestAnimationFrame(() => this._input.focus());
-  private _onBlur = () => (this.open = false);
+  private _onBlur = () =>
+    requestAnimationFrame(() => {
+      if (document.activeElement !== this) {
+        this.open = false;
+      }
+    });
+
   private _onFocus = () => (this.open = true);
 
   private _onInput = (e: any) => {
