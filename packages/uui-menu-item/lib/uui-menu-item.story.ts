@@ -53,21 +53,26 @@ const MenuItems = [
     title: 'Menu Item 1',
     icon: 'document',
     loading: false,
+    badge: false,
   },
   {
     title: 'Menu Item 2',
     icon: 'picture',
     loading: true,
+    badge: false,
   },
   {
     title: 'Menu Item 3',
     icon: 'info',
     loading: false,
+    badge: true,
   },
   {
-    title: 'Menu Item 4',
+    title:
+      'Menu Item 4 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9',
     icon: 'document',
     loading: false,
+    badge: false,
   },
 ];
 
@@ -232,6 +237,9 @@ export const WithActions = () =>
       menuItem =>
         html`
           <uui-menu-item label="${menuItem.title}">
+            ${menuItem.badge
+              ? html`<uui-badge slot="badge" look="warning">!</uui-badge>`
+              : ''}
             <uui-action-bar slot="actions">
               <uui-button label="Open actions menu"
                 ><uui-symbol-more></uui-symbol-more
