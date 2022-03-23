@@ -287,17 +287,20 @@ WithBadge.parameters = {
   },
 };
 
-export const Selectable = () =>
+export const Selectable = (props: any) =>
   html`
     ${MenuItems.map(
       menuItem =>
-        html`<uui-menu-item label="${menuItem.title}"></uui-menu-item>`
+        html`<uui-menu-item
+          label="${menuItem.title}"
+          ?selectable=${props.selectable}></uui-menu-item>`
     )}
   `;
 Selectable.args = {
   selectable: true,
 };
 Selectable.parameters = {
+  controls: { include: ['selectable'] },
   docs: {
     source: {
       code: html`
