@@ -12,23 +12,22 @@ export default {
 };
 
 const Template: Story = () => html`
-  <uui-box>
-    <div slot="header">Header</div>
-    <div slot="main">Main</div>
+  <uui-box headline="Headline">
+    Some content of this box, appended in the default slot. Notice the padding
+    of the default slot can be removed by setting
+    style="--uui-box-default-padding: 0;"
   </uui-box>
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-box>
-  <div slot="header">Header</div>
-  <div slot="main">Main</div>
-</uui-box>
-      `,
-    },
-  },
-};
+
+export const Slots: Story = () => html`
+  <uui-box>
+    <uui-button slot="headline" look="placeholder" style="font-weight:inherit;"
+      >Headline slot</uui-button
+    >
+    <uui-button slot="header" look="placeholder">Header slot</uui-button>
+    <uui-button look="placeholder">Default slot</uui-button>
+  </uui-box>
+`;
