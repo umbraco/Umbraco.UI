@@ -1,8 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ActiveMixin, SelectableMixin } from 'packages/uui-base/lib/mixins';
-import { UUISelectListEvent } from './UUISelectListEvent';
+import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-select-option

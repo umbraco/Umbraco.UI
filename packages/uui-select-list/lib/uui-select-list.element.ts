@@ -1,9 +1,9 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUISelectListEvent } from './UUISelectListEvent';
 import { UUISelectOptionElement } from './uui-select-option.element';
-import { UUISelectableEvent } from 'packages/uui-base/lib/events';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 /**
  * @element uui-select-list
@@ -25,12 +25,6 @@ export class UUISelectListElement extends LitElement {
     selector: 'uui-select-option:not([disabled])',
   })
   private _options!: UUISelectOptionElement[]; //TODO: Fix the !
-
-  @queryAssignedElements({
-    flatten: true,
-    selector: 'uui-select-option[selected]',
-  })
-  private _selectedOptions!: UUISelectOptionElement[]; //TODO: Fix the !
 
   @queryAssignedElements({
     flatten: true,

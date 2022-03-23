@@ -2,8 +2,10 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import { UUISelectCustomEvent } from './UUISelectCustomEvent';
-import { UUISelectListEvent } from 'packages/uui-select-list/lib/UUISelectListEvent';
-import { UUISelectOptionElement } from 'packages/uui-select-list/lib/uui-select-option.element';
+import {
+  UUISelectOptionElement,
+  UUISelectListEvent,
+} from '@umbraco-ui/uui-select-list/lib';
 
 /**
  * @element uui-select-custom
@@ -81,17 +83,7 @@ export class UUISelectCustomElement extends LitElement {
   public open = false;
 
   @property({ attribute: false })
-  get value() {
-    return this._value;
-  }
-  set value(newValue) {
-    const oldValue = this._value;
-    this._value = newValue;
-    this.requestUpdate('value', oldValue);
-  }
-
-  @state()
-  private _value: any;
+  value: any;
 
   @state()
   private displayValue = '';
