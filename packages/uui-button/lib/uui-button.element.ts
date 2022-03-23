@@ -561,7 +561,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         case 'button':
           break;
         default:
-          this._internals.form.requestSubmit();
+          if (this._internals.form.requestSubmit) {
+            this._internals.form.requestSubmit();
+          } else {
+            this._internals.form.dispatchEvent(new SubmitEvent('submit'));
+          }
           break;
       }
     }

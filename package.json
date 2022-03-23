@@ -56,7 +56,7 @@
     "npm": ">=7.21.0"
   },
   "dependencies": {
-    "lit": "^2.2.1"
+    "lit": "2.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.17.8",
@@ -72,6 +72,7 @@
     "@typescript-eslint/parser": "5.15.0",
     "@web/dev-server-esbuild": "0.2.16",
     "@web/test-runner": "0.13.27",
+    "@web/test-runner-playwright": "0.8.8",
     "autoprefixer": "10.4.4",
     "chromatic": "6.5.3",
     "element-internals-polyfill": "1.0.3",
@@ -84,10 +85,11 @@
     "eslint-plugin-lit": "1.6.1",
     "eslint-plugin-lit-a11y": "2.2.0",
     "eslint-plugin-storybook": "0.5.7",
+    "github-markdown-css": "5.1.0",
     "husky": "7.0.4",
     "lerna": "4.0.0",
-    "npm-check-updates": "12.5.4",
     "lint-staged": "12.3.7",
+    "npm-check-updates": "12.5.4",
     "plop": "3.0.5",
     "postcss": "8.4.12",
     "postcss-advanced-variables": "3.0.1",
@@ -100,6 +102,9 @@
     "postcss-values-parser": "6.0.2",
     "prettier": "2.6.0",
     "raw-loader": "4.0.2",
+    "react-markdown": "8.0.0",
+    "react-syntax-highlighter": "15.4.5",
+    "remark-gfm": "3.0.1",
     "rimraf": "3.0.2",
     "rollup": "2.70.1",
     "rollup-plugin-esbuild": "4.8.2",
@@ -112,11 +117,7 @@
     "typescript": "4.5.2",
     "vite": "2.8.6",
     "vite-tsconfig-paths": "3.4.1",
-    "web-component-analyzer": "1.1.6",
-    "github-markdown-css": "5.1.0",
-    "react-markdown": "8.0.0",
-    "react-syntax-highlighter": "15.4.5",
-    "remark-gfm": "3.0.1"
+    "web-component-analyzer": "1.1.6"
   },
   "workspaces": [
     "./packages/*"
