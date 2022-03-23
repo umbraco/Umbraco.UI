@@ -174,10 +174,10 @@ SelectableRows.parameters = {
 
 export const OverflowDetection: Story = () =>
   html`
-    <h3>
+    <h5>
       Overflowing text is indicated by three dots. <br />
       Hover over wrapped cells to see a title with full text
-    </h3>
+    </h5>
     <div style="width: 30%;">
       <uui-table>
         <uui-table-column
@@ -205,7 +205,6 @@ OverflowDetection.parameters = {
   docs: {
     source: {
       code: `
-<uui-box>
   <uui-table aria-label="Example table" aria-describedby="#some-element-id">
 
     <uui-table-head>
@@ -223,15 +222,14 @@ OverflowDetection.parameters = {
       <uui-table-cell clip-text>Cell 4</uui-table-cell>
     </uui-table-row>
 
-  </uui-table>
-</uui-box>`,
+  </uui-table>`,
     },
   },
 };
 
 export const InABox: Story = () =>
   html`
-    <uui-box>
+    <uui-box style="--uui-box-default-padding: 0;">
       <uui-table>
         <uui-table-head>
           ${ArrayOfUmbracoWords(7).map(
@@ -256,37 +254,9 @@ InABox.parameters = {
   docs: {
     source: {
       code: `
-<uui-box>
+<uui-box style="--uui-box-default-padding: 0;">
   <uui-table>
     ...
-  </uui-table>
-</uui-box>`,
-    },
-  },
-};
-
-SelectableRows.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-box>
-  <uui-table aria-label="Example table" aria-describedby="#some-element-id">
-
-    <uui-table-head>
-      <uui-table-head-cell>Title 1</uui-table-head-cell>
-      <uui-table-head-cell>Title 2</uui-table-head-cell>
-    </uui-table-head>
-
-    <uui-table-row selectable>
-      <uui-table-cell>Cell 1</uui-table-cell>
-      <uui-table-cell>Cell 2</uui-table-cell>
-    </uui-table-row>
-
-    <uui-table-row selectable>
-      <uui-table-cell>Cell 3</uui-table-cell>
-      <uui-table-cell>Cell 4</uui-table-cell>
-    </uui-table-row>
-
   </uui-table>
 </uui-box>`,
     },
