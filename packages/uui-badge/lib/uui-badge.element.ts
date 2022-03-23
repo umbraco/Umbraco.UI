@@ -14,24 +14,20 @@ export class UUIBadgeElement extends LitElement {
   static styles = [
     css`
       :host {
-        position: absolute;
+        position: var(--uui-badge-position, absolute);
         display: flex;
         justify-content: center;
         align-items: center;
 
-        /* top: -8px;
-        right: -8px; */
         padding: var(--uui-size-1) var(--uui-size-2);
-        --uui-badge-inset: -8px -8px auto auto;
-        /* 4 different ones */
-        inset: var(--uui-badge-inset);
+        inset: var(--uui-badge-inset, -8px -8px auto auto);
 
         text-align: center;
         font-size: var(--uui-badge-font-size, var(--uui-type-small-size));
         font-weight: 900;
         line-height: 1;
 
-        margin-right: 0 !important;
+        margin-right: 0;
 
         min-width: var(--uui-size-8);
         min-height: var(--uui-size-8);
