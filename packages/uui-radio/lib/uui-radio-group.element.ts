@@ -15,7 +15,7 @@ const SPACE = ' ';
 
 /**
  *  @element uui-radio-group
- *  @slot for uui-radio elements
+ *  @slot - slot for `<uui-radio>` elements or custom elements that extend from `UUIRadioElement`
  */
 @defineElement('uui-radio-group')
 export class UUIRadioGroupElement extends FormControlMixin(LitElement) {

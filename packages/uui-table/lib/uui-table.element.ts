@@ -4,7 +4,7 @@ import { css, html, LitElement } from 'lit';
 /**
  *  Recreation of native table and it's child elements. `<uui-table>` is a parent element to `<uui-table-head>` `<and uui-table-row>`. To make it fully accessible remember to add aria-label and aria-describedby.
  *  @element uui-table
- *  @slot for uui-table-head and uui-table-row elements. Make a table out of them.
+ *  @slot - slot for `<uui-table-head>` and `<uui-table-row>` elements. Make a table out of them.
  */
 @defineElement('uui-table')
 export class UUITableElement extends LitElement {

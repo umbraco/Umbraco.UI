@@ -1,5 +1,5 @@
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

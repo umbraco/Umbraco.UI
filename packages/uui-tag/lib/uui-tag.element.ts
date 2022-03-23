@@ -1,16 +1,16 @@
-import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
 import {
-  InterfaceLookType,
   InterfaceLookDefaultValue,
+  InterfaceLookType,
 } from '@umbraco-ui/uui-base/lib/types';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  *
  *  @element uui-tag
  *  @description Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
- *  @slot - for tag contents
+ *  @slot - slot for tag contents
  *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
  */
 @defineElement('uui-tag')
@@ -78,9 +78,7 @@ export class UUITagElement extends LitElement {
 
   /**
    * Defines the look of the tag.
-   * @type {''|'primary'|'secondary'|'outline'|'placeholder'|'positive'|'warning'|'danger'}
    * @attr
-   * @default ''
    */
   @property({ reflect: true })
   public look: InterfaceLookType = InterfaceLookDefaultValue;

@@ -1,6 +1,6 @@
-import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
 // TODO: Make sure validation messages can be seen for the whole Form Item. Make them follow the screen if form controls are taller than available screen height.
 
@@ -9,6 +9,8 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
  * @description - Form item composes label, input and validation-messages in a proper layout.
  * @slot - for button contents
  * @slot message - for extras in the messages container
+ * @slot description - for extras in the description container
+ * @slot label - for label contents
  */
 
 @defineElement('uui-form-layout-item')

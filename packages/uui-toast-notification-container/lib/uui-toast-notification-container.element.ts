@@ -8,6 +8,7 @@ import { property } from 'lit/decorators.js';
 
 /**
  * @element uui-toast-notification-container
+ * @slot - slot for toast layout/content
  */
 @defineElement('uui-toast-notification-container')
 export class UUIToastNotificationContainerElement extends LitElement {

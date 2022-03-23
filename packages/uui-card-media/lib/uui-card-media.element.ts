@@ -6,6 +6,9 @@ import { property, state } from 'lit/decorators.js';
 /**
  *  @element uui-card-media
  *  @description - Card component for displaying a media item.
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
+ *  @slot - slot for the default content area
  */
 @defineElement('uui-card-media')
 export class UUICardMediaElement extends UUICardElement {
