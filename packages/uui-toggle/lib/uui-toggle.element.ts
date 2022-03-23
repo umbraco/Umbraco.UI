@@ -14,7 +14,6 @@ import { css, html } from 'lit';
  *  Umbraco Toggle-switch, toggles between off/on. Technically a checkbox.
  *  @element uui-toggle
  *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
- *  @slot to overwrite displayed label content
  *  @cssprop --uui-toggle-size - Define the toggle size.
  *  @cssprop --uui-toggle-switch-width - Define the slider width.
  *  @cssprop --uui-toggle-background-color - Set the toggle background color

@@ -6,6 +6,9 @@ import { property } from 'lit/decorators.js';
 /**
  *  @element uui-card-user
  *  @description - Card component for displaying a user node.
+ *  @slot - slot for the default content area
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
  */
 @defineElement('uui-card-user')
 export class UUICardUserElement extends UUICardElement {

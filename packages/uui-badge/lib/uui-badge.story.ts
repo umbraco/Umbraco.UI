@@ -29,6 +29,9 @@ export default {
       ],
       control: { type: 'select' },
     },
+    slot: {
+      control: { type: 'text' },
+    },
   },
 };
 
@@ -101,6 +104,9 @@ WithIcon.args = {
   slot: html`<uui-icon name="favorite"></uui-icon>`,
 };
 WithIcon.parameters = {
+  controls: {
+    exclude: ['slot'],
+  },
   docs: {
     source: {
       code: `

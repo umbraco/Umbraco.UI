@@ -13,7 +13,7 @@ export default {
     slot: 'Hello',
   },
   argTypes: {
-    slot: { table: { category: 'slots' }, control: { type: 'text' } },
+    slot: { control: { type: 'text' } },
     look: {
       options: [
         'primary',
@@ -25,6 +25,7 @@ export default {
         'danger',
       ],
     },
+    '--uui-tag-font-size': { control: { type: 'text' } },
   },
 };
 
@@ -75,6 +76,9 @@ export const Sizing: Story = props =>
   `;
 
 Sizing.parameters = {
+  controls: {
+    include: ['look'],
+  },
   docs: {
     source: {
       code: `

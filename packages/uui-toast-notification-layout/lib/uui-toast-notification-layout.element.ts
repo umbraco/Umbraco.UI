@@ -1,5 +1,5 @@
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -40,12 +40,11 @@ export class UUIToastNotificationLayoutElement extends LitElement {
 
   /**
    * Headline for this notification, can also be set via the 'headline' slot.
-   * @type string
    * @attr
-   * @default null
+   * @default
    */
   @property({ type: String })
-  headline: string | null = null;
+  headline: string = '';
 
   @state()
   private _headlineSlotHasContent = false;

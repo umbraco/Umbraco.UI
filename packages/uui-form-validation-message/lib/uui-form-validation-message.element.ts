@@ -1,9 +1,9 @@
-import { LitElement, html, css } from 'lit';
-import { repeat } from 'lit/directives/repeat.js';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIFormControlEvent } from '@umbraco-ui/uui-base/lib/events';
+import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 
 /**
  * @element uui-form-validation-message
