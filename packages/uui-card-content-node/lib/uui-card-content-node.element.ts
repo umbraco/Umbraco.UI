@@ -8,9 +8,11 @@ import { property, state } from 'lit/decorators.js';
  *  @fires {UUICardEvent} open - fires when the card title is clicked
  *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a content-node.
+ *  @slot - slot for the default content area
  *  @slot icon - slot for the icon with support for `<uui-icon>` elements
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
  */
-
 @defineElement('uui-card-content-node')
 export class UUICardContentNodeElement extends UUICardElement {
   static styles = [
