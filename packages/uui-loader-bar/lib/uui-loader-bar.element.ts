@@ -1,6 +1,10 @@
 import { css, html, LitElement } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
+import {
+  InterfaceLookDefaultValue,
+  InterfaceLookType,
+} from '@umbraco-ui/uui-base/lib/types';
 
 const clamp = (num: number, min: number, max: number) =>
   Math.min(Math.max(num, min), max);
@@ -70,10 +74,58 @@ export class UUILoaderBarElement extends LitElement {
           transform-origin: 175% 0%;
         }
       }
+
+      /* Looks */
+      :host([look='primary']) {
+        color: var(--uui-look-primary-surface);
+      }
+      :host([look='secondary']) {
+        color: var(--uui-look-secondary-contrast);
+      }
+      :host([look='secondary']) #bar-background,
+      :host([look='secondary']) #bar {
+        background: var(--uui-look-secondary-surface);
+      }
+
+      :host([look='outline']) {
+        color: var(--uui-look-outline-contrast);
+        outline: 1px solid var(--uui-look-outline-border);
+      }
+      :host([look='outline']) #bar-background {
+        opacity: 0;
+      }
+
+      :host([look='placeholder']) {
+        color: var(--uui-look-placeholder-surface);
+        color: var(--uui-look-outline-contrast);
+        outline: 1px dashed var(--uui-look-outline-border);
+      }
+      :host([look='placeholder']) #bar-background {
+        opacity: 0;
+      }
+
+      :host([look='positive']) {
+        color: var(--uui-look-positive-surface);
+      }
+      :host([look='warning']) {
+        color: var(--uui-look-warning-surface);
+      }
+      :host([look='danger']) {
+        color: var(--uui-look-danger-surface);
+      }
     `,
   ];
 
   private _progress = 0;
+
+  /**
+   * Defines the look of the tag.
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String, reflect: true })
+  public look: InterfaceLookType = InterfaceLookDefaultValue;
+
   /**
    * Set this to a number between 0 and 100 to reflect the progress of some operation. When the value is left at 0 loader will looped animation
    * @type {number}
