@@ -263,7 +263,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._form = this._internals.form;
       if (this._form) {
         // This relies on the form begin a 'uui-form':
-        if (this._form.hasAttribute('invalid-submit')) {
+        if (this._form.hasAttribute('submit-invalid')) {
           this.pristine = false;
         }
         this._form.addEventListener('submit', this._onFormSubmit);
