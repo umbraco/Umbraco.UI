@@ -1,5 +1,6 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import '@umbraco-ui/uui-form/lib/index';
 import '@umbraco-ui/uui-checkbox/lib';
 import '@umbraco-ui/uui-slider/lib';
 import '@umbraco-ui/uui-radio/lib';
@@ -7,8 +8,9 @@ import '@umbraco-ui/uui-toggle/lib';
 import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent';
 
 export default {
-  id: 'form',
-  title: 'Inputs/Form/Overview',
+  id: 'uui-form',
+  title: 'Inputs/Form/Form',
+  component: 'uui-form',
 };
 
 const _onRadioGroupChanged = (e: UUIRadioGroupEvent) => {
@@ -17,6 +19,7 @@ const _onRadioGroupChanged = (e: UUIRadioGroupEvent) => {
 
 const _onSubmit = (e: SubmitEvent) => {
   e.preventDefault();
+  console.log('SUBMIT', e);
 
   const form = e.target as HTMLFormElement;
   const isValid = form.checkValidity();
@@ -33,11 +36,8 @@ const _onSubmit = (e: SubmitEvent) => {
 };
 
 export const Overview: Story = () => {
-  return html`<form
-      id="MyForm"
-      novalidate
-      @submit="${_onSubmit}"
-      style="max-width: 800px;">
+  return html` <uui-form>
+    <form @submit="${_onSubmit}">
       <uui-form-layout-item>
         <uui-label slot="label">Checkbox</uui-label>
         <uui-checkbox
@@ -120,63 +120,47 @@ export const Overview: Story = () => {
         </uui-button>
       </div>
     </form>
-
-    <!-- Submit Handler
-  const form = document.getElementById('MyForm');
-
-  form.addEventHandler('submit', (e) => {
-    e.preventDefault();
-
-    const isValid = form.checkValidity();
-
-    if (!isValid) {
-      return;
-    }
-
-    const formData = new FormData(form);
-
-    for (const value of formData.values()) {
-      console.log(value);
-    }
-  });
-  --> `;
+  </uui-form>`;
 };
 
 /*
-<uui-form-layout-item>
-  <uui-label slot="label">Native Checkbox</uui-label>
-  <input
-    name="nativeCheckbox"
-    label="Native input text"
-    type="checkbox"
-    value="NativeCheckboxValue"
-    placeholder="native text input"
-    required />
-</uui-form-layout-item>
 
-<uui-form-layout-item>
-  <uui-label slot="label">Native Input</uui-label>
-  <input
-    name="nativeInput"
-    label="Native input text"
-    type="text"
-    default-value="default test value"
-    value="test value"
-    placeholder="native text input"
-    required />
-</uui-form-layout-item>
 
-<uui-form-layout-item>
-  <uui-label slot="label">Native Input</uui-label>
-  <input
-    style="width: 100%;"
-    name="nativeInputNumber"
-    label="Native input number"
-    type="number"
-    value=""
-    placeholder="native number input"
-    min="0"
-    max="10"
-    required />
-</uui-form-layout-item>
+    <uui-form-layout-item>
+      <uui-label slot="label">Native Checkbox</uui-label>
+      <input
+        name="nativeCheckbox"
+        label="Native input text"
+        type="checkbox"
+        value="NativeCheckboxValue"
+        placeholder="native text input"
+        required />
+    </uui-form-layout-item>
+
+    <uui-form-layout-item>
+      <uui-label slot="label">Native Input</uui-label>
+      <input
+        name="nativeInput"
+        label="Native input text"
+        type="text"
+        default-value="default test value"
+        value="test value"
+        placeholder="native text input"
+        required />
+    </uui-form-layout-item>
+
+    <uui-form-layout-item>
+      <uui-label slot="label">Native Input</uui-label>
+      <input
+        style="width: 100%;"
+        name="nativeInputNumber"
+        label="Native input number"
+        type="number"
+        value=""
+        placeholder="native number input"
+        min="0"
+        max="10"
+        required />
+    </uui-form-layout-item>
+    
 */
