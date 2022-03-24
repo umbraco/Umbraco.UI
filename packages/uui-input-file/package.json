@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.15",
+    "@umbraco-ui/uui-base": "0.0.17",
     "@umbraco-ui/uui-file-dropzone": "0.0.0"
   },
   "scripts": {
