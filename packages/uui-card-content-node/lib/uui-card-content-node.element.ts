@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -108,6 +109,7 @@ export class UUICardContentNodeElement extends UUICardElement {
   }
 
   private _renderFallbackIcon() {
+    demandCustomElement(this, 'uui-icon');
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 

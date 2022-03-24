@@ -28,7 +28,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.17"
+    "@umbraco-ui/uui-base": "0.0.17",
+    "@umbraco-ui/uui-form-validation-message": "0.0.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
