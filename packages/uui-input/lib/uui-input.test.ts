@@ -1,12 +1,12 @@
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUIInputElement } from './uui-input.element';
-import './index';
 import { UUIInputEvent } from './UUIInputEvent';
 
 describe('UuiInputElement', () => {
@@ -22,12 +22,13 @@ describe('UuiInputElement', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
+  it('is defined with its own instance', () => {
+    expect(element).to.be.instanceOf(UUIInputElement);
+  });
+
   describe('properties', () => {
     it('has a name property', () => {
       expect(element).to.have.property('name');
-    });
-    it('has a error property', () => {
-      expect(element).to.have.property('error');
     });
     it('has a type property', () => {
       expect(element).to.have.property('type');
@@ -40,6 +41,21 @@ describe('UuiInputElement', () => {
     });
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
+    });
+    it('has a readonly property', () => {
+      expect(element).to.have.property('readonly');
+    });
+    it('has a error property', () => {
+      expect(element).to.have.property('error');
+    });
+    it('has a errorMessage property', () => {
+      expect(element).to.have.property('errorMessage');
+    });
+    it('has a required property', () => {
+      expect(element).to.have.property('required');
+    });
+    it('has a requiredMessage property', () => {
+      expect(element).to.have.property('requiredMessage');
     });
 
     it('disable property set input to disabled', async () => {

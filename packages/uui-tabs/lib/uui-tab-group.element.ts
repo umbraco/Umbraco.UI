@@ -1,11 +1,12 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { queryAssignedNodes } from 'lit/decorators.js';
+import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUITabElement } from './uui-tab.element';
 
 /**
  *  @element uui-tab-group
+ *  @slot - Default slot for the tab group
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
@@ -26,44 +27,49 @@ export class UUITabGroupElement extends LitElement {
     `,
   ];
 
-  @queryAssignedNodes(undefined, true, 'uui-tab')
-  private slotNodes?: UUITabElement[];
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-tab, [uui-tab], [role=tab]',
+  })
+  private slotNodes?: HTMLElement[];
 
-  private tabElements: UUITabElement[] = [];
+  private tabElements: HTMLElement[] = [];
 
   private setTabArray() {
     this.tabElements = this.slotNodes ? this.slotNodes : [];
   }
 
   private onSlotChange() {
+    this.tabElements.forEach(el => {
+      el.removeEventListener('click', this.onTabActive);
+    });
+
     this.setTabArray();
-    if (this.tabElements) {
-      this.tabElements.forEach(el => {
-        el.removeEventListener(
-          'click',
-          // @ts-ignore TODO: fix typescript error
-          this.onTabActive as EventHandlerNonNull
-        );
-      });
-    }
 
     this.tabElements.forEach(el => {
-      // @ts-ignore TODO: fix typescript error
-      el.addEventListener('click', this.onTabActive as EventHandlerNonNull);
+      el.addEventListener('click', this.onTabActive);
     });
   }
 
   private onTabActive = (e: MouseEvent) => {
     //? should this contain stopPropagation?
-    const selectedElement: UUITabElement = e.target as UUITabElement;
-    selectedElement.active = true;
+    const selectedElement = e.target as HTMLElement;
+    if (this.elementIsTabLike(selectedElement)) {
+      selectedElement.active = true;
+    }
 
     const filtered = this.tabElements.filter(el => el !== selectedElement);
 
     filtered.forEach(el => {
-      el.active = false;
+      if (this.elementIsTabLike(el)) {
+        el.active = false;
+      }
     });
   };
+
+  private elementIsTabLike(el: any): el is UUITabElement {
+    return el instanceof UUITabElement || 'active' in el;
+  }
 
   connectedCallback() {
     super.connectedCallback();

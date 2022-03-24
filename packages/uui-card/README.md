@@ -2,6 +2,10 @@
 
 ![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card?logoColor=%231B264F)
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-card)
+
 ## Installation
 
 ### ES imports

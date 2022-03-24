@@ -34,6 +34,7 @@ out-css
 *.log
 .eslintcache
 *.tgz
+.turbo
 
 # old source
 /src

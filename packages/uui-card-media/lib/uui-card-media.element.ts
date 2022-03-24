@@ -1,15 +1,15 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-media
- *  @fires {UUICardEvent} open - fires when the media card title is clicked
- *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a media item.
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
+ *  @slot - slot for the default content area
  */
-
 @defineElement('uui-card-media')
 export class UUICardMediaElement extends UUICardElement {
   static styles = [
@@ -68,7 +68,7 @@ export class UUICardMediaElement extends UUICardElement {
         justify-content: flex-start;
         align-items: center;
         font-family: inherit;
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
         box-sizing: border-box;
         padding: var(--uui-size-2) var(--uui-size-4);
       }

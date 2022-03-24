@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+
 import { UUISelectableEvent } from '../events/UUISelectableEvent';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -19,6 +20,10 @@ export declare class SelectableMixinInterface extends LitElement {
 export const SelectableMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
+  /**
+   * @fires {UUISelectableEvent} selected - fires when the media card is selected
+   * @fires {UUISelectableEvent} unselected - fires when the media card is unselected
+   */
   class SelectableMixinClass extends superClass {
     private _selectable = false;
     /**

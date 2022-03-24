@@ -8,7 +8,11 @@ export default {
   title: 'Inputs/Textarea',
   component: 'uui-textarea',
   args: {
+    disabled: false,
+    readonly: false,
     value: '',
+    label: 'Label',
+    placeholder: 'Placeholder',
   },
 };
 
@@ -19,14 +23,14 @@ export const AAAOverview: Story = props =>
     ]}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
     .label=${props.label}
     ?auto-height=${props.autoHeight}
-    .minLength=${props.minLength}
-    .maxLength=${props.maxLength}
+    .minlength=${props.minlength}
+    .maxlength=${props.maxlength}
     .placeholder=${props.placeholder}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     .name=${props.name}
     .error=${props.error}
-    .value=${props.value}
-    ?hide-label=${props.hideLabel}></uui-textarea>`;
+    .value=${props.value}></uui-textarea>`;
 
 AAAOverview.storyName = 'Overview';
 

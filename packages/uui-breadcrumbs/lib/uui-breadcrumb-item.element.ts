@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 /**
  * A breadcrumb-item to be used with the breadcrumbs component.
  *  @element uui-breadcrumb-item
- *  @slot - to show display an element inside the breadcrumb
+ *  @slot - This slot displays elements inside the breadcrumb
  *  @csspart separator - change the content of the after element of this part to change the separator
  */
 @defineElement('uui-breadcrumb-item')
@@ -13,7 +13,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
   static styles = [
     css`
       :host {
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
         color: currentColor;
       }
 
@@ -34,7 +34,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
         position: relative;
         top: 1px;
         margin: -3px 1px 0;
-        color: var(--uui-interface-border, #c4c4c4);
+        color: var(--uui-interface-border);
       }
 
       #link,

@@ -1,20 +1,18 @@
-import { LitElement, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
 import {
   SelectableMixin,
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
+
 import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
- *  @fires {UUICardEvent} open - fires when the media card title is clicked
- *  @fires {UUISelectableEvent} select - fires when the media card is selected
- *  @fires {UUISelectableEvent} unselect - fires when the media card is unselected
+ *  @fires {UUICardEvent} open - fires when the card title is clicked
  *  @description - Base card component to be extended by specific cards.
  */
-
 @defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
@@ -27,8 +25,7 @@ export class UUICardElement extends SelectOnlyMixin(
         width: 100%;
         justify-content: center;
         box-sizing: border-box;
-        /* TODO: fix automatic fallback values for shadows before we use them: var(--uui-shadow-depth-1)*/
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-interface-surface);

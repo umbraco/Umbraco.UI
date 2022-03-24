@@ -3,9 +3,9 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 import rollupPostcss from 'rollup-plugin-postcss';
-import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback';
+import postcssCustomPropertiesFallback from '../scripts/postcss-custom-properties-fallback/plugin.mjs';
 import path from 'path';
-import processLitCSSPlugin from '../scripts/rollup.processLitCSSPlugin.mjs';
+import processLitCSSPlugin from '../scripts/processLitCSSPlugin.mjs';
 import importCss from 'rollup-plugin-import-css';
 
 // @ts-ignore-start

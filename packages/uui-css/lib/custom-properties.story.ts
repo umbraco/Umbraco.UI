@@ -213,7 +213,7 @@ export const BrandColors = () => html`<h2>Colors</h2>
   </uui-table>`;
 
 export const Sizing = () => html`
-  <h2>Sizing</h2>
+  <h3>Spacing properties</h3>
 
   <uui-table @click=${copyToClipboard}>
     <uui-table-head>
@@ -221,7 +221,48 @@ export const Sizing = () => html`
       <uui-table-head-cell>Value</uui-table-head-cell>
     </uui-table-head>
     ${properties
-      .filter(property => property.key.includes('--uui-size'))
+      .filter(property => property.key.includes('--uui-size-space'))
+      .map(property => propertySizeTemplate(property))}
+  </uui-table>
+
+  <h3>Layout properties</h3>
+
+  <uui-table @click=${copyToClipboard}>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('--uui-size-layout'))
+      .map(property => propertySizeTemplate(property))}
+  </uui-table>
+
+  <h3>Border radius</h3>
+
+  <uui-table @click=${copyToClipboard}>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(property => property.key.includes('--uui-border-radius'))
+      .map(property => propertySizeTemplate(property))}
+  </uui-table>
+
+  <h3>General sizes</h3>
+
+  <uui-table @click=${copyToClipboard}>
+    <uui-table-head>
+      <uui-table-head-cell>Custom property name</uui-table-head-cell>
+      <uui-table-head-cell>Value</uui-table-head-cell>
+    </uui-table-head>
+    ${properties
+      .filter(
+        property =>
+          property.key.includes('--uui-size') &&
+          !property.key.includes('--uui-size-space') &&
+          !property.key.includes('--uui-size-layout')
+      )
       .map(property => propertySizeTemplate(property))}
   </uui-table>
 `;

@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
  * @cssprop --uui-tab-text-active - Define the tab text active color
  * @cssprop --uui-tab-background - Define the tab group background color
  * @cssprop --uui-tab-divider - Define the tab dividers color
- * @slot for tab content.
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {

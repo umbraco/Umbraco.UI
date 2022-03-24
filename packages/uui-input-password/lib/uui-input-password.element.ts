@@ -9,6 +9,7 @@ import { property, state } from 'lit/decorators.js';
 
 /**
  * @element uui-input-password
+ * @extends uui-input
  */
 @defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {
@@ -31,7 +32,6 @@ export class UUIInputPasswordElement extends UUIInputElement {
 
   // this overrides the inherited type property, and moves the input's type handling to the passwordType state.
   @property()
-  // @ts-ignore
   get type() {
     return this.passwordType;
   }

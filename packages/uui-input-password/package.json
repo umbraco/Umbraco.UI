@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input-password",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,9 +30,9 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.15",
-    "@umbraco-ui/uui-icon-registry-essential": "0.0.1",
-    "@umbraco-ui/uui-input": "0.0.17"
+    "@umbraco-ui/uui-base": "0.0.17",
+    "@umbraco-ui/uui-icon-registry-essential": "0.0.3",
+    "@umbraco-ui/uui-input": "0.0.19"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

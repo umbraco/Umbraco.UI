@@ -1,0 +1,42 @@
+{
+  "name": "@umbraco-ui/uui-form-validation-message",
+  "version": "0.0.2",
+  "license": "MIT",
+  "keywords": [
+    "Umbraco",
+    "Custom elements",
+    "Web components",
+    "UI",
+    "Lit",
+    "Form Validation Message"
+  ],
+  "description": "Umbraco UI form-validation-message component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umbraco/Umbraco.UI.git",
+    "directory": "packages/uui-form-validation-message"
+  },
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.UI/issues"
+  },
+  "main": "./dist/uui-form-validation-message.min.js",
+  "module": "./lib/index.js",
+  "customElements": "custom-elements.json",
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "custom-elements.json"
+  ],
+  "dependencies": {
+    "@umbraco-ui/uui-base": "0.0.17"
+  },
+  "scripts": {
+    "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
+    "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
+    "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-form-validation-message"
+}

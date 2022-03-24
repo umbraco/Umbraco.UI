@@ -1,5 +1,5 @@
-import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -54,7 +54,7 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       #detail {
-        font-size: var(--uui-size-4);
+        font-size: var(--uui-type-small-size);
       }
 
       :host(:not([disabled])) #open-part:hover #icon {

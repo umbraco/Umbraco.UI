@@ -17,6 +17,9 @@ export default {
       control: { type: 'number', min: 0, max: 100 },
     },
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 const Template: Story = props =>

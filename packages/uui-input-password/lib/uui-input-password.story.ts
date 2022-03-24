@@ -10,7 +10,6 @@ export default {
   args: {
     value: '',
     label: 'Label',
-    hideLabel: false,
   },
   parameters: {
     docs: {
@@ -25,7 +24,6 @@ export const AAAOverview: Story = props =>
   html`<uui-input-password
     .disabled=${props.disabled}
     .error=${props.error}
-    .hideLabel=${props.hideLabel}
     .label=${props.label}
     .name=${props.name}
     .placeholder=${props.placeholder}

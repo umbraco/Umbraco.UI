@@ -36,6 +36,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
         position: absolute;
         height: 0px;
         width: 0px;
+        margin-top: -4px;
       }
 
       :host([label-position='left']) label {
@@ -148,7 +149,11 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     this.checked = this.hasAttribute('checked');
   }
 
-  protected firstUpdated(): void {
+  protected firstUpdated(
+    _changedProperties: Map<string | number | symbol, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+
     const labelEl = this.shadowRoot?.querySelector('label') as HTMLLabelElement;
 
     // hide outline if mouse-interaction:

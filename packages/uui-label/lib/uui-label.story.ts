@@ -9,15 +9,26 @@ export default {
   id: 'uui-label',
   title: 'Inputs/Label',
   component: 'uui-label',
+  args: {
+    slot: 'Label',
+  },
+  argTypes: {
+    slot: {
+      control: { type: 'text' },
+    },
+  },
 };
 
 const Template: Story = props => html`
-  <uui-label ?disabled=${props.disabled}>Label</uui-label>
+  <uui-label ?disabled=${props.disabled} ?required=${props.required}
+    >${props.slot}</uui-label
+  >
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   disabled: false,
+  required: false,
 };
 AAAOverview.storyName = 'Overview';
 

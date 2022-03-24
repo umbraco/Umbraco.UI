@@ -12,6 +12,9 @@ export default {
     checked: false,
     disabled: false,
   },
+  argTypes: {
+    slot: { control: { type: 'text' } },
+  },
 };
 
 export const AAAOverview: Story = props =>
@@ -21,13 +24,21 @@ export const AAAOverview: Story = props =>
     .name=${props.name}
     ?disabled=${props.disabled}
     ?checked=${props.checked}
-    >Label</uui-radio
+    >${props.slot}</uui-radio
   >`;
 AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: `Copy from GroupedOverview story`,
+      code: `<uui-radio-group name="Test">
+      <uui-radio value="Value 1" disabled>Option 1</uui-radio>
+      <uui-radio value="Value 2" label="Option 2"></uui-radio>
+      <uui-radio value="Value 3">Option 3</uui-radio>
+      <uui-radio value="Value 4" disabled>Option 4</uui-radio>
+      <uui-radio value="Value 5" checked>Option 5</uui-radio>
+      <uui-radio value="Value 6">Option 6</uui-radio>
+      <uui-radio value="Value 7" disabled>Option 7</uui-radio>
+    </uui-radio-group>`,
     },
   },
 };

@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 
 /**
  *  @element uui-scroll-container
