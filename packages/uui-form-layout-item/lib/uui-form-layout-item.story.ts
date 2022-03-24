@@ -22,59 +22,61 @@ export const AAAOverview: Story = () => html`
 `;
 AAAOverview.storyName = 'Overview';
 
-export const Example: Story = () => html` <form
-  is="uui-form"
-  style="max-width: 800px;">
-  <uui-form-layout-item>
-    <uui-label slot="label" for="phoneInput" required>Phone number</uui-label>
-    <span slot="description"
-      >Form item accepts a description, keep it short.</span
-    >
-    <div>
-      <uui-input
-        id="phoneInput"
-        type="text"
-        name="phone"
-        placeholder="+00"
-        required
-        required-message="You must enter a area code"
-        style="text-align:right; width: 75px;">
-      </uui-input>
-      <uui-input
-        type="text"
-        name="phone"
-        placeholder=""
-        required
-        required-message="You must enter a phone number">
-      </uui-input>
-    </div>
-  </uui-form-layout-item>
-  <uui-form-layout-item>
-    <uui-label slot="label" for="cityinput">City</uui-label>
-    <span slot="description"></span>
-    <div>
-      <uui-input
-        id="cityinput"
-        type="text"
-        name="phone"
-        placeholder=""
-        required
-        required-message="You must enter a city">
-      </uui-input>
-    </div>
-  </uui-form-layout-item>
-  <uui-form-layout-item>
-    <div>
-      <uui-input
-        type="text"
-        name="postal"
-        placeholder=""
-        required
-        required-message="You must enter a postal number">
-      </uui-input>
-    </div>
-  </uui-form-layout-item>
+export const Example: Story = () => html` <uui-form>
+  <form is="uui-form" style="max-width: 800px;">
+    <uui-form-layout-item>
+      <uui-label slot="label" for="phoneInput" required>Phone number</uui-label>
+      <span slot="description"
+        >Form item accepts a description, keep it short.</span
+      >
+      <div>
+        <uui-input
+          id="phoneInput"
+          type="text"
+          name="phone"
+          placeholder="+00"
+          required
+          required-message="You must enter a area code"
+          style="text-align:right; width: 75px;">
+        </uui-input>
+        <uui-input
+          type="text"
+          name="phone"
+          placeholder=""
+          required
+          required-message="You must enter a phone number">
+        </uui-input>
+      </div>
+    </uui-form-layout-item>
+    <uui-form-layout-item>
+      <uui-label slot="label" for="cityinput">City</uui-label>
+      <span slot="description"></span>
+      <div>
+        <uui-input
+          id="cityinput"
+          type="text"
+          name="phone"
+          placeholder=""
+          required
+          required-message="You must enter a city">
+        </uui-input>
+      </div>
+    </uui-form-layout-item>
+    <uui-form-layout-item>
+      <div>
+        <uui-input
+          type="text"
+          name="postal"
+          placeholder=""
+          required
+          required-message="You must enter a postal number">
+        </uui-input>
+      </div>
+    </uui-form-layout-item>
 
-  <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
-  <uui-button type="submit" label="Submit" look="positive"> Submit </uui-button>
-</form>`;
+    <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
+    <uui-button type="submit" label="Submit" look="positive">
+      Submit
+    </uui-button>
+  </form>
+</uui-form>`;
