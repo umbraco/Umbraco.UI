@@ -162,6 +162,8 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
       #loader {
         font-size: 1.5em;
+      }
+      :host([look]:not([look=''])) #loader {
         color: inherit;
       }
 
