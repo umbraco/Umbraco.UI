@@ -18,6 +18,7 @@ export class UUIFormElement extends HTMLFormElement {
     const isValid = this.checkValidity();
 
     if (!isValid) {
+      // submit-invalid attribute is used by descendant form controls to check wether submit has been requested without succeeding.
       this.setAttribute('submit-invalid', '');
       return;
     }
