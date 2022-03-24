@@ -5,8 +5,7 @@ import { UUIBoxElement } from './uui-box.element';
 describe('UUIBox', () => {
   let element: UUIBoxElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-box>
-      <div slot="header">Header</div>
+    element = await fixture(html` <uui-box headline="headline">
       Main
     </uui-box>`);
   });
@@ -39,6 +38,20 @@ describe('UUIBox', () => {
     it('renders a header slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=header]')!;
       expect(slot).to.exist;
+    });
+  });
+
+  describe('UUIBox', () => {
+    let element: UUIBoxElement;
+    beforeEach(async () => {
+      element = await fixture(html` <uui-box>
+        <div slot="header">Something in the header</div>
+        Main
+      </uui-box>`);
+    });
+
+    it('passes the a11y audit', async () => {
+      await expect(element).shadowDom.to.be.accessible();
     });
   });
 });

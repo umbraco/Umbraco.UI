@@ -75,7 +75,11 @@ export class UUIBoxElement extends LitElement {
       this.headline !== null
         ? ''
         : 'display: none'}>
-      <h5 id="headline">
+      <h5
+        id="headline"
+        style=${this._headlineSlotHasContent || this.headline !== null
+          ? ''
+          : 'display: none'}>
         ${this.headline}
         <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
       </h5>
