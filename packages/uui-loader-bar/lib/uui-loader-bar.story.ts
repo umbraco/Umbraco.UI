@@ -12,19 +12,6 @@ export default {
     progress: 0,
   },
   argTypes: {
-    look: {
-      options: [
-        '',
-        'primary',
-        'secondary',
-        'outline',
-        'placeholder',
-        'positive',
-        'warning',
-        'danger',
-      ],
-      control: { type: 'select' },
-    },
     progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
     animationDuration: {
       control: { type: 'number', min: 0, max: 100 },
@@ -40,12 +27,12 @@ const Template: Story = props =>
     <uui-loader-bar
       progress=${props.progress}
       animationDuration=${props.animationDuration}
-      .look=${props.look}></uui-loader-bar>
+      style=${props.color ? 'color: ' + props.color : ''}></uui-loader-bar>
   `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.args = { color: 'black' };
+AAAOverview.args = { color: '' };
 AAAOverview.argTypes = {
   color: { table: { category: 'inline styling' } },
 };
