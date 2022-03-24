@@ -29,8 +29,5 @@ import { UUIBoxElement } from '@umbraco-ui/uui-box';
 ## Usage
 
 ```html
-<uui-box>
-  <div slot="header">Header</div>
-  <div slot="main">Main</main>
-</uui-box>
+<uui-box headline="Headline"> Content </uui-box>
 ```
