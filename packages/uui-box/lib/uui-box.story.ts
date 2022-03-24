@@ -11,9 +11,7 @@ export default {
 
 const Template: Story = () => html`
   <uui-box headline="Headline">
-    Some content of this box, appended in the default slot. Notice the padding
-    of the default slot can be removed by setting
-    style="--uui-box-default-padding: 0;"
+    Some content of this box, appended in the default slot.
   </uui-box>
 `;
 

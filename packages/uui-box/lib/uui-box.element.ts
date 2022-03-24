@@ -9,6 +9,7 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
  *  @slot headline - headline area
  *  @slot header - headline area
  *  @slot default - area for the content of the box
+ *  @cssprop --uui-box-default-padding - overwrite the box padding
  *
  */
 @defineElement('uui-box')
