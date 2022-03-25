@@ -4,10 +4,10 @@ import { property } from 'lit/decorators.js';
 import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- * @element uui-select-option
+ * @element uui-combobox-list-option
  */
-@defineElement('uui-select-option')
-export class UUISelectOptionElement extends SelectableMixin(
+@defineElement('uui-combobox-list-option')
+export class UUIComboboxListOptionElement extends SelectableMixin(
   ActiveMixin(LitElement)
 ) {
   static styles = [
@@ -97,7 +97,7 @@ export class UUISelectOptionElement extends SelectableMixin(
   @property({ type: String, attribute: 'display-value' })
   public displayValue: string = '';
 
-  @property({ type: Boolean })
+  @property({ type: Boolean }) //TODO should probably just be this.selectable = true;
   public selectable = true;
 
   render() {
@@ -107,6 +107,6 @@ export class UUISelectOptionElement extends SelectableMixin(
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-select-option': UUISelectOptionElement;
+    'uui-combobox-list-option': UUIComboboxListOptionElement;
   }
 }

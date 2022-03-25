@@ -1,15 +1,15 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import { UUISelectListEvent } from './UUISelectListEvent';
-import { UUISelectOptionElement } from './uui-select-option.element';
+import { UUIComboboxListEvent } from './UUIComboboxListEvent';
+import { UUIComboboxListOptionElement } from './uui-combobox-list-option.element';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 /**
- * @element uui-select-list
+ * @element uui-combobox-list
  */
-@defineElement('uui-select-list')
-export class UUISelectListElement extends LitElement {
+@defineElement('uui-combobox-list')
+export class UUIComboboxListElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -24,13 +24,13 @@ export class UUISelectListElement extends LitElement {
     flatten: true,
     selector: 'uui-select-option:not([disabled])',
   })
-  private _options!: UUISelectOptionElement[]; //TODO: Fix the !
+  private _options!: UUIComboboxListOptionElement[]; //TODO: Fix the !
 
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-select-option[active]',
   })
-  private _activeOptions!: UUISelectOptionElement[]; //TODO: Fix the !
+  private _activeOptions!: UUIComboboxListOptionElement[]; //TODO: Fix the !
 
   @state()
   private _value: any;
@@ -83,7 +83,7 @@ export class UUISelectListElement extends LitElement {
     this.deselectOption();
   };
 
-  private selectOption(option: UUISelectOptionElement) {
+  private selectOption(option: UUIComboboxListOptionElement) {
     this.value = option.value;
     this._index = Math.max(this._options.indexOf(option), 0);
     this.displayValue =
@@ -91,13 +91,13 @@ export class UUISelectListElement extends LitElement {
 
     this.updateOptionsState();
 
-    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.CHANGE));
+    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   }
 
   private deselectOption() {
     this.value = undefined;
     this.displayValue = '';
-    this.dispatchEvent(new UUISelectListEvent(UUISelectListEvent.CHANGE));
+    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   }
 
   private updateOptionsState = () => {
@@ -193,6 +193,6 @@ export class UUISelectListElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-select-list': UUISelectListElement;
+    'uui-combobox-list': UUIComboboxListElement;
   }
 }

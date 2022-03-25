@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-select-custom",
+  "name": "@umbraco-ui/uui-combobox",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,13 +8,13 @@
     "Web components",
     "UI",
     "Lit",
-    "Select Custom"
+    "Combo box"
   ],
-  "description": "Umbraco UI select-custom component",
+  "description": "Umbraco UI combo-box component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-select-custom"
+    "directory": "packages/uui-combobox"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -30,7 +30,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.17"
+    "@umbraco-ui/uui-base": "0.0.17",
+    "@umbraco-ui/uui-combobox-list": "0.0.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -40,5 +41,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-select-custom"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-combobox"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-select-list",
+  "name": "@umbraco-ui/uui-combobox-list",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,13 +8,13 @@
     "Web components",
     "UI",
     "Lit",
-    "Select List"
+    "Combobox List"
   ],
-  "description": "Umbraco UI select-list component",
+  "description": "Umbraco UI combobox-list component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-select-list"
+    "directory": "packages/uui-combobox-list"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -40,5 +40,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-select-list"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-combobox-list"
 }

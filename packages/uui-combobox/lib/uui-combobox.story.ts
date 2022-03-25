@@ -6,13 +6,13 @@ import { useArgs } from '@storybook/client-api';
 import { repeat } from 'lit/directives/repeat.js';
 
 export default {
-  id: 'uui-select-custom',
-  title: 'Select Custom',
-  component: 'uui-select-custom',
+  id: 'uui-combobox',
+  title: 'Combobox',
+  component: 'uui-combobox',
   parameters: {
     docs: {
       source: {
-        code: `<uui-select-custom></uui-select-custom>`,
+        code: `<uui-combobox></uui-combobox>`,
       },
     },
   },
@@ -22,7 +22,7 @@ const renderAvatar = (
   value: string,
   name: any,
   label: string
-) => html` <uui-select-option
+) => html` <uui-combobox-list-option
   .displayValue=${name}
   style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)"
   .value=${value}>
@@ -31,7 +31,7 @@ const renderAvatar = (
     <b>${name}</b>
     <div style="font-size: 0.8rem">${label}</div>
   </div>
-</uui-select-option>`;
+</uui-combobox-list-option>`;
 
 export const Avatars: Story = props => {
   const [, updateSearch] = useArgs();
@@ -40,13 +40,13 @@ export const Avatars: Story = props => {
     updateSearch({ ...props, search: e.target.search });
   };
 
-  return html`<uui-select-custom
+  return html`<uui-combobox
     @input=${handle}
     @change=${(e: any) => console.log('CHANGE', e.target.value)}>
     ${props.avatars
       .filter((f: any) => f.name.includes(props.search))
       .map((avatar: any) => renderAvatar(avatar.id, avatar.name, avatar.title))}
-  </uui-select-custom>`;
+  </uui-combobox>`;
 };
 
 Avatars.args = {
@@ -75,7 +75,7 @@ Avatars.args = {
   ],
 };
 
-const renderCountry = (country: any) => html`<uui-select-option
+const renderCountry = (country: any) => html`<uui-combobox-list-option
   style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;"
   .value=${country.ISOAlpha3Code}
   .displayValue=${country.countryName}>
@@ -83,7 +83,7 @@ const renderCountry = (country: any) => html`<uui-select-option
     style="height: 24px"
     src=${country.flag}
     alt=${country.countryName} />${country.countryName}
-</uui-select-option>`;
+</uui-combobox-list-option>`;
 
 const renderRegion = (region: any, index: number) => html`
   <span
@@ -94,19 +94,19 @@ const renderRegion = (region: any, index: number) => html`
   </span>
   ${repeat(
     region.countries,
-    item => item.ISOAlpha3Code,
+    (item: any) => item.ISOAlpha3Code,
     item => renderCountry(item)
   )}
 `;
 
 const filterOptions = (regions: any, search: string): any[] => {
-  const filteredRegions = regions.filter(region =>
+  const filteredRegions = regions.filter((region: any) =>
     region.countries.some((country: any) =>
       country.countryName.toLowerCase().includes(search.toLowerCase())
     )
   );
 
-  const filterFinal = filteredRegions.map(region => ({
+  const filterFinal = filteredRegions.map((region: any) => ({
     name: region.name,
     countries: region.countries.filter((country: any) =>
       country.countryName.toLowerCase().includes(search.toLowerCase())
@@ -123,14 +123,14 @@ export const CountrySelect: Story = props => {
     updateSearch({ ...props, search: e.target.search });
   };
 
-  return html`<uui-select-custom
-    style="--uui-select-dropdown-max-height: 300px; max-width: 300px;"
+  return html`<uui-combobox
+    style="--uui-combobox-popover-max-height: 300px; max-width: 300px;"
     @input=${handle}
     @change=${(e: any) => console.log('CHANGE', e.target.value)}>
     ${filterOptions(props.regions, props.search).map((region: any, i: number) =>
       renderRegion(region, i)
     )}
-  </uui-select-custom>`;
+  </uui-combobox>`;
 };
 
 CountrySelect.args = {

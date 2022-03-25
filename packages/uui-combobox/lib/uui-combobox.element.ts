@@ -1,17 +1,17 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
-import { UUISelectCustomEvent } from './UUISelectCustomEvent';
+import { UUIComboboxEvent } from './UUIComboboxEvent';
 import {
-  UUISelectOptionElement,
-  UUISelectListEvent,
-} from '@umbraco-ui/uui-select-list/lib';
+  UUIComboboxListOptionElement,
+  UUIComboboxListEvent,
+} from '@umbraco-ui/uui-combobox-list/lib';
 
 /**
- * @element uui-select-custom
+ * @element uui-combobox
  */
-@defineElement('uui-select-custom')
-export class UUISelectCustomElement extends LitElement {
+@defineElement('uui-combobox')
+export class UUIComboboxElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -30,13 +30,13 @@ export class UUISelectCustomElement extends LitElement {
         font-family: 'Lato';
       }
 
-      uui-select-list {
+      uui-combobox-list {
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 100%;
         overflow: auto;
-        max-height: var(--uui-select-dropdown-max-height, 500px);
+        max-height: var(--uui-combobox-popover-max-height, 500px);
       }
 
       #dropdown {
@@ -66,7 +66,7 @@ export class UUISelectCustomElement extends LitElement {
   @state()
   private displayValue = '';
 
-  private _selectedElement: UUISelectOptionElement | undefined;
+  private _selectedElement: UUIComboboxListOptionElement | undefined;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -94,15 +94,15 @@ export class UUISelectCustomElement extends LitElement {
 
   private _onInput = (e: any) => {
     this.search = e.target.value;
-    this.dispatchEvent(new UUISelectCustomEvent(UUISelectCustomEvent.INPUT));
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
   };
 
-  private _onChange = (e: UUISelectListEvent) => {
-    this._selectedElement = e.composedPath()[0] as UUISelectOptionElement;
+  private _onChange = (e: UUIComboboxListEvent) => {
+    this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
     this.value = this._selectedElement?.value;
     this.displayValue = this._selectedElement?.displayValue;
     this.search = this.value ? this.search : '';
-    this.dispatchEvent(new UUISelectCustomEvent(UUISelectCustomEvent.INPUT));
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
   };
 
   private _close = () => {
@@ -125,9 +125,9 @@ export class UUISelectCustomElement extends LitElement {
           placeholder=${this.displayValue}
           @input=${this._onInput} />
         <div id="dropdown" slot="popover">
-          <uui-select-list .value=${this.value} @change=${this._onChange}>
+          <uui-combobox-list .value=${this.value} @change=${this._onChange}>
             <slot></slot>
-          </uui-select-list>
+          </uui-combobox-list>
         </div>
       </uui-popover>
     `;
@@ -136,6 +136,6 @@ export class UUISelectCustomElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-select-custom': UUISelectCustomElement;
+    'uui-combobox': UUIComboboxElement;
   }
 }
