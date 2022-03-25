@@ -54,6 +54,12 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         --uui-button-padding-right-factor: 3;
         --uui-button-padding-top-factor: 1;
         --uui-button-padding-bottom-factor: 1;
+
+        text-align: center;
+        font-weight: var(
+          --uui-button-font-weight,
+          var(--uui-interface-font-weight)
+        );
       }
 
       :host([compact]) {
@@ -90,7 +96,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
           calc(calc(8 / 15 * 1em) * var(--uui-button-padding-bottom-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
-        text-align: center;
+        text-align: inherit; /* Inherit from host so it can be overwritten from the outside */
         vertical-align: middle;
         box-shadow: none;
         border-width: var(--uui-button-border-width, 1px);
@@ -104,12 +110,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           var(--uui-border-radius)
         );
         cursor: pointer;
-        font-weight: var(
-          --uui-button-font-weight,
-          var(--uui-interface-font-weight)
-        );
+
         font-size: var(--uui-button-font-size, inherit);
         font-family: inherit;
+        font-weight: inherit; /* Inherit from host so it can be overwritten from the outside */
 
         background-color: var(
           --uui-button-background-color,
@@ -188,6 +192,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
       /* LOOKS */
 
+      :host([look='primary']) {
+        font-weight: var(--uui-look-primary-font-weight);
+      }
       :host([look='primary']) button {
         background-color: var(
           --uui-button-background-color,
@@ -206,7 +213,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-primary-border)
         );
-        font-weight: var(--uui-look-primary-font-weight);
       }
       :host([look='primary']) button:hover {
         background-color: var(
@@ -231,6 +237,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='secondary']) {
+        font-weight: var(--uui-look-secondary-font-weight);
+      }
       :host([look='secondary']) button {
         background-color: var(
           --uui-button-background-color,
@@ -249,7 +258,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-secondary-border)
         );
-        font-weight: var(--uui-look-secondary-font-weight);
       }
       :host([look='secondary']) button:hover {
         background-color: var(
@@ -275,6 +283,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       }
 
       :host([look='outline']) button {
+        font-weight: var(--uui-look-outline-font-weight);
+      }
+      :host([look='outline']) button {
         background-color: var(
           --uui-button-background-color,
           var(--uui-look-outline-surface)
@@ -292,7 +303,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-outline-border)
         );
-        font-weight: var(--uui-look-outline-font-weight);
       }
       :host([look='outline']) button:hover {
         background-color: var(
@@ -317,6 +327,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='placeholder']) {
+        font-weight: var(--uui-look-placeholder-font-weight);
+      }
       :host([look='placeholder']) button {
         background-color: var(
           --uui-button-background-color,
@@ -335,7 +348,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-placeholder-border)
         );
-        font-weight: var(--uui-look-placeholder-font-weight);
       }
       :host([look='placeholder']) button:hover {
         background-color: var(
@@ -360,6 +372,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='positive']) {
+        font-weight: var(--uui-look-positive-font-weight);
+      }
       :host([look='positive']) button {
         background-color: var(
           --uui-button-background-color,
@@ -378,7 +393,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-positive-border)
         );
-        font-weight: var(--uui-look-positive-font-weight);
       }
       :host([look='positive']) button:hover {
         background-color: var(
@@ -403,6 +417,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='warning']) {
+        font-weight: var(--uui-look-warning-font-weight);
+      }
       :host([look='warning']) button {
         background-color: var(
           --uui-button-background-color,
@@ -421,7 +438,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-warning-border)
         );
-        font-weight: var(--uui-look-warning-font-weight);
       }
       :host([look='warning']) button:hover {
         background-color: var(
@@ -446,6 +462,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='danger']) {
+        font-weight: var(--uui-look-danger-font-weight);
+      }
       :host([look='danger']) button {
         background-color: var(
           --uui-button-background-color,
@@ -464,7 +483,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-danger-border)
         );
-        font-weight: var(--uui-look-danger-font-weight);
       }
       :host([look='danger']) button:hover {
         background-color: var(
