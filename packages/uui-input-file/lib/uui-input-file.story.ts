@@ -23,16 +23,25 @@ const submit = (e: SubmitEvent) => {
   // @ts-ignore // TODO: Fix
   const formProps = Object.fromEntries(formData);
 
-  console.log('FORM: ', formProps);
+  for (const item of formData.values()) {
+    // console.log('value', item);
+  }
+  console.log('CUSTOM: ', formData.getAll('custom'));
+  console.log('NATIVE getAll: ', formData.getAll('native'));
+  console.log('FormProps: ', formProps);
 };
 
 export const Overview: Story = () => html`<uui-input-file></uui-input-file>`;
 
 export const Form: Story = () => html`
-  <form @submit=${submit}>
-    <div>asd</div>
-    <uui-input-file></uui-input-file>
-    <input name="test-input" type="text" />
+  <form @submit=${submit} enctype="multipart/form-data">
+    <h2>This is a form</h2>
+    <uui-input-file name="custom" multiple></uui-input-file>
+    <input
+      @change=${(e: any) => console.log('native event', e.target.value)}
+      name="native"
+      type="file"
+      multiple />
     <button type="submit">DO IT</button>
   </form>
 `;

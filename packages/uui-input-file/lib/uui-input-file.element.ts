@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
@@ -12,7 +12,7 @@ import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
  * @element uui-input-file
  */
 
-interface FileDisplay {
+interface FileWrapper {
   name: string;
   extension: string;
   isDirectory: boolean;
@@ -20,7 +20,7 @@ interface FileDisplay {
   size?: number;
   thumbnail?: string;
   source?: string;
-  file?: FileSystemFileEntry | File;
+  file?: File;
 }
 @defineElement('uui-input-file')
 export class UUIInputFileElement extends FormControlMixin(LitElement) {
@@ -108,10 +108,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   fileInput: HTMLElement | undefined;
 
   @state()
-  allFiles: FileSystemFileEntry[] = [];
-
-  @state()
-  fileDisplays: FileDisplay[] = [];
+  fileWrappers: FileWrapper[] = [];
 
   static readonly formAssociated = true;
 
@@ -128,33 +125,29 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
   private async handleFileDrop(e: CustomEvent) {
     const newFiles = e.detail.files as FileSystemFileEntry[] | FileList;
-    // this.allFiles = [...this.allFiles, ...newFiles];
-    // TODO: fix browse. Its broken. Files come as File and not FileSystemFileEntry
-
-    console.log('FILES', newFiles);
 
     for (const file of newFiles) {
       // TODO Handle source and thumbnail
 
       if (file instanceof File) {
         const fileDisplay = this.fileDisplayFromFile(file);
-        this.fileDisplays.push(fileDisplay);
+        this.fileWrappers.push(fileDisplay);
       } else {
         const fileDisplay = await this.fileDisplayFromFileSystemFileEntry(file);
-        this.fileDisplays.push(fileDisplay);
+        this.fileWrappers.push(fileDisplay);
       }
     }
 
     // * Sort to make sure all the files that should be shown is first. Because of this we can break out of the
     // * render loop as soon as we hit the first show=false
-    this.fileDisplays = this.fileDisplays.sort(
-      (a: FileDisplay, b: FileDisplay) => Number(b.show) - Number(a.show)
+    this.fileWrappers = this.fileWrappers.sort(
+      (a: FileWrapper, b: FileWrapper) => Number(b.show) - Number(a.show)
     );
 
-    this.fileDisplays = [...this.fileDisplays];
+    this.fileWrappers = [...this.fileWrappers];
   }
 
-  private fileDisplayFromFile(file: File): FileDisplay {
+  private fileDisplayFromFile(file: File): FileWrapper {
     return {
       name: file.name.split('.')[0],
       extension: file.name.split('.')[1],
@@ -166,21 +159,22 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private async fileDisplayFromFileSystemFileEntry(
-    file: FileSystemFileEntry
-  ): Promise<FileDisplay> {
-    const index = file.fullPath.split('/').length - 2;
+    fileEntry: FileSystemFileEntry
+  ): Promise<FileWrapper> {
+    const index = fileEntry.fullPath.split('/').length - 2;
 
-    const fileDisplay: FileDisplay = {
-      name: file.name.split('.')[0],
-      extension: file.name.split('.')[1],
-      isDirectory: file.isDirectory,
+    const file = await this.getFile(fileEntry);
+
+    const fileDisplay: FileWrapper = {
+      name: fileEntry.name.split('.')[0],
+      extension: fileEntry.name.split('.')[1],
+      isDirectory: fileEntry.isDirectory,
       show: index === 0 ? true : false,
       file: file,
     };
 
-    if (file.isFile) {
-      const size = (await this.getFile(file)).size;
-      fileDisplay.size = size;
+    if (fileEntry.isFile) {
+      fileDisplay.size = file.size;
     }
 
     return fileDisplay;
@@ -193,8 +187,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private removeFile(index: number) {
-    this.fileDisplays.splice(index, 1);
-    this.fileDisplays = [...this.fileDisplays]; // Updates the UI
+    this.fileWrappers.splice(index, 1);
+    this.fileWrappers = [...this.fileWrappers]; // Updates the UI
   }
 
   private setShowDropzone(show: boolean) {
@@ -207,7 +201,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     }
   }
 
-  private renderFileItem(file: FileDisplay, index: number) {
+  private renderFileItem(file: FileWrapper, index: number) {
     return html`<uui-file-preview
       .name=${file.name}
       .extension=${file.extension}
@@ -228,8 +222,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   private renderFiles() {
     const result = [];
 
-    for (let index = 0; index < this.fileDisplays.length; index++) {
-      const file = this.fileDisplays[index];
+    for (let index = 0; index < this.fileWrappers.length; index++) {
+      const file = this.fileWrappers[index];
 
       if (file.show) {
         result.push(file);
@@ -239,7 +233,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       }
     }
 
-    return html`${result.map((file: FileDisplay, index: number) =>
+    return html`${result.map((file: FileWrapper, index: number) =>
       file.show ? this.renderFileItem(file, index) : ''
     )}`;
   }
