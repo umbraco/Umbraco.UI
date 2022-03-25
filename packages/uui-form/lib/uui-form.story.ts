@@ -35,90 +35,117 @@ const _onSubmit = (e: SubmitEvent) => {
   }
 };
 
+// TODO: Find a good way to have stories with both HTML and javascript
 export const Overview: Story = () => {
-  return html` <uui-form>
-    <form @submit="${_onSubmit}">
-      <uui-form-layout-item>
-        <uui-label slot="label">Checkbox</uui-label>
-        <uui-checkbox
-          name="checkbox"
-          value="Bike"
-          label="This is my checked checkbox"
-          required>
-          This is my checked checkbox
-        </uui-checkbox>
-      </uui-form-layout-item>
+  return html`
+    <uui-form>
+      <form id="MyForm" @submit="${_onSubmit}">
+        <uui-form-layout-item>
+          <uui-label slot="label">Checkbox</uui-label>
+          <uui-checkbox
+            name="checkbox"
+            value="Bike"
+            label="This is my checked checkbox"
+            required>
+            This is my checked checkbox
+          </uui-checkbox>
+        </uui-form-layout-item>
 
-      <uui-form-layout-item>
-        <uui-label slot="label">Toggle</uui-label>
-        <uui-toggle name="toggle" label="This is my toggle" required>
-          This is my toggle
-        </uui-toggle>
-      </uui-form-layout-item>
+        <uui-form-layout-item>
+          <uui-label slot="label">Toggle</uui-label>
+          <uui-toggle name="toggle" label="This is my toggle" required>
+            This is my toggle
+          </uui-toggle>
+        </uui-form-layout-item>
 
-      <uui-form-layout-item>
-        <uui-label slot="label">Radio Group</uui-label>
-        <uui-radio-group
-          name="radio"
-          label="This is my radio"
-          required
-          @change=${_onRadioGroupChanged}>
-          <uui-radio value="radio1" label="radio1" name="radio1"
-            >Label</uui-radio
+        <uui-form-layout-item>
+          <uui-label slot="label">Radio Group</uui-label>
+          <uui-radio-group
+            name="radio"
+            label="This is my radio"
+            required
+            @change=${_onRadioGroupChanged}>
+            <uui-radio value="radio1" label="radio1" name="radio1"
+              >Label</uui-radio
+            >
+            <uui-radio value="radio2" label="radio2" name="radio2"
+              >Label</uui-radio
+            >
+            <uui-radio value="radio3" label="radio3" name="radio3"
+              >Label</uui-radio
+            >
+          </uui-radio-group>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label">Email</uui-label>
+          <uui-input
+            name="email"
+            type="text"
+            label="Email"
+            required></uui-input>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label">Password</uui-label>
+          <uui-input-password name="password" label="Password" required>
+          </uui-input-password>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label">Slider</uui-label>
+          <uui-slider
+            label="Slider"
+            name="slider"
+            value="5.5"
+            min="0"
+            max="10"
+            step="1"
+            required>
+          </uui-slider>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label">Textarea</uui-label>
+          <uui-textarea
+            label="Textarea"
+            name="textarea"
+            value="Some long text that needs more space"
+            minlength="10"
+            maxlength="30"
+            required>
+          </uui-textarea>
+        </uui-form-layout-item>
+
+        <div>
+          <uui-button type="reset" label="Reset" look="secondary"
+            >Reset</uui-button
           >
-          <uui-radio value="radio2" label="radio2" name="radio2"
-            >Label</uui-radio
-          >
-          <uui-radio value="radio3" label="radio3" name="radio3"
-            >Label</uui-radio
-          >
-        </uui-radio-group>
-      </uui-form-layout-item>
+          <uui-button type="submit" label="Submit" look="positive">
+            Submit
+          </uui-button>
+        </div>
+      </form>
+    </uui-form>
 
-      <uui-form-layout-item>
-        <uui-label slot="label">Email</uui-label>
-        <uui-input name="email" type="text" label="Email" required></uui-input>
-      </uui-form-layout-item>
+    <!-- Submit Handler
+  const form = document.getElementById('MyForm');
 
-      <uui-form-layout-item>
-        <uui-label slot="label">Password</uui-label>
-        <uui-input-password name="password" label="Password" required>
-        </uui-input-password>
-      </uui-form-layout-item>
+  form.addEventHandler('submit', (e) => {
+    e.preventDefault();
 
-      <uui-form-layout-item>
-        <uui-label slot="label">Slider</uui-label>
-        <uui-slider
-          label="Slider"
-          name="slider"
-          value="5.5"
-          min="0"
-          max="10"
-          step="1"
-          required>
-        </uui-slider>
-      </uui-form-layout-item>
+    const isValid = form.checkValidity();
 
-      <uui-form-layout-item>
-        <uui-label slot="label">Textarea</uui-label>
-        <uui-textarea
-          label="Textarea"
-          name="textarea"
-          value="Some long text that needs more space"
-          minlength="10"
-          maxlength="30"
-          required>
-        </uui-textarea>
-      </uui-form-layout-item>
+    if (!isValid) {
+      return;
+    }
 
-      <div>
-        <uui-button type="reset" label="Reset" look="secondary"
-          >Reset</uui-button
-        >
-        <uui-button type="submit" label="Submit" look="positive">
-          Submit
-        </uui-button>
-      </div>
-    </form>
-  </uui-form>`;
+    const formData = new FormData(form);
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+  });
+  -->
+  `;
 };
