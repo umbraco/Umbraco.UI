@@ -23,7 +23,7 @@ export const AAAOverview: Story = () => html`
 AAAOverview.storyName = 'Overview';
 
 export const Example: Story = () => html` <uui-form>
-  <form is="uui-form" style="max-width: 800px;">
+  <form style="max-width: 800px;">
     <uui-form-layout-item>
       <uui-label slot="label" for="phoneInput" required>Phone number</uui-label>
       <span slot="description"
