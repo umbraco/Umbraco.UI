@@ -213,4 +213,24 @@ describe('UuiInput in Form', () => {
       });
     });
   });
+
+  describe('native validation', () => {
+    element.setAttribute('type', 'email');
+
+    it('sets element to invalid when value is empty', async () => {
+      expect(element.checkValidity()).to.be.false;
+    });
+
+    it('email element is invalid when it has a none compliant value', async () => {
+      element.value = 'new value';
+      await elementUpdated(element);
+      expect(element.checkValidity()).to.be.false;
+    });
+
+    it('email element is valid when it has a email value', async () => {
+      element.value = 'my@email.com';
+      await elementUpdated(element);
+      expect(element.checkValidity()).to.be.true;
+    });
+  });
 });

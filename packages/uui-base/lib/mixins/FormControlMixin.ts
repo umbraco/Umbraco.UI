@@ -5,6 +5,8 @@ import { UUIFormControlEvent } from '../events';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
+type NativeFormControlElement = HTMLInputElement; // Eventually use a specific interface or list multiple options like appending these types: ... | HTMLTextAreaElement | HTMLSelectElement
+
 // TODO: make it possible to define FormDataEntryValue type.
 export declare abstract class FormControlMixinInterface extends LitElement {
   formAssociated: boolean;
@@ -12,7 +14,7 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   set value(newValue: FormDataEntryValue);
   name: string;
   formResetCallback(): void;
-  checkValidity: () => boolean;
+  checkValidity(): boolean;
   get validationMessage(): string;
   protected _value: FormDataEntryValue;
   protected _internals: any;
@@ -22,6 +24,7 @@ export declare abstract class FormControlMixinInterface extends LitElement {
     getMessageMethod: () => String,
     checkMethod: () => boolean
   ) => void;
+  protected addFormControlElement(element: NativeFormControlElement): void;
   pristine: boolean;
   required: boolean;
   requiredMessage: string;
@@ -147,6 +150,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     private _internals: any;
     private _form: HTMLFormElement | null = null;
     private _validators: Validator[] = [];
+    private _formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
@@ -196,7 +200,33 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       });
     }
 
+    /**
+     * @method addFormControlElement
+     * @description Important notice if adding a native form control then ensure that its value and thereby validity is updated when value is changed from the outside.
+     * @param element {NativeFormControlElement} - element to validate and include as part of this form association.
+     */
+    protected addFormControlElement(element: NativeFormControlElement) {
+      this._formCtrlElements.push(element);
+    }
+
     private _runValidators() {
+      this._validityState = {};
+
+      // Loop through inner native form controls to adapt their validityState.
+      this._formCtrlElements.forEach(formCtrlEl => {
+        for (const key in formCtrlEl.validity) {
+          if (key !== 'valid' && (formCtrlEl.validity as any)[key]) {
+            (this as any)._validityState[key] = true;
+            this._internals.setValidity(
+              (this as any)._validityState,
+              formCtrlEl.validationMessage,
+              formCtrlEl
+            );
+          }
+        }
+      });
+
+      // Loop through custom validators, currently its intentional to have them overwritten native validity. but might need to be reconsidered (This current way enables to overwrite with custom messages)
       this._validators.forEach(validator => {
         if (validator.checkMethod()) {
           this._validityState[validator.flagKey] = true;
@@ -205,8 +235,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
             validator.getMessage(),
             this.getFormElement()
           );
-        } else {
-          this._validityState[validator.flagKey] = false;
         }
       });
 
@@ -225,13 +253,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
       this._runValidators();
-      /*
-      if(changedProperties.has('pristine')) {
-        if(changedProperties.get('pristine') === false) {
-          this._internals.reportValidity();
-        }
-      }
-      */
     }
 
     private _onFormSubmit = () => {
@@ -242,7 +263,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._removeFormListeners();
       this._form = this._internals.form;
       if (this._form) {
-        // This relies on the form begin a 'uui-form':
+        // This relies on the form begin a child of uui-form:
         if (this._form.hasAttribute('invalid-submit')) {
           this.pristine = false;
         }
@@ -255,6 +276,12 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     public checkValidity() {
+      for (const key in this._formCtrlElements) {
+        if (this._formCtrlElements[key].checkValidity() === false) {
+          return false;
+        }
+      }
+
       return this._internals?.checkValidity();
     }
 
