@@ -41,7 +41,7 @@ export const Overview: Story = () => {
     <uui-form>
       <form id="MyForm" @submit="${_onSubmit}">
         <uui-form-layout-item>
-          <uui-label slot="label">Checkbox</uui-label>
+          <uui-label slot="label" required>Checkbox</uui-label>
           <uui-checkbox
             name="checkbox"
             value="Bike"
@@ -52,14 +52,14 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label">Toggle</uui-label>
+          <uui-label slot="label" required>Toggle</uui-label>
           <uui-toggle name="toggle" label="This is my toggle" required>
             This is my toggle
           </uui-toggle>
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label">Radio Group</uui-label>
+          <uui-label slot="label" required>Radio Group</uui-label>
           <uui-radio-group
             name="radio"
             label="This is my radio"
@@ -78,7 +78,7 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label">Email</uui-label>
+          <uui-label slot="label" required>Email</uui-label>
           <uui-input
             name="email"
             type="text"
@@ -87,13 +87,13 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label">Password</uui-label>
+          <uui-label slot="label" required>Password</uui-label>
           <uui-input-password name="password" label="Password" required>
           </uui-input-password>
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label">Slider</uui-label>
+          <uui-label slot="label" required>Slider</uui-label>
           <uui-slider
             label="Slider"
             name="slider"
@@ -106,7 +106,7 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label">Textarea</uui-label>
+          <uui-label slot="label" required>Textarea</uui-label>
           <uui-textarea
             label="Textarea"
             name="textarea"
