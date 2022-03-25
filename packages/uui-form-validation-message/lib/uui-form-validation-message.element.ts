@@ -7,9 +7,11 @@ import { repeat } from 'lit/directives/repeat.js';
 
 /**
  * @element uui-form-validation-message
- * @description - Component for displaying one or more validation messages from Form Control within the given scope. Notice: Only supports components that build on the FormControlMixing.
+ * @description - Component for displaying one or more validation messages from UUI Form Control within the given scope.
+ * Notice: Only supports components that is build on the FormControlMixing.
  * @slot - for button contents
  * @slot message - for extras in the messages container
+ * @see FormControlMixin
  */
 
 @defineElement('uui-form-validation-message')
@@ -77,8 +79,8 @@ export class UUIFormValidationMessageElement extends LitElement {
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
     const ctrl = e.target;
-    if (ctrl.pristine !== true) {
-      // This enables any component who does have the pristine property to hide a message. (as well we only want to show messages from fields that are NOT pristine aka. that are dirty or in a from that has been submitted)
+    if (ctrl.pristine === false) {
+      // Currently we only show message from components who does have the pristine property. (we only want to show messages from fields that are NOT pristine aka. that are dirty or in a from that has been submitted)
       this._messages.set(ctrl, ctrl.validationMessage);
     } else {
       this._messages.delete(ctrl);
