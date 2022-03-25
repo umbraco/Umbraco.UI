@@ -8,10 +8,6 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
-/**
- * @element uui-input-file
- */
-
 interface FileWrapper {
   name: string;
   extension: string;
@@ -22,6 +18,10 @@ interface FileWrapper {
   source?: string;
   file?: File;
 }
+
+/**
+ * @element uui-input-file
+ */
 @defineElement('uui-input-file')
 export class UUIInputFileElement extends FormControlMixin(LitElement) {
   static styles = [
@@ -30,8 +30,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         width: 100%;
         height: 100%;
         position: relative;
-        width: 100%;
-        height: 500px;
         display: flex;
         box-sizing: border-box;
         border: 1px solid var(--uui-interface-border);
@@ -104,11 +102,24 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   @query('#dropzone')
   dropZone: UUIFileDropzoneElement | undefined;
 
-  @query('#file-input')
-  fileInput: HTMLElement | undefined;
+  private _fileWrappers: FileWrapper[] = [];
 
   @state()
-  fileWrappers: FileWrapper[] = [];
+  get fileWrappers() {
+    return this._fileWrappers;
+  }
+  set fileWrappers(newValue) {
+    const oldValue = newValue;
+    this._fileWrappers = newValue;
+    const formData = new FormData();
+    for (const fileWrapper of this.fileWrappers) {
+      if (fileWrapper.file) {
+        formData.append(this.name, fileWrapper.file);
+      }
+    }
+    this.value = formData;
+    this.requestUpdate('fileWrappers', oldValue);
+  }
 
   static readonly formAssociated = true;
 
@@ -120,7 +131,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   protected getFormElement(): HTMLElement {
-    return this;
+    return this.dropZone!;
   }
 
   private async handleFileDrop(e: CustomEvent) {
@@ -163,17 +174,16 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   ): Promise<FileWrapper> {
     const index = fileEntry.fullPath.split('/').length - 2;
 
-    const file = await this.getFile(fileEntry);
-
     const fileDisplay: FileWrapper = {
       name: fileEntry.name.split('.')[0],
       extension: fileEntry.name.split('.')[1],
       isDirectory: fileEntry.isDirectory,
       show: index === 0 ? true : false,
-      file: file,
     };
 
     if (fileEntry.isFile) {
+      const file = await this.getFile(fileEntry);
+      fileDisplay.file = file;
       fileDisplay.size = file.size;
     }
 

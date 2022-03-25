@@ -16,32 +16,31 @@ export default {
   },
 };
 
-const submit = (e: SubmitEvent) => {
-  e.preventDefault();
-  const formElement = e.target as HTMLFormElement;
-  const formData = new FormData(formElement);
-  // @ts-ignore // TODO: Fix
-  const formProps = Object.fromEntries(formData);
-
-  for (const item of formData.values()) {
-    // console.log('value', item);
-  }
-  console.log('CUSTOM: ', formData.getAll('custom'));
-  console.log('NATIVE getAll: ', formData.getAll('native'));
-  console.log('FormProps: ', formProps);
-};
-
 export const Overview: Story = () => html`<uui-input-file></uui-input-file>`;
 
-export const Form: Story = () => html`
-  <form @submit=${submit} enctype="multipart/form-data">
-    <h2>This is a form</h2>
-    <uui-input-file name="custom" multiple></uui-input-file>
-    <input
-      @change=${(e: any) => console.log('native event', e.target.value)}
-      name="native"
-      type="file"
-      multiple />
-    <button type="submit">DO IT</button>
-  </form>
-`;
+export const Form: Story = () => {
+  const submit = (e: SubmitEvent) => {
+    e.preventDefault();
+    const formElement = e.target as HTMLFormElement;
+    const formData = new FormData(formElement);
+
+    const data = formData.getAll('input-file');
+    console.log('Files', data);
+  };
+
+  return html`
+    <form @submit=${submit} enctype="multipart/form-data">
+      <h2>This is a form</h2>
+      <div style="display: grid; grid-template-columns: 2fr 1fr">
+        <uui-input-file
+          style="height: min-content; max-heigh: 300px"
+          name="input-file"
+          multiple></uui-input-file>
+        <div></div>
+      </div>
+      <uui-button style="margin-top: 16px" type="submit" look="primary">
+        Upload
+      </uui-button>
+    </form>
+  `;
+};
