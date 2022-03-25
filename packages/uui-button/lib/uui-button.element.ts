@@ -1,9 +1,8 @@
-import '@umbraco-ui/uui-icon/lib';
-
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
@@ -609,19 +608,17 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     let element = html``;
     switch (this.state) {
       case 'waiting':
-        if (!customElements.get('uui-loader-circle')) {
-          console.warn(
-            'To properly render the waiting state, the uui-loader-circle element has to be registered'
-          );
-        }
+        demandCustomElement(this, 'uui-loader-circle');
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
+        demandCustomElement(this, 'uui-icon');
         element = html`<uui-icon
           name="check"
           .fallback=${iconCheck.strings[0]}></uui-icon>`;
         break;
       case 'failed':
+        demandCustomElement(this, 'uui-icon');
         element = html`<uui-icon
           name="wrong"
           .fallback=${iconWrong.strings[0]}></uui-icon>`;

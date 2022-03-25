@@ -15,6 +15,15 @@
     },
     {
       "path": "../uui-css"
+    },
+    {
+      "path": "../uui-icon-registry-essential"
+    },
+    {
+      "path": "../uui-button"
+    },
+    {
+      "path": "../uui-icon"
     }
   ]
 }

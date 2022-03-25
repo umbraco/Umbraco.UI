@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -44,6 +45,12 @@ export class UUIFormLayoutItemElement extends LitElement {
 
   @property({ type: String })
   description: string | null = null;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-form-validation-message');
+  }
 
   @state()
   private _labelSlotHasContent = false;
