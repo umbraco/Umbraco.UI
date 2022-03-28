@@ -5,7 +5,9 @@ import { UUIFileSize } from './UUIFileSize';
 import { css, html, LitElement } from 'lit';
 
 /**
- * @element uui-file-preview
+ *  @element uui-file-preview
+ *  @slot actions - To display one or more actions that can be executed on the file.
+ *  @description - A file preview with file size.
  */
 @defineElement('uui-file-preview')
 export class UUIFilePreviewElement extends LitElement {
@@ -39,7 +41,7 @@ export class UUIFilePreviewElement extends LitElement {
         transition: opacity 150ms;
       }
 
-      #file-icon {
+      #file-symbol {
         aspect-ratio: 1 / 1;
         margin: auto;
         max-width: 100%;
@@ -80,21 +82,57 @@ export class UUIFilePreviewElement extends LitElement {
     `,
   ];
 
+  /**
+   * Name of the file.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   public name: string = '';
 
+  /**
+   * Link to the source of the file. Applied on the file name.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   public source: string = '';
 
+  /**
+   * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   public extension: string = '';
 
+  /**
+   * Source of a thumbnail to be displayed as the file symbol. Often used for images and video thumbnails.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property({ type: String })
   public thumbnail: string = '';
 
+  /**
+   * Size of the file in bytes. It will be formatted to a more readable format.
+   * @type {number}
+   * @attr
+   * @default 0
+   */
   @property({ type: Number })
   public size: number = 0;
 
+  /**
+   * Dertermines if a folder symbol should be used instead of file symbol.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean })
   public isDirectory: boolean = false;
 
@@ -104,15 +142,15 @@ export class UUIFilePreviewElement extends LitElement {
 
   private fileTypeTemplate() {
     if (this.isDirectory) {
-      return html`<uui-symbol-folder id="file-icon"></uui-symbol-folder>`;
+      return html`<uui-symbol-folder id="file-symbol"></uui-symbol-folder>`;
     }
     if (this.thumbnail) {
       return html`<uui-symbol-file-thumbnail
-        id="file-icon"></uui-symbol-file-thumbnail>`;
+        id="file-symbol"></uui-symbol-file-thumbnail>`;
     }
 
     return html`<uui-symbol-file
-      id="file-icon"
+      id="file-symbol"
       .type=${this.extension}></uui-symbol-file>`;
   }
 
