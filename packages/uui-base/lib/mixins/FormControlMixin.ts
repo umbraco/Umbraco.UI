@@ -221,6 +221,8 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
         message,
         this.getFormElement()
       );
+
+      this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.INVALID));
     }
 
     private _runValidators() {
