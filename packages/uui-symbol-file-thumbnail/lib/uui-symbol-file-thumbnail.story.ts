@@ -16,5 +16,12 @@ export default {
   },
 };
 
-export const Overview: Story = () =>
-  html`<uui-symbol-file-thumbnail></uui-symbol-file-thumbnail>`;
+export const Overview: Story = props =>
+  html`<uui-symbol-file-thumbnail
+    .source=${props.source}
+    .alt=${props.alt}></uui-symbol-file-thumbnail>`;
+
+Overview.args = {
+  source: 'https://picsum.photos/2000/3000',
+  alt: 'Image alt',
+};

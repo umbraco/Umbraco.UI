@@ -146,6 +146,8 @@ export class UUIFilePreviewElement extends LitElement {
     }
     if (this.thumbnail) {
       return html`<uui-symbol-file-thumbnail
+        .source=${this.thumbnail}
+        .alt=${this.name}
         id="file-symbol"></uui-symbol-file-thumbnail>`;
     }
 

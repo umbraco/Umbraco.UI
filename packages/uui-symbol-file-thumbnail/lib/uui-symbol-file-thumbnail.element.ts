@@ -1,21 +1,49 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  * @element uui-symbol-file-thumbnail
+ * @description - Symbol to display a thumbnail.
  */
 @defineElement('uui-symbol-file-thumbnail')
 export class UUISymbolFileThumbnailElement extends LitElement {
   static styles = [
     css`
       :host {
-        /* Styles goes here */
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      img {
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
       }
     `,
   ];
 
+  /**
+   * Source of the thumbnail.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  source = '';
+
+  /**
+   * Alt of the thumbnail.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  alt = '';
+
   render() {
-    return html` Markup goes here `;
+    return html`<img src=${this.source} alt=${this.alt} />`;
   }
 }
 
