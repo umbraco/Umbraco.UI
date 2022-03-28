@@ -32,7 +32,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    * @default false
    */
   @property({ type: Boolean })
-  directory = false;
+  public directory = false;
 
   /**
    * Accepted filetypes. Will allow all types if empty.
@@ -41,10 +41,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    * @default false
    */
   @property({ type: String })
-  accept = '';
+  public accept = '';
 
   @query('#input')
-  input!: HTMLInputElement;
+  private _input!: HTMLInputElement;
 
   /**
    * Allows for multiple files to be selected.
@@ -53,7 +53,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    * @default false
    */
   @property({ type: Boolean })
-  multiple = false;
+  public multiple = false;
 
   constructor() {
     super();
@@ -71,16 +71,14 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
-    // @ts-ignore TODO: fix typescript error
+    // @ts-ignore // TODO: fix typescript error
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 
-  // Drop handler function to get all files
   private async getAllFileEntries(dataTransferItemList: DataTransferItemList) {
     const fileEntries: FileSystemFileEntry[] = [];
     // Use BFS to traverse entire directory/file structure
     const queue = [];
-    // Unfortunately dataTransferItemList is not iterable i.e. no forEach
     for (let i = 0; i < dataTransferItemList.length; i++) {
       queue.push(dataTransferItemList[i].webkitGetAsEntry());
     }
@@ -212,11 +210,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   protected openNativeInput() {
-    this.input.click();
+    this._input.click();
   }
 
   private _onFileInputChange() {
-    const files = this.input.files ? Array.from(this.input.files) : [];
+    const files = this._input.files ? Array.from(this._input.files) : [];
 
     this.dispatchEvent(
       new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
