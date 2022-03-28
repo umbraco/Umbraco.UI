@@ -182,4 +182,10 @@
   --uui-color-mine-grey-dimmed: color(
     $mine-grey saturation(- 100%) lightness(+ 10%)
   );
+
+  --uui-color-primary: var(--uui-color-violet-blue);
+  --uui-color-secondary: var(--uui-color-timberwolf);
+  --uui-color-positive: var(--uui-color-jungle-green);
+  --uui-color-warning: var(--uui-color-sunglow);
+  --uui-color-danger: var(--uui-color-maroon-flush);
 }

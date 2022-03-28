@@ -172,10 +172,22 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       });
     }
 
+    /**
+     * Determn wether this FormControl has a value.
+     * @method hasValue
+     * @returns {boolean}
+     */
     public hasValue(): boolean {
       return this.value !== '';
     }
 
+    /**
+     * Get internal form element.
+     * This has to be implemented to provide a FormControl Element of choice for the given context. The element is used as anchor for validation-messages.
+     * @abstract
+     * @method getFormElement
+     * @returns {HTMLElement | undefined}
+     */
     protected abstract getFormElement(): HTMLElement | undefined;
 
     disconnectedCallback(): void {
@@ -188,6 +200,21 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       }
     }
 
+    /**
+     * Add validator, to validate this Form Control.
+     * See https://developer.mozilla.org/en-US/docs/Web/API/ValidityState for available Validator FlagTypes.
+     *
+     * @example
+     * this.addValidator(
+     *  'tooLong',
+     *  () => 'This input contains too many characters',
+     *  () => this._value.length > 10
+     * );
+     * @method hasValue
+     * @param {FlagTypes} flagKey the type of validation.
+     * @param {method} getMessage method to retrieve relevant message. Is executed every time the validator is re-executed.
+     * @param {method} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
+     */
     protected addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => String,
@@ -285,8 +312,8 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._removeFormListeners();
       this._form = this._internals.form;
       if (this._form) {
-        // This relies on the form begin a child of uui-form:
-        if (this._form.hasAttribute('invalid-submit')) {
+        // This relies on the form begin a 'uui-form':
+        if (this._form.hasAttribute('submit-invalid')) {
           this.pristine = false;
         }
         this._form.addEventListener('submit', this._onFormSubmit);

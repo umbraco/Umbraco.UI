@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -97,6 +98,12 @@ export class UUICardUserElement extends UUICardElement {
    */
   @property({ type: String })
   name = '';
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-avatar');
+  }
 
   public render() {
     return html`

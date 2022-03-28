@@ -12,6 +12,12 @@
   "references": [
     {
       "path": "../uui-base"
+    },
+    {
+      "path": "../uui-symbol-expand"
+    },
+    {
+      "path": "../uui-loader-bar"
     }
   ]
 }

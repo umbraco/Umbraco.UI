@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
   iconSee,
   iconUnsee,
@@ -44,6 +45,13 @@ export class UUIInputPasswordElement extends UUIInputElement {
     } else {
       this.passwordType = 'password';
     }
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-button');
   }
 
   renderIcon() {

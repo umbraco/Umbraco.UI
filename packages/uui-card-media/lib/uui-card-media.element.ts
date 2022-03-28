@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -124,6 +125,13 @@ export class UUICardMediaElement extends UUICardElement {
 
   @state()
   protected hasPreview = false;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-symbol-folder');
+    demandCustomElement(this, 'uui-symbol-file');
+  }
 
   private queryPreviews(e: any): void {
     this.hasPreview =

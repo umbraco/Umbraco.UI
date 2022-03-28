@@ -5,6 +5,7 @@ import {
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -268,6 +269,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
+
+    demandCustomElement(this, 'uui-symbol-expand');
+    demandCustomElement(this, 'uui-loader-bar');
   }
 
   private iconSlotChanged(e: any): void {

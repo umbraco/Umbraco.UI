@@ -33,7 +33,7 @@ AAAOverview.storyName = 'Overview';
 export const ForAnotherElement: Story = () =>
   html` <p>
       The Form Validation Message element can also display validation messages
-      from another element than it self. This is done by setting the 'for'
+      from another scope than it self. This is done by setting the 'for'
       attribute.
     </p>
     <div id="myCustomScope">
