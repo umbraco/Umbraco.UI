@@ -215,25 +215,50 @@ describe('UuiInput in Form', () => {
   });
 
   describe('native validation', () => {
-    beforeEach(async () => {
-      element.setAttribute('type', 'email');
-      await elementUpdated(element);
+    describe('email', () => {
+      beforeEach(async () => {
+        element.setAttribute('type', 'email');
+        await elementUpdated(element);
+      });
+
+      it('sets element to valid when value is empty', async () => {
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('email element is invalid when it has a none compliant value', async () => {
+        element.value = 'new value';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('email element is valid when it has a email value', async () => {
+        element.value = 'my@email.com';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
     });
 
-    it('sets element to valid when value is empty', async () => {
-      expect(element.checkValidity()).to.be.true;
-    });
+    describe('url', () => {
+      beforeEach(async () => {
+        element.setAttribute('type', 'url');
+        await elementUpdated(element);
+      });
 
-    it('email element is invalid when it has a none compliant value', async () => {
-      element.value = 'new value';
-      await elementUpdated(element);
-      expect(element.checkValidity()).to.be.false;
-    });
+      it('sets element to valid when value is empty', async () => {
+        expect(element.checkValidity()).to.be.true;
+      });
 
-    it('email element is valid when it has a email value', async () => {
-      element.value = 'my@email.com';
-      await elementUpdated(element);
-      expect(element.checkValidity()).to.be.true;
+      it('url element is invalid when it has a none compliant value', async () => {
+        element.value = 'new value';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('url element is valid when it has a email value', async () => {
+        element.value = 'http://umbraco.com';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
     });
   });
 });
