@@ -49,9 +49,10 @@ type FlagTypes =
   | 'badInput'
   | 'valid';
 
+// Acceptable as an internal interface/type, BUT if exposed externally this should be turned into a public class in a separate file.
 interface Validator {
   flagKey: FlagTypes;
-  getMessage: () => String;
+  getMessageMethod: () => String;
   checkMethod: () => boolean;
 }
 
@@ -212,19 +213,28 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      * );
      * @method hasValue
      * @param {FlagTypes} flagKey the type of validation.
-     * @param {method} getMessage method to retrieve relevant message. Is executed every time the validator is re-executed.
+     * @param {method} getMessageMethod method to retrieve relevant message. Is executed every time the validator is re-executed.
      * @param {method} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
      */
     protected addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => String,
       checkMethod: () => boolean
-    ) {
-      this._validators.push({
+    ): Validator {
+      const obj = {
         flagKey: flagKey,
-        getMessage: getMessageMethod,
+        getMessageMethod: getMessageMethod,
         checkMethod: checkMethod,
-      });
+      };
+      this._validators.push(obj);
+      return obj;
+    }
+
+    protected removeValidator(validator: Validator) {
+      const index = this._validators.indexOf(validator);
+      if (index !== -1) {
+        this._validators.splice(index, 1);
+      }
     }
 
     /**
@@ -236,26 +246,28 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._formCtrlElements.push(element);
     }
 
+    private _customValidityObject?: Validator;
+
     /**
      * @method setCustomValidity
      * @description Set custom validity state, set to empty string to remove the custom message.
      * @param message {string} - The message to be shown
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity|HTMLObjectElement:setCustomValidity}
      */
-    protected setCustomValidity(message: string) {
-      if (message === '') {
-        this._internals.setValidity({});
-        this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
-        return;
+    protected setCustomValidity(message: string | null) {
+      if (this._customValidityObject) {
+        this.removeValidator(this._customValidityObject);
       }
 
-      this._internals.setValidity(
-        { customError: true },
-        message,
-        this.getFormElement()
-      );
+      if (message != null && message !== '') {
+        this._customValidityObject = this.addValidator(
+          'customError',
+          (): string => message,
+          () => true
+        );
+      }
 
-      this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.INVALID));
+      this._runValidators();
     }
 
     private _runValidators() {
@@ -281,7 +293,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
           this._validityState[validator.flagKey] = true;
           this._internals.setValidity(
             this._validityState,
-            validator.getMessage(),
+            validator.getMessageMethod(),
             this.getFormElement()
           );
         }
