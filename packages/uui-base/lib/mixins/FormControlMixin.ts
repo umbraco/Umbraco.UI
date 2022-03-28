@@ -209,6 +209,20 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._formCtrlElements.push(element);
     }
 
+    /**
+     * @method setCustomValidity
+     * @description Set custom validity state, set to empty string to remove the custom message.
+     * @param message {string} - The message to be shown
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity|HTMLObjectElement:setCustomValidity}
+     */
+    protected setCustomValidity(message: string) {
+      this._internals.setValidity(
+        'customError',
+        message,
+        this.getFormElement()
+      );
+    }
+
     private _runValidators() {
       this._validityState = {};
 
