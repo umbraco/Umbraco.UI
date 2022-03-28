@@ -220,8 +220,8 @@ describe('UuiInput in Form', () => {
       await elementUpdated(element);
     });
 
-    it('sets element to invalid when value is empty', async () => {
-      expect(element.checkValidity()).to.be.false;
+    it('sets element to valid when value is empty', async () => {
+      expect(element.checkValidity()).to.be.true;
     });
 
     it('email element is invalid when it has a none compliant value', async () => {
