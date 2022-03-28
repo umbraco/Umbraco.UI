@@ -215,7 +215,10 @@ describe('UuiInput in Form', () => {
   });
 
   describe('native validation', () => {
-    element.setAttribute('type', 'email');
+    beforeEach(async () => {
+      element.setAttribute('type', 'email');
+      await elementUpdated(element);
+    });
 
     it('sets element to invalid when value is empty', async () => {
       expect(element.checkValidity()).to.be.false;
