@@ -80,13 +80,13 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
     `,
   ];
 
-  private _value: any;
+  private _value: string | undefined;
 
-  @property()
-  public get value() {
-    return this._value ? this._value : this.textContent;
+  @property({ type: String })
+  public get value(): string {
+    return this._value ? this._value : this.textContent || '';
   }
-  public set value(newValue) {
+  public set value(newValue: string) {
     const oldValue = this._value;
     this._value = newValue;
     this.requestUpdate('value', oldValue);

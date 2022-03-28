@@ -6,12 +6,13 @@ import {
   UUIComboboxListOptionElement,
   UUIComboboxListEvent,
 } from '@umbraco-ui/uui-combobox-list/lib';
+import { FormControlMixin } from 'packages/uui-base/lib/mixins/FormControlMixin';
 
 /**
  * @element uui-combobox
  */
 @defineElement('uui-combobox')
-export class UUIComboboxElement extends LitElement {
+export class UUIComboboxElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
@@ -19,15 +20,9 @@ export class UUIComboboxElement extends LitElement {
         display: block;
       }
 
-      #input {
-        box-sizing: border-box;
+      #combobox-input {
         width: 100%;
-        padding: 8px 12px;
-        border: 1px solid var(--uui-interface-border);
-        border-radius: var(--uui-border-radius);
-        font-weight: bold;
-        font-size: 1rem;
-        font-family: 'Lato';
+        border-radius: var(--uui-size-1);
       }
 
       uui-combobox-list {
@@ -71,17 +66,14 @@ export class UUIComboboxElement extends LitElement {
     `,
   ];
 
-  @query('#input')
-  private _input!: HTMLInputElement; // TODO: Replace with uui-input when it implements an input event.
-
   @property({ type: String })
   public search = '';
 
   @property({ type: Boolean })
   public open = false;
 
-  @property({ attribute: false })
-  value: any;
+  @query('#combobox-input')
+  private _input!: HTMLInputElement; // TODO: Replace with uui-input when it implements an input event.
 
   @state()
   private displayValue = '';
@@ -100,6 +92,10 @@ export class UUIComboboxElement extends LitElement {
     this.removeEventListener('focus', this._onFocus);
     this.removeEventListener('blur', this._onBlur);
     this.removeEventListener('mousedown', this._onMouseDown);
+  }
+
+  protected getFormElement(): HTMLElement | undefined {
+    return this._input;
   }
 
   private _onMouseDown = () => requestAnimationFrame(() => this._input.focus());
@@ -137,13 +133,16 @@ export class UUIComboboxElement extends LitElement {
         .open=${this.open}
         .margin=${10}
         @close=${() => this._close()}>
-        <input
+        <uui-input
           slot="trigger"
-          id="input"
+          id="combobox-input"
           type="text"
           .value=${this.displayValue}
           placeholder=${this.displayValue}
-          @input=${this._onInput} />
+          @input=${this._onInput}>
+          <slot name="input-prepend" slot="prepend"></slot>
+          <slot name="input-append" slot="append"></slot>
+        </uui-input>
         <div id="dropdown" slot="popover">
           <uui-combobox-list .value=${this.value} @change=${this._onChange}>
             <slot></slot>

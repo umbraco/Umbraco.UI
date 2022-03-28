@@ -118,23 +118,42 @@ const filterOptions = (regions: any, search: string): any[] => {
 
 export const CountrySelect: Story = props => {
   const [, updateSearch] = useArgs();
+  const [, updateSelected] = useArgs();
 
-  const handle = (e: any) => {
+  const handleSearch = (e: any) => {
     updateSearch({ ...props, search: e.target.search });
   };
 
+  const handleSelect = (e: any) => {
+    updateSelected({ ...props, selected: e.target.value });
+  };
+
+  const renderSelectedFlag = () => {
+    const country = props.regions
+      .flatMap((region: any) => region.countries)
+      .find((country: any) => country.ISOAlpha3Code === props.selected);
+
+    return props.selected
+      ? html`<img
+          style="width: 24px; display: flex; padding-left: var(--uui-size-3);"
+          src=${country.flag}
+          alt="" />`
+      : '';
+  };
   return html`<uui-combobox
     style="--uui-combobox-popover-max-height: 300px; max-width: 300px;"
-    @input=${handle}
-    @change=${(e: any) => console.log('Selected', e.target.value)}>
+    @input=${handleSearch}
+    @change=${handleSelect}>
     ${filterOptions(props.regions, props.search).map((region: any, i: number) =>
       renderRegion(region, i)
     )}
+    <span slot="input-prepend">${renderSelectedFlag()}</span>
   </uui-combobox>`;
 };
 
 CountrySelect.args = {
   search: '',
+  selected: '',
   regions: [
     {
       name: 'Africa',
