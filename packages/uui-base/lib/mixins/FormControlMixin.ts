@@ -217,7 +217,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      */
     protected setCustomValidity(message: string) {
       this._internals.setValidity(
-        'customError',
+        { customError: true },
         message,
         this.getFormElement()
       );
