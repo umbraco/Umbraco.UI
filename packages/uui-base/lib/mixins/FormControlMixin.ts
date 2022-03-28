@@ -216,6 +216,12 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity|HTMLObjectElement:setCustomValidity}
      */
     protected setCustomValidity(message: string) {
+      if (message === '') {
+        this._internals.setValidity({});
+        this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
+        return;
+      }
+
       this._internals.setValidity(
         { customError: true },
         message,
