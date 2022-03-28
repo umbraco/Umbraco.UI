@@ -22,13 +22,13 @@ export class UUIComboboxListElement extends LitElement {
 
   @queryAssignedElements({
     flatten: true,
-    selector: 'uui-select-option:not([disabled])',
+    selector: 'uui-combobox-list-option:not([disabled])',
   })
   private _options!: UUIComboboxListOptionElement[]; //TODO: Fix the !
 
   @queryAssignedElements({
     flatten: true,
-    selector: 'uui-select-option[active]',
+    selector: 'uui-combobox-list-option[active]',
   })
   private _activeOptions!: UUIComboboxListOptionElement[]; //TODO: Fix the !
 

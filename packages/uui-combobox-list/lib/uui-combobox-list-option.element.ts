@@ -16,7 +16,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         position: relative;
         cursor: pointer;
         margin: 0 6px;
-        border-radius: 4px;
+        border-radius: var(--uui-border-radius);
         outline: 2px solid transparent;
         outline-offset: -2px;
       }
@@ -26,16 +26,31 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
       :host(:last-child) {
         margin-bottom: 6px;
       }
-      :host(:hover) {
-        background-color: #dbe6ff;
-      }
-      /* :host::after {
-        position: absolute;
+
+      :host([active])::after {
+        display: block;
         content: '';
+        position: absolute;
+        z-index: 1;
+        inset: 0px;
+        outline: white solid 2px;
         outline-offset: -4px;
-        outline: 0px solid transparent;
+      }
+
+      :host::before {
+        display: block;
+        content: '';
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
         inset: 0;
-      } */
+        background-color: var(--uui-interface-select);
+      }
+
+      :host(:hover)::before {
+        opacity: 0.15;
+        border-radius: var(--uui-border-radius);
+      }
 
       :host([disabled]) {
         cursor: auto;
@@ -46,35 +61,21 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         background-color: var(--uui-interface-surface-disabled);
       }
 
-      /* :host([active])::after {
-        outline-color: var(--uui-interface-active);
-      } */
       :host([active]) {
         outline-color: var(--uui-interface-outline);
-        /* color: var(--uui-interface-active-contrast); */
-        /* background-color: var(--uui-interface-active); */
-      }
-      :host([active]:hover) {
-        /* color: var(--uui-interface-active-contrast-hover);
-        background-color: var(--uui-interface-active-hover); */
-      }
-      :host([active][disabled]) {
-        /* color: var(--uui-interface-active-contrast-disabled);
-        background-color: var(--uui-interface-active-disabled); */
       }
 
       :host([selected]) {
-        background-color: #96b8ff;
-        /* color: var(--uui-interface-select-contrast);
-        background-color: var(--uui-interface-select); */
+        color: var(--uui-interface-select-contrast);
+        background-color: var(--uui-interface-select);
       }
       :host([selected]:hover) {
-        /* color: var(--uui-interface-select-contrast-hover);
-        background-color: var(--uui-interface-select-hover); */
+        color: var(--uui-interface-select-contrast-hover);
+        background-color: var(--uui-interface-select-hover);
       }
       :host([selected][disabled]) {
-        /* color: var(--uui-interface-select-contrast-disabled);
-        background-color: var(--uui-interface-select-disabled); */
+        color: var(--uui-interface-select-contrast-disabled);
+        background-color: var(--uui-interface-select-disabled);
       }
     `,
   ];

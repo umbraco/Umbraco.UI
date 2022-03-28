@@ -24,7 +24,7 @@ export class UUIComboboxElement extends LitElement {
         width: 100%;
         padding: 8px 12px;
         border: 1px solid var(--uui-interface-border);
-        border-radius: 6px;
+        border-radius: var(--uui-border-radius);
         font-weight: bold;
         font-size: 1rem;
         font-family: 'Lato';
@@ -36,18 +36,38 @@ export class UUIComboboxElement extends LitElement {
         width: 100%;
         height: 100%;
         overflow: auto;
-        max-height: var(--uui-combobox-popover-max-height, 500px);
+        max-height: var(--uui-combobox-list-max-height, 500px);
       }
 
       #dropdown {
         overflow: hidden;
         border: 1px solid var(--uui-interface-border);
-        border-radius: 6px;
+        border-radius: var(--uui-border-radius);
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
       }
+
+      // TODO START: Replace with uui-scroll-container if it removes the right margin
+      uui-combobox-list {
+        scrollbar-width: thin;
+        scrollbar-color: var(--uui-interface-contrast-disabled)
+          var(--uui-interface-background-alt);
+      }
+      uui-combobox-list::-webkit-scrollbar {
+        width: 6px;
+        height: 6px; /* needed for horizontal scrollbar */
+      }
+      uui-combobox-list::-webkit-scrollbar-track {
+        background: var(--uui-interface-background-alt);
+        border-radius: 3px;
+      }
+      uui-combobox-list::-webkit-scrollbar-thumb {
+        background-color: var(--uui-interface-contrast-disabled);
+        border-radius: 3px;
+      }
+      // TODO END
     `,
   ];
 

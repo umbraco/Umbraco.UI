@@ -42,7 +42,7 @@ export const Avatars: Story = props => {
 
   return html`<uui-combobox
     @input=${handle}
-    @change=${(e: any) => console.log('CHANGE', e.target.value)}>
+    @change=${(e: any) => console.log('Selected', e.target.value)}>
     ${props.avatars
       .filter((f: any) => f.name.includes(props.search))
       .map((avatar: any) => renderAvatar(avatar.id, avatar.name, avatar.title))}
@@ -126,7 +126,7 @@ export const CountrySelect: Story = props => {
   return html`<uui-combobox
     style="--uui-combobox-popover-max-height: 300px; max-width: 300px;"
     @input=${handle}
-    @change=${(e: any) => console.log('CHANGE', e.target.value)}>
+    @change=${(e: any) => console.log('Selected', e.target.value)}>
     ${filterOptions(props.regions, props.search).map((region: any, i: number) =>
       renderRegion(region, i)
     )}
