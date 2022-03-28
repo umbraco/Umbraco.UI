@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, query, state } from 'lit/decorators.js';
+import { query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
@@ -8,7 +8,7 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
-interface FileWrapper {
+export interface FileWrapper {
   name: string;
   extension: string;
   isDirectory: boolean;
@@ -21,6 +21,7 @@ interface FileWrapper {
 
 /**
  * @element uui-input-file
+ * @description - A form associated file input that supports multiple files.
  */
 @defineElement('uui-input-file')
 export class UUIInputFileElement extends FormControlMixin(LitElement) {
@@ -100,7 +101,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   ];
 
   @query('#dropzone')
-  dropZone: UUIFileDropzoneElement | undefined;
+  private _dropZone: UUIFileDropzoneElement | undefined;
 
   private _fileWrappers: FileWrapper[] = [];
 
@@ -131,7 +132,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   protected getFormElement(): HTMLElement {
-    return this.dropZone!;
+    return this._dropZone! as HTMLElement;
   }
 
   private async handleFileDrop(e: CustomEvent) {
@@ -203,10 +204,10 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
   private setShowDropzone(show: boolean) {
     if (show) {
-      this.dropZone!.style.display = 'flex';
+      this._dropZone!.style.display = 'flex';
       this.classList.add('dropzone-active');
     } else {
-      this.dropZone!.style.display = 'none';
+      this._dropZone!.style.display = 'none';
       this.classList.remove('dropzone-active');
     }
   }
