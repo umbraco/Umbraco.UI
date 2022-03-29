@@ -10,6 +10,7 @@ export default {
   id: 'uui-tag',
   args: {
     look: '',
+    fontSize: 12,
     slot: 'Hello',
   },
   argTypes: {
@@ -26,24 +27,18 @@ export default {
       ],
     },
     '--uui-tag-font-size': { control: { type: 'text' } },
+    fontSize: { table: { category: 'Styles' } },
   },
 };
 
-const tagSizes = ['9px', '12px', '15px', '18px'];
-
 const Template: Story = props => html`
-  <uui-tag .look=${props.look}>${props.slot}</uui-tag>
+  <uui-tag look=${props.look} style="font-size: ${props.fontSize}px;"
+    >${props.slot}</uui-tag
+  >
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-tag>Hello</uui-tag>`,
-    },
-  },
-};
 
 export const Looks: Story = () =>
   html`
@@ -68,30 +63,15 @@ Looks.parameters = {
   },
 };
 
-export const Sizing: Story = () =>
+export const Sizing: Story = props =>
   html`
-    ${tagSizes.map(
-      size =>
-        html`<uui-tag style="font-size:${size};" look="primary"
-          >${size}</uui-tag
-        >`
-    )}
+    <uui-tag style="font-size:${props.fontSize}px;" look="primary"
+      >${props.slot}</uui-tag
+    >
   `;
 
 Sizing.parameters = {
-  controls: {
-    include: ['look'],
-  },
-  docs: {
-    source: {
-      code: `
-<uui-tag style="font-size:9px;" look="primary">9px</uui-tag>
-<uui-tag style="font-size:12px;" look="primary">12px</uui-tag>
-<uui-tag style="font-size:15px;" look="primary">15px</uui-tag>
-<uui-tag style="font-size:18px;" look="primary">18px</uui-tag>
-      `,
-    },
-  },
+  controls: { include: ['fontSize', 'slot'] },
 };
 
 // - Would you ever put a button inside a tag? - asked Jesper.
