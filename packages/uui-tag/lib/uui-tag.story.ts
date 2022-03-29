@@ -48,6 +48,7 @@ export const Looks: Story = () =>
   `;
 
 Looks.parameters = {
+  controls: { disable: true },
   docs: {
     source: {
       code: `
