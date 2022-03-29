@@ -29,6 +29,8 @@ export default {
   },
 };
 
+const tagSizes = ['9px', '12px', '15px', '18px'];
+
 const Template: Story = props => html`
   <uui-tag .look=${props.look}>${props.slot}</uui-tag>
 `;
@@ -46,7 +48,7 @@ AAAOverview.parameters = {
 export const Looks: Story = () =>
   html`
     ${InterfaceLookNames.map(
-      look => html`<uui-tag look="${look}">${look}</uui-tag><br />`
+      look => html`<uui-tag look="${look}">${look}</uui-tag>`
     )}
   `;
 
@@ -54,25 +56,26 @@ Looks.parameters = {
   docs: {
     source: {
       code: `
-      <uui-tag look="primary">primary</uui-tag>
-      <uui-tag look="secondary">secondary</uui-tag>
-      <uui-tag look="outline">outline</uui-tag>
-      <uui-tag look="placeholder">placeholder</uui-tag>
-      <uui-tag look="positive">positive</uui-tag>
-      <uui-tag look="warning">warning</uui-tag>
-      <uui-tag look="danger">danger</uui-tag>
+<uui-tag look="primary">primary</uui-tag>
+<uui-tag look="secondary">secondary</uui-tag>
+<uui-tag look="outline">outline</uui-tag>
+<uui-tag look="placeholder">placeholder</uui-tag>
+<uui-tag look="positive">positive</uui-tag>
+<uui-tag look="warning">warning</uui-tag>
+<uui-tag look="danger">danger</uui-tag>
       `,
     },
   },
 };
 
-export const Sizing: Story = props =>
+export const Sizing: Story = () =>
   html`
-    <uui-tag style="font-size:9px;" .look=${props.look}>Extra small</uui-tag
-    ><br />
-    <uui-tag style="font-size:12px;" .look=${props.look}>Default</uui-tag><br />
-    <uui-tag style="font-size:15px;" .look=${props.look}>Medium</uui-tag><br />
-    <uui-tag style="font-size:18px;" .look=${props.look}>Large</uui-tag>
+    ${tagSizes.map(
+      size =>
+        html`<uui-tag style="font-size:${size};" look="primary"
+          >${size}</uui-tag
+        >`
+    )}
   `;
 
 Sizing.parameters = {
@@ -82,10 +85,10 @@ Sizing.parameters = {
   docs: {
     source: {
       code: `
-      <uui-tag style="font-size:9px;" look="primary">Extra small</uui-tag>
-      <uui-tag style="font-size:12px;" look="primary">Default</uui-tag>
-      <uui-tag style="font-size:15px;" look="primary">Medium</uui-tag>
-      <uui-tag style="font-size:18px;" look="primary">Large</uui-tag>
+<uui-tag style="font-size:9px;" look="primary">9px</uui-tag>
+<uui-tag style="font-size:12px;" look="primary">12px</uui-tag>
+<uui-tag style="font-size:15px;" look="primary">15px</uui-tag>
+<uui-tag style="font-size:18px;" look="primary">18px</uui-tag>
       `,
     },
   },
