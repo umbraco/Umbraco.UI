@@ -186,7 +186,7 @@ describe('UuiInput in Form', () => {
       });
     });
 
-    describe('custom error', () => {
+    describe('custom error though attributes', () => {
       beforeEach(async () => {
         element.setAttribute('error', 'true');
         await elementUpdated(element);
@@ -209,6 +209,32 @@ describe('UuiInput in Form', () => {
       it('sets the form to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
         await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+
+    describe('custom error through setCustomValidity', () => {
+      it('sets element to invalid when it sets custom validity', async () => {
+        const validationMessage = 'custom error';
+        element.setCustomValidity(validationMessage);
+        expect(element.checkValidity()).to.be.false;
+        expect(element.validationMessage).to.equal(validationMessage);
+      });
+
+      it('sets the form to invalid when value is empty', async () => {
+        element.setCustomValidity('custom error');
+        expect(formElement.checkValidity()).to.be.false;
+      });
+
+      it('sets element to valid when it sets custom validity to an empty string', async () => {
+        const validationMessage = '';
+        element.setCustomValidity(validationMessage);
+        expect(element.checkValidity()).to.be.true;
+        expect(element.validationMessage).to.equal(validationMessage);
+      });
+
+      it('sets the form to valid when it doesnt have custom validity', async () => {
+        element.setCustomValidity('');
         expect(formElement.checkValidity()).to.be.true;
       });
     });
