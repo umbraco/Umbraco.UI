@@ -1,6 +1,6 @@
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
 import { UUIInputEvent } from './UUIInputEvent';
@@ -246,6 +246,13 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     );
   }
 
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+    this.addFormControlElement(this._input);
+  }
+
   /**
    * This method enables <label for="..."> to focus the input
    */
@@ -287,6 +294,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
+        ?required=${this.required}
         ?readonly=${this.readonly}
         @input=${this._onInput}
         @change=${this._onChange} />

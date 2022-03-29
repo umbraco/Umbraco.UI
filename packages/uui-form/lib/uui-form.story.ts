@@ -81,7 +81,7 @@ export const Overview: Story = () => {
           <uui-label slot="label" required>Email</uui-label>
           <uui-input
             name="email"
-            type="text"
+            type="email"
             label="Email"
             required></uui-input>
         </uui-form-layout-item>

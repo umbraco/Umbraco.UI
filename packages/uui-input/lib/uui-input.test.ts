@@ -186,7 +186,7 @@ describe('UuiInput in Form', () => {
       });
     });
 
-    describe('custom error', () => {
+    describe('custom error though attributes', () => {
       beforeEach(async () => {
         element.setAttribute('error', 'true');
         await elementUpdated(element);
@@ -210,6 +210,80 @@ describe('UuiInput in Form', () => {
         element.removeAttribute('error');
         await elementUpdated(element);
         expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+
+    describe('custom error through setCustomValidity', () => {
+      it('sets element to invalid when it sets custom validity', async () => {
+        const validationMessage = 'custom error';
+        element.setCustomValidity(validationMessage);
+        expect(element.checkValidity()).to.be.false;
+        expect(element.validationMessage).to.equal(validationMessage);
+      });
+
+      it('sets the form to invalid when value is empty', async () => {
+        element.setCustomValidity('custom error');
+        expect(formElement.checkValidity()).to.be.false;
+      });
+
+      it('sets element to valid when it sets custom validity to an empty string', async () => {
+        const validationMessage = '';
+        element.setCustomValidity(validationMessage);
+        expect(element.checkValidity()).to.be.true;
+        expect(element.validationMessage).to.equal(validationMessage);
+      });
+
+      it('sets the form to valid when it doesnt have custom validity', async () => {
+        element.setCustomValidity('');
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+  });
+
+  describe('native validation', () => {
+    describe('email', () => {
+      beforeEach(async () => {
+        element.setAttribute('type', 'email');
+        await elementUpdated(element);
+      });
+
+      it('sets element to valid when value is empty', async () => {
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('email element is invalid when it has a none compliant value', async () => {
+        element.value = 'new value';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('email element is valid when it has a email value', async () => {
+        element.value = 'my@email.com';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+    });
+
+    describe('url', () => {
+      beforeEach(async () => {
+        element.setAttribute('type', 'url');
+        await elementUpdated(element);
+      });
+
+      it('sets element to valid when value is empty', async () => {
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('url element is invalid when it has a none compliant value', async () => {
+        element.value = 'new value';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('url element is valid when it has a email value', async () => {
+        element.value = 'http://umbraco.com';
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
       });
     });
   });
