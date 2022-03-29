@@ -73,11 +73,11 @@ ProvideDynamicCustomIconRegistry.parameters = {
     source: {
       code: `
 class MyCustomIconRegistry extends UUIIconRegistry {
-  protected acceptIcon(iconName: string): boolean {
+  acceptIcon(iconName) {
     if(iconName === "myPrefix:myIcon") {
       const icon = this.provideIcon(iconName);
       // Load SVG and set it on this icon-object:
-      icon.svg = "<svg>...</svg>";
+      icon.svg = '<svg>...</svg>';
       return true;
     }
   return false;
