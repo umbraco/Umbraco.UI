@@ -16,6 +16,7 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
+  public setCustomValidity(error: string): void;
   protected _value: FormDataEntryValue;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
