@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-symbol-file-thumbnail',
-  title: 'Symbol File Thumbnail',
+  title: 'Symbols/Symbol File Thumbnail',
   component: 'uui-symbol-file-thumbnail',
   parameters: {
     docs: {

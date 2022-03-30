@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-input-file',
-  title: 'Input File',
+  title: 'Inputs/Files/Input File',
   component: 'uui-input-file',
   parameters: {
     docs: {
@@ -16,7 +16,8 @@ export default {
   },
 };
 
-export const Overview: Story = () => html`<uui-input-file></uui-input-file>`;
+export const AAAOverview: Story = () => html`<uui-input-file></uui-input-file>`;
+AAAOverview.storyName = 'Overview';
 
 export const Form: Story = () => {
   const submit = (e: SubmitEvent) => {

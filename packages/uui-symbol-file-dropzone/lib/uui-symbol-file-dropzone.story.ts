@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-symbol-file-dropzone',
-  title: 'Symbol File Dropzone',
+  title: 'Symbols/Symbol File Dropzone',
   component: 'uui-symbol-file-dropzone',
   parameters: {
     docs: {

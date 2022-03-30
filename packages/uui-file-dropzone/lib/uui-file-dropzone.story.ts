@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-file-dropzone',
-  title: 'File Dropzone',
+  title: 'Inputs/Files/File Dropzone',
   component: 'uui-file-dropzone',
   parameters: {
     docs: {
@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html`
     <uui-file-dropzone
       ?multiple=${props.multiple}
@@ -31,6 +31,7 @@ export const Overview: Story = props =>
       </uui-button></uui-file-dropzone
     >
   `;
+AAAOverview.storyName = 'Overview';
 
 export const Default = () =>
   html`
