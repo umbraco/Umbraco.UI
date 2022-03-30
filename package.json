@@ -74,7 +74,6 @@
     "@web/test-runner": "0.13.27",
     "@web/test-runner-playwright": "0.8.8",
     "autoprefixer": "10.4.4",
-    "chromatic": "6.5.3",
     "element-internals-polyfill": "1.0.3",
     "esbuild": "0.14.27",
     "eslint": "8.11.0",
