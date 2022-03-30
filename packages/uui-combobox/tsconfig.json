@@ -15,6 +15,12 @@
     },
     {
       "path": "../uui-combobox-list"
+    },
+    {
+      "path": "../uui-icon"
+    },
+    {
+      "path": "../uui-button"
     }
   ]
 }
