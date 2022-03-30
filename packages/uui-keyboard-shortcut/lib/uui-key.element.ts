@@ -41,3 +41,9 @@ export class UUIKeyElement extends LitElement {
     return html`<slot @slotchange=${this._changeCase}></slot>`;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-key': UUIKeyElement;
+  }
+}
