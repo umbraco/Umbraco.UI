@@ -6,7 +6,7 @@ import '.';
 describe('UUIKey', () => {
   let element: UUIKeyElement;
   beforeEach(async () => {
-    element = await fixture(html`<uui-key>z</uui-key> `);
+    element = await fixture(html`<uui-key>ESC</uui-key> `);
   });
 
   it('is defined', () => {
@@ -15,6 +15,10 @@ describe('UUIKey', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  it('lowercase text content of element', async () => {
+    expect(element.innerText).to.equal('esc');
   });
 });
 
