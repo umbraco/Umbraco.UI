@@ -174,7 +174,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
   ];
 
   @state()
-  position = 0;
+  private _position = 0;
 
   /**
    * Label to be used for aria-label and eventually as visual label
@@ -193,7 +193,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
   vertical = false;
 
   private _onMouseMove(e: MouseEvent) {
-    this.position = this.vertical ? e.offsetY : e.offsetX;
+    this._position = this.vertical ? e.offsetY : e.offsetX;
   }
 
   private _handleClick(e: MouseEvent) {
@@ -215,8 +215,8 @@ export class UUIButtonInlineCreateElement extends LitElement {
         <div
           id="plus"
           style=${styleMap({
-            left: this.vertical ? '' : this.position + 'px',
-            top: this.vertical ? this.position + 'px' : '',
+            left: this.vertical ? '' : this._position + 'px',
+            top: this.vertical ? this._position + 'px' : '',
           })}>
           <svg
             id="plus-icon"
