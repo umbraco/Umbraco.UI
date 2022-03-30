@@ -28,11 +28,12 @@ export const Overview: Story = () =>
 Overview.parameters = {
   docs: {
     source: {
-      code: `<uui-breadcrumbs>
-      <uui-breadcrumb-item href="https://...">Item 1</uui-breadcrumb-item>
-      <uui-breadcrumb-item href="https://...">Item 2</uui-breadcrumb-item>
-      <uui-breadcrumb-item href="https://...">Item 3</uui-breadcrumb-item>
-    </uui-breadcrumbs>`,
+      code: `
+<uui-breadcrumbs>
+  <uui-breadcrumb-item href="https://...">Item 1</uui-breadcrumb-item>
+  <uui-breadcrumb-item href="https://...">Item 2</uui-breadcrumb-item>
+  <uui-breadcrumb-item href="https://...">Item 3</uui-breadcrumb-item>
+</uui-breadcrumbs>`,
     },
   },
 };

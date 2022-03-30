@@ -10,6 +10,7 @@ export default {
   id: 'uui-tag',
   args: {
     look: '',
+    fontSize: 12,
     slot: 'Hello',
   },
   argTypes: {
@@ -26,41 +27,38 @@ export default {
       ],
     },
     '--uui-tag-font-size': { control: { type: 'text' } },
+    fontSize: { table: { category: 'Styles' } },
   },
 };
 
 const Template: Story = props => html`
-  <uui-tag .look=${props.look}>${props.slot}</uui-tag>
+  <uui-tag look=${props.look} style="font-size: ${props.fontSize}px;"
+    >${props.slot}</uui-tag
+  >
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-tag>Hello</uui-tag>`,
-    },
-  },
-};
 
 export const Looks: Story = () =>
   html`
     ${InterfaceLookNames.map(
-      look => html`<uui-tag look="${look}">${look}</uui-tag><br />`
+      look => html`<uui-tag look="${look}">${look}</uui-tag>`
     )}
   `;
 
 Looks.parameters = {
+  controls: { disable: true },
   docs: {
     source: {
       code: `
-      <uui-tag look="primary">primary</uui-tag>
-      <uui-tag look="secondary">secondary</uui-tag>
-      <uui-tag look="outline">outline</uui-tag>
-      <uui-tag look="placeholder">placeholder</uui-tag>
-      <uui-tag look="positive">positive</uui-tag>
-      <uui-tag look="warning">warning</uui-tag>
-      <uui-tag look="danger">danger</uui-tag>
+<uui-tag look="primary">primary</uui-tag>
+<uui-tag look="secondary">secondary</uui-tag>
+<uui-tag look="outline">outline</uui-tag>
+<uui-tag look="placeholder">placeholder</uui-tag>
+<uui-tag look="positive">positive</uui-tag>
+<uui-tag look="warning">warning</uui-tag>
+<uui-tag look="danger">danger</uui-tag>
       `,
     },
   },
@@ -68,27 +66,13 @@ Looks.parameters = {
 
 export const Sizing: Story = props =>
   html`
-    <uui-tag style="font-size:9px;" .look=${props.look}>Extra small</uui-tag
-    ><br />
-    <uui-tag style="font-size:12px;" .look=${props.look}>Default</uui-tag><br />
-    <uui-tag style="font-size:15px;" .look=${props.look}>Medium</uui-tag><br />
-    <uui-tag style="font-size:18px;" .look=${props.look}>Large</uui-tag>
+    <uui-tag style="font-size:${props.fontSize}px;" look="primary"
+      >${props.slot}</uui-tag
+    >
   `;
 
 Sizing.parameters = {
-  controls: {
-    include: ['look'],
-  },
-  docs: {
-    source: {
-      code: `
-      <uui-tag style="font-size:9px;" look="primary">Extra small</uui-tag>
-      <uui-tag style="font-size:12px;" look="primary">Default</uui-tag>
-      <uui-tag style="font-size:15px;" look="primary">Medium</uui-tag>
-      <uui-tag style="font-size:18px;" look="primary">Large</uui-tag>
-      `,
-    },
-  },
+  controls: { include: ['fontSize', 'slot'] },
 };
 
 // - Would you ever put a button inside a tag? - asked Jesper.

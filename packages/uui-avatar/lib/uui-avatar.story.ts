@@ -44,9 +44,9 @@ export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = { color: '#1b264f', backgroundColor: '#f5c1bc' };
 AAAOverview.argTypes = {
-  color: { table: { category: 'inline styling' } },
-  backgroundColor: { table: { category: 'inline styling' } },
-  fontSize: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
+  backgroundColor: { table: { category: 'Styles' } },
+  fontSize: { table: { category: 'Styles' } },
 };
 AAAOverview.parameters = {
   docs: {
@@ -69,7 +69,7 @@ Picture.parameters = {
 
 export const Sizes = Template.bind({});
 Sizes.argTypes = {
-  fontSize: { table: { category: 'inline styling' } },
+  fontSize: { table: { category: 'Styles' } },
 };
 Sizes.parameters = {
   controls: { include: ['fontSize', 'name'] },
@@ -83,8 +83,8 @@ Sizes.parameters = {
 export const Colors = Template.bind({});
 Colors.args = { color: 'white', backgroundColor: 'blue' };
 Colors.argTypes = {
-  color: { table: { category: 'inline styling' } },
-  backgroundColor: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
+  backgroundColor: { table: { category: 'Styles' } },
 };
 Colors.parameters = {
   controls: { include: ['backgroundColor', 'color', 'name'] },
