@@ -12,9 +12,6 @@
   "references": [
     {
       "path": "../uui-base"
-    },
-    {
-      "path": "../uui-icon-registry-essential"
     }
   ]
 }

@@ -11,6 +11,7 @@ on:
       - 'package-lock.json'
       - '.github/workflows/chromatic.yml'
       - '.storybook/**'
+      - '!packages/uui/**'
       - 'packages/*/package.json'
       - 'packages/*/lib/**'
       - 'packages/*/assets/**'
@@ -49,3 +50,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: 'storybook:build'
           exitOnceUploaded: true
+          onlyChanged: '!(dev)'
+          externals: 'packages/uui-css/lib/**/*.css'
+          untraced: '.storybook/images'

@@ -18,6 +18,7 @@ export default {
     look: '',
     type: '',
     label: 'Button',
+    state: '',
   },
   argTypes: {
     look: {
@@ -270,11 +271,8 @@ WithIcon.parameters = {
   },
 };
 
-export const WaitingState = () => html`
-  <uui-button state="waiting" label="A11Y proper label">
-    Loading button
-  </uui-button>
-`;
+export const WaitingState = Template.bind({});
+WaitingState.args = { state: 'waiting' };
 WaitingState.parameters = {
   docs: {
     source: {

@@ -226,6 +226,10 @@ export class UUIToastNotificationElement extends LitElement {
         this.open = false;
       }
     });
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
 
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-icon');
