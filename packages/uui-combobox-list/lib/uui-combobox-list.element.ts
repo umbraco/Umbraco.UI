@@ -41,9 +41,9 @@ export class UUIComboboxListElement extends LitElement {
   }
   public set value(newValue) {
     if (this.value === newValue) return;
+
     const oldValue = this._value;
     this._value = newValue;
-
     this.displayValue =
       this._options.find(x => x.value === this._value)?.displayValue || '';
 
@@ -103,7 +103,7 @@ export class UUIComboboxListElement extends LitElement {
   }
 
   private deselectOption() {
-    this.value = undefined;
+    this.value = '';
   }
 
   private updateOptionsState = () => {

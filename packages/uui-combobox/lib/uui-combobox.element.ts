@@ -69,7 +69,16 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   ];
 
   @property({ type: String })
-  public search = '';
+  public get search() {
+    return this._search;
+  }
+  public set search(newValue) {
+    if (this.search === newValue) return;
+    const oldValue = this._search;
+    this._search = newValue;
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
+    this.requestUpdate('search', oldValue);
+  }
 
   @property({ type: Boolean })
   public open = false;
@@ -78,7 +87,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _input!: HTMLInputElement; // TODO: Replace with uui-input when it implements an input event.
 
   @state()
-  private displayValue = '';
+  private _displayValue = '';
+
+  @state()
+  private _search = '';
 
   private _selectedElement: UUIComboboxListOptionElement | undefined;
 
@@ -107,7 +119,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _onBlur = () =>
     requestAnimationFrame(() => {
       if (document.activeElement !== this) {
-        this.open = false;
+        this._close();
       }
     });
 
@@ -117,23 +129,39 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.search = e.target.value;
-    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
   };
 
   private _onChange = (e: UUIComboboxListEvent) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
-    this.value = this._selectedElement?.value;
-    this.displayValue = this._selectedElement?.displayValue;
+    this.value = this._selectedElement?.value || '';
+
+    this._displayValue = this._selectedElement?.displayValue;
     this.search = this.value ? this.search : '';
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
   private _close = () => {
     this.open = false;
-    this.displayValue = this._selectedElement?.displayValue || '';
-    this._input.value = this.displayValue;
+    this._displayValue = this._selectedElement?.displayValue || '';
+    console.log('whatased+', this._selectedElement);
+
+    this._input.value = this._displayValue;
+    this.search = '';
+  };
+
+  private _clear = (e: Event) => {
+    if (e.key && e.key !== 'Enter') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this._displayValue = '';
+    this._input.value = this._displayValue;
+    this.value = '';
+    this.search = '';
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
   render() {
@@ -146,11 +174,13 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
           slot="trigger"
           id="combobox-input"
           type="text"
-          .value=${this.displayValue}
-          .placeholder=${this.displayValue}
+          .value=${this._displayValue}
+          .placeholder=${this._displayValue}
           @input=${this._onInput}>
           <slot name="input-prepend" slot="prepend"></slot>
           <uui-button
+            @click=${this._clear}
+            @keydown=${this._clear}
             slot="append"
             compact
             style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
