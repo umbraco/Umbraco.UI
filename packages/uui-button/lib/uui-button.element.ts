@@ -54,6 +54,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         --uui-button-padding-top-factor: 1;
         --uui-button-padding-bottom-factor: 1;
 
+        height: var(--uui-button-height, auto);
+        max-height: 100%;
+
         text-align: center;
         font-weight: var(
           --uui-button-font-weight,
@@ -88,7 +91,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
       button {
         height: 100%;
-        min-height: var(--uui-button-height, auto);
         width: 100%;
 
         padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))

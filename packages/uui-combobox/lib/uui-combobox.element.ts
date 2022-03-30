@@ -150,7 +150,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
           .placeholder=${this.displayValue}
           @input=${this._onInput}>
           <slot name="input-prepend" slot="prepend"></slot>
-          <uui-button slot="append" compact>
+          <uui-button
+            slot="append"
+            compact
+            style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
             <uui-icon
               name="remove"
               .fallback=${iconRemove.strings[0]}></uui-icon>
