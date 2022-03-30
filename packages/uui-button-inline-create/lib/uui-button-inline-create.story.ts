@@ -39,7 +39,7 @@ const insertBox = (e: any) => {
   e.target.parentElement.insertAdjacentElement('afterend', div);
 };
 
-const createBox = (vertical: Boolean) => html` <div
+const createBox = (vertical: boolean) => html` <div
   style="${vertical ? 'display: grid; grid-template-columns: 1fr auto' : ''}">
   <div style="padding: 10px; white-space: nowrap;">
     ${GetRandomUmbracoWord()}
