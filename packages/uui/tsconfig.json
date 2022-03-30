@@ -62,6 +62,12 @@
       "path": "../uui-checkbox"
     },
     {
+      "path": "../uui-combobox"
+    },
+    {
+      "path": "../uui-combobox-list"
+    },
+    {
       "path": "../uui-css"
     },
     {
