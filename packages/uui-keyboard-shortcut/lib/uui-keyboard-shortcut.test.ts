@@ -1,11 +1,16 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUIKeyboardShortcutElement } from './uui-keyboard-shortcut.element';
+import { UUIKeyElement } from './uui-key.element';
 import '.';
 
 describe('UUIKey', () => {
-  let element: UUIKeyboardShortcutElement;
+  let element: UUIKeyElement;
   beforeEach(async () => {
     element = await fixture(html`<uui-key>z</uui-key> `);
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIKeyElement);
   });
 
   it('passes the a11y audit', async () => {
@@ -27,6 +32,10 @@ describe('UUIKeyboardShortcut', () => {
         <uui-key>z</uui-key></uui-keyboard-shortcut
       >
     `);
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIKeyboardShortcutElement);
   });
 
   it('passes the a11y audit', async () => {
