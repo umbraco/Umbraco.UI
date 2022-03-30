@@ -1,7 +1,8 @@
-import { LitElement, html, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, query } from 'lit/decorators.js';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { property, query } from 'lit/decorators.js';
+
 import { UUIInputEvent } from './UUIInputEvent';
 
 export type InputType =
@@ -211,10 +212,17 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
    * @default text
    */
   @property({ type: String })
-  type: InputType = 'text';
+  get type(): InputType {
+    return this._type;
+  }
+  set type(value: InputType) {
+    this._type = value;
+  }
 
   @query('#input')
   _input!: HTMLInputElement;
+
+  private _type: InputType = 'text';
 
   constructor() {
     super();
@@ -236,6 +244,13 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       () => this.maxlengthMessage,
       () => !!this.maxlength && (this._value as string).length > this.maxlength
     );
+  }
+
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+    this.addFormControlElement(this._input);
   }
 
   /**
@@ -279,6 +294,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
+        ?required=${this.required}
         ?readonly=${this.readonly}
         @input=${this._onInput}
         @change=${this._onChange} />

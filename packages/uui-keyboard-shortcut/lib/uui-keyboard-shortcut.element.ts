@@ -1,5 +1,5 @@
-import { css, html, LitElement } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 
 /**
  *  A visual representation of a keyboard shortcut.

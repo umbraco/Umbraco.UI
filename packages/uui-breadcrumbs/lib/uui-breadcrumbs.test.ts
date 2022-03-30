@@ -28,7 +28,7 @@ describe('UuiBreadcrumbs', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
     const breadcrumb = slot.assignedElements()[2] as UUIBreadcrumbItemElement;
     expect(breadcrumb.lastItem).to.be.true;
-    expect(breadcrumb.ariaCurrent).to.equal('page');
+    expect(breadcrumb.getAttribute('aria-current')).to.equal('page');
   });
 
   it('passes the a11y audit', async () => {

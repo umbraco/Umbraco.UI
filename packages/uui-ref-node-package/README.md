@@ -4,6 +4,10 @@
 
 Umbraco style ref-node-package component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-ref-node-package)
+
 ## Installation
 
 ### ES imports

@@ -53,21 +53,26 @@ const MenuItems = [
     title: 'Menu Item 1',
     icon: 'document',
     loading: false,
+    badge: false,
   },
   {
     title: 'Menu Item 2',
     icon: 'picture',
     loading: true,
+    badge: false,
   },
   {
     title: 'Menu Item 3',
     icon: 'info',
     loading: false,
+    badge: true,
   },
   {
-    title: 'Menu Item 4',
+    title:
+      'Menu Item 4 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9',
     icon: 'document',
     loading: false,
+    badge: false,
   },
 ];
 
@@ -257,17 +262,45 @@ WithActions.parameters = {
   },
 };
 
-export const Selectable = () =>
+export const WithBadge = () =>
   html`
     ${MenuItems.map(
       menuItem =>
-        html`<uui-menu-item label="${menuItem.title}"></uui-menu-item>`
+        html`
+          <uui-menu-item label="${menuItem.title}">
+            ${menuItem.badge
+              ? html`<uui-badge slot="badge" look="warning">!</uui-badge>`
+              : ''}
+          </uui-menu-item>
+        `
+    )}
+  `;
+WithBadge.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item label="Menu Item 2">
+          <uui-badge slot="badge" look="warning">!</uui-badge>
+        </uui-menu-item>
+      `.strings,
+    },
+  },
+};
+
+export const Selectable = (props: any) =>
+  html`
+    ${MenuItems.map(
+      menuItem =>
+        html`<uui-menu-item
+          label="${menuItem.title}"
+          ?selectable=${props.selectable}></uui-menu-item>`
     )}
   `;
 Selectable.args = {
   selectable: true,
 };
 Selectable.parameters = {
+  controls: { include: ['selectable'] },
   docs: {
     source: {
       code: html`

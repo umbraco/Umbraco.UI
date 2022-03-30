@@ -1,6 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+
 import { UUIPopoverEvent } from './UUIPopoverEvent';
 
 export type PopoverPlacement =
@@ -32,6 +33,7 @@ function mathClamp(value: number, min: number, max: number) {
  * @element uui-popover
  * @description Open a modal aligned with the opening element. This does not jet work within two layers of scroll containers.
  * @fires close - When popover is closed by user interaction.
+ * @slot trigger - The element that triggers the popover.
  */
 @defineElement('uui-popover')
 export class UUIPopoverElement extends LitElement {
@@ -82,11 +84,10 @@ export class UUIPopoverElement extends LitElement {
 
   /**
    * Define the placement of the popover-modal.
-   * @type {string}
    * @attr placement
    * @default 'bottom-start'
    */
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   get placement(): PopoverPlacement {
     return this._placement;
   }

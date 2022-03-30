@@ -1,6 +1,8 @@
+import '.';
+
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '.';
+
 import { UUIPopoverElement } from './uui-popover.element';
 
 export default {
@@ -37,6 +39,7 @@ export default {
         code: `<uui-popover></uui-popover>`,
       },
     },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -223,7 +226,13 @@ export const Nested: Story = props => {
   `;
 };
 
-export const Tooltip: Story = () => {
+Nested.parameters = {
+  controls: {
+    include: ['placement', 'margin'],
+  },
+};
+
+export const Tooltip: Story = props => {
   const mouseover = (id: string) => {
     const popover = document.querySelector(id) as UUIPopoverElement;
     popover.open = true;
@@ -245,7 +254,7 @@ export const Tooltip: Story = () => {
             <uui-popover
               style="margin: auto"
               id="tooltip"
-              placement="auto"
+              placement="${props.placement}"
               margin="8">
               <b
                 slot="trigger"
@@ -267,7 +276,7 @@ export const Tooltip: Story = () => {
             <uui-popover
               style="margin: auto"
               id="tooltip-2"
-              placement="auto"
+              placement="${props.placement}"
               margin="8">
               <b
                 slot="trigger"
@@ -295,6 +304,16 @@ export const Tooltip: Story = () => {
       </div>
     </div>
   `;
+};
+
+Tooltip.args = {
+  placement: 'auto',
+};
+
+Tooltip.parameters = {
+  controls: {
+    include: ['placement', 'margin'],
+  },
 };
 
 Tooltip.play = () => {

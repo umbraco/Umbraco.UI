@@ -1,7 +1,7 @@
 name: Publish
 
 on:
-   push:
+  push:
     branches:
       - main
 
@@ -9,20 +9,19 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [16.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it      
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-      # pulls all commits (needed for lerna / semantic release to correctly version)
-          fetch-depth: "0"
-          
-  
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: '0'
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -31,6 +30,7 @@ jobs:
       - run: npm -v
       - run: npm ci
 
+      - run: sudo npx playwright install-deps
       - run: npm run test
 
       - name: Authenticate with Registry
@@ -46,4 +46,3 @@ jobs:
         run: npm run lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
-  

@@ -1,6 +1,4 @@
 import '.';
-import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -12,23 +10,20 @@ export default {
 };
 
 const Template: Story = () => html`
-  <uui-box>
-    <div slot="header">Header</div>
-    <div slot="main">Main</div>
+  <uui-box headline="Headline">
+    Some content of this box, appended in the default slot.
   </uui-box>
 `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-box>
-  <div slot="header">Header</div>
-  <div slot="main">Main</div>
-</uui-box>
-      `,
-    },
-  },
-};
+
+export const Slots: Story = () => html`
+  <uui-box>
+    <uui-button slot="headline" look="placeholder" style="font-weight:inherit;"
+      >Headline slot</uui-button
+    >
+    <uui-button slot="header" look="placeholder">Header slot</uui-button>
+    <uui-button look="placeholder">Default slot</uui-button>
+  </uui-box>
+`;

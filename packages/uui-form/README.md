@@ -4,6 +4,10 @@
 
 Umbraco style form component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-form)
+
 ## Installation
 
 ### ES imports
@@ -12,7 +16,7 @@ Umbraco style form component.
 npm i @umbraco-ui/uui-form
 ```
 
-Import the registration of `<form is="uui-form">` via:
+Import the registration of `<uui-form>` via:
 
 ```javascript
 import '@umbraco-ui/uui-form/lib';
@@ -27,5 +31,7 @@ import { UUIFormElement } from '@umbraco-ui/uui-form/lib';
 ## Usage
 
 ```html
-<form is="uui-form"></form>
+<uui-form>
+  <form>...</form>
+</uui-form>
 ```

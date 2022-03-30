@@ -4,6 +4,10 @@
 
 Umbraco style textarea component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-textarea)
+
 ## Installation
 
 ### ES imports

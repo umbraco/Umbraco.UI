@@ -2,6 +2,10 @@
 
 [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-box?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-box)
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-box)
+
 ## Installation
 
 ### ES imports
@@ -25,8 +29,5 @@ import { UUIBoxElement } from '@umbraco-ui/uui-box';
 ## Usage
 
 ```html
-<uui-box>
-  <div slot="header">Header</div>
-  <div slot="main">Main</main>
-</uui-box>
+<uui-box headline="Headline"> Content </uui-box>
 ```
