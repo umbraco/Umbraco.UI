@@ -73,47 +73,6 @@ Avatars.args = {
   ],
 };
 
-const renderCountry = (country: any) => html`<uui-combobox-list-option
-  style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;"
-  .value=${country.ISOAlpha3Code}
-  .displayValue=${country.countryName}>
-  <img
-    style="height: 24px"
-    src=${country.flag}
-    alt=${country.countryName} />${country.countryName}
-</uui-combobox-list-option>`;
-
-const renderRegion = (region: any, index: number) => html`
-  <span
-    style=${`${
-      index > 0 ? 'margin-top: 6px' : ''
-    }; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-interface-border,#c4c4c4);`}>
-    ${region.name}
-  </span>
-  ${repeat(
-    region.countries,
-    (item: any) => item.ISOAlpha3Code,
-    item => renderCountry(item)
-  )}
-`;
-
-const filterOptions = (regions: any, search: string): any[] => {
-  const filteredRegions = regions.filter((region: any) =>
-    region.countries.some((country: any) =>
-      country.countryName.toLowerCase().includes(search.toLowerCase())
-    )
-  );
-
-  const filterFinal = filteredRegions.map((region: any) => ({
-    name: region.name,
-    countries: region.countries.filter((country: any) =>
-      country.countryName.toLowerCase().includes(search.toLowerCase())
-    ),
-  }));
-
-  return filterFinal;
-};
-
 export const CountrySelect: Story = props => {
   const [, updateSearch] = useArgs();
   const [, updateSelected] = useArgs();
@@ -127,6 +86,59 @@ export const CountrySelect: Story = props => {
     console.log('Select Finish', e.target.value);
     props.selected = e.target.value;
     updateSelected(props);
+  };
+
+  const renderCountry = (country: any) => html`<uui-combobox-list-option
+    style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;"
+    .value=${country.ISOAlpha3Code}
+    .displayValue=${country.countryName}>
+    <img
+      style="height: 24px"
+      src=${country.flag}
+      alt=${country.countryName} />${country.countryName}
+  </uui-combobox-list-option>`;
+
+  const renderRegion = (region: any, index: number) => html`
+    <span
+      style=${`${
+        index > 0 ? 'margin-top: 6px' : ''
+      }; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-interface-border,#c4c4c4);`}>
+      ${region.name}
+    </span>
+    ${repeat(
+      region.countries,
+      (item: any) => item.ISOAlpha3Code,
+      item => renderCountry(item)
+    )}
+  `;
+
+  const filterOptions = (regions: any, search: string): any[] => {
+    const filteredRegions = regions.filter((region: any) =>
+      region.countries.some((country: any) =>
+        country.countryName.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+
+    const filterFinal = filteredRegions.map((region: any) => ({
+      name: region.name,
+      countries: region.countries.filter((country: any) =>
+        country.countryName.toLowerCase().includes(search.toLowerCase())
+      ),
+    }));
+
+    return filterFinal;
+  };
+
+  const renderFilteredOptions = () => {
+    const options = filterOptions(props.regions, props.search).map(
+      (region: any, i: number) => renderRegion(region, i)
+    );
+
+    return options.length > 0
+      ? options
+      : html`<div style="text-align: center; padding: var(--uui-size-4);">
+          No countries found
+        </div>`;
   };
 
   const renderSelectedFlag = () => {
@@ -147,9 +159,7 @@ export const CountrySelect: Story = props => {
     @input=${handleSearch}
     @change=${handleSelect}>
     <span slot="input-prepend">${renderSelectedFlag()}</span>
-    ${filterOptions(props.regions, props.search).map((region: any, i: number) =>
-      renderRegion(region, i)
-    )}
+    ${renderFilteredOptions()}
   </uui-combobox>`;
 };
 
