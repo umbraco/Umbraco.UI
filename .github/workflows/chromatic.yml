@@ -49,3 +49,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: 'storybook:build'
           exitOnceUploaded: true
+          onlyChanged: '!(dev)'
+          externals: 'packages/uui-css/lib/**/*.css'
+          untraced: '.storybook/images'
