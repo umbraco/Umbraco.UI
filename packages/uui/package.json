@@ -52,6 +52,8 @@
     "@umbraco-ui/uui-card-user": "0.0.4",
     "@umbraco-ui/uui-caret": "0.0.8",
     "@umbraco-ui/uui-checkbox": "0.0.19",
+    "@umbraco-ui/uui-combobox": "0.0.0",
+    "@umbraco-ui/uui-combobox-list": "0.0.0",
     "@umbraco-ui/uui-css": "0.0.4",
     "@umbraco-ui/uui-dialog": "0.0.4",
     "@umbraco-ui/uui-dialog-layout": "0.0.2",

@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 import { UUIComboboxListOptionElement } from './uui-combobox-list-option.element';
