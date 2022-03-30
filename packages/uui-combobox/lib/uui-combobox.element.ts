@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
@@ -6,7 +7,8 @@ import {
   UUIComboboxListOptionElement,
   UUIComboboxListEvent,
 } from '@umbraco-ui/uui-combobox-list/lib';
-import { FormControlMixin } from 'packages/uui-base/lib/mixins/FormControlMixin';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins/FormControlMixin';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 /**
  * @element uui-combobox
@@ -85,6 +87,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.addEventListener('focus', this._onFocus);
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-combobox-list');
   }
 
   disconnectedCallback(): void {
@@ -109,16 +114,20 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _onFocus = () => (this.open = true);
 
   private _onInput = (e: any) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
     this.search = e.target.value;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
   };
 
   private _onChange = (e: UUIComboboxListEvent) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
     this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
     this.value = this._selectedElement?.value;
     this.displayValue = this._selectedElement?.displayValue;
     this.search = this.value ? this.search : '';
-    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
   private _close = () => {
@@ -138,9 +147,14 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
           id="combobox-input"
           type="text"
           .value=${this.displayValue}
-          placeholder=${this.displayValue}
+          .placeholder=${this.displayValue}
           @input=${this._onInput}>
           <slot name="input-prepend" slot="prepend"></slot>
+          <uui-button slot="append" compact>
+            <uui-icon
+              name="remove"
+              .fallback=${iconRemove.strings[0]}></uui-icon>
+          </uui-button>
           <slot name="input-append" slot="append"></slot>
         </uui-input>
         <div id="dropdown" slot="popover">

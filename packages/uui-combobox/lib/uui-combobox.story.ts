@@ -40,9 +40,7 @@ export const Avatars: Story = props => {
     updateSearch({ ...props, search: e.target.search });
   };
 
-  return html`<uui-combobox
-    @input=${handle}
-    @change=${(e: any) => console.log('Selected', e.target.value)}>
+  return html`<uui-combobox @input=${handle} @change=${(e: any) => ''}>
     ${props.avatars
       .filter((f: any) => f.name.includes(props.search))
       .map((avatar: any) => renderAvatar(avatar.id, avatar.name, avatar.title))}
@@ -121,11 +119,14 @@ export const CountrySelect: Story = props => {
   const [, updateSelected] = useArgs();
 
   const handleSearch = (e: any) => {
-    updateSearch({ ...props, search: e.target.search });
+    props.search = e.target.search;
+    updateSearch(props);
   };
 
   const handleSelect = (e: any) => {
-    updateSelected({ ...props, selected: e.target.value });
+    console.log('Select Finish', e.target.value);
+    props.selected = e.target.value;
+    updateSelected(props);
   };
 
   const renderSelectedFlag = () => {
@@ -141,19 +142,20 @@ export const CountrySelect: Story = props => {
       : '';
   };
   return html`<uui-combobox
+    .value=${props.selected}
     style="--uui-combobox-popover-max-height: 300px; max-width: 300px;"
     @input=${handleSearch}
     @change=${handleSelect}>
+    <span slot="input-prepend">${renderSelectedFlag()}</span>
     ${filterOptions(props.regions, props.search).map((region: any, i: number) =>
       renderRegion(region, i)
     )}
-    <span slot="input-prepend">${renderSelectedFlag()}</span>
   </uui-combobox>`;
 };
 
 CountrySelect.args = {
   search: '',
-  selected: '',
+  selected: 'DK',
   regions: [
     {
       name: 'Africa',

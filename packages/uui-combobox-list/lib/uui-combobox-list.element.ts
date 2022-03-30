@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 import { UUIComboboxListOptionElement } from './uui-combobox-list-option.element';
@@ -40,9 +40,15 @@ export class UUIComboboxListElement extends LitElement {
     return this._value;
   }
   public set value(newValue) {
+    if (this.value === newValue) return;
     const oldValue = this._value;
     this._value = newValue;
+
+    this.displayValue =
+      this._options.find(x => x.value === this._value)?.displayValue || '';
+
     this.updateOptionsState();
+    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
     this.requestUpdate('value', oldValue);
   }
 
@@ -74,6 +80,14 @@ export class UUIComboboxListElement extends LitElement {
     );
   }
 
+  protected firstUpdated() {
+    if (this.value) {
+      this.displayValue =
+        this._options.find(x => x.value === this._value)?.displayValue || '';
+      this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
+    }
+  }
+
   private _onOptionSelected = (e: any) => {
     const option = e.composedPath()[0];
     this.selectOption(option);
@@ -86,18 +100,10 @@ export class UUIComboboxListElement extends LitElement {
   private selectOption(option: UUIComboboxListOptionElement) {
     this.value = option.value;
     this._index = Math.max(this._options.indexOf(option), 0);
-    this.displayValue =
-      option.displayValue || option.textContent || this.value.toString();
-
-    this.updateOptionsState();
-
-    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   }
 
   private deselectOption() {
     this.value = undefined;
-    this.displayValue = '';
-    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   }
 
   private updateOptionsState = () => {

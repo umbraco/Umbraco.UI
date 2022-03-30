@@ -3,4 +3,5 @@ import { UUIComboboxElement } from './uui-combobox.element';
 
 export class UUIComboboxEvent extends UUIEvent<UUIComboboxElement> {
   public static readonly INPUT: string = 'input';
+  public static readonly CHANGE: string = 'change';
 }
