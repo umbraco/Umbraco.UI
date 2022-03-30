@@ -164,37 +164,50 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
+  private _renderTrigger = () => {
+    return html` <uui-input
+      slot="trigger"
+      id="combobox-input"
+      type="text"
+      .value=${this._displayValue}
+      .placeholder=${this._displayValue}
+      @input=${this._onInput}>
+      <slot name="input-prepend" slot="prepend"></slot>
+      ${this._renderClearButton()}
+      <slot name="input-append" slot="append"></slot>
+    </uui-input>`;
+  };
+
+  private _renderClearButton = () => {
+    if (this.value || this.search) {
+      return html`<uui-button
+        @click=${this._clear}
+        @keydown=${this._clear}
+        slot="append"
+        compact
+        style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
+        <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
+      </uui-button>`;
+    } else {
+      return '';
+    }
+  };
+
+  private _renderDropdown = () => {
+    return html`<div id="dropdown" slot="popover">
+      <uui-combobox-list .value=${this.value} @change=${this._onChange}>
+        <slot></slot>
+      </uui-combobox-list>
+    </div>`;
+  };
+
   render() {
     return html`
       <uui-popover
         .open=${this.open}
         .margin=${10}
         @close=${() => this._close()}>
-        <uui-input
-          slot="trigger"
-          id="combobox-input"
-          type="text"
-          .value=${this._displayValue}
-          .placeholder=${this._displayValue}
-          @input=${this._onInput}>
-          <slot name="input-prepend" slot="prepend"></slot>
-          <uui-button
-            @click=${this._clear}
-            @keydown=${this._clear}
-            slot="append"
-            compact
-            style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
-            <uui-icon
-              name="remove"
-              .fallback=${iconRemove.strings[0]}></uui-icon>
-          </uui-button>
-          <slot name="input-append" slot="append"></slot>
-        </uui-input>
-        <div id="dropdown" slot="popover">
-          <uui-combobox-list .value=${this.value} @change=${this._onChange}>
-            <slot></slot>
-          </uui-combobox-list>
-        </div>
+        ${this._renderTrigger()} ${this._renderDropdown()}
       </uui-popover>
     `;
   }
