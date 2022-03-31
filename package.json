@@ -52,8 +52,8 @@
     "chromatic": "npx chromatic --build-script-name storybook:build"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.21.0"
+    "node": ">=16.0.0 <17",
+    "npm": ">=8.0.0 < 9"
   },
   "dependencies": {
     "lit": "2.2.1"
