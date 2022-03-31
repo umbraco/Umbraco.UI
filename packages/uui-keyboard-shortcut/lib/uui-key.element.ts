@@ -1,11 +1,12 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { queryAssignedNodes } from 'lit/decorators.js';
 
 /**
  *  A visual representation of a key on you keyboard. use inside `<uui-keyboard-shortcut></uui-keyboard-shortcut>`
  *  @element uui-key
  *  @slot - for the key name. Anything you put in here will be lowercase.
  */
+@defineElement('uui-key')
 export class UUIKeyElement extends LitElement {
   static styles = [
     css`
@@ -19,23 +20,18 @@ export class UUIKeyElement extends LitElement {
         padding: 5px 7px;
         box-sizing: border-box;
         user-select: none;
+        text-transform: lowercase;
       }
     `,
   ];
 
-  @queryAssignedNodes()
-  private slotNodes!: NodeList;
-
-  private _changeCase() {
-    if (this.slotNodes !== null) {
-      this.slotNodes.forEach(node => {
-        if (node.nodeName === '#text' && node.nodeValue)
-          node.nodeValue = node.nodeValue?.toLowerCase();
-      });
-    }
-  }
-
   render() {
-    return html`<slot @slotchange=${this._changeCase}></slot>`;
+    return html`<slot></slot>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-key': UUIKeyElement;
   }
 }
