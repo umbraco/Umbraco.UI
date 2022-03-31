@@ -100,12 +100,13 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       }
     });
 
-  private _onFocus = () => (this.open = true);
+  private _onFocus = () => '';
 
   private _onInput = (e: any) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.search = e.target.value;
+    this._open();
   };
 
   private _onChange = (e: UUIComboboxListEvent) => {
@@ -117,14 +118,31 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._displayValue = this._selectedElement?.displayValue;
     this.search = this.value ? this.search : '';
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
+    this._close();
+  };
+
+  private _open = () => {
+    if (this.open) return;
+    console.log('Open');
+
+    this.open = true;
   };
 
   private _close = () => {
+    if (!this.open) return;
+    console.log('Close');
+
     this.open = false;
     this._displayValue = this._selectedElement?.displayValue || '';
 
     this._input.value = this._displayValue;
     this.search = '';
+  };
+
+  private _onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      this._open();
+    }
   };
 
   private _clear = (e: any) => {
@@ -147,7 +165,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       type="text"
       .value=${this._displayValue}
       .placeholder=${this._displayValue}
-      @input=${this._onInput}>
+      @click=${this._open}
+      @input=${this._onInput}
+      @keydown=${this._onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
       ${this._renderClearButton()}
       <slot name="input-append" slot="append"></slot>
