@@ -82,6 +82,7 @@ export class UUIComboboxListElement extends LitElement {
 
   protected firstUpdated() {
     if (this.value) {
+      // Make sure the displayValue is set if we have a default value.
       this.displayValue =
         this._options.find(x => x.value === this._value)?.displayValue || '';
       this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));

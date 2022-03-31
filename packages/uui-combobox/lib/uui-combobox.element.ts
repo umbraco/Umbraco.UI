@@ -19,7 +19,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     css`
       :host {
         position: relative;
-        display: block;
+        display: inline-block;
       }
 
       #combobox-input {
@@ -84,7 +84,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   public open = false;
 
   @query('#combobox-input')
-  private _input!: HTMLInputElement; // TODO: Replace with uui-input when it implements an input event.
+  private _input!: HTMLInputElement;
 
   @state()
   private _displayValue = '';
@@ -145,7 +145,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _close = () => {
     this.open = false;
     this._displayValue = this._selectedElement?.displayValue || '';
-    console.log('whatased+', this._selectedElement);
 
     this._input.value = this._displayValue;
     this.search = '';
@@ -164,7 +163,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
-  private _renderTrigger = () => {
+  private _renderInput = () => {
     return html` <uui-input
       slot="trigger"
       id="combobox-input"
@@ -183,6 +182,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       return html`<uui-button
         @click=${this._clear}
         @keydown=${this._clear}
+        label="clear"
         slot="append"
         compact
         style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
@@ -207,7 +207,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         .open=${this.open}
         .margin=${10}
         @close=${() => this._close()}>
-        ${this._renderTrigger()} ${this._renderDropdown()}
+        ${this._renderInput()} ${this._renderDropdown()}
       </uui-popover>
     `;
   }
