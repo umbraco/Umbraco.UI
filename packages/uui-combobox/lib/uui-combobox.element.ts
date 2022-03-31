@@ -45,26 +45,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
       }
-
-      // TODO START: Replace with uui-scroll-container if it removes the right margin
-      uui-combobox-list {
-        scrollbar-width: thin;
-        scrollbar-color: var(--uui-interface-contrast-disabled)
-          var(--uui-interface-background-alt);
-      }
-      uui-combobox-list::-webkit-scrollbar {
-        width: 6px;
-        height: 6px; /* needed for horizontal scrollbar */
-      }
-      uui-combobox-list::-webkit-scrollbar-track {
-        background: var(--uui-interface-background-alt);
-        border-radius: 3px;
-      }
-      uui-combobox-list::-webkit-scrollbar-thumb {
-        background-color: var(--uui-interface-contrast-disabled);
-        border-radius: 3px;
-      }
-      // TODO END
     `,
   ];
 
@@ -150,7 +130,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.search = '';
   };
 
-  private _clear = (e: Event) => {
+  private _clear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
     e.preventDefault();
