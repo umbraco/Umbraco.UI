@@ -85,14 +85,28 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
   @state()
   private _disabled = false;
 
+  @state() _displayValue = '';
+
   @property({ type: String })
   public get value(): string {
-    return this._value ? this._value : this.textContent || '';
+    return this._value ? this._value : this.textContent?.trim() || '';
   }
   public set value(newValue: string) {
     const oldValue = this._value;
     this._value = newValue;
     this.requestUpdate('value', oldValue);
+  }
+
+  @property({ type: String, attribute: 'display-value' })
+  public get displayValue() {
+    return this._displayValue
+      ? this._displayValue
+      : this.textContent?.trim() || '';
+  }
+  public set displayValue(newValue) {
+    const oldValue = this._displayValue;
+    this._displayValue = newValue;
+    this.requestUpdate('displayValue', oldValue);
   }
 
   @property({ type: Boolean, reflect: true })
@@ -107,10 +121,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
     this.requestUpdate('disabled', oldValue);
   }
 
-  @property({ type: String, attribute: 'display-value' })
-  public displayValue: string = '';
-
-  @property({ type: Boolean }) //TODO should probably just be this.selectable = true;
+  @property({ type: Boolean })
   public selectable = true;
 
   render() {
