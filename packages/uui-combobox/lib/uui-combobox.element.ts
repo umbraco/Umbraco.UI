@@ -27,13 +27,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         border-radius: var(--uui-size-1);
       }
 
-      uui-combobox-list {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        max-height: var(--uui-combobox-list-max-height, 500px);
+      #scroll-container {
+        max-height: var(--uui-combobox-popover-max-height, 500px);
+        overflow-y: auto;
       }
 
       #dropdown {
@@ -45,26 +41,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
       }
-
-      // TODO START: Replace with uui-scroll-container if it removes the right margin
-      uui-combobox-list {
-        scrollbar-width: thin;
-        scrollbar-color: var(--uui-interface-contrast-disabled)
-          var(--uui-interface-background-alt);
-      }
-      uui-combobox-list::-webkit-scrollbar {
-        width: 6px;
-        height: 6px; /* needed for horizontal scrollbar */
-      }
-      uui-combobox-list::-webkit-scrollbar-track {
-        background: var(--uui-interface-background-alt);
-        border-radius: 3px;
-      }
-      uui-combobox-list::-webkit-scrollbar-thumb {
-        background-color: var(--uui-interface-contrast-disabled);
-        border-radius: 3px;
-      }
-      // TODO END
     `,
   ];
 
@@ -102,6 +78,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
+    demandCustomElement(this, 'uui-scroll-container');
   }
 
   disconnectedCallback(): void {
@@ -150,7 +127,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.search = '';
   };
 
-  private _clear = (e: Event) => {
+  private _clear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
     e.preventDefault();
@@ -195,9 +172,11 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
   private _renderDropdown = () => {
     return html`<div id="dropdown" slot="popover">
-      <uui-combobox-list .value=${this.value} @change=${this._onChange}>
-        <slot></slot>
-      </uui-combobox-list>
+      <uui-scroll-container id="scroll-container">
+        <uui-combobox-list .value=${this.value} @change=${this._onChange}>
+          <slot></slot>
+        </uui-combobox-list>
+      </uui-scroll-container>
     </div>`;
   };
 

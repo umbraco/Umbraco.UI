@@ -21,6 +21,9 @@
     },
     {
       "path": "../uui-button"
+    },
+    {
+      "path": "../uui-scroll-container"
     }
   ]
 }
