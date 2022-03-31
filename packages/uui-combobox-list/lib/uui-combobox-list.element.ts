@@ -99,8 +99,8 @@ export class UUIComboboxListElement extends LitElement {
   };
 
   private selectOption(option: UUIComboboxListOptionElement) {
-    this.value = option.value;
     this._index = Math.max(this._options.indexOf(option), 0);
+    this.value = option.value;
   }
 
   private deselectOption() {
