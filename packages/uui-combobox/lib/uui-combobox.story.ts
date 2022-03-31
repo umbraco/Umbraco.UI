@@ -18,57 +18,167 @@ export default {
   },
 };
 
-const renderAvatar = (
-  value: string,
-  name: any,
-  label: string
-) => html` <uui-combobox-list-option
-  .displayValue=${name}
-  style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)"
-  .value=${value}>
-  <uui-avatar style="background-color: #c8d1dd" .name=${name}></uui-avatar>
-  <div style="display: flex; flex-direction: column">
-    <b>${name}</b>
-    <div style="font-size: 0.8rem">${label}</div>
-  </div>
-</uui-combobox-list-option>`;
+const fruits = [
+  'apple',
+  'orange',
+  'lemon',
+  'melon',
+  'banana',
+  'pear',
+  'mango',
+  'plum',
+  'raspberry',
+  'kiwi',
+  'avocado',
+  'coconut',
+  'grape',
+];
+
+const filter = (options, search) =>
+  options.filter((option: any) => option.includes(search));
+
+const Template: Story = props => {
+  const [, updateSearch] = useArgs();
+  const [, updateSelected] = useArgs();
+
+  const handleSearch = (e: any) => {
+    props.search = e.target.search;
+    updateSearch(props);
+  };
+
+  const handleSelect = (e: any) => {
+    props.selected = e.target.value;
+    updateSelected(props);
+  };
+
+  return html`<uui-combobox
+      @change=${handleSelect}
+      @input=${handleSearch}
+      style="width: 200px">
+      ${props
+        .filter(props.options, props.search)
+        .map(
+          (option: any) =>
+            html`<uui-combobox-list-option style="padding: 8px">
+              ${option}
+            </uui-combobox-list-option>`
+        )}
+    </uui-combobox>
+
+    <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
+};
+
+export const AAAOverview: Story = Template.bind({});
+AAAOverview.args = { search: '', options: fruits, filter: filter };
+AAAOverview.storyName = 'Overview';
+
+export const CustomValue: Story = props => {
+  const [, updateSelected] = useArgs();
+  const handleSelect = (e: any) => {
+    props.selected = e.target.value;
+    updateSelected(props);
+  };
+
+  return html`<uui-combobox @change=${handleSelect} style="width: 200px">
+      ${fruits.map(
+        fruit =>
+          html`<uui-combobox-list-option .value=${fruit} style="padding: 8px">
+            ${fruit.toUpperCase()}
+          </uui-combobox-list-option>`
+      )}
+    </uui-combobox>
+
+    <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
+};
+
+export const CustomDisplayValue: Story = props => {
+  const [, updateSelected] = useArgs();
+  const handleSelect = (e: any) => {
+    props.selected = e.target.value;
+    updateSelected(props);
+  };
+
+  return html`<uui-combobox @change=${handleSelect} style="width: 200px">
+      ${fruits.map(
+        fruit =>
+          html`<uui-combobox-list-option
+            .displayValue=${'you selected ' + fruit}
+            style="padding: 8px">
+            ${fruit}
+          </uui-combobox-list-option>`
+      )}
+    </uui-combobox>
+
+    <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
+};
 
 export const Avatars: Story = props => {
   const [, updateSearch] = useArgs();
+  const [, updateSelected] = useArgs();
 
-  const handle = (e: any) => {
-    updateSearch({ ...props, search: e.target.search });
+  const handleSelect = (e: any) => {
+    props.selected = e.target.value;
+    updateSelected(props);
   };
 
-  return html`<uui-combobox @input=${handle} @change=${(e: any) => ''}>
-    ${props.avatars
-      .filter((f: any) => f.name.includes(props.search))
-      .map((avatar: any) => renderAvatar(avatar.id, avatar.name, avatar.title))}
-  </uui-combobox>`;
+  const handleSearch = (e: any) => {
+    props.search = e.target.search;
+    updateSearch(props);
+  };
+
+  const renderAvatar = (
+    value: string,
+    name: any,
+    label: string
+  ) => html` <uui-combobox-list-option
+    .displayValue=${name}
+    style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)"
+    .value=${value}>
+    <uui-avatar style="background-color: #c8d1dd" .name=${name}></uui-avatar>
+    <div style="display: flex; flex-direction: column">
+      <b>${name}</b>
+      <div style="font-size: 0.8rem">${label}</div>
+    </div>
+  </uui-combobox-list-option>`;
+
+  const filteredAvatars = props.avatars.filter((avatar: any) =>
+    avatar.name.includes(props.search)
+  );
+
+  return html`<uui-combobox
+      style="width: 200px"
+      @input=${handleSearch}
+      @change=${handleSelect}>
+      ${filteredAvatars.map((avatar: any) =>
+        renderAvatar(avatar.id, avatar.name, avatar.title)
+      )}
+    </uui-combobox>
+
+    <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
 };
 
 Avatars.args = {
   search: '',
   avatars: [
     {
-      id: 'H14',
-      name: 'Bubber Badekar',
-      title: 'Superstjerne',
+      id: 'SM',
+      name: 'Superman',
+      title: 'A pretty strong guy',
     },
     {
-      id: 'B21',
-      name: 'Jens Jensen',
-      title: 'Ham med det fede navn',
+      id: 'RD',
+      name: 'R2-D2',
+      title: 'Bip Bub',
     },
     {
-      id: 'A55',
+      id: 'LS',
       name: 'Luke Skywalker',
       title: 'Guy with a funky sword',
     },
     {
-      id: 'O24',
-      name: 'Giga Chad',
-      title: 'Meme star',
+      id: 'BM',
+      name: 'Batman',
+      title: "I'M BATMAN!",
     },
   ],
 };
@@ -83,7 +193,6 @@ export const CountrySelect: Story = props => {
   };
 
   const handleSelect = (e: any) => {
-    console.log('Select Finish', e.target.value);
     props.selected = e.target.value;
     updateSelected(props);
   };
@@ -154,13 +263,15 @@ export const CountrySelect: Story = props => {
       : '';
   };
   return html`<uui-combobox
-    .value=${props.selected}
-    style="--uui-combobox-popover-max-height: 300px; max-width: 300px;"
-    @input=${handleSearch}
-    @change=${handleSelect}>
-    <span slot="input-prepend">${renderSelectedFlag()}</span>
-    ${renderFilteredOptions()}
-  </uui-combobox>`;
+      .value=${props.selected}
+      style="--uui-combobox-popover-max-height: 300px; max-width: 300px;"
+      @input=${handleSearch}
+      @change=${handleSelect}>
+      <span slot="input-prepend">${renderSelectedFlag()}</span>
+      ${renderFilteredOptions()}
+    </uui-combobox>
+
+    <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
 };
 
 CountrySelect.args = {
