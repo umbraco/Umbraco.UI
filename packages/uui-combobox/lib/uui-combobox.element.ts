@@ -112,25 +112,27 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _onChange = (e: UUIComboboxListEvent) => {
     e.preventDefault();
     e.stopImmediatePropagation();
-    this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
-    this.value = this._selectedElement?.value || '';
 
+    this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
+    const newValue = this._selectedElement?.value;
+
+    if (this.value === newValue) return;
+
+    this.value = this._selectedElement?.value || '';
     this._displayValue = this._selectedElement?.displayValue;
     this.search = this.value ? this.search : '';
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
+
     this._close();
   };
 
   private _open = () => {
     if (this.open) return;
-    console.log('Open');
-
     this.open = true;
   };
 
   private _close = () => {
     if (!this.open) return;
-    console.log('Close');
 
     this.open = false;
     this._displayValue = this._selectedElement?.displayValue || '';
@@ -140,6 +142,11 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   };
 
   private _onKeyDown = (e: KeyboardEvent) => {
+    if (this.open === false && e.key === 'Enter') {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       this._open();
     }
