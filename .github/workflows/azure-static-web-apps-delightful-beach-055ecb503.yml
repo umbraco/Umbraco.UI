@@ -12,7 +12,6 @@ on:
 
 jobs:
   build_and_deploy_job:
-    needs: test
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
