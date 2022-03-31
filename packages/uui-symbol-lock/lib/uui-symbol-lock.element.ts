@@ -1,7 +1,12 @@
-import { LitElement, css, svg } from 'lit';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, svg, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-export class UUILockSymbolElement extends LitElement {
+/**
+ * @element uui-symbol-lock
+ */
+@defineElement('uui-symbol-lock')
+export class UUISymbolLockElement extends LitElement {
   static styles = [
     css`
       :host {
@@ -27,5 +32,11 @@ export class UUILockSymbolElement extends LitElement {
           : svg`<path d="M404.84 246.573h-22.084l-.002-73.603c0-36.675-13.921-70.311-36.917-94.892-22.91-24.584-55.547-40.367-91.539-40.336-36.003-.031-68.643 15.752-91.55 40.336-23.001 24.582-36.918 58.217-36.925 94.892v73.603h-22.082c-9.16 0-16.585 7.421-16.585 16.583v194.531c0 9.158 7.425 16.585 16.585 16.585H404.84c9.162 0 16.586-7.427 16.586-16.585V263.156c0-9.161-7.424-16.583-16.586-16.583zm-218.013-73.602c0-21.167 8.012-39.893 20.468-53.219 12.552-13.316 28.896-20.982 47.003-21.007 18.095.025 34.438 7.685 46.987 21.007 12.455 13.326 20.467 32.052 20.467 53.219v73.603H186.827v-73.603z"></path>`
       }
     </svg>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-symbol-lock': UUISymbolLockElement;
   }
 }

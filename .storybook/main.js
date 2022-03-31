@@ -1,6 +1,4 @@
 const tsconfigPaths = require('vite-tsconfig-paths').default;
-const processLitCSSPlugin =
-  require('../scripts/vite.processLitCSSPlugin').default;
 
 module.exports = {
   stories: ['../packages/**/*.story.ts'],
@@ -8,11 +6,17 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
+    '../storyhelpers/storybook-readme/preset.js',
   ],
   core: { builder: 'storybook-builder-vite' },
+  staticDirs: ['./images'],
+
   async viteFinal(config, { configType }) {
     // customize the Vite config here
 
+    const processLitCSSPlugin = (
+      await import('../scripts/processLitCSSPlugin.mjs')
+    ).default;
     config.plugins.push(processLitCSSPlugin());
 
     if (configType === 'DEVELOPMENT') {

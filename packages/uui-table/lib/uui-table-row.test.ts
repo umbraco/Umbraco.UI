@@ -1,13 +1,15 @@
+import '.';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUITableRowElement } from './uui-table-row.element';
 import { UUITableElement } from './uui-table.element';
-import './index';
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;
@@ -29,6 +31,10 @@ describe('UuiTableRow', () => {
 
   it('passes the a11y audit', done => {
     expect(tableElement).shadowDom.to.be.accessible({ done });
+  });
+
+  it('is defined as its own instance', () => {
+    expect(element).to.be.instanceOf(UUITableRowElement);
   });
 
   describe('properties', () => {

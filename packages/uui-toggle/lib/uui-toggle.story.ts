@@ -15,7 +15,6 @@ export default {
     labelPosition: 'right',
     disabled: false,
     checked: false,
-    hideLabel: false,
     '--uui-toggle-size': '18px',
     '--uui-toggle-switch-width': '36px',
   },
@@ -39,7 +38,6 @@ export const AAAOverview: Story = props =>
       .labelPosition=${props.labelPosition}
       ?disabled=${props.disabled}
       ?checked=${props.checked}
-      ?hide-label=${props.hideLabel}
       >${props.slot}</uui-toggle
     >
   `;
@@ -132,27 +130,6 @@ LabelPosition.parameters = {
     <uui-toggle label="Top" label-position="top"></uui-toggle>
     <uui-toggle label="Right" label-position="right"></uui-toggle>
     <uui-toggle label="Bottom" label-position="bottom"></uui-toggle>`,
-    },
-  },
-};
-
-export const NoLabel: Story = props =>
-  html`
-    <uui-toggle
-      label="label"
-      ?checked=${props.checked}
-      ?hide-label=${props.hideLabel}
-      value="toggle"></uui-toggle>
-  `;
-NoLabel.args = {
-  hideLabel: true,
-};
-NoLabel.parameters = {
-  controls: { include: ['checked', 'hideLabel'] },
-  docs: {
-    source: {
-      code: `<uui-toggle label="Label" hide-label></uui-toggle>
-      `,
     },
   },
 };

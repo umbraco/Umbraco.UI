@@ -1,0 +1,51 @@
+---
+name: 🐛 Bug Report
+description: "File a bug report, if you've discovered a problem."
+labels:
+  - 'bug'
+  - 'needs triage'
+body:
+  - type: input
+    id: 'version'
+    attributes:
+      label: "Which *exact* UI Library version are you using? For example: 1.0.1 - don't just write v1."
+      description: 'The number can usually be found in the package.json file or by writing `npm ls <package>`. Please also specify if you use the `uui` bundle or a specific package.'
+    validations:
+      required: true
+  - type: textarea
+    id: 'summary'
+    attributes:
+      label: 'Bug summary'
+      description: 'Write a short summary of the bug.'
+      placeholder: >
+        Try to pinpoint it as much as possible.
+
+        Try to state the actual problem, and not just what you think the solution might be.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'Specifics'
+      description: 'Remember that you can format code and logs nicely with the `<>` button'
+      placeholder: >
+        Mention the URL where this bug occurs, if applicable
+
+        Please mention if you've checked it in other browsers as well
+
+        Please include full error messages and screenshots, gifs or mp4 videos if applicable
+  - type: textarea
+    attributes:
+      label: 'Steps to reproduce'
+      description: 'How can we reproduce the problem?'
+      placeholder: >
+        Please include screenshots, gifs or mp4 videos if applicable
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'Expected result / actual result'
+      description: 'What did you expect that would happen and what is the actual result of the above steps?'
+      placeholder: >
+        Describe the intended/desired outcome after you did the steps mentioned.
+
+        Describe the behaviour of the bug

@@ -1,15 +1,17 @@
-import { LitElement, html, css } from 'lit';
-import { repeat } from 'lit/directives/repeat.js';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIFormControlEvent } from '@umbraco-ui/uui-base/lib/events';
+import { FormControlMixinInterface } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 
 /**
  * @element uui-form-validation-message
- * @description - Component for displaying one or more validation messages from Form Control within the given scope. Notice: Only supports components that build on the FormControlMixing.
+ * @description - Component for displaying one or more validation messages from UUI Form Control within the given scope.
+ * Notice: Only supports components that is build on the FormControlMixing.
  * @slot - for button contents
  * @slot message - for extras in the messages container
+ * @see FormControlMixin
  */
 
 @defineElement('uui-form-validation-message')
@@ -78,7 +80,7 @@ export class UUIFormValidationMessageElement extends LitElement {
   private _onControlInvalid = (e: UUIFormControlEvent) => {
     const ctrl = e.target;
     if (ctrl.pristine === false) {
-      // This prevents any component who does not have the pristine property to set a message. (as well we only want to show messages from fields that are NOT pristine aka. that are dirty or in a from that has been submitted)
+      // Currently we only show message from components who does have the pristine property. (we only want to show messages from fields that are NOT pristine aka. that are dirty or in a from that has been submitted)
       this._messages.set(ctrl, ctrl.validationMessage);
     } else {
       this._messages.delete(ctrl);

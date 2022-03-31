@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
   iconSee,
   iconUnsee,
@@ -9,6 +10,7 @@ import { property, state } from 'lit/decorators.js';
 
 /**
  * @element uui-input-password
+ * @extends uui-input
  */
 @defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {
@@ -31,7 +33,6 @@ export class UUIInputPasswordElement extends UUIInputElement {
 
   // this overrides the inherited type property, and moves the input's type handling to the passwordType state.
   @property()
-  // @ts-ignore
   get type() {
     return this.passwordType;
   }
@@ -44,6 +45,13 @@ export class UUIInputPasswordElement extends UUIInputElement {
     } else {
       this.passwordType = 'password';
     }
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-button');
   }
 
   renderIcon() {

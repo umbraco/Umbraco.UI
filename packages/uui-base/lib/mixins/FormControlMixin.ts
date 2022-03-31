@@ -1,8 +1,11 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+
 import { UUIFormControlEvent } from '../events';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
+
+type NativeFormControlElement = HTMLInputElement; // Eventually use a specific interface or list multiple options like appending these types: ... | HTMLTextAreaElement | HTMLSelectElement
 
 // TODO: make it possible to define FormDataEntryValue type.
 export declare abstract class FormControlMixinInterface extends LitElement {
@@ -11,11 +14,18 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   set value(newValue: FormDataEntryValue);
   name: string;
   formResetCallback(): void;
-  checkValidity: () => boolean;
+  checkValidity(): boolean;
   get validationMessage(): string;
+  public setCustomValidity(error: string): void;
   protected _value: FormDataEntryValue;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
+  protected addValidator: (
+    flagKey: FlagTypes,
+    getMessageMethod: () => String,
+    checkMethod: () => boolean
+  ) => void;
+  protected addFormControlElement(element: NativeFormControlElement): void;
   pristine: boolean;
   required: boolean;
   requiredMessage: string;
@@ -23,19 +33,27 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   errorMessage: string;
 }
 
+/* FlagTypes type options originate from:
+ * https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
+ * */
 type FlagTypes =
-  | 'valueMissing'
-  | 'typeMismatch'
+  | 'badInput'
+  | 'customError'
   | 'patternMismatch'
-  | 'tooLong'
-  | 'tooShort'
+  | 'rangeOverflow'
   | 'rangeUnderflow'
   | 'stepMismatch'
+  | 'tooLong'
+  | 'tooShort'
+  | 'typeMismatch'
+  | 'valueMissing'
   | 'badInput'
-  | 'customError';
+  | 'valid';
+
+// Acceptable as an internal interface/type, BUT if exposed externally this should be turned into a public class in a separate file.
 interface Validator {
   flagKey: FlagTypes;
-  getMessage: () => String;
+  getMessageMethod: () => String;
   checkMethod: () => boolean;
 }
 
@@ -103,7 +121,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Apply validation rule for requiring a value of this form control.
-     * @type {boolean}
      * @attr
      * @default false
      */
@@ -112,27 +129,21 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Required validation message.
-     * @type {boolean}
      * @attr
-     * @default
      */
     @property({ type: String, attribute: 'required-message' })
     requiredMessage = 'This field is required';
 
     /**
      * Apply custom error on this input.
-     * @type {boolean}
      * @attr
-     * @default false
      */
     @property({ type: Boolean, reflect: true })
     error = false;
 
     /**
      * Custom error message.
-     * @type {boolean}
      * @attr
-     * @default
      */
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
@@ -141,6 +152,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     private _internals: any;
     private _form: HTMLFormElement | null = null;
     private _validators: Validator[] = [];
+    private _formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
@@ -162,10 +174,22 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       });
     }
 
+    /**
+     * Determn wether this FormControl has a value.
+     * @method hasValue
+     * @returns {boolean}
+     */
     public hasValue(): boolean {
       return this.value !== '';
     }
 
+    /**
+     * Get internal form element.
+     * This has to be implemented to provide a FormControl Element of choice for the given context. The element is used as anchor for validation-messages.
+     * @abstract
+     * @method getFormElement
+     * @returns {HTMLElement | undefined}
+     */
     protected abstract getFormElement(): HTMLElement | undefined;
 
     disconnectedCallback(): void {
@@ -178,29 +202,101 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       }
     }
 
+    /**
+     * Add validator, to validate this Form Control.
+     * See https://developer.mozilla.org/en-US/docs/Web/API/ValidityState for available Validator FlagTypes.
+     *
+     * @example
+     * this.addValidator(
+     *  'tooLong',
+     *  () => 'This input contains too many characters',
+     *  () => this._value.length > 10
+     * );
+     * @method hasValue
+     * @param {FlagTypes} flagKey the type of validation.
+     * @param {method} getMessageMethod method to retrieve relevant message. Is executed every time the validator is re-executed.
+     * @param {method} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
+     */
     protected addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => String,
       checkMethod: () => boolean
-    ) {
-      this._validators.push({
+    ): Validator {
+      const obj = {
         flagKey: flagKey,
-        getMessage: getMessageMethod,
+        getMessageMethod: getMessageMethod,
         checkMethod: checkMethod,
-      });
+      };
+      this._validators.push(obj);
+      return obj;
+    }
+
+    protected removeValidator(validator: Validator) {
+      const index = this._validators.indexOf(validator);
+      if (index !== -1) {
+        this._validators.splice(index, 1);
+      }
+    }
+
+    /**
+     * @method addFormControlElement
+     * @description Important notice if adding a native form control then ensure that its value and thereby validity is updated when value is changed from the outside.
+     * @param element {NativeFormControlElement} - element to validate and include as part of this form association.
+     */
+    protected addFormControlElement(element: NativeFormControlElement) {
+      this._formCtrlElements.push(element);
+    }
+
+    private _customValidityObject?: Validator;
+
+    /**
+     * @method setCustomValidity
+     * @description Set custom validity state, set to empty string to remove the custom message.
+     * @param message {string} - The message to be shown
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity|HTMLObjectElement:setCustomValidity}
+     */
+    protected setCustomValidity(message: string | null) {
+      if (this._customValidityObject) {
+        this.removeValidator(this._customValidityObject);
+      }
+
+      if (message != null && message !== '') {
+        this._customValidityObject = this.addValidator(
+          'customError',
+          (): string => message,
+          () => true
+        );
+      }
+
+      this._runValidators();
     }
 
     private _runValidators() {
+      this._validityState = {};
+
+      // Loop through inner native form controls to adapt their validityState.
+      this._formCtrlElements.forEach(formCtrlEl => {
+        for (const key in formCtrlEl.validity) {
+          if (key !== 'valid' && (formCtrlEl.validity as any)[key]) {
+            (this as any)._validityState[key] = true;
+            this._internals.setValidity(
+              (this as any)._validityState,
+              formCtrlEl.validationMessage,
+              formCtrlEl
+            );
+          }
+        }
+      });
+
+      // Loop through custom validators, currently its intentional to have them overwritten native validity. but might need to be reconsidered (This current way enables to overwrite with custom messages)
       this._validators.forEach(validator => {
         if (validator.checkMethod()) {
           this._validityState[validator.flagKey] = true;
           this._internals.setValidity(
             this._validityState,
-            validator.getMessage(),
+            validator.getMessageMethod(),
             this.getFormElement()
           );
-        } else {
-          this._validityState[validator.flagKey] = false;
         }
       });
 
@@ -219,13 +315,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
       this._runValidators();
-      /*
-      if(changedProperties.has('pristine')) {
-        if(changedProperties.get('pristine') === false) {
-          this._internals.reportValidity();
-        }
-      }
-      */
     }
 
     private _onFormSubmit = () => {
@@ -237,7 +326,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this._form = this._internals.form;
       if (this._form) {
         // This relies on the form begin a 'uui-form':
-        if (this._form.hasAttribute('invalid-submit')) {
+        if (this._form.hasAttribute('submit-invalid')) {
           this.pristine = false;
         }
         this._form.addEventListener('submit', this._onFormSubmit);
@@ -249,6 +338,12 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     public checkValidity() {
+      for (const key in this._formCtrlElements) {
+        if (this._formCtrlElements[key].checkValidity() === false) {
+          return false;
+        }
+      }
+
       return this._internals?.checkValidity();
     }
 

@@ -14,7 +14,16 @@
       "path": "../uui-base"
     },
     {
+      "path": "../uui-button"
+    },
+    {
       "path": "../uui-css"
+    },
+    {
+      "path": "../uui-icon"
+    },
+    {
+      "path": "../uui-icon-registry-essential"
     }
   ]
 }

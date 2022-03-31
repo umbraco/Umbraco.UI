@@ -1,10 +1,10 @@
-import { LitElement, html, css } from 'lit';
-import { property, state } from 'lit/decorators.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
 /**
  * @element uui-dialog-layout
- * @slot default - Use this for the text content
+ * @slot - Use this for the text content
  * @slot headline - Use this for slotted headline
  * @slot actions - Use this for actions
  * @description - Default dialog layout

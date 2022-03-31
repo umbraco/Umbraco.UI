@@ -1,26 +1,27 @@
-import { LitElement, css, html } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 /**
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
- *  @property label - This functions both as the visible label as well as the aria label.
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
- *  @slot default slot for nested menu items
+ *  @slot - nested menu items go here
  *  @slot icon - icon area
  *  @slot actions - actions area
- *
+ *  @slot label - area to place the label
  */
 @defineElement('uui-menu-item')
 export class UUIMenuItemElement extends SelectOnlyMixin(
@@ -30,8 +31,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     css`
       :host {
         display: block;
-        background-color: var(--uui-interface-surface);
-        /** consider transparent. */
         --uui-menu-item-child-indent: calc(var(--uui-menu-item-indent, 0) + 1);
 
         user-select: none;
@@ -39,8 +38,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #menu-item {
         position: relative;
-        display: flex;
-        align-items: stretch;
+
         padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-4));
 
         display: grid;
@@ -74,7 +72,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         grid-column-start: 2;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
 
         display: inline-flex;
         align-items: center;
@@ -82,6 +79,12 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         color: currentColor;
         min-height: var(--uui-size-12);
         z-index: 1;
+      }
+
+      #label-button .label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       span#label-button {
         pointer-events: none; /* avoid hovering state on this. */
@@ -116,6 +119,11 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         transition: opacity 120ms;
         grid-column-start: 3;
       }
+      :host(:not([disabled])) #menu-item:hover #actions-container,
+      :host(:not([disabled])) #menu-item:focus #actions-container,
+      :host(:not([disabled])) #menu-item:focus-within #actions-container {
+        opacity: 1;
+      }
 
       #loader {
         position: absolute;
@@ -127,6 +135,14 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: inline-flex;
         font-size: 16px;
         margin-right: var(--uui-size-2);
+      }
+
+      #badge {
+        font-size: 12px;
+        --uui-badge-position: relative;
+        --uui-badge-position: auto;
+        display: block;
+        margin-left: 6px;
       }
 
       :host([disabled]) {
@@ -193,7 +209,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   ];
 
   /**
-   * Disables the menu item, changes the looks of it and prevents if from emitting the click event
+   * Disables the menu item, changes the looks of it and prevents it from emitting the click event
    * @type {boolean}
    * @attr
    * @default false
@@ -253,6 +269,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
+
+    demandCustomElement(this, 'uui-symbol-expand');
+    demandCustomElement(this, 'uui-loader-bar');
   }
 
   private iconSlotChanged(e: any): void {
@@ -280,7 +299,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         id="icon"
         style=${this.iconSlotHasContent ? '' : 'display: none;'}
         @slotchange=${this.iconSlotChanged}></slot>
-      ${this.renderLabel()}`;
+      ${this.renderLabel()}
+      <slot name="badge" id="badge"> </slot>`;
   }
 
   private _renderLabelAsAnchor() {
@@ -291,7 +311,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     }
     return html` <a
       id="label-button"
-      href=${this.href}
+      href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}
       @click=${this.onLabelClicked}

@@ -1,5 +1,6 @@
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
 
@@ -62,6 +63,9 @@ export class UUIPaginationElement extends LitElement {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'navigation');
     this._visiblePages = this._generateVisiblePages(this.current);
+
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-button-group');
   }
 
   disconnectedCallback() {

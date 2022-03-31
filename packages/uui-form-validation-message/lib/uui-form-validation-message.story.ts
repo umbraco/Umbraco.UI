@@ -33,7 +33,7 @@ AAAOverview.storyName = 'Overview';
 export const ForAnotherElement: Story = () =>
   html` <p>
       The Form Validation Message element can also display validation messages
-      from another element than it self. This is done by setting the 'for'
+      from another scope than it self. This is done by setting the 'for'
       attribute.
     </p>
     <div id="myCustomScope">
@@ -53,6 +53,14 @@ export const ForAnotherElement: Story = () =>
         required
         required-message="You must enter a phone number">
       </uui-input>
+      <uui-textarea
+        label="Textarea"
+        name="textarea"
+        value="Some long text that needs more space"
+        minlength="10"
+        maxlength="30"
+        required>
+      </uui-textarea>
     </div>
     <uui-form-validation-message for="myCustomScope">
     </uui-form-validation-message>`;

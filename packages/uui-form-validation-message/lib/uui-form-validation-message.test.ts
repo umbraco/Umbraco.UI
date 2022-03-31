@@ -1,8 +1,9 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
-import { UUIFormValidationMessageElement } from './uui-form-validation-message.element';
-import '.';
 import '@umbraco-ui/uui-input/lib';
+
+import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib/uui-input.element';
+
+import { UUIFormValidationMessageElement } from './uui-form-validation-message.element';
 
 describe('UUIFormValidationMessageElement', () => {
   let element: UUIFormValidationMessageElement;
@@ -68,7 +69,9 @@ describe('UUIFormValidationMessageElement', () => {
       input.pristine = false;
       input.checkValidity();
 
+      await elementUpdated(input);
       await elementUpdated(validationEl);
+
       const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
 
       describe('Using for property', () => {
@@ -80,11 +83,12 @@ describe('UUIFormValidationMessageElement', () => {
           element = await fixture(
             html`
               <form>
-                <uui-input
-                  id="MyMessageScope"
-                  label="Label"
-                  required
-                  required-message="MyRequiredMessage"></uui-input>
+                <div id="MyMessageScope">
+                  <uui-input
+                    label="Label"
+                    required
+                    required-message="MyRequiredMessage"></uui-input>
+                </div>
                 <uui-form-validation-message for="MyMessageScope">
                 </uui-form-validation-message>
               </form>
@@ -101,10 +105,13 @@ describe('UUIFormValidationMessageElement', () => {
           input.pristine = false;
           input.checkValidity();
 
+          await elementUpdated(input);
           await elementUpdated(validationEl);
+
           const messagesCon =
             validationEl.shadowRoot!.querySelector('#messages')!;
           const regex = /MyRequiredMessage/;
+
           expect(regex.test(messagesCon.innerHTML)).to.be.true;
         });
       });

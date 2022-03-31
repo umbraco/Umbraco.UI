@@ -4,6 +4,10 @@
 
 Umbraco style boolean-input component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-boolean-input)
+
 ## Installation
 
 ### ES imports

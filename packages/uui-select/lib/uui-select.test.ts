@@ -1,6 +1,6 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+
 import { UUISelectElement } from './uui-select.element';
-import '.';
 
 const options: Array<Option> = [
   { name: 'Carrot', value: 'orange' },
@@ -13,15 +13,35 @@ const options: Array<Option> = [
 
 describe('UUISelectElement', () => {
   let element: UUISelectElement;
+  let input: HTMLSelectElement | null | undefined;
 
   beforeEach(async () => {
     element = await fixture(
       html`<uui-select label="foo" name="bar" .options=${options}></uui-select>`
     );
+    input = element.shadowRoot?.querySelector('#native');
   });
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  it('is defined with its own instance', () => {
+    expect(element).to.be.instanceOf(UUISelectElement);
+  });
+
+  it('has internals', () => {
+    expect(element).to.have.property('_internals');
+  });
+
+  it('input exists', () => {
+    expect(input).to.exist;
+  });
+
+  it('if disabled, disables the native input', async () => {
+    element.disabled = true;
+    await elementUpdated(element);
+    expect(input?.disabled).to.equal(true);
   });
 
   describe('methods', () => {
@@ -55,24 +75,90 @@ describe('UUISelect in Form', () => {
     select = element.shadowRoot?.querySelector('select') as HTMLSelectElement;
   });
 
-  it('value is correct', async () => {
-    await expect(element.value).to.be.equal('orange');
+  it('value is correct', () => {
+    expect(element.value).to.be.equal('orange');
   });
 
-  it('form output', async () => {
+  it('form output', () => {
     const formData = new FormData(formElement);
-    await expect(formData.get('bar')).to.be.equal('orange');
+    expect(formData.get('bar')).to.be.equal('orange');
   });
 
-  it('change value and check output', async () => {
+  it('change value and check output', () => {
     element.value = 'purple';
     const formData = new FormData(formElement);
-    await expect(formData.get('bar')).to.be.equal('purple');
+    expect(formData.get('bar')).to.be.equal('purple');
   });
 
   it('can be disabled', async () => {
     element.disabled = true;
     await elementUpdated(element);
     expect(select.disabled).to.be.true;
+  });
+
+  describe('validation', () => {
+    let formElement: HTMLFormElement;
+    let element: UUISelectElement;
+    beforeEach(async () => {
+      formElement = await fixture(
+        html`<form>
+          <uui-select
+            label="test label"
+            name="test"
+            .options=${options}></uui-select>
+        </form>`
+      );
+      element = formElement.querySelector('uui-select') as UUISelectElement;
+    });
+
+    describe('required', () => {
+      beforeEach(async () => {
+        element.setAttribute('required', 'true');
+        await elementUpdated(element);
+      });
+
+      it('sets element to invalid when value is empty', () => {
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('sets element to valid when it has a value', async () => {
+        element.value = options[0].value;
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('sets the form to valid when it has a value', async () => {
+        element.value = options[0].value;
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
+
+    describe('custom error', () => {
+      beforeEach(async () => {
+        element.setAttribute('error', 'true');
+        await elementUpdated(element);
+      });
+
+      it('sets element to invalid when it has a custom error attribute', () => {
+        expect(element.checkValidity()).to.be.false;
+      });
+
+      it('sets element to valid when it doesnt have a custom error attribute', async () => {
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(element.checkValidity()).to.be.true;
+      });
+
+      it('sets the form to invalid when value is empty', () => {
+        expect(formElement.checkValidity()).to.be.false;
+      });
+
+      it('sets the form to valid when it doesnt have a custom error attribute', async () => {
+        element.removeAttribute('error');
+        await elementUpdated(element);
+        expect(formElement.checkValidity()).to.be.true;
+      });
+    });
   });
 });

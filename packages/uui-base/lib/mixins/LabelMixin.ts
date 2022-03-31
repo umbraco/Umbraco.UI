@@ -19,6 +19,11 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
   labelSlotName: string | null,
   superClass: T
 ) => {
+  /**
+   * Label mixin class containing the label functionality.
+   *
+   * @slot - Override the default label
+   */
   class LabelMixinClass extends superClass {
     /**
      * Label to be used for aria-label and eventually as visual label

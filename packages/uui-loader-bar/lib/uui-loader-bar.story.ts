@@ -17,6 +17,9 @@ export default {
       control: { type: 'number', min: 0, max: 100 },
     },
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 const Template: Story = props =>
@@ -24,14 +27,14 @@ const Template: Story = props =>
     <uui-loader-bar
       progress=${props.progress}
       animationDuration=${props.animationDuration}
-      style="color: ${props.color}"></uui-loader-bar>
+      style=${props.color ? 'color: ' + props.color : ''}></uui-loader-bar>
   `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
-AAAOverview.args = { color: 'black' };
+AAAOverview.args = { color: '' };
 AAAOverview.argTypes = {
-  color: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
 };
 AAAOverview.parameters = {
   docs: {
@@ -44,7 +47,7 @@ AAAOverview.parameters = {
 export const Color = Template.bind({});
 Color.args = { color: 'blue' };
 Color.argTypes = {
-  color: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
 };
 Color.parameters = {
   docs: {

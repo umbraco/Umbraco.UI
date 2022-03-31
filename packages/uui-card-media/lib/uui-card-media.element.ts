@@ -1,15 +1,16 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-media
- *  @fires {UUICardEvent} open - fires when the media card title is clicked
- *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a media item.
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
+ *  @slot - slot for the default content area
  */
-
 @defineElement('uui-card-media')
 export class UUICardMediaElement extends UUICardElement {
   static styles = [
@@ -124,6 +125,13 @@ export class UUICardMediaElement extends UUICardElement {
 
   @state()
   protected hasPreview = false;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-symbol-folder');
+    demandCustomElement(this, 'uui-symbol-file');
+  }
 
   private queryPreviews(e: any): void {
     this.hasPreview =

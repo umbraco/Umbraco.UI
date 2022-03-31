@@ -11,65 +11,79 @@ export default {
   title: 'Buttons/Button Group',
   component: 'uui-button-group',
   id: 'uui-button-group',
-};
-
-const buttons = ['development', 'staging', 'live'];
-
-export const AAAOverview: Story = () =>
-  html`<uui-button-group
-    >${buttons.map(
-      el => html`<uui-button look="secondary">${el}</uui-button>`
-    )}</uui-button-group
-  >`;
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: html`<uui-button-group>
-        <uui-button look="secondary">development</uui-button>
-        <uui-button look="secondary">staging</uui-button>
-        <uui-button look="secondary">live</uui-button>
-      </uui-button-group>`.strings,
+  args: {
+    look: '',
+  },
+  argTypes: {
+    look: {
+      control: {
+        type: 'select',
+      },
+      options: InterfaceLookNames,
     },
   },
 };
 
-function uppercaseFirstLetter(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-export const AllStyles = () => html`
+export const AAAOverview: Story = props => html`
+  <uui-button-group>
+    <uui-button look="${props.look}" label="Button 1"></uui-button>
+    <uui-button look="${props.look}" label="Button 2"></uui-button>
+    <uui-button look="${props.look}" label="Button 3"></uui-button>
+    <uui-button look="${props.look}" label="Button 4"></uui-button>
+  </uui-button-group>
+`;
+
+AAAOverview.storyName = 'Overview';
+
+export const Looks = () => html`
   ${InterfaceLookNames.map(
     (lookName: InterfaceLookType) =>
-      html` <uui-button-group>
-          <uui-button .look=${lookName}>
-            ${uppercaseFirstLetter(lookName)} look
-          </uui-button>
-          <uui-button .look=${lookName}> Second option </uui-button>
-          <uui-button .look=${lookName}> Small </uui-button>
-          <uui-button .look=${lookName}>
-            Large other option
-          </uui-button> </uui-button-group
-        ><br /><br /><br />`
+      html` <div>${lookName}</div>
+        <uui-button-group>
+          <uui-button .look=${lookName} label="Button 1"></uui-button>
+          <uui-button .look=${lookName} label="Button 2"></uui-button>
+          <uui-button .look=${lookName} label="Button 3"></uui-button>
+          <uui-button
+            .look=${lookName}
+            label="Button 4"></uui-button> </uui-button-group
+        ><br /><br />`
   )}
 `;
 
-export const MixedLooks = () =>
-  html`<uui-button-group>
-    <uui-button look="primary">Hello</uui-button>
-    ${buttons.map(
-      el => html`<uui-button look="secondary">${el}</uui-button>`
-    )}<uui-button look="danger">World</uui-button></uui-button-group
-  >`;
-MixedLooks.parameters = {
+Looks.parameters = {
+  controls: { disable: true },
   docs: {
     source: {
-      code: html`<uui-button-group>
-        <uui-button look="primary">Hello</uui-button>
-        <uui-button>development</uui-button>
-        <uui-button>staging</uui-button>
-        <uui-button>live</uui-button>
-        <uui-button look="danger">World</uui-button>
-      </uui-button-group>`.strings,
+      code: `
+<uui-button-group>
+  <uui-button look="[look]">Button 1</uui-button>
+  <uui-button look="[look]">Button 2</uui-button>
+  <uui-button look="[look]">Button 3</uui-button>
+  <uui-button look="[look]">Button 4</uui-button>
+</uui-button-group>`,
+    },
+  },
+};
+
+export const MixedLooks = () =>
+  html`<uui-button-group>
+    <uui-button look="outline" label="Button 1"></uui-button>
+    <uui-button look="outline" label="Button 2"></uui-button>
+    <uui-button look="outline" label="Button 3"></uui-button>
+    <uui-button look="danger" label="Button 4"></uui-button>
+  </uui-button-group>`;
+
+MixedLooks.parameters = {
+  controls: { disable: true },
+  docs: {
+    source: {
+      code: `
+<uui-button-group>
+  <uui-button look="outline">Button 1</uui-button>
+  <uui-button look="outline">Button 2</uui-button>
+  <uui-button look="outline">Button 3</uui-button>
+  <uui-button look="danger">Button 4</uui-button>
+</uui-button-group>`,
     },
   },
 };

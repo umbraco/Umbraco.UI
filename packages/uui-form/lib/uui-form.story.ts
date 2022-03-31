@@ -17,101 +17,135 @@ const _onRadioGroupChanged = (e: UUIRadioGroupEvent) => {
   e.target.error = e.target.value !== 'radio2';
 };
 
-export const Overview: Story = () => html` <form
-  is="uui-form"
-  style="max-width: 800px;">
-  <div style="margin-bottom: 15px;">
-    <uui-checkbox
-      name="checkbox"
-      value="Bike"
-      label="This is my checked checkbox"
-      checked
-      required>
-      This is my checked checkbox
-    </uui-checkbox>
-  </div>
+const _onSubmit = (e: SubmitEvent) => {
+  e.preventDefault();
+  console.log('SUBMIT', e);
 
-  <div style="margin-bottom: 15px;">
-    <uui-toggle name="toggle" label="This is my toggle" required>
-      This is my toggle
-    </uui-toggle>
-  </div>
+  const form = e.target as HTMLFormElement;
+  const isValid = form.checkValidity();
 
-  <div style="margin-bottom: 15px;">
-    <uui-radio-group
-      name="radio"
-      label="This is my radio"
-      required
-      @change=${_onRadioGroupChanged}>
-      <uui-radio value="radio1" label="radio1" name="radio1">Label</uui-radio>
-      <uui-radio value="radio2" label="radio2" name="radio2">Label</uui-radio>
-      <uui-radio value="radio3" label="radio3" name="radio3">Label</uui-radio>
-    </uui-radio-group>
-  </div>
+  if (!isValid) {
+    return;
+  }
 
-  <div style="margin-bottom: 15px;">
-    <uui-input name="email" type="text" label="Email" required> </uui-input>
-  </div>
+  const formData = new FormData(form);
 
-  <div style="margin-bottom: 15px;">
-    <uui-input
-      type="password"
-      name="password"
-      value="MyPassword"
-      label="Password"
-      required>
-    </uui-input>
-  </div>
+  for (const value of formData.values()) {
+    console.log(value);
+  }
+};
 
-  <div style="margin-bottom: 15px;">
-    <uui-slider
-      label="Slider"
-      name="slider"
-      value="5.5"
-      min="0"
-      max="10"
-      step="1"
-      required>
-    </uui-slider>
-  </div>
+// TODO: Find a good way to have stories with both HTML and javascript
+export const Overview: Story = () => {
+  return html`
+    <uui-form>
+      <form id="MyForm" @submit="${_onSubmit}">
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Checkbox</uui-label>
+          <uui-checkbox
+            name="checkbox"
+            value="Bike"
+            label="This is my checked checkbox"
+            required>
+            This is my checked checkbox
+          </uui-checkbox>
+        </uui-form-layout-item>
 
-  <div style="margin-bottom: 15px;">
-    <input
-      name="nativeCheckbox"
-      label="Native input text"
-      type="checkbox"
-      value="NativeCheckboxValue"
-      placeholder="native text input"
-      checked
-      required />
-  </div>
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Toggle</uui-label>
+          <uui-toggle name="toggle" label="This is my toggle" required>
+            This is my toggle
+          </uui-toggle>
+        </uui-form-layout-item>
 
-  <div style="margin-bottom: 15px;">
-    <input
-      name="nativeInput"
-      label="Native input text"
-      type="text"
-      default-value="default test value"
-      value="test value"
-      placeholder="native text input"
-      required />
-  </div>
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Radio Group</uui-label>
+          <uui-radio-group
+            name="radio"
+            label="This is my radio"
+            required
+            @change=${_onRadioGroupChanged}>
+            <uui-radio value="radio1" label="radio1" name="radio1"
+              >Label</uui-radio
+            >
+            <uui-radio value="radio2" label="radio2" name="radio2"
+              >Label</uui-radio
+            >
+            <uui-radio value="radio3" label="radio3" name="radio3"
+              >Label</uui-radio
+            >
+          </uui-radio-group>
+        </uui-form-layout-item>
 
-  <div style="margin-bottom: 15px;">
-    <input
-      name="nativeInputNumber"
-      label="Native input number"
-      type="number"
-      value=""
-      placeholder="native number input"
-      min="0"
-      max="10"
-      required />
-  </div>
-  <div>
-    <uui-button type="reset" label="Reset" look="secondary"> Reset </uui-button>
-    <uui-button type="submit" label="Submit" look="positive">
-      Submit
-    </uui-button>
-  </div>
-</form>`;
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Email</uui-label>
+          <uui-input
+            name="email"
+            type="email"
+            label="Email"
+            required></uui-input>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Password</uui-label>
+          <uui-input-password name="password" label="Password" required>
+          </uui-input-password>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Slider</uui-label>
+          <uui-slider
+            label="Slider"
+            name="slider"
+            value="5.5"
+            min="0"
+            max="10"
+            step="1"
+            required>
+          </uui-slider>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Textarea</uui-label>
+          <uui-textarea
+            label="Textarea"
+            name="textarea"
+            value="Some long text that needs more space"
+            minlength="10"
+            maxlength="30"
+            required>
+          </uui-textarea>
+        </uui-form-layout-item>
+
+        <div>
+          <uui-button type="reset" label="Reset" look="secondary"
+            >Reset</uui-button
+          >
+          <uui-button type="submit" label="Submit" look="positive">
+            Submit
+          </uui-button>
+        </div>
+      </form>
+    </uui-form>
+
+    <!-- Submit Handler
+  const form = document.getElementById('MyForm');
+
+  form.addEventHandler('submit', (e) => {
+    e.preventDefault();
+
+    const isValid = form.checkValidity();
+
+    if (!isValid) {
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+  });
+  -->
+  `;
+};

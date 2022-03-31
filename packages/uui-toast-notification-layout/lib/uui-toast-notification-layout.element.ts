@@ -1,5 +1,5 @@
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -15,7 +15,13 @@ export class UUIToastNotificationLayoutElement extends LitElement {
   static styles = [
     UUITextStyles,
     css`
-      #message > h5 {
+      #message {
+        margin-bottom: calc(var(--uui-size-space-1) * -1);
+      }
+      #message::after {
+        content: '';
+        display: block;
+        clear: both;
       }
       #actions {
         /*
@@ -26,26 +32,19 @@ export class UUIToastNotificationLayoutElement extends LitElement {
         display: block;
         float: right;
 
-        margin-top: var(--uui-size-space-3);
+        margin-top: var(--uui-size-space-4);
         margin-bottom: calc(var(--uui-size-space-2) * -1);
-      }
-
-      #message::after {
-        content: '';
-        display: block;
-        clear: both;
       }
     `,
   ];
 
   /**
    * Headline for this notification, can also be set via the 'headline' slot.
-   * @type string
    * @attr
-   * @default null
+   * @default
    */
   @property({ type: String })
-  headline: string | null = null;
+  headline: string = '';
 
   @state()
   private _headlineSlotHasContent = false;
@@ -59,7 +58,8 @@ export class UUIToastNotificationLayoutElement extends LitElement {
     return html`
       <div id="message" class="uui-text">
         <h5
-          style=${this._headlineSlotHasContent || this.headline !== null
+          style=${this._headlineSlotHasContent ||
+          (this.headline && this.headline !== '')
             ? ''
             : 'display: none'}>
           ${this.headline}

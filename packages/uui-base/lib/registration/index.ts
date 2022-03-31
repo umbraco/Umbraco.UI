@@ -21,9 +21,7 @@ export function defineElement(
 
     const existingElement = window.customElements.get(name);
 
-    if (existingElement) {
-      console.warn(`${name} is already defined`, existingElement); // TODO: Remove this in production
-    } else {
+    if (!existingElement) {
       window.customElements.define(name, constructor, options);
     }
   };

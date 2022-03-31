@@ -4,6 +4,10 @@
 
 Umbraco style form-validation-message component.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-form-validation-message)
+
 ## Installation
 
 ### ES imports

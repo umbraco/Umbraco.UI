@@ -23,6 +23,9 @@
       "path": "../uui-badge"
     },
     {
+      "path": "../uui-base"
+    },
+    {
       "path": "../uui-boolean-input"
     },
     {
@@ -63,6 +66,18 @@
     },
     {
       "path": "../uui-dialog"
+    },
+    {
+      "path": "../uui-dialog-layout"
+    },
+    {
+      "path": "../uui-form"
+    },
+    {
+      "path": "../uui-form-layout-item"
+    },
+    {
+      "path": "../uui-form-validation-message"
     },
     {
       "path": "../uui-icon"
@@ -150,6 +165,9 @@
     },
     {
       "path": "../uui-symbol-folder"
+    },
+    {
+      "path": "../uui-symbol-lock"
     },
     {
       "path": "../uui-symbol-more"

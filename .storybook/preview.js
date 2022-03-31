@@ -1,7 +1,9 @@
-import { setCustomElements } from '@storybook/web-components';
-import customElements from '../custom-elements.json';
 import '../packages/uui-css/lib/uui-css.css';
 import 'element-internals-polyfill';
+
+import { setCustomElements } from '@storybook/web-components';
+
+import customElements from '../custom-elements.json';
 
 const sort = (a, b) => {
   if (a[1].name === 'Overview') {
@@ -44,4 +46,32 @@ export const parameters = {
   },
 };
 
+WebComponentFormatter(customElements);
+
 setCustomElements(customElements);
+
+function WebComponentFormatter(customElements) {
+  for (let tag of customElements.tags || []) {
+    // Find all names of properties
+    const propertyNames = (tag.properties || []).map(p => p.name);
+
+    for (let slot of tag.slots || []) {
+      // Replace the name of the default slot so Storybook will show it
+      if (typeof slot.name === 'string' && slot.name.length === 0) {
+        slot.name = 'slot';
+      }
+
+      // If the slot has the same name as a property, then add the word 'slot' to the name
+      if (propertyNames.includes(slot.name)) {
+        slot.name = `${slot.name} slot`;
+      }
+
+      // Set type of slots
+      if (typeof slot.type === 'undefined' || slot.type.length === 0) {
+        slot.type = 'HTMLElement';
+      }
+    }
+  }
+
+  return customElements;
+}

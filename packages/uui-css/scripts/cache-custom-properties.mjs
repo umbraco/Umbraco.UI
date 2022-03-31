@@ -37,17 +37,6 @@ export const CacheCustomProperties = async masterCSSPath => {
 
     try {
       await fs.writeFile(
-        './custom-properties.cjs',
-        `module.exports = ${json};`,
-        'utf8'
-      );
-    } catch (err) {
-      console.error(err);
-    }
-
-    // Second file for ESM, TODO: fix so we can use the same file in both cases.
-    try {
-      await fs.writeFile(
         './custom-properties.module.js',
         `export default ${json};`,
         'utf8'
