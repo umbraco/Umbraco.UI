@@ -34,12 +34,17 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
       #dropdown {
         overflow: hidden;
+        background-color: var(--uui-combobox-popover-background-color, white);
         border: 1px solid var(--uui-interface-border);
         border-radius: var(--uui-border-radius);
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
+      }
+
+      uui-caret {
+        margin-right: var(--uui-size-3);
       }
     `,
   ];
@@ -79,6 +84,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
+    demandCustomElement(this, 'uui-caret');
   }
 
   disconnectedCallback(): void {
@@ -116,11 +122,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
     const newValue = this._selectedElement?.value;
 
-    if (this.value === newValue) return;
-
-    this.value = this._selectedElement?.value || '';
-    this._displayValue = this._selectedElement?.displayValue;
+    this.value = newValue || '';
     this.search = this.value ? this.search : '';
+    this._displayValue = this._selectedElement?.displayValue;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
 
     this._close();
@@ -160,8 +164,8 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
     this._displayValue = '';
     this._input.value = this._displayValue;
-    this.value = '';
     this.search = '';
+    this.value = '';
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -177,9 +181,13 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       @input=${this._onInput}
       @keydown=${this._onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
-      ${this._renderClearButton()}
+      ${this._renderClearButton()} ${this._renderCaret()}
       <slot name="input-append" slot="append"></slot>
     </uui-input>`;
+  };
+
+  private _renderCaret = () => {
+    return html`<uui-caret slot="append" .open=${this.open}></uui-caret>`;
   };
 
   private _renderClearButton = () => {
