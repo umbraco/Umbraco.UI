@@ -117,6 +117,24 @@ export const Overview: Story = () => {
           </uui-textarea>
         </uui-form-layout-item>
 
+        <uui-form-layout-item>
+          <uui-label slot="label" required>Combobox</uui-label>
+          <uui-combobox name="combobox" required>
+            <uui-combobox-list-option value="1"
+              >Option 1</uui-combobox-list-option
+            >
+            <uui-combobox-list-option value="2"
+              >Option 2</uui-combobox-list-option
+            >
+            <uui-combobox-list-option value="3"
+              >Option 3</uui-combobox-list-option
+            >
+            <uui-combobox-list-option value="4"
+              >Option 4</uui-combobox-list-option
+            >
+          </uui-combobox>
+        </uui-form-layout-item>
+
         <div>
           <uui-button type="reset" label="Reset" look="secondary"
             >Reset</uui-button
