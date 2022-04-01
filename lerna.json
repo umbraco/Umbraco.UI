@@ -3,6 +3,7 @@
   "version": "independent",
   "npmClient": "npm",
   "useWorkspaces": true,
+  "granularPathspec": false,
   "command": {
     "publish": {
       "verifyAccess": false
@@ -17,6 +18,8 @@
     ".storybook/**/*",
     "storyhelpers/**/*",
     "templates/**/*",
-    "docs/**/*"
+    "docs/**/*",
+    "package.json",
+    "package-lock.json"
   ]
 }
