@@ -7,5 +7,16 @@
     "publish": {
       "verifyAccess": false
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/tsconfig.json",
+    "**/*.story.ts",
+    "**/*.test.ts",
+    "**/*.md",
+    "lerna.json",
+    ".storybook/**/*",
+    "storyhelpers/**/*",
+    "templates/**/*",
+    "docs/**/*"
+  ]
 }
