@@ -1,14 +1,12 @@
-import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-  aTimeout,
-} from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { UUIComboboxElement } from './uui-combobox.element';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import { UUIComboboxListOptionElement } from '@umbraco-ui/uui-combobox-list/lib';
+
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-scroll-container/lib';
+import '@umbraco-ui/uui-input/lib';
 
 describe('UUIComboboxElement', () => {
   let element: UUIComboboxElement;
@@ -77,8 +75,8 @@ describe('UUIComboboxElement', () => {
   });
 
   describe('events', () => {
-    describe('input', () => {
-      it('emits an input event on file change', async () => {
+    describe('change', () => {
+      it('emits an change event on selection change', async () => {
         const listener = oneEvent(element, UUIComboboxEvent.CHANGE);
         const list = element.shadowRoot.querySelector('uui-combobox-list');
 
@@ -92,6 +90,16 @@ describe('UUIComboboxElement', () => {
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUIComboboxEvent.CHANGE);
+      });
+    });
+
+    describe('input', () => {
+      it('emits an input event on file change', async () => {
+        const listener = oneEvent(element, UUIComboboxEvent.INPUT);
+        element.search = 'new';
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIComboboxEvent.INPUT);
       });
     });
   });

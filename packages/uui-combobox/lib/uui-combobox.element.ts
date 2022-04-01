@@ -169,6 +169,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     return html` <uui-input
       slot="trigger"
       id="combobox-input"
+      label="combobox-input"
       type="text"
       .value=${this._displayValue}
       .placeholder=${this._displayValue}
