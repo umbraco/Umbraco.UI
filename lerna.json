@@ -12,6 +12,11 @@
     "**/tsconfig.json",
     "**/*.story.ts",
     "**/*.test.ts",
-    "**/*.md"
+    "**/*.md",
+    "lerna.json",
+    ".storybook/**/*",
+    "storyhelpers/**/*",
+    "templates/**/*",
+    "docs/**/*"
   ]
 }

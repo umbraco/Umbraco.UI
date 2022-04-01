@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.0...@umbraco-ui/uui@0.1.1) (2022-04-01)
+
+### Bug Fixes
+
+- add missing reference to uui-input-lock ([#187](https://github.com/umbraco/Umbraco.UI/issues/187)) ([b2d69bf](https://github.com/umbraco/Umbraco.UI/commit/b2d69bf0146339f0b5f90c17d087d25dc907a7bb))
+
 # [0.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.0.10...@umbraco-ui/uui@0.1.0) (2022-03-31)
 
 ### Bug Fixes
