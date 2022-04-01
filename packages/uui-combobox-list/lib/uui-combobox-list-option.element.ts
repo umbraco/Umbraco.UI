@@ -31,7 +31,6 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         display: block;
         content: '';
         position: absolute;
-        z-index: 1;
         inset: 0px;
         outline: white solid 2px;
         outline-offset: -4px;
