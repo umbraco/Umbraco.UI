@@ -22,7 +22,6 @@ export class UUIBoxElement extends LitElement {
         box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
         background-color: var(--uui-interface-surface);
-        --uui-box-default-padding: var(--uui-size-space-5);
       }
 
       #header {
