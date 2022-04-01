@@ -24,6 +24,24 @@ describe('UUIBox', () => {
     });
   });
 
+  describe('css custom properties', () => {
+    let wrapper: HTMLDivElement;
+    let element: UUIBoxElement;
+    beforeEach(async () => {
+      wrapper = (await fixture(html`<div
+        style="--uui-box-default-padding:1337px;">
+        <uui-box headline="headline"> Main </uui-box>
+      </div>`)) as HTMLDivElement;
+      element = wrapper.querySelector('uui-box')!;
+    });
+    it('allows for --uui-box-default-padding to be defined outside the scope.', () => {
+      const elementStyles = window.getComputedStyle(element);
+      expect(
+        elementStyles.getPropertyValue('--uui-box-default-padding').trim()
+      ).to.equal('1337px');
+    });
+  });
+
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
