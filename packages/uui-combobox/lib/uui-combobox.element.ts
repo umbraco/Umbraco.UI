@@ -34,6 +34,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
       #dropdown {
         overflow: hidden;
+        z-index: -1;
         background-color: var(--uui-combobox-popover-background-color, white);
         border: 1px solid var(--uui-interface-border);
         border-radius: var(--uui-border-radius);

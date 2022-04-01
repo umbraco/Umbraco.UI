@@ -27,7 +27,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         margin-bottom: 6px;
       }
 
-      :host([active])::after {
+      :host([selected]):host([active])::after {
         display: block;
         content: '';
         position: absolute;
@@ -41,7 +41,6 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         content: '';
         opacity: 0;
         position: absolute;
-        z-index: -1;
         inset: 0;
         background-color: var(--uui-interface-select);
       }
