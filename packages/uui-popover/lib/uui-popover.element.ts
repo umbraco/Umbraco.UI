@@ -47,6 +47,7 @@ export class UUIPopoverElement extends LitElement {
       #container {
         position: absolute;
         width: 100%;
+        z-index: 1;
       }
       slot[name='popover'] {
         display: block;
