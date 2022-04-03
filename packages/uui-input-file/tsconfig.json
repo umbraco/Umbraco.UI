@@ -15,6 +15,18 @@
     },
     {
       "path": "../uui-file-dropzone"
+    },
+    {
+      "path": "../uui-action-bar"
+    },
+    {
+      "path": "../uui-button"
+    },
+    {
+      "path": "../uui-icon"
+    },
+    {
+      "path": "../uui-icon-registry"
     }
   ]
 }
