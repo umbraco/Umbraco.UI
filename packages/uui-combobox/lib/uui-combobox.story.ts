@@ -62,6 +62,16 @@ const avatars = [
   },
 ];
 
+export const Test: Story = () => html`
+  <uui-combobox>
+    <uui-combobox-list>
+      <uui-combobox-list-option>ajshdjasd</uui-combobox-list-option>
+      <uui-combobox-list-option>1245124</uui-combobox-list-option>
+      <uui-combobox-list-option>askdh123</uui-combobox-list-option>
+    </uui-combobox-list>
+  </uui-combobox>
+`;
+
 const basicFilter = (options: string[], search: string) =>
   options.filter(option => option.includes(search));
 
