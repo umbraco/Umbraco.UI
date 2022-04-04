@@ -59,13 +59,13 @@ export class UUIComboboxListElement extends LitElement {
     flatten: true,
     selector: 'uui-combobox-list-option:not([disabled])',
   })
-  private _options!: UUIComboboxListOptionElement[]; //TODO: Fix the !
+  private _options: UUIComboboxListOptionElement[] = [];
 
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-combobox-list-option[active]',
   })
-  private _activeOptions!: UUIComboboxListOptionElement[]; //TODO: Fix the !
+  private _activeOptions: UUIComboboxListOptionElement[] = [];
 
   @state()
   private _value = '';
