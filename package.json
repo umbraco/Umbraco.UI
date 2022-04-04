@@ -40,6 +40,7 @@
     "lerna:version": "lerna version --no-push --exact --conventional-commits --include-merged-tags",
     "lerna:changed": "lerna changed --include-merged-tags",
     "postversion": "rimraf package-lock.json && npm i",
+    "lerna:changelog": "npx lerna-changelog",
     "lerna:diff": "lerna diff",
     "lerna:fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
