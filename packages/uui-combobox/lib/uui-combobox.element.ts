@@ -137,6 +137,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): void {
     this.comboboxList[0].addEventListener('change', this._onChange);
+    this.comboboxList[0].value = this.value;
   }
 
   protected getFormElement(): HTMLElement | undefined {

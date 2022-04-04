@@ -62,16 +62,6 @@ const avatars = [
   },
 ];
 
-export const Test: Story = () => html`
-  <uui-combobox>
-    <uui-combobox-list>
-      <uui-combobox-list-option>ajshdjasd</uui-combobox-list-option>
-      <uui-combobox-list-option>1245124</uui-combobox-list-option>
-      <uui-combobox-list-option>askdh123</uui-combobox-list-option>
-    </uui-combobox-list>
-  </uui-combobox>
-`;
-
 const basicFilter = (options: string[], search: string) =>
   options.filter(option => option.includes(search));
 
@@ -116,16 +106,18 @@ const Template: Story = props => {
       @change=${handleSelect}
       @input=${handleSearch}
       style="width: 250px">
-      ${repeat(filter(options, search), (option: any, index: number) =>
-        renderMod
-          ? renderMod(option, index)
-          : html`<uui-combobox-list-option
-              .value=${valueMod ? valueMod(option) : ''}
-              .displayValue=${displayValueMod ? displayValueMod(option) : ''}
-              style="padding: 8px">
-              ${option}
-            </uui-combobox-list-option>`
-      )}
+      <uui-combobox-list>
+        ${repeat(filter(options, search), (option: any, index: number) =>
+          renderMod
+            ? renderMod(option, index)
+            : html`<uui-combobox-list-option
+                .value=${valueMod ? valueMod(option) : ''}
+                .displayValue=${displayValueMod ? displayValueMod(option) : ''}
+                style="padding: 8px">
+                ${option}
+              </uui-combobox-list-option>`
+        )}
+      </uui-combobox-list>
     </uui-combobox>
 
     <span style="margin-left: 16px">Selected value: ${selected}</span> `;
@@ -246,7 +238,7 @@ export const CountrySelect: Story = props => {
       @input=${handleSearch}
       @change=${handleSelect}>
       <span slot="input-prepend">${renderSelectedFlag()}</span>
-      ${renderFilteredOptions()}
+      <uui-combobox-list>${renderFilteredOptions()}</uui-combobox-list>
     </uui-combobox>
 
     <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
