@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
@@ -138,8 +138,11 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
     this.requestUpdate('disabled', oldValue);
   }
 
-  @property({ type: Boolean })
-  public selectable = true;
+  constructor() {
+    super();
+    this.selectable = true;
+    this.unselectable = false;
+  }
 
   render() {
     return html`<slot></slot>`;

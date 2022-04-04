@@ -7,6 +7,7 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class SelectableMixinInterface extends LitElement {
   selectable: boolean;
+  unselectable: boolean;
   selected: boolean;
 }
 
@@ -43,6 +44,9 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.requestUpdate('selected', oldVal);
     }
 
+    @property({ type: Boolean })
+    unselectable = true;
+
     /**
      * Attribute applied when the element is selected.
      * @attr
@@ -53,28 +57,37 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     constructor(...args: any[]) {
       super(...args);
-      this.addEventListener('click', this._toggleSelect);
+      this.addEventListener('click', this._handleClick);
       this.addEventListener('keydown', this.handleSelectKeydown);
     }
 
     private handleSelectKeydown(e: KeyboardEvent) {
       if (e.key !== ' ' && e.key !== 'Enter') return;
       e.preventDefault();
-      this._toggleSelect();
+      this._handleClick();
     }
 
-    private _toggleSelect() {
-      if (this.selectable === false) return;
-      this.selected = !this.selected;
-
+    private _select() {
+      if (!this.selectable) return;
+      this.selected = true;
       this.dispatchEvent(
-        new UUISelectableEvent(
-          this.selected
-            ? UUISelectableEvent.SELECTED
-            : UUISelectableEvent.UNSELECTED,
-          this
-        )
+        new UUISelectableEvent(UUISelectableEvent.SELECTED, this)
       );
+    }
+
+    private _unselect() {
+      if (!this.unselectable) this.selected = false;
+      this.dispatchEvent(
+        new UUISelectableEvent(UUISelectableEvent.UNSELECTED, this)
+      );
+    }
+
+    private _handleClick() {
+      if (this.unselectable === false) {
+        this._select();
+      } else {
+        this.selected ? this._unselect() : this._select();
+      }
     }
   }
   // prettier-ignore

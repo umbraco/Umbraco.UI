@@ -59,13 +59,13 @@ export class UUIComboboxListElement extends LitElement {
     flatten: true,
     selector: 'uui-combobox-list-option:not([disabled])',
   })
-  private _options: UUIComboboxListOptionElement[] = [];
+  private _options!: UUIComboboxListOptionElement[];
 
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-combobox-list-option[active]',
   })
-  private _activeOptions: UUIComboboxListOptionElement[] = [];
+  private _activeOptions!: UUIComboboxListOptionElement[];
 
   @state()
   private _value = '';
@@ -109,8 +109,9 @@ export class UUIComboboxListElement extends LitElement {
     this.selectOption(option);
   };
 
-  private _onOptionUnselected = () => {
-    this.deselectOption();
+  private _onOptionUnselected = (e: any) => {
+    const option = e.composedPath()[0];
+    this.selectOption(option);
   };
 
   private selectOption(option: UUIComboboxListOptionElement) {
