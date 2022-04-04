@@ -7,6 +7,9 @@ import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 /**
  * @element uui-combobox-list
+ * @fires {UUIComboboxListEvent} change - fires when selection is changed
+ * @slot default - for uui-combobox-list-options
+ * @description - A list that uses uui-combobox-list-options and handles keyboard navigation and selection.
  */
 @defineElement('uui-combobox-list')
 export class UUIComboboxListElement extends LitElement {
@@ -20,22 +23,13 @@ export class UUIComboboxListElement extends LitElement {
     `,
   ];
 
-  @queryAssignedElements({
-    flatten: true,
-    selector: 'uui-combobox-list-option:not([disabled])',
-  })
-  private _options!: UUIComboboxListOptionElement[]; //TODO: Fix the !
-
-  @queryAssignedElements({
-    flatten: true,
-    selector: 'uui-combobox-list-option[active]',
-  })
-  private _activeOptions!: UUIComboboxListOptionElement[]; //TODO: Fix the !
-
-  @state()
-  private _value: any;
-
-  @property({ attribute: false })
+  /**
+   * Value of selected option.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
+  @property({ type: String })
   public get value() {
     return this._value;
   }
@@ -52,8 +46,29 @@ export class UUIComboboxListElement extends LitElement {
     this.requestUpdate('value', oldValue);
   }
 
+  /**
+   * A readable value to display to show the selected value.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
   @property({ type: String })
   public displayValue = '';
+
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-combobox-list-option:not([disabled])',
+  })
+  private _options!: UUIComboboxListOptionElement[]; //TODO: Fix the !
+
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-combobox-list-option[active]',
+  })
+  private _activeOptions!: UUIComboboxListOptionElement[]; //TODO: Fix the !
+
+  @state()
+  private _value = '';
 
   private _index = 0;
 

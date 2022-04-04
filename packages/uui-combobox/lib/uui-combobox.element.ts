@@ -12,6 +12,12 @@ import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 /**
  * @element uui-combobox
+ * @fires {UUIComboboxEvent} input - fires when search input is changed
+ * @fires {UUIComboboxEvent} change - fires when selection is changed
+ * @slot default - for uui-combobox-list-options
+ * @slot input-prepend - prepend for the uui-input
+ * @slot input-append - append for the uui-input
+ * @description - Filterable combobox
  */
 @defineElement('uui-combobox')
 export class UUIComboboxElement extends FormControlMixin(LitElement) {
@@ -46,10 +52,19 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
       uui-caret {
         margin-right: var(--uui-size-3);
+        display: flex;
+        width: 14px;
+        flex-shrink: 0;
       }
     `,
   ];
 
+  /**
+   * The search input.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
   @property({ type: String })
   public get search() {
     return this._search;
@@ -62,6 +77,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.requestUpdate('search', oldValue);
   }
 
+  /**
+   * Specifies if the popover should be open.
+   * @type { boolean }
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean })
   public open = false;
 

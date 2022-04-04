@@ -5,6 +5,8 @@ import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-combobox-list-option
+ * @slot default - For option content
+ * @description - An option to be used within uui-combobox-list
  */
 @defineElement('uui-combobox-list-option')
 export class UUIComboboxListOptionElement extends SelectableMixin(
@@ -85,6 +87,12 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
 
   @state() _displayValue = '';
 
+  /**
+   * Value of the option.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
   @property({ type: String })
   public get value(): string {
     return this._value ? this._value : this.textContent?.trim() || '';
@@ -95,6 +103,12 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
     this.requestUpdate('value', oldValue);
   }
 
+  /**
+   * A readable value.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
   @property({ type: String, attribute: 'display-value' })
   public get displayValue() {
     return this._displayValue
@@ -107,11 +121,16 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
     this.requestUpdate('displayValue', oldValue);
   }
 
+  /**
+   * Determines if the options is disabled. If true the option can't be selected
+   * @type { boolean }
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   public get disabled() {
     return this._disabled;
   }
-
   public set disabled(newValue) {
     const oldValue = this._disabled;
     this._disabled = newValue;
