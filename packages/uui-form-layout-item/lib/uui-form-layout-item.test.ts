@@ -1,4 +1,5 @@
 import { expect, fixture, html } from '@open-wc/testing';
+import '@umbraco-ui/uui-form-validation-message/lib';
 
 import { UUIFormLayoutItemElement } from './uui-form-layout-item.element';
 

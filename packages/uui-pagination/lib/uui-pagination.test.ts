@@ -5,6 +5,8 @@ import {
   elementUpdated,
   oneEvent,
 } from '@open-wc/testing';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-button-group/lib';
 import { UUIPaginationElement } from './uui-pagination.element';
 import '.';
 
