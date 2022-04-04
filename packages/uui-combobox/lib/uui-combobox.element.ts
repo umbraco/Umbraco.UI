@@ -178,6 +178,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       this._open();
     }
+
+    if (e.key === 'Escape') {
+      this._close();
+    }
   };
 
   private _clear = (e: any) => {
