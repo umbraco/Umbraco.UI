@@ -1,4 +1,5 @@
 import '.';
+import './uui-combobox-async-example';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -246,3 +247,6 @@ CountrySelect.args = {
   selected: 'DK',
   regions: RegionsAndCountries,
 };
+
+export const AsyncData: Story = () =>
+  html`<uui-combobox-async-example></uui-combobox-async-example>`;
