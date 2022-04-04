@@ -119,10 +119,6 @@ export class UUIComboboxListElement extends LitElement {
     this.value = option.value;
   }
 
-  private deselectOption() {
-    this.value = '';
-  }
-
   private updateOptionsState = () => {
     for (const option of this._options) {
       option.selected = option.value === this._value;
@@ -166,9 +162,7 @@ export class UUIComboboxListElement extends LitElement {
   private _selectAtIndex(index: number) {
     const newSelected = this._options[index];
 
-    newSelected.selected
-      ? this.deselectOption()
-      : this.selectOption(newSelected);
+    this.selectOption(newSelected);
   }
 
   private _onKeyDown = (e: KeyboardEvent) => {
