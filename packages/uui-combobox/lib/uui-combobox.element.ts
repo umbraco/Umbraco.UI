@@ -15,6 +15,7 @@ import {
 } from '@umbraco-ui/uui-combobox-list/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins/FormControlMixin';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { UUISelectableEvent } from 'packages/uui-base/lib/events';
 
 /**
  * @element uui-combobox
@@ -115,6 +116,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.addEventListener('focus', this._onFocus);
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
+    this.addEventListener(UUISelectableEvent.SELECTED, this._close);
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-input');
     demandCustomElement(this, 'uui-button');
@@ -128,6 +130,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.removeEventListener('focus', this._onFocus);
     this.removeEventListener('blur', this._onBlur);
     this.removeEventListener('mousedown', this._onMouseDown);
+    this.removeEventListener(UUISelectableEvent.SELECTED, this._close);
   }
 
   protected firstUpdated(
@@ -169,8 +172,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._displayValue = this._selectedElement?.displayValue;
     this.comboboxList[0].value = this.value;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
-
-    this._close();
   };
 
   private _open = () => {

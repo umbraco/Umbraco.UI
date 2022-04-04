@@ -109,8 +109,9 @@ export class UUIComboboxListElement extends LitElement {
     this.selectOption(option);
   };
 
-  private _onOptionUnselected = () => {
-    this.deselectOption();
+  private _onOptionUnselected = (e: any) => {
+    const option = e.composedPath()[0];
+    this.selectOption(option);
   };
 
   private selectOption(option: UUIComboboxListOptionElement) {
