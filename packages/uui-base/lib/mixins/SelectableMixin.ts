@@ -75,7 +75,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private _unselect() {
-      if (!this.unselectable) this.selected = false;
+      if (!this.unselectable) return;
+      this.selected = false;
       this.dispatchEvent(
         new UUISelectableEvent(UUISelectableEvent.UNSELECTED, this)
       );
