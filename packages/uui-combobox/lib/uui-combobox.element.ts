@@ -124,7 +124,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
-    demandCustomElement(this, 'uui-caret');
   }
 
   disconnectedCallback(): void {
