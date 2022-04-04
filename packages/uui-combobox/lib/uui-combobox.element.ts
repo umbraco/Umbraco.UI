@@ -50,11 +50,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         box-shadow: var(--uui-shadow-depth-3);
       }
 
-      uui-caret {
-        margin-right: var(--uui-size-3);
+      #caret {
+        margin-right: var(--uui-size-3, 9px);
         display: flex;
-        width: 14px;
+        width: 18px;
         flex-shrink: 0;
+        margin-top: -1px;
       }
     `,
   ];
@@ -103,6 +104,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
     demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-input');
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
@@ -209,7 +211,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   };
 
   private _renderCaret = () => {
-    return html`<uui-caret slot="append" .open=${this.open}></uui-caret>`;
+    return html`<svg id="caret" slot="append" viewBox="0 0 512 512">
+      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+    </svg>`;
   };
 
   private _renderClearButton = () => {
