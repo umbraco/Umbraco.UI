@@ -68,7 +68,7 @@ export class UUIComboboxListElement extends LitElement {
   private _activeOptions!: UUIComboboxListOptionElement[];
 
   @state()
-  private _value = '';
+  private _value: FormDataEntryValue = '';
 
   private _index = 0;
 

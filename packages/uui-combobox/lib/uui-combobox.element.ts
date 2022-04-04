@@ -101,7 +101,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     flatten: true,
     selector: 'uui-combobox-list',
   })
-  comboboxList: UUIComboboxListElement | undefined;
+  private _comboboxListElements?: UUIComboboxListElement[];
+
+  private _comboboxList!: UUIComboboxListElement;
 
   @state()
   private _displayValue = '';
@@ -133,11 +135,17 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.removeEventListener(UUISelectableEvent.SELECTED, this._close);
   }
 
-  protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
-  ): void {
-    this.comboboxList[0].addEventListener('change', this._onChange);
-    this.comboboxList[0].value = this.value;
+  protected firstUpdated(): void {
+    const list = this._comboboxListElements?.[0];
+
+    if (list) {
+      this._comboboxList = list;
+      this._comboboxList.addEventListener(
+        UUIComboboxListEvent.CHANGE,
+        this._onChange
+      );
+      this._comboboxList.value = this.value;
+    }
   }
 
   protected getFormElement(): HTMLElement | undefined {
@@ -171,7 +179,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.value = newValue || '';
     this.search = this.value ? this.search : '';
     this._displayValue = this._selectedElement?.displayValue;
-    this.comboboxList[0].value = this.value;
+    this._comboboxList.value = this.value;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -215,7 +223,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._input.value = this._displayValue;
     this.search = '';
     this.value = '';
-    this.comboboxList[0].value = this.value;
+    this._comboboxList.value = this.value;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
