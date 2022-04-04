@@ -44,8 +44,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.requestUpdate('selected', oldVal);
     }
 
-    @property({ type: Boolean })
-    unselectable = true;
+    protected unselectable = true;
 
     /**
      * Attribute applied when the element is selected.
