@@ -200,7 +200,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       this._open();
     }
 
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' || e.key === 'Enter') {
       this._close();
     }
   };

@@ -9,7 +9,7 @@ import RegionsAndCountries from 'storyhelpers/RegionsAndCountries';
 
 export default {
   id: 'uui-combobox',
-  title: 'Combobox',
+  title: 'Inputs/Combobox',
   component: 'uui-combobox',
   args: {
     search: '',
