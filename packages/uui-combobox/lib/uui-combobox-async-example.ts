@@ -74,9 +74,7 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
   render() {
     return html`
       <uui-combobox @input="${this._handleSearch}">
-        ${this._loading
-          ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
-          : html``}
+        ${this._loading ? html`<uui-loader id="loader"></uui-loader>` : html``}
         ${this._filterValue === '' && this._loading === false
           ? html`<div class="help">Search for a fruit...</div>`
           : ''}
