@@ -85,12 +85,15 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
         this._loading === false
           ? html`<div class="help">No fruits matched</div>`
           : ''}
-        ${this._options.map(
-          option =>
-            html`<uui-combobox-list-option value="${option.value}"
-              >${option.name}</uui-combobox-list-option
-            >`
-        )}
+
+        <uui-combobox-list>
+          ${this._options.map(
+            option =>
+              html`<uui-combobox-list-option value="${option.value}"
+                >${option.name}</uui-combobox-list-option
+              >`
+          )}
+        </uui-combobox-list>
       </uui-combobox>
 
       <div style="margin-top: var(--uui-size-4)">
