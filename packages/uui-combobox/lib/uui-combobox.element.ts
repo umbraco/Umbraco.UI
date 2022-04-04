@@ -1,11 +1,17 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { property, query, state } from 'lit/decorators.js';
-import { css, html, LitElement } from 'lit';
+import {
+  property,
+  query,
+  queryAssignedElements,
+  state,
+} from 'lit/decorators.js';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import {
   UUIComboboxListOptionElement,
   UUIComboboxListEvent,
+  UUIComboboxListElement,
 } from '@umbraco-ui/uui-combobox-list/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins/FormControlMixin';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
@@ -91,6 +97,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   @query('#combobox-input')
   private _input!: HTMLInputElement;
 
+  @queryAssignedElements({
+    flatten: true,
+    selector: 'uui-combobox-list',
+  })
+  comboboxList: UUIComboboxListElement | undefined;
+
   @state()
   private _displayValue = '';
 
@@ -119,6 +131,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.removeEventListener('blur', this._onBlur);
     this.removeEventListener('mousedown', this._onMouseDown);
     this.removeEventListener(UUISelectableEvent.SELECTED, this._close);
+  }
+
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    this.comboboxList[0].addEventListener('change', this._onChange);
   }
 
   protected getFormElement(): HTMLElement | undefined {
@@ -152,6 +170,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.value = newValue || '';
     this.search = this.value ? this.search : '';
     this._displayValue = this._selectedElement?.displayValue;
+    this.comboboxList[0].value = this.value;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -179,6 +198,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       this._open();
     }
+
+    if (e.key === 'Escape') {
+      this._close();
+    }
   };
 
   private _clear = (e: any) => {
@@ -191,6 +214,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._input.value = this._displayValue;
     this.search = '';
     this.value = '';
+    this.comboboxList[0].value = this.value;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -236,9 +260,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _renderDropdown = () => {
     return html`<div id="dropdown" slot="popover">
       <uui-scroll-container id="scroll-container">
-        <uui-combobox-list .value=${this.value} @change=${this._onChange}>
-          <slot></slot>
-        </uui-combobox-list>
+        <slot></slot>
       </uui-scroll-container>
     </div>`;
   };
