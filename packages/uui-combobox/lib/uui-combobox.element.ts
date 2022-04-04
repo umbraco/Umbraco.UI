@@ -6,7 +6,7 @@ import {
   queryAssignedElements,
   state,
 } from 'lit/decorators.js';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import {
   UUIComboboxListOptionElement,
@@ -168,7 +168,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._open();
   };
 
-  private _onChange = (e: UUIComboboxListEvent) => {
+  private _onChange = (e: Event) => {
     e.preventDefault();
     e.stopImmediatePropagation();
 

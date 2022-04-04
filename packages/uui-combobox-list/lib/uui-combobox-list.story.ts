@@ -1,7 +1,6 @@
 import '.';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { repeat } from 'lit/directives/repeat.js';
 
 export default {
   id: 'uui-combobox-list',
@@ -15,8 +14,6 @@ export default {
     },
   },
 };
-
-const fruits = ['apple', 'orange', 'lemon'];
 
 export const AAAOverview: Story = () =>
   html`<uui-combobox-list
