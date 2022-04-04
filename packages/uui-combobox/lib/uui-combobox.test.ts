@@ -14,17 +14,19 @@ describe('UUIComboboxElement', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <uui-combobox>
-        <uui-combobox-list-option
-          value="value1"
-          displayValue="value1"></uui-combobox-list-option>
-        <uui-combobox-list-option
-          value="value2"
-          displayValue="value2"></uui-combobox-list-option>
-        <uui-combobox-list-option
-          value="value3"
-          displayValue="value3"></uui-combobox-list-option>
         <div slot="prepend"></div>
         <div slot="append"></div>
+        <uui-combobox-list>
+          <uui-combobox-list-option
+            value="value1"
+            displayValue="value1"></uui-combobox-list-option>
+          <uui-combobox-list-option
+            value="value2"
+            displayValue="value2"></uui-combobox-list-option>
+          <uui-combobox-list-option
+            value="value3"
+            displayValue="value3"></uui-combobox-list-option>
+        </uui-combobox-list>
       </uui-combobox>
     `);
   });
@@ -78,14 +80,11 @@ describe('UUIComboboxElement', () => {
     describe('change', () => {
       it('emits an change event on selection change', async () => {
         const listener = oneEvent(element, UUIComboboxEvent.CHANGE);
-        const list = element.shadowRoot.querySelector('uui-combobox-list');
+        const list = element.querySelector('uui-combobox-list');
 
-        const options = (
-          list.children[0] as HTMLSlotElement
-        ).assignedElements() as HTMLElement[];
-
-        expect(options[2]).to.exist;
-        options[2].click();
+        const option = list.children?.[0] as HTMLElement;
+        expect(option).to.exist;
+        option.click();
 
         const event = await listener;
         expect(event).to.exist;
