@@ -241,7 +241,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return html`<uui-file-preview
       .name=${file.name}
       .extension=${file.extension}
-      .source=${file.source}
+      .url=${file.source}
       .size=${file.size}
       .isDirectory=${file.isDirectory}>
       <uui-action-bar slot="actions">

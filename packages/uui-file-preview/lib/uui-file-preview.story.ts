@@ -11,13 +11,6 @@ export default {
   id: 'uui-file-preview',
   title: 'Displays/File Preview',
   component: 'uui-file-preview',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-file-preview></uui-file-preview>`,
-      },
-    },
-  },
 };
 
 export const Overview: Story = props =>
@@ -28,7 +21,8 @@ export const Overview: Story = props =>
         extension=${props.extension}
         size=${props.size}
         ?isDirectory=${props.isDirectory}
-        src=${props.src}>
+        src=${props.src}
+        url="${props.url}">
         <uui-action-bar slot="actions">
           <uui-button look="">
             <uui-icon name="copy"></uui-icon>

@@ -99,7 +99,7 @@ export class UUIFilePreviewElement extends LitElement {
    * @default ''
    */
   @property({ type: String })
-  public source: string = '';
+  public url: string = '';
 
   /**
    * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
@@ -145,7 +145,7 @@ export class UUIFilePreviewElement extends LitElement {
   }
 
   private openSource() {
-    window.open(this.source, '_blank');
+    window.open(this.url, '_blank');
   }
 
   private fileTypeTemplate() {
@@ -175,8 +175,8 @@ export class UUIFilePreviewElement extends LitElement {
     return html`
       <span
         id="file-name"
-        class=${this.source ? 'has-source' : ''}
-        @click=${() => (this.source ? this.openSource() : '')}
+        class=${this.url ? 'has-source' : ''}
+        @click=${() => (this.url ? this.openSource() : '')}
         @keydown=${() => ''}>
         <span id="file-name-start">${nameStart}</span>
         <span id="file-name-end">${nameEnd}</span>
