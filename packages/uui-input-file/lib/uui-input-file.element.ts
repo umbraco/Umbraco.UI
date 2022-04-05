@@ -9,7 +9,7 @@ import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
-export interface FileWrapper {
+interface FileWrapper {
   name: string;
   extension: string;
   isDirectory: boolean;
