@@ -31,7 +31,7 @@ export class UUISymbolFileThumbnailElement extends LitElement {
    * @default ''
    */
   @property({ type: String })
-  source = '';
+  src: string = '';
 
   /**
    * Alt of the thumbnail.
@@ -40,10 +40,10 @@ export class UUISymbolFileThumbnailElement extends LitElement {
    * @default ''
    */
   @property({ type: String })
-  alt = '';
+  alt: string = '';
 
   render() {
-    return html`<img src=${this.source} alt=${this.alt} />`;
+    return html`<img src=${this.src} alt=${this.alt} />`;
   }
 }
 
