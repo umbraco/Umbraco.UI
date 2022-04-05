@@ -190,7 +190,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const items = e.dataTransfer?.items;
 
     if (items) {
-      const result = await this.getAllFileEntries(items);
+      let result = await this.getAllFileEntries(items);
+
+      if (this.multiple === false) {
+        result = [result[0]];
+      }
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
