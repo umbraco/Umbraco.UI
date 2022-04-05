@@ -26,15 +26,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   ];
 
   /**
-   * Allows for directories to be selected.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean })
-  public directory = false;
-
-  /**
    * Accepted filetypes. Will allow all types if empty.
    * @type {string}
    * @attr

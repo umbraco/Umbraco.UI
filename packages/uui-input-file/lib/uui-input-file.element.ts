@@ -253,7 +253,10 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     //TODO fix icon registry style
     return html`
       <uui-icon-registry-essential style="width: 100%">
-        <uui-file-dropzone id="dropzone" @file-drop=${this.handleFileDrop}>
+        <uui-file-dropzone
+          id="dropzone"
+          multiple
+          @file-drop=${this.handleFileDrop}>
           <div id="dropzone-content">
             <uui-icon name="download"></uui-icon>
             <span> Drop to add files </span>
