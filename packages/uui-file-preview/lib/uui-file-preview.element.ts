@@ -138,6 +138,7 @@ export class UUIFilePreviewElement extends LitElement {
   public isDirectory: boolean = false;
 
   connectedCallback(): void {
+    super.connectedCallback();
     demandCustomElement(this, 'uui-symbol-file-thumbnail');
     demandCustomElement(this, 'uui-symbol-folder');
     demandCustomElement(this, 'uui-symbol-file');

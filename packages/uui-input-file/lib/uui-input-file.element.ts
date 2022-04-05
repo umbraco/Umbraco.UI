@@ -147,6 +147,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   connectedCallback(): void {
+    super.connectedCallback();
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-icon-registry-essential');
     demandCustomElement(this, 'uui-file-dropzone');
