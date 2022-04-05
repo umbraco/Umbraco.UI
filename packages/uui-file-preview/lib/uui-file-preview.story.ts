@@ -28,7 +28,7 @@ export const Overview: Story = props =>
         extension=${props.extension}
         size=${props.size}
         ?isDirectory=${props.isDirectory}
-        thumbnail=${props.thumbnail}>
+        src=${props.src}>
         <uui-action-bar slot="actions">
           <uui-button look="">
             <uui-icon name="copy"></uui-icon>

@@ -117,7 +117,7 @@ export class UUIFilePreviewElement extends LitElement {
    * @default ''
    */
   @property({ type: String })
-  public thumbnail: string = '';
+  public src: string = '';
 
   /**
    * Size of the file in bytes. It will be formatted to a more readable format.
@@ -152,9 +152,9 @@ export class UUIFilePreviewElement extends LitElement {
     if (this.isDirectory) {
       return html`<uui-symbol-folder id="file-symbol"></uui-symbol-folder>`;
     }
-    if (this.thumbnail) {
+    if (this.src) {
       return html`<uui-symbol-file-thumbnail
-        .source=${this.thumbnail}
+        .src=${this.src}
         .alt=${this.name}
         id="file-symbol"></uui-symbol-file-thumbnail>`;
     }
