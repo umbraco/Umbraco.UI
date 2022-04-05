@@ -8,9 +8,7 @@ export default {
   component: 'uui-combobox-list',
   parameters: {
     docs: {
-      source: {
-        code: `<uui-combobox-list></uui-combobox-list>`,
-      },
+      source: { type: 'auto' },
     },
   },
 };

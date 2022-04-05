@@ -17,7 +17,7 @@ export default {
   parameters: {
     docs: {
       source: {
-        code: `<uui-combobox></uui-combobox>`,
+        code: `<uui-combobox style="width: 250px"></uui-combobox>`,
       },
     },
   },
@@ -129,12 +129,56 @@ AAAOverview.args = {
   filter: basicFilter,
 };
 AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px">
+  <uui-combobox-list>
+    <uui-combobox-list-option style="padding: 8px">
+      apple
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      orange
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      lemon
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
+};
 
 export const CustomValue: Story = Template.bind({});
 CustomValue.args = {
   options: fruits,
   valueMod: (fruit: string) => 'FRUIT_' + fruit.toUpperCase(),
   filter: basicFilter,
+};
+CustomValue.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px">
+  <uui-combobox-list>
+    <uui-combobox-list-option value="FRUIT_APPLE" style="padding: 8px">
+      apple
+    </uui-combobox-list-option>
+    <uui-combobox-list-option value="FRUIT_ORANGE" style="padding: 8px">
+      orange
+    </uui-combobox-list-option>
+    <uui-combobox-list-option value="LEMON" style="padding: 8px">
+      lemon
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
 };
 
 export const CustomDisplayValue: Story = Template.bind({});
@@ -143,6 +187,28 @@ CustomDisplayValue.args = {
   displayValueMod: (fruit: string) =>
     fruit.charAt(0).toUpperCase() + fruit.slice(1),
   filter: basicFilter,
+};
+CustomDisplayValue.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px">
+  <uui-combobox-list>
+    <uui-combobox-list-option displayValue="Apple" style="padding: 8px">
+      apple
+    </uui-combobox-list-option>
+    <uui-combobox-list-option displayValue="Orange" style="padding: 8px">
+      orange
+    </uui-combobox-list-option>
+    <uui-combobox-list-option displayValue="Lemon" style="padding: 8px">
+      lemon
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
 };
 
 export const Avatars: Story = Template.bind({});
@@ -242,6 +308,76 @@ export const CountrySelect: Story = props => {
     </uui-combobox>
 
     <span style="margin-left: 16px">Selected value: ${props.selected}</span> `;
+};
+
+Avatars.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px">
+  <uui-combobox-list>
+    <uui-combobox-list-option displayValue="Superman" value="SM" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
+      <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
+      <div style="display: flex; flex-direction: column">
+        <b>Superman</b>
+        <div style="font-size: 0.8rem">A pretty strong guy</div>
+      </div>
+    </uui-combobox-list-option> 
+    <uui-combobox-list-option displayValue="R2-D2" value="RD" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
+      <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
+      <div style="display: flex; flex-direction: column">
+        <b>R2-D2</b>
+        <div style="font-size: 0.8rem">Bip Bub</div>
+      </div>
+    </uui-combobox-list-option> 
+    <uui-combobox-list-option displayValue="Luke Skywalker" value="LS" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
+      <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
+      <div style="display: flex; flex-direction: column">
+        <b>Luke Skywalker</b>
+        <div style="font-size: 0.8rem">Guy with a funky sword</div>
+      </div>
+    </uui-combobox-list-option> 
+    <uui-combobox-list-option displayValue="Batman" value="BM" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
+      <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
+      <div style="display: flex; flex-direction: column">
+        <b>Batman</b>
+        <div style="font-size: 0.8rem">I'M BATMAN!</div>
+      </div>
+    </uui-combobox-list-option>
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
+};
+
+CountrySelect.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px">
+  <uui-combobox-list>
+    <span style="; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-interface-border,#c4c4c4);">
+      Africa
+    </span>
+    <uui-combobox-list-option style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;" tabindex="0">
+     <img style="height: 24px" src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DZ.svg" alt="Algeria">
+     Algeria
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;" tabindex="0">
+      <img style="height: 24px" src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EG.svg" alt="Egypt">
+      Egypt
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;" tabindex="0">
+      <img style="height: 24px" src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LY.svg" alt="Libya">
+      Libya
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
 };
 
 CountrySelect.args = {
