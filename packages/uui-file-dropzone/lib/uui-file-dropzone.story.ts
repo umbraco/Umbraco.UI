@@ -11,7 +11,7 @@ export default {
     docs: {
       source: {
         code: `
-<uui-file-dropzone>
+<uui-file-dropzone @file-drop="e => console.log(e.detail)">
   <uui-button look="placeholder" style="width: 100px; height: 100px;"></uui-button>
 </uui-file-dropzone>`,
       },
@@ -21,11 +21,12 @@ export default {
 
 export const AAAOverview: Story = props =>
   html`
+    <h4>Selected files are logged to the console</h4>
     <uui-file-dropzone
       ?multiple=${props.multiple}
       ?directory=${props.directory}
       .accept=${props.accept}
-      @file-drop=${e => console.log('Hello', e.detail)}>
+      @file-drop=${e => console.log(e.detail)}>
       <uui-button look="placeholder" style="width: 100px; height: 100px;">
       </uui-button>
     </uui-file-dropzone>
@@ -34,15 +35,28 @@ AAAOverview.storyName = 'Overview';
 
 export const MultipleFiles: Story = () =>
   html`
-    <uui-file-dropzone multiple>
+    <h4>Selected files are logged to the console</h4>
+    <uui-file-dropzone multiple @file-drop=${e => console.log(e.detail)}>
       <uui-button look="placeholder" style="width: 100px; height: 100px;">
       </uui-button>
     </uui-file-dropzone>
   `;
 
+MultipleFiles.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-file-dropzone multiple @file-drop="e => console.log(e.detail)">
+<uui-button look="placeholder" style="width: 100px; height: 100px;"></uui-button>
+</uui-file-dropzone>`,
+    },
+  },
+};
+
 export const SingleFile: Story = () =>
   html`
-    <uui-file-dropzone>
+    <h4>Selected files are logged to the console</h4>
+    <uui-file-dropzone @file-drop=${e => console.log(e.detail)}>
       <uui-button look="placeholder" style="width: 100px; height: 100px;">
       </uui-button>
     </uui-file-dropzone>
@@ -50,7 +64,8 @@ export const SingleFile: Story = () =>
 
 export const WithSymbol: Story = () =>
   html`
-    <uui-file-dropzone>
+    <h4>Selected files are logged to the console</h4>
+    <uui-file-dropzone @file-drop=${e => console.log(e.detail)}>
       <uui-button look="placeholder">
         <uui-symbol-file-dropzone></uui-symbol-file-dropzone>
       </uui-button>
@@ -61,7 +76,7 @@ WithSymbol.parameters = {
   docs: {
     source: {
       code: `
-<uui-file-dropzone>
+<uui-file-dropzone @file-drop="e => console.log(e.detail)">
 <uui-button look="placeholder">
   <uui-symbol-file-dropzone></uui-symbol-file-dropzone>
 </uui-button>

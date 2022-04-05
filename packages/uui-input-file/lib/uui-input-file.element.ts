@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
@@ -7,6 +7,7 @@ import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 export interface FileWrapper {
   name: string;
@@ -66,7 +67,12 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 20%;
+        max-height: 100%;
+        max-width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        padding: var(--uui-size-6);
+        box-sizing: border-box;
         color: var(--uui-color-malibu-dimmed);
       }
 
@@ -100,6 +106,15 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     `,
   ];
 
+  /**
+   * Accepted filetypes. Will allow all types if empty.
+   * @type {string}
+   * @attr
+   * @default false
+   */
+  @property({ type: String })
+  public accept = '';
+
   @query('#dropzone')
   private _dropZone: UUIFileDropzoneElement | undefined;
 
@@ -129,6 +144,15 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this.addEventListener('dragenter', () => this.setShowDropzone(true));
     this.addEventListener('dragleave', () => this.setShowDropzone(false));
     this.addEventListener('drop', () => this.setShowDropzone(false));
+  }
+
+  connectedCallback(): void {
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-icon-registry-essential');
+    demandCustomElement(this, 'uui-file-dropzone');
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-action-bar');
+    demandCustomElement(this, 'uui-file-preview');
   }
 
   protected getFormElement(): HTMLElement {
@@ -256,6 +280,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         <uui-file-dropzone
           id="dropzone"
           multiple
+          .accept=${this.accept}
           @file-drop=${this.handleFileDrop}>
           <div id="dropzone-content">
             <uui-icon name="download"></uui-icon>
@@ -266,6 +291,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           ${this.renderFiles()}
           <uui-file-dropzone
             multiple
+            .accept=${this.accept}
             id="add-zone"
             @file-drop=${this.handleFileDrop}>
             <uui-button id="add-button" look="placeholder">Add</uui-button>

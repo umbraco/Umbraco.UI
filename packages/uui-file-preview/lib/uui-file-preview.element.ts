@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 import { UUIFileSize } from './UUIFileSize';
 
 import { css, html, LitElement } from 'lit';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  *  @element uui-file-preview
@@ -135,6 +136,12 @@ export class UUIFilePreviewElement extends LitElement {
    */
   @property({ type: Boolean })
   public isDirectory: boolean = false;
+
+  connectedCallback(): void {
+    demandCustomElement(this, 'uui-symbol-file-thumbnail');
+    demandCustomElement(this, 'uui-symbol-folder');
+    demandCustomElement(this, 'uui-symbol-file');
+  }
 
   private openSource() {
     window.open(this.source, '_blank');
