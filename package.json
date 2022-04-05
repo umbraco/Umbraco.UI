@@ -36,10 +36,13 @@
     "build": "lerna run --scope @umbraco-ui/uui-css build && turbo run build",
     "build:prod": "npm run clean && npm run build",
     "clean": "turbo run clean --parallel",
-    "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes && npm run lerna-fix",
-    "lerna:version": "lerna version --no-push --exact --no-git-tag-version && rimraf package-lock.json && npm i",
+    "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes",
+    "lerna:version": "lerna version --no-push --exact --conventional-commits --include-merged-tags",
+    "lerna:changed": "lerna changed --include-merged-tags",
+    "version": "rimraf package-lock.json && npm i",
+    "lerna:changelog": "npx lerna-changelog",
     "lerna:diff": "lerna diff",
-    "lerna-fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
+    "lerna:fix": "lerna exec -- node ../../scripts/lerna-fix.mjs",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "postinstall": "npm run bootstrap",
     "bootstrap": "lerna run --scope @umbraco-ui/uui-css clean && lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
@@ -52,8 +55,8 @@
     "chromatic": "npx chromatic --build-script-name storybook:build"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.21.0"
+    "node": ">=16.0.0 <17",
+    "npm": ">=8.0.0 < 9"
   },
   "dependencies": {
     "lit": "2.2.1"
@@ -113,7 +116,7 @@
     "rollup-plugin-postcss": "4.0.2",
     "storybook-builder-vite": "0.1.21",
     "tsc-files": "1.1.3",
-    "turbo": "1.1.2",
+    "turbo": "1.1.5",
     "typescript": "4.5.2",
     "vite": "2.8.6",
     "vite-tsconfig-paths": "3.4.1",

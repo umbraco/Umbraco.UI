@@ -3,7 +3,8 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
 /**
- *  A caret that rotates on click. Color will be `currentColor`
+ *  DEPRECATED: Please use uui-symbol-expand or uui-symbol-sort. A caret that rotates on click. Color will be `currentColor`
+ *  @deprecated since version 0.0.8
  *  @element uui-caret
  */
 @defineElement('uui-caret')

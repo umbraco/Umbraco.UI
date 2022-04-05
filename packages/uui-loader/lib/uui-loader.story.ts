@@ -22,5 +22,5 @@ export const Overview: Story = props =>
     style=${props.color ? 'color: ' + props.color : ''}></uui-loader>`;
 Overview.args = { color: '' };
 Overview.argTypes = {
-  color: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
 };

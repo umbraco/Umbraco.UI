@@ -26,7 +26,7 @@ export const AAAOverview: Story = props => html`
 `;
 AAAOverview.args = { fontSize: 2, '--uui-avatar-border-color': 'white' };
 AAAOverview.argTypes = {
-  fontSize: { table: { category: 'inline styling' } },
+  fontSize: { table: { category: 'Styles' } },
   '--uui-avatar-border-color': { control: { type: 'color' } },
 };
 AAAOverview.parameters = {};

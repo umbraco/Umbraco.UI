@@ -98,6 +98,9 @@
       "path": "../uui-input"
     },
     {
+      "path": "../uui-input-lock"
+    },
+    {
       "path": "../uui-input-password"
     },
     {

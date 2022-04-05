@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-form-validation-message",
-  "version": "0.0.2",
+  "version": "0.1.1",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -28,7 +28,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.17"
+    "@umbraco-ui/uui-base": "0.1.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

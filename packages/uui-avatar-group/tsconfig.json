@@ -11,10 +11,10 @@
   "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": [
     {
-      "path": "../uui-base"
+      "path": "../uui-avatar"
     },
     {
-      "path": "../uui-avatar"
+      "path": "../uui-base"
     }
   ]
 }

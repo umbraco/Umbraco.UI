@@ -14,10 +14,10 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-symbol-expand"
+      "path": "../uui-loader-bar"
     },
     {
-      "path": "../uui-loader-bar"
+      "path": "../uui-symbol-expand"
     }
   ]
 }
