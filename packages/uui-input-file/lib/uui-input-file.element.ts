@@ -7,6 +7,7 @@ import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 export interface FileWrapper {
   name: string;
@@ -134,6 +135,15 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this.addEventListener('dragenter', () => this.setShowDropzone(true));
     this.addEventListener('dragleave', () => this.setShowDropzone(false));
     this.addEventListener('drop', () => this.setShowDropzone(false));
+  }
+
+  connectedCallback(): void {
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-icon-registry-essential');
+    demandCustomElement(this, 'uui-file-dropzone');
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-action-bar');
+    demandCustomElement(this, 'uui-file-preview');
   }
 
   protected getFormElement(): HTMLElement {
