@@ -66,7 +66,12 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 20%;
+        max-height: 100%;
+        max-width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        padding: var(--uui-size-6);
+        box-sizing: border-box;
         color: var(--uui-color-malibu-dimmed);
       }
 
