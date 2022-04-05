@@ -121,10 +121,10 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   private _fileWrappers: FileWrapper[] = [];
 
   @state()
-  get fileWrappers() {
+  private get fileWrappers() {
     return this._fileWrappers;
   }
-  set fileWrappers(newValue) {
+  private set fileWrappers(newValue) {
     const oldValue = newValue;
     this._fileWrappers = newValue;
     const formData = new FormData();
