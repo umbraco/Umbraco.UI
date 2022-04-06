@@ -57,6 +57,9 @@ describe('UuiInputElement', () => {
     it('has a requiredMessage property', () => {
       expect(element).to.have.property('requiredMessage');
     });
+    it('has a autocomplete property', () => {
+      expect(element).to.have.property('autocomplete');
+    });
 
     it('disable property set input to disabled', async () => {
       element.disabled = true;
