@@ -57,6 +57,17 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         box-shadow: var(--uui-shadow-depth-3);
       }
 
+      #clear-button {
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+
+      #clear-button.--show {
+        pointer-events: auto;
+        opacity: 1;
+      }
+
       #caret {
         margin-right: var(--uui-size-3, 9px);
         display: flex;
@@ -234,6 +245,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       type="text"
       .value=${this._displayValue}
       .placeholder=${this._displayValue}
+      autocomplete="off"
       @click=${this._open}
       @input=${this._onInput}
       @keydown=${this._onKeyDown}>
@@ -250,19 +262,17 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   };
 
   private _renderClearButton = () => {
-    if (this.value || this.search) {
-      return html`<uui-button
-        @click=${this._clear}
-        @keydown=${this._clear}
-        label="clear"
-        slot="append"
-        compact
-        style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
-        <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
-      </uui-button>`;
-    } else {
-      return '';
-    }
+    return html`<uui-button
+      id="clear-button"
+      class=${this.value || this.search ? '--show' : ''}
+      @click=${this._clear}
+      @keydown=${this._clear}
+      label="clear"
+      slot="append"
+      compact
+      style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
+      <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
+    </uui-button>`;
   };
 
   private _renderDropdown = () => {
@@ -277,7 +287,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     return html`
       <uui-popover
         .open=${this.open}
-        .margin=${10}
+        .margin=${-1}
         @close=${() => this._close()}>
         ${this._renderInput()} ${this._renderDropdown()}
       </uui-popover>
