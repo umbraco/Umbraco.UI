@@ -5,7 +5,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { useArgs } from '@storybook/client-api';
 import { repeat } from 'lit/directives/repeat.js';
-import RegionsAndCountries from 'storyhelpers/RegionsAndCountries';
+import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
 
 export default {
   id: 'uui-combobox',
