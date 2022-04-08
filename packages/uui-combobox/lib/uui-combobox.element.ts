@@ -9,13 +9,11 @@ import {
 import { css, html, LitElement } from 'lit';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import {
-  UUIComboboxListOptionElement,
   UUIComboboxListEvent,
   UUIComboboxListElement,
 } from '@umbraco-ui/uui-combobox-list/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins/FormControlMixin';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 /**
  * @element uui-combobox
@@ -92,7 +90,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (this.search === newValue) return;
     const oldValue = this._search;
     this._search = newValue;
-    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.INPUT));
     this.requestUpdate('search', oldValue);
   }
 
@@ -115,21 +112,18 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _comboboxListElements?: UUIComboboxListElement[];
 
   private _comboboxList!: UUIComboboxListElement;
-
   @state()
   private _displayValue = '';
 
   @state()
   private _search = '';
 
-  private _selectedElement: UUIComboboxListOptionElement | undefined;
-
   connectedCallback(): void {
     super.connectedCallback();
-    this.addEventListener('focus', this._onFocus);
+
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
-    this.addEventListener(UUISelectableEvent.SELECTED, this._close);
+
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-input');
     demandCustomElement(this, 'uui-button');
@@ -139,10 +133,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.removeEventListener('focus', this._onFocus);
+
     this.removeEventListener('blur', this._onBlur);
     this.removeEventListener('mousedown', this._onMouseDown);
-    this.removeEventListener(UUISelectableEvent.SELECTED, this._close);
   }
 
   protected firstUpdated(): void {
@@ -170,26 +163,23 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       }
     });
 
-  private _onFocus = () => '';
-
   private _onInput = (e: any) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.search = e.target.value;
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     this._open();
   };
 
   private _onChange = (e: Event) => {
-    e.preventDefault();
     e.stopImmediatePropagation();
 
-    this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
-    const newValue = this._selectedElement?.value;
-
-    this.value = newValue || '';
+    this.value = this._comboboxList?.value || '';
+    this._displayValue = this._comboboxList?.displayValue || '';
     this.search = this.value ? this.search : '';
-    this._displayValue = this._selectedElement?.displayValue;
-    this._comboboxList.value = this.value;
+
+    this._close();
+
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -202,16 +192,19 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (!this.open) return;
 
     this.open = false;
-    this._displayValue = this._selectedElement?.displayValue || '';
 
+    // Reset display and input value:
+    this._displayValue = this._comboboxList?.displayValue || '';
     this._input.value = this._displayValue;
+
     this.search = '';
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
   };
 
   private _onKeyDown = (e: KeyboardEvent) => {
     if (this.open === false && e.key === 'Enter') {
-      e.preventDefault();
-      e.stopImmediatePropagation();
+      e.preventDefault(); // TODO: could we avoid this.
+      e.stopImmediatePropagation(); // TODO: could we avoid this.
     }
 
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
@@ -226,8 +219,8 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _clear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
-    e.preventDefault();
-    e.stopImmediatePropagation();
+    e.preventDefault(); // TODO: could we avoid this.
+    e.stopImmediatePropagation(); // TODO: could we avoid this.
 
     this._displayValue = '';
     this._input.value = this._displayValue;

@@ -82,7 +82,7 @@ describe('UUIComboboxElement', () => {
         const listener = oneEvent(element, UUIComboboxEvent.CHANGE);
         const list = element.querySelector('uui-combobox-list');
 
-        const option = list.children?.[0] as HTMLElement;
+        const option = list!.children![0] as any;
         expect(option).to.exist;
         option.click();
 
@@ -94,11 +94,18 @@ describe('UUIComboboxElement', () => {
 
     describe('input', () => {
       it('emits an input event on file change', async () => {
-        const listener = oneEvent(element, UUIComboboxEvent.INPUT);
+        const listener = oneEvent(element, UUIComboboxEvent.SEARCH);
+
         element.search = 'new';
+
+        // Emit event, to mimic user interaction:
+        element
+          .shadowRoot!.querySelector('#combobox-input')!
+          .dispatchEvent(new Event('input'));
+
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUIComboboxEvent.INPUT);
+        expect(event.type).to.equal(UUIComboboxEvent.SEARCH);
       });
     });
   });

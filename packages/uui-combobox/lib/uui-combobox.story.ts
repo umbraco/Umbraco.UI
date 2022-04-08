@@ -104,15 +104,17 @@ const Template: Story = props => {
 
   return html`<uui-combobox
       @change=${handleSelect}
-      @input=${handleSearch}
+      @search=${handleSearch}
       style="width: 250px">
       <uui-combobox-list>
         ${repeat(filter(options, search), (option: any, index: number) =>
           renderMod
             ? renderMod(option, index)
             : html`<uui-combobox-list-option
-                .value=${valueMod ? valueMod(option) : ''}
-                .displayValue=${displayValueMod ? displayValueMod(option) : ''}
+                .value=${valueMod ? valueMod(option) : option}
+                .displayValue=${displayValueMod
+                  ? displayValueMod(option)
+                  : option}
                 style="padding: 8px">
                 ${option}
               </uui-combobox-list-option>`
@@ -301,7 +303,7 @@ export const CountrySelect: Story = props => {
   return html`<uui-combobox
       .value=${props.selected}
       style="--uui-combobox-popover-max-height: 300px; width: 250px;"
-      @input=${handleSearch}
+      @search=${handleSearch}
       @change=${handleSelect}>
       <span slot="input-prepend">${renderSelectedFlag()}</span>
       <uui-combobox-list>${renderFilteredOptions()}</uui-combobox-list>

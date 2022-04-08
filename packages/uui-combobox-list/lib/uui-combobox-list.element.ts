@@ -1,9 +1,9 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import { UUIComboboxListEvent } from './UUIComboboxListEvent';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events/UUISelectableEvent';
 import { UUIComboboxListOptionElement } from './uui-combobox-list-option.element';
-import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
+import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 
 /**
  * @element uui-combobox-list
@@ -38,10 +38,8 @@ export class UUIComboboxListElement extends LitElement {
 
     const oldValue = this._value;
     this._value = newValue;
-    this.displayValue =
-      this._options.find(x => x.value === this._value)?.displayValue || '';
 
-    this.updateOptionsState();
+    this._updateSelection();
     this.requestUpdate('value', oldValue);
   }
 
@@ -69,73 +67,102 @@ export class UUIComboboxListElement extends LitElement {
   @state()
   private _value: FormDataEntryValue = '';
 
-  private _index = 0;
+  private __activeElement: UUIComboboxListOptionElement | undefined;
+  private get _activeElement(): UUIComboboxListOptionElement | undefined {
+    return this.__activeElement;
+  }
+  private set _activeElement(el: UUIComboboxListOptionElement | undefined) {
+    if (this.__activeElement) {
+      this.__activeElement.active = false;
+    }
+    if (el) {
+      el.active = true;
+      this.__activeElement = el;
+    }
+  }
+
+  private _selectedElement: UUIComboboxListOptionElement | undefined;
 
   connectedCallback(): void {
     super.connectedCallback();
+    // TODO: cannot use document.
     document.addEventListener('keydown', this._onKeyDown);
-    this.addEventListener(UUISelectableEvent.SELECTED, this._onOptionSelected);
-    this.addEventListener(
-      UUISelectableEvent.UNSELECTED,
-      this._onOptionUnselected
-    );
+
+    this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
+    this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     document.removeEventListener('keydown', this._onKeyDown);
-    this.removeEventListener(
-      UUISelectableEvent.SELECTED,
-      this._onOptionSelected
-    );
-    this.removeEventListener(
-      UUISelectableEvent.UNSELECTED,
-      this._onOptionUnselected
-    );
+
+    this.removeEventListener(UUISelectableEvent.SELECTED, this._onSelected);
+    this.removeEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
   }
 
-  protected firstUpdated() {
-    if (this.value) {
-      // Make sure the displayValue is set if we have a default value.
-      this.displayValue =
-        this._options.find(x => x.value === this._value)?.displayValue || '';
-      this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
-    }
-  }
+  private _updateSelection() {
+    this.displayValue = '';
 
-  private _onOptionSelected = (e: any) => {
-    const option = e.composedPath()[0];
-    this.selectOption(option);
-  };
-
-  private _onOptionUnselected = (e: any) => {
-    const option = e.composedPath()[0];
-    this.selectOption(option);
-  };
-
-  private selectOption(option: UUIComboboxListOptionElement) {
-    this._index = Math.max(this._options.indexOf(option), 0);
-    this.value = option.value;
-    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
-  }
-
-  private updateOptionsState = () => {
+    // Ensure the right items are selected.
     for (const option of this._options) {
-      option.selected = option.value === this._value;
+      if (option.value === this._value) {
+        this.displayValue = option.displayValue || '';
+        option.selected = true;
+      } else {
+        option.selected = false;
+      }
     }
-    for (const option of this._activeOptions) {
-      option.active = this._options[this._index] === option;
-    }
-  };
+  }
 
   private _onSlotChange = () => {
-    this._goToIndex(0); // Makes sure the index stays within array length if an option is removed
-    this.updateOptionsState();
+    this._activeElement = undefined;
+    // Get index from first active, remove active from the rest.
+    for (let i = 0; i < this._activeOptions.length; i++) {
+      if (i === 0) {
+        this._activeElement = this._activeOptions[i];
+      } else {
+        this._activeOptions[i].active = false;
+      }
+    }
+
+    this._updateSelection();
   };
+
+  private _onSelected = (e: Event) => {
+    if (this._selectedElement) {
+      this._selectedElement.selected = false;
+      this._selectedElement.active = false;
+      this._selectedElement = undefined;
+    }
+    this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
+    this._activeElement = this._selectedElement;
+
+    this.value = this._selectedElement.value || '';
+    this.displayValue = this._selectedElement.displayValue || '';
+
+    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
+  };
+  private _onUnselected = (e: Event) => {
+    const el = e.composedPath()[0] as UUIComboboxListOptionElement;
+    if (this._activeElement === el) {
+      this._activeElement = undefined;
+    }
+    if (this._selectedElement === el) {
+      this.value = '';
+      this.displayValue = '';
+      this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
+    }
+  };
+
+  private _getActiveIndex(): number {
+    return this._activeElement
+      ? this._options.indexOf(this._activeElement)
+      : -1;
+  }
 
   private _moveIndex = (distance: number) => {
     const newIndex = Math.min(
-      Math.max(this._index + distance, 0),
+      Math.max(this._getActiveIndex() + distance, 0),
       this._options.length - 1
     );
 
@@ -144,25 +171,15 @@ export class UUIComboboxListElement extends LitElement {
 
   private _goToIndex(index: number) {
     index = Math.min(Math.max(index, 0), this._options.length - 1); // Makes sure the index stays within array length
+    this._activeElement = this._options[index];
 
-    if (this._options[this._index]) {
-      this._options[this._index].active = false;
-    }
-    this._index = index;
-    if (this._options[this._index]) {
-      this._options[this._index].active = true;
-      this._options[this._index].scrollIntoView({
+    if (this._activeElement) {
+      this._activeElement.scrollIntoView({
         behavior: 'auto',
         block: 'nearest',
         inline: 'nearest',
       });
     }
-  }
-
-  private _selectAtIndex(index: number) {
-    const newSelected = this._options[index];
-
-    this.selectOption(newSelected);
   }
 
   private _onKeyDown = (e: KeyboardEvent) => {
@@ -188,7 +205,7 @@ export class UUIComboboxListElement extends LitElement {
 
       case 'Enter': {
         e.preventDefault();
-        this._selectAtIndex(this._index);
+        this._activeElement?.click();
         break;
       }
 
