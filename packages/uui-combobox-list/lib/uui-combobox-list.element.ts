@@ -42,7 +42,6 @@ export class UUIComboboxListElement extends LitElement {
       this._options.find(x => x.value === this._value)?.displayValue || '';
 
     this.updateOptionsState();
-    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
     this.requestUpdate('value', oldValue);
   }
 
@@ -117,6 +116,7 @@ export class UUIComboboxListElement extends LitElement {
   private selectOption(option: UUIComboboxListOptionElement) {
     this._index = Math.max(this._options.indexOf(option), 0);
     this.value = option.value;
+    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   }
 
   private updateOptionsState = () => {
