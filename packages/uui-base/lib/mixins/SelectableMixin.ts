@@ -70,7 +70,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       if (!this.selectable) return;
       this.selected = true;
       this.dispatchEvent(
-        new UUISelectableEvent(UUISelectableEvent.SELECTED, this)
+        new UUISelectableEvent(UUISelectableEvent.SELECTED)
       );
     }
 
@@ -78,7 +78,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       if (!this.unselectable) return;
       this.selected = false;
       this.dispatchEvent(
-        new UUISelectableEvent(UUISelectableEvent.UNSELECTED, this)
+        new UUISelectableEvent(UUISelectableEvent.UNSELECTED)
       );
     }
 
