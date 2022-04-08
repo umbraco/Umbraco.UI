@@ -1,6 +1,5 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { html, fixture, expect } from '@open-wc/testing';
 import { UUIComboboxListElement } from './uui-combobox-list.element';
-import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 import { UUIComboboxListOptionElement } from '@umbraco-ui/uui-combobox-list/lib';
 
 describe('UUIComboboxListElement', () => {
@@ -47,6 +46,8 @@ describe('UUIComboboxListElement', () => {
   });
   describe('events', () => {
     describe('change', () => {
+      /*
+      It should not emit an event unless the action is originating from user action.
       it('emits an change event on value change', async () => {
         const listener = oneEvent(element, UUIComboboxListEvent.CHANGE);
         element.value = 'new';
@@ -54,6 +55,7 @@ describe('UUIComboboxListElement', () => {
         expect(event).to.exist;
         expect(event.type).to.equal(UUIComboboxListEvent.CHANGE);
       });
+      */
     });
   });
 
