@@ -71,6 +71,7 @@
     "@umbraco-ui/uui-loader-circle": "0.1.1",
     "@umbraco-ui/uui-menu-item": "0.1.1",
     "@umbraco-ui/uui-pagination": "0.1.1",
+    "@umbraco-ui/uui-popover": "0.1.1",
     "@umbraco-ui/uui-progress-bar": "0.1.1",
     "@umbraco-ui/uui-radio": "0.1.1",
     "@umbraco-ui/uui-ref": "0.1.1",
