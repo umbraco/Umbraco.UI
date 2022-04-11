@@ -14,16 +14,16 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-css"
-    },
-    {
-      "path": "../uui-icon-registry-essential"
-    },
-    {
       "path": "../uui-button"
     },
     {
+      "path": "../uui-css"
+    },
+    {
       "path": "../uui-icon"
+    },
+    {
+      "path": "../uui-icon-registry-essential"
     }
   ]
 }

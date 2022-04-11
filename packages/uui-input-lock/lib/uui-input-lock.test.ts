@@ -1,5 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
 
 import { UUIInputLockElement } from './uui-input-lock.element';
 

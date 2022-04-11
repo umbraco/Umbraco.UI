@@ -68,6 +68,9 @@ export class UUIInputPasswordElement extends UUIInputElement {
       @click=${this._onPasswordToggle}
       style="--uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0"
       compact
+      label="${this.passwordType === 'password'
+        ? 'Show password'
+        : 'Hide password'}"
       id="eye">
       ${this.renderIcon()}
     </uui-button>`;

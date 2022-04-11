@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-menu-item",
-  "version": "0.0.6",
+  "version": "0.1.1",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,9 +30,9 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.17",
-    "@umbraco-ui/uui-symbol-expand": "0.0.5",
-    "@umbraco-ui/uui-loader-bar": "0.0.20"
+    "@umbraco-ui/uui-base": "0.1.1",
+    "@umbraco-ui/uui-loader-bar": "0.1.1",
+    "@umbraco-ui/uui-symbol-expand": "0.1.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

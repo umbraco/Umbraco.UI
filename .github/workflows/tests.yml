@@ -31,7 +31,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install
+      - run: npm config set unsafe-perm true
+      - run: npm ci
       - run: npm run lint
       - run: sudo npx playwright install-deps
       - run: npm run test

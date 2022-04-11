@@ -5,6 +5,8 @@ import {
   elementUpdated,
   oneEvent,
 } from '@open-wc/testing';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-button-group/lib';
 import { UUIPaginationElement } from './uui-pagination.element';
 import '.';
 
@@ -112,24 +114,28 @@ describe('UUIPaginationElement', () => {
     await elementUpdated(element);
 
     const buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const nextButton = buttons![6] as HTMLElement;
-    const activeButton = buttons![3] as HTMLElement;
+    const nextButton = buttons![4] as HTMLElement;
     nextButton.click();
 
+    await elementUpdated(element);
+
     expect(element.current).to.equal(3);
+
+    const activeButton = buttons![4] as HTMLElement;
     expect(activeButton).to.have.class('active');
   });
 
   it('goes to last page on click  and disables last and next buttons', async () => {
     let buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const lastButton = buttons![7] as HTMLElement;
-    const nextButton = buttons![6] as HTMLElement;
+    const lastButtonIndex = buttons!.length - 1;
+    const lastButton = buttons![lastButtonIndex] as HTMLElement;
+    const nextButton = buttons![lastButtonIndex - 1] as HTMLElement;
     lastButton.click();
 
     await elementUpdated(element);
 
     buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const activeButton = buttons![5] as HTMLElement;
+    const activeButton = buttons![19] as HTMLElement;
 
     expect(element.current).to.equal(30);
     expect(activeButton).to.have.class('active');
