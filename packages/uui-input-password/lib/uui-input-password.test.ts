@@ -1,4 +1,6 @@
 import { expect, fixture, html } from '@open-wc/testing';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib/';
 
 import { UUIInputPasswordElement } from './uui-input-password.element';
