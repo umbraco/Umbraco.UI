@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -41,7 +41,7 @@
     "@umbraco-ui/uui-badge": "0.1.1",
     "@umbraco-ui/uui-base": "0.1.1",
     "@umbraco-ui/uui-boolean-input": "0.1.1",
-    "@umbraco-ui/uui-box": "0.2.0",
+    "@umbraco-ui/uui-box": "0.2.1",
     "@umbraco-ui/uui-breadcrumbs": "0.1.1",
     "@umbraco-ui/uui-button": "0.2.1",
     "@umbraco-ui/uui-button-group": "0.1.1",
