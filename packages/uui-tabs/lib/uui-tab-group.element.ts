@@ -53,7 +53,7 @@ export class UUITabGroupElement extends LitElement {
 
   private onTabActive = (e: MouseEvent) => {
     //? should this contain stopPropagation?
-    const selectedElement = e.target as HTMLElement;
+    const selectedElement = e.currentTarget as HTMLElement;
     if (this.elementIsTabLike(selectedElement)) {
       selectedElement.active = true;
     }

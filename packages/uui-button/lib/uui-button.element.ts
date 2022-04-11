@@ -16,7 +16,7 @@ import {
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
+export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
 
@@ -545,12 +545,12 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
   /**
    * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
-   * @type {null |'waiting' | 'success' | 'failed'}
+   * @type {undefined |'waiting' | 'success' | 'failed'}
    * @attr
-   * @default null
+   * @default undefined
    */
   @property({ type: String, reflect: true })
-  state: UUIButtonState = null;
+  state: UUIButtonState = undefined;
 
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
@@ -600,7 +600,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       clearTimeout(this._resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
         this._resetStateTimeout = setTimeout(
-          () => (this.state = null),
+          () => (this.state = undefined),
           2000
         ) as any;
       }
