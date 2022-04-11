@@ -1,5 +1,3 @@
-import '.';
-
 import {
   elementUpdated,
   expect,
@@ -7,10 +5,11 @@ import {
   html,
   oneEvent,
 } from '@open-wc/testing';
+import '@umbraco-ui/uui-icon/lib';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
-
 import { UUICardContentNodeElement } from './uui-card-content-node.element';
+import '.';
 
 describe('UUICardContentNodeElement', () => {
   let element: UUICardContentNodeElement;

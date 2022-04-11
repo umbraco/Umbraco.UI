@@ -7,6 +7,7 @@ import {
   html,
   oneEvent,
 } from '@open-wc/testing';
+import '@umbraco-ui/uui-avatar/lib';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
 
