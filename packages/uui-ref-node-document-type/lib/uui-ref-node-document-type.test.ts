@@ -5,6 +5,7 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
+import '@umbraco-ui/uui-icon/lib';
 import { UUIRefNodeDocumentTypeElement } from './uui-ref-node-document-type.element';
 import '.';
 
