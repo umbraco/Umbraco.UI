@@ -32,7 +32,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    * @default false
    */
   @property({ type: String })
-  public accept = '';
+  public accept: string = '';
 
   @query('#input')
   private _input!: HTMLInputElement;
@@ -44,29 +44,29 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    * @default false
    */
   @property({ type: Boolean })
-  public multiple = false;
+  public multiple: boolean = false;
 
   constructor() {
     super();
 
-    this.addEventListener('dragenter', this.onDragEnter, false);
-    this.addEventListener('dragleave', this.onDragLeave, false);
-    this.addEventListener('dragover', this.onDragOver, false);
-    this.addEventListener('drop', this.onDrop, false);
-    this.addEventListener('click', this.handleClick);
+    this.addEventListener('dragenter', this._onDragEnter, false);
+    this.addEventListener('dragleave', this._onDragLeave, false);
+    this.addEventListener('dragover', this._onDragOver, false);
+    this.addEventListener('drop', this._onDrop, false);
+    this.addEventListener('click', this._handleClick);
   }
 
-  private handleClick(e: Event) {
+  private _handleClick(e: Event) {
     e.stopImmediatePropagation();
-    this.openNativeInput();
+    this._openNativeInput();
   }
 
-  protected checkIsItDirectory(dtItem: DataTransferItem): boolean {
+  protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
     // @ts-ignore // TODO: fix typescript error
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 
-  private async getAllFileEntries(dataTransferItemList: DataTransferItemList) {
+  private async _getAllFileEntries(dataTransferItemList: DataTransferItemList) {
     const fileEntries: FileSystemFileEntry[] = [];
     // Use BFS to traverse entire directory/file structure
     const queue = [];
@@ -92,13 +92,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         const entry: FileSystemFileEntry = queue.shift()!;
         if (
           entry.isFile &&
-          (await this.isAccepted(acceptList, wildcards, entry))
+          (await this._isAccepted(acceptList, wildcards, entry))
         ) {
           fileEntries.push(entry);
         } else if (entry.isDirectory) {
           fileEntries.push(entry);
           queue.push(
-            ...(await this.readAllDirectoryEntries(
+            ...(await this._readAllDirectoryEntries(
               (entry as any).createReader()
             ))
           );
@@ -112,7 +112,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         } else if (entry.isDirectory) {
           fileEntries.push(entry);
           queue.push(
-            ...(await this.readAllDirectoryEntries(
+            ...(await this._readAllDirectoryEntries(
               (entry as any).createReader()
             ))
           );
@@ -125,19 +125,21 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   // Get all the entries (files or sub-directories) in a directory
   // by calling readEntries until it returns empty array
-  private async readAllDirectoryEntries(
+  private async _readAllDirectoryEntries(
     directoryReader: FileSystemDirectoryReader
   ) {
     const entries: any = [];
-    let readEntries: any = await this.readEntriesPromise(directoryReader);
+    let readEntries: any = await this._readEntriesPromise(directoryReader);
     while (readEntries.length > 0) {
       entries.push(...readEntries);
-      readEntries = await this.readEntriesPromise(directoryReader);
+      readEntries = await this._readEntriesPromise(directoryReader);
     }
     return entries;
   }
 
-  private async readEntriesPromise(directoryReader: FileSystemDirectoryReader) {
+  private async _readEntriesPromise(
+    directoryReader: FileSystemDirectoryReader
+  ) {
     try {
       return await new Promise((resolve, reject) => {
         directoryReader.readEntries(resolve, reject);
@@ -147,18 +149,18 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
   }
 
-  private async getFile(fileEntry: FileSystemFileEntry): Promise<File> {
+  private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
     return await new Promise<File>((resolve, reject) =>
       fileEntry.file(resolve, reject)
     );
   }
 
-  private async isAccepted(
+  private async _isAccepted(
     acceptList: string[],
     wildcards: string[],
     entry: FileSystemFileEntry
   ) {
-    const file = await this.getFile(entry);
+    const file = await this._getFile(entry);
     const fileType = file.type.toLowerCase();
     const fileExtension = '.' + file.name.split('.')[1].toLowerCase();
 
@@ -175,13 +177,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return false;
   }
 
-  async onDrop(e: DragEvent) {
+  private async _onDrop(e: DragEvent) {
     e.preventDefault();
 
     const items = e.dataTransfer?.items;
 
     if (items) {
-      let result = await this.getAllFileEntries(items);
+      let result = await this._getAllFileEntries(items);
 
       if (this.multiple === false) {
         result = [result[0]];
@@ -194,17 +196,20 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       );
     }
   }
-  onDragOver(e: DragEvent) {
-    e.preventDefault();
-  }
-  onDragEnter(e: DragEvent) {
-    e.preventDefault();
-  }
-  onDragLeave(e: DragEvent) {
+
+  private _onDragOver(e: DragEvent) {
     e.preventDefault();
   }
 
-  protected openNativeInput() {
+  private _onDragEnter(e: DragEvent) {
+    e.preventDefault();
+  }
+
+  private _onDragLeave(e: DragEvent) {
+    e.preventDefault();
+  }
+
+  protected _openNativeInput() {
     this._input.click();
   }
 
