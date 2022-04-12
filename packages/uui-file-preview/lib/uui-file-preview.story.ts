@@ -52,6 +52,11 @@ NoImage.args = {
   name: 'ThisFileHasAVeryAndIMeanVeryLongName',
   extension: 'pdf',
   size: '12376',
-  src: '',
-  url: '',
+};
+
+export const Directory = Template.bind({});
+
+Directory.args = {
+  name: 'My Folder',
+  isDirectory: true,
 };
