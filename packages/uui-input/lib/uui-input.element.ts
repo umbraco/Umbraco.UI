@@ -264,10 +264,11 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     return this._input;
   }
 
-  private _onInput(e: Event) {
+  protected _onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
     // TODO: Do we miss an input event?
+    // No, this event is already composed and bubbles, so th enative one just goes out and works. Change is not though. (see more https://html.spec.whatwg.org/multipage/input.html#common-input-element-events)
   }
 
   private _onChange() {
