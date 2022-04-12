@@ -14,13 +14,13 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-input"
+      "path": "../uui-button"
     },
     {
       "path": "../uui-icon"
     },
     {
-      "path": "../uui-button"
+      "path": "../uui-input"
     }
   ]
 }

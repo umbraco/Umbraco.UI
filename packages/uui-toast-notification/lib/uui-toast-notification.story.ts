@@ -59,12 +59,12 @@ ErrorStyle.parameters = {
   docs: {
     source: {
       code: `
-      <uui-toast-notification look="danger">
-        <uui-toast-notification-layout headline="Your title">
-          Your description
-          <uui-button slot="actions" look="danger">Retry</uui-button>
-        </uui-toast-notification-layout>
-      </uui-toast-notification>`,
+<uui-toast-notification look="danger">
+  <uui-toast-notification-layout headline="Your title">
+    Your description
+    <uui-button slot="actions" look="danger">Retry</uui-button>
+  </uui-toast-notification-layout>
+</uui-toast-notification>`,
     },
   },
 };
@@ -86,11 +86,11 @@ PositiveStyle.parameters = {
   docs: {
     source: {
       code: `
-      <uui-toast-notification look="positive">
-        <uui-toast-notification-layout headline="Your title">
-          Your description
-        </uui-toast-notification-layout>
-      </uui-toast-notification>`,
+<uui-toast-notification look="positive">
+  <uui-toast-notification-layout headline="Your title">
+    Your description
+  </uui-toast-notification-layout>
+</uui-toast-notification>`,
     },
   },
 };
@@ -115,7 +115,10 @@ CustomLayout.args = {
 CustomLayout.parameters = {
   docs: {
     source: {
-      code: `<uui-toast-notification><!-- Anything can be injected here --></uui-toast-notification>`,
+      code: `
+<uui-toast-notification>
+  <!-- Anything can be injected here -->
+</uui-toast-notification>`,
     },
   },
 };

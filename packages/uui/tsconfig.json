@@ -101,6 +101,9 @@
       "path": "../uui-input-file"
     },
     {
+      "path": "../uui-input-lock"
+    },
+    {
       "path": "../uui-input-password"
     },
     {
@@ -123,6 +126,9 @@
     },
     {
       "path": "../uui-pagination"
+    },
+    {
+      "path": "../uui-popover"
     },
     {
       "path": "../uui-progress-bar"

@@ -67,7 +67,7 @@ Fallback.parameters = {
   docs: {
     description: {
       story:
-        'Example of icon that is not captured by icon service, therefore showing the bug-fallback icon',
+        'Example of icon that is not captured by an icon registry, therefore showing the bug-fallback icon',
     },
   },
 };
@@ -81,7 +81,7 @@ IconRegistryElement.parameters = {
   docs: {
     description: {
       story:
-        'Its recommended to use a icon-registry to provide the icons, this makes it possible to define an icon with the name attribute.',
+        'Its recommended to use an icon registry to provide the icons. This makes it possible to define an icon with the name attribute.',
     },
   },
 };

@@ -20,32 +20,30 @@ export default {
 
 const insertBox = (e: any) => {
   const div = document.createElement('div');
-  const button = document.createElement('uui-button');
+  const label = document.createElement('div');
   const buttonInline = document.createElement('uui-button-inline-create');
   buttonInline.addEventListener('click', insertBox);
-  button.innerHTML = GetRandomUmbracoWord();
-  button.setAttribute('look', 'outline');
-  button.style.width = '100%';
-  button.style.height = '50px';
+  label.innerHTML = GetRandomUmbracoWord();
+  label.style.padding = '10px';
+  label.style.whiteSpace = 'nowrap';
 
   if (e.target.vertical) {
-    console.log('YES');
     buttonInline.setAttribute('vertical', 'true');
     div.style.display = 'grid';
     div.style.gridTemplateColumns = '1fr auto';
   }
 
-  div.appendChild(button);
+  div.appendChild(label);
   div.appendChild(buttonInline);
 
   e.target.parentElement.insertAdjacentElement('afterend', div);
 };
 
-const createBox = (vertical: Boolean) => html`<div
+const createBox = (vertical: boolean) => html` <div
   style="${vertical ? 'display: grid; grid-template-columns: 1fr auto' : ''}">
-  <uui-button look="outline" style="width: 100%; height: 50px;"
-    >${GetRandomUmbracoWord()}</uui-button
-  >
+  <div style="padding: 10px; white-space: nowrap;">
+    ${GetRandomUmbracoWord()}
+  </div>
   <uui-button-inline-create
     ?vertical=${vertical}
     @click=${insertBox}></uui-button-inline-create>
@@ -59,10 +57,49 @@ const createBoxes = (count: Number, vertical = false) => {
   return boxes;
 };
 
+export const AAAOverview: Story = () =>
+  html`<uui-button-inline-create
+    label="Create Item"></uui-button-inline-create>`;
+AAAOverview.storyName = 'Overview';
+
 export const Vertical: Story = () =>
   html`<div id="container" style="max-width: 500px">${createBoxes(5)}</div>`;
+
+Vertical.parameters = {
+  docs: {
+    source: {
+      code: `
+<div>
+  <div style="padding: 10px;">Item 1</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 2</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 3</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+</div>
+      `,
+    },
+  },
+};
 
 export const Horizontal: Story = () =>
   html`<div id="container-vertical" style="display: flex;">
     ${createBoxes(5, true)}
   </div>`;
+
+Horizontal.parameters = {
+  docs: {
+    source: {
+      code: `
+<div style="'display: grid; grid-template-columns: 1fr auto;">
+  <div style="padding: 10px;">Item 1</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 2</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 3</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+</div>
+      `,
+    },
+  },
+};

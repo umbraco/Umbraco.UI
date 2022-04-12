@@ -72,7 +72,8 @@ export class UUIInputLockElement extends UUIInputElement {
       .disabled=${this.disabled}
       @click=${this._onLockToggle}
       compact
-      id="lock">
+      id="lock"
+      label="${this.locked ? 'Unlock input' : 'Lock input'}">
       ${this.renderIcon()}
     </uui-button>`;
   }
