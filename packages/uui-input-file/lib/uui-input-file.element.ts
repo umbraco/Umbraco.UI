@@ -137,8 +137,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this.requestUpdate('fileWrappers', oldValue);
   }
 
-  static readonly formAssociated = true;
-
   constructor() {
     super();
     this.addEventListener('dragenter', () => this.setShowDropzone(true));
