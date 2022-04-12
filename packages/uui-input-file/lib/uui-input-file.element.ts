@@ -113,7 +113,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
    * @default false
    */
   @property({ type: String })
-  public accept = '';
+  public accept: string = '';
 
   @query('#dropzone')
   private _dropZone: UUIFileDropzoneElement | undefined;
@@ -139,9 +139,9 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
   constructor() {
     super();
-    this.addEventListener('dragenter', () => this.setShowDropzone(true));
-    this.addEventListener('dragleave', () => this.setShowDropzone(false));
-    this.addEventListener('drop', () => this.setShowDropzone(false));
+    this.addEventListener('dragenter', () => this._setShowDropzone(true));
+    this.addEventListener('dragleave', () => this._setShowDropzone(false));
+    this.addEventListener('drop', () => this._setShowDropzone(false));
   }
 
   connectedCallback(): void {
@@ -158,17 +158,19 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return this._dropZone! as HTMLElement;
   }
 
-  private async handleFileDrop(e: CustomEvent) {
+  private async _handleFileDrop(e: CustomEvent) {
     const newFiles = e.detail.files as FileSystemFileEntry[] | FileList;
 
     for (const file of newFiles) {
       // TODO Handle source and thumbnail
 
       if (file instanceof File) {
-        const fileDisplay = this.fileDisplayFromFile(file);
+        const fileDisplay = this._fileDisplayFromFile(file);
         this.fileWrappers.push(fileDisplay);
       } else {
-        const fileDisplay = await this.fileDisplayFromFileSystemFileEntry(file);
+        const fileDisplay = await this._fileDisplayFromFileSystemFileEntry(
+          file
+        );
         this.fileWrappers.push(fileDisplay);
       }
     }
@@ -182,7 +184,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this.fileWrappers = [...this.fileWrappers];
   }
 
-  private fileDisplayFromFile(file: File): FileWrapper {
+  private _fileDisplayFromFile(file: File): FileWrapper {
     return {
       name: file.name.split('.')[0],
       extension: file.name.split('.')[1],
@@ -193,7 +195,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     };
   }
 
-  private async fileDisplayFromFileSystemFileEntry(
+  private async _fileDisplayFromFileSystemFileEntry(
     fileEntry: FileSystemFileEntry
   ): Promise<FileWrapper> {
     const index = fileEntry.fullPath.split('/').length - 2;
@@ -206,7 +208,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     };
 
     if (fileEntry.isFile) {
-      const file = await this.getFile(fileEntry);
+      const file = await this._getFile(fileEntry);
       fileDisplay.file = file;
       fileDisplay.size = file.size;
     }
@@ -214,18 +216,18 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return fileDisplay;
   }
 
-  private async getFile(fileEntry: FileSystemFileEntry): Promise<File> {
+  private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
     return await new Promise<File>((resolve, reject) =>
       fileEntry.file(resolve, reject)
     );
   }
 
-  private removeFile(index: number) {
+  private _removeFile(index: number) {
     this.fileWrappers.splice(index, 1);
     this.fileWrappers = [...this.fileWrappers]; // Updates the UI
   }
 
-  private setShowDropzone(show: boolean) {
+  private _setShowDropzone(show: boolean) {
     if (show) {
       this._dropZone!.style.display = 'flex';
       this.classList.add('dropzone-active');
@@ -235,7 +237,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     }
   }
 
-  private renderFileItem(file: FileWrapper, index: number) {
+  private _renderFileItem(file: FileWrapper, index: number) {
     return html`<uui-file-preview
       .name=${file.name}
       .extension=${file.extension}
@@ -244,7 +246,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       .isDirectory=${file.isDirectory}>
       <uui-action-bar slot="actions">
         <uui-button
-          @click=${() => this.removeFile(index)}
+          @click=${() => this._removeFile(index)}
           look="danger"
           compact>
           <uui-icon name="delete"></uui-icon>
@@ -253,7 +255,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     </uui-file-preview>`;
   }
 
-  private renderFiles() {
+  private _renderFiles() {
     const result = [];
 
     for (let index = 0; index < this.fileWrappers.length; index++) {
@@ -268,7 +270,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     }
 
     return html`${result.map((file: FileWrapper, index: number) =>
-      file.show ? this.renderFileItem(file, index) : ''
+      file.show ? this._renderFileItem(file, index) : ''
     )}`;
   }
 
@@ -280,19 +282,19 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           id="dropzone"
           multiple
           .accept=${this.accept}
-          @file-drop=${this.handleFileDrop}>
+          @file-drop=${this._handleFileDrop}>
           <div id="dropzone-content">
             <uui-icon name="download"></uui-icon>
             <span> Drop to add files </span>
           </div>
         </uui-file-dropzone>
         <div id="files">
-          ${this.renderFiles()}
+          ${this._renderFiles()}
           <uui-file-dropzone
             multiple
             .accept=${this.accept}
             id="add-zone"
-            @file-drop=${this.handleFileDrop}>
+            @file-drop=${this._handleFileDrop}>
             <uui-button id="add-button" look="placeholder">Add</uui-button>
           </uui-file-dropzone>
         </div>
