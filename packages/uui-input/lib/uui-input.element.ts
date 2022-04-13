@@ -264,14 +264,14 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     return this._input;
   }
 
-  protected _onInput(e: Event) {
+  protected onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
     // TODO: Do we miss an input event?
     // No, this event is already composed and bubbles, so th enative one just goes out and works. Change is not though. (see more https://html.spec.whatwg.org/multipage/input.html#common-input-element-events)
   }
 
-  private _onChange() {
+  protected onChange() {
     this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
@@ -297,8 +297,8 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         .disabled=${this.disabled}
         ?required=${this.required}
         ?readonly=${this.readonly}
-        @input=${this._onInput}
-        @change=${this._onChange} />
+        @input=${this.onInput}
+        @change=${this.onChange} />
       ${this.renderAppend()}
     `;
   }
