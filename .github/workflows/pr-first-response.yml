@@ -12,7 +12,7 @@ jobs:
         uses: JamesIves/fetch-api-data-action@v2.1.0
         with:
           ENDPOINT: https://collaboratorsv2.euwest01.umbraco.io/umbraco/api/comments/PostComment
-          CONFIGURATION: '{ "method": "POST", "headers": {"Authorization": "Bearer ${{ secrets.OUR_BOT_API_TOKEN }}"}, "body": { "repo": "${{ github.repository }}", "number": "${{ github.event.number }}", "actor": "${{ github.actor }}", "commentType": "opened-pr-first-comment"} }'
+          CONFIGURATION: '{ "method": "POST", "headers": {"Authorization": "Bearer ${{ secrets.OUR_BOT_API_TOKEN }}", "Content-Type": "application/json" }, "body": { "repo": "${{ github.repository }}", "number": "${{ github.event.number }}", "actor": "${{ github.actor }}", "commentType": "opened-pr-first-comment"} }'
       - name: Add PR comment
         if: "${{ env.fetch-api-data != '' }}"
         uses: actions/github-script@v5
