@@ -202,15 +202,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private async _fileDisplayFromFile(file: File): Promise<FileWrapper> {
-    const fileObject = {
-      name: file.name.split('.')[0],
-      extension: file.name.split('.')[1],
-      isDirectory: false,
-      show: true,
-      size: file.size,
-      file: file,
-    };
-
     const thumbnail = await this._getThumbnail(file);
 
     return {
