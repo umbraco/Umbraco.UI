@@ -202,6 +202,15 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private async _fileDisplayFromFile(file: File): Promise<FileWrapper> {
+    const fileObject = {
+      name: file.name.split('.')[0],
+      extension: file.name.split('.')[1],
+      isDirectory: false,
+      show: true,
+      size: file.size,
+      file: file,
+    };
+
     const thumbnail = await this._getThumbnail(file);
 
     return {
@@ -211,7 +220,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       show: true,
       size: file.size,
       file: file,
-      source: thumbnail,
+      source: this._isFileAnImage(file) ? thumbnail : undefined,
     };
   }
 
@@ -231,10 +240,16 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       const file = await this._getFile(fileEntry);
       fileDisplay.file = file;
       fileDisplay.size = file.size;
-      fileDisplay.source = await this._getThumbnail(file);
+      fileDisplay.source = this._isFileAnImage(file)
+        ? await this._getThumbnail(file)
+        : undefined;
     }
 
     return fileDisplay;
+  }
+
+  private _isFileAnImage(file: File) {
+    return file ? file['type'].split('/')[0] === 'image' : false;
   }
 
   private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
