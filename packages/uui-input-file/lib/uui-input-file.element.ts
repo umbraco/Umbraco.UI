@@ -61,9 +61,15 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         display: none;
         position: absolute;
         inset: 0px;
-        z-index: 1;
+        z-index: 10;
         justify-content: center;
         align-items: center;
+      }
+
+      #dropzone-content {
+        color: var(--uui-interface-text-color);
+        font-size: var(--uui-interface-font-size-m);
+        font-weight: bold;
       }
 
       #add-button {
@@ -78,8 +84,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     `,
   ];
 
-  @query('#input')
-  private _input!: HTMLInputElement;
+  @query('#dropzone')
+  private _dropzone!: UUIFileDropzoneElement;
 
   /**
    * Accepted filetypes. Will allow all types if empty.
@@ -144,27 +150,12 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
   private _handleClick(e: Event) {
     e.stopImmediatePropagation();
-    this._openNativeInput();
+    this._dropzone.browse();
   }
 
-  protected _openNativeInput() {
-    this._input.click();
-  }
+  private async _handleFilesChange(event: CustomEvent) {
+    const files = event.detail.files as FileSystemFileEntry[] | FileList;
 
-  private async _handleFileDrop(e: CustomEvent) {
-    const files = e.detail.files as FileSystemFileEntry[] | FileList;
-
-    this._handleFiles(files);
-  }
-
-  private _handleFileChange(e: InputEvent) {
-    const files = (e.target as HTMLInputElement).files;
-    if (files) {
-      this._handleFiles(files);
-    }
-  }
-
-  private async _handleFiles(files: FileSystemFileEntry[] | FileList) {
     for (const file of files) {
       if (file instanceof File) {
         const fileDisplay = await this._fileDisplayFromFile(file);
@@ -263,10 +254,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   private _setShowDropzone(show: boolean) {
     if (show) {
       this._dropZone!.style.display = 'flex';
-      this.classList.add('dropzone-active');
     } else {
       this._dropZone!.style.display = 'none';
-      this.classList.remove('dropzone-active');
     }
   }
 
@@ -316,7 +305,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           id="dropzone"
           ?multiple=${this.multiple}
           .accept=${this.accept}
-          @file-drop=${this._handleFileDrop}>
+          @file-change=${this._handleFilesChange}>
           <div id="dropzone-content">
             <span> Drop to add files </span>
           </div>
@@ -331,13 +320,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           </uui-button>
         </div>
       </uui-icon-registry-essential>
-      <input
-        @click=${(e: Event) => e.stopImmediatePropagation()}
-        id="input"
-        type="file"
-        accept=${this.accept}
-        ?multiple=${this.multiple}
-        @change=${this._handleFileChange} />
     `;
   }
 }

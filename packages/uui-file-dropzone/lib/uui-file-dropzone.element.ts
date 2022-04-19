@@ -20,11 +20,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         align-items: center;
         justify-content: center;
         position: relative;
-        padding: var(--uui-size-4);
+        box-sizing: border-box;
         width: 100%;
         height: 100%;
+        padding: var(--uui-size-4);
         border: 3px solid transparent;
         margin: -3px;
+        backdrop-filter: blur(2px);
       }
       #dropzone.hover {
         border-color: var(--uui-color-primary);
@@ -219,7 +221,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       }
 
       this.dispatchEvent(
-        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_CHANGE, {
           detail: { files: result },
         })
       );
@@ -244,7 +246,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const files = this._input.files ? Array.from(this._input.files) : [];
 
     this.dispatchEvent(
-      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
+      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_CHANGE, {
         detail: { files: files },
       })
     );

@@ -5,5 +5,5 @@ export class UUIFileDropzoneEvent extends UUIEvent<
   { files: File[] },
   UUIFileDropzoneElement
 > {
-  public static readonly FILE_DROP: string = 'file-drop';
+  public static readonly FILE_CHANGE: string = 'file-change';
 }
