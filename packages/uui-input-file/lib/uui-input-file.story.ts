@@ -40,6 +40,11 @@ const submit = (e: SubmitEvent) => {
 export const AAAOverview: Story = () => html`<uui-input-file></uui-input-file>`;
 AAAOverview.storyName = 'Overview';
 
+export const SingleFile: Story = () => html`<uui-input-file></uui-input-file>`;
+
+export const Multiple: Story = () =>
+  html`<uui-input-file multiple></uui-input-file>`;
+
 const submit = (e: SubmitEvent) => {
   e.preventDefault();
   const formElement = e.target as HTMLFormElement;
@@ -55,7 +60,8 @@ export const Form: Story = () => {
         <uui-input-file
           name="input-file"
           style="height: min-content; max-heigh: 300px"
-          multiple></uui-input-file>
+          multiple>
+        </uui-input-file>
         <div></div>
       </div>
       <uui-button style="margin-top: 16px" type="submit" look="primary">

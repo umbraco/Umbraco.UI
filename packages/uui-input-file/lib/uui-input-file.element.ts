@@ -115,6 +115,15 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   @property({ type: String })
   public accept: string = '';
 
+  /**
+   * Allows for multiple files to be selected.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean })
+  public multiple: boolean = false;
+
   @query('#dropzone')
   private _dropZone: UUIFileDropzoneElement | undefined;
 
@@ -164,12 +173,22 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     for (const file of newFiles) {
       if (file instanceof File) {
         const fileDisplay = await this._fileDisplayFromFile(file);
-        this.fileWrappers.push(fileDisplay);
+
+        if (this.multiple) {
+          this.fileWrappers.push(fileDisplay);
+        } else {
+          this.fileWrappers = [fileDisplay];
+        }
       } else {
         const fileDisplay = await this._fileDisplayFromFileSystemFileEntry(
           file
         );
-        this.fileWrappers.push(fileDisplay);
+
+        if (this.multiple) {
+          this.fileWrappers.push(fileDisplay);
+        } else {
+          this.fileWrappers = [fileDisplay];
+        }
       }
     }
 
@@ -294,7 +313,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       <uui-icon-registry-essential style="width: 100%">
         <uui-file-dropzone
           id="dropzone"
-          multiple
+          ?multiple=${this.multiple}
           .accept=${this.accept}
           @file-drop=${this._handleFileDrop}>
           <div id="dropzone-content">
@@ -305,7 +324,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         <div id="files">
           ${this._renderFiles()}
           <uui-file-dropzone
-            multiple
+            ?multiple=${this.multiple}
             .accept=${this.accept}
             id="add-zone"
             @file-drop=${this._handleFileDrop}>
