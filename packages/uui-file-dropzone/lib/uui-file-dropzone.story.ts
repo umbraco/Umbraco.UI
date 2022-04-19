@@ -21,14 +21,12 @@ export default {
 
 export const AAAOverview: Story = props =>
   html`
-    <h4>Selected files are logged to the console</h4>
     <uui-file-dropzone
       ?multiple=${props.multiple}
       ?directory=${props.directory}
       .accept=${props.accept}
       @file-drop=${e => console.log(e.detail)}>
-      <uui-button look="placeholder" style="width: 100px; height: 100px;">
-      </uui-button>
+      Drop files here
     </uui-file-dropzone>
   `;
 AAAOverview.storyName = 'Overview';

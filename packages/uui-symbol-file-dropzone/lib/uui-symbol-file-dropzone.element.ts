@@ -17,7 +17,7 @@ export class UUISymbolFileDropzoneElement extends LitElement {
       }
 
       #upload-icon {
-        fill: var(--uui-interface-border);
+        fill: var(--uui-color-primary);
         width: 100px;
         transition: fill 0.3s ease;
         position: relative;
@@ -25,7 +25,7 @@ export class UUISymbolFileDropzoneElement extends LitElement {
       }
 
       :host([error]) #upload-icon {
-        fill: var(--uui-color-maroon-flush, #d42054);
+        fill: var(--uui-color-danger);
       }
     `,
   ];

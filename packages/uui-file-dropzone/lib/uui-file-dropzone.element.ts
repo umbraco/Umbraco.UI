@@ -14,17 +14,39 @@ import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   static styles = [
     css`
-      #input,
-      #input-label {
+      #dropzone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: var(--uui-size-4);
+        width: 100%;
+        height: 100%;
+        border: 3px solid transparent;
+        margin: -3px;
+      }
+      #dropzone.hover {
+        border-color: var(--uui-color-primary);
+      }
+      #dropzone.hover::before {
+        content: '';
         position: absolute;
-        width: 0px;
-        height: 0px;
-        opacity: 0;
-        display: none;
+        inset: 0;
+        opacity: 0.2;
+        border-color: var(--uui-color-primary);
+        background-color: var(--uui-color-primary);
+      }
+      #symbol {
+        color: var(--uui-color-primary);
+        max-width: 100%;
+        max-height: 100%;
       }
     `,
   ];
 
+  @query('#dropzone')
+  private _dropzone!: HTMLElement;
   /**
    * Accepted filetypes. Will allow all types if empty.
    * @type {string}
@@ -33,9 +55,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    */
   @property({ type: String })
   public accept: string = '';
-
-  @query('#input')
-  private _input!: HTMLInputElement;
 
   /**
    * Allows for multiple files to be selected.
@@ -53,12 +72,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('dragleave', this._onDragLeave, false);
     this.addEventListener('dragover', this._onDragOver, false);
     this.addEventListener('drop', this._onDrop, false);
-    this.addEventListener('click', this._handleClick);
-  }
-
-  private _handleClick(e: Event) {
-    e.stopImmediatePropagation();
-    this._openNativeInput();
   }
 
   protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
@@ -179,6 +192,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   private async _onDrop(e: DragEvent) {
     e.preventDefault();
+    this._dropzone.classList.remove('hover');
 
     const items = e.dataTransfer?.items;
 
@@ -202,38 +216,32 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private _onDragEnter(e: DragEvent) {
+    this._dropzone.classList.add('hover');
     e.preventDefault();
   }
 
   private _onDragLeave(e: DragEvent) {
+    this._dropzone.classList.remove('hover');
     e.preventDefault();
   }
 
-  protected _openNativeInput() {
-    this._input.click();
-  }
+  // private _onFileInputChange() {
+  //   const files = this._input.files ? Array.from(this._input.files) : [];
 
-  private _onFileInputChange() {
-    const files = this._input.files ? Array.from(this._input.files) : [];
-
-    this.dispatchEvent(
-      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
-        detail: { files: files },
-      })
-    );
-  }
+  //   this.dispatchEvent(
+  //     new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
+  //       detail: { files: files },
+  //     })
+  //   );
+  // }
 
   render() {
-    return html`<slot></slot
-      ><input
-        @click=${(e: Event) => e.stopImmediatePropagation()}
-        id="input"
-        type="file"
-        accept=${this.accept}
-        ?multiple=${this.multiple}
-        @change=${this._onFileInputChange} /><label id="input-label" for="input"
-        >${this.renderLabel()}</label
-      >`;
+    return html`
+      <div id="dropzone">
+        <uui-symbol-file-dropzone id="symbol"></uui-symbol-file-dropzone>
+        <slot></slot>
+      </div>
+    `;
   }
 }
 

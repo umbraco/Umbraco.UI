@@ -37,8 +37,12 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         border: 1px solid var(--uui-interface-border);
       }
 
-      :host(.dropzone-active) {
-        border: 3px dashed var(--uui-color-malibu-dimmed);
+      #input {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        display: none;
       }
 
       #files {
@@ -55,41 +59,14 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
       #dropzone {
         display: none;
-        background: var(--uui-interface-surface-alt);
         position: absolute;
         inset: 0px;
         z-index: 1;
         justify-content: center;
         align-items: center;
       }
-      #dropzone-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        max-height: 100%;
-        max-width: 100%;
-        height: 100%;
-        aspect-ratio: 1;
-        padding: var(--uui-size-6);
-        box-sizing: border-box;
-        color: var(--uui-color-malibu-dimmed);
-      }
 
-      #dropzone-content uui-icon {
-        width: 100%;
-        height: 100%;
-      }
-      #dropzone-content span {
-        font-size: 1rem;
-        font-weight: bold;
-        white-space: nowrap;
-      }
-      #drop-button {
-        width: 100%;
-        height: 100%;
-      }
-      #add-zone {
+      #add-button {
         width: 150px;
         height: 150px;
         display: flex;
@@ -98,13 +75,11 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         justify-content: center;
         align-items: center;
       }
-
-      #add-button {
-        width: 100%;
-        height: 100%;
-      }
     `,
   ];
+
+  @query('#input')
+  private _input!: HTMLInputElement;
 
   /**
    * Accepted filetypes. Will allow all types if empty.
@@ -167,10 +142,30 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return this._dropZone! as HTMLElement;
   }
 
-  private async _handleFileDrop(e: CustomEvent) {
-    const newFiles = e.detail.files as FileSystemFileEntry[] | FileList;
+  private _handleClick(e: Event) {
+    e.stopImmediatePropagation();
+    this._openNativeInput();
+  }
 
-    for (const file of newFiles) {
+  protected _openNativeInput() {
+    this._input.click();
+  }
+
+  private async _handleFileDrop(e: CustomEvent) {
+    const files = e.detail.files as FileSystemFileEntry[] | FileList;
+
+    this._handleFiles(files);
+  }
+
+  private _handleFileChange(e: InputEvent) {
+    const files = (e.target as HTMLInputElement).files;
+    if (files) {
+      this._handleFiles(files);
+    }
+  }
+
+  private async _handleFiles(files: FileSystemFileEntry[] | FileList) {
+    for (const file of files) {
       if (file instanceof File) {
         const fileDisplay = await this._fileDisplayFromFile(file);
 
@@ -323,21 +318,26 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           .accept=${this.accept}
           @file-drop=${this._handleFileDrop}>
           <div id="dropzone-content">
-            <uui-icon name="download"></uui-icon>
             <span> Drop to add files </span>
           </div>
         </uui-file-dropzone>
         <div id="files">
           ${this._renderFiles()}
-          <uui-file-dropzone
-            ?multiple=${this.multiple}
-            .accept=${this.accept}
-            id="add-zone"
-            @file-drop=${this._handleFileDrop}>
-            <uui-button id="add-button" look="placeholder">Add</uui-button>
-          </uui-file-dropzone>
+          <uui-button
+            @click=${this._handleClick}
+            id="add-button"
+            look="placeholder">
+            Add
+          </uui-button>
         </div>
       </uui-icon-registry-essential>
+      <input
+        @click=${(e: Event) => e.stopImmediatePropagation()}
+        id="input"
+        type="file"
+        accept=${this.accept}
+        ?multiple=${this.multiple}
+        @change=${this._handleFileChange} />
     `;
   }
 }
