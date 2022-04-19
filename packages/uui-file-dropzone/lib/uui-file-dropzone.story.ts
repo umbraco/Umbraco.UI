@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { UUIFileDropzoneElement } from '.';
 
 export default {
   id: 'uui-file-dropzone',
@@ -19,16 +20,25 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props =>
-  html`
+export const AAAOverview: Story = props => {
+  const handler = (e: CustomEvent) => {
+    const dropzone = document.getElementById(
+      'dropzone'
+    ) as UUIFileDropzoneElement;
+    dropzone.browse();
+  };
+  return html`
     <uui-file-dropzone
+      id="dropzone"
       ?multiple=${props.multiple}
       ?directory=${props.directory}
       .accept=${props.accept}
       @file-drop=${e => console.log(e.detail)}>
       Drop files here
+      <uui-button @click=${handler} look="primary"> Browse </uui-button>
     </uui-file-dropzone>
   `;
+};
 AAAOverview.storyName = 'Overview';
 
 export const MultipleFiles: Story = () =>

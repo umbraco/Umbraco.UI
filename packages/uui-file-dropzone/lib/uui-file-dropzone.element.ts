@@ -42,11 +42,22 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         max-width: 100%;
         max-height: 100%;
       }
+      #input {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        display: none;
+      }
     `,
   ];
 
+  @query('#input')
+  private _input!: HTMLInputElement;
+
   @query('#dropzone')
   private _dropzone!: HTMLElement;
+
   /**
    * Accepted filetypes. Will allow all types if empty.
    * @type {string}
@@ -72,6 +83,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('dragleave', this._onDragLeave, false);
     this.addEventListener('dragover', this._onDragOver, false);
     this.addEventListener('drop', this._onDrop, false);
+  }
+
+  public browse() {
+    this._input.click();
   }
 
   protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
@@ -225,21 +240,32 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     e.preventDefault();
   }
 
-  // private _onFileInputChange() {
-  //   const files = this._input.files ? Array.from(this._input.files) : [];
+  private _onFileInputChange() {
+    const files = this._input.files ? Array.from(this._input.files) : [];
 
-  //   this.dispatchEvent(
-  //     new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
-  //       detail: { files: files },
-  //     })
-  //   );
-  // }
+    this.dispatchEvent(
+      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_DROP, {
+        detail: { files: files },
+      })
+    );
+  }
 
   render() {
     return html`
       <div id="dropzone">
         <uui-symbol-file-dropzone id="symbol"></uui-symbol-file-dropzone>
         <slot></slot>
+        <input
+          @click=${(e: Event) => e.stopImmediatePropagation()}
+          id="input"
+          type="file"
+          accept=${this.accept}
+          ?multiple=${this.multiple}
+          @change=${this._onFileInputChange} /><label
+          id="input-label"
+          for="input">
+          ${this.renderLabel()}
+        </label>
       </div>
     `;
   }
