@@ -315,9 +315,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           <uui-button
             @click=${this._handleClick}
             id="add-button"
-            look="placeholder">
-            Add
-          </uui-button>
+            look="placeholder"
+            label="Add"></uui-button>
         </div>
       </uui-icon-registry-essential>
     `;

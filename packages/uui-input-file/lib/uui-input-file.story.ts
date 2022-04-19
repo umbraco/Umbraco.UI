@@ -29,9 +29,11 @@ export const Form: Story = () => {
   return html`
     <form @submit=${submit}>
       <uui-input-file name="input-file" multiple> </uui-input-file>
-      <uui-button style="margin-top: 16px" type="submit" look="primary">
-        Submit
-      </uui-button>
+      <uui-button
+        style="margin-top: 16px"
+        type="submit"
+        look="primary"
+        label="Submit"></uui-button>
     </form>
   `;
 };
