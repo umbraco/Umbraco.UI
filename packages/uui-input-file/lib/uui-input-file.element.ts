@@ -162,10 +162,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     const newFiles = e.detail.files as FileSystemFileEntry[] | FileList;
 
     for (const file of newFiles) {
-      // TODO Handle source and thumbnail
-
       if (file instanceof File) {
-        const fileDisplay = this._fileDisplayFromFile(file);
+        const fileDisplay = await this._fileDisplayFromFile(file);
         this.fileWrappers.push(fileDisplay);
       } else {
         const fileDisplay = await this._fileDisplayFromFileSystemFileEntry(
@@ -184,7 +182,9 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this.fileWrappers = [...this.fileWrappers];
   }
 
-  private _fileDisplayFromFile(file: File): FileWrapper {
+  private async _fileDisplayFromFile(file: File): Promise<FileWrapper> {
+    const thumbnail = await this._getThumbnail(file);
+
     return {
       name: file.name.split('.')[0],
       extension: file.name.split('.')[1],
@@ -192,6 +192,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       show: true,
       size: file.size,
       file: file,
+      source: thumbnail,
     };
   }
 
@@ -211,6 +212,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       const file = await this._getFile(fileEntry);
       fileDisplay.file = file;
       fileDisplay.size = file.size;
+      fileDisplay.source = await this._getThumbnail(file);
     }
 
     return fileDisplay;
@@ -220,6 +222,17 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return await new Promise<File>((resolve, reject) =>
       fileEntry.file(resolve, reject)
     );
+  }
+
+  private async _getThumbnail(file: File): Promise<any> {
+    return await new Promise<any>(resolve => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+    });
   }
 
   private _removeFile(index: number) {
@@ -243,7 +256,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       .extension=${file.extension}
       .url=${file.source}
       .size=${file.size}
-      .isDirectory=${file.isDirectory}>
+      .isDirectory=${file.isDirectory}
+      .src="${file.source}">
       <uui-action-bar slot="actions">
         <uui-button
           @click=${() => this._removeFile(index)}
