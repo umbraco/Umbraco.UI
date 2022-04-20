@@ -69,7 +69,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       #caret {
         margin-right: var(--uui-size-3, 9px);
         display: flex;
-        width: 18px;
+        width: 1.15em;
         flex-shrink: 0;
         margin-top: -1px;
       }
