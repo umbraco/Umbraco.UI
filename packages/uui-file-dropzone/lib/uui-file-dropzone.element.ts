@@ -220,7 +220,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     if (items) {
       let result = await this._getAllFileEntries(items);
 
-      if (this.multiple === false) {
+      if (this.multiple === false && result.length > 0) {
         result = [result[0]];
       }
 
