@@ -12,10 +12,15 @@ export default {
 export const AAAOverview: Story = () => html`<uui-input-file></uui-input-file>`;
 AAAOverview.storyName = 'Overview';
 
-export const SingleFile: Story = () => html`<uui-input-file></uui-input-file>`;
-
 export const Multiple: Story = () =>
   html`<uui-input-file multiple></uui-input-file>`;
+
+Multiple.parameters = {
+  docs: {
+    storyDescription:
+      'When the multiple attribute is specified, the file input allows the user to select more than one file.',
+  },
+};
 
 export const Accept: Story = () =>
   html`<uui-input-file accept="image/*"></uui-input-file>`;
