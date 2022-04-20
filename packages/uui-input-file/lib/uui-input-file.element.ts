@@ -66,12 +66,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         align-items: center;
       }
 
-      #dropzone-content {
-        color: var(--uui-interface-text-color);
-        font-size: var(--uui-interface-font-size-m);
-        font-weight: bold;
-      }
-
       #add-button {
         width: 150px;
         height: 150px;
@@ -311,11 +305,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
           id="dropzone"
           ?multiple=${this.multiple}
           .accept=${this.accept}
-          @file-change=${this._handleFilesChange}>
-          <div id="dropzone-content">
-            <span> Drop to add files </span>
-          </div>
-        </uui-file-dropzone>
+          @file-change=${this._handleFilesChange}
+          label="Drop files here"></uui-file-dropzone>
         <div id="files">
           ${this._renderFiles()}
           <uui-button
