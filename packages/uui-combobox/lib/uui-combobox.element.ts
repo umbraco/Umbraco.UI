@@ -143,6 +143,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
     if (list) {
       this._comboboxList = list;
+      this._comboboxList.for = this;
       this._comboboxList.addEventListener(
         UUIComboboxListEvent.CHANGE,
         this._onChange

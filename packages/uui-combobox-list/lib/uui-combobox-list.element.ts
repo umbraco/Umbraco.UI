@@ -34,7 +34,7 @@ export class UUIComboboxListElement extends LitElement {
     return this._value;
   }
   public set value(newValue) {
-    if (this.value === newValue) return;
+    if (this._value === newValue) return;
 
     const oldValue = this._value;
     this._value = newValue;
@@ -51,6 +51,28 @@ export class UUIComboboxListElement extends LitElement {
    */
   @property({ type: String })
   public displayValue = '';
+
+  private _for?: HTMLElement;
+  /**
+   * provide another element of which keyboard navigation
+   * @type { HTMLElement }
+   * @attr
+   * @default this
+   */
+  @property({ attribute: false })
+  public get for() {
+    return this._for;
+  }
+  public set for(newValue: HTMLElement | undefined) {
+    if (this._for) {
+      this._for.removeEventListener('keydown', this._onKeyDown);
+    }
+
+    this._for = newValue;
+    if (this._for) {
+      this._for.addEventListener('keydown', this._onKeyDown);
+    }
+  }
 
   @queryAssignedElements({
     flatten: true,
@@ -85,8 +107,10 @@ export class UUIComboboxListElement extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    // TODO: cannot use document.
-    document.addEventListener('keydown', this._onKeyDown);
+
+    if (!this._for) {
+      this._for = this;
+    }
 
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
     this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
