@@ -18,7 +18,7 @@ export const Multiple: Story = () =>
   html`<uui-input-file multiple></uui-input-file>`;
 
 export const Accept: Story = () =>
-  html`<uui-input-file accept="image/*" multiple></uui-input-file>`;
+  html`<uui-input-file accept="image/*"></uui-input-file>`;
 
 Accept.parameters = {
   docs: {
