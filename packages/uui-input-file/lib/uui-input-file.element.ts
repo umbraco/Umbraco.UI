@@ -1,13 +1,10 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
-import '@umbraco-ui/uui-action-bar/lib';
-import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-icon/lib';
-import '@umbraco-ui/uui-icon-registry-essential/lib';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { iconDelete } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 interface FileWrapper {
   name: string;
@@ -137,7 +134,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   connectedCallback(): void {
     super.connectedCallback();
     demandCustomElement(this, 'uui-icon');
-    demandCustomElement(this, 'uui-icon-registry-essential');
     demandCustomElement(this, 'uui-file-dropzone');
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-action-bar');
@@ -268,11 +264,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       .isDirectory=${file.isDirectory}
       .src="${file.source}">
       <uui-action-bar slot="actions">
-        <uui-button
-          @click=${() => this._removeFile(index)}
-          look="danger"
-          compact>
-          <uui-icon name="delete"></uui-icon>
+        <uui-button @click=${() => this._removeFile(index)} look="danger">
+          <uui-icon name="delete" .fallback=${iconDelete.strings[0]}></uui-icon>
         </uui-button>
       </uui-action-bar>
     </uui-file-preview>`;
@@ -298,24 +291,21 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   render() {
-    //TODO fix icon registry style
     return html`
-      <uui-icon-registry-essential style="width: 100%">
-        <uui-file-dropzone
-          id="dropzone"
-          ?multiple=${this.multiple}
-          .accept=${this.accept}
-          @file-change=${this._handleFilesChange}
-          label="Drop files here"></uui-file-dropzone>
-        <div id="files">
-          ${this._renderFiles()}
-          <uui-button
-            @click=${this._handleClick}
-            id="add-button"
-            look="placeholder"
-            label="Add"></uui-button>
-        </div>
-      </uui-icon-registry-essential>
+      <uui-file-dropzone
+        id="dropzone"
+        ?multiple=${this.multiple}
+        .accept=${this.accept}
+        @file-change=${this._handleFilesChange}
+        label="Drop files here"></uui-file-dropzone>
+      <div id="files">
+        ${this._renderFiles()}
+        <uui-button
+          @click=${this._handleClick}
+          id="add-button"
+          look="placeholder"
+          label="Add"></uui-button>
+      </div>
     `;
   }
 }

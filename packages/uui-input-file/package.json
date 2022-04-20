@@ -35,7 +35,7 @@
     "@umbraco-ui/uui-action-bar": "0.1.1",
     "@umbraco-ui/uui-button": "0.2.1",
     "@umbraco-ui/uui-icon": "0.1.1",
-    "@umbraco-ui/uui-icon-registry": "0.1.1"
+    "@umbraco-ui/uui-icon-registry-essential": "0.1.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
