@@ -36,6 +36,9 @@ describe('UUIComboboxListElement', () => {
     it('has a displayValue property', () => {
       expect(element).to.have.property('displayValue');
     });
+    it('has a for property', () => {
+      expect(element).to.have.property('for');
+    });
   });
 
   describe('template', () => {

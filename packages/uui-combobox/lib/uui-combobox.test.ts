@@ -1,4 +1,10 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import {
+  html,
+  fixture,
+  expect,
+  oneEvent,
+  elementUpdated,
+} from '@open-wc/testing';
 import { UUIComboboxElement } from './uui-combobox.element';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import { UUIComboboxListOptionElement } from '@umbraco-ui/uui-combobox-list/lib';
@@ -107,6 +113,20 @@ describe('UUIComboboxElement', () => {
         expect(event).to.exist;
         expect(event.type).to.equal(UUIComboboxEvent.SEARCH);
       });
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    it('moves `active`-focus to second option on pressing the arrow down key', async () => {
+      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+
+      await elementUpdated(element);
+
+      const list = element.querySelector('uui-combobox-list');
+      const secondOption = list!.children![1] as any;
+      expect(secondOption).to.exist;
+      expect(secondOption.active).to.be.true;
     });
   });
 });
