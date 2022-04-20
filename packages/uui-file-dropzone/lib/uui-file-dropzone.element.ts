@@ -260,18 +260,15 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return html`
       <div id="dropzone">
         <uui-symbol-file-dropzone id="symbol"></uui-symbol-file-dropzone>
-        <slot></slot>
+        ${this.renderLabel()}
         <input
           @click=${(e: Event) => e.stopImmediatePropagation()}
           id="input"
           type="file"
           accept=${this.accept}
           ?multiple=${this.multiple}
-          @change=${this._onFileInputChange} /><label
-          id="input-label"
-          for="input">
-          ${this.renderLabel()}
-        </label>
+          @change=${this._onFileInputChange}
+          aria-label="${this.label}" />
       </div>
     `;
   }

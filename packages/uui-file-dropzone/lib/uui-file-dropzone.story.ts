@@ -17,18 +17,18 @@ export const AAAOverview: Story = props => {
     <uui-file-dropzone
       ?multiple=${props.multiple}
       accept=${props.accept}
-      @file-change=${handleFileChange}>
-      Drop files here
-    </uui-file-dropzone>
+      @file-change=${handleFileChange}
+      label="Drop files here"></uui-file-dropzone>
   `;
 };
 AAAOverview.storyName = 'Overview';
 
 export const Multiple: Story = () =>
   html`
-    <uui-file-dropzone multiple @file-change=${handleFileChange}
-      >Drop files here</uui-file-dropzone
-    >
+    <uui-file-dropzone
+      multiple
+      @file-change=${handleFileChange}
+      label="Drop files here"></uui-file-dropzone>
   `;
 
 Multiple.parameters = {
@@ -40,9 +40,10 @@ Multiple.parameters = {
 
 export const Accept: Story = () =>
   html`
-    <uui-file-dropzone accept="image/*" @file-change=${handleFileChange}
-      >Drop files here</uui-file-dropzone
-    >
+    <uui-file-dropzone
+      accept="image/*"
+      @file-change=${handleFileChange}
+      label="Drop files here"></uui-file-dropzone>
   `;
 
 Accept.parameters = {
@@ -61,11 +62,16 @@ export const BrowseFiles: Story = () => {
   };
 
   return html`
-    <uui-file-dropzone id="browse-dropzone" @file-change=${handleFileChange}>
+    <uui-file-dropzone
+      id="browse-dropzone"
+      @file-change=${handleFileChange}
+      label="Drop files here">
       Drop files here
-      <uui-button style="margin-top: 9px;" @click=${handleBrowse} look="primary"
-        >Browse</uui-button
-      >
+      <uui-button
+        style="margin-top: 9px;"
+        @click=${handleBrowse}
+        look="primary"
+        label="Browse"></uui-button>
     </uui-file-dropzone>
   `;
 };
@@ -81,7 +87,7 @@ const handleBrowse = () => {
   dropzone.browse();
 };
 
-<uui-file-dropzone id="browse-dropzone">
+<uui-file-dropzone id="browse-dropzone" label="Drop files here">
   Drop files here
   <uui-button style="margin-top: 9px;" @click="handleBrowse" look="primary">Browse</uui-button>
 </uui-file-dropzone>`,
