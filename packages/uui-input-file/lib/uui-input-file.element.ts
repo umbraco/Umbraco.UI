@@ -117,13 +117,19 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   private set fileWrappers(newValue) {
     const oldValue = newValue;
     this._fileWrappers = newValue;
-    const formData = new FormData();
-    for (const fileWrapper of this.fileWrappers) {
-      if (fileWrapper.file) {
-        formData.append(this.name, fileWrapper.file);
+
+    if (this._fileWrappers.length > 0) {
+      const formData = new FormData();
+      for (const fileWrapper of this.fileWrappers) {
+        if (fileWrapper.file) {
+          formData.append(this.name, fileWrapper.file);
+        }
       }
+      this.value = formData;
+    } else {
+      this.value = '';
     }
-    this.value = formData;
+
     this.requestUpdate('fileWrappers', oldValue);
   }
 
