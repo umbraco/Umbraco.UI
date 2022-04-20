@@ -17,6 +17,16 @@ export const SingleFile: Story = () => html`<uui-input-file></uui-input-file>`;
 export const Multiple: Story = () =>
   html`<uui-input-file multiple></uui-input-file>`;
 
+export const Accept: Story = () =>
+  html`<uui-input-file accept="image/*" multiple></uui-input-file>`;
+
+Accept.parameters = {
+  docs: {
+    storyDescription:
+      'The accept attribute takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more information.',
+  },
+};
+
 const submit = (e: SubmitEvent) => {
   e.preventDefault();
   const formElement = e.target as HTMLFormElement;
