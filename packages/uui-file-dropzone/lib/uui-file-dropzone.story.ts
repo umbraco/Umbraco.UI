@@ -33,8 +33,10 @@ export const Multiple: Story = () =>
 
 Multiple.parameters = {
   docs: {
-    storyDescription:
-      'When the multiple attribute is specified, the file input allows the user to select more than one file.',
+    description: {
+      story:
+        'When the multiple attribute is specified, the file input allows the user to select more than one file.',
+    },
   },
 };
 
@@ -48,8 +50,10 @@ export const Accept: Story = () =>
 
 Accept.parameters = {
   docs: {
-    storyDescription:
-      'The accept attribute takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more information.',
+    description: {
+      story:
+        'The accept attribute takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more information.',
+    },
   },
 };
 
@@ -78,8 +82,10 @@ export const BrowseFiles: Story = () => {
 
 BrowseFiles.parameters = {
   docs: {
-    storyDescription:
-      'The browse method allows the user to select a file from their computer.',
+    description: {
+      story:
+        'The browse method allows the user to select a file from their computer.',
+    },
     source: {
       code: `
 const handleBrowse = () => {
