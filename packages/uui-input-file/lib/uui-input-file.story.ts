@@ -36,6 +36,13 @@ const submit = (e: SubmitEvent) => {
   e.preventDefault();
   const formElement = e.target as HTMLFormElement;
   const formData = new FormData(formElement);
+  const isValid = formElement.checkValidity();
+
+  if (!isValid) {
+    console.log('Form not valid');
+    return;
+  }
+
   const data = formData.getAll('input-file');
   console.log('Files', data);
 };
@@ -57,23 +64,66 @@ Form.parameters = {
   docs: {
     source: {
       code: `
-const submit = (e: SubmitEvent) => {
+const submit = (e) => {
   e.preventDefault();
-  const formElement = e.target as HTMLFormElement;
+  const formElement = e.target;
   const formData = new FormData(formElement);
   const data = formData.getAll('input-file');
   console.log('Files', data);
 };
 
 <form @submit="submit">
-    <uui-input-file
-      name="input-file"
-      multiple>
-    </uui-input-file>
-  <uui-button style="margin-top: 16px" type="submit" look="primary">
-    Submit
-  </uui-button>
+  <uui-input-file name="input-file" multiple></uui-input-file>
+  <uui-button style="margin-top: 16px" type="submit" look="primary" label="Submit"></uui-button>
 </form>
+`,
+    },
+  },
+};
+
+export const FormValidation: Story = () => {
+  return html`
+    <uui-form>
+      <form @submit=${submit}>
+        <uui-form-layout-item>
+          <uui-label slot="label" required="">File</uui-label>
+          <uui-input-file name="input-file" required></uui-input-file>
+        </uui-form-layout-item>
+
+        <uui-button type="submit" look="primary" label="Submit"></uui-button>
+      </form>
+    </uui-form>
+  `;
+};
+
+Form.parameters = {
+  docs: {
+    source: {
+      code: `
+const submit = (e) => {
+  e.preventDefault();
+  const formElement = e.target;
+  const isValid = formElement.checkValidity();
+
+  if (!isValid) {
+    console.log('Form not valid');
+    return;
+  }
+
+  const formData = new FormData(formElement);
+  const data = formData.getAll('input-file');
+  console.log('Files', data);
+};
+
+<uui-form>
+  <form @submit="submit">
+    <uui-form-layout-item>
+      <uui-label slot="label" required="">File</uui-label>
+      <uui-input-file name="input-file" required></uui-input-file>
+    </uui-form-layout-item>
+    <uui-button type="submit" look="primary" label="Submit"></uui-button>
+  </form>
+<uui-form>
 `,
     },
   },
