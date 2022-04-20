@@ -3,6 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * @element uui-file-dropzone
@@ -93,6 +94,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('dragleave', this._onDragLeave, false);
     this.addEventListener('dragover', this._onDragOver, false);
     this.addEventListener('drop', this._onDrop, false);
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    demandCustomElement(this, 'uui-symbol-file-dropzone');
   }
 
   protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
