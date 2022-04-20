@@ -30,7 +30,10 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.1.1"
+    "@umbraco-ui/uui-base": "0.1.1",
+    "@umbraco-ui/uui-symbol-file": "0.1.1",
+    "@umbraco-ui/uui-symbol-file-thumbnail": "0.0.0",
+    "@umbraco-ui/uui-symbol-folder": "0.1.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
