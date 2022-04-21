@@ -132,3 +132,78 @@ const submit = (e) => {
     },
   },
 };
+
+export const Tester: Story = () => {
+  const init = async () => {
+    console.log('Init');
+    const imageUrl =
+      'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
+
+    const response = await fetch(imageUrl);
+    const imageBlob = await response.blob();
+
+    const file1 = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+    const file2 = new File([imageBlob], 'File 2', { type: 'image/jpeg' });
+
+    const fileInput = document.getElementById('formTesterTest') as any;
+
+    if (!fileInput.value) {
+      const formData = new FormData();
+      formData.append('input-file', file1);
+      formData.append('input-file', file2);
+      fileInput.value = formData;
+    }
+  };
+
+  init();
+
+  return html`
+    <uui-form>
+      <form @submit=${submit}>
+        <uui-form-layout-item>
+          <uui-label slot="label" required="">File</uui-label>
+          <uui-input-file
+            id="formTesterTest"
+            name="input-file"
+            required></uui-input-file>
+        </uui-form-layout-item>
+
+        <uui-button type="submit" look="primary" label="Submit"></uui-button>
+      </form>
+    </uui-form>
+  `;
+};
+
+export const Tester2: Story = () => {
+  const init = async () => {
+    console.log('Init');
+    const imageUrl =
+      'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
+
+    const response = await fetch(imageUrl);
+    const imageBlob = await response.blob();
+
+    const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+
+    const fileInput = document.getElementById('formTesterTest') as any;
+    fileInput.value = file;
+  };
+
+  init();
+
+  return html`
+    <uui-form>
+      <form @submit=${submit}>
+        <uui-form-layout-item>
+          <uui-label slot="label" required="">File</uui-label>
+          <uui-input-file
+            id="formTesterTest"
+            name="input-file"
+            required></uui-input-file>
+        </uui-form-layout-item>
+
+        <uui-button type="submit" look="primary" label="Submit"></uui-button>
+      </form>
+    </uui-form>
+  `;
+};

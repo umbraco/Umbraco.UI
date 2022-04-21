@@ -78,6 +78,9 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   @query('#dropzone')
   private _dropzone!: UUIFileDropzoneElement;
 
+  @query('#dropzone')
+  private _dropZone: UUIFileDropzoneElement | undefined;
+
   /**
    * Accepted filetypes. Will allow all types if empty.
    * @type {string}
@@ -96,33 +99,28 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   @property({ type: Boolean })
   public multiple: boolean = false;
 
-  @query('#dropzone')
-  private _dropZone: UUIFileDropzoneElement | undefined;
-
-  private _fileWrappers: FileWrapper[] = [];
-
-  @state()
-  private get fileWrappers() {
-    return this._fileWrappers;
+  get value() {
+    return this._value;
   }
-  private set fileWrappers(newValue) {
-    const oldValue = newValue;
-    this._fileWrappers = newValue;
+  set value(newValue) {
+    super.value = newValue;
 
-    if (this._fileWrappers.length > 0) {
-      const formData = new FormData();
-      for (const fileWrapper of this.fileWrappers) {
-        if (fileWrapper.file) {
-          formData.append(this.name, fileWrapper.file);
-        }
-      }
-      this.value = formData;
-    } else {
-      this.value = '';
+    if (newValue instanceof FormData) {
+      const data = (
+        this.multiple ? newValue.getAll(this.name) : [newValue.get(this.name)]
+      ) as Array<File>;
+      this._updateFileWrappers(data);
+      return;
     }
 
-    this.requestUpdate('fileWrappers', oldValue);
+    if (newValue instanceof File) {
+      this._updateFileWrappers([newValue]);
+      return;
+    }
   }
+
+  @state()
+  private _fileWrappers: FileWrapper[] = [];
 
   constructor() {
     super();
@@ -149,38 +147,58 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this._dropzone.browse();
   }
 
-  private async _handleFilesChange(event: CustomEvent) {
-    const files = event.detail.files as FileSystemFileEntry[] | FileList;
+  private _updateFileWrappers = async (data: Array<File>) => {
+    let newFileWrappers: Array<FileWrapper> = [];
 
-    for (const file of files) {
-      if (file instanceof File) {
-        const fileDisplay = await this._fileDisplayFromFile(file);
+    for await (const file of data) {
+      const fileDisplay = await this._fileDisplayFromFile(file);
 
-        if (this.multiple) {
-          this.fileWrappers.push(fileDisplay);
-        } else {
-          this.fileWrappers = [fileDisplay];
-        }
+      if (this.multiple) {
+        newFileWrappers.push(fileDisplay);
       } else {
-        const fileDisplay = await this._fileDisplayFromFileSystemFileEntry(
-          file
-        );
-
-        if (this.multiple) {
-          this.fileWrappers.push(fileDisplay);
-        } else {
-          this.fileWrappers = [fileDisplay];
-        }
+        newFileWrappers = [fileDisplay];
       }
     }
 
-    // * Sort to make sure all the files that should be shown is first. Because of this we can break out of the
-    // * render loop as soon as we hit the first show=false
-    this.fileWrappers = this.fileWrappers.sort(
-      (a: FileWrapper, b: FileWrapper) => Number(b.show) - Number(a.show)
-    );
+    this._fileWrappers = newFileWrappers;
+  };
 
-    this.fileWrappers = [...this.fileWrappers];
+  private async _handleFilesChange(event: CustomEvent) {
+    const entries = event.detail.files as FileSystemFileEntry[] | FileList;
+
+    if (!this.multiple) {
+      if (this.value instanceof File) {
+        const entry = entries[0];
+        const isFile = entry instanceof File;
+        this.value = isFile ? entry : await this._getFile(entry);
+        return;
+      }
+
+      if (this.value instanceof FormData) {
+        const entry = entries[0];
+        const isFile = entry instanceof File;
+        const file = isFile ? entry : await this._getFile(entry);
+        this.value.delete(this.name);
+        this.value.append(this.name, file);
+        this._updateFileWrappers([file]);
+        return;
+      }
+    }
+
+    let newValue: FormDataEntryValue | FormData = this.value;
+
+    if (entries.length > 0 && !(this.value instanceof FormData)) {
+      newValue = new FormData();
+    }
+
+    if (newValue instanceof FormData) {
+      for (const entry of entries) {
+        const isFile = entry instanceof File;
+        newValue.append(this.name, isFile ? entry : await this._getFile(entry));
+      }
+    }
+
+    this.value = newValue;
   }
 
   private async _fileDisplayFromFile(file: File): Promise<FileWrapper> {
@@ -195,30 +213,6 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       file: file,
       source: this._isFileAnImage(file) ? thumbnail : undefined,
     };
-  }
-
-  private async _fileDisplayFromFileSystemFileEntry(
-    fileEntry: FileSystemFileEntry
-  ): Promise<FileWrapper> {
-    const index = fileEntry.fullPath.split('/').length - 2;
-
-    const fileDisplay: FileWrapper = {
-      name: fileEntry.name.split('.')[0],
-      extension: fileEntry.name.split('.')[1],
-      isDirectory: fileEntry.isDirectory,
-      show: index === 0 ? true : false,
-    };
-
-    if (fileEntry.isFile) {
-      const file = await this._getFile(fileEntry);
-      fileDisplay.file = file;
-      fileDisplay.size = file.size;
-      fileDisplay.source = this._isFileAnImage(file)
-        ? await this._getThumbnail(file)
-        : undefined;
-    }
-
-    return fileDisplay;
   }
 
   private _isFileAnImage(file: File) {
@@ -243,8 +237,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private _removeFile(index: number) {
-    this.fileWrappers.splice(index, 1);
-    this.fileWrappers = [...this.fileWrappers]; // Updates the UI
+    this._fileWrappers.splice(index, 1);
+    this._fileWrappers = [...this._fileWrappers]; // Updates the UI
   }
 
   private _setShowDropzone(show: boolean) {
@@ -272,20 +266,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private _renderFiles() {
-    const result = [];
-
-    for (let index = 0; index < this.fileWrappers.length; index++) {
-      const file = this.fileWrappers[index];
-
-      if (file.show) {
-        result.push(file);
-      } else {
-        // * Because we sorted the fileDisplays by 'show' we can safely break on the first false value
-        break;
-      }
-    }
-
-    return html`${result.map((file: FileWrapper, index: number) =>
+    return html`${this._fileWrappers.map((file: FileWrapper, index: number) =>
       file.show ? this._renderFileItem(file, index) : ''
     )}`;
   }
