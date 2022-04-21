@@ -9,11 +9,12 @@ export default {
   component: 'uui-input-file',
 };
 
-export const AAAOverview: Story = () => html`<uui-input-file></uui-input-file>`;
+export const AAAOverview: Story = () =>
+  html`<uui-input-file name="input-file"></uui-input-file>`;
 AAAOverview.storyName = 'Overview';
 
 export const Multiple: Story = () =>
-  html`<uui-input-file multiple></uui-input-file>`;
+  html`<uui-input-file name="input-file" multiple></uui-input-file>`;
 
 Multiple.parameters = {
   docs: {
@@ -25,7 +26,7 @@ Multiple.parameters = {
 };
 
 export const Accept: Story = () =>
-  html`<uui-input-file accept="image/*"></uui-input-file>`;
+  html`<uui-input-file name="input-file" accept="image/*"></uui-input-file>`;
 
 Accept.parameters = {
   docs: {
@@ -133,7 +134,7 @@ const submit = (e) => {
   },
 };
 
-export const Tester: Story = () => {
+export const MultiplePrevalues: Story = () => {
   const init = async () => {
     console.log('Init');
     const imageUrl =
@@ -145,7 +146,9 @@ export const Tester: Story = () => {
     const file1 = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
     const file2 = new File([imageBlob], 'File 2', { type: 'image/jpeg' });
 
-    const fileInput = document.getElementById('formTesterTest') as any;
+    const fileInput = document.getElementById(
+      'inputFileMultiplePreValues'
+    ) as any;
 
     if (!fileInput.value) {
       const formData = new FormData();
@@ -163,9 +166,10 @@ export const Tester: Story = () => {
         <uui-form-layout-item>
           <uui-label slot="label" required="">File</uui-label>
           <uui-input-file
-            id="formTesterTest"
+            id="inputFileMultiplePreValues"
             name="input-file"
-            required></uui-input-file>
+            required
+            multiple></uui-input-file>
         </uui-form-layout-item>
 
         <uui-button type="submit" look="primary" label="Submit"></uui-button>
@@ -174,7 +178,7 @@ export const Tester: Story = () => {
   `;
 };
 
-export const Tester2: Story = () => {
+export const SinglePrevalue: Story = () => {
   const init = async () => {
     console.log('Init');
     const imageUrl =
@@ -185,7 +189,7 @@ export const Tester2: Story = () => {
 
     const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
 
-    const fileInput = document.getElementById('formTesterTest') as any;
+    const fileInput = document.getElementById('inputFileSinglePrevalue') as any;
     fileInput.value = file;
   };
 
@@ -197,7 +201,7 @@ export const Tester2: Story = () => {
         <uui-form-layout-item>
           <uui-label slot="label" required="">File</uui-label>
           <uui-input-file
-            id="formTesterTest"
+            id="inputFileSinglePrevalue"
             name="input-file"
             required></uui-input-file>
         </uui-form-layout-item>

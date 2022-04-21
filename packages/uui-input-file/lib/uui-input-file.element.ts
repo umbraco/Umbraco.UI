@@ -237,8 +237,29 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private _removeFile(index: number) {
-    this._fileWrappers.splice(index, 1);
-    this._fileWrappers = [...this._fileWrappers]; // Updates the UI
+    const fileWrapper = this._fileWrappers[index];
+
+    if (this.value instanceof FormData) {
+      const files = this.value.getAll(this.name) as Array<File>;
+      const filteredFiles = files.filter(file => file !== fileWrapper.file);
+
+      if (filteredFiles.length === 0) {
+        this.value = '';
+      } else {
+        this.value.delete(this.name);
+
+        for (const file of filteredFiles) {
+          this.value.append(this.name, file);
+        }
+      }
+
+      this._updateFileWrappers(filteredFiles);
+    }
+
+    if (this.value instanceof File) {
+      this.value = '';
+      this._updateFileWrappers([]);
+    }
   }
 
   private _setShowDropzone(show: boolean) {
