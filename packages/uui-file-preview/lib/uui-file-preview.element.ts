@@ -147,7 +147,7 @@ export class UUIFilePreviewElement extends LitElement {
   public set file(newValue) {
     const oldValue = this._file;
 
-    if (newValue) {
+    if (newValue instanceof File) {
       this._name = newValue.name.split('.')[0];
       this._extension = newValue.name.split('.')[1];
       this._isDirectory = false;
@@ -158,9 +158,9 @@ export class UUIFilePreviewElement extends LitElement {
           this._src = result;
         });
       }
-    }
 
-    this.requestUpdate('file', oldValue);
+      this.requestUpdate('file', oldValue);
+    }
   }
 
   connectedCallback(): void {
