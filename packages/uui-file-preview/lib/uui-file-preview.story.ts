@@ -6,6 +6,7 @@ import '@umbraco-ui/uui-icon/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { UUIFilePreviewElement } from './uui-file-preview.element';
 
 export default {
   id: 'uui-file-preview',
@@ -13,50 +14,111 @@ export default {
   component: 'uui-file-preview',
 };
 
-const Template: Story = props => html`
-  <uui-icon-registry-essential>
-    <uui-file-preview
-      name=${props.name}
-      extension=${props.extension}
-      size=${props.size}
-      ?isDirectory=${props.isDirectory}
-      src=${props.src}
-      url="${props.url}">
-      <uui-action-bar slot="actions">
-        <uui-button look="">
-          <uui-icon name="copy"></uui-icon>
-        </uui-button>
-        <uui-button look="danger">
-          <uui-icon name="delete"></uui-icon>
-        </uui-button>
-      </uui-action-bar>
-    </uui-file-preview>
-  </uui-icon-registry-essential>
-`;
+export const AAAOverview: Story = () => {
+  setTimeout(() => {
+    const file = new File(['file'], 'File 1.txt', { type: 'text/plain' });
+    const filePreview = document.getElementById(
+      'filePreview'
+    ) as UUIFilePreviewElement;
+    filePreview.file = file;
+  });
 
-export const AAAOverview = Template.bind({});
-
+  return html`
+    <uui-icon-registry-essential>
+      <uui-file-preview id="filePreview">
+        <uui-action-bar slot="actions">
+          <uui-button look="danger">
+            <uui-icon name="delete"></uui-icon>
+          </uui-button>
+        </uui-action-bar>
+      </uui-file-preview>
+    </uui-icon-registry-essential>
+  `;
+};
 AAAOverview.storyName = 'Overview';
 
-AAAOverview.args = {
-  name: 'ThisFileHasAVeryAndIMeanVeryLongName',
-  extension: 'jpg',
-  size: '12376',
-  src: 'https://i.picsum.photos/id/323/300/200.jpg?hmac=BJ1RcgeAgjXdKzYxBF0RBcRyuwapnAUk9K9c465dOKE',
-  url: 'https://i.picsum.photos/id/323/300/200.jpg?hmac=BJ1RcgeAgjXdKzYxBF0RBcRyuwapnAUk9K9c465dOKE',
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `
+const file = new File(["file"], "File 1.txt", { type: "text/plain" });
+const filePreview = document.getElementById('filePreview') as UUIFilePreviewElement;
+filePreview.file = file;
+
+<uui-icon-registry-essential>
+  <uui-file-preview
+    id="imagePreview">
+    <uui-action-bar slot="actions">
+      <uui-button look="danger">
+        <uui-icon name="delete"></uui-icon>
+      </uui-button>
+    </uui-action-bar>
+  </uui-file-preview>
+</uui-icon-registry-essential>
+      `,
+    },
+  },
 };
 
-export const NoImage = Template.bind({});
+export const Image: Story = () => {
+  const init = async () => {
+    const imageUrl =
+      'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
 
-NoImage.args = {
-  name: 'ThisFileHasAVeryAndIMeanVeryLongName',
-  extension: 'pdf',
-  size: '12376',
+    const response = await fetch(imageUrl);
+    const imageBlob = await response.blob();
+    const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+
+    const imagePreview = document.getElementById(
+      'imagePreview'
+    ) as UUIFilePreviewElement;
+    imagePreview.file = file;
+  };
+
+  init();
+
+  return html`
+    <uui-icon-registry-essential>
+      <uui-file-preview id="imagePreview">
+        <uui-action-bar slot="actions">
+          <uui-button look="danger">
+            <uui-icon name="delete"></uui-icon>
+          </uui-button>
+        </uui-action-bar>
+      </uui-file-preview>
+    </uui-icon-registry-essential>
+  `;
 };
 
-export const Directory = Template.bind({});
+Image.parameters = {
+  docs: {
+    source: {
+      code: `
+const init = async () => {
+  const imageUrl =
+  'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
 
-Directory.args = {
-  name: 'My Folder',
-  isDirectory: true,
+  const response = await fetch(imageUrl);
+  const imageBlob = await response.blob();
+  const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+
+  const imagePreview = document.getElementById('imagePreview');
+  imagePreview.file = file;
+}
+
+init();
+
+<uui-icon-registry-essential>
+  <uui-file-preview
+    id="imagePreview">
+    <uui-action-bar slot="actions">
+      <uui-button look="danger">
+        <uui-icon name="delete"></uui-icon>
+      </uui-button>
+    </uui-action-bar>
+  </uui-file-preview>
+</uui-icon-registry-essential>
+      `,
+    },
+  },
 };
