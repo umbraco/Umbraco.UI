@@ -167,17 +167,16 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     const entries = event.detail.files as FileSystemFileEntry[] | FileList;
 
     if (!this.multiple) {
+      const entry = entries[0];
+      const isFile = entry instanceof File;
+      const file = isFile ? entry : await this._getFile(entry);
+
       if (this.value instanceof File) {
-        const entry = entries[0];
-        const isFile = entry instanceof File;
-        this.value = isFile ? entry : await this._getFile(entry);
+        this.value = file;
         return;
       }
 
       if (this.value instanceof FormData) {
-        const entry = entries[0];
-        const isFile = entry instanceof File;
-        const file = isFile ? entry : await this._getFile(entry);
         this.value.delete(this.name);
         this.value.append(this.name, file);
         this._updateFileWrappers([file]);
