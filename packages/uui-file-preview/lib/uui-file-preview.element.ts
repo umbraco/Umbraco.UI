@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { UUIFileSize } from './UUIFileSize';
 
 import { css, html, LitElement } from 'lit';
@@ -89,8 +89,8 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default ''
    */
-  @property({ type: String })
-  public name: string = '';
+  @state()
+  private _name: string = '';
 
   /**
    * Link to the source of the file. Applied on the file name.
@@ -98,8 +98,8 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default ''
    */
-  @property({ type: String })
-  public url: string = '';
+  @state()
+  private _url: string = '';
 
   /**
    * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
@@ -107,8 +107,8 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default ''
    */
-  @property({ type: String })
-  public extension: string = '';
+  @state()
+  private _extension: string = '';
 
   /**
    * Source of a thumbnail to be displayed as the file symbol. Often used for images and video thumbnails.
@@ -116,8 +116,8 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default ''
    */
-  @property({ type: String })
-  public src: string = '';
+  @state()
+  private _src: string = '';
 
   /**
    * Size of the file in bytes. It will be formatted to a more readable format.
@@ -125,8 +125,8 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default 0
    */
-  @property({ type: Number })
-  public size: number = 0;
+  @state()
+  private _size: number = 0;
 
   /**
    * Dertermines if a folder symbol should be used instead of file symbol.
@@ -134,49 +134,76 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default false
    */
-  @property({ type: Boolean })
-  public isDirectory: boolean = false;
+  @state()
+  private _isDirectory: boolean = false;
+
+  @state()
+  private _file?: File;
+
+  @property({ attribute: false })
+  public get file() {
+    return this._file;
+  }
+  public set file(newValue) {
+    const oldValue = this._file;
+
+    if (newValue) {
+      this._name = newValue.name.split('.')[0];
+      this._extension = newValue.name.split('.')[1];
+      this._isDirectory = false;
+      this._size = newValue.size;
+
+      if (this._isFileAnImage(newValue)) {
+        this._getThumbnail(newValue).then(result => {
+          this._src = result;
+        });
+      }
+    }
+
+    this.requestUpdate('file', oldValue);
+  }
 
   connectedCallback(): void {
     super.connectedCallback();
+
     demandCustomElement(this, 'uui-symbol-file-thumbnail');
     demandCustomElement(this, 'uui-symbol-folder');
     demandCustomElement(this, 'uui-symbol-file');
   }
 
-  private openSource() {
-    window.open(this.url, '_blank');
+  private _openSource() {
+    window.open(this._url, '_blank');
   }
 
-  private fileTypeTemplate() {
-    if (this.isDirectory) {
+  private _fileTypeTemplate() {
+    if (this._isDirectory) {
       return html`<uui-symbol-folder id="file-symbol"></uui-symbol-folder>`;
     }
-    if (this.src) {
+    if (this._src) {
       return html`<uui-symbol-file-thumbnail
-        .src=${this.src}
-        .alt=${this.name}
+        .src=${this._src}
+        .alt=${this._name}
         id="file-symbol"></uui-symbol-file-thumbnail>`;
     }
 
     return html`<uui-symbol-file
       id="file-symbol"
-      .type=${this.extension}></uui-symbol-file>`;
+      .type=${this._extension}></uui-symbol-file>`;
   }
 
-  private renderLongName() {
+  private _renderLongName() {
     const endCharCount = 6;
-    const nameStart = this.name.substring(0, this.name.length - endCharCount);
-    const nameEnd = this.name.substring(
-      this.name.length - endCharCount,
-      this.name.length
+    const nameStart = this._name.substring(0, this._name.length - endCharCount);
+    const nameEnd = this._name.substring(
+      this._name.length - endCharCount,
+      this._name.length
     );
     //TODO Fix keyboard event listener
     return html`
       <span
         id="file-name"
-        class=${this.url ? 'has-source' : ''}
-        @click=${() => (this.url ? this.openSource() : '')}
+        class=${this._url ? 'has-source' : ''}
+        @click=${() => (this._url ? this._openSource() : '')}
         @keydown=${() => ''}>
         <span id="file-name-start">${nameStart}</span>
         <span id="file-name-end">${nameEnd}</span>
@@ -184,15 +211,30 @@ export class UUIFilePreviewElement extends LitElement {
     `;
   }
 
+  private _isFileAnImage(file: File) {
+    return file ? file['type'].split('/')[0] === 'image' : false;
+  }
+
+  private async _getThumbnail(file: File): Promise<any> {
+    return await new Promise<any>(resolve => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+    });
+  }
+
   render() {
     return html`
       <slot id="actions" name="actions"></slot>
-      ${this.fileTypeTemplate()}
+      ${this._fileTypeTemplate()}
       <div id="file-info">
-        ${this.renderLongName()}
+        ${this._renderLongName()}
         <span id="file-size">
-          ${this.size && !this.isDirectory
-            ? html`${UUIFileSize.humanFileSize(this.size, true)}`
+          ${this._size && !this._isDirectory
+            ? html`${UUIFileSize.humanFileSize(this._size, true)}`
             : ''}
         </span>
       </div>

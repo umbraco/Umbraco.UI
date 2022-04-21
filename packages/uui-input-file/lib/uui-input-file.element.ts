@@ -5,17 +5,7 @@ import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { iconDelete } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-
-interface FileWrapper {
-  name: string;
-  extension: string;
-  isDirectory: boolean;
-  show: boolean;
-  size?: number;
-  thumbnail?: string;
-  source?: string;
-  file?: File;
-}
+import { repeat } from 'lit/directives/repeat.js';
 
 /**
  * @element uui-input-file
@@ -120,7 +110,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   @state()
-  private _fileWrappers: FileWrapper[] = [];
+  private _files: File[] = [];
 
   constructor() {
     super();
@@ -147,20 +137,18 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this._dropzone.browse();
   }
 
-  private _updateFileWrappers = async (data: Array<File>) => {
-    let newFileWrappers: Array<FileWrapper> = [];
+  private _updateFileWrappers = (data: Array<File>) => {
+    let newFileWrappers: Array<File> = [];
 
-    for await (const file of data) {
-      const fileDisplay = await this._fileDisplayFromFile(file);
-
+    for (const file of data) {
       if (this.multiple) {
-        newFileWrappers.push(fileDisplay);
+        newFileWrappers.push(file);
       } else {
-        newFileWrappers = [fileDisplay];
+        newFileWrappers = [file];
       }
     }
 
-    this._fileWrappers = newFileWrappers;
+    this._files = newFileWrappers;
   };
 
   private async _handleFilesChange(event: CustomEvent) {
@@ -204,47 +192,18 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     this.value = newValue;
   }
 
-  private async _fileDisplayFromFile(file: File): Promise<FileWrapper> {
-    const thumbnail = await this._getThumbnail(file);
-
-    return {
-      name: file.name.split('.')[0],
-      extension: file.name.split('.')[1],
-      isDirectory: false,
-      show: true,
-      size: file.size,
-      file: file,
-      source: this._isFileAnImage(file) ? thumbnail : undefined,
-    };
-  }
-
-  private _isFileAnImage(file: File) {
-    return file ? file['type'].split('/')[0] === 'image' : false;
-  }
-
   private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
     return await new Promise<File>((resolve, reject) =>
       fileEntry.file(resolve, reject)
     );
   }
 
-  private async _getThumbnail(file: File): Promise<any> {
-    return await new Promise<any>(resolve => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-    });
-  }
-
   private _removeFile(index: number) {
-    const fileWrapper = this._fileWrappers[index];
+    const fileToRemove = this._files[index];
 
     if (this.value instanceof FormData) {
       const files = this.value.getAll(this.name) as Array<File>;
-      const filteredFiles = files.filter(file => file !== fileWrapper.file);
+      const filteredFiles = files.filter(file => file !== fileToRemove);
 
       if (filteredFiles.length === 0) {
         this.value = '';
@@ -273,14 +232,8 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     }
   }
 
-  private _renderFileItem(file: FileWrapper, index: number) {
-    return html`<uui-file-preview
-      .name=${file.name}
-      .extension=${file.extension}
-      .url=${file.source}
-      .size=${file.size}
-      .isDirectory=${file.isDirectory}
-      .src="${file.source}">
+  private _renderFileItem(file: File, index: number) {
+    return html`<uui-file-preview .file="${file}">
       <uui-action-bar slot="actions">
         <uui-button @click=${() => this._removeFile(index)} look="danger">
           <uui-icon name="delete" .fallback=${iconDelete.strings[0]}></uui-icon>
@@ -290,8 +243,10 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   }
 
   private _renderFiles() {
-    return html`${this._fileWrappers.map((file: FileWrapper, index: number) =>
-      file.show ? this._renderFileItem(file, index) : ''
+    return html`${repeat(
+      this._files,
+      (file: File) => file.name + file.size,
+      (file: File, index: number) => this._renderFileItem(file, index)
     )}`;
   }
 
