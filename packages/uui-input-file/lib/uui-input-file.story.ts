@@ -136,7 +136,6 @@ const submit = (e) => {
 
 export const MultiplePrevalues: Story = () => {
   const init = async () => {
-    console.log('Init');
     const imageUrl =
       'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
 
@@ -150,37 +149,54 @@ export const MultiplePrevalues: Story = () => {
       'inputFileMultiplePreValues'
     ) as any;
 
-    if (!fileInput.value) {
-      const formData = new FormData();
-      formData.append('input-file', file1);
-      formData.append('input-file', file2);
-      fileInput.value = formData;
-    }
+    const formData = new FormData();
+    formData.append('input-file', file1);
+    formData.append('input-file', file2);
+    fileInput.value = formData;
   };
 
   init();
 
-  return html`
-    <uui-form>
-      <form @submit=${submit}>
-        <uui-form-layout-item>
-          <uui-label slot="label" required="">File</uui-label>
-          <uui-input-file
-            id="inputFileMultiplePreValues"
-            name="input-file"
-            required
-            multiple></uui-input-file>
-        </uui-form-layout-item>
+  return html`<uui-input-file
+    id="inputFileMultiplePreValues"
+    name="input-file"
+    multiple></uui-input-file>`;
+};
 
-        <uui-button type="submit" look="primary" label="Submit"></uui-button>
-      </form>
-    </uui-form>
-  `;
+MultiplePrevalues.parameters = {
+  docs: {
+    source: {
+      code: `
+const init = async () => {
+  const imageUrl =
+    'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
+
+  const response = await fetch(imageUrl);
+  const imageBlob = await response.blob();
+
+  const file1 = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+  const file2 = new File([imageBlob], 'File 2', { type: 'image/jpeg' });
+
+  const fileInput = document.getElementById(
+    'inputFileMultiplePreValues'
+  ) as any;
+
+  const formData = new FormData();
+  formData.append('input-file', file1);
+  formData.append('input-file', file2);
+  fileInput.value = formData;
+};
+
+init();
+
+<uui-input-file id="inputFileMultiplePreValues" name="input-file" multiple></uui-input-file>
+`,
+    },
+  },
 };
 
 export const SinglePrevalue: Story = () => {
   const init = async () => {
-    console.log('Init');
     const imageUrl =
       'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
 
@@ -196,18 +212,33 @@ export const SinglePrevalue: Story = () => {
   init();
 
   return html`
-    <uui-form>
-      <form @submit=${submit}>
-        <uui-form-layout-item>
-          <uui-label slot="label" required="">File</uui-label>
-          <uui-input-file
-            id="inputFileSinglePrevalue"
-            name="input-file"
-            required></uui-input-file>
-        </uui-form-layout-item>
-
-        <uui-button type="submit" look="primary" label="Submit"></uui-button>
-      </form>
-    </uui-form>
+    <uui-input-file
+      id="inputFileSinglePrevalue"
+      name="input-file"></uui-input-file>
   `;
+};
+
+SinglePrevalue.parameters = {
+  docs: {
+    source: {
+      code: `
+const init = async () => {
+  const imageUrl =
+    'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
+
+  const response = await fetch(imageUrl);
+  const imageBlob = await response.blob();
+
+  const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+
+  const fileInput = document.getElementById('inputFileSinglePrevalue') as any;
+  fileInput.value = file;
+};
+
+init();
+
+<uui-input-file id="inputFileSinglePrevalue" name="input-file"></uui-input-file>
+`,
+    },
+  },
 };
