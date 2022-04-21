@@ -8,9 +8,17 @@ export default {
   id: 'uui-file-dropzone',
   title: 'Inputs/Files/File Dropzone',
   component: 'uui-file-dropzone',
+  decorators: [
+    (Story: any) =>
+      html`<div style="font-size: 12px; margin-bottom: 20px;">
+          Note: Dropzone logs dropped files in console
+        </div>
+        ${Story()}`,
+  ],
 };
 
-const handleFileChange = (e: UUIFileDropzoneEvent) => console.log(e.detail);
+const handleFileChange = (e: UUIFileDropzoneEvent) =>
+  console.log('event.detail: ', e.detail);
 
 export const AAAOverview: Story = props => {
   return html`
