@@ -10,6 +10,7 @@ import { repeat } from 'lit/directives/repeat.js';
 /**
  * @element uui-input-file
  * @description - A form associated file input that supports multiple files.
+ * @extends FormControlMixin
  */
 @defineElement('uui-input-file')
 export class UUIInputFileElement extends FormControlMixin(LitElement) {
