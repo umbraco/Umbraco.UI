@@ -10,7 +10,7 @@
     "Lit",
     "Input File"
   ],
-  "description": "Umbraco UI input-file component",
+  "description": "Umbraco UI input-file component.",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
