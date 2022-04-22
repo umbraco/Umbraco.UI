@@ -58,8 +58,6 @@ export class UUISymbolFileThumbnailElement extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('role', 'img');
-
     demandCustomElement(this, 'uui-icon');
   }
 
