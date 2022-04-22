@@ -10,7 +10,7 @@
     "Lit",
     "Symbol File Dropzone"
   ],
-  "description": "Umbraco UI symbol-file-dropzone component",
+  "description": "Umbraco UI symbol-file-dropzone component.",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
