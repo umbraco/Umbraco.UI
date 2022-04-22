@@ -148,7 +148,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         UUIComboboxListEvent.CHANGE,
         this._onChange
       );
-      this._comboboxList.value = this.value;
+
+      if (typeof this.value === 'string') {
+        this._comboboxList.value = this.value;
+      }
     }
   }
 
