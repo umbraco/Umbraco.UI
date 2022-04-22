@@ -140,6 +140,9 @@ export class UUIFilePreviewElement extends LitElement {
   @state()
   private _file?: File;
 
+  @state()
+  private _isImage?: boolean;
+
   @property({ attribute: false })
   public get file() {
     return this._file;
@@ -154,6 +157,7 @@ export class UUIFilePreviewElement extends LitElement {
       this._size = newValue.size;
 
       if (this._isFileAnImage(newValue)) {
+        this._isImage = true;
         this._getThumbnail(newValue).then(result => {
           this._src = result;
         });
@@ -179,7 +183,7 @@ export class UUIFilePreviewElement extends LitElement {
     if (this._isDirectory) {
       return html`<uui-symbol-folder id="file-symbol"></uui-symbol-folder>`;
     }
-    if (this._src) {
+    if (this._isImage) {
       return html`<uui-symbol-file-thumbnail
         .src=${this._src}
         .alt=${this._name}

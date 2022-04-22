@@ -38,6 +38,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         justify-items: center;
         width: 100%;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-auto-rows: min-content;
         gap: 16px;
         padding: 16px;
         overflow: auto;

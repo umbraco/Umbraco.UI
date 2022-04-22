@@ -1,6 +1,9 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+
+import { iconPicture } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 /**
  * @element uui-symbol-file-thumbnail
@@ -20,6 +23,17 @@ export class UUISymbolFileThumbnailElement extends LitElement {
         object-fit: contain;
         height: 100%;
         width: 100%;
+      }
+
+      uui-icon {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        display: flex;
+        max-height: 100%;
+        justify-content: center;
+        color: var(--uui-color-white);
+        background: var(--uui-color-white-dimmed);
       }
     `,
   ];
@@ -42,8 +56,19 @@ export class UUISymbolFileThumbnailElement extends LitElement {
   @property({ type: String })
   alt: string = '';
 
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('role', 'img');
+
+    demandCustomElement(this, 'uui-icon');
+  }
+
   render() {
-    return html`<img src=${this.src} alt=${this.alt} />`;
+    return this.src
+      ? html`<img src=${this.src} alt=${this.alt} />`
+      : html`<uui-icon
+          name="picture"
+          .fallback=${iconPicture.strings[0]}></uui-icon>`;
   }
 }
 
