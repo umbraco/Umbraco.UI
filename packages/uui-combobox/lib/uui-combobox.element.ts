@@ -138,7 +138,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.removeEventListener('mousedown', this._onMouseDown);
   }
 
-  protected firstUpdated(): void {
+  protected async firstUpdated() {
     const list = this._comboboxListElements?.[0];
 
     if (list) {
@@ -150,7 +150,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       );
 
       if (typeof this.value === 'string') {
+        await this.updateComplete;
         this._comboboxList.value = this.value;
+        this._displayValue = this._comboboxList?.displayValue || '';
       }
     }
   }
