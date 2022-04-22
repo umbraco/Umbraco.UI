@@ -388,5 +388,7 @@ CountrySelect.args = {
   regions: RegionsAndCountries,
 };
 
+/*
 export const AsyncData: Story = () =>
   html`<uui-combobox-async-example></uui-combobox-async-example>`;
+*/
