@@ -24,6 +24,10 @@ export class UUISymbolFileElement extends LitElement {
         font-weight: 700;
         color: var(--uui-color-gunmetal);
         background-color: var(--uui-color-spanish-pink);
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       #icon {
