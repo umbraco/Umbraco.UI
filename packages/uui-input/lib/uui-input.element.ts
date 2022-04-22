@@ -274,13 +274,13 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     return this._input;
   }
 
-  private _onInput(e: Event) {
+  protected onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.INPUT));
   }
 
-  private _onChange() {
+  protected onChange() {
     this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
@@ -307,8 +307,8 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         .disabled=${this.disabled}
         ?required=${this.required}
         ?readonly=${this.readonly}
-        @input=${this._onInput}
-        @change=${this._onChange} />
+        @input=${this.onInput}
+        @change=${this.onChange} />
       ${this.renderAppend()}
     `;
   }

@@ -5,6 +5,8 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
+import '@umbraco-ui/uui-symbol-folder/lib';
+import '@umbraco-ui/uui-symbol-file/lib';
 import { UUICardMediaElement } from './uui-card-media.element';
 import '.';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib';

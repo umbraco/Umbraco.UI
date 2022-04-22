@@ -10,14 +10,14 @@ type NativeFormControlElement = HTMLInputElement; // Eventually use a specific i
 // TODO: make it possible to define FormDataEntryValue type.
 export declare abstract class FormControlMixinInterface extends LitElement {
   formAssociated: boolean;
-  get value(): FormDataEntryValue;
-  set value(newValue: FormDataEntryValue);
+  get value(): FormDataEntryValue | FormData;
+  set value(newValue: FormDataEntryValue | FormData);
   name: string;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   public setCustomValidity(error: string): void;
-  protected _value: FormDataEntryValue;
+  protected _value: FormDataEntryValue | FormData;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
   protected addValidator: (
@@ -148,7 +148,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    private _value: FormDataEntryValue = '';
+    private _value: FormDataEntryValue | FormData = '';
     private _internals: any;
     private _form: HTMLFormElement | null = null;
     private _validators: Validator[] = [];

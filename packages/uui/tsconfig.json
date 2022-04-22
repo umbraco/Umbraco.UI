@@ -77,6 +77,12 @@
       "path": "../uui-dialog-layout"
     },
     {
+      "path": "../uui-file-dropzone"
+    },
+    {
+      "path": "../uui-file-preview"
+    },
+    {
       "path": "../uui-form"
     },
     {
@@ -96,6 +102,9 @@
     },
     {
       "path": "../uui-input"
+    },
+    {
+      "path": "../uui-input-file"
     },
     {
       "path": "../uui-input-lock"
@@ -123,6 +132,9 @@
     },
     {
       "path": "../uui-pagination"
+    },
+    {
+      "path": "../uui-popover"
     },
     {
       "path": "../uui-progress-bar"
@@ -171,6 +183,12 @@
     },
     {
       "path": "../uui-symbol-file"
+    },
+    {
+      "path": "../uui-symbol-file-dropzone"
+    },
+    {
+      "path": "../uui-symbol-file-thumbnail"
     },
     {
       "path": "../uui-symbol-folder"
