@@ -15,6 +15,8 @@ import '@umbraco-ui/uui-card-user/lib';
 import '@umbraco-ui/uui-card/lib';
 import '@umbraco-ui/uui-caret/lib';
 import '@umbraco-ui/uui-checkbox/lib';
+import '@umbraco-ui/uui-combobox/lib';
+import '@umbraco-ui/uui-combobox-list/lib';
 import '@umbraco-ui/uui-dialog-layout/lib';
 import '@umbraco-ui/uui-dialog/lib';
 import '@umbraco-ui/uui-file-dropzone/lib';

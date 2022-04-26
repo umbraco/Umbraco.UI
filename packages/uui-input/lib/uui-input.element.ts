@@ -2,6 +2,7 @@ import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIInputEvent } from './UUIInputEvent';
 
@@ -206,6 +207,15 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   placeholder = '';
 
   /**
+   * Defines the input autocomplete.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property()
+  autocomplete?: string;
+
+  /**
    * This property specifies the type of input that will be rendered.
    * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
    * @attr
@@ -267,8 +277,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   protected onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
-    // TODO: Do we miss an input event?
-    // No, this event is already composed and bubbles, so th enative one just goes out and works. Change is not though. (see more https://html.spec.whatwg.org/multipage/input.html#common-input-element-events)
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.INPUT));
   }
 
   protected onChange() {
@@ -292,6 +301,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         .type=${this.type}
         .value=${this.value as string}
         .name=${this.name}
+        autocomplete=${ifDefined(this.autocomplete as any)}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}

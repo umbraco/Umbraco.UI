@@ -39,10 +39,11 @@ const _onSubmit = (e: SubmitEvent) => {
 export const Overview: Story = () => {
   return html`
     <uui-form>
-      <form id="MyForm" @submit="${_onSubmit}">
+      <form id="MyForm" name="myForm" @submit="${_onSubmit}">
         <uui-form-layout-item>
-          <uui-label slot="label" required>Checkbox</uui-label>
+          <uui-label for="MyCheckbox" slot="label" required>Checkbox</uui-label>
           <uui-checkbox
+            id="MyCheckbox"
             name="checkbox"
             value="Bike"
             label="This is my checked checkbox"
@@ -52,15 +53,22 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label" required>Toggle</uui-label>
-          <uui-toggle name="toggle" label="This is my toggle" required>
+          <uui-label for="MyToggle" slot="label" required>Toggle</uui-label>
+          <uui-toggle
+            id="MyToggle"
+            name="toggle"
+            label="This is my toggle"
+            required>
             This is my toggle
           </uui-toggle>
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label" required>Radio Group</uui-label>
+          <uui-label for="MyRadioGroup" slot="label" required
+            >Radio Group</uui-label
+          >
           <uui-radio-group
+            id="MyRadioGroup"
             name="radio"
             label="This is my radio"
             required
@@ -78,8 +86,9 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label" required>Email</uui-label>
+          <uui-label for="MyEmailInput" slot="label" required>Email</uui-label>
           <uui-input
+            id="MyEmailInput"
             name="email"
             type="email"
             label="Email"
@@ -87,14 +96,21 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label" required>Password</uui-label>
-          <uui-input-password name="password" label="Password" required>
+          <uui-label for="MyPasswordInput" slot="label" required
+            >Password</uui-label
+          >
+          <uui-input-password
+            id="MyPasswordInput"
+            name="password"
+            label="Password"
+            required>
           </uui-input-password>
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label" required>Slider</uui-label>
+          <uui-label for="MySlider" slot="label" required>Slider</uui-label>
           <uui-slider
+            id="MySlider"
             label="Slider"
             name="slider"
             value="5.5"
@@ -106,8 +122,9 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label slot="label" required>Textarea</uui-label>
+          <uui-label for="MyTextArea" slot="label" required>Textarea</uui-label>
           <uui-textarea
+            id="MyTextArea"
             label="Textarea"
             name="textarea"
             value="Some long text that needs more space"
@@ -115,6 +132,24 @@ export const Overview: Story = () => {
             maxlength="30"
             required>
           </uui-textarea>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
+          <uui-label for="MyCombobox" slot="label" required>Combobox</uui-label>
+          <uui-combobox id="MyCombobox" name="combobox" required>
+            <uui-combobox-list-option value="1"
+              >Option 1</uui-combobox-list-option
+            >
+            <uui-combobox-list-option value="2"
+              >Option 2</uui-combobox-list-option
+            >
+            <uui-combobox-list-option value="3"
+              >Option 3</uui-combobox-list-option
+            >
+            <uui-combobox-list-option value="4"
+              >Option 4</uui-combobox-list-option
+            >
+          </uui-combobox>
         </uui-form-layout-item>
 
         <div>
