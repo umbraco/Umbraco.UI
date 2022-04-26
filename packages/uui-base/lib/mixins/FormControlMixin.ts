@@ -16,6 +16,7 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
+  get validity(): ValidityState;
   public setCustomValidity(error: string): void;
   protected _value: FormDataEntryValue | FormData;
   protected _internals: any;
@@ -302,6 +303,9 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
       const hasError = Object.values(this._validityState).includes(true);
 
+      // https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#valid
+      this._validityState.valid = !hasError;
+
       if (hasError) {
         this.dispatchEvent(
           new UUIFormControlEvent(UUIFormControlEvent.INVALID)
@@ -345,6 +349,11 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       }
 
       return this._internals?.checkValidity();
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validity
+    public get validity(): ValidityState {
+      return this._validityState;
     }
 
     get validationMessage() {
