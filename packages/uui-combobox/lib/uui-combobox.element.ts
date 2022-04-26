@@ -76,6 +76,17 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     `,
   ];
 
+  get value() {
+    return this._value;
+  }
+  set value(newValue) {
+    super.value = newValue;
+
+    if (typeof newValue === 'string') {
+      this._updateValue(newValue);
+    }
+  }
+
   /**
    * The search input.
    * @type { string }
@@ -151,9 +162,15 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
       if (typeof this.value === 'string') {
         await this.updateComplete;
-        this._comboboxList.value = this.value;
-        this._displayValue = this._comboboxList?.displayValue || '';
+        this._updateValue(this.value);
       }
+    }
+  }
+
+  private _updateValue(value: string) {
+    if (this._comboboxList) {
+      this._comboboxList.value = value;
+      this._displayValue = this._comboboxList?.displayValue || '';
     }
   }
 
