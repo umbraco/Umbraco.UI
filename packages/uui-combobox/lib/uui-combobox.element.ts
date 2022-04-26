@@ -12,7 +12,7 @@ import {
   UUIComboboxListEvent,
   UUIComboboxListElement,
 } from '@umbraco-ui/uui-combobox-list/lib';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins/FormControlMixin';
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 /**

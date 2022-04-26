@@ -1,7 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events/UUISelectableEvent';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUIComboboxListOptionElement } from './uui-combobox-list-option.element';
 import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 
