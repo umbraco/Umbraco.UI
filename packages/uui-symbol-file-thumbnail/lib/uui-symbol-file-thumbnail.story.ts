@@ -7,6 +7,9 @@ export default {
   id: 'uui-symbol-file-thumbnail',
   title: 'Symbols/File Thumbnail',
   component: 'uui-symbol-file-thumbnail',
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Overview: Story = props =>
