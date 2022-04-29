@@ -16,7 +16,7 @@ import {
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
-export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
+export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
 
@@ -512,7 +512,7 @@ export class UUIButtonElement extends FormControlMixin(
     `,
   ];
   /**
-   * Specifies the type of button.
+   * Specifies the type of button
    * @type { "submit" | "button" | "reset" }
    * @attr
    * @default "button"
@@ -549,12 +549,12 @@ export class UUIButtonElement extends FormControlMixin(
 
   /**
    * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
-   * @type {null |'waiting' | 'success' | 'failed'}
+   * @type {undefined |'waiting' | 'success' | 'failed'}
    * @attr
-   * @default null
+   * @default undefined
    */
   @property({ type: String, reflect: true })
-  state: UUIButtonState = null;
+  state: UUIButtonState = undefined;
 
   @query('#button')
   protected _button!: HTMLInputElement;
@@ -602,7 +602,7 @@ export class UUIButtonElement extends FormControlMixin(
       clearTimeout(this._resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
         this._resetStateTimeout = setTimeout(
-          () => (this.state = null),
+          () => (this.state = undefined),
           2000
         ) as any;
       }
