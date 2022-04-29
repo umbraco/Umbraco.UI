@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.2...@umbraco-ui/uui@0.1.3) (2022-04-13)
+
+**Note:** Version bump only for package @umbraco-ui/uui
+
+## [0.1.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.1...@umbraco-ui/uui@0.1.2) (2022-04-11)
+
+### Bug Fixes
+
+- **uui:** add missing reference to uui-popover ([cbb74c6](https://github.com/umbraco/Umbraco.UI/commit/cbb74c6050a85241ac19e651a9eecfd6ecfe9c99)), closes [#194](https://github.com/umbraco/Umbraco.UI/issues/194)
+
 ## [0.1.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.0...@umbraco-ui/uui@0.1.1) (2022-04-01)
 
 ### Bug Fixes

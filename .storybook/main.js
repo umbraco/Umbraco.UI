@@ -8,7 +8,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '../storyhelpers/storybook-readme/preset.js',
   ],
-  core: { builder: 'storybook-builder-vite' },
+  core: { builder: '@storybook/builder-vite' },
   staticDirs: ['./images'],
 
   async viteFinal(config, { configType }) {
