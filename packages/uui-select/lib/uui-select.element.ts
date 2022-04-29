@@ -210,7 +210,11 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   }
 
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
-    if (changedProperties.has('options')) this._extractGroups();
+    if (changedProperties.has('options')) {
+      this._extractGroups();
+      const selected = this.options.find(option => option.selected);
+      this.value = selected ? selected.value : '';
+    }
     if (changedProperties.has('disabledGroups')) this._createDisabledGroups();
   }
 
@@ -274,7 +278,8 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
       aria-label=${this.label}
       @change=${this.setValue}
       ?disabled=${this.disabled}
-      .name=${this.name}>
+      .name=${this.name}
+      .value=${this.value as string}>
       <option disabled selected value="" hidden>${this.placeholder}</option>
       ${this._renderGrouped()}
       ${this.options
