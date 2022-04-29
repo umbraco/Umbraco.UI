@@ -508,7 +508,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     `,
   ];
   /**
-   * Specifies the type of button.
+   * Specifies the type of button
    * @type { "submit" | "button" | "reset" }
    * @attr
    * @default "button"
