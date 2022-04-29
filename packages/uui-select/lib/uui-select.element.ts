@@ -158,6 +158,8 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   @state()
   private _disabledGroups: string[] = [];
 
+  private _values: string[] = [];
+
   @query('#native')
   protected _input!: HTMLSelectElement;
 
@@ -212,8 +214,15 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('options')) {
       this._extractGroups();
+      this._values = this.options.map(option => option.value);
       const selected = this.options.find(option => option.selected);
       this.value = selected ? selected.value : '';
+    }
+
+    if (changedProperties.has('value')) {
+      this.value = this._values.includes(this.value as string)
+        ? this.value
+        : '';
     }
     if (changedProperties.has('disabledGroups')) this._createDisabledGroups();
   }

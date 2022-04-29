@@ -75,6 +75,14 @@ describe('UUISelect in Form', () => {
     expect(element.value).to.be.equal('orange');
   });
 
+  it('if value is set to a string that is not in the options array the value is empty string', async () => {
+    element.value = 'something silly';
+    await elementUpdated(element);
+    const formData = new FormData(formElement);
+    expect(element.value).to.be.equal('');
+    expect(formData.get('bar')).to.be.equal('');
+  });
+
   it('form output', () => {
     const formData = new FormData(formElement);
     expect(formData.get('bar')).to.be.equal('orange');
