@@ -60,28 +60,28 @@ Or you can just import the compiled bundle at once:
 import '@umbraco-ui/uui-css/dist/uui-css.css';
 ```
 
-### Applying the uui-css styling
+### Applying the uui-css styling in the root
 
 Using the `uui-font` and `uui-text`
 
 ```html
-<div id="app" class="uui-font uui-text">
-  <h1>Hello uui-css!</h1>
-  <p>
-    Everything inside my app will now use the font from uui-font and tag styling
-    from uui-text because the app root has the uui-font and uui-text classes.
-  </p>
-  <p style="background: var(--uui-interface-surface-alt);">
-    I will have a background color from the custom properties.
-  </p>
-</div>
+<body class="uui-font uui-text">
+  <div id="app">
+    <h1>Hello uui-css!</h1>
+    <p>
+      Everything inside my app will now use the font from uui-font and tag
+      styling from uui-text because the root(body) has the uui-font and uui-text
+      classes.
+    </p>
+  </div>
+</body>
 ```
 
-using the custom properties
+Using the custom properties:
 
 ```html
 <p style="background: var(--uui-interface-surface-alt);">
-  I will have a background color from the custom properties.
+  I will now have a background color from the custom properties.
 </p>
 ```
 
@@ -95,13 +95,13 @@ Full example:
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@latest/dist/uui-css.css" />
   </head>
-  <body>
-    <div id="app" class="uui-font uui-text">
+  <body class="uui-font uui-text">
+    <div id="app">
       <h1>Hello uui-css!</h1>
       <p>
         Everything inside my app will now use the font from uui-font and tag
-        styling from uui-text because the app root has the uui-font and uui-text
-        classes.
+        styling from uui-text because the root(body) has the uui-font and
+        uui-text classes.
       </p>
       <p style="background: var(--uui-interface-surface-alt);">
         I will have a background color from the custom properties.
@@ -109,4 +109,61 @@ Full example:
     </div>
   </body>
 </html>
+```
+
+### Applying uui-text in a component
+
+Import the text css from uui-css
+
+```js
+import { UUITextStyles } from '@umbraco-ui/uui-css';
+```
+
+Add the css to the component styles
+
+```js
+static styles = [
+  UUITextStyles,
+  css`
+  /* your css goes here */
+`,
+];
+```
+
+Add the `uui-text` class to the root of the component
+
+```html
+<div class="uui-text">This is my custom element</div>
+```
+
+Full example:
+
+```js
+import { html, css, LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { UUITextStyles } from '@umbraco-ui/uui-css';
+
+@customElement('my-element')
+export class MyElement extends LitElement {
+  static styles = [
+    UUITextStyles,
+    css`
+    /* your css goes here */
+  `,
+  ];
+
+  render() {
+    return html`
+    <div class="uui-text">
+      This is my custom element
+    </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'my-element': MyElement;
+  }
+}
 ```
