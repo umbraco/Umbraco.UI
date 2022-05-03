@@ -49,7 +49,7 @@ export class UUIButtonElement extends FormControlMixin(
     css`
       :host {
         position: relative;
-        display: inline-block;
+        display: inline-flex;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
