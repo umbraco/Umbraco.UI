@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-toast-notification",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,11 +30,11 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.1.1",
-    "@umbraco-ui/uui-button": "0.2.1",
+    "@umbraco-ui/uui-base": "0.2.0",
+    "@umbraco-ui/uui-button": "0.3.0",
     "@umbraco-ui/uui-css": "0.1.1",
-    "@umbraco-ui/uui-icon": "0.1.1",
-    "@umbraco-ui/uui-icon-registry-essential": "0.1.1"
+    "@umbraco-ui/uui-icon": "0.2.0",
+    "@umbraco-ui/uui-icon-registry-essential": "0.2.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

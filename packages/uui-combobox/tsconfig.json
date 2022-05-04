@@ -14,13 +14,13 @@
       "path": "../uui-base"
     },
     {
+      "path": "../uui-button"
+    },
+    {
       "path": "../uui-combobox-list"
     },
     {
       "path": "../uui-icon"
-    },
-    {
-      "path": "../uui-button"
     },
     {
       "path": "../uui-scroll-container"
