@@ -10,16 +10,22 @@
     }
   },
   "ignoreChanges": [
+    ".github/**/*",
     "**/tsconfig.json",
     "**/*.story.ts",
     "**/*.test.ts",
     "**/*.md",
     "lerna.json",
     ".storybook/**/*",
+    "stories/**/*",
     "storyhelpers/**/*",
     "templates/**/*",
     "docs/**/*",
     "package.json",
-    "package-lock.json"
+    "package-lock.json",
+    "images/**/*",
+    "scripts/**/*",
+    "src/**/*",
+    "templates/**/*"
   ]
 }
