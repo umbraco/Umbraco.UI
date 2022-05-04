@@ -3,7 +3,7 @@ import {
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   InterfaceLookDefaultValue,
@@ -14,9 +14,9 @@ import {
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 
-export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
+export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
 
@@ -41,18 +41,23 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  */
 @defineElement('uui-button')
-export class UUIButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonElement extends FormControlMixin(
+  LabelMixin('', LitElement)
+) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
       :host {
         position: relative;
-        display: inline-block;
+        display: inline-flex;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
         --uui-button-padding-top-factor: 1;
         --uui-button-padding-bottom-factor: 1;
+
+        height: var(--uui-button-height, auto);
+        max-height: 100%;
 
         text-align: center;
         font-weight: var(
@@ -88,7 +93,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
       button {
         height: 100%;
-        min-height: var(--uui-button-height, auto);
         width: 100%;
 
         padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))
@@ -508,7 +512,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     `,
   ];
   /**
-   * Specifies the type of button.
+   * Specifies the type of button
    * @type { "submit" | "button" | "reset" }
    * @attr
    * @default "button"
@@ -545,25 +549,23 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
   /**
    * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
-   * @type {null |'waiting' | 'success' | 'failed'}
+   * @type {undefined |'waiting' | 'success' | 'failed'}
    * @attr
-   * @default null
+   * @default undefined
    */
   @property({ type: String, reflect: true })
-  state: UUIButtonState = null;
+  state: UUIButtonState = undefined;
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  private _internals;
+  @query('#button')
+  protected _button!: HTMLInputElement;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
     this.addEventListener('click', this._onHostClick);
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._button;
   }
 
   private _onHostClick(e: MouseEvent) {
@@ -600,7 +602,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       clearTimeout(this._resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
         this._resetStateTimeout = setTimeout(
-          () => (this.state = null),
+          () => (this.state = undefined),
           2000
         ) as any;
       }
@@ -635,7 +637,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
   render() {
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">
+      <button id="button" ?disabled=${this.disabled} aria-label="${this.label}">
         ${this.renderState()} ${this.renderLabel()}
         <slot name="extra"></slot>
       </button>

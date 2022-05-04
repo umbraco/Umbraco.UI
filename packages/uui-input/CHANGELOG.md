@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input@0.2.0...@umbraco-ui/uui-input@0.3.0) (2022-05-04)
+
+### Features
+
+- added uui-combobox elements ([205ceee](https://github.com/umbraco/Umbraco.UI/commit/205ceeed5e08f644b9ebdc736b94943c45702689))
+
 # [0.2.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input@0.1.0...@umbraco-ui/uui-input@0.2.0) (2022-04-13)
 
 - Release/0.1.1 (#190) ([d91d346](https://github.com/umbraco/Umbraco.UI/commit/d91d346a0659f52de2a3c4746065c554f95e6328)), closes [#190](https://github.com/umbraco/Umbraco.UI/issues/190) [#188](https://github.com/umbraco/Umbraco.UI/issues/188) [#187](https://github.com/umbraco/Umbraco.UI/issues/187) [#189](https://github.com/umbraco/Umbraco.UI/issues/189)

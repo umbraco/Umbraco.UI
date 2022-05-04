@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.3...@umbraco-ui/uui@0.2.0) (2022-05-04)
+
+### Features
+
+- added uui-combobox elements ([205ceee](https://github.com/umbraco/Umbraco.UI/commit/205ceeed5e08f644b9ebdc736b94943c45702689))
+
 ## [0.1.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.2...@umbraco-ui/uui@0.1.3) (2022-04-13)
 
 **Note:** Version bump only for package @umbraco-ui/uui

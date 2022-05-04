@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { UUISelectElement } from './uui-select.element';
 
 const options: Array<Option> = [
-  { name: 'Carrot', value: 'orange' },
+  { name: 'Carrot', value: 'orange', selected: true },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },
   { name: 'Blueberry', value: 'Blue' },
@@ -64,11 +64,7 @@ describe('UUISelect in Form', () => {
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
-        <uui-select
-          label="foo"
-          name="bar"
-          .options=${options}
-          value=${options[0].value}></uui-select>
+        <uui-select label="foo" name="bar" .options=${options}></uui-select>
       </form>`
     );
     element = formElement.querySelector('uui-select') as any;
@@ -77,6 +73,14 @@ describe('UUISelect in Form', () => {
 
   it('value is correct', () => {
     expect(element.value).to.be.equal('orange');
+  });
+
+  it('if value is set to a string that is not in the options array the value is empty string', async () => {
+    element.value = 'something silly';
+    await elementUpdated(element);
+    const formData = new FormData(formElement);
+    expect(element.value).to.be.equal('');
+    expect(formData.get('bar')).to.be.equal('');
   });
 
   it('form output', () => {
@@ -117,7 +121,9 @@ describe('UUISelect in Form', () => {
         await elementUpdated(element);
       });
 
-      it('sets element to invalid when value is empty', () => {
+      it('sets element to invalid when value is empty', async () => {
+        element.value = '';
+        await elementUpdated(element);
         expect(element.checkValidity()).to.be.false;
       });
 
