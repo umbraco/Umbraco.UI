@@ -89,7 +89,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-disabled);
       }
       :host([disabled]) #label-button {
-        cursor: not-allowed;
+        cursor: default;
       }
 
       button {
