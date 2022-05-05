@@ -38,13 +38,58 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #menu-item {
         position: relative;
-
         padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-4));
-
         display: grid;
         grid-template-columns: var(--uui-size-8) 1fr;
         grid-template-rows: 1fr;
         white-space: nowrap;
+      }
+
+      :host(:not([active], [selected], [disabled]))
+        #menu-item
+        #label-button:hover
+        ~ #label-button-background,
+      :host(:not([active], [selected], [disabled]))
+        #menu-item
+        #caret-button:hover {
+        background-color: var(--uui-color-hover);
+      }
+      :host(:not([active], [selected], [disabled]))
+        #menu-item
+        #label-button:hover,
+      :host(:not([active], [selected])) #menu-item #caret-button:hover {
+        color: var(--uui-color-hover-standalone);
+      }
+
+      :host([active]) {
+        color: var(--uui-color-current-contrast);
+      }
+      :host([active]) #label-button-background {
+        background-color: var(--uui-color-current);
+      }
+      :host([active]) #label-button:hover ~ #label-button-background,
+      :host([active]) #caret-button:hover {
+        background-color: var(--uui-color-current-emphasis);
+      }
+
+      :host([selected]),
+      :host([selected]) #caret-button {
+        color: var(--uui-color-selected-contrast);
+      }
+      :host([selected]) #label-button-background {
+        background-color: var(--uui-color-selected);
+      }
+      :host([selected]) #label-button:hover ~ #label-button-background,
+      :host([selected]) #caret-button:hover {
+        background-color: var(--uui-color-selected-emphasis);
+      }
+
+      :host([disabled]) #menu-item {
+        color: var(--uui-color-disabled-contrast);
+        background-color: var(--uui-color-disabled);
+      }
+      :host([disabled]) #label-button {
+        cursor: not-allowed;
       }
 
       button {
@@ -63,9 +108,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         min-height: var(--uui-size-12);
         z-index: 1;
       }
-      /* button:hover {
-        color: var(--uui-interface-contrast-hover);
-      } */
 
       #label-button {
         flex-grow: 1;
@@ -100,6 +142,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: flex;
         align-items: center;
         justify-content: center;
+        color: var(--uui-color-text);
       }
 
       #label-button-background {
@@ -108,10 +151,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         left: 0;
         right: 0;
         bottom: 0;
-      }
-      #label-button:hover + #label-button-background,
-      #caret-button:hover ~ #label-button-background {
-        background-color: var(--uui-interface-surface-hover);
       }
 
       #actions-container {
@@ -143,51 +182,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         --uui-badge-position: auto;
         display: block;
         margin-left: 6px;
-      }
-
-      :host([disabled]) {
-        color: var(--uui-interface-surface-contrast-disabled);
-      }
-      :host([disabled]) #label-button-background {
-        background-color: var(--uui-interface-surface-disabled);
-      }
-      :host([disabled]) #label-button:hover + #label-button-background {
-        background-color: var(--uui-interface-surface-disabled);
-      }
-
-      :host([active]) {
-        color: var(--uui-interface-active-contrast);
-      }
-      :host([active]) #label-button:hover {
-        color: var(--uui-interface-active-contrast-hover);
-      }
-      :host([active]) #label-button-background {
-        background-color: var(--uui-interface-active);
-      }
-      :host([active]) #label-button:hover + #label-button-background {
-        background-color: var(--uui-interface-active-hover);
-      }
-      :host([active][disabled]) #label-button {
-        color: var(--uui-interface-active-contrast-disabled);
-        background-color: var(--uui-interface-active-disabled);
-      }
-
-      :host([selected]) {
-        color: var(--uui-interface-select-contrast);
-      }
-      :host([selected]) #label-button:hover {
-        color: var(--uui-interface-select-contrast-hover);
-      }
-      :host([selected]) #label-button-background {
-        background-color: var(--uui-interface-select);
-      }
-      :host([selected]) #label-button:hover + #label-button-background,
-      :host([selected]) #caret-button:hover ~ #label-button-background {
-        background-color: var(--uui-interface-select-hover);
-      }
-      :host([selected][disabled]) #label-button {
-        color: var(--uui-interface-select-contrast-disabled);
-        background-color: var(--uui-interface-select-disabled);
       }
 
       slot:not([name]) {

@@ -8,70 +8,12 @@ export class UUIBoxElement extends LitElement {
   static styles = [
     UUITextStyles,
     css`
-      :host {
-        /* ----- STATES -----  */
-        --color-selected: #2152a3;
-        --color-selected-emphasis: #3265b8;
-        --color-selected-standalone: #184792;
-        --color-selected-contrast: white;
-
-        --color-current: #fdd0cc;
-        --color-current-emphasis: #ffddda;
-        --color-current-standalone: #e7aea9;
-        --color-current-contrast: #1b264f;
-
-        /* ----- UNIVERSAL -----  */
-        --color-header: #1b264f;
-
-        --color-focus: #2294ff;
-
-        --color-hover: #f5f5f5;
-        --color-hover-standalone: #2152a3;
-
-        --color-disabled: #f5f5f5;
-        --color-disabled-contrast: #9e9e9e;
-
-        /* ----- SURFACE -----  */
-        --color-surface: #fff;
-        --color-surface-alt: #eeeeee;
-
-        --color-background: #f5f5f5;
-
-        --color-text: #1b264f;
-        --color-text-alt: #1b264fb5;
-
-        --color-border: #dadada;
-        --color-border-alt: #f1f1f1;
-        --color-border-emphasis: #bdbdbd;
-
-        /* ----- COLORS -----  */
-        --color-primary: #2152a3;
-        --color-primary-emphasis: #3368bd;
-        --color-primary-standalone: #2152a3;
-        --color-primary-contrast: white;
-
-        --color-warning: #fad634;
-        --color-warning-emphasis: #ffe366;
-        --color-warning-standalone: #c5a100;
-        --color-warning-contrast: black;
-
-        --color-danger: #d42054;
-        --color-danger-emphasis: #f74074;
-        --color-danger-standalone: #d42054;
-        --color-danger-contrast: white;
-
-        --color-positive: #2da44e;
-        --color-positive-emphasis: #3fc264;
-        --color-positive-standalone: #229442;
-        --color-positive-contrast: white;
-      }
-
       #app {
         display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100vw;
-        color: var(--color-text);
+        color: var(--uui-color-text);
         font-size: 14px;
 
         margin: -40px 0 0 -40px;
@@ -84,14 +26,14 @@ export class UUIBoxElement extends LitElement {
         gap: 24px;
         padding: 0 var(--uui-size-4);
         align-items: center;
-        background-color: var(--color-header);
+        background-color: var(--uui-color-header);
         height: 48px;
         width: 100%;
         font-size: 1rem;
         box-sizing: border-box;
         --uui-tab-text: white;
-        --uui-tab-text-active: var(--color-current);
-        --uui-tab-text-hover: var(--color-current-emphasis);
+        --uui-tab-text-active: var(--uui-color-current);
+        --uui-tab-text-hover: var(--uui-color-current-emphasis);
       }
       #main {
         width: 100%;
@@ -101,9 +43,9 @@ export class UUIBoxElement extends LitElement {
       }
       #nav-side-bar {
         width: 400px;
-        background-color: var(--color-surface);
+        background-color: var(--uui-color-surface);
         height: 100%;
-        border-right: 1px solid var(--color-border);
+        border-right: 1px solid var(--uui-color-border);
         font-weight: 500;
         display: flex;
         flex-direction: column;
@@ -112,27 +54,27 @@ export class UUIBoxElement extends LitElement {
         padding: var(--uui-size-6) var(--uui-size-8);
       }
       #editor {
-        background-color: var(--color-background);
+        background-color: var(--uui-color-background);
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
       }
       #editor-top {
-        background-color: var(--color-surface);
+        background-color: var(--uui-color-surface);
         width: 100%;
         display: flex;
         gap: 16px;
         align-items: center;
-        border-bottom: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--uui-color-border);
       }
       #editor-top uui-input {
         width: 100%;
         margin-left: 16px;
       }
       #editor-top uui-tab-group {
-        --uui-tab-divider: var(--color-border);
-        border-left: 1px solid var(--color-border);
+        --uui-tab-divider: var(--uui-color-border);
+        border-left: 1px solid var(--uui-color-border);
         flex-wrap: nowrap;
         height: 60px;
       }
@@ -159,7 +101,7 @@ export class UUIBoxElement extends LitElement {
 
       hr {
         border: 0;
-        border-top: 1px solid var(--color-border-alt);
+        border-top: 1px solid var(--uui-color-border-alt);
       }
 
       uui-tab {
@@ -174,8 +116,8 @@ export class UUIBoxElement extends LitElement {
         width: 100%;
         gap: 16px;
         padding-right: 24px;
-        border-top: 1px solid var(--color-border);
-        background-color: var(--color-surface);
+        border-top: 1px solid var(--uui-color-border);
+        background-color: var(--uui-color-surface);
         box-sizing: border-box;
       }
     `,
@@ -210,7 +152,16 @@ export class UUIBoxElement extends LitElement {
                   <uui-menu-item label="People">
                     <uui-icon slot="icon" name="document"></uui-icon>
                   </uui-menu-item>
-                  <uui-menu-item label="About Us" has-children>
+                  <uui-menu-item label="About Us" disabled has-children>
+                    <uui-icon slot="icon" name="document"></uui-icon>
+                    <uui-menu-item label="History">
+                      <uui-icon slot="icon" name="document"></uui-icon>
+                    </uui-menu-item>
+                    <uui-menu-item label="Team">
+                      <uui-icon slot="icon" name="document"></uui-icon>
+                    </uui-menu-item>
+                  </uui-menu-item>
+                  <uui-menu-item label="MyMenuItem" selected has-children>
                     <uui-icon slot="icon" name="document"></uui-icon>
                     <uui-menu-item label="History">
                       <uui-icon slot="icon" name="document"></uui-icon>
