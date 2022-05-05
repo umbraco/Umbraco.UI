@@ -291,10 +291,19 @@ export class UUIBoxElement extends LitElement {
                     </div>
                     <div class="value">
                       <div class="buttons">
-                        <button class="primary">Button</button>
-                        <button class="secondary">Button</button>
-                        <button class="tertiary">Button</button>
-                        <button class="outline">Button</button>
+                        <uui-button color="primary">Button</uui-button>
+                        <uui-button color="primary" look="primary">
+                          Button
+                        </uui-button>
+                        <uui-button color="primary" look="secondary">
+                          Button
+                        </uui-button>
+                        <uui-button color="primary" look="outline">
+                          Button
+                        </uui-button>
+                        <uui-button color="primary" look="placeholder">
+                          Button
+                        </uui-button>
                       </div>
                     </div>
                   </div>
@@ -305,10 +314,19 @@ export class UUIBoxElement extends LitElement {
                     </div>
                     <div class="value">
                       <div class="buttons">
-                        <button class="primary positive">Button</button>
-                        <button class="secondary positive">Button</button>
-                        <button class="tertiary positive">Button</button>
-                        <button class="outline positive">Button</button>
+                        <uui-button color="positive">Button</uui-button>
+                        <uui-button color="positive" look="primary">
+                          Button
+                        </uui-button>
+                        <uui-button color="positive" look="secondary">
+                          Button
+                        </uui-button>
+                        <uui-button color="positive" look="outline">
+                          Button
+                        </uui-button>
+                        <uui-button color="positive" look="placeholder">
+                          Button
+                        </uui-button>
                       </div>
                     </div>
                   </div>
@@ -319,10 +337,19 @@ export class UUIBoxElement extends LitElement {
                     </div>
                     <div class="value">
                       <div class="buttons">
-                        <button class="primary warning">Button</button>
-                        <button class="secondary warning">Button</button>
-                        <button class="tertiary warning">Button</button>
-                        <button class="outline warning">Button</button>
+                        <uui-button color="warning">Button</uui-button>
+                        <uui-button color="warning" look="primary">
+                          Button
+                        </uui-button>
+                        <uui-button color="warning" look="secondary">
+                          Button
+                        </uui-button>
+                        <uui-button color="warning" look="outline">
+                          Button
+                        </uui-button>
+                        <uui-button color="warning" look="placeholder">
+                          Button
+                        </uui-button>
                       </div>
                     </div>
                   </div>
@@ -333,10 +360,19 @@ export class UUIBoxElement extends LitElement {
                     </div>
                     <div class="value">
                       <div class="buttons">
-                        <button class="primary danger">Button</button>
-                        <button class="secondary danger">Button</button>
-                        <button class="tertiary danger">Button</button>
-                        <button class="outline danger">Button</button>
+                        <uui-button color="danger">Button</uui-button>
+                        <uui-button color="danger" look="primary">
+                          Button
+                        </uui-button>
+                        <uui-button color="danger" look="secondary">
+                          Button
+                        </uui-button>
+                        <uui-button color="danger" look="outline">
+                          Button
+                        </uui-button>
+                        <uui-button color="danger" look="placeholder">
+                          Button
+                        </uui-button>
                       </div>
                     </div>
                   </div>
@@ -345,7 +381,9 @@ export class UUIBoxElement extends LitElement {
               <div id="editor-bottom">
                 <uui-button>Save and preview</uui-button>
                 <uui-button look="secondary">Save</uui-button>
-                <uui-button look="positive">Save and publish</uui-button>
+                <uui-button look="primary" color="positive"
+                  >Save and publish</uui-button
+                >
               </div>
             </div>
           </div>
