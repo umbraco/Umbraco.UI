@@ -186,7 +186,7 @@ export class UUIBoxElement extends LitElement {
                 <uui-tab-group>
                   <uui-tab active>Content</uui-tab>
                   <uui-tab>Info</uui-tab>
-                  <uui-tab>Actions</uui-tab>
+                  <uui-tab disabled>Actions</uui-tab>
                 </uui-tab-group>
               </div>
               <uui-scroll-container id="editor-content">

@@ -17,7 +17,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
       :host {
-        color: var(--uui-tab-text, var(--uui-interface-contrast));
+        color: var(--uui-tab-text, var(--uui-color-text));
         font-family: inherit;
       }
 
@@ -44,7 +44,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host(:not([active]):not([disabled])) button:hover {
         color: var(
           --uui-tab-text-hover,
-          var(--uui-look-primary-surface-hover, white)
+          var(--uui-color-primary-emphasis, white)
         );
       }
 
@@ -56,12 +56,12 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host([active]) button {
         color: var(
           --uui-tab-text-active,
-          var(--uui-look-primary-surface-hover, white)
+          var(--uui-color-primary-emphasis, white)
         );
         cursor: default;
       }
       :host([disabled]) button {
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
         cursor: default;
       }
 
@@ -73,14 +73,14 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         width: calc(100% - 16px);
         left: auto;
         right: auto;
-        background-color: var(--uui-interface-active);
+        background-color: var(--uui-color-current);
         bottom: 0;
         border-radius: 3px 3px 0 0;
         opacity: 0;
         transition: opacity ease-in 120ms, height ease-in 120ms;
       }
       button:hover::before {
-        background-color: var(--uui-interface-active-hover);
+        background-color: var(--uui-color-current-emphasis);
       }
       :host([active]) button::before {
         opacity: 1;
@@ -89,7 +89,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       :host([disabled]) button::before {
-        background-color: var(--uui-interface-active-disabled);
+        background-color: var(--uui-color-disabled-standalone);
       }
 
       ::slotted(uui-icon) {
