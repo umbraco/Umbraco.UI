@@ -24,6 +24,7 @@ export class UUIFilePreviewElement extends LitElement {
         /* --------------------------------- */
         box-sizing: border-box;
         aspect-ratio: 1;
+        color: var(--uui-color-text);
       }
 
       :host(:hover) slot[name='actions']::slotted(*) {
