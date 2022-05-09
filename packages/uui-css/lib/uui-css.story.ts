@@ -9,13 +9,13 @@ export default {
     docs: {
       source: {
         code: `
-          // Include each of the following:
-          import '@umbraco-ui/uui-css/dist/custom-properties.css';
-          import '@umbraco-ui/uui-css/dist/uui-font.css';
-          import '@umbraco-ui/uui-css/dist/uui-text.css';
+// Include each of the following:
+import '@umbraco-ui/uui-css/dist/custom-properties.css';
+import '@umbraco-ui/uui-css/dist/uui-font.css';
+import '@umbraco-ui/uui-css/dist/uui-text.css';
 
-          // Alternatively include the compiled bundle
-          import '@umbraco-ui/uui-css/dist/uui-css.css';
+// Alternatively include the compiled bundle
+import '@umbraco-ui/uui-css/dist/uui-css.css';
         `,
       },
     },
@@ -48,3 +48,58 @@ export const Overview: Story = () => html` <article style="max-width:580px;">
     </li>
   </ul>
 </article>`;
+
+export const Usage: Story = () => html`
+  <div class="uui-text">
+    <h1>Hello uui-css!</h1>
+    <p>
+      This component will now use the styling from uui-text because the root of
+      the component has the uui-text class.
+    </p>
+    <p style="background: var(--uui-interface-surface-alt);">
+      this paragraph uses a custom property from the uui custom properties to
+      set its background color.
+    </p>
+  </div>
+`;
+Usage.parameters = {
+  docs: {
+    source: {
+      code: `
+import { html, css, LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { UUITextStyles } from '@umbraco-ui/uui-css';
+
+@customElement('my-element')
+export class MyElement extends LitElement {
+  static styles = [
+    UUITextStyles,
+    css\`
+    /* your css goes here */
+  \`,
+  ];
+
+  render() {
+    return html\`
+    <div class="uui-text">
+      <h1>Hello uui-css!</h1>
+      <p>
+      This component will now use the styling from uui-text because the root of the component has the uui-text class.
+      </p>
+      <p style="background: var(--uui-interface-surface-alt);">
+       this paragraph uses a custom property from the uui custom properties to set its background color.
+      </p>
+    </div>
+    \`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'my-element': MyElement;
+  }
+} 
+    `,
+    },
+  },
+};

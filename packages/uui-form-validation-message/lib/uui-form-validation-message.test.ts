@@ -69,7 +69,9 @@ describe('UUIFormValidationMessageElement', () => {
       input.pristine = false;
       input.checkValidity();
 
+      await elementUpdated(input);
       await elementUpdated(validationEl);
+
       const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
 
       describe('Using for property', () => {
@@ -81,11 +83,12 @@ describe('UUIFormValidationMessageElement', () => {
           element = await fixture(
             html`
               <form>
-                <uui-input
-                  id="MyMessageScope"
-                  label="Label"
-                  required
-                  required-message="MyRequiredMessage"></uui-input>
+                <div id="MyMessageScope">
+                  <uui-input
+                    label="Label"
+                    required
+                    required-message="MyRequiredMessage"></uui-input>
+                </div>
                 <uui-form-validation-message for="MyMessageScope">
                 </uui-form-validation-message>
               </form>
@@ -102,10 +105,13 @@ describe('UUIFormValidationMessageElement', () => {
           input.pristine = false;
           input.checkValidity();
 
+          await elementUpdated(input);
           await elementUpdated(validationEl);
+
           const messagesCon =
             validationEl.shadowRoot!.querySelector('#messages')!;
           const regex = /MyRequiredMessage/;
+
           expect(regex.test(messagesCon.innerHTML)).to.be.true;
         });
       });

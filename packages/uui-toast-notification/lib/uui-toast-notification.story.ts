@@ -11,12 +11,15 @@ export default {
     open: true,
     look: '',
     headline: 'Toast notification layout headline',
-    message: 'Message to be displayed, shown by toast notification layout.',
+    slot: 'Message to be displayed, shown by toast notification layout.',
   },
   argTypes: {
     look: {
       options: ['', 'primary', 'positive', 'warning', 'danger'],
       control: { type: 'select' },
+    },
+    slot: {
+      control: { type: 'text' },
     },
   },
 };
@@ -25,7 +28,7 @@ const Template: Story = props => html`<uui-toast-notification
   .open=${props.open}
   .look=${props.look}>
   <uui-toast-notification-layout .headline=${props.headline}>
-    ${props.message}
+    ${props.slot}
   </uui-toast-notification-layout>
 </uui-toast-notification>`;
 
@@ -43,26 +46,25 @@ export const ErrorStyle: Story = props => html`<uui-toast-notification
   .open=${props.open}
   .look=${props.look}>
   <uui-toast-notification-layout .headline=${props.headline}>
-    ${props.message}
+    ${props.slot}
     <uui-button slot="actions" look="danger">Retry</uui-button>
   </uui-toast-notification-layout>
 </uui-toast-notification>`;
 ErrorStyle.args = {
   headline: 'Document could not be published!',
-  message:
-    'An error occurred while attempting to contact the server. Please check your internet connection.',
+  slot: 'An error occurred while attempting to contact the server. Please check your internet connection.',
   look: 'danger',
 };
 ErrorStyle.parameters = {
   docs: {
     source: {
       code: `
-      <uui-toast-notification look="danger">
-        <uui-toast-notification-layout headline="Your title">
-          Your description
-          <uui-button slot="actions" look="danger">Retry</uui-button>
-        </uui-toast-notification-layout>
-      </uui-toast-notification>`,
+<uui-toast-notification look="danger">
+  <uui-toast-notification-layout headline="Your title">
+    Your description
+    <uui-button slot="actions" look="danger">Retry</uui-button>
+  </uui-toast-notification-layout>
+</uui-toast-notification>`,
     },
   },
 };
@@ -71,24 +73,24 @@ export const PositiveStyle: Story = props => html`<uui-toast-notification
   .open=${props.open}
   .look=${props.look}>
   <uui-toast-notification-layout .headline=${props.headline}>
-    ${props.message}
+    ${props.slot}
     <uui-button slot="actions" .look=${props.look}>View in browser</uui-button>
   </uui-toast-notification-layout>
 </uui-toast-notification>`;
 PositiveStyle.args = {
   headline: 'Document was published',
-  message: 'This document is now saved and published.',
+  slot: 'This document is now saved and published.',
   look: 'positive',
 };
 PositiveStyle.parameters = {
   docs: {
     source: {
       code: `
-      <uui-toast-notification look="positive">
-        <uui-toast-notification-layout headline="Your title">
-          Your description
-        </uui-toast-notification-layout>
-      </uui-toast-notification>`,
+<uui-toast-notification look="positive">
+  <uui-toast-notification-layout headline="Your title">
+    Your description
+  </uui-toast-notification-layout>
+</uui-toast-notification>`,
     },
   },
 };
@@ -96,21 +98,27 @@ PositiveStyle.parameters = {
 export const CustomLayout: Story = props => html`<uui-toast-notification
   .open=${props.open}
   look="danger">
-  Its recommended to use the 'uui-toast-notification-layout' component as the
-  layout for your toasts. This will ensure consistency in toast appearances,
-  help achieving the best user experience. If 'uui-toast-notification-layout'
-  does not provide the options to solve your needs, it is possible append
-  anything within the toast-notification component. But please consider this
-  very carefully.
+  ${props.slot
+    ? props.slot
+    : html` Its recommended to use the 'uui-toast-notification-layout' component
+      as the layout for your toasts. This will ensure consistency in toast
+      appearances, help achieving the best user experience. If
+      'uui-toast-notification-layout' does not provide the options to solve your
+      needs, it is possible append anything within the toast-notification
+      component. But please consider this very carefully.`}
 </uui-toast-notification>`;
 CustomLayout.args = {
   headline: '',
   look: 'danger',
+  slot: undefined,
 };
 CustomLayout.parameters = {
   docs: {
     source: {
-      code: `<uui-toast-notification><!-- Anything can be injected here --></uui-toast-notification>`,
+      code: `
+<uui-toast-notification>
+  <!-- Anything can be injected here -->
+</uui-toast-notification>`,
     },
   },
 };

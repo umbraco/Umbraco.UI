@@ -19,6 +19,7 @@ export class UUILoaderBarElement extends LitElement {
         width: 100%;
         height: 4px;
         overflow: hidden;
+        color: var(--uui-color-primary);
       }
 
       #bar,
@@ -74,6 +75,7 @@ export class UUILoaderBarElement extends LitElement {
   ];
 
   private _progress = 0;
+
   /**
    * Set this to a number between 0 and 100 to reflect the progress of some operation. When the value is left at 0 loader will looped animation
    * @type {number}

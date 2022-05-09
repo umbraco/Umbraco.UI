@@ -1,10 +1,9 @@
-import '@umbraco-ui/uui-icon/lib';
-
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   InterfaceLookDefaultValue,
@@ -15,9 +14,9 @@ import {
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 
-export type UUIButtonState = null | 'waiting' | 'success' | 'failed';
+export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
 
@@ -42,18 +41,29 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  */
 @defineElement('uui-button')
-export class UUIButtonElement extends LabelMixin('', LitElement) {
+export class UUIButtonElement extends FormControlMixin(
+  LabelMixin('', LitElement)
+) {
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
       :host {
         position: relative;
-        display: inline-block;
+        display: inline-flex;
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
         --uui-button-padding-top-factor: 1;
         --uui-button-padding-bottom-factor: 1;
+
+        height: var(--uui-button-height, auto);
+        max-height: 100%;
+
+        text-align: center;
+        font-weight: var(
+          --uui-button-font-weight,
+          var(--uui-interface-font-weight)
+        );
       }
 
       :host([compact]) {
@@ -83,14 +93,13 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
       button {
         height: 100%;
-        min-height: var(--uui-button-height, auto);
         width: 100%;
 
         padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
           calc(calc(8 / 15 * 1em) * var(--uui-button-padding-bottom-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
-        text-align: center;
+        text-align: inherit; /* Inherit from host so it can be overwritten from the outside */
         vertical-align: middle;
         box-shadow: none;
         border-width: var(--uui-button-border-width, 1px);
@@ -104,12 +113,10 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           var(--uui-border-radius)
         );
         cursor: pointer;
-        font-weight: var(
-          --uui-button-font-weight,
-          var(--uui-interface-font-weight)
-        );
+
         font-size: var(--uui-button-font-size, inherit);
         font-family: inherit;
+        font-weight: inherit; /* Inherit from host so it can be overwritten from the outside */
 
         background-color: var(
           --uui-button-background-color,
@@ -163,6 +170,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       #loader {
         font-size: 1.5em;
       }
+      :host([look]:not([look=''])) #loader {
+        color: inherit;
+      }
 
       /* ANIMATIONS */
       @keyframes fadeIn {
@@ -185,6 +195,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
       /* LOOKS */
 
+      :host([look='primary']) {
+        font-weight: var(--uui-look-primary-font-weight);
+      }
       :host([look='primary']) button {
         background-color: var(
           --uui-button-background-color,
@@ -203,7 +216,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-primary-border)
         );
-        font-weight: var(--uui-look-primary-font-weight);
       }
       :host([look='primary']) button:hover {
         background-color: var(
@@ -228,6 +240,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='secondary']) {
+        font-weight: var(--uui-look-secondary-font-weight);
+      }
       :host([look='secondary']) button {
         background-color: var(
           --uui-button-background-color,
@@ -246,7 +261,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-secondary-border)
         );
-        font-weight: var(--uui-look-secondary-font-weight);
       }
       :host([look='secondary']) button:hover {
         background-color: var(
@@ -272,6 +286,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       }
 
       :host([look='outline']) button {
+        font-weight: var(--uui-look-outline-font-weight);
+      }
+      :host([look='outline']) button {
         background-color: var(
           --uui-button-background-color,
           var(--uui-look-outline-surface)
@@ -289,7 +306,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-outline-border)
         );
-        font-weight: var(--uui-look-outline-font-weight);
       }
       :host([look='outline']) button:hover {
         background-color: var(
@@ -314,6 +330,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='placeholder']) {
+        font-weight: var(--uui-look-placeholder-font-weight);
+      }
       :host([look='placeholder']) button {
         background-color: var(
           --uui-button-background-color,
@@ -332,7 +351,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-placeholder-border)
         );
-        font-weight: var(--uui-look-placeholder-font-weight);
       }
       :host([look='placeholder']) button:hover {
         background-color: var(
@@ -357,6 +375,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='positive']) {
+        font-weight: var(--uui-look-positive-font-weight);
+      }
       :host([look='positive']) button {
         background-color: var(
           --uui-button-background-color,
@@ -375,7 +396,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-positive-border)
         );
-        font-weight: var(--uui-look-positive-font-weight);
       }
       :host([look='positive']) button:hover {
         background-color: var(
@@ -400,6 +420,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='warning']) {
+        font-weight: var(--uui-look-warning-font-weight);
+      }
       :host([look='warning']) button {
         background-color: var(
           --uui-button-background-color,
@@ -418,7 +441,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-warning-border)
         );
-        font-weight: var(--uui-look-warning-font-weight);
       }
       :host([look='warning']) button:hover {
         background-color: var(
@@ -443,6 +465,9 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         );
       }
 
+      :host([look='danger']) {
+        font-weight: var(--uui-look-danger-font-weight);
+      }
       :host([look='danger']) button {
         background-color: var(
           --uui-button-background-color,
@@ -461,7 +486,6 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
           --uui-button-border-color,
           var(--uui-look-danger-border)
         );
-        font-weight: var(--uui-look-danger-font-weight);
       }
       :host([look='danger']) button:hover {
         background-color: var(
@@ -488,7 +512,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     `,
   ];
   /**
-   * Specifies the type of button.
+   * Specifies the type of button
    * @type { "submit" | "button" | "reset" }
    * @attr
    * @default "button"
@@ -525,25 +549,23 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
   /**
    * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
-   * @type {null |'waiting' | 'success' | 'failed'}
+   * @type {undefined |'waiting' | 'success' | 'failed'}
    * @attr
-   * @default null
+   * @default undefined
    */
   @property({ type: String, reflect: true })
-  state: UUIButtonState = null;
+  state: UUIButtonState = undefined;
 
-  /**
-   * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
-   * @type {boolean}
-   */
-  static readonly formAssociated = true;
-
-  private _internals;
+  @query('#button')
+  protected _button!: HTMLInputElement;
 
   constructor() {
     super();
-    this._internals = (this as any).attachInternals();
     this.addEventListener('click', this._onHostClick);
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._button;
   }
 
   private _onHostClick(e: MouseEvent) {
@@ -561,7 +583,11 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
         case 'button':
           break;
         default:
-          this._internals.form.requestSubmit();
+          if (this._internals.form.requestSubmit) {
+            this._internals.form.requestSubmit();
+          } else {
+            this._internals.form.dispatchEvent(new SubmitEvent('submit'));
+          }
           break;
       }
     }
@@ -576,7 +602,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
       clearTimeout(this._resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
         this._resetStateTimeout = setTimeout(
-          () => (this.state = null),
+          () => (this.state = undefined),
           2000
         ) as any;
       }
@@ -587,19 +613,17 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
     let element = html``;
     switch (this.state) {
       case 'waiting':
-        if (!customElements.get('uui-loader-circle')) {
-          console.warn(
-            'To properly render the waiting state, the uui-loader-circle element has to be registered'
-          );
-        }
+        demandCustomElement(this, 'uui-loader-circle');
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
+        demandCustomElement(this, 'uui-icon');
         element = html`<uui-icon
           name="check"
           .fallback=${iconCheck.strings[0]}></uui-icon>`;
         break;
       case 'failed':
+        demandCustomElement(this, 'uui-icon');
         element = html`<uui-icon
           name="wrong"
           .fallback=${iconWrong.strings[0]}></uui-icon>`;
@@ -613,7 +637,7 @@ export class UUIButtonElement extends LabelMixin('', LitElement) {
 
   render() {
     return html`
-      <button ?disabled=${this.disabled} aria-label="${this.label}">
+      <button id="button" ?disabled=${this.disabled} aria-label="${this.label}">
         ${this.renderState()} ${this.renderLabel()}
         <slot name="extra"></slot>
       </button>

@@ -1,14 +1,14 @@
 const tsconfigPaths = require('vite-tsconfig-paths').default;
 
 module.exports = {
-  stories: ['../packages/**/*.story.ts'],
+  stories: ['../packages/**/*.story.ts', '../stories/**/*.story.ts'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '../storyhelpers/storybook-readme/preset.js',
   ],
-  core: { builder: 'storybook-builder-vite' },
+  core: { builder: '@storybook/builder-vite' },
   staticDirs: ['./images'],
 
   async viteFinal(config, { configType }) {

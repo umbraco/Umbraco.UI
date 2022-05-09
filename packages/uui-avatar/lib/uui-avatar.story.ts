@@ -1,4 +1,4 @@
-import '@umbraco-ui/uui-avatar/lib';
+import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -10,6 +10,9 @@ export default {
   args: {
     name: 'Umbraco HQ',
     fontSize: 12,
+  },
+  argTypes: {
+    slot: { control: { type: 'text' } },
   },
   // argTypes: {
   //   'img-src': { table: { disable: true } },
@@ -41,9 +44,9 @@ export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = { color: '#1b264f', backgroundColor: '#f5c1bc' };
 AAAOverview.argTypes = {
-  color: { table: { category: 'inline styling' } },
-  backgroundColor: { table: { category: 'inline styling' } },
-  fontSize: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
+  backgroundColor: { table: { category: 'Styles' } },
+  fontSize: { table: { category: 'Styles' } },
 };
 AAAOverview.parameters = {
   docs: {
@@ -66,7 +69,7 @@ Picture.parameters = {
 
 export const Sizes = Template.bind({});
 Sizes.argTypes = {
-  fontSize: { table: { category: 'inline styling' } },
+  fontSize: { table: { category: 'Styles' } },
 };
 Sizes.parameters = {
   controls: { include: ['fontSize', 'name'] },
@@ -80,8 +83,8 @@ Sizes.parameters = {
 export const Colors = Template.bind({});
 Colors.args = { color: 'white', backgroundColor: 'blue' };
 Colors.argTypes = {
-  color: { table: { category: 'inline styling' } },
-  backgroundColor: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
+  backgroundColor: { table: { category: 'Styles' } },
 };
 Colors.parameters = {
   controls: { include: ['backgroundColor', 'color', 'name'] },
@@ -94,11 +97,8 @@ Colors.parameters = {
 
 export const SlottedContent = Template.bind({});
 SlottedContent.args = { slot: 'overflow', name: '' };
-SlottedContent.argTypes = {
-  slot: { table: { category: 'slots' }, control: { type: 'text' } },
-};
 SlottedContent.parameters = {
-  controls: { include: ['slot', 'overflow'] },
+  controls: { include: ['overflow', 'slot'] },
   docs: {
     source: {
       code: `<uui-avatar overflow name="overflow name">overflow content</uui-avatar>`,
@@ -127,11 +127,8 @@ InlineWithText.parameters = {
 
 export const WithBadge = Template.bind({});
 WithBadge.args = { slot: html`<uui-badge>!</uui-badge>`, overflow: true };
-WithBadge.argTypes = {
-  slot: { table: { category: 'slots' }, control: { type: 'text' } },
-};
 WithBadge.parameters = {
-  controls: { include: ['slot', 'overflow', 'name'] },
+  controls: { include: ['overflow', 'name'] },
   docs: {
     source: {
       code: `<uui-avatar name="Umbraco HQ"><uui-badge>!</uui-badge></uui-avatar>`,

@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
   iconSee,
   iconUnsee,
@@ -46,6 +47,13 @@ export class UUIInputPasswordElement extends UUIInputElement {
     }
   }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-button');
+  }
+
   renderIcon() {
     return this.passwordType === 'password'
       ? html`<uui-icon name="see" .fallback=${iconSee.strings[0]}></uui-icon>`
@@ -60,6 +68,9 @@ export class UUIInputPasswordElement extends UUIInputElement {
       @click=${this._onPasswordToggle}
       style="--uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0"
       compact
+      label="${this.passwordType === 'password'
+        ? 'Show password'
+        : 'Hide password'}"
       id="eye">
       ${this.renderIcon()}
     </uui-button>`;

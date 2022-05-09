@@ -36,6 +36,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
         position: absolute;
         height: 0px;
         width: 0px;
+        margin-top: -4px;
       }
 
       :host([label-position='left']) label {

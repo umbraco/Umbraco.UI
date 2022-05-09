@@ -11,7 +11,6 @@ import { css, html } from 'lit';
  *  Umbraco checkbox, toggles between checked and uncheck
  *  @element uui-checkbox
  *  @fires UUIBooleanInputEvent#change - fires when the element is begin checked by a user action
- *  @slot to overwrite displayed label content
  *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
  *  @extends UUIBooleanInputElement
  */

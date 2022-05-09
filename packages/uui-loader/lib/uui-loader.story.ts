@@ -18,8 +18,9 @@ export default {
 };
 
 export const Overview: Story = props =>
-  html`<uui-loader style="color: ${props.color}"></uui-loader>`;
-Overview.args = { color: 'black' };
+  html`<uui-loader
+    style=${props.color ? 'color: ' + props.color : ''}></uui-loader>`;
+Overview.args = { color: '' };
 Overview.argTypes = {
-  color: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
 };

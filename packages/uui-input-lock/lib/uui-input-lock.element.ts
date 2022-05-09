@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html } from 'lit';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
 import {
@@ -47,6 +48,13 @@ export class UUIInputLockElement extends UUIInputElement {
     this.readonly = true;
   }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-button');
+  }
+
   _onLockToggle() {
     this.readonly = this.locked = !this.locked;
   }
@@ -64,7 +72,8 @@ export class UUIInputLockElement extends UUIInputElement {
       .disabled=${this.disabled}
       @click=${this._onLockToggle}
       compact
-      id="lock">
+      id="lock"
+      label="${this.locked ? 'Unlock input' : 'Lock input'}">
       ${this.renderIcon()}
     </uui-button>`;
   }

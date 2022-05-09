@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-icon-registry-essential",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,8 +30,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.0.17",
-    "@umbraco-ui/uui-icon-registry": "0.0.3"
+    "@umbraco-ui/uui-base": "0.2.0",
+    "@umbraco-ui/uui-icon-registry": "0.2.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

@@ -18,7 +18,7 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
  *  @fires {UUIToastNotificationEvent} closing - fires when the toast is starting to close
  *  @fires {UUIToastNotificationEvent} closed - fires when the toast is closed
  *  @description - Component for displaying a toast notification, preferably used in toast-notification-container.
- *  @slot - for dialog layout/content
+ *  @slot - slot for dialog layout/content
  */
 @defineElement('uui-toast-notification')
 export class UUIToastNotificationElement extends LitElement {
@@ -226,6 +226,10 @@ export class UUIToastNotificationElement extends LitElement {
         this.open = false;
       }
     });
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
 
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-icon');

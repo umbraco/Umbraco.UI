@@ -1,7 +1,8 @@
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIInputEvent } from './UUIInputEvent';
 
@@ -206,6 +207,15 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   placeholder = '';
 
   /**
+   * Defines the input autocomplete.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property()
+  autocomplete?: string;
+
+  /**
    * This property specifies the type of input that will be rendered.
    * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
    * @attr
@@ -246,6 +256,13 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     );
   }
 
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+    this.addFormControlElement(this._input);
+  }
+
   /**
    * This method enables <label for="..."> to focus the input
    */
@@ -257,13 +274,13 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     return this._input;
   }
 
-  private _onInput(e: Event) {
+  protected onInput(e: Event) {
     this.value = (e.target as HTMLInputElement).value;
 
-    // TODO: Do we miss an input event?
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.INPUT));
   }
 
-  private _onChange() {
+  protected onChange() {
     this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
@@ -284,12 +301,14 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         .type=${this.type}
         .value=${this.value as string}
         .name=${this.name}
+        autocomplete=${ifDefined(this.autocomplete as any)}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}
+        ?required=${this.required}
         ?readonly=${this.readonly}
-        @input=${this._onInput}
-        @change=${this._onChange} />
+        @input=${this.onInput}
+        @change=${this.onChange} />
       ${this.renderAppend()}
     `;
   }

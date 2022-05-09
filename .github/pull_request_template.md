@@ -25,7 +25,6 @@
 
 <!--- Go over all the following points, and put an `x` in all the boxes that apply.  If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
-- [ ] If my change required a change to the documentation, I have updated the documentation in this pull request.
+- [ ] If my change requires a change to the documentation, I have updated the documentation in this pull request.
 - [ ] I have read the **[CONTRIBUTING](<(https://github.com/umbraco/Umbraco.UI/blob/dev/docs/CONTRIBUTING.md)>)** document.
 - [ ] I have added tests to cover my changes.
-- [ ] All new and existing tests passed.

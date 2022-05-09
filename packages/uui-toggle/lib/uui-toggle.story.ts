@@ -134,23 +134,6 @@ LabelPosition.parameters = {
   },
 };
 
-export const NoLabel: Story = props =>
-  html`
-    <uui-toggle
-      label="label"
-      ?checked=${props.checked}
-      value="toggle"></uui-toggle>
-  `;
-NoLabel.parameters = {
-  controls: { include: ['checked'] },
-  docs: {
-    source: {
-      code: `<uui-toggle></uui-toggle>
-      `,
-    },
-  },
-};
-
 export const Disabled: Story = props => html`
   <uui-toggle ?disabled=${props.disabled} label="Disabled"></uui-toggle>
   <uui-toggle

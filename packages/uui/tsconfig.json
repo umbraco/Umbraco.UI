@@ -62,6 +62,12 @@
       "path": "../uui-checkbox"
     },
     {
+      "path": "../uui-combobox"
+    },
+    {
+      "path": "../uui-combobox-list"
+    },
+    {
       "path": "../uui-css"
     },
     {
@@ -69,6 +75,12 @@
     },
     {
       "path": "../uui-dialog-layout"
+    },
+    {
+      "path": "../uui-file-dropzone"
+    },
+    {
+      "path": "../uui-file-preview"
     },
     {
       "path": "../uui-form"
@@ -90,6 +102,12 @@
     },
     {
       "path": "../uui-input"
+    },
+    {
+      "path": "../uui-input-file"
+    },
+    {
+      "path": "../uui-input-lock"
     },
     {
       "path": "../uui-input-password"
@@ -114,6 +132,9 @@
     },
     {
       "path": "../uui-pagination"
+    },
+    {
+      "path": "../uui-popover"
     },
     {
       "path": "../uui-progress-bar"
@@ -162,6 +183,12 @@
     },
     {
       "path": "../uui-symbol-file"
+    },
+    {
+      "path": "../uui-symbol-file-dropzone"
+    },
+    {
+      "path": "../uui-symbol-file-thumbnail"
     },
     {
       "path": "../uui-symbol-folder"

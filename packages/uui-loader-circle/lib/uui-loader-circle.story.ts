@@ -22,7 +22,9 @@ export default {
 const Template: Story = props =>
   html`
     <uui-loader-circle
-      style="color: ${props.color}; font-size: ${props.fontSize}"
+      style="${props.color
+        ? 'color: ' + props.color
+        : ''}; font-size: ${props.fontSize}"
       progress=${props.progress}
       ?show-progress=${props.showProgress}></uui-loader-circle>
   `;
@@ -30,9 +32,9 @@ const Template: Story = props =>
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 
-AAAOverview.args = { color: 'black' };
+AAAOverview.args = { color: '' };
 AAAOverview.argTypes = {
-  color: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
 };
 AAAOverview.parameters = {
   docs: {
@@ -45,7 +47,7 @@ AAAOverview.parameters = {
 export const Color = Template.bind({});
 Color.args = { color: 'blue' };
 Color.argTypes = {
-  color: { table: { category: 'inline styling' } },
+  color: { table: { category: 'Styles' } },
 };
 Color.parameters = {
   controls: { include: ['color', 'progress'] },

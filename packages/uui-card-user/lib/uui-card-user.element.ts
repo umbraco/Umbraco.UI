@@ -1,15 +1,16 @@
-import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-card-user
- *  @fires {UUICardEvent} open - fires when the user card title is clicked
- *  @fires {UUICardEvent} selected - fires when the card is selected
  *  @description - Card component for displaying a user node.
+ *  @slot - slot for the default content area
+ *  @slot tag - slot for the tag with support for `<uui-tag>` elements
+ *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
  */
-
 @defineElement('uui-card-user')
 export class UUICardUserElement extends UUICardElement {
   static styles = [
@@ -97,6 +98,12 @@ export class UUICardUserElement extends UUICardElement {
    */
   @property({ type: String })
   name = '';
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-avatar');
+  }
 
   public render() {
     return html`

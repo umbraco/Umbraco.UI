@@ -11,11 +11,15 @@ on:
       - 'package-lock.json'
       - '.github/workflows/chromatic.yml'
       - '.storybook/**'
+      - '!packages/uui/**'
       - 'packages/*/package.json'
       - 'packages/*/lib/**'
       - 'packages/*/assets/**'
     branches-ignore:
       - 'dependabot/*'
+      - 'release/*'
+      - 'Release/*'
+      - 'main'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,6 +44,7 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
+      - run: npm config set unsafe-perm true
       - name: Install dependencies
         run: npm ci
       - name: Publish to Chromatic
@@ -49,3 +54,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: 'storybook:build'
           exitOnceUploaded: true
+          onlyChanged: '!(dev)'
+          externals: 'packages/uui-css/lib/**/*.css'
+          untraced: '.storybook/images'

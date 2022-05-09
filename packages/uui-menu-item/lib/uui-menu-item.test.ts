@@ -5,7 +5,8 @@ import {
   html,
   oneEvent,
 } from '@open-wc/testing';
-
+import '@umbraco-ui/uui-symbol-expand/lib';
+import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 
 describe('UUIMenuItemElement', () => {

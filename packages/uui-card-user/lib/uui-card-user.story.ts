@@ -9,21 +9,26 @@ export default {
   args: {
     name: 'John Rabbit',
   },
+  decorators: [
+    (Story: any) => html`<div style="width: 200px;">${Story()}</div>`,
+  ],
 };
 
+const cardContent = html`
+  <div style="margin-bottom: 12px">Editors</div>
+  <div>Has not logged in yet</div>
+`;
+
 const Template: Story = props => html`
-  <div style="width: 200px">
-    <uui-card-user
-      name=${props.name}
-      ?selectable=${props.selectable}
-      ?select-only=${props.selectOnly}
-      ?selected=${props.selected}
-      ?error=${props.error}
-      ?disabled=${props.disabled}>
-      <div style="margin-bottom: 12px">Editors</div>
-      <div>Has not logged in yet</div>
-    </uui-card-user>
-  </div>
+  <uui-card-user
+    name=${props.name}
+    ?selectable=${props.selectable}
+    ?select-only=${props.selectOnly}
+    ?selected=${props.selected}
+    ?error=${props.error}
+    ?disabled=${props.disabled}>
+    ${cardContent}
+  </uui-card-user>
 `;
 
 export const AAAOverview = Template.bind({});
@@ -47,7 +52,9 @@ Selectable.parameters = {
   docs: {
     source: {
       code: `
-<uui-card-user name="John Rabbit" selectable></uui-card-user>`,
+<uui-card-user name="John Rabbit" selectable>
+  <!-- Content -->
+</uui-card-user>`,
     },
   },
 };
@@ -59,11 +66,13 @@ SelectOnly.args = {
 };
 
 SelectOnly.parameters = {
-  controls: { include: ['selectable'] },
+  controls: { include: ['selectable, selectOnly'] },
   docs: {
     source: {
       code: `
-<uui-card-user name="John Rabbit" selectable></uui-card-user>`,
+<uui-card-user name="John Rabbit" selectable select-only>
+  <!-- Content -->
+</uui-card-user>`,
     },
   },
 };
@@ -78,7 +87,9 @@ Disabled.parameters = {
   docs: {
     source: {
       code: `
-<uui-card-user name="John Rabbit" disabled></uui-card-user>`,
+<uui-card-user name="John Rabbit" disabled>
+  <!-- Content -->
+</uui-card-user>`,
     },
   },
 };
@@ -93,50 +104,55 @@ Error.parameters = {
   docs: {
     source: {
       code: `
-<uui-card-user name="John Rabbit" error></uui-card-user>`,
+<uui-card-user name="John Rabbit" error>
+  <!-- Content -->
+</uui-card-user>`,
     },
   },
 };
 
 export const Actions: Story = () => html`
-  <div style="width: 200px">
-    <uui-card-user name="John Rabbit">
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-card-user>
-  </div>
+  <uui-card-user name="John Rabbit">
+    <uui-action-bar slot="actions">
+      <uui-button label="Remove">Remove</uui-button>
+    </uui-action-bar>
+
+    ${cardContent}
+  </uui-card-user>
 `;
 
 Actions.parameters = {
   docs: {
     source: {
       code: `
-    <uui-card-user
-      name="John Rabbit">
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-card-user>`,
+<uui-card-user name="John Rabbit">
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+
+  <!-- Content -->
+</uui-card-user>`,
     },
   },
 };
 
 export const Tags: Story = () => html`
-  <div style="width: 200px">
-    <uui-card-user name="John Rabbit">
-      <uui-tag slot="tag" size="s" look="danger">Disabled</uui-tag>
-    </uui-card-user>
-  </div>
+  <uui-card-user name="John Rabbit">
+    <uui-tag slot="tag" size="s" look="danger">Disabled</uui-tag>
+
+    ${cardContent}
+  </uui-card-user>
 `;
 
 Tags.parameters = {
   docs: {
     source: {
       code: `
-    <uui-card-user name="John Rabbit">
-      <uui-tag slot="tag" size="s" look="danger">Disabled</uui-tag>
-    </uui-card-user>`,
+<uui-card-user name="John Rabbit">
+  <uui-tag slot="tag" size="s" look="danger">Disabled</uui-tag>
+  
+  <!-- Content -->
+</uui-card-user>`,
     },
   },
 };

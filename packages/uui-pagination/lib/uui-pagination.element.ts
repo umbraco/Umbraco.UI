@@ -1,5 +1,6 @@
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
 
@@ -62,6 +63,9 @@ export class UUIPaginationElement extends LitElement {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'navigation');
     this._visiblePages = this._generateVisiblePages(this.current);
+
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-button-group');
   }
 
   disconnectedCallback() {
@@ -234,7 +238,7 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       class="nav"
       role="listitem"
-      aria-label="Go to first page"
+      label="Go to first page"
       ?disabled=${this._current === 1}
       @click=${() => this.goToPage(1)}>
       First
@@ -247,7 +251,7 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       class="nav"
       role="listitem"
-      aria-label="Go to previous page"
+      label="Go to previous page"
       ?disabled=${this._current === 1}
       @click=${this.goToPreviousPage}>
       Previous
@@ -260,7 +264,7 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       role="listitem"
       class="nav"
-      aria-label="Go to next page"
+      label="Go to next page"
       ?disabled=${this._current === this.total}
       @click=${this.goToNextPage}>
       Next
@@ -274,7 +278,7 @@ export class UUIPaginationElement extends LitElement {
         look="outline"
         role="listitem"
         class="nav"
-        aria-label="Go to last page"
+        label="Go to last page"
         ?disabled=${this.total === this._current}
         @click=${() => this.goToPage(this.total)}>
         Last
@@ -283,7 +287,12 @@ export class UUIPaginationElement extends LitElement {
   }
 
   protected renderDots() {
-    return html`<uui-button compact look="outline" tabindex="-1" class="dots"
+    return html`<uui-button
+      compact
+      look="outline"
+      tabindex="-1"
+      class="dots"
+      label="More pages"
       >...</uui-button
     > `;
   }
@@ -293,7 +302,7 @@ export class UUIPaginationElement extends LitElement {
       compact
       look="outline"
       role="listitem"
-      aria-label="Go to page ${page}"
+      label="Go to page ${page}"
       class=${'page' + (page === this._current ? ' active' : '')}
       tabindex=${page === this._current ? '-1' : ''}
       @click=${() => {

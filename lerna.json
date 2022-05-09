@@ -3,9 +3,29 @@
   "version": "independent",
   "npmClient": "npm",
   "useWorkspaces": true,
+  "granularPathspec": false,
   "command": {
     "publish": {
       "verifyAccess": false
     }
-  }
+  },
+  "ignoreChanges": [
+    ".github/**/*",
+    "**/tsconfig.json",
+    "**/*.story.ts",
+    "**/*.test.ts",
+    "**/*.md",
+    "lerna.json",
+    ".storybook/**/*",
+    "stories/**/*",
+    "storyhelpers/**/*",
+    "templates/**/*",
+    "docs/**/*",
+    "package.json",
+    "package-lock.json",
+    "images/**/*",
+    "scripts/**/*",
+    "src/**/*",
+    "templates/**/*"
+  ]
 }

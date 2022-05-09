@@ -15,165 +15,176 @@ export default {
     error: false,
     disabled: false,
   },
+  decorators: [
+    (Story: any) => html`<div style="width: 300px;">${Story()}</div>`,
+  ],
 };
+
+/* TODO: we should make some kind of component for this data layout */
+const cardContent = html`
+  <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
+    <li><span style="font-weight: 700">Created:</span> Yesterday</li>
+    <li>
+      <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
+    </li>
+    <li><span style="font-weight: 700">Some property:</span> Some value</li>
+    <li>
+      <span style="font-weight: 700">Another property:</span> Another value
+    </li>
+  </ul>
+`;
 
 export const AAAOverview: Story = props =>
   html`
-    <div style="width: 300px">
-      <uui-card-content-node
-        name=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}>
-        <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-        <!-- TODO: we should make some kind of component for this data layout: -->
-        <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
-          <li><span style="font-weight: 700">Created:</span> Yesterday</li>
-          <li>
-            <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
-          </li>
-          <li>
-            <span style="font-weight: 700">Some property:</span> Some value
-          </li>
-          <li>
-            <span style="font-weight: 700">Another property:</span> Another
-            value
-          </li>
-        </ul>
-      </uui-card-content-node>
-    </div>
-  `;
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-card-content-node name="The card">
-      <!-- Missing proper layout component for the details -->
-    </uui-card-content-node>`,
-    },
-  },
-};
-
-export const CustomIcon: Story = props => html`
-  <uui-icon-registry-essential>
-    <div style="width: 300px">
-      <uui-card-content-node
-        name=${props.name}
-        ?selectable=${props.selectable}
-        ?selected=${props.selected}
-        ?error=${props.error}
-        ?disabled=${props.disabled}>
-        <uui-icon slot="icon" name="picture"></uui-icon>
-        <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
-        <!-- TODO: we should make some kind of component for this data layout: -->
-        <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
-          <li><span style="font-weight: 700">Created:</span> Yesterday</li>
-          <li>
-            <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
-          </li>
-          <li>
-            <span style="font-weight: 700">Some property:</span> Some value
-          </li>
-          <li>
-            <span style="font-weight: 700">Another property:</span> Another
-            value
-          </li>
-        </ul>
-      </uui-card-content-node>
-    </div>
-  </uui-icon-registry-essential>
-`;
-
-CustomIcon.parameters = {
-  docs: {
-    source: {
-      code: `
-      <uui-card-content-node selectable name="The card">
-        <uui-icon slot="icon" name="bug"></uui-icon>
-      </uui-card-content-node>
-    `,
-    },
-  },
-};
-
-export const Actions: Story = props => html`
-  <div style="width: 300px">
     <uui-card-content-node
       name=${props.name}
       ?selectable=${props.selectable}
       ?selected=${props.selected}
       ?error=${props.error}
       ?disabled=${props.disabled}>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-      <!-- TODO: we should make some kind of component for this data layout: -->
-      <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
-        <li><span style="font-weight: 700">Created:</span> Yesterday</li>
-        <li>
-          <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
-        </li>
-        <li><span style="font-weight: 700">Some property:</span> Some value</li>
-        <li>
-          <span style="font-weight: 700">Another property:</span> Another value
-        </li>
-      </ul>
+      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+      ${cardContent}
     </uui-card-content-node>
-  </div>
-`;
-
-Actions.parameters = {
+  `;
+AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
   docs: {
     source: {
       code: `
-      <uui-card-content-node selectable name="The card">
-        <uui-action-bar slot="actions">
-          <uui-button label="Remove">Remove</uui-button>
-        </uui-action-bar>
-      </uui-card-content-node>
+<uui-card-content-node name="The card">
+  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
+    <li><span style="font-weight: 700">Created:</span> Yesterday</li>
+    <li>
+      <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
+    </li>
+    <li>
+      <span style="font-weight: 700">Some property:</span> Some value
+    </li>
+    <li>
+      <span style="font-weight: 700">Another property:</span> Another
+      value
+    </li>
+  </ul>
+</uui-card-content-node>
+    `,
+    },
+  },
+};
+
+export const CustomIcon: Story = () => html`
+  <uui-icon-registry-essential>
+    <uui-card-content-node name="The card">
+      <uui-icon slot="icon" name="wand"></uui-icon>
+      ${cardContent}
+    </uui-card-content-node>
+  </uui-icon-registry-essential>
+`;
+
+CustomIcon.parameters = {
+  controls: { include: [''] },
+  docs: {
+    source: {
+      code: `
+<uui-icon-registry-essential>
+  <uui-card-content-node name="The card">
+    <uui-icon slot="icon" name="wand"></uui-icon>
+    
+    <!-- Content -->
+  </uui-card-content-node>
+<uui-icon-registry-essential>
+`,
+    },
+  },
+};
+
+export const Actions: Story = () => html`
+  <uui-card-content-node name="The card">
+    <uui-action-bar slot="actions">
+      <uui-button label="Remove">Remove</uui-button>
+    </uui-action-bar>
+    ${cardContent}
+  </uui-card-content-node>
+`;
+
+Actions.parameters = {
+  controls: { include: [''] },
+  docs: {
+    source: {
+      code: `
+<uui-card-content-node name="The card">
+  <uui-action-bar slot="actions">
+    <uui-button label="Remove">Remove</uui-button>
+  </uui-action-bar>
+
+  <!-- Content -->
+</uui-card-content-node>
     `,
     },
   },
 };
 
 export const Disabled: Story = props => html`
-  <div style="width: 300px">
-    <uui-card-content-node
-      name=${props.name}
-      ?selectable=${props.selectable}
-      ?selected=${props.selected}
-      ?error=${props.error}
-      ?disabled=${props.disabled}>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove" ?disabled=${props.disabled}>
-          Remove
-        </uui-button>
-      </uui-action-bar>
-      <!-- TODO: we should make some kind of component for this data layout: -->
-      <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
-        <li><span style="font-weight: 700">Created:</span> Yesterday</li>
-        <li>
-          <span style="font-weight: 700">Last Edited: </span> 2021-03-15 09:29
-        </li>
-        <li><span style="font-weight: 700">Some property:</span> Some value</li>
-        <li>
-          <span style="font-weight: 700">Another property:</span> Another value
-        </li>
-      </ul>
-    </uui-card-content-node>
-  </div>
+  <uui-card-content-node ?disabled=${props.disabled} name="The card">
+    ${cardContent}
+  </uui-card-content-node>
 `;
 
 Disabled.args = {
   disabled: true,
 };
 Disabled.parameters = {
+  controls: { include: ['disabled'] },
   docs: {
     source: {
       code: `
-      <uui-card-content-node disabled name="The card">
-      </uui-card-content-node>
+<uui-card-content-node name="The card" disabled>
+  <!-- Content -->
+</uui-card-content-node>
+    `,
+    },
+  },
+};
+
+export const Error: Story = props => html`
+  <uui-card-content-node ?error=${props.error} name="The card">
+    ${cardContent}
+  </uui-card-content-node>
+`;
+
+Error.args = {
+  error: true,
+};
+Error.parameters = {
+  controls: { include: ['error'] },
+  docs: {
+    source: {
+      code: `
+<uui-card-content-node name="The card" error>
+  <!-- Content -->
+</uui-card-content-node>
+    `,
+    },
+  },
+};
+
+export const Selectable: Story = props => html`
+  <uui-card-content-node ?selectable=${props.selectable} name="The card">
+    ${cardContent}
+  </uui-card-content-node>
+`;
+
+Selectable.args = {
+  selectable: true,
+};
+Selectable.parameters = {
+  controls: { include: ['selectable'] },
+  docs: {
+    source: {
+      code: `
+<uui-card-content-node name="The card" selectable>
+  <!-- Content -->
+</uui-card-content-node>
     `,
     },
   },

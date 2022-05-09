@@ -1,9 +1,9 @@
-import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement } from 'lit';
 
 /**
  *  @element uui-dialog
- *  @slot for dialog content
+ *  @slot - The slot for dialog content
  *  @description - All-round dialog
  */
 @defineElement('uui-dialog')
