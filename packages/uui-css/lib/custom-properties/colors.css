@@ -42,9 +42,9 @@
   --uui-color-divider-emphasis: #bdbdbd;
 
   /* ----- COLORS -----  */
-  --uui-color-primary: #2152a3;
-  --uui-color-primary-emphasis: #3368bd;
-  --uui-color-primary-standalone: #2152a3;
+  --uui-color-primary: var(--uui-palette-space-cadet);
+  --uui-color-primary-emphasis: var(--uui-palette-violet-blue);
+  --uui-color-primary-standalone: var(--uui-palette-space-cadet-dark);
   --uui-color-primary-contrast: white;
 
   --uui-color-warning: #fad634;
@@ -65,7 +65,7 @@
 
 :root[data-theme='dark'] {
   /* ----- STATES -----  */
-  --uui-color-selected: #2a72b6;
+  /* --uui-color-selected: #2a72b6;
   --uui-color-selected-emphasis: #3385d1;
   --uui-color-selected-standalone: #215b91;
   --uui-color-selected-contrast: white;
@@ -73,10 +73,10 @@
   --uui-color-current: #d49e98;
   --uui-color-current-emphasis: #dbaea9;
   --uui-color-current-standalone: #c3786f;
-  --uui-color-current-contrast: #1b264f;
+  --uui-color-current-contrast: #1b264f; */
 
   /* ----- UNIVERSAL -----  */
-  --uui-color-header: #14171b;
+  /* --uui-color-header: #14171b;
 
   --uui-color-focus: #2294ff;
 
@@ -85,10 +85,10 @@
 
   --uui-color-disabled: #373e47;
   --uui-color-disabled-standalone: #444c55;
-  --uui-color-disabled-contrast: #636e7b;
+  --uui-color-disabled-contrast: #636e7b; */
 
   /* ----- SURFACE -----  */
-  --uui-color-surface: #2d333b;
+  /* --uui-color-surface: #2d333b;
   --uui-color-surface-alt: #373e47;
 
   --uui-color-background: #22272e;
@@ -102,9 +102,9 @@
 
   --uui-color-divider: #383d44;
   --uui-color-divider-standalone: #444c56;
-  --uui-color-divider-emphasis: #4f5864;
+  --uui-color-divider-emphasis: #4f5864; */
   /* ----- COLORS -----  */
-  --uui-color-primary: #2c70d6;
+  /* --uui-color-primary: #2c70d6;
   --uui-color-primary-emphasis: #3886fc;
   --uui-color-primary-standalone: #88bdff;
   --uui-color-primary-contrast: white;
@@ -122,5 +122,5 @@
   --uui-color-positive: #26793e;
   --uui-color-positive-emphasis: #358f4e;
   --uui-color-positive-standalone: #52d176;
-  --uui-color-positive-contrast: white;
+  --uui-color-positive-contrast: white; */
 }
