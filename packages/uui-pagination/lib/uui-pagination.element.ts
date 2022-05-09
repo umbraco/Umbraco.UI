@@ -31,8 +31,11 @@ export class UUIPaginationElement extends LitElement {
       }
 
       uui-button {
-        --uui-button-border-color: var(--uui-interface-border);
-        --uui-button-border-color-disabled: var(--uui-interface-border);
+        --uui-button-border-color: var(--uui-color-border-standalone);
+        --uui-button-border-color-hover: var(--uui-color-hover-standalone);
+        --uui-button-border-color-disabled: var(--uui-color-border-standalone);
+        --uui-button-background-color-hover: transparent;
+        --uui-button-contrast-hover: var(--uui-color-primary-emphasis);
       }
 
       .page {
@@ -40,7 +43,7 @@ export class UUIPaginationElement extends LitElement {
         max-width: 72px;
       }
       .page.active {
-        --uui-button-background-color: var(--uui-interface-active);
+        --uui-button-background-color: var(--uui-color-current);
       }
 
       .nav {
@@ -235,7 +238,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderFirst() {
     return html`<uui-button
       compact
-      look="outline"
       class="nav"
       role="listitem"
       label="Go to first page"
@@ -248,7 +250,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderPrevious() {
     return html`<uui-button
       compact
-      look="outline"
       class="nav"
       role="listitem"
       label="Go to previous page"
@@ -261,7 +262,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderNext() {
     return html`<uui-button
       compact
-      look="outline"
       role="listitem"
       class="nav"
       label="Go to next page"
@@ -275,7 +275,6 @@ export class UUIPaginationElement extends LitElement {
     return html`
       <uui-button
         compact
-        look="outline"
         role="listitem"
         class="nav"
         label="Go to last page"
@@ -289,7 +288,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderDots() {
     return html`<uui-button
       compact
-      look="outline"
       tabindex="-1"
       class="dots"
       label="More pages"
@@ -300,7 +298,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderPage(page: number) {
     return html`<uui-button
       compact
-      look="outline"
       role="listitem"
       label="Go to page ${page}"
       class=${'page' + (page === this._current ? ' active' : '')}
