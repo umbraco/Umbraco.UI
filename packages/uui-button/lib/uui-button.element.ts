@@ -183,13 +183,21 @@ export class UUIButtonElement extends FormControlMixin(
         --uui-button-color-emphasis: var(--uui-color-danger-emphasis);
         --uui-button-color-contrast: var(--uui-color-danger-contrast);
       }
+      :host([disabled]) {
+        --uui-button-color: var(--uui-color-disabled);
+        --uui-button-color-standalone: var(--uui-color-disabled-contrast);
+        --uui-button-color-emphasis: var(--uui-color-disabled);
+        --uui-button-color-contrast: var(--uui-color-disabled-contrast);
+
+        cursor: default;
+      }
 
       :host {
         border-color: transparent;
         background-color: transparent;
         color: var(--uui-button-color-standalone);
       }
-      :host(:hover) {
+      :host(:not([disabled]):hover) {
         background-color: var(--uui-color-hover);
       }
       :host([look='primary']) {
@@ -208,15 +216,21 @@ export class UUIButtonElement extends FormControlMixin(
       :host([look='secondary']:hover) {
         background-color: var(--uui-color-hover);
       }
+      :host([look='secondary'][disabled]) {
+        background-color: var(--uui-button-color);
+      }
       :host([look='outline']) {
         background-color: transparent;
         color: var(--uui-button-color-standalone);
         border-color: var(--uui-button-color-standalone);
       }
-      :host([look='outline']:hover) {
+      :host([look='outline']:not([disabled]):hover) {
         background-color: var(--uui-button-color);
         color: var(--uui-button-color-contrast);
         border-color: transparent;
+      }
+      :host([look='outline'][disabled]) {
+        border-color: var(--uui-button-color);
       }
       :host([look='placeholder']) {
         background-color: transparent;

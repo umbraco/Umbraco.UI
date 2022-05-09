@@ -376,6 +376,29 @@ export class UUIBoxElement extends LitElement {
                       </div>
                     </div>
                   </div>
+                  <hr />
+                  <div class="editor-property">
+                    <div class="label">
+                      <b>Disabled</b>
+                    </div>
+                    <div class="value">
+                      <div class="buttons">
+                        <uui-button disabled color="danger">Button</uui-button>
+                        <uui-button disabled color="danger" look="primary">
+                          Button
+                        </uui-button>
+                        <uui-button disabled color="danger" look="secondary">
+                          Button
+                        </uui-button>
+                        <uui-button disabled color="danger" look="outline">
+                          Button
+                        </uui-button>
+                        <uui-button disabled color="danger" look="placeholder">
+                          Button
+                        </uui-button>
+                      </div>
+                    </div>
+                  </div>
                 </uui-box>
               </uui-scroll-container>
               <div id="editor-bottom">
