@@ -82,15 +82,15 @@ export class UUIColorPickerElement extends LitElement {
     
   }
 
-  private _onChange() {
+  /*private _onChange() {
     this.dispatchEvent(new UUIColorPickerEvent(UUIColorPickerEvent.CHANGE));
-  }
+  }*/
 
   render(){
     const x = this.saturation;
     const y = 100 - this.lightness;
 
-    const colorPicker = html`
+    /*const colorPicker = html`
       <div
         class=${classMap({
           'color-picker': true,
@@ -250,11 +250,17 @@ export class UUIColorPickerElement extends LitElement {
       </div>
     `;
 
-    return colorPicker;
+    return colorPicker;*/
   }
 }
 
 function toHex(value: number) {
   const hex = Math.round(value).toString(16);
   return hex.length === 1 ? `0${hex}` : hex;
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-color-picker': UUIColorPickerElement;
+  }
 }

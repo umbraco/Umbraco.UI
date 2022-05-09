@@ -81,7 +81,7 @@ export class UUIColorPickerSliderElement extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
     render(){
-        return html`
+        /*return html`
           <div
           part="slider hue-slider"
           class="color-picker__hue color-picker__slider"
@@ -100,6 +100,12 @@ export class UUIColorPickerSliderElement extends LitElement {
             tabindex=${ifDefined(this.disabled ? undefined : '0')}
           ></span>
         </div>
-        `;
+        `;*/
     }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-color-picker-slider': UUIColorPickerSliderElement;
+  }
 }

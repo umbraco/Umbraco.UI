@@ -48,7 +48,7 @@ export class UUIColorSwatchesElement extends LitElement {
   @property({ attribute: false }) swatches: string[] = [];
 
     render(){
-      ${this.swatches.length > 0
+      /*${this.swatches.length > 0
         ? html`
             <div class="swatches">
             ${this.swatches.map(swatch => {
@@ -65,6 +65,12 @@ export class UUIColorSwatchesElement extends LitElement {
                 })}
             </div>
         `: 
-        ''}
+        ''}*/
     }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-color-swatches': UUIColorSwatchesElement;
+  }
 }
