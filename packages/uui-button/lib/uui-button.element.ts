@@ -201,7 +201,10 @@ export class UUIButtonElement extends FormControlMixin(
 
       /* DEFAULT */
       :host([look='default']) {
-        background-color: var(--uui-button-background-color, transparent);
+        background-color: var(
+          --uui-button-background-color,
+          var(--uui-color-surface)
+        );
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, transparent);
       }
@@ -216,7 +219,7 @@ export class UUIButtonElement extends FormControlMixin(
       :host([look='default'][disabled]) {
         background-color: var(
           --uui-button-background-color-disabled,
-          transparent
+          var(--uui-color-surface)
         );
         color: var(--uui-button-contrast-disabled, var(--color-contrast));
         border-color: var(--uui-button-border-color-disabled, transparent);
@@ -272,7 +275,10 @@ export class UUIButtonElement extends FormControlMixin(
 
       /* OUTLINE */
       :host([look='outline']) {
-        background-color: var(--uui-button-background-color, transparent);
+        background-color: var(
+          --uui-button-background-color,
+          var(--uui-color-surface)
+        );
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, --color-standalone);
       }
@@ -287,7 +293,7 @@ export class UUIButtonElement extends FormControlMixin(
       :host([look='outline'][disabled]) {
         background-color: var(
           --uui-button-background-color-disabled,
-          transparent
+          var(--uui-color-surface)
         );
         color: var(--uui-button-contrast-disabled, var(--color-contrast));
         border-color: var(--uui-button-border-color-disabled, var(--color));
@@ -296,7 +302,10 @@ export class UUIButtonElement extends FormControlMixin(
       /* PLACEHOLDER */
       :host([look='placeholder']) {
         border-style: dashed;
-        background-color: var(--uui-button-background-color, transparent);
+        background-color: var(
+          --uui-button-background-color,
+          var(--uui-color-surface)
+        );
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(
           --uui-button-border-color,
@@ -304,7 +313,10 @@ export class UUIButtonElement extends FormControlMixin(
         );
       }
       :host([look='placeholder']:not([disabled]):hover) {
-        background-color: var(--uui-button-background-color-hover, transparent);
+        background-color: var(
+          --uui-button-background-color-hover,
+          var(--uui-color-surface)
+        );
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, --color-standalone);
       }
