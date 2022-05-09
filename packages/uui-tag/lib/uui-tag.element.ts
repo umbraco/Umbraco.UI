@@ -1,8 +1,4 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import {
-  InterfaceLookDefaultValue,
-  InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -36,52 +32,32 @@ export class UUITagElement extends LitElement {
         margin: 2px;
       }
 
-      /* Looks */
-      :host([look='primary']) {
-        background-color: var(--uui-look-primary-surface);
-        color: var(--uui-look-primary-contrast);
+      :host([color='primary']) {
+        background-color: var(--uui-color-primary);
+        color: var(--uui-color-primary-contrast);
       }
-
-      :host([look='secondary']) {
-        background-color: var(--uui-look-secondary-surface);
-        color: var(--uui-look-secondary-contrast);
+      :host([color='positive']) {
+        background-color: var(--uui-color-positive);
+        color: var(--uui-color-positive-contrast);
       }
-
-      :host([look='outline']) {
-        background-color: var(--uui-look-outline-surface);
-        color: var(--uui-look-outline-contrast);
-        border: 1px solid var(--uui-look-outline-border);
+      :host([color='warning']) {
+        background-color: var(--uui-color-warning);
+        color: var(--uui-color-warning-contrast);
       }
-
-      :host([look='placeholder']) {
-        background-color: var(--uui-look-placeholder-surface);
-        color: var(--uui-look-placeholder-contrast);
-        border: 1px dashed var(--uui-look-placeholder-border);
-      }
-
-      :host([look='positive']) {
-        background-color: var(--uui-look-positive-surface);
-        color: var(--uui-look-positive-contrast);
-      }
-
-      :host([look='warning']) {
-        background-color: var(--uui-look-warning-surface);
-        color: var(--uui-look-warning-contrast);
-      }
-
-      :host([look='danger']) {
-        background-color: var(--uui-look-danger-surface);
-        color: var(--uui-look-danger-contrast);
+      :host([color='danger']) {
+        background-color: var(--uui-color-danger);
+        color: var(--uui-color-danger-contrast);
       }
     `,
   ];
 
   /**
-   * Defines the look of the tag.
+   * Defines the color of the tag.
    * @attr
+   * @default primary
    */
   @property({ reflect: true })
-  public look: InterfaceLookType = InterfaceLookDefaultValue;
+  public color = 'primary';
 
   render() {
     return html`<slot></slot>`;
