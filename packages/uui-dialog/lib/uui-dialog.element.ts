@@ -17,7 +17,7 @@ export class UUIDialogElement extends LitElement {
 
         background-color: var(
           --uui-dialog-background-color,
-          var(--uui-interface-surface)
+          var(--uui-color-surface)
         );
 
         box-shadow: var(--uui-shadow-depth-5);

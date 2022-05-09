@@ -20,7 +20,9 @@ const Template: Story = () => html`
         have actions that answers it.
       </p>
       <uui-button slot="actions">Cancel</uui-button>
-      <uui-button slot="actions" look="positive">Action</uui-button>
+      <uui-button slot="actions" look="primary" color="positive"
+        >Action</uui-button
+      >
     </uui-dialog-layout>
   </uui-dialog>
 `;
@@ -36,7 +38,9 @@ export const ConfirmDialogPositive: Story = () => html`
         making their content publicly available.
       </p>
       <uui-button slot="actions">Cancel</uui-button>
-      <uui-button slot="actions" look="positive">Publish</uui-button>
+      <uui-button slot="actions" look="primary" color="positive"
+        >Publish</uui-button
+      >
     </uui-dialog-layout>
   </uui-dialog>
 `;
@@ -46,7 +50,9 @@ export const ConfirmDialogDanger: Story = () => html`
     <uui-dialog-layout headline="Delete">
       <p>Delete <b>This example</b> and all items underneath.</p>
       <uui-button slot="actions">Cancel</uui-button>
-      <uui-button slot="actions" look="danger">Delete</uui-button>
+      <uui-button slot="actions" look="primary" color="danger"
+        >Delete</uui-button
+      >
     </uui-dialog-layout>
   </uui-dialog>
 `;
@@ -60,7 +66,9 @@ export const HeadlineSlot: Story = () => html`
         </span>
         <p>This is using a <b>slot</b> for the headline.</p>
         <uui-button slot="actions">Cancel</uui-button>
-        <uui-button slot="actions" look="danger">Delete</uui-button>
+        <uui-button slot="actions" look="primary" color="danger"
+          >Delete</uui-button
+        >
       </uui-dialog-layout>
     </uui-dialog>
   </uui-icon-registry-essential>
