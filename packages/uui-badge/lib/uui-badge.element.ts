@@ -1,5 +1,4 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { InterfaceLookType } from '@umbraco-ui/uui-base/lib/types';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -32,19 +31,24 @@ export class UUIBadgeElement extends LitElement {
         min-height: var(--uui-size-8);
         box-sizing: border-box;
 
-        border-width: var(--uui-badge-border-width, 1px);
-        border-style: solid;
-        border-color: var(
-          --uui-badge-border-color,
-          var(--uui-interface-surface)
-        );
         border-radius: var(--uui-size-4);
+      }
 
-        background-color: var(
-          --uui-badge-background-color,
-          var(--uui-interface-surface)
-        );
-        color: var(--uui-badge-contrast, var(--uui-interface-contrast));
+      :host([color='primary']) {
+        background-color: var(--uui-color-primary);
+        color: var(--uui-color-primary-contrast);
+      }
+      :host([color='positive']) {
+        background-color: var(--uui-color-positive);
+        color: var(--uui-color-positive-contrast);
+      }
+      :host([color='warning']) {
+        background-color: var(--uui-color-warning);
+        color: var(--uui-color-warning-contrast);
+      }
+      :host([color='danger']) {
+        background-color: var(--uui-color-danger);
+        color: var(--uui-color-danger-contrast);
       }
 
       /** TODO: we didn't want to target elements by name, but what else can we do? */
@@ -84,87 +88,17 @@ export class UUIBadgeElement extends LitElement {
           animation: none;
         }
       }
-
-      :host([look='primary']) {
-        background-color: var(--uui-look-primary-surface);
-        color: var(--uui-look-primary-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-primary-border-style, solid)
-        );
-        border-color: var(--uui-look-primary-border);
-      }
-
-      :host([look='secondary']) {
-        background-color: var(--uui-look-secondary-surface);
-        color: var(--uui-look-secondary-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-secondary-border-style, solid)
-        );
-        border-color: var(--uui-look-secondary-border);
-      }
-
-      :host([look='outline']) {
-        background-color: var(--uui-look-outline-surface);
-        color: var(--uui-look-outline-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-outline-border-style, solid)
-        );
-        border-color: var(--uui-look-outline-border);
-      }
-
-      :host([look='placeholder']) {
-        background-color: var(--uui-look-placeholder-surface);
-        color: var(--uui-look-placeholder-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-placeholder-border-style, dashed)
-        );
-        border-color: var(--uui-look-placeholder-border);
-      }
-
-      :host([look='positive']) {
-        background-color: var(--uui-look-positive-surface);
-        color: var(--uui-look-positive-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-positive-border-style, solid)
-        );
-        border-color: var(--uui-look-positive-border);
-      }
-
-      :host([look='warning']) {
-        background-color: var(--uui-look-warning-surface);
-        color: var(--uui-look-warning-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-warning-border-style, solid)
-        );
-        border-color: var(--uui-look-warning-border);
-      }
-
-      :host([look='danger']) {
-        background-color: var(--uui-look-danger-surface);
-        color: var(--uui-look-danger-contrast);
-        border-style: var(
-          --uui-badge-border-style,
-          var(--uui-look-danger-border-style, solid)
-        );
-        border-color: var(--uui-look-danger-border);
-      }
     `,
   ];
 
   /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {""|"primary"|"secondary"|"outline"|"placeholder"|"positive"|"warning"|"danger"}
+   * Changes the look of the badge to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" badge.
+   * @type {"primary"|"positive"|"warning"|"danger"}
    * @attr
-   * @default danger
+   * @default primary
    */
   @property({ type: String, reflect: true })
-  look: InterfaceLookType = 'danger';
+  color = 'primary';
 
   /**
    * Bring attention to this badge by applying a bounce animation.
