@@ -42,7 +42,7 @@ export const AAAOverview: Story = props =>
       ?selected=${props.selected}
       ?error=${props.error}
       ?disabled=${props.disabled}>
-      <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+      <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
       ${cardContent}
     </uui-card-content-node>
   `;
@@ -52,7 +52,7 @@ AAAOverview.parameters = {
     source: {
       code: `
 <uui-card-content-node name="The card">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
   <ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
     <li><span style="font-weight: 700">Created:</span> Yesterday</li>
     <li>

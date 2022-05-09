@@ -85,7 +85,7 @@ export class UUICardUserElement extends UUICardElement {
 
       #open-part:hover {
         text-decoration: underline;
-        color: var(--uui-interface-contrast-hover);
+        color: var(--uui-color-hover-standalone);
       }
     `,
   ];

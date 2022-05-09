@@ -138,7 +138,7 @@ Actions.parameters = {
 
 export const Tags: Story = () => html`
   <uui-card-user name="John Rabbit">
-    <uui-tag slot="tag" size="s" look="danger">Disabled</uui-tag>
+    <uui-tag slot="tag" size="s" color="danger">Disabled</uui-tag>
 
     ${cardContent}
   </uui-card-user>
@@ -149,7 +149,7 @@ Tags.parameters = {
     source: {
       code: `
 <uui-card-user name="John Rabbit">
-  <uui-tag slot="tag" size="s" look="danger">Disabled</uui-tag>
+  <uui-tag slot="tag" size="s" color="danger">Disabled</uui-tag>
   
   <!-- Content -->
 </uui-card-user>`,

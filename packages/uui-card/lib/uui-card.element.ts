@@ -47,7 +47,7 @@ export class UUICardElement extends SelectOnlyMixin(
       }
 
       :host([error]) {
-        border: var(--uui-card-border-width) solid var(--uui-look-danger-border);
+        border: var(--uui-card-border-width) solid var(--uui-color-danger);
       }
 
       :host([selectable]) {
@@ -55,8 +55,8 @@ export class UUICardElement extends SelectOnlyMixin(
       }
 
       :host([disabled]) {
-        background: var(--uui-interface-surface-disabled);
-        color: var(--uui-interface-contrast-disabled);
+        background: var(--uui-color-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
 
       :host([selectable])::after {
@@ -67,7 +67,7 @@ export class UUICardElement extends SelectOnlyMixin(
         width: calc(100% + var(--uui-card-border-width) * 2);
         height: calc(100% + var(--uui-card-border-width) * 2);
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid var(--uui-interface-select);
+        border: var(--uui-card-border-width) solid var(--uui-color-selected);
         border-radius: calc(
           var(--uui-border-radius) + var(--uui-card-border-width)
         );
