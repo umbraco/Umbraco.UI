@@ -4,7 +4,7 @@ Please review this document to help to streamline the process and save everyone'
 
 This repo uses nodejs, so you should install `nodejs` as the package manager. See [installation guide](https://nodejs.org/en/).
 
-# Guidelines for contributions we welcome
+# Guidelines for contributions that we welcome
 
 Not all changes are wanted, so on occasion we might close a PR without merging it. We will give you feedback why we can't accept your changes and we'll be nice about it, thanking you for spending your valuable time.
 
@@ -46,6 +46,13 @@ Please follow the [pull request template](../.github/pull_request_template.md) w
 The UI Library components are [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) built with [Lit](https://lit.dev/) and Typescript. Lit is a light-weight base class that makes development of web components easier and handles all the necessary things, attaching shadow root, reactivity, attribute reflection etc. We strongly encourage you to take a look at Lit documentation before starting development.
 
 Using Typescript is mandatory when contributing to this repository, although it is not necessary to use it when consuming the components.
+
+### How to get started
+
+1. Make sure you have the recommended version of node.js and npm installed
+   1. Currently we use node.js v16 and npm v8
+2. Run `npm install`
+3. Run `npm run storybook` to start the storybook server, which we also use for development
 
 ### New component
 
