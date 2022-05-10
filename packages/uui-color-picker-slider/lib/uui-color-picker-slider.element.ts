@@ -81,6 +81,21 @@ export class UUIColorPickerSliderElement extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
     render(){
+      return html`
+          <div class="color-picker__hue color-picker__slider">
+            <span
+              class="color-picker__slider-handle"
+              style=${styleMap({
+                left: `0%` //`${this.hue === 0 ? 0 : 100 / (360 / this.hue)}%`
+              })}
+              role="slider"
+              aria-label="${this.label}"
+              aria-orientation="${this.orientation}"
+              aria-valuemin="${Math.round(this.min)}"
+              aria-valuemax="${Math.round(this.max)}"
+            ></span>
+          </div>`;
+
         /*return html`
           <div
           part="slider hue-slider"

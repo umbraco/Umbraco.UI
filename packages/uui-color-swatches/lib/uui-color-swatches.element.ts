@@ -23,15 +23,17 @@ export class UUIColorSwatchesElement extends LitElement {
         grid-template-columns: repeat(8, 1fr);
         grid-gap: 0.5rem;
         justify-items: center;
-        border-top: solid 1px var(--sl-color-neutral-200);
-        padding: var(--sl-spacing-small);
+        border-top: solid 1px #ededef;
+        padding: 0.75rem;
       }
+
       .color-picker__swatch {
         position: relative;
         width: var(--swatch-size);
         height: var(--swatch-size);
-        border-radius: var(--sl-border-radius-small);
+        border-radius: 3px;
       }
+      
       .color-picker__swatch .color-picker__swatch-color {
         position: absolute;
         top: 0;
@@ -47,26 +49,26 @@ export class UUIColorSwatchesElement extends LitElement {
 
   @property({ attribute: false }) swatches: string[] = [];
 
-    render(){
-      /*${this.swatches.length > 0
-        ? html`
-            <div class="swatches">
-            ${this.swatches.map(swatch => {
-              return html`
-                <div
-                  class="color-picker__swatch color-picker__transparent-bg"
-                  tabindex=${ifDefined(this.disabled ? undefined : '0')}
-                  role="button"
-                  aria-label=${swatch}
-                >
-                <div class="color-picker__swatch-color" style=${styleMap({ backgroundColor: swatch })}></div>
-              </div>
-            `;
-                })}
-            </div>
-        `: 
-        ''}*/
-    }
+  constructor() {
+    super();
+  }
+
+  render() {
+    return html`
+          <div class="swatches">
+          ${this.swatches.map(swatch => {
+            return html`
+              <div
+                class="color-picker__swatch color-picker__transparent-bg"
+                role="button"
+                aria-label=${swatch}
+              >
+              <div class="color-picker__swatch-color" style=${styleMap({ backgroundColor: swatch })}></div>
+            </div>`;
+          })}
+          </div>
+      `;
+  }
 }
 
 declare global {
