@@ -35,6 +35,7 @@ AAAOverview.storyName = 'Overview';
 export const Colors: Story = () =>
   html`
     <uui-tag color="primary">primary</uui-tag>
+    <uui-tag color="secondary">secondary</uui-tag>
     <uui-tag color="positive">positive</uui-tag>
     <uui-tag color="warning">warning</uui-tag>
     <uui-tag color="danger">danger</uui-tag>
