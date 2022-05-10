@@ -409,7 +409,7 @@ export class UUIColorPickerElement extends LitElement {
           </uui-button-group>
         </div>
         <uui-color-swatches
-          swatches="${this.swatches}"
+          .swatches="${this.swatches}"
         >
         </uui-color-swatches>
       </div>
