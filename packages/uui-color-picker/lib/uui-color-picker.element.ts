@@ -68,7 +68,11 @@ export class UUIColorPickerElement extends LitElement {
         align-items: center;
       }
 
-      .color-picker__hue {
+      .color-picker__sliders {
+        flex: 1 1 auto;
+      }
+
+      uui-color-picker-slider.hue-slider {
         background-image: linear-gradient(
           to right,
           rgb(255, 0, 0) 0%,
@@ -79,10 +83,6 @@ export class UUIColorPickerElement extends LitElement {
           rgb(255, 0, 255) 83%,
           rgb(255, 0, 0) 100%
         );
-      }
-
-      .color-picker__sliders {
-        flex: 1 1 auto;
       }
 
       uui-color-swatches {
@@ -119,7 +119,7 @@ export class UUIColorPickerElement extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Whether to show the opacity slider. */
-  @property({ type: Boolean }) opacity = false;
+  @property({ type: Boolean }) opacity = true; //false;
 
   /** By default, the value will be set in lowercase. Set this to true to set it in uppercase instead. */
   @property({ type: Boolean }) uppercase = false;
@@ -288,71 +288,16 @@ export class UUIColorPickerElement extends LitElement {
               .value=${Math.round(this.hue)}
             >
             </uui-color-slider>
-
-            <div
-              part="slider hue-slider"
-              class="color-picker__hue color-picker__slider"
-              @mousedown=${this.handleHueDrag}
-              @touchstart=${this.handleHueDrag}
-            >
-              <span
-                part="slider-handle"
-                class="color-picker__slider-handle"
-                style=${styleMap({
-                  left: `${this.hue === 0 ? 0 : 100 / (360 / this.hue)}%`
-                })}
-                role="slider"
-                aria-label="hue"
-                aria-orientation="horizontal"
-                aria-valuemin="0"
-                aria-valuemax="360"
-                aria-valuenow=${Math.round(this.hue)}
-                tabindex=${ifDefined(this.disabled ? undefined : '0')}
-                @keydown=${this.handleHueKeyDown}
-              ></span>
-            </div>
             ${this.opacity
               ? html`
-                  <uui-color-picker-slider
+                  <uui-color-slider
+                    class="alpha-slider"
                     label="alpha"
                     min="0"
                     max="100"
                     .value=${Math.round(this.alpha)}
                   >
-                  </uui-color-picker-slider>
-
-                  <div
-                    part="slider opacity-slider"
-                    class="color-picker__alpha color-picker__slider color-picker__transparent-bg"
-                    @mousedown="${this.handleAlphaDrag}"
-                    @touchstart="${this.handleAlphaDrag}"
-                  >
-                    <div
-                      class="color-picker__alpha-gradient"
-                      style=${styleMap({
-                        backgroundImage: `linear-gradient(
-                          to right,
-                          hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, 0%) 0%,
-                          hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%) 100%
-                        )`
-                      })}
-                    ></div>
-                    <span
-                      part="slider-handle"
-                      class="color-picker__slider-handle"
-                      style=${styleMap({
-                        left: `${this.alpha}%`
-                      })}
-                      role="slider"
-                      aria-label="alpha"
-                      aria-orientation="horizontal"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      aria-valuenow=${Math.round(this.alpha)}
-                      tabindex=${ifDefined(this.disabled ? undefined : '0')}
-                      @keydown=${this.handleAlphaKeyDown}
-                    ></span>
-                  </div>
+                  </uui-color-slider>
                 `
               : ''}
           </div>

@@ -55,6 +55,12 @@ export class UUIColorAreaElement extends LitElement {
   @state() private lightness = 100;
   @state() private alpha = 100;
 
+  handleClick(event: MouseEvent) {
+    console.log("handle click");
+    this.getValueFromMousePosition(event);
+    this.syncValues();
+  }
+
   handleGridDrag(event: Event) {
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
     const handle = grid.querySelector<HTMLElement>('.color-area__handle')!;
@@ -96,6 +102,23 @@ export class UUIColorAreaElement extends LitElement {
       this.lightness = this.clamp(this.lightness - increment, 0, 100);
       this.syncValues();
     }
+  }
+
+  getValueFromMousePosition(event: MouseEvent) {
+    return this.getValueFromCoordinates(event.clientX, event.clientY);
+  }
+
+  getValueFromTouchPosition(event: TouchEvent) {
+    return this.getValueFromCoordinates(event.touches[0].clientX, event.touches[0].clientY);
+  }
+
+  getValueFromCoordinates(x: number, y: number) {
+    const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
+    const { width, height } = grid.getBoundingClientRect();
+
+    this.saturation = this.clamp((x / width) * 100, 0, 100);
+    this.lightness = this.clamp(100 - (y / height) * 100, 0, 100);
+    this.syncValues();
   }
 
   // Export functon so it can be re-used?
@@ -144,6 +167,7 @@ export class UUIColorAreaElement extends LitElement {
         <div
           class="color-area"
           style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
+          @click=${this.handleClick}
           @mousedown=${this.handleGridDrag}
           @touchstart=${this.handleGridDrag}
         >
