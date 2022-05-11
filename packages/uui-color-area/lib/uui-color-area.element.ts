@@ -2,6 +2,9 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 
+//import { drag } from '../../internal/drag';
+//import { clamp } from '../../internal/math';
+
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
@@ -53,11 +56,83 @@ export class UUIColorAreaElement extends LitElement {
   @state() private alpha = 100;
 
   handleGridDrag(event: Event) {
-    
+    const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
+    const handle = grid.querySelector<HTMLElement>('.color-area__handle')!;
+    const { width, height } = grid.getBoundingClientRect();
+
+    handle.focus();
+    event.preventDefault();
+
+    this.drag(grid, (x, y) => {
+      this.saturation = this.clamp((x / width) * 100, 0, 100);
+      this.lightness = this.clamp(100 - (y / height) * 100, 0, 100);
+      this.syncValues();
+    });
   }
 
-  handleGridKeyDown(event: Event) {
-    
+  handleGridKeyDown(event: KeyboardEvent) {
+    const increment = event.shiftKey ? 10 : 1;
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.saturation = this.clamp(this.saturation - increment, 0, 100);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.saturation = this.clamp(this.saturation + increment, 0, 100);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.lightness = this.clamp(this.lightness + increment, 0, 100);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.lightness = this.clamp(this.lightness - increment, 0, 100);
+      this.syncValues();
+    }
+  }
+
+  // Export functon so it can be re-used?
+  clamp(value: number, min: number, max: number) {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+
+  // Export functon so it can be re-used?
+  drag(container: HTMLElement, onMove: (x: number, y: number) => void) {
+    function move(pointerEvent: PointerEvent) {
+      const dims = container.getBoundingClientRect();
+      const defaultView = container.ownerDocument.defaultView!;
+      const offsetX = dims.left + defaultView.pageXOffset;
+      const offsetY = dims.top + defaultView.pageYOffset;
+      const x = pointerEvent.pageX - offsetX;
+      const y = pointerEvent.pageY - offsetY;
+  
+      onMove(x, y);
+    }
+  
+    function stop() {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', stop);
+    }
+  
+    document.addEventListener('pointermove', move, { passive: true });
+    document.addEventListener('pointerup', stop);
+  }
+
+  syncValues() {
+
   }
 
     render(){
@@ -73,7 +148,7 @@ export class UUIColorAreaElement extends LitElement {
           @touchstart=${this.handleGridDrag}
         >
           <span
-            class="color-area__grid-handle"
+            class="color-area__handle"
             style=${styleMap({
               top: `${y}%`,
               left: `${x}%`,

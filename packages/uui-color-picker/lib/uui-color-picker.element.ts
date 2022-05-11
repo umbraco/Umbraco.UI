@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -90,6 +90,8 @@ export class UUIColorPickerElement extends LitElement {
       }
     `,
   ];
+
+  @query('.color-picker__preview') previewButton: HTMLButtonElement;
 
   @state() private inputValue = '';
   @state() private hue = 0;
@@ -196,7 +198,11 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleInputChange(event: CustomEvent) {
-    
+    const target = event.target as HTMLInputElement;
+
+    this.setColor(target.value);
+    target.value = this.value;
+    event.stopPropagation();
   }
 
   handleInputKeyDown(event: KeyboardEvent) {
@@ -204,7 +210,15 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleCopy() {
-     
+    //this.input.select();
+    document.execCommand('copy');
+    this.previewButton.focus();
+
+    // Show copied animation
+    this.previewButton.classList.add('color-picker__preview-color--copied');
+    this.previewButton.addEventListener('animationend', () => {
+      this.previewButton.classList.remove('color-picker__preview-color--copied');
+    });
   }
   
   handleEyeDropper() {
