@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-color-picker-slider",
+  "name": "@umbraco-ui/uui-color-slider",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,13 +8,13 @@
     "Web components",
     "UI",
     "Lit",
-    "Color Picker Slider"
+    "Color Slider"
   ],
-  "description": "Color picker slider",
+  "description": "Color slider",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-color-picker-slider"
+    "directory": "packages/uui-color-slider"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -40,5 +40,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-color-picker-slider"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-color-slider"
 }

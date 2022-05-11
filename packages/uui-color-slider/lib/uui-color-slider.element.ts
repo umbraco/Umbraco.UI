@@ -5,18 +5,18 @@ import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
- *  @element uui-color-picker-slider
+ *  @element uui-color-slider
  *  @description 
  */
-@defineElement('uui-color-picker-slider')
-export class UUIColorPickerSliderElement extends LitElement {
+@defineElement('uui-color-slider')
+export class UUIColorSliderElement extends LitElement {
   static styles = [
     css`
       :host {
         --slider-height: 15px;
         --slider-handle-size: 17px;
 
-        display: inline-block;
+        display: block;
       }
 
       .color-picker__slider {
@@ -121,6 +121,6 @@ export class UUIColorPickerSliderElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-color-picker-slider': UUIColorPickerSliderElement;
+    'uui-color-slider': UUIColorSliderElement;
   }
 }

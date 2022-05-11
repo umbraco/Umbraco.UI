@@ -4,6 +4,8 @@ import { property } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
+
 /**
  *  @element uui-color-swatches
  *  @description 
@@ -23,7 +25,6 @@ export class UUIColorSwatchesElement extends LitElement {
         grid-template-columns: repeat(8, 1fr);
         grid-gap: 0.5rem;
         justify-items: center;
-        border-top: solid 1px #ededef;
         padding: 0.75rem;
       }
 
@@ -49,19 +50,21 @@ export class UUIColorSwatchesElement extends LitElement {
 
   @property({ attribute: false }) swatches: string[] = [];
 
-  constructor() {
-    super();
+  protected setValue(e: Event) {
+
+    this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.SELECT));
   }
 
   render() {
     return html`
-          <div class="swatches">
+          <div class="color-picker__swatches">
           ${this.swatches.map(swatch => {
             return html`
               <div
                 class="color-picker__swatch color-picker__transparent-bg"
                 role="button"
                 aria-label=${swatch}
+                @select=${this.setValue}
               >
               <div class="color-picker__swatch-color" style=${styleMap({ backgroundColor: swatch })}></div>
             </div>`;

@@ -18,9 +18,6 @@ export class UUIColorPickerElement extends LitElement {
   static styles = [
     css`
       :host {
-        --grid-width: 280px;
-        --grid-height: 200px;
-        --grid-handle-size: 16px;
         --slider-height: 15px;
         --slider-handle-size: 17px;
         --swatch-size: 25px;
@@ -84,44 +81,12 @@ export class UUIColorPickerElement extends LitElement {
         );
       }
 
-      .color-picker__grid {
-        position: relative;
-        height: var(--grid-height);
-        background-image: linear-gradient(
-            to bottom,
-            hsl(0, 0%, 100%) 0%,
-            hsla(0, 0%, 100%, 0) 50%,
-            hsla(0, 0%, 0%, 0) 50%,
-            hsl(0, 0%, 0%) 100%
-          ),
-          linear-gradient(to right, hsl(0, 0%, 50%) 0%, hsla(0, 0%, 50%, 0) 100%);
-        border-top-left-radius: var(--sl-border-radius-medium);
-        border-top-right-radius: var(--sl-border-radius-medium);
-        cursor: crosshair;
-      }
-
-      .color-picker__grid-handle {
-        position: absolute;
-        width: var(--grid-handle-size);
-        height: var(--grid-handle-size);
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-        border: solid 2px white;
-        margin-top: calc(var(--grid-handle-size) / -2);
-        margin-left: calc(var(--grid-handle-size) / -2);
-      }
-
       .color-picker__sliders {
         flex: 1 1 auto;
       }
 
-      .color-picker__swatches {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        gap: 0.5rem;
-        justify-items: center;
+      uui-color-swatches {
         border-top: solid 1px #d4d4d8;
-        padding: 0.75rem;
       }
     `,
   ];
@@ -183,7 +148,17 @@ export class UUIColorPickerElement extends LitElement {
 
   constructor() {
     super();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
     
+    if (!this.setColor(this.value)) {
+      this.setColor(`#ffff`);
+    }
+
+    this.inputValue = this.value;
+    this.syncValues();
   }
 
   /*private _onChange() {
@@ -251,9 +226,30 @@ export class UUIColorPickerElement extends LitElement {
     return this.uppercase ? string.toUpperCase() : string.toLowerCase();
   }
 
+  async syncValues() {
+    /*const currentColor = this.parseColor(
+      `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+    );
+
+    if (currentColor === null) {
+      return;
+    }*/
+
+    // Update the value
+    /*if (this.format === 'hsl') {
+      this.inputValue = this.opacity ? currentColor.hsla.string : currentColor.hsl.string;
+    } else if (this.format === 'rgb') {
+      this.inputValue = this.opacity ? currentColor.rgba.string : currentColor.rgb.string;
+    } else {
+      this.inputValue = this.opacity ? currentColor.hexa : currentColor.hex;
+    }*/
+
+    this.value = this.inputValue;
+  }
+
   render(){
-    const x = this.saturation;
-    const y = 100 - this.lightness;
+    //const x = this.saturation;
+    //const y = 100 - this.lightness;
 
     const colorPicker = html`
       <div
@@ -264,36 +260,20 @@ export class UUIColorPickerElement extends LitElement {
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}
       >
-        <div
-          part="grid"
-          class="color-picker__grid"
-          style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
-          @mousedown=${this.handleGridDrag}
-          @touchstart=${this.handleGridDrag}
-        >
-          <span
-            part="grid-handle"
-            class="color-picker__grid-handle"
-            style=${styleMap({
-              top: `${y}%`,
-              left: `${x}%`,
-              backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`
-            })}
-            role="application"
-            aria-label="HSL"
-            tabindex=${ifDefined(this.disabled ? undefined : '0')}
-            @keydown=${this.handleGridKeyDown}
-          ></span>
-        </div>
+        <uui-color-area
+          @change=${this.handleGridDrag}
+          >
+        </uui-color-area>
+
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
-            <uui-color-picker-slider
+            <uui-color-slider
               label="hue"
               min="0"
               max="360"
-              value=${Math.round(this.hue)}
+              .value=${Math.round(this.hue)}
             >
-            </uui-color-picker-slider>
+            </uui-color-slider>
 
             <div
               part="slider hue-slider"
@@ -323,7 +303,7 @@ export class UUIColorPickerElement extends LitElement {
                     label="alpha"
                     min="0"
                     max="100"
-                    value=${Math.round(this.alpha)}
+                    .value=${Math.round(this.alpha)}
                   >
                   </uui-color-picker-slider>
 
@@ -390,7 +370,7 @@ export class UUIColorPickerElement extends LitElement {
           ${!this.noFormatToggle
             ? html`
                 <uui-button
-                  aria-label="Toggle color format"
+                  label="Toggle color format"
                   @click=${this.handleFormatToggle}
                 >
                   ${this.setLetterCase(this.format)}

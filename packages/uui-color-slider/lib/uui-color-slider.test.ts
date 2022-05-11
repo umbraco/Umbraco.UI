@@ -1,13 +1,13 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUIColorPickerSliderElement } from './uui-color-picker-slider.element';
+import { UUIColorSliderElement } from './uui-color-slider.element';
 import '.';
 
-describe('UUIColorPickerSliderElement', () => {
-  let element: UUIColorPickerSliderElement;
+describe('UUIColorSliderElement', () => {
+  let element: UUIColorSliderElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-color-picker-slider></uui-color-picker-slider> `
+      html` <uui-color-slider></uui-color-slider> `
     );
   });
 
