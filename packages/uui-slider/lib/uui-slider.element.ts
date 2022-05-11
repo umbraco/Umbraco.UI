@@ -89,26 +89,26 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         height: 21px;
         /*border: 1px solid var(--uui-interface-border);*/
         border-radius: 10px;
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-color-surface);
       }
       #track svg rect {
         width: calc(100% - 18px);
-        fill: var(--uui-interface-border);
+        fill: var(--uui-color-border-standalone);
       }
       input:hover ~ #track svg rect {
-        fill: var(--uui-interface-border-hover);
+        fill: var(--uui-color-border-emphasis);
       }
 
       input:focus ~ #track svg {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-interface-outline);
+          var(--uui-color-focus);
       }
 
       .track-step {
-        fill: var(--uui-interface-border);
+        fill: var(--uui-color-border);
       }
       input:hover ~ #track svg .track-step {
-        fill: var(--uui-interface-border-hover);
+        fill: var(--uui-color-border-emphasis);
       }
 
       #track-inner {
@@ -129,14 +129,14 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         border-radius: 50%;
         box-sizing: border-box;
 
-        background-color: var(--uui-interface-surface);
-        border: 2px solid var(--uui-interface-select);
+        background-color: var(--uui-color-surface);
+        border: 2px solid var(--uui-color-selected);
 
         transition: 120ms left ease;
       }
       :host([disabled]) #thumb {
-        background-color: var(--uui-interface-surface-disabled);
-        border-color: var(--uui-interface-select-disabled);
+        background-color: var(--uui-color-disabled);
+        border-color: var(--uui-color-disabled-standalone);
       }
 
       #thumb:after {
@@ -147,10 +147,10 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         height: 9px;
         width: 9px;
         border-radius: 50%;
-        background-color: var(--uui-interface-select);
+        background-color: var(--uui-color-selected);
       }
       :host([disabled]) #thumb:after {
-        background-color: var(--uui-interface-select-disabled);
+        background-color: var(--uui-color-disabled);
       }
 
       #thumb-label {
@@ -164,7 +164,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         text-align: center;
         opacity: 0;
         transition: 120ms opacity;
-        color: var(--uui-interface-select);
+        color: var(--uui-color-selected);
       }
 
       input:focus ~ #track #thumb-label,
@@ -183,7 +183,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       #step-values > span {
         flex-basis: 0;
         flex-grow: 1;
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
 
       #step-values > span > span {
@@ -199,10 +199,10 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       }
 
       :host(:not([pristine]):invalid) #thumb {
-        border-color: var(--uui-look-danger-border);
+        border-color: var(--uui-color-danger-standalone);
       }
       :host(:not([pristine]):invalid) #thumb:after {
-        background-color: var(--uui-look-danger-surface);
+        background-color: var(--uui-color-danger);
       }
     `,
   ];
