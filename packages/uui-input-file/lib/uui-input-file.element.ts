@@ -22,7 +22,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         position: relative;
         display: flex;
         box-sizing: border-box;
-        border: 1px solid var(--uui-interface-border);
+        border: 1px solid var(--uui-color-border);
       }
 
       #input {
