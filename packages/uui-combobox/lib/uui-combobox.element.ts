@@ -46,8 +46,11 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       #dropdown {
         overflow: hidden;
         z-index: -1;
-        background-color: var(--uui-combobox-popover-background-color, white);
-        border: 1px solid var(--uui-interface-border);
+        background-color: var(
+          --uui-combobox-popover-background-color,
+          var(--uui-color-surface)
+        );
+        border: 1px solid var(--uui-color-border);
         border-radius: var(--uui-border-radius);
         width: 100%;
         height: 100%;
@@ -286,7 +289,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       label="clear"
       slot="append"
       compact
-      style="height: 100%; --uui-button-padding-top-factor:0; --uui-button-padding-bottom-factor:0;">
+      style="height: 100%; --uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0;">
       <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
     </uui-button>`;
   };
