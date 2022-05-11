@@ -13,8 +13,8 @@ export class UUIScrollContainerElement extends LitElement {
       :host {
         display: block;
         scrollbar-width: thin;
-        scrollbar-color: var(--uui-interface-contrast-disabled)
-          var(--uui-interface-background-alt);
+        scrollbar-color: var(--uui-color-disabled-contrast)
+          var(--uui-color-surface);
         overflow-y: scroll;
       }
 
@@ -31,11 +31,11 @@ export class UUIScrollContainerElement extends LitElement {
       }
 
       :host::-webkit-scrollbar-track {
-        background: var(--uui-interface-background-alt);
+        background: var(--uui-color-surface);
         border-radius: 3px;
       }
       :host::-webkit-scrollbar-thumb {
-        background-color: var(--uui-interface-contrast-disabled);
+        background-color: var(--uui-color-disabled-contrast);
         border-radius: 3px;
       }
     `,
