@@ -45,43 +45,43 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
           var(--uui-border-radius)
         );
 
-        color: var(--uui-toggle-color, var(--uui-interface-chosen-contrast));
+        color: var(--uui-toggle-color, var(--uui-color-selected-contrast));
         background-color: var(
           --uui-toggle-background-color,
-          var(--uui-interface-surface)
+          var(--uui-color-surface)
         );
         border: 1px solid
-          var(--uui-checkbox-border-color, var(--uui-interface-border));
+          var(--uui-checkbox-border-color, var(--uui-color-border));
         font-size: calc(var(--uui-checkbox-size) * 0.7);
       }
       label:hover input:not([disabled]) + #ticker {
         border-color: var(
           --uui-checkbox-border-color-hover,
-          var(--uui-interface-border-hover)
+          var(--uui-color-border-emphasis)
         );
         background-color: var(
           --uui-checkbox-background-color-hover,
-          var(--uui-interface-surface-hover)
+          var(--uui-color-hover)
         );
       }
       label:focus #ticker {
         border-color: var(
           --uui-checkbox-border-color-focus,
-          var(--uui-interface-border-focus)
+          var(--uui-color-border-emphasis)
         );
         background-color: var(
           --uui-checkbox-background-color-focus,
-          var(--uui-interface-surface-alt-focus)
+          var(--uui-color-hover)
         );
       }
-      input:checked + #ticker {
-        border-color: var(--uui-interface-chosen);
+      input:checked:not([disabled]) + #ticker {
+        border-color: var(--uui-color-selected);
       }
       label:hover input:checked:not([disabled]) + #ticker {
-        border-color: var(--uui-interface-chosen-hover);
+        border-color: var(--uui-color-selected-emphasis);
       }
       label:focus input:checked + #ticker {
-        border-color: var(--uui-interface-chosen-focus);
+        border-color: var(--uui-color-selected-emphasis);
       }
 
       #icon-check {
@@ -91,7 +91,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         height: 1em;
         line-height: 0;
         transition: fill 120ms, opacity 120ms;
-        fill: var(--uui-interface-chosen-contrast);
+        fill: var(--uui-color-selected-contrast);
         opacity: 0;
       }
 
@@ -105,13 +105,13 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         border-radius: calc(
           var(--uui-checkbox-border-radius, var(--uui-border-radius)) * 0.5
         );
-        background-color: var(--uui-interface-chosen);
+        background-color: var(--uui-color-selected);
         transition: transform 120ms ease, opacity 120ms, background-color 120ms;
         transform: scale(0);
         opacity: 0;
       }
       label:hover input:checked:not([disabled]) + #ticker::before {
-        background-color: var(--uui-interface-chosen-hover);
+        background-color: var(--uui-color-selected-emphasis);
       }
 
       input:checked + #ticker::before {
@@ -122,12 +122,12 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         opacity: 1;
       }
       label:focus input:checked + #ticker {
-        background-color: var(--uui-interface-chosen-focus);
+        background-color: var(--uui-color-selected-emphasis);
       }
 
       input:focus + #ticker {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-interface-outline);
+          var(--uui-color-focus);
       }
 
       :host(:not([disabled])) label:active input:checked + #ticker::before {
@@ -144,26 +144,26 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host(:not([pristine])[internals-invalid]) label:hover #ticker,
       :host(:not([pristine])[internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
       :host(:not([pristine])[internals-invalid]) label:focus input:checked + #ticker {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid var(--uui-color-danger-standalone);
       }
 
       :host([disabled]) #ticker {
-        background-color: var(--uui-interface-surface-disabled);
+        background-color: var(--uui-color-disabled);
       }
       :host([disabled]) input:checked + #ticker {
-        background-color: var(--uui-interface-chosen-disabled);
+        background-color: var(--uui-color-disabled);
       }
-      :host([disabled]) #ticker:after {
-        background-color: var(--uui-interface-surface-disabled);
+      :host([disabled]) #ticker::before {
+        background-color: var(--uui-color-disabled);
       }
       :host([disabled]) #ticker #icon-check {
-        fill: var(--uui-interface-contrast-disabled);
+        fill: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) label:active #ticker {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
       :host([disabled]) input:checked + #ticker #icon-check {
-        fill: var(--uui-interface-chosen-contrast-disabled);
+        fill: var(--uui-color-disabled-contrast);
       }
     `,
   ];
