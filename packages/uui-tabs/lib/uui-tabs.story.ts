@@ -53,11 +53,11 @@ export const WithBorders: Story = () => html`
     style="
     height: 48px;
     font-size: 14px;
-    --uui-tab-text: var(--uui-look-primary-surface);
-    --uui-tab-text-hover: var(--uui-look-primary-surface-hover);
-    --uui-tab-text-active: var(--uui-look-primary-surface-hover);
+    --uui-tab-text: var(--uui-color-primary);
+    --uui-tab-text-hover: var(--uui-color-primary-emphasis);
+    --uui-tab-text-active: var(--uui-color-primary-emphasis);
     --uui-tab-background: none;
-    --uui-tab-divider: var(--uui-interface-border);
+    --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
     <uui-tab-group>
       <uui-tab> Content </uui-tab>
@@ -73,10 +73,10 @@ export const Navbar: Story = () => html`
     style="
     height: 60px;
     font-size: 16px;
-    --uui-tab-text: var(--uui-look-primary-contrast-disabled);
-    --uui-tab-text-hover: var(--uui-look-primary-contrast-hover);
-    --uui-tab-text-active: var(--uui-interface-active);
-    --uui-tab-background: var(--uui-look-primary-surface);
+    --uui-tab-text: var(--uui-color-surface-alt);
+    --uui-tab-text-hover: var(--uui-color-surface);
+    --uui-tab-text-active: var(--uui-color-current);
+    --uui-tab-background: var(--uui-color-primary);
     ">
     <uui-tab-group>
       <uui-tab>
@@ -88,9 +88,3 @@ export const Navbar: Story = () => html`
     </uui-tab-group>
   </div>
 `;
-
-// export const IconWithText = () =>
-//   html` <uui-tab><uui-icon name="bug"></uui-icon>Tab A</uui-tab>`;
-
-// export const JustIcon = () =>
-//   html` <uui-tab><uui-icon name="bug"></uui-icon></uui-tab>`;
