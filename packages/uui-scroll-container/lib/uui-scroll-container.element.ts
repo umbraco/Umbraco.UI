@@ -18,13 +18,6 @@ export class UUIScrollContainerElement extends LitElement {
         overflow-y: scroll;
       }
 
-      /*
-      :host(:focus) {
-        outline-width: thin;
-        outline-color: var(--uui-interface-border);
-      }
-      */
-
       :host::-webkit-scrollbar {
         width: 6px;
         height: 6px; /* needed for horizontal scrollbar */
