@@ -249,7 +249,7 @@ export const CountrySelect: Story = props => {
     <span
       style=${`${
         index > 0 ? 'margin-top: 6px' : ''
-      }; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-interface-border,#c4c4c4);`}>
+      }; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-color-border,#c4c4c4);`}>
       ${region.name}
     </span>
     ${repeat(
@@ -359,7 +359,7 @@ CountrySelect.parameters = {
       code: `
 <uui-combobox style="width: 250px">
   <uui-combobox-list>
-    <span style="; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-interface-border,#c4c4c4);">
+    <span style="; position: sticky; top: 0; text-align: center; padding: 8px; margin-bottom: 6px; font-weight: bold; color: #333333; background: #eeeeee; z-index: 1; outline: 1px solid var(--uui-color-border,#c4c4c4);">
       Africa
     </span>
     <uui-combobox-list-option style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;" tabindex="0">
