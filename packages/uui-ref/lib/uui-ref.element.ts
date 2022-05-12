@@ -30,7 +30,7 @@ export class UUIRefElement extends SelectOnlyMixin(
 
         box-sizing: border-box;
         border-radius: var(--uui-border-radius);
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-color-surface);
         --uui-card-before-opacity: 0;
         transition: --uui-card-before-opacity 120ms;
       }
@@ -41,13 +41,13 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-look-danger-border);
-        box-shadow: 0 0 4px 0 var(--uui-look-danger-border),
-          inset 0 0 2px 0 var(--uui-look-danger-border);
+        border: 2px solid var(--uui-color-danger);
+        box-shadow: 0 0 4px 0 var(--uui-color-danger),
+          inset 0 0 2px 0 var(--uui-color-danger);
       }
 
       :host([border]) {
-        border: 1px solid var(--uui-interface-border);
+        border: 1px solid var(--uui-color-border);
       }
 
       :host([selectable]) {
@@ -70,10 +70,10 @@ export class UUIRefElement extends SelectOnlyMixin(
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border: 2px solid var(--uui-interface-select);
+        border: 2px solid var(--uui-color-selected);
         border-radius: calc(var(--uui-border-radius) + 2px);
-        box-shadow: 0 0 4px 0 var(--uui-interface-select),
-          inset 0 0 2px 0 var(--uui-interface-select);
+        box-shadow: 0 0 4px 0 var(--uui-color-selected),
+          inset 0 0 2px 0 var(--uui-color-selected);
       }
       :host([selected]) #select-border {
         opacity: 1;
@@ -150,7 +150,7 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       :host([border]:not([disabled]):hover) {
-        border-color: var(--uui-interface-border-hover);
+        border-color: var(--uui-color-border-emphasis);
       }
 
       :host([disabled]) #open-part {
@@ -158,7 +158,7 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       :host([border][disabled]) {
-        border-color: var(--uui-interface-border-disabled);
+        border-color: var(--uui-color-disabled-standalone);
       }
 
       slot[name='tag'] {
