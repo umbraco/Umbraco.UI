@@ -87,7 +87,6 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
 
       #track svg {
         height: 21px;
-        /*border: 1px solid var(--uui-interface-border);*/
         border-radius: 10px;
         background-color: var(--uui-color-surface);
       }
