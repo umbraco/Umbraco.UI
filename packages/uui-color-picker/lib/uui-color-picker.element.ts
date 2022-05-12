@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
@@ -72,8 +71,8 @@ export class UUIColorPickerElement extends LitElement {
         flex: 1 1 auto;
       }
 
-      uui-color-picker-slider.hue-slider {
-        background-image: linear-gradient(
+      uui-color-slider.hue-slider {
+        --slider-bg: linear-gradient(
           to right,
           rgb(255, 0, 0) 0%,
           rgb(255, 255, 0) 17%,
@@ -83,6 +82,10 @@ export class UUIColorPickerElement extends LitElement {
           rgb(255, 0, 255) 83%,
           rgb(255, 0, 0) 100%
         );
+      }
+
+      uui-color-slider.opacity-slider {
+        --slider-bg: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
       }
 
       uui-color-swatches {
@@ -285,16 +288,17 @@ export class UUIColorPickerElement extends LitElement {
               label="hue"
               min="0"
               max="360"
+              class="hue-slider"
               .value=${Math.round(this.hue)}
             >
             </uui-color-slider>
             ${this.opacity
               ? html`
                   <uui-color-slider
-                    class="alpha-slider"
                     label="alpha"
                     min="0"
                     max="100"
+                    class="opacity-slider"
                     .value=${Math.round(this.alpha)}
                   >
                   </uui-color-slider>

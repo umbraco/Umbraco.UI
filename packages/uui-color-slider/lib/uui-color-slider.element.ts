@@ -4,8 +4,8 @@ import { property } from 'lit/decorators.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-//import { drag } from '../../internal/drag';
-//import { clamp } from '../../internal/math';
+import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
+import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
 
 /**
  *  @element uui-color-slider
@@ -18,6 +18,7 @@ export class UUIColorSliderElement extends LitElement {
       :host {
         --slider-height: 15px;
         --slider-handle-size: 17px;
+        --slider-bg: #fff;
 
         display: block;
       }
@@ -25,6 +26,7 @@ export class UUIColorSliderElement extends LitElement {
       .color-slider {
         position: relative;
         height: var(--slider-height);
+        background: var(--slider-bg);
         border-radius: 3px;
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
       }
@@ -83,7 +85,7 @@ export class UUIColorSliderElement extends LitElement {
 
   @property() value = 0;
 
-  /** Disables the color picker slider. */
+  /** Disables the color slider. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   handleDrag(event: Event) {
@@ -94,8 +96,8 @@ export class UUIColorSliderElement extends LitElement {
     handle.focus();
     event.preventDefault();
 
-    this.drag(container, x => {
-      this.value = this.clamp((x / width) * this.max, this.min, this.max);
+    drag(container, x => {
+      this.value = clamp((x / width) * this.max, this.min, this.max);
       this.syncValues();
     });
   }
@@ -111,13 +113,13 @@ export class UUIColorSliderElement extends LitElement {
 
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      this.value = this.clamp(this.value - increment, this.min, this.max);
+      this.value = clamp(this.value - increment, this.min, this.max);
       this.syncValues();
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
-      this.value = this.clamp(this.value + increment, this.min, this.max);
+      this.value = clamp(this.value + increment, this.min, this.max);
       this.syncValues();
     }
 
@@ -147,7 +149,7 @@ export class UUIColorSliderElement extends LitElement {
     const containerLeft = container.getBoundingClientRect().left;
     const containerWidth = container.getBoundingClientRect().width;
     
-    return this.clamp(
+    return clamp(
       this.roundToPrecision(((coordinate - containerLeft) / containerWidth) * this.max, this.precision),
       this.min,
       this.max
@@ -157,39 +159,6 @@ export class UUIColorSliderElement extends LitElement {
   roundToPrecision(numberToRound: number, precision = 0.5) {
     const multiplier = 1 / precision;
     return Math.ceil(numberToRound * multiplier) / multiplier;
-  }
-
-  // Export functon so it can be re-used?
-  clamp(value: number, min: number, max: number) {
-    if (value < min) {
-      return min;
-    }
-    if (value > max) {
-      return max;
-    }
-    return value;
-  }
-
-  // Export functon so it can be re-used?
-  drag(container: HTMLElement, onMove: (x: number, y: number) => void) {
-    function move(pointerEvent: PointerEvent) {
-      const dims = container.getBoundingClientRect();
-      const defaultView = container.ownerDocument.defaultView!;
-      const offsetX = dims.left + defaultView.pageXOffset;
-      const offsetY = dims.top + defaultView.pageYOffset;
-      const x = pointerEvent.pageX - offsetX;
-      const y = pointerEvent.pageY - offsetY;
-  
-      onMove(x, y);
-    }
-  
-    function stop() {
-      document.removeEventListener('pointermove', move);
-      document.removeEventListener('pointerup', stop);
-    }
-  
-    document.addEventListener('pointermove', move, { passive: true });
-    document.addEventListener('pointerup', stop);
   }
 
   syncValues() {

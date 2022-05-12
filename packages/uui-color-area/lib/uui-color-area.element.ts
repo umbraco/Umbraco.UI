@@ -2,8 +2,8 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 
-//import { drag } from '../../internal/drag';
-//import { clamp } from '../../internal/math';
+import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
+import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -69,9 +69,9 @@ export class UUIColorAreaElement extends LitElement {
     handle.focus();
     event.preventDefault();
 
-    this.drag(grid, (x, y) => {
-      this.saturation = this.clamp((x / width) * 100, 0, 100);
-      this.lightness = this.clamp(100 - (y / height) * 100, 0, 100);
+    drag(grid, (x, y) => {
+      this.saturation = clamp((x / width) * 100, 0, 100);
+      this.lightness = clamp(100 - (y / height) * 100, 0, 100);
       this.syncValues();
     });
   }
@@ -81,25 +81,25 @@ export class UUIColorAreaElement extends LitElement {
 
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      this.saturation = this.clamp(this.saturation - increment, 0, 100);
+      this.saturation = clamp(this.saturation - increment, 0, 100);
       this.syncValues();
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
-      this.saturation = this.clamp(this.saturation + increment, 0, 100);
+      this.saturation = clamp(this.saturation + increment, 0, 100);
       this.syncValues();
     }
 
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      this.lightness = this.clamp(this.lightness + increment, 0, 100);
+      this.lightness = clamp(this.lightness + increment, 0, 100);
       this.syncValues();
     }
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      this.lightness = this.clamp(this.lightness - increment, 0, 100);
+      this.lightness = clamp(this.lightness - increment, 0, 100);
       this.syncValues();
     }
   }
@@ -116,42 +116,9 @@ export class UUIColorAreaElement extends LitElement {
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
     const { width, height } = grid.getBoundingClientRect();
 
-    this.saturation = this.clamp((x / width) * 100, 0, 100);
-    this.lightness = this.clamp(100 - (y / height) * 100, 0, 100);
+    this.saturation = clamp((x / width) * 100, 0, 100);
+    this.lightness = clamp(100 - (y / height) * 100, 0, 100);
     this.syncValues();
-  }
-
-  // Export functon so it can be re-used?
-  clamp(value: number, min: number, max: number) {
-    if (value < min) {
-      return min;
-    }
-    if (value > max) {
-      return max;
-    }
-    return value;
-  }
-
-  // Export functon so it can be re-used?
-  drag(container: HTMLElement, onMove: (x: number, y: number) => void) {
-    function move(pointerEvent: PointerEvent) {
-      const dims = container.getBoundingClientRect();
-      const defaultView = container.ownerDocument.defaultView!;
-      const offsetX = dims.left + defaultView.pageXOffset;
-      const offsetY = dims.top + defaultView.pageYOffset;
-      const x = pointerEvent.pageX - offsetX;
-      const y = pointerEvent.pageY - offsetY;
-  
-      onMove(x, y);
-    }
-  
-    function stop() {
-      document.removeEventListener('pointermove', move);
-      document.removeEventListener('pointerup', stop);
-    }
-  
-    document.addEventListener('pointermove', move, { passive: true });
-    document.addEventListener('pointerup', stop);
   }
 
   syncValues() {
