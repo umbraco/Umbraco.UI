@@ -22,10 +22,10 @@ export class UUIBreadcrumbItemElement extends LitElement {
         color: currentColor;
       }
       a:hover {
-        color: var(--uui-interface-contrast-hover);
+        color: var(--uui-color-hover-standalone);
       }
       a:focus {
-        color: var(--uui-interface-contrast-focus);
+        color: var(--uui-color-focus);
       }
 
       [part='separator']::after {
@@ -34,7 +34,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
         position: relative;
         top: 1px;
         margin: -3px 1px 0;
-        color: var(--uui-interface-border);
+        color: var(--uui-color-border);
       }
 
       #link,
