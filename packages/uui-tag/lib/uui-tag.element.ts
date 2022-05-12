@@ -20,8 +20,8 @@ export class UUITagElement extends LitElement {
         line-height: 1;
         padding: var(--uui-size-space-1) calc(var(--uui-size-space-1) + 0.5em);
         border-radius: 100px;
-        background-color: var(--uui-interface-surface-alt);
-        color: var(--uui-interface-contrast);
+        background-color: var(--uui-color-surface-alt);
+        color: var(--uui-color-text);
         user-select: none;
       }
 
