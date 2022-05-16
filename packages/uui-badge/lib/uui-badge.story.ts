@@ -131,7 +131,11 @@ OnButton.parameters = {
   },
 };
 
-export const LooksAndColors: Story = () => html`
+export const Colors: Story = () => html`
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black">
+    <uui-badge>default/undefined</uui-badge>
+  </div>
   <div
     style="position:relative; width:80px; height:80px; border: 2px dashed black">
     <uui-badge color="primary">primary</uui-badge>

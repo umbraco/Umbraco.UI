@@ -32,6 +32,9 @@ export class UUIBadgeElement extends LitElement {
         box-sizing: border-box;
 
         border-radius: var(--uui-size-4);
+
+        color: var(--uui-color-primary-standalone);
+        background-color: var(--uui-color-surface-alt);
       }
 
       :host([color='primary']) {
@@ -93,12 +96,12 @@ export class UUIBadgeElement extends LitElement {
 
   /**
    * Changes the look of the badge to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" badge.
-   * @type {"primary"|"positive"|"warning"|"danger"}
+   * @type {"" | "primary"|"positive"|"warning"|"danger"}
    * @attr
    * @default primary
    */
   @property({ type: String, reflect: true })
-  color = 'primary';
+  color = '';
 
   /**
    * Bring attention to this badge by applying a bounce animation.
