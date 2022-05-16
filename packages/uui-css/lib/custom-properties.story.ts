@@ -88,7 +88,7 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
 export const InterfaceColors = () => {
   const surface = ['surface', 'background', 'text', 'color-border', 'divider'];
   const state = ['selected', 'current', 'disabled'];
-  const color = ['positive', 'warning', 'danger', 'disabled'];
+  const color = ['primary', 'positive', 'warning', 'danger', 'disabled'];
   const universal = ['header', 'focus', 'hover'];
 
   return html`
