@@ -100,6 +100,7 @@ export class UUIButtonElement extends FormControlMixin(
         width: 100%;
         background-color: transparent;
         color: inherit;
+        font-size: inherit;
         border-radius: inherit;
         font-family: inherit;
         font-weight: inherit;
