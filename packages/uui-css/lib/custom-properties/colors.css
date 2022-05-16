@@ -5,12 +5,16 @@
   --uui-color-selected: #2152a3;
   --uui-color-selected-emphasis: #3265b8;
   --uui-color-selected-standalone: #184792;
-  --uui-color-selected-contrast: white;
+  --uui-color-selected-contrast: #fff;
 
   --uui-color-current: #fdd0cc;
   --uui-color-current-emphasis: #ffddda;
   --uui-color-current-standalone: #e7aea9;
   --uui-color-current-contrast: #1b264f;
+
+  --uui-color-disabled: #f5f5f5;
+  --uui-color-disabled-standalone: #dfdfdf;
+  --uui-color-disabled-contrast: #b3b3b3;
 
   /* ----- UNIVERSAL -----  */
   --uui-color-header: #1b264f;
@@ -19,10 +23,6 @@
 
   --uui-color-hover: #f5f5f5;
   --uui-color-hover-standalone: #2152a3;
-
-  --uui-color-disabled: #f5f5f5;
-  --uui-color-disabled-standalone: #dfdfdf;
-  --uui-color-disabled-contrast: #b3b3b3;
 
   /* ----- SURFACE -----  */
   --uui-color-surface: #fff;
@@ -45,12 +45,12 @@
   --uui-color-primary: var(--uui-palette-space-cadet);
   --uui-color-primary-emphasis: var(--uui-palette-violet-blue);
   --uui-color-primary-standalone: var(--uui-palette-space-cadet-dark);
-  --uui-color-primary-contrast: white;
+  --uui-color-primary-contrast: #fff;
 
   --uui-color-warning: #fad634;
   --uui-color-warning-emphasis: #ffe366;
   --uui-color-warning-standalone: #c5a100;
-  --uui-color-warning-contrast: black;
+  --uui-color-warning-contrast: #000;
 
   --uui-color-danger: #d42054;
   --uui-color-danger-emphasis: #f74074;
@@ -60,7 +60,7 @@
   --uui-color-positive: #2da44e;
   --uui-color-positive-emphasis: #3fc264;
   --uui-color-positive-standalone: #229442;
-  --uui-color-positive-contrast: white;
+  --uui-color-positive-contrast: #fff;
 }
 
 :root[data-theme='dark'] {
