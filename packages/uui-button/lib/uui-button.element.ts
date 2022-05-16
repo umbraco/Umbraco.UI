@@ -341,7 +341,7 @@ export class UUIButtonElement extends FormControlMixin(
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {""default" | "primary" | "secondary" | "outline" | "placeholder""}
+   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
    * @attr
    * @default "default"
    */
@@ -350,7 +350,7 @@ export class UUIButtonElement extends FormControlMixin(
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {""primary" | "positive" | "warning" | "danger""}
+   * @type {"primary" | "positive" | "warning" | "danger"}
    * @attr
    * @default "primary"
    */
