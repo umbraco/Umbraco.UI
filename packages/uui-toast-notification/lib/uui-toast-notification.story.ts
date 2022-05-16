@@ -9,7 +9,6 @@ export default {
   component: 'uui-toast-notification',
   args: {
     open: true,
-    color: '',
     headline: 'Toast notification layout headline',
     slot: 'Message to be displayed, shown by toast notification layout.',
   },
@@ -47,7 +46,7 @@ export const ErrorStyle: Story = props => html`<uui-toast-notification
   .color=${props.color}>
   <uui-toast-notification-layout .headline=${props.headline}>
     ${props.slot}
-    <uui-button slot="actions" color="danger">Retry</uui-button>
+    <uui-button slot="actions" look="primary" color="danger">Retry</uui-button>
   </uui-toast-notification-layout>
 </uui-toast-notification>`;
 ErrorStyle.args = {
@@ -74,7 +73,7 @@ export const PositiveStyle: Story = props => html`<uui-toast-notification
   .color=${props.color}>
   <uui-toast-notification-layout .headline=${props.headline}>
     ${props.slot}
-    <uui-button slot="actions" .color=${props.color}
+    <uui-button slot="actions" look="primary" .color=${props.color}
       >View in browser</uui-button
     >
   </uui-toast-notification-layout>

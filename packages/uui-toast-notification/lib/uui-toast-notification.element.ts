@@ -91,6 +91,11 @@ export class UUIToastNotificationElement extends LitElement {
         --uui-button-padding-right-factor: 1.5;
       }
 
+      :host #toast > div {
+        background-color: var(--uui-color-surface);
+        color: var(--uui-color-text);
+        border-color: var(--uui-color-surface);
+      }
       :host([color='primary']) #toast > div {
         background-color: var(--uui-color-primary);
         color: var(--uui-color-primary-contrast);
@@ -338,7 +343,8 @@ export class UUIToastNotificationElement extends LitElement {
           <div id="close">
             <uui-button
               .label=${'close'}
-              .color=${this.color}
+              ?color=${this.color}
+              .look=${this.color ? 'primary' : 'default'}
               @click=${() => (this.open = false)}>
               <uui-icon
                 name="remove"
