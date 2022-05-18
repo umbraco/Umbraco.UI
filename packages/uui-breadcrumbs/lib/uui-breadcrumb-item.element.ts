@@ -22,7 +22,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
         color: currentColor;
       }
       a:hover {
-        color: var(--uui-color-hover-standalone);
+        color: var(--uui-color-interactive-emphasis);
       }
       a:focus {
         color: var(--uui-color-focus);

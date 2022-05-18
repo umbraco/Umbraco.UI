@@ -17,7 +17,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   static styles = [
     css`
       :host {
-        color: var(--uui-tab-text, var(--uui-color-text));
+        color: var(--uui-tab-text, var(--uui-color-interactive));
         font-family: inherit;
       }
 

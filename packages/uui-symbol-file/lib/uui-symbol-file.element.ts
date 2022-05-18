@@ -22,9 +22,7 @@ export class UUISymbolFileElement extends LitElement {
         margin-left: calc(var(--uui-size-3) * -1);
         padding: 0px var(--uui-size-3);
         font-weight: 700;
-        color: var(--uui-color-text);
         background-color: var(--uui-color-surface-alt);
-        /* border: 1px solid var(--uui-color-text); */
         max-width: 100%;
         white-space: nowrap;
         overflow: hidden;

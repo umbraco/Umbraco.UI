@@ -53,8 +53,8 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
       } */
 
       :host(:hover) {
-        background-color: var(--uui-color-hover);
-        color: var(--uui-color-hover-standalone);
+        background-color: var(--uui-color-surface-emphasis);
+        color: var(--uui-color-interactive-emphasis);
       }
 
       :host([disabled]) {

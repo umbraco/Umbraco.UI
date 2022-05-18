@@ -60,7 +60,7 @@ export class UUICardMediaElement extends UUICardElement {
         bottom: 0;
         width: 100%;
         background-color: var(--uui-color-surface);
-        color: var(--uui-color-text);
+        color: var(--uui-color-interactive);
         border: none;
         cursor: pointer;
         border-top: 1px solid var(--uui-color-divider);
@@ -80,7 +80,7 @@ export class UUICardMediaElement extends UUICardElement {
 
       #open-part:hover {
         text-decoration: underline;
-        color: var(--uui-color-hover-standalone);
+        color: var(--uui-color-interactive-emphasis);
       }
 
       :host([image]:not([image=''])) #open-part {

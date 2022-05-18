@@ -8,4 +8,4 @@ export default {
   component: '',
 };
 
-export const Overview: Story = props => html`<story-home></story-home>`;
+export const Overview: Story = () => html`<story-home></story-home>`;

@@ -17,21 +17,24 @@
   --uui-color-disabled-contrast: #b3b3b3;
 
   /* ----- UNIVERSAL -----  */
-  --uui-color-header: #1b264f;
+  --uui-color-header-surface: #1b264f;
+  --uui-color-header-contrast: rgba(255, 255, 255, 0.8);
+  --uui-color-header-contrast-emphasis: white;
 
   --uui-color-focus: #2294ff;
-
-  --uui-color-hover: #f5f5f5;
-  --uui-color-hover-standalone: #2152a3;
 
   /* ----- SURFACE -----  */
   --uui-color-surface: #fff;
   --uui-color-surface-alt: #eeeeee;
+  --uui-color-surface-emphasis: #f5f5f5;
 
   --uui-color-background: #f5f5f5;
 
-  --uui-color-text: #1b264f;
-  --uui-color-text-alt: #1b264fb5;
+  --uui-color-text: var(--uui-palette-black);
+  --uui-color-text-alt: var(--uui-palette-dune-black);
+
+  --uui-color-interactive: #1b264f;
+  --uui-color-interactive-emphasis: #2152a3;
 
   --uui-color-border: #d8d7d9;
   --uui-color-border-standalone: #c2c2c2;

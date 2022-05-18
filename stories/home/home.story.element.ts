@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 
 @defineElement('story-home')
@@ -22,11 +21,11 @@ export class UUIBoxElement extends LitElement {
 
       #nav-top-bar {
         display: flex;
-        color: rgb(230, 230, 230);
+        color: var(--uui-color-header-contrast);
         gap: 24px;
         padding: 0 var(--uui-size-4);
         align-items: center;
-        background-color: var(--uui-color-header);
+        background-color: var(--uui-color-header-surface);
         height: 48px;
         width: 100%;
         font-size: 1rem;
@@ -89,6 +88,9 @@ export class UUIBoxElement extends LitElement {
         display: grid;
         grid-template-columns: 200px 600px;
         gap: 32px;
+      }
+      .editor-property > .label > p {
+        color: var(--uui-color-text-alt);
       }
       .editor-property uui-input,
       .editor-property uui-textarea {

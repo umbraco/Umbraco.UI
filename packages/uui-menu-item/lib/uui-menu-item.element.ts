@@ -52,13 +52,13 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       :host(:not([active], [selected], [disabled]))
         #menu-item
         #caret-button:hover {
-        background-color: var(--uui-color-hover);
+        background-color: var(--uui-color-surface-emphasis);
       }
       :host(:not([active], [selected], [disabled]))
         #menu-item
         #label-button:hover,
       :host(:not([active], [selected])) #menu-item #caret-button:hover {
-        color: var(--uui-color-hover-standalone);
+        color: var(--uui-color-interactive-emphasis);
       }
 
       :host([active]) {
@@ -142,7 +142,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--uui-color-text);
+        color: var(--uui-color-interactive);
       }
 
       #label-button-background {

@@ -209,7 +209,7 @@ export class UUIButtonElement extends FormControlMixin(
       :host([look='default']:not([disabled]):hover) button {
         background-color: var(
           --uui-button-background-color-hover,
-          var(--uui-color-hover)
+          var(--uui-color-surface-emphasis)
         );
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, transparent);
@@ -257,7 +257,7 @@ export class UUIButtonElement extends FormControlMixin(
       :host([look='secondary']:hover) button {
         background-color: var(
           --uui-button-background-color-hover,
-          var(--uui-color-hover)
+          var(--uui-color-surface-emphasis)
         );
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, transparent);

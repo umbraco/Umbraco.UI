@@ -32,7 +32,7 @@ export class UUIPaginationElement extends LitElement {
 
       uui-button {
         --uui-button-border-color: var(--uui-color-border-standalone);
-        --uui-button-border-color-hover: var(--uui-color-hover-standalone);
+        --uui-button-border-color-hover: var(--uui-color-interactive-emphasis);
         --uui-button-border-color-disabled: var(--uui-color-border-standalone);
         --uui-button-background-color-hover: transparent;
         --uui-button-contrast-hover: var(--uui-color-primary-emphasis);

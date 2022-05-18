@@ -61,7 +61,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         );
         background-color: var(
           --uui-checkbox-background-color-hover,
-          var(--uui-color-hover)
+          var(--uui-color-surface-emphasis)
         );
       }
       label:focus #ticker {
@@ -71,7 +71,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         );
         background-color: var(
           --uui-checkbox-background-color-focus,
-          var(--uui-color-hover)
+          var(--uui-color-surface-emphasis)
         );
       }
       input:checked:not([disabled]) + #ticker {
