@@ -92,7 +92,7 @@ export const LooksAndColors = () => html`
         <h4>${color}</h4>
         ${looks.map(
           look => html`
-            <uui-button-group style="margin-bottom: 16px; display: block">
+            <uui-button-group style="margin-bottom: 16px;">
               <uui-button
                 label="Button 1"
                 color=${color as any}
@@ -108,8 +108,8 @@ export const LooksAndColors = () => html`
               <uui-button
                 label="Button 4"
                 color=${color as any}
-                look=${look as any}></uui-button>
-            </uui-button-group>
+                look=${look as any}></uui-button> </uui-button-group
+            ><br />
           `
         )}
       </div>
