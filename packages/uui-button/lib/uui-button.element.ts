@@ -66,7 +66,7 @@ export class UUIButtonElement extends FormControlMixin(
 
         text-align: center;
         font-size: var(--uui-button-font-size, inherit);
-        font-weight: var(--uui-button-font-weight, 700);
+        font-weight: var(--uui-button-font-weight, 500);
         transition: background-color 80ms, border-color 80ms, color 80ms;
       }
 
@@ -235,6 +235,9 @@ export class UUIButtonElement extends FormControlMixin(
         background-color: var(--uui-button-background-color, var(--color));
         color: var(--uui-button-contrast, var(--color-contrast));
         border-color: var(--uui-button-border-color, transparent);
+
+        /* special for primary: */
+        font-weight: var(--uui-button-font-weight, 700);
       }
       :host([look='primary']:hover) button {
         background-color: var(
@@ -260,6 +263,9 @@ export class UUIButtonElement extends FormControlMixin(
         );
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, transparent);
+
+        /* special for secondary: */
+        font-weight: var(--uui-button-font-weight, 700);
       }
       :host([look='secondary']:hover) button {
         background-color: var(
@@ -283,6 +289,9 @@ export class UUIButtonElement extends FormControlMixin(
         background-color: var(--uui-button-background-color, transparent);
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, --color-standalone);
+
+        /* special for outline: */
+        font-weight: var(--uui-button-font-weight, 700);
       }
       :host([look='outline']:not([disabled]):hover) button {
         background-color: var(--uui-button-background-color-hover, transparent);
