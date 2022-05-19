@@ -51,7 +51,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
           var(--uui-color-surface)
         );
         border: 1px solid
-          var(--uui-checkbox-border-color, var(--uui-color-border));
+          var(--uui-checkbox-border-color, var(--uui-color-border-standalone));
         font-size: calc(var(--uui-checkbox-size) * 0.7);
       }
       label:hover input:not([disabled]) + #ticker {
