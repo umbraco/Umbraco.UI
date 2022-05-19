@@ -51,6 +51,8 @@
     $violet-blue saturation(- 30%) blackness(+ 22%)
   );
 
+  /*
+  // not used jet.
   $matisse: #2152a3;
   --uui-palette-matisse: $matisse;
   --uui-palette-matisse-light: color($matisse lightness(+ 8%));
@@ -58,6 +60,7 @@
   --uui-palette-matisse-dimmed: color(
     $matisse saturation(- 30%) blackness(+ 22%)
   );
+  */
 
   $malibu: #3879ff;
   --uui-palette-malibu: $malibu;
@@ -66,7 +69,7 @@
   --uui-palette-malibu-dimmed: color(
     $malibu saturation(- 60%) blackness(+ 26%)
   );
-
+  /*
   $outline-blue: #3879ff;
   --uui-palette-outline-blue: $outline-blue;
   --uui-palette-outline-blue-light: color($outline-blue lightness(+ 8%));
@@ -74,7 +77,7 @@
   --uui-palette-outline-blue-dimmed: color(
     $outline-blue saturation(- 60%) blackness(+ 26%)
   );
-
+*/
   $maroon-flush: #d42054;
   --uui-palette-maroon-flush: $maroon-flush;
   --uui-palette-maroon-flush-light: color($maroon-flush lightness(+ 8%));

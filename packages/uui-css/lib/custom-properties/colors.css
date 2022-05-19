@@ -2,39 +2,39 @@
   font-family: 'Roboto', sans-serif;
 
   /* ----- STATES -----  */
-  --uui-color-selected: #2152a3;
-  --uui-color-selected-emphasis: #3265b8;
-  --uui-color-selected-standalone: #184792;
+  --uui-color-selected: var(--uui-palette-violet-blue);
+  --uui-color-selected-emphasis: var(--uui-palette-violet-blue-light);
+  --uui-color-selected-standalone: var(--uui-palette-violet-blue-dark);
   --uui-color-selected-contrast: #fff;
 
-  --uui-color-current: #fdd0cc;
-  --uui-color-current-emphasis: #ffddda;
-  --uui-color-current-standalone: #e7aea9;
-  --uui-color-current-contrast: #1b264f;
+  --uui-color-current: var(--uui-palette-spanish-pink);
+  --uui-color-current-emphasis: var(--uui-palette-spanish-pink-light);
+  --uui-color-current-standalone: var(--uui-palette-spanish-pink-dark);
+  --uui-color-current-contrast: var(--uui-palette-space-cadet);
 
-  --uui-color-disabled: #f5f5f5;
-  --uui-color-disabled-standalone: #dfdfdf;
-  --uui-color-disabled-contrast: #b3b3b3;
+  --uui-color-disabled: var(--uui-palette-sand);
+  --uui-color-disabled-standalone: var(--uui-palette-sand-dark);
+  --uui-color-disabled-contrast: var(--uui-palette-grey);
 
   /* ----- UNIVERSAL -----  */
-  --uui-color-header-surface: #1b264f;
+  --uui-color-header-surface: var(--uui-palette-space-cadet);
   --uui-color-header-contrast: rgba(255, 255, 255, 0.8);
-  --uui-color-header-contrast-emphasis: white;
+  --uui-color-header-contrast-emphasis: #fff;
 
-  --uui-color-focus: #2294ff;
+  --uui-color-focus: var(--uui-palette-malibu);
 
   /* ----- SURFACE -----  */
   --uui-color-surface: #fff;
-  --uui-color-surface-alt: #eeeeee;
-  --uui-color-surface-emphasis: #f5f5f5;
+  --uui-color-surface-alt: var(--uui-palette-sand);
+  --uui-color-surface-emphasis: var(--uui-palette-white-dark);
 
-  --uui-color-background: #f5f5f5;
+  --uui-color-background: var(--uui-palette-sand);
 
   --uui-color-text: var(--uui-palette-black);
   --uui-color-text-alt: var(--uui-palette-dune-black);
 
-  --uui-color-interactive: #1b264f;
-  --uui-color-interactive-emphasis: #2152a3;
+  --uui-color-interactive: var(--uui-palette-space-cadet);
+  --uui-color-interactive-emphasis: var(--uui-palette-violet-blue);
 
   --uui-color-border: #d8d7d9;
   --uui-color-border-standalone: #c2c2c2;
@@ -50,19 +50,19 @@
   --uui-color-primary-standalone: var(--uui-palette-space-cadet-dark);
   --uui-color-primary-contrast: #fff;
 
-  --uui-color-warning: #fad634;
-  --uui-color-warning-emphasis: #ffe366;
-  --uui-color-warning-standalone: #c5a100;
+  --uui-color-warning: var(--uui-palette-sunglow);
+  --uui-color-warning-emphasis: var(--uui-palette-sunglow-light);
+  --uui-color-warning-standalone: var(--uui-palette-sunglow-dark);
   --uui-color-warning-contrast: #000;
 
-  --uui-color-danger: #d42054;
-  --uui-color-danger-emphasis: #f74074;
-  --uui-color-danger-standalone: #d42054;
+  --uui-color-danger: var(--uui-palette-maroon-flush);
+  --uui-color-danger-emphasis: var(--uui-palette-maroon-flush-light);
+  --uui-color-danger-standalone: var(--uui-palette-maroon-flush-dark);
   --uui-color-danger-contrast: white;
 
-  --uui-color-positive: #2da44e;
-  --uui-color-positive-emphasis: #3fc264;
-  --uui-color-positive-standalone: #229442;
+  --uui-color-positive: var(--uui-palette-jungle-green);
+  --uui-color-positive-emphasis: var(--uui-palette-jungle-green-light);
+  --uui-color-positive-standalone: var(--uui-palette-jungle-green-dark);
   --uui-color-positive-contrast: #fff;
 }
 
