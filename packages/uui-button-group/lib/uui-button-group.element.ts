@@ -19,9 +19,14 @@ export class UUIButtonGroupElement extends LitElement {
         --uui-button-border-radius: 0;
         flex-grow: 1;
       }
-      ::slotted(*:not(:first-child)) {
+
+      ::slotted([look='outline']:not(:first-child)) {
         --uui-button-merge-border-left: 1;
       }
+      ::slotted([look='placeholder']:not(:first-child)) {
+        --uui-button-merge-border-left: 1;
+      }
+
       ::slotted(*:first-child) {
         --uui-button-border-radius: var(--uui-border-radius) 0 0
           var(--uui-border-radius);
