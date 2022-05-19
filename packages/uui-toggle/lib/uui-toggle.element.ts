@@ -53,7 +53,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
 
         background-color: var(
           --uui-toggle-background-color,
-          var(--uui-color-surface-alt)
+          var(--uui-color-border)
         );
         border: 1px solid
           var(--uui-toggle-border-color, var(--uui-color-border-standalone));
@@ -66,7 +66,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         );
         background-color: var(
           --uui-toggle-background-color-hover,
-          var(--uui-color-surface-emphasis)
+          var(--uui-color-border)
         );
       }
       label:focus #slider {
