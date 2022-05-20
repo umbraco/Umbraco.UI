@@ -37,10 +37,6 @@ export class UUITagElement extends LitElement {
         background-color: var(--uui-color-default);
         color: var(--uui-color-default-contrast);
       }
-      :host([color='secondary']) {
-        background-color: var(--uui-color-surface-alt);
-        color: var(--uui-color-default);
-      }
       :host([color='positive']) {
         background-color: var(--uui-color-positive);
         color: var(--uui-color-positive-contrast);
