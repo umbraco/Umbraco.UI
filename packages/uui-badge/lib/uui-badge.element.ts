@@ -33,13 +33,13 @@ export class UUIBadgeElement extends LitElement {
 
         border-radius: var(--uui-size-4);
 
-        color: var(--uui-color-primary-standalone);
-        background-color: var(--uui-color-surface-alt);
+        /** default color: */
+        background-color: var(--uui-color-default);
+        color: var(--uui-color-default-contrast);
       }
-
-      :host([color='primary']) {
-        background-color: var(--uui-color-primary);
-        color: var(--uui-color-primary-contrast);
+      :host([color='secondary']) {
+        background-color: var(--uui-color-surface-alt);
+        color: var(--uui-color-default);
       }
       :host([color='positive']) {
         background-color: var(--uui-color-positive);
@@ -96,9 +96,9 @@ export class UUIBadgeElement extends LitElement {
 
   /**
    * Changes the look of the badge to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" badge.
-   * @type {"" | "primary"|"positive"|"warning"|"danger"}
+   * @type {"" | "default"|"positive"|"warning"|"danger"}
    * @attr
-   * @default primary
+   * @default default
    */
   @property({ type: String, reflect: true })
   color = '';

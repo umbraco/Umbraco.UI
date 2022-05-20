@@ -30,18 +30,18 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         backdrop-filter: blur(2px);
       }
       #dropzone.hover {
-        border-color: var(--uui-color-primary);
+        border-color: var(--uui-color-default);
       }
       #dropzone.hover::before {
         content: '';
         position: absolute;
         inset: 0;
         opacity: 0.2;
-        border-color: var(--uui-color-primary);
-        background-color: var(--uui-color-primary);
+        border-color: var(--uui-color-default);
+        background-color: var(--uui-color-default);
       }
       #symbol {
-        color: var(--uui-color-primary);
+        color: var(--uui-color-default);
         max-width: 100%;
         max-height: 100%;
       }

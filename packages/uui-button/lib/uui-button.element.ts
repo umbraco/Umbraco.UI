@@ -22,7 +22,7 @@ export type Look =
   | 'secondary'
   | 'outline'
   | 'placeholder';
-export type Color = 'primary' | 'positive' | 'warning' | 'danger';
+export type Color = 'default' | 'positive' | 'warning' | 'danger';
 
 /**
  *  @element uui-button
@@ -160,13 +160,11 @@ export class UUIButtonElement extends FormControlMixin(
         }
       }
 
-      /* edge case for primary color */
-
-      :host([color='primary'][look='default']) button,
-      :host([color='primary'][look='secondary']) button,
-      :host([color='primary'][look='outline']) button,
-      :host([color='primary'][look='placeholder']) button {
-        --uui-button-contrast-hover: var(--uui-color-primary-emphasis);
+      /* edge case for default color */
+      :host(:not([color]):not([look='primary'])) button,
+      :host([color='']:not([look='primary'])) button,
+      :host([color='default']:not([look='primary'])) button {
+        --uui-button-contrast-hover: var(--uui-color-default-emphasis);
       }
 
       :host([color='warning'][look='outline']) button,
@@ -174,11 +172,12 @@ export class UUIButtonElement extends FormControlMixin(
         --uui-button-contrast-hover: var(--color-standalone);
       }
 
-      :host([color='primary']) button {
-        --color: var(--uui-color-primary);
-        --color-standalone: var(--uui-color-primary-standalone);
-        --color-emphasis: var(--uui-color-primary-emphasis);
-        --color-contrast: var(--uui-color-primary-contrast);
+      /** Button color attribute: */
+      button {
+        --color: var(--uui-color-default);
+        --color-standalone: var(--uui-color-default-standalone);
+        --color-emphasis: var(--uui-color-default-emphasis);
+        --color-contrast: var(--uui-color-default-contrast);
       }
       :host([color='positive']) button {
         --color: var(--uui-color-positive);
@@ -207,13 +206,14 @@ export class UUIButtonElement extends FormControlMixin(
         cursor: default;
       }
 
+      /** Button look attribute: */
       /* DEFAULT */
-      :host([look='default']) button {
+      button {
         background-color: var(--uui-button-background-color, transparent);
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, transparent);
       }
-      :host([look='default']:not([disabled]):hover) button {
+      :host(:not([disabled]):hover) button {
         background-color: var(
           --uui-button-background-color-hover,
           var(--uui-color-surface-emphasis)
@@ -221,7 +221,7 @@ export class UUIButtonElement extends FormControlMixin(
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
-      :host([look='default'][disabled]) button {
+      :host([disabled]) button {
         background-color: var(
           --uui-button-background-color-disabled,
           transparent
@@ -370,12 +370,12 @@ export class UUIButtonElement extends FormControlMixin(
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"primary" | "positive" | "warning" | "danger"}
+   * @type {"default" | "positive" | "warning" | "danger"}
    * @attr
-   * @default "primary"
+   * @default "default"
    */
   @property({ reflect: true })
-  color: Color = 'primary';
+  color: Color = 'default';
 
   /**
    * Makes the left and right padding of the button narrower.

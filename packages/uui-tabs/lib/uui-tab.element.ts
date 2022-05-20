@@ -44,7 +44,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host(:not([active]):not([disabled])) button:hover {
         color: var(
           --uui-tab-text-hover,
-          var(--uui-color-primary-emphasis, white)
+          var(--uui-color-default-emphasis, white)
         );
       }
 
@@ -56,7 +56,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host([active]) button {
         color: var(
           --uui-tab-text-active,
-          var(--uui-color-primary-emphasis, white)
+          var(--uui-color-default-emphasis, white)
         );
         cursor: default;
       }

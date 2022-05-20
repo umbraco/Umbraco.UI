@@ -45,10 +45,10 @@
   --uui-color-divider-emphasis: #bdbdbd;
 
   /* ----- COLORS -----  */
-  --uui-color-primary: var(--uui-palette-space-cadet);
-  --uui-color-primary-emphasis: var(--uui-palette-violet-blue);
-  --uui-color-primary-standalone: var(--uui-palette-space-cadet-dark);
-  --uui-color-primary-contrast: #fff;
+  --uui-color-default: var(--uui-palette-space-cadet);
+  --uui-color-default-emphasis: var(--uui-palette-violet-blue);
+  --uui-color-default-standalone: var(--uui-palette-space-cadet-dark);
+  --uui-color-default-contrast: #fff;
 
   --uui-color-warning: var(--uui-palette-sunglow);
   --uui-color-warning-emphasis: var(--uui-palette-sunglow-light);
@@ -107,10 +107,10 @@
   --uui-color-divider-standalone: #444c56;
   --uui-color-divider-emphasis: #4f5864; */
   /* ----- COLORS -----  */
-  /* --uui-color-primary: #2c70d6;
-  --uui-color-primary-emphasis: #3886fc;
-  --uui-color-primary-standalone: #88bdff;
-  --uui-color-primary-contrast: white;
+  /* --uui-color-default: #2c70d6;
+  --uui-color-default-emphasis: #3886fc;
+  --uui-color-default-standalone: #88bdff;
+  --uui-color-default-contrast: white;
 
   --uui-color-warning: #977b00;
   --uui-color-warning-emphasis: #bda22b;

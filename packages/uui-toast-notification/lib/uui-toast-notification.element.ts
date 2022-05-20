@@ -97,9 +97,9 @@ export class UUIToastNotificationElement extends LitElement {
         border-color: var(--uui-color-surface);
       }
       :host([color='primary']) #toast > div {
-        background-color: var(--uui-color-primary);
-        color: var(--uui-color-primary-contrast);
-        border-color: var(--uui-color-primary-standalone);
+        background-color: var(--uui-color-default);
+        color: var(--uui-color-default-contrast);
+        border-color: var(--uui-color-default-standalone);
       }
       :host([color='positive']) #toast > div {
         background-color: var(--uui-color-positive);

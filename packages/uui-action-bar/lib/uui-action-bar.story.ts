@@ -11,8 +11,8 @@ export default {
   title: 'Buttons/Action Bar',
   component: 'uui-action-bar',
   args: {
-    look: 'default',
-    color: 'primary',
+    look: 'secondary',
+    color: 'default',
   },
   argTypes: {
     look: {
@@ -25,7 +25,7 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['primary', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger'],
     },
   },
 };
@@ -70,7 +70,7 @@ export const Single = () => {
 
 export const LooksAndColors = () => {
   const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-  const colors = ['primary', 'positive', 'warning', 'danger'];
+  const colors = ['default', 'positive', 'warning', 'danger'];
 
   return html`
     <uui-icon-registry-essential>

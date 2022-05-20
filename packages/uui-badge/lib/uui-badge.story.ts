@@ -8,13 +8,13 @@ export default {
   component: 'uui-badge',
   id: 'uui-badge',
   args: {
-    color: 'primary',
+    color: 'default',
     slot: '1',
     attention: false,
   },
   argTypes: {
     color: {
-      options: ['primary', 'positive', 'warning', 'danger'],
+      options: ['default', 'secondary', 'positive', 'warning', 'danger'],
       control: { type: 'select' },
     },
     slot: {
@@ -34,7 +34,7 @@ const Template: Story = props => html` <uui-icon-registry-essential>
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
-  color: 'primary',
+  color: 'default',
   slot: '1',
   attention: false,
 };
@@ -134,11 +134,12 @@ OnButton.parameters = {
 export const Colors: Story = () => html`
   <div
     style="position:relative; width:80px; height:80px; border: 2px dashed black">
-    <uui-badge>default/undefined</uui-badge>
+    <uui-badge>Default</uui-badge>
   </div>
   <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black">
-    <uui-badge color="primary">primary</uui-badge>
+    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
+    <uui-badge color="secondary">secondary</uui-badge>
+  </div>
   </div>
   <div
     style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">

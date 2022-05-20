@@ -53,9 +53,9 @@ export const WithBorders: Story = () => html`
     style="
     height: 48px;
     font-size: 14px;
-    --uui-tab-text: var(--uui-color-primary);
-    --uui-tab-text-hover: var(--uui-color-primary-emphasis);
-    --uui-tab-text-active: var(--uui-color-primary-emphasis);
+    --uui-tab-text: var(--uui-color-default);
+    --uui-tab-text-hover: var(--uui-color-default-emphasis);
+    --uui-tab-text-active: var(--uui-color-default-emphasis);
     --uui-tab-background: none;
     --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
@@ -76,7 +76,7 @@ export const Navbar: Story = () => html`
     --uui-tab-text: var(--uui-color-surface-alt);
     --uui-tab-text-hover: var(--uui-color-surface);
     --uui-tab-text-active: var(--uui-color-current);
-    --uui-tab-background: var(--uui-color-primary);
+    --uui-tab-background: var(--uui-color-default);
     ">
     <uui-tab-group>
       <uui-tab>

@@ -12,7 +12,7 @@ export default {
 
   args: {
     look: 'default',
-    color: 'primary',
+    color: 'default',
     type: '',
     label: 'Button',
     state: '',
@@ -28,7 +28,7 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['primary', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger'],
     },
     type: {
       options: ['', 'submit', 'button', 'reset'],
@@ -74,7 +74,7 @@ const reducer = (prev: string, next: string, i: number) =>
   (prev = next ? `${prev}${i === 1 ? ';' : ''} ${next};` : prev);
 
 const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-const colors = ['primary', 'positive', 'warning', 'danger'];
+const colors = ['default', 'positive', 'warning', 'danger'];
 
 const Template: Story = props => {
   return html`
@@ -128,8 +128,25 @@ export const WithBadge: Story = props => {
       color=${props.color}
       label=${props.label}
       state=${props.state}>
-      <uui-badge color="danger">!</uui-badge>
+      <uui-badge color="danger">2</uui-badge>
       I have a badge
+    </uui-button>
+
+    <br /><br />
+
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}>
+      <uui-badge color="danger" attention>!</uui-badge>
+      My badge requires attention
     </uui-button>
   `;
 };
@@ -244,7 +261,7 @@ export const LooksAndColors: Story = props => html`
       `
   )}
 `;
-LooksAndColors.args = { label: 'Button', look: 'default', color: 'primary' };
+LooksAndColors.args = { label: 'Button', look: 'default', color: 'default' };
 LooksAndColors.parameters = {
   docs: {
     source: {

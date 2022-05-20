@@ -8,7 +8,7 @@ export default {
   component: 'uui-button-group',
   id: 'uui-button-group',
   args: {
-    look: 'primary',
+    look: 'secondary',
     color: 'primary',
   },
   argTypes: {
@@ -22,13 +22,13 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['primary', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger'],
     },
   },
 };
 
 const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-const colors = ['primary', 'positive', 'warning', 'danger'];
+const colors = ['default', 'positive', 'warning', 'danger'];
 
 export const AAAOverview: Story = props => html`
   <uui-button-group>

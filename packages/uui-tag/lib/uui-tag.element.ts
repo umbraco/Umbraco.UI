@@ -32,13 +32,14 @@ export class UUITagElement extends LitElement {
         margin: 2px;
       }
 
-      :host([color='primary']) {
-        background-color: var(--uui-color-primary);
-        color: var(--uui-color-primary-contrast);
+      /** default color */
+      :host {
+        background-color: var(--uui-color-default);
+        color: var(--uui-color-default-contrast);
       }
       :host([color='secondary']) {
         background-color: var(--uui-color-surface-alt);
-        color: var(--uui-color-primary);
+        color: var(--uui-color-default);
       }
       :host([color='positive']) {
         background-color: var(--uui-color-positive);

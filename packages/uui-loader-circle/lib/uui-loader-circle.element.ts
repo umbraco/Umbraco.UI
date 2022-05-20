@@ -21,7 +21,7 @@ export class UUILoaderCircleElement extends LitElement {
         position: relative;
         width: 1em;
         height: 1em;
-        color: var(--uui-color-primary);
+        color: var(--uui-color-default);
       }
 
       #spinner {
