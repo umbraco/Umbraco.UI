@@ -11,7 +11,7 @@ export default {
   title: 'Buttons/Action Bar',
   component: 'uui-action-bar',
   args: {
-    look: 'primary',
+    look: 'default',
     color: 'primary',
   },
   argTypes: {
@@ -49,16 +49,24 @@ export const AAAOverview: Story = props => html`
 
 AAAOverview.storyName = 'Overview';
 
-export const Single = () =>
-  html`
+export const Single = () => {
+  const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+
+  return html`
     <uui-icon-registry-essential>
-      <uui-action-bar>
-        <uui-button label="Delete" look="outline"
-          ><uui-icon name="delete"></uui-icon
-        ></uui-button>
-      </uui-action-bar>
+      ${looks.map(
+        look => html`<div
+          style="display: grid; grid-template-columns: repeat( auto-fill, 120px ); gap: 16px; margin-bottom: 32px">
+          <uui-action-bar style="justify-self: left;">
+            <uui-button label="Delete" .look="${look as any}">
+              <uui-icon name="delete"></uui-icon>
+            </uui-button>
+          </uui-action-bar>
+        </div> `
+      )}
     </uui-icon-registry-essential>
   `;
+};
 
 export const LooksAndColors = () => {
   const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
@@ -76,8 +84,8 @@ export const LooksAndColors = () => {
                   >${buttons.map(
                     el => html` <uui-button
                       label="${el}"
-                      .look="${look}"
-                      .color="${color}">
+                      .look="${look as any}"
+                      .color="${color as any}">
                       <uui-icon name="${el}"></uui-icon>
                     </uui-button>`
                   )}
