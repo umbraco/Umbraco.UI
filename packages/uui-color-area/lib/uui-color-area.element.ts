@@ -7,6 +7,8 @@ import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { UUIColorAreaEvent } from './UUIColorAreaEvent';
+
 /**
  * @element uui-color-area
  */
@@ -68,6 +70,9 @@ export class UUIColorAreaElement extends LitElement {
 
     handle.focus();
     event.preventDefault();
+    event.stopPropagation();
+
+    this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
 
     drag(grid, (x, y) => {
       this.saturation = clamp((x / width) * 100, 0, 100);
@@ -105,7 +110,7 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   getValueFromMousePosition(event: MouseEvent) {
-    return this.getValueFromCoordinates(event.clientX, event.clientY);
+    return this.getValueFromCoordinates(event.clientX - event.offsetX, event.clientY - event.offsetY);
   }
 
   getValueFromTouchPosition(event: TouchEvent) {
@@ -118,6 +123,7 @@ export class UUIColorAreaElement extends LitElement {
 
     this.saturation = clamp((x / width) * 100, 0, 100);
     this.lightness = clamp(100 - (y / height) * 100, 0, 100);
+
     this.syncValues();
   }
 

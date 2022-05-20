@@ -7,7 +7,22 @@ import { live } from 'lit/directives/live.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
+import {
+  UUIColorAreaElement,
+  UUIColorAreaEvent,
+} from '@umbraco-ui/uui-color-area/lib';
+
 const hasEyeDropper = 'EyeDropper' in window;
+
+interface EyeDropperConstructor {
+  new (): EyeDropperInterface;
+}
+
+interface EyeDropperInterface {
+  open: () => Promise<{ sRGBHex: string }>;
+}
+
+declare const EyeDropper: EyeDropperConstructor;
 
 /**
  *  @element uui-color-picker
@@ -118,7 +133,7 @@ export class UUIColorPickerElement extends LitElement {
 
   /** Removes the format toggle. */
   @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle = false;
-  
+
   /** Renders the color picker inline rather than inside a dropdown. */
   @property({ type: Boolean, reflect: true }) inline = false;
 
@@ -188,8 +203,10 @@ export class UUIColorPickerElement extends LitElement {
     
   }
 
-  handleGridDrag(event: Event) {
-    
+  handleGridDrag(event: UUIColorAreaEvent) {
+     console.log("handleGridDrag change", event);
+     const element = event.target as UUIColorAreaElement;
+     console.log("handleGridDrag element", element);
   }
 
   handleAlphaKeyDown(event: KeyboardEvent) {
@@ -236,7 +253,15 @@ export class UUIColorPickerElement extends LitElement {
       return;
     }
 
-    
+    const eyeDropper = new EyeDropper();
+
+    eyeDropper
+      .open()
+      .then(result => this.setColor(result.sRGBHex))
+      .catch(() => {
+        // The user canceled, do nothing
+      });
+
   }
 
   parseColor(colorString: string) {
@@ -419,7 +444,7 @@ export class UUIColorPickerElement extends LitElement {
             .value=${live(this.inputValue)}
             ?disabled=${this.disabled}
             @keydown=${this.handleInputKeyDown}
-            @sl-change=${this.handleInputChange}>
+            @change=${this.handleInputChange}>
           </uui-input>
           <uui-button-group>
           ${!this.noFormatToggle
