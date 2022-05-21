@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [

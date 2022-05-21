@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.2.0...@umbraco-ui/uui@0.2.1) (2022-05-20)
+
+### Bug Fixes
+
+- **uui:** change "import" to "export \*" ([d46e02a](https://github.com/umbraco/Umbraco.UI/commit/d46e02a7ec2c4558b775a3a22b8f6b743fb1375b))
+
 # [0.2.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@0.1.3...@umbraco-ui/uui@0.2.0) (2022-05-04)
 
 ### Features
