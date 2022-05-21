@@ -207,6 +207,10 @@ export class UUIColorPickerElement extends LitElement {
      console.log("handleGridDrag change", event);
      const element = event.target as UUIColorAreaElement;
      console.log("handleGridDrag element", element);
+     console.log("value", element.value);
+
+     this.setColor(element.value);
+     event.stopPropagation();
   }
 
   handleAlphaKeyDown(event: KeyboardEvent) {
@@ -222,10 +226,10 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleInputChange(event: CustomEvent) {
-    const target = event.target as HTMLInputElement;
+    const element = event.target as HTMLInputElement;
 
-    this.setColor(target.value);
-    target.value = this.value;
+    this.setColor(element.value);
+    //element.value = this.value;
     event.stopPropagation();
   }
 
@@ -336,7 +340,9 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   setColor(colorString: string) {
+    console.log("colorString", colorString);
     const newColor = this.parseColor(colorString);
+    console.log("newColor", newColor);
 
     if (newColor === null) {
       return false;
@@ -368,6 +374,8 @@ export class UUIColorPickerElement extends LitElement {
     if (currentColor === null) {
       return;
     }
+
+    console.log("currentColor", currentColor);
 
     // Update the value
     if (this.format === 'hsl') {

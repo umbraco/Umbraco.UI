@@ -1,3 +1,4 @@
+import { TinyColor } from '@ctrl/tinycolor';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
@@ -57,10 +58,13 @@ export class UUIColorAreaElement extends LitElement {
   @state() private lightness = 100;
   @state() private alpha = 100;
 
+  /** The current color. */
+  @property() value = '';
+
   handleClick(event: MouseEvent) {
     console.log("handle click");
-    this.getValueFromMousePosition(event);
-    this.syncValues();
+    //this.getValueFromMousePosition(event);
+    //this.syncValues();
   }
 
   handleGridDrag(event: Event) {
@@ -72,11 +76,11 @@ export class UUIColorAreaElement extends LitElement {
     event.preventDefault();
     event.stopPropagation();
 
-    this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
-
     drag(grid, (x, y) => {
       this.saturation = clamp((x / width) * 100, 0, 100);
       this.lightness = clamp(100 - (y / height) * 100, 0, 100);
+      console.log("saturation", this.saturation);
+      console.log("lightness", this.lightness);
       this.syncValues();
     });
   }
@@ -129,6 +133,16 @@ export class UUIColorAreaElement extends LitElement {
 
   syncValues() {
 
+    const color = new TinyColor({
+      h: this.hue,
+      s: this.saturation,
+      l: this.lightness,
+      a: this.alpha
+    });
+
+    this.value = color.toRgbString();
+
+    this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
     render(){
