@@ -471,7 +471,9 @@ export class UUIColorPickerElement extends LitElement {
                     label="Select a color"
                     @click=${this.handleEyeDropper}
                   >
-                    <uui-icon name="colorpicker"></uui-icon>
+                    <uui-icon-registry-essential>
+                      <uui-icon name="colorpicker"></uui-icon>
+                    </uui-icon-registry-essential>
                   </uui-button>`
               : ''}
           </uui-button-group>
