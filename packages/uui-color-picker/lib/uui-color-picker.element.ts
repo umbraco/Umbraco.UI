@@ -37,6 +37,9 @@ export class UUIColorPickerElement extends LitElement {
         --slider-handle-size: 17px;
         --swatch-size: 25px;
 
+        --uui-look-outline-border: #ddd;
+        --uui-look-outline-border-hover: #aaa;
+
         display: inline-block;
       }
 
@@ -75,6 +78,9 @@ export class UUIColorPickerElement extends LitElement {
         height: 100%;
         border-radius: inherit;
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+
+        /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
+        background-color: var(--preview-color);
       }
 
       .color-picker__controls {
@@ -459,6 +465,7 @@ export class UUIColorPickerElement extends LitElement {
             ? html`
                 <uui-button
                   label="Toggle color format"
+                  look="outline"
                   @click=${this.handleFormatToggle}
                 >
                   ${this.setLetterCase(this.format)}
@@ -469,6 +476,7 @@ export class UUIColorPickerElement extends LitElement {
               ? html`
                   <uui-button
                     label="Select a color"
+                    look="outline"
                     @click=${this.handleEyeDropper}
                   >
                     <uui-icon-registry-essential>
