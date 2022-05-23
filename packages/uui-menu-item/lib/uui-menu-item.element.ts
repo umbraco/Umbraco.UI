@@ -269,7 +269,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
   labelButtonChanged(label?: Element | undefined) {
     this.selectableTarget = label || this;
-    console.log('this.selectableTarget', this.selectableTarget);
   }
 
   connectedCallback() {
