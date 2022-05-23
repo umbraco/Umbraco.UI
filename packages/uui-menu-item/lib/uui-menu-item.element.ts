@@ -61,7 +61,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         color: var(--uui-color-interactive-emphasis);
       }
 
-      :host([active]) {
+      :host([active]) #label-button,
+      :host([active]) #caret-button {
         color: var(--uui-color-current-contrast);
       }
       :host([active]) #label-button-background {
@@ -72,7 +73,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-current-emphasis);
       }
 
-      :host([selected]),
+      :host([selected]) #label-button,
       :host([selected]) #caret-button {
         color: var(--uui-color-selected-contrast);
       }
