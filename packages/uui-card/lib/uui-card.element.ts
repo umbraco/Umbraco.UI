@@ -50,6 +50,7 @@ export class UUICardElement extends SelectOnlyMixin(
         content: '';
         position: absolute;
         pointer-events: none;
+        inset: 0;
         width: 100%;
         height: 100%;
         z-index: 1;
