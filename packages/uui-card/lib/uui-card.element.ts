@@ -46,8 +46,17 @@ export class UUICardElement extends SelectOnlyMixin(
         outline-offset: var(--uui-card-border-width);
       }
 
-      :host([error]) {
-        border: var(--uui-card-border-width) solid var(--uui-look-danger-border);
+      :host([error])::before {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        box-sizing: border-box;
+        border: var(--uui-card-border-width) solid
+          var(--uui-look-danger-border, #d42054);
+        border-radius: var(--uui-border-radius);
       }
 
       :host([selectable]) {
@@ -64,8 +73,8 @@ export class UUICardElement extends SelectOnlyMixin(
         position: absolute;
         pointer-events: none;
         inset: calc(var(--uui-card-border-width) * -1);
-        width: calc(100% + var(--uui-card-border-width) * 2);
-        height: calc(100% + var(--uui-card-border-width) * 2);
+        width: calc(100% + calc(var(--uui-card-border-width) * 2));
+        height: calc(100% + calc(var(--uui-card-border-width) * 2));
         box-sizing: border-box;
         border: var(--uui-card-border-width) solid var(--uui-interface-select);
         border-radius: calc(
@@ -82,40 +91,6 @@ export class UUICardElement extends SelectOnlyMixin(
       }
       :host([selectable][selected])::after {
         opacity: 1;
-      }
-
-      :host([selectable]:not([selected]):hover) #select-border::after {
-        animation: not-selected--hover 1.2s infinite;
-      }
-      @keyframes not-selected--hover {
-        0%,
-        100% {
-          opacity: 0.66;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-
-      :host([selectable][selected]:hover) #select-border::after {
-        animation: selected--hover 1.4s infinite;
-      }
-      @keyframes selected--hover {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.66;
-        }
-      }
-      :host([selectable]) #open-part:hover + #select-border::after {
-        animation: none;
-      }
-      :host([error])::after {
-        inset: calc(var(--uui-card-border-width) * -2);
-        width: calc(100% + calc(var(--uui-card-border-width) * 4));
-        height: calc(100% + calc(var(--uui-card-border-width) * 4));
       }
 
       :host([select-only]) *,
