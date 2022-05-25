@@ -288,7 +288,7 @@ export class UUIColorPickerElement extends LitElement {
     const hsl = {
       h: hslColor.h, // hue
       s: hslColor.s, // saturation
-      l: hslColor.l,
+      l: hslColor.l, // lightness
       a: hslColor.a // alpha
     };
 

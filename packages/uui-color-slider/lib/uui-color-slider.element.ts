@@ -88,7 +88,7 @@ export class UUIColorSliderElement extends LitElement {
   /** Disables the color slider. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  handleDrag(event: Event) {
+  handleDrag(event: PointerEvent) {
     const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
     const handle = container.querySelector<HTMLElement>('.color-slider__handle')!;
     const { width } = container.getBoundingClientRect();
@@ -99,7 +99,8 @@ export class UUIColorSliderElement extends LitElement {
     drag(container, x => {
       this.value = clamp((x / width) * this.max, this.min, this.max);
       this.syncValues();
-    });
+    },
+    { initialEvent: event });
   }
 
   handleClick(event: MouseEvent) {

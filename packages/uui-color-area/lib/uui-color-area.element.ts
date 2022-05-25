@@ -67,7 +67,7 @@ export class UUIColorAreaElement extends LitElement {
     //this.syncValues();
   }
 
-  handleGridDrag(event: Event) {
+  handleGridDrag(event: PointerEvent) {
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
     const handle = grid.querySelector<HTMLElement>('.color-area__handle')!;
     const { width, height } = grid.getBoundingClientRect();
@@ -82,7 +82,8 @@ export class UUIColorAreaElement extends LitElement {
       console.log("saturation", this.saturation);
       console.log("lightness", this.lightness);
       this.syncValues();
-    });
+    },
+    { initialEvent: event });
   }
 
   handleGridKeyDown(event: KeyboardEvent) {
