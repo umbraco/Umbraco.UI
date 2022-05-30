@@ -61,9 +61,10 @@ export class UUIColorPickerElement extends LitElement {
         align-items: center;
         justify-content: center;
         position: relative;
-        width: 3.25rem;
+        width: 2.25rem;
         height: 2.25rem;
         border: none;
+        border-radius: 50%;
         background: none;
         margin-left: 0.75rem;
         cursor: copy;
@@ -116,7 +117,7 @@ export class UUIColorPickerElement extends LitElement {
     `,
   ];
 
-  @query('.color-picker__preview') previewButton: HTMLButtonElement;
+  @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
 
   @state() private inputValue = '';
   @state() private hue = 0;
@@ -249,12 +250,12 @@ export class UUIColorPickerElement extends LitElement {
   handleCopy() {
     //this.input.select();
     document.execCommand('copy');
-    this.previewButton.focus();
+    this._previewButton.focus();
 
     // Show copied animation
-    this.previewButton.classList.add('color-picker__preview-color--copied');
-    this.previewButton.addEventListener('animationend', () => {
-      this.previewButton.classList.remove('color-picker__preview-color--copied');
+    this._previewButton.classList.add('color-picker__preview-color--copied');
+    this._previewButton.addEventListener('animationend', () => {
+      this._previewButton.classList.remove('color-picker__preview-color--copied');
     });
   }
   
@@ -285,6 +286,8 @@ export class UUIColorPickerElement extends LitElement {
 
     const hslColor = parsed.toHsl();
 
+    console.log("hslColor", hslColor);
+
     const hsl = {
       h: hslColor.h, // hue
       s: hslColor.s, // saturation
@@ -293,6 +296,7 @@ export class UUIColorPickerElement extends LitElement {
     };
 
     const rgbColor = parsed.toRgb();
+    console.log("rgbColor", rgbColor);
 
     const rgb = {
       r: rgbColor.r, // red
@@ -301,12 +305,16 @@ export class UUIColorPickerElement extends LitElement {
       a: rgbColor.a // alpha
     };
 
+    console.log("rgb", rgb);
+
     const hex = {
       r: toHex(rgb.r),
       g: toHex(rgb.g),
       b: toHex(rgb.b),
       a: toHex(rgb.a * 255)
     };
+
+    console.log("hex", hex);
 
     return {
       hsl: {

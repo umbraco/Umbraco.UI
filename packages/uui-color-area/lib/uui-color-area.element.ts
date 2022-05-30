@@ -1,6 +1,7 @@
 import { TinyColor } from '@ctrl/tinycolor';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement } from 'lit';
 
 import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
@@ -27,14 +28,8 @@ export class UUIColorAreaElement extends LitElement {
         position: relative;
         height: var(--grid-height);
         width: var(--grid-width);
-        background-image: linear-gradient(
-            to bottom,
-            hsl(0, 0%, 100%) 0%,
-            hsla(0, 0%, 100%, 0) 50%,
-            hsla(0, 0%, 0%, 0) 50%,
-            hsl(0, 0%, 0%) 100%
-          ),
-          linear-gradient(to right, hsl(0, 0%, 50%) 0%, hsla(0, 0%, 50%, 0) 100%);
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
+          linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
         border-top-left-radius: var(--sl-border-radius-medium);
         border-top-right-radius: var(--sl-border-radius-medium);
         cursor: crosshair;
@@ -49,23 +44,25 @@ export class UUIColorAreaElement extends LitElement {
         border: solid 2px white;
         margin-top: calc(var(--grid-handle-size) / -2);
         margin-left: calc(var(--grid-handle-size) / -2);
+        transition: 150ms transform;
+      }
+
+      .color-area__handle--dragging {
+        cursor: none;
+        transform: scale(1.5);
       }
     `,
   ];
 
+  @state() private isDraggingGridHandle = false;
   @state() private hue = 0;
   @state() private saturation = 100;
   @state() private lightness = 100;
+  @state() private brightness = 100;
   @state() private alpha = 100;
 
   /** The current color. */
   @property() value = '';
-
-  handleClick(event: MouseEvent) {
-    console.log("handle click");
-    //this.getValueFromMousePosition(event);
-    //this.syncValues();
-  }
 
   handleGridDrag(event: PointerEvent) {
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
@@ -76,14 +73,20 @@ export class UUIColorAreaElement extends LitElement {
     event.preventDefault();
     event.stopPropagation();
 
-    drag(grid, (x, y) => {
-      this.saturation = clamp((x / width) * 100, 0, 100);
-      this.lightness = clamp(100 - (y / height) * 100, 0, 100);
-      console.log("saturation", this.saturation);
-      console.log("lightness", this.lightness);
-      this.syncValues();
-    },
-    { initialEvent: event });
+    this.isDraggingGridHandle = true;
+
+    drag(grid, {
+      onMove: (x, y) => {
+        this.saturation = clamp((x / width) * 100, 0, 100);
+        this.brightness = clamp(100 - (y / height) * 100, 0, 100);
+        this.lightness = this.getLightness(this.brightness);
+        console.log("saturation", this.saturation);
+        console.log("lightness", this.lightness);
+        this.syncValues();
+      },
+      onStop: () => (this.isDraggingGridHandle = false),
+      initialEvent: event
+    });
   }
 
   handleGridKeyDown(event: KeyboardEvent) {
@@ -103,15 +106,25 @@ export class UUIColorAreaElement extends LitElement {
 
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      this.lightness = clamp(this.lightness + increment, 0, 100);
+      this.brightness = clamp(this.brightness + increment, 0, 100);
+      this.lightness = this.getLightness(this.brightness);
       this.syncValues();
     }
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      this.lightness = clamp(this.lightness - increment, 0, 100);
+      this.brightness = clamp(this.brightness - increment, 0, 100);
+      this.lightness = this.getLightness(this.brightness);
       this.syncValues();
     }
+  }
+
+  getBrightness(lightness: number) {
+    return clamp(-1 * ((200 * lightness) / (this.saturation - 200)), 0, 100);
+  }
+
+  getLightness(brightness: number) {
+    return clamp(((((200 - this.saturation) * brightness) / 100) * 5) / 10, 0, 100);
   }
 
   getValueFromMousePosition(event: MouseEvent) {
@@ -146,10 +159,10 @@ export class UUIColorAreaElement extends LitElement {
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
-    render(){
+    render() {
 
-      const x = this.saturation;
-      const y = 100 - this.lightness;
+      const gridHandleX = this.saturation;
+      const gridHandleY = 100 - this.brightness;
 
       return html`
         <div
@@ -160,10 +173,13 @@ export class UUIColorAreaElement extends LitElement {
           @touchstart=${this.handleGridDrag}
         >
           <span
-            class="color-area__handle"
+            class=${classMap({
+              'color-area__handle': true,
+              'color-area__handle--dragging': this.isDraggingGridHandle
+            })}
             style=${styleMap({
-              top: `${y}%`,
-              left: `${x}%`,
+              top: `${gridHandleY}%`,
+              left: `${gridHandleX}%`,
               backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`
             })}
             role="application"

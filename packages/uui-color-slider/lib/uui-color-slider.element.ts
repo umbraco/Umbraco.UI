@@ -96,11 +96,13 @@ export class UUIColorSliderElement extends LitElement {
     handle.focus();
     event.preventDefault();
 
-    drag(container, x => {
-      this.value = clamp((x / width) * this.max, this.min, this.max);
-      this.syncValues();
-    },
-    { initialEvent: event });
+    drag(container, {
+      onMove: x => {
+        this.value = clamp((x / width) * this.max, this.min, this.max);
+        this.syncValues();
+      },
+      initialEvent: event
+    });
   }
 
   handleClick(event: MouseEvent) {
