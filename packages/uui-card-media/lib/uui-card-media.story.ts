@@ -58,7 +58,7 @@ File.parameters = {
 export const Tag: Story = () =>
   html`
     <uui-card-media name="File name">
-      <uui-tag slot="tag" size="s" look="danger">Trashed</uui-tag>
+      <uui-tag slot="tag" size="s" color="danger">Trashed</uui-tag>
       <img src="https://placedog.net/1447/?random" alt="" />
     </uui-card-media>
   `;
@@ -67,7 +67,7 @@ Tag.parameters = {
     source: {
       code: `
 <uui-card-media name="File name">
-  <uui-tag slot="tag" size="s" look="danger">Trashed</uui-tag>
+  <uui-tag slot="tag" size="s" color="danger">Trashed</uui-tag>
   <img src="https://placedog.net/1447/?random" alt="" />
 </uui-card-media>`,
     },

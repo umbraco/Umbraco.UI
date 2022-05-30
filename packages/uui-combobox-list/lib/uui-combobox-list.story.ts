@@ -15,7 +15,7 @@ export default {
 
 export const AAAOverview: Story = () =>
   html`<uui-combobox-list
-    style="border: 1px solid var(--uui-interface-border); border-radius: var(--uui-border-radius);">
+    style="border: 1px solid var(--uui-color-border); border-radius: var(--uui-border-radius);">
     <uui-combobox-list-option style="padding: var(--uui-size-2);">
       apple
     </uui-combobox-list-option>
@@ -44,7 +44,7 @@ AAAOverview.storyName = 'Overview';
 
 export const Disabled: Story = () =>
   html`<uui-combobox-list
-    style="border: 1px solid var(--uui-interface-border); border-radius: var(--uui-border-radius);">
+    style="border: 1px solid var(--uui-color-border); border-radius: var(--uui-border-radius);">
     <uui-combobox-list-option style="padding: var(--uui-size-2);">
       apple
     </uui-combobox-list-option>

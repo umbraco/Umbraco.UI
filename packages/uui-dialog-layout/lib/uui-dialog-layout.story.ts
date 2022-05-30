@@ -24,5 +24,7 @@ export const Overview: Story = () =>
       Please view Dialog stories for examples.
     </p>
     <uui-button slot="actions">Cancel</uui-button>
-    <uui-button slot="actions" look="positive">Action</uui-button>
+    <uui-button slot="actions" look="primary" color="positive"
+      >Action</uui-button
+    >
   </uui-dialog-layout>`;

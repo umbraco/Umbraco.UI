@@ -183,7 +183,7 @@ export const Nested: Story = props => {
     >
     <div
       slot="popover"
-      style="border: 1px solid var(--uui-look-primary-surface); width: 300px; background: white; padding: 1rem; color: var(--uui-look-primary-surface); box-sizing: border-box; box-shadow: var(--uui-shadow-depth-3)">
+      style="border: 1px solid var(--uui-color-default); width: 300px; background: white; padding: 1rem; color: var(--uui-color-default); box-sizing: border-box; box-shadow: var(--uui-shadow-depth-3)">
       <h3 style="text-align: center">Content</h3>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur

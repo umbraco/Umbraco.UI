@@ -42,11 +42,15 @@ export class UUIResetPasswordExample extends LitElement {
                 required-message="Email is required"></uui-input>
             </uui-form-layout-item>
 
-            <uui-button
-              type="submit"
-              label="Reset password"
-              look="positive"></uui-button>
-            <uui-button type="button" label="Return to login"></uui-button>
+            <div style="text-align:right;">
+              <uui-button type="button" label="Return to login"></uui-button>
+
+              <uui-button
+                type="submit"
+                label="Reset password"
+                look="primary"
+                color="positive"></uui-button>
+            </div>
           </form>
         </uui-form>
       </div>

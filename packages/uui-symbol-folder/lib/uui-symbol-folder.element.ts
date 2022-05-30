@@ -17,7 +17,7 @@ export class UUISymbolFolderElement extends LitElement {
       }
 
       #icon {
-        fill: var(--uui-interface-border, lightgray);
+        fill: var(--uui-color-border);
       }
     `,
   ];

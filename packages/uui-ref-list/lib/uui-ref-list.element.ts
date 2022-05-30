@@ -20,7 +20,7 @@ export class UUIRefListElement extends LitElement {
         position: absolute;
         top: -1px;
         width: 100%;
-        border-top: 1px solid lightgrey;
+        border-top: 1px solid var(--uui-color-border);
       }
     `,
   ];

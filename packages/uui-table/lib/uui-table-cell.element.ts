@@ -18,7 +18,7 @@ export class UUITableCellElement extends LitElement {
           --uui-table-cell-padding,
           var(--uui-size-4) var(--uui-size-5)
         );
-        border-top: 1px solid var(--uui-interface-border);
+        border-top: 1px solid var(--uui-color-border);
         vertical-align: middle;
       }
 

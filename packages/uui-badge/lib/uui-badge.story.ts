@@ -1,10 +1,6 @@
 import '.';
 
 import { Story } from '@storybook/web-components';
-import {
-  InterfaceLookNames,
-  InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types';
 import { html } from 'lit';
 
 export default {
@@ -12,21 +8,13 @@ export default {
   component: 'uui-badge',
   id: 'uui-badge',
   args: {
-    look: 'primary',
+    color: 'default',
     slot: '1',
     attention: false,
   },
   argTypes: {
-    look: {
-      options: [
-        'primary',
-        'secondary',
-        'outline',
-        'placeholder',
-        'positive',
-        'warning',
-        'danger',
-      ],
+    color: {
+      options: ['default', 'secondary', 'positive', 'warning', 'danger'],
       control: { type: 'select' },
     },
     slot: {
@@ -38,7 +26,7 @@ export default {
 const Template: Story = props => html` <uui-icon-registry-essential>
   <div
     style="position:relative; width:80px; height:80px; border: 2px dashed black;">
-    <uui-badge .look=${props.look} ?attention=${props.attention}
+    <uui-badge .color=${props.color} ?attention=${props.attention}
       >${props.slot}</uui-badge
     >
   </div>
@@ -46,7 +34,7 @@ const Template: Story = props => html` <uui-icon-registry-essential>
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
-  look: 'primary',
+  color: 'default',
   slot: '1',
   attention: false,
 };
@@ -65,7 +53,7 @@ AAAOverview.parameters = {
 
 export const WithAttention = Template.bind({});
 WithAttention.args = {
-  look: 'danger',
+  color: 'warning',
   slot: '!',
   attention: true,
 };
@@ -74,7 +62,7 @@ WithAttention.parameters = {
     source: {
       code: `
 <div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
-  <uui-badge look="danger" attention>!</uui-badge>
+  <uui-badge color="danger" attention>!</uui-badge>
 </div>
     `,
     },
@@ -83,7 +71,7 @@ WithAttention.parameters = {
 
 export const WithText = Template.bind({});
 WithText.args = {
-  look: 'positive',
+  color: 'positive',
   slot: 'Published',
 };
 WithText.parameters = {
@@ -91,7 +79,7 @@ WithText.parameters = {
     source: {
       code: `
 <div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
-  <uui-badge look="positive">Published</uui-badge>
+  <uui-badge color="positive">Published</uui-badge>
 </div>
     `,
     },
@@ -100,7 +88,7 @@ WithText.parameters = {
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
-  look: 'positive',
+  color: 'positive',
   slot: html`<uui-icon name="favorite"></uui-icon>`,
 };
 WithIcon.parameters = {
@@ -112,7 +100,7 @@ WithIcon.parameters = {
       code: `
 <div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
   <uui-icon-registry-essential>
-    <uui-badge look="positive">
+    <uui-badge ="positive">
       <uui-icon name="favorite"></uui-icon>
     </uui-badge>
   </uui-icon-registry-essential>
@@ -124,10 +112,10 @@ WithIcon.parameters = {
 
 export const OnButton: Story = props => html` <uui-button look="outline">
   Button label
-  <uui-badge .look=${props.look}>${props.slot}</uui-badge>
+  <uui-badge .color=${props.color}>${props.slot}</uui-badge>
 </uui-button>`;
 OnButton.args = {
-  look: 'danger',
+  color: 'danger',
   slot: '!',
 };
 OnButton.parameters = {
@@ -135,7 +123,7 @@ OnButton.parameters = {
     source: {
       code: `
 <uui-button look="outline">
-  <uui-badge look="danger">!</uui-badge>
+  <uui-badge ="danger">!</uui-badge>
   Button label
 </uui-button>
     `,
@@ -143,37 +131,26 @@ OnButton.parameters = {
   },
 };
 
-export const Looks: Story = props => html`
-  ${InterfaceLookNames.map(
-    (lookName: InterfaceLookType) =>
-      html`<div
-        style="position:relative; display:inline-block; width:10px; height:10px; margin-right: 16px;">
-        <uui-badge .look=${lookName} ?attention=${props.attention}
-          >${props.slot}</uui-badge
-        >
-      </div>`
-  )}
-`;
-Looks.args = {
-  look: 'primary',
-  slot: '!',
-};
-
-let lookNamesDocsCode = '';
-InterfaceLookNames.forEach((lookName: InterfaceLookType) => {
-  lookNamesDocsCode =
-    lookNamesDocsCode +
-    `
-  <div style="position:relative; display:inline-block; width:10px; height:10px; margin-right:16px;">
-    <uui-badge look="${lookName}">!</uui-badge>
+export const Colors: Story = () => html`
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black">
+    <uui-badge>Default</uui-badge>
   </div>
-  `;
-});
-
-Looks.parameters = {
-  docs: {
-    source: {
-      code: lookNamesDocsCode,
-    },
-  },
-};
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
+    <uui-badge color="secondary">secondary</uui-badge>
+  </div>
+  </div>
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
+    <uui-badge color="positive">positive</uui-badge>
+  </div>
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
+    <uui-badge color="warning">warning</uui-badge>
+  </div>
+  <div
+    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
+    <uui-badge color="danger">danger</uui-badge>
+  </div>
+`;

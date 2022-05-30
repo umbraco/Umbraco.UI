@@ -110,9 +110,9 @@ export const PrependAndAppend: Story = props =>
         style="
         user-select:none;
         height: 100%;
-        padding: 0 var(--uui-size-space-3);
+        padding: 0 var(--uui-size-3);
         border-right: 1px solid
-          var(--uui-input-border-color, var(--uui-interface-border));
+          var(--uui-input-border-color, var(--uui-color-border));
         background: #f3f3f3;
         color: grey;
         display: flex;
@@ -128,7 +128,7 @@ export const PrependAndAppend: Story = props =>
         height: 100%;
         padding: 0 var(--uui-size-space-3);
         border-left: 1px solid
-          var(--uui-input-border-color, var(--uui-interface-border));
+          var(--uui-input-border-color, var(--uui-color-border));
         background: #f3f3f3;
         color: grey;
         display: flex;

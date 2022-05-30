@@ -19,7 +19,7 @@ export class UUIFormValidationMessageElement extends LitElement {
   static styles = [
     css`
       #messages {
-        color: var(--uui-look-danger-surface);
+        color: var(--uui-color-danger-standalone);
       }
     `,
   ];

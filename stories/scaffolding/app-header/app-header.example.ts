@@ -8,11 +8,16 @@ export class UUIAppHeaderExample extends LitElement {
     UUITextStyles,
     css`
       #appHeader {
-        background-color: var(--uui-look-primary-surface);
+        background-color: var(--uui-color-header-surface);
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0 var(--uui-size-space-5);
+
+        --uui-button-contrast: var(--uui-color-header-contrast);
+        --uui-button-contrast-hover: var(--uui-color-header-contrast-emphasis);
+        --uui-button-background-color: transparent;
+        --uui-button-background-color-hover: transparent;
       }
 
       #logo {
@@ -34,13 +39,11 @@ export class UUIAppHeaderExample extends LitElement {
       }
 
       #tabs {
-        color: var(--uui-look-primary-contrast);
         height: 60px;
         font-size: 16px;
-        --uui-tab-text: var(--uui-look-primary-contrast);
-        --uui-tab-text-hover: var(--uui-look-primary-contrast-hover);
-        --uui-tab-text-active: var(--uui-interface-active);
-        --uui-tab-background: var(--uui-look-primary-surface);
+        --uui-tab-text: rgba(255, 255, 255, 0.8);
+        --uui-tab-text-active: var(--uui-color-current);
+        --uui-tab-text-hover: var(--uui-color-current-emphasis);
       }
 
       #tools {
@@ -117,7 +120,7 @@ export class UUIAppHeaderExample extends LitElement {
     return html`
       <uui-icon-registry-essential>
         <div id="appHeader">
-          <uui-button id="logo" look="primary" label="Umbraco" compact>
+          <uui-button id="logo" color="primary" label="Umbraco" compact>
             <img src="/images/umbraco_logomark_white.svg" alt="Umbraco" />
           </uui-button>
 

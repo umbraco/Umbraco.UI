@@ -34,48 +34,53 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         content: '';
         position: absolute;
         inset: 0px;
-        outline: white solid 2px;
+        outline: var(--uui-color-surface) solid 2px;
         outline-offset: -4px;
       }
-
+      /* 
       :host::before {
         display: block;
         content: '';
         opacity: 0;
         position: absolute;
         inset: 0;
-        background-color: var(--uui-interface-select);
+        background-color: var(--uui-color-selected);
       }
 
       :host(:hover)::before {
         opacity: 0.15;
         border-radius: var(--uui-border-radius);
+      } */
+
+      :host(:hover) {
+        background-color: var(--uui-color-surface-emphasis);
+        color: var(--uui-color-interactive-emphasis);
       }
 
       :host([disabled]) {
         cursor: auto;
-        color: var(--uui-interface-surface-contrast-disabled);
-        background-color: var(--uui-interface-surface-disabled);
+        color: var(--uui-color-disabled-contrast);
+        background-color: var(--uui-color-disabled);
       }
       :host([disabled]:hover) {
-        background-color: var(--uui-interface-surface-disabled);
+        background-color: var(--uui-color-disabled);
       }
 
       :host([active]) {
-        outline-color: var(--uui-interface-outline);
+        outline-color: var(--uui-color-focus);
       }
 
       :host([selected]) {
-        color: var(--uui-interface-select-contrast);
-        background-color: var(--uui-interface-select);
+        color: var(--uui-color-selected-contrast);
+        background-color: var(--uui-color-selected);
       }
       :host([selected]:hover) {
-        color: var(--uui-interface-select-contrast-hover);
-        background-color: var(--uui-interface-select-hover);
+        color: var(--uui-color-selected-contrast);
+        background-color: var(--uui-color-selected-emphasis);
       }
       :host([selected][disabled]) {
-        color: var(--uui-interface-select-contrast-disabled);
-        background-color: var(--uui-interface-select-disabled);
+        color: var(--uui-color-disabled-contrast);
+        background-color: var(--uui-color-disabled);
       }
     `,
   ];

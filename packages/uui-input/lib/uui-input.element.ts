@@ -49,55 +49,59 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         box-sizing: border-box;
         background-color: var(
           --uui-input-background-color,
-          var(--uui-interface-surface)
+          var(--uui-color-surface)
         );
         border: var(--uui-input-border-width, 1px) solid
-          var(--uui-input-border-color, var(--uui-interface-border));
+          var(--uui-input-border-color, var(--uui-color-border));
       }
       :host(:hover) {
         border-color: var(
           --uui-input-border-color-hover,
-          var(--uui-interface-border-hover)
+          var(--uui-color-border-standalone)
         );
       }
       /* TODO: Fix so we dont get double outline when there is focus on things in the slot. */
       :host(:focus-within) {
         border-color: var(
           --uui-input-border-color-focus,
-          var(--uui-interface-border-focus)
+          var(--uui-color-border-emphasis)
         );
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-interface-outline);
+          var(--uui-color-focus);
       }
       :host(:focus) {
         border-color: var(
           --uui-input-border-color-focus,
-          var(--uui-interface-border-focus)
+          var(--uui-color-border-emphasis)
         );
       }
       :host([disabled]) {
         background-color: var(
           --uui-input-background-color-disabled,
-          var(--uui-interface-surface-disabled)
+          var(--uui-color-disabled)
         );
         border-color: var(
           --uui-input-border-color-disabled,
-          var(--uui-interface-surface-disabled)
+          var(--uui-color-disabled)
         );
 
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
       :host([readonly]) {
+        background-color: var(
+          --uui-input-background-color-readonly,
+          var(--uui-color-disabled)
+        );
         border-color: var(
           --uui-input-border-color-readonly,
-          var(--uui-interface-border-readonly)
+          var(--uui-color-disabled-standalone)
         );
       }
 
       :host(:not([pristine]):invalid),
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) {
-        border-color: var(--uui-look-danger-border);
+        border-color: var(--uui-color-danger);
       }
 
       input {
