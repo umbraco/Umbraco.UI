@@ -1,6 +1,7 @@
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import isChromatic from 'chromatic/isChromatic';
 import { css, CSSResultGroup, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 @customElement('uui-login-example')
@@ -55,7 +56,9 @@ export class UUILoginExample extends LitElement {
   ];
 
   @state()
-  private _greeting: string = this._greetings[new Date().getDay()];
+  private _greeting: string = isChromatic()
+    ? this._greetings[2]
+    : this._greetings[new Date().getDay()];
 
   render() {
     return html`
