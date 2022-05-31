@@ -65,6 +65,14 @@ describe('UuiButton', () => {
     it('has a state property', () => {
       expect(element).to.have.property('state');
     });
+
+    it('has a href property', () => {
+      expect(element).to.have.property('href');
+    });
+
+    it('has a target property', () => {
+      expect(element).to.have.property('target');
+    });
   });
 
   describe('template', () => {

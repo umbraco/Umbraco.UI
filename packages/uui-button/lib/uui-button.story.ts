@@ -11,6 +11,8 @@ export default {
   id: 'uui-button',
 
   args: {
+    href: undefined,
+    target: undefined,
     look: 'default',
     color: 'default',
     type: '',
@@ -18,6 +20,12 @@ export default {
     state: '',
   },
   argTypes: {
+    href: {
+      control: { type: 'text' },
+    },
+    target: {
+      control: { type: 'text' },
+    },
     look: {
       control: {
         type: 'select',
@@ -89,6 +97,8 @@ const Template: Story = props => {
       color=${props.color}
       label=${props.label}
       state=${props.state}
+      href=${props.href}
+      target=${props.target}
       >${props.content}</uui-button
     >
   `;
@@ -312,6 +322,25 @@ WaitingState.parameters = {
     source: {
       code: `
       <uui-button state="waiting" label="A11Y proper label">Loading button</uui-button>`,
+    },
+  },
+};
+
+export const AnchorTag = Template.bind({});
+AnchorTag.args = {
+  href: 'https://www.umbraco.com',
+  target: '_blank',
+};
+AnchorTag.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-button
+          label="Open umbraco.com"
+          href="http://www.umbraco.com"
+          target="_blank">
+        </uui-button>
+      `.strings,
     },
   },
 };

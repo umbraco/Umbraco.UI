@@ -11,6 +11,7 @@ import {
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
@@ -76,6 +77,7 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       .label {
+        line-height: normal; /** needed to reset 'a > span' */
         display: block;
         transition: opacity 120ms;
       }
@@ -95,7 +97,7 @@ export class UUIButtonElement extends FormControlMixin(
         animation-fill-mode: forwards;
       }
 
-      button {
+      #button {
         height: 100%;
         width: 100%;
         background-color: transparent;
@@ -107,6 +109,11 @@ export class UUIButtonElement extends FormControlMixin(
         text-align: inherit;
         border: none;
         cursor: inherit;
+        display: block;
+
+        /* for anchor tag: */
+        text-decoration: none;
+        color: currentColor;
 
         border-width: var(--uui-button-border-width, 1px);
         border-style: solid;
@@ -123,7 +130,8 @@ export class UUIButtonElement extends FormControlMixin(
         vertical-align: middle;
         box-shadow: none;
       }
-      button[disabled]:active {
+      button[disabled]:active,
+      a:not([href]):active {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
       #icon-check,
@@ -161,43 +169,43 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       /* edge case for default color */
-      :host(:not([color]):not([look='primary'])) button,
-      :host([color='']:not([look='primary'])) button,
-      :host([color='default']:not([look='primary'])) button {
+      :host(:not([color]):not([look='primary'])) #button,
+      :host([color='']:not([look='primary'])) #button,
+      :host([color='default']:not([look='primary'])) #button {
         --uui-button-contrast-hover: var(--uui-color-default-emphasis);
       }
 
-      :host([color='warning'][look='outline']) button,
-      :host([color='warning'][look='placeholder']) button {
+      :host([color='warning'][look='outline']) #button,
+      :host([color='warning'][look='placeholder']) #button {
         --uui-button-contrast-hover: var(--color-standalone);
       }
 
       /** Button color attribute: */
-      button {
+      #button {
         --color: var(--uui-color-default);
         --color-standalone: var(--uui-color-default-standalone);
         --color-emphasis: var(--uui-color-default-emphasis);
         --color-contrast: var(--uui-color-default-contrast);
       }
-      :host([color='positive']) button {
+      :host([color='positive']) #button {
         --color: var(--uui-color-positive);
         --color-standalone: var(--uui-color-positive-standalone);
         --color-emphasis: var(--uui-color-positive-emphasis);
         --color-contrast: var(--uui-color-positive-contrast);
       }
-      :host([color='warning']) button {
+      :host([color='warning']) #button {
         --color: var(--uui-color-warning);
         --color-standalone: var(--uui-color-warning-standalone);
         --color-emphasis: var(--uui-color-warning-emphasis);
         --color-contrast: var(--uui-color-warning-contrast);
       }
-      :host([color='danger']) button {
+      :host([color='danger']) #button {
         --color: var(--uui-color-danger);
         --color-standalone: var(--uui-color-danger-standalone);
         --color-emphasis: var(--uui-color-danger-emphasis);
         --color-contrast: var(--uui-color-danger-contrast);
       }
-      :host([disabled]) button {
+      :host([disabled]) #button {
         --color: var(--uui-color-disabled);
         --color-standalone: var(--uui-color-disabled-contrast);
         --color-emphasis: var(--uui-color-disabled);
@@ -208,12 +216,12 @@ export class UUIButtonElement extends FormControlMixin(
 
       /** Button look attribute: */
       /* DEFAULT */
-      button {
+      #button {
         background-color: var(--uui-button-background-color, transparent);
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, transparent);
       }
-      :host(:not([disabled]):hover) button {
+      :host(:not([disabled]):hover) #button {
         background-color: var(
           --uui-button-background-color-hover,
           var(--uui-color-surface-emphasis)
@@ -221,7 +229,7 @@ export class UUIButtonElement extends FormControlMixin(
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
-      :host([disabled]) button {
+      :host([disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,
           transparent
@@ -231,7 +239,7 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       /* PRIMARY */
-      :host([look='primary']) button {
+      :host([look='primary']) #button {
         background-color: var(--uui-button-background-color, var(--color));
         color: var(--uui-button-contrast, var(--color-contrast));
         border-color: var(--uui-button-border-color, transparent);
@@ -239,7 +247,7 @@ export class UUIButtonElement extends FormControlMixin(
         /* special for primary: */
         font-weight: var(--uui-button-font-weight, 700);
       }
-      :host([look='primary']:hover) button {
+      :host([look='primary']:hover) #button {
         background-color: var(
           --uui-button-background-color-hover,
           var(--color-emphasis)
@@ -247,7 +255,7 @@ export class UUIButtonElement extends FormControlMixin(
         color: var(--uui-button-contrast-hover, var(--color-contrast));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
-      :host([look='primary'][disabled]) button {
+      :host([look='primary'][disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,
           var(--color)
@@ -256,7 +264,7 @@ export class UUIButtonElement extends FormControlMixin(
         border-color: var(--uui-button-border-color-disabled, var(--color));
       }
       /* SECONDARY */
-      :host([look='secondary']) button {
+      :host([look='secondary']) #button {
         background-color: var(
           --uui-button-background-color,
           var(--uui-color-surface-alt)
@@ -267,7 +275,7 @@ export class UUIButtonElement extends FormControlMixin(
         /* special for secondary: */
         font-weight: var(--uui-button-font-weight, 700);
       }
-      :host([look='secondary']:hover) button {
+      :host([look='secondary']:hover) #button {
         background-color: var(
           --uui-button-background-color-hover,
           var(--uui-color-surface-emphasis)
@@ -275,7 +283,7 @@ export class UUIButtonElement extends FormControlMixin(
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
-      :host([look='secondary'][disabled]) button {
+      :host([look='secondary'][disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,
           var(--color)
@@ -285,7 +293,7 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       /* OUTLINE */
-      :host([look='outline']) button {
+      :host([look='outline']) #button {
         background-color: var(--uui-button-background-color, transparent);
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, --color-standalone);
@@ -293,7 +301,7 @@ export class UUIButtonElement extends FormControlMixin(
         /* special for outline: */
         font-weight: var(--uui-button-font-weight, 700);
       }
-      :host([look='outline']:not([disabled]):hover) button {
+      :host([look='outline']:not([disabled]):hover) #button {
         background-color: var(--uui-button-background-color-hover, transparent);
         color: var(--uui-button-contrast-hover, var(--color-emphasis));
         border-color: var(
@@ -301,7 +309,7 @@ export class UUIButtonElement extends FormControlMixin(
           var(--color-emphasis)
         );
       }
-      :host([look='outline'][disabled]) button {
+      :host([look='outline'][disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,
           transparent
@@ -314,7 +322,7 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       /* PLACEHOLDER */
-      :host([look='placeholder']) button {
+      :host([look='placeholder']) #button {
         border-style: dashed;
         background-color: var(--uui-button-background-color, transparent);
         color: var(--uui-button-contrast, var(--color-standalone));
@@ -323,12 +331,12 @@ export class UUIButtonElement extends FormControlMixin(
           var(--uui-color-border-standalone)
         );
       }
-      :host([look='placeholder']:not([disabled]):hover) button {
+      :host([look='placeholder']:not([disabled]):hover) #button {
         background-color: var(--uui-button-background-color-hover, transparent);
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, --color-standalone);
       }
-      :host([look='placeholder'][disabled]) button {
+      :host([look='placeholder'][disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,
           var(--color)
@@ -394,6 +402,24 @@ export class UUIButtonElement extends FormControlMixin(
    */
   @property({ type: String, reflect: true })
   state: UUIButtonState = undefined;
+
+  /**
+   * Set an href, this will turns the label into a anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
 
   @query('#button')
   protected _button!: HTMLInputElement;
@@ -475,12 +501,27 @@ export class UUIButtonElement extends FormControlMixin(
   }
 
   render() {
-    return html`
-      <button id="button" ?disabled=${this.disabled} aria-label="${this.label}">
-        ${this.renderState()} ${this.renderLabel()}
-        <slot name="extra"></slot>
-      </button>
-    `;
+    return this.href
+      ? html`
+          <a
+            id="button"
+            aria-label=${this.label}
+            href=${ifDefined(!this.disabled ? this.href : undefined)}
+            target=${ifDefined(this.target || undefined)}
+            rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}>
+            ${this.renderState()} ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </a>
+        `
+      : html`
+          <button
+            id="button"
+            ?disabled=${this.disabled}
+            aria-label=${this.label}>
+            ${this.renderState()} ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </button>
+        `;
   }
 }
 
