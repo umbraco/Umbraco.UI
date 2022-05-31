@@ -6,10 +6,6 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
-  InterfaceLookDefaultValue,
-  InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types';
-import {
   iconCheck,
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
@@ -19,6 +15,14 @@ import { property, query } from 'lit/decorators.js';
 export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
+
+export type Look =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'placeholder';
+export type Color = 'default' | 'positive' | 'warning' | 'danger';
 
 /**
  *  @element uui-button
@@ -58,12 +62,12 @@ export class UUIButtonElement extends FormControlMixin(
 
         height: var(--uui-button-height, auto);
         max-height: 100%;
+        cursor: pointer;
 
         text-align: center;
-        font-weight: var(
-          --uui-button-font-weight,
-          var(--uui-interface-font-weight)
-        );
+        font-size: var(--uui-button-font-size, inherit);
+        font-weight: var(--uui-button-font-weight, 500);
+        transition: background-color 80ms, border-color 80ms, color 80ms;
       }
 
       :host([compact]) {
@@ -94,67 +98,30 @@ export class UUIButtonElement extends FormControlMixin(
       button {
         height: 100%;
         width: 100%;
+        background-color: transparent;
+        color: inherit;
+        font-size: inherit;
+        border-radius: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        text-align: inherit;
+        border: none;
+        cursor: inherit;
 
-        padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))
-          calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
-          calc(calc(8 / 15 * 1em) * var(--uui-button-padding-bottom-factor))
-          calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
-        text-align: inherit; /* Inherit from host so it can be overwritten from the outside */
-        vertical-align: middle;
-        box-shadow: none;
         border-width: var(--uui-button-border-width, 1px);
         border-style: solid;
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-interface-surface)
-        );
         border-radius: var(
           --uui-button-border-radius,
           var(--uui-border-radius)
         );
         cursor: pointer;
 
-        font-size: var(--uui-button-font-size, inherit);
-        font-family: inherit;
-        font-weight: inherit; /* Inherit from host so it can be overwritten from the outside */
-
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-interface-surface)
-        );
-        color: var(--uui-button-contrast, var(--uui-interface-contrast));
-
-        transition: background-color 80ms, border-color 80ms, color 80ms;
-      }
-      button:hover {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-interface-surface-hover)
-        );
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-interface-surface-hover)
-        );
-        color: var(
-          --uui-button-contrast-hover,
-          var(--uui-interface-contrast-hover)
-        );
-      }
-
-      button[disabled] {
-        background-color: var(
-          --uui-button-background-color-disabled,
-          var(--uui-interface-surface-disabled)
-        );
-        border-color: var(
-          --uui-button-border-color-disabled,
-          var(--uui-interface-surface-disabled)
-        );
-        color: var(
-          --uui-button-contrast-disabled,
-          var(--uui-interface-contrast-disabled)
-        );
-        cursor: default;
+        padding: calc(calc(8 / 15 * 1em) * var(--uui-button-padding-top-factor))
+          calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
+          calc(calc(8 / 15 * 1em) * var(--uui-button-padding-bottom-factor))
+          calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
+        vertical-align: middle;
+        box-shadow: none;
       }
       button[disabled]:active {
         animation: ${UUIHorizontalShakeAnimationValue};
@@ -193,320 +160,183 @@ export class UUIButtonElement extends FormControlMixin(
         }
       }
 
-      /* LOOKS */
+      /* edge case for default color */
+      :host(:not([color]):not([look='primary'])) button,
+      :host([color='']:not([look='primary'])) button,
+      :host([color='default']:not([look='primary'])) button {
+        --uui-button-contrast-hover: var(--uui-color-default-emphasis);
+      }
 
-      :host([look='primary']) {
-        font-weight: var(--uui-look-primary-font-weight);
+      :host([color='warning'][look='outline']) button,
+      :host([color='warning'][look='placeholder']) button {
+        --uui-button-contrast-hover: var(--color-standalone);
       }
-      :host([look='primary']) button {
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-look-primary-surface)
-        );
-        color: var(--uui-look-primary-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-primary-border-style, solid)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-primary-border-radius, var(--uui-border-radius))
-        );
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-look-primary-border)
-        );
+
+      /** Button color attribute: */
+      button {
+        --color: var(--uui-color-default);
+        --color-standalone: var(--uui-color-default-standalone);
+        --color-emphasis: var(--uui-color-default-emphasis);
+        --color-contrast: var(--uui-color-default-contrast);
       }
-      :host([look='primary']) button:hover {
+      :host([color='positive']) button {
+        --color: var(--uui-color-positive);
+        --color-standalone: var(--uui-color-positive-standalone);
+        --color-emphasis: var(--uui-color-positive-emphasis);
+        --color-contrast: var(--uui-color-positive-contrast);
+      }
+      :host([color='warning']) button {
+        --color: var(--uui-color-warning);
+        --color-standalone: var(--uui-color-warning-standalone);
+        --color-emphasis: var(--uui-color-warning-emphasis);
+        --color-contrast: var(--uui-color-warning-contrast);
+      }
+      :host([color='danger']) button {
+        --color: var(--uui-color-danger);
+        --color-standalone: var(--uui-color-danger-standalone);
+        --color-emphasis: var(--uui-color-danger-emphasis);
+        --color-contrast: var(--uui-color-danger-contrast);
+      }
+      :host([disabled]) button {
+        --color: var(--uui-color-disabled);
+        --color-standalone: var(--uui-color-disabled-contrast);
+        --color-emphasis: var(--uui-color-disabled);
+        --color-contrast: var(--uui-color-disabled-contrast);
+
+        cursor: default;
+      }
+
+      /** Button look attribute: */
+      /* DEFAULT */
+      button {
+        background-color: var(--uui-button-background-color, transparent);
+        color: var(--uui-button-contrast, var(--color-standalone));
+        border-color: var(--uui-button-border-color, transparent);
+      }
+      :host(:not([disabled]):hover) button {
         background-color: var(
           --uui-button-background-color-hover,
-          var(--uui-look-primary-surface-hover)
+          var(--uui-color-surface-emphasis)
         );
-        color: var(--uui-look-primary-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-primary-border-hover)
-        );
+        color: var(--uui-button-contrast-hover, var(--color-standalone));
+        border-color: var(--uui-button-border-color-hover, transparent);
       }
-      :host([look='primary']) button[disabled] {
+      :host([disabled]) button {
         background-color: var(
           --uui-button-background-color-disabled,
-          var(--uui-look-primary-surface-disabled)
+          transparent
         );
-        color: var(--uui-look-primary-contrast-disabled);
-        border-color: var(
-          --uui-button-border-color-disabled,
-          var(--uui-look-primary-border-disabled)
-        );
+        color: var(--uui-button-contrast-disabled, var(--color-contrast));
+        border-color: var(--uui-button-border-color-disabled, transparent);
       }
 
-      :host([look='secondary']) {
-        font-weight: var(--uui-look-secondary-font-weight);
+      /* PRIMARY */
+      :host([look='primary']) button {
+        background-color: var(--uui-button-background-color, var(--color));
+        color: var(--uui-button-contrast, var(--color-contrast));
+        border-color: var(--uui-button-border-color, transparent);
+
+        /* special for primary: */
+        font-weight: var(--uui-button-font-weight, 700);
       }
+      :host([look='primary']:hover) button {
+        background-color: var(
+          --uui-button-background-color-hover,
+          var(--color-emphasis)
+        );
+        color: var(--uui-button-contrast-hover, var(--color-contrast));
+        border-color: var(--uui-button-border-color-hover, transparent);
+      }
+      :host([look='primary'][disabled]) button {
+        background-color: var(
+          --uui-button-background-color-disabled,
+          var(--color)
+        );
+        color: var(--uui-button-contrast-disabled, var(--color-contrast));
+        border-color: var(--uui-button-border-color-disabled, var(--color));
+      }
+      /* SECONDARY */
       :host([look='secondary']) button {
         background-color: var(
           --uui-button-background-color,
-          var(--uui-look-secondary-surface)
+          var(--uui-color-surface-alt)
         );
-        color: var(--uui-look-secondary-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-secondary-border-style, solid)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-secondary-border-radius, var(--uui-border-radius))
-        );
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-look-secondary-border)
-        );
+        color: var(--uui-button-contrast, var(--color-standalone));
+        border-color: var(--uui-button-border-color, transparent);
+
+        /* special for secondary: */
+        font-weight: var(--uui-button-font-weight, 700);
       }
-      :host([look='secondary']) button:hover {
+      :host([look='secondary']:hover) button {
         background-color: var(
           --uui-button-background-color-hover,
-          var(--uui-look-secondary-surface-hover)
+          var(--uui-color-surface-emphasis)
         );
-        color: var(--uui-look-secondary-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-secondary-border-hover)
-        );
+        color: var(--uui-button-contrast-hover, var(--color-standalone));
+        border-color: var(--uui-button-border-color-hover, transparent);
       }
-      :host([look='secondary']) button[disabled] {
+      :host([look='secondary'][disabled]) button {
         background-color: var(
           --uui-button-background-color-disabled,
-          var(--uui-look-secondary-surface-disabled)
+          var(--color)
         );
-        color: var(--uui-look-secondary-contrast-disabled);
+        color: var(--uui-button-contrast-disabled, var(--color-contrast));
+        border-color: var(--uui-button-border-color-disabled, var(--color));
+      }
+
+      /* OUTLINE */
+      :host([look='outline']) button {
+        background-color: var(--uui-button-background-color, transparent);
+        color: var(--uui-button-contrast, var(--color-standalone));
+        border-color: var(--uui-button-border-color, --color-standalone);
+
+        /* special for outline: */
+        font-weight: var(--uui-button-font-weight, 700);
+      }
+      :host([look='outline']:not([disabled]):hover) button {
+        background-color: var(--uui-button-background-color-hover, transparent);
+        color: var(--uui-button-contrast-hover, var(--color-emphasis));
+        border-color: var(
+          --uui-button-border-color-hover,
+          var(--color-emphasis)
+        );
+      }
+      :host([look='outline'][disabled]) button {
+        background-color: var(
+          --uui-button-background-color-disabled,
+          transparent
+        );
+        color: var(--uui-button-contrast-disabled, var(--color-standalone));
         border-color: var(
           --uui-button-border-color-disabled,
-          var(--uui-look-secondary-border-disabled)
+          var(--color-standalone)
         );
       }
 
-      :host([look='outline']) button {
-        font-weight: var(--uui-look-outline-font-weight);
-      }
-      :host([look='outline']) button {
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-look-outline-surface)
-        );
-        color: var(--uui-look-outline-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-outline-border-style, solid)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-outline-border-radius, var(--uui-border-radius))
-        );
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-look-outline-border)
-        );
-      }
-      :host([look='outline']) button:hover {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-look-outline-surface-hover)
-        );
-        color: var(--uui-look-outline-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-outline-border-hover)
-        );
-      }
-      :host([look='outline']) button[disabled] {
-        background-color: var(
-          --uui-button-background-color-disabled,
-          var(--uui-look-outline-surface-disabled)
-        );
-        color: var(--uui-look-outline-contrast-disabled);
-        border-color: var(
-          --uui-button-border-color-disabled,
-          var(--uui-look-outline-border-disabled)
-        );
-      }
-
-      :host([look='placeholder']) {
-        font-weight: var(--uui-look-placeholder-font-weight);
-      }
+      /* PLACEHOLDER */
       :host([look='placeholder']) button {
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-look-placeholder-surface)
-        );
-        color: var(--uui-look-placeholder-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-placeholder-border-style, dashed)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-placeholder-border-radius, var(--uui-border-radius))
-        );
+        border-style: dashed;
+        background-color: var(--uui-button-background-color, transparent);
+        color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(
           --uui-button-border-color,
-          var(--uui-look-placeholder-border)
+          var(--uui-color-border-standalone)
         );
       }
-      :host([look='placeholder']) button:hover {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-look-placeholder-surface-hover)
-        );
-        color: var(--uui-look-placeholder-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-placeholder-border-hover)
-        );
+      :host([look='placeholder']:not([disabled]):hover) button {
+        background-color: var(--uui-button-background-color-hover, transparent);
+        color: var(--uui-button-contrast-hover, var(--color-standalone));
+        border-color: var(--uui-button-border-color-hover, --color-standalone);
       }
-      :host([look='placeholder']) button[disabled] {
+      :host([look='placeholder'][disabled]) button {
         background-color: var(
           --uui-button-background-color-disabled,
-          var(--uui-look-placeholder-surface-disabled)
+          var(--color)
         );
-        color: var(--uui-look-placeholder-contrast-disabled);
+        color: var(--uui-button-contrast-disabled, var(--color-standalone));
         border-color: var(
           --uui-button-border-color-disabled,
-          var(--uui-look-placeholder-border-disabled)
-        );
-      }
-
-      :host([look='positive']) {
-        font-weight: var(--uui-look-positive-font-weight);
-      }
-      :host([look='positive']) button {
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-look-positive-surface)
-        );
-        color: var(--uui-look-positive-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-positive-border-style, solid)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-positive-border-radius, var(--uui-border-radius))
-        );
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-look-positive-border)
-        );
-      }
-      :host([look='positive']) button:hover {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-look-positive-surface-hover)
-        );
-        color: var(--uui-look-positive-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-positive-border-hover)
-        );
-      }
-      :host([look='positive']) button[disabled] {
-        background-color: var(
-          --uui-button-background-color-disabled,
-          var(--uui-look-positive-surface-disabled)
-        );
-        color: var(--uui-look-positive-contrast-disabled);
-        border-color: var(
-          --uui-button-border-color-disabled,
-          var(--uui-look-positive-border-disabled)
-        );
-      }
-
-      :host([look='warning']) {
-        font-weight: var(--uui-look-warning-font-weight);
-      }
-      :host([look='warning']) button {
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-look-warning-surface)
-        );
-        color: var(--uui-look-warning-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-warning-border-style, solid)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-warning-border-radius, var(--uui-border-radius))
-        );
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-look-warning-border)
-        );
-      }
-      :host([look='warning']) button:hover {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-look-warning-surface-hover)
-        );
-        color: var(--uui-look-warning-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-warning-border-hover)
-        );
-      }
-      :host([look='warning']) button[disabled] {
-        background-color: var(
-          --uui-button-background-color-disabled,
-          var(--uui-look-warning-surface-disabled)
-        );
-        color: var(--uui-look-warning-contrast-disabled);
-        border-color: var(
-          --uui-button-border-color-disabled,
-          var(--uui-look-warning-border-disabled)
-        );
-      }
-
-      :host([look='danger']) {
-        font-weight: var(--uui-look-danger-font-weight);
-      }
-      :host([look='danger']) button {
-        background-color: var(
-          --uui-button-background-color,
-          var(--uui-look-danger-surface)
-        );
-        color: var(--uui-look-danger-contrast);
-        border-style: var(
-          --uui-button-border-style,
-          var(--uui-look-danger-border-style, solid)
-        );
-        border-radius: var(
-          --uui-button-border-radius,
-          var(--uui-look-danger-border-radius, var(--uui-border-radius))
-        );
-        border-color: var(
-          --uui-button-border-color,
-          var(--uui-look-danger-border)
-        );
-      }
-      :host([look='danger']) button:hover {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-look-danger-surface-hover)
-        );
-        color: var(--uui-look-danger-contrast-hover);
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-look-danger-border-hover)
-        );
-      }
-      :host([look='danger']) button[disabled] {
-        background-color: var(
-          --uui-button-background-color-disabled,
-          var(--uui-look-danger-surface-disabled)
-        );
-        color: var(--uui-look-danger-contrast-disabled);
-        border-color: var(
-          --uui-button-border-color-disabled,
-          var(--uui-look-danger-border-disabled)
+          var(--color-standalone)
         );
       }
     `,
@@ -531,12 +361,21 @@ export class UUIButtonElement extends FormControlMixin(
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {""|"primary"|"secondary"|"outline"|"placeholder"|"positive"|"warning"|"danger"}
+   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
    * @attr
-   * @default ""
+   * @default "default"
    */
   @property({ reflect: true })
-  look: InterfaceLookType = InterfaceLookDefaultValue;
+  look: Look = 'default';
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "positive" | "warning" | "danger"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  color: Color = 'default';
 
   /**
    * Makes the left and right padding of the button narrower.

@@ -19,7 +19,7 @@ const Template: Story = props => html`
       ?selectable=${props.selectable}
       ?error=${props.error}
       ?disabled=${props.disabled}>
-      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-tag size="s" slot="tag" color="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions"
         ><uui-button><uui-icon name="delete"></uui-icon></uui-button
       ></uui-action-bar>
@@ -42,7 +42,7 @@ AAAOverview.parameters = {
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">
-  <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Update Available</uui-tag>
   <uui-action-bar slot="actions"
     ><uui-button><uui-icon name="delete"></uui-icon></uui-button
   ></uui-action-bar>
@@ -91,7 +91,7 @@ export const Border: Story = () => html`
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
-      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-tag size="s" slot="tag" color="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
           ><uui-icon name="delete"></uui-icon
@@ -111,7 +111,7 @@ Border.parameters = {
   version="1.1"
   author="Umbraco HQ">
   <uui-icon slot="icon" name="bug"></uui-icon>
-  <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Update Available</uui-tag>
   <uui-action-bar slot="actions"
     ><uui-button><uui-icon name="delete"></uui-icon></uui-button
   ></uui-action-bar>
@@ -128,7 +128,7 @@ export const Selectable: Story = props => html`
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
-      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-tag size="s" slot="tag" color="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
           ><uui-icon name="delete"></uui-icon
@@ -151,7 +151,7 @@ Selectable.parameters = {
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
   </uui-action-bar>
@@ -168,7 +168,7 @@ export const Disabled: Story = props => html`
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
-      <uui-tag size="s" slot="tag" look="positive">Update Available</uui-tag>
+      <uui-tag size="s" slot="tag" color="positive">Update Available</uui-tag>
       <uui-action-bar slot="actions">
         <uui-button type="button" label="Delete"
           ><uui-icon name="delete"></uui-icon
@@ -191,7 +191,7 @@ Disabled.parameters = {
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
   </uui-action-bar>

@@ -85,132 +85,88 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
   </uui-table-cell>
 </uui-table-row>`;
 
-export const Looks = () => html` <h2>Looks</h2>
-  <p>
-    These are used to overwrite selected interface properties to get a specific
-    look.
-  </p>
+export const InterfaceColors = () => {
+  const surface = ['surface', 'background', 'text', 'color-border', 'divider'];
+  const state = ['selected', 'current', 'disabled'];
+  const color = ['primary', 'positive', 'warning', 'danger', 'disabled'];
+  const universal = ['header', 'focus', 'hover'];
 
-  <h3>Primary Look</h3>
-  <uui-table @click=${copyToClipboard}>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-primary'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
+  return html`
+    <h2>Interface Colors</h2>
+    <p>
+      These are used to overwrite selected interface properties to get a
+      specific look.
+    </p>
 
-  <h3>Secondary Look</h3>
-  <uui-table>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-secondary'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
+    <h3>Surface</h3>
+    <uui-table @click=${copyToClipboard}>
+      <uui-table-head>
+        <uui-table-head-cell>Custom property name</uui-table-head-cell>
+        <uui-table-head-cell>Value</uui-table-head-cell>
+        <uui-table-head-cell>Example</uui-table-head-cell>
+      </uui-table-head>
+      ${properties
+        .filter(property => surface.some(x => property.key.includes(x)))
+        .map(property => propertyColorTemplate(property))}
+    </uui-table>
 
-  <h3>Positive Look</h3>
-  <uui-table>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-positive'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
+    <h3>State</h3>
+    <uui-table @click=${copyToClipboard}>
+      <uui-table-head>
+        <uui-table-head-cell>Custom property name</uui-table-head-cell>
+        <uui-table-head-cell>Value</uui-table-head-cell>
+        <uui-table-head-cell>Example</uui-table-head-cell>
+      </uui-table-head>
+      ${properties
+        .filter(property => state.some(x => property.key.includes(x)))
+        .map(property => propertyColorTemplate(property))}
+    </uui-table>
 
-  <h3>Warning Look</h3>
-  <uui-table>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-warning'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
+    <h3>Color</h3>
+    <uui-table @click=${copyToClipboard}>
+      <uui-table-head>
+        <uui-table-head-cell>Custom property name</uui-table-head-cell>
+        <uui-table-head-cell>Value</uui-table-head-cell>
+        <uui-table-head-cell>Example</uui-table-head-cell>
+      </uui-table-head>
+      ${properties
+        .filter(property => color.some(x => property.key.includes(x)))
+        .map(property => propertyColorTemplate(property))}
+    </uui-table>
 
-  <h3>Danger Look</h3>
-  <uui-table>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-danger'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
+    <h3>Universal</h3>
+    <uui-table @click=${copyToClipboard}>
+      <uui-table-head>
+        <uui-table-head-cell>Custom property name</uui-table-head-cell>
+        <uui-table-head-cell>Value</uui-table-head-cell>
+        <uui-table-head-cell>Example</uui-table-head-cell>
+      </uui-table-head>
+      ${properties
+        .filter(property => universal.some(x => property.key.includes(x)))
+        .map(property => propertyColorTemplate(property))}
+    </uui-table>
+  `;
+};
 
-  <h3>Placeholder Look</h3>
-  <uui-table>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-placeholder'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
+export const BrandPalette = () => {
+  return html`<h2>Colors</h2>
+    <p>
+      We provide all the Umbraco Identity colors as css custom properties, but
+      we do not recommend using those directly. All interface should be based on
+      interface color properties. Here is an overview of colors:
+    </p>
 
-  <h3>OutLine Look</h3>
-  <uui-table>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('look-outline'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>`;
-
-export const InterfaceColors = () => html`
-  <p>
-    THe UI Library components use predefined custom properties.If you want your
-    element to fit into umbraco's backoffice you can use following custom
-    properties. The fallback values are inserted automatically during build.
-  </p>
-
-  <uui-table @click=${copyToClipboard}>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('interface'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>
-`;
-
-export const BrandColors = () => html`<h2>Colors</h2>
-  <p>
-    We provide all the Umbraco Identity colors as css custom properties, but we
-    do not recommend using those directly. All interface should be based on
-    interface color properties. Here is an overview of colors:
-  </p>
-
-  <uui-table @click=${copyToClipboard}>
-    <uui-table-head>
-      <uui-table-head-cell>Custom property name</uui-table-head-cell>
-      <uui-table-head-cell>Value</uui-table-head-cell>
-      <uui-table-head-cell>Example</uui-table-head-cell>
-    </uui-table-head>
-    ${properties
-      .filter(property => property.key.includes('color'))
-      .map(property => propertyColorTemplate(property))}
-  </uui-table>`;
+    <uui-table @click=${copyToClipboard}>
+      <uui-table-head>
+        <uui-table-head-cell>Custom property name</uui-table-head-cell>
+        <uui-table-head-cell>Value</uui-table-head-cell>
+        <uui-table-head-cell>Example</uui-table-head-cell>
+      </uui-table-head>
+      ${properties
+        .filter(property => property.key.includes('palette'))
+        .map(property => propertyColorTemplate(property))}
+    </uui-table>`;
+};
 
 export const Sizing = () => html`
   <h3>Spacing properties</h3>

@@ -26,10 +26,10 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         position: relative;
       }
       :host([error]) textarea {
-        border: 1px solid var(--uui-look-danger-border) !important;
+        border: 1px solid var(--uui-color-danger) !important;
       }
       :host([error]) textarea[disabled] {
-        border: 1px solid var(--uui-look-danger-border) !important;
+        border: 1px solid var(--uui-color-danger) !important;
       }
       :host([auto-height]) textarea {
         resize: none;
@@ -42,22 +42,26 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
 
       textarea[readonly] {
         border-color: var(
-          --uui-input-border-color-readonly,
-          var(--uui-interface-border-readonly)
+          --uui-textarea-border-color-readonly,
+          var(--uui-color-disabled-standalone)
+        );
+        background-color: var(
+          --uui-textarea-background-color-readonly,
+          var(--uui-color-disabled)
         );
       }
       textarea[disabled] {
         cursor: not-allowed;
         background-color: var(
           --uui-textarea-background-color-disabled,
-          var(--uui-interface-surface-disabled)
+          var(--uui-color-disabled)
         );
         border-color: var(
           --uui-textarea-border-color-disabled,
-          var(--uui-interface-surface-disabled)
+          var(--uui-color-disabled)
         );
 
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
 
       textarea {
@@ -68,7 +72,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         font-size: var(--uui-size-5);
         padding: var(--uui-size-2);
         border: 1px solid
-          var(--uui-textarea-border-color, var(--uui-interface-border));
+          var(--uui-textarea-border-color, var(--uui-color-border));
         border-radius: 0;
         outline: none;
         min-height: var(--uui-textarea-min-height);
@@ -81,7 +85,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
       :host(:focus) textarea {
         border-color: var(
           --uui-textarea-border-color,
-          var(--uui-interface-border-focus)
+          var(--uui-color-border-emphasis)
         );
       }
 
@@ -94,7 +98,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
 
       textarea:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-interface-outline);
+          var(--uui-color-focus);
       }
     `,
   ];

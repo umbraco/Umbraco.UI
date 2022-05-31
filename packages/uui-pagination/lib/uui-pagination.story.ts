@@ -25,11 +25,9 @@ export default {
 
 export const AAAOverview: Story = props => html`
   <h4>
-    Resize the orange container to see how the number of pagination buttons
-    changes.
+    Resize the container to see how the number of pagination buttons changes.
   </h4>
-  <div
-    style="resize: horizontal; overflow: hidden; padding: 2em; border: 1px solid orange">
+  <div style="resize: horizontal; overflow: hidden; padding: 6px;">
     <uui-pagination
       .total=${props.total}
       .current=${props.current}></uui-pagination>

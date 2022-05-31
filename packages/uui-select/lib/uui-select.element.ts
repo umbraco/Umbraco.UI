@@ -45,41 +45,42 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         box-sizing: border-box;
         background-color: transparent;
         border: 1px solid
-          var(--uui-select-border-color, var(--uui-interface-border));
+          var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;
       }
 
       #native:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-interface-outline);
+          var(--uui-color-focus);
       }
 
       #native[disabled] {
         cursor: not-allowed;
         background-color: var(
           --uui-select-disabled-background-color,
-          var(--uui-interface-surface-disabled)
+          var(--uui-color-disabled)
         );
       }
 
       #native:hover {
         border: 1px solid
-          var(
-            --uui-select-border-color-hover,
-            var(--uui-interface-border-hover)
-          );
+          var(--uui-select-border-color-hover, var(--uui-color-border-emphasis));
       }
 
       option:checked {
         background: var(
           --uui-select-selected-option-background-color,
-          var(--uui-interface-active)
+          var(--uui-color-selected)
+        );
+        color: var(
+          --uui-select-selected-option-color,
+          var(--uui-color-selected-contrast)
         );
       }
 
       /* TODO: a proper focus style has to be implemented. it needs it's own variables */
       #native:focus {
-        outline-color: var(--uui-select-outline-color, var(--uui-color-malibu));
+        outline-color: var(--uui-select-outline-color, var(--uui-color-focus));
       }
 
       #caret {
@@ -90,11 +91,11 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
       }
 
       :host([error]) #native {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid var(--uui-color-danger-standalone);
       }
 
       :host([error]) #native[disabled] {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid var(--uui-color-danger-standalone);
       }
     `,
   ];

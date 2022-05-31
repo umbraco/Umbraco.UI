@@ -53,40 +53,40 @@ export class UUIToggleElement extends UUIBooleanInputElement {
 
         background-color: var(
           --uui-toggle-background-color,
-          var(--uui-interface-surface-alt)
+          var(--uui-color-border)
         );
         border: 1px solid
-          var(--uui-toggle-border-color, var(--uui-interface-border));
+          var(--uui-toggle-border-color, var(--uui-color-border-standalone));
         font-size: calc(var(--uui-toggle-size) * 0.6);
       }
       label:hover input:not([disabled]) ~ #slider {
         border-color: var(
           --uui-toggle-border-color-hover,
-          var(--uui-interface-border-hover)
+          var(--uui-color-border-emphasis)
         );
         background-color: var(
           --uui-toggle-background-color-hover,
-          var(--uui-interface-surface-alt-hover)
+          var(--uui-color-border)
         );
       }
       label:focus #slider {
         border-color: var(
           --uui-toggle-border-color-focus,
-          var(--uui-interface-border-focus)
+          var(--uui-color-focus)
         );
         background-color: var(
           --uui-toggle-background-color-focus,
-          var(--uui-interface-surface-alt-focus)
+          var(--uui-color-surface-emphasis)
         );
       }
       input:checked ~ #slider {
-        background-color: var(--uui-interface-select);
+        background-color: var(--uui-color-selected);
       }
       label:hover input:checked:not([disabled]) ~ #slider {
-        background-color: var(--uui-interface-select-hover);
+        background-color: var(--uui-color-selected-emphasis);
       }
       label:focus input:checked ~ #slider {
-        background-color: var(--uui-interface-select-focus);
+        background-color: var(--uui-color-selected-emphasis);
       }
 
       #icon-check,
@@ -102,16 +102,16 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       #icon-check {
         margin-left: -0.5em;
         left: calc(var(--uui-toggle-size) * 0.5);
-        fill: var(--uui-interface-contrast);
+        fill: var(--uui-color-interactive);
       }
 
       #icon-wrong {
         margin-right: -0.5em;
         right: calc(var(--uui-toggle-size) * 0.5);
-        fill: var(--uui-interface-contrast);
+        fill: var(--uui-color-interactive);
       }
       input:checked ~ #slider #icon-check {
-        fill: var(--uui-interface-select-contrast);
+        fill: var(--uui-color-selected-contrast);
       }
 
       #slider::after {
@@ -122,7 +122,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         width: calc(var(--uui-toggle-size) - 4px);
         height: calc(var(--uui-toggle-size) - 4px);
         border-radius: 100px;
-        background-color: var(--uui-interface-select-contrast);
+        background-color: var(--uui-color-selected-contrast);
         transition: width 120ms ease, left 120ms ease, transform 120ms ease,
           background-color 120ms;
       }
@@ -134,7 +134,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
 
       input:focus ~ #slider {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-interface-outline);
+          var(--uui-color-focus);
       }
 
       :host(:not([disabled])) label:active #slider::after {
@@ -143,22 +143,22 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       }
 
       :host([disabled]) #slider {
-        background-color: var(--uui-interface-surface-alt-disabled);
+        background-color: var(--uui-color-disabled-standalone);
       }
       :host([disabled]) input:checked ~ #slider {
-        background-color: var(--uui-interface-select-disabled);
+        background-color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) #slider::after {
-        background-color: var(--uui-interface-surface-disabled);
+        background-color: var(--uui-color-disabled);
       }
       :host([disabled]) #slider #icon-wrong {
-        fill: var(--uui-interface-contrast-disabled);
+        fill: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) label:active #slider {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
       :host([disabled]) input:checked #slider #icon-check {
-        fill: var(--uui-interface-select-contrast-disabled);
+        fill: var(--uui-color-disabled-contrast);
       }
 
       :host(:not([pristine]):invalid) #slider,
@@ -166,7 +166,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) #slider,
       :host(:not([pristine])[internals-invalid]) label:hover #slider {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid var(--uui-color-danger-standalone);
       }
     `,
   ];

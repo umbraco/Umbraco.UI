@@ -1,191 +1,129 @@
-/* Currently used https://chir.ag/projects/name-that-color/ for naming inspiration */
-
-/* Color Properties */
-
 :root {
-  $deep-saffron: #f79c37;
-  --uui-color-deep-saffron: $deep-saffron;
-  --uui-color-deep-saffron-light: color($deep-saffron lightness(+ 10%));
-  --uui-color-deep-saffron-dark: color($deep-saffron blackness(+ 10%));
-  --uui-color-deep-saffron-dimmed: color(
-    $deep-saffron saturation(- 74%) blackness(+ 1%)
-  );
+  font-family: 'Roboto', sans-serif;
 
-  $sunglow: #fad634;
-  --uui-color-sunglow: $sunglow;
-  --uui-color-sunglow-light: color($sunglow lightness(+ 10%));
-  --uui-color-sunglow-dark: color($sunglow blackness(+ 10%));
-  --uui-color-sunglow-dimmed: color($sunglow saturation(- 78%) blackness(+ 1%));
+  /* ----- STATES -----  */
+  --uui-color-selected: var(--uui-palette-violet-blue);
+  --uui-color-selected-emphasis: var(--uui-palette-violet-blue-light);
+  --uui-color-selected-standalone: var(--uui-palette-violet-blue-dark);
+  --uui-color-selected-contrast: #fff;
 
-  $spanish-pink: #f5c1bc;
-  --uui-color-spanish-pink: $spanish-pink;
-  --uui-color-spanish-pink-light: color($spanish-pink lightness(+ 5%));
-  --uui-color-spanish-pink-dark: color($spanish-pink blackness(+ 5%));
-  --uui-color-spanish-pink-dimmed: color(
-    $spanish-pink saturation(- 60%) blackness(+ 1%)
-  );
+  --uui-color-current: var(--uui-palette-spanish-pink);
+  --uui-color-current-emphasis: var(--uui-palette-spanish-pink-light);
+  --uui-color-current-standalone: var(--uui-palette-spanish-pink-dark);
+  --uui-color-current-contrast: var(--uui-palette-space-cadet);
 
-  $gunmetal: #162335;
-  --uui-color-gunmetal: $gunmetal;
-  --uui-color-gunmetal-light: color($gunmetal lightness(+ 8%));
-  --uui-color-gunmetal-dark: color($gunmetal blackness(+ 8%));
-  --uui-color-gunmetal-dimmed: color(
-    $gunmetal saturation(- 50%) lightness(+ 6%)
-  );
+  --uui-color-disabled: var(--uui-palette-sand);
+  --uui-color-disabled-standalone: var(--uui-palette-sand-dark);
+  --uui-color-disabled-contrast: var(--uui-palette-grey);
 
-  $space-cadet: #1b264f;
-  --uui-color-space-cadet: $space-cadet;
-  --uui-color-space-cadet-light: color($space-cadet lightness(+ 8%));
-  --uui-color-space-cadet-dark: color($space-cadet blackness(+ 8%));
-  --uui-color-space-cadet-dimmed: color(
-    $space-cadet saturation(- 30%) lightness(+ 30%)
-  );
+  /* ----- UNIVERSAL -----  */
+  --uui-color-header-surface: var(--uui-palette-space-cadet);
+  --uui-color-header-contrast: rgba(255, 255, 255, 0.8);
+  --uui-color-header-contrast-emphasis: #fff;
 
-  $violet-blue: #3544b1;
-  --uui-color-violet-blue: $violet-blue;
-  --uui-color-violet-blue-light: color($violet-blue lightness(+ 8%));
-  --uui-color-violet-blue-dark: color($violet-blue blackness(+ 8%));
-  --uui-color-violet-blue-dimmed: color(
-    $violet-blue saturation(- 30%) blackness(+ 22%)
-  );
+  --uui-color-focus: var(--uui-palette-malibu);
 
-  $matisse: #2152a3;
-  --uui-color-matisse: $matisse;
-  --uui-color-matisse-light: color($matisse lightness(+ 8%));
-  --uui-color-matisse-dark: color($matisse blackness(+ 8%));
-  --uui-color-matisse-dimmed: color(
-    $matisse saturation(- 30%) blackness(+ 22%)
-  );
+  /* ----- SURFACE -----  */
+  --uui-color-surface: #fff;
+  --uui-color-surface-alt: var(--uui-palette-sand);
+  --uui-color-surface-emphasis: var(--uui-palette-white-dark);
 
-  $malibu: #3879ff;
-  --uui-color-malibu: $malibu;
-  --uui-color-malibu-light: color($malibu lightness(+ 8%));
-  --uui-color-malibu-dark: color($malibu blackness(+ 8%));
-  --uui-color-malibu-dimmed: color($malibu saturation(- 60%) blackness(+ 26%));
+  --uui-color-background: var(--uui-palette-sand);
 
-  $outline-blue: #3879ff;
-  --uui-color-outline-blue: $outline-blue;
-  --uui-color-outline-blue-light: color($outline-blue lightness(+ 8%));
-  --uui-color-outline-blue-dark: color($outline-blue blackness(+ 8%));
-  --uui-color-outline-blue-dimmed: color(
-    $outline-blue saturation(- 60%) blackness(+ 26%)
-  );
+  --uui-color-text: var(--uui-palette-black);
+  --uui-color-text-alt: var(--uui-palette-dune-black);
 
-  $maroon-flush: #d42054;
-  --uui-color-maroon-flush: $maroon-flush;
-  --uui-color-maroon-flush-light: color($maroon-flush lightness(+ 8%));
-  --uui-color-maroon-flush-dark: color($maroon-flush blackness(+ 8%));
-  --uui-color-maroon-flush-dimmed: color(
-    $maroon-flush saturation(- 62%) blackness(+ 2%)
-  );
+  --uui-color-interactive: var(--uui-palette-space-cadet);
+  --uui-color-interactive-emphasis: var(--uui-palette-violet-blue);
 
-  $jungle-green: #25aa60; /* A11Y acceptable color. Originally #2BC37C*/
-  --uui-color-jungle-green: $jungle-green;
-  --uui-color-jungle-green-light: color($jungle-green lightness(+ 6%));
-  --uui-color-jungle-green-dark: color($jungle-green blackness(+ 6%));
-  --uui-color-jungle-green-dimmed: color(
-    $jungle-green saturation(- 50%) blackness(+ 1%)
-  );
+  --uui-color-border: #d8d7d9;
+  --uui-color-border-standalone: #c2c2c2;
+  --uui-color-border-emphasis: #a1a1a1;
 
-  /*TODO: color needs proper name*/
-  $dark-green: #0b8152;
-  --uui-color-dark-green: $dark-green;
-  --uui-color-dark-green-light: color($dark-green lightness(+ 6%));
-  --uui-color-dark-green-dark: color($dark-green blackness(+ 6%));
-  --uui-color-dark-green-dimmed: color(
-    $dark-green saturation(- 50%) blackness(+ 1%)
-  );
+  --uui-color-divider: #f6f6f7;
+  --uui-color-divider-standalone: #e9e9eb;
+  --uui-color-divider-emphasis: #bdbdbd;
 
-  $cocoa-black: #191715;
-  --uui-color-cocoa-black: $cocoa-black;
-  --uui-color-cocoa-black-light: color($cocoa-black lightness(+ 5%));
-  --uui-color-cocoa-black-dark: color($cocoa-black blackness(+ 5%));
-  --uui-color-cocoa-black-dimmed: color(
-    $cocoa-black saturation(- 20%) lightness(+ 10%)
-  );
+  /* ----- COLORS -----  */
+  --uui-color-default: var(--uui-palette-space-cadet);
+  --uui-color-default-emphasis: var(--uui-palette-violet-blue);
+  --uui-color-default-standalone: var(--uui-palette-space-cadet-dark);
+  --uui-color-default-contrast: #fff;
 
-  $dune-black: #2e2b29;
-  --uui-color-dune-black: $dune-black;
-  --uui-color-dune-black-light: color($dune-black lightness(+ 4%));
-  --uui-color-dune-black-dark: color($dune-black blackness(+ 10%));
-  --uui-color-dune-black-dimmed: color(
-    $dune-black saturation(- 30%) lightness(+ 8%)
-  );
+  --uui-color-warning: var(--uui-palette-sunglow);
+  --uui-color-warning-emphasis: var(--uui-palette-sunglow-light);
+  --uui-color-warning-standalone: var(--uui-palette-sunglow-dark);
+  --uui-color-warning-contrast: #000;
 
-  $cocoa-brown: #332a24;
-  --uui-color-cocoa-brown: $cocoa-brown;
-  --uui-color-cocoa-brown-light: color($cocoa-brown lightness(+ 5%));
-  --uui-color-cocoa-brown-dark: color($cocoa-brown blackness(+ 5%));
-  --uui-color-cocoa-brown-dimmed: color(
-    $cocoa-brown saturation(- 40%) blackness(+ 2%)
-  );
+  --uui-color-danger: var(--uui-palette-maroon-flush);
+  --uui-color-danger-emphasis: var(--uui-palette-maroon-flush-light);
+  --uui-color-danger-standalone: var(--uui-palette-maroon-flush-dark);
+  --uui-color-danger-contrast: white;
 
-  $chamoisee: #9d8057;
-  --uui-color-chamoisee: $chamoisee;
-  --uui-color-chamoisee-light: color($chamoisee lightness(+ 8%));
-  --uui-color-chamoisee-dark: color($chamoisee blackness(+ 8%));
-  --uui-color-chamoisee-dimmed: color(
-    $chamoisee saturation(- 18%) blackness(+ 8%)
-  );
+  --uui-color-positive: var(--uui-palette-jungle-green);
+  --uui-color-positive-emphasis: var(--uui-palette-jungle-green-light);
+  --uui-color-positive-standalone: var(--uui-palette-jungle-green-dark);
+  --uui-color-positive-contrast: #fff;
+}
 
-  $timberwolf: #e2dad4;
-  --uui-color-timberwolf: $timberwolf;
-  --uui-color-timberwolf-light: color($timberwolf lightness(+ 8%));
-  --uui-color-timberwolf-dark: color($timberwolf blackness(+ 8%));
-  --uui-color-timberwolf-dimmed: color(
-    $timberwolf saturation(- 82%) blackness(+ 6%)
-  );
+:root[data-theme='dark'] {
+  /* ----- STATES -----  */
+  /* --uui-color-selected: #2a72b6;
+  --uui-color-selected-emphasis: #3385d1;
+  --uui-color-selected-standalone: #215b91;
+  --uui-color-selected-contrast: white;
 
-  $gravel: #d8d7d9;
-  --uui-color-gravel: $gravel;
-  --uui-color-gravel-light: color($gravel lightness(+ 8%));
-  --uui-color-gravel-dark: color($gravel blackness(+ 8%));
-  --uui-color-gravel-dimmed: color($gravel saturation(- 82%) blackness(+ 6%));
+  --uui-color-current: #d49e98;
+  --uui-color-current-emphasis: #dbaea9;
+  --uui-color-current-standalone: #c3786f;
+  --uui-color-current-contrast: #1b264f; */
 
-  $sand: #f3f3f5;
-  --uui-color-sand: $sand;
-  --uui-color-sand-light: color($sand lightness(+ 8%));
-  --uui-color-sand-dark: color($sand blackness(+ 8%));
-  --uui-color-sand-dimmed: color($sand saturation(- 82%) blackness(+ 6%));
+  /* ----- UNIVERSAL -----  */
+  /* --uui-color-header: #14171b;
 
-  $white: #fefefe;
-  --uui-color-white: $white;
-  --uui-color-white-light: color($white lightness(+ 2%));
-  --uui-color-white-dark: color($white blackness(+ 2%));
-  --uui-color-white-dimmed: color($white saturation(- 100%) blackness(+ 12%));
+  --uui-color-focus: #2294ff;
 
-  $black: #060606;
-  --uui-color-black: $black;
-  --uui-color-black-light: color($black lightness(+ 8%));
-  --uui-color-black-dark: color($black blackness(+ 8%));
-  --uui-color-black-dimmed: color($black saturation(- 100%) lightness(+ 12%));
+  --uui-color-hover: #3f464e;
+  --uui-color-hover-standalone: #51abff;
 
-  $grey: #c4c4c4;
-  --uui-color-grey: $grey;
-  --uui-color-grey-light: color($grey lightness(+ 10%));
-  --uui-color-grey-dark: color($grey blackness(+ 10%));
-  --uui-color-grey-dimmed: color($grey saturation(- 100%) blackness(+ 4%));
+  --uui-color-disabled: #373e47;
+  --uui-color-disabled-standalone: #444c55;
+  --uui-color-disabled-contrast: #636e7b; */
 
-  /** not begin used currently. */
-  $dusty-grey: #9b9b9b;
-  --uui-color-dusty-grey: $dusty-grey;
-  --uui-color-dusty-grey-light: color($dusty-grey lightness(+ 8%));
-  --uui-color-dusty-grey-dark: color($dusty-grey blackness(+ 10%));
-  --uui-color-dusty-grey-dimmed: color(
-    $dusty-grey saturation(- 100%) lightness(+ 12%)
-  );
+  /* ----- SURFACE -----  */
+  /* --uui-color-surface: #2d333b;
+  --uui-color-surface-alt: #373e47;
 
-  $mine-grey: #3e3e3e;
-  --uui-color-mine-grey: $mine-grey;
-  --uui-color-mine-grey-light: color($mine-grey lightness(+ 8%));
-  --uui-color-mine-grey-dark: color($mine-grey blackness(+ 10%));
-  --uui-color-mine-grey-dimmed: color(
-    $mine-grey saturation(- 100%) lightness(+ 10%)
-  );
+  --uui-color-background: #22272e;
 
-  --uui-color-primary: var(--uui-color-violet-blue);
-  --uui-color-secondary: var(--uui-color-timberwolf);
-  --uui-color-positive: var(--uui-color-jungle-green);
-  --uui-color-warning: var(--uui-color-sunglow);
-  --uui-color-danger: var(--uui-color-maroon-flush);
+  --uui-color-text: #cdd9e5;
+  --uui-color-text-alt: #636e7b;
+
+  --uui-color-border: #4d5661;
+  --uui-color-border-standalone: #59636e;
+  --uui-color-border-emphasis: #697380;
+
+  --uui-color-divider: #383d44;
+  --uui-color-divider-standalone: #444c56;
+  --uui-color-divider-emphasis: #4f5864; */
+  /* ----- COLORS -----  */
+  /* --uui-color-default: #2c70d6;
+  --uui-color-default-emphasis: #3886fc;
+  --uui-color-default-standalone: #88bdff;
+  --uui-color-default-contrast: white;
+
+  --uui-color-warning: #977b00;
+  --uui-color-warning-emphasis: #bda22b;
+  --uui-color-warning-standalone: #ffd82c;
+  --uui-color-warning-contrast: white;
+
+  --uui-color-danger: #8a2944;
+  --uui-color-danger-emphasis: #a03452;
+  --uui-color-danger-standalone: #ff7a9f;
+  --uui-color-danger-contrast: white;
+
+  --uui-color-positive: #26793e;
+  --uui-color-positive-emphasis: #358f4e;
+  --uui-color-positive-standalone: #52d176;
+  --uui-color-positive-contrast: white; */
 }

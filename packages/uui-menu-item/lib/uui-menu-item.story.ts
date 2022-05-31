@@ -269,7 +269,7 @@ export const WithBadge = () =>
         html`
           <uui-menu-item label="${menuItem.title}">
             ${menuItem.badge
-              ? html`<uui-badge slot="badge" look="warning">!</uui-badge>`
+              ? html`<uui-badge slot="badge" color="warning">!</uui-badge>`
               : ''}
           </uui-menu-item>
         `

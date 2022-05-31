@@ -259,7 +259,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       <uui-table-cell>${item.signUpDate}</uui-table-cell>
       <uui-table-cell>${item.email}</uui-table-cell>
       <uui-table-cell>
-        <uui-tag look="${item.newsletter ? 'positive' : 'secondary'}" size="s"
+        <uui-tag color="${item.newsletter ? 'positive' : 'secondary'}" size="s"
           >${item.newsletter ? 'Yes' : 'No'}</uui-tag
         >
       </uui-table-cell>

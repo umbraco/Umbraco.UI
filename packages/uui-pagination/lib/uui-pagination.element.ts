@@ -31,8 +31,9 @@ export class UUIPaginationElement extends LitElement {
       }
 
       uui-button {
-        --uui-button-border-color: var(--uui-interface-border);
-        --uui-button-border-color-disabled: var(--uui-interface-border);
+        --uui-button-border-color: var(--uui-color-border-standalone);
+        --uui-button-border-color-hover: var(--uui-color-interactive-emphasis);
+        --uui-button-border-color-disabled: var(--uui-color-border-standalone);
       }
 
       .page {
@@ -40,7 +41,7 @@ export class UUIPaginationElement extends LitElement {
         max-width: 72px;
       }
       .page.active {
-        --uui-button-background-color: var(--uui-interface-active);
+        --uui-button-background-color: var(--uui-color-current);
       }
 
       .nav {

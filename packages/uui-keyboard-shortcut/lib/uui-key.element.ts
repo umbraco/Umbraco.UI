@@ -11,10 +11,11 @@ export class UUIKeyElement extends LitElement {
   static styles = [
     css`
       :host {
-        background: var(--uui-interface-surface, #fff);
-        border: 1px solid var(--uui-interface-border, #d8d7d9);
+        background: var(--uui-color-surface);
+        border: 1px solid var(--uui-color-border);
         font-family: inherit;
         font-size: var(--uui-type-small-size);
+        color: var(--uui-color-text);
         border-radius: 5px;
         margin: 0px 5px;
         padding: 5px 7px;

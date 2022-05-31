@@ -29,7 +29,7 @@ export class UUIFormLayoutItemElement extends LitElement {
         margin-bottom: 5px;
       }
       #description {
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
         font-size: var(--uui-type-small-size);
       }
       #label + #description {

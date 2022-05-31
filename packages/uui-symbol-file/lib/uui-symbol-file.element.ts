@@ -22,8 +22,7 @@ export class UUISymbolFileElement extends LitElement {
         margin-left: calc(var(--uui-size-3) * -1);
         padding: 0px var(--uui-size-3);
         font-weight: 700;
-        color: var(--uui-color-gunmetal);
-        background-color: var(--uui-color-spanish-pink);
+        background-color: var(--uui-color-surface-alt);
         max-width: 100%;
         white-space: nowrap;
         overflow: hidden;
@@ -31,7 +30,7 @@ export class UUISymbolFileElement extends LitElement {
       }
 
       #icon {
-        fill: var(--uui-interface-border);
+        fill: var(--uui-color-border-standalone);
       }
     `,
   ];

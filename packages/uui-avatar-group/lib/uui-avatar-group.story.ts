@@ -19,7 +19,7 @@ export const AAAOverview: Story = props => html`
     ]};"
     .limit=${props.limit}>
     <uui-avatar name="Mads Rasmussen"></uui-avatar>
-    <uui-avatar name="Niels Lyngsøe"></uui-avatar>
+    <uui-avatar name="Niels Lyngsø"></uui-avatar>
     <uui-avatar name="Jacob Overgaard"></uui-avatar>
     <uui-avatar name="Jesper Møller Jensen"></uui-avatar>
   </uui-avatar-group>
