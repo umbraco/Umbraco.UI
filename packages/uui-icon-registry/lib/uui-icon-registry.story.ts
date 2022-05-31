@@ -44,7 +44,7 @@ CustomElement.parameters = {
       code: `
 import { UUIIconRegistryElement } from '@umbraco-ui/uui-icon-registry/lib/uui-icon-registry.element';
 
-const icon = '<svg>..<svg>';
+const icon = '<svg>..</svg>';
 
 class MyIconRegistryElement extends UUIIconRegistryElement {
   constructor () {
@@ -95,6 +95,39 @@ customElements.define('my-icon-registry', MyIconRegistryElement);
 
 <my-icon-registry>
   <uui-icon name="myPrefix:myIcon"></uui-icon>
+</my-icon-registry>
+      `,
+    },
+  },
+};
+
+export const AttachIconRegistryToACustomElement: Story = () =>
+  html`
+    Icon Registry is a element that provides a Icon Registry. The Element holds
+    a empty icon registry pr. default. This registry can be access or replaced
+    to provide icons of your interest. This example shows how to build a custom
+    icon registry that provides an icon loaded externally: [see code]
+  `;
+
+AttachIconRegistryToACustomElement.parameters = {
+  docs: {
+    source: {
+      code: `
+class MyCustomElement extends HTMLElement {
+
+  private _registry: UUIIconRegistry = new UUIIconRegistry();
+
+  constructor() {
+    super();
+    this._registry.defineIcon('myCustomIcon', '<svg>..</svg>');
+    this._registry.attach(this);
+  }
+
+}
+customElements.define('my-custom-element', MyCustomElement);
+
+<my-custom-element>
+  <uui-icon name="myCustomIcon"></uui-icon>
 </my-icon-registry>
       `,
     },
