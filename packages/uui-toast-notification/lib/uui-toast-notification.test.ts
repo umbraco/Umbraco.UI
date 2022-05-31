@@ -38,8 +38,8 @@ describe('UUIToastNotificationElement', () => {
   });
 
   describe('properties', () => {
-    it('look', () => {
-      expect(element).to.have.property('look');
+    it('color', () => {
+      expect(element).to.have.property('color');
     });
     it('autoClose', () => {
       expect(element).to.have.property('autoClose');
