@@ -36,6 +36,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
 
         box-sizing: border-box;
         width: var(--uui-checkbox-size);

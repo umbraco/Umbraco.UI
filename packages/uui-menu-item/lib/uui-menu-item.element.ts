@@ -8,6 +8,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
@@ -266,6 +267,10 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @state()
   private iconSlotHasContent = false;
 
+  labelButtonChanged(label?: Element | undefined) {
+    this.selectableTarget = label || this;
+  }
+
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
@@ -305,12 +310,13 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
   private _renderLabelAsAnchor() {
     if (this.disabled) {
-      return html` <span id="label-button">
+      return html` <span id="label-button" ${ref(this.labelButtonChanged)}>
         ${this._renderLabelInside()}
       </span>`;
     }
     return html` <a
       id="label-button"
+      ${ref(this.labelButtonChanged)}
       href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}
@@ -324,6 +330,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   private _renderLabelAsButton() {
     return html` <button
       id="label-button"
+      ${ref(this.labelButtonChanged)}
       @click=${this.onLabelClicked}
       ?disabled=${this.disabled}
       aria-label="${this.label}">
