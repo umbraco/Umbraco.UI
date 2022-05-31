@@ -82,7 +82,8 @@ module.exports = function (plop) {
       {
         type: 'append',
         path: './packages/uui/lib/index.ts',
-        template: "export * from '@umbraco-ui/{{> tagnamePartial }}/lib/index.js';",
+        template:
+          "export * from '@umbraco-ui/{{> tagnamePartial }}/lib/index.js';",
       },
     ],
   });
