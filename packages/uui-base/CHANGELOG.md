@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-base@0.2.0...@umbraco-ui/uui-base@0.2.1) (2022-05-31)
+
+### Bug Fixes
+
+- Small visual corrections ([#213](https://github.com/umbraco/Umbraco.UI/issues/213)) ([ba42fe8](https://github.com/umbraco/Umbraco.UI/commit/ba42fe8597d10035d30ab74eb76937ffeb557079))
+
 # [0.2.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-base@0.1.0...@umbraco-ui/uui-base@0.2.0) (2022-05-04)
 
 ### Bug Fixes

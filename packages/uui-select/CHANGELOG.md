@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-select@0.2.0...@umbraco-ui/uui-select@0.2.1) (2022-05-31)
+
+**Note:** Version bump only for package @umbraco-ui/uui-select
+
 # [0.2.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-select@0.1.0...@umbraco-ui/uui-select@0.2.0) (2022-05-04)
 
 ### Bug Fixes
