@@ -16,7 +16,7 @@ on:
       - 'packages/*/lib/**'
       - 'packages/*/assets/**'
     branches-ignore:
-      - 'dependabot/*'
+      - 'dependabot/**'
       - 'release/*'
       - 'Release/*'
       - 'main'
