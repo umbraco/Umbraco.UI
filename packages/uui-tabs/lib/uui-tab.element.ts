@@ -111,7 +111,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   public disabled = false;
 
   /**
-   * Set an href, this will turns the label into a anchor tag.
+   * Set an href, this will turns the inner button into a anchor tag.
    * @type {string}
    * @attr
    * @default undefined

@@ -405,7 +405,7 @@ export class UUIButtonElement extends FormControlMixin(
   state: UUIButtonState = undefined;
 
   /**
-   * Set an href, this will turns the label into a anchor tag.
+   * Set an href, this will turns the button into a anchor tag.
    * @type {string}
    * @attr
    * @default undefined
