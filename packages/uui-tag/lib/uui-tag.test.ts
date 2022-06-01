@@ -18,8 +18,8 @@ describe('UuiTag', () => {
   });
 
   describe('properties', () => {
-    it('has a look property', () => {
-      expect(element).to.have.property('look');
+    it('has a color property', () => {
+      expect(element).to.have.property('color');
     });
   });
 

@@ -9,6 +9,7 @@ export declare class SelectableMixinInterface extends LitElement {
   selectable: boolean;
   unselectable: boolean;
   selected: boolean;
+  selectableTarget: EventTarget;
 }
 
 /**
@@ -54,6 +55,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     @property({ type: Boolean, reflect: true })
     public selected = false;
 
+    protected selectableTarget: EventTarget = this;
+
     constructor(...args: any[]) {
       super(...args);
       this.addEventListener('click', this._handleClick);
@@ -61,9 +64,11 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private handleSelectKeydown(e: KeyboardEvent) {
-      if (e.key !== ' ' && e.key !== 'Enter') return;
-      e.preventDefault();
-      this._handleClick();
+      if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+        if (e.key !== ' ' && e.key !== 'Enter') return;
+        e.preventDefault();
+        this._toggleSelect();
+      }
     }
 
     private _select() {
@@ -78,7 +83,13 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.dispatchEvent(new UUISelectableEvent(UUISelectableEvent.UNSELECTED));
     }
 
-    private _handleClick() {
+    private _handleClick(e: Event) {
+      if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+        this._toggleSelect();
+      }
+    }
+
+    private _toggleSelect() {
       if (this.unselectable === false) {
         this._select();
       } else {

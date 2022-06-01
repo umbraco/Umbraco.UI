@@ -2,10 +2,16 @@ name: 'CodeQL'
 
 on:
   push:
-    branches: [dev, main]
+    branches:
+      - main
+      - dev
+      - 'v*/dev'
+      - 'v*/main'
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [dev]
+    branches:
+      - dev
+      - 'v*/dev'
   schedule:
     - cron: '39 20 * * 3'
 
@@ -26,13 +32,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+        uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
