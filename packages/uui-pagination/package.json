@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-pagination",
-  "version": "0.2.2",
+  "version": "1.0.0-alpha.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,9 +30,9 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "0.2.1",
-    "@umbraco-ui/uui-button": "0.3.1",
-    "@umbraco-ui/uui-button-group": "0.2.1"
+    "@umbraco-ui/uui-base": "1.0.0-alpha.0",
+    "@umbraco-ui/uui-button": "1.0.0-alpha.0",
+    "@umbraco-ui/uui-button-group": "1.0.0-alpha.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
