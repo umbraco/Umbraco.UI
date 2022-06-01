@@ -1,0 +1,75 @@
+import { html, fixture, expect } from '@open-wc/testing';
+import { UUITabElement } from './uui-tab.element';
+import '.';
+
+describe('UuiTab', () => {
+  let element: UUITabElement;
+
+  beforeEach(async () => {
+    element = await fixture(
+      html` <uui-tab label="My label">Hello uui-tab</uui-tab> `
+    );
+  });
+
+  it('is defined as its own instance', () => {
+    expect(element).to.be.instanceOf(UUITabElement);
+  });
+
+  describe('properties', () => {
+    it('has a label property', () => {
+      expect(element).to.have.property('label');
+    });
+
+    it('has a disable property', () => {
+      expect(element).to.have.property('disabled');
+    });
+    it('disable property defaults to false', () => {
+      expect(element.disabled).to.false;
+    });
+
+    it('has a href property', () => {
+      expect(element).to.have.property('href');
+    });
+
+    it('has a target property', () => {
+      expect(element).to.have.property('target');
+    });
+  });
+
+  describe('template', () => {
+    it('renders a default slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot).to.exist;
+    });
+    it('renders a icon slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=icon]')!;
+      expect(slot).to.exist;
+    });
+    it('renders a extra slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=extra]')!;
+      expect(slot).to.exist;
+    });
+  });
+
+  describe('click', () => {
+    let wasClicked: boolean;
+
+    beforeEach(async () => {
+      wasClicked = false;
+      element.addEventListener('click', () => {
+        wasClicked = true;
+      });
+    });
+
+    it('dispatches click event when type is button', async () => {
+      element.click();
+      expect(wasClicked).to.true;
+    });
+
+    it('does not click when disabled', async () => {
+      element.disabled = true;
+      element.click();
+      expect(wasClicked).to.false;
+    });
+  });
+});
