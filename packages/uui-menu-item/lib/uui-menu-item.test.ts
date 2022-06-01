@@ -79,6 +79,16 @@ describe('UUIMenuItemElement', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
       expect(slot).to.exist;
     });
+
+    it('renders a button', () => {
+      const slot = element.shadowRoot!.querySelector('button')!;
+      expect(slot).to.exist;
+    });
+    it('renders a anchor tag when href is defined', () => {
+      element.setAttribute('href', 'https://www.umbraco.com');
+      const slot = element.shadowRoot!.querySelector('button')!;
+      expect(slot).to.exist;
+    });
   });
 
   describe('expand', () => {
