@@ -257,8 +257,8 @@ export const LooksAndColors: Story = props => html`
           ${looks.map(
             look => html` <uui-button
               type=${props.type}
-              .look=${look}
-              .color=${color}
+              .look=${look as any}
+              .color=${color as any}
               label="Button displaying the ${uppercaseFirstLetter(look)} look"
               state=${props.state}
               ?disabled=${props.disabled}

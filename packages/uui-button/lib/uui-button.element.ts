@@ -114,6 +114,7 @@ export class UUIButtonElement extends FormControlMixin(
         /* for anchor tag: */
         text-decoration: none;
         color: currentColor;
+        line-height: normal;
 
         border-width: var(--uui-button-border-width, 1px);
         border-style: solid;
