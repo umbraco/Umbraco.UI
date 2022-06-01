@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-ref-node-user@0.2.1...@umbraco-ui/uui-ref-node-user@1.0.0-alpha.0) (2022-06-01)
+
+**Note:** Version bump only for package @umbraco-ui/uui-ref-node-user
+
 ## [0.2.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-ref-node-user@0.2.0...@umbraco-ui/uui-ref-node-user@0.2.1) (2022-05-31)
 
 **Note:** Version bump only for package @umbraco-ui/uui-ref-node-user
