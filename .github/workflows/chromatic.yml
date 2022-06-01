@@ -16,11 +16,12 @@ on:
       - 'packages/*/lib/**'
       - 'packages/*/assets/**'
     branches-ignore:
-      - 'dependabot/*'
+      - 'dependabot/**'
       - 'release/*'
       - 'Release/*'
       - 'main'
       - 'v*/main'
+      - 'v*/release'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,6 +41,9 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v3
+        with:
+          # pulls all commits (needed for chromatic to find baselines)
+          fetch-depth: '0'
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:

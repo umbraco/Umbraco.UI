@@ -1,16 +1,16 @@
 /* eslint-disable import/default */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import 'github-markdown-css/github-markdown.css';
 
-import React, { useState, useEffect, useRef } from 'react';
 import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
-import ReactMarkdown from 'react-markdown';
 import { STORY_RENDERED } from '@storybook/core-events';
-import 'github-markdown-css/github-markdown.css';
-import remarkGfm from 'remark-gfm';
+import React, { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 const ADDON_ID = 'readme';
 const PANEL_ID = `${ADDON_ID}/panel`;
