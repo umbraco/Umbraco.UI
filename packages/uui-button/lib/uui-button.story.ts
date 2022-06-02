@@ -20,12 +20,6 @@ export default {
     state: '',
   },
   argTypes: {
-    href: {
-      control: { type: 'text' },
-    },
-    target: {
-      control: { type: 'text' },
-    },
     look: {
       control: {
         type: 'select',

@@ -28,12 +28,6 @@ export default {
     target: undefined,
   },
   argTypes: {
-    href: {
-      control: { type: 'text' },
-    },
-    target: {
-      control: { type: 'text' },
-    },
     '--uui-menu-item-indent': { control: { type: 'text' } },
   },
 };
