@@ -188,11 +188,13 @@ describe('UUIMenuItemElement', () => {
       expect(labelElement.getAttribute('target')).to.be.equal('_self');
     });
 
-    it('when target is _blank rel=noopener is set.', async () => {
+    it('when target is _blank rel is set.', async () => {
       element.target = '_blank';
       await elementUpdated(element);
       expect(labelElement.getAttribute('target')).to.be.equal('_blank');
-      expect(labelElement.getAttribute('rel')).to.be.equal('noopener');
+      expect(labelElement.getAttribute('rel')).to.be.equal(
+        'noopener noreferrer'
+      );
     });
   });
 });

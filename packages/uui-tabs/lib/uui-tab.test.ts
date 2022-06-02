@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUITabElement } from './uui-tab.element';
 import '.';
 
@@ -79,6 +79,46 @@ describe('UuiTab', () => {
       element.disabled = true;
       element.click();
       expect(wasClicked).to.false;
+    });
+  });
+
+  describe('HREF', () => {
+    let anchorElement: HTMLElement;
+    let element: UUITabElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`<uui-tab
+          label="menuitem"
+          href="https://www.umbraco.com"></uui-tab>`
+      );
+      anchorElement = element.shadowRoot!.querySelector(
+        '#button'
+      ) as HTMLElement;
+    });
+
+    it('anchor element is defined', () => {
+      expect(anchorElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as an anchor tag', async () => {
+      await elementUpdated(element);
+      expect(anchorElement.nodeName).to.be.equal('A');
+    });
+
+    it('target is applied to anchor tag', async () => {
+      element.target = '_self';
+      await elementUpdated(element);
+      expect(anchorElement.getAttribute('target')).to.be.equal('_self');
+    });
+
+    it('when target is _blank rel is set.', async () => {
+      element.target = '_blank';
+      await elementUpdated(element);
+      expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
+      expect(anchorElement.getAttribute('rel')).to.be.equal(
+        'noopener noreferrer'
+      );
     });
   });
 });
