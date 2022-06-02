@@ -1,4 +1,6 @@
 import '.';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -52,7 +54,6 @@ export const WithBorders: Story = () => html`
   <div
     style="
     height: 48px;
-    font-size: 14px;
     --uui-tab-text: var(--uui-color-default);
     --uui-tab-text-hover: var(--uui-color-default-emphasis);
     --uui-tab-text-active: var(--uui-color-default-emphasis);
@@ -79,12 +80,33 @@ export const Navbar: Story = () => html`
     --uui-tab-background: var(--uui-color-default);
     ">
     <uui-tab-group>
-      <uui-tab>
-        <div slot="icon">i am icon</div>
-        Content
-      </uui-tab>
-      <uui-tab active> Packages </uui-tab>
-      <uui-tab> Media </uui-tab>
+      <uui-tab>Content</uui-tab>
+      <uui-tab active>Packages</uui-tab>
+      <uui-tab>Media</uui-tab>
     </uui-tab-group>
   </div>
+`;
+
+export const WithIcons: Story = props => html`
+  <h3>Tabs with Icons</h3>
+  <uui-icon-registry-essential>
+    <uui-tab-group
+      style="
+      height: 70px;
+      font-size: 12px;
+      ${props.inlineStyles}">
+      <uui-tab>
+        <uui-icon slot="icon" name="document"></uui-icon>
+        Content
+      </uui-tab>
+      <uui-tab active>
+        <uui-icon slot="icon" name="settings"></uui-icon>
+        Packages
+      </uui-tab>
+      <uui-tab>
+        <uui-icon slot="icon" name="picture"></uui-icon>
+        Media
+      </uui-tab>
+    </uui-tab-group>
+  </uui-icon-registry-essential>
 `;

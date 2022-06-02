@@ -1,4 +1,10 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import {
+  html,
+  fixture,
+  expect,
+  oneEvent,
+  elementUpdated,
+} from '@open-wc/testing';
 import { UUIButtonElement } from './uui-button.element';
 import '.';
 
@@ -65,6 +71,14 @@ describe('UuiButton', () => {
     it('has a state property', () => {
       expect(element).to.have.property('state');
     });
+
+    it('has a href property', () => {
+      expect(element).to.have.property('href');
+    });
+
+    it('has a target property', () => {
+      expect(element).to.have.property('target');
+    });
   });
 
   describe('template', () => {
@@ -74,6 +88,10 @@ describe('UuiButton', () => {
     });
     it('renders a extra slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=extra]')!;
+      expect(slot).to.exist;
+    });
+    it('renders a button', () => {
+      const slot = element.shadowRoot!.querySelector('button')!;
       expect(slot).to.exist;
     });
   });
@@ -177,6 +195,46 @@ describe('UuiButton', () => {
       element.disabled = true;
       element.click();
       expect(wasClicked).to.false;
+    });
+  });
+
+  describe('HREF', () => {
+    let anchorElement: HTMLElement;
+    let element: UUIButtonElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`<uui-button
+          label="menuitem"
+          href="https://www.umbraco.com"></uui-button>`
+      );
+      anchorElement = element.shadowRoot!.querySelector(
+        '#button'
+      ) as HTMLElement;
+    });
+
+    it('anchor element is defined', () => {
+      expect(anchorElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as an anchor tag', async () => {
+      await elementUpdated(element);
+      expect(anchorElement.nodeName).to.be.equal('A');
+    });
+
+    it('target is applied to anchor tag', async () => {
+      element.target = '_self';
+      await elementUpdated(element);
+      expect(anchorElement.getAttribute('target')).to.be.equal('_self');
+    });
+
+    it('when target is _blank rel is set.', async () => {
+      element.target = '_blank';
+      await elementUpdated(element);
+      expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
+      expect(anchorElement.getAttribute('rel')).to.be.equal(
+        'noopener noreferrer'
+      );
     });
   });
 });

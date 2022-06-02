@@ -79,6 +79,16 @@ describe('UUIMenuItemElement', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
       expect(slot).to.exist;
     });
+
+    it('renders a button', () => {
+      const slot = element.shadowRoot!.querySelector('button')!;
+      expect(slot).to.exist;
+    });
+    it('renders a anchor tag when href is defined', () => {
+      element.setAttribute('href', 'https://www.umbraco.com');
+      const slot = element.shadowRoot!.querySelector('button')!;
+      expect(slot).to.exist;
+    });
   });
 
   describe('expand', () => {
@@ -178,11 +188,13 @@ describe('UUIMenuItemElement', () => {
       expect(labelElement.getAttribute('target')).to.be.equal('_self');
     });
 
-    it('when target is _blank rel=noopener is set.', async () => {
+    it('when target is _blank rel is set.', async () => {
       element.target = '_blank';
       await elementUpdated(element);
       expect(labelElement.getAttribute('target')).to.be.equal('_blank');
-      expect(labelElement.getAttribute('rel')).to.be.equal('noopener');
+      expect(labelElement.getAttribute('rel')).to.be.equal(
+        'noopener noreferrer'
+      );
     });
   });
 });

@@ -31,43 +31,42 @@ export class UUITabGroupElement extends LitElement {
     flatten: true,
     selector: 'uui-tab, [uui-tab], [role=tab]',
   })
-  private slotNodes?: HTMLElement[];
+  private _slottedNodes?: HTMLElement[];
+  private _tabElements: HTMLElement[] = [];
 
-  private tabElements: HTMLElement[] = [];
-
-  private setTabArray() {
-    this.tabElements = this.slotNodes ? this.slotNodes : [];
+  private _setTabArray() {
+    this._tabElements = this._slottedNodes ? this._slottedNodes : [];
   }
 
-  private onSlotChange() {
-    this.tabElements.forEach(el => {
-      el.removeEventListener('click', this.onTabActive);
+  private _onSlotChange() {
+    this._tabElements.forEach(el => {
+      el.removeEventListener('click', this._onTabActive);
     });
 
-    this.setTabArray();
+    this._setTabArray();
 
-    this.tabElements.forEach(el => {
-      el.addEventListener('click', this.onTabActive);
+    this._tabElements.forEach(el => {
+      el.addEventListener('click', this._onTabActive);
     });
   }
 
-  private onTabActive = (e: MouseEvent) => {
+  private _onTabActive = (e: MouseEvent) => {
     //? should this contain stopPropagation?
     const selectedElement = e.currentTarget as HTMLElement;
-    if (this.elementIsTabLike(selectedElement)) {
+    if (this._elementIsTabLike(selectedElement)) {
       selectedElement.active = true;
     }
 
-    const filtered = this.tabElements.filter(el => el !== selectedElement);
+    const filtered = this._tabElements.filter(el => el !== selectedElement);
 
     filtered.forEach(el => {
-      if (this.elementIsTabLike(el)) {
+      if (this._elementIsTabLike(el)) {
         el.active = false;
       }
     });
   };
 
-  private elementIsTabLike(el: any): el is UUITabElement {
+  private _elementIsTabLike(el: any): el is UUITabElement {
     return el instanceof UUITabElement || 'active' in el;
   }
 
@@ -77,7 +76,7 @@ export class UUITabGroupElement extends LitElement {
   }
 
   render() {
-    return html` <slot @slotchange=${this.onSlotChange}></slot> `;
+    return html` <slot @slotchange=${this._onSlotChange}></slot> `;
   }
 }
 

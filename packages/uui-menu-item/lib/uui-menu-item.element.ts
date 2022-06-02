@@ -314,7 +314,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       ${ref(this.labelButtonChanged)}
       href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
-      rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}
       @click=${this.onLabelClicked}
       ?disabled=${this.disabled}
       aria-label="${this.label}">
