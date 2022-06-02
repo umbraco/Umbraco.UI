@@ -509,7 +509,9 @@ export class UUIButtonElement extends FormControlMixin(
             aria-label=${this.label}
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
-            rel=${ifDefined(this.target === '_blank' ? 'noopener' : undefined)}>
+            rel=${ifDefined(
+              this.target === '_blank' ? 'noopener noreferrer' : undefined
+            )}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>
           </a>

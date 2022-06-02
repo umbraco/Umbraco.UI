@@ -146,6 +146,10 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
           <a
             id="button"
             href=${ifDefined(!this.disabled ? this.href : undefined)}
+            target=${ifDefined(this.target || undefined)}
+            rel=${ifDefined(
+              this.target === '_blank' ? 'noopener noreferrer' : undefined
+            )}
             role="tab">
             <slot name="icon"></slot>
             ${this.renderLabel()}
