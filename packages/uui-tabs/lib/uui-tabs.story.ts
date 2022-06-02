@@ -80,12 +80,9 @@ export const Navbar: Story = () => html`
     --uui-tab-background: var(--uui-color-default);
     ">
     <uui-tab-group>
-      <uui-tab>
-        <div slot="icon">i am icon</div>
-        Content
-      </uui-tab>
-      <uui-tab active> Packages </uui-tab>
-      <uui-tab> Media </uui-tab>
+      <uui-tab>Content</uui-tab>
+      <uui-tab active>Packages</uui-tab>
+      <uui-tab>Media</uui-tab>
     </uui-tab-group>
   </div>
 `;
