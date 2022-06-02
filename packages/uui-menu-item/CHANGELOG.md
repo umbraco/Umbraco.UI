@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-menu-item@0.2.1...@umbraco-ui/uui-menu-item@1.0.0-rc.0) (2022-06-02)
+
+### Bug Fixes
+
+- Small visual corrections ([#212](https://github.com/umbraco/Umbraco.UI/issues/212)) ([bb3a3d7](https://github.com/umbraco/Umbraco.UI/commit/bb3a3d7128886c65c974b36a2119b613f8aaaf1d))
+
+### Features
+
+- add href attribute to uui-button & uui-tab ([9cda1f8](https://github.com/umbraco/Umbraco.UI/commit/9cda1f8530df0ddf6a9265b6bfafa35b8d9bf385))
+
 # [1.0.0-alpha.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-menu-item@0.2.1...@umbraco-ui/uui-menu-item@1.0.0-alpha.0) (2022-06-01)
 
 ### Bug Fixes
