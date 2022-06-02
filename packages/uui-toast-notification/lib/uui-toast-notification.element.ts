@@ -189,20 +189,17 @@ export class UUIToastNotificationElement extends LitElement {
     }
   };
 
+  @query('#toast')
+  private _toastEl!: HTMLElement;
   private _timer: Timer | null = null;
   private _pauseTimer: boolean = false;
 
-  @query('#toast')
-  private _toastEl!: HTMLElement;
-
-  private _animationTimeout?: number;
-
   protected isOpen = false;
+  private _open = false;
 
   @state()
   private _animate = false;
-
-  private _open = false;
+  private _animationTimeout?: number;
 
   /**
    * define if this toast should open or close.
