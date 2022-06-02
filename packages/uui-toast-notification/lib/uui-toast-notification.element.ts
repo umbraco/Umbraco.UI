@@ -121,12 +121,12 @@ export class UUIToastNotificationElement extends LitElement {
 
   /**
    * Changes the look of the notification to one of the predefined, symbolic looks. Example set this to danger for errors.
-   * @type {""|"primary"|"positive"|"warning"|"danger"}
+   * @type {""|"default"|"primary"|"positive"|"warning"|"danger"}
    * @attr
    * @default ""
    */
   @property({ reflect: true })
-  color = '';
+  color: '' | 'default' | 'positive' | 'warning' | 'danger' = '';
 
   private _autoClose: number | null = null;
   /**
@@ -343,7 +343,7 @@ export class UUIToastNotificationElement extends LitElement {
           <div id="close">
             <uui-button
               .label=${'close'}
-              ?color=${this.color}
+              .color=${this.color}
               .look=${this.color ? 'primary' : 'default'}
               @click=${() => (this.open = false)}>
               <uui-icon
