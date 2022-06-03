@@ -3,10 +3,6 @@ import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 
 import { Story } from '@storybook/web-components';
-import {
-  InterfaceLookNames,
-  InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types';
 import { html } from 'lit-html';
 
 export default {
@@ -15,24 +11,26 @@ export default {
   id: 'uui-button',
 
   args: {
-    look: '',
+    href: undefined,
+    target: undefined,
+    look: 'default',
+    color: 'default',
     type: '',
     label: 'Button',
     state: '',
   },
   argTypes: {
     look: {
-      options: [
-        '',
-        'primary',
-        'secondary',
-        'outline',
-        'placeholder',
-        'positive',
-        'warning',
-        'danger',
-      ],
-      control: { type: 'select' },
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
+    },
+    color: {
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'positive', 'warning', 'danger'],
     },
     type: {
       options: ['', 'submit', 'button', 'reset'],
@@ -77,6 +75,9 @@ const cssProps = [
 const reducer = (prev: string, next: string, i: number) =>
   (prev = next ? `${prev}${i === 1 ? ';' : ''} ${next};` : prev);
 
+const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+const colors = ['default', 'positive', 'warning', 'danger'];
+
 const Template: Story = props => {
   return html`
     <uui-button
@@ -87,8 +88,11 @@ const Template: Story = props => {
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       look=${props.look}
+      color=${props.color}
       label=${props.label}
       state=${props.state}
+      href=${props.href}
+      target=${props.target}
       >${props.content}</uui-button
     >
   `;
@@ -106,7 +110,7 @@ AAAOverview.parameters = {
 };
 
 export const Disabled = Template.bind({});
-Disabled.args = { label: 'Disabled', disabled: true };
+Disabled.args = { label: 'Disabled', disabled: true, look: 'primary' };
 Disabled.parameters = {
   docs: {
     source: {
@@ -125,10 +129,28 @@ export const WithBadge: Story = props => {
       ?disabled=${props.disabled}
       ?compact=${props.compact}
       look=${props.look}
+      color=${props.color}
       label=${props.label}
       state=${props.state}>
-      <uui-badge>!</uui-badge>
+      <uui-badge color="danger">2</uui-badge>
       I have a badge
+    </uui-button>
+
+    <br /><br />
+
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}>
+      <uui-badge color="danger" attention>!</uui-badge>
+      My badge requires attention
     </uui-button>
   `;
 };
@@ -167,6 +189,7 @@ export const Sizing: Story = props => {
       style="font-size: 9px;"
       type=${props.type}
       look=${props.look}
+      color=${props.color}
       state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
@@ -175,6 +198,7 @@ export const Sizing: Story = props => {
       style="font-size: 12px;"
       type=${props.type}
       look=${props.look}
+      color=${props.color}
       state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
@@ -183,6 +207,7 @@ export const Sizing: Story = props => {
       style="font-size: 15px;"
       type=${props.type}
       look=${props.look}
+      color=${props.color}
       state=${props.state}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
@@ -206,33 +231,42 @@ function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const Looks: Story = props => html`
-  <h5>Default look</h5>
+export const LooksAndColors: Story = props => html`
+  <h4>Default look</h4>
   <uui-button
     type=${props.type}
     ?disabled=${props.disabled}
     ?compact=${props.compact}
     look=${props.look}
+    color=${props.color}
     label=${props.label}
     >${props.content}</uui-button
   >
-  <h5>Looks</h5>
-  ${InterfaceLookNames.map(
-    (lookName: InterfaceLookType) =>
-      html`<uui-button
-        type=${props.type}
-        .look=${lookName}
-        label="Button displaying the ${uppercaseFirstLetter(lookName)} look"
-        state=${props.state}
-        ?disabled=${props.disabled}
-        ?compact=${props.compact}
-        style="margin-right:12px;">
-        ${uppercaseFirstLetter(lookName)} look
-      </uui-button>`
+  <h4>Looks and colors</h4>
+  ${colors.map(
+    color =>
+      html`
+        <h5>${uppercaseFirstLetter(color)}</h5>
+        <div style="margin-bottom: 32px">
+          ${looks.map(
+            look => html` <uui-button
+              type=${props.type}
+              .look=${look as any}
+              .color=${color as any}
+              label="Button displaying the ${uppercaseFirstLetter(look)} look"
+              state=${props.state}
+              ?disabled=${props.disabled}
+              ?compact=${props.compact}
+              style="margin-right:12px;"
+              >${uppercaseFirstLetter(look)}</uui-button
+            >`
+          )}
+        </div>
+      `
   )}
 `;
-Looks.args = { label: 'Button' };
-Looks.parameters = {
+LooksAndColors.args = { label: 'Button', look: 'default', color: 'default' };
+LooksAndColors.parameters = {
   docs: {
     source: {
       code: `
@@ -243,12 +277,12 @@ Looks.parameters = {
 
 export const WithIcon = () => html`
   <uui-icon-registry-essential>
-    <uui-button look="danger" label="A11Y proper label">
+    <uui-button look="primary" color="danger" label="A11Y proper label">
       <uui-icon .name=${'favorite'}></uui-icon>
     </uui-button>
     <br />
     <br />
-    <uui-button look="danger" label="A11Y proper label">
+    <uui-button look="primary" color="danger" label="A11Y proper label">
       <uui-icon .name=${'favorite'}></uui-icon>Button with icon
     </uui-button>
     <br />
@@ -257,7 +291,11 @@ export const WithIcon = () => html`
       The default sizing for a button with only an icon is generally too wide,
       there please use with the 'compact' attribute.
     </p>
-    <uui-button look="positive" compact label="A11Y proper label">
+    <uui-button
+      look="primary"
+      color="positive"
+      compact
+      label="A11Y proper label">
       <uui-icon name="favorite"></uui-icon>
     </uui-button>
   </uui-icon-registry-essential>
@@ -278,6 +316,25 @@ WaitingState.parameters = {
     source: {
       code: `
       <uui-button state="waiting" label="A11Y proper label">Loading button</uui-button>`,
+    },
+  },
+};
+
+export const AnchorTag = Template.bind({});
+AnchorTag.args = {
+  href: 'https://www.umbraco.com',
+  target: '_blank',
+};
+AnchorTag.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-button
+          label="Open umbraco.com"
+          href="http://www.umbraco.com"
+          target="_blank">
+        </uui-button>
+      `.strings,
     },
   },
 };

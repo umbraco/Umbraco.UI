@@ -29,7 +29,7 @@ export class UUITableRowElement extends SelectOnlyMixin(
       }
 
       :host([selected]) {
-        outline: 2px solid var(--uui-interface-select);
+        outline: 2px solid var(--uui-color-selected);
         outline-offset: -3px;
       }
     `,

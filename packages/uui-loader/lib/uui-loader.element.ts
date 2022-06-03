@@ -10,8 +10,7 @@ export class UUILoaderElement extends LitElement {
   static styles = [
     css`
       :host {
-        /* currently this components color is defined through currentColor, if we like to use a different color, we need to implemenet a --uui-interface- color which will be set/overwritten when looks are set, aka. if this element is used within a button with the look danger, then this component would get an appropriate color. */
-        color: var(--uui-color-primary);
+        color: var(--uui-color-default);
       }
 
       div {

@@ -22,7 +22,7 @@ const Template: Story = props => html`
     ?selectOnly=${props.selectOnly}
     ?error=${props.error}
     ?disabled=${props.disabled}>
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions"
       ><uui-button><uui-icon name="delete"></uui-icon></uui-button
     ></uui-action-bar>
@@ -42,7 +42,7 @@ AAAOverview.parameters = {
 <uui-ref-node
   name="Rabbit Suit Product Page"
   detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
   <uui-action-bar slot="actions"
     ><uui-button><uui-icon name="delete"></uui-icon></uui-button
   ></uui-action-bar>
@@ -82,7 +82,7 @@ CustomIcon.parameters = {
 
 export const Border: Story = () => html`
   <uui-ref-node border name="Rabbit Suit Product Page" detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"
         ><uui-icon name="delete"></uui-icon
@@ -99,7 +99,7 @@ Border.parameters = {
   border
   name="Rabbit Suit Product Page"
   detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
   </uui-action-bar>
@@ -114,7 +114,7 @@ export const Selectable: Story = props => html`
     ?selectable="${props.selectable}"
     name="Rabbit Suit Product Page"
     detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"
         ><uui-icon name="delete"></uui-icon
@@ -135,7 +135,7 @@ Selectable.parameters = {
   selectable
   name="Rabbit Suit Product Page"
   detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
   </uui-action-bar>
@@ -150,7 +150,7 @@ export const Disabled: Story = props => html`
     ?disabled="${props.disabled}"
     name="Rabbit Suit Product Page"
     detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"
         ><uui-icon name="delete"></uui-icon
@@ -171,7 +171,7 @@ Disabled.parameters = {
   disabled
   name="Rabbit Suit Product Page"
   detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
   </uui-action-bar>
@@ -186,7 +186,7 @@ export const Listed: Story = () => html`
   <uui-ref-list>
     ${listOfNodeNames.map(
       name => html`<uui-ref-node name=${name} detail="path/to/nowhere">
-        <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+        <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
         <uui-action-bar slot="actions">
           <uui-button type="button" label="Delete"
             ><uui-icon name="delete"></uui-icon
@@ -204,14 +204,14 @@ Listed.parameters = {
 <uui-ref-list>
 
   <uui-ref-node name="Node 1" detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>
   </uui-ref-node>
 
   <uui-ref-node name="Node 2" detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" look="positive">Published</uui-tag>
+    <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
     </uui-action-bar>

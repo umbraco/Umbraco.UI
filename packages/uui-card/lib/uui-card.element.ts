@@ -28,19 +28,19 @@ export class UUICardElement extends SelectOnlyMixin(
         box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
         min-height: var(--uui-layout-medium);
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-color-surface);
         --uui-card-border-width: 3px;
         transition: box-shadow 100ms ease-out;
       }
 
       :host(*) * {
         /* TODO: implement globally shared outline style */
-        outline-color: var(--uui-interface-outline);
+        outline-color: var(--uui-color-focus);
         outline-offset: 4px;
       }
 
       :host(:focus) {
-        outline-color: var(--uui-interface-outline);
+        outline-color: var(--uui-color-focus);
         outline-width: var(--uui-card-border-width);
         outline-style: solid;
         outline-offset: var(--uui-card-border-width);
@@ -55,8 +55,7 @@ export class UUICardElement extends SelectOnlyMixin(
         height: 100%;
         z-index: 1;
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid
-          var(--uui-look-danger-border, #d42054);
+        border: var(--uui-card-border-width) solid var(--uui-color-danger);
         border-radius: var(--uui-border-radius);
       }
 
@@ -65,8 +64,8 @@ export class UUICardElement extends SelectOnlyMixin(
       }
 
       :host([disabled]) {
-        background: var(--uui-interface-surface-disabled);
-        color: var(--uui-interface-contrast-disabled);
+        background: var(--uui-color-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
 
       :host([selectable])::after {
@@ -77,7 +76,7 @@ export class UUICardElement extends SelectOnlyMixin(
         width: calc(100% + calc(var(--uui-card-border-width) * 2));
         height: calc(100% + calc(var(--uui-card-border-width) * 2));
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid var(--uui-interface-select);
+        border: var(--uui-card-border-width) solid var(--uui-color-selected);
         border-radius: calc(
           var(--uui-border-radius) + var(--uui-card-border-width)
         );

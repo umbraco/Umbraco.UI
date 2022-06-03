@@ -28,12 +28,6 @@ export default {
     target: undefined,
   },
   argTypes: {
-    href: {
-      control: { type: 'text' },
-    },
-    target: {
-      control: { type: 'text' },
-    },
     '--uui-menu-item-indent': { control: { type: 'text' } },
   },
 };
@@ -269,7 +263,7 @@ export const WithBadge = () =>
         html`
           <uui-menu-item label="${menuItem.title}">
             ${menuItem.badge
-              ? html`<uui-badge slot="badge" look="warning">!</uui-badge>`
+              ? html`<uui-badge slot="badge" color="warning">!</uui-badge>`
               : ''}
           </uui-menu-item>
         `

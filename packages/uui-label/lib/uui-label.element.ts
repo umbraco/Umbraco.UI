@@ -22,7 +22,7 @@ export class UUILabelElement extends LitElement {
       }
       #required {
         display: inline;
-        color: var(--uui-look-danger-surface);
+        color: var(--uui-color-danger);
         font-weight: 900;
       }
     `,

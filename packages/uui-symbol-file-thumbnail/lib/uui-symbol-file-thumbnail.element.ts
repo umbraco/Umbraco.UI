@@ -32,8 +32,8 @@ export class UUISymbolFileThumbnailElement extends LitElement {
         display: flex;
         max-height: 100%;
         justify-content: center;
-        color: var(--uui-color-white);
-        background: var(--uui-color-white-dimmed);
+        color: var(--uui-color-surface);
+        background: var(--uui-color-surface-alt);
       }
     `,
   ];

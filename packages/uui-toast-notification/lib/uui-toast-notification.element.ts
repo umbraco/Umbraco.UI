@@ -1,8 +1,4 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import {
-  InterfaceLookDefaultValue,
-  InterfaceLookType,
-} from '@umbraco-ui/uui-base/lib/types';
 import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
@@ -68,7 +64,7 @@ export class UUIToastNotificationElement extends LitElement {
 
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-1);
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-color-surface);
         padding: var(--uui-size-layout-1);
         padding-right: var(--uui-size-layout-1);
         padding-left: var(--uui-size-layout-3);
@@ -95,23 +91,30 @@ export class UUIToastNotificationElement extends LitElement {
         --uui-button-padding-right-factor: 1.5;
       }
 
-      :host([look='primary']) #toast > div {
-        background-color: var(--uui-look-primary-surface);
-        color: var(--uui-look-primary-contrast);
+      :host #toast > div {
+        background-color: var(--uui-color-surface);
+        color: var(--uui-color-text);
+        border-color: var(--uui-color-surface);
       }
-      :host([look='positive']) #toast > div {
-        background-color: var(--uui-look-positive-surface);
-        color: var(--uui-look-positive-contrast);
+      :host([color='primary']) #toast > div {
+        background-color: var(--uui-color-default);
+        color: var(--uui-color-default-contrast);
+        border-color: var(--uui-color-default-standalone);
       }
-      :host([look='warning']) #toast > div {
-        background-color: var(--uui-look-warning-surface);
-        color: var(--uui-look-warning-contrast);
-        border-color: var(--uui-look-warning-border);
+      :host([color='positive']) #toast > div {
+        background-color: var(--uui-color-positive);
+        color: var(--uui-color-positive-contrast);
+        border-color: var(--uui-color-positive-standalone);
       }
-      :host([look='danger']) #toast > div {
-        background-color: var(--uui-look-danger-surface);
-        color: var(--uui-look-danger-contrast);
-        border-color: var(--uui-look-danger-border);
+      :host([color='warning']) #toast > div {
+        background-color: var(--uui-color-warning);
+        color: var(--uui-color-warning-contrast);
+        border-color: var(--uui-color-warning-standalone);
+      }
+      :host([color='danger']) #toast > div {
+        background-color: var(--uui-color-danger);
+        color: var(--uui-color-danger-contrast);
+        border-color: var(--uui-color-danger-standalone);
       }
     `,
   ];
@@ -123,7 +126,7 @@ export class UUIToastNotificationElement extends LitElement {
    * @default ""
    */
   @property({ reflect: true })
-  look: InterfaceLookType = InterfaceLookDefaultValue;
+  color = '';
 
   private _autoClose: number | null = null;
   /**
@@ -340,7 +343,8 @@ export class UUIToastNotificationElement extends LitElement {
           <div id="close">
             <uui-button
               .label=${'close'}
-              .look=${this.look}
+              ?color=${this.color}
+              .look=${this.color ? 'primary' : 'default'}
               @click=${() => (this.open = false)}>
               <uui-icon
                 name="remove"

@@ -59,25 +59,25 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       :host(:not([disabled])) #open-part:hover #icon {
-        color: var(--uui-interface-contrast-hover);
+        color: var(--uui-color-interactive-emphasis);
       }
       :host(:not([disabled])) #open-part:hover #name {
         font-weight: 700;
         text-decoration: underline;
-        color: var(--uui-interface-contrast-hover);
+        color: var(--uui-color-interactive-emphasis);
       }
       :host(:not([disabled])) #open-part:hover #detail {
-        color: var(--uui-interface-contrast-hover);
+        color: var(--uui-color-interactive-emphasis);
       }
 
       :host([disabled]) #icon {
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) #name {
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) #detail {
-        color: var(--uui-interface-contrast-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
     `,
   ];

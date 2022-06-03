@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@0.3.1...@umbraco-ui/uui-button@1.0.0-rc.0) (2022-06-02)
+
+### Features
+
+- add href attribute to uui-button & uui-tab ([9cda1f8](https://github.com/umbraco/Umbraco.UI/commit/9cda1f8530df0ddf6a9265b6bfafa35b8d9bf385))
+
+# [1.0.0-alpha.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@0.3.1...@umbraco-ui/uui-button@1.0.0-alpha.0) (2022-06-01)
+
+**Note:** Version bump only for package @umbraco-ui/uui-button
+
 ## [0.3.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@0.3.0...@umbraco-ui/uui-button@0.3.1) (2022-05-31)
 
 **Note:** Version bump only for package @umbraco-ui/uui-button

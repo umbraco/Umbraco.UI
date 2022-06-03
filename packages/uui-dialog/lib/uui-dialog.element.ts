@@ -14,10 +14,11 @@ export class UUIDialogElement extends LitElement {
         position: relative;
         display: block;
         max-width: 400px;
+        color: var(--uui-color-text);
 
         background-color: var(
           --uui-dialog-background-color,
-          var(--uui-interface-surface)
+          var(--uui-color-surface)
         );
 
         box-shadow: var(--uui-shadow-depth-5);

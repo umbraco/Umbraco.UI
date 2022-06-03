@@ -83,9 +83,9 @@ export class UUIButtonInlineCreateElement extends LitElement {
         right: 0;
         left: 0;
         height: 2px;
-        background-color: var(--uui-interface-select);
-        border-top: 1px solid var(--uui-interface-surface);
-        border-bottom: 1px solid var(--uui-interface-surface);
+        background-color: var(--uui-color-selected);
+        border-top: 1px solid var(--uui-color-surface);
+        border-bottom: 1px solid var(--uui-color-surface);
         border-radius: 2px;
         pointer-events: none;
         animation: ${UUIBlinkAnimationValue};
@@ -129,10 +129,10 @@ export class UUIButtonInlineCreateElement extends LitElement {
         height: 28px;
         border-radius: 3em;
         font-size: 14px;
-        border: 2px solid var(--uui-interface-select);
-        color: var(--uui-interface-select);
-        background-color: var(--uui-interface-surface);
-        box-shadow: 0 0 0 2px var(--uui-interface-surface);
+        border: 2px solid var(--uui-color-selected);
+        color: var(--uui-color-selected);
+        background-color: var(--uui-color-surface);
+        box-shadow: 0 0 0 2px var(--uui-color-surface);
 
         opacity: 0;
         transform: scale(0);

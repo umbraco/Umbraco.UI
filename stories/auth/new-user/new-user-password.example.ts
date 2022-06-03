@@ -57,10 +57,12 @@ export class UUINewUserPasswordExample extends LitElement {
                 required-message="New password is required"></uui-input-password>
             </uui-form-layout-item>
 
-            <uui-button
-              type="submit"
-              label="Save password"
-              look="positive"></uui-button>
+            <div style="text-align:right;">
+              <uui-button
+                type="submit"
+                label="Save password"
+                look="primary"></uui-button>
+            </div>
           </form>
         </uui-form>
       </div>

@@ -37,7 +37,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       :host(:not([pristine]):invalid),
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) {
-        border: 1px solid var(--uui-look-danger-border);
+        border: 1px solid var(--uui-color-danger-standalone);
       }
     `,
   ];

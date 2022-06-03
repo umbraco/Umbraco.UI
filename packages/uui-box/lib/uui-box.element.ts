@@ -21,12 +21,12 @@ export class UUIBoxElement extends LitElement {
         display: block;
         box-shadow: var(--uui-shadow-depth-1);
         border-radius: var(--uui-border-radius);
-        background-color: var(--uui-interface-surface);
+        background-color: var(--uui-color-surface);
       }
 
       #header {
         display: block;
-        border-bottom: 1px solid var(--uui-interface-border);
+        border-bottom: 1px solid var(--uui-color-divider-standalone);
         padding: var(--uui-size-space-4) var(--uui-size-space-5);
       }
 

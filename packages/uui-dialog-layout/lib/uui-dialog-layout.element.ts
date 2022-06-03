@@ -16,6 +16,7 @@ export class UUIDialogLayoutElement extends LitElement {
       :host {
         display: block;
         padding: var(--uui-size-10) var(--uui-size-14);
+        color: var(--uui-color-text);
       }
 
       #actions {

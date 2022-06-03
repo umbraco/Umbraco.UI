@@ -95,14 +95,17 @@ export class UUILoginExample extends LitElement {
               </uui-checkbox>
             </uui-form-layout-item>
 
-            <uui-button
-              type="submit"
-              label="Login"
-              look="positive"
-              state=${ifDefined(
-                this._loggingIn ? 'waiting' : undefined
-              )}></uui-button>
-            <uui-button type="button" label="Forgot Password?"></uui-button>
+            <div style="text-align:right;">
+              <uui-button type="button" label="Forgot Password?"></uui-button>
+              <uui-button
+                type="submit"
+                label="Login"
+                look="primary"
+                color="positive"
+                state=${ifDefined(
+                  this._loggingIn ? 'waiting' : undefined
+                )}></uui-button>
+            </div>
           </form>
         </uui-form>
       </div>

@@ -18,14 +18,14 @@ export class UUIProgressBarElement extends LitElement {
         height: 4px;
         position: relative;
         overflow: hidden;
-        background: var(--uui-interface-surface-alt);
+        background: var(--uui-color-surface-alt);
         border-radius: 100px;
         display: inline-block;
       }
 
       #bar {
         transition: width 250ms ease;
-        background: var(--uui-look-positive-surface);
+        background: var(--uui-color-positive);
         height: 100%;
         width: 0%;
       }
