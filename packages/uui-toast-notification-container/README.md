@@ -1,6 +1,6 @@
 # uui-toast-notification-container
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-container?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-container?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toast-notification-container)
 
 Umbraco style toast-notification-container component.
 

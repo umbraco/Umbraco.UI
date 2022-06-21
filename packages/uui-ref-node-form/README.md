@@ -1,6 +1,6 @@
 # uui-ref-node-form
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-node-form?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-node-form?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-ref-node-form)
 
 Umbraco style ref-node-form component.
 

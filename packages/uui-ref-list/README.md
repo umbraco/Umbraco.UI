@@ -1,6 +1,6 @@
 # uui-ref-list
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-list?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-list?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-ref-list)
 
 Umbraco style ref-list component.
 

@@ -1,6 +1,6 @@
 # uui-symbol-lock
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-lock?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-lock?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-symbol-lock)
 
 Umbraco style symbol-lock component.
 

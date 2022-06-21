@@ -1,6 +1,6 @@
 # uui-card
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card)
 
 ### See it in action
 

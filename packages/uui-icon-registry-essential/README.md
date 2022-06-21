@@ -1,6 +1,6 @@
 # uui-icon-registry-essential
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-icon-registry-essential?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-icon-registry-essential?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-icon-registry-essential)
 
 Umbraco style icon-registry-essential component.
 

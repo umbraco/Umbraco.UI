@@ -1,6 +1,6 @@
 # uui-pagination
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-pagination?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-pagination?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-pagination)
 
 Umbraco style pagination component. By implementing a resizeObserver it changes the number of visible buttons to fit the width of the container it sits in. Check this out in the [Storybook](https://uui.umbraco.com/?path=/story/uui-pagination--aaa-overview). Uses `<uui-button></uui-button>` and `<uui-button-group></uui-button-group>`.
 
