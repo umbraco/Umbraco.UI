@@ -118,60 +118,6 @@ AAAOverview.parameters = {
   },
 };
 
-export const SelectableRows: Story = () =>
-  html`
-    <div style="width: 100%;">
-      <uui-table>
-        <uui-table-column
-          style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
-        <uui-table-head>
-          ${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
-          )}
-        </uui-table-head>
-        <uui-table-row selectable>
-          ${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-        <uui-table-row selectable>
-          ${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-      </uui-table>
-    </div>
-  `;
-
-SelectableRows.parameters = {
-  docs: {
-    source: {
-      code: ` <uui-table aria-label="Example table" aria-describedby="#some-element-id">
-
-        <!-- Apply styles to the uui-table-column to style the columns. You must have the same number of this elements as you have columns -->
-        <uui-table-column style="width: 20%; background-color: green"></uui-table-column>
-        <uui-table-column style="width: 80%; background-color: red"></uui-table-column>
-
-        <uui-table-head>
-          <uui-table-head-cell>Title 1</uui-table-head-cell>
-          <uui-table-head-cell>Title 2</uui-table-head-cell>
-        </uui-table-head>
-
-        <uui-table-row selectable>
-          <uui-table-cell>Cell 1</uui-table-cell>
-          <uui-table-cell>Cell 2</uui-table-cell>
-        </uui-table-row>
-
-        <uui-table-row selectable>
-          <uui-table-cell>Cell 3</uui-table-cell>
-          <uui-table-cell>Cell 4</uui-table-cell>
-        </uui-table-row>
-
-      </uui-table>`,
-    },
-  },
-};
-
 export const OverflowDetection: Story = () =>
   html`
     <h5>
