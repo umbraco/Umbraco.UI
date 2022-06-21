@@ -43,9 +43,6 @@ AAAOverview.args = {
   slot: 'Very very very Very very very Very very very Very very very Very very very long sentence',
 };
 AAAOverview.parameters = {
-  controls: {
-    include: ['disableChildInteraction', 'noPadding', 'clipText', 'slot'],
-  },
   docs: {
     source: {
       code: `
