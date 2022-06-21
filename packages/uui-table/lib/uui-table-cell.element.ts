@@ -6,6 +6,8 @@ import { property } from 'lit/decorators.js';
  *  Table cell that detects if it has overflow and if so it'll add a title attribute to itself to display full text. Must be a child of uui-table-row
  *  @element uui-table-cell
  *  @slot - slot for table cell content
+ *  @cssprop --uui-table-cell-padding - overwrite the table cell padding
+ *  @cssprop --uui-size-12 - overwrite the table cell height
  */
 @defineElement('uui-table-cell')
 export class UUITableCellElement extends LitElement {
