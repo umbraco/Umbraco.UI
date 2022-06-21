@@ -52,9 +52,13 @@ setCustomElements(customElements);
 
 function WebComponentFormatter(customElements) {
   for (let tag of customElements.tags || []) {
+    // Hide all attributes, since we only use props for storybook
+    tag.attributes = [];
+
     // Find all names of properties
     const propertyNames = (tag.properties || []).map(p => p.name);
 
+    // Run through all slots to clean them up a bit
     for (let slot of tag.slots || []) {
       // Replace the name of the default slot so Storybook will show it
       if (typeof slot.name === 'string' && slot.name.length === 0) {
