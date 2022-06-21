@@ -31,19 +31,6 @@ export const parameters = {
     method: 'alphabetical',
     storySort: sort,
   },
-  // Hides the CSS: [] property on the docs page.
-  argTypes: {
-    styles: {
-      table: {
-        disable: true,
-      },
-    },
-    formAssociated: {
-      table: {
-        disable: true,
-      },
-    },
-  },
 };
 
 WebComponentFormatter(customElements);
@@ -54,6 +41,24 @@ function WebComponentFormatter(customElements) {
   for (let tag of customElements.tags || []) {
     // Hide all attributes, since we only use props for storybook
     tag.attributes = [];
+
+    // Hide all 'styles' and 'formAssociated' entries for properties
+    for (let prop in tag.properties || []) {
+      if (
+        tag.properties[prop].name === 'styles' ||
+        tag.properties[prop].name === 'formAssociated'
+      ) {
+        delete tag.properties[prop];
+      }
+    }
+
+    // Run through all CSS Custom Properties and clean them a bit
+    for (let cssProp of tag.cssProperties || []) {
+      // If the property does not have a type, set it to string
+      if (!cssProp.type) {
+        cssProp.type = 'string';
+      }
+    }
 
     // Find all names of properties
     const propertyNames = (tag.properties || []).map(p => p.name);
@@ -66,6 +71,7 @@ function WebComponentFormatter(customElements) {
       }
 
       // If the slot has the same name as a property, then add the word 'slot' to the name
+      // Bug reported to Storybook here: https://github.com/storybookjs/storybook/issues/17733
       if (propertyNames.includes(slot.name)) {
         slot.name = `${slot.name} slot`;
       }
