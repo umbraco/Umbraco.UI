@@ -21,6 +21,8 @@ export class UUISymbolExpandElement extends LitElement {
         transform: rotate(-90deg);
         transform-origin: 50% 50%;
         transition: transform 120ms ease-in-out;
+        width: 100%;
+        height: 100%;
       }
 
       :host([open]) svg {
