@@ -23,22 +23,26 @@ const Readme = props => {
       setMarkdown('');
       const component = api.getCurrentStoryData().component;
       if (component) {
-        const readme =
-          require(`!raw-loader!../../packages/${component}/README.md`).default;
+        try {
+          const readme =
+            require(`!raw-loader!../../packages/${component}/README.md`).default;
 
-        setMarkdown(readme);
+          setMarkdown(readme);
 
-        const syntaxHighlighters = document.querySelectorAll(
-          '.storybook-readme-syntax-highlighter'
-        );
+          const syntaxHighlighters = document.querySelectorAll(
+            '.storybook-readme-syntax-highlighter'
+          );
 
-        if (syntaxHighlighters.length > 0) {
-          for (const item of syntaxHighlighters) {
-            const children = item.children;
-            const parent = item.parentElement;
+          if (syntaxHighlighters.length > 0) {
+            for (const item of syntaxHighlighters) {
+              const children = item.children;
+              const parent = item.parentElement;
 
-            parent.append(...children);
+              parent.append(...children);
+            }
           }
+        } catch (e) {
+          console.warn('No README file found for', component);
         }
       }
     });
