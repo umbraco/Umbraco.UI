@@ -39,6 +39,10 @@ export class UUITableCellElement extends LitElement {
         position: absolute;
         inset: 0;
       }
+
+      :host([no-padding]) {
+        padding: 0;
+      }
     `,
   ];
 
