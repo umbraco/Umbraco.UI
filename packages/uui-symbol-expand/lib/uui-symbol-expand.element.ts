@@ -38,7 +38,7 @@ export class UUISymbolExpandElement extends LitElement {
   public open = false;
 
   render() {
-    return html`<svg viewBox="0 0 512 512">
+    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
     </svg>`;
   }
