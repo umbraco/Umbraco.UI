@@ -12,6 +12,7 @@ import { UUITableCellElement } from './uui-table-cell.element';
  *  Table row element with option to set is as selectable. Parent for uui-table-cell. Must be a child of uui-table.
  *  @element uui-table-row
  *  @slot for <uui-table-cell> elements that should be in the row.
+ *  @cssprop --uui-color-selected - color of the selected row
  */
 @defineElement('uui-table-row')
 export class UUITableRowElement extends SelectOnlyMixin(
