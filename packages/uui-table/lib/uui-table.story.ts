@@ -2,7 +2,7 @@ import '.';
 import './uui-table-advanced-example';
 import '@umbraco-ui/uui-box/lib';
 
-import { Story } from '@storybook/web-components';
+import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
@@ -11,7 +11,14 @@ export default {
   title: 'Layout/Table/Table',
   component: 'uui-table',
   id: 'uui-table',
-};
+  subcomponents: {
+    UUITableColumn: 'uui-table-column',
+    UUITableHead: 'uui-table-head',
+    UUITableHeadCell: 'uui-table-head-cell',
+    UUITableRow: 'uui-table-row',
+    UUITableCell: 'uui-table-cell',
+  },
+} as Meta;
 
 export const AAAOverview: Story = props =>
   html`
