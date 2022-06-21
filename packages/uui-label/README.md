@@ -1,6 +1,6 @@
 # uui-label
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-label?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-label?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-label)
 
 Umbraco style label component.
 

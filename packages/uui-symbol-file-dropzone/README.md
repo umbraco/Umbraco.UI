@@ -1,6 +1,6 @@
 # uui-symbol-file-dropzone
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-file-dropzone?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-file-dropzone?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-symbol-file-dropzone)
 
 Umbraco style symbol-file-dropzone component.
 

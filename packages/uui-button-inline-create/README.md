@@ -1,6 +1,6 @@
 # uui-button-inline-create
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-inline-create?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-inline-create?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-button-inline-create)
 
 Umbraco style button-inline-create component.
 

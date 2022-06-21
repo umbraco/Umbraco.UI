@@ -1,8 +1,12 @@
 # uui-file-preview
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-file-preview?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-file-preview?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-file-preview)
 
 Umbraco style file-preview component.
+
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-file-preview)
 
 ## Installation
 

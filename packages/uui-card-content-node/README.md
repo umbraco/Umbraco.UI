@@ -1,6 +1,6 @@
 # uui-card-content-node
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-content-node?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-content-node?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card-content-node)
 
 Umbraco style card-content-node component.
 

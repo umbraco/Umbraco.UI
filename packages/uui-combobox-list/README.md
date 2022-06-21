@@ -1,8 +1,12 @@
 # uui-combobox-list
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-combobox-list?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-combobox-list?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-combobox-list)
 
 Umbraco style combobox-list component.
+
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-combobox-list)
 
 ## Installation
 

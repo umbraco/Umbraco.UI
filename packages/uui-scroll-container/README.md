@@ -1,6 +1,6 @@
 # uui-scroll-container
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-scroll-container?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-scroll-container?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-scroll-container)
 
 Umbraco style scroll-container component.
 

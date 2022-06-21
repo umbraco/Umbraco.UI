@@ -1,6 +1,6 @@
 # uui-ref-node-package
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-node-package?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-node-package?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-ref-node-package)
 
 Umbraco style ref-node-package component.
 

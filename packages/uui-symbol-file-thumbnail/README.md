@@ -1,6 +1,6 @@
 # uui-symbol-file-thumbnail
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-file-thumbnail?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-file-thumbnail?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-symbol-file-thumbnail)
 
 Umbraco style symbol-file-thumbnail component.
 

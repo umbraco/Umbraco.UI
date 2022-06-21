@@ -1,6 +1,6 @@
 # uui-form-validation-message
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-form-validation-message?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-form-validation-message?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-form-validation-message)
 
 Umbraco style form-validation-message component.
 

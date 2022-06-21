@@ -1,6 +1,6 @@
 # uui-icon-registry
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-icon-registry?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-icon-registry?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-icon-registry)
 
 Umbraco style icon-registry component.
 
