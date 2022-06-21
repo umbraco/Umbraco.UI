@@ -8,7 +8,7 @@ import { html } from 'lit-html';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
-  title: 'Layout/Table',
+  title: 'Layout/Table/Table',
   component: 'uui-table',
   id: 'uui-table',
 };
