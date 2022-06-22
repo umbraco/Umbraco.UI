@@ -36,7 +36,27 @@ export default {
   parameters: {
     docs: {
       source: {
-        code: `<uui-popover></uui-popover>`,
+        code: `
+<script>
+  var popover = document.getElementById('myPopover');
+  var popoverOpenBtn = document.getElementById('myPopoverBtn');
+
+  popoverOpenBtn.addEventListener('click', () => {
+    popover.open = !popover.open;
+  });
+</script>
+
+<uui-popover placement="bottom-start" id="myPopover">
+  <uui-button
+    slot="trigger"
+    look="primary"
+    label="Open dropdown"
+    id="myPopoverBtn">
+  </uui-button>
+  <div slot="popover">
+    My Content appearing inside popover box.
+  </div>
+</uui-popover>`,
       },
     },
     chromatic: { disableSnapshot: true },
@@ -230,6 +250,11 @@ Nested.parameters = {
   controls: {
     include: ['placement', 'margin'],
   },
+  docs: {
+    source: {
+      code: `See story code as example`,
+    },
+  },
 };
 
 export const Tooltip: Story = props => {
@@ -313,6 +338,11 @@ Tooltip.args = {
 Tooltip.parameters = {
   controls: {
     include: ['placement', 'margin'],
+  },
+  docs: {
+    source: {
+      code: `See story code as example`,
+    },
   },
 };
 
