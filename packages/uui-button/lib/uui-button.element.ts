@@ -58,8 +58,6 @@ export class UUIButtonElement extends FormControlMixin(
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
-        --uui-button-padding-top-factor: 1;
-        --uui-button-padding-bottom-factor: 1;
 
         height: var(--uui-button-height, var(--uui-size-11));
         max-height: 100%;
