@@ -53,6 +53,8 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
         );
         border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
+
+        --uui-button-height: 100%;
       }
       :host(:hover) {
         border-color: var(
