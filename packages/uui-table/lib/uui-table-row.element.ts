@@ -29,7 +29,10 @@ export class UUITableRowElement extends SelectOnlyMixin(
         cursor: pointer;
       }
 
-      :host([selected]) {
+      :host([selected])::after {
+        content: '';
+        position: absolute;
+        inset: 0;
         outline: 2px solid
           var(--uui-table-row-color-selected, var(--uui-color-selected));
         outline-offset: -3px;
