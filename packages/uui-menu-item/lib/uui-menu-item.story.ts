@@ -274,7 +274,7 @@ WithBadge.parameters = {
     source: {
       code: html`
         <uui-menu-item label="Menu Item 2">
-          <uui-badge slot="badge" look="warning">!</uui-badge>
+          <uui-badge slot="badge" color="warning">!</uui-badge>
         </uui-menu-item>
       `.strings,
     },

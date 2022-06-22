@@ -29,5 +29,5 @@ import { UUIBadgeElement } from '@umbraco-ui/uui-badge';
 ## Usage
 
 ```html
-<uui-badge look="danger">!</uui-badge>
+<uui-badge color="danger">!</uui-badge>
 ```

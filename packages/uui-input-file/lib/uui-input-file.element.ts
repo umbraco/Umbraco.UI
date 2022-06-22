@@ -239,7 +239,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       <uui-action-bar slot="actions">
         <uui-button
           @click=${() => this._removeFile(index)}
-          look="danger"
+          color="danger"
           label=${`Delete ${file.name}`}>
           <uui-icon name="delete" .fallback=${iconDelete.strings[0]}></uui-icon>
         </uui-button>
