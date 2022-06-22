@@ -34,11 +34,15 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         display: none;
       }
 
+      uui-table-row:focus uui-icon,
+      uui-table-row:focus-within uui-icon,
       uui-table-row:hover uui-icon,
       uui-table-row[select-only] uui-icon {
         display: none;
       }
 
+      uui-table-row:focus uui-checkbox,
+      uui-table-row:focus-within uui-checkbox,
       uui-table-row:hover uui-checkbox,
       uui-table-row[select-only] uui-checkbox {
         display: inline-block;
