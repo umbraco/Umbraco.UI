@@ -48,6 +48,8 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         display: inline-block;
       }
 
+      uui-table-head-cell:focus,
+      uui-table-head-cell:focus-within,
       uui-table-head-cell:hover {
         --uui-symbol-sort-hover: 1;
       }
