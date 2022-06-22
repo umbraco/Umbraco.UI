@@ -21,8 +21,6 @@ export class UUIAppHeaderExample extends LitElement {
       }
 
       #logo {
-        --uui-button-padding-top-factor: 1;
-        --uui-button-padding-bottom-factor: 0.5;
         margin-right: var(--uui-size-space-2);
       }
 
