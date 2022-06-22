@@ -7,7 +7,7 @@ import { property } from 'lit/decorators.js';
  *  @element uui-table-cell
  *  @slot - slot for table cell content
  *  @cssprop --uui-table-cell-padding - overwrite the table cell padding
- *  @cssprop --uui-size-12 - overwrite the table cell height
+ *  @cssprop --uui-table-cell-height - overwrite the table cell height
  *  @cssprop --uui-border-color - overwrite the table cell border color
  */
 @defineElement('uui-table-cell')
@@ -16,7 +16,7 @@ export class UUITableCellElement extends LitElement {
     css`
       :host {
         display: table-cell;
-        height: var(--uui-size-12);
+        height: var(--uui-table-cell-height, --uui-size-12);
         padding: var(
           --uui-table-cell-padding,
           var(--uui-size-4) var(--uui-size-5)
