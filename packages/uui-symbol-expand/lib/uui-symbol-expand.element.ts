@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 /**
- *  A symbol indicating weather related composition is expanded or collapsed
+ *  A symbol indicating whether related composition is expanded or collapsed
  *  @element uui-symbol-expand
  */
 @defineElement('uui-symbol-expand')

@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-symbol-sort
- *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting is ascending or descending.
+ *  @description A symbol indicating whether related composition is sorting(active) and whether the sorting is ascending or descending.
  *  Please define aria-sort on the header for the composition.
  */
 @defineElement('uui-symbol-sort')
