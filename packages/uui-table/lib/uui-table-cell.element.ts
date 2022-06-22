@@ -8,7 +8,6 @@ import { property } from 'lit/decorators.js';
  *  @slot - slot for table cell content
  *  @cssprop --uui-table-cell-padding - overwrite the table cell padding
  *  @cssprop --uui-table-cell-height - overwrite the table cell height
- *  @cssprop --uui-border-color - overwrite the table cell border color
  */
 @defineElement('uui-table-cell')
 export class UUITableCellElement extends LitElement {
