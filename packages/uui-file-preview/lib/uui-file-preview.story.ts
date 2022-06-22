@@ -27,7 +27,7 @@ export const AAAOverview: Story = () => {
     <uui-icon-registry-essential>
       <uui-file-preview id="filePreview">
         <uui-action-bar slot="actions">
-          <uui-button look="danger">
+          <uui-button color="danger">
             <uui-icon name="delete"></uui-icon>
           </uui-button>
         </uui-action-bar>
@@ -49,7 +49,7 @@ filePreview.file = file;
   <uui-file-preview
     id="imagePreview">
     <uui-action-bar slot="actions">
-      <uui-button look="danger">
+      <uui-button color="danger">
         <uui-icon name="delete"></uui-icon>
       </uui-button>
     </uui-action-bar>
@@ -81,7 +81,7 @@ export const Image: Story = () => {
     <uui-icon-registry-essential>
       <uui-file-preview id="imagePreview">
         <uui-action-bar slot="actions">
-          <uui-button look="danger">
+          <uui-button color="danger">
             <uui-icon name="delete"></uui-icon>
           </uui-button>
         </uui-action-bar>
@@ -112,7 +112,7 @@ init();
   <uui-file-preview
     id="imagePreview">
     <uui-action-bar slot="actions">
-      <uui-button look="danger">
+      <uui-button color="danger">
         <uui-icon name="delete"></uui-icon>
       </uui-button>
     </uui-action-bar>
