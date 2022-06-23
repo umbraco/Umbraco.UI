@@ -4,7 +4,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 export default {
   nodeResolve: true,
   files: 'packages/**/*.test.ts',
-  plugins: [esbuildPlugin({ ts: true, target: 'auto' })],
+  plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
   browsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),
