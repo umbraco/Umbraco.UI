@@ -16,7 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "useDefineForClassFields": false,
     "importHelpers": true,
     "sourceMap": true,
     "inlineSources": true,
