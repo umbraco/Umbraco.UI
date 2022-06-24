@@ -95,7 +95,7 @@ export const InterfaceColors = () => {
     'interactive',
   ];
   const state = ['selected', 'current', 'disabled'];
-  const color = ['primary', 'positive', 'warning', 'danger', 'disabled'];
+  const color = ['default', 'positive', 'warning', 'danger', 'disabled'];
   const universal = ['header', 'focus', 'hover'];
 
   return html`
@@ -128,11 +128,11 @@ export const InterfaceColors = () => {
       <ul>
         <li>
           <b>Selected</b> - Use to highlight text or background when a component
-          is in the 'selected' stated.
+          is in the 'selected' state.
         </li>
         <li>
           <b>Current</b> - Use to highlight text or background when a component
-          is in the 'current' stated, only used by navigation items to indicate
+          is in the 'current' state, only used by navigation items to indicate
           the current location.
         </li>
         <li><b>Disabled</b> - Use for displaying disabled state.</li>
