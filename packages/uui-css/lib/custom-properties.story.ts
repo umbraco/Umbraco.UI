@@ -86,7 +86,7 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
 </uui-table-row>`;
 
 export const InterfaceColors = () => {
-  const surface = [
+  const base = [
     'surface',
     'background',
     'text',
@@ -99,75 +99,86 @@ export const InterfaceColors = () => {
   const universal = ['header', 'focus', 'hover'];
 
   return html`
-    <h2>Interface Colors</h2>
-    <p>
-      These are used to overwrite selected interface properties to get a
-      specific look.
-    </p>
+    <article style="max-width:580px;">
+      <div
+        style="display:block; border-bottom: 1px solid var(--uui-palette-cocoa-black); padding-top: var(--uui-size-layout-5); margin-bottom:var(--uui-size-layout-3); padding-bottom:var(--uui-size-layout-1);">
+        <h1>Interface Colors</h1>
+        <p class="uui-lead">
+          Interface styling should use the following properties to ensure
+          contrasts and appearance follows the current theme.
+        </p>
+        <p>
+          Here's a description and examples of how to use the interface colors.
+        </p>
+      </div>
 
-    <h3>Naming convention</h3>
-    <p>Here's a description and examples of how to use the interface colors.</p>
-    <h4>Color variants</h4>
-    <p>Most colors has up to 3 variants.</p>
-    <ul>
-      <li>
-        <b>Contrast</b> - This color will stand out and be readable with the
-        main color as it's background. Mostly used for text and icons.
-      </li>
-      <li>
-        <b>Standalone</b> - This color will have a higher contrast to the
-        surface color than it's main variant. Example: if the surface color is
-        light, the standalone variant will be a darker variant of the main
-        color. Often used when thin or smaller items has to stand out on the
-        surface backgrounds. Items such as: text, icons and border.
-      </li>
-      <li>
-        <b>Emphasis</b> - Used when you want to emphasize an element, make it
-        stand out. Mostly used for hover and focus states.
-      </li>
-    </ul>
-    <h4>Text and interactables</h4>
-    <ul>
-      <li>
-        <b>Text</b> - Used for most text, or icons appearing together with text
-      </li>
-      <li>
-        <b>Interactable</b> - Used when the text or icon is interactable, such
-        as a link
-      </li>
-    </ul>
-    <h4>States</h4>
-    <ul>
-      <li>
-        <b>Selected</b> - Used to highlight the text or background color of
-        items that are currently selected.
-      </li>
-      <li>
-        <b>Current</b> - Only used to show navigation. Example: Background or
-        text color of the current tab or breadcrumb.
-      </li>
-      <li><b>Disabled</b> - For elements that are disabled.</li>
-    </ul>
-    <h4>Borders and dividers</h4>
-    <ul>
-      <li><b>Border</b> - Used when an element needs a border around it</li>
-      <li>
-        <b>Divider</b> - For elements that needs to be visually separated.
-        Example: a list of items
-      </li>
-    </ul>
-    <h4>Misc</h4>
-    <ul>
-      <li><b>Surface</b> - The main background color for elements</li>
-      <li><b>Background</b> - The main background color of the app</li>
-      <li><b>Header</b> - Background color of the header of the app</li>
-      <li>
-        <b>Focus</b> - Color for the focus outline on inputs, buttons, links and
-        so on
-      </li>
-    </ul>
+      <h4>Text and interactables</h4>
+      <ul>
+        <li>
+          <b>Text</b> - Used for most text, or icons appearing together with
+          text
+        </li>
+        <li>
+          <b>Interactable</b> - Used when the text or icon is interactable, such
+          as a link
+        </li>
+      </ul>
 
-    <h3>Surface</h3>
+      <h4>States</h4>
+      <ul>
+        <li>
+          <b>Selected</b> - Used to highlight the text or background color of
+          items that are currently selected.
+        </li>
+        <li>
+          <b>Current</b> - Only used to show navigation. Example: Background or
+          text color of the current tab or breadcrumb.
+        </li>
+        <li><b>Disabled</b> - For elements that are disabled.</li>
+      </ul>
+
+      <h4>Borders and dividers</h4>
+      <ul>
+        <li><b>Border</b> - Used when an element needs a border around it</li>
+        <li>
+          <b>Divider</b> - For elements that needs to be visually separated.
+          Example: a list of items
+        </li>
+      </ul>
+
+      <h4>Misc</h4>
+      <ul>
+        <li><b>Surface</b> - The main background color for elements</li>
+        <li><b>Background</b> - The main background color of the app</li>
+        <li><b>Header</b> - Background color of the header of the app</li>
+        <li>
+          <b>Focus</b> - Color for the focus outline on inputs, buttons, links
+          and so on
+        </li>
+      </ul>
+
+      <h4>Color variants</h4>
+      <p>Each color can come in additional variants:</p>
+      <ul>
+        <li>
+          <b>Contrast</b> - This color will stand out and be readable with the
+          main color as it's background. Mostly used for text and icons.
+        </li>
+        <li>
+          <b>Standalone</b> - This color will have a higher contrast to the
+          surface color than it's main variant. Example: if the surface color is
+          light, the standalone variant will be a darker variant of the main
+          color. Often used when thin or smaller items has to stand out on the
+          surface backgrounds. Items such as: text, icons and border.
+        </li>
+        <li>
+          <b>Emphasis</b> - Used when you want to emphasize an element, make it
+          stand out. Mostly used for hover and focus states.
+        </li>
+      </ul>
+    </article>
+
+    <h3>Base</h3>
     <uui-table @click=${copyToClipboard}>
       <uui-table-head>
         <uui-table-head-cell>Custom property name</uui-table-head-cell>
@@ -175,7 +186,7 @@ export const InterfaceColors = () => {
         <uui-table-head-cell>Example</uui-table-head-cell>
       </uui-table-head>
       ${properties
-        .filter(property => surface.some(x => property.key.includes(x)))
+        .filter(property => base.some(x => property.key.includes(x)))
         .map(property => propertyColorTemplate(property))}
     </uui-table>
 
