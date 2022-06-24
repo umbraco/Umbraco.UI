@@ -1,6 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *
@@ -9,14 +10,6 @@ import { property } from 'lit/decorators.js';
  *  @slot - slot for tag contents
  *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
  */
-
-export type Look =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'placeholder';
-export type Color = 'default' | 'positive' | 'warning' | 'danger';
 
 @defineElement('uui-tag')
 export class UUITagElement extends LitElement {
@@ -98,7 +91,7 @@ export class UUITagElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  color: Color = 'default';
+  color: InterfaceColor = 'default';
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
@@ -107,7 +100,7 @@ export class UUITagElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  look: Look = 'primary';
+  look: InterfaceLook = 'primary';
 
   render() {
     return html`<slot></slot>`;

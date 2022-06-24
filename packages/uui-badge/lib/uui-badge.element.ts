@@ -1,6 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  A badge to notify that there is something that requires attention of the user. The badge is positioned with `position: absolute`. It will determine its position against the first ancestor with `position: relative`.
@@ -8,13 +9,6 @@ import { property } from 'lit/decorators.js';
  *  @slot - The slot for badge contents
  */
 
-export type Look =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'placeholder';
-export type Color = 'default' | 'positive' | 'warning' | 'danger';
 @defineElement('uui-badge')
 export class UUIBadgeElement extends LitElement {
   static styles = [
@@ -138,7 +132,7 @@ export class UUIBadgeElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  color: Color = 'default';
+  color: InterfaceColor = 'default';
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
@@ -147,7 +141,7 @@ export class UUIBadgeElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  look: Look = 'primary';
+  look: InterfaceLook = 'primary';
 
   /**
    * Bring attention to this badge by applying a bounce animation.

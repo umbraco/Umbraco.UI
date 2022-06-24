@@ -12,18 +12,11 @@ import {
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
 
 export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
 export type UUIButtonType = 'submit' | 'button' | 'reset';
-
-export type Look =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'placeholder';
-export type Color = 'default' | 'positive' | 'warning' | 'danger';
 
 /**
  *  @element uui-button
@@ -373,7 +366,7 @@ export class UUIButtonElement extends FormControlMixin(
    * @default "default"
    */
   @property({ reflect: true })
-  look: Look = 'default';
+  look: InterfaceLook = 'default';
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
@@ -382,7 +375,7 @@ export class UUIButtonElement extends FormControlMixin(
    * @default "default"
    */
   @property({ reflect: true })
-  color: Color = 'default';
+  color: InterfaceColor = 'default';
 
   /**
    * Makes the left and right padding of the button narrower.
