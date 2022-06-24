@@ -87,16 +87,27 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
 
 export const InterfaceColors = () => {
   const base = [
-    'surface',
-    'background',
-    'text',
-    'color-border',
-    'divider',
-    'interactive',
+    '--uui-color-surface',
+    '--uui-color-background',
+    '--uui-color-text',
+    '--uui-color-color-border',
+    '--uui-color-divider',
+    '--uui-color-interactive',
   ];
-  const state = ['selected', 'current', 'disabled'];
-  const color = ['default', 'positive', 'warning', 'danger', 'disabled'];
-  const universal = ['header', 'focus', 'hover'];
+  const state = [
+    '--uui-color-selected',
+    '--uui-color-current',
+    '--uui-color-disabled',
+    '--uui-color-focus',
+  ];
+  const color = [
+    '--uui-color-default',
+    '--uui-color-positive',
+    '--uui-color-warning',
+    '--uui-color-danger',
+    '--uui-color-disabled',
+  ];
+  const universal = ['--uui-color-header'];
 
   return html`
     <article style="max-width:580px;">
@@ -159,12 +170,12 @@ export const InterfaceColors = () => {
       </ul>
 
       <h4>Color variants</h4>
-      <p>Each color can come in additional variants:</p>
+      <p>
+        Each color can come in additional variants. What below is refereed to as
+        the default variant, meaning no variant-name is prepended to the
+        variable-name:
+      </p>
       <ul>
-        <li>
-          <b>Default</b> - Each color comes in a default variant, meaning no
-          variant-name prepended to the variable-name.
-        </li>
         <li>
           <b>Contrast</b> - This color will stand out and be readable with the
           default variant as it's background. Mostly used for text and icons.
