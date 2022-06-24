@@ -40,10 +40,7 @@ export class UUIBadgeElement extends LitElement {
         box-sizing: border-box;
 
         border-radius: var(--uui-size-4);
-
-        /** default color: */
-        background-color: var(--uui-color-default);
-        color: var(--uui-color-default-contrast);
+        border: 1px solid transparent;
       }
 
       :host {
@@ -70,8 +67,8 @@ export class UUIBadgeElement extends LitElement {
       :host {
         background-color: var(--uui-color-surface);
         color: var(--color-standalone);
+        border-color: transparent;
       }
-
       :host([look='primary']) {
         background-color: var(--color);
         color: var(--color-contrast);
@@ -83,13 +80,13 @@ export class UUIBadgeElement extends LitElement {
         border-color: transparent;
       }
       :host([look='outline']) {
-        background-color: transparent;
+        background-color: var(--uui-color-surface);
         color: var(--color-standalone);
         border-color: var(--color-standalone);
       }
       :host([look='placeholder']) {
         border-style: dashed;
-        background-color: transparent;
+        background-color: var(--uui-color-surface);
         color: var(--color-standalone);
         border-color: var(--uui-color-border-standalone);
       }
@@ -150,7 +147,7 @@ export class UUIBadgeElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  look: Look = 'default';
+  look: Look = 'primary';
 
   /**
    * Bring attention to this badge by applying a bounce animation.

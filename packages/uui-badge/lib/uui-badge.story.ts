@@ -131,26 +131,34 @@ OnButton.parameters = {
   },
 };
 
-export const Colors: Story = () => html`
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black">
-    <uui-badge>Default</uui-badge>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="secondary">secondary</uui-badge>
-  </div>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="positive">positive</uui-badge>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="warning">warning</uui-badge>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="danger">danger</uui-badge>
-  </div>
-`;
+const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+const colors = ['default', 'positive', 'warning', 'danger'];
+
+function uppercaseFirstLetter(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export const LooksAndColors: Story = () =>
+  html`
+    ${colors.map(
+      color =>
+        html`
+          <h5>${uppercaseFirstLetter(color)}</h5>
+          <div style="margin-bottom: 32px; display: flex; gap: 16px;">
+            ${looks.map(
+              look => html`
+                <div
+                  style="position:relative; width:100px; height:80px; border: 1px dashed rgba(0,0,0,0.1); margin-top: 16px">
+                  <uui-badge
+                    .look=${look as any}
+                    .color=${color as any}
+                    style="margin-right:12px;"
+                    >${uppercaseFirstLetter(look)}</uui-badge
+                  >
+                </div>
+              `
+            )}
+          </div>
+        `
+    )}
+  `;
