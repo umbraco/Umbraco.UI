@@ -86,19 +86,115 @@ const propertySizeTemplate = (property: any) => html` <uui-table-row>
 </uui-table-row>`;
 
 export const InterfaceColors = () => {
-  const surface = ['surface', 'background', 'text', 'color-border', 'divider'];
-  const state = ['selected', 'current', 'disabled'];
-  const color = ['primary', 'positive', 'warning', 'danger', 'disabled'];
-  const universal = ['header', 'focus', 'hover'];
+  const base = [
+    '--uui-color-surface',
+    '--uui-color-background',
+    '--uui-color-text',
+    '--uui-color-color-border',
+    '--uui-color-divider',
+    '--uui-color-interactive',
+  ];
+  const state = [
+    '--uui-color-selected',
+    '--uui-color-current',
+    '--uui-color-disabled',
+    '--uui-color-focus',
+  ];
+  const color = [
+    '--uui-color-default',
+    '--uui-color-positive',
+    '--uui-color-warning',
+    '--uui-color-danger',
+    '--uui-color-disabled',
+  ];
+  const universal = ['--uui-color-header'];
 
   return html`
-    <h2>Interface Colors</h2>
-    <p>
-      These are used to overwrite selected interface properties to get a
-      specific look.
-    </p>
+    <article style="max-width:580px;">
+      <div
+        style="display:block; border-bottom: 1px solid var(--uui-palette-cocoa-black); padding-top: var(--uui-size-layout-5); margin-bottom:var(--uui-size-layout-3); padding-bottom:var(--uui-size-layout-1);">
+        <h1>Interface Colors</h1>
+        <p class="uui-lead">
+          Interface styling should use the following properties to ensure
+          contrasts and appearance follows the current theme.
+        </p>
+        <p>
+          Here's a description and examples of how to use the interface colors.
+        </p>
+      </div>
 
-    <h3>Surface</h3>
+      <h4>Text and interactables</h4>
+      <ul>
+        <li>
+          <b>Text</b> - Use it for text, icons or other elements that needs to
+          standout from the base of the element
+        </li>
+        <li>
+          <b>Interactable</b> - Used when the text or icon is interactable, such
+          as a link
+        </li>
+      </ul>
+
+      <h4>States</h4>
+      <ul>
+        <li>
+          <b>Selected</b> - Use to highlight text or background when a component
+          is in the 'selected' state.
+        </li>
+        <li>
+          <b>Current</b> - Use to highlight text or background when a component
+          is in the 'current' state, only used by navigation items to indicate
+          the current location.
+        </li>
+        <li><b>Disabled</b> - Use for displaying disabled state.</li>
+      </ul>
+
+      <h4>Borders and dividers</h4>
+      <ul>
+        <li><b>Border</b> - Use for component borders</li>
+        <li>
+          <b>Divider</b> - Used for thin border that provides a visual
+          separation. Example: a list of items
+        </li>
+      </ul>
+
+      <h4>Misc</h4>
+      <ul>
+        <li><b>Surface</b> - The general background color for elements</li>
+        <li><b>Background</b> - The general background color of the app</li>
+        <li><b>Header</b> - Background color of the header of the app</li>
+        <li>
+          <b>Focus</b> - Color for the focus outline on inputs, buttons, links
+          and so on
+        </li>
+      </ul>
+
+      <h4>Color variants</h4>
+      <p>
+        Each color can come in additional variants. What below is refereed to as
+        the default variant, meaning no variant-name is prepended to the
+        variable-name:
+      </p>
+      <ul>
+        <li>
+          <b>Contrast</b> - This color will stand out and be readable with the
+          default variant as it's background. Mostly used for text and icons.
+        </li>
+        <li>
+          <b>Standalone</b> - This color will have a higher contrast to the
+          background than it's default variant. Example: if the background is
+          light, the standalone variant will be a darker variant of the default
+          variant. Often used when thin or smaller items has to stand out on the
+          background. Useful for items such as: text, icons and border.
+        </li>
+        <li>
+          <b>Emphasis</b> - Used when you want to emphasize an element, make it
+          stand out. Mostly used for hover and focus states.
+        </li>
+      </ul>
+    </article>
+
+    <h3>Base</h3>
     <uui-table @click=${copyToClipboard}>
       <uui-table-head>
         <uui-table-head-cell>Custom property name</uui-table-head-cell>
@@ -106,7 +202,7 @@ export const InterfaceColors = () => {
         <uui-table-head-cell>Example</uui-table-head-cell>
       </uui-table-head>
       ${properties
-        .filter(property => surface.some(x => property.key.includes(x)))
+        .filter(property => base.some(x => property.key.includes(x)))
         .map(property => propertyColorTemplate(property))}
     </uui-table>
 
