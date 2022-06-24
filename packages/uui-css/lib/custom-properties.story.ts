@@ -115,8 +115,8 @@ export const InterfaceColors = () => {
       <h4>Text and interactables</h4>
       <ul>
         <li>
-          <b>Text</b> - Used for most text, or icons appearing together with
-          text
+          <b>Text</b> - Use it for text, icons or other elements that needs to
+          standout from the base of the element
         </li>
         <li>
           <b>Interactable</b> - Used when the text or icon is interactable, such
@@ -127,29 +127,30 @@ export const InterfaceColors = () => {
       <h4>States</h4>
       <ul>
         <li>
-          <b>Selected</b> - Used to highlight the text or background color of
-          items that are currently selected.
+          <b>Selected</b> - Use to highlight text or background when a component
+          is in the 'selected' stated.
         </li>
         <li>
-          <b>Current</b> - Only used to show navigation. Example: Background or
-          text color of the current tab or breadcrumb.
+          <b>Current</b> - Use to highlight text or background when a component
+          is in the 'current' stated, only used by navigation items to indicate
+          the current location.
         </li>
-        <li><b>Disabled</b> - For elements that are disabled.</li>
+        <li><b>Disabled</b> - Use for displaying disabled state.</li>
       </ul>
 
       <h4>Borders and dividers</h4>
       <ul>
-        <li><b>Border</b> - Used when an element needs a border around it</li>
+        <li><b>Border</b> - Use for component borders</li>
         <li>
-          <b>Divider</b> - For elements that needs to be visually separated.
-          Example: a list of items
+          <b>Divider</b> - Used for thin border that provides a visual
+          separation. Example: a list of items
         </li>
       </ul>
 
       <h4>Misc</h4>
       <ul>
-        <li><b>Surface</b> - The main background color for elements</li>
-        <li><b>Background</b> - The main background color of the app</li>
+        <li><b>Surface</b> - The general background color for elements</li>
+        <li><b>Background</b> - The general background color of the app</li>
         <li><b>Header</b> - Background color of the header of the app</li>
         <li>
           <b>Focus</b> - Color for the focus outline on inputs, buttons, links
@@ -161,15 +162,19 @@ export const InterfaceColors = () => {
       <p>Each color can come in additional variants:</p>
       <ul>
         <li>
+          <b>Default</b> - Each color comes in a default variant, meaning no
+          variant-name prepended to the variable-name.
+        </li>
+        <li>
           <b>Contrast</b> - This color will stand out and be readable with the
-          main color as it's background. Mostly used for text and icons.
+          default variant as it's background. Mostly used for text and icons.
         </li>
         <li>
           <b>Standalone</b> - This color will have a higher contrast to the
-          surface color than it's main variant. Example: if the surface color is
-          light, the standalone variant will be a darker variant of the main
-          color. Often used when thin or smaller items has to stand out on the
-          surface backgrounds. Items such as: text, icons and border.
+          background than it's default variant. Example: if the background is
+          light, the standalone variant will be a darker variant of the default
+          variant. Often used when thin or smaller items has to stand out on the
+          background. Useful for items such as: text, icons and border.
         </li>
         <li>
           <b>Emphasis</b> - Used when you want to emphasize an element, make it
