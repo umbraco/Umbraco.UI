@@ -1,12 +1,14 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *  A badge to notify that there is something that requires attention of the user. The badge is positioned with `position: absolute`. It will determine its position against the first ancestor with `position: relative`.
  *  @element uui-badge
  *  @slot - The slot for badge contents
  */
+
 @defineElement('uui-badge')
 export class UUIBadgeElement extends LitElement {
   static styles = [
@@ -32,26 +34,55 @@ export class UUIBadgeElement extends LitElement {
         box-sizing: border-box;
 
         border-radius: var(--uui-size-4);
-
-        /** default color: */
-        background-color: var(--uui-color-default);
-        color: var(--uui-color-default-contrast);
+        border: 1px solid transparent;
       }
-      :host([color='secondary']) {
-        background-color: var(--uui-color-surface-alt);
-        color: var(--uui-color-default);
+
+      :host {
+        --color: var(--uui-color-default);
+        --color-standalone: var(--uui-color-default-standalone);
+        --color-contrast: var(--uui-color-default-contrast);
       }
       :host([color='positive']) {
-        background-color: var(--uui-color-positive);
-        color: var(--uui-color-positive-contrast);
+        --color: var(--uui-color-positive);
+        --color-standalone: var(--uui-color-positive-standalone);
+        --color-contrast: var(--uui-color-positive-contrast);
       }
       :host([color='warning']) {
-        background-color: var(--uui-color-warning);
-        color: var(--uui-color-warning-contrast);
+        --color: var(--uui-color-warning);
+        --color-standalone: var(--uui-color-warning-standalone);
+        --color-contrast: var(--uui-color-warning-contrast);
       }
       :host([color='danger']) {
-        background-color: var(--uui-color-danger);
-        color: var(--uui-color-danger-contrast);
+        --color: var(--uui-color-danger);
+        --color-standalone: var(--uui-color-danger-standalone);
+        --color-contrast: var(--uui-color-danger-contrast);
+      }
+
+      :host {
+        background-color: var(--uui-color-surface);
+        color: var(--color-standalone);
+        border-color: transparent;
+      }
+      :host([look='primary']) {
+        background-color: var(--color);
+        color: var(--color-contrast);
+        border-color: transparent;
+      }
+      :host([look='secondary']) {
+        background-color: var(--uui-color-surface-alt);
+        color: var(--color-standalone);
+        border-color: transparent;
+      }
+      :host([look='outline']) {
+        background-color: var(--uui-color-surface);
+        color: var(--color-standalone);
+        border-color: var(--color-standalone);
+      }
+      :host([look='placeholder']) {
+        border-style: dashed;
+        background-color: var(--uui-color-surface);
+        color: var(--color-standalone);
+        border-color: var(--uui-color-border-standalone);
       }
 
       /** TODO: we didn't want to target elements by name, but what else can we do? */
@@ -95,13 +126,22 @@ export class UUIBadgeElement extends LitElement {
   ];
 
   /**
-   * Changes the look of the badge to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" badge.
-   * @type {"" | "default"|"positive"|"warning"|"danger"}
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "positive" | "warning" | "danger"}
    * @attr
-   * @default default
+   * @default "default"
    */
-  @property({ type: String, reflect: true })
-  color = '';
+  @property({ reflect: true })
+  color: InterfaceColor = 'default';
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  look: InterfaceLook = 'primary';
 
   /**
    * Bring attention to this badge by applying a bounce animation.

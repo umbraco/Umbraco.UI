@@ -8,15 +8,24 @@ export default {
   component: 'uui-tag',
   id: 'uui-tag',
   args: {
-    color: 'primary',
+    color: 'default',
+    look: 'primary',
     fontSize: 12,
     slot: 'Hello',
   },
   argTypes: {
     slot: { control: { type: 'text' } },
+    look: {
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
+    },
     color: {
-      options: ['primary', 'positive', 'warning', 'danger'],
-      control: { type: 'select' },
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'positive', 'warning', 'danger'],
     },
     '--uui-tag-font-size': { control: { type: 'text' } },
     fontSize: { table: { category: 'Styles' } },
@@ -24,7 +33,10 @@ export default {
 };
 
 const Template: Story = props => html`
-  <uui-tag color=${props.color} style="font-size: ${props.fontSize}px;"
+  <uui-tag
+    color=${props.color}
+    .look=${props.look}
+    style="font-size: ${props.fontSize}px;"
     >${props.slot}</uui-tag
   >
 `;
@@ -32,35 +44,40 @@ const Template: Story = props => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 
-export const Colors: Story = () =>
-  html`
-    <uui-tag color="primary">primary</uui-tag>
-    <uui-tag color="positive">positive</uui-tag>
-    <uui-tag color="warning">warning</uui-tag>
-    <uui-tag color="danger">danger</uui-tag>
-  `;
-
-Colors.parameters = {
-  controls: { disable: true },
-  docs: {
-    source: {
-      code: `
-<uui-tag color="primary">primary</uui-tag>
-<uui-tag color="positive">positive</uui-tag>
-<uui-tag color="warning">warning</uui-tag>
-<uui-tag color="danger">danger</uui-tag>
-      `,
-    },
-  },
-};
-
 export const Sizing: Story = props =>
   html`
-    <uui-tag style="font-size:${props.fontSize}px;" color="primary"
-      >${props.slot}</uui-tag
-    >
+    <uui-tag style="font-size:${props.fontSize}px;">${props.slot}</uui-tag>
   `;
 
 Sizing.parameters = {
   controls: { include: ['fontSize', 'slot'] },
 };
+
+const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+const colors = ['default', 'positive', 'warning', 'danger'];
+
+function uppercaseFirstLetter(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export const LooksAndColors: Story = () =>
+  html`
+    ${colors.map(
+      color =>
+        html`
+          <h5>${uppercaseFirstLetter(color)}</h5>
+          <div style="margin-bottom: 32px; display: flex; gap: 16px;">
+            ${looks.map(
+              look => html`
+                <uui-tag
+                  .look=${look as any}
+                  .color=${color as any}
+                  style="margin-right:12px;"
+                  >${uppercaseFirstLetter(look)}</uui-tag
+                >
+              `
+            )}
+          </div>
+        `
+    )}
+  `;
