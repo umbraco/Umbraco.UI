@@ -20,7 +20,14 @@ const PANEL_ID = `${ADDON_ID}/panel`;
 
 const Readme = props => {
   const [markdown, setMarkdown] = useState();
+  const [useDarkMode, setUseDarkMode] = useState();
+
   useEffect(() => {
+    setUseDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', updateUseDarkMode);
+
     const api = props.api;
     api.on(STORY_RENDERED, () => {
       setMarkdown('');
@@ -49,10 +56,16 @@ const Readme = props => {
         }
       }
     });
+
+    return function cleanup() {
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', updateUseDarkMode);
+    };
   }, []);
 
-  const shouldUseDarkTheme = () => {
-    return window.matchMedia('(prefers-color-scheme: dark)');
+  const updateUseDarkMode = event => {
+    setUseDarkMode(event.matches);
   };
 
   const renderReadme = () => (
@@ -67,7 +80,7 @@ const Readme = props => {
               className="storybook-readme-syntax-highlighter"
               children={String(children).replace(/\n$/, '')}
               style={{
-                ...(shouldUseDarkTheme() ? vscDarkPlus : vs),
+                ...(useDarkMode ? vscDarkPlus : vs),
                 'pre[class*="language-"]': { display: 'none' },
               }}
               language={match[1]}
