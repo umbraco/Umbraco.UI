@@ -70,7 +70,7 @@
     "@storybook/addon-actions": "6.5.6",
     "@storybook/addon-essentials": "6.5.6",
     "@storybook/addon-links": "6.5.6",
-    "@storybook/builder-vite": "0.1.36",
+    "@storybook/builder-vite": "0.1.37",
     "@storybook/web-components": "6.5.6",
     "@types/chai": "4.3.0",
     "@typescript-eslint/eslint-plugin": "5.15.0",
