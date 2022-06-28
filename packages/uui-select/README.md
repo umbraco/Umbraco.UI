@@ -1,6 +1,6 @@
 # uui-select
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-select?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-select?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-select)
 
 Umbraco style select component.
 

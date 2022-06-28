@@ -121,12 +121,12 @@ export class UUIToastNotificationElement extends LitElement {
 
   /**
    * Changes the look of the notification to one of the predefined, symbolic looks. Example set this to danger for errors.
-   * @type {""|"primary"|"positive"|"warning"|"danger"}
+   * @type {""|"default"|"primary"|"positive"|"warning"|"danger"}
    * @attr
    * @default ""
    */
   @property({ reflect: true })
-  color = '';
+  color: '' | 'default' | 'positive' | 'warning' | 'danger' = '';
 
   private _autoClose: number | null = null;
   /**
@@ -189,20 +189,17 @@ export class UUIToastNotificationElement extends LitElement {
     }
   };
 
+  @query('#toast')
+  private _toastEl!: HTMLElement;
   private _timer: Timer | null = null;
   private _pauseTimer: boolean = false;
 
-  @query('#toast')
-  private _toastEl!: HTMLElement;
-
-  private _animationTimeout?: number;
-
   protected isOpen = false;
+  private _open = false;
 
   @state()
   private _animate = false;
-
-  private _open = false;
+  private _animationTimeout?: number;
 
   /**
    * define if this toast should open or close.
@@ -343,7 +340,7 @@ export class UUIToastNotificationElement extends LitElement {
           <div id="close">
             <uui-button
               .label=${'close'}
-              ?color=${this.color}
+              .color=${this.color}
               .look=${this.color ? 'primary' : 'default'}
               @click=${() => (this.open = false)}>
               <uui-icon

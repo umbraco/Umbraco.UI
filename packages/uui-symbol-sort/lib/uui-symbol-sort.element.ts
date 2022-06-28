@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-symbol-sort
- *  @description A symbol indicating weather related composition is sorting(active) and weather the sorting is ascending or descending.
+ *  @description A symbol indicating whether related composition is sorting(active) and whether the sorting is ascending or descending.
  *  Please define aria-sort on the header for the composition.
  */
 @defineElement('uui-symbol-sort')
@@ -80,10 +80,13 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   public descending = false;
 
   render() {
-    return html`<svg id="up" viewBox="0 0 512 512">
+    return html`<svg
+        id="up"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512">
         <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
       </svg>
-      <svg id="down" viewBox="0 0 512 512">
+      <svg id="down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
       </svg>`;
   }

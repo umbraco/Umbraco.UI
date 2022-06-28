@@ -3,7 +3,7 @@ name: Azure Static Web Apps CI/CD
 on:
   push:
     branches:
-      - main
+      - storybook
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]

@@ -1,6 +1,6 @@
 # uui-form-layout-item
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-form-layout-item?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-form-layout-item?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-form-layout-item)
 
 Umbraco style uui-form-layout-item component.
 

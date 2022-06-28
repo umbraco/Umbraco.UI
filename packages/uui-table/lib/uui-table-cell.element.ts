@@ -6,14 +6,17 @@ import { property } from 'lit/decorators.js';
  *  Table cell that detects if it has overflow and if so it'll add a title attribute to itself to display full text. Must be a child of uui-table-row
  *  @element uui-table-cell
  *  @slot - slot for table cell content
+ *  @cssprop --uui-table-cell-padding - overwrite the table cell padding
+ *  @cssprop --uui-table-cell-height - overwrite the table cell height
  */
 @defineElement('uui-table-cell')
 export class UUITableCellElement extends LitElement {
   static styles = [
     css`
       :host {
+        position: relative;
         display: table-cell;
-        height: var(--uui-size-12);
+        height: var(--uui-table-cell-height, var(--uui-size-12));
         padding: var(
           --uui-table-cell-padding,
           var(--uui-size-4) var(--uui-size-5)
@@ -38,6 +41,10 @@ export class UUITableCellElement extends LitElement {
         content: '';
         position: absolute;
         inset: 0;
+      }
+
+      :host([no-padding]) {
+        padding: 0;
       }
     `,
   ];

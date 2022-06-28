@@ -9,13 +9,22 @@ export default {
   id: 'uui-badge',
   args: {
     color: 'default',
+    look: 'primary',
     slot: '1',
     attention: false,
   },
   argTypes: {
+    look: {
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
+    },
     color: {
-      options: ['default', 'secondary', 'positive', 'warning', 'danger'],
-      control: { type: 'select' },
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'positive', 'warning', 'danger'],
     },
     slot: {
       control: { type: 'text' },
@@ -25,8 +34,11 @@ export default {
 
 const Template: Story = props => html` <uui-icon-registry-essential>
   <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black;">
-    <uui-badge .color=${props.color} ?attention=${props.attention}
+    style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
+    <uui-badge
+      .color=${props.color}
+      .look=${props.look}
+      ?attention=${props.attention}
       >${props.slot}</uui-badge
     >
   </div>
@@ -43,7 +55,7 @@ AAAOverview.parameters = {
   docs: {
     source: {
       code: `
-<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+<div style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
   <uui-badge>1</uui-badge>
 </div>
     `,
@@ -61,7 +73,7 @@ WithAttention.parameters = {
   docs: {
     source: {
       code: `
-<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+<div style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
   <uui-badge color="danger" attention>!</uui-badge>
 </div>
     `,
@@ -78,7 +90,7 @@ WithText.parameters = {
   docs: {
     source: {
       code: `
-<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+<div style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
   <uui-badge color="positive">Published</uui-badge>
 </div>
     `,
@@ -98,7 +110,7 @@ WithIcon.parameters = {
   docs: {
     source: {
       code: `
-<div style="position:relative; width:80px; height:80px; border: 2px dashed black;">
+<div style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
   <uui-icon-registry-essential>
     <uui-badge ="positive">
       <uui-icon name="favorite"></uui-icon>
@@ -131,26 +143,34 @@ OnButton.parameters = {
   },
 };
 
-export const Colors: Story = () => html`
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black">
-    <uui-badge>Default</uui-badge>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="secondary">secondary</uui-badge>
-  </div>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="positive">positive</uui-badge>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="warning">warning</uui-badge>
-  </div>
-  <div
-    style="position:relative; width:80px; height:80px; border: 2px dashed black; margin-top: 16px">
-    <uui-badge color="danger">danger</uui-badge>
-  </div>
-`;
+const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+const colors = ['default', 'positive', 'warning', 'danger'];
+
+function uppercaseFirstLetter(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export const LooksAndColors: Story = () =>
+  html`
+    ${colors.map(
+      color =>
+        html`
+          <h5>${uppercaseFirstLetter(color)}</h5>
+          <div style="margin-bottom: 32px; display: flex; gap: 16px;">
+            ${looks.map(
+              look => html`
+                <div
+                  style="position:relative; width:100px; height:80px; border: 1px dashed rgba(0,0,0,0.1); margin-top: 16px">
+                  <uui-badge
+                    .look=${look as any}
+                    .color=${color as any}
+                    style="margin-right:12px;"
+                    >${uppercaseFirstLetter(look)}</uui-badge
+                  >
+                </div>
+              `
+            )}
+          </div>
+        `
+    )}
+  `;

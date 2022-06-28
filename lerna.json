@@ -3,7 +3,6 @@
   "version": "independent",
   "npmClient": "npm",
   "useWorkspaces": true,
-  "granularPathspec": false,
   "command": {
     "publish": {
       "verifyAccess": false

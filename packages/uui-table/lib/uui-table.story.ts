@@ -2,16 +2,23 @@ import '.';
 import './uui-table-advanced-example';
 import '@umbraco-ui/uui-box/lib';
 
-import { Story } from '@storybook/web-components';
+import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
 export default {
-  title: 'Layout/Table',
+  title: 'Layout/Table/Table',
   component: 'uui-table',
   id: 'uui-table',
-};
+  subcomponents: {
+    UUITableColumn: 'uui-table-column',
+    UUITableHead: 'uui-table-head',
+    UUITableHeadCell: 'uui-table-head-cell',
+    UUITableRow: 'uui-table-row',
+    UUITableCell: 'uui-table-cell',
+  },
+} as Meta;
 
 export const AAAOverview: Story = props =>
   html`
@@ -118,60 +125,6 @@ AAAOverview.parameters = {
   },
 };
 
-export const SelectableRows: Story = () =>
-  html`
-    <div style="width: 100%;">
-      <uui-table>
-        <uui-table-column
-          style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
-        <uui-table-head>
-          ${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
-          )}
-        </uui-table-head>
-        <uui-table-row selectable>
-          ${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-        <uui-table-row selectable>
-          ${ArrayOfUmbracoWords(5).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-      </uui-table>
-    </div>
-  `;
-
-SelectableRows.parameters = {
-  docs: {
-    source: {
-      code: ` <uui-table aria-label="Example table" aria-describedby="#some-element-id">
-
-        <!-- Apply styles to the uui-table-column to style the columns. You must have the same number of this elements as you have columns -->
-        <uui-table-column style="width: 20%; background-color: green"></uui-table-column>
-        <uui-table-column style="width: 80%; background-color: red"></uui-table-column>
-
-        <uui-table-head>
-          <uui-table-head-cell>Title 1</uui-table-head-cell>
-          <uui-table-head-cell>Title 2</uui-table-head-cell>
-        </uui-table-head>
-
-        <uui-table-row selectable>
-          <uui-table-cell>Cell 1</uui-table-cell>
-          <uui-table-cell>Cell 2</uui-table-cell>
-        </uui-table-row>
-
-        <uui-table-row selectable>
-          <uui-table-cell>Cell 3</uui-table-cell>
-          <uui-table-cell>Cell 4</uui-table-cell>
-        </uui-table-row>
-
-      </uui-table>`,
-    },
-  },
-};
-
 export const OverflowDetection: Story = () =>
   html`
     <h5>
@@ -270,7 +223,8 @@ Advanced.parameters = {
   docs: {
     source: {
       code: `
-        <!-- Example in progress -->
+Take a look at the source code for the advanced example:
+https://github.com/umbraco/Umbraco.UI/blob/dev/packages/uui-table/lib/uui-table-advanced-example.ts
       `,
     },
   },

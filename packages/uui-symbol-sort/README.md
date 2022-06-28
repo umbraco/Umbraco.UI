@@ -1,6 +1,6 @@
 # uui-symbol-sort
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-sort?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-sort?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-symbol-sort)
 
 Umbraco style sort-symbol component.
 

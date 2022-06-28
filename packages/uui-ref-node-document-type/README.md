@@ -1,6 +1,6 @@
 # uui-ref-node-document-type
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-node-document-type?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-ref-node-document-type?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-ref-node-document-type)
 
 Umbraco style ref-node-document-type component.
 

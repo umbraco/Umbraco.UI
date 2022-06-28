@@ -20,8 +20,6 @@ export class UUIInputLockElement extends UUIInputElement {
       #lock {
         height: 100%;
 
-        --uui-button-padding-top-factor: 0;
-        --uui-button-padding-bottom-factor: 0;
         --uui-button-padding-left-factor: 0.75;
         --uui-button-padding-right-factor: 0.75;
         font-size: 12px;

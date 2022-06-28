@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.0.0-rc.0...@umbraco-ui/uui-combobox@1.0.0-rc.1) (2022-06-28)
+
+### Bug Fixes
+
+- Allow uui-button to fit in less tall contexts ([#236](https://github.com/umbraco/Umbraco.UI/issues/236)) ([8b7422f](https://github.com/umbraco/Umbraco.UI/commit/8b7422ffee065cbcce2580b46b2f0b3ef3da114b))
+
 # [1.0.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@0.1.1...@umbraco-ui/uui-combobox@1.0.0-rc.0) (2022-06-02)
 
 **Note:** Version bump only for package @umbraco-ui/uui-combobox

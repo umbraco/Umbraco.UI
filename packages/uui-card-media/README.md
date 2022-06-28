@@ -1,6 +1,6 @@
 # uui-card-media
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-media?logoColor=%231B264F)
+[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-media?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card-media)
 
 Umbraco style card-media component.
 

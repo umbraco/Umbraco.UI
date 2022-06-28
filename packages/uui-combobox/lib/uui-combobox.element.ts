@@ -289,7 +289,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       label="clear"
       slot="append"
       compact
-      style="height: 100%; --uui-button-padding-top-factor: 0; --uui-button-padding-bottom-factor: 0;">
+      style="height: 100%;">
       <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
     </uui-button>`;
   };

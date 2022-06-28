@@ -12,6 +12,7 @@ import { UUITableCellElement } from './uui-table-cell.element';
  *  Table row element with option to set is as selectable. Parent for uui-table-cell. Must be a child of uui-table.
  *  @element uui-table-row
  *  @slot for <uui-table-cell> elements that should be in the row.
+ *  @cssprop --uui-table-row-color-selected - overwrite the color of the selected row
  */
 @defineElement('uui-table-row')
 export class UUITableRowElement extends SelectOnlyMixin(
@@ -22,18 +23,46 @@ export class UUITableRowElement extends SelectOnlyMixin(
       :host {
         display: table-row;
         position: relative;
+        outline-offset: -3px;
       }
 
       :host([selectable]) {
         cursor: pointer;
       }
 
+      :host(:focus) {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
       :host([selected]) {
-        outline: 2px solid var(--uui-color-selected);
-        outline-offset: -3px;
+        outline: 2px solid
+          var(--uui-table-row-color-selected, var(--uui-color-selected));
+      }
+      :host([selected]:focus) {
+        outline-color: var(--uui-color-focus);
       }
     `,
   ];
+
+  constructor() {
+    super();
+
+    // hide outline if mouse-interaction:
+    let hadMouseDown = false;
+    this.addEventListener('blur', () => {
+      if (hadMouseDown === false) {
+        this.style.setProperty('--uui-show-focus-outline', '1');
+      }
+      hadMouseDown = false;
+    });
+    this.addEventListener('mousedown', () => {
+      this.style.setProperty('--uui-show-focus-outline', '0');
+      hadMouseDown = true;
+    });
+    this.addEventListener('mouseup', () => {
+      hadMouseDown = false;
+    });
+  }
 
   connectedCallback() {
     super.connectedCallback();

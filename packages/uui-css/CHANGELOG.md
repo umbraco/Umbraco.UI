@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-css@1.0.0-rc.0...@umbraco-ui/uui-css@1.0.0-rc.1) (2022-06-28)
+
+### Bug Fixes
+
+- disable-child-interaction going over edges + other details ([#251](https://github.com/umbraco/Umbraco.UI/issues/251)) ([078fcf0](https://github.com/umbraco/Umbraco.UI/commit/078fcf05802fd651bce0546165f0ec2a6ff79dc7))
+
 # [1.0.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-css@0.1.0...@umbraco-ui/uui-css@1.0.0-rc.0) (2022-06-02)
 
 ### Bug Fixes
