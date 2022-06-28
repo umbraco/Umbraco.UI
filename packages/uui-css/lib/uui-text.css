@@ -104,10 +104,10 @@
 
 .uui-text a:link,
 .uui-text a:active {
-  color: var(--uui-color-space-cadet);
+  color: var(--uui-color-interactive);
 }
 .uui-text a:hover {
-  color: var(--uui-color-violet-blue);
+  color: var(--uui-color-interactive-emphasis);
 }
 
 .uui-text small {
