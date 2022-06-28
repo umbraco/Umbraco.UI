@@ -6,10 +6,13 @@ import 'github-markdown-css/github-markdown.css';
 import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import { STORY_RENDERED } from '@storybook/core-events';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+  vs,
+  vscDarkPlus,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 
 const ADDON_ID = 'readme';
@@ -17,7 +20,14 @@ const PANEL_ID = `${ADDON_ID}/panel`;
 
 const Readme = props => {
   const [markdown, setMarkdown] = useState();
+  const [useDarkMode, setUseDarkMode] = useState();
+
   useEffect(() => {
+    setUseDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', updateUseDarkMode);
+
     const api = props.api;
     api.on(STORY_RENDERED, () => {
       setMarkdown('');
@@ -46,7 +56,17 @@ const Readme = props => {
         }
       }
     });
+
+    return function cleanup() {
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', updateUseDarkMode);
+    };
   }, []);
+
+  const updateUseDarkMode = event => {
+    setUseDarkMode(event.matches);
+  };
 
   const renderReadme = () => (
     <ReactMarkdown
@@ -60,7 +80,7 @@ const Readme = props => {
               className="storybook-readme-syntax-highlighter"
               children={String(children).replace(/\n$/, '')}
               style={{
-                ...vs,
+                ...(useDarkMode ? vscDarkPlus : vs),
                 'pre[class*="language-"]': { display: 'none' },
               }}
               language={match[1]}
