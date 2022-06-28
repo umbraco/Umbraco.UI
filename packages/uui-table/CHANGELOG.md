@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-table@1.0.0-rc.0...@umbraco-ui/uui-table@1.0.0-rc.1) (2022-06-28)
+
+### Bug Fixes
+
+- disable-child-interaction going over edges + other details ([#251](https://github.com/umbraco/Umbraco.UI/issues/251)) ([078fcf0](https://github.com/umbraco/Umbraco.UI/commit/078fcf05802fd651bce0546165f0ec2a6ff79dc7))
+- Use an ::after element for selection border ([#239](https://github.com/umbraco/Umbraco.UI/issues/239)) ([8a9d4f1](https://github.com/umbraco/Umbraco.UI/commit/8a9d4f11d49eb19af708d637ce20de2a50b7dcf6))
+
 # [1.0.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-table@0.2.1...@umbraco-ui/uui-table@1.0.0-rc.0) (2022-06-02)
 
 **Note:** Version bump only for package @umbraco-ui/uui-table
