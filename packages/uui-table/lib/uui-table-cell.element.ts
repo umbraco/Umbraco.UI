@@ -14,6 +14,7 @@ export class UUITableCellElement extends LitElement {
   static styles = [
     css`
       :host {
+        position: relative;
         display: table-cell;
         height: var(--uui-table-cell-height, var(--uui-size-12));
         padding: var(
