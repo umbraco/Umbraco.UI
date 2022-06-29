@@ -100,12 +100,15 @@ export class UUIButtonElement extends FormControlMixin(
         text-align: inherit;
         border: none;
         cursor: inherit;
-        display: block;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 
         /* for anchor tag: */
         text-decoration: none;
         color: currentColor;
-        line-height: normal;
+        line-height: inherit;
 
         border-width: var(--uui-button-border-width, 1px);
         border-style: solid;
@@ -119,7 +122,6 @@ export class UUIButtonElement extends FormControlMixin(
           calc(var(--uui-size-2) * var(--uui-button-padding-right-factor)) 0
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
 
-        vertical-align: middle;
         box-shadow: none;
       }
       button[disabled]:active,

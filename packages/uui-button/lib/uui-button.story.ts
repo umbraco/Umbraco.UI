@@ -324,12 +324,14 @@ export const AnchorTag = Template.bind({});
 AnchorTag.args = {
   href: 'https://www.umbraco.com',
   target: '_blank',
+  look: 'primary',
 };
 AnchorTag.parameters = {
   docs: {
     source: {
       code: html`
         <uui-button
+          look="primary"
           label="Open umbraco.com"
           href="http://www.umbraco.com"
           target="_blank">
