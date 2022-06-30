@@ -4,6 +4,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
+import { TemplateResult } from 'lit';
 
 export default {
   id: 'uui-button-inline-create',
@@ -39,20 +40,29 @@ const insertBox = (e: any) => {
   e.target.parentElement.insertAdjacentElement('afterend', div);
 };
 
-const createBox = (vertical: boolean) => html` <div
-  style="${vertical ? 'display: grid; grid-template-columns: 1fr auto' : ''}">
-  <div style="padding: 10px; white-space: nowrap;">
-    ${GetRandomUmbracoWord()}
+const createBox = (vertical: boolean, index: number) => html` <div
+  style="position:relative;">
+  <div
+    style="
+      ${vertical
+      ? 'display: grid; grid-template-columns: 1fr auto'
+      : 'display:block;'}
+      ${index % 2 === 0 ? 'background-color:lightgrey;' : ''}
+      ">
+    <div style="padding: 10px; white-space: nowrap;">
+      ${GetRandomUmbracoWord()}
+    </div>
   </div>
   <uui-button-inline-create
+    style="${vertical ? 'position: absolute; right: 0; top:0;' : ''}"
     ?vertical=${vertical}
     @click=${insertBox}></uui-button-inline-create>
 </div>`;
 
 const createBoxes = (count: Number, vertical = false) => {
-  const boxes = [];
+  const boxes: TemplateResult<1>[] = [];
   for (let index = 0; index < count; index++) {
-    boxes.push(createBox(vertical));
+    boxes.push(createBox(vertical, index));
   }
   return boxes;
 };
