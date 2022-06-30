@@ -30,13 +30,13 @@ export class UUIButtonInlineCreateElement extends LitElement {
       :host(:not([vertical])) {
         height: 20px;
         width: 100%;
-        margin: -8px 0;
+        margin: -10px 0;
       }
 
       :host([vertical]) {
         height: 100%;
         width: 20px;
-        margin: 0 -8px;
+        margin: 0 -10px;
       }
 
       #button-wrapper {
