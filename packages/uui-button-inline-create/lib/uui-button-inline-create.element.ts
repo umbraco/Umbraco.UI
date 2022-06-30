@@ -30,13 +30,13 @@ export class UUIButtonInlineCreateElement extends LitElement {
       :host(:not([vertical])) {
         height: 20px;
         width: 100%;
-        margin: -8px 0;
+        margin: -10px 0;
       }
 
       :host([vertical]) {
         height: 100%;
         width: 20px;
-        margin: 0 -8px;
+        margin: 0 -10px;
       }
 
       #button-wrapper {
@@ -71,11 +71,13 @@ export class UUIButtonInlineCreateElement extends LitElement {
         opacity: 1;
       }
 
-      /* :host([vertical]) #button-wrapper {
-        height: 100%;
-        width: auto;
-
-      } */
+      :host(:focus) #button-wrapper:before,
+      :host(:focus-within) #button-wrapper:before,
+      :host(:hover) #button-wrapper:before {
+        animation: ${UUIBlinkAnimationValue};
+        background-color: var(--uui-color-interactive-emphasis);
+        border-color: var(--uui-color-surface);
+      }
 
       #button-wrapper:before {
         content: '';
@@ -83,12 +85,12 @@ export class UUIButtonInlineCreateElement extends LitElement {
         right: 0;
         left: 0;
         height: 2px;
-        background-color: var(--uui-color-selected);
-        border-top: 1px solid var(--uui-color-surface);
-        border-bottom: 1px solid var(--uui-color-surface);
+        background-color: transparent;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
         border-radius: 2px;
         pointer-events: none;
-        animation: ${UUIBlinkAnimationValue};
+        transition: background-color 720ms ease-out, border-color 240ms;
       }
 
       :host(:not([vertical])) #button-wrapper:before {
@@ -101,13 +103,6 @@ export class UUIButtonInlineCreateElement extends LitElement {
         width: 2px;
         left: 50%;
         transform: translateX(-50%);
-        /* background: linear-gradient(
-          180deg,
-          rgba(33, 82, 163, 0) 0%,
-          rgba(33, 82, 163, 1) 30%,
-          rgba(33, 82, 163, 1) 70%,
-          rgba(33, 82, 163, 0) 100%
-        ); */
       }
 
       :host(:not([vertical]):not(:hover)) #plus:not(:focus) {
@@ -129,10 +124,9 @@ export class UUIButtonInlineCreateElement extends LitElement {
         height: 28px;
         border-radius: 3em;
         font-size: 14px;
-        border: 2px solid var(--uui-color-selected);
-        color: var(--uui-color-selected);
+        border: 2px solid var(--uui-color-interactive-emphasis);
+        color: var(--uui-color-interactive-emphasis);
         background-color: var(--uui-color-surface);
-        box-shadow: 0 0 0 2px var(--uui-color-surface);
 
         opacity: 0;
         transform: scale(0);
@@ -145,7 +139,8 @@ export class UUIButtonInlineCreateElement extends LitElement {
         opacity: 1;
         transform: scale(1);
         transition: transform 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          opacity 80ms;
+          opacity 80ms, box-shadow 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 0 0 2px var(--uui-color-surface);
       }
 
       :host(:not([vertical])) #plus {
@@ -159,7 +154,8 @@ export class UUIButtonInlineCreateElement extends LitElement {
 
       #button-wrapper:focus #plus {
         /* TODO: implement focus outline system */
-        border: 2px solid #6ab4f0;
+        border: 2px solid var(--uui-color-focus);
+        color: var(--uui-color-focus);
       }
 
       #plus-icon {
