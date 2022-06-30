@@ -14,7 +14,7 @@ export default {
   },
   argTypes: {
     color: {
-      options: ['', 'primary', 'positive', 'warning', 'danger'],
+      options: ['', 'default', 'positive', 'warning', 'danger'],
       control: { type: 'select' },
     },
     slot: {
