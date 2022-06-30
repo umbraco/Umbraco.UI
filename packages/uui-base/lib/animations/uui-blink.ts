@@ -4,13 +4,11 @@ import { css, unsafeCSS } from 'lit';
 
 export const UUIBlinkKeyframes = css`
   @keyframes uui-blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
+    0%,
+    100% {
       opacity: 0.5;
     }
-    100% {
+    50% {
       opacity: 1;
     }
   }
