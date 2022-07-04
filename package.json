@@ -60,7 +60,7 @@
   "devDependencies": {
     "@babel/core": "7.17.8",
     "@lerna-lite/cli": "1.5.1",
-    "@lerna-lite/exec": "1.5.1",
+    "@lerna-lite/exec": "1.6.0",
     "@lerna-lite/run": "1.5.1",
     "@mdx-js/react": "2.1.1",
     "@open-wc/testing": "3.1.6",
