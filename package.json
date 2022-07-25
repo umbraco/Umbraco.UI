@@ -58,7 +58,7 @@
     "lit": "^2.2.5"
   },
   "devDependencies": {
-    "@babel/core": "7.17.8",
+    "@babel/core": "7.17.9",
     "@lerna-lite/cli": "1.8.0",
     "@lerna-lite/exec": "1.8.0",
     "@lerna-lite/run": "1.8.0",
