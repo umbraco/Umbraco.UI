@@ -79,7 +79,7 @@
     "@web/test-runner-playwright": "0.8.9",
     "autoprefixer": "10.4.7",
     "chromatic": "^6.7.1",
-    "element-internals-polyfill": "1.0.3",
+    "element-internals-polyfill": "1.1.6",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-typescript": "3.3.0",
