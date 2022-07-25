@@ -1,4 +1,3 @@
-import '.';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-input/lib';
 
