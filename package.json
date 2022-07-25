@@ -59,9 +59,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.17.8",
-    "@lerna-lite/cli": "1.5.1",
+    "@lerna-lite/cli": "1.8.0",
     "@lerna-lite/exec": "1.8.0",
-    "@lerna-lite/run": "1.5.1",
+    "@lerna-lite/run": "1.8.0",
     "@mdx-js/react": "2.1.1",
     "@open-wc/testing": "3.1.6",
     "@rollup/plugin-node-resolve": "13.3.0",
