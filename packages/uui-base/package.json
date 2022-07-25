@@ -24,7 +24,7 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "lit": "^2.2.2"
+    "lit": "^2.2.8"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",

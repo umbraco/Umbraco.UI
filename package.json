@@ -55,7 +55,7 @@
     "npm": ">=8.0.0 < 9"
   },
   "dependencies": {
-    "lit": "^2.2.5"
+    "lit": "^2.2.8"
   },
   "devDependencies": {
     "@babel/core": "7.17.9",
