@@ -11,6 +11,7 @@ module.exports = {
     'plugin:lit/recommended',
     'plugin:lit-a11y/recommended',
     'plugin:storybook/recommended',
+    'plugin:storybook/recommended',
   ],
   rules: {
     // disable the rule for all files
@@ -18,7 +19,8 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
-    '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
+    '@typescript-eslint/ban-ts-comment': 'off',
+    //TODO: Remove (maybe)
     '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
   },
   settings: {
