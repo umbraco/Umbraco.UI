@@ -21,6 +21,7 @@
     "inlineSources": true,
     "isolatedModules": true,
     "baseUrl": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   }
 }
