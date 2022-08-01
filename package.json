@@ -68,7 +68,7 @@
     "@storybook/addon-a11y": "6.5.6",
     "@storybook/addon-actions": "6.5.6",
     "@storybook/addon-essentials": "6.5.6",
-    "@storybook/addon-links": "6.5.6",
+    "@storybook/addon-links": "6.5.9",
     "@storybook/builder-vite": "0.2.0",
     "@storybook/web-components": "6.5.9",
     "@types/chai": "4.3.0",
