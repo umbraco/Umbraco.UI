@@ -47,7 +47,8 @@
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "npm run bootstrap && npm run storybook:analyze && start-storybook -p 6006",
     "storybook:build": "npm run bootstrap && npm run storybook:analyze && build-storybook",
-    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
+    "postinstall": "npm run bootstrap"
   },
   "engines": {
     "node": ">=16.0.0 <17",
@@ -128,5 +129,5 @@
     "*.{js,ts,mjs,cjs,html}": "eslint --cache --fix -c .eslintrc.js",
     "*": "prettier --ignore-unknown --write"
   },
-  "packageManager": "npm@8.5.5"
+  "packageManager": "npm@8.15.1"
 }
