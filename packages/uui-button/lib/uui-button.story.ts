@@ -340,3 +340,82 @@ AnchorTag.parameters = {
     },
   },
 };
+
+export const MultiLine: Story = props => {
+  return html`
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}
+      href=${props.href}
+      target=${props.target}
+      >Hello <br />
+      I am button</uui-button
+    >
+    <br /><br />
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}
+      href=${props.href}
+      target=${props.target}>
+      <uui-badge color="danger">2</uui-badge>
+      Hello <br />
+      I am button
+    </uui-button>
+    <br /><br />
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      compact
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}
+      href=${props.href}
+      target=${props.target}>
+      Hi <br />
+      I am compact
+    </uui-button>
+    <br /><br />
+    <uui-icon-registry-essential>
+      <uui-button
+        type=${props.type}
+        style=${cssProps
+          .map(cssProp =>
+            props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''
+          )
+          .reduce(reducer)}
+        ?disabled=${props.disabled}
+        ?compact=${props.compact}
+        look=${props.look}
+        color=${props.color}
+        label=${props.label}
+        state=${props.state}
+        href=${props.href}
+        target=${props.target}>
+        <uui-icon .name=${'favorite'}></uui-icon>
+        <br />Home
+      </uui-button>
+    </uui-icon-registry-essential>
+  `;
+};
+
+MultiLine.args = { look: 'primary' };
