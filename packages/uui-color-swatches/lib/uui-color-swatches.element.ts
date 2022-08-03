@@ -2,8 +2,6 @@ import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 
-import { styleMap } from 'lit/directives/style-map.js';
-
 import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
 
 /**
@@ -57,15 +55,7 @@ export class UUIColorSwatchesElement extends LitElement {
     return html`
           <div class="color-picker__swatches">
           ${this.swatches.map(swatch => {
-            return html`
-              <div
-                class="color-picker__swatch color-picker__transparent-bg"
-                role="button"
-                aria-label=${swatch}
-                @select=${this.setValue}
-              >
-              <div class="color-picker__swatch-color" style=${styleMap({ backgroundColor: swatch })}></div>
-            </div>`;
+            return html`<uui-color-swatch color="${swatch}"></uui-color-swatch>`;
           })}
           </div>
       `;

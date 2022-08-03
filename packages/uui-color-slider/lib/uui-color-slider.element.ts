@@ -169,6 +169,11 @@ export class UUIColorSliderElement extends LitElement {
       return html`
           <div
             class="color-slider"
+            role="slider"
+            aria-label="${this.label}"
+            aria-orientation="${this.orientation}"
+            aria-valuemin="${Math.round(this.min)}"
+            aria-valuemax="${Math.round(this.max)}"
             @click=${this.handleClick}
             @mousedown=${this.handleDrag}
             @touchstart=${this.handleDrag}
@@ -178,11 +183,6 @@ export class UUIColorSliderElement extends LitElement {
               style=${styleMap({
                 left: `${this.value === 0 ? 0 : 100 / (this.max / this.value)}%`
               })}
-              role="slider"
-              aria-label="${this.label}"
-              aria-orientation="${this.orientation}"
-              aria-valuemin="${Math.round(this.min)}"
-              aria-valuemax="${Math.round(this.max)}"
               @keydown=${this.handleKeyDown}
             ></span>
           </div>
