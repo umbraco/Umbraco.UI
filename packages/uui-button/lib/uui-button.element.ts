@@ -51,8 +51,10 @@ export class UUIButtonElement extends FormControlMixin(
         margin-left: calc(var(--uui-button-merge-border-left, 0) * -1px);
         --uui-button-padding-left-factor: 3;
         --uui-button-padding-right-factor: 3;
+        --uui-button-padding-top-factor: 1;
+        --uui-button-padding-bottom-factor: 1;
 
-        height: var(--uui-button-height, var(--uui-size-11));
+        min-height: var(--uui-button-height, var(--uui-size-11));
         max-height: 100%;
         cursor: pointer;
 
@@ -65,6 +67,8 @@ export class UUIButtonElement extends FormControlMixin(
       :host([compact]) {
         --uui-button-padding-left-factor: 1;
         --uui-button-padding-right-factor: 1;
+        --uui-button-padding-top-factor: 0;
+        --uui-button-padding-bottom-factor: 0;
       }
 
       .label {
@@ -89,7 +93,6 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       #button {
-        height: 100%;
         width: 100%;
         background-color: transparent;
         color: inherit;
@@ -118,8 +121,9 @@ export class UUIButtonElement extends FormControlMixin(
         );
         cursor: pointer;
 
-        padding: 0
-          calc(var(--uui-size-2) * var(--uui-button-padding-right-factor)) 0
+        padding: calc(var(--uui-size-2) * var(--uui-button-padding-top-factor))
+          calc(var(--uui-size-2) * var(--uui-button-padding-right-factor))
+          calc(var(--uui-size-2) * var(--uui-button-padding-bottom-factor))
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
 
         box-shadow: none;
