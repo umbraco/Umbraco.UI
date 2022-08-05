@@ -29,7 +29,10 @@ export class UUIFormElement extends LitElement {
       this._formElement.setAttribute('novalidate', '');
       this._formElement.addEventListener('submit', this._onSubmit);
       this._formElement.addEventListener('reset', this._onReset);
-      this._formElement.addEventListener('keypress', this._onKeypress);
+      this._formElement.addEventListener(
+        'keypress',
+        this._onKeypress.bind(this)
+      );
     }
   }
 
@@ -57,7 +60,9 @@ export class UUIFormElement extends LitElement {
 
   private _onKeypress(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      this.dispatchEvent(new SubmitEvent('submit'));
+      if (this._formElement) {
+        this._formElement.dispatchEvent(new SubmitEvent('submit'));
+      }
     }
   }
 
