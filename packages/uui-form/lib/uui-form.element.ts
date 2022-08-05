@@ -35,7 +35,6 @@ export class UUIFormElement extends LitElement {
 
   private _onSubmit(event: SubmitEvent) {
     if (event.target === null) {
-      console.log('target is null');
       return;
     }
     const formNode = event.target as HTMLFormElement;
