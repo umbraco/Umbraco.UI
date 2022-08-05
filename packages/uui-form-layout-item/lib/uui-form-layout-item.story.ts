@@ -35,6 +35,7 @@ export const Example: Story = () => html` <uui-form>
           type="text"
           name="phone"
           placeholder="+00"
+          label="phone area code"
           required
           required-message="You must enter a area code"
           style="text-align:right; width: 75px;">
@@ -43,6 +44,7 @@ export const Example: Story = () => html` <uui-form>
           type="text"
           name="phone"
           placeholder=""
+          label="phone number"
           required
           required-message="You must enter a phone number">
         </uui-input>
@@ -55,8 +57,9 @@ export const Example: Story = () => html` <uui-form>
         <uui-input
           id="cityinput"
           type="text"
-          name="phone"
+          name="city"
           placeholder=""
+          label="city"
           required
           required-message="You must enter a city">
         </uui-input>
@@ -68,6 +71,7 @@ export const Example: Story = () => html` <uui-form>
           type="text"
           name="postal"
           placeholder=""
+          label="postal number"
           required
           required-message="You must enter a postal number">
         </uui-input>
