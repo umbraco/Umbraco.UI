@@ -134,6 +134,11 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
       this._value = 'on';
     }
     this.inputRole = inputRole;
+    this.addEventListener('keypress', e => {
+      if (e.key == 'Enter') {
+        this.submit();
+      }
+    });
   }
 
   protected getFormElement(): HTMLElement {
