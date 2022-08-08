@@ -74,7 +74,7 @@
     "@typescript-eslint/eslint-plugin": "5.15.0",
     "@typescript-eslint/parser": "5.30.7",
     "@web/dev-server-esbuild": "0.3.1",
-    "@web/test-runner": "0.13.31",
+    "@web/test-runner": "0.14.0",
     "@web/test-runner-playwright": "0.8.9",
     "autoprefixer": "10.4.7",
     "babel-loader": "8.2.5",
