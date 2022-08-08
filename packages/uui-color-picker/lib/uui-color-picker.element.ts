@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { TinyColor } from '@ctrl/tinycolor';
+import { colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -264,10 +264,10 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   parseColor(colorString: string) {
-    let parsed: TinyColor;
+    let parsed;
 
     try {
-      parsed = new TinyColor(colorString);
+      parsed = colord(colorString);
     } catch {
       return null;
     }

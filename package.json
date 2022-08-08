@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "@babel/core": "7.17.9",
-    "@ctrl/tinycolor": "^3.4.1",
     "@lerna-lite/cli": "1.8.0",
     "@lerna-lite/exec": "1.8.0",
     "@lerna-lite/run": "1.8.0",
@@ -80,6 +79,7 @@
     "@web/test-runner-playwright": "0.8.9",
     "autoprefixer": "10.4.7",
     "chromatic": "^6.7.1",
+    "colord": "^2.9.2",
     "element-internals-polyfill": "1.1.6",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",

@@ -1,4 +1,4 @@
-import { TinyColor } from '@ctrl/tinycolor';
+import { colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -144,7 +144,7 @@ export class UUIColorAreaElement extends LitElement {
 
   syncValues() {
 
-    const color = new TinyColor({
+    const color = colord({
       h: this.hue,
       s: this.saturation,
       l: this.lightness,
