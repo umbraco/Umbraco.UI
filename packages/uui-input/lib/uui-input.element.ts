@@ -260,6 +260,14 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       () => this.maxlengthMessage,
       () => !!this.maxlength && (this._value as string).length > this.maxlength
     );
+
+    if (this.type != 'color') {
+      this.addEventListener('keypress', e => {
+        if (e.key == 'Enter') {
+          this.submit();
+        }
+      });
+    }
   }
 
   protected firstUpdated(
