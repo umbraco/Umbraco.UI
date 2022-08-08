@@ -17,7 +17,6 @@ export class UUIFormElement extends LitElement {
     if (this._formElement) {
       this._formElement.removeEventListener('submit', this._onSubmit);
       this._formElement.removeEventListener('reset', this._onReset);
-      this._formElement.removeEventListener('keypress', this._onKeypress);
     }
 
     const formElements = (event.target as HTMLSlotElement)
@@ -29,10 +28,6 @@ export class UUIFormElement extends LitElement {
       this._formElement.setAttribute('novalidate', '');
       this._formElement.addEventListener('submit', this._onSubmit);
       this._formElement.addEventListener('reset', this._onReset);
-      this._formElement.addEventListener(
-        'keypress',
-        this._onKeypress.bind(this)
-      );
     }
   }
 
@@ -56,14 +51,6 @@ export class UUIFormElement extends LitElement {
       return;
     }
     (event.target as HTMLFormElement).removeAttribute('submit-invalid');
-  }
-
-  private _onKeypress(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      if (this._formElement) {
-        this._formElement.dispatchEvent(new SubmitEvent('submit'));
-      }
-    }
   }
 
   render() {
