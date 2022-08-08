@@ -309,6 +309,11 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+    this.addEventListener('keypress', e => {
+      if (e.key == 'Enter') {
+        this.submit();
+      }
+    });
   }
 
   /**
