@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
-
+import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
@@ -38,9 +39,20 @@ export class UUIColorSliderElement extends LitElement {
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
         margin-left: calc(var(--slider-handle-size) / -2);
       }
-      
+
+      .color-slider--vertical {
+        width: var(--slider-height);
+        height: 300px;
+      }
+
+      .color-slider--vertical .color-slider__handle {
+        margin-left: -1px;
+        margin-top: calc(var(--slider-handle-size) / -2);
+      }
     `,
   ];
+
+  @state() private isVertical = false;
 
  /**
  * This is a minimum value of the slider.
@@ -85,17 +97,37 @@ export class UUIColorSliderElement extends LitElement {
   /** Disables the color slider. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    
+    if (this.orientation === 'vertical') {
+      this.isVertical = true;
+    } else {
+      this.isVertical = false;
+    }
+  }
+
   handleDrag(event: PointerEvent) {
     const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
     const handle = container.querySelector<HTMLElement>('.color-slider__handle')!;
-    const { width } = container.getBoundingClientRect();
+    const { width, height } = container.getBoundingClientRect();
 
     handle.focus();
     event.preventDefault();
 
     drag(container, {
-      onMove: x => {
-        this.value = clamp((x / width) * this.max, this.min, this.max);
+      onMove: (x, y) => {
+        if (this.isVertical) {
+          this.value = clamp((y / height) * this.max, this.min, this.max);
+        }
+        else {
+          this.value = clamp((x / width) * this.max, this.min, this.max);
+        }
+        
         this.syncValues();
       },
       initialEvent: event
@@ -137,10 +169,16 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   getValueFromMousePosition(event: MouseEvent) {
+    if (this.isVertical) {
+      return this.getValueFromYCoordinate(event.clientY);
+    }
     return this.getValueFromXCoordinate(event.clientX);
   }
 
   getValueFromTouchPosition(event: TouchEvent) {
+    if (this.isVertical) {
+      return this.getValueFromYCoordinate(event.touches[0].clientY);
+    }
     return this.getValueFromXCoordinate(event.touches[0].clientX);
   }
 
@@ -151,6 +189,18 @@ export class UUIColorSliderElement extends LitElement {
     
     return clamp(
       this.roundToPrecision(((coordinate - containerLeft) / containerWidth) * this.max, this.precision),
+      this.min,
+      this.max
+    );
+  }
+
+  getValueFromYCoordinate(coordinate: number) {
+    const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
+    const containerTop = container.getBoundingClientRect().top;
+    const containerHeight = container.getBoundingClientRect().height;
+    
+    return clamp(
+      this.roundToPrecision(((coordinate - containerTop) / containerHeight) * this.max, this.precision),
       this.min,
       this.max
     );
@@ -169,11 +219,18 @@ export class UUIColorSliderElement extends LitElement {
       return html`
           <div
             class="color-slider"
+            class=${classMap({
+              'color-slider': true,
+              'color-slider--vertical': this.isVertical,
+              'color-slider--disabled': this.disabled
+            })}
             role="slider"
             aria-label="${this.label}"
             aria-orientation="${this.orientation}"
             aria-valuemin="${Math.round(this.min)}"
             aria-valuemax="${Math.round(this.max)}"
+            aria-valuenow="${Math.round(this.value)}"
+            tabindex=${ifDefined(this.disabled ? undefined : '0')}
             @click=${this.handleClick}
             @mousedown=${this.handleDrag}
             @touchstart=${this.handleDrag}
@@ -181,7 +238,8 @@ export class UUIColorSliderElement extends LitElement {
             <span
               class="color-slider__handle"
               style=${styleMap({
-                left: `${this.value === 0 ? 0 : 100 / (this.max / this.value)}%`
+                top: `${!this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`,
+                left: `${this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`
               })}
               @keydown=${this.handleKeyDown}
             ></span>

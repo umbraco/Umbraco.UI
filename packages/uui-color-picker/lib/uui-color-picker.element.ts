@@ -107,6 +107,7 @@ export class UUIColorPickerElement extends LitElement {
 
   @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
 
+  @state() private isEmpty = false;
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 100;
@@ -114,7 +115,7 @@ export class UUIColorPickerElement extends LitElement {
   @state() private alpha = 100;
 
   /** The current color. */
-  @property() value = '#ffffff';
+  @property() value = '';
 
   /**
    * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, and HSLA
@@ -172,12 +173,14 @@ export class UUIColorPickerElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     
-    if (!this.setColor(this.value)) {
-      this.setColor(`#ffff`);
+    if (this.value) {
+      this.setColor(this.value);
+      this.inputValue = this.value;
+      this.syncValues();
+    } else {
+      this.isEmpty = true;
+      this.inputValue = '';
     }
-
-    this.inputValue = this.value;
-    this.syncValues();
   }
 
   /*private _onChange() {
@@ -450,7 +453,7 @@ export class UUIColorPickerElement extends LitElement {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            .value=${live(this.inputValue)}
+            .value=${live(this.isEmpty ? '' : this.inputValue)}
             ?disabled=${this.disabled}
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}>
@@ -487,26 +490,7 @@ export class UUIColorPickerElement extends LitElement {
         </uui-color-swatches>
       </div>
     `;
-
-    /*<div class="color-picker__swatches">
-    ${this.swatches.map(swatch => {
-      return html`
-        <div
-          class="color-picker__swatch color-picker__transparent-bg"
-          tabindex=${ifDefined(this.disabled ? undefined : '0')}
-          role="button"
-          aria-label=${swatch}
-          @click=${() => !this.disabled && this.setColor(swatch)}
-          @keydown=${(event: KeyboardEvent) =>
-            !this.disabled && event.key === 'Enter' && this.setColor(swatch)}
-        >
-          <div class="color-picker__swatch-color" style=${styleMap({ backgroundColor: swatch })}></div>
-        </div>
-      `;
-    })}
-  </div>*/
-
-
+    
     return colorPicker;
   }
 }

@@ -31,6 +31,7 @@ export const Vertical = Template.bind({});
 Vertical.args = {
   min: 0,
   max: 100,
+  orientation: 'vertical'
 };
 Vertical.parameters = {
   docs: {
