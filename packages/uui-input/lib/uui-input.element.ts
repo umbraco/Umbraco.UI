@@ -249,6 +249,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+    this.addEventListener('keypress', this.onKeypress);
 
     this.addValidator(
       'tooShort',
@@ -260,14 +261,6 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
       () => this.maxlengthMessage,
       () => !!this.maxlength && (this._value as string).length > this.maxlength
     );
-
-    if (this.type != 'color') {
-      this.addEventListener('keypress', e => {
-        if (e.key == 'Enter') {
-          this.submit();
-        }
-      });
-    }
   }
 
   protected firstUpdated(
@@ -275,6 +268,12 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   ): void {
     super.firstUpdated(_changedProperties);
     this.addFormControlElement(this._input);
+  }
+
+  private onKeypress(e: KeyboardEvent): void {
+    if (this.type !== 'color' && e.key == 'Enter') {
+      this.submit();
+    }
   }
 
   /**
