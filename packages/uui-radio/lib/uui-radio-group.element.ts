@@ -74,11 +74,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   constructor() {
     super();
     this.addEventListener('keydown', this._onKeydown);
-    this.addEventListener('keypress', e => {
-      if (e.key == 'Enter') {
-        this.submit();
-      }
-    });
+    this.addEventListener('keypress', this._onKeypress);
   }
 
   /**
@@ -249,6 +245,12 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
           this._fireChangeEvent();
         }
       }
+    }
+  }
+
+  private _onKeypress(e: KeyboardEvent): void {
+    if (e.key == 'Enter') {
+      this.submit();
     }
   }
 

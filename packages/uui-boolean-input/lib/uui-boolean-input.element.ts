@@ -134,15 +134,17 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
       this._value = 'on';
     }
     this.inputRole = inputRole;
-    this.addEventListener('keypress', e => {
-      if (e.key == 'Enter') {
-        this.submit();
-      }
-    });
+    this.addEventListener('keypress', this._onKeypress);
   }
 
   protected getFormElement(): HTMLElement {
     return this._input;
+  }
+
+  private _onKeypress(e: KeyboardEvent): void {
+    if (e.key == 'Enter') {
+      this.submit();
+    }
   }
 
   public hasValue(): boolean {

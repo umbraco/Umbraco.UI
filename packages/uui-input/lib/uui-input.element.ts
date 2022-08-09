@@ -249,7 +249,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
-    this.addEventListener('keypress', this.onKeypress);
+    this.addEventListener('keypress', this._onKeypress);
 
     this.addValidator(
       'tooShort',
@@ -270,7 +270,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     this.addFormControlElement(this._input);
   }
 
-  private onKeypress(e: KeyboardEvent): void {
+  private _onKeypress(e: KeyboardEvent): void {
     if (this.type !== 'color' && e.key == 'Enter') {
       this.submit();
     }
