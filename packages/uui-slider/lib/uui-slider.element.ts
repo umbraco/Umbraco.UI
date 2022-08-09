@@ -1,12 +1,12 @@
-import { LitElement, html, css, svg, nothing } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, query, state } from 'lit/decorators.js';
-
-import { styleMap } from 'lit/directives/style-map.js';
-import { nativeInputStyles } from './native-input.styles';
 import { UUIHorizontalPulseKeyframes } from '@umbraco-ui/uui-base/lib/animations';
-import { UUISliderEvent } from './UUISliderEvents';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { css, html, LitElement, nothing, svg } from 'lit';
+import { property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { nativeInputStyles } from './native-input.styles';
+import { UUISliderEvent } from './UUISliderEvents';
 
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
@@ -309,6 +309,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+    this.addEventListener('keypress', this._onKeypress);
   }
 
   /**
@@ -371,6 +372,12 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   private onWindowResize = () => {
     this._stepWidth = this._calculateStepWidth();
   };
+
+  private _onKeypress(e: KeyboardEvent): void {
+    if (e.key == 'Enter') {
+      this.submit();
+    }
+  }
 
   @state()
   protected _steps: number[] = [];
