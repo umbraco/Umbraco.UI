@@ -1,9 +1,11 @@
 import { LitElement, html, css } from 'lit';
-import { colord } from 'colord';
+import { Colord, colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
+
+import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -118,6 +120,7 @@ export class UUIColorPickerElement extends LitElement {
   @state() private hue = 0;
   @state() private saturation = 100;
   @state() private lightness = 100;
+  @state() private brightness = 100;
   @state() private alpha = 100;
 
   /** The current color. */
@@ -189,6 +192,14 @@ export class UUIColorPickerElement extends LitElement {
     }
   }
 
+  getBrightness(lightness: number) {
+    return clamp(-1 * ((200 * lightness) / (this.saturation - 200)), 0, 100);
+  }
+
+  getLightness(brightness: number) {
+    return clamp(((((200 - this.saturation) * brightness) / 100) * 5) / 10, 0, 100);
+  }
+
   /*private _onChange() {
     this.dispatchEvent(new UUIColorPickerEvent(UUIColorPickerEvent.CHANGE));
   }*/
@@ -230,17 +241,26 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleInputChange(event: CustomEvent) {
-    const element = event.target as HTMLInputElement;
+    const target = event.target as HTMLInputElement;
 
-    this.setColor(element.value);
-    //element.value = this.value;
+    if (target.value) {
+      this.setColor(target.value);
+      target.value = this.value;
+    } else {
+      this.value = '';
+    }
+
     event.stopPropagation();
   }
 
   handleInputKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      this.setColor(this.inputValue);
-      this.inputValue = this.value;
+      if (this.inputValue) {
+        this.setColor(this.inputValue);
+        this.inputValue = this.value;
+      } else {
+        this.hue = 0;
+      }
     }
   }
 
@@ -273,7 +293,7 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   parseColor(colorString: string) {
-    let parsed;
+    let parsed: Colord;
 
     try {
       parsed = colord(colorString);
@@ -282,7 +302,6 @@ export class UUIColorPickerElement extends LitElement {
     }
 
     const hslColor = parsed.toHsl();
-
     console.log("hslColor", hslColor);
 
     const hsl = {
