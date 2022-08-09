@@ -8,6 +8,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
 import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
 
+import { UUIColorSliderEvent } from './UUIColorSliderEvents';
+
 /**
  *  @element uui-color-slider
  *  @description 
@@ -216,7 +218,8 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   syncValues() {
-
+    
+    this.dispatchEvent(new UUIColorSliderEvent(UUIColorSliderEvent.CHANGE));
   }
 
     render(){

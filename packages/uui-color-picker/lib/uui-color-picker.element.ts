@@ -11,8 +11,13 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import {
   UUIColorAreaElement,
-  UUIColorAreaEvent,
+  UUIColorAreaEvent
 } from '@umbraco-ui/uui-color-area/lib';
+
+import {
+  UUIColorSliderElement,
+  UUIColorSliderEvent
+} from '@umbraco-ui/uui-color-slider/lib';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
@@ -77,6 +82,14 @@ export class UUIColorPickerElement extends LitElement {
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
         /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
         background-color: var(--preview-color);
+      }
+      .color-picker__transparent-bg {
+        background-image: linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+        background-size: 10px 10px;
+        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
       .color-picker__controls {
         padding: 0.75rem;
@@ -210,12 +223,30 @@ export class UUIColorPickerElement extends LitElement {
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl';
   }
 
-  handleAlphaDrag(event: Event) {
-    
+  handleAlphaDrag(event: UUIColorSliderEvent) {
+    console.log("handleAlphaDrag", event);
+
+    const element = event.target as UUIColorSliderElement;
+    console.log("handleAlphaDrag element", element);
+    console.log("alpha value", element.value);
+    this.alpha = clamp(element.value, 0, 100);
+
+    this.syncValues();
+
+    event.stopPropagation();
   }
 
-  handleHueDrag(event: Event) {
-    
+  handleHueDrag(event: UUIColorSliderEvent) {
+    console.log("handleHueDrag", event);
+
+    const element = event.target as UUIColorSliderElement;
+    console.log("handleHueDrag element", element);
+    console.log("hue value", element.value);
+    this.hue = clamp(element.value, 0, 360);
+
+    this.syncValues();
+
+    event.stopPropagation();
   }
 
   handleGridDrag(event: UUIColorAreaEvent) {
@@ -224,20 +255,107 @@ export class UUIColorPickerElement extends LitElement {
      console.log("handleGridDrag element", element);
      console.log("value", element.value);
 
-     this.setColor(element.value);
+     // TODO: Better way to get color, while not changing current alpha.
+     const color = this.parseColor(element.value);
+
+     if (color) {
+      this.saturation = color.hsl.s;
+      this.lightness =  color.hsl.l;
+      this.brightness = this.getBrightness(this.lightness);
+     }
+
+     this.syncValues();
+     //this.setColor(element.value);
+
      event.stopPropagation();
   }
 
   handleAlphaKeyDown(event: KeyboardEvent) {
-    
+    const increment = event.shiftKey ? 10 : 1;
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.alpha = clamp(this.alpha - increment, 0, 100);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.alpha = clamp(this.alpha + increment, 0, 100);
+      this.syncValues();
+    }
+
+    if (event.key === 'Home') {
+      event.preventDefault();
+      this.alpha = 0;
+      this.syncValues();
+    }
+
+    if (event.key === 'End') {
+      event.preventDefault();
+      this.alpha = 100;
+      this.syncValues();
+    }
   }
 
   handleHueKeyDown(event: KeyboardEvent) {
-    
+    const increment = event.shiftKey ? 10 : 1;
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.hue = clamp(this.hue - increment, 0, 360);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.hue = clamp(this.hue + increment, 0, 360);
+      this.syncValues();
+    }
+
+    if (event.key === 'Home') {
+      event.preventDefault();
+      this.hue = 0;
+      this.syncValues();
+    }
+
+    if (event.key === 'End') {
+      event.preventDefault();
+      this.hue = 360;
+      this.syncValues();
+    }
   }
 
   handleGridKeyDown(event: KeyboardEvent) {
-    
+    const increment = event.shiftKey ? 10 : 1;
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.saturation = clamp(this.saturation - increment, 0, 100);
+      this.lightness = this.getLightness(this.brightness);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.saturation = clamp(this.saturation + increment, 0, 100);
+      this.lightness = this.getLightness(this.brightness);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.brightness = clamp(this.brightness + increment, 0, 100);
+      this.lightness = this.getLightness(this.brightness);
+      this.syncValues();
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.brightness = clamp(this.brightness - increment, 0, 100);
+      this.lightness = this.getLightness(this.brightness);
+      this.syncValues();
+    }
   }
 
   handleInputChange(event: CustomEvent) {
@@ -444,6 +562,7 @@ export class UUIColorPickerElement extends LitElement {
               max="360"
               class="hue-slider"
               .value=${Math.round(this.hue)}
+              @change=${this.handleHueDrag}
             >
             </uui-color-slider>
             ${this.opacity
@@ -454,6 +573,7 @@ export class UUIColorPickerElement extends LitElement {
                     max="100"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
+                    @change=${this.handleAlphaDrag}
                   >
                   </uui-color-slider>
                 `
@@ -462,7 +582,6 @@ export class UUIColorPickerElement extends LitElement {
           <uui-button
             type="button"
             class="color-picker__preview color-picker__transparent-bg"
-            label="Copy"
             style=${styleMap({
               '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
             })}

@@ -9,7 +9,7 @@ import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { UUIColorAreaEvent } from './UUIColorAreaEvent';
+import { UUIColorAreaEvent } from './UUIColorAreaEvents';
 
 /**
  * @element uui-color-area
@@ -165,7 +165,6 @@ export class UUIColorAreaElement extends LitElement {
         <div
           class="color-area"
           style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
-          @click=${this.handleClick}
           @mousedown=${this.handleGridDrag}
           @touchstart=${this.handleGridDrag}
         >
