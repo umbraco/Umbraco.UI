@@ -327,7 +327,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     };
 
     public submit() {
-      this._form?.submit();
+      this._form?.requestSubmit();
     }
 
     public formAssociatedCallback() {
