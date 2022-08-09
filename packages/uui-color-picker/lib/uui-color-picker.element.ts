@@ -97,7 +97,13 @@ export class UUIColorPickerElement extends LitElement {
         );
       }
       uui-color-slider.opacity-slider {
-        --slider-bg: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+        --slider-bg: linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%), 
+                    linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%), 
+                    linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%), 
+                    linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+
+        --slider-bg-size: 10px 10px;
+        --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
       uui-color-swatches {
         border-top: solid 1px #d4d4d8;

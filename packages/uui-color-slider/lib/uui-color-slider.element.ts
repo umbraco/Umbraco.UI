@@ -20,12 +20,16 @@ export class UUIColorSliderElement extends LitElement {
         --slider-height: 15px;
         --slider-handle-size: 17px;
         --slider-bg: #fff;
+        --slider-bg-size: 100%;
+        --slider-bg-position: top left;
         display: block;
       }
       .color-slider {
         position: relative;
         height: var(--slider-height);
-        background: var(--slider-bg);
+        background-image: var(--slider-bg);
+        background-size: var(--slider-bg-size);
+        background-position: var(--slider-bg-position);
         border-radius: 3px;
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
       }
