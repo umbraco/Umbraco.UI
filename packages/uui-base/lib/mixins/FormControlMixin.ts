@@ -18,6 +18,7 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   get validationMessage(): string;
   get validity(): ValidityState;
   public setCustomValidity(error: string): void;
+  public submit(): void;
   protected _value: FormDataEntryValue | FormData;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
@@ -324,6 +325,10 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     private _onFormSubmit = () => {
       this.pristine = false;
     };
+
+    public submit() {
+      this._form?.requestSubmit();
+    }
 
     public formAssociatedCallback() {
       this._removeFormListeners();

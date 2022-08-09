@@ -4,6 +4,10 @@ import { UUIRadioGroupElement } from './uui-radio-group.element';
 import { UUIRadioElement } from './uui-radio.element';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
 
+const preventSubmit = (e: SubmitEvent) => {
+  e.preventDefault();
+};
+
 describe('UuiRadio', () => {
   let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
@@ -127,7 +131,7 @@ describe('UuiRadioGroup in a Form', () => {
   let radios: UUIRadioElement[];
   beforeEach(async () => {
     formElement = await fixture(
-      html` <form action="">
+      html` <form @submit=${preventSubmit} action="">
         <uui-radio-group name="Test">
           <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
           <uui-radio value="Value 2" label="Option 2"></uui-radio>
@@ -160,6 +164,18 @@ describe('UuiRadioGroup in a Form', () => {
     expect(element.value).to.equal('');
     const formData = new FormData(formElement);
     expect(formData.get(`${element.name}`)).to.be.equal('');
+  });
+
+  describe('submit', () => {
+    it('should submit when pressing enter', async () => {
+      const listener = oneEvent(formElement, 'submit');
+      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('submit');
+      expect(event!.target).to.equal(formElement);
+    });
   });
 });
 
