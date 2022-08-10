@@ -1,12 +1,18 @@
-import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
-import { UUIButtonElement } from './uui-button.element';
 import '.';
+
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
+} from '@open-wc/testing';
+import {
+  InterfaceColorValues,
+  InterfaceLookValues,
+} from '@umbraco-ui/uui-base/lib/types';
+
+import { UUIButtonElement } from './uui-button.element';
 
 describe('UuiButton', () => {
   let formElement: HTMLFormElement;
@@ -35,8 +41,23 @@ describe('UuiButton', () => {
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
-  });
+    for (const color of InterfaceColorValues) {
+      for (const look of InterfaceLookValues) {
+        for (const disabled of [true, false]) {
+          element = await fixture(
+            html` <uui-button
+              label="Continue"
+              .disabled=${disabled}
+              .look=${look}
+              .color=${color}>
+              Continue
+            </uui-button>`
+          );
+          await expect(element).to.be.accessible();
+        }
+      }
+    }
+  }).timeout(30000);
 
   describe('properties', () => {
     it('has a label property', () => {
