@@ -36,20 +36,19 @@ export class UUIButtonGroupElement extends LitElement {
           var(--uui-border-radius) 0;
       }
 
-      ::slotted(uui-dropdown) {
-        --uui-dropdown-toggle-slot-button-border-radius: 0;
+      ::slotted(uui-popover) {
+        width: unset;
+        --uui-popover-toggle-slot-button-border-radius: 0;
       }
-      ::slotted(uui-dropdown:not(:first-child)) {
-        --uui-dropdown-toggle-slot-button-merge-border-left: 1;
+      ::slotted(uui-popover:not(:first-child)) {
+        --uui-popover-toggle-slot-button-merge-border-left: 1;
       }
-      ::slotted(uui-dropdown:first-child) {
-        --uui-dropdown-toggle-slot-button-border-radius: var(
-            --uui-border-radius
-          )
+      ::slotted(uui-popover:first-child) {
+        --uui-popover-toggle-slot-button-border-radius: var(--uui-border-radius)
           0 0 var(--uui-border-radius);
       }
-      ::slotted(uui-dropdown:last-child) {
-        --uui-dropdown-toggle-slot-button-border-radius: 0
+      ::slotted(uui-popover:last-child) {
+        --uui-popover-toggle-slot-button-border-radius: 0
           var(--uui-border-radius) var(--uui-border-radius) 0;
       }
 
