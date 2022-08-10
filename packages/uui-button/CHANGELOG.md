@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@1.0.0-rc.1...@umbraco-ui/uui-button@1.0.0-rc.2) (2022-08-10)
+
+### Bug Fixes
+
+- Change `uui-button` height to min-height and remove the height from `button` inside ([#271](https://github.com/umbraco/Umbraco.UI/issues/271)) ([d7cecac](https://github.com/umbraco/Umbraco.UI/commit/d7cecaca0b70205dd958b9b6f71743f3c07f3366))
+- fixed padding and added multiline story ([#277](https://github.com/umbraco/Umbraco.UI/issues/277)) ([d264e73](https://github.com/umbraco/Umbraco.UI/commit/d264e73c3a512e45b2640286d805ccf070bbd4bb))
+- vertical align content of UUI-Button anchor tag ([#254](https://github.com/umbraco/Umbraco.UI/issues/254)) ([319312c](https://github.com/umbraco/Umbraco.UI/commit/319312c0e7c6abe4083a44cf89cefe4dc1f40d8c))
+
 # [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@1.0.0-rc.0...@umbraco-ui/uui-button@1.0.0-rc.1) (2022-06-28)
 
 ### Bug Fixes
