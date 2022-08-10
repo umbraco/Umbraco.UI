@@ -392,12 +392,14 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
     this._sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
   }
 
-  private _onInput() {
+  private _onInput(e: Event) {
+    e.stopPropagation();
     this.value = this._input.value;
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.INPUT));
   }
 
-  private _onChange() {
+  private _onChange(e: Event) {
+    e.stopPropagation();
     this.pristine = false;
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.CHANGE));
   }
