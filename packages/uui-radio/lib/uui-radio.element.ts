@@ -220,7 +220,8 @@ export class UUIRadioElement extends LitElement {
     this.inputElement.click();
   }
 
-  private _onChange() {
+  private _onChange(e: Event) {
+    e.stopPropagation();
     const checked = this.inputElement.checked;
     this.checked = checked;
     if (checked) {
