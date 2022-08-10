@@ -9,7 +9,7 @@ module.exports = {
     '../storyhelpers/storybook-readme/preset.js',
   ],
   framework: '@storybook/web-components',
-  features: { storyStoreV7: true },
+  features: { storyStoreV7: false },
   core: { builder: '@storybook/builder-vite' },
   staticDirs: ['./images'],
 
