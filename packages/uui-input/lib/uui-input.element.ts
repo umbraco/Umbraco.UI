@@ -264,7 +264,6 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   private _onKeypress(e: KeyboardEvent): void {
-    e.stopPropagation();
     if (this.type !== 'color' && e.key == 'Enter') {
       this.submit();
     }

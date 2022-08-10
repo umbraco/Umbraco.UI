@@ -374,7 +374,6 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   };
 
   private _onKeypress(e: KeyboardEvent): void {
-    e.stopPropagation();
     if (e.key == 'Enter') {
       this.submit();
     }

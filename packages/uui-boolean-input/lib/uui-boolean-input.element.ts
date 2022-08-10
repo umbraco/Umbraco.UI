@@ -142,7 +142,6 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   }
 
   private _onKeypress(e: KeyboardEvent): void {
-    e.stopPropagation();
     if (e.key == 'Enter') {
       this.submit();
     }
