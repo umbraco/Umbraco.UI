@@ -281,12 +281,14 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   protected onInput(e: Event) {
+    e.stopPropagation();
     this.value = (e.target as HTMLInputElement).value;
 
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.INPUT));
   }
 
-  protected onChange() {
+  protected onChange(e: Event) {
+    e.stopPropagation();
     this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
