@@ -635,6 +635,11 @@ export class UUIColorPickerElement extends LitElement {
       </div>
     `;
     
+    if (this.inline) {
+      return colorPicker;
+    }
+    
+    // TODO: Could we render color picker using `uui-popover` here?
     return colorPicker;
   }
 }
