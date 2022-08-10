@@ -4,6 +4,7 @@
 
 const DefaultInit = {
   composed: true,
+  bubbles: true,
 };
 export class UUIEvent<
   DetailType extends Record<string, any> = Record<string, any>,
