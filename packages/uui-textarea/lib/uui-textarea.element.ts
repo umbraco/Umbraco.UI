@@ -255,7 +255,8 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     //this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
   }
 
-  private onChange() {
+  private onChange(e: Event) {
+    e.stopPropagation();
     this.pristine = false;
     this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.CHANGE));
   }
