@@ -535,6 +535,8 @@ export class UUIColorPickerElement extends LitElement {
     }
 
     this.value = this.inputValue;
+
+    await this.updateComplete;
   }
 
   render(){
