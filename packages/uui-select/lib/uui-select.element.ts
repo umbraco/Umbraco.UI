@@ -229,6 +229,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   }
 
   protected setValue(e: Event) {
+    e.stopPropagation();
     const target = e.target as HTMLSelectElement;
     if (e.target) this.value = target.value;
     this.dispatchEvent(

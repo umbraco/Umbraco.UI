@@ -9,6 +9,14 @@ import {
 import { UUIInputElement } from './uui-input.element';
 import { UUIInputEvent } from './UUIInputEvent';
 
+const preventSubmit = (e: SubmitEvent) => {
+  e.preventDefault();
+};
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 describe('UuiInputElement', () => {
   let element: UUIInputElement;
   let input: HTMLInputElement;
@@ -136,7 +144,7 @@ describe('UuiInput in Form', () => {
   beforeEach(async () => {
     formElement = await fixture(
       html`
-        <form>
+        <form @submit=${preventSubmit}>
           <uui-input label="a input label" name="input" value="Hello uui-input">
           </uui-input>
         </form>
@@ -158,6 +166,35 @@ describe('UuiInput in Form', () => {
     element.value = 'anotherValue';
     const formData = new FormData(formElement);
     await expect(formData.get('input')).to.be.equal('anotherValue');
+  });
+
+  describe('submit', () => {
+    it('should submit when pressing enter', async () => {
+      const listener = oneEvent(formElement, 'submit');
+      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('submit');
+      expect(event!.target).to.equal(formElement);
+    });
+
+    it('should not submit if type=color', async () => {
+      element.type = 'color';
+      await elementUpdated(element);
+
+      let isFulfilled = false;
+
+      const listener = oneEvent(formElement, 'submit');
+
+      listener.then(() => (isFulfilled = true));
+
+      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+
+      await sleep(100);
+
+      expect(isFulfilled).to.be.false;
+    });
   });
 
   describe('validation', () => {

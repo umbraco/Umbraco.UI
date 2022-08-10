@@ -1,8 +1,10 @@
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
-import { UUITableElement } from './uui-table.element';
-import { UUITableRowElement } from './uui-table-row.element';
+import '.';
+
+import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+
 import { UUITableCellElement } from './uui-table-cell.element';
-import './index';
+import { UUITableRowElement } from './uui-table-row.element';
+import { UUITableElement } from './uui-table.element';
 
 describe('UuiTable', () => {
   let table: UUITableElement;
@@ -28,7 +30,7 @@ describe('UuiTable', () => {
           <uui-table-row>
             <uui-table-cell>Hello 3</uui-table-cell>
             <uui-table-cell>Hello 3</uui-table-cell>
-            <uui-table-cell>Hello 3</uui-table-cell>
+            <uui-table-cell>Hello long text 3</uui-table-cell>
           </uui-table-row>
         </uui-table>
       `
@@ -48,7 +50,8 @@ describe('UuiTable', () => {
       ?.assignedElements()[2] as UUITableCellElement;
     cell.setAttribute('clip-text', 'true');
     await elementUpdated(cell);
-    expect(cell.title).to.equal('Hello 3');
+    expect(cell).to.have.attribute('title', 'Hello long text 3');
+    expect(cell.title).to.equal('Hello long text 3');
   });
 
   it('ROW: Adds selected attribute when clicked', async () => {

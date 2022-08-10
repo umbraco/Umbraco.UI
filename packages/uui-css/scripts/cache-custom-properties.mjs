@@ -3,6 +3,7 @@ import path from 'path';
 import postcss from 'postcss';
 import postcssCustomProperties from 'postcss-custom-properties';
 import * as postCssValueParser from 'postcss-values-parser';
+import syntax from 'postcss-jsx';
 
 export const CacheCustomProperties = async masterCSSPath => {
   const CSS_PATH = path.resolve(masterCSSPath);
@@ -17,7 +18,11 @@ export const CacheCustomProperties = async masterCSSPath => {
         importFrom: [CSS_PATH],
         exportTo: fileData,
       }),
-    ]).process(cssFile, { from: CSS_PATH, to: './css-test.css' });
+    ]).process(cssFile, {
+      syntax: syntax,
+      from: CSS_PATH,
+      to: './css-test.css',
+    });
 
     for (const key in fileData.customProperties) {
       const valueNode = postCssValueParser.parse(
