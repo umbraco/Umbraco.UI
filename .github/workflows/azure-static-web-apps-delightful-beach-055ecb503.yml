@@ -3,13 +3,16 @@ name: Azure Static Web Apps CI/CD
 on:
   push:
     branches:
-      - storybook
+      - main
+      - 'v*/main'
+      - 'v*/dev'
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - 'v*/main'
+      - 'v*/dev'
 
 jobs:
   build_and_deploy_job:
@@ -34,6 +37,7 @@ jobs:
           app_build_command: 'npm run storybook:build'
           api_location: '' # Api source code path - optional
           output_location: '/storybook-static' # Built app content directory - optional
+          production_branch: 'v1/main' # Production branch
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
