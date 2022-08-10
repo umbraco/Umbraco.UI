@@ -5,16 +5,6 @@ import { setCustomElements } from '@storybook/web-components';
 
 import customElements from '../custom-elements.json';
 
-const sort = (a, b) => {
-  if (a[1].name === 'Overview') {
-    return 0;
-  }
-  if (b[1].name === 'Overview') {
-    return 1;
-  }
-  return a[0] > b[0];
-};
-
 export const parameters = {
   layout: 'padded',
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -29,7 +19,16 @@ export const parameters = {
   },
   options: {
     method: 'alphabetical',
-    storySort: sort,
+    storySort: (a, b) => {
+      //NOTE: This has to be an inline function for some reason
+      if (a.title === 'Overview') {
+        return 0;
+      }
+      if (b.title === 'Overview') {
+        return 1;
+      }
+      return a.title > b.title;
+    },
   },
 };
 

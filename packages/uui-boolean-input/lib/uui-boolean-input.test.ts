@@ -8,6 +8,7 @@ import {
   expect,
   fixture,
   html,
+  oneEvent,
   unsafeStatic,
 } from '@open-wc/testing';
 import { html as litHTMLLiteral } from 'lit';
@@ -26,6 +27,10 @@ const tagName = defineCE(
 );
 
 const tag = unsafeStatic(tagName);
+
+const preventSubmit = (e: SubmitEvent) => {
+  e.preventDefault();
+};
 
 describe('UUIBooleanInputElement', () => {
   let element: any;
@@ -85,7 +90,7 @@ describe('BooleanInputBaseElement in a Form', () => {
   let element: any;
   beforeEach(async () => {
     formElement = await fixture(
-      html`<form><${tag} name="test" value="testValue"
+      html`<form @submit=${preventSubmit}><${tag} name="test" value="testValue"
       label="test label"></${tag}></form>`
     );
     element = formElement.firstChild;
@@ -117,6 +122,18 @@ describe('BooleanInputBaseElement in a Form', () => {
     element.checked = true;
     const formData = new FormData(formElement);
     expect(formData.get(`test`)).to.equal('on');
+  });
+
+  describe('submit', () => {
+    it('should submit when pressing enter', async () => {
+      const listener = oneEvent(formElement, 'submit');
+      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('submit');
+      expect(event!.target).to.equal(formElement);
+    });
   });
 
   describe('validation', () => {

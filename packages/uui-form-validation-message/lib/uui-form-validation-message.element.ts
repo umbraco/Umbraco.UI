@@ -78,7 +78,7 @@ export class UUIFormValidationMessageElement extends LitElement {
   private _messages = new Map<FormControlMixinInterface, string>();
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
-    const ctrl = e.target;
+    const ctrl = (e as any).composedPath()[0];
     if (ctrl.pristine === false) {
       // Currently we only show message from components who does have the pristine property. (we only want to show messages from fields that are NOT pristine aka. that are dirty or in a from that has been submitted)
       this._messages.set(ctrl, ctrl.validationMessage);
@@ -89,7 +89,8 @@ export class UUIFormValidationMessageElement extends LitElement {
   };
 
   private _onControlValid = (e: UUIFormControlEvent) => {
-    this._messages.delete(e.target);
+    const ctrl = (e as any).composedPath()[0];
+    this._messages.delete(ctrl);
     this.requestUpdate();
   };
 

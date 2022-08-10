@@ -1,4 +1,4 @@
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -23,7 +23,6 @@ export type InputType =
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
- * @slot input label - for the input label text.
  * @slot prepend - for components to render to the left of the input.
  * @slot append - for components to render to the right of the input.
  * @fires UUIInputEvent#change on change
@@ -31,7 +30,9 @@ export type InputType =
  * @fires KeyboardEvent#keyup on keyup
  */
 @defineElement('uui-input')
-export class UUIInputElement extends FormControlMixin(LitElement) {
+export class UUIInputElement extends FormControlMixin(
+  LabelMixin('', LitElement)
+) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -196,14 +197,6 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   readonly = false;
 
   /**
-   * Label for input element.
-   * @type {string}
-   * @attr
-   */
-  @property({ type: String })
-  public label!: string;
-
-  /**
    * Defines the input placeholder.
    * @type {string}
    * @attr
@@ -249,6 +242,7 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
+    this.addEventListener('keypress', this._onKeypress);
 
     this.addValidator(
       'tooShort',
@@ -269,6 +263,12 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
     this.addFormControlElement(this._input);
   }
 
+  private _onKeypress(e: KeyboardEvent): void {
+    if (this.type !== 'color' && e.key == 'Enter') {
+      this.submit();
+    }
+  }
+
   /**
    * This method enables <label for="..."> to focus the input
    */
@@ -281,12 +281,14 @@ export class UUIInputElement extends FormControlMixin(LitElement) {
   }
 
   protected onInput(e: Event) {
+    e.stopPropagation();
     this.value = (e.target as HTMLInputElement).value;
 
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.INPUT));
   }
 
-  protected onChange() {
+  protected onChange(e: Event) {
+    e.stopPropagation();
     this.pristine = false;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }

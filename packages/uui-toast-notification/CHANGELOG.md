@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-toast-notification@1.0.0-rc.1...@umbraco-ui/uui-toast-notification@1.0.0-rc.2) (2022-08-10)
+
+### Bug Fixes
+
+- change notification color primary to default ([#258](https://github.com/umbraco/Umbraco.UI/issues/258)) ([2930d52](https://github.com/umbraco/Umbraco.UI/commit/2930d522f25f9bc5de027f8b5dda4049d8539988))
+
 # [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-toast-notification@1.0.0-rc.0...@umbraco-ui/uui-toast-notification@1.0.0-rc.1) (2022-06-28)
 
 ### Bug Fixes

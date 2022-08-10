@@ -74,6 +74,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   constructor() {
     super();
     this.addEventListener('keydown', this._onKeydown);
+    this.addEventListener('keypress', this._onKeypress);
   }
 
   /**
@@ -116,6 +117,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   }
 
   private _handleSlotChange(e: Event) {
+    e.stopPropagation();
     // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
 
     this._radioElements?.forEach(el => {
@@ -224,6 +226,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   }
 
   private _onKeydown(e: KeyboardEvent) {
+    e.stopPropagation();
     switch (e.key) {
       case ARROW_LEFT:
       case ARROW_UP: {
@@ -247,6 +250,12 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     }
   }
 
+  private _onKeypress(e: KeyboardEvent): void {
+    if (e.key == 'Enter') {
+      this.submit();
+    }
+  }
+
   private _fireChangeEvent() {
     this.pristine = false;
     this.dispatchEvent(new UUIRadioGroupEvent(UUIRadioGroupEvent.CHANGE));
@@ -257,6 +266,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   };
 
   private _handleSelectOnClick = (e: UUIRadioEvent) => {
+    e.stopPropagation();
     if (e.target.checked === true) {
       this.value = e.target.value;
       this._fireChangeEvent();

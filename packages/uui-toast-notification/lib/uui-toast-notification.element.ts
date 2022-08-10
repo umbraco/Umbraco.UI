@@ -96,7 +96,7 @@ export class UUIToastNotificationElement extends LitElement {
         color: var(--uui-color-text);
         border-color: var(--uui-color-surface);
       }
-      :host([color='primary']) #toast > div {
+      :host([color='default']) #toast > div {
         background-color: var(--uui-color-default);
         color: var(--uui-color-default-contrast);
         border-color: var(--uui-color-default-standalone);
@@ -120,8 +120,8 @@ export class UUIToastNotificationElement extends LitElement {
   ];
 
   /**
-   * Changes the look of the notification to one of the predefined, symbolic looks. Example set this to danger for errors.
-   * @type {""|"default"|"primary"|"positive"|"warning"|"danger"}
+   * Changes the color of the notification to one of the predefined, symbolic colors. Example: set this to danger to indicate errors.
+   * @type {'' | 'default' | 'positive' | 'warning' | 'danger'}
    * @attr
    * @default ""
    */

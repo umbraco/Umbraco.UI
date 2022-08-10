@@ -83,11 +83,11 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     return this._value;
   }
   set value(newValue) {
-    super.value = newValue;
-
     if (typeof newValue === 'string') {
       this._updateValue(newValue);
     }
+
+    super.value = newValue;
   }
 
   /**
@@ -185,7 +185,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _onBlur = () =>
     requestAnimationFrame(() => {
       if (document.activeElement !== this) {
-        this._close();
+        this._onClose();
       }
     });
 
@@ -201,10 +201,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     e.stopImmediatePropagation();
 
     this.value = this._comboboxList?.value || '';
-    this._displayValue = this._comboboxList?.displayValue || '';
     this.search = this.value ? this.search : '';
 
-    this._close();
+    this._onClose();
 
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
@@ -214,16 +213,14 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.open = true;
   };
 
-  private _close = () => {
+  private _onClose = () => {
     if (!this.open) return;
 
     this.open = false;
-
-    // Reset display and input value:
-    this._displayValue = this._comboboxList?.displayValue || '';
+    this.search = '';
+    // Reset input(search-input) value:
     this._input.value = this._displayValue;
 
-    this.search = '';
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
   };
 
@@ -238,21 +235,22 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     }
 
     if (e.key === 'Escape' || e.key === 'Enter') {
-      this._close();
+      this._onClose();
     }
   };
 
-  private _clear = (e: any) => {
+  private _onClear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
     e.preventDefault(); // TODO: could we avoid this.
     e.stopImmediatePropagation(); // TODO: could we avoid this.
 
-    this._displayValue = '';
-    this._input.value = this._displayValue;
-    this.search = '';
     this.value = '';
-    this._comboboxList.value = this.value;
+    this.search = '';
+    // Reset input(search-input) value:
+    this._input.value = this._displayValue;
+
+    this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -263,7 +261,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       label="combobox-input"
       type="text"
       .value=${this._displayValue}
-      .placeholder=${this._displayValue}
       autocomplete="off"
       @click=${this._open}
       @input=${this._onInput}
@@ -284,8 +281,8 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     return html`<uui-button
       id="clear-button"
       class=${this.value || this.search ? '--show' : ''}
-      @click=${this._clear}
-      @keydown=${this._clear}
+      @click=${this._onClear}
+      @keydown=${this._onClear}
       label="clear"
       slot="append"
       compact
@@ -307,7 +304,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       <uui-popover
         .open=${this.open}
         .margin=${-1}
-        @close=${() => this._close()}>
+        @close=${() => this._onClose()}>
         ${this._renderInput()} ${this._renderDropdown()}
       </uui-popover>
     `;

@@ -2,8 +2,9 @@ import '.';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 
-import { Story } from '@storybook/web-components';
+import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { UUIButtonElement } from './uui-button.element';
 
 export default {
   title: 'Buttons/Button',
@@ -15,9 +16,9 @@ export default {
     target: undefined,
     look: 'default',
     color: 'default',
-    type: '',
+    type: undefined,
     label: 'Button',
-    state: '',
+    state: undefined,
   },
   argTypes: {
     look: {
@@ -54,7 +55,7 @@ export default {
     '--uui-button-background-color-disabled': { control: { type: 'color' } },
     '--uui-button-contrast-disabled': { control: { type: 'color' } },
   },
-};
+} as Meta<UUIButtonElement>;
 
 const cssProps = [
   '--uui-button-height',
@@ -87,12 +88,12 @@ const Template: Story = props => {
         .reduce(reducer)}
       ?disabled=${props.disabled}
       ?compact=${props.compact}
+      .state=${props.state}
+      .href=${props.href}
+      .target=${props.target}
       look=${props.look}
       color=${props.color}
       label=${props.label}
-      state=${props.state}
-      href=${props.href}
-      target=${props.target}
       >${props.content}</uui-button
     >
   `;
@@ -324,12 +325,14 @@ export const AnchorTag = Template.bind({});
 AnchorTag.args = {
   href: 'https://www.umbraco.com',
   target: '_blank',
+  look: 'primary',
 };
 AnchorTag.parameters = {
   docs: {
     source: {
       code: html`
         <uui-button
+          look="primary"
           label="Open umbraco.com"
           href="http://www.umbraco.com"
           target="_blank">
@@ -338,3 +341,82 @@ AnchorTag.parameters = {
     },
   },
 };
+
+export const MultiLine: Story = props => {
+  return html`
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}
+      href=${props.href}
+      target=${props.target}
+      >Hello <br />
+      I am button</uui-button
+    >
+    <br /><br />
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      ?compact=${props.compact}
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}
+      href=${props.href}
+      target=${props.target}>
+      <uui-badge color="danger">2</uui-badge>
+      Hello <br />
+      I am button
+    </uui-button>
+    <br /><br />
+    <uui-button
+      type=${props.type}
+      style=${cssProps
+        .map(cssProp => (props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''))
+        .reduce(reducer)}
+      ?disabled=${props.disabled}
+      compact
+      look=${props.look}
+      color=${props.color}
+      label=${props.label}
+      state=${props.state}
+      href=${props.href}
+      target=${props.target}>
+      Hi <br />
+      I am compact
+    </uui-button>
+    <br /><br />
+    <uui-icon-registry-essential>
+      <uui-button
+        type=${props.type}
+        style=${cssProps
+          .map(cssProp =>
+            props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''
+          )
+          .reduce(reducer)}
+        ?disabled=${props.disabled}
+        ?compact=${props.compact}
+        look=${props.look}
+        color=${props.color}
+        label=${props.label}
+        state=${props.state}
+        href=${props.href}
+        target=${props.target}>
+        <uui-icon .name=${'favorite'}></uui-icon>
+        <br />Home
+      </uui-button>
+    </uui-icon-registry-essential>
+  `;
+};
+
+MultiLine.args = { look: 'primary' };

@@ -62,7 +62,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         padding: 16px;
         box-sizing: border-box;
         justify-content: center;
-        align-items: center;
+        align-items: stretch;
       }
     `,
   ];

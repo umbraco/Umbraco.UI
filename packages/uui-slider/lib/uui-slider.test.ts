@@ -1,13 +1,19 @@
+import '.';
+
 import {
-  html,
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
+  html,
   oneEvent,
 } from '@open-wc/testing';
+
 import { UUISliderElement } from './uui-slider.element';
-import './index';
 import { UUISliderEvent } from './UUISliderEvents';
+
+const preventSubmit = (e: SubmitEvent) => {
+  e.preventDefault();
+};
 
 describe('UuiSlider', () => {
   let element: UUISliderElement;
@@ -116,7 +122,7 @@ describe('UuiSlider in Form', () => {
   let element: UUISliderElement;
   beforeEach(async () => {
     formElement = await fixture(
-      html` <form>
+      html` <form @submit=${preventSubmit}>
         <uui-slider
           label="a slideruui-slider label"
           name="slider"
@@ -140,5 +146,17 @@ describe('UuiSlider in Form', () => {
     element.value = '90';
     const formData = new FormData(formElement);
     await expect(formData.get('slider')).to.be.equal('90');
+  });
+
+  describe('submit', () => {
+    it('should submit when pressing enter', async () => {
+      const listener = oneEvent(formElement, 'submit');
+      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('submit');
+      expect(event!.target).to.equal(formElement);
+    });
   });
 });
