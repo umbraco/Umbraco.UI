@@ -56,6 +56,15 @@ export class UUIPopoverElement extends LitElement {
         position: relative;
         width: 100%;
       }
+
+      slot[name='trigger']::slotted(uui-button) {
+        --uui-button-border-radius: var(
+          --uui-popover-toggle-slot-button-border-radius
+        );
+        --uui-button-merge-border-left: var(
+          --uui-popover-toggle-slot-button-merge-border-left
+        );
+      }
     `,
   ];
 
