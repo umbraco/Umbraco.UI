@@ -12,6 +12,12 @@ export default {
   ],
   testRunnerHtml: testFramework =>
     `<html>
+      <head>
+        <link rel="stylesheet" href="/packages/uui-css/dist/custom-properties.css">
+        <link rel="stylesheet" href="/packages/uui-css/dist/uui-font.css">
+        <link rel="stylesheet" href="/packages/uui-css/dist/uui-text.css">
+        <link rel="stylesheet" href="/packages/uui-css/dist/uui-css.css">
+      </head>
       <body>
         <script type="module" src="${testFramework}"></script>
         <script type="module">
