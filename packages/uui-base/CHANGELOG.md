@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-base@1.0.0-rc.1...@umbraco-ui/uui-base@1.0.0-rc.2) (2022-08-10)
+
+### Bug Fixes
+
+- Add labels to fix accessibility warnings ([#289](https://github.com/umbraco/Umbraco.UI/issues/289)) ([373f0d3](https://github.com/umbraco/Umbraco.UI/commit/373f0d396183f7f89a71840b0542c52316821ceb))
+- dispatching of events twice ([#292](https://github.com/umbraco/Umbraco.UI/issues/292)) ([901da47](https://github.com/umbraco/Umbraco.UI/commit/901da475b52be7ef65e7e429effc3c82c9aa481b))
+
+### Features
+
+- Form elements submits the form on enter ([#288](https://github.com/umbraco/Umbraco.UI/issues/288)) ([a089cb1](https://github.com/umbraco/Umbraco.UI/commit/a089cb1ff0e288e9cb0f768c72a83a0c2c8c706e))
+
 # [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-base@1.0.0-rc.0...@umbraco-ui/uui-base@1.0.0-rc.1) (2022-06-28)
 
 **Note:** Version bump only for package @umbraco-ui/uui-base
