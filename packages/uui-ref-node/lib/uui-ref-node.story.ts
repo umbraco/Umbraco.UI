@@ -58,14 +58,16 @@ AAAOverview.parameters = {
 };
 
 export const CustomIcon: Story = () => html`
-  <uui-ref-node-data-type
-    name="Rabbit Suit Product Page"
-    detail="path/to/nowhere">
-    <uui-icon slot="icon" name="shopping-basket-alt"></uui-icon>
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node-data-type>
+  <essential-icon-registry>
+    <uui-ref-node-data-type
+      name="Rabbit Suit Product Page"
+      detail="path/to/nowhere">
+      <uui-icon slot="icon" name="colorpicker"></uui-icon>
+      <uui-action-bar slot="actions">
+        <uui-button label="Remove">Remove</uui-button>
+      </uui-action-bar>
+    </uui-ref-node-data-type>
+  </essential-icon-registry>
 `;
 
 CustomIcon.parameters = {
@@ -75,7 +77,7 @@ CustomIcon.parameters = {
 <uui-ref-node
   name="Rabbit Suit Product Page"
   detail="path/to/nowhere">
-  <uui-icon slot="icon" name="shopping-basket-alt"></uui-icon>
+  <uui-icon slot="icon" name="colorpicker"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
