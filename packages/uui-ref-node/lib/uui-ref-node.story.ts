@@ -10,7 +10,11 @@ export default {
   title: 'Displays/References/Node',
   component: 'uui-ref-node',
   decorators: [
-    (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
+    (Story: any) => html`
+      <uui-icon-registry-essential>
+        <div style="max-width: 420px;">${Story()}</div>
+      </uui-icon-registry-essential>
+    `,
   ],
 };
 
@@ -24,7 +28,8 @@ const Template: Story = props => html`
     ?disabled=${props.disabled}>
     <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions"
-      ><uui-button><uui-icon name="delete"></uui-icon></uui-button
+      ><uui-button label="delete"
+        ><uui-icon name="delete"></uui-icon></uui-button
     ></uui-action-bar>
   </uui-ref-node>
 `;
