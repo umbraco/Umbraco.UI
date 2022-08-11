@@ -28,7 +28,7 @@ Formats with both esLint and prettier. Runs before each commit.
 
 Serves UI Library Storybook.
 
-## `build-storybook`
+## `storybook:build`
 
 Builds the storybook.
 
