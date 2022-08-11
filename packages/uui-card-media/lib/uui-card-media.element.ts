@@ -76,8 +76,8 @@ export class UUICardMediaElement extends UUICardElement {
 
       :host([disabled]) #open-part {
         pointer-events: none;
-        background: var(--uui-interface-surface-disabled);
-        color: var(--uui-interface-contrast-disabled);
+        background: var(--uui-color-disabled);
+        color: var(--uui-color-contrast-disabled);
       }
 
       #open-part:hover {
