@@ -7,6 +7,11 @@ export default {
   id: 'uui-ref-node-package',
   title: 'Displays/References/Package',
   component: 'uui-ref-node-package',
+  decorators: [
+    (Story: any) => html`
+      <uui-icon-registry-essential>${Story()}</uui-icon-registry-essential>
+    `,
+  ],
 };
 
 const Template: Story = props => html`

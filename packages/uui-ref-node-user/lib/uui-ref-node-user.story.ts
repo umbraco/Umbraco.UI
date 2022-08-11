@@ -48,14 +48,16 @@ AAAOverview.parameters = {
 };
 
 export const CustomIcon: Story = () => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node-member name="Arnold Edits" group-name="Editor, Translator">
-      <uui-icon slot="icon" name="crown-alt"></uui-icon>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node-member>
-  </div>
+  <uui-icon-registry-essential>
+    <div style="max-width: 420px;">
+      <uui-ref-node-member name="Arnold Edits" group-name="Editor, Translator">
+        <uui-icon slot="icon" name="colorpicker"></uui-icon>
+        <uui-action-bar slot="actions">
+          <uui-button label="Remove">Remove</uui-button>
+        </uui-action-bar>
+      </uui-ref-node-member>
+    </div>
+  </uui-icon-registry-essential>
 `;
 
 CustomIcon.parameters = {
@@ -65,7 +67,7 @@ CustomIcon.parameters = {
 <uui-ref-node-data-type
   name="Arnold Edits"
   group-name="Editor, Translator">
-  <uui-icon slot="icon" name="crown-alt"></uui-icon>
+  <uui-icon slot="icon" name="colorpicker"></uui-icon>
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
