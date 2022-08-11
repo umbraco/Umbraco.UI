@@ -58,8 +58,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          buildScriptName: 'storybook:build'
+          buildScriptName: 'storybook:build -- --webpack-stats-json'
           exitOnceUploaded: true
-          onlyChanged: '!(dev)'
+          onlyChanged: '!(v*/dev)'
           externals: 'packages/uui-css/lib/**/*.css'
-          untraced: '.storybook/images'
+          untraced: '.storybook/images/**/*,storyhelpers/**/*'
