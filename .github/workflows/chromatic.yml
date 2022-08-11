@@ -36,7 +36,7 @@ on:
 # List of jobs
 jobs:
   chromatic-deployment:
-    if: github.repository_owner == 'Umbraco'
+    if: ${{ !github.event.pull_request.head.repo.fork }}
     # Operating System
     runs-on: ubuntu-latest
     # Job steps
