@@ -34,7 +34,7 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: '/' # App source code path
-          app_build_command: 'npm run build-storybook'
+          app_build_command: 'npm run storybook:build'
           api_location: '' # Api source code path - optional
           output_location: '/storybook-static' # Built app content directory - optional
           production_branch: 'v1/main' # Production branch
