@@ -77,6 +77,39 @@ export const RadioGroup: Story = () =>
       <uui-radio value="2" disabled>Option 2</uui-radio>
       <uui-radio value="3">Option 3</uui-radio>
     </uui-radio-group>
+
+    <uui-radio-group name="f331672b-e6f3-4b73-8b44-67a51a24f296">
+      <uui-radio
+        value="Prolific - I live and breathe Umbraco."
+        label="Prolific - I live and breathe Umbraco.">
+      </uui-radio>
+      <uui-radio
+        value="Regular - I see a thing and I fix it. I see a person in need and I chat to them. I learn something new and I blog about it. I have an idea! I'm building a package!"
+        label="Regular - I see a thing and I fix it. I see a person in need and I chat to them. I learn something new and I blog about it. I have an idea! I'm building a package!">
+      </uui-radio>
+      <uui-radio
+        value="Social - I'm here for the people, the vibes, the good times. I would probably hang out with you all if I didn't work with the product."
+        label="Social - I'm here for the people, the vibes, the good times. I would probably hang out with you all if I didn't work with the product.">
+      </uui-radio>
+      <uui-radio
+        value="Keen but irregular - I love contributing when I have time but time is short these days since the new ."
+        label="Keen but irregular - I love contributing when I have time but time is short these days since the new .">
+      </uui-radio>
+      <uui-radio
+        value="Shy - I would do more but I am not sure how welcome or valuable my experience is."
+        label="Shy - I would do more but I am not sure how welcome or valuable my experience is.">
+      </uui-radio>
+      <uui-radio
+        value="Reluctant - Nope, I work hard enough. Love what you do and all but I'm saving energy for the things I already have on my to do list."
+        label="Reluctant - Nope, I work hard enough. Love what you do and all but I'm saving energy for the things I already have on my to do list.">
+      </uui-radio>
+      <uui-radio
+        value="Lapsed - I miss XSLT. It was all so much better before"
+        label="Lapsed - I miss XSLT. It was all so much better before">
+      </uui-radio>
+      <uui-radio value="Other (Please state)" label="Other (Please state)">
+      </uui-radio>
+    </uui-radio-group>
   `;
 
 RadioGroup.parameters = {
@@ -89,6 +122,49 @@ RadioGroup.parameters = {
   <uui-radio value="2" disabled>Option 2</uui-radio>
   <uui-radio value="3">Option 3</uui-radio>
 </uui-radio-group>
+
+<uui-radio-group name="f331672b-e6f3-4b73-8b44-67a51a24f296">
+  <uui-radio      
+      value="Prolific - I live and breathe Umbraco."
+      label="Prolific - I live and breathe Umbraco."
+      >
+  </uui-radio>
+  <uui-radio
+      value="Regular - I see a thing and I fix it. I see a person in need and I chat to them. I learn something new and I blog about it. I have an idea! I&#x2019;m building a package!"
+      label="Regular - I see a thing and I fix it. I see a person in need and I chat to them. I learn something new and I blog about it. I have an idea! I&#x2019;m building a package!"
+      >
+  </uui-radio>
+  <uui-radio
+      value="Social - I'm here for the people, the vibes, the good times. I would probably hang out with you all if I didn't work with the product."
+      label="Social - I'm here for the people, the vibes, the good times. I would probably hang out with you all if I didn't work with the product."
+      >
+  </uui-radio>
+  <uui-radio
+      value="Keen but irregular - I love contributing when I have time but time is short these days since the new ."
+      label="Keen but irregular - I love contributing when I have time but time is short these days since the new ."
+      >
+  </uui-radio>
+  <uui-radio
+      value="Shy - I would do more but I am not sure how welcome or valuable my experience is."
+      label="Shy - I would do more but I am not sure how welcome or valuable my experience is."
+      >
+  </uui-radio>
+  <uui-radio
+      value="Reluctant - Nope, I work hard enough. Love what you do and all but I'm saving energy for the things I already have on my to do list."
+      label="Reluctant - Nope, I work hard enough. Love what you do and all but I'm saving energy for the things I already have on my to do list."
+      >
+  </uui-radio>
+  <uui-radio
+      value="Lapsed - I miss XSLT. It was all so much better before"
+      label="Lapsed - I miss XSLT. It was all so much better before"
+      >
+  </uui-radio>
+  <uui-radio 
+      value="Other (Please state)"
+      label="Other (Please state)"
+      >
+  </uui-radio>
+</uui-radio-group
 `,
     },
   },
