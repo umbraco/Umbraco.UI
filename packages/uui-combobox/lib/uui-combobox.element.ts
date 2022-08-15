@@ -58,17 +58,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         box-shadow: var(--uui-shadow-depth-3);
       }
 
-      #clear-button {
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 120ms;
-      }
-
-      #clear-button.--show {
-        pointer-events: auto;
-        opacity: 1;
-      }
-
       #caret {
         margin-right: var(--uui-size-3, 9px);
         display: flex;
@@ -250,6 +239,8 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     // Reset input(search-input) value:
     this._input.value = this._displayValue;
 
+    this._input.focus();
+
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
@@ -278,22 +269,23 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   };
 
   private _renderClearButton = () => {
-    return html`<uui-button
-      id="clear-button"
-      class=${this.value || this.search ? '--show' : ''}
-      @click=${this._onClear}
-      @keydown=${this._onClear}
-      label="clear"
-      slot="append"
-      compact
-      style="height: 100%;">
-      <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
-    </uui-button>`;
+    return this.value || this.search
+      ? html`<uui-button
+          id="clear-button"
+          @click=${this._onClear}
+          @keydown=${this._onClear}
+          label="clear"
+          slot="append"
+          compact
+          style="height: 100%;">
+          <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
+        </uui-button>`
+      : '';
   };
 
   private _renderDropdown = () => {
     return html`<div id="dropdown" slot="popover">
-      <uui-scroll-container id="scroll-container">
+      <uui-scroll-container tabindex="-1" id="scroll-container">
         <slot></slot>
       </uui-scroll-container>
     </div>`;
