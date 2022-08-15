@@ -82,7 +82,7 @@
     "element-internals-polyfill": "1.1.6",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-import-resolver-typescript": "3.3.0",
+    "eslint-import-resolver-typescript": "3.4.1",
     "eslint-plugin-html": "7.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-lit": "1.6.1",
