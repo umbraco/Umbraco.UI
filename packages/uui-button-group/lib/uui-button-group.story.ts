@@ -1,5 +1,4 @@
 import '.';
-
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
@@ -117,107 +116,51 @@ export const LooksAndColors = () => html`
   )}
 `;
 
-// export const Icon = () =>
-// html`<uui-button-group
-//   >${buttons.map(
-//     () =>
-//       html`<uui-button look="secondary"
-//         ><uui-icon name="bug"></uui-icon
-//       ></uui-button>`
-//   )}</uui-button-group
-// >`;
-
 // //* DO NOT DELETE START! they will work when dropdown component will come to this branch
-// export const withDropdown = () =>
-//   html`
-//     <uui-button-group>
-//       <uui-dropdown same-width position="bottom">
-//         <uui-button
-//           look="secondary"
-//           @click=${(e: any) => {
-//             console.log(e);
-//             e.target.parentElement.open = !e.target.parentElement.open;
-//           }}
-//           >Open dropdown</uui-button
-//         >
-//         <div
-//           slot="dropdown"
-//           style="height: 180px;  background-color: blue;"></div>
-//       </uui-dropdown>
+export const WithDropdown = () => {
+  const handleClick = (e: MouseEvent) => {
+    //@ts-ignore
+    e.target.parentNode.open = !e.target.parentNode.open;
+  };
 
-//       ${buttons.map(
-//         el => html`<uui-button look="secondary">${el}</uui-button>`
-//       )}
-
-//       <uui-dropdown same-width position="bottom">
-//         <uui-button
-//           look="secondary"
-//           @click=${(e: any) => {
-//             console.log(e);
-//             e.target.parentElement.open = !e.target.parentElement.open;
-//           }}
-//           >Open dropdown</uui-button
-//         >
-//         <div slot="dropdown" style="height: 180px; background-color: blue;">
-//           <uui-button look="primary">Inside button</uui-button>
-//         </div>
-//       </uui-dropdown>
-
-//       ${buttons.map(
-//         el => html`<uui-button look="secondary">${el}</uui-button>`
-//       )}
-
-//       <uui-dropdown same-width position="right">
-//         <uui-button
-//           look="secondary"
-//           @click=${(e: any) => {
-//             console.log(e);
-//             e.target.parentElement.open = !e.target.parentElement.open;
-//           }}
-//           >Open dropdown</uui-button
-//         >
-//         <div
-//           slot="dropdown"
-//           style="height: 180px;  background-color: blue;"></div>
-//       </uui-dropdown>
-//     </uui-button-group>
-//   `;
-
-// export const withDropdownInTheMiddle = () =>
-//   html`
-//     <uui-button-group>
-//       ${buttons.map(
-//         el => html`<uui-button look="secondary">${el}</uui-button>`
-//       )}
-//       <uui-dropdown same-width position="bottom">
-//         <uui-button
-//           look="secondary"
-//           @click=${(e: any) => {
-//             console.log(e);
-//             e.target.parentElement.open = !e.target.parentElement.open;
-//           }}
-//           >Open dropdown</uui-button
-//         >
-//         <div
-//           slot="dropdown"
-//           style="height: 180px;  background-color: blue;"></div>
-//       </uui-dropdown>
-//       <uui-dropdown same-width position="bottom">
-//         <uui-button
-//           look="secondary"
-//           @click=${(e: any) => {
-//             console.log(e);
-//             e.target.parentElement.open = !e.target.parentElement.open;
-//           }}
-//           >Open dropdown</uui-button
-//         >
-//         <div
-//           slot="dropdown"
-//           style="height: 180px;  background-color: blue;"></div>
-//       </uui-dropdown>
-//       ${buttons.map(
-//         el => html`<uui-button look="secondary">${el}</uui-button>`
-//       )}
-//     </uui-button-group>
-//   `;
-// //* DO NOT DELETE END!
+  return html`
+    <uui-button-group>
+      <uui-popover placement="bottom-start" id="settings-popover" margin="14">
+        <uui-button
+          slot="trigger"
+          look="outline"
+          label="Open dropdown"
+          id="myPopoverBtn"
+          @click=${handleClick}>
+          Open dropdown 1
+        </uui-button>
+        <div slot="popover">My Content appearing inside popover box.</div>
+      </uui-popover>
+      <uui-button label="Button 1" look="outline"></uui-button>
+      <uui-button label="Button 2" look="outline"></uui-button>
+      <uui-popover placement="bottom-start" id="settings-popover" margin="14">
+        <uui-button
+          slot="trigger"
+          look="outline"
+          label="Open dropdown"
+          id="myPopoverBtn"
+          @click=${handleClick}>
+          Open dropdown 2
+        </uui-button>
+        <div slot="popover">My Content appearing inside popover box.</div>
+      </uui-popover>
+      <uui-button label="Button 4" look="outline"></uui-button>
+      <uui-popover placement="bottom-start" id="settings-popover" margin="14">
+        <uui-button
+          slot="trigger"
+          look="outline"
+          label="Open dropdown"
+          id="myPopoverBtn"
+          @click=${handleClick}>
+          Open dropdown 3
+        </uui-button>
+        <div slot="popover">My Content appearing inside popover box.</div>
+      </uui-popover>
+    </uui-button-group>
+  `;
+};

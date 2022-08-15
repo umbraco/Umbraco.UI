@@ -78,7 +78,7 @@ export const Actions: Story = () =>
   html`
     <uui-card-media name="File name">
       <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
+        <uui-button look="secondary" label="Remove">Remove</uui-button>
       </uui-action-bar>
       <img src="https://placedog.net/1447/?random" alt="" />
     </uui-card-media>
@@ -89,7 +89,7 @@ Actions.parameters = {
       code: `
 <uui-card-media name="File name">
   <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
+    <uui-button look="secondary" label="Remove">Remove</uui-button>
   </uui-action-bar>
 
   <img src="https://placedog.net/1447/?random" alt="" />
