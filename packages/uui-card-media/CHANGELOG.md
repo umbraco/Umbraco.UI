@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-card-media@1.0.0-rc.2...@umbraco-ui/uui-card-media@1.0.0-rc.3) (2022-08-15)
+
+### Bug Fixes
+
+- **uui-card-media:** replaced wrong css variables ([#300](https://github.com/umbraco/Umbraco.UI/issues/300)) ([ced7bdb](https://github.com/umbraco/Umbraco.UI/commit/ced7bdbcdc00865a860f79eeb4b874356dd0bcdb))
+
 # [1.0.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-card-media@1.0.0-rc.1...@umbraco-ui/uui-card-media@1.0.0-rc.2) (2022-08-10)
 
 **Note:** Version bump only for package @umbraco-ui/uui-card-media

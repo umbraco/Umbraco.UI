@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-radio@1.0.0-rc.2...@umbraco-ui/uui-radio@1.0.0-rc.3) (2022-08-15)
+
+### Bug Fixes
+
+- **uui-radio-button:** radio circle is malformed on multiple lines ([#298](https://github.com/umbraco/Umbraco.UI/issues/298)) ([e390365](https://github.com/umbraco/Umbraco.UI/commit/e39036511bf9afb5d5e7b15123ec85f23a0b6957))
+
 # [1.0.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-radio@1.0.0-rc.1...@umbraco-ui/uui-radio@1.0.0-rc.2) (2022-08-10)
 
 ### Bug Fixes
