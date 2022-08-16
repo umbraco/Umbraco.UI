@@ -539,6 +539,7 @@ export class UUIColorPickerElement extends LitElement {
     this.hue = newColor.hsla.h;
     this.saturation = newColor.hsla.s;
     this.lightness = newColor.hsla.l;
+    this.brightness = this.getBrightness(newColor.hsla.l);
     this.alpha = this.opacity ? newColor.hsla.a * 100 : 100;
 
     this.syncValues();
