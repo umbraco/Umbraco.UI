@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-popover@1.0.0-rc.2...@umbraco-ui/uui-popover@1.0.0-rc.3) (2022-08-15)
+
+### Bug Fixes
+
+- make popover work nicely in the button group ([#296](https://github.com/umbraco/Umbraco.UI/issues/296)) ([a5b3635](https://github.com/umbraco/Umbraco.UI/commit/a5b36351694ae84e707611c6826e239442913b17))
+
+# [1.0.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-popover@1.0.0-rc.1...@umbraco-ui/uui-popover@1.0.0-rc.2) (2022-08-10)
+
+**Note:** Version bump only for package @umbraco-ui/uui-popover
+
 # [1.0.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-popover@1.0.0-rc.0...@umbraco-ui/uui-popover@1.0.0-rc.1) (2022-06-28)
 
 **Note:** Version bump only for package @umbraco-ui/uui-popover

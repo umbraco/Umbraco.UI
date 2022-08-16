@@ -59,6 +59,7 @@ export class UUIRadioElement extends LitElement {
         border-radius: 100%;
         margin-right: calc(var(--uui-size-2) * 2);
         position: relative;
+        flex: 0 0 var(--uui-radio-button-size);
       }
 
       #button::after {
