@@ -171,9 +171,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   }
 
   private _onMouseDown = () => requestAnimationFrame(() => this._input.focus());
+
   private _onBlur = () =>
     requestAnimationFrame(() => {
-      if (document.activeElement !== this) {
+      if (!this.shadowRoot?.activeElement) {
         this._onClose();
       }
     });
