@@ -181,7 +181,7 @@ export class UUIColorAreaElement extends LitElement {
       a: this.alpha
     });
 
-    this._value = color.toRgbString();
+    this.value = color.toRgbString();
 
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
