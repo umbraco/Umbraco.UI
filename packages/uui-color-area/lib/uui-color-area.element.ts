@@ -31,6 +31,7 @@ export class UUIColorAreaElement extends LitElement {
           linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
         border-top-left-radius: var(--sl-border-radius-medium);
         border-top-right-radius: var(--sl-border-radius-medium);
+        box-sizing: border-box;
         cursor: crosshair;
       }
       .color-area__handle {
@@ -43,6 +44,7 @@ export class UUIColorAreaElement extends LitElement {
         margin-top: calc(var(--grid-handle-size) / -2);
         margin-left: calc(var(--grid-handle-size) / -2);
         transition: 150ms transform;
+        box-sizing: inherit;
       }
       .color-area__handle--dragging {
         cursor: none;
@@ -60,7 +62,7 @@ export class UUIColorAreaElement extends LitElement {
 
   private _value: string | null = null;
 
-  /** The current hue value. */
+  /** The current value. */
   @property({ type: String })
   public get value(): string | null {
     return this._value;
@@ -69,26 +71,7 @@ export class UUIColorAreaElement extends LitElement {
   public set value(val: string | null) {
     let oldVal = this._value;
     this._value = val;
-
-    console.log("new value", val);
     this.requestUpdate('value', oldVal);
-
-    console.log("Test", val === '');
-
-    if (val !== null && val !== '') {
-      const color = colord(val).toHsl();
-      console.log("new color", color);
-
-      this.hue = color.h;
-      this.saturation = color.s;
-      this.lightness = color.l;
-      this.brightness = this.getBrightness(this.lightness);
-    }
-    
-    console.log("test hue", this.hue);
-    console.log("test saturation", this.saturation);
-    console.log("test lightness", this.lightness);
-    console.log("test brightness", this.brightness);
   }
 
   handleGridDrag(event: PointerEvent) {

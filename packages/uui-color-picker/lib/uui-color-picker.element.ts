@@ -168,7 +168,7 @@ export class UUIColorPickerElement extends LitElement {
   * An array of predefined color swatches to display. Can include any format the color picker can parse, including
   * HEX(A), RGB(A), HSL(A), and CSS color names.
   */
-    @property({ attribute: false }) swatches: string[] = [
+  @property({ attribute: false }) swatches: string[] = [
     '#d0021b',
     '#f5a623',
     '#f8e71c',
@@ -205,6 +205,34 @@ export class UUIColorPickerElement extends LitElement {
     }
   }
 
+  /** Returns the current value as a string in the specified format. */
+  getFormattedValue(format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' = 'hex') {
+    const currentColor = this.parseColor(
+      `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+    );
+
+    if (currentColor === null) {
+      return '';
+    }
+
+    switch (format) {
+      case 'hex':
+        return currentColor.hex;
+      case 'hexa':
+        return currentColor.hexa;
+      case 'rgb':
+        return currentColor.rgb.string;
+      case 'rgba':
+        return currentColor.rgba.string;
+      case 'hsl':
+        return currentColor.hsl.string;
+      case 'hsla':
+        return currentColor.hsla.string;
+      default:
+        return '';
+    }
+  }
+
   getBrightness(lightness: number) {
     return clamp(-1 * ((200 * lightness) / (this.saturation - 200)), 0, 100);
   }
@@ -221,6 +249,7 @@ export class UUIColorPickerElement extends LitElement {
     const formats = ['hex', 'rgb', 'hsl'];
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
     this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl';
+    this.syncValues();
   }
 
   handleAlphaDrag(event: UUIColorSliderEvent) {
@@ -229,7 +258,10 @@ export class UUIColorPickerElement extends LitElement {
     const element = event.target as UUIColorSliderElement;
     console.log("handleAlphaDrag element", element);
     console.log("alpha value", element.value);
-    this.alpha = clamp(element.value, 0, 100);
+    
+    if (element.value !== null) {
+      this.alpha = clamp(element.value, 0, 100);
+    }
 
     this.syncValues();
 
@@ -242,7 +274,9 @@ export class UUIColorPickerElement extends LitElement {
     const element = event.target as UUIColorSliderElement;
     console.log("handleHueDrag element", element);
     console.log("hue value", element.value);
-    this.hue = clamp(element.value, 0, 360);
+    if (element.value !== null) {
+      this.hue = clamp(element.value, 0, 360);
+    }
 
     this.syncValues();
 
@@ -256,6 +290,7 @@ export class UUIColorPickerElement extends LitElement {
      console.log("value", element.value);
 
      if (element.value) {
+
         // TODO: Better way to get color, while not changing current alpha.
         const color = this.parseColor(element.value);
 
@@ -421,6 +456,9 @@ export class UUIColorPickerElement extends LitElement {
       return null;
     }
 
+    console.log("colorString", colorString);
+    console.log("parseColor", parsed);
+
     const hslColor = parsed.toHsl();
     console.log("hslColor", hslColor);
 
@@ -517,6 +555,8 @@ export class UUIColorPickerElement extends LitElement {
 
   async syncValues() {
 
+    console.log("sync values", `hue:${this.hue}`, `saturation: ${this.saturation}`, `lightness: ${this.lightness}`, `alpha: ${this.alpha}`)
+
     const currentColor = this.parseColor(
       `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
     );
@@ -537,6 +577,7 @@ export class UUIColorPickerElement extends LitElement {
     }
 
     this.value = this.inputValue;
+    this.isEmpty = false;
 
     await this.updateComplete;
   }
@@ -555,7 +596,8 @@ export class UUIColorPickerElement extends LitElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
       >
         <uui-color-area
-          .value=${live(this.value)}
+          .hue=${this.hue}
+          .value=${this.value}
           @change=${this.handleGridDrag}
           >
         </uui-color-area>
