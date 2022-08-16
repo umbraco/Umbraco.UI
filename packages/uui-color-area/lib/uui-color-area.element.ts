@@ -58,8 +58,38 @@ export class UUIColorAreaElement extends LitElement {
   @state() private brightness = 100;
   @state() private alpha = 100;
 
-  /** The current color. */
-  @property() value = '';
+  private _value: string | null = null;
+
+  /** The current hue value. */
+  @property({ type: String })
+  public get value(): string | null {
+    return this._value;
+  }
+
+  public set value(val: string | null) {
+    let oldVal = this._value;
+    this._value = val;
+
+    console.log("new value", val);
+    this.requestUpdate('value', oldVal);
+
+    console.log("Test", val === '');
+
+    if (val !== null && val !== '') {
+      const color = colord(val).toHsl();
+      console.log("new color", color);
+
+      this.hue = color.h;
+      this.saturation = color.s;
+      this.lightness = color.l;
+      this.brightness = this.getBrightness(this.lightness);
+    }
+    
+    console.log("test hue", this.hue);
+    console.log("test saturation", this.saturation);
+    console.log("test lightness", this.lightness);
+    console.log("test brightness", this.brightness);
+  }
 
   handleGridDrag(event: PointerEvent) {
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
@@ -151,7 +181,7 @@ export class UUIColorAreaElement extends LitElement {
       a: this.alpha
     });
 
-    this.value = color.toRgbString();
+    this._value = color.toRgbString();
 
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }

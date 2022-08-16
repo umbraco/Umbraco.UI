@@ -255,13 +255,15 @@ export class UUIColorPickerElement extends LitElement {
      console.log("handleGridDrag element", element);
      console.log("value", element.value);
 
-     // TODO: Better way to get color, while not changing current alpha.
-     const color = this.parseColor(element.value);
+     if (element.value) {
+        // TODO: Better way to get color, while not changing current alpha.
+        const color = this.parseColor(element.value);
 
-     if (color) {
-      this.saturation = color.hsl.s;
-      this.lightness =  color.hsl.l;
-      this.brightness = this.getBrightness(this.lightness);
+        if (color) {
+          this.saturation = color.hsl.s;
+          this.lightness =  color.hsl.l;
+          this.brightness = this.getBrightness(this.lightness);
+        }
      }
 
      this.syncValues();
@@ -553,6 +555,7 @@ export class UUIColorPickerElement extends LitElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
       >
         <uui-color-area
+          .value=${live(this.value)}
           @change=${this.handleGridDrag}
           >
         </uui-color-area>
