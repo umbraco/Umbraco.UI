@@ -58,8 +58,8 @@
     "lit": "^2.2.8"
   },
   "devDependencies": {
-    "@babel/core": "7.18.9",
-    "@lerna-lite/cli": "1.8.0",
+    "@babel/core": "7.18.10",
+    "@lerna-lite/cli": "1.10.0",
     "@lerna-lite/exec": "1.8.0",
     "@lerna-lite/run": "1.10.0",
     "@open-wc/testing": "3.1.6",
@@ -91,7 +91,7 @@
     "github-markdown-css": "5.1.0",
     "husky": "8.0.1",
     "lint-staged": "13.0.3",
-    "lit-html": "2.2.7",
+    "lit-html": "2.3.0",
     "npm-check-updates": "16.0.0",
     "plop": "3.1.1",
     "postcss": "8.4.14",
