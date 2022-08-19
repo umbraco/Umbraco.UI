@@ -1,5 +1,9 @@
 import { LitElement, html, css } from 'lit';
-import { Colord, colord } from 'colord';
+import { Colord, colord, extend } from 'colord';
+import namesPlugin from 'colord/plugins/names';
+
+extend([namesPlugin]);
+
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
