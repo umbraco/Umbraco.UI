@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
+import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib/uui-color-swatch.element';
 
 import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
 
@@ -44,18 +46,129 @@ export class UUIColorSwatchesElement extends LitElement {
     `,
   ];
 
+  @state()
+  private _value: string = '';
+
   @property({ attribute: false }) swatches: string[] = [];
 
-  protected setValue(e: Event) {
+  /**
+   * Value of selected option.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
+   @property({ type: String })
+   public get value() {
+     return this._value;
+   }
+   public set value(newValue) {
+     if (this._value === newValue) return;
+ 
+     const oldValue = this._value;
+     this._value = newValue;
+ 
+     this._updateSelection();
+     this.requestUpdate('value', oldValue);
+   }
+ 
+   /*protected setValue(e: Event) {
 
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.SELECT));
+  }*/
+
+   /**
+    * A readable value to display to show the selected value.
+    * @type { string }
+    * @attr
+    * @default ""
+    */
+   @property({ type: String })
+   public displayValue = '';
+
+  private __activeElement: UUIColorSwatchElement | undefined;
+  private get _activeElement(): UUIColorSwatchElement | undefined {
+    return this.__activeElement;
   }
+
+  private set _activeElement(el: UUIColorSwatchElement | undefined) {
+    if (this.__activeElement) {
+      this.__activeElement.active = false;
+    }
+    if (el) {
+      el.active = true;
+      this.__activeElement = el;
+    }
+  }
+
+  private _selectedElement: UUIColorSwatchElement | undefined;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
+    this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    document.removeEventListener('keydown', this._onKeyDown);
+
+    this.removeEventListener(UUISelectableEvent.SELECTED, this._onSelected);
+    this.removeEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
+  }
+
+  private _updateSelection() {
+    this.displayValue = '';
+
+    // Ensure the right items are selected.
+    /*for (const option of this._options) {
+      if (option.value === this._value) {
+        this.displayValue = option.displayValue || '';
+        option.selected = true;
+      } else {
+        option.selected = false;
+      }
+    }*/
+  }
+
+  private _onSelected = (e: Event) => {
+    if (this._selectedElement) {
+      this._selectedElement.selected = false;
+      this._selectedElement.active = false;
+      this._selectedElement = undefined;
+    }
+    this._selectedElement = e.composedPath()[0] as UUIColorSwatchElement;
+    this._activeElement = this._selectedElement;
+
+    this.value = this._selectedElement.value || '';
+    this.displayValue = this._selectedElement.displayValue || '';
+
+    console.log("_onSelected", this.value, this.displayValue);
+
+    this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
+  };
+
+  private _onUnselected = (e: Event) => {
+    const el = e.composedPath()[0] as UUIColorSwatchElement;
+    if (this._activeElement === el) {
+      this._activeElement = undefined;
+    }
+    if (this._selectedElement === el) {
+      this.value = '';
+      this.displayValue = '';
+      this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
+    }
+  };
+
+  private _onKeyDown = (e: KeyboardEvent) => {
+    
+  };
 
   render() {
     return html`
           <div class="color-picker__swatches">
           ${this.swatches.map(swatch => {
-            return html`<uui-color-swatch color="${swatch}"></uui-color-swatch>`;
+            return html`<uui-color-swatch value="${swatch}"></uui-color-swatch>`;
           })}
           </div>
       `;

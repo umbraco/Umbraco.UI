@@ -1,20 +1,20 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
 import {
+  ActiveMixin,
   SelectableMixin,
-  SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-color-swatch
  */
 @defineElement('uui-color-swatch')
-export class UUIColorSwatchElement extends SelectOnlyMixin(
-  SelectableMixin(LitElement)
+export class UUIColorSwatchElement extends SelectableMixin(
+  ActiveMixin(LitElement)
 ) {
       static styles = [
     css`
@@ -51,18 +51,68 @@ export class UUIColorSwatchElement extends SelectOnlyMixin(
     `,
   ];
 
-  @property() color = '';
+  private _value: string | undefined;
 
-  @property() label = '';
+  @state()
+  private _disabled = false;
+
+  @state() _displayValue = '';
 
   /**
-   * Set tot true to disable
-   * @type {boolean}
+ * Value of the option.
+ * @type { string }
+ * @attr
+ * @default ""
+ */
+  @property({ type: String })
+  public get value(): string {
+    return this._value ? this._value : this.textContent?.trim() || '';
+  }
+  
+  public set value(newValue: string) {
+    const oldValue = this._value;
+    this._value = newValue;
+    this.requestUpdate('value', oldValue);
+  }
+
+  /**
+   * A readable value.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
+  @property({ type: String, attribute: 'display-value' })
+  public get displayValue() {
+    return this._displayValue
+      ? this._displayValue
+      : this.textContent?.trim() || '';
+  }
+  
+  public set displayValue(newValue) {
+    const oldValue = this._displayValue;
+    this._displayValue = newValue;
+    this.requestUpdate('displayValue', oldValue);
+  }
+
+  /**
+   * Determines if the options is disabled. If true the option can't be selected
+   * @type { boolean }
    * @attr
    * @default false
    */
-   @property({ type: Boolean, reflect: true })
-   disabled = false;
+  @property({ type: Boolean, reflect: true })
+  public get disabled() {
+    return this._disabled;
+  }
+  
+  public set disabled(newValue) {
+    const oldValue = this._disabled;
+    this._disabled = newValue;
+    this.selectable = !this._disabled;
+    this.requestUpdate('disabled', oldValue);
+  }
+
+  @property() label = '';
 
   constructor() {
     super();
@@ -77,13 +127,13 @@ export class UUIColorSwatchElement extends SelectOnlyMixin(
           role="button"
           aria-label=${this.label}
         >
-        <div class="color-swatch__color" style=${styleMap({ backgroundColor: this.color })}></div>
+        <div class="color-swatch__color" style=${styleMap({ backgroundColor: this.value })}></div>
       </div>`;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-color-swatch': UUIColorSwatchElement ;
+    'uui-color-swatch': UUIColorSwatchElement;
   }
 }

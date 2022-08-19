@@ -19,6 +19,15 @@ import {
   UUIColorSliderEvent
 } from '@umbraco-ui/uui-color-slider/lib';
 
+import {
+  UUIColorSwatchesElement,
+  UUIColorSwatchesEvent,
+} from '@umbraco-ui/uui-color-swatches/lib';
+
+import {
+  UUIColorSwatchElement,
+} from '@umbraco-ui/uui-color-swatch/lib';
+
 const hasEyeDropper = 'EyeDropper' in window;
 
 interface EyeDropperConstructor {
@@ -128,6 +137,8 @@ export class UUIColorPickerElement extends LitElement {
 
   @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
 
+  @query('.color-picker__swatches') _colorSwatchesContainer!: HTMLElement;
+
   @state() private isEmpty = false;
   @state() private inputValue = '';
   @state() private hue = 0;
@@ -192,7 +203,7 @@ export class UUIColorPickerElement extends LitElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     super.connectedCallback();
     
     if (this.value) {
@@ -204,6 +215,20 @@ export class UUIColorPickerElement extends LitElement {
       this.inputValue = '';
     }
   }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+  }
+
+  /*protected async firstUpdated() {
+
+    if (this._colorSwatchesContainer) {
+      this._colorSwatchesContainer.addEventListener(
+        UUIColorSwatchesEvent.CHANGE,
+        this.handleColorSwatchChange
+      );
+    }
+  }*/
 
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' = 'hex') {
@@ -416,6 +441,23 @@ export class UUIColorPickerElement extends LitElement {
       } else {
         this.hue = 0;
       }
+    }
+  }
+
+  handleColorSwatchChange(event: UUIColorSwatchesEvent) {
+    event.stopImmediatePropagation();
+
+    console.log("handleColorSwatchChange", event);
+    const target = event.target as UUIColorSwatchElement;
+    console.log("target", target);
+
+    console.log("value", target.value);
+
+    if (target.value) {
+      this.setColor(target.value);
+      target.value = this.value;
+    } else {
+      this.value = '';
     }
   }
 
@@ -677,7 +719,9 @@ export class UUIColorPickerElement extends LitElement {
           </uui-button-group>
         </div>
         <uui-color-swatches
+          class="color-picker__swatches"
           .swatches="${this.swatches}"
+          @change=${this.handleColorSwatchChange}
         >
         </uui-color-swatches>
       </div>
