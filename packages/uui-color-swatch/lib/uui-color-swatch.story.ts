@@ -3,7 +3,7 @@ import '.';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
-const color = '#d0021b';
+const value = '#d0021b';
 
 export default {
   id: 'uui-color-swatch',
@@ -19,4 +19,4 @@ export default {
 };
 
 export const Overview: Story = props =>
-  html`<uui-color-swatch .color=${color}></uui-color-swatch>`;
+  html`<uui-color-swatch .value=${value}></uui-color-swatch>`;
