@@ -171,6 +171,7 @@ export class UUIColorSwatchesElement extends LitElement {
             return html`<uui-color-swatch value="${swatch}"></uui-color-swatch>`;
           })}
           </div>
+          ${this.value}
       `;
   }
 }
