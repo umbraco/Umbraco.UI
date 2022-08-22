@@ -59,9 +59,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.10",
-    "@lerna-lite/cli": "1.10.0",
+    "@lerna-lite/cli": "1.11.0",
     "@lerna-lite/exec": "1.11.0",
-    "@lerna-lite/run": "1.10.0",
+    "@lerna-lite/run": "1.11.0",
     "@open-wc/testing": "3.1.6",
     "@rollup/plugin-node-resolve": "13.3.0",
     "@storybook/addon-a11y": "6.5.10",
