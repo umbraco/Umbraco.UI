@@ -79,7 +79,7 @@
     "autoprefixer": "10.4.7",
     "babel-loader": "8.2.5",
     "chromatic": "6.7.1",
-    "element-internals-polyfill": "1.1.6",
+    "element-internals-polyfill": "1.1.9",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-typescript": "3.4.1",
