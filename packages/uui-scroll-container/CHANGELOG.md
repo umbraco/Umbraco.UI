@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-scroll-container@1.0.0-rc.3...@umbraco-ui/uui-scroll-container@1.0.0) (2022-08-22)
+
+### Bug Fixes
+
+- **uui-combobox:** fix focus issues ([#311](https://github.com/umbraco/Umbraco.UI/issues/311)) ([a71ac05](https://github.com/umbraco/Umbraco.UI/commit/a71ac0514ee44b57a63626abff3e8d8b6ff4b47b))
+
 # [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-scroll-container@1.0.0-rc.2...@umbraco-ui/uui-scroll-container@1.0.0-rc.3) (2022-08-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-scroll-container
