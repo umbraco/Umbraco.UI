@@ -36,7 +36,9 @@ export class UUIScrollContainerElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('tabindex', '0');
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
+    }
   }
   render() {
     return html`<slot></slot>`;

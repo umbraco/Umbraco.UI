@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-form-layout-item@1.0.0-rc.3...@umbraco-ui/uui-form-layout-item@1.0.0) (2022-08-22)
+
+**Note:** Version bump only for package @umbraco-ui/uui-form-layout-item
+
 # [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-form-layout-item@1.0.0-rc.2...@umbraco-ui/uui-form-layout-item@1.0.0-rc.3) (2022-08-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-form-layout-item

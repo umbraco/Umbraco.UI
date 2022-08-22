@@ -40,14 +40,12 @@ const insertBox = (e: any) => {
   e.target.parentElement.insertAdjacentElement('afterend', div);
 };
 
-const createBox = (vertical: boolean, index: number) => html` <div
-  style="position:relative;">
+const createBox = (vertical: boolean) => html` <div style="position:relative;">
   <div
     style="
       ${vertical
       ? 'display: grid; grid-template-columns: 1fr auto'
       : 'display:block;'}
-      ${index % 2 === 0 ? 'background-color:lightgrey;' : ''}
       ">
     <div style="padding: 10px; white-space: nowrap;">
       ${GetRandomUmbracoWord()}
@@ -62,18 +60,38 @@ const createBox = (vertical: boolean, index: number) => html` <div
 const createBoxes = (count: Number, vertical = false) => {
   const boxes: TemplateResult<1>[] = [];
   for (let index = 0; index < count; index++) {
-    boxes.push(createBox(vertical, index));
+    boxes.push(createBox(vertical));
   }
   return boxes;
 };
 
 export const AAAOverview: Story = () =>
-  html`<uui-button-inline-create
-    label="Create Item"></uui-button-inline-create>`;
+  html` <h3>Hover between list items to show the button.</h3>
+    <div id="container" style="max-width: 500px; border: 1px solid grey">
+      ${createBoxes(5)}
+    </div>`;
 AAAOverview.storyName = 'Overview';
+AAAOverview.parameters = {
+  docs: {
+    source: {
+      code: `
+<div>
+  <div style="padding: 10px;">Item 1</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 2</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 3</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+</div>
+      `,
+    },
+  },
+};
 
 export const Vertical: Story = () =>
-  html`<div id="container" style="max-width: 500px">${createBoxes(5)}</div>`;
+  html`<div id="container" style="max-width: 500px; border: 1px solid grey">
+    ${createBoxes(5)}
+  </div>`;
 
 Vertical.parameters = {
   docs: {
@@ -93,7 +111,7 @@ Vertical.parameters = {
 };
 
 export const Horizontal: Story = () =>
-  html`<div id="container-vertical" style="display: flex;">
+  html`<div id="container-vertical" style="display: flex">
     ${createBoxes(5, true)}
   </div>`;
 
