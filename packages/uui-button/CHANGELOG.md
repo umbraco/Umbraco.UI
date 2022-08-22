@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@1.0.0-rc.3...@umbraco-ui/uui-button@1.0.0) (2022-08-22)
+
+### Bug Fixes
+
+- **uui-button:** adjust success and failed state styling ([#312](https://github.com/umbraco/Umbraco.UI/issues/312)) ([7634d19](https://github.com/umbraco/Umbraco.UI/commit/7634d19ff4a75215690f8479e40abf1af33c2b59))
+
 # [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button@1.0.0-rc.2...@umbraco-ui/uui-button@1.0.0-rc.3) (2022-08-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-button
