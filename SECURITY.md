@@ -4,10 +4,8 @@
 
 | Version     | Supported                                   |
 | ----------- | ------------------------------------------- |
-| 1.0.0       | :white_check_mark: (December 2023)          |
-| 1.0.0-rc    | :x:                                         |
-| 1.0.0-alpha | :x:                                         |
-| < 1.0       | :white_check_mark: (until release of 1.0.0) |
+| v1          | :white_check_mark: (until December 2023)    |
+| < 1.0       | :x:                                         |
 
 ## Reporting a Vulnerability
 
