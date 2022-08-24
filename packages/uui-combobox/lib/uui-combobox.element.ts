@@ -1,19 +1,20 @@
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import {
+  UUIComboboxListElement,
+  UUIComboboxListEvent,
+} from '@umbraco-ui/uui-combobox-list/lib';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { css, html, LitElement } from 'lit';
 import {
   property,
   query,
   queryAssignedElements,
   state,
 } from 'lit/decorators.js';
-import { css, html, LitElement } from 'lit';
+
 import { UUIComboboxEvent } from './UUIComboboxEvent';
-import {
-  UUIComboboxListEvent,
-  UUIComboboxListElement,
-} from '@umbraco-ui/uui-combobox-list/lib';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 /**
  * @element uui-combobox
@@ -132,6 +133,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
+    demandCustomElement(this, 'uui-popover');
   }
 
   disconnectedCallback(): void {
