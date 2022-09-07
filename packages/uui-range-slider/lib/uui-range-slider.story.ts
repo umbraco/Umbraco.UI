@@ -5,10 +5,10 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-range-slider',
-  title: 'Range Slider',
+  title: 'Inputs/Range Slider',
   component: 'uui-range-slider',
   args: {
-    minAttr: 0,
+    minAttr: -100,
     maxAttr: 100,
     step: 10,
     gap: 10,
@@ -27,7 +27,7 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+const Template: Story = props =>
   html`<uui-range-slider
     step=${props.step}
     gap=${props.gap}
@@ -38,3 +38,16 @@ export const Overview: Story = props =>
     ?disabled=${props.disabled}
     ?hide-step-values="${props.hideStepValues}"
     label="${props.label}"></uui-range-slider>`;
+
+export const AAAOverview = Template.bind({});
+AAAOverview.storyName = 'Overview';
+
+export const HiddenValues = Template.bind({});
+HiddenValues.args = {
+  hideStepValues: true,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};

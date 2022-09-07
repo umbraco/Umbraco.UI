@@ -222,7 +222,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   disabled = false;
 
   /**
-   * Label to be used for aria-label and eventually as visual label. Adds "-minimum" and "-maximum" ending.
+   * Label to be used for aria-label and eventually as visual label. Adds "-minimum" and "-maximum" ending for the two values.
    * @type {string}
    * @attr
    */
@@ -309,7 +309,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   /**
    * Sets the last value of the range input.
    * @type {number}
-   * @attr minValue
+   * @attr maxValue
    * @default 100
    */
   @property({ type: Number, reflect: true })
@@ -381,7 +381,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   private _onChange(e: Event) {
     e.stopPropagation();
     this.pristine = false;
-    console.log('change');
   }
 
   // keyboard
