@@ -66,8 +66,27 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         left: 0;
         right: 0;
         height: 3px;
-        margin: 0 ${TRACK_PADDING}px;
+        margin: -23px 0;
         z-index: -1;
+        background-color: #a1a1a1;
+      }
+
+      .inner-track:focus {
+        background-color: var(--uui-color-border-standalone);
+      }
+
+      .inner-track .color {
+        height: 3px;
+        position: absolute;
+        transition: left 120ms ease, right 120ms ease;
+      }
+
+      input[type='range']:not([disabled]) ~ .inner-track .color {
+        background-color: var(--uui-color-selected);
+      }
+
+      input[type='range']:disabled ~ .inner-track .color {
+        background-color: #555;
       }
 
       #thumb-wrapper {
@@ -90,16 +109,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         border: 2px solid var(--uui-color-selected);
         transition: 120ms left ease;
         z-index: 10;
-      }
-
-      .thumb:focus,
-      .thumb:active {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      .thumb:not([disabled]):focus .thumb:not([disabled]):active {
-        outline: 1px solid red;
       }
 
       .thumb:after {
@@ -163,6 +172,10 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         fill: var(--uui-color-selected) !important;
       }
 
+      #wrapper .track-step.filled-disabled {
+        fill: var(--uui-palette-mine-grey) !important;
+      }
+
       #step-values {
         margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
         padding-top: 24px;
@@ -202,12 +215,55 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         top: 0;
         background-color: transparent;
         pointer-events: none;
+        left: 0;
+        right: 0;
+        margin: -30px -8px;
+        z-index: 12;
+        border-radius: 20px;
+      }
+
+      input[type='range']:focus-visible {
+        outline: none;
+      }
+
+      input[type='range']:focus + .thumb {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
 
       input[type='range']::-webkit-slider-thumb {
         -webkit-appearance: none;
+        appearance: none;
+        width: 17px;
+        height: 17px;
+        background-color: transparent;
+        display: block;
+        border-radius: 100%;
+        pointer-events: auto;
+        cursor: pointer;
+      }
+
+      input[type='range']::-moz-range-thumb {
         -moz-appearance: none;
         appearance: none;
+        width: 17px;
+        height: 17px;
+        background-color: transparent;
+        display: block;
+        border-radius: 100%;
+        pointer-events: auto;
+        cursor: pointer;
+      }
+
+      input[type='range']::-ms-thumb {
+        appearance: none;
+        width: 17px;
+        height: 17px;
+        background-color: transparent;
+        display: block;
+        border-radius: 100%;
+        pointer-events: auto;
+        cursor: pointer;
       }
     `,
   ];
@@ -247,102 +303,144 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @property({ type: Boolean, attribute: 'hide-step-values' })
   hideStepValues = false;
 
-  private _gap = 1;
-  /**
-   * Minimum value gap between the first and last value
-   * @type {number}
-   * @attr gap
-   * @default 1
-   */
-  @property({ type: Number, attribute: 'gap' })
-  set gap(newGap) {
-    const oldGap = this._gap;
-    if (newGap < this.step) {
-      this._gap = this.step;
-    } else {
-      this._gap = newGap;
-    }
-    this.requestUpdate('gap', oldGap);
-  }
-  get gap() {
-    return this._gap;
-  }
+  private _min = 0;
+  private _max = 100;
+  private _valueLow = 0;
+  private _valueHigh = 100;
+  private _minGap = 1;
+  private _maxGap = 0;
 
   /**
-   * This is the minimum value of the range input.
+   * Sets the minimum allowed value.
    * @type {number}
    * @attr min
    * @default 0
    */
-  @property({ type: Number, attribute: 'min' })
-  minAttr = 0;
+  @property({ type: Number })
+  set min(newVal) {
+    const old = this._min;
+    if (newVal < this.max) {
+      this._min = newVal;
+      this.requestUpdate('min', old);
+    }
+  }
+  get min() {
+    return this._min;
+  }
 
   /**
-   * This is the maximum value of the range input.
+   * Sets the maximum allowed value.
    * @type {number}
    * @attr max
    * @default 100
    */
-  @property({ type: Number, attribute: 'max' })
-  maxAttr = 100;
-
-  private _minValue = -50;
-  /**
-   * Sets the first value of the range input.
-   * @type {number}
-   * @attr minValue
-   * @default 100
-   */
-  @property({ type: Number, reflect: true })
-  set minValue(newVal) {
-    const oldVal = this._minValue;
-    newVal < this.minAttr && this.disabled == false
-      ? (this._minValue = this.minAttr)
-      : (this._minValue = newVal);
-    this.requestUpdate('minValue', oldVal);
+  @property({ type: Number })
+  set max(newVal) {
+    const old = this._max;
+    if (newVal > this.min) {
+      this._max = newVal;
+      this.requestUpdate('max', old);
+    }
   }
-  get minValue() {
-    return this._minValue;
+  get max() {
+    return this._max;
   }
 
-  private _maxValue = 50;
   /**
-   * Sets the last value of the range input.
+   * The lower picked value.
    * @type {number}
-   * @attr maxValue
+   * @attr value-low
+   * @default 0
+   */
+  @property({ type: Number, attribute: 'value-low' })
+  set valueLow(newVal) {
+    const old = this._valueLow;
+    if (newVal <= this.valueHigh - this.minGap && newVal >= this.min) {
+      this._valueLow = newVal;
+      this.requestUpdate('valueLow', old);
+    }
+  }
+  get valueLow() {
+    return this._valueLow;
+  }
+
+  /**
+   * The higher picked value.
+   * @type {number}
+   * @attr value-high
    * @default 100
    */
-  @property({ type: Number, reflect: true })
-  set maxValue(newVal) {
-    const oldVal = this._maxValue;
-    newVal > this.maxAttr && this.disabled == false
-      ? (this._maxValue = this.maxAttr)
-      : (this._maxValue = newVal);
-    this.requestUpdate('maxValue', oldVal);
+  @property({ type: Number, attribute: 'value-high' })
+  set valueHigh(newVal) {
+    const old = this._valueHigh;
+    if (newVal >= this.valueLow + this.minGap && newVal <= this.max) {
+      this._valueHigh = newVal;
+      this.requestUpdate('valueHigh', old);
+    }
   }
-  get maxValue() {
-    return this._maxValue;
+  get valueHigh() {
+    return this._valueHigh;
+  }
+
+  /**
+   * Minimum value gap between the the two picked values. Cannot be lower than 1 and cannot be higher than the maximum gap
+   * @type {number}
+   * @attr min-gap
+   * @default 1
+   */
+  @property({ type: Number, attribute: 'min-gap' })
+  set minGap(newVal) {
+    const old = this._minGap;
+    if (newVal > this.step && newVal > 0) {
+      this._minGap = newVal;
+    } else {
+      this._minGap = this.step;
+    }
+    if (this.maxGap <= this._minGap) {
+      this.maxGap = 0;
+    }
+    this.requestUpdate('minGap', old);
+  }
+  get minGap() {
+    return this._minGap;
+  }
+
+  /**
+   * Maximum value gap between the the two picked values. Cannot be lower than the minimum gap. Set to 0 for undefined.
+   * @type {number}
+   * @attr max-gap
+   * @default 0
+   */
+  @property({ type: Number, attribute: 'max-gap' })
+  set maxGap(newVal) {
+    const old = this._maxGap;
+    if (newVal > this.minGap && newVal > this.step) {
+      this._maxGap = newVal;
+    } else {
+      this._maxGap = 0;
+    }
+    this.requestUpdate('maxGap', old);
+  }
+  get maxGap() {
+    if (this._maxGap > 0) {
+      return this._maxGap;
+    } else {
+      return 0;
+    }
   }
 
   @property({ type: Number })
   private _trackWidth = 0;
 
   @state()
-  private _moveBothHandles = {
-    mouseStart: 0,
-    minStart: 0,
-    maxStart: 0,
-    moving: false,
+  private _handle = {
+    low: false,
+    high: false,
+    both: false,
+    startPosition: 0,
+    lowStart: 0,
+    highStart: 0,
   };
-
-  @state()
-  private _moveMinHandle = false;
-
-  @state()
-  private _moveMaxHandle = false;
-
-  @state()
-  private _inFocus = false;
 
   @query('#min-slider')
   private _minInput!: HTMLInputElement;
@@ -356,176 +454,205 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @query('.inner-track')
   private _innerSliderTrack!: HTMLElement;
 
+  @query('.color')
+  private _innerColor!: HTMLElement;
+
   private _onMinInput() {
     const min = parseInt(this._minInput.value);
-    const max = parseInt(this._maxInput.value) - this.gap;
+    const max = parseInt(this._maxInput.value) - this.minGap;
     if (min >= max) {
       this._minInput.value = String(max);
-      this.minValue = max;
+      this.valueLow = max;
     } else {
-      this.minValue = parseInt(this._minInput.value);
+      this.valueLow = parseInt(this._minInput.value);
     }
   }
 
   private _onMaxInput() {
     const max = parseInt(this._maxInput.value);
-    const min = parseInt(this._minInput.value) + this.gap;
+    const min = parseInt(this._minInput.value) + this.minGap;
     if (max <= min) {
       this._maxInput.value = String(min);
-      this.maxValue = min;
+      this.valueHigh = min;
     } else {
-      this.maxValue = parseInt(this._maxInput.value);
+      this.valueHigh = parseInt(this._maxInput.value);
     }
   }
 
   private _onChange(e: Event) {
     e.stopPropagation();
+    console.log('change!');
     this.pristine = false;
   }
 
-  // keyboard
+  private _fillColor() {
+    const percentStart =
+      ((this.valueLow - this.min) / (this.max - this.min)) * 100;
+    const percentEnd =
+      ((this.valueHigh - this.min) / (this.max - this.min)) * 100;
 
-  private _keyDownMin(e: KeyboardEvent) {
-    if (this.disabled == true) return;
-    if (e.key === 'ArrowLeft' && this.minValue > this.minAttr) {
-      this.minValue = this.minValue - this.step;
-    } else if (
-      e.key === 'ArrowRight' &&
-      this.minValue < this.maxValue - this.gap
-    ) {
-      this.minValue = this.minValue + this.step;
-    }
+    this._innerColor.style.left = `${percentStart}%`;
+    this._innerColor.style.right = `${100 - percentEnd}%`;
   }
 
-  private _keyDownMax(e: KeyboardEvent) {
-    if (this.disabled == true) return;
-    if (e.key === 'ArrowLeft' && this.maxValue > this.minValue + this.gap) {
-      this.maxValue = this.maxValue - this.step;
-    } else if (e.key === 'ArrowRight' && this.maxValue < this.maxAttr) {
-      this.maxValue = this.maxValue + this.step;
-    }
-  }
+  // Touch events
 
-  // Mouse
-
-  private _moveMaxThumb(e: MouseEvent) {
-    e.stopImmediatePropagation();
-    if (this.disabled == false) {
-      this._moveMaxHandle = true;
-    }
-  }
-
-  private _moveMinThumb(e: MouseEvent) {
-    e.stopImmediatePropagation();
-    if (this.disabled == false) {
-      this._moveMinHandle = true;
-    }
-  }
-
-  private _stopMove() {
-    this._moveMinHandle = false;
-    this._moveMaxHandle = false;
-    this._moveBothHandles.mouseStart = 0;
-    this._moveBothHandles.moving = false;
-  }
-
-  private _clickedValue(mouseXPosition: number) {
-    const clickPercent =
-      mouseXPosition / (this._trackWidth + TRACK_PADDING * 2);
-    const trackDiff = this.maxAttr - this.minAttr;
-    const clickedValue = clickPercent * trackDiff + this.minAttr;
-    const newValue = Math.round(clickedValue / this.step) * this.step;
-    const value = {
-      new: newValue,
-      click: clickedValue,
-    };
-    return value;
-  }
-
-  private _onMouseDown(e: MouseEvent) {
-    e.stopImmediatePropagation();
-    if (this.disabled) return;
-    const value = this._clickedValue(e.offsetX);
-    if (value.click > this.minValue && value.click < this.maxValue) {
-      this._moveBothHandles.mouseStart = e.offsetX;
-      this._moveBothHandles.moving = true;
-      this._moveBothHandles.minStart = this.minValue;
-      this._moveBothHandles.maxStart = this.maxValue;
-    } else if (value.new <= this.minValue) {
-      this.minValue = value.new;
-      this._moveMinHandle = true;
-    } else if (value.new >= this.maxValue) {
-      this.maxValue = value.new;
-      this._moveMaxHandle = true;
-    } else {
-      console.log(value, 'something went wrong');
-    }
-  }
-
-  private _onMove(e: MouseEvent) {
-    if (e.buttons == 1 && !this.disabled) {
-      const value = this._clickedValue(e.offsetX);
-      if (this._moveMaxHandle && value.new >= this.minValue + this.gap) {
-        this.maxValue = value.new;
-      } else if (this._moveMinHandle && value.new <= this.maxValue - this.gap) {
-        this.minValue = value.new;
-      } else if (this._moveBothHandles.moving) {
-        this._onMoveBoth(e.offsetX);
+  private touchStart(e: TouchEvent) {
+    e.preventDefault();
+    if (!this.disabled) {
+      const target = e.composedPath()[0];
+      if (target == this._minInput) {
+        this._handle.low = true;
+      } else if (target == this._maxInput) {
+        this._handle.high = true;
+      } else {
+        const thumb = this._getHandles(e.touches[0].pageX);
+        if (thumb?.type == 'low' && this._handle.low == true) {
+          this.valueLow = thumb.value;
+        } else if (thumb?.type == 'high' && this._handle.high == true) {
+          this.valueHigh = thumb.value;
+        }
       }
     }
   }
 
-  private _onMoveBoth(mousePosition: number) {
-    const drag = mousePosition - this._moveBothHandles.mouseStart;
-    const trackDiff = this.maxAttr - this.minAttr;
+  private touchMove(e: TouchEvent) {
+    if (this._innerSliderTrack) {
+      const offsetX =
+        e.touches[0].pageX -
+        this._innerSliderTrack.getBoundingClientRect().left;
+      if (this._handle.both == true) {
+        this._updateBothValues(offsetX);
+      } else if (this._handle.low == true) {
+        this.valueLow = this._getValue(offsetX);
+      } else if (this._handle.high == true) {
+        this.valueHigh = this._getValue(offsetX);
+      }
+    }
+  }
+
+  private touchEnd() {
+    this.stopMoving();
+  }
+
+  // Mouse events
+
+  private mouseDown(e: MouseEvent) {
+    if (!this.disabled) {
+      const target = e.composedPath()[0];
+
+      if (target == this._minInput) {
+        this._handle.low = true;
+      } else if (target == this._maxInput) {
+        this._handle.high = true;
+      } else {
+        const thumb = this._getHandles(e.pageX);
+        if (thumb?.type == 'low' && this._handle.low == true) {
+          this.valueLow = thumb.value;
+        } else if (thumb?.type == 'high' && this._handle.high == true) {
+          this.valueHigh = thumb.value;
+        }
+      }
+    }
+  }
+
+  private mouseMove(e: MouseEvent) {
+    if (this._handle.both == true) {
+      e.preventDefault();
+      this._updateBothValues(e.offsetX);
+    } else if (this._handle.low == true) {
+      this.valueLow = this._getValue(e.offsetX);
+    } else if (this._handle.high == true) {
+      this.valueHigh = this._getValue(e.offsetX);
+    }
+  }
+
+  private mouseUp() {
+    this.stopMoving();
+  }
+
+  // Event logic
+
+  private stopMoving() {
+    this._handle.both = false;
+    this._handle.high = false;
+    this._handle.low = false;
+    this._handle.startPosition = 0;
+  }
+
+  private _getValue(offsetX: number) {
+    const p = offsetX / (this._trackWidth + TRACK_PADDING * 2);
+    const trackDiff = this.max - this.min;
+    const positionValue = p * trackDiff + this.min;
+    const value = Math.round(positionValue / this.step) * this.step;
+    return value;
+  }
+
+  private _getHandles(pageX: number) {
+    const mouseXPosition =
+      pageX - this._innerSliderTrack.getBoundingClientRect().left;
+    const clickPercent =
+      mouseXPosition / (this._trackWidth - TRACK_PADDING * 2);
+
+    const clickedValue = clickPercent * (this.max - this.min) + this.min;
+    const newValue = Math.round(clickedValue / this.step) * this.step;
+
+    if (clickedValue < this.valueLow) {
+      this._handle.low = true;
+      return { type: 'low', value: newValue };
+    } else if (clickedValue > this.valueHigh) {
+      this._handle.high = true;
+      return { type: 'high', value: newValue };
+    } else if (clickedValue > this.valueLow && clickedValue < this.valueHigh) {
+      this._handle.both = true;
+      this._handle.lowStart = this.valueLow;
+      this._handle.highStart = this.valueHigh;
+      this._handle.startPosition = mouseXPosition;
+      return { type: 'both', value: newValue };
+    }
+    return;
+  }
+
+  private _updateBothValues(mousePosition: number) {
+    const drag = mousePosition - this._handle.startPosition;
+    const trackDiff = this.max - this.min;
 
     const dragPercent = drag / (this._trackWidth + TRACK_PADDING * 2);
     const dragValue =
       Math.round((dragPercent * trackDiff) / this.step) * this.step;
 
-    const newMin = this._moveBothHandles.minStart + dragValue;
-    const newMax = this._moveBothHandles.maxStart + dragValue;
+    const newMin = this._handle.lowStart + dragValue;
+    const newMax = this._handle.highStart + dragValue;
 
-    if (
-      this.minValue !== newMin &&
-      newMin >= this.minAttr &&
-      newMax <= this.maxAttr
-    ) {
-      this.minValue = newMin;
-      this.maxValue = newMax;
-    }
-  }
-
-  // render stuff
-
-  private _fillColor() {
-    const percentStart =
-      ((this.minValue - this.minAttr) / (this.maxAttr - this.minAttr)) * 100;
-    const percentEnd =
-      ((this.maxValue - this.minAttr) / (this.maxAttr - this.minAttr)) * 100;
-    if (this._inFocus) {
-      this._innerSliderTrack.style.background = `linear-gradient(to right, #a1a1a1 calc(-9px + ${percentStart}%), var(--uui-color-selected) ${percentStart}% , var(--uui-color-selected) ${percentEnd}%, #a1a1a1 calc(9px + ${percentEnd}%))`;
-    } else {
-      this._innerSliderTrack.style.background = `linear-gradient(to right, var(--uui-color-border-standalone) ${percentStart}%, var(--uui-color-selected) ${percentStart}% , var(--uui-color-selected) ${percentEnd}%, var(--uui-color-border-standalone) ${percentEnd}%)`;
+    if (this.valueLow !== newMin && newMin >= this.min && newMax <= this.max) {
+      this.valueLow = newMin;
+      this.valueHigh = newMax;
     }
   }
 
   constructor() {
     super();
-    this.addEventListener('mouseenter', () => {
-      this._inFocus = true;
-    });
-    this.addEventListener('mouseleave', () => {
-      this._inFocus = false;
-    });
-    this.addEventListener('mousedown', e => {
-      this._onMouseDown(e);
-    });
-    window.addEventListener('mousemove', e => {
-      this._onMove(e);
+
+    // Mouse
+    this.addEventListener('mousedown', mouse => {
+      this.mouseDown(mouse);
     });
     window.addEventListener('mouseup', () => {
-      this._stopMove();
+      this.mouseUp();
+    });
+    window.addEventListener('mousemove', mouse => {
+      this.mouseMove(mouse);
+    });
+
+    // Touch
+    this.addEventListener('touchstart', touch => {
+      this.touchStart(touch);
+    });
+    window.addEventListener('touchend', () => {
+      this.touchEnd();
+    });
+    window.addEventListener('touchmove', touch => {
+      this.touchMove(touch);
     });
   }
 
@@ -543,26 +670,24 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   private _sliderMinThumbPosition() {
     const ratio =
-      (parseFloat((this.minValue || '0') as string) - this.minAttr) /
-      (this.maxAttr - this.minAttr);
+      (parseFloat((this.valueLow || '0') as string) - this.min) /
+      (this.max - this.min);
     const valueMinPercent = `${Math.floor(ratio * 100000) / 1000}%`;
     return valueMinPercent;
   }
 
   private _sliderMaxThumbPosition() {
     const ratio =
-      (parseFloat((this.maxValue || '0') as string) - this.minAttr) /
-      (this.maxAttr - this.minAttr);
+      (parseFloat((this.valueHigh || '0') as string) - this.min) /
+      (this.max - this.min);
     const valueMaxPercent = `${Math.floor(ratio * 100000) / 1000}%`;
     return valueMaxPercent;
   }
 
   renderSteps() {
-    const stepAmount = (this.maxAttr - this.minAttr) / this.step;
+    const stepAmount = (this.max - this.min) / this.step;
     const stepWidth = (this._trackWidth - TRACK_PADDING * 2) / stepAmount;
-
-    const trackDiff = this.maxAttr - this.minAttr;
-    const trackValue = this._trackWidth / trackDiff;
+    const trackValue = this._trackWidth / (this.max - this.min);
 
     if (stepWidth >= STEP_MIN_WIDTH) {
       let i = 0;
@@ -570,15 +695,15 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       for (i; i <= stepAmount; i++) {
         steps.push(i * stepWidth);
       }
-
+      const colorClass = this.disabled == false ? `filled` : `filled-disabled`;
       return svg`
         ${steps.map(position => {
           const x = position + TRACK_PADDING;
           if (
-            x / trackValue > this.minValue - this.minAttr &&
-            x / trackValue < this.maxValue - this.minAttr
+            x / trackValue > this.valueLow - this.min &&
+            x / trackValue < this.valueHigh - this.min
           ) {
-            return svg`<circle class="track-step filled" cx="${x}" cy="50%" r="4.5" />`;
+            return svg`<circle class="track-step ${colorClass}" cx="${x}" cy="50%" r="4.5" />`;
           } else {
             return svg`<circle class="track-step" cx="${x}" cy="50%" r="4.5" />`;
           }
@@ -589,14 +714,14 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   }
 
   renderStepValues(hide: boolean) {
-    const stepAmount = (this.maxAttr - this.minAttr) / this.step;
+    const stepAmount = (this.max - this.min) / this.step;
     const stepWidth = (this._trackWidth - TRACK_PADDING * 2) / stepAmount;
 
     if (stepWidth >= STEP_MIN_WIDTH && stepAmount <= 20 && !hide) {
       let i = 0;
       const values = [];
       for (i; i <= stepAmount; i++) {
-        values.push(i * this.step + this.minAttr);
+        values.push(i * this.step + this.min);
       }
       return html` ${values.map(value => {
         return html`<span><span>${value}</span></span>`;
@@ -616,55 +741,45 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
               ${this.renderSteps()}
             </svg>
           </div>
-          <div class="inner-track"></div>
           <div id="thumb-wrapper">
-            <div
-              tabindex="0"
+            <input
+              type="range"
+              id="min-slider"
+              min="${this.min}"
+              max="${this.max}"
+              step="${this.step}"
+              ?disabled="${this.disabled}"
+              .value="${String(this.valueLow)}"
               aria-label="${this.label}-minimum"
-              class="thumb thumb-min"
-              style="left: ${this._sliderMinThumbPosition()}"
-              @mousedown="${this._moveMinThumb}"
-              @keydown="${this._keyDownMin}">
-              <div class="value value-min">${this.minValue}</div>
-            </div>
+              @input="${this._onMinInput}"
+              @change="${this._onChange}" />
             <div
-              tabindex="0"
-              aria-label="${this.label}-maximum"
-              class="thumb thumb-max"
-              style="left: ${this._sliderMaxThumbPosition()}"
-              @mousedown="${this._moveMaxThumb}"
-              @keydown="${this._keyDownMax}">
-              <div class="value value-max">${this.maxValue}</div>
+              class="thumb thumb-min"
+              style="left: ${this._sliderMinThumbPosition()}">
+              <div class="value value-min">${this.valueLow}</div>
             </div>
+            <input
+              type="range"
+              id="max-slider"
+              min="${this.min}"
+              max="${this.max}"
+              step="${this.step}"
+              ?disabled="${this.disabled}"
+              .value="${String(this.valueHigh)}"
+              aria-label="${this.label}-maximum"
+              @input="${this._onMaxInput}"
+              @change="${this._onChange}" />
+            <div
+              class="thumb thumb-max"
+              style="left: ${this._sliderMaxThumbPosition()}">
+              <div class="value value-max">${this.valueHigh}</div>
+            </div>
+            <div class="inner-track"><span class="color"></span></div>
           </div>
         </div>
         <div id="step-values">
           ${this.renderStepValues(this.hideStepValues)}
         </div>
-      </div>
-      <div id="input-wrapper">
-        <input
-          type="range"
-          id="min-slider"
-          min="${this.minAttr}"
-          max="${this.maxAttr}"
-          step="${this.step}"
-          ?disabled="${this.disabled}"
-          .value="${String(this.minValue)}"
-          aria-label="${this.label}-minimum"
-          @input="${this._onMinInput}"
-          @change="${this._onChange}" />
-        <input
-          type="range"
-          id="max-slider"
-          min="${this.minAttr}"
-          max="${this.maxAttr}"
-          step="${this.step}"
-          ?disabled="${this.disabled}"
-          .value="${String(this.maxValue)}"
-          aria-label="${this.label}-maximum"
-          @input="${this._onMaxInput}"
-          @change="${this._onChange}" />
       </div>
     `;
   }

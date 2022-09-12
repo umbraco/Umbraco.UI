@@ -8,12 +8,10 @@ export default {
   title: 'Inputs/Range Slider',
   component: 'uui-range-slider',
   args: {
-    minAttr: -100,
-    maxAttr: 100,
     step: 10,
-    gap: 10,
-    minValue: 20,
-    maxValue: 70,
+    minGap: 10,
+    valueLow: 20,
+    valueHigh: 70,
     disabled: false,
     hideStepValues: false,
     label: 'range',
@@ -30,11 +28,11 @@ export default {
 const Template: Story = props =>
   html`<uui-range-slider
     step=${props.step}
-    gap=${props.gap}
-    min=${props.minAttr}
-    max=${props.maxAttr}
-    .minValue=${props.minValue}
-    .maxValue=${props.maxValue}
+    min-gap=${props.minGap}
+    min=${props.min}
+    max=${props.max}
+    value-low=${props.valueLow}
+    value-high=${props.valueHigh}
     ?disabled=${props.disabled}
     ?hide-step-values="${props.hideStepValues}"
     label="${props.label}"></uui-range-slider>`;
