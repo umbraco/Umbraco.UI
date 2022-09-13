@@ -34,6 +34,10 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         cursor: pointer;
       }
 
+      :host([disabled]) {
+        cursor: default;
+      }
+
       #wrapper {
         position: relative;
         border-radius: 20px;
@@ -124,10 +128,10 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
       :host([disabled]) .thumb {
         background-color: var(--uui-color-disabled);
-        border-color: var(--uui-color-disabled-standalone);
+        border-color: var(--uui-palette-mine-grey);
       }
       :host([disabled]) .thumb:after {
-        background-color: var(--uui-color-disabled);
+        background-color: var(--uui-palette-mine-grey);
       }
 
       .thumb .value {
@@ -144,6 +148,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         color: var(--uui-color-selected);
         visibility: hidden;
         opacity: 0;
+      }
+      :host([disabled]) .thumb .value {
+        color: var(--uui-palette-mine-grey);
       }
 
       #wrapper:active .thumb .value,
@@ -242,6 +249,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         pointer-events: auto;
         cursor: pointer;
       }
+      input[type='range']:disabled::-webkit-slider-thumb {
+        cursor: default;
+      }
 
       input[type='range']::-moz-range-thumb {
         -moz-appearance: none;
@@ -254,6 +264,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         pointer-events: auto;
         cursor: pointer;
       }
+      input[type='range']:disabled::-moz-range-thumb {
+        cursor: default;
+      }
 
       input[type='range']::-ms-thumb {
         appearance: none;
@@ -264,6 +277,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         border-radius: 100%;
         pointer-events: auto;
         cursor: pointer;
+      }
+      input[type='range']:disabled::-ms-thumb {
+        cursor: default;
       }
     `,
   ];
@@ -322,6 +338,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     if (newVal < this.max) {
       this._min = newVal;
       this.requestUpdate('min', old);
+      if (this.valueLow < newVal) {
+        const move = newVal - old;
+        this.valueHigh = this.valueHigh + move;
+        this.valueLow = this.valueLow + move;
+      }
     }
   }
   get min() {
@@ -340,6 +361,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     if (newVal > this.min) {
       this._max = newVal;
       this.requestUpdate('max', old);
+      if (this.valueHigh > newVal) {
+        const move = newVal - old;
+        this.valueLow = this.valueLow + move;
+        this.valueHigh = this.valueHigh + move;
+      }
     }
   }
   get max() {
@@ -362,6 +388,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     ) {
       this._valueLow = newVal;
       this.requestUpdate('valueLow', old);
+    } else if (newVal < this.min) {
+      this._valueLow = this.min;
+      this.requestUpdate('valueLow', old);
     }
   }
   get valueLow() {
@@ -383,6 +412,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       (this.maxGap == 0 || this.maxGap >= newVal - this.valueLow)
     ) {
       this._valueHigh = newVal;
+      this.requestUpdate('valueHigh', old);
+    } else if (newVal > this.max) {
+      this.valueHigh = this.max;
       this.requestUpdate('valueHigh', old);
     }
   }
