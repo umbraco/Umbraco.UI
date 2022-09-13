@@ -355,7 +355,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @property({ type: Number, attribute: 'value-low' })
   set valueLow(newVal) {
     const old = this._valueLow;
-    if (newVal <= this.valueHigh - this.minGap && newVal >= this.min) {
+    if (
+      newVal <= this.valueHigh - this.minGap &&
+      newVal >= this.min &&
+      (this.maxGap == 0 || this.maxGap >= this.valueHigh - newVal)
+    ) {
       this._valueLow = newVal;
       this.requestUpdate('valueLow', old);
     }
@@ -373,7 +377,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @property({ type: Number, attribute: 'value-high' })
   set valueHigh(newVal) {
     const old = this._valueHigh;
-    if (newVal >= this.valueLow + this.minGap && newVal <= this.max) {
+    if (
+      newVal >= this.valueLow + this.minGap &&
+      newVal <= this.max &&
+      (this.maxGap == 0 || this.maxGap >= newVal - this.valueLow)
+    ) {
       this._valueHigh = newVal;
       this.requestUpdate('valueHigh', old);
     }
@@ -460,7 +468,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   private _onMinInput() {
     const min = parseInt(this._minInput.value);
     const max = parseInt(this._maxInput.value) - this.minGap;
-    if (min >= max) {
+    if (min >= max && (this.maxGap == 0 || this.maxGap >= max - min)) {
       this._minInput.value = String(max);
       this.valueLow = max;
     } else {
@@ -471,7 +479,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   private _onMaxInput() {
     const max = parseInt(this._maxInput.value);
     const min = parseInt(this._minInput.value) + this.minGap;
-    if (max <= min) {
+    if (max <= min && (this.maxGap == 0 || this.maxGap >= max - min)) {
       this._maxInput.value = String(min);
       this.valueHigh = min;
     } else {

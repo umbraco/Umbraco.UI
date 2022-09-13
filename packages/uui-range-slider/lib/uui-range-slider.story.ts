@@ -10,6 +10,7 @@ export default {
   args: {
     step: 10,
     minGap: 10,
+    maxGap: 0,
     valueLow: 20,
     valueHigh: 70,
     disabled: false,
@@ -29,6 +30,7 @@ const Template: Story = props =>
   html`<uui-range-slider
     step=${props.step}
     min-gap=${props.minGap}
+    max-gap=${props.maxGap}
     min=${props.min}
     max=${props.max}
     value-low=${props.valueLow}
