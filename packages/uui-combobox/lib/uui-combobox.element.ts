@@ -68,7 +68,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       }
 
       #phone-wrapper {
-        position: absolute;
+        position: fixed;
         inset: 0;
         display: flex;
         flex-direction: column;
