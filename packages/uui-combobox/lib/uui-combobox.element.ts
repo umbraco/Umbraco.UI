@@ -41,6 +41,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       #scroll-container {
         overflow-y: auto;
         width: 100%;
+        max-height: var(--uui-combobox-popover-max-height, 500px);
       }
 
       #dropdown {
@@ -72,10 +73,24 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         display: flex;
         flex-direction: column;
         z-index: 1;
+        font-size: 1.1em;
       }
 
-      #phone-wrapper > #dropdown {
+      #phone-wrapper #dropdown {
         display: flex;
+      }
+
+      #phone-wrapper #combobox-input {
+        height: var(--uui-size-16);
+      }
+
+      #phone-wrapper > uui-button {
+        height: var(--uui-size-14);
+        width: 100%;
+      }
+
+      #phone-wrapper #scroll-container {
+        max-height: unset;
       }
     `,
   ];
@@ -136,7 +151,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _search = '';
 
   @state()
-  private _isPhone = true;
+  private _isPhone = false;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -145,6 +160,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.addEventListener('mousedown', this._onMouseDown);
 
     this.phoneMediaQuery = window.matchMedia('(max-width: 600px)');
+    this._onPhoneChange();
     this.phoneMediaQuery.addEventListener('change', this._onPhoneChange);
 
     demandCustomElement(this, 'uui-icon');
@@ -321,11 +337,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   render() {
     if (this._isPhone && this.open) {
       return html` <div id="phone-wrapper">
-        <uui-button
-          label="close"
-          look="primary"
-          style="width: 100%; height: 40px;"
-          @click=${this._onClose}>
+        <uui-button label="close" look="primary" @click=${this._onClose}>
           Close
         </uui-button>
         ${this._renderInput()} ${this._renderDropdown()}
