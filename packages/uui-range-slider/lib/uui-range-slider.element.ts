@@ -4,6 +4,7 @@ import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
 
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
@@ -497,7 +498,8 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @query('.color')
   private _innerColor!: HTMLElement;
 
-  private _onMinInput() {
+  private _onMinInput(e: Event) {
+    e.stopPropagation();
     const min = parseInt(this._minInput.value);
     const max = parseInt(this._maxInput.value) - this.minGap;
     if (min >= max && (this.maxGap == 0 || this.maxGap >= max - min)) {
@@ -506,9 +508,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     } else {
       this.valueLow = parseInt(this._minInput.value);
     }
+    this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));
   }
 
-  private _onMaxInput() {
+  private _onMaxInput(e: Event) {
+    e.stopPropagation();
     const max = parseInt(this._maxInput.value);
     const min = parseInt(this._minInput.value) + this.minGap;
     if (max <= min && (this.maxGap == 0 || this.maxGap >= max - min)) {
@@ -517,12 +521,14 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     } else {
       this.valueHigh = parseInt(this._maxInput.value);
     }
+    this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));
   }
 
   private _onChange(e: Event) {
+    console.log('native change');
     e.stopPropagation();
-    console.log('change!');
     this.pristine = false;
+    this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.CHANGE));
   }
 
   private _fillColor() {
@@ -535,9 +541,17 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     this._innerColor.style.right = `${100 - percentEnd}%`;
   }
 
+  //Keyboards
+
+  private _onKeypress(e: KeyboardEvent): void {
+    if (e.key == 'Enter') {
+      this.submit();
+    }
+  }
+
   // Touch events
 
-  private touchStart(e: TouchEvent) {
+  private _onTouchStart = (e: TouchEvent) => {
     e.preventDefault();
     if (!this.disabled) {
       const target = e.composedPath()[0];
@@ -553,10 +567,12 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
           this.valueHigh = thumb.value;
         }
       }
+      window.addEventListener('touchend', this._onTouchEnd);
+      window.addEventListener('touchmove', this._onTouchMove);
     }
-  }
+  };
 
-  private touchMove(e: TouchEvent) {
+  private _onTouchMove = (e: TouchEvent) => {
     if (this._innerSliderTrack) {
       const offsetX =
         e.touches[0].pageX -
@@ -569,15 +585,15 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         this.valueHigh = this._getValue(offsetX);
       }
     }
-  }
+  };
 
-  private touchEnd() {
+  private _onTouchEnd = () => {
     this.stopMoving();
-  }
+  };
 
   // Mouse events
 
-  private mouseDown(e: MouseEvent) {
+  private _onMouseDown = (e: MouseEvent) => {
     if (!this.disabled) {
       const target = e.composedPath()[0];
 
@@ -593,32 +609,47 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
           this.valueHigh = thumb.value;
         }
       }
+      window.addEventListener('mouseup', this._onMouseUp);
+      window.addEventListener('mousemove', this._onMouseMove);
     }
-  }
+  };
 
-  private mouseMove(e: MouseEvent) {
+  private _onMouseMove = (e: MouseEvent) => {
     if (this._handle.both == true) {
       e.preventDefault();
       this._updateBothValues(e.offsetX);
     } else if (this._handle.low == true) {
-      this.valueLow = this._getValue(e.offsetX);
+      const newVal = this._getValue(e.offsetX);
+      if (newVal != this.valueLow) {
+        this.valueLow = newVal;
+        this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));
+      }
     } else if (this._handle.high == true) {
-      this.valueHigh = this._getValue(e.offsetX);
+      const newVal = this._getValue(e.offsetX);
+      if (newVal != this.valueHigh) {
+        this.valueHigh = newVal;
+        this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));
+      }
     }
-  }
+  };
 
-  private mouseUp() {
+  private _onMouseUp = () => {
+    console.log('mouseUp');
     this.stopMoving();
-  }
+    window.removeEventListener('mouseup', this._onMouseUp);
+    window.removeEventListener('mousemove', this._onMouseMove);
+  };
 
   // Event logic
 
-  private stopMoving() {
+  private stopMoving = () => {
     this._handle.both = false;
     this._handle.high = false;
     this._handle.low = false;
     this._handle.startPosition = 0;
-  }
+    this.pristine = false;
+    this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.CHANGE));
+  };
 
   private _getValue(offsetX: number) {
     const p = offsetX / (this._trackWidth + TRACK_PADDING * 2);
@@ -664,36 +695,28 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     const newMin = this._handle.lowStart + dragValue;
     const newMax = this._handle.highStart + dragValue;
 
-    if (this.valueLow !== newMin && newMin >= this.min && newMax <= this.max) {
+    if (
+      this.valueLow !== newMin &&
+      newMin >= this.min &&
+      newMax <= this.max &&
+      dragValue != 0
+    ) {
       this.valueLow = newMin;
       this.valueHigh = newMax;
+      this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));
     }
   }
 
   constructor() {
     super();
+    this.value = '0|0';
 
+    this.addEventListener('keypress', this._onKeypress);
     // Mouse
-    this.addEventListener('mousedown', mouse => {
-      this.mouseDown(mouse);
-    });
-    window.addEventListener('mouseup', () => {
-      this.mouseUp();
-    });
-    window.addEventListener('mousemove', mouse => {
-      this.mouseMove(mouse);
-    });
+    this.addEventListener('mousedown', this._onMouseDown);
 
     // Touch
-    this.addEventListener('touchstart', touch => {
-      this.touchStart(touch);
-    });
-    window.addEventListener('touchend', () => {
-      this.touchEnd();
-    });
-    window.addEventListener('touchmove', touch => {
-      this.touchMove(touch);
-    });
+    this.addEventListener('touchstart', this._onTouchStart);
   }
 
   updated() {
@@ -771,6 +794,10 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     }
   }
 
+  private _onInputMouseDown = (e: MouseEvent) => {
+    e.stopPropagation();
+  };
+
   render() {
     return html`
       <div id="wrapper">
@@ -791,6 +818,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
               ?disabled="${this.disabled}"
               .value="${String(this.valueLow)}"
               aria-label="${this.label}-minimum"
+              @mousedown="${this._onInputMouseDown}"
               @input="${this._onMinInput}"
               @change="${this._onChange}" />
             <div
@@ -807,6 +835,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
               ?disabled="${this.disabled}"
               .value="${String(this.valueHigh)}"
               aria-label="${this.label}-maximum"
+              @mousedown="${this._onInputMouseDown}"
               @input="${this._onMaxInput}"
               @change="${this._onChange}" />
             <div
