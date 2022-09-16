@@ -30,7 +30,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
-        position: relative;
         display: inline-block;
       }
 
@@ -40,8 +39,8 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       }
 
       #scroll-container {
-        max-height: var(--uui-combobox-popover-max-height, 500px);
         overflow-y: auto;
+        width: 100%;
       }
 
       #dropdown {
@@ -65,6 +64,18 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         width: 1.15em;
         flex-shrink: 0;
         margin-top: -1px;
+      }
+
+      #phone-wrapper {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+      }
+
+      #phone-wrapper > #dropdown {
+        display: flex;
       }
     `,
   ];
@@ -116,17 +127,25 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _comboboxListElements?: UUIComboboxListElement[];
 
   private _comboboxList!: UUIComboboxListElement;
+  private phoneMediaQuery!: MediaQueryList;
+
   @state()
   private _displayValue = '';
 
   @state()
   private _search = '';
 
+  @state()
+  private _isPhone = true;
+
   connectedCallback(): void {
     super.connectedCallback();
 
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
+
+    this.phoneMediaQuery = window.matchMedia('(max-width: 600px)');
+    this.phoneMediaQuery.addEventListener('change', this._onPhoneChange);
 
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-input');
@@ -141,6 +160,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
     this.removeEventListener('blur', this._onBlur);
     this.removeEventListener('mousedown', this._onMouseDown);
+    this.phoneMediaQuery.removeEventListener('change', this._onPhoneChange);
   }
 
   protected async firstUpdated() {
@@ -160,6 +180,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       }
     }
   }
+
+  private _onPhoneChange = () => {
+    this._isPhone = this.phoneMediaQuery.matches;
+  };
 
   private _updateValue(value: string) {
     if (this._comboboxList) {
@@ -295,14 +319,27 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   };
 
   render() {
-    return html`
-      <uui-popover
-        .open=${this.open}
-        .margin=${-1}
-        @close=${() => this._onClose()}>
+    if (this._isPhone && this.open) {
+      return html` <div id="phone-wrapper">
+        <uui-button
+          label="close"
+          look="primary"
+          style="width: 100%; height: 40px;"
+          @click=${this._onClose}>
+          Close
+        </uui-button>
         ${this._renderInput()} ${this._renderDropdown()}
-      </uui-popover>
-    `;
+      </div>`;
+    } else {
+      return html`
+        <uui-popover
+          .open=${this.open}
+          .margin=${-1}
+          @close=${() => this._onClose()}>
+          ${this._renderInput()} ${this._renderDropdown()}
+        </uui-popover>
+      `;
+    }
   }
 }
 
