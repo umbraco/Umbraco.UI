@@ -15,9 +15,6 @@ const STEP_MIN_WIDTH = 24;
  */
 @defineElement('uui-range-slider')
 export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
-  protected getFormElement(): HTMLElement | undefined {
-    throw new Error('Method not implemented.');
-  }
   static styles = [
     UUIHorizontalPulseKeyframes,
     css`
@@ -374,6 +371,26 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   }
 
   /**
+   * This is a value property of the uui-range-slider. Split the two values with , (comma).
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  get value() {
+    return this._value;
+  }
+  set value(newVal) {
+    if (newVal instanceof String) {
+      super.value = newVal;
+
+      const values = newVal.split(',');
+      this._valueLow = parseInt(values[0]);
+      this._valueHigh = parseInt(values[1]);
+    }
+  }
+
+  /**
    * The lower picked value.
    * @type {number}
    * @attr value-low
@@ -388,9 +405,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       (this.maxGap == 0 || this.maxGap >= this.valueHigh - newVal)
     ) {
       this._valueLow = newVal;
+      super.value = `${newVal},${this.valueHigh}`;
       this.requestUpdate('valueLow', old);
     } else if (newVal < this.min) {
       this._valueLow = this.min;
+      super.value = `${newVal},${this.min}`;
       this.requestUpdate('valueLow', old);
     }
   }
@@ -413,9 +432,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       (this.maxGap == 0 || this.maxGap >= newVal - this.valueLow)
     ) {
       this._valueHigh = newVal;
+      super.value = `${this.valueLow},${newVal}`;
       this.requestUpdate('valueHigh', old);
     } else if (newVal > this.max) {
       this.valueHigh = this.max;
+      super.value = `${this.valueLow},${this.max}`;
       this.requestUpdate('valueHigh', old);
     }
   }
@@ -498,6 +519,14 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @query('.color')
   private _innerColor!: HTMLElement;
 
+  focus() {
+    this._minInput.focus();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._minInput;
+  }
+
   private _onMinInput(e: Event) {
     e.stopPropagation();
     const min = parseInt(this._minInput.value);
@@ -525,7 +554,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   }
 
   private _onChange(e: Event) {
-    console.log('native change');
     e.stopPropagation();
     this.pristine = false;
     this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.CHANGE));
@@ -634,7 +662,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   };
 
   private _onMouseUp = () => {
-    console.log('mouseUp');
     this.stopMoving();
     window.removeEventListener('mouseup', this._onMouseUp);
     window.removeEventListener('mousemove', this._onMouseMove);
