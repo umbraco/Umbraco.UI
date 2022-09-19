@@ -10,7 +10,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
 
 /**
- *  @element uui-inline-create-button
+ *  @element uui-button-inline-create
  *  @description - Special button for creating new elements
  *  @attr {Boolean} vertical - display vertical version of the button
  *  @fires click on user click
