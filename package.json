@@ -78,7 +78,7 @@
     "@web/test-runner-playwright": "0.8.10",
     "autoprefixer": "10.4.7",
     "babel-loader": "8.2.5",
-    "chromatic": "6.7.1",
+    "chromatic": "6.9.0",
     "element-internals-polyfill": "1.1.9",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
