@@ -22,6 +22,7 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "useDefineForClassFields": false
   }
 }
