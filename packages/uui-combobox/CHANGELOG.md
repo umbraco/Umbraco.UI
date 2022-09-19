@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.0.0...@umbraco-ui/uui-combobox@1.1.0) (2022-09-19)
+
+### Features
+
+- **uui-combobox:** add requirement for uui-popover ([447f15f](https://github.com/umbraco/Umbraco.UI/commit/447f15ffde2c7e2bebaaab74024ea6769093a9ca))
+
 # [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.0.0-rc.3...@umbraco-ui/uui-combobox@1.0.0) (2022-08-22)
 
 ### Bug Fixes
