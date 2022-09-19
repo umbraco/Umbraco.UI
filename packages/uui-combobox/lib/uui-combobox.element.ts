@@ -132,6 +132,15 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   @property({ type: Boolean })
   public open = false;
 
+  /**
+   * Specifies the button label for the close button in mobile mode
+   * @type { string }
+   * @attr
+   * @default "Close"
+   */
+  @property({ type: String })
+  public closeLabel = 'Close';
+
   @query('#combobox-input')
   private _input!: HTMLInputElement;
 
@@ -338,7 +347,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (this._isPhone && this.open) {
       return html` <div id="phone-wrapper">
         <uui-button label="close" look="primary" @click=${this._onClose}>
-          Close
+          ${this.closeLabel}
         </uui-button>
         ${this._renderInput()} ${this._renderDropdown()}
       </div>`;
