@@ -76,7 +76,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
       :host(:hover) #button-wrapper:before {
         animation: ${UUIBlinkAnimationValue};
         background-color: var(--uui-color-interactive-emphasis);
-        border-color: var(--uui-color-surface);
+        border-color: var(--uui-color-surface) !important;
       }
 
       #button-wrapper:before {
@@ -103,6 +103,10 @@ export class UUIButtonInlineCreateElement extends LitElement {
         width: 2px;
         left: 50%;
         transform: translateX(-50%);
+        border-top: none;
+        border-bottom: none;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
       }
 
       :host(:not([vertical]):not(:hover)) #plus:not(:focus) {
