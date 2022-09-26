@@ -305,7 +305,7 @@ WithIcon.parameters = {
   docs: {
     source: {
       code: `
-      <uui-button look="primary" label="A11Y proper abel"><uui-icon name="alert"></uui-icon>Button Label</uui-button>`,
+      <uui-button look="primary" label="A11Y proper label"><uui-icon name="alert"></uui-icon>Button Label</uui-button>`,
     },
   },
 };
