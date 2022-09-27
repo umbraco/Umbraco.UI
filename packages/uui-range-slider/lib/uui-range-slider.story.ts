@@ -27,17 +27,21 @@ export default {
 };
 
 const Template: Story = props =>
-  html`<uui-range-slider
-    step=${props.step}
-    min-gap=${props.minGap}
-    max-gap=${props.maxGap}
-    min=${props.min}
-    max=${props.max}
-    value-low=${props.valueLow}
-    value-high=${props.valueHigh}
-    ?disabled=${props.disabled}
-    ?hide-step-values="${props.hideStepValues}"
-    label="${props.label}"></uui-range-slider>`;
+  html`
+    <uui-form-validation-message>
+      <uui-range-slider
+        step=${props.step}
+        min-gap=${props.minGap}
+        max-gap=${props.maxGap}
+        min=${props.min}
+        max=${props.max}
+        value-low=${props.valueLow}
+        value-high=${props.valueHigh}
+        ?disabled=${props.disabled}
+        ?hide-step-values="${props.hideStepValues}"
+        label="${props.label}"></uui-range-slider>
+    </uui-form-validation-message>
+  `;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
