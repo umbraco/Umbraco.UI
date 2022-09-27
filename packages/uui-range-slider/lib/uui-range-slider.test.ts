@@ -155,11 +155,17 @@ describe('UUIRangeSlider in a form', () => {
     await expect(formData.get('slider')).to.be.equal('20,50');
   });
 
-  it('change value and check output', async () => {
+  it('change low and high values and check output', async () => {
     element.valueLow = 10;
     element.valueHigh = 90;
     const formData = new FormData(formElement);
     await expect(formData.get('slider')).to.be.equal('10,90');
+  });
+
+  it('change component value and check output', async () => {
+    formElement.value = '20,50';
+    const formData = new FormData(formElement);
+    await expect(formData.get('slider')).to.be.equal('20,50');
   });
 
   describe('submit', () => {
