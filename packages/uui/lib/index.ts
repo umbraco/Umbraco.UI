@@ -70,3 +70,5 @@ export * from '@umbraco-ui/uui-toast-notification-container/lib/index.js';
 export * from '@umbraco-ui/uui-toast-notification-layout/lib/index.js';
 export * from '@umbraco-ui/uui-toast-notification/lib/index.js';
 export * from '@umbraco-ui/uui-toggle/lib/index.js';
+
+export * from '@umbraco-ui/uui-range-slider/lib/index.js';
