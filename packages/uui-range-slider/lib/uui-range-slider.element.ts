@@ -284,10 +284,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   static readonly formAssociated = true;
 
-  /// Validation
-  @property({ type: String, attribute: 'lowvalue-message' })
-  lowValueMessage = 'The low range value is below the minimum value.';
-
   /**
    * Disables the input.
    * @type {boolean}
@@ -518,7 +514,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @query('.color')
   private _innerColor!: HTMLElement;
 
-  focus() {
+  public focus() {
     this._inputLow.focus();
   }
 
