@@ -49,7 +49,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-
+    this.spellcheck = false;
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-button');
   }
