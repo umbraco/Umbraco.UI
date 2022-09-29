@@ -79,6 +79,7 @@
     "@umbraco-ui/uui-popover": "1.0.0",
     "@umbraco-ui/uui-progress-bar": "1.0.0",
     "@umbraco-ui/uui-radio": "1.0.0",
+    "@umbraco-ui/uui-range-slider": "1.0.0",
     "@umbraco-ui/uui-ref": "1.0.0",
     "@umbraco-ui/uui-ref-list": "1.0.0",
     "@umbraco-ui/uui-ref-node": "1.0.0",
