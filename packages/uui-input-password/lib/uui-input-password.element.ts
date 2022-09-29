@@ -52,6 +52,10 @@ export class UUIInputPasswordElement extends UUIInputElement {
 
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-button');
+
+    if (!this.hasAttribute('spellcheck')) {
+      this.spellcheck = false;
+    }
   }
 
   renderIcon() {
