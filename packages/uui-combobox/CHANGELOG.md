@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.1.0...@umbraco-ui/uui-combobox@1.1.1) (2022-09-29)
+
+### Bug Fixes
+
+- **uui-combobox:** fix for small resolutions ([#327](https://github.com/umbraco/Umbraco.UI/issues/327)) ([0180ee2](https://github.com/umbraco/Umbraco.UI/commit/0180ee21e405e8609465a74dd2cdb2847696379f))
+
 # [1.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.0.0...@umbraco-ui/uui-combobox@1.1.0) (2022-09-19)
 
 ### Features
