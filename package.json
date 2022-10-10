@@ -71,7 +71,7 @@
     "@storybook/builder-vite": "0.2.2",
     "@storybook/web-components": "6.5.12",
     "@types/chai": "4.3.3",
-    "@typescript-eslint/eslint-plugin": "5.37.0",
+    "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "5.37.0",
     "@web/dev-server-esbuild": "0.3.2",
     "@web/test-runner": "0.14.0",
