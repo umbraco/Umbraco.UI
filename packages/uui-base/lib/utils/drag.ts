@@ -10,8 +10,11 @@ interface DragOptions {
      */
     initialEvent: PointerEvent;
 }
-  
-export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
+
+export const drag = (
+    container: HTMLElement,
+    options?: Partial<DragOptions>
+  ) => {
     
     function move(pointerEvent: PointerEvent) {
         const dims = container.getBoundingClientRect();
@@ -42,4 +45,4 @@ export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
     if (options?.initialEvent) {
         move(options.initialEvent);
     }
-}
+};

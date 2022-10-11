@@ -5,8 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
-import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
+import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvents';
 

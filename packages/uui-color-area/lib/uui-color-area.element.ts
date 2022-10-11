@@ -4,8 +4,7 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement } from 'lit';
 
-import { drag } from '@umbraco-ui/uui-base/lib/utils/drag';
-import { clamp } from '@umbraco-ui/uui-base/lib/utils/math';
+import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
