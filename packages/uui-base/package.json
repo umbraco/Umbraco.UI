@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-base",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -24,7 +24,7 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "lit": "^2.2.8"
+    "lit": "^2.3.1"
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",

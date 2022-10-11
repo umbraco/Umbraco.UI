@@ -1,19 +1,20 @@
+import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import {
+  UUIComboboxListElement,
+  UUIComboboxListEvent,
+} from '@umbraco-ui/uui-combobox-list/lib';
+import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { css, html, LitElement } from 'lit';
 import {
   property,
   query,
   queryAssignedElements,
   state,
 } from 'lit/decorators.js';
-import { css, html, LitElement } from 'lit';
+
 import { UUIComboboxEvent } from './UUIComboboxEvent';
-import {
-  UUIComboboxListEvent,
-  UUIComboboxListElement,
-} from '@umbraco-ui/uui-combobox-list/lib';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 /**
  * @element uui-combobox
@@ -29,7 +30,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
-        position: relative;
         display: inline-block;
       }
 
@@ -39,8 +39,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       }
 
       #scroll-container {
-        max-height: var(--uui-combobox-popover-max-height, 500px);
         overflow-y: auto;
+        width: 100%;
+        max-height: var(--uui-combobox-popover-max-height, 500px);
       }
 
       #dropdown {
@@ -58,23 +59,38 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         box-shadow: var(--uui-shadow-depth-3);
       }
 
-      #clear-button {
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 120ms;
-      }
-
-      #clear-button.--show {
-        pointer-events: auto;
-        opacity: 1;
-      }
-
       #caret {
         margin-right: var(--uui-size-3, 9px);
         display: flex;
         width: 1.15em;
         flex-shrink: 0;
         margin-top: -1px;
+      }
+
+      #phone-wrapper {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        font-size: 1.1em;
+      }
+
+      #phone-wrapper #dropdown {
+        display: flex;
+      }
+
+      #phone-wrapper #combobox-input {
+        height: var(--uui-size-16);
+      }
+
+      #phone-wrapper > uui-button {
+        height: var(--uui-size-14);
+        width: 100%;
+      }
+
+      #phone-wrapper #scroll-container {
+        max-height: unset;
       }
     `,
   ];
@@ -116,6 +132,15 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   @property({ type: Boolean })
   public open = false;
 
+  /**
+   * Specifies the button label for the close button in mobile mode
+   * @type { string }
+   * @attr
+   * @default "Close"
+   */
+  @property({ type: String })
+  public closeLabel = 'Close';
+
   @query('#combobox-input')
   private _input!: HTMLInputElement;
 
@@ -126,11 +151,16 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   private _comboboxListElements?: UUIComboboxListElement[];
 
   private _comboboxList!: UUIComboboxListElement;
+  private phoneMediaQuery!: MediaQueryList;
+
   @state()
   private _displayValue = '';
 
   @state()
   private _search = '';
+
+  @state()
+  private _isPhone = false;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -138,11 +168,16 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
 
+    this.phoneMediaQuery = window.matchMedia('(max-width: 600px)');
+    this._onPhoneChange();
+    this.phoneMediaQuery.addEventListener('change', this._onPhoneChange);
+
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-input');
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
+    demandCustomElement(this, 'uui-popover');
   }
 
   disconnectedCallback(): void {
@@ -150,6 +185,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
 
     this.removeEventListener('blur', this._onBlur);
     this.removeEventListener('mousedown', this._onMouseDown);
+    this.phoneMediaQuery.removeEventListener('change', this._onPhoneChange);
   }
 
   protected async firstUpdated() {
@@ -170,6 +206,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     }
   }
 
+  private _onPhoneChange = () => {
+    this._isPhone = this.phoneMediaQuery.matches;
+  };
+
   private _updateValue(value: string) {
     if (this._comboboxList) {
       this._comboboxList.value = value;
@@ -182,9 +222,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   }
 
   private _onMouseDown = () => requestAnimationFrame(() => this._input.focus());
+
   private _onBlur = () =>
     requestAnimationFrame(() => {
-      if (document.activeElement !== this) {
+      if (!this.shadowRoot?.activeElement) {
         this._onClose();
       }
     });
@@ -250,6 +291,8 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     // Reset input(search-input) value:
     this._input.value = this._displayValue;
 
+    this._input.focus();
+
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
@@ -278,36 +321,46 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   };
 
   private _renderClearButton = () => {
-    return html`<uui-button
-      id="clear-button"
-      class=${this.value || this.search ? '--show' : ''}
-      @click=${this._onClear}
-      @keydown=${this._onClear}
-      label="clear"
-      slot="append"
-      compact
-      style="height: 100%;">
-      <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
-    </uui-button>`;
+    return this.value || this.search
+      ? html`<uui-button
+          id="clear-button"
+          @click=${this._onClear}
+          @keydown=${this._onClear}
+          label="clear"
+          slot="append"
+          compact
+          style="height: 100%;">
+          <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
+        </uui-button>`
+      : '';
   };
 
   private _renderDropdown = () => {
     return html`<div id="dropdown" slot="popover">
-      <uui-scroll-container id="scroll-container">
+      <uui-scroll-container tabindex="-1" id="scroll-container">
         <slot></slot>
       </uui-scroll-container>
     </div>`;
   };
 
   render() {
-    return html`
-      <uui-popover
-        .open=${this.open}
-        .margin=${-1}
-        @close=${() => this._onClose()}>
+    if (this._isPhone && this.open) {
+      return html` <div id="phone-wrapper">
+        <uui-button label="close" look="primary" @click=${this._onClose}>
+          ${this.closeLabel}
+        </uui-button>
         ${this._renderInput()} ${this._renderDropdown()}
-      </uui-popover>
-    `;
+      </div>`;
+    } else {
+      return html`
+        <uui-popover
+          .open=${this.open}
+          .margin=${-1}
+          @close=${() => this._onClose()}>
+          ${this._renderInput()} ${this._renderDropdown()}
+        </uui-popover>
+      `;
+    }
   }
 }
 

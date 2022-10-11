@@ -143,6 +143,9 @@
       "path": "../uui-radio"
     },
     {
+      "path": "../uui-range-slider"
+    },
+    {
       "path": "../uui-ref"
     },
     {

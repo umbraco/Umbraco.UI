@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input-password@1.0.0...@umbraco-ui/uui-input-password@1.0.1) (2022-09-29)
+
+### Bug Fixes
+
+- uui-input-password sets spellcheck to false ([#339](https://github.com/umbraco/Umbraco.UI/issues/339)) ([160f3db](https://github.com/umbraco/Umbraco.UI/commit/160f3dba9cc435a44d664bcc55be965e326e8793))
+
+# [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input-password@1.0.0-rc.3...@umbraco-ui/uui-input-password@1.0.0) (2022-08-22)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input-password
+
 # [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input-password@1.0.0-rc.2...@umbraco-ui/uui-input-password@1.0.0-rc.3) (2022-08-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input-password

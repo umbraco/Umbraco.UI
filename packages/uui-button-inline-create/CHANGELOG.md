@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button-inline-create@1.0.1...@umbraco-ui/uui-button-inline-create@1.0.2) (2022-09-29)
+
+**Note:** Version bump only for package @umbraco-ui/uui-button-inline-create
+
+## [1.0.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button-inline-create@1.0.0...@umbraco-ui/uui-button-inline-create@1.0.1) (2022-09-19)
+
+### Bug Fixes
+
+- **uui-inline-button-create:** ensure there is a border-color on horizontal ([#328](https://github.com/umbraco/Umbraco.UI/issues/328)) ([91ecd17](https://github.com/umbraco/Umbraco.UI/commit/91ecd178eb2e25ed07b277838d76e6f70e0b86a6))
+
+# [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button-inline-create@1.0.0-rc.3...@umbraco-ui/uui-button-inline-create@1.0.0) (2022-08-22)
+
+**Note:** Version bump only for package @umbraco-ui/uui-button-inline-create
+
 # [1.0.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-button-inline-create@1.0.0-rc.2...@umbraco-ui/uui-button-inline-create@1.0.0-rc.3) (2022-08-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-button-inline-create
