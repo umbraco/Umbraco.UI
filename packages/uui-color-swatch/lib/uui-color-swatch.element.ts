@@ -1,6 +1,9 @@
+import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement } from 'lit';
+import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -34,6 +37,9 @@ export class UUIColorSwatchElement extends SelectableMixin(
         width: var(--swatch-size);
         height: var(--swatch-size);
         border-radius: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .color-swatch--transparent-bg {
 
@@ -47,6 +53,26 @@ export class UUIColorSwatchElement extends SelectableMixin(
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
         cursor: pointer;
+      }
+
+      .color-swatch__check {
+        position: absolute;
+        vertical-align: middle;
+        width: 1em;
+        height: 1em;
+        line-height: 0;
+        transition: fill 120ms, opacity 120ms;
+        fill: #fff;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .color-swatch--light .color-swatch__check {
+        fill: #000;
+      }
+
+      :host([selected]) .color-swatch__check {
+        opacity: 1;
       }
     `,
   ];
@@ -120,14 +146,23 @@ export class UUIColorSwatchElement extends SelectableMixin(
     this.unselectable = false;
   }
 
+  isLight(color: string) {
+    return new Colord(color).isLight();
+  }
+
   render(){
     return html`
         <div
-          class="color-swatch color-swatch--transparent-bg"
+          class=${classMap({
+            'color-swatch': true,
+            'color-swatch--transparent-bg': true,
+            'color-swatch--light': this.isLight(this.value)
+          })}
           role="button"
           aria-label=${this.label}
         >
         <div class="color-swatch__color" style=${styleMap({ backgroundColor: this.value })}></div>
+        <div class="color-swatch__check">${iconCheck}</div>
       </div>`;
   }
 }

@@ -16,8 +16,10 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html`<uui-color-picker></uui-color-picker>`;
+
+AAAOverview.storyName = 'Overview';
 
 const Template: Story = props => html`
   <uui-color-picker

@@ -24,7 +24,6 @@ import {
 } from '@umbraco-ui/uui-color-slider/lib';
 
 import {
-  UUIColorSwatchesElement,
   UUIColorSwatchesEvent,
 } from '@umbraco-ui/uui-color-swatches/lib';
 
@@ -55,12 +54,14 @@ export class UUIColorPickerElement extends LitElement {
   static styles = [
     css`
       :host {
+        --uui-color-picker-width: 280px;
         --slider-height: 15px;
         --slider-handle-size: 17px;
         --swatch-size: 25px;
         --uui-look-outline-border: #ddd;
         --uui-look-outline-border-hover: #aaa;
-        display: inline-block;
+        display: block;
+        width: var(--uui-color-picker-width);
       }
       .color-picker {
         width: var(--grid-width);
@@ -135,8 +136,23 @@ export class UUIColorPickerElement extends LitElement {
         --slider-bg-size: 10px 10px;
         --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
+      .color-picker__toggle-format {
+        --uui-border-radius: 0;
+        --uui-button-padding-left-factor: 2;
+        --uui-button-padding-right-factor: 2;
+        min-width: 64px;
+      }
       uui-color-swatches {
         border-top: solid 1px #d4d4d8;
+      }
+
+      uui-button[slot=trigger] {
+        --uui-button-border-radius: 50%;
+        --uui-button-contrast: #ddd;
+        --uui-button-padding-left-factor: 2;
+        --uui-button-padding-right-factor: 2;
+        width: 36px;
+        height: 36px;
       }
     `,
   ];
@@ -717,6 +733,7 @@ export class UUIColorPickerElement extends LitElement {
                   label="Toggle color format"
                   look="outline"
                   @click=${this.handleFormatToggle}
+                  class="color-picker__toggle-format"
                 >
                   ${this.setLetterCase(this.format)}
                 </uui-button>
@@ -754,6 +771,9 @@ export class UUIColorPickerElement extends LitElement {
           slot="trigger"
           look="outline"
           label="Open color picker"
+          style=${styleMap({
+            '--uui-button-background-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+          })}
           @click=${this.openColorPicker}>
         </uui-button>
         <div slot="popover">
