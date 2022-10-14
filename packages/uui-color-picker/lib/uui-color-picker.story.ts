@@ -24,7 +24,8 @@ AAAOverview.storyName = 'Overview';
 const Template: Story = props => html`
   <uui-color-picker
     inline=${props.inline}
-    .value=${props.value}></uui-color-picker>
+    .value=${props.value}>
+  </uui-color-picker>
 `;
 
 export const Inline = Template.bind({});

@@ -154,6 +154,12 @@ export class UUIColorPickerElement extends LitElement {
         width: 36px;
         height: 36px;
       }
+      
+      uui-popover {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+      }
     `,
   ];
 
@@ -499,12 +505,10 @@ export class UUIColorPickerElement extends LitElement {
     event.stopImmediatePropagation();
 
     const target = event.target as HTMLElement;
-    const parent = target.parentNode as UUIPopoverElement;
+    const popover = target.nextElementSibling as UUIPopoverElement;
+    console.log("popover", popover)
 
-    if (parent) {
-      parent.open = !parent?.open;
-    }
-
+    popover.open = !popover?.open;
   }
   
   handleEyeDropper() {
@@ -766,16 +770,16 @@ export class UUIColorPickerElement extends LitElement {
       return colorPicker;
     }
 
-    return html`<uui-popover placement="bottom-start">
-        <uui-button
-          slot="trigger"
-          look="outline"
-          label="Open color picker"
-          style=${styleMap({
-            '--uui-button-background-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
-          })}
-          @click=${this.openColorPicker}>
-        </uui-button>
+    return html`<uui-button
+        slot="trigger"
+        look="outline"
+        label="Open color picker"
+        style=${styleMap({
+          '--uui-button-background-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+        })}
+        @click=${this.openColorPicker}>
+      </uui-button>
+      <uui-popover placement="bottom-start">
         <div slot="popover">
           ${colorPicker}
         </div>
