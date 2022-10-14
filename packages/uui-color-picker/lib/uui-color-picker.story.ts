@@ -18,3 +18,22 @@ export default {
 
 export const Overview: Story = props =>
   html`<uui-color-picker></uui-color-picker>`;
+
+const Template: Story = props => html`
+  <uui-color-picker
+    inline=${props.inline}
+    .value=${props.value}></uui-color-picker>
+`;
+
+export const Inline = Template.bind({});
+Inline.args = {
+  inline: true
+};
+Inline.parameters = {
+  docs: {
+    source: {
+      code: `<uui-color-picker inline="true"></uui-color-picker>`,
+    },
+  },
+};
+

@@ -32,6 +32,8 @@ import {
   UUIColorSwatchElement,
 } from '@umbraco-ui/uui-color-swatch/lib';
 
+import { UUIPopoverElement } from '@umbraco-ui/uui-popover/lib';
+
 const hasEyeDropper = 'EyeDropper' in window;
 
 interface EyeDropperConstructor {
@@ -476,6 +478,18 @@ export class UUIColorPickerElement extends LitElement {
       this._previewButton.classList.remove('color-picker__preview-color--copied');
     });
   }
+
+  openColorPicker(event: Event) {
+    event.stopImmediatePropagation();
+
+    const target = event.target as HTMLElement;
+    const parent = target.parentNode as UUIPopoverElement;
+
+    if (parent) {
+      parent.open = !parent?.open;
+    }
+
+  }
   
   handleEyeDropper() {
     if (!hasEyeDropper) {
@@ -734,10 +748,19 @@ export class UUIColorPickerElement extends LitElement {
     if (this.inline) {
       return colorPicker;
     }
-    
-    // TODO: Could we render color picker using `uui-popover` here?
-    return colorPicker;
-  }
+
+    return html`<uui-popover placement="bottom-start">
+        <uui-button
+          slot="trigger"
+          look="outline"
+          label="Open color picker"
+          @click=${this.openColorPicker}>
+        </uui-button>
+        <div slot="popover">
+          ${colorPicker}
+        </div>
+      </uui-popover>`;
+    }
 }
 
 function toHex(value: number) {
