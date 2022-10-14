@@ -73,7 +73,9 @@ export class UUIColorPickerElement extends LitElement {
         display: flex;
         padding: 0 0.75rem 0.75rem 0.75rem;
       }
-      .color-picker__preview {
+      .color-picker__preview,
+      .color-picker__trigger {
+        --uui-button-padding-top-factor: 5;
         flex: 0 0 auto;
         display: inline-flex;
         align-items: center;
@@ -84,10 +86,13 @@ export class UUIColorPickerElement extends LitElement {
         border: none;
         border-radius: 50%;
         background: none;
-        margin-left: 0.75rem;
-        cursor: copy;
       }
-      .color-picker__preview:before {
+      .color-picker__preview {
+        cursor: copy;
+        margin-left: 0.75rem;
+      }
+      .color-picker__preview::before,
+      .color-picker__trigger::before {
         content: '';
         position: absolute;
         top: 0;
@@ -154,7 +159,7 @@ export class UUIColorPickerElement extends LitElement {
         width: 36px;
         height: 36px;
       }
-      
+
       uui-popover {
         display: block;
         width: 100%;
@@ -774,6 +779,7 @@ export class UUIColorPickerElement extends LitElement {
         slot="trigger"
         look="outline"
         label="Open color picker"
+        class="color-picker__trigger color-picker__transparent-bg"
         style=${styleMap({
           '--uui-button-background-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
         })}
