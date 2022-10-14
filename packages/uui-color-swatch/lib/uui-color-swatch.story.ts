@@ -20,3 +20,21 @@ export default {
 
 export const Overview: Story = props =>
   html`<uui-color-swatch .value=${value}></uui-color-swatch>`;
+
+const Template: Story = props => html`
+  <uui-color-swatch
+    .value=${props.value}>
+  </uui-color-swatch>
+`;
+
+export const Transparent = Template.bind({});
+Transparent.args = {
+  value: 'rgba(53, 68, 177, 0.5)'
+};
+Transparent.parameters = {
+  docs: {
+    source: {
+      code: `<uui-color-swatch color="rgba(53, 68, 177, 0.5)"></uui-color-slider>`,
+    },
+  },
+};
