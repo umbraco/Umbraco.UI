@@ -35,6 +35,14 @@ import {
   UUIPopoverElement
 } from '@umbraco-ui/uui-popover/lib';
 
+import {
+  UUIInputElement
+} from '@umbraco-ui/uui-input/lib';
+
+import {
+  UUIButtonElement
+} from '@umbraco-ui/uui-button/lib';
+
 const hasEyeDropper = 'EyeDropper' in window;
 
 interface EyeDropperConstructor {
@@ -90,8 +98,11 @@ export class UUIColorPickerElement extends LitElement {
         background: none;
       }
       .color-picker__preview {
+        --uui-button-border-radius: 50%;
+
         cursor: copy;
         margin-left: 0.75rem;
+        border-radius: 50%;
       }
       .color-picker__preview::before,
       .color-picker__trigger::before {
@@ -114,6 +125,23 @@ export class UUIColorPickerElement extends LitElement {
         background-size: 10px 10px;
         background-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
+
+      .color-picker__preview-color--copied {
+        animation: pulse 0.75s;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 var(--uui-palette-space-cadet-light);
+        }
+        70% {
+          box-shadow: 0 0 0 0.5rem transparent;
+        }
+        100% {
+          box-shadow: 0 0 0 0 transparent;
+        }
+      }
+
       .color-picker__controls {
         padding: 0.75rem;
         display: flex;
@@ -170,8 +198,8 @@ export class UUIColorPickerElement extends LitElement {
     `,
   ];
 
-  @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
-
+  @query('[part="input"]') _input!: UUIInputElement;
+  @query('.color-picker__preview') _previewButton!: UUIButtonElement;
   @query('.color-picker__swatches') _colorSwatchesContainer!: HTMLElement;
 
   @state() private isEmpty = false;
@@ -497,7 +525,7 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleCopy() {
-    //this.input.select();
+    this._input.select();
     document.execCommand('copy');
     this._previewButton.focus();
 
@@ -737,6 +765,7 @@ export class UUIColorPickerElement extends LitElement {
           <uui-input 
             label="label"
             type="text"
+            part="input"
             name=${this.name}
             autocomplete="off"
             autocorrect="off"
