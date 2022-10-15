@@ -31,7 +31,9 @@ import {
   UUIColorSwatchElement,
 } from '@umbraco-ui/uui-color-swatch/lib';
 
-import { UUIPopoverElement } from '@umbraco-ui/uui-popover/lib';
+import {
+  UUIPopoverElement
+} from '@umbraco-ui/uui-popover/lib';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
@@ -511,9 +513,19 @@ export class UUIColorPickerElement extends LitElement {
 
     const target = event.target as HTMLElement;
     const popover = target.nextElementSibling as UUIPopoverElement;
-    console.log("popover", popover)
 
     popover.open = !popover?.open;
+    
+    target.setAttribute("aria-expanded", popover.open.toString());
+  }
+
+  closeColorPicker(event: Event) {
+    const target = event.target as UUIPopoverElement;
+    const trigger = target.previousElementSibling;
+    
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", "false");
+    }
   }
   
   handleEyeDropper() {
@@ -783,9 +795,11 @@ export class UUIColorPickerElement extends LitElement {
         style=${styleMap({
           '--uui-button-background-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
         })}
-        @click=${this.openColorPicker}>
+        @click=${this.openColorPicker}
+        aria-haspopup="true"
+        aria-expanded="false">
       </uui-button>
-      <uui-popover placement="bottom-start">
+      <uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
         <div slot="popover">
           ${colorPicker}
         </div>
