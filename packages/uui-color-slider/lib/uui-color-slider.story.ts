@@ -16,8 +16,30 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const AAAOverview: Story = props =>
   html`<uui-color-slider></uui-color-slider>`;
+
+AAAOverview.storyName = 'Overview';
+
+const DisabledTemplate: Story = props => html`
+  <uui-color-slider
+    disabled=${props.disabled}
+    .value=${props.value}>
+  </uui-color-slider>
+`;
+
+export const Disabled = DisabledTemplate.bind({});
+Disabled.args = {
+  disabled: true,
+  value: 50
+};
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `<uui-color-slider label="Slider label" disabled="true"></uui-color-slider>`,
+    },
+  },
+};
 
 const Template: Story = props => html`
   <uui-color-slider
