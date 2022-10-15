@@ -45,6 +45,11 @@ export class UUIColorSliderElement extends LitElement {
         margin-left: calc(var(--slider-handle-size) / -2);
       }
 
+      .color-slider--disabled {
+        user-select: none;
+        cursor: not-allowed;
+      }
+
       .color-slider--vertical {
         width: var(--slider-height);
         height: 300px;
@@ -117,6 +122,10 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   handleDrag(event: PointerEvent) {
+
+    if (this.disabled)
+      return;
+
     const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
     const handle = container.querySelector<HTMLElement>('.color-slider__handle')!;
     const { width, height } = container.getBoundingClientRect();
@@ -140,7 +149,10 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   handleClick(event: MouseEvent) {
-    console.log("handle click");
+
+    if (this.disabled)
+      return;
+    
     this.value = this.getValueFromMousePosition(event);
     this.syncValues();
   }
@@ -203,6 +215,12 @@ export class UUIColorSliderElement extends LitElement {
     const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
     const containerTop = container.getBoundingClientRect().top;
     const containerHeight = container.getBoundingClientRect().height;
+
+    console.log("containerHeight", containerHeight);
+    console.log("containerTop", containerTop);
+    console.log("coordinate", coordinate);
+
+    console.log("test", this.max - ((coordinate - containerTop) / containerHeight) * this.max);
     
     return clamp(
       this.roundToPrecision(((coordinate - containerTop) / containerHeight) * this.max, this.precision),
@@ -221,57 +239,37 @@ export class UUIColorSliderElement extends LitElement {
     this.dispatchEvent(new UUIColorSliderEvent(UUIColorSliderEvent.CHANGE));
   }
 
-    render(){
-      return html`
-          <div
-            class="color-slider"
-            class=${classMap({
-              'color-slider': true,
-              'color-slider--vertical': this.isVertical,
-              'color-slider--disabled': this.disabled
-            })}
-            role="slider"
-            aria-label="${this.label}"
-            aria-orientation="${this.orientation}"
-            aria-valuemin="${Math.round(this.min)}"
-            aria-valuemax="${Math.round(this.max)}"
-            aria-valuenow="${Math.round(this.value)}"
-            tabindex=${ifDefined(this.disabled ? undefined : '0')}
-            @click=${this.handleClick}
-            @mousedown=${this.handleDrag}
-            @touchstart=${this.handleDrag}
-          >
-            <span
-              class="color-slider__handle"
-              style=${styleMap({
-                top: `${!this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`,
-                left: `${this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`
-              })}
-              @keydown=${this.handleKeyDown}
-            ></span>
-          </div>
-          ${this.value}`;
-
-        /*return html`
-          <div
-          part="slider hue-slider"
-          class="color-picker__hue color-picker__slider"
-          >
+  render() {
+    return html`
+        <div
+          part="slider"
+          class="color-slider"
+          class=${classMap({
+            'color-slider': true,
+            'color-slider--vertical': this.isVertical,
+            'color-slider--disabled': this.disabled
+          })}
+          role="slider"
+          aria-label="${this.label}"
+          aria-orientation="${this.orientation}"
+          aria-valuemin="${Math.round(this.min)}"
+          aria-valuemax="${Math.round(this.max)}"
+          aria-valuenow="${Math.round(this.value)}"
+          @click=${this.handleClick}
+          @mousedown=${this.handleDrag}
+          @touchstart=${this.handleDrag}
+        >
           <span
-            class="color-picker__slider-handle"
+            class="color-slider__handle"
             style=${styleMap({
-              left: `${this.hue === 0 ? 0 : 100 / (360 / this.hue)}%`
+              top: `${!this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`,
+              left: `${this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`
             })}
-            role="slider"
-            aria-label="${this.label}"
-            aria-orientation="${this.orientation}"
-            aria-valuemin="${Math.round(this.min)}"
-            aria-valuemax="${Math.round(this.max)}"
-            aria-valuenow=${Math.round(this.value)}
             tabindex=${ifDefined(this.disabled ? undefined : '0')}
+            @keydown=${this.handleKeyDown}
           ></span>
         </div>
-        `;*/
+        ${this.value}`;
     }
 }
 
