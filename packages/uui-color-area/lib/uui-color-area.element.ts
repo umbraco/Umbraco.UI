@@ -2,6 +2,7 @@ import { colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { css, html, LitElement } from 'lit';
 
 import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
@@ -72,6 +73,9 @@ export class UUIColorAreaElement extends LitElement {
     this._value = val;
     this.requestUpdate('value', oldVal);
   }
+
+  /** Disables the color area. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   handleGridDrag(event: PointerEvent) {
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
@@ -175,12 +179,14 @@ export class UUIColorAreaElement extends LitElement {
 
       return html`
         <div
+          part="grid"
           class="color-area"
           style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
           @mousedown=${this.handleGridDrag}
           @touchstart=${this.handleGridDrag}
         >
           <span
+            part="grid-handle"
             class=${classMap({
               'color-area__handle': true,
               'color-area__handle--dragging': this.isDraggingGridHandle
@@ -191,6 +197,7 @@ export class UUIColorAreaElement extends LitElement {
               backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`
             })}
             role="application"
+            tabindex=${ifDefined(this.disabled ? undefined : '0')}
             aria-label="HSL"
             @keydown=${this.handleGridKeyDown}
           ></span>
