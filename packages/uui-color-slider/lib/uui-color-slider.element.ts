@@ -23,6 +23,7 @@ export class UUIColorSliderElement extends LitElement {
         --slider-bg: #fff;
         --slider-bg-size: 100%;
         --slider-bg-position: top left;
+        --slider-border-radius: 3px;
         display: block;
       }
       .color-slider {
@@ -31,7 +32,7 @@ export class UUIColorSliderElement extends LitElement {
         background-image: var(--slider-bg);
         background-size: var(--slider-bg-size);
         background-position: var(--slider-bg-position);
-        border-radius: 3px;
+        border-radius: var(--slider-border-radius);
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
       }
       .color-slider__handle {
@@ -58,6 +59,15 @@ export class UUIColorSliderElement extends LitElement {
       .color-slider--vertical .color-slider__handle {
         margin-left: -1px;
         margin-top: calc(var(--slider-handle-size) / -2);
+      }
+
+      ::slotted(*:first-child) {
+        border-radius: var(--slider-border-radius);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
       }
     `,
   ];
@@ -259,6 +269,7 @@ export class UUIColorSliderElement extends LitElement {
           @mousedown=${this.handleDrag}
           @touchstart=${this.handleDrag}
         >
+          <slot name="detail"></slot>
           <span
             class="color-slider__handle"
             style=${styleMap({

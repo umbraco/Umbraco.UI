@@ -117,6 +117,11 @@ export class UUIColorPickerElement extends LitElement {
         /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
         background-color: var(--preview-color);
       }
+      
+      .color-dropdown__trigger--empty::before {
+        background-color: transparent;
+      }
+
       .color-picker__transparent-bg {
         background-image: linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
@@ -189,7 +194,7 @@ export class UUIColorPickerElement extends LitElement {
         width: 36px;
         height: 36px;
       }
-
+      
       uui-popover {
         display: block;
         width: 100%;
@@ -222,6 +227,9 @@ export class UUIColorPickerElement extends LitElement {
 
   /** The input's name attribute. */
   @property() name = '';
+
+  /** Determines the size of the color picker's trigger. This has no effect on inline color pickers. */
+  @property() size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Removes the format toggle. */
   @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle = false;
@@ -748,6 +756,14 @@ export class UUIColorPickerElement extends LitElement {
                     .value=${Math.round(this.alpha)}
                     @change=${this.handleAlphaDrag}
                   >
+                  <div slot="detail" style=${styleMap({
+                      backgroundImage: `linear-gradient(
+                        to right,
+                        hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, 0%) 0%,
+                        hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%) 100%
+                      )`
+                    })}>
+                  </div>
                   </uui-color-slider>
                 `
               : ''}
@@ -820,9 +836,17 @@ export class UUIColorPickerElement extends LitElement {
         slot="trigger"
         look="outline"
         label="Open color picker"
-        class="color-picker__trigger color-picker__transparent-bg"
+        class=${classMap({
+          'color-picker__trigger': true,
+          'color-dropdown__trigger--disabled': this.disabled,
+          'color-dropdown__trigger--small': this.size === 'small',
+          'color-dropdown__trigger--medium': this.size === 'medium',
+          'color-dropdown__trigger--large': this.size === 'large',
+          'color-dropdown__trigger--empty': this.isEmpty,
+          'color-picker__transparent-bg': true
+        })}
         style=${styleMap({
-          '--uui-button-background-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
         })}
         @click=${this.openColorPicker}
         aria-haspopup="true"
