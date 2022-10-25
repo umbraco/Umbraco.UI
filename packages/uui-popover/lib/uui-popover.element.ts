@@ -134,6 +134,7 @@ export class UUIPopoverElement extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener('mousedown', this._onDocumentClick);
+    document.removeEventListener('keyup', this._onKeyUp);
     document.removeEventListener('scroll', this.scrollEventHandler);
 
     if (this.intersectionObserver) {
@@ -154,6 +155,7 @@ export class UUIPopoverElement extends LitElement {
     if (this.containerElement) {
       this.containerElement!.style.opacity = '0'; // Hide while measuring popover size.
       document.addEventListener('mousedown', this._onDocumentClick);
+      document.addEventListener('keyup', this._onKeyUp);
       this._currentPlacement = null;
 
       requestAnimationFrame(() => {
@@ -170,6 +172,7 @@ export class UUIPopoverElement extends LitElement {
       delete this.intersectionObserver;
     }
     document.removeEventListener('mousedown', this._onDocumentClick);
+    document.removeEventListener('keyup', this._onKeyUp);
     this._currentPlacement = null;
   }
 
@@ -252,6 +255,13 @@ export class UUIPopoverElement extends LitElement {
     });
     document.removeEventListener('scroll', this.scrollEventHandler);
   }
+
+  private _onKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this._forceClosePopover();
+      return;
+    }
+  };
 
   private _onDocumentClick = (event: Event) => {
     if (!event.composedPath().includes(this)) {
