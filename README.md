@@ -101,6 +101,7 @@ This project uses nodejs, so you should install `nodejs` as the package manager 
 
 ```sh
 git clone https://github.com/umbraco/Umbraco.UI.git
+cd .\Umbraco.UI\
 npm install
 ```
 
