@@ -73,7 +73,7 @@ const createBundleConfig = (bundle, namespace) => {
           nodeResolve(),
           importCss(),
           processLitCSSPlugin(),
-          minifyHTML(),
+          minifyHTML.default(),
           esbuild(esbuidOptions),
         ],
       }
