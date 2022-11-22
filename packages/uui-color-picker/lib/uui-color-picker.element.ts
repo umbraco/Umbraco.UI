@@ -39,10 +39,6 @@ import {
   UUIInputElement
 } from '@umbraco-ui/uui-input/lib';
 
-import {
-  UUIButtonElement
-} from '@umbraco-ui/uui-button/lib';
-
 const hasEyeDropper = 'EyeDropper' in window;
 
 interface EyeDropperConstructor {
