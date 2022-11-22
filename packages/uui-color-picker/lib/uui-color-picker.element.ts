@@ -176,6 +176,7 @@ export class UUIColorPickerElement extends LitElement {
         --uui-border-radius: 0;
         --uui-button-padding-left-factor: 2;
         --uui-button-padding-right-factor: 2;
+        text-transform: uppercase;
         min-width: 64px;
       }
       uui-color-swatches {
