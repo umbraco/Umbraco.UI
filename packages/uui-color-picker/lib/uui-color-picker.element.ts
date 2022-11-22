@@ -394,10 +394,10 @@ export class UUIColorPickerElement extends LitElement {
           this.saturation = color.hsl.s;
           this.lightness =  color.hsl.l;
           this.brightness = this.getBrightness(this.lightness);
+          this.syncValues();
         }
      }
-
-     this.syncValues();
+     
      //this.setColor(element.value);
 
      event.stopPropagation();
@@ -509,6 +509,7 @@ export class UUIColorPickerElement extends LitElement {
       if (this.inputValue) {
         this.setColor(this.inputValue);
         this.inputValue = this.value;
+        setTimeout(() => this._input.select());
       } else {
         this.hue = 0;
       }

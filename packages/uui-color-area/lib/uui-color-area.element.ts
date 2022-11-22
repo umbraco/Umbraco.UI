@@ -50,9 +50,13 @@ export class UUIColorAreaElement extends LitElement {
         cursor: none;
         transform: scale(1.5);
       }
+      .color-area__handle--empty {
+        display: none;
+      }
     `,
   ];
 
+  @state() private isEmpty = false;
   @state() private isDraggingGridHandle = false;
   @state() private hue = 0;
   @state() private saturation = 100;
@@ -169,41 +173,44 @@ export class UUIColorAreaElement extends LitElement {
 
     this.value = color.toRgbString();
 
+    this.isEmpty = false;
+
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
-    render() {
+  render() {
 
-      const gridHandleX = this.saturation;
-      const gridHandleY = 100 - this.brightness;
+    const gridHandleX = this.saturation;
+    const gridHandleY = 100 - this.brightness;
 
-      return html`
-        <div
-          part="grid"
-          class="color-area"
-          style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
-          @mousedown=${this.handleGridDrag}
-          @touchstart=${this.handleGridDrag}
-        >
-          <span
-            part="grid-handle"
-            class=${classMap({
-              'color-area__handle': true,
-              'color-area__handle--dragging': this.isDraggingGridHandle
-            })}
-            style=${styleMap({
-              top: `${gridHandleY}%`,
-              left: `${gridHandleX}%`,
-              backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`
-            })}
-            role="application"
-            tabindex=${ifDefined(this.disabled ? undefined : '0')}
-            aria-label="HSL"
-            @keydown=${this.handleGridKeyDown}
-          ></span>
-        </div>
-      `;
-    }
+    return html`
+      <div
+        part="grid"
+        class="color-area"
+        style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
+        @mousedown=${this.handleGridDrag}
+        @touchstart=${this.handleGridDrag}
+      >
+        <span
+          part="grid-handle"
+          class=${classMap({
+            'color-area__handle': true,
+            'color-area__handle--dragging': this.isDraggingGridHandle,
+            'color-area__handle--empty': this.isEmpty,
+          })}
+          style=${styleMap({
+            top: `${gridHandleY}%`,
+            left: `${gridHandleX}%`,
+            backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`
+          })}
+          role="application"
+          tabindex=${ifDefined(this.disabled ? undefined : '0')}
+          aria-label="HSL"
+          @keydown=${this.handleGridKeyDown}
+        ></span>
+      </div>
+    `;
+  }
 }
 
 declare global {
