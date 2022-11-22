@@ -44,7 +44,7 @@ export class UUIInputElement extends FormControlMixin(
       :host {
         position: relative;
         display: inline-flex;
-        align-items: center;
+        align-items: stretch;
         height: var(--uui-size-11);
         text-align: left;
         box-sizing: border-box;

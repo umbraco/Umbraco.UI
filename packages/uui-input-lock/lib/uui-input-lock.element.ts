@@ -27,7 +27,7 @@ export class UUIInputLockElement extends UUIInputElement {
 
       :host([locked]) #input {
         cursor: not-allowed;
-        opacity: 0.5;
+        opacity: 0.55;
       }
     `,
   ];

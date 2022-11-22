@@ -63,7 +63,7 @@ const avatars = [
 ];
 
 const basicFilter = (options: string[], search: string) =>
-  options.filter(option => option.includes(search));
+  options.filter(option => option.toLowerCase().includes(search.toLowerCase()));
 
 const renderAvatar = (option: any) => html` <uui-combobox-list-option
   .displayValue=${option.name}
@@ -218,7 +218,9 @@ Avatars.args = {
   options: avatars,
   renderMod: (avatar: any) => renderAvatar(avatar),
   filter: (options: any[], search: string) =>
-    options.filter(option => option.name.includes(search)),
+    options.filter(option =>
+      option.name.toLowerCase().includes(search.toLowerCase())
+    ),
 };
 
 export const CountrySelect: Story = props => {
