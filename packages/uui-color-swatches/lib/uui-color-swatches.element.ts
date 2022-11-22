@@ -15,13 +15,13 @@ export class UUIColorSwatchesElement extends LitElement {
   static styles = [
     css`
       :host {
-        --swatch-size: 25px;
+        --swatch-size: 1.5rem;
         
         display: block;
       }
       .color-picker__swatches {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(1.5rem, 1fr));
         grid-gap: 0.5rem;
         justify-items: center;
         padding: 0.75rem;
