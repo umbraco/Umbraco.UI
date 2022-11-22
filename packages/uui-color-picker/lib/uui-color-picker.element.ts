@@ -204,7 +204,7 @@ export class UUIColorPickerElement extends LitElement {
   ];
 
   @query('[part="input"]') _input!: UUIInputElement;
-  @query('.color-picker__preview') _previewButton!: UUIButtonElement;
+  @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
   @query('.color-picker__swatches') _colorSwatchesContainer!: HTMLElement;
 
   @state() private isEmpty = false;
@@ -769,14 +769,17 @@ export class UUIColorPickerElement extends LitElement {
                 `
               : ''}
           </div>
-          <uui-button
+          <button
             type="button"
+            part="preview"
             class="color-picker__preview color-picker__transparent-bg"
+            aria-label="Copy"
             style=${styleMap({
               '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
             })}
             @click=${this.handleCopy}
-          ></uui-button>
+          >
+          </button>
         </div>
         <div class="color-picker__user-input" aria-live="polite">
           <uui-input 
