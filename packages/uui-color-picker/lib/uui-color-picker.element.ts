@@ -173,9 +173,7 @@ export class UUIColorPickerElement extends LitElement {
         --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
       .color-picker__toggle-format {
-        --uui-border-radius: 0;
-        --uui-button-padding-left-factor: 2;
-        --uui-button-padding-right-factor: 2;
+        border-radius: 100%;
         text-transform: uppercase;
         min-width: 64px;
       }
