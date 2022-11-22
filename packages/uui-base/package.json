@@ -19,6 +19,9 @@
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
   },
   "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "files": [
     "lib/**/*.d.ts",
     "lib/**/*.js"
