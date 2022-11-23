@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { property, state } from 'lit/decorators.js';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib/uui-color-swatch.element';
@@ -8,15 +9,15 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
 
 /**
  *  @element uui-color-swatches
- *  @description 
+ *  @description
  */
- @defineElement('uui-color-swatches')
+@defineElement('uui-color-swatches')
 export class UUIColorSwatchesElement extends LitElement {
   static styles = [
     css`
       :host {
         --swatch-size: 1.5rem;
-        
+
         display: block;
       }
       .color-picker__swatches {
@@ -32,7 +33,7 @@ export class UUIColorSwatchesElement extends LitElement {
         height: var(--swatch-size);
         border-radius: 3px;
       }
-      
+
       .color-picker__swatch .color-picker__swatch-color {
         position: absolute;
         top: 0;
@@ -57,33 +58,33 @@ export class UUIColorSwatchesElement extends LitElement {
    * @attr
    * @default ""
    */
-   @property({ type: String })
-   public get value() {
-     return this._value;
-   }
-   public set value(newValue) {
-     if (this._value === newValue) return;
- 
-     const oldValue = this._value;
-     this._value = newValue;
- 
-     this._updateSelection();
-     this.requestUpdate('value', oldValue);
-   }
- 
-   /*protected setValue(e: Event) {
+  @property({ type: String })
+  public get value() {
+    return this._value;
+  }
+  public set value(newValue) {
+    if (this._value === newValue) return;
+
+    const oldValue = this._value;
+    this._value = newValue;
+
+    this._updateSelection();
+    this.requestUpdate('value', oldValue);
+  }
+
+  /*protected setValue(e: Event) {
 
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.SELECT));
   }*/
 
-   /**
-    * A readable value to display to show the selected value.
-    * @type { string }
-    * @attr
-    * @default ""
-    */
-   @property({ type: String })
-   public displayValue = '';
+  /**
+   * A readable value to display to show the selected value.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
+  @property({ type: String })
+  public displayValue = '';
 
   private __activeElement: UUIColorSwatchElement | undefined;
   private get _activeElement(): UUIColorSwatchElement | undefined {
@@ -107,6 +108,8 @@ export class UUIColorSwatchesElement extends LitElement {
 
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
     this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
+
+    demandCustomElement(this, 'uui-color-swatch');
   }
 
   disconnectedCallback(): void {
@@ -143,7 +146,7 @@ export class UUIColorSwatchesElement extends LitElement {
     this.value = this._selectedElement.value || '';
     this.displayValue = this._selectedElement.displayValue || '';
 
-    console.log("_onSelected", this.value, this.displayValue);
+    console.log('_onSelected', this.value, this.displayValue);
 
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
   };
@@ -156,23 +159,23 @@ export class UUIColorSwatchesElement extends LitElement {
     if (this._selectedElement === el) {
       this.value = '';
       this.displayValue = '';
-      this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
+      this.dispatchEvent(
+        new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE)
+      );
     }
   };
 
-  private _onKeyDown = (e: KeyboardEvent) => {
-    
-  };
+  private _onKeyDown = (e: KeyboardEvent) => {};
 
   render() {
     return html`
-          <div class="color-picker__swatches">
-          ${this.swatches.map(swatch => {
-            return html`<uui-color-swatch value="${swatch}"></uui-color-swatch>`;
-          })}
-          </div>
-          ${this.value}
-      `;
+      <div class="color-picker__swatches">
+        ${this.swatches.map(swatch => {
+          return html`<uui-color-swatch value="${swatch}"></uui-color-swatch>`;
+        })}
+      </div>
+      ${this.value}
+    `;
   }
 }
 
@@ -180,4 +183,4 @@ declare global {
   interface HTMLElementTagNameMap {
     'uui-color-swatches': UUIColorSwatchesElement;
   }
-} 
+}
