@@ -253,7 +253,6 @@ export class UUIColorSliderElement extends LitElement {
     return html`
         <div
           part="slider"
-          class="color-slider"
           class=${classMap({
             'color-slider': true,
             'color-slider--vertical': this.isVertical,
