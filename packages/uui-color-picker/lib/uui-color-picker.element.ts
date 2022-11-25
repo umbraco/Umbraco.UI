@@ -79,9 +79,13 @@ export class UUIColorPickerElement extends LitElement {
         display: flex;
         padding: 0 0.75rem 0.75rem 0.75rem;
       }
+      .color-picker__user-input uui-button {
+        border: var(--uui-input-border-width, 1px) solid
+          var(--uui-input-border-color, var(--uui-color-border));
+        border-left: none;
+      }
       .color-picker__preview,
       .color-picker__trigger {
-        --uui-button-padding-top-factor: 5;
         flex: 0 0 auto;
         display: inline-flex;
         align-items: center;
@@ -94,11 +98,12 @@ export class UUIColorPickerElement extends LitElement {
         background: none;
       }
       .color-picker__preview {
-        --uui-button-border-radius: 50%;
-
         cursor: copy;
         margin-left: 0.75rem;
         border-radius: 50%;
+      }
+      color-picker__trigger {
+        cursor: pointer;
       }
       .color-picker__preview::before,
       .color-picker__trigger::before {
@@ -173,19 +178,16 @@ export class UUIColorPickerElement extends LitElement {
         --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
       .color-picker__toggle-format {
-        border-radius: 100%;
-        text-transform: uppercase;
         min-width: 64px;
+        text-transform: uppercase;
       }
       uui-color-swatches {
         border-top: solid 1px #d4d4d8;
       }
 
-      uui-button[slot=trigger] {
-        --uui-button-border-radius: 50%;
-        --uui-button-contrast: #ddd;
-        --uui-button-padding-left-factor: 2;
-        --uui-button-padding-right-factor: 2;
+      button[slot=trigger] {
+        border-radius: 50%;
+        cursor: pointer;
         width: 36px;
         height: 36px;
       }
@@ -796,11 +798,10 @@ export class UUIColorPickerElement extends LitElement {
             ? html`
                 <uui-button
                   label="Toggle color format"
-                  look="outline"
                   @click=${this.handleFormatToggle}
                   class="color-picker__toggle-format"
                 >
-                  ${this.setLetterCase(this.format)}
+                  ${this.format}
                 </uui-button>
               `
             : ''}
@@ -808,7 +809,6 @@ export class UUIColorPickerElement extends LitElement {
               ? html`
                   <uui-button
                     label="Select a color"
-                    look="outline"
                     @click=${this.handleEyeDropper}
                   >
                     <uui-icon-registry-essential>
@@ -831,10 +831,10 @@ export class UUIColorPickerElement extends LitElement {
       return colorPicker;
     }
 
-    return html`<uui-button
+    return html`<button
+        type="button"
         slot="trigger"
-        look="outline"
-        label="Open color picker"
+        aria-label="Open color picker"
         class=${classMap({
           'color-picker__trigger': true,
           'color-dropdown__trigger--disabled': this.disabled,
@@ -850,7 +850,7 @@ export class UUIColorPickerElement extends LitElement {
         @click=${this.openColorPicker}
         aria-haspopup="true"
         aria-expanded="false">
-      </uui-button>
+      </button>
       <uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
         <div slot="popover">
           ${colorPicker}
