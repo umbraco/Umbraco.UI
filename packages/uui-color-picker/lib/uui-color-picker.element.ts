@@ -156,6 +156,11 @@ export class UUIColorPickerElement extends LitElement {
       .color-picker__sliders {
         flex: 1 1 auto;
       }
+
+      uui-color-slider:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
+
       uui-color-slider.hue-slider {
         --slider-bg: linear-gradient(
           to right,
@@ -362,11 +367,8 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleHueDrag(event: UUIColorSliderEvent) {
-    console.log("handleHueDrag", event);
-
     const element = event.target as UUIColorSliderElement;
-    console.log("handleHueDrag element", element);
-    console.log("hue value", element.value);
+
     if (element.value !== null) {
       this.hue = clamp(element.value, 0, 360);
     }

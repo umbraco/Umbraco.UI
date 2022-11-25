@@ -80,8 +80,7 @@ export class UUIColorSliderElement extends LitElement {
  * @attr
  * @default 0
  */
-  @property({ type: Number })
-  min = 0;
+  @property({ type: Number }) min = 0;
 
   /**
    * This is a maximum value of the slider.
@@ -89,10 +88,9 @@ export class UUIColorSliderElement extends LitElement {
    * @attr
    * @default 100
    */
-  @property({ type: Number })
-  max = 100;
+  @property({ type: Number }) max = 100;
 
-  /** The minimum increment value allowed by the control. */
+  /** The minimum increment value allowed by the slider. */
   @property({ type: Number }) precision = 1;
 
   /**
@@ -145,6 +143,7 @@ export class UUIColorSliderElement extends LitElement {
 
     drag(container, {
       onMove: (x, y) => {
+
         if (this.isVertical) {
           this.value = clamp((y / height) * this.max, this.min, this.max);
         }
@@ -215,7 +214,7 @@ export class UUIColorSliderElement extends LitElement {
     const containerWidth = container.getBoundingClientRect().width;
     
     return clamp(
-      this.roundToPrecision(((coordinate - containerLeft) / containerWidth) * this.max, this.precision),
+      this.roundToPrecision(((coordinate - containerLeft) / containerWidth) * this.max),
       this.min,
       this.max
     );
@@ -233,19 +232,18 @@ export class UUIColorSliderElement extends LitElement {
     console.log("test", this.max - ((coordinate - containerTop) / containerHeight) * this.max);
     
     return clamp(
-      this.roundToPrecision(((coordinate - containerTop) / containerHeight) * this.max, this.precision),
+      this.roundToPrecision(((coordinate - containerTop) / containerHeight) * this.max),
       this.min,
       this.max
     );
   }
 
-  roundToPrecision(numberToRound: number, precision = 0.5) {
-    const multiplier = 1 / precision;
+  roundToPrecision(numberToRound: number) {
+    const multiplier = 1 / this.precision;
     return Math.ceil(numberToRound * multiplier) / multiplier;
   }
 
   syncValues() {
-    
     this.dispatchEvent(new UUIColorSliderEvent(UUIColorSliderEvent.CHANGE));
   }
 
@@ -278,8 +276,7 @@ export class UUIColorSliderElement extends LitElement {
             tabindex=${ifDefined(this.disabled ? undefined : '0')}
             @keydown=${this.handleKeyDown}
           ></span>
-        </div>
-        ${this.value}`;
+        </div>`;
     }
 }
 
