@@ -19,14 +19,15 @@ export class UUIColorAreaElement extends LitElement {
       static styles = [
     css`
       :host {
-        --grid-width: 280px;
-        --grid-height: 200px;
+        display: inline-block;
+        width: 280px;
+        height: 200px;
         --grid-handle-size: 16px;
       }
       .color-area {
         position: relative;
-        height: var(--grid-height);
-        width: var(--grid-width);
+        height: 100%;
+        width: 100%;
         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
           linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
         border-top-left-radius: var(--sl-border-radius-medium);
