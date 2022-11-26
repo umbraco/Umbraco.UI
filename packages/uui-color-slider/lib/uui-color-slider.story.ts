@@ -43,22 +43,23 @@ Disabled.parameters = {
 
 const Template: Story = props => html`
   <uui-color-slider
-    orientation=${props.orientation}
+    vertical=${props.vertical}
     min=${props.min}
     max=${props.max}
-    .value=${props.value}></uui-color-slider>
+    .value=${props.value}>
+  </uui-color-slider>
 `;
 
 export const Vertical = Template.bind({});
 Vertical.args = {
   min: 0,
   max: 100,
-  orientation: 'vertical'
+  vertical: true
 };
 Vertical.parameters = {
   docs: {
     source: {
-      code: `<uui-color-slider label="Slider label" orientation="vertical"></uui-color-slider>`,
+      code: `<uui-color-slider label="Slider label" vertical="true"></uui-color-slider>`,
     },
   },
 };

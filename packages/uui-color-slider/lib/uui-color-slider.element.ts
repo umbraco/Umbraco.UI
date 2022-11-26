@@ -1,10 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
-
 import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvents';
@@ -23,16 +22,33 @@ export class UUIColorSliderElement extends LitElement {
         --slider-bg: #fff;
         --slider-bg-size: 100%;
         --slider-bg-position: top left;
-        --slider-border-radius: 3px;
         display: block;
       }
+
+      :host([vertical]) .color-slider {
+        width: var(--slider-height);
+        height: 300px;
+      }
+
+      :host(:not([vertical])) .color-slider {
+        width: 100%;
+        height: var(--slider-height);
+      }
+
+      :host(:not([vertical])) .color-slider__handle {
+         left: var(--current-value, 0%);
+      }
+      
+      :host([vertical]) .color-slider__handle {
+         top: var(--current-value, 0%);
+      }
+
       .color-slider {
         position: relative;
-        height: var(--slider-height);
         background-image: var(--slider-bg);
         background-size: var(--slider-bg-size);
         background-position: var(--slider-bg-position);
-        border-radius: var(--slider-border-radius);
+        border-radius: 3px;
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
       }
       .color-slider__handle {
@@ -62,7 +78,7 @@ export class UUIColorSliderElement extends LitElement {
       }
 
       ::slotted(*:first-child) {
-        border-radius: var(--slider-border-radius);
+        border-radius: 3px;
         position: absolute;
         top: 0px;
         left: 0px;
@@ -71,8 +87,6 @@ export class UUIColorSliderElement extends LitElement {
       }
     `,
   ];
-
-  @state() private isVertical = false;
 
  /**
  * This is a minimum value of the slider.
@@ -93,14 +107,8 @@ export class UUIColorSliderElement extends LitElement {
   /** The minimum increment value allowed by the slider. */
   @property({ type: Number }) precision = 1;
 
-  /**
-  * The orientation of the slider.
-  * @type {string}
-  * @attr
-  * @default 'horizontal'
-  */
-  @property({ type: String })
-  orientation: 'horizontal' | 'vertical' = 'horizontal';
+  /** Draws the slider in a vertical orientation. */
+  @property({ type: Boolean, reflect: true }) vertical = false;
 
   /**
   * Label to be used for aria-label and eventually as visual label
@@ -121,12 +129,6 @@ export class UUIColorSliderElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    
-    if (this.orientation === 'vertical') {
-      this.isVertical = true;
-    } else {
-      this.isVertical = false;
-    }
   }
 
   handleDrag(event: PointerEvent) {
@@ -144,7 +146,7 @@ export class UUIColorSliderElement extends LitElement {
     drag(container, {
       onMove: (x, y) => {
 
-        if (this.isVertical) {
+        if (this.vertical) {
           this.value = clamp((y / height) * this.max, this.min, this.max);
         }
         else {
@@ -195,14 +197,14 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   getValueFromMousePosition(event: MouseEvent) {
-    if (this.isVertical) {
+    if (this.vertical) {
       return this.getValueFromYCoordinate(event.clientY);
     }
     return this.getValueFromXCoordinate(event.clientX);
   }
 
   getValueFromTouchPosition(event: TouchEvent) {
-    if (this.isVertical) {
+    if (this.vertical) {
       return this.getValueFromYCoordinate(event.touches[0].clientY);
     }
     return this.getValueFromXCoordinate(event.touches[0].clientX);
@@ -253,12 +255,12 @@ export class UUIColorSliderElement extends LitElement {
           part="slider"
           class=${classMap({
             'color-slider': true,
-            'color-slider--vertical': this.isVertical,
+            'color-slider--vertical': this.vertical,
             'color-slider--disabled': this.disabled
           })}
           role="slider"
           aria-label="${this.label}"
-          aria-orientation="${this.orientation}"
+          aria-orientation="${this.vertical ? 'vertical' : 'horizontal'}"
           aria-valuemin="${Math.round(this.min)}"
           aria-valuemax="${Math.round(this.max)}"
           aria-valuenow="${Math.round(this.value)}"
@@ -269,14 +271,11 @@ export class UUIColorSliderElement extends LitElement {
           <slot name="detail"></slot>
           <span
             class="color-slider__handle"
-            style=${styleMap({
-              top: `${!this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`,
-              left: `${this.isVertical || this.value === 0 ? 0 : 100 / (this.max / this.value)}%`
-            })}
+            style="--current-value: ${this.value === 0 ? 0 : 100 / (this.max / this.value)}%"
             tabindex=${ifDefined(this.disabled ? undefined : '0')}
             @keydown=${this.handleKeyDown}
           ></span>
-        </div>`;
+        </div>${this.value}`;
     }
 }
 
