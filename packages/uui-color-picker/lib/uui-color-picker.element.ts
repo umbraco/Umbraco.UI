@@ -293,16 +293,6 @@ export class UUIColorPickerElement extends LitElement {
     super.disconnectedCallback();
   }
 
-  /*protected async firstUpdated() {
-
-    if (this._colorSwatchesContainer) {
-      this._colorSwatchesContainer.addEventListener(
-        UUIColorSwatchesEvent.CHANGE,
-        this.handleColorSwatchChange
-      );
-    }
-  }*/
-
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' = 'hex') {
     const currentColor = this.parseColor(
@@ -648,9 +638,7 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   setColor(colorString: string) {
-    console.log("colorString", colorString);
     const newColor = this.parseColor(colorString);
-    console.log("newColor", newColor);
 
     if (newColor === null) {
       return false;
@@ -717,8 +705,7 @@ export class UUIColorPickerElement extends LitElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
       >
         <uui-color-area
-          .hue=${this.hue}
-          .value=${this.value}
+          .value="${this.value}"
           @change=${this.handleGridDrag}
           >
         </uui-color-area>

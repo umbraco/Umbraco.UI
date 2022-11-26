@@ -30,7 +30,8 @@ const Template: Story = props => html`
 
 export const Inline = Template.bind({});
 Inline.args = {
-  inline: true
+  inline: true,
+  //value: 'blue'
 };
 Inline.parameters = {
   docs: {
