@@ -518,11 +518,7 @@ export class UUIColorPickerElement extends LitElement {
   handleColorSwatchChange(event: UUIColorSwatchesEvent) {
     event.stopImmediatePropagation();
 
-    console.log("handleColorSwatchChange", event);
     const target = event.target as UUIColorSwatchElement;
-    console.log("target", target);
-
-    console.log("value", target.value);
 
     if (target.value) {
       this.setColor(target.value);
@@ -589,11 +585,7 @@ export class UUIColorPickerElement extends LitElement {
       return null;
     }
 
-    console.log("colorString", colorString);
-    console.log("parseColor", parsed);
-
     const hslColor = parsed.toHsl();
-    console.log("hslColor", hslColor);
 
     const hsl = {
       h: hslColor.h, // hue
@@ -603,7 +595,6 @@ export class UUIColorPickerElement extends LitElement {
     };
 
     const rgbColor = parsed.toRgb();
-    console.log("rgbColor", rgbColor);
 
     const rgb = {
       r: rgbColor.r, // red
@@ -612,16 +603,12 @@ export class UUIColorPickerElement extends LitElement {
       a: rgbColor.a // alpha
     };
 
-    console.log("rgb", rgb);
-
     const hex = {
       r: toHex(rgb.r),
       g: toHex(rgb.g),
       b: toHex(rgb.b),
       a: toHex(rgb.a * 255)
     };
-
-    console.log("hex", hex);
 
     return {
       hsl: {

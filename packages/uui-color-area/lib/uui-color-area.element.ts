@@ -73,10 +73,32 @@ export class UUIColorAreaElement extends LitElement {
     return this._value;
   }
 
-  public set value(val: string | null) {
+  public set value(newVal: string | null) {
     let oldVal = this._value;
-    this._value = val;
+    this._value = newVal;
     this.requestUpdate('value', oldVal);
+    
+    if (newVal !== null) {
+
+      // TODO: Can we move the parsing of a color string to shared utility function?
+      let parsed;
+
+      try {
+        parsed = colord(newVal);
+      } catch {
+        
+      }
+  
+      if (parsed) {
+        const hslColor = parsed.toHsl();
+
+        this.hue = hslColor.h;
+        this.saturation = hslColor.s;
+        this.lightness = hslColor.l;
+        this.brightness = this.getBrightness(hslColor.l);
+      }
+    }
+    
   }
 
   /** Disables the color area. */
@@ -98,8 +120,6 @@ export class UUIColorAreaElement extends LitElement {
         this.saturation = clamp((x / width) * 100, 0, 100);
         this.brightness = clamp(100 - (y / height) * 100, 0, 100);
         this.lightness = this.getLightness(this.brightness);
-        console.log("saturation", this.saturation);
-        console.log("lightness", this.lightness);
         this.syncValues();
       },
       onStop: () => (this.isDraggingGridHandle = false),
@@ -206,7 +226,7 @@ export class UUIColorAreaElement extends LitElement {
           })}
           role="application"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}
-          aria-label="HSL"
+          aria-label="HSB"
           @keydown=${this.handleGridKeyDown}
         ></span>
       </div>
