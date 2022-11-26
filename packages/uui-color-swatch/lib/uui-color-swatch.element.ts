@@ -22,20 +22,66 @@ export class UUIColorSwatchElement extends SelectableMixin(
       static styles = [
     css`
       :host {
-        --swatch-size: 25px;
+        --uui-swatch-size: 25px;
+        --uui-swatch-border-width: 1px;
 
         position: relative;
-        display:  inline-block;
+        display: flex;
+        width: var(--uui-swatch-size);
+        height: var(--uui-swatch-size);
+        justify-content: center;
+        box-sizing: border-box;
+        justify-content: center;
+        box-sizing: border-box;
+        transition: box-shadow 100ms ease-out;
+      }
+
+      :host(*) * {
+        /* TODO: implement globally shared outline style */
+        outline-color: var(--uui-color-focus);
+        outline-offset: 4px;
+      }
+
+      :host(:focus) {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-swatch-border-width);
+        outline-style: solid;
+        outline-offset: var(--uui-swatch-border-width);
       }
 
       :host([selectable]) {
         cursor: pointer;
       }
 
+      :host([selectable])::after {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        inset: calc(var(--uui-swatch-border-width) * -1);
+        width: calc(100% + calc(var(--uui-swatch-border-width) * 2));
+        height: calc(100% + calc(var(--uui-swatch-border-width) * 2));
+        box-sizing: border-box;
+        border: var(--uui-swatch-border-width) solid var(--uui-color-selected);
+        border-radius: calc(
+          var(--uui-border-radius) + var(--uui-swatch-border-width)
+        );
+        transition: opacity 100ms ease-out;
+        opacity: 0;
+      }
+      :host([selectable]:hover)::after {
+        opacity: 0.33;
+      }
+      :host([selectable][selected]:hover)::after {
+        opacity: 0.66;
+      }
+      :host([selectable][selected])::after {
+        opacity: 1;
+      }
+
       .color-swatch {
         position: relative;
-        width: var(--swatch-size);
-        height: var(--swatch-size);
+        width: 100%;
+        height: 100%;
         border-radius: 3px;
         display: flex;
         justify-content: center;
@@ -50,14 +96,12 @@ export class UUIColorSwatchElement extends SelectableMixin(
         background-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
       .color-swatch__color {
-        position: absolute;
-        top: 0px;
-        left: 0px;
         width: 100%;
         height: 100%;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
         cursor: pointer;
+        box-sizing: border-box;
       }
 
       .color-swatch__check {
