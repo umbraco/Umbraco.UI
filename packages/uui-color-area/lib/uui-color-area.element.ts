@@ -34,6 +34,7 @@ export class UUIColorAreaElement extends LitElement {
         border-top-right-radius: var(--sl-border-radius-medium);
         box-sizing: border-box;
         cursor: crosshair;
+        forced-color-adjust: none;
       }
       .color-area__handle {
         position: absolute;
@@ -99,7 +100,7 @@ export class UUIColorAreaElement extends LitElement {
 
       if (parsed) {
         const hslColor = parsed.toHsl();
-        
+
         this.hue = hslColor.h;
         this.saturation = hslColor.s;
         this.lightness = hslColor.l;
