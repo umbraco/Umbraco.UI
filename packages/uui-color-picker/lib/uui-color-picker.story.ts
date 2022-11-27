@@ -16,6 +16,11 @@ export default {
   },
 };
 
+const randomColor = () => {
+  let n = (Math.random() * 0xfffff * 1000000).toString(16);
+  return '#' + n.slice(0, 6);
+};
+
 export const AAAOverview: Story = props =>
   html`<uui-color-picker></uui-color-picker>`;
 
@@ -41,3 +46,28 @@ Inline.parameters = {
   },
 };
 
+const formats = ['hex', 'rgb', 'hsl'];
+
+export const Formats: Story = props => html`
+  <h4>Formats</h4>
+  ${formats.map(
+    format =>
+      html`
+        <h5>${format}</h5>
+        <uui-color-picker
+          .format=${format as any}
+          value="blue"
+          >
+        </uui-color-picker>
+      `
+  )}
+`;
+Formats.args = { format: 'hex' };
+Formats.parameters = {
+  docs: {
+    source: {
+      code: `
+        <uui-color-picker format="hex"></uui-color-picker>`,
+    },
+  },
+};
