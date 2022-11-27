@@ -184,8 +184,12 @@ export class UUIColorPickerElement extends LitElement {
       }
       .color-picker__toggle-format {
         min-width: 64px;
+        --uui-button-font-size: 0.8rem;
+      }
+      .color-picker__toggle-format > span {
         text-transform: uppercase;
       }
+
       uui-color-swatches {
         border-top: solid 1px #d4d4d8;
       }
@@ -746,6 +750,7 @@ export class UUIColorPickerElement extends LitElement {
             type="button"
             part="preview"
             class="color-picker__preview color-picker__transparent-bg"
+            title="Copy"
             aria-label="Copy"
             style=${styleMap({
               '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
@@ -777,7 +782,7 @@ export class UUIColorPickerElement extends LitElement {
                   @click=${this.handleFormatToggle}
                   class="color-picker__toggle-format"
                 >
-                  ${this.format}
+                  <span>${this.format}</span>
                 </uui-button>
               `
             : ''}
