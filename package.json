@@ -77,7 +77,7 @@
     "@web/test-runner": "0.14.0",
     "@web/test-runner-playwright": "0.8.10",
     "autoprefixer": "10.4.11",
-    "babel-loader": "8.2.5",
+    "babel-loader": "9.1.0",
     "chromatic": "6.11.4",
     "element-internals-polyfill": "1.1.14",
     "eslint": "8.24.0",
