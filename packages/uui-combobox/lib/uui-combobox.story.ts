@@ -1,5 +1,6 @@
 import '.';
 import './uui-combobox-async-example';
+import './uui-combobox-async-options-example';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -22,6 +23,14 @@ export default {
     },
   },
 };
+
+export const AsyncOptions: Story = () =>
+  html`
+    <uui-combobox-async-options-example></uui-combobox-async-options-example>
+  `;
+
+export const AsyncData: Story = () =>
+  html`<uui-combobox-async-example></uui-combobox-async-example>`;
 
 const fruits = [
   'apple',
@@ -389,8 +398,3 @@ CountrySelect.args = {
   selected: 'DK',
   regions: RegionsAndCountries,
 };
-
-/*
-export const AsyncData: Story = () =>
-  html`<uui-combobox-async-example></uui-combobox-async-example>`;
-*/
