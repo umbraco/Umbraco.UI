@@ -25,11 +25,11 @@ export class UUIComboboxListElement extends LitElement {
 
   /**
    * Value of selected option.
-   * @type { string }
+   * @type { FormDataEntryValue | FormData }
    * @attr
    * @default ""
    */
-  @property({ type: String })
+  @property()
   public get value() {
     return this._value;
   }
@@ -87,7 +87,7 @@ export class UUIComboboxListElement extends LitElement {
   private _activeOptions!: UUIComboboxListOptionElement[];
 
   @state()
-  private _value: FormDataEntryValue = '';
+  private _value: FormDataEntryValue | FormData = '';
 
   private __activeElement: UUIComboboxListOptionElement | undefined;
   private get _activeElement(): UUIComboboxListOptionElement | undefined {
@@ -150,6 +150,9 @@ export class UUIComboboxListElement extends LitElement {
     }
 
     this._updateSelection();
+    this.dispatchEvent(
+      new UUIComboboxListEvent(UUIComboboxListEvent.SLOT_CHANGE)
+    );
   };
 
   private _onSelected = (e: Event) => {
