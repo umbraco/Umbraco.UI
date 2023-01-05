@@ -95,6 +95,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     `,
   ];
 
+  @property({ attribute: 'value', reflect: true })
   get value() {
     return this._value;
   }
@@ -198,11 +199,13 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         UUIComboboxListEvent.CHANGE,
         this._onChange
       );
+      this._comboboxList.addEventListener(
+        UUIComboboxListEvent.SLOT_CHANGE,
+        this._onSlotChange
+      );
 
-      if (typeof this.value === 'string') {
-        await this.updateComplete;
-        this._updateValue(this.value);
-      }
+      await this.updateComplete;
+      this._updateValue(this.value);
     }
   }
 
@@ -210,10 +213,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._isPhone = this.phoneMediaQuery.matches;
   };
 
-  private _updateValue(value: string) {
+  private _updateValue(value: FormDataEntryValue | FormData) {
     if (this._comboboxList) {
       this._comboboxList.value = value;
-      this._displayValue = this._comboboxList?.displayValue || '';
+      requestAnimationFrame(
+        () => (this._displayValue = this._comboboxList.displayValue || '')
+      );
     }
   }
 
@@ -238,6 +243,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this._open();
   };
 
+  private _onSlotChange = () => {
+    if (this.value && this.value !== this._comboboxList?.value) {
+      this._updateValue(this.value);
+    }
+  };
+
   private _onChange = (e: Event) => {
     e.stopImmediatePropagation();
 
@@ -245,7 +256,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.search = this.value ? this.search : '';
 
     this._onClose();
-
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
