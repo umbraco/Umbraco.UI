@@ -15,29 +15,22 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import {
   UUIColorAreaElement,
-  UUIColorAreaEvent
+  UUIColorAreaEvent,
 } from '@umbraco-ui/uui-color-area/lib';
 
 import {
   UUIColorSliderElement,
-  UUIColorSliderEvent
+  UUIColorSliderEvent,
 } from '@umbraco-ui/uui-color-slider/lib';
 
-import {
-  UUIColorSwatchesEvent,
-} from '@umbraco-ui/uui-color-swatches/lib';
+import { UUIColorSwatchesEvent } from '@umbraco-ui/uui-color-swatches/lib';
 
-import {
-  UUIColorSwatchElement,
-} from '@umbraco-ui/uui-color-swatch/lib';
+import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
 
-import {
-  UUIPopoverElement
-} from '@umbraco-ui/uui-popover/lib';
+import { UUIPopoverElement } from '@umbraco-ui/uui-popover/lib';
 
-import {
-  UUIInputElement
-} from '@umbraco-ui/uui-input/lib';
+import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import { UUIColorPickerChangeEvent } from './UUIColorPickerEvents';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
@@ -53,9 +46,9 @@ declare const EyeDropper: EyeDropperConstructor;
 
 /**
  *  @element uui-color-picker
- *  @description 
+ *  @description
  */
- @defineElement('uui-color-picker')
+@defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LitElement {
   static styles = [
     css`
@@ -118,13 +111,17 @@ export class UUIColorPickerElement extends LitElement {
         /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
         background-color: var(--preview-color);
       }
-      
+
       .color-dropdown__trigger--empty::before {
         background-color: transparent;
       }
 
       .color-picker__transparent-bg {
-        background-image: linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
+        background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
@@ -174,10 +171,14 @@ export class UUIColorPickerElement extends LitElement {
         );
       }
       uui-color-slider.opacity-slider {
-        --slider-bg: linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%), 
-                    linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%), 
-                    linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%), 
-                    linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+        --slider-bg: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
 
         --slider-bg-size: 10px 10px;
         --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
@@ -194,13 +195,13 @@ export class UUIColorPickerElement extends LitElement {
         border-top: solid 1px #d4d4d8;
       }
 
-      button[slot=trigger] {
+      button[slot='trigger'] {
         border-radius: 50%;
         cursor: pointer;
         width: 36px;
         height: 36px;
       }
-      
+
       uui-popover {
         display: block;
         width: 100%;
@@ -238,7 +239,8 @@ export class UUIColorPickerElement extends LitElement {
   @property() size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Removes the format toggle. */
-  @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle = false;
+  @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle =
+    false;
 
   /** Renders the color picker inline rather than inside a dropdown. */
   @property({ type: Boolean, reflect: true }) inline = false;
@@ -253,9 +255,9 @@ export class UUIColorPickerElement extends LitElement {
   @property({ type: Boolean }) uppercase = false;
 
   /**
-  * An array of predefined color swatches to display. Can include any format the color picker can parse, including
-  * HEX(A), RGB(A), HSL(A), and CSS color names.
-  */
+   * An array of predefined color swatches to display. Can include any format the color picker can parse, including
+   * HEX(A), RGB(A), HSL(A), and CSS color names.
+   */
   @property({ attribute: false }) swatches: string[] = [
     '#d0021b',
     '#f5a623',
@@ -272,9 +274,8 @@ export class UUIColorPickerElement extends LitElement {
     '#444',
     '#888',
     '#ccc',
-    '#fff'
+    '#fff',
   ];
-
 
   constructor() {
     super();
@@ -282,7 +283,7 @@ export class UUIColorPickerElement extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    
+
     if (this.value) {
       this.setColor(this.value);
       this.inputValue = this.value;
@@ -298,9 +299,13 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   /** Returns the current value as a string in the specified format. */
-  getFormattedValue(format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' = 'hex') {
+  getFormattedValue(
+    format: 'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' = 'hex'
+  ) {
     const currentColor = this.parseColor(
-      `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${
+        this.alpha / 100
+      })`
     );
 
     if (currentColor === null) {
@@ -330,7 +335,11 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   getLightness(brightness: number) {
-    return clamp(((((200 - this.saturation) * brightness) / 100) * 5) / 10, 0, 100);
+    return clamp(
+      ((((200 - this.saturation) * brightness) / 100) * 5) / 10,
+      0,
+      100
+    );
   }
 
   /*private _onChange() {
@@ -345,12 +354,12 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleAlphaDrag(event: UUIColorSliderEvent) {
-    console.log("handleAlphaDrag", event);
+    console.log('handleAlphaDrag', event);
 
     const element = event.target as UUIColorSliderElement;
-    console.log("handleAlphaDrag element", element);
-    console.log("alpha value", element.value);
-    
+    console.log('handleAlphaDrag element', element);
+    console.log('alpha value', element.value);
+
     if (element.value !== null) {
       this.alpha = clamp(element.value, 0, 100);
     }
@@ -373,27 +382,26 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleGridDrag(event: UUIColorAreaEvent) {
-     console.log("handleGridDrag change", event);
-     const element = event.target as UUIColorAreaElement;
-     console.log("handleGridDrag element", element);
-     console.log("value", element.value);
+    console.log('handleGridDrag change', event);
+    const element = event.target as UUIColorAreaElement;
+    console.log('handleGridDrag element', element);
+    console.log('value', element.value);
 
-     if (element.value) {
+    if (element.value) {
+      // TODO: Better way to get color, while not changing current alpha.
+      const color = this.parseColor(element.value);
 
-        // TODO: Better way to get color, while not changing current alpha.
-        const color = this.parseColor(element.value);
+      if (color) {
+        this.saturation = color.hsl.s;
+        this.lightness = color.hsl.l;
+        this.brightness = this.getBrightness(this.lightness);
+        this.syncValues();
+      }
+    }
 
-        if (color) {
-          this.saturation = color.hsl.s;
-          this.lightness =  color.hsl.l;
-          this.brightness = this.getBrightness(this.lightness);
-          this.syncValues();
-        }
-     }
-     
-     //this.setColor(element.value);
+    //this.setColor(element.value);
 
-     event.stopPropagation();
+    event.stopPropagation();
   }
 
   handleAlphaKeyDown(event: KeyboardEvent) {
@@ -530,7 +538,9 @@ export class UUIColorPickerElement extends LitElement {
     // Show copied animation
     this._previewButton.classList.add('color-picker__preview-color--copied');
     this._previewButton.addEventListener('animationend', () => {
-      this._previewButton.classList.remove('color-picker__preview-color--copied');
+      this._previewButton.classList.remove(
+        'color-picker__preview-color--copied'
+      );
     });
   }
 
@@ -541,19 +551,19 @@ export class UUIColorPickerElement extends LitElement {
     const popover = target.nextElementSibling as UUIPopoverElement;
 
     popover.open = !popover?.open;
-    
-    target.setAttribute("aria-expanded", popover.open.toString());
+
+    target.setAttribute('aria-expanded', popover.open.toString());
   }
 
   closeColorPicker(event: Event) {
     const target = event.target as UUIPopoverElement;
     const trigger = target.previousElementSibling;
-    
+
     if (trigger) {
-      trigger.setAttribute("aria-expanded", "false");
+      trigger.setAttribute('aria-expanded', 'false');
     }
   }
-  
+
   handleEyeDropper() {
     if (!hasEyeDropper) {
       return;
@@ -567,7 +577,6 @@ export class UUIColorPickerElement extends LitElement {
       .catch(() => {
         // The user canceled, do nothing
       });
-
   }
 
   parseColor(colorString: string) {
@@ -585,7 +594,7 @@ export class UUIColorPickerElement extends LitElement {
       h: hslColor.h, // hue
       s: hslColor.s, // saturation
       l: hslColor.l, // lightness
-      a: hslColor.a // alpha
+      a: hslColor.a, // alpha
     };
 
     const rgbColor = parsed.toRgb();
@@ -594,14 +603,14 @@ export class UUIColorPickerElement extends LitElement {
       r: rgbColor.r, // red
       g: rgbColor.g, // green
       b: rgbColor.b, // blue
-      a: rgbColor.a // alpha
+      a: rgbColor.a, // alpha
     };
 
     const hex = {
       r: toHex(rgb.r),
       g: toHex(rgb.g),
       b: toHex(rgb.b),
-      a: toHex(rgb.a * 255)
+      a: toHex(rgb.a * 255),
     };
 
     return {
@@ -609,7 +618,11 @@ export class UUIColorPickerElement extends LitElement {
         h: hsl.h,
         s: hsl.s,
         l: hsl.l,
-        string: this.setLetterCase(`hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`)
+        string: this.setLetterCase(
+          `hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(
+            hsl.l
+          )}%)`
+        ),
       },
       hsla: {
         h: hsl.h,
@@ -617,14 +630,20 @@ export class UUIColorPickerElement extends LitElement {
         l: hsl.l,
         a: hsl.a,
         string: this.setLetterCase(
-          `hsla(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%, ${hsl.a.toFixed(2).toString()})`
-        )
+          `hsla(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(
+            hsl.l
+          )}%, ${hsl.a.toFixed(2).toString()})`
+        ),
       },
       rgb: {
         r: rgb.r,
         g: rgb.g,
         b: rgb.b,
-        string: this.setLetterCase(`rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)})`)
+        string: this.setLetterCase(
+          `rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(
+            rgb.b
+          )})`
+        ),
       },
       rgba: {
         r: rgb.r,
@@ -632,13 +651,14 @@ export class UUIColorPickerElement extends LitElement {
         b: rgb.b,
         a: rgb.a,
         string: this.setLetterCase(
-          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)}, ${rgb.a.toFixed(2).toString()})`
-        )
+          `rgba(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(
+            rgb.b
+          )}, ${rgb.a.toFixed(2).toString()})`
+        ),
       },
       hex: this.setLetterCase(`#${hex.r}${hex.g}${hex.b}`),
-      hexa: this.setLetterCase(`#${hex.r}${hex.g}${hex.b}${hex.a}`)
+      hexa: this.setLetterCase(`#${hex.r}${hex.g}${hex.b}${hex.a}`),
     };
-
   }
 
   setColor(colorString: string) {
@@ -658,7 +678,7 @@ export class UUIColorPickerElement extends LitElement {
 
     return true;
   }
-  
+
   setLetterCase(string: string) {
     if (typeof string !== 'string') {
       return '';
@@ -667,35 +687,49 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   async syncValues() {
-
-    console.log("sync values", `hue:${this.hue}`, `saturation: ${this.saturation}`, `lightness: ${this.lightness}`, `alpha: ${this.alpha}`)
+    console.log(
+      'sync values',
+      `hue:${this.hue}`,
+      `saturation: ${this.saturation}`,
+      `lightness: ${this.lightness}`,
+      `alpha: ${this.alpha}`
+    );
 
     const currentColor = this.parseColor(
-      `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${
+        this.alpha / 100
+      })`
     );
 
     if (currentColor === null) {
       return;
     }
 
-    console.log("currentColor", currentColor);
+    console.log('currentColor', currentColor);
 
     // Update the value
     if (this.format === 'hsl') {
-      this.inputValue = this.opacity ? currentColor.hsla.string : currentColor.hsl.string;
+      this.inputValue = this.opacity
+        ? currentColor.hsla.string
+        : currentColor.hsl.string;
     } else if (this.format === 'rgb') {
-      this.inputValue = this.opacity ? currentColor.rgba.string : currentColor.rgb.string;
+      this.inputValue = this.opacity
+        ? currentColor.rgba.string
+        : currentColor.rgb.string;
     } else {
       this.inputValue = this.opacity ? currentColor.hexa : currentColor.hex;
     }
 
     this.value = this.inputValue;
     this.isEmpty = false;
+    this.dispatchEvent(
+      new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE)
+    );
 
     await this.updateComplete;
   }
 
-  render(){
+  render() {
     //const x = this.saturation;
     //const y = 100 - this.lightness;
 
@@ -704,14 +738,10 @@ export class UUIColorPickerElement extends LitElement {
         class=${classMap({
           'color-picker': true,
           'color-picker--inline': this.inline,
-          'color-picker--disabled': this.disabled
+          'color-picker--disabled': this.disabled,
         })}
-        aria-disabled=${this.disabled ? 'true' : 'false'}
-      >
-        <uui-color-area
-          .value="${this.value}"
-          @change=${this.handleGridDrag}
-          >
+        aria-disabled=${this.disabled ? 'true' : 'false'}>
+        <uui-color-area .value="${this.value}" @change=${this.handleGridDrag}>
         </uui-color-area>
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
@@ -721,8 +751,7 @@ export class UUIColorPickerElement extends LitElement {
               max="360"
               class="hue-slider"
               .value=${Math.round(this.hue)}
-              @change=${this.handleHueDrag}
-            >
+              @change=${this.handleHueDrag}>
             </uui-color-slider>
             ${this.opacity
               ? html`
@@ -732,16 +761,16 @@ export class UUIColorPickerElement extends LitElement {
                     max="100"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
-                    @change=${this.handleAlphaDrag}
-                  >
-                  <div slot="detail" style=${styleMap({
-                      backgroundImage: `linear-gradient(
+                    @change=${this.handleAlphaDrag}>
+                    <div
+                      slot="detail"
+                      style=${styleMap({
+                        backgroundImage: `linear-gradient(
                         to right,
                         hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, 0%) 0%,
                         hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%) 100%
-                      )`
-                    })}>
-                  </div>
+                      )`,
+                      })}></div>
                   </uui-color-slider>
                 `
               : ''}
@@ -753,14 +782,14 @@ export class UUIColorPickerElement extends LitElement {
             title="Copy"
             aria-label="Copy"
             style=${styleMap({
-              '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+              '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
+                this.lightness
+              }%, ${this.alpha / 100})`,
             })}
-            @click=${this.handleCopy}
-          >
-          </button>
+            @click=${this.handleCopy}></button>
         </div>
         <div class="color-picker__user-input" aria-live="polite">
-          <uui-input 
+          <uui-input
             label="label"
             type="text"
             part="input"
@@ -775,39 +804,35 @@ export class UUIColorPickerElement extends LitElement {
             @change=${this.handleInputChange}>
           </uui-input>
           <uui-button-group>
-          ${!this.noFormatToggle
-            ? html`
-                <uui-button
-                  label="Toggle color format"
-                  @click=${this.handleFormatToggle}
-                  class="color-picker__toggle-format"
-                >
-                  <span>${this.format}</span>
-                </uui-button>
-              `
-            : ''}
-            ${hasEyeDropper
+            ${!this.noFormatToggle
               ? html`
                   <uui-button
-                    label="Select a color"
-                    @click=${this.handleEyeDropper}
-                  >
-                    <uui-icon-registry-essential>
-                      <uui-icon name="colorpicker"></uui-icon>
-                    </uui-icon-registry-essential>
-                  </uui-button>`
+                    label="Toggle color format"
+                    @click=${this.handleFormatToggle}
+                    class="color-picker__toggle-format">
+                    <span>${this.format}</span>
+                  </uui-button>
+                `
+              : ''}
+            ${hasEyeDropper
+              ? html` <uui-button
+                  label="Select a color"
+                  @click=${this.handleEyeDropper}>
+                  <uui-icon-registry-essential>
+                    <uui-icon name="colorpicker"></uui-icon>
+                  </uui-icon-registry-essential>
+                </uui-button>`
               : ''}
           </uui-button-group>
         </div>
         <uui-color-swatches
           class="color-picker__swatches"
-          .swatches="${this.swatches}"
-          @change=${this.handleColorSwatchChange}
-        >
+          .swatches=${this.swatches}
+          @change=${this.handleColorSwatchChange}>
         </uui-color-swatches>
       </div>
     `;
-    
+
     if (this.inline) {
       return colorPicker;
     }
@@ -823,21 +848,20 @@ export class UUIColorPickerElement extends LitElement {
           'color-dropdown__trigger--medium': this.size === 'medium',
           'color-dropdown__trigger--large': this.size === 'large',
           'color-dropdown__trigger--empty': this.isEmpty,
-          'color-picker__transparent-bg': true
+          'color-picker__transparent-bg': true,
         })}
         style=${styleMap({
-          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
+            this.lightness
+          }%, ${this.alpha / 100})`,
         })}
         @click=${this.openColorPicker}
         aria-haspopup="true"
-        aria-expanded="false">
-      </button>
+        aria-expanded="false"></button>
       <uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
-        <div slot="popover">
-          ${colorPicker}
-        </div>
+        <div slot="popover">${colorPicker}</div>
       </uui-popover>`;
-    }
+  }
 }
 
 function toHex(value: number) {
