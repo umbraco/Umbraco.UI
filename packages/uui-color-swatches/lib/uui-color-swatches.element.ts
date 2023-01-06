@@ -10,6 +10,7 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
 /**
  *  @element uui-color-swatches
  *  @description
+ *  @slot - Default slot for content.
  */
 @defineElement('uui-color-swatches')
 export class UUIColorSwatchesElement extends LitElement {
@@ -145,8 +146,6 @@ export class UUIColorSwatchesElement extends LitElement {
     this.value = this._selectedElement.value || '';
     this.displayValue = this._selectedElement.displayValue || '';
 
-    console.log('_onSelected', this.value, this.displayValue);
-
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
   };
 
@@ -170,8 +169,8 @@ export class UUIColorSwatchesElement extends LitElement {
         ${this.swatches.map(swatch => {
           return html`<uui-color-swatch value="${swatch}"></uui-color-swatch>`;
         })}
+        <slot></slot>
       </div>
-      ${this.value}
     `;
   }
 }
