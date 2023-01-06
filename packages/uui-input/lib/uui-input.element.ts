@@ -89,6 +89,10 @@ export class UUIInputElement extends FormControlMixin(
         );
 
         color: var(--uui-color-disabled-contrast);
+        -webkit-text-fill-color: var(
+          --uui-color-disabled-contrast
+        ); /* required on Safari and IOS */
+        opacity: 1; /* required on iOS */
       }
       :host([readonly]) {
         background-color: var(
