@@ -5,7 +5,9 @@ describe('UUIColorSliderElement', () => {
   let element: UUIColorSliderElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-color-slider></uui-color-slider> `);
+    element = await fixture(
+      html` <uui-color-slider label="Color slider"></uui-color-slider> `
+    );
   });
 
   it('is defined with its own instance', () => {
