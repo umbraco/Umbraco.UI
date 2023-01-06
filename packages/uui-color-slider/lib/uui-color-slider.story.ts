@@ -6,7 +6,7 @@ import { UUIColorSliderElement } from './uui-color-slider.element';
 
 export default {
   id: 'uui-color-slider',
-  title: 'Color Slider',
+  title: 'Inputs/Color/Color Slider',
   component: 'uui-color-slider',
   args: {
     min: 0,

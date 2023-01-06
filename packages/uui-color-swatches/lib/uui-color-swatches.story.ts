@@ -43,7 +43,7 @@ const swatchesTransparent = [
 
 export default {
   id: 'uui-color-swatches',
-  title: 'Color Swatches',
+  title: 'Inputs/Color/Color Swatches',
   component: 'uui-color-swatches',
   parameters: {
     docs: {

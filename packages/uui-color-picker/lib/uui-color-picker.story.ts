@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 
 export default {
   id: 'uui-color-picker',
-  title: 'Color Picker',
+  title: 'Inputs/Color/Color Picker',
   component: 'uui-color-picker',
   parameters: {
     docs: {

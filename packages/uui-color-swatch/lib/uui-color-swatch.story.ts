@@ -7,7 +7,7 @@ const value = '#d0021b';
 
 export default {
   id: 'uui-color-swatch',
-  title: 'Color Swatch',
+  title: 'Inputs/Color/Color Swatch',
   component: 'uui-color-swatch',
   parameters: {
     docs: {

@@ -6,7 +6,7 @@ import { UUIColorAreaElement } from './uui-color-area.element';
 
 export default {
   id: 'uui-color-area',
-  title: 'Color Area',
+  title: 'Inputs/Color/Color Area',
   component: 'uui-color-area',
   argTypes: {
     value: { control: 'color' },
