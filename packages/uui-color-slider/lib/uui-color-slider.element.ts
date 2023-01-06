@@ -175,21 +175,31 @@ export class UUIColorSliderElement extends LitElement {
       event.preventDefault();
       this.value = clamp(this.value - increment, this.min, this.max);
       this.syncValues();
-    }
-
-    if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight') {
       event.preventDefault();
       this.value = clamp(this.value + increment, this.min, this.max);
       this.syncValues();
-    }
-
-    if (event.key === 'Home') {
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.value = clamp(
+        this.vertical ? this.value - increment : this.value + increment,
+        this.min,
+        this.max
+      );
+      this.syncValues();
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.value = clamp(
+        this.vertical ? this.value + increment : this.value - increment,
+        this.min,
+        this.max
+      );
+      this.syncValues();
+    } else if (event.key === 'Home') {
       event.preventDefault();
       this.value = this.min;
       this.syncValues();
-    }
-
-    if (event.key === 'End') {
+    } else if (event.key === 'End') {
       event.preventDefault();
       this.value = this.max;
       this.syncValues();
