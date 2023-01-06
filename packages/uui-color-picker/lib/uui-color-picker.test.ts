@@ -5,9 +5,7 @@ describe('UUIColorPickerElement', () => {
   let element: UUIColorPickerElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-color-picker></uui-color-picker> `
-    );
+    element = await fixture(html` <uui-color-picker></uui-color-picker> `);
   });
 
   it('is defined with its own instance', () => {

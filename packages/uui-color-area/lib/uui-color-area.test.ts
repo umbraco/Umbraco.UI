@@ -5,9 +5,7 @@ describe('UUIColorAreaElement', () => {
   let element: UUIColorAreaElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-color-area></uui-color-area> `
-    );
+    element = await fixture(html` <uui-color-area></uui-color-area> `);
   });
 
   it('is defined with its own instance', () => {

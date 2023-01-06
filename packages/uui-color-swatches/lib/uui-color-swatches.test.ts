@@ -5,9 +5,7 @@ describe('UUIColorSwatchesElement', () => {
   let element: UUIColorSwatchesElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-color-swatches></uui-color-swatches> `
-    );
+    element = await fixture(html` <uui-color-swatches></uui-color-swatches> `);
   });
 
   it('is defined with its own instance', () => {

@@ -7,10 +7,7 @@ import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import {
-  ActiveMixin,
-  SelectableMixin,
-} from '@umbraco-ui/uui-base/lib/mixins';
+import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-color-swatch
@@ -19,7 +16,7 @@ import {
 export class UUIColorSwatchElement extends SelectableMixin(
   ActiveMixin(LitElement)
 ) {
-      static styles = [
+  static styles = [
     css`
       :host {
         --uui-swatch-size: 25px;
@@ -88,7 +85,11 @@ export class UUIColorSwatchElement extends SelectableMixin(
         align-items: center;
       }
       .color-swatch--transparent-bg {
-        background-image: linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
+        background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
@@ -134,16 +135,16 @@ export class UUIColorSwatchElement extends SelectableMixin(
   @state() _displayValue = '';
 
   /**
- * Value of the option.
- * @type { string }
- * @attr
- * @default ""
- */
+   * Value of the option.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
   @property({ type: String })
   public get value(): string {
     return this._value ? this._value : this.textContent?.trim() || '';
   }
-  
+
   public set value(newValue: string) {
     const oldValue = this._value;
     this._value = newValue;
@@ -162,7 +163,7 @@ export class UUIColorSwatchElement extends SelectableMixin(
       ? this._displayValue
       : this.textContent?.trim() || '';
   }
-  
+
   public set displayValue(newValue) {
     const oldValue = this._displayValue;
     this._displayValue = newValue;
@@ -179,7 +180,7 @@ export class UUIColorSwatchElement extends SelectableMixin(
   public get disabled() {
     return this._disabled;
   }
-  
+
   public set disabled(newValue) {
     const oldValue = this._disabled;
     this._disabled = newValue;
@@ -199,20 +200,20 @@ export class UUIColorSwatchElement extends SelectableMixin(
     return new Colord(color).isLight();
   }
 
-  render(){
-    return html`
-        <div
-          class=${classMap({
-            'color-swatch': true,
-            'color-swatch--transparent-bg': true,
-            'color-swatch--light': this.isLight(this.value)
-          })}
-          role="button"
-          aria-label=${this.label}
-        >
-        <div class="color-swatch__color" style=${styleMap({ backgroundColor: this.value })}></div>
-        <div class="color-swatch__check">${iconCheck}</div>
-      </div>`;
+  render() {
+    return html` <div
+      class=${classMap({
+        'color-swatch': true,
+        'color-swatch--transparent-bg': true,
+        'color-swatch--light': this.isLight(this.value),
+      })}
+      role="button"
+      aria-label=${this.label}>
+      <div
+        class="color-swatch__color"
+        style=${styleMap({ backgroundColor: this.value })}></div>
+      <div class="color-swatch__check">${iconCheck}</div>
+    </div>`;
   }
 }
 
