@@ -250,33 +250,33 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   render() {
-    return html`
-        <div
-          part="slider"
-          class=${classMap({
-            'color-slider': true,
-            'color-slider--vertical': this.vertical,
-            'color-slider--disabled': this.disabled
-          })}
-          role="slider"
-          aria-label="${this.label}"
-          aria-orientation="${this.vertical ? 'vertical' : 'horizontal'}"
-          aria-valuemin="${Math.round(this.min)}"
-          aria-valuemax="${Math.round(this.max)}"
-          aria-valuenow="${Math.round(this.value)}"
-          @click=${this.handleClick}
-          @mousedown=${this.handleDrag}
-          @touchstart=${this.handleDrag}
-        >
-          <slot name="detail"></slot>
-          <span
-            class="color-slider__handle"
-            style="--current-value: ${this.value === 0 ? 0 : 100 / (this.max / this.value)}%"
-            tabindex=${ifDefined(this.disabled ? undefined : '0')}
-            @keydown=${this.handleKeyDown}
-          ></span>
-        </div>${this.value}`;
-    }
+    return html` <div
+        part="slider"
+        class=${classMap({
+          'color-slider': true,
+          'color-slider--vertical': this.vertical,
+          'color-slider--disabled': this.disabled,
+        })}
+        role="slider"
+        aria-label="${this.label}"
+        aria-orientation="${this.vertical ? 'vertical' : 'horizontal'}"
+        aria-valuemin="${Math.round(this.min)}"
+        aria-valuemax="${Math.round(this.max)}"
+        aria-valuenow="${Math.round(this.value)}"
+        @click=${this.handleClick}
+        @mousedown=${this.handleDrag}
+        @touchstart=${this.handleDrag}
+        @keydown=${this.handleKeyDown}>
+        <slot name="detail"></slot>
+        <span
+          class="color-slider__handle"
+          style="--current-value: ${this.value === 0
+            ? 0
+            : 100 / (this.max / this.value)}%"
+          tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
+      </div>
+      ${this.value}`;
+  }
 }
 
 declare global {
