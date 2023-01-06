@@ -16,5 +16,4 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
-  html`<uui-color-area></uui-color-area>`;
+export const Overview: Story = () => html`<uui-color-area></uui-color-area>`;

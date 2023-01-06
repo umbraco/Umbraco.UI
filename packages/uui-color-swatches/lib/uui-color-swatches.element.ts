@@ -114,7 +114,6 @@ export class UUIColorSwatchesElement extends LitElement {
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    document.removeEventListener('keydown', this._onKeyDown);
 
     this.removeEventListener(UUISelectableEvent.SELECTED, this._onSelected);
     this.removeEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
@@ -164,8 +163,6 @@ export class UUIColorSwatchesElement extends LitElement {
       );
     }
   };
-
-  private _onKeyDown = (e: KeyboardEvent) => {};
 
   render() {
     return html`

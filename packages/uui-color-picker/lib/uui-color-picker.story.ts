@@ -16,20 +16,13 @@ export default {
   },
 };
 
-const randomColor = () => {
-  let n = (Math.random() * 0xfffff * 1000000).toString(16);
-  return '#' + n.slice(0, 6);
-};
-
-export const AAAOverview: Story = props =>
+export const AAAOverview: Story = () =>
   html`<uui-color-picker></uui-color-picker>`;
 
 AAAOverview.storyName = 'Overview';
 
 const Template: Story = props => html`
-  <uui-color-picker
-    inline=${props.inline}
-    .value=${props.value}>
+  <uui-color-picker inline=${props.inline} .value=${props.value}>
   </uui-color-picker>
 `;
 
@@ -48,16 +41,13 @@ Inline.parameters = {
 
 const formats = ['hex', 'rgb', 'hsl'];
 
-export const Formats: Story = props => html`
+export const Formats: Story = () => html`
   <h4>Formats</h4>
   ${formats.map(
     format =>
       html`
         <h5>${format}</h5>
-        <uui-color-picker
-          .format=${format as any}
-          value="blue"
-          >
+        <uui-color-picker .format=${format as any} value="blue">
         </uui-color-picker>
       `
   )}

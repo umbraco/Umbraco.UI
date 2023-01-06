@@ -18,18 +18,16 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const Overview: Story = () =>
   html`<uui-color-swatch .value=${value}></uui-color-swatch>`;
 
 const Template: Story = props => html`
-  <uui-color-swatch
-    .value=${props.value}>
-  </uui-color-swatch>
+  <uui-color-swatch .value=${props.value}> </uui-color-swatch>
 `;
 
 export const Transparent = Template.bind({});
 Transparent.args = {
-  value: 'rgba(53, 68, 177, 0.5)'
+  value: 'rgba(53, 68, 177, 0.5)',
 };
 Transparent.parameters = {
   docs: {

@@ -3,14 +3,13 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvents';
 
 /**
  *  @element uui-color-slider
- *  @description 
+ *  @description
  */
 @defineElement('uui-color-slider')
 export class UUIColorSliderElement extends LitElement {
@@ -36,11 +35,11 @@ export class UUIColorSliderElement extends LitElement {
       }
 
       :host(:not([vertical])) .color-slider__handle {
-         left: var(--current-value, 0%);
+        left: var(--current-value, 0%);
       }
-      
+
       :host([vertical]) .color-slider__handle {
-         top: var(--current-value, 0%);
+        top: var(--current-value, 0%);
       }
 
       .color-slider {
@@ -88,12 +87,12 @@ export class UUIColorSliderElement extends LitElement {
     `,
   ];
 
- /**
- * This is a minimum value of the slider.
- * @type {number}
- * @attr
- * @default 0
- */
+  /**
+   * This is a minimum value of the slider.
+   * @type {number}
+   * @attr
+   * @default 0
+   */
   @property({ type: Number }) min = 0;
 
   /**
@@ -111,12 +110,12 @@ export class UUIColorSliderElement extends LitElement {
   @property({ type: Boolean, reflect: true }) vertical = false;
 
   /**
-  * Label to be used for aria-label and eventually as visual label
-  * @type {string}
-  * @attr
-  */
-   @property({ type: String })
-   public label!: string;
+   * Label to be used for aria-label and eventually as visual label
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  public label!: string;
 
   @property() value = 0;
 
@@ -132,12 +131,13 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   handleDrag(event: PointerEvent) {
+    if (this.disabled) return;
 
-    if (this.disabled)
-      return;
-
-    const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
-    const handle = container.querySelector<HTMLElement>('.color-slider__handle')!;
+    const container =
+      this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
+    const handle = container.querySelector<HTMLElement>(
+      '.color-slider__handle'
+    )!;
     const { width, height } = container.getBoundingClientRect();
 
     handle.focus();
@@ -145,25 +145,21 @@ export class UUIColorSliderElement extends LitElement {
 
     drag(container, {
       onMove: (x, y) => {
-
         if (this.vertical) {
           this.value = clamp((y / height) * this.max, this.min, this.max);
-        }
-        else {
+        } else {
           this.value = clamp((x / width) * this.max, this.min, this.max);
         }
-        
+
         this.syncValues();
       },
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
   handleClick(event: MouseEvent) {
+    if (this.disabled) return;
 
-    if (this.disabled)
-      return;
-    
     this.value = this.getValueFromMousePosition(event);
     this.syncValues();
   }
@@ -221,30 +217,30 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   getValueFromXCoordinate(coordinate: number) {
-    const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
+    const container =
+      this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
     const containerLeft = container.getBoundingClientRect().left;
     const containerWidth = container.getBoundingClientRect().width;
-    
+
     return clamp(
-      this.roundToPrecision(((coordinate - containerLeft) / containerWidth) * this.max),
+      this.roundToPrecision(
+        ((coordinate - containerLeft) / containerWidth) * this.max
+      ),
       this.min,
       this.max
     );
   }
 
   getValueFromYCoordinate(coordinate: number) {
-    const container = this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
+    const container =
+      this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
     const containerTop = container.getBoundingClientRect().top;
     const containerHeight = container.getBoundingClientRect().height;
 
-    console.log("containerHeight", containerHeight);
-    console.log("containerTop", containerTop);
-    console.log("coordinate", coordinate);
-
-    console.log("test", this.max - ((coordinate - containerTop) / containerHeight) * this.max);
-    
     return clamp(
-      this.roundToPrecision(((coordinate - containerTop) / containerHeight) * this.max),
+      this.roundToPrecision(
+        ((coordinate - containerTop) / containerHeight) * this.max
+      ),
       this.min,
       this.max
     );

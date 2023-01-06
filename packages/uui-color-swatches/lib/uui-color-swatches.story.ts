@@ -19,7 +19,7 @@ const swatches = [
   '#444',
   '#888',
   '#ccc',
-  '#fff'
+  '#fff',
 ];
 
 const swatchesTransparent = [
@@ -38,7 +38,7 @@ const swatchesTransparent = [
   'rgba(68, 68, 68, 0.5)',
   'rgba(136, 136, 136, 0.5)',
   'rgba(204, 204, 204, 0.5)',
-  'rgba(255, 255, 255, 0.5)'
+  'rgba(255, 255, 255, 0.5)',
 ];
 
 export default {
@@ -54,13 +54,11 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const Overview: Story = () =>
   html`<uui-color-swatches .swatches=${swatches}></uui-color-swatches>`;
 
 const Template: Story = props => html`
-  <uui-color-swatches
-    .swatches=${props.swatches}>
-  </uui-color-swatches>
+  <uui-color-swatches .swatches=${props.swatches}> </uui-color-swatches>
 `;
 
 export const Transparent = Template.bind({});

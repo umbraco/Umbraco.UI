@@ -16,7 +16,7 @@ import { UUIColorAreaEvent } from './UUIColorAreaEvents';
  */
 @defineElement('uui-color-area')
 export class UUIColorAreaElement extends LitElement {
-      static styles = [
+  static styles = [
     css`
       :host {
         display: inline-block;
@@ -28,7 +28,11 @@ export class UUIColorAreaElement extends LitElement {
         position: relative;
         height: 100%;
         width: 100%;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 100%
+          ),
           linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
         border-top-left-radius: var(--sl-border-radius-medium);
         border-top-right-radius: var(--sl-border-radius-medium);
@@ -75,7 +79,7 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   public set value(newVal: string | null) {
-    let oldVal = this._value;
+    const oldVal = this._value;
     this._value = newVal;
     this.requestUpdate('value', oldVal);
 
@@ -86,16 +90,16 @@ export class UUIColorAreaElement extends LitElement {
       this.lightness = this.getLightness(this.brightness);
       this.alpha = 100;
     }
-    
-    if (newVal) {
 
+    if (newVal) {
       // TODO: Can we move the parsing of a color string to shared utility function?
       let parsed;
 
       try {
         parsed = colord(newVal);
-      } catch {
-        
+      } catch (e) {
+        // TODO: Should we log this?
+        console.error('Something went wrong parsing the color string.', e);
       }
 
       if (parsed) {
@@ -107,7 +111,6 @@ export class UUIColorAreaElement extends LitElement {
         this.brightness = this.getBrightness(hslColor.l);
       }
     }
-    
   }
 
   /** Disables the color area. */
@@ -132,7 +135,7 @@ export class UUIColorAreaElement extends LitElement {
         this.syncValues();
       },
       onStop: () => (this.isDraggingGridHandle = false),
-      initialEvent: event
+      initialEvent: event,
     });
   }
 
@@ -171,15 +174,25 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   getLightness(brightness: number) {
-    return clamp(((((200 - this.saturation) * brightness) / 100) * 5) / 10, 0, 100);
+    return clamp(
+      ((((200 - this.saturation) * brightness) / 100) * 5) / 10,
+      0,
+      100
+    );
   }
 
   getValueFromMousePosition(event: MouseEvent) {
-    return this.getValueFromCoordinates(event.clientX - event.offsetX, event.clientY - event.offsetY);
+    return this.getValueFromCoordinates(
+      event.clientX - event.offsetX,
+      event.clientY - event.offsetY
+    );
   }
 
   getValueFromTouchPosition(event: TouchEvent) {
-    return this.getValueFromCoordinates(event.touches[0].clientX, event.touches[0].clientY);
+    return this.getValueFromCoordinates(
+      event.touches[0].clientX,
+      event.touches[0].clientY
+    );
   }
 
   getValueFromCoordinates(x: number, y: number) {
@@ -193,12 +206,11 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   syncValues() {
-
     const color = colord({
       h: this.hue,
       s: this.saturation,
       l: this.lightness,
-      a: this.alpha
+      a: this.alpha,
     });
 
     this.value = color.toRgbString();
@@ -209,7 +221,6 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   render() {
-
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
 
@@ -219,8 +230,7 @@ export class UUIColorAreaElement extends LitElement {
         class="color-area"
         style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
         @mousedown=${this.handleGridDrag}
-        @touchstart=${this.handleGridDrag}
-      >
+        @touchstart=${this.handleGridDrag}>
         <span
           part="grid-handle"
           class=${classMap({
@@ -231,13 +241,12 @@ export class UUIColorAreaElement extends LitElement {
           style=${styleMap({
             top: `${gridHandleY}%`,
             left: `${gridHandleX}%`,
-            backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`
+            backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`,
           })}
           role="application"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}
           aria-label="HSB"
-          @keydown=${this.handleGridKeyDown}
-        ></span>
+          @keydown=${this.handleGridKeyDown}></span>
       </div>
     `;
   }
