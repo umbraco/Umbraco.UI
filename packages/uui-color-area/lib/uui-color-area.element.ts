@@ -24,6 +24,11 @@ export class UUIColorAreaElement extends LitElement {
         height: 200px;
         --grid-handle-size: 16px;
       }
+      :host([disabled]) {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
       .color-area {
         position: relative;
         height: 100%;
@@ -89,18 +94,12 @@ export class UUIColorAreaElement extends LitElement {
       this.brightness = 100;
       this.lightness = this.getLightness(this.brightness);
       this.alpha = 100;
+      return;
     }
 
-    if (newVal) {
+    try {
       // TODO: Can we move the parsing of a color string to shared utility function?
-      let parsed;
-
-      try {
-        parsed = colord(newVal);
-      } catch (e) {
-        // TODO: Should we log this?
-        console.error('Something went wrong parsing the color string.', e);
-      }
+      const parsed = colord(newVal);
 
       if (parsed) {
         const hslColor = parsed.toHsl();
@@ -110,6 +109,9 @@ export class UUIColorAreaElement extends LitElement {
         this.lightness = hslColor.l;
         this.brightness = this.getBrightness(hslColor.l);
       }
+    } catch (e) {
+      // TODO: Should we log this?
+      console.error('Something went wrong parsing the color string.', e);
     }
   }
 
@@ -117,6 +119,7 @@ export class UUIColorAreaElement extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   handleGridDrag(event: PointerEvent) {
+    if (this.disabled) return;
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
     const handle = grid.querySelector<HTMLElement>('.color-area__handle')!;
     const { width, height } = grid.getBoundingClientRect();
@@ -140,6 +143,7 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   handleGridKeyDown(event: KeyboardEvent) {
+    if (this.disabled) return;
     const increment = event.shiftKey ? 10 : 1;
 
     if (event.key === 'ArrowLeft') {
