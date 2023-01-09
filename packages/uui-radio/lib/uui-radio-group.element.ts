@@ -144,6 +144,11 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
         el.addEventListener('blur', this._onChildBlur);
       });
 
+      this._setNameOnRadios(this.name);
+      if (this.disabled) {
+        this._setDisableOnRadios(true);
+      }
+
       const checkedRadios = this._radioElements.filter(
         el => el.checked === true
       );
@@ -171,11 +176,6 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
           checkedRadios[0].makeFocusable();
         } else {
           this._makeFirstEnabledFocusable();
-        }
-
-        this._setNameOnRadios(this.name);
-        if (this.disabled) {
-          this._setDisableOnRadios(true);
         }
       } else {
         this._makeFirstEnabledFocusable();
