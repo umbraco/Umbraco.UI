@@ -106,7 +106,7 @@
     "postcss-values-parser": "6.0.2",
     "prettier": "2.7.1",
     "raw-loader": "4.0.2",
-    "react-markdown": "8.0.3",
+    "react-markdown": "8.0.4",
     "react-syntax-highlighter": "15.5.0",
     "remark-gfm": "3.0.1",
     "rimraf": "3.0.2",
