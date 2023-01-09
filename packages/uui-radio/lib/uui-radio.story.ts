@@ -1,4 +1,5 @@
 import '.';
+import './uui-radio-group-disable-example';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -16,6 +17,10 @@ export default {
     slot: { control: { type: 'text' } },
   },
 };
+
+export const DisableGroup: Story = () => html`
+  <uui-radio-group-disable-example></uui-radio-group-disable-example>
+`;
 
 export const AAAOverview: Story = props =>
   html`<uui-radio

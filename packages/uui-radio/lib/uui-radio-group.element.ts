@@ -276,7 +276,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   updated(_changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(_changedProperties);
     if (_changedProperties.has('disabled')) {
-      this._setDisableOnRadios(_changedProperties.get('disabled') as boolean);
+      this._setDisableOnRadios(this.disabled);
     }
 
     if (_changedProperties.has('name')) {
