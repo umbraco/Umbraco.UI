@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.1.1...@umbraco-ui/uui-combobox@1.2.0) (2023-01-11)
+
+### Bug Fixes
+
+- Case insensitivity when using combobox-avatar ([#363](https://github.com/umbraco/Umbraco.UI/issues/363)) ([7acd240](https://github.com/umbraco/Umbraco.UI/commit/7acd240655d8483ada1e8c9cfb7ee1838ba63fcd))
+
+### Features
+
+- **build:** update packages to esmodules and fix rollup import ([0980022](https://github.com/umbraco/Umbraco.UI/commit/0980022acd9fedc79b017f417d4c56d247d129e3))
+
 ## [1.1.1](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-combobox@1.1.0...@umbraco-ui/uui-combobox@1.1.1) (2022-09-29)
 
 ### Bug Fixes
