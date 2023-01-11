@@ -124,7 +124,7 @@ RadioGroup.parameters = {
 </uui-radio-group>
 
 <uui-radio-group name="f331672b-e6f3-4b73-8b44-67a51a24f296">
-  <uui-radio      
+  <uui-radio
       value="Prolific - I live and breathe Umbraco."
       label="Prolific - I live and breathe Umbraco."
       >
@@ -159,7 +159,7 @@ RadioGroup.parameters = {
       label="Lapsed - I miss XSLT. It was all so much better before"
       >
   </uui-radio>
-  <uui-radio 
+  <uui-radio
       value="Other (Please state)"
       label="Other (Please state)"
       >
@@ -168,4 +168,16 @@ RadioGroup.parameters = {
 `,
     },
   },
+};
+
+export const DisabledGroup: Story = props => html`
+  <uui-radio-group .disabled=${props.disabled}>
+    <uui-radio value="1">one</uui-radio>
+    <uui-radio value="2" .checked=${props.checked}>two</uui-radio>
+    <uui-radio value="3">three</uui-radio>
+    <uui-radio value="4">fou2r</uui-radio>
+  </uui-radio-group>
+`;
+DisabledGroup.args = {
+  disabled: true,
 };

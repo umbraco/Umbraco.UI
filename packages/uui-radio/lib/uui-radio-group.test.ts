@@ -1,4 +1,10 @@
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
+} from '@open-wc/testing';
 
 import { UUIRadioGroupElement } from './uui-radio-group.element';
 import { UUIRadioElement } from './uui-radio.element';
@@ -13,7 +19,7 @@ describe('UuiRadio', () => {
   let radios: UUIRadioElement[];
   beforeEach(async () => {
     element = await fixture(html`
-      <uui-radio-group>
+      <uui-radio-group name="groupname">
         <uui-radio .value=${'Value 1'} label="Option 1">Option 1</uui-radio>
         <uui-radio .value=${'Value 2'} label="Option 2"></uui-radio>
         <uui-radio .value=${'Value 3'} label="Option 3">Option 3</uui-radio>
@@ -122,6 +128,26 @@ describe('UuiRadioGroup value', () => {
   it('value is changed when clicking another radio', async () => {
     radios[2].click();
     expect(element.value).to.equal(radios[2].value);
+  });
+
+  it('name is propagated to radio children', () => {
+    expect(element.name).to.equal(radios[0].name);
+    expect(element.name).to.equal(radios[1].name);
+    expect(element.name).to.equal(radios[2].name);
+  });
+
+  it('disabled is propagated to radio children', () => {
+    expect(element.disabled).to.equal(radios[0].disabled);
+    expect(element.disabled).to.equal(radios[1].disabled);
+    expect(element.disabled).to.equal(radios[2].disabled);
+  });
+
+  it('disabled state on radio-group is reflected on radio children', async () => {
+    element.disabled = true;
+    await elementUpdated(element);
+    expect(element.disabled).to.equal(radios[0].disabled);
+    expect(element.disabled).to.equal(radios[1].disabled);
+    expect(element.disabled).to.equal(radios[2].disabled);
   });
 });
 
