@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-badge@1.0.0...@umbraco-ui/uui-badge@1.1.0) (2023-01-11)
+
+### Bug Fixes
+
+- import types as types ([3dcb9ce](https://github.com/umbraco/Umbraco.UI/commit/3dcb9ce2abd59dbb665ca0391aae9b72afa930f8))
+
+### Features
+
+- **build:** update packages to esmodules and fix rollup import ([0980022](https://github.com/umbraco/Umbraco.UI/commit/0980022acd9fedc79b017f417d4c56d247d129e3))
+
 # [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-badge@1.0.0-rc.3...@umbraco-ui/uui-badge@1.0.0) (2022-08-22)
 
 **Note:** Version bump only for package @umbraco-ui/uui-badge

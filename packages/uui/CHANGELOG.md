@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@1.0.2...@umbraco-ui/uui@1.1.0) (2023-01-11)
+
+### Features
+
+- **build:** update packages to esmodules and fix rollup import ([0980022](https://github.com/umbraco/Umbraco.UI/commit/0980022acd9fedc79b017f417d4c56d247d129e3))
+- **uui:** set uui to esmodule ([3ce3f75](https://github.com/umbraco/Umbraco.UI/commit/3ce3f754b7d086529c0207b55b3187ebc4a11b82))
+
 ## [1.0.2](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui@1.0.1...@umbraco-ui/uui@1.0.2) (2022-09-29)
 
 **Note:** Version bump only for package @umbraco-ui/uui

@@ -44,7 +44,7 @@ export class UUIInputElement extends FormControlMixin(
       :host {
         position: relative;
         display: inline-flex;
-        align-items: center;
+        align-items: stretch;
         height: var(--uui-size-11);
         text-align: left;
         box-sizing: border-box;
@@ -89,6 +89,11 @@ export class UUIInputElement extends FormControlMixin(
         );
 
         color: var(--uui-color-disabled-contrast);
+      }
+      :host([disabled]) input {
+        -webkit-text-fill-color: var(
+          --uui-color-disabled-contrast
+        ); /* required on Safari and IOS */
       }
       :host([readonly]) {
         background-color: var(

@@ -160,6 +160,8 @@ export class UUIPaginationElement extends LitElement {
   @property({ reflect: true, attribute: 'aria-label' })
   ariaLabel = '';
 
+  private _total = 100;
+
   /**
    * Set the amount of pages to navigate.
    * @type {number}
@@ -167,7 +169,14 @@ export class UUIPaginationElement extends LitElement {
    * @default: 1
    */
   @property({ type: Number })
-  total = 1;
+  get total() {
+    return this._total;
+  }
+  set total(newValue: number) {
+    this._total = newValue;
+    this._visiblePages = this._generateVisiblePages(this._current);
+    this.requestUpdate('total', newValue);
+  }
 
   @state()
   private _range = 0;

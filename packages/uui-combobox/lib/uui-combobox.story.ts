@@ -1,5 +1,6 @@
 import '.';
 import './uui-combobox-async-example';
+import './uui-combobox-async-options-example';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -22,6 +23,14 @@ export default {
     },
   },
 };
+
+export const AsyncOptions: Story = () =>
+  html`
+    <uui-combobox-async-options-example></uui-combobox-async-options-example>
+  `;
+
+export const AsyncData: Story = () =>
+  html`<uui-combobox-async-example></uui-combobox-async-example>`;
 
 const fruits = [
   'apple',
@@ -63,7 +72,7 @@ const avatars = [
 ];
 
 const basicFilter = (options: string[], search: string) =>
-  options.filter(option => option.includes(search));
+  options.filter(option => option.toLowerCase().includes(search.toLowerCase()));
 
 const renderAvatar = (option: any) => html` <uui-combobox-list-option
   .displayValue=${option.name}
@@ -218,7 +227,9 @@ Avatars.args = {
   options: avatars,
   renderMod: (avatar: any) => renderAvatar(avatar),
   filter: (options: any[], search: string) =>
-    options.filter(option => option.name.includes(search)),
+    options.filter(option =>
+      option.name.toLowerCase().includes(search.toLowerCase())
+    ),
 };
 
 export const CountrySelect: Story = props => {
@@ -387,8 +398,3 @@ CountrySelect.args = {
   selected: 'DK',
   regions: RegionsAndCountries,
 };
-
-/*
-export const AsyncData: Story = () =>
-  html`<uui-combobox-async-example></uui-combobox-async-example>`;
-*/

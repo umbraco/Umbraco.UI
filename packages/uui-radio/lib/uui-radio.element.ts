@@ -196,10 +196,9 @@ export class UUIRadioElement extends LitElement {
   set disabled(newVal) {
     const oldVal = this._disabled;
     this._disabled = newVal;
-    if (newVal) {
-      this.setAttribute('aria-hidden', 'true');
-      this.setAttribute('tabindex', '-1');
-    }
+
+    this.setAttribute('aria-hidden', newVal ? 'true' : 'false');
+    this.setAttribute('tabindex', newVal ? '-1' : '0');
     this.requestUpdate('disabled', oldVal);
   }
   private _disabled = false;

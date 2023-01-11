@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input-lock@1.0.0...@umbraco-ui/uui-input-lock@1.1.0) (2023-01-11)
+
+### Bug Fixes
+
+- Bump opacity a bit, to pass color contrast accessibility check ([#351](https://github.com/umbraco/Umbraco.UI/issues/351)) ([92354aa](https://github.com/umbraco/Umbraco.UI/commit/92354aa21ab42de1600fbc2fbab17ab60b607dd4))
+
+### Features
+
+- **build:** update packages to esmodules and fix rollup import ([0980022](https://github.com/umbraco/Umbraco.UI/commit/0980022acd9fedc79b017f417d4c56d247d129e3))
+
 # [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input-lock@1.0.0-rc.3...@umbraco-ui/uui-input-lock@1.0.0) (2022-08-22)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input-lock

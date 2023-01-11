@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input@1.0.0...@umbraco-ui/uui-input@1.1.0) (2023-01-11)
+
+### Bug Fixes
+
+- uui-input change aling-items to stretch ([#362](https://github.com/umbraco/Umbraco.UI/issues/362)) ([7d285b4](https://github.com/umbraco/Umbraco.UI/commit/7d285b4bff3e81d6b8a3c8bcac471a23bfff1752))
+
+### Features
+
+- **build:** update packages to esmodules and fix rollup import ([0980022](https://github.com/umbraco/Umbraco.UI/commit/0980022acd9fedc79b017f417d4c56d247d129e3))
+
 # [1.0.0](https://github.com/umbraco/Umbraco.UI/compare/@umbraco-ui/uui-input@1.0.0-rc.3...@umbraco-ui/uui-input@1.0.0) (2022-08-22)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input
