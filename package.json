@@ -119,7 +119,7 @@
     "turbo": "1.2.15",
     "typescript": "4.8.4",
     "vite": "3.2.4",
-    "vite-tsconfig-paths": "3.6.0",
+    "vite-tsconfig-paths": "4.0.3",
     "web-component-analyzer": "1.1.6"
   },
   "workspaces": [
