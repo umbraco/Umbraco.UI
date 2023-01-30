@@ -5,7 +5,7 @@ import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-combobox-list-option
- * @slot default - For option content
+ * @slot - For option content
  * @description - An option to be used within uui-combobox-list
  */
 @defineElement('uui-combobox-list-option')
@@ -37,7 +37,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         outline: var(--uui-color-surface) solid 2px;
         outline-offset: -4px;
       }
-      /* 
+      /*
       :host::before {
         display: block;
         content: '';
