@@ -3,7 +3,7 @@ import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   title: 'Buttons/Tabs',

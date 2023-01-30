@@ -8,7 +8,7 @@ import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 /**
  * @element uui-combobox-list
  * @fires {UUIComboboxListEvent} change - fires when selection is changed
- * @slot default - for uui-combobox-list-options
+ * @slot - for uui-combobox-list-options
  * @description - A list that uses uui-combobox-list-options and handles keyboard navigation and selection.
  */
 @defineElement('uui-combobox-list')
