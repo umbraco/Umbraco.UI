@@ -70,5 +70,9 @@ export * from '@umbraco-ui/uui-toast-notification-container/lib/index.js';
 export * from '@umbraco-ui/uui-toast-notification-layout/lib/index.js';
 export * from '@umbraco-ui/uui-toast-notification/lib/index.js';
 export * from '@umbraco-ui/uui-toggle/lib/index.js';
-
 export * from '@umbraco-ui/uui-range-slider/lib/index.js';
+export * from '@umbraco-ui/uui-color-area/lib/index.js';
+export * from '@umbraco-ui/uui-color-picker/lib/index.js';
+export * from '@umbraco-ui/uui-color-slider/lib/index.js';
+export * from '@umbraco-ui/uui-color-swatches/lib/index.js';
+export * from '@umbraco-ui/uui-color-swatch/lib/index.js';
