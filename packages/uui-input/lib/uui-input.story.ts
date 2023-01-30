@@ -167,7 +167,7 @@ export const AppendIcon: Story = props =>
     .value=${props.value}>
     <div
       slot="append"
-      style="background:#f3f3f3; margin-left:var(--uui-size-2, 6px)">
+      style="background:#f3f3f3; padding-left:var(--uui-size-2, 6px)">
       <uui-icon-registry-essential>
         <uui-icon name="delete"></uui-icon>
       </uui-icon-registry-essential>
