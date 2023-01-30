@@ -3,7 +3,7 @@ import '.';
 import { Story } from '@storybook/web-components';
 import { UUIToastNotificationLayoutElement } from '@umbraco-ui/uui-toast-notification-layout/lib';
 import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification/lib';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   id: 'uui-toast-notification-container',
@@ -16,7 +16,9 @@ function addToast() {
   const toast = document.createElement(
     'uui-toast-notification'
   ) as unknown as UUIToastNotificationElement;
-  toast.look = ['', 'positive', 'danger'][Math.floor(Math.random() * 3)] as any;
+  toast.color = ['', 'positive', 'danger'][
+    Math.floor(Math.random() * 3)
+  ] as any;
   const toastLayout = document.createElement(
     'uui-toast-notification-layout'
   ) as unknown as UUIToastNotificationLayoutElement;

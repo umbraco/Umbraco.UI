@@ -20,7 +20,7 @@ import { UUIComboboxEvent } from './UUIComboboxEvent';
  * @element uui-combobox
  * @fires {UUIComboboxEvent} input - fires when search input is changed
  * @fires {UUIComboboxEvent} change - fires when selection is changed
- * @slot default - for uui-combobox-list-options
+ * @slot - for uui-combobox-list-options
  * @slot input-prepend - prepend for the uui-input
  * @slot input-append - append for the uui-input
  * @description - Filterable combobox

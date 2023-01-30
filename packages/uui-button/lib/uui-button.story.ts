@@ -3,7 +3,7 @@ import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 
 import { Meta, Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { UUIButtonElement } from './uui-button.element';
 
 export default {
