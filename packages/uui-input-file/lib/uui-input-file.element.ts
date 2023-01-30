@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
@@ -265,12 +265,13 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         label="Drop files here"></uui-file-dropzone>
       <div id="files">
         ${this._renderFiles()}
-        ${this._files.length === 0 || this.multiple ?
-          html`<uui-button
-            @click=${this._handleClick}
-            id="add-button"
-            look="placeholder"
-            label="Add"></uui-button>` : nothing}
+        ${this._files.length === 0 || this.multiple
+          ? html`<uui-button
+              @click=${this._handleClick}
+              id="add-button"
+              look="placeholder"
+              label="Add"></uui-button>`
+          : nothing}
       </div>
     `;
   }
