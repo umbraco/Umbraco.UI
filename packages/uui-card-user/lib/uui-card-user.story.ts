@@ -1,5 +1,5 @@
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import './index';
 
 export default {
@@ -150,7 +150,7 @@ Tags.parameters = {
       code: `
 <uui-card-user name="John Rabbit">
   <uui-tag slot="tag" size="s" color="danger">Disabled</uui-tag>
-  
+
   <!-- Content -->
 </uui-card-user>`,
     },
