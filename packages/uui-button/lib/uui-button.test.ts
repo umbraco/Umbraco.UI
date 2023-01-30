@@ -1,5 +1,3 @@
-import '.';
-
 import {
   elementUpdated,
   expect,
@@ -33,6 +31,10 @@ describe('UuiButton', () => {
     inputElement = formElement.querySelector('input') as any;
     element = formElement.querySelector('uui-button') as any;
     button = element.shadowRoot!.querySelector('button') as any;
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIButtonElement);
   });
 
   it('renders a slot', () => {
