@@ -9,6 +9,9 @@ import { property } from 'lit/decorators.js';
 /**
  * @element uui-toast-notification-container
  * @slot - slot for toast layout/content
+ * @attr {boolean} [bottom-up] - set the toast container to grow from bottom to top.
+ * @attr {boolean} [left-align] - set the toast container to align to the left.
+ * @attr {number} [auto-close] - set the auto close timer for all toasts in the container.
  */
 @defineElement('uui-toast-notification-container')
 export class UUIToastNotificationContainerElement extends LitElement {

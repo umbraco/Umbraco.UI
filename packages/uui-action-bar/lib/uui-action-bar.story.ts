@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   id: 'uui-action-bar',
@@ -104,7 +104,7 @@ LooksAndColors.parameters = {
       code: `
 <uui-icon-registry-essential>
   <uui-action-bar>
-    
+
     <uui-button look="[look]" color="[color]" label="Copy">
       <uui-icon name="copy"></uui-icon>
     </uui-button>

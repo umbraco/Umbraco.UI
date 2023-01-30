@@ -1,7 +1,7 @@
 import '.';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   id: 'uui-input-lock',

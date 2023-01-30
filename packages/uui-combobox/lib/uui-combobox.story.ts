@@ -3,7 +3,7 @@ import './uui-combobox-async-example';
 import './uui-combobox-async-options-example';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { useArgs } from '@storybook/client-api';
 import { repeat } from 'lit/directives/repeat.js';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
@@ -335,21 +335,21 @@ Avatars.parameters = {
         <b>Superman</b>
         <div style="font-size: 0.8rem">A pretty strong guy</div>
       </div>
-    </uui-combobox-list-option> 
+    </uui-combobox-list-option>
     <uui-combobox-list-option display-value="R2-D2" value="RD" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
       <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
       <div style="display: flex; flex-direction: column">
         <b>R2-D2</b>
         <div style="font-size: 0.8rem">Bip Bub</div>
       </div>
-    </uui-combobox-list-option> 
+    </uui-combobox-list-option>
     <uui-combobox-list-option display-value="Luke Skywalker" value="LS" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
       <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
       <div style="display: flex; flex-direction: column">
         <b>Luke Skywalker</b>
         <div style="font-size: 0.8rem">Guy with a funky sword</div>
       </div>
-    </uui-combobox-list-option> 
+    </uui-combobox-list-option>
     <uui-combobox-list-option display-value="Batman" value="BM" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
       <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
       <div style="display: flex; flex-direction: column">

@@ -1,10 +1,9 @@
 import '.';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html, TemplateResult } from 'lit';
 
 import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
-import { TemplateResult } from 'lit';
 
 export default {
   id: 'uui-button-inline-create',
