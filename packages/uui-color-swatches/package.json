@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.0.0",
+    "@umbraco-ui/uui-base": "1.1.0",
     "@umbraco-ui/uui-color-swatch": "0.0.0"
   },
   "scripts": {
