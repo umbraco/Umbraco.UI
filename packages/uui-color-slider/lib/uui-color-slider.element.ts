@@ -279,7 +279,7 @@ export class UUIColorSliderElement extends LitElement {
             : 100 / (this.max / this.value)}%"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
       </div>
-      ${this.value}`;
+      ${Math.round(this.value)}`;
   }
 }
 
