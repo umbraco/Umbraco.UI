@@ -77,6 +77,10 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         outline: none;
         min-height: var(--uui-textarea-min-height);
         max-height: var(--uui-textarea-max-height);
+        background-color: var(
+          --uui-textarea-background-color,
+          var(--uui-color-surface)
+        );
       }
       :host(:hover)
         textarea:not([readonly]):not([disabled])
