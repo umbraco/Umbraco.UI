@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { classMap } from 'lit/directives/class-map.js';
 import {
   drag,
   clamp,
@@ -13,7 +12,8 @@ import { UUIColorSliderEvent } from './UUIColorSliderEvents';
 
 /**
  *  @element uui-color-slider
- *  @description
+ *  @description A slider that is a part of uui-color-picker
+ * @fires {UUIColorSliderEvent} change - Fires when the value of the slider changes.
  */
 @defineElement('uui-color-slider')
 export class UUIColorSliderElement extends LitElement {
@@ -28,33 +28,28 @@ export class UUIColorSliderElement extends LitElement {
         display: block;
       }
 
-      :host([vertical]) .color-slider {
-        width: var(--slider-height);
-        height: 300px;
-      }
-
-      :host(:not([vertical])) .color-slider {
-        width: 100%;
-        height: var(--slider-height);
-      }
-
-      :host(:not([vertical])) .color-slider__handle {
-        left: var(--current-value, 0%);
-      }
-
-      :host([vertical]) .color-slider__handle {
-        top: var(--current-value, 100%);
-      }
-
-      .color-slider {
+      #color-slider {
         position: relative;
         background-image: var(--slider-bg);
         background-size: var(--slider-bg-size);
         background-position: var(--slider-bg-position);
         border-radius: 3px;
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        height: var(--slider-height);
       }
-      .color-slider__handle {
+
+      :host([vertical]) #color-slider {
+        width: var(--slider-height);
+        height: 300px;
+      }
+
+      :host([disabled]) #color-slider {
+        user-select: none;
+        cursor: not-allowed;
+      }
+
+      #color-slider__handle {
         position: absolute;
         top: calc(50% - var(--slider-handle-size) / 2);
         width: var(--slider-handle-size);
@@ -63,19 +58,12 @@ export class UUIColorSliderElement extends LitElement {
         border-radius: 50%;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
         margin-left: calc(var(--slider-handle-size) / -2);
+        left: var(--current-value, 0%);
       }
 
-      .color-slider--disabled {
-        user-select: none;
-        cursor: not-allowed;
-      }
-
-      .color-slider--vertical {
-        width: var(--slider-height);
-        height: 300px;
-      }
-
-      .color-slider--vertical .color-slider__handle {
+      :host([vertical]) #color-slider__handle {
+        left: unset;
+        top: var(--current-value, 100%);
         margin-left: -1px;
         margin-top: calc(var(--slider-handle-size) / -2);
       }
@@ -131,9 +119,9 @@ export class UUIColorSliderElement extends LitElement {
 
   firstUpdated() {
     this.container =
-      this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
+      this.shadowRoot!.querySelector<HTMLElement>('#color-slider')!;
     this.handle = this.container.querySelector<HTMLElement>(
-      '.color-slider__handle'
+      '#color-slider__handle'
     )!;
   }
 
@@ -254,11 +242,7 @@ export class UUIColorSliderElement extends LitElement {
   render() {
     return html` <div
         part="slider"
-        class=${classMap({
-          'color-slider': true,
-          'color-slider--vertical': this.vertical,
-          'color-slider--disabled': this.disabled,
-        })}
+        id="color-slider"
         role="slider"
         aria-label="${this.label}"
         aria-orientation="${this.vertical ? 'vertical' : 'horizontal'}"
@@ -271,7 +255,7 @@ export class UUIColorSliderElement extends LitElement {
         @keydown=${this.handleKeyDown}>
         <slot name="detail"></slot>
         <span
-          class="color-slider__handle"
+          id="color-slider__handle"
           style="--current-value: ${this.ccsPropCurrentValue}%"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
       </div>
