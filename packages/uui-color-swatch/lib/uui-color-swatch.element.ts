@@ -11,6 +11,8 @@ import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-color-swatch
+ * @cssprop --uui-swatch-size - The size of the swatch.
+ * @cssprop --uui-swatch-border-width - The width of the border.
  */
 @defineElement('uui-color-swatch')
 export class UUIColorSwatchElement extends SelectableMixin(
@@ -19,13 +21,10 @@ export class UUIColorSwatchElement extends SelectableMixin(
   static styles = [
     css`
       :host {
-        --uui-swatch-size: 25px;
-        --uui-swatch-border-width: 1px;
-
         position: relative;
         display: flex;
-        width: var(--uui-swatch-size);
-        height: var(--uui-swatch-size);
+        width: var(--uui-swatch-size, 25px);
+        height: var(--uui-swatch-size, 25px);
         justify-content: center;
         box-sizing: border-box;
         justify-content: center;
@@ -41,9 +40,9 @@ export class UUIColorSwatchElement extends SelectableMixin(
 
       :host(:focus) {
         outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-swatch-border-width);
+        outline-width: var(--uui-swatch-border-width, 1px);
         outline-style: solid;
-        outline-offset: var(--uui-swatch-border-width);
+        outline-offset: var(--uui-swatch-border-width, 1px);
       }
 
       :host([selectable]) {
@@ -54,13 +53,14 @@ export class UUIColorSwatchElement extends SelectableMixin(
         content: '';
         position: absolute;
         pointer-events: none;
-        inset: calc(var(--uui-swatch-border-width) * -1);
-        width: calc(100% + calc(var(--uui-swatch-border-width) * 2));
-        height: calc(100% + calc(var(--uui-swatch-border-width) * 2));
+        inset: calc(var(--uui-swatch-border-width, 1px) * -1);
+        width: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
+        height: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
         box-sizing: border-box;
-        border: var(--uui-swatch-border-width) solid var(--uui-color-selected);
+        border: var(--uui-swatch-border-width, 1px) solid
+          var(--uui-color-selected);
         border-radius: calc(
-          var(--uui-border-radius) + var(--uui-swatch-border-width)
+          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
         );
         transition: opacity 100ms ease-out;
         opacity: 0;
@@ -127,15 +127,12 @@ export class UUIColorSwatchElement extends SelectableMixin(
     `,
   ];
 
-  private _value: string | undefined;
-
   @state()
   private _disabled = false;
 
-  @state() _displayValue = '';
-
+  private _value: string | undefined;
   /**
-   * Value of the option.
+   * Value of the swatch. Should be a valid css color.
    * @type { string }
    * @attr
    * @default ""
@@ -149,25 +146,6 @@ export class UUIColorSwatchElement extends SelectableMixin(
     const oldValue = this._value;
     this._value = newValue;
     this.requestUpdate('value', oldValue);
-  }
-
-  /**
-   * A readable value.
-   * @type { string }
-   * @attr
-   * @default ""
-   */
-  @property({ type: String, attribute: 'display-value' })
-  public get displayValue() {
-    return this._displayValue
-      ? this._displayValue
-      : this.textContent?.trim() || '';
-  }
-
-  public set displayValue(newValue) {
-    const oldValue = this._displayValue;
-    this._displayValue = newValue;
-    this.requestUpdate('displayValue', oldValue);
   }
 
   /**

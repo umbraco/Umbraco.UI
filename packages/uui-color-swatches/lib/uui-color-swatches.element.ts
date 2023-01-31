@@ -144,7 +144,7 @@ export class UUIColorSwatchesElement extends LitElement {
     this._activeElement = this._selectedElement;
 
     this.value = this._selectedElement.value || '';
-    this.displayValue = this._selectedElement.displayValue || '';
+    //this.displayValue = this._selectedElement.displayValue || '';
 
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
   };
