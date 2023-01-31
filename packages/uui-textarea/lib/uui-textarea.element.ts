@@ -11,6 +11,7 @@ import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
  * @fires KeyboardEvent#keyup on keyup
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
+ * @cssprop {color} --uui-textarea-background-color - Sets the background color of the textarea
  */
 @defineElement('uui-textarea')
 export class UUITextareaElement extends FormControlMixin(LitElement) {

@@ -16,11 +16,22 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props =>
-  html`<uui-textarea
-    style="--uui-textarea-min-height: ${props[
-      '--uui-textarea-min-height'
-    ]}; --uui-textarea-max-height: ${props['--uui-textarea-max-height']}"
+export const AAAOverview: Story = props => {
+  const minHeight = props['--uui-textarea-min-height'];
+  const maxHeight = props['--uui-textarea-max-height'];
+  const backgroundColor = props['--uui-textarea-background-color'];
+
+  const styles = `
+  ${minHeight ? `--uui-textarea-min-height: ${minHeight};` : ''}
+  ${maxHeight ? `--uui-textarea-max-height: ${maxHeight};` : ''}
+  ${
+    backgroundColor
+      ? `--uui-textarea-background-color: ${backgroundColor};`
+      : ''
+  }
+  `;
+  return html`<uui-textarea
+    style=${styles}
     .label=${props.label}
     ?auto-height=${props.autoHeight}
     .minlength=${props.minlength}
@@ -31,6 +42,7 @@ export const AAAOverview: Story = props =>
     .name=${props.name}
     .error=${props.error}
     .value=${props.value}></uui-textarea>`;
+};
 
 AAAOverview.storyName = 'Overview';
 
@@ -38,11 +50,13 @@ AAAOverview.args = {
   label: 'Label',
   '--uui-textarea-min-height': '',
   '--uui-textarea-max-height': '',
+  '--uui-textarea-background-color': '',
 };
 
 AAAOverview.argTypes = {
   '--uui-textarea-min-height': { control: { type: 'text' } },
   '--uui-textarea-max-height': { control: { type: 'text' } },
+  '--uui-textarea-background-color': { control: { type: 'color' } },
 };
 
 AAAOverview.parameters = {
