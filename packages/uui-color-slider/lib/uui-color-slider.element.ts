@@ -3,7 +3,11 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
+import {
+  drag,
+  clamp,
+  reverseNumberInRange,
+} from '@umbraco-ui/uui-base/lib/utils';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvents';
 
@@ -39,7 +43,7 @@ export class UUIColorSliderElement extends LitElement {
       }
 
       :host([vertical]) .color-slider__handle {
-        top: var(--current-value, 0%);
+        top: var(--current-value, 100%);
       }
 
       .color-slider {
@@ -122,8 +126,8 @@ export class UUIColorSliderElement extends LitElement {
   /** Disables the color slider. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  private container?: HTMLElement;
-  private handle?: HTMLElement;
+  private container!: HTMLElement;
+  private handle!: HTMLElement;
 
   firstUpdated() {
     this.container =
@@ -140,11 +144,14 @@ export class UUIColorSliderElement extends LitElement {
 
     this.handle.focus();
     event.preventDefault();
-
     drag(this.container, {
       onMove: (x, y) => {
         if (this.vertical) {
-          this.value = clamp((y / height) * this.max, this.min, this.max);
+          this.value = reverseNumberInRange(
+            clamp((y / height) * this.max, this.min, this.max),
+            this.min,
+            this.max
+          );
         } else {
           this.value = clamp((x / width) * this.max, this.min, this.max);
         }
@@ -175,19 +182,11 @@ export class UUIColorSliderElement extends LitElement {
       this.syncValues();
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      this.value = clamp(
-        this.vertical ? this.value - increment : this.value + increment,
-        this.min,
-        this.max
-      );
+      this.value = clamp(this.value + increment, this.min, this.max);
       this.syncValues();
     } else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      this.value = clamp(
-        this.vertical ? this.value + increment : this.value - increment,
-        this.min,
-        this.max
-      );
+      this.value = clamp(this.value - increment, this.min, this.max);
       this.syncValues();
     } else if (event.key === 'Home') {
       event.preventDefault();
@@ -215,30 +214,18 @@ export class UUIColorSliderElement extends LitElement {
   }
 
   getValueFromXCoordinate(coordinate: number) {
-    const container =
-      this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
-    const containerLeft = container.getBoundingClientRect().left;
-    const containerWidth = container.getBoundingClientRect().width;
-
+    const { left, width } = this.container.getBoundingClientRect();
     return clamp(
-      this.roundToPrecision(
-        ((coordinate - containerLeft) / containerWidth) * this.max
-      ),
+      this.roundToPrecision(((coordinate - left) / width) * this.max),
       this.min,
       this.max
     );
   }
 
   getValueFromYCoordinate(coordinate: number) {
-    const container =
-      this.shadowRoot!.querySelector<HTMLElement>('.color-slider')!;
-    const containerTop = container.getBoundingClientRect().top;
-    const containerHeight = container.getBoundingClientRect().height;
-
+    const { top, height } = this.container.getBoundingClientRect();
     return clamp(
-      this.roundToPrecision(
-        ((coordinate - containerTop) / containerHeight) * this.max
-      ),
+      this.roundToPrecision(((coordinate - top) / height) * this.max),
       this.min,
       this.max
     );
@@ -251,6 +238,17 @@ export class UUIColorSliderElement extends LitElement {
 
   syncValues() {
     this.dispatchEvent(new UUIColorSliderEvent(UUIColorSliderEvent.CHANGE));
+  }
+
+  get ccsPropCurrentValue() {
+    return this.value === 0
+      ? this.vertical
+        ? 100
+        : 0
+      : 100 /
+          (this.vertical
+            ? this.max / reverseNumberInRange(this.value, this.min, this.max)
+            : this.max / this.value);
   }
 
   render() {
@@ -274,9 +272,7 @@ export class UUIColorSliderElement extends LitElement {
         <slot name="detail"></slot>
         <span
           class="color-slider__handle"
-          style="--current-value: ${this.value === 0
-            ? 0
-            : 100 / (this.max / this.value)}%"
+          style="--current-value: ${this.ccsPropCurrentValue}%"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
       </div>
       ${Math.round(this.value)}`;
