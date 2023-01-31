@@ -354,11 +354,7 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleAlphaDrag(event: UUIColorSliderEvent) {
-    console.log('handleAlphaDrag', event);
-
     const element = event.target as UUIColorSliderElement;
-    console.log('handleAlphaDrag element', element);
-    console.log('alpha value', element.value);
 
     if (element.value !== null) {
       this.alpha = clamp(element.value, 0, 100);
@@ -382,10 +378,7 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleGridDrag(event: UUIColorAreaEvent) {
-    console.log('handleGridDrag change', event);
     const element = event.target as UUIColorAreaElement;
-    console.log('handleGridDrag element', element);
-    console.log('value', element.value);
 
     if (element.value) {
       // TODO: Better way to get color, while not changing current alpha.
@@ -687,14 +680,6 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   async syncValues() {
-    console.log(
-      'sync values',
-      `hue:${this.hue}`,
-      `saturation: ${this.saturation}`,
-      `lightness: ${this.lightness}`,
-      `alpha: ${this.alpha}`
-    );
-
     const currentColor = this.parseColor(
       `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${
         this.alpha / 100
@@ -704,8 +689,6 @@ export class UUIColorPickerElement extends LitElement {
     if (currentColor === null) {
       return;
     }
-
-    console.log('currentColor', currentColor);
 
     // Update the value
     if (this.format === 'hsl') {
