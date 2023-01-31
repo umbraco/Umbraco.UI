@@ -8,10 +8,13 @@ export const clamp = (value: number, min: number, max: number) => {
 /**
  * Reverses a number within a range
  *
- * @param {number} num
+ * @param {number} num - number to reverse
  * @param {number} min
  * @param {number} max
  * @return {*}  {number}
+ * @example
+ * // returns 8
+ * reverseNumberInRange (2, 0, 10)
  */
 export const reverseNumberInRange = (
   num: number,
