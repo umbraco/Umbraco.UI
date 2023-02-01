@@ -814,8 +814,13 @@ export class UUIColorPickerElement extends LitElement {
         </div>
         <uui-color-swatches
           class="color-picker__swatches"
-          .swatches=${this.swatches}
           @change=${this.handleColorSwatchChange}>
+          ${this.swatches.map(
+            swatch =>
+              html`<uui-color-swatch label="${swatch}"
+                >${swatch}</uui-color-swatch
+              >`
+          )}
         </uui-color-swatches>
       </div>
     `;

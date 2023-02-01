@@ -15,7 +15,7 @@ const swatches = [
   '#4a90e2',
   '#50e3c2',
   '#b8e986',
-  '#000',
+  '#000000',
   '#444',
   '#888',
   '#ccc',
@@ -54,21 +54,36 @@ export default {
   },
 };
 
-export const Overview: Story = () =>
-  html`<uui-color-swatches .swatches=${swatches}></uui-color-swatches>`;
-
 const Template: Story = props => html`
-  <uui-color-swatches .swatches=${props.swatches}> </uui-color-swatches>
+  <uui-color-swatches .value=${props.value ?? ''}>
+    ${props.swatches.map(
+      (swatch: string) =>
+        html`<uui-color-swatch label="${swatch}" .showLabel=${props.showLabel}
+          >${swatch}</uui-color-swatch
+        >`
+    )}
+  </uui-color-swatches>
 `;
+
+export const Overview: Story = Template.bind({});
+Overview.args = {
+  swatches,
+  showLabel: false,
+};
+
+export const WithLabels: Story = Template.bind({});
+WithLabels.args = {
+  swatches: swatches,
+  showLabel: true,
+};
+
+export const Preselected: Story = Template.bind({});
+Preselected.args = {
+  swatches: swatches,
+  value: '#7ed321',
+};
 
 export const Transparent = Template.bind({});
 Transparent.args = {
   swatches: swatchesTransparent,
-};
-Transparent.parameters = {
-  docs: {
-    source: {
-      code: `<uui-color-swatches .swatches=${swatchesTransparent}></uui-color-swatches>`,
-    },
-  },
 };
