@@ -9,17 +9,27 @@ export default {
   id: 'uui-color-swatch',
   title: 'Inputs/Color/Color Swatch',
   component: 'uui-color-swatch',
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-swatch></uui-color-swatch>`,
-      },
-    },
-  },
 };
 
 export const Overview: Story = () =>
-  html`<uui-color-swatch .value=${value}></uui-color-swatch>`;
+  html`<uui-color-swatch .value=${value} label=${value}></uui-color-swatch>`;
+
+export const InvalidValue: Story = () =>
+  html`<uui-color-swatch
+    .value=${'askjhsdiusyhdiudhg'}
+    label="Invalid color"
+    show-label></uui-color-swatch>`;
+
+export const Disabled: Story = () =>
+  html`<uui-color-swatch disabled label=${value}>${value}</uui-color-swatch>`;
+
+export const DisabledSelected: Story = () =>
+  html`<uui-color-swatch disabled selected label=${value}
+    >${value}</uui-color-swatch
+  >`;
+
+export const WithLabel: Story = () =>
+  html`<uui-color-swatch show-label label=${value}>${value}</uui-color-swatch>`;
 
 const Template: Story = props => html`
   <uui-color-swatch .value=${props.value}> </uui-color-swatch>

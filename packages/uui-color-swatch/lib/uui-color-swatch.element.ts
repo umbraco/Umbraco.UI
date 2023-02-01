@@ -1,44 +1,53 @@
 import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement } from 'lit';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  ActiveMixin,
+  LabelMixin,
+  SelectableMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
+ * Color swatch, can have label and be selectable. Depends on colord library and exposes it's utility functions under color propery.
+ *
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
  */
 @defineElement('uui-color-swatch')
 export class UUIColorSwatchElement extends SelectableMixin(
-  ActiveMixin(LitElement)
+  ActiveMixin(LabelMixin('label', LitElement))
 ) {
   static styles = [
     css`
       :host {
         position: relative;
-        display: flex;
-        width: var(--uui-swatch-size, 25px);
-        height: var(--uui-swatch-size, 25px);
-        justify-content: center;
-        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
         box-sizing: border-box;
         transition: box-shadow 100ms ease-out;
+        flex-direction: column;
       }
 
-      :host(*) * {
+      :host(*),
+      * {
         /* TODO: implement globally shared outline style */
         outline-color: var(--uui-color-focus);
         outline-offset: 4px;
       }
 
-      :host(:focus) {
+      :host(:focus-within:not([disabled])) {
+        outline: none;
+      }
+
+      :host(:focus-within:not([disabled])) .color-swatch {
         outline-color: var(--uui-color-focus);
         outline-width: var(--uui-swatch-border-width, 1px);
         outline-style: solid;
@@ -47,6 +56,10 @@ export class UUIColorSwatchElement extends SelectableMixin(
 
       :host([selectable]) {
         cursor: pointer;
+      }
+
+      :host([disabled]) {
+        cursor: not-allowed;
       }
 
       :host([selectable])::after {
@@ -77,8 +90,8 @@ export class UUIColorSwatchElement extends SelectableMixin(
 
       .color-swatch {
         position: relative;
-        width: 100%;
-        height: 100%;
+        width: var(--uui-swatch-size, 25px);
+        height: var(--uui-swatch-size, 25px);
         border-radius: 3px;
         display: flex;
         justify-content: center;
@@ -101,7 +114,6 @@ export class UUIColorSwatchElement extends SelectableMixin(
         height: 100%;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
-        cursor: pointer;
         box-sizing: border-box;
       }
 
@@ -124,15 +136,17 @@ export class UUIColorSwatchElement extends SelectableMixin(
       :host([selected]) .color-swatch__check {
         opacity: 1;
       }
+
+      slot[name='label']::slotted(*),
+      .label {
+        font-size: var(--uui-size-4);
+      }
     `,
   ];
 
-  @state()
-  private _disabled = false;
-
   private _value: string | undefined;
   /**
-   * Value of the swatch. Should be a valid css color.
+   * Value of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
    * @type { string }
    * @attr
    * @default ""
@@ -155,43 +169,79 @@ export class UUIColorSwatchElement extends SelectableMixin(
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public get disabled() {
-    return this._disabled;
+  disabled = false;
+
+  /**
+   * When true shows element label below the color checkbox
+   *
+   * @memberof UUIColorSwatchElement
+   */
+  @property({ type: Boolean, attribute: 'show-label' })
+  showLabel = false;
+  /**
+   * Colord object instance based on the value provided to the element. If the value is not a valid color, it falls back to black (like Amy Winehouse). For more information about Colord, see [Colord](https://omgovich.github.io/colord/)
+   *
+   * @type {(Colord | null)}
+   * @memberof UUIColorSwatchElement
+   */
+  get color(): Colord | null {
+    return this._color;
   }
 
-  public set disabled(newValue) {
-    const oldValue = this._disabled;
-    this._disabled = newValue;
-    this.selectable = !this._disabled;
-    this.requestUpdate('disabled', oldValue);
+  set color(_) {
+    // do nothing, this is just to prevent the color from being set from outside
+    return;
   }
+  private _color: Colord | null = null;
 
-  @property() label = '';
+  /**
+   * Returns true if the color brightness is >= 0.5
+   *
+   * @readonly
+   * @memberof UUIColorSwatchElement
+   */
+  get isLight() {
+    return this.color?.isLight() ?? false;
+  }
 
   constructor() {
     super();
     this.selectable = true;
-    this.unselectable = false;
   }
 
-  isLight(color: string) {
-    return new Colord(color).isLight();
+  willUpdate(changedProperties: Map<string, any>) {
+    if (changedProperties.has('value')) {
+      this._color = new Colord(this.value);
+      if (!this._color.isValid()) {
+        this.disabled = true;
+        console.error(
+          `Invalid color provided to uui-color-swatch: ${this.value}`
+        );
+      }
+    }
+
+    if (changedProperties.has('disabled')) {
+      this.selectable = !this.disabled;
+      this.unselectable = !this.disabled;
+    }
   }
 
   render() {
     return html` <div
-      class=${classMap({
-        'color-swatch': true,
-        'color-swatch--transparent-bg': true,
-        'color-swatch--light': this.isLight(this.value),
-      })}
-      role="button"
-      aria-label=${this.label}>
-      <div
-        class="color-swatch__color"
-        style=${styleMap({ backgroundColor: this.value })}></div>
-      <div class="color-swatch__check">${iconCheck}</div>
-    </div>`;
+        class=${classMap({
+          'color-swatch': true,
+          'color-swatch--transparent-bg': true,
+          'color-swatch--light': this.isLight,
+        })}
+        role="button"
+        aria-label="${this.label}"
+        aria-disabled="${this.disabled}">
+        <div
+          class="color-swatch__color"
+          style=${styleMap({ backgroundColor: this.value })}></div>
+        <div class="color-swatch__check">${iconCheck}</div>
+      </div>
+      ${this.showLabel ? this.renderLabel() : ''}`;
   }
 }
 
