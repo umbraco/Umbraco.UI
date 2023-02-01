@@ -30,13 +30,9 @@ export default {
   args: {
     inline: false,
     swatches: defaultSwatches,
+    format: 'hex',
   },
   parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-picker></uui-color-picker>`,
-      },
-    },
     actions: {
       handles: ['change'],
     },

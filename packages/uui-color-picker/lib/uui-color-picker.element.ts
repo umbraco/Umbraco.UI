@@ -218,7 +218,6 @@ export class UUIColorPickerElement extends LitElement {
   @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
   @query('.color-picker__swatches') _colorSwatchesContainer!: HTMLElement;
 
-  @state() private isEmpty = false;
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 100;
@@ -281,10 +280,6 @@ export class UUIColorPickerElement extends LitElement {
     '#fff',
   ];
 
-  constructor() {
-    super();
-  }
-
   connectedCallback(): void {
     super.connectedCallback();
 
@@ -293,8 +288,11 @@ export class UUIColorPickerElement extends LitElement {
       this.inputValue = this.value;
       this.syncValues();
     } else {
-      this.isEmpty = true;
-      this.inputValue = '';
+      this.setColor('#000');
+      this.inputValue = this.value;
+      this.syncValues();
+      // this.isEmpty = true;
+      // this.inputValue = '';
     }
   }
 
@@ -708,7 +706,6 @@ export class UUIColorPickerElement extends LitElement {
     }
 
     this.value = this.inputValue;
-    this.isEmpty = false;
     this.dispatchEvent(
       new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE)
     );
@@ -785,7 +782,7 @@ export class UUIColorPickerElement extends LitElement {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            .value=${live(this.isEmpty ? '' : this.inputValue)}
+            .value=${live(this.inputValue)}
             ?disabled=${this.disabled}
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}>
@@ -839,7 +836,6 @@ export class UUIColorPickerElement extends LitElement {
           'color-dropdown__trigger--small': this.size === 'small',
           'color-dropdown__trigger--medium': this.size === 'medium',
           'color-dropdown__trigger--large': this.size === 'large',
-          'color-dropdown__trigger--empty': this.isEmpty,
           'color-picker__transparent-bg': true,
         })}
         style=${styleMap({
