@@ -14,6 +14,12 @@ export default {
 export const Overview: Story = () =>
   html`<uui-color-swatch .value=${value} label=${value}></uui-color-swatch>`;
 
+export const Selectable: Story = () =>
+  html`<uui-color-swatch
+    selectable
+    .value=${value}
+    label=${value}></uui-color-swatch>`;
+
 export const InvalidValue: Story = () =>
   html`<uui-color-swatch
     .value=${'askjhsdiusyhdiudhg'}
@@ -21,18 +27,25 @@ export const InvalidValue: Story = () =>
     show-label></uui-color-swatch>`;
 
 export const Disabled: Story = () =>
-  html`<uui-color-swatch disabled label=${value}>${value}</uui-color-swatch>`;
+  html`<uui-color-swatch selectable disabled label=${value}
+    >${value}</uui-color-swatch
+  >`;
 
 export const DisabledSelected: Story = () =>
-  html`<uui-color-swatch disabled selected label=${value}
+  html`<uui-color-swatch selectable disabled selected label=${value}
     >${value}</uui-color-swatch
   >`;
 
 export const WithLabel: Story = () =>
-  html`<uui-color-swatch show-label label=${value}>${value}</uui-color-swatch>`;
+  html`<uui-color-swatch selectable show-label label=${value}
+    >${value}</uui-color-swatch
+  >`;
 
 const Template: Story = props => html`
-  <uui-color-swatch .value=${props.value}> </uui-color-swatch>
+  <uui-color-swatch
+    selectable
+    .value=${props.value}
+    label=${value}></uui-color-swatch>
 `;
 
 export const Transparent = Template.bind({});

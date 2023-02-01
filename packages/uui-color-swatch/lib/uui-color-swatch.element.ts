@@ -14,15 +14,16 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- * Color swatch, can have label and be selectable. Depends on colord library and exposes it's utility functions under color propery.
+ * Color swatch, can have label and be selectable. Depends on colord library and exposes it's utility functions under color property.
  *
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
  */
 @defineElement('uui-color-swatch')
-export class UUIColorSwatchElement extends SelectableMixin(
-  ActiveMixin(LabelMixin('label', LitElement))
+export class UUIColorSwatchElement extends LabelMixin(
+  'label',
+  SelectableMixin(ActiveMixin(LitElement))
 ) {
   static styles = [
     css`
@@ -47,7 +48,7 @@ export class UUIColorSwatchElement extends SelectableMixin(
         outline: none;
       }
 
-      :host(:focus-within:not([disabled])) .color-swatch {
+      :host(:focus:not([disabled])) .color-swatch {
         outline-color: var(--uui-color-focus);
         outline-width: var(--uui-swatch-border-width, 1px);
         outline-style: solid;
@@ -62,7 +63,7 @@ export class UUIColorSwatchElement extends SelectableMixin(
         cursor: not-allowed;
       }
 
-      :host([selectable])::after {
+      :host([selectable]) .color-swatch::after {
         content: '';
         position: absolute;
         pointer-events: none;
@@ -78,13 +79,13 @@ export class UUIColorSwatchElement extends SelectableMixin(
         transition: opacity 100ms ease-out;
         opacity: 0;
       }
-      :host([selectable]:hover)::after {
+      :host([selectable]:not([disabled]):hover) .color-swatch::after {
         opacity: 0.33;
       }
-      :host([selectable][selected]:hover)::after {
+      :host([selectable][selected]:not([disabled]):hover) .color-swatch::after {
         opacity: 0.66;
       }
-      :host([selectable][selected])::after {
+      :host([selectable][selected]:not([disabled])) .color-swatch::after {
         opacity: 1;
       }
 
@@ -120,8 +121,8 @@ export class UUIColorSwatchElement extends SelectableMixin(
       .color-swatch__check {
         position: absolute;
         vertical-align: middle;
-        width: 1em;
-        height: 1em;
+        width: calc(var(--uui-swatch-size, 25px) / 2);
+        height: calc(var(--uui-swatch-size, 25px) / 2);
         line-height: 0;
         transition: fill 120ms, opacity 120ms;
         fill: #fff;
@@ -144,7 +145,7 @@ export class UUIColorSwatchElement extends SelectableMixin(
     `,
   ];
 
-  private _value: string | undefined;
+  private _value: string | undefined = '';
   /**
    * Value of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
    * @type { string }
@@ -152,11 +153,11 @@ export class UUIColorSwatchElement extends SelectableMixin(
    * @default ""
    */
   @property({ type: String })
-  public get value(): string {
+  get value(): string {
     return this._value ? this._value : this.textContent?.trim() || '';
   }
 
-  public set value(newValue: string) {
+  set value(newValue: string) {
     const oldValue = this._value;
     this._value = newValue;
     this.requestUpdate('value', oldValue);
@@ -204,44 +205,50 @@ export class UUIColorSwatchElement extends SelectableMixin(
     return this.color?.isLight() ?? false;
   }
 
-  constructor() {
-    super();
-    this.selectable = true;
+  private _initializeColor() {
+    this._color = new Colord(this.value ?? '');
+    if (!this._color.isValid()) {
+      this.disabled = true;
+      console.error(
+        `Invalid color provided to uui-color-swatch: ${this.value}`
+      );
+    }
+  }
+
+  firstUpdated() {
+    this._initializeColor();
   }
 
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('value')) {
-      this._color = new Colord(this.value);
-      if (!this._color.isValid()) {
-        this.disabled = true;
-        console.error(
-          `Invalid color provided to uui-color-swatch: ${this.value}`
-        );
-      }
+      this._initializeColor();
     }
-
     if (changedProperties.has('disabled')) {
-      this.selectable = !this.disabled;
-      this.unselectable = !this.disabled;
+      if (this.selectable) {
+        this.selectable = !this.disabled;
+        this.unselectable = !this.disabled;
+      }
     }
   }
 
   render() {
-    return html` <div
+    return html`
+      <div
         class=${classMap({
           'color-swatch': true,
           'color-swatch--transparent-bg': true,
           'color-swatch--light': this.isLight,
         })}
         role="button"
-        aria-label="${this.label}"
+        aria-label=${this.label}
         aria-disabled="${this.disabled}">
         <div
           class="color-swatch__color"
           style=${styleMap({ backgroundColor: this.value })}></div>
         <div class="color-swatch__check">${iconCheck}</div>
       </div>
-      ${this.showLabel ? this.renderLabel() : ''}`;
+      ${this.showLabel ? this.renderLabel() : ''}
+    `;
   }
 }
 
