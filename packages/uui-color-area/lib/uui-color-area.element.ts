@@ -67,35 +67,34 @@ export class UUIColorAreaElement extends LitElement {
     `,
   ];
 
-  @state() private isEmpty = false;
   @state() private isDraggingGridHandle = false;
   @state() private hue = 0;
-  @state() private saturation = 100;
-  @state() private lightness = 100;
-  @state() private brightness = 100;
+  @state() private saturation = 0;
+  @state() private lightness = 0;
+  @state() private brightness = 0;
   @state() private alpha = 100;
 
-  private _value: string | null = null;
+  private _value: string = '#000';
 
   /** The current value. */
   @property({ type: String })
-  public get value(): string | null {
+  public get value(): string {
     return this._value;
   }
 
-  public set value(newVal: string | null) {
+  public set value(newVal: string) {
     const oldVal = this._value;
     this._value = newVal;
     this.requestUpdate('value', oldVal);
 
-    if (!newVal) {
-      this.hue = 0;
-      this.saturation = 100;
-      this.brightness = 100;
-      this.lightness = this.getLightness(this.brightness);
-      this.alpha = 100;
-      return;
-    }
+    // if (!newVal) {
+    //   this.hue = 0;
+    //   this.saturation = 100;
+    //   this.brightness = 100;
+    //   this.lightness = this.getLightness(this.brightness);
+    //   this.alpha = 100;
+    //   return;
+    // }
 
     try {
       // TODO: Can we move the parsing of a color string to shared utility function?
@@ -219,8 +218,6 @@ export class UUIColorAreaElement extends LitElement {
 
     this.value = color.toRgbString();
 
-    this.isEmpty = false;
-
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
@@ -240,7 +237,6 @@ export class UUIColorAreaElement extends LitElement {
           class=${classMap({
             'color-area__handle': true,
             'color-area__handle--dragging': this.isDraggingGridHandle,
-            'color-area__handle--empty': this.isEmpty,
           })}
           style=${styleMap({
             top: `${gridHandleY}%`,
