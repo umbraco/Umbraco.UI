@@ -23,3 +23,8 @@ export const reverseNumberInRange = (
 ): number => {
   return max + min - num;
 };
+
+export const toHex = (value: number) => {
+  const hex = Math.round(value).toString(16);
+  return hex.length === 1 ? `0${hex}` : hex;
+};

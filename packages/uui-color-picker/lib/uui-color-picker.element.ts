@@ -9,7 +9,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 
-import { clamp } from '@umbraco-ui/uui-base/lib/utils';
+import { clamp, toHex } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -850,11 +850,6 @@ export class UUIColorPickerElement extends LitElement {
         <div slot="popover">${colorPicker}</div>
       </uui-popover>`;
   }
-}
-
-function toHex(value: number) {
-  const hex = Math.round(value).toString(16);
-  return hex.length === 1 ? `0${hex}` : hex;
 }
 
 declare global {
