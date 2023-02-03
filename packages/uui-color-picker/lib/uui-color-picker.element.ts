@@ -220,9 +220,9 @@ export class UUIColorPickerElement extends LitElement {
 
   @state() private inputValue = '';
   @state() private hue = 0;
-  @state() private saturation = 100;
-  @state() private lightness = 100;
-  @state() private brightness = 100;
+  @state() private saturation = 0;
+  @state() private lightness = 0;
+  @state() private brightness = 0;
   @state() private alpha = 100;
 
   /** The current color. */
@@ -526,16 +526,14 @@ export class UUIColorPickerElement extends LitElement {
   }
 
   handleCopy() {
-    this._input.select();
-    document.execCommand('copy');
-    this._previewButton.focus();
-
-    // Show copied animation
-    this._previewButton.classList.add('color-picker__preview-color--copied');
-    this._previewButton.addEventListener('animationend', () => {
-      this._previewButton.classList.remove(
-        'color-picker__preview-color--copied'
-      );
+    navigator.clipboard.writeText(this._input.value as string).then(() => {
+      // Show copied animation
+      this._previewButton.classList.add('color-picker__preview-color--copied');
+      this._previewButton.addEventListener('animationend', () => {
+        this._previewButton.classList.remove(
+          'color-picker__preview-color--copied'
+        );
+      });
     });
   }
 
