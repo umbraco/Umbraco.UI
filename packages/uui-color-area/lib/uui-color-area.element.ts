@@ -68,11 +68,11 @@ export class UUIColorAreaElement extends LitElement {
   ];
 
   @state() private isDraggingGridHandle = false;
-  @state() private hue = 0;
-  @state() private saturation = 0;
-  @state() private lightness = 0;
-  @state() private brightness = 0;
-  @state() private alpha = 100;
+  @property({ type: Number }) hue = 0;
+  @property({ type: Number }) saturation = 0;
+  @property({ type: Number }) lightness = 0;
+  @property({ type: Number }) brightness = 0;
+  @property({ type: Number }) alpha = 100;
 
   private _value: string = '#000';
 
@@ -87,26 +87,17 @@ export class UUIColorAreaElement extends LitElement {
     this._value = newVal;
     this.requestUpdate('value', oldVal);
 
-    // if (!newVal) {
-    //   this.hue = 0;
-    //   this.saturation = 100;
-    //   this.brightness = 100;
-    //   this.lightness = this.getLightness(this.brightness);
-    //   this.alpha = 100;
-    //   return;
-    // }
-
     try {
       // TODO: Can we move the parsing of a color string to shared utility function?
       const parsed = colord(newVal);
 
       if (parsed) {
-        const hslColor = parsed.toHsl();
+        const { h, s, l } = parsed.toHsl();
 
-        this.hue = hslColor.h;
-        this.saturation = hslColor.s;
-        this.lightness = hslColor.l;
-        this.brightness = this.getBrightness(hslColor.l);
+        this.hue = h;
+        this.saturation = s;
+        this.lightness = l;
+        this.brightness = this.getBrightness(l);
       }
     } catch (e) {
       // TODO: Should we log this?
