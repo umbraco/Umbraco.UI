@@ -171,31 +171,6 @@ export class UUIColorPickerElement extends LitElement {
         margin-bottom: 1rem;
       }
 
-      uui-color-slider.hue-slider {
-        --slider-bg: linear-gradient(
-          to right,
-          rgb(255, 0, 0) 0%,
-          rgb(255, 255, 0) 17%,
-          rgb(0, 255, 0) 33%,
-          rgb(0, 255, 255) 50%,
-          rgb(0, 0, 255) 67%,
-          rgb(255, 0, 255) 83%,
-          rgb(255, 0, 0) 100%
-        );
-      }
-      uui-color-slider.opacity-slider {
-        --slider-bg: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
-
-        --slider-bg-size: 10px 10px;
-        --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
-      }
       .color-picker__toggle-format {
         min-width: 45px;
         --uui-button-font-size: 0.8rem;
@@ -353,7 +328,8 @@ export class UUIColorPickerElement extends LitElement {
     this._syncValues();
   }
 
-  handleAlphaDrag(event: UUIColorSliderEvent) {
+  handleAlphaChange(event: UUIColorSliderEvent) {
+    event.stopPropagation();
     this._swatches?.resetSelection();
 
     const element = event.target as UUIColorSliderElement;
@@ -365,11 +341,10 @@ export class UUIColorPickerElement extends LitElement {
       a: Math.round(element.value) / 100,
     };
     this.setColor(newColor);
-
-    event.stopPropagation();
   }
 
-  handleHueDrag(event: UUIColorSliderEvent) {
+  handleHueChange(event: UUIColorSliderEvent) {
+    event.stopPropagation();
     this._swatches?.resetSelection();
     const element = event.target as UUIColorSliderElement;
 
@@ -380,11 +355,10 @@ export class UUIColorPickerElement extends LitElement {
       a: this.alpha / 100,
     };
     this.setColor(newColor);
-
-    event.stopPropagation();
   }
 
   handleGridChange(event: UUIColorAreaEvent) {
+    event.stopPropagation();
     this._swatches?.resetSelection();
     const element = event.target as UUIColorAreaElement;
 
@@ -396,73 +370,6 @@ export class UUIColorPickerElement extends LitElement {
     };
 
     this.setColor(newColor);
-
-    event.stopPropagation();
-  }
-
-  handleAlphaKeyDown(event: KeyboardEvent) {
-    this._swatches?.resetSelection();
-
-    const increment = event.shiftKey ? 10 : 1;
-    const newColor = (a: number): HslaColor => ({
-      h: this.hue,
-      s: this.saturation,
-      l: this.lightness,
-      a,
-    });
-
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-      this.setColor(newColor(clamp(this.alpha - increment, 0, 100)));
-    }
-
-    if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      this.setColor(newColor(clamp(this.alpha + increment, 0, 100)));
-    }
-
-    if (event.key === 'Home') {
-      event.preventDefault();
-      this.setColor(newColor(0));
-    }
-
-    if (event.key === 'End') {
-      event.preventDefault();
-      this.setColor(newColor(100));
-    }
-  }
-
-  handleHueKeyDown(event: KeyboardEvent) {
-    this._swatches?.resetSelection();
-
-    const increment = event.shiftKey ? 10 : 1;
-
-    const newColor = (h: number): HslaColor => ({
-      h,
-      s: this.saturation,
-      l: this.lightness,
-      a: this.alpha / 100,
-    });
-
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-      this.setColor(newColor(clamp(this.hue - increment, 0, 360)));
-    }
-
-    if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      this.setColor(newColor(clamp(this.hue + increment, 0, 360)));
-    }
-
-    if (event.key === 'Home') {
-      event.preventDefault();
-      this.setColor(newColor(0));
-    }
-
-    if (event.key === 'End') {
-      event.preventDefault();
-      this.setColor(newColor(360));
-    }
   }
 
   handleInputChange(event: CustomEvent) {
@@ -599,30 +506,19 @@ export class UUIColorPickerElement extends LitElement {
           <div class="color-picker__sliders">
             <uui-color-slider
               label="hue"
-              min="0"
-              max="360"
               class="hue-slider"
               .value=${Math.round(this.hue)}
-              @change=${this.handleHueDrag}>
+              @change=${this.handleHueChange}>
             </uui-color-slider>
             ${this.opacity
               ? html`
                   <uui-color-slider
                     label="alpha"
-                    min="0"
-                    max="100"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
-                    @change=${this.handleAlphaDrag}>
-                    <div
-                      slot="detail"
-                      style=${styleMap({
-                        backgroundImage: `linear-gradient(
-                      to right,
-                      hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, 0%) 0%,
-                      hsl(${this.hue}deg, ${this.saturation}%, ${this.lightness}%) 100%
-                    )`,
-                      })}></div>
+                    type="opacity"
+                    .color=${this.value}
+                    @change=${this.handleAlphaChange}>
                   </uui-color-slider>
                 `
               : ''}
