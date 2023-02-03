@@ -58,6 +58,7 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
 
 /**
  *  @element uui-color-picker
+ * @cssprop --uui-color-picker-width - The width of the color picker
  *  @description
  */
 @defineElement('uui-color-picker')
@@ -65,18 +66,14 @@ export class UUIColorPickerElement extends LitElement {
   static styles = [
     css`
       :host {
-        --uui-color-picker-width: 280px;
-        --slider-height: 15px;
-        --slider-handle-size: 17px;
-        --swatch-size: 25px;
         --uui-look-outline-border: #ddd;
         --uui-look-outline-border-hover: #aaa;
         font-size: 0.8rem;
         display: block;
-        width: var(--uui-color-picker-width);
+        width: var(--uui-color-picker-width, 280px);
       }
       .color-picker {
-        width: var(--grid-width);
+        width: 100%;
         background-color: #fff;
         user-select: none;
         border: solid 1px #e4e4e7;
@@ -201,6 +198,10 @@ export class UUIColorPickerElement extends LitElement {
         font-size: 0.85rem;
         box-sizing: content-box;
         flex: 1;
+      }
+
+      uui-color-area {
+        width: 100%;
       }
     `,
   ];
