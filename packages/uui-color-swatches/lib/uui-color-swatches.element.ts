@@ -112,7 +112,11 @@ export class UUIColorSwatchesElement extends LitElement {
       );
     }
   };
-
+  /**
+   * Deselects all swatches.
+   *
+   * @memberof UUIColorSwatchesElement
+   */
   resetSelection() {
     this.swatches.forEach(swatch => {
       swatch.selected = false;
