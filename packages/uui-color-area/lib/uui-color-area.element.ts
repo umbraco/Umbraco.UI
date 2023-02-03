@@ -13,6 +13,7 @@ import { UUIColorAreaEvent } from './UUIColorAreaEvents';
 
 /**
  * @element uui-color-area
+ * @cssprop --uui-color-area-grid-handle-size - The size of the handle in the grid
  */
 @defineElement('uui-color-area')
 export class UUIColorAreaElement extends LitElement {
@@ -22,7 +23,6 @@ export class UUIColorAreaElement extends LitElement {
         display: inline-block;
         width: 280px;
         height: 200px;
-        --grid-handle-size: 16px;
       }
       :host([disabled]) {
         pointer-events: none;
@@ -39,21 +39,19 @@ export class UUIColorAreaElement extends LitElement {
             rgba(0, 0, 0, 1) 100%
           ),
           linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
-        border-top-left-radius: var(--sl-border-radius-medium);
-        border-top-right-radius: var(--sl-border-radius-medium);
         box-sizing: border-box;
         cursor: crosshair;
         forced-color-adjust: none;
       }
       .color-area__handle {
         position: absolute;
-        width: var(--grid-handle-size);
-        height: var(--grid-handle-size);
+        width: var(--uui-color-area-grid-handle-size, 16px);
+        height: var(--uui-color-area-grid-handle-size, 16px);
         border-radius: 50%;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
         border: solid 2px white;
-        margin-top: calc(var(--grid-handle-size) / -2);
-        margin-left: calc(var(--grid-handle-size) / -2);
+        margin-top: calc(var(--uui-color-area-grid-handle-size, 16px) / -2);
+        margin-left: calc(var(--uui-color-area-grid-handle-size, 16px) / -2);
         transition: 150ms transform;
         box-sizing: inherit;
       }
