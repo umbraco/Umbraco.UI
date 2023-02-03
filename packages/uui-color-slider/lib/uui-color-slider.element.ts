@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   drag,
@@ -9,6 +10,10 @@ import {
 } from '@umbraco-ui/uui-base/lib/utils';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvents';
+
+export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
+//TODO implement saturation and lightness types for color slider
+export type UUIColorSliderType = 'hue' | 'opacity';
 
 /**
  *  @element uui-color-slider
@@ -26,6 +31,46 @@ export class UUIColorSliderElement extends LitElement {
         --slider-bg-size: 100%;
         --slider-bg-position: top left;
         display: block;
+      }
+
+      :host([type='hue']) {
+        --slider-bg: linear-gradient(
+          to right,
+          rgb(255, 0, 0) 0%,
+          rgb(255, 255, 0) 17%,
+          rgb(0, 255, 0) 33%,
+          rgb(0, 255, 255) 50%,
+          rgb(0, 0, 255) 67%,
+          rgb(255, 0, 255) 83%,
+          rgb(255, 0, 0) 100%
+        );
+      }
+
+      :host([vertical][type='hue']) {
+        --slider-bg: linear-gradient(
+          to top,
+          rgb(255, 0, 0) 0%,
+          rgb(255, 255, 0) 17%,
+          rgb(0, 255, 0) 33%,
+          rgb(0, 255, 255) 50%,
+          rgb(0, 0, 255) 67%,
+          rgb(255, 0, 255) 83%,
+          rgb(255, 0, 0) 100%
+        );
+      }
+
+      :host([type='opacity']) {
+        --slider-bg: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+
+        --slider-bg-size: 10px 10px;
+        --slider-bg-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
 
       #color-slider {
@@ -76,8 +121,18 @@ export class UUIColorSliderElement extends LitElement {
         width: 100%;
         height: 100%;
       }
+
+      #current-hue {
+        border-radius: 3px;
+        position: absolute;
+        inset: 0 0 0 0;
+      }
     `,
   ];
+
+  @property({ reflect: true }) type: UUIColorSliderType = 'hue';
+
+  @property() color: string = '';
 
   /**
    * This is a minimum value of the slider.
@@ -116,6 +171,18 @@ export class UUIColorSliderElement extends LitElement {
 
   private container!: HTMLElement;
   private handle!: HTMLElement;
+
+  willUpdate(changedProperties: Map<string, any>) {
+    if (changedProperties.has('type')) {
+      if (this.type === 'hue') {
+        this.max = 360;
+        this.precision = 1;
+      } else if (this.type === 'opacity') {
+        this.max = 100;
+        this.precision = 1;
+      }
+    }
+  }
 
   firstUpdated() {
     this.container =
@@ -253,10 +320,22 @@ export class UUIColorSliderElement extends LitElement {
         @mousedown=${this.handleDrag}
         @touchstart=${this.handleDrag}
         @keydown=${this.handleKeyDown}>
-        <slot name="detail"></slot>
+        ${this.type === 'opacity'
+          ? html`<div
+              id="current-hue"
+              style=${styleMap({
+                backgroundImage: `linear-gradient(to ${
+                  this.vertical ? 'top' : 'right'
+                },
+            transparent 0%,
+            ${this.color} 100%
+            )`,
+              })}></div>`
+          : ''}
+        <!-- <slot name="detail"> </slot> -->
         <span
           id="color-slider__handle"
-          style="--current-value: ${this.ccsPropCurrentValue}%"
+          style="--current-value: ${this.ccsPropCurrentValue}%;"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
       </div>
       ${Math.round(this.value)}`;

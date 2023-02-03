@@ -16,6 +16,8 @@ export default {
     label: 'Color Slider',
     precision: 1,
     value: 0,
+    type: 'hue',
+    color: '',
   },
   parameters: {
     docs: {
@@ -34,7 +36,9 @@ const Template: Story<UUIColorSliderElement> = props => html`
     .precision=${props.precision}
     .label=${props.label}
     .disabled=${props.disabled}
-    .value=${props.value}>
+    .value=${props.value}
+    .type=${props.type}
+    .color=${props.color}>
   </uui-color-slider>
 `;
 
@@ -54,14 +58,20 @@ Disabled.parameters = {
   },
 };
 
+export const Opacity = Template.bind({});
+Opacity.args = {
+  type: 'opacity',
+  color: '#417505',
+};
+
 export const Vertical = Template.bind({});
 Vertical.args = {
   vertical: true,
 };
-Vertical.parameters = {
-  docs: {
-    source: {
-      code: `<uui-color-slider label="Slider label" vertical="true"></uui-color-slider>`,
-    },
-  },
+
+export const VerticalOpacity = Template.bind({});
+VerticalOpacity.args = {
+  type: 'opacity',
+  vertical: true,
+  color: '#417505',
 };
