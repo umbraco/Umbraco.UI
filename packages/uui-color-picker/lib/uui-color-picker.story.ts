@@ -69,6 +69,18 @@ Inline.parameters = {
   },
 };
 
+export const WithOpacity = Template.bind({});
+WithOpacity.args = {
+  opacity: true,
+};
+WithOpacity.parameters = {
+  docs: {
+    source: {
+      code: `<uui-color-picker opacity></uui-color-picker>`,
+    },
+  },
+};
+
 const formats = ['hex', 'rgb', 'hsl'];
 
 export const Formats: Story = () => html`

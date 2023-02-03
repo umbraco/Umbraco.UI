@@ -252,7 +252,7 @@ export class UUIColorPickerElement extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Whether to show the opacity slider. */
-  @property({ type: Boolean }) opacity = true; //false;
+  @property({ type: Boolean }) opacity = false;
 
   /** By default, the value will be set in lowercase. Set this to true to set it in uppercase instead. */
   @property({ type: Boolean }) uppercase = false;
