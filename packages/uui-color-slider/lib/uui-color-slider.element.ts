@@ -25,6 +25,7 @@ export type UUIColorSliderType = 'hue' | 'opacity';
  * @cssprop --uui-slider-background-image - The background image of the slider.
  * @cssprop --uui-slider-background-size - The background size of the slider.
  * @cssprop --uui-slider-background-position - The background position of the slider.
+ * @slot label - Slot for the label.
  */
 @defineElement('uui-color-slider')
 export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
