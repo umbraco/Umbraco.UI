@@ -556,7 +556,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             part="input"
             name=${this.name}
             autocomplete="off"
-            autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
             .value=${live(this.inputValue)}
