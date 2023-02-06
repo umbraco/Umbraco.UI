@@ -58,9 +58,11 @@ declare const EyeDropper: EyeDropperConstructor;
 type UUIColorPickerSize = 'small' | 'medium' | 'large';
 
 /**
- *  @element uui-color-picker
+ * @element uui-color-picker
  * @cssprop --uui-color-picker-width - The width of the color picker
- *  @description
+ * @description
+ * @fires {UUIColorPickerChangeEvent} change - Fired when the color changes
+ * @slot label - Slot for the label
  */
 @defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
