@@ -6,6 +6,7 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'release/*'
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
@@ -13,6 +14,7 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'release/*'
 
 jobs:
   build_and_deploy_job:
