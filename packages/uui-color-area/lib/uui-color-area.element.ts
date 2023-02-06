@@ -66,10 +66,65 @@ export class UUIColorAreaElement extends LitElement {
   ];
 
   @state() private isDraggingGridHandle = false;
+
+  /**
+   * The current hue.
+   * @attr
+   * @type number
+   * @default 0
+   * @min 0
+   * @max 360
+   * @step 1
+   * @unit °
+   */
   @property({ type: Number }) hue = 0;
+
+  /**
+   * The current saturation.
+   * @attr
+   * @type number
+   * @default 0
+   * @min 0
+   * @max 100
+   * @step 1
+   * @unit %
+   **/
   @property({ type: Number }) saturation = 0;
+
+  /**
+   * The current lightness.
+   * @attr
+   * @type number
+   * @default 0
+   * @min 0
+   * @max 100
+   * @step 1
+   * @unit %
+   **/
   @property({ type: Number }) lightness = 0;
+
+  /**
+   * The current brightness.
+   * @attr
+   * @type number
+   * @default 0
+   * @min 0
+   * @max 100
+   * @step 1
+   * @unit %
+   **/
   @property({ type: Number }) brightness = 0;
+
+  /**
+   * The current alpha.
+   * @attr
+   * @type number
+   * @default 100
+   * @min 0
+   * @max 100
+   * @step 1
+   * @unit %
+   */
   @property({ type: Number }) alpha = 100;
 
   private _value: string = '#000';
