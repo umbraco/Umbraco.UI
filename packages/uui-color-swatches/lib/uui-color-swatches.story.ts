@@ -55,7 +55,7 @@ export default {
 };
 
 const Template: Story = props => html`
-  <uui-color-swatches .value=${props.value ?? ''}>
+  <uui-color-swatches .value=${props.value ?? ''} label="my color pallette">
     ${props.swatches.map(
       (swatch: string) =>
         html`<uui-color-swatch label="${swatch}" .showLabel=${props.showLabel}

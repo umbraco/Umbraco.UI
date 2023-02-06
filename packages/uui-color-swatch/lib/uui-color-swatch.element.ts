@@ -205,6 +205,11 @@ export class UUIColorSwatchElement extends LabelMixin(
     return this.color?.isLight() ?? false;
   }
 
+  constructor() {
+    super();
+    this.addEventListener('click', this._setAriaAttributes);
+  }
+
   private _initializeColor() {
     this._color = new Colord(this.value ?? '');
     if (!this._color.isValid()) {
@@ -215,8 +220,14 @@ export class UUIColorSwatchElement extends LabelMixin(
     }
   }
 
+  private _setAriaAttributes() {
+    if (this.selectable)
+      this.setAttribute('aria-checked', this.selected.toString());
+  }
+
   firstUpdated() {
     this._initializeColor();
+    this._setAriaAttributes();
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -228,6 +239,12 @@ export class UUIColorSwatchElement extends LabelMixin(
         this.selectable = !this.disabled;
         this.unselectable = !this.disabled;
       }
+    }
+    if (
+      changedProperties.has('selectable') ||
+      changedProperties.has('selected')
+    ) {
+      this._setAriaAttributes();
     }
   }
 

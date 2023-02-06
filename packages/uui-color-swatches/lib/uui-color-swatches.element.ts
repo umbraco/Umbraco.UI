@@ -1,10 +1,11 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, PropertyValueMap } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib/uui-color-swatch.element';
 
 import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
+import { LabelMixin } from 'packages/uui-base/lib/mixins';
 
 //TODO maybe implement multiple selection
 
@@ -15,7 +16,7 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
  * @fires {UUIColorSwatchesEvent} change - Fires when a color swatch is selected.
  */
 @defineElement('uui-color-swatches')
-export class UUIColorSwatchesElement extends LitElement {
+export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   static styles = [
     css`
       :host {
@@ -62,15 +63,32 @@ export class UUIColorSwatchesElement extends LitElement {
     this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'radiogroup');
+    this.setAttribute('aria-label', this.label);
+  }
+
+  protected willUpdate(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    if (_changedProperties.has('label')) {
+      this.setAttribute('aria-label', this.label);
+    }
+  }
+
   private _handleSlotChange() {
     if (!this.swatches || this.swatches.length === 0) return;
     this.swatches.forEach(swatch => {
       //? does it make sense to have non selectable swatches in the swatches element?
       //for some reason the value it really wants the attribute to be set not the value. If value is set then it is not reflected properly. :cry:
       swatch.setAttribute('selectable', 'selectable');
+      swatch.setAttribute('aria-checked', 'false');
+      swatch.setAttribute('role', 'radio');
 
       if (this.value !== '' && swatch.color?.isEqual(this.value)) {
         swatch.selected = true;
+        swatch.setAttribute('aria-checked', 'true');
         this._selectedElement = swatch;
         this._activeElement = this._selectedElement;
       }
