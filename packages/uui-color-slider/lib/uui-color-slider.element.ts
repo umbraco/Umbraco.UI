@@ -10,6 +10,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/utils';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvents';
+import { LabelMixin } from 'packages/uui-base/lib/mixins';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
 //TODO implement saturation and lightness types for color slider
@@ -26,7 +27,7 @@ export type UUIColorSliderType = 'hue' | 'opacity';
  * @cssprop --uui-slider-background-position - The background position of the slider.
  */
 @defineElement('uui-color-slider')
-export class UUIColorSliderElement extends LitElement {
+export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   static styles = [
     css`
       :host {
@@ -160,14 +161,6 @@ export class UUIColorSliderElement extends LitElement {
 
   /** Draws the slider in a vertical orientation. */
   @property({ type: Boolean, reflect: true }) vertical = false;
-
-  /**
-   * Label to be used for aria-label and eventually as visual label
-   * @type {string}
-   * @attr
-   */
-  @property({ type: String })
-  public label!: string;
 
   @property() value = 0;
 
