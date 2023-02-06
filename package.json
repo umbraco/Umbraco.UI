@@ -109,7 +109,7 @@
     "react-markdown": "8.0.4",
     "react-syntax-highlighter": "15.5.0",
     "remark-gfm": "3.0.1",
-    "rimraf": "3.0.2",
+    "rimraf": "4.1.2",
     "rollup": "3.8.1",
     "rollup-plugin-esbuild": "5.0.0",
     "rollup-plugin-import-css": "3.1.0",
