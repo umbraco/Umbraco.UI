@@ -62,7 +62,6 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  * @cssprop --uui-color-picker-width - The width of the color picker
  * @description
  * @fires {UUIColorPickerChangeEvent} change - Fired when the color changes
- * @slot label - Slot for the label
  */
 @defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
@@ -220,36 +219,79 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @state() private alpha = 100;
   @state() private _colord: Colord = colord('hsl(0, 0%, 0%)');
 
-  /** The current color. */
+  /**
+   * The current color.
+   * @attr
+   * @type {string}
+   * @default ''
+   **/
   @property() value = '';
 
   /**
    * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, and HSLA
    * respectively. The color picker will always accept user input in any format (including CSS color names) and convert
    * it to the desired format.
+   * @attr
+   * @type {UUIColorPickerFormat}
+   * @default 'hex'
    */
   @property() format: UUIColorPickerFormat = 'hex';
 
-  /** The input's name attribute. */
+  /**
+   * The input's name attribute.
+   * @attr
+   * @type {string}
+   * @default ''
+   **/
   @property() name = '';
 
-  /** Determines the size of the color picker's trigger. This has no effect on inline color pickers. */
+  /**
+   * Determines the size of the color picker's trigger. This has no effect on inline color pickers.
+   * @attr
+   * @type {UUIColorPickerSize}
+   * @default 'medium'
+   **/
   @property() size: UUIColorPickerSize = 'medium';
 
-  /** Removes the format toggle. */
+  /**
+   * Removes the format toggle.
+   * @attr
+   * @type {boolean}
+   * @default false
+   **/
   @property({ attribute: 'no-format-toggle', type: Boolean }) noFormatToggle =
     false;
 
-  /** Renders the color picker inline rather than inside a dropdown. */
+  /**
+   * Renders the color picker inline rather than inside a dropdown.
+   * @attr
+   * @type {boolean}
+   * @default false
+   **/
   @property({ type: Boolean, reflect: true }) inline = false;
 
-  /** Disables the color picker. */
+  /**
+   * Disables the color picker.
+   * @attr
+   * @type {boolean}
+   * @default false
+   **/
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** Whether to show the opacity slider. */
+  /**
+   * Whether to show the opacity slider.
+   * @attr
+   * @type {boolean}
+   * @default false
+   **/
   @property({ type: Boolean }) opacity = false;
 
-  /** By default, the value will be set in lowercase. Set this to true to set it in uppercase instead. */
+  /**
+   * By default, the value will be set in lowercase. Set this to true to set it in uppercase instead.
+   * @attr
+   * @type {boolean}
+   * @default false
+   **/
   @property({ type: Boolean }) uppercase = false;
 
   /**
