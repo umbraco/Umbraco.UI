@@ -136,8 +136,20 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     `,
   ];
 
+  /**
+   * The type of the slider.
+   * @type {UUIColorSliderType}
+   * @attr
+   * @default 'hue'
+   */
   @property({ reflect: true }) type: UUIColorSliderType = 'hue';
 
+  /**
+   * The color value.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
   @property() color: string = '';
 
   /**
@@ -156,15 +168,35 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
    */
   @property({ type: Number }) max = 100;
 
-  /** The minimum increment value allowed by the slider. */
+  /**
+   * The minimum increment value allowed by the slider.
+   * @type {number}
+   * @attr
+   **/
   @property({ type: Number }) precision = 1;
 
-  /** Draws the slider in a vertical orientation. */
+  /**
+   * Draws the slider in a vertical orientation.
+   * @type {boolean}
+   * @attr
+   * @default false
+   **/
   @property({ type: Boolean, reflect: true }) vertical = false;
 
+  /**
+   * The current value of the slider.
+   * @type {number}
+   * @attr
+   * @default 0
+   */
   @property() value = 0;
 
-  /** Disables the color slider. */
+  /**
+   * Disables the color slider.
+   * @type {boolean}
+   * @attr
+   * @default false
+   **/
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   private container!: HTMLElement;
