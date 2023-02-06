@@ -9,7 +9,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 
-import { clamp } from '@umbraco-ui/uui-base/lib/utils';
+import { clamp, demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -34,6 +34,7 @@ import { UUIPopoverElement } from '@umbraco-ui/uui-popover/lib';
 
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
 import { UUIColorPickerChangeEvent } from './UUIColorPickerEvents';
+import { LabelMixin } from 'packages/uui-base/lib/mixins';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
@@ -62,7 +63,7 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  *  @description
  */
 @defineElement('uui-color-picker')
-export class UUIColorPickerElement extends LitElement {
+export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   static styles = [
     css`
       :host {
@@ -280,6 +281,17 @@ export class UUIColorPickerElement extends LitElement {
     } else {
       this.setColor('#000');
     }
+
+    demandCustomElement(this, 'uui-icon');
+    demandCustomElement(this, 'uui-icon-registry-essential');
+    demandCustomElement(this, 'uui-input');
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-button-group');
+    demandCustomElement(this, 'uui-popover');
+    demandCustomElement(this, 'uui-color-swatches');
+    demandCustomElement(this, 'uui-color-swatch');
+    demandCustomElement(this, 'uui-color-area');
+    demandCustomElement(this, 'uui-color-slider');
   }
 
   /** Returns the current value as a string in the specified format. */
@@ -595,7 +607,7 @@ export class UUIColorPickerElement extends LitElement {
     return html`<button
         type="button"
         slot="trigger"
-        aria-label="Open color picker"
+        aria-label="${this.label || 'Open Color picker'}"
         class=${classMap({
           'color-picker__trigger': true,
           'color-dropdown__trigger--disabled': this.disabled,
