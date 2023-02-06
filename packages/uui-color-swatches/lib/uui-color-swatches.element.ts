@@ -13,7 +13,8 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
  *  Put uui-stacked-color-swatch elements inside this element to create a color swatch selector.
  *  @element uui-color-swatches
  *  @slot - Default slot for content.
- * @fires {UUIColorSwatchesEvent} change - Fires when a color swatch is selected.
+ *  @slot label - Slot for label.
+ *  @fires {UUIColorSwatchesEvent} change - Fires when a color swatch is selected.
  */
 @defineElement('uui-color-swatches')
 export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
