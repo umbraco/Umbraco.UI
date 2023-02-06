@@ -1,11 +1,11 @@
-import { LitElement, html, css, PropertyValueMap } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, queryAssignedElements } from 'lit/decorators.js';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
-import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib/uui-color-swatch.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import type { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
-import { LabelMixin } from 'packages/uui-base/lib/mixins';
 
 //TODO maybe implement multiple selection
 
