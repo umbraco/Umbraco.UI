@@ -34,6 +34,7 @@ function mathClamp(value: number, min: number, max: number) {
  * @description Open a modal aligned with the opening element. This does not jet work within two layers of scroll containers.
  * @fires close - When popover is closed by user interaction.
  * @slot trigger - The element that triggers the popover.
+ * @slot popover - The content of the popover.
  */
 @defineElement('uui-popover')
 export class UUIPopoverElement extends LitElement {
