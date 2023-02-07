@@ -59,14 +59,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     if (newValue === null || newValue === '') {
       this._makeFirstEnabledFocusable();
     }
-    this._radioElements.forEach((el, index) => {
-      if (el.value === newValue) {
-        el.checked = true;
-        this._selected = index;
-      } else {
-        el.checked = false;
-      }
-    });
+    this._updateRadioElementsCheckedState(newValue);
   }
 
   private _selected: number | null = null;
@@ -75,6 +68,11 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     super();
     this.addEventListener('keydown', this._onKeydown);
     this.addEventListener('keypress', this._onKeypress);
+
+    // Wait for the radio elements to be added to the dom before updating the checked state.
+    this.updateComplete.then(() => {
+      this._updateRadioElementsCheckedState(this.value);
+    });
   }
 
   connectedCallback() {
@@ -110,6 +108,19 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   private _radioElements: UUIRadioElement[] = [];
   private _setNameOnRadios(name: string) {
     this._radioElements?.forEach(el => (el.name = name));
+  }
+
+  private _updateRadioElementsCheckedState(
+    newValue: FormData | FormDataEntryValue
+  ) {
+    this._radioElements.forEach((el, index) => {
+      if (el.value === newValue) {
+        el.checked = true;
+        this._selected = index;
+      } else {
+        el.checked = false;
+      }
+    });
   }
 
   private _setDisableOnRadios(value: boolean) {
