@@ -252,3 +252,25 @@ describe('UuiRadioGroup when one radio child radio is checked', () => {
     expect(formData.get(`${element.name}`)).to.be.equal('Value 2');
   });
 });
+
+describe('UuiRadioGroup with start value', () => {
+  let radioGroup: UUIRadioGroupElement;
+  let radios: Array<UUIRadioElement>;
+  beforeEach(async () => {
+    radioGroup = await fixture(
+      html` <uui-radio-group value="2">
+        <uui-radio value="1">one</uui-radio>
+        <uui-radio value="2">two</uui-radio>
+        <uui-radio value="3">three</uui-radio>
+        <uui-radio value="4">four</uui-radio>
+      </uui-radio-group>`
+    );
+    radios = Array.from(radioGroup.querySelectorAll('uui-radio'));
+  });
+  it('propagates the start value to the correct child radio', async () => {
+    expect(radios[0]).to.not.have.attribute('checked');
+    expect(radios[1]).to.have.attribute('checked');
+    expect(radios[2]).to.not.have.attribute('checked');
+    expect(radios[3]).to.not.have.attribute('checked');
+  });
+});
