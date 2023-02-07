@@ -181,3 +181,18 @@ export const DisabledGroup: Story = props => html`
 DisabledGroup.args = {
   disabled: true,
 };
+
+export const GroupWithStartValue: Story = props => html`
+  <uui-radio-group value=${props.value}>
+    <uui-radio value="1">one</uui-radio>
+    <uui-radio value="2">two</uui-radio>
+    <uui-radio value="3">three</uui-radio>
+    <uui-radio value="4">four</uui-radio>
+  </uui-radio-group>
+`;
+GroupWithStartValue.args = {
+  value: '3',
+};
+GroupWithStartValue.parameters = {
+  controls: { exclude: ['label', 'checked', 'disabled', 'name'] },
+};

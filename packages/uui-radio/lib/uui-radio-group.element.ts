@@ -59,14 +59,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     if (newValue === null || newValue === '') {
       this._makeFirstEnabledFocusable();
     }
-    this._radioElements.forEach((el, index) => {
-      if (el.value === newValue) {
-        el.checked = true;
-        this._selected = index;
-      } else {
-        el.checked = false;
-      }
-    });
+    this._updateRadioElementsCheckedState(newValue);
   }
 
   private _selected: number | null = null;
@@ -75,6 +68,16 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     super();
     this.addEventListener('keydown', this._onKeydown);
     this.addEventListener('keypress', this._onKeypress);
+
+    // Wait for the radio elements to be added to the dom before updating the checked state.
+    this.updateComplete.then(() => {
+      this._updateRadioElementsCheckedState(this.value);
+    });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
   }
 
   /**
@@ -102,14 +105,22 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
     return undefined;
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
-  }
-
-  private _radioElements!: UUIRadioElement[];
+  private _radioElements: UUIRadioElement[] = [];
   private _setNameOnRadios(name: string) {
     this._radioElements?.forEach(el => (el.name = name));
+  }
+
+  private _updateRadioElementsCheckedState(
+    newValue: FormData | FormDataEntryValue
+  ) {
+    this._radioElements.forEach((el, index) => {
+      if (el.value === newValue) {
+        el.checked = true;
+        this._selected = index;
+      } else {
+        el.checked = false;
+      }
+    });
   }
 
   private _setDisableOnRadios(value: boolean) {
@@ -134,52 +145,51 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
       .assignedElements({ flatten: true })
       .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[];
 
-    if (this._radioElements.length > 0) {
-      this._radioElements.forEach(el => {
-        el.addEventListener(
-          UUIRadioEvent.CHANGE,
-          // @ts-ignore TODO: fix typescript error
-          this._handleSelectOnClick as EventHandlerNonNull
-        );
-        el.addEventListener('blur', this._onChildBlur);
-      });
+    // Only continue if there are radio elements
+    if (this._radioElements.length === 0) return;
 
-      this._setNameOnRadios(this.name);
-      if (this.disabled) {
-        this._setDisableOnRadios(true);
-      }
-
-      const checkedRadios = this._radioElements.filter(
-        el => el.checked === true
+    this._radioElements.forEach(el => {
+      el.addEventListener(
+        UUIRadioEvent.CHANGE,
+        // @ts-ignore TODO: fix typescript error
+        this._handleSelectOnClick as EventHandlerNonNull
       );
+      el.addEventListener('blur', this._onChildBlur);
+    });
 
-      if (checkedRadios.length > 1) {
+    this._setNameOnRadios(this.name);
+    if (this.disabled) {
+      this._setDisableOnRadios(true);
+    }
+
+    const checkedRadios = this._radioElements.filter(el => el.checked === true);
+
+    if (checkedRadios.length > 1) {
+      this._radioElements.forEach(el => {
+        el.checked = false;
+      });
+      this.value = '';
+      console.error(
+        'There can only be one checked radio among the <' +
+          this.nodeName +
+          '> children',
+        this
+      );
+    }
+
+    if (checkedRadios.length === 1) {
+      this.value = checkedRadios[0].value;
+      this._selected = this._radioElements.indexOf(checkedRadios[0]);
+      if (checkedRadios[0].disabled === false) {
         this._radioElements.forEach(el => {
-          el.checked = false;
+          el.makeUnfocusable();
         });
-        this.value = '';
-        console.error(
-          'There can only be one checked radio among the <' +
-            this.nodeName +
-            '> children',
-          this
-        );
-      }
-
-      if (checkedRadios.length === 1) {
-        this.value = checkedRadios[0].value;
-        this._selected = this._radioElements.indexOf(checkedRadios[0]);
-        if (checkedRadios[0].disabled === false) {
-          this._radioElements.forEach(el => {
-            el.makeUnfocusable();
-          });
-          checkedRadios[0].makeFocusable();
-        } else {
-          this._makeFirstEnabledFocusable();
-        }
+        checkedRadios[0].makeFocusable();
       } else {
         this._makeFirstEnabledFocusable();
       }
+    } else {
+      this._makeFirstEnabledFocusable();
     }
   }
 
