@@ -275,10 +275,24 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   /**
+   * Removes focus from the input.
+   */
+  blur() {
+    this._input.blur();
+  }
+
+  /**
    * This method enables <label for="..."> to focus the input
    */
   focus() {
     this._input.focus();
+  }
+
+  /**
+   * Selects all the text in the input.
+   */
+  select() {
+    this._input.select();
   }
 
   protected getFormElement(): HTMLElement {
