@@ -4,7 +4,7 @@ import {
   iconAdd,
   iconAlert,
   iconAttachment,
-  iconBookOpen,
+  iconBookAlt,
   iconCalendar,
   iconCheck,
   iconClipboard,
@@ -43,7 +43,7 @@ export class UUIIconRegistryEssential extends UUIIconRegistry {
     this.defineIcon('add', iconAdd.strings[0]);
     this.defineIcon('alert', iconAlert.strings[0]);
     this.defineIcon('attachment', iconAttachment.strings[0]);
-    this.defineIcon('bookOpen', iconBookOpen.strings[0]);
+    this.defineIcon('book-alt', iconBookAlt.strings[0]);
     this.defineIcon('calendar', iconCalendar.strings[0]);
     this.defineIcon('check', iconCheck.strings[0]);
     this.defineIcon('clipboard', iconClipboard.strings[0]);
