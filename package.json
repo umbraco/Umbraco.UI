@@ -64,7 +64,7 @@
     "@lerna-lite/run": "1.15.0",
     "@open-wc/testing": "3.1.6",
     "@rollup/plugin-node-resolve": "15.0.1",
-    "@storybook/addon-a11y": "6.5.13",
+    "@storybook/addon-a11y": "6.5.16",
     "@storybook/addon-actions": "6.5.13",
     "@storybook/addon-essentials": "6.5.13",
     "@storybook/addon-links": "6.5.13",
