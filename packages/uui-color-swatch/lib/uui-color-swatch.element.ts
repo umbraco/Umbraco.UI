@@ -1,8 +1,8 @@
 import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 
 import { styleMap } from 'lit/directives/style-map.js';
@@ -49,14 +49,14 @@ export class UUIColorSwatchElement extends LabelMixin(
         outline: none;
       }
 
-      :host(:focus:not([disabled])) .color-swatch {
+      :host(:focus:not([disabled])) #swatch {
         outline-color: var(--uui-color-focus);
         outline-width: var(--uui-swatch-border-width, 1px);
         outline-style: solid;
         outline-offset: var(--uui-swatch-border-width, 1px);
       }
 
-      :host([selectable]) {
+      :host([selectable]) #swatch {
         cursor: pointer;
       }
 
@@ -64,7 +64,21 @@ export class UUIColorSwatchElement extends LabelMixin(
         cursor: not-allowed;
       }
 
-      :host([selectable]) .color-swatch::after {
+      #swatch {
+        outline: none;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        border-radius: 3px;
+      }
+
+      :host(:not([selectable])) #swatch:focus {
+        outline: none;
+      }
+
+      :host([selectable]) #swatch::after {
         content: '';
         position: absolute;
         pointer-events: none;
@@ -80,13 +94,13 @@ export class UUIColorSwatchElement extends LabelMixin(
         transition: opacity 100ms ease-out;
         opacity: 0;
       }
-      :host([selectable]:not([disabled]):hover) .color-swatch::after {
+      :host([selectable]:not([disabled]):hover) #swatch::after {
         opacity: 0.33;
       }
-      :host([selectable][selected]:not([disabled]):hover) .color-swatch::after {
+      :host([selectable][selected]:not([disabled]):hover) #swatch::after {
         opacity: 0.66;
       }
-      :host([selectable][selected]:not([disabled])) .color-swatch::after {
+      :host([selectable][selected]:not([disabled])) #swatch::after {
         opacity: 1;
       }
 
@@ -96,6 +110,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         height: var(--uui-swatch-size, 25px);
         border-radius: 3px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
       }
@@ -117,6 +132,10 @@ export class UUIColorSwatchElement extends LabelMixin(
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
         box-sizing: border-box;
+      }
+
+      .color-swatch--big .color-swatch__color {
+        border-radius: 3px 3px 0 0;
       }
 
       .color-swatch__check {
@@ -142,6 +161,33 @@ export class UUIColorSwatchElement extends LabelMixin(
       slot[name='label']::slotted(*),
       .label {
         font-size: var(--uui-size-4);
+      }
+
+      .color-swatch--big {
+        max-width: 120px;
+        width: 120px;
+        height: 50px;
+      }
+
+      .color-swatch__label {
+        width: 120px;
+        max-width: 120px;
+        box-sizing: border-box;
+        padding: var(--uui-size-space-1) var(--uui-size-space-2);
+        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border: 1px solid var(--uui-color-border);
+        border-radius: 0 0 3px 3px;
+        font-size: var(--uui-size-4, 12px);
+      }
+
+      .color-swatch__label strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-sizing: border-box;
       }
     `,
   ];
@@ -206,6 +252,16 @@ export class UUIColorSwatchElement extends LabelMixin(
     return this.color?.isLight() ?? false;
   }
 
+  @query('strong')
+  private _labelBox?: HTMLElement;
+
+  private _detectOverflow() {
+    if (!this._labelBox) return;
+    if (this._labelBox.scrollWidth > this.clientWidth) {
+      this.setAttribute('title', this.label);
+    }
+  }
+
   constructor() {
     super();
     this.addEventListener('click', this._setAriaAttributes);
@@ -229,6 +285,7 @@ export class UUIColorSwatchElement extends LabelMixin(
   firstUpdated() {
     this._initializeColor();
     this._setAriaAttributes();
+    this._detectOverflow();
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -251,22 +308,33 @@ export class UUIColorSwatchElement extends LabelMixin(
 
   render() {
     return html`
-      <div
-        class=${classMap({
-          'color-swatch': true,
-          'color-swatch--transparent-bg': true,
-          'color-swatch--light': this.isLight,
-        })}
-        role="button"
+      <button
+        id="swatch"
         aria-label=${this.label}
         aria-disabled="${this.disabled}">
         <div
-          class="color-swatch__color"
-          style=${styleMap({ backgroundColor: this.value })}></div>
-        <div class="color-swatch__check">${iconCheck}</div>
-      </div>
-      ${this.showLabel ? this.renderLabel() : ''}
+          class=${classMap({
+            'color-swatch': true,
+            'color-swatch--transparent-bg': true,
+            'color-swatch--light': this.isLight,
+            'color-swatch--big': this.showLabel,
+          })}>
+          <div
+            class="color-swatch__color"
+            style=${styleMap({ backgroundColor: this.value })}></div>
+          <div class="color-swatch__check">${iconCheck}</div>
+        </div>
+        ${this._renderWithLabel()}
+      </button>
     `;
+  }
+
+  private _renderWithLabel() {
+    if (!this.showLabel) return nothing;
+    return html`<div class="color-swatch__label">
+      <strong>${this.renderLabel()}</strong>
+      ${this.value}
+    </div>`;
   }
 }
 

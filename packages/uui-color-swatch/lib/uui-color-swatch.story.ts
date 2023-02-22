@@ -23,6 +23,11 @@ export const Selectable: Story = () =>
 export const InvalidValue: Story = () =>
   html`<uui-color-swatch
     .value=${'askjhsdiusyhdiudhg'}
+    label="Invalid color"></uui-color-swatch>`;
+
+export const InvalidValue2: Story = () =>
+  html`<uui-color-swatch
+    .value=${'askjhsdiusyhdiudhg'}
     label="Invalid color"
     show-label></uui-color-swatch>`;
 
@@ -37,7 +42,10 @@ export const DisabledSelected: Story = () =>
   >`;
 
 export const WithLabel: Story = () =>
-  html`<uui-color-swatch selectable show-label label=${value}
+  html`<uui-color-swatch
+    selectable
+    show-label
+    label=${"This is the most beautiful color I've ever seen"}
     >${value}</uui-color-swatch
   >`;
 

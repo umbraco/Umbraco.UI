@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, nothing } from 'lit';
 import { Colord, colord, extend, HslaColor } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 
@@ -180,6 +180,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
       uui-color-swatches {
         border-top: solid 1px #d4d4d8;
+        padding: 0.75rem;
       }
 
       button[slot='trigger'] {
@@ -631,19 +632,24 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               : ''}
           </uui-button-group>
         </div>
-        <uui-color-swatches
-          id="swatches"
-          class="color-picker__swatches"
-          @change=${this.handleColorSwatchChange}>
-          ${this.swatches.map(
-            swatch =>
-              html`<uui-color-swatch
-                label="${swatch}"
-                .value=${swatch}></uui-color-swatch>`
-          )}
-        </uui-color-swatches>
+        ${this._renderSwatches()}
       </div>
     `;
+  }
+
+  private _renderSwatches() {
+    if (!this.swatches) return nothing;
+    return html`<uui-color-swatches
+      id="swatches"
+      class="color-picker__swatches"
+      @change=${this.handleColorSwatchChange}>
+      ${this.swatches.map(
+        swatch =>
+          html`<uui-color-swatch
+            label="${swatch}"
+            .value=${swatch}></uui-color-swatch>`
+      )}
+    </uui-color-swatches>`;
   }
 
   private _renderPreviewButton() {
