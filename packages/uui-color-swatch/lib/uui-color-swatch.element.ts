@@ -1,6 +1,6 @@
 import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property, query } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
@@ -164,13 +164,11 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       .color-swatch--big {
-        max-width: 120px;
         width: 120px;
         height: 50px;
       }
 
       .color-swatch__label {
-        width: 120px;
         max-width: 120px;
         box-sizing: border-box;
         padding: var(--uui-size-space-1) var(--uui-size-space-2);
@@ -252,16 +250,6 @@ export class UUIColorSwatchElement extends LabelMixin(
     return this.color?.isLight() ?? false;
   }
 
-  @query('strong')
-  private _labelBox?: HTMLElement;
-
-  private _detectOverflow() {
-    if (!this._labelBox) return;
-    if (this._labelBox.scrollWidth > this.clientWidth) {
-      this.setAttribute('title', this.label);
-    }
-  }
-
   constructor() {
     super();
     this.addEventListener('click', this._setAriaAttributes);
@@ -285,7 +273,6 @@ export class UUIColorSwatchElement extends LabelMixin(
   firstUpdated() {
     this._initializeColor();
     this._setAriaAttributes();
-    this._detectOverflow();
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -311,7 +298,8 @@ export class UUIColorSwatchElement extends LabelMixin(
       <button
         id="swatch"
         aria-label=${this.label}
-        aria-disabled="${this.disabled}">
+        aria-disabled="${this.disabled}"
+        title="${this.label}">
         <div
           class=${classMap({
             'color-swatch': true,
