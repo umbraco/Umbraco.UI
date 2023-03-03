@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 export default {
   id: 'uui-range-slider',
@@ -11,7 +12,7 @@ export default {
     step: 10,
     minGap: 10,
     maxGap: 0,
-    valueLow: 20,
+    valueLow: 0,
     valueHigh: 70,
     disabled: false,
     hideStepValues: false,
@@ -30,13 +31,13 @@ const Template: Story = props =>
   html`
     <uui-form-validation-message>
       <uui-range-slider
-        step=${props.step}
-        min-gap=${props.minGap}
-        max-gap=${props.maxGap}
-        min=${props.min}
-        max=${props.max}
-        value-low=${props.valueLow}
-        value-high=${props.valueHigh}
+        step=${ifDefined(props.step)}
+        min-gap=${ifDefined(props.minGap)}
+        max-gap=${ifDefined(props.maxGap)}
+        min=${ifDefined(props.min)}
+        max=${ifDefined(props.max)}
+        value-low=${ifDefined(props.valueLow)}
+        value-high=${ifDefined(props.valueHigh)}
         ?disabled=${props.disabled}
         ?hide-step-values="${props.hideStepValues}"
         label="${props.label}"></uui-range-slider>
