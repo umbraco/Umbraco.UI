@@ -71,10 +71,10 @@
       "path": "../uui-color-slider"
     },
     {
-      "path": "../uui-color-swatches"
+      "path": "../uui-color-swatch"
     },
     {
-      "path": "../uui-color-swatch"
+      "path": "../uui-color-swatches"
     },
     {
       "path": "../uui-combobox"
