@@ -62,6 +62,9 @@ describe('UUIComboboxElement', () => {
     it('has a value property', () => {
       expect(element).to.have.property('value');
     });
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
+    });
   });
 
   describe('template', () => {
