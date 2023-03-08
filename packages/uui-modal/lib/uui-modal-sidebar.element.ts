@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { css, html, PropertyValueMap } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { UUIModalElement } from './uui-modal.element';
 
@@ -14,7 +14,21 @@ export class UUIModalSidebarElement extends UUIModalElement {
   ): void {
     super.firstUpdated(_changedProperties);
 
-    this.style.setProperty('--offset', -this.#getWidth + 'px');
+    this.style.setProperty('--uui-modal-offset', -this.#getWidth + 'px');
+  }
+
+  protected updated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    super.updated(_changedProperties);
+
+    // if we've reached over X layers of sidebars, hide for better performance.
+    // TODO: We could instead hide the sidebars when out of the viewport, but this is a good start.
+    if (this.uniqueIndex > 10) {
+      this.setAttribute('hide', '');
+    } else {
+      this.removeAttribute('hide');
+    }
   }
 
   get #getWidth() {
@@ -23,14 +37,12 @@ export class UUIModalSidebarElement extends UUIModalElement {
 
   #onClose(event: Event) {
     event.preventDefault();
-
-    this.style.setProperty('--offset', -this.#getWidth + 'px');
-    this.setAttribute('closing', '');
+    this.closing = true;
+    this.style.setProperty('--uui-modal-offset', -this.#getWidth + 'px');
 
     setTimeout(() => {
-      this._dialogElement?.close();
-      this.remove();
-    }, 250);
+      this.closeModal();
+    }, this.transitionDuration);
   }
 
   render() {
@@ -42,27 +54,38 @@ export class UUIModalSidebarElement extends UUIModalElement {
   static styles = [
     ...UUIModalElement.styles,
     css`
+      :host {
+        --uui-modal-sidebar-left-gap: 32px;
+      }
+      @media (min-width: 600px) {
+        :host {
+          --uui-modal-sidebar-left-gap: 64px;
+        }
+      }
       dialog {
         height: 100%;
         width: 100%;
         box-sizing: border-box;
-        max-width: calc(100% - 64px);
+        max-width: calc(100% - var(--uui-modal-sidebar-left-gap));
         border-left: 1px solid;
         margin-left: auto;
-        right: var(--offset);
-        transition: right 250ms;
+        right: var(--uui-modal-offset);
+        transition: right var(--uui-modal-transition-duration, 250ms);
       }
-      :host([front]) dialog {
+      :host([unique-index='0']) dialog {
         box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.5);
       }
+      :host([hide]) dialog {
+        display: none;
+      }
       :host([size='large']) dialog {
-        max-width: min(1200px, 100%);
+        max-width: min(1200px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
       :host([size='medium']) dialog {
-        max-width: min(800px, 100%);
+        max-width: min(800px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
       :host([size='small']) dialog {
-        max-width: min(400px, 100%);
+        max-width: min(400px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
     `,
   ];

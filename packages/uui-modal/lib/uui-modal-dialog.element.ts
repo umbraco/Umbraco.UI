@@ -16,11 +16,11 @@ export class UUIModalDialogElement extends UUIModalElement {
     ...UUIModalElement.styles,
     css`
       dialog {
+        margin: auto;
         max-width: 100%;
         max-height: 100%;
         border-radius: 12px;
         box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.5);
-        margin: auto;
       }
     `,
   ];
