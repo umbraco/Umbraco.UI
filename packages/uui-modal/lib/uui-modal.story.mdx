@@ -2,6 +2,15 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs';
 
 <Meta title="Layout/Modals/Documentation" />
 
+export const Template = args => html`
+  <uui-modal-container>
+    <uui-modal-dialog>
+      <h1>My Modal</h1>
+      <p>My modal content</p>
+    </uui-modal-dialog>
+  </uui-modal-container>
+`;
+
 # Modals
 
 The modal system will handle the rendering of modals. It will also handle the stacking of multiple modals. It uses the native browser `dialog` element, which includes focus trapping and showing a backdrop.
@@ -9,6 +18,19 @@ The modal system will handle the rendering of modals. It will also handle the st
 ## Usage
 
 To use the modal system, simply add the `uui-modal-container` element to your page. This element will then handle the rendering of modals (extensions of `UUIModalElement`) that are appended as children. It is recommended to add this element to the root of your application.
+
+There are two built in modals; `uui-modal-dialog` and `uui-modal-sidebar`. They work as wrappers for your content and should cover most usecases. However you can also extend the `UUIModalElement` to create your own custom modal.
+
+Heres a simple example of how to use the modal system:
+
+```html
+<uui-modal-container>
+  <uui-modal-dialog>
+    <h1>My Modal</h1>
+    <p>My modal content</p>
+  </uui-modal-dialog>
+</uui-modal-container>
+```
 
 ## UUIModalElement
 
