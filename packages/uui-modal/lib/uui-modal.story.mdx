@@ -10,19 +10,35 @@ The modal system will handle the rendering of modals. It will also handle the st
 
 To use the modal system, simply add the `uui-modal-container` element to your page. This element will then handle the rendering of modals (extensions of `UUIModalElement`) that are appended as children. It is recommended to add this element to the root of your application.
 
-### UUIModalElement
+## UUIModalElement
 
-This is the base modal component. It is not meant to be used directly, but rather as a base for other modals. It has the following properties that can be used for styling and other purposes:
+This is the base modal component. It is not meant to be used directly, but rather as a base for other modals. It has the following properties, functions, events and CSS-variables that can be used for styling and other purposes:
+
+### Functions
+
+---
 
 #### `open`
 
+opens the modal. This will happen automaticly on first render, but can be interupted and called manually if you want to open the modal at a later time. (see open event for more info)
+
+#### `close`
+
+closes the modal
+
+### Properties
+
+---
+
+#### `isOpen`
+
 Whether or not the modal is open.
 
-#### `closing`
+#### `isClosing`
 
 True when the modal is in the process of closing
 
-#### `transitionDurationMS`
+#### `transitionDuration`
 
 The duration of the transition in milliseconds. This will be provided by the `uui-modal-container`, but can be overridden if you desire.
 
@@ -36,22 +52,35 @@ This is used to fade out all modals except the one in front. But can be used for
 
 The index of the modal in comparison to only modals of the same type from front to back. This will be provided by the `uui-modal-container`
 
-This is useful for modals that are stackable, such as the sidebar. If you have two sidebars open, the first one will have a `unique-index` of 0, and the second one will have a `unique-index` of 1. This enables you to style the first sidebar differently than the second, regardless of how many other modals that are in between them.
+This is useful for modals that are stackable, such as the sidebar. If you have two sidebars open, the first one will have a `unique-index` of 0,
+and the second one will have a `unique-index` of 1. This enables you to style the first sidebar differently than the second,
+regardless of how many other modals that are in between them.
+Example from the sidebar:
 
-#### Events
+```css
+:host([unique-index='0']) dialog {
+  box-shadow: var(--uui-shadow-depth-5);
+}
+```
+
+### Events
+
+---
 
 All events from the modal base can be cancelled, thus preventing them from executing code, which enables you to customize the behavior.
 
 #### `open`
 
-Dispatched on first render. This will set open to true and show the modal. Can be cancelled if you want to prevent the modal from opening. But then you'll have to manually call `openModal()` when you want to open the modal.
+Dispatched on first render. This will set open to true and show the modal. Can be cancelled if you want to prevent the modal from opening. But then you'll have to manually call `_openModal()` when you want to open the modal.
 
 #### `close`
 
-Dispatched when the modal is closed. Can be cancelled if you want to prevent the modal from closing. But then you'll have to manually call `closeModal()` when you want to close the modal.
+Dispatched when the modal is closed. Can be cancelled if you want to prevent the modal from closing. But then you'll have to manually call `_closeModal()` when you want to close the modal.
 This is used in the `uui-modal-sidebar` to wait for the animation to finish before removing the modal from the DOM.
 
-#### CSS Variables
+### CSS Variables
+
+---
 
 #### `--uui-modal-color-backdrop`
 
@@ -59,14 +88,13 @@ The color of the backdrop behind the modal. Defaults to `rgba(0, 0, 0, 0.5)`. Th
 
 #### `--uui-modal-transition-duration`
 
-The duration of transitions. Defaults to `300ms`. This will be provided by the `uui-modal-container`, but can be overridden if you desire.
+The duration of transitions. Defaults to `250ms`. This will be provided by the `uui-modal-container`, but can be overridden if you desire.
 
 ## Pre-made modals
 
 #### UUIModalDialogElement (uui-modal-dialog)
 
-The dialog renders a simple styled modal container for your content. It is not a full dialog component, but rather a container for your dialog content. It is meant to be used in conjunction with a layout component like `uui-dialog-layout` or your own custom layout.
-It uses the open and close attributes to fade in/out the content of the modal.
+The dialog renders a simple styled modal container for your content. It is not a full dialog component, but rather a container for your dialog content.
 
 #### UUIModalSidebarElement (uui-modal-sidebar)
 
@@ -75,3 +103,18 @@ The sidebar renders a stackable sidebar container for your content. It will plac
 ## Making a custom modal
 
 All you need to make a custom modal is to extend the `UUIModalElement` and add a dialog element as a child. From here you can use all the properties and events from the base modal, and you can add your own custom styling. The dialog and sidebar modals are good examples of how to do this.
+Here's an example int Lit. Note that we also need to import the styles from the base modal, and add them to the static styles array.
+
+```ts
+export class MyModalElement extends UUIModalElement {
+  render() {
+    return html`
+      <dialog>
+        <slot></slot>
+      </dialog>
+    `;
+  }
+
+  static styles = [...UUIModalElement.styles, css``];
+}
+```

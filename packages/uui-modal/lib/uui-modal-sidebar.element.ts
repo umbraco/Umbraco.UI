@@ -72,7 +72,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
         transition: right var(--uui-modal-transition-duration, 250ms);
       }
       :host([unique-index='0']) dialog {
-        box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: var(--uui-shadow-depth-5);
       }
       :host(:not([unique-index='0'])) dialog {
         outline: 1px solid rgba(0, 0, 0, 0.1);
