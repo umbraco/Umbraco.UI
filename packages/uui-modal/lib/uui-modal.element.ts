@@ -6,11 +6,11 @@ export class UUIModalElement extends LitElement {
   @query('dialog')
   protected _dialogElement?: HTMLDialogElement;
 
-  @property({ type: Boolean, reflect: true })
-  open = false;
+  @property({ type: Boolean, reflect: true, attribute: 'is-open' })
+  isOpen = false;
 
-  @property({ type: Boolean, reflect: true })
-  closing = false;
+  @property({ type: Boolean, reflect: true, attribute: 'is-closing' })
+  isClosing = false;
 
   @property({ type: Number, reflect: true })
   index = 0;
@@ -37,23 +37,13 @@ export class UUIModalElement extends LitElement {
   ): void {
     super.firstUpdated(_changedProperties);
 
-    this.#onOpen();
+    this.open();
   }
 
-  openModal() {
-    this.open = true;
-    this._dialogElement?.showModal();
-    this._dialogElement?.addEventListener('cancel', this.#onClose);
-  }
+  public open = (event?: Event) => {
+    event?.preventDefault();
+    event?.stopImmediatePropagation();
 
-  closeModal() {
-    this.closing = true;
-    this.open = false;
-    this._dialogElement?.close();
-    this.remove();
-  }
-
-  #onOpen = () => {
     const openEvent = new CustomEvent('open', {
       bubbles: true,
       cancelable: true,
@@ -62,11 +52,12 @@ export class UUIModalElement extends LitElement {
     this.dispatchEvent(openEvent);
     if (openEvent.defaultPrevented) return;
 
-    this.openModal();
+    this._openModal();
   };
 
-  #onClose = (event: Event) => {
-    event.preventDefault();
+  public close = (event?: Event) => {
+    event?.preventDefault();
+    event?.stopImmediatePropagation();
 
     const closeEvent = new CustomEvent('close', {
       bubbles: true,
@@ -76,8 +67,21 @@ export class UUIModalElement extends LitElement {
 
     if (closeEvent.defaultPrevented) return;
 
-    this.closeModal();
+    this._closeModal();
   };
+
+  protected _openModal() {
+    this.isOpen = true;
+    this._dialogElement?.showModal();
+    this._dialogElement?.addEventListener('cancel', this.close);
+  }
+
+  protected _closeModal() {
+    this.isClosing = true;
+    this.isOpen = false;
+    this._dialogElement?.close();
+    this.remove();
+  }
 
   static styles = [
     css`

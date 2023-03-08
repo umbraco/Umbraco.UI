@@ -10,6 +10,12 @@ export class ModalExampleElement extends LitElement {
   @state()
   private _modals: TemplateResult<1>[] = [];
 
+  #onClose(event: Event) {
+    console.log('closing', event.target);
+
+    event.target?.dispatchEvent(new CustomEvent('close'));
+  }
+
   #addDialog() {
     this._modals.push(html`
       <uui-modal-dialog>
@@ -17,7 +23,9 @@ export class ModalExampleElement extends LitElement {
           <p>Dialog content goes here</p>
           ${this.#renderButtons()}
           <uui-button slot="actions">cancel</uui-button>
-          <uui-button slot="actions" look="primary">save</uui-button>
+          <uui-button @click=${this.#onClose} slot="actions" look="primary">
+            Save
+          </uui-button>
         </uui-dialog-layout>
       </uui-modal-dialog>
     `);
@@ -28,8 +36,11 @@ export class ModalExampleElement extends LitElement {
   #addSidebar(size: string) {
     this._modals.push(html`
       <uui-modal-sidebar size=${size}>
-        <p>Dialog content goes here</p>
-        ${this.#renderButtons()}
+        <div style="padding: 32px">
+          <h2>Sidebar</h2>
+          <p>Sidebar content goes here</p>
+          ${this.#renderButtons()}
+        </div>
       </uui-modal-sidebar>
     `);
 

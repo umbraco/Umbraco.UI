@@ -63,7 +63,7 @@ export class UUIModalContainerElement extends LitElement {
     this.setAttribute('backdrop', '');
 
     const reverse =
-      this._modals?.filter(modal => !modal.closing).reverse() ?? [];
+      this._modals?.filter(modal => !modal.isClosing).reverse() ?? [];
 
     //set index to all modals, the one in front is 0
     reverse?.forEach((modal, index) => {
@@ -85,7 +85,7 @@ export class UUIModalContainerElement extends LitElement {
     requestAnimationFrame(() => {
       let sidebarOffset = 0;
       const reversed =
-        this._sidebars?.filter(modal => !modal.closing).reverse() ?? [];
+        this._sidebars?.filter(modal => !modal.isClosing).reverse() ?? [];
 
       for (let i = 0; i < reversed.length; i++) {
         const sidebar = reversed[i];

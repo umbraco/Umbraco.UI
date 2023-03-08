@@ -37,11 +37,11 @@ export class UUIModalSidebarElement extends UUIModalElement {
 
   #onClose(event: Event) {
     event.preventDefault();
-    this.closing = true;
+    this.isClosing = true;
     this.style.setProperty('--uui-modal-offset', -this.#getWidth + 'px');
 
     setTimeout(() => {
-      this.closeModal();
+      this._closeModal();
     }, this.transitionDuration);
   }
 
@@ -55,7 +55,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
     ...UUIModalElement.styles,
     css`
       :host {
-        --uui-modal-sidebar-left-gap: 32px;
+        --uui-modal-sidebar-left-gap: 24px;
       }
       @media (min-width: 600px) {
         :host {
