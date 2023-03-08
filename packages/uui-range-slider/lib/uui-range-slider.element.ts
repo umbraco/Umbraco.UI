@@ -216,6 +216,17 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
           var(--uui-color-focus);
       }
 
+      #range-slider #inner-track .color:has(.color-target:hover) ~ #low-thumb,
+      #range-slider #inner-track .color:has(.color-target:active) ~ #low-thumb,
+      #range-slider #inner-track .color:has(.color-target:hover) ~ #high-thumb,
+      #range-slider
+        #inner-track
+        .color:has(.color-target:active)
+        ~ #high-thumb {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
       /** THUMBS  */
 
       .thumb {
