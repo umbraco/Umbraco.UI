@@ -1,6 +1,8 @@
 import { LitElement, css, html, TemplateResult } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import './uui-modal-container';
+import { ref, createRef } from 'lit/directives/ref.js';
+import { UUIModalElement } from './uui-modal.element';
 
 @customElement('modal-example')
 export class ModalExampleElement extends LitElement {
@@ -10,21 +12,19 @@ export class ModalExampleElement extends LitElement {
   @state()
   private _modals: TemplateResult<1>[] = [];
 
-  #onClose(event: Event) {
-    console.log('closing', event.target);
-
-    event.target?.dispatchEvent(new CustomEvent('close'));
-  }
-
   #addDialog() {
+    const modalRef = createRef<UUIModalElement>();
+
     this._modals.push(html`
-      <uui-modal-dialog>
+      <uui-modal-dialog ${ref(modalRef)}>
         <uui-dialog-layout style="max-width: 500px" headline="My dialog">
           <p>Dialog content goes here</p>
           ${this.#renderButtons()}
-          <uui-button slot="actions">cancel</uui-button>
-          <uui-button @click=${this.#onClose} slot="actions" look="primary">
-            Save
+          <uui-button
+            @click=${() => modalRef.value?.close()}
+            slot="actions"
+            look="primary">
+            close
           </uui-button>
         </uui-dialog-layout>
       </uui-modal-dialog>
@@ -34,12 +34,24 @@ export class ModalExampleElement extends LitElement {
   }
 
   #addSidebar(size: string) {
+    const modalRef = createRef<UUIModalElement>();
+
     this._modals.push(html`
-      <uui-modal-sidebar size=${size}>
-        <div style="padding: 32px">
-          <h2>Sidebar</h2>
-          <p>Sidebar content goes here</p>
-          ${this.#renderButtons()}
+      <uui-modal-sidebar ${ref(modalRef)} size=${size}>
+        <div
+          style="background: var(--uui-color-background); display: flex; flex-direction: column; height: 100%;">
+          <uui-box headline="Sidebar" style="margin: 12px">
+            <p>Sidebar content goes here</p>
+            ${this.#renderButtons()}
+          </uui-box>
+          <div class="sidebar-buttons">
+            <uui-button
+              @click=${() => modalRef.value?.close()}
+              slot="actions"
+              look="primary">
+              close
+            </uui-button>
+          </div>
         </div>
       </uui-modal-sidebar>
     `);
@@ -83,7 +95,17 @@ export class ModalExampleElement extends LitElement {
     return html` ${this.#renderButtons()}
       <uui-modal-container>${this._modals}</uui-modal-container>`;
   }
-  static styles = css``;
+  static styles = css`
+    .sidebar-buttons {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      padding: 16px;
+      background: var(--uui-color-surface);
+      box-shadow: var(--uui-shadow-depth-4);
+    }
+  `;
 }
 
 declare global {

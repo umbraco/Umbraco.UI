@@ -67,13 +67,15 @@ export class UUIModalSidebarElement extends UUIModalElement {
         width: 100%;
         box-sizing: border-box;
         max-width: calc(100% - var(--uui-modal-sidebar-left-gap));
-        border-left: 1px solid;
         margin-left: auto;
         right: var(--uui-modal-offset);
         transition: right var(--uui-modal-transition-duration, 250ms);
       }
       :host([unique-index='0']) dialog {
         box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.5);
+      }
+      :host(:not([unique-index='0'])) dialog {
+        outline: 1px solid rgba(0, 0, 0, 0.3);
       }
       :host([hide]) dialog {
         display: none;
