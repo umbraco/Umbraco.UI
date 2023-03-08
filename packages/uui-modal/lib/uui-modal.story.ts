@@ -6,7 +6,7 @@ import './modal-example.element';
 
 export default {
   id: 'uui-modal',
-  title: 'Modal',
+  title: 'Layout/Modals',
   component: 'uui-modal',
   parameters: {
     docs: {

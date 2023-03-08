@@ -75,7 +75,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
         box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.5);
       }
       :host(:not([unique-index='0'])) dialog {
-        outline: 1px solid rgba(0, 0, 0, 0.3);
+        outline: 1px solid rgba(0, 0, 0, 0.1);
       }
       :host([hide]) dialog {
         display: none;
