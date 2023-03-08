@@ -21,7 +21,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     UUIHorizontalPulseKeyframes,
     css`
       :host {
-        display: inline-block;
+        display: block;
         min-height: 50px;
         width: 100%;
         place-items: center;
