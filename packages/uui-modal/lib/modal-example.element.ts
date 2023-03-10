@@ -1,14 +1,11 @@
 import { LitElement, css, html, TemplateResult } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import './uui-modal-container';
 import { ref, createRef } from 'lit/directives/ref.js';
 import { UUIModalElement } from './uui-modal.element';
 
 @customElement('modal-example')
 export class ModalExampleElement extends LitElement {
-  @query('uui-modal-container')
-  modalContainer!: HTMLDivElement;
-
   @state()
   private _modals: TemplateResult<1>[] = [];
 

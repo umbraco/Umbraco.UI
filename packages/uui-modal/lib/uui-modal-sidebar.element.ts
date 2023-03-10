@@ -37,6 +37,9 @@ export class UUIModalSidebarElement extends UUIModalElement {
 
   #onClose(event: Event) {
     event.preventDefault();
+
+    if (this.isClosing) return;
+
     this.isClosing = true;
     this.style.setProperty('--uui-modal-offset', -this.#getWidth + 'px');
 
@@ -71,10 +74,10 @@ export class UUIModalSidebarElement extends UUIModalElement {
         right: var(--uui-modal-offset);
         transition: right var(--uui-modal-transition-duration, 250ms);
       }
-      :host([unique-index='0']) dialog {
+      :host([index='0']) dialog {
         box-shadow: var(--uui-shadow-depth-5);
       }
-      :host(:not([unique-index='0'])) dialog {
+      :host(:not([index='0'])) dialog {
         outline: 1px solid rgba(0, 0, 0, 0.1);
       }
       :host([hide]) dialog {

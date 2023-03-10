@@ -20,7 +20,12 @@ export class UUIModalDialogElement extends UUIModalElement {
         max-width: 100%;
         max-height: 100%;
         border-radius: 12px;
-        box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.5);
+      }
+      :host([index='0']) dialog {
+        box-shadow: var(--uui-shadow-depth-5);
+      }
+      :host(:not([index='0'])) dialog {
+        outline: 1px solid rgba(0, 0, 0, 0.1);
       }
     `,
   ];

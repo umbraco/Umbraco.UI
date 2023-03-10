@@ -35,7 +35,9 @@ export class UUIModalElement extends LitElement {
   ): void {
     super.firstUpdated(_changedProperties);
 
-    this.open();
+    if (!this.isClosing) {
+      this.open();
+    }
   }
 
   public open = (event?: Event) => {
