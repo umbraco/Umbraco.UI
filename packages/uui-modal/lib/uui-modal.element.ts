@@ -1,7 +1,5 @@
 import { LitElement, css } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-
-@customElement('uui-modal')
+import { property, query } from 'lit/decorators.js';
 export class UUIModalElement extends LitElement {
   @query('dialog')
   protected _dialogElement?: HTMLDialogElement;
