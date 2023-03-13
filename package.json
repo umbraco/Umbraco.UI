@@ -92,7 +92,7 @@
     "glob": "^7.2.3",
     "husky": "8.0.1",
     "lint-staged": "13.1.0",
-    "npm-check-updates": "16.3.16",
+    "npm-check-updates": "16.7.12",
     "plop": "3.1.2",
     "postcss": "8.4.21",
     "postcss-advanced-variables": "3.0.1",
