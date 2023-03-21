@@ -23,7 +23,6 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
         display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
-        padding: 0.75rem;
       }
     `,
   ];
