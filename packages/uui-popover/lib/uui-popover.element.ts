@@ -35,6 +35,7 @@ function mathClamp(value: number, min: number, max: number) {
  * @fires close - When popover is closed by user interaction.
  * @slot trigger - The element that triggers the popover.
  * @slot popover - The content of the popover.
+ * @cssprop --uui-popover-z-index - overwrite the z-index of the popover container.
  */
 @defineElement('uui-popover')
 export class UUIPopoverElement extends LitElement {
@@ -48,7 +49,7 @@ export class UUIPopoverElement extends LitElement {
       #container {
         position: absolute;
         width: 100%;
-        z-index: 1;
+        z-index: var(--uui-popover-z-index, 1);
       }
       slot[name='popover'] {
         display: block;
