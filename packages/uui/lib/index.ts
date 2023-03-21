@@ -76,3 +76,5 @@ export * from '@umbraco-ui/uui-color-picker/lib/index.js';
 export * from '@umbraco-ui/uui-color-slider/lib/index.js';
 export * from '@umbraco-ui/uui-color-swatches/lib/index.js';
 export * from '@umbraco-ui/uui-color-swatch/lib/index.js';
+
+export * from '@umbraco-ui/uui-modal/lib/index.js';
