@@ -300,6 +300,7 @@ export class UUIPaginationElement extends LitElement {
     return html`<uui-button
       compact
       look="outline"
+      role="listitem"
       tabindex="-1"
       class="dots"
       label="More pages"

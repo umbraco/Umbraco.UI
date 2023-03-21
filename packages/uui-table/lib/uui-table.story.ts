@@ -3,7 +3,7 @@ import './uui-table-advanced-example';
 import '@umbraco-ui/uui-box/lib';
 
 import { Meta, Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 

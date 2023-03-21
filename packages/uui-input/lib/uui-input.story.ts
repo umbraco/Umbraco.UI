@@ -2,7 +2,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   title: 'Inputs/Input',
@@ -137,6 +137,42 @@ export const PrependAndAppend: Story = props =>
       </div>
     </uui-input>
   `;
+
+export const PrependIcon: Story = props =>
+  html` <uui-input
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}>
+    <div slot="prepend">
+      <uui-icon-registry-essential>
+        <uui-icon name="search"></uui-icon>
+      </uui-icon-registry-essential>
+    </div>
+  </uui-input>`;
+
+export const AppendIcon: Story = props =>
+  html` <uui-input
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}>
+    <div
+      slot="append"
+      style="background:#f3f3f3; padding-left:var(--uui-size-2, 6px)">
+      <uui-icon-registry-essential>
+        <uui-icon name="delete"></uui-icon>
+      </uui-icon-registry-essential>
+    </div>
+  </uui-input>`;
 
 export const MultipleInputs: Story = props =>
   html`

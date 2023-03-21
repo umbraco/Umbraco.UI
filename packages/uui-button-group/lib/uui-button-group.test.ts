@@ -1,8 +1,8 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUIButtonGroupElement } from './uui-button-group.element';
-import '.';
+import '@umbraco-ui/uui-button/lib';
 
-describe('UuiButton', () => {
+describe('UuiButtonGroup', () => {
   let element: UUIButtonGroupElement;
   beforeEach(async () => {
     element = await fixture(
@@ -16,6 +16,10 @@ describe('UuiButton', () => {
         >
       `
     );
+  });
+
+  it('is defined', () => {
+    expect(element).to.be.instanceOf(UUIButtonGroupElement);
   });
 
   it('renders a slot', () => {

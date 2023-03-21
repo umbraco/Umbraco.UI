@@ -1,5 +1,5 @@
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 import '.';

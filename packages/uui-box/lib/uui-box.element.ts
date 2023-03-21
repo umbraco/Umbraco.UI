@@ -8,7 +8,7 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
  *  @element uui-box
  *  @slot headline - headline area, this area is placed within the headline tag which is located inside the header. Use this to ensure the right headline styling.
  *  @slot header - header area, use this for things that is not the headline but located in the header.
- *  @slot default - area for the content of the box
+ *  @slot - area for the content of the box
  *  @cssprop --uui-box-default-padding - overwrite the box padding
  *
  */

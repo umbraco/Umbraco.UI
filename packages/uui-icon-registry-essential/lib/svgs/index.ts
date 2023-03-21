@@ -1,6 +1,7 @@
 export * from './iconAdd';
 export * from './iconAlert';
 export * from './iconAttachment';
+export * from './iconBookAlt';
 export * from './iconCalendar';
 export * from './iconCheck';
 export * from './iconClipboard';

@@ -7,7 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 /**
  * A single tab. Should be put into `<uui-tab-group>`,
  * @element uui-tabs
- * @slot default - for label
+ * @slot - for label
  * @slot icon - for icon
  * @slot extra - for extra
  * @description - All-round tab-button
