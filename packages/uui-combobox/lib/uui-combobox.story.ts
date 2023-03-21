@@ -14,6 +14,8 @@ export default {
   component: 'uui-combobox',
   args: {
     search: '',
+    disabled: false,
+    readonly: false,
   },
   parameters: {
     docs: {
@@ -99,6 +101,8 @@ const Template: Story = props => {
     displayValueMod,
     valueMod,
     renderMod,
+    disabled,
+    value,
   } = props;
 
   const handleSearch = (e: any) => {
@@ -114,7 +118,9 @@ const Template: Story = props => {
   return html`<uui-combobox
       @change=${handleSelect}
       @search=${handleSearch}
-      style="width: 250px">
+      style="width: 250px"
+      .disabled=${disabled}
+      .value=${value}>
       <uui-combobox-list>
         ${repeat(filter(options, search), (option: any, index: number) =>
           renderMod
@@ -145,6 +151,36 @@ AAAOverview.parameters = {
     source: {
       code: `
 <uui-combobox style="width: 250px">
+  <uui-combobox-list>
+    <uui-combobox-list-option style="padding: 8px">
+      apple
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      orange
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      lemon
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
+};
+
+export const Disabled: Story = Template.bind({});
+Disabled.args = {
+  options: fruits,
+  filter: basicFilter,
+  disabled: true,
+  value: 'banana',
+};
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px" disabled>
   <uui-combobox-list>
     <uui-combobox-list-option style="padding: 8px">
       apple
