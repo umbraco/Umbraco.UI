@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.0...v1.2.0-rc.1) (2023-03-22)
+
+### Features
+
+- :bug: add disabled property to uui-combobox ([3c13b8b](https://github.com/umbraco/Umbraco.UI/commit/3c13b8b2dde4287e20f73cbec99582d0a1b2502c))
+
 # 1.2.0-rc.0 (2023-02-07)
 
 ### Bug Fixes
