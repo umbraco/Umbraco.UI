@@ -26,6 +26,4 @@ import { UUIModalElement } from '@umbraco-ui/uui-modal';
 
 ## Usage
 
-```html
-<uui-modal></uui-modal>
-```
+You need to spin up your own modal that extends the UUIModalElement. Use the `<uui-modal-container>` to host the modals.
