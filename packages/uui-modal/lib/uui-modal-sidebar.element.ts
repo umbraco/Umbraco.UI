@@ -1,9 +1,17 @@
 import { css, html, PropertyValueMap } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { UUIModalElement } from './uui-modal.element';
+
+export type UUIModalSidebarSize = 'small' | 'medium' | 'large' | 'full';
 
 @customElement('uui-modal-sidebar')
 export class UUIModalSidebarElement extends UUIModalElement {
+  /**
+   * @attr
+   */
+  @property({ reflect: true })
+  size: UUIModalSidebarSize = 'full';
+
   constructor() {
     super();
     this.addEventListener('close', this.#onClose.bind(this));
