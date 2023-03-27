@@ -33,7 +33,8 @@
     "dist",
     "lib/**/*.d.ts",
     "lib/**/*.js",
-    "custom-elements.json"
+    "custom-elements.json",
+    "vscode-html-custom-data.json"
   ],
   "dependencies": {
     "@umbraco-ui/uui-action-bar": "1.2.0-rc.1",
@@ -119,7 +120,7 @@
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf dist lib/*.js lib/**/*.js custom-elements.json",
-    "analyze": "web-component-analyzer ../**/*.element.ts --outFile custom-elements.json"
+    "analyze": "wca ../**/*.element.ts --outFile custom-elements.json && wca ../**/*.element.ts --format vscode --outFile vscode-html-custom-data.json"
   },
   "publishConfig": {
     "access": "public"
