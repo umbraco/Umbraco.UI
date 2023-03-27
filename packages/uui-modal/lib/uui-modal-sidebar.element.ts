@@ -6,7 +6,10 @@ export type UUIModalSidebarSize = 'small' | 'medium' | 'large' | 'full';
 
 @customElement('uui-modal-sidebar')
 export class UUIModalSidebarElement extends UUIModalElement {
-  @property({ type: String, reflect: true })
+  /**
+   * @attr
+   */
+  @property({ reflect: true })
   size: UUIModalSidebarSize = 'full';
 
   constructor() {
