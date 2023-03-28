@@ -19,7 +19,8 @@ export class UUIRefListElement extends LitElement {
         content: '';
         position: absolute;
         top: -1px;
-        width: 100%;
+        left: 0;
+        right: 0;
         border-top: 1px solid var(--uui-color-border);
       }
     `,
