@@ -146,6 +146,9 @@
       "path": "../uui-menu-item"
     },
     {
+      "path": "../uui-modal"
+    },
+    {
       "path": "../uui-pagination"
     },
     {

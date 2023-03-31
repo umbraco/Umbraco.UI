@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.1...v1.2.0-rc.2) (2023-03-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-ref-node-form
+
+# [1.2.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.0...v1.2.0-rc.1) (2023-03-22)
+
+**Note:** Version bump only for package @umbraco-ui/uui-ref-node-form
+
 # 1.2.0-rc.0 (2023-02-07)
 
 - Release/0.1.1 (#190) ([d91d346](https://github.com/umbraco/Umbraco.UI/commit/d91d346a0659f52de2a3c4746065c554f95e6328)), closes [#190](https://github.com/umbraco/Umbraco.UI/issues/190) [#188](https://github.com/umbraco/Umbraco.UI/issues/188) [#187](https://github.com/umbraco/Umbraco.UI/issues/187) [#189](https://github.com/umbraco/Umbraco.UI/issues/189)

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.1...v1.2.0-rc.2) (2023-03-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-popover
+
+# [1.2.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.0...v1.2.0-rc.1) (2023-03-22)
+
+### Features
+
+- added css custom property to overwrite z-index ([#441](https://github.com/umbraco/Umbraco.UI/issues/441)) ([062891a](https://github.com/umbraco/Umbraco.UI/commit/062891a07dec81674f5e08f8b748c283e1d4a511))
+
 # 1.2.0-rc.0 (2023-02-07)
 
 ### Bug Fixes

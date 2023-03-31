@@ -67,6 +67,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         margin-top: -1px;
       }
 
+      :host([disabled]) #caret {
+        fill: var(--uui-color-disabled-contrast);
+      }
+
       #phone-wrapper {
         position: fixed;
         inset: 0;
@@ -141,6 +145,15 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
    */
   @property({ type: String })
   public closeLabel = 'Close';
+
+  /**
+   * Disables the uui-combobox.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
 
   @query('#combobox-input')
   private _input!: HTMLInputElement;
@@ -315,11 +328,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       type="text"
       .value=${this._displayValue}
       autocomplete="off"
+      .disabled=${this.disabled}
       @click=${this._open}
       @input=${this._onInput}
       @keydown=${this._onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
-      ${this._renderClearButton()} ${this._renderCaret()}
+      ${this.disabled ? '' : this._renderClearButton()} ${this._renderCaret()}
       <slot name="input-append" slot="append"></slot>
     </uui-input>`;
   };
