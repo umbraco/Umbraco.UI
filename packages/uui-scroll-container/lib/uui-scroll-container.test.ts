@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIScrollContainerElement } from './uui-scroll-container.element';
 import '.';
 
@@ -113,5 +113,25 @@ describe('UUIScrollContainerElement with very little content', () => {
   it('cannot scroll sideways', async () => {
     element.scrollLeft = 42;
     await expect(element.scrollLeft).to.be.equal(0);
+  });
+});
+
+describe('properties', () => {
+  let element: UUIScrollContainerElement;
+  beforeEach(async () => {
+    element = await fixture(
+      html`<uui-scroll-container style="width:200px; height:200px;">
+        Hello tests
+      </uui-scroll-container>`
+    );
+  });
+
+  it('has a enforce-scroll property', () => {
+    expect(element).to.have.property('enforceScroll');
+  });
+  it('enforceScroll property set', async () => {
+    element.enforceScroll = true;
+    await elementUpdated(element);
+    expect(element.enforceScroll).to.be.true;
   });
 });

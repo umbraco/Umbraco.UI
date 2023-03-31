@@ -1,10 +1,13 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  *  @element uui-scroll-container
  *  @slot - for content
+ *  @attribute enforce-scroll - forces the scrollbar to appear
  *  @description - Component for displaying a larger amount of .
+ *
  */
 @defineElement('uui-scroll-container')
 export class UUIScrollContainerElement extends LitElement {
@@ -15,6 +18,10 @@ export class UUIScrollContainerElement extends LitElement {
         scrollbar-width: thin;
         scrollbar-color: var(--uui-color-disabled-contrast)
           var(--uui-color-surface);
+        overflow-y: auto;
+      }
+
+      :host([enforce-scroll]) {
         overflow-y: scroll;
       }
 
@@ -33,6 +40,13 @@ export class UUIScrollContainerElement extends LitElement {
       }
     `,
   ];
+
+  /**
+   * @type {boolean}
+   * @attr forces the scrollbar to appear
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'enforce-scroll' })
+  enforceScroll = false;
 
   connectedCallback() {
     super.connectedCallback();
