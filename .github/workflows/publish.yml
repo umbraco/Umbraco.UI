@@ -16,6 +16,9 @@ on:
         description: The head branch associated with the pull request.
         required: true
 
+env:
+  NODE_OPTIONS: --max_old_space_size=16384
+
 jobs:
   build:
     # The type of runner that the job will run on
