@@ -21,6 +21,8 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
+ *  @slot - for default content
+ *  @slot label - for label content
  *  @slot extra - for extra
  *  @description - All-round button
  *  @cssprop --uui-button-height - overwrite the button height
