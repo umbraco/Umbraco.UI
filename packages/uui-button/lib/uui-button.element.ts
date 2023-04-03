@@ -24,7 +24,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @slot - for default content
  *  @slot label - for label content
  *  @slot extra - for extra
- *  @description - All-round button
+ *  @description - All-around button
  *  @cssprop --uui-button-height - overwrite the button height
  *  @cssprop --uui-button-border-width - overwrite the border width
  *  @cssprop --uui-button-border-radius - overwrite the border radius
