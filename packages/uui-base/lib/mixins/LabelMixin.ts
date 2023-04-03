@@ -4,6 +4,12 @@ import { property, state } from 'lit/decorators.js';
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class LabelMixinInterface {
+  /**
+   * Label to be used for aria-label and potentially as visual label for some components
+   * @type {string}
+   * @prop
+   * @attr
+   */
   label: string;
   protected renderLabel(): TemplateResult;
 }
