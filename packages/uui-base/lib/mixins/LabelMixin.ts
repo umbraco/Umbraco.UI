@@ -21,8 +21,6 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
 ) => {
   /**
    * Label mixin class containing the label functionality.
-   *
-   * @slot - Override the default label
    */
   class LabelMixinClass extends superClass {
     /**
