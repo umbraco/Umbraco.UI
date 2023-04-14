@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.2...v1.2.0-rc.3) (2023-04-14)
+
+### Bug Fixes
+
+- uui-range-slider overhaul ([#436](https://github.com/umbraco/Umbraco.UI/issues/436)) ([bc7a783](https://github.com/umbraco/Umbraco.UI/commit/bc7a783448a53cf330edd155efa68839c600174a))
+
+### Features
+
+- uui-scroll-container now uses auto scroll and has an enforce scroll option ([#448](https://github.com/umbraco/Umbraco.UI/issues/448)) ([44ce789](https://github.com/umbraco/Umbraco.UI/commit/44ce789b180ebe3812340a0189668031968ca5bd))
+
 # [1.2.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0-rc.1...v1.2.0-rc.2) (2023-03-27)
 
 ### Features
