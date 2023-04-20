@@ -30,11 +30,11 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.2.0-rc.2",
-    "@umbraco-ui/uui-button": "1.2.0-rc.2",
-    "@umbraco-ui/uui-combobox-list": "1.2.0-rc.2",
-    "@umbraco-ui/uui-icon": "1.2.0-rc.2",
-    "@umbraco-ui/uui-scroll-container": "1.2.0-rc.2"
+    "@umbraco-ui/uui-base": "1.2.0",
+    "@umbraco-ui/uui-button": "1.2.0",
+    "@umbraco-ui/uui-combobox-list": "1.2.0",
+    "@umbraco-ui/uui-icon": "1.2.0",
+    "@umbraco-ui/uui-scroll-container": "1.2.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
