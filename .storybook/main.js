@@ -5,6 +5,8 @@ module.exports = {
     '../stories/**/*.story.ts',
     '../packages/**/*.story.mdx',
     '../stories/**/*.story.mdx',
+    '../packages/**/*.mdx',
+    '../stories/**/*.mdx',
   ],
   addons: [
     '@storybook/addon-essentials',
@@ -16,9 +18,6 @@ module.exports = {
   framework: {
     name: '@storybook/web-components-vite',
     options: {},
-  },
-  features: {
-    storyStoreV7: true,
   },
   staticDirs: ['./images'],
   async viteFinal(config, { configType }) {
