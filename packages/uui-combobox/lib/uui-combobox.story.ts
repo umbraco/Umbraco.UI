@@ -4,7 +4,7 @@ import './uui-combobox-async-options-example';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
-import { useArgs } from '@storybook/client-api';
+import { useArgs } from '@storybook/preview-api';
 import { repeat } from 'lit/directives/repeat.js';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
 
