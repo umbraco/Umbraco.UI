@@ -358,7 +358,9 @@ export const CountrySelect: StoryFn = props => {
       style="--uui-combobox-popover-max-height: 300px; width: 250px;"
       @search=${handleSearch}
       @change=${handleSelect}>
-      <span slot="input-prepend">${renderSelectedFlag()}</span>
+      <span slot="input-prepend" style="display: flex; align-items: center;"
+        >${renderSelectedFlag()}</span
+      >
       <uui-combobox-list>${renderFilteredOptions()}</uui-combobox-list>
     </uui-combobox>
 
