@@ -1,6 +1,7 @@
+import '@umbraco-ui/uui-dialog-layout/lib';
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import './modal-example.element';
 
@@ -17,6 +18,6 @@ export default {
   },
 };
 
-export const Overview: Story = () => {
+export const Overview: StoryFn = () => {
   return html`<modal-example></modal-example>`;
 };

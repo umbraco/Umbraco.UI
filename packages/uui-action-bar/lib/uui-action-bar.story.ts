@@ -1,4 +1,4 @@
-import type { Story } from '@storybook/web-components';
+import type { StoryFn } from '@storybook/web-components';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
@@ -32,7 +32,7 @@ export default {
 
 const buttons = ['copy', 'remove', 'delete'];
 
-export const AAAOverview: Story = props => html`
+export const AAAOverview: StoryFn = props => html`
   <uui-icon-registry-essential>
     <uui-action-bar
       >${buttons.map(

@@ -1,6 +1,16 @@
+import '@umbraco-ui/uui-color-swatches/lib';
+import '@umbraco-ui/uui-color-swatch/lib';
+import '@umbraco-ui/uui-color-slider/lib';
+import '@umbraco-ui/uui-color-area/lib';
+import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-button-group/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-popover/lib';
+
 import '.';
 
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { UUIColorPickerElement } from './uui-color-picker.element';
 
@@ -39,7 +49,7 @@ export default {
   },
 } as Meta<UUIColorPickerElement>;
 
-const Template: Story<UUIColorPickerElement> = props => html`
+const Template: StoryFn<UUIColorPickerElement> = props => html`
   <uui-color-picker
     .inline=${props.inline}
     .value=${props.value}
@@ -83,7 +93,7 @@ WithOpacity.parameters = {
 
 const formats = ['hex', 'rgb', 'hsl'];
 
-export const Formats: Story = () => html`
+export const Formats: StoryFn = () => html`
   <h4>Formats</h4>
   ${formats.map(
     format =>

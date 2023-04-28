@@ -97,8 +97,14 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         transition: background-color 320ms ease-out;
       }
 
-      #range-slider #inner-track .color:has(.color-target:hover),
-      #range-slider #inner-track .color:has(.color-target:active) {
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:hover),
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:active) {
         background-color: var(--uui-color-focus);
       }
 
@@ -216,10 +222,23 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
           var(--uui-color-focus);
       }
 
-      #range-slider #inner-track .color:has(.color-target:hover) ~ #low-thumb,
-      #range-slider #inner-track .color:has(.color-target:active) ~ #low-thumb,
-      #range-slider #inner-track .color:has(.color-target:hover) ~ #high-thumb,
-      #range-slider
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:hover)
+        ~ #low-thumb,
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:active)
+        ~ #low-thumb,
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:hover)
+        ~ #high-thumb,
+      :host(:not([disabled]))
+        #range-slider
         #inner-track
         .color:has(.color-target:active)
         ~ #high-thumb {
