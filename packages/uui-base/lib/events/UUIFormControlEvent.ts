@@ -7,7 +7,7 @@ export class UUIFormControlEvent extends UUIEvent<
 > {
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      ...{ bubbles: true, composed: true },
       ...eventInit,
     });
   }

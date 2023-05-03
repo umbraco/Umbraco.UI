@@ -262,9 +262,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     }
   };
 
-  private _onChange = (e: Event) => {
-    e.stopImmediatePropagation();
-
+  private _onChange = () => {
     this.value = this._comboboxList?.value || '';
     this.search = this.value ? this.search : '';
 
