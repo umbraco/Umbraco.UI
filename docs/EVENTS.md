@@ -12,8 +12,8 @@ In version X.Y.Z? the events Bubbles and Composed properties has changed, here i
 - UUIColorSliderEvent(s): Is not composed any longer.
 - UUIColorSwatchesEvent(s): Is not composed any longer.
 - UUIComboboxEvent: Is not composed any longer.
-- UUIComboboxListEvent
-- UUIFileDropzoneEvent
+- UUIComboboxListEvent: Is not composed any longer. The event name 'slot-change' is changed to 'inner-slot-change'.
+- UUIFileDropzoneEvent(s): Is not composed any longer. The event name 'file-change' is changed to 'change'.
 - UUIIconRequestEvent
 - UUIInputEvent: Is not composed any longer.
 - UUIMenuItemEvent

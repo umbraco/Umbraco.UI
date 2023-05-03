@@ -261,7 +261,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
         id="dropzone"
         ?multiple=${this.multiple}
         .accept=${this.accept}
-        @file-change=${this._handleFilesChange}
+        @change=${this._handleFilesChange}
         label="Drop files here"></uui-file-dropzone>
       <div id="files">
         ${this._renderFiles()}

@@ -1,6 +1,6 @@
 import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
-import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
+import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 
 import '@umbraco-ui/uui-symbol-file-dropzone/lib';
@@ -27,7 +27,7 @@ export const AAAOverview: StoryFn = props => {
     <uui-file-dropzone
       ?multiple=${props.multiple}
       accept=${props.accept}
-      @file-change=${handleFileChange}
+      @change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 };
@@ -37,7 +37,7 @@ export const Multiple: StoryFn = () =>
   html`
     <uui-file-dropzone
       multiple
-      @file-change=${handleFileChange}
+      @change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 
@@ -54,7 +54,7 @@ export const Accept: StoryFn = () =>
   html`
     <uui-file-dropzone
       accept="image/*"
-      @file-change=${handleFileChange}
+      @change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 
@@ -78,7 +78,7 @@ export const BrowseFiles: StoryFn = () => {
   return html`
     <uui-file-dropzone
       id="browse-dropzone"
-      @file-change=${handleFileChange}
+      @change=${handleFileChange}
       label="Drop files here">
       Drop files here
       <uui-button
