@@ -28,6 +28,6 @@ In version X.Y.Z? the events Bubbles and Composed properties has changed, here i
 - UUITabEvent: There is no one using this class, no changes.
 - UUITabGroupEvent: There is no one using this class, no changes.
 - UUITextAreaEvent: Is not composed any longer.
-- UUIToastNotificationEvent
+- UUIToastNotificationEvent: Is not bubbles or composed any longer.
 
 Also notice events previously named with a 's' in the end is no longer named this way, they are without the 's' now.
