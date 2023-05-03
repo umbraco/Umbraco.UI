@@ -13,6 +13,7 @@ import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-scroll-container/lib';
 import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-popover/lib';
 
 describe('UUIComboboxElement', () => {
   let element: UUIComboboxElement;
@@ -60,6 +61,9 @@ describe('UUIComboboxElement', () => {
     });
     it('has a value property', () => {
       expect(element).to.have.property('value');
+    });
+    it('has a disabled property', () => {
+      expect(element).to.have.property('disabled');
     });
   });
 

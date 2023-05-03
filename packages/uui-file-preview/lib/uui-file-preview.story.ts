@@ -3,9 +3,12 @@ import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-symbol-file-thumbnail/lib';
+import '@umbraco-ui/uui-symbol-folder/lib';
+import '@umbraco-ui/uui-symbol-file/lib';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { StoryFn } from '@storybook/web-components';
+import { html } from 'lit';
 import { UUIFilePreviewElement } from './uui-file-preview.element';
 
 export default {
@@ -14,7 +17,7 @@ export default {
   component: 'uui-file-preview',
 };
 
-export const AAAOverview: Story = () => {
+export const AAAOverview: StoryFn = () => {
   setTimeout(() => {
     const file = new File(['file'], 'File 1.txt', { type: 'text/plain' });
     const filePreview = document.getElementById(
@@ -60,7 +63,7 @@ filePreview.file = file;
   },
 };
 
-export const Image: Story = () => {
+export const Image: StoryFn = () => {
   const init = async () => {
     const imageUrl =
       'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';

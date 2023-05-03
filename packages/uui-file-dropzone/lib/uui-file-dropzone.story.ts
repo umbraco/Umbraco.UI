@@ -1,7 +1,9 @@
-import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { StoryFn } from '@storybook/web-components';
+import { html } from 'lit';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
+
+import '@umbraco-ui/uui-symbol-file-dropzone/lib';
 import '.';
 
 export default {
@@ -20,7 +22,7 @@ export default {
 const handleFileChange = (e: UUIFileDropzoneEvent) =>
   console.log('event.detail: ', e.detail);
 
-export const AAAOverview: Story = props => {
+export const AAAOverview: StoryFn = props => {
   return html`
     <uui-file-dropzone
       ?multiple=${props.multiple}
@@ -31,7 +33,7 @@ export const AAAOverview: Story = props => {
 };
 AAAOverview.storyName = 'Overview';
 
-export const Multiple: Story = () =>
+export const Multiple: StoryFn = () =>
   html`
     <uui-file-dropzone
       multiple
@@ -48,7 +50,7 @@ Multiple.parameters = {
   },
 };
 
-export const Accept: Story = () =>
+export const Accept: StoryFn = () =>
   html`
     <uui-file-dropzone
       accept="image/*"
@@ -65,7 +67,7 @@ Accept.parameters = {
   },
 };
 
-export const BrowseFiles: Story = () => {
+export const BrowseFiles: StoryFn = () => {
   const handleBrowse = () => {
     const dropzone = document.getElementById(
       'browse-dropzone'

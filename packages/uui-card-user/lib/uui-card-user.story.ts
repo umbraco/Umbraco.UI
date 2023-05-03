@@ -1,5 +1,7 @@
-import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { StoryFn } from '@storybook/web-components';
+import { html } from 'lit';
+import '@umbraco-ui/uui-avatar/lib';
+
 import './index';
 
 export default {
@@ -19,7 +21,7 @@ const cardContent = html`
   <div>Has not logged in yet</div>
 `;
 
-const Template: Story = props => html`
+const Template: StoryFn = props => html`
   <uui-card-user
     name=${props.name}
     ?selectable=${props.selectable}
@@ -42,7 +44,7 @@ AAAOverview.args = {
   disabled: false,
 };
 
-export const Selectable: Story = Template.bind({});
+export const Selectable: StoryFn = Template.bind({});
 Selectable.args = {
   selectable: true,
 };
@@ -59,7 +61,7 @@ Selectable.parameters = {
   },
 };
 
-export const SelectOnly: Story = Template.bind({});
+export const SelectOnly: StoryFn = Template.bind({});
 SelectOnly.args = {
   selectable: true,
   selectOnly: true,
@@ -77,7 +79,7 @@ SelectOnly.parameters = {
   },
 };
 
-export const Disabled: Story = Template.bind({});
+export const Disabled: StoryFn = Template.bind({});
 Disabled.args = {
   disabled: true,
 };
@@ -94,7 +96,7 @@ Disabled.parameters = {
   },
 };
 
-export const Error: Story = Template.bind({});
+export const Error: StoryFn = Template.bind({});
 Error.args = {
   error: true,
 };
@@ -111,7 +113,7 @@ Error.parameters = {
   },
 };
 
-export const Actions: Story = () => html`
+export const Actions: StoryFn = () => html`
   <uui-card-user name="John Rabbit">
     <uui-action-bar slot="actions">
       <uui-button label="Remove">Remove</uui-button>
@@ -136,7 +138,7 @@ Actions.parameters = {
   },
 };
 
-export const Tags: Story = () => html`
+export const Tags: StoryFn = () => html`
   <uui-card-user name="John Rabbit">
     <uui-tag slot="tag" size="s" color="danger">Disabled</uui-tag>
 
@@ -150,7 +152,7 @@ Tags.parameters = {
       code: `
 <uui-card-user name="John Rabbit">
   <uui-tag slot="tag" size="s" color="danger">Disabled</uui-tag>
-  
+
   <!-- Content -->
 </uui-card-user>`,
     },

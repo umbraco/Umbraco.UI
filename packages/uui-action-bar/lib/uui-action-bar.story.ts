@@ -1,10 +1,10 @@
-import type { Story } from '@storybook/web-components';
+import type { StoryFn } from '@storybook/web-components';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   id: 'uui-action-bar',
@@ -32,7 +32,7 @@ export default {
 
 const buttons = ['copy', 'remove', 'delete'];
 
-export const AAAOverview: Story = props => html`
+export const AAAOverview: StoryFn = props => html`
   <uui-icon-registry-essential>
     <uui-action-bar
       >${buttons.map(
@@ -104,7 +104,7 @@ LooksAndColors.parameters = {
       code: `
 <uui-icon-registry-essential>
   <uui-action-bar>
-    
+
     <uui-button look="[look]" color="[color]" label="Copy">
       <uui-icon name="copy"></uui-icon>
     </uui-button>

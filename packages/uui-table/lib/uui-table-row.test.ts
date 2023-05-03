@@ -1,5 +1,3 @@
-import '.';
-
 import {
   elementUpdated,
   expect,
@@ -8,12 +6,12 @@ import {
   oneEvent,
 } from '@open-wc/testing';
 
+import './uui-table.element';
 import { UUITableRowElement } from './uui-table-row.element';
-import { UUITableElement } from './uui-table.element';
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;
-  let tableElement: UUITableElement;
+  let tableElement: HTMLElement;
 
   beforeEach(async () => {
     element = await fixture(
@@ -29,8 +27,8 @@ describe('UuiTableRow', () => {
     tableElement = await fixture(html` <uui-table> ${element} </uui-table> `);
   });
 
-  it('passes the a11y audit', done => {
-    expect(tableElement).shadowDom.to.be.accessible({ done });
+  it('passes the a11y audit', async () => {
+    await expect(tableElement).shadowDom.to.be.accessible();
   });
 
   it('is defined as its own instance', () => {

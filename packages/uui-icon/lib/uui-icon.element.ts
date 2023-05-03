@@ -26,6 +26,14 @@ export class UUIIconElement extends LitElement {
       ::slotted(svg) {
         fill: var(--uui-icon-color, currentColor);
       }
+
+      :host-context(div[slot='prepend']) {
+        margin-left: var(--uui-size-2, 6px);
+      }
+
+      :host-context(div[slot='append']) {
+        margin-right: var(--uui-size-2, 6px);
+      }
     `,
   ];
 

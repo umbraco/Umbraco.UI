@@ -1,5 +1,5 @@
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 import '../auth-layout.example.ts';
 import './reset-password.example.ts';

@@ -27,6 +27,7 @@ tsconfig.tsbuildinfo
 
 
 custom-elements.json
+vscode-html-custom-data.json
 /packages/uui-css/custom-properties.*
 storybook-static
 debug.log

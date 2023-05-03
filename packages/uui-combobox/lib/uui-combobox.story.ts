@@ -1,10 +1,16 @@
+import '@umbraco-ui/uui-scroll-container/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-popover/lib';
+
 import '.';
 import './uui-combobox-async-example';
 import './uui-combobox-async-options-example';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
-import { useArgs } from '@storybook/client-api';
+import { StoryFn } from '@storybook/web-components';
+import { html } from 'lit';
+import { useArgs } from '@storybook/preview-api';
 import { repeat } from 'lit/directives/repeat.js';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
 
@@ -14,6 +20,8 @@ export default {
   component: 'uui-combobox',
   args: {
     search: '',
+    disabled: false,
+    readonly: false,
   },
   parameters: {
     docs: {
@@ -24,12 +32,12 @@ export default {
   },
 };
 
-export const AsyncOptions: Story = () =>
+export const AsyncOptions: StoryFn = () =>
   html`
     <uui-combobox-async-options-example></uui-combobox-async-options-example>
   `;
 
-export const AsyncData: Story = () =>
+export const AsyncData: StoryFn = () =>
   html`<uui-combobox-async-example></uui-combobox-async-example>`;
 
 const fruits = [
@@ -87,7 +95,7 @@ const renderAvatar = (option: any) => html` <uui-combobox-list-option
   </div>
 </uui-combobox-list-option>`;
 
-const Template: Story = props => {
+const Template: StoryFn = props => {
   const [, updateSearch] = useArgs();
   const [, updateSelected] = useArgs();
 
@@ -99,6 +107,8 @@ const Template: Story = props => {
     displayValueMod,
     valueMod,
     renderMod,
+    disabled,
+    value,
   } = props;
 
   const handleSearch = (e: any) => {
@@ -114,7 +124,9 @@ const Template: Story = props => {
   return html`<uui-combobox
       @change=${handleSelect}
       @search=${handleSearch}
-      style="width: 250px">
+      style="width: 250px"
+      .disabled=${disabled}
+      .value=${value}>
       <uui-combobox-list>
         ${repeat(filter(options, search), (option: any, index: number) =>
           renderMod
@@ -134,7 +146,7 @@ const Template: Story = props => {
     <span style="margin-left: 16px">Selected value: ${selected}</span> `;
 };
 
-export const AAAOverview: Story = Template.bind({});
+export const AAAOverview: StoryFn = Template.bind({});
 AAAOverview.args = {
   options: fruits,
   filter: basicFilter,
@@ -163,7 +175,37 @@ AAAOverview.parameters = {
   },
 };
 
-export const CustomValue: Story = Template.bind({});
+export const Disabled: StoryFn = Template.bind({});
+Disabled.args = {
+  options: fruits,
+  filter: basicFilter,
+  disabled: true,
+  value: 'banana',
+};
+Disabled.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px" disabled>
+  <uui-combobox-list>
+    <uui-combobox-list-option style="padding: 8px">
+      apple
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      orange
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      lemon
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
+};
+
+export const CustomValue: StoryFn = Template.bind({});
 CustomValue.args = {
   options: fruits,
   valueMod: (fruit: string) => 'FRUIT_' + fruit.toUpperCase(),
@@ -192,7 +234,7 @@ CustomValue.parameters = {
   },
 };
 
-export const CustomDisplayValue: Story = Template.bind({});
+export const CustomDisplayValue: StoryFn = Template.bind({});
 CustomDisplayValue.args = {
   options: fruits,
   displayValueMod: (fruit: string) =>
@@ -222,7 +264,7 @@ CustomDisplayValue.parameters = {
   },
 };
 
-export const Avatars: Story = Template.bind({});
+export const Avatars: StoryFn = Template.bind({});
 Avatars.args = {
   options: avatars,
   renderMod: (avatar: any) => renderAvatar(avatar),
@@ -232,7 +274,7 @@ Avatars.args = {
     ),
 };
 
-export const CountrySelect: Story = props => {
+export const CountrySelect: StoryFn = props => {
   const [, updateSearch] = useArgs();
   const [, updateSelected] = useArgs();
 
@@ -316,7 +358,9 @@ export const CountrySelect: Story = props => {
       style="--uui-combobox-popover-max-height: 300px; width: 250px;"
       @search=${handleSearch}
       @change=${handleSelect}>
-      <span slot="input-prepend">${renderSelectedFlag()}</span>
+      <span slot="input-prepend" style="display: flex; align-items: center;"
+        >${renderSelectedFlag()}</span
+      >
       <uui-combobox-list>${renderFilteredOptions()}</uui-combobox-list>
     </uui-combobox>
 
@@ -335,21 +379,21 @@ Avatars.parameters = {
         <b>Superman</b>
         <div style="font-size: 0.8rem">A pretty strong guy</div>
       </div>
-    </uui-combobox-list-option> 
+    </uui-combobox-list-option>
     <uui-combobox-list-option display-value="R2-D2" value="RD" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
       <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
       <div style="display: flex; flex-direction: column">
         <b>R2-D2</b>
         <div style="font-size: 0.8rem">Bip Bub</div>
       </div>
-    </uui-combobox-list-option> 
+    </uui-combobox-list-option>
     <uui-combobox-list-option display-value="Luke Skywalker" value="LS" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
       <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
       <div style="display: flex; flex-direction: column">
         <b>Luke Skywalker</b>
         <div style="font-size: 0.8rem">Guy with a funky sword</div>
       </div>
-    </uui-combobox-list-option> 
+    </uui-combobox-list-option>
     <uui-combobox-list-option display-value="Batman" value="BM" style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)">
       <uui-avatar style="background-color: #c8d1dd"></uui-avatar>
       <div style="display: flex; flex-direction: column">

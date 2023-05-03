@@ -6,6 +6,7 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'release/*'
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
@@ -13,6 +14,10 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'release/*'
+
+env:
+  NODE_OPTIONS: --max_old_space_size=16384
 
 jobs:
   build_and_deploy_job:

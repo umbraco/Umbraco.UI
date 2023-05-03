@@ -2,7 +2,7 @@ import '.';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   title: 'Displays/Cards/Content Node',
@@ -89,7 +89,7 @@ CustomIcon.parameters = {
 <uui-icon-registry-essential>
   <uui-card-content-node name="The card">
     <uui-icon slot="icon" name="wand"></uui-icon>
-    
+
     <!-- Content -->
   </uui-card-content-node>
 <uui-icon-registry-essential>

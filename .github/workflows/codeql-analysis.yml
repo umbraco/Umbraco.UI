@@ -8,12 +8,14 @@ on:
       - 'v*/dev'
       - 'v*/main'
       - 'v*/contrib'
+      - 'release/*'
   pull_request:
     # The branches below must be a subset of the branches above
     branches:
       - dev
       - 'v*/dev'
       - 'v*/contrib'
+      - 'release/*'
   schedule:
     - cron: '39 20 * * 3'
 

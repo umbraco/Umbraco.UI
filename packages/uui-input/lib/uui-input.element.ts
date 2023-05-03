@@ -148,7 +148,17 @@ export class UUIInputElement extends FormControlMixin(
   ];
 
   /**
-   * This is a minimum value of the input.
+   * Sets the min value of the input.
+   * Examples: the first date the user may pick in date and datetime-local, or the min numeric value the user can pick in a number input.
+   * @type {number | string}
+   * @attr
+   * @default undefined
+   */
+  @property()
+  min?: number | string;
+
+  /**
+   * Sets the minimum length of the value of the input.
    * @type {number}
    * @attr
    * @default undefined
@@ -166,7 +176,17 @@ export class UUIInputElement extends FormControlMixin(
   minlengthMessage = 'This field need more characters';
 
   /**
-   * This is a maximum value of the input.
+   * Sets the max value of the input.
+   * Examples: the last date the user may pick in date and datetime-local, or the max numeric value the user can pick in a number input.
+   * @type {number | string}
+   * @attr
+   * @default undefined
+   */
+  @property()
+  max?: number | string;
+
+  /**
+   * Sets the maximum length of the value of the input.
    * @type {number}
    * @attr
    * @default undefined
@@ -182,6 +202,15 @@ export class UUIInputElement extends FormControlMixin(
    */
   @property({ type: String, attribute: 'maxlength-message' })
   maxlengthMessage = 'This field exceeds the allowed amount of characters';
+
+  /**
+   * Specifies the interval between legal numbers of the input
+   * @type {number}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Number })
+  step?: number;
 
   /**
    * Disables the input.
@@ -275,10 +304,24 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   /**
+   * Removes focus from the input.
+   */
+  blur() {
+    this._input.blur();
+  }
+
+  /**
    * This method enables <label for="..."> to focus the input
    */
   focus() {
     this._input.focus();
+  }
+
+  /**
+   * Selects all the text in the input.
+   */
+  select() {
+    this._input.select();
   }
 
   protected getFormElement(): HTMLElement {
@@ -314,6 +357,9 @@ export class UUIInputElement extends FormControlMixin(
         .type=${this.type}
         .value=${this.value as string}
         .name=${this.name}
+        min=${ifDefined(this.min)}
+        max=${ifDefined(this.max)}
+        step=${ifDefined(this.step)}
         autocomplete=${ifDefined(this.autocomplete as any)}
         placeholder=${this.placeholder}
         aria-label=${this.label}

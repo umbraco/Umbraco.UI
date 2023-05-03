@@ -2,7 +2,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   title: 'Inputs/Input',
@@ -38,6 +38,9 @@ export default {
 const Template: Story = props =>
   html`
     <uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
       .disabled=${props.disabled}
       .readonly=${props.readonly}
       .error=${props.error}
@@ -57,6 +60,65 @@ AAAOverview.parameters = {
   docs: {
     source: {
       code: '<uui-input></uui-input>',
+    },
+  },
+};
+
+export const NumberInput = Template.bind({});
+NumberInput.args = {
+  placeholder: 'Input number',
+  type: 'number',
+  step: 5,
+  value: '10',
+  min: -50,
+  max: 50,
+};
+NumberInput.parameters = {
+  controls: {
+    include: [
+      'type',
+      'value',
+      'label',
+      'min',
+      'max',
+      'step',
+      'disabled',
+      'readonly',
+    ],
+  },
+  docs: {
+    source: {
+      code: html` <uui-input
+        type="number"
+        value="5"
+        label="Label"
+        min="-50"
+        max="50"
+        step="5">
+      </uui-input>`.strings,
+    },
+  },
+};
+
+export const DateTimeLocal = Template.bind({});
+DateTimeLocal.args = {
+  type: 'datetime-local',
+  value: '2023-04-20T10:00',
+  min: '2023-04-13T10:00',
+  max: '2023-04-28T16:00',
+};
+DateTimeLocal.parameters = {
+  controls: {
+    include: ['type', 'value', 'min', 'max', 'step', 'disabled', 'readonly'],
+  },
+  docs: {
+    source: {
+      code: html` <uui-input
+        type="datetime-local"
+        min="2023-04-13T10:00"
+        value="2023-04-20T10:00"
+        max="2023-04-28T16:00">
+      </uui-input>`.strings,
     },
   },
 };
@@ -97,6 +159,9 @@ Error.parameters = {
 export const PrependAndAppend: Story = props =>
   html`
     <uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
       .disabled=${props.disabled}
       .readonly=${props.readonly}
       .error=${props.error}
@@ -138,9 +203,54 @@ export const PrependAndAppend: Story = props =>
     </uui-input>
   `;
 
+export const PrependIcon: Story = props =>
+  html` <uui-input
+    .min=${props.min}
+    .max=${props.max}
+    .step=${props.step}
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}>
+    <div slot="prepend">
+      <uui-icon-registry-essential>
+        <uui-icon name="search"></uui-icon>
+      </uui-icon-registry-essential>
+    </div>
+  </uui-input>`;
+
+export const AppendIcon: Story = props =>
+  html` <uui-input
+    .min=${props.min}
+    .max=${props.max}
+    .step=${props.step}
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}>
+    <div
+      slot="append"
+      style="background:#f3f3f3; padding-left:var(--uui-size-2, 6px)">
+      <uui-icon-registry-essential>
+        <uui-icon name="delete"></uui-icon>
+      </uui-icon-registry-essential>
+    </div>
+  </uui-input>`;
+
 export const MultipleInputs: Story = props =>
   html`
     <uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
       .disabled=${props.disabled}
       .readonly=${props.readonly}
       .error=${props.error}
