@@ -213,7 +213,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         this._onChange
       );
       this._comboboxList.addEventListener(
-        UUIComboboxListEvent.SLOT_CHANGE,
+        UUIComboboxListEvent.INNER_SLOT_CHANGE,
         this._onSlotChange
       );
 
