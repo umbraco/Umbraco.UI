@@ -5,7 +5,7 @@ In version X.Y.Z? the events Bubbles and Composed properties has changed, here i
 - UUIFormControlEvent: Not affected.
 - UUISelectableEvent: Is not composed any longer.
 - UUIBooleanInputEvent: Is not composed any longer.
-- UUIButtonInlineEvent
+- UUIButtonInlineEvent: Not affected.
 - UUICardEvent
 - UUIColorAreaEvent(s)
 - UUIColorPickerEvent(s)
