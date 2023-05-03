@@ -1,0 +1,31 @@
+** Change in version X.Y.Z? **
+In version X.Y.Z? the events Bubbles and Composed properties has changed, here is a list of events and the change of them:
+
+- UUIEvent: Is not bubbles or composed by default anymore.
+- UUIFormControlEvent: Not affected.
+- UUISelectableEvent: Is not composed any longer.
+- UUIBooleanInputEvent
+- UUIButtonInlineEvent
+- UUICardEvent
+- UUIColorAreaEvent(s)
+- UUIColorPickerEvent(s)
+- UUIColorSliderEvent(s)
+- UUIColorSwatchesEvent(s)
+- UUIComboboxEvent
+- UUIComboboxListEvent
+- UUIFileDropzoneEvent
+- UUIIconRequestEvent
+- UUIInputEvent
+- UUIMenuItemEvent
+- UUIPaginationEvent
+- UUIPopoverEvent
+- UUIRadioEvent
+- UUIRadioGroupEvent
+- UUIRangeSliderEvent
+- UUIRefEvent
+- UUISelectEvent
+- UUISliderEvent(s)?
+- UUITabEvent
+- UUITabGroupEvent
+- UUITextAreaEvent
+- UUIToastNotificationEvent
