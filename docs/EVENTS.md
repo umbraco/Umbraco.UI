@@ -14,9 +14,9 @@ In version X.Y.Z? the events Bubbles and Composed properties has changed, here i
 - UUIComboboxEvent: Is not composed any longer.
 - UUIComboboxListEvent: Is not composed any longer. The event name 'slot-change' is changed to 'inner-slot-change'.
 - UUIFileDropzoneEvent(s): Is not composed any longer. The event name 'file-change' is changed to 'change'.
-- UUIIconRequestEvent
+- UUIIconRequestEvent: Not affected.
 - UUIInputEvent: Is not composed any longer.
-- UUIMenuItemEvent
+- UUIMenuItemEvent: Is not bubbles or composed any longer.
 - UUIPaginationEvent: Is not composed any longer.
 - UUIPopoverEvent
 - UUIRadioEvent: Is not composed any longer.
