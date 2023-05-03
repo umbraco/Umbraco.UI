@@ -18,15 +18,15 @@ In version X.Y.Z? the events Bubbles and Composed properties has changed, here i
 - UUIInputEvent: Is not composed any longer.
 - UUIMenuItemEvent: Is not bubbles or composed any longer.
 - UUIPaginationEvent: Is not composed any longer.
-- UUIPopoverEvent
+- UUIPopoverEvent: Is not bubbles or composed any longer.
 - UUIRadioEvent: Is not composed any longer.
 - UUIRadioGroupEvent: Is not composed any longer.
 - UUIRangeSliderEvent: Is not composed any longer.
-- UUIRefEvent
+- UUIRefEvent: Is not bubbles or composed any longer.
 - UUISelectEvent: Is not composed any longer.
 - UUISliderEvent(s): Is not composed any longer.
-- UUITabEvent
-- UUITabGroupEvent
+- UUITabEvent: There is no one using this class, no changes.
+- UUITabGroupEvent: There is no one using this class, no changes.
 - UUITextAreaEvent: Is not composed any longer.
 - UUIToastNotificationEvent
 
