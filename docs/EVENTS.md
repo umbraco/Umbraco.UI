@@ -30,4 +30,4 @@ In version X.Y.Z? the events Bubbles and Composed properties has changed, here i
 - UUITextAreaEvent: Is not composed any longer.
 - UUIToastNotificationEvent: Is not bubbles or composed any longer.
 
-Also notice events previously named with a 's' in the end is no longer named this way, they are without the 's' now.
+Also notice events files previously named with a 's' in the end is no longer named this way, they are without the 's' now. (notice only affects direct paths)
