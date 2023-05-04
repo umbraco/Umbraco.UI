@@ -114,6 +114,40 @@ describe('UuiInputElement', () => {
         expect(event.type).to.equal(UUIInputEvent.CHANGE);
         expect(event!.target).to.equal(element);
       });
+      it('change event should bubble', async () => {
+        const outerElement = await fixture(
+          html`
+            <uui-input label="label" id="outer">
+              <uui-input label="label" id="inner" slot="prepend"></uui-input>
+            </uui-input>
+          `
+        );
+
+        const innerElement = outerElement.querySelector('#inner');
+        let outerEventTriggered = false;
+
+        const innerElementInput = innerElement!.shadowRoot?.querySelector(
+          'input'
+        ) as HTMLInputElement;
+
+        const innerListener = oneEvent(innerElement!, UUIInputEvent.CHANGE);
+        outerElement!.addEventListener(UUIInputEvent.CHANGE, () => {
+          outerEventTriggered = true;
+        });
+
+        innerElementInput.dispatchEvent(new Event('change'));
+
+        const innerEvent = await innerListener;
+        await Promise.resolve();
+
+        expect(outerEventTriggered).to.be.true;
+        expect(innerElement).to.exist;
+        expect(innerElementInput).to.exist;
+        expect(innerEvent).to.exist;
+        expect(innerEvent.type).to.equal(UUIInputEvent.CHANGE);
+        expect(innerEvent!.target).to.equal(innerElement);
+        console.log('end');
+      });
     });
   });
 
