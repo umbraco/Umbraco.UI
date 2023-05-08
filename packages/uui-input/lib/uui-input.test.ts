@@ -146,7 +146,6 @@ describe('UuiInputElement', () => {
         expect(innerEvent).to.exist;
         expect(innerEvent.type).to.equal(UUIInputEvent.CHANGE);
         expect(innerEvent!.target).to.equal(innerElement);
-        console.log('end');
       });
     });
   });
