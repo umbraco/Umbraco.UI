@@ -7,6 +7,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { iconDelete } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { repeat } from 'lit/directives/repeat.js';
 
+// TODO: Missing change event, when files are changed.
 /**
  * @element uui-input-file
  * @description - A form associated file input that supports multiple files.
