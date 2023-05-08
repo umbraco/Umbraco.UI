@@ -1,33 +1,37 @@
-** Change in version X.Y.Z? **
+# Events
+
+**Change in version X.Y.Z?**
 In version X.Y.Z? the events Bubbles and Composed properties has changed, here is a list of events and the change of them:
 
-- UUIEvent: Is not bubbles or composed by default anymore.
-- UUIFormControlEvent: Is not composed any longer.
-- UUISelectableEvent: Is not composed any longer.
-- UUIBooleanInputEvent: Is not composed any longer.
-- UUIButtonInlineEvent: Not affected.
-- UUICardEvent: Is not bubbles or composed any longer.
-- UUIColorAreaEvent(s): Is not composed any longer.
-- UUIColorPickerEvent(s): Is not composed any longer.
-- UUIColorSliderEvent(s): Is not composed any longer.
-- UUIColorSwatchesEvent(s): Is not composed any longer.
-- UUIComboboxEvent: Is not composed any longer.
-- UUIComboboxListEvent: Is not composed any longer. The event name 'slot-change' is changed to 'inner-slot-change'.
-- UUIFileDropzoneEvent(s): Is not composed any longer. The event name 'file-change' is changed to 'change'.
-- UUIIconRequestEvent: Not affected.
-- UUIInputEvent: Is not composed any longer.
-- UUIMenuItemEvent: Is not bubbles or composed any longer.
-- UUIPaginationEvent: Is not composed any longer.
-- UUIPopoverEvent: Is not bubbles or composed any longer.
-- UUIRadioEvent: Is not composed any longer.
-- UUIRadioGroupEvent: Is not composed any longer.
-- UUIRangeSliderEvent: Is not composed any longer.
-- UUIRefEvent: Is not bubbles or composed any longer.
-- UUISelectEvent: Is not composed any longer.
-- UUISliderEvent(s): Is not composed any longer.
-- UUITabEvent: There is no one using this class, no changes.
-- UUITabGroupEvent: There is no one using this class, no changes.
-- UUITextAreaEvent: Is not composed any longer.
-- UUIToastNotificationEvent: Is not bubbles or composed any longer.
+| Name                      | Bubbles | Composed | Description                                                                         |
+| ------------------------- | ------- | -------- | ----------------------------------------------------------------------------------- |
+| UUIEvent                  | No      | No       | No longer bubbles or composed by default.                                           |
+| UUIFormControlEvent       | Yes     | No       | No longer composed.                                                                 |
+| UUISelectableEvent        | Yes     | No       | No longer composed.                                                                 |
+| UUIBooleanInputEvent      | Yes     | No       | No longer composed.                                                                 |
+| UUIButtonInlineEvent      | Yes     | Yes      | Not affected.                                                                       |
+| UUICardEvent              | No      | No       | No longer bubbles or composed.                                                      |
+| UUIColorAreaEvent(s)      | Yes     | No       | No longer composed.                                                                 |
+| UUIColorPickerEvent(s)    | Yes     | No       | No longer composed.                                                                 |
+| UUIColorSliderEvent(s)    | Yes     | No       | No longer composed.                                                                 |
+| UUIColorSwatchesEvent(s)  | Yes     | No       | No longer composed.                                                                 |
+| UUIComboboxEvent          | Yes     | No       | No longer composed.                                                                 |
+| UUIComboboxListEvent      | Yes     | No       | The event name 'slot-change' is changed to 'inner-slot-change'. No longer composed. |
+| UUIFileDropzoneEvent(s)   | Yes     | No       | The event name 'file-change' is changed to 'change'. No longer composed.            |
+| UUIIconRequestEvent       | Yes     | Yes      | Not affected.                                                                       |
+| UUIInputEvent             | Yes     | No       | No longer composed.                                                                 |
+| UUIMenuItemEvent          | No      | No       | No longer bubbles or composed.                                                      |
+| UUIPaginationEvent        | Yes     | No       | No longer composed.                                                                 |
+| UUIPopoverEvent           | No      | No       | No longer bubbles or composed.                                                      |
+| UUIRadioEvent             | Yes     | No       | No longer composed.                                                                 |
+| UUIRadioGroupEvent        | Yes     | No       | No longer composed.                                                                 |
+| UUIRangeSliderEvent       | Yes     | No       | No longer composed.                                                                 |
+| UUIRefEvent               | No      | No       | No longer bubbles or composed.                                                      |
+| UUISelectEvent            | Yes     | No       | No longer composed.                                                                 |
+| UUISliderEvent(s)         | Yes     | No       | No longer composed.                                                                 |
+| UUITabEvent               | No      | No       | No one is dispatching this class.                                                   |
+| UUITabGroupEvent          | No      | No       | No one is dispatching this class.                                                   |
+| UUITextAreaEvent          | Yes     | No       | No longer composed.                                                                 |
+| UUIToastNotificationEvent | No      | No       | No longer bubbles or composed.                                                      |
 
 Also notice events files previously named with a 's' in the end is no longer named this way, they are without the 's' now. (notice only affects direct paths)
