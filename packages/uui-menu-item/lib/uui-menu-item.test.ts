@@ -8,6 +8,7 @@ import {
 import '@umbraco-ui/uui-symbol-expand/lib';
 import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
@@ -61,6 +62,26 @@ describe('UUIMenuItemElement', () => {
 
     it('has a target property', () => {
       expect(element).to.have.property('target');
+    });
+  });
+
+  describe('events', () => {
+    it('emits a click-label event when button is clicked', async () => {
+      const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL);
+
+      const buttonElement = element.shadowRoot!.querySelector(
+        'button#label-button'
+      ) as HTMLButtonElement;
+      console.log('buttonElement', buttonElement);
+      expect(buttonElement).to.exist;
+      buttonElement.click();
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal(UUIMenuItemEvent.CLICK_LABEL);
+      expect(event.bubbles).to.be.false;
+      expect(event.composed).to.be.false;
+      expect(event!.target).to.equal(element);
     });
   });
 

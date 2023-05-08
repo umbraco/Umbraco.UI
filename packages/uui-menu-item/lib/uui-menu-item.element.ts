@@ -262,10 +262,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @state()
   private iconSlotHasContent = false;
 
-  labelButtonChanged(label?: Element | undefined) {
-    this.selectableTarget = label || this;
-  }
-
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
@@ -274,50 +270,54 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     demandCustomElement(this, 'uui-loader-bar');
   }
 
-  private iconSlotChanged(e: any): void {
+  private _labelButtonChanged = (label?: Element | undefined) => {
+    this.selectableTarget = label || this;
+  };
+
+  private _iconSlotChanged = (e: any): void => {
     this.iconSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
-  }
+  };
 
-  private onCaretClicked() {
+  private _onCaretClicked = () => {
     this.showChildren = !this.showChildren;
     const eventName: string = this.showChildren
       ? UUIMenuItemEvent.SHOW_CHILDREN
       : UUIMenuItemEvent.HIDE_CHILDREN;
     const event = new UUIMenuItemEvent(eventName);
     this.dispatchEvent(event);
-  }
+  };
 
-  private onLabelClicked() {
+  private _onLabelClicked = () => {
     const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
     this.dispatchEvent(event);
-  }
+  };
 
   private _renderLabelInside() {
     return html` <slot
         name="icon"
         id="icon"
         style=${this.iconSlotHasContent ? '' : 'display: none;'}
-        @slotchange=${this.iconSlotChanged}></slot>
+        @slotchange=${this._iconSlotChanged}></slot>
       ${this.renderLabel()}
       <slot name="badge" id="badge"> </slot>`;
   }
 
   private _renderLabelAsAnchor() {
     if (this.disabled) {
-      return html` <span id="label-button" ${ref(this.labelButtonChanged)}>
+      return html` <span id="label-button" ${ref(this._labelButtonChanged)}>
         ${this._renderLabelInside()}
       </span>`;
     }
     return html` <a
       id="label-button"
-      ${ref(this.labelButtonChanged)}
+      ${ref(this._labelButtonChanged)}
       href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
         this.target === '_blank' ? 'noopener noreferrer' : undefined
       )}
-      @click=${this.onLabelClicked}
+      @click=${this._onLabelClicked}
       ?disabled=${this.disabled}
       aria-label="${this.label}">
       ${this._renderLabelInside()}
@@ -327,8 +327,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   private _renderLabelAsButton() {
     return html` <button
       id="label-button"
-      ${ref(this.labelButtonChanged)}
-      @click=${this.onLabelClicked}
+      ${ref(this._labelButtonChanged)}
+      @click=${this._onLabelClicked}
       ?disabled=${this.disabled}
       aria-label="${this.label}">
       ${this._renderLabelInside()}
@@ -339,7 +339,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     return html`
       <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
-          ? html`<button id="caret-button" @click=${this.onCaretClicked}>
+          ? html`<button id="caret-button" @click=${this._onCaretClicked}>
               <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}

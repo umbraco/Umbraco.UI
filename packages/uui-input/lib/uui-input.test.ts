@@ -112,9 +112,11 @@ describe('UuiInputElement', () => {
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUIInputEvent.CHANGE);
+        expect(event.bubbles).to.be.true;
+        expect(event.composed).to.be.false;
         expect(event!.target).to.equal(element);
       });
-      it('change event should bubble', async () => {
+      it('change event bubbles up to a parent element', async () => {
         const outerElement = await fixture(
           html`
             <uui-input label="label" id="outer">
