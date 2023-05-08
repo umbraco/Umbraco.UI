@@ -1,10 +1,13 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 import '@umbraco-ui/uui-form/lib/index';
+import '@umbraco-ui/uui-form-layout-item/lib/index';
+import '@umbraco-ui/uui-label/lib';
 import '@umbraco-ui/uui-checkbox/lib';
 import '@umbraco-ui/uui-slider/lib';
 import '@umbraco-ui/uui-radio/lib';
 import '@umbraco-ui/uui-toggle/lib';
+import '@umbraco-ui/uui-button/lib';
 import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent';
 
 export default {
