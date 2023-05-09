@@ -7,7 +7,7 @@ export class UUISelectableEvent extends UUIEvent<{}, SelectableMixinInterface> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      ...{ bubbles: true, cancelable: true },
       ...eventInit,
     });
   }

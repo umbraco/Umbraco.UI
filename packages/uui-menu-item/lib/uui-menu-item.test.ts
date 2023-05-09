@@ -9,6 +9,7 @@ import '@umbraco-ui/uui-symbol-expand/lib';
 import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
@@ -72,7 +73,6 @@ describe('UUIMenuItemElement', () => {
       const buttonElement = element.shadowRoot!.querySelector(
         'button#label-button'
       ) as HTMLButtonElement;
-      console.log('buttonElement', buttonElement);
       expect(buttonElement).to.exist;
       buttonElement.click();
 
@@ -82,6 +82,45 @@ describe('UUIMenuItemElement', () => {
       expect(event.bubbles).to.be.false;
       expect(event.composed).to.be.false;
       expect(event!.target).to.equal(element);
+    });
+
+    describe('select', async () => {
+      it('emits a cancelable selected event when selectable', async () => {
+        element.selectable = true;
+        const labelElement = element.shadowRoot!.querySelector(
+          '#label-button'
+        ) as HTMLElement;
+        await elementUpdated(element);
+        element.addEventListener(UUISelectableEvent.SELECTED, e => {
+          e.preventDefault();
+        });
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.SELECTED);
+        expect(element.selected).to.be.false;
+      });
+    });
+
+    describe('unselect', async () => {
+      it('emits a cancelable unselected event when preselected', async () => {
+        element.selectable = true;
+        element.selected = true;
+        const labelElement = element.shadowRoot!.querySelector(
+          '#label-button'
+        ) as HTMLElement;
+        await elementUpdated(element);
+        element.addEventListener(UUISelectableEvent.UNSELECTED, e => {
+          e.preventDefault();
+        });
+        const listener = oneEvent(element, UUISelectableEvent.UNSELECTED);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.UNSELECTED);
+        expect(element.selected).to.be.true;
+      });
     });
   });
 
