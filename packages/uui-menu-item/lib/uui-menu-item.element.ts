@@ -280,12 +280,15 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   };
 
   private _onCaretClicked = () => {
-    this.showChildren = !this.showChildren;
-    const eventName: string = this.showChildren
-      ? UUIMenuItemEvent.SHOW_CHILDREN
-      : UUIMenuItemEvent.HIDE_CHILDREN;
-    const event = new UUIMenuItemEvent(eventName);
+    const eventName = this.showChildren
+      ? UUIMenuItemEvent.HIDE_CHILDREN
+      : UUIMenuItemEvent.SHOW_CHILDREN;
+    const event = new UUIMenuItemEvent(eventName, { cancelable: true });
     this.dispatchEvent(event);
+
+    if (event.defaultPrevented) return;
+
+    this.showChildren = !this.showChildren;
   };
 
   private _onLabelClicked = () => {

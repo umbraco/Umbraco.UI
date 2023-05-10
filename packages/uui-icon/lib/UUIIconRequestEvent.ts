@@ -1,7 +1,7 @@
 import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
 
 export class UUIIconRequestEvent extends UUIEvent<{ iconName: string }> {
-  public static readonly ICON_REQUEST = 'icon_request';
+  public static readonly ICON_REQUEST = 'icon-request';
 
   public icon: Promise<string> | null = null;
 
