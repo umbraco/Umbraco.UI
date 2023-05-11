@@ -1,7 +1,7 @@
 # Events
 
-**Change in version X.Y.Z?**
-In version X.Y.Z? the events Bubbles and Composed properties has changed, here is a list of events and the change of them:
+**Change in version 1.3.0**
+In version 1.3.0 the events Bubbles and Composed properties has changed, here is a list of events and the change of them:
 
 | Name                      | Bubbles | Composed | Description                                                                         |
 | ------------------------- | ------- | -------- | ----------------------------------------------------------------------------------- |
