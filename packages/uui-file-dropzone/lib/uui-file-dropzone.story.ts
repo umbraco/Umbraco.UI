@@ -1,10 +1,10 @@
-import { StoryFn } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
-import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
-import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
+import type { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
+import type { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 
 import '@umbraco-ui/uui-symbol-file-dropzone/lib';
-import '.';
+import './uui-file-dropzone.element';
 
 export default {
   id: 'uui-file-dropzone',
@@ -17,7 +17,7 @@ export default {
         </div>
         ${Story()}`,
   ],
-};
+} as Meta<UUIFileDropzoneElement>;
 
 const handleFileChange = (e: UUIFileDropzoneEvent) =>
   console.log('event.detail: ', e.detail);
@@ -33,14 +33,17 @@ export const AAAOverview: StoryFn = props => {
 };
 AAAOverview.storyName = 'Overview';
 
-export const Multiple: StoryFn = () =>
+export const Multiple: StoryFn = props =>
   html`
     <uui-file-dropzone
-      multiple
+      .multiple=${props.multiple}
       @file-change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 
+Multiple.args = {
+  multiple: true,
+};
 Multiple.parameters = {
   docs: {
     description: {
@@ -50,14 +53,17 @@ Multiple.parameters = {
   },
 };
 
-export const Accept: StoryFn = () =>
+export const Accept: StoryFn = props =>
   html`
     <uui-file-dropzone
-      accept="image/*"
+      .accept=${props.accept}
       @file-change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 
+Accept.args = {
+  accept: 'image/*',
+};
 Accept.parameters = {
   docs: {
     description: {
