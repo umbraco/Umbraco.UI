@@ -111,10 +111,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   ): Promise<File[]> {
     const fileEntries: File[] = [];
     // Use BFS to traverse entire directory/file structure
-    const queue = [];
-    for (let i = 0; i < dataTransferItemList.length; i++) {
-      queue.push(dataTransferItemList[i].webkitGetAsEntry());
-    }
+    const queue = [...dataTransferItemList];
 
     const acceptList: string[] = [];
     const wildcards: string[] = [];
@@ -141,6 +138,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           fileEntries.push(file);
         }
       } else if (entry.kind === 'directory') {
+        if ('webkitGetAsEntry' in entry === false) continue;
         const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
         queue.push(
           ...(await this._readAllDirectoryEntries(directory.createReader()))
@@ -209,7 +207,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     if (items) {
       let result = await this._getAllFileEntries(items);
 
-      if (this.multiple === false && result.length > 0) {
+      if (this.multiple === false && result.length) {
         result = [result[0]];
       }
 
