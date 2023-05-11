@@ -106,8 +106,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 
-  private async _getAllFileEntries(dataTransferItemList: DataTransferItemList) {
-    const fileEntries: FileSystemFileEntry[] = [];
+  private async _getAllFileEntries(
+    dataTransferItemList: DataTransferItemList
+  ): Promise<File[]> {
+    const fileEntries: File[] = [];
     // Use BFS to traverse entire directory/file structure
     const queue = [];
     for (let i = 0; i < dataTransferItemList.length; i++) {
@@ -129,35 +131,20 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       });
     }
 
-      while (queue.length > 0) {
-        const entry: FileSystemFileEntry = queue.shift()!;
-        if (
-          entry.isFile &&
-          (await this._isAccepted(acceptList, wildcards, entry))
-        ) {
-          fileEntries.push(entry);
-        } else if (entry.isDirectory) {
-          fileEntries.push(entry);
-          queue.push(
-            ...(await this._readAllDirectoryEntries(
-              (entry as any).createReader()
-            ))
-          );
+    while (queue.length > 0) {
+      const entry = queue.shift()!;
+
+      if (entry.kind === 'file') {
+        const file = entry.getAsFile();
+        if (!file) continue;
+        if (this._isAccepted(acceptList, wildcards, file)) {
+          fileEntries.push(file);
         }
-      }
-    } else {
-      while (queue.length > 0) {
-        const entry: FileSystemFileEntry = queue.shift()!;
-        if (entry.isFile) {
-          fileEntries.push(entry);
-        } else if (entry.isDirectory) {
-          fileEntries.push(entry);
-          queue.push(
-            ...(await this._readAllDirectoryEntries(
-              (entry as any).createReader()
-            ))
-          );
-        }
+      } else if (entry.kind === 'directory') {
+        const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
+        queue.push(
+          ...(await this._readAllDirectoryEntries(directory.createReader()))
+        );
       }
     }
 
