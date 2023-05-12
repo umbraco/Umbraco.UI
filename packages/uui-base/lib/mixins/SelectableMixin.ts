@@ -66,7 +66,6 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     private handleSelectKeydown(e: KeyboardEvent) {
       if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
         if (e.key !== ' ' && e.key !== 'Enter') return;
-        e.preventDefault();
         this._toggleSelect();
       }
     }
