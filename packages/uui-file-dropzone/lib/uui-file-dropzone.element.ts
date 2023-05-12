@@ -62,10 +62,14 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   private _dropzone!: HTMLElement;
 
   /**
-   * Accepted filetypes. Will allow all types if empty.
+   * Comma-separated list of accepted filetypes. Will allow all types if empty.
    * @type {string}
    * @attr
    * @default false
+   * @examples [
+   *   "image/png,image/jpeg,image/gif",
+   *   "gif,png,jpg,jpeg",
+   * ]
    */
   @property({ type: String })
   public accept: string = '';
@@ -106,19 +110,18 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
   }
 
-  private async _getAllFileEntries(dataTransferItemList: DataTransferItemList) {
-    const fileEntries: FileSystemFileEntry[] = [];
+  private async _getAllFileEntries(
+    dataTransferItemList: DataTransferItemList
+  ): Promise<File[]> {
+    const fileEntries: File[] = [];
     // Use BFS to traverse entire directory/file structure
-    const queue = [];
-    for (let i = 0; i < dataTransferItemList.length; i++) {
-      queue.push(dataTransferItemList[i].webkitGetAsEntry());
-    }
+    const queue = [...dataTransferItemList];
+
+    const acceptList: string[] = [];
+    const wildcards: string[] = [];
 
     // if the accept filer is set
     if (this.accept) {
-      const acceptList: string[] = [];
-      const wildcards: string[] = [];
-
       // Create the arrays defined above
       this.accept.split(',').forEach(item => {
         if (item.includes('*')) {
@@ -127,36 +130,23 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           acceptList.push(item.trim().toLowerCase());
         }
       });
+    }
 
-      while (queue.length > 0) {
-        const entry: FileSystemFileEntry = queue.shift()!;
-        if (
-          entry.isFile &&
-          (await this._isAccepted(acceptList, wildcards, entry))
-        ) {
-          fileEntries.push(entry);
-        } else if (entry.isDirectory) {
-          fileEntries.push(entry);
-          queue.push(
-            ...(await this._readAllDirectoryEntries(
-              (entry as any).createReader()
-            ))
-          );
+    while (queue.length > 0) {
+      const entry = queue.shift()!;
+
+      if (entry.kind === 'file') {
+        const file = entry.getAsFile();
+        if (!file) continue;
+        if (this._isAccepted(acceptList, wildcards, file)) {
+          fileEntries.push(file);
         }
-      }
-    } else {
-      while (queue.length > 0) {
-        const entry: FileSystemFileEntry = queue.shift()!;
-        if (entry.isFile) {
-          fileEntries.push(entry);
-        } else if (entry.isDirectory) {
-          fileEntries.push(entry);
-          queue.push(
-            ...(await this._readAllDirectoryEntries(
-              (entry as any).createReader()
-            ))
-          );
-        }
+      } else if (entry.kind === 'directory') {
+        if ('webkitGetAsEntry' in entry === false) continue;
+        const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
+        queue.push(
+          ...(await this._readAllDirectoryEntries(directory.createReader()))
+        );
       }
     }
 
@@ -189,27 +179,22 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
   }
 
-  private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
-    return await new Promise<File>((resolve, reject) =>
-      fileEntry.file(resolve, reject)
-    );
-  }
+  private _isAccepted(acceptList: string[], wildcards: string[], file: File) {
+    if (acceptList.length === 0 && wildcards.length === 0) {
+      return true;
+    }
 
-  private async _isAccepted(
-    acceptList: string[],
-    wildcards: string[],
-    entry: FileSystemFileEntry
-  ) {
-    const file = await this._getFile(entry);
     const fileType = file.type.toLowerCase();
     const fileExtension = '.' + file.name.split('.')[1].toLowerCase();
 
     if (acceptList.includes(fileExtension)) {
       return true;
     }
+
     if (acceptList.includes(fileType)) {
       return true;
     }
+
     if (wildcards.some(wildcard => fileType.startsWith(wildcard))) {
       return true;
     }
@@ -226,7 +211,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     if (items) {
       let result = await this._getAllFileEntries(items);
 
-      if (this.multiple === false && result.length > 0) {
+      if (this.multiple === false && result.length) {
         result = [result[0]];
       }
 
@@ -243,6 +228,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private _onDragEnter(e: DragEvent) {
+    // TODO: make visual indication of wether the file is acceptable or not. If not we need to make a more negative/disabled visual look.
     this._dropzone.classList.add('hover');
     e.preventDefault();
   }
@@ -275,6 +261,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           ?multiple=${this.multiple}
           @change=${this._onFileInputChange}
           aria-label="${this.label}" />
+        <slot></slot>
       </div>
     `;
   }

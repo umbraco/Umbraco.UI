@@ -1,23 +1,25 @@
-import { StoryFn } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
-import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
-import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
+import type { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
+import type { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 
+import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-symbol-file-dropzone/lib';
-import '.';
+
+import './uui-file-dropzone.element';
 
 export default {
   id: 'uui-file-dropzone',
   title: 'Inputs/Files/File Dropzone',
   component: 'uui-file-dropzone',
   decorators: [
-    (Story: any) =>
+    Story =>
       html`<div style="font-size: 12px; margin-bottom: 20px;">
           Note: Dropzone logs dropped files in console
         </div>
         ${Story()}`,
   ],
-};
+} as Meta<UUIFileDropzoneElement>;
 
 const handleFileChange = (e: UUIFileDropzoneEvent) =>
   console.log('event.detail: ', e.detail);
@@ -25,22 +27,26 @@ const handleFileChange = (e: UUIFileDropzoneEvent) =>
 export const AAAOverview: StoryFn = props => {
   return html`
     <uui-file-dropzone
-      ?multiple=${props.multiple}
       accept=${props.accept}
+      ?multiple=${props.multiple}
       @change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 };
 AAAOverview.storyName = 'Overview';
 
-export const Multiple: StoryFn = () =>
+export const Multiple: StoryFn = props =>
   html`
     <uui-file-dropzone
-      multiple
       @change=${handleFileChange}
+      .accept=${props.accept}
+      ?multiple=${props.multiple}
       label="Drop files here"></uui-file-dropzone>
   `;
 
+Multiple.args = {
+  multiple: true,
+};
 Multiple.parameters = {
   docs: {
     description: {
@@ -50,14 +56,18 @@ Multiple.parameters = {
   },
 };
 
-export const Accept: StoryFn = () =>
+export const Accept: StoryFn = props =>
   html`
     <uui-file-dropzone
-      accept="image/*"
       @change=${handleFileChange}
+      .accept=${props.accept}
+      ?multiple=${props.multiple}
       label="Drop files here"></uui-file-dropzone>
   `;
 
+Accept.args = {
+  accept: 'image/*',
+};
 Accept.parameters = {
   docs: {
     description: {
