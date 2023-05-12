@@ -39,7 +39,6 @@ jobs:
           cache: 'npm'
 
       - run: npm -v
-      - run: npm config set unsafe-perm true
       - run: npm ci
 
       - name: Authenticate with Registry
