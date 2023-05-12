@@ -224,6 +224,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private _onDragEnter(e: DragEvent) {
+    // TODO: make visual indication of wether the file is acceptable or not. If not we need to make a more negative/disabled visual look.
     this._dropzone.classList.add('hover');
     e.preventDefault();
   }
