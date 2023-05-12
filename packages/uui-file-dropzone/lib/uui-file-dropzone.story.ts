@@ -5,6 +5,7 @@ import type { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 
 import '@umbraco-ui/uui-symbol-file-dropzone/lib';
 import './uui-file-dropzone.element';
+import '@umbraco-ui/uui-button/lib/';
 
 export default {
   id: 'uui-file-dropzone',
