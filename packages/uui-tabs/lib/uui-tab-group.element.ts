@@ -40,30 +40,29 @@ export class UUITabGroupElement extends LitElement {
 
   private _onSlotChange() {
     this._tabElements.forEach(el => {
-      el.removeEventListener('click', this._onTabActive);
+      el.removeEventListener('click', this._onTabClicked);
     });
 
     this._setTabArray();
 
     this._tabElements.forEach(el => {
-      el.addEventListener('click', this._onTabActive);
+      el.addEventListener('click', this._onTabClicked);
     });
   }
 
-  private _onTabActive = (e: MouseEvent) => {
-    //? should this contain stopPropagation?
+  private _onTabClicked = (e: MouseEvent) => {
     const selectedElement = e.currentTarget as HTMLElement;
     if (this._elementIsTabLike(selectedElement)) {
       selectedElement.active = true;
+
+      const filtered = this._tabElements.filter(el => el !== selectedElement);
+
+      filtered.forEach(el => {
+        if (this._elementIsTabLike(el)) {
+          el.active = false;
+        }
+      });
     }
-
-    const filtered = this._tabElements.filter(el => el !== selectedElement);
-
-    filtered.forEach(el => {
-      if (this._elementIsTabLike(el)) {
-        el.active = false;
-      }
-    });
   };
 
   private _elementIsTabLike(el: any): el is UUITabElement {

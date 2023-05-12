@@ -1,13 +1,13 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { query, property } from 'lit/decorators.js';
-import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
+import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * @element uui-file-dropzone
- *  @fires {UUIFileDropzoneEvent} file-change - fires when the a file has been selected.
+ *  @fires {UUIFileDropzoneEvent} change - fires when the a file has been selected.
  *  @slot - For the content of the dropzone
  *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
  */
@@ -62,10 +62,14 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   private _dropzone!: HTMLElement;
 
   /**
-   * Accepted filetypes. Will allow all types if empty.
+   * Comma-separated list of accepted filetypes. Will allow all types if empty.
    * @type {string}
    * @attr
    * @default false
+   * @examples [
+   *   "image/png,image/jpeg,image/gif",
+   *   "gif,png,jpg,jpeg",
+   * ]
    */
   @property({ type: String })
   public accept: string = '';
@@ -212,7 +216,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       }
 
       this.dispatchEvent(
-        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_CHANGE, {
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
           detail: { files: result },
         })
       );
@@ -238,7 +242,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const files = this._input.files ? Array.from(this._input.files) : [];
 
     this.dispatchEvent(
-      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_CHANGE, {
+      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
         detail: { files: files },
       })
     );

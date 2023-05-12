@@ -1,6 +1,6 @@
 /* eslint-disable lit/no-invalid-html */
 /* eslint-disable lit/binding-positions */
-import '.';
+import { UUIBooleanInputEvent, UUIBooleanInputElement } from '.';
 
 import {
   defineCE,
@@ -12,8 +12,6 @@ import {
   unsafeStatic,
 } from '@open-wc/testing';
 import { html as litHTMLLiteral } from 'lit';
-
-import { UUIBooleanInputElement } from './uui-boolean-input.element';
 
 const tagName = defineCE(
   class BooleanInputTestElement extends UUIBooleanInputElement {
@@ -76,12 +74,16 @@ describe('UUIBooleanInputElement', () => {
     await elementUpdated(element);
     expect(input?.checked).to.equal(true);
   });
-
-  it('emits an event when the input changes', async () => {
-    let clicked = false;
-    element.addEventListener('change', () => (clicked = true));
+  it('emits an change event when the input changes', async () => {
+    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE);
     label.click();
-    expect(clicked).to.equal(true);
+
+    const event = await listener;
+    expect(event).to.exist;
+    expect(event.type).to.equal(UUIBooleanInputEvent.CHANGE);
+    expect(event.bubbles).to.be.true;
+    expect(event.composed).to.be.false;
+    expect(event!.target).to.equal(element);
   });
 });
 
