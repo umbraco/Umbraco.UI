@@ -2,10 +2,6 @@
  * Umbraco UI implementation of native DOM CustomEvent that propagates out of Shadow DOM context.
  */
 
-const DefaultInit = {
-  composed: true,
-  bubbles: true,
-};
 export class UUIEvent<
   DetailType extends Record<string, any> = Record<string, any>,
   EventTargetType extends EventTarget | null = EventTarget | null
@@ -14,10 +10,7 @@ export class UUIEvent<
   readonly target!: EventTargetType;
 
   constructor(evName: string, eventInit: any | null = {}) {
-    super(evName, {
-      ...DefaultInit,
-      ...eventInit,
-    });
+    super(evName, { ...eventInit });
     this.detail = eventInit.detail || {};
   }
 }

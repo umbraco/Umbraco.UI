@@ -5,7 +5,7 @@ import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
+import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent';
 
 //TODO maybe implement multiple selection
 

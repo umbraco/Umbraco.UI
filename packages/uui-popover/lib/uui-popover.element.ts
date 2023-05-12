@@ -179,10 +179,15 @@ export class UUIPopoverElement extends LitElement {
   }
 
   // Use this when changing the open state from within this component.
-  private _forceClosePopover() {
+  private _triggerPopoverClose() {
+    const event = new UUIPopoverEvent(UUIPopoverEvent.CLOSE, {
+      cancelable: true,
+    });
+    this.dispatchEvent(event);
+
+    if (event.defaultPrevented) return;
+
     this.open = false;
-    // Notifies about changes.
-    this.dispatchEvent(new UUIPopoverEvent(UUIPopoverEvent.CLOSE));
   }
 
   private _getScrollParents(): any {
@@ -260,14 +265,14 @@ export class UUIPopoverElement extends LitElement {
 
   private _onKeyUp = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
-      this._forceClosePopover();
+      this._triggerPopoverClose();
       return;
     }
   };
 
   private _onDocumentClick = (event: Event) => {
     if (!event.composedPath().includes(this)) {
-      this._forceClosePopover();
+      this._triggerPopoverClose();
     }
   };
 

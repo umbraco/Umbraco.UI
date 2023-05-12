@@ -1,2 +1,2 @@
 export * from './uui-file-dropzone.element';
-export * from './UUIFileDropzoneEvents';
+export * from './UUIFileDropzoneEvent';

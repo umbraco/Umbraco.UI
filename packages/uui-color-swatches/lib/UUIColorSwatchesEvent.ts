@@ -4,4 +4,11 @@ import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib/uui-colo
 
 export class UUIColorSwatchesEvent extends UUIEvent<{}, UUIColorSwatchElement> {
   public static readonly CHANGE = 'change';
+
+  constructor(evName: string, eventInit: any | null = {}) {
+    super(evName, {
+      ...{ bubbles: true },
+      ...eventInit,
+    });
+  }
 }
