@@ -4,7 +4,6 @@ import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import '@umbraco-ui/uui-button/lib/';
 
 /**
  * @element uui-file-dropzone
