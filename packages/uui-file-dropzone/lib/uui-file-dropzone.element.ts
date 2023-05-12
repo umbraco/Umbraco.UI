@@ -134,7 +134,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       if (entry.kind === 'file') {
         const file = entry.getAsFile();
         if (!file) continue;
-        if (this._isAccepted(acceptList, wildcards, file)) {
+        if (await this._isAccepted(acceptList, wildcards, file)) {
           fileEntries.push(file);
         }
       } else if (entry.kind === 'directory') {
