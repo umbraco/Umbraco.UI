@@ -13,6 +13,9 @@ export default {
     value: '',
     label: 'Label',
     placeholder: 'Placeholder',
+    rows: '',
+    cols: '',
+    wrap: '',
   },
 };
 
@@ -39,6 +42,9 @@ export const AAAOverview: Story = props => {
     .placeholder=${props.placeholder}
     ?disabled=${props.disabled}
     ?readonly=${props.readonly}
+    .rows=${props.rows}
+    .cols="${props.cols}"
+    .wrap=${props.wrap}
     .name=${props.name}
     .error=${props.error}
     .value=${props.value}></uui-textarea>`;

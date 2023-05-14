@@ -262,6 +262,21 @@ export class UUIInputElement extends FormControlMixin(
     this._type = value;
   }
 
+  /**
+   * Validates the input based on the Regex pattern
+   * @type {'string'}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  pattern?: string;
+
+  /**
+   * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
+   */
+  @property({ type: String })
+  inputmode?: string;
+
   @query('#input')
   _input!: HTMLInputElement;
 
@@ -287,6 +302,14 @@ export class UUIInputElement extends FormControlMixin(
       'tooLong',
       () => this.maxlengthMessage,
       () => !!this.maxlength && (this._value as string).length > this.maxlength
+    );
+
+    if (!this.pattern || !this.pattern.length) return;
+    const regex = new RegExp(this.pattern);
+    this.addValidator(
+      'patternMismatch',
+      () => this.errorMessage,
+      () => !!this.pattern && regex.test(this._value as string)
     );
   }
 
@@ -357,9 +380,12 @@ export class UUIInputElement extends FormControlMixin(
         .type=${this.type}
         .value=${this.value as string}
         .name=${this.name}
+        pattern=${ifDefined(this.pattern)}
+        title=${ifDefined(this.errorMessage)}
         min=${ifDefined(this.min)}
         max=${ifDefined(this.max)}
         step=${ifDefined(this.step)}
+        spellcheck=${ifDefined(this.spellcheck)}
         autocomplete=${ifDefined(this.autocomplete as any)}
         placeholder=${this.placeholder}
         aria-label=${this.label}
