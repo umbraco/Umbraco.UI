@@ -11,10 +11,19 @@ on:
     inputs:
       sha:
         description: The commit hash referring to the commit to check.
-        required: true
+        required: false
       ref:
         description: The head branch associated with the pull request.
+        required: false
+      git_tag:
+        type: choice
+        description: The git tag associated with the release.
         required: true
+        default: 'latest'
+        options:
+          - 'latest'
+          - 'prerelease'
+          - 'next'
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
@@ -51,6 +60,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
 
       - name: Publish package
-        run: npm run lerna:publish
+        run: npm run lerna:publish -- --dist-tag ${{ inputs.git_tag }}
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
