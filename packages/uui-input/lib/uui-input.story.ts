@@ -82,7 +82,7 @@ export const PatternAndInputmode: Story = props =>
       pattern=${props.pattern}></uui-input>`;
 
 PatternAndInputmode.args = {
-  pattern: '[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+.[a-zA-Z0-9\\-.]+',
+  pattern: '[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-.]+',
   inputmode: 'email',
   errorMessage: 'Not an email',
 };
