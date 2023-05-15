@@ -303,14 +303,6 @@ export class UUIInputElement extends FormControlMixin(
       () => this.maxlengthMessage,
       () => !!this.maxlength && (this._value as string).length > this.maxlength
     );
-
-    if (!this.pattern || !this.pattern.length) return;
-    const regex = new RegExp(this.pattern);
-    this.addValidator(
-      'patternMismatch',
-      () => this.errorMessage,
-      () => !!this.pattern && regex.test(this._value as string)
-    );
   }
 
   protected firstUpdated(
