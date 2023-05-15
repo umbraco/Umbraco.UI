@@ -381,7 +381,6 @@ export class UUIInputElement extends FormControlMixin(
         .value=${this.value as string}
         .name=${this.name}
         pattern=${ifDefined(this.pattern)}
-        title=${ifDefined(this.errorMessage)}
         min=${ifDefined(this.min)}
         max=${ifDefined(this.max)}
         step=${ifDefined(this.step)}
