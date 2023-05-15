@@ -102,7 +102,7 @@
     "postcss-advanced-variables": "3.0.1",
     "postcss-cli": "10.1.0",
     "postcss-color-function": "4.1.0",
-    "postcss-custom-properties": "12.1.9",
+    "postcss-custom-properties": "13.1.5",
     "postcss-jsx": "0.36.4",
     "postcss-load-config": "4.0.1",
     "postcss-syntax": "0.36.2",
