@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.2.1...v1.3.0-rc.0) (2023-05-15)
+
+### Bug Fixes
+
+- avoid duplicating the code to accept files ([e209c16](https://github.com/umbraco/Umbraco.UI/commit/e209c168505252ad77b27d6ef97a15b78bb2516e))
+- check for support of partly supported `webkitGetAsEntry` ([74a629a](https://github.com/umbraco/Umbraco.UI/commit/74a629aca67f85a0fa7f4b02844ae87a2d2ed424))
+- ensure that accepted entries are returned with the File interface ([e75931d](https://github.com/umbraco/Umbraco.UI/commit/e75931d536aa99c4de656571c240803daacd6130))
+- **uui-file-dropzone:** export events needed externally ([4a8a377](https://github.com/umbraco/Umbraco.UI/commit/4a8a377244226a6f0f7ba8fe511db4ad46a85f9d))
+
+### Features
+
+- change events to align with native browser behavior ([#476](https://github.com/umbraco/Umbraco.UI/issues/476)) ([814bdcc](https://github.com/umbraco/Umbraco.UI/commit/814bdcccebc541aed921e8c78ae91e5c96acacfb))
+
 ## [1.2.1](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0...v1.2.1) (2023-04-20)
 
 **Note:** Version bump only for package @umbraco-ui/uui-file-dropzone
