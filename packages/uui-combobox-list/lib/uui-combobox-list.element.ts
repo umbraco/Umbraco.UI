@@ -151,7 +151,7 @@ export class UUIComboboxListElement extends LitElement {
 
     this._updateSelection();
     this.dispatchEvent(
-      new UUIComboboxListEvent(UUIComboboxListEvent.SLOT_CHANGE)
+      new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE)
     );
   };
 

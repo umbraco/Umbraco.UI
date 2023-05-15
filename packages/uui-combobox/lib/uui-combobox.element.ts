@@ -213,7 +213,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         this._onChange
       );
       this._comboboxList.addEventListener(
-        UUIComboboxListEvent.SLOT_CHANGE,
+        UUIComboboxListEvent.INNER_SLOT_CHANGE,
         this._onSlotChange
       );
 
@@ -262,9 +262,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     }
   };
 
-  private _onChange = (e: Event) => {
-    e.stopImmediatePropagation();
-
+  private _onChange = () => {
     this.value = this._comboboxList?.value || '';
     this.search = this.value ? this.search : '';
 

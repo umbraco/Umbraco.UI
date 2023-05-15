@@ -33,7 +33,7 @@ import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
 import { UUIPopoverElement } from '@umbraco-ui/uui-popover/lib';
 
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
-import { UUIColorPickerChangeEvent } from './UUIColorPickerEvents';
+import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 const hasEyeDropper = 'EyeDropper' in window;

@@ -9,7 +9,7 @@ import {
   reverseNumberInRange,
 } from '@umbraco-ui/uui-base/lib/utils';
 
-import { UUIColorSliderEvent } from './UUIColorSliderEvents';
+import { UUIColorSliderEvent } from './UUIColorSliderEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
