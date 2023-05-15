@@ -1,4 +1,7 @@
 import { html, svg } from 'lit-html';
+
+import '@umbraco-ui/uui-table/lib';
+
 // @ts-ignore-start
 // eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
 import customProperties from '../custom-properties.module.js'; // eslint-disable-line
