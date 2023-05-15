@@ -10,6 +10,9 @@ changelog:
     authors:
       - dependabot
   categories:
+    - title: 🙌 Notable Changes
+      labels:
+        - notable
     - title: 💥 Breaking Changes
       labels:
         - breaking
