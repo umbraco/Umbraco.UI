@@ -264,7 +264,7 @@ export class UUIInputElement extends FormControlMixin(
 
   /**
    * Validates the input based on the Regex pattern
-   * @type {'string'}
+   * @type {string}
    * @attr
    * @default undefined
    */
