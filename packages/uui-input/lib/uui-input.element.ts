@@ -273,6 +273,10 @@ export class UUIInputElement extends FormControlMixin(
 
   /**
    * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
+   * @type {string}
+   * @attr
+   * @default undefined
    */
   @property({ type: String })
   inputmode?: string;
