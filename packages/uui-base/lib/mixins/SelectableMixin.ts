@@ -66,21 +66,26 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     private handleSelectKeydown(e: KeyboardEvent) {
       if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
         if (e.key !== ' ' && e.key !== 'Enter') return;
-        e.preventDefault();
         this._toggleSelect();
       }
     }
 
     private _select() {
       if (!this.selectable) return;
+      const selectEvent = new UUISelectableEvent(UUISelectableEvent.SELECTED);
+      this.dispatchEvent(selectEvent);
+      if (selectEvent.defaultPrevented) return;
+
       this.selected = true;
-      this.dispatchEvent(new UUISelectableEvent(UUISelectableEvent.SELECTED));
     }
 
     private _unselect() {
       if (!this.unselectable) return;
+      const selectEvent = new UUISelectableEvent(UUISelectableEvent.UNSELECTED);
+      this.dispatchEvent(selectEvent);
+      if (selectEvent.defaultPrevented) return;
+
       this.selected = false;
-      this.dispatchEvent(new UUISelectableEvent(UUISelectableEvent.UNSELECTED));
     }
 
     private _handleClick(e: Event) {

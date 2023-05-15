@@ -6,7 +6,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { nativeInputStyles } from './native-input.styles';
-import { UUISliderEvent } from './UUISliderEvents';
+import { UUISliderEvent } from './UUISliderEvent';
 
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;

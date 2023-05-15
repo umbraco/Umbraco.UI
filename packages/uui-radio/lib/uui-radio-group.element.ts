@@ -236,7 +236,6 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   }
 
   private _onKeydown(e: KeyboardEvent) {
-    e.stopPropagation();
     switch (e.key) {
       case ARROW_LEFT:
       case ARROW_UP: {
@@ -276,7 +275,6 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   };
 
   private _handleSelectOnClick = (e: UUIRadioEvent) => {
-    e.stopPropagation();
     if (e.target.checked === true) {
       this.value = e.target.value;
       this._fireChangeEvent();

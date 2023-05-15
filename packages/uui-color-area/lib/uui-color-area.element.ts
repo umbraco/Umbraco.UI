@@ -9,7 +9,7 @@ import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { UUIColorAreaEvent } from './UUIColorAreaEvents';
+import { UUIColorAreaEvent } from './UUIColorAreaEvent';
 
 /**
  * @element uui-color-area

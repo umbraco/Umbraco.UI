@@ -153,7 +153,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Reverts
 
-- Revert "build(deps-dev): bump rimraf from 3.0.2 to 4.1.2" ([1516f6a](https://github.com/umbraco/Umbraco.UI/commit/1516f6a37961635edb7ae95597a8e435700ab464))
+- Revert "build(deps-dev): bump rimraf -g from 3.0.2 to 4.1.2" ([1516f6a](https://github.com/umbraco/Umbraco.UI/commit/1516f6a37961635edb7ae95597a8e435700ab464))
 - Revert "try to optimise chromatic by not customising the name of build-storybook" ([73548dd](https://github.com/umbraco/Umbraco.UI/commit/73548ddd03416f8b418100e82d69276656b379ca))
 - Revert "added missing properties to the list and added docs" ([92d8e22](https://github.com/umbraco/Umbraco.UI/commit/92d8e22d32b4bc2978303ea0376c1556bb61e6db))
 - Revert "see if turbo works without cache" ([fb58473](https://github.com/umbraco/Umbraco.UI/commit/fb584737582ee047261707a87c9bf0d48e12a882))
