@@ -1,4 +1,4 @@
-import { Colord, colord } from 'colord';
+import { colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
