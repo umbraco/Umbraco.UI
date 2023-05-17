@@ -250,7 +250,7 @@ export class UUIColorAreaElement extends LitElement {
       return '';
     }
 
-    return color.toHex();;
+    return color.toHex();
   }
 
   render() {
