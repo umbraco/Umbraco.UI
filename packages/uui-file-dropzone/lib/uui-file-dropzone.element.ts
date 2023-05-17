@@ -105,11 +105,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     demandCustomElement(this, 'uui-symbol-file-dropzone');
   }
 
-  protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
-    // @ts-ignore // TODO: fix typescript error
-    return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
-  }
-
   private async _getAllFileEntries(
     dataTransferItemList: DataTransferItemList
   ): Promise<File[]> {
