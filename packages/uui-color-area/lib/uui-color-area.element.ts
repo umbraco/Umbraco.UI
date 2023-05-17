@@ -145,7 +145,6 @@ export class UUIColorAreaElement extends LitElement {
       const parsed = colord(newVal);
 
       if (parsed.isValid()) {
-
         const { h, s, l } = parsed.toHsl();
 
         this.hue = h;
@@ -243,9 +242,15 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   /** Generates a hex string from HSL values. Hue must be 0-360. All other arguments must be 0-100. */
-  private getHexString(hue: number, saturation: number, lightness: number, alpha = 100) {
-
-    const color = colord(`hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`);
+  private getHexString(
+    hue: number,
+    saturation: number,
+    lightness: number,
+    alpha = 100
+  ) {
+    const color = colord(
+      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`
+    );
     if (!color.isValid()) {
       return '';
     }
@@ -261,7 +266,9 @@ export class UUIColorAreaElement extends LitElement {
       <div
         part="grid"
         class="color-area"
-        style=${styleMap({ backgroundColor: this.getHexString(this.hue, 100, 50) })}
+        style=${styleMap({
+          backgroundColor: this.getHexString(this.hue, 100, 50),
+        })}
         @mousedown=${this.handleGridDrag}
         @touchstart=${this.handleGridDrag}>
         <span
@@ -273,7 +280,12 @@ export class UUIColorAreaElement extends LitElement {
           style=${styleMap({
             top: `${gridHandleY}%`,
             left: `${gridHandleX}%`,
-            backgroundColor: this.getHexString(this.hue, this.saturation, this.lightness, this.alpha),
+            backgroundColor: this.getHexString(
+              this.hue,
+              this.saturation,
+              this.lightness,
+              this.alpha
+            ),
           })}
           role="application"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}
