@@ -24,11 +24,17 @@ export class UUIColorAreaElement extends LitElement {
         width: 280px;
         height: 200px;
       }
+
+      :host([disabled]) {
+        cursor: not-allowed;
+      }
+
       :host([disabled]) .color-area {
         user-select: none;
-        cursor: not-allowed;
+        pointer-events: none;
         opacity: 0.55;
       }
+
       .color-area {
         position: relative;
         height: 100%;

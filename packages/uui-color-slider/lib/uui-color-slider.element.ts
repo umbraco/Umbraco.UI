@@ -95,9 +95,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         height: 300px;
       }
 
+      :host([disabled]) {
+        cursor: not-allowed;
+      }
+
       :host([disabled]) #color-slider {
         user-select: none;
-        cursor: not-allowed;
+        pointer-events: none;
         opacity: 0.55;
       }
 
