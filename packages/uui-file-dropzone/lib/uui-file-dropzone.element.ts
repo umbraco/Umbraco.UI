@@ -61,18 +61,45 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   @query('#dropzone')
   private _dropzone!: HTMLElement;
 
+  private _acceptedFileExtensions: string[] = [];
+  private _acceptedMimeTypes: string[] = [];
+
   /**
-   * Comma-separated list of accepted filetypes. Will allow all types if empty.
+   * Comma-separated list of accepted mime types or file extensions (denoted with a `.`).
+   * If this is left empty, it will allow all types.
+   *
    * @type {string}
    * @attr
-   * @default false
    * @examples [
-   *   "image/png,image/jpeg,image/gif",
-   *   "gif,png,jpg,jpeg",
+   *   "image/*,application/pdf",
+   *   ".gif,.png,.jpg,.jpeg,.pdf",
    * ]
    */
   @property({ type: String })
-  public accept: string = '';
+  public set accept(value: string) {
+    if (value) {
+      const mimetypes: string[] = [];
+      const fileextensions: string[] = [];
+
+      // Create the arrays defined above
+      value.split(',').forEach(item => {
+        item = item.trim().toLowerCase();
+
+        // If the item is a mime type, add it to the accept list
+        if (/[a-z]+\/[a-z*]/s.test(item)) {
+          mimetypes.push(item);
+        } else {
+          fileextensions.push(item.replace(/^\./, ''));
+        }
+      });
+
+      this._acceptedMimeTypes = mimetypes;
+      this._acceptedFileExtensions = fileextensions;
+    } else {
+      this._acceptedMimeTypes = [];
+      this._acceptedFileExtensions = [];
+    }
+  }
 
   /**
    * Allows for multiple files to be selected.
@@ -105,11 +132,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     demandCustomElement(this, 'uui-symbol-file-dropzone');
   }
 
-  protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
-    // @ts-ignore // TODO: fix typescript error
-    return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
-  }
-
   private async _getAllFileEntries(
     dataTransferItemList: DataTransferItemList
   ): Promise<File[]> {
@@ -117,28 +139,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     // Use BFS to traverse entire directory/file structure
     const queue = [...dataTransferItemList];
 
-    const acceptList: string[] = [];
-    const wildcards: string[] = [];
-
-    // if the accept filer is set
-    if (this.accept) {
-      // Create the arrays defined above
-      this.accept.split(',').forEach(item => {
-        if (item.includes('*')) {
-          wildcards.push(item.split('*')[0].trim().toLowerCase());
-        } else {
-          acceptList.push(item.trim().toLowerCase());
-        }
-      });
-    }
-
     while (queue.length > 0) {
       const entry = queue.shift()!;
 
       if (entry.kind === 'file') {
         const file = entry.getAsFile();
         if (!file) continue;
-        if (this._isAccepted(acceptList, wildcards, file)) {
+        if (this._isAccepted(file)) {
           fileEntries.push(file);
         }
       } else if (entry.kind === 'directory') {
@@ -179,24 +186,33 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
   }
 
-  private _isAccepted(acceptList: string[], wildcards: string[], file: File) {
-    if (acceptList.length === 0 && wildcards.length === 0) {
+  private _isAccepted(file: File) {
+    if (
+      this._acceptedFileExtensions.length === 0 &&
+      this._acceptedMimeTypes.length === 0
+    ) {
       return true;
     }
 
     const fileType = file.type.toLowerCase();
-    const fileExtension = '.' + file.name.split('.')[1].toLowerCase();
+    const fileExtension = file.name.split('.').pop();
 
-    if (acceptList.includes(fileExtension)) {
+    if (
+      fileExtension &&
+      this._acceptedFileExtensions.includes(fileExtension.toLowerCase())
+    ) {
       return true;
     }
 
-    if (acceptList.includes(fileType)) {
-      return true;
-    }
-
-    if (wildcards.some(wildcard => fileType.startsWith(wildcard))) {
-      return true;
+    for (const mimeType in this._acceptedMimeTypes) {
+      if (fileType === mimeType) {
+        return true;
+      } else if (
+        mimeType.endsWith('/*') &&
+        fileType.startsWith(mimeType.replace('/*', ''))
+      ) {
+        return true;
+      }
     }
 
     return false;
