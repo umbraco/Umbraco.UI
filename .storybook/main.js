@@ -1,4 +1,6 @@
+const remarkGfm = require('remark-gfm').default;
 const tsconfigPaths = require('vite-tsconfig-paths').default;
+
 module.exports = {
   stories: [
     '../packages/**/*.story.ts',
@@ -13,7 +15,16 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-a11y',
     '../storyhelpers/storybook-readme/preset.js',
-    '@storybook/addon-mdx-gfm',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
   ],
   framework: {
     name: '@storybook/web-components-vite',
