@@ -4,21 +4,21 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 
 const swatches = [
-  { label: "Blood Orange", value: '#d0021b' },
-  { label: "Marigold", value: '#f5a623' },
-  { label: "Yellow Sun", value: '#f8e71c' },
-  { label: "Milk Chocolate", value: '#8b572a' },
-  { label: "Lemon Lime", value: '#7ed321'},
-  { label: "Avocado", value: '#417505'},
-  { label: "Vivid Mulberry", value: '#bd10e0'},
-  { label: "Electric Violet", value: '#9013fe'},
-  { label: "Tufts Blue", value: '#4a90e2' },
-  { label: "Crayola", value:'#b8e986' },
-  { label: "Black", value: '#000000'},
-  { label: "Grey", value: '#888'},
-  { label: "Outer Space", value: '#444'},
-  { label: "Chinese Silver", value: '#ccc'},
-  { label: "White", value: '#fff'},
+  { label: 'Blood Orange', value: '#d0021b' },
+  { label: 'Marigold', value: '#f5a623' },
+  { label: 'Yellow Sun', value: '#f8e71c' },
+  { label: 'Milk Chocolate', value: '#8b572a' },
+  { label: 'Lemon Lime', value: '#7ed321' },
+  { label: 'Avocado', value: '#417505' },
+  { label: 'Vivid Mulberry', value: '#bd10e0' },
+  { label: 'Electric Violet', value: '#9013fe' },
+  { label: 'Tufts Blue', value: '#4a90e2' },
+  { label: 'Crayola', value: '#b8e986' },
+  { label: 'Black', value: '#000000' },
+  { label: 'Grey', value: '#888' },
+  { label: 'Outer Space', value: '#444' },
+  { label: 'Chinese Silver', value: '#ccc' },
+  { label: 'White', value: '#fff' },
 ];
 
 const swatchesTransparent = [
@@ -55,18 +55,16 @@ export default {
 
 const Template: Story = props => html`
   <uui-color-swatches .value=${props.value ?? ''} label="my color pallette">
-    ${props.swatches.map(
-      (swatch: any) => {
+    ${props.swatches.map((swatch: any) => {
+      const label = typeof swatch === 'string' ? swatch : swatch.label;
+      const value = typeof swatch === 'string' ? swatch : swatch.value;
 
-        const label = typeof swatch === 'string' ? swatch : swatch.label;
-        const value = typeof swatch === 'string' ? swatch : swatch.value;
-
-        return html`<uui-color-swatch label="${label}" .showLabel=${props.showLabel}
-          >${value}</uui-color-swatch
-        >`
-      }
-        
-    )}
+      return html`<uui-color-swatch
+        label="${label}"
+        .showLabel=${props.showLabel}
+        >${value}</uui-color-swatch
+      >`;
+    })}
   </uui-color-swatches>
 `;
 
