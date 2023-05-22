@@ -10,7 +10,11 @@ const isTransformableDecl = decl => customPropertiesRegExp.test(decl.value);
 
 import postcssValuesParser from 'postcss-values-parser'; // eslint-disable-line
 
-export default opts => ({
+/**
+ * @param {{importFrom: any}} opts
+ * @returns {import('postcss').Plugin}
+ */
+const plugin = opts => ({
   postcssPlugin: 'postcss-custom-properties-fallback',
 
   prepare() {
@@ -69,3 +73,5 @@ export default opts => ({
   },
 });
 //# sourceMappingURL=plugin.js.map
+
+export default plugin;

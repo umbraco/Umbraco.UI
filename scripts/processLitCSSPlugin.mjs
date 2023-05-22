@@ -21,6 +21,9 @@ const options = {
 
 const filter = createFilter(options.include, options.exclude, {});
 
+/**
+ * @returns {import('vite').PluginOption}
+ */
 export default function () {
   return {
     name: 'process-lit-postcss-esm',
