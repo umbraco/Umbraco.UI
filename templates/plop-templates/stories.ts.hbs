@@ -1,10 +1,10 @@
-import '.';
+import type { Meta, StoryObj } from '@storybook/web-components';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
+import './{{> tagnamePartial}}.element';
+import type { {{className name}} } from './{{> tagnamePartial}}.element';
 import readme from '../README.md?raw';
 
-export default {
+const meta: Meta<{{className name}}> = {
   id: '{{> tagnamePartial}}',
   title: '{{displayName name}}',
   component: '{{> tagnamePartial}}',
@@ -18,5 +18,7 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
-  html`<{{> tagnamePartial}}></{{> tagnamePartial}}>`;
+export default meta;
+type Story = StoryObj<{{className name}}>;
+
+export const Overview: Story = {};

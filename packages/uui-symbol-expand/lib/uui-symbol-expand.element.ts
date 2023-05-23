@@ -35,6 +35,7 @@ export class UUISymbolExpandElement extends LitElement {
    * Set this boolean to true for a open/expanded look.
    * @type {boolean}
    * @default false
+   * @attr
    */
   @property({ type: Boolean, reflect: true })
   public open = false;
