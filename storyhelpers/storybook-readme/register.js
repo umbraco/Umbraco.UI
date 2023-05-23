@@ -109,7 +109,7 @@ const Readme = () => {
 
   const renderNoReadme = () => (
     <div>
-      <h3>There's no readme wgr for this component</h3>
+      <h3>There's no readme for this component</h3>
     </div>
   );
 
