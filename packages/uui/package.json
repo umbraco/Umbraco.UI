@@ -119,7 +119,7 @@
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js custom-elements.json",
+    "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js *.tgz lib/**/*.d.ts custom-elements.json",
     "analyze": "wca ../**/*.element.ts --outFile custom-elements.json && wca ../**/*.element.ts --format vscode --outFile vscode-html-custom-data.json"
   },
   "publishConfig": {
