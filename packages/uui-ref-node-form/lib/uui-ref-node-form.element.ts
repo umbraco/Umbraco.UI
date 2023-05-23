@@ -5,7 +5,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
  *  @element uui-ref-node-form
  *  @fires {UUIRefEvent} open - fires when the ref title is clicked
  *  @fires {UUIRefEvent} selected - fires when the ref is selected
- *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
+ *  @fires {UUIRefEvent} deselected - fires when the ref is deselected
  *  @description - Component for displaying a reference to a form node.
  */
 

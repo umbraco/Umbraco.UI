@@ -146,7 +146,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
   constructor() {
     super();
     this.selectable = true;
-    this.unselectable = false;
+    this.deselectable = false;
   }
 
   render() {

@@ -282,7 +282,7 @@ export class UUIColorSwatchElement extends LabelMixin(
     if (changedProperties.has('disabled')) {
       if (this.selectable) {
         this.selectable = !this.disabled;
-        this.unselectable = !this.disabled;
+        this.deselectable = !this.disabled;
       }
     }
     if (

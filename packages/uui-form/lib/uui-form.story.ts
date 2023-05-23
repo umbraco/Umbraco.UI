@@ -1,7 +1,7 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
-import '@umbraco-ui/uui-form/lib/index';
-import '@umbraco-ui/uui-form-layout-item/lib/index';
+import '@umbraco-ui/uui-form/lib';
+import '@umbraco-ui/uui-form-layout-item/lib';
 import '@umbraco-ui/uui-label/lib';
 import '@umbraco-ui/uui-checkbox/lib';
 import '@umbraco-ui/uui-slider/lib';

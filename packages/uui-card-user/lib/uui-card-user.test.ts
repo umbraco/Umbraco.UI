@@ -95,16 +95,16 @@ describe('UUICardUserElement', () => {
       });
     });
 
-    describe('unselect', () => {
-      it('emits a unselected event when preselected', async () => {
+    describe('deselect', () => {
+      it('emits a deselected event when preselected', async () => {
         element.selectable = true;
         element.selected = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUISelectableEvent.UNSELECTED);
+        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
         element.click();
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUISelectableEvent.UNSELECTED);
+        expect(event.type).to.equal(UUISelectableEvent.DESELECTED);
         expect(element.selected).to.be.false;
       });
     });
