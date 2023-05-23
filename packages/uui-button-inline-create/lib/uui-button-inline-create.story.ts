@@ -56,7 +56,7 @@ const createBox = (vertical: boolean) => html` <div style="position:relative;">
     @click=${insertBox}></uui-button-inline-create>
 </div>`;
 
-const createBoxes = (count: Number, vertical = false) => {
+const createBoxes = (count: number, vertical = false) => {
   const boxes: TemplateResult<1>[] = [];
   for (let index = 0; index < count; index++) {
     boxes.push(createBox(vertical));
