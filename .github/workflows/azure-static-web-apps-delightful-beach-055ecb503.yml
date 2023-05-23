@@ -15,6 +15,7 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'v*/contrib'
       - 'release/*'
 
 env:
