@@ -1,6 +1,5 @@
 const remarkGfm = require('remark-gfm').default;
 const tsconfigPaths = require('vite-tsconfig-paths').default;
-
 module.exports = {
   stories: [
     '../packages/**/*.story.ts',
@@ -29,6 +28,9 @@ module.exports = {
   framework: {
     name: '@storybook/web-components-vite',
     options: {},
+  },
+  features: {
+    storyStoreV7: true,
   },
   staticDirs: ['./images'],
   async viteFinal(config, { configType }) {
