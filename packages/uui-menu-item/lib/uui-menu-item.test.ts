@@ -103,22 +103,22 @@ describe('UUIMenuItemElement', () => {
       });
     });
 
-    describe('unselect', async () => {
-      it('emits a cancelable unselected event when preselected', async () => {
+    describe('deselect', async () => {
+      it('emits a cancelable deselected event when preselected', async () => {
         element.selectable = true;
         element.selected = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
           '#label-button'
         ) as HTMLElement;
-        element.addEventListener(UUISelectableEvent.UNSELECTED, e => {
+        element.addEventListener(UUISelectableEvent.DESELECTED, e => {
           e.preventDefault();
         });
-        const listener = oneEvent(element, UUISelectableEvent.UNSELECTED);
+        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
-        expect(event.type).to.equal(UUISelectableEvent.UNSELECTED);
+        expect(event.type).to.equal(UUISelectableEvent.DESELECTED);
         expect(element.selected).to.be.true;
       });
     });

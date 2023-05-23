@@ -107,7 +107,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
     this._selection = [...this._selection, item.key];
     this._selectionMode = this._selection.length > 0;
   }
-  private _unselectRowHandler(item: TableItem) {
+  private _deselectRowHandler(item: TableItem) {
     this._selection = this._selection.filter(
       selectionKey => selectionKey !== item.key
     );
@@ -237,7 +237,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       ?select-only=${this._selectionMode}
       ?selected=${this._isSelected(item.key)}
       @selected=${() => this._selectRowHandler(item)}
-      @unselected=${() => this._unselectRowHandler(item)}>
+      @deselected=${() => this._deselectRowHandler(item)}>
       <uui-table-cell>
         <uui-icon name="wand" style="font-size: 20px;"></uui-icon>
         <uui-checkbox
