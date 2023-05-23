@@ -31,7 +31,7 @@
   },
   "scripts": {
     "build": "tsc --build --force && rollup -c rollup.config.js",
-    "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js"
+    "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js *.tgz lib/**/*.d.ts"
   },
   "publishConfig": {
     "access": "public"

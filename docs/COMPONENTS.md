@@ -21,7 +21,6 @@
 - Color picker
 - :hammer_and_wrench: Date & Time picker
 - :hammer_and_wrench: Base Dropdown (Open towards, picked entry-display and unfold-display.)
-- :hammer_and_wrench: Dropdown Select List (A dropdown with select component baked in)
 - :hammer_and_wrench: FileInput Dropzone
 - :hammer_and_wrench: FileInput Input
 - :hammer_and_wrench: FileInput Preview (Form data, displays one of three symbols:...)
