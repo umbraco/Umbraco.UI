@@ -21,8 +21,8 @@ const PARAM_KEY = 'readme';
 const Readme = () => {
   const [useDarkMode, setUseDarkMode] = useState();
 
-  const markdownParameter = useParameter(PARAM_KEY, null);
-  const markdown = markdownParameter ? markdownParameter.data : null;
+  const readmeParameters = useParameter(PARAM_KEY, null);
+  const markdown = readmeParameters ? readmeParameters.markdown : null;
 
   const updateUseDarkMode = event => {
     setUseDarkMode(event.matches);
