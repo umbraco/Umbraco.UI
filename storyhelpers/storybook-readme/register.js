@@ -9,8 +9,8 @@ import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
-  vs,
-  vscDarkPlus,
+  vs as lightTheme,
+  vscDarkPlus as darkTheme,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 
@@ -50,18 +50,23 @@ const Readme = () => {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && match ? (
             <SyntaxHighlighter
-              className="storybook-readme-syntax-highlighter"
+              {...props}
               children={String(children).replace(/\n$/, '')}
-              style={{
-                ...(useDarkMode ? vscDarkPlus : vs),
-                'pre[class*="language-"]': { display: 'none' },
+              style={useDarkMode ? darkTheme : lightTheme}
+              customStyle={{
+                background: 'none',
+                border: 0,
+                padding: 0,
+                margin: 0,
+                fontSize: 'inherit',
+                lineHeight: 'inherit',
               }}
               language={match[1]}
               PreTag={'div'}
-              {...props}
+              useInlineStyles={true}
             />
           ) : (
-            <code className={className} {...props}>
+            <code {...props} className={className}>
               {children}
             </code>
           );
@@ -83,7 +88,7 @@ const Readme = () => {
   );
 };
 
-addons.register(ADDON_ID, api => {
+addons.register(ADDON_ID, () => {
   addons.add(PANEL_ID, {
     type: types.PANEL,
     title: 'Readme',
