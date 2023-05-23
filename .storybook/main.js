@@ -1,5 +1,9 @@
 const remarkGfm = require('remark-gfm').default;
 const tsconfigPaths = require('vite-tsconfig-paths').default;
+
+/**
+ * @type {import('@storybook/web-components-vite').StorybookConfig}
+ */
 module.exports = {
   stories: [
     '../packages/**/*.story.ts',
