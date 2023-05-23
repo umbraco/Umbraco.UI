@@ -102,13 +102,22 @@ export class UUIAvatarElement extends LitElement {
   private createInitials(name: string) {
     let initials = '';
 
-    if (name) {
-      const words = name.match(/(\w+)/g) ?? [];
-      initials = words[0]?.substring(0, 1) ?? '';
-      if (words.length > 1) {
-        initials += words[words.length - 1].substring(0, 1);
-      }
+    if (!name) {
+      return initials;
     }
+
+    const words = name.match(/(\w+)/g);
+
+    if (!words?.length) {
+      return initials;
+    }
+
+    initials = words[0].substring(0, 1);
+
+    if (words.length > 1) {
+      initials += words[words.length - 1].substring(0, 1);
+    }
+
     return initials.toUpperCase();
   }
 

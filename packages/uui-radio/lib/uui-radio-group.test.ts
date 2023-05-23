@@ -1,4 +1,10 @@
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  html,
+  oneEvent,
+} from '@open-wc/testing';
 
 import { UUIRadioGroupElement } from './uui-radio-group.element';
 import { UUIRadioElement } from './uui-radio.element';
@@ -13,7 +19,7 @@ describe('UuiRadio', () => {
   let radios: UUIRadioElement[];
   beforeEach(async () => {
     element = await fixture(html`
-      <uui-radio-group>
+      <uui-radio-group name="groupname">
         <uui-radio .value=${'Value 1'} label="Option 1">Option 1</uui-radio>
         <uui-radio .value=${'Value 2'} label="Option 2"></uui-radio>
         <uui-radio .value=${'Value 3'} label="Option 3">Option 3</uui-radio>
@@ -123,6 +129,26 @@ describe('UuiRadioGroup value', () => {
     radios[2].click();
     expect(element.value).to.equal(radios[2].value);
   });
+
+  it('name is propagated to radio children', () => {
+    expect(element.name).to.equal(radios[0].name);
+    expect(element.name).to.equal(radios[1].name);
+    expect(element.name).to.equal(radios[2].name);
+  });
+
+  it('disabled is propagated to radio children', () => {
+    expect(element.disabled).to.equal(radios[0].disabled);
+    expect(element.disabled).to.equal(radios[1].disabled);
+    expect(element.disabled).to.equal(radios[2].disabled);
+  });
+
+  it('disabled state on radio-group is reflected on radio children', async () => {
+    element.disabled = true;
+    await elementUpdated(element);
+    expect(element.disabled).to.equal(radios[0].disabled);
+    expect(element.disabled).to.equal(radios[1].disabled);
+    expect(element.disabled).to.equal(radios[2].disabled);
+  });
 });
 
 describe('UuiRadioGroup in a Form', () => {
@@ -224,5 +250,27 @@ describe('UuiRadioGroup when one radio child radio is checked', () => {
     expect(element.value).to.equal(radios[1].value);
     const formData = new FormData(formElement);
     expect(formData.get(`${element.name}`)).to.be.equal('Value 2');
+  });
+});
+
+describe('UuiRadioGroup with start value', () => {
+  let radioGroup: UUIRadioGroupElement;
+  let radios: Array<UUIRadioElement>;
+  beforeEach(async () => {
+    radioGroup = await fixture(
+      html` <uui-radio-group value="2">
+        <uui-radio value="1">one</uui-radio>
+        <uui-radio value="2">two</uui-radio>
+        <uui-radio value="3">three</uui-radio>
+        <uui-radio value="4">four</uui-radio>
+      </uui-radio-group>`
+    );
+    radios = Array.from(radioGroup.querySelectorAll('uui-radio'));
+  });
+  it('propagates the start value to the correct child radio', async () => {
+    expect(radios[0]).to.not.have.attribute('checked');
+    expect(radios[1]).to.have.attribute('checked');
+    expect(radios[2]).to.not.have.attribute('checked');
+    expect(radios[3]).to.not.have.attribute('checked');
   });
 });

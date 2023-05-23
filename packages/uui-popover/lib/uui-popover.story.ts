@@ -1,7 +1,7 @@
 import '.';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 import { UUIPopoverElement } from './uui-popover.element';
 

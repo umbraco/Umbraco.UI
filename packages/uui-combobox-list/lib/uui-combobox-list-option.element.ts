@@ -5,7 +5,7 @@ import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @element uui-combobox-list-option
- * @slot default - For option content
+ * @slot - For option content
  * @description - An option to be used within uui-combobox-list
  */
 @defineElement('uui-combobox-list-option')

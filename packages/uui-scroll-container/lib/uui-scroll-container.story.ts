@@ -1,7 +1,7 @@
 import '.';
 
 import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
   id: 'uui-scroll-container',
@@ -146,7 +146,7 @@ export const NotEnoughContent: Story = props =>
   `;
 
 NotEnoughContent.args = {
-  slot: 'Very little text, no Scrollbar appearing',
+  slot: 'Very little text, no scrollbar appearing',
 };
 
 export const VeryWideContent: Story = props =>
@@ -159,4 +159,15 @@ export const VeryWideContent: Story = props =>
 VeryWideContent.args = {
   slot: html` line is way toooo long
     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br />`,
+};
+
+export const EnforceScroll: Story = props =>
+  html`
+    <uui-scroll-container style="width:400px; height:400px;" enforce-scroll>
+      ${props.slot}
+    </uui-scroll-container>
+  `;
+
+EnforceScroll.args = {
+  slot: 'Very little text, but has the enforce-scroll property\n(See with a dark background)',
 };

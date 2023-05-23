@@ -90,7 +90,13 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 0;
       }
 
-      :host([image]:not([image='']):hover, [image]:not([image='']):focus, [image]:not([image='']):focus-within, [selected][image]:not([image='']), [error][image]:not([image='']))
+      :host(
+          [image]:not([image='']):hover,
+          [image]:not([image='']):focus,
+          [image]:not([image='']):focus-within,
+          [selected][image]:not([image='']),
+          [error][image]:not([image=''])
+        )
         #open-part {
         opacity: 1;
         transition-duration: 120ms;
@@ -135,23 +141,23 @@ export class UUICardMediaElement extends UUICardElement {
     demandCustomElement(this, 'uui-symbol-file');
   }
 
-  private queryPreviews(e: any): void {
+  private queryPreviews(e: Event): void {
     this.hasPreview =
-      (e.path[0] as HTMLSlotElement).assignedElements({ flatten: true })
-        .length > 0;
+      (e.composedPath()[0] as HTMLSlotElement).assignedElements({
+        flatten: true,
+      }).length > 0;
   }
 
   protected renderMedia() {
-    if (this.hasPreview === false) {
-      if (this.fileExt === '') {
-        return html`<uui-symbol-folder id="folder-symbol"></uui-symbol-folder>`;
-      } else {
-        return html`<uui-symbol-file
-          id="file-symbol"
-          type="${this.fileExt}"></uui-symbol-file>`;
-      }
+    if (this.hasPreview === true) return '';
+
+    if (this.fileExt === '') {
+      return html`<uui-symbol-folder id="folder-symbol"></uui-symbol-folder>`;
     }
-    return '';
+
+    return html`<uui-symbol-file
+      id="file-symbol"
+      type="${this.fileExt}"></uui-symbol-file>`;
   }
 
   public render() {
