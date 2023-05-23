@@ -17,7 +17,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
-    '../storyhelpers/storybook-readme/preset.js',
+    '../storyhelpers/storybook-readme',
     {
       name: '@storybook/addon-docs',
       options: {
