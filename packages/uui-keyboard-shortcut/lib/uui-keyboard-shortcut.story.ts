@@ -1,11 +1,17 @@
 import '.';
 
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Displays/Keyboard Shortcut',
   component: 'uui-keyboard-shortcut',
   id: 'uui-keyboard-shortcut',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const AAAOverview = () => html` <uui-key>Enter</uui-key> `;

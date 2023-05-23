@@ -3,6 +3,7 @@ import '.';
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { UUIColorSliderElement } from './uui-color-slider.element';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-color-slider',
@@ -20,6 +21,9 @@ export default {
     color: '',
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-color-slider></uui-color-slider>`,

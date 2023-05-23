@@ -5,11 +5,15 @@ import type { UUITableCellElement } from './uui-table-cell.element';
 
 import '@umbraco-ui/uui-input/lib';
 import './uui-table-cell.element';
+import readme from '../README.md?raw';
 
 const meta: Meta<typeof UUITableCellElement> = {
   title: 'Layout/Table/Table Cell',
   component: 'uui-table-cell',
   id: 'uui-table-cell',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 export default meta;

@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import readme from '../README.md?raw';
 
 const swatches = [
   { label: 'Blood Orange', value: '#d0021b' },
@@ -45,6 +46,9 @@ export default {
   title: 'Inputs/Color/Color Swatches',
   component: 'uui-color-swatches',
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-color-swatches></uui-color-swatches>`,

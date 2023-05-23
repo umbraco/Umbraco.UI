@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-progress-bar',
@@ -11,6 +12,7 @@ export default {
     progress: 25,
   },
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `<uui-progress-bar></uui-progress-bar>`,

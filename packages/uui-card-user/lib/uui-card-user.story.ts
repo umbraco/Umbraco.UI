@@ -1,6 +1,7 @@
 import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import '@umbraco-ui/uui-avatar/lib';
+import readme from '../README.md?raw';
 
 import './index';
 
@@ -14,6 +15,11 @@ export default {
   decorators: [
     (Story: any) => html`<div style="width: 200px;">${Story()}</div>`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 const cardContent = html`

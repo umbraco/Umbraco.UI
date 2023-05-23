@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-toast-notification',
@@ -20,6 +21,9 @@ export default {
     slot: {
       control: { type: 'text' },
     },
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 

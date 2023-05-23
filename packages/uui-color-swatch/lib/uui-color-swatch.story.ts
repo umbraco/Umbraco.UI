@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit-html';
+import readme from '../README.md?raw';
 
 const value = '#d0021b';
 
@@ -9,6 +10,11 @@ export default {
   id: 'uui-color-swatch',
   title: 'Inputs/Color/Color Swatch',
   component: 'uui-color-swatch',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const Overview: Story = () =>

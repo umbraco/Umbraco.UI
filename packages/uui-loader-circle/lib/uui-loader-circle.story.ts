@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Loaders/Loader Circle',
@@ -15,6 +16,9 @@ export default {
     progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     chromatic: { disableSnapshot: true },
   },
 };

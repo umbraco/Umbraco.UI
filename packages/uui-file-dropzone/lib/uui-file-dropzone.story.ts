@@ -8,6 +8,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-symbol-file-dropzone/lib';
 
 import './uui-file-dropzone.element';
+import readme from '../README.md?raw';
 
 const meta: Meta<typeof UUIFileDropzoneElement> = {
   id: 'uui-file-dropzone',
@@ -21,6 +22,11 @@ const meta: Meta<typeof UUIFileDropzoneElement> = {
         </div>
         ${Story()}`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

@@ -3,11 +3,17 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-icon',
   title: 'Symbols/Icon',
   component: 'uui-icon',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const AAAOverview: Story = () => html`

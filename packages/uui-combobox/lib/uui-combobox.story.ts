@@ -13,6 +13,7 @@ import { html } from 'lit';
 import { useArgs } from '@storybook/preview-api';
 import { repeat } from 'lit/directives/repeat.js';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-combobox',
@@ -24,6 +25,9 @@ export default {
     readonly: false,
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-combobox style="width: 250px"></uui-combobox>`,

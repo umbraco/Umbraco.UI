@@ -4,11 +4,15 @@ import { Story } from '@storybook/web-components';
 import { UUIToastNotificationLayoutElement } from '@umbraco-ui/uui-toast-notification-layout/lib';
 import { UUIToastNotificationElement } from '@umbraco-ui/uui-toast-notification/lib';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-toast-notification-container',
   title: 'Displays/Toast Notification/Toast Notification Container',
   component: 'uui-toast-notification-container',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 function addToast() {

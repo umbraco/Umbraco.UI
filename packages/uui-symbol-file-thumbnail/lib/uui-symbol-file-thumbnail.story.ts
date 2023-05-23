@@ -2,12 +2,14 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-symbol-file-thumbnail',
   title: 'Symbols/File Thumbnail',
   component: 'uui-symbol-file-thumbnail',
   parameters: {
+    readme: { markdown: readme },
     chromatic: { disableSnapshot: true },
   },
 };

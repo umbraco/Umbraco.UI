@@ -4,6 +4,7 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Buttons/Tabs',
@@ -20,6 +21,7 @@ export default {
     '--uui-tab-divider': { control: { type: 'color' } },
   },
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: html`<uui-tab-group>

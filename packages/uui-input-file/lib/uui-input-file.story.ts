@@ -12,11 +12,17 @@ import '.';
 
 import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-input-file',
   title: 'Inputs/Files/Input File',
   component: 'uui-input-file',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const AAAOverview: StoryFn = () =>

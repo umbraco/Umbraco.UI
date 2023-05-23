@@ -6,6 +6,8 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { html } from 'lit';
 
+import readme from '../README.md?raw';
+
 export default {
   id: 'uui-action-bar',
   title: 'Buttons/Action Bar',
@@ -26,6 +28,11 @@ export default {
         type: 'select',
       },
       options: ['default', 'positive', 'warning', 'danger'],
+    },
+  },
+  parameters: {
+    readme: {
+      markdown: readme,
     },
   },
 };
