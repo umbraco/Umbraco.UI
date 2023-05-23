@@ -3,7 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import 'github-markdown-css/github-markdown.css';
 
-import { addons, types } from '@storybook/addons';
+import {
+  addons,
+  types,
+  useStorybookApi,
+  useChannel,
+} from '@storybook/manager-api';
 import { AddonPanel } from '@storybook/components';
 import { STORY_RENDERED } from '@storybook/core-events';
 import React, { useEffect, useState } from 'react';
@@ -18,24 +23,22 @@ import remarkGfm from 'remark-gfm';
 const ADDON_ID = 'readme';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
-const Readme = props => {
+const Readme = () => {
+  const api = useStorybookApi();
   const [markdown, setMarkdown] = useState();
   const [useDarkMode, setUseDarkMode] = useState();
 
-  useEffect(() => {
-    setUseDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', updateUseDarkMode);
-
-    const api = props.api;
-    api.on(STORY_RENDERED, () => {
+  useChannel({
+    [STORY_RENDERED]: async () => {
       setMarkdown('');
-      const component = api.getCurrentStoryData().component;
+      const componentPath = api.getCurrentStoryData().importPath.split('/');
+      const component = componentPath[componentPath.length - 1].split('.')[0];
       if (component) {
         try {
-          const readme =
-            require(`!raw-loader!../../packages/${component}/README.md`).default;
+          const readmeUrl = `../../packages/${component}/README.md`;
+          const readme = await fetch(readmeUrl, {
+            headers: { 'Content-Type': 'text/plain' },
+          }).then(res => res.text());
 
           setMarkdown(readme);
 
@@ -55,7 +58,18 @@ const Readme = props => {
           console.warn('No README file found for', component);
         }
       }
-    });
+    },
+  });
+
+  const updateUseDarkMode = event => {
+    setUseDarkMode(event.matches);
+  };
+
+  useEffect(() => {
+    setUseDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', updateUseDarkMode);
 
     return function cleanup() {
       window
@@ -63,10 +77,6 @@ const Readme = props => {
         .removeEventListener('change', updateUseDarkMode);
     };
   }, []);
-
-  const updateUseDarkMode = event => {
-    setUseDarkMode(event.matches);
-  };
 
   const renderReadme = () => (
     <ReactMarkdown
@@ -99,7 +109,7 @@ const Readme = props => {
 
   const renderNoReadme = () => (
     <div>
-      <h3>There's no readme for this component</h3>
+      <h3>There's no readme wgr for this component</h3>
     </div>
   );
 
@@ -116,7 +126,7 @@ addons.register(ADDON_ID, api => {
     title: 'Readme',
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
-        <Readme api={api} />
+        <Readme />
       </AddonPanel>
     ),
   });
