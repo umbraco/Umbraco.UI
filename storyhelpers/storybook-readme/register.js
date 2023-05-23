@@ -3,14 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import 'github-markdown-css/github-markdown.css';
 
-import {
-  addons,
-  types,
-  useStorybookApi,
-  useChannel,
-} from '@storybook/manager-api';
+import { addons, types, useParameter } from '@storybook/manager-api';
 import { AddonPanel } from '@storybook/components';
-import { STORY_RENDERED } from '@storybook/core-events';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -22,44 +16,13 @@ import remarkGfm from 'remark-gfm';
 
 const ADDON_ID = 'readme';
 const PANEL_ID = `${ADDON_ID}/panel`;
+const PARAM_KEY = 'readme';
 
 const Readme = () => {
-  const api = useStorybookApi();
-  const [markdown, setMarkdown] = useState();
   const [useDarkMode, setUseDarkMode] = useState();
 
-  useChannel({
-    [STORY_RENDERED]: async () => {
-      setMarkdown('');
-      const componentPath = api.getCurrentStoryData().importPath.split('/');
-      const component = componentPath[componentPath.length - 1].split('.')[0];
-      if (component) {
-        try {
-          const readmeUrl = `../../packages/${component}/README.md`;
-          const readme = await fetch(readmeUrl, {
-            headers: { 'Content-Type': 'text/plain' },
-          }).then(res => res.text());
-
-          setMarkdown(readme);
-
-          const syntaxHighlighters = document.querySelectorAll(
-            '.storybook-readme-syntax-highlighter'
-          );
-
-          if (syntaxHighlighters.length > 0) {
-            for (const item of syntaxHighlighters) {
-              const children = item.children;
-              const parent = item.parentElement;
-
-              parent.append(...children);
-            }
-          }
-        } catch (e) {
-          console.warn('No README file found for', component);
-        }
-      }
-    },
-  });
+  const markdownParameter = useParameter(PARAM_KEY, null);
+  const markdown = markdownParameter ? markdownParameter.data : null;
 
   const updateUseDarkMode = event => {
     setUseDarkMode(event.matches);
