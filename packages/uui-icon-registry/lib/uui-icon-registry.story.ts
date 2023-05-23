@@ -3,11 +3,17 @@ import '@umbraco-ui/uui-icon/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-icon-registry',
   title: 'Symbols/Icon Registry',
   component: 'uui-icon-registry',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 const myCustomSVGData =

@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Inputs/Slider',
@@ -23,6 +24,9 @@ export default {
     value: {
       control: { type: 'number' },
     },
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 

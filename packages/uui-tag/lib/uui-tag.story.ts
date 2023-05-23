@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Displays/Tag',
@@ -29,6 +30,9 @@ export default {
     },
     '--uui-tag-font-size': { control: { type: 'text' } },
     fontSize: { table: { category: 'Styles' } },
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 

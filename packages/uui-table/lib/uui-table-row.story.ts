@@ -6,11 +6,15 @@ import type { UUITableRowElement } from './uui-table-row.element';
 
 import '@umbraco-ui/uui-input/lib';
 import './uui-table-row.element';
+import readme from '../README.md?raw';
 
 const meta: Meta<typeof UUITableRowElement> = {
   title: 'Layout/Table/Table Row',
   component: 'uui-table-row',
   id: 'uui-table-row',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 export default meta;

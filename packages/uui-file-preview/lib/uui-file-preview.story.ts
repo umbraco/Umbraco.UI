@@ -10,11 +10,17 @@ import '@umbraco-ui/uui-symbol-file/lib';
 import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import { UUIFilePreviewElement } from './uui-file-preview.element';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-file-preview',
   title: 'Displays/File Preview',
   component: 'uui-file-preview',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const AAAOverview: StoryFn = () => {

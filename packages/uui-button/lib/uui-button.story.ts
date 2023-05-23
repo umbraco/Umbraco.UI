@@ -1,10 +1,13 @@
 import '.';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-loader-circle/lib';
 
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { UUIButtonElement } from './uui-button.element';
+
+import readme from '../README.md?raw';
 
 export default {
   title: 'Buttons/Button',
@@ -54,6 +57,11 @@ export default {
     '--uui-button-contrast-hover': { control: { type: 'color' } },
     '--uui-button-background-color-disabled': { control: { type: 'color' } },
     '--uui-button-contrast-disabled': { control: { type: 'color' } },
+  },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
   },
 } as Meta<UUIButtonElement>;
 

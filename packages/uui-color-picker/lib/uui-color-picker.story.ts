@@ -13,6 +13,7 @@ import '.';
 import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { UUIColorPickerElement } from './uui-color-picker.element';
+import readme from '../README.md?raw';
 
 const defaultSwatches = [
   '#d0021b',
@@ -43,6 +44,9 @@ export default {
     format: 'hex',
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     actions: {
       handles: ['change'],
     },

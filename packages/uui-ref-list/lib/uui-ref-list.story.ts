@@ -2,10 +2,14 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 import './index';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Displays/Reference List',
   component: 'uui-ref-list',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);

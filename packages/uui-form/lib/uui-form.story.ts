@@ -9,11 +9,17 @@ import '@umbraco-ui/uui-radio/lib';
 import '@umbraco-ui/uui-toggle/lib';
 import '@umbraco-ui/uui-button/lib';
 import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-form',
   title: 'Inputs/Form/Form',
   component: 'uui-form',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 const _onRadioGroupChanged = (e: UUIRadioGroupEvent) => {

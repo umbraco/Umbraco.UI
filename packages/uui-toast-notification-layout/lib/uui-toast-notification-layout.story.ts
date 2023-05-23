@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-toast-notification-layout',
@@ -13,6 +14,7 @@ export default {
     },
   },
   parameters: {
+    readme: { markdown: readme },
     controls: {
       exclude: ['styles'],
     },

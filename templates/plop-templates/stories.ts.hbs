@@ -2,12 +2,14 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: '{{> tagnamePartial}}',
   title: '{{displayName name}}',
   component: '{{> tagnamePartial}}',
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `<{{> tagnamePartial}}></{{> tagnamePartial}}>`,

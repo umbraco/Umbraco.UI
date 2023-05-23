@@ -2,12 +2,14 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-symbol-expand',
   title: 'Symbols/Expand',
   component: 'uui-symbol-expand',
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `<uui-symbol-expand></uui-symbol-expand>`,

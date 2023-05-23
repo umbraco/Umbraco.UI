@@ -6,11 +6,17 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-checkbox/lib';
 import '@umbraco-ui/uui-form/lib';
 import '@umbraco-ui/uui-label/lib';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-form-layout-item',
   title: 'Inputs/Form/Form Layout Item',
   component: 'uui-form-layout-item',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const AAAOverview: Story = () => html`

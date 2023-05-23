@@ -7,6 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Buttons/Menu Item',
@@ -29,6 +30,9 @@ export default {
   },
   argTypes: {
     '--uui-menu-item-indent': { control: { type: 'text' } },
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 

@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Displays/Avatar/Avatar Group',
@@ -9,6 +10,11 @@ export default {
   component: 'uui-avatar-group',
   args: {
     limit: 0,
+  },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
   },
 };
 

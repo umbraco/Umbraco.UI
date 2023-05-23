@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Inputs/Radio',
@@ -14,6 +15,9 @@ export default {
   },
   argTypes: {
     slot: { control: { type: 'text' } },
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 

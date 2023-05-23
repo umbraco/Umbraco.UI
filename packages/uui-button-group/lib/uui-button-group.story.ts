@@ -1,6 +1,7 @@
 import '.';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Buttons/Button Group',
@@ -22,6 +23,11 @@ export default {
         type: 'select',
       },
       options: ['default', 'positive', 'warning', 'danger'],
+    },
+  },
+  parameters: {
+    readme: {
+      markdown: readme,
     },
   },
 };

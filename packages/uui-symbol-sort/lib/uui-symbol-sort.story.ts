@@ -2,12 +2,14 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-symbol-sort',
   title: 'Symbols/Sort',
   component: 'uui-symbol-sort',
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `<uui-symbol-sort></uui-symbol-sort>`,

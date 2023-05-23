@@ -6,6 +6,7 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Layout/Table/Table',
@@ -17,6 +18,9 @@ export default {
     UUITableHeadCell: 'uui-table-head-cell',
     UUITableRow: 'uui-table-row',
     UUITableCell: 'uui-table-cell',
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 } as Meta;
 

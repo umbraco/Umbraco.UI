@@ -3,6 +3,7 @@ import '.';
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { UUIColorAreaElement } from './uui-color-area.element';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-color-area',
@@ -12,6 +13,9 @@ export default {
     value: { control: 'color' },
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-color-area></uui-color-area>`,

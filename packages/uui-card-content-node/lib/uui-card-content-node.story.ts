@@ -3,6 +3,7 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Displays/Cards/Content Node',
@@ -18,6 +19,11 @@ export default {
   decorators: [
     (Story: any) => html`<div style="width: 300px;">${Story()}</div>`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 /* TODO: we should make some kind of component for this data layout */

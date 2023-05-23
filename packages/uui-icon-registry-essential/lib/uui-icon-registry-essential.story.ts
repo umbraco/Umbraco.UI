@@ -5,12 +5,16 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 
 import { UUIIconRegistryEssential } from './UUIIconRegistryEssential';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-icon-registry-essential',
   title: 'Symbols/Icon Registry Essential',
   component: 'uui-icon-registry-essential',
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `

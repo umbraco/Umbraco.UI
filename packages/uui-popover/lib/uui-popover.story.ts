@@ -4,6 +4,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 
 import { UUIPopoverElement } from './uui-popover.element';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-popover',
@@ -34,6 +35,7 @@ export default {
     margin: 8,
   },
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `

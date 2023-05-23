@@ -3,6 +3,7 @@ import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Inputs/Input',
@@ -31,6 +32,11 @@ export default {
         'number',
         'color',
       ],
+    },
+  },
+  parameters: {
+    readme: {
+      markdown: readme,
     },
   },
 };

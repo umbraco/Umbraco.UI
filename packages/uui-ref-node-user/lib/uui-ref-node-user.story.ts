@@ -2,11 +2,15 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 import './index';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-ref-node-user',
   title: 'Displays/References/User',
   component: 'uui-ref-node-user',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 const Template: Story = props => html`

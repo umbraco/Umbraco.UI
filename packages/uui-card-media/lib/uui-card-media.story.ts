@@ -2,12 +2,16 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-card-media',
   title: 'Displays/Cards/Media',
   component: 'uui-card-media',
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     chromatic: { disableSnapshot: true },
   },
   decorators: [
