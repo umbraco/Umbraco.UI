@@ -7,7 +7,7 @@ import { property } from 'lit/decorators.js';
  *  @element uui-ref-node-member
  *  @fires {UUIRefEvent} open - fires when the ref title is clicked
  *  @fires {UUIRefEvent} selected - fires when the ref is selected
- *  @fires {UUIRefEvent} unselected - fires when the ref is unselected
+ *  @fires {UUIRefEvent} deselected - fires when the ref is deselected
  *  @description - Component for displaying a reference to a Member node.
  */
 

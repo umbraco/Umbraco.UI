@@ -7,7 +7,7 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class SelectableMixinInterface extends LitElement {
   selectable: boolean;
-  unselectable: boolean;
+  deselectable: boolean;
   selected: boolean;
   selectableTarget: EventTarget;
 }
@@ -24,7 +24,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 ) => {
   /**
    * @fires {UUISelectableEvent} selected - fires when the media card is selected
-   * @fires {UUISelectableEvent} unselected - fires when the media card is unselected
+   * @fires {UUISelectableEvent} deselected - fires when the media card is deselected
    */
   class SelectableMixinClass extends superClass {
     private _selectable = false;
@@ -45,7 +45,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.requestUpdate('selected', oldVal);
     }
 
-    protected unselectable = true;
+    protected deselectable = true;
 
     /**
      * Attribute applied when the element is selected.
@@ -79,9 +79,9 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.selected = true;
     }
 
-    private _unselect() {
-      if (!this.unselectable) return;
-      const selectEvent = new UUISelectableEvent(UUISelectableEvent.UNSELECTED);
+    private _deselect() {
+      if (!this.deselectable) return;
+      const selectEvent = new UUISelectableEvent(UUISelectableEvent.DESELECTED);
       this.dispatchEvent(selectEvent);
       if (selectEvent.defaultPrevented) return;
 
@@ -95,10 +95,10 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private _toggleSelect() {
-      if (this.unselectable === false) {
+      if (this.deselectable === false) {
         this._select();
       } else {
-        this.selected ? this._unselect() : this._select();
+        this.selected ? this._deselect() : this._select();
       }
     }
   }
