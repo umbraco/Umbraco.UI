@@ -103,8 +103,8 @@ export class UUIAvatarElement extends LitElement {
     let initials = '';
 
     if (name) {
-      const words = name.match(/(\w+)/g) || [];
-      initials = words[0].substring(0, 1);
+      const words = name.match(/(\w+)/g) ?? [];
+      initials = words[0]?.substring(0, 1) ?? '';
       if (words.length > 1) {
         initials += words[words.length - 1].substring(0, 1);
       }

@@ -37,7 +37,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         outline: var(--uui-color-surface) solid 2px;
         outline-offset: -4px;
       }
-      /* 
+      /*
       :host::before {
         display: block;
         content: '';
@@ -146,7 +146,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
   constructor() {
     super();
     this.selectable = true;
-    this.unselectable = false;
+    this.deselectable = false;
   }
 
   render() {
