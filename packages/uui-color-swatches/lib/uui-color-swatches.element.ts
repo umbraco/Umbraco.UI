@@ -29,9 +29,8 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
 
   /**
    * Value of selected option.
-   * @type { string }
+   *
    * @attr
-   * @default ""
    */
   @property()
   value = '';
