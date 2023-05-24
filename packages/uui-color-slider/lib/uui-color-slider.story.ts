@@ -1,11 +1,10 @@
-import '.';
-
-import { Meta, Story } from '@storybook/web-components';
-import { html } from 'lit-html';
-import { UUIColorSliderElement } from './uui-color-slider.element';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import type { UUIColorSliderElement } from './uui-color-slider.element';
 import readme from '../README.md?raw';
 
-export default {
+import './uui-color-slider.element';
+
+const meta: Meta<UUIColorSliderElement> = {
   id: 'uui-color-slider',
   title: 'Inputs/Color/Color Slider',
   component: 'uui-color-slider',
@@ -30,52 +29,45 @@ export default {
       },
     },
   },
-} as Meta<UUIColorSliderElement>;
-
-const Template: Story<UUIColorSliderElement> = props => html`
-  <uui-color-slider
-    .vertical=${props.vertical}
-    .min=${props.min}
-    .max=${props.max}
-    .precision=${props.precision}
-    .label=${props.label}
-    .disabled=${props.disabled}
-    .value=${props.value}
-    .type=${props.type}
-    .color=${props.color}>
-  </uui-color-slider>
-`;
-
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-  value: 50,
 };
-Disabled.parameters = {
-  docs: {
-    source: {
-      code: `<uui-color-slider label="Slider label" disabled="true"></uui-color-slider>`,
+
+export default meta;
+
+type Story = StoryObj<UUIColorSliderElement>;
+
+export const Overview: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    value: 50,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-slider label="Slider label" disabled="true"></uui-color-slider>`,
+      },
     },
   },
 };
 
-export const Opacity = Template.bind({});
-Opacity.args = {
-  type: 'opacity',
-  color: '#417505',
+export const Opacity: Story = {
+  args: {
+    type: 'opacity',
+    color: '#417505',
+  },
 };
 
-export const Vertical = Template.bind({});
-Vertical.args = {
-  vertical: true,
+export const Vertical: Story = {
+  args: {
+    vertical: true,
+  },
 };
 
-export const VerticalOpacity = Template.bind({});
-VerticalOpacity.args = {
-  type: 'opacity',
-  vertical: true,
-  color: '#417505',
+export const VerticalOpacity: Story = {
+  args: {
+    type: 'opacity',
+    vertical: true,
+    color: '#417505',
+  },
 };

@@ -8,12 +8,11 @@ import '@umbraco-ui/uui-button-group/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-popover/lib';
 
-import '.';
-
-import { Meta, StoryFn } from '@storybook/web-components';
-import { html } from 'lit-html';
-import { UUIColorPickerElement } from './uui-color-picker.element';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import type { UUIColorPickerElement } from './uui-color-picker.element';
+import './uui-color-picker.element';
 import readme from '../README.md?raw';
+import { html } from 'lit';
 
 const defaultSwatches = [
   '#d0021b',
@@ -34,7 +33,7 @@ const defaultSwatches = [
   '#fff',
 ];
 
-export default {
+const meta: Meta<UUIColorPickerElement> = {
   id: 'uui-color-picker',
   title: 'Inputs/Color/Color Picker',
   component: 'uui-color-picker',
@@ -51,69 +50,65 @@ export default {
       handles: ['change'],
     },
   },
-} as Meta<UUIColorPickerElement>;
-
-const Template: StoryFn<UUIColorPickerElement> = props => html`
-  <uui-color-picker
-    .inline=${props.inline}
-    .value=${props.value}
-    .format=${props.format}
-    .disabled=${props.disabled}
-    .swatches=${props.swatches}
-    .size=${props.size}
-    .opacity=${props.opacity}
-    .uppercase=${props.uppercase}
-    .name=${props.name}
-    .noFormatToggle=${props.noFormatToggle}>
-  </uui-color-picker>
-`;
-
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-
-export const Inline = Template.bind({});
-Inline.args = {
-  inline: true,
 };
-Inline.parameters = {
-  docs: {
-    source: {
-      code: `<uui-color-picker inline="true"></uui-color-picker>`,
+
+export default meta;
+
+type Story = StoryObj<UUIColorPickerElement>;
+
+export const Overview: Story = {};
+
+export const Inline: Story = {
+  args: {
+    inline: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-picker inline="true"></uui-color-picker>`,
+      },
     },
   },
 };
 
-export const WithOpacity = Template.bind({});
-WithOpacity.args = {
-  opacity: true,
-};
-WithOpacity.parameters = {
-  docs: {
-    source: {
-      code: `<uui-color-picker opacity></uui-color-picker>`,
+export const WithOpacity: Story = {
+  args: {
+    opacity: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-picker opacity></uui-color-picker>`,
+      },
     },
   },
 };
 
 const formats = ['hex', 'rgb', 'hsl'];
 
-export const Formats: StoryFn = () => html`
-  <h4>Formats</h4>
-  ${formats.map(
-    format =>
-      html`
-        <h5>${format}</h5>
-        <uui-color-picker .format=${format as any} value="blue">
-        </uui-color-picker>
-      `
-  )}
-`;
-Formats.args = { format: 'hex' };
-Formats.parameters = {
-  docs: {
-    source: {
-      code: `
+export const Formats: Story = {
+  args: {
+    format: 'hex',
+    value: 'blue',
+  },
+  decorators: [
+    (story, props) => html`<div style="display: flex; flex-direction: column;">
+      <h5>${props.args.format}</h5>
+      ${story()}
+    </div> `,
+  ],
+  argTypes: {
+    format: {
+      options: formats,
+      control: { type: 'select' },
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
         <uui-color-picker format="hex"></uui-color-picker>`,
+      },
     },
   },
 };
