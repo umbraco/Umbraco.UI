@@ -1,11 +1,10 @@
-import '.';
-
-import { Meta, Story } from '@storybook/web-components';
-import { html } from 'lit-html';
-import { UUIColorAreaElement } from './uui-color-area.element';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import type { UUIColorAreaElement } from './uui-color-area.element';
 import readme from '../README.md?raw';
 
-export default {
+import './uui-color-area.element';
+
+const meta: Meta<UUIColorAreaElement> = {
   id: 'uui-color-area',
   title: 'Inputs/Color/Color Area',
   component: 'uui-color-area',
@@ -25,11 +24,10 @@ export default {
       handles: ['change'],
     },
   },
-} as Meta<UUIColorAreaElement>;
+};
 
-const Template: Story<UUIColorAreaElement> = props =>
-  html`<uui-color-area
-    .value=${props.value}
-    .disabled=${props.disabled}></uui-color-area>`;
+export default meta;
 
-export const Overview = Template.bind({});
+type Story = StoryObj<UUIColorAreaElement>;
+
+export const Overview: Story = {};
