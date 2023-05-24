@@ -77,7 +77,7 @@ type Story = StoryObj<UUIColorSwatchesElement>;
 
 const Template: Story = {
   render: (args: any) => html`
-    <uui-color-swatches ?value=${args.value} label="my color pallette">
+    <uui-color-swatches .value=${args.value} label="my color pallette">
       ${repeat(args.swatchesColor, (swatch: any) => {
         const label = typeof swatch === 'string' ? swatch : swatch.label;
         const value = typeof swatch === 'string' ? swatch : swatch.value;
