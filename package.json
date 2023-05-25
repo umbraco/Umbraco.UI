@@ -35,6 +35,7 @@
     "clean": "turbo run clean --parallel",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes",
     "lerna:version": "lerna version --no-push --exact --conventional-commits --include-merged-tags --sync-workspace-lock",
+    "lerna:version:rc": "npm run lerna:version -- --conventional-prerelease --preid rc",
     "lerna:changelog": "npx lerna-changelog",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "bootstrap": "lerna run --scope @umbraco-ui/uui-css clean && lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
