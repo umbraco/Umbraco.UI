@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.0...v1.3.0-rc.1) (2023-05-25)
+
+### Bug Fixes
+
+- Make color slider disabled state consistent with disabled color area ([#489](https://github.com/umbraco/Umbraco.UI/issues/489)) ([209bb02](https://github.com/umbraco/Umbraco.UI/commit/209bb02b44994f98de6401ed9451da2182f846c2))
+
 # [1.3.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.2.1...v1.3.0-rc.0) (2023-05-15)
 
 ### Features

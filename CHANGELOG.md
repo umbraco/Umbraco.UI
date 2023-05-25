@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.0...v1.3.0-rc.1) (2023-05-25)
+
+### Bug Fixes
+
+- change jsdoc to allow the web-component-analyzer to output correct information ([0c18bdc](https://github.com/umbraco/Umbraco.UI/commit/0c18bdc4296ffa6d18b18141b122def410936a09))
+- Make color slider disabled state consistent with disabled color area ([#489](https://github.com/umbraco/Umbraco.UI/issues/489)) ([209bb02](https://github.com/umbraco/Umbraco.UI/commit/209bb02b44994f98de6401ed9451da2182f846c2))
+- not possible to drag&drop file with multiple dots ([#487](https://github.com/umbraco/Umbraco.UI/issues/487)) ([f9c6343](https://github.com/umbraco/Umbraco.UI/commit/f9c634308f35e2008d4554100766d65515810858))
+- store the final value of any custom properties ([d4a200b](https://github.com/umbraco/Umbraco.UI/commit/d4a200b9d2b537b9bab5054248122cff856aef44))
+- **uui-color-area:** dragging the mouse do not select a color ([#486](https://github.com/umbraco/Umbraco.UI/issues/486)) ([8bc217c](https://github.com/umbraco/Umbraco.UI/commit/8bc217c25454dcde2faa9b94a54607d69bdcb073))
+
 # [1.3.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.2.1...v1.3.0-rc.0) (2023-05-15)
 
 ### Bug Fixes
