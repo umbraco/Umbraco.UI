@@ -70,7 +70,7 @@
     "@storybook/addon-a11y": "7.0.17",
     "@storybook/addon-actions": "7.0.17",
     "@storybook/addon-essentials": "7.0.17",
-    "@storybook/addon-links": "7.0.17",
+    "@storybook/addon-links": "7.0.18",
     "@storybook/blocks": "7.0.17",
     "@storybook/web-components": "7.0.17",
     "@storybook/web-components-vite": "7.0.17",
