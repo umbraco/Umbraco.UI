@@ -9,7 +9,7 @@ import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { UUIColorAreaEvent } from './UUIColorAreaEvents';
+import { UUIColorAreaEvent } from './UUIColorAreaEvent';
 
 /**
  * @element uui-color-area
@@ -24,11 +24,17 @@ export class UUIColorAreaElement extends LitElement {
         width: 280px;
         height: 200px;
       }
+
       :host([disabled]) {
-        pointer-events: none;
         cursor: not-allowed;
+      }
+
+      :host([disabled]) .color-area {
+        user-select: none;
+        pointer-events: none;
         opacity: 0.55;
       }
+
       .color-area {
         position: relative;
         height: 100%;
@@ -144,7 +150,7 @@ export class UUIColorAreaElement extends LitElement {
       // TODO: Can we move the parsing of a color string to shared utility function?
       const parsed = colord(newVal);
 
-      if (parsed) {
+      if (parsed.isValid()) {
         const { h, s, l } = parsed.toHsl();
 
         this.hue = h;
@@ -228,41 +234,34 @@ export class UUIColorAreaElement extends LitElement {
     );
   }
 
-  getValueFromMousePosition(event: MouseEvent) {
-    return this.getValueFromCoordinates(
-      event.clientX - event.offsetX,
-      event.clientY - event.offsetY
-    );
-  }
-
-  getValueFromTouchPosition(event: TouchEvent) {
-    return this.getValueFromCoordinates(
-      event.touches[0].clientX,
-      event.touches[0].clientY
-    );
-  }
-
-  getValueFromCoordinates(x: number, y: number) {
-    const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
-    const { width, height } = grid.getBoundingClientRect();
-
-    this.saturation = clamp((x / width) * 100, 0, 100);
-    this.lightness = clamp(100 - (y / height) * 100, 0, 100);
-
-    this.syncValues();
-  }
-
   syncValues() {
     const color = colord({
       h: this.hue,
       s: this.saturation,
       l: this.lightness,
-      a: this.alpha,
+      a: this.alpha / 100,
     });
 
-    this.value = color.toRgbString();
+    this._value = color.toRgbString();
 
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
+  }
+
+  /** Generates a hex string from HSL values. Hue must be 0-360. All other arguments must be 0-100. */
+  private getHexString(
+    hue: number,
+    saturation: number,
+    lightness: number,
+    alpha = 100
+  ) {
+    const color = colord(
+      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`
+    );
+    if (!color.isValid()) {
+      return '';
+    }
+
+    return color.toHex();
   }
 
   render() {
@@ -273,7 +272,9 @@ export class UUIColorAreaElement extends LitElement {
       <div
         part="grid"
         class="color-area"
-        style=${styleMap({ backgroundColor: `hsl(${this.hue}deg, 100%, 50%)` })}
+        style=${styleMap({
+          backgroundColor: this.getHexString(this.hue, 100, 50),
+        })}
         @mousedown=${this.handleGridDrag}
         @touchstart=${this.handleGridDrag}>
         <span
@@ -285,7 +286,12 @@ export class UUIColorAreaElement extends LitElement {
           style=${styleMap({
             top: `${gridHandleY}%`,
             left: `${gridHandleX}%`,
-            backgroundColor: `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%)`,
+            backgroundColor: this.getHexString(
+              this.hue,
+              this.saturation,
+              this.lightness,
+              this.alpha
+            ),
           })}
           role="application"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}

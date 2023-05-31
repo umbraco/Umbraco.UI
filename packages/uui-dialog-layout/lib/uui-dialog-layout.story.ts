@@ -2,12 +2,16 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-dialog-layout',
   title: 'Displays/Dialog/Dialog Layout',
   component: 'uui-dialog-layout',
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-dialog-layout></uui-dialog-layout>`,

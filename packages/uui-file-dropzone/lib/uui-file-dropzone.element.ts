@@ -1,13 +1,13 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { query, property } from 'lit/decorators.js';
-import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
+import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * @element uui-file-dropzone
- *  @fires {UUIFileDropzoneEvent} file-change - fires when the a file has been selected.
+ *  @fires {UUIFileDropzoneEvent} change - fires when the a file has been selected.
  *  @slot - For the content of the dropzone
  *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
  */
@@ -61,14 +61,45 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   @query('#dropzone')
   private _dropzone!: HTMLElement;
 
+  private _acceptedFileExtensions: string[] = [];
+  private _acceptedMimeTypes: string[] = [];
+
   /**
-   * Accepted filetypes. Will allow all types if empty.
+   * Comma-separated list of accepted mime types or file extensions (denoted with a `.`).
+   * If this is left empty, it will allow all types.
+   *
    * @type {string}
    * @attr
-   * @default false
+   * @examples [
+   *   "image/*,application/pdf",
+   *   ".gif,.png,.jpg,.jpeg,.pdf",
+   * ]
    */
   @property({ type: String })
-  public accept: string = '';
+  public set accept(value: string) {
+    if (value) {
+      const mimetypes: string[] = [];
+      const fileextensions: string[] = [];
+
+      // Create the arrays defined above
+      value.split(',').forEach(item => {
+        item = item.trim().toLowerCase();
+
+        // If the item is a mime type, add it to the accept list
+        if (/[a-z]+\/[a-z*]/s.test(item)) {
+          mimetypes.push(item);
+        } else {
+          fileextensions.push(item.replace(/^\./, ''));
+        }
+      });
+
+      this._acceptedMimeTypes = mimetypes;
+      this._acceptedFileExtensions = fileextensions;
+    } else {
+      this._acceptedMimeTypes = [];
+      this._acceptedFileExtensions = [];
+    }
+  }
 
   /**
    * Allows for multiple files to be selected.
@@ -101,62 +132,28 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     demandCustomElement(this, 'uui-symbol-file-dropzone');
   }
 
-  protected _checkIsItDirectory(dtItem: DataTransferItem): boolean {
-    // @ts-ignore // TODO: fix typescript error
-    return !dtItem.type ? dtItem.webkitGetAsEntry().isDirectory : false;
-  }
-
-  private async _getAllFileEntries(dataTransferItemList: DataTransferItemList) {
-    const fileEntries: FileSystemFileEntry[] = [];
+  private async _getAllFileEntries(
+    dataTransferItemList: DataTransferItemList
+  ): Promise<File[]> {
+    const fileEntries: File[] = [];
     // Use BFS to traverse entire directory/file structure
-    const queue = [];
-    for (let i = 0; i < dataTransferItemList.length; i++) {
-      queue.push(dataTransferItemList[i].webkitGetAsEntry());
-    }
+    const queue = [...dataTransferItemList];
 
-    // if the accept filer is set
-    if (this.accept) {
-      const acceptList: string[] = [];
-      const wildcards: string[] = [];
+    while (queue.length > 0) {
+      const entry = queue.shift()!;
 
-      // Create the arrays defined above
-      this.accept.split(',').forEach(item => {
-        if (item.includes('*')) {
-          wildcards.push(item.split('*')[0].trim().toLowerCase());
-        } else {
-          acceptList.push(item.trim().toLowerCase());
+      if (entry.kind === 'file') {
+        const file = entry.getAsFile();
+        if (!file) continue;
+        if (this._isAccepted(file)) {
+          fileEntries.push(file);
         }
-      });
-
-      while (queue.length > 0) {
-        const entry: FileSystemFileEntry = queue.shift()!;
-        if (
-          entry.isFile &&
-          (await this._isAccepted(acceptList, wildcards, entry))
-        ) {
-          fileEntries.push(entry);
-        } else if (entry.isDirectory) {
-          fileEntries.push(entry);
-          queue.push(
-            ...(await this._readAllDirectoryEntries(
-              (entry as any).createReader()
-            ))
-          );
-        }
-      }
-    } else {
-      while (queue.length > 0) {
-        const entry: FileSystemFileEntry = queue.shift()!;
-        if (entry.isFile) {
-          fileEntries.push(entry);
-        } else if (entry.isDirectory) {
-          fileEntries.push(entry);
-          queue.push(
-            ...(await this._readAllDirectoryEntries(
-              (entry as any).createReader()
-            ))
-          );
-        }
+      } else if (entry.kind === 'directory') {
+        if ('webkitGetAsEntry' in entry === false) continue;
+        const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
+        queue.push(
+          ...(await this._readAllDirectoryEntries(directory.createReader()))
+        );
       }
     }
 
@@ -189,29 +186,33 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
   }
 
-  private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
-    return await new Promise<File>((resolve, reject) =>
-      fileEntry.file(resolve, reject)
-    );
-  }
+  private _isAccepted(file: File) {
+    if (
+      this._acceptedFileExtensions.length === 0 &&
+      this._acceptedMimeTypes.length === 0
+    ) {
+      return true;
+    }
 
-  private async _isAccepted(
-    acceptList: string[],
-    wildcards: string[],
-    entry: FileSystemFileEntry
-  ) {
-    const file = await this._getFile(entry);
     const fileType = file.type.toLowerCase();
-    const fileExtension = '.' + file.name.split('.')[1].toLowerCase();
+    const fileExtension = file.name.split('.').pop();
 
-    if (acceptList.includes(fileExtension)) {
+    if (
+      fileExtension &&
+      this._acceptedFileExtensions.includes(fileExtension.toLowerCase())
+    ) {
       return true;
     }
-    if (acceptList.includes(fileType)) {
-      return true;
-    }
-    if (wildcards.some(wildcard => fileType.startsWith(wildcard))) {
-      return true;
+
+    for (const mimeType in this._acceptedMimeTypes) {
+      if (fileType === mimeType) {
+        return true;
+      } else if (
+        mimeType.endsWith('/*') &&
+        fileType.startsWith(mimeType.replace('/*', ''))
+      ) {
+        return true;
+      }
     }
 
     return false;
@@ -226,12 +227,12 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     if (items) {
       let result = await this._getAllFileEntries(items);
 
-      if (this.multiple === false && result.length > 0) {
+      if (this.multiple === false && result.length) {
         result = [result[0]];
       }
 
       this.dispatchEvent(
-        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_CHANGE, {
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
           detail: { files: result },
         })
       );
@@ -243,6 +244,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private _onDragEnter(e: DragEvent) {
+    // TODO: make visual indication of wether the file is acceptable or not. If not we need to make a more negative/disabled visual look.
     this._dropzone.classList.add('hover');
     e.preventDefault();
   }
@@ -256,7 +258,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const files = this._input.files ? Array.from(this._input.files) : [];
 
     this.dispatchEvent(
-      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.FILE_CHANGE, {
+      new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
         detail: { files: files },
       })
     );
@@ -275,6 +277,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           ?multiple=${this.multiple}
           @change=${this._onFileInputChange}
           aria-label="${this.label}" />
+        <slot></slot>
       </div>
     `;
   }

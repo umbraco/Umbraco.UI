@@ -2,12 +2,16 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Loaders/Loader',
   component: 'uui-loader',
   id: 'uui-loader',
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-loader></uui-loader>`,

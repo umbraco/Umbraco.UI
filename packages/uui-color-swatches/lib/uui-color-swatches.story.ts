@@ -1,25 +1,27 @@
-import '.';
+import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import type { UUIColorSwatchesElement } from './uui-color-swatches.element';
+import readme from '../README.md?raw';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import './uui-color-swatches.element';
 
-const swatches = [
-  '#d0021b',
-  '#f5a623',
-  '#f8e71c',
-  '#8b572a',
-  '#7ed321',
-  '#417505',
-  '#bd10e0',
-  '#9013fe',
-  '#4a90e2',
-  '#50e3c2',
-  '#b8e986',
-  '#000000',
-  '#444',
-  '#888',
-  '#ccc',
-  '#fff',
+const swatchesColor = [
+  { label: 'Blood Orange', value: '#d0021b' },
+  { label: 'Marigold', value: '#f5a623' },
+  { label: 'Yellow Sun', value: '#f8e71c' },
+  { label: 'Milk Chocolate', value: '#8b572a' },
+  { label: 'Lemon Lime', value: '#7ed321' },
+  { label: 'Avocado', value: '#417505' },
+  { label: 'Vivid Mulberry', value: '#bd10e0' },
+  { label: 'Electric Violet', value: '#9013fe' },
+  { label: 'Tufts Blue', value: '#4a90e2' },
+  { label: 'Crayola', value: '#b8e986' },
+  { label: 'Black', value: '#000000' },
+  { label: 'Grey', value: '#888' },
+  { label: 'Outer Space', value: '#444' },
+  { label: 'Chinese Silver', value: '#ccc' },
+  { label: 'White', value: '#fff' },
 ];
 
 const swatchesTransparent = [
@@ -41,11 +43,26 @@ const swatchesTransparent = [
   'rgba(255, 255, 255, 0.5)',
 ];
 
-export default {
+const meta: Meta<typeof UUIColorSwatchesElement> = {
   id: 'uui-color-swatches',
   title: 'Inputs/Color/Color Swatches',
   component: 'uui-color-swatches',
+  args: {
+    swatchesColor,
+    showLabel: false,
+  } as any,
+  argTypes: {
+    swatchesColor: {
+      control: { type: 'array' },
+    },
+    showLabel: {
+      control: { type: 'boolean' },
+    },
+  } as any,
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-color-swatches></uui-color-swatches>`,
@@ -54,36 +71,41 @@ export default {
   },
 };
 
-const Template: Story = props => html`
-  <uui-color-swatches .value=${props.value ?? ''} label="my color pallette">
-    ${props.swatches.map(
-      (swatch: string) =>
-        html`<uui-color-swatch label="${swatch}" .showLabel=${props.showLabel}
-          >${swatch}</uui-color-swatch
-        >`
-    )}
-  </uui-color-swatches>
-`;
+export default meta;
 
-export const Overview: Story = Template.bind({});
-Overview.args = {
-  swatches,
-  showLabel: false,
+type Story = StoryObj<UUIColorSwatchesElement>;
+
+const Template: Story = {
+  render: (args: any) => html`
+    <uui-color-swatches .value=${args.value} label="my color pallette">
+      ${repeat(args.swatchesColor, (swatch: any) => {
+        const label = typeof swatch === 'string' ? swatch : swatch.label;
+        const value = typeof swatch === 'string' ? swatch : swatch.value;
+
+        return html`<uui-color-swatch
+          label="${label}"
+          .showLabel=${args.showLabel}>
+          ${value}
+        </uui-color-swatch>`;
+      })}
+    </uui-color-swatches>
+  `,
 };
 
-export const WithLabels: Story = Template.bind({});
-WithLabels.args = {
-  swatches: swatches,
-  showLabel: true,
+export const Overview: Story = {
+  ...Template,
 };
 
-export const Preselected: Story = Template.bind({});
-Preselected.args = {
-  swatches: swatches,
-  value: '#7ed321',
+export const Preselected: Story = {
+  ...Template,
+  args: {
+    value: '#7ed321',
+  },
 };
 
-export const Transparent = Template.bind({});
-Transparent.args = {
-  swatches: swatchesTransparent,
+export const Transparent: Story = {
+  ...Template,
+  args: {
+    swatchesColor: swatchesTransparent,
+  } as any,
 };

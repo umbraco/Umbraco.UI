@@ -3,6 +3,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query } from 'lit/decorators.js';
 import { UUITextareaEvent } from './UUITextareaEvent';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  * @element uui-textarea
@@ -209,6 +210,31 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
   @property({ type: String })
   public label!: string;
 
+  /**
+   * Sets the number of rows of the textarea
+   * @type {number}
+   * @attr
+   */
+  @property({ type: Number })
+  rows?: number;
+
+  /**
+   * Sets the number of cols of the textarea
+   * @type {number}
+   * @attr
+   */
+  @property({ type: Number })
+  cols?: number;
+
+  /**
+   * Indicates how the control should wrap the value for form submission. If this attribute is not specified, soft is its default value.
+   * @type {'soft' | 'hard' | 'off'}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  wrap?: 'soft' | 'hard' | 'off';
+
   constructor() {
     super();
 
@@ -293,8 +319,11 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     return html`
       <textarea
         id="textarea"
+        .rows=${this.rows}
+        .cols=${this.cols}
         .value=${this.value as string}
         .name=${this.name}
+        wrap=${ifDefined(this.wrap)}
         placeholder=${this.placeholder}
         aria-label=${this.label}
         .disabled=${this.disabled}

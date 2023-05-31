@@ -5,7 +5,7 @@ import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvents';
+import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent';
 
 //TODO maybe implement multiple selection
 
@@ -29,9 +29,8 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
 
   /**
    * Value of selected option.
-   * @type { string }
+   *
    * @attr
-   * @default ""
    */
   @property()
   value = '';
@@ -59,7 +58,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   constructor() {
     super();
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
-    this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
+    this.addEventListener(UUISelectableEvent.DESELECTED, this._onDeselected);
   }
 
   connectedCallback() {
@@ -112,7 +111,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
   };
 
-  private _onUnselected = (event: Event) => {
+  private _onDeselected = (event: Event) => {
     const target = event.target as UUIColorSwatchElement;
     if (!this.swatches.includes(target)) return;
 

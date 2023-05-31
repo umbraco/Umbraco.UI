@@ -11,10 +11,10 @@ on:
     inputs:
       sha:
         description: The commit hash referring to the commit to check.
-        required: true
+        required: false
       ref:
         description: The head branch associated with the pull request.
-        required: true
+        required: false
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
@@ -32,14 +32,13 @@ jobs:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: '0'
 
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
           cache: 'npm'
 
       - run: npm -v
-      - run: npm config set unsafe-perm true
       - run: npm ci
 
       - name: Authenticate with Registry

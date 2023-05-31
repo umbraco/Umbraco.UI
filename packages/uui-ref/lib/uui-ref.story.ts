@@ -1,10 +1,14 @@
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-ref',
   title: 'Displays/References/Ref',
   component: 'uui-ref',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 const Template: Story = () => html`

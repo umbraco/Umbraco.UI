@@ -1,19 +1,35 @@
+import '@umbraco-ui/uui-symbol-file-dropzone/lib';
+import '@umbraco-ui/uui-file-dropzone/lib';
+import '@umbraco-ui/uui-action-bar/lib';
+import '@umbraco-ui/uui-file-preview/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-symbol-file-thumbnail/lib';
+import '@umbraco-ui/uui-symbol-file/lib';
+import '@umbraco-ui/uui-symbol-folder/lib';
+import '@umbraco-ui/uui-button/lib';
+
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-input-file',
   title: 'Inputs/Files/Input File',
   component: 'uui-input-file',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
-export const AAAOverview: Story = () =>
+export const AAAOverview: StoryFn = () =>
   html`<uui-input-file name="input-file"></uui-input-file>`;
 AAAOverview.storyName = 'Overview';
 
-export const Multiple: Story = () =>
+export const Multiple: StoryFn = () =>
   html`<uui-input-file name="input-file" multiple></uui-input-file>`;
 
 Multiple.parameters = {
@@ -25,7 +41,7 @@ Multiple.parameters = {
   },
 };
 
-export const Accept: Story = () =>
+export const Accept: StoryFn = () =>
   html`<uui-input-file name="input-file" accept="image/*"></uui-input-file>`;
 
 Accept.parameters = {
@@ -52,7 +68,7 @@ const submit = (e: SubmitEvent) => {
   console.log('Files', data);
 };
 
-export const Form: Story = () => {
+export const Form: StoryFn = () => {
   return html`
     <form @submit=${submit}>
       <uui-input-file name="input-file" multiple> </uui-input-file>
@@ -86,7 +102,7 @@ const submit = (e) => {
   },
 };
 
-export const FormValidation: Story = () => {
+export const FormValidation: StoryFn = () => {
   return html`
     <uui-form>
       <form @submit=${submit}>
@@ -134,7 +150,7 @@ const submit = (e) => {
   },
 };
 
-export const MultiplePrevalues: Story = () => {
+export const MultiplePrevalues: StoryFn = () => {
   const init = async () => {
     const imageUrl =
       'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
@@ -195,7 +211,7 @@ init();
   },
 };
 
-export const SinglePrevalue: Story = () => {
+export const SinglePrevalue: StoryFn = () => {
   const init = async () => {
     const imageUrl =
       'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';

@@ -8,6 +8,8 @@ import {
 import '@umbraco-ui/uui-symbol-expand/lib';
 import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
@@ -61,6 +63,130 @@ describe('UUIMenuItemElement', () => {
 
     it('has a target property', () => {
       expect(element).to.have.property('target');
+    });
+  });
+
+  describe('events', () => {
+    it('emits a click-label event when button is clicked', async () => {
+      const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL);
+
+      const buttonElement = element.shadowRoot!.querySelector(
+        'button#label-button'
+      ) as HTMLButtonElement;
+      expect(buttonElement).to.exist;
+      buttonElement.click();
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal(UUIMenuItemEvent.CLICK_LABEL);
+      expect(event.bubbles).to.be.false;
+      expect(event.composed).to.be.false;
+      expect(event!.target).to.equal(element);
+    });
+
+    describe('select', async () => {
+      it('emits a cancelable selected event when selectable', async () => {
+        element.selectable = true;
+        await elementUpdated(element);
+        const labelElement = element.shadowRoot!.querySelector(
+          '#label-button'
+        ) as HTMLElement;
+        element.addEventListener(UUISelectableEvent.SELECTED, e => {
+          e.preventDefault();
+        });
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.SELECTED);
+        expect(element.selected).to.be.false;
+      });
+    });
+
+    describe('deselect', async () => {
+      it('emits a cancelable deselected event when preselected', async () => {
+        element.selectable = true;
+        element.selected = true;
+        await elementUpdated(element);
+        const labelElement = element.shadowRoot!.querySelector(
+          '#label-button'
+        ) as HTMLElement;
+        element.addEventListener(UUISelectableEvent.DESELECTED, e => {
+          e.preventDefault();
+        });
+        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.DESELECTED);
+        expect(element.selected).to.be.true;
+      });
+    });
+
+    describe('show-children', async () => {
+      it('emits a show-children event when expanded', async () => {
+        element.hasChildren = true;
+        await elementUpdated(element);
+        const labelElement = element.shadowRoot!.querySelector(
+          '#caret-button'
+        ) as HTMLElement;
+        const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIMenuItemEvent.SHOW_CHILDREN);
+        expect(element.showChildren).to.be.true;
+      });
+      it('emits a cancelable show-children event when expanded', async () => {
+        element.hasChildren = true;
+        await elementUpdated(element);
+        const labelElement = element.shadowRoot!.querySelector(
+          '#caret-button'
+        ) as HTMLElement;
+        element.addEventListener(UUIMenuItemEvent.SHOW_CHILDREN, e => {
+          e.preventDefault();
+        });
+        const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIMenuItemEvent.SHOW_CHILDREN);
+        expect(element.showChildren).to.be.false;
+      });
+    });
+
+    describe('hide-children', async () => {
+      it('emits a hide-children event when collapsed', async () => {
+        element.hasChildren = true;
+        element.showChildren = true;
+        await elementUpdated(element);
+        const labelElement = element.shadowRoot!.querySelector(
+          '#caret-button'
+        ) as HTMLElement;
+        const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIMenuItemEvent.HIDE_CHILDREN);
+        expect(element.showChildren).to.be.false;
+      });
+      it('emits a cancelable hide-children event when collapsed', async () => {
+        element.hasChildren = true;
+        element.showChildren = true;
+        await elementUpdated(element);
+        const labelElement = element.shadowRoot!.querySelector(
+          '#caret-button'
+        ) as HTMLElement;
+        element.addEventListener(UUIMenuItemEvent.HIDE_CHILDREN, e => {
+          e.preventDefault();
+        });
+        const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
+        labelElement.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIMenuItemEvent.HIDE_CHILDREN);
+        expect(element.showChildren).to.be.true;
+      });
     });
   });
 

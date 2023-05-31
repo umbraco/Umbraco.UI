@@ -3,7 +3,6 @@ import path from 'path';
 import postcss from 'postcss';
 import postcssCustomProperties from 'postcss-custom-properties';
 import * as postCssValueParser from 'postcss-values-parser';
-import syntax from 'postcss-jsx';
 
 export const CacheCustomProperties = async masterCSSPath => {
   const CSS_PATH = path.resolve(masterCSSPath);
@@ -13,17 +12,28 @@ export const CacheCustomProperties = async masterCSSPath => {
 
     const cssFile = await fs.readFile(CSS_PATH, 'utf8');
 
-    await postcss([
-      postcssCustomProperties({
-        importFrom: [CSS_PATH],
-        exportTo: fileData,
-      }),
-    ]).process(cssFile, {
-      syntax: syntax,
-      from: CSS_PATH,
-      to: './css-test.css',
+    const postcssResult = await postcss([postcssCustomProperties()]).process(
+      cssFile,
+      {
+        from: CSS_PATH,
+      }
+    );
+
+    /**
+     * Walk through all the declarations and find the custom properties
+     * and their values. Store them in the fileData object.
+     */
+    postcssResult.root.walkDecls(decl => {
+      if (decl.prop.startsWith('--')) {
+        fileData.customProperties[decl.prop] = decl.value;
+      }
     });
 
+    /**
+     * Walk through all the custom properties and find the ones that
+     * have a single var() value. Replace the value with the value of
+     * the var() it references.
+     */
     for (const key in fileData.customProperties) {
       const valueNode = postCssValueParser.parse(
         fileData.customProperties[key]

@@ -1,7 +1,13 @@
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Design/Style Guide',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const Layout = () => html`

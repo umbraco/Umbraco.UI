@@ -1,18 +1,25 @@
-import '.';
-
-import { Story } from '@storybook/web-components';
+import type { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 
-import { UUITableCellElement } from './uui-table-cell.element';
+import type { UUITableCellElement } from './uui-table-cell.element';
 
-export default {
+import '@umbraco-ui/uui-input/lib';
+import './uui-table-cell.element';
+import readme from '../README.md?raw';
+
+const meta: Meta<typeof UUITableCellElement> = {
   title: 'Layout/Table/Table Cell',
   component: 'uui-table-cell',
   id: 'uui-table-cell',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
-export const AAAOverview: Story<UUITableCellElement> = props =>
-  html`
+export default meta;
+
+const Template: StoryFn<UUITableCellElement> = props => {
+  return html`
     <uui-table
       aria-label="Random Umbraco Words"
       aria-describedby="table-description">
@@ -33,11 +40,20 @@ export const AAAOverview: Story<UUITableCellElement> = props =>
           ?disable-child-interaction=${props.disableChildInteraction}
           ?no-padding=${props.noPadding}
           ?clip-text=${props.clipText}>
+          <uui-input placeholder="Type your own thing"></uui-input>
+        </uui-table-cell>
+        <uui-table-cell
+          ?disable-child-interaction=${props.disableChildInteraction}
+          ?no-padding=${props.noPadding}
+          ?clip-text=${props.clipText}>
           ${props.slot}
         </uui-table-cell>
       </uui-table-row>
     </uui-table>
   `;
+};
+
+export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = {
   slot: 'Very very very Very very very Very very very Very very very Very very very long sentence',

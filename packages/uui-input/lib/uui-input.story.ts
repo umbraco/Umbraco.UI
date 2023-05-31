@@ -3,6 +3,7 @@ import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Inputs/Input',
@@ -33,6 +34,11 @@ export default {
       ],
     },
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 const Template: Story = props =>
@@ -48,7 +54,16 @@ const Template: Story = props =>
       .type=${props.type}
       .name=${props.name}
       .placeholder=${props.placeholder}
-      .value=${props.value}></uui-input>
+      .value=${props.value}
+      .spellcheck=${props.spellcheck}
+      .autocomplete=${props.autocomplete}
+      .pattern=${props.pattern}
+      .errorMessage=${props.errorMessage}
+      .inputmode=${props.inputmode}
+      .minlength=${props.minlength}
+      .maxlength=${props.maxlength}
+      .minlength-message=${props.minlengthMessage}
+      .maxlength-message=${props.maxlengthMessage}></uui-input>
   `;
 
 export const AAAOverview = Template.bind({});
@@ -60,6 +75,39 @@ AAAOverview.parameters = {
   docs: {
     source: {
       code: '<uui-input></uui-input>',
+    },
+  },
+};
+
+export const PatternAndInputmode: Story = props =>
+  html`Enter Email<br />
+    <uui-input
+      label="Email"
+      error-message=${props.errorMessage}
+      inputmode=${props.inputmode}
+      pattern=${props.pattern}></uui-input>`;
+
+PatternAndInputmode.args = {
+  pattern: '[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-.]+',
+  inputmode: 'email',
+  errorMessage: 'Not an email',
+};
+
+export const MinMaxLength = Template.bind({});
+MinMaxLength.args = {
+  minlength: 3,
+  maxlength: 4,
+  minlengthMessage: 'Minimum 3',
+  maxlengthMessage: 'Maximum 4',
+};
+MinMaxLength.parameters = {
+  docs: {
+    source: {
+      code: html`<uui-input
+        minlength="3"
+        maxlength="4"
+        minlength-message="Minimum 3"
+        maxlength-message="Maximum 4"></uui-input>`.strings,
     },
   },
 };

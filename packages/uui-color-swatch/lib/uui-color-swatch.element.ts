@@ -191,13 +191,13 @@ export class UUIColorSwatchElement extends LabelMixin(
   ];
 
   private _value: string | undefined = '';
+
   /**
    * Value of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
-   * @type { string }
+   *
    * @attr
-   * @default ""
    */
-  @property({ type: String })
+  @property()
   get value(): string {
     return this._value ? this._value : this.textContent?.trim() || '';
   }
@@ -210,9 +210,8 @@ export class UUIColorSwatchElement extends LabelMixin(
 
   /**
    * Determines if the options is disabled. If true the option can't be selected
-   * @type { boolean }
+   *
    * @attr
-   * @default false
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -220,6 +219,7 @@ export class UUIColorSwatchElement extends LabelMixin(
   /**
    * When true shows element label below the color checkbox
    *
+   * @attr
    * @memberof UUIColorSwatchElement
    */
   @property({ type: Boolean, attribute: 'show-label' })
@@ -227,7 +227,6 @@ export class UUIColorSwatchElement extends LabelMixin(
   /**
    * Colord object instance based on the value provided to the element. If the value is not a valid color, it falls back to black (like Amy Winehouse). For more information about Colord, see [Colord](https://omgovich.github.io/colord/)
    *
-   * @type {(Colord | null)}
    * @memberof UUIColorSwatchElement
    */
   get color(): Colord | null {
@@ -282,7 +281,7 @@ export class UUIColorSwatchElement extends LabelMixin(
     if (changedProperties.has('disabled')) {
       if (this.selectable) {
         this.selectable = !this.disabled;
-        this.unselectable = !this.disabled;
+        this.deselectable = !this.disabled;
       }
     }
     if (

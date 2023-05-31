@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.1...v1.3.0) (2023-05-31)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.3.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.0...v1.3.0-rc.1) (2023-05-25)
+
+### Bug Fixes
+
+- change jsdoc to allow the web-component-analyzer to output correct information ([0c18bdc](https://github.com/umbraco/Umbraco.UI/commit/0c18bdc4296ffa6d18b18141b122def410936a09))
+- Make color slider disabled state consistent with disabled color area ([#489](https://github.com/umbraco/Umbraco.UI/issues/489)) ([209bb02](https://github.com/umbraco/Umbraco.UI/commit/209bb02b44994f98de6401ed9451da2182f846c2))
+- not possible to drag&drop file with multiple dots ([#487](https://github.com/umbraco/Umbraco.UI/issues/487)) ([f9c6343](https://github.com/umbraco/Umbraco.UI/commit/f9c634308f35e2008d4554100766d65515810858))
+- store the final value of any custom properties ([d4a200b](https://github.com/umbraco/Umbraco.UI/commit/d4a200b9d2b537b9bab5054248122cff856aef44))
+- **uui-color-area:** dragging the mouse do not select a color ([#486](https://github.com/umbraco/Umbraco.UI/issues/486)) ([8bc217c](https://github.com/umbraco/Umbraco.UI/commit/8bc217c25454dcde2faa9b94a54607d69bdcb073))
+
+# [1.3.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.2.1...v1.3.0-rc.0) (2023-05-15)
+
+### Bug Fixes
+
+- avoid duplicating the code to accept files ([e209c16](https://github.com/umbraco/Umbraco.UI/commit/e209c168505252ad77b27d6ef97a15b78bb2516e))
+- check for support of partly supported `webkitGetAsEntry` ([74a629a](https://github.com/umbraco/Umbraco.UI/commit/74a629aca67f85a0fa7f4b02844ae87a2d2ed424))
+- ensure that accepted entries are returned with the File interface ([e75931d](https://github.com/umbraco/Umbraco.UI/commit/e75931d536aa99c4de656571c240803daacd6130))
+- SelectableMixin should not prevent bubbling of keydown event ([2460fab](https://github.com/umbraco/Umbraco.UI/commit/2460fabb7e861ee4a82727a4ac9ef623ccff7610))
+- **uui-file-dropzone:** export events needed externally ([4a8a377](https://github.com/umbraco/Umbraco.UI/commit/4a8a377244226a6f0f7ba8fe511db4ad46a85f9d))
+- **uui-ref-list:** fit within width of given enviroment ([#473](https://github.com/umbraco/Umbraco.UI/issues/473)) ([b49a238](https://github.com/umbraco/Umbraco.UI/commit/b49a238b82736439baa74644e67405d133270871))
+
+### Features
+
+- add missing native attributes to uui-input and uui-textarea ([#484](https://github.com/umbraco/Umbraco.UI/issues/484)) ([93adc81](https://github.com/umbraco/Umbraco.UI/commit/93adc81d6206a4bd03196c8f59b4eccb38bdf3aa))
+- change events to align with native browser behavior ([#476](https://github.com/umbraco/Umbraco.UI/issues/476)) ([814bdcc](https://github.com/umbraco/Umbraco.UI/commit/814bdcccebc541aed921e8c78ae91e5c96acacfb))
+
 ## [1.2.1](https://github.com/umbraco/Umbraco.UI/compare/v1.2.0...v1.2.1) (2023-04-20)
 
 **Note:** Version bump only for package uui-monorepo
@@ -153,7 +183,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Reverts
 
-- Revert "build(deps-dev): bump rimraf from 3.0.2 to 4.1.2" ([1516f6a](https://github.com/umbraco/Umbraco.UI/commit/1516f6a37961635edb7ae95597a8e435700ab464))
+- Revert "build(deps-dev): bump rimraf -g from 3.0.2 to 4.1.2" ([1516f6a](https://github.com/umbraco/Umbraco.UI/commit/1516f6a37961635edb7ae95597a8e435700ab464))
 - Revert "try to optimise chromatic by not customising the name of build-storybook" ([73548dd](https://github.com/umbraco/Umbraco.UI/commit/73548ddd03416f8b418100e82d69276656b379ca))
 - Revert "added missing properties to the list and added docs" ([92d8e22](https://github.com/umbraco/Umbraco.UI/commit/92d8e22d32b4bc2978303ea0376c1556bb61e6db))
 - Revert "see if turbo works without cache" ([fb58473](https://github.com/umbraco/Umbraco.UI/commit/fb584737582ee047261707a87c9bf0d48e12a882))

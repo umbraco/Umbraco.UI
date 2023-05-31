@@ -2,11 +2,17 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Layout/Box',
   component: 'uui-box',
   id: 'uui-box',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 const Template: Story = () => html`

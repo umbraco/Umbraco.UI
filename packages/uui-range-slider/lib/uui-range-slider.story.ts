@@ -3,6 +3,7 @@ import '.';
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-range-slider',
@@ -19,6 +20,7 @@ export default {
     label: 'range',
   },
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `<uui-range-slider></uui-range-slider>`,

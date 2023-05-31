@@ -6,6 +6,7 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'v*/contrib'
       - 'release/*'
   # This is how azure builds staging environments
   pull_request:
@@ -14,6 +15,7 @@ on:
       - main
       - 'v*/main'
       - 'v*/dev'
+      - 'v*/contrib'
       - 'release/*'
 
 env:
@@ -54,5 +56,6 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
+          app_location: '/' # App source code path
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_DELIGHTFUL_BEACH_055ECB503 }}
           action: 'close'

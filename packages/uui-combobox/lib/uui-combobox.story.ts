@@ -1,12 +1,19 @@
+import '@umbraco-ui/uui-scroll-container/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-popover/lib';
+
 import '.';
 import './uui-combobox-async-example';
 import './uui-combobox-async-options-example';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
-import { useArgs } from '@storybook/client-api';
+import { useArgs } from '@storybook/preview-api';
 import { repeat } from 'lit/directives/repeat.js';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-combobox',
@@ -18,6 +25,9 @@ export default {
     readonly: false,
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-combobox style="width: 250px"></uui-combobox>`,
@@ -26,12 +36,12 @@ export default {
   },
 };
 
-export const AsyncOptions: Story = () =>
+export const AsyncOptions: StoryFn = () =>
   html`
     <uui-combobox-async-options-example></uui-combobox-async-options-example>
   `;
 
-export const AsyncData: Story = () =>
+export const AsyncData: StoryFn = () =>
   html`<uui-combobox-async-example></uui-combobox-async-example>`;
 
 const fruits = [
@@ -89,7 +99,7 @@ const renderAvatar = (option: any) => html` <uui-combobox-list-option
   </div>
 </uui-combobox-list-option>`;
 
-const Template: Story = props => {
+const Template: StoryFn = props => {
   const [, updateSearch] = useArgs();
   const [, updateSelected] = useArgs();
 
@@ -140,7 +150,7 @@ const Template: Story = props => {
     <span style="margin-left: 16px">Selected value: ${selected}</span> `;
 };
 
-export const AAAOverview: Story = Template.bind({});
+export const AAAOverview: StoryFn = Template.bind({});
 AAAOverview.args = {
   options: fruits,
   filter: basicFilter,
@@ -169,7 +179,7 @@ AAAOverview.parameters = {
   },
 };
 
-export const Disabled: Story = Template.bind({});
+export const Disabled: StoryFn = Template.bind({});
 Disabled.args = {
   options: fruits,
   filter: basicFilter,
@@ -199,7 +209,7 @@ Disabled.parameters = {
   },
 };
 
-export const CustomValue: Story = Template.bind({});
+export const CustomValue: StoryFn = Template.bind({});
 CustomValue.args = {
   options: fruits,
   valueMod: (fruit: string) => 'FRUIT_' + fruit.toUpperCase(),
@@ -228,7 +238,7 @@ CustomValue.parameters = {
   },
 };
 
-export const CustomDisplayValue: Story = Template.bind({});
+export const CustomDisplayValue: StoryFn = Template.bind({});
 CustomDisplayValue.args = {
   options: fruits,
   displayValueMod: (fruit: string) =>
@@ -258,7 +268,7 @@ CustomDisplayValue.parameters = {
   },
 };
 
-export const Avatars: Story = Template.bind({});
+export const Avatars: StoryFn = Template.bind({});
 Avatars.args = {
   options: avatars,
   renderMod: (avatar: any) => renderAvatar(avatar),
@@ -268,7 +278,7 @@ Avatars.args = {
     ),
 };
 
-export const CountrySelect: Story = props => {
+export const CountrySelect: StoryFn = props => {
   const [, updateSearch] = useArgs();
   const [, updateSelected] = useArgs();
 
@@ -352,7 +362,9 @@ export const CountrySelect: Story = props => {
       style="--uui-combobox-popover-max-height: 300px; width: 250px;"
       @search=${handleSearch}
       @change=${handleSelect}>
-      <span slot="input-prepend">${renderSelectedFlag()}</span>
+      <span slot="input-prepend" style="display: flex; align-items: center;"
+        >${renderSelectedFlag()}</span
+      >
       <uui-combobox-list>${renderFilteredOptions()}</uui-combobox-list>
     </uui-combobox>
 

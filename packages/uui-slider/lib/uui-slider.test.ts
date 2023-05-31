@@ -9,7 +9,7 @@ import {
 } from '@open-wc/testing';
 
 import { UUISliderElement } from './uui-slider.element';
-import { UUISliderEvent } from './UUISliderEvents';
+import { UUISliderEvent } from './UUISliderEvent';
 
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();

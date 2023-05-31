@@ -1,69 +1,108 @@
-import '.';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import type { UUIColorSwatchElement } from './uui-color-swatch.element';
+import readme from '../README.md?raw';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit-html';
+import './uui-color-swatch.element';
 
-const value = '#d0021b';
-
-export default {
+const meta: Meta<UUIColorSwatchElement> = {
   id: 'uui-color-swatch',
   title: 'Inputs/Color/Color Swatch',
   component: 'uui-color-swatch',
+  args: {
+    value: '#d0021b',
+  },
+  argTypes: {
+    value: { control: 'color' },
+    color: { control: false },
+    isLight: { control: false },
+  },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
-export const Overview: Story = () =>
-  html`<uui-color-swatch .value=${value} label=${value}></uui-color-swatch>`;
+export default meta;
 
-export const Selectable: Story = () =>
-  html`<uui-color-swatch
-    selectable
-    .value=${value}
-    label=${value}></uui-color-swatch>`;
+type Story = StoryObj<UUIColorSwatchElement>;
 
-export const InvalidValue: Story = () =>
-  html`<uui-color-swatch
-    .value=${'askjhsdiusyhdiudhg'}
-    label="Invalid color"></uui-color-swatch>`;
+export const Overview: Story = {};
 
-export const InvalidValue2: Story = () =>
-  html`<uui-color-swatch
-    .value=${'askjhsdiusyhdiudhg'}
-    label="Invalid color"
-    show-label></uui-color-swatch>`;
-
-export const Disabled: Story = () =>
-  html`<uui-color-swatch selectable disabled label=${value}
-    >${value}</uui-color-swatch
-  >`;
-
-export const DisabledSelected: Story = () =>
-  html`<uui-color-swatch selectable disabled selected label=${value}
-    >${value}</uui-color-swatch
-  >`;
-
-export const WithLabel: Story = () =>
-  html`<uui-color-swatch
-    selectable
-    show-label
-    label=${"This is the most beautiful color I've ever seen"}
-    >${value}</uui-color-swatch
-  >`;
-
-const Template: Story = props => html`
-  <uui-color-swatch
-    selectable
-    .value=${props.value}
-    label=${value}></uui-color-swatch>
-`;
-
-export const Transparent = Template.bind({});
-Transparent.args = {
-  value: 'rgba(53, 68, 177, 0.5)',
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch selectable></uui-color-slider>`,
+      },
+    },
+  },
 };
-Transparent.parameters = {
-  docs: {
-    source: {
-      code: `<uui-color-swatch color="rgba(53, 68, 177, 0.5)"></uui-color-slider>`,
+
+export const InvalidValue: Story = {
+  args: {
+    value: 'askjhsdiusyhdiudhg',
+    label: 'Invalid color',
+    showLabel: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    selectable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch disabled></uui-color-slider>`,
+      },
+    },
+  },
+};
+
+export const DisabledSelected: Story = {
+  args: {
+    disabled: true,
+    selectable: true,
+    selected: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch disabled selectable selected></uui-color-slider>`,
+      },
+    },
+  },
+};
+
+export const WithLabel: Story = {
+  args: {
+    label: "This is the most beautiful color I've ever seen",
+    showLabel: true,
+    selectable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch label="This is the most beautiful color I've ever seen" show-label="true"></uui-color-slider>`,
+      },
+    },
+  },
+};
+
+export const Transparent: Story = {
+  args: {
+    value: 'rgba(53, 68, 177, 0.5)',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch color="rgba(53, 68, 177, 0.5)"></uui-color-slider>`,
+      },
     },
   },
 };

@@ -9,7 +9,7 @@ import {
   reverseNumberInRange,
 } from '@umbraco-ui/uui-base/lib/utils';
 
-import { UUIColorSliderEvent } from './UUIColorSliderEvents';
+import { UUIColorSliderEvent } from './UUIColorSliderEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
@@ -95,9 +95,14 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         height: 300px;
       }
 
+      :host([disabled]) {
+        cursor: not-allowed;
+      }
+
       :host([disabled]) #color-slider {
         user-select: none;
-        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.55;
       }
 
       #color-slider__handle {

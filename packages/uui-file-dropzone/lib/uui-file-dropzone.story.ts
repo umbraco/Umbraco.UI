@@ -1,44 +1,58 @@
-import { Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
+import { action } from '@storybook/addon-actions';
 import { html } from 'lit';
-import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvents';
-import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
-import '.';
+import type { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
+import type { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 
-export default {
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-symbol-file-dropzone/lib';
+
+import './uui-file-dropzone.element';
+import readme from '../README.md?raw';
+
+const meta: Meta<typeof UUIFileDropzoneElement> = {
   id: 'uui-file-dropzone',
   title: 'Inputs/Files/File Dropzone',
   component: 'uui-file-dropzone',
   decorators: [
-    (Story: any) =>
+    Story =>
       html`<div style="font-size: 12px; margin-bottom: 20px;">
-          Note: Dropzone logs dropped files in console
+          Note: Dropzone logs dropped files in the console and the change event
+          can be seen in the actions tab.
         </div>
         ${Story()}`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
-const handleFileChange = (e: UUIFileDropzoneEvent) =>
-  console.log('event.detail: ', e.detail);
+export default meta;
 
-export const AAAOverview: Story = props => {
+const handleFileChange = (e: UUIFileDropzoneEvent) => {
+  console.log('event.detail: ', e.detail);
+  action('change')(e);
+};
+
+const Template: StoryFn<UUIFileDropzoneElement> = props => {
   return html`
     <uui-file-dropzone
+      @change=${handleFileChange}
+      .accept=${props.accept}
       ?multiple=${props.multiple}
-      accept=${props.accept}
-      @file-change=${handleFileChange}
       label="Drop files here"></uui-file-dropzone>
   `;
 };
+
+export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 
-export const Multiple: Story = () =>
-  html`
-    <uui-file-dropzone
-      multiple
-      @file-change=${handleFileChange}
-      label="Drop files here"></uui-file-dropzone>
-  `;
-
+export const Multiple = Template.bind({});
+Multiple.args = {
+  multiple: true,
+};
 Multiple.parameters = {
   docs: {
     description: {
@@ -48,14 +62,10 @@ Multiple.parameters = {
   },
 };
 
-export const Accept: Story = () =>
-  html`
-    <uui-file-dropzone
-      accept="image/*"
-      @file-change=${handleFileChange}
-      label="Drop files here"></uui-file-dropzone>
-  `;
-
+export const Accept = Template.bind({});
+Accept.args = {
+  accept: 'image/*',
+};
 Accept.parameters = {
   docs: {
     description: {
@@ -65,7 +75,7 @@ Accept.parameters = {
   },
 };
 
-export const BrowseFiles: Story = () => {
+export const BrowseFiles: StoryFn<UUIFileDropzoneElement> = props => {
   const handleBrowse = () => {
     const dropzone = document.getElementById(
       'browse-dropzone'
@@ -76,7 +86,9 @@ export const BrowseFiles: Story = () => {
   return html`
     <uui-file-dropzone
       id="browse-dropzone"
-      @file-change=${handleFileChange}
+      .accept=${props.accept}
+      ?multiple=${props.multiple}
+      @change=${handleFileChange}
       label="Drop files here">
       Drop files here
       <uui-button

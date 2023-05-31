@@ -113,7 +113,7 @@ export class UUIComboboxListElement extends LitElement {
     }
 
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
-    this.addEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
+    this.addEventListener(UUISelectableEvent.DESELECTED, this._onDeselected);
   }
 
   disconnectedCallback(): void {
@@ -121,7 +121,7 @@ export class UUIComboboxListElement extends LitElement {
     document.removeEventListener('keydown', this._onKeyDown);
 
     this.removeEventListener(UUISelectableEvent.SELECTED, this._onSelected);
-    this.removeEventListener(UUISelectableEvent.UNSELECTED, this._onUnselected);
+    this.removeEventListener(UUISelectableEvent.DESELECTED, this._onDeselected);
   }
 
   private _updateSelection() {
@@ -151,7 +151,7 @@ export class UUIComboboxListElement extends LitElement {
 
     this._updateSelection();
     this.dispatchEvent(
-      new UUIComboboxListEvent(UUIComboboxListEvent.SLOT_CHANGE)
+      new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE)
     );
   };
 
@@ -169,7 +169,7 @@ export class UUIComboboxListElement extends LitElement {
 
     this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   };
-  private _onUnselected = (e: Event) => {
+  private _onDeselected = (e: Event) => {
     const el = e.composedPath()[0] as UUIComboboxListOptionElement;
     if (this._activeElement === el) {
       this._activeElement = undefined;

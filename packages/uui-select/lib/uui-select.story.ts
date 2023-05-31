@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 const options: Array<Option> = [
   { name: 'Carrot', value: 'orange' },
@@ -35,6 +36,7 @@ export default {
     value: '',
   },
   parameters: {
+    readme: { markdown: readme },
     docs: {
       source: {
         code: `

@@ -2,6 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-textarea',
@@ -13,6 +14,12 @@ export default {
     value: '',
     label: 'Label',
     placeholder: 'Placeholder',
+    rows: '',
+    cols: '',
+    wrap: '',
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 
@@ -39,6 +46,9 @@ export const AAAOverview: Story = props => {
     .placeholder=${props.placeholder}
     ?disabled=${props.disabled}
     ?readonly=${props.readonly}
+    .rows=${props.rows}
+    .cols="${props.cols}"
+    .wrap=${props.wrap}
     .name=${props.name}
     .error=${props.error}
     .value=${props.value}></uui-textarea>`;

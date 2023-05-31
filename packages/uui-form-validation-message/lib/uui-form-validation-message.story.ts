@@ -2,11 +2,17 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-form-validation-message',
   title: 'Inputs/Form/Form Validation Message',
   component: 'uui-form-validation-message',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export const AAAOverview: Story = () =>

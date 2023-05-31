@@ -4,12 +4,16 @@ import { Story } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 
 import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
+import readme from '../README.md?raw';
 
 export default {
   id: 'uui-button-inline-create',
   title: 'Buttons/Button Inline Create',
   component: 'uui-button-inline-create',
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         code: `<uui-button-inline-create></uui-button-inline-create>`,
@@ -56,7 +60,7 @@ const createBox = (vertical: boolean) => html` <div style="position:relative;">
     @click=${insertBox}></uui-button-inline-create>
 </div>`;
 
-const createBoxes = (count: Number, vertical = false) => {
+const createBoxes = (count: number, vertical = false) => {
   const boxes: TemplateResult<1>[] = [];
   for (let index = 0; index < count; index++) {
     boxes.push(createBox(vertical));

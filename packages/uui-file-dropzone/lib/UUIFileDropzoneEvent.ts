@@ -5,5 +5,12 @@ export class UUIFileDropzoneEvent extends UUIEvent<
   { files: File[] },
   UUIFileDropzoneElement
 > {
-  public static readonly FILE_CHANGE: string = 'file-change';
+  public static readonly CHANGE: string = 'change';
+
+  constructor(evName: string, eventInit: any | null = {}) {
+    super(evName, {
+      ...{ bubbles: true },
+      ...eventInit,
+    });
+  }
 }
