@@ -61,9 +61,9 @@
   "devDependencies": {
     "@babel/core": "7.21.8",
     "@lerna-lite/cli": "2.4.0",
-    "@lerna-lite/exec": "2.3.0",
+    "@lerna-lite/exec": "2.4.0",
     "@lerna-lite/publish": "2.4.0",
-    "@lerna-lite/run": "2.3.0",
+    "@lerna-lite/run": "2.4.0",
     "@lerna-lite/version": "2.4.0",
     "@open-wc/testing": "3.1.8",
     "@rollup/plugin-node-resolve": "15.0.2",
