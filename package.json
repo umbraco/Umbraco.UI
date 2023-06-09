@@ -137,5 +137,8 @@
     "*.{js,ts,mjs,cjs,html}": "eslint --cache --fix -c .eslintrc.js",
     "*": "prettier --ignore-unknown --write"
   },
+  "storybook": {
+    "url": "https://v1-contrib--62189360eeb21b003ab2f4ad.chromatic.com/"
+  },
   "packageManager": "npm@8.15.1"
 }
