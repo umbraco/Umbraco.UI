@@ -102,6 +102,11 @@
   font-size: var(--uui-size-6);
 }
 
+.uui-text a {
+  color: var(--uui-color-interactive);
+  text-decoration: inherit;
+}
+
 .uui-text a:link,
 .uui-text a:active {
   color: var(--uui-color-interactive);
