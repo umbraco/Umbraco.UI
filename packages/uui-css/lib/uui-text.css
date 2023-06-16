@@ -104,7 +104,6 @@
 
 .uui-text a {
   color: var(--uui-color-interactive);
-  text-decoration: inherit;
 }
 
 .uui-text a:link,
