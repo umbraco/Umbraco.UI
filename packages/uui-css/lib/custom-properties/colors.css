@@ -51,22 +51,24 @@
   --uui-color-default-contrast: #fff;
 
   --uui-color-warning: #fbd142;
-  /* --uui-color-warning: var(--uui-palette-sunglow); Contrast not high enough */
   --uui-color-warning-emphasis: var(--uui-palette-sunglow-light);
   --uui-color-warning-standalone: #a17700;
-  /* --uui-color-warning-standalone: var(--uui-palette-sunglow-dark); Contrast not high enough */
   --uui-color-warning-contrast: #000;
+  /* --uui-color-warning: var(--uui-palette-sunglow); Contrast not high enough */
+  /* --uui-color-warning-standalone: var(--uui-palette-sunglow-dark); Contrast not high enough */
 
   --uui-color-danger: var(--uui-palette-maroon-flush);
   --uui-color-danger-emphasis: var(--uui-palette-maroon-flush-light);
   --uui-color-danger-standalone: var(--uui-palette-maroon-flush-dark);
   --uui-color-danger-contrast: white;
 
-  --uui-color-positive: var(--uui-palette-jungle-green);
-  --uui-color-positive-emphasis: var(--uui-palette-jungle-green-light);
-  --uui-color-positive-standalone: #239054;
-  /* --uui-color-positive-standalone: var(--uui-palette-jungle-green-dark); Contrast not high enough */
+  --uui-color-positive: #1f9554;
+  --uui-color-positive-emphasis: #2ca964;
+  --uui-color-positive-standalone: #19864a;
   --uui-color-positive-contrast: #fff;
+  /* --uui-color-positive: var(--uui-palette-jungle-green); Contrast not high enough */
+  /* --uui-color-positive-emphasis: var(--uui-palette-jungle-green-light); Contrast not high enough */
+  /* --uui-color-positive-standalone: var(--uui-palette-jungle-green-dark); Contrast not high enough */
 }
 
 :root[data-theme='dark'] {
