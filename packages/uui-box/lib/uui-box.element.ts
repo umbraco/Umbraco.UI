@@ -1,7 +1,9 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { InterfaceHeading } from '@umbraco-ui/uui-base';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 /**
  *  A box for grouping elements
@@ -46,6 +48,15 @@ export class UUIBoxElement extends LitElement {
   @property({ type: String })
   headline: string | null = null;
 
+  /**
+   * Changes the heading variant for accessibilty for this box
+   * @type {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"}
+   * @attr
+   * @default "h5"
+   */
+  @property({ reflect: true, attribute: 'header-variant' })
+  headerVariant: InterfaceHeading = "h5"
+
   @state()
   private _headlineSlotHasContent = false;
   private _headlineSlotChanged = (e: Event) => {
@@ -70,19 +81,24 @@ export class UUIBoxElement extends LitElement {
     return html`<div
       id="header"
       class="uui-text"
-      style=${this._headerSlotHasContent ||
-      this._headlineSlotHasContent ||
-      this.headline !== null
-        ? ''
-        : 'display: none'}>
-      <h5
-        id="headline"
-        style=${this._headlineSlotHasContent || this.headline !== null
+      style=${
+        this._headerSlotHasContent ||
+        this._headlineSlotHasContent ||
+        this.headline !== null
           ? ''
-          : 'display: none'}>
+          : 'display: none'
+      }>
+      <${unsafeStatic(this.headerVariant)}
+        id="headline"
+        class="uui-h5"
+        style=${
+          this._headlineSlotHasContent || this.headline !== null
+            ? ''
+            : 'display: none'
+        }>
         ${this.headline}
         <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-      </h5>
+      </${unsafeStatic(this.headerVariant)}>
       <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
     </div>`;
   }

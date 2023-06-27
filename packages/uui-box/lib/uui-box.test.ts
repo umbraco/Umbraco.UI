@@ -1,6 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
 import { UUIBoxElement } from './uui-box.element';
+import { InterfaceHeadingValues } from '@umbraco-ui/uui-base/lib/types';
 
 describe('UUIBox', () => {
   let element: UUIBoxElement;
@@ -15,12 +16,20 @@ describe('UUIBox', () => {
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    for (const headerVariant of InterfaceHeadingValues) {
+      element = await fixture(html` <uui-box headline="headline" header-variant="${headerVariant}">
+        Main
+      </uui-box>`);
+      await expect(element).shadowDom.to.be.accessible();
+    }
   });
 
   describe('properties', () => {
     it('has a headline property', () => {
       expect(element).to.have.property('headline');
+    });
+    it('has a header variant property', () => {
+      expect(element).to.have.property('header-variant');
     });
   });
 
