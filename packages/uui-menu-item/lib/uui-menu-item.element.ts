@@ -108,6 +108,14 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: transparent;
       }
 
+      :host([select-mode='highlight']:not([disabled], [active], [selectable]))
+        #menu-item
+        #label-button:hover
+        ~ #label-button-background {
+        border-radius: var(--uui-border-radius);
+        background-color: var(--uui-color-surface-emphasis);
+      }
+
       :host([select-mode='highlight'][active][selected]:not([disabled]))
         #menu-item
         #label-button:hover
