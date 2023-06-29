@@ -8,6 +8,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import readme from '../README.md?raw';
+import '@umbraco-ui/uui-symbol-expand/lib';
 
 export default {
   title: 'Buttons/Menu Item',
@@ -27,9 +28,16 @@ export default {
     selectable: false,
     href: undefined,
     target: undefined,
+    selectMode: undefined,
   },
   argTypes: {
     '--uui-menu-item-indent': { control: { type: 'text' } },
+    selectMode: {
+      control: {
+        type: 'select',
+      },
+      options: ['persisting', 'highlight', undefined],
+    },
   },
   parameters: {
     readme: { markdown: readme },
@@ -209,17 +217,21 @@ function disabledStoryOnClick(e: UUIMenuItemEvent) {
   e.target.active = !e.target.active;
 }
 
-export const Disabled = () =>
+export const Disabled = (props: any) =>
   html`
     ${MenuItems.map(
       menuItem =>
         html`
           <uui-menu-item
             @click-label=${disabledStoryOnClick}
-            label="${menuItem.title}"></uui-menu-item>
+            label="${menuItem.title}"
+            ?disabled=${props.disabled}></uui-menu-item>
         `
     )}
   `;
+Disabled.args = {
+  disabled: true,
+};
 Disabled.parameters = {
   docs: {
     source: {
@@ -396,6 +408,42 @@ ItemIndentation.parameters = {
   docs: {
     source: {
       code: `<uui-menu-item label="Menu Item 1" style="--uui-menu-item-indent: 1"></uui-menu-item>`,
+    },
+  },
+};
+
+export const SelectMode = (props: any) =>
+  html`<uui-menu-item
+    label="Parent"
+    has-children
+    show-children
+    ?selectable=${props.selectable}
+    select-mode=${props.selectMode}>
+    ${MenuItems.map(
+      (menuItem, i) =>
+        html`<uui-menu-item
+          label="${menuItem.title}"
+          ?selected=${i == 1 ? true : false}
+          ?selectable=${props.selectable}
+          select-mode=${props.selectMode}></uui-menu-item>`
+    )}
+  </uui-menu-item> `;
+SelectMode.args = {
+  selectable: true,
+  selectMode: 'highlight',
+};
+SelectMode.parameters = {
+  controls: {
+    include: ['selectable', 'selectMode'],
+  },
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item
+          label="Menu Item"
+          select-mode="highlight"
+          selectable></uui-menu-item>
+      `.strings,
     },
   },
 };
