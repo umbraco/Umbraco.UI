@@ -95,6 +95,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private _toggleSelect() {
+      // Only allow for select-interaction if selectable is true. Deselectable is ignorered in this case, we do not want a DX where only deselection is a possibility..
+      if (!this.selectable) return;
       if (this.deselectable === false) {
         this._select();
       } else {
