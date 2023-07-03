@@ -46,6 +46,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         white-space: nowrap;
       }
 
+      /** Not active, not selected, not disabled: */
       :host(:not([active], [selected], [disabled], [select-mode='highlight']))
         #menu-item
         #label-button:hover
@@ -62,6 +63,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         color: var(--uui-color-interactive-emphasis);
       }
 
+      /** Active */
       :host([active]) #label-button,
       :host([active]) #caret-button {
         color: var(--uui-color-current-contrast);
@@ -74,6 +76,13 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-current-emphasis);
       }
 
+      /** Disabled */
+      :host([disabled]) #menu-item {
+        color: var(--uui-color-disabled-contrast);
+        background-color: var(--uui-color-disabled);
+      }
+
+      /** Selected */
       :host([selected]) #label-button,
       :host([selected]) #caret-button {
         color: var(--uui-color-selected-contrast);
@@ -81,6 +90,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       :host([selected]) #label-button-background {
         background-color: var(--uui-color-selected);
       }
+      /** Selected, not highlight mode */
       :host([selected]:not([select-mode='highlight']))
         #label-button:hover
         ~ #label-button-background,
@@ -88,13 +98,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-selected-emphasis);
       }
 
-      :host([disabled]) #menu-item {
-        color: var(--uui-color-disabled-contrast);
-        background-color: var(--uui-color-disabled);
-      }
-
-      /** Highlight mode colors */
-
+      /** Selected, highlight mode */
       :host([select-mode='highlight'][active]:not([disabled]))
         #menu-item
         #label-button-background {
