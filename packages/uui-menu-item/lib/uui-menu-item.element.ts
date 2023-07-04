@@ -83,12 +83,11 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
 
       /** Selected */
-      :host([selected]:not([select-mode='highlight'])) #label-button,
-      :host([selected]:not([select-mode='highlight'])) #caret-button {
+      :host([selected]) #label-button,
+      :host([selected]) #caret-button {
         color: var(--uui-color-selected-contrast);
       }
-      :host([selected]:not([select-mode='highlight']))
-        #label-button-background {
+      :host([selected]) #label-button-background {
         background-color: var(--uui-color-selected);
       }
       /** Selected, not highlight mode */
@@ -99,7 +98,20 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-selected-emphasis);
       }
 
-      /** highlight mode, default */
+      /** Selected, highlight mode */
+      :host([select-mode='highlight'][active]:not([disabled]))
+        #menu-item
+        #label-button-background {
+        border-radius: var(--uui-border-radius);
+        background-color: var(--uui-color-current);
+      }
+
+      :host([select-mode='highlight'][selected]:not([disabled], [active]))
+        #menu-item
+        #label-button-background {
+        background-color: transparent;
+      }
+
       :host([select-mode='highlight']:not([disabled], [active], [selectable]))
         #menu-item
         #label-button:hover
@@ -108,14 +120,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-surface-emphasis);
       }
 
-      /** highlight mode, active */
-      :host([select-mode='highlight'][active]:not([disabled]))
-        #menu-item
-        #label-button-background {
-        border-radius: var(--uui-border-radius);
-      }
-
-      /** highlight mode, active & selected */
       :host([select-mode='highlight'][active][selected]:not([disabled]))
         #menu-item
         #label-button:hover
@@ -124,7 +128,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: var(--uui-color-current-emphasis);
       }
 
-      /** highlight mode, selected */
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #label-button,
