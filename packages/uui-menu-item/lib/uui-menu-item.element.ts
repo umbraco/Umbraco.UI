@@ -83,19 +83,22 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
 
       /** Selected */
-      :host([selected]:not([select-mode='highlight'])) #label-button,
-      :host([selected]:not([select-mode='highlight'])) #caret-button {
+      :host([selected]:not([select-mode='highlight'], [disabled]))
+        #label-button,
+      :host([selected]:not([select-mode='highlight'], [disabled]))
+        #caret-button {
         color: var(--uui-color-selected-contrast);
       }
-      :host([selected]:not([select-mode='highlight']))
+      :host([selected]:not([select-mode='highlight'], [disabled]))
         #label-button-background {
         background-color: var(--uui-color-selected);
       }
       /** Selected, not highlight mode */
-      :host([selected]:not([select-mode='highlight']))
+      :host([selected]:not([select-mode='highlight'], [disabled]))
         #label-button:hover
         ~ #label-button-background,
-      :host([selected]:not([select-mode='highlight'])) #caret-button:hover {
+      :host([selected]:not([select-mode='highlight'], [disabled]))
+        #caret-button:hover {
         background-color: var(--uui-color-selected-emphasis);
       }
 
@@ -293,34 +296,29 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Focus styling */
 
-      :host([select-mode='highlight']:focus-visible) {
-        border-radius: var(--uui-border-radius);
-        outline: 2px solid var(--uui-color-focus);
-      }
-
       :host([select-mode='highlight']) #label-button:focus-visible {
         outline: none;
+        overflow: initial;
       }
 
       :host([select-mode='highlight']) #label-button:focus-visible::after {
         content: '';
-        border-radius: var(--uui-border-radius);
-        z-index: 2;
+        border-radius: calc(var(--uui-border-radius) - 1px);
         position: absolute;
-        inset: 3px 3px 3px 0;
+        inset: 3px 3px 3px -5px;
         border: 2px solid var(--uui-color-focus);
       }
 
       :host([select-mode='highlight']) #caret-button:focus-visible {
         outline: none;
+        overflow: initial;
       }
 
       :host([select-mode='highlight']) #caret-button:focus-visible::after {
         content: '';
         position: absolute;
         inset: 3px;
-        z-index: 2;
-        border-radius: var(--uui-border-radius);
+        border-radius: calc(var(--uui-border-radius) - 1px);
         border: 2px solid var(--uui-color-focus);
       }
 
