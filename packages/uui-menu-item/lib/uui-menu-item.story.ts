@@ -522,7 +522,7 @@ export const CombinationOfStates = () =>
     )}
 
     <br />
-    <b>All selected</b>
+    <b>All selected (Default mode)</b>
     ${renderCombinationOfStates('Active', true, false, true, false, false)}
     ${renderCombinationOfStates('Disabled', false, true, true, false, false)}
     ${renderCombinationOfStates('Selected', false, false, true, false, false)}
@@ -532,6 +532,51 @@ export const CombinationOfStates = () =>
       false,
       false,
       true,
+      false,
+      true
+    )}
+
+    <br />
+    <b>All Selected (Highlight mode)</b>
+    ${renderCombinationOfStates('Active', true, false, true, false, true)}
+    ${renderCombinationOfStates('Disabled', false, true, true, false, true)}
+    ${renderCombinationOfStates('Selected', false, false, true, false, true)}
+    ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
+    ${renderCombinationOfStates(
+      'Highlight select mode',
+      false,
+      false,
+      false,
+      false,
+      true
+    )}
+
+    <br />
+    <b>All selected & selectable (Default mode)</b>
+    ${renderCombinationOfStates('Active', true, false, true, true, false)}
+    ${renderCombinationOfStates('Disabled', false, true, true, true, false)}
+    ${renderCombinationOfStates('Selected', false, false, true, true, false)}
+    ${renderCombinationOfStates('Selectable', false, false, true, true, false)}
+    ${renderCombinationOfStates(
+      'Highlight select mode',
+      false,
+      false,
+      true,
+      false,
+      true
+    )}
+
+    <br />
+    <b>All Selected & selectable (Highlight mode)</b>
+    ${renderCombinationOfStates('Active', true, false, true, true, true)}
+    ${renderCombinationOfStates('Disabled', false, true, true, true, true)}
+    ${renderCombinationOfStates('Selected', false, false, true, true, true)}
+    ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
+    ${renderCombinationOfStates(
+      'Highlight select mode',
+      false,
+      false,
+      false,
       false,
       true
     )}
