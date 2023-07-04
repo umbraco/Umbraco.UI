@@ -2,7 +2,7 @@ import { LitElement, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { InterfaceHeading } from '@umbraco-ui/uui-base';
+import type { InterfaceHeading } from '@umbraco-ui/uui-base/lib';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 /**
@@ -49,13 +49,14 @@ export class UUIBoxElement extends LitElement {
   headline: string | null = null;
 
   /**
-   * Changes the heading variant for accessibilty for this box
+   * Changes the heading variant for accessibility for this box.
+   * Notice this does not change the visual representation of the heading. (Umbraco does only recommend displaying a h5 sizes headline in the UUI-BOX)
    * @type {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"}
    * @attr
    * @default "h5"
    */
   @property({ reflect: true, attribute: 'header-variant' })
-  headerVariant: InterfaceHeading = "h5"
+  headerVariant: InterfaceHeading = 'h5';
 
   @state()
   private _headlineSlotHasContent = false;
@@ -78,6 +79,8 @@ export class UUIBoxElement extends LitElement {
    * @method
    */
   protected renderHeader() {
+    const headerTag = unsafeStatic(this.headerVariant);
+    /* eslint-disable lit/no-invalid-html, lit/binding-positions */
     return html`<div
       id="header"
       class="uui-text"
@@ -88,7 +91,7 @@ export class UUIBoxElement extends LitElement {
           ? ''
           : 'display: none'
       }>
-      <${unsafeStatic(this.headerVariant)}
+      <${headerTag}
         id="headline"
         class="uui-h5"
         style=${
@@ -98,9 +101,10 @@ export class UUIBoxElement extends LitElement {
         }>
         ${this.headline}
         <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-      </${unsafeStatic(this.headerVariant)}>
+      </${headerTag}>
       <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
     </div>`;
+    /* eslint-enable lit/no-invalid-html, lit/binding-positions */
   }
 
   render() {
