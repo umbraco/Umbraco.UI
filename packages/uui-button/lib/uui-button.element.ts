@@ -171,9 +171,9 @@ export class UUIButtonElement extends FormControlMixin(
       }
 
       /* edge case for default color */
-      :host(:not([color]):not([look='primary'])) #button,
-      :host([color='']:not([look='primary'])) #button,
-      :host([color='default']:not([look='primary'])) #button {
+      :host(:not([color]):not([look='primary'])),
+      :host([color='']:not([look='primary'])),
+      :host([color='default']:not([look='primary'])) {
         --uui-button-contrast-hover: var(--uui-color-default-emphasis);
       }
 
