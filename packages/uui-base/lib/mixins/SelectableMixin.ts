@@ -41,7 +41,10 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       const oldVal = this._selectable;
       this._selectable = newVal;
       // Potentially problematic as a component might need focus for another feature when not selectable:
-      this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
+      if (!this.selectableTarget) {
+        // If not selectable target, then make it self selectable. (A selectable target should be made focusable by the component itself)
+        this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
+      }
       this.requestUpdate('selected', oldVal);
     }
 
@@ -63,12 +66,13 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.addEventListener('keydown', this.handleSelectKeydown);
     }
 
-    private handleSelectKeydown(e: KeyboardEvent) {
-      if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+    private handleSelectKeydown = (e: KeyboardEvent) => {
+      //if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+      if (this.selectableTarget === this) {
         if (e.key !== ' ' && e.key !== 'Enter') return;
         this._toggleSelect();
       }
-    }
+    };
 
     private _select() {
       if (!this.selectable) return;
