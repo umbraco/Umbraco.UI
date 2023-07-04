@@ -142,6 +142,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         color: var(--uui-color-interactive-emphasis);
       }
 
+      /** highlight mode, selected, selectable caret hover */
       :host([selected][selectable][select-mode='highlight']:not([active]))
         #menu-item
         #caret-button:hover {
