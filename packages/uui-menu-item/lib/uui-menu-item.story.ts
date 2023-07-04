@@ -476,6 +476,7 @@ const renderCombinationOfStates = (
   </uui-menu-item> `;
 };
 // show combination of states: active, disabled, selected, selectable, select-mode
+// Notice, this implementation sets selectable to false in all cases of begin disabled.
 export const CombinationOfStates = () =>
   html`
     ${renderCombinationOfStates('Active', true, false, false, false, false)}
@@ -554,7 +555,7 @@ export const CombinationOfStates = () =>
     <br />
     <b>All selected & selectable (Default mode)</b>
     ${renderCombinationOfStates('Active', true, false, true, true, false)}
-    ${renderCombinationOfStates('Disabled', false, true, true, true, false)}
+    ${renderCombinationOfStates('Disabled', false, true, true, false, false)}
     ${renderCombinationOfStates('Selected', false, false, true, true, false)}
     ${renderCombinationOfStates('Selectable', false, false, true, true, false)}
     ${renderCombinationOfStates(
@@ -569,7 +570,7 @@ export const CombinationOfStates = () =>
     <br />
     <b>All Selected & selectable (Highlight mode)</b>
     ${renderCombinationOfStates('Active', true, false, true, true, true)}
-    ${renderCombinationOfStates('Disabled', false, true, true, true, true)}
+    ${renderCombinationOfStates('Disabled', false, true, true, false, true)}
     ${renderCombinationOfStates('Selected', false, false, true, true, true)}
     ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
     ${renderCombinationOfStates(
@@ -584,7 +585,7 @@ export const CombinationOfStates = () =>
     <br />
     <b>All selectable</b>
     ${renderCombinationOfStates('Active', true, false, false, true, false)}
-    ${renderCombinationOfStates('Disabled', false, true, false, true, false)}
+    ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
     ${renderCombinationOfStates('Selected', false, false, true, true, false)}
     ${renderCombinationOfStates('Selectable', false, false, false, true, false)}
     ${renderCombinationOfStates(
