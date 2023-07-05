@@ -2,7 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
-import readme from '../README.md?raw';
+import readme from '../README.md';
 
 export default {
   title: 'Loaders/Loader Bar',
@@ -43,7 +43,7 @@ AAAOverview.argTypes = {
 AAAOverview.parameters = {
   docs: {
     source: {
-      code: '<uui-loader animationDuration="1.5" style="color: black"></uui-loader>',
+      code: '<uui-loader-bar animationDuration="1.5" style="color: black"></uui-loader-bar>',
     },
   },
 };
@@ -56,7 +56,7 @@ Color.argTypes = {
 Color.parameters = {
   docs: {
     source: {
-      code: '<uui-loader style="color: blue"></uui-loader>',
+      code: '<uui-loader-bar style="color: blue"></uui-loader-bar>',
     },
   },
 };
@@ -66,7 +66,7 @@ Progress.args = { progress: 75 };
 Progress.parameters = {
   docs: {
     source: {
-      code: '<uui-loader progress="75"></uui-loader>',
+      code: '<uui-loader-bar progress="75"></uui-loader-bar>',
     },
   },
 };
