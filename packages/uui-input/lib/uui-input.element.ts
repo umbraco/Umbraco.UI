@@ -1,7 +1,7 @@
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, nothing, PropertyValueMap } from 'lit';
-import { property, query, queryAssignedNodes } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIInputEvent } from './UUIInputEvent';
@@ -67,7 +67,7 @@ export class UUIInputElement extends FormControlMixin(
       }
 
       #auto {
-        border: 1px solid transparent;
+        border: 0 1px solid transparent;
         visibility: hidden;
         white-space: pre;
         z-index: -1;
