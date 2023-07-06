@@ -25,18 +25,9 @@ export default {
     docs: {
       source: {
         code: html`<uui-tab-group>
-          <uui-tab>
-            <uui-icon slot="icon" name="document"></uui-icon>
-            Content
-          </uui-tab>
-          <uui-tab active>
-            <uui-icon slot="icon" name="settings"></uui-icon>
-            Packages
-          </uui-tab>
-          <uui-tab>
-            <uui-icon slot="icon" name="picture"></uui-icon>
-            Media
-          </uui-tab>
+          <uui-tab>Tab A</uui-tab>
+          <uui-tab>Tab B</uui-tab>
+          <uui-tab>Tab C</uui-tab>
         </uui-tab-group>`.strings,
       },
     },
