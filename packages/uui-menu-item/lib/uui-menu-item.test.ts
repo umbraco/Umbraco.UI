@@ -64,6 +64,14 @@ describe('UUIMenuItemElement', () => {
     it('has a target property', () => {
       expect(element).to.have.property('target');
     });
+
+    it('has a select-mode property', () => {
+      expect(element).to.have.property('selectMode');
+    });
+
+    it('select-mode property defaults to undefined', () => {
+      expect(element.selectMode).to.undefined;
+    });
   });
 
   describe('events', () => {
