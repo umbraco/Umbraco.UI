@@ -316,3 +316,40 @@ export const MultipleInputs: Story = props =>
       </uui-input>
     </uui-input>
   `;
+
+export const AutoWidth: Story = props => html`<uui-input
+    .min=${props.min}
+    .max=${props.max}
+    .step=${props.step}
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}
+    auto-width>
+  </uui-input>
+  <br /><br />
+  <uui-input
+    .min=${props.min}
+    .max=${props.max}
+    .step=${props.step}
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}
+    auto-width>
+    <uui-input
+      slot="prepend"
+      placeholder="Prepend auto-width"
+      auto-width></uui-input>
+    <uui-input slot="append" placeholder="Append auto-width false"></uui-input>
+  </uui-input>`;
+
+AutoWidth.args = { placeholder: 'Start typing...' };
