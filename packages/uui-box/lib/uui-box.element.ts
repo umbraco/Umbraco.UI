@@ -49,14 +49,13 @@ export class UUIBoxElement extends LitElement {
   headline: string | null = null;
 
   /**
-   * Changes the heading variant for accessibility for this box.
-   * Notice this does not change the visual representation of the heading. (Umbraco does only recommend displaying a h5 sizes headline in the UUI-BOX)
+   * Changes the headline variant for accessibility for this box.
+   * Notice this does not change the visual representation of the headline. (Umbraco does only recommend displaying a h5 sizes headline in the UUI-BOX)
    * @type {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"}
    * @attr
    * @default "h5"
    */
-  @property({ reflect: true, attribute: 'header-variant' })
-  headerVariant: InterfaceHeading = 'h5';
+  @property({ attribute: 'headline-variant' })
 
   @state()
   private _headlineSlotHasContent = false;
