@@ -17,7 +17,9 @@ describe('UUIBox', () => {
 
   it('passes the a11y audit', async () => {
     for (const headerVariant of InterfaceHeadingValues) {
-      element = await fixture(html` <uui-box headline="headline" header-variant="${headerVariant}">
+      element = await fixture(html` <uui-box
+        headline="headline"
+        header-variant="${headerVariant}">
         Main
       </uui-box>`);
       await expect(element).shadowDom.to.be.accessible();
