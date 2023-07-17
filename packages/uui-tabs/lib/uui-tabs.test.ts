@@ -8,15 +8,13 @@ describe('UuiTab', () => {
   let tabs: UUITabElement[];
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-tab-group>
-          <uui-tab label="Content">Content</uui-tab>
-          <uui-tab label="Packages">Packages</uui-tab>
-          <uui-tab label="Media" active>Media</uui-tab>
-        </uui-tab-group>
-      `
-    );
+    element = await fixture(html`
+      <uui-tab-group>
+        <uui-tab label="Content">Content</uui-tab>
+        <uui-tab label="Packages">Packages</uui-tab>
+        <uui-tab label="Media" active>Media</uui-tab>
+      </uui-tab-group>
+    `);
 
     tabs = Array.from(element.querySelectorAll('uui-tab'));
   });

@@ -27,13 +27,12 @@ export default {
   },
 };
 
-const Template: Story = props => html`<uui-toast-notification
-  .open=${props.open}
-  .color=${props.color}>
-  <uui-toast-notification-layout .headline=${props.headline}>
-    ${props.slot}
-  </uui-toast-notification-layout>
-</uui-toast-notification>`;
+const Template: Story = props =>
+  html`<uui-toast-notification .open=${props.open} .color=${props.color}>
+    <uui-toast-notification-layout .headline=${props.headline}>
+      ${props.slot}
+    </uui-toast-notification-layout>
+  </uui-toast-notification>`;
 
 export const AAAOverview: Story = Template.bind({});
 AAAOverview.storyName = 'Overview';
@@ -45,14 +44,15 @@ AAAOverview.parameters = {
   },
 };
 
-export const ErrorStyle: Story = props => html`<uui-toast-notification
-  .open=${props.open}
-  .color=${props.color}>
-  <uui-toast-notification-layout .headline=${props.headline}>
-    ${props.slot}
-    <uui-button slot="actions" look="primary" color="danger">Retry</uui-button>
-  </uui-toast-notification-layout>
-</uui-toast-notification>`;
+export const ErrorStyle: Story = props =>
+  html`<uui-toast-notification .open=${props.open} .color=${props.color}>
+    <uui-toast-notification-layout .headline=${props.headline}>
+      ${props.slot}
+      <uui-button slot="actions" look="primary" color="danger"
+        >Retry</uui-button
+      >
+    </uui-toast-notification-layout>
+  </uui-toast-notification>`;
 ErrorStyle.args = {
   headline: 'Document could not be published!',
   slot: 'An error occurred while attempting to contact the server. Please check your internet connection.',
@@ -72,16 +72,15 @@ ErrorStyle.parameters = {
   },
 };
 
-export const PositiveStyle: Story = props => html`<uui-toast-notification
-  .open=${props.open}
-  .color=${props.color}>
-  <uui-toast-notification-layout .headline=${props.headline}>
-    ${props.slot}
-    <uui-button slot="actions" look="primary" .color=${props.color}
-      >View in browser</uui-button
-    >
-  </uui-toast-notification-layout>
-</uui-toast-notification>`;
+export const PositiveStyle: Story = props =>
+  html`<uui-toast-notification .open=${props.open} .color=${props.color}>
+    <uui-toast-notification-layout .headline=${props.headline}>
+      ${props.slot}
+      <uui-button slot="actions" look="primary" .color=${props.color}
+        >View in browser</uui-button
+      >
+    </uui-toast-notification-layout>
+  </uui-toast-notification>`;
 PositiveStyle.args = {
   headline: 'Document was published',
   slot: 'This document is now saved and published.',
@@ -100,18 +99,17 @@ PositiveStyle.parameters = {
   },
 };
 
-export const CustomLayout: Story = props => html`<uui-toast-notification
-  .open=${props.open}
-  color="danger">
-  ${props.slot
-    ? props.slot
-    : html` Its recommended to use the 'uui-toast-notification-layout' component
-      as the layout for your toasts. This will ensure consistency in toast
-      appearances, help achieving the best user experience. If
-      'uui-toast-notification-layout' does not provide the options to solve your
-      needs, it is possible append anything within the toast-notification
-      component. But please consider this very carefully.`}
-</uui-toast-notification>`;
+export const CustomLayout: Story = props =>
+  html`<uui-toast-notification .open=${props.open} color="danger">
+    ${props.slot
+      ? props.slot
+      : html` Its recommended to use the 'uui-toast-notification-layout'
+        component as the layout for your toasts. This will ensure consistency in
+        toast appearances, help achieving the best user experience. If
+        'uui-toast-notification-layout' does not provide the options to solve
+        your needs, it is possible append anything within the toast-notification
+        component. But please consider this very carefully.`}
+  </uui-toast-notification>`;
 CustomLayout.args = {
   headline: '',
   color: 'danger',

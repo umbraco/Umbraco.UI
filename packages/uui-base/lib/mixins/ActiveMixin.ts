@@ -14,7 +14,7 @@ export declare class ActiveMixinInterface {
  * @mixin
  */
 export const ActiveMixin = <T extends Constructor<LitElement>>(
-  superClass: T
+  superClass: T,
 ) => {
   class ActiveMixinClass extends superClass {
     /**

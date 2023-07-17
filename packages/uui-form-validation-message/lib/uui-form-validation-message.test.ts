@@ -10,7 +10,7 @@ describe('UUIFormValidationMessageElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-form-validation-message></uui-form-validation-message>`
+      html` <uui-form-validation-message></uui-form-validation-message>`,
     );
   });
 
@@ -46,21 +46,19 @@ describe('UUIFormValidationMessageElement', () => {
     let input: UUIInputElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <form>
-            <uui-form-validation-message>
-              <uui-input
-                label="Label"
-                required
-                required-message="MyRequiredMessage"></uui-input>
-            </uui-form-validation-message>
-          </form>
-        `
-      );
+      element = await fixture(html`
+        <form>
+          <uui-form-validation-message>
+            <uui-input
+              label="Label"
+              required
+              required-message="MyRequiredMessage"></uui-input>
+          </uui-form-validation-message>
+        </form>
+      `);
       await elementUpdated(element);
       validationEl = element.querySelector(
-        'uui-form-validation-message'
+        'uui-form-validation-message',
       ) as UUIFormValidationMessageElement;
       input = validationEl.querySelector('uui-input') as UUIInputElement;
     });
@@ -80,23 +78,21 @@ describe('UUIFormValidationMessageElement', () => {
         let input: UUIInputElement;
 
         beforeEach(async () => {
-          element = await fixture(
-            html`
-              <form>
-                <div id="MyMessageScope">
-                  <uui-input
-                    label="Label"
-                    required
-                    required-message="MyRequiredMessage"></uui-input>
-                </div>
-                <uui-form-validation-message for="MyMessageScope">
-                </uui-form-validation-message>
-              </form>
-            `
-          );
+          element = await fixture(html`
+            <form>
+              <div id="MyMessageScope">
+                <uui-input
+                  label="Label"
+                  required
+                  required-message="MyRequiredMessage"></uui-input>
+              </div>
+              <uui-form-validation-message for="MyMessageScope">
+              </uui-form-validation-message>
+            </form>
+          `);
           await elementUpdated(element);
           validationEl = element.querySelector(
-            'uui-form-validation-message'
+            'uui-form-validation-message',
           ) as UUIFormValidationMessageElement;
           input = element.querySelector('uui-input') as UUIInputElement;
         });

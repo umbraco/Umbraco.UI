@@ -94,10 +94,11 @@ export const Formats: Story = {
     value: 'blue',
   },
   decorators: [
-    (story, props) => html`<div style="display: flex; flex-direction: column;">
-      <h5>${props.args.format}</h5>
-      ${story()}
-    </div> `,
+    (story, props) =>
+      html`<div style="display: flex; flex-direction: column;">
+        <h5>${props.args.format}</h5>
+        ${story()}
+      </div> `,
   ],
   argTypes: {
     format: {

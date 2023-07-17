@@ -6,9 +6,9 @@ describe('UUITextareaElement', () => {
   let element: UUITextareaElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-textarea label="textarea"></uui-textarea> `
-    );
+    element = await fixture(html`
+      <uui-textarea label="textarea"></uui-textarea>
+    `);
   });
 
   it('passes the a11y audit', async () => {
@@ -31,11 +31,11 @@ describe('UUITextareaElement', () => {
   let element: UUITextareaElement;
   let textarea: HTMLTextAreaElement;
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-textarea label="a textarea label"></uui-textarea> `
-    );
+    element = await fixture(html`
+      <uui-textarea label="a textarea label"></uui-textarea>
+    `);
     textarea = element.shadowRoot?.querySelector(
-      'textarea'
+      'textarea',
     ) as HTMLTextAreaElement;
   });
   it('test that disable works', async () => {
@@ -82,7 +82,7 @@ describe('UuiTextarea in Form', () => {
           label="a textarea label"
           name="textarea"
           value="Hello uui-textarea"></uui-textarea>
-      </form>`
+      </form>`,
     );
     element = formElement.querySelector('uui-textarea') as any;
   });

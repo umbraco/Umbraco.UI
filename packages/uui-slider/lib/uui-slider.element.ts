@@ -26,9 +26,9 @@ const RenderTrackSteps = (steps: number[], stepWidth: number) => {
 const RenderStepValues = (
   steps: number[],
   stepWidth: number,
-  hide: boolean
+  hide: boolean,
 ) => {
-  if (hide) return html``;
+  if (hide) return nothing;
 
   return html`<div id="step-values">
     ${steps.map(
@@ -39,7 +39,7 @@ const RenderStepValues = (
               ? el.toFixed(0)
               : nothing}
           </span></span
-        >`
+        >`,
     )}
   </div>`;
 };

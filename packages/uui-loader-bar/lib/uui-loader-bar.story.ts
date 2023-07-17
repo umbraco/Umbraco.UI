@@ -26,13 +26,12 @@ export default {
   },
 };
 
-const Template: Story = props =>
-  html`
-    <uui-loader-bar
-      progress=${props.progress}
-      animationDuration=${props.animationDuration}
-      style=${props.color ? 'color: ' + props.color : ''}></uui-loader-bar>
-  `;
+const Template: Story = props => html`
+  <uui-loader-bar
+    progress=${props.progress}
+    animationDuration=${props.animationDuration}
+    style=${props.color ? 'color: ' + props.color : ''}></uui-loader-bar>
+`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';

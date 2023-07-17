@@ -38,17 +38,18 @@ export default {
   },
 };
 
-const Template: Story = props => html` <uui-icon-registry-essential>
-  <div
-    style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
-    <uui-badge
-      .color=${props.color}
-      .look=${props.look}
-      ?attention=${props.attention}
-      >${props.slot}</uui-badge
-    >
-  </div>
-</uui-icon-registry-essential>`;
+const Template: Story = props =>
+  html` <uui-icon-registry-essential>
+    <div
+      style="position:relative; width:80px; height:80px; border: 1px dashed rgba(0,0,0,0.1)">
+      <uui-badge
+        .color=${props.color}
+        .look=${props.look}
+        ?attention=${props.attention}
+        >${props.slot}</uui-badge
+      >
+    </div>
+  </uui-icon-registry-essential>`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.args = {
@@ -128,10 +129,11 @@ WithIcon.parameters = {
   },
 };
 
-export const OnButton: Story = props => html` <uui-button look="outline">
-  Button label
-  <uui-badge .color=${props.color}>${props.slot}</uui-badge>
-</uui-button>`;
+export const OnButton: Story = props =>
+  html` <uui-button look="outline">
+    Button label
+    <uui-badge .color=${props.color}>${props.slot}</uui-badge>
+  </uui-button>`;
 OnButton.args = {
   color: 'danger',
   slot: '!',
@@ -156,27 +158,25 @@ function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const LooksAndColors: Story = () =>
-  html`
-    ${colors.map(
-      color =>
-        html`
-          <h5>${uppercaseFirstLetter(color)}</h5>
-          <div style="margin-bottom: 32px; display: flex; gap: 16px;">
-            ${looks.map(
-              look => html`
-                <div
-                  style="position:relative; width:100px; height:80px; border: 1px dashed rgba(0,0,0,0.1); margin-top: 16px">
-                  <uui-badge
-                    .look=${look as any}
-                    .color=${color as any}
-                    style="margin-right:12px;"
-                    >${uppercaseFirstLetter(look)}</uui-badge
-                  >
-                </div>
-              `
-            )}
-          </div>
-        `
-    )}
-  `;
+export const LooksAndColors: Story = () => html`
+  ${colors.map(
+    color => html`
+      <h5>${uppercaseFirstLetter(color)}</h5>
+      <div style="margin-bottom: 32px; display: flex; gap: 16px;">
+        ${looks.map(
+          look => html`
+            <div
+              style="position:relative; width:100px; height:80px; border: 1px dashed rgba(0,0,0,0.1); margin-top: 16px">
+              <uui-badge
+                .look=${look as any}
+                .color=${color as any}
+                style="margin-right:12px;"
+                >${uppercaseFirstLetter(look)}</uui-badge
+              >
+            </div>
+          `,
+        )}
+      </div>
+    `,
+  )}
+`;

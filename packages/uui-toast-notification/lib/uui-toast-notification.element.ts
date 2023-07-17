@@ -239,9 +239,9 @@ export class UUIToastNotificationElement extends LitElement {
     return (
       parseInt(
         getComputedStyle(this).getPropertyValue(
-          '--uui-toast-notification-animation-duration'
+          '--uui-toast-notification-animation-duration',
         ),
-        10
+        10,
       ) || 480
     );
   }
@@ -266,7 +266,7 @@ export class UUIToastNotificationElement extends LitElement {
         this._animate = true;
 
         this.dispatchEvent(
-          new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENING)
+          new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENING),
         );
 
         this._animationTimeout = window.setTimeout(() => {
@@ -278,7 +278,7 @@ export class UUIToastNotificationElement extends LitElement {
             }
 
             this.dispatchEvent(
-              new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENED)
+              new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENED),
             );
           }
         }, this._getAnimationDuration());
@@ -292,7 +292,7 @@ export class UUIToastNotificationElement extends LitElement {
 
     const event = new UUIToastNotificationEvent(
       UUIToastNotificationEvent.CLOSING,
-      { cancelable: true }
+      { cancelable: true },
     );
     this.dispatchEvent(event);
 
@@ -322,7 +322,7 @@ export class UUIToastNotificationElement extends LitElement {
             this._animate = false;
 
             this.dispatchEvent(
-              new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSED)
+              new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSED),
             );
             if (this.parentNode) {
               this.parentNode.removeChild(this);

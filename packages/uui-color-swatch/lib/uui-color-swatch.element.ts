@@ -24,7 +24,7 @@ import {
 @defineElement('uui-color-swatch')
 export class UUIColorSwatchElement extends LabelMixin(
   'label',
-  SelectableMixin(ActiveMixin(LitElement))
+  SelectableMixin(ActiveMixin(LitElement)),
 ) {
   static styles = [
     css`
@@ -124,7 +124,11 @@ export class UUIColorSwatchElement extends LabelMixin(
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
         background-size: 10px 10px;
-        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
+        background-position:
+          0 0,
+          0 0,
+          -5px -5px,
+          5px 5px;
       }
       .color-swatch__color {
         width: 100%;
@@ -144,7 +148,9 @@ export class UUIColorSwatchElement extends LabelMixin(
         width: calc(var(--uui-swatch-size, 25px) / 2);
         height: calc(var(--uui-swatch-size, 25px) / 2);
         line-height: 0;
-        transition: fill 120ms, opacity 120ms;
+        transition:
+          fill 120ms,
+          opacity 120ms;
         fill: #fff;
         pointer-events: none;
         opacity: 0;
@@ -259,7 +265,7 @@ export class UUIColorSwatchElement extends LabelMixin(
     if (!this._color.isValid()) {
       this.disabled = true;
       console.error(
-        `Invalid color provided to uui-color-swatch: ${this.value}`
+        `Invalid color provided to uui-color-swatch: ${this.value}`,
       );
     }
   }

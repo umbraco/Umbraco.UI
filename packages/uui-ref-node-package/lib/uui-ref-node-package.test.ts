@@ -13,9 +13,9 @@ describe('UUIRefNodePackageElement', () => {
   let element: UUIRefNodePackageElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-ref-node-package name="Package"></uui-ref-node-package> `
-    );
+    element = await fixture(html`
+      <uui-ref-node-package name="Package"></uui-ref-node-package>
+    `);
   });
 
   it('passes the a11y audit', async () => {

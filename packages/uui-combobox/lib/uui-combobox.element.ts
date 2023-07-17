@@ -210,11 +210,11 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       this._comboboxList.for = this;
       this._comboboxList.addEventListener(
         UUIComboboxListEvent.CHANGE,
-        this._onChange
+        this._onChange,
       );
       this._comboboxList.addEventListener(
         UUIComboboxListEvent.INNER_SLOT_CHANGE,
-        this._onSlotChange
+        this._onSlotChange,
       );
 
       await this.updateComplete;
@@ -230,7 +230,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (this._comboboxList) {
       this._comboboxList.value = value;
       requestAnimationFrame(
-        () => (this._displayValue = this._comboboxList.displayValue || '')
+        () => (this._displayValue = this._comboboxList.displayValue || ''),
       );
     }
   }

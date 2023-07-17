@@ -248,12 +248,12 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     this.addValidator(
       'tooShort',
       () => this.minlengthMessage,
-      () => !!this.minlength && (this._value as string).length < this.minlength
+      () => !!this.minlength && (this._value as string).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
       () => this.maxlengthMessage,
-      () => !!this.maxlength && (this._value as string).length > this.maxlength
+      () => !!this.maxlength && (this._value as string).length > this.maxlength,
     );
   }
 

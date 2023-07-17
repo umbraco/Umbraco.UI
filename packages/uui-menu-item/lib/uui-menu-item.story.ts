@@ -137,15 +137,14 @@ AAAOverview.parameters = {
   },
 };
 
-export const Nested = () =>
-  html`
-    ${labelNames.map(
-      (name: string) =>
-        html` <uui-menu-item label="${name}" has-children>
-          ${renderItems()}
-        </uui-menu-item>`
-    )}
-  `;
+export const Nested = () => html`
+  ${labelNames.map(
+    (name: string) =>
+      html` <uui-menu-item label="${name}" has-children>
+        ${renderItems()}
+      </uui-menu-item>`,
+  )}
+`;
 Nested.parameters = {
   docs: {
     source: {
@@ -170,15 +169,14 @@ function activeStoryOnClick(e: UUIMenuItemEvent) {
   e.target.active = !e.target.active;
 }
 
-export const Active = () =>
-  html`
-    ${MenuItems.map(
-      menuItem =>
-        html`<uui-menu-item
-          label="${menuItem.title}"
-          @click-label=${activeStoryOnClick}></uui-menu-item>`
-    )}
-  `;
+export const Active = () => html`
+  ${MenuItems.map(
+    menuItem =>
+      html`<uui-menu-item
+        label="${menuItem.title}"
+        @click-label=${activeStoryOnClick}></uui-menu-item>`,
+  )}
+`;
 Active.parameters = {
   docs: {
     source: {
@@ -188,15 +186,14 @@ Active.parameters = {
   },
 };
 
-export const Loading = () =>
-  html`
-    ${MenuItems.map(
-      menuItem =>
-        html`<uui-menu-item
-          label="${menuItem.title}"
-          ?loading=${menuItem.loading}></uui-menu-item>`
-    )}
-  `;
+export const Loading = () => html`
+  ${MenuItems.map(
+    menuItem =>
+      html`<uui-menu-item
+        label="${menuItem.title}"
+        ?loading=${menuItem.loading}></uui-menu-item>`,
+  )}
+`;
 Loading.parameters = {
   docs: {
     source: {
@@ -217,18 +214,16 @@ function disabledStoryOnClick(e: UUIMenuItemEvent) {
   e.target.active = !e.target.active;
 }
 
-export const Disabled = (props: any) =>
-  html`
-    ${MenuItems.map(
-      menuItem =>
-        html`
-          <uui-menu-item
-            @click-label=${disabledStoryOnClick}
-            label="${menuItem.title}"
-            ?disabled=${props.disabled}></uui-menu-item>
-        `
-    )}
-  `;
+export const Disabled = (props: any) => html`
+  ${MenuItems.map(
+    menuItem => html`
+      <uui-menu-item
+        @click-label=${disabledStoryOnClick}
+        label="${menuItem.title}"
+        ?disabled=${props.disabled}></uui-menu-item>
+    `,
+  )}
+`;
 Disabled.args = {
   disabled: true,
 };
@@ -241,21 +236,19 @@ Disabled.parameters = {
   },
 };
 
-export const WithActions = () =>
-  html`
-    ${MenuItems.map(
-      menuItem =>
-        html`
-          <uui-menu-item label="${menuItem.title}">
-            <uui-action-bar slot="actions">
-              <uui-button label="Open actions menu"
-                ><uui-symbol-more></uui-symbol-more
-              ></uui-button>
-            </uui-action-bar>
-          </uui-menu-item>
-        `
-    )}
-  `;
+export const WithActions = () => html`
+  ${MenuItems.map(
+    menuItem => html`
+      <uui-menu-item label="${menuItem.title}">
+        <uui-action-bar slot="actions">
+          <uui-button label="Open actions menu"
+            ><uui-symbol-more></uui-symbol-more
+          ></uui-button>
+        </uui-action-bar>
+      </uui-menu-item>
+    `,
+  )}
+`;
 WithActions.parameters = {
   docs: {
     source: {
@@ -272,19 +265,17 @@ WithActions.parameters = {
   },
 };
 
-export const WithBadge = () =>
-  html`
-    ${MenuItems.map(
-      menuItem =>
-        html`
-          <uui-menu-item label="${menuItem.title}">
-            ${menuItem.badge
-              ? html`<uui-badge slot="badge" color="warning">!</uui-badge>`
-              : ''}
-          </uui-menu-item>
-        `
-    )}
-  `;
+export const WithBadge = () => html`
+  ${MenuItems.map(
+    menuItem => html`
+      <uui-menu-item label="${menuItem.title}">
+        ${menuItem.badge
+          ? html`<uui-badge slot="badge" color="warning">!</uui-badge>`
+          : ''}
+      </uui-menu-item>
+    `,
+  )}
+`;
 WithBadge.parameters = {
   docs: {
     source: {
@@ -297,15 +288,14 @@ WithBadge.parameters = {
   },
 };
 
-export const Selectable = (props: any) =>
-  html`
-    ${MenuItems.map(
-      menuItem =>
-        html`<uui-menu-item
-          label="${menuItem.title}"
-          ?selectable=${props.selectable}></uui-menu-item>`
-    )}
-  `;
+export const Selectable = (props: any) => html`
+  ${MenuItems.map(
+    menuItem =>
+      html`<uui-menu-item
+        label="${menuItem.title}"
+        ?selectable=${props.selectable}></uui-menu-item>`,
+  )}
+`;
 Selectable.args = {
   selectable: true,
 };
@@ -320,29 +310,27 @@ Selectable.parameters = {
   },
 };
 
-export const WithIcon = (props: any) =>
-  html`
-    <uui-icon-registry-essential>
-      ${MenuItems.map(
-        menuItem =>
-          html`
-            <uui-menu-item
-              label=${menuItem.title}
-              ?loading=${props.loading}
-              ?disabled=${props.disabled}
-              ?has-children=${props.hasChildren}
-              ?show-children=${props.showChildren}
-              ?selected=${props.selected}
-              ?active=${props.active}
-              ?selectable=${props.selectable}
-              href=${props.href}
-              target=${props.target}>
-              <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
-            </uui-menu-item>
-          `
-      )}
-    </uui-icon-registry-essential>
-  `;
+export const WithIcon = (props: any) => html`
+  <uui-icon-registry-essential>
+    ${MenuItems.map(
+      menuItem => html`
+        <uui-menu-item
+          label=${menuItem.title}
+          ?loading=${props.loading}
+          ?disabled=${props.disabled}
+          ?has-children=${props.hasChildren}
+          ?show-children=${props.showChildren}
+          ?selected=${props.selected}
+          ?active=${props.active}
+          ?selectable=${props.selectable}
+          href=${props.href}
+          target=${props.target}>
+          <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
+        </uui-menu-item>
+      `,
+    )}
+  </uui-icon-registry-essential>
+`;
 WithIcon.parameters = {
   docs: {
     source: {
@@ -355,24 +343,23 @@ WithIcon.parameters = {
   },
 };
 
-export const AnchorTag = (props: any) =>
-  html`
-    <uui-icon-registry-essential>
-      <uui-menu-item
-        label=${props.label}
-        ?loading=${props.loading}
-        ?disabled=${props.disabled}
-        ?has-children=${props.hasChildren}
-        ?show-children=${props.showChildren}
-        ?selected=${props.selected}
-        ?active=${props.active}
-        ?selectable=${props.selectable}
-        href=${props.href}
-        target=${props.target}>
-        <uui-icon slot="icon" name="document"></uui-icon>
-      </uui-menu-item>
-    </uui-icon-registry-essential>
-  `;
+export const AnchorTag = (props: any) => html`
+  <uui-icon-registry-essential>
+    <uui-menu-item
+      label=${props.label}
+      ?loading=${props.loading}
+      ?disabled=${props.disabled}
+      ?has-children=${props.hasChildren}
+      ?show-children=${props.showChildren}
+      ?selected=${props.selected}
+      ?active=${props.active}
+      ?selectable=${props.selectable}
+      href=${props.href}
+      target=${props.target}>
+      <uui-icon slot="icon" name="document"></uui-icon>
+    </uui-menu-item>
+  </uui-icon-registry-essential>
+`;
 AnchorTag.args = {
   href: 'https://www.umbraco.com',
   target: '_blank',
@@ -391,18 +378,16 @@ AnchorTag.parameters = {
   },
 };
 
-export const ItemIndentation: Story = () =>
-  html`
-    ${MenuItems.map(
-      (menuItem, i) =>
-        html`
-          <uui-menu-item
-            label="${menuItem.title}"
-            style="${ifDefined(i === 1 ? '--uui-menu-item-indent: 1' : '')}">
-          </uui-menu-item>
-        `
-    )}
-  `;
+export const ItemIndentation: Story = () => html`
+  ${MenuItems.map(
+    (menuItem, i) => html`
+      <uui-menu-item
+        label="${menuItem.title}"
+        style="${ifDefined(i === 1 ? '--uui-menu-item-indent: 1' : '')}">
+      </uui-menu-item>
+    `,
+  )}
+`;
 
 ItemIndentation.parameters = {
   docs: {
@@ -425,7 +410,7 @@ export const SelectMode = (props: any) =>
           label="${menuItem.title}"
           ?selected=${i == 1 ? true : false}
           ?selectable=${props.selectable}
-          select-mode=${props.selectMode}></uui-menu-item>`
+          select-mode=${props.selectMode}></uui-menu-item>`,
     )}
   </uui-menu-item> `;
 SelectMode.args = {
@@ -454,7 +439,7 @@ const renderCombinationOfStates = (
   disabled: boolean,
   selected: boolean,
   selectable: boolean,
-  highlightSelectMode: boolean
+  highlightSelectMode: boolean,
 ) => {
   return html`<uui-menu-item
     label=${label}
@@ -477,138 +462,137 @@ const renderCombinationOfStates = (
 };
 // show combination of states: active, disabled, selected, selectable, select-mode
 // Notice, this implementation sets selectable to false in all cases of begin disabled.
-export const CombinationOfStates = () =>
-  html`
-    ${renderCombinationOfStates('Active', true, false, false, false, false)}
-    ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
-    ${renderCombinationOfStates('Selected', false, false, true, false, false)}
-    ${renderCombinationOfStates('Selectable', false, false, false, true, false)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      false,
-      false,
-      true
-    )}
+export const CombinationOfStates = () => html`
+  ${renderCombinationOfStates('Active', true, false, false, false, false)}
+  ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
+  ${renderCombinationOfStates('Selected', false, false, true, false, false)}
+  ${renderCombinationOfStates('Selectable', false, false, false, true, false)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    false,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All active</b>
-    ${renderCombinationOfStates('Active', true, false, false, false, false)}
-    ${renderCombinationOfStates('Disabled', true, true, false, false, false)}
-    ${renderCombinationOfStates('Selected', true, false, true, false, false)}
-    ${renderCombinationOfStates('Selectable', true, false, false, true, false)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      true,
-      false,
-      false,
-      false,
-      true
-    )}
+  <br />
+  <b>All active</b>
+  ${renderCombinationOfStates('Active', true, false, false, false, false)}
+  ${renderCombinationOfStates('Disabled', true, true, false, false, false)}
+  ${renderCombinationOfStates('Selected', true, false, true, false, false)}
+  ${renderCombinationOfStates('Selectable', true, false, false, true, false)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    true,
+    false,
+    false,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All disabled</b>
-    ${renderCombinationOfStates('Active', true, true, false, false, false)}
-    ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
-    ${renderCombinationOfStates('Selected', false, true, true, false, false)}
-    ${renderCombinationOfStates('Selectable', false, true, false, true, false)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      true,
-      false,
-      false,
-      true
-    )}
+  <br />
+  <b>All disabled</b>
+  ${renderCombinationOfStates('Active', true, true, false, false, false)}
+  ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
+  ${renderCombinationOfStates('Selected', false, true, true, false, false)}
+  ${renderCombinationOfStates('Selectable', false, true, false, true, false)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    true,
+    false,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All selected (Default mode)</b>
-    ${renderCombinationOfStates('Active', true, false, true, false, false)}
-    ${renderCombinationOfStates('Disabled', false, true, true, false, false)}
-    ${renderCombinationOfStates('Selected', false, false, true, false, false)}
-    ${renderCombinationOfStates('Selectable', false, false, true, true, false)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      true,
-      false,
-      true
-    )}
+  <br />
+  <b>All selected (Default mode)</b>
+  ${renderCombinationOfStates('Active', true, false, true, false, false)}
+  ${renderCombinationOfStates('Disabled', false, true, true, false, false)}
+  ${renderCombinationOfStates('Selected', false, false, true, false, false)}
+  ${renderCombinationOfStates('Selectable', false, false, true, true, false)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    true,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All Selected (Highlight mode)</b>
-    ${renderCombinationOfStates('Active', true, false, true, false, true)}
-    ${renderCombinationOfStates('Disabled', false, true, true, false, true)}
-    ${renderCombinationOfStates('Selected', false, false, true, false, true)}
-    ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      false,
-      false,
-      true
-    )}
+  <br />
+  <b>All Selected (Highlight mode)</b>
+  ${renderCombinationOfStates('Active', true, false, true, false, true)}
+  ${renderCombinationOfStates('Disabled', false, true, true, false, true)}
+  ${renderCombinationOfStates('Selected', false, false, true, false, true)}
+  ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    false,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All selected & selectable (Default mode)</b>
-    ${renderCombinationOfStates('Active', true, false, true, true, false)}
-    ${renderCombinationOfStates('Disabled', false, true, true, false, false)}
-    ${renderCombinationOfStates('Selected', false, false, true, true, false)}
-    ${renderCombinationOfStates('Selectable', false, false, true, true, false)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      true,
-      false,
-      true
-    )}
+  <br />
+  <b>All selected & selectable (Default mode)</b>
+  ${renderCombinationOfStates('Active', true, false, true, true, false)}
+  ${renderCombinationOfStates('Disabled', false, true, true, false, false)}
+  ${renderCombinationOfStates('Selected', false, false, true, true, false)}
+  ${renderCombinationOfStates('Selectable', false, false, true, true, false)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    true,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All Selected & selectable (Highlight mode)</b>
-    ${renderCombinationOfStates('Active', true, false, true, true, true)}
-    ${renderCombinationOfStates('Disabled', false, true, true, false, true)}
-    ${renderCombinationOfStates('Selected', false, false, true, true, true)}
-    ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      false,
-      false,
-      true
-    )}
+  <br />
+  <b>All Selected & selectable (Highlight mode)</b>
+  ${renderCombinationOfStates('Active', true, false, true, true, true)}
+  ${renderCombinationOfStates('Disabled', false, true, true, false, true)}
+  ${renderCombinationOfStates('Selected', false, false, true, true, true)}
+  ${renderCombinationOfStates('Selectable', false, false, true, true, true)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    false,
+    false,
+    true,
+  )}
 
-    <br />
-    <b>All selectable</b>
-    ${renderCombinationOfStates('Active', true, false, false, true, false)}
-    ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
-    ${renderCombinationOfStates('Selected', false, false, true, true, false)}
-    ${renderCombinationOfStates('Selectable', false, false, false, true, false)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      false,
-      true,
-      true
-    )}
+  <br />
+  <b>All selectable</b>
+  ${renderCombinationOfStates('Active', true, false, false, true, false)}
+  ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
+  ${renderCombinationOfStates('Selected', false, false, true, true, false)}
+  ${renderCombinationOfStates('Selectable', false, false, false, true, false)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    false,
+    true,
+    true,
+  )}
 
-    <br />
-    <b>Highlight select Mode</b>
-    ${renderCombinationOfStates('Active', true, false, false, false, true)}
-    ${renderCombinationOfStates('Disabled', false, true, false, false, true)}
-    ${renderCombinationOfStates('Selected', false, false, true, false, true)}
-    ${renderCombinationOfStates('Selectable', false, false, false, true, true)}
-    ${renderCombinationOfStates(
-      'Highlight select mode',
-      false,
-      false,
-      false,
-      false,
-      true
-    )}
-  `;
+  <br />
+  <b>Highlight select Mode</b>
+  ${renderCombinationOfStates('Active', true, false, false, false, true)}
+  ${renderCombinationOfStates('Disabled', false, true, false, false, true)}
+  ${renderCombinationOfStates('Selected', false, false, true, false, true)}
+  ${renderCombinationOfStates('Selectable', false, false, false, true, true)}
+  ${renderCombinationOfStates(
+    'Highlight select mode',
+    false,
+    false,
+    false,
+    false,
+    true,
+  )}
+`;

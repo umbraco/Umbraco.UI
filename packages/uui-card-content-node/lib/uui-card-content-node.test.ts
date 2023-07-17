@@ -15,11 +15,9 @@ describe('UUICardContentNodeElement', () => {
   let element: UUICardContentNodeElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-card-content-node name="Content Node Name"></uui-card-content-node>
-      `
-    );
+    element = await fixture(html`
+      <uui-card-content-node name="Content Node Name"></uui-card-content-node>
+    `);
   });
 
   it('passes the a11y audit', async () => {

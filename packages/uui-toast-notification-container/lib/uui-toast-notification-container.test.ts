@@ -26,19 +26,17 @@ describe('UUIToastNotificationContainerElement', () => {
   let toastElement: UUIToastNotificationElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-toast-notification-container></uui-toast-notification-container>
-      `
-    );
+    element = await fixture(html`
+      <uui-toast-notification-container></uui-toast-notification-container>
+    `);
     // Set the prop on the container, we will use it to test that it inherits to the children.
     element.style.setProperty(
       '--uui-toast-notification-animation-duration',
-      ANIMATION_DURATION + 'ms'
+      ANIMATION_DURATION + 'ms',
     );
-    toastElement = await fixture(
-      html` <uui-toast-notification></uui-toast-notification> `
-    );
+    toastElement = await fixture(html`
+      <uui-toast-notification></uui-toast-notification>
+    `);
   });
 
   it('passes the a11y audit', async () => {
@@ -75,8 +73,8 @@ describe('UUIToastNotificationContainerElement', () => {
       await elementUpdated(element);
       expect(
         getComputedStyle(toastElement).getPropertyValue(
-          '--uui-toast-notification-animation-duration'
-        )
+          '--uui-toast-notification-animation-duration',
+        ),
       ).to.be.equal(ANIMATION_DURATION + 'ms');
     });
 
@@ -96,7 +94,7 @@ describe('UUIToastNotificationContainerElement', () => {
 
       const event = await oneEvent(
         toastElement,
-        UUIToastNotificationEvent.CLOSED
+        UUIToastNotificationEvent.CLOSED,
       );
       expect(event).to.exist;
       expect(event.type).to.equal(UUIToastNotificationEvent.CLOSED);
@@ -115,7 +113,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENED event
       const openedListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENED
+        UUIToastNotificationEvent.OPENED,
       );
       const openedEvent = await openedListener;
       expect(openedEvent).to.exist;
@@ -138,7 +136,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENING event
       const openingListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENING
+        UUIToastNotificationEvent.OPENING,
       );
       const openingEvent = await openingListener;
       expect(openingEvent).to.exist;
@@ -149,7 +147,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENED event
       const openedListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENED
+        UUIToastNotificationEvent.OPENED,
       );
       const openedEvent = await openedListener;
       expect(openedEvent).to.exist;
@@ -170,7 +168,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENED event
       const openedListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENED
+        UUIToastNotificationEvent.OPENED,
       );
       const openedEvent = await openedListener;
       expect(openedEvent).to.exist;
@@ -193,7 +191,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENED event
       const openedListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENED
+        UUIToastNotificationEvent.OPENED,
       );
       const openedEvent = await openedListener;
       expect(openedEvent).to.exist;
@@ -223,7 +221,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENED event
       const openedListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENED
+        UUIToastNotificationEvent.OPENED,
       );
       const openedEvent = await openedListener;
       expect(openedEvent).to.exist;
@@ -254,7 +252,7 @@ describe('UUIToastNotificationContainerElement', () => {
       // Wait for OPENED event
       const openedListener = oneEvent(
         toastElement,
-        UUIToastNotificationEvent.OPENED
+        UUIToastNotificationEvent.OPENED,
       );
       const openedEvent = await openedListener;
       expect(openedEvent).to.exist;

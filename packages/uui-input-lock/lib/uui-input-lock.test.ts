@@ -9,9 +9,9 @@ describe('UUIInputLockElement', () => {
   let element: UUIInputLockElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-input-lock label="Input label"></uui-input-lock> `
-    );
+    element = await fixture(html`
+      <uui-input-lock label="Input label"></uui-input-lock>
+    `);
   });
 
   it('is defined with its own instance', () => {
@@ -37,7 +37,7 @@ describe('UUIInputLockElement', () => {
   it('correctly toggles lock', async () => {
     await expect(element.readonly).to.be.true;
     const toggle = element.shadowRoot?.querySelector(
-      '#lock'
+      '#lock',
     ) as HTMLButtonElement;
     toggle.click();
     await expect(element.readonly).to.be.false;

@@ -40,18 +40,17 @@ const cardContent = html`
   </ul>
 `;
 
-export const AAAOverview: Story = props =>
-  html`
-    <uui-card-content-node
-      name=${props.name}
-      ?selectable=${props.selectable}
-      ?selected=${props.selected}
-      ?error=${props.error}
-      ?disabled=${props.disabled}>
-      <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
-      ${cardContent}
-    </uui-card-content-node>
-  `;
+export const AAAOverview: Story = props => html`
+  <uui-card-content-node
+    name=${props.name}
+    ?selectable=${props.selectable}
+    ?selected=${props.selected}
+    ?error=${props.error}
+    ?disabled=${props.disabled}>
+    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
+    ${cardContent}
+  </uui-card-content-node>
+`;
 AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
   docs: {
