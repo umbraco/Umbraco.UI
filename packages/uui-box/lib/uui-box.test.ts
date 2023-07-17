@@ -16,10 +16,10 @@ describe('UUIBox', () => {
   });
 
   it('passes the a11y audit', async () => {
-    for (const headerVariant of InterfaceHeadingValues) {
+    for (const headlineVariant of InterfaceHeadingValues) {
       element = await fixture(html` <uui-box
         headline="headline"
-        header-variant="${headerVariant}">
+        .headlineVariant="${headlineVariant}">
         Main
       </uui-box>`);
       await expect(element).shadowDom.to.be.accessible();
@@ -30,8 +30,8 @@ describe('UUIBox', () => {
     it('has a headline property', () => {
       expect(element).to.have.property('headline');
     });
-    it('has a header variant property', () => {
-      expect(element).to.have.property('header-variant');
+    it('has a headlineVariant property', () => {
+      expect(element).to.have.property('headlineVariant');
     });
   });
 
