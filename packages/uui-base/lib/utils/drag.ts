@@ -15,11 +15,19 @@ export const drag = (
   container: HTMLElement,
   options?: Partial<DragOptions>
 ) => {
-  function move(pointerEvent: PointerEvent) {
+  function move(event: PointerEvent | TouchEvent) {
     const dims = container.getBoundingClientRect();
     const defaultView = container.ownerDocument.defaultView!;
-    const offsetX = dims.left + defaultView.pageXOffset;
-    const offsetY = dims.top + defaultView.pageYOffset;
+    const offsetX = dims.left + defaultView.scrollX;
+    const offsetY = dims.top + defaultView.scrollY;
+
+    let pointerEvent: PointerEvent | Touch;
+    if (event instanceof TouchEvent) {
+      pointerEvent = event.touches[0];
+    } else {
+      pointerEvent = event;
+    }
+
     const x = pointerEvent.pageX - offsetX;
     const y = pointerEvent.pageY - offsetY;
 
