@@ -134,10 +134,8 @@
     "./packages/*"
   ],
   "lint-staged": {
-    "*.ts": [
-      "tsc-files --project tsconfig.lint-staged.json",
-      "eslint --cache --fix -c .eslintrc.js"
-    ],
+    "*.ts": "eslint --cache --fix -c .eslintrc.js",
+    "*.element.ts": "tsc-files --project tsconfig.lint-staged.json",
     "*": "prettier --ignore-unknown --write"
   },
   "storybook": {
