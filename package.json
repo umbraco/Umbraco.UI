@@ -19,8 +19,8 @@
     "custom-elements"
   ],
   "scripts": {
-    "lint:eslint": "eslint --ext .ts,.html,.mjs,.cjs . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .ts,.html,.mjs,.cjs . --fix --ignore-path .gitignore",
+    "lint:eslint": "eslint ./packages --ignore-path .gitignore",
+    "format:eslint": "eslint ./packages --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\" --check --ignore-path .gitignore",
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\"  --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
@@ -90,8 +90,9 @@
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-lit": "1.8.3",
-    "eslint-plugin-lit-a11y": "2.4.1",
+    "eslint-plugin-lit-a11y": "4.1.0",
     "eslint-plugin-storybook": "0.6.12",
+    "eslint-plugin-wc": "1.5.0",
     "github-markdown-css": "5.2.0",
     "glob": "8.0.3",
     "husky": "8.0.3",
@@ -133,8 +134,10 @@
     "./packages/*"
   ],
   "lint-staged": {
-    "*.ts": "tsc-files --project tsconfig.lint-staged.json",
-    "*.{js,ts,mjs,cjs,html}": "eslint --cache --fix -c .eslintrc.js",
+    "*.ts": [
+      "tsc-files --project tsconfig.lint-staged.json",
+      "eslint --cache --fix -c .eslintrc.js"
+    ],
     "*": "prettier --ignore-unknown --write"
   },
   "storybook": {
