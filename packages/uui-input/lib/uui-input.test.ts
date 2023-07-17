@@ -68,6 +68,9 @@ describe('UuiInputElement', () => {
     it('has a autocomplete property', () => {
       expect(element).to.have.property('autocomplete');
     });
+    it('has a autoWidth property', () => {
+      expect(element).to.have.property('autoWidth');
+    });
 
     it('disable property set input to disabled', async () => {
       element.disabled = true;
