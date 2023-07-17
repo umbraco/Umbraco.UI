@@ -68,6 +68,20 @@ describe('UUIBox', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=header]')!;
       expect(slot).to.exist;
     });
+
+    it('renders specified headline tag when headlineVariant is set', async () => {
+      element = await fixture(
+        html` <uui-box headline="headline" headline-variant="h2">Main</uui-box>`
+      );
+
+      // it should exist and it should be the only one
+      expect(element.shadowRoot!.querySelectorAll('h2')).to.have.lengthOf(1);
+
+      // and it should change when headlineVariant changes
+      element.headlineVariant = 'h3';
+      await element.updateComplete;
+      expect(element.shadowRoot!.querySelectorAll('h3')).to.have.lengthOf(1);
+    });
   });
 
   describe('UUIBox', () => {
