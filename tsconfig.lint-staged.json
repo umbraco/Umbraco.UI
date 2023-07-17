@@ -4,5 +4,6 @@
     "emitDeclarationOnly": false,
     "noEmit": true
   },
+  "include": ["**/*.ts"],
   "exclude": ["src/**/*"]
 }

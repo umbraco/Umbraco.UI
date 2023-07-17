@@ -133,7 +133,7 @@
     "./packages/*"
   ],
   "lint-staged": {
-    "*.ts": "tsc-files --project tsconfig-lint-staged.json",
+    "*.ts": "tsc-files --project tsconfig.lint-staged.json",
     "*.{js,ts,mjs,cjs,html}": "eslint --cache --fix -c .eslintrc.js",
     "*": "prettier --ignore-unknown --write"
   },
