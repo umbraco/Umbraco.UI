@@ -25,5 +25,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "useDefineForClassFields": false
-  }
+  },
+  "include": ["**/*.ts"]
 }
