@@ -2,7 +2,7 @@ import '.';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
-import readme from '../README.md';
+import readme from '../README.md?raw';
 
 export default {
   title: 'Loaders/Loader Bar',
