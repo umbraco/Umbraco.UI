@@ -105,6 +105,7 @@ export class UUIModalElement extends LitElement {
         pointer-events: none;
         opacity: 1;
         transition: opacity var(--uui-modal-transition-duration, 250ms);
+        z-index: 1;
       }
       :host([index='0']) dialog::after {
         opacity: 0;
