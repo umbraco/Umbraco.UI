@@ -1,6 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
 import { UUIBoxElement } from './uui-box.element';
+import { InterfaceHeadingValues } from '@umbraco-ui/uui-base/lib/types';
 
 describe('UUIBox', () => {
   let element: UUIBoxElement;
@@ -15,12 +16,22 @@ describe('UUIBox', () => {
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    for (const headlineVariant of InterfaceHeadingValues) {
+      element = await fixture(html` <uui-box
+        headline="headline"
+        .headlineVariant="${headlineVariant}">
+        Main
+      </uui-box>`);
+      await expect(element).shadowDom.to.be.accessible();
+    }
   });
 
   describe('properties', () => {
     it('has a headline property', () => {
       expect(element).to.have.property('headline');
+    });
+    it('has a headlineVariant property', () => {
+      expect(element).to.have.property('headlineVariant');
     });
   });
 
@@ -56,6 +67,20 @@ describe('UUIBox', () => {
     it('renders a header slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=header]')!;
       expect(slot).to.exist;
+    });
+
+    it('renders specified headline tag when headlineVariant is set', async () => {
+      element = await fixture(
+        html` <uui-box headline="headline" headline-variant="h2">Main</uui-box>`
+      );
+
+      // it should exist and it should be the only one
+      expect(element.shadowRoot!.querySelectorAll('h2')).to.have.lengthOf(1);
+
+      // and it should change when headlineVariant changes
+      element.headlineVariant = 'h3';
+      await element.updateComplete;
+      expect(element.shadowRoot!.querySelectorAll('h3')).to.have.lengthOf(1);
     });
   });
 

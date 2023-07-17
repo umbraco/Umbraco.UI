@@ -31,3 +31,9 @@ import { UUIBoxElement } from '@umbraco-ui/uui-box';
 ```html
 <uui-box headline="Headline"> Content </uui-box>
 ```
+
+To specify a headline variant, eg. `h2` then use the `headline-variant` attribute:
+
+```html
+<uui-box headline="Headline" headline-variant="h2"> Content </uui-box>
+```
