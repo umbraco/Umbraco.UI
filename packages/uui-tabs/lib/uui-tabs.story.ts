@@ -112,3 +112,24 @@ export const WithIcons: Story = props => html`
     </uui-tab-group>
   </uui-icon-registry-essential>
 `;
+WithIcons.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tab-group>
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>`,
+    },
+  },
+};
