@@ -1,6 +1,6 @@
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement, nothing, PropertyValueMap } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
@@ -57,6 +57,29 @@ export class UUIInputElement extends FormControlMixin(
 
         --uui-button-height: 100%;
       }
+
+      #control {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      #auto {
+        border: 0 1px solid transparent;
+        visibility: hidden;
+        white-space: pre;
+        z-index: -1;
+        height: 0px;
+        padding: 0 var(--uui-size-space-3);
+      }
+
+      :host([auto-width]) #input {
+        width: 10px;
+        min-width: 100%;
+      }
+
       :host(:hover) {
         border-color: var(
           --uui-input-border-color-hover,
@@ -249,6 +272,15 @@ export class UUIInputElement extends FormControlMixin(
   autocomplete?: string;
 
   /**
+   * Sets the input width to fit the value or placeholder if empty
+   * @type {boolean}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'auto-width' })
+  autoWidth?: boolean;
+
+  /**
    * This property specifies the type of input that will be rendered.
    * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
    * @attr
@@ -357,6 +389,7 @@ export class UUIInputElement extends FormControlMixin(
   protected onChange(e: Event) {
     e.stopPropagation();
     this.pristine = false;
+
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
@@ -371,26 +404,39 @@ export class UUIInputElement extends FormControlMixin(
   render() {
     return html`
       ${this.renderPrepend()}
-      <input
-        id="input"
-        .type=${this.type}
-        .value=${this.value as string}
-        .name=${this.name}
-        pattern=${ifDefined(this.pattern)}
-        min=${ifDefined(this.min)}
-        max=${ifDefined(this.max)}
-        step=${ifDefined(this.step)}
-        spellcheck=${ifDefined(this.spellcheck)}
-        autocomplete=${ifDefined(this.autocomplete as any)}
-        placeholder=${this.placeholder}
-        aria-label=${this.label}
-        .disabled=${this.disabled}
-        ?required=${this.required}
-        ?readonly=${this.readonly}
-        @input=${this.onInput}
-        @change=${this.onChange} />
+      <div id="control">
+        <input
+          id="input"
+          .type=${this.type}
+          .value=${this.value as string}
+          .name=${this.name}
+          pattern=${ifDefined(this.pattern)}
+          min=${ifDefined(this.min)}
+          max=${ifDefined(this.max)}
+          step=${ifDefined(this.step)}
+          spellcheck=${ifDefined(this.spellcheck)}
+          autocomplete=${ifDefined(this.autocomplete as any)}
+          placeholder=${this.placeholder}
+          aria-label=${this.label}
+          .disabled=${this.disabled}
+          ?required=${this.required}
+          ?readonly=${this.readonly}
+          @input=${this.onInput}
+          @change=${this.onChange} />
+        ${this.autoWidth ? this.renderAutoWidth() : nothing}
+      </div>
       ${this.renderAppend()}
     `;
+  }
+
+  private renderAutoWidth() {
+    return html` <div id="auto" aria-hidden="true">${this.renderText()}</div>`;
+  }
+
+  private renderText() {
+    return html`${(this.value as string).length > 0
+      ? this.value
+      : this.placeholder}`;
   }
 }
 
