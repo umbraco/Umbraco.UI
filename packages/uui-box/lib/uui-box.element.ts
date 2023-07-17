@@ -3,7 +3,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import type { InterfaceHeading } from '@umbraco-ui/uui-base/lib';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
 
 /**
  *  A box for grouping elements
@@ -56,6 +56,16 @@ export class UUIBoxElement extends LitElement {
    * @default "h5"
    */
   @property({ attribute: 'headline-variant' })
+  set headlineVariant(value: InterfaceHeading) {
+    if (!value) {
+      this._headlineVariantTag = literal`h5`;
+    } else {
+      this._headlineVariantTag = unsafeStatic(value);
+    }
+  }
+
+  @state()
+  private _headlineVariantTag: StaticValue = literal`h5`;
 
   @state()
   private _headlineSlotHasContent = false;
@@ -78,7 +88,6 @@ export class UUIBoxElement extends LitElement {
    * @method
    */
   protected renderHeader() {
-    const headerTag = unsafeStatic(this.headerVariant);
     /* eslint-disable lit/no-invalid-html, lit/binding-positions */
     return html`<div
       id="header"
@@ -90,7 +99,7 @@ export class UUIBoxElement extends LitElement {
           ? ''
           : 'display: none'
       }>
-      <${headerTag}
+      <${this._headlineVariantTag}
         id="headline"
         class="uui-h5"
         style=${
@@ -100,7 +109,7 @@ export class UUIBoxElement extends LitElement {
         }>
         ${this.headline}
         <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-      </${headerTag}>
+      </${this._headlineVariantTag}>
       <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
     </div>`;
     /* eslint-enable lit/no-invalid-html, lit/binding-positions */
