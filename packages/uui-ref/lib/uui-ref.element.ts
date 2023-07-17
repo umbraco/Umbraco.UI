@@ -17,7 +17,7 @@ import { UUIRefEvent } from './UUIRefEvent';
 
 @defineElement('uui-ref')
 export class UUIRefElement extends SelectOnlyMixin(
-  SelectableMixin(LitElement)
+  SelectableMixin(LitElement),
 ) {
   static styles = [
     css`
@@ -42,7 +42,8 @@ export class UUIRefElement extends SelectOnlyMixin(
 
       :host([error]) {
         border: 2px solid var(--uui-color-danger);
-        box-shadow: 0 0 4px 0 var(--uui-color-danger),
+        box-shadow:
+          0 0 4px 0 var(--uui-color-danger),
           inset 0 0 2px 0 var(--uui-color-danger);
       }
 
@@ -72,7 +73,8 @@ export class UUIRefElement extends SelectOnlyMixin(
         box-sizing: border-box;
         border: 2px solid var(--uui-color-selected);
         border-radius: calc(var(--uui-border-radius) + 2px);
-        box-shadow: 0 0 4px 0 var(--uui-color-selected),
+        box-shadow:
+          0 0 4px 0 var(--uui-color-selected),
           inset 0 0 2px 0 var(--uui-color-selected);
       }
       :host([selected]) #select-border {

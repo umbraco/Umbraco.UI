@@ -37,12 +37,11 @@ AAAOverview.parameters = {
   },
 };
 
-export const CustomElement: Story = () =>
-  html`
-    <uui-icon-registry .icons=${{ myCustomIcon: myCustomSVGData }}>
-      <uui-icon name="myCustomIcon"></uui-icon>
-    </uui-icon-registry>
-  `;
+export const CustomElement: Story = () => html`
+  <uui-icon-registry .icons=${{ myCustomIcon: myCustomSVGData }}>
+    <uui-icon name="myCustomIcon"></uui-icon>
+  </uui-icon-registry>
+`;
 CustomElement.parameters = {
   docs: {
     source: {
@@ -65,14 +64,12 @@ customElements.define('my-icon-registry', MyIconRegistryElement);
   },
 };
 
-export const ProvideDynamicCustomIconRegistry: Story = () =>
-  html`
-    Icon Registry Element is a element that provides a Icon Registry. The
-    Element holds a empty icon registry pr. default. This registry can be access
-    or replaced to provide icons of your interest. This example shows how to
-    build a custom icon registry that provides an icon loaded externally: [see
-    code]
-  `;
+export const ProvideDynamicCustomIconRegistry: Story = () => html`
+  Icon Registry Element is a element that provides a Icon Registry. The Element
+  holds a empty icon registry pr. default. This registry can be access or
+  replaced to provide icons of your interest. This example shows how to build a
+  custom icon registry that provides an icon loaded externally: [see code]
+`;
 
 ProvideDynamicCustomIconRegistry.parameters = {
   docs: {
@@ -107,13 +104,12 @@ customElements.define('my-icon-registry', MyIconRegistryElement);
   },
 };
 
-export const AttachIconRegistryToACustomElement: Story = () =>
-  html`
-    Icon Registry is a element that provides a Icon Registry. The Element holds
-    a empty icon registry pr. default. This registry can be access or replaced
-    to provide icons of your interest. This example shows how to build a custom
-    icon registry that provides an icon loaded externally: [see code]
-  `;
+export const AttachIconRegistryToACustomElement: Story = () => html`
+  Icon Registry is a element that provides a Icon Registry. The Element holds a
+  empty icon registry pr. default. This registry can be access or replaced to
+  provide icons of your interest. This example shows how to build a custom icon
+  registry that provides an icon loaded externally: [see code]
+`;
 
 AttachIconRegistryToACustomElement.parameters = {
   docs: {

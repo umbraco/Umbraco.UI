@@ -26,10 +26,11 @@ export default meta;
 type Story = StoryObj<UUISymbolExpandElement>;
 
 export const Overview: Story = {
-  render: props => html`<uui-symbol-expand
-    ?open=${props.open}
-    @click=${(e: MouseEvent) => {
-      (e.target as any).open = !(e.target as any).open;
-    }}>
-  </uui-symbol-expand>`,
+  render: props =>
+    html`<uui-symbol-expand
+      ?open=${props.open}
+      @click=${(e: MouseEvent) => {
+        (e.target as any).open = !(e.target as any).open;
+      }}>
+    </uui-symbol-expand>`,
 };

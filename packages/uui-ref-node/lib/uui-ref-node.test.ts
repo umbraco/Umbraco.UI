@@ -14,7 +14,7 @@ describe('UUIRefNodeElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-ref-node name="Node" detail="Detail"></uui-ref-node>`
+      html` <uui-ref-node name="Node" detail="Detail"></uui-ref-node>`,
     );
   });
 

@@ -205,12 +205,8 @@ export class UUIRadioElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-    });
-    this.addEventListener('blur', () => {
-      this.style.setProperty('--uui-show-focus-outline', '1');
-    });
+    this.addEventListener('mousedown', this.#hideFocusOutline);
+    this.addEventListener('blur', this.#showFocusOutline);
   }
 
   focus() {
@@ -219,6 +215,14 @@ export class UUIRadioElement extends LitElement {
   click() {
     this.inputElement.click();
   }
+
+  #showFocusOutline = () => {
+    this.style.setProperty('--uui-show-focus-outline', '1');
+  };
+
+  #hideFocusOutline = () => {
+    this.style.setProperty('--uui-show-focus-outline', '0');
+  };
 
   private _onChange(e: Event) {
     e.stopPropagation();

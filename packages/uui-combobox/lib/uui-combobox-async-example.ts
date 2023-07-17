@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 interface Fruit {
@@ -57,11 +57,11 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
           searchParam === ''
             ? []
             : data.filter(item =>
-                item.name.toLowerCase().includes(searchParam.toLowerCase())
+                item.name.toLowerCase().includes(searchParam.toLowerCase()),
               );
         res(filteredData);
         this._loading = false;
-      }, 500)
+      }, 500),
     );
   };
 
@@ -74,7 +74,7 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
   render() {
     return html`
       <uui-combobox @search="${this._handleSearch}">
-        ${this._loading ? html`<uui-loader id="loader"></uui-loader>` : html``}
+        ${this._loading ? html`<uui-loader id="loader"></uui-loader>` : nothing}
         ${this._filterValue === '' && this._loading === false
           ? html`<div class="help">Search for a fruit...</div>`
           : ''}
@@ -89,14 +89,14 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
             option =>
               html`<uui-combobox-list-option value="${option.value}"
                 >${option.name}</uui-combobox-list-option
-              >`
+              >`,
           )}
         </uui-combobox-list>
       </uui-combobox>
 
       <div style="margin-top: var(--uui-size-4)">
         <strong>Data:</strong> ${data.map(
-          fruit => html`<div>${fruit.name}</div>`
+          fruit => html`<div>${fruit.name}</div>`,
         )}
       </div>
     `;

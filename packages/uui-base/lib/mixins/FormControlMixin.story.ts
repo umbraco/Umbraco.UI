@@ -8,8 +8,7 @@ export default {
   title: 'Inputs/Form/FormControlMixin',
 };
 
-export const AAAOverview: Story = () =>
-  html`
-    <p>FormControlMixin can be used to make a web component part of a form.</p>
-  `;
+export const AAAOverview: Story = () => html`
+  <p>FormControlMixin can be used to make a web component part of a form.</p>
+`;
 AAAOverview.storyName = 'Overview';

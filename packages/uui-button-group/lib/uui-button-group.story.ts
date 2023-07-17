@@ -65,13 +65,14 @@ export const MixedLooksAndColors = () => html`
         <h4>${color}</h4>
         <uui-button-group>
           ${looks.map(
-            look => html`<uui-button color=${color as any} look=${look as any}>
-              ${look}
-            </uui-button>`
+            look =>
+              html`<uui-button color=${color as any} look=${look as any}>
+                ${look}
+              </uui-button>`,
           )}
         </uui-button-group>
       </div>
-    `
+    `,
   )}
 `;
 
@@ -115,10 +116,10 @@ export const LooksAndColors = () => html`
                 color=${color as any}
                 look=${look as any}></uui-button> </uui-button-group
             ><br />
-          `
+          `,
         )}
       </div>
-    `
+    `,
   )}
 `;
 

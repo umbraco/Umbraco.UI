@@ -9,32 +9,30 @@ import { UUITableElement } from './uui-table.element';
 describe('UuiTable', () => {
   let table: UUITableElement;
   beforeEach(async () => {
-    table = await fixture(
-      html`
-        <uui-table
-          aria-label="Random Umbraco Words"
-          aria-describedby="table-decription">
-          <uui-table-column style="width: 95%"> </uui-table-column>
-          <uui-table-column style="width: 95%"> </uui-table-column>
-          <uui-table-column style="width: 1%"> </uui-table-column>
-          <uui-table-head>
-            <uui-table-head-cell>Hello 1</uui-table-head-cell>
-            <uui-table-head-cell>Hello 1</uui-table-head-cell>
-            <uui-table-head-cell>Hello 1</uui-table-head-cell>
-          </uui-table-head>
-          <uui-table-row selectable>
-            <uui-table-cell>Hello 2</uui-table-cell>
-            <uui-table-cell>Hello 2</uui-table-cell>
-            <uui-table-cell>Hello 2</uui-table-cell>
-          </uui-table-row>
-          <uui-table-row>
-            <uui-table-cell>Hello 3</uui-table-cell>
-            <uui-table-cell>Hello 3</uui-table-cell>
-            <uui-table-cell>Hello long text 3</uui-table-cell>
-          </uui-table-row>
-        </uui-table>
-      `
-    );
+    table = await fixture(html`
+      <uui-table
+        aria-label="Random Umbraco Words"
+        aria-describedby="table-decription">
+        <uui-table-column style="width: 95%"> </uui-table-column>
+        <uui-table-column style="width: 95%"> </uui-table-column>
+        <uui-table-column style="width: 1%"> </uui-table-column>
+        <uui-table-head>
+          <uui-table-head-cell>Hello 1</uui-table-head-cell>
+          <uui-table-head-cell>Hello 1</uui-table-head-cell>
+          <uui-table-head-cell>Hello 1</uui-table-head-cell>
+        </uui-table-head>
+        <uui-table-row selectable>
+          <uui-table-cell>Hello 2</uui-table-cell>
+          <uui-table-cell>Hello 2</uui-table-cell>
+          <uui-table-cell>Hello 2</uui-table-cell>
+        </uui-table-row>
+        <uui-table-row>
+          <uui-table-cell>Hello 3</uui-table-cell>
+          <uui-table-cell>Hello 3</uui-table-cell>
+          <uui-table-cell>Hello long text 3</uui-table-cell>
+        </uui-table-row>
+      </uui-table>
+    `);
   });
 
   it('renders a slot', () => {

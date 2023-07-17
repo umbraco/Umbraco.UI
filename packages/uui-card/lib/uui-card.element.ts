@@ -15,7 +15,7 @@ import { UUICardEvent } from './UUICardEvent';
  */
 @defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(
-  SelectableMixin(LitElement)
+  SelectableMixin(LitElement),
 ) {
   static styles = [
     css`

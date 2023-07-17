@@ -27,7 +27,7 @@ export const Overview: Story = () =>
       link =>
         html`<uui-breadcrumb-item .href=${link.link}
           >${link.name}</uui-breadcrumb-item
-        >`
+        >`,
     )}</uui-breadcrumbs
   >`;
 

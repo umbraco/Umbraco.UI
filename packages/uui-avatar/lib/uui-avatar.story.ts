@@ -37,14 +37,15 @@ const avatarSrcSet = [
   `${avatarSrc}&h=300&w=300`,
 ];
 
-const Template: Story = (props: any) => html`<uui-avatar
-  .overflow=${props.overflow}
-  .imgSrc=${props.imgSrc}
-  .imgSrcset=${props.imgSrcset}
-  .name=${props.name}
-  style="font-size: ${props.fontSize}px; background-color: ${props.backgroundColor}; color: ${props.color}"
-  >${props.slot}</uui-avatar
->`;
+const Template: Story = (props: any) =>
+  html`<uui-avatar
+    .overflow=${props.overflow}
+    .imgSrc=${props.imgSrc}
+    .imgSrcset=${props.imgSrcset}
+    .name=${props.name}
+    style="font-size: ${props.fontSize}px; background-color: ${props.backgroundColor}; color: ${props.color}"
+    >${props.slot}</uui-avatar
+  >`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';

@@ -18,7 +18,7 @@ function getCustomPropertiesFromObject(object) {
   const customProperties = Object.assign(
     {},
     Object(object).customProperties,
-    Object(object)['custom-properties']
+    Object(object)['custom-properties'],
   );
 
   for (const key in customProperties) {
@@ -77,27 +77,27 @@ export default function getCustomPropertiesFromImports(sources) {
       if (type === 'css') {
         return Object.assign(
           await customProperties,
-          await getCustomPropertiesFromCSSFile(from)
+          await getCustomPropertiesFromCSSFile(from),
         );
       }
 
       if (type === 'js') {
         return Object.assign(
           await customProperties,
-          await getCustomPropertiesFromJSFile(from)
+          await getCustomPropertiesFromJSFile(from),
         );
       }
 
       if (type === 'json') {
         return Object.assign(
           await customProperties,
-          await getCustomPropertiesFromJSONFile(from)
+          await getCustomPropertiesFromJSONFile(from),
         );
       }
 
       return Object.assign(
         await customProperties,
-        await getCustomPropertiesFromObject(await source)
+        await getCustomPropertiesFromObject(await source),
       );
     }, {});
 }

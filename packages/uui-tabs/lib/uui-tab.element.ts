@@ -55,7 +55,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       :host(:not([active]):not([disabled])) #button:active {
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+        box-shadow:
+          inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
       }
 
@@ -79,7 +80,9 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         bottom: 0;
         border-radius: 3px 3px 0 0;
         opacity: 0;
-        transition: opacity ease-in 120ms, height ease-in 120ms;
+        transition:
+          opacity ease-in 120ms,
+          height ease-in 120ms;
       }
       #button:hover::before {
         background-color: var(--uui-color-current-emphasis);
@@ -87,7 +90,9 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host([active]) #button::before {
         opacity: 1;
         height: 4px;
-        transition: opacity 120ms, height ease-out 120ms;
+        transition:
+          opacity 120ms,
+          height ease-out 120ms;
       }
 
       :host([disabled]) #button::before {
@@ -148,7 +153,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined
+              this.target === '_blank' ? 'noopener noreferrer' : undefined,
             )}
             role="tab">
             <slot name="icon"></slot>

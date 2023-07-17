@@ -101,7 +101,7 @@ export class UUIPaginationElement extends LitElement {
       (totalWidth, button) => {
         return totalWidth + button.getBoundingClientRect().width;
       },
-      0
+      0,
     );
 
     // subtract width of nav-buttons from the pagination container
@@ -131,7 +131,7 @@ export class UUIPaginationElement extends LitElement {
 
     const pages = arrayOfNumbers(
       limit(start, 1, this.total),
-      limit(stop, 1, this.total)
+      limit(stop, 1, this.total),
     );
 
     return pages;

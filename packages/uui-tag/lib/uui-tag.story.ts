@@ -48,10 +48,9 @@ const Template: Story = props => html`
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 
-export const Sizing: Story = props =>
-  html`
-    <uui-tag style="font-size:${props.fontSize}px;">${props.slot}</uui-tag>
-  `;
+export const Sizing: Story = props => html`
+  <uui-tag style="font-size:${props.fontSize}px;">${props.slot}</uui-tag>
+`;
 
 Sizing.parameters = {
   controls: { include: ['fontSize', 'slot'] },
@@ -64,24 +63,22 @@ function uppercaseFirstLetter(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const LooksAndColors: Story = () =>
-  html`
-    ${colors.map(
-      color =>
-        html`
-          <h5>${uppercaseFirstLetter(color)}</h5>
-          <div style="margin-bottom: 32px; display: flex; gap: 16px;">
-            ${looks.map(
-              look => html`
-                <uui-tag
-                  .look=${look as any}
-                  .color=${color as any}
-                  style="margin-right:12px;"
-                  >${uppercaseFirstLetter(look)}</uui-tag
-                >
-              `
-            )}
-          </div>
-        `
-    )}
-  `;
+export const LooksAndColors: Story = () => html`
+  ${colors.map(
+    color => html`
+      <h5>${uppercaseFirstLetter(color)}</h5>
+      <div style="margin-bottom: 32px; display: flex; gap: 16px;">
+        ${looks.map(
+          look => html`
+            <uui-tag
+              .look=${look as any}
+              .color=${color as any}
+              style="margin-right:12px;"
+              >${uppercaseFirstLetter(look)}</uui-tag
+            >
+          `,
+        )}
+      </div>
+    `,
+  )}
+`;

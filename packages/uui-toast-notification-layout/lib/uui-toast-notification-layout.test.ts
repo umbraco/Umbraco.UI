@@ -10,9 +10,9 @@ describe('UUIToastNotificationLayoutElement', () => {
   let element: UUIToastNotificationLayoutElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-toast-notification-layout></uui-toast-notification-layout> `
-    );
+    element = await fixture(html`
+      <uui-toast-notification-layout></uui-toast-notification-layout>
+    `);
   });
 
   it('passes the a11y audit', async () => {

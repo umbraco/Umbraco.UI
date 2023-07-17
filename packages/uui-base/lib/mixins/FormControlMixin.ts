@@ -25,7 +25,7 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   protected addValidator: (
     flagKey: FlagTypes,
     getMessageMethod: () => String,
-    checkMethod: () => boolean
+    checkMethod: () => boolean,
   ) => void;
   protected addFormControlElement(element: NativeFormControlElement): void;
   pristine: boolean;
@@ -66,7 +66,7 @@ interface Validator {
  * @mixin
  */
 export const FormControlMixin = <T extends Constructor<LitElement>>(
-  superClass: T
+  superClass: T,
 ) => {
   abstract class FormControlMixinClass extends superClass {
     /**
@@ -163,12 +163,12 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       this.addValidator(
         'valueMissing',
         () => this.requiredMessage,
-        () => this.hasAttribute('required') && this.hasValue() === false
+        () => this.hasAttribute('required') && this.hasValue() === false,
       );
       this.addValidator(
         'customError',
         () => this.errorMessage,
-        () => this.error
+        () => this.error,
       );
 
       this.addEventListener('blur', () => {
@@ -222,7 +222,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     protected addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => String,
-      checkMethod: () => boolean
+      checkMethod: () => boolean,
     ): Validator {
       const obj = {
         flagKey: flagKey,
@@ -266,7 +266,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
         this._customValidityObject = this.addValidator(
           'customError',
           (): string => message,
-          () => true
+          () => true,
         );
       }
 
@@ -284,7 +284,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
             this._internals.setValidity(
               (this as any)._validityState,
               formCtrlEl.validationMessage,
-              formCtrlEl
+              formCtrlEl,
             );
           }
         }
@@ -297,7 +297,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
           this._internals.setValidity(
             this._validityState,
             validator.getMessageMethod(),
-            this.getFormElement()
+            this.getFormElement(),
           );
         }
       });
@@ -309,7 +309,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
       if (hasError) {
         this.dispatchEvent(
-          new UUIFormControlEvent(UUIFormControlEvent.INVALID)
+          new UUIFormControlEvent(UUIFormControlEvent.INVALID),
         );
       } else {
         this._internals.setValidity({});

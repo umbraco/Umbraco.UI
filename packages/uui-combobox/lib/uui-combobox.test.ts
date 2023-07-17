@@ -44,7 +44,7 @@ describe('UUIComboboxElement', () => {
 
   it('defines uui-combobox-list-option as its own instance', () => {
     expect(element.querySelector('uui-combobox-list-option')).to.be.instanceOf(
-      UUIComboboxListOptionElement
+      UUIComboboxListOptionElement,
     );
   });
 
@@ -74,13 +74,13 @@ describe('UUIComboboxElement', () => {
     });
     it('renders a prepend slot', () => {
       const slot = element.shadowRoot!.querySelector(
-        'slot[name=input-prepend]'
+        'slot[name=input-prepend]',
       )!;
       expect(slot).to.exist;
     });
     it('renders a append slot', () => {
       const slot = element.shadowRoot!.querySelector(
-        'slot[name=input-append]'
+        'slot[name=input-append]',
       )!;
       expect(slot).to.exist;
     });

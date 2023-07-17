@@ -36,10 +36,9 @@ export default {
   },
 };
 
-export const AsyncOptions: StoryFn = () =>
-  html`
-    <uui-combobox-async-options-example></uui-combobox-async-options-example>
-  `;
+export const AsyncOptions: StoryFn = () => html`
+  <uui-combobox-async-options-example></uui-combobox-async-options-example>
+`;
 
 export const AsyncData: StoryFn = () =>
   html`<uui-combobox-async-example></uui-combobox-async-example>`;
@@ -86,18 +85,19 @@ const avatars = [
 const basicFilter = (options: string[], search: string) =>
   options.filter(option => option.toLowerCase().includes(search.toLowerCase()));
 
-const renderAvatar = (option: any) => html` <uui-combobox-list-option
-  .displayValue=${option.name}
-  style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)"
-  .value=${option.id}>
-  <uui-avatar
-    style="background-color: #c8d1dd"
-    .name=${option.name}></uui-avatar>
-  <div style="display: flex; flex-direction: column">
-    <b>${option.name}</b>
-    <div style="font-size: 0.8rem">${option.title}</div>
-  </div>
-</uui-combobox-list-option>`;
+const renderAvatar = (option: any) =>
+  html` <uui-combobox-list-option
+    .displayValue=${option.name}
+    style="display: flex; gap: 9px; align-items: center; padding: var(--uui-size-3)"
+    .value=${option.id}>
+    <uui-avatar
+      style="background-color: #c8d1dd"
+      .name=${option.name}></uui-avatar>
+    <div style="display: flex; flex-direction: column">
+      <b>${option.name}</b>
+      <div style="font-size: 0.8rem">${option.title}</div>
+    </div>
+  </uui-combobox-list-option>`;
 
 const Template: StoryFn = props => {
   const [, updateSearch] = useArgs();
@@ -142,7 +142,7 @@ const Template: StoryFn = props => {
                   : option}
                 style="padding: 8px">
                 ${option}
-              </uui-combobox-list-option>`
+              </uui-combobox-list-option>`,
         )}
       </uui-combobox-list>
     </uui-combobox>
@@ -274,7 +274,7 @@ Avatars.args = {
   renderMod: (avatar: any) => renderAvatar(avatar),
   filter: (options: any[], search: string) =>
     options.filter(option =>
-      option.name.toLowerCase().includes(search.toLowerCase())
+      option.name.toLowerCase().includes(search.toLowerCase()),
     ),
 };
 
@@ -292,15 +292,16 @@ export const CountrySelect: StoryFn = props => {
     updateSelected(props);
   };
 
-  const renderCountry = (country: any) => html`<uui-combobox-list-option
-    style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;"
-    .value=${country.ISOAlpha3Code}
-    .displayValue=${country.countryName}>
-    <img
-      style="height: 24px"
-      src=${country.flag}
-      alt=${country.countryName} />${country.countryName}
-  </uui-combobox-list-option>`;
+  const renderCountry = (country: any) =>
+    html`<uui-combobox-list-option
+      style="scroll-margin-top: 40px; display: flex; align-items: center; gap: 8px; padding: 8px 8px;"
+      .value=${country.ISOAlpha3Code}
+      .displayValue=${country.countryName}>
+      <img
+        style="height: 24px"
+        src=${country.flag}
+        alt=${country.countryName} />${country.countryName}
+    </uui-combobox-list-option>`;
 
   const renderRegion = (region: any, index: number) => html`
     <span
@@ -312,21 +313,21 @@ export const CountrySelect: StoryFn = props => {
     ${repeat(
       region.countries,
       (item: any) => item.ISOAlpha3Code,
-      item => renderCountry(item)
+      item => renderCountry(item),
     )}
   `;
 
   const filterOptions = (regions: any, search: string): any[] => {
     const filteredRegions = regions.filter((region: any) =>
       region.countries.some((country: any) =>
-        country.countryName.toLowerCase().includes(search.toLowerCase())
-      )
+        country.countryName.toLowerCase().includes(search.toLowerCase()),
+      ),
     );
 
     const filterFinal = filteredRegions.map((region: any) => ({
       name: region.name,
       countries: region.countries.filter((country: any) =>
-        country.countryName.toLowerCase().includes(search.toLowerCase())
+        country.countryName.toLowerCase().includes(search.toLowerCase()),
       ),
     }));
 
@@ -335,7 +336,7 @@ export const CountrySelect: StoryFn = props => {
 
   const renderFilteredOptions = () => {
     const options = filterOptions(props.regions, props.search).map(
-      (region: any, i: number) => renderRegion(region, i)
+      (region: any, i: number) => renderRegion(region, i),
     );
 
     return options.length > 0

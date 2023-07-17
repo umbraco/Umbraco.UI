@@ -74,7 +74,7 @@ export const AAAOverview: Story = props => {
   function onKeyDown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       const popover = document.querySelector(
-        'uui-popover'
+        'uui-popover',
       ) as UUIPopoverElement;
       popover.open = false;
     }
@@ -191,37 +191,38 @@ export const Nested: Story = props => {
     }
   };
 
-  const createMenuItem = (id: string) => html`<uui-popover
-    id=${id}
-    placement="right-start"
-    @focusout=${() => closePopover(id)}
-    @keydown=${(e: KeyboardEvent) => onkeydown(e, id)}>
-    <uui-button
-      slot="trigger"
-      @click=${() => togglePopover(id)}
-      style="--uui-button-border-radius: 0; width: 100%; z-index: 1"
-      look="secondary"
-      >Click me</uui-button
-    >
-    <div
-      slot="popover"
-      style="border: 1px solid var(--uui-color-default); width: 300px; background: white; padding: 1rem; color: var(--uui-color-default); box-sizing: border-box; box-shadow: var(--uui-shadow-depth-3)">
-      <h3 style="text-align: center">Content</h3>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
-        nesciunt fugiat, ipsa <b tabindex="0">FOCUSABLE</b> molestias maiores
-        enim veniam numquam alias minus delectus nam dignissimos assumenda,
-        ullam, voluptates hic <b tabindex="0">FOCUSABLE</b> aut natus nobis
-        similique!
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
-        nesciunt fugiat, <b tabindex="0">FOCUSABLE</b> ipsa molestias maiores
-        enim veniam numquam alias minus delectus nam dignissimos assumenda,
-        ullam, voluptates hic aut natus nobis similique!
-      </p>
-    </div>
-  </uui-popover>`;
+  const createMenuItem = (id: string) =>
+    html`<uui-popover
+      id=${id}
+      placement="right-start"
+      @focusout=${() => closePopover(id)}
+      @keydown=${(e: KeyboardEvent) => onkeydown(e, id)}>
+      <uui-button
+        slot="trigger"
+        @click=${() => togglePopover(id)}
+        style="--uui-button-border-radius: 0; width: 100%; z-index: 1"
+        look="secondary"
+        >Click me</uui-button
+      >
+      <div
+        slot="popover"
+        style="border: 1px solid var(--uui-color-default); width: 300px; background: white; padding: 1rem; color: var(--uui-color-default); box-sizing: border-box; box-shadow: var(--uui-shadow-depth-3)">
+        <h3 style="text-align: center">Content</h3>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
+          nesciunt fugiat, ipsa <b tabindex="0">FOCUSABLE</b> molestias maiores
+          enim veniam numquam alias minus delectus nam dignissimos assumenda,
+          ullam, voluptates hic <b tabindex="0">FOCUSABLE</b> aut natus nobis
+          similique!
+        </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
+          nesciunt fugiat, <b tabindex="0">FOCUSABLE</b> ipsa molestias maiores
+          enim veniam numquam alias minus delectus nam dignissimos assumenda,
+          ullam, voluptates hic aut natus nobis similique!
+        </p>
+      </div>
+    </uui-popover>`;
 
   return html`
     <uui-popover

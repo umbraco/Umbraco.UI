@@ -133,7 +133,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private async _getAllFileEntries(
-    dataTransferItemList: DataTransferItemList
+    dataTransferItemList: DataTransferItemList,
   ): Promise<File[]> {
     const fileEntries: File[] = [];
     // Use BFS to traverse entire directory/file structure
@@ -152,7 +152,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         if ('webkitGetAsEntry' in entry === false) continue;
         const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
         queue.push(
-          ...(await this._readAllDirectoryEntries(directory.createReader()))
+          ...(await this._readAllDirectoryEntries(directory.createReader())),
         );
       }
     }
@@ -163,7 +163,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   // Get all the entries (files or sub-directories) in a directory
   // by calling readEntries until it returns empty array
   private async _readAllDirectoryEntries(
-    directoryReader: FileSystemDirectoryReader
+    directoryReader: FileSystemDirectoryReader,
   ) {
     const entries: any = [];
     let readEntries: any = await this._readEntriesPromise(directoryReader);
@@ -175,7 +175,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private async _readEntriesPromise(
-    directoryReader: FileSystemDirectoryReader
+    directoryReader: FileSystemDirectoryReader,
   ) {
     try {
       return await new Promise((resolve, reject) => {
@@ -234,7 +234,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
           detail: { files: result },
-        })
+        }),
       );
     }
   }
@@ -260,7 +260,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.dispatchEvent(
       new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
         detail: { files: files },
-      })
+      }),
     );
   }
 

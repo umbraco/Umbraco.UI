@@ -41,30 +41,29 @@ export default {
   },
 };
 
-const Template: Story = props =>
-  html`
-    <uui-input
-      .min=${props.min}
-      .max=${props.max}
-      .step=${props.step}
-      .disabled=${props.disabled}
-      .readonly=${props.readonly}
-      .error=${props.error}
-      .label=${props.label}
-      .type=${props.type}
-      .name=${props.name}
-      .placeholder=${props.placeholder}
-      .value=${props.value}
-      .spellcheck=${props.spellcheck}
-      .autocomplete=${props.autocomplete}
-      .pattern=${props.pattern}
-      .errorMessage=${props.errorMessage}
-      .inputmode=${props.inputmode}
-      .minlength=${props.minlength}
-      .maxlength=${props.maxlength}
-      .minlength-message=${props.minlengthMessage}
-      .maxlength-message=${props.maxlengthMessage}></uui-input>
-  `;
+const Template: Story = props => html`
+  <uui-input
+    .min=${props.min}
+    .max=${props.max}
+    .step=${props.step}
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}
+    .spellcheck=${props.spellcheck}
+    .autocomplete=${props.autocomplete}
+    .pattern=${props.pattern}
+    .errorMessage=${props.errorMessage}
+    .inputmode=${props.inputmode}
+    .minlength=${props.minlength}
+    .maxlength=${props.maxlength}
+    .minlength-message=${props.minlengthMessage}
+    .maxlength-message=${props.maxlengthMessage}></uui-input>
+`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
@@ -204,22 +203,21 @@ Error.parameters = {
   },
 };
 
-export const PrependAndAppend: Story = props =>
-  html`
-    <uui-input
-      .min=${props.min}
-      .max=${props.max}
-      .step=${props.step}
-      .disabled=${props.disabled}
-      .readonly=${props.readonly}
-      .error=${props.error}
-      .label=${props.label}
-      .type=${props.type}
-      .name=${props.name}
-      .placeholder=${props.placeholder}
-      .value=${props.value}>
-      <div
-        style="
+export const PrependAndAppend: Story = props => html`
+  <uui-input
+    .min=${props.min}
+    .max=${props.max}
+    .step=${props.step}
+    .disabled=${props.disabled}
+    .readonly=${props.readonly}
+    .error=${props.error}
+    .label=${props.label}
+    .type=${props.type}
+    .name=${props.name}
+    .placeholder=${props.placeholder}
+    .value=${props.value}>
+    <div
+      style="
         user-select:none;
         height: 100%;
         padding: 0 var(--uui-size-3);
@@ -230,12 +228,12 @@ export const PrependAndAppend: Story = props =>
         display: flex;
         justify-content: center;
         align-items: center;"
-        slot="prepend">
-        umbraco@
-      </div>
-      <div
-        slot="append"
-        style="
+      slot="prepend">
+      umbraco@
+    </div>
+    <div
+      slot="append"
+      style="
         user-select:none;
         height: 100%;
         padding: 0 var(--uui-size-space-3);
@@ -246,10 +244,10 @@ export const PrependAndAppend: Story = props =>
         display: flex;
         justify-content: center;
         align-items: center;">
-        .com
-      </div>
-    </uui-input>
-  `;
+      .com
+    </div>
+  </uui-input>
+`;
 
 export const PrependIcon: Story = props =>
   html` <uui-input
@@ -293,45 +291,7 @@ export const AppendIcon: Story = props =>
     </div>
   </uui-input>`;
 
-export const MultipleInputs: Story = props =>
-  html`
-    <uui-input
-      .min=${props.min}
-      .max=${props.max}
-      .step=${props.step}
-      .disabled=${props.disabled}
-      .readonly=${props.readonly}
-      .error=${props.error}
-      .label=${props.label}
-      .type=${props.type}
-      .name=${props.name}
-      .placeholder=${props.placeholder}
-      .value=${props.value}>
-      <uui-input
-        slot="prepend"
-        placeholder="+45"
-        style="text-align:right; width: 60px;">
-      </uui-input>
-      <uui-input slot="append" placeholder="(extra)" style="width: 100px;">
-      </uui-input>
-    </uui-input>
-  `;
-
-export const AutoWidth: Story = props => html`<uui-input
-    .min=${props.min}
-    .max=${props.max}
-    .step=${props.step}
-    .disabled=${props.disabled}
-    .readonly=${props.readonly}
-    .error=${props.error}
-    .label=${props.label}
-    .type=${props.type}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}
-    auto-width>
-  </uui-input>
-  <br /><br />
+export const MultipleInputs: Story = props => html`
   <uui-input
     .min=${props.min}
     .max=${props.max}
@@ -343,13 +303,53 @@ export const AutoWidth: Story = props => html`<uui-input
     .type=${props.type}
     .name=${props.name}
     .placeholder=${props.placeholder}
-    .value=${props.value}
-    auto-width>
+    .value=${props.value}>
     <uui-input
       slot="prepend"
-      placeholder="Prepend auto-width"
-      auto-width></uui-input>
-    <uui-input slot="append" placeholder="Append auto-width false"></uui-input>
-  </uui-input>`;
+      placeholder="+45"
+      style="text-align:right; width: 60px;">
+    </uui-input>
+    <uui-input slot="append" placeholder="(extra)" style="width: 100px;">
+    </uui-input>
+  </uui-input>
+`;
+
+export const AutoWidth: Story = props =>
+  html`<uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
+      .disabled=${props.disabled}
+      .readonly=${props.readonly}
+      .error=${props.error}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}
+      auto-width>
+    </uui-input>
+    <br /><br />
+    <uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
+      .disabled=${props.disabled}
+      .readonly=${props.readonly}
+      .error=${props.error}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}
+      auto-width>
+      <uui-input
+        slot="prepend"
+        placeholder="Prepend auto-width"
+        auto-width></uui-input>
+      <uui-input
+        slot="append"
+        placeholder="Append auto-width false"></uui-input>
+    </uui-input>`;
 
 AutoWidth.args = { placeholder: 'Start typing...' };

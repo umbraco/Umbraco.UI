@@ -23,15 +23,14 @@ export default {
   },
 };
 
-const Template: Story = props =>
-  html`
-    <uui-loader-circle
-      style="${props.color
-        ? 'color: ' + props.color
-        : ''}; font-size: ${props.fontSize}"
-      progress=${props.progress}
-      ?show-progress=${props.showProgress}></uui-loader-circle>
-  `;
+const Template: Story = props => html`
+  <uui-loader-circle
+    style="${props.color
+      ? 'color: ' + props.color
+      : ''}; font-size: ${props.fontSize}"
+    progress=${props.progress}
+    ?show-progress=${props.showProgress}></uui-loader-circle>
+`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';

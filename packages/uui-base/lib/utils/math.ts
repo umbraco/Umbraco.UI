@@ -19,7 +19,7 @@ export const clamp = (value: number, min: number, max: number) => {
 export const reverseNumberInRange = (
   num: number,
   min: number,
-  max: number
+  max: number,
 ): number => {
   return max + min - num;
 };

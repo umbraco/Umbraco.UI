@@ -20,7 +20,7 @@ export declare class SelectableMixinInterface extends LitElement {
  * @mixin
  */
 export const SelectableMixin = <T extends Constructor<LitElement>>(
-  superClass: T
+  superClass: T,
 ) => {
   /**
    * @fires {UUISelectableEvent} selected - fires when the media card is selected

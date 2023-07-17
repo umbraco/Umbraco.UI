@@ -6,9 +6,9 @@ import { InterfaceHeadingValues } from '@umbraco-ui/uui-base/lib/types';
 describe('UUIBox', () => {
   let element: UUIBoxElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-box headline="headline">
-      Main
-    </uui-box>`);
+    element = await fixture(
+      html` <uui-box headline="headline"> Main </uui-box>`,
+    );
   });
 
   it('is defined', () => {
@@ -17,11 +17,13 @@ describe('UUIBox', () => {
 
   it('passes the a11y audit', async () => {
     for (const headlineVariant of InterfaceHeadingValues) {
-      element = await fixture(html` <uui-box
-        headline="headline"
-        .headlineVariant="${headlineVariant}">
-        Main
-      </uui-box>`);
+      element = await fixture(
+        html` <uui-box
+          headline="headline"
+          .headlineVariant="${headlineVariant}">
+          Main
+        </uui-box>`,
+      );
       await expect(element).shadowDom.to.be.accessible();
     }
   });
@@ -39,16 +41,17 @@ describe('UUIBox', () => {
     let wrapper: HTMLDivElement;
     let element: UUIBoxElement;
     beforeEach(async () => {
-      wrapper = (await fixture(html`<div
-        style="--uui-box-default-padding:1337px;">
-        <uui-box headline="headline"> Main </uui-box>
-      </div>`)) as HTMLDivElement;
+      wrapper = (await fixture(
+        html`<div style="--uui-box-default-padding:1337px;">
+          <uui-box headline="headline"> Main </uui-box>
+        </div>`,
+      )) as HTMLDivElement;
       element = wrapper.querySelector('uui-box')!;
     });
     it('allows for --uui-box-default-padding to be defined outside the scope.', () => {
       const elementStyles = window.getComputedStyle(element);
       expect(
-        elementStyles.getPropertyValue('--uui-box-default-padding').trim()
+        elementStyles.getPropertyValue('--uui-box-default-padding').trim(),
       ).to.equal('1337px');
     });
   });
@@ -71,7 +74,9 @@ describe('UUIBox', () => {
 
     it('renders specified headline tag when headlineVariant is set', async () => {
       element = await fixture(
-        html` <uui-box headline="headline" headline-variant="h2">Main</uui-box>`
+        html` <uui-box headline="headline" headline-variant="h2"
+          >Main</uui-box
+        >`,
       );
 
       // it should exist and it should be the only one
@@ -87,10 +92,12 @@ describe('UUIBox', () => {
   describe('UUIBox', () => {
     let element: UUIBoxElement;
     beforeEach(async () => {
-      element = await fixture(html` <uui-box>
-        <div slot="header">Something in the header</div>
-        Main
-      </uui-box>`);
+      element = await fixture(
+        html` <uui-box>
+          <div slot="header">Something in the header</div>
+          Main
+        </uui-box>`,
+      );
     });
 
     it('passes the a11y audit', async () => {
