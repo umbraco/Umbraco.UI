@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { UUIColorAreaElement } from './uui-color-area.element';
 import readme from '../README.md?raw';
 
@@ -24,6 +25,7 @@ const meta: Meta<UUIColorAreaElement> = {
       handles: ['change'],
     },
   },
+  decorators: [withActions as any],
 };
 
 export default meta;
