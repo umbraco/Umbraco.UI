@@ -18,8 +18,8 @@
 /_site/
 /packages/**/dist/
 /packages/**/lib/**/*.js
-/packages/**/lib/**/*.js.map
-/packages/**/lib/**/*.d.ts
+**/*.js.map
+**/*.d.ts
 tsconfig.tsbuildinfo
 /out-tsc/
 /packages/**/node_modules/
