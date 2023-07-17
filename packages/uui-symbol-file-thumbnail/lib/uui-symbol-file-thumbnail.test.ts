@@ -6,9 +6,9 @@ describe('UUISymbolFileThumbnailElement', () => {
   let element: UUISymbolFileThumbnailElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-symbol-file-thumbnail></uui-symbol-file-thumbnail> `
-    );
+    element = await fixture(html`
+      <uui-symbol-file-thumbnail></uui-symbol-file-thumbnail>
+    `);
   });
 
   it('is defined with its own instance', () => {

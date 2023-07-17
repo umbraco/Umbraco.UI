@@ -183,11 +183,12 @@ const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
-      name => html`<uui-ref-node-user name=${name} group-name="Group name">
-        <uui-action-bar slot="actions">
-          <uui-button label="Remove">Remove</uui-button>
-        </uui-action-bar>
-      </uui-ref-node-user>`
+      name =>
+        html`<uui-ref-node-user name=${name} group-name="Group name">
+          <uui-action-bar slot="actions">
+            <uui-button label="Remove">Remove</uui-button>
+          </uui-action-bar>
+        </uui-ref-node-user>`,
     )}
   </uui-ref-list>
 `;

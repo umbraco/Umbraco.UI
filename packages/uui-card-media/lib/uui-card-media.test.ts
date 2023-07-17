@@ -16,9 +16,9 @@ describe('UUICardMediaElement', () => {
   let element: UUICardMediaElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-card-media name="Media item"></uui-card-media> `
-    );
+    element = await fixture(html`
+      <uui-card-media name="Media item"></uui-card-media>
+    `);
   });
 
   it('passes the a11y audit', async () => {

@@ -103,7 +103,7 @@ export class UUILoginExample extends LitElement {
                 look="primary"
                 color="positive"
                 state=${ifDefined(
-                  this._loggingIn ? 'waiting' : undefined
+                  this._loggingIn ? 'waiting' : undefined,
                 )}></uui-button>
             </div>
           </form>

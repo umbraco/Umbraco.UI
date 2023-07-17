@@ -1,3 +1,4 @@
+/* eslint-disable lit-a11y/list */
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';

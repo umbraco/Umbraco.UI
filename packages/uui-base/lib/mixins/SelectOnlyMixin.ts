@@ -15,9 +15,9 @@ export declare class SelectOnlyMixinInterface extends SelectableMixinInterface {
  * @mixin
  */
 export const SelectOnlyMixin = <
-  T extends Constructor<SelectableMixinInterface>
+  T extends Constructor<SelectableMixinInterface>,
 >(
-  superClass: T
+  superClass: T,
 ) => {
   class SelectOnlyMixinClass extends superClass {
     private _selectOnly = false;

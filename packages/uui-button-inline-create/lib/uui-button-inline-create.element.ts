@@ -90,7 +90,9 @@ export class UUIButtonInlineCreateElement extends LitElement {
         border-bottom: 1px solid transparent;
         border-radius: 2px;
         pointer-events: none;
-        transition: background-color 720ms ease-out, border-color 240ms;
+        transition:
+          background-color 720ms ease-out,
+          border-color 240ms;
       }
 
       :host(:not([vertical])) #button-wrapper:before {
@@ -134,16 +136,21 @@ export class UUIButtonInlineCreateElement extends LitElement {
 
         opacity: 0;
         transform: scale(0);
-        transition: transform 240ms ease-in, opacity 240ms,
-          left 100ms linear 150ms, top 100ms linear 150ms;
+        transition:
+          transform 240ms ease-in,
+          opacity 240ms,
+          left 100ms linear 150ms,
+          top 100ms linear 150ms;
       }
       :host(:focus) #plus,
       :host(:focus-within) #plus,
       :host(:hover) #plus {
         opacity: 1;
         transform: scale(1);
-        transition: transform 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          opacity 80ms, box-shadow 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition:
+          transform 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 80ms,
+          box-shadow 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 0 0 2px var(--uui-color-surface);
       }
 
@@ -201,7 +208,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
     e.stopImmediatePropagation();
 
     this.dispatchEvent(
-      new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
+      new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK),
     );
   }
 

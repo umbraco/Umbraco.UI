@@ -19,14 +19,12 @@ describe('UuiButton', () => {
   let button: HTMLButtonElement;
 
   beforeEach(async () => {
-    formElement = await fixture(
-      html`
-        <form action="">
-          <input type="text" name="test" value="" />
-          <uui-button label="My label">Hello uui-button</uui-button>
-        </form>
-      `
-    );
+    formElement = await fixture(html`
+      <form action="">
+        <input type="text" name="test" value="" />
+        <uui-button label="My label">Hello uui-button</uui-button>
+      </form>
+    `);
 
     inputElement = formElement.querySelector('input') as any;
     element = formElement.querySelector('uui-button') as any;
@@ -53,7 +51,7 @@ describe('UuiButton', () => {
               .look=${look}
               .color=${color}>
               Continue
-            </uui-button>`
+            </uui-button>`,
           );
           await expect(element).to.be.accessible();
         }
@@ -229,10 +227,10 @@ describe('UuiButton', () => {
       element = await fixture(
         html`<uui-button
           label="menuitem"
-          href="https://www.umbraco.com"></uui-button>`
+          href="https://www.umbraco.com"></uui-button>`,
       );
       anchorElement = element.shadowRoot!.querySelector(
-        '#button'
+        '#button',
       ) as HTMLElement;
     });
 
@@ -256,7 +254,7 @@ describe('UuiButton', () => {
       await elementUpdated(element);
       expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
       expect(anchorElement.getAttribute('rel')).to.be.equal(
-        'noopener noreferrer'
+        'noopener noreferrer',
       );
     });
   });

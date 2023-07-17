@@ -16,7 +16,7 @@ export const CacheCustomProperties = async masterCSSPath => {
       cssFile,
       {
         from: CSS_PATH,
-      }
+      },
     );
 
     /**
@@ -36,7 +36,7 @@ export const CacheCustomProperties = async masterCSSPath => {
      */
     for (const key in fileData.customProperties) {
       const valueNode = postCssValueParser.parse(
-        fileData.customProperties[key]
+        fileData.customProperties[key],
       );
       const onlyVars = valueNode.nodes.filter(node => node.isVar);
       if (onlyVars.length === 1) {
@@ -54,7 +54,7 @@ export const CacheCustomProperties = async masterCSSPath => {
       await fs.writeFile(
         './custom-properties.module.js',
         `export default ${json};`,
-        'utf8'
+        'utf8',
       );
     } catch (err) {
       console.error(err);

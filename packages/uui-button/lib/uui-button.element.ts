@@ -9,7 +9,7 @@ import {
   iconCheck,
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
@@ -42,7 +42,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends FormControlMixin(
-  LabelMixin('', LitElement)
+  LabelMixin('', LitElement),
 ) {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -63,7 +63,10 @@ export class UUIButtonElement extends FormControlMixin(
         text-align: center;
         font-size: var(--uui-button-font-size, inherit);
         font-weight: var(--uui-button-font-weight, 500);
-        transition: background-color 80ms, border-color 80ms, color 80ms;
+        transition:
+          background-color 80ms,
+          border-color 80ms,
+          color 80ms;
       }
 
       :host([compact]) {
@@ -470,14 +473,14 @@ export class UUIButtonElement extends FormControlMixin(
       if (this.state === 'success' || this.state === 'failed') {
         this._resetStateTimeout = setTimeout(
           () => (this.state = undefined),
-          2000
+          2000,
         ) as any;
       }
     }
   }
 
-  protected renderState() {
-    let element = html``;
+  protected renderState(): TemplateResult | typeof nothing {
+    let element: TemplateResult;
     switch (this.state) {
       case 'waiting':
         demandCustomElement(this, 'uui-loader-circle');
@@ -496,7 +499,7 @@ export class UUIButtonElement extends FormControlMixin(
           .fallback=${iconWrong.strings[0]}></uui-icon>`;
         break;
       default:
-        return '';
+        return nothing;
     }
 
     return html`<div id="state">${element}</div>`;
@@ -511,7 +514,7 @@ export class UUIButtonElement extends FormControlMixin(
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined
+              this.target === '_blank' ? 'noopener noreferrer' : undefined,
             )}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>

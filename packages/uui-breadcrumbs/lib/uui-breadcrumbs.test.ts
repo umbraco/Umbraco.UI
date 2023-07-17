@@ -8,15 +8,13 @@ import { UUIBreadcrumbsElement } from './uui-breadcrumbs.element';
 describe('UuiBreadcrumbs', () => {
   let element: UUIBreadcrumbsElement;
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-breadcrumbs
-          ><uui-breadcrumb-item>One</uui-breadcrumb-item
-          ><uui-breadcrumb-item>Two</uui-breadcrumb-item
-          ><uui-breadcrumb-item>Three</uui-breadcrumb-item>
-        </uui-breadcrumbs>
-      `
-    );
+    element = await fixture(html`
+      <uui-breadcrumbs
+        ><uui-breadcrumb-item>One</uui-breadcrumb-item
+        ><uui-breadcrumb-item>Two</uui-breadcrumb-item
+        ><uui-breadcrumb-item>Three</uui-breadcrumb-item>
+      </uui-breadcrumbs>
+    `);
   });
 
   it('renders a slot', () => {

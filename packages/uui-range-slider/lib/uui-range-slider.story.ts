@@ -29,22 +29,21 @@ export default {
   },
 };
 
-const Template: Story = props =>
-  html`
-    <uui-form-validation-message>
-      <uui-range-slider
-        step=${ifDefined(props.step)}
-        min-gap=${ifDefined(props.minGap)}
-        max-gap=${ifDefined(props.maxGap)}
-        min=${ifDefined(props.min)}
-        max=${ifDefined(props.max)}
-        value-low=${ifDefined(props.valueLow)}
-        value-high=${ifDefined(props.valueHigh)}
-        ?disabled=${props.disabled}
-        ?hide-step-values="${props.hideStepValues}"
-        label="${props.label}"></uui-range-slider>
-    </uui-form-validation-message>
-  `;
+const Template: Story = props => html`
+  <uui-form-validation-message>
+    <uui-range-slider
+      step=${ifDefined(props.step)}
+      min-gap=${ifDefined(props.minGap)}
+      max-gap=${ifDefined(props.maxGap)}
+      min=${ifDefined(props.min)}
+      max=${ifDefined(props.max)}
+      value-low=${ifDefined(props.valueLow)}
+      value-high=${ifDefined(props.valueHigh)}
+      ?disabled=${props.disabled}
+      ?hide-step-values="${props.hideStepValues}"
+      label="${props.label}"></uui-range-slider>
+  </uui-form-validation-message>
+`;
 
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';

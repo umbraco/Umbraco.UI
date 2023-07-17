@@ -7,14 +7,14 @@
  */
 export function defineElement(
   name: string,
-  options?: ElementDefinitionOptions | undefined
+  options?: ElementDefinitionOptions | undefined,
 ) {
   return (constructor: CustomElementConstructor) => {
     const isValidElementName = name.indexOf('-') > 0;
 
     if (isValidElementName === false) {
       console.error(
-        `${name} is not a valid custom element name. A custom element name should consist of at least two words separated by a hyphen.`
+        `${name} is not a valid custom element name. A custom element name should consist of at least two words separated by a hyphen.`,
       );
       return;
     }

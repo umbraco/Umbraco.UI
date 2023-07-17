@@ -5,5 +5,5 @@ console.log('Test coverage for package: ' + packageName);
 
 execSync(
   `web-test-runner "packages/${packageName}/**/*.test.ts" --node-resolve --coverage`,
-  { stdio: 'inherit' }
+  { stdio: 'inherit' },
 );

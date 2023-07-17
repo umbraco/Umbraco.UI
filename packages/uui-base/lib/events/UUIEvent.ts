@@ -4,7 +4,7 @@
 
 export class UUIEvent<
   DetailType extends Record<string, any> = Record<string, any>,
-  EventTargetType extends EventTarget | null = EventTarget | null
+  EventTargetType extends EventTarget | null = EventTarget | null,
 > extends Event {
   readonly detail: DetailType;
   readonly target!: EventTargetType;

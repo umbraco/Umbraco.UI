@@ -1,6 +1,6 @@
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
 import { UUISelectEvent } from './UUISelectEvent';
@@ -207,8 +207,8 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
       new Set(
         this.options
           .filter(option => option.group)
-          .map(option => option.group as string)
-      )
+          .map(option => option.group as string),
+      ),
     );
   }
 
@@ -236,7 +236,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
       new UUISelectEvent(UUISelectEvent.CHANGE, {
         bubbles: true,
         composed: false,
-      })
+      }),
     );
   }
 
@@ -248,7 +248,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
     name: string,
     value: string,
     selected: boolean | undefined,
-    disabled: boolean | undefined
+    disabled: boolean | undefined,
   ) {
     return html`<option
       value="${value}"
@@ -259,26 +259,27 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   }
 
   private _renderGrouped() {
-    if (this._groups.length === 0) return html``;
+    if (this._groups.length === 0) return nothing;
 
     return html`
       ${this._groups.map(
-        group => html`<optgroup
-          label=${group}
-          ?disabled=${this._disabledGroups.some(
-            disabled => disabled.toLowerCase() === group.toLowerCase()
-          )}>
-          ${this.options.map(option =>
-            option.group === group
-              ? this._renderOption(
-                  option.name,
-                  option.value,
-                  option.selected,
-                  option.disabled
-                )
-              : ''
-          )}
-        </optgroup>`
+        group =>
+          html`<optgroup
+            label=${group}
+            ?disabled=${this._disabledGroups.some(
+              disabled => disabled.toLowerCase() === group.toLowerCase(),
+            )}>
+            ${this.options.map(option =>
+              option.group === group
+                ? this._renderOption(
+                    option.name,
+                    option.value,
+                    option.selected,
+                    option.disabled,
+                  )
+                : '',
+            )}
+          </optgroup>`,
       )}
     `;
   }
@@ -300,8 +301,8 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
             option.name,
             option.value,
             option.selected,
-            option.disabled
-          )
+            option.disabled,
+          ),
         )}
     </select>`;
   }

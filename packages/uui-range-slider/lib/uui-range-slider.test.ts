@@ -21,10 +21,10 @@ describe('UUIRangeSliderElement', () => {
   beforeEach(async () => {
     element = await fixture(html` <uui-range-slider></uui-range-slider> `);
     inputLow = element.shadowRoot?.querySelector(
-      '#low-input'
+      '#low-input',
     ) as HTMLInputElement;
     inputHigh = element.shadowRoot?.querySelector(
-      '#high-input'
+      '#high-input',
     ) as HTMLInputElement;
   });
 
@@ -129,17 +129,19 @@ describe('UUIRangeSlider in a form', () => {
   let formElement: HTMLFormElement;
   let element: UUIRangeSliderElement;
   beforeEach(async () => {
-    formElement = await fixture(html`<form @submit=${preventSubmit}>
-      <uui-range-slider
-        label="uui range slider rangerdanger label"
-        min="0"
-        max="100"
-        min-gap="10"
-        step="5"
-        value-low="20"
-        value-high="50"
-        name="slider"></uui-range-slider>
-    </form>`);
+    formElement = await fixture(
+      html`<form @submit=${preventSubmit}>
+        <uui-range-slider
+          label="uui range slider rangerdanger label"
+          min="0"
+          max="100"
+          min-gap="10"
+          step="5"
+          value-low="20"
+          value-high="50"
+          name="slider"></uui-range-slider>
+      </form>`,
+    );
     element = formElement.querySelector('uui-range-slider') as any;
   });
 

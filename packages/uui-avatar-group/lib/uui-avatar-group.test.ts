@@ -14,15 +14,13 @@ describe('UuiAvatarGroup', () => {
   });
 
   it('renders correct numbers of avatars', async () => {
-    const avatarGroup = await fixture(
-      html`
-        <uui-avatar-group
-          ><uui-avatar name="First Last"></uui-avatar
-          ><uui-avatar name="First Last"></uui-avatar
-          ><uui-avatar name="First Last"></uui-avatar
-        ></uui-avatar-group>
-      `
-    );
+    const avatarGroup = await fixture(html`
+      <uui-avatar-group
+        ><uui-avatar name="First Last"></uui-avatar
+        ><uui-avatar name="First Last"></uui-avatar
+        ><uui-avatar name="First Last"></uui-avatar
+      ></uui-avatar-group>
+    `);
 
     const slot = avatarGroup.shadowRoot!.querySelector('slot');
     const avatars = slot!.assignedNodes({ flatten: false });
@@ -51,12 +49,14 @@ describe('UuiAvatarGroup', () => {
 describe('UuiAvatarGroup Limit', async () => {
   let avatarGroup: UUIAvatarGroupElement;
   beforeEach(async () => {
-    avatarGroup = await fixture(html` <uui-avatar-group .limit="${2}">
-      <uui-avatar name="First Last"></uui-avatar>
-      <uui-avatar name="First Last"></uui-avatar>
-      <uui-avatar name="First Last"></uui-avatar>
-      <uui-avatar name="First Last"></uui-avatar>
-    </uui-avatar-group>`);
+    avatarGroup = await fixture(
+      html` <uui-avatar-group .limit="${2}">
+        <uui-avatar name="First Last"></uui-avatar>
+        <uui-avatar name="First Last"></uui-avatar>
+        <uui-avatar name="First Last"></uui-avatar>
+        <uui-avatar name="First Last"></uui-avatar>
+      </uui-avatar-group>`,
+    );
   });
 
   it('Hides avatars correctly', () => {
@@ -72,10 +72,12 @@ describe('UuiAvatarGroup Limit', async () => {
   });
 
   it('Does not show limit text when not set', async () => {
-    avatarGroup = await fixture(html` <uui-avatar-group>
-      <uui-avatar name="First Last"></uui-avatar>
-      <uui-avatar name="First Last"></uui-avatar>
-    </uui-avatar-group>`);
+    avatarGroup = await fixture(
+      html` <uui-avatar-group>
+        <uui-avatar name="First Last"></uui-avatar>
+        <uui-avatar name="First Last"></uui-avatar>
+      </uui-avatar-group>`,
+    );
 
     const small = avatarGroup.shadowRoot!.querySelector('small');
     expect(small).to.not.exist;

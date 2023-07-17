@@ -151,7 +151,7 @@ export class UUIComboboxListElement extends LitElement {
 
     this._updateSelection();
     this.dispatchEvent(
-      new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE)
+      new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE),
     );
   };
 
@@ -190,7 +190,7 @@ export class UUIComboboxListElement extends LitElement {
   private _moveIndex = (distance: number) => {
     const newIndex = Math.min(
       Math.max(this._getActiveIndex() + distance, 0),
-      this._options.length - 1
+      this._options.length - 1,
     );
 
     this._goToIndex(newIndex);

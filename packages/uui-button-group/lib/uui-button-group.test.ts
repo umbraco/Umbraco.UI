@@ -5,17 +5,15 @@ import '@umbraco-ui/uui-button/lib';
 describe('UuiButtonGroup', () => {
   let element: UUIButtonGroupElement;
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-button-group
-          ><uui-button label="My label">Hello uui-button</uui-button
-          ><uui-button label="My label">Hello uui-button</uui-button
-          ><uui-button label="My label"
-            >Hello uui-button</uui-button
-          ></uui-button-group
-        >
-      `
-    );
+    element = await fixture(html`
+      <uui-button-group
+        ><uui-button label="My label">Hello uui-button</uui-button
+        ><uui-button label="My label">Hello uui-button</uui-button
+        ><uui-button label="My label"
+          >Hello uui-button</uui-button
+        ></uui-button-group
+      >
+    `);
   });
 
   it('is defined', () => {

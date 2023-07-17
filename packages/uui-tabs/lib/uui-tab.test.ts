@@ -6,9 +6,9 @@ describe('UuiTab', () => {
   let element: UUITabElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-tab label="My label">Hello uui-tab</uui-tab> `
-    );
+    element = await fixture(html`
+      <uui-tab label="My label">Hello uui-tab</uui-tab>
+    `);
   });
 
   it('is defined as its own instance', () => {
@@ -90,10 +90,10 @@ describe('UuiTab', () => {
       element = await fixture(
         html`<uui-tab
           label="menuitem"
-          href="https://www.umbraco.com"></uui-tab>`
+          href="https://www.umbraco.com"></uui-tab>`,
       );
       anchorElement = element.shadowRoot!.querySelector(
-        '#button'
+        '#button',
       ) as HTMLElement;
     });
 
@@ -117,7 +117,7 @@ describe('UuiTab', () => {
       await elementUpdated(element);
       expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
       expect(anchorElement.getAttribute('rel')).to.be.equal(
-        'noopener noreferrer'
+        'noopener noreferrer',
       );
     });
   });

@@ -9,9 +9,9 @@ describe('UUIModalContainerElement', () => {
   let element: UUIModalContainerElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-modal-container></uui-modal-container> `
-    );
+    element = await fixture(html`
+      <uui-modal-container></uui-modal-container>
+    `);
   });
 
   it('is defined with its own instance', () => {

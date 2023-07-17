@@ -87,13 +87,9 @@ describe('UUIIconElement', () => {
     let element: UUIIconElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <uui-icon
-            name="not_existing"
-            .fallback=${TEST_FALLBACK_SVG}></uui-icon>
-        `
-      );
+      element = await fixture(html`
+        <uui-icon name="not_existing" .fallback=${TEST_FALLBACK_SVG}></uui-icon>
+      `);
     });
 
     it('contains svg of icon', () => {
@@ -109,18 +105,16 @@ describe('UUIIconElement', () => {
     let element: UUIIconElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <uui-icon>
-            <svg
-              slot="fallback"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512">
-              <rect width="512" height="512" fill="red"></rect>
-            </svg>
-          </uui-icon>
-        `
-      );
+      element = await fixture(html`
+        <uui-icon>
+          <svg
+            slot="fallback"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512">
+            <rect width="512" height="512" fill="red"></rect>
+          </svg>
+        </uui-icon>
+      `);
     });
 
     it('renders a fallback slot', () => {
@@ -136,18 +130,16 @@ describe('UUIIconElement', () => {
     let element: UUIIconElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <uui-icon name="not_existing">
-            <svg
-              name="fallback"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512">
-              <rect width="512" height="512" fill="red"></rect>
-            </svg>
-          </uui-icon>
-        `
-      );
+      element = await fixture(html`
+        <uui-icon name="not_existing">
+          <svg
+            name="fallback"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512">
+            <rect width="512" height="512" fill="red"></rect>
+          </svg>
+        </uui-icon>
+      `);
     });
 
     it('renders a fallback slot', () => {
@@ -165,14 +157,14 @@ describe('UUIIconElement', () => {
     let iconElement: UUIIconElement;
 
     beforeEach(async () => {
-      registryElement = await fixture(
-        html` <uui-icon-registry></uui-icon-registry> `
-      );
+      registryElement = await fixture(html`
+        <uui-icon-registry></uui-icon-registry>
+      `);
       registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
-      iconElement = await fixture(
-        html` <uui-icon name="testIcon"></uui-icon> `
-      );
+      iconElement = await fixture(html`
+        <uui-icon name="testIcon"></uui-icon>
+      `);
       registryElement.appendChild(iconElement);
 
       await elementUpdated(iconElement);
@@ -205,12 +197,12 @@ describe('UUIIconElement', () => {
 
     beforeEach(async () => {
       registryElement = await fixture(
-        html`<uui-icon-registry></uui-icon-registry>`
+        html`<uui-icon-registry></uui-icon-registry>`,
       );
       registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
       testElement = await fixture(
-        html`<uui-test-shadow-dom></uui-test-shadow-dom>`
+        html`<uui-test-shadow-dom></uui-test-shadow-dom>`,
       );
       registryElement.appendChild(testElement);
 

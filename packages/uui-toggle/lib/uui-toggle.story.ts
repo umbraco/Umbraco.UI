@@ -27,22 +27,21 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props =>
-  html`
-    <uui-toggle
-      style="--uui-toggle-size: ${props[
-        '--uui-toggle-size'
-      ]}; --uui-toggle-switch-width: ${props['--uui-toggle-switch-width']};"
-      .value=${props.value}
-      .name=${props.name}
-      .error=${props.error}
-      .label=${props.label}
-      .labelPosition=${props.labelPosition}
-      ?disabled=${props.disabled}
-      ?checked=${props.checked}
-      >${props.slot}</uui-toggle
-    >
-  `;
+export const AAAOverview: Story = props => html`
+  <uui-toggle
+    style="--uui-toggle-size: ${props[
+      '--uui-toggle-size'
+    ]}; --uui-toggle-switch-width: ${props['--uui-toggle-switch-width']};"
+    .value=${props.value}
+    .name=${props.name}
+    .error=${props.error}
+    .label=${props.label}
+    .labelPosition=${props.labelPosition}
+    ?disabled=${props.disabled}
+    ?checked=${props.checked}
+    >${props.slot}</uui-toggle
+  >
+`;
 AAAOverview.storyName = 'Overview';
 
 AAAOverview.args = { label: 'label' };
@@ -60,21 +59,20 @@ AAAOverview.parameters = {
   },
 };
 
-export const Error: Story = props =>
-  html`
-    <uui-toggle ?error=${props.error} label="Error"></uui-toggle><br />
-    <uui-toggle ?error=${props.error} label="Error checked" checked></uui-toggle
-    ><br /><uui-toggle
-      disabled
-      ?error=${props.error}
-      label="Disabled Error"></uui-toggle
-    ><br />
-    <uui-toggle
-      disabled
-      checked
-      ?error=${props.error}
-      label="Disabled Error Checked"></uui-toggle>
-  `;
+export const Error: Story = props => html`
+  <uui-toggle ?error=${props.error} label="Error"></uui-toggle><br />
+  <uui-toggle ?error=${props.error} label="Error checked" checked></uui-toggle
+  ><br /><uui-toggle
+    disabled
+    ?error=${props.error}
+    label="Disabled Error"></uui-toggle
+  ><br />
+  <uui-toggle
+    disabled
+    checked
+    ?error=${props.error}
+    label="Disabled Error Checked"></uui-toggle>
+`;
 Error.args = { error: true };
 Error.parameters = {
   controls: { include: ['error'] },
@@ -88,12 +86,11 @@ Error.parameters = {
   },
 };
 
-export const WithSlottedLabel: Story = props =>
-  html`
-    <uui-toggle label="Toggle label" ?checked=${props.checked} value="toggle"
-      >Using <b>Slot</b> for displayed label</uui-toggle
-    >
-  `;
+export const WithSlottedLabel: Story = props => html`
+  <uui-toggle label="Toggle label" ?checked=${props.checked} value="toggle"
+    >Using <b>Slot</b> for displayed label</uui-toggle
+  >
+`;
 WithSlottedLabel.parameters = {
   controls: { include: ['checked'] },
   docs: {

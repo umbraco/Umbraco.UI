@@ -14,9 +14,9 @@ describe('UUIPaginationElement', () => {
   let element: UUIPaginationElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-pagination .total=${30}></uui-pagination> `
-    );
+    element = await fixture(html`
+      <uui-pagination .total=${30}></uui-pagination>
+    `);
   });
 
   // it('shows the correct number of pages', async () => {
@@ -161,9 +161,9 @@ describe('UUIPaginationElement', () => {
   });
 
   it('shows the dots when more pages than visible', async () => {
-    element = await fixture(
-      html` <uui-pagination .total=${30}></uui-pagination> `
-    );
+    element = await fixture(html`
+      <uui-pagination .total=${30}></uui-pagination>
+    `);
 
     const children = element.shadowRoot?.querySelector('#pages')?.children;
     const arr = [].slice.call(children);
@@ -174,9 +174,9 @@ describe('UUIPaginationElement', () => {
   });
 
   it('hides the dots when only one page', async () => {
-    element = await fixture(
-      html` <uui-pagination .total=${1}></uui-pagination> `
-    );
+    element = await fixture(html`
+      <uui-pagination .total=${1}></uui-pagination>
+    `);
 
     const children = element.shadowRoot?.querySelector('#pages')?.children;
     const arr = [].slice.call(children);

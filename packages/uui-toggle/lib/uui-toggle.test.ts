@@ -13,9 +13,9 @@ describe('UuiToggle', () => {
   let element: UUIToggleElement;
   let input: HTMLInputElement;
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-toggle label="test label" name="test"></uui-toggle> `
-    );
+    element = await fixture(html`
+      <uui-toggle label="test label" name="test"></uui-toggle>
+    `);
     input = element.shadowRoot?.querySelector('#input') as HTMLInputElement;
   });
 

@@ -24,37 +24,36 @@ export default {
   },
 } as Meta;
 
-export const AAAOverview: Story = props =>
-  html`
-    <uui-table
-      aria-label="Random Umbraco Words"
-      aria-describedby="table-description">
-      <uui-table-column style="background-color: ${props.backgroundColor1}">
-      </uui-table-column>
-      <uui-table-column
-        style="width: 40%; background-color: ${props.backgroundColor2}">
-      </uui-table-column>
-      <uui-table-column
-        style="width: 40%; background-color: ${props.backgroundColor3}">
-      </uui-table-column>
-      <uui-table-head
-        style="background-color: ${props.headBackgroundColor}; color: ${props.headColor}">
-        ${ArrayOfUmbracoWords(3).map(
-          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
-        )}
-      </uui-table-head>
-      <uui-table-row>
-        ${ArrayOfUmbracoWords(3).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
-        )}
-      </uui-table-row>
-      <uui-table-row>
-        ${ArrayOfUmbracoWords(3).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
-        )}
-      </uui-table-row>
-    </uui-table>
-  `;
+export const AAAOverview: Story = props => html`
+  <uui-table
+    aria-label="Random Umbraco Words"
+    aria-describedby="table-description">
+    <uui-table-column style="background-color: ${props.backgroundColor1}">
+    </uui-table-column>
+    <uui-table-column
+      style="width: 40%; background-color: ${props.backgroundColor2}">
+    </uui-table-column>
+    <uui-table-column
+      style="width: 40%; background-color: ${props.backgroundColor3}">
+    </uui-table-column>
+    <uui-table-head
+      style="background-color: ${props.headBackgroundColor}; color: ${props.headColor}">
+      ${ArrayOfUmbracoWords(3).map(
+        el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`,
+      )}
+    </uui-table-head>
+    <uui-table-row>
+      ${ArrayOfUmbracoWords(3).map(
+        el => html`<uui-table-cell>${el}</uui-table-cell>`,
+      )}
+    </uui-table-row>
+    <uui-table-row>
+      ${ArrayOfUmbracoWords(3).map(
+        el => html`<uui-table-cell>${el}</uui-table-cell>`,
+      )}
+    </uui-table-row>
+  </uui-table>
+`;
 AAAOverview.storyName = 'Overview';
 
 AAAOverview.args = {
@@ -129,34 +128,33 @@ AAAOverview.parameters = {
   },
 };
 
-export const OverflowDetection: Story = () =>
-  html`
-    <h5>
-      Overflowing text is indicated by three dots. <br />
-      Hover over wrapped cells to see a title with full text
-    </h5>
-    <div style="width: 30%;">
-      <uui-table>
-        <uui-table-column
-          style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
-        <uui-table-head>
-          ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
-          )}
-        </uui-table-head>
-        <uui-table-row>
-          ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-        <uui-table-row>
-          ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-      </uui-table>
-    </div>
-  `;
+export const OverflowDetection: Story = () => html`
+  <h5>
+    Overflowing text is indicated by three dots. <br />
+    Hover over wrapped cells to see a title with full text
+  </h5>
+  <div style="width: 30%;">
+    <uui-table>
+      <uui-table-column
+        style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
+      <uui-table-head>
+        ${ArrayOfUmbracoWords(7).map(
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`,
+        )}
+      </uui-table-head>
+      <uui-table-row>
+        ${ArrayOfUmbracoWords(7).map(
+          el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`,
+        )}
+      </uui-table-row>
+      <uui-table-row>
+        ${ArrayOfUmbracoWords(7).map(
+          el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`,
+        )}
+      </uui-table-row>
+    </uui-table>
+  </div>
+`;
 
 OverflowDetection.parameters = {
   docs: {
@@ -184,28 +182,27 @@ OverflowDetection.parameters = {
   },
 };
 
-export const InABox: Story = () =>
-  html`
-    <uui-box style="--uui-box-default-padding: 0;">
-      <uui-table>
-        <uui-table-head>
-          ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
-          )}
-        </uui-table-head>
-        <uui-table-row>
-          ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-        <uui-table-row>
-          ${ArrayOfUmbracoWords(7).map(
-            el => html`<uui-table-cell>${el}</uui-table-cell>`
-          )}
-        </uui-table-row>
-      </uui-table>
-    </uui-box>
-  `;
+export const InABox: Story = () => html`
+  <uui-box style="--uui-box-default-padding: 0;">
+    <uui-table>
+      <uui-table-head>
+        ${ArrayOfUmbracoWords(7).map(
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`,
+        )}
+      </uui-table-head>
+      <uui-table-row>
+        ${ArrayOfUmbracoWords(7).map(
+          el => html`<uui-table-cell>${el}</uui-table-cell>`,
+        )}
+      </uui-table-row>
+      <uui-table-row>
+        ${ArrayOfUmbracoWords(7).map(
+          el => html`<uui-table-cell>${el}</uui-table-cell>`,
+        )}
+      </uui-table-row>
+    </uui-table>
+  </uui-box>
+`;
 
 InABox.parameters = {
   docs: {

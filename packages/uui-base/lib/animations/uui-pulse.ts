@@ -23,5 +23,5 @@ export const UUIHorizontalPulseKeyframes = css`
 `;
 
 export const UUIHorizontalPulseAnimationValue = unsafeCSS(
-  'pulse 0.8s ease-in-out infinite both'
+  'pulse 0.8s ease-in-out infinite both',
 );

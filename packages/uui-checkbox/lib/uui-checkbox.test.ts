@@ -14,9 +14,9 @@ describe('UuiToggle', () => {
   let iconCheck: HTMLElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-checkbox label="test label" name="test"></uui-checkbox> `
-    );
+    element = await fixture(html`
+      <uui-checkbox label="test label" name="test"></uui-checkbox>
+    `);
     input = element.shadowRoot?.querySelector('#input') as HTMLInputElement;
     iconCheck = element.shadowRoot?.querySelector('#icon-check') as HTMLElement;
   });
