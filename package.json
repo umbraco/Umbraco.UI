@@ -19,8 +19,8 @@
     "custom-elements"
   ],
   "scripts": {
-    "lint:eslint": "eslint --ext .ts,.html,.mjs,.cjs . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .ts,.html,.mjs,.cjs . --fix --ignore-path .gitignore",
+    "lint:eslint": "eslint ./packages --ignore-path .gitignore",
+    "format:eslint": "eslint ./packages --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\" --check --ignore-path .gitignore",
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\"  --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
@@ -60,11 +60,11 @@
   },
   "devDependencies": {
     "@babel/core": "7.21.8",
-    "@lerna-lite/cli": "2.4.0",
-    "@lerna-lite/exec": "2.4.0",
-    "@lerna-lite/publish": "2.4.0",
-    "@lerna-lite/run": "2.4.0",
-    "@lerna-lite/version": "2.4.0",
+    "@lerna-lite/cli": "2.5.0",
+    "@lerna-lite/exec": "2.5.0",
+    "@lerna-lite/publish": "2.5.0",
+    "@lerna-lite/run": "2.5.0",
+    "@lerna-lite/version": "2.5.0",
     "@open-wc/testing": "3.1.8",
     "@rollup/plugin-node-resolve": "15.1.0",
     "@storybook/addon-a11y": "7.0.27",
@@ -90,8 +90,9 @@
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-lit": "1.8.3",
-    "eslint-plugin-lit-a11y": "2.4.1",
+    "eslint-plugin-lit-a11y": "4.1.0",
     "eslint-plugin-storybook": "0.6.12",
+    "eslint-plugin-wc": "1.5.0",
     "github-markdown-css": "5.2.0",
     "glob": "8.0.3",
     "husky": "8.0.3",
@@ -108,7 +109,7 @@
     "postcss-syntax": "0.36.2",
     "postcss-url": "10.1.3",
     "postcss-values-parser": "6.0.2",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "raw-loader": "4.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -122,7 +123,7 @@
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
     "storybook": "7.0.27",
-    "tsc-files": "1.1.3",
+    "tsc-files": "1.1.4",
     "turbo": "1.9.3",
     "typescript": "5.0.4",
     "vite": "4.4.4",
@@ -133,8 +134,10 @@
     "./packages/*"
   ],
   "lint-staged": {
-    "*.ts": "tsc-files --project tsconfig-lint-staged.json",
-    "*.{js,ts,mjs,cjs,html}": "eslint --cache --fix -c .eslintrc.js",
+    "*.ts": [
+      "tsc-files --project tsconfig.lint-staged.json",
+      "eslint --cache --fix -c .eslintrc.js"
+    ],
     "*": "prettier --ignore-unknown --write"
   },
   "storybook": {
