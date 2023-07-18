@@ -4,16 +4,13 @@ changelog:
   exclude:
     labels:
       - ignore-for-release
-      - dependencies
       - duplicate
       - wontfix
-    authors:
-      - dependabot
   categories:
     - title: 💥 Breaking Changes
       labels:
         - breaking
-    - title: 🚀  New Features
+    - title: 🚀 New Features
       labels:
         - feature
         - enhancement
@@ -23,6 +20,12 @@ changelog:
     - title: 🏠 Internal
       labels:
         - internal
+    - title: 📦 Dependencies
+      labels:
+        - dependencies
+    - title: 📄 Documentation
+      labels:
+        - documentation
     - title: Other Changes
       labels:
         - '*'
