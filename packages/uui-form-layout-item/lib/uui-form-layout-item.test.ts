@@ -7,9 +7,9 @@ describe('UUIFormLayoutItemElement', () => {
   let element: UUIFormLayoutItemElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-form-layout-item></uui-form-layout-item> `
-    );
+    element = await fixture(html`
+      <uui-form-layout-item></uui-form-layout-item>
+    `);
   });
 
   it('is defined', () => {

@@ -13,12 +13,10 @@ describe('UUIRefNodeDocumentTypeElement', () => {
   let element: UUIRefNodeDocumentTypeElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-ref-node-document-type
-          name="Document Type"></uui-ref-node-document-type>
-      `
-    );
+    element = await fixture(html`
+      <uui-ref-node-document-type
+        name="Document Type"></uui-ref-node-document-type>
+    `);
   });
 
   it('passes the a11y audit', async () => {

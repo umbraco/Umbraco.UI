@@ -1,6 +1,6 @@
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
 import { UUISelectEvent } from './UUISelectEvent';
@@ -259,26 +259,27 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   }
 
   private _renderGrouped() {
-    if (this._groups.length === 0) return html``;
+    if (this._groups.length === 0) return nothing;
 
     return html`
       ${this._groups.map(
-        group => html`<optgroup
-          label=${group}
-          ?disabled=${this._disabledGroups.some(
-            disabled => disabled.toLowerCase() === group.toLowerCase()
-          )}>
-          ${this.options.map(option =>
-            option.group === group
-              ? this._renderOption(
-                  option.name,
-                  option.value,
-                  option.selected,
-                  option.disabled
-                )
-              : ''
-          )}
-        </optgroup>`
+        group =>
+          html`<optgroup
+            label=${group}
+            ?disabled=${this._disabledGroups.some(
+              disabled => disabled.toLowerCase() === group.toLowerCase()
+            )}>
+            ${this.options.map(option =>
+              option.group === group
+                ? this._renderOption(
+                    option.name,
+                    option.value,
+                    option.selected,
+                    option.disabled
+                  )
+                : ''
+            )}
+          </optgroup>`
       )}
     `;
   }

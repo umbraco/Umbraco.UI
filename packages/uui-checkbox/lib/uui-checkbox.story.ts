@@ -33,20 +33,19 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props =>
-  html`
-    <uui-checkbox
-      style="--uui-checkbox-size: ${props['--uui-checkbox-size']}"
-      .value=${props.value}
-      .name=${props.name}
-      .error=${props.error}
-      .label=${props.label}
-      .labelPosition=${props.labelPosition}
-      ?disabled=${props.disabled}
-      ?checked=${props.checked}
-      >${props.slot}</uui-checkbox
-    >
-  `;
+export const AAAOverview: Story = props => html`
+  <uui-checkbox
+    style="--uui-checkbox-size: ${props['--uui-checkbox-size']}"
+    .value=${props.value}
+    .name=${props.name}
+    .error=${props.error}
+    .label=${props.label}
+    .labelPosition=${props.labelPosition}
+    ?disabled=${props.disabled}
+    ?checked=${props.checked}
+    >${props.slot}</uui-checkbox
+  >
+`;
 AAAOverview.args = { label: 'label' };
 AAAOverview.storyName = 'Overview';
 
@@ -87,15 +86,14 @@ Error.parameters = {
   },
 };
 
-export const WithSlottedLabel: Story = props =>
-  html`
-    <uui-checkbox
-      .label=${'Checkbox label'}
-      ?checked=${props.checked}
-      value="checkbox"
-      >Using <b>Slot</b> to display label
-    </uui-checkbox>
-  `;
+export const WithSlottedLabel: Story = props => html`
+  <uui-checkbox
+    .label=${'Checkbox label'}
+    ?checked=${props.checked}
+    value="checkbox"
+    >Using <b>Slot</b> to display label
+  </uui-checkbox>
+`;
 WithSlottedLabel.parameters = {
   controls: { include: ['checked'] },
   docs: {

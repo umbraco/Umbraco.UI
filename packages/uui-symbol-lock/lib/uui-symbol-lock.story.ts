@@ -18,14 +18,13 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
-  html`
-    <uui-symbol-lock
-      ?open=${props.open}
-      @click=${(e: MouseEvent) => {
-        (e.target as any).open = !(e.target as any).open;
-      }}></uui-symbol-lock>
-  `;
+export const Overview: Story = props => html`
+  <uui-symbol-lock
+    ?open=${props.open}
+    @click=${(e: MouseEvent) => {
+      (e.target as any).open = !(e.target as any).open;
+    }}></uui-symbol-lock>
+`;
 Overview.parameters = {
   docs: {
     source: {

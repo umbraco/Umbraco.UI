@@ -120,13 +120,11 @@ describe('UuiInputElement', () => {
         expect(event!.target).to.equal(element);
       });
       it('change event bubbles up to a parent element', async () => {
-        const outerElement = await fixture(
-          html`
-            <uui-input label="label" id="outer">
-              <uui-input label="label" id="inner" slot="prepend"></uui-input>
-            </uui-input>
-          `
-        );
+        const outerElement = await fixture(html`
+          <uui-input label="label" id="outer">
+            <uui-input label="label" id="inner" slot="prepend"></uui-input>
+          </uui-input>
+        `);
 
         const innerElement = outerElement.querySelector('#inner');
         let outerEventTriggered = false;
@@ -180,14 +178,12 @@ describe('UuiInput in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUIInputElement;
   beforeEach(async () => {
-    formElement = await fixture(
-      html`
-        <form @submit=${preventSubmit}>
-          <uui-input label="a input label" name="input" value="Hello uui-input">
-          </uui-input>
-        </form>
-      `
-    );
+    formElement = await fixture(html`
+      <form @submit=${preventSubmit}>
+        <uui-input label="a input label" name="input" value="Hello uui-input">
+        </uui-input>
+      </form>
+    `);
     element = formElement.querySelector('uui-input') as UUIInputElement;
   });
 

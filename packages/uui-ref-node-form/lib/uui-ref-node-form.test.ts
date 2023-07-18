@@ -13,9 +13,9 @@ describe('UUIRefNodeFormElement', () => {
   let element: UUIRefNodeFormElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-ref-node-form name="Form"></uui-ref-node-form> `
-    );
+    element = await fixture(html`
+      <uui-ref-node-form name="Form"></uui-ref-node-form>
+    `);
   });
 
   it('passes the a11y audit', async () => {

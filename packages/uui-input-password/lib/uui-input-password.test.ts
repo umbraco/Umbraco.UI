@@ -9,9 +9,9 @@ describe('UUIInputPasswordElement', () => {
   let element: UUIInputPasswordElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-input-password label="label"></uui-input-password> `
-    );
+    element = await fixture(html`
+      <uui-input-password label="label"></uui-input-password>
+    `);
   });
 
   it('passes the a11y audit', async () => {

@@ -180,13 +180,12 @@ const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 export const Listed: Story = () => html`
   <uui-ref-list style="max-width: 420px;">
     ${listOfNodeNames.map(
-      name => html`<uui-ref-node-data-type
-        name=${name}
-        alias="Umbraco.TextField">
-        <uui-action-bar slot="actions">
-          <uui-button label="Remove">Remove</uui-button>
-        </uui-action-bar>
-      </uui-ref-node-data-type>`
+      name =>
+        html`<uui-ref-node-data-type name=${name} alias="Umbraco.TextField">
+          <uui-action-bar slot="actions">
+            <uui-button label="Remove">Remove</uui-button>
+          </uui-action-bar>
+        </uui-ref-node-data-type>`
     )}
   </uui-ref-list>
 `;

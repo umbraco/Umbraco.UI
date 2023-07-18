@@ -60,14 +60,13 @@ function closeToast() {
   }
 }
 
-export const Overview: Story = () =>
-  html`
-    <button @click=${addToast}>Open</button>
-    <button @click=${removeToast}>Remove one</button>
-    <button @click=${closeToast}>Close one</button>
+export const Overview: Story = () => html`
+  <button @click=${addToast}>Open</button>
+  <button @click=${removeToast}>Remove one</button>
+  <button @click=${closeToast}>Close one</button>
 
-    <uui-toast-notification-container
-      auto-close="7000"
-      bottom-up
-      style="top:0; left:0; right:0; height: 100vh; padding: var(--uui-size-layout-1);"></uui-toast-notification-container>
-  `;
+  <uui-toast-notification-container
+    auto-close="7000"
+    bottom-up
+    style="top:0; left:0; right:0; height: 100vh; padding: var(--uui-size-layout-1);"></uui-toast-notification-container>
+`;

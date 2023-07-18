@@ -24,9 +24,9 @@ describe('UUIToastNotificationElement', () => {
   let element: UUIToastNotificationElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-toast-notification></uui-toast-notification> `
-    );
+    element = await fixture(html`
+      <uui-toast-notification></uui-toast-notification>
+    `);
     element.style.setProperty(
       '--uui-toast-notification-animation-duration',
       ANIMATION_DURATION + 'ms'

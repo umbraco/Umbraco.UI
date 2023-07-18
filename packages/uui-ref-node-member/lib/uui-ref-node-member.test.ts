@@ -13,9 +13,9 @@ describe('UUIRefNodeMemberElement', () => {
   let element: UUIRefNodeMemberElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-ref-node-member name="Member"></uui-ref-node-member> `
-    );
+    element = await fixture(html`
+      <uui-ref-node-member name="Member"></uui-ref-node-member>
+    `);
   });
 
   it('passes the a11y audit', async () => {

@@ -28,7 +28,7 @@ const RenderStepValues = (
   stepWidth: number,
   hide: boolean
 ) => {
-  if (hide) return html``;
+  if (hide) return nothing;
 
   return html`<div id="step-values">
     ${steps.map(

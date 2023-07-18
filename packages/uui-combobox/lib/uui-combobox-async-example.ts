@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 interface Fruit {
@@ -74,7 +74,7 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
   render() {
     return html`
       <uui-combobox @search="${this._handleSearch}">
-        ${this._loading ? html`<uui-loader id="loader"></uui-loader>` : html``}
+        ${this._loading ? html`<uui-loader id="loader"></uui-loader>` : nothing}
         ${this._filterValue === '' && this._loading === false
           ? html`<div class="help">Search for a fruit...</div>`
           : ''}

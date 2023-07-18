@@ -19,14 +19,12 @@ describe('UuiButton', () => {
   let button: HTMLButtonElement;
 
   beforeEach(async () => {
-    formElement = await fixture(
-      html`
-        <form action="">
-          <input type="text" name="test" value="" />
-          <uui-button label="My label">Hello uui-button</uui-button>
-        </form>
-      `
-    );
+    formElement = await fixture(html`
+      <form action="">
+        <input type="text" name="test" value="" />
+        <uui-button label="My label">Hello uui-button</uui-button>
+      </form>
+    `);
 
     inputElement = formElement.querySelector('input') as any;
     element = formElement.querySelector('uui-button') as any;

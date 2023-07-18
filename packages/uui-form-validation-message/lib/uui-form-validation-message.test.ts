@@ -46,18 +46,16 @@ describe('UUIFormValidationMessageElement', () => {
     let input: UUIInputElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`
-          <form>
-            <uui-form-validation-message>
-              <uui-input
-                label="Label"
-                required
-                required-message="MyRequiredMessage"></uui-input>
-            </uui-form-validation-message>
-          </form>
-        `
-      );
+      element = await fixture(html`
+        <form>
+          <uui-form-validation-message>
+            <uui-input
+              label="Label"
+              required
+              required-message="MyRequiredMessage"></uui-input>
+          </uui-form-validation-message>
+        </form>
+      `);
       await elementUpdated(element);
       validationEl = element.querySelector(
         'uui-form-validation-message'
@@ -80,20 +78,18 @@ describe('UUIFormValidationMessageElement', () => {
         let input: UUIInputElement;
 
         beforeEach(async () => {
-          element = await fixture(
-            html`
-              <form>
-                <div id="MyMessageScope">
-                  <uui-input
-                    label="Label"
-                    required
-                    required-message="MyRequiredMessage"></uui-input>
-                </div>
-                <uui-form-validation-message for="MyMessageScope">
-                </uui-form-validation-message>
-              </form>
-            `
-          );
+          element = await fixture(html`
+            <form>
+              <div id="MyMessageScope">
+                <uui-input
+                  label="Label"
+                  required
+                  required-message="MyRequiredMessage"></uui-input>
+              </div>
+              <uui-form-validation-message for="MyMessageScope">
+              </uui-form-validation-message>
+            </form>
+          `);
           await elementUpdated(element);
           validationEl = element.querySelector(
             'uui-form-validation-message'

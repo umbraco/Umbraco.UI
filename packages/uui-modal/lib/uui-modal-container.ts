@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, PropertyValueMap, css, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { UUIModalSidebarElement } from './uui-modal-sidebar.element';
 import { UUIModalElement } from './uui-modal.element';
@@ -22,6 +22,13 @@ export class UUIModalContainerElement extends LitElement {
   constructor() {
     super();
     this.addEventListener('close', this.#onClose);
+  }
+
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+
     this.style.setProperty(
       '--uui-modal-transition-duration',
       this.transitionDurationMS + 'ms'

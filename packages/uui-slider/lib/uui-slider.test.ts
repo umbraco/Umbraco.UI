@@ -20,9 +20,9 @@ describe('UuiSlider', () => {
   let input: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-slider label="a slider label"></uui-slider> `
-    );
+    element = await fixture(html`
+      <uui-slider label="a slider label"></uui-slider>
+    `);
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
 

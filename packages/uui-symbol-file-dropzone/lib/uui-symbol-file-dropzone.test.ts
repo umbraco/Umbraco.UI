@@ -6,9 +6,9 @@ describe('UUISymbolFileDropzoneElement', () => {
   let element: UUISymbolFileDropzoneElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-symbol-file-dropzone></uui-symbol-file-dropzone> `
-    );
+    element = await fixture(html`
+      <uui-symbol-file-dropzone></uui-symbol-file-dropzone>
+    `);
   });
 
   it('is defined with its own instance', () => {

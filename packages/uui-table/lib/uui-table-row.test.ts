@@ -14,15 +14,13 @@ describe('UuiTableRow', () => {
   let tableElement: HTMLElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-table-row>
-          <uui-table-cell>Cell 1</uui-table-cell>
-          <uui-table-cell>Cell 2</uui-table-cell>
-          <uui-table-cell>Cell 3</uui-table-cell>
-        </uui-table-row>
-      `
-    );
+    element = await fixture(html`
+      <uui-table-row>
+        <uui-table-cell>Cell 1</uui-table-cell>
+        <uui-table-cell>Cell 2</uui-table-cell>
+        <uui-table-cell>Cell 3</uui-table-cell>
+      </uui-table-row>
+    `);
 
     tableElement = await fixture(html` <uui-table> ${element} </uui-table> `);
   });

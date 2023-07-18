@@ -17,9 +17,9 @@ describe('UUICardUserElement', () => {
   let element: UUICardUserElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-card-user name="John Rabbit"></uui-card-user> `
-    );
+    element = await fixture(html`
+      <uui-card-user name="John Rabbit"></uui-card-user>
+    `);
   });
 
   it('passes the a11y audit', async () => {

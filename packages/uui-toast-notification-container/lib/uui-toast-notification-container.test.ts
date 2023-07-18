@@ -26,19 +26,17 @@ describe('UUIToastNotificationContainerElement', () => {
   let toastElement: UUIToastNotificationElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-toast-notification-container></uui-toast-notification-container>
-      `
-    );
+    element = await fixture(html`
+      <uui-toast-notification-container></uui-toast-notification-container>
+    `);
     // Set the prop on the container, we will use it to test that it inherits to the children.
     element.style.setProperty(
       '--uui-toast-notification-animation-duration',
       ANIMATION_DURATION + 'ms'
     );
-    toastElement = await fixture(
-      html` <uui-toast-notification></uui-toast-notification> `
-    );
+    toastElement = await fixture(html`
+      <uui-toast-notification></uui-toast-notification>
+    `);
   });
 
   it('passes the a11y audit', async () => {

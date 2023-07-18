@@ -6,12 +6,10 @@ describe('UUIButtonInlineCreateElement', () => {
   let element: UUIButtonInlineCreateElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-button-inline-create
-          label="Create something here"></uui-button-inline-create>
-      `
-    );
+    element = await fixture(html`
+      <uui-button-inline-create
+        label="Create something here"></uui-button-inline-create>
+    `);
   });
 
   it('passes the a11y audit', async () => {

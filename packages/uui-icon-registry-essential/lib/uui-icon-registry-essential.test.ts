@@ -7,9 +7,9 @@ describe('UUIIconRegistryEssentialElement', () => {
   let element: UUIIconRegistryEssentialElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-icon-registry-essential></uui-icon-registry-essential> `
-    );
+    element = await fixture(html`
+      <uui-icon-registry-essential></uui-icon-registry-essential>
+    `);
   });
 
   it('passes the a11y audit', async () => {

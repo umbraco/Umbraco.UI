@@ -177,13 +177,14 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   private async _readEntriesPromise(
     directoryReader: FileSystemDirectoryReader
   ) {
-    try {
-      return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+      try {
         directoryReader.readEntries(resolve, reject);
-      });
-    } catch (err) {
-      console.log(err);
-    }
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
   }
 
   private _isAccepted(file: File) {

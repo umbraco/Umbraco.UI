@@ -9,9 +9,9 @@ describe('UUIInputLockElement', () => {
   let element: UUIInputLockElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-input-lock label="Input label"></uui-input-lock> `
-    );
+    element = await fixture(html`
+      <uui-input-lock label="Input label"></uui-input-lock>
+    `);
   });
 
   it('is defined with its own instance', () => {

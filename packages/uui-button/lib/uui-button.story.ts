@@ -253,12 +253,12 @@ export const LooksAndColors: Story = props => html`
   >
   <h4>Looks and colors</h4>
   ${colors.map(
-    color =>
-      html`
-        <h5>${uppercaseFirstLetter(color)}</h5>
-        <div style="margin-bottom: 32px">
-          ${looks.map(
-            look => html` <uui-button
+    color => html`
+      <h5>${uppercaseFirstLetter(color)}</h5>
+      <div style="margin-bottom: 32px">
+        ${looks.map(
+          look =>
+            html` <uui-button
               type=${props.type}
               .look=${look as any}
               .color=${color as any}
@@ -269,9 +269,9 @@ export const LooksAndColors: Story = props => html`
               style="margin-right:12px;"
               >${uppercaseFirstLetter(look)}</uui-button
             >`
-          )}
-        </div>
-      `
+        )}
+      </div>
+    `
   )}
 `;
 LooksAndColors.args = { label: 'Button', look: 'default', color: 'default' };

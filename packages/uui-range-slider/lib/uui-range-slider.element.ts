@@ -1023,7 +1023,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         return html`<span><span>${stepValue}</span></span>`;
       })}`;
     } else {
-      return html``;
+      return nothing;
     }
   }
 }

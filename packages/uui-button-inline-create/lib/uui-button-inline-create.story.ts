@@ -43,22 +43,23 @@ const insertBox = (e: any) => {
   e.target.parentElement.insertAdjacentElement('afterend', div);
 };
 
-const createBox = (vertical: boolean) => html` <div style="position:relative;">
-  <div
-    style="
+const createBox = (vertical: boolean) =>
+  html` <div style="position:relative;">
+    <div
+      style="
       ${vertical
-      ? 'display: grid; grid-template-columns: 1fr auto'
-      : 'display:block;'}
+        ? 'display: grid; grid-template-columns: 1fr auto'
+        : 'display:block;'}
       ">
-    <div style="padding: 10px; white-space: nowrap;">
-      ${GetRandomUmbracoWord()}
+      <div style="padding: 10px; white-space: nowrap;">
+        ${GetRandomUmbracoWord()}
+      </div>
     </div>
-  </div>
-  <uui-button-inline-create
-    style="${vertical ? 'position: absolute; right: 0; top:0;' : ''}"
-    ?vertical=${vertical}
-    @click=${insertBox}></uui-button-inline-create>
-</div>`;
+    <uui-button-inline-create
+      style="${vertical ? 'position: absolute; right: 0; top:0;' : ''}"
+      ?vertical=${vertical}
+      @click=${insertBox}></uui-button-inline-create>
+  </div>`;
 
 const createBoxes = (count: number, vertical = false) => {
   const boxes: TemplateResult<1>[] = [];

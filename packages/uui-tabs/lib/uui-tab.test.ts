@@ -6,9 +6,9 @@ describe('UuiTab', () => {
   let element: UUITabElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-tab label="My label">Hello uui-tab</uui-tab> `
-    );
+    element = await fixture(html`
+      <uui-tab label="My label">Hello uui-tab</uui-tab>
+    `);
   });
 
   it('is defined as its own instance', () => {

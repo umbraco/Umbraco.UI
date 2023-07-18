@@ -9,7 +9,7 @@ import {
   iconCheck,
   iconWrong,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
@@ -476,8 +476,8 @@ export class UUIButtonElement extends FormControlMixin(
     }
   }
 
-  protected renderState() {
-    let element = html``;
+  protected renderState(): TemplateResult | typeof nothing {
+    let element: TemplateResult;
     switch (this.state) {
       case 'waiting':
         demandCustomElement(this, 'uui-loader-circle');
@@ -496,7 +496,7 @@ export class UUIButtonElement extends FormControlMixin(
           .fallback=${iconWrong.strings[0]}></uui-icon>`;
         break;
       default:
-        return '';
+        return nothing;
     }
 
     return html`<div id="state">${element}</div>`;

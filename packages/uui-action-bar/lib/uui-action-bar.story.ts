@@ -43,12 +43,13 @@ export const AAAOverview: StoryFn = props => html`
   <uui-icon-registry-essential>
     <uui-action-bar
       >${buttons.map(
-        el => html` <uui-button
-          label="${el}"
-          look="${props.look}"
-          color="${props.color}">
-          <uui-icon name="${el}"></uui-icon>
-        </uui-button>`
+        el =>
+          html` <uui-button
+            label="${el}"
+            look="${props.look}"
+            color="${props.color}">
+            <uui-icon name="${el}"></uui-icon>
+          </uui-button>`
       )}
     </uui-action-bar>
   </uui-icon-registry-essential>
@@ -62,14 +63,15 @@ export const Single = () => {
   return html`
     <uui-icon-registry-essential>
       ${looks.map(
-        look => html`<div
-          style="display: grid; grid-template-columns: repeat( auto-fill, 120px ); gap: 16px; margin-bottom: 32px">
-          <uui-action-bar style="justify-self: left;">
-            <uui-button label="Delete" .look="${look as any}">
-              <uui-icon name="delete"></uui-icon>
-            </uui-button>
-          </uui-action-bar>
-        </div> `
+        look =>
+          html`<div
+            style="display: grid; grid-template-columns: repeat( auto-fill, 120px ); gap: 16px; margin-bottom: 32px">
+            <uui-action-bar style="justify-self: left;">
+              <uui-button label="Delete" .look="${look as any}">
+                <uui-icon name="delete"></uui-icon>
+              </uui-button>
+            </uui-action-bar>
+          </div> `
       )}
     </uui-icon-registry-essential>
   `;
@@ -89,12 +91,13 @@ export const LooksAndColors = () => {
               look => html`
                 <uui-action-bar
                   >${buttons.map(
-                    el => html` <uui-button
-                      label="${el}"
-                      .look="${look as any}"
-                      .color="${color as any}">
-                      <uui-icon name="${el}"></uui-icon>
-                    </uui-button>`
+                    el =>
+                      html` <uui-button
+                        label="${el}"
+                        .look="${look as any}"
+                        .color="${color as any}">
+                        <uui-icon name="${el}"></uui-icon>
+                      </uui-button>`
                   )}
                 </uui-action-bar>
               `

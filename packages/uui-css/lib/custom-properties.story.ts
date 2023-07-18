@@ -34,65 +34,67 @@ const copyToClipboard = (e: Event) => {
   }
 };
 
-const propertyColorTemplate = (property: any) => html` <uui-table-row>
-  <uui-table-cell
-    ><div
-      style="display: flex; justify-content: space-between; align-items: center;">
-      ${property.key}<uui-button
-        data-copy-to-clipboard=${property.key}
-        title="Copy custom property to clipboard"
-        label="Copy custom property to clipboard"
-        compact
-        >${copyIcon}</uui-button
-      >
-    </div></uui-table-cell
-  >
-  <uui-table-cell>
-    <div
-      style="display: flex; justify-content: space-between; align-items: center;">
-      <code>${property.value}</code
-      ><uui-button
-        data-copy-to-clipboard=${property.value}
-        title="Copy color value to clipboard"
-        label="Copy color value to clipboard"
-        compact
-        >${copyIcon}</uui-button
-      >
-    </div>
-  </uui-table-cell>
-  <uui-table-cell>
-    <div
-      style="background:var(${property.key}); width:60px; height:60px;"></div>
-  </uui-table-cell>
-</uui-table-row>`;
+const propertyColorTemplate = (property: any) =>
+  html` <uui-table-row>
+    <uui-table-cell
+      ><div
+        style="display: flex; justify-content: space-between; align-items: center;">
+        ${property.key}<uui-button
+          data-copy-to-clipboard=${property.key}
+          title="Copy custom property to clipboard"
+          label="Copy custom property to clipboard"
+          compact
+          >${copyIcon}</uui-button
+        >
+      </div></uui-table-cell
+    >
+    <uui-table-cell>
+      <div
+        style="display: flex; justify-content: space-between; align-items: center;">
+        <code>${property.value}</code
+        ><uui-button
+          data-copy-to-clipboard=${property.value}
+          title="Copy color value to clipboard"
+          label="Copy color value to clipboard"
+          compact
+          >${copyIcon}</uui-button
+        >
+      </div>
+    </uui-table-cell>
+    <uui-table-cell>
+      <div
+        style="background:var(${property.key}); width:60px; height:60px;"></div>
+    </uui-table-cell>
+  </uui-table-row>`;
 
-const propertySizeTemplate = (property: any) => html` <uui-table-row>
-  <uui-table-cell
-    ><div
-      style="display: flex; justify-content: space-between; align-items: center;">
-      ${property.key}<uui-button
-        data-copy-to-clipboard=${property.key}
-        title="Copy custom property to clipboard"
-        label="Copy custom property to clipboard"
-        compact
-        >${copyIcon}</uui-button
-      >
-    </div></uui-table-cell
-  >
-  <uui-table-cell>
-    <div
-      style="display: flex; justify-content: space-between; align-items: center;">
-      <code>${property.value}</code
-      ><uui-button
-        data-copy-to-clipboard=${property.value}
-        title="Copy size value to clipboard"
-        label="Copy size value to clipboard"
-        compact
-        >${copyIcon}</uui-button
-      >
-    </div>
-  </uui-table-cell>
-</uui-table-row>`;
+const propertySizeTemplate = (property: any) =>
+  html` <uui-table-row>
+    <uui-table-cell
+      ><div
+        style="display: flex; justify-content: space-between; align-items: center;">
+        ${property.key}<uui-button
+          data-copy-to-clipboard=${property.key}
+          title="Copy custom property to clipboard"
+          label="Copy custom property to clipboard"
+          compact
+          >${copyIcon}</uui-button
+        >
+      </div></uui-table-cell
+    >
+    <uui-table-cell>
+      <div
+        style="display: flex; justify-content: space-between; align-items: center;">
+        <code>${property.value}</code
+        ><uui-button
+          data-copy-to-clipboard=${property.value}
+          title="Copy size value to clipboard"
+          label="Copy size value to clipboard"
+          compact
+          >${copyIcon}</uui-button
+        >
+      </div>
+    </uui-table-cell>
+  </uui-table-row>`;
 
 export const InterfaceColors = () => {
   const base = [
