@@ -138,11 +138,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
         background-size: 10px 10px;
-        background-position:
-          0 0,
-          0 0,
-          -5px -5px,
-          5px 5px;
+        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
       }
 
       .color-picker__preview-color--copied {
@@ -350,7 +346,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const { r, g, b } = this._colord.toRgb();
     const hexa = this.setLetterCase(this._colord.toHex());
     const hex = this.setLetterCase(
-      hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa,
+      hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa
     );
 
     switch (formatToUse) {
@@ -379,7 +375,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     return clamp(
       ((((200 - this.saturation) * brightness) / 100) * 5) / 10,
       0,
-      100,
+      100
     );
   }
 
@@ -482,7 +478,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       this._previewButton.classList.add('color-picker__preview-color--copied');
       this._previewButton.addEventListener('animationend', () => {
         this._previewButton.classList.remove(
-          'color-picker__preview-color--copied',
+          'color-picker__preview-color--copied'
         );
       });
     });
@@ -536,7 +532,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this._syncValues();
 
     this.dispatchEvent(
-      new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
+      new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE)
     );
     return true;
   }
@@ -651,7 +647,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         swatch =>
           html`<uui-color-swatch
             label="${swatch}"
-            .value=${swatch}></uui-color-swatch>`,
+            .value=${swatch}></uui-color-swatch>`
       )}
     </uui-color-swatches>`;
   }

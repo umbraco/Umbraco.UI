@@ -13,7 +13,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @abstract
  */
 export abstract class UUIBooleanInputElement extends FormControlMixin(
-  LabelMixin('', LitElement),
+  LabelMixin('', LitElement)
 ) {
   static styles = [
     css`
@@ -72,7 +72,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
       'setFormValue' in window.ElementInternals.prototype
     ) {
       this._internals.setFormValue(
-        this._checked && this.name !== '' ? this._value : null,
+        this._checked && this.name !== '' ? this._value : null
       );
     }
 
@@ -109,7 +109,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
         ? this._value
           ? this._value
           : 'on'
-        : null,
+        : null
     );
     this.requestUpdate('checked', oldValue);
   }
@@ -157,7 +157,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   }
 
   protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>,
+    _changedProperties: Map<string | number | symbol, unknown>
   ): void {
     super.firstUpdated(_changedProperties);
 

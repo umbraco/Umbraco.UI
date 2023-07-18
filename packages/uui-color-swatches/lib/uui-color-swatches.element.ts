@@ -68,7 +68,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   }
 
   protected willUpdate(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): void {
     if (_changedProperties.has('label')) {
       this.setAttribute('aria-label', this.label);
@@ -124,7 +124,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       this._selectedElement = undefined;
       this.value = '';
       this.dispatchEvent(
-        new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE),
+        new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE)
       );
     }
   };
