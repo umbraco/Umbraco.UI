@@ -93,6 +93,7 @@ export const Inline: Story = {
 export const WithOpacity: Story = {
   args: {
     opacity: true,
+    value: 'rgba(0, 0, 0, 0.5)'
   },
   parameters: {
     docs: {
