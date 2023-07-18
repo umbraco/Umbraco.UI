@@ -142,7 +142,7 @@ export const Nested = () => html`
     (name: string) =>
       html` <uui-menu-item label="${name}" has-children>
         ${renderItems()}
-      </uui-menu-item>`,
+      </uui-menu-item>`
   )}
 `;
 Nested.parameters = {
@@ -174,7 +174,7 @@ export const Active = () => html`
     menuItem =>
       html`<uui-menu-item
         label="${menuItem.title}"
-        @click-label=${activeStoryOnClick}></uui-menu-item>`,
+        @click-label=${activeStoryOnClick}></uui-menu-item>`
   )}
 `;
 Active.parameters = {
@@ -191,7 +191,7 @@ export const Loading = () => html`
     menuItem =>
       html`<uui-menu-item
         label="${menuItem.title}"
-        ?loading=${menuItem.loading}></uui-menu-item>`,
+        ?loading=${menuItem.loading}></uui-menu-item>`
   )}
 `;
 Loading.parameters = {
@@ -221,7 +221,7 @@ export const Disabled = (props: any) => html`
         @click-label=${disabledStoryOnClick}
         label="${menuItem.title}"
         ?disabled=${props.disabled}></uui-menu-item>
-    `,
+    `
   )}
 `;
 Disabled.args = {
@@ -246,7 +246,7 @@ export const WithActions = () => html`
           ></uui-button>
         </uui-action-bar>
       </uui-menu-item>
-    `,
+    `
   )}
 `;
 WithActions.parameters = {
@@ -273,7 +273,7 @@ export const WithBadge = () => html`
           ? html`<uui-badge slot="badge" color="warning">!</uui-badge>`
           : ''}
       </uui-menu-item>
-    `,
+    `
   )}
 `;
 WithBadge.parameters = {
@@ -293,7 +293,7 @@ export const Selectable = (props: any) => html`
     menuItem =>
       html`<uui-menu-item
         label="${menuItem.title}"
-        ?selectable=${props.selectable}></uui-menu-item>`,
+        ?selectable=${props.selectable}></uui-menu-item>`
   )}
 `;
 Selectable.args = {
@@ -327,7 +327,7 @@ export const WithIcon = (props: any) => html`
           target=${props.target}>
           <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
         </uui-menu-item>
-      `,
+      `
     )}
   </uui-icon-registry-essential>
 `;
@@ -385,7 +385,7 @@ export const ItemIndentation: Story = () => html`
         label="${menuItem.title}"
         style="${ifDefined(i === 1 ? '--uui-menu-item-indent: 1' : '')}">
       </uui-menu-item>
-    `,
+    `
   )}
 `;
 
@@ -410,7 +410,7 @@ export const SelectMode = (props: any) =>
           label="${menuItem.title}"
           ?selected=${i == 1 ? true : false}
           ?selectable=${props.selectable}
-          select-mode=${props.selectMode}></uui-menu-item>`,
+          select-mode=${props.selectMode}></uui-menu-item>`
     )}
   </uui-menu-item> `;
 SelectMode.args = {
@@ -439,7 +439,7 @@ const renderCombinationOfStates = (
   disabled: boolean,
   selected: boolean,
   selectable: boolean,
-  highlightSelectMode: boolean,
+  highlightSelectMode: boolean
 ) => {
   return html`<uui-menu-item
     label=${label}
@@ -473,7 +473,7 @@ export const CombinationOfStates = () => html`
     false,
     false,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -488,7 +488,7 @@ export const CombinationOfStates = () => html`
     false,
     false,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -503,7 +503,7 @@ export const CombinationOfStates = () => html`
     true,
     false,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -518,7 +518,7 @@ export const CombinationOfStates = () => html`
     false,
     true,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -533,7 +533,7 @@ export const CombinationOfStates = () => html`
     false,
     false,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -548,7 +548,7 @@ export const CombinationOfStates = () => html`
     false,
     true,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -563,7 +563,7 @@ export const CombinationOfStates = () => html`
     false,
     false,
     false,
-    true,
+    true
   )}
 
   <br />
@@ -578,7 +578,7 @@ export const CombinationOfStates = () => html`
     false,
     false,
     true,
-    true,
+    true
   )}
 
   <br />
@@ -593,6 +593,6 @@ export const CombinationOfStates = () => html`
     false,
     false,
     false,
-    true,
+    true
   )}
 `;

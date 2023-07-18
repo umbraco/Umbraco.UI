@@ -4,10 +4,7 @@ export class Timer {
   private _duration!: number;
   private _remaining: number | null = null;
 
-  constructor(
-    private _callback: Function,
-    duration: number,
-  ) {
+  constructor(private _callback: Function, duration: number) {
     this.setDuration(duration);
   }
 
