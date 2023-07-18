@@ -94,7 +94,7 @@
     "eslint-plugin-storybook": "0.6.12",
     "eslint-plugin-wc": "1.5.0",
     "github-markdown-css": "5.2.0",
-    "glob": "10.3.3",
+    "glob": "8.1.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.3",
     "npm-check-updates": "16.10.16",
