@@ -130,7 +130,7 @@ export class UUIAppHeaderExample extends LitElement {
                     ?active="${this._activeSection === section}"
                     label="${section}"
                     @click="${this._handleTabClick}"></uui-tab>
-                `,
+                `
               )}
 
               <uui-tab id="moreTab" @click="${this._handleTabClick}">
@@ -155,7 +155,7 @@ export class UUIAppHeaderExample extends LitElement {
                           label="${section}"
                           @click-label="${this
                             ._handleLabelClick}"></uui-menu-item>
-                      `,
+                      `
                     )}
                   </div>
                 </uui-popover>

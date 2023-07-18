@@ -42,7 +42,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends FormControlMixin(
-  LabelMixin('', LitElement),
+  LabelMixin('', LitElement)
 ) {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -63,10 +63,7 @@ export class UUIButtonElement extends FormControlMixin(
         text-align: center;
         font-size: var(--uui-button-font-size, inherit);
         font-weight: var(--uui-button-font-weight, 500);
-        transition:
-          background-color 80ms,
-          border-color 80ms,
-          color 80ms;
+        transition: background-color 80ms, border-color 80ms, color 80ms;
       }
 
       :host([compact]) {
@@ -473,7 +470,7 @@ export class UUIButtonElement extends FormControlMixin(
       if (this.state === 'success' || this.state === 'failed') {
         this._resetStateTimeout = setTimeout(
           () => (this.state = undefined),
-          2000,
+          2000
         ) as any;
       }
     }
@@ -514,7 +511,7 @@ export class UUIButtonElement extends FormControlMixin(
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
+              this.target === '_blank' ? 'noopener noreferrer' : undefined
             )}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>

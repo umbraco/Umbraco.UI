@@ -204,7 +204,7 @@ export const Listed: Story = () => html`
               ><uui-icon name="delete"></uui-icon
             ></uui-button>
           </uui-action-bar>
-        </uui-ref-node>`,
+        </uui-ref-node>`
     )}
   </uui-ref-list>
 `;

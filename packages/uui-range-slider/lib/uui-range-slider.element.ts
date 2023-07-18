@@ -610,7 +610,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     if (value >= this.valueHigh) this._setThumb(this._thumbHigh);
     if (value <= this.valueLow) this._setThumb(this._thumbLow);
     this._setValueBasedOnCurrentThumb(
-      this._validateValueBasedOnCurrentThumb(value),
+      this._validateValueBasedOnCurrentThumb(value)
     );
   }
 
@@ -643,7 +643,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     const val = this._getValue(pageX);
     if (!this._grabbingBoth)
       this._setValueBasedOnCurrentThumb(
-        this._validateValueBasedOnCurrentThumb(val),
+        this._validateValueBasedOnCurrentThumb(val)
       );
     else this._moveBoth(pageX);
 
@@ -684,7 +684,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     const val = this._getValue(pageX);
     if (!this._grabbingBoth)
       this._setValueBasedOnCurrentThumb(
-        this._validateValueBasedOnCurrentThumb(val),
+        this._validateValueBasedOnCurrentThumb(val)
       );
     else this._moveBoth(pageX);
 
@@ -875,26 +875,26 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     this.addValidator(
       'stepMismatch',
       () => `Step property needs to be higher than 0`,
-      () => this.step <= 0,
+      () => this.step <= 0
     );
 
     this.addValidator(
       'stepMismatch',
       () => `Maxmimum gap needs to be higher than minimum gap`,
-      () => !!this.maxGap && !!this.minGap && this.maxGap <= this.minGap,
+      () => !!this.maxGap && !!this.minGap && this.maxGap <= this.minGap
     );
 
     this.addValidator(
       'rangeUnderflow',
       () =>
         `The lower end value (${this.valueLow}) cannot be below the the minimum value setting (${this.min})`,
-      () => this.valueLow < this.min,
+      () => this.valueLow < this.min
     );
     this.addValidator(
       'rangeOverflow',
       () =>
         `The higher end value (${this.valueHigh}) cannot be above the the maximum value setting (${this.max})`,
-      () => this.valueHigh > this.max,
+      () => this.valueHigh > this.max
     );
   }
 
