@@ -150,15 +150,25 @@ export class UUIColorAreaElement extends LitElement {
       // TODO: Can we move the parsing of a color string to shared utility function?
       const parsed = colord(newVal);
 
+      console.log("newVal", newVal);
+
       if (parsed.isValid()) {
         const { h, s, l } = parsed.toHsl();
 
+        console.log("value saturation", s);
+
+        // Test
+        if (s === 0) {
+          console.log("parsed", parsed.toHsl());
+        }
+
         this.hue = h;
-        this.saturation = s;
+        //this.saturation = s;
         this.lightness = l;
         this.brightness = this.getBrightness(l);
       }
     } catch (e) {
+      console.log("value err", e);
       // TODO: Should we log this?
       console.error('Something went wrong parsing the color string.', e);
     }
@@ -245,6 +255,9 @@ export class UUIColorAreaElement extends LitElement {
       a: this.alpha / 100,
     });
 
+    console.log("syncValues saturation", this.saturation);
+    console.log("syncValues value", color.toRgbString());
+
     this._value = color.toRgbString();
 
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
@@ -270,6 +283,8 @@ export class UUIColorAreaElement extends LitElement {
   render() {
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
+
+    console.log("gridHandleX", gridHandleX);
 
     return html`
       <div
