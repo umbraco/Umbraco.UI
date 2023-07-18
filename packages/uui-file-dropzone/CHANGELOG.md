@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0...v1.4.0-rc.0) (2023-07-18)
+
+### Bug Fixes
+
+- all codepaths should return a value ([45f7132](https://github.com/umbraco/Umbraco.UI/commit/45f713257ead014c57a094a7e789490e43102862))
+
 # [1.3.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.1...v1.3.0) (2023-05-31)
 
 **Note:** Version bump only for package @umbraco-ui/uui-file-dropzone

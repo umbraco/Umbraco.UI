@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0...v1.4.0-rc.0) (2023-07-18)
+
+### Bug Fixes
+
+- check that coordinates are actual numbers before proceeding with syncing values ([f6ce0f6](https://github.com/umbraco/Umbraco.UI/commit/f6ce0f65371fa2b999dddc16f448a7d80e100fbd))
+
 # [1.3.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.1...v1.3.0) (2023-05-31)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-area
