@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0...v1.4.0-rc.0) (2023-07-18)
+
+### Features
+
+- **uui-box:** add a property to control the headline variant ([#521](https://github.com/umbraco/Umbraco.UI/issues/521)) ([6fd4d85](https://github.com/umbraco/Umbraco.UI/commit/6fd4d85199f523ea1ecfe7a42472290cc96d5421))
+
 # [1.3.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0-rc.1...v1.3.0) (2023-05-31)
 
 **Note:** Version bump only for package @umbraco-ui/uui-box
