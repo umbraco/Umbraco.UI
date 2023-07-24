@@ -45,7 +45,7 @@ const meta: Meta<UUIColorPickerElement> = {
     inline: false,
     swatches: defaultSwatches,
     format: 'hex',
-    size: 'medium'
+    size: 'medium',
   },
   argTypes: {
     format: {
@@ -93,7 +93,7 @@ export const Inline: Story = {
 export const WithOpacity: Story = {
   args: {
     opacity: true,
-    value: 'rgba(0, 0, 0, 0.5)'
+    value: 'rgba(0, 0, 0, 0.5)',
   },
   parameters: {
     docs: {
