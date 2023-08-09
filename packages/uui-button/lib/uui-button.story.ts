@@ -40,6 +40,12 @@ export default {
       options: ['', 'submit', 'button', 'reset'],
       control: { type: 'select' },
     },
+    '--uui-button-content-align': {
+      control: {
+        type: 'select',
+      },
+      options: ['left', 'center', 'right'],
+    },
     state: {
       options: [null, 'waiting', 'success', 'failed'],
       control: { type: 'select' },
@@ -79,6 +85,7 @@ const cssProps = [
   '--uui-button-contrast-hover',
   '--uui-button-background-color-disabled',
   '--uui-button-contrast-disabled',
+  '--uui-button-content-align',
 ];
 
 const reducer = (prev: string, next: string, i: number) =>
