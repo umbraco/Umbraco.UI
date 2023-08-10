@@ -306,7 +306,7 @@ export class UUIInputElement extends FormControlMixin(
    * @attr
    */
   @property({ type: String })
-  inputmode?: string;
+  inputMode = '';
 
   @query('#input')
   _input!: HTMLInputElement;
