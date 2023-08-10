@@ -9,9 +9,7 @@
         "custom-elements.json"
       ]
     },
-    "test": {
-      "outputs": []
-    },
+    "test": {},
     "dev": {
       "cache": false
     },
