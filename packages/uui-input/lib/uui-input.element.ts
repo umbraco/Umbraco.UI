@@ -418,7 +418,9 @@ export class UUIInputElement extends FormControlMixin(
           autocomplete=${ifDefined(this.autocomplete as any)}
           placeholder=${this.placeholder}
           aria-label=${this.label}
+          inputmode=${this.inputMode}
           .disabled=${this.disabled}
+          ?autofocus=${this.autofocus}
           ?required=${this.required}
           ?readonly=${this.readonly}
           @input=${this.onInput}
