@@ -191,7 +191,6 @@ export class UUIInputElement extends FormControlMixin(
 
   /**
    * Minlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
@@ -219,7 +218,6 @@ export class UUIInputElement extends FormControlMixin(
 
   /**
    * Maxlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
