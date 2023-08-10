@@ -25,6 +25,8 @@ export type InputType =
  * @element uui-input
  * @slot prepend - for components to render to the left of the input.
  * @slot append - for components to render to the right of the input.
+ * @property {boolean} spellcheck - get/set native spellcheck attribute
+ * @attribute spellcheck - native spellcheck attribute
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
@@ -409,12 +411,12 @@ export class UUIInputElement extends FormControlMixin(
           min=${ifDefined(this.min)}
           max=${ifDefined(this.max)}
           step=${ifDefined(this.step)}
-          spellcheck=${ifDefined(this.spellcheck)}
+          spellcheck=${this.spellcheck}
           autocomplete=${ifDefined(this.autocomplete as any)}
           placeholder=${ifDefined(this.placeholder)}
           aria-label=${ifDefined(this.label)}
           inputmode=${ifDefined(this.inputMode)}
-          .disabled=${this.disabled}
+          ?disabled=${this.disabled}
           ?autofocus=${this.autofocus}
           ?required=${this.required}
           ?readonly=${this.readonly}
