@@ -298,7 +298,6 @@ export class UUIInputElement extends FormControlMixin(
    * Validates the input based on the Regex pattern
    * @type {string}
    * @attr
-   * @default undefined
    */
   @property({ type: String })
   pattern?: string;
@@ -308,7 +307,6 @@ export class UUIInputElement extends FormControlMixin(
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
    * @type {string}
    * @attr
-   * @default undefined
    */
   @property({ type: String })
   inputmode?: string;
@@ -416,9 +414,9 @@ export class UUIInputElement extends FormControlMixin(
           step=${ifDefined(this.step)}
           spellcheck=${ifDefined(this.spellcheck)}
           autocomplete=${ifDefined(this.autocomplete as any)}
-          placeholder=${this.placeholder}
-          aria-label=${this.label}
-          inputmode=${this.inputMode}
+          placeholder=${ifDefined(this.placeholder)}
+          aria-label=${ifDefined(this.label)}
+          inputmode=${ifDefined(this.inputMode)}
           .disabled=${this.disabled}
           ?autofocus=${this.autofocus}
           ?required=${this.required}
