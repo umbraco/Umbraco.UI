@@ -64,6 +64,14 @@ export const AAAOverview: Story = {
 };
 
 export const PatternAndInputmode: Story = {
+  render: props => html`
+    <uui-input
+      .placeholder=${props.placeholder}
+      .inputMode=${props.inputMode}
+      .pattern=${props.pattern}
+      .errorMessage=${props.errorMessage}>
+    </uui-input>
+  `,
   args: {
     placeholder: 'Enter email',
     inputMode: 'email',
@@ -73,6 +81,14 @@ export const PatternAndInputmode: Story = {
 };
 
 export const MinMaxLength: Story = {
+  render: props => html`
+    <uui-input
+      .minlength=${props.minlength}
+      .maxlength=${props.maxlength}
+      .minlengthMessage=${props.minlengthMessage}
+      .maxlengthMessage=${props.maxlengthMessage}>
+    </uui-input>
+  `,
   args: {
     minlength: 3,
     maxlength: 4,
