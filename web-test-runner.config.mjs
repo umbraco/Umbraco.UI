@@ -6,7 +6,6 @@ export default {
   nodeResolve: true,
   files: 'packages/**/*.test.ts',
   plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
-  concurrentBrowsers: process.env.CI ? 3 : undefined,
   browsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),
