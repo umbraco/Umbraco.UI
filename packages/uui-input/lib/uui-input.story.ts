@@ -1,5 +1,6 @@
+import './uui-input.element';
+
 import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-input/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import '@umbraco-ui/uui-icon/lib';
 
