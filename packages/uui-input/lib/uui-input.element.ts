@@ -275,10 +275,9 @@ export class UUIInputElement extends FormControlMixin(
    * Sets the input width to fit the value or placeholder if empty
    * @type {boolean}
    * @attr
-   * @default undefined
    */
   @property({ type: Boolean, reflect: true, attribute: 'auto-width' })
-  autoWidth?: boolean;
+  autoWidth = false;
 
   /**
    * This property specifies the type of input that will be rendered.
