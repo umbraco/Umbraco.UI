@@ -39,6 +39,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast - overwrite the text color
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
+ *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends FormControlMixin(
@@ -110,7 +111,7 @@ export class UUIButtonElement extends FormControlMixin(
 
         display: inline-flex;
         align-items: center;
-        justify-content: center;
+        justify-content: var(--uui-button-content-align, center);
 
         /* for anchor tag: */
         text-decoration: none;
