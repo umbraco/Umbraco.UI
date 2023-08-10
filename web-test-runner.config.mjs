@@ -1,10 +1,12 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
+/** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   nodeResolve: true,
   files: 'packages/**/*.test.ts',
   plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
+  concurrentBrowsers: process.env.CI ? 3 : undefined,
   browsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),
