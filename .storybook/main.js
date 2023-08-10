@@ -18,7 +18,7 @@ module.exports = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-a11y'),
-    getAbsolutePath('../storyhelpers/storybook-readme'),
+    '../storyhelpers/storybook-readme',
     {
       name: '@storybook/addon-docs',
       options: {
