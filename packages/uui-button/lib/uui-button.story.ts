@@ -57,6 +57,10 @@ export default {
     '--uui-button-contrast-hover': { control: { type: 'color' } },
     '--uui-button-background-color-disabled': { control: { type: 'color' } },
     '--uui-button-contrast-disabled': { control: { type: 'color' } },
+    '--uui-button-content-align': {
+      control: { type: 'select' },
+      options: ['left', 'center', 'right'],
+    },
   },
   parameters: {
     readme: {
@@ -79,6 +83,7 @@ const cssProps = [
   '--uui-button-contrast-hover',
   '--uui-button-background-color-disabled',
   '--uui-button-contrast-disabled',
+  '--uui-button-content-align',
 ];
 
 const reducer = (prev: string, next: string, i: number) =>
@@ -428,3 +433,30 @@ export const MultiLine: Story = props => {
 };
 
 MultiLine.args = { look: 'primary' };
+
+export const ContentAlignment = props => html`
+  <uui-button
+    style="max-width: 400px; width: 100%;
+      --uui-button-content-align: ${props['--uui-button-content-align']}"
+    look="primary"
+    color="danger"
+    label="A11Y proper label">
+    Content alignment
+  </uui-button>
+`;
+ContentAlignment.args = { '--uui-button-content-align': 'left' };
+ContentAlignment.parameters = {
+  controls: { include: ['--uui-button-content-align'] },
+  docs: {
+    source: {
+      code: `
+<uui-button style="max-width: 400px; width: 100%; --uui-button-content-align: left}"
+  look="primary"
+  color="danger"
+  label="A11Y proper label">
+  Content alignment
+</uui-button>
+      `,
+    },
+  },
+};

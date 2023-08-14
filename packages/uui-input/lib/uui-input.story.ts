@@ -1,11 +1,15 @@
+import './uui-input.element';
+
 import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '@umbraco-ui/uui-icon/lib';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
+import { Meta, StoryObj } from '@storybook/web-components';
 import readme from '../README.md?raw';
+import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import { html } from 'lit';
 
-export default {
+const meta: Meta<UUIInputElement> = {
   title: 'Inputs/Input',
   component: 'uui-input',
   id: 'uui-input',
@@ -41,183 +45,158 @@ export default {
   },
 };
 
-const Template: Story = props => html`
-  <uui-input
-    .min=${props.min}
-    .max=${props.max}
-    .step=${props.step}
-    .disabled=${props.disabled}
-    .readonly=${props.readonly}
-    .error=${props.error}
-    .label=${props.label}
-    .type=${props.type}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}
-    .spellcheck=${props.spellcheck}
-    .autocomplete=${props.autocomplete}
-    .pattern=${props.pattern}
-    .errorMessage=${props.errorMessage}
-    .inputmode=${props.inputmode}
-    .minlength=${props.minlength}
-    .maxlength=${props.maxlength}
-    .minlength-message=${props.minlengthMessage}
-    .maxlength-message=${props.maxlengthMessage}></uui-input>
-`;
+export default meta;
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
+type Story = StoryObj<UUIInputElement>;
 
-AAAOverview.args = { type: 'text' };
-
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: '<uui-input></uui-input>',
+export const AAAOverview: Story = {
+  name: 'Overview',
+  args: {
+    type: 'text',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: '<uui-input></uui-input>',
+      },
     },
   },
 };
 
-export const PatternAndInputmode: Story = props =>
-  html`Enter Email<br />
+export const PatternAndInputmode: Story = {
+  render: props => html`
     <uui-input
-      label="Email"
-      error-message=${props.errorMessage}
-      inputmode=${props.inputmode}
-      pattern=${props.pattern}></uui-input>`;
-
-PatternAndInputmode.args = {
-  pattern: '[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-.]+',
-  inputmode: 'email',
-  errorMessage: 'Not an email',
+      .placeholder=${props.placeholder}
+      .inputMode=${props.inputMode}
+      .pattern=${props.pattern}
+      .errorMessage=${props.errorMessage}>
+    </uui-input>
+  `,
+  args: {
+    placeholder: 'Enter email',
+    inputMode: 'email',
+    pattern: '[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-.]+',
+    errorMessage: 'Not an email',
+  },
 };
 
-export const MinMaxLength = Template.bind({});
-MinMaxLength.args = {
-  minlength: 3,
-  maxlength: 4,
-  minlengthMessage: 'Minimum 3',
-  maxlengthMessage: 'Maximum 4',
-};
-MinMaxLength.parameters = {
-  docs: {
-    source: {
-      code: html`<uui-input
-        minlength="3"
-        maxlength="4"
-        minlength-message="Minimum 3"
-        maxlength-message="Maximum 4"></uui-input>`.strings,
+export const MinMaxLength: Story = {
+  render: props => html`
+    <uui-input
+      .minlength=${props.minlength}
+      .maxlength=${props.maxlength}
+      .minlengthMessage=${props.minlengthMessage}
+      .maxlengthMessage=${props.maxlengthMessage}>
+    </uui-input>
+  `,
+  args: {
+    minlength: 3,
+    maxlength: 4,
+    minlengthMessage: 'Minimum 3',
+    maxlengthMessage: 'Maximum 4',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-input
+          minlength="3"
+          maxlength="4"
+          minlength-message="Minimum 3"
+          maxlength-message="Maximum 4"></uui-input>`,
+      },
     },
   },
 };
 
-export const NumberInput = Template.bind({});
-NumberInput.args = {
-  placeholder: 'Input number',
-  type: 'number',
-  step: 5,
-  value: '10',
-  min: -50,
-  max: 50,
-};
-NumberInput.parameters = {
-  controls: {
-    include: [
-      'type',
-      'value',
-      'label',
-      'min',
-      'max',
-      'step',
-      'disabled',
-      'readonly',
-    ],
+export const NumberInput: Story = {
+  args: {
+    placeholder: 'Input number',
+    type: 'number',
+    step: 5,
+    value: '10',
+    min: -50,
+    max: 50,
   },
-  docs: {
-    source: {
-      code: html` <uui-input
-        type="number"
-        value="5"
-        label="Label"
-        min="-50"
-        max="50"
-        step="5">
-      </uui-input>`.strings,
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-input
+          type="number"
+          value="5"
+          label="Label"
+          min="-50"
+          max="50"
+          step="5">
+        </uui-input>`,
+      },
     },
   },
 };
 
-export const DateTimeLocal = Template.bind({});
-DateTimeLocal.args = {
-  type: 'datetime-local',
-  value: '2023-04-20T10:00',
-  min: '2023-04-13T10:00',
-  max: '2023-04-28T16:00',
-};
-DateTimeLocal.parameters = {
-  controls: {
-    include: ['type', 'value', 'min', 'max', 'step', 'disabled', 'readonly'],
+export const DateTimeLocal: Story = {
+  args: {
+    type: 'datetime-local',
+    value: '2023-04-20T10:00',
+    min: '2023-04-13T10:00',
+    max: '2023-04-28T16:00',
   },
-  docs: {
-    source: {
-      code: html` <uui-input
-        type="datetime-local"
-        min="2023-04-13T10:00"
-        value="2023-04-20T10:00"
-        max="2023-04-28T16:00">
-      </uui-input>`.strings,
+  parameters: {
+    controls: {
+      include: ['type', 'value', 'min', 'max', 'step', 'disabled', 'readonly'],
+    },
+    docs: {
+      source: {
+        code: ` <uui-input
+          type="datetime-local"
+          min="2023-04-13T10:00"
+          value="2023-04-20T10:00"
+          max="2023-04-28T16:00">
+        </uui-input>`,
+      },
     },
   },
 };
 
-export const Label = Template.bind({});
-Label.args = { type: 'text' };
-Label.parameters = {
-  controls: { include: ['type', 'value', 'label'] },
-  docs: {
-    source: {
-      code: html`<uui-input label="Label"></uui-input>`.strings,
+export const Disabled: Story = {
+  args: { disabled: true },
+  parameters: {
+    controls: { include: ['disabled', 'type', 'value'] },
+    docs: {
+      source: {
+        code: `<uui-input disabled></uui-input>`,
+      },
     },
   },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = { disabled: true };
-Disabled.parameters = {
-  controls: { include: ['disabled', 'type', 'value'] },
-  docs: {
-    source: {
-      code: html`<uui-input disabled></uui-input>`.strings,
+export const Error: Story = {
+  args: { error: true, label: 'Error' },
+  parameters: {
+    controls: { include: ['error', 'type', 'value'] },
+    docs: {
+      source: {
+        code: `<uui-input error></uui-input>`,
+      },
     },
   },
 };
 
-export const Error = Template.bind({});
-Error.args = { error: true, label: 'Error' };
-Error.parameters = {
-  controls: { include: ['error', 'type', 'value'] },
-  docs: {
-    source: {
-      code: html`<uui-input error></uui-input>`.strings,
-    },
-  },
-};
-
-export const PrependAndAppend: Story = props => html`
-  <uui-input
-    .min=${props.min}
-    .max=${props.max}
-    .step=${props.step}
-    .disabled=${props.disabled}
-    .readonly=${props.readonly}
-    .error=${props.error}
-    .label=${props.label}
-    .type=${props.type}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}>
-    <div
-      style="
+export const PrependAndAppend: Story = {
+  render: props => html`
+    <uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
+      .disabled=${props.disabled}
+      .readonly=${props.readonly}
+      .error=${props.error}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}>
+      <div
+        style="
         user-select:none;
         height: 100%;
         padding: 0 var(--uui-size-3);
@@ -228,12 +207,12 @@ export const PrependAndAppend: Story = props => html`
         display: flex;
         justify-content: center;
         align-items: center;"
-      slot="prepend">
-      umbraco@
-    </div>
-    <div
-      slot="append"
-      style="
+        slot="prepend">
+        umbraco@
+      </div>
+      <div
+        slot="append"
+        style="
         user-select:none;
         height: 100%;
         padding: 0 var(--uui-size-space-3);
@@ -244,78 +223,15 @@ export const PrependAndAppend: Story = props => html`
         display: flex;
         justify-content: center;
         align-items: center;">
-      .com
-    </div>
-  </uui-input>
-`;
-
-export const PrependIcon: Story = props =>
-  html` <uui-input
-    .min=${props.min}
-    .max=${props.max}
-    .step=${props.step}
-    .disabled=${props.disabled}
-    .readonly=${props.readonly}
-    .error=${props.error}
-    .label=${props.label}
-    .type=${props.type}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}>
-    <div slot="prepend">
-      <uui-icon-registry-essential>
-        <uui-icon name="search"></uui-icon>
-      </uui-icon-registry-essential>
-    </div>
-  </uui-input>`;
-
-export const AppendIcon: Story = props =>
-  html` <uui-input
-    .min=${props.min}
-    .max=${props.max}
-    .step=${props.step}
-    .disabled=${props.disabled}
-    .readonly=${props.readonly}
-    .error=${props.error}
-    .label=${props.label}
-    .type=${props.type}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}>
-    <div
-      slot="append"
-      style="background:#f3f3f3; padding-left:var(--uui-size-2, 6px)">
-      <uui-icon-registry-essential>
-        <uui-icon name="delete"></uui-icon>
-      </uui-icon-registry-essential>
-    </div>
-  </uui-input>`;
-
-export const MultipleInputs: Story = props => html`
-  <uui-input
-    .min=${props.min}
-    .max=${props.max}
-    .step=${props.step}
-    .disabled=${props.disabled}
-    .readonly=${props.readonly}
-    .error=${props.error}
-    .label=${props.label}
-    .type=${props.type}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}>
-    <uui-input
-      slot="prepend"
-      placeholder="+45"
-      style="text-align:right; width: 60px;">
+        .com
+      </div>
     </uui-input>
-    <uui-input slot="append" placeholder="(extra)" style="width: 100px;">
-    </uui-input>
-  </uui-input>
-`;
+  `,
+};
 
-export const AutoWidth: Story = props =>
-  html`<uui-input
+export const PrependIcon: Story = {
+  render: props =>
+    html` <uui-input
       .min=${props.min}
       .max=${props.max}
       .step=${props.step}
@@ -326,10 +242,41 @@ export const AutoWidth: Story = props =>
       .type=${props.type}
       .name=${props.name}
       .placeholder=${props.placeholder}
-      .value=${props.value}
-      auto-width>
-    </uui-input>
-    <br /><br />
+      .value=${props.value}>
+      <div slot="prepend">
+        <uui-icon-registry-essential>
+          <uui-icon name="search"></uui-icon>
+        </uui-icon-registry-essential>
+      </div>
+    </uui-input>`,
+};
+
+export const AppendIcon: Story = {
+  render: props =>
+    html` <uui-input
+      .min=${props.min}
+      .max=${props.max}
+      .step=${props.step}
+      .disabled=${props.disabled}
+      .readonly=${props.readonly}
+      .error=${props.error}
+      .label=${props.label}
+      .type=${props.type}
+      .name=${props.name}
+      .placeholder=${props.placeholder}
+      .value=${props.value}>
+      <div
+        slot="append"
+        style="background:#f3f3f3; padding-left:var(--uui-size-2, 6px)">
+        <uui-icon-registry-essential>
+          <uui-icon name="delete"></uui-icon>
+        </uui-icon-registry-essential>
+      </div>
+    </uui-input>`,
+};
+
+export const MultipleInputs: Story = {
+  render: props => html`
     <uui-input
       .min=${props.min}
       .max=${props.max}
@@ -341,15 +288,58 @@ export const AutoWidth: Story = props =>
       .type=${props.type}
       .name=${props.name}
       .placeholder=${props.placeholder}
-      .value=${props.value}
-      auto-width>
+      .value=${props.value}>
       <uui-input
         slot="prepend"
-        placeholder="Prepend auto-width"
-        auto-width></uui-input>
-      <uui-input
-        slot="append"
-        placeholder="Append auto-width false"></uui-input>
-    </uui-input>`;
+        placeholder="+45"
+        style="text-align:right; width: 60px;">
+      </uui-input>
+      <uui-input slot="append" placeholder="(extra)" style="width: 100px;">
+      </uui-input>
+    </uui-input>
+  `,
+};
 
-AutoWidth.args = { placeholder: 'Start typing...' };
+export const AutoWidth: Story = {
+  render: props =>
+    html`<uui-input
+        .min=${props.min}
+        .max=${props.max}
+        .step=${props.step}
+        .disabled=${props.disabled}
+        .readonly=${props.readonly}
+        .error=${props.error}
+        .label=${props.label}
+        .type=${props.type}
+        .name=${props.name}
+        .placeholder=${props.placeholder}
+        .value=${props.value}
+        .autoWidth=${props.autoWidth}>
+      </uui-input>
+      <br /><br />
+      <uui-input
+        .min=${props.min}
+        .max=${props.max}
+        .step=${props.step}
+        .disabled=${props.disabled}
+        .readonly=${props.readonly}
+        .error=${props.error}
+        .label=${props.label}
+        .type=${props.type}
+        .name=${props.name}
+        .placeholder=${props.placeholder}
+        .value=${props.value}
+        .autoWidth=${props.autoWidth}>
+        <uui-input
+          slot="prepend"
+          placeholder="Prepend auto-width"
+          .autoWidth=${props.autoWidth}></uui-input>
+        <uui-input
+          slot="append"
+          placeholder="Append auto-width false"></uui-input>
+      </uui-input>`,
+  args: {
+    autoWidth: true,
+    placeholder: 'Start typing...',
+  },
+};

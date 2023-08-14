@@ -25,6 +25,8 @@ export type InputType =
  * @element uui-input
  * @slot prepend - for components to render to the left of the input.
  * @slot append - for components to render to the right of the input.
+ * @property {boolean} spellcheck - get/set native spellcheck attribute
+ * @attribute spellcheck - native spellcheck attribute
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
@@ -191,7 +193,6 @@ export class UUIInputElement extends FormControlMixin(
 
   /**
    * Minlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
@@ -219,7 +220,6 @@ export class UUIInputElement extends FormControlMixin(
 
   /**
    * Maxlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
@@ -275,10 +275,9 @@ export class UUIInputElement extends FormControlMixin(
    * Sets the input width to fit the value or placeholder if empty
    * @type {boolean}
    * @attr
-   * @default undefined
    */
   @property({ type: Boolean, reflect: true, attribute: 'auto-width' })
-  autoWidth?: boolean;
+  autoWidth = false;
 
   /**
    * This property specifies the type of input that will be rendered.
@@ -298,7 +297,6 @@ export class UUIInputElement extends FormControlMixin(
    * Validates the input based on the Regex pattern
    * @type {string}
    * @attr
-   * @default undefined
    */
   @property({ type: String })
   pattern?: string;
@@ -308,10 +306,9 @@ export class UUIInputElement extends FormControlMixin(
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
    * @type {string}
    * @attr
-   * @default undefined
    */
   @property({ type: String })
-  inputmode?: string;
+  inputMode = '';
 
   @query('#input')
   _input!: HTMLInputElement;
@@ -332,12 +329,12 @@ export class UUIInputElement extends FormControlMixin(
     this.addValidator(
       'tooShort',
       () => this.minlengthMessage,
-      () => !!this.minlength && (this._value as string).length < this.minlength
+      () => !!this.minlength && String(this._value).length < this.minlength
     );
     this.addValidator(
       'tooLong',
       () => this.maxlengthMessage,
-      () => !!this.maxlength && (this._value as string).length > this.maxlength
+      () => !!this.maxlength && String(this._value).length > this.maxlength
     );
   }
 
@@ -414,11 +411,13 @@ export class UUIInputElement extends FormControlMixin(
           min=${ifDefined(this.min)}
           max=${ifDefined(this.max)}
           step=${ifDefined(this.step)}
-          spellcheck=${ifDefined(this.spellcheck)}
+          spellcheck=${this.spellcheck}
           autocomplete=${ifDefined(this.autocomplete as any)}
-          placeholder=${this.placeholder}
-          aria-label=${this.label}
-          .disabled=${this.disabled}
+          placeholder=${ifDefined(this.placeholder)}
+          aria-label=${ifDefined(this.label)}
+          inputmode=${ifDefined(this.inputMode)}
+          ?disabled=${this.disabled}
+          ?autofocus=${this.autofocus}
           ?required=${this.required}
           ?readonly=${this.readonly}
           @input=${this.onInput}
