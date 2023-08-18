@@ -105,16 +105,30 @@ export class UUICardUserElement extends UUICardElement {
     demandCustomElement(this, 'uui-avatar');
   }
 
+  // This is deprecated - use href instead
+  #renderDeprecatedButton() {
+    return html`<div
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      @click=${this.handleOpenClick}
+      @keydown=${this.handleOpenKeydown}>
+      <span> ${this.name} </span>
+    </div>`;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      href=${this.href}>
+      <span>${this.name}</span>
+    </a>`;
+  }
+
   public render() {
     return html`
       <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
-      <div
-        id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
-        @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}>
-        <span> ${this.name} </span>
-      </div>
+      ${this.href ? this.#renderLink() : this.#renderDeprecatedButton()}
       <slot></slot>
       <slot name="tag"></slot>
       <slot name="actions"></slot>
