@@ -163,9 +163,9 @@ export class UUICardMediaElement extends UUICardElement {
       type="${this.fileExt}"></uui-symbol-file>`;
   }
 
-  public render() {
-    return html` ${this.renderMedia()}
-      <slot @slotchange=${this.queryPreviews}></slot>
+  // This is deprecated - use href instead
+  #renderDeprecatedButton() {
+    return html`
       <button
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : '0'}
@@ -181,6 +181,32 @@ export class UUICardMediaElement extends UUICardElement {
         -->
         <span>${this.name}</span>
       </button>
+    `;
+  }
+
+  #renderLink() {
+    return html`
+      <a
+        id="open-part"
+        href=${this.href}
+        tabindex=${this.disabled ? (nothing as any) : '0'}>
+        <!--
+        TODO: Implement when pop-out is ready
+        <uui-icon
+          id="info-icon"
+          name="info"
+          style="color: currentColor">
+        </uui-icon>
+        -->
+        <span>${this.name}</span>
+      </a>
+    `;
+  }
+
+  public render() {
+    return html` ${this.renderMedia()}
+      <slot @slotchange=${this.queryPreviews}></slot>
+      ${this.href ? this.#renderLink() : this.#renderDeprecatedButton()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
 
