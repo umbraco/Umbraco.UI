@@ -97,6 +97,11 @@ export class UUICardElement extends SelectOnlyMixin(
       :host([select-only]) ::slotted(*) {
         pointer-events: none;
       }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
     `,
   ];
 
@@ -119,12 +124,23 @@ export class UUICardElement extends SelectOnlyMixin(
   @property({ type: Boolean, reflect: true })
   error = false;
 
+  /**
+   * Determines the path to navigate to when certain part of card is clicked.
+   * @type {string}
+   * @attr href
+   * @default '''
+   */
+  @property({ type: String, reflect: true })
+  href = '';
+
+  // This is deprecated - use href instead
   protected handleOpenClick(e: Event) {
     if (this.disabled) return;
 
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
+  // This is deprecated - use href instead
   protected handleOpenKeydown(e: KeyboardEvent) {
     if (this.disabled) return;
     if (e.key !== 'Enter') return;
