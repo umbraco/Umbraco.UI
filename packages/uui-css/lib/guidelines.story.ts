@@ -187,7 +187,7 @@ export const Dialog = () => html`
         when writing dialogs. Some will feel so much at home that they will
         assume the message, for those users we want something that is easy to
         digest for their eyes.<br />
-        Others are learning the system and needs to be suited with all of the
+        Others are learning the system and need to be suited to all of the
         consequences and confidence in what they do. They will read everything
         but not necessary understand all words — Therefor we will use the
         description to write sentences and confirms the understanding.
