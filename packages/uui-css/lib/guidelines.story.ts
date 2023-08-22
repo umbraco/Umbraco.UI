@@ -385,7 +385,7 @@ export const Dialog = () => html`
 
     <h2>Actions</h2>
     <p>
-      Ideally a dialog is a question of wether the user wants to carry out an
+      Ideally, a dialog is a question of whether the user wants to carry out an
       action or refuse it. Leaving the user with only two options.<br />
       For fast visual confirmation the wording on the actions must be short and
       clear. Use the name of the actual action. And make sure to use that exact
