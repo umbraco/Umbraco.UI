@@ -276,7 +276,7 @@ export const Dialog = () => html`
     <br />
     <p>
       This helps the user understand the effect of publishing and ´descendants´
-      — which for some one who does not have experience can be hard to
+      — which for someone who does not have experience can be hard to
       understand at first.
     </p>
 
