@@ -189,7 +189,7 @@ export const Dialog = () => html`
         digest for their eyes.<br />
         Others are learning the system and need to be suited to all of the
         consequences to have confidence in what they do. They will read everything
-        but not necessary understand all words — Therefor we will use the
+        but not necessarily understand all words — Therefore we will use the
         description to write sentences and confirms the understanding.
       </p>
 
