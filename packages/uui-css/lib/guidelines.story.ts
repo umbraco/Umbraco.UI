@@ -198,7 +198,7 @@ export const Dialog = () => html`
         description unfolds that it will make something public available.
         <br />
 
-        Below you will see a few examples which gives you some examples of how
+        Below you will see a few examples that give you some examples of how
         this can be done in condensed form.
       </p>
     </div>
