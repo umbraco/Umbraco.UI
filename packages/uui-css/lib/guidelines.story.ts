@@ -318,7 +318,7 @@ export const Dialog = () => html`
 
     <br />
     <p>
-      Describe the direct effect first. And if there is secondary effects then
+      Describe the direct effect first. And if there are secondary effects then
       describe it as well. In this example italicized text is used to describe
       the secondary effect.
     </p>
