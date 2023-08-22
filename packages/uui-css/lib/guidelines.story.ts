@@ -390,7 +390,7 @@ export const Dialog = () => html`
       For fast visual confirmation the wording on the actions must be short and
       clear. Use the name of the actual action. And make sure to use that exact
       same word in the headline or alternatively in the description. In this way
-      that establishes a connection between the text and the action.
+      it establishes a connection between the text and the action.
     </p>
 
     <uui-dialog>
