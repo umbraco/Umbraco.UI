@@ -426,7 +426,7 @@ export const Dialog = () => html`
     <p>
       In this case Publish, binds with the headline cause its using the same
       word. If the user is unsure about the target, their eyes can easily spot
-      the bold text without reding the actual description and intuitively
+      the bold text without reading the actual description and intuitively
       conclude a relation between the Bold text and the action.<br />
     </p>
     <br />
