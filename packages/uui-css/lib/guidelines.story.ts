@@ -104,7 +104,7 @@ export const Typography = () => html`
     <p>
       The Umbraco Typography can be used on a full web application or on a
       dedicated spot. To set the font use the <strong>uui-font</strong> class on
-      the root element or a element of interest. Additionally the
+      the root element or an element of interest. Additionally, the
       <strong>uui-text</strong> class must be set to expose the Umbraco
       Typography Styles. See the UUI-CSS package for more.
     </p>
