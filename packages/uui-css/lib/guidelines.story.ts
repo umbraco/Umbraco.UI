@@ -190,7 +190,7 @@ export const Dialog = () => html`
         Others are learning the system and need to be suited to all of the
         consequences to have confidence in what they do. They will read everything
         but not necessarily understand all words — Therefore we will use the
-        description to write sentences and confirms the understanding.
+        description to write sentences and confirm the understanding.
       </p>
 
       <p>
