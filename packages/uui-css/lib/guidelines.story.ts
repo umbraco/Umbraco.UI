@@ -168,18 +168,8 @@ export const Dialog = () => html`
         Guiding the user to the right action. Requiring minimal cognitive effort
         by delivering a very clear message.
       </p>
-      <p>
-        Consider users knowledge vary, some will know the dialog like their owns
-        pockets, wanting something that is easy to digest with their eyes.<br />
-        Others are learning the system and needs to be suited with all of the
-        consequences and confidence in what they do. They will read everything
-        but not necessary understand all words — So we need to write sentences
-        and confirms the understanding.<br />
-        Like 'publishing' means to make something become public available. Below
-        you will see a few examples which should give oyu a good idea about how
-        this can be done in condensed form.
-      </p>
-      '
+
+      <br />
 
       <uui-dialog>
         <uui-dialog-layout headline="Headline">
@@ -190,6 +180,27 @@ export const Dialog = () => html`
           >
         </uui-dialog-layout>
       </uui-dialog>
+      <br />
+
+      <p>
+        The knowledge of our users varies and this must be carefully considered
+        when writing dialogs. Some will feel so much at home that they will
+        assume the message, for those users we want something that is easy to
+        digest for their eyes.<br />
+        Others are learning the system and needs to be suited with all of the
+        consequences and confidence in what they do. They will read everything
+        but not necessary understand all words — Therefor we will use the
+        description to write sentences and confirms the understanding.
+      </p>
+
+      <p>
+        One of the dialogs below uses the word 'publishing', and then the
+        description unfolds that it will make something public available.
+        <br />
+
+        Below you will see a few examples which gives you some examples of how
+        this can be done in condensed form.
+      </p>
     </div>
 
     <h2>Headline</h2>
@@ -336,16 +347,19 @@ export const Dialog = () => html`
     <uui-dialog>
       <uui-dialog-layout headline="Publish with descendants">
         Are you sure you want to publish <strong>My Page 1</strong> and all
-        descendant items and thereby making their content publicly available.
+        descendant items.
         <uui-button slot="actions">Cancel</uui-button>
         <uui-button slot="actions" look="primary" color="positive"
-          >Publish 'My Page 1'</uui-button
+          >Publish</uui-button
         >
       </uui-dialog-layout>
     </uui-dialog>
 
     <br />
-    <p>...</p>
+    <p>
+      The description here is not helping the user if they are slightly in doubt
+      about the meaning of the words 'publishing' or 'descendant'.
+    </p>
     <br />
 
     <uui-dialog>
@@ -355,13 +369,18 @@ export const Dialog = () => html`
         descendant content items.
         <uui-button slot="actions">Cancel</uui-button>
         <uui-button slot="actions" look="primary" color="positive"
-          >Transfer</uui-button
+          >Transfer 'My Page 1'</uui-button
         >
       </uui-dialog-layout>
     </uui-dialog>
 
     <br />
-    <p>...</p>
+    <p>
+      This example displays how writing the name of the page in the action
+      button is making it hard to read. See for your self how much easier it is
+      to read the page name as part of the description instead, leaving the
+      action very easy to read.
+    </p>
     <br />
 
     <h2>Actions</h2>
