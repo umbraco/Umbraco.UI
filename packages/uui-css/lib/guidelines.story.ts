@@ -165,7 +165,7 @@ export const Dialog = () => html`
       <h1>Dialog Style Guide</h1>
       <p class="uui-lead">
         The following guide will suit you to write sharp and concrete dialogs.
-        Guiding the user to the right action. Requiring minimal cognitive effort
+        Guiding the user to the right action. Requires minimal cognitive effort
         by delivering a very clear message.
       </p>
 
