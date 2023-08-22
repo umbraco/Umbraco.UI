@@ -257,7 +257,7 @@ export const Dialog = () => html`
 
     <br />
     <p>
-      In above example the description helps the user understand the effect —
+      In the above example the description helps the user understand the effect —
       and guides the user by mentioning where it goes.
     </p>
     <br />
