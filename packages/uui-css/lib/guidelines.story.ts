@@ -406,7 +406,7 @@ export const Dialog = () => html`
 
     <br />
     <p>
-      There the actions is named 'Delete' which has a close relation to the
+      There the action is named 'Delete' which has a close relation to the
       headline 'Delete My Page'. In this way the headline helps clarify what the
       action does.<br />
     </p>
