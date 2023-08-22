@@ -238,7 +238,7 @@ export const Dialog = () => html`
     </p>
     <p>
       Notice the description can be styled, for an easier read. We will use bold
-      to highlight data. In this way making the data stand out and making it
+      to highlight data. In this way it makes the data stand out and makes it
       easier to anchor that part of the text.
     </p>
 
