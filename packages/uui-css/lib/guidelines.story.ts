@@ -377,7 +377,7 @@ export const Dialog = () => html`
     <br />
     <p>
       This example displays how writing the name of the page in the action
-      button is making it hard to read. See for your self how much easier it is
+      button is making it hard to read. See for yourself how much easier it is
       to read the page name as part of the description instead, leaving the
       action very easy to read.
     </p>
