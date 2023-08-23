@@ -40,8 +40,8 @@ export const ConfirmDialogPositive: Story = () => html`
   <uui-dialog>
     <uui-dialog-layout headline="Publish with descendants">
       <p>
-        Publish <b>This example</b> and all content items underneath and thereby
-        making their content publicly available.
+        Make <b>My Page 1</b> and all content items underneath publicly
+        available.
       </p>
       <uui-button slot="actions">Cancel</uui-button>
       <uui-button slot="actions" look="primary" color="positive"
