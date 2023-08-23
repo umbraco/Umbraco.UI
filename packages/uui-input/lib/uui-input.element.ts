@@ -1,6 +1,6 @@
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, nothing, PropertyValueMap } from 'lit';
+import { css, html, LitElement, PropertyValueMap } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
@@ -401,34 +401,41 @@ export class UUIInputElement extends FormControlMixin(
   render() {
     return html`
       ${this.renderPrepend()}
-      <div id="control">
-        <input
-          id="input"
-          .type=${this.type}
-          .value=${this.value as string}
-          .name=${this.name}
-          pattern=${ifDefined(this.pattern)}
-          min=${ifDefined(this.min)}
-          max=${ifDefined(this.max)}
-          step=${ifDefined(this.step)}
-          spellcheck=${this.spellcheck}
-          autocomplete=${ifDefined(this.autocomplete as any)}
-          placeholder=${ifDefined(this.placeholder)}
-          aria-label=${ifDefined(this.label)}
-          inputmode=${ifDefined(this.inputMode)}
-          ?disabled=${this.disabled}
-          ?autofocus=${this.autofocus}
-          ?required=${this.required}
-          ?readonly=${this.readonly}
-          @input=${this.onInput}
-          @change=${this.onChange} />
-        ${this.autoWidth ? this.renderAutoWidth() : nothing}
-      </div>
+      ${this.autoWidth ? this.renderInputWithAutoWidth() : this.renderInput()}
       ${this.renderAppend()}
     `;
   }
 
-  private renderAutoWidth() {
+  private renderInputWithAutoWidth() {
+    html`<div id="control">
+      ${this.renderInput()}${this.renderAutoWidthBackground()}
+    </div>`;
+  }
+
+  renderInput() {
+    return html`<input
+      id="input"
+      .type=${this.type}
+      .value=${this.value as string}
+      .name=${this.name}
+      pattern=${ifDefined(this.pattern)}
+      min=${ifDefined(this.min)}
+      max=${ifDefined(this.max)}
+      step=${ifDefined(this.step)}
+      spellcheck=${this.spellcheck}
+      autocomplete=${ifDefined(this.autocomplete as any)}
+      placeholder=${ifDefined(this.placeholder)}
+      aria-label=${ifDefined(this.label)}
+      inputmode=${ifDefined(this.inputMode)}
+      ?disabled=${this.disabled}
+      ?autofocus=${this.autofocus}
+      ?required=${this.required}
+      ?readonly=${this.readonly}
+      @input=${this.onInput}
+      @change=${this.onChange} />`;
+  }
+
+  private renderAutoWidthBackground() {
     return html` <div id="auto" aria-hidden="true">${this.renderText()}</div>`;
   }
 
