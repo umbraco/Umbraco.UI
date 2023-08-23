@@ -43,8 +43,7 @@ export class UUIPopoverContainerElement extends LitElement {
     const top = targetRect.top + targetRect.height;
     const left = targetRect.left;
 
-    this.style.top = `${top}px`;
-    this.style.left = `${left}px`;
+    this.style.transform = `translate(${left}px, ${top}px)`;
   };
 
   #findAncestorWithAttribute(
