@@ -77,3 +77,5 @@ export * from '@umbraco-ui/uui-toast-notification-container/lib';
 export * from '@umbraco-ui/uui-toast-notification-layout/lib';
 export * from '@umbraco-ui/uui-toast-notification/lib';
 export * from '@umbraco-ui/uui-toggle/lib';
+
+export * from '@umbraco-ui/uui-popover-container/lib/index.js';
