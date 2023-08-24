@@ -53,19 +53,21 @@ export class UUIPopoverContainerElement extends LitElement {
     super.connectedCallback();
 
     this.addEventListener('beforetoggle', this.#beforeToggle);
-    document.addEventListener('scroll', this.#updatePosition);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
 
     this.removeEventListener('beforetoggle', this.#beforeToggle);
-    document.removeEventListener('scroll', this.#updatePosition);
   }
 
   #beforeToggle = async (event: any) => {
-    if (event.newState !== 'open') return;
+    if (event.newState !== 'open') {
+      document.removeEventListener('scroll', this.#updatePosition);
+      return;
+    }
 
+    document.addEventListener('scroll', this.#updatePosition);
     this.id;
     this.#target = this.#findAncestorWithAttribute(
       this,
@@ -171,10 +173,20 @@ export class UUIPopoverContainerElement extends LitElement {
 
     left = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
 
+    // Detect if the popover is completely outside the screen on any side
+    const isCompletelyOutsideScreen =
+      top + popoverRect.height < 0 ||
+      top > screenHeight ||
+      left + popoverRect.width < 0 ||
+      left > screenWidth;
+
+    if (isCompletelyOutsideScreen) {
+      // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
+      this.hidePopover();
+    }
+
     // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
-
-    // TODO: Close if the popover is outside the screen
   };
 
   #findAncestorWithAttribute(
