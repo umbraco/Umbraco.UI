@@ -144,7 +144,37 @@ export class UUIPopoverContainerElement extends LitElement {
       }
     }
 
+    // Clamp left and top within screen bounds
+    // If the target leaves the screen, the popover follows.
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    const topTargetVsScreenTop = Math.min(
+      0,
+      targetRect.top + targetRect.height
+    );
+    const topTargetVsScreenBottom = Math.max(
+      Math.min(top, screenHeight - popoverRect.height),
+      targetRect.top - popoverRect.height
+    );
+
+    top = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
+
+    const leftTargetVsScreenLeft = Math.min(
+      0,
+      targetRect.left + targetRect.width
+    );
+    const leftTargetVsScreenRight = Math.max(
+      Math.min(left, screenWidth - popoverRect.width),
+      targetRect.left - popoverRect.width
+    );
+
+    left = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
+
+    // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
+
+    // TODO: Close if the popover is outside the screen
   };
 
   #findAncestorWithAttribute(
