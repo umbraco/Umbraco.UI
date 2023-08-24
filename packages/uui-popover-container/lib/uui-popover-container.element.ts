@@ -261,6 +261,7 @@ export class UUIPopoverContainerElement extends LitElement {
         padding: 0;
         background-color: none;
         background: none;
+        overflow: visible;
       }
     `,
   ];

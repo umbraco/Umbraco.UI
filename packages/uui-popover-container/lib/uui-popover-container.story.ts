@@ -32,7 +32,7 @@ export const Overview: Story = {
     </button>
     <uui-popover-container id="popover-container" popover>
       <div
-        style="max-width: 300px; background: white; border: 1px solid black; border-radius: 4px;">
+        style="max-width: 300px; background: white; border: 1px solid black; border-radius: 4px; box-shadow: 0px 2px 20px -1px rgba(0, 0, 0, 0.21);">
         <h2>This is my popover</h2>
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem,
