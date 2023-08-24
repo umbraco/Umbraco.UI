@@ -125,13 +125,22 @@ export class UUICardElement extends SelectOnlyMixin(
   error = false;
 
   /**
-   * Determines the path to navigate to when certain part of card is clicked.
+   * Set an href, this will turns the name of the card into an anchor tag.
    * @type {string}
-   * @attr href
-   * @default '''
+   * @attr
+   * @default undefined
    */
-  @property({ type: String, reflect: true })
-  href = '';
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
 
   // This is deprecated - use href instead
   protected handleOpenClick(e: Event) {

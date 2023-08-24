@@ -3,6 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import '@umbraco-ui/uui-symbol-folder/lib';
 import '@umbraco-ui/uui-symbol-file/lib';
@@ -187,8 +188,12 @@ export class UUICardMediaElement extends UUICardElement {
     return html`
       <a
         id="open-part"
-        href=${this.href}
-        tabindex=${this.disabled ? (nothing as any) : '0'}>
+        tabindex=${this.disabled ? (nothing as any) : '0'}
+        href=${ifDefined(!this.disabled ? this.href : undefined)}
+        target=${ifDefined(this.target || undefined)}
+        rel=${ifDefined(
+          this.target === '_blank' ? 'noopener noreferrer' : undefined
+        )}>
         <!--
         TODO: Implement when pop-out is ready
         <uui-icon

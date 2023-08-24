@@ -3,6 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  *  @element uui-card-content-node
@@ -131,7 +132,11 @@ export class UUICardContentNodeElement extends UUICardElement {
     return html`<a
       id="open-part"
       tabindex=${this.disabled ? (nothing as any) : 0}
-      href=${this.href}>
+      href=${ifDefined(!this.disabled ? this.href : undefined)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}>
       <span id="icon">
         <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
         ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
