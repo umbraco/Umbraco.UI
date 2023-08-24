@@ -95,30 +95,53 @@ export class UUIPopoverContainerElement extends LitElement {
     let top = 0;
     let left = 0;
 
-    const verticalOffset = isStart
-      ? 0
-      : isEnd
-      ? targetRect.height - popoverRect.height
-      : (targetRect.height - popoverRect.height) / 2;
-
-    const horizontalOffset = isStart
-      ? 0
-      : isEnd
-      ? targetRect.width - popoverRect.width
-      : (targetRect.width - popoverRect.width) / 2;
-
+    if (isBottomPlacement) {
+      top = targetRect.top + targetRect.height;
+      if (isStart) {
+        left = targetRect.left;
+      }
+      if (isEnd) {
+        left = targetRect.left + targetRect.width - popoverRect.width;
+      }
+      if (!isStart && !isEnd) {
+        left = targetRect.left + targetRect.width / 2 - popoverRect.width / 2;
+      }
+    }
     if (isTopPlacement) {
-      top = targetRect.top - popoverRect.height - verticalOffset;
-      left = targetRect.left + horizontalOffset;
-    } else if (isBottomPlacement) {
-      top = targetRect.top + targetRect.height + verticalOffset;
-      left = targetRect.left + horizontalOffset;
-    } else if (isLeftPlacement) {
-      top = targetRect.top + verticalOffset;
-      left = targetRect.left - popoverRect.width - horizontalOffset;
-    } else if (isRightPlacement) {
-      top = targetRect.top + verticalOffset;
-      left = targetRect.left + targetRect.width + horizontalOffset;
+      top = targetRect.top - popoverRect.height;
+      if (isStart) {
+        left = targetRect.left;
+      }
+      if (isEnd) {
+        left = targetRect.left + targetRect.width - popoverRect.width;
+      }
+      if (!isStart && !isEnd) {
+        left = targetRect.left + targetRect.width / 2 - popoverRect.width / 2;
+      }
+    }
+    if (isLeftPlacement) {
+      left = targetRect.left - popoverRect.width;
+      if (isStart) {
+        top = targetRect.top;
+      }
+      if (isEnd) {
+        top = targetRect.top + targetRect.height - popoverRect.height;
+      }
+      if (!isStart && !isEnd) {
+        top = targetRect.top + targetRect.height / 2 - popoverRect.height / 2;
+      }
+    }
+    if (isRightPlacement) {
+      left = targetRect.left + targetRect.width;
+      if (isStart) {
+        top = targetRect.top;
+      }
+      if (isEnd) {
+        top = targetRect.top + targetRect.height - popoverRect.height;
+      }
+      if (!isStart && !isEnd) {
+        top = targetRect.top + targetRect.height / 2 - popoverRect.height / 2;
+      }
     }
 
     this.style.transform = `translate(${left}px, ${top}px)`;
