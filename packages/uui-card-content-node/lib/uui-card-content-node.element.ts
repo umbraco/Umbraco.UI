@@ -113,8 +113,7 @@ export class UUICardContentNodeElement extends UUICardElement {
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 
-  // This is deprecated - use href instead
-  #renderDeprecatedButton() {
+  #renderButton() {
     return html`<div
       id="open-part"
       tabindex=${this.disabled ? (nothing as any) : 0}
@@ -143,7 +142,7 @@ export class UUICardContentNodeElement extends UUICardElement {
 
   public render() {
     return html`
-      ${this.href ? this.#renderLink() : this.#renderDeprecatedButton()}
+      ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 

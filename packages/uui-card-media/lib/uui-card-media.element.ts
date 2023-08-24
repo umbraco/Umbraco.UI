@@ -163,8 +163,7 @@ export class UUICardMediaElement extends UUICardElement {
       type="${this.fileExt}"></uui-symbol-file>`;
   }
 
-  // This is deprecated - use href instead
-  #renderDeprecatedButton() {
+  #renderButton() {
     return html`
       <button
         id="open-part"
@@ -206,7 +205,7 @@ export class UUICardMediaElement extends UUICardElement {
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
-      ${this.href ? this.#renderLink() : this.#renderDeprecatedButton()}
+      ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
 
