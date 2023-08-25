@@ -42,6 +42,8 @@ export class UUIPopoverContainerElement extends LitElement {
   }
   set placement(newValue: PopoverContainerPlacement) {
     this._placement = newValue;
+    this.#updatePadding();
+    this.#updatePosition();
   }
 
   @state()
@@ -60,6 +62,26 @@ export class UUIPopoverContainerElement extends LitElement {
 
     this.removeEventListener('beforetoggle', this.#beforeToggle);
   }
+
+  #updatePadding = () => {
+    const oppositeSides: Record<string, string> = {
+      top: 'bottom',
+      bottom: 'top',
+      left: 'right',
+      right: 'left',
+    };
+
+    // find the side excluding start/end
+    let side = this._placement.split('-')[0];
+    // find the opposite side
+    side = oppositeSides[side] || side;
+    // capitalize the side
+    side = side.charAt(0).toUpperCase() + side.slice(1);
+
+    const paddingSide = `padding${side}`;
+    this.style.padding = '0';
+    (this.style as any)[paddingSide] = `10px`;
+  };
 
   #beforeToggle = async (event: any) => {
     if (event.newState !== 'open') {
