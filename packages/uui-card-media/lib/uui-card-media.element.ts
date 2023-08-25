@@ -3,6 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import '@umbraco-ui/uui-symbol-folder/lib';
 import '@umbraco-ui/uui-symbol-file/lib';
@@ -163,9 +164,8 @@ export class UUICardMediaElement extends UUICardElement {
       type="${this.fileExt}"></uui-symbol-file>`;
   }
 
-  public render() {
-    return html` ${this.renderMedia()}
-      <slot @slotchange=${this.queryPreviews}></slot>
+  #renderButton() {
+    return html`
       <button
         id="open-part"
         tabindex=${this.disabled ? (nothing as any) : '0'}
@@ -181,6 +181,36 @@ export class UUICardMediaElement extends UUICardElement {
         -->
         <span>${this.name}</span>
       </button>
+    `;
+  }
+
+  #renderLink() {
+    return html`
+      <a
+        id="open-part"
+        tabindex=${this.disabled ? (nothing as any) : '0'}
+        href=${ifDefined(!this.disabled ? this.href : undefined)}
+        target=${ifDefined(this.target || undefined)}
+        rel=${ifDefined(
+          this.target === '_blank' ? 'noopener noreferrer' : undefined
+        )}>
+        <!--
+        TODO: Implement when pop-out is ready
+        <uui-icon
+          id="info-icon"
+          name="info"
+          style="color: currentColor">
+        </uui-icon>
+        -->
+        <span>${this.name}</span>
+      </a>
+    `;
+  }
+
+  public render() {
+    return html` ${this.renderMedia()}
+      <slot @slotchange=${this.queryPreviews}></slot>
+      ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
 
