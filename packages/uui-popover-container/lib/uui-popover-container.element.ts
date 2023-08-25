@@ -215,39 +215,7 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   render() {
-    const array: PopoverContainerPlacement[] = [
-      'auto',
-      'top',
-      'top-start',
-      'top-end',
-      'bottom',
-      'bottom-start',
-      'bottom-end',
-      'right',
-      'right-start',
-      'right-end',
-      'left',
-      'left-start',
-      'left-end',
-    ];
-
-    return html`
-      <!-- Debug buttons to test placement -->
-      <div style="position: absolute">
-        ${array.map(
-          placement => html`
-            <button
-              @click=${() => {
-                this.placement = placement as PopoverContainerPlacement;
-                this.#updatePosition();
-              }}>
-              ${placement}
-            </button>
-          `
-        )}
-      </div>
-      <slot></slot>
-    `;
+    return html`<slot></slot>`;
   }
 
   static styles = [
