@@ -23,14 +23,48 @@ export default meta;
 type Story = StoryObj<UUIPopoverContainerElement>;
 
 export const Overview: Story = {
-  render: () => html`
+  play: async ({ canvasElement }) => {
+    const button = canvasElement.querySelector('#popover-button');
+    button?.scrollIntoView({
+      behavior: 'instant',
+      block: 'center',
+      inline: 'center',
+    });
+  },
+  args: {
+    placement: 'bottom-start',
+  },
+  argTypes: {
+    placement: {
+      options: [
+        'auto',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
+      ],
+    },
+  },
+  render: args => html`
     <button
       id="popover-button"
       popovertarget="popover-container"
-      style="margin: 2000px">
+      style="margin: auto">
       open popover
     </button>
-    <uui-popover-container id="popover-container" popover>
+    <uui-popover-container
+      id="popover-container"
+      popover
+      placement=${args.placement}
+      margin=${args.margin}>
       <div
         style="max-width: 300px; background: white; border: 1px solid black; border-radius: 4px; box-shadow: 0px 2px 20px -1px rgba(0, 0, 0, 0.21);">
         <h2>This is my popover</h2>
