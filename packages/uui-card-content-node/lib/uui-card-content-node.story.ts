@@ -46,7 +46,9 @@ export const AAAOverview: Story = props => html`
     ?selectable=${props.selectable}
     ?selected=${props.selected}
     ?error=${props.error}
-    ?disabled=${props.disabled}>
+    ?disabled=${props.disabled}
+    href=${props.href}
+    target=${props.target}>
     <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     ${cardContent}
   </uui-card-content-node>
