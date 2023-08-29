@@ -54,6 +54,14 @@ export class UUIPopoverContainerElement extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
+    // CHECK BROWSER SUPPORT
+    if (!HTMLElement.prototype.hasOwnProperty('popover')) {
+      alert(
+        'Browser does not support popovers. Check the docs for info on how to enable: https://developer.mozilla.org/en-US/docs/Web/API/Popover_API'
+      );
+      return;
+    }
+
     this.addEventListener('beforetoggle', this.#beforeToggle);
   }
 
