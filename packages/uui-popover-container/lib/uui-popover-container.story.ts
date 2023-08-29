@@ -9,14 +9,6 @@ const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
   title: 'Popover Container',
   component: 'uui-popover-container',
-  parameters: {
-    // readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<uui-popover-container></uui-popover-container>`,
-      },
-    },
-  },
 };
 
 export default meta;
