@@ -416,6 +416,15 @@ export class UUIButtonElement extends FormControlMixin(
   public href?: string;
 
   /**
+   * Set a popovertarget.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public popovertarget?: string;
+
+  /**
    * Set an anchor tag target, only used when using href.
    * @type {string}
    * @attr
@@ -427,9 +436,12 @@ export class UUIButtonElement extends FormControlMixin(
   @query('#button')
   protected _button!: HTMLInputElement;
 
+  #popoverIsOpen = false;
+
   constructor() {
     super();
     this.addEventListener('click', this._onHostClick);
+    this.addEventListener('uui-popover-before-toggle', this.#popoverListener);
   }
 
   protected getFormElement(): HTMLElement {
@@ -459,6 +471,8 @@ export class UUIButtonElement extends FormControlMixin(
           break;
       }
     }
+
+    this.#updatePopover();
   }
 
   private _resetStateTimeout?: number;
@@ -501,6 +515,55 @@ export class UUIButtonElement extends FormControlMixin(
     }
 
     return html`<div id="state">${element}</div>`;
+  }
+
+  #popoverListener = (event: any) => {
+    // Wait for the click event to finish before updating the popover state
+    requestAnimationFrame(() => {
+      this.#popoverIsOpen = event.detail.newState === 'open';
+    });
+  };
+
+  #updatePopover = () => {
+    if (!this.popovertarget) return;
+
+    const popoverTarget = this.#findAncestorWithAttribute(
+      this,
+      'id',
+      this.popovertarget
+    );
+    if (!popoverTarget) return;
+
+    this.#popoverIsOpen
+      ? // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
+        popoverTarget.hidePopover()
+      : // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
+        popoverTarget.showPopover();
+  };
+
+  #findAncestorWithAttribute(
+    element: HTMLElement,
+    attributeName: string,
+    attributeValue: string
+  ) {
+    while (element !== null && element.parentElement !== null) {
+      element = element.parentElement;
+
+      const elementHasAttribute =
+        element.hasAttribute(attributeName) &&
+        element.getAttribute(attributeName) === attributeValue;
+      const elementContainsAttribute =
+        element.querySelector(`[${attributeName}="${attributeValue}"]`) !==
+        null;
+      if (elementHasAttribute) {
+        return element;
+      } else if (elementContainsAttribute) {
+        return element.querySelector(
+          `[${attributeName}="${attributeValue}"]`
+        ) as HTMLElement;
+      }
+    }
+    return null;
   }
 
   render() {

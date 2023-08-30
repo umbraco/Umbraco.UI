@@ -92,18 +92,31 @@ export class UUIPopoverContainerElement extends LitElement {
   };
 
   #beforeToggle = async (event: any) => {
+    this.#target = this.#findAncestorWithAttribute(
+      this,
+      'popovertarget',
+      this.id
+    );
+
+    // Dispatch a custom event that can be listened to by the popover target.
+    // Mostly used for UUIButton.
+    this.#target?.dispatchEvent(
+      new CustomEvent('uui-popover-before-toggle', {
+        bubbles: false,
+        composed: false,
+        detail: {
+          oldState: event.oldState,
+          newState: event.newState,
+        },
+      })
+    );
+
     if (event.newState !== 'open') {
       document.removeEventListener('scroll', this.#updatePosition);
       return;
     }
 
     document.addEventListener('scroll', this.#updatePosition);
-    this.id;
-    this.#target = this.#findAncestorWithAttribute(
-      this,
-      'popovertarget',
-      this.id
-    );
 
     requestAnimationFrame(() => {
       this.#updatePosition();
