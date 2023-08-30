@@ -46,12 +46,12 @@ export const Overview: Story = {
     },
   },
   render: args => html`
-    <button
+    <uui-button
       id="popover-button"
       popovertarget="popover-container"
       style="margin: auto">
       open popover
-    </button>
+    </uui-button>
     <uui-popover-container
       id="popover-container"
       popover
