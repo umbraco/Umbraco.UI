@@ -6,10 +6,31 @@ import * as stories from './uui-popover-container.story';
 # Popover Container
 
 This component is a container for popovers. It is used to position the popover relative to the target element.
-It is also a native popover. So everything descriped in the [Popover documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) applies.
+It is also a native popover. So everything descriped in the **[Popover documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)** applies.
 
-However when used with UUIButton, the popovertargetaction property will not work, and defaults too toggle.
-
+<div
+  style={{
+    borderLeft: '10px solid #f3d41b',
+    background: '#f3d41b24',
+    padding: '0px 12px',
+    display: 'flex',
+  }}>
+  When used with UUIButton or any element that is not a native button or input,
+  the popovertargetaction property will not work, and defaults too toggle.
+</div>
+<br />
+<div
+  style={{
+    borderLeft: '10px solid #e25555',
+    background: '#e2555512',
+    padding: '0px 12px',
+    display: 'flex',
+  }}>
+  This is experimental and will not work in all browsers. See **[Popover
+  documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)**
+  for more information.
+</div>
+<br />
 ## Basic usage
 
 ```html
