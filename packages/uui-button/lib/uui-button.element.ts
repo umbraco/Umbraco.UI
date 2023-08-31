@@ -422,7 +422,7 @@ export class UUIButtonElement extends FormControlMixin(
    * @default undefined
    */
   @property({ type: String })
-  public popovertarget?: string;
+  public popoverContainerElement?: string;
 
   /**
    * Set an anchor tag target, only used when using href.
@@ -525,20 +525,20 @@ export class UUIButtonElement extends FormControlMixin(
   };
 
   #updatePopover = () => {
-    if (!this.popovertarget) return;
+    if (!this.popoverContainerElement) return;
 
-    const popoverTarget = this.#findAncestorWithAttribute(
+    const popoverContainerElement = this.#findAncestorWithAttribute(
       this,
       'id',
-      this.popovertarget
+      this.popoverContainerElement
     );
-    if (!popoverTarget) return;
+    if (!popoverContainerElement) return;
 
     this.#popoverIsOpen
       ? // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-        popoverTarget.hidePopover()
+        popoverContainerElement.hidePopover()
       : // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-        popoverTarget.showPopover();
+        popoverContainerElement.showPopover();
   };
 
   #findAncestorWithAttribute(
