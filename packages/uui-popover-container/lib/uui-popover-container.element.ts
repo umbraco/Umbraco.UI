@@ -42,12 +42,15 @@ export class UUIPopoverContainerElement extends LitElement {
   }
   set placement(newValue: PopoverContainerPlacement) {
     this._placement = newValue;
-    this.#updatePadding();
-    this.#updatePosition();
+    this._actualPlacement = newValue;
+    this.#initUpdate();
   }
 
   @state()
   _placement: PopoverContainerPlacement = 'bottom-start';
+
+  @state()
+  _actualPlacement: PopoverContainerPlacement = this._placement;
 
   #target: HTMLElement | null = null;
 
@@ -80,7 +83,7 @@ export class UUIPopoverContainerElement extends LitElement {
     };
 
     // find the side excluding start/end
-    let side = this._placement.split('-')[0];
+    let side = this._actualPlacement.split('-')[0];
     // find the opposite side
     side = oppositeSides[side] || side;
     // capitalize the side
@@ -112,27 +115,35 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     if (event.newState !== 'open') {
-      document.removeEventListener('scroll', this.#updatePosition);
+      document.removeEventListener('scroll', this.#initUpdate);
       return;
     }
 
-    document.addEventListener('scroll', this.#updatePosition);
+    document.addEventListener('scroll', this.#initUpdate);
 
     requestAnimationFrame(() => {
-      this.#updatePosition();
+      this.#initUpdate();
     });
   };
 
-  #updatePosition = () => {
+  #initUpdate = () => {
+    this._actualPlacement = this._placement;
+    this.style.opacity = '0';
+    this.#updatePosition(3);
+  };
+
+  #updatePosition = (iteration: number) => {
+    this.#updatePadding();
+    iteration--;
     if (this.#target === null) return;
 
-    const isTopPlacement = this.placement.indexOf('top') !== -1;
-    const isBottomPlacement = this.placement.indexOf('bottom') !== -1;
-    const isLeftPlacement = this.placement.indexOf('left') !== -1;
-    const isRightPlacement = this.placement.indexOf('right') !== -1;
+    const isTopPlacement = this._actualPlacement.indexOf('top') !== -1;
+    const isBottomPlacement = this._actualPlacement.indexOf('bottom') !== -1;
+    const isLeftPlacement = this._actualPlacement.indexOf('left') !== -1;
+    const isRightPlacement = this._actualPlacement.indexOf('right') !== -1;
 
-    const isStart = this.placement.indexOf('-start') !== -1;
-    const isEnd = this.placement.indexOf('-end') !== -1;
+    const isStart = this._actualPlacement.indexOf('-start') !== -1;
+    const isEnd = this._actualPlacement.indexOf('-end') !== -1;
 
     const targetRect = this.#target.getBoundingClientRect();
     const popoverRect = this.getBoundingClientRect();
@@ -203,6 +214,17 @@ export class UUIPopoverContainerElement extends LitElement {
       targetRect.top - popoverRect.height
     );
 
+    const topClamp = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
+    if (
+      topClamp !== top &&
+      (isTopPlacement || isBottomPlacement) &&
+      iteration > 0
+    ) {
+      this.#flipPlacement();
+      this.#updatePosition(iteration);
+      return;
+    }
+
     top = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
 
     const leftTargetVsScreenLeft = Math.min(
@@ -214,7 +236,17 @@ export class UUIPopoverContainerElement extends LitElement {
       targetRect.left - popoverRect.width
     );
 
-    left = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
+    const leftClamp = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
+    if (
+      leftClamp !== left &&
+      (isLeftPlacement || isRightPlacement) &&
+      iteration > 0
+    ) {
+      this.#flipPlacement();
+      this.#updatePosition(iteration);
+      return;
+    }
+    left = leftClamp;
 
     // Detect if the popover is completely outside the screen on any side
     const isCompletelyOutsideScreen =
@@ -230,7 +262,22 @@ export class UUIPopoverContainerElement extends LitElement {
 
     // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
+    this.style.opacity = '1';
   };
+
+  #flipPlacement() {
+    const [direction, position] = this._actualPlacement.split('-');
+    const oppositeDirection =
+      direction === 'top'
+        ? 'bottom'
+        : direction === 'bottom'
+        ? 'top'
+        : direction === 'left'
+        ? 'right'
+        : 'left';
+    this._actualPlacement =
+      `${oppositeDirection}-${position}` as PopoverContainerPlacement;
+  }
 
   #findAncestorWithAttribute(
     element: HTMLElement,
