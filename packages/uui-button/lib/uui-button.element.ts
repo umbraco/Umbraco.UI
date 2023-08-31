@@ -421,7 +421,7 @@ export class UUIButtonElement extends FormControlMixin(
    * @attr
    * @default undefined
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'popovertarget' })
   public popoverContainerElement?: string;
 
   /**
