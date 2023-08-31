@@ -50,7 +50,8 @@ export const Overview: Story = {
     <uui-button
       id="popover-button"
       popovertarget="popover-container"
-      style="margin: 200%">
+      look="primary"
+      style="margin: 200%; text-wrap: nowrap;">
       open popover
     </uui-button>
     <uui-popover-container
