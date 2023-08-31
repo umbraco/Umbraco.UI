@@ -52,7 +52,7 @@ export class UUIPopoverContainerElement extends LitElement {
   @state()
   _actualPlacement: PopoverContainerPlacement = this._placement;
 
-  #target: HTMLElement | null = null;
+  #targetElement: HTMLElement | null = null;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -65,13 +65,13 @@ export class UUIPopoverContainerElement extends LitElement {
       return;
     }
 
-    this.addEventListener('beforetoggle', this.#beforeToggle);
+    this.addEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    this.removeEventListener('beforetoggle', this.#beforeToggle);
+    this.removeEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
   #updatePadding = () => {
@@ -94,8 +94,8 @@ export class UUIPopoverContainerElement extends LitElement {
     (this.style as any)[paddingSide] = `10px`;
   };
 
-  #beforeToggle = async (event: any) => {
-    this.#target = this.#findAncestorWithAttribute(
+  #onBeforeToggle = async (event: any) => {
+    this.#targetElement = this.#findAncestorWithAttribute(
       this,
       'popovertarget',
       this.id
@@ -103,7 +103,7 @@ export class UUIPopoverContainerElement extends LitElement {
 
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
-    this.#target?.dispatchEvent(
+    this.#targetElement?.dispatchEvent(
       new CustomEvent('uui-popover-before-toggle', {
         bubbles: false,
         composed: false,
@@ -129,13 +129,17 @@ export class UUIPopoverContainerElement extends LitElement {
   #initUpdate = () => {
     this._actualPlacement = this._placement;
     this.style.opacity = '0';
+    // 3 iterations makes the popover flip back to the initial position if theres no space for it on either side.
     this.#updatePosition(3);
   };
 
   #updatePosition = (iteration: number) => {
     this.#updatePadding();
+
+    // Iterations makes sure that we don't overflow the stack.
+    // That could happen if the is no space for the popover on either side, which without iterations, would make it flip back and forth until the stack overflows
     iteration--;
-    if (this.#target === null) return;
+    if (this.#targetElement === null) return;
 
     const isTopPlacement = this._actualPlacement.indexOf('top') !== -1;
     const isBottomPlacement = this._actualPlacement.indexOf('bottom') !== -1;
@@ -145,7 +149,7 @@ export class UUIPopoverContainerElement extends LitElement {
     const isStart = this._actualPlacement.indexOf('-start') !== -1;
     const isEnd = this._actualPlacement.indexOf('-end') !== -1;
 
-    const targetRect = this.#target.getBoundingClientRect();
+    const targetRect = this.#targetElement.getBoundingClientRect();
     const popoverRect = this.getBoundingClientRect();
 
     let top = 0;
@@ -215,6 +219,8 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     const topClamp = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
+    // if we're currently in a top or bottom placement and the popover is outside the screen, and we have more iterations left.
+    // Then flip the placement to opposite side
     if (
       topClamp !== top &&
       (isTopPlacement || isBottomPlacement) &&
@@ -237,6 +243,8 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     const leftClamp = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
+    // if we're currently in a left or right placement and the popover is outside the screen, and we have more iterations left.
+    // Then flip the placement to opposite side
     if (
       leftClamp !== left &&
       (isLeftPlacement || isRightPlacement) &&
