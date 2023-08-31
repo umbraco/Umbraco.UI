@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 import './uui-popover-container.element';
+import '../../uui-button/lib/index';
 import type { UUIPopoverContainerElement } from './uui-popover-container.element';
 // import readme from '../README.md?raw';
 import { html } from 'lit';
@@ -49,7 +50,7 @@ export const Overview: Story = {
     <uui-button
       id="popover-button"
       popovertarget="popover-container"
-      style="margin: auto">
+      style="margin: 200%">
       open popover
     </uui-button>
     <uui-popover-container
