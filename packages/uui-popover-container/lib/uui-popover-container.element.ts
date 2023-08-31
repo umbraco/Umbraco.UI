@@ -74,26 +74,6 @@ export class UUIPopoverContainerElement extends LitElement {
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
-  #updatePadding = () => {
-    const oppositeSides: Record<string, string> = {
-      top: 'bottom',
-      bottom: 'top',
-      left: 'right',
-      right: 'left',
-    };
-
-    // find the side excluding start/end
-    let side = this._actualPlacement.split('-')[0];
-    // find the opposite side
-    side = oppositeSides[side] || side;
-    // capitalize the side
-    side = side.charAt(0).toUpperCase() + side.slice(1);
-
-    const paddingSide = `padding${side}`;
-    this.style.padding = '0';
-    (this.style as any)[paddingSide] = `10px`;
-  };
-
   #onBeforeToggle = async (event: any) => {
     this.#targetElement = this.#findAncestorWithAttribute(
       this,
@@ -271,6 +251,26 @@ export class UUIPopoverContainerElement extends LitElement {
     // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
     this.style.opacity = '1';
+  };
+
+  #updatePadding = () => {
+    const oppositeSides: Record<string, string> = {
+      top: 'bottom',
+      bottom: 'top',
+      left: 'right',
+      right: 'left',
+    };
+
+    // find the side excluding start/end
+    let side = this._actualPlacement.split('-')[0];
+    // find the opposite side
+    side = oppositeSides[side] || side;
+    // capitalize the side
+    side = side.charAt(0).toUpperCase() + side.slice(1);
+
+    const paddingSide = `padding${side}`;
+    this.style.padding = '0';
+    (this.style as any)[paddingSide] = `${this.margin}px`;
   };
 
   #flipPlacement() {
