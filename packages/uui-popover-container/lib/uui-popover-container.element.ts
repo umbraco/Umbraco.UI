@@ -31,6 +31,17 @@ export class UUIPopoverContainerElement extends LitElement {
   margin = 0;
 
   /**
+   * Read-only attribute to check if the popover is open
+   * @type {boolean}
+   * @attr open
+   * @default false
+   */
+  @property({ type: Boolean })
+  get open() {
+    return this._open;
+  }
+
+  /**
    * Define the placement of the popover container.
    * @attr placement
    * @default 'bottom-start'
@@ -47,6 +58,9 @@ export class UUIPopoverContainerElement extends LitElement {
 
   @state()
   _placement: PopoverContainerPlacement = 'bottom-start';
+
+  @state()
+  _open: boolean = false;
 
   @state()
   _actualPlacement: PopoverContainerPlacement = this._placement;
@@ -74,6 +88,8 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   #onBeforeToggle = async (event: any) => {
+    this._open = event.newState === 'open';
+
     this.#targetElement = this.#findAncestorWithAttribute(
       this,
       'popovertarget',
@@ -93,7 +109,7 @@ export class UUIPopoverContainerElement extends LitElement {
       })
     );
 
-    if (event.newState !== 'open') {
+    if (!this._open) {
       document.removeEventListener('scroll', this.#initUpdate);
       return;
     }
@@ -106,8 +122,11 @@ export class UUIPopoverContainerElement extends LitElement {
   };
 
   #initUpdate = () => {
+    if (!this._open) return;
+
     this._actualPlacement = this._placement;
     this.style.opacity = '0';
+
     // 3 iterations makes the popover flip back to the initial position if theres no space for it on either side.
     this.#updatePosition(3);
   };
