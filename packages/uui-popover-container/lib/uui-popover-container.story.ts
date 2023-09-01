@@ -30,6 +30,9 @@ export const Overview: Story = {
     margin: 0,
   },
   argTypes: {
+    open: {
+      control: false,
+    },
     placement: {
       options: [
         'auto',
