@@ -22,16 +22,16 @@ export type PopoverContainerPlacement =
 @defineElement('uui-popover-container')
 export class UUIPopoverContainerElement extends LitElement {
   /**
-   * Set the distance between popover-modal and trigger.
+   * Set the distance between popover container element and target element.
    * @type {number}
-   * @attr disabled
-   * @default false
+   * @attr margin
+   * @default 0
    */
   @property({ type: Number })
   margin = 0;
 
   /**
-   * Define the placement of the popover-modal.
+   * Define the placement of the popover container.
    * @attr placement
    * @default 'bottom-start'
    */

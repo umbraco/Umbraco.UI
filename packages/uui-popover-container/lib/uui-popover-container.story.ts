@@ -27,6 +27,7 @@ export const Overview: Story = {
   },
   args: {
     placement: 'bottom-start',
+    margin: 0,
   },
   argTypes: {
     placement: {
