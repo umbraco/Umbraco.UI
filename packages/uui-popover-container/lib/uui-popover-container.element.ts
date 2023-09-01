@@ -3,7 +3,6 @@ import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 export type PopoverContainerPlacement =
-  | 'auto'
   | 'top'
   | 'top-start'
   | 'top-end'
