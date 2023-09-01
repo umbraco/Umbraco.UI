@@ -26,7 +26,9 @@ export const AAAOverview: Story = props => html`
     ?selectable=${props.selectable}
     ?selected=${props.selected}
     ?error=${props.error}
-    ?disabled=${props.disabled}></uui-card-media>
+    ?disabled=${props.disabled}
+    href=${props.href}
+    target=${props.target}></uui-card-media>
 `;
 AAAOverview.storyName = 'Overview';
 

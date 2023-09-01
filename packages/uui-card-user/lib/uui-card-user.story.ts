@@ -34,7 +34,9 @@ const Template: StoryFn = props => html`
     ?select-only=${props.selectOnly}
     ?selected=${props.selected}
     ?error=${props.error}
-    ?disabled=${props.disabled}>
+    ?disabled=${props.disabled}
+    href=${props.href}
+    target=${props.target}>
     ${cardContent}
   </uui-card-user>
 `;
