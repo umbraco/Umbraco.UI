@@ -33,6 +33,7 @@ export class UUIPopoverContainerElement extends LitElement {
   /**
    * Read-only attribute to check if the popover is open
    * @type {boolean}
+   * @readonly
    * @attr open
    * @default false
    */
