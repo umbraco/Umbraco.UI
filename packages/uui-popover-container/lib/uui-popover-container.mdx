@@ -10,9 +10,9 @@ It is also a native popover. So everything descriped in the **[Popover documenta
 
 <div
   style={{
-    borderLeft: '10px solid #f3d41b',
+    borderLeft: '6px solid #f3d41b',
     background: '#f3d41b24',
-    padding: '0px 12px',
+    padding: '0px 16px',
     display: 'flex',
   }}>
   When used with UUIButton or any element that is not a native button or input,
@@ -21,12 +21,13 @@ It is also a native popover. So everything descriped in the **[Popover documenta
 <br />
 <div
   style={{
-    borderLeft: '10px solid #e25555',
+    borderLeft: '6px solid #e25555',
     background: '#e2555512',
-    padding: '0px 12px',
+    padding: '0px 16px',
     display: 'flex',
   }}>
-  This is experimental and will not work in all browsers. See **[Popover
+  This uses the Popover API which is experimental and will not work in all
+  browsers. See **[Popover
   documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)**
   for more information.
 </div>
@@ -49,6 +50,15 @@ It is also a native popover. So everything descriped in the **[Popover documenta
 </uui-popover-container>
 ```
 
+## Add margin
+
+```html
+<uui-button popovertarget="my-popover">Open Popover</uui-button>
+<uui-popover-container id="my-popover" popover margin="10">
+  My popover content
+</uui-popover-container>
+```
+
 ## Nested popover
 
 ```html
@@ -59,5 +69,21 @@ It is also a native popover. So everything descriped in the **[Popover documenta
   <uui-popover-container id="my-popover-2" popover>
     My other popover content
   </uui-popover-container>
+</uui-popover-container>
+```
+
+## Manual popover
+
+By default, popovers have a feature known as "light dismiss," which causes them to close if you click outside the popover.
+However, you have the option to alter this behavior using the `popover` attribute. The `popover` attribute offers two possible values: `auto` and `manual`. ¨
+If you omit a value, it will automatically default to `auto`. Essentially, using `popover` is the same as using `popover="auto"`.
+
+When you set the value to `manual`, the "light dismiss" functionality is disabled.
+As a result, you will need to manually close the popover either by clicking the button again or by explicitly toggling the popover.
+
+```html
+<uui-button popovertarget="my-popover">Open Popover</uui-button>
+<uui-popover-container id="my-popover" popover="manual">
+  My popover content
 </uui-popover-container>
 ```
