@@ -30,12 +30,34 @@ It is also a native popover. So everything descriped in the **[Popover documenta
   documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)**
   for more information.
 </div>
-<br />
+<Controls />
 ## Basic usage
 
 ```html
 <uui-button popovertarget="my-popover">Open Popover</uui-button>
 <uui-popover-container id="my-popover" popover>
   My popover content
+</uui-popover-container>
+```
+
+## Change placement
+
+```html
+<uui-button popovertarget="my-popover">Open Popover</uui-button>
+<uui-popover-container id="my-popover" popover placement="top-start">
+  My popover content
+</uui-popover-container>
+```
+
+## Nested popover
+
+```html
+<uui-button popovertarget="my-popover">Open Popover</uui-button>
+<uui-popover-container id="my-popover" popover>
+  My popover content
+  <uui-button popovertarget="my-popover-2">Open another popover</uui-button>
+  <uui-popover-container id="my-popover-2" popover>
+    My other popover content
+  </uui-popover-container>
 </uui-popover-container>
 ```
