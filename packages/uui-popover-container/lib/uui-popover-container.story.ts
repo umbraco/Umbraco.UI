@@ -9,7 +9,7 @@ import { html } from 'lit';
 
 const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
-  title: 'Popover Container',
+  title: 'Displays/Popover Container',
   component: 'uui-popover-container',
 };
 
