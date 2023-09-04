@@ -2,7 +2,10 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
-import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import {
+  demandCustomElement,
+  findAncestorByAttributeValue,
+} from '@umbraco-ui/uui-base/lib/utils';
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
@@ -527,7 +530,7 @@ export class UUIButtonElement extends FormControlMixin(
   #updatePopover = () => {
     if (!this.popoverContainerElement) return;
 
-    const popoverContainerElement = this.#findAncestorWithAttribute(
+    const popoverContainerElement = findAncestorByAttributeValue(
       this,
       'id',
       this.popoverContainerElement
@@ -540,31 +543,6 @@ export class UUIButtonElement extends FormControlMixin(
       : // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
         popoverContainerElement.showPopover();
   };
-
-  #findAncestorWithAttribute(
-    element: HTMLElement,
-    attributeName: string,
-    attributeValue: string
-  ) {
-    while (element !== null && element.parentElement !== null) {
-      element = element.parentElement;
-
-      const elementHasAttribute =
-        element.hasAttribute(attributeName) &&
-        element.getAttribute(attributeName) === attributeValue;
-      const elementContainsAttribute =
-        element.querySelector(`[${attributeName}="${attributeValue}"]`) !==
-        null;
-      if (elementHasAttribute) {
-        return element;
-      } else if (elementContainsAttribute) {
-        return element.querySelector(
-          `[${attributeName}="${attributeValue}"]`
-        ) as HTMLElement;
-      }
-    }
-    return null;
-  }
 
   render() {
     return this.href

@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -91,7 +92,7 @@ export class UUIPopoverContainerElement extends LitElement {
   #onBeforeToggle = async (event: any) => {
     this._open = event.newState === 'open';
 
-    this.#targetElement = this.#findAncestorWithAttribute(
+    this.#targetElement = findAncestorByAttributeValue(
       this,
       'popovertarget',
       this.id
@@ -304,31 +305,6 @@ export class UUIPopoverContainerElement extends LitElement {
         : 'left';
     this._actualPlacement =
       `${oppositeDirection}-${position}` as PopoverContainerPlacement;
-  }
-
-  #findAncestorWithAttribute(
-    element: HTMLElement,
-    attributeName: string,
-    attributeValue: string
-  ) {
-    while (element !== null && element.parentElement !== null) {
-      element = element.parentElement;
-
-      const elementHasAttribute =
-        element.hasAttribute(attributeName) &&
-        element.getAttribute(attributeName) === attributeValue;
-      const elementContainsAttribute =
-        element.querySelector(`[${attributeName}="${attributeValue}"]`) !==
-        null;
-      if (elementHasAttribute) {
-        return element;
-      } else if (elementContainsAttribute) {
-        return element.querySelector(
-          `[${attributeName}="${attributeValue}"]`
-        ) as HTMLElement;
-      }
-    }
-    return null;
   }
 
   render() {
