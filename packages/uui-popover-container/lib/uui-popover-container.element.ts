@@ -72,6 +72,8 @@ export class UUIPopoverContainerElement extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
+    this.addEventListener('focusout', this.#onFocusOut);
+
     // CHECK BROWSER SUPPORT
     if (!HTMLElement.prototype.hasOwnProperty('popover')) {
       alert(
@@ -88,6 +90,15 @@ export class UUIPopoverContainerElement extends LitElement {
 
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
   }
+
+  #onFocusOut = (event: FocusEvent) => {
+    // If focus is outside of the container, then the popover will close.
+    if (!event.relatedTarget || !this.contains(event.relatedTarget as Node)) {
+      // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
+      this.hidePopover();
+      this._open = false;
+    }
+  };
 
   #onBeforeToggle = async (event: any) => {
     this._open = event.newState === 'open';

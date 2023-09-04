@@ -2,11 +2,12 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
-  demandCustomElement,
-  findAncestorByAttributeValue,
-} from '@umbraco-ui/uui-base/lib/utils';
-import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+  FormControlMixin,
+  LabelMixin,
+  PopoverTargetMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   iconCheck,
@@ -46,7 +47,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends FormControlMixin(
-  LabelMixin('', LitElement)
+  LabelMixin('', PopoverTargetMixin(LitElement))
 ) {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -419,15 +420,6 @@ export class UUIButtonElement extends FormControlMixin(
   public href?: string;
 
   /**
-   * Set a popovertarget.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String, attribute: 'popovertarget' })
-  public popoverContainerElement?: string;
-
-  /**
    * Set an anchor tag target, only used when using href.
    * @type {string}
    * @attr
@@ -439,12 +431,9 @@ export class UUIButtonElement extends FormControlMixin(
   @query('#button')
   protected _button!: HTMLInputElement;
 
-  #popoverIsOpen = false;
-
   constructor() {
     super();
     this.addEventListener('click', this._onHostClick);
-    this.addEventListener('uui-popover-before-toggle', this.#popoverListener);
   }
 
   protected getFormElement(): HTMLElement {
@@ -475,7 +464,7 @@ export class UUIButtonElement extends FormControlMixin(
       }
     }
 
-    this.#updatePopover();
+    this._togglePopover();
   }
 
   private _resetStateTimeout?: number;
@@ -519,30 +508,6 @@ export class UUIButtonElement extends FormControlMixin(
 
     return html`<div id="state">${element}</div>`;
   }
-
-  #popoverListener = (event: any) => {
-    // Wait for the click event to finish before updating the popover state
-    requestAnimationFrame(() => {
-      this.#popoverIsOpen = event.detail.newState === 'open';
-    });
-  };
-
-  #updatePopover = () => {
-    if (!this.popoverContainerElement) return;
-
-    const popoverContainerElement = findAncestorByAttributeValue(
-      this,
-      'id',
-      this.popoverContainerElement
-    );
-    if (!popoverContainerElement) return;
-
-    this.#popoverIsOpen
-      ? // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-        popoverContainerElement.hidePopover()
-      : // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-        popoverContainerElement.showPopover();
-  };
 
   render() {
     return this.href
