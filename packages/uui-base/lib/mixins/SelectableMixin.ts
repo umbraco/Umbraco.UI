@@ -45,7 +45,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
         // If not selectable target, then make it self selectable. (A selectable target should be made focusable by the component itself)
         this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
       }
-      this.requestUpdate('selected', oldVal);
+      this.requestUpdate('selectable', oldVal);
     }
 
     protected deselectable = true;
