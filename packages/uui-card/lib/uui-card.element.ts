@@ -10,8 +10,8 @@ import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
- *  @fires {UUICardEvent} open - fires when the card title is clicked
- *  @description - Base card component to be extended by specific cards.
+ *  @fires {UUICardEvent} open - fires when the card title is clicked.
+ *  @description - Base card component to be extended by specific card elements.
  */
 @defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(

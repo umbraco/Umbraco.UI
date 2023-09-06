@@ -188,9 +188,9 @@ export const Dialog = () => html`
         assume the message, for those users we want something that is easy to
         digest for their eyes.<br />
         Others are learning the system and need to be suited to all of the
-        consequences to have confidence in what they do. They will read everything
-        but not necessarily understand all words — Therefore we will use the
-        description to write sentences and confirm the understanding.
+        consequences to have confidence in what they do. They will read
+        everything but not necessarily understand all words — Therefore we will
+        use the description to write sentences and confirm the understanding.
       </p>
 
       <p>
@@ -257,8 +257,8 @@ export const Dialog = () => html`
 
     <br />
     <p>
-      In the above example the description helps the user understand the effect —
-      and guides the user by mentioning where it goes.
+      In the above example the description helps the user understand the effect
+      — and guides the user by mentioning where it goes.
     </p>
     <br />
 
@@ -276,8 +276,8 @@ export const Dialog = () => html`
     <br />
     <p>
       This helps the user understand the effect of publishing and ´descendants´
-      — which for someone who does not have experience can be hard to
-      understand at first.
+      — which for someone who does not have experience can be hard to understand
+      at first.
     </p>
 
     <br />
