@@ -16,6 +16,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-text-active - Define the tab text active color
  * @cssprop --uui-tab-background - Define the tab group background color
  * @cssprop --uui-tab-divider - Define the tab dividers color
+ * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
+ * @cssprop --uui-tab-divider - Define the tab dividers color
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
@@ -33,7 +35,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: var(--uui-size-2) var(--uui-size-4);
+        padding: var(--uui-size-2)
+          var(--uui-tab-padding-horizontal, var(--uui-size-4));
         border: none;
         box-sizing: border-box;
         min-height: 32px;
