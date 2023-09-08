@@ -1,6 +1,14 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import {
+  property,
+  query,
+  queryAssignedElements,
+  state,
+} from 'lit/decorators.js';
+
+import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-button/lib/uui-button.element';
 
 import { UUITabElement } from './uui-tab.element';
 
@@ -27,6 +35,9 @@ export class UUITabGroupElement extends LitElement {
     `,
   ];
 
+  @query('#more-button')
+  moreButtonElement!: UUIButtonElement;
+
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-tab, [uui-tab], [role=tab]',
@@ -36,17 +47,56 @@ export class UUITabGroupElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'priority-navigation' })
   priorityNavigation = false;
 
+  @state()
+  _hasHiddenTabs = false;
+
   private _tabElements: HTMLElement[] = [];
 
-  #resizeObserver: ResizeObserver = new ResizeObserver(this.#onResize);
+  #visibleTabElements: HTMLElement[] = [];
+  #hiddenTabElements: HTMLElement[] = [];
+  #visibilityBreakpoints: number[] = [];
+
+  #resizeObserver: ResizeObserver = new ResizeObserver(
+    this.#onResize.bind(this)
+  );
 
   #onResize(entries: ResizeObserverEntry[]) {
-    console.log('resize', entries);
+    const containerWidth =
+      entries[0].contentBoxSize[0].inlineSize -
+      this.moreButtonElement.offsetWidth;
+
+    this.#visibleTabElements = [];
+    this.#hiddenTabElements = [];
+    this._hasHiddenTabs = false;
+
+    for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
+      const breakpoint = this.#visibilityBreakpoints[i];
+
+      if (breakpoint < containerWidth) {
+        this.#visibleTabElements.push(this._tabElements[i]);
+        this._tabElements[i].style.display = 'block';
+      } else {
+        this.#hiddenTabElements.push(this._tabElements[i]);
+        this._tabElements[i].style.display = 'none';
+        this._hasHiddenTabs = true;
+      }
+    }
+  }
+
+  #calculateBreakPoints() {
+    // Whenever a tab is added or removed, we need to recalculate the breakpoints
+
+    let childrenWidth = 0;
+
+    for (let i = 0; i < this._tabElements.length; i++) {
+      childrenWidth += this._tabElements[i].offsetWidth;
+      this.#visibilityBreakpoints[i] = childrenWidth;
+    }
   }
 
   private _setTabArray() {
     this._tabElements = this._slottedNodes ? this._slottedNodes : [];
-    console.log(this._tabElements);
+    this.#calculateBreakPoints();
   }
 
   private _onSlotChange() {
@@ -92,7 +142,10 @@ export class UUITabGroupElement extends LitElement {
   }
 
   render() {
-    return html` <slot @slotchange=${this._onSlotChange}></slot> `;
+    return html`
+      <slot @slotchange=${this._onSlotChange}></slot>
+      <uui-button id="more-button">More</uui-button>
+    `;
   }
 }
 
