@@ -1,11 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import {
-  property,
-  query,
-  queryAssignedElements,
-  state,
-} from 'lit/decorators.js';
+import { property, query, queryAssignedElements } from 'lit/decorators.js';
 
 import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-button/lib/uui-button.element';
@@ -47,9 +42,6 @@ export class UUITabGroupElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'priority-navigation' })
   priorityNavigation = false;
 
-  @state()
-  _hasHiddenTabs = false;
-
   private _tabElements: HTMLElement[] = [];
 
   #visibleTabElements: HTMLElement[] = [];
@@ -67,18 +59,18 @@ export class UUITabGroupElement extends LitElement {
 
     this.#visibleTabElements = [];
     this.#hiddenTabElements = [];
-    this._hasHiddenTabs = false;
 
     for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
 
       if (breakpoint < containerWidth) {
         this.#visibleTabElements.push(this._tabElements[i]);
-        this._tabElements[i].style.display = 'block';
+        this._tabElements[i].style.display = '';
+        this.moreButtonElement.style.display = 'none';
       } else {
         this.#hiddenTabElements.push(this._tabElements[i]);
         this._tabElements[i].style.display = 'none';
-        this._hasHiddenTabs = true;
+        this.moreButtonElement.style.display = '';
       }
     }
   }
@@ -144,7 +136,7 @@ export class UUITabGroupElement extends LitElement {
   render() {
     return html`
       <slot @slotchange=${this._onSlotChange}></slot>
-      <uui-button id="more-button">More</uui-button>
+      <uui-button style="display: none" id="more-button">...</uui-button>
     `;
   }
 }
