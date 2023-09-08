@@ -19,11 +19,7 @@ describe('UUIRangeSliderElement', () => {
   let inputHigh: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`
-        <uui-range-slider min="0" max="100" value="10,90"></uui-range-slider>
-      `
-    );
+    element = await fixture(html`<uui-range-slider></uui-range-slider>`);
     inputLow = element.shadowRoot?.querySelector(
       '#inputLow'
     ) as HTMLInputElement;
@@ -50,6 +46,7 @@ describe('UUIRangeSliderElement', () => {
       expect(inputLow.disabled).to.be.true;
       expect(inputHigh.disabled).to.be.true;
     });
+
     it('has a label property', () => {
       expect(element).to.have.property('label');
     });
@@ -112,19 +109,19 @@ describe('UUIRangeSliderElement', () => {
         expect(event.type).to.equal(UUIRangeSliderEvent.INPUT);
         expect(event!.target).to.equal(element);
       });
-      /*
-      it('changes the input values when the value changes', async () => {
-        inputLow.value = '30';
-        inputHigh.value = '20';
+
+      it('changes the value when the low-end value changes', async () => {
+        const LowEnd = '30';
+        inputLow.value = LowEnd;
         inputLow.dispatchEvent(new Event('input'));
-        expect(element.value).to.equal('10,20');
+        expect(element.value).to.equal(`${LowEnd},${inputHigh.value}`);
       });
-      */
-      /*it('changes the valueHigh to the input value when input event is emitted on inputHigh', async () => {
-        inputHigh.value = '50';
+      it('changes the value when the high-end value changes', async () => {
+        const HighEnd = '80';
+        inputHigh.value = HighEnd;
         inputHigh.dispatchEvent(new Event('input'));
-        expect(element).to.equal(50);
-      });*/
+        expect(element.value).to.equal(`${inputLow.value},${HighEnd}`);
+      });
     });
   });
 });
@@ -148,35 +145,20 @@ describe('UUIRangeSlider in a form', () => {
     element = formElement.querySelector('uui-range-slider') as any;
   });
 
-  /*
-  it('Low-end is correct', async () => {
-    await expect(element.value).to.be.equal(20);
+  it('Value is correct', async () => {
+    await expect(element.value).to.be.equal('10,90');
   });
-  it('valueHigh is correct', async () => {
-    await expect(element.value).to.be.equal(50);
-  });*/
 
-  /*
   it('form output', async () => {
     const formData = new FormData(formElement);
-    console.log('formdata', formData.get('slider'));
     await expect(formData.get('slider')).to.be.equal('10,90');
-  });*/
-
-  /*it('change low and high values and check output', async () => {
-    element.valueLow = 10;
-    element.valueHigh = 90;
-    const formData = new FormData(formElement);
-    await expect(formData.get('slider')).to.be.equal('10,90');
-  });*/
-  /*
-  it('change component value and check output', async () => {
-    console.log(formElement.value);
-    formElement.value = '20,50';
-    const formData = new FormData(formElement);
-    await expect(formData.get('slider')).to.be.equal('20,50');
   });
-  */
+
+  it('change low and high values and check output', async () => {
+    element.value = '50,60';
+    const formData = new FormData(formElement);
+    await expect(formData.get('slider')).to.be.equal('50,60');
+  });
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {

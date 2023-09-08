@@ -107,11 +107,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     return this._value;
   }
   set value(newVal) {
-    if (newVal instanceof String) {
-      const oldValue = this._value;
-      super.value = newVal;
-      this.requestUpdate('value', oldValue);
-    }
+    super.value = newVal;
   }
 
   @state()
@@ -193,8 +189,14 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   connectedCallback(): void {
     super.connectedCallback();
+    if (!this.value) {
+      // Lack value. Defaulting to the min and max attributes
+      this.value = `${this.min},${this.max}`;
+    }
+    //Setting thumbs based on value
     this._lowInputValue = String(this.getValueLow());
     this._highInputValue = String(this.getValueHigh());
+
     window.addEventListener('resize', () => {
       this._trackWidth = this._outerTrack.offsetWidth;
     });
@@ -209,12 +211,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   private _runPropertiesChecks() {
     // Note: We are checking if the attributes set makes any sense.
-
-    if (!this.value) {
-      this.setValueLow(this.min);
-      this.setValueHigh(this.max);
-      // No value set. Defaulting to the min and max attributes
-    }
 
     const regex = new RegExp(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/); // regex: Number Comma Number (optional: decimals and negatives)
     if (!regex.test(this.value as string))
