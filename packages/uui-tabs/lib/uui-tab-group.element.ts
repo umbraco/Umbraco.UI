@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { queryAssignedElements } from 'lit/decorators.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import { UUITabElement } from './uui-tab.element';
 
@@ -32,10 +32,21 @@ export class UUITabGroupElement extends LitElement {
     selector: 'uui-tab, [uui-tab], [role=tab]',
   })
   private _slottedNodes?: HTMLElement[];
+
+  @property({ type: Boolean, reflect: true, attribute: 'priority-navigation' })
+  priorityNavigation = false;
+
   private _tabElements: HTMLElement[] = [];
+
+  #resizeObserver: ResizeObserver = new ResizeObserver(this.#onResize);
+
+  #onResize(entries: ResizeObserverEntry[]) {
+    console.log('resize', entries);
+  }
 
   private _setTabArray() {
     this._tabElements = this._slottedNodes ? this._slottedNodes : [];
+    console.log(this._tabElements);
   }
 
   private _onSlotChange() {
@@ -71,7 +82,13 @@ export class UUITabGroupElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    this.#resizeObserver.observe(this);
     if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#resizeObserver.unobserve(this);
   }
 
   render() {
