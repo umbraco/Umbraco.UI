@@ -36,12 +36,24 @@ export class UUITabGroupElement extends LitElement {
     this.#onResize.bind(this)
   );
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.#resizeObserver.observe(this);
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#resizeObserver.unobserve(this);
+  }
+
   #onResize(entries: ResizeObserverEntry[]) {
     this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
   }
 
   #updateCollapsibleTabs(containerWidth: number) {
-    containerWidth = containerWidth - this.moreButtonElement.offsetWidth;
+    containerWidth = containerWidth;
+    const buttonWidth = this.moreButtonElement.offsetWidth;
 
     // Reset the hidden tabs
     this.#hiddenTabElements.forEach(el => {
@@ -49,28 +61,43 @@ export class UUITabGroupElement extends LitElement {
     });
     this.#hiddenTabElements = [];
 
+    let hasActiveHidden = false;
+
     for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
+      const tab = this._tabElements[i] as UUITabElement;
 
-      if (breakpoint < containerWidth) {
-        this._tabElements[i].style.display = '';
+      if (
+        breakpoint <
+        containerWidth -
+          (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0)
+      ) {
+        tab.style.display = '';
         this.moreButtonElement.style.display = 'none';
       } else {
         this.#hiddenTabElements.push(
-          this.#createHiddenTabElement(this._tabElements[i] as UUITabElement)
+          this.#createHiddenTabElement(tab as UUITabElement)
         );
-        this._tabElements[i].style.display = 'none';
+        tab.style.display = 'none';
         this.moreButtonElement.style.display = '';
+        if (tab.active) {
+          hasActiveHidden = true;
+        }
       }
     }
+
+    hasActiveHidden
+      ? this.moreButtonElement.classList.add('active-inside')
+      : this.moreButtonElement.classList.remove('active-inside');
 
     this.requestUpdate();
   }
 
   #createHiddenTabElement(tab: UUITabElement) {
-    const hiddenTab = document.createElement('uui-button');
+    const hiddenTab = document.createElement('uui-tab');
     hiddenTab.innerText = tab.innerText;
-    // hiddenTab.active = tab.active;
+    hiddenTab.classList.add('hidden-tab');
+    hiddenTab.active = tab.active;
     hiddenTab.disabled = tab.disabled;
     hiddenTab.href = tab.href;
     hiddenTab.target = tab.target;
@@ -94,8 +121,6 @@ export class UUITabGroupElement extends LitElement {
   }
 
   private _setTabArray() {
-    console.log('set tab array');
-
     this._tabElements = this._slottedNodes ? this._slottedNodes : [];
     this.#calculateBreakPoints();
   }
@@ -117,7 +142,10 @@ export class UUITabGroupElement extends LitElement {
     if (this._elementIsTabLike(selectedElement)) {
       selectedElement.active = true;
 
-      const filtered = this._tabElements.filter(el => el !== selectedElement);
+      const filtered = [
+        ...this._tabElements,
+        ...this.#hiddenTabElements,
+      ].filter(el => el !== selectedElement);
 
       filtered.forEach(el => {
         if (this._elementIsTabLike(el)) {
@@ -131,17 +159,6 @@ export class UUITabGroupElement extends LitElement {
     return el instanceof UUITabElement || 'active' in el;
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.#resizeObserver.observe(this);
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.#resizeObserver.unobserve(this);
-  }
-
   render() {
     return html`
       <slot @slotchange=${this._onSlotChange}></slot>
@@ -149,6 +166,7 @@ export class UUITabGroupElement extends LitElement {
         popovertarget="my-popover"
         style="display: none"
         id="more-button"
+        compact
         >MORE</uui-button
       >
       <uui-popover-container
@@ -178,6 +196,10 @@ export class UUITabGroupElement extends LitElement {
         border-right: 1px solid var(--uui-tab-divider, none);
       }
 
+      .hidden-tab[active] {
+        width: 100%;
+      }
+
       #hidden-tabs {
         width: 200px;
         border: 1px solid black;
@@ -186,6 +208,23 @@ export class UUITabGroupElement extends LitElement {
       }
       #more-button {
         margin-left: auto;
+        position: relative;
+      }
+      #more-button::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--uui-color-current);
+        height: 0px;
+        border-radius: 3px 3px 0 0;
+        opacity: 0;
+        transition: opacity ease-in 120ms, height ease-in 120ms;
+      }
+      #more-button.active-inside::before {
+        opacity: 1;
+        height: 4px;
+        transition: opacity 120ms, height ease-out 120ms;
       }
     `,
   ];
