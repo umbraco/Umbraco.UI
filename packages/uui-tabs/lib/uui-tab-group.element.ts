@@ -167,6 +167,7 @@ export class UUITabGroupElement extends LitElement {
         popovertarget="my-popover"
         style="display: none"
         id="more-button"
+        label="More"
         compact
         >MORE</uui-button
       >

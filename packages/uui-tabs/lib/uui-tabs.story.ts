@@ -44,12 +44,12 @@ export const AAAOverview: Story = props => html`
     --uui-tab-background: ${props['--uui-tab-background']};
     --uui-tab-divider: ${props['--uui-tab-divider']};
     ${props.inlineStyles}">
-    <uui-tab active> Content </uui-tab>
-    <uui-tab ?disabled=${props.disabled}> Packages </uui-tab>
-    <uui-tab> Media </uui-tab>
-    <uui-tab> Settings </uui-tab>
-    <uui-tab> Translations </uui-tab>
-    <uui-tab> Users </uui-tab>
+    <uui-tab label="content" active> Content </uui-tab>
+    <uui-tab label="Packages" ?disabled=${props.disabled}> Packages </uui-tab>
+    <uui-tab label="Media"> Media </uui-tab>
+    <uui-tab label="Settings"> Settings </uui-tab>
+    <uui-tab label="Translations"> Translations </uui-tab>
+    <uui-tab label="Users"> Users </uui-tab>
   </uui-tab-group>
 `;
 AAAOverview.storyName = 'Overview';
