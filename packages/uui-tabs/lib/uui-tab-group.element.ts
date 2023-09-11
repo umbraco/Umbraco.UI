@@ -1,6 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 
 import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-button/lib/uui-button.element';
@@ -28,7 +29,6 @@ export class UUITabGroupElement extends LitElement {
 
   private _tabElements: HTMLElement[] = [];
 
-  #visibleTabElements: HTMLElement[] = [];
   #hiddenTabElements: HTMLElement[] = [];
   #visibilityBreakpoints: number[] = [];
 
@@ -37,26 +37,44 @@ export class UUITabGroupElement extends LitElement {
   );
 
   #onResize(entries: ResizeObserverEntry[]) {
-    const containerWidth =
-      entries[0].contentBoxSize[0].inlineSize -
-      this.moreButtonElement.offsetWidth;
+    this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
+  }
 
-    this.#visibleTabElements = [];
-    this.#hiddenTabElements = [];
+  #updateCollapsibleTabs(containerWidth: number) {
+    containerWidth = containerWidth - this.moreButtonElement.offsetWidth;
+
+    this.#hiddenTabElements = []; //TODO - remove eventlisteners
 
     for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
 
       if (breakpoint < containerWidth) {
-        this.#visibleTabElements.push(this._tabElements[i]);
         this._tabElements[i].style.display = '';
         this.moreButtonElement.style.display = 'none';
       } else {
-        this.#hiddenTabElements.push(this._tabElements[i]);
+        this.#hiddenTabElements.push(
+          this.#createHiddenTabElement(this._tabElements[i] as UUITabElement)
+        );
         this._tabElements[i].style.display = 'none';
         this.moreButtonElement.style.display = '';
       }
     }
+
+    this.requestUpdate();
+  }
+
+  #createHiddenTabElement(tab: UUITabElement) {
+    const hiddenTab = document.createElement('uui-button');
+    hiddenTab.innerText = tab.innerText;
+    // hiddenTab.active = tab.active;
+    hiddenTab.disabled = tab.disabled;
+    hiddenTab.href = tab.href;
+    hiddenTab.target = tab.target;
+    hiddenTab.setAttribute('role', 'tab');
+    hiddenTab.setAttribute('aria-selected', tab.active.toString());
+    hiddenTab.setAttribute('aria-disabled', tab.disabled.toString());
+    hiddenTab.addEventListener('click', this._onTabClicked);
+    return hiddenTab;
   }
 
   #calculateBreakPoints() {
@@ -67,9 +85,13 @@ export class UUITabGroupElement extends LitElement {
       childrenWidth += this._tabElements[i].offsetWidth;
       this.#visibilityBreakpoints[i] = childrenWidth;
     }
+
+    this.#updateCollapsibleTabs(this.offsetWidth);
   }
 
   private _setTabArray() {
+    console.log('set tab array');
+
     this._tabElements = this._slottedNodes ? this._slottedNodes : [];
     this.#calculateBreakPoints();
   }
@@ -123,17 +145,16 @@ export class UUITabGroupElement extends LitElement {
         popovertarget="my-popover"
         style="display: none"
         id="more-button"
-        >...</uui-button
+        >MORE</uui-button
       >
       <uui-popover-container
         id="my-popover"
         popover
         margin="10"
-        placement="bottom-start">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque aperiam
-        est nam ab, dolorem repellendus accusamus hic! Optio corrupti rerum
-        inventore, assumenda quam animi, totam atque sunt sequi numquam
-        exercitationem.
+        placement="bottom-end">
+        <div id="hidden-tabs">
+          ${repeat(this.#hiddenTabElements, el => html`${el}`)}
+        </div>
       </uui-popover-container>
     `;
   }
@@ -153,9 +174,14 @@ export class UUITabGroupElement extends LitElement {
         border-right: 1px solid var(--uui-tab-divider, none);
       }
 
-      #my-popover {
+      #hidden-tabs {
         width: 200px;
         border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+      }
+      #more-button {
+        margin-left: auto;
       }
     `,
   ];
