@@ -43,7 +43,11 @@ export class UUITabGroupElement extends LitElement {
   #updateCollapsibleTabs(containerWidth: number) {
     containerWidth = containerWidth - this.moreButtonElement.offsetWidth;
 
-    this.#hiddenTabElements = []; //TODO - remove eventlisteners
+    // Reset the hidden tabs
+    this.#hiddenTabElements.forEach(el => {
+      el.removeEventListener('click', this._onTabClicked);
+    });
+    this.#hiddenTabElements = [];
 
     for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
