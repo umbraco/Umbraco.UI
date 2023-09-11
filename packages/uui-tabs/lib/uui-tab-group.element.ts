@@ -14,23 +14,6 @@ import { UUITabElement } from './uui-tab.element';
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: flex;
-        flex-wrap: wrap;
-        color: var(--uui-tab-text);
-        background: var(--uui-tab-background, none);
-        height: 100%;
-        min-height: 48px;
-      }
-
-      ::slotted(*:not(:last-of-type)) {
-        border-right: 1px solid var(--uui-tab-divider, none);
-      }
-    `,
-  ];
-
   @query('#more-button')
   moreButtonElement!: UUIButtonElement;
 
@@ -147,6 +130,23 @@ export class UUITabGroupElement extends LitElement {
       </uui-popover-container>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        flex-wrap: wrap;
+        color: var(--uui-tab-text);
+        background: var(--uui-tab-background, none);
+        height: 100%;
+        min-height: 48px;
+      }
+
+      ::slotted(*:not(:last-of-type)) {
+        border-right: 1px solid var(--uui-tab-divider, none);
+      }
+    `,
+  ];
 }
 
 declare global {
