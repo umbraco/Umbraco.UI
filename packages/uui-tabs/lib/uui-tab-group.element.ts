@@ -125,8 +125,15 @@ export class UUITabGroupElement extends LitElement {
         id="more-button"
         >...</uui-button
       >
-      <uui-popover-container id="my-popover" popover>
-        What is going on in here
+      <uui-popover-container
+        id="my-popover"
+        popover
+        margin="10"
+        placement="bottom-start">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque aperiam
+        est nam ab, dolorem repellendus accusamus hic! Optio corrupti rerum
+        inventore, assumenda quam animi, totam atque sunt sequi numquam
+        exercitationem.
       </uui-popover-container>
     `;
   }
@@ -144,6 +151,11 @@ export class UUITabGroupElement extends LitElement {
 
       ::slotted(*:not(:last-of-type)) {
         border-right: 1px solid var(--uui-tab-divider, none);
+      }
+
+      #my-popover {
+        width: 200px;
+        border: 1px solid black;
       }
     `,
   ];

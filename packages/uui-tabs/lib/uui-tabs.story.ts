@@ -47,6 +47,9 @@ export const AAAOverview: Story = props => html`
     <uui-tab active> Content </uui-tab>
     <uui-tab ?disabled=${props.disabled}> Packages </uui-tab>
     <uui-tab> Media </uui-tab>
+    <uui-tab> Settings </uui-tab>
+    <uui-tab> Translations </uui-tab>
+    <uui-tab> Users </uui-tab>
   </uui-tab-group>
 `;
 AAAOverview.storyName = 'Overview';
