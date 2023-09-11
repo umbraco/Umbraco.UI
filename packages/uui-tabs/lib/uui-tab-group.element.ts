@@ -96,6 +96,7 @@ export class UUITabGroupElement extends LitElement {
   #createHiddenTabElement(tab: UUITabElement) {
     const hiddenTab = document.createElement('uui-tab');
     hiddenTab.innerText = tab.innerText;
+    hiddenTab.label = tab.label;
     hiddenTab.classList.add('hidden-tab');
     hiddenTab.active = tab.active;
     hiddenTab.disabled = tab.disabled;
