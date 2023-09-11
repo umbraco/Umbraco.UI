@@ -4,6 +4,7 @@ import { property, query, queryAssignedElements } from 'lit/decorators.js';
 
 import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-button/lib/uui-button.element';
+import '@umbraco-ui/uui-popover-container/lib/uui-popover-container.element';
 
 import { UUITabElement } from './uui-tab.element';
 
@@ -77,7 +78,6 @@ export class UUITabGroupElement extends LitElement {
 
   #calculateBreakPoints() {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
-
     let childrenWidth = 0;
 
     for (let i = 0; i < this._tabElements.length; i++) {
@@ -136,7 +136,15 @@ export class UUITabGroupElement extends LitElement {
   render() {
     return html`
       <slot @slotchange=${this._onSlotChange}></slot>
-      <uui-button style="display: none" id="more-button">...</uui-button>
+      <uui-button
+        popovertarget="my-popover"
+        style="display: none"
+        id="more-button"
+        >...</uui-button
+      >
+      <uui-popover-container id="my-popover" popover>
+        What is going on in here
+      </uui-popover-container>
     `;
   }
 }
