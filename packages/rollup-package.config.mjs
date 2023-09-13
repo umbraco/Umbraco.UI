@@ -10,7 +10,7 @@ import importCss from 'rollup-plugin-import-css';
 
 // @ts-ignore-start
 // eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
-import properties from '../packages/uui-css/custom-properties.module.js'; // eslint-disable-line
+import properties from './uui-css/custom-properties.module.js'; // eslint-disable-line
 // @ts-ignore-end
 
 const esbuidOptions = { minify: true };
