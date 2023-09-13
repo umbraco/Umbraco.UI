@@ -29,7 +29,9 @@ export class UUITabGroupElement extends LitElement {
 
   private _tabElements: HTMLElement[] = [];
 
-  #hiddenTabElements: HTMLElement[] = [];
+  #hiddenTabElements: UUITabElement[] = [];
+  #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
+
   #visibilityBreakpoints: number[] = [];
 
   #resizeObserver: ResizeObserver = new ResizeObserver(
@@ -60,6 +62,7 @@ export class UUITabGroupElement extends LitElement {
       el.removeEventListener('click', this._onTabClicked);
     });
     this.#hiddenTabElements = [];
+    this.#hiddenTabElementsMap.clear();
 
     let hasActiveHidden = false;
 
@@ -75,9 +78,12 @@ export class UUITabGroupElement extends LitElement {
         tab.style.display = '';
         this.moreButtonElement.style.display = 'none';
       } else {
-        this.#hiddenTabElements.push(
-          this.#createHiddenTabElement(tab as UUITabElement)
-        );
+        // Make a proxy tab to put in the hidden tabs container and link it to the original tab
+        const proxyTab = this.#createHiddenTabElement(tab as UUITabElement);
+        this.#hiddenTabElementsMap.set(proxyTab, tab);
+        this.#hiddenTabElementsMap.set(proxyTab, tab);
+        this.#hiddenTabElements.push(proxyTab);
+
         tab.style.display = 'none';
         this.moreButtonElement.style.display = '';
         if (tab.active) {
@@ -142,17 +148,30 @@ export class UUITabGroupElement extends LitElement {
     const selectedElement = e.currentTarget as HTMLElement;
     if (this._elementIsTabLike(selectedElement)) {
       selectedElement.active = true;
+      const proxy = this.#hiddenTabElementsMap.get(selectedElement);
+
+      if (proxy) {
+        proxy.active = true;
+      }
 
       const filtered = [
         ...this._tabElements,
         ...this.#hiddenTabElements,
-      ].filter(el => el !== selectedElement);
+      ].filter(el => el !== selectedElement && el !== proxy);
 
       filtered.forEach(el => {
         if (this._elementIsTabLike(el)) {
           el.active = false;
         }
       });
+
+      const hasActiveHidden = this.#hiddenTabElements.some(
+        el => el.active && el !== proxy
+      );
+
+      hasActiveHidden
+        ? this.moreButtonElement.classList.add('active-inside')
+        : this.moreButtonElement.classList.remove('active-inside');
     }
   };
 
@@ -164,7 +183,7 @@ export class UUITabGroupElement extends LitElement {
     return html`
       <slot @slotchange=${this._onSlotChange}></slot>
       <uui-button
-        popovertarget="my-popover"
+        popovertarget="popover-container"
         style="display: none"
         id="more-button"
         label="More"
@@ -172,11 +191,11 @@ export class UUITabGroupElement extends LitElement {
         >MORE</uui-button
       >
       <uui-popover-container
-        id="my-popover"
+        id="popover-container"
         popover
         margin="10"
         placement="bottom-end">
-        <div id="hidden-tabs">
+        <div id="hidden-tabs-container">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
         </div>
       </uui-popover-container>
@@ -202,11 +221,12 @@ export class UUITabGroupElement extends LitElement {
         width: 100%;
       }
 
-      #hidden-tabs {
+      #hidden-tabs-container {
         width: 200px;
         border: 1px solid black;
         display: flex;
         flex-direction: column;
+        background: var(--uui-color-surface);
       }
       #more-button {
         margin-left: auto;
