@@ -57,6 +57,8 @@ export class UUITabGroupElement extends LitElement {
     containerWidth = containerWidth;
     const buttonWidth = this.moreButtonElement.offsetWidth;
 
+    //TODO: Optimize so that we only update the hidden tabs when necessary. Currently we update them every time the container is resized.
+
     // Reset the hidden tabs
     this.#hiddenTabElements.forEach(el => {
       el.removeEventListener('click', this._onTabClicked);
