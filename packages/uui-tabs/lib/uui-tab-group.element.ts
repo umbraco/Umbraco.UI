@@ -223,10 +223,11 @@ export class UUITabGroupElement extends LitElement {
 
       #hidden-tabs-container {
         width: 200px;
-        border: 1px solid black;
         display: flex;
         flex-direction: column;
         background: var(--uui-color-surface);
+        border-radius: var(--uui-border-radius);
+        box-shadow: var(--uui-shadow-depth-3);
       }
       #more-button {
         margin-left: auto;
