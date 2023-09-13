@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # pulls all commits (needed for chromatic to find baselines)
           fetch-depth: '0'
