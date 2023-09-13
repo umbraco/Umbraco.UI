@@ -4,13 +4,16 @@ import './uui-popover-container.element';
 import '../../uui-button/lib/index';
 import '../../uui-box/lib/index';
 import type { UUIPopoverContainerElement } from './uui-popover-container.element';
-// import readme from '../README.md?raw';
+import readme from '../README.md?raw';
 import { html } from 'lit';
 
 const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
   title: 'Displays/Popover Container',
   component: 'uui-popover-container',
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 export default meta;
