@@ -231,7 +231,7 @@ export class UUITabGroupElement extends LitElement {
         border-right: 1px solid var(--uui-tab-divider, none);
       }
 
-      .hidden-tab[active] {
+      .hidden-tab {
         width: 100%;
       }
 
