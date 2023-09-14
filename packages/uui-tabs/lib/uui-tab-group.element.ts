@@ -88,7 +88,6 @@ export class UUITabGroupElement extends LitElement {
         this.moreButtonElement.style.display = 'none';
       } else {
         // Make a proxy tab to put in the hidden tabs container and link it to the original tab
-        // const proxyTab = this.#createHiddenTabElement(tab as UUITabElement);
         const proxyTab = tab.cloneNode(true) as UUITabElement;
         proxyTab.addEventListener('click', this._onTabClicked);
         proxyTab.classList.add('hidden-tab');
@@ -114,22 +113,6 @@ export class UUITabGroupElement extends LitElement {
 
     this.requestUpdate();
   }
-
-  // #createHiddenTabElement(tab: UUITabElement) {
-  //   const hiddenTab = document.createElement('uui-tab');
-  //   hiddenTab.innerText = tab.innerText;
-  //   hiddenTab.label = tab.label;
-  //   hiddenTab.classList.add('hidden-tab');
-  //   hiddenTab.active = tab.active;
-  //   hiddenTab.disabled = tab.disabled;
-  //   hiddenTab.href = tab.href;
-  //   hiddenTab.target = tab.target;
-  //   hiddenTab.setAttribute('role', 'tab');
-  //   hiddenTab.setAttribute('aria-selected', tab.active.toString());
-  //   hiddenTab.setAttribute('aria-disabled', tab.disabled.toString());
-  //   hiddenTab.addEventListener('click', this._onTabClicked);
-  //   return hiddenTab;
-  // }
 
   #calculateBreakPoints() {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
