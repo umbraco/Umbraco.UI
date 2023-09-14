@@ -26,11 +26,13 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host {
         color: var(--uui-tab-text, var(--uui-color-interactive));
         font-family: inherit;
+        width: fit-content;
       }
 
       #button {
         position: relative;
         display: flex;
+        width: 100%;
         flex-direction: column;
         align-items: center;
         justify-content: center;
