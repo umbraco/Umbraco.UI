@@ -93,6 +93,8 @@ export class UUITabGroupElement extends LitElement {
         proxyTab.addEventListener('click', this._onTabClicked);
         proxyTab.classList.add('hidden-tab');
         proxyTab.style.display = '';
+        proxyTab.activeBarLocation =
+          this.dropdownDirection === 'vertical' ? 'left' : 'bottom';
 
         this.#hiddenTabElementsMap.set(proxyTab, tab);
         this.#hiddenTabElementsMap.set(proxyTab, tab);
