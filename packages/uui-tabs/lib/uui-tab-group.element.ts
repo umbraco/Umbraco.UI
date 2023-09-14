@@ -30,9 +30,9 @@ export class UUITabGroupElement extends LitElement {
   @property({
     type: String,
     reflect: true,
-    attribute: 'priority-navigation-dropdown-direction',
+    attribute: 'dropdown-direction',
   })
-  priorityNavigationDropdownDirection: 'vertical' | 'horizontal' = 'vertical';
+  dropdownDirection: 'vertical' | 'horizontal' = 'vertical';
 
   private _tabElements: HTMLElement[] = [];
 
@@ -243,8 +243,7 @@ export class UUITabGroupElement extends LitElement {
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
       }
-      :host([priority-navigation-dropdown-direction='horizontal'])
-        #hidden-tabs-container {
+      :host([dropdown-direction='horizontal']) #hidden-tabs-container {
         flex-direction: row;
       }
 

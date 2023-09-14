@@ -96,7 +96,7 @@ export const WithIcons: Story = props => html`
   <h3>Tabs with Icons</h3>
   <uui-icon-registry-essential>
     <uui-tab-group
-      priority-navigation-dropdown-direction="horizontal"
+      dropdown-direction="horizontal"
       style="
       height: 70px;
       font-size: 12px;
