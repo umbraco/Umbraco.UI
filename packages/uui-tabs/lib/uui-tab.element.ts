@@ -75,26 +75,65 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       #button::before {
         content: '';
         position: absolute;
-        height: 0px;
-        /* max-width: 50px; */
-        width: calc(100% - 16px);
-        left: auto;
-        right: auto;
         background-color: var(--uui-color-current);
-        bottom: 0;
-        border-radius: 3px 3px 0 0;
         opacity: 0;
-        transition: opacity ease-in 120ms, height ease-in 120ms;
-      }
-      #button:hover::before {
-        background-color: var(--uui-color-current-emphasis);
+        --transitionDuration: 120ms;
+        --barWidth: 4px;
+        --borderRadius: 3px;
       }
       :host([active]) #button::before {
         opacity: 1;
-        height: 4px;
-        transition: opacity 120ms, height ease-out 120ms;
       }
 
+      /* TOP AND BOTTOM */
+      :host([active-bar-location='bottom']) #button::before,
+      :host([active-bar-location='top']) #button::before {
+        left: auto;
+        right: auto;
+        border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+        height: 0px;
+        width: calc(100% - 16px);
+        transition: opacity ease-in-out var(--transitionDuration),
+          height ease-in-out var(--transitionDuration);
+      }
+      :host([active][active-bar-location='bottom']) #button::before,
+      :host([active][active-bar-location='top']) #button::before {
+        height: var(--barWidth);
+      }
+      :host([active-bar-location='bottom']) #button::before {
+        bottom: 0;
+      }
+      :host([active-bar-location='top']) #button::before {
+        top: 0;
+        transform: rotateZ(180deg);
+      }
+
+      /* LEFT AND RIGHT */
+      :host([active-bar-location='left']) #button::before,
+      :host([active-bar-location='right']) #button::before {
+        top: auto;
+        bottom: auto;
+        border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+        height: calc(100% - 16px);
+        width: 0px;
+        transition: opacity ease-in-out var(--transitionDuration),
+          width ease-in-out var(--transitionDuration);
+      }
+      :host([active][active-bar-location='left']) #button::before,
+      :host([active][active-bar-location='right']) #button::before {
+        width: var(--barWidth);
+      }
+      :host([active-bar-location='left']) #button::before {
+        left: 0;
+      }
+      :host([active-bar-location='right']) #button::before {
+        right: 0;
+        transform: rotateZ(180deg);
+      }
+
+      #button:hover::before {
+        background-color: var(--uui-color-current-emphasis);
+      }
       :host([disabled]) #button::before {
         background-color: var(--uui-color-disabled-standalone);
       }
@@ -132,6 +171,15 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
    */
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  /**
+   * Set the location of the active bar.
+   * @type {string}
+   * @attr
+   * @default bottom
+   */
+  @property({ type: String, reflect: true, attribute: 'active-bar-location' })
+  public activeBarLocation?: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
 
   constructor() {
     super();
