@@ -85,6 +85,7 @@
     "@umbraco-ui/uui-modal": "1.4.0-rc.2",
     "@umbraco-ui/uui-pagination": "1.4.0-rc.2",
     "@umbraco-ui/uui-popover": "1.4.0-rc.2",
+    "@umbraco-ui/uui-popover-container": "1.4.0-rc.2",
     "@umbraco-ui/uui-progress-bar": "1.4.0-rc.2",
     "@umbraco-ui/uui-radio": "1.4.0-rc.2",
     "@umbraco-ui/uui-range-slider": "1.4.0-rc.2",
