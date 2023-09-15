@@ -65,7 +65,7 @@ export class UUITabGroupElement extends LitElement {
     | 'left'
     | 'right' = 'left';
 
-  private _tabElements: HTMLElement[] = [];
+  #tabElements: HTMLElement[] = [];
 
   #hiddenTabElements: UUITabElement[] = [];
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
@@ -93,13 +93,13 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #onSlotChange() {
-    this._tabElements.forEach(el => {
+    this.#tabElements.forEach(el => {
       el.removeEventListener('click', this.#onTabClicked);
     });
 
     this.#setTabArray();
 
-    this._tabElements.forEach(el => {
+    this.#tabElements.forEach(el => {
       el.addEventListener('click', this.#onTabClicked);
     });
   }
@@ -115,7 +115,7 @@ export class UUITabGroupElement extends LitElement {
       }
 
       const filtered = [
-        ...this._tabElements,
+        ...this.#tabElements,
         ...this.#hiddenTabElements,
       ].filter(el => el !== selectedElement && el !== proxy);
 
@@ -178,7 +178,7 @@ export class UUITabGroupElement extends LitElement {
 
     for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
-      const tab = this._tabElements[i] as UUITabElement;
+      const tab = this.#tabElements[i] as UUITabElement;
 
       // Subtract the button width when we are not at the last breakpoint
       const containerWidthButtonWidth =
@@ -222,8 +222,8 @@ export class UUITabGroupElement extends LitElement {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
     let childrenWidth = 0;
 
-    for (let i = 0; i < this._tabElements.length; i++) {
-      childrenWidth += this._tabElements[i].offsetWidth;
+    for (let i = 0; i < this.#tabElements.length; i++) {
+      childrenWidth += this.#tabElements[i].offsetWidth;
       this.#visibilityBreakpoints[i] = childrenWidth;
     }
 
@@ -231,7 +231,7 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #setTabArray() {
-    this._tabElements = this._slottedNodes ? this._slottedNodes : [];
+    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
     this.#calculateBreakPoints();
   }
 
