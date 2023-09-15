@@ -6,6 +6,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-button/lib/uui-button.element';
 import '@umbraco-ui/uui-popover-container/lib/uui-popover-container.element';
+import '@umbraco-ui/uui-symbol-more/lib/uui-symbol-more.element';
 
 import { UUITabElement } from './uui-tab.element';
 
@@ -66,6 +67,7 @@ export class UUITabGroupElement extends LitElement {
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
 
   #visibilityBreakpoints: number[] = [];
+  #oldBreakpoint = 0;
 
   #resizeObserver: ResizeObserver = new ResizeObserver(
     this.#onResize.bind(this)
@@ -133,8 +135,34 @@ export class UUITabGroupElement extends LitElement {
     containerWidth = containerWidth;
     const buttonWidth = this._moreButtonElement.offsetWidth;
 
-    //TODO: Optimize so that we only update the hidden tabs when necessary. Currently we update them every time the container is resized.
+    // Only update if the container is smaller than the last breakpoint
+    if (
+      this.#visibilityBreakpoints.slice(-1)[0] < containerWidth &&
+      this.#hiddenTabElements.length === 0
+    )
+      return;
 
+    // Only update if the new breakpoint is different from the old one
+    let newBreakpoint = Number.MAX_VALUE;
+
+    for (let i = this.#visibilityBreakpoints.length - 1; i > -1; i--) {
+      const breakpoint = this.#visibilityBreakpoints[i];
+      // Subtract the button width when we are not at the last breakpoint
+      const containerWidthButtonWidth =
+        containerWidth -
+        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
+
+      if (breakpoint < containerWidthButtonWidth) {
+        newBreakpoint = i;
+        break;
+      }
+    }
+
+    if (newBreakpoint === this.#oldBreakpoint) return;
+    console.log(newBreakpoint, this.#oldBreakpoint);
+    this.#oldBreakpoint = newBreakpoint;
+
+    // Do the update
     // Reset the hidden tabs
     this.#hiddenTabElements.forEach(el => {
       el.removeEventListener('click', this.#onTabClicked);
@@ -142,17 +170,18 @@ export class UUITabGroupElement extends LitElement {
     this.#hiddenTabElements = [];
     this.#hiddenTabElementsMap.clear();
 
-    let hasActiveHidden = false;
+    let hasActiveTabInDropdown = false;
 
     for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
       const tab = this._tabElements[i] as UUITabElement;
 
-      if (
-        breakpoint <
+      // Subtract the button width when we are not at the last breakpoint
+      const containerWidthButtonWidth =
         containerWidth -
-          (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0)
-      ) {
+        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
+
+      if (breakpoint < containerWidthButtonWidth) {
         tab.style.display = '';
         this._moreButtonElement.style.display = 'none';
       } else {
@@ -166,19 +195,21 @@ export class UUITabGroupElement extends LitElement {
             ? 'left'
             : 'bottom';
 
+        // Link the proxy tab to the original tab
         this.#hiddenTabElementsMap.set(proxyTab, tab);
-        this.#hiddenTabElementsMap.set(proxyTab, tab);
+        this.#hiddenTabElementsMap.set(tab, proxyTab);
+
         this.#hiddenTabElements.push(proxyTab);
 
         tab.style.display = 'none';
         this._moreButtonElement.style.display = '';
         if (tab.active) {
-          hasActiveHidden = true;
+          hasActiveTabInDropdown = true;
         }
       }
     }
 
-    hasActiveHidden
+    hasActiveTabInDropdown
       ? this._moreButtonElement.classList.add('active-inside')
       : this._moreButtonElement.classList.remove('active-inside');
 
@@ -214,9 +245,9 @@ export class UUITabGroupElement extends LitElement {
         style="display: none"
         id="more-button"
         label="More"
-        compact
-        >MORE</uui-button
-      >
+        compact>
+        <uui-symbol-more></uui-symbol-more>
+      </uui-button>
       <uui-popover-container
         id="popover-container"
         popover
