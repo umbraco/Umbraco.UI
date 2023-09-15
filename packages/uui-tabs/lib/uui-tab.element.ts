@@ -18,6 +18,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-divider - Define the tab dividers color
  * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
  * @cssprop --uui-tab-divider - Define the tab dividers color
+ * @cssprop --uui-tab-text-align - Define the tab text align
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
@@ -113,7 +114,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        text-align: center;
         padding: var(--uui-size-2)
           var(--uui-tab-padding-horizontal, var(--uui-size-4));
         border: none;
@@ -218,6 +218,14 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       slot[name='icon']::slotted(*) {
         font-size: 20px;
         margin-bottom: var(--uui-size-2);
+      }
+
+      slot.label {
+        /* TODO: Find a better selector */
+        text-align: var(--uui-tab-text-align, center);
+        display: flex;
+        width: 100%;
+        flex-direction: column;
       }
     `,
   ];

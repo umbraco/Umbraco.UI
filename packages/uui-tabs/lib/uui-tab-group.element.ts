@@ -43,7 +43,7 @@ export class UUITabGroupElement extends LitElement {
   @property({
     type: String,
     reflect: true,
-    attribute: 'dropdown-direction',
+    attribute: 'dropdown-content-direction',
   })
   priorityNavigationDropdownContentDirection: 'vertical' | 'horizontal' =
     'vertical';
@@ -54,7 +54,11 @@ export class UUITabGroupElement extends LitElement {
    * @attr
    * @default bottom
    */
-  @property({ type: String, reflect: true, attribute: 'active-bar-location' })
+  @property({
+    type: String,
+    reflect: true,
+    attribute: 'dropdown-active-bar-location',
+  })
   public priorityNavigationDropdownActiveBarLocation?:
     | 'top'
     | 'bottom'
@@ -191,9 +195,7 @@ export class UUITabGroupElement extends LitElement {
         proxyTab.classList.add('hidden-tab');
         proxyTab.style.display = '';
         proxyTab.activeBarLocation =
-          this.priorityNavigationDropdownContentDirection === 'vertical'
-            ? 'left'
-            : 'bottom';
+          this.priorityNavigationDropdownActiveBarLocation;
 
         // Link the proxy tab to the original tab
         this.#hiddenTabElementsMap.set(proxyTab, tab);
@@ -286,6 +288,7 @@ export class UUITabGroupElement extends LitElement {
         background: var(--uui-color-surface);
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
+        --uui-tab-text-align: left;
       }
       :host([dropdown-direction='horizontal']) #hidden-tabs-container {
         flex-direction: row;
