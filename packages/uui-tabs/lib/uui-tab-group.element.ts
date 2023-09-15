@@ -16,7 +16,7 @@ import { UUITabElement } from './uui-tab.element';
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
   @query('#more-button')
-  moreButtonElement!: UUIButtonElement;
+  private _moreButtonElement!: UUIButtonElement;
 
   @queryAssignedElements({
     flatten: true,
@@ -24,15 +24,41 @@ export class UUITabGroupElement extends LitElement {
   })
   private _slottedNodes?: HTMLElement[];
 
+  /**
+   * Toggles the priority navigation mode, which will collapse tabs into a dropdown when there is not enough space.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
   @property({ type: Boolean, reflect: true, attribute: 'priority-navigation' })
   priorityNavigation = false;
 
+  /**
+   * Set the flex direction of the content of the dropdown.
+   * @type {string}
+   * @attr
+   * @default vertical
+   */
   @property({
     type: String,
     reflect: true,
     attribute: 'dropdown-direction',
   })
-  dropdownDirection: 'vertical' | 'horizontal' = 'vertical';
+  priorityNavigationDropdownContentDirection: 'vertical' | 'horizontal' =
+    'vertical';
+
+  /**
+   * Set the location of the active bar in the dropdown.
+   * @type {string}
+   * @attr
+   * @default bottom
+   */
+  @property({ type: String, reflect: true, attribute: 'active-bar-location' })
+  public priorityNavigationDropdownActiveBarLocation?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right' = 'bottom';
 
   private _tabElements: HTMLElement[] = [];
 
@@ -60,15 +86,58 @@ export class UUITabGroupElement extends LitElement {
     this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
   }
 
+  #onSlotChange() {
+    this._tabElements.forEach(el => {
+      el.removeEventListener('click', this.#onTabClicked);
+    });
+
+    this.#setTabArray();
+
+    this._tabElements.forEach(el => {
+      el.addEventListener('click', this.#onTabClicked);
+    });
+  }
+
+  #onTabClicked = (e: MouseEvent) => {
+    const selectedElement = e.currentTarget as HTMLElement;
+    if (this.#isElementTabLike(selectedElement)) {
+      selectedElement.active = true;
+      const proxy = this.#hiddenTabElementsMap.get(selectedElement);
+
+      if (proxy) {
+        proxy.active = true;
+      }
+
+      const filtered = [
+        ...this._tabElements,
+        ...this.#hiddenTabElements,
+      ].filter(el => el !== selectedElement && el !== proxy);
+
+      filtered.forEach(el => {
+        if (this.#isElementTabLike(el)) {
+          el.active = false;
+        }
+      });
+
+      const hasActiveHidden = this.#hiddenTabElements.some(
+        el => el.active && el !== proxy
+      );
+
+      hasActiveHidden
+        ? this._moreButtonElement.classList.add('active-inside')
+        : this._moreButtonElement.classList.remove('active-inside');
+    }
+  };
+
   #updateCollapsibleTabs(containerWidth: number) {
     containerWidth = containerWidth;
-    const buttonWidth = this.moreButtonElement.offsetWidth;
+    const buttonWidth = this._moreButtonElement.offsetWidth;
 
     //TODO: Optimize so that we only update the hidden tabs when necessary. Currently we update them every time the container is resized.
 
     // Reset the hidden tabs
     this.#hiddenTabElements.forEach(el => {
-      el.removeEventListener('click', this._onTabClicked);
+      el.removeEventListener('click', this.#onTabClicked);
     });
     this.#hiddenTabElements = [];
     this.#hiddenTabElementsMap.clear();
@@ -85,22 +154,24 @@ export class UUITabGroupElement extends LitElement {
           (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0)
       ) {
         tab.style.display = '';
-        this.moreButtonElement.style.display = 'none';
+        this._moreButtonElement.style.display = 'none';
       } else {
         // Make a proxy tab to put in the hidden tabs container and link it to the original tab
         const proxyTab = tab.cloneNode(true) as UUITabElement;
-        proxyTab.addEventListener('click', this._onTabClicked);
+        proxyTab.addEventListener('click', this.#onTabClicked);
         proxyTab.classList.add('hidden-tab');
         proxyTab.style.display = '';
         proxyTab.activeBarLocation =
-          this.dropdownDirection === 'vertical' ? 'left' : 'bottom';
+          this.priorityNavigationDropdownContentDirection === 'vertical'
+            ? 'left'
+            : 'bottom';
 
         this.#hiddenTabElementsMap.set(proxyTab, tab);
         this.#hiddenTabElementsMap.set(proxyTab, tab);
         this.#hiddenTabElements.push(proxyTab);
 
         tab.style.display = 'none';
-        this.moreButtonElement.style.display = '';
+        this._moreButtonElement.style.display = '';
         if (tab.active) {
           hasActiveHidden = true;
         }
@@ -108,8 +179,8 @@ export class UUITabGroupElement extends LitElement {
     }
 
     hasActiveHidden
-      ? this.moreButtonElement.classList.add('active-inside')
-      : this.moreButtonElement.classList.remove('active-inside');
+      ? this._moreButtonElement.classList.add('active-inside')
+      : this._moreButtonElement.classList.remove('active-inside');
 
     this.requestUpdate();
   }
@@ -126,61 +197,18 @@ export class UUITabGroupElement extends LitElement {
     this.#updateCollapsibleTabs(this.offsetWidth);
   }
 
-  private _setTabArray() {
+  #setTabArray() {
     this._tabElements = this._slottedNodes ? this._slottedNodes : [];
     this.#calculateBreakPoints();
   }
 
-  private _onSlotChange() {
-    this._tabElements.forEach(el => {
-      el.removeEventListener('click', this._onTabClicked);
-    });
-
-    this._setTabArray();
-
-    this._tabElements.forEach(el => {
-      el.addEventListener('click', this._onTabClicked);
-    });
-  }
-
-  private _onTabClicked = (e: MouseEvent) => {
-    const selectedElement = e.currentTarget as HTMLElement;
-    if (this._elementIsTabLike(selectedElement)) {
-      selectedElement.active = true;
-      const proxy = this.#hiddenTabElementsMap.get(selectedElement);
-
-      if (proxy) {
-        proxy.active = true;
-      }
-
-      const filtered = [
-        ...this._tabElements,
-        ...this.#hiddenTabElements,
-      ].filter(el => el !== selectedElement && el !== proxy);
-
-      filtered.forEach(el => {
-        if (this._elementIsTabLike(el)) {
-          el.active = false;
-        }
-      });
-
-      const hasActiveHidden = this.#hiddenTabElements.some(
-        el => el.active && el !== proxy
-      );
-
-      hasActiveHidden
-        ? this.moreButtonElement.classList.add('active-inside')
-        : this.moreButtonElement.classList.remove('active-inside');
-    }
-  };
-
-  private _elementIsTabLike(el: any): el is UUITabElement {
+  #isElementTabLike(el: any): el is UUITabElement {
     return el instanceof UUITabElement || 'active' in el;
   }
 
   render() {
     return html`
-      <slot @slotchange=${this._onSlotChange}></slot>
+      <slot @slotchange=${this.#onSlotChange}></slot>
       <uui-button
         popovertarget="popover-container"
         style="display: none"
