@@ -52,7 +52,7 @@ export class UUITabGroupElement extends LitElement {
    * Set the location of the active bar in the dropdown.
    * @type {string}
    * @attr
-   * @default bottom
+   * @default left
    */
   @property({
     type: String,
@@ -63,7 +63,7 @@ export class UUITabGroupElement extends LitElement {
     | 'top'
     | 'bottom'
     | 'left'
-    | 'right' = 'bottom';
+    | 'right' = 'left';
 
   private _tabElements: HTMLElement[] = [];
 
