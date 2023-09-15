@@ -21,6 +21,83 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
+  /**
+   * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  public disabled = false;
+
+  /**
+   * Set an href, this will turns the inner button into a anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  /**
+   * Set the location of the active bar.
+   * @type {string}
+   * @attr
+   * @default bottom
+   */
+  @property({ type: String, reflect: true, attribute: 'active-bar-location' })
+  public activeBarLocation?: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+
+  constructor() {
+    super();
+    this.addEventListener('click', this.onHostClick);
+  }
+
+  private onHostClick(e: MouseEvent) {
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  render() {
+    return this.href
+      ? html`
+          <a
+            id="button"
+            href=${ifDefined(!this.disabled ? this.href : undefined)}
+            target=${ifDefined(this.target || undefined)}
+            rel=${ifDefined(
+              this.target === '_blank' ? 'noopener noreferrer' : undefined
+            )}
+            role="tab">
+            <slot name="icon"></slot>
+            ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </a>
+        `
+      : html`
+          <button
+            type="button"
+            id="button"
+            ?disabled=${this.disabled}
+            role="tab">
+            <slot name="icon"></slot>
+            ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </button>
+        `;
+  }
+
   static styles = [
     css`
       :host {
@@ -144,83 +221,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
     `,
   ];
-
-  /**
-   * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  public disabled = false;
-
-  /**
-   * Set an href, this will turns the inner button into a anchor tag.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public href?: string;
-
-  /**
-   * Set an anchor tag target, only used when using href.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public target?: '_blank' | '_parent' | '_self' | '_top';
-
-  /**
-   * Set the location of the active bar.
-   * @type {string}
-   * @attr
-   * @default bottom
-   */
-  @property({ type: String, reflect: true, attribute: 'active-bar-location' })
-  public activeBarLocation?: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
-
-  constructor() {
-    super();
-    this.addEventListener('click', this.onHostClick);
-  }
-
-  private onHostClick(e: MouseEvent) {
-    if (this.disabled) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-
-  render() {
-    return this.href
-      ? html`
-          <a
-            id="button"
-            href=${ifDefined(!this.disabled ? this.href : undefined)}
-            target=${ifDefined(this.target || undefined)}
-            rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined
-            )}
-            role="tab">
-            <slot name="icon"></slot>
-            ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </a>
-        `
-      : html`
-          <button
-            type="button"
-            id="button"
-            ?disabled=${this.disabled}
-            role="tab">
-            <slot name="icon"></slot>
-            ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </button>
-        `;
-  }
 }
 
 declare global {
