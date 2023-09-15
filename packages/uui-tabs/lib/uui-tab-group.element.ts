@@ -163,16 +163,17 @@ export class UUITabGroupElement extends LitElement {
     const selectedElement = e.currentTarget as HTMLElement;
     if (this.#isElementTabLike(selectedElement)) {
       selectedElement.active = true;
-      const proxy = this.#hiddenTabElementsMap.get(selectedElement);
+      const linkedElement = this.#hiddenTabElementsMap.get(selectedElement);
 
-      if (proxy) {
-        proxy.active = true;
+      if (linkedElement) {
+        linkedElement.active = true;
       }
 
+      // Reset all other tabs
       const filtered = [
         ...this.#tabElements,
         ...this.#hiddenTabElements,
-      ].filter(el => el !== selectedElement && el !== proxy);
+      ].filter(el => el !== selectedElement && el !== linkedElement);
 
       filtered.forEach(el => {
         if (this.#isElementTabLike(el)) {
@@ -180,8 +181,9 @@ export class UUITabGroupElement extends LitElement {
         }
       });
 
+      // Check if there are any active tabs in the dropdown
       const hasActiveHidden = this.#hiddenTabElements.some(
-        el => el.active && el !== proxy
+        el => el.active && el !== linkedElement
       );
 
       hasActiveHidden
