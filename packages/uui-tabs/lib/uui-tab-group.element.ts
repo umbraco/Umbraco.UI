@@ -193,7 +193,6 @@ export class UUITabGroupElement extends LitElement {
   };
 
   #updateCollapsibleTabs(containerWidth: number) {
-    containerWidth = containerWidth;
     const buttonWidth = this._moreButtonElement.offsetWidth;
 
     // Only update if the container is smaller than the last breakpoint
