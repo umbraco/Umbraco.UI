@@ -66,9 +66,12 @@ export const WithBorders: Story = () => html`
     --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
     <uui-tab-group>
-      <uui-tab> Content </uui-tab>
-      <uui-tab> Packages </uui-tab>
-      <uui-tab active> Media </uui-tab>
+      <uui-tab label="content"> Content </uui-tab>
+      <uui-tab label="Packages"> Packages </uui-tab>
+      <uui-tab label="Media" active> Media </uui-tab>
+      <uui-tab label="Settings"> Settings </uui-tab>
+      <uui-tab label="Translations"> Translations </uui-tab>
+      <uui-tab label="Users"> Users </uui-tab>
     </uui-tab-group>
   </div>
 `;
@@ -85,9 +88,12 @@ export const Navbar: Story = () => html`
     --uui-tab-background: var(--uui-color-default);
     ">
     <uui-tab-group>
-      <uui-tab>Content</uui-tab>
-      <uui-tab active>Packages</uui-tab>
-      <uui-tab>Media</uui-tab>
+      <uui-tab label="content"> Content </uui-tab>
+      <uui-tab label="Packages" active> Packages </uui-tab>
+      <uui-tab label="Media"> Media </uui-tab>
+      <uui-tab label="Settings"> Settings </uui-tab>
+      <uui-tab label="Translations"> Translations </uui-tab>
+      <uui-tab label="Users"> Users </uui-tab>
     </uui-tab-group>
   </div>
 `;
