@@ -42,6 +42,7 @@ export class UUITabGroupElement extends LitElement {
         background: var(--uui-color-surface);
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
+        overflow: hidden;
       }
       :host([dropdown-direction='horizontal']) #hidden-tabs-container {
         flex-direction: row;
