@@ -76,6 +76,22 @@ export const WithBorders: Story = () => html`
   </div>
 `;
 
+export const VerticalOrientation: Story = () => html`
+  <h3>Vertical Orientation</h3>
+  <div>
+    <div>
+      <uui-tab label="content" orientation="vertical"> Content </uui-tab>
+      <uui-tab label="Packages" orientation="vertical"> Packages </uui-tab>
+      <uui-tab label="Media" orientation="vertical" active> Media </uui-tab>
+      <uui-tab label="Settings" orientation="vertical"> Settings </uui-tab>
+      <uui-tab label="Translations" orientation="vertical">
+        Translations
+      </uui-tab>
+      <uui-tab label="Users" orientation="vertical"> Users </uui-tab>
+    </div>
+  </div>
+`;
+
 export const Navbar: Story = () => html`
   <h3>Navbar</h3>
   <div

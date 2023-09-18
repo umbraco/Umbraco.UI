@@ -42,7 +42,6 @@ export class UUITabGroupElement extends LitElement {
         background: var(--uui-color-surface);
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
-        --uui-tab-text-align: left;
       }
       :host([dropdown-direction='horizontal']) #hidden-tabs-container {
         flex-direction: row;
@@ -92,20 +91,6 @@ export class UUITabGroupElement extends LitElement {
     attribute: 'dropdown-content-direction',
   })
   dropdownContentDirection: 'vertical' | 'horizontal' = 'vertical';
-
-  /**
-   * Set the location of the active bar in the dropdown.
-   * @type {string}
-   * @attr
-   * @default left
-   */
-  @property({
-    type: String,
-    reflect: true,
-    attribute: 'dropdown-active-bar-location',
-  })
-  public dropdownActiveBarLocation?: 'top' | 'bottom' | 'left' | 'right' =
-    'left';
 
   #tabElements: HTMLElement[] = [];
 
@@ -236,7 +221,7 @@ export class UUITabGroupElement extends LitElement {
         proxyTab.addEventListener('click', this.#onTabClicked);
         proxyTab.classList.add('hidden-tab');
         proxyTab.style.display = '';
-        proxyTab.activeBarLocation = this.dropdownActiveBarLocation;
+        proxyTab.orientation = this.dropdownContentDirection;
 
         // Link the proxy tab to the original tab
         this.#hiddenTabElementsMap.set(proxyTab, tab);

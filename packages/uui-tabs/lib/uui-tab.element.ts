@@ -16,9 +16,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-text-active - Define the tab text active color
  * @cssprop --uui-tab-background - Define the tab group background color
  * @cssprop --uui-tab-divider - Define the tab dividers color
- * @cssprop --uui-tab-divider - Define the tab dividers color
  * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
- * @cssprop --uui-tab-text-align - Define the tab text align
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
@@ -32,19 +30,19 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
 
       #button {
         position: relative;
+        box-sizing: border-box;
         display: flex;
-        width: 100%;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 100%;
+        height: 100%;
+        min-height: var(--uui-size-12);
+        min-width: 70px;
         padding: var(--uui-size-2)
           var(--uui-tab-padding-horizontal, var(--uui-size-4));
         border: none;
-        box-sizing: border-box;
-        min-height: 32px;
         font-size: inherit;
-        height: 100%;
-        min-width: 70px;
         background: none;
         color: inherit;
         cursor: pointer;
@@ -53,6 +51,12 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         /* for anchor tag: */
         text-decoration: none;
         line-height: normal;
+      }
+
+      :host([orientation='vertical']) #button {
+        min-height: var(--uui-size-14);
+        padding: var(--uui-size-2)
+          var(--uui-tab-padding-horizontal, var(--uui-size-5));
       }
 
       :host(:not([active]):not([disabled])) #button:hover {
@@ -85,50 +89,34 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         opacity: 1;
       }
 
-      /* TOP AND BOTTOM */
-      :host([active-bar-location='bottom']) #button::before,
-      :host([active-bar-location='top']) #button::before {
+      /* HORIZONTAL */
+      :host([orientation='horizontal']) #button::before {
         left: auto;
         right: auto;
         border-radius: var(--borderRadius) var(--borderRadius) 0 0;
         height: 0px;
-        width: calc(100% - 16px);
+        width: calc(100% - 15px);
+        bottom: 0;
         transition: opacity ease-in-out var(--transitionDuration),
           height ease-in-out var(--transitionDuration);
       }
-      :host([active][active-bar-location='bottom']) #button::before,
-      :host([active][active-bar-location='top']) #button::before {
+      :host([active][orientation='horizontal']) #button::before {
         height: var(--barWidth);
       }
-      :host([active-bar-location='bottom']) #button::before {
-        bottom: 0;
-      }
-      :host([active-bar-location='top']) #button::before {
-        top: 0;
-        transform: rotateZ(180deg);
-      }
 
-      /* LEFT AND RIGHT */
-      :host([active-bar-location='left']) #button::before,
-      :host([active-bar-location='right']) #button::before {
+      /* VERTICAL */
+      :host([orientation='vertical']) #button::before {
         top: auto;
         bottom: auto;
         border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
-        height: calc(100% - 16px);
+        height: calc(100% - 12px);
         width: 0px;
+        left: 0;
         transition: opacity ease-in-out var(--transitionDuration),
           width ease-in-out var(--transitionDuration);
       }
-      :host([active][active-bar-location='left']) #button::before,
-      :host([active][active-bar-location='right']) #button::before {
+      :host([active][orientation='vertical']) #button::before {
         width: var(--barWidth);
-      }
-      :host([active-bar-location='left']) #button::before {
-        left: 0;
-      }
-      :host([active-bar-location='right']) #button::before {
-        right: 0;
-        transform: rotateZ(180deg);
       }
 
       #button:hover::before {
@@ -145,10 +133,14 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
 
       slot.label {
         /* TODO: Find a better selector */
-        text-align: var(--uui-tab-text-align, center);
+        text-align: center;
         display: flex;
         width: 100%;
         flex-direction: column;
+      }
+
+      :host([orientation='vertical']) slot.label {
+        text-align: left;
       }
     `,
   ];
@@ -181,13 +173,13 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
   /**
-   * Set the location of the active bar.
+   * Set the visual orientation of this tab, this changes the look and placement of the active indication.
    * @type {string}
    * @attr
-   * @default bottom
+   * @default horizontal
    */
-  @property({ type: String, reflect: true, attribute: 'active-bar-location' })
-  public activeBarLocation?: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+  @property({ type: String, reflect: true })
+  public orientation?: 'horizontal' | 'vertical' = 'horizontal';
 
   constructor() {
     super();
