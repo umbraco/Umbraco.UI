@@ -81,15 +81,6 @@ export class UUITabGroupElement extends LitElement {
   private _slottedNodes?: HTMLElement[];
 
   /**
-   * Toggles the priority navigation mode, which will collapse tabs into a dropdown when there is not enough space.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'priority-navigation' })
-  priorityNavigation = false;
-
-  /**
    * Set the flex direction of the content of the dropdown.
    * @type {string}
    * @attr
