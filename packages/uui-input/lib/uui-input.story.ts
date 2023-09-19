@@ -314,7 +314,7 @@ export const AutoWidth: Story = {
         .name=${props.name}
         .placeholder=${props.placeholder}
         .value=${props.value}
-        .autoWidth=${props.autoWidth}>
+        ?auto-width=${props.autoWidth}>
       </uui-input>
       <br /><br />
       <uui-input
@@ -329,11 +329,11 @@ export const AutoWidth: Story = {
         .name=${props.name}
         .placeholder=${props.placeholder}
         .value=${props.value}
-        .autoWidth=${props.autoWidth}>
+        ?auto-width=${props.autoWidth}>
         <uui-input
           slot="prepend"
           placeholder="Prepend auto-width"
-          .autoWidth=${props.autoWidth}></uui-input>
+          ?auto-width=${props.autoWidth}></uui-input>
         <uui-input
           slot="append"
           placeholder="Append auto-width false"></uui-input>

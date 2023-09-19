@@ -407,7 +407,7 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   private renderInputWithAutoWidth() {
-    html`<div id="control">
+    return html`<div id="control">
       ${this.renderInput()}${this.renderAutoWidthBackground()}
     </div>`;
   }
