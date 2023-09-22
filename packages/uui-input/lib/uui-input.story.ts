@@ -337,7 +337,23 @@ export const AutoWidth: Story = {
         <uui-input
           slot="append"
           placeholder="Append auto-width false"></uui-input>
-      </uui-input>`,
+      </uui-input>
+
+      <br /><br />
+      <uui-input
+        .min=${props.min}
+        .max=${props.max}
+        .step=${props.step}
+        .disabled=${props.disabled}
+        .readonly=${props.readonly}
+        .error=${props.error}
+        .label=${props.label}
+        .type=${props.type}
+        .name=${props.name}
+        style="--auto-width-text-margin-right: 50px"
+        placeholder="--auto-width-text-margin-right: 50px"
+        .value=${props.value}
+        ?auto-width=${props.autoWidth}></uui-input>`,
   args: {
     autoWidth: true,
     placeholder: 'Start typing...',
