@@ -406,6 +406,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this._swatches?.resetSelection();
     const element = event.target as UUIColorSliderElement;
 
+    console.log("handleHueChange", element.value);
+
     const newColor: HslaColor = {
       h: element.value,
       s: this.saturation,
@@ -520,14 +522,28 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
-    this._colord = new Colord(colorString);
+    console.log("setColor", colorString);
 
-    const { h, l, s, a } = this._colord.toHsl();
+    const colord = new Colord(colorString);
+
+    console.log("colord", colord);
+
+    const { h, s, l, a } = colord.toHsl();
 
     this.hue = h;
     this.saturation = s;
     this.lightness = l;
     this.alpha = this.opacity ? a * 100 : 100;
+
+    const hslaColor = colorString as HslaColor;
+    console.log("hslaColor", hslaColor);
+
+    // Workaround as hue isn't correct when changing hue slider, but Colord parse hue value as zero when color is black.
+    if (hslaColor && hslaColor.h) {
+      this.hue = hslaColor.h;
+    }
+    
+    this._colord = colord;
 
     this._syncValues();
 
@@ -558,8 +574,12 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           'color-picker--disabled': this.disabled,
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}>
-        <uui-color-area .value="${this.value}" @change=${this.handleGridChange}>
+        <uui-color-area
+          .value="${this.value}"
+          .hue="${Math.round(this.hue)}"
+          @change=${this.handleGridChange}>
         </uui-color-area>
+        ${Math.round(this.hue)}
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
             <uui-color-slider

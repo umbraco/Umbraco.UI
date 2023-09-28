@@ -146,23 +146,28 @@ export class UUIColorAreaElement extends LitElement {
     this._value = newVal;
     this.requestUpdate('value', oldVal);
 
+    console.log("newVal", newVal);
+
     try {
       // TODO: Can we move the parsing of a color string to shared utility function?
       const parsed = colord(newVal);
 
-      console.log("newVal", newVal);
-
       if (parsed.isValid()) {
         const { h, s, l } = parsed.toHsl();
 
-        console.log("value saturation", s);
+        console.log("h, s, l", h, s, l);
 
         // Test
         if (s === 0) {
           console.log("parsed", parsed.toHsl());
         }
+        
+        if (h !== 0) {
+          this.hue = h;
+        }
 
-        this.hue = h;
+        console.log("hue", this.hue);
+
         //this.saturation = s;
         this.lightness = l;
         this.brightness = this.getBrightness(l);
