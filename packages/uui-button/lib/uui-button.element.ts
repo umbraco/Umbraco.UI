@@ -3,7 +3,11 @@ import {
   UUIHorizontalShakeKeyframes,
 } from '@umbraco-ui/uui-base/lib/animations';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  FormControlMixin,
+  LabelMixin,
+  PopoverTargetMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import {
   iconCheck,
@@ -39,10 +43,11 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast - overwrite the text color
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
+ *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends FormControlMixin(
-  LabelMixin('', LitElement)
+  LabelMixin('', PopoverTargetMixin(LitElement))
 ) {
   static styles = [
     UUIHorizontalShakeKeyframes,
@@ -110,7 +115,7 @@ export class UUIButtonElement extends FormControlMixin(
 
         display: inline-flex;
         align-items: center;
-        justify-content: center;
+        justify-content: var(--uui-button-content-align, center);
 
         /* for anchor tag: */
         text-decoration: none;
@@ -458,6 +463,8 @@ export class UUIButtonElement extends FormControlMixin(
           break;
       }
     }
+
+    this._togglePopover();
   }
 
   private _resetStateTimeout?: number;

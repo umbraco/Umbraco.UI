@@ -9,9 +9,7 @@
         "custom-elements.json"
       ]
     },
-    "test": {
-      "outputs": []
-    },
+    "test": {},
     "dev": {
       "cache": false
     },
@@ -19,6 +17,6 @@
       "cache": false
     }
   },
-  "baseBranch": "origin/dev",
+  "baseBranch": "origin/v1/contrib",
   "globalDependencies": ["tsconfig.json"]
 }

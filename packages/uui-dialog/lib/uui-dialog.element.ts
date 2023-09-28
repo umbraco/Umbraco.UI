@@ -13,7 +13,7 @@ export class UUIDialogElement extends LitElement {
       :host {
         position: relative;
         display: block;
-        max-width: 400px;
+        max-width: 580px;
         color: var(--uui-color-text);
 
         background-color: var(

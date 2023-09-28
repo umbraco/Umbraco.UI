@@ -18,6 +18,10 @@ const Template: Story = () => html`
     Card is a Component that provides the basics for a Card component. This can
     be extended in code to match a certain need.
   </p>
+
+  <uui-card selectable>
+    <h5 class="uui-h5">Context of the card<h5>
+  </uui-card>
 `;
 
 export const AAAOverview = Template.bind({});

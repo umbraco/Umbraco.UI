@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
+
+### Bug Fixes
+
+- allow TouchEvents to be read for move() function ([0e6a6e8](https://github.com/umbraco/Umbraco.UI/commit/0e6a6e82dccfff8f9362bf5f76b9bcadd46b18f1))
+- correct base card requestUpdate on selectable ([#563](https://github.com/umbraco/Umbraco.UI/issues/563)) ([8641d98](https://github.com/umbraco/Umbraco.UI/commit/8641d98b5646a5b9ff8384def3c46203115f56e9))
+
+### Features
+
+- **uui-box:** add a property to control the headline variant ([#521](https://github.com/umbraco/Umbraco.UI/issues/521)) ([bda766c](https://github.com/umbraco/Umbraco.UI/commit/bda766cda1d65b6b9711a4cf2c137f2f66e3030d))
+
+# [1.4.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.4.0) (2023-09-21)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.4.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.1...v1.4.0-rc.2) (2023-09-07)
+
+### Bug Fixes
+
+- correct base card requestUpdate on selectable ([#563](https://github.com/umbraco/Umbraco.UI/issues/563)) ([b4be148](https://github.com/umbraco/Umbraco.UI/commit/b4be148498a2cce2a5b5038b1a24c600402a43b1))
+
+# [1.4.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.0...v1.4.0-rc.1) (2023-08-10)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
 # [1.4.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.3.0...v1.4.0-rc.0) (2023-07-18)
 
 ### Bug Fixes

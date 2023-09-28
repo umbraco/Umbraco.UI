@@ -1,3 +1,4 @@
+import { dirname, join } from 'path';
 const remarkGfm = require('remark-gfm').default;
 const tsconfigPaths = require('vite-tsconfig-paths').default;
 
@@ -14,9 +15,9 @@ module.exports = {
     '../stories/**/*.mdx',
   ],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
+    getAbsolutePath('@storybook/addon-essentials'),
+    getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-a11y'),
     '../storyhelpers/storybook-readme',
     {
       name: '@storybook/addon-docs',
@@ -30,7 +31,7 @@ module.exports = {
     },
   ],
   framework: {
-    name: '@storybook/web-components-vite',
+    name: getAbsolutePath('@storybook/web-components-vite'),
     options: {},
   },
   features: {
@@ -54,3 +55,7 @@ module.exports = {
     autodocs: true,
   },
 };
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
