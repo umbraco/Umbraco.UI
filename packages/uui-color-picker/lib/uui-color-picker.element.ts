@@ -406,8 +406,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this._swatches?.resetSelection();
     const element = event.target as UUIColorSliderElement;
 
-    console.log("handleHueChange", element.value);
-
     const newColor: HslaColor = {
       h: element.value,
       s: this.saturation,
@@ -684,7 +682,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         swatch =>
           html`<uui-color-swatch
             label="${swatch}"
-            .value=${swatch}></uui-color-swatch>`
+            .value=${swatch}>
+          </uui-color-swatch>`
       )}
     </uui-color-swatches>`;
   }
