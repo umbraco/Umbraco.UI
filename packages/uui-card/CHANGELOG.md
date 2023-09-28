@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
+
+### Bug Fixes
+
+- correct base card requestUpdate on selectable ([#563](https://github.com/umbraco/Umbraco.UI/issues/563)) ([8641d98](https://github.com/umbraco/Umbraco.UI/commit/8641d98b5646a5b9ff8384def3c46203115f56e9))
+
+# [1.4.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.4.0) (2023-09-21)
+
+**Note:** Version bump only for package @umbraco-ui/uui-card
+
 # [1.4.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.1...v1.4.0-rc.2) (2023-09-07)
 
 ### Bug Fixes
