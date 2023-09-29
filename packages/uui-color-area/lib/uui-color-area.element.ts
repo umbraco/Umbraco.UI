@@ -153,8 +153,6 @@ export class UUIColorAreaElement extends LitElement {
       if (parsed.isValid()) {
         const { h, s, l, a } = parsed.toHsl();
 
-        console.log("h, s, l, a", h, s, l, a);
-
         if (h !== 0) {
           this.hue = h;
         }
@@ -165,7 +163,6 @@ export class UUIColorAreaElement extends LitElement {
         this.alpha = a * 100;
       }
     } catch (e) {
-      console.log("value err", e);
       // TODO: Should we log this?
       console.error('Something went wrong parsing the color string.', e);
     }
