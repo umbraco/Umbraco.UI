@@ -107,9 +107,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         margin-left: 0.75rem;
         border-radius: 50%;
       }
-      color-picker__trigger {
-        cursor: pointer;
-      }
       .color-picker__preview::before,
       .color-picker__trigger::before {
         content: '';
@@ -488,7 +485,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     event.stopImmediatePropagation();
 
     const target = event.target as HTMLElement;
-    const popover = target.nextElementSibling as UUIPopoverElement;
+    const popover = target.parentElement as UUIPopoverElement;
 
     popover.open = !popover?.open;
 
@@ -497,7 +494,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   closeColorPicker(event: Event) {
     const target = event.target as UUIPopoverElement;
-    const trigger = target.previousElementSibling;
+    const trigger = target.querySelector("button[part=trigger]");
 
     if (trigger) {
       trigger.setAttribute('aria-expanded', 'false');
@@ -653,27 +650,29 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
-    return html`<button
-        type="button"
-        slot="trigger"
-        aria-label="${this.label || 'Open Color picker'}"
-        class=${classMap({
-          'color-picker__trigger': true,
-          'color-dropdown__trigger--disabled': this.disabled,
-          'color-dropdown__trigger--small': this.size === 'small',
-          'color-dropdown__trigger--medium': this.size === 'medium',
-          'color-dropdown__trigger--large': this.size === 'large',
-          'color-picker__transparent-bg': true,
-        })}
-        style=${styleMap({
-          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
-            this.lightness
-          }%, ${this.alpha / 100})`,
-        })}
-        @click=${this.openColorPicker}
-        aria-haspopup="true"
-        aria-expanded="false"></button>
+    return html`
       <uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
+        <button
+          type="button"
+          part="trigger"
+          slot="trigger"
+          aria-label="${this.label || 'Open Color picker'}"
+          class=${classMap({
+            'color-picker__trigger': true,
+            'color-dropdown__trigger--disabled': this.disabled,
+            'color-dropdown__trigger--small': this.size === 'small',
+            'color-dropdown__trigger--medium': this.size === 'medium',
+            'color-dropdown__trigger--large': this.size === 'large',
+            'color-picker__transparent-bg': true,
+          })}
+          style=${styleMap({
+            '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
+              this.lightness
+            }%, ${this.alpha / 100})`,
+          })}
+          @click=${this.openColorPicker}
+          aria-haspopup="true"
+          aria-expanded="false"></button>
         <div slot="popover">${this._renderColorPicker()}</div>
       </uui-popover>`;
   }
