@@ -249,9 +249,6 @@ export class UUIColorAreaElement extends LitElement {
       a: this.alpha / 100,
     });
 
-    console.log("syncValues saturation", this.saturation);
-    console.log("syncValues value", color.toRgbString());
-
     this._value = color.toRgbString();
 
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
@@ -277,8 +274,6 @@ export class UUIColorAreaElement extends LitElement {
   render() {
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
-
-    console.log("gridHandleX", gridHandleX);
 
     return html`
       <div
