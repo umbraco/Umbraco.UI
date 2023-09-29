@@ -520,11 +520,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
-    console.log("setColor", colorString);
 
     const colord = new Colord(colorString);
-
-    console.log("colord", colord);
 
     const { h, s, l, a } = colord.toHsl();
 
@@ -534,9 +531,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.alpha = this.opacity ? a * 100 : 100;
 
     const hslaColor = colorString as HslaColor;
-    console.log("hslaColor", hslaColor);
 
-    // Workaround as hue isn't correct when changing hue slider, but Colord parse hue value as zero when color is black.
+    // Workaround as hue isn't correct after changing hue slider, but Colord parse hue value as zero when color is black.
     if (hslaColor && hslaColor.h) {
       this.hue = hslaColor.h;
     }
