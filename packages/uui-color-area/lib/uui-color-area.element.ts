@@ -153,6 +153,7 @@ export class UUIColorAreaElement extends LitElement {
       if (parsed.isValid()) {
         const { h, s, l, a } = parsed.toHsl();
 
+        // Update hue from parsed color, but when color is black, value from hue slider may be different from zero.
         if (h !== 0) {
           this.hue = h;
         }
