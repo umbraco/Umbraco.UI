@@ -590,7 +590,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           .hue="${Math.round(this.hue)}"
           @change=${this.handleGridChange}>
         </uui-color-area>
-        ${Math.round(this.hue)}
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
             <uui-color-slider
