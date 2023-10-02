@@ -107,8 +107,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         margin-left: 0.75rem;
         border-radius: 50%;
       }
-      color-picker__trigger {
-        cursor: pointer;
+      .color-picker__trigger[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
       }
       .color-picker__preview::before,
       .color-picker__trigger::before {
