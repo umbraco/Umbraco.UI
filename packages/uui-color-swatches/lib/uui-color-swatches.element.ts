@@ -35,6 +35,14 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   @property()
   value = '';
 
+ /**
+  * Disables the color swatches.
+  * @type {boolean}
+  * @attr
+  * @default false
+  **/
+   @property({ type: Boolean, reflect: true }) disabled = false;
+
   @queryAssignedElements({ selector: 'uui-color-swatch' })
   swatches!: Array<UUIColorSwatchElement>;
 
@@ -83,6 +91,10 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       swatch.setAttribute('selectable', 'selectable');
       swatch.setAttribute('aria-checked', 'false');
       swatch.setAttribute('role', 'radio');
+
+      if (this.disabled) {
+        swatch.setAttribute('disabled', '')
+      }
 
       if (this.value !== '' && swatch.color?.isEqual(this.value)) {
         swatch.selected = true;

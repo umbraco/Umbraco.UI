@@ -652,7 +652,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         swatch =>
           html`<uui-color-swatch
             label="${swatch}"
-            .value=${swatch}></uui-color-swatch>`
+            .value=${swatch}
+            ?disabled=${this.disabled}>
+          </uui-color-swatch>`
       )}
     </uui-color-swatches>`;
   }
