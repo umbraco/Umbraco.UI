@@ -558,7 +558,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           'color-picker--disabled': this.disabled,
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}>
-        <uui-color-area .value="${this.value}" @change=${this.handleGridChange}>
+        <uui-color-area
+          .value="${this.value}"
+          ?disabled=${this.disabled}
+          @change=${this.handleGridChange}>
         </uui-color-area>
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
@@ -566,6 +569,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               label="hue"
               class="hue-slider"
               .value=${Math.round(this.hue)}
+              ?disabled=${this.disabled}
               @change=${this.handleHueChange}>
             </uui-color-slider>
             ${this.opacity
@@ -576,6 +580,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     .value=${Math.round(this.alpha)}
                     type="opacity"
                     .color=${this.value}
+                    ?disabled=${this.disabled}
                     @change=${this.handleAlphaChange}>
                   </uui-color-slider>
                 `
@@ -610,21 +615,21 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           </uui-input>
           <uui-button-group>
             ${!this.noFormatToggle
-              ? html`
-                  <uui-button
+              ? html`<uui-button
                     label="Toggle color format"
                     @click=${this.handleFormatToggle}
                     class="color-picker__toggle-format"
+                    ?disabled=${this.disabled}
                     compact>
                     <span>${this.format}</span>
-                  </uui-button>
-                `
+                  </uui-button>`
               : ''}
             ${hasEyeDropper
-              ? html` <uui-button
+              ? html`<uui-button
                   label="Select a color"
-                  compact
-                  @click=${this.handleEyeDropper}>
+                  ?disabled=${this.disabled}
+                  @click=${this.handleEyeDropper}
+                  compact>
                   <uui-icon-registry-essential>
                     <uui-icon name="colorpicker"></uui-icon>
                   </uui-icon-registry-essential>
