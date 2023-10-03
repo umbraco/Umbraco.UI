@@ -153,3 +153,41 @@ export const Snapping: Story = {
     },
   },
 };
+
+export const NestedSplitPanels: Story = {
+  args: {
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-split-panel style="--min: 150px; --max: calc(100% - 150px);">
+        <div
+          slot="start"
+          style="height: 200px; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden;"
+        >
+          Start
+        </div>
+        <div
+          slot="end"
+          style="height: 200px; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden;"
+        >
+          <uui-split-panel vertical style="height: 400px;">
+            <div
+              slot="start"
+              style="height: 100%; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden"
+            >
+              Top
+            </div>
+            <div
+              slot="end"
+              style="height: 100%; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden"
+            >
+              Bottom
+            </div>
+          </uui-split-panel>
+        </div>
+      </uui-split-panel>`,
+      },
+    },
+  },
+};
