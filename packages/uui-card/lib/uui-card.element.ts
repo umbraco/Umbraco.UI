@@ -3,15 +3,16 @@ import {
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { UUICardEvent } from './UUICardEvent';
 
 /**
  *  @element uui-card
- *  @fires {UUICardEvent} open - fires when the card title is clicked
- *  @description - Base card component to be extended by specific cards.
+ *  @fires {UUICardEvent} open - fires when the card title is clicked.
+ *  @description - Base card component to be extended by specific card elements.
+ *  @slot - Default content.
  */
 @defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(
@@ -97,6 +98,11 @@ export class UUICardElement extends SelectOnlyMixin(
       :host([select-only]) ::slotted(*) {
         pointer-events: none;
       }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
     `,
   ];
 
@@ -119,12 +125,32 @@ export class UUICardElement extends SelectOnlyMixin(
   @property({ type: Boolean, reflect: true })
   error = false;
 
+  /**
+   * Set an href, this will turns the name of the card into an anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  // This is deprecated - use href instead
   protected handleOpenClick(e: Event) {
     if (this.disabled) return;
 
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
+  // This is deprecated - use href instead
   protected handleOpenKeydown(e: KeyboardEvent) {
     if (this.disabled) return;
     if (e.key !== 'Enter') return;
@@ -132,6 +158,10 @@ export class UUICardElement extends SelectOnlyMixin(
     e.preventDefault();
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
+  }
+
+  protected render() {
+    return html`<slot></slot>`;
   }
 }
 

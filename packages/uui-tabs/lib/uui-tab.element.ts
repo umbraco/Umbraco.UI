@@ -16,6 +16,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-text-active - Define the tab text active color
  * @cssprop --uui-tab-background - Define the tab group background color
  * @cssprop --uui-tab-divider - Define the tab dividers color
+ * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
@@ -24,22 +25,24 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host {
         color: var(--uui-tab-text, var(--uui-color-interactive));
         font-family: inherit;
+        width: fit-content;
       }
 
       #button {
         position: relative;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        text-align: center;
-        padding: var(--uui-size-2) var(--uui-size-4);
-        border: none;
-        box-sizing: border-box;
-        min-height: 32px;
-        font-size: inherit;
+        width: 100%;
         height: 100%;
+        min-height: var(--uui-size-12);
         min-width: 70px;
+        padding: var(--uui-size-2)
+          var(--uui-tab-padding-horizontal, var(--uui-size-5));
+        border: none;
+        font-size: inherit;
         background: none;
         color: inherit;
         cursor: pointer;
@@ -48,6 +51,12 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         /* for anchor tag: */
         text-decoration: none;
         line-height: normal;
+      }
+
+      :host([orientation='vertical']) #button {
+        min-height: var(--uui-size-14);
+        padding: var(--uui-size-2)
+          var(--uui-tab-padding-horizontal, var(--uui-size-5));
       }
 
       :host(:not([active]):not([disabled])) #button:hover {
@@ -70,26 +79,49 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       #button::before {
         content: '';
         position: absolute;
-        height: 0px;
-        /* max-width: 50px; */
-        width: calc(100% - 16px);
-        left: auto;
-        right: auto;
         background-color: var(--uui-color-current);
-        bottom: 0;
-        border-radius: 3px 3px 0 0;
         opacity: 0;
-        transition: opacity ease-in 120ms, height ease-in 120ms;
-      }
-      #button:hover::before {
-        background-color: var(--uui-color-current-emphasis);
+        --transitionDuration: 120ms;
+        --barWidth: 4px;
+        --borderRadius: 3px;
       }
       :host([active]) #button::before {
         opacity: 1;
-        height: 4px;
-        transition: opacity 120ms, height ease-out 120ms;
       }
 
+      /* HORIZONTAL */
+      :host([orientation='horizontal']) #button::before {
+        left: auto;
+        right: auto;
+        border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+        height: 0px;
+        width: calc(100% - 15px);
+        bottom: 0;
+        transition: opacity ease-in-out var(--transitionDuration),
+          height ease-in-out var(--transitionDuration);
+      }
+      :host([active][orientation='horizontal']) #button::before {
+        height: var(--barWidth);
+      }
+
+      /* VERTICAL */
+      :host([orientation='vertical']) #button::before {
+        top: auto;
+        bottom: auto;
+        border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+        height: calc(100% - 12px);
+        width: 0px;
+        left: 0;
+        transition: opacity ease-in-out var(--transitionDuration),
+          width ease-in-out var(--transitionDuration);
+      }
+      :host([active][orientation='vertical']) #button::before {
+        width: var(--barWidth);
+      }
+
+      #button:hover::before {
+        background-color: var(--uui-color-current-emphasis);
+      }
       :host([disabled]) #button::before {
         background-color: var(--uui-color-disabled-standalone);
       }
@@ -97,6 +129,18 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       slot[name='icon']::slotted(*) {
         font-size: 20px;
         margin-bottom: var(--uui-size-2);
+      }
+
+      slot.label {
+        /* TODO: Find a better selector */
+        text-align: center;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+      }
+
+      :host([orientation='vertical']) slot.label {
+        text-align: left;
       }
     `,
   ];
@@ -127,6 +171,15 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
    */
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  /**
+   * Set the visual orientation of this tab, this changes the look and placement of the active indication.
+   * @type {string}
+   * @attr
+   * @default horizontal
+   */
+  @property({ type: String, reflect: true })
+  public orientation?: 'horizontal' | 'vertical' = 'horizontal';
 
   constructor() {
     super();

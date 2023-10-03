@@ -149,15 +149,15 @@ export class MyElement extends LitElement {
   static styles = [
     UUITextStyles,
     css`
-    /* your css goes here */
-  `,
+      /* your css goes here */
+    `,
   ];
 
   render() {
     return html`
-    <div class="uui-text">
-      This is my custom element
-    </div>
+      <div class="uui-text">
+        This is my custom element
+      </div>
     `;
   }
 }

@@ -3,6 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  *  @element uui-card-content-node
@@ -113,21 +114,40 @@ export class UUICardContentNodeElement extends UUICardElement {
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 
+  #renderButton() {
+    return html`<div
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : 0}
+      @click=${this.handleOpenClick}
+      @keydown=${this.handleOpenKeydown}>
+      <span id="icon">
+        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
+      </span>
+      <span id="name"> ${this.name} </span>
+    </div>`;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : 0}
+      href=${ifDefined(!this.disabled ? this.href : undefined)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}>
+      <span id="icon">
+        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
+      </span>
+      <span id="name"> ${this.name} </span>
+    </a>`;
+  }
+
   public render() {
     return html`
-      <div
-        id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : 0}
-        @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}>
-        <span id="icon">
-          <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-          ${this._iconSlotHasContent === false
-            ? this._renderFallbackIcon()
-            : ''}
-        </span>
-        <span id="name"> ${this.name} </span>
-      </div>
+      ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 

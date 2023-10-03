@@ -3,6 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  *  @element uui-card-user
@@ -105,16 +106,33 @@ export class UUICardUserElement extends UUICardElement {
     demandCustomElement(this, 'uui-avatar');
   }
 
+  #renderButton() {
+    return html`<div
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      @click=${this.handleOpenClick}
+      @keydown=${this.handleOpenKeydown}>
+      <span> ${this.name} </span>
+    </div>`;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      href=${ifDefined(!this.disabled ? this.href : undefined)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}>
+      <span>${this.name}</span>
+    </a>`;
+  }
+
   public render() {
     return html`
       <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
-      <div
-        id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
-        @click=${this.handleOpenClick}
-        @keydown=${this.handleOpenKeydown}>
-        <span> ${this.name} </span>
-      </div>
+      ${this.href ? this.#renderLink() : this.#renderButton()}
       <slot></slot>
       <slot name="tag"></slot>
       <slot name="actions"></slot>
