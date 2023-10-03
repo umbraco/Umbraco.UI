@@ -75,6 +75,31 @@ export const Vertical: Story = {
   },
 };
 
+export const MinAndMax: Story = {
+  args: {
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-split-panel style="--min: 150px; --max: calc(100% - 150px);">
+        <div
+          slot="start"
+          style="height: 200px; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden;"
+        >
+          Start
+        </div>
+        <div
+          slot="end"
+          style="height: 200px; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden;"
+        >
+          End
+        </div>
+      </uui-split-panel>`,
+      },
+    },
+  },
+};
+
 export const Snapping: Story = {
   args: {
     snap: "100px 50%",
