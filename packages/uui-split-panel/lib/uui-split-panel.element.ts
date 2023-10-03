@@ -309,6 +309,7 @@ export class UUISplitPanelElement extends LitElement {
 
         return html
         `<slot name="start" part="panel start" class="start"></slot>
+
         <div
           part="divider"
           class="divider"
@@ -324,6 +325,7 @@ export class UUISplitPanelElement extends LitElement {
         >
           <slot name="divider"></slot>
         </div>
+        
         <slot name="end" part="panel end" class="end"></slot>
       `;
     }
