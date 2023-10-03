@@ -29,8 +29,8 @@ export const SkipNavigation: Story = {
     docs: {
       source: {
         code: `<uui-visually-hidden>
-          <a href="#">Skip to main content</a>
-        </uui-visually-hidden>`,
+  <a href="#">Skip to main content</a>
+</uui-visually-hidden>`,
       },
     },
   },
