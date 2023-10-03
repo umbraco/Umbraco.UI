@@ -22,3 +22,16 @@ export default meta;
 type Story = StoryObj<UUIVisuallyHiddenElement>;
 
 export const Overview: Story = {};
+
+export const SkipNavigation: Story = {
+  args: {},
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-visually-hidden>
+          <a href="#">Skip to main content</a>
+        </uui-visually-hidden>`,
+      },
+    },
+  },
+};
