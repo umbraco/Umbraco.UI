@@ -163,6 +163,10 @@ export class UUIInputElement extends FormControlMixin(
         display: none;
       }
 
+      input[type='password']::-ms-reveal {
+        display: none;
+      }
+
       :host(:not([readonly])) input:focus::placeholder {
         opacity: 0;
       }
