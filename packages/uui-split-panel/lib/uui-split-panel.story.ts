@@ -4,10 +4,18 @@ import './uui-split-panel.element';
 import type { UUISplitPanelElement } from './uui-split-panel.element';
 import readme from '../README.md?raw';
 
+const direction = ['ltr', 'rtl'];
+
 const meta: Meta<UUISplitPanelElement> = {
   id: 'uui-split-panel',
   title: 'Split Panel',
   component: 'uui-split-panel',
+  argTypes: {
+    direction: {
+      options: direction,
+      control: { type: 'radio' },
+    },
+  },
   parameters: {
     readme: { markdown: readme },
     docs: {
