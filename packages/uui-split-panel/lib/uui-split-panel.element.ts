@@ -130,6 +130,8 @@ export class UUISplitPanelElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  @property() direction?: 'ltr' | 'rtl';
+
   /**
    * If no primary panel is designated, both panels will resize proportionally when the host element is resized. If a
    * primary panel is designated, it will maintain its size and the other panel will grow or shrink as needed when the
@@ -179,7 +181,7 @@ export class UUISplitPanelElement extends LitElement {
   }
 
   private handleDrag(event: PointerEvent) {
-    const isRtl = false; //this.localize.dir() === 'rtl';
+    const isRtl = this.direction === 'rtl';
 
     if (this.disabled) {
       return;
@@ -276,7 +278,7 @@ export class UUISplitPanelElement extends LitElement {
 
       const gridTemplate = this.vertical ? 'gridTemplateRows' : 'gridTemplateColumns';
       const gridTemplateAlt = this.vertical ? 'gridTemplateColumns' : 'gridTemplateRows';
-      const isRtl = false; //this.localize.dir() === 'rtl';
+      const isRtl = this.direction === 'rtl';
       const primary = `
         clamp(
           0%,
