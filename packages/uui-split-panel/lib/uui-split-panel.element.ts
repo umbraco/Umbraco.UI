@@ -240,16 +240,16 @@ export class UUISplitPanelElement extends LitElement {
 
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
       let newPosition = this.position;
-      const incr = (event.shiftKey ? 10 : 1) * (this.primary === 'end' ? -1 : 1);
+      const increment = (event.shiftKey ? 10 : 1) * (this.primary === 'end' ? -1 : 1);
 
       event.preventDefault();
 
       if ((event.key === 'ArrowLeft' && !this.vertical) || (event.key === 'ArrowUp' && this.vertical)) {
-        newPosition -= incr;
+        newPosition -= increment;
       }
 
       if ((event.key === 'ArrowRight' && !this.vertical) || (event.key === 'ArrowDown' && this.vertical)) {
-        newPosition += incr;
+        newPosition += increment;
       }
 
       if (event.key === 'Home') {

@@ -20,7 +20,20 @@ const meta: Meta<UUISplitPanelElement> = {
     readme: { markdown: readme },
     docs: {
       source: {
-        code: `<uui-split-panel></uui-split-panel>`,
+        code: `<uui-split-panel style="height: 400px;">
+        <div
+          slot="start"
+          style="height: 200px; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden;"
+        >
+          Start
+        </div>
+        <div
+          slot="end"
+          style="height: 200px; background: var(--uui-color-background); display: flex; align-items: center; justify-content: center; overflow: hidden;"
+        >
+          End
+        </div>
+      </uui-split-panel>`,
       },
     },
   },

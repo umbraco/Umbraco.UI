@@ -80,3 +80,4 @@ export * from '@umbraco-ui/uui-toast-notification/lib';
 export * from '@umbraco-ui/uui-toggle/lib';
 
 export * from '@umbraco-ui/uui-split-panel/lib/index.js';
+export * from '@umbraco-ui/uui-resize-observer/lib/index.js';
