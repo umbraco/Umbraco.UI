@@ -13,6 +13,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  * @cssprop {color} --uui-textarea-background-color - Sets the background color of the textarea
+ * @cssprop --uui-textarea-font-size - Overwrites the default font size
  */
 @defineElement('uui-textarea')
 export class UUITextareaElement extends FormControlMixin(LitElement) {
@@ -26,6 +27,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     css`
       :host {
         position: relative;
+        --textarea-font-size: var(--uui-size-5);
       }
       :host([error]) textarea {
         border: 1px solid var(--uui-color-danger) !important;
@@ -71,7 +73,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         box-sizing: border-box;
         min-width: 100%;
         max-width: 100%;
-        font-size: var(--uui-size-5);
+        font-size: var(--textarea-font-size);
         padding: var(--uui-size-2);
         border: 1px solid
           var(--uui-textarea-border-color, var(--uui-color-border));
@@ -319,8 +321,8 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     return html`
       <textarea
         id="textarea"
-        .rows=${this.rows}
-        .cols=${this.cols}
+        rows=${ifDefined(this.rows)}
+        cols=${ifDefined(this.cols)}
         .value=${this.value as string}
         .name=${this.name}
         wrap=${ifDefined(this.wrap)}
