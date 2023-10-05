@@ -18,11 +18,11 @@ export class UUIModalElement extends LitElement {
 
   private _transitionDuration = 250;
 
-  @property()
+  @property({ type: Number, attribute: 'transition-duration' })
   public get transitionDuration() {
     return this._transitionDuration;
   }
-  public set transitionDuration(value) {
+  public set transitionDuration(value: number) {
     this._transitionDuration = value;
     this.style.setProperty(
       '--uui-modal-transition-duration',
@@ -45,7 +45,6 @@ export class UUIModalElement extends LitElement {
     event?.stopImmediatePropagation();
 
     const openEvent = new CustomEvent('open', {
-      bubbles: true,
       cancelable: true,
     });
 
@@ -60,7 +59,6 @@ export class UUIModalElement extends LitElement {
     event?.stopImmediatePropagation();
 
     const closeEvent = new CustomEvent('close', {
-      bubbles: true,
       cancelable: true,
     });
     this.dispatchEvent(closeEvent);
@@ -81,11 +79,7 @@ export class UUIModalElement extends LitElement {
     this.isOpen = false;
     this._dialogElement?.close();
 
-    const closeEndEvent = new CustomEvent('close-end', {
-      bubbles: true,
-      cancelable: true,
-    });
-    this.dispatchEvent(closeEndEvent);
+    this.dispatchEvent(new CustomEvent('close-end'));
 
     this.remove();
   }
