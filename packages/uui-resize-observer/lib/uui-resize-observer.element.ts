@@ -12,7 +12,7 @@ export class UUIResizeObserverElement extends LitElement {
       static styles = [
     css`
       :host {
-        /* Styles goes here */
+        display: contents;
       }
     `,
   ];
@@ -67,6 +67,10 @@ export class UUIResizeObserverElement extends LitElement {
     this._resizeObserver.disconnect();
   }
 
+  firstUpdated() {
+    this.handleDisabledChange();
+  }
+  
   handleDisabledChange() {
     if (this.disabled) {
       this.stopObserver();
