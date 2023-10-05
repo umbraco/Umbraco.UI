@@ -80,6 +80,13 @@ export class UUIModalElement extends LitElement {
     this.isClosing = true;
     this.isOpen = false;
     this._dialogElement?.close();
+
+    const closeEndEvent = new CustomEvent('close-end', {
+      bubbles: true,
+      cancelable: true,
+    });
+    this.dispatchEvent(closeEndEvent);
+
     this.remove();
   }
 
