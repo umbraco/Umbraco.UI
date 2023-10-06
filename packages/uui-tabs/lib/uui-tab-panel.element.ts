@@ -16,9 +16,10 @@ export class UUITabPanelElement extends LitElement {
   static styles = [
     css`
       :host {
-        --uui-tab-panel-padding: 0;
+        --uui-tab-panel-padding: 1rem 0;
 
         display: none;
+        width: 100%;
       }
 
       :host([active]) {
@@ -34,8 +35,6 @@ export class UUITabPanelElement extends LitElement {
 
   private readonly attrId = ++id;
   private readonly componentId = `uui-tab-panel-${this.attrId}`;
-
-  private _slottedNodes?: HTMLElement[];
 
   /** 
    * The tab panel's name.
@@ -64,6 +63,10 @@ export class UUITabPanelElement extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     //this.#resizeObserver.unobserve(this);
+  }
+
+  handleActiveChange() {
+    this.setAttribute('aria-hidden', this.active ? 'false' : 'true');
   }
 
   render() {

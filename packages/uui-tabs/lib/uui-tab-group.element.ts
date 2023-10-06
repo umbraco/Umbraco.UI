@@ -94,6 +94,7 @@ export class UUITabGroupElement extends LitElement {
   dropdownContentDirection: 'vertical' | 'horizontal' = 'vertical';
 
   #tabElements: HTMLElement[] = [];
+  #tabPanelElements: HTMLElement[] = [];
 
   #hiddenTabElements: UUITabElement[] = [];
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
@@ -105,15 +106,38 @@ export class UUITabGroupElement extends LitElement {
     this.#onResize.bind(this)
   );
 
+  #mutationObserver: MutationObserver = new MutationObserver(
+    this.#onSlotChange.bind(this)
+  );
+
   connectedCallback() {
     super.connectedCallback();
     this.#resizeObserver.observe(this);
     if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
+
+    this.#mutationObserver = new MutationObserver(mutations => {
+      // Update aria labels when the DOM changes
+      if (mutations.some(m => !['aria-labelledby', 'aria-controls'].includes(m.attributeName!))) {
+        setTimeout(() => this.setAriaLabels());
+      }
+
+      // Sync tabs when disabled states change
+      if (mutations.some(m => m.attributeName === 'disabled')) {
+        this.#syncTabsAndPanels();
+      }
+    });
+
+    // After the first update...
+    this.updateComplete.then(() => {
+      this.#syncTabsAndPanels();
+      this.#mutationObserver.observe(this, { attributes: true, childList: true, subtree: true });
+    });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#resizeObserver.unobserve(this);
+    this.#mutationObserver.disconnect();
   }
 
   #onResize(entries: ResizeObserverEntry[]) {
@@ -126,6 +150,7 @@ export class UUITabGroupElement extends LitElement {
     });
 
     this.#setTabArray();
+    this.#syncTabsAndPanels();
 
     this.#tabElements.forEach(el => {
       el.addEventListener('click', this.#onTabClicked);
@@ -262,8 +287,28 @@ export class UUITabGroupElement extends LitElement {
     this.#calculateBreakPoints();
   }
 
+  // This stores tabs and panels so we can refer to a cache instead of calling querySelectorAll() multiple times.
+  #syncTabsAndPanels() {
+    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
+    this.#tabPanelElements = [];
+
+    // After updating, show or hide scroll controls as needed
+    //this.updateComplete.then(() => this.updateScrollControls());
+  }
+
   #isElementTabLike(el: any): el is UUITabElement {
     return el instanceof UUITabElement || 'active' in el;
+  }
+
+  private setAriaLabels() {
+    // Link each tab with its corresponding panel
+    this.#tabElements.forEach(tab => {
+      const panel = this.#tabPanelElements.find(el => el.getAttribute("name") === tab.getAttribute("panel"));
+      if (panel) {
+        tab.setAttribute('aria-controls', panel.getAttribute('id')!);
+        panel.setAttribute('aria-labelledby', tab.getAttribute('id')!);
+      }
+    });
   }
 
   render() {

@@ -4,6 +4,8 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
+let id = 0;
+
 /**
  * A single tab. Should be put into `<uui-tab-group>`,
  * @element uui-tabs
@@ -145,6 +147,18 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
     `,
   ];
 
+  private readonly attrId = ++id;
+  private readonly componentId = `uui-tab-${this.attrId}`;
+
+  /**
+   * Reflects the name of the tab panel this tab is associated with. The panel must be located in the same tab group.
+   * @type {string}
+   * @attr
+   * @default false
+   */
+  @property({ type: String, reflect: true })
+  public panel: string = '';
+
   /**
    * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
    * @type {boolean}
@@ -194,6 +208,10 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   }
 
   render() {
+
+    // If the user didn't provide an ID, we'll set one so we can link tabs and tab panels with aria labels
+    this.id = this.id.length > 0 ? this.id : this.componentId;
+
     return this.href
       ? html`
           <a
