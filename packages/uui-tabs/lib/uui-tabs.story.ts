@@ -148,9 +148,9 @@ export const WithPanels: Story = props => html`
   <h3>Tabs with Panels</h3>
   <uui-tab-group>
     <uui-tab panel="general" active>General</uui-tab>
-    <uui-tab name="custom">Custom</uui-tab>
-    <uui-tab name="advanced">Advanced</uui-tab>
-    <uui-tab name="settings" disabled>Settings</uui-tab>
+    <uui-tab panel="custom">Custom</uui-tab>
+    <uui-tab panel="advanced">Advanced</uui-tab>
+    <uui-tab panel="settings" disabled>Settings</uui-tab>
 
     <uui-tab-panel name="general">This is the general tab panel.</uui-tab-panel>
     <uui-tab-panel name="custom">This is the custom tab panel.</uui-tab-panel>
