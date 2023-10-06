@@ -6,7 +6,7 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-visually-hidden')
 export class UUIVisuallyHiddenElement extends LitElement {
-      static styles = [
+  static styles = [
     css`
       :host(:not(:focus-within)) {
         position: absolute !important;
@@ -22,13 +22,13 @@ export class UUIVisuallyHiddenElement extends LitElement {
     `,
   ];
 
-    render() {
-        return html`<slot></slot>`;
-    }
+  render() {
+    return html`<slot></slot>`;
+  }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-visually-hidden': UUIVisuallyHiddenElement ;
+    'uui-visually-hidden': UUIVisuallyHiddenElement;
   }
 }
