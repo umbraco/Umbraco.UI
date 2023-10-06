@@ -4,6 +4,14 @@
 
 Umbraco style visually-hidden component.
 
+The visually hidden utility makes content accessible to assistive devices without displaying it on the screen.
+
+According to The A11Y Project:
+
+There are real world situations where visually hiding content may be appropriate, while the content should remain available to assistive technologies, such as screen readers. For instance, hiding a search field's label as a common magnifying glass icon is used in its stead.
+
+Since visually hidden content can receive focus when tabbing, the element will become visible when something inside receives focus. This behavior is intentional, as sighted keyboard user won’t be able to determine where the focus indicator is without it.
+
 ## Installation
 
 ### ES imports
