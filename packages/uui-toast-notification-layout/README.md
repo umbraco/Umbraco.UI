@@ -6,7 +6,7 @@ Umbraco style toast-notification-layout component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-toast-notification-layout)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-toast-notification-layout--docs)
 
 ## Installation
 

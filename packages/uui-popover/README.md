@@ -6,7 +6,7 @@ Umbraco style popover component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-popover)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-popover--docs)
 
 ## Installation
 
