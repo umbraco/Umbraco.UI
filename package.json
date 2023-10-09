@@ -73,7 +73,7 @@
     "@storybook/addon-links": "7.4.5",
     "@storybook/blocks": "7.4.5",
     "@storybook/web-components": "7.4.5",
-    "@storybook/web-components-vite": "7.4.5",
+    "@storybook/web-components-vite": "7.4.6",
     "@types/chai": "4.3.5",
     "@typescript-eslint/eslint-plugin": "6.6.0",
     "@typescript-eslint/parser": "6.0.0",
