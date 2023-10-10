@@ -316,6 +316,8 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     // Note: Add + 2 because of the border top+bottom 1px each
     if (input.scrollHeight + 2 > input.clientHeight) {
       input.style.height = input.scrollHeight + 2 + 'px';
+    } else if (input.scrollHeight + 2 < input.clientHeight) {
+      input.style.removeProperty('height');
     }
 
     // Reset host styles and scroll to where we were
