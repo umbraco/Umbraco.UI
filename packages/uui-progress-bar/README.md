@@ -6,7 +6,7 @@ Umbraco style progress-bar component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-progress-bar)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-progress-bar--docs)
 
 ## Installation
 

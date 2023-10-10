@@ -6,7 +6,7 @@ Umbraco style file-preview component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-file-preview)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-file-preview--docs)
 
 ## Installation
 
