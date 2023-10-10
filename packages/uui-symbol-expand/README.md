@@ -6,7 +6,7 @@ Umbraco style expand symbol component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-symbol-expand)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-symbol-expand--docs)
 
 ## Installation
 
