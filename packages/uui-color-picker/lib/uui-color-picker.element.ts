@@ -648,6 +648,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     return html`<uui-color-swatches
       id="swatches"
       class="color-picker__swatches"
+      ?disabled=${this.disabled}
       @change=${this.handleColorSwatchChange}>
       ${this.swatches.map(
         swatch =>

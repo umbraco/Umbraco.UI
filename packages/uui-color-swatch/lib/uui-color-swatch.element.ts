@@ -66,6 +66,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       #swatch {
+        cursor: inherit;
         outline: none;
         background: none;
         border: none;
