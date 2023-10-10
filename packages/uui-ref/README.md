@@ -6,7 +6,7 @@ Umbraco style ref component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-ref)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-ref--docs)
 
 ## Installation
 

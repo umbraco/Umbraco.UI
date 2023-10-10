@@ -6,7 +6,7 @@ Umbraco style file-dropzone component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-file-dropzone)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-file-dropzone--docs)
 
 ## Installation
 

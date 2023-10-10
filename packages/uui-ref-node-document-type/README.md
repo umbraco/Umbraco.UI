@@ -6,7 +6,7 @@ Umbraco style ref-node-document-type component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-ref-node-document-type)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-ref-node-document-type--docs)
 
 ## Installation
 

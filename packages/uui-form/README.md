@@ -6,7 +6,7 @@ Umbraco style form component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-form)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-form--docs)
 
 ## Installation
 
