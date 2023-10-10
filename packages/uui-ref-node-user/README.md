@@ -6,7 +6,7 @@ Umbraco style ref-node-user component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-ref-node-user)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-ref-node-user--docs)
 
 ## Installation
 

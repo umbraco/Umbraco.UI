@@ -6,7 +6,7 @@ Umbraco style icon-registry component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-icon-registry)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-icon-registry--docs)
 
 ## Installation
 
