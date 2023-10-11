@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
+
+### Bug Fixes
+
+- add ifDefined() to remove attributes if not defined ([cf1b454](https://github.com/umbraco/Umbraco.UI/commit/cf1b454771f81850034c4bc6cfd1ff00536e3b83))
+- all codepaths should return a value ([19393d2](https://github.com/umbraco/Umbraco.UI/commit/19393d2cd39a8b9808c5580f1c51ef00082a2e45))
+- allow TouchEvents to be read for move() function ([0e6a6e8](https://github.com/umbraco/Umbraco.UI/commit/0e6a6e82dccfff8f9362bf5f76b9bcadd46b18f1))
+- Button text color hover not taking effect ([#520](https://github.com/umbraco/Umbraco.UI/issues/520)) ([e55274e](https://github.com/umbraco/Umbraco.UI/commit/e55274ef3e92efe43b96f9224284592cf9629d73))
+- check that coordinates are actual numbers before proceeding with syncing values ([e747ad0](https://github.com/umbraco/Umbraco.UI/commit/e747ad04aa77418c3517958896293579a0574b5f))
+- correct base card requestUpdate on selectable ([#563](https://github.com/umbraco/Umbraco.UI/issues/563)) ([8641d98](https://github.com/umbraco/Umbraco.UI/commit/8641d98b5646a5b9ff8384def3c46203115f56e9))
+- **uui-input:** inputmode property renamed to inputMode to follow its inherited property ([170651e](https://github.com/umbraco/Umbraco.UI/commit/170651e061c158edc37537923c7246c3d44d97f4))
+- **uui-input:** messages should be string not boolean ([ec16fd5](https://github.com/umbraco/Umbraco.UI/commit/ec16fd5c029e5858d3c3b6095061a67ebe2d5996))
+- **uui-input:** treat autoWidth as bool attribute ([a1bf741](https://github.com/umbraco/Umbraco.UI/commit/a1bf741d76ea7cfe8765daecce57d86694fa22eb))
+- **uui-input:** validators should convert to string ([8457c0b](https://github.com/umbraco/Umbraco.UI/commit/8457c0bb946d324bc504d32a2ec74373e63bb0f3))
+
+### Features
+
+- tab group priority navigation ([#573](https://github.com/umbraco/Umbraco.UI/issues/573)) ([e6a2cd8](https://github.com/umbraco/Umbraco.UI/commit/e6a2cd8f3ce00ea128844ae74068171481a6e8ef))
+- **uui-box:** add a property to control the headline variant ([#521](https://github.com/umbraco/Umbraco.UI/issues/521)) ([bda766c](https://github.com/umbraco/Umbraco.UI/commit/bda766cda1d65b6b9711a4cf2c137f2f66e3030d))
+- **uui-button:** content align css variable ([#548](https://github.com/umbraco/Umbraco.UI/issues/548)) ([24b2ac5](https://github.com/umbraco/Umbraco.UI/commit/24b2ac58503792a8e2aa4cbd3481821c74729443))
+- **uui-input:** Add support for auto-width ([#526](https://github.com/umbraco/Umbraco.UI/issues/526)) ([d8504ec](https://github.com/umbraco/Umbraco.UI/commit/d8504eca80717fefc99b02115f06352bf30de5fc))
+- **uui-input:** autofocus and inputmode ([#549](https://github.com/umbraco/Umbraco.UI/issues/549)) ([f9fdbd2](https://github.com/umbraco/Umbraco.UI/commit/f9fdbd26798598e404d641359da4cf105664a734))
+
+# [1.4.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.4.0) (2023-09-21)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.4.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.1...v1.4.0-rc.2) (2023-09-07)
+
+### Bug Fixes
+
+- correct base card requestUpdate on selectable ([#563](https://github.com/umbraco/Umbraco.UI/issues/563)) ([b4be148](https://github.com/umbraco/Umbraco.UI/commit/b4be148498a2cce2a5b5038b1a24c600402a43b1))
+
 # [1.4.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.0...v1.4.0-rc.1) (2023-08-10)
 
 ### Bug Fixes

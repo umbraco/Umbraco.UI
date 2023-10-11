@@ -58,6 +58,8 @@ export class UUIInputElement extends FormControlMixin(
           var(--uui-input-border-color, var(--uui-color-border));
 
         --uui-button-height: 100%;
+        --auto-width-text-margin-right: 0;
+        --auto-width-text-margin-left: 0;
       }
 
       #control {
@@ -75,6 +77,8 @@ export class UUIInputElement extends FormControlMixin(
         z-index: -1;
         height: 0px;
         padding: 0 var(--uui-size-space-3);
+        margin: 0 var(--auto-width-text-margin-right) 0
+          var(--auto-width-text-margin-left);
       }
 
       :host([auto-width]) #input {
@@ -154,6 +158,11 @@ export class UUIInputElement extends FormControlMixin(
       input::placeholder {
         transition: opacity 120ms;
       }
+
+      input[type='password']::-ms-reveal {
+        display: none;
+      }
+
       :host(:not([readonly])) input:focus::placeholder {
         opacity: 0;
       }
@@ -407,7 +416,7 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   private renderInputWithAutoWidth() {
-    html`<div id="control">
+    return html`<div id="control">
       ${this.renderInput()}${this.renderAutoWidthBackground()}
     </div>`;
   }
