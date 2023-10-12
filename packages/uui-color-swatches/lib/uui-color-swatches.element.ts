@@ -35,6 +35,14 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   @property()
   value = '';
 
+ /**
+  * Disables the color swatches.
+  * @type {boolean}
+  * @attr
+  * @default false
+  **/
+   @property({ type: Boolean, reflect: true }) disabled = false;
+
   @queryAssignedElements({ selector: 'uui-color-swatch' })
   swatches!: Array<UUIColorSwatchElement>;
 
@@ -78,11 +86,16 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   private _handleSlotChange() {
     if (!this.swatches || this.swatches.length === 0) return;
     this.swatches.forEach(swatch => {
-      //? does it make sense to have non selectable swatches in the swatches element?
-      //for some reason the value it really wants the attribute to be set not the value. If value is set then it is not reflected properly. :cry:
-      swatch.setAttribute('selectable', 'selectable');
       swatch.setAttribute('aria-checked', 'false');
       swatch.setAttribute('role', 'radio');
+
+      if (this.disabled) {
+        swatch.setAttribute('disabled', '')
+      }
+      else {
+        // For some reason the value it really wants the attribute to be set not the value. If value is set then it is not reflected properly. :cry:
+        swatch.setAttribute('selectable', 'selectable');
+      }
 
       if (this.value !== '' && swatch.color?.isEqual(this.value)) {
         swatch.selected = true;
@@ -128,6 +141,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       );
     }
   };
+  
   /**
    * Deselects all swatches.
    *
@@ -137,7 +151,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     this.swatches.forEach(swatch => {
       swatch.selected = false;
       swatch.active = false;
-      swatch.selectable = true;
+      swatch.selectable = !swatch.disabled;
     });
     this._activeElement = undefined;
     this._selectedElement = undefined;
