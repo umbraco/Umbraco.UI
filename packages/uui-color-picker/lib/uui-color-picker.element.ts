@@ -661,7 +661,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
-      <uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
+      return html`<uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
         <button
           type="button"
           part="trigger"
