@@ -680,6 +680,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               this.lightness
             }%, ${this.alpha / 100})`,
           })}
+          ?disabled=${this.disabled}
           @click=${this.openColorPicker}
           aria-haspopup="true"
           aria-expanded="false"></button>
