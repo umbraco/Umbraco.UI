@@ -4,7 +4,7 @@
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-loader)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-loader--docs)
 
 ## Installation
 

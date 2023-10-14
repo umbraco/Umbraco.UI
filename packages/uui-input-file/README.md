@@ -6,7 +6,7 @@ Umbraco style input-file component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-input-file)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-input-file--docs)
 
 ## Installation
 

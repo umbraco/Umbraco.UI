@@ -107,8 +107,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         margin-left: 0.75rem;
         border-radius: 50%;
       }
-      color-picker__trigger {
-        cursor: pointer;
+      .color-picker__trigger[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
       }
       .color-picker__preview::before,
       .color-picker__trigger::before {
@@ -588,6 +589,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         <uui-color-area
           .value="${this.value}"
           .hue="${Math.round(this.hue)}"
+          ?disabled=${this.disabled}
           @change=${this.handleGridChange}>
         </uui-color-area>
         <div class="color-picker__controls">
@@ -596,6 +598,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               label="hue"
               class="hue-slider"
               .value=${Math.round(this.hue)}
+              ?disabled=${this.disabled}
               @change=${this.handleHueChange}>
             </uui-color-slider>
             ${this.opacity
@@ -606,6 +609,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     .value=${Math.round(this.alpha)}
                     type="opacity"
                     .color=${this.getHexString(this.hue, this.saturation, this.lightness)}
+                    ?disabled=${this.disabled}
                     @change=${this.handleAlphaChange}>
                   </uui-color-slider>
                 `
@@ -640,21 +644,21 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           </uui-input>
           <uui-button-group>
             ${!this.noFormatToggle
-              ? html`
-                  <uui-button
+              ? html`<uui-button
                     label="Toggle color format"
                     @click=${this.handleFormatToggle}
                     class="color-picker__toggle-format"
+                    ?disabled=${this.disabled}
                     compact>
                     <span>${this.format}</span>
-                  </uui-button>
-                `
+                  </uui-button>`
               : ''}
             ${hasEyeDropper
-              ? html` <uui-button
+              ? html`<uui-button
                   label="Select a color"
-                  compact
-                  @click=${this.handleEyeDropper}>
+                  ?disabled=${this.disabled}
+                  @click=${this.handleEyeDropper}
+                  compact>
                   <uui-icon-registry-essential>
                     <uui-icon name="colorpicker"></uui-icon>
                   </uui-icon-registry-essential>
@@ -672,6 +676,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     return html`<uui-color-swatches
       id="swatches"
       class="color-picker__swatches"
+      ?disabled=${this.disabled}
       @change=${this.handleColorSwatchChange}>
       ${this.swatches.map(
         swatch =>
@@ -701,6 +706,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             this.lightness
           }%, ${this.alpha / 100})`,
         })}
+        ?disabled=${this.disabled}
         @click=${this.openColorPicker}
         aria-haspopup="true"
         aria-expanded="false"></button>

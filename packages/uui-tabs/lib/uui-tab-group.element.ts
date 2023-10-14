@@ -4,9 +4,9 @@ import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-button/lib/uui-button.element';
-import '@umbraco-ui/uui-popover-container/lib/uui-popover-container.element';
-import '@umbraco-ui/uui-symbol-more/lib/uui-symbol-more.element';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-popover-container/lib';
+import '@umbraco-ui/uui-symbol-more/lib';
 
 import { UUITabElement } from './uui-tab.element';
 

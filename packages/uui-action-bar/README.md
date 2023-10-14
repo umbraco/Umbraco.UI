@@ -6,7 +6,7 @@ Umbraco style action-bar component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-action-bar)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-action-bar--docs)
 
 ## Installation
 

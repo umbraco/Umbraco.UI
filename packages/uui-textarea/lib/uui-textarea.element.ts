@@ -13,7 +13,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  * @cssprop {color} --uui-textarea-background-color - Sets the background color of the textarea
+ * @cssprop --uui-textarea-font-size - Overwrites the default font size
  */
+
 @defineElement('uui-textarea')
 export class UUITextareaElement extends FormControlMixin(LitElement) {
   /**
@@ -71,10 +73,10 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
         box-sizing: border-box;
         min-width: 100%;
         max-width: 100%;
-        font-size: var(--uui-size-5);
+        font-size: inherit;
         padding: var(--uui-size-2);
         border: 1px solid
-          var(--uui-textarea-border-color, var(--uui-color-border));
+          var(--uui-textarea-border-color, var(--uui-color-border)); /** Note: Specified border size is needed and hardcoded in autoUpdateHeight() */
         border-radius: 0;
         outline: none;
         min-height: var(--uui-textarea-min-height);
@@ -262,6 +264,12 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     if (!this.label) {
       console.warn(this.tagName + ' needs a `label`', this);
     }
+
+    if (this.autoHeight) {
+      requestAnimationFrame(() => {
+        this.autoUpdateHeight();
+      });
+    }
   }
 
   /**
@@ -305,8 +313,11 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
 
     input.style.height = 'auto';
 
-    if (input.scrollHeight > input.clientHeight) {
-      input.style.height = input.scrollHeight + 'px';
+    // Note: Add + 2 because of the border top+bottom 1px each
+    if (input.scrollHeight + 2 > input.clientHeight) {
+      input.style.height = input.scrollHeight + 2 + 'px';
+    } else if (input.scrollHeight + 2 < input.clientHeight) {
+      input.style.removeProperty('height');
     }
 
     // Reset host styles and scroll to where we were
@@ -319,8 +330,8 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     return html`
       <textarea
         id="textarea"
-        .rows=${this.rows}
-        .cols=${this.cols}
+        rows=${ifDefined(this.rows)}
+        cols=${ifDefined(this.cols)}
         .value=${this.value as string}
         .name=${this.name}
         wrap=${ifDefined(this.wrap)}
