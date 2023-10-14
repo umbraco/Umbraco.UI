@@ -44,6 +44,15 @@ export class UUIIconElement extends LitElement {
   private _nameSvg: string | null = null;
 
   /**
+   * An alternate description to use for assistive devices.
+   * If omitted, the icon will be considered presentational and ignored by assistive devices.
+   * @type {string}
+   * @attr
+   * @default
+   */
+  @property() label = '';
+
+  /**
    * Icon name is used to retrieve the icon from a parent Icon Registry.
    * If no Icon Registry responds to the given name, the fallback svg will be used.
    * @type {string}
@@ -60,6 +69,7 @@ export class UUIIconElement extends LitElement {
       this.requestIcon();
     }
   }
+
   private requestIcon() {
     if (this._name !== '' && this._name !== null) {
       const event = new UUIIconRequestEvent(UUIIconRequestEvent.ICON_REQUEST, {
@@ -116,6 +126,19 @@ export class UUIIconElement extends LitElement {
     if (this._retrievedNameIcon === false) {
       this.requestIcon();
     }
+
+    const hasLabel = typeof this.label === 'string' && this.label.length > 0;
+
+    if (hasLabel) {
+      this.setAttribute('role', 'img');
+      this.setAttribute('aria-label', this.label);
+      this.removeAttribute('aria-hidden');
+    } else {
+      this.removeAttribute('role');
+      this.removeAttribute('aria-label');
+      this.setAttribute('aria-hidden', 'true');
+    }
+    
   }
 
   render() {
