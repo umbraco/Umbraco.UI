@@ -46,12 +46,13 @@ interface EyeDropperInterface {
   open: () => Promise<{ sRGBHex: string }>;
 }
 
-export type UUIColorPickerFormat = 'hex' | 'rgb' | 'hsl';
+export type UUIColorPickerFormat = 'hex' | 'rgb' | 'hsl' | 'hsv';
 export type UUIColorPickerFormatWithAlpha =
   | UUIColorPickerFormat
   | 'hexa'
   | 'rgba'
-  | 'hsla';
+  | 'hsla'
+  | 'hsva';
 
 declare const EyeDropper: EyeDropperConstructor;
 
@@ -230,7 +231,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @property() value = '';
 
   /**
-   * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, and HSLA
+   * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA
    * respectively. The color picker will always accept user input in any format (including CSS color names) and convert
    * it to the desired format.
    * @attr
@@ -298,7 +299,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   /**
    * An array of predefined color swatches to display. Can include any format the color picker can parse, including
-   * HEX(A), RGB(A), HSL(A), and CSS color names.
+   * HEX(A), RGB(A), HSL(A), HSV(A), and CSS color names.
    */
   @property({ attribute: false }) swatches: string[] = [
     '#d0021b',
@@ -363,6 +364,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         return `hsl(${h} ${s} ${l})`;
       case 'hsla':
         return this._colord.toHslString();
+      case 'hsv':
+        return `hsv(${h} ${s} ${l})`;
+      case 'hsva':
+        return this._colord.toHsv(); //.toHsvString();
       default:
         return '';
     }
@@ -381,9 +386,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   handleFormatToggle() {
-    const formats = ['hex', 'rgb', 'hsl'];
+    const formats = ['hex', 'rgb', 'hsl', 'hsv'];
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
-    this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl';
+    this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this._syncValues();
   }
 
