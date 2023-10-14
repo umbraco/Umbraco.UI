@@ -84,7 +84,22 @@ export const Inline: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-picker inline="true"></uui-color-picker>`,
+        code: `<uui-color-picker inline></uui-color-picker>`,
+      },
+    },
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    inline: true,
+    opacity: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-picker inline disabled opacity></uui-color-picker>`,
       },
     },
   },

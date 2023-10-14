@@ -62,9 +62,11 @@ export class UUIColorSwatchElement extends LabelMixin(
 
       :host([disabled]) {
         cursor: not-allowed;
+        opacity: 0.5;
       }
 
       #swatch {
+        cursor: inherit;
         outline: none;
         background: none;
         border: none;
