@@ -6,7 +6,7 @@ Umbraco style input-password component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-input-password)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-input-password--docs)
 
 ## Installation
 

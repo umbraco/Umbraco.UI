@@ -4,7 +4,7 @@
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-table)
+Preview the component on [Storybook](hhttps://uui.umbraco.com/?path=/docs/uui-table--docs)
 
 ## Installation
 

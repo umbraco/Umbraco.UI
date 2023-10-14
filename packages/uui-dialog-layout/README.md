@@ -6,7 +6,7 @@ Umbraco style dialog-layout component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-dialog-layout)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-dialog-layout--docs)
 
 ## Installation
 

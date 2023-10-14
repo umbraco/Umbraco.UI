@@ -6,7 +6,7 @@ Umbraco style symbol-folder component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-symbol-folder)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-symbol-folder--docs)
 
 ## Usage
 
