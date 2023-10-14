@@ -15,7 +15,7 @@ Bundle:
 
 ### See it in action
 
-Preview on [Storybook](https://uui.umbraco.com/?path=/story/uui-)
+Preview on [Storybook](https://uui.umbraco.com/?path=/docs/uui-)
 
 # Usage in your project
 

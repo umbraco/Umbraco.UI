@@ -6,7 +6,7 @@ Tag component from Umbraco UI components library.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-tag)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-tag--docs)
 
 ## Installation
 
