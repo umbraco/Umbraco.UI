@@ -346,7 +346,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const formatToUse = this.opacity ? `${format}a` : format;
     const hexa = this._colord.toHex();
     const hex = hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa;
-    
+
     const { r, g, b } = this._colord.toRgb();
     const { h, s, l } = this._colord.toHsl();
     const { v } = this._colord.toHsv();
@@ -358,17 +358,17 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       case 'hexa':
         return this.setLetterCase(hexa);
       case 'rgb':
-        return this.setLetterCase(`rgb(${r} ${g} ${b})`);
+        return this.setLetterCase(`rgb(${r}, ${g}, ${b})`);
       case 'rgba':
         return this.setLetterCase(this._colord.toRgbString());
       case 'hsl':
-        return this.setLetterCase(`hsl(${h} ${s}% ${l}%)`);
+        return this.setLetterCase(`hsl(${h}, ${s}%, ${l}%)`);
       case 'hsla':
         return this.setLetterCase(this._colord.toHslString());
       case 'hsv':
-        return this.setLetterCase(`hsv(${h} ${s}% ${l}%)`);
+        return this.setLetterCase(`hsv(${h}, ${s}%, ${l}%)`);
       case 'hsva':
-        return this.setLetterCase(`hsva(${h} ${s} ${v} / ${a}%)`); //this._colord.toHsvString();
+        return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`); //this._colord.toHsvString();
       default:
         return '';
     }
