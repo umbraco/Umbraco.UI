@@ -34,7 +34,7 @@ const defaultSwatches = [
   '#fff',
 ];
 
-const formats = ['hex', 'rgb', 'hsl'];
+const formats = ['hex', 'rgb', 'hsl', 'hsv'];
 const sizes = ['small', 'medium', 'large'];
 
 const meta: Meta<UUIColorPickerElement> = {
