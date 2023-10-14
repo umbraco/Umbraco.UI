@@ -344,30 +344,31 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;
-    const { h, l, s } = this._colord.toHsl();
+    const hexa = this._colord.toHex();
+    const hex = hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa;
+    
     const { r, g, b } = this._colord.toRgb();
-    const hexa = this.setLetterCase(this._colord.toHex());
-    const hex = this.setLetterCase(
-      hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa
-    );
+    const { h, s, l } = this._colord.toHsl();
+    const { v } = this._colord.toHsv();
+    const a = this._colord.alpha();
 
     switch (formatToUse) {
       case 'hex':
-        return hex;
+        return this.setLetterCase(hex);
       case 'hexa':
-        return hexa;
+        return this.setLetterCase(hexa);
       case 'rgb':
-        return `rgb(${r} ${g} ${b})`;
+        return this.setLetterCase(`rgb(${r} ${g} ${b})`);
       case 'rgba':
-        return this._colord.toRgbString();
+        return this.setLetterCase(this._colord.toRgbString());
       case 'hsl':
-        return `hsl(${h} ${s} ${l})`;
+        return this.setLetterCase(`hsl(${h} ${s} ${l})`);
       case 'hsla':
-        return this._colord.toHslString();
+        return this.setLetterCase(this._colord.toHslString());
       case 'hsv':
-        return `hsv(${h} ${s} ${l})`;
+        return this.setLetterCase(`hsv(${h} ${s} ${l})`);
       case 'hsva':
-        return this._colord.toHsv(); //.toHsvString();
+        return this.setLetterCase(`hsva(${h} ${s} ${v} ${a})`); //this._colord.toHsvString();
       default:
         return '';
     }
