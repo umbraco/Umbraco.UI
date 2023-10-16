@@ -20,8 +20,6 @@ const STEP_MIN_WIDTH = 24;
  * @description - Range slider with two handles. Use uui-slider for a single handle.
  * @fires UUIRangeSliderEvent#input on input
  * @fires UUIRangeSliderEvent#change on change
- * @cssprop --color-interactive - overwrite the default color
- * @cssprop --color-focus - overwrite the default focus color
  */
 @defineElement('uui-range-slider')
 export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
