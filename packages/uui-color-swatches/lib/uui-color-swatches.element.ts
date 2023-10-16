@@ -35,13 +35,13 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   @property()
   value = '';
 
- /**
-  * Disables the color swatches.
-  * @type {boolean}
-  * @attr
-  * @default false
-  **/
-   @property({ type: Boolean, reflect: true }) disabled = false;
+  /**
+   * Disables the color swatches.
+   * @type {boolean}
+   * @attr
+   * @default false
+   **/
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   @queryAssignedElements({ selector: 'uui-color-swatch' })
   swatches!: Array<UUIColorSwatchElement>;
@@ -90,9 +90,8 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       swatch.setAttribute('role', 'radio');
 
       if (this.disabled) {
-        swatch.setAttribute('disabled', '')
-      }
-      else {
+        swatch.setAttribute('disabled', '');
+      } else {
         // For some reason the value it really wants the attribute to be set not the value. If value is set then it is not reflected properly. :cry:
         swatch.setAttribute('selectable', 'selectable');
       }
@@ -141,7 +140,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       );
     }
   };
-  
+
   /**
    * Deselects all swatches.
    *
