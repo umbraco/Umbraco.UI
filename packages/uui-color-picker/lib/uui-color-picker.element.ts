@@ -107,8 +107,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         margin-left: 0.75rem;
         border-radius: 50%;
       }
-      color-picker__trigger {
-        cursor: pointer;
+      .color-picker__trigger[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
       }
       .color-picker__preview::before,
       .color-picker__trigger::before {
@@ -488,7 +489,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     event.stopImmediatePropagation();
 
     const target = event.target as HTMLElement;
-    const popover = target.nextElementSibling as UUIPopoverElement;
+    const popover = target.parentElement as UUIPopoverElement;
 
     popover.open = !popover?.open;
 
@@ -497,7 +498,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   closeColorPicker(event: Event) {
     const target = event.target as UUIPopoverElement;
-    const trigger = target.previousElementSibling;
+    const trigger = target.querySelector("button[part=trigger]");
 
     if (trigger) {
       trigger.setAttribute('aria-expanded', 'false');
@@ -558,7 +559,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           'color-picker--disabled': this.disabled,
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}>
-        <uui-color-area .value="${this.value}" @change=${this.handleGridChange}>
+        <uui-color-area
+          .value="${this.value}"
+          ?disabled=${this.disabled}
+          @change=${this.handleGridChange}>
         </uui-color-area>
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
@@ -566,6 +570,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               label="hue"
               class="hue-slider"
               .value=${Math.round(this.hue)}
+              ?disabled=${this.disabled}
               @change=${this.handleHueChange}>
             </uui-color-slider>
             ${this.opacity
@@ -576,6 +581,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     .value=${Math.round(this.alpha)}
                     type="opacity"
                     .color=${this.value}
+                    ?disabled=${this.disabled}
                     @change=${this.handleAlphaChange}>
                   </uui-color-slider>
                 `
@@ -610,21 +616,21 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           </uui-input>
           <uui-button-group>
             ${!this.noFormatToggle
-              ? html`
-                  <uui-button
+              ? html`<uui-button
                     label="Toggle color format"
                     @click=${this.handleFormatToggle}
                     class="color-picker__toggle-format"
+                    ?disabled=${this.disabled}
                     compact>
                     <span>${this.format}</span>
-                  </uui-button>
-                `
+                  </uui-button>`
               : ''}
             ${hasEyeDropper
-              ? html` <uui-button
+              ? html`<uui-button
                   label="Select a color"
-                  compact
-                  @click=${this.handleEyeDropper}>
+                  ?disabled=${this.disabled}
+                  @click=${this.handleEyeDropper}
+                  compact>
                   <uui-icon-registry-essential>
                     <uui-icon name="colorpicker"></uui-icon>
                   </uui-icon-registry-essential>
@@ -642,38 +648,42 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     return html`<uui-color-swatches
       id="swatches"
       class="color-picker__swatches"
+      ?disabled=${this.disabled}
       @change=${this.handleColorSwatchChange}>
       ${this.swatches.map(
         swatch =>
           html`<uui-color-swatch
             label="${swatch}"
-            .value=${swatch}></uui-color-swatch>`
+            .value=${swatch}>
+          </uui-color-swatch>`
       )}
     </uui-color-swatches>`;
   }
 
   private _renderPreviewButton() {
-    return html`<button
-        type="button"
-        slot="trigger"
-        aria-label="${this.label || 'Open Color picker'}"
-        class=${classMap({
-          'color-picker__trigger': true,
-          'color-dropdown__trigger--disabled': this.disabled,
-          'color-dropdown__trigger--small': this.size === 'small',
-          'color-dropdown__trigger--medium': this.size === 'medium',
-          'color-dropdown__trigger--large': this.size === 'large',
-          'color-picker__transparent-bg': true,
-        })}
-        style=${styleMap({
-          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
-            this.lightness
-          }%, ${this.alpha / 100})`,
-        })}
-        @click=${this.openColorPicker}
-        aria-haspopup="true"
-        aria-expanded="false"></button>
-      <uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
+      return html`<uui-popover placement="bottom-start" @close=${this.closeColorPicker}>
+        <button
+          type="button"
+          part="trigger"
+          slot="trigger"
+          aria-label="${this.label || 'Open Color picker'}"
+          class=${classMap({
+            'color-picker__trigger': true,
+            'color-dropdown__trigger--disabled': this.disabled,
+            'color-dropdown__trigger--small': this.size === 'small',
+            'color-dropdown__trigger--medium': this.size === 'medium',
+            'color-dropdown__trigger--large': this.size === 'large',
+            'color-picker__transparent-bg': true,
+          })}
+          style=${styleMap({
+            '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
+              this.lightness
+            }%, ${this.alpha / 100})`,
+          })}
+          ?disabled=${this.disabled}
+          @click=${this.openColorPicker}
+          aria-haspopup="true"
+          aria-expanded="false"></button>
         <div slot="popover">${this._renderColorPicker()}</div>
       </uui-popover>`;
   }
