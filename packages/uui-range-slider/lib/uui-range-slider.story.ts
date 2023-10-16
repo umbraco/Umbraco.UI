@@ -35,11 +35,13 @@ const Template: Story = props => html`
   <uui-form-validation-message>
     <uui-range-slider
       step=${ifDefined(props.step)}
-      min-gap=${ifDefined(props.minGap)}
-      max-gap=${ifDefined(props.maxGap)}
       min=${ifDefined(props.min)}
       max=${ifDefined(props.max)}
+      min-gap=${ifDefined(props.minGap)}
+      max-gap=${ifDefined(props.maxGap)}
+      value=${ifDefined(props.value)}
       ?disabled=${props.disabled}
+      ?error=${props.error}
       ?hide-step-values="${props.hideStepValues}"
       label="${props.label}"></uui-range-slider>
   </uui-form-validation-message>
