@@ -8,6 +8,17 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-table')
 export class UUITableElement extends LitElement {
+  /* consider select-only attribute on this level? */
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'table');
+  }
+
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -19,17 +30,6 @@ export class UUITableElement extends LitElement {
       }
     `,
   ];
-
-  /* consider select-only attribute on this level? */
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.setAttribute('role', 'table');
-  }
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

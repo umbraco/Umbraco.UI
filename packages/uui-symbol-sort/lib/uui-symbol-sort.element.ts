@@ -10,6 +10,26 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-symbol-sort')
 export class UUISymbolSortElement extends ActiveMixin(LitElement) {
+  /**
+   * Turns the arrow around. Set this boolean to true for displaying descending sort is active.
+   * @type {boolean}
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  public descending = false;
+
+  render() {
+    return html`<svg
+        id="up"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512">
+        <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+      </svg>
+      <svg id="down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+      </svg>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -70,26 +90,6 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
       }
     `,
   ];
-
-  /**
-   * Turns the arrow around. Set this boolean to true for displaying descending sort is active.
-   * @type {boolean}
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  public descending = false;
-
-  render() {
-    return html`<svg
-        id="up"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512">
-        <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
-      </svg>
-      <svg id="down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
-      </svg>`;
-  }
 }
 
 declare global {

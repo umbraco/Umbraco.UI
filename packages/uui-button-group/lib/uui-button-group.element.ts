@@ -8,6 +8,10 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-button-group')
 export class UUIButtonGroupElement extends LitElement {
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -57,10 +61,6 @@ export class UUIButtonGroupElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

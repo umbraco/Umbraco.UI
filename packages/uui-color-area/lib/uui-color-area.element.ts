@@ -17,60 +17,6 @@ import { UUIColorAreaEvent } from './UUIColorAreaEvent';
  */
 @defineElement('uui-color-area')
 export class UUIColorAreaElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-        width: 280px;
-        height: 200px;
-      }
-
-      :host([disabled]) {
-        cursor: not-allowed;
-      }
-
-      :host([disabled]) .color-area {
-        user-select: none;
-        pointer-events: none;
-        opacity: 0.55;
-      }
-
-      .color-area {
-        position: relative;
-        height: 100%;
-        width: 100%;
-        background-image: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 100%
-          ),
-          linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
-        box-sizing: border-box;
-        cursor: crosshair;
-        forced-color-adjust: none;
-      }
-      .color-area__handle {
-        position: absolute;
-        width: var(--uui-color-area-grid-handle-size, 16px);
-        height: var(--uui-color-area-grid-handle-size, 16px);
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-        border: solid 2px white;
-        margin-top: calc(var(--uui-color-area-grid-handle-size, 16px) / -2);
-        margin-left: calc(var(--uui-color-area-grid-handle-size, 16px) / -2);
-        transition: 150ms transform;
-        box-sizing: inherit;
-      }
-      .color-area__handle--dragging {
-        cursor: none;
-        transform: scale(1.5);
-      }
-      .color-area__handle--empty {
-        display: none;
-      }
-    `,
-  ];
-
   @state() private isDraggingGridHandle = false;
 
   /**
@@ -303,6 +249,60 @@ export class UUIColorAreaElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-block;
+        width: 280px;
+        height: 200px;
+      }
+
+      :host([disabled]) {
+        cursor: not-allowed;
+      }
+
+      :host([disabled]) .color-area {
+        user-select: none;
+        pointer-events: none;
+        opacity: 0.55;
+      }
+
+      .color-area {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 100%
+          ),
+          linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+        box-sizing: border-box;
+        cursor: crosshair;
+        forced-color-adjust: none;
+      }
+      .color-area__handle {
+        position: absolute;
+        width: var(--uui-color-area-grid-handle-size, 16px);
+        height: var(--uui-color-area-grid-handle-size, 16px);
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+        border: solid 2px white;
+        margin-top: calc(var(--uui-color-area-grid-handle-size, 16px) / -2);
+        margin-left: calc(var(--uui-color-area-grid-handle-size, 16px) / -2);
+        transition: 150ms transform;
+        box-sizing: inherit;
+      }
+      .color-area__handle--dragging {
+        cursor: none;
+        transform: scale(1.5);
+      }
+      .color-area__handle--empty {
+        display: none;
+      }
+    `,
+  ];
 }
 
 declare global {

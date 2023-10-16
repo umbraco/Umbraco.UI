@@ -24,40 +24,6 @@ const arrayOfNumbers = (start: number, stop: number) => {
  */
 @defineElement('uui-pagination')
 export class UUIPaginationElement extends LitElement {
-  static styles = [
-    css`
-      uui-button-group {
-        width: 100%;
-      }
-
-      uui-button {
-        --uui-button-border-color: var(--uui-color-border-standalone);
-        --uui-button-border-color-hover: var(--uui-color-interactive-emphasis);
-        --uui-button-border-color-disabled: var(--uui-color-border-standalone);
-      }
-
-      .page {
-        min-width: 36px;
-        max-width: 72px;
-      }
-      .page.active {
-        --uui-button-background-color: var(--uui-color-current);
-      }
-
-      .nav {
-        min-width: 72px;
-      }
-
-      .dots {
-        pointer-events: none;
-      }
-
-      .active {
-        pointer-events: none;
-      }
-    `,
-  ];
-
   private _observer = new ResizeObserver(this._calculateRange.bind(this));
 
   connectedCallback() {
@@ -349,6 +315,40 @@ export class UUIPaginationElement extends LitElement {
     </uui-button-group>
     `;
   }
+
+  static styles = [
+    css`
+      uui-button-group {
+        width: 100%;
+      }
+
+      uui-button {
+        --uui-button-border-color: var(--uui-color-border-standalone);
+        --uui-button-border-color-hover: var(--uui-color-interactive-emphasis);
+        --uui-button-border-color-disabled: var(--uui-color-border-standalone);
+      }
+
+      .page {
+        min-width: 36px;
+        max-width: 72px;
+      }
+      .page.active {
+        --uui-button-background-color: var(--uui-color-current);
+      }
+
+      .nav {
+        min-width: 72px;
+      }
+
+      .dots {
+        pointer-events: none;
+      }
+
+      .active {
+        pointer-events: none;
+      }
+    `,
+  ];
 }
 
 declare global {

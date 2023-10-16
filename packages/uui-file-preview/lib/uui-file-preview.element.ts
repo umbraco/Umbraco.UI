@@ -12,78 +12,6 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
  */
 @defineElement('uui-file-preview')
 export class UUIFilePreviewElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        display: grid;
-        /* These have to be changed together */
-        grid-template-rows: 100px 50px;
-        width: 150px;
-        height: 150px;
-        /* --------------------------------- */
-        box-sizing: border-box;
-        aspect-ratio: 1;
-        color: var(--uui-color-text);
-      }
-
-      :host(:hover) slot[name='actions']::slotted(*) {
-        opacity: 1;
-      }
-
-      slot[name='actions']::slotted(*) {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        max-width: 100%;
-        height: 32px;
-        font-size: 13px;
-        opacity: 0;
-        z-index: 1;
-        transition: opacity 150ms;
-      }
-
-      #file-symbol {
-        aspect-ratio: 1 / 1;
-        margin: auto;
-        max-width: 100%;
-        max-height: 100%;
-      }
-
-      #file-info {
-        min-width: 0;
-        display: flex;
-        text-align: center;
-        flex-direction: column;
-        font-size: 1rem;
-      }
-
-      #file-name {
-        display: flex;
-        justify-content: center;
-      }
-
-      #file-name-start {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-
-      #file-name-end {
-        white-space: nowrap;
-      }
-
-      #file-size {
-        opacity: 0.6;
-      }
-
-      .has-source:hover {
-        text-decoration: underline;
-        cursor: pointer;
-      }
-    `,
-  ];
-
   /**
    * Name of the file.
    * @type {string}
@@ -245,6 +173,78 @@ export class UUIFilePreviewElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        display: grid;
+        /* These have to be changed together */
+        grid-template-rows: 100px 50px;
+        width: 150px;
+        height: 150px;
+        /* --------------------------------- */
+        box-sizing: border-box;
+        aspect-ratio: 1;
+        color: var(--uui-color-text);
+      }
+
+      :host(:hover) slot[name='actions']::slotted(*) {
+        opacity: 1;
+      }
+
+      slot[name='actions']::slotted(*) {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        max-width: 100%;
+        height: 32px;
+        font-size: 13px;
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 150ms;
+      }
+
+      #file-symbol {
+        aspect-ratio: 1 / 1;
+        margin: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      #file-info {
+        min-width: 0;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        font-size: 1rem;
+      }
+
+      #file-name {
+        display: flex;
+        justify-content: center;
+      }
+
+      #file-name-start {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      #file-name-end {
+        white-space: nowrap;
+      }
+
+      #file-size {
+        opacity: 0.6;
+      }
+
+      .has-source:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    `,
+  ];
 }
 
 declare global {

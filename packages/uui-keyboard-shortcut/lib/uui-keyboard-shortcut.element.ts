@@ -8,6 +8,10 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-keyboard-shortcut')
 export class UUIKeyboardShortcutElement extends LitElement {
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -26,10 +30,6 @@ export class UUIKeyboardShortcutElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

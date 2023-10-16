@@ -13,30 +13,6 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
  */
 @defineElement('uui-icon')
 export class UUIIconElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-        vertical-align: bottom;
-        width: 1.15em;
-        height: 1.15em;
-      }
-
-      :host svg,
-      ::slotted(svg) {
-        fill: var(--uui-icon-color, currentColor);
-      }
-
-      :host-context(div[slot='prepend']) {
-        margin-left: var(--uui-size-2, 6px);
-      }
-
-      :host-context(div[slot='append']) {
-        margin-right: var(--uui-size-2, 6px);
-      }
-    `,
-  ];
-
   private _name: string | null = null;
   private _retrievedNameIcon: boolean = false;
 
@@ -137,6 +113,30 @@ export class UUIIconElement extends LitElement {
 
     return html`<slot></slot>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-block;
+        vertical-align: bottom;
+        width: 1.15em;
+        height: 1.15em;
+      }
+
+      :host svg,
+      ::slotted(svg) {
+        fill: var(--uui-icon-color, currentColor);
+      }
+
+      :host-context(div[slot='prepend']) {
+        margin-left: var(--uui-size-2, 6px);
+      }
+
+      :host-context(div[slot='append']) {
+        margin-right: var(--uui-size-2, 6px);
+      }
+    `,
+  ];
 }
 
 declare global {

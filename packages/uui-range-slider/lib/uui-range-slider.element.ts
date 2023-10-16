@@ -17,349 +17,6 @@ const STEP_MIN_WIDTH = 24;
  */
 @defineElement('uui-range-slider')
 export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
-  static styles = [
-    UUIHorizontalPulseKeyframes,
-    css`
-      :host {
-        display: block;
-        min-height: 50px;
-        width: 100%;
-        place-items: center;
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* IE10+/Edge */
-        user-select: none;
-        cursor: pointer;
-      }
-
-      :host([disabled]) {
-        cursor: default;
-      }
-
-      /** NATIVE INPUT STYLING */
-
-      input {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        position: absolute;
-        top: 0;
-        background-color: transparent;
-        pointer-events: none;
-        left: 0;
-        right: 0;
-        border-radius: 20px;
-      }
-
-      input::-webkit-slider-thumb {
-        pointer-events: all;
-        position: relative;
-        z-index: 1;
-        outline: 0;
-      }
-
-      input::-moz-range-thumb {
-        pointer-events: all;
-        position: relative;
-        z-index: 10;
-        -moz-appearance: none;
-        background: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-        width: 11px;
-      }
-
-      input::-moz-range-track {
-        position: relative;
-        z-index: -1;
-        background-color: rgba(0, 0, 0, 0.15);
-        border: 0;
-      }
-
-      input:last-of-type::-moz-range-track {
-        -moz-appearance: none;
-        background: none transparent;
-        border: 0;
-      }
-
-      /** TRACK */
-
-      #inner-track .color-target {
-        position: absolute;
-        z-index: 2;
-        left: 0;
-        right: 0;
-        height: 25px;
-        transform: translateY(-50%);
-      }
-
-      #inner-track .color {
-        height: 3px;
-        position: absolute;
-        transition: background-color 320ms ease-out;
-      }
-
-      :host(:not([disabled]))
-        #range-slider
-        #inner-track
-        .color:has(.color-target:hover),
-      :host(:not([disabled]))
-        #range-slider
-        #inner-track
-        .color:has(.color-target:active) {
-        background-color: var(--uui-color-focus);
-      }
-
-      :host(:not([disabled])) #range-slider .color {
-        background-color: var(--uui-color-selected);
-      }
-
-      :host([disabled]) #range-slider .color {
-        background-color: #555;
-      }
-
-      #range-slider {
-        transform: translateY(50%);
-        position: relative;
-        height: 18px;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-      }
-
-      #inner-track {
-        border-radius: 10px;
-        position: absolute;
-        height: 3px;
-        background-color: var(--uui-color-border-standalone);
-        left: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-        right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-      }
-
-      #range-slider:hover #inner-track,
-      #range-slider:active #inner-track {
-        background-color: #a1a1a1;
-      }
-
-      /** STEP VALUES */
-
-      .track-step {
-        fill: var(--uui-color-border);
-      }
-
-      :host .track-step.filled {
-        fill: var(--uui-color-selected) !important;
-      }
-
-      :host .track-step.filled-disabled {
-        fill: var(--uui-palette-mine-grey) !important;
-      }
-
-      #range-slider:hover .track-step,
-      #range-slider:active .track-step {
-        fill: #a1a1a1;
-      }
-
-      #step-values {
-        margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-        padding-top: ${TRACK_PADDING + 3}px;
-        display: flex;
-        align-items: flex-end;
-        box-sizing: border-box;
-      }
-
-      #step-values > span {
-        flex-basis: 0;
-        flex-grow: 1;
-        color: var(--uui-color-disabled-contrast);
-      }
-
-      #step-values > span > span {
-        transform: translateX(-50%);
-        display: inline-block;
-        text-align: center;
-        font-size: var(--uui-type-small-size);
-      }
-
-      #step-values > span:last-child {
-        width: 0;
-        flex-grow: 0;
-      }
-
-      .svg-wrapper {
-        margin: 0 ${-1 * TRACK_PADDING}px;
-        height: 18px;
-        transform: translateY(-75%);
-      }
-
-      .svg-wrapper svg {
-        margin-top: ${TRACK_PADDING / 2}px;
-      }
-
-      /** FOCUS */
-
-      input[type='range'] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: -50%;
-      }
-
-      input[type='range']:focus-visible {
-        outline: none;
-      }
-
-      #low-input:focus-visible ~ #inner-track #low-thumb,
-      #high-input:focus-visible ~ #inner-track #high-thumb,
-      #low-input:focus ~ #inner-track #low.thumb,
-      #high-input:focus ~ #inner-track #high-thumb,
-      #low-input:active ~ #inner-track #low.thumb,
-      #high-input:active ~ #inner-track #high-thumb {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      input[type='range']:focus + .thumb {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      :host(:not([disabled]))
-        #range-slider
-        #inner-track
-        .color:has(.color-target:hover)
-        ~ #low-thumb,
-      :host(:not([disabled]))
-        #range-slider
-        #inner-track
-        .color:has(.color-target:active)
-        ~ #low-thumb,
-      :host(:not([disabled]))
-        #range-slider
-        #inner-track
-        .color:has(.color-target:hover)
-        ~ #high-thumb,
-      :host(:not([disabled]))
-        #range-slider
-        #inner-track
-        .color:has(.color-target:active)
-        ~ #high-thumb {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      /** THUMBS  */
-
-      .thumb {
-        z-index: 3;
-        transform: translateY(-50%);
-        position: absolute;
-        top: 2px;
-        bottom: 0px;
-        left: 0px;
-        height: 17px;
-        width: 17px;
-        margin-left: -8px;
-        margin-right: -8px;
-        border-radius: 50%;
-        box-sizing: border-box;
-        background-color: var(--uui-color-surface, #fff);
-        border: 2px solid var(--uui-color-selected, #3544b1);
-        transition: left 120ms ease 0s;
-      }
-
-      .thumb:after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        height: 9px;
-        width: 9px;
-        border-radius: 50%;
-        background-color: var(--uui-color-selected);
-      }
-
-      :host([disabled]) .thumb {
-        background-color: var(--uui-color-disabled);
-        border-color: var(--uui-palette-mine-grey);
-      }
-      :host([disabled]) .thumb:after {
-        background-color: var(--uui-palette-mine-grey);
-      }
-
-      .thumb .value {
-        position: absolute;
-        box-sizing: border-box;
-        font-weight: 700;
-        bottom: 15px;
-        left: 50%;
-        width: 40px;
-        margin-left: -20px;
-        text-align: center;
-        opacity: 1;
-        transition: 120ms opacity;
-        color: var(--uui-color-selected);
-        visibility: hidden;
-        opacity: 0;
-      }
-
-      :host([disabled]) .thumb .value {
-        color: var(--uui-palette-mine-grey);
-      }
-
-      #range-slider:active .thumb .value,
-      #range-slider:focus .thumb .value,
-      #range-slider:hover .thumb .value {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      /** NATIVE THUMB STYLING */
-
-      input[type='range']::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 17px;
-        height: 17px;
-        background-color: transparent;
-        display: block;
-        border-radius: 100%;
-        pointer-events: auto;
-        cursor: pointer;
-      }
-      input[type='range']:disabled::-webkit-slider-thumb {
-        cursor: default;
-      }
-
-      input[type='range']::-moz-range-thumb {
-        -moz-appearance: none;
-        appearance: none;
-        width: 17px;
-        height: 17px;
-        background-color: transparent;
-        display: block;
-        border-radius: 100%;
-        pointer-events: auto;
-        cursor: pointer;
-      }
-      input[type='range']:disabled::-moz-range-thumb {
-        cursor: default;
-      }
-
-      input[type='range']::-ms-thumb {
-        appearance: none;
-        width: 17px;
-        height: 17px;
-        background-color: transparent;
-        display: block;
-        border-radius: 100%;
-        pointer-events: auto;
-        cursor: pointer;
-      }
-      input[type='range']:disabled::-ms-thumb {
-        cursor: default;
-      }
-    `,
-  ];
-
   static readonly formAssociated = true;
 
   /**
@@ -1026,6 +683,349 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       return nothing;
     }
   }
+
+  static styles = [
+    UUIHorizontalPulseKeyframes,
+    css`
+      :host {
+        display: block;
+        min-height: 50px;
+        width: 100%;
+        place-items: center;
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none;
+        cursor: pointer;
+      }
+
+      :host([disabled]) {
+        cursor: default;
+      }
+
+      /** NATIVE INPUT STYLING */
+
+      input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        position: absolute;
+        top: 0;
+        background-color: transparent;
+        pointer-events: none;
+        left: 0;
+        right: 0;
+        border-radius: 20px;
+      }
+
+      input::-webkit-slider-thumb {
+        pointer-events: all;
+        position: relative;
+        z-index: 1;
+        outline: 0;
+      }
+
+      input::-moz-range-thumb {
+        pointer-events: all;
+        position: relative;
+        z-index: 10;
+        -moz-appearance: none;
+        background: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
+        width: 11px;
+      }
+
+      input::-moz-range-track {
+        position: relative;
+        z-index: -1;
+        background-color: rgba(0, 0, 0, 0.15);
+        border: 0;
+      }
+
+      input:last-of-type::-moz-range-track {
+        -moz-appearance: none;
+        background: none transparent;
+        border: 0;
+      }
+
+      /** TRACK */
+
+      #inner-track .color-target {
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        height: 25px;
+        transform: translateY(-50%);
+      }
+
+      #inner-track .color {
+        height: 3px;
+        position: absolute;
+        transition: background-color 320ms ease-out;
+      }
+
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:hover),
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:active) {
+        background-color: var(--uui-color-focus);
+      }
+
+      :host(:not([disabled])) #range-slider .color {
+        background-color: var(--uui-color-selected);
+      }
+
+      :host([disabled]) #range-slider .color {
+        background-color: #555;
+      }
+
+      #range-slider {
+        transform: translateY(50%);
+        position: relative;
+        height: 18px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      #inner-track {
+        border-radius: 10px;
+        position: absolute;
+        height: 3px;
+        background-color: var(--uui-color-border-standalone);
+        left: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+        right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+      }
+
+      #range-slider:hover #inner-track,
+      #range-slider:active #inner-track {
+        background-color: #a1a1a1;
+      }
+
+      /** STEP VALUES */
+
+      .track-step {
+        fill: var(--uui-color-border);
+      }
+
+      :host .track-step.filled {
+        fill: var(--uui-color-selected) !important;
+      }
+
+      :host .track-step.filled-disabled {
+        fill: var(--uui-palette-mine-grey) !important;
+      }
+
+      #range-slider:hover .track-step,
+      #range-slider:active .track-step {
+        fill: #a1a1a1;
+      }
+
+      #step-values {
+        margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+        padding-top: ${TRACK_PADDING + 3}px;
+        display: flex;
+        align-items: flex-end;
+        box-sizing: border-box;
+      }
+
+      #step-values > span {
+        flex-basis: 0;
+        flex-grow: 1;
+        color: var(--uui-color-disabled-contrast);
+      }
+
+      #step-values > span > span {
+        transform: translateX(-50%);
+        display: inline-block;
+        text-align: center;
+        font-size: var(--uui-type-small-size);
+      }
+
+      #step-values > span:last-child {
+        width: 0;
+        flex-grow: 0;
+      }
+
+      .svg-wrapper {
+        margin: 0 ${-1 * TRACK_PADDING}px;
+        height: 18px;
+        transform: translateY(-75%);
+      }
+
+      .svg-wrapper svg {
+        margin-top: ${TRACK_PADDING / 2}px;
+      }
+
+      /** FOCUS */
+
+      input[type='range'] {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -50%;
+      }
+
+      input[type='range']:focus-visible {
+        outline: none;
+      }
+
+      #low-input:focus-visible ~ #inner-track #low-thumb,
+      #high-input:focus-visible ~ #inner-track #high-thumb,
+      #low-input:focus ~ #inner-track #low.thumb,
+      #high-input:focus ~ #inner-track #high-thumb,
+      #low-input:active ~ #inner-track #low.thumb,
+      #high-input:active ~ #inner-track #high-thumb {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
+      input[type='range']:focus + .thumb {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:hover)
+        ~ #low-thumb,
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:active)
+        ~ #low-thumb,
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:hover)
+        ~ #high-thumb,
+      :host(:not([disabled]))
+        #range-slider
+        #inner-track
+        .color:has(.color-target:active)
+        ~ #high-thumb {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
+      /** THUMBS  */
+
+      .thumb {
+        z-index: 3;
+        transform: translateY(-50%);
+        position: absolute;
+        top: 2px;
+        bottom: 0px;
+        left: 0px;
+        height: 17px;
+        width: 17px;
+        margin-left: -8px;
+        margin-right: -8px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background-color: var(--uui-color-surface, #fff);
+        border: 2px solid var(--uui-color-selected, #3544b1);
+        transition: left 120ms ease 0s;
+      }
+
+      .thumb:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        height: 9px;
+        width: 9px;
+        border-radius: 50%;
+        background-color: var(--uui-color-selected);
+      }
+
+      :host([disabled]) .thumb {
+        background-color: var(--uui-color-disabled);
+        border-color: var(--uui-palette-mine-grey);
+      }
+      :host([disabled]) .thumb:after {
+        background-color: var(--uui-palette-mine-grey);
+      }
+
+      .thumb .value {
+        position: absolute;
+        box-sizing: border-box;
+        font-weight: 700;
+        bottom: 15px;
+        left: 50%;
+        width: 40px;
+        margin-left: -20px;
+        text-align: center;
+        opacity: 1;
+        transition: 120ms opacity;
+        color: var(--uui-color-selected);
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      :host([disabled]) .thumb .value {
+        color: var(--uui-palette-mine-grey);
+      }
+
+      #range-slider:active .thumb .value,
+      #range-slider:focus .thumb .value,
+      #range-slider:hover .thumb .value {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /** NATIVE THUMB STYLING */
+
+      input[type='range']::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 17px;
+        height: 17px;
+        background-color: transparent;
+        display: block;
+        border-radius: 100%;
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      input[type='range']:disabled::-webkit-slider-thumb {
+        cursor: default;
+      }
+
+      input[type='range']::-moz-range-thumb {
+        -moz-appearance: none;
+        appearance: none;
+        width: 17px;
+        height: 17px;
+        background-color: transparent;
+        display: block;
+        border-radius: 100%;
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      input[type='range']:disabled::-moz-range-thumb {
+        cursor: default;
+      }
+
+      input[type='range']::-ms-thumb {
+        appearance: none;
+        width: 17px;
+        height: 17px;
+        background-color: transparent;
+        display: block;
+        border-radius: 100%;
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      input[type='range']:disabled::-ms-thumb {
+        cursor: default;
+      }
+    `,
+  ];
 }
 
 declare global {

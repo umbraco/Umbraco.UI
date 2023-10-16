@@ -15,38 +15,6 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-toast-notification-container')
 export class UUIToastNotificationContainerElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        position: absolute;
-        overflow: hidden;
-        max-width: 100%;
-        height: 100%;
-
-        pointer-events: none;
-        box-sizing: border-box;
-      }
-
-      slot {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-
-        height: 100%;
-        box-sizing: border-box;
-
-        padding-top: var(--uui-size-space-1);
-        padding-bottom: var(--uui-size-space-1);
-      }
-      :host([bottom-up]) slot {
-        justify-content: end;
-      }
-      :host([left-align]) slot {
-        align-items: start;
-      }
-    `,
-  ];
-
   /**
    * Set an auto-close timer, the timer will be paused on mouse-hover.
    * @type number | null
@@ -170,6 +138,38 @@ export class UUIToastNotificationContainerElement extends LitElement {
   render() {
     return html` <slot @slotchange=${this.onSlotChanged}></slot> `;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: absolute;
+        overflow: hidden;
+        max-width: 100%;
+        height: 100%;
+
+        pointer-events: none;
+        box-sizing: border-box;
+      }
+
+      slot {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+
+        height: 100%;
+        box-sizing: border-box;
+
+        padding-top: var(--uui-size-space-1);
+        padding-bottom: var(--uui-size-space-1);
+      }
+      :host([bottom-up]) slot {
+        justify-content: end;
+      }
+      :host([left-align]) slot {
+        align-items: start;
+      }
+    `,
+  ];
 }
 
 declare global {

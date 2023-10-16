@@ -13,16 +13,6 @@ import { UUIComboboxListEvent } from './UUIComboboxListEvent';
  */
 @defineElement('uui-combobox-list')
 export class UUIComboboxListElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-      }
-    `,
-  ];
-
   /**
    * Value of selected option.
    * @type { FormDataEntryValue | FormData }
@@ -250,6 +240,16 @@ export class UUIComboboxListElement extends LitElement {
   render() {
     return html` <slot @slotchange=${this._onSlotChange}></slot> `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+      }
+    `,
+  ];
 }
 
 declare global {
