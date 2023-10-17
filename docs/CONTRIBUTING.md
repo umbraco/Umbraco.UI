@@ -50,7 +50,7 @@ Using Typescript is mandatory when contributing to this repository, although it 
 ### How to get started
 
 1. Make sure you have the recommended version of node.js and npm installed
-   1. Currently we use node.js v16 and npm v8
+   1. Currently we use node.js v18.16.0 and npm v9.5.0
 2. Run `npm install`
 3. Run `npm run storybook` to start the storybook server, which we also use for development
 
