@@ -6,6 +6,10 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-visually-hidden')
 export class UUIVisuallyHiddenElement extends LitElement {
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host(:not(:focus-within)) {
@@ -21,10 +25,6 @@ export class UUIVisuallyHiddenElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

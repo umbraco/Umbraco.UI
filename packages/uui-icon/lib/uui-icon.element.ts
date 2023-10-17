@@ -114,7 +114,6 @@ export class UUIIconElement extends LitElement {
       this.removeAttribute('aria-label');
       this.setAttribute('aria-hidden', 'true');
     }
-    
   }
 
   render() {
