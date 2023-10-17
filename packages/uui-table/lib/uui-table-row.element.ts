@@ -18,32 +18,6 @@ import { UUITableCellElement } from './uui-table-cell.element';
 export class UUITableRowElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
 ) {
-  static styles = [
-    css`
-      :host {
-        display: table-row;
-        position: relative;
-        outline-offset: -3px;
-      }
-
-      :host([selectable]) {
-        cursor: pointer;
-      }
-
-      :host(:focus) {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-      :host([selected]) {
-        outline: 2px solid
-          var(--uui-table-row-color-selected, var(--uui-color-selected));
-      }
-      :host([selected]:focus) {
-        outline-color: var(--uui-color-focus);
-      }
-    `,
-  ];
-
   constructor() {
     super();
 
@@ -96,6 +70,32 @@ export class UUITableRowElement extends SelectOnlyMixin(
   render() {
     return html` <slot @slotchanged=${this.updateChildSelectOnly}></slot> `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: table-row;
+        position: relative;
+        outline-offset: -3px;
+      }
+
+      :host([selectable]) {
+        cursor: pointer;
+      }
+
+      :host(:focus) {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+      :host([selected]) {
+        outline: 2px solid
+          var(--uui-table-row-color-selected, var(--uui-color-selected));
+      }
+      :host([selected]:focus) {
+        outline-color: var(--uui-color-focus);
+      }
+    `,
+  ];
 }
 
 declare global {

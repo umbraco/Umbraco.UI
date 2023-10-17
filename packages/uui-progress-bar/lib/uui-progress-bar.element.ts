@@ -11,27 +11,6 @@ const clamp = (num: number, min: number, max: number) =>
  */
 @defineElement('uui-progress-bar')
 export class UUIProgressBarElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        width: 100%;
-        height: 4px;
-        position: relative;
-        overflow: hidden;
-        background: var(--uui-color-surface-alt);
-        border-radius: 100px;
-        display: inline-block;
-      }
-
-      #bar {
-        transition: width 250ms ease;
-        background: var(--uui-color-positive);
-        height: 100%;
-        width: 0%;
-      }
-    `,
-  ];
-
   private _progress = 0;
   /**
    * Set this to a number between 0 and 100 to reflect the progress of some operation.
@@ -59,6 +38,27 @@ export class UUIProgressBarElement extends LitElement {
       <div id="bar" style=${styleMap(this._getProgressStyle())}></div>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        width: 100%;
+        height: 4px;
+        position: relative;
+        overflow: hidden;
+        background: var(--uui-color-surface-alt);
+        border-radius: 100px;
+        display: inline-block;
+      }
+
+      #bar {
+        transition: width 250ms ease;
+        background: var(--uui-color-positive);
+        height: 100%;
+        width: 0%;
+      }
+    `,
+  ];
 }
 
 declare global {

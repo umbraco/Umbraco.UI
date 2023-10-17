@@ -12,32 +12,6 @@ import { property, state } from 'lit/decorators.js';
  */
 @defineElement('uui-toast-notification-layout')
 export class UUIToastNotificationLayoutElement extends LitElement {
-  static styles = [
-    UUITextStyles,
-    css`
-      #message {
-        margin-bottom: calc(var(--uui-size-space-1) * -1);
-      }
-      #message::after {
-        content: '';
-        display: block;
-        clear: both;
-      }
-      #actions {
-        /*
-        display: flex;
-        width: 100%;
-        justify-content: flex-end;
-        */
-        display: block;
-        float: right;
-
-        margin-top: var(--uui-size-space-4);
-        margin-bottom: calc(var(--uui-size-space-2) * -1);
-      }
-    `,
-  ];
-
   /**
    * Headline for this notification, can also be set via the 'headline' slot.
    * @attr
@@ -70,6 +44,32 @@ export class UUIToastNotificationLayoutElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    UUITextStyles,
+    css`
+      #message {
+        margin-bottom: calc(var(--uui-size-space-1) * -1);
+      }
+      #message::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      #actions {
+        /*
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        */
+        display: block;
+        float: right;
+
+        margin-top: var(--uui-size-space-4);
+        margin-bottom: calc(var(--uui-size-space-2) * -1);
+      }
+    `,
+  ];
 }
 
 declare global {

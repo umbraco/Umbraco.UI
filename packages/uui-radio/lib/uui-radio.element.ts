@@ -17,128 +17,6 @@ import { UUIRadioEvent } from './UUIRadioEvent';
  */
 @defineElement('uui-radio')
 export class UUIRadioElement extends LitElement {
-  static styles = [
-    UUIHorizontalShakeKeyframes,
-    css`
-      :host {
-        display: block;
-        box-sizing: border-box;
-        font-family: inherit;
-        color: currentColor;
-        --uui-radio-button-size: var(--uui-size-6);
-        margin: var(--uui-size-2) 0;
-      }
-
-      label {
-        display: block;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        line-height: 18px;
-      }
-
-      #input {
-        width: 0;
-        height: 0;
-        opacity: 0;
-        margin: 0;
-      }
-
-      .label {
-        margin-top: 2px;
-      }
-
-      #button {
-        box-sizing: border-box;
-        display: inline-block;
-        width: var(--uui-radio-button-size, 18px);
-        height: var(--uui-radio-button-size, 18px);
-        background-color: var(--uui-color-surface);
-        border: 1px solid var(--uui-color-border-standalone);
-        border-radius: 100%;
-        margin-right: calc(var(--uui-size-2) * 2);
-        position: relative;
-        flex: 0 0 var(--uui-radio-button-size);
-      }
-
-      #button::after {
-        content: '';
-        width: calc(var(--uui-radio-button-size) / 2);
-        height: calc(var(--uui-radio-button-size) / 2);
-        background-color: var(--uui-color-selected);
-        border-radius: 100%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        transition: all 0.15s ease-in-out;
-      }
-
-      :host(:hover) #button {
-        border: 1px solid var(--uui-color-border-emphasis);
-      }
-
-      :host(:focus) {
-        outline: none;
-      }
-      :host(:focus) #button {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      input:checked ~ #button::after {
-        transform: translate(-50%, -50%) scale(1);
-      }
-
-      input:checked ~ #button {
-        border: 1px solid var(--uui-color-selected);
-      }
-
-      input:checked:hover ~ #button {
-        border: 1px solid var(--uui-color-selected-emphasis);
-      }
-
-      input:checked:hover ~ #button::after {
-        background-color: var(--uui-color-selected-emphasis);
-      }
-
-      :host([disabled]) label {
-        cursor: default;
-        opacity: 0.5;
-      }
-      :host([disabled]) .label {
-        color: var(--uui-color-disabled-contrast);
-      }
-
-      :host([disabled]) input ~ #button {
-        border: 1px solid var(--uui-color-disabled-contrast);
-      }
-
-      :host([disabled]) input:checked ~ #button {
-        border: 1px solid var(--uui-color-disabled-contrast);
-      }
-
-      :host([disabled]) input:checked ~ #button::after {
-        background-color: var(--uui-color-disabled-contrast);
-      }
-
-      :host([disabled]:active) #button {
-        animation: ${UUIHorizontalShakeAnimationValue};
-      }
-
-      @media (prefers-reduced-motion) {
-        :host([disabled]:active) #button {
-          animation: none;
-        }
-
-        #button::after {
-          transition: none;
-        }
-      }
-    `,
-  ];
-
   @query('#input')
   private inputElement!: HTMLInputElement;
 
@@ -292,6 +170,128 @@ export class UUIRadioElement extends LitElement {
       </div>
     </label>`;
   }
+
+  static styles = [
+    UUIHorizontalShakeKeyframes,
+    css`
+      :host {
+        display: block;
+        box-sizing: border-box;
+        font-family: inherit;
+        color: currentColor;
+        --uui-radio-button-size: var(--uui-size-6);
+        margin: var(--uui-size-2) 0;
+      }
+
+      label {
+        display: block;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        line-height: 18px;
+      }
+
+      #input {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        margin: 0;
+      }
+
+      .label {
+        margin-top: 2px;
+      }
+
+      #button {
+        box-sizing: border-box;
+        display: inline-block;
+        width: var(--uui-radio-button-size, 18px);
+        height: var(--uui-radio-button-size, 18px);
+        background-color: var(--uui-color-surface);
+        border: 1px solid var(--uui-color-border-standalone);
+        border-radius: 100%;
+        margin-right: calc(var(--uui-size-2) * 2);
+        position: relative;
+        flex: 0 0 var(--uui-radio-button-size);
+      }
+
+      #button::after {
+        content: '';
+        width: calc(var(--uui-radio-button-size) / 2);
+        height: calc(var(--uui-radio-button-size) / 2);
+        background-color: var(--uui-color-selected);
+        border-radius: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: all 0.15s ease-in-out;
+      }
+
+      :host(:hover) #button {
+        border: 1px solid var(--uui-color-border-emphasis);
+      }
+
+      :host(:focus) {
+        outline: none;
+      }
+      :host(:focus) #button {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
+      input:checked ~ #button::after {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      input:checked ~ #button {
+        border: 1px solid var(--uui-color-selected);
+      }
+
+      input:checked:hover ~ #button {
+        border: 1px solid var(--uui-color-selected-emphasis);
+      }
+
+      input:checked:hover ~ #button::after {
+        background-color: var(--uui-color-selected-emphasis);
+      }
+
+      :host([disabled]) label {
+        cursor: default;
+        opacity: 0.5;
+      }
+      :host([disabled]) .label {
+        color: var(--uui-color-disabled-contrast);
+      }
+
+      :host([disabled]) input ~ #button {
+        border: 1px solid var(--uui-color-disabled-contrast);
+      }
+
+      :host([disabled]) input:checked ~ #button {
+        border: 1px solid var(--uui-color-disabled-contrast);
+      }
+
+      :host([disabled]) input:checked ~ #button::after {
+        background-color: var(--uui-color-disabled-contrast);
+      }
+
+      :host([disabled]:active) #button {
+        animation: ${UUIHorizontalShakeAnimationValue};
+      }
+
+      @media (prefers-reduced-motion) {
+        :host([disabled]:active) #button {
+          animation: none;
+        }
+
+        #button::after {
+          transition: none;
+        }
+      }
+    `,
+  ];
 }
 
 declare global {

@@ -11,44 +11,6 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-table-cell')
 export class UUITableCellElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        display: table-cell;
-        height: var(--uui-table-cell-height, var(--uui-size-12));
-        padding: var(
-          --uui-table-cell-padding,
-          var(--uui-size-4) var(--uui-size-5)
-        );
-        border-top: 1px solid var(--uui-color-border);
-        vertical-align: middle;
-      }
-
-      :host([clip-text]) {
-        max-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        box-sizing: border-box;
-      }
-
-      :host([disable-child-interaction]) ::slotted(*) {
-        pointer-events: none;
-      }
-
-      :host([disable-child-interaction])::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-      }
-
-      :host([no-padding]) {
-        padding: 0;
-      }
-    `,
-  ];
-
   /**
    * Used to enforce selection interaction by preventing other interactions, primary set by table-row for select-only mode.
    * @attr
@@ -116,6 +78,44 @@ export class UUITableCellElement extends LitElement {
   render() {
     return html` <slot @slotchange=${this._detectOverflow}></slot>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        display: table-cell;
+        height: var(--uui-table-cell-height, var(--uui-size-12));
+        padding: var(
+          --uui-table-cell-padding,
+          var(--uui-size-4) var(--uui-size-5)
+        );
+        border-top: 1px solid var(--uui-color-border);
+        vertical-align: middle;
+      }
+
+      :host([clip-text]) {
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-sizing: border-box;
+      }
+
+      :host([disable-child-interaction]) ::slotted(*) {
+        pointer-events: none;
+      }
+
+      :host([disable-child-interaction])::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+      }
+
+      :host([no-padding]) {
+        padding: 0;
+      }
+    `,
+  ];
 }
 
 declare global {

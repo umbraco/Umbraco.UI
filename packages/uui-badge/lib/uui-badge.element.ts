@@ -14,6 +14,37 @@ import type {
 
 @defineElement('uui-badge')
 export class UUIBadgeElement extends LitElement {
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "positive" | "warning" | "danger"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  color: InterfaceColor = 'default';
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  look: InterfaceLook = 'primary';
+
+  /**
+   * Bring attention to this badge by applying a bounce animation.
+   * @type Boolean
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  attention = false;
+
+  render() {
+    return html` <slot></slot> `;
+  }
+
   static styles = [
     css`
       :host {
@@ -127,37 +158,6 @@ export class UUIBadgeElement extends LitElement {
       }
     `,
   ];
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "positive" | "warning" | "danger"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  color: InterfaceColor = 'default';
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  look: InterfaceLook = 'primary';
-
-  /**
-   * Bring attention to this badge by applying a bounce animation.
-   * @type Boolean
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  attention = false;
-
-  render() {
-    return html` <slot></slot> `;
-  }
 }
 
 declare global {

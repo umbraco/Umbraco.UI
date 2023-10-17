@@ -28,119 +28,6 @@ export type UUIColorSliderType = 'hue' | 'opacity';
  */
 @defineElement('uui-color-slider')
 export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
-  static styles = [
-    css`
-      :host {
-        --uui-slider-height: 15px;
-        --uui-slider-handle-size: 17px;
-        --uui-slider-background-image: #fff;
-        --uui-slider-background-size: 100%;
-        --uui-slider-background-position: top left;
-        display: block;
-      }
-
-      :host([type='hue']) {
-        --uui-slider-background-image: linear-gradient(
-          to right,
-          rgb(255, 0, 0) 0%,
-          rgb(255, 255, 0) 17%,
-          rgb(0, 255, 0) 33%,
-          rgb(0, 255, 255) 50%,
-          rgb(0, 0, 255) 67%,
-          rgb(255, 0, 255) 83%,
-          rgb(255, 0, 0) 100%
-        );
-      }
-
-      :host([vertical][type='hue']) {
-        --uui-slider-background-image: linear-gradient(
-          to top,
-          rgb(255, 0, 0) 0%,
-          rgb(255, 255, 0) 17%,
-          rgb(0, 255, 0) 33%,
-          rgb(0, 255, 255) 50%,
-          rgb(0, 0, 255) 67%,
-          rgb(255, 0, 255) 83%,
-          rgb(255, 0, 0) 100%
-        );
-      }
-
-      :host([type='opacity']) {
-        --uui-slider-background-image: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
-
-        --uui-slider-background-size: 10px 10px;
-        --uui-slider-background-position: 0 0, 0 0, -5px -5px, 5px 5px;
-      }
-
-      #color-slider {
-        position: relative;
-        background-image: var(--uui-slider-background-image);
-        background-size: var(--uui-slider-background-size);
-        background-position: var(--uui-slider-background-position);
-        border-radius: 3px;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        height: var(--uui-slider-height);
-      }
-
-      :host([vertical]) #color-slider {
-        width: var(--uui-slider-height);
-        height: 300px;
-      }
-
-      :host([disabled]) {
-        cursor: not-allowed;
-      }
-
-      :host([disabled]) #color-slider {
-        user-select: none;
-        pointer-events: none;
-        opacity: 0.55;
-      }
-
-      #color-slider__handle {
-        position: absolute;
-        top: calc(50% - var(--uui-slider-handle-size) / 2);
-        width: var(--uui-slider-handle-size);
-        height: var(--uui-slider-handle-size);
-        background-color: white;
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-        margin-left: calc(var(--uui-slider-handle-size) / -2);
-        left: var(--current-value, 0%);
-      }
-
-      :host([vertical]) #color-slider__handle {
-        left: unset;
-        top: var(--current-value, 100%);
-        margin-left: -1px;
-        margin-top: calc(var(--uui-slider-handle-size) / -2);
-      }
-
-      ::slotted(*:first-child) {
-        border-radius: 3px;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-      }
-
-      #current-hue {
-        border-radius: 3px;
-        position: absolute;
-        inset: 0 0 0 0;
-      }
-    `,
-  ];
-
   /**
    * The type of the slider.
    * @type {UUIColorSliderType}
@@ -375,6 +262,119 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       </div>
       ${Math.round(this.value)}`;
   }
+
+  static styles = [
+    css`
+      :host {
+        --uui-slider-height: 15px;
+        --uui-slider-handle-size: 17px;
+        --uui-slider-background-image: #fff;
+        --uui-slider-background-size: 100%;
+        --uui-slider-background-position: top left;
+        display: block;
+      }
+
+      :host([type='hue']) {
+        --uui-slider-background-image: linear-gradient(
+          to right,
+          rgb(255, 0, 0) 0%,
+          rgb(255, 255, 0) 17%,
+          rgb(0, 255, 0) 33%,
+          rgb(0, 255, 255) 50%,
+          rgb(0, 0, 255) 67%,
+          rgb(255, 0, 255) 83%,
+          rgb(255, 0, 0) 100%
+        );
+      }
+
+      :host([vertical][type='hue']) {
+        --uui-slider-background-image: linear-gradient(
+          to top,
+          rgb(255, 0, 0) 0%,
+          rgb(255, 255, 0) 17%,
+          rgb(0, 255, 0) 33%,
+          rgb(0, 255, 255) 50%,
+          rgb(0, 0, 255) 67%,
+          rgb(255, 0, 255) 83%,
+          rgb(255, 0, 0) 100%
+        );
+      }
+
+      :host([type='opacity']) {
+        --uui-slider-background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+
+        --uui-slider-background-size: 10px 10px;
+        --uui-slider-background-position: 0 0, 0 0, -5px -5px, 5px 5px;
+      }
+
+      #color-slider {
+        position: relative;
+        background-image: var(--uui-slider-background-image);
+        background-size: var(--uui-slider-background-size);
+        background-position: var(--uui-slider-background-position);
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        height: var(--uui-slider-height);
+      }
+
+      :host([vertical]) #color-slider {
+        width: var(--uui-slider-height);
+        height: 300px;
+      }
+
+      :host([disabled]) {
+        cursor: not-allowed;
+      }
+
+      :host([disabled]) #color-slider {
+        user-select: none;
+        pointer-events: none;
+        opacity: 0.55;
+      }
+
+      #color-slider__handle {
+        position: absolute;
+        top: calc(50% - var(--uui-slider-handle-size) / 2);
+        width: var(--uui-slider-handle-size);
+        height: var(--uui-slider-handle-size);
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+        margin-left: calc(var(--uui-slider-handle-size) / -2);
+        left: var(--current-value, 0%);
+      }
+
+      :host([vertical]) #color-slider__handle {
+        left: unset;
+        top: var(--current-value, 100%);
+        margin-left: -1px;
+        margin-top: calc(var(--uui-slider-handle-size) / -2);
+      }
+
+      ::slotted(*:first-child) {
+        border-radius: 3px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+      }
+
+      #current-hue {
+        border-radius: 3px;
+        position: absolute;
+        inset: 0 0 0 0;
+      }
+    `,
+  ];
 }
 
 declare global {

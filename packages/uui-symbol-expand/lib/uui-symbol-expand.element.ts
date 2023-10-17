@@ -8,6 +8,21 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-symbol-expand')
 export class UUISymbolExpandElement extends LitElement {
+  /**
+   * Set this boolean to true for a open/expanded look.
+   * @type {boolean}
+   * @default false
+   * @attr
+   */
+  @property({ type: Boolean, reflect: true })
+  public open = false;
+
+  render() {
+    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+    </svg>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -30,21 +45,6 @@ export class UUISymbolExpandElement extends LitElement {
       }
     `,
   ];
-
-  /**
-   * Set this boolean to true for a open/expanded look.
-   * @type {boolean}
-   * @default false
-   * @attr
-   */
-  @property({ type: Boolean, reflect: true })
-  public open = false;
-
-  render() {
-    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
-    </svg>`;
-  }
 }
 
 declare global {

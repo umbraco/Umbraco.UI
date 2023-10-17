@@ -10,27 +10,6 @@ import { property, queryAssignedElements, state } from 'lit/decorators.js';
  */
 @defineElement('uui-avatar-group')
 export class UUIAvatarGroupElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: inline-flex;
-        align-items: center;
-        padding-left: 3px;
-        padding-right: 3px;
-      }
-
-      ::slotted(uui-avatar) {
-        margin-left: -0.2em;
-        margin-right: -0.2em;
-        border: 0.1em solid var(--uui-avatar-border-color);
-      }
-
-      #overflow-indication {
-        margin-left: 6px;
-      }
-    `,
-  ];
-
   @queryAssignedElements({
     selector: 'uui-avatar, [uui-avatar]',
     flatten: true,
@@ -88,6 +67,27 @@ export class UUIAvatarGroupElement extends LitElement {
         : ''}
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-flex;
+        align-items: center;
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+
+      ::slotted(uui-avatar) {
+        margin-left: -0.2em;
+        margin-right: -0.2em;
+        border: 0.1em solid var(--uui-avatar-border-color);
+      }
+
+      #overflow-indication {
+        margin-left: 6px;
+      }
+    `,
+  ];
 }
 
 declare global {
