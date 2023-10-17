@@ -61,151 +61,6 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
    */
   static readonly formAssociated = true;
 
-  static styles = [
-    UUIHorizontalPulseKeyframes,
-    nativeInputStyles,
-    css`
-      :host {
-        display: inline-block;
-        width: 100%;
-        position: relative;
-        min-height: 30px;
-        user-select: none;
-      }
-
-      input {
-        box-sizing: border-box;
-        height: 18px;
-      }
-
-      #track {
-        position: relative;
-        height: 18px;
-        width: 100%;
-        display: flex;
-      }
-
-      #track svg {
-        height: 21px;
-        border-radius: 10px;
-        background-color: var(--uui-color-surface);
-      }
-      #track svg rect {
-        width: calc(100% - 18px);
-        fill: var(--uui-color-border-standalone);
-      }
-      input:hover ~ #track svg rect {
-        fill: var(--uui-color-border-emphasis);
-      }
-
-      input:focus ~ #track svg {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      .track-step {
-        fill: var(--uui-color-border);
-      }
-      input:hover ~ #track svg .track-step {
-        fill: var(--uui-color-border-emphasis);
-      }
-
-      #track-inner {
-        position: absolute;
-        left: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-        right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-      }
-
-      #thumb {
-        position: absolute;
-        top: 2px;
-        bottom: 0;
-        left: 0;
-        height: 17px;
-        width: 17px;
-        margin-left: -8px;
-        margin-right: -8px;
-        border-radius: 50%;
-        box-sizing: border-box;
-
-        background-color: var(--uui-color-surface);
-        border: 2px solid var(--uui-color-selected);
-
-        transition: 120ms left ease;
-      }
-      :host([disabled]) #thumb {
-        background-color: var(--uui-color-disabled);
-        border-color: var(--uui-color-disabled-standalone);
-      }
-
-      #thumb:after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        height: 9px;
-        width: 9px;
-        border-radius: 50%;
-        background-color: var(--uui-color-selected);
-      }
-      :host([disabled]) #thumb:after {
-        background-color: var(--uui-color-disabled);
-      }
-
-      #thumb-label {
-        position: absolute;
-        box-sizing: border-box;
-        font-weight: 700;
-        bottom: 15px;
-        left: 50%;
-        width: 40px;
-        margin-left: -20px;
-        text-align: center;
-        opacity: 0;
-        transition: 120ms opacity;
-        color: var(--uui-color-selected);
-      }
-
-      input:focus ~ #track #thumb-label,
-      input:hover ~ #track #thumb-label {
-        opacity: 1;
-      }
-
-      #step-values {
-        margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-        margin-top: 6px;
-        display: flex;
-        align-items: flex-end;
-        box-sizing: border-box;
-      }
-
-      #step-values > span {
-        flex-basis: 0;
-        flex-grow: 1;
-        color: var(--uui-color-disabled-contrast);
-      }
-
-      #step-values > span > span {
-        transform: translateX(-50%);
-        display: inline-block;
-        text-align: center;
-        font-size: var(--uui-type-small-size);
-      }
-
-      #step-values > span:last-child {
-        width: 0;
-        flex-grow: 0;
-      }
-
-      :host(:not([pristine]):invalid) #thumb {
-        border-color: var(--uui-color-danger-standalone);
-      }
-      :host(:not([pristine]):invalid) #thumb:after {
-        background-color: var(--uui-color-danger);
-      }
-    `,
-  ];
-
   /**
    * Hides the numbers representing the value of each steps. Dots will still be visible
    * @type {boolean}
@@ -432,6 +287,151 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       ${RenderStepValues(this._steps, this._stepWidth, this.hideStepValues)}
     `;
   }
+
+  static styles = [
+    UUIHorizontalPulseKeyframes,
+    nativeInputStyles,
+    css`
+      :host {
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        min-height: 30px;
+        user-select: none;
+      }
+
+      input {
+        box-sizing: border-box;
+        height: 18px;
+      }
+
+      #track {
+        position: relative;
+        height: 18px;
+        width: 100%;
+        display: flex;
+      }
+
+      #track svg {
+        height: 21px;
+        border-radius: 10px;
+        background-color: var(--uui-color-surface);
+      }
+      #track svg rect {
+        width: calc(100% - 18px);
+        fill: var(--uui-color-border-standalone);
+      }
+      input:hover ~ #track svg rect {
+        fill: var(--uui-color-border-emphasis);
+      }
+
+      input:focus ~ #track svg {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
+      .track-step {
+        fill: var(--uui-color-border);
+      }
+      input:hover ~ #track svg .track-step {
+        fill: var(--uui-color-border-emphasis);
+      }
+
+      #track-inner {
+        position: absolute;
+        left: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+        right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+      }
+
+      #thumb {
+        position: absolute;
+        top: 2px;
+        bottom: 0;
+        left: 0;
+        height: 17px;
+        width: 17px;
+        margin-left: -8px;
+        margin-right: -8px;
+        border-radius: 50%;
+        box-sizing: border-box;
+
+        background-color: var(--uui-color-surface);
+        border: 2px solid var(--uui-color-selected);
+
+        transition: 120ms left ease;
+      }
+      :host([disabled]) #thumb {
+        background-color: var(--uui-color-disabled);
+        border-color: var(--uui-color-disabled-standalone);
+      }
+
+      #thumb:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        height: 9px;
+        width: 9px;
+        border-radius: 50%;
+        background-color: var(--uui-color-selected);
+      }
+      :host([disabled]) #thumb:after {
+        background-color: var(--uui-color-disabled);
+      }
+
+      #thumb-label {
+        position: absolute;
+        box-sizing: border-box;
+        font-weight: 700;
+        bottom: 15px;
+        left: 50%;
+        width: 40px;
+        margin-left: -20px;
+        text-align: center;
+        opacity: 0;
+        transition: 120ms opacity;
+        color: var(--uui-color-selected);
+      }
+
+      input:focus ~ #track #thumb-label,
+      input:hover ~ #track #thumb-label {
+        opacity: 1;
+      }
+
+      #step-values {
+        margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+        margin-top: 6px;
+        display: flex;
+        align-items: flex-end;
+        box-sizing: border-box;
+      }
+
+      #step-values > span {
+        flex-basis: 0;
+        flex-grow: 1;
+        color: var(--uui-color-disabled-contrast);
+      }
+
+      #step-values > span > span {
+        transform: translateX(-50%);
+        display: inline-block;
+        text-align: center;
+        font-size: var(--uui-type-small-size);
+      }
+
+      #step-values > span:last-child {
+        width: 0;
+        flex-grow: 0;
+      }
+
+      :host(:not([pristine]):invalid) #thumb {
+        border-color: var(--uui-color-danger-standalone);
+      }
+      :host(:not([pristine]):invalid) #thumb:after {
+        background-color: var(--uui-color-danger);
+      }
+    `,
+  ];
 }
 
 declare global {

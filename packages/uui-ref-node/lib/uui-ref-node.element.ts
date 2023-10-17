@@ -18,70 +18,6 @@ import { property, state } from 'lit/decorators.js';
 
 @defineElement('uui-ref-node')
 export class UUIRefNodeElement extends UUIRefElement {
-  static styles = [
-    ...UUIRefElement.styles,
-    css`
-      :host {
-        min-width: 250px;
-        padding: calc(var(--uui-size-2) + 1px);
-      }
-
-      #open-part {
-        align-self: stretch;
-
-        display: flex;
-        position: relative;
-        align-items: center;
-        cursor: pointer;
-      }
-
-      #icon {
-        font-size: 1.2em;
-        margin-left: var(--uui-size-2);
-        margin-right: var(--uui-size-1);
-      }
-
-      #info {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        justify-content: center;
-        height: 100%;
-        padding-left: var(--uui-size-2);
-      }
-
-      #name {
-        font-weight: 700;
-      }
-
-      #detail {
-        font-size: var(--uui-type-small-size);
-      }
-
-      :host(:not([disabled])) #open-part:hover #icon {
-        color: var(--uui-color-interactive-emphasis);
-      }
-      :host(:not([disabled])) #open-part:hover #name {
-        font-weight: 700;
-        text-decoration: underline;
-        color: var(--uui-color-interactive-emphasis);
-      }
-      :host(:not([disabled])) #open-part:hover #detail {
-        color: var(--uui-color-interactive-emphasis);
-      }
-
-      :host([disabled]) #icon {
-        color: var(--uui-color-disabled-contrast);
-      }
-      :host([disabled]) #name {
-        color: var(--uui-color-disabled-contrast);
-      }
-      :host([disabled]) #detail {
-        color: var(--uui-color-disabled-contrast);
-      }
-    `,
-  ];
-
   /**
    * Node name
    * @type {string}
@@ -156,6 +92,70 @@ export class UUIRefNodeElement extends UUIRefElement {
       <slot name="actions" id="actions-container"></slot>
     `;
   }
+
+  static styles = [
+    ...UUIRefElement.styles,
+    css`
+      :host {
+        min-width: 250px;
+        padding: calc(var(--uui-size-2) + 1px);
+      }
+
+      #open-part {
+        align-self: stretch;
+
+        display: flex;
+        position: relative;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      #icon {
+        font-size: 1.2em;
+        margin-left: var(--uui-size-2);
+        margin-right: var(--uui-size-1);
+      }
+
+      #info {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        height: 100%;
+        padding-left: var(--uui-size-2);
+      }
+
+      #name {
+        font-weight: 700;
+      }
+
+      #detail {
+        font-size: var(--uui-type-small-size);
+      }
+
+      :host(:not([disabled])) #open-part:hover #icon {
+        color: var(--uui-color-interactive-emphasis);
+      }
+      :host(:not([disabled])) #open-part:hover #name {
+        font-weight: 700;
+        text-decoration: underline;
+        color: var(--uui-color-interactive-emphasis);
+      }
+      :host(:not([disabled])) #open-part:hover #detail {
+        color: var(--uui-color-interactive-emphasis);
+      }
+
+      :host([disabled]) #icon {
+        color: var(--uui-color-disabled-contrast);
+      }
+      :host([disabled]) #name {
+        color: var(--uui-color-disabled-contrast);
+      }
+      :host([disabled]) #detail {
+        color: var(--uui-color-disabled-contrast);
+      }
+    `,
+  ];
 }
 
 declare global {

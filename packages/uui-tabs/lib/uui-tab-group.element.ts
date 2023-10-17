@@ -16,61 +16,6 @@ import { UUITabElement } from './uui-tab.element';
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: flex;
-        flex-wrap: wrap;
-        color: var(--uui-tab-text);
-        background: var(--uui-tab-background, none);
-        height: 100%;
-        min-height: 48px;
-      }
-
-      ::slotted(*:not(:last-of-type)) {
-        border-right: 1px solid var(--uui-tab-divider, none);
-      }
-
-      .hidden-tab {
-        width: 100%;
-      }
-
-      #hidden-tabs-container {
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        background: var(--uui-color-surface);
-        border-radius: var(--uui-border-radius);
-        box-shadow: var(--uui-shadow-depth-3);
-        overflow: hidden;
-      }
-      :host([dropdown-direction='horizontal']) #hidden-tabs-container {
-        flex-direction: row;
-      }
-
-      #more-button {
-        margin-left: auto;
-        position: relative;
-      }
-      #more-button::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        background-color: var(--uui-color-current);
-        height: 0px;
-        border-radius: 3px 3px 0 0;
-        opacity: 0;
-        transition: opacity ease-in 120ms, height ease-in 120ms;
-      }
-      #more-button.active-inside::before {
-        opacity: 1;
-        height: 4px;
-        transition: opacity 120ms, height ease-out 120ms;
-      }
-    `,
-  ];
-
   @query('#more-button')
   private _moreButtonElement!: UUIButtonElement;
 
@@ -288,6 +233,61 @@ export class UUITabGroupElement extends LitElement {
       </uui-popover-container>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        flex-wrap: wrap;
+        color: var(--uui-tab-text);
+        background: var(--uui-tab-background, none);
+        height: 100%;
+        min-height: 48px;
+      }
+
+      ::slotted(*:not(:last-of-type)) {
+        border-right: 1px solid var(--uui-tab-divider, none);
+      }
+
+      .hidden-tab {
+        width: 100%;
+      }
+
+      #hidden-tabs-container {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        background: var(--uui-color-surface);
+        border-radius: var(--uui-border-radius);
+        box-shadow: var(--uui-shadow-depth-3);
+        overflow: hidden;
+      }
+      :host([dropdown-direction='horizontal']) #hidden-tabs-container {
+        flex-direction: row;
+      }
+
+      #more-button {
+        margin-left: auto;
+        position: relative;
+      }
+      #more-button::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--uui-color-current);
+        height: 0px;
+        border-radius: 3px 3px 0 0;
+        opacity: 0;
+        transition: opacity ease-in 120ms, height ease-in 120ms;
+      }
+      #more-button.active-inside::before {
+        opacity: 1;
+        height: 4px;
+        transition: opacity 120ms, height ease-out 120ms;
+      }
+    `,
+  ];
 }
 
 declare global {

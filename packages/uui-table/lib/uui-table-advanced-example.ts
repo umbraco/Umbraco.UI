@@ -27,49 +27,6 @@ interface TableItem {
 
 @customElement('uui-table-with-selection-example')
 export class UUITableWithSelectionExampleElement extends LitElement {
-  static styles = [
-    UUITextStyles,
-    css`
-      uui-table-row uui-checkbox {
-        display: none;
-      }
-
-      uui-table-row:focus uui-icon,
-      uui-table-row:focus-within uui-icon,
-      uui-table-row:hover uui-icon,
-      uui-table-row[select-only] uui-icon {
-        display: none;
-      }
-
-      uui-table-row:focus uui-checkbox,
-      uui-table-row:focus-within uui-checkbox,
-      uui-table-row:hover uui-checkbox,
-      uui-table-row[select-only] uui-checkbox {
-        display: inline-block;
-      }
-
-      uui-table-head-cell:focus,
-      uui-table-head-cell:focus-within,
-      uui-table-head-cell:hover {
-        --uui-symbol-sort-hover: 1;
-      }
-
-      uui-table-head-cell button {
-        padding: 0;
-        background-color: transparent;
-        color: inherit;
-        border: none;
-        cursor: pointer;
-        font-weight: inherit;
-        font-size: inherit;
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-      }
-    `,
-  ];
-
   @state()
   private _columns: Array<TableColumn> = [];
 
@@ -296,4 +253,47 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       </uui-table>
     `;
   }
+
+  static styles = [
+    UUITextStyles,
+    css`
+      uui-table-row uui-checkbox {
+        display: none;
+      }
+
+      uui-table-row:focus uui-icon,
+      uui-table-row:focus-within uui-icon,
+      uui-table-row:hover uui-icon,
+      uui-table-row[select-only] uui-icon {
+        display: none;
+      }
+
+      uui-table-row:focus uui-checkbox,
+      uui-table-row:focus-within uui-checkbox,
+      uui-table-row:hover uui-checkbox,
+      uui-table-row[select-only] uui-checkbox {
+        display: inline-block;
+      }
+
+      uui-table-head-cell:focus,
+      uui-table-head-cell:focus-within,
+      uui-table-head-cell:hover {
+        --uui-symbol-sort-hover: 1;
+      }
+
+      uui-table-head-cell button {
+        padding: 0;
+        background-color: transparent;
+        color: inherit;
+        border: none;
+        cursor: pointer;
+        font-weight: inherit;
+        font-size: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+    `,
+  ];
 }

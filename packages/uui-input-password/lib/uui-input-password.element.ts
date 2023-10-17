@@ -14,20 +14,6 @@ import { property, state } from 'lit/decorators.js';
  */
 @defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {
-  static styles = [
-    ...UUIInputElement.styles,
-    css`
-      #eye {
-        height: 100%;
-        margin-left: -6px;
-      }
-
-      #clear:hover {
-        color: black;
-      }
-    `,
-  ];
-
   @state()
   private passwordType: InputType = 'password';
 
@@ -78,6 +64,20 @@ export class UUIInputPasswordElement extends UUIInputElement {
       ${this.renderIcon()}
     </uui-button>`;
   }
+
+  static styles = [
+    ...UUIInputElement.styles,
+    css`
+      #eye {
+        height: 100%;
+        margin-left: -6px;
+      }
+
+      #clear:hover {
+        color: black;
+      }
+    `,
+  ];
 }
 
 declare global {

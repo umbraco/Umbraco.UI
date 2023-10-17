@@ -12,6 +12,74 @@ import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
 export class UUIComboboxListOptionElement extends SelectableMixin(
   ActiveMixin(LitElement)
 ) {
+  private _value: string | undefined;
+
+  @state()
+  private _disabled = false;
+
+  @state() _displayValue = '';
+
+  /**
+   * Value of the option.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
+  @property({ type: String })
+  public get value(): string {
+    return this._value ? this._value : this.textContent?.trim() || '';
+  }
+  public set value(newValue: string) {
+    const oldValue = this._value;
+    this._value = newValue;
+    this.requestUpdate('value', oldValue);
+  }
+
+  /**
+   * A readable value.
+   * @type { string }
+   * @attr
+   * @default ""
+   */
+  @property({ type: String, attribute: 'display-value' })
+  public get displayValue() {
+    return this._displayValue
+      ? this._displayValue
+      : this.textContent?.trim() || '';
+  }
+  public set displayValue(newValue) {
+    const oldValue = this._displayValue;
+    this._displayValue = newValue;
+    this.requestUpdate('displayValue', oldValue);
+  }
+
+  /**
+   * Determines if the options is disabled. If true the option can't be selected
+   * @type { boolean }
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  public get disabled() {
+    return this._disabled;
+  }
+  public set disabled(newValue) {
+    const oldValue = this._disabled;
+    this._disabled = newValue;
+    this.selectable = !this._disabled;
+    this.requestUpdate('disabled', oldValue);
+  }
+
+  constructor() {
+    super();
+    this.selectable = true;
+    this.deselectable = false;
+  }
+
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -84,74 +152,6 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
       }
     `,
   ];
-
-  private _value: string | undefined;
-
-  @state()
-  private _disabled = false;
-
-  @state() _displayValue = '';
-
-  /**
-   * Value of the option.
-   * @type { string }
-   * @attr
-   * @default ""
-   */
-  @property({ type: String })
-  public get value(): string {
-    return this._value ? this._value : this.textContent?.trim() || '';
-  }
-  public set value(newValue: string) {
-    const oldValue = this._value;
-    this._value = newValue;
-    this.requestUpdate('value', oldValue);
-  }
-
-  /**
-   * A readable value.
-   * @type { string }
-   * @attr
-   * @default ""
-   */
-  @property({ type: String, attribute: 'display-value' })
-  public get displayValue() {
-    return this._displayValue
-      ? this._displayValue
-      : this.textContent?.trim() || '';
-  }
-  public set displayValue(newValue) {
-    const oldValue = this._displayValue;
-    this._displayValue = newValue;
-    this.requestUpdate('displayValue', oldValue);
-  }
-
-  /**
-   * Determines if the options is disabled. If true the option can't be selected
-   * @type { boolean }
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  public get disabled() {
-    return this._disabled;
-  }
-  public set disabled(newValue) {
-    const oldValue = this._disabled;
-    this._disabled = newValue;
-    this.selectable = !this._disabled;
-    this.requestUpdate('disabled', oldValue);
-  }
-
-  constructor() {
-    super();
-    this.selectable = true;
-    this.deselectable = false;
-  }
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

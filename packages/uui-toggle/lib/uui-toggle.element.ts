@@ -32,6 +32,19 @@ export class UUIToggleElement extends UUIBooleanInputElement {
    */
   static readonly formAssociated = true;
 
+  constructor() {
+    super('switch');
+  }
+
+  renderCheckbox() {
+    return html`
+      <div id="slider">
+        <div id="icon-check">${iconCheck}</div>
+        <div id="icon-wrong">${iconWrong}</div>
+      </div>
+    `;
+  }
+
   static styles = [
     ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
@@ -170,19 +183,6 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       }
     `,
   ];
-
-  constructor() {
-    super('switch');
-  }
-
-  renderCheckbox() {
-    return html`
-      <div id="slider">
-        <div id="icon-check">${iconCheck}</div>
-        <div id="icon-wrong">${iconWrong}</div>
-      </div>
-    `;
-  }
 }
 
 declare global {

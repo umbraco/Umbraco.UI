@@ -13,6 +13,28 @@ import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
 
 @defineElement('uui-tag')
 export class UUITagElement extends LitElement {
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "positive" | "warning" | "danger"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  color: InterfaceColor = 'default';
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  look: InterfaceLook = 'primary';
+
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -83,28 +105,6 @@ export class UUITagElement extends LitElement {
       }
     `,
   ];
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "positive" | "warning" | "danger"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  color: InterfaceColor = 'default';
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  look: InterfaceLook = 'primary';
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

@@ -9,6 +9,11 @@ import { UUITableCellElement } from './uui-table-cell.element';
  */
 @defineElement('uui-table-head-cell')
 export class UUITableHeadCellElement extends UUITableCellElement {
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'columnheader');
+  }
+
   static styles = [
     ...UUITableCellElement.styles,
     css`
@@ -17,11 +22,6 @@ export class UUITableHeadCellElement extends UUITableCellElement {
       }
     `,
   ];
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.setAttribute('role', 'columnheader');
-  }
 }
 
 declare global {

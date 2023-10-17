@@ -16,28 +16,6 @@ import { property, state } from 'lit/decorators.js';
 
 @defineElement('uui-form-layout-item')
 export class UUIFormLayoutItemElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        display: block;
-        margin-top: var(--uui-size-space-5);
-        margin-bottom: var(--uui-size-space-5);
-      }
-      #label {
-        margin-top: -5px;
-        margin-bottom: 5px;
-      }
-      #description {
-        color: var(--uui-color-disabled-contrast);
-        font-size: var(--uui-type-small-size);
-      }
-      #label + #description {
-        margin-top: -8px;
-        min-height: 8px;
-      }
-    `,
-  ];
   /*
   @property({type: String})
   label: string | null = null;
@@ -89,6 +67,29 @@ export class UUIFormLayoutItemElement extends LitElement {
       </uui-form-validation-message>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        display: block;
+        margin-top: var(--uui-size-space-5);
+        margin-bottom: var(--uui-size-space-5);
+      }
+      #label {
+        margin-top: -5px;
+        margin-bottom: 5px;
+      }
+      #description {
+        color: var(--uui-color-disabled-contrast);
+        font-size: var(--uui-type-small-size);
+      }
+      #label + #description {
+        margin-top: -8px;
+        min-height: 8px;
+      }
+    `,
+  ];
 }
 
 declare global {

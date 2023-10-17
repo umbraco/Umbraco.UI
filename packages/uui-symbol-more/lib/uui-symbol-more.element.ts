@@ -5,6 +5,10 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
  */
 @defineElement('uui-symbol-more')
 export class UUISymbolMoreElement extends LitElement {
+  render() {
+    return html`•••`;
+  }
+
   static styles = [
     css`
       :host {
@@ -17,10 +21,6 @@ export class UUISymbolMoreElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`•••`;
-  }
 }
 
 declare global {
