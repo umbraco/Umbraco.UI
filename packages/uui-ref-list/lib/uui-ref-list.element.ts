@@ -6,6 +6,10 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
  */
 @defineElement('uui-ref-list')
 export class UUIRefListElement extends LitElement {
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -25,10 +29,6 @@ export class UUIRefListElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

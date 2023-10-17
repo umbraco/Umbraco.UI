@@ -12,24 +12,6 @@ import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
  */
 @defineElement('uui-breadcrumbs')
 export class UUIBreadcrumbsElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: flex;
-      }
-
-      #breadcrumbs-list {
-        display: flex;
-        list-style-type: decimal;
-        margin-block-start: 0em;
-        margin-block-end: 0em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        padding-inline-start: 0px;
-      }
-    `,
-  ];
-
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-breadcrumb-item, [uui-breadcrumb-item], [role=listitem]',
@@ -62,6 +44,24 @@ export class UUIBreadcrumbsElement extends LitElement {
       <slot @slotchange=${this.handleSlotChange}></slot>
     </ol>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: flex;
+      }
+
+      #breadcrumbs-list {
+        display: flex;
+        list-style-type: decimal;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 0px;
+      }
+    `,
+  ];
 }
 
 declare global {

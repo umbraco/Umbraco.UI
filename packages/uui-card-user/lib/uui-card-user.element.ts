@@ -14,6 +14,54 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  */
 @defineElement('uui-card-user')
 export class UUICardUserElement extends UUICardElement {
+  /**
+   * User name
+   * @type {string}
+   * @attr name
+   * @default ''
+   */
+  @property({ type: String })
+  name = '';
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    demandCustomElement(this, 'uui-avatar');
+  }
+
+  #renderButton() {
+    return html`<div
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      @click=${this.handleOpenClick}
+      @keydown=${this.handleOpenKeydown}>
+      <span> ${this.name} </span>
+    </div>`;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      href=${ifDefined(!this.disabled ? this.href : undefined)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}>
+      <span>${this.name}</span>
+    </a>`;
+  }
+
+  public render() {
+    return html`
+      <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
+      ${this.href ? this.#renderLink() : this.#renderButton()}
+      <slot></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
+    `;
+  }
+
   static styles = [
     ...UUICardElement.styles,
     css`
@@ -90,54 +138,6 @@ export class UUICardUserElement extends UUICardElement {
       }
     `,
   ];
-
-  /**
-   * User name
-   * @type {string}
-   * @attr name
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    demandCustomElement(this, 'uui-avatar');
-  }
-
-  #renderButton() {
-    return html`<div
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : '0'}
-      @click=${this.handleOpenClick}
-      @keydown=${this.handleOpenKeydown}>
-      <span> ${this.name} </span>
-    </div>`;
-  }
-
-  #renderLink() {
-    return html`<a
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : '0'}
-      href=${ifDefined(!this.disabled ? this.href : undefined)}
-      target=${ifDefined(this.target || undefined)}
-      rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined
-      )}>
-      <span>${this.name}</span>
-    </a>`;
-  }
-
-  public render() {
-    return html`
-      <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
-      ${this.href ? this.#renderLink() : this.#renderButton()}
-      <slot></slot>
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
-    `;
-  }
 }
 
 declare global {

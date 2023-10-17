@@ -13,35 +13,20 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
  */
 @defineElement('uui-icon')
 export class UUIIconElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-        vertical-align: bottom;
-        width: 1.15em;
-        height: 1.15em;
-      }
-
-      :host svg,
-      ::slotted(svg) {
-        fill: var(--uui-icon-color, currentColor);
-      }
-
-      :host-context(div[slot='prepend']) {
-        margin-left: var(--uui-size-2, 6px);
-      }
-
-      :host-context(div[slot='append']) {
-        margin-right: var(--uui-size-2, 6px);
-      }
-    `,
-  ];
-
   private _name: string | null = null;
   private _retrievedNameIcon: boolean = false;
 
   @state()
   private _nameSvg: string | null = null;
+
+  /**
+   * An alternate description to use for assistive devices.
+   * If omitted, the icon will be considered presentational and ignored by assistive devices.
+   * @type {string}
+   * @attr
+   * @default
+   */
+  @property() label = '';
 
   /**
    * Icon name is used to retrieve the icon from a parent Icon Registry.
@@ -60,6 +45,7 @@ export class UUIIconElement extends LitElement {
       this.requestIcon();
     }
   }
+
   private requestIcon() {
     if (this._name !== '' && this._name !== null) {
       const event = new UUIIconRequestEvent(UUIIconRequestEvent.ICON_REQUEST, {
@@ -116,6 +102,19 @@ export class UUIIconElement extends LitElement {
     if (this._retrievedNameIcon === false) {
       this.requestIcon();
     }
+
+    const hasLabel = typeof this.label === 'string' && this.label.length > 0;
+
+    if (hasLabel) {
+      this.setAttribute('role', 'img');
+      this.setAttribute('aria-label', this.label);
+      this.removeAttribute('aria-hidden');
+    } else {
+      this.removeAttribute('role');
+      this.removeAttribute('aria-label');
+      this.setAttribute('aria-hidden', 'true');
+    }
+    
   }
 
   render() {
@@ -137,6 +136,30 @@ export class UUIIconElement extends LitElement {
 
     return html`<slot></slot>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-block;
+        vertical-align: bottom;
+        width: 1.15em;
+        height: 1.15em;
+      }
+
+      :host svg,
+      ::slotted(svg) {
+        fill: var(--uui-icon-color, currentColor);
+      }
+
+      :host-context(div[slot='prepend']) {
+        margin-left: var(--uui-size-2, 6px);
+      }
+
+      :host-context(div[slot='append']) {
+        margin-right: var(--uui-size-2, 6px);
+      }
+    `,
+  ];
 }
 
 declare global {

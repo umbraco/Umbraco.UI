@@ -11,6 +11,23 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-scroll-container')
 export class UUIScrollContainerElement extends LitElement {
+  /**
+   * @type {boolean}
+   * @attr forces the scrollbar to appear
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'enforce-scroll' })
+  enforceScroll = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
+    }
+  }
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -40,23 +57,6 @@ export class UUIScrollContainerElement extends LitElement {
       }
     `,
   ];
-
-  /**
-   * @type {boolean}
-   * @attr forces the scrollbar to appear
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'enforce-scroll' })
-  enforceScroll = false;
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
-  }
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

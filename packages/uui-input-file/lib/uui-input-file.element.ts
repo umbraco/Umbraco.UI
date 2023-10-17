@@ -15,59 +15,6 @@ import { repeat } from 'lit/directives/repeat.js';
  */
 @defineElement('uui-input-file')
 export class UUIInputFileElement extends FormControlMixin(LitElement) {
-  static styles = [
-    css`
-      :host {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        display: flex;
-        box-sizing: border-box;
-        border: 1px solid var(--uui-color-border);
-      }
-
-      #input {
-        position: absolute;
-        width: 0px;
-        height: 0px;
-        opacity: 0;
-        display: none;
-      }
-
-      #files {
-        display: grid;
-        box-sizing: border-box;
-        justify-items: center;
-        width: 100%;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        grid-auto-rows: min-content;
-        gap: 16px;
-        padding: 16px;
-        overflow: auto;
-        max-height: 100%;
-      }
-
-      #dropzone {
-        display: none;
-        position: absolute;
-        inset: 0px;
-        z-index: 10;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #add-button {
-        width: 150px;
-        height: 150px;
-        display: flex;
-        padding: 16px;
-        box-sizing: border-box;
-        justify-content: center;
-        align-items: stretch;
-      }
-    `,
-  ];
-
   @query('#dropzone')
   private _dropzone!: UUIFileDropzoneElement;
 
@@ -276,6 +223,59 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        border: 1px solid var(--uui-color-border);
+      }
+
+      #input {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        display: none;
+      }
+
+      #files {
+        display: grid;
+        box-sizing: border-box;
+        justify-items: center;
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-auto-rows: min-content;
+        gap: 16px;
+        padding: 16px;
+        overflow: auto;
+        max-height: 100%;
+      }
+
+      #dropzone {
+        display: none;
+        position: absolute;
+        inset: 0px;
+        z-index: 10;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #add-button {
+        width: 150px;
+        height: 150px;
+        display: flex;
+        padding: 16px;
+        box-sizing: border-box;
+        justify-content: center;
+        align-items: stretch;
+      }
+    `,
+  ];
 }
 
 declare global {

@@ -14,24 +14,6 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-input-lock')
 export class UUIInputLockElement extends UUIInputElement {
-  static styles = [
-    ...UUIInputElement.styles,
-    css`
-      #lock {
-        height: 100%;
-
-        --uui-button-padding-left-factor: 0.75;
-        --uui-button-padding-right-factor: 0.75;
-        font-size: 12px;
-      }
-
-      :host([locked]) #input {
-        cursor: not-allowed;
-        opacity: 0.55;
-      }
-    `,
-  ];
-
   /**
    * Determine the inputs locked state.
    * @type {boolean}
@@ -75,6 +57,24 @@ export class UUIInputLockElement extends UUIInputElement {
       ${this.renderIcon()}
     </uui-button>`;
   }
+
+  static styles = [
+    ...UUIInputElement.styles,
+    css`
+      #lock {
+        height: 100%;
+
+        --uui-button-padding-left-factor: 0.75;
+        --uui-button-padding-right-factor: 0.75;
+        font-size: 12px;
+      }
+
+      :host([locked]) #input {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+    `,
+  ];
 }
 
 declare global {

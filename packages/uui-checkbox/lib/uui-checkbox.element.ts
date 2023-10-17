@@ -22,6 +22,14 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
    */
   static readonly formAssociated = true;
 
+  renderCheckbox() {
+    return html`
+      <div id="ticker">
+        <div id="icon-check">${iconCheck}</div>
+      </div>
+    `;
+  }
+
   static styles = [
     ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
@@ -168,14 +176,6 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       }
     `,
   ];
-
-  renderCheckbox() {
-    return html`
-      <div id="ticker">
-        <div id="icon-check">${iconCheck}</div>
-      </div>
-    `;
-  }
 }
 
 declare global {

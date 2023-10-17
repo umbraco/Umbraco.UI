@@ -25,81 +25,6 @@ declare global {
 // TODO: Consider if this should use child items instead of an array.
 @defineElement('uui-select')
 export class UUISelectElement extends FormControlMixin(LitElement) {
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        font-family: inherit;
-      }
-
-      #native {
-        display: inline-block;
-        font-family: inherit;
-        font-size: var(--uui-select-font-size, var(--uui-size-5));
-        height: var(--uui-select-height, var(--uui-size-11));
-        width: 100%;
-        padding: var(--uui-select-padding-y, var(--uui-size-1))
-          var(--uui-select-padding-x, var(--uui-size-2));
-        color: currentColor;
-        border-radius: 0;
-        box-sizing: border-box;
-        background-color: transparent;
-        border: 1px solid
-          var(--uui-select-border-color, var(--uui-color-border));
-        transition: all 150ms ease;
-      }
-
-      #native:focus {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-
-      #native[disabled] {
-        cursor: not-allowed;
-        background-color: var(
-          --uui-select-disabled-background-color,
-          var(--uui-color-disabled)
-        );
-      }
-
-      #native:hover {
-        border: 1px solid
-          var(--uui-select-border-color-hover, var(--uui-color-border-emphasis));
-      }
-
-      option:checked {
-        background: var(
-          --uui-select-selected-option-background-color,
-          var(--uui-color-selected)
-        );
-        color: var(
-          --uui-select-selected-option-color,
-          var(--uui-color-selected-contrast)
-        );
-      }
-
-      /* TODO: a proper focus style has to be implemented. it needs it's own variables */
-      #native:focus {
-        outline-color: var(--uui-select-outline-color, var(--uui-color-focus));
-      }
-
-      #caret {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      :host([error]) #native {
-        border: 1px solid var(--uui-color-danger-standalone);
-      }
-
-      :host([error]) #native[disabled] {
-        border: 1px solid var(--uui-color-danger-standalone);
-      }
-    `,
-  ];
-
   /**
    * Text with which component should be labeled
    * @type {string}
@@ -306,6 +231,81 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         )}
     </select>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        font-family: inherit;
+      }
+
+      #native {
+        display: inline-block;
+        font-family: inherit;
+        font-size: var(--uui-select-font-size, var(--uui-size-5));
+        height: var(--uui-select-height, var(--uui-size-11));
+        width: 100%;
+        padding: var(--uui-select-padding-y, var(--uui-size-1))
+          var(--uui-select-padding-x, var(--uui-size-2));
+        color: currentColor;
+        border-radius: 0;
+        box-sizing: border-box;
+        background-color: transparent;
+        border: 1px solid
+          var(--uui-select-border-color, var(--uui-color-border));
+        transition: all 150ms ease;
+      }
+
+      #native:focus {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+
+      #native[disabled] {
+        cursor: not-allowed;
+        background-color: var(
+          --uui-select-disabled-background-color,
+          var(--uui-color-disabled)
+        );
+      }
+
+      #native:hover {
+        border: 1px solid
+          var(--uui-select-border-color-hover, var(--uui-color-border-emphasis));
+      }
+
+      option:checked {
+        background: var(
+          --uui-select-selected-option-background-color,
+          var(--uui-color-selected)
+        );
+        color: var(
+          --uui-select-selected-option-color,
+          var(--uui-color-selected-contrast)
+        );
+      }
+
+      /* TODO: a proper focus style has to be implemented. it needs it's own variables */
+      #native:focus {
+        outline-color: var(--uui-select-outline-color, var(--uui-color-focus));
+      }
+
+      #caret {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      :host([error]) #native {
+        border: 1px solid var(--uui-color-danger-standalone);
+      }
+
+      :host([error]) #native[disabled] {
+        border: 1px solid var(--uui-color-danger-standalone);
+      }
+    `,
+  ];
 }
 
 declare global {

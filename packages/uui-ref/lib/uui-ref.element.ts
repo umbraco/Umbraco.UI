@@ -19,6 +19,36 @@ import { UUIRefEvent } from './UUIRefEvent';
 export class UUIRefElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
 ) {
+  /**
+   * Set tot true to disable
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Set to true to display error state
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
+  protected handleOpenClick(e: Event) {
+    e.stopPropagation();
+    this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
+  }
+  protected handleOpenKeydown(e: KeyboardEvent) {
+    // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
+    if (e.key !== ' ' && e.key !== 'Enter') return;
+    e.preventDefault();
+    e.stopPropagation();
+    this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
+  }
+
   static styles = [
     css`
       :host {
@@ -170,36 +200,6 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
     `,
   ];
-
-  /**
-   * Set tot true to disable
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  /**
-   * Set to true to display error state
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  protected handleOpenClick(e: Event) {
-    e.stopPropagation();
-    this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
-  }
-  protected handleOpenKeydown(e: KeyboardEvent) {
-    // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
-    if (e.key !== ' ' && e.key !== 'Enter') return;
-    e.preventDefault();
-    e.stopPropagation();
-    this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
-  }
 }
 
 declare global {
