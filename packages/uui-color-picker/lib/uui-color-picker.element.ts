@@ -46,12 +46,13 @@ interface EyeDropperInterface {
   open: () => Promise<{ sRGBHex: string }>;
 }
 
-export type UUIColorPickerFormat = 'hex' | 'rgb' | 'hsl';
+export type UUIColorPickerFormat = 'hex' | 'rgb' | 'hsl' | 'hsv';
 export type UUIColorPickerFormatWithAlpha =
   | UUIColorPickerFormat
   | 'hexa'
   | 'rgba'
-  | 'hsla';
+  | 'hsla'
+  | 'hsva';
 
 declare const EyeDropper: EyeDropperConstructor;
 
@@ -85,7 +86,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @property() value = '';
 
   /**
-   * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, and HSLA
+   * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA
    * respectively. The color picker will always accept user input in any format (including CSS color names) and convert
    * it to the desired format.
    * @attr
@@ -153,7 +154,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   /**
    * An array of predefined color swatches to display. Can include any format the color picker can parse, including
-   * HEX(A), RGB(A), HSL(A), and CSS color names.
+   * HEX(A), RGB(A), HSL(A), HSV(A), and CSS color names.
    */
   @property({ attribute: false }) swatches: string[] = [
     '#d0021b',
@@ -198,26 +199,31 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;
-    const { h, l, s } = this._colord.toHsl();
+    const hexa = this._colord.toHex();
+    const hex = hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa;
+
     const { r, g, b } = this._colord.toRgb();
-    const hexa = this.setLetterCase(this._colord.toHex());
-    const hex = this.setLetterCase(
-      hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa
-    );
+    const { h, s, l } = this._colord.toHsl();
+    const { v } = this._colord.toHsv();
+    const a = this._colord.alpha();
 
     switch (formatToUse) {
       case 'hex':
-        return hex;
+        return this.setLetterCase(hex);
       case 'hexa':
-        return hexa;
+        return this.setLetterCase(hexa);
       case 'rgb':
-        return `rgb(${r} ${g} ${b})`;
+        return this.setLetterCase(`rgb(${r}, ${g}, ${b})`);
       case 'rgba':
-        return this._colord.toRgbString();
+        return this.setLetterCase(this._colord.toRgbString());
       case 'hsl':
-        return `hsl(${h} ${s} ${l})`;
+        return this.setLetterCase(`hsl(${h}, ${s}%, ${l}%)`);
       case 'hsla':
-        return this._colord.toHslString();
+        return this.setLetterCase(this._colord.toHslString());
+      case 'hsv':
+        return this.setLetterCase(`hsv(${h}, ${s}%, ${l}%)`);
+      case 'hsva':
+        return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`); //this._colord.toHsvString();
       default:
         return '';
     }
@@ -236,9 +242,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   handleFormatToggle() {
-    const formats = ['hex', 'rgb', 'hsl'];
+    const formats = ['hex', 'rgb', 'hsl', 'hsv'];
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
-    this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl';
+    this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this._syncValues();
   }
 
