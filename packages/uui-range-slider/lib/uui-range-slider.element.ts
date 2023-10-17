@@ -4,7 +4,7 @@ import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { property, query, state } from 'lit/decorators.js';
 
 import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
-import { clamp } from '@umbraco-ui/uui-base';
+import { clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 const Z_INDEX = {
   TOP: 3,
