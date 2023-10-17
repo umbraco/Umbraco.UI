@@ -19,7 +19,9 @@ describe('UUIRangeSliderElement', () => {
   let inputHigh: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<uui-range-slider></uui-range-slider>`);
+    element = await fixture(
+      html`<uui-range-slider min="10" max="100"></uui-range-slider>`
+    );
     inputLow = element.shadowRoot?.querySelector(
       '#inputLow'
     ) as HTMLInputElement;

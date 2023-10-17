@@ -575,9 +575,6 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   render() {
     return html`
-      Value:${this.value} | inputs:
-      ${this._lowInputValue},${this._highInputValue}
-      <br /><br />
       <div id="range-slider">
         ${this._renderNativeInputs()}
         <div id="inner-track">
