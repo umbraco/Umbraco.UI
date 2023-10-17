@@ -15,6 +15,9 @@ const THUMB_SIZE = 18;
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
 
+// TODO: ability to focus on the range, to enable keyboard interaction to move the range.
+// TODO: Ability to click outside a range, to move the range if the maxGap has been reached.
+// TODO: .
 /**
  * @element uui-range-slider
  * @description - Range slider with two handles. Use uui-slider for a single handle.
@@ -642,9 +645,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       const colorEnd = this._highInputValue - this._min;
 
       if (cx / trackValue >= colorStart && cx / trackValue <= colorEnd) {
-        return svg`<circle class="track-step filled" cx="${cx}" cy="50%" r="4.5" />`;
+        return svg`<circle class="track-step filled" cx="${cx}" cy="5" r="4.5" />`;
       } else {
-        return svg`<circle class="track-step regular" cx="${cx}" cy="50%" r="4.5" />`;
+        return svg`<circle class="track-step regular" cx="${cx}" cy="5" r="4.5" />`;
       }
     })}`;
   }
@@ -682,13 +685,15 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
-        --color-interactive: var(--uui-color-interactive-emphasis);
+        --color-interactive: var(--uui-color-selected);
+        --color-hover: var(--uui-color-selected-emphasis);
         --color-focus: var(--uui-color-focus);
         min-height: 30px;
       }
 
       :host([error]) {
         --color-interactive: var(--uui-color-danger-standalone);
+        --color-hover: var(--uui-color-danger);
       }
 
       #range-slider {
@@ -716,13 +721,13 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       }
 
       #inner-color-thumb {
-        margin: -8px 0 0;
+        margin: -9px 0 0;
         position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 16px;
-        cursor: pointer;
+        height: ${THUMB_SIZE}px;
+        cursor: grab;
         user-select: none;
         z-index: ${Z_INDEX.CENTER};
       }
@@ -737,10 +742,16 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         background-color: var(--uui-palette-mine-grey) !important;
       }
 
-      #inner-color-thumb:hover .color,
-      #inner-color-thumb:focus .color,
-      #inner-color-thumb .active {
+      #inner-color-thumb:focus .color {
         background-color: var(--color-focus);
+      }
+      #inner-color-thumb:hover .color,
+      #inner-color-thumb .color.active {
+        background-color: var(--color-hover);
+      }
+      #inner-color-thumb:hover .color {
+        height: 5px;
+        background-color: var(--color-hover);
       }
 
       .color {
@@ -748,8 +759,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         position: absolute;
         inset-inline: 0;
         height: 3px;
-        transform: translateY(50%);
+        transform: translateY(2px);
         background-color: var(--color-interactive);
+        transition: height 60ms;
       }
 
       :host([error]) .color {
@@ -763,8 +775,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       /** Steps */
       .step-wrapper {
         margin: 0 ${-1 * TRACK_PADDING}px;
-        height: 10px;
-        transform: translateY(-100%);
+        height: 11px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -10px;
       }
 
       /** Step circles */
@@ -778,7 +793,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       }
 
       :host .track-step.filled {
-        fill: var(--uui-color-interactive-emphasis);
+        fill: var(--color-interactive);
       }
 
       :host([error]) .track-step.filled {
@@ -787,7 +802,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
       :host #inner-color-thumb.active ~ .step-wrapper .track-step.filled,
       :host #inner-color-thumb:hover ~ .step-wrapper .track-step.filled {
-        fill: var(--uui-color-focus);
+        fill: var(--color-hover);
       }
 
       :host([disabled]) #range-slider .track-step.filled {
@@ -829,6 +844,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         appearance: none;
         pointer-events: none;
         position: absolute;
+        cursor: pointer;
         background-color: transparent;
         inset-inline: 0;
         width: 100%;
@@ -873,7 +889,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       input::-webkit-slider-thumb {
         -webkit-appearance: none;
         pointer-events: all;
-        cursor: pointer;
+        cursor: grab;
         position: relative;
         z-index: ${Z_INDEX.TOP};
         width: ${THUMB_SIZE}px;
@@ -889,19 +905,16 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         cursor: default;
       }
 
-      input:focus-within::-webkit-slider-thumb {
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
-          inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
-      }
-
+      input:focus-within::-webkit-slider-thumb,
       input.focus::-webkit-slider-thumb {
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
+        background-color: var(--color-focus);
+        box-shadow: inset 0 0 0 2px var(--color-focus),
           inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
       }
-
       input::-webkit-slider-thumb:hover {
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
-          inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
+        background-color: var(--color-hover);
+        box-shadow: inset 0 0 0 2px var(--color-hover),
+          inset 0 0 0 4px var(--uui-color-surface);
       }
 
       :host([disabled]) #range-slider input::-webkit-slider-thumb {
@@ -915,7 +928,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       input::-moz-range-thumb {
         -moz-appearance: none;
         pointer-events: all;
-        cursor: pointer;
+        cursor: grab;
         position: relative;
         z-index: ${Z_INDEX.TOP};
         width: ${THUMB_SIZE}px;
@@ -931,19 +944,16 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         cursor: default;
       }
 
-      input:focus-within::-moz-range-thumb {
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
-          inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
-      }
-
+      input:focus-within::-moz-range-thumb,
       input.focus::-moz-range-thumb {
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
+        background-color: var(--color-focus);
+        box-shadow: inset 0 0 0 2px var(--color-focus),
           inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
       }
-
       input::-moz-range-thumb:hover {
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
-          inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
+        background-color: var(--color-hover);
+        box-shadow: inset 0 0 0 2px var(--color-hover),
+          inset 0 0 0 4px var(--uui-color-surface);
       }
 
       :host([disabled]) #range-slider input::-moz-range-thumb {
