@@ -170,30 +170,48 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   @state()
   _highValuePercentEnd = 100;
 
-  protected setValue(low: number, high: number) {
-    low = clamp(
-      low,
-      this._min,
-      this._minGap
-        ? this._highInputValue - this._minGap
-        : this._highInputValue - this._step
-    );
+  protected setValueLow(low: number) {
+    let high = this._highInputValue;
+
+    // Clamp values to ensure that the high value fits within the new position of low (making it follow along):
     high = clamp(
       high,
-      this._minGap
-        ? this._lowInputValue + this._minGap
-        : this._lowInputValue + this._step,
-      Math.min(this._maxGap ? this._min + this._maxGap : this._max, this._max)
+      this._minGap ? low + this._minGap : low + this._step,
+      Math.min(this._maxGap ? low + this._maxGap : this._max, this._max)
     );
-    this.value = `${low},${high}`;
-  }
 
-  protected setValueLow(low: number) {
-    this.setValue(low, this._highInputValue);
+    this.setValue(low, high);
   }
 
   protected setValueHigh(high: number) {
-    this.setValue(this._lowInputValue, high);
+    let low = this._lowInputValue;
+
+    // Clamp values to ensure that the low value fits within the new position of high (making it follow along):
+    low = clamp(
+      low,
+      Math.max(this._maxGap ? high - this._maxGap : this._min, this._min),
+      this._minGap ? high - this._minGap : high - this._step
+    );
+
+    this.setValue(low, high);
+  }
+
+  protected setValue(low: number, high: number) {
+    // Get the length of the range, and ensure its within the min and max gap:
+    const length = clamp(
+      high - low,
+      this.minGap ? this.minGap : this._min,
+      this.maxGap ? this.maxGap : this._max
+    );
+
+    // Clamp values to make sure it keeps its length:
+    low = clamp(low, this._min, this._max - length);
+    high = clamp(high, this._min + length, this._max);
+    this.value = `${low},${high}`;
+
+    // Overwrite input value, to enforce the calculated value and avoid the native slider moving to a invalid position:
+    this._inputLow.value = low.toString();
+    this._inputHigh.value = high.toString();
   }
 
   #transferValueToInternalValues() {
@@ -201,9 +219,14 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     let low = Number(valueSplit[0]) ?? 0;
     let high = Number(valueSplit[1]) ?? 0;
 
+    // First secure that the high value are within range (low does not need as its being handled below)
+    high = clamp(high, this._min, this._max);
+
+    // Make sure it matches the steps:
     low = this._min + Math.round((low - this._min) / this._step) * this._step;
     high = this._min + Math.round((high - this._min) / this._step) * this._step;
 
+    // Fit with gaps:
     this._lowInputValue = clamp(
       low,
       this._min,
@@ -214,7 +237,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
       this._minGap
         ? this._lowInputValue + this._minGap
         : this._lowInputValue + this._step,
-      Math.min(this._maxGap ? this._min + this._maxGap : this._max, this._max)
+      Math.min(this._maxGap ? low + this._maxGap : this._max, this._max)
     );
 
     this._updateInnerColor();
@@ -499,8 +522,8 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     const dragValue =
       Math.round((dragPercent * trackDiff) / this._step) * this._step;
 
-    const newValueLow = Math.max(this.startPoint.low + dragValue, this._min);
-    const newValueHigh = Math.min(this.startPoint.high + dragValue, this._max);
+    const newValueLow = this.startPoint.low + dragValue;
+    const newValueHigh = this.startPoint.high + dragValue;
 
     this.setValue(newValueLow, newValueHigh);
     this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));

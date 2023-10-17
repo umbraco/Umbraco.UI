@@ -12,6 +12,15 @@
   "references": [
     {
       "path": "../uui-base"
+    },
+    {
+      "path": "../uui-button"
+    },
+    {
+      "path": "../uui-popover-container"
+    },
+    {
+      "path": "../uui-symbol-more"
     }
   ]
 }
