@@ -2,7 +2,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, svg } from 'lit';
 import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { property, query, state } from 'lit/decorators.js';
-
 import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
 import { clamp } from '@umbraco-ui/uui-base/lib/utils';
 
@@ -171,53 +170,58 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
   _highValuePercentEnd = 100;
 
   protected setValueLow(low: number) {
-    let high = this._highInputValue;
-
-    // Clamp values to ensure that the high value fits within the new position of low (making it follow along):
-    high = clamp(
-      high,
-      this._minGap ? low + this._minGap : low + this._step,
-      Math.min(this._maxGap ? low + this._maxGap : this._max, this._max)
+    // Clamp value to ensure it fits within its restrictions
+    low = clamp(
+      low,
+      this.maxGap
+        ? this._highInputValue - this.maxGap > this.min
+          ? this._highInputValue - this.maxGap
+          : this.min
+        : this.min,
+      this.minGap
+        ? this._highInputValue - this.minGap
+        : this._highInputValue - this.step
     );
-
-    this.setValue(low, high);
+    this.setValue(low, this._highInputValue);
   }
 
   protected setValueHigh(high: number) {
-    let low = this._lowInputValue;
-
-    // Clamp values to ensure that the low value fits within the new position of high (making it follow along):
-    low = clamp(
-      low,
-      Math.max(this._maxGap ? high - this._maxGap : this._min, this._min),
-      this._minGap ? high - this._minGap : high - this._step
+    // Clamp value to ensure it fits within its restrictions
+    high = clamp(
+      high,
+      this.minGap
+        ? this._lowInputValue + this.minGap
+        : this._lowInputValue + this.step,
+      this.maxGap
+        ? this.maxGap + this._lowInputValue < this.max
+          ? this.maxGap + this._lowInputValue
+          : this.max
+        : this.max
     );
-
-    this.setValue(low, high);
+    this.setValue(this._lowInputValue, high);
   }
 
-  protected setValue(low: number, high: number) {
-    // Get the length of the range, and ensure its within the min and max gap:
-    const length = clamp(
-      high - low,
-      this.minGap ? this.minGap : this._min,
-      this.maxGap ? this.maxGap : this._max
-    );
+  protected setValue(low: number, high: number, lockValueRange?: boolean) {
+    if (lockValueRange) {
+      // Get the length of the range
+      const length = this.startPoint.high - this.startPoint.low;
 
-    // Clamp values to make sure it keeps its length:
-    low = clamp(low, this._min, this._max - length);
-    high = clamp(high, this._min + length, this._max);
-    this.value = `${low},${high}`;
+      // Clamp values to make sure it keeps its length:
+      low = clamp(low, this.min, this.max - length);
+      high = clamp(high, this.min + length, this.max);
+    }
 
     // Overwrite input value, to enforce the calculated value and avoid the native slider moving to a invalid position:
     this._inputLow.value = low.toString();
     this._inputHigh.value = high.toString();
+
+    this.value = `${low},${high}`;
   }
 
   #transferValueToInternalValues() {
     const valueSplit = (this.value as string).split(',');
-    let low = Number(valueSplit[0]) ?? 0;
-    let high = Number(valueSplit[1]) ?? 0;
+    let low = Number(valueSplit[0]) || 0;
+    let high = Number(valueSplit[1]) || 0;
 
     // First secure that the high value are within range (low does not need as its being handled below)
     high = clamp(high, this._min, this._max);
@@ -277,7 +281,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     this.addEventListener('touchstart', this._onTouchStart);
 
     window.addEventListener('resize', () => {
-      this._trackWidth = this._outerTrack.offsetWidth;
+      this._trackWidth = this._outerTrack?.offsetWidth;
     });
   }
 
@@ -399,8 +403,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     const scopedLow = this._lowInputValue - this._min;
     const scopedHigh = this._highInputValue - this._min;
 
-    this._lowValuePercentStart = (scopedLow / scopeLength) * 100;
-    this._highValuePercentEnd = 100 - (scopedHigh / scopeLength) * 100;
+    const leftPercent = (scopedLow / scopeLength) * 100;
+    const rightPercent = 100 - (scopedHigh / scopeLength) * 100;
+
+    this._lowValuePercentStart = clamp(leftPercent, 0, 100);
+    this._highValuePercentEnd = clamp(rightPercent, 0, 100);
   }
 
   private _getClickedValue(pageX: number) {
@@ -525,7 +532,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
     const newValueLow = this.startPoint.low + dragValue;
     const newValueHigh = this.startPoint.high + dragValue;
 
-    this.setValue(newValueLow, newValueHigh);
+    this.setValue(newValueLow, newValueHigh, true);
     this.dispatchEvent(new UUIRangeSliderEvent(UUIRangeSliderEvent.INPUT));
   }
 
@@ -568,6 +575,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   render() {
     return html`
+      Value:${this.value} | inputs:
+      ${this._lowInputValue},${this._highInputValue}
+      <br /><br />
       <div id="range-slider">
         ${this._renderNativeInputs()}
         <div id="inner-track">
@@ -703,6 +713,11 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
       }
 
+      :host(:not([disabled]):hover) #inner-track,
+      :host(:not([disabled]):active) #inner-track {
+        background-color: var(--uui-color-border-emphasis);
+      }
+
       #inner-color-thumb {
         margin: -8px 0 0;
         position: absolute;
@@ -760,8 +775,9 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
         fill: var(--uui-color-border);
       }
 
-      :host(:not([disabled])) #inner-track:hover .track-step.regular {
-        fill: var(--uui-color-divider-emphasis);
+      :host(:not([disabled]):hover) #inner-track .track-step.regular,
+      :host(:not([disabled]):active) #inner-track .track-step.regular {
+        fill: var(--uui-color-border-emphasis);
       }
 
       :host .track-step.filled {
