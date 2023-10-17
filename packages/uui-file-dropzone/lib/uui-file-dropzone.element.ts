@@ -13,48 +13,6 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
  */
 @defineElement('uui-file-dropzone')
 export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
-  static styles = [
-    css`
-      #dropzone {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        padding: var(--uui-size-4);
-        border: 3px solid transparent;
-        margin: -3px;
-        backdrop-filter: blur(2px);
-      }
-      #dropzone.hover {
-        border-color: var(--uui-color-default);
-      }
-      #dropzone.hover::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: 0.2;
-        border-color: var(--uui-color-default);
-        background-color: var(--uui-color-default);
-      }
-      #symbol {
-        color: var(--uui-color-default);
-        max-width: 100%;
-        max-height: 100%;
-      }
-      #input {
-        position: absolute;
-        width: 0px;
-        height: 0px;
-        opacity: 0;
-        display: none;
-      }
-    `,
-  ];
-
   @query('#input')
   private _input!: HTMLInputElement;
 
@@ -282,6 +240,48 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      #dropzone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: var(--uui-size-4);
+        border: 3px solid transparent;
+        margin: -3px;
+        backdrop-filter: blur(2px);
+      }
+      #dropzone.hover {
+        border-color: var(--uui-color-default);
+      }
+      #dropzone.hover::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.2;
+        border-color: var(--uui-color-default);
+        background-color: var(--uui-color-default);
+      }
+      #symbol {
+        color: var(--uui-color-default);
+        max-width: 100%;
+        max-height: 100%;
+      }
+      #input {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        display: none;
+      }
+    `,
+  ];
 }
 
 declare global {

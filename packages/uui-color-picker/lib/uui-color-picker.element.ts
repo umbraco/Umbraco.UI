@@ -46,12 +46,13 @@ interface EyeDropperInterface {
   open: () => Promise<{ sRGBHex: string }>;
 }
 
-export type UUIColorPickerFormat = 'hex' | 'rgb' | 'hsl';
+export type UUIColorPickerFormat = 'hex' | 'rgb' | 'hsl' | 'hsv';
 export type UUIColorPickerFormatWithAlpha =
   | UUIColorPickerFormat
   | 'hexa'
   | 'rgba'
-  | 'hsla';
+  | 'hsla'
+  | 'hsva';
 
 declare const EyeDropper: EyeDropperConstructor;
 
@@ -65,151 +66,6 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  */
 @defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
-  static styles = [
-    css`
-      :host {
-        --uui-look-outline-border: #ddd;
-        --uui-look-outline-border-hover: #aaa;
-        font-size: 0.8rem;
-        display: block;
-        width: var(--uui-color-picker-width, 280px);
-      }
-      .color-picker {
-        width: 100%;
-        background-color: #fff;
-        user-select: none;
-        border: solid 1px #e4e4e7;
-      }
-      .color-picker__user-input {
-        display: flex;
-        padding: 0 0.75rem 0.75rem 0.75rem;
-      }
-      .color-picker__user-input uui-button {
-        border: var(--uui-input-border-width, 1px) solid
-          var(--uui-input-border-color, var(--uui-color-border));
-        border-left: none;
-      }
-      .color-picker__preview,
-      .color-picker__trigger {
-        flex: 0 0 auto;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        width: 2.25rem;
-        height: 2.25rem;
-        border: none;
-        border-radius: 50%;
-        background: none;
-      }
-      .color-picker__preview {
-        cursor: copy;
-        margin-left: 0.75rem;
-        border-radius: 50%;
-      }
-      .color-picker__trigger[disabled] {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
-      .color-picker__preview::before,
-      .color-picker__trigger::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: inherit;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
-        /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
-        background-color: var(--preview-color);
-      }
-
-      .color-dropdown__trigger--empty::before {
-        background-color: transparent;
-      }
-
-      .color-picker__transparent-bg {
-        background-image: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
-        background-size: 10px 10px;
-        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
-      }
-
-      .color-picker__preview-color--copied {
-        animation: pulse 0.75s;
-      }
-
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 var(--uui-palette-space-cadet-light);
-        }
-        70% {
-          box-shadow: 0 0 0 0.5rem transparent;
-        }
-        100% {
-          box-shadow: 0 0 0 0 transparent;
-        }
-      }
-
-      .color-picker__controls {
-        padding: 0.75rem;
-        display: flex;
-        align-items: center;
-      }
-      .color-picker__sliders {
-        flex: 1 1 auto;
-      }
-
-      uui-color-slider:not(:last-of-type) {
-        margin-bottom: 1rem;
-      }
-
-      .color-picker__toggle-format {
-        min-width: 45px;
-        --uui-button-font-size: 0.8rem;
-      }
-      .color-picker__toggle-format > span {
-        text-transform: uppercase;
-      }
-
-      uui-color-swatches {
-        border-top: solid 1px #d4d4d8;
-        padding: 0.75rem;
-      }
-
-      button[slot='trigger'] {
-        border-radius: 50%;
-        cursor: pointer;
-        width: 36px;
-        height: 36px;
-      }
-
-      uui-popover {
-        display: block;
-        width: 100%;
-        margin: 5px 0;
-      }
-
-      uui-input {
-        /*  lower the font size to avoid overflow with hlsa format */
-        font-size: 0.85rem;
-        box-sizing: content-box;
-        flex: 1;
-      }
-
-      uui-color-area {
-        width: 100%;
-      }
-    `,
-  ];
-
   @query('[part="input"]') _input!: UUIInputElement;
   @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
   @query('#swatches') _swatches!: UUIColorSwatchesElement;
@@ -230,7 +86,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @property() value = '';
 
   /**
-   * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, and HSLA
+   * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA
    * respectively. The color picker will always accept user input in any format (including CSS color names) and convert
    * it to the desired format.
    * @attr
@@ -298,7 +154,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   /**
    * An array of predefined color swatches to display. Can include any format the color picker can parse, including
-   * HEX(A), RGB(A), HSL(A), and CSS color names.
+   * HEX(A), RGB(A), HSL(A), HSV(A), and CSS color names.
    */
   @property({ attribute: false }) swatches: string[] = [
     '#d0021b',
@@ -343,26 +199,31 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;
-    const { h, l, s } = this._colord.toHsl();
+    const hexa = this._colord.toHex();
+    const hex = hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa;
+
     const { r, g, b } = this._colord.toRgb();
-    const hexa = this.setLetterCase(this._colord.toHex());
-    const hex = this.setLetterCase(
-      hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa
-    );
+    const { h, s, l } = this._colord.toHsl();
+    const { v } = this._colord.toHsv();
+    const a = this._colord.alpha();
 
     switch (formatToUse) {
       case 'hex':
-        return hex;
+        return this.setLetterCase(hex);
       case 'hexa':
-        return hexa;
+        return this.setLetterCase(hexa);
       case 'rgb':
-        return `rgb(${r} ${g} ${b})`;
+        return this.setLetterCase(`rgb(${r}, ${g}, ${b})`);
       case 'rgba':
-        return this._colord.toRgbString();
+        return this.setLetterCase(this._colord.toRgbString());
       case 'hsl':
-        return `hsl(${h} ${s} ${l})`;
+        return this.setLetterCase(`hsl(${h}, ${s}%, ${l}%)`);
       case 'hsla':
-        return this._colord.toHslString();
+        return this.setLetterCase(this._colord.toHslString());
+      case 'hsv':
+        return this.setLetterCase(`hsv(${h}, ${s}%, ${l}%)`);
+      case 'hsva':
+        return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`); //this._colord.toHsvString();
       default:
         return '';
     }
@@ -381,9 +242,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   handleFormatToggle() {
-    const formats = ['hex', 'rgb', 'hsl'];
+    const formats = ['hex', 'rgb', 'hsl', 'hsv'];
     const nextIndex = (formats.indexOf(this.format) + 1) % formats.length;
-    this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl';
+    this.format = formats[nextIndex] as 'hex' | 'rgb' | 'hsl' | 'hsv';
     this._syncValues();
   }
 
@@ -693,6 +554,151 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       ? this._renderColorPicker()
       : this._renderPreviewButton();
   }
+
+  static styles = [
+    css`
+      :host {
+        --uui-look-outline-border: #ddd;
+        --uui-look-outline-border-hover: #aaa;
+        font-size: 0.8rem;
+        display: block;
+        width: var(--uui-color-picker-width, 280px);
+      }
+      .color-picker {
+        width: 100%;
+        background-color: #fff;
+        user-select: none;
+        border: solid 1px #e4e4e7;
+      }
+      .color-picker__user-input {
+        display: flex;
+        padding: 0 0.75rem 0.75rem 0.75rem;
+      }
+      .color-picker__user-input uui-button {
+        border: var(--uui-input-border-width, 1px) solid
+          var(--uui-input-border-color, var(--uui-color-border));
+        border-left: none;
+      }
+      .color-picker__preview,
+      .color-picker__trigger {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 2.25rem;
+        height: 2.25rem;
+        border: none;
+        border-radius: 50%;
+        background: none;
+      }
+      .color-picker__preview {
+        cursor: copy;
+        margin-left: 0.75rem;
+        border-radius: 50%;
+      }
+      .color-picker__trigger[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+      .color-picker__preview::before,
+      .color-picker__trigger::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+        /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
+        background-color: var(--preview-color);
+      }
+
+      .color-dropdown__trigger--empty::before {
+        background-color: transparent;
+      }
+
+      .color-picker__transparent-bg {
+        background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+        background-size: 10px 10px;
+        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
+      }
+
+      .color-picker__preview-color--copied {
+        animation: pulse 0.75s;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 var(--uui-palette-space-cadet-light);
+        }
+        70% {
+          box-shadow: 0 0 0 0.5rem transparent;
+        }
+        100% {
+          box-shadow: 0 0 0 0 transparent;
+        }
+      }
+
+      .color-picker__controls {
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+      }
+      .color-picker__sliders {
+        flex: 1 1 auto;
+      }
+
+      uui-color-slider:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
+
+      .color-picker__toggle-format {
+        min-width: 45px;
+        --uui-button-font-size: 0.8rem;
+      }
+      .color-picker__toggle-format > span {
+        text-transform: uppercase;
+      }
+
+      uui-color-swatches {
+        border-top: solid 1px #d4d4d8;
+        padding: 0.75rem;
+      }
+
+      button[slot='trigger'] {
+        border-radius: 50%;
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+      }
+
+      uui-popover {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+      }
+
+      uui-input {
+        /*  lower the font size to avoid overflow with hlsa format */
+        font-size: 0.85rem;
+        box-sizing: content-box;
+        flex: 1;
+      }
+
+      uui-color-area {
+        width: 100%;
+      }
+    `,
+  ];
 }
 
 declare global {

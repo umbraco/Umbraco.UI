@@ -28,6 +28,171 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 export class UUIMenuItemElement extends SelectOnlyMixin(
   SelectableMixin(ActiveMixin(LabelMixin('label', LitElement)))
 ) {
+  /**
+   * Disables the menu item, changes the looks of it and prevents it from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  public disabled = false;
+
+  /**
+   * Controls if nested items should be shown.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'show-children' })
+  public showChildren = false;
+
+  // TODO: Should this be a getter that just checks on its own if there is any children?
+  /**
+   * Shows/hides the caret.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'has-children' })
+  public hasChildren = false;
+
+  /**
+   * Shows/hides the loading indicator
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'loading' })
+  public loading = false;
+
+  /**
+   * Set an href, this will turns the label into a anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  /**
+   * Sets the selection mode.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String, attribute: 'select-mode', reflect: true })
+  public selectMode?: 'highlight' | 'persisting';
+
+  @state()
+  private iconSlotHasContent = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
+
+    demandCustomElement(this, 'uui-symbol-expand');
+    demandCustomElement(this, 'uui-loader-bar');
+  }
+
+  private _labelButtonChanged = (label?: Element | undefined) => {
+    this.selectableTarget = label || this;
+  };
+
+  private _iconSlotChanged = (e: any): void => {
+    this.iconSlotHasContent =
+      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+  };
+
+  private _onCaretClicked = () => {
+    const eventName = this.showChildren
+      ? UUIMenuItemEvent.HIDE_CHILDREN
+      : UUIMenuItemEvent.SHOW_CHILDREN;
+    const event = new UUIMenuItemEvent(eventName, { cancelable: true });
+    this.dispatchEvent(event);
+
+    if (event.defaultPrevented) return;
+
+    this.showChildren = !this.showChildren;
+  };
+
+  private _onLabelClicked = () => {
+    const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
+    this.dispatchEvent(event);
+  };
+
+  private _renderLabelInside() {
+    return html` <slot
+        name="icon"
+        id="icon"
+        style=${this.iconSlotHasContent ? '' : 'display: none;'}
+        @slotchange=${this._iconSlotChanged}></slot>
+      ${this.renderLabel()}
+      <slot name="badge" id="badge"> </slot>`;
+  }
+
+  private _renderLabelAsAnchor() {
+    if (this.disabled) {
+      return html` <span id="label-button" ${ref(this._labelButtonChanged)}>
+        ${this._renderLabelInside()}
+      </span>`;
+    }
+    return html` <a
+      id="label-button"
+      ${ref(this._labelButtonChanged)}
+      href=${ifDefined(this.href)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}
+      @click=${this._onLabelClicked}
+      ?disabled=${this.disabled}
+      aria-label="${this.label}">
+      ${this._renderLabelInside()}
+    </a>`;
+  }
+
+  private _renderLabelAsButton() {
+    return html` <button
+      id="label-button"
+      ${ref(this._labelButtonChanged)}
+      @click=${this._onLabelClicked}
+      ?disabled=${this.disabled}
+      aria-label="${this.label}">
+      ${this._renderLabelInside()}
+    </button>`;
+  }
+
+  render() {
+    return html`
+      <div id="menu-item" aria-label="menuitem" role="menuitem">
+        ${this.hasChildren
+          ? html`<button id="caret-button" @click=${this._onCaretClicked}>
+              <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
+            </button>`
+          : ''}
+        ${this.href ? this._renderLabelAsAnchor() : this._renderLabelAsButton()}
+
+        <div id="label-button-background"></div>
+        ${this.selectOnly === false
+          ? html`<slot id="actions-container" name="actions"></slot>`
+          : ''}
+        ${this.loading
+          ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
+          : ''}
+      </div>
+      ${this.showChildren ? html`<slot></slot>` : ''}
+    `;
+  }
+
   static styles = [
     css`
       :host {
@@ -342,171 +507,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
     `,
   ];
-
-  /**
-   * Disables the menu item, changes the looks of it and prevents it from emitting the click event
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  public disabled = false;
-
-  /**
-   * Controls if nested items should be shown.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'show-children' })
-  public showChildren = false;
-
-  // TODO: Should this be a getter that just checks on its own if there is any children?
-  /**
-   * Shows/hides the caret.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'has-children' })
-  public hasChildren = false;
-
-  /**
-   * Shows/hides the loading indicator
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'loading' })
-  public loading = false;
-
-  /**
-   * Set an href, this will turns the label into a anchor tag.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public href?: string;
-
-  /**
-   * Set an anchor tag target, only used when using href.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public target?: '_blank' | '_parent' | '_self' | '_top';
-
-  /**
-   * Sets the selection mode.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String, attribute: 'select-mode', reflect: true })
-  public selectMode?: 'highlight' | 'persisting';
-
-  @state()
-  private iconSlotHasContent = false;
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
-
-    demandCustomElement(this, 'uui-symbol-expand');
-    demandCustomElement(this, 'uui-loader-bar');
-  }
-
-  private _labelButtonChanged = (label?: Element | undefined) => {
-    this.selectableTarget = label || this;
-  };
-
-  private _iconSlotChanged = (e: any): void => {
-    this.iconSlotHasContent =
-      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
-  };
-
-  private _onCaretClicked = () => {
-    const eventName = this.showChildren
-      ? UUIMenuItemEvent.HIDE_CHILDREN
-      : UUIMenuItemEvent.SHOW_CHILDREN;
-    const event = new UUIMenuItemEvent(eventName, { cancelable: true });
-    this.dispatchEvent(event);
-
-    if (event.defaultPrevented) return;
-
-    this.showChildren = !this.showChildren;
-  };
-
-  private _onLabelClicked = () => {
-    const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
-    this.dispatchEvent(event);
-  };
-
-  private _renderLabelInside() {
-    return html` <slot
-        name="icon"
-        id="icon"
-        style=${this.iconSlotHasContent ? '' : 'display: none;'}
-        @slotchange=${this._iconSlotChanged}></slot>
-      ${this.renderLabel()}
-      <slot name="badge" id="badge"> </slot>`;
-  }
-
-  private _renderLabelAsAnchor() {
-    if (this.disabled) {
-      return html` <span id="label-button" ${ref(this._labelButtonChanged)}>
-        ${this._renderLabelInside()}
-      </span>`;
-    }
-    return html` <a
-      id="label-button"
-      ${ref(this._labelButtonChanged)}
-      href=${ifDefined(this.href)}
-      target=${ifDefined(this.target || undefined)}
-      rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined
-      )}
-      @click=${this._onLabelClicked}
-      ?disabled=${this.disabled}
-      aria-label="${this.label}">
-      ${this._renderLabelInside()}
-    </a>`;
-  }
-
-  private _renderLabelAsButton() {
-    return html` <button
-      id="label-button"
-      ${ref(this._labelButtonChanged)}
-      @click=${this._onLabelClicked}
-      ?disabled=${this.disabled}
-      aria-label="${this.label}">
-      ${this._renderLabelInside()}
-    </button>`;
-  }
-
-  render() {
-    return html`
-      <div id="menu-item" aria-label="menuitem" role="menuitem">
-        ${this.hasChildren
-          ? html`<button id="caret-button" @click=${this._onCaretClicked}>
-              <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
-            </button>`
-          : ''}
-        ${this.href ? this._renderLabelAsAnchor() : this._renderLabelAsButton()}
-
-        <div id="label-button-background"></div>
-        ${this.selectOnly === false
-          ? html`<slot id="actions-container" name="actions"></slot>`
-          : ''}
-        ${this.loading
-          ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
-          : ''}
-      </div>
-      ${this.showChildren ? html`<slot></slot>` : ''}
-    `;
-  }
 }
 
 declare global {

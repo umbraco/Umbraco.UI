@@ -18,6 +18,63 @@ import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
 
 @defineElement('uui-button-inline-create')
 export class UUIButtonInlineCreateElement extends LitElement {
+  @state()
+  private _position = 0;
+
+  /**
+   * Label to be used for aria-label and eventually as visual label
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  public label?: string;
+
+  /**
+   * Place the button vertically
+   * @type {Boolean}
+   * @attr
+   */
+  @property({ type: Boolean, reflect: true })
+  vertical = false;
+
+  private _onMouseMove(e: MouseEvent) {
+    this._position = this.vertical ? e.offsetY : e.offsetX;
+  }
+
+  private _handleClick(e: MouseEvent) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this.dispatchEvent(
+      new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
+    );
+  }
+
+  render() {
+    return html`
+      <button
+        id="button-wrapper"
+        @mousemove=${this._onMouseMove}
+        @click=${this._handleClick}
+        aria-label=${this.label ? this.label : 'create new element'}>
+        <div
+          id="plus"
+          style=${styleMap({
+            left: this.vertical ? '' : this._position + 'px',
+            top: this.vertical ? this._position + 'px' : '',
+          })}>
+          <svg
+            id="plus-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512">
+            <path
+              d="M420.592 214.291H296.104V89.804h-83.102v124.487H88.518v83.104h124.484v124.488h83.102V297.395h124.488z" />
+          </svg>
+        </div>
+      </button>
+    `;
+  }
+
   static styles = [
     UUIBlinkKeyframes,
     css`
@@ -172,63 +229,6 @@ export class UUIButtonInlineCreateElement extends LitElement {
       }
     `,
   ];
-
-  @state()
-  private _position = 0;
-
-  /**
-   * Label to be used for aria-label and eventually as visual label
-   * @type {string}
-   * @attr
-   */
-  @property({ type: String })
-  public label?: string;
-
-  /**
-   * Place the button vertically
-   * @type {Boolean}
-   * @attr
-   */
-  @property({ type: Boolean, reflect: true })
-  vertical = false;
-
-  private _onMouseMove(e: MouseEvent) {
-    this._position = this.vertical ? e.offsetY : e.offsetX;
-  }
-
-  private _handleClick(e: MouseEvent) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    this.dispatchEvent(
-      new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
-    );
-  }
-
-  render() {
-    return html`
-      <button
-        id="button-wrapper"
-        @mousemove=${this._onMouseMove}
-        @click=${this._handleClick}
-        aria-label=${this.label ? this.label : 'create new element'}>
-        <div
-          id="plus"
-          style=${styleMap({
-            left: this.vertical ? '' : this._position + 'px',
-            top: this.vertical ? this._position + 'px' : '',
-          })}>
-          <svg
-            id="plus-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512">
-            <path
-              d="M420.592 214.291H296.104V89.804h-83.102v124.487H88.518v83.104h124.484v124.488h83.102V297.395h124.488z" />
-          </svg>
-        </div>
-      </button>
-    `;
-  }
 }
 
 declare global {

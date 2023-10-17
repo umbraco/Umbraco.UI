@@ -34,6 +34,9 @@ const defaultSwatches = [
   '#fff',
 ];
 
+const formats = ['hex', 'rgb', 'hsl', 'hsv'];
+const sizes = ['small', 'medium', 'large'];
+
 const meta: Meta<UUIColorPickerElement> = {
   id: 'uui-color-picker',
   title: 'Inputs/Color/Color Picker',
@@ -42,6 +45,20 @@ const meta: Meta<UUIColorPickerElement> = {
     inline: false,
     swatches: defaultSwatches,
     format: 'hex',
+    size: 'medium',
+  },
+  argTypes: {
+    format: {
+      options: formats,
+      control: { type: 'select' },
+    },
+    size: {
+      options: sizes,
+      control: { type: 'select' },
+    },
+    value: {
+      control: { type: 'color' },
+    },
   },
   parameters: {
     readme: {
@@ -91,6 +108,7 @@ export const Disabled: Story = {
 export const WithOpacity: Story = {
   args: {
     opacity: true,
+    value: 'rgba(0, 0, 0, 0.5)',
   },
   parameters: {
     docs: {
@@ -100,8 +118,6 @@ export const WithOpacity: Story = {
     },
   },
 };
-
-const formats = ['hex', 'rgb', 'hsl'];
 
 export const Formats: Story = {
   args: {
@@ -115,12 +131,6 @@ export const Formats: Story = {
         ${story()}
       </div> `,
   ],
-  argTypes: {
-    format: {
-      options: formats,
-      control: { type: 'select' },
-    },
-  },
   parameters: {
     docs: {
       source: {

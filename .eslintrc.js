@@ -1,7 +1,7 @@
 module.exports = {
   ignorePatterns: ['vite.*.js', 'packages/**/*.js', 'src/**/*'],
   root: true,
-  plugins: ['html', 'import'],
+  plugins: ['html', 'import', 'eslint-plugin-local-rules'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
@@ -25,6 +25,8 @@ module.exports = {
         '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
         'lit/no-useless-template-literals': 'error',
         'lit/prefer-nothing': 'error',
+        'local-rules/uui-class-prefix': 'warn',
+        'local-rules/prefer-static-styles-last': 'warn',
       },
       parserOptions: {
         project: './tsconfig.json',

@@ -49,6 +49,185 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
 export class UUIButtonElement extends FormControlMixin(
   LabelMixin('', PopoverTargetMixin(LitElement))
 ) {
+  /**
+   * Specifies the type of button
+   * @type { "submit" | "button" | "reset" }
+   * @attr
+   * @default "button"
+   */
+  @property({ type: String, reflect: true })
+  type: UUIButtonType = 'button';
+
+  /**
+   * Disables the button, changes the looks of it and prevents if from emitting the click event
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  look: InterfaceLook = 'default';
+
+  /**
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
+   * @type {"default" | "positive" | "warning" | "danger"}
+   * @attr
+   * @default "default"
+   */
+  @property({ reflect: true })
+  color: InterfaceColor = 'default';
+
+  /**
+   * Makes the left and right padding of the button narrower.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  compact = false;
+
+  /**
+   * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
+   * @type {undefined |'waiting' | 'success' | 'failed'}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String, reflect: true })
+  state: UUIButtonState = undefined;
+
+  /**
+   * Set an href, this will turns the button into a anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  @query('#button')
+  protected _button!: HTMLInputElement;
+
+  constructor() {
+    super();
+    this.addEventListener('click', this._onHostClick);
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._button;
+  }
+
+  private _onHostClick(e: MouseEvent) {
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
+
+    if (this._internals?.form) {
+      switch (this.type) {
+        case 'reset':
+          this._internals.form.reset();
+          break;
+        case 'button':
+          break;
+        default:
+          if (this._internals.form.requestSubmit) {
+            this._internals.form.requestSubmit();
+          } else {
+            this._internals.form.dispatchEvent(new SubmitEvent('submit'));
+          }
+          break;
+      }
+    }
+
+    this._togglePopover();
+  }
+
+  private _resetStateTimeout?: number;
+
+  // Reset the state after 2sec if it is 'success' or 'failed'.
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
+    if (changedProperties.has('state')) {
+      clearTimeout(this._resetStateTimeout);
+      if (this.state === 'success' || this.state === 'failed') {
+        this._resetStateTimeout = setTimeout(
+          () => (this.state = undefined),
+          2000
+        ) as any;
+      }
+    }
+  }
+
+  protected renderState(): TemplateResult | typeof nothing {
+    let element: TemplateResult;
+    switch (this.state) {
+      case 'waiting':
+        demandCustomElement(this, 'uui-loader-circle');
+        element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
+        break;
+      case 'success':
+        demandCustomElement(this, 'uui-icon');
+        element = html`<uui-icon
+          name="check"
+          .fallback=${iconCheck.strings[0]}></uui-icon>`;
+        break;
+      case 'failed':
+        demandCustomElement(this, 'uui-icon');
+        element = html`<uui-icon
+          name="wrong"
+          .fallback=${iconWrong.strings[0]}></uui-icon>`;
+        break;
+      default:
+        return nothing;
+    }
+
+    return html`<div id="state">${element}</div>`;
+  }
+
+  render() {
+    return this.href
+      ? html`
+          <a
+            id="button"
+            aria-label=${this.label}
+            href=${ifDefined(!this.disabled ? this.href : undefined)}
+            target=${ifDefined(this.target || undefined)}
+            rel=${ifDefined(
+              this.target === '_blank' ? 'noopener noreferrer' : undefined
+            )}>
+            ${this.renderState()} ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </a>
+        `
+      : html`
+          <button
+            id="button"
+            ?disabled=${this.disabled}
+            aria-label=${this.label}>
+            ${this.renderState()} ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </button>
+        `;
+  }
+
   static styles = [
     UUIHorizontalShakeKeyframes,
     css`
@@ -356,184 +535,6 @@ export class UUIButtonElement extends FormControlMixin(
       }
     `,
   ];
-  /**
-   * Specifies the type of button
-   * @type { "submit" | "button" | "reset" }
-   * @attr
-   * @default "button"
-   */
-  @property({ type: String, reflect: true })
-  type: UUIButtonType = 'button';
-
-  /**
-   * Disables the button, changes the looks of it and prevents if from emitting the click event
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  look: InterfaceLook = 'default';
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "positive" | "warning" | "danger"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  color: InterfaceColor = 'default';
-
-  /**
-   * Makes the left and right padding of the button narrower.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  compact = false;
-
-  /**
-   * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
-   * @type {undefined |'waiting' | 'success' | 'failed'}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String, reflect: true })
-  state: UUIButtonState = undefined;
-
-  /**
-   * Set an href, this will turns the button into a anchor tag.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public href?: string;
-
-  /**
-   * Set an anchor tag target, only used when using href.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public target?: '_blank' | '_parent' | '_self' | '_top';
-
-  @query('#button')
-  protected _button!: HTMLInputElement;
-
-  constructor() {
-    super();
-    this.addEventListener('click', this._onHostClick);
-  }
-
-  protected getFormElement(): HTMLElement {
-    return this._button;
-  }
-
-  private _onHostClick(e: MouseEvent) {
-    if (this.disabled) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      return;
-    }
-
-    if (this._internals?.form) {
-      switch (this.type) {
-        case 'reset':
-          this._internals.form.reset();
-          break;
-        case 'button':
-          break;
-        default:
-          if (this._internals.form.requestSubmit) {
-            this._internals.form.requestSubmit();
-          } else {
-            this._internals.form.dispatchEvent(new SubmitEvent('submit'));
-          }
-          break;
-      }
-    }
-
-    this._togglePopover();
-  }
-
-  private _resetStateTimeout?: number;
-
-  // Reset the state after 2sec if it is 'success' or 'failed'.
-  updated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
-    if (changedProperties.has('state')) {
-      clearTimeout(this._resetStateTimeout);
-      if (this.state === 'success' || this.state === 'failed') {
-        this._resetStateTimeout = setTimeout(
-          () => (this.state = undefined),
-          2000
-        ) as any;
-      }
-    }
-  }
-
-  protected renderState(): TemplateResult | typeof nothing {
-    let element: TemplateResult;
-    switch (this.state) {
-      case 'waiting':
-        demandCustomElement(this, 'uui-loader-circle');
-        element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
-        break;
-      case 'success':
-        demandCustomElement(this, 'uui-icon');
-        element = html`<uui-icon
-          name="check"
-          .fallback=${iconCheck.strings[0]}></uui-icon>`;
-        break;
-      case 'failed':
-        demandCustomElement(this, 'uui-icon');
-        element = html`<uui-icon
-          name="wrong"
-          .fallback=${iconWrong.strings[0]}></uui-icon>`;
-        break;
-      default:
-        return nothing;
-    }
-
-    return html`<div id="state">${element}</div>`;
-  }
-
-  render() {
-    return this.href
-      ? html`
-          <a
-            id="button"
-            aria-label=${this.label}
-            href=${ifDefined(!this.disabled ? this.href : undefined)}
-            target=${ifDefined(this.target || undefined)}
-            rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined
-            )}>
-            ${this.renderState()} ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </a>
-        `
-      : html`
-          <button
-            id="button"
-            ?disabled=${this.disabled}
-            aria-label=${this.label}>
-            ${this.renderState()} ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </button>
-        `;
-  }
 }
 
 declare global {

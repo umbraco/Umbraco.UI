@@ -8,6 +8,10 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-dialog')
 export class UUIDialogElement extends LitElement {
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -29,10 +33,6 @@ export class UUIDialogElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

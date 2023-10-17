@@ -25,23 +25,6 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
    */
   static readonly formAssociated = true;
 
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-        padding-right: 3px;
-        border: 1px solid transparent;
-        border-radius: var(--uui-border-radius);
-      }
-
-      :host(:not([pristine]):invalid),
-      /* polyfill support */
-      :host(:not([pristine])[internals-invalid]) {
-        border: 1px solid var(--uui-color-danger-standalone);
-      }
-    `,
-  ];
-
   /**
    * Disables the input.
    * @type {boolean}
@@ -295,6 +278,23 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   render() {
     return html` <slot @slotchange=${this._handleSlotChange}></slot> `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-block;
+        padding-right: 3px;
+        border: 1px solid transparent;
+        border-radius: var(--uui-border-radius);
+      }
+
+      :host(:not([pristine]):invalid),
+      /* polyfill support */
+      :host(:not([pristine])[internals-invalid]) {
+        border: 1px solid var(--uui-color-danger-standalone);
+      }
+    `,
+  ];
 }
 
 declare global {

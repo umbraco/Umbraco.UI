@@ -17,16 +17,6 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent';
  */
 @defineElement('uui-color-swatches')
 export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
-  static styles = [
-    css`
-      :host {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-      }
-    `,
-  ];
-
   /**
    * Value of selected option.
    *
@@ -160,6 +150,16 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   render() {
     return html`<slot @slotchange=${this._handleSlotChange}></slot>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+    `,
+  ];
 }
 
 declare global {

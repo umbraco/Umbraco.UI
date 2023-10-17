@@ -26,6 +26,8 @@ const STEP_MIN_WIDTH = 24;
  */
 @defineElement('uui-range-slider')
 export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
+  static readonly formAssociated = true;
+
   /**
    * Label to be used for aria-label and eventually as visual label. Adds "low-end value" and "high-end value" endings for the two values.
    * @type {string}

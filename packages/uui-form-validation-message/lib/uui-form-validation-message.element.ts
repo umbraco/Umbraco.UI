@@ -16,14 +16,6 @@ import { repeat } from 'lit/directives/repeat.js';
 
 @defineElement('uui-form-validation-message')
 export class UUIFormValidationMessageElement extends LitElement {
-  static styles = [
-    css`
-      #messages {
-        color: var(--uui-color-danger-standalone);
-      }
-    `,
-  ];
-
   /**
    * Set the element containing Form Controls of interest.
    * @type {string}
@@ -103,6 +95,14 @@ export class UUIFormValidationMessageElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      #messages {
+        color: var(--uui-color-danger-standalone);
+      }
+    `,
+  ];
 }
 declare global {
   interface HTMLElementTagNameMap {
