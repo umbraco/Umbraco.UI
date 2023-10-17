@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.0...v1.5.0-rc.1) (2023-10-17)
+
+### Bug Fixes
+
+- fixing imports + story for hrefs ([#614](https://github.com/umbraco/Umbraco.UI/issues/614)) ([4bfb6a1](https://github.com/umbraco/Umbraco.UI/commit/4bfb6a1d866830b67139ed5f3ed8be09d60d28ac))
+- Modal close-end event, no more bubbling modal events ([#598](https://github.com/umbraco/Umbraco.UI/issues/598)) ([825d722](https://github.com/umbraco/Umbraco.UI/commit/825d722fd30d210a9363ed14c47cccd96811575f))
+- small bugfix for auto width not rendering ([#578](https://github.com/umbraco/Umbraco.UI/issues/578)) ([af8b738](https://github.com/umbraco/Umbraco.UI/commit/af8b738d7fdb4e819b6bc13fd31a881515b45cf8))
+
+### Features
+
+- Add HSV as accepted color format ([#610](https://github.com/umbraco/Umbraco.UI/issues/610)) ([61c62e4](https://github.com/umbraco/Umbraco.UI/commit/61c62e43f03ff0b660d78035f369d3723386c841))
+- horizontal padding for uui-tab ([#579](https://github.com/umbraco/Umbraco.UI/issues/579)) ([8459fdb](https://github.com/umbraco/Umbraco.UI/commit/8459fdb5dca949680be3097fdf510966caaf78ce))
+- **uui-icon:** Set aria-hidden if no label has been set ([#612](https://github.com/umbraco/Umbraco.UI/issues/612)) ([ac11819](https://github.com/umbraco/Umbraco.UI/commit/ac118190aead6ccb586cc9de7de62bcb9d56201a))
+- Visually hidden component ([#593](https://github.com/umbraco/Umbraco.UI/issues/593)) ([875d46e](https://github.com/umbraco/Umbraco.UI/commit/875d46ed4c2b3224affb98cfd3a7d270e63349e8))
+
 # [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
 
 ### Bug Fixes

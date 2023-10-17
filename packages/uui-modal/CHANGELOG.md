@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.0...v1.5.0-rc.1) (2023-10-17)
+
+### Bug Fixes
+
+- Modal close-end event, no more bubbling modal events ([#598](https://github.com/umbraco/Umbraco.UI/issues/598)) ([825d722](https://github.com/umbraco/Umbraco.UI/commit/825d722fd30d210a9363ed14c47cccd96811575f))
+
 # [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
 
 **Note:** Version bump only for package @umbraco-ui/uui-modal
