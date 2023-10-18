@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.0...v1.5.0-rc.1) (2023-10-17)
+
+### Features
+
+- **uui-icon:** Set aria-hidden if no label has been set ([#612](https://github.com/umbraco/Umbraco.UI/issues/612)) ([ac11819](https://github.com/umbraco/Umbraco.UI/commit/ac118190aead6ccb586cc9de7de62bcb9d56201a))
+
 # [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
 
 **Note:** Version bump only for package @umbraco-ui/uui-icon
