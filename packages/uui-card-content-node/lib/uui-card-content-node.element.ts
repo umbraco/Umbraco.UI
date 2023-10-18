@@ -15,6 +15,75 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  */
 @defineElement('uui-card-content-node')
 export class UUICardContentNodeElement extends UUICardElement {
+  /**
+   * Node name
+   * @type {string}
+   * @attr name
+   * @default ''
+   */
+  @property({ type: String })
+  name = '';
+
+  @state()
+  private _iconSlotHasContent = false;
+
+  protected fallbackIcon =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M396.441 138.878l-83.997-83.993-7.331-7.333H105.702v416.701h298.071V146.214l-7.332-7.336zM130.74 439.217V72.591h141.613c37.201 0 19.274 88.18 19.274 88.18s86-20.901 87.104 18.534v259.912H130.74z"></path></svg>';
+
+  private _onSlotIconChange(event: Event) {
+    this._iconSlotHasContent =
+      (event.target as HTMLSlotElement).assignedNodes({ flatten: true })
+        .length > 0;
+  }
+
+  private _renderFallbackIcon() {
+    demandCustomElement(this, 'uui-icon');
+    return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
+  }
+
+  #renderButton() {
+    return html`<div
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : 0}
+      @click=${this.handleOpenClick}
+      @keydown=${this.handleOpenKeydown}>
+      <span id="icon">
+        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
+      </span>
+      <span id="name"> ${this.name} </span>
+    </div>`;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : 0}
+      href=${ifDefined(!this.disabled ? this.href : undefined)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}>
+      <span id="icon">
+        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
+      </span>
+      <span id="name"> ${this.name} </span>
+    </a>`;
+  }
+
+  public render() {
+    return html`
+      ${this.href ? this.#renderLink() : this.#renderButton()}
+      <!-- Select border must be right after #open-part -->
+      <div id="select-border"></div>
+
+      <slot></slot>
+      <slot name="tag"></slot>
+      <slot name="actions"></slot>
+    `;
+  }
+
   static styles = [
     ...UUICardElement.styles,
     css`
@@ -87,75 +156,6 @@ export class UUICardContentNodeElement extends UUICardElement {
       }
     `,
   ];
-
-  /**
-   * Node name
-   * @type {string}
-   * @attr name
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
-
-  @state()
-  private _iconSlotHasContent = false;
-
-  protected fallbackIcon =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M396.441 138.878l-83.997-83.993-7.331-7.333H105.702v416.701h298.071V146.214l-7.332-7.336zM130.74 439.217V72.591h141.613c37.201 0 19.274 88.18 19.274 88.18s86-20.901 87.104 18.534v259.912H130.74z"></path></svg>';
-
-  private _onSlotIconChange(event: Event) {
-    this._iconSlotHasContent =
-      (event.target as HTMLSlotElement).assignedNodes({ flatten: true })
-        .length > 0;
-  }
-
-  private _renderFallbackIcon() {
-    demandCustomElement(this, 'uui-icon');
-    return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
-  }
-
-  #renderButton() {
-    return html`<div
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : 0}
-      @click=${this.handleOpenClick}
-      @keydown=${this.handleOpenKeydown}>
-      <span id="icon">
-        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
-      </span>
-      <span id="name"> ${this.name} </span>
-    </div>`;
-  }
-
-  #renderLink() {
-    return html`<a
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : 0}
-      href=${ifDefined(!this.disabled ? this.href : undefined)}
-      target=${ifDefined(this.target || undefined)}
-      rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined
-      )}>
-      <span id="icon">
-        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
-      </span>
-      <span id="name"> ${this.name} </span>
-    </a>`;
-  }
-
-  public render() {
-    return html`
-      ${this.href ? this.#renderLink() : this.#renderButton()}
-      <!-- Select border must be right after #open-part -->
-      <div id="select-border"></div>
-
-      <slot></slot>
-      <slot name="tag"></slot>
-      <slot name="actions"></slot>
-    `;
-  }
 }
 
 declare global {

@@ -9,41 +9,6 @@ import { property, state } from 'lit/decorators.js';
  */
 @defineElement('uui-avatar')
 export class UUIAvatarElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        position: relative;
-        overflow: hidden;
-        border-radius: 50%;
-        font-weight: 700;
-        -webkit-font-smoothing: subpixel-antialiased;
-        width: calc(2em + 4px);
-        height: calc(2em + 4px);
-        user-select: none;
-        /* box-sizing: border-box; */
-        aspect-ratio: 1;
-        background-color: var(--uui-palette-spanish-pink);
-        color: var(--uui-palette-space-cadet);
-      }
-
-      :host([overflow]) {
-        overflow: unset;
-      }
-
-      img {
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 50%;
-      }
-    `,
-  ];
-
   /**
    * Set to true to prevent content from getting hidden if going outside the parent. Useful in combination with something like a Badge.
    * @type {boolean}
@@ -136,6 +101,41 @@ export class UUIAvatarElement extends LitElement {
       <slot></slot>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        font-weight: 700;
+        -webkit-font-smoothing: subpixel-antialiased;
+        width: calc(2em + 4px);
+        height: calc(2em + 4px);
+        user-select: none;
+        /* box-sizing: border-box; */
+        aspect-ratio: 1;
+        background-color: var(--uui-palette-spanish-pink);
+        color: var(--uui-palette-space-cadet);
+      }
+
+      :host([overflow]) {
+        overflow: unset;
+      }
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 50%;
+      }
+    `,
+  ];
 }
 
 declare global {

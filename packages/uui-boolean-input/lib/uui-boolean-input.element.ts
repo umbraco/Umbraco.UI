@@ -15,50 +15,6 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 export abstract class UUIBooleanInputElement extends FormControlMixin(
   LabelMixin('', LitElement)
 ) {
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-      }
-
-      label {
-        cursor: pointer;
-        user-select: none;
-
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-items: center;
-        gap: var(--uui-size-3);
-      }
-
-      input {
-        position: absolute;
-        height: 0px;
-        width: 0px;
-        margin-top: -4px;
-      }
-
-      :host([label-position='left']) label {
-        flex-direction: row-reverse;
-      }
-
-      :host([label-position='top']) label {
-        gap: var(--uui-size-half-base-unit);
-        flex-direction: column-reverse;
-      }
-
-      :host([label-position='bottom']) label {
-        gap: var(--uui-size-half-base-unit);
-        flex-direction: column;
-      }
-
-      :host([disabled]) .label {
-        opacity: 0.5;
-      }
-    `,
-  ];
-
   /** intentional overwrite of FormControlMixins value getter and setter method. */
   get value() {
     return this._value as string;
@@ -221,4 +177,48 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
       </label>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-block;
+      }
+
+      label {
+        cursor: pointer;
+        user-select: none;
+
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-items: center;
+        gap: var(--uui-size-3);
+      }
+
+      input {
+        position: absolute;
+        height: 0px;
+        width: 0px;
+        margin-top: -4px;
+      }
+
+      :host([label-position='left']) label {
+        flex-direction: row-reverse;
+      }
+
+      :host([label-position='top']) label {
+        gap: var(--uui-size-half-base-unit);
+        flex-direction: column-reverse;
+      }
+
+      :host([label-position='bottom']) label {
+        gap: var(--uui-size-half-base-unit);
+        flex-direction: column;
+      }
+
+      :host([disabled]) .label {
+        opacity: 0.5;
+      }
+    `,
+  ];
 }

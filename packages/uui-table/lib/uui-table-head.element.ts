@@ -8,15 +8,6 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-table-head')
 export class UUITableHeadElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: table-header-group;
-        font-weight: bold;
-      }
-    `,
-  ];
-
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'row');
@@ -25,6 +16,15 @@ export class UUITableHeadElement extends LitElement {
   render() {
     return html`<slot></slot>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: table-header-group;
+        font-weight: bold;
+      }
+    `,
+  ];
 }
 
 declare global {

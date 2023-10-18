@@ -27,78 +27,6 @@ import { UUIComboboxEvent } from './UUIComboboxEvent';
  */
 @defineElement('uui-combobox')
 export class UUIComboboxElement extends FormControlMixin(LitElement) {
-  static styles = [
-    css`
-      :host {
-        display: inline-block;
-      }
-
-      #combobox-input {
-        width: 100%;
-        border-radius: var(--uui-size-1);
-      }
-
-      #scroll-container {
-        overflow-y: auto;
-        width: 100%;
-        max-height: var(--uui-combobox-popover-max-height, 500px);
-      }
-
-      #dropdown {
-        overflow: hidden;
-        z-index: -1;
-        background-color: var(
-          --uui-combobox-popover-background-color,
-          var(--uui-color-surface)
-        );
-        border: 1px solid var(--uui-color-border);
-        border-radius: var(--uui-border-radius);
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        box-shadow: var(--uui-shadow-depth-3);
-      }
-
-      #caret {
-        margin-right: var(--uui-size-3, 9px);
-        display: flex;
-        width: 1.15em;
-        flex-shrink: 0;
-        margin-top: -1px;
-      }
-
-      :host([disabled]) #caret {
-        fill: var(--uui-color-disabled-contrast);
-      }
-
-      #phone-wrapper {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        z-index: 1;
-        font-size: 1.1em;
-      }
-
-      #phone-wrapper #dropdown {
-        display: flex;
-      }
-
-      #phone-wrapper #combobox-input {
-        height: var(--uui-size-16);
-      }
-
-      #phone-wrapper > uui-button {
-        height: var(--uui-size-14);
-        width: 100%;
-      }
-
-      #phone-wrapper #scroll-container {
-        max-height: unset;
-      }
-    `,
-  ];
-
   @property({ attribute: 'value', reflect: true })
   get value() {
     return this._value;
@@ -384,6 +312,78 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       `;
     }
   }
+
+  static styles = [
+    css`
+      :host {
+        display: inline-block;
+      }
+
+      #combobox-input {
+        width: 100%;
+        border-radius: var(--uui-size-1);
+      }
+
+      #scroll-container {
+        overflow-y: auto;
+        width: 100%;
+        max-height: var(--uui-combobox-popover-max-height, 500px);
+      }
+
+      #dropdown {
+        overflow: hidden;
+        z-index: -1;
+        background-color: var(
+          --uui-combobox-popover-background-color,
+          var(--uui-color-surface)
+        );
+        border: 1px solid var(--uui-color-border);
+        border-radius: var(--uui-border-radius);
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        box-shadow: var(--uui-shadow-depth-3);
+      }
+
+      #caret {
+        margin-right: var(--uui-size-3, 9px);
+        display: flex;
+        width: 1.15em;
+        flex-shrink: 0;
+        margin-top: -1px;
+      }
+
+      :host([disabled]) #caret {
+        fill: var(--uui-color-disabled-contrast);
+      }
+
+      #phone-wrapper {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        font-size: 1.1em;
+      }
+
+      #phone-wrapper #dropdown {
+        display: flex;
+      }
+
+      #phone-wrapper #combobox-input {
+        height: var(--uui-size-16);
+      }
+
+      #phone-wrapper > uui-button {
+        height: var(--uui-size-14);
+        width: 100%;
+      }
+
+      #phone-wrapper #scroll-container {
+        max-height: unset;
+      }
+    `,
+  ];
 }
 
 declare global {

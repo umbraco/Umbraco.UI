@@ -22,6 +22,100 @@ let id = 0;
  */
 @defineElement('uui-tab')
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
+
+  private readonly attrId = ++id;
+  private readonly componentId = `uui-tab-${this.attrId}`;
+
+  /**
+   * Reflects the name of the tab panel this tab is associated with. The panel must be located in the same tab group.
+   * @type {string}
+   * @attr
+   * @default false
+   */
+  @property({ type: String, reflect: true })
+  public panel: string = '';
+
+  /**
+   * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  public disabled = false;
+
+  /**
+   * Set an href, this will turns the inner button into a anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  /**
+   * Set the visual orientation of this tab, this changes the look and placement of the active indication.
+   * @type {string}
+   * @attr
+   * @default horizontal
+   */
+  @property({ type: String, reflect: true })
+  public orientation?: 'horizontal' | 'vertical' = 'horizontal';
+
+  constructor() {
+    super();
+    this.addEventListener('click', this.onHostClick);
+  }
+
+  private onHostClick(e: MouseEvent) {
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  render() {
+    
+    // If the user didn't provide an ID, we'll set one so we can link tabs and tab panels with aria labels
+    this.id = this.id.length > 0 ? this.id : this.componentId;
+
+    return this.href
+      ? html`
+          <a
+            id="button"
+            href=${ifDefined(!this.disabled ? this.href : undefined)}
+            target=${ifDefined(this.target || undefined)}
+            rel=${ifDefined(
+              this.target === '_blank' ? 'noopener noreferrer' : undefined
+            )}
+            role="tab">
+            <slot name="icon"></slot>
+            ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </a>
+        `
+      : html`
+          <button
+            type="button"
+            id="button"
+            ?disabled=${this.disabled}
+            role="tab">
+            <slot name="icon"></slot>
+            ${this.renderLabel()}
+            <slot name="extra"></slot>
+          </button>
+        `;
+  }
+
   static styles = [
     css`
       :host {
@@ -146,99 +240,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
     `,
   ];
-
-  private readonly attrId = ++id;
-  private readonly componentId = `uui-tab-${this.attrId}`;
-
-  /**
-   * Reflects the name of the tab panel this tab is associated with. The panel must be located in the same tab group.
-   * @type {string}
-   * @attr
-   * @default false
-   */
-  @property({ type: String, reflect: true })
-  public panel: string = '';
-
-  /**
-   * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  public disabled = false;
-
-  /**
-   * Set an href, this will turns the inner button into a anchor tag.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public href?: string;
-
-  /**
-   * Set an anchor tag target, only used when using href.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public target?: '_blank' | '_parent' | '_self' | '_top';
-
-  /**
-   * Set the visual orientation of this tab, this changes the look and placement of the active indication.
-   * @type {string}
-   * @attr
-   * @default horizontal
-   */
-  @property({ type: String, reflect: true })
-  public orientation?: 'horizontal' | 'vertical' = 'horizontal';
-
-  constructor() {
-    super();
-    this.addEventListener('click', this.onHostClick);
-  }
-
-  private onHostClick(e: MouseEvent) {
-    if (this.disabled) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-
-  render() {
-
-    // If the user didn't provide an ID, we'll set one so we can link tabs and tab panels with aria labels
-    this.id = this.id.length > 0 ? this.id : this.componentId;
-
-    return this.href
-      ? html`
-          <a
-            id="button"
-            href=${ifDefined(!this.disabled ? this.href : undefined)}
-            target=${ifDefined(this.target || undefined)}
-            rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined
-            )}
-            role="tab">
-            <slot name="icon"></slot>
-            ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </a>
-        `
-      : html`
-          <button
-            type="button"
-            id="button"
-            ?disabled=${this.disabled}
-            role="tab">
-            <slot name="icon"></slot>
-            ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </button>
-        `;
-  }
 }
 
 declare global {

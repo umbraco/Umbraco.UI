@@ -28,18 +28,6 @@ const data: Array<Fruit> = [
 
 @customElement('uui-combobox-async-example')
 export class UUIComboboxAsyncExampleElement extends LitElement {
-  static styles = [
-    css`
-      #loader {
-        position: absolute;
-      }
-
-      .help {
-        padding: var(--uui-size-4);
-      }
-    `,
-  ];
-
   @state()
   _options: any[] = [];
 
@@ -101,4 +89,16 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      #loader {
+        position: absolute;
+      }
+
+      .help {
+        padding: var(--uui-size-4);
+      }
+    `,
+  ];
 }

@@ -9,25 +9,6 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-label')
 export class UUILabelElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        font-weight: 700;
-      }
-      :host([for]) {
-        cursor: pointer;
-      }
-      :host([disabled]) {
-        cursor: default;
-      }
-      #required {
-        display: inline;
-        color: var(--uui-color-danger);
-        font-weight: 900;
-      }
-    `,
-  ];
-
   /**
    * Disables the label.
    * @type {boolean}
@@ -84,6 +65,25 @@ export class UUILabelElement extends LitElement {
       ${this.required ? html`<div id="required">*</div>` : ''}
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        font-weight: 700;
+      }
+      :host([for]) {
+        cursor: pointer;
+      }
+      :host([disabled]) {
+        cursor: default;
+      }
+      #required {
+        display: inline;
+        color: var(--uui-color-danger);
+        font-weight: 900;
+      }
+    `,
+  ];
 }
 
 declare global {

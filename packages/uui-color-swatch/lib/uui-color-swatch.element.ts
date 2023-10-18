@@ -26,6 +26,140 @@ export class UUIColorSwatchElement extends LabelMixin(
   'label',
   SelectableMixin(ActiveMixin(LitElement))
 ) {
+  private _value: string | undefined = '';
+
+  /**
+   * Value of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
+   *
+   * @attr
+   */
+  @property()
+  get value(): string {
+    return this._value ? this._value : this.textContent?.trim() || '';
+  }
+
+  set value(newValue: string) {
+    const oldValue = this._value;
+    this._value = newValue;
+    this.requestUpdate('value', oldValue);
+  }
+
+  /**
+   * Determines if the options is disabled. If true the option can't be selected
+   *
+   * @attr
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * When true shows element label below the color checkbox
+   *
+   * @attr
+   * @memberof UUIColorSwatchElement
+   */
+  @property({ type: Boolean, attribute: 'show-label' })
+  showLabel = false;
+  /**
+   * Colord object instance based on the value provided to the element. If the value is not a valid color, it falls back to black (like Amy Winehouse). For more information about Colord, see [Colord](https://omgovich.github.io/colord/)
+   *
+   * @memberof UUIColorSwatchElement
+   */
+  get color(): Colord | null {
+    return this._color;
+  }
+
+  set color(_) {
+    // do nothing, this is just to prevent the color from being set from outside
+    return;
+  }
+  private _color: Colord | null = null;
+
+  /**
+   * Returns true if the color brightness is >= 0.5
+   *
+   * @readonly
+   * @memberof UUIColorSwatchElement
+   */
+  get isLight() {
+    return this.color?.isLight() ?? false;
+  }
+
+  constructor() {
+    super();
+    this.addEventListener('click', this._setAriaAttributes);
+  }
+
+  private _initializeColor() {
+    this._color = new Colord(this.value ?? '');
+    if (!this._color.isValid()) {
+      this.disabled = true;
+      console.error(
+        `Invalid color provided to uui-color-swatch: ${this.value}`
+      );
+    }
+  }
+
+  private _setAriaAttributes() {
+    if (this.selectable)
+      this.setAttribute('aria-checked', this.selected.toString());
+  }
+
+  firstUpdated() {
+    this._initializeColor();
+    this._setAriaAttributes();
+  }
+
+  willUpdate(changedProperties: Map<string, any>) {
+    if (changedProperties.has('value')) {
+      this._initializeColor();
+    }
+    if (changedProperties.has('disabled')) {
+      if (this.selectable) {
+        this.selectable = !this.disabled;
+        this.deselectable = !this.disabled;
+      }
+    }
+    if (
+      changedProperties.has('selectable') ||
+      changedProperties.has('selected')
+    ) {
+      this._setAriaAttributes();
+    }
+  }
+
+  render() {
+    return html`
+      <button
+        id="swatch"
+        aria-label=${this.label}
+        aria-disabled="${this.disabled}"
+        title="${this.label}">
+        <div
+          class=${classMap({
+            'color-swatch': true,
+            'color-swatch--transparent-bg': true,
+            'color-swatch--light': this.isLight,
+            'color-swatch--big': this.showLabel,
+          })}>
+          <div
+            class="color-swatch__color"
+            style=${styleMap({ backgroundColor: this.value })}></div>
+          <div class="color-swatch__check">${iconCheck}</div>
+        </div>
+        ${this._renderWithLabel()}
+      </button>
+    `;
+  }
+
+  private _renderWithLabel() {
+    if (!this.showLabel) return nothing;
+    return html`<div class="color-swatch__label">
+      <strong>${this.renderLabel()}</strong>
+      ${this.value}
+    </div>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -191,140 +325,6 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
     `,
   ];
-
-  private _value: string | undefined = '';
-
-  /**
-   * Value of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
-   *
-   * @attr
-   */
-  @property()
-  get value(): string {
-    return this._value ? this._value : this.textContent?.trim() || '';
-  }
-
-  set value(newValue: string) {
-    const oldValue = this._value;
-    this._value = newValue;
-    this.requestUpdate('value', oldValue);
-  }
-
-  /**
-   * Determines if the options is disabled. If true the option can't be selected
-   *
-   * @attr
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  /**
-   * When true shows element label below the color checkbox
-   *
-   * @attr
-   * @memberof UUIColorSwatchElement
-   */
-  @property({ type: Boolean, attribute: 'show-label' })
-  showLabel = false;
-  /**
-   * Colord object instance based on the value provided to the element. If the value is not a valid color, it falls back to black (like Amy Winehouse). For more information about Colord, see [Colord](https://omgovich.github.io/colord/)
-   *
-   * @memberof UUIColorSwatchElement
-   */
-  get color(): Colord | null {
-    return this._color;
-  }
-
-  set color(_) {
-    // do nothing, this is just to prevent the color from being set from outside
-    return;
-  }
-  private _color: Colord | null = null;
-
-  /**
-   * Returns true if the color brightness is >= 0.5
-   *
-   * @readonly
-   * @memberof UUIColorSwatchElement
-   */
-  get isLight() {
-    return this.color?.isLight() ?? false;
-  }
-
-  constructor() {
-    super();
-    this.addEventListener('click', this._setAriaAttributes);
-  }
-
-  private _initializeColor() {
-    this._color = new Colord(this.value ?? '');
-    if (!this._color.isValid()) {
-      this.disabled = true;
-      console.error(
-        `Invalid color provided to uui-color-swatch: ${this.value}`
-      );
-    }
-  }
-
-  private _setAriaAttributes() {
-    if (this.selectable)
-      this.setAttribute('aria-checked', this.selected.toString());
-  }
-
-  firstUpdated() {
-    this._initializeColor();
-    this._setAriaAttributes();
-  }
-
-  willUpdate(changedProperties: Map<string, any>) {
-    if (changedProperties.has('value')) {
-      this._initializeColor();
-    }
-    if (changedProperties.has('disabled')) {
-      if (this.selectable) {
-        this.selectable = !this.disabled;
-        this.deselectable = !this.disabled;
-      }
-    }
-    if (
-      changedProperties.has('selectable') ||
-      changedProperties.has('selected')
-    ) {
-      this._setAriaAttributes();
-    }
-  }
-
-  render() {
-    return html`
-      <button
-        id="swatch"
-        aria-label=${this.label}
-        aria-disabled="${this.disabled}"
-        title="${this.label}">
-        <div
-          class=${classMap({
-            'color-swatch': true,
-            'color-swatch--transparent-bg': true,
-            'color-swatch--light': this.isLight,
-            'color-swatch--big': this.showLabel,
-          })}>
-          <div
-            class="color-swatch__color"
-            style=${styleMap({ backgroundColor: this.value })}></div>
-          <div class="color-swatch__check">${iconCheck}</div>
-        </div>
-        ${this._renderWithLabel()}
-      </button>
-    `;
-  }
-
-  private _renderWithLabel() {
-    if (!this.showLabel) return nothing;
-    return html`<div class="color-swatch__label">
-      <strong>${this.renderLabel()}</strong>
-      ${this.value}
-    </div>`;
-  }
 }
 
 declare global {

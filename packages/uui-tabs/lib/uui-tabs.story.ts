@@ -98,6 +98,40 @@ export const Navbar: Story = () => html`
   </div>
 `;
 
+export const UsingHref: Story = () => html`
+  <h3>Href links</h3>
+  <div
+    style="
+    height: 60px;
+    font-size: 16px;
+    --uui-tab-text: var(--uui-color-surface-alt);
+    --uui-tab-text-hover: var(--uui-color-surface);
+    --uui-tab-text-active: var(--uui-color-current);
+    --uui-tab-background: var(--uui-color-default);
+    ">
+    <uui-tab-group>
+      <uui-tab label="content" href="http://www.umbraco.com/#content">
+        Content
+      </uui-tab>
+      <uui-tab label="Packages" href="http://www.umbraco.com/#package" active>
+        Packages
+      </uui-tab>
+      <uui-tab label="Media" href="http://www.umbraco.com/#media">
+        Media
+      </uui-tab>
+      <uui-tab label="Settings" href="http://www.umbraco.com/#settings">
+        Settings
+      </uui-tab>
+      <uui-tab label="Translations" href="http://www.umbraco.com/#translations">
+        Translations
+      </uui-tab>
+      <uui-tab label="Users" href="http://www.umbraco.com/#users">
+        Users
+      </uui-tab>
+    </uui-tab-group>
+  </div>
+`;
+
 export const WithIcons: Story = props => html`
   <h3>Tabs with Icons</h3>
   <uui-icon-registry-essential>
