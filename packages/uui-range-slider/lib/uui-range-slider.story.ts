@@ -11,11 +11,13 @@ export default {
   component: 'uui-range-slider',
   args: {
     step: 10,
-    minGap: 10,
-    maxGap: 0,
-    valueLow: 0,
-    valueHigh: 70,
+    min: 0,
+    max: 100,
+    minGap: undefined,
+    maxGap: undefined,
+    value: '0,20',
     disabled: false,
+    error: false,
     hideStepValues: false,
     label: 'range',
   },
@@ -33,13 +35,13 @@ const Template: Story = props => html`
   <uui-form-validation-message>
     <uui-range-slider
       step=${ifDefined(props.step)}
-      min-gap=${ifDefined(props.minGap)}
-      max-gap=${ifDefined(props.maxGap)}
       min=${ifDefined(props.min)}
       max=${ifDefined(props.max)}
-      value-low=${ifDefined(props.valueLow)}
-      value-high=${ifDefined(props.valueHigh)}
+      min-gap=${ifDefined(props.minGap)}
+      max-gap=${ifDefined(props.maxGap)}
+      value=${ifDefined(props.value)}
       ?disabled=${props.disabled}
+      ?error=${props.error}
       ?hide-step-values="${props.hideStepValues}"
       label="${props.label}"></uui-range-slider>
   </uui-form-validation-message>
