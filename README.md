@@ -99,6 +99,7 @@ If you want to develop a component or contribute to the repository go to ["Get s
 | [`<uui-toast-notification-container>`](packages/uui-toast-notification-container) | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-container?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toast-notification-container) |
 | [`<uui-toast-notification-layout>`](packages/uui-toast-notification-layout)       | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-layout?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toast-notification-layout)       |
 | [`<uui-toggle>`](packages/uui-toggle)                                             | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toggle?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toggle)                                             |
+| [`<uui-visually-hidden>`](packages/uui-visually-hidden)                           | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-visually-hidden?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-visually-hidden)                           |
 
 ## Get started
 
