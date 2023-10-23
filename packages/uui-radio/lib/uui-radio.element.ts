@@ -149,7 +149,7 @@ export class UUIRadioElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
-    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
+    //if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
       this.setAttribute('aria-checked', 'false');
   }
