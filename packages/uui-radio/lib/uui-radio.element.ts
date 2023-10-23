@@ -155,7 +155,7 @@ export class UUIRadioElement extends LitElement {
   }
 
   render() {
-    return html` <label>
+    return html `<label>
       <input
         id="input"
         type="radio"
@@ -278,6 +278,10 @@ export class UUIRadioElement extends LitElement {
       input:focus + #button {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);
+      }
+
+      :host(:focus) {
+        outline: none;
       }
 
       :host([disabled]) label {
