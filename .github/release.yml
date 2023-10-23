@@ -29,9 +29,6 @@ changelog:
     - title: 📦 Dependencies
       labels:
         - dependencies
-    - title: 📄 Documentation
-      labels:
-        - documentation
     - title: Other Changes
       labels:
         - '*'
