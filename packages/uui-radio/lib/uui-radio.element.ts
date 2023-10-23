@@ -49,13 +49,13 @@ export class UUIRadioElement extends LitElement {
     const oldValue = this._checked;
     this._checked = value;
     if (value === true) {
-      this.setAttribute('aria-checked', '');
+      this.setAttribute('aria-checked', 'true');
       if (!this.disabled) {
         this.setAttribute('tabindex', '0');
       }
     } else {
-      this.setAttribute('tabindex', '-1');
-      this.removeAttribute('aria-checked');
+      //this.setAttribute('tabindex', '-1');
+      this.setAttribute('aria-checked', 'false');
     }
     this.requestUpdate('checked', oldValue);
   }
@@ -76,7 +76,7 @@ export class UUIRadioElement extends LitElement {
     this._disabled = newVal;
 
     this.setAttribute('aria-hidden', newVal ? 'true' : 'false');
-    this.setAttribute('tabindex', newVal ? '-1' : '0');
+    //this.setAttribute('tabindex', newVal ? '-1' : '0');
     this.requestUpdate('disabled', oldVal);
   }
   private _disabled = false;
@@ -113,7 +113,7 @@ export class UUIRadioElement extends LitElement {
   }
 
   /**
-   * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
+   * Call to uncheck the element. This method changes the tabindex and aria-checked attributes.
    * @method uncheck
    */
   public uncheck() {
@@ -151,7 +151,7 @@ export class UUIRadioElement extends LitElement {
     //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
-      this.removeAttribute('aria-checked');
+      this.setAttribute('aria-checked', 'false');
   }
 
   render() {
@@ -229,16 +229,34 @@ export class UUIRadioElement extends LitElement {
         transition: all 0.15s ease-in-out;
       }
 
-      :host(:hover) #button {
-        border: 1px solid var(--uui-color-border-emphasis);
+      label:hover input:not([disabled]) + #button {
+        border-color: var(
+          --uui-checkbox-border-color-hover,
+          var(--uui-color-border-emphasis)
+        );
+        background-color: var(
+          --uui-checkbox-background-color-hover,
+          var(--uui-color-surface-emphasis)
+        );
       }
-
-      :host(:focus) {
-        outline: none;
+      label:focus #button {
+        border-color: var(
+          --uui-checkbox-border-color-focus,
+          var(--uui-color-border-emphasis)
+        );
+        background-color: var(
+          --uui-checkbox-background-color-focus,
+          var(--uui-color-surface-emphasis)
+        );
       }
-      :host(:focus) #button {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      input:checked:not([disabled]) + #button {
+        border-color: var(--uui-color-selected);
+      }
+      label:hover input:checked:not([disabled]) + #button {
+        border-color: var(--uui-color-selected-emphasis);
+      }
+      label:focus input:checked + #button {
+        border-color: var(--uui-color-selected-emphasis);
       }
 
       input:checked ~ #button::after {
@@ -255,6 +273,11 @@ export class UUIRadioElement extends LitElement {
 
       input:checked:hover ~ #button::after {
         background-color: var(--uui-color-selected-emphasis);
+      }
+
+      input:focus + #button {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
 
       :host([disabled]) label {
