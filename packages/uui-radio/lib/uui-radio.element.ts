@@ -54,7 +54,7 @@ export class UUIRadioElement extends LitElement {
         this.setAttribute('tabindex', '0');
       }
     } else {
-      //this.setAttribute('tabindex', '-1');
+      this.setAttribute('tabindex', '-1');
       this.setAttribute('aria-checked', 'false');
     }
     this.requestUpdate('checked', oldValue);
@@ -76,7 +76,7 @@ export class UUIRadioElement extends LitElement {
     this._disabled = newVal;
 
     this.setAttribute('aria-hidden', newVal ? 'true' : 'false');
-    //this.setAttribute('tabindex', newVal ? '-1' : '0');
+    this.setAttribute('tabindex', newVal ? '-1' : '0');
     this.requestUpdate('disabled', oldVal);
   }
   private _disabled = false;
@@ -127,6 +127,7 @@ export class UUIRadioElement extends LitElement {
   public check() {
     this.checked = true;
   }
+
   /**
    * Call to make the element focusable, this sets tabindex to 0.
    * @method makeFocusable
@@ -136,8 +137,9 @@ export class UUIRadioElement extends LitElement {
       this.setAttribute('tabindex', '0');
     }
   }
+
   /**
-   * Call to make the element focusable, this sets tabindex to 0.
+   * Call to make the element focusable, this sets tabindex to -1.
    * @method makeUnfocusable
    */
   public makeUnfocusable() {
@@ -149,7 +151,7 @@ export class UUIRadioElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
-    //if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
+    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
       this.setAttribute('aria-checked', 'false');
   }
