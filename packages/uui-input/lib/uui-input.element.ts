@@ -428,16 +428,8 @@ export class UUIInputElement extends FormControlMixin(
         outline: none;
       }
 
-      input::placeholder {
-        transition: opacity 120ms;
-      }
-
       input[type='password']::-ms-reveal {
         display: none;
-      }
-
-      :host(:not([readonly])) input:focus::placeholder {
-        opacity: 0;
       }
 
       /* TODO: make sure color looks good, or remove it as an option as we want to provide color-picker component */
