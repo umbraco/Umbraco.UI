@@ -69,20 +69,43 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #targetElement: HTMLElement | null = null;
 
+  #browserIsSupported = HTMLElement.prototype.hasOwnProperty('popover');
+
   connectedCallback(): void {
     super.connectedCallback();
 
     this.addEventListener('focusout', this.#onFocusOut);
-
-    // CHECK BROWSER SUPPORT
-    if (!HTMLElement.prototype.hasOwnProperty('popover')) {
-      alert(
-        'Browser does not support popovers. Check the docs for info on how to enable: https://developer.mozilla.org/en-US/docs/Web/API/Popover_API'
-      );
-      return;
-    }
-
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
+
+    if (!this.#browserIsSupported) {
+      console.log('browserIsSupported', this.#browserIsSupported);
+      this.#onFocusOut = () => '';
+      requestAnimationFrame(() => {
+        if (this.parentNode !== document.body) {
+          this.parentNode?.removeChild(this);
+          document.body.appendChild(this);
+        }
+        this.style.display = 'none';
+        this.style.position = 'fixed';
+        this.style.inset = '0';
+        // this.tabIndex = -1;
+        this.showPopover = () => {
+          this.#onBeforeToggle({
+            oldState: 'closed',
+            newState: 'open',
+          });
+          this.style.display = 'block';
+          // this.focus();
+        };
+        this.hidePopover = () => {
+          this.#onBeforeToggle({
+            oldState: 'open',
+            newState: 'closed',
+          });
+          this.style.display = 'none';
+        };
+      });
+    }
   }
 
   disconnectedCallback(): void {
@@ -92,6 +115,8 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   #onFocusOut = (event: FocusEvent) => {
+    console.log('focusout');
+
     // If focus is outside of the container, then the popover will close.
     if (!event.relatedTarget || !this.contains(event.relatedTarget as Node)) {
       // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
@@ -101,6 +126,8 @@ export class UUIPopoverContainerElement extends LitElement {
   };
 
   #onBeforeToggle = async (event: any) => {
+    console.log('beforetoggle', event);
+
     this._open = event.newState === 'open';
 
     this.#targetElement = findAncestorByAttributeValue(
