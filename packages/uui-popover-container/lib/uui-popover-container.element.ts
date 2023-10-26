@@ -80,6 +80,21 @@ export class UUIPopoverContainerElement extends LitElement {
     //TODO: Remove polyfill when popover api is supported in firefox
     if (!this.#browserIsSupported) {
       this.removeEventListener('focusout', this.#onFocusOut);
+      this.removeEventListener('beforetoggle', this.#onBeforeToggle);
+      const onBeforeToggleProxy = (event: any) => {
+        this.dispatchEvent(
+          new CustomEvent('beforetoggle-polyfill', {
+            bubbles: false,
+            composed: false,
+            detail: {
+              oldState: event.oldState,
+              newState: event.newState,
+            },
+          })
+        );
+        this.#onBeforeToggle(event);
+      };
+
       const findParentPopover = (element: HTMLElement): HTMLElement | null => {
         if (!element.parentElement) return null;
         if (element.parentElement?.tagName === 'UUI-POPOVER-CONTAINER') {
@@ -88,12 +103,18 @@ export class UUIPopoverContainerElement extends LitElement {
         return findParentPopover(element.parentElement);
       };
 
-      const parent = findParentPopover(this);
+      const onBeforeTogglePolyfill = (event: any) => {
+        if (event.detail.newState === 'closed') {
+          this.hidePopover();
+        }
+      };
 
       this.style.display = 'none';
       this.style.position = 'fixed';
       this.style.inset = '0';
       this.showPopover = () => {
+        // @ts-ignore
+        this.polyfillParent = findParentPopover(this);
         if (
           this.parentNode !== document.body &&
           // @ts-ignore
@@ -104,25 +125,29 @@ export class UUIPopoverContainerElement extends LitElement {
           // @ts-ignore
           this.hasBeenMovedToBody = true;
         }
-        this.#onBeforeToggle({
+        onBeforeToggleProxy({
           oldState: 'closed',
           newState: 'open',
         });
         this.style.display = 'block';
+        // @ts-ignore
+        this.polyfillParent?.addEventListener(
+          'beforetoggle-polyfill',
+          onBeforeTogglePolyfill
+        );
       };
       this.hidePopover = () => {
-        this.#onBeforeToggle({
+        // @ts-ignore
+        this.polyfillParent?.removeEventListener(
+          'beforetoggle-polyfill',
+          onBeforeTogglePolyfill
+        );
+        onBeforeToggleProxy({
           oldState: 'open',
           newState: 'closed',
         });
         this.style.display = 'none';
       };
-
-      parent?.addEventListener('beforetoggle-polyfill', (event: any) => {
-        if (event.detail.newState === 'closed') {
-          this.hidePopover();
-        }
-      });
     }
   }
 
@@ -143,18 +168,6 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #onBeforeToggle = async (event: any) => {
     this._open = event.newState === 'open';
-
-    //TODO: Remove this dispatch when popover api is supported in firefox
-    this.dispatchEvent(
-      new CustomEvent('beforetoggle-polyfill', {
-        bubbles: false,
-        composed: false,
-        detail: {
-          oldState: event.oldState,
-          newState: event.newState,
-        },
-      })
-    );
 
     this.#targetElement = findAncestorByAttributeValue(
       this,
