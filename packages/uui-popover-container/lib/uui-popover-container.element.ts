@@ -77,10 +77,20 @@ export class UUIPopoverContainerElement extends LitElement {
     this.addEventListener('focusout', this.#onFocusOut);
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
 
+    //TODO: Remove polyfill when supported in firefox
     if (!this.#browserIsSupported) {
-      console.log('browserIsSupported', this.#browserIsSupported);
       this.removeEventListener('focusout', this.#onFocusOut);
+      const findParentPopover = (element: HTMLElement): HTMLElement | null => {
+        if (!element.parentElement) return null;
+        if (element.parentElement?.tagName === 'UUI-POPOVER-CONTAINER') {
+          return element.parentElement;
+        }
+        return findParentPopover(element.parentElement);
+      };
+
       requestAnimationFrame(() => {
+        const parent = findParentPopover(this);
+
         if (this.parentNode !== document.body) {
           this.parentNode?.removeChild(this);
           document.body.appendChild(this);
@@ -88,14 +98,12 @@ export class UUIPopoverContainerElement extends LitElement {
         this.style.display = 'none';
         this.style.position = 'fixed';
         this.style.inset = '0';
-        // this.tabIndex = -1;
         this.showPopover = () => {
           this.#onBeforeToggle({
             oldState: 'closed',
             newState: 'open',
           });
           this.style.display = 'block';
-          // this.focus();
         };
         this.hidePopover = () => {
           this.#onBeforeToggle({
@@ -104,6 +112,12 @@ export class UUIPopoverContainerElement extends LitElement {
           });
           this.style.display = 'none';
         };
+
+        parent?.addEventListener('beforetoggle-polyfill', (event: any) => {
+          if (event.detail.newState === 'closed') {
+            this.hidePopover();
+          }
+        });
       });
     }
   }
@@ -115,8 +129,6 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   #onFocusOut = (event: FocusEvent) => {
-    console.log('focusout');
-
     // If focus is outside of the container, then the popover will close.
     if (!event.relatedTarget || !this.contains(event.relatedTarget as Node)) {
       // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
@@ -126,9 +138,19 @@ export class UUIPopoverContainerElement extends LitElement {
   };
 
   #onBeforeToggle = async (event: any) => {
-    console.log('beforetoggle', event);
-
     this._open = event.newState === 'open';
+
+    //TODO: Remove polyfill when supported in firefox
+    this.dispatchEvent(
+      new CustomEvent('beforetoggle-polyfill', {
+        bubbles: false,
+        composed: false,
+        detail: {
+          oldState: event.oldState,
+          newState: event.newState,
+        },
+      })
+    );
 
     this.#targetElement = findAncestorByAttributeValue(
       this,
