@@ -79,7 +79,7 @@ export class UUIPopoverContainerElement extends LitElement {
 
     if (!this.#browserIsSupported) {
       console.log('browserIsSupported', this.#browserIsSupported);
-      this.#onFocusOut = () => '';
+      this.removeEventListener('focusout', this.#onFocusOut);
       requestAnimationFrame(() => {
         if (this.parentNode !== document.body) {
           this.parentNode?.removeChild(this);
