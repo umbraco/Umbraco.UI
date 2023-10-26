@@ -6,3 +6,4 @@ UUI - Mapping-level or specific component name - State - Name - Part - Overwrite
 @import './custom-properties/shadow.css';
 @import './custom-properties/palette.css';
 @import './custom-properties/colors.css';
+@import './custom-properties/fonts.css';
