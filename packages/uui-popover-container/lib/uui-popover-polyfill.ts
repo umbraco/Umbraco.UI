@@ -69,19 +69,16 @@ export function polyfill() {
     return findParentPopover(element.parentElement);
   };
 
-  this.style.display = 'none';
-  this.style.position = 'fixed';
-  this.style.inset = '0';
-  this.style.zIndex = '9999';
+  if (!this.polyfill_hasBeenMovedToBody) {
+    this.style.display = 'none';
+    this.style.position = 'fixed';
+    this.style.inset = '0';
+    this.style.zIndex = '9999';
+  }
+
   this.showPopover = () => {
     if (!this.polyfill_hasBeenMovedToBody) {
       this.polyfill_parentPopoverContainer = findParentPopover(this);
-      if (this.parentNode !== document.body) {
-        this.parentNode?.removeChild(this);
-        document.body.appendChild(this);
-
-        this.polyfill_hasBeenMovedToBody = true;
-      }
     }
     this.polyfill_onBeforeToggle({
       oldState: 'closed',
@@ -94,6 +91,12 @@ export function polyfill() {
     );
     window.addEventListener('click', this.polyfill_onClick);
     window.addEventListener('focusout', this.polyfill_onFocusout);
+
+    if (this.parentNode !== document.body) {
+      this.parentNode?.removeChild(this);
+      this.polyfill_hasBeenMovedToBody = true;
+      document.body.appendChild(this);
+    }
   };
   this.hidePopover = () => {
     window.removeEventListener('click', this.polyfill_onClick);
