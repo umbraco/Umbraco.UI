@@ -2,8 +2,6 @@
 export function polyfill() {
   const originalAddEventListener = this.addEventListener;
 
-  let onBeforeToggle = null;
-
   // This is the only way to get access to the private functions onFocusOut and onBeforeToggle.
   this.addEventListener = function (type, listener, options) {
     if (type === 'focusout') {
@@ -12,7 +10,7 @@ export function polyfill() {
     }
     if (type === 'beforetoggle') {
       // Intercept the beforetoggle event so we can dispatch our own event.
-      onBeforeToggle = event => {
+      this.polyfill_onBeforeToggle = event => {
         this.dispatchEvent(
           new CustomEvent('polyfill-beforetoggle', {
             bubbles: false,
@@ -31,6 +29,26 @@ export function polyfill() {
     originalAddEventListener.call(this, type, listener, options);
   };
 
+  this.polyfill_onClick = event => {
+    const path = event.composedPath();
+    const isInsidePopoverContainer = path.some(element => {
+      return (
+        element.tagName === 'UUI-POPOVER-CONTAINER' ||
+        element.attributes?.popovertarget
+      );
+    });
+
+    if (!isInsidePopoverContainer) {
+      this.hidePopover();
+    }
+  };
+
+  this.polyfill_onParentPopoverUpdate = event => {
+    if (event.detail.newState === 'closed') {
+      this.hidePopover();
+    }
+  };
+
   const findParentPopover = element => {
     if (!element.parentElement) return null;
     if (element.parentElement?.tagName === 'UUI-POPOVER-CONTAINER') {
@@ -39,42 +57,37 @@ export function polyfill() {
     return findParentPopover(element.parentElement);
   };
 
-  const onParentPopoverUpdate = event => {
-    if (event.detail.newState === 'closed') {
-      this.hidePopover();
-    }
-  };
-
   this.style.display = 'none';
   this.style.position = 'fixed';
   this.style.inset = '0';
   this.showPopover = () => {
-    this.polyfill_parentPopoverContainer = findParentPopover(this);
-    if (
-      this.parentNode !== document.body &&
-      this.polyfill_hasBeenMovedToBody !== true
-    ) {
-      this.parentNode?.removeChild(this);
-      document.body.appendChild(this);
+    if (!this.polyfill_hasBeenMovedToBody) {
+      this.polyfill_parentPopoverContainer = findParentPopover(this);
+      if (this.parentNode !== document.body) {
+        this.parentNode?.removeChild(this);
+        document.body.appendChild(this);
 
-      this.polyfill_hasBeenMovedToBody = true;
+        this.polyfill_hasBeenMovedToBody = true;
+      }
     }
-    onBeforeToggle({
+    this.polyfill_onBeforeToggle({
       oldState: 'closed',
       newState: 'open',
     });
     this.style.display = 'block';
     this.polyfill_parentPopoverContainer?.addEventListener(
       'polyfill-beforetoggle',
-      onParentPopoverUpdate
+      this.polyfill_onParentPopoverUpdate
     );
+    window.addEventListener('click', this.polyfill_onClick);
   };
   this.hidePopover = () => {
+    window.removeEventListener('click', this.polyfill_onClick);
     this.polyfill_parentPopoverContainer?.removeEventListener(
       'polyfill-beforetoggle',
-      onParentPopoverUpdate
+      this.polyfill_onParentPopoverUpdate
     );
-    onBeforeToggle({
+    this.polyfill_onBeforeToggle({
       oldState: 'open',
       newState: 'closed',
     });
