@@ -2,6 +2,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { polyfill } from './uui-popover-polyfill.js';
 
 export type PopoverContainerPlacement =
   | 'top'
@@ -69,91 +70,17 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #targetElement: HTMLElement | null = null;
 
-  #browserIsSupported = HTMLElement.prototype.hasOwnProperty('popover'); //TODO: Remove when popover api is supported in firefox
-
   connectedCallback(): void {
+    !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)(); //TODO: Remove this polyfill when firefox supports the new popover API
+
     super.connectedCallback();
 
     this.addEventListener('focusout', this.#onFocusOut);
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
-
-    //TODO: Remove polyfill when popover api is supported in firefox
-    if (!this.#browserIsSupported) {
-      this.removeEventListener('focusout', this.#onFocusOut);
-      this.removeEventListener('beforetoggle', this.#onBeforeToggle);
-      const onBeforeToggleProxy = (event: any) => {
-        this.dispatchEvent(
-          new CustomEvent('beforetoggle-polyfill', {
-            bubbles: false,
-            composed: false,
-            detail: {
-              oldState: event.oldState,
-              newState: event.newState,
-            },
-          })
-        );
-        this.#onBeforeToggle(event);
-      };
-
-      const findParentPopover = (element: HTMLElement): HTMLElement | null => {
-        if (!element.parentElement) return null;
-        if (element.parentElement?.tagName === 'UUI-POPOVER-CONTAINER') {
-          return element.parentElement;
-        }
-        return findParentPopover(element.parentElement);
-      };
-
-      const onBeforeTogglePolyfill = (event: any) => {
-        if (event.detail.newState === 'closed') {
-          this.hidePopover();
-        }
-      };
-
-      this.style.display = 'none';
-      this.style.position = 'fixed';
-      this.style.inset = '0';
-      this.showPopover = () => {
-        // @ts-ignore
-        this.polyfillParent = findParentPopover(this);
-        if (
-          this.parentNode !== document.body &&
-          // @ts-ignore
-          this.hasBeenMovedToBody !== true
-        ) {
-          this.parentNode?.removeChild(this);
-          document.body.appendChild(this);
-          // @ts-ignore
-          this.hasBeenMovedToBody = true;
-        }
-        onBeforeToggleProxy({
-          oldState: 'closed',
-          newState: 'open',
-        });
-        this.style.display = 'block';
-        // @ts-ignore
-        this.polyfillParent?.addEventListener(
-          'beforetoggle-polyfill',
-          onBeforeTogglePolyfill
-        );
-      };
-      this.hidePopover = () => {
-        // @ts-ignore
-        this.polyfillParent?.removeEventListener(
-          'beforetoggle-polyfill',
-          onBeforeTogglePolyfill
-        );
-        onBeforeToggleProxy({
-          oldState: 'open',
-          newState: 'closed',
-        });
-        this.style.display = 'none';
-      };
-    }
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
