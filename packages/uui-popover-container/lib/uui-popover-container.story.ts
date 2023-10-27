@@ -7,6 +7,8 @@ import type { UUIPopoverContainerElement } from './uui-popover-container.element
 import readme from '../README.md?raw';
 import { html } from 'lit';
 
+import './popover-test-story.element';
+
 const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
   title: 'Displays/Popover Container',
@@ -18,6 +20,10 @@ const meta: Meta<UUIPopoverContainerElement> = {
 
 export default meta;
 type Story = StoryObj<UUIPopoverContainerElement>;
+
+export const Test: Story = {
+  render: () => html`<popover-test-story></popover-test-story>`,
+};
 
 export const Overview: Story = {
   play: async ({ canvasElement }) => {
