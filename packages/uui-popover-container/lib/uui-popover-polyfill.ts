@@ -60,6 +60,7 @@ export function polyfill() {
   this.style.display = 'none';
   this.style.position = 'fixed';
   this.style.inset = '0';
+  this.style.zIndex = '9999';
   this.showPopover = () => {
     if (!this.polyfill_hasBeenMovedToBody) {
       this.polyfill_parentPopoverContainer = findParentPopover(this);
