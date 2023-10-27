@@ -36,7 +36,7 @@ export const findAncestorByAttributeValue = (
     currentNode =
       currentNode.parentElement ||
       currentNode.parentNode ||
-      currentNode.host ||
+      (currentNode as ShadowRoot).host ||
       null;
   }
 
