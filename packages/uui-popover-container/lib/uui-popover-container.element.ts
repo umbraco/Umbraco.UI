@@ -71,7 +71,9 @@ export class UUIPopoverContainerElement extends LitElement {
   #targetElement: HTMLElement | null = null;
 
   connectedCallback(): void {
-    !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)(); //TODO: Remove this polyfill when firefox supports the new popover API
+    //TODO: Remove this polyfill when firefox supports the new popover API
+    //TODO: Also remove if statement in #onBeforeToggle
+    !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)();
 
     super.connectedCallback();
 
@@ -93,14 +95,18 @@ export class UUIPopoverContainerElement extends LitElement {
     }
   };
 
-  #onBeforeToggle = async (event: any) => {
+  #onBeforeToggle = (event: any) => {
     this._open = event.newState === 'open';
 
-    this.#targetElement = findAncestorByAttributeValue(
-      this,
-      'popovertarget',
-      this.id
-    );
+    // @ts-ignore
+    if (!this.polyfill_hasBeenMovedToBody) {
+      //TODO: Remove the if statement when firefox supports the new popover API
+      this.#targetElement = findAncestorByAttributeValue(
+        this,
+        'popovertarget',
+        this.id
+      );
+    }
 
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
