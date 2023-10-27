@@ -11,25 +11,24 @@ export function polyfill() {
       return;
     }
     if (type === 'beforetoggle') {
-      onBeforeToggle = listener;
+      // Intercept the beforetoggle event so we can dispatch our own event.
+      onBeforeToggle = event => {
+        this.dispatchEvent(
+          new CustomEvent('polyfill-beforetoggle', {
+            bubbles: false,
+            composed: false,
+            detail: {
+              oldState: event.oldState,
+              newState: event.newState,
+            },
+          })
+        );
+
+        listener(event);
+      };
       return;
     }
     originalAddEventListener.call(this, type, listener, options);
-  };
-
-  const onBeforeToggleProxy = event => {
-    this.dispatchEvent(
-      new CustomEvent('beforetoggle-polyfill', {
-        bubbles: false,
-        composed: false,
-        detail: {
-          oldState: event.oldState,
-          newState: event.newState,
-        },
-      })
-    );
-
-    onBeforeToggle(event);
   };
 
   const findParentPopover = element => {
@@ -40,7 +39,7 @@ export function polyfill() {
     return findParentPopover(element.parentElement);
   };
 
-  const onBeforeTogglePolyfill = event => {
+  const onParentPopoverUpdate = event => {
     if (event.detail.newState === 'closed') {
       this.hidePopover();
     }
@@ -50,29 +49,32 @@ export function polyfill() {
   this.style.position = 'fixed';
   this.style.inset = '0';
   this.showPopover = () => {
-    this.polyfillParent = findParentPopover(this);
-    if (this.parentNode !== document.body && this.hasBeenMovedToBody !== true) {
+    this.polyfill_parentPopoverContainer = findParentPopover(this);
+    if (
+      this.parentNode !== document.body &&
+      this.polyfill_hasBeenMovedToBody !== true
+    ) {
       this.parentNode?.removeChild(this);
       document.body.appendChild(this);
 
-      this.hasBeenMovedToBody = true;
+      this.polyfill_hasBeenMovedToBody = true;
     }
-    onBeforeToggleProxy({
+    onBeforeToggle({
       oldState: 'closed',
       newState: 'open',
     });
     this.style.display = 'block';
-    this.polyfillParent?.addEventListener(
-      'beforetoggle-polyfill',
-      onBeforeTogglePolyfill
+    this.polyfill_parentPopoverContainer?.addEventListener(
+      'polyfill-beforetoggle',
+      onParentPopoverUpdate
     );
   };
   this.hidePopover = () => {
-    this.polyfillParent?.removeEventListener(
-      'beforetoggle-polyfill',
-      onBeforeTogglePolyfill
+    this.polyfill_parentPopoverContainer?.removeEventListener(
+      'polyfill-beforetoggle',
+      onParentPopoverUpdate
     );
-    onBeforeToggleProxy({
+    onBeforeToggle({
       oldState: 'open',
       newState: 'closed',
     });
