@@ -29,6 +29,18 @@ export function polyfill() {
     originalAddEventListener.call(this, type, listener, options);
   };
 
+  this.polyfill_onFocusout = event => {
+    const target = event.relatedTarget;
+    if (!target) return;
+
+    const isInsidePopoverContainer = target?.closest('uui-popover-container');
+    const isInsidePopoverTarget = target?.closest('[popovertarget]');
+
+    if (!isInsidePopoverContainer && !isInsidePopoverTarget) {
+      this.hidePopover();
+    }
+  };
+
   this.polyfill_onClick = event => {
     const path = event.composedPath();
     const isInsidePopoverContainer = path.some(element => {
@@ -81,9 +93,11 @@ export function polyfill() {
       this.polyfill_onParentPopoverUpdate
     );
     window.addEventListener('click', this.polyfill_onClick);
+    window.addEventListener('focusout', this.polyfill_onFocusout);
   };
   this.hidePopover = () => {
     window.removeEventListener('click', this.polyfill_onClick);
+    window.removeEventListener('focusout', this.polyfill_onFocusout);
     this.polyfill_parentPopoverContainer?.removeEventListener(
       'polyfill-beforetoggle',
       this.polyfill_onParentPopoverUpdate
