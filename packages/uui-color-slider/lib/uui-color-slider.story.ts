@@ -4,6 +4,8 @@ import readme from '../README.md?raw';
 
 import './uui-color-slider.element';
 
+const types = ['hue', 'opacity'];
+
 const meta: Meta<UUIColorSliderElement> = {
   id: 'uui-color-slider',
   title: 'Inputs/Color/Color Slider',
@@ -18,6 +20,12 @@ const meta: Meta<UUIColorSliderElement> = {
     value: 0,
     type: 'hue',
     color: '',
+  },
+  argTypes: {
+    type: {
+      options: types,
+      control: { type: 'select' },
+    },
   },
   parameters: {
     readme: {

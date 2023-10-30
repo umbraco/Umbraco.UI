@@ -9,6 +9,79 @@ import { styleMap } from 'lit/directives/style-map.js';
  */
 @defineElement('uui-loader-circle')
 export class UUILoaderCircleElement extends LitElement {
+  private _circleStyle() {
+    if (this.progress) {
+      return { strokeDasharray: `${this.progress} 100` };
+    } else {
+      return { strokeDasharray: '100 100' };
+    }
+  }
+
+  /**
+   * Sets the progress that loader shows
+   * @type {number}
+   * @attr
+   * @default 0
+   */
+  @property({ type: Number })
+  progress = 0;
+
+  /**
+   * If true then element displays progress number at bigger sizes
+   * @type {boolean}
+   * @attr show-progress
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
+  showProgress = false;
+
+  private _resizeObserver = new ResizeObserver(() => this.onResize());
+  private _isLarge = false;
+
+  firstUpdated() {
+    this._resizeObserver.observe(this);
+  }
+
+  disconnectedCallback() {
+    this._resizeObserver.disconnect();
+  }
+
+  onResize() {
+    const newIsLarge = this.clientHeight >= 30;
+
+    if (this._isLarge != newIsLarge) {
+      this._isLarge = newIsLarge;
+      this.requestUpdate();
+    }
+  }
+
+  protected renderProgress() {
+    return this._isLarge && this.progress && this.showProgress
+      ? html`<span id="progress-display">${this.progress}</span>`
+      : '';
+  }
+
+  render() {
+    return html`
+      <svg
+        id="spinner"
+        class=${this.progress ? '' : 'animate'}
+        viewBox="0 0 40 40"
+        xmlns="http://www.w3.org/2000/svg">
+        <circle id="bg" cx="50%" cy="50%" r="16" />
+        <g>
+          <circle
+            id="circle"
+            cx="50%"
+            cy="50%"
+            r="16"
+            style=${styleMap(this._circleStyle())} />
+        </g>
+      </svg>
+      ${this.renderProgress()}
+    `;
+  }
+
   static styles = [
     css`
       :host {
@@ -97,79 +170,6 @@ export class UUILoaderCircleElement extends LitElement {
       }
     `,
   ];
-
-  private _circleStyle() {
-    if (this.progress) {
-      return { strokeDasharray: `${this.progress} 100` };
-    } else {
-      return { strokeDasharray: '100 100' };
-    }
-  }
-
-  /**
-   * Sets the progress that loader shows
-   * @type {number}
-   * @attr
-   * @default 0
-   */
-  @property({ type: Number })
-  progress = 0;
-
-  /**
-   * If true then element displays progress number at bigger sizes
-   * @type {boolean}
-   * @attr show-progress
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
-  showProgress = false;
-
-  private _resizeObserver = new ResizeObserver(() => this.onResize());
-  private _isLarge = false;
-
-  firstUpdated() {
-    this._resizeObserver.observe(this);
-  }
-
-  disconnectedCallback() {
-    this._resizeObserver.disconnect();
-  }
-
-  onResize() {
-    const newIsLarge = this.clientHeight >= 30;
-
-    if (this._isLarge != newIsLarge) {
-      this._isLarge = newIsLarge;
-      this.requestUpdate();
-    }
-  }
-
-  protected renderProgress() {
-    return this._isLarge && this.progress && this.showProgress
-      ? html`<span id="progress-display">${this.progress}</span>`
-      : '';
-  }
-
-  render() {
-    return html`
-      <svg
-        id="spinner"
-        class=${this.progress ? '' : 'animate'}
-        viewBox="0 0 40 40"
-        xmlns="http://www.w3.org/2000/svg">
-        <circle id="bg" cx="50%" cy="50%" r="16" />
-        <g>
-          <circle
-            id="circle"
-            cx="50%"
-            cy="50%"
-            r="16"
-            style=${styleMap(this._circleStyle())} />
-        </g>
-      </svg>
-      ${this.renderProgress()}
-    `;
-  }
 }
 
 declare global {

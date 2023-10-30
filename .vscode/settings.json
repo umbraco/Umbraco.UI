@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["combobox", "Umbraco"]
+  "cSpell.words": ["combobox", "cssprop", "noopener", "noreferrer", "Umbraco"],
+  "npm.enableRunFromFolder": true
 }

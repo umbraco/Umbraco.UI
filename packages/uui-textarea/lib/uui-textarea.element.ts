@@ -13,7 +13,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  * @cssprop {color} --uui-textarea-background-color - Sets the background color of the textarea
+ * @cssprop --uui-textarea-font-size - Overwrites the default font size
  */
+
 @defineElement('uui-textarea')
 export class UUITextareaElement extends FormControlMixin(LitElement) {
   /**
@@ -21,93 +23,6 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
    * @type {boolean}
    */
   static readonly formAssociated = true;
-
-  static styles = [
-    css`
-      :host {
-        position: relative;
-      }
-      :host([error]) textarea {
-        border: 1px solid var(--uui-color-danger) !important;
-      }
-      :host([error]) textarea[disabled] {
-        border: 1px solid var(--uui-color-danger) !important;
-      }
-      :host([auto-height]) textarea {
-        resize: none;
-      }
-      .label {
-        display: inline-block;
-        margin-bottom: var(--uui-size-1);
-        font-weight: bold;
-      }
-
-      textarea[readonly] {
-        border-color: var(
-          --uui-textarea-border-color-readonly,
-          var(--uui-color-disabled-standalone)
-        );
-        background-color: var(
-          --uui-textarea-background-color-readonly,
-          var(--uui-color-disabled)
-        );
-      }
-      textarea[disabled] {
-        cursor: not-allowed;
-        background-color: var(
-          --uui-textarea-background-color-disabled,
-          var(--uui-color-disabled)
-        );
-        border-color: var(
-          --uui-textarea-border-color-disabled,
-          var(--uui-color-disabled)
-        );
-
-        color: var(--uui-color-disabled-contrast);
-      }
-
-      textarea {
-        font-family: inherit;
-        box-sizing: border-box;
-        min-width: 100%;
-        max-width: 100%;
-        font-size: var(--uui-size-5);
-        padding: var(--uui-size-2);
-        border: 1px solid
-          var(--uui-textarea-border-color, var(--uui-color-border));
-        border-radius: 0;
-        outline: none;
-        min-height: var(--uui-textarea-min-height);
-        max-height: var(--uui-textarea-max-height);
-        background-color: var(
-          --uui-textarea-background-color,
-          var(--uui-color-surface)
-        );
-      }
-      :host(:hover)
-        textarea:not([readonly]):not([disabled])
-        :host(:focus-within)
-        textarea,
-      :host(:focus) textarea {
-        border-color: var(
-          --uui-textarea-border-color,
-          var(--uui-color-border-emphasis)
-        );
-      }
-
-      textarea::placeholder {
-        transition: opacity 120ms;
-      }
-      :host(:not([readonly])) textarea:focus::placeholder {
-        opacity: 0;
-      }
-
-      textarea:focus {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-    `,
-  ];
 
   /**
    * Defines the textarea placeholder.
@@ -262,6 +177,12 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     if (!this.label) {
       console.warn(this.tagName + ' needs a `label`', this);
     }
+
+    if (this.autoHeight) {
+      requestAnimationFrame(() => {
+        this.autoUpdateHeight();
+      });
+    }
   }
 
   /**
@@ -305,8 +226,11 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
 
     input.style.height = 'auto';
 
-    if (input.scrollHeight > input.clientHeight) {
-      input.style.height = input.scrollHeight + 'px';
+    // Note: Add + 2 because of the border top+bottom 1px each
+    if (input.scrollHeight + 2 > input.clientHeight) {
+      input.style.height = input.scrollHeight + 2 + 'px';
+    } else if (input.scrollHeight + 2 < input.clientHeight) {
+      input.style.removeProperty('height');
     }
 
     // Reset host styles and scroll to where we were
@@ -319,8 +243,8 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
     return html`
       <textarea
         id="textarea"
-        .rows=${this.rows}
-        .cols=${this.cols}
+        rows=${ifDefined(this.rows)}
+        cols=${ifDefined(this.cols)}
         .value=${this.value as string}
         .name=${this.name}
         wrap=${ifDefined(this.wrap)}
@@ -333,6 +257,93 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
       </textarea>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+      }
+      :host([error]) textarea {
+        border: 1px solid var(--uui-color-danger) !important;
+      }
+      :host([error]) textarea[disabled] {
+        border: 1px solid var(--uui-color-danger) !important;
+      }
+      :host([auto-height]) textarea {
+        resize: none;
+      }
+      .label {
+        display: inline-block;
+        margin-bottom: var(--uui-size-1);
+        font-weight: bold;
+      }
+
+      textarea[readonly] {
+        border-color: var(
+          --uui-textarea-border-color-readonly,
+          var(--uui-color-disabled-standalone)
+        );
+        background-color: var(
+          --uui-textarea-background-color-readonly,
+          var(--uui-color-disabled)
+        );
+      }
+      textarea[disabled] {
+        cursor: not-allowed;
+        background-color: var(
+          --uui-textarea-background-color-disabled,
+          var(--uui-color-disabled)
+        );
+        border-color: var(
+          --uui-textarea-border-color-disabled,
+          var(--uui-color-disabled)
+        );
+
+        color: var(--uui-color-disabled-contrast);
+      }
+
+      textarea {
+        font-family: inherit;
+        box-sizing: border-box;
+        min-width: 100%;
+        max-width: 100%;
+        font-size: inherit;
+        padding: var(--uui-size-2);
+        border: 1px solid
+          var(--uui-textarea-border-color, var(--uui-color-border)); /** Note: Specified border size is needed and hardcoded in autoUpdateHeight() */
+        border-radius: 0;
+        outline: none;
+        min-height: var(--uui-textarea-min-height);
+        max-height: var(--uui-textarea-max-height);
+        background-color: var(
+          --uui-textarea-background-color,
+          var(--uui-color-surface)
+        );
+      }
+      :host(:hover)
+        textarea:not([readonly]):not([disabled])
+        :host(:focus-within)
+        textarea,
+      :host(:focus) textarea {
+        border-color: var(
+          --uui-textarea-border-color,
+          var(--uui-color-border-emphasis)
+        );
+      }
+
+      textarea::placeholder {
+        transition: opacity 120ms;
+      }
+      :host(:not([readonly])) textarea:focus::placeholder {
+        opacity: 0;
+      }
+
+      textarea:focus {
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+    `,
+  ];
 }
 
 declare global {

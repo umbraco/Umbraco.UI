@@ -16,29 +16,6 @@ import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
  */
 @defineElement('uui-box')
 export class UUIBoxElement extends LitElement {
-  static styles = [
-    UUITextStyles,
-    css`
-      :host {
-        display: block;
-        box-shadow: var(--uui-shadow-depth-1);
-        border-radius: var(--uui-border-radius);
-        background-color: var(--uui-color-surface);
-      }
-
-      #header {
-        display: block;
-        border-bottom: 1px solid var(--uui-color-divider-standalone);
-        padding: var(--uui-size-space-4) var(--uui-size-space-5);
-      }
-
-      slot:not([name]) {
-        display: block;
-        padding: var(--uui-box-default-padding, var(--uui-size-space-5));
-      }
-    `,
-  ];
-
   /**
    * Headline for this box, can also be set via the 'box' slot.
    * @type string
@@ -121,6 +98,29 @@ export class UUIBoxElement extends LitElement {
       <slot></slot>
     `;
   }
+
+  static styles = [
+    UUITextStyles,
+    css`
+      :host {
+        display: block;
+        box-shadow: var(--uui-shadow-depth-1);
+        border-radius: var(--uui-border-radius);
+        background-color: var(--uui-color-surface);
+      }
+
+      #header {
+        display: block;
+        border-bottom: 1px solid var(--uui-color-divider-standalone);
+        padding: var(--uui-size-space-4) var(--uui-size-space-5);
+      }
+
+      slot:not([name]) {
+        display: block;
+        padding: var(--uui-box-default-padding, var(--uui-size-space-5));
+      }
+    `,
+  ];
 }
 
 declare global {

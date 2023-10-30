@@ -18,6 +18,64 @@ import { UUICardEvent } from './UUICardEvent';
 export class UUICardElement extends SelectOnlyMixin(
   SelectableMixin(LitElement)
 ) {
+  /**
+   * Set to true to prevent opening of this item.
+   * This does not prevent selection, selection is controlled by property 'selectable'
+   * @type {boolean}
+   * @attr disabled
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'disabled' })
+  disabled = false;
+
+  /**
+   * Set to true to highlight there is an error with this item.
+   * @type {boolean}
+   * @attr error
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  error = false;
+
+  /**
+   * Set an href, this will turns the name of the card into an anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
+  // This is deprecated - use href instead
+  protected handleOpenClick(e: Event) {
+    if (this.disabled) return;
+
+    e.stopPropagation();
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
+  }
+  // This is deprecated - use href instead
+  protected handleOpenKeydown(e: KeyboardEvent) {
+    if (this.disabled) return;
+    if (e.key !== 'Enter') return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
+  }
+
+  protected render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -105,64 +163,6 @@ export class UUICardElement extends SelectOnlyMixin(
       }
     `,
   ];
-
-  /**
-   * Set to true to prevent opening of this item.
-   * This does not prevent selection, selection is controlled by property 'selectable'
-   * @type {boolean}
-   * @attr disabled
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'disabled' })
-  disabled = false;
-
-  /**
-   * Set to true to highlight there is an error with this item.
-   * @type {boolean}
-   * @attr error
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
-
-  /**
-   * Set an href, this will turns the name of the card into an anchor tag.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public href?: string;
-
-  /**
-   * Set an anchor tag target, only used when using href.
-   * @type {string}
-   * @attr
-   * @default undefined
-   */
-  @property({ type: String })
-  public target?: '_blank' | '_parent' | '_self' | '_top';
-
-  // This is deprecated - use href instead
-  protected handleOpenClick(e: Event) {
-    if (this.disabled) return;
-
-    e.stopPropagation();
-    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
-  }
-  // This is deprecated - use href instead
-  protected handleOpenKeydown(e: KeyboardEvent) {
-    if (this.disabled) return;
-    if (e.key !== 'Enter') return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
-  }
-
-  protected render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

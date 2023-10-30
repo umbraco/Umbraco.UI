@@ -155,6 +155,9 @@
       "path": "../uui-popover"
     },
     {
+      "path": "../uui-popover-container"
+    },
+    {
       "path": "../uui-progress-bar"
     },
     {
@@ -246,6 +249,9 @@
     },
     {
       "path": "../uui-toggle"
+    },
+    {
+      "path": "../uui-visually-hidden"
     }
   ]
 }

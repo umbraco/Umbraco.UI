@@ -11,23 +11,6 @@ import { property, state } from 'lit/decorators.js';
  */
 @defineElement('uui-dialog-layout')
 export class UUIDialogLayoutElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: block;
-        padding: var(--uui-size-10) var(--uui-size-14);
-        color: var(--uui-color-text);
-      }
-
-      #actions {
-        margin-top: var(--uui-size-8);
-        display: flex;
-        justify-content: end;
-        gap: var(--uui-size-4);
-      }
-    `,
-  ];
-
   /**
    * Headline for this notification, can also be set via the 'headline' slot.
    * @type string
@@ -85,4 +68,21 @@ export class UUIDialogLayoutElement extends LitElement {
     return html`${this.renderHeadline()} ${this.renderContent()}
     ${this.renderActions()} `;
   }
+
+  static styles = [
+    css`
+      :host {
+        display: block;
+        padding: var(--uui-size-10) var(--uui-size-14);
+        color: var(--uui-color-text);
+      }
+
+      #actions {
+        margin-top: var(--uui-size-8);
+        display: flex;
+        justify-content: end;
+        gap: var(--uui-size-4);
+      }
+    `,
+  ];
 }

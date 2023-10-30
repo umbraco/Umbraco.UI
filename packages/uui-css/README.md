@@ -15,7 +15,7 @@ Bundle:
 
 ### See it in action
 
-Preview on [Storybook](https://uui.umbraco.com/?path=/story/uui-)
+Preview on [Storybook](https://uui.umbraco.com/?path=/docs/uui-)
 
 # Usage in your project
 
@@ -149,15 +149,15 @@ export class MyElement extends LitElement {
   static styles = [
     UUITextStyles,
     css`
-    /* your css goes here */
-  `,
+      /* your css goes here */
+    `,
   ];
 
   render() {
     return html`
-    <div class="uui-text">
-      This is my custom element
-    </div>
+      <div class="uui-text">
+        This is my custom element
+      </div>
     `;
   }
 }

@@ -10,6 +10,45 @@ import { property } from 'lit/decorators.js';
  */
 @defineElement('uui-breadcrumb-item')
 export class UUIBreadcrumbItemElement extends LitElement {
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'listitem');
+  }
+
+  // TODO: ability for adding aria-label?
+
+  /**
+   * Specifies the link href.
+   * @type {String}
+   * @default '#'
+   */
+  @property()
+  href = '#';
+
+  /**
+   * Specifies if the element is the last item in the uui-breadcrumbs. Last item will not render as a link
+   * @type {Boolean}
+   * @attr last-item
+   * @default 'false'
+   */
+  @property({ type: Boolean, attribute: 'last-item' })
+  lastItem = false;
+
+  renderLinkAndSeparator() {
+    return html`<a id="link" href=${this.href}><slot></slot></a
+      ><span part="separator"></span>`;
+  }
+
+  renderCurrent() {
+    return html`<span id="last-item"><slot></slot></span>`;
+  }
+
+  render() {
+    return html`${this.lastItem
+      ? this.renderCurrent()
+      : this.renderLinkAndSeparator()}`;
+  }
+
   static styles = [
     css`
       :host {
@@ -51,45 +90,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
       }
     `,
   ];
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.setAttribute('role', 'listitem');
-  }
-
-  // TODO: ability for adding aria-label?
-
-  /**
-   * Specifies the link href.
-   * @type {String}
-   * @default '#'
-   */
-  @property()
-  href = '#';
-
-  /**
-   * Specifies if the element is the last item in the uui-breadcrumbs. Last item will not render as a link
-   * @type {Boolean}
-   * @attr last-item
-   * @default 'false'
-   */
-  @property({ type: Boolean, attribute: 'last-item' })
-  lastItem = false;
-
-  renderLinkAndSeparator() {
-    return html`<a id="link" href=${this.href}><slot></slot></a
-      ><span part="separator"></span>`;
-  }
-
-  renderCurrent() {
-    return html`<span id="last-item"><slot></slot></span>`;
-  }
-
-  render() {
-    return html`${this.lastItem
-      ? this.renderCurrent()
-      : this.renderLinkAndSeparator()}`;
-  }
 }
 
 declare global {

@@ -26,170 +26,6 @@ export class UUIColorSwatchElement extends LabelMixin(
   'label',
   SelectableMixin(ActiveMixin(LitElement))
 ) {
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        transition: box-shadow 100ms ease-out;
-        flex-direction: column;
-      }
-
-      :host(*),
-      * {
-        /* TODO: implement globally shared outline style */
-        outline-color: var(--uui-color-focus);
-        outline-offset: 4px;
-      }
-
-      :host(:focus-within:not([disabled])) {
-        outline: none;
-      }
-
-      :host(:focus:not([disabled])) #swatch {
-        outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-swatch-border-width, 1px);
-        outline-style: solid;
-        outline-offset: var(--uui-swatch-border-width, 1px);
-      }
-
-      :host([selectable]) #swatch {
-        cursor: pointer;
-      }
-
-      :host([disabled]) {
-        cursor: not-allowed;
-      }
-
-      #swatch {
-        outline: none;
-        background: none;
-        border: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-        border-radius: 3px;
-      }
-
-      :host(:not([selectable])) #swatch:focus {
-        outline: none;
-      }
-
-      :host([selectable]) #swatch::after {
-        content: '';
-        position: absolute;
-        pointer-events: none;
-        inset: calc(var(--uui-swatch-border-width, 1px) * -1);
-        width: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
-        height: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
-        box-sizing: border-box;
-        border: var(--uui-swatch-border-width, 1px) solid
-          var(--uui-color-selected);
-        border-radius: calc(
-          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
-        );
-        transition: opacity 100ms ease-out;
-        opacity: 0;
-      }
-      :host([selectable]:not([disabled]):hover) #swatch::after {
-        opacity: 0.33;
-      }
-      :host([selectable][selected]:not([disabled]):hover) #swatch::after {
-        opacity: 0.66;
-      }
-      :host([selectable][selected]:not([disabled])) #swatch::after {
-        opacity: 1;
-      }
-
-      .color-swatch {
-        position: relative;
-        width: var(--uui-swatch-size, 25px);
-        height: var(--uui-swatch-size, 25px);
-        border-radius: 3px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      .color-swatch--transparent-bg {
-        background-image: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
-          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
-        background-size: 10px 10px;
-        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
-      }
-      .color-swatch__color {
-        width: 100%;
-        height: 100%;
-        border: 1px solid rgba(0, 0, 0, 0.125);
-        border-radius: inherit;
-        box-sizing: border-box;
-      }
-
-      .color-swatch--big .color-swatch__color {
-        border-radius: 3px 3px 0 0;
-      }
-
-      .color-swatch__check {
-        position: absolute;
-        vertical-align: middle;
-        width: calc(var(--uui-swatch-size, 25px) / 2);
-        height: calc(var(--uui-swatch-size, 25px) / 2);
-        line-height: 0;
-        transition: fill 120ms, opacity 120ms;
-        fill: #fff;
-        pointer-events: none;
-        opacity: 0;
-      }
-
-      .color-swatch--light .color-swatch__check {
-        fill: #000;
-      }
-
-      :host([selected]) .color-swatch__check {
-        opacity: 1;
-      }
-
-      slot[name='label']::slotted(*),
-      .label {
-        font-size: var(--uui-size-4);
-      }
-
-      .color-swatch--big {
-        width: 120px;
-        height: 50px;
-      }
-
-      .color-swatch__label {
-        max-width: 120px;
-        box-sizing: border-box;
-        padding: var(--uui-size-space-1) var(--uui-size-space-2);
-        line-height: 1.5;
-        display: flex;
-        flex-direction: column;
-        background: white;
-        border: 1px solid var(--uui-color-border);
-        border-radius: 0 0 3px 3px;
-        font-size: var(--uui-size-4, 12px);
-      }
-
-      .color-swatch__label strong {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        box-sizing: border-box;
-      }
-    `,
-  ];
-
   private _value: string | undefined = '';
 
   /**
@@ -323,6 +159,172 @@ export class UUIColorSwatchElement extends LabelMixin(
       ${this.value}
     </div>`;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        transition: box-shadow 100ms ease-out;
+        flex-direction: column;
+      }
+
+      :host(*),
+      * {
+        /* TODO: implement globally shared outline style */
+        outline-color: var(--uui-color-focus);
+        outline-offset: 4px;
+      }
+
+      :host(:focus-within:not([disabled])) {
+        outline: none;
+      }
+
+      :host(:focus:not([disabled])) #swatch {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-swatch-border-width, 1px);
+        outline-style: solid;
+        outline-offset: var(--uui-swatch-border-width, 1px);
+      }
+
+      :host([selectable]) #swatch {
+        cursor: pointer;
+      }
+
+      :host([disabled]) {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      #swatch {
+        cursor: inherit;
+        outline: none;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        border-radius: 3px;
+      }
+
+      :host(:not([selectable])) #swatch:focus {
+        outline: none;
+      }
+
+      :host([selectable]) #swatch::after {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        inset: calc(var(--uui-swatch-border-width, 1px) * -1);
+        width: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
+        height: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
+        box-sizing: border-box;
+        border: var(--uui-swatch-border-width, 1px) solid
+          var(--uui-color-selected);
+        border-radius: calc(
+          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
+        );
+        transition: opacity 100ms ease-out;
+        opacity: 0;
+      }
+      :host([selectable]:not([disabled]):hover) #swatch::after {
+        opacity: 0.33;
+      }
+      :host([selectable][selected]:not([disabled]):hover) #swatch::after {
+        opacity: 0.66;
+      }
+      :host([selectable][selected]:not([disabled])) #swatch::after {
+        opacity: 1;
+      }
+
+      .color-swatch {
+        position: relative;
+        width: var(--uui-swatch-size, 25px);
+        height: var(--uui-swatch-size, 25px);
+        border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .color-swatch--transparent-bg {
+        background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+        background-size: 10px 10px;
+        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
+      }
+      .color-swatch__color {
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: inherit;
+        box-sizing: border-box;
+      }
+
+      .color-swatch--big .color-swatch__color {
+        border-radius: 3px 3px 0 0;
+      }
+
+      .color-swatch__check {
+        position: absolute;
+        vertical-align: middle;
+        width: calc(var(--uui-swatch-size, 25px) / 2);
+        height: calc(var(--uui-swatch-size, 25px) / 2);
+        line-height: 0;
+        transition: fill 120ms, opacity 120ms;
+        fill: #fff;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .color-swatch--light .color-swatch__check {
+        fill: #000;
+      }
+
+      :host([selected]) .color-swatch__check {
+        opacity: 1;
+      }
+
+      slot[name='label']::slotted(*),
+      .label {
+        font-size: var(--uui-size-4);
+      }
+
+      .color-swatch--big {
+        width: 120px;
+        height: 50px;
+      }
+
+      .color-swatch__label {
+        max-width: 120px;
+        box-sizing: border-box;
+        padding: var(--uui-size-space-1) var(--uui-size-space-2);
+        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border: 1px solid var(--uui-color-border);
+        border-radius: 0 0 3px 3px;
+        font-size: var(--uui-size-4, 12px);
+      }
+
+      .color-swatch__label strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-sizing: border-box;
+      }
+    `,
+  ];
 }
 
 declare global {

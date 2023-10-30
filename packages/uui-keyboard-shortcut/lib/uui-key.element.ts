@@ -8,6 +8,10 @@ import { css, html, LitElement } from 'lit';
  */
 @defineElement('uui-key')
 export class UUIKeyElement extends LitElement {
+  render() {
+    return html`<slot></slot>`;
+  }
+
   static styles = [
     css`
       :host {
@@ -25,10 +29,6 @@ export class UUIKeyElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`<slot></slot>`;
-  }
 }
 
 declare global {

@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.3...v1.5.0) (2023-10-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.5.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.2...v1.5.0-rc.3) (2023-10-18)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.5.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.1...v1.5.0-rc.2) (2023-10-18)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.5.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.0...v1.5.0-rc.1) (2023-10-17)
+
+### Bug Fixes
+
+- small bugfix for auto width not rendering ([#578](https://github.com/umbraco/Umbraco.UI/issues/578)) ([af8b738](https://github.com/umbraco/Umbraco.UI/commit/af8b738d7fdb4e819b6bc13fd31a881515b45cf8))
+
+# [1.5.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.5.0-rc.0) (2023-09-21)
+
+### Bug Fixes
+
+- add ifDefined() to remove attributes if not defined ([cf1b454](https://github.com/umbraco/Umbraco.UI/commit/cf1b454771f81850034c4bc6cfd1ff00536e3b83))
+- **uui-input:** inputmode property renamed to inputMode to follow its inherited property ([170651e](https://github.com/umbraco/Umbraco.UI/commit/170651e061c158edc37537923c7246c3d44d97f4))
+- **uui-input:** messages should be string not boolean ([ec16fd5](https://github.com/umbraco/Umbraco.UI/commit/ec16fd5c029e5858d3c3b6095061a67ebe2d5996))
+- **uui-input:** treat autoWidth as bool attribute ([a1bf741](https://github.com/umbraco/Umbraco.UI/commit/a1bf741d76ea7cfe8765daecce57d86694fa22eb))
+- **uui-input:** validators should convert to string ([8457c0b](https://github.com/umbraco/Umbraco.UI/commit/8457c0bb946d324bc504d32a2ec74373e63bb0f3))
+
+### Features
+
+- **uui-input:** Add support for auto-width ([#526](https://github.com/umbraco/Umbraco.UI/issues/526)) ([d8504ec](https://github.com/umbraco/Umbraco.UI/commit/d8504eca80717fefc99b02115f06352bf30de5fc))
+- **uui-input:** autofocus and inputmode ([#549](https://github.com/umbraco/Umbraco.UI/issues/549)) ([f9fdbd2](https://github.com/umbraco/Umbraco.UI/commit/f9fdbd26798598e404d641359da4cf105664a734))
+
 # [1.4.0](https://github.com/umbraco/Umbraco.UI/compare/v1.4.0-rc.2...v1.4.0) (2023-09-21)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input

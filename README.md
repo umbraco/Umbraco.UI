@@ -2,7 +2,7 @@
 
 # [Umbraco UI Library](https://uui.umbraco.com/)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE.md) [![Twitter](https://img.shields.io/twitter/follow/umbraco.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=umbraco)
+[![Build](https://github.com/umbraco/Umbraco.UI/actions/workflows/tests.yml/badge.svg)](https://github.com/umbraco/Umbraco.UI/actions/workflows/tests.yml) [![Storybook](https://github.com/umbraco/Umbraco.UI/actions/workflows/azure-static-web-apps-delightful-beach-055ecb503.yml/badge.svg)](https://github.com/umbraco/Umbraco.UI/actions/workflows/azure-static-web-apps-delightful-beach-055ecb503.yml) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE.md) [![Twitter](https://img.shields.io/twitter/follow/umbraco.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=umbraco)
 
 This is a UI-library for [Umbraco CMS](https://umbraco.com/) and friends. It is a collection of user interface components that can be used to build Umbraco style interfaces.
 
@@ -67,6 +67,7 @@ If you want to develop a component or contribute to the repository go to ["Get s
 | [`<uui-modal>`](packages/uui-modal)                                               | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-modal?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-modal)                                               |
 | [`<uui-pagination>`](packages/uui-pagination)                                     | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-pagination?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-pagination)                                     |
 | [`<uui-popover>`](packages/uui-popover)                                           | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-popover?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-popover)                                           |
+| [`<uui-popover-container>`](packages/uui-popover-container)                       | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-popover-container?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-popover-container)                       |
 | [`<uui-progress-bar>`](packages/uui-progress-bar)                                 | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-progress-bar?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-progress-bar)                                 |
 | [`<uui-range-slider>`](packages/uui-range-slider)                                 | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-range-slider?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-range-slider)                                 |
 | [`<uui-radio>`](packages/uui-radio)                                               | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-radio?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-radio)                                               |
@@ -98,6 +99,7 @@ If you want to develop a component or contribute to the repository go to ["Get s
 | [`<uui-toast-notification-container>`](packages/uui-toast-notification-container) | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-container?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toast-notification-container) |
 | [`<uui-toast-notification-layout>`](packages/uui-toast-notification-layout)       | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-layout?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toast-notification-layout)       |
 | [`<uui-toggle>`](packages/uui-toggle)                                             | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toggle?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toggle)                                             |
+| [`<uui-visually-hidden>`](packages/uui-visually-hidden)                           | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-visually-hidden?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-visually-hidden)                           |
 
 ## Get started
 
@@ -140,3 +142,6 @@ See the rest of [the scripts here](docs/SCRIPTS.md).
 
 - 📥 Pull requests and 🌟 Stars are always welcome.
 - Read our [contributing guide](docs/CONTRIBUTING.md) to get started.
+- Please report bugs and feature requests in the [issue tracker](
+- The main branch is the latest development branch. Please make your pull requests against this branch: `v1/contrib`
+  - You can see the latest features in the Storybook attached to this branch: [v1/contrib](https://delightful-beach-055ecb503-v1contrib.westeurope.azurestaticapps.net/)

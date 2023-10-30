@@ -41,137 +41,6 @@ export class UUIInputElement extends FormControlMixin(
    */
   static readonly formAssociated = true;
 
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        display: inline-flex;
-        align-items: stretch;
-        height: var(--uui-size-11);
-        text-align: left;
-        box-sizing: border-box;
-        background-color: var(
-          --uui-input-background-color,
-          var(--uui-color-surface)
-        );
-        border: var(--uui-input-border-width, 1px) solid
-          var(--uui-input-border-color, var(--uui-color-border));
-
-        --uui-button-height: 100%;
-      }
-
-      #control {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-      }
-
-      #auto {
-        border: 0 1px solid transparent;
-        visibility: hidden;
-        white-space: pre;
-        z-index: -1;
-        height: 0px;
-        padding: 0 var(--uui-size-space-3);
-      }
-
-      :host([auto-width]) #input {
-        width: 10px;
-        min-width: 100%;
-      }
-
-      :host(:hover) {
-        border-color: var(
-          --uui-input-border-color-hover,
-          var(--uui-color-border-standalone)
-        );
-      }
-      /* TODO: Fix so we dont get double outline when there is focus on things in the slot. */
-      :host(:focus-within) {
-        border-color: var(
-          --uui-input-border-color-focus,
-          var(--uui-color-border-emphasis)
-        );
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
-      }
-      :host(:focus) {
-        border-color: var(
-          --uui-input-border-color-focus,
-          var(--uui-color-border-emphasis)
-        );
-      }
-      :host([disabled]) {
-        background-color: var(
-          --uui-input-background-color-disabled,
-          var(--uui-color-disabled)
-        );
-        border-color: var(
-          --uui-input-border-color-disabled,
-          var(--uui-color-disabled)
-        );
-
-        color: var(--uui-color-disabled-contrast);
-      }
-      :host([disabled]) input {
-        -webkit-text-fill-color: var(
-          --uui-color-disabled-contrast
-        ); /* required on Safari and IOS */
-      }
-      :host([readonly]) {
-        background-color: var(
-          --uui-input-background-color-readonly,
-          var(--uui-color-disabled)
-        );
-        border-color: var(
-          --uui-input-border-color-readonly,
-          var(--uui-color-disabled-standalone)
-        );
-      }
-
-      :host(:not([pristine]):invalid),
-      /* polyfill support */
-      :host(:not([pristine])[internals-invalid]) {
-        border-color: var(--uui-color-danger);
-      }
-
-      input {
-        font-family: inherit;
-        padding: var(--uui-size-1) var(--uui-size-space-3);
-        font-size: inherit;
-        color: inherit;
-        border-radius: 0;
-        box-sizing: border-box;
-        border: none;
-        background: none;
-        width: 100%;
-        text-align: inherit;
-        outline: none;
-      }
-
-      input::placeholder {
-        transition: opacity 120ms;
-      }
-      :host(:not([readonly])) input:focus::placeholder {
-        opacity: 0;
-      }
-
-      /* TODO: make sure color looks good, or remove it as an option as we want to provide color-picker component */
-      input[type='color'] {
-        width: 30px;
-        padding: 0;
-        border: none;
-      }
-
-      ::slotted(uui-input) {
-        height: 100%;
-        --uui-input-border-width: 0;
-      }
-    `,
-  ];
-
   /**
    * Sets the min value of the input.
    * Examples: the first date the user may pick in date and datetime-local, or the min numeric value the user can pick in a number input.
@@ -407,7 +276,7 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   private renderInputWithAutoWidth() {
-    html`<div id="control">
+    return html`<div id="control">
       ${this.renderInput()}${this.renderAutoWidthBackground()}
     </div>`;
   }
@@ -444,6 +313,146 @@ export class UUIInputElement extends FormControlMixin(
       ? this.value
       : this.placeholder}`;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        display: inline-flex;
+        align-items: stretch;
+        height: var(--uui-size-11);
+        text-align: left;
+        box-sizing: border-box;
+        background-color: var(
+          --uui-input-background-color,
+          var(--uui-color-surface)
+        );
+        border: var(--uui-input-border-width, 1px) solid
+          var(--uui-input-border-color, var(--uui-color-border));
+
+        --uui-button-height: 100%;
+        --auto-width-text-margin-right: 0;
+        --auto-width-text-margin-left: 0;
+      }
+
+      #control {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      #auto {
+        border: 0 1px solid transparent;
+        visibility: hidden;
+        white-space: pre;
+        z-index: -1;
+        height: 0px;
+        padding: 0 var(--uui-size-space-3);
+        margin: 0 var(--auto-width-text-margin-right) 0
+          var(--auto-width-text-margin-left);
+      }
+
+      :host([auto-width]) #input {
+        width: 10px;
+        min-width: 100%;
+      }
+
+      :host(:hover) {
+        border-color: var(
+          --uui-input-border-color-hover,
+          var(--uui-color-border-standalone)
+        );
+      }
+      /* TODO: Fix so we dont get double outline when there is focus on things in the slot. */
+      :host(:focus-within) {
+        border-color: var(
+          --uui-input-border-color-focus,
+          var(--uui-color-border-emphasis)
+        );
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
+      }
+      :host(:focus) {
+        border-color: var(
+          --uui-input-border-color-focus,
+          var(--uui-color-border-emphasis)
+        );
+      }
+      :host([disabled]) {
+        background-color: var(
+          --uui-input-background-color-disabled,
+          var(--uui-color-disabled)
+        );
+        border-color: var(
+          --uui-input-border-color-disabled,
+          var(--uui-color-disabled)
+        );
+
+        color: var(--uui-color-disabled-contrast);
+      }
+      :host([disabled]) input {
+        -webkit-text-fill-color: var(
+          --uui-color-disabled-contrast
+        ); /* required on Safari and IOS */
+      }
+      :host([readonly]) {
+        background-color: var(
+          --uui-input-background-color-readonly,
+          var(--uui-color-disabled)
+        );
+        border-color: var(
+          --uui-input-border-color-readonly,
+          var(--uui-color-disabled-standalone)
+        );
+      }
+
+      :host(:not([pristine]):invalid),
+      /* polyfill support */
+      :host(:not([pristine])[internals-invalid]) {
+        border-color: var(--uui-color-danger);
+      }
+
+      input {
+        font-family: inherit;
+        padding: var(--uui-size-1) var(--uui-size-space-3);
+        font-size: inherit;
+        color: inherit;
+        border-radius: 0;
+        box-sizing: border-box;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: inherit;
+        outline: none;
+      }
+
+      input::placeholder {
+        transition: opacity 120ms;
+      }
+
+      input[type='password']::-ms-reveal {
+        display: none;
+      }
+
+      :host(:not([readonly])) input:focus::placeholder {
+        opacity: 0;
+      }
+
+      /* TODO: make sure color looks good, or remove it as an option as we want to provide color-picker component */
+      input[type='color'] {
+        width: 30px;
+        padding: 0;
+        border: none;
+      }
+
+      ::slotted(uui-input) {
+        height: 100%;
+        --uui-input-border-width: 0;
+      }
+    `,
+  ];
 }
 
 declare global {

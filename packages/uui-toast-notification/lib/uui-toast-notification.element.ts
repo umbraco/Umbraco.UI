@@ -18,107 +18,6 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
  */
 @defineElement('uui-toast-notification')
 export class UUIToastNotificationElement extends LitElement {
-  static styles = [
-    UUITextStyles,
-    css`
-      :host {
-        --uui-toast-notification-margin: var(--uui-size-space-2);
-
-        position: relative;
-        display: block;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 var(--uui-toast-notification-margin);
-        box-sizing: border-box;
-
-        height: 0;
-        pointer-events: none;
-
-        transition: height
-          var(--uui-toast-notification-animation-duration, 480ms) ease-in-out;
-      }
-      :host([is-open]) {
-        pointer-events: all;
-        transition-timing-function: cubic-bezier(
-          0.19,
-          1,
-          0.22,
-          1
-        ); /* easeOutExpo */
-      }
-
-      #toast {
-        position: relative;
-        display: block;
-        padding: calc(var(--uui-toast-notification-margin) * 0.5) 0;
-        width: 100%;
-        max-width: 400px;
-      }
-      #toast.animate {
-        position: absolute;
-      }
-
-      #toast > div {
-        position: relative;
-        display: block;
-
-        box-sizing: border-box;
-        box-shadow: var(--uui-shadow-depth-1);
-        background-color: var(--uui-color-surface);
-        padding: var(--uui-size-layout-1);
-        padding-right: var(--uui-size-layout-1);
-        padding-left: var(--uui-size-layout-3);
-        border-radius: calc(var(--uui-border-radius) * 2);
-
-        opacity: 0;
-        transition: opacity
-          var(--uui-toast-notification-animation-duration, 480ms);
-      }
-      :host([is-open]) #toast > div {
-        opacity: 1;
-      }
-
-      #close {
-        float: right;
-        margin-top: -6px;
-        margin-left: var(--uui-size-space-1);
-        margin-bottom: -4px;
-      }
-
-      #close > uui-button {
-        --uui-button-border-radius: 50px 50px 50px 50px;
-        --uui-button-padding-left-factor: 1.5;
-        --uui-button-padding-right-factor: 1.5;
-      }
-
-      :host #toast > div {
-        background-color: var(--uui-color-surface);
-        color: var(--uui-color-text);
-        border-color: var(--uui-color-surface);
-      }
-      :host([color='default']) #toast > div {
-        background-color: var(--uui-color-default);
-        color: var(--uui-color-default-contrast);
-        border-color: var(--uui-color-default-standalone);
-      }
-      :host([color='positive']) #toast > div {
-        background-color: var(--uui-color-positive);
-        color: var(--uui-color-positive-contrast);
-        border-color: var(--uui-color-positive-standalone);
-      }
-      :host([color='warning']) #toast > div {
-        background-color: var(--uui-color-warning);
-        color: var(--uui-color-warning-contrast);
-        border-color: var(--uui-color-warning-standalone);
-      }
-      :host([color='danger']) #toast > div {
-        background-color: var(--uui-color-danger);
-        color: var(--uui-color-danger-contrast);
-        border-color: var(--uui-color-danger-standalone);
-      }
-    `,
-  ];
-
   /**
    * Changes the color of the notification to one of the predefined, symbolic colors. Example: set this to danger to indicate errors.
    * @type {'' | 'default' | 'positive' | 'warning' | 'danger'}
@@ -353,6 +252,107 @@ export class UUIToastNotificationElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    UUITextStyles,
+    css`
+      :host {
+        --uui-toast-notification-margin: var(--uui-size-space-2);
+
+        position: relative;
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 var(--uui-toast-notification-margin);
+        box-sizing: border-box;
+
+        height: 0;
+        pointer-events: none;
+
+        transition: height
+          var(--uui-toast-notification-animation-duration, 480ms) ease-in-out;
+      }
+      :host([is-open]) {
+        pointer-events: all;
+        transition-timing-function: cubic-bezier(
+          0.19,
+          1,
+          0.22,
+          1
+        ); /* easeOutExpo */
+      }
+
+      #toast {
+        position: relative;
+        display: block;
+        padding: calc(var(--uui-toast-notification-margin) * 0.5) 0;
+        width: 100%;
+        max-width: 400px;
+      }
+      #toast.animate {
+        position: absolute;
+      }
+
+      #toast > div {
+        position: relative;
+        display: block;
+
+        box-sizing: border-box;
+        box-shadow: var(--uui-shadow-depth-1);
+        background-color: var(--uui-color-surface);
+        padding: var(--uui-size-layout-1);
+        padding-right: var(--uui-size-layout-1);
+        padding-left: var(--uui-size-layout-3);
+        border-radius: calc(var(--uui-border-radius) * 2);
+
+        opacity: 0;
+        transition: opacity
+          var(--uui-toast-notification-animation-duration, 480ms);
+      }
+      :host([is-open]) #toast > div {
+        opacity: 1;
+      }
+
+      #close {
+        float: right;
+        margin-top: -6px;
+        margin-left: var(--uui-size-space-1);
+        margin-bottom: -4px;
+      }
+
+      #close > uui-button {
+        --uui-button-border-radius: 50px 50px 50px 50px;
+        --uui-button-padding-left-factor: 1.5;
+        --uui-button-padding-right-factor: 1.5;
+      }
+
+      :host #toast > div {
+        background-color: var(--uui-color-surface);
+        color: var(--uui-color-text);
+        border-color: var(--uui-color-surface);
+      }
+      :host([color='default']) #toast > div {
+        background-color: var(--uui-color-default);
+        color: var(--uui-color-default-contrast);
+        border-color: var(--uui-color-default-standalone);
+      }
+      :host([color='positive']) #toast > div {
+        background-color: var(--uui-color-positive);
+        color: var(--uui-color-positive-contrast);
+        border-color: var(--uui-color-positive-standalone);
+      }
+      :host([color='warning']) #toast > div {
+        background-color: var(--uui-color-warning);
+        color: var(--uui-color-warning-contrast);
+        border-color: var(--uui-color-warning-standalone);
+      }
+      :host([color='danger']) #toast > div {
+        background-color: var(--uui-color-danger);
+        color: var(--uui-color-danger-contrast);
+        border-color: var(--uui-color-danger-standalone);
+      }
+    `,
+  ];
 }
 
 declare global {

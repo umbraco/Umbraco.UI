@@ -39,37 +39,6 @@ function mathClamp(value: number, min: number, max: number) {
  */
 @defineElement('uui-popover')
 export class UUIPopoverElement extends LitElement {
-  static styles = [
-    css`
-      :host {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-      }
-      #container {
-        position: absolute;
-        width: 100%;
-        z-index: var(--uui-popover-z-index, 1);
-      }
-      slot[name='popover'] {
-        display: block;
-      }
-      #trigger {
-        position: relative;
-        width: 100%;
-      }
-
-      slot[name='trigger']::slotted(uui-button) {
-        --uui-button-border-radius: var(
-          --uui-popover-toggle-slot-button-border-radius
-        );
-        --uui-button-merge-border-left: var(
-          --uui-popover-toggle-slot-button-merge-border-left
-        );
-      }
-    `,
-  ];
-
   // Cashed non-state variables //////////////////////////////
   private intersectionObserver?: IntersectionObserver;
   private scrollEventHandler = this._updatePlacement.bind(this);
@@ -547,4 +516,35 @@ export class UUIPopoverElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    css`
+      :host {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+      #container {
+        position: absolute;
+        width: 100%;
+        z-index: var(--uui-popover-z-index, 1);
+      }
+      slot[name='popover'] {
+        display: block;
+      }
+      #trigger {
+        position: relative;
+        width: 100%;
+      }
+
+      slot[name='trigger']::slotted(uui-button) {
+        --uui-button-border-radius: var(
+          --uui-popover-toggle-slot-button-border-radius
+        );
+        --uui-button-merge-border-left: var(
+          --uui-popover-toggle-slot-button-merge-border-left
+        );
+      }
+    `,
+  ];
 }

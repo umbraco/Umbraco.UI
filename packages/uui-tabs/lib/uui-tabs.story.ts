@@ -44,9 +44,12 @@ export const AAAOverview: Story = props => html`
     --uui-tab-background: ${props['--uui-tab-background']};
     --uui-tab-divider: ${props['--uui-tab-divider']};
     ${props.inlineStyles}">
-    <uui-tab active> Content </uui-tab>
-    <uui-tab ?disabled=${props.disabled}> Packages </uui-tab>
-    <uui-tab> Media </uui-tab>
+    <uui-tab label="content" active> Content </uui-tab>
+    <uui-tab label="Packages" ?disabled=${props.disabled}> Packages </uui-tab>
+    <uui-tab label="Media"> Media </uui-tab>
+    <uui-tab label="Settings"> Settings </uui-tab>
+    <uui-tab label="Translations"> Translations </uui-tab>
+    <uui-tab label="Users"> Users </uui-tab>
   </uui-tab-group>
 `;
 AAAOverview.storyName = 'Overview';
@@ -63,9 +66,12 @@ export const WithBorders: Story = () => html`
     --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
     <uui-tab-group>
-      <uui-tab> Content </uui-tab>
-      <uui-tab> Packages </uui-tab>
-      <uui-tab active> Media </uui-tab>
+      <uui-tab label="content"> Content </uui-tab>
+      <uui-tab label="Packages"> Packages </uui-tab>
+      <uui-tab label="Media" active> Media </uui-tab>
+      <uui-tab label="Settings"> Settings </uui-tab>
+      <uui-tab label="Translations"> Translations </uui-tab>
+      <uui-tab label="Users"> Users </uui-tab>
     </uui-tab-group>
   </div>
 `;
@@ -82,9 +88,46 @@ export const Navbar: Story = () => html`
     --uui-tab-background: var(--uui-color-default);
     ">
     <uui-tab-group>
-      <uui-tab>Content</uui-tab>
-      <uui-tab active>Packages</uui-tab>
-      <uui-tab>Media</uui-tab>
+      <uui-tab label="content"> Content </uui-tab>
+      <uui-tab label="Packages" active> Packages </uui-tab>
+      <uui-tab label="Media"> Media </uui-tab>
+      <uui-tab label="Settings"> Settings </uui-tab>
+      <uui-tab label="Translations"> Translations </uui-tab>
+      <uui-tab label="Users"> Users </uui-tab>
+    </uui-tab-group>
+  </div>
+`;
+
+export const UsingHref: Story = () => html`
+  <h3>Href links</h3>
+  <div
+    style="
+    height: 60px;
+    font-size: 16px;
+    --uui-tab-text: var(--uui-color-surface-alt);
+    --uui-tab-text-hover: var(--uui-color-surface);
+    --uui-tab-text-active: var(--uui-color-current);
+    --uui-tab-background: var(--uui-color-default);
+    ">
+    <uui-tab-group>
+      <uui-tab label="content" href="http://www.umbraco.com/#content">
+        Content
+      </uui-tab>
+      <uui-tab label="Packages" href="http://www.umbraco.com/#package" active>
+        Packages
+      </uui-tab>
+      <uui-tab label="Media" href="http://www.umbraco.com/#media">
+        Media
+      </uui-tab>
+      <uui-tab label="Settings" href="http://www.umbraco.com/#settings">
+        Settings
+      </uui-tab>
+      <uui-tab label="Translations" href="http://www.umbraco.com/#translations">
+        Translations
+      </uui-tab>
+      <uui-tab label="Users" href="http://www.umbraco.com/#users">
+        Users
+      </uui-tab>
     </uui-tab-group>
   </div>
 `;
@@ -93,6 +136,7 @@ export const WithIcons: Story = props => html`
   <h3>Tabs with Icons</h3>
   <uui-icon-registry-essential>
     <uui-tab-group
+      dropdown-direction="horizontal"
       style="
       height: 70px;
       font-size: 12px;

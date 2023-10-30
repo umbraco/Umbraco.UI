@@ -7,6 +7,14 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
  */
 @defineElement('uui-loader')
 export class UUILoaderElement extends LitElement {
+  render() {
+    return html`
+      <div></div>
+      <div></div>
+      <div></div>
+    `;
+  }
+
   static styles = [
     css`
       :host {
@@ -50,14 +58,6 @@ export class UUILoaderElement extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`
-      <div></div>
-      <div></div>
-      <div></div>
-    `;
-  }
 }
 
 declare global {

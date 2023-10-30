@@ -6,7 +6,7 @@ Umbraco style combobox-list component.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-combobox-list)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-combobox-list--docs)
 
 ## Installation
 
