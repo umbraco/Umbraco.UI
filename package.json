@@ -71,7 +71,7 @@
     "@storybook/addon-actions": "7.4.6",
     "@storybook/addon-essentials": "7.4.6",
     "@storybook/addon-links": "7.4.6",
-    "@storybook/blocks": "7.4.6",
+    "@storybook/blocks": "7.5.1",
     "@storybook/web-components": "7.4.6",
     "@storybook/web-components-vite": "7.4.6",
     "@types/chai": "4.3.5",
