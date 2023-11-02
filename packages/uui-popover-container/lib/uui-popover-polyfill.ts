@@ -96,6 +96,33 @@ export function polyfill() {
     this.polyfill_originalParent = this.parentNode;
     this.polyfill_originalNextSibling = this.nextSibling;
 
+    // Styles from the parent are lost when moving the popover to the body, so we need to add them back.
+    const adoptedStyleSheets = this.parentNode.adoptedStyleSheets;
+    const combinedStyles = adoptedStyleSheets.reduce((acc, styleSheet) => {
+      return (
+        acc +
+        Object.values(styleSheet.cssRules).reduce((acc, rule) => {
+          return acc + rule.cssText;
+        }, '')
+      );
+    }, '');
+
+    const styleTag = document.createElement('style');
+    styleTag.innerHTML = combinedStyles;
+    styleTag.id = 'uui-popover-polyfill-style';
+
+    //look in slot for existing style tag and remove it.
+    const existingStyleTag = this.shadowRoot.host.querySelector(
+      '#uui-popover-polyfill-style'
+    );
+
+    if (existingStyleTag) {
+      existingStyleTag.parentNode.removeChild(existingStyleTag);
+    }
+
+    this.insertAdjacentElement('beforeend', styleTag);
+
+    //Move the popover to the body so it doesn't get cut off by overflow hidden.
     if (this.parentNode !== document.body) {
       this.parentNode?.removeChild(this);
       this.polyfill_hasBeenMovedToBody = true;
