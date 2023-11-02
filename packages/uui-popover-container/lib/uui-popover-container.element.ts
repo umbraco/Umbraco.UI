@@ -98,15 +98,11 @@ export class UUIPopoverContainerElement extends LitElement {
   #onBeforeToggle = (event: any) => {
     this._open = event.newState === 'open';
 
-    // @ts-ignore
-    if (!this.polyfill_hasBeenMovedToBody) {
-      //TODO: Remove the if statement when firefox supports the new popover API
-      this.#targetElement = findAncestorByAttributeValue(
-        this,
-        'popovertarget',
-        this.id
-      );
-    }
+    this.#targetElement = findAncestorByAttributeValue(
+      this,
+      'popovertarget',
+      this.id
+    );
 
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
