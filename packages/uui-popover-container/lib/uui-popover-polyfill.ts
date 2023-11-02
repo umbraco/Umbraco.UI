@@ -122,7 +122,7 @@ export function polyfill() {
         return (
           acc +
           Object.values(styleSheet.cssRules).reduce((acc, rule) => {
-            return acc + rule.cssText;
+            return acc + `#${this.id} ${rule.cssText}`;
           }, '')
         );
       }, '');
