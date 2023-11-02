@@ -112,31 +112,36 @@ export function polyfill() {
     this.polyfill_originalParent = this.parentNode;
     this.polyfill_originalNextSibling = this.nextSibling;
 
-    // Styles from the parent are lost when moving the popover to the body, so we need to add them back.
-    const adoptedStyleSheets = this.parentNode.adoptedStyleSheets;
-    const combinedStyles = adoptedStyleSheets.reduce((acc, styleSheet) => {
-      return (
-        acc +
-        Object.values(styleSheet.cssRules).reduce((acc, rule) => {
-          return acc + rule.cssText;
-        }, '')
+    //TODO: Find the render root of this component and get the stylesheet from there.
+    const renderRoot = this.getRootNode();
+
+    if (renderRoot && renderRoot.adoptedStyleSheets) {
+      // Styles from the parent are lost when moving the popover to the body, so we need to add them back.
+      const adoptedStyleSheets = renderRoot.adoptedStyleSheets;
+      const combinedStyles = adoptedStyleSheets.reduce((acc, styleSheet) => {
+        return (
+          acc +
+          Object.values(styleSheet.cssRules).reduce((acc, rule) => {
+            return acc + rule.cssText;
+          }, '')
+        );
+      }, '');
+
+      const styleTag = document.createElement('style');
+      styleTag.innerHTML = combinedStyles;
+      styleTag.id = 'uui-popover-polyfill-style';
+
+      //look in slot for existing style tag and remove it.
+      const existingStyleTag = this.shadowRoot.host.querySelector(
+        '#uui-popover-polyfill-style'
       );
-    }, '');
 
-    const styleTag = document.createElement('style');
-    styleTag.innerHTML = combinedStyles;
-    styleTag.id = 'uui-popover-polyfill-style';
+      if (existingStyleTag) {
+        existingStyleTag.parentNode.removeChild(existingStyleTag);
+      }
 
-    //look in slot for existing style tag and remove it.
-    const existingStyleTag = this.shadowRoot.host.querySelector(
-      '#uui-popover-polyfill-style'
-    );
-
-    if (existingStyleTag) {
-      existingStyleTag.parentNode.removeChild(existingStyleTag);
+      this.insertAdjacentElement('beforeend', styleTag);
     }
-
-    this.insertAdjacentElement('beforeend', styleTag);
 
     //Move the popover to the body so it sits on top of everything else.
     if (this.parentNode !== document.body) {
