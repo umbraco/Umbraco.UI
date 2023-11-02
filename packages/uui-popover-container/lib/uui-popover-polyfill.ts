@@ -1,4 +1,6 @@
 // @ts-nocheck
+
+import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 export function polyfill() {
   const originalAddEventListener = this.addEventListener;
 
@@ -80,6 +82,20 @@ export function polyfill() {
     if (!this.polyfill_hasBeenMovedToBody) {
       this.polyfill_parentPopoverContainer = findParentPopover(this);
     }
+
+    this.polyfill_targetElement = findAncestorByAttributeValue(
+      this,
+      'popovertarget',
+      this.id
+    );
+
+    if (!this.polyfill_targetElement) {
+      console.error(
+        'Could not find a popover target for this popover. Make sure the popover target has a popovertarget attribute with the value of this popover id.'
+      );
+      return;
+    }
+
     this.polyfill_onBeforeToggle({
       oldState: 'closed',
       newState: 'open',
