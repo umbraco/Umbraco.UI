@@ -11,17 +11,30 @@ export class UUIPopoverTestStoryElement extends LitElement {
         >open popover</uui-button
       >
       <uui-popover-container id="my-popover" popover>
-        <div style="width: 200px; border: 1px solid black">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-          quis eos doloribus dolore. Voluptate dolorum, natus, sit veritatis
-          impedit dolore enim odio excepturi ex nostrum veniam repellendus
-          obcaecati aspernatur dolorem.
-        </div>
+        <uui-box style="width: 200px; border: 1px solid black">
+          <h2>Whats going on ma dude</h2>
+          <uui-button
+            color="danger"
+            look="primary"
+            label="Button here"></uui-button>
+        </uui-box>
       </uui-popover-container>
     `;
   }
 
-  static styles = [css``];
+  static styles = [
+    css`
+      uui-box {
+        background: red;
+      }
+      h2 {
+        color: blue;
+      }
+      uui-box:hover {
+        background: pink;
+      }
+    `,
+  ];
 }
 
 declare global {
