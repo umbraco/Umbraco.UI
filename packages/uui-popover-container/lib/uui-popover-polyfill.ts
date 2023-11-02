@@ -122,7 +122,7 @@ export function polyfill() {
 
     this.insertAdjacentElement('beforeend', styleTag);
 
-    //Move the popover to the body so it doesn't get cut off by overflow hidden.
+    //Move the popover to the body so it sits on top of everything else.
     if (this.parentNode !== document.body) {
       this.parentNode?.removeChild(this);
       this.polyfill_hasBeenMovedToBody = true;
