@@ -92,6 +92,10 @@ export function polyfill() {
     window.addEventListener('click', this.polyfill_onClick);
     window.addEventListener('focusout', this.polyfill_onFocusout);
 
+    //Find the dom position that the popover is currently at and save it so we can restore it later.
+    this.polyfill_originalParent = this.parentNode;
+    this.polyfill_originalNextSibling = this.nextSibling;
+
     if (this.parentNode !== document.body) {
       this.parentNode?.removeChild(this);
       this.polyfill_hasBeenMovedToBody = true;
@@ -99,6 +103,16 @@ export function polyfill() {
     }
   };
   this.hidePopover = () => {
+    //Restore previous dom position.
+    if (this.polyfill_hasBeenMovedToBody) {
+      document.body.removeChild(this);
+      this.polyfill_hasBeenMovedToBody = false;
+      this.polyfill_originalParent?.insertBefore(
+        this,
+        this.polyfill_originalNextSibling
+      );
+    }
+
     window.removeEventListener('click', this.polyfill_onClick);
     window.removeEventListener('focusout', this.polyfill_onFocusout);
     this.polyfill_parentPopoverContainer?.removeEventListener(
