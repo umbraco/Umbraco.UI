@@ -52,8 +52,8 @@
     "postinstall": "npm run bootstrap"
   },
   "engines": {
-    "node": ">=18.16.0 <19",
-    "npm": ">=9.5.0 < 10"
+    "node": ">=20.9 <21",
+    "npm": ">=10.1 < 11"
   },
   "dependencies": {
     "lit": "^2.7.6"
