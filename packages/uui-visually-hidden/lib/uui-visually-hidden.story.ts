@@ -6,7 +6,7 @@ import readme from '../README.md?raw';
 
 const meta: Meta<UUIVisuallyHiddenElement> = {
   id: 'uui-visually-hidden',
-  title: 'Visually Hidden',
+  title: 'Displays/Visually Hidden',
   component: 'uui-visually-hidden',
   parameters: {
     readme: { markdown: readme },
