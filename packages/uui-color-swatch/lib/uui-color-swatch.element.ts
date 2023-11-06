@@ -4,9 +4,6 @@ import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-
-import { styleMap } from 'lit/directives/style-map.js';
-
 import {
   ActiveMixin,
   LabelMixin,
@@ -27,23 +24,33 @@ export class UUIColorSwatchElement extends LabelMixin(
   'label',
   SelectableMixin(ActiveMixin(LitElement))
 ) {
-  private _value: string | undefined = '';
-
   /**
-   * Value of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
-   *
-   * @attr
+   * Value of the swatch. This will become the color value if color is left undefined, see the property `color` for more details.
    */
   @property()
   get value(): string {
-    return this._value ? this._value : this.textContent?.trim() || '';
+    return this._value ?? '';
   }
-
   set value(newValue: string) {
     const oldValue = this._value;
     this._value = newValue;
     this.requestUpdate('value', oldValue);
   }
+  private _value?: string;
+
+  /**
+   * Color of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
+   */
+  @property()
+  get color(): string | undefined {
+    return this._color;
+  }
+  set color(newValue: string) {
+    const oldValue = this._color;
+    this._color = newValue;
+    this.requestUpdate('color', oldValue);
+  }
+  private _color?: string;
 
   /**
    * Determines if the options is disabled. If true the option can't be selected
@@ -61,6 +68,7 @@ export class UUIColorSwatchElement extends LabelMixin(
    */
   @property({ type: Boolean, attribute: 'show-label' })
   showLabel = false;
+
   /**
    * Colord object instance based on the value provided to the element. If the value is not a valid color, it falls back to black (like Amy Winehouse). For more information about Colord, see [Colord](https://omgovich.github.io/colord/)
    *
@@ -92,11 +100,13 @@ export class UUIColorSwatchElement extends LabelMixin(
   }
 
   private _initializeColor() {
-    this._colord = new Colord(this.value ?? '');
+    this._colord = new Colord(this.color ?? this.value);
     if (!this._colord.isValid()) {
       this.disabled = true;
       console.error(
-        `Invalid color provided to uui-color-swatch: ${this.value}`
+        `Invalid color provided to uui-color-swatch: ${
+          this.color ?? this.value
+        }`
       );
     }
   }
@@ -112,7 +122,7 @@ export class UUIColorSwatchElement extends LabelMixin(
   }
 
   willUpdate(changedProperties: Map<string, any>) {
-    if (changedProperties.has('value')) {
+    if (changedProperties.has('color') || changedProperties.has('value')) {
       this._initializeColor();
     }
     if (changedProperties.has('disabled')) {
@@ -145,9 +155,7 @@ export class UUIColorSwatchElement extends LabelMixin(
           })}>
           <div
             class="color-swatch__color"
-            style=${styleMap({
-              backgroundColor: `var(--uui-swatch-color, ${this.value}`,
-            })}></div>
+            style="background-color: ${this.color ?? this.value}"></div>
           <div class="color-swatch__check">${iconCheck}</div>
         </div>
         ${this._renderWithLabel()}
