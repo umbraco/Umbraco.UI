@@ -62,13 +62,10 @@
   --uui-color-danger-standalone: var(--uui-palette-maroon-flush-dark);
   --uui-color-danger-contrast: white;
 
-  --uui-color-positive: #1f9554;
-  --uui-color-positive-emphasis: #2ca964;
-  --uui-color-positive-standalone: #19864a;
+  --uui-color-positive: var(--uui-palette-forest-green);
+  --uui-color-positive-emphasis: var(--uui-palette-forest-green-light);
+  --uui-color-positive-standalone: var(--uui-palette-forest-green-dark);
   --uui-color-positive-contrast: #fff;
-  /* --uui-color-positive: var(--uui-palette-jungle-green); Contrast not high enough */
-  /* --uui-color-positive-emphasis: var(--uui-palette-jungle-green-light); Contrast not high enough */
-  /* --uui-color-positive-standalone: var(--uui-palette-jungle-green-dark); Contrast not high enough */
 }
 
 :root[data-theme='dark'] {
