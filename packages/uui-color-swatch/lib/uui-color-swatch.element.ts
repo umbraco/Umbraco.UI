@@ -19,6 +19,7 @@ import {
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
+ * @cssprop --uui-swatch-color - The width of the border.
  * @slot label - Default slot for the label.
  */
 @defineElement('uui-color-swatch')
@@ -65,15 +66,15 @@ export class UUIColorSwatchElement extends LabelMixin(
    *
    * @memberof UUIColorSwatchElement
    */
-  get color(): Colord | null {
-    return this._color;
+  get colord(): Colord | null {
+    return this._colord;
   }
 
-  set color(_) {
+  set colord(_) {
     // do nothing, this is just to prevent the color from being set from outside
     return;
   }
-  private _color: Colord | null = null;
+  private _colord: Colord | null = null;
 
   /**
    * Returns true if the color brightness is >= 0.5
@@ -82,7 +83,7 @@ export class UUIColorSwatchElement extends LabelMixin(
    * @memberof UUIColorSwatchElement
    */
   get isLight() {
-    return this.color?.isLight() ?? false;
+    return this.colord?.isLight() ?? false;
   }
 
   constructor() {
@@ -91,8 +92,8 @@ export class UUIColorSwatchElement extends LabelMixin(
   }
 
   private _initializeColor() {
-    this._color = new Colord(this.value ?? '');
-    if (!this._color.isValid()) {
+    this._colord = new Colord(this.value ?? '');
+    if (!this._colord.isValid()) {
       this.disabled = true;
       console.error(
         `Invalid color provided to uui-color-swatch: ${this.value}`
@@ -144,7 +145,9 @@ export class UUIColorSwatchElement extends LabelMixin(
           })}>
           <div
             class="color-swatch__color"
-            style=${styleMap({ backgroundColor: this.value })}></div>
+            style=${styleMap({
+              backgroundColor: `var(--uui-swatch-color, ${this.value}`,
+            })}></div>
           <div class="color-swatch__check">${iconCheck}</div>
         </div>
         ${this._renderWithLabel()}
