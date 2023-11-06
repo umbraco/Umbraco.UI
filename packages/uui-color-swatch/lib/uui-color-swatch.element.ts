@@ -1,7 +1,5 @@
-import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import {
@@ -11,7 +9,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- * Color swatch, can have label and be selectable. Depends on colord library and exposes it's utility functions under color property.
+ * Color swatch, can have label and be selectable.
  *
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
@@ -66,49 +64,12 @@ export class UUIColorSwatchElement extends LabelMixin(
    * @attr
    * @memberof UUIColorSwatchElement
    */
-  @property({ type: Boolean, attribute: 'show-label' })
+  @property({ type: Boolean, attribute: 'show-label', reflect: true })
   showLabel = false;
-
-  /**
-   * Colord object instance based on the value provided to the element. If the value is not a valid color, it falls back to black (like Amy Winehouse). For more information about Colord, see [Colord](https://omgovich.github.io/colord/)
-   *
-   * @memberof UUIColorSwatchElement
-   */
-  get colord(): Colord | null {
-    return this._colord;
-  }
-
-  set colord(_) {
-    // do nothing, this is just to prevent the color from being set from outside
-    return;
-  }
-  private _colord: Colord | null = null;
-
-  /**
-   * Returns true if the color brightness is >= 0.5
-   *
-   * @readonly
-   * @memberof UUIColorSwatchElement
-   */
-  get isLight() {
-    return this.colord?.isLight() ?? false;
-  }
 
   constructor() {
     super();
     this.addEventListener('click', this._setAriaAttributes);
-  }
-
-  private _initializeColor() {
-    this._colord = new Colord(this.color ?? this.value);
-    if (!this._colord.isValid()) {
-      this.disabled = true;
-      console.error(
-        `Invalid color provided to uui-color-swatch: ${
-          this.color ?? this.value
-        }`
-      );
-    }
   }
 
   private _setAriaAttributes() {
@@ -117,14 +78,10 @@ export class UUIColorSwatchElement extends LabelMixin(
   }
 
   firstUpdated() {
-    this._initializeColor();
     this._setAriaAttributes();
   }
 
   willUpdate(changedProperties: Map<string, any>) {
-    if (changedProperties.has('color') || changedProperties.has('value')) {
-      this._initializeColor();
-    }
     if (changedProperties.has('disabled')) {
       if (this.selectable) {
         this.selectable = !this.disabled;
@@ -146,16 +103,11 @@ export class UUIColorSwatchElement extends LabelMixin(
         aria-label=${this.label}
         aria-disabled="${this.disabled}"
         title="${this.label}">
-        <div
-          class=${classMap({
-            'color-swatch': true,
-            'color-swatch--transparent-bg': true,
-            'color-swatch--light': this.isLight,
-            'color-swatch--big': this.showLabel,
-          })}>
+        <div class="color-swatch color-swatch--transparent-bg">
           <div
             class="color-swatch__color"
-            style="background-color: ${this.color ?? this.value}"></div>
+            style="background-color: var(--uui-swatch-color, ${this.color ??
+            this.value})"></div>
           <div class="color-swatch__check">${iconCheck}</div>
         </div>
         ${this._renderWithLabel()}
@@ -233,7 +185,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         width: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
         height: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
         box-sizing: border-box;
-        border: var(--uui-swatch-border-width, 1px) solid
+        border: var(--uui-swatch-border-width, 2px) solid
           var(--uui-color-selected);
         border-radius: calc(
           var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
@@ -261,7 +213,13 @@ export class UUIColorSwatchElement extends LabelMixin(
         justify-content: center;
         align-items: center;
       }
-      .color-swatch--transparent-bg {
+
+      :host([show-label]) .color-swatch {
+        width: 120px;
+        height: 50px;
+      }
+
+      .color-swatch.color-swatch--transparent-bg {
         background-image: linear-gradient(
             45deg,
             var(--uui-palette-grey) 25%,
@@ -281,7 +239,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         box-sizing: border-box;
       }
 
-      .color-swatch--big .color-swatch__color {
+      :host([show-label]) .color-swatch__color {
         border-radius: 3px 3px 0 0;
       }
 
@@ -293,12 +251,9 @@ export class UUIColorSwatchElement extends LabelMixin(
         line-height: 0;
         transition: fill 120ms, opacity 120ms;
         fill: #fff;
+        filter: invert(1) grayscale(1) contrast(9);
         pointer-events: none;
         opacity: 0;
-      }
-
-      .color-swatch--light .color-swatch__check {
-        fill: #000;
       }
 
       :host([selected]) .color-swatch__check {
@@ -308,11 +263,6 @@ export class UUIColorSwatchElement extends LabelMixin(
       slot[name='label']::slotted(*),
       .label {
         font-size: var(--uui-size-4);
-      }
-
-      .color-swatch--big {
-        width: 120px;
-        height: 50px;
       }
 
       .color-swatch__label {
