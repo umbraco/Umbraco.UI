@@ -108,7 +108,11 @@ export class UUIColorSwatchElement extends LabelMixin(
             class="color-swatch__color"
             style="background-color: var(--uui-swatch-color, ${this.color ??
             this.value})"></div>
-          <div class="color-swatch__check">${iconCheck}</div>
+          <div
+            class="color-swatch__check"
+            style="fill: var(--uui-swatch-color, ${this.color ?? this.value})">
+            ${iconCheck}
+          </div>
         </div>
         ${this._renderWithLabel()}
       </button>
@@ -249,8 +253,6 @@ export class UUIColorSwatchElement extends LabelMixin(
         width: calc(var(--uui-swatch-size, 25px) / 2);
         height: calc(var(--uui-swatch-size, 25px) / 2);
         line-height: 0;
-        transition: fill 120ms, opacity 120ms;
-        fill: #fff;
         filter: invert(1) grayscale(1) contrast(9);
         pointer-events: none;
         opacity: 0;
