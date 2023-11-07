@@ -84,8 +84,8 @@ const Template: Story = {
 
         return html`<uui-color-swatch
           label="${label}"
-          .showLabel=${args.showLabel}>
-          ${value}
+          .showLabel=${args.showLabel}
+          .value=${value}>
         </uui-color-swatch>`;
       })}
     </uui-color-swatches>
