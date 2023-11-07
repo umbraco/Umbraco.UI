@@ -161,7 +161,7 @@ RadioGroup.parameters = {
       label="Other (Please state)"
       >
   </uui-radio>
-</uui-radio-group
+</uui-radio-group>
 `,
     },
   },
