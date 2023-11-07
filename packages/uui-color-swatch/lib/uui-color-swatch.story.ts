@@ -13,8 +13,7 @@ const meta: Meta<UUIColorSwatchElement> = {
   },
   argTypes: {
     value: { control: 'color' },
-    color: { control: false },
-    isLight: { control: false },
+    color: { control: 'color' },
   },
   parameters: {
     readme: {
@@ -94,9 +93,23 @@ export const WithLabel: Story = {
   },
 };
 
+export const DifferentColorThanValue: Story = {
+  args: {
+    value: 'color1',
+    color: 'green',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch value="color1" color="green"></uui-color-slider>`,
+      },
+    },
+  },
+};
+
 export const Transparent: Story = {
   args: {
-    value: 'rgba(53, 68, 177, 0.5)',
+    color: 'rgba(53, 68, 177, 0.5)',
   },
   parameters: {
     docs: {
