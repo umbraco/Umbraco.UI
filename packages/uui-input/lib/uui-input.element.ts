@@ -12,10 +12,11 @@ export type InputType =
   | 'url'
   | 'email'
   | 'password'
-  | 'date'
+  | 'search'
   | 'month'
   | 'week'
   | 'time'
+  | 'date'
   | 'datetime-local'
   | 'number'
   | 'color';

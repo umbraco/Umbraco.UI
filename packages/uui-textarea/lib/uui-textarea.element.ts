@@ -304,6 +304,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
 
       textarea {
         font-family: inherit;
+        line-height: var(--uui-size-6);
         box-sizing: border-box;
         min-width: 100%;
         max-width: 100%;
