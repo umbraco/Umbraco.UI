@@ -30,6 +30,7 @@ function mathClamp(value: number, min: number, max: number) {
 }
 
 /**
+ * @deprecated
  * @element uui-popover
  * @description Open a modal aligned with the opening element. This does not jet work within two layers of scroll containers.
  * @fires close - When popover is closed by user interaction.
