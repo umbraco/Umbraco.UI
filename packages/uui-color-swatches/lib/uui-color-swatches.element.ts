@@ -86,7 +86,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
         swatch.setAttribute('selectable', 'selectable');
       }
 
-      if (this.value !== '' && swatch.color?.isEqual(this.value)) {
+      if (this.value !== '' && swatch.value === this.value) {
         swatch.selected = true;
         swatch.setAttribute('aria-checked', 'true');
         this._selectedElement = swatch;

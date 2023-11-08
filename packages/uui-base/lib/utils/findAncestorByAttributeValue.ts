@@ -33,7 +33,11 @@ export const findAncestorByAttributeValue = (
     }
 
     // Move up the DOM tree to the parent or parentNode, whichever is available
-    currentNode = currentNode.parentElement || currentNode.parentNode || null;
+    currentNode =
+      currentNode.parentElement ||
+      currentNode.parentNode ||
+      (currentNode as ShadowRoot).host ||
+      null;
   }
 
   return null; // No matching ancestor found

@@ -6,7 +6,7 @@ import * as stories from './uui-popover-container.story';
 # Popover Container
 
 This component is a container for popovers. It is used to position the popover relative to the target element.
-It is also a native popover. So everything descriped in the **[Popover documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)** applies.
+It is also a native popover. So everything descriped in the **[Popover API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)** applies.
 
 <div
   style={{
@@ -14,6 +14,7 @@ It is also a native popover. So everything descriped in the **[Popover documenta
     background: '#f3d41b24',
     padding: '0px 16px',
     display: 'flex',
+    flexDirection: 'column',
   }}>
   When used with UUIButton or any element that is not a native button or input,
   the popovertargetaction property will not work, and defaults too toggle.
@@ -21,15 +22,17 @@ It is also a native popover. So everything descriped in the **[Popover documenta
 <br />
 <div
   style={{
-    borderLeft: '6px solid #e25555',
-    background: '#e2555512',
+    borderLeft: '6px solid #f3d41b',
+    background: '#f3d41b24',
     padding: '0px 16px',
     display: 'flex',
+    flexDirection: 'column',
   }}>
   This uses the Popover API which is experimental and will not work in all
-  browsers. See **[Popover
+  browsers. See **[Popover API
   documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)**
-  for more information.
+  for more information. A polyfill is provided for browsers that do not support
+  the Popover API.
 </div>
 <Controls />
 ## Basic usage
@@ -85,5 +88,28 @@ As a result, you will need to manually close the popover either by clicking the 
 <uui-button popovertarget="my-popover">Open Popover</uui-button>
 <uui-popover-container id="my-popover" popover="manual">
   My popover content
+</uui-popover-container>
+```
+
+## Example: Tooltip
+
+A tooltip is a small pop-up box that appears when the user hovers over an item, providing additional information or context about that item.  
+Note: The popover-container always needs a an element with the `popovertarget` attribute, even when it's not a button. This element is used as the anchor to position the popover.
+
+```js
+const tooltipToggle = document.getElementById('tooltip-toggle');
+const tooltipPopover = document.getElementById('tooltip-popover');
+
+tooltipToggle.addEventListener('mouseenter', () => tooltipPopover.show());
+tooltipToggle.addEventListener('mouseleave', () => tooltipPopover.hide());
+```
+
+```html
+Sometimes words such as
+<b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b>
+needs some more explanation
+<uui-popover-container id="tooltip-popover" popover>
+  A pleasant smell that frequently accompanies the first rain after a long
+  period of warm, dry weather.
 </uui-popover-container>
 ```

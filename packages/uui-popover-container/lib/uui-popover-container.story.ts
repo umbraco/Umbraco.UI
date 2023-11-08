@@ -104,3 +104,57 @@ export const Overview: Story = {
     </uui-popover-container>
   `,
 };
+
+export const Tooltip: Story = {
+  play: ({ canvasElement }) => {
+    const tooltipElement = canvasElement.querySelector('#tooltip-toggle');
+    const popover = canvasElement.querySelector(
+      '#tooltip-popover'
+    ) as UUIPopoverContainerElement;
+
+    tooltipElement?.addEventListener('mouseenter', () => popover.showPopover());
+    tooltipElement?.addEventListener('mouseleave', () => popover.hidePopover());
+  },
+  args: {
+    placement: 'bottom-start',
+    margin: 0,
+  },
+  argTypes: {
+    open: {
+      control: false,
+    },
+    placement: {
+      options: [
+        'auto',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
+      ],
+    },
+  },
+  render: args => html`
+    Sometimes words such as
+    <b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b> needs
+    some more explanation
+    <uui-popover-container
+      id="tooltip-popover"
+      popover
+      placement=${args.placement}
+      margin=${args.margin}>
+      <div
+        style="background-color: var(--uui-color-surface); max-width: 150px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
+        A pleasant smell that frequently accompanies the first rain after a long
+        period of warm, dry weather.
+      </div>
+    </uui-popover-container>
+  `,
+};

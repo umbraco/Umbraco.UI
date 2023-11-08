@@ -29,9 +29,9 @@ changelog:
     - title: 📦 Dependencies
       labels:
         - dependencies
-    - title: 📄 Documentation
+    - title: 🌈 A11Y
       labels:
-        - documentation
+        - accessibility
     - title: Other Changes
       labels:
         - '*'

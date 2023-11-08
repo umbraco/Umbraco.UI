@@ -2,6 +2,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { polyfill } from './uui-popover-polyfill.js';
 
 export type PopoverContainerPlacement =
   | 'top'
@@ -70,24 +71,17 @@ export class UUIPopoverContainerElement extends LitElement {
   #targetElement: HTMLElement | null = null;
 
   connectedCallback(): void {
+    //TODO: Remove this polyfill when firefox supports the new popover API
+    !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)();
+
     super.connectedCallback();
 
     this.addEventListener('focusout', this.#onFocusOut);
-
-    // CHECK BROWSER SUPPORT
-    if (!HTMLElement.prototype.hasOwnProperty('popover')) {
-      alert(
-        'Browser does not support popovers. Check the docs for info on how to enable: https://developer.mozilla.org/en-US/docs/Web/API/Popover_API'
-      );
-      return;
-    }
-
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
@@ -100,7 +94,7 @@ export class UUIPopoverContainerElement extends LitElement {
     }
   };
 
-  #onBeforeToggle = async (event: any) => {
+  #onBeforeToggle = (event: any) => {
     this._open = event.newState === 'open';
 
     this.#targetElement = findAncestorByAttributeValue(

@@ -30,6 +30,7 @@ function mathClamp(value: number, min: number, max: number) {
 }
 
 /**
+ * @deprecated This component has been deprecated and will be removed in future releases. It is being replaced by popover-container.
  * @element uui-popover
  * @description Open a modal aligned with the opening element. This does not jet work within two layers of scroll containers.
  * @fires close - When popover is closed by user interaction.
