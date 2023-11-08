@@ -111,13 +111,9 @@ export const Tooltip: Story = {
     const popover = canvasElement.querySelector(
       '#tooltip-popover'
     ) as UUIPopoverContainerElement;
-    tooltipElement?.addEventListener('mouseenter', () => {
-      console.log('heyo');
-      popover.showPopover();
-    });
-    tooltipElement?.addEventListener('mouseleave', () => {
-      popover.hidePopover();
-    });
+
+    tooltipElement?.addEventListener('mouseenter', () => popover.showPopover());
+    tooltipElement?.addEventListener('mouseleave', () => popover.hidePopover());
   },
   args: {
     placement: 'bottom-start',
