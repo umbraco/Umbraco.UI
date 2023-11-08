@@ -1,3 +1,3 @@
 import { svg } from 'lit';
 
-export const iconInfo = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 38.7C136 38.7 38.7 136 38.7 256S136 473.3 256 473.3 473.3 376 473.3 256 376 38.7 256 38.7zm18.1 326h-36.2V237.9h36.2v126.8zM256 192.6c-15 0-27.2-12.2-27.2-27.2s12.2-27.2 27.2-27.2 27.2 12.2 27.2 27.2-12.2 27.2-27.2 27.2z"/></svg>`;
+export const iconInfo = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>`;
