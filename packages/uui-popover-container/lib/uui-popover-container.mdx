@@ -90,3 +90,23 @@ As a result, you will need to manually close the popover either by clicking the 
   My popover content
 </uui-popover-container>
 ```
+
+## Example: Tooltip
+
+```js
+const tooltipToggle = document.getElementById('tooltip-toggle');
+const tooltipPopover = document.getElementById('tooltip-popover');
+
+tooltipToggle.addEventListener('mouseenter', () => tooltipPopover.show());
+tooltipToggle.addEventListener('mouseleave', () => tooltipPopover.hide());
+```
+
+```html
+Sometimes words such as
+<b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b>
+needs some more explanation
+<uui-popover-container id="tooltip-popover" popover>
+  A pleasant smell that frequently accompanies the first rain after a long
+  period of warm, dry weather.
+</uui-popover-container>
+```
