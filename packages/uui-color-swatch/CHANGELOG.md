@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0...v1.6.0-rc.0) (2023-11-08)
+
+### Features
+
+- **uui-swatch:** ability to overwrite displayed color with a css custom prop ([#649](https://github.com/umbraco/Umbraco.UI/issues/649)) ([48db9f5](https://github.com/umbraco/Umbraco.UI/commit/48db9f5d2b6e1bb59be430506b757e99ed8a0ea2))
+
 # [1.5.0](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0-rc.3...v1.5.0) (2023-10-30)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-swatch
