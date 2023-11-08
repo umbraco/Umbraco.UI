@@ -86,7 +86,7 @@
     $maroon-flush saturation(- 62%) blackness(+ 2%)
   );
 
-  $jungle-green: #25aa60; /* A11Y acceptable color. Originally #2BC37C*/
+  $jungle-green: #2bc37c;
   --uui-palette-jungle-green: $jungle-green;
   --uui-palette-jungle-green-light: color($jungle-green lightness(+ 6%));
   --uui-palette-jungle-green-dark: color($jungle-green blackness(+ 6%));
@@ -94,7 +94,6 @@
     $jungle-green saturation(- 50%) blackness(+ 1%)
   );
 
-  /*TODO: color needs proper name*/
   $forest-green: #0b8152;
   --uui-palette-forest-green: $forest-green;
   --uui-palette-forest-green-light: color($forest-green lightness(+ 6%));
