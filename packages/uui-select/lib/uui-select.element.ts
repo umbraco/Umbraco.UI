@@ -248,20 +248,18 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         display: inline-block;
         position: relative;
         font-family: inherit;
-        height: var(--uui-select-height, var(--uui-size-11));
       }
 
       #native {
         display: inline-block;
         font-family: inherit;
         font-size: var(--uui-select-font-size, var(--uui-size-5));
-        height: inherit;
-        width: 100%;
+        height: var(--uui-select-height, var(--uui-size-11));
         padding: var(--uui-select-padding-y, var(--uui-size-1))
           var(--uui-select-padding-x, var(--uui-size-2));
         color: currentColor;
-        border-radius: 0;
         box-sizing: border-box;
+        border-radius: 0;
         border: 1px solid
           var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;
@@ -269,7 +267,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
 
       #native:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+          var(--uui-select-outline-color, var(--uui-color-focus));
       }
 
       #native[disabled] {
@@ -294,11 +292,6 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
           --uui-select-selected-option-color,
           var(--uui-color-selected-contrast)
         );
-      }
-
-      /* TODO: a proper focus style has to be implemented. it needs it's own variables */
-      #native:focus {
-        outline-color: var(--uui-select-outline-color, var(--uui-color-focus));
       }
 
       #caret {
