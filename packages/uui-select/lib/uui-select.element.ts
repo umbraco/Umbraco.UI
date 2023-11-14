@@ -21,6 +21,16 @@ declare global {
  * This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-select
  * @fires change - when the user changes value
+ * @cssprop --uui-select-height - Height of the element
+ * @cssprop --uui-select-font-size - Font size of the element
+ * @cssprop --uui-select-padding-y - Padding on the y axis
+ * @cssprop --uui-select-padding-x - Padding on the x axis
+ * @cssprop --uui-select-border-color - Border color
+ * @cssprop --uui-select-border-color-hover - Border color on hover
+ * @cssprop --uui-select-selected-option-background-color - Background color of the selected option
+ * @cssprop --uui-select-selected-option-color - Color of the selected option
+ * @cssprop --uui-select-outline-color - Outline color
+ * @cssprop --uui-select-disabled-background-color - Background color when disabled
  */
 // TODO: Consider if this should use child items instead of an array.
 @defineElement('uui-select')
