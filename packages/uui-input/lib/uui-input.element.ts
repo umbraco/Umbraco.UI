@@ -321,7 +321,7 @@ export class UUIInputElement extends FormControlMixin(
         position: relative;
         display: inline-flex;
         align-items: stretch;
-        height: var(--uui-size-11);
+        height: var(--uui-input-height, var(--uui-size-11));
         text-align: left;
         box-sizing: border-box;
         background-color: var(
@@ -425,6 +425,7 @@ export class UUIInputElement extends FormControlMixin(
         border: none;
         background: none;
         width: 100%;
+        height: inherit;
         text-align: inherit;
         outline: none;
       }
