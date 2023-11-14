@@ -238,13 +238,14 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         display: inline-block;
         position: relative;
         font-family: inherit;
+        height: var(--uui-select-height, var(--uui-size-11));
       }
 
       #native {
         display: inline-block;
         font-family: inherit;
         font-size: var(--uui-select-font-size, var(--uui-size-5));
-        height: var(--uui-select-height, var(--uui-size-11));
+        height: inherit;
         width: 100%;
         padding: var(--uui-select-padding-y, var(--uui-size-1))
           var(--uui-select-padding-x, var(--uui-size-2));
