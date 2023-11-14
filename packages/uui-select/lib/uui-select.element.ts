@@ -235,6 +235,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
+        display: inline-block;
         position: relative;
         font-family: inherit;
       }
