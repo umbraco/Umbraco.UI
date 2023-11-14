@@ -250,7 +250,6 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         color: currentColor;
         border-radius: 0;
         box-sizing: border-box;
-        background-color: transparent;
         border: 1px solid
           var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;
