@@ -21,6 +21,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   private _acceptedFileExtensions: string[] = [];
   private _acceptedMimeTypes: string[] = [];
+  private _accept = '';
 
   /**
    * Comma-separated list of accepted mime types or file extensions (denoted with a `.`).
@@ -57,6 +58,12 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       this._acceptedMimeTypes = [];
       this._acceptedFileExtensions = [];
     }
+    const old = this._accept;
+    this._accept = value;
+    this.requestUpdate('accept', old);
+  }
+  public get accept(): string {
+    return this._accept;
   }
 
   /**
