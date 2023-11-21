@@ -86,6 +86,10 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   #onFocusOut = (event: FocusEvent) => {
+    return; //TODO: This breaks some interactions with the popover, so we're disabling it for now.
+    //TODO: The "event.relatedTarget" check has stopped working for some reason, which results in the popover sometimes closing even when clicking inside the popover.
+    //TODO: We need to find a way to make this work, so that the popover closes if you focus outside. This is useful if you use tab to navigate.
+
     // If focus is outside of the container, then the popover will close.
     if (!event.relatedTarget || !this.contains(event.relatedTarget as Node)) {
       // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
