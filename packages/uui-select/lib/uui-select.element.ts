@@ -21,6 +21,16 @@ declare global {
  * This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-select
  * @fires change - when the user changes value
+ * @cssprop --uui-select-height - Height of the element
+ * @cssprop --uui-select-font-size - Font size of the element
+ * @cssprop --uui-select-padding-y - Padding on the y axis
+ * @cssprop --uui-select-padding-x - Padding on the x axis
+ * @cssprop --uui-select-border-color - Border color
+ * @cssprop --uui-select-border-color-hover - Border color on hover
+ * @cssprop --uui-select-selected-option-background-color - Background color of the selected option
+ * @cssprop --uui-select-selected-option-color - Color of the selected option
+ * @cssprop --uui-select-outline-color - Outline color
+ * @cssprop --uui-select-disabled-background-color - Background color when disabled
  */
 // TODO: Consider if this should use child items instead of an array.
 @defineElement('uui-select')
@@ -235,6 +245,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   static styles = [
     css`
       :host {
+        display: inline-block;
         position: relative;
         font-family: inherit;
       }
@@ -244,13 +255,11 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         font-family: inherit;
         font-size: var(--uui-select-font-size, var(--uui-size-5));
         height: var(--uui-select-height, var(--uui-size-11));
-        width: 100%;
         padding: var(--uui-select-padding-y, var(--uui-size-1))
           var(--uui-select-padding-x, var(--uui-size-2));
         color: currentColor;
-        border-radius: 0;
         box-sizing: border-box;
-        background-color: transparent;
+        border-radius: 0;
         border: 1px solid
           var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;
@@ -258,7 +267,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
 
       #native:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+          var(--uui-select-outline-color, var(--uui-color-focus));
       }
 
       #native[disabled] {
@@ -283,11 +292,6 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
           --uui-select-selected-option-color,
           var(--uui-color-selected-contrast)
         );
-      }
-
-      /* TODO: a proper focus style has to be implemented. it needs it's own variables */
-      #native:focus {
-        outline-color: var(--uui-select-outline-color, var(--uui-color-focus));
       }
 
       #caret {
