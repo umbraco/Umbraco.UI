@@ -74,9 +74,11 @@ export class UUIPopoverContainerElement extends LitElement {
     //TODO: Remove this polyfill when firefox supports the new popover API
     !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)();
 
-    super.connectedCallback();
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
 
-    this.addEventListener('focusout', this.#onFocusOut);
+    super.connectedCallback();
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
   }
 
@@ -84,15 +86,6 @@ export class UUIPopoverContainerElement extends LitElement {
     super.disconnectedCallback();
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
   }
-
-  #onFocusOut = (event: FocusEvent) => {
-    // If focus is outside of the container, then the popover will close.
-    if (!event.relatedTarget || !this.contains(event.relatedTarget as Node)) {
-      // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-      this.hidePopover();
-      this._open = false;
-    }
-  };
 
   #onBeforeToggle = (event: any) => {
     this._open = event.newState === 'open';
