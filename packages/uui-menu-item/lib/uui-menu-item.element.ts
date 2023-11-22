@@ -16,6 +16,7 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 /**
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
+ *  @cssprop --uui-menu-item-flat-structure - set to 1 to remove the indentation of the chevron. Use this when you have a flat menu structure.
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
@@ -200,8 +201,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: block;
         --uui-menu-item-child-indent: calc(var(--uui-menu-item-indent, 0) + 1);
         user-select: none;
-        --flat-structure: 0;
-        --flat-structure-reversed: calc(1 - var(--flat-structure));
+        --flat-structure-reversed: calc(
+          1 - var(--uui-menu-item-flat-structure, 0)
+        );
       }
 
       #menu-item {
@@ -393,7 +395,10 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         grid-column-start: 2;
         white-space: nowrap;
         overflow: hidden;
-
+        padding-right: var(--uui-size-space-3);
+        padding-left: calc(
+          var(--uui-menu-item-flat-structure) * var(--uui-size-space-3)
+        );
         display: inline-flex;
         align-items: center;
         text-decoration: none;
@@ -409,10 +414,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
       span#label-button {
         pointer-events: none; /* avoid hovering state on this. */
-      }
-
-      #caret-button + #label-button {
-        padding-left: 0;
       }
 
       #caret-button {
