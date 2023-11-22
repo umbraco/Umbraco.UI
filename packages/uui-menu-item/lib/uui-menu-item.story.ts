@@ -32,6 +32,7 @@ export default {
   },
   argTypes: {
     '--uui-menu-item-indent': { control: { type: 'text' } },
+    '--uui-menu-item-flat-structure': { control: { type: 'text' } },
     selectMode: {
       control: {
         type: 'select',

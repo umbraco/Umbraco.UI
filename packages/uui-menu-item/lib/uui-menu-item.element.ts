@@ -16,7 +16,7 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 /**
  *  @element uui-menu-item
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
- *  @cssprop --uui-menu-item-flat-structure - set to 1 to remove the indentation of the chevron. Use this when you have a flat menu structure.
+ *  @cssprop --uui-menu-item-flat-structure - set to 1 to remove the indentation of the chevron. Use this when you have a flat menu structure
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
