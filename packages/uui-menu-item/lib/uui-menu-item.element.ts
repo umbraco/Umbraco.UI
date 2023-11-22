@@ -200,13 +200,17 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: block;
         --uui-menu-item-child-indent: calc(var(--uui-menu-item-indent, 0) + 1);
         user-select: none;
+        --flat-structure: 0;
+        --flat-structure-reversed: calc(1 - var(--flat-structure));
       }
 
       #menu-item {
         position: relative;
         padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-4));
         display: grid;
-        grid-template-columns: var(--uui-size-8) 1fr;
+        grid-template-columns:
+          calc(var(--flat-structure-reversed) * var(--uui-size-8))
+          1fr;
         grid-template-rows: 1fr;
         white-space: nowrap;
       }
