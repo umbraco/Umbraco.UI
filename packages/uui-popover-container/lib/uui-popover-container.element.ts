@@ -74,6 +74,10 @@ export class UUIPopoverContainerElement extends LitElement {
     //TODO: Remove this polyfill when firefox supports the new popover API
     !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)();
 
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
+
     super.connectedCallback();
 
     this.addEventListener('focusout', this.#onFocusOut);
