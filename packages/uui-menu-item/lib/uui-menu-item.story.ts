@@ -397,6 +397,36 @@ ItemIndentation.parameters = {
   },
 };
 
+export const FlatStructure: Story = (props: any) => html`
+  <uui-icon-registry-essential>
+    <uui-menu-item
+      style="--uui-menu-item-flat-structure: 1"
+      label=${props.label}
+      ?loading=${props.loading}
+      ?disabled=${props.disabled}
+      ?has-children=${props.hasChildren}
+      ?show-children=${props.showChildren}
+      ?selected=${props.selected}
+      ?active=${props.active}
+      ?selectable=${props.selectable}
+      href=${props.href}
+      target=${props.target}>
+    </uui-menu-item>
+  </uui-icon-registry-essential>
+`;
+FlatStructure.parameters = {
+  docs: {
+    source: {
+      code: html`
+        <uui-menu-item
+          style="--uui-menu-item-flat-structure: 1"
+          label="Menu Item 1">
+        </uui-menu-item>
+      `.strings,
+    },
+  },
+};
+
 export const SelectMode = (props: any) =>
   html`<uui-menu-item
     label="Parent"
