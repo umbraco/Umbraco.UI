@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.0...v1.6.0-rc.1) (2023-11-22)
+
+### Bug Fixes
+
+- uui-dropzone should set the 'accept' attribute ([#662](https://github.com/umbraco/Umbraco.UI/issues/662)) ([9d03779](https://github.com/umbraco/Umbraco.UI/commit/9d0377930a6409498f9807f9df1cba3f8f4978b8))
+- **uui-input:** make the inner input follow the height of the custom element and add a variable to control it ([4045c14](https://github.com/umbraco/Umbraco.UI/commit/4045c1428e78994f37bb1592a96d786ed60444f3))
+- **uui-popover-container:** disable the focusout close listener ([#663](https://github.com/umbraco/Umbraco.UI/issues/663)) ([23900eb](https://github.com/umbraco/Umbraco.UI/commit/23900ebbc9507fcdc8c7c96bff0b478af813992b))
+- **uui-select:** do not enforce a certain background-color ([c2eebfc](https://github.com/umbraco/Umbraco.UI/commit/c2eebfcae3934752a7e17fc0fc793821bf5ba503))
+- **uui-select:** make the inner select follow the height of the custom element ([9ac213a](https://github.com/umbraco/Umbraco.UI/commit/9ac213abb9b0be1c7c05d6e1cfdad88d17759c7e))
+- **uui-select:** move 'height' and other properties to inner element because it is easiest to control the select rather than mimick it in terms of :focus and :hover on the outer element ([b69ed74](https://github.com/umbraco/Umbraco.UI/commit/b69ed74b962c285ce984ecfbc00d648dde2b8b55))
+- **uui-select:** set display to "inline-block" to match the inner native element ([e4e3ffd](https://github.com/umbraco/Umbraco.UI/commit/e4e3ffd27ec795f8e74a5c3d135e97d728961199))
+
+### Features
+
+- **uui-menu-item:** add flatten css var to hide chevron column ([#665](https://github.com/umbraco/Umbraco.UI/issues/665)) ([cec3188](https://github.com/umbraco/Umbraco.UI/commit/cec3188e4a2d1e848aa0d94ac1e6800b0a6d536a))
+- **uui-popover-container:** set popover attribute automatically ([#664](https://github.com/umbraco/Umbraco.UI/issues/664)) ([201f449](https://github.com/umbraco/Umbraco.UI/commit/201f44960d2f729997d29abab6b5e69d303e6cf6))
+
 # [1.6.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0...v1.6.0-rc.0) (2023-11-08)
 
 ### Bug Fixes

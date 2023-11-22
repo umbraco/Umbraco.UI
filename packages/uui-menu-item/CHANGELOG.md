@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.0...v1.6.0-rc.1) (2023-11-22)
+
+### Features
+
+- **uui-menu-item:** add flatten css var to hide chevron column ([#665](https://github.com/umbraco/Umbraco.UI/issues/665)) ([cec3188](https://github.com/umbraco/Umbraco.UI/commit/cec3188e4a2d1e848aa0d94ac1e6800b0a6d536a))
+
 # [1.6.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0...v1.6.0-rc.0) (2023-11-08)
 
 **Note:** Version bump only for package @umbraco-ui/uui-menu-item
