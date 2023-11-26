@@ -85,11 +85,13 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
       :host {
         position: relative;
         cursor: pointer;
-        margin: 0 6px;
+        margin: 0 4px;
         border-radius: var(--uui-border-radius);
         outline: 2px solid transparent;
         outline-offset: -2px;
+        padding-left: 4px;
       }
+
       :host(:first-child) {
         margin-top: 6px;
       }
@@ -130,6 +132,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         color: var(--uui-color-disabled-contrast);
         background-color: var(--uui-color-disabled);
       }
+
       :host([disabled]:hover) {
         background-color: var(--uui-color-disabled);
       }
@@ -142,6 +145,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         color: var(--uui-color-selected-contrast);
         background-color: var(--uui-color-selected);
       }
+
       :host([selected]:hover) {
         color: var(--uui-color-selected-contrast);
         background-color: var(--uui-color-selected-emphasis);
