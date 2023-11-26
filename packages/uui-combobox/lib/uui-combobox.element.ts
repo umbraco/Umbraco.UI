@@ -198,6 +198,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
+  private _toggle = () => {
+    this.open = !this.open;
+  };
+
   private _open = () => {
     if (this.open) return;
     this.open = true;
@@ -255,7 +259,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       .value=${this._displayValue}
       autocomplete="off"
       .disabled=${this.disabled}
-      @click=${this._open}
+      @click=${this._toggle}
       @input=${this._onInput}
       @keydown=${this._onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
