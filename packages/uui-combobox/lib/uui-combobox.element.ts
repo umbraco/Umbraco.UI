@@ -16,8 +16,7 @@ import {
 
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 
-import '@umbraco-ui/uui-popover-container/lib';
-import { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
+import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 
 /**
  * @element uui-combobox
@@ -150,7 +149,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
-    demandCustomElement(this, 'uui-popover-container'); //TODO: Why is the import necessary when we have this?
+    demandCustomElement(this, 'uui-popover-container');
   }
 
   disconnectedCallback(): void {
