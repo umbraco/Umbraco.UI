@@ -322,7 +322,6 @@ export class UUIButtonElement extends FormControlMixin(
       }
       #icon-check,
       #icon-wrong {
-        fill: currentColor;
         display: grid;
         place-items: center;
         width: 1.5em;
