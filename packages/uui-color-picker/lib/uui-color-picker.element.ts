@@ -28,9 +28,9 @@ import type {
   UUIColorSwatchesEvent,
 } from '@umbraco-ui/uui-color-swatches/lib';
 
-import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
+import type { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
 
-import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import type { UUIInputElement } from '@umbraco-ui/uui-input/lib';
 import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
