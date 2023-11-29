@@ -72,17 +72,14 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   public set open(newValue: boolean) {
     const oldValue = newValue;
     this._isOpen = newValue;
-
-    if (this._comboboxPopoverElement) {
+    const popover = this._comboboxPopoverElement;
+    if (popover) {
       if (newValue) {
-        this._comboboxPopoverElement.showPopover();
         const width = this._inputElement.offsetWidth;
-        this._comboboxPopoverElement.style.setProperty(
-          '--popover-width',
-          `${width}px`
-        );
+        popover.style.setProperty('--popover-width', `${width}px`);
+        popover.showPopover();
       } else {
-        this._comboboxPopoverElement.hidePopover();
+        popover.hidePopover();
       }
     }
 
