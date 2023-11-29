@@ -9,7 +9,8 @@ import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
  *  A box for grouping elements
  *  @element uui-box
  *  @slot headline - headline area, this area is placed within the headline tag which is located inside the header. Use this to ensure the right headline styling.
- *  @slot header - header area, use this for things that is not the headline but located in the header.
+ *  @slot header - header area, use this for things that are not the headline but are located in the header.
+ *  @slot header-actions - right-side of the box header, use this for non-text elements in the header.
  *  @slot - area for the content of the box
  *  @cssprop --uui-box-default-padding - overwrite the box padding
  *
@@ -17,7 +18,7 @@ import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
 @defineElement('uui-box')
 export class UUIBoxElement extends LitElement {
   /**
-   * Headline for this box, can also be set via the 'box' slot.
+   * Headline for this box, can also be set via the 'headline' slot.
    * @type string
    * @attr
    * @default null
@@ -27,7 +28,7 @@ export class UUIBoxElement extends LitElement {
 
   /**
    * Changes the headline variant for accessibility for this box.
-   * Notice this does not change the visual representation of the headline. (Umbraco does only recommend displaying a h5 sizes headline in the UUI-BOX)
+   * Notice this does not change the visual representation of the headline. (Umbraco recommends displaying a h5 size headline in the UUI-BOX)
    * @type {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"}
    * @attr
    * @default "h5"
@@ -47,19 +48,29 @@ export class UUIBoxElement extends LitElement {
   @state()
   private _headlineSlotHasContent = false;
   private _headlineSlotChanged = (e: Event) => {
-    this._headlineSlotHasContent =
-      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+    this._headlineSlotHasContent = this.#hasContent(e.target);
   };
 
   @state()
   private _headerSlotHasContent = false;
   private _headerSlotChanged = (e: Event) => {
-    this._headerSlotHasContent =
-      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+    this._headerSlotHasContent = this.#hasContent(e.target);
   };
 
+  @state()
+  private _headerActionsSlotHasContent = false;
+  private _headerActionsSlotChanged = (e: Event) => {
+    this._headerActionsSlotHasContent = this.#hasContent(e.target);
+  };
+
+  #hasContent(target: EventTarget | null): boolean {
+    return (
+      (target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0
+    );
+  }
+
   /**
-   * Renders a header with the header-slot, headline and headline-slot within
+   * Renders a header with the header-slot, header-actions-slot, headline and headline-slot within
    * @returns {TemplateResult}
    * @protected
    * @method
@@ -72,22 +83,28 @@ export class UUIBoxElement extends LitElement {
       style=${
         this._headerSlotHasContent ||
         this._headlineSlotHasContent ||
+        this._headerActionsSlotHasContent ||
         this.headline !== null
           ? ''
           : 'display: none'
       }>
-      <${this._headlineVariantTag}
-        id="headline"
-        class="uui-h5"
-        style=${
-          this._headlineSlotHasContent || this.headline !== null
-            ? ''
-            : 'display: none'
-        }>
-        ${this.headline}
-        <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-      </${this._headlineVariantTag}>
-      <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
+      <div id="header-left">
+        <${this._headlineVariantTag}
+          id="headline"
+          class="uui-h5"
+          style=${
+            this._headlineSlotHasContent || this.headline !== null
+              ? ''
+              : 'display: none'
+          }>
+          ${this.headline}
+          <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
+        </${this._headlineVariantTag}>
+        <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
+      </div>
+      <slot name="header-actions" @slotchange=${
+        this._headerActionsSlotChanged
+      }></slot>
     </div>`;
     /* eslint-enable lit/no-invalid-html, lit/binding-positions */
   }
@@ -110,14 +127,24 @@ export class UUIBoxElement extends LitElement {
       }
 
       #header {
-        display: block;
+        display: flex;
+        column-gap: var(--uui-size-space-5);
         border-bottom: 1px solid var(--uui-color-divider-standalone);
         padding: var(--uui-size-space-4) var(--uui-size-space-5);
+      }
+
+      #header-left {
+        flex: 1;
       }
 
       slot:not([name]) {
         display: block;
         padding: var(--uui-box-default-padding, var(--uui-size-space-5));
+      }
+
+      slot[name='header-actions'] {
+        display: block;
+        margin-left: auto;
       }
     `,
   ];

@@ -56,6 +56,9 @@ export const Slots: Story = () => html`
       >Headline slot</uui-button
     >
     <uui-button slot="header" look="placeholder">Header slot</uui-button>
+    <uui-button slot="header-actions" look="placeholder"
+      >Header actions slot</uui-button
+    >
     <uui-button look="placeholder">Default slot</uui-button>
   </uui-box>
 `;
