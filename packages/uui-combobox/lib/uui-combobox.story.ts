@@ -2,7 +2,7 @@ import '@umbraco-ui/uui-scroll-container/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-input/lib';
 import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-popover/lib';
+import '@umbraco-ui/uui-popover-container/lib';
 
 import '.';
 import './uui-combobox-async-example';
