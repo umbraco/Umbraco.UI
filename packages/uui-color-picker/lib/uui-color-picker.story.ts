@@ -6,7 +6,6 @@ import '@umbraco-ui/uui-input/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-button-group/lib';
 import '@umbraco-ui/uui-icon/lib';
-import '@umbraco-ui/uui-popover/lib';
 
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { withActions } from '@storybook/addon-actions/decorator';
