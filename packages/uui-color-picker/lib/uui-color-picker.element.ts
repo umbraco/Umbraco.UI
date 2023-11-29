@@ -34,8 +34,6 @@ import type { UUIInputElement } from '@umbraco-ui/uui-input/lib';
 import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
-import '@umbraco-ui/uui-popover-container/lib';
-
 const hasEyeDropper = 'EyeDropper' in window;
 
 interface EyeDropperConstructor {
@@ -193,7 +191,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     demandCustomElement(this, 'uui-color-swatch');
     demandCustomElement(this, 'uui-color-area');
     demandCustomElement(this, 'uui-color-slider');
-    demandCustomElement(this, 'uui-popover-container'); //TODO: Why is the import necessary when we have this?
+    demandCustomElement(this, 'uui-popover-container');
   }
 
   /** Returns the current value as a string in the specified format. */
