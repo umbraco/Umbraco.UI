@@ -73,17 +73,20 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     const oldValue = value;
     this._isOpen = value;
 
-    value
-      ? this._comboboxPopoverElement?.showPopover()
-      : this._comboboxPopoverElement?.hidePopover();
+    if (this._comboboxPopoverElement) {
+      if (value) {
+        this._comboboxPopoverElement.showPopover();
+      } else {
+        this._comboboxPopoverElement.hidePopover();
+      }
 
-    //TODO: This is a little hacky, return and find a better solution.
-    if (value && this._comboboxPopoverElement) {
-      const width = this._inputElement.offsetWidth;
-      this._comboboxPopoverElement.style.setProperty(
-        '--popover-width',
-        `${width}px`
-      );
+      if (value) {
+        const width = this._inputElement.offsetWidth;
+        this._comboboxPopoverElement.style.setProperty(
+          '--popover-width',
+          `${width}px`
+        );
+      }
     }
 
     this.requestUpdate('open', oldValue);
