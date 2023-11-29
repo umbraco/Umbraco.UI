@@ -24,6 +24,9 @@
     },
     {
       "path": "../uui-scroll-container"
+    },
+    {
+      "path": "../uui-popover-container"
     }
   ]
 }
