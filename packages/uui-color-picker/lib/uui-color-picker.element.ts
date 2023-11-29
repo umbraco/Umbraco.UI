@@ -13,17 +13,17 @@ import { clamp, demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import {
+import type {
   UUIColorAreaElement,
   UUIColorAreaEvent,
 } from '@umbraco-ui/uui-color-area/lib';
 
-import {
+import type {
   UUIColorSliderElement,
   UUIColorSliderEvent,
 } from '@umbraco-ui/uui-color-slider/lib';
 
-import {
+import type {
   UUIColorSwatchesElement,
   UUIColorSwatchesEvent,
 } from '@umbraco-ui/uui-color-swatches/lib';
