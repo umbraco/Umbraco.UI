@@ -189,7 +189,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     demandCustomElement(this, 'uui-input');
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-button-group');
-    demandCustomElement(this, 'uui-popover');
     demandCustomElement(this, 'uui-color-swatches');
     demandCustomElement(this, 'uui-color-swatch');
     demandCustomElement(this, 'uui-color-area');
