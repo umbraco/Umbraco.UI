@@ -5,12 +5,18 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import type { InterfaceHeading } from '@umbraco-ui/uui-base/lib';
 import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
 
+function slotHasContent(target: EventTarget | null): boolean {
+  return target
+    ? (target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0
+    : false;
+}
+
 /**
- *  A box for grouping elements
+ *  A layout box for grouping elements, as well its possible to append a header, with a headline or other elements to the box.
  *  @element uui-box
  *  @slot headline - headline area, this area is placed within the headline tag which is located inside the header. Use this to ensure the right headline styling.
  *  @slot header - header area, use this for things that are not the headline but are located in the header.
- *  @slot header-actions - right-side of the box header, use this for non-text elements in the header.
+ *  @slot header-actions - right-side of the box header, use this to append some actions that are general for the topic of this box.
  *  @slot - area for the content of the box
  *  @cssprop --uui-box-default-padding - overwrite the box padding
  *
@@ -18,7 +24,7 @@ import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
 @defineElement('uui-box')
 export class UUIBoxElement extends LitElement {
   /**
-   * Headline for this box, can also be set via the 'headline' slot.
+   * Headline for this box, can also be set via the `headline` slot.
    * @type string
    * @attr
    * @default null
@@ -48,29 +54,23 @@ export class UUIBoxElement extends LitElement {
   @state()
   private _headlineSlotHasContent = false;
   private _headlineSlotChanged = (e: Event) => {
-    this._headlineSlotHasContent = this.#hasContent(e.target);
+    this._headlineSlotHasContent = slotHasContent(e.target);
   };
 
   @state()
   private _headerSlotHasContent = false;
   private _headerSlotChanged = (e: Event) => {
-    this._headerSlotHasContent = this.#hasContent(e.target);
+    this._headerSlotHasContent = slotHasContent(e.target);
   };
 
   @state()
   private _headerActionsSlotHasContent = false;
   private _headerActionsSlotChanged = (e: Event) => {
-    this._headerActionsSlotHasContent = this.#hasContent(e.target);
+    this._headerActionsSlotHasContent = slotHasContent(e.target);
   };
 
-  #hasContent(target: EventTarget | null): boolean {
-    return (
-      (target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0
-    );
-  }
-
   /**
-   * Renders a header with the header-slot, header-actions-slot, headline and headline-slot within
+   * Renders a header with the `header`-slot, `header-actions`-slot, headline and `headline`-slot within
    * @returns {TemplateResult}
    * @protected
    * @method
