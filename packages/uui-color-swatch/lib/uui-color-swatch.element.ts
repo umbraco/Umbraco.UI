@@ -110,7 +110,7 @@ export class UUIColorSwatchElement extends LabelMixin(
             this.value})"></div>
           <div
             class="color-swatch__check"
-            style="fill: var(--uui-swatch-color, ${this.color ?? this.value})">
+            style="color: var(--uui-swatch-color, ${this.color ?? this.value})">
             ${iconCheck}
           </div>
         </div>
