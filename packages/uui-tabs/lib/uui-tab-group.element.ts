@@ -236,7 +236,6 @@ export class UUITabGroupElement extends LitElement {
       <uui-popover-container
         id="popover-container"
         popover
-        margin="3"
         placement="bottom-end">
         <div id="hidden-tabs-container">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
