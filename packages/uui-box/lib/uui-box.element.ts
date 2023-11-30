@@ -88,20 +88,18 @@ export class UUIBoxElement extends LitElement {
           ? ''
           : 'display: none'
       }>
-      <div id="header-left">
-        <${this._headlineVariantTag}
-          id="headline"
-          class="uui-h5"
-          style=${
-            this._headlineSlotHasContent || this.headline !== null
-              ? ''
-              : 'display: none'
-          }>
-          ${this.headline}
-          <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-        </${this._headlineVariantTag}>
-        <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
-      </div>
+      <${this._headlineVariantTag}
+        id="headline"
+        class="uui-h5"
+        style=${
+          this._headlineSlotHasContent || this.headline !== null
+            ? ''
+            : 'display: none'
+        }>
+        ${this.headline}
+        <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
+      </${this._headlineVariantTag}>
+      <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
       <slot name="header-actions" @slotchange=${
         this._headerActionsSlotChanged
       }></slot>
@@ -131,10 +129,6 @@ export class UUIBoxElement extends LitElement {
         column-gap: var(--uui-size-space-5);
         border-bottom: 1px solid var(--uui-color-divider-standalone);
         padding: var(--uui-size-space-4) var(--uui-size-space-5);
-      }
-
-      #header-left {
-        flex: 1;
       }
 
       slot:not([name]) {
