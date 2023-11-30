@@ -13,6 +13,10 @@ import { UUITabElement } from './uui-tab.element';
 /**
  *  @element uui-tab-group
  *  @slot - Default slot for the tab group
+ * @cssprop --uui-tab-group-dropdown-tab-text - Define the tab text color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-tab-text-hover - Define the tab text hover color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-tab-text-active - Define the tab text active color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-background - Define the background color of the dropdown
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
@@ -247,9 +251,22 @@ export class UUITabGroupElement extends LitElement {
         display: flex;
         flex-wrap: nowrap;
         color: var(--uui-tab-text);
-        background: var(--uui-tab-background, none);
         height: 100%;
         min-height: 48px;
+        overflow: hidden;
+        text-wrap: nowrap;
+      }
+
+      #popover-container {
+        --uui-tab-text: var(--uui-tab-group-dropdown-tab-text, unset);
+        --uui-tab-text-hover: var(
+          --uui-tab-group-dropdown-tab-text-hover,
+          unset
+        );
+        --uui-tab-text-active: var(
+          --uui-tab-group-dropdown-tab-text-active,
+          unset
+        );
       }
 
       ::slotted(*:not(:last-of-type)) {
@@ -264,7 +281,10 @@ export class UUITabGroupElement extends LitElement {
         width: fit-content;
         display: flex;
         flex-direction: column;
-        background: var(--uui-color-surface);
+        background-color: var(
+          --uui-tab-group-dropdown-background,
+          var(--uui-color-surface)
+        );
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
         overflow: hidden;
