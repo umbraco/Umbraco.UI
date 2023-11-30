@@ -293,7 +293,6 @@ export class UUITabGroupElement extends LitElement {
       }
 
       #more-button {
-        margin-left: auto;
         position: relative;
 
         --uui-button-contrast: var(--uui-tab-text);
