@@ -5,6 +5,7 @@
     "deselectable",
     "noopener",
     "noreferrer",
+    "svgs",
     "Umbraco"
   ],
   "npm.enableRunFromFolder": true

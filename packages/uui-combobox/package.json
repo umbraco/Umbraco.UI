@@ -34,7 +34,8 @@
     "@umbraco-ui/uui-button": "1.6.0-rc.1",
     "@umbraco-ui/uui-combobox-list": "1.6.0-rc.1",
     "@umbraco-ui/uui-icon": "1.6.0-rc.1",
-    "@umbraco-ui/uui-scroll-container": "1.6.0-rc.1"
+    "@umbraco-ui/uui-scroll-container": "1.6.0-rc.1",
+    "@umbraco-ui/uui-popover-container": "1.6.0-rc.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
