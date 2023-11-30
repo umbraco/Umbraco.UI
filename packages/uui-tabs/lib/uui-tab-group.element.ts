@@ -236,7 +236,6 @@ export class UUITabGroupElement extends LitElement {
       <uui-popover-container
         id="popover-container"
         popover
-        margin="10"
         placement="bottom-end">
         <div id="hidden-tabs-container">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
@@ -296,6 +295,11 @@ export class UUITabGroupElement extends LitElement {
       #more-button {
         margin-left: auto;
         position: relative;
+
+        --uui-button-contrast: var(--uui-tab-text);
+        --uui-button-contrast-hover: var(--uui-tab-text-hover);
+        --uui-button-background-color: transparent;
+        --uui-button-background-color-hover: transparent;
       }
       #more-button::before {
         content: '';
