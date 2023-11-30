@@ -9,6 +9,7 @@ import '@umbraco-ui/uui-popover-container/lib';
 import '@umbraco-ui/uui-symbol-more/lib';
 
 import { UUITabElement } from './uui-tab.element';
+import { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 
 /**
  *  @element uui-tab-group
@@ -22,6 +23,9 @@ import { UUITabElement } from './uui-tab.element';
 export class UUITabGroupElement extends LitElement {
   @query('#more-button')
   private _moreButtonElement!: UUIButtonElement;
+
+  @query('#popover-container')
+  private _popoverContainerElement!: UUIPopoverContainerElement;
 
   @queryAssignedElements({
     flatten: true,
@@ -185,6 +189,11 @@ export class UUITabGroupElement extends LitElement {
           hasActiveTabInDropdown = true;
         }
       }
+    }
+
+    if (this.#hiddenTabElements.length === 0) {
+      // close the popover
+      this._popoverContainerElement.hidePopover();
     }
 
     hasActiveTabInDropdown
