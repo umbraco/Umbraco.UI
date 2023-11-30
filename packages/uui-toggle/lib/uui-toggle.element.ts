@@ -6,7 +6,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 import {
   iconCheck,
-  iconWrong,
+  iconRemove,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html } from 'lit';
 
@@ -39,8 +39,8 @@ export class UUIToggleElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="slider">
-        <div id="icon-check">${iconCheck}</div>
-        <div id="icon-wrong">${iconWrong}</div>
+        <div id="icon-checked">${iconCheck}</div>
+        <div id="icon-unchecked">${iconRemove}</div>
       </div>
     `;
   }
@@ -102,29 +102,29 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         background-color: var(--uui-color-selected-emphasis);
       }
 
-      #icon-check,
-      #icon-wrong {
+      #icon-checked,
+      #icon-unchecked {
         position: absolute;
         vertical-align: middle;
         width: 1em;
         height: 1em;
         line-height: 0;
-        transition: fill 120ms;
+        transition: color 120ms;
       }
 
-      #icon-check {
+      #icon-checked {
         margin-left: -0.5em;
         left: calc(var(--uui-toggle-size) * 0.5);
-        fill: var(--uui-color-interactive);
+        color: var(--uui-color-interactive);
       }
 
-      #icon-wrong {
+      #icon-unchecked {
         margin-right: -0.5em;
         right: calc(var(--uui-toggle-size) * 0.5);
-        fill: var(--uui-color-interactive);
+        color: var(--uui-color-interactive);
       }
-      input:checked ~ #slider #icon-check {
-        fill: var(--uui-color-selected-contrast);
+      input:checked ~ #slider #icon-checked {
+        color: var(--uui-color-selected-contrast);
       }
 
       #slider::after {
@@ -164,14 +164,14 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       :host([disabled]) #slider::after {
         background-color: var(--uui-color-disabled);
       }
-      :host([disabled]) #slider #icon-wrong {
-        fill: var(--uui-color-disabled-contrast);
+      :host([disabled]) #slider #icon-unchecked {
+        color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) label:active #slider {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
-      :host([disabled]) input:checked #slider #icon-check {
-        fill: var(--uui-color-disabled-contrast);
+      :host([disabled]) input:checked #slider #icon-checked {
+        color: var(--uui-color-disabled-contrast);
       }
 
       :host(:not([pristine]):invalid) #slider,
