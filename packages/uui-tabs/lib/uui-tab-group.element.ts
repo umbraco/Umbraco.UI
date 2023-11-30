@@ -190,14 +190,21 @@ export class UUITabGroupElement extends LitElement {
     this.requestUpdate();
   }
 
-  #calculateBreakPoints() {
+  async #calculateBreakPoints() {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
+
+    await this.updateComplete; // Wait for the tabs to be rendered
+
     let childrenWidth = 0;
 
     for (let i = 0; i < this.#tabElements.length; i++) {
       childrenWidth += this.#tabElements[i].offsetWidth;
       this.#visibilityBreakpoints[i] = childrenWidth;
     }
+
+    const tolerance = 2;
+    this.style.width =
+      this.#visibilityBreakpoints.slice(-1)[0] + tolerance + 'px';
 
     this.#updateCollapsibleTabs(this.offsetWidth);
   }
@@ -238,7 +245,7 @@ export class UUITabGroupElement extends LitElement {
     css`
       :host {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         color: var(--uui-tab-text);
         background: var(--uui-tab-background, none);
         height: 100%;
