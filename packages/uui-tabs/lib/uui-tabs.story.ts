@@ -35,9 +35,9 @@ export default {
 };
 
 export const AAAOverview: Story = props => html`
-  <uui-tab-group
-    style="
-    display: flex;
+  <div style="display: flex;">
+    <uui-tab-group
+      style="
     height: 60px;
     --uui-tab-text: ${props['--uui-tab-text']};
     --uui-tab-text-hover: ${props['--uui-tab-text-hover']};
@@ -45,13 +45,14 @@ export const AAAOverview: Story = props => html`
     --uui-tab-background: ${props['--uui-tab-background']};
     --uui-tab-divider: ${props['--uui-tab-divider']};
     ${props.inlineStyles}">
-    <uui-tab label="content" active> Content </uui-tab>
-    <uui-tab label="Packages" ?disabled=${props.disabled}> Packages </uui-tab>
-    <uui-tab label="Media"> Media </uui-tab>
-    <uui-tab label="Settings"> Settings </uui-tab>
-    <uui-tab label="Translations"> Translations </uui-tab>
-    <uui-tab label="Users"> Users </uui-tab>
-  </uui-tab-group>
+      <uui-tab label="content" active> Content </uui-tab>
+      <uui-tab label="Packages" ?disabled=${props.disabled}> Packages </uui-tab>
+      <uui-tab label="Media"> Media </uui-tab>
+      <uui-tab label="Settings"> Settings </uui-tab>
+      <uui-tab label="Translations"> Translations </uui-tab>
+      <uui-tab label="Users"> Users </uui-tab>
+    </uui-tab-group>
+  </div>
 `;
 AAAOverview.storyName = 'Overview';
 
@@ -60,6 +61,7 @@ export const WithBorders: Story = () => html`
   <div
     style="
     height: 48px;
+    display: flex;
     --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
     <uui-tab-group style="display: flex;">
@@ -77,6 +79,7 @@ export const Navbar: Story = () => html`
   <h3>Navbar</h3>
   <div
     style="
+    display: flex;
     height: 60px;
     font-size: 16px;
     ">
