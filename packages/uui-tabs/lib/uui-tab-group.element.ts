@@ -52,7 +52,6 @@ export class UUITabGroupElement extends LitElement {
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
 
   #visibilityBreakpoints: number[] = [];
-  #oldBreakpoint = 0;
 
   #resizeObserver: ResizeObserver = new ResizeObserver(
     this.#onResize.bind(this)
@@ -122,30 +121,9 @@ export class UUITabGroupElement extends LitElement {
     const buttonWidth = this._moreButtonElement.offsetWidth;
 
     // Only update if the container is smaller than the last breakpoint
-    if (
-      this.#visibilityBreakpoints.slice(-1)[0] < containerWidth &&
-      this.#hiddenTabElements.length === 0
-    )
+    const lastBreakpoint = this.#visibilityBreakpoints.slice(-1)[0];
+    if (lastBreakpoint < containerWidth && this.#hiddenTabElements.length === 0)
       return;
-
-    // Only update if the new breakpoint is different from the old one
-    let newBreakpoint = Number.MAX_VALUE;
-
-    for (let i = this.#visibilityBreakpoints.length - 1; i > -1; i--) {
-      const breakpoint = this.#visibilityBreakpoints[i];
-      // Subtract the button width when we are not at the last breakpoint
-      const containerWidthButtonWidth =
-        containerWidth -
-        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
-
-      if (breakpoint < containerWidthButtonWidth) {
-        newBreakpoint = i;
-        break;
-      }
-    }
-
-    if (newBreakpoint === this.#oldBreakpoint) return;
-    this.#oldBreakpoint = newBreakpoint;
 
     // Do the update
     // Reset the hidden tabs
@@ -207,17 +185,16 @@ export class UUITabGroupElement extends LitElement {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
     await this.updateComplete; // Wait for the tabs to be rendered
-
     let childrenWidth = 0;
 
     for (let i = 0; i < this.#tabElements.length; i++) {
+      this.#tabElements[i].style.display = '';
       childrenWidth += this.#tabElements[i].offsetWidth;
       this.#visibilityBreakpoints[i] = childrenWidth;
     }
 
     const tolerance = 2;
-    this.style.width =
-      this.#visibilityBreakpoints.slice(-1)[0] + tolerance + 'px';
+    this.style.width = childrenWidth + tolerance + 'px';
 
     this.#updateCollapsibleTabs(this.offsetWidth);
   }
