@@ -72,6 +72,13 @@ describe('UUIBox', () => {
       expect(slot).to.exist;
     });
 
+    it('renders a header-actions slot', () => {
+      const slot = element.shadowRoot!.querySelector(
+        'slot[name=header-actions'
+      )!;
+      expect(slot).to.exist;
+    });
+
     it('renders specified headline tag when headlineVariant is set', async () => {
       element = await fixture(
         html` <uui-box headline="headline" headline-variant="h2">Main</uui-box>`
