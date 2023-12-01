@@ -9,15 +9,23 @@ import '@umbraco-ui/uui-popover-container/lib';
 import '@umbraco-ui/uui-symbol-more/lib';
 
 import { UUITabElement } from './uui-tab.element';
+import { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 
 /**
  *  @element uui-tab-group
  *  @slot - Default slot for the tab group
+ * @cssprop --uui-tab-group-dropdown-tab-text - Define the tab text color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-tab-text-hover - Define the tab text hover color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-tab-text-active - Define the tab text active color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-background - Define the background color of the dropdown
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
   @query('#more-button')
   private _moreButtonElement!: UUIButtonElement;
+
+  @query('#popover-container')
+  private _popoverContainerElement!: UUIPopoverContainerElement;
 
   @queryAssignedElements({
     flatten: true,
@@ -44,7 +52,6 @@ export class UUITabGroupElement extends LitElement {
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
 
   #visibilityBreakpoints: number[] = [];
-  #oldBreakpoint = 0;
 
   #resizeObserver: ResizeObserver = new ResizeObserver(
     this.#onResize.bind(this)
@@ -114,30 +121,9 @@ export class UUITabGroupElement extends LitElement {
     const buttonWidth = this._moreButtonElement.offsetWidth;
 
     // Only update if the container is smaller than the last breakpoint
-    if (
-      this.#visibilityBreakpoints.slice(-1)[0] < containerWidth &&
-      this.#hiddenTabElements.length === 0
-    )
+    const lastBreakpoint = this.#visibilityBreakpoints.slice(-1)[0];
+    if (lastBreakpoint < containerWidth && this.#hiddenTabElements.length === 0)
       return;
-
-    // Only update if the new breakpoint is different from the old one
-    let newBreakpoint = Number.MAX_VALUE;
-
-    for (let i = this.#visibilityBreakpoints.length - 1; i > -1; i--) {
-      const breakpoint = this.#visibilityBreakpoints[i];
-      // Subtract the button width when we are not at the last breakpoint
-      const containerWidthButtonWidth =
-        containerWidth -
-        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
-
-      if (breakpoint < containerWidthButtonWidth) {
-        newBreakpoint = i;
-        break;
-      }
-    }
-
-    if (newBreakpoint === this.#oldBreakpoint) return;
-    this.#oldBreakpoint = newBreakpoint;
 
     // Do the update
     // Reset the hidden tabs
@@ -183,6 +169,11 @@ export class UUITabGroupElement extends LitElement {
       }
     }
 
+    if (this.#hiddenTabElements.length === 0) {
+      // close the popover
+      this._popoverContainerElement.hidePopover();
+    }
+
     hasActiveTabInDropdown
       ? this._moreButtonElement.classList.add('active-inside')
       : this._moreButtonElement.classList.remove('active-inside');
@@ -190,14 +181,20 @@ export class UUITabGroupElement extends LitElement {
     this.requestUpdate();
   }
 
-  #calculateBreakPoints() {
+  async #calculateBreakPoints() {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
+
+    await this.updateComplete; // Wait for the tabs to be rendered
     let childrenWidth = 0;
 
     for (let i = 0; i < this.#tabElements.length; i++) {
+      this.#tabElements[i].style.display = '';
       childrenWidth += this.#tabElements[i].offsetWidth;
       this.#visibilityBreakpoints[i] = childrenWidth;
     }
+
+    const tolerance = 2;
+    this.style.width = childrenWidth + tolerance + 'px';
 
     this.#updateCollapsibleTabs(this.offsetWidth);
   }
@@ -225,7 +222,6 @@ export class UUITabGroupElement extends LitElement {
       <uui-popover-container
         id="popover-container"
         popover
-        margin="10"
         placement="bottom-end">
         <div id="hidden-tabs-container">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
@@ -238,11 +234,24 @@ export class UUITabGroupElement extends LitElement {
     css`
       :host {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         color: var(--uui-tab-text);
-        background: var(--uui-tab-background, none);
         height: 100%;
         min-height: 48px;
+        overflow: hidden;
+        text-wrap: nowrap;
+      }
+
+      #popover-container {
+        --uui-tab-text: var(--uui-tab-group-dropdown-tab-text, unset);
+        --uui-tab-text-hover: var(
+          --uui-tab-group-dropdown-tab-text-hover,
+          unset
+        );
+        --uui-tab-text-active: var(
+          --uui-tab-group-dropdown-tab-text-active,
+          unset
+        );
       }
 
       ::slotted(*:not(:last-of-type)) {
@@ -257,7 +266,10 @@ export class UUITabGroupElement extends LitElement {
         width: fit-content;
         display: flex;
         flex-direction: column;
-        background: var(--uui-color-surface);
+        background-color: var(
+          --uui-tab-group-dropdown-background,
+          var(--uui-color-surface)
+        );
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
         overflow: hidden;
@@ -267,8 +279,12 @@ export class UUITabGroupElement extends LitElement {
       }
 
       #more-button {
-        margin-left: auto;
         position: relative;
+
+        --uui-button-contrast: var(--uui-tab-text);
+        --uui-button-contrast-hover: var(--uui-tab-text-hover);
+        --uui-button-background-color: transparent;
+        --uui-button-background-color-hover: transparent;
       }
       #more-button::before {
         content: '';
