@@ -147,6 +147,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     demandCustomElement(this, 'uui-combobox-list');
     demandCustomElement(this, 'uui-scroll-container');
     demandCustomElement(this, 'uui-popover-container');
+    demandCustomElement(this, 'uui-symbol-expand');
   }
 
   disconnectedCallback(): void {
@@ -286,15 +287,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       @input=${this.#onInput}
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
-      ${this.disabled ? '' : this.#renderClearButton()} ${this.#renderCaret()}
+      ${this.disabled ? '' : this.#renderClearButton()}
+      <div id="expand-symbol-wrapper" slot="append">
+        <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
+      </div>
       <slot name="input-append" slot="append"></slot>
     </uui-input>`;
-  };
-
-  #renderCaret = () => {
-    return html`<svg id="caret" slot="append" viewBox="0 0 512 512">
-      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
-    </svg>`;
   };
 
   #renderClearButton = () => {
@@ -361,6 +359,12 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         width: 100%;
         max-height: var(--uui-combobox-popover-max-height, 500px);
       }
+      #expand-symbol-wrapper {
+        height: 100%;
+        padding-right: var(--uui-size-space-3);
+        display: flex;
+        justify-content: center;
+      }
 
       #dropdown {
         overflow: hidden;
@@ -375,14 +379,6 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
         height: 100%;
         box-sizing: border-box;
         box-shadow: var(--uui-shadow-depth-3);
-      }
-
-      #caret {
-        margin-right: var(--uui-size-3, 9px);
-        display: flex;
-        width: 1.15em;
-        flex-shrink: 0;
-        margin-top: -1px;
       }
 
       :host([disabled]) #caret {
