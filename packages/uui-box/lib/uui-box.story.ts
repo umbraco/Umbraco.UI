@@ -32,8 +32,8 @@ export default {
 const Template: Story = props => {
   return html`
     <uui-box
-      .headline=${props.headline}
-      .headlineVariant=${props.headlineVariant}>
+      headline="${props.headline}"
+      headlineVariant="${props.headlineVariant}">
       <p>Some content of this box, appended in the default slot.</p>
       <p>The headline is currently rendered as a ${props.headlineVariant}.</p>
     </uui-box>
