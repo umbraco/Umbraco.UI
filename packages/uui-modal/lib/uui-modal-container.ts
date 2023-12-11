@@ -1,8 +1,10 @@
 import { LitElement, PropertyValueMap, css, html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { UUIModalSidebarElement } from './uui-modal-sidebar.element';
 import { UUIModalElement } from './uui-modal.element';
-@customElement('uui-modal-container')
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+
+@defineElement('uui-modal-container')
 export class UUIModalContainerElement extends LitElement {
   @query('slot')
   modalSlot?: HTMLSlotElement;

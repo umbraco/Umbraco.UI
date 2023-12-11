@@ -1,10 +1,11 @@
 import { css, html, PropertyValueMap } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { UUIModalElement } from './uui-modal.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 export type UUIModalSidebarSize = 'small' | 'medium' | 'large' | 'full';
 
-@customElement('uui-modal-sidebar')
+@defineElement('uui-modal-sidebar')
 export class UUIModalSidebarElement extends UUIModalElement {
   /**
    * @attr
