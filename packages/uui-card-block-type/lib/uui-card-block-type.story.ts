@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 import './uui-card-block-type.element';
+import '@umbraco-ui/uui-tag/lib/index';
+import '@umbraco-ui/uui-button/lib/index';
 import type { UUICardBlockTypeElement } from './uui-card-block-type.element';
 import readme from '../README.md?raw';
 import { html } from 'lit';
