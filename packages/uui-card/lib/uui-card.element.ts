@@ -98,6 +98,11 @@ export class UUICardElement extends SelectOnlyMixin(
         outline-offset: 4px;
       }
 
+      :host(*) * {
+        /* TODO: implement globally shared outline style */
+        outline-color: var(--uui-color-focus);
+      }
+
       :host(:focus) {
         outline-color: var(--uui-color-focus);
         outline-width: var(--uui-card-border-width);
