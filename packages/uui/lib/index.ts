@@ -79,5 +79,4 @@ export * from '@umbraco-ui/uui-toast-notification-layout/lib';
 export * from '@umbraco-ui/uui-toast-notification/lib';
 export * from '@umbraco-ui/uui-toggle/lib';
 export * from '@umbraco-ui/uui-visually-hidden/lib';
-
-export * from '@umbraco-ui/uui-card-block-type/lib/index.js';
+export * from '@umbraco-ui/uui-card-block-type/lib';
