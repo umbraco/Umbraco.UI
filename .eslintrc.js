@@ -27,6 +27,15 @@ module.exports = {
         'lit/prefer-nothing': 'error',
         'local-rules/uui-class-prefix': 'warn',
         'local-rules/prefer-static-styles-last': 'warn',
+        'no-restricted-syntax': [
+          'warn',
+          {
+            message:
+              'Elements should not be defined with customElement, use defineElement instead.',
+            selector:
+              'ClassDeclaration > Decorator[expression.callee.name="customElement"]',
+          },
+        ],
       },
       parserOptions: {
         project: './tsconfig.json',

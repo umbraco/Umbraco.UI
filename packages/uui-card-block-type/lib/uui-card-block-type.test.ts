@@ -1,24 +1,23 @@
-import '.';
-
 import {
-  elementUpdated,
-  expect,
-  fixture,
   html,
+  fixture,
+  expect,
   oneEvent,
+  elementUpdated,
 } from '@open-wc/testing';
-import '@umbraco-ui/uui-avatar/lib';
-import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
+import '@umbraco-ui/uui-symbol-folder/lib';
+import '@umbraco-ui/uui-symbol-file/lib';
+import { UUICardBlockTypeElement } from './uui-card-block-type.element';
+import '.';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
+import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
-import { UUICardUserElement } from './uui-card-user.element';
-
-describe('UUICardUserElement', () => {
-  let element: UUICardUserElement;
+describe('UUICardBlockTypeElement', () => {
+  let element: UUICardBlockTypeElement;
 
   beforeEach(async () => {
     element = await fixture(html`
-      <uui-card-user name="John Rabbit"></uui-card-user>
+      <uui-card-block-type name="Block type"></uui-card-block-type>
     `);
   });
 
@@ -50,6 +49,14 @@ describe('UUICardUserElement', () => {
     it('has a name property', () => {
       expect(element).to.have.property('name');
     });
+
+    it('has a description property', () => {
+      expect(element).to.have.property('description');
+    });
+
+    it('has a background property', () => {
+      expect(element).to.have.property('background');
+    });
   });
 
   describe('template', () => {
@@ -65,11 +72,6 @@ describe('UUICardUserElement', () => {
 
     it('renders an actions slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
-      expect(slot).to.exist;
-    });
-
-    it('renders an avatar slot', () => {
-      const slot = element.shadowRoot!.querySelector('slot[name=avatar]')!;
       expect(slot).to.exist;
     });
   });
