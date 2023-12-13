@@ -166,3 +166,27 @@ Tags.parameters = {
     },
   },
 };
+
+export const Avatar: StoryFn = () => html`
+  <uui-card-user name="John Rabbit">
+    <uui-avatar
+      slot="avatar"
+      size="m"
+      name="John Rabbit"
+      img-src="https://placedog.net/120/?random"></uui-avatar>
+    ${cardContent}
+  </uui-card-user>
+`;
+
+Tags.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-card-user name="John Rabbit">
+  <uui-avatar slot="avatar" size="m" name="John Rabbit" src="https://placedog.net/120/?random"></uui-avatar>
+
+  <!-- Content -->
+</uui-card-user>`,
+    },
+  },
+};

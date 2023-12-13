@@ -1,8 +1,11 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import {
+  demandCustomElement,
+  slotHasContent,
+} from '@umbraco-ui/uui-base/lib/utils';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
@@ -22,6 +25,12 @@ export class UUICardUserElement extends UUICardElement {
    */
   @property({ type: String })
   name = '';
+
+  @state()
+  private _avatarSlotHasContent = false;
+  private _avatarSlotChanged = (e: Event) => {
+    this._avatarSlotHasContent = slotHasContent(e.target);
+  };
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -54,7 +63,16 @@ export class UUICardUserElement extends UUICardElement {
 
   public render() {
     return html`
-      <uui-avatar id="avatar" name=${this.name} size="m"></uui-avatar>
+      ${this._avatarSlotHasContent
+        ? nothing
+        : html`<uui-avatar
+            id="avatar"
+            name=${this.name}
+            size="m"></uui-avatar>`}
+      <slot
+        name="avatar"
+        id="avatar"
+        @slotchange=${this._avatarSlotChanged}></slot>
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <slot></slot>
       <slot name="tag"></slot>
