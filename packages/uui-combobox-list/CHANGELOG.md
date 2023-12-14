@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.1...v1.6.0-rc.2) (2023-12-14)
+
+### Bug Fixes
+
+- padding fixes for uui-combobox ([#670](https://github.com/umbraco/Umbraco.UI/issues/670)) ([985bfaf](https://github.com/umbraco/Umbraco.UI/commit/985bfafe2f7c112a05a81832a0cff5a58ecd5e1c))
+- uui-combobox should correctly handle the active item ([#682](https://github.com/umbraco/Umbraco.UI/issues/682)) ([a438b03](https://github.com/umbraco/Umbraco.UI/commit/a438b03b2814e593c35c6519873b259d4e0b6782))
+
 # [1.6.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.0...v1.6.0-rc.1) (2023-11-22)
 
 **Note:** Version bump only for package @umbraco-ui/uui-combobox-list

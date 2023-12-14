@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.1...v1.6.0-rc.2) (2023-12-14)
+
+### Bug Fixes
+
+- Ensure defineElement is used instead of customElement ([#685](https://github.com/umbraco/Umbraco.UI/issues/685)) ([8e3aea1](https://github.com/umbraco/Umbraco.UI/commit/8e3aea1476a594b9f611fbddd1cdd172bcdb2e43))
+
 # [1.6.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.0...v1.6.0-rc.1) (2023-11-22)
 
 **Note:** Version bump only for package @umbraco-ui/uui-modal
