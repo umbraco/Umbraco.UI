@@ -14,19 +14,7 @@
       "path": "../uui-base"
     },
     {
-      "path": "../uui-button"
-    },
-    {
-      "path": "../uui-combobox-list"
-    },
-    {
-      "path": "../uui-icon"
-    },
-    {
-      "path": "../uui-scroll-container"
-    },
-    {
-      "path": "../uui-popover-container"
+      "path": "../uui-card"
     }
   ]
 }

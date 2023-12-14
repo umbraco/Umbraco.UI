@@ -451,7 +451,8 @@ export class UUIInputElement extends FormControlMixin(
         border: none;
       }
 
-      ::slotted(uui-input) {
+      ::slotted(uui-input),
+      ::slotted(uui-input-lock) {
         height: 100%;
         --uui-input-border-width: 0;
       }

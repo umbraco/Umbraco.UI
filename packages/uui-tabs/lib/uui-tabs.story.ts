@@ -35,8 +35,9 @@ export default {
 };
 
 export const AAAOverview: Story = props => html`
-  <uui-tab-group
-    style="
+  <div style="display: flex;">
+    <uui-tab-group
+      style="
     height: 60px;
     --uui-tab-text: ${props['--uui-tab-text']};
     --uui-tab-text-hover: ${props['--uui-tab-text-hover']};
@@ -44,13 +45,14 @@ export const AAAOverview: Story = props => html`
     --uui-tab-background: ${props['--uui-tab-background']};
     --uui-tab-divider: ${props['--uui-tab-divider']};
     ${props.inlineStyles}">
-    <uui-tab label="content" active> Content </uui-tab>
-    <uui-tab label="Packages" ?disabled=${props.disabled}> Packages </uui-tab>
-    <uui-tab label="Media"> Media </uui-tab>
-    <uui-tab label="Settings"> Settings </uui-tab>
-    <uui-tab label="Translations"> Translations </uui-tab>
-    <uui-tab label="Users"> Users </uui-tab>
-  </uui-tab-group>
+      <uui-tab label="content" active> Content </uui-tab>
+      <uui-tab label="Packages" ?disabled=${props.disabled}> Packages </uui-tab>
+      <uui-tab label="Media"> Media </uui-tab>
+      <uui-tab label="Settings"> Settings </uui-tab>
+      <uui-tab label="Translations"> Translations </uui-tab>
+      <uui-tab label="Users"> Users </uui-tab>
+    </uui-tab-group>
+  </div>
 `;
 AAAOverview.storyName = 'Overview';
 
@@ -59,13 +61,10 @@ export const WithBorders: Story = () => html`
   <div
     style="
     height: 48px;
-    --uui-tab-text: var(--uui-color-default);
-    --uui-tab-text-hover: var(--uui-color-default-emphasis);
-    --uui-tab-text-active: var(--uui-color-default-emphasis);
-    --uui-tab-background: none;
+    display: flex;
     --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
-    <uui-tab-group>
+    <uui-tab-group style="display: flex;">
       <uui-tab label="content"> Content </uui-tab>
       <uui-tab label="Packages"> Packages </uui-tab>
       <uui-tab label="Media" active> Media </uui-tab>
@@ -80,14 +79,11 @@ export const Navbar: Story = () => html`
   <h3>Navbar</h3>
   <div
     style="
+    display: flex;
     height: 60px;
     font-size: 16px;
-    --uui-tab-text: var(--uui-color-surface-alt);
-    --uui-tab-text-hover: var(--uui-color-surface);
-    --uui-tab-text-active: var(--uui-color-current);
-    --uui-tab-background: var(--uui-color-default);
     ">
-    <uui-tab-group>
+    <uui-tab-group style="display: flex;">
       <uui-tab label="content"> Content </uui-tab>
       <uui-tab label="Packages" active> Packages </uui-tab>
       <uui-tab label="Media"> Media </uui-tab>
@@ -102,12 +98,9 @@ export const UsingHref: Story = () => html`
   <h3>Href links</h3>
   <div
     style="
+    display: flex;
     height: 60px;
     font-size: 16px;
-    --uui-tab-text: var(--uui-color-surface-alt);
-    --uui-tab-text-hover: var(--uui-color-surface);
-    --uui-tab-text-active: var(--uui-color-current);
-    --uui-tab-background: var(--uui-color-default);
     ">
     <uui-tab-group>
       <uui-tab label="content" href="http://www.umbraco.com/#content">
@@ -135,25 +128,27 @@ export const UsingHref: Story = () => html`
 export const WithIcons: Story = props => html`
   <h3>Tabs with Icons</h3>
   <uui-icon-registry-essential>
-    <uui-tab-group
-      dropdown-direction="horizontal"
-      style="
-      height: 70px;
-      font-size: 12px;
-      ${props.inlineStyles}">
-      <uui-tab>
-        <uui-icon slot="icon" name="document"></uui-icon>
-        Content
-      </uui-tab>
-      <uui-tab active>
-        <uui-icon slot="icon" name="settings"></uui-icon>
-        Packages
-      </uui-tab>
-      <uui-tab>
-        <uui-icon slot="icon" name="picture"></uui-icon>
-        Media
-      </uui-tab>
-    </uui-tab-group>
+    <div style="display: flex;">
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        height: 70px;
+        font-size: 12px;
+        ${props.inlineStyles}">
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>
+    </div>
   </uui-icon-registry-essential>
 `;
 WithIcons.parameters = {

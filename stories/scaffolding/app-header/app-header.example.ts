@@ -132,34 +132,6 @@ export class UUIAppHeaderExample extends LitElement {
                     @click="${this._handleTabClick}"></uui-tab>
                 `
               )}
-
-              <uui-tab id="moreTab" @click="${this._handleTabClick}">
-                <uui-popover
-                  .open=${this._open}
-                  placement="bottom-start"
-                  @close="${() => (this._open = false)}">
-                  <uui-button
-                    slot="trigger"
-                    look="primary"
-                    label="More"
-                    @click="${this._handleMore}"
-                    compact>
-                    <uui-symbol-more></uui-symbol-more>
-                  </uui-button>
-
-                  <div slot="popover" id="dropdown">
-                    ${this._extraSections.map(
-                      section => html`
-                        <uui-menu-item
-                          ?active="${this._activeSection === section}"
-                          label="${section}"
-                          @click-label="${this
-                            ._handleLabelClick}"></uui-menu-item>
-                      `
-                    )}
-                  </div>
-                </uui-popover>
-              </uui-tab>
             </uui-tab-group>
           </div>
 

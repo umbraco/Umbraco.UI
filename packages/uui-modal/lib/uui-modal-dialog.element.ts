@@ -1,8 +1,8 @@
 import { css, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { UUIModalElement } from './uui-modal.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-@customElement('uui-modal-dialog')
+@defineElement('uui-modal-dialog')
 export class UUIModalDialogElement extends UUIModalElement {
   render() {
     return html`

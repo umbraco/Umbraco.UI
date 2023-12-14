@@ -1,6 +1,6 @@
 {
-  "name": "@umbraco-ui/uui-color-picker",
-  "version": "1.6.0-rc.1",
+  "name": "@umbraco-ui/uui-card-block-type",
+  "version": "0.0.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -8,13 +8,13 @@
     "Web components",
     "UI",
     "Lit",
-    "Color Picker"
+    "Card Block Type"
   ],
-  "description": "Umbraco UI color-picker component",
+  "description": "Umbraco UI card-block-type component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-color-picker"
+    "directory": "packages/uui-card-block-type"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -31,8 +31,7 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "1.6.0-rc.1",
-    "@umbraco-ui/uui-popover-container": "1.6.0-rc.1",
-    "colord": "^2.9.3"
+    "@umbraco-ui/uui-card": "1.6.0-rc.1"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -42,5 +41,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-color-picker"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-card-block-type"
 }
