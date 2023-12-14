@@ -226,6 +226,10 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
+  #onToggle = () => {
+    this.open = !this.open;
+  };
+
   #onOpen = () => {
     if (this.open) return;
     this.open = true;
@@ -283,7 +287,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       autocomplete="off"
       .disabled=${this.disabled}
       popovertarget="combobox-popover"
-      @click=${this.#onOpen}
+      @click=${this.#onToggle}
       @input=${this.#onInput}
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
