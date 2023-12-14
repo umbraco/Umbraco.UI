@@ -23,10 +23,10 @@
       "path": "../uui-icon"
     },
     {
-      "path": "../uui-scroll-container"
+      "path": "../uui-popover-container"
     },
     {
-      "path": "../uui-popover-container"
+      "path": "../uui-scroll-container"
     },
     {
       "path": "../uui-symbol-expand"
