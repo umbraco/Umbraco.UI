@@ -27,6 +27,9 @@
     },
     {
       "path": "../uui-popover-container"
+    },
+    {
+      "path": "../uui-symbol-expand"
     }
   ]
 }
