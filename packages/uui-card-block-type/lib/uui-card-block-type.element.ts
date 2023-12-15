@@ -1,10 +1,9 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, nothing } from 'lit';
 import { UUICardElement } from '@umbraco-ui/uui-card/lib';
-import { styleMap } from 'lit/directives/style-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-
+import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 export type BlockTypeIcon = {
   name?: string;
