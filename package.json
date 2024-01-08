@@ -124,7 +124,7 @@
     "rollup-plugin-import-css": "3.3.5",
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
-    "storybook": "7.6.4",
+    "storybook": "7.6.7",
     "tsc-files": "1.1.4",
     "turbo": "1.10.15",
     "typescript": "5.2.2",
