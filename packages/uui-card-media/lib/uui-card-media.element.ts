@@ -5,9 +5,6 @@ import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import '@umbraco-ui/uui-symbol-folder/lib';
-import '@umbraco-ui/uui-symbol-file/lib';
-
 /**
  *  @element uui-card-media
  *  @description - Card component for displaying a media item.
