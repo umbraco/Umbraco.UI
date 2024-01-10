@@ -23,7 +23,7 @@ export class UUIModalContainerElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('close', this.#onClose);
+    this.addEventListener('uui-modal-close', this.#onCloseModalClose);
   }
 
   protected firstUpdated(
@@ -58,7 +58,8 @@ export class UUIModalContainerElement extends LitElement {
     this.#updateSidebars();
   };
 
-  #onClose = () => {
+  #onCloseModalClose = (event: Event) => {
+    event.stopImmediatePropagation();
     if (!this._modals || this._modals.length <= 1) {
       this.removeAttribute('backdrop');
       return;
