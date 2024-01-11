@@ -15,7 +15,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
 
   constructor() {
     super();
-    this.addEventListener('uui-modal-close', this.#onClose.bind(this));
+    this.addEventListener('uui:modal-close', this.#onClose.bind(this));
   }
 
   protected firstUpdated(

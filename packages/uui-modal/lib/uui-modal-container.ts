@@ -23,7 +23,7 @@ export class UUIModalContainerElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('uui-modal-close', this.#onCloseModalClose);
+    this.addEventListener('uui:modal-close', this.#onCloseModalClose);
   }
 
   protected firstUpdated(
@@ -46,7 +46,7 @@ export class UUIModalContainerElement extends LitElement {
         ) as Array<UUIModalElement>) ?? [];
 
     this._modals.forEach(modal =>
-      modal.addEventListener('uui-modal-close', this.#onCloseModalClose)
+      modal.addEventListener('uui:modal-close', this.#onCloseModalClose)
     );
 
     this._sidebars = this._modals.filter(
@@ -66,7 +66,7 @@ export class UUIModalContainerElement extends LitElement {
     event.stopImmediatePropagation();
 
     event.target?.removeEventListener(
-      'uui-modal-close',
+      'uui:modal-close',
       this.#onCloseModalClose
     );
     if (!this._modals || this._modals.length <= 1) {
