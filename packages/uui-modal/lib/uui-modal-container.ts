@@ -109,7 +109,9 @@ export class UUIModalContainerElement extends LitElement {
       for (let i = 0; i < reversed.length; i++) {
         const sidebar = reversed[i];
         const nextSidebar = reversed[i + 1];
-        const tempSidebarOffset = sidebarOffset; // Used to set the offset after the updateComplete;
+        const tempSidebarOffset = sidebarOffset; // Cache to prevent it from being overwritten before the updateComplete.
+        // The sidebar checks it's own width at sets it's --uui-modal-offset to negative that width.
+        // This enables it to slide in from the right. So we need to set the new --uui-modal-offset after the updateComplete.
         sidebar.updateComplete.then(() => {
           sidebar.style.setProperty(
             '--uui-modal-offset',
