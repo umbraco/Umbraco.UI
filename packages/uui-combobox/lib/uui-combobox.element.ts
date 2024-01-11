@@ -6,6 +6,7 @@ import {
   UUIComboboxListEvent,
 } from '@umbraco-ui/uui-combobox-list/lib';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 import { css, html, LitElement } from 'lit';
 import {
   property,
@@ -15,8 +16,6 @@ import {
 } from 'lit/decorators.js';
 
 import { UUIComboboxEvent } from './UUIComboboxEvent';
-
-import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 
 /**
  * @element uui-combobox
