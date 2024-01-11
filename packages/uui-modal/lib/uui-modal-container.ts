@@ -1,7 +1,7 @@
 import { LitElement, PropertyValueMap, css, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { UUIModalSidebarElement } from './uui-modal-sidebar.element';
-import { UUIModalElement } from './uui-modal.element';
+import { UUIModalCloseEvent, UUIModalElement } from './uui-modal.element';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 @defineElement('uui-modal-container')
@@ -23,7 +23,7 @@ export class UUIModalContainerElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('uui:modal-close', this.#onCloseModalClose);
+    this.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose);
   }
 
   protected firstUpdated(
@@ -46,7 +46,7 @@ export class UUIModalContainerElement extends LitElement {
         ) as Array<UUIModalElement>) ?? [];
 
     this._modals.forEach(modal =>
-      modal.addEventListener('uui:modal-close', this.#onCloseModalClose)
+      modal.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
     );
 
     this._sidebars = this._modals.filter(
@@ -66,7 +66,7 @@ export class UUIModalContainerElement extends LitElement {
     event.stopImmediatePropagation();
 
     event.target?.removeEventListener(
-      'uui:modal-close',
+      UUIModalCloseEvent,
       this.#onCloseModalClose
     );
     if (!this._modals || this._modals.length <= 1) {
