@@ -109,7 +109,13 @@ export class UUIModalContainerElement extends LitElement {
       for (let i = 0; i < reversed.length; i++) {
         const sidebar = reversed[i];
         const nextSidebar = reversed[i + 1];
-        sidebar.style.setProperty('--uui-modal-offset', sidebarOffset + 'px');
+        const tempSidebarOffset = sidebarOffset; // Used to set the offset after the updateComplete;
+        sidebar.updateComplete.then(() => {
+          sidebar.style.setProperty(
+            '--uui-modal-offset',
+            tempSidebarOffset + 'px'
+          );
+        });
 
         // Stop the calculations if the next sidebar is hidden
         if (nextSidebar?.hasAttribute('hide')) break;
