@@ -45,6 +45,10 @@ export class UUIModalContainerElement extends LitElement {
           el => el instanceof UUIModalElement
         ) as Array<UUIModalElement>) ?? [];
 
+    this._modals.forEach(modal =>
+      modal.addEventListener('uui-modal-close', this.#onCloseModalClose)
+    );
+
     this._sidebars = this._modals.filter(
       el => el instanceof UUIModalSidebarElement
     ) as Array<UUIModalSidebarElement>;
@@ -60,6 +64,11 @@ export class UUIModalContainerElement extends LitElement {
 
   #onCloseModalClose = (event: Event) => {
     event.stopImmediatePropagation();
+
+    event.target?.removeEventListener(
+      'uui-modal-close',
+      this.#onCloseModalClose
+    );
     if (!this._modals || this._modals.length <= 1) {
       this.removeAttribute('backdrop');
       return;

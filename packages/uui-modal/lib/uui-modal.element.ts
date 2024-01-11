@@ -59,7 +59,6 @@ export class UUIModalElement extends LitElement {
     event?.stopImmediatePropagation();
 
     const closeEvent = new CustomEvent('uui-modal-close', {
-      bubbles: true,
       cancelable: true,
     });
     this.dispatchEvent(closeEvent);
