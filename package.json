@@ -119,9 +119,9 @@
     "react-syntax-highlighter": "15.5.0",
     "remark-gfm": "3.0.1",
     "rimraf": "5.0.1",
-    "rollup": "3.29.1",
-    "rollup-plugin-esbuild": "5.0.0",
-    "rollup-plugin-import-css": "3.3.5",
+    "rollup": "4.9.5",
+    "rollup-plugin-esbuild": "6.1.0",
+    "rollup-plugin-import-css": "3.4.0",
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
     "storybook": "7.6.7",
@@ -130,7 +130,7 @@
     "typescript": "5.2.2",
     "vite": "5.0.5",
     "vite-tsconfig-paths": "4.2.0",
-    "web-component-analyzer": "1.1.7"
+    "web-component-analyzer": "2.0.0"
   },
   "workspaces": [
     "./packages/*"
