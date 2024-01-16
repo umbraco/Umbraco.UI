@@ -1,4 +1,5 @@
 {
+  "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -7,16 +8,17 @@
         "lib/**/*.d.ts",
         "dist/**",
         "custom-elements.json"
-      ]
-    },
-    "test": {},
-    "dev": {
-      "cache": false
+      ],
+      "outputMode": "errors-only"
     },
     "clean": {
-      "cache": false
+      "cache": false,
+      "outputMode": "none"
+    },
+    "analyze": {
+      "inputs": ["lib/**/*.element.ts"],
+      "outputs": ["custom-elements.json"]
     }
   },
-  "baseBranch": "origin/v1/contrib",
-  "globalDependencies": ["tsconfig.json"]
+  "globalDependencies": ["tsconfig.json", "package.json", "package-lock.json"]
 }
