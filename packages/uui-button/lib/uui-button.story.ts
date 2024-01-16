@@ -332,6 +332,7 @@ WaitingState.parameters = {
       <uui-button state="waiting" label="A11Y proper label">Loading button</uui-button>`,
     },
   },
+  chromatic: { disableSnapshot: true },
 };
 
 export const AnchorTag = Template.bind({});
