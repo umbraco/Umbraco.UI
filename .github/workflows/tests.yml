@@ -43,13 +43,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Cache turbo build setup
+      - name: Cache build setup
         uses: actions/cache@v3
         with:
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          path: node_modules/.cache
+          key: ${{ runner.os }}-cache-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-
+            ${{ runner.os }}-cache-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:

@@ -32,13 +32,13 @@ jobs:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: '0'
 
-      - name: Cache turbo build setup
+      - name: Cache build setup
         uses: actions/cache@v3
         with:
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          path: node_modules/.cache
+          key: ${{ runner.os }}-cache-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-
+            ${{ runner.os }}-cache-
 
       - name: Use Node.js 20
         uses: actions/setup-node@v4
