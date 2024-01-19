@@ -212,15 +212,17 @@ export class UUITabGroupElement extends LitElement {
 
   render() {
     return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
-      <uui-button
-        popovertarget="popover-container"
-        style="display: none"
-        id="more-button"
-        label="More"
-        compact>
-        <uui-symbol-more></uui-symbol-more>
-      </uui-button>
+      <div id="main">
+        <slot @slotchange=${this.#onSlotChange}></slot>
+        <uui-button
+          popovertarget="popover-container"
+          style="display: none"
+          id="more-button"
+          label="More"
+          compact>
+          <uui-symbol-more></uui-symbol-more>
+        </uui-button>
+      </div>
       <uui-popover-container
         id="popover-container"
         popover
@@ -234,7 +236,7 @@ export class UUITabGroupElement extends LitElement {
 
   static styles = [
     css`
-      :host {
+      #main {
         display: flex;
         flex-wrap: nowrap;
         color: var(--uui-tab-text);
