@@ -1,6 +1,9 @@
 import '.';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-popover-container/lib';
+import '@umbraco-ui/uui-symbol-more/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
