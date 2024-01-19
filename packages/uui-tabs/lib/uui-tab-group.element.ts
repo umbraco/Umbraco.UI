@@ -15,6 +15,7 @@ import type { UUITabElement } from './uui-tab.element';
  * @cssprop --uui-tab-group-dropdown-tab-text-hover - Define the tab text hover color in the dropdown
  * @cssprop --uui-tab-group-dropdown-tab-text-active - Define the tab text active color in the dropdown
  * @cssprop --uui-tab-group-dropdown-background - Define the background color of the dropdown
+ * @cssprop --uui-tab-group-gap - Define the gap between elements dropdown. Only pixel values are valid
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
@@ -185,11 +186,15 @@ export class UUITabGroupElement extends LitElement {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
     await this.updateComplete; // Wait for the tabs to be rendered
+    const gap = Number.parseFloat(
+      this.style.getPropertyValue('--uui-tab-group-gap')
+    );
     let childrenWidth = 0;
 
     for (let i = 0; i < this.#tabElements.length; i++) {
+      const isLast = i === this.#tabElements.length - 1 ? 0 : 1;
       this.#tabElements[i].style.display = '';
-      childrenWidth += this.#tabElements[i].offsetWidth;
+      childrenWidth += this.#tabElements[i].offsetWidth + gap * isLast; // Add gap to calculation except for last element.
       this.#visibilityBreakpoints[i] = childrenWidth;
     }
 
@@ -244,6 +249,7 @@ export class UUITabGroupElement extends LitElement {
         min-height: 48px;
         overflow: hidden;
         text-wrap: nowrap;
+        gap: var(--uui-tab-group-gap, 0);
       }
 
       #popover-container {
