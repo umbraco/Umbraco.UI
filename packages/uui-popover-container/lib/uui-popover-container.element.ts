@@ -69,7 +69,7 @@ export class UUIPopoverContainerElement extends LitElement {
   _actualPlacement: PopoverContainerPlacement = this._placement;
 
   #targetElement: HTMLElement | null = null;
-  private _scrollParents: Element[] = [];
+  #scrollParents: Element[] = [];
 
   connectedCallback(): void {
     //TODO: Remove this polyfill when firefox supports the new popover API
@@ -97,7 +97,7 @@ export class UUIPopoverContainerElement extends LitElement {
       this.id
     );
 
-    this._getScrollParents();
+    this.#getScrollParents();
 
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
@@ -113,13 +113,11 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     if (!this._open) {
-      this._stopScrollListener();
-      // document.removeEventListener('scroll', this.#initUpdate);
+      this.#stopScrollListener();
       return;
     }
 
-    this._startScrollListener();
-    // document.addEventListener('scroll', this.#initUpdate);
+    this.#startScrollListener();
 
     requestAnimationFrame(() => {
       this.#initUpdate();
@@ -310,20 +308,20 @@ export class UUIPopoverContainerElement extends LitElement {
       `${oppositeDirection}-${position}` as PopoverContainerPlacement;
   }
 
-  private _startScrollListener() {
-    this._scrollParents.forEach(el => {
+  #startScrollListener() {
+    this.#scrollParents.forEach(el => {
       el.addEventListener('scroll', this.#initUpdate);
     });
     document.addEventListener('scroll', this.#initUpdate);
   }
-  private _stopScrollListener() {
-    this._scrollParents.forEach(el => {
+  #stopScrollListener() {
+    this.#scrollParents.forEach(el => {
       el.removeEventListener('scroll', this.#initUpdate);
     });
     document.removeEventListener('scroll', this.#initUpdate);
   }
 
-  private _getScrollParents(): any {
+  #getScrollParents(): any {
     if (!this.#targetElement) return;
 
     let style = getComputedStyle(this.#targetElement);
@@ -347,13 +345,13 @@ export class UUIPopoverContainerElement extends LitElement {
       if (
         overflowRegex.test(style.overflow + style.overflowY + style.overflowX)
       ) {
-        this._scrollParents.push(el);
+        this.#scrollParents.push(el);
       }
       if (style.position === 'fixed') {
         return;
       }
     }
-    this._scrollParents.push(document.body);
+    this.#scrollParents.push(document.body);
   }
 
   render() {
