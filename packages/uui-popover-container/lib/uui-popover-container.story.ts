@@ -158,3 +158,63 @@ export const Tooltip: Story = {
     </uui-popover-container>
   `,
 };
+
+export const InsideScrollContainer: Story = {
+  args: {
+    placement: 'bottom-start',
+    margin: 0,
+  },
+  argTypes: {
+    open: {
+      control: false,
+    },
+    placement: {
+      options: [
+        'auto',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
+      ],
+    },
+  },
+  render: args => html`
+    <div
+      style="width: 300px; height: 300px; outline: 1px solid black; overflow: auto;">
+      <div style="height: 150px"></div>
+      <uui-button
+        id="popover-button"
+        popovertarget="popover-container"
+        look="primary"
+        label="Open popover">
+        Open popover
+      </uui-button>
+      <uui-popover-container
+        id="popover-container"
+        popover
+        placement=${args.placement}
+        margin=${args.margin}>
+        <div
+          style="background-color: var(--uui-color-surface); max-width: 150px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
+          <h2>Scrolling should trigger an update</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis ex
+            fuga pariatur dolorum, in natus. Ipsa, veritatis minus. Dolore saepe
+            modi libero voluptates provident consequatur ex illo a, eligendi
+            enim?
+          </p>
+        </div>
+      </uui-popover-container>
+      <div style="height: 150px"></div>
+      <div style="height: 150px"></div>
+    </div>
+  `,
+};
