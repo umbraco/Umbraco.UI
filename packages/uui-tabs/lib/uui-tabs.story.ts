@@ -138,15 +138,15 @@ export const WithIcons: Story = props => html`
         height: 70px;
         font-size: 12px;
         ${props.inlineStyles}">
-        <uui-tab>
+        <uui-tab label="content">
           <uui-icon slot="icon" name="document"></uui-icon>
           Content
         </uui-tab>
-        <uui-tab active>
+        <uui-tab active label="packages">
           <uui-icon slot="icon" name="settings"></uui-icon>
           Packages
         </uui-tab>
-        <uui-tab>
+        <uui-tab label="media">
           <uui-icon slot="icon" name="picture"></uui-icon>
           Media
         </uui-tab>
@@ -183,19 +183,19 @@ export const WitchSpacing: Story = props => html`
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-        gap: 70px;
+        --uui-tab-group-gap: 70px;
         margin: 0 auto;
         font-size: 12px;
         ${props.inlineStyles}">
-        <uui-tab>
+        <uui-tab label="content">
           <uui-icon slot="icon" name="document"></uui-icon>
           Content
         </uui-tab>
-        <uui-tab active>
+        <uui-tab active label="packages">
           <uui-icon slot="icon" name="settings"></uui-icon>
           Packages
         </uui-tab>
-        <uui-tab>
+        <uui-tab label="media">
           <uui-icon slot="icon" name="picture"></uui-icon>
           Media
         </uui-tab>
