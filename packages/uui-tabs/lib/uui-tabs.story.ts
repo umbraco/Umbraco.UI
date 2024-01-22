@@ -175,3 +175,52 @@ WithIcons.parameters = {
     },
   },
 };
+
+export const WitchSpacing: Story = props => html`
+  <h3>Tabs with Spacing</h3>
+  <uui-icon-registry-essential>
+    <div style="display: flex;">
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        gap: 70px;
+        margin: 0 auto;
+        font-size: 12px;
+        ${props.inlineStyles}">
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>
+    </div>
+  </uui-icon-registry-essential>
+`;
+WitchSpacing.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tab-group>
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>`,
+    },
+  },
+};
