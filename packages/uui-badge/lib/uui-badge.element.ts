@@ -2,7 +2,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import type {
-  InterfaceColor,
+  UUIInterfaceColor,
   InterfaceLook,
 } from '@umbraco-ui/uui-base/lib/types';
 
@@ -21,7 +21,7 @@ export class UUIBadgeElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  color: InterfaceColor = 'default';
+  color: UUIInterfaceColor = 'default';
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
