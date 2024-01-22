@@ -85,14 +85,17 @@ CustomIcon.parameters = {
   <uui-action-bar slot="actions">
     <uui-button label="Remove">Remove</uui-button>
   </uui-action-bar>
-</uui-ref-node>
+</uui-ref-node>s
     `,
     },
   },
 };
 
-export const Border: Story = () => html`
-  <uui-ref-node border name="Rabbit Suit Product Page" detail="path/to/nowhere">
+export const Standalone: Story = () => html`
+  <uui-ref-node
+    standalone
+    name="Rabbit Suit Product Page"
+    detail="path/to/nowhere">
     <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions">
       <uui-button type="button" label="Delete"
@@ -102,12 +105,12 @@ export const Border: Story = () => html`
   </uui-ref-node>
 `;
 
-Border.parameters = {
+Standalone.parameters = {
   docs: {
     source: {
       code: `
 <uui-ref-node
-  border
+  standalone
   name="Rabbit Suit Product Page"
   detail="path/to/nowhere">
   <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>

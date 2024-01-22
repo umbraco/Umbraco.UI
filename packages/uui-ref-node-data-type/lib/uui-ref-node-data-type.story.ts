@@ -81,9 +81,12 @@ CustomIcon.parameters = {
   },
 };
 
-export const Border: Story = () => html`
+export const Standalone: Story = () => html`
   <div style="max-width: 420px;">
-    <uui-ref-node-data-type border name="TextField" alias="Umbraco.TextField">
+    <uui-ref-node-data-type
+      standalone
+      name="TextField"
+      alias="Umbraco.TextField">
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -91,12 +94,12 @@ export const Border: Story = () => html`
   </div>
 `;
 
-Border.parameters = {
+Standalone.parameters = {
   docs: {
     source: {
       code: `
 <uui-ref-node-data-type
-  border
+  standalone
   name="TextField"
   alias="Umbraco.TextField">
   <uui-action-bar slot="actions">
