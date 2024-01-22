@@ -67,7 +67,7 @@ export class UUIRefNodeElement extends UUIRefElement {
     demandCustomElement(this, 'uui-icon');
   }
 
-  private _onSlotIconChange(event: Event) {
+  #onSlotIconChange(event: Event) {
     this._iconSlotHasContent =
       (event.target as HTMLSlotElement).assignedNodes({ flatten: true })
         .length > 0;
@@ -79,15 +79,15 @@ export class UUIRefNodeElement extends UUIRefElement {
     ></small>`;
   }
 
-  private _renderFallbackIcon() {
+  #renderFallbackIcon() {
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 
   #renderContent() {
     return html`
       <span id="icon">
-        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
+        <slot name="icon" @slotchange=${this.#onSlotIconChange}></slot>
+        ${this._iconSlotHasContent === false ? this.#renderFallbackIcon() : ''}
       </span>
       <div id="info">
         <div id="name">${this.name}</div>
@@ -124,8 +124,6 @@ export class UUIRefNodeElement extends UUIRefElement {
   }
 
   public render() {
-    console.log(this.href);
-
     return html`
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
