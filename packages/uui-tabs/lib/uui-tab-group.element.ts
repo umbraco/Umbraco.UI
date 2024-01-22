@@ -186,9 +186,10 @@ export class UUITabGroupElement extends LitElement {
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
     await this.updateComplete; // Wait for the tabs to be rendered
-    const gap = Number.parseFloat(
+    const gapCSSVar = Number.parseFloat(
       this.style.getPropertyValue('--uui-tab-group-gap')
     );
+    const gap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
     let childrenWidth = 0;
 
     for (let i = 0; i < this.#tabElements.length; i++) {
