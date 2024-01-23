@@ -183,7 +183,7 @@ export const WitchSpacing: Story = props => html`
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-        --uui-tab-group-gap: 70px;
+        --uui-tab-group-gap: 180px;
         margin: 0 auto;
         font-size: 12px;
         ${props.inlineStyles}">

@@ -31,6 +31,9 @@ export class UUITabGroupElement extends LitElement {
   })
   private _slottedNodes?: HTMLElement[];
 
+  /** Stores the current gap used in the breakpoints */
+  #currentGap = 0;
+
   /**
    * Set the flex direction of the content of the dropdown.
    * @type {string}
@@ -70,7 +73,16 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #onResize(entries: ResizeObserverEntry[]) {
-    this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
+    // Check if the gap css custom property has changed.
+    const gapCSSVar = Number.parseFloat(
+      this.style.getPropertyValue('--uui-tab-group-gap')
+    );
+    const newGap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
+    if (newGap !== this.#currentGap) {
+      this.#calculateBreakPoints();
+    } else {
+      this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
+    }
   }
 
   #onSlotChange() {
@@ -118,13 +130,39 @@ export class UUITabGroupElement extends LitElement {
     }
   };
 
-  #updateCollapsibleTabs(containerWidth: number) {
-    const buttonWidth = this._moreButtonElement.offsetWidth;
+  async #calculateBreakPoints() {
+    // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
-    // Only update if the container is smaller than the last breakpoint
-    const lastBreakpoint = this.#visibilityBreakpoints.slice(-1)[0];
-    if (lastBreakpoint < containerWidth && this.#hiddenTabElements.length === 0)
-      return;
+    await this.updateComplete; // Wait for the tabs to be rendered
+    const gapCSSVar = Number.parseFloat(
+      this.style.getPropertyValue('--uui-tab-group-gap')
+    );
+    const gap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
+    this.#currentGap = gap;
+    let childrenWidth = 0;
+
+    for (let i = 0; i < this.#tabElements.length; i++) {
+      this.#tabElements[i].style.display = '';
+      childrenWidth += this.#tabElements[i].offsetWidth;
+      this.#visibilityBreakpoints[i] = childrenWidth;
+      // Add the gap, which will then be included in the next breakpoint:
+      childrenWidth += gap;
+    }
+
+    this.#updateCollapsibleTabs(this.offsetWidth);
+  }
+
+  #setTabArray() {
+    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
+    this.#calculateBreakPoints();
+  }
+
+  #updateCollapsibleTabs(containerWidth: number) {
+    const moreButtonWidth = this._moreButtonElement.offsetWidth;
+
+    const containerWithoutButtonWidth =
+      containerWidth -
+      (moreButtonWidth ? moreButtonWidth + this.#currentGap : 0);
 
     // Do the update
     // Reset the hidden tabs
@@ -136,18 +174,19 @@ export class UUITabGroupElement extends LitElement {
 
     let hasActiveTabInDropdown = false;
 
-    for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
+    const len = this.#visibilityBreakpoints.length;
+    for (let i = 0; i < len; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
       const tab = this.#tabElements[i] as UUITabElement;
 
-      // Subtract the button width when we are not at the last breakpoint
-      const containerWidthButtonWidth =
-        containerWidth -
-        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
-
-      if (breakpoint < containerWidthButtonWidth) {
+      // If breakpoint is smaller than the container width, then show the tab.
+      // If last breakpoint, then we will use the containerWidth, as we do not want to include the more-button in that calculation.
+      if (
+        breakpoint <=
+        (i === len - 1 ? containerWidth : containerWithoutButtonWidth)
+      ) {
+        // Show this tab:
         tab.style.display = '';
-        this._moreButtonElement.style.display = 'none';
       } else {
         // Make a proxy tab to put in the hidden tabs container and link it to the original tab
         const proxyTab = tab.cloneNode(true) as UUITabElement;
@@ -163,7 +202,6 @@ export class UUITabGroupElement extends LitElement {
         this.#hiddenTabElements.push(proxyTab);
 
         tab.style.display = 'none';
-        this._moreButtonElement.style.display = '';
         if (tab.active) {
           hasActiveTabInDropdown = true;
         }
@@ -171,8 +209,13 @@ export class UUITabGroupElement extends LitElement {
     }
 
     if (this.#hiddenTabElements.length === 0) {
+      // Hide more button:
+      this._moreButtonElement.style.display = 'none';
       // close the popover
       this._popoverContainerElement.hidePopover();
+    } else {
+      // Show more button:
+      this._moreButtonElement.style.display = '';
     }
 
     hasActiveTabInDropdown
@@ -180,34 +223,6 @@ export class UUITabGroupElement extends LitElement {
       : this._moreButtonElement.classList.remove('active-inside');
 
     this.requestUpdate();
-  }
-
-  async #calculateBreakPoints() {
-    // Whenever a tab is added or removed, we need to recalculate the breakpoints
-
-    await this.updateComplete; // Wait for the tabs to be rendered
-    const gapCSSVar = Number.parseFloat(
-      this.style.getPropertyValue('--uui-tab-group-gap')
-    );
-    const gap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
-    let childrenWidth = 0;
-
-    for (let i = 0; i < this.#tabElements.length; i++) {
-      const isLast = i === this.#tabElements.length - 1 ? 0 : 1;
-      this.#tabElements[i].style.display = '';
-      childrenWidth += this.#tabElements[i].offsetWidth + gap * isLast; // Add gap to calculation except for last element.
-      this.#visibilityBreakpoints[i] = childrenWidth;
-    }
-
-    const tolerance = 2;
-    this.style.width = childrenWidth + tolerance + 'px';
-
-    this.#updateCollapsibleTabs(this.offsetWidth);
-  }
-
-  #setTabArray() {
-    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
-    this.#calculateBreakPoints();
   }
 
   #isElementTabLike(el: any): el is UUITabElement {
@@ -242,6 +257,10 @@ export class UUITabGroupElement extends LitElement {
 
   static styles = [
     css`
+      :host {
+        width: 100%;
+      }
+
       #main {
         display: flex;
         height: 100%;
