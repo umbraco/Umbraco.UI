@@ -86,6 +86,7 @@ export class UUIPopoverContainerElement extends LitElement {
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#stopScrollListener();
   }
 
   #onBeforeToggle = (event: any) => {
@@ -310,9 +311,9 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #startScrollListener() {
     this.#scrollParents.forEach(el => {
-      el.addEventListener('scroll', this.#initUpdate);
+      el.addEventListener('scroll', this.#initUpdate, { passive: true });
     });
-    document.addEventListener('scroll', this.#initUpdate);
+    document.addEventListener('scroll', this.#initUpdate, { passive: true });
   }
   #stopScrollListener() {
     this.#scrollParents.forEach(el => {
