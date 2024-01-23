@@ -38,6 +38,8 @@ export class UUIModalContainerElement extends LitElement {
   }
 
   #onSlotChange = () => {
+    const existingModals = this._modals ?? [];
+
     this._modals =
       (this.modalSlot
         ?.assignedElements({ flatten: true })
@@ -45,7 +47,16 @@ export class UUIModalContainerElement extends LitElement {
           el => el instanceof UUIModalElement
         ) as Array<UUIModalElement>) ?? [];
 
-    this._modals.forEach(modal =>
+    const oldModals = existingModals.filter(
+      modal => this._modals!.indexOf(modal) === -1
+    );
+    oldModals.forEach(modal =>
+      modal.removeEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
+    );
+    const newModals = this._modals.filter(
+      modal => existingModals.indexOf(modal) === -1
+    );
+    newModals.forEach(modal =>
       modal.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
     );
 
