@@ -6,8 +6,8 @@ import {
   oneEvent,
 } from '@open-wc/testing';
 import {
-  InterfaceColorValues,
-  InterfaceLookValues,
+  UUIInterfaceColorValues,
+  UUIInterfaceLookValues,
 } from '@umbraco-ui/uui-base/lib/types';
 
 import { UUIButtonElement } from './uui-button.element';
@@ -41,8 +41,8 @@ describe('UuiButton', () => {
   });
 
   it('passes the a11y audit', async () => {
-    for (const color of InterfaceColorValues) {
-      for (const look of InterfaceLookValues) {
+    for (const color of UUIInterfaceColorValues) {
+      for (const look of UUIInterfaceLookValues) {
         for (const disabled of [true, false]) {
           element = await fixture(
             html` <uui-button

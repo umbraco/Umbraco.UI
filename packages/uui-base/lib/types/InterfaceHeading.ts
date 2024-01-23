@@ -1,4 +1,4 @@
-export const InterfaceHeadingValues: Readonly<InterfaceHeading[]> = [
+export const UUIInterfaceHeadingValues: Readonly<UUIInterfaceHeading[]> = [
   'h1',
   'h2',
   'h3',
@@ -7,4 +7,4 @@ export const InterfaceHeadingValues: Readonly<InterfaceHeading[]> = [
   'h6',
 ] as const;
 
-export type InterfaceHeading = '' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type UUIInterfaceHeading = '' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
