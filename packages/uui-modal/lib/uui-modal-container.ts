@@ -53,6 +53,7 @@ export class UUIModalContainerElement extends LitElement {
     oldModals.forEach(modal =>
       modal.removeEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
     );
+
     const newModals = this._modals.filter(
       modal => existingModals.indexOf(modal) === -1
     );
