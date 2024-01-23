@@ -244,12 +244,11 @@ export class UUITabGroupElement extends LitElement {
     css`
       #main {
         display: flex;
-        flex-wrap: nowrap;
-        color: var(--uui-tab-text);
         height: 100%;
         min-height: 48px;
         overflow: hidden;
         text-wrap: nowrap;
+        color: var(--uui-tab-text);
         gap: var(--uui-tab-group-gap, 0);
       }
 
