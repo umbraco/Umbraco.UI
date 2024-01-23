@@ -115,7 +115,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         height: 100%;
         min-height: var(--uui-size-12);
         min-width: 70px;
-        padding: var(--uui-size-2)
+        padding: var(--uui-size-3)
           var(--uui-tab-padding-horizontal, var(--uui-size-5));
         border: none;
         font-size: inherit;
