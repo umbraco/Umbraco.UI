@@ -64,6 +64,9 @@ export class UUIButtonInlineCreateElement extends LitElement {
     e.preventDefault();
     e.stopImmediatePropagation();
 
+    // We do not want to focus the button after click.
+    (e.target as any)?.blur?.();
+
     this.dispatchEvent(
       new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
     );
