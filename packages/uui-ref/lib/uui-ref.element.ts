@@ -13,6 +13,9 @@ import { UUIRefEvent } from './UUIRefEvent';
  *  @fires {UUISelectableEvent} selected - fires when the ref is selected
  *  @fires {UUISelectableEvent} deselected - fires when the ref is deselected
  *  @description - Base ref component to be extended by specific ref elements. Does not have a tag.
+ *  @attr {boolean} [disabled=false] - Set to true to disable
+ *  @attr {boolean} [error=false] - Set to true to display error state
+ *  @attr {boolean} [standalone=false] - Set to true to make element stand out
  */
 
 @defineElement('uui-ref')
@@ -76,7 +79,7 @@ export class UUIRefElement extends SelectOnlyMixin(
           inset 0 0 2px 0 var(--uui-color-danger);
       }
 
-      :host([border]) {
+      :host([standalone]) {
         border: 1px solid var(--uui-color-border);
       }
 
@@ -179,7 +182,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         opacity: 1;
       }
 
-      :host([border]:not([disabled]):hover) {
+      :host([standalone]:not([disabled]):hover) {
         border-color: var(--uui-color-border-emphasis);
       }
 
@@ -187,7 +190,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         cursor: default;
       }
 
-      :host([border][disabled]) {
+      :host([standalone][disabled]) {
         border-color: var(--uui-color-disabled-standalone);
       }
 

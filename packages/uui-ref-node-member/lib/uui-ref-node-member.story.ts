@@ -83,10 +83,10 @@ CustomIcon.parameters = {
   },
 };
 
-export const Border: Story = () => html`
+export const Standalone: Story = () => html`
   <div style="max-width: 420px;">
     <uui-ref-node-member
-      border
+      standalone
       name="Arnold Vitz"
       group-name="Visitor, Registered-Member">
       <uui-action-bar slot="actions">
@@ -96,12 +96,12 @@ export const Border: Story = () => html`
   </div>
 `;
 
-Border.parameters = {
+Standalone.parameters = {
   docs: {
     source: {
       code: `
 <uui-ref-node-member
-  border
+  standalone
   name="Arnold Vitz"
   group-name="Visitor, Registered-Member">
   <uui-action-bar slot="actions">
