@@ -30,7 +30,7 @@
     "lib/**/*.js"
   ],
   "peerDependencies": {
-    "lit": "^2.3.1 || ^3.1.1"
+    "lit": "^2.8.0 || ^3.1.1"
   },
   "scripts": {
     "build": "npm run build:cssprops && tsc --build && rollup -c rollup.config.js",
