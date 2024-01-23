@@ -166,6 +166,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         padding: 0;
         background-color: transparent;
         text-align: left;
+        color: var(--uui-color-text);
       }
 
       slot[name='actions'] {
