@@ -4,6 +4,7 @@ import '@umbraco-ui/uui-icon-registry-essential/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-popover-container/lib';
 import '@umbraco-ui/uui-symbol-more/lib';
+import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
@@ -204,6 +205,57 @@ export const WitchSpacing: Story = props => html`
   </uui-icon-registry-essential>
 `;
 WitchSpacing.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tab-group>
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>`,
+    },
+  },
+};
+
+export const FlexLayout: Story = props => html`
+  <h3>Tabs with Spacing</h3>
+  <p>We want the input to grow and the tabs to take up the remaining space.</p>
+  <uui-icon-registry-essential>
+    <div
+      style="display: flex; outline: 1px solid black; max-width: 800px; height: 100% ">
+      <uui-input style="flex-grow: 1;"></uui-input>
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        --uui-tab-group-gap: 50px;
+        font-size: 12px;
+        ${props.inlineStyles}">
+        <uui-tab label="content">
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active label="packages">
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab label="media">
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>
+    </div>
+  </uui-icon-registry-essential>
+`;
+FlexLayout.parameters = {
   docs: {
     source: {
       code: `
