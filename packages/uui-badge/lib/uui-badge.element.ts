@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import type {
   UUIInterfaceColor,
-  InterfaceLook,
+  UUIInterfaceLook,
 } from '@umbraco-ui/uui-base/lib/types';
 
 /**
@@ -30,7 +30,7 @@ export class UUIBadgeElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  look: InterfaceLook = 'primary';
+  look: UUIInterfaceLook = 'primary';
 
   /**
    * Bring attention to this badge by applying a bounce animation.
