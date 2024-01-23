@@ -85,7 +85,7 @@ export const Navbar: Story = () => html`
     style="
     display: flex;
     height: 60px;
-    font-size: 16px;
+    font-size: var(--uui-type-default-size);
     ">
     <uui-tab-group style="display: flex;">
       <uui-tab label="content"> Content </uui-tab>
@@ -104,7 +104,7 @@ export const UsingHref: Story = () => html`
     style="
     display: flex;
     height: 60px;
-    font-size: 16px;
+    font-size: var(--uui-type-default-size);
     ">
     <uui-tab-group>
       <uui-tab label="content" href="http://www.umbraco.com/#content">
@@ -136,8 +136,7 @@ export const WithIcons: Story = props => html`
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-        height: 70px;
-        font-size: 12px;
+        font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
         <uui-tab label="content">
           <uui-icon slot="icon" name="document"></uui-icon>
@@ -177,8 +176,8 @@ WithIcons.parameters = {
   },
 };
 
-export const WitchSpacing: Story = props => html`
-  <h3>Tabs with Spacing</h3>
+export const WithGap: Story = props => html`
+  <h3>Tabs with custom gap</h3>
   <uui-icon-registry-essential>
     <div style="display: flex;">
       <uui-tab-group
@@ -186,7 +185,7 @@ export const WitchSpacing: Story = props => html`
         style="
         --uui-tab-group-gap: 180px;
         margin: 0 auto;
-        font-size: 12px;
+        font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
         <uui-tab label="content">
           <uui-icon slot="icon" name="document"></uui-icon>
@@ -204,7 +203,7 @@ export const WitchSpacing: Story = props => html`
     </div>
   </uui-icon-registry-essential>
 `;
-WitchSpacing.parameters = {
+WithGap.parameters = {
   docs: {
     source: {
       code: `
@@ -227,8 +226,11 @@ WitchSpacing.parameters = {
 };
 
 export const FlexLayout: Story = props => html`
-  <h3>Tabs with Spacing</h3>
-  <p>We want the input to grow and the tabs to take up the remaining space.</p>
+  <h3>Tabs implemented into Flex-box scenario</h3>
+  <p>
+    In this case we want the input to grow and the tabs to take up the remaining
+    space:
+  </p>
   <uui-icon-registry-essential>
     <div
       style="display: flex; outline: 1px solid black; max-width: 800px; height: 100%; align-items: center; padding-left: 12px;">
@@ -238,7 +240,7 @@ export const FlexLayout: Story = props => html`
         style="
         flex-grow: 1;
         --uui-tab-group-gap: 25px;
-        font-size: 12px;
+        font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
         <uui-tab label="content">
           <uui-icon slot="icon" name="document"></uui-icon>
