@@ -1,6 +1,6 @@
 import { css, html, PropertyValueMap } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIModalElement } from './uui-modal.element';
+import { UUIModalCloseEvent, UUIModalElement } from './uui-modal.element';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 export type UUIModalSidebarSize = 'small' | 'medium' | 'large' | 'full';
@@ -15,7 +15,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
 
   constructor() {
     super();
-    this.addEventListener('close', this.#onClose.bind(this));
+    this.addEventListener(UUIModalCloseEvent, this.#onClose.bind(this));
   }
 
   protected firstUpdated(
