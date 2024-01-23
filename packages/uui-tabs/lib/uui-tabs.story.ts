@@ -231,12 +231,13 @@ export const FlexLayout: Story = props => html`
   <p>We want the input to grow and the tabs to take up the remaining space.</p>
   <uui-icon-registry-essential>
     <div
-      style="display: flex; outline: 1px solid black; max-width: 800px; height: 100% ">
-      <uui-input style="flex-grow: 1;"></uui-input>
+      style="display: flex; outline: 1px solid black; max-width: 800px; height: 100%; align-items: center; padding-left: 12px;">
+      <uui-input style="flex-grow: 1; min-width: 200px"></uui-input>
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-        --uui-tab-group-gap: 50px;
+        flex-grow: 1;
+        --uui-tab-group-gap: 25px;
         font-size: 12px;
         ${props.inlineStyles}">
         <uui-tab label="content">
