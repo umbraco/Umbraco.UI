@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import type {
   UUIInterfaceColor,
-  InterfaceLook,
+  UUIInterfaceLook
 } from '@umbraco-ui/uui-base/lib/types';
 
 /**
