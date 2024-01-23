@@ -69,6 +69,7 @@ export class UUIPopoverContainerElement extends LitElement {
   _actualPlacement: PopoverContainerPlacement = this._placement;
 
   #targetElement: HTMLElement | null = null;
+  #scrollParents: Element[] = [];
 
   connectedCallback(): void {
     //TODO: Remove this polyfill when firefox supports the new popover API
@@ -85,6 +86,7 @@ export class UUIPopoverContainerElement extends LitElement {
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#stopScrollListener();
   }
 
   #onBeforeToggle = (event: any) => {
@@ -95,6 +97,8 @@ export class UUIPopoverContainerElement extends LitElement {
       'popovertarget',
       this.id
     );
+
+    this.#getScrollParents();
 
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
@@ -110,11 +114,11 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     if (!this._open) {
-      document.removeEventListener('scroll', this.#initUpdate);
+      this.#stopScrollListener();
       return;
     }
 
-    document.addEventListener('scroll', this.#initUpdate);
+    this.#startScrollListener();
 
     requestAnimationFrame(() => {
       this.#initUpdate();
@@ -303,6 +307,52 @@ export class UUIPopoverContainerElement extends LitElement {
         : 'left';
     this._actualPlacement =
       `${oppositeDirection}-${position}` as PopoverContainerPlacement;
+  }
+
+  #startScrollListener() {
+    this.#scrollParents.forEach(el => {
+      el.addEventListener('scroll', this.#initUpdate, { passive: true });
+    });
+    document.addEventListener('scroll', this.#initUpdate, { passive: true });
+  }
+  #stopScrollListener() {
+    this.#scrollParents.forEach(el => {
+      el.removeEventListener('scroll', this.#initUpdate);
+    });
+    document.removeEventListener('scroll', this.#initUpdate);
+  }
+
+  #getScrollParents(): any {
+    if (!this.#targetElement) return;
+
+    let style = getComputedStyle(this.#targetElement);
+    if (style.position === 'fixed') {
+      return;
+    }
+
+    const includeHidden = false;
+    const excludeStaticParent = style.position === 'absolute';
+    const overflowRegex = includeHidden
+      ? /(auto|scroll|hidden)/
+      : /(auto|scroll)/;
+
+    let el = this.#targetElement;
+    while ((el = el.parentElement as HTMLElement)) {
+      style = getComputedStyle(el);
+
+      if (excludeStaticParent && style.position === 'static') {
+        continue;
+      }
+      if (
+        overflowRegex.test(style.overflow + style.overflowY + style.overflowX)
+      ) {
+        this.#scrollParents.push(el);
+      }
+      if (style.position === 'fixed') {
+        return;
+      }
+    }
+    this.#scrollParents.push(document.body);
   }
 
   render() {

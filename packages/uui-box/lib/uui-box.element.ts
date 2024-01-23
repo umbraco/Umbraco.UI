@@ -18,6 +18,7 @@ function slotHasContent(target: EventTarget | null): boolean {
  *  @slot header - header area, use this for things that are not the headline but are located in the header.
  *  @slot header-actions - right-side of the box header, use this to append some actions that are general for the topic of this box.
  *  @slot - area for the content of the box
+ *  @cssprop --uui-box-header-padding - overwrite the header padding
  *  @cssprop --uui-box-default-padding - overwrite the box padding
  *
  */
@@ -128,7 +129,10 @@ export class UUIBoxElement extends LitElement {
         display: flex;
         column-gap: var(--uui-size-space-5);
         border-bottom: 1px solid var(--uui-color-divider-standalone);
-        padding: var(--uui-size-space-4) var(--uui-size-space-5);
+        padding: var(
+          --uui-box-header-padding,
+          var(--uui-size-space-4) var(--uui-size-space-5)
+        );
       }
 
       slot:not([name]) {
