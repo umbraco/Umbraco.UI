@@ -1,19 +1,16 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-popover-container/lib';
-import '@umbraco-ui/uui-symbol-more/lib';
-
-import { UUITabElement } from './uui-tab.element';
-import { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
+import type { UUITabElement } from './uui-tab.element';
 
 /**
- *  @element uui-tab-group
- *  @slot - Default slot for the tab group
+ * @element uui-tab-group
+ * @slot - Default slot for the tab group
  * @cssprop --uui-tab-group-dropdown-tab-text - Define the tab text color in the dropdown
  * @cssprop --uui-tab-group-dropdown-tab-text-hover - Define the tab text hover color in the dropdown
  * @cssprop --uui-tab-group-dropdown-tab-text-active - Define the tab text active color in the dropdown
@@ -53,12 +50,15 @@ export class UUITabGroupElement extends LitElement {
 
   #visibilityBreakpoints: number[] = [];
 
-  #resizeObserver: ResizeObserver = new ResizeObserver(
-    this.#onResize.bind(this)
-  );
+  #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
 
   connectedCallback() {
     super.connectedCallback();
+
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-popover-container');
+    demandCustomElement(this, 'uui-symbol-more');
+
     this.#resizeObserver.observe(this);
     if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
   }
@@ -205,7 +205,9 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #isElementTabLike(el: any): el is UUITabElement {
-    return el instanceof UUITabElement || 'active' in el;
+    return (
+      typeof el === 'object' && 'active' in el && typeof el.active === 'boolean'
+    );
   }
 
   render() {
