@@ -1,7 +1,8 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
-import { css, html } from 'lit';
+import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 /**
@@ -36,6 +37,24 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   detail = '';
 
+  /**
+   * Set an href, this will turns the name of the card into an anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -48,7 +67,7 @@ export class UUIRefNodeElement extends UUIRefElement {
     demandCustomElement(this, 'uui-icon');
   }
 
-  private _onSlotIconChange(event: Event) {
+  #onSlotIconChange(event: Event) {
     this._iconSlotHasContent =
       (event.target as HTMLSlotElement).assignedNodes({ flatten: true })
         .length > 0;
@@ -60,11 +79,37 @@ export class UUIRefNodeElement extends UUIRefElement {
     ></small>`;
   }
 
-  private _renderFallbackIcon() {
+  #renderFallbackIcon() {
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 
-  public render() {
+  #renderContent() {
+    return html`
+      <span id="icon">
+        <slot name="icon" @slotchange=${this.#onSlotIconChange}></slot>
+        ${this._iconSlotHasContent === false ? this.#renderFallbackIcon() : ''}
+      </span>
+      <div id="info">
+        <div id="name">${this.name}</div>
+        ${this.renderDetail()}
+      </div>
+    `;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="open-part"
+      tabindex=${this.disabled ? (nothing as any) : '0'}
+      href=${ifDefined(!this.disabled ? this.href : undefined)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}>
+      ${this.#renderContent()}
+    </a>`;
+  }
+
+  #renderButton() {
     return html`
       <button
         type="button"
@@ -73,17 +118,14 @@ export class UUIRefNodeElement extends UUIRefElement {
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
         ?disabled=${this.disabled}>
-        <span id="icon">
-          <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-          ${this._iconSlotHasContent === false
-            ? this._renderFallbackIcon()
-            : ''}
-        </span>
-        <div id="info">
-          <div id="name">${this.name}</div>
-          ${this.renderDetail()}
-        </div>
+        ${this.#renderContent()}
       </button>
+    `;
+  }
+
+  public render() {
+    return html`
+      ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
@@ -102,7 +144,10 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       #open-part {
+        text-decoration: none;
+        color: inherit;
         align-self: stretch;
+        line-height: normal;
 
         display: flex;
         position: relative;

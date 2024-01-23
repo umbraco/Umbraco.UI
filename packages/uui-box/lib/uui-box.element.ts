@@ -2,7 +2,7 @@ import { LitElement, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import type { InterfaceHeading } from '@umbraco-ui/uui-base/lib';
+import type { UUIInterfaceHeading } from '@umbraco-ui/uui-base/lib';
 import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
 
 function slotHasContent(target: EventTarget | null): boolean {
@@ -41,7 +41,7 @@ export class UUIBoxElement extends LitElement {
    * @default "h5"
    */
   @property({ attribute: 'headline-variant' })
-  set headlineVariant(value: InterfaceHeading) {
+  set headlineVariant(value: UUIInterfaceHeading) {
     if (!value) {
       this._headlineVariantTag = literal`h5`;
     } else {

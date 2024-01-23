@@ -1,6 +1,10 @@
 import '.';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-popover-container/lib';
+import '@umbraco-ui/uui-symbol-more/lib';
+import '@umbraco-ui/uui-input/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
@@ -81,7 +85,7 @@ export const Navbar: Story = () => html`
     style="
     display: flex;
     height: 60px;
-    font-size: 16px;
+    font-size: var(--uui-type-default-size);
     ">
     <uui-tab-group style="display: flex;">
       <uui-tab label="content"> Content </uui-tab>
@@ -100,7 +104,7 @@ export const UsingHref: Story = () => html`
     style="
     display: flex;
     height: 60px;
-    font-size: 16px;
+    font-size: var(--uui-type-default-size);
     ">
     <uui-tab-group>
       <uui-tab label="content" href="http://www.umbraco.com/#content">
@@ -132,9 +136,29 @@ export const WithIcons: Story = props => html`
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-        height: 70px;
-        font-size: 12px;
+        font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
+        <uui-tab label="content">
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active label="packages">
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab label="media">
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>
+    </div>
+  </uui-icon-registry-essential>
+`;
+WithIcons.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tab-group>
         <uui-tab>
           <uui-icon slot="icon" name="document"></uui-icon>
           Content
@@ -147,11 +171,94 @@ export const WithIcons: Story = props => html`
           <uui-icon slot="icon" name="picture"></uui-icon>
           Media
         </uui-tab>
+      </uui-tab-group>`,
+    },
+  },
+};
+
+export const WithGap: Story = props => html`
+  <h3>Tabs with custom gap</h3>
+  <uui-icon-registry-essential>
+    <div style="display: flex;">
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        --uui-tab-group-gap: 180px;
+        margin: 0 auto;
+        font-size: var(--uui-type-small-size);
+        ${props.inlineStyles}">
+        <uui-tab label="content">
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active label="packages">
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab label="media">
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
       </uui-tab-group>
     </div>
   </uui-icon-registry-essential>
 `;
-WithIcons.parameters = {
+WithGap.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tab-group>
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>`,
+    },
+  },
+};
+
+export const FlexLayout: Story = props => html`
+  <h3>Tabs implemented into Flex-box scenario</h3>
+  <p>
+    In this case we want the input to grow and the tabs to take up the remaining
+    space:
+  </p>
+  <uui-icon-registry-essential>
+    <div
+      style="display: flex; outline: 1px solid black; max-width: 800px; height: 100%; align-items: center; padding-left: 12px;">
+      <uui-input style="flex-grow: 1; min-width: 200px"></uui-input>
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        flex-grow: 1;
+        --uui-tab-group-gap: 25px;
+        font-size: var(--uui-type-small-size);
+        ${props.inlineStyles}">
+        <uui-tab label="content">
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active label="packages">
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab label="media">
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>
+    </div>
+  </uui-icon-registry-essential>
+`;
+FlexLayout.parameters = {
   docs: {
     source: {
       code: `
