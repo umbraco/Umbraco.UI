@@ -149,6 +149,9 @@ export class UUITabGroupElement extends LitElement {
       childrenWidth += gap;
     }
 
+    const tolerance = 2;
+    this.style.maxWidth = childrenWidth - gap + tolerance + 'px';
+
     this.#updateCollapsibleTabs(this.offsetWidth);
   }
 
