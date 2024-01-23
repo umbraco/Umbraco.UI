@@ -57,7 +57,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
   private _onMouseMove(e: MouseEvent) {
-    this._position = (this.vertical ? e.offsetY : e.offsetX) + 5;
+    this._position = (this.vertical ? e.offsetY : e.offsetX) - 5;
   }
 
   private _handleClick(e: MouseEvent) {
@@ -248,12 +248,12 @@ export class UUIButtonInlineCreateElement extends LitElement {
       }
 
       :host(:not([vertical])) #plus {
-        margin-left: -21px;
+        margin-left: -18px;
       }
 
       :host([vertical]) #plus {
         left: -4px;
-        margin-top: -21px;
+        margin-top: -18px;
       }
 
       #button-wrapper:focus #plus {
