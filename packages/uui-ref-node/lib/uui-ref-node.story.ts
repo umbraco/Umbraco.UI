@@ -1,10 +1,15 @@
-import '.';
-
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 import readme from '../README.md?raw';
+
+import './index';
+import '@umbraco-ui/uui-tag/lib';
+import '@umbraco-ui/uui-action-bar/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
 
 export default {
   id: 'uui-ref-node',
@@ -26,6 +31,8 @@ const Template: Story = props => html`
   <uui-ref-node
     name="${props.name}"
     detail="${props.detail}"
+    href="${props.href}"
+    target="${props.target}"
     ?selectable=${props.selectable}
     ?selectOnly=${props.selectOnly}
     ?error=${props.error}
@@ -42,6 +49,7 @@ export const AAAOverview = Template.bind({});
 AAAOverview.args = {
   name: 'Rabbit Suit Product Page',
   detail: 'path/to/nowhere',
+  href: 'umbraco.com',
 };
 AAAOverview.storyName = 'Overview';
 AAAOverview.parameters = {
@@ -62,16 +70,14 @@ AAAOverview.parameters = {
 };
 
 export const CustomIcon: Story = () => html`
-  <essential-icon-registry>
-    <uui-ref-node-data-type
-      name="Rabbit Suit Product Page"
-      detail="path/to/nowhere">
+  <uui-icon-registry-essential>
+    <uui-ref-node name="Rabbit Suit Product Page" detail="path/to/nowhere">
       <uui-icon slot="icon" name="colorpicker"></uui-icon>
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
-    </uui-ref-node-data-type>
-  </essential-icon-registry>
+    </uui-ref-node>
+  </uui-icon-registry-essential>
 `;
 
 CustomIcon.parameters = {
