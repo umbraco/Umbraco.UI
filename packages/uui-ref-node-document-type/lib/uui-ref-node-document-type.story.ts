@@ -81,9 +81,12 @@ CustomIcon.parameters = {
   },
 };
 
-export const Border: Story = () => html`
+export const Standalone: Story = () => html`
   <div style="max-width: 420px;">
-    <uui-ref-node-document-type border name="Product Page" alias="productPage">
+    <uui-ref-node-document-type
+      standalone
+      name="Product Page"
+      alias="productPage">
       <uui-action-bar slot="actions">
         <uui-button label="Remove">Remove</uui-button>
       </uui-action-bar>
@@ -91,12 +94,12 @@ export const Border: Story = () => html`
   </div>
 `;
 
-Border.parameters = {
+Standalone.parameters = {
   docs: {
     source: {
       code: `
 <uui-ref-node-document-type
-  border
+  standalone
   name="Product Page"
   alias="productPage">
   <uui-action-bar slot="actions">
