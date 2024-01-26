@@ -261,6 +261,7 @@ export class UUITabGroupElement extends LitElement {
   static styles = [
     css`
       :host {
+        display: block;
         width: 100%;
       }
 
