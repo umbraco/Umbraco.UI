@@ -55,6 +55,7 @@ export class UUITabGroupElement extends LitElement {
   #visibilityBreakpoints: number[] = [];
 
   #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
+  #tabResizeObservers: ResizeObserver[] = [];
 
   connectedCallback() {
     super.connectedCallback();
@@ -70,6 +71,7 @@ export class UUITabGroupElement extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#resizeObserver.unobserve(this);
+    this.#cleanupTabs();
   }
 
   #onResize(entries: ResizeObserverEntry[]) {
@@ -85,15 +87,25 @@ export class UUITabGroupElement extends LitElement {
     }
   }
 
-  #onSlotChange() {
+  #cleanupTabs() {
     this.#tabElements.forEach(el => {
       el.removeEventListener('click', this.#onTabClicked);
+      this.#tabResizeObservers.forEach(observer => observer.disconnect());
     });
+    this.#tabResizeObservers.length = 0;
+  }
+
+  #onSlotChange() {
+    this.#cleanupTabs();
 
     this.#setTabArray();
 
     this.#tabElements.forEach(el => {
       el.addEventListener('click', this.#onTabClicked);
+      const observer = new ResizeObserver(
+        this.#calculateBreakPoints.bind(this)
+      );
+      observer.observe(el);
     });
   }
 
