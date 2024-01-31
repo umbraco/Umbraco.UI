@@ -239,8 +239,8 @@ export class UUITabGroupElement extends LitElement {
 
   render() {
     return html`
-      <div id="main-main">
-        <div id="main">
+      <div id="main">
+        <div id="grid">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
         <uui-button
@@ -269,12 +269,12 @@ export class UUITabGroupElement extends LitElement {
         width: 100%;
       }
 
-      #main-main {
+      #main {
         display: flex;
         justify-content: space-between;
       }
 
-      #main {
+      #grid {
         width: 1fr;
         display: flex;
         height: 100%;
