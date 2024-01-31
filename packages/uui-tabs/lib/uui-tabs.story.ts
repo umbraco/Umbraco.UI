@@ -280,39 +280,55 @@ FlexLayout.parameters = {
   },
 };
 
-export const Async: Story = props => html`
-  <h3>Tabs implemented into Flex-box scenario</h3>
-  <p>
-    In this case we want the input to grow and the tabs to take up the remaining
-    space:
-  </p>
-  <uui-icon-registry-essential>
-    <div
-      style="display: flex; outline: 1px solid black; max-width: 800px; height: 100%; align-items: center; padding-left: 12px;">
-      <uui-input style="flex-grow: 1; min-width: 200px"></uui-input>
-      <uui-tab-group
-        dropdown-direction="horizontal"
-        style="
+export const Async: Story = props => {
+  // async insert tabs after 1 second
+  setTimeout(() => {
+    const tabs = document.querySelector('uui-tab-group');
+
+    if (!tabs) return;
+
+    const tab = document.createElement('uui-tab');
+    tab.label = 'Async';
+    tab.innerHTML = 'Async';
+    tabs.appendChild(tab);
+
+    setTimeout(() => {
+      tab.innerHTML = 'Async more text';
+    }, 1000);
+  }, 1000);
+
+  return html`
+    <h3>Tabs implemented into Flex-box scenario</h3>
+    <p>
+      In this case we want the input to grow and the tabs to take up the
+      remaining space:
+    </p>
+    <uui-icon-registry-essential>
+      <div style="display: flex">
+        <uui-tab-group
+          dropdown-direction="horizontal"
+          style="
         flex-grow: 1;
         --uui-tab-group-gap: 25px;
         font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
-        <uui-tab label="content">
-          <uui-icon slot="icon" name="document"></uui-icon>
-          Content
-        </uui-tab>
-        <uui-tab active label="packages">
-          <uui-icon slot="icon" name="settings"></uui-icon>
-          Packages
-        </uui-tab>
-        <uui-tab label="media">
-          <uui-icon slot="icon" name="picture"></uui-icon>
-          Media
-        </uui-tab>
-      </uui-tab-group>
-    </div>
-  </uui-icon-registry-essential>
-`;
+          <uui-tab label="content">
+            <uui-icon slot="icon" name="document"></uui-icon>
+            Content
+          </uui-tab>
+          <uui-tab active label="packages">
+            <uui-icon slot="icon" name="settings"></uui-icon>
+            Packages
+          </uui-tab>
+          <uui-tab label="media">
+            <uui-icon slot="icon" name="picture"></uui-icon>
+            Media
+          </uui-tab>
+        </uui-tab-group>
+      </div>
+    </uui-icon-registry-essential>
+  `;
+};
 Async.parameters = {
   docs: {
     source: {
