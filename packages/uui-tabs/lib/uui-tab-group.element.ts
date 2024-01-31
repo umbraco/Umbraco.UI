@@ -57,6 +57,8 @@ export class UUITabGroupElement extends LitElement {
   #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
   #tabResizeObservers: ResizeObserver[] = [];
 
+  #breakPointCalculationInProgress = false;
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -106,6 +108,7 @@ export class UUITabGroupElement extends LitElement {
         this.#calculateBreakPoints.bind(this)
       );
       observer.observe(el);
+      this.#tabResizeObservers.push(observer);
     });
   }
 
@@ -143,9 +146,18 @@ export class UUITabGroupElement extends LitElement {
   };
 
   async #calculateBreakPoints() {
+    if (this.#breakPointCalculationInProgress) return;
+
+    // Prevent multiple calculations from happening in the same frame
+    this.#breakPointCalculationInProgress = true;
+    requestAnimationFrame(() => {
+      this.#breakPointCalculationInProgress = false;
+    });
+
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
     await this.updateComplete; // Wait for the tabs to be rendered
+
     const gapCSSVar = Number.parseFloat(
       this.style.getPropertyValue('--uui-tab-group-gap')
     );

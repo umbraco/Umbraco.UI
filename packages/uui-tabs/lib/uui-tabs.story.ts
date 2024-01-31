@@ -304,11 +304,11 @@ export const Async: Story = props => {
       remaining space:
     </p>
     <uui-icon-registry-essential>
-      <div style="display: flex">
+      <div style="display: flex; margin: auto">
         <uui-tab-group
           dropdown-direction="horizontal"
           style="
-        flex-grow: 1;
+          margin: auto;
         --uui-tab-group-gap: 25px;
         font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
