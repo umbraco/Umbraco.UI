@@ -164,8 +164,7 @@ export class UUITabGroupElement extends LitElement {
     const moreButtonWidth = this._moreButtonElement.offsetWidth;
 
     const containerWithoutButtonWidth =
-      containerWidth -
-      (moreButtonWidth ? moreButtonWidth + this.#currentGap : 0);
+      containerWidth - (moreButtonWidth ? moreButtonWidth : 0);
 
     // Do the update
     // Reset the hidden tabs
@@ -234,10 +233,16 @@ export class UUITabGroupElement extends LitElement {
     );
   }
 
+  // click events in dropdown tabs
+  // async tabs
+  // maybe display block on host
+
   render() {
     return html`
-      <div id="main">
-        <slot @slotchange=${this.#onSlotChange}></slot>
+      <div id="main-main">
+        <div id="main">
+          <slot @slotchange=${this.#onSlotChange}></slot>
+        </div>
         <uui-button
           popovertarget="popover-container"
           style="display: none"
@@ -264,7 +269,13 @@ export class UUITabGroupElement extends LitElement {
         width: 100%;
       }
 
+      #main-main {
+        display: flex;
+        justify-content: space-between;
+      }
+
       #main {
+        width: 1fr;
         display: flex;
         height: 100%;
         min-height: 48px;
