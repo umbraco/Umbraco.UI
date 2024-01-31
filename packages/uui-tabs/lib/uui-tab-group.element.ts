@@ -257,10 +257,6 @@ export class UUITabGroupElement extends LitElement {
     );
   }
 
-  // click events in dropdown tabs
-  // async tabs
-  // maybe display block on host
-
   render() {
     return html`
       <div id="main">
