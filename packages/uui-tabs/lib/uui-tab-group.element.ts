@@ -55,6 +55,9 @@ export class UUITabGroupElement extends LitElement {
   #visibilityBreakpoints: number[] = [];
 
   #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
+  #tabResizeObservers: ResizeObserver[] = [];
+
+  #breakPointCalculationInProgress = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -70,6 +73,7 @@ export class UUITabGroupElement extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#resizeObserver.unobserve(this);
+    this.#cleanupTabs();
   }
 
   #onResize(entries: ResizeObserverEntry[]) {
@@ -85,15 +89,26 @@ export class UUITabGroupElement extends LitElement {
     }
   }
 
-  #onSlotChange() {
+  #cleanupTabs() {
     this.#tabElements.forEach(el => {
       el.removeEventListener('click', this.#onTabClicked);
+      this.#tabResizeObservers.forEach(observer => observer.disconnect());
     });
+    this.#tabResizeObservers.length = 0;
+  }
+
+  #onSlotChange() {
+    this.#cleanupTabs();
 
     this.#setTabArray();
 
     this.#tabElements.forEach(el => {
       el.addEventListener('click', this.#onTabClicked);
+      const observer = new ResizeObserver(
+        this.#calculateBreakPoints.bind(this)
+      );
+      observer.observe(el);
+      this.#tabResizeObservers.push(observer);
     });
   }
 
@@ -131,9 +146,18 @@ export class UUITabGroupElement extends LitElement {
   };
 
   async #calculateBreakPoints() {
+    if (this.#breakPointCalculationInProgress) return;
+
+    // Prevent multiple calculations from happening in the same frame
+    this.#breakPointCalculationInProgress = true;
+    requestAnimationFrame(() => {
+      this.#breakPointCalculationInProgress = false;
+    });
+
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
     await this.updateComplete; // Wait for the tabs to be rendered
+
     const gapCSSVar = Number.parseFloat(
       this.style.getPropertyValue('--uui-tab-group-gap')
     );
@@ -164,8 +188,7 @@ export class UUITabGroupElement extends LitElement {
     const moreButtonWidth = this._moreButtonElement.offsetWidth;
 
     const containerWithoutButtonWidth =
-      containerWidth -
-      (moreButtonWidth ? moreButtonWidth + this.#currentGap : 0);
+      containerWidth - (moreButtonWidth ? moreButtonWidth : 0);
 
     // Do the update
     // Reset the hidden tabs
@@ -237,7 +260,9 @@ export class UUITabGroupElement extends LitElement {
   render() {
     return html`
       <div id="main">
-        <slot @slotchange=${this.#onSlotChange}></slot>
+        <div id="grid">
+          <slot @slotchange=${this.#onSlotChange}></slot>
+        </div>
         <uui-button
           popovertarget="popover-container"
           style="display: none"
@@ -261,11 +286,16 @@ export class UUITabGroupElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: block;
         width: 100%;
       }
 
       #main {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #grid {
+        width: 1fr;
         display: flex;
         height: 100%;
         min-height: 48px;
