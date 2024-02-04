@@ -47,6 +47,9 @@
       "path": "../uui-card"
     },
     {
+      "path": "../uui-card-block-type"
+    },
+    {
       "path": "../uui-card-content-node"
     },
     {

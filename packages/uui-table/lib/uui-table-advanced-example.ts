@@ -8,8 +8,9 @@ import '@umbraco-ui/uui-tag/lib';
 
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 interface TableColumn {
   name: string;
@@ -25,7 +26,7 @@ interface TableItem {
   newsletter: boolean;
 }
 
-@customElement('uui-table-with-selection-example')
+@defineElement('uui-table-with-selection-example')
 export class UUITableWithSelectionExampleElement extends LitElement {
   @state()
   private _columns: Array<TableColumn> = [];

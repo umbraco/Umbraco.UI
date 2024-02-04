@@ -23,7 +23,13 @@
       "path": "../uui-icon"
     },
     {
+      "path": "../uui-popover-container"
+    },
+    {
       "path": "../uui-scroll-container"
+    },
+    {
+      "path": "../uui-symbol-expand"
     }
   ]
 }

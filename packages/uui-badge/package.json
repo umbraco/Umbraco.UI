@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-badge",
-  "version": "1.6.0-rc.0",
+  "version": "1.6.0",
   "license": "MIT",
   "description": "A badge to notify that there is something that requires attention of the user.",
   "keywords": [
@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.6.0-rc.0"
+    "@umbraco-ui/uui-base": "1.6.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

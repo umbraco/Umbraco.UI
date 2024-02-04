@@ -67,6 +67,11 @@ describe('UUICardUserElement', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
       expect(slot).to.exist;
     });
+
+    it('renders an avatar slot', () => {
+      const slot = element.shadowRoot!.querySelector('slot[name=avatar]')!;
+      expect(slot).to.exist;
+    });
   });
 
   describe('events', () => {

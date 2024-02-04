@@ -79,19 +79,8 @@ export class UUIComboboxListElement extends LitElement {
   @state()
   private _value: FormDataEntryValue | FormData = '';
 
-  private __activeElement: UUIComboboxListOptionElement | undefined;
-  private get _activeElement(): UUIComboboxListOptionElement | undefined {
-    return this.__activeElement;
-  }
-  private set _activeElement(el: UUIComboboxListOptionElement | undefined) {
-    if (this.__activeElement) {
-      this.__activeElement.active = false;
-    }
-    if (el) {
-      el.active = true;
-      this.__activeElement = el;
-    }
-  }
+  @state()
+  private _activeElementValue: string | null = null;
 
   private _selectedElement: UUIComboboxListOptionElement | undefined;
 
@@ -129,21 +118,27 @@ export class UUIComboboxListElement extends LitElement {
   }
 
   private _onSlotChange = () => {
-    this._activeElement = undefined;
     // Get index from first active, remove active from the rest.
-    for (let i = 0; i < this._activeOptions.length; i++) {
-      if (i === 0) {
-        this._activeElement = this._activeOptions[i];
-      } else {
-        this._activeOptions[i].active = false;
-      }
-    }
+    this.#updateActiveElement();
 
     this._updateSelection();
     this.dispatchEvent(
       new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE)
     );
   };
+
+  #updateActiveElement() {
+    for (let i = 0; i < this._activeOptions.length; i++) {
+      this._activeOptions[i].active = false;
+    }
+
+    const activeElement = this._getActiveElement;
+    if (activeElement) {
+      activeElement.active = true;
+    } else {
+      this._goToIndex(0);
+    }
+  }
 
   private _onSelected = (e: Event) => {
     if (this._selectedElement) {
@@ -152,7 +147,6 @@ export class UUIComboboxListElement extends LitElement {
       this._selectedElement = undefined;
     }
     this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
-    this._activeElement = this._selectedElement;
 
     this.value = this._selectedElement.value || '';
     this.displayValue = this._selectedElement.displayValue || '';
@@ -161,9 +155,6 @@ export class UUIComboboxListElement extends LitElement {
   };
   private _onDeselected = (e: Event) => {
     const el = e.composedPath()[0] as UUIComboboxListOptionElement;
-    if (this._activeElement === el) {
-      this._activeElement = undefined;
-    }
     if (this._selectedElement === el) {
       this.value = '';
       this.displayValue = '';
@@ -171,15 +162,25 @@ export class UUIComboboxListElement extends LitElement {
     }
   };
 
-  private _getActiveIndex(): number {
-    return this._activeElement
-      ? this._options.indexOf(this._activeElement)
-      : -1;
+  private get _getActiveIndex(): number {
+    if (this._activeElementValue === null) return -1;
+
+    return this._options.findIndex(
+      element => element.value === this._activeElementValue
+    );
+  }
+
+  private get _getActiveElement() {
+    if (this._activeElementValue === null) return null;
+
+    return this._options.find(
+      element => element.value === this._activeElementValue
+    );
   }
 
   private _moveIndex = (distance: number) => {
     const newIndex = Math.min(
-      Math.max(this._getActiveIndex() + distance, 0),
+      Math.max(this._getActiveIndex + distance, 0),
       this._options.length - 1
     );
 
@@ -187,11 +188,15 @@ export class UUIComboboxListElement extends LitElement {
   };
 
   private _goToIndex(index: number) {
-    index = Math.min(Math.max(index, 0), this._options.length - 1); // Makes sure the index stays within array length
-    this._activeElement = this._options[index];
+    if (this._options.length === 0) return;
 
-    if (this._activeElement) {
-      this._activeElement.scrollIntoView({
+    index = Math.min(Math.max(index, 0), this._options.length - 1); // Makes sure the index stays within array length
+    const activeElement = this._options[index];
+    this._activeElementValue = activeElement.value;
+    this.#updateActiveElement();
+
+    if (activeElement) {
+      activeElement.scrollIntoView({
         behavior: 'auto',
         block: 'nearest',
         inline: 'nearest',
@@ -222,7 +227,7 @@ export class UUIComboboxListElement extends LitElement {
 
       case 'Enter': {
         e.preventDefault();
-        this._activeElement?.click();
+        this._getActiveElement?.click();
         break;
       }
 

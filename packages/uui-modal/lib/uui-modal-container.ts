@@ -1,8 +1,10 @@
 import { LitElement, PropertyValueMap, css, html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { UUIModalSidebarElement } from './uui-modal-sidebar.element';
-import { UUIModalElement } from './uui-modal.element';
-@customElement('uui-modal-container')
+import { UUIModalCloseEvent, UUIModalElement } from './uui-modal.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+
+@defineElement('uui-modal-container')
 export class UUIModalContainerElement extends LitElement {
   @query('slot')
   modalSlot?: HTMLSlotElement;
@@ -21,7 +23,7 @@ export class UUIModalContainerElement extends LitElement {
 
   constructor() {
     super();
-    this.addEventListener('close', this.#onClose);
+    this.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose);
   }
 
   protected firstUpdated(
@@ -36,12 +38,28 @@ export class UUIModalContainerElement extends LitElement {
   }
 
   #onSlotChange = () => {
+    const existingModals = this._modals ?? [];
+
     this._modals =
       (this.modalSlot
         ?.assignedElements({ flatten: true })
         .filter(
           el => el instanceof UUIModalElement
         ) as Array<UUIModalElement>) ?? [];
+
+    const oldModals = existingModals.filter(
+      modal => this._modals!.indexOf(modal) === -1
+    );
+    oldModals.forEach(modal =>
+      modal.removeEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
+    );
+
+    const newModals = this._modals.filter(
+      modal => existingModals.indexOf(modal) === -1
+    );
+    newModals.forEach(modal =>
+      modal.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
+    );
 
     this._sidebars = this._modals.filter(
       el => el instanceof UUIModalSidebarElement
@@ -56,7 +74,13 @@ export class UUIModalContainerElement extends LitElement {
     this.#updateSidebars();
   };
 
-  #onClose = () => {
+  #onCloseModalClose = (event: Event) => {
+    event.stopImmediatePropagation();
+
+    event.target?.removeEventListener(
+      UUIModalCloseEvent,
+      this.#onCloseModalClose
+    );
     if (!this._modals || this._modals.length <= 1) {
       this.removeAttribute('backdrop');
       return;
@@ -97,7 +121,15 @@ export class UUIModalContainerElement extends LitElement {
       for (let i = 0; i < reversed.length; i++) {
         const sidebar = reversed[i];
         const nextSidebar = reversed[i + 1];
-        sidebar.style.setProperty('--uui-modal-offset', sidebarOffset + 'px');
+        const tempSidebarOffset = sidebarOffset; // Cache to prevent it from being overwritten before the updateComplete.
+        // The sidebar checks it's own width at sets it's --uui-modal-offset to negative that width.
+        // This enables it to slide in from the right. So we need to set the new --uui-modal-offset after the updateComplete.
+        sidebar.updateComplete.then(() => {
+          sidebar.style.setProperty(
+            '--uui-modal-offset',
+            tempSidebarOffset + 'px'
+          );
+        });
 
         // Stop the calculations if the next sidebar is hidden
         if (nextSidebar?.hasAttribute('hide')) break;

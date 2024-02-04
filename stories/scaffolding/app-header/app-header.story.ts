@@ -3,7 +3,6 @@ import { html } from 'lit';
 
 import '@umbraco-ui/uui-tabs/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
-import '@umbraco-ui/uui-popover/lib';
 import '@umbraco-ui/uui-symbol-more/lib';
 import '@umbraco-ui/uui-menu-item/lib';
 import '@umbraco-ui/uui-avatar/lib';

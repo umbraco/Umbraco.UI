@@ -1,10 +1,11 @@
 import { LitElement, css, html, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 import './uui-modal-container';
 import { ref, createRef } from 'lit/directives/ref.js';
 import { UUIModalElement } from './uui-modal.element';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
-@customElement('modal-example')
+@defineElement('modal-example')
 export class ModalExampleElement extends LitElement {
   @state()
   private _modals: TemplateResult<1>[] = [];

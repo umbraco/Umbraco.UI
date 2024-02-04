@@ -1,7 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
 import { UUIBoxElement } from './uui-box.element';
-import { InterfaceHeadingValues } from '@umbraco-ui/uui-base/lib/types';
+import { UUIInterfaceHeadingValues } from '@umbraco-ui/uui-base/lib/types';
 
 describe('UUIBox', () => {
   let element: UUIBoxElement;
@@ -16,7 +16,7 @@ describe('UUIBox', () => {
   });
 
   it('passes the a11y audit', async () => {
-    for (const headlineVariant of InterfaceHeadingValues) {
+    for (const headlineVariant of UUIInterfaceHeadingValues) {
       element = await fixture(
         html` <uui-box
           headline="headline"
@@ -69,6 +69,13 @@ describe('UUIBox', () => {
 
     it('renders a header slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=header]')!;
+      expect(slot).to.exist;
+    });
+
+    it('renders a header-actions slot', () => {
+      const slot = element.shadowRoot!.querySelector(
+        'slot[name=header-actions'
+      )!;
       expect(slot).to.exist;
     });
 

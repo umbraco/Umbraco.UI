@@ -31,6 +31,16 @@ export type InputType =
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
+ * @cssprop --uui-input-height - Height of the element
+ * @cssprop --uui-input-background-color - Background color of the element
+ * @cssprop --uui-input-background-color-disabled - Background color when disabled
+ * @cssprop --uui-input-background-color-readonly - Background color when readonly
+ * @cssprop --uui-input-border-width - Border width
+ * @cssprop --uui-input-border-color - Border color
+ * @cssprop --uui-input-border-color-hover - Border color on hover
+ * @cssprop --uui-input-border-color-focus - Border color on focus
+ * @cssprop --uui-input-border-color-disabled - Border color when disabled
+ * @cssprop --uui-input-border-color-readonly - Border color when readonly
  */
 @defineElement('uui-input')
 export class UUIInputElement extends FormControlMixin(
@@ -321,7 +331,7 @@ export class UUIInputElement extends FormControlMixin(
         position: relative;
         display: inline-flex;
         align-items: stretch;
-        height: var(--uui-size-11);
+        height: var(--uui-input-height, var(--uui-size-11));
         text-align: left;
         box-sizing: border-box;
         background-color: var(
@@ -425,6 +435,7 @@ export class UUIInputElement extends FormControlMixin(
         border: none;
         background: none;
         width: 100%;
+        height: inherit;
         text-align: inherit;
         outline: none;
       }
@@ -440,7 +451,8 @@ export class UUIInputElement extends FormControlMixin(
         border: none;
       }
 
-      ::slotted(uui-input) {
+      ::slotted(uui-input),
+      ::slotted(uui-input-lock) {
         height: 100%;
         --uui-input-border-width: 0;
       }

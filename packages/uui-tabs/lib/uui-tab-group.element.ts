@@ -1,29 +1,38 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-popover-container/lib';
-import '@umbraco-ui/uui-symbol-more/lib';
-
-import { UUITabElement } from './uui-tab.element';
+import type { UUITabElement } from './uui-tab.element';
 
 /**
- *  @element uui-tab-group
- *  @slot - Default slot for the tab group
+ * @element uui-tab-group
+ * @slot - Default slot for the tab group
+ * @cssprop --uui-tab-group-dropdown-tab-text - Define the tab text color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-tab-text-hover - Define the tab text hover color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-tab-text-active - Define the tab text active color in the dropdown
+ * @cssprop --uui-tab-group-dropdown-background - Define the background color of the dropdown
+ * @cssprop --uui-tab-group-gap - Define the gap between elements dropdown. Only pixel values are valid
  */
 @defineElement('uui-tab-group')
 export class UUITabGroupElement extends LitElement {
   @query('#more-button')
   private _moreButtonElement!: UUIButtonElement;
 
+  @query('#popover-container')
+  private _popoverContainerElement!: UUIPopoverContainerElement;
+
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-tab, [uui-tab], [role=tab]',
   })
   private _slottedNodes?: HTMLElement[];
+
+  /** Stores the current gap used in the breakpoints */
+  #currentGap = 0;
 
   /**
    * Set the flex direction of the content of the dropdown.
@@ -44,14 +53,19 @@ export class UUITabGroupElement extends LitElement {
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
 
   #visibilityBreakpoints: number[] = [];
-  #oldBreakpoint = 0;
 
-  #resizeObserver: ResizeObserver = new ResizeObserver(
-    this.#onResize.bind(this)
-  );
+  #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
+  #tabResizeObservers: ResizeObserver[] = [];
+
+  #breakPointCalculationInProgress = false;
 
   connectedCallback() {
     super.connectedCallback();
+
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-popover-container');
+    demandCustomElement(this, 'uui-symbol-more');
+
     this.#resizeObserver.observe(this);
     if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
   }
@@ -59,21 +73,42 @@ export class UUITabGroupElement extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#resizeObserver.unobserve(this);
+    this.#cleanupTabs();
   }
 
   #onResize(entries: ResizeObserverEntry[]) {
-    this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
+    // Check if the gap css custom property has changed.
+    const gapCSSVar = Number.parseFloat(
+      this.style.getPropertyValue('--uui-tab-group-gap')
+    );
+    const newGap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
+    if (newGap !== this.#currentGap) {
+      this.#calculateBreakPoints();
+    } else {
+      this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
+    }
+  }
+
+  #cleanupTabs() {
+    this.#tabElements.forEach(el => {
+      el.removeEventListener('click', this.#onTabClicked);
+      this.#tabResizeObservers.forEach(observer => observer.disconnect());
+    });
+    this.#tabResizeObservers.length = 0;
   }
 
   #onSlotChange() {
-    this.#tabElements.forEach(el => {
-      el.removeEventListener('click', this.#onTabClicked);
-    });
+    this.#cleanupTabs();
 
     this.#setTabArray();
 
     this.#tabElements.forEach(el => {
       el.addEventListener('click', this.#onTabClicked);
+      const observer = new ResizeObserver(
+        this.#calculateBreakPoints.bind(this)
+      );
+      observer.observe(el);
+      this.#tabResizeObservers.push(observer);
     });
   }
 
@@ -110,34 +145,50 @@ export class UUITabGroupElement extends LitElement {
     }
   };
 
-  #updateCollapsibleTabs(containerWidth: number) {
-    const buttonWidth = this._moreButtonElement.offsetWidth;
+  async #calculateBreakPoints() {
+    if (this.#breakPointCalculationInProgress) return;
 
-    // Only update if the container is smaller than the last breakpoint
-    if (
-      this.#visibilityBreakpoints.slice(-1)[0] < containerWidth &&
-      this.#hiddenTabElements.length === 0
-    )
-      return;
+    // Prevent multiple calculations from happening in the same frame
+    this.#breakPointCalculationInProgress = true;
+    requestAnimationFrame(() => {
+      this.#breakPointCalculationInProgress = false;
+    });
 
-    // Only update if the new breakpoint is different from the old one
-    let newBreakpoint = Number.MAX_VALUE;
+    // Whenever a tab is added or removed, we need to recalculate the breakpoints
 
-    for (let i = this.#visibilityBreakpoints.length - 1; i > -1; i--) {
-      const breakpoint = this.#visibilityBreakpoints[i];
-      // Subtract the button width when we are not at the last breakpoint
-      const containerWidthButtonWidth =
-        containerWidth -
-        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
+    await this.updateComplete; // Wait for the tabs to be rendered
 
-      if (breakpoint < containerWidthButtonWidth) {
-        newBreakpoint = i;
-        break;
-      }
+    const gapCSSVar = Number.parseFloat(
+      this.style.getPropertyValue('--uui-tab-group-gap')
+    );
+    const gap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
+    this.#currentGap = gap;
+    let childrenWidth = 0;
+
+    for (let i = 0; i < this.#tabElements.length; i++) {
+      this.#tabElements[i].style.display = '';
+      childrenWidth += this.#tabElements[i].offsetWidth;
+      this.#visibilityBreakpoints[i] = childrenWidth;
+      // Add the gap, which will then be included in the next breakpoint:
+      childrenWidth += gap;
     }
 
-    if (newBreakpoint === this.#oldBreakpoint) return;
-    this.#oldBreakpoint = newBreakpoint;
+    const tolerance = 2;
+    this.style.maxWidth = childrenWidth - gap + tolerance + 'px';
+
+    this.#updateCollapsibleTabs(this.offsetWidth);
+  }
+
+  #setTabArray() {
+    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
+    this.#calculateBreakPoints();
+  }
+
+  #updateCollapsibleTabs(containerWidth: number) {
+    const moreButtonWidth = this._moreButtonElement.offsetWidth;
+
+    const containerWithoutButtonWidth =
+      containerWidth - (moreButtonWidth ? moreButtonWidth : 0);
 
     // Do the update
     // Reset the hidden tabs
@@ -149,18 +200,19 @@ export class UUITabGroupElement extends LitElement {
 
     let hasActiveTabInDropdown = false;
 
-    for (let i = 0; i < this.#visibilityBreakpoints.length; i++) {
+    const len = this.#visibilityBreakpoints.length;
+    for (let i = 0; i < len; i++) {
       const breakpoint = this.#visibilityBreakpoints[i];
       const tab = this.#tabElements[i] as UUITabElement;
 
-      // Subtract the button width when we are not at the last breakpoint
-      const containerWidthButtonWidth =
-        containerWidth -
-        (i !== this.#visibilityBreakpoints.length - 1 ? buttonWidth : 0);
-
-      if (breakpoint < containerWidthButtonWidth) {
+      // If breakpoint is smaller than the container width, then show the tab.
+      // If last breakpoint, then we will use the containerWidth, as we do not want to include the more-button in that calculation.
+      if (
+        breakpoint <=
+        (i === len - 1 ? containerWidth : containerWithoutButtonWidth)
+      ) {
+        // Show this tab:
         tab.style.display = '';
-        this._moreButtonElement.style.display = 'none';
       } else {
         // Make a proxy tab to put in the hidden tabs container and link it to the original tab
         const proxyTab = tab.cloneNode(true) as UUITabElement;
@@ -176,11 +228,20 @@ export class UUITabGroupElement extends LitElement {
         this.#hiddenTabElements.push(proxyTab);
 
         tab.style.display = 'none';
-        this._moreButtonElement.style.display = '';
         if (tab.active) {
           hasActiveTabInDropdown = true;
         }
       }
+    }
+
+    if (this.#hiddenTabElements.length === 0) {
+      // Hide more button:
+      this._moreButtonElement.style.display = 'none';
+      // close the popover
+      this._popoverContainerElement.hidePopover();
+    } else {
+      // Show more button:
+      this._moreButtonElement.style.display = '';
     }
 
     hasActiveTabInDropdown
@@ -190,42 +251,30 @@ export class UUITabGroupElement extends LitElement {
     this.requestUpdate();
   }
 
-  #calculateBreakPoints() {
-    // Whenever a tab is added or removed, we need to recalculate the breakpoints
-    let childrenWidth = 0;
-
-    for (let i = 0; i < this.#tabElements.length; i++) {
-      childrenWidth += this.#tabElements[i].offsetWidth;
-      this.#visibilityBreakpoints[i] = childrenWidth;
-    }
-
-    this.#updateCollapsibleTabs(this.offsetWidth);
-  }
-
-  #setTabArray() {
-    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
-    this.#calculateBreakPoints();
-  }
-
   #isElementTabLike(el: any): el is UUITabElement {
-    return el instanceof UUITabElement || 'active' in el;
+    return (
+      typeof el === 'object' && 'active' in el && typeof el.active === 'boolean'
+    );
   }
 
   render() {
     return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
-      <uui-button
-        popovertarget="popover-container"
-        style="display: none"
-        id="more-button"
-        label="More"
-        compact>
-        <uui-symbol-more></uui-symbol-more>
-      </uui-button>
+      <div id="main">
+        <div id="grid">
+          <slot @slotchange=${this.#onSlotChange}></slot>
+        </div>
+        <uui-button
+          popovertarget="popover-container"
+          style="display: none"
+          id="more-button"
+          label="More"
+          compact>
+          <uui-symbol-more></uui-symbol-more>
+        </uui-button>
+      </div>
       <uui-popover-container
         id="popover-container"
         popover
-        margin="10"
         placement="bottom-end">
         <div id="hidden-tabs-container">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
@@ -237,12 +286,35 @@ export class UUITabGroupElement extends LitElement {
   static styles = [
     css`
       :host {
+        width: 100%;
+      }
+
+      #main {
         display: flex;
-        flex-wrap: wrap;
-        color: var(--uui-tab-text);
-        background: var(--uui-tab-background, none);
+        justify-content: space-between;
+      }
+
+      #grid {
+        width: 1fr;
+        display: flex;
         height: 100%;
         min-height: 48px;
+        overflow: hidden;
+        text-wrap: nowrap;
+        color: var(--uui-tab-text);
+        gap: var(--uui-tab-group-gap, 0);
+      }
+
+      #popover-container {
+        --uui-tab-text: var(--uui-tab-group-dropdown-tab-text, unset);
+        --uui-tab-text-hover: var(
+          --uui-tab-group-dropdown-tab-text-hover,
+          unset
+        );
+        --uui-tab-text-active: var(
+          --uui-tab-group-dropdown-tab-text-active,
+          unset
+        );
       }
 
       ::slotted(*:not(:last-of-type)) {
@@ -257,7 +329,10 @@ export class UUITabGroupElement extends LitElement {
         width: fit-content;
         display: flex;
         flex-direction: column;
-        background: var(--uui-color-surface);
+        background-color: var(
+          --uui-tab-group-dropdown-background,
+          var(--uui-color-surface)
+        );
         border-radius: var(--uui-border-radius);
         box-shadow: var(--uui-shadow-depth-3);
         overflow: hidden;
@@ -267,8 +342,12 @@ export class UUITabGroupElement extends LitElement {
       }
 
       #more-button {
-        margin-left: auto;
         position: relative;
+
+        --uui-button-contrast: var(--uui-tab-text);
+        --uui-button-contrast-hover: var(--uui-tab-text-hover);
+        --uui-button-background-color: transparent;
+        --uui-button-background-color-hover: transparent;
       }
       #more-button::before {
         content: '';

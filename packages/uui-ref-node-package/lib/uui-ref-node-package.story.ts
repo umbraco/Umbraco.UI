@@ -93,10 +93,10 @@ CustomIcon.parameters = {
   },
 };
 
-export const Border: Story = () => html`
+export const Standalone: Story = () => html`
   <div style="max-width: 420px;">
     <uui-ref-node-package
-      border
+      standalone
       name="Umbraco Starter Kit"
       version="1.1"
       author="Umbraco HQ">
@@ -110,12 +110,12 @@ export const Border: Story = () => html`
   </div>
 `;
 
-Border.parameters = {
+Standalone.parameters = {
   docs: {
     source: {
       code: `
 <uui-ref-node-package
-  border
+  standalone
   name="Umbraco Starter Kit"
   version="1.1"
   author="Umbraco HQ">

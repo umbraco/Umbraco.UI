@@ -6,6 +6,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
 
@@ -37,42 +38,87 @@ export class UUIButtonInlineCreateElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   vertical = false;
 
+  /**
+   * Set an href, this will turns the button into an anchor tag.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public href?: string;
+
+  /**
+   * Set an anchor tag target, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public target?: '_blank' | '_parent' | '_self' | '_top';
+
   private _onMouseMove(e: MouseEvent) {
-    this._position = this.vertical ? e.offsetY : e.offsetX;
+    this._position = (this.vertical ? e.offsetY : e.offsetX) - 5;
   }
 
   private _handleClick(e: MouseEvent) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
+    // We do not want to focus the button after click.
+    (e.target as any)?.blur?.();
+
     this.dispatchEvent(
       new UUIButtonInlineCreateEvent(UUIButtonInlineCreateEvent.CLICK)
     );
   }
 
-  render() {
+  #renderContent() {
+    return html`
+      <div
+        id="plus"
+        style=${styleMap({
+          left: this.vertical ? '' : this._position + 'px',
+          top: this.vertical ? this._position + 'px' : '',
+        })}>
+        <svg
+          id="plus-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512">
+          <path
+            d="M420.592 214.291H296.104V89.804h-83.102v124.487H88.518v83.104h124.484v124.488h83.102V297.395h124.488z" />
+        </svg>
+      </div>
+    `;
+  }
+
+  #renderLink() {
+    return html`<a
+      id="button-wrapper"
+      @mousemove=${this._onMouseMove}
+      href=${ifDefined(this.href)}
+      target=${ifDefined(this.target || undefined)}
+      rel=${ifDefined(
+        this.target === '_blank' ? 'noopener noreferrer' : undefined
+      )}
+      aria-label=${this.label ? this.label : 'create new element'}>
+      ${this.#renderContent()}
+    </a>`;
+  }
+
+  #renderButton() {
     return html`
       <button
         id="button-wrapper"
         @mousemove=${this._onMouseMove}
         @click=${this._handleClick}
         aria-label=${this.label ? this.label : 'create new element'}>
-        <div
-          id="plus"
-          style=${styleMap({
-            left: this.vertical ? '' : this._position + 'px',
-            top: this.vertical ? this._position + 'px' : '',
-          })}>
-          <svg
-            id="plus-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512">
-            <path
-              d="M420.592 214.291H296.104V89.804h-83.102v124.487H88.518v83.104h124.484v124.488h83.102V297.395h124.488z" />
-          </svg>
-        </div>
+        ${this.#renderContent()}
       </button>
     `;
+  }
+
+  render() {
+    return this.href ? this.#renderLink() : this.#renderButton();
   }
 
   static styles = [
@@ -205,12 +251,12 @@ export class UUIButtonInlineCreateElement extends LitElement {
       }
 
       :host(:not([vertical])) #plus {
-        margin-left: -21px;
+        margin-left: -18px;
       }
 
       :host([vertical]) #plus {
         left: -4px;
-        margin-top: -21px;
+        margin-top: -18px;
       }
 
       #button-wrapper:focus #plus {

@@ -13,26 +13,24 @@ import { clamp, demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import {
+import type {
   UUIColorAreaElement,
   UUIColorAreaEvent,
 } from '@umbraco-ui/uui-color-area/lib';
 
-import {
+import type {
   UUIColorSliderElement,
   UUIColorSliderEvent,
 } from '@umbraco-ui/uui-color-slider/lib';
 
-import {
+import type {
   UUIColorSwatchesElement,
   UUIColorSwatchesEvent,
 } from '@umbraco-ui/uui-color-swatches/lib';
 
-import { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
+import type { UUIColorSwatchElement } from '@umbraco-ui/uui-color-swatch/lib';
 
-import { UUIPopoverElement } from '@umbraco-ui/uui-popover/lib';
-
-import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
+import type { UUIInputElement } from '@umbraco-ui/uui-input/lib';
 import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
@@ -189,11 +187,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     demandCustomElement(this, 'uui-input');
     demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-button-group');
-    demandCustomElement(this, 'uui-popover');
     demandCustomElement(this, 'uui-color-swatches');
     demandCustomElement(this, 'uui-color-swatch');
     demandCustomElement(this, 'uui-color-area');
     demandCustomElement(this, 'uui-color-slider');
+    demandCustomElement(this, 'uui-popover-container');
   }
 
   /** Returns the current value as a string in the specified format. */
@@ -344,26 +342,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         );
       });
     });
-  }
-
-  openColorPicker(event: Event) {
-    event.stopImmediatePropagation();
-
-    const target = event.target as HTMLElement;
-    const popover = target.parentElement as UUIPopoverElement;
-
-    popover.open = !popover?.open;
-
-    target.setAttribute('aria-expanded', popover.open.toString());
-  }
-
-  closeColorPicker(event: Event) {
-    const target = event.target as UUIPopoverElement;
-    const trigger = target.querySelector('button[part=trigger]');
-
-    if (trigger) {
-      trigger.setAttribute('aria-expanded', 'false');
-    }
   }
 
   handleEyeDropper() {
@@ -548,13 +526,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
-    return html`<uui-popover
-      placement="bottom-start"
-      @close=${this.closeColorPicker}>
-      <button
+    return html` <button
         type="button"
         part="trigger"
-        slot="trigger"
         aria-label="${this.label || 'Open Color picker'}"
         class=${classMap({
           'color-picker__trigger': true,
@@ -570,11 +544,12 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           }%, ${this.alpha / 100})`,
         })}
         ?disabled=${this.disabled}
-        @click=${this.openColorPicker}
         aria-haspopup="true"
-        aria-expanded="false"></button>
-      <div slot="popover">${this._renderColorPicker()}</div>
-    </uui-popover>`;
+        aria-expanded="false"
+        popovertarget="color-picker-popover"></button>
+      <uui-popover-container id="color-picker-popover">
+        ${this._renderColorPicker()}
+      </uui-popover-container>`;
   }
 
   render() {
@@ -591,6 +566,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         font-size: 0.8rem;
         display: block;
         width: var(--uui-color-picker-width, 280px);
+      }
+      uui-popover-container {
+        width: inherit;
       }
       .color-picker {
         width: 100%;
@@ -707,12 +685,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         cursor: pointer;
         width: 36px;
         height: 36px;
-      }
-
-      uui-popover {
-        display: block;
-        width: 100%;
-        margin: 5px 0;
       }
 
       uui-input {

@@ -100,7 +100,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         height: 1em;
         line-height: 0;
         transition: fill 120ms, opacity 120ms;
-        fill: var(--uui-color-selected-contrast);
+        color: var(--uui-color-selected-contrast);
         opacity: 0;
       }
 
@@ -166,13 +166,13 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         background-color: var(--uui-color-disabled);
       }
       :host([disabled]) #ticker #icon-check {
-        fill: var(--uui-color-disabled-contrast);
+        color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) label:active #ticker {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
       :host([disabled]) input:checked + #ticker #icon-check {
-        fill: var(--uui-color-disabled-contrast);
+        color: var(--uui-color-disabled-contrast);
       }
     `,
   ];

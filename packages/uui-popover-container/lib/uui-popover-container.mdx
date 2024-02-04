@@ -8,6 +8,8 @@ import * as stories from './uui-popover-container.story';
 This component is a container for popovers. It is used to position the popover relative to the target element.
 It is also a native popover. So everything descriped in the **[Popover API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)** applies.
 
+**Note**: The `popover` attribute that is required by the Popover API is automatically added to the uui-popover-container if it is not already present. So this attribute can be omitted, unless you want to change the default behavior. More information about this can be found in the **[Manual popover](#manual-popover)** section.
+
 <div
   style={{
     borderLeft: '6px solid #f3d41b',
@@ -39,7 +41,7 @@ It is also a native popover. So everything descriped in the **[Popover API docum
 
 ```html
 <uui-button popovertarget="my-popover">Open Popover</uui-button>
-<uui-popover-container id="my-popover" popover>
+<uui-popover-container id="my-popover">
   My popover content
 </uui-popover-container>
 ```
@@ -48,7 +50,7 @@ It is also a native popover. So everything descriped in the **[Popover API docum
 
 ```html
 <uui-button popovertarget="my-popover">Open Popover</uui-button>
-<uui-popover-container id="my-popover" popover placement="top-start">
+<uui-popover-container id="my-popover" placement="top-start">
   My popover content
 </uui-popover-container>
 ```
@@ -57,7 +59,7 @@ It is also a native popover. So everything descriped in the **[Popover API docum
 
 ```html
 <uui-button popovertarget="my-popover">Open Popover</uui-button>
-<uui-popover-container id="my-popover" popover margin="10">
+<uui-popover-container id="my-popover" margin="10">
   My popover content
 </uui-popover-container>
 ```
@@ -66,10 +68,10 @@ It is also a native popover. So everything descriped in the **[Popover API docum
 
 ```html
 <uui-button popovertarget="my-popover">Open Popover</uui-button>
-<uui-popover-container id="my-popover" popover>
+<uui-popover-container id="my-popover">
   My popover content
   <uui-button popovertarget="my-popover-2">Open another popover</uui-button>
-  <uui-popover-container id="my-popover-2" popover>
+  <uui-popover-container id="my-popover-2">
     My other popover content
   </uui-popover-container>
 </uui-popover-container>
@@ -93,7 +95,7 @@ As a result, you will need to manually close the popover either by clicking the 
 
 ## Example: Tooltip
 
-A tooltip is a small pop-up box that appears when the user hovers over an item, providing additional information or context about that item.  
+A tooltip is a small pop-up box that appears when the user hovers over an item, providing additional information or context about that item.
 Note: The popover-container always needs a an element with the `popovertarget` attribute, even when it's not a button. This element is used as the anchor to position the popover.
 
 ```js
@@ -108,7 +110,7 @@ tooltipToggle.addEventListener('mouseleave', () => tooltipPopover.hide());
 Sometimes words such as
 <b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b>
 needs some more explanation
-<uui-popover-container id="tooltip-popover" popover>
+<uui-popover-container id="tooltip-popover">
   A pleasant smell that frequently accompanies the first rain after a long
   period of warm, dry weather.
 </uui-popover-container>

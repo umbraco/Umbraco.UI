@@ -1,5 +1,6 @@
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 interface Fruit {
   name: string;
@@ -30,7 +31,7 @@ async function getFruits() {
   return Promise.resolve(data);
 }
 
-@customElement('uui-combobox-async-options-example')
+@defineElement('uui-combobox-async-options-example')
 export class UUIComboboxAsyncOptionsExampleElement extends LitElement {
   @state()
   _options: any[] = [];

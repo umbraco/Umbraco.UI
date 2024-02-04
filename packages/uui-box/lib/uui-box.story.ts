@@ -32,8 +32,8 @@ export default {
 const Template: Story = props => {
   return html`
     <uui-box
-      .headline=${props.headline}
-      .headlineVariant=${props.headlineVariant}>
+      headline="${props.headline}"
+      headline-variant="${props.headlineVariant}">
       <p>Some content of this box, appended in the default slot.</p>
       <p>The headline is currently rendered as a ${props.headlineVariant}.</p>
     </uui-box>
@@ -56,6 +56,9 @@ export const Slots: Story = () => html`
       >Headline slot</uui-button
     >
     <uui-button slot="header" look="placeholder">Header slot</uui-button>
+    <uui-button slot="header-actions" look="placeholder"
+      >Header actions slot</uui-button
+    >
     <uui-button look="placeholder">Default slot</uui-button>
   </uui-box>
 `;

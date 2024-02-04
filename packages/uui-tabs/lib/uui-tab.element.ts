@@ -14,7 +14,6 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-text - Define the tab text color
  * @cssprop --uui-tab-text-hover - Define the tab text hover color
  * @cssprop --uui-tab-text-active - Define the tab text active color
- * @cssprop --uui-tab-background - Define the tab group background color
  * @cssprop --uui-tab-divider - Define the tab dividers color
  * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
  */
@@ -116,7 +115,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         height: 100%;
         min-height: var(--uui-size-12);
         min-width: 70px;
-        padding: var(--uui-size-2)
+        padding: var(--uui-size-3)
           var(--uui-tab-padding-horizontal, var(--uui-size-5));
         border: none;
         font-size: inherit;
@@ -143,6 +142,10 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host(:not([active]):not([disabled])) #button:active {
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      :host([active]) {
+        color: var(--uui-tab-text-active, unset);
       }
 
       :host([active]) #button {

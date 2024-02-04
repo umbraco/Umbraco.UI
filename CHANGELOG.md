@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
+
+### Bug Fixes
+
+- :bug: swap add icon svg storing sor a correct one ([#727](https://github.com/umbraco/Umbraco.UI/issues/727)) ([9b64e2d](https://github.com/umbraco/Umbraco.UI/commit/9b64e2de1758067c029e28e73f31207485a21fa5))
+- uui-tab-group should have display set to block ([#722](https://github.com/umbraco/Umbraco.UI/issues/722)) ([ac5c2b1](https://github.com/umbraco/Umbraco.UI/commit/ac5c2b18b183fc8dcf9a9b2d641782db3f9215ad))
+- **uui-tab-group:** async tabs are not calculated correctly and have memory leaks ([#726](https://github.com/umbraco/Umbraco.UI/issues/726)) ([03c5cdc](https://github.com/umbraco/Umbraco.UI/commit/03c5cdc794b316ce290e7db27860ac8043681c7c))
+
+# [1.6.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.3...v1.6.0-rc.4) (2024-01-23)
+
+### Bug Fixes
+
+- direct imports are not allowed ([3b4b4dd](https://github.com/umbraco/Umbraco.UI/commit/3b4b4dd2ade9b531cde1d35e2808b96b485eb3c7))
+- use css var for text ([#717](https://github.com/umbraco/Umbraco.UI/issues/717)) ([278a6dd](https://github.com/umbraco/Umbraco.UI/commit/278a6ddac8556ee94a254aa2278654d4a264fde2))
+- use css var for text ([#718](https://github.com/umbraco/Umbraco.UI/issues/718)) ([f5ccaa4](https://github.com/umbraco/Umbraco.UI/commit/f5ccaa42c4e5b07bf89226b5de835fa529161840))
+- uui-popover container scroll event ([#713](https://github.com/umbraco/Umbraco.UI/issues/713)) ([656f181](https://github.com/umbraco/Umbraco.UI/commit/656f1811a1de862c7a7f6ca0221bf14e3532d53c))
+- uui-tab-group support for gap ([#712](https://github.com/umbraco/Umbraco.UI/issues/712)) ([2f07793](https://github.com/umbraco/Umbraco.UI/commit/2f07793d7a9293b35dcc221006fee7be8c5df79c))
+
+### Features
+
+- Inline-button-create support for HREF ([#720](https://github.com/umbraco/Umbraco.UI/issues/720)) ([7d8affd](https://github.com/umbraco/Umbraco.UI/commit/7d8affdcd7d68e3a68a06a1591084b61ac5fe068))
+- Prefix interface types with UUI ([#716](https://github.com/umbraco/Umbraco.UI/issues/716)) ([7cd20db](https://github.com/umbraco/Umbraco.UI/commit/7cd20dbcbef51fbee308798a90e3bb4c69dbf503))
+- uui-ref-node should have href and target properties ([#715](https://github.com/umbraco/Umbraco.UI/issues/715)) ([12feafb](https://github.com/umbraco/Umbraco.UI/commit/12feafbbef3f736623503d452332eef7a5dea073))
+
+# [1.6.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.2...v1.6.0-rc.3) (2023-12-15)
+
+### Bug Fixes
+
+- reference uui-card-block-type ([26349e6](https://github.com/umbraco/Umbraco.UI/commit/26349e6829f49f6a01b34824f9e4a186c9d3b50d))
+
+# [1.6.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.1...v1.6.0-rc.2) (2023-12-14)
+
+### Bug Fixes
+
+- Ensure defineElement is used instead of customElement ([#685](https://github.com/umbraco/Umbraco.UI/issues/685)) ([8e3aea1](https://github.com/umbraco/Umbraco.UI/commit/8e3aea1476a594b9f611fbddd1cdd172bcdb2e43))
+- padding fixes for uui-combobox ([#670](https://github.com/umbraco/Umbraco.UI/issues/670)) ([985bfaf](https://github.com/umbraco/Umbraco.UI/commit/985bfafe2f7c112a05a81832a0cff5a58ecd5e1c))
+- tab group styling of dropdown ([#677](https://github.com/umbraco/Umbraco.UI/issues/677)) ([cb0414e](https://github.com/umbraco/Umbraco.UI/commit/cb0414e060a04cb3cde393eadedc001ebbd723aa))
+- uui-combobox click to close by adding toggle ([#671](https://github.com/umbraco/Umbraco.UI/issues/671)) ([236c73b](https://github.com/umbraco/Umbraco.UI/commit/236c73ba2afa3708355aa86a046ede5ee78666c2))
+- uui-combobox should correctly handle the active item ([#682](https://github.com/umbraco/Umbraco.UI/issues/682)) ([a438b03](https://github.com/umbraco/Umbraco.UI/commit/a438b03b2814e593c35c6519873b259d4e0b6782))
+
+# [1.6.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.0...v1.6.0-rc.1) (2023-11-22)
+
+### Bug Fixes
+
+- uui-dropzone should set the 'accept' attribute ([#662](https://github.com/umbraco/Umbraco.UI/issues/662)) ([9d03779](https://github.com/umbraco/Umbraco.UI/commit/9d0377930a6409498f9807f9df1cba3f8f4978b8))
+- **uui-input:** make the inner input follow the height of the custom element and add a variable to control it ([4045c14](https://github.com/umbraco/Umbraco.UI/commit/4045c1428e78994f37bb1592a96d786ed60444f3))
+- **uui-popover-container:** disable the focusout close listener ([#663](https://github.com/umbraco/Umbraco.UI/issues/663)) ([23900eb](https://github.com/umbraco/Umbraco.UI/commit/23900ebbc9507fcdc8c7c96bff0b478af813992b))
+- **uui-select:** do not enforce a certain background-color ([c2eebfc](https://github.com/umbraco/Umbraco.UI/commit/c2eebfcae3934752a7e17fc0fc793821bf5ba503))
+- **uui-select:** make the inner select follow the height of the custom element ([9ac213a](https://github.com/umbraco/Umbraco.UI/commit/9ac213abb9b0be1c7c05d6e1cfdad88d17759c7e))
+- **uui-select:** move 'height' and other properties to inner element because it is easiest to control the select rather than mimick it in terms of :focus and :hover on the outer element ([b69ed74](https://github.com/umbraco/Umbraco.UI/commit/b69ed74b962c285ce984ecfbc00d648dde2b8b55))
+- **uui-select:** set display to "inline-block" to match the inner native element ([e4e3ffd](https://github.com/umbraco/Umbraco.UI/commit/e4e3ffd27ec795f8e74a5c3d135e97d728961199))
+
+### Features
+
+- **uui-menu-item:** add flatten css var to hide chevron column ([#665](https://github.com/umbraco/Umbraco.UI/issues/665)) ([cec3188](https://github.com/umbraco/Umbraco.UI/commit/cec3188e4a2d1e848aa0d94ac1e6800b0a6d536a))
+- **uui-popover-container:** set popover attribute automatically ([#664](https://github.com/umbraco/Umbraco.UI/issues/664)) ([201f449](https://github.com/umbraco/Umbraco.UI/commit/201f44960d2f729997d29abab6b5e69d303e6cf6))
+
 # [1.6.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.5.0...v1.6.0-rc.0) (2023-11-08)
 
 ### Bug Fixes

@@ -8,6 +8,12 @@ import '@umbraco-ui/uui-slider/lib';
 import '@umbraco-ui/uui-radio/lib';
 import '@umbraco-ui/uui-toggle/lib';
 import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-input/lib';
+import '@umbraco-ui/uui-input-password/lib';
+import '@umbraco-ui/uui-combobox/lib';
+import '@umbraco-ui/uui-combobox-list/lib';
+import '@umbraco-ui/uui-textarea/lib';
+import '@umbraco-ui/uui-select/lib';
 import { UUIRadioGroupEvent } from '@umbraco-ui/uui-radio/lib/UUIRadioGroupEvent';
 import readme from '../README.md?raw';
 
@@ -43,6 +49,15 @@ const _onSubmit = (e: SubmitEvent) => {
     console.log(value);
   }
 };
+
+const options: Array<Option> = [
+  { name: 'Carrot', value: 'orange', selected: true },
+  { name: 'Cucumber', value: 'green' },
+  { name: 'Aubergine', value: 'purple' },
+  { name: 'Blueberry', value: 'Blue' },
+  { name: 'Banana', value: 'yellow' },
+  { name: 'Strawberry', value: 'red' },
+];
 
 // TODO: Find a good way to have stories with both HTML and javascript
 export const Overview: Story = () => {
@@ -105,9 +120,9 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
-          <uui-label for="MyPasswordInput" slot="label" required
-            >Password</uui-label
-          >
+          <uui-label for="MyPasswordInput" slot="label" required>
+            Password
+          </uui-label>
           <uui-input-password
             id="MyPasswordInput"
             name="password"
@@ -144,21 +159,27 @@ export const Overview: Story = () => {
         </uui-form-layout-item>
 
         <uui-form-layout-item>
+          <uui-label for="MySelect" slot="label" required>Select</uui-label>
+          <uui-select id="MySelect" name="select" required .options=${options}>
+          </uui-select>
+        </uui-form-layout-item>
+
+        <uui-form-layout-item>
           <uui-label for="MyCombobox" slot="label" required>Combobox</uui-label>
           <uui-combobox id="MyCombobox" name="combobox" required>
             <uui-combobox-list>
-              <uui-combobox-list-option value="1"
-                >Option 1</uui-combobox-list-option
-              >
-              <uui-combobox-list-option value="2"
-                >Option 2</uui-combobox-list-option
-              >
-              <uui-combobox-list-option value="3"
-                >Option 3</uui-combobox-list-option
-              >
-              <uui-combobox-list-option value="4"
-                >Option 4</uui-combobox-list-option
-              >
+              <uui-combobox-list-option value="1">
+                Option 1
+              </uui-combobox-list-option>
+              <uui-combobox-list-option value="2">
+                Option 2
+              </uui-combobox-list-option>
+              <uui-combobox-list-option value="3">
+                Option 3
+              </uui-combobox-list-option>
+              <uui-combobox-list-option value="4">
+                Option 4
+              </uui-combobox-list-option>
             </uui-combobox-list>
           </uui-combobox>
         </uui-form-layout-item>

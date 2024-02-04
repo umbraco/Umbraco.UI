@@ -303,6 +303,7 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
       }
 
       textarea {
+        color: var(--uui-color-text);
         font-family: inherit;
         line-height: var(--uui-size-6);
         box-sizing: border-box;

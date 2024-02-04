@@ -1,4 +1,4 @@
-export const InterfaceLookValues: Readonly<InterfaceLook[]> = [
+export const UUIInterfaceLookValues: Readonly<UUIInterfaceLook[]> = [
   'default',
   'primary',
   'secondary',
@@ -6,7 +6,7 @@ export const InterfaceLookValues: Readonly<InterfaceLook[]> = [
   'placeholder',
 ] as const;
 
-export type InterfaceLook =
+export type UUIInterfaceLook =
   | ''
   | 'default'
   | 'primary'
