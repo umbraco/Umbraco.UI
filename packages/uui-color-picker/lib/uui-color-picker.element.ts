@@ -360,14 +360,23 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
-    this._colord = new Colord(colorString);
+    const colord = new Colord(colorString);
 
-    const { h, l, s, a } = this._colord.toHsl();
+    const { h, s, l, a } = colord.toHsl();
 
     this.hue = h;
     this.saturation = s;
     this.lightness = l;
     this.alpha = this.opacity ? a * 100 : 100;
+
+    const hslaColor = colorString as HslaColor;
+
+    // Workaround as hue isn't correct after changing hue slider, but Colord parse hue value as zero when color is black.
+    if (hslaColor && hslaColor.h) {
+      this.hue = hslaColor.h;
+    }
+
+    this._colord = colord;
 
     this._syncValues();
 
@@ -382,6 +391,23 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       return '';
     }
     return this.uppercase ? string.toUpperCase() : string.toLowerCase();
+  }
+
+  /** Generates a hex string from HSL values. Hue must be 0-360. All other arguments must be 0-100. */
+  private getHexString(
+    hue: number,
+    saturation: number,
+    lightness: number,
+    alpha = 100
+  ) {
+    const color = colord(
+      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`
+    );
+    if (!color.isValid()) {
+      return '';
+    }
+
+    return color.toHex();
   }
 
   private _syncValues() {
@@ -400,6 +426,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         aria-disabled=${this.disabled ? 'true' : 'false'}>
         <uui-color-area
           .value="${this.value}"
+          .hue="${Math.round(this.hue)}"
           ?disabled=${this.disabled}
           @change=${this.handleGridChange}>
         </uui-color-area>
@@ -419,7 +446,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
                     type="opacity"
-                    .color=${this.value}
+                    .color=${this.getHexString(
+                      this.hue,
+                      this.saturation,
+                      this.lightness
+                    )}
                     ?disabled=${this.disabled}
                     @change=${this.handleAlphaChange}>
                   </uui-color-slider>
