@@ -181,7 +181,7 @@ export class UUITabGroupElement extends LitElement {
     }
 
     const tolerance = 2;
-    this._mainElement.style.maxWidth = childrenWidth - gap + tolerance + 'px';
+    this._mainElement.style.width = childrenWidth - gap + tolerance + 'px';
 
     this.#updateCollapsibleTabs(this._mainElement.offsetWidth);
   }
@@ -293,15 +293,14 @@ export class UUITabGroupElement extends LitElement {
   static styles = [
     css`
       :host {
-        /* width: 100%; */
-        display: contents;
+        min-width: 0;
+        display: flex;
       }
 
       #main {
         display: flex;
         justify-content: space-between;
         overflow: hidden;
-        width: 100%;
       }
 
       #grid {
