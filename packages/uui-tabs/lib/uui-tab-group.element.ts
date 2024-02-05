@@ -84,8 +84,6 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #onResize(entries: ResizeObserverEntry[]) {
-    console.log('resize');
-
     // Check if the gap css custom property has changed.
     const gapCSSVar = Number.parseFloat(
       this.style.getPropertyValue('--uui-tab-group-gap')

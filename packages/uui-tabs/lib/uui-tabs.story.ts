@@ -330,13 +330,10 @@ export const CenterAlign: Story = props => html`
   <h3>Tabs implemented into Flex-box scenario</h3>
   <p>Here the tab group is center aligned in a flex-box container.</p>
   <uui-icon-registry-essential>
-    <div style="display: flex;">
+    <div style="display: flex; justify-content: center">
       <uui-tab-group
         dropdown-direction="horizontal"
-        style="
-          margin: auto;
-        --uui-tab-group-gap: 25px;
-        font-size: var(--uui-type-small-size);
+        style="--uui-tab-group-gap: 25px;
         ${props.inlineStyles}">
         <uui-tab label="content">Content</uui-tab>
         <uui-tab active label="packages">Packages</uui-tab>
@@ -369,13 +366,11 @@ export const RightAlign: Story = props => html`
   <h3>Tabs implemented into Flex-box scenario</h3>
   <p>Here the tab group is right aligned in a flex-box container.</p>
   <uui-icon-registry-essential>
-    <div style="display: flex;">
+    <div style="display: flex; justify-content: right">
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-          margin-left: auto;
         --uui-tab-group-gap: 25px;
-        font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
         <uui-tab label="content">Content</uui-tab>
         <uui-tab active label="packages">Packages</uui-tab>
