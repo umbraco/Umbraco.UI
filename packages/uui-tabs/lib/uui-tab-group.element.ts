@@ -295,6 +295,7 @@ export class UUITabGroupElement extends LitElement {
       :host {
         min-width: 0;
         display: flex;
+        height: 100%;
       }
 
       #main {
