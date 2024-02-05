@@ -25,6 +25,8 @@ export class UUITabGroupElement extends LitElement {
   @query('#popover-container')
   private _popoverContainerElement!: UUIPopoverContainerElement;
 
+  @query('#main') private _mainElement!: HTMLElement;
+
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-tab, [uui-tab], [role=tab]',
@@ -61,13 +63,7 @@ export class UUITabGroupElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-popover-container');
-    demandCustomElement(this, 'uui-symbol-more');
-
-    this.#resizeObserver.observe(this);
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
+    this.#initialize();
   }
 
   disconnectedCallback() {
@@ -76,7 +72,20 @@ export class UUITabGroupElement extends LitElement {
     this.#cleanupTabs();
   }
 
+  async #initialize() {
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-popover-container');
+    demandCustomElement(this, 'uui-symbol-more');
+
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
+
+    await this.updateComplete;
+    this.#resizeObserver.observe(this._mainElement);
+  }
+
   #onResize(entries: ResizeObserverEntry[]) {
+    console.log('resize');
+
     // Check if the gap css custom property has changed.
     const gapCSSVar = Number.parseFloat(
       this.style.getPropertyValue('--uui-tab-group-gap')
@@ -174,9 +183,9 @@ export class UUITabGroupElement extends LitElement {
     }
 
     const tolerance = 2;
-    this.style.maxWidth = childrenWidth - gap + tolerance + 'px';
+    this._mainElement.style.maxWidth = childrenWidth - gap + tolerance + 'px';
 
-    this.#updateCollapsibleTabs(this.offsetWidth);
+    this.#updateCollapsibleTabs(this._mainElement.offsetWidth);
   }
 
   #setTabArray() {
@@ -286,12 +295,15 @@ export class UUITabGroupElement extends LitElement {
   static styles = [
     css`
       :host {
-        width: 100%;
+        /* width: 100%; */
+        display: contents;
       }
 
       #main {
         display: flex;
         justify-content: space-between;
+        overflow: hidden;
+        width: 100%;
       }
 
       #grid {
