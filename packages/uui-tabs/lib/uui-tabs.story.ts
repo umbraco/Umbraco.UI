@@ -291,6 +291,41 @@ Async.parameters = {
   },
 };
 
+export const FlexLayout: Story = props => html`
+  <uui-icon-registry-essential>
+    <div style="display: flex;">
+      <uui-input style="min-width: 100px; width: 100%"></uui-input>
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        ${props.inlineStyles}">
+        <uui-tab label="content">Content</uui-tab>
+        <uui-tab active label="packages">Packages</uui-tab>
+        <uui-tab label="media">Media</uui-tab>
+        <uui-tab label="settings">Settings</uui-tab>
+        <uui-tab label="translations">Translations</uui-tab>
+      </uui-tab-group>
+    </div>
+  </uui-icon-registry-essential>
+`;
+FlexLayout.parameters = {
+  docs: {
+    source: {
+      code: `
+      <div style="display: flex">
+        <uui-tab-group style="margin: auto">
+          <uui-tab label="content">Content</uui-tab>
+          <uui-tab active label="packages">Packages</uui-tab>
+          <uui-tab label="media">Media</uui-tab>
+          <uui-tab label="settings">Settings</uui-tab>
+          <uui-tab label="translations">Translations</uui-tab>
+          </uui-tab-group>
+      </div>
+      `,
+    },
+  },
+};
+
 export const CenterAlign: Story = props => html`
   <h3>Tabs implemented into Flex-box scenario</h3>
   <p>Here the tab group is center aligned in a flex-box container.</p>
