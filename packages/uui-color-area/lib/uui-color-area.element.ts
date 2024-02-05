@@ -103,7 +103,7 @@ export class UUIColorAreaElement extends LitElement {
         if (h !== 0) {
           this.hue = h;
         }
-		
+
         this.lightness = l;
         this.brightness = this.getBrightness(l);
         this.alpha = a * 100;

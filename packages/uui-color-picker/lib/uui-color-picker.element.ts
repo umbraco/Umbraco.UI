@@ -360,7 +360,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
-
     const colord = new Colord(colorString);
 
     const { h, s, l, a } = colord.toHsl();
@@ -376,7 +375,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     if (hslaColor && hslaColor.h) {
       this.hue = hslaColor.h;
     }
-    
+
     this._colord = colord;
 
     this._syncValues();
@@ -447,7 +446,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
                     type="opacity"
-                    .color=${this.getHexString(this.hue, this.saturation, this.lightness)}
+                    .color=${this.getHexString(
+                      this.hue,
+                      this.saturation,
+                      this.lightness
+                    )}
                     ?disabled=${this.disabled}
                     @change=${this.handleAlphaChange}>
                   </uui-color-slider>
