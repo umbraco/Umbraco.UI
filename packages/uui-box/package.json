@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-box",
-  "version": "1.6.2",
+  "version": "1.7.0-rc.0",
   "license": "MIT",
   "description": "A box web component for grouping elements",
   "keywords": [
@@ -29,8 +29,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.6.0",
-    "@umbraco-ui/uui-css": "1.6.0"
+    "@umbraco-ui/uui-base": "1.7.0-rc.0",
+    "@umbraco-ui/uui-css": "1.7.0-rc.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.1...v1.7.0-rc.0) (2024-02-06)
+
+### Features
+
+- allow lit 3 to be loaded for uui ([f9df5a5](https://github.com/umbraco/Umbraco.UI/commit/f9df5a5b82d1d8c182cd92e0642652a450a3c43b))
+
 # [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
 
 **Note:** Version bump only for package @umbraco-ui/uui-css

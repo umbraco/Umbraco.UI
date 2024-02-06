@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.1...v1.7.0-rc.0) (2024-02-06)
+
+### Bug Fixes
+
+- Don't update saturation based on parsed color ([#536](https://github.com/umbraco/Umbraco.UI/issues/536)) ([d83b8ba](https://github.com/umbraco/Umbraco.UI/commit/d83b8bafd1798e69ade1e4c2917a9e5ec3acd97f))
+
 # [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-area

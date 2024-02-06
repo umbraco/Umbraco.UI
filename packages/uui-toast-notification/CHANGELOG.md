@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.1...v1.7.0-rc.0) (2024-02-06)
+
+### Bug Fixes
+
+- bump dependent uui-css to correct version range ([2d004d7](https://github.com/umbraco/Umbraco.UI/commit/2d004d7acb48db028c0607f7a68b0a3886e8d3e9))
+- set correct version of uui-css to trail releases ([00020e5](https://github.com/umbraco/Umbraco.UI/commit/00020e5f637116c9228c74ef4e9e8ff9a7c13d09))
+
 ## [1.6.2](https://github.com/umbraco/Umbraco.UI/compare/v1.6.1...v1.6.2) (2024-02-06)
 
 ### Bug Fixes
