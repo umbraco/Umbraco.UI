@@ -28,12 +28,12 @@ export class UUIModalElement extends LitElement {
     this._transitionDuration = value;
     this.style.setProperty(
       '--uui-modal-transition-duration',
-      this._transitionDuration + 'ms'
+      this._transitionDuration + 'ms',
     );
   }
 
   protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>
+    _changedProperties: Map<string | number | symbol, unknown>,
   ): void {
     super.firstUpdated(_changedProperties);
 

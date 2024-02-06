@@ -130,7 +130,7 @@ describe('UuiInputElement', () => {
         let outerEventTriggered = false;
 
         const innerElementInput = innerElement!.shadowRoot?.querySelector(
-          'input'
+          'input',
         ) as HTMLInputElement;
 
         const innerListener = oneEvent(innerElement!, UUIInputEvent.CHANGE);

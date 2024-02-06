@@ -16,7 +16,7 @@ import { UUITableCellElement } from './uui-table-cell.element';
  */
 @defineElement('uui-table-row')
 export class UUITableRowElement extends SelectOnlyMixin(
-  SelectableMixin(LitElement)
+  SelectableMixin(LitElement),
 ) {
   constructor() {
     super();

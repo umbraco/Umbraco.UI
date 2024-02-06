@@ -129,7 +129,7 @@ export class UUIFilePreviewElement extends LitElement {
     const nameStart = this._name.substring(0, this._name.length - endCharCount);
     const nameEnd = this._name.substring(
       this._name.length - endCharCount,
-      this._name.length
+      this._name.length,
     );
     //TODO Fix keyboard event listener
     return html`

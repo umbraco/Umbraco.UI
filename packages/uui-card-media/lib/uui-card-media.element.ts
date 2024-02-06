@@ -89,7 +89,7 @@ export class UUICardMediaElement extends UUICardElement {
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
         rel=${ifDefined(
-          this.target === '_blank' ? 'noopener noreferrer' : undefined
+          this.target === '_blank' ? 'noopener noreferrer' : undefined,
         )}>
         <!--
         TODO: Implement when pop-out is ready

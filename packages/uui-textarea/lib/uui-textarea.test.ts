@@ -35,7 +35,7 @@ describe('UUITextareaElement', () => {
       <uui-textarea label="a textarea label"></uui-textarea>
     `);
     textarea = element.shadowRoot?.querySelector(
-      'textarea'
+      'textarea',
     ) as HTMLTextAreaElement;
   });
   it('test that disable works', async () => {
@@ -82,7 +82,7 @@ describe('UuiTextarea in Form', () => {
           label="a textarea label"
           name="textarea"
           value="Hello uui-textarea"></uui-textarea>
-      </form>`
+      </form>`,
     );
     element = formElement.querySelector('uui-textarea') as any;
   });

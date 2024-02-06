@@ -20,7 +20,7 @@ import {
 @defineElement('uui-color-swatch')
 export class UUIColorSwatchElement extends LabelMixin(
   'label',
-  SelectableMixin(ActiveMixin(LitElement))
+  SelectableMixin(ActiveMixin(LitElement)),
 ) {
   /**
    * Value of the swatch. This will become the color value if color is left undefined, see the property `color` for more details.
@@ -233,7 +233,11 @@ export class UUIColorSwatchElement extends LabelMixin(
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
         background-size: 10px 10px;
-        background-position: 0 0, 0 0, -5px -5px, 5px 5px;
+        background-position:
+          0 0,
+          0 0,
+          -5px -5px,
+          5px 5px;
       }
       .color-swatch__color {
         width: 100%;

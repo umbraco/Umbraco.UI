@@ -123,7 +123,7 @@ export class UUIComboboxListElement extends LitElement {
 
     this._updateSelection();
     this.dispatchEvent(
-      new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE)
+      new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE),
     );
   };
 
@@ -166,7 +166,7 @@ export class UUIComboboxListElement extends LitElement {
     if (this._activeElementValue === null) return -1;
 
     return this._options.findIndex(
-      element => element.value === this._activeElementValue
+      element => element.value === this._activeElementValue,
     );
   }
 
@@ -174,14 +174,14 @@ export class UUIComboboxListElement extends LitElement {
     if (this._activeElementValue === null) return null;
 
     return this._options.find(
-      element => element.value === this._activeElementValue
+      element => element.value === this._activeElementValue,
     );
   }
 
   private _moveIndex = (distance: number) => {
     const newIndex = Math.min(
       Math.max(this._getActiveIndex + distance, 0),
-      this._options.length - 1
+      this._options.length - 1,
     );
 
     this._goToIndex(newIndex);

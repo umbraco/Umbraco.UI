@@ -52,7 +52,7 @@ export const Overview: Story = () => {
               style="font-size: 24px; margin-bottom: 6px;"></uui-icon>
             <small>${name}</small>
           </div>
-        `
+        `,
       )}
     </uui-icon-registry-essential>
   `;

@@ -163,7 +163,7 @@ describe('UuiRadioGroup in a Form', () => {
           <uui-radio value="Value 2" label="Option 2"></uui-radio>
           <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
         </uui-radio-group>
-      </form>`
+      </form>`,
     );
     element = formElement.querySelector('uui-radio-group') as any;
     radios = Array.from(element.querySelectorAll('uui-radio'));
@@ -218,7 +218,7 @@ describe('UuiRadioGroup when multiple radio childs are checked', () => {
             >Option 3</uui-radio
           >
         </uui-radio-group>
-      </form>`
+      </form>`,
     );
     element = formElement.querySelector('uui-radio-group') as any;
   });
@@ -241,7 +241,7 @@ describe('UuiRadioGroup when one radio child radio is checked', () => {
           <uui-radio value="Value 2" label="Option 2" checked></uui-radio>
           <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
         </uui-radio-group>
-      </form>`
+      </form>`,
     );
     element = formElement.querySelector('uui-radio-group') as any;
     radios = Array.from(element.querySelectorAll('uui-radio'));
@@ -263,7 +263,7 @@ describe('UuiRadioGroup with start value', () => {
         <uui-radio value="2">two</uui-radio>
         <uui-radio value="3">three</uui-radio>
         <uui-radio value="4">four</uui-radio>
-      </uui-radio-group>`
+      </uui-radio-group>`,
     );
     radios = Array.from(radioGroup.querySelectorAll('uui-radio'));
   });

@@ -86,7 +86,7 @@ export class UUITabGroupElement extends LitElement {
   #onResize(entries: ResizeObserverEntry[]) {
     // Check if the gap css custom property has changed.
     const gapCSSVar = Number.parseFloat(
-      this.style.getPropertyValue('--uui-tab-group-gap')
+      this.style.getPropertyValue('--uui-tab-group-gap'),
     );
     const newGap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
     if (newGap !== this.#currentGap) {
@@ -112,7 +112,7 @@ export class UUITabGroupElement extends LitElement {
     this.#tabElements.forEach(el => {
       el.addEventListener('click', this.#onTabClicked);
       const observer = new ResizeObserver(
-        this.#calculateBreakPoints.bind(this)
+        this.#calculateBreakPoints.bind(this),
       );
       observer.observe(el);
       this.#tabResizeObservers.push(observer);
@@ -143,7 +143,7 @@ export class UUITabGroupElement extends LitElement {
 
       // Check if there are any active tabs in the dropdown
       const hasActiveHidden = this.#hiddenTabElements.some(
-        el => el.active && el !== linkedElement
+        el => el.active && el !== linkedElement,
       );
 
       hasActiveHidden
@@ -166,7 +166,7 @@ export class UUITabGroupElement extends LitElement {
     await this.updateComplete; // Wait for the tabs to be rendered
 
     const gapCSSVar = Number.parseFloat(
-      this.style.getPropertyValue('--uui-tab-group-gap')
+      this.style.getPropertyValue('--uui-tab-group-gap'),
     );
     const gap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
     this.#currentGap = gap;
@@ -368,12 +368,16 @@ export class UUITabGroupElement extends LitElement {
         height: 0px;
         border-radius: 3px 3px 0 0;
         opacity: 0;
-        transition: opacity ease-in 120ms, height ease-in 120ms;
+        transition:
+          opacity ease-in 120ms,
+          height ease-in 120ms;
       }
       #more-button.active-inside::before {
         opacity: 1;
         height: 4px;
-        transition: opacity 120ms, height ease-out 120ms;
+        transition:
+          opacity 120ms,
+          height ease-out 120ms;
       }
     `,
   ];

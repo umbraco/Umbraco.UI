@@ -16,7 +16,7 @@ describe('UUIMenuItemElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-menu-item label="menuitem"></uui-menu-item>`
+      html`<uui-menu-item label="menuitem"></uui-menu-item>`,
     );
   });
 
@@ -79,7 +79,7 @@ describe('UUIMenuItemElement', () => {
       const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL);
 
       const buttonElement = element.shadowRoot!.querySelector(
-        'button#label-button'
+        'button#label-button',
       ) as HTMLButtonElement;
       expect(buttonElement).to.exist;
       buttonElement.click();
@@ -97,7 +97,7 @@ describe('UUIMenuItemElement', () => {
         element.selectable = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
-          '#label-button'
+          '#label-button',
         ) as HTMLElement;
         element.addEventListener(UUISelectableEvent.SELECTED, e => {
           e.preventDefault();
@@ -117,7 +117,7 @@ describe('UUIMenuItemElement', () => {
         element.selected = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
-          '#label-button'
+          '#label-button',
         ) as HTMLElement;
         element.addEventListener(UUISelectableEvent.DESELECTED, e => {
           e.preventDefault();
@@ -136,7 +136,7 @@ describe('UUIMenuItemElement', () => {
         element.hasChildren = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
-          '#caret-button'
+          '#caret-button',
         ) as HTMLElement;
         const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
         labelElement.click();
@@ -149,7 +149,7 @@ describe('UUIMenuItemElement', () => {
         element.hasChildren = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
-          '#caret-button'
+          '#caret-button',
         ) as HTMLElement;
         element.addEventListener(UUIMenuItemEvent.SHOW_CHILDREN, e => {
           e.preventDefault();
@@ -169,7 +169,7 @@ describe('UUIMenuItemElement', () => {
         element.showChildren = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
-          '#caret-button'
+          '#caret-button',
         ) as HTMLElement;
         const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
         labelElement.click();
@@ -183,7 +183,7 @@ describe('UUIMenuItemElement', () => {
         element.showChildren = true;
         await elementUpdated(element);
         const labelElement = element.shadowRoot!.querySelector(
-          '#caret-button'
+          '#caret-button',
         ) as HTMLElement;
         element.addEventListener(UUIMenuItemEvent.HIDE_CHILDREN, e => {
           e.preventDefault();
@@ -300,10 +300,10 @@ describe('UUIMenuItemElement', () => {
       element = await fixture(
         html`<uui-menu-item
           label="menuitem"
-          href="https://www.umbraco.com"></uui-menu-item>`
+          href="https://www.umbraco.com"></uui-menu-item>`,
       );
       labelElement = element.shadowRoot!.querySelector(
-        '#label-button'
+        '#label-button',
       ) as HTMLElement;
     });
 
@@ -327,7 +327,7 @@ describe('UUIMenuItemElement', () => {
       await elementUpdated(element);
       expect(labelElement.getAttribute('target')).to.be.equal('_blank');
       expect(labelElement.getAttribute('rel')).to.be.equal(
-        'noopener noreferrer'
+        'noopener noreferrer',
       );
     });
   });

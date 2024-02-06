@@ -19,7 +19,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
   }
 
   protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>
+    _changedProperties: Map<string | number | symbol, unknown>,
   ): void {
     super.firstUpdated(_changedProperties);
 
@@ -27,7 +27,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
   }
 
   protected updated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
   ): void {
     super.updated(_changedProperties);
 

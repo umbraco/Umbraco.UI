@@ -75,7 +75,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined
+              this.target === '_blank' ? 'noopener noreferrer' : undefined,
             )}
             role="tab">
             <slot name="icon"></slot>
@@ -140,7 +140,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       :host(:not([active]):not([disabled])) #button:active {
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+        box-shadow:
+          inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
       }
 
@@ -177,7 +178,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         height: 0px;
         width: calc(100% - 15px);
         bottom: 0;
-        transition: opacity ease-in-out var(--transitionDuration),
+        transition:
+          opacity ease-in-out var(--transitionDuration),
           height ease-in-out var(--transitionDuration);
       }
       :host([active][orientation='horizontal']) #button::before {
@@ -192,7 +194,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         height: calc(100% - 12px);
         width: 0px;
         left: 0;
-        transition: opacity ease-in-out var(--transitionDuration),
+        transition:
+          opacity ease-in-out var(--transitionDuration),
           width ease-in-out var(--transitionDuration);
       }
       :host([active][orientation='vertical']) #button::before {

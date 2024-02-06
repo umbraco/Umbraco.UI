@@ -78,7 +78,7 @@ Accept.parameters = {
 export const BrowseFiles: StoryFn<UUIFileDropzoneElement> = props => {
   const handleBrowse = () => {
     const dropzone = document.getElementById(
-      'browse-dropzone'
+      'browse-dropzone',
     ) as UUIFileDropzoneElement;
     dropzone.browse();
   };

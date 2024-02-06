@@ -76,9 +76,9 @@ export const LooksAndColors: Story = () => html`
               style="margin-right:12px;"
               >${uppercaseFirstLetter(look)}</uui-tag
             >
-          `
+          `,
         )}
       </div>
-    `
+    `,
   )}
 `;

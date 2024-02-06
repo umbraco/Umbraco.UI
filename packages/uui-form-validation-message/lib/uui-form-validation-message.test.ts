@@ -10,7 +10,7 @@ describe('UUIFormValidationMessageElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-form-validation-message></uui-form-validation-message>`
+      html` <uui-form-validation-message></uui-form-validation-message>`,
     );
   });
 
@@ -58,7 +58,7 @@ describe('UUIFormValidationMessageElement', () => {
       `);
       await elementUpdated(element);
       validationEl = element.querySelector(
-        'uui-form-validation-message'
+        'uui-form-validation-message',
       ) as UUIFormValidationMessageElement;
       input = validationEl.querySelector('uui-input') as UUIInputElement;
     });
@@ -92,7 +92,7 @@ describe('UUIFormValidationMessageElement', () => {
           `);
           await elementUpdated(element);
           validationEl = element.querySelector(
-            'uui-form-validation-message'
+            'uui-form-validation-message',
           ) as UUIFormValidationMessageElement;
           input = element.querySelector('uui-input') as UUIInputElement;
         });

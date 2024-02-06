@@ -104,7 +104,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   private async _handleFilesChange(event: CustomEvent) {
     const entries = event.detail.files as (File | FileSystemFileEntry)[];
     const files = entries.filter(
-      entry => entry instanceof File || entry.isFile
+      entry => entry instanceof File || entry.isFile,
     );
     // TODO: implement folder preview + remove folder including children
 
@@ -144,7 +144,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
   private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
     return await new Promise<File>((resolve, reject) =>
-      fileEntry.file(resolve, reject)
+      fileEntry.file(resolve, reject),
     );
   }
 
@@ -199,7 +199,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return html`${repeat(
       this._files,
       (file: File) => file.name + file.size,
-      (file: File, index: number) => this._renderFileItem(file, index)
+      (file: File, index: number) => this._renderFileItem(file, index),
     )}`;
   }
 

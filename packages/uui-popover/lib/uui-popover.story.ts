@@ -74,7 +74,7 @@ export const AAAOverview: Story = props => {
   function onKeyDown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       const popover = document.querySelector(
-        'uui-popover'
+        'uui-popover',
       ) as UUIPopoverElement;
       popover.open = false;
     }

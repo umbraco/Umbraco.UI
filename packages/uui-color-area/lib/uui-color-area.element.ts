@@ -183,7 +183,7 @@ export class UUIColorAreaElement extends LitElement {
     return clamp(
       ((((200 - this.saturation) * brightness) / 100) * 5) / 10,
       0,
-      100
+      100,
     );
   }
 
@@ -205,10 +205,10 @@ export class UUIColorAreaElement extends LitElement {
     hue: number,
     saturation: number,
     lightness: number,
-    alpha = 100
+    alpha = 100,
   ) {
     const color = colord(
-      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`
+      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
     );
     if (!color.isValid()) {
       return '';
@@ -243,7 +243,7 @@ export class UUIColorAreaElement extends LitElement {
               this.hue,
               this.saturation,
               this.lightness,
-              this.alpha
+              this.alpha,
             ),
           })}
           role="application"

@@ -35,9 +35,10 @@ const meta: Meta<UUICardBlockTypeElement> = {
   ],
 };
 
-const renderWandIcon = (color = 'black') => html`<uui-icon-registry-essential>
-  <uui-icon name="wand" style="color:${color}"></uui-icon>
-</uui-icon-registry-essential>`;
+const renderWandIcon = (color = 'black') =>
+  html`<uui-icon-registry-essential>
+    <uui-icon name="wand" style="color:${color}"></uui-icon>
+  </uui-icon-registry-essential>`;
 
 export const AAAOverview: Story = props => html`
   <uui-card-block-type

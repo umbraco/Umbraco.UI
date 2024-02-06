@@ -21,7 +21,7 @@ const Template: Story = () => html`
           <uui-action-bar slot="actions">
             <uui-button label="Remove">Remove</uui-button>
           </uui-action-bar>
-        </uui-ref-node>`
+        </uui-ref-node>`,
     )}
   </uui-ref-list>
 `;

@@ -174,9 +174,9 @@ export const LooksAndColors: Story = () => html`
                 >${uppercaseFirstLetter(look)}</uui-badge
               >
             </div>
-          `
+          `,
         )}
       </div>
-    `
+    `,
   )}
 `;

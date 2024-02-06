@@ -44,7 +44,7 @@ const plugin = opts => ({
                 {
                   type: 'word',
                   value: fallback,
-                }
+                },
               );
             } //when fallback value contains more then one node, stringify them with value parser used to parse the customProperties object and add as one node type word.
 
@@ -59,10 +59,10 @@ const plugin = opts => ({
                   value: fallback
                     .map(
                       fallbackNode =>
-                        postcssValuesParser.nodeToString(fallbackNode) // eslint-disable-line
+                        postcssValuesParser.nodeToString(fallbackNode), // eslint-disable-line
                     )
                     .join(' '),
-                }
+                },
               );
             }
           });

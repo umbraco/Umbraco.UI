@@ -23,7 +23,7 @@ export declare class LabelMixinInterface {
  */
 export const LabelMixin = <T extends Constructor<LitElement>>(
   labelSlotName: string | null,
-  superClass: T
+  superClass: T,
 ) => {
   /**
    * Label mixin class containing the label functionality.

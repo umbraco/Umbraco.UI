@@ -18,13 +18,13 @@ export default {
 function addToast() {
   const con = document.querySelector('uui-toast-notification-container');
   const toast = document.createElement(
-    'uui-toast-notification'
+    'uui-toast-notification',
   ) as unknown as UUIToastNotificationElement;
   toast.color = ['', 'positive', 'danger'][
     Math.floor(Math.random() * 3)
   ] as any;
   const toastLayout = document.createElement(
-    'uui-toast-notification-layout'
+    'uui-toast-notification-layout',
   ) as unknown as UUIToastNotificationLayoutElement;
   toastLayout.headline = 'Demo toast';
   toast.appendChild(toastLayout);
@@ -41,7 +41,7 @@ function removeToast() {
   const con = document.querySelector('uui-toast-notification-container');
   if (con) {
     const last = con.querySelector(
-      'uui-toast-notification:first-of-type'
+      'uui-toast-notification:first-of-type',
     ) as unknown as UUIToastNotificationElement;
     if (last) {
       con.removeChild(last);
@@ -52,7 +52,7 @@ function closeToast() {
   const con = document.querySelector('uui-toast-notification-container');
   if (con) {
     const last = con.querySelector(
-      'uui-toast-notification:first-of-type'
+      'uui-toast-notification:first-of-type',
     ) as unknown as UUIToastNotificationElement;
     if (last) {
       last.open = false;

@@ -109,7 +109,7 @@ export const Tooltip: Story = {
   play: ({ canvasElement }) => {
     const tooltipElement = canvasElement.querySelector('#tooltip-toggle');
     const popover = canvasElement.querySelector(
-      '#tooltip-popover'
+      '#tooltip-popover',
     ) as UUIPopoverContainerElement;
 
     tooltipElement?.addEventListener('mouseenter', () => popover.showPopover());

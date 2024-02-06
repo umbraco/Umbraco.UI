@@ -46,11 +46,11 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
           searchParam === ''
             ? []
             : data.filter(item =>
-                item.name.toLowerCase().includes(searchParam.toLowerCase())
+                item.name.toLowerCase().includes(searchParam.toLowerCase()),
               );
         res(filteredData);
         this._loading = false;
-      }, 500)
+      }, 500),
     );
   };
 
@@ -78,14 +78,14 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
             option =>
               html`<uui-combobox-list-option value="${option.value}"
                 >${option.name}</uui-combobox-list-option
-              >`
+              >`,
           )}
         </uui-combobox-list>
       </uui-combobox>
 
       <div style="margin-top: var(--uui-size-4)">
         <strong>Data:</strong> ${data.map(
-          fruit => html`<div>${fruit.name}</div>`
+          fruit => html`<div>${fruit.name}</div>`,
         )}
       </div>
     `;

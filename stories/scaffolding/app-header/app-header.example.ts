@@ -130,7 +130,7 @@ export class UUIAppHeaderExample extends LitElement {
                     ?active="${this._activeSection === section}"
                     label="${section}"
                     @click="${this._handleTabClick}"></uui-tab>
-                `
+                `,
               )}
             </uui-tab-group>
           </div>

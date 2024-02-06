@@ -206,7 +206,7 @@ export class UUIPopoverElement extends LitElement {
 
     this.intersectionObserver = new IntersectionObserver(
       this._intersectionCallback,
-      options
+      options,
     );
     this.intersectionObserver.observe(this.containerElement as Element);
   }
@@ -261,7 +261,7 @@ export class UUIPopoverElement extends LitElement {
 
     if (triggerRect != null && popoverRect != null) {
       const scrollParentRects = this._scrollParents.map(el =>
-        el.getBoundingClientRect()
+        el.getBoundingClientRect(),
       );
 
       this._currentPlacement = this._currentPlacement || this._placement;
@@ -270,7 +270,7 @@ export class UUIPopoverElement extends LitElement {
         this._currentPlacement = this._managePlacementFlip(
           this._currentPlacement,
           popoverRect,
-          scrollParentRects
+          scrollParentRects,
         );
       }
 
@@ -459,7 +459,7 @@ export class UUIPopoverElement extends LitElement {
   private _managePlacementFlip(
     currentPlacement: PopoverPlacement,
     popoverRect: DOMRect,
-    scrollParentRects: DOMRect[]
+    scrollParentRects: DOMRect[],
   ): PopoverPlacement {
     const buffer = 2; // add this to the calculation make sure that the position checks are not off by e.g: 0.1 pixel.
 

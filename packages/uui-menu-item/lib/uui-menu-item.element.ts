@@ -27,7 +27,7 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  */
 @defineElement('uui-menu-item')
 export class UUIMenuItemElement extends SelectOnlyMixin(
-  SelectableMixin(ActiveMixin(LabelMixin('label', LitElement)))
+  SelectableMixin(ActiveMixin(LabelMixin('label', LitElement))),
 ) {
   /**
    * Disables the menu item, changes the looks of it and prevents it from emitting the click event
@@ -152,7 +152,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined
+        this.target === '_blank' ? 'noopener noreferrer' : undefined,
       )}
       @click=${this._onLabelClicked}
       ?disabled=${this.disabled}

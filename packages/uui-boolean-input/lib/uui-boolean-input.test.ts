@@ -21,7 +21,7 @@ const tagName = defineCE(
       </div>
     `;
     }
-  }
+  },
 );
 
 const tag = unsafeStatic(tagName);
@@ -93,7 +93,7 @@ describe('BooleanInputBaseElement in a Form', () => {
   beforeEach(async () => {
     formElement = await fixture(
       html`<form @submit=${preventSubmit}><${tag} name="test" value="testValue"
-      label="test label"></${tag}></form>`
+      label="test label"></${tag}></form>`,
     );
     element = formElement.firstChild;
   });
@@ -143,7 +143,7 @@ describe('BooleanInputBaseElement in a Form', () => {
     let element: any;
     beforeEach(async () => {
       formElement = await fixture(
-        html`<form><${tag} label="test label" name="test"></${tag}></form>`
+        html`<form><${tag} label="test label" name="test"></${tag}></form>`,
       );
       element = formElement.firstChild;
     });
@@ -209,7 +209,7 @@ describe('element in a Form with no attributes', () => {
   let element: any;
   beforeEach(async () => {
     formElement = await fixture(
-      html`<form><${tag} label="test label" name="test"></${tag}></form>`
+      html`<form><${tag} label="test label" name="test"></${tag}></form>`,
     );
     element = formElement.firstChild;
   });

@@ -57,7 +57,7 @@ export class UUIComboboxAsyncOptionsExampleElement extends LitElement {
             option =>
               html`<uui-combobox-list-option value="${option.value}"
                 >${option.name}</uui-combobox-list-option
-              >`
+              >`,
           )}
         </uui-combobox-list>
       </uui-combobox>

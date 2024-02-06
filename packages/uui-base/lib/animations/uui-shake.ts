@@ -28,5 +28,5 @@ export const UUIHorizontalShakeKeyframes = css`
 `;
 
 export const UUIHorizontalShakeAnimationValue = unsafeCSS(
-  'uui-horizontal-shake 600ms ease backwards'
+  'uui-horizontal-shake 600ms ease backwards',
 );

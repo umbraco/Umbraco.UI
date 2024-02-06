@@ -90,10 +90,10 @@ describe('UuiTab', () => {
       element = await fixture(
         html`<uui-tab
           label="menuitem"
-          href="https://www.umbraco.com"></uui-tab>`
+          href="https://www.umbraco.com"></uui-tab>`,
       );
       anchorElement = element.shadowRoot!.querySelector(
-        '#button'
+        '#button',
       ) as HTMLElement;
     });
 
@@ -117,7 +117,7 @@ describe('UuiTab', () => {
       await elementUpdated(element);
       expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
       expect(anchorElement.getAttribute('rel')).to.be.equal(
-        'noopener noreferrer'
+        'noopener noreferrer',
       );
     });
   });

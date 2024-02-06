@@ -16,7 +16,7 @@ import { UUICardEvent } from './UUICardEvent';
  */
 @defineElement('uui-card')
 export class UUICardElement extends SelectOnlyMixin(
-  SelectableMixin(LitElement)
+  SelectableMixin(LitElement),
 ) {
   /**
    * Set to true to prevent opening of this item.

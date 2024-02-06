@@ -9,7 +9,7 @@ import customProperties from '../custom-properties.module.js'; // eslint-disable
 // @ts-ignore-end
 const properties = Object.keys(customProperties.customProperties).map(
   // @ts-ignore
-  key => ({ key: key, value: customProperties.customProperties[key] })
+  key => ({ key: key, value: customProperties.customProperties[key] }),
 );
 
 const copyIcon = svg`<svg style="pointer-events: none" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon m-2">
@@ -324,7 +324,7 @@ export const Sizing = () => html`
         property =>
           property.key.includes('--uui-size') &&
           !property.key.includes('--uui-size-space') &&
-          !property.key.includes('--uui-size-layout')
+          !property.key.includes('--uui-size-layout'),
       )
       .map(property => propertySizeTemplate(property))}
   </uui-table>
