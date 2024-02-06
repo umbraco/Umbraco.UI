@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0...v1.6.1) (2024-02-06)
+
+### Bug Fixes
+
+- **uui-tab-group:** layout is causing issues due to missing `display: flex` ([#730](https://github.com/umbraco/Umbraco.UI/issues/730)) ([5818804](https://github.com/umbraco/Umbraco.UI/commit/58188040d30f872a6ee1c68f92879e3c0e3ac1b1))
+
 # [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
 
 ### Bug Fixes
