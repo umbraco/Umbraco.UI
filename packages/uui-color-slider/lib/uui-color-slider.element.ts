@@ -217,7 +217,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(new UUIColorSliderEvent(UUIColorSliderEvent.CHANGE));
   }
 
-  get ccsPropCurrentValue() {
+  get cssPropCurrentValue() {
     return this.value === 0
       ? this.vertical
         ? 100
@@ -257,7 +257,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         <!-- <slot name="detail"> </slot> -->
         <span
           id="color-slider__handle"
-          style="--current-value: ${this.ccsPropCurrentValue}%;"
+          style="--current-value: ${this.cssPropCurrentValue}%;"
           tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
       </div>
       ${Math.round(this.value)}`;

@@ -1,8 +1,13 @@
-export const InterfaceColorValues: Readonly<InterfaceColor[]> = [
+export const UUIInterfaceColorValues: Readonly<UUIInterfaceColor[]> = [
   'default',
   'positive',
   'warning',
   'danger',
 ] as const;
 
-export type InterfaceColor = '' | 'default' | 'positive' | 'warning' | 'danger';
+export type UUIInterfaceColor =
+  | ''
+  | 'default'
+  | 'positive'
+  | 'warning'
+  | 'danger';

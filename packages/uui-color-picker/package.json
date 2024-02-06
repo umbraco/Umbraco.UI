@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-color-picker",
-  "version": "1.6.0-rc.3",
+  "version": "1.6.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,8 +30,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.6.0-rc.3",
-    "@umbraco-ui/uui-popover-container": "1.6.0-rc.3",
+    "@umbraco-ui/uui-base": "1.6.0",
+    "@umbraco-ui/uui-popover-container": "1.6.0",
     "colord": "^2.9.3"
   },
   "scripts": {

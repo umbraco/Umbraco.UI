@@ -1,5 +1,7 @@
 import { LitElement, css } from 'lit';
 import { property, query } from 'lit/decorators.js';
+
+export const UUIModalCloseEvent = 'uui:modal-close';
 export class UUIModalElement extends LitElement {
   @query('dialog')
   protected _dialogElement?: HTMLDialogElement;
@@ -58,7 +60,7 @@ export class UUIModalElement extends LitElement {
     event?.preventDefault();
     event?.stopImmediatePropagation();
 
-    const closeEvent = new CustomEvent('close', {
+    const closeEvent = new CustomEvent(UUIModalCloseEvent, {
       cancelable: true,
     });
     this.dispatchEvent(closeEvent);

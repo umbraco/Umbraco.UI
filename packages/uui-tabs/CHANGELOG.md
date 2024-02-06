@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0...v1.6.1) (2024-02-06)
+
+### Bug Fixes
+
+- **uui-tab-group:** layout is causing issues due to missing `display: flex` ([#730](https://github.com/umbraco/Umbraco.UI/issues/730)) ([5818804](https://github.com/umbraco/Umbraco.UI/commit/58188040d30f872a6ee1c68f92879e3c0e3ac1b1))
+
+# [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
+
+### Bug Fixes
+
+- uui-tab-group should have display set to block ([#722](https://github.com/umbraco/Umbraco.UI/issues/722)) ([ac5c2b1](https://github.com/umbraco/Umbraco.UI/commit/ac5c2b18b183fc8dcf9a9b2d641782db3f9215ad))
+- **uui-tab-group:** async tabs are not calculated correctly and have memory leaks ([#726](https://github.com/umbraco/Umbraco.UI/issues/726)) ([03c5cdc](https://github.com/umbraco/Umbraco.UI/commit/03c5cdc794b316ce290e7db27860ac8043681c7c))
+
+# [1.6.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.3...v1.6.0-rc.4) (2024-01-23)
+
+### Bug Fixes
+
+- direct imports are not allowed ([3b4b4dd](https://github.com/umbraco/Umbraco.UI/commit/3b4b4dd2ade9b531cde1d35e2808b96b485eb3c7))
+- uui-tab-group support for gap ([#712](https://github.com/umbraco/Umbraco.UI/issues/712)) ([2f07793](https://github.com/umbraco/Umbraco.UI/commit/2f07793d7a9293b35dcc221006fee7be8c5df79c))
+
 # [1.6.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.2...v1.6.0-rc.3) (2023-12-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-tabs

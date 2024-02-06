@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
+
+**Note:** Version bump only for package @umbraco-ui/uui-popover-container
+
+# [1.6.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.3...v1.6.0-rc.4) (2024-01-23)
+
+### Bug Fixes
+
+- uui-popover container scroll event ([#713](https://github.com/umbraco/Umbraco.UI/issues/713)) ([656f181](https://github.com/umbraco/Umbraco.UI/commit/656f1811a1de862c7a7f6ca0221bf14e3532d53c))
+
 # [1.6.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.2...v1.6.0-rc.3) (2023-12-15)
 
 **Note:** Version bump only for package @umbraco-ui/uui-popover-container

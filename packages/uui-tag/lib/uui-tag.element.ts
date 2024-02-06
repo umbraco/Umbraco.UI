@@ -1,7 +1,10 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { InterfaceColor, InterfaceLook } from '@umbraco-ui/uui-base/lib/types';
+import {
+  UUIInterfaceColor,
+  UUIInterfaceLook,
+} from '@umbraco-ui/uui-base/lib/types';
 
 /**
  *
@@ -20,7 +23,7 @@ export class UUITagElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  color: InterfaceColor = 'default';
+  color: UUIInterfaceColor = 'default';
 
   /**
    * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
@@ -29,7 +32,7 @@ export class UUITagElement extends LitElement {
    * @default "default"
    */
   @property({ reflect: true })
-  look: InterfaceLook = 'primary';
+  look: UUIInterfaceLook = 'primary';
 
   render() {
     return html`<slot></slot>`;

@@ -97,12 +97,16 @@ export class UUIColorAreaElement extends LitElement {
       const parsed = colord(newVal);
 
       if (parsed.isValid()) {
-        const { h, s, l } = parsed.toHsl();
+        const { h, l, a } = parsed.toHsl();
 
-        this.hue = h;
-        this.saturation = s;
+        // Update hue from parsed color, but when color is black, value from hue slider may be different from zero.
+        if (h !== 0) {
+          this.hue = h;
+        }
+
         this.lightness = l;
         this.brightness = this.getBrightness(l);
+        this.alpha = a * 100;
       }
     } catch (e) {
       // TODO: Should we log this?
