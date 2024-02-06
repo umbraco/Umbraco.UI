@@ -15,6 +15,8 @@ import properties from './uui-css/custom-properties.module.js'; // eslint-disabl
 
 const esbuidOptions = { minify: true };
 
+const rootDir = new URL('../', import.meta.url).pathname;
+
 const createEsModulesConfig = (entryPoints = []) => {
   return [
     ...entryPoints.map(name => {
@@ -26,7 +28,7 @@ const createEsModulesConfig = (entryPoints = []) => {
         },
         external: [/^lit/, /^@umbraco-ui/],
         plugins: [
-          nodeResolve(),
+          nodeResolve({ rootDir }),
           importCss({ from: undefined }),
           esbuild(),
           processLitCSSPlugin(),
@@ -63,7 +65,7 @@ const createBundleConfig = (bundle, namespace) => {
 
   return bundle
     ? {
-        input: `lib/${bundle}.ts`,
+        input: `lib/${bundle}.umd.ts`,
         output: {
           file: `./dist/${bundleName}.min.js`,
           format: 'umd',
@@ -71,7 +73,7 @@ const createBundleConfig = (bundle, namespace) => {
           name: namespace,
         },
         plugins: [
-          nodeResolve(),
+          nodeResolve({ rootDir }),
           importCss(),
           processLitCSSPlugin(),
           minifyHTML.default(),

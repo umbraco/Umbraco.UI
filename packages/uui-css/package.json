@@ -29,11 +29,11 @@
     "lib/**/*.d.ts",
     "lib/**/*.js"
   ],
-  "dependencies": {
-    "lit": "^2.2.2"
+  "peerDependencies": {
+    "lit": ">=2.8.0"
   },
   "scripts": {
-    "build": "npm run build:cssprops && tsc --build --force && rollup -c rollup.config.js",
+    "build": "npm run build:cssprops && tsc --build && rollup -c rollup.config.js",
     "build:cssprops": "postcss lib/custom-properties.css --base lib/ --dir dist && npm run custom-properties-cache",
     "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js *.tgz lib/**/*.d.ts custom-elements.json custom-properties.*",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",

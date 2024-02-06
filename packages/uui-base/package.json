@@ -26,11 +26,11 @@
     "lib/**/*.d.ts",
     "lib/**/*.js"
   ],
-  "dependencies": {
-    "lit": "^2.3.1"
+  "peerDependencies": {
+    "lit": ">=2.8.0"
   },
   "scripts": {
-    "build": "tsc --build --force && rollup -c rollup.config.js",
+    "build": "tsc --build && rollup -c rollup.config.js",
     "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js *.tgz lib/**/*.d.ts"
   },
   "publishConfig": {

@@ -32,6 +32,14 @@ jobs:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: '0'
 
+      - name: Cache build setup
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-cache-
+
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
@@ -39,7 +47,7 @@ jobs:
           cache: 'npm'
 
       - run: npm -v
-      - run: npm ci
+      - run: npm install
 
       - name: Authenticate with Registry
         run: |
