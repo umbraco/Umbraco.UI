@@ -110,7 +110,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     this.container =
       this.shadowRoot!.querySelector<HTMLElement>('#color-slider')!;
     this.handle = this.container.querySelector<HTMLElement>(
-      '#color-slider__handle'
+      '#color-slider__handle',
     )!;
   }
 
@@ -127,7 +127,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
           this.value = reverseNumberInRange(
             clamp((y / height) * this.max, this.min, this.max),
             this.min,
-            this.max
+            this.max,
           );
         } else {
           this.value = clamp((x / width) * this.max, this.min, this.max);
@@ -195,7 +195,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     return clamp(
       this.roundToPrecision(((coordinate - left) / width) * this.max),
       this.min,
-      this.max
+      this.max,
     );
   }
 
@@ -204,7 +204,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     return clamp(
       this.roundToPrecision(((coordinate - top) / height) * this.max),
       this.min,
-      this.max
+      this.max,
     );
   }
 

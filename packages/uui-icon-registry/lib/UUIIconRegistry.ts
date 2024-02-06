@@ -12,7 +12,7 @@ export class UUIIconRegistry {
   public attach(element: EventTarget) {
     element.addEventListener(
       UUIIconRequestEvent.ICON_REQUEST,
-      this._onIconRequest as EventListener
+      this._onIconRequest as EventListener,
     );
   }
 
@@ -23,7 +23,7 @@ export class UUIIconRegistry {
   public detach(element: EventTarget) {
     element.removeEventListener(
       UUIIconRequestEvent.ICON_REQUEST,
-      this._onIconRequest as EventListener
+      this._onIconRequest as EventListener,
     );
   }
 

@@ -11,7 +11,7 @@ describe('UUIFormElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-form><form @submit=${preventSubmit}></form></uui-form>`
+      html`<uui-form><form @submit=${preventSubmit}></form></uui-form>`,
     );
     formElement = element.getFormElement()!;
   });

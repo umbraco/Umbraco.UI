@@ -20,7 +20,7 @@ export class UUICaretElement extends LitElement {
   constructor() {
     super();
     console.error(
-      '´uui-caret´ is deprecated, please use ´uui-symbol-expand´ or ´uui-symbol-sort´'
+      '´uui-caret´ is deprecated, please use ´uui-symbol-expand´ or ´uui-symbol-sort´',
     );
   }
 

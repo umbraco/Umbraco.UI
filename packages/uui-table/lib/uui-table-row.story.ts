@@ -26,7 +26,7 @@ const Template: StoryFn<UUITableRowElement> = props => {
         ?selectable=${props.selectable}
         ?selectOnly=${props.selectOnly}>
         ${ArrayOfUmbracoWords(5).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
       <uui-table-row
@@ -36,7 +36,7 @@ const Template: StoryFn<UUITableRowElement> = props => {
           <uui-input placeholder="Type your own thing"></uui-input>
         </uui-table-cell>
         ${ArrayOfUmbracoWords(5).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
     </uui-table>

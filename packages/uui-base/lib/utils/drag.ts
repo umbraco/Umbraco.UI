@@ -13,7 +13,7 @@ interface DragOptions {
 
 export const drag = (
   container: HTMLElement,
-  options?: Partial<DragOptions>
+  options?: Partial<DragOptions>,
 ) => {
   function move(event: PointerEvent | TouchEvent) {
     const dims = container.getBoundingClientRect();

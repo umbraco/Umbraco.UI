@@ -63,7 +63,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
         'Toast-notification',
         toast,
         'could not be removed as it is not a child of this toast-notification-container',
-        this
+        this,
       );
       return;
     }
@@ -94,16 +94,16 @@ export class UUIToastNotificationContainerElement extends LitElement {
     this._toasts = event.target
       .assignedElements({ flatten: true })
       .filter(
-        (e: Node) => e.nodeName === 'UUI-TOAST-NOTIFICATION'
+        (e: Node) => e.nodeName === 'UUI-TOAST-NOTIFICATION',
       ) as UUIToastNotificationElement[];
 
     const oldToasts = existingModals.filter(
-      modal => this._toasts.indexOf(modal) === -1
+      modal => this._toasts.indexOf(modal) === -1,
     );
     oldToasts.forEach(toast => {
       toast.removeEventListener(
         UUIToastNotificationEvent.CLOSED,
-        this.onToastClosed as any
+        this.onToastClosed as any,
       );
       toast.removeEventListener('mouseenter', this.pauseAutoClose);
       toast.removeEventListener('mouseleave', this.resumeAutoClose);
@@ -112,12 +112,12 @@ export class UUIToastNotificationContainerElement extends LitElement {
     });
 
     const newToasts = this._toasts.filter(
-      modal => existingModals.indexOf(modal) === -1
+      modal => existingModals.indexOf(modal) === -1,
     );
     newToasts.forEach(toast => {
       toast.addEventListener(
         UUIToastNotificationEvent.CLOSED,
-        this.onToastClosed as any
+        this.onToastClosed as any,
       );
 
       toast.addEventListener('mouseenter', this.pauseAutoClose);

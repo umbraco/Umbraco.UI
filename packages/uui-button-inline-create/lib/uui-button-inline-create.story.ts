@@ -49,7 +49,7 @@ const insertBox = (e: any) => {
 
   e.target.parentElement.parentElement.insertBefore(
     div,
-    e.target.parentElement
+    e.target.parentElement,
   );
 };
 

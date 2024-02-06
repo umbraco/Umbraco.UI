@@ -7,7 +7,7 @@ describe('UUIBox', () => {
   let element: UUIBoxElement;
   beforeEach(async () => {
     element = await fixture(
-      html` <uui-box headline="headline"> Main </uui-box>`
+      html` <uui-box headline="headline"> Main </uui-box>`,
     );
   });
 
@@ -22,7 +22,7 @@ describe('UUIBox', () => {
           headline="headline"
           .headlineVariant="${headlineVariant}">
           Main
-        </uui-box>`
+        </uui-box>`,
       );
       await expect(element).shadowDom.to.be.accessible();
     }
@@ -44,14 +44,14 @@ describe('UUIBox', () => {
       wrapper = (await fixture(
         html`<div style="--uui-box-default-padding:1337px;">
           <uui-box headline="headline"> Main </uui-box>
-        </div>`
+        </div>`,
       )) as HTMLDivElement;
       element = wrapper.querySelector('uui-box')!;
     });
     it('allows for --uui-box-default-padding to be defined outside the scope.', () => {
       const elementStyles = window.getComputedStyle(element);
       expect(
-        elementStyles.getPropertyValue('--uui-box-default-padding').trim()
+        elementStyles.getPropertyValue('--uui-box-default-padding').trim(),
       ).to.equal('1337px');
     });
   });
@@ -74,14 +74,16 @@ describe('UUIBox', () => {
 
     it('renders a header-actions slot', () => {
       const slot = element.shadowRoot!.querySelector(
-        'slot[name=header-actions'
+        'slot[name=header-actions',
       )!;
       expect(slot).to.exist;
     });
 
     it('renders specified headline tag when headlineVariant is set', async () => {
       element = await fixture(
-        html` <uui-box headline="headline" headline-variant="h2">Main</uui-box>`
+        html` <uui-box headline="headline" headline-variant="h2"
+          >Main</uui-box
+        >`,
       );
 
       // it should exist and it should be the only one
@@ -101,7 +103,7 @@ describe('UUIBox', () => {
         html` <uui-box>
           <div slot="header">Something in the header</div>
           Main
-        </uui-box>`
+        </uui-box>`,
       );
     });
 

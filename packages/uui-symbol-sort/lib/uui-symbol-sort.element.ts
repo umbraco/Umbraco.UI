@@ -48,7 +48,10 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
         width: 0.8em;
         fill: currentColor;
         transform-origin: 50% 50%;
-        transition: transform 120ms ease-in-out, opacity 120ms, margin-top 240ms;
+        transition:
+          transform 120ms ease-in-out,
+          opacity 120ms,
+          margin-top 240ms;
         opacity: 0;
         margin-top: -0.5em;
       }

@@ -62,7 +62,7 @@ export class UUICardContentNodeElement extends UUICardElement {
       href=${ifDefined(!this.disabled ? this.href : undefined)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined
+        this.target === '_blank' ? 'noopener noreferrer' : undefined,
       )}>
       <span id="icon">
         <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>

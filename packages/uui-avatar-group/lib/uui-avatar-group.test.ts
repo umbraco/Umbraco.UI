@@ -55,7 +55,7 @@ describe('UuiAvatarGroup Limit', async () => {
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
-      </uui-avatar-group>`
+      </uui-avatar-group>`,
     );
   });
 
@@ -76,7 +76,7 @@ describe('UuiAvatarGroup Limit', async () => {
       html` <uui-avatar-group>
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
-      </uui-avatar-group>`
+      </uui-avatar-group>`,
     );
 
     const small = avatarGroup.shadowRoot!.querySelector('small');

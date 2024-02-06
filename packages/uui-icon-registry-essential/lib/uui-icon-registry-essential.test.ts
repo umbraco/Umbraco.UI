@@ -24,7 +24,7 @@ describe('UUIIconRegistryEssentialElement', () => {
       registryElement = await fixture(
         html`<uui-icon-registry-essential
           ><uui-icon name="check"></uui-icon
-        ></uui-icon-registry-essential>`
+        ></uui-icon-registry-essential>`,
       );
 
       iconElement = registryElement.querySelector('uui-icon') as UUIIconElement;

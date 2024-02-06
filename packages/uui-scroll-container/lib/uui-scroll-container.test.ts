@@ -28,7 +28,7 @@ describe('UUIScrollContainerElement', () => {
         18 line<br />
         19 line<br />
         20 line
-      </uui-scroll-container>`
+      </uui-scroll-container>`,
     );
   });
 
@@ -70,7 +70,7 @@ describe('UUIScrollContainerElement with a lot of content', () => {
         18 line<br />
         19 line<br />
         20 line
-      </uui-scroll-container>`
+      </uui-scroll-container>`,
     );
   });
 
@@ -102,7 +102,7 @@ describe('UUIScrollContainerElement with very little content', () => {
     element = await fixture(
       html`<uui-scroll-container style="width:200px; height:200px;">
         very little content.
-      </uui-scroll-container>`
+      </uui-scroll-container>`,
     );
   });
   it('cannot scroll', async () => {
@@ -122,7 +122,7 @@ describe('properties', () => {
     element = await fixture(
       html`<uui-scroll-container style="width:200px; height:200px;">
         Hello tests
-      </uui-scroll-container>`
+      </uui-scroll-container>`,
     );
   });
 

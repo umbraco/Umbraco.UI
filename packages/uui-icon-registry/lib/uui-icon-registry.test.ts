@@ -40,7 +40,7 @@ describe('UUIIconRegistryElement', () => {
 
     beforeEach(async () => {
       registryElement = await fixture(
-        html`<uui-icon-registry></uui-icon-registry>`
+        html`<uui-icon-registry></uui-icon-registry>`,
       );
       registryElement.registry.defineIcon('myCustomIcon', myCustomSVGData);
 
@@ -78,7 +78,7 @@ describe('UUIIconRegistryElement', () => {
 
     beforeEach(async () => {
       registryElement = await fixture(
-        html`<uui-icon-registry></uui-icon-registry>`
+        html`<uui-icon-registry></uui-icon-registry>`,
       );
       registryElement.registry = new MyCustomIconRegistry();
 

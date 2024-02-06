@@ -27,13 +27,13 @@ export class UUIModalContainerElement extends LitElement {
   }
 
   protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
   ): void {
     super.firstUpdated(_changedProperties);
 
     this.style.setProperty(
       '--uui-modal-transition-duration',
-      this.transitionDurationMS + 'ms'
+      this.transitionDurationMS + 'ms',
     );
   }
 
@@ -44,25 +44,25 @@ export class UUIModalContainerElement extends LitElement {
       (this.modalSlot
         ?.assignedElements({ flatten: true })
         .filter(
-          el => el instanceof UUIModalElement
+          el => el instanceof UUIModalElement,
         ) as Array<UUIModalElement>) ?? [];
 
     const oldModals = existingModals.filter(
-      modal => this._modals!.indexOf(modal) === -1
+      modal => this._modals!.indexOf(modal) === -1,
     );
     oldModals.forEach(modal =>
-      modal.removeEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
+      modal.removeEventListener(UUIModalCloseEvent, this.#onCloseModalClose),
     );
 
     const newModals = this._modals.filter(
-      modal => existingModals.indexOf(modal) === -1
+      modal => existingModals.indexOf(modal) === -1,
     );
     newModals.forEach(modal =>
-      modal.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose)
+      modal.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose),
     );
 
     this._sidebars = this._modals.filter(
-      el => el instanceof UUIModalSidebarElement
+      el => el instanceof UUIModalSidebarElement,
     ) as Array<UUIModalSidebarElement>;
 
     if (this._modals.length === 0) {
@@ -79,7 +79,7 @@ export class UUIModalContainerElement extends LitElement {
 
     event.target?.removeEventListener(
       UUIModalCloseEvent,
-      this.#onCloseModalClose
+      this.#onCloseModalClose,
     );
     if (!this._modals || this._modals.length <= 1) {
       this.removeAttribute('backdrop');
@@ -105,7 +105,7 @@ export class UUIModalContainerElement extends LitElement {
     //set unique-index on all modals based on which modal of the same type it is, the one in front is 0.
     reverse?.forEach(modal => {
       const sameType = reverse?.filter(
-        m => m.constructor.name === modal.constructor.name
+        m => m.constructor.name === modal.constructor.name,
       );
 
       modal.uniqueIndex = sameType?.indexOf(modal) ?? 0;
@@ -127,7 +127,7 @@ export class UUIModalContainerElement extends LitElement {
         sidebar.updateComplete.then(() => {
           sidebar.style.setProperty(
             '--uui-modal-offset',
-            tempSidebarOffset + 'px'
+            tempSidebarOffset + 'px',
           );
         });
 

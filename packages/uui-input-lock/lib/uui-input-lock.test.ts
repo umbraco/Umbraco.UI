@@ -37,7 +37,7 @@ describe('UUIInputLockElement', () => {
   it('correctly toggles lock', async () => {
     await expect(element.readonly).to.be.true;
     const toggle = element.shadowRoot?.querySelector(
-      '#lock'
+      '#lock',
     ) as HTMLButtonElement;
     toggle.click();
     await expect(element.readonly).to.be.false;

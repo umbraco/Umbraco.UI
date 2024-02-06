@@ -136,7 +136,10 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         height: calc(var(--uui-toggle-size) - 4px);
         border-radius: 100px;
         background-color: var(--uui-color-selected-contrast);
-        transition: width 120ms ease, left 120ms ease, transform 120ms ease,
+        transition:
+          width 120ms ease,
+          left 120ms ease,
+          transform 120ms ease,
           background-color 120ms;
       }
 

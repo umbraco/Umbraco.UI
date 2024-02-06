@@ -8,5 +8,5 @@ execSync(
     packageName +
     ' build && cd packages/' +
     packageName +
-    ' && npm pack'
+    ' && npm pack',
 );

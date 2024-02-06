@@ -27,7 +27,7 @@ export const AAAOverview: StoryFn = () => {
   setTimeout(() => {
     const file = new File(['file'], 'File 1.txt', { type: 'text/plain' });
     const filePreview = document.getElementById(
-      'filePreview'
+      'filePreview',
     ) as UUIFilePreviewElement;
     filePreview.file = file;
   });
@@ -79,7 +79,7 @@ export const Image: StoryFn = () => {
     const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
 
     const imagePreview = document.getElementById(
-      'imagePreview'
+      'imagePreview',
     ) as UUIFilePreviewElement;
     imagePreview.file = file;
   };

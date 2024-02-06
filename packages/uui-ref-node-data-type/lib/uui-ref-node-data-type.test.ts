@@ -14,7 +14,7 @@ describe('UUIRefNodeDataTypeElement', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-ref-node-data-type name="Data Type"></uui-ref-node-data-type>`
+      html`<uui-ref-node-data-type name="Data Type"></uui-ref-node-data-type>`,
     );
   });
 

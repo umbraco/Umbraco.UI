@@ -8,7 +8,7 @@
 export const findAncestorByAttributeValue = (
   startNode: HTMLElement | ParentNode,
   attributeName: string,
-  attributeValue: string
+  attributeValue: string,
 ): HTMLElement | null => {
   let currentNode: typeof startNode | null = startNode;
 
@@ -28,7 +28,7 @@ export const findAncestorByAttributeValue = (
       return currentNode as HTMLElement; // Found a matching ancestor
     } else if (elementContainsAttribute) {
       return currentNode.querySelector(
-        `[${attributeName}="${attributeValue}"]`
+        `[${attributeName}="${attributeValue}"]`,
       ) as HTMLElement; // Found a matching ancestor
     }
 

@@ -5,9 +5,9 @@ describe('UUIVisuallyHiddenElement', () => {
   let element: UUIVisuallyHiddenElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-visually-hidden></uui-visually-hidden> `
-    );
+    element = await fixture(html`
+      <uui-visually-hidden></uui-visually-hidden>
+    `);
   });
 
   it('is defined with its own instance', () => {

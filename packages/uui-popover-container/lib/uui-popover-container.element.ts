@@ -95,7 +95,7 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#targetElement = findAncestorByAttributeValue(
       this,
       'popovertarget',
-      this.id
+      this.id,
     );
 
     this.#getScrollParents();
@@ -110,7 +110,7 @@ export class UUIPopoverContainerElement extends LitElement {
           oldState: event.oldState,
           newState: event.newState,
         },
-      })
+      }),
     );
 
     if (!this._open) {
@@ -213,11 +213,11 @@ export class UUIPopoverContainerElement extends LitElement {
 
     const topTargetVsScreenTop = Math.min(
       0,
-      targetRect.top + targetRect.height
+      targetRect.top + targetRect.height,
     );
     const topTargetVsScreenBottom = Math.max(
       Math.min(top, screenHeight - popoverRect.height),
-      targetRect.top - popoverRect.height
+      targetRect.top - popoverRect.height,
     );
 
     const topClamp = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
@@ -237,11 +237,11 @@ export class UUIPopoverContainerElement extends LitElement {
 
     const leftTargetVsScreenLeft = Math.min(
       0,
-      targetRect.left + targetRect.width
+      targetRect.left + targetRect.width,
     );
     const leftTargetVsScreenRight = Math.max(
       Math.min(left, screenWidth - popoverRect.width),
-      targetRect.left - popoverRect.width
+      targetRect.left - popoverRect.width,
     );
 
     const leftClamp = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
@@ -301,10 +301,10 @@ export class UUIPopoverContainerElement extends LitElement {
       direction === 'top'
         ? 'bottom'
         : direction === 'bottom'
-        ? 'top'
-        : direction === 'left'
-        ? 'right'
-        : 'left';
+          ? 'top'
+          : direction === 'left'
+            ? 'right'
+            : 'left';
     this._actualPlacement =
       `${oppositeDirection}-${position}` as PopoverContainerPlacement;
   }

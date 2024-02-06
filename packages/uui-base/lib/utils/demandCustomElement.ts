@@ -8,14 +8,14 @@
 export const demandCustomElement = (
   requester: HTMLElement,
   elementName: string,
-  message: string = `This element has to be present for ${requester.nodeName} to work appropriate.`
+  message: string = `This element has to be present for ${requester.nodeName} to work appropriate.`,
 ) => {
   if (!customElements.get(elementName)) {
     console.warn(
       `%c ${requester.nodeName} requires ${elementName} element to be registered!`,
       'font-weight: bold;',
       message,
-      requester
+      requester,
     );
   }
 };

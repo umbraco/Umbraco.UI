@@ -103,7 +103,7 @@ export class UUIRefNodeElement extends UUIRefElement {
       href=${ifDefined(!this.disabled ? this.href : undefined)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined
+        this.target === '_blank' ? 'noopener noreferrer' : undefined,
       )}>
       ${this.#renderContent()}
     </a>`;

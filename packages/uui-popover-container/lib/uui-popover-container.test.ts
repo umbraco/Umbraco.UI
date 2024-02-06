@@ -5,9 +5,9 @@ describe('UUIPopoverContainerElement', () => {
   let element: UUIPopoverContainerElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-popover-container></uui-popover-container> `
-    );
+    element = await fixture(html`
+      <uui-popover-container></uui-popover-container>
+    `);
   });
 
   it('is defined with its own instance', () => {

@@ -39,17 +39,17 @@ export const AAAOverview: Story = props => html`
     <uui-table-head
       style="background-color: ${props.headBackgroundColor}; color: ${props.headColor}">
       ${ArrayOfUmbracoWords(3).map(
-        el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
+        el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`,
       )}
     </uui-table-head>
     <uui-table-row>
       ${ArrayOfUmbracoWords(3).map(
-        el => html`<uui-table-cell>${el}</uui-table-cell>`
+        el => html`<uui-table-cell>${el}</uui-table-cell>`,
       )}
     </uui-table-row>
     <uui-table-row>
       ${ArrayOfUmbracoWords(3).map(
-        el => html`<uui-table-cell>${el}</uui-table-cell>`
+        el => html`<uui-table-cell>${el}</uui-table-cell>`,
       )}
     </uui-table-row>
   </uui-table>
@@ -139,17 +139,17 @@ export const OverflowDetection: Story = () => html`
         style="width: 5%; min-width: 32px; max-width: 48px;"></uui-table-column>
       <uui-table-head>
         ${ArrayOfUmbracoWords(7).map(
-          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`,
         )}
       </uui-table-head>
       <uui-table-row>
         ${ArrayOfUmbracoWords(7).map(
-          el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
+          el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
       <uui-table-row>
         ${ArrayOfUmbracoWords(7).map(
-          el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`
+          el => html`<uui-table-cell clip-text>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
     </uui-table>
@@ -187,17 +187,17 @@ export const InABox: Story = () => html`
     <uui-table>
       <uui-table-head>
         ${ArrayOfUmbracoWords(7).map(
-          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`
+          el => html`<uui-table-head-cell>${el}</uui-table-head-cell>`,
         )}
       </uui-table-head>
       <uui-table-row>
         ${ArrayOfUmbracoWords(7).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
       <uui-table-row>
         ${ArrayOfUmbracoWords(7).map(
-          el => html`<uui-table-cell>${el}</uui-table-cell>`
+          el => html`<uui-table-cell>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
     </uui-table>

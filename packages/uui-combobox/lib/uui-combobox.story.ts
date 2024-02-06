@@ -143,7 +143,7 @@ const Template: StoryFn = props => {
                   : option}
                 style="padding: 8px">
                 ${option}
-              </uui-combobox-list-option>`
+              </uui-combobox-list-option>`,
         )}
       </uui-combobox-list>
     </uui-combobox>
@@ -275,7 +275,7 @@ Avatars.args = {
   renderMod: (avatar: any) => renderAvatar(avatar),
   filter: (options: any[], search: string) =>
     options.filter(option =>
-      option.name.toLowerCase().includes(search.toLowerCase())
+      option.name.toLowerCase().includes(search.toLowerCase()),
     ),
 };
 
@@ -314,21 +314,21 @@ export const CountrySelect: StoryFn = props => {
     ${repeat(
       region.countries,
       (item: any) => item.ISOAlpha3Code,
-      item => renderCountry(item)
+      item => renderCountry(item),
     )}
   `;
 
   const filterOptions = (regions: any, search: string): any[] => {
     const filteredRegions = regions.filter((region: any) =>
       region.countries.some((country: any) =>
-        country.countryName.toLowerCase().includes(search.toLowerCase())
-      )
+        country.countryName.toLowerCase().includes(search.toLowerCase()),
+      ),
     );
 
     const filterFinal = filteredRegions.map((region: any) => ({
       name: region.name,
       countries: region.countries.filter((country: any) =>
-        country.countryName.toLowerCase().includes(search.toLowerCase())
+        country.countryName.toLowerCase().includes(search.toLowerCase()),
       ),
     }));
 
@@ -337,7 +337,7 @@ export const CountrySelect: StoryFn = props => {
 
   const renderFilteredOptions = () => {
     const options = filterOptions(props.regions, props.search).map(
-      (region: any, i: number) => renderRegion(region, i)
+      (region: any, i: number) => renderRegion(region, i),
     );
 
     return options.length > 0

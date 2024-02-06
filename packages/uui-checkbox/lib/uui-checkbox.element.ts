@@ -99,7 +99,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         width: 1em;
         height: 1em;
         line-height: 0;
-        transition: fill 120ms, opacity 120ms;
+        transition:
+          fill 120ms,
+          opacity 120ms;
         color: var(--uui-color-selected-contrast);
         opacity: 0;
       }
@@ -115,7 +117,10 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
           var(--uui-checkbox-border-radius, var(--uui-border-radius)) * 0.5
         );
         background-color: var(--uui-color-selected);
-        transition: transform 120ms ease, opacity 120ms, background-color 120ms;
+        transition:
+          transform 120ms ease,
+          opacity 120ms,
+          background-color 120ms;
         transform: scale(0);
         opacity: 0;
       }

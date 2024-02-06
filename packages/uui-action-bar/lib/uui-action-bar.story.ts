@@ -49,7 +49,7 @@ export const AAAOverview: StoryFn = props => html`
             look="${props.look}"
             color="${props.color}">
             <uui-icon name="${el}"></uui-icon>
-          </uui-button>`
+          </uui-button>`,
       )}
     </uui-action-bar>
   </uui-icon-registry-essential>
@@ -71,7 +71,7 @@ export const Single = () => {
                 <uui-icon name="delete"></uui-icon>
               </uui-button>
             </uui-action-bar>
-          </div> `
+          </div> `,
       )}
     </uui-icon-registry-essential>
   `;
@@ -97,12 +97,12 @@ export const LooksAndColors = () => {
                         .look="${look as any}"
                         .color="${color as any}">
                         <uui-icon name="${el}"></uui-icon>
-                      </uui-button>`
+                      </uui-button>`,
                   )}
                 </uui-action-bar>
-              `
+              `,
             )}
-          </div> `
+          </div> `,
       )}
     </uui-icon-registry-essential>
   `;

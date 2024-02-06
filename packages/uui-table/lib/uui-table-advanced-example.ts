@@ -67,7 +67,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
   }
   private _deselectRowHandler(item: TableItem) {
     this._selection = this._selection.filter(
-      selectionKey => selectionKey !== item.key
+      selectionKey => selectionKey !== item.key,
     );
     this._selectionMode = this._selection.length > 0;
   }
@@ -108,10 +108,10 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         sort: (items: Array<TableItem>, desc: boolean) => {
           return desc
             ? [...items].sort(
-                (a, b) => +new Date(b.signUpDate) - +new Date(a.signUpDate)
+                (a, b) => +new Date(b.signUpDate) - +new Date(a.signUpDate),
               )
             : [...items].sort(
-                (a, b) => +new Date(a.signUpDate) - +new Date(b.signUpDate)
+                (a, b) => +new Date(a.signUpDate) - +new Date(b.signUpDate),
               );
         },
       },
@@ -128,10 +128,10 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         sort: (items: Array<TableItem>, desc: boolean) => {
           return desc
             ? [...items].sort(
-                (a, b) => Number(a.newsletter) - Number(b.newsletter)
+                (a, b) => Number(a.newsletter) - Number(b.newsletter),
               )
             : [...items].sort(
-                (a, b) => Number(b.newsletter) - Number(a.newsletter)
+                (a, b) => Number(b.newsletter) - Number(a.newsletter),
               );
         },
       },

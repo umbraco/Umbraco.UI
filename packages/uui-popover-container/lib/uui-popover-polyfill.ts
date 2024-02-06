@@ -20,7 +20,7 @@ export function polyfill() {
               oldState: event.oldState,
               newState: event.newState,
             },
-          })
+          }),
         );
 
         listener(event);
@@ -89,7 +89,7 @@ export function polyfill() {
     this.style.display = 'block';
     this.polyfill_parentPopoverContainer?.addEventListener(
       'polyfill-beforetoggle',
-      this.polyfill_onParentPopoverUpdate
+      this.polyfill_onParentPopoverUpdate,
     );
     window.addEventListener('click', this.polyfill_onClick);
     window.addEventListener('focusout', this.polyfill_onFocusout);
@@ -119,7 +119,7 @@ export function polyfill() {
 
       //look in slot for existing style tag and remove it.
       const existingStyleTag = this.shadowRoot.host.querySelector(
-        '#uui-popover-polyfill-style'
+        '#uui-popover-polyfill-style',
       );
 
       if (existingStyleTag) {
@@ -143,7 +143,7 @@ export function polyfill() {
       this.polyfill_hasBeenMovedToBody = false;
       this.polyfill_originalParent?.insertBefore(
         this,
-        this.polyfill_originalNextSibling
+        this.polyfill_originalNextSibling,
       );
     }
 
@@ -151,7 +151,7 @@ export function polyfill() {
     window.removeEventListener('focusout', this.polyfill_onFocusout);
     this.polyfill_parentPopoverContainer?.removeEventListener(
       'polyfill-beforetoggle',
-      this.polyfill_onParentPopoverUpdate
+      this.polyfill_onParentPopoverUpdate,
     );
     this.polyfill_onBeforeToggle({
       oldState: 'open',

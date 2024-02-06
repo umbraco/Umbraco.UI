@@ -26,7 +26,7 @@ export declare class PopoverTargetMixinInterface {
  * @mixin
  */
 export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
-  superClass: T
+  superClass: T,
 ) => {
   /**
    * Popover target mixin class containing the popover target functionality.
@@ -54,7 +54,7 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
       const popoverContainerElement = findAncestorByAttributeValue(
         this,
         'id',
-        this.popoverContainerElement
+        this.popoverContainerElement,
       );
       if (!popoverContainerElement) return;
 

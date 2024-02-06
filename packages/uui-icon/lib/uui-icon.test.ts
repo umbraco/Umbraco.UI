@@ -197,12 +197,12 @@ describe('UUIIconElement', () => {
 
     beforeEach(async () => {
       registryElement = await fixture(
-        html`<uui-icon-registry></uui-icon-registry>`
+        html`<uui-icon-registry></uui-icon-registry>`,
       );
       registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
       testElement = await fixture(
-        html`<uui-test-shadow-dom></uui-test-shadow-dom>`
+        html`<uui-test-shadow-dom></uui-test-shadow-dom>`,
       );
       registryElement.appendChild(testElement);
 

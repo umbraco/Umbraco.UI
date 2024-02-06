@@ -273,10 +273,10 @@ export const LooksAndColors: Story = props => html`
               ?compact=${props.compact}
               style="margin-right:12px;"
               >${uppercaseFirstLetter(look)}</uui-button
-            >`
+            >`,
         )}
       </div>
-    `
+    `,
   )}
 `;
 LooksAndColors.args = { label: 'Button', look: 'default', color: 'default' };
@@ -415,7 +415,7 @@ export const MultiLine: Story = props => {
         type=${props.type}
         style=${cssProps
           .map(cssProp =>
-            props[cssProp] ? `${cssProp}: ${props[cssProp]}` : ''
+            props[cssProp] ? `${cssProp}: ${props[cssProp]}` : '',
           )
           .reduce(reducer)}
         ?disabled=${props.disabled}

@@ -10,7 +10,7 @@ import { ActiveMixin, SelectableMixin } from '@umbraco-ui/uui-base/lib/mixins';
  */
 @defineElement('uui-combobox-list-option')
 export class UUIComboboxListOptionElement extends SelectableMixin(
-  ActiveMixin(LitElement)
+  ActiveMixin(LitElement),
 ) {
   private _value: string | undefined;
 

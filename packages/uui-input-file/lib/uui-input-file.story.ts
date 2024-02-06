@@ -162,7 +162,7 @@ export const MultiplePrevalues: StoryFn = () => {
     const file2 = new File([imageBlob], 'File 2', { type: 'image/jpeg' });
 
     const fileInput = document.getElementById(
-      'inputFileMultiplePreValues'
+      'inputFileMultiplePreValues',
     ) as any;
 
     const formData = new FormData();

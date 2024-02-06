@@ -25,7 +25,7 @@ export class UUIIconRegistryElement extends LitElement {
     this._icons = icons;
     if (this._registry) {
       Object.entries(this._icons).forEach(([key, value]) =>
-        this._registry.defineIcon(key, value)
+        this._registry.defineIcon(key, value),
       );
     }
   }

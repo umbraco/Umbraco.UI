@@ -44,7 +44,7 @@ describe('UUILabelElement', () => {
         html`<div>
           <uui-label for="MyInput">Visual label</uui-label
           ><input id="MyInput" />
-        </div>`
+        </div>`,
       );
       await elementUpdated(scene);
       inputEl = scene.querySelector('input') as HTMLInputElement;
@@ -96,7 +96,7 @@ describe('UUILabelElement', () => {
       scene = await fixture(
         html`<div>
           <uui-label .for=${forElement}>Visual label</uui-label>${forElement}
-        </div>`
+        </div>`,
       );
       await elementUpdated(scene);
     });
