@@ -22,7 +22,7 @@ const tsConfigBase = {
 };
 
 const generatePackageTSConfig = () => {
-  packageDirectoryNames.forEach(packageDirectoryName => {
+  packageDirectoryNames.forEach(async packageDirectoryName => {
     const packageDirectory = path.join(packagesRoot, packageDirectoryName);
     const packageJSONPath = path.join(packageDirectory, 'package.json');
     const packageJSONExists = fs.existsSync(packageJSONPath);
@@ -36,7 +36,7 @@ const generatePackageTSConfig = () => {
 
     if (packageJSONExists) {
       const packageJSONData = JSON.parse(
-        fs.readFileSync(packageJSONPath).toString()
+        fs.readFileSync(packageJSONPath).toString(),
       );
       const { dependencies, devDependencies, peerDependencies } =
         packageJSONData;
@@ -47,7 +47,7 @@ const generatePackageTSConfig = () => {
       };
       const dependencyNames = Object.keys(allDependencies);
       const internalDependencies = dependencyNames.filter(name =>
-        name.startsWith(packageNamespace)
+        name.startsWith(packageNamespace),
       );
 
       const references = internalDependencies.map(name => {
@@ -58,7 +58,7 @@ const generatePackageTSConfig = () => {
       const tsconfigPath = path.join(packageDirectory, 'tsconfig.json');
 
       const content = TSCONFIG_COMMENT + JSON.stringify(tsConfig, null, '  ');
-      const formattedContent = prettier.format(content, {
+      const formattedContent = await prettier.format(content, {
         parser: 'json',
       });
 
