@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -43,7 +43,7 @@
     "@umbraco-ui/uui-badge": "1.6.0",
     "@umbraco-ui/uui-base": "1.6.0",
     "@umbraco-ui/uui-boolean-input": "1.6.0",
-    "@umbraco-ui/uui-box": "1.6.0",
+    "@umbraco-ui/uui-box": "1.6.2",
     "@umbraco-ui/uui-breadcrumbs": "1.6.0",
     "@umbraco-ui/uui-button": "1.6.0",
     "@umbraco-ui/uui-button-group": "1.6.0",
@@ -63,7 +63,7 @@
     "@umbraco-ui/uui-combobox": "1.6.0",
     "@umbraco-ui/uui-combobox-list": "1.6.0",
     "@umbraco-ui/uui-css": "1.6.0",
-    "@umbraco-ui/uui-dialog": "1.6.0",
+    "@umbraco-ui/uui-dialog": "1.6.2",
     "@umbraco-ui/uui-dialog-layout": "1.6.0",
     "@umbraco-ui/uui-file-dropzone": "1.6.0",
     "@umbraco-ui/uui-file-preview": "1.6.0",
@@ -114,9 +114,9 @@
     "@umbraco-ui/uui-tabs": "1.6.1",
     "@umbraco-ui/uui-tag": "1.6.0",
     "@umbraco-ui/uui-textarea": "1.6.0",
-    "@umbraco-ui/uui-toast-notification": "1.6.0",
-    "@umbraco-ui/uui-toast-notification-container": "1.6.0",
-    "@umbraco-ui/uui-toast-notification-layout": "1.6.0",
+    "@umbraco-ui/uui-toast-notification": "1.6.2",
+    "@umbraco-ui/uui-toast-notification-container": "1.6.2",
+    "@umbraco-ui/uui-toast-notification-layout": "1.6.2",
     "@umbraco-ui/uui-toggle": "1.6.0",
     "@umbraco-ui/uui-visually-hidden": "1.6.0"
   },

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/umbraco/Umbraco.UI/compare/v1.6.1...v1.6.2) (2024-02-06)
+
+### Bug Fixes
+
+- bump dependent uui-css to correct version range ([008b0e5](https://github.com/umbraco/Umbraco.UI/commit/008b0e5a138119fb32ba3856bc6bcc9d01083535))
+
 # [1.6.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.0-rc.4...v1.6.0) (2024-02-02)
 
 **Note:** Version bump only for package @umbraco-ui/uui-toast-notification
