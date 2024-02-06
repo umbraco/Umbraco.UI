@@ -65,7 +65,7 @@
     "@lerna-lite/publish": "2.6.0",
     "@lerna-lite/run": "2.6.0",
     "@lerna-lite/version": "2.6.0",
-    "@open-wc/testing": "3.2.0",
+    "@open-wc/testing": "4.0.0",
     "@rollup/plugin-node-resolve": "15.2.3",
     "@storybook/addon-a11y": "7.6.7",
     "@storybook/addon-actions": "7.6.7",
