@@ -68,7 +68,7 @@ export const WithBorders: Story = () => html`
     display: flex;
     --uui-tab-divider: var(--uui-color-divider-standalone);
     ">
-    <uui-tab-group style="display: flex;">
+    <uui-tab-group>
       <uui-tab label="content"> Content </uui-tab>
       <uui-tab label="Packages"> Packages </uui-tab>
       <uui-tab label="Media" active> Media </uui-tab>
@@ -87,7 +87,7 @@ export const Navbar: Story = () => html`
     height: 60px;
     font-size: var(--uui-type-default-size);
     ">
-    <uui-tab-group style="display: flex;">
+    <uui-tab-group>
       <uui-tab label="content"> Content </uui-tab>
       <uui-tab label="Packages" active> Packages </uui-tab>
       <uui-tab label="Media"> Media </uui-tab>
@@ -291,17 +291,49 @@ Async.parameters = {
   },
 };
 
+export const FlexLayout: Story = props => html`
+  <uui-icon-registry-essential>
+    <div style="display: flex;">
+      <uui-input style="min-width: 200px; flex-grow: 1"></uui-input>
+      <uui-tab-group
+        dropdown-direction="horizontal"
+        style="
+        ${props.inlineStyles}">
+        <uui-tab label="content">Content</uui-tab>
+        <uui-tab active label="packages">Packages</uui-tab>
+        <uui-tab label="media">Media</uui-tab>
+        <uui-tab label="settings">Settings</uui-tab>
+        <uui-tab label="translations">Translations</uui-tab>
+      </uui-tab-group>
+    </div>
+  </uui-icon-registry-essential>
+`;
+FlexLayout.parameters = {
+  docs: {
+    source: {
+      code: `
+      <div style="display: flex">
+        <uui-tab-group style="margin: auto">
+          <uui-tab label="content">Content</uui-tab>
+          <uui-tab active label="packages">Packages</uui-tab>
+          <uui-tab label="media">Media</uui-tab>
+          <uui-tab label="settings">Settings</uui-tab>
+          <uui-tab label="translations">Translations</uui-tab>
+          </uui-tab-group>
+      </div>
+      `,
+    },
+  },
+};
+
 export const CenterAlign: Story = props => html`
   <h3>Tabs implemented into Flex-box scenario</h3>
   <p>Here the tab group is center aligned in a flex-box container.</p>
   <uui-icon-registry-essential>
-    <div style="display: flex;">
+    <div style="display: flex; justify-content: center">
       <uui-tab-group
         dropdown-direction="horizontal"
-        style="
-          margin: auto;
-        --uui-tab-group-gap: 25px;
-        font-size: var(--uui-type-small-size);
+        style="--uui-tab-group-gap: 25px;
         ${props.inlineStyles}">
         <uui-tab label="content">Content</uui-tab>
         <uui-tab active label="packages">Packages</uui-tab>
@@ -334,13 +366,11 @@ export const RightAlign: Story = props => html`
   <h3>Tabs implemented into Flex-box scenario</h3>
   <p>Here the tab group is right aligned in a flex-box container.</p>
   <uui-icon-registry-essential>
-    <div style="display: flex;">
+    <div style="display: flex; justify-content: right">
       <uui-tab-group
         dropdown-direction="horizontal"
         style="
-          margin-left: auto;
         --uui-tab-group-gap: 25px;
-        font-size: var(--uui-type-small-size);
         ${props.inlineStyles}">
         <uui-tab label="content">Content</uui-tab>
         <uui-tab active label="packages">Packages</uui-tab>
