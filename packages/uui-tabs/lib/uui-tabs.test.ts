@@ -3,6 +3,9 @@ import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { UUITabGroupElement } from './uui-tab-group.element';
 import { UUITabElement } from './uui-tab.element';
 
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-popover-container/lib';
+
 describe('UuiTab', () => {
   let element: UUITabGroupElement;
   let tabs: UUITabElement[];
