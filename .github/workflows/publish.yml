@@ -38,7 +38,7 @@ jobs:
           fetch-depth: '0'
 
       - name: Cache build setup
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-cache-${{ github.sha }}
