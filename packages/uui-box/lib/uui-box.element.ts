@@ -3,7 +3,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import type { UUIInterfaceHeading } from '@umbraco-ui/uui-base/lib';
-import { StaticValue, html, literal, unsafeStatic } from 'lit/static-html.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 function slotHasContent(target: EventTarget | null): boolean {
   return target
@@ -42,15 +42,14 @@ export class UUIBoxElement extends LitElement {
    */
   @property({ attribute: 'headline-variant' })
   set headlineVariant(value: UUIInterfaceHeading) {
-    if (!value) {
-      this._headlineVariantTag = literal`h5`;
-    } else {
-      this._headlineVariantTag = unsafeStatic(value);
-    }
+    this._headlineVariantTag = value;
+  }
+  get headlineVariant() {
+    return this._headlineVariantTag;
   }
 
   @state()
-  private _headlineVariantTag: StaticValue = literal`h5`;
+  private _headlineVariantTag: UUIInterfaceHeading = 'h5';
 
   @state()
   private _headlineSlotHasContent = false;
@@ -89,7 +88,7 @@ export class UUIBoxElement extends LitElement {
           ? ''
           : 'display: none'
       }>
-      <${this._headlineVariantTag}
+      <${unsafeStatic(this._headlineVariantTag)}
         id="headline"
         class="uui-h5"
         style=${
@@ -99,7 +98,7 @@ export class UUIBoxElement extends LitElement {
         }>
         ${this.headline}
         <slot name="headline" @slotchange=${this._headlineSlotChanged}></slot>
-      </${this._headlineVariantTag}>
+      </${unsafeStatic(this._headlineVariantTag)}>
       <slot name="header" @slotchange=${this._headerSlotChanged}></slot>
       <slot name="header-actions" @slotchange=${
         this._headerActionsSlotChanged
