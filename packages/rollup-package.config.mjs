@@ -65,7 +65,7 @@ const createBundleConfig = (bundle, namespace) => {
 
   return bundle
     ? {
-        input: `lib/${bundle}.umd.ts`,
+        input: `lib/${bundle}.ts`,
         output: {
           file: `./dist/${bundleName}.min.js`,
           format: 'umd',
