@@ -263,6 +263,7 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         border: 1px solid
           var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;
+        width: 100%;
       }
 
       #native:focus {
