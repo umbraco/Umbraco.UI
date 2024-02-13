@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.0-rc.0...v1.7.0) (2024-02-13)
+
+### Bug Fixes
+
+- **uui-select:** make native inner select follow the width of the outer element ([39c08dd](https://github.com/umbraco/Umbraco.UI/commit/39c08dd8e66a962db1f6cf7b32883fb258b42cc6))
+
 # [1.7.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.6.1...v1.7.0-rc.0) (2024-02-06)
 
 **Note:** Version bump only for package @umbraco-ui/uui-select
