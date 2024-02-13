@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-pagination",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "1.7.0",
-    "@umbraco-ui/uui-button": "1.7.0",
+    "@umbraco-ui/uui-button": "1.7.1",
     "@umbraco-ui/uui-button-group": "1.7.0"
   },
   "scripts": {

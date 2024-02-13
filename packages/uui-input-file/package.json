@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input-file",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -32,7 +32,7 @@
   "dependencies": {
     "@umbraco-ui/uui-action-bar": "1.7.0",
     "@umbraco-ui/uui-base": "1.7.0",
-    "@umbraco-ui/uui-button": "1.7.0",
+    "@umbraco-ui/uui-button": "1.7.1",
     "@umbraco-ui/uui-file-dropzone": "1.7.0",
     "@umbraco-ui/uui-icon": "1.7.0",
     "@umbraco-ui/uui-icon-registry-essential": "1.7.0"

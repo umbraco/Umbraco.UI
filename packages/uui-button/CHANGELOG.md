@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/umbraco/Umbraco.UI/compare/v1.7.0...v1.7.1) (2024-02-13)
+
+### Bug Fixes
+
+- **uui-button:** conditionally render aria-label ([9f4d928](https://github.com/umbraco/Umbraco.UI/commit/9f4d9286b13af9f22ce7900d58cbaa3938aff2f1))
+
 # [1.7.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.0-rc.0...v1.7.0) (2024-02-13)
 
 **Note:** Version bump only for package @umbraco-ui/uui-button
