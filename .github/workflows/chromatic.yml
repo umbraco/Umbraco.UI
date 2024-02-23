@@ -56,7 +56,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Publish to Chromatic
-        uses: chromaui/action@v10
+        uses: chromaui/action@v11
         continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
