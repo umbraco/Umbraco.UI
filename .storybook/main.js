@@ -1,4 +1,6 @@
 import { dirname, join } from 'path';
+import turbosnap from 'vite-plugin-turbosnap';
+import { mergeConfig } from 'vite';
 const remarkGfm = require('remark-gfm').default;
 const tsconfigPaths = require('vite-tsconfig-paths').default;
 
@@ -44,12 +46,21 @@ module.exports = {
     const processLitCSSPlugin = (
       await import('../scripts/processLitCSSPlugin.mjs')
     ).default;
-    config.plugins.push(processLitCSSPlugin());
-    if (configType === 'DEVELOPMENT') {
-      // add plugins
-      config.plugins.push(tsconfigPaths());
-    }
-    return config;
+
+    return mergeConfig(config, {
+      plugins: [
+        processLitCSSPlugin(),
+        configType === 'PRODUCTION'
+          ? [
+              turbosnap({
+                // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
+                rootDir: process.cwd(),
+              }),
+            ]
+          : [],
+        configType === 'DEVELOPMENT' ? [tsconfigPaths()] : [],
+      ],
+    });
   },
   docs: {
     autodocs: true,

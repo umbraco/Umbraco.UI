@@ -47,7 +47,7 @@
     "pack": "node ./scripts/pack-package.js",
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "npm run bootstrap && npm run storybook:analyze && storybook dev -p 6006",
-    "storybook:build": "npm run bootstrap && npm run storybook:analyze && storybook build --webpack-stats-json",
+    "storybook:build": "npm run bootstrap && npm run storybook:analyze && storybook build",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "postinstall": "npm run bootstrap"
   },
@@ -82,7 +82,7 @@
     "@web/test-runner-playwright": "0.11.0",
     "autoprefixer": "10.4.17",
     "babel-loader": "9.1.3",
-    "chromatic": "10.7.1",
+    "chromatic": "11.0.0",
     "element-internals-polyfill": "1.3.10",
     "esbuild": "0.20.0",
     "eslint": "8.56.0",
@@ -129,6 +129,7 @@
     "turbo": "1.12.2",
     "typescript": "5.2.2",
     "vite": "5.0.12",
+    "vite-plugin-turbosnap": "^1.0.3",
     "vite-tsconfig-paths": "4.3.1",
     "web-component-analyzer": "2.0.0"
   },
