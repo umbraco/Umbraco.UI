@@ -9,10 +9,12 @@ type NativeFormControlElement = HTMLInputElement; // Eventually use a specific i
 
 // TODO: make it possible to define FormDataEntryValue type.
 // TODO: Prefix with UUI
-export declare abstract class UUIFormControlMixinInterface extends LitElement {
+export declare abstract class UUIFormControlMixinInterface<
+  ValueType = FormDataEntryValue | FormData
+> extends LitElement {
   formAssociated: boolean;
-  get value(): FormDataEntryValue | FormData;
-  set value(newValue: FormDataEntryValue | FormData);
+  get value(): ValueType;
+  set value(newValue: ValueType);
   name: string;
   formResetCallback(): void;
   checkValidity(): boolean;
@@ -20,7 +22,7 @@ export declare abstract class UUIFormControlMixinInterface extends LitElement {
   get validity(): ValidityState;
   public setCustomValidity(error: string): void;
   public submit(): void;
-  protected _value: FormDataEntryValue | FormData;
+  protected _value: ValueType;
   protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
   protected addValidator: (
@@ -66,7 +68,10 @@ interface Validator {
  * @param {Object} superClass - superclass to be extended.
  * @mixin
  */
-export const UUIFormControlMixin = <T extends Constructor<LitElement>>(
+export const UUIFormControlMixin = <
+  ValueType = FormDataEntryValue | FormData,
+  T extends Constructor<LitElement>
+>(
   superClass: T
 ) => {
   abstract class UUIFormControlMixinClass extends superClass {
@@ -89,15 +94,16 @@ export const UUIFormControlMixin = <T extends Constructor<LitElement>>(
 
     /**
      * Value of this form control.
+     * If you dont want the setFormValue to be called on the ElementInternals, then prevent calling this method, by not calling super.value = newValue in your implementation of the value setter method.
      * @type {string}
-     * @attr
+     * @attr value
      * @default ''
      */
     @property() // Do not 'reflect' as the attribute is used as fallback.
-    get value() {
+    get value(): ValueType {
       return this.#value;
     }
-    set value(newValue) {
+    set value(newValue: ValueType) {
       const oldValue = this.#value;
       this.#value = newValue;
       if (
@@ -151,7 +157,7 @@ export const UUIFormControlMixin = <T extends Constructor<LitElement>>(
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    #value: FormDataEntryValue | FormData = '';
+    #value: ValueType = '';
     #internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     #validators: Validator[] = [];
@@ -370,6 +376,8 @@ export const UUIFormControlMixin = <T extends Constructor<LitElement>>(
       return this.#internals?.validationMessage;
     }
   }
-  return UUIFormControlMixinClass as unknown as Constructor<UUIFormControlMixinInterface> &
+  return UUIFormControlMixinClass as unknown as Constructor<
+    UUIFormControlMixinInterface<ValueType>
+  > &
     T;
 };
