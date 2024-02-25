@@ -9,7 +9,7 @@ type NativeFormControlElement = HTMLInputElement; // Eventually use a specific i
 
 // TODO: make it possible to define FormDataEntryValue type.
 // TODO: Prefix with UUI
-export declare abstract class FormControlMixinInterface extends LitElement {
+export declare abstract class UUIFormControlMixinInterface extends LitElement {
   formAssociated: boolean;
   get value(): FormDataEntryValue | FormData;
   set value(newValue: FormDataEntryValue | FormData);
@@ -69,7 +69,7 @@ interface Validator {
 export const FormControlMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
-  abstract class FormControlMixinClass extends superClass {
+  abstract class UUIFormControlMixinClass extends superClass {
     /**
      * This is a static class field indicating that the element is can be used inside a native form and participate in its events.
      * It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.
@@ -370,6 +370,6 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       return this.#internals?.validationMessage;
     }
   }
-  return FormControlMixinClass as unknown as Constructor<FormControlMixinInterface> &
+  return UUIFormControlMixinClass as unknown as Constructor<UUIFormControlMixinInterface> &
     T;
 };
