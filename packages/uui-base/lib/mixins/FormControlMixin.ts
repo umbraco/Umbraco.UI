@@ -222,7 +222,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      */
     protected addValidator(
       flagKey: FlagTypes,
-      getMessageMethod: () => String,
+      getMessageMethod: () => string,
       checkMethod: () => boolean
     ): Validator {
       const obj = {
@@ -344,7 +344,11 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
     public formResetCallback() {
       this.pristine = true;
-      this.value = this.getAttribute('value') || '';
+      this.value = this.getDefaultValue();
+    }
+
+    protected getDefaultValue() {
+      return this.getAttribute('value') ?? '';
     }
 
     public checkValidity() {
