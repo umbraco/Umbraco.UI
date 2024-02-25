@@ -1,4 +1,7 @@
-import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  UUIFormControlMixin,
+  LabelMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
@@ -12,8 +15,8 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputElement extends FormControlMixin(
-  LabelMixin('', LitElement),
+export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
+  LabelMixin('', LitElement)
 ) {
   /** intentional overwrite of FormControlMixins value getter and setter method. */
   get value() {
@@ -28,7 +31,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
       'setFormValue' in window.ElementInternals.prototype
     ) {
       this._internals.setFormValue(
-        this._checked && this.name !== '' ? this._value : null,
+        this._checked && this.name !== '' ? this._value : null
       );
     }
 
@@ -65,7 +68,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
         ? this._value
           ? this._value
           : 'on'
-        : null,
+        : null
     );
     this.requestUpdate('checked', oldValue);
   }
@@ -113,7 +116,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   }
 
   protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>,
+    _changedProperties: Map<string | number | symbol, unknown>
   ): void {
     super.firstUpdated(_changedProperties);
 

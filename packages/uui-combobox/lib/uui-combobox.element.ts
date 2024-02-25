@@ -1,4 +1,4 @@
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
@@ -28,7 +28,7 @@ import { UUIComboboxEvent } from './UUIComboboxEvent';
  * @description - Filterable combobox
  */
 @defineElement('uui-combobox')
-export class UUIComboboxElement extends FormControlMixin(LitElement) {
+export class UUIComboboxElement extends UUIFormControlMixin(LitElement) {
   @property({ attribute: 'value', reflect: true })
   get value() {
     return this._value;
@@ -165,11 +165,11 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
       this.#comboboxList.for = this;
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.CHANGE,
-        this.#onChange,
+        this.#onChange
       );
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.INNER_SLOT_CHANGE,
-        this.#onSlotChange,
+        this.#onSlotChange
       );
 
       await this.updateComplete;
@@ -185,7 +185,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     if (this.#comboboxList) {
       this.#comboboxList.value = value;
       requestAnimationFrame(
-        () => (this._displayValue = this.#comboboxList.displayValue || ''),
+        () => (this._displayValue = this.#comboboxList.displayValue || '')
       );
     }
   }

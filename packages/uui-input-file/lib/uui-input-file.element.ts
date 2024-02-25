@@ -2,7 +2,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { UUIFileDropzoneElement } from '@umbraco-ui/uui-file-dropzone/lib';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { iconDelete } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { repeat } from 'lit/directives/repeat.js';
@@ -11,10 +11,10 @@ import { repeat } from 'lit/directives/repeat.js';
 /**
  * @element uui-input-file
  * @description - A form associated file input that supports multiple files.
- * @extends FormControlMixin
+ * @extends UUIFormControlMixin
  */
 @defineElement('uui-input-file')
-export class UUIInputFileElement extends FormControlMixin(LitElement) {
+export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
   @query('#dropzone')
   private _dropzone!: UUIFileDropzoneElement;
 
@@ -104,7 +104,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
   private async _handleFilesChange(event: CustomEvent) {
     const entries = event.detail.files as (File | FileSystemFileEntry)[];
     const files = entries.filter(
-      entry => entry instanceof File || entry.isFile,
+      entry => entry instanceof File || entry.isFile
     );
     // TODO: implement folder preview + remove folder including children
 
@@ -144,7 +144,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
 
   private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
     return await new Promise<File>((resolve, reject) =>
-      fileEntry.file(resolve, reject),
+      fileEntry.file(resolve, reject)
     );
   }
 
@@ -199,7 +199,7 @@ export class UUIInputFileElement extends FormControlMixin(LitElement) {
     return html`${repeat(
       this._files,
       (file: File) => file.name + file.size,
-      (file: File, index: number) => this._renderFileItem(file, index),
+      (file: File, index: number) => this._renderFileItem(file, index)
     )}`;
   }
 

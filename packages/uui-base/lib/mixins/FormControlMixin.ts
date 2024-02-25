@@ -66,7 +66,7 @@ interface Validator {
  * @param {Object} superClass - superclass to be extended.
  * @mixin
  */
-export const FormControlMixin = <T extends Constructor<LitElement>>(
+export const UUIFormControlMixin = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
   abstract class UUIFormControlMixinClass extends superClass {

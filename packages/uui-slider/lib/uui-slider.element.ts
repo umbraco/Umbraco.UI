@@ -1,5 +1,5 @@
 import { UUIHorizontalPulseKeyframes } from '@umbraco-ui/uui-base/lib/animations';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, nothing, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -26,7 +26,7 @@ const RenderTrackSteps = (steps: number[], stepWidth: number) => {
 const RenderStepValues = (
   steps: number[],
   stepWidth: number,
-  hide: boolean,
+  hide: boolean
 ) => {
   if (hide) return nothing;
 
@@ -39,7 +39,7 @@ const RenderStepValues = (
               ? el.toFixed(0)
               : nothing}
           </span></span
-        >`,
+        >`
     )}
   </div>`;
 };
@@ -48,13 +48,13 @@ const GenerateStepArray = (start: number, stop: number, step: number) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
 /**
- *  @element uui-slider
- *  @description - Native `<input type="range">` wrapper.
- *  @fires UUISliderEvent#input on input
- *
+ * @element uui-slider
+ * @description - Native `<input type="range">` wrapper.
+ * @fires UUISliderEvent#input on input
+ * @extends UUIFormControlMixin
  */
 @defineElement('uui-slider')
-export class UUISliderElement extends FormControlMixin(LitElement) {
+export class UUISliderElement extends UUIFormControlMixin(LitElement) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
