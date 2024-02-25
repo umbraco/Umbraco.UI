@@ -10,7 +10,7 @@ type NativeFormControlElement = HTMLInputElement; // Eventually use a specific i
 // TODO: make it possible to define FormDataEntryValue type.
 // TODO: Prefix with UUI
 export declare abstract class UUIFormControlMixinInterface<
-  ValueType = FormDataEntryValue | FormData
+  ValueType = FormDataEntryValue | FormData,
 > extends LitElement {
   formAssociated: boolean;
   get value(): ValueType;
@@ -28,7 +28,7 @@ export declare abstract class UUIFormControlMixinInterface<
   protected addValidator: (
     flagKey: FlagTypes,
     getMessageMethod: () => string,
-    checkMethod: () => boolean
+    checkMethod: () => boolean,
   ) => void;
   protected addFormControlElement(element: NativeFormControlElement): void;
   pristine: boolean;
@@ -70,9 +70,9 @@ interface Validator {
  */
 export const UUIFormControlMixin = <
   ValueType = FormDataEntryValue | FormData,
-  T extends Constructor<LitElement>
+  T extends Constructor<LitElement>,
 >(
-  superClass: T
+  superClass: T,
 ) => {
   abstract class UUIFormControlMixinClass extends superClass {
     /**
@@ -170,12 +170,12 @@ export const UUIFormControlMixin = <
       this.addValidator(
         'valueMissing',
         () => this.requiredMessage,
-        () => this.hasAttribute('required') && this.hasValue() === false
+        () => this.hasAttribute('required') && this.hasValue() === false,
       );
       this.addValidator(
         'customError',
         () => this.errorMessage,
-        () => this.error
+        () => this.error,
       );
 
       this.addEventListener('blur', () => {
@@ -229,7 +229,7 @@ export const UUIFormControlMixin = <
     protected addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => string,
-      checkMethod: () => boolean
+      checkMethod: () => boolean,
     ): Validator {
       const obj = {
         flagKey: flagKey,
@@ -273,7 +273,7 @@ export const UUIFormControlMixin = <
         this._customValidityObject = this.addValidator(
           'customError',
           (): string => message,
-          () => true
+          () => true,
         );
       }
 
@@ -291,7 +291,7 @@ export const UUIFormControlMixin = <
             this.#internals.setValidity(
               (this as any)._validityState,
               formCtrlEl.validationMessage,
-              formCtrlEl
+              formCtrlEl,
             );
           }
         }
@@ -304,7 +304,7 @@ export const UUIFormControlMixin = <
           this.#internals.setValidity(
             this._validityState,
             validator.getMessageMethod(),
-            this.getFormElement()
+            this.getFormElement(),
           );
         }
       });
@@ -316,7 +316,7 @@ export const UUIFormControlMixin = <
 
       if (hasError) {
         this.dispatchEvent(
-          new UUIFormControlEvent(UUIFormControlEvent.INVALID)
+          new UUIFormControlEvent(UUIFormControlEvent.INVALID),
         );
       } else {
         this.#internals.setValidity({});
@@ -353,8 +353,8 @@ export const UUIFormControlMixin = <
       this.value = this.getDefaultValue();
     }
 
-    protected getDefaultValue() {
-      return this.getAttribute('value') ?? '';
+    protected getDefaultValue(): ValueType {
+      return (this.getAttribute('value') ?? '') as ValueType;
     }
 
     public checkValidity() {
