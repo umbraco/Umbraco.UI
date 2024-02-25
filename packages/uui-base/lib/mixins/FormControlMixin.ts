@@ -95,17 +95,17 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      */
     @property() // Do not 'reflect' as the attribute is used as fallback.
     get value() {
-      return this._value;
+      return this.#value;
     }
     set value(newValue) {
-      const oldValue = this._value;
-      this._value = newValue;
+      const oldValue = this.#value;
+      this.#value = newValue;
       if (
         'ElementInternals' in window &&
         //@ts-ignore
         'setFormValue' in window.ElementInternals.prototype
       ) {
-        this._internals.setFormValue(this._value);
+        this.#internals.setFormValue(this.#value);
       }
       this.requestUpdate('value', oldValue);
     }
@@ -151,15 +151,15 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    private _value: FormDataEntryValue | FormData = '';
-    private _internals: ElementInternals;
-    private _form: HTMLFormElement | null = null;
-    private _validators: Validator[] = [];
-    private _formCtrlElements: NativeFormControlElement[] = [];
+    #value: FormDataEntryValue | FormData = '';
+    #internals: ElementInternals;
+    #form: HTMLFormElement | null = null;
+    #validators: Validator[] = [];
+    #formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
-      this._internals = this.attachInternals();
+      this.#internals = this.attachInternals();
 
       this.addValidator(
         'valueMissing',
@@ -178,7 +178,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     /**
-     * Determn wether this FormControl has a value.
+     * Determine wether this FormControl has a value.
      * @method hasValue
      * @returns {boolean}
      */
@@ -197,11 +197,11 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
     disconnectedCallback(): void {
       super.disconnectedCallback();
-      this._removeFormListeners();
+      this.#removeFormListeners();
     }
-    private _removeFormListeners() {
-      if (this._form) {
-        this._form.removeEventListener('submit', this._onFormSubmit);
+    #removeFormListeners() {
+      if (this.#form) {
+        this.#form.removeEventListener('submit', this.#onFormSubmit);
       }
     }
 
@@ -230,14 +230,14 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
         getMessageMethod: getMessageMethod,
         checkMethod: checkMethod,
       };
-      this._validators.push(obj);
+      this.#validators.push(obj);
       return obj;
     }
 
     protected removeValidator(validator: Validator) {
-      const index = this._validators.indexOf(validator);
+      const index = this.#validators.indexOf(validator);
       if (index !== -1) {
-        this._validators.splice(index, 1);
+        this.#validators.splice(index, 1);
       }
     }
 
@@ -247,7 +247,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
      * @param element {NativeFormControlElement} - element to validate and include as part of this form association.
      */
     protected addFormControlElement(element: NativeFormControlElement) {
-      this._formCtrlElements.push(element);
+      this.#formCtrlElements.push(element);
     }
 
     private _customValidityObject?: Validator;
@@ -271,18 +271,18 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
         );
       }
 
-      this._runValidators();
+      this.#runValidators();
     }
 
-    private _runValidators() {
+    #runValidators() {
       this._validityState = {};
 
       // Loop through inner native form controls to adapt their validityState.
-      this._formCtrlElements.forEach(formCtrlEl => {
+      this.#formCtrlElements.forEach(formCtrlEl => {
         for (const key in formCtrlEl.validity) {
           if (key !== 'valid' && (formCtrlEl.validity as any)[key]) {
             (this as any)._validityState[key] = true;
-            this._internals.setValidity(
+            this.#internals.setValidity(
               (this as any)._validityState,
               formCtrlEl.validationMessage,
               formCtrlEl
@@ -292,10 +292,10 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
       });
 
       // Loop through custom validators, currently its intentional to have them overwritten native validity. but might need to be reconsidered (This current way enables to overwrite with custom messages)
-      this._validators.forEach(validator => {
+      this.#validators.forEach(validator => {
         if (validator.checkMethod()) {
           this._validityState[validator.flagKey] = true;
-          this._internals.setValidity(
+          this.#internals.setValidity(
             this._validityState,
             validator.getMessageMethod(),
             this.getFormElement()
@@ -313,33 +313,33 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
           new UUIFormControlEvent(UUIFormControlEvent.INVALID)
         );
       } else {
-        this._internals.setValidity({});
+        this.#internals.setValidity({});
         this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
       }
     }
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
-      this._runValidators();
+      this.#runValidators();
     }
 
-    private _onFormSubmit = () => {
+    #onFormSubmit = () => {
       this.pristine = false;
     };
 
     public submit() {
-      this._form?.requestSubmit();
+      this.#form?.requestSubmit();
     }
 
     public formAssociatedCallback() {
-      this._removeFormListeners();
-      this._form = this._internals.form;
-      if (this._form) {
+      this.#removeFormListeners();
+      this.#form = this.#internals.form;
+      if (this.#form) {
         // This relies on the form begin a 'uui-form':
-        if (this._form.hasAttribute('submit-invalid')) {
+        if (this.#form.hasAttribute('submit-invalid')) {
           this.pristine = false;
         }
-        this._form.addEventListener('submit', this._onFormSubmit);
+        this.#form.addEventListener('submit', this.#onFormSubmit);
       }
     }
     public formResetCallback() {
@@ -352,13 +352,13 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     public checkValidity() {
-      for (const key in this._formCtrlElements) {
-        if (this._formCtrlElements[key].checkValidity() === false) {
+      for (const key in this.#formCtrlElements) {
+        if (this.#formCtrlElements[key].checkValidity() === false) {
           return false;
         }
       }
 
-      return this._internals?.checkValidity();
+      return this.#internals?.checkValidity();
     }
 
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validity
@@ -367,7 +367,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     }
 
     get validationMessage() {
-      return this._internals?.validationMessage;
+      return this.#internals?.validationMessage;
     }
   }
   return FormControlMixinClass as unknown as Constructor<FormControlMixinInterface> &
