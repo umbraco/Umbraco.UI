@@ -16,14 +16,17 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @abstract
  */
 export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
-  LabelMixin('', LitElement)
+  LabelMixin('', LitElement),
+  '',
 ) {
+  private _value = '';
+
   /** intentional overwrite of FormControlMixins value getter and setter method. */
   get value() {
-    return this._value as string;
+    return this._value;
   }
   set value(newVal: string) {
-    const oldValue = this._value;
+    const oldValue = super.value;
     this._value = newVal;
     if (
       'ElementInternals' in window &&
@@ -31,7 +34,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
       'setFormValue' in window.ElementInternals.prototype
     ) {
       this._internals.setFormValue(
-        this._checked && this.name !== '' ? this._value : null
+        this._checked && this.name !== '' ? this._value : null,
       );
     }
 
@@ -68,7 +71,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
         ? this._value
           ? this._value
           : 'on'
-        : null
+        : null,
     );
     this.requestUpdate('checked', oldValue);
   }
@@ -116,7 +119,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
   }
 
   protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>
+    _changedProperties: Map<string | number | symbol, unknown>,
   ): void {
     super.firstUpdated(_changedProperties);
 

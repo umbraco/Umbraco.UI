@@ -35,7 +35,7 @@ declare global {
  */
 // TODO: Consider if this should use child items instead of an array.
 @defineElement('uui-select')
-export class UUISelectElement extends UUIFormControlMixin(LitElement) {
+export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   /**
    * Text with which component should be labeled
    * @type {string}
@@ -143,8 +143,8 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement) {
       new Set(
         this.options
           .filter(option => option.group)
-          .map(option => option.group as string)
-      )
+          .map(option => option.group as string),
+      ),
     );
   }
 
@@ -172,7 +172,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement) {
       new UUISelectEvent(UUISelectEvent.CHANGE, {
         bubbles: true,
         composed: false,
-      })
+      }),
     );
   }
 
@@ -184,7 +184,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement) {
     name: string,
     value: string,
     selected: boolean | undefined,
-    disabled: boolean | undefined
+    disabled: boolean | undefined,
   ) {
     return html`<option
       value="${value}"
@@ -203,7 +203,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement) {
           html`<optgroup
             label=${group}
             ?disabled=${this._disabledGroups.some(
-              disabled => disabled.toLowerCase() === group.toLowerCase()
+              disabled => disabled.toLowerCase() === group.toLowerCase(),
             )}>
             ${this.options.map(option =>
               option.group === group
@@ -211,11 +211,11 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement) {
                     option.name,
                     option.value,
                     option.selected,
-                    option.disabled
+                    option.disabled,
                   )
-                : ''
+                : '',
             )}
-          </optgroup>`
+          </optgroup>`,
       )}
     `;
   }
@@ -237,8 +237,8 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement) {
             option.name,
             option.value,
             option.selected,
-            option.disabled
-          )
+            option.disabled,
+          ),
         )}
     </select>`;
   }

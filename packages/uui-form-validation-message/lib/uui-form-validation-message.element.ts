@@ -41,21 +41,21 @@ export class UUIFormValidationMessageElement extends LitElement {
     if (oldScope !== null) {
       oldScope.removeEventListener(
         UUIFormControlEvent.INVALID,
-        this._onControlInvalid as EventListener
+        this._onControlInvalid as EventListener,
       );
       oldScope.removeEventListener(
         UUIFormControlEvent.VALID,
-        this._onControlValid as EventListener
+        this._onControlValid as EventListener,
       );
     }
     this._for = newScope;
     this._for.addEventListener(
       UUIFormControlEvent.INVALID,
-      this._onControlInvalid as EventListener
+      this._onControlInvalid as EventListener,
     );
     this._for.addEventListener(
       UUIFormControlEvent.VALID,
-      this._onControlValid as EventListener
+      this._onControlValid as EventListener,
     );
   }
   private _for: HTMLElement | null = null;
@@ -67,7 +67,10 @@ export class UUIFormValidationMessageElement extends LitElement {
     }
   }
 
-  private _messages = new Map<UUIFormControlMixinInterface, string>();
+  private _messages = new Map<
+    UUIFormControlMixinInterface<unknown, unknown>,
+    string
+  >();
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
     const ctrl = (e as any).composedPath()[0];

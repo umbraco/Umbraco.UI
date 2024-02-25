@@ -47,7 +47,8 @@ export type InputType =
  */
 @defineElement('uui-input')
 export class UUIInputElement extends UUIFormControlMixin(
-  LabelMixin('', LitElement)
+  LabelMixin('', LitElement),
+  '',
 ) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
@@ -212,17 +213,17 @@ export class UUIInputElement extends UUIFormControlMixin(
     this.addValidator(
       'tooShort',
       () => this.minlengthMessage,
-      () => !!this.minlength && String(this._value).length < this.minlength
+      () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
       () => this.maxlengthMessage,
-      () => !!this.maxlength && String(this._value).length > this.maxlength
+      () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
   }
 
   protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
   ): void {
     super.firstUpdated(_changedProperties);
     this.addFormControlElement(this._input);

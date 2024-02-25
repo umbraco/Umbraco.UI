@@ -26,7 +26,10 @@ const STEP_MIN_WIDTH = 24;
  * @extends UUIFormControlMixin
  */
 @defineElement('uui-range-slider')
-export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
+export class UUIRangeSliderElement extends UUIFormControlMixin<string>(
+  LitElement,
+  '',
+) {
   static readonly formAssociated = true;
 
   /**
@@ -143,7 +146,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
    */
   @property({ type: String })
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newVal) {
     super.value = newVal;
@@ -186,7 +189,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
         : this.min,
       this.minGap
         ? this._highInputValue - this.minGap
-        : this._highInputValue - this.step
+        : this._highInputValue - this.step,
     );
     this.setValue(low, this._highInputValue);
   }
@@ -202,7 +205,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
         ? this.maxGap + this._lowInputValue < this.max
           ? this.maxGap + this._lowInputValue
           : this.max
-        : this.max
+        : this.max,
     );
     this.setValue(this._lowInputValue, high);
   }
@@ -240,14 +243,14 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
     this._lowInputValue = clamp(
       low,
       this._min,
-      this._minGap ? high - this._minGap : high - this._step
+      this._minGap ? high - this._minGap : high - this._step,
     );
     this._highInputValue = clamp(
       high,
       this._minGap
         ? this._lowInputValue + this._minGap
         : this._lowInputValue + this._step,
-      Math.min(this._maxGap ? low + this._maxGap : this._max, this._max)
+      Math.min(this._maxGap ? low + this._maxGap : this._max, this._max),
     );
 
     this._updateInnerColor();
@@ -314,27 +317,27 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
 
     if (this._highInputValue === this._lowInputValue) {
       console.error(
-        `Range slider (Value error occurred): Low-end and high-end value should never be equal. Use <uui-slider></uui-slider> instead.`
+        `Range slider (Value error occurred): Low-end and high-end value should never be equal. Use <uui-slider></uui-slider> instead.`,
       );
     }
 
     if (this._lowInputValue > this._highInputValue) {
       console.error(
-        `Range slider (Value error occurred): Low-end value should never be higher than high-end value.`
+        `Range slider (Value error occurred): Low-end value should never be higher than high-end value.`,
       );
     }
 
     if (this._highInputValue > this._max || this._highInputValue < this._min) {
       this.setValueHigh(this._max);
       console.warn(
-        `Conflict with the high-end value and max value. High-end value has been converted to the max value (${this._max})`
+        `Conflict with the high-end value and max value. High-end value has been converted to the max value (${this._max})`,
       );
     }
 
     if (this._lowInputValue < this._min || this._lowInputValue > this._max) {
       this.setValueLow(this._min);
       console.warn(
-        `Conflict with the low-end value and min value. Low-end value has been converted to the min value (${this._min})`
+        `Conflict with the low-end value and min value. Low-end value has been converted to the min value (${this._min})`,
       );
     }
 
@@ -342,20 +345,20 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
     if (this._step <= 0) {
       this._step = 1;
       console.warn(
-        `Property step needs a value higher than 0. Converted the step value to 1 (default)`
+        `Property step needs a value higher than 0. Converted the step value to 1 (default)`,
       );
     }
 
     if (((this._max - this._min) / this._step) % 1 !== 0) {
       console.error(
-        `Conflict with step value and the min and max values. May experience bad side effects`
+        `Conflict with step value and the min and max values. May experience bad side effects`,
       );
     }
 
     if (this._minGap && this._minGap < this._step) {
       this._minGap = undefined;
       console.warn(
-        `Conflict with min-gap and step value. The min-gap needs to be higher than the step value. Removed the min-gap property.`
+        `Conflict with min-gap and step value. The min-gap needs to be higher than the step value. Removed the min-gap property.`,
       );
     }
 
@@ -364,14 +367,14 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
       this._minGap = undefined;
       this._maxGap = undefined;
       console.warn(
-        `Conflict with min-gap and max-gap. Removed the min-gap and max-gap properties.`
+        `Conflict with min-gap and max-gap. Removed the min-gap and max-gap properties.`,
       );
     }
 
     if (this._minGap && this._max - this._min < this._minGap) {
       this._minGap = undefined;
       console.warn(
-        `Conflict with the min-gap and the total range. Removed the min-gap.`
+        `Conflict with the min-gap and the total range. Removed the min-gap.`,
       );
     }
 
@@ -381,7 +384,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
     ) {
       this.setValueHigh(this._lowInputValue + this._maxGap);
       console.warn(
-        `Conflict with value and max-gap. High-end value has been converted to the highest possible value based on the low-end value and the max gap value (${this._highInputValue})`
+        `Conflict with value and max-gap. High-end value has been converted to the highest possible value based on the low-end value and the max gap value (${this._highInputValue})`,
       );
     }
 
@@ -393,12 +396,12 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
       if (this._highInputValue - minGap < this._min) {
         this.setValueHigh(this._lowInputValue + minGap);
         console.warn(
-          `Conflict with value and min gap. High-end value has been converted to the lowest possible value based on the low-end value and the min gap value (${this._highInputValue}).`
+          `Conflict with value and min gap. High-end value has been converted to the lowest possible value based on the low-end value and the min gap value (${this._highInputValue}).`,
         );
       } else {
         this.setValueLow(this._highInputValue - minGap);
         console.warn(
-          `Conflict with value and min gap. Low-end value has been converted to the highest possible value based on the high-end value and the min gap value (${this._lowInputValue}).`
+          `Conflict with value and min gap. Low-end value has been converted to the highest possible value based on the high-end value and the min gap value (${this._lowInputValue}).`,
         );
       }
     }
@@ -901,7 +904,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
         border: none;
         background-color: var(--color-interactive);
         overflow: visible;
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
+        box-shadow:
+          inset 0 0 0 2px var(--color-interactive),
           inset 0 0 0 4px var(--uui-color-surface);
       }
       :host([disabled]) input::-webkit-slider-thumb {
@@ -911,18 +915,22 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
       input:focus-within::-webkit-slider-thumb,
       input.focus::-webkit-slider-thumb {
         background-color: var(--color-focus);
-        box-shadow: inset 0 0 0 2px var(--color-focus),
-          inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
+        box-shadow:
+          inset 0 0 0 2px var(--color-focus),
+          inset 0 0 0 4px var(--uui-color-surface),
+          0 0 0 2px var(--color-focus);
       }
       input::-webkit-slider-thumb:hover {
         background-color: var(--color-hover);
-        box-shadow: inset 0 0 0 2px var(--color-hover),
+        box-shadow:
+          inset 0 0 0 2px var(--color-hover),
           inset 0 0 0 4px var(--uui-color-surface);
       }
 
       :host([disabled]) #range-slider input::-webkit-slider-thumb {
         background-color: var(--uui-palette-mine-grey);
-        box-shadow: inset 0 0 0 2px var(--uui-palette-mine-grey),
+        box-shadow:
+          inset 0 0 0 2px var(--uui-palette-mine-grey),
           inset 0 0 0 4px var(--uui-color-surface);
       }
 
@@ -940,7 +948,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
         border: none;
         background-color: var(--color-interactive);
         overflow: visible;
-        box-shadow: inset 0 0 0 2px var(--color-interactive),
+        box-shadow:
+          inset 0 0 0 2px var(--color-interactive),
           inset 0 0 0 4px var(--uui-color-surface);
       }
       :host([disabled]) input::-moz-range-thumb {
@@ -950,18 +959,22 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement) {
       input:focus-within::-moz-range-thumb,
       input.focus::-moz-range-thumb {
         background-color: var(--color-focus);
-        box-shadow: inset 0 0 0 2px var(--color-focus),
-          inset 0 0 0 4px var(--uui-color-surface), 0 0 0 2px var(--color-focus);
+        box-shadow:
+          inset 0 0 0 2px var(--color-focus),
+          inset 0 0 0 4px var(--uui-color-surface),
+          0 0 0 2px var(--color-focus);
       }
       input::-moz-range-thumb:hover {
         background-color: var(--color-hover);
-        box-shadow: inset 0 0 0 2px var(--color-hover),
+        box-shadow:
+          inset 0 0 0 2px var(--color-hover),
           inset 0 0 0 4px var(--uui-color-surface);
       }
 
       :host([disabled]) #range-slider input::-moz-range-thumb {
         background-color: var(--uui-palette-mine-grey);
-        box-shadow: inset 0 0 0 2px var(--uui-palette-mine-grey),
+        box-shadow:
+          inset 0 0 0 2px var(--uui-palette-mine-grey),
           inset 0 0 0 4px var(--uui-color-surface);
       }
     `,

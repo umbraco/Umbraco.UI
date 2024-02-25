@@ -10,11 +10,13 @@ type NativeFormControlElement = HTMLInputElement; // Eventually use a specific i
 // TODO: make it possible to define FormDataEntryValue type.
 // TODO: Prefix with UUI
 export declare abstract class UUIFormControlMixinInterface<
-  ValueType = FormDataEntryValue | FormData,
+  ValueType,
+  DefaultValueType,
 > extends LitElement {
   formAssociated: boolean;
-  get value(): ValueType;
-  set value(newValue: ValueType);
+  _internals: ElementInternals;
+  get value(): ValueType | DefaultValueType;
+  set value(newValue: ValueType | DefaultValueType);
   name: string;
   formResetCallback(): void;
   checkValidity(): boolean;
@@ -22,8 +24,6 @@ export declare abstract class UUIFormControlMixinInterface<
   get validity(): ValidityState;
   public setCustomValidity(error: string): void;
   public submit(): void;
-  protected _value: ValueType;
-  protected _internals: any;
   protected abstract getFormElement(): HTMLElement | undefined;
   protected addValidator: (
     flagKey: FlagTypes,
@@ -70,9 +70,11 @@ interface Validator {
  */
 export const UUIFormControlMixin = <
   ValueType = FormDataEntryValue | FormData,
-  T extends Constructor<LitElement>,
+  T extends Constructor<LitElement> = typeof LitElement,
+  DefaultValueType = unknown,
 >(
   superClass: T,
+  defaultValue: DefaultValueType,
 ) => {
   abstract class UUIFormControlMixinClass extends superClass {
     /**
@@ -100,10 +102,10 @@ export const UUIFormControlMixin = <
      * @default ''
      */
     @property() // Do not 'reflect' as the attribute is used as fallback.
-    get value(): ValueType {
+    get value(): ValueType | DefaultValueType {
       return this.#value;
     }
-    set value(newValue: ValueType) {
+    set value(newValue: ValueType | DefaultValueType) {
       const oldValue = this.#value;
       this.#value = newValue;
       if (
@@ -111,7 +113,7 @@ export const UUIFormControlMixin = <
         //@ts-ignore
         'setFormValue' in window.ElementInternals.prototype
       ) {
-        this.#internals.setFormValue(this.#value);
+        this._internals.setFormValue((this.#value as any) ?? null);
       }
       this.requestUpdate('value', oldValue);
     }
@@ -157,15 +159,15 @@ export const UUIFormControlMixin = <
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    #value: ValueType = '';
-    #internals: ElementInternals;
+    #value: ValueType | DefaultValueType = defaultValue;
+    _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     #validators: Validator[] = [];
     #formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
-      this.#internals = this.attachInternals();
+      this._internals = this.attachInternals();
 
       this.addValidator(
         'valueMissing',
@@ -189,7 +191,7 @@ export const UUIFormControlMixin = <
      * @returns {boolean}
      */
     public hasValue(): boolean {
-      return this.value !== '';
+      return this.value !== this.getDefaultValue();
     }
 
     /**
@@ -277,10 +279,17 @@ export const UUIFormControlMixin = <
         );
       }
 
-      this.#runValidators();
+      this._runValidators();
     }
 
-    #runValidators() {
+    /**
+     * @method _runValidators
+     * @description Run all validators and set the validityState of this form control.
+     * Run this method when you want to re-run all validators.
+     * This can be relevant if you have a validators that is using values that is not triggering the Lit Updated Callback.
+     * Such are mainly properties that are not declared as a Lit state and or Lit property.
+     */
+    protected _runValidators() {
       this._validityState = {};
 
       // Loop through inner native form controls to adapt their validityState.
@@ -288,7 +297,7 @@ export const UUIFormControlMixin = <
         for (const key in formCtrlEl.validity) {
           if (key !== 'valid' && (formCtrlEl.validity as any)[key]) {
             (this as any)._validityState[key] = true;
-            this.#internals.setValidity(
+            this._internals.setValidity(
               (this as any)._validityState,
               formCtrlEl.validationMessage,
               formCtrlEl,
@@ -301,7 +310,7 @@ export const UUIFormControlMixin = <
       this.#validators.forEach(validator => {
         if (validator.checkMethod()) {
           this._validityState[validator.flagKey] = true;
-          this.#internals.setValidity(
+          this._internals.setValidity(
             this._validityState,
             validator.getMessageMethod(),
             this.getFormElement(),
@@ -319,14 +328,14 @@ export const UUIFormControlMixin = <
           new UUIFormControlEvent(UUIFormControlEvent.INVALID),
         );
       } else {
-        this.#internals.setValidity({});
+        this._internals.setValidity({});
         this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
       }
     }
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
-      this.#runValidators();
+      this._runValidators();
     }
 
     #onFormSubmit = () => {
@@ -339,7 +348,7 @@ export const UUIFormControlMixin = <
 
     public formAssociatedCallback() {
       this.#removeFormListeners();
-      this.#form = this.#internals.form;
+      this.#form = this._internals.form;
       if (this.#form) {
         // This relies on the form begin a 'uui-form':
         if (this.#form.hasAttribute('submit-invalid')) {
@@ -350,11 +359,14 @@ export const UUIFormControlMixin = <
     }
     public formResetCallback() {
       this.pristine = true;
-      this.value = this.getDefaultValue();
+      this.value = this.getInitialValue() ?? this.getDefaultValue();
     }
 
-    protected getDefaultValue(): ValueType {
-      return (this.getAttribute('value') ?? '') as ValueType;
+    protected getDefaultValue(): DefaultValueType {
+      return defaultValue;
+    }
+    protected getInitialValue(): ValueType | DefaultValueType {
+      return this.getAttribute('value') as ValueType | DefaultValueType;
     }
 
     public checkValidity() {
@@ -364,7 +376,7 @@ export const UUIFormControlMixin = <
         }
       }
 
-      return this.#internals?.checkValidity();
+      return this._internals?.checkValidity();
     }
 
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validity
@@ -373,11 +385,11 @@ export const UUIFormControlMixin = <
     }
 
     get validationMessage() {
-      return this.#internals?.validationMessage;
+      return this._internals?.validationMessage;
     }
   }
   return UUIFormControlMixinClass as unknown as Constructor<
-    UUIFormControlMixinInterface<ValueType>
+    UUIFormControlMixinInterface<ValueType, DefaultValueType>
   > &
     T;
 };

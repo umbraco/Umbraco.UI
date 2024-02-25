@@ -3,7 +3,7 @@ import { UUIEvent } from './UUIEvent';
 
 export class UUIFormControlEvent extends UUIEvent<
   {},
-  UUIFormControlMixinInterface
+  UUIFormControlMixinInterface<unknown, unknown>
 > {
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {

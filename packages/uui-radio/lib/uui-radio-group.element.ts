@@ -19,7 +19,10 @@ const SPACE = ' ';
  * @extends UUIFormControlMixin
  */
 @defineElement('uui-radio-group')
-export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
+export class UUIRadioGroupElement extends UUIFormControlMixin<string>(
+  LitElement,
+  '',
+) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -36,14 +39,14 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
   disabled = false;
 
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newValue) {
     super.value = newValue;
-    if (newValue === null || newValue === '') {
+    if (!newValue || newValue === '') {
       this._makeFirstEnabledFocusable();
     }
-    this._updateRadioElementsCheckedState(newValue);
+    this._updateRadioElementsCheckedState(newValue as string);
   }
 
   private _selected: number | null = null;
@@ -55,7 +58,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
 
     // Wait for the radio elements to be added to the dom before updating the checked state.
     this.updateComplete.then(() => {
-      this._updateRadioElementsCheckedState(this.value);
+      this._updateRadioElementsCheckedState(this.value as string);
     });
   }
 
@@ -95,7 +98,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
   }
 
   private _updateRadioElementsCheckedState(
-    newValue: FormData | FormDataEntryValue
+    newValue: FormData | FormDataEntryValue,
   ) {
     this._radioElements.forEach((el, index) => {
       if (el.value === newValue) {
@@ -119,7 +122,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
       el.removeEventListener(
         UUIRadioEvent.CHANGE,
         // @ts-ignore TODO: fix typescript error
-        this._handleSelectOnClick as EventHandlerNonNull
+        this._handleSelectOnClick as EventHandlerNonNull,
       );
       el.removeEventListener('blur', this._onChildBlur);
     });
@@ -136,7 +139,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
       el.addEventListener(
         UUIRadioEvent.CHANGE,
         // @ts-ignore TODO: fix typescript error
-        this._handleSelectOnClick as EventHandlerNonNull
+        this._handleSelectOnClick as EventHandlerNonNull,
       );
       el.addEventListener('blur', this._onChildBlur);
     });
@@ -157,7 +160,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
         'There can only be one checked radio among the <' +
           this.nodeName +
           '> children',
-        this
+        this,
       );
     }
 
@@ -186,7 +189,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement) {
   }
 
   private _findNextEnabledElement(
-    direction: number = 1
+    direction: number = 1,
   ): UUIRadioElement | null {
     if (!this._radioElements) {
       return null;

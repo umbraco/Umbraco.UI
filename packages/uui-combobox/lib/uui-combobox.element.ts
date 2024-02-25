@@ -28,10 +28,10 @@ import { UUIComboboxEvent } from './UUIComboboxEvent';
  * @description - Filterable combobox
  */
 @defineElement('uui-combobox')
-export class UUIComboboxElement extends UUIFormControlMixin(LitElement) {
+export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   @property({ attribute: 'value', reflect: true })
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newValue) {
     if (typeof newValue === 'string') {
@@ -165,11 +165,11 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement) {
       this.#comboboxList.for = this;
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.CHANGE,
-        this.#onChange
+        this.#onChange,
       );
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.INNER_SLOT_CHANGE,
-        this.#onSlotChange
+        this.#onSlotChange,
       );
 
       await this.updateComplete;
@@ -185,7 +185,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement) {
     if (this.#comboboxList) {
       this.#comboboxList.value = value;
       requestAnimationFrame(
-        () => (this._displayValue = this.#comboboxList.displayValue || '')
+        () => (this._displayValue = this.#comboboxList.displayValue || ''),
       );
     }
   }

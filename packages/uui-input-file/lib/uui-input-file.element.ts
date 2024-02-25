@@ -14,7 +14,7 @@ import { repeat } from 'lit/directives/repeat.js';
  * @extends UUIFormControlMixin
  */
 @defineElement('uui-input-file')
-export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
+export class UUIInputFileElement extends UUIFormControlMixin(LitElement, null) {
   @query('#dropzone')
   private _dropzone!: UUIFileDropzoneElement;
 
@@ -40,7 +40,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
   public multiple: boolean = false;
 
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newValue) {
     super.value = newValue;
@@ -104,7 +104,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
   private async _handleFilesChange(event: CustomEvent) {
     const entries = event.detail.files as (File | FileSystemFileEntry)[];
     const files = entries.filter(
-      entry => entry instanceof File || entry.isFile
+      entry => entry instanceof File || entry.isFile,
     );
     // TODO: implement folder preview + remove folder including children
 
@@ -126,7 +126,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
       }
     }
 
-    let newValue: FormDataEntryValue | FormData = this.value;
+    let newValue = this.value;
 
     if (files.length > 0 && !(this.value instanceof FormData)) {
       newValue = new FormData();
@@ -144,7 +144,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
 
   private async _getFile(fileEntry: FileSystemFileEntry): Promise<File> {
     return await new Promise<File>((resolve, reject) =>
-      fileEntry.file(resolve, reject)
+      fileEntry.file(resolve, reject),
     );
   }
 
@@ -199,7 +199,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
     return html`${repeat(
       this._files,
       (file: File) => file.name + file.size,
-      (file: File, index: number) => this._renderFileItem(file, index)
+      (file: File, index: number) => this._renderFileItem(file, index),
     )}`;
   }
 

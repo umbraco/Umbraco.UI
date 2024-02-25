@@ -18,7 +18,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  */
 
 @defineElement('uui-textarea')
-export class UUITextareaElement extends UUIFormControlMixin(LitElement) {
+export class UUITextareaElement extends UUIFormControlMixin<string>(
+  LitElement,
+  '',
+) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -144,12 +147,12 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement) {
 
   /**
    * Indicates how the control should wrap the value for form submission. If this attribute is not specified, soft is its default value.
-   * @type {'soft' | 'hard' | 'off'}
+   * @type {'soft' | 'hard'}
    * @attr
    * @default undefined
    */
   @property({ type: String })
-  wrap?: 'soft' | 'hard' | 'off';
+  wrap?: 'soft' | 'hard';
 
   constructor() {
     super();
@@ -164,12 +167,12 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement) {
     this.addValidator(
       'tooShort',
       () => this.minlengthMessage,
-      () => !!this.minlength && (this._value as string).length < this.minlength
+      () => !!this.minlength && (this.value as string).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
       () => this.maxlengthMessage,
-      () => !!this.maxlength && (this._value as string).length > this.maxlength
+      () => !!this.maxlength && (this.value as string).length > this.maxlength,
     );
   }
 
