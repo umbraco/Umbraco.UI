@@ -8,6 +8,7 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 type NativeFormControlElement = HTMLInputElement; // Eventually use a specific interface or list multiple options like appending these types: ... | HTMLTextAreaElement | HTMLSelectElement
 
 // TODO: make it possible to define FormDataEntryValue type.
+// TODO: Prefix with UUI
 export declare abstract class FormControlMixinInterface extends LitElement {
   formAssociated: boolean;
   get value(): FormDataEntryValue | FormData;
@@ -24,8 +25,8 @@ export declare abstract class FormControlMixinInterface extends LitElement {
   protected abstract getFormElement(): HTMLElement | undefined;
   protected addValidator: (
     flagKey: FlagTypes,
-    getMessageMethod: () => String,
-    checkMethod: () => boolean,
+    getMessageMethod: () => string,
+    checkMethod: () => boolean
   ) => void;
   protected addFormControlElement(element: NativeFormControlElement): void;
   pristine: boolean;
@@ -55,7 +56,7 @@ type FlagTypes =
 // Acceptable as an internal interface/type, BUT if exposed externally this should be turned into a public class in a separate file.
 interface Validator {
   flagKey: FlagTypes;
-  getMessageMethod: () => String;
+  getMessageMethod: () => string;
   checkMethod: () => boolean;
 }
 
@@ -66,7 +67,7 @@ interface Validator {
  * @mixin
  */
 export const FormControlMixin = <T extends Constructor<LitElement>>(
-  superClass: T,
+  superClass: T
 ) => {
   abstract class FormControlMixinClass extends superClass {
     /**
@@ -151,24 +152,24 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     errorMessage = 'This field is invalid';
 
     private _value: FormDataEntryValue | FormData = '';
-    private _internals: any;
+    private _internals: ElementInternals;
     private _form: HTMLFormElement | null = null;
     private _validators: Validator[] = [];
     private _formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
-      this._internals = (this as any).attachInternals();
+      this._internals = this.attachInternals();
 
       this.addValidator(
         'valueMissing',
         () => this.requiredMessage,
-        () => this.hasAttribute('required') && this.hasValue() === false,
+        () => this.hasAttribute('required') && this.hasValue() === false
       );
       this.addValidator(
         'customError',
         () => this.errorMessage,
-        () => this.error,
+        () => this.error
       );
 
       this.addEventListener('blur', () => {
@@ -222,7 +223,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
     protected addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => String,
-      checkMethod: () => boolean,
+      checkMethod: () => boolean
     ): Validator {
       const obj = {
         flagKey: flagKey,
@@ -266,7 +267,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
         this._customValidityObject = this.addValidator(
           'customError',
           (): string => message,
-          () => true,
+          () => true
         );
       }
 
@@ -284,7 +285,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
             this._internals.setValidity(
               (this as any)._validityState,
               formCtrlEl.validationMessage,
-              formCtrlEl,
+              formCtrlEl
             );
           }
         }
@@ -297,7 +298,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
           this._internals.setValidity(
             this._validityState,
             validator.getMessageMethod(),
-            this.getFormElement(),
+            this.getFormElement()
           );
         }
       });
@@ -309,7 +310,7 @@ export const FormControlMixin = <T extends Constructor<LitElement>>(
 
       if (hasError) {
         this.dispatchEvent(
-          new UUIFormControlEvent(UUIFormControlEvent.INVALID),
+          new UUIFormControlEvent(UUIFormControlEvent.INVALID)
         );
       } else {
         this._internals.setValidity({});
