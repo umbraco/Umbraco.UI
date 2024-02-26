@@ -14,7 +14,8 @@ export declare abstract class UUIFormControlMixinInterface<
   DefaultValueType,
 > extends LitElement {
   formAssociated: boolean;
-  _internals: ElementInternals;
+  protected _internals: ElementInternals;
+  protected _runValidators(): void;
   get value(): ValueType | DefaultValueType;
   set value(newValue: ValueType | DefaultValueType);
   name: string;
