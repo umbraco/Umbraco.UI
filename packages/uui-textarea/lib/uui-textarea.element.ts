@@ -332,7 +332,6 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
           var(--uui-color-border-emphasis)
         );
       }
-      
       textarea:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);
