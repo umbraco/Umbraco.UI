@@ -291,6 +291,68 @@ Async.parameters = {
   },
 };
 
+export const Dynamic: Story = props => {
+  const addTab = () => {
+    const tabGroup = document.querySelector('uui-tab-group');
+    if (!tabGroup) return;
+
+    const tab = document.createElement('uui-tab');
+    const nameWithRandomLength = Math.random().toString(36).substring(7);
+    tab.label = nameWithRandomLength;
+    tab.innerHTML = nameWithRandomLength;
+    tabGroup.appendChild(tab);
+  };
+
+  const removeRandomTab = () => {
+    const tabGroup = document.querySelector('uui-tab-group');
+    if (!tabGroup) return;
+
+    const tabs = tabGroup.querySelectorAll('uui-tab');
+    if (tabs.length > 0) {
+      const randomIndex = Math.floor(Math.random() * tabs.length);
+      tabGroup.removeChild(tabs[randomIndex]);
+    }
+  };
+
+  return html`
+    <uui-icon-registry-essential>
+      <div style="display: flex">
+        <uui-tab-group
+          dropdown-direction="vertical"
+          style="
+          margin: auto;
+        --uui-tab-group-gap: 25px;
+        font-size: var(--uui-type-small-size);
+        ${props.inlineStyles}">
+        </uui-tab-group>
+      </div>
+      <uui-button @click=${addTab}>Add tab</uui-button>
+      <uui-button @click=${removeRandomTab}>Remove tab</uui-button>
+    </uui-icon-registry-essential>
+  `;
+};
+Dynamic.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-tab-group>
+        <uui-tab>
+          <uui-icon slot="icon" name="document"></uui-icon>
+          Content
+        </uui-tab>
+        <uui-tab active>
+          <uui-icon slot="icon" name="settings"></uui-icon>
+          Packages
+        </uui-tab>
+        <uui-tab>
+          <uui-icon slot="icon" name="picture"></uui-icon>
+          Media
+        </uui-tab>
+      </uui-tab-group>`,
+    },
+  },
+};
+
 export const FlexLayout: Story = props => html`
   <uui-icon-registry-essential>
     <div style="display: flex;">

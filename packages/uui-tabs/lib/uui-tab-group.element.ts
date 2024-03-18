@@ -102,6 +102,7 @@ export class UUITabGroupElement extends LitElement {
       this.#tabResizeObservers.forEach(observer => observer.disconnect());
     });
     this.#tabResizeObservers.length = 0;
+    this.#visibilityBreakpoints.length = 0;
   }
 
   #onSlotChange() {
