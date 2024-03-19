@@ -1,7 +1,7 @@
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, queryAsync } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIInputEvent } from './UUIInputEvent';
@@ -190,15 +190,13 @@ export class UUIInputElement extends FormControlMixin(
   @property({ type: String })
   inputMode = '';
 
-  @queryAsync('#input')
-  _input!: Promise<HTMLInputElement>;
+  @query('#input')
+  _input!: HTMLInputElement;
 
   private _type: InputType = 'text';
 
   constructor() {
     super();
-
-    this._input.then(input => this.addFormControlElement(input));
 
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
@@ -218,6 +216,10 @@ export class UUIInputElement extends FormControlMixin(
       () => this.maxlengthMessage,
       () => !!this.maxlength && String(this._value).length > this.maxlength,
     );
+
+    this.updateComplete.then(() => {
+      this.addFormControlElement(this._input);
+    });
   }
 
   private _onKeypress(e: KeyboardEvent): void {
@@ -230,21 +232,24 @@ export class UUIInputElement extends FormControlMixin(
    * Removes focus from the input.
    */
   async blur() {
-    (await this._input).blur();
+    await this.updateComplete;
+    this._input.blur();
   }
 
   /**
    * This method enables <label for="..."> to focus the input
    */
   async focus() {
-    (await this._input).focus();
+    await this.updateComplete;
+    this._input.focus();
   }
 
   /**
    * Selects all the text in the input.
    */
   async select() {
-    (await this._input).select();
+    await this.updateComplete;
+    this._input.select();
   }
 
   protected getFormElement(): HTMLElement {
