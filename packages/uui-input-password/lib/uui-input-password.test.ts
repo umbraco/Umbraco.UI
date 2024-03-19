@@ -32,7 +32,7 @@ describe('UUIInputPasswordElement', () => {
     const toggle = element.shadowRoot?.querySelector(
       '#eye',
     ) as HTMLButtonElement;
-    toggle.click();
+    await toggle.click();
     await expect(element.type).to.equal('text');
   });
 });

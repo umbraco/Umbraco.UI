@@ -145,19 +145,19 @@ describe('UuiButton', () => {
     });
 
     it('does not submit a form by default', async () => {
-      element.click();
+      await element.click();
       expect(wasSubmitted).to.false;
     });
 
     it('can submit a form when type is submit', async () => {
       element.setAttribute('type', 'submit');
-      element.click();
+      await element.click();
       expect(wasSubmitted).to.true;
     });
 
     it('does not submit when disabled', async () => {
       element.disabled = true;
-      element.click();
+      await element.click();
       expect(wasSubmitted).to.false;
     });
   });
@@ -177,7 +177,7 @@ describe('UuiButton', () => {
     });
 
     it('can reset a form when type is reset', async () => {
-      element.click();
+      await element.click();
       expect(wasReset).to.true;
 
       const formData = new FormData(formElement);
@@ -187,7 +187,7 @@ describe('UuiButton', () => {
     it('does not reset when disabled', async () => {
       element.disabled = true;
 
-      element.click();
+      await element.click();
       expect(wasReset).to.false;
 
       const formData = new FormData(formElement);
@@ -208,13 +208,13 @@ describe('UuiButton', () => {
     });
 
     it('dispatches click event when type is button', async () => {
-      element.click();
+      await element.click();
       expect(wasClicked).to.true;
     });
 
     it('does not click when disabled', async () => {
       element.disabled = true;
-      element.click();
+      await element.click();
       expect(wasClicked).to.false;
     });
   });
