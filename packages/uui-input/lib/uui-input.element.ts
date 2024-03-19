@@ -1,6 +1,6 @@
 import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, queryAsync } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
@@ -198,6 +198,8 @@ export class UUIInputElement extends FormControlMixin(
   constructor() {
     super();
 
+    this._input.then(input => this.addFormControlElement(input));
+
     this.addEventListener('mousedown', () => {
       this.style.setProperty('--uui-show-focus-outline', '0');
     });
@@ -216,13 +218,6 @@ export class UUIInputElement extends FormControlMixin(
       () => this.maxlengthMessage,
       () => !!this.maxlength && String(this._value).length > this.maxlength,
     );
-  }
-
-  protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
-  ): void {
-    super.firstUpdated(_changedProperties);
-    this._input.then(this.addFormControlElement);
   }
 
   private _onKeypress(e: KeyboardEvent): void {
