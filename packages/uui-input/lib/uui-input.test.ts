@@ -99,7 +99,7 @@ describe('UuiInputElement', () => {
   describe('events', () => {
     describe('focus', () => {
       it('emits a focus event when focused', async () => {
-        const listener = oneEvent(element, 'focus');
+        const listener = oneEvent(element, 'focus', false);
         element.focus();
         const event = await listener;
         expect(event).to.exist;
@@ -108,7 +108,7 @@ describe('UuiInputElement', () => {
     });
     describe('change', () => {
       it('emits a change event when native input fires one', async () => {
-        const listener = oneEvent(element, UUIInputEvent.CHANGE);
+        const listener = oneEvent(element, UUIInputEvent.CHANGE, false);
 
         input.dispatchEvent(new Event('change'));
 
@@ -133,7 +133,11 @@ describe('UuiInputElement', () => {
           'input',
         ) as HTMLInputElement;
 
-        const innerListener = oneEvent(innerElement!, UUIInputEvent.CHANGE);
+        const innerListener = oneEvent(
+          innerElement!,
+          UUIInputEvent.CHANGE,
+          false,
+        );
         outerElement!.addEventListener(UUIInputEvent.CHANGE, () => {
           outerEventTriggered = true;
         });
@@ -204,7 +208,7 @@ describe('UuiInput in Form', () => {
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
-      const listener = oneEvent(formElement, 'submit');
+      const listener = oneEvent(formElement, 'submit', false);
       element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
 
       const event = await listener;
@@ -219,7 +223,7 @@ describe('UuiInput in Form', () => {
 
       let isFulfilled = false;
 
-      const listener = oneEvent(formElement, 'submit');
+      const listener = oneEvent(formElement, 'submit', false);
 
       listener.then(() => (isFulfilled = true));
 
