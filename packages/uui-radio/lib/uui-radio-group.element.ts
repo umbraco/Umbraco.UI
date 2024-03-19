@@ -66,14 +66,24 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   /**
    * This method enables <label for="..."> to focus the select
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     if (this._selected !== null) {
       this._radioElements[this._selected]?.focus();
     } else {
       this._findNextEnabledElement()?.focus();
     }
   }
-  click() {
+  async blur() {
+    await this.updateComplete;
+    if (this._selected !== null) {
+      this._radioElements[this._selected]?.blur();
+    } else {
+      this._findNextEnabledElement()?.blur();
+    }
+  }
+  async click() {
+    await this.updateComplete;
     if (this._selected !== null) {
       this._radioElements[this._selected]?.click();
     } else {
