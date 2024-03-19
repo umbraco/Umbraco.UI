@@ -253,7 +253,7 @@ export class UUIInputElement extends FormControlMixin(
   }
 
   protected getFormElement(): HTMLElement {
-    return this.querySelector('input') as HTMLElement;
+    return this.shadowRoot?.querySelector('input') as HTMLElement;
   }
 
   protected onInput(e: Event) {
