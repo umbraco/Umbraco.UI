@@ -261,6 +261,15 @@ export class UUIRangeSliderElement extends UUIFormControlMixin<string>(
     return this._currentFocus ? this._currentFocus : this._inputLow;
   }
 
+  async focus() {
+    await this.updateComplete;
+    this.getFormElement().focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this.getFormElement().blur();
+  }
+
   /** Elements */
 
   @query('#range-slider')

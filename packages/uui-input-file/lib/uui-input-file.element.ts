@@ -82,6 +82,27 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement, null) {
     return this._dropZone! as HTMLElement;
   }
 
+  /**
+   * Removes focus from the input.
+   */
+  async blur() {
+    await this.updateComplete;
+    this._dropzone.blur();
+  }
+
+  /**
+   * This method enables <label for="..."> to focus the input
+   */
+  async focus() {
+    await this.updateComplete;
+    this._dropzone.focus();
+  }
+
+  async click() {
+    await this.updateComplete;
+    this._dropzone.browse();
+  }
+
   private _handleClick(e: Event) {
     e.stopImmediatePropagation();
     this._dropzone.browse();

@@ -53,16 +53,16 @@ describe('UuiRadio', () => {
     it('has a focus method', () => {
       expect(element).to.have.property('focus').that.is.a('function');
     });
-    it('focus method sets focus on first radio element', () => {
+    it('focus method sets focus on first radio element', async () => {
       expect(document.activeElement).not.to.equal(radios[0]);
-      element.focus();
+      await element.focus();
       expect(document.activeElement).to.equal(radios[0]);
     });
-    it('focus method sets focus on first enabled radio', () => {
+    it('focus method sets focus on first enabled radio', async () => {
       expect(document.activeElement).not.to.equal(radios[0]);
       expect(document.activeElement).not.to.equal(radios[1]);
       radios[0].disabled = true;
-      element.focus();
+      await element.focus();
       expect(document.activeElement).to.equal(radios[1]);
     });
 
@@ -70,16 +70,16 @@ describe('UuiRadio', () => {
       expect(element).to.have.property('click').that.is.a('function');
     });
 
-    it('click method clicks on first radio element', () => {
+    it('click method clicks on first radio element', async () => {
       expect(document.activeElement).not.to.equal(radios[0]);
-      element.click();
+      await element.click();
       expect(element.value).to.equal(radios[0].value);
     });
-    it('click method clicks on first enabled radio', () => {
+    it('click method clicks on first enabled radio', async () => {
       expect(document.activeElement).not.to.equal(radios[0]);
       expect(document.activeElement).not.to.equal(radios[1]);
       radios[0].disabled = true;
-      element.click();
+      await element.click();
       expect(element.value).to.equal(radios[1].value);
     });
 

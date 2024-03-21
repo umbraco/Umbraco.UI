@@ -310,7 +310,7 @@ describe('UUIToastNotificationElement', () => {
           '#close > uui-button',
         ) as UUIButtonElement;
         expect(closeButton).to.exist;
-        closeButton!.click();
+        await closeButton!.click();
 
         expect(element.open).to.be.false;
       });

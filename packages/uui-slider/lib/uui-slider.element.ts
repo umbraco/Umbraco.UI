@@ -164,10 +164,22 @@ export class UUISliderElement extends UUIFormControlMixin<string>(
   }
 
   /**
-   * This method enables <label for="..."> to focus the input
+   * This method enables <label for="..."> to focus the select
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._input.blur();
+  }
+  /**
+   * This method enables <label for="..."> to open the select
+   */
+  async click() {
+    await this.updateComplete;
+    this._input.click();
   }
 
   protected getFormElement(): HTMLElement {

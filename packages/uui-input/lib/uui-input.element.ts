@@ -3,7 +3,7 @@ import {
   LabelMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
@@ -220,13 +220,10 @@ export class UUIInputElement extends UUIFormControlMixin(
       () => this.maxlengthMessage,
       () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
-  }
 
-  protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
-  ): void {
-    super.firstUpdated(_changedProperties);
-    this.addFormControlElement(this._input);
+    this.updateComplete.then(() => {
+      this.addFormControlElement(this._input);
+    });
   }
 
   private _onKeypress(e: KeyboardEvent): void {
@@ -238,26 +235,29 @@ export class UUIInputElement extends UUIFormControlMixin(
   /**
    * Removes focus from the input.
    */
-  blur() {
+  async blur() {
+    await this.updateComplete;
     this._input.blur();
   }
 
   /**
    * This method enables <label for="..."> to focus the input
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
   }
 
   /**
    * Selects all the text in the input.
    */
-  select() {
+  async select() {
+    await this.updateComplete;
     this._input.select();
   }
 
   protected getFormElement(): HTMLElement {
-    return this._input;
+    return this.shadowRoot?.querySelector('input') as HTMLElement;
   }
 
   protected onInput(e: Event) {

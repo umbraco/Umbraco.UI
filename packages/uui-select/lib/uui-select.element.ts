@@ -114,14 +114,24 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   /**
    * This method enables <label for="..."> to focus the select
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._input.blur();
   }
   /**
    * This method enables <label for="..."> to open the select
    */
-  click() {
+  async click() {
+    await this.updateComplete;
     this._input.click();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
   }
 
   connectedCallback() {
@@ -174,10 +184,6 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
         composed: false,
       }),
     );
-  }
-
-  protected getFormElement(): HTMLElement {
-    return this._input;
   }
 
   private _renderOption(

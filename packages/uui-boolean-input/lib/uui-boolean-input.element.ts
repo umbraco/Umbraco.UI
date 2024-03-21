@@ -99,7 +99,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     this.addEventListener('keypress', this._onKeypress);
   }
 
-  protected getFormElement(): HTMLElement {
+  protected getFormElement(): HTMLInputElement {
     return this._input;
   }
 
@@ -145,10 +145,12 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
   /**
    * This method enables <label for="..."> to focus the input
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
   }
-  click() {
+  async click() {
+    await this.updateComplete;
     this._input.click();
   }
 

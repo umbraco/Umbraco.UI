@@ -63,7 +63,7 @@ describe('UuiToggle', () => {
     });
     it('focus method sets focus', async () => {
       expect(document.activeElement).not.to.equal(element);
-      element.focus();
+      await element.focus();
       expect(document.activeElement).to.equal(element);
     });
 
@@ -72,7 +72,7 @@ describe('UuiToggle', () => {
     });
     it('click method changes value', async () => {
       expect(element.checked).not.to.be.true;
-      element.click();
+      await element.click();
       expect(element.checked).to.be.true;
     });
   });
