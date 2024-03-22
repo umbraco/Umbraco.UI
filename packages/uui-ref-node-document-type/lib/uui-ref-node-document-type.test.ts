@@ -70,7 +70,7 @@ describe('UUIRefNodeDocumentTypeElement', () => {
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when info is clicked', async () => {
-        const listener = oneEvent(element, 'open');
+        const listener = oneEvent(element, 'open', false);
         const infoElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#info');
         infoElement?.click();
@@ -80,7 +80,7 @@ describe('UUIRefNodeDocumentTypeElement', () => {
       });
 
       it('emits a open event when icon is clicked', async () => {
-        const listener = oneEvent(element, 'open');
+        const listener = oneEvent(element, 'open', false);
         const iconElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#icon');
         iconElement?.click();
@@ -94,7 +94,7 @@ describe('UUIRefNodeDocumentTypeElement', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, 'selected');
+        const listener = oneEvent(element, 'selected', false);
         element.click();
         const event = await listener;
         expect(event).to.exist;

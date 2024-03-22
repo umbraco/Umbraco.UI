@@ -57,7 +57,11 @@ describe('UUIIconElement', () => {
   describe('events', () => {
     describe('ICON_REQUEST', () => {
       it('emits a icon request event when name is set', async () => {
-        const listener = oneEvent(element, UUIIconRequestEvent.ICON_REQUEST);
+        const listener = oneEvent(
+          element,
+          UUIIconRequestEvent.ICON_REQUEST,
+          false,
+        );
         element.name = 'test';
         const event = await listener;
         expect(event).to.exist;

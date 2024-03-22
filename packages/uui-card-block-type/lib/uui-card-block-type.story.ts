@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryFn } from '@storybook/web-components';
 
 import './uui-card-block-type.element';
 import '@umbraco-ui/uui-tag/lib/index';
@@ -40,7 +40,7 @@ const renderWandIcon = (color = 'black') =>
     <uui-icon name="wand" style="color:${color}"></uui-icon>
   </uui-icon-registry-essential>`;
 
-export const AAAOverview: Story = props => html`
+export const AAAOverview: StoryFn = props => html`
   <uui-card-block-type
     selectable
     name=${props.name}
@@ -66,7 +66,7 @@ AAAOverview.args = {
   disabled: false,
 };
 
-export const Description: Story = props => html`
+export const Description: StoryFn = props => html`
   <uui-card-block-type
     selectable
     name=${props.name}
@@ -92,7 +92,7 @@ Description.args = {
   disabled: false,
 };
 
-export const Tag: Story = props => html`
+export const Tag: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -116,7 +116,7 @@ Tag.args = {
   disabled: false,
 };
 
-export const Actions: Story = props => html`
+export const Actions: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -144,7 +144,7 @@ Actions.args = {
   disabled: false,
 };
 
-export const Background: Story = props => html`
+export const Background: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -169,7 +169,7 @@ Background.args = {
   disabled: false,
 };
 
-export const Image: Story = props => html`
+export const Image: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -196,7 +196,7 @@ Image.args = {
   disabled: false,
 };
 
-export const Error: Story = props => html`
+export const Error: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -219,7 +219,7 @@ Error.args = {
   disabled: false,
 };
 
-export const Selectable: Story = props => html`
+export const Selectable: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -242,7 +242,7 @@ Selectable.args = {
   disabled: false,
 };
 
-export const Selected: Story = props => html`
+export const Selected: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -265,7 +265,7 @@ Selected.args = {
   disabled: false,
 };
 
-export const Multiple: Story = props => html`
+export const Multiple: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -314,7 +314,7 @@ Multiple.args = {
   disabled: false,
 };
 
-export const Disabled: Story = props => html`
+export const Disabled: StoryFn = props => html`
   <uui-card-block-type
     name=${props.name}
     description=${props.description}
@@ -339,6 +339,3 @@ Disabled.args = {
 };
 
 export default meta;
-type Story = StoryObj<UUICardBlockTypeElement>;
-
-//export const Overview: Story = {};

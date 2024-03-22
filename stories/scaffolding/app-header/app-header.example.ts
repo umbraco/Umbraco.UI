@@ -68,9 +68,6 @@ export class UUIAppHeaderExample extends LitElement {
   ];
 
   @state()
-  private _open = false;
-
-  @state()
   private _sections: Array<string> = [
     'Content',
     'Media',
@@ -85,14 +82,6 @@ export class UUIAppHeaderExample extends LitElement {
   @state()
   private _visibleSections: Array<string> = ['Content', 'Media', 'Members'];
 
-  @state()
-  private _extraSections: Array<string> = ['Settings', 'Packages'];
-
-  private _handleMore(e: MouseEvent) {
-    e.stopPropagation();
-    this._open = !this._open;
-  }
-
   private _handleTabClick(e: MouseEvent) {
     const tab = e.currentTarget as any;
 
@@ -102,16 +91,6 @@ export class UUIAppHeaderExample extends LitElement {
     }
 
     this._activeSection = tab.label;
-  }
-
-  private _handleLabelClick(e: MouseEvent) {
-    const label = (e.target as any).label;
-    this._activeSection = label;
-
-    const moreTab = this.shadowRoot?.getElementById('moreTab');
-    moreTab?.setAttribute('active', 'true');
-
-    this._open = false;
   }
 
   render() {
