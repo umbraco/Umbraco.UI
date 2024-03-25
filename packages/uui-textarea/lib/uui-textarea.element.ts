@@ -186,10 +186,22 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
   }
 
   /**
-   * This method enables <label for="..."> to focus the input
+   * This method enables <label for="..."> to focus the select
    */
-  focus() {
-    this._textarea?.focus();
+  async focus() {
+    await this.updateComplete;
+    this._textarea.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._textarea.blur();
+  }
+  /**
+   * This method enables <label for="..."> to open the select
+   */
+  async click() {
+    await this.updateComplete;
+    this._textarea.click();
   }
 
   protected getFormElement(): HTMLElement {
@@ -332,14 +344,6 @@ export class UUITextareaElement extends FormControlMixin(LitElement) {
           var(--uui-color-border-emphasis)
         );
       }
-
-      textarea::placeholder {
-        transition: opacity 120ms;
-      }
-      :host(:not([readonly])) textarea:focus::placeholder {
-        opacity: 0;
-      }
-
       textarea:focus {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);

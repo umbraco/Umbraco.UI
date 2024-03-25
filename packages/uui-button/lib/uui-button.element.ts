@@ -136,6 +136,19 @@ export class UUIButtonElement extends FormControlMixin(
     return this._button;
   }
 
+  async focus() {
+    await this.updateComplete;
+    this._button.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._button.blur();
+  }
+  async click() {
+    await this.updateComplete;
+    this._button.click();
+  }
+
   private _onHostClick(e: MouseEvent) {
     if (this.disabled) {
       e.preventDefault();

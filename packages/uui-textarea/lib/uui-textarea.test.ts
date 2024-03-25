@@ -21,7 +21,7 @@ describe('UUITextareaElement', () => {
     });
     it('focus method sets focus', async () => {
       expect(document.activeElement).not.to.equal(element);
-      element.focus();
+      await element.focus();
       expect(document.activeElement).to.equal(element);
     });
   });
