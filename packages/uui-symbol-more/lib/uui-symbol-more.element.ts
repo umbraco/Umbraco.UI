@@ -6,17 +6,15 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 @defineElement('uui-symbol-more')
 export class UUISymbolMoreElement extends LitElement {
   render() {
-    return html`•••`;
+    return html`···`;
   }
 
   static styles = [
     css`
       :host {
         display: inline-block;
-        font-size: 0.8em;
-        vertical-align: top;
-        margin-top: 0.27em;
-        line-height: 1em;
+        font-size: 1.48em;
+        line-height: 0.8em;
         user-select: none;
       }
     `,
