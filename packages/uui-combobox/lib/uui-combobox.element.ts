@@ -1,4 +1,4 @@
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
@@ -28,10 +28,10 @@ import { UUIComboboxEvent } from './UUIComboboxEvent';
  * @description - Filterable combobox
  */
 @defineElement('uui-combobox')
-export class UUIComboboxElement extends FormControlMixin(LitElement) {
+export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   @property({ attribute: 'value', reflect: true })
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newValue) {
     if (typeof newValue === 'string') {

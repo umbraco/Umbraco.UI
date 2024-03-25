@@ -75,7 +75,7 @@ describe('UUIBooleanInputElement', () => {
     expect(input?.checked).to.equal(true);
   });
   it('emits an change event when the input changes', async () => {
-    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE);
+    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE, false);
     label.click();
 
     const event = await listener;
@@ -128,7 +128,7 @@ describe('BooleanInputBaseElement in a Form', () => {
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
-      const listener = oneEvent(formElement, 'submit');
+      const listener = oneEvent(formElement, 'submit', false);
       element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
 
       const event = await listener;

@@ -75,7 +75,7 @@ describe('UUICardMediaElement', () => {
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when open-part is clicked', async () => {
-        const listener = oneEvent(element, UUICardEvent.OPEN);
+        const listener = oneEvent(element, UUICardEvent.OPEN, false);
         const infoElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#open-part');
         infoElement?.click();
@@ -89,7 +89,7 @@ describe('UUICardMediaElement', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED, false);
         element.click();
         const event = await listener;
         expect(event).to.exist;
@@ -103,7 +103,11 @@ describe('UUICardMediaElement', () => {
         element.selectable = true;
         element.selected = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
+        const listener = oneEvent(
+          element,
+          UUISelectableEvent.DESELECTED,
+          false,
+        );
         element.click();
         const event = await listener;
         expect(event).to.exist;

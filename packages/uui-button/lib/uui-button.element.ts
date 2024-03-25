@@ -4,7 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/animations';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
-  FormControlMixin,
+  UUIFormControlMixin,
   LabelMixin,
   PopoverTargetMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
@@ -49,8 +49,9 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
  */
 @defineElement('uui-button')
-export class UUIButtonElement extends FormControlMixin(
+export class UUIButtonElement extends UUIFormControlMixin(
   LabelMixin('', PopoverTargetMixin(LitElement)),
+  undefined,
 ) {
   /**
    * Specifies the type of button

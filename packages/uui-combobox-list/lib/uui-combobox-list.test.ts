@@ -52,7 +52,7 @@ describe('UUIComboboxListElement', () => {
       /*
       It should not emit an event unless the action is originating from user action.
       it('emits an change event on value change', async () => {
-        const listener = oneEvent(element, UUIComboboxListEvent.CHANGE);
+        const listener = oneEvent(element, UUIComboboxListEvent.CHANGE, false);
         element.value = 'new';
         const event = await listener;
         expect(event).to.exist;

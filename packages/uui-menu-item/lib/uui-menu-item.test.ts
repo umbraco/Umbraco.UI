@@ -76,7 +76,7 @@ describe('UUIMenuItemElement', () => {
 
   describe('events', () => {
     it('emits a click-label event when button is clicked', async () => {
-      const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL);
+      const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL, false);
 
       const buttonElement = element.shadowRoot!.querySelector(
         'button#label-button',
@@ -102,7 +102,7 @@ describe('UUIMenuItemElement', () => {
         element.addEventListener(UUISelectableEvent.SELECTED, e => {
           e.preventDefault();
         });
-        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED, false);
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
@@ -122,7 +122,11 @@ describe('UUIMenuItemElement', () => {
         element.addEventListener(UUISelectableEvent.DESELECTED, e => {
           e.preventDefault();
         });
-        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
+        const listener = oneEvent(
+          element,
+          UUISelectableEvent.DESELECTED,
+          false,
+        );
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
@@ -138,7 +142,11 @@ describe('UUIMenuItemElement', () => {
         const labelElement = element.shadowRoot!.querySelector(
           '#caret-button',
         ) as HTMLElement;
-        const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
+        const listener = oneEvent(
+          element,
+          UUIMenuItemEvent.SHOW_CHILDREN,
+          false,
+        );
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
@@ -154,7 +162,11 @@ describe('UUIMenuItemElement', () => {
         element.addEventListener(UUIMenuItemEvent.SHOW_CHILDREN, e => {
           e.preventDefault();
         });
-        const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
+        const listener = oneEvent(
+          element,
+          UUIMenuItemEvent.SHOW_CHILDREN,
+          false,
+        );
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
@@ -171,7 +183,11 @@ describe('UUIMenuItemElement', () => {
         const labelElement = element.shadowRoot!.querySelector(
           '#caret-button',
         ) as HTMLElement;
-        const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
+        const listener = oneEvent(
+          element,
+          UUIMenuItemEvent.HIDE_CHILDREN,
+          false,
+        );
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
@@ -188,7 +204,11 @@ describe('UUIMenuItemElement', () => {
         element.addEventListener(UUIMenuItemEvent.HIDE_CHILDREN, e => {
           e.preventDefault();
         });
-        const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
+        const listener = oneEvent(
+          element,
+          UUIMenuItemEvent.HIDE_CHILDREN,
+          false,
+        );
         labelElement.click();
         const event = await listener;
         expect(event).to.exist;
@@ -229,7 +249,7 @@ describe('UUIMenuItemElement', () => {
     it('emits a show-children event when expand icon is clicked', async () => {
       element.setAttribute('has-children', 'true');
       await elementUpdated(element);
-      const listener = oneEvent(element, 'show-children');
+      const listener = oneEvent(element, 'show-children', false);
       const caretIconElement: HTMLElement | null =
         element.shadowRoot!.querySelector('#caret-button');
       caretIconElement?.click();
@@ -243,7 +263,7 @@ describe('UUIMenuItemElement', () => {
       element.setAttribute('has-children', 'true');
       element.setAttribute('show-children', 'true');
       await elementUpdated(element);
-      const listener = oneEvent(element, 'hide-children');
+      const listener = oneEvent(element, 'hide-children', false);
       const caretIconElement: HTMLElement | null =
         element.shadowRoot!.querySelector('#caret-button');
       caretIconElement?.click();

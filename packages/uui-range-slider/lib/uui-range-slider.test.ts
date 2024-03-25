@@ -78,7 +78,7 @@ describe('UUIRangeSliderElement', () => {
   describe('events', () => {
     describe('change', () => {
       it('emits a change event from inputLow when native input fires one', async () => {
-        const listener = oneEvent(element, UUIRangeSliderEvent.CHANGE);
+        const listener = oneEvent(element, UUIRangeSliderEvent.CHANGE, false);
         inputLow.dispatchEvent(new Event('change'));
         const event = await listener;
         expect(event).to.exist;
@@ -86,7 +86,7 @@ describe('UUIRangeSliderElement', () => {
         expect(event!.target).to.equal(element);
       });
       it('emits a change event from inputHigh when native input fires one', async () => {
-        const listener = oneEvent(element, UUIRangeSliderEvent.CHANGE);
+        const listener = oneEvent(element, UUIRangeSliderEvent.CHANGE, false);
         inputHigh.dispatchEvent(new Event('change'));
         const event = await listener;
         expect(event).to.exist;
@@ -96,7 +96,7 @@ describe('UUIRangeSliderElement', () => {
     });
     describe('input', () => {
       it('emits an input event from inputLow when native input fires one', async () => {
-        const listener = oneEvent(element, UUIRangeSliderEvent.INPUT);
+        const listener = oneEvent(element, UUIRangeSliderEvent.INPUT, false);
         inputLow.dispatchEvent(new Event('input'));
         const event = await listener;
         expect(event).to.exist;
@@ -104,7 +104,7 @@ describe('UUIRangeSliderElement', () => {
         expect(event!.target).to.equal(element);
       });
       it('emits an input event from inputHigh when native input fires one', async () => {
-        const listener = oneEvent(element, UUIRangeSliderEvent.INPUT);
+        const listener = oneEvent(element, UUIRangeSliderEvent.INPUT, false);
         inputHigh.dispatchEvent(new Event('input'));
         const event = await listener;
         expect(event).to.exist;
@@ -164,7 +164,7 @@ describe('UUIRangeSlider in a form', () => {
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
-      const listener = oneEvent(formElement, 'submit');
+      const listener = oneEvent(formElement, 'submit', false);
       element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
 
       const event = await listener;
