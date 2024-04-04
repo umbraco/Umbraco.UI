@@ -358,21 +358,6 @@ export class UUIButtonElement extends UUIFormControlMixin(
       @keyframes fadeIn {
         0% {
           opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeOut {
-        0% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-
       /* edge case for default color */
       :host(:not([color]):not([look='primary'])),
       :host([color='']:not([look='primary'])),
