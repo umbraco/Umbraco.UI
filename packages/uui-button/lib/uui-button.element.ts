@@ -335,6 +335,8 @@ export class UUIButtonElement extends UUIFormControlMixin(
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
 
         box-shadow: none;
+
+        transition: var(--uui-button-transition, none);
       }
       button[disabled]:active,
       a:not([href]):active {
@@ -354,10 +356,6 @@ export class UUIButtonElement extends UUIFormControlMixin(
         color: inherit;
       }
 
-      /* ANIMATIONS */
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
       /* edge case for default color */
       :host(:not([color]):not([look='primary'])),
       :host([color='']:not([look='primary'])),
@@ -436,6 +434,14 @@ export class UUIButtonElement extends UUIFormControlMixin(
 
         /* special for primary: */
         font-weight: var(--uui-button-font-weight, 700);
+      }
+
+      #button:focus-visible {
+        outline: 2px solid var(--color-emphasis);
+      }
+
+      :host([look='primary']) #button:focus-visible {
+        outline-offset: 2px;
       }
       :host([look='primary']:hover) #button {
         background-color: var(
