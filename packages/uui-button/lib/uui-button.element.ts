@@ -47,6 +47,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
+ *  @cssprop --uui-button-transition - Add transition to the button. Default is none.
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends UUIFormControlMixin(
@@ -335,7 +336,14 @@ export class UUIButtonElement extends UUIFormControlMixin(
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
 
         box-shadow: none;
+
+        transition: var(--uui-button-transition, none);
       }
+
+      #button:focus-visible {
+        outline: 2px solid var(--color-emphasis);
+      }
+
       button[disabled]:active,
       a:not([href]):active {
         animation: ${UUIHorizontalShakeAnimationValue};
@@ -352,25 +360,6 @@ export class UUIButtonElement extends UUIFormControlMixin(
       }
       :host([look]:not([look=''])) #loader {
         color: inherit;
-      }
-
-      /* ANIMATIONS */
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeOut {
-        0% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
       }
 
       /* edge case for default color */
@@ -452,6 +441,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         /* special for primary: */
         font-weight: var(--uui-button-font-weight, 700);
       }
+
       :host([look='primary']:hover) #button {
         background-color: var(
           --uui-button-background-color-hover,
@@ -460,6 +450,12 @@ export class UUIButtonElement extends UUIFormControlMixin(
         color: var(--uui-button-contrast-hover, var(--color-contrast));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
+
+      /* special outline offset tof primary style so you can see the outline */
+      :host([look='primary']) #button:focus-visible {
+        outline-offset: 2px;
+      }
+
       :host([look='primary'][disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,
