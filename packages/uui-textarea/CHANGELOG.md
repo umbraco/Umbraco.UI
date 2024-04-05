@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.8.0-rc.0) (2024-04-05)
+
+### Bug Fixes
+
+- **uui-textarea:** Don't hide placeholder text on focus ([#751](https://github.com/umbraco/Umbraco.UI/issues/751)) ([d6cf94f](https://github.com/umbraco/Umbraco.UI/commit/d6cf94fa09499e3c5eb1400f331bf355aa49340a))
+
+### Features
+
+- FormControlMixin refactor for types safety and default values ([#745](https://github.com/umbraco/Umbraco.UI/issues/745)) ([37e473b](https://github.com/umbraco/Umbraco.UI/commit/37e473b004e35f69776617dba7787b0a4d64bd80))
+
+### BREAKING CHANGES
+
+- rename to UUIFormControlMixin
+
+- ValueType type
+
+- append the ValueType type on getDefaultValue method
+
+- refactor for typings and default value
+
+- declare \_runValidators method
+
+- undefined Default Value Type
+
+- corrections
+
 ## [1.7.2](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.7.2) (2024-03-18)
 
 ### Bug Fixes

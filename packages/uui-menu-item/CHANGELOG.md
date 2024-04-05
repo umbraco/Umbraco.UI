@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.8.0-rc.0) (2024-04-05)
+
+### Features
+
+- :lipstick: add custom properties for menu item ([#773](https://github.com/umbraco/Umbraco.UI/issues/773)) ([229b8da](https://github.com/umbraco/Umbraco.UI/commit/229b8da5cc8ae616e1442e2e11531461864bbe26))
+- FormControlMixin refactor for types safety and default values ([#745](https://github.com/umbraco/Umbraco.UI/issues/745)) ([37e473b](https://github.com/umbraco/Umbraco.UI/commit/37e473b004e35f69776617dba7787b0a4d64bd80))
+
+### BREAKING CHANGES
+
+- rename to UUIFormControlMixin
+
+- ValueType type
+
+- append the ValueType type on getDefaultValue method
+
+- refactor for typings and default value
+
+- declare \_runValidators method
+
+- undefined Default Value Type
+
+- corrections
+
 # [1.7.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.0-rc.0...v1.7.0) (2024-02-13)
 
 **Note:** Version bump only for package @umbraco-ui/uui-menu-item

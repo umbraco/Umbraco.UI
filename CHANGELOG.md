@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.8.0-rc.0) (2024-04-05)
+
+### Bug Fixes
+
+- **uui-css:** do not import the lato font here as it means you cannot import only the custom properties without getting the font ([2b57abb](https://github.com/umbraco/Umbraco.UI/commit/2b57abbd1331092f02e05622db81862de587249e))
+- **uui-css:** do not import the lato font here as it means you cannot import only the custom properties without getting the font ([ed8659c](https://github.com/umbraco/Umbraco.UI/commit/ed8659c707ecdce0507a3c22bec1af95e7523950))
+- **uui-tab-group:** Unable to remove tab ([#753](https://github.com/umbraco/Umbraco.UI/issues/753)) ([2e24e27](https://github.com/umbraco/Umbraco.UI/commit/2e24e27317d20adea6572da07f8df39081ffe415))
+- **uui-tab-group:** Unable to remove tab ([#753](https://github.com/umbraco/Umbraco.UI/issues/753)) ([07c0045](https://github.com/umbraco/Umbraco.UI/commit/07c00452ed9668799a9b4edef01103959e6c7d90))
+- **uui-textarea:** Don't hide placeholder text on focus ([#751](https://github.com/umbraco/Umbraco.UI/issues/751)) ([d6cf94f](https://github.com/umbraco/Umbraco.UI/commit/d6cf94fa09499e3c5eb1400f331bf355aa49340a))
+- **uui-textarea:** Don't hide placeholder text on focus ([#751](https://github.com/umbraco/Umbraco.UI/issues/751)) ([a90a510](https://github.com/umbraco/Umbraco.UI/commit/a90a510a01ce8a752167e5f455571e010c9cb9ed))
+
+### Features
+
+- :lipstick: add custom properties for menu item ([#773](https://github.com/umbraco/Umbraco.UI/issues/773)) ([229b8da](https://github.com/umbraco/Umbraco.UI/commit/229b8da5cc8ae616e1442e2e11531461864bbe26))
+- :lipstick: add more custom properties to uui-box ([#772](https://github.com/umbraco/Umbraco.UI/issues/772)) ([def0263](https://github.com/umbraco/Umbraco.UI/commit/def02631de128e0a45ef678b74f0bb4715d72ea9))
+- FormControlMixin refactor for types safety and default values ([#745](https://github.com/umbraco/Umbraco.UI/issues/745)) ([37e473b](https://github.com/umbraco/Umbraco.UI/commit/37e473b004e35f69776617dba7787b0a4d64bd80))
+- **uui-button:** add transition property ([#771](https://github.com/umbraco/Umbraco.UI/issues/771)) ([da9151a](https://github.com/umbraco/Umbraco.UI/commit/da9151af7381ddfd84f233789b364b6f66019885))
+
+### BREAKING CHANGES
+
+- rename to UUIFormControlMixin
+
+- ValueType type
+
+- append the ValueType type on getDefaultValue method
+
+- refactor for typings and default value
+
+- declare \_runValidators method
+
+- undefined Default Value Type
+
+- corrections
+
 ## [1.7.2](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.7.2) (2024-03-18)
 
 ### Bug Fixes
