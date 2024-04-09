@@ -464,6 +464,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         color: currentColor;
         min-height: var(--uui-size-12);
         z-index: 1;
+        font-weight: inherit;
       }
 
       #label-button .label {
