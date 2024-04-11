@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "1.8.0-rc.0",
+  "version": "1.8.0-rc.1",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -43,7 +43,7 @@
     "@umbraco-ui/uui-badge": "1.8.0-rc.0",
     "@umbraco-ui/uui-base": "1.8.0-rc.0",
     "@umbraco-ui/uui-boolean-input": "1.8.0-rc.0",
-    "@umbraco-ui/uui-box": "1.8.0-rc.0",
+    "@umbraco-ui/uui-box": "1.8.0-rc.1",
     "@umbraco-ui/uui-breadcrumbs": "1.8.0-rc.0",
     "@umbraco-ui/uui-button": "1.8.0-rc.0",
     "@umbraco-ui/uui-button-group": "1.8.0-rc.0",
@@ -82,7 +82,7 @@
     "@umbraco-ui/uui-loader": "1.8.0-rc.0",
     "@umbraco-ui/uui-loader-bar": "1.8.0-rc.0",
     "@umbraco-ui/uui-loader-circle": "1.8.0-rc.0",
-    "@umbraco-ui/uui-menu-item": "1.8.0-rc.0",
+    "@umbraco-ui/uui-menu-item": "1.8.0-rc.1",
     "@umbraco-ui/uui-modal": "1.8.0-rc.0",
     "@umbraco-ui/uui-pagination": "1.8.0-rc.0",
     "@umbraco-ui/uui-popover": "1.8.0-rc.0",
