@@ -23,7 +23,7 @@ function slotHasContent(target: EventTarget | null): boolean {
  *  @cssprop --uui-box-border-width - overwrite the box border, default is 0
  *  @cssprop --uui-box-box-shadow - overwrite the box shadow, default is var(--uui-shadow-depth-1)
  *  @cssprop --uui-box-border-radius - overwrite the box border-radius, default is var(--uui-border-radius)
- *
+ *  @cssprop --uui-box-border-color - overwrites the box border colorm default is var(--uui-color-divider-standalone)
  */
 @defineElement('uui-box')
 export class UUIBoxElement extends LitElement {
@@ -123,8 +123,7 @@ export class UUIBoxElement extends LitElement {
       :host {
         display: block;
         border: var(--uui-box-border-width, 0) solid
-          var(--uui-color-divider-standalone);
-
+          var(--uui-box-border-color, var(--uui-color-divider-standalone));
         box-shadow: var(--uui-box-box-shadow, var(--uui-shadow-depth-1));
         border-radius: var(--uui-box-border-radius, var(--uui-border-radius));
         background-color: var(--uui-color-surface);
