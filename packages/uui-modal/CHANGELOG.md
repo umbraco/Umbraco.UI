@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.1...v1.8.0-rc.2) (2024-04-15)
+
+### Bug Fixes
+
+- **uui-dialog:** remove background ([#781](https://github.com/umbraco/Umbraco.UI/issues/781)) ([13fd470](https://github.com/umbraco/Umbraco.UI/commit/13fd470e233c51b0312ebde2ad77934108d15202))
+
 # [1.8.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.8.0-rc.0) (2024-04-05)
 
 **Note:** Version bump only for package @umbraco-ui/uui-modal

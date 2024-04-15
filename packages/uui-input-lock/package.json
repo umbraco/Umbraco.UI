@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input-lock",
-  "version": "1.8.0-rc.0",
+  "version": "1.8.0-rc.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "1.8.0-rc.0",
-    "@umbraco-ui/uui-button": "1.8.0-rc.0",
+    "@umbraco-ui/uui-button": "1.8.0-rc.2",
     "@umbraco-ui/uui-icon": "1.8.0-rc.0",
     "@umbraco-ui/uui-input": "1.8.0-rc.0"
   },
