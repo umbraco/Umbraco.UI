@@ -348,6 +348,26 @@ export class UUIButtonElement extends UUIFormControlMixin(
       a:not([href]):active {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
+
+      /* ANIMATIONS */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
       #icon-check,
       #icon-wrong {
         display: grid;
