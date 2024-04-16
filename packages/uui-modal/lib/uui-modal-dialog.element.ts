@@ -20,7 +20,7 @@ export class UUIModalDialogElement extends UUIModalElement {
       }
       dialog {
         margin: auto;
-        max-width: var(--uui-modal-dialog-max-width, 580px);
+        max-width: 100%;
         max-height: 100%;
         border-radius: var(
           --uui-modal-dialog-border-radius,
