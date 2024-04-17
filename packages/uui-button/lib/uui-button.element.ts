@@ -64,6 +64,30 @@ export class UUIButtonElement extends UUIFormControlMixin(
   type: UUIButtonType = 'button';
 
   /**
+   * Optionally set an icon to render before the label
+   * @attr
+   * @default undefined;
+   */
+  @property({ reflect: true, attribute: 'icon-before' })
+  iconBefore?: string;
+
+  /**
+   * Optionally set an icon to render after the label
+   * @attr
+   * @default undefined;
+   */
+  @property({ reflect: true, attribute: 'icon-after' })
+  iconAfer?: string;
+
+  /**
+   * Optionally set an icon without positioning. Renders as icon-before.
+   * @attr
+   * @default undefined;
+   */
+  @property({ reflect: true })
+  icon?: string;
+
+  /**
    * Disables the button, changes the looks of it and prevents if from emitting the click event
    * @type {boolean}
    * @attr
@@ -220,6 +244,13 @@ export class UUIButtonElement extends UUIFormControlMixin(
     return html`<div id="state">${element}</div>`;
   }
 
+  renderIcon(icon?: string) {
+    if (!icon) return null;
+
+    demandCustomElement(this, 'uui-icon');
+    return html`<uui-icon class="icon" name=${icon}></uui-icon>`;
+  }
+
   render() {
     return this.href
       ? html`
@@ -231,7 +262,9 @@ export class UUIButtonElement extends UUIFormControlMixin(
             rel=${ifDefined(
               this.target === '_blank' ? 'noopener noreferrer' : undefined,
             )}>
-            ${this.renderState()} ${this.renderLabel()}
+            ${this.renderState()}
+            ${this.renderIcon(this.icon ?? this.iconBefore)}
+            ${this.renderLabel()} ${this.renderIcon(this.iconAfer)}
             <slot name="extra"></slot>
           </a>
         `
@@ -240,7 +273,9 @@ export class UUIButtonElement extends UUIFormControlMixin(
             id="button"
             ?disabled=${this.disabled}
             aria-label=${ifDefined(this.label)}>
-            ${this.renderState()} ${this.renderLabel()}
+            ${this.renderState()}
+            ${this.renderIcon(this.icon ?? this.iconBefore)}
+            ${this.renderLabel()} ${this.renderIcon(this.iconAfer)}
             <slot name="extra"></slot>
           </button>
         `;
@@ -271,7 +306,8 @@ export class UUIButtonElement extends UUIFormControlMixin(
           color 80ms;
       }
 
-      :host([compact]) {
+      :host([compact]),
+      :host([icon]) {
         --uui-button-padding-left-factor: 1;
         --uui-button-padding-right-factor: 1;
         --uui-button-padding-top-factor: 0;
@@ -283,7 +319,9 @@ export class UUIButtonElement extends UUIFormControlMixin(
         display: block;
         transition: opacity 120ms;
       }
-      :host([state]:not([state=''])) .label {
+
+      :host([state]:not([state=''])) .label,
+      :host([state]:not([state=''])) .icon {
         opacity: 0;
       }
 
@@ -347,6 +385,11 @@ export class UUIButtonElement extends UUIFormControlMixin(
       button[disabled]:active,
       a:not([href]):active {
         animation: ${UUIHorizontalShakeAnimationValue};
+      }
+
+      .label:not(:empty) ~ .icon,
+      .icon + .label:not(:empty) {
+        margin-left: var(--uui-size-2);
       }
 
       /* ANIMATIONS */

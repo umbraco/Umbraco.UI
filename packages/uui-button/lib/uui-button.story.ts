@@ -289,7 +289,7 @@ LooksAndColors.parameters = {
   },
 };
 
-export const WithIcon = () => html`
+export const WithSlottedIcon = () => html`
   <uui-icon-registry-essential>
     <uui-button look="primary" color="danger" label="A11Y proper label">
       <uui-icon .name=${'favorite'}></uui-icon>
@@ -314,11 +314,57 @@ export const WithIcon = () => html`
     </uui-button>
   </uui-icon-registry-essential>
 `;
-WithIcon.parameters = {
+WithSlottedIcon.parameters = {
   docs: {
     source: {
       code: `
       <uui-button look="primary" label="A11Y proper label"><uui-icon name="alert"></uui-icon>Button Label</uui-button>`,
+    },
+  },
+};
+
+export const WithIconProperty = () => html`
+  <uui-icon-registry-essential>
+    <uui-button
+      look="primary"
+      color="danger"
+      icon="favorite"
+      label="A11Y proper label">
+    </uui-button>
+    <br />
+    <br />
+    <uui-button
+      look="primary"
+      color="default"
+      icon-before="favorite"
+      label="Button with icon"></uui-button>
+    <br />
+    <br />
+    <uui-button
+      look="primary"
+      color="positive"
+      icon-after="favorite"
+      label="Button with icon"></uui-button>
+    <br />
+    <br />
+    <uui-button
+      look="primary"
+      color="warning"
+      icon-before="check"
+      icon-after="favorite"
+      label="Button with icon"></uui-button>
+    <br />
+    <br />
+    <p>
+      The 'compact' attribute is not required when using the 'icon' property.
+    </p>
+  </uui-icon-registry-essential>
+`;
+WithIconProperty.parameters = {
+  docs: {
+    source: {
+      code: `
+      <uui-button look="primary" icon="alert" label="A11Y proper label">Button Label</uui-button>`,
     },
   },
 };
