@@ -72,10 +72,10 @@ interface Validator {
 export const UUIFormControlMixin = <
   ValueType = FormDataEntryValue | FormData,
   T extends Constructor<LitElement> = typeof LitElement,
-  DefaultValueType = unknown,
+  DefaultValueType = undefined,
 >(
   superClass: T,
-  defaultValue: DefaultValueType,
+  defaultValue: DefaultValueType = undefined as DefaultValueType,
 ) => {
   abstract class UUIFormControlMixinClass extends superClass {
     /**
