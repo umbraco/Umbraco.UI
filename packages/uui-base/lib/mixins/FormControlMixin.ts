@@ -31,31 +31,55 @@ interface UUIFormControlValidatorConfig {
   checkMethod: () => boolean;
 }
 
-export declare abstract class UUIFormControlMixinInterface<
-  ValueType,
-  DefaultValueType,
-> extends LitElement {
-  formAssociated: boolean;
+export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
+  addValidator: (
+    flagKey: FlagTypes,
+    getMessageMethod: () => string,
+    checkMethod: () => boolean,
+  ) => void;
+  removeValidator: (obj: UUIFormControlValidatorConfig) => void;
+  //static formAssociated: boolean;
+  //protected getFormElement(): HTMLElement | undefined | null; // allows for null as it makes it simpler to just implement a querySelector as that might return null. [NL]
+  focusFirstInvalidElement(): void;
+  get value(): ValueType;
+  set value(newValue: ValueType);
+  formResetCallback(): void;
+  checkValidity(): boolean;
+  get validationMessage(): string;
+  get validity(): ValidityState;
+  setCustomValidity(error?: string): void;
+  submit(): void;
+  pristine: boolean;
+}
+
+export declare abstract class UUIFormControlMixinElement<ValueType>
+  extends LitElement
+  implements UUIFormControlMixinInterface<ValueType>
+{
   protected _internals: ElementInternals;
   protected _runValidators(): void;
-  get value(): ValueType | DefaultValueType;
-  set value(newValue: ValueType | DefaultValueType);
-  name: string;
+  addValidator: (
+    flagKey: FlagTypes,
+    getMessageMethod: () => string,
+    checkMethod: () => boolean,
+  ) => void;
+  removeValidator: (obj: UUIFormControlValidatorConfig) => void;
+  protected addFormControlElement(element: NativeFormControlElement): void;
+
+  //static formAssociated: boolean;
+  protected abstract getFormElement(): HTMLElement | undefined | null; // allows for null as it makes it simpler to just implement a querySelector as that might return null. [NL]
+  focusFirstInvalidElement(): void;
+  get value(): ValueType;
+  set value(newValue: ValueType);
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
   public setCustomValidity(error: string): void;
   public submit(): void;
-  protected abstract getFormElement(): HTMLElement | undefined | null; // allows for null as it makes it simpler to just implement a querySelector as that might return null. [NL]
-  focusFirstInvalidElement(): void;
-  protected addValidator: (
-    flagKey: FlagTypes,
-    getMessageMethod: () => string,
-    checkMethod: () => boolean,
-  ) => void;
-  protected addFormControlElement(element: NativeFormControlElement): void;
   pristine: boolean;
+
+  name: string;
   required: boolean;
   requiredMessage: string;
   error: boolean;
@@ -70,9 +94,8 @@ export declare abstract class UUIFormControlMixinInterface<
  */
 export const UUIFormControlMixin = <
   ValueType = FormDataEntryValue | FormData,
-  T extends
-    HTMLElementConstructor<LitElement> = HTMLElementConstructor<LitElement>,
-  DefaultValueType = undefined,
+  T extends HTMLElementConstructor<LitElement> = typeof LitElement,
+  DefaultValueType extends ValueType = ValueType,
 >(
   superClass: T,
   defaultValue: DefaultValueType = undefined as DefaultValueType,
@@ -103,10 +126,10 @@ export const UUIFormControlMixin = <
      * @default ''
      */
     @property() // Do not 'reflect' as the attribute is used as fallback.
-    get value(): ValueType | DefaultValueType {
+    get value(): ValueType {
       return this.#value;
     }
-    set value(newValue: ValueType | DefaultValueType) {
+    set value(newValue: ValueType) {
       const oldValue = this.#value;
       this.#value = newValue;
       if (
@@ -174,7 +197,7 @@ export const UUIFormControlMixin = <
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    #value: ValueType | DefaultValueType = defaultValue;
+    #value: ValueType = defaultValue;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     #validators: UUIFormControlValidatorConfig[] = [];
@@ -424,8 +447,8 @@ export const UUIFormControlMixin = <
     protected getDefaultValue(): DefaultValueType {
       return defaultValue;
     }
-    protected getInitialValue(): ValueType | DefaultValueType {
-      return this.getAttribute('value') as ValueType | DefaultValueType;
+    protected getInitialValue(): ValueType {
+      return this.getAttribute('value') as ValueType;
     }
 
     public checkValidity() {
@@ -451,7 +474,7 @@ export const UUIFormControlMixin = <
     }
   }
   return UUIFormControlMixinClass as unknown as HTMLElementConstructor<
-    UUIFormControlMixinInterface<ValueType, DefaultValueType>
+    UUIFormControlMixinElement<ValueType>
   > &
     T;
 };
