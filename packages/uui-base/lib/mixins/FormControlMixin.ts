@@ -385,7 +385,8 @@ export const UUIFormControlMixin = <
     }
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
-      super.updated(changedProperties);
+      // @ts-expect-error We don't know if we are extending a lit-element:
+      super.updated?.(changedProperties);
       this._runValidators();
     }
 
