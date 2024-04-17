@@ -71,7 +71,7 @@ export declare abstract class UUIFormControlMixinInterface<
 export const UUIFormControlMixin = <
   ValueType = FormDataEntryValue | FormData,
   T extends
-    HTMLElementConstructor<HTMLElement> = HTMLElementConstructor<HTMLElement>,
+    HTMLElementConstructor<LitElement> = HTMLElementConstructor<LitElement>,
   DefaultValueType = undefined,
 >(
   superClass: T,
@@ -127,10 +127,16 @@ export const UUIFormControlMixin = <
      * @attr
      * @default true
      */
-    @property({ type: Boolean, reflect: true })
+    @property({ type: Boolean, reflect: true, attribute: 'pristine' })
     public set pristine(value: boolean) {
       if (this._pristine !== value) {
         this._pristine = value;
+        // I have trouble with the reflect option on this one, maybe reflect does not work from mixins? [NL]
+        if (value) {
+          this.setAttribute('pristine', '');
+        } else {
+          this.removeAttribute('pristine');
+        }
         this.#dispatchValidationState();
       }
     }
@@ -177,6 +183,7 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
+      this.setAttribute('pristine', '');
 
       this.addValidator(
         'valueMissing',
@@ -386,8 +393,7 @@ export const UUIFormControlMixin = <
     }
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
-      // @ts-expect-error We don't know if we are extending a lit-element:
-      super.updated?.(changedProperties);
+      super.updated(changedProperties);
       this._runValidators();
     }
 
