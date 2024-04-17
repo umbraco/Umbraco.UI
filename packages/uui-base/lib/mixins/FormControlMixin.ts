@@ -325,6 +325,7 @@ export const UUIFormControlMixin = <
     }
 
     /**
+     * @protected
      * @method _runValidators
      * @description Run all validators and set the validityState of this form control.
      * Run this method when you want to re-run all validators.
