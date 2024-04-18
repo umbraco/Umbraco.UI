@@ -98,7 +98,7 @@ export const UUIFormControlMixin = <
   DefaultValueType extends ValueType = ValueType,
 >(
   superClass: T,
-  defaultValue: DefaultValueType = undefined as DefaultValueType,
+  defaultValue?: DefaultValueType,
 ) => {
   abstract class UUIFormControlMixinClass extends superClass {
     /**
