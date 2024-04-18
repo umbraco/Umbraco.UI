@@ -95,7 +95,7 @@ export declare abstract class UUIFormControlMixinElement<ValueType>
 export const UUIFormControlMixin = <
   ValueType = FormDataEntryValue | FormData,
   T extends HTMLElementConstructor<LitElement> = typeof LitElement,
-  DefaultValueType extends ValueType = ValueType,
+  DefaultValueType = undefined,
 >(
   superClass: T,
   defaultValue?: DefaultValueType,
@@ -126,10 +126,10 @@ export const UUIFormControlMixin = <
      * @default ''
      */
     @property() // Do not 'reflect' as the attribute is used as fallback.
-    get value(): ValueType {
+    get value(): ValueType | DefaultValueType {
       return this.#value;
     }
-    set value(newValue: ValueType) {
+    set value(newValue: ValueType | DefaultValueType) {
       const oldValue = this.#value;
       this.#value = newValue;
       if (
@@ -197,7 +197,8 @@ export const UUIFormControlMixin = <
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    #value: ValueType = defaultValue;
+    #value: ValueType | DefaultValueType =
+      defaultValue as unknown as DefaultValueType;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     #validators: UUIFormControlValidatorConfig[] = [];
@@ -445,10 +446,10 @@ export const UUIFormControlMixin = <
     }
 
     protected getDefaultValue(): DefaultValueType {
-      return defaultValue;
+      return defaultValue as DefaultValueType;
     }
-    protected getInitialValue(): ValueType {
-      return this.getAttribute('value') as ValueType;
+    protected getInitialValue(): ValueType | DefaultValueType {
+      return this.getAttribute('value') as ValueType | DefaultValueType;
     }
 
     public checkValidity() {
@@ -474,7 +475,7 @@ export const UUIFormControlMixin = <
     }
   }
   return UUIFormControlMixinClass as unknown as HTMLElementConstructor<
-    UUIFormControlMixinElement<ValueType>
+    UUIFormControlMixinElement<ValueType | DefaultValueType>
   > &
     T;
 };
