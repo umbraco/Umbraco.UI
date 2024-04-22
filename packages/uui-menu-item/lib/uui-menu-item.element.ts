@@ -113,6 +113,15 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     demandCustomElement(this, 'uui-loader-bar');
   }
 
+  async focus() {
+    await this.updateComplete;
+    this.shadowRoot
+      ?.querySelector<
+        HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement
+      >('#label-button')
+      ?.focus?.();
+  }
+
   private _labelButtonChanged = (label?: Element | undefined) => {
     this.selectableTarget = label || this;
   };
