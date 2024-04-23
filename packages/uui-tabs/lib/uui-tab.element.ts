@@ -135,11 +135,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
           var(--uui-tab-padding-horizontal, var(--uui-size-5));
       }
 
-      :host(:not([active]):not([disabled])) #button:hover {
+      :host(:not([disabled])) #button:hover {
         color: var(--uui-tab-text-hover, var(--uui-color-default-emphasis));
       }
 
-      :host(:not([active]):not([disabled])) #button:active {
+      :host(:not([disabled])) #button:active {
         box-shadow:
           inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
