@@ -12,6 +12,9 @@ import {
  *  @description Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
  *  @slot - slot for tag contents
  *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
+ *  @cssprop --uui-tag-padding - overwrite the default padding size for the tag.
+ *  @cssprop --uui-tag-border-radius - overwrite the default border-radius for the tag.
+ *  @cssprop --uui-tag-border-color - overwrite the default border color for the tag.
  */
 
 @defineElement('uui-tag')
