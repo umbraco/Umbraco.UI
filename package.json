@@ -59,7 +59,7 @@
     "lit": "^2.8.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.9",
+    "@babel/core": "7.24.5",
     "@lerna-lite/cli": "3.3.2",
     "@lerna-lite/exec": "3.3.2",
     "@lerna-lite/publish": "3.3.2",
