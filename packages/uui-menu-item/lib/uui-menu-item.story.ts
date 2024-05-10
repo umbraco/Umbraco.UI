@@ -9,6 +9,7 @@ import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import readme from '../README.md?raw';
 import '@umbraco-ui/uui-symbol-expand/lib';
+import '@umbraco-ui/uui-symbol-more/lib';
 
 export default {
   title: 'Buttons/Menu Item',
