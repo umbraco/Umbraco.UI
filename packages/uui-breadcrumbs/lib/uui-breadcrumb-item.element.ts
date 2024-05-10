@@ -35,7 +35,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
   lastItem = false;
 
   renderLinkAndSeparator() {
-    console.log(this.href);
     const item = this.href
       ? html`<a id="link" href=${this.href}><slot></slot></a>`
       : html`<span id="link"><slot></slot></span>`;
