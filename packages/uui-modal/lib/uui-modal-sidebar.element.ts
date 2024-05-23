@@ -68,6 +68,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
     css`
       :host {
         --uui-modal-sidebar-left-gap: 24px;
+        --uui-modal-sidebar-background: var(--uui-color-surface);
       }
       @media (min-width: 600px) {
         :host {
@@ -82,6 +83,10 @@ export class UUIModalSidebarElement extends UUIModalElement {
         margin-left: auto;
         right: var(--uui-modal-offset);
         transition: right var(--uui-modal-transition-duration, 250ms);
+        background: var(
+          --uui-modal-sidebar-background,
+          var(--uui-color-surface)
+        );
       }
       :host([index='0']) dialog {
         box-shadow: var(--uui-shadow-depth-5);

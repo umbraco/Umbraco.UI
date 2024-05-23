@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, svg } from 'lit';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { property, query, state } from 'lit/decorators.js';
 import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
 import { clamp } from '@umbraco-ui/uui-base/lib/utils';
@@ -23,9 +23,10 @@ const STEP_MIN_WIDTH = 24;
  * @description - Range slider with two handles. Use uui-slider for a single handle.
  * @fires UUIRangeSliderEvent#input on input
  * @fires UUIRangeSliderEvent#change on change
+ * @extends UUIFormControlMixin
  */
 @defineElement('uui-range-slider')
-export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
+export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   static readonly formAssociated = true;
 
   /**
@@ -142,7 +143,7 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
    */
   @property({ type: String })
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newVal) {
     super.value = newVal;
@@ -255,6 +256,15 @@ export class UUIRangeSliderElement extends FormControlMixin(LitElement) {
 
   protected getFormElement(): HTMLInputElement {
     return this._currentFocus ? this._currentFocus : this._inputLow;
+  }
+
+  async focus() {
+    await this.updateComplete;
+    this.getFormElement().focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this.getFormElement().blur();
   }
 
   /** Elements */

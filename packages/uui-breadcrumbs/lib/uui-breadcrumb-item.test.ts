@@ -13,7 +13,7 @@ describe('UuiBreadcrumbItem', () => {
 
   it('is a link if not last item', async () => {
     const element = await fixture<UUIBreadcrumbItemElement>(html`
-      <uui-breadcrumb-item>One</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="/test">One</uui-breadcrumb-item>
     `);
 
     const link = element.shadowRoot!.querySelector('a')!;
@@ -23,6 +23,14 @@ describe('UuiBreadcrumbItem', () => {
   it('is a span if last item', async () => {
     const element = await fixture<UUIBreadcrumbItemElement>(html`
       <uui-breadcrumb-item last-item>One</uui-breadcrumb-item>
+    `);
+    const span = element.shadowRoot!.querySelector('span')!;
+    expect(span).to.exist;
+  });
+
+  it('is a span if no href', async () => {
+    const element = await fixture<UUIBreadcrumbItemElement>(html`
+      <uui-breadcrumb-item>One</uui-breadcrumb-item>
     `);
     const span = element.shadowRoot!.querySelector('span')!;
     expect(span).to.exist;

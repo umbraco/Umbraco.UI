@@ -1,6 +1,9 @@
-import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  UUIFormControlMixin,
+  LabelMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
@@ -43,8 +46,9 @@ export type InputType =
  * @cssprop --uui-input-border-color-readonly - Border color when readonly
  */
 @defineElement('uui-input')
-export class UUIInputElement extends FormControlMixin(
+export class UUIInputElement extends UUIFormControlMixin(
   LabelMixin('', LitElement),
+  '',
 ) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
@@ -209,20 +213,17 @@ export class UUIInputElement extends FormControlMixin(
     this.addValidator(
       'tooShort',
       () => this.minlengthMessage,
-      () => !!this.minlength && String(this._value).length < this.minlength,
+      () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
       () => this.maxlengthMessage,
-      () => !!this.maxlength && String(this._value).length > this.maxlength,
+      () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
-  }
 
-  protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
-  ): void {
-    super.firstUpdated(_changedProperties);
-    this.addFormControlElement(this._input);
+    this.updateComplete.then(() => {
+      this.addFormControlElement(this._input);
+    });
   }
 
   private _onKeypress(e: KeyboardEvent): void {
@@ -234,26 +235,29 @@ export class UUIInputElement extends FormControlMixin(
   /**
    * Removes focus from the input.
    */
-  blur() {
+  async blur() {
+    await this.updateComplete;
     this._input.blur();
   }
 
   /**
    * This method enables <label for="..."> to focus the input
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
   }
 
   /**
    * Selects all the text in the input.
    */
-  select() {
+  async select() {
+    await this.updateComplete;
     this._input.select();
   }
 
   protected getFormElement(): HTMLElement {
-    return this._input;
+    return this.shadowRoot?.querySelector('input') as HTMLElement;
   }
 
   protected onInput(e: Event) {

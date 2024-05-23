@@ -15,11 +15,21 @@ export class UUIModalDialogElement extends UUIModalElement {
   static styles = [
     ...UUIModalElement.styles,
     css`
+      :host {
+        --uui-modal-dialog-background: var(--uui-color-surface);
+      }
       dialog {
         margin: auto;
         max-width: 100%;
         max-height: 100%;
-        border-radius: 12px;
+        border-radius: var(
+          --uui-modal-dialog-border-radius,
+          calc(var(--uui-border-radius) * 4)
+        );
+        background: var(
+          --uui-modal-dialog-background,
+          var(--uui-color-surface)
+        );
       }
       :host([index='0']) dialog {
         box-shadow: var(--uui-shadow-depth-5);

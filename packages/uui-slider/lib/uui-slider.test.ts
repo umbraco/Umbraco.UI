@@ -66,14 +66,14 @@ describe('UuiSlider', () => {
     });
     it('focus method sets focus', async () => {
       expect(document.activeElement).not.to.equal(element);
-      element.focus();
+      await element.focus();
       expect(document.activeElement).to.equal(element);
     });
   });
   describe('events', () => {
     describe('change', () => {
       it('emits a change event when native input fires one', async () => {
-        const listener = oneEvent(element, UUISliderEvent.CHANGE);
+        const listener = oneEvent(element, UUISliderEvent.CHANGE, false);
 
         input.dispatchEvent(new Event('change'));
 
@@ -85,7 +85,7 @@ describe('UuiSlider', () => {
     });
     describe('input', () => {
       it('emits a input event when native input fires one', async () => {
-        const listener = oneEvent(element, UUISliderEvent.INPUT);
+        const listener = oneEvent(element, UUISliderEvent.INPUT, false);
 
         input.dispatchEvent(new Event('input'));
 
@@ -150,7 +150,7 @@ describe('UuiSlider in Form', () => {
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
-      const listener = oneEvent(formElement, 'submit');
+      const listener = oneEvent(formElement, 'submit', false);
       element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
 
       const event = await listener;

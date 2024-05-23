@@ -4,7 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/animations';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
-  FormControlMixin,
+  UUIFormControlMixin,
   LabelMixin,
   PopoverTargetMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
@@ -47,10 +47,12 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
+ *  @cssprop --uui-button-transition - Add transition to the button. Default is none.
  */
 @defineElement('uui-button')
-export class UUIButtonElement extends FormControlMixin(
+export class UUIButtonElement extends UUIFormControlMixin(
   LabelMixin('', PopoverTargetMixin(LitElement)),
+  undefined,
 ) {
   /**
    * Specifies the type of button
@@ -134,6 +136,19 @@ export class UUIButtonElement extends FormControlMixin(
 
   protected getFormElement(): HTMLElement {
     return this._button;
+  }
+
+  async focus() {
+    await this.updateComplete;
+    this._button.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._button.blur();
+  }
+  async click() {
+    await this.updateComplete;
+    this._button.click();
   }
 
   private _onHostClick(e: MouseEvent) {
@@ -321,23 +336,17 @@ export class UUIButtonElement extends FormControlMixin(
           calc(var(--uui-size-2) * var(--uui-button-padding-left-factor));
 
         box-shadow: none;
+
+        transition: var(--uui-button-transition, none);
       }
+
+      #button:focus-visible {
+        outline: 2px solid var(--color-emphasis);
+      }
+
       button[disabled]:active,
       a:not([href]):active {
         animation: ${UUIHorizontalShakeAnimationValue};
-      }
-      #icon-check,
-      #icon-wrong {
-        display: grid;
-        place-items: center;
-        width: 1.5em;
-      }
-
-      #loader {
-        font-size: 1.5em;
-      }
-      :host([look]:not([look=''])) #loader {
-        color: inherit;
       }
 
       /* ANIMATIONS */
@@ -357,6 +366,20 @@ export class UUIButtonElement extends FormControlMixin(
         100% {
           opacity: 0;
         }
+      }
+
+      #icon-check,
+      #icon-wrong {
+        display: grid;
+        place-items: center;
+        width: 1.5em;
+      }
+
+      #loader {
+        font-size: 1.5em;
+      }
+      :host([look]:not([look=''])) #loader {
+        color: inherit;
       }
 
       /* edge case for default color */
@@ -438,6 +461,7 @@ export class UUIButtonElement extends FormControlMixin(
         /* special for primary: */
         font-weight: var(--uui-button-font-weight, 700);
       }
+
       :host([look='primary']:hover) #button {
         background-color: var(
           --uui-button-background-color-hover,
@@ -446,6 +470,12 @@ export class UUIButtonElement extends FormControlMixin(
         color: var(--uui-button-contrast-hover, var(--color-contrast));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
+
+      /* special outline offset tof primary style so you can see the outline */
+      :host([look='primary']) #button:focus-visible {
+        outline-offset: 2px;
+      }
+
       :host([look='primary'][disabled]) #button {
         background-color: var(
           --uui-button-background-color-disabled,

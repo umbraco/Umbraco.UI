@@ -1,4 +1,7 @@
-import { FormControlMixin, LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import {
+  UUIFormControlMixin,
+  LabelMixin,
+} from '@umbraco-ui/uui-base/lib/mixins';
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
@@ -12,15 +15,18 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputElement extends FormControlMixin(
+export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
   LabelMixin('', LitElement),
+  '',
 ) {
+  private _value = '';
+
   /** intentional overwrite of FormControlMixins value getter and setter method. */
   get value() {
-    return this._value as string;
+    return this._value;
   }
   set value(newVal: string) {
-    const oldValue = this._value;
+    const oldValue = super.value;
     this._value = newVal;
     if (
       'ElementInternals' in window &&
@@ -93,7 +99,7 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
     this.addEventListener('keypress', this._onKeypress);
   }
 
-  protected getFormElement(): HTMLElement {
+  protected getFormElement(): HTMLInputElement {
     return this._input;
   }
 
@@ -139,10 +145,12 @@ export abstract class UUIBooleanInputElement extends FormControlMixin(
   /**
    * This method enables <label for="..."> to focus the input
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
   }
-  click() {
+  async click() {
+    await this.updateComplete;
     this._input.click();
   }
 

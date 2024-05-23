@@ -1,6 +1,6 @@
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import readme from '../README.md?raw';
 
@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props => html`
+export const AAAOverview: StoryFn = props => html`
   <uui-avatar-group
     style="font-size: ${props.fontSize}em; --uui-avatar-border-color: ${props[
       '--uui-avatar-border-color'
@@ -39,7 +39,7 @@ AAAOverview.parameters = {};
 
 AAAOverview.storyName = 'Overview';
 
-export const Limit: Story = ({ limit }) => html`
+export const Limit: StoryFn = ({ limit }) => html`
   <uui-avatar-group
     style="font-size: 2rem; --uui-avatar-border-color: white;"
     .limit=${limit}>

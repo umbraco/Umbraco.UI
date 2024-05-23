@@ -435,7 +435,7 @@ export const MultiLine: Story = props => {
 
 MultiLine.args = { look: 'primary' };
 
-export const ContentAlignment = props => html`
+export const ContentAlignment: Story = props => html`
   <uui-button
     style="max-width: 400px; width: 100%;
       --uui-button-content-align: ${props['--uui-button-content-align']}"

@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-button
+
+# [1.8.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.1...v1.8.0-rc.2) (2024-04-15)
+
+### Bug Fixes
+
+- **uui-button:** :ambulance: add back missing animation ([#782](https://github.com/umbraco/Umbraco.UI/issues/782)) ([5a1fea7](https://github.com/umbraco/Umbraco.UI/commit/5a1fea7d84a01193ab1af479ae389411584dead2))
+
+# [1.8.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.8.0-rc.0) (2024-04-05)
+
+### Features
+
+- FormControlMixin refactor for types safety and default values ([#745](https://github.com/umbraco/Umbraco.UI/issues/745)) ([37e473b](https://github.com/umbraco/Umbraco.UI/commit/37e473b004e35f69776617dba7787b0a4d64bd80))
+- **uui-button:** add transition property ([#771](https://github.com/umbraco/Umbraco.UI/issues/771)) ([da9151a](https://github.com/umbraco/Umbraco.UI/commit/da9151af7381ddfd84f233789b364b6f66019885))
+
+### BREAKING CHANGES
+
+- rename to UUIFormControlMixin
+
+- ValueType type
+
+- append the ValueType type on getDefaultValue method
+
+- refactor for typings and default value
+
+- declare \_runValidators method
+
+- undefined Default Value Type
+
+- corrections
+
 ## [1.7.1](https://github.com/umbraco/Umbraco.UI/compare/v1.7.0...v1.7.1) (2024-02-13)
 
 ### Bug Fixes

@@ -35,13 +35,14 @@ describe('UUIInputLockElement', () => {
   });
 
   it('correctly toggles lock', async () => {
+    // Awaits has an effect even though your IDE might say otherwise.
     await expect(element.readonly).to.be.true;
     const toggle = element.shadowRoot?.querySelector(
       '#lock',
     ) as HTMLButtonElement;
-    toggle.click();
+    await toggle.click();
     await expect(element.readonly).to.be.false;
-    toggle.click();
+    await toggle.click();
     await expect(element.readonly).to.be.true;
   });
 });

@@ -63,7 +63,7 @@ describe('UUIPaginationElement', () => {
   describe('events', () => {
     describe('change', () => {
       it('emits a change event when another page is clicked', async () => {
-        const listener = oneEvent(element, 'change');
+        const listener = oneEvent(element, 'change', false);
         const button = element.shadowRoot?.querySelector('#pages')!
           .children[3] as HTMLElement;
         button?.click();

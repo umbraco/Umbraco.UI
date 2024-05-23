@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-avatar",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "license": "MIT",
   "description": "An avatar web component for displaying user avatars.",
   "keywords": [
@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.7.0"
+    "@umbraco-ui/uui-base": "1.8.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",

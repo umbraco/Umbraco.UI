@@ -51,7 +51,7 @@ describe('UuiTableRow', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, 'selected');
+        const listener = oneEvent(element, 'selected', false);
         element.click();
         const event = await listener;
         expect(event).to.exist;

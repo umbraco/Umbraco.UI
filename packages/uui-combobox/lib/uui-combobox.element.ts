@@ -1,4 +1,4 @@
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import {
@@ -28,10 +28,10 @@ import { UUIComboboxEvent } from './UUIComboboxEvent';
  * @description - Filterable combobox
  */
 @defineElement('uui-combobox')
-export class UUIComboboxElement extends FormControlMixin(LitElement) {
+export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   @property({ attribute: 'value', reflect: true })
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newValue) {
     if (typeof newValue === 'string') {
@@ -74,7 +74,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     const popover = this._comboboxPopoverElement;
     if (popover) {
       if (newValue) {
-        const width = this._inputElement.offsetWidth;
+        const width = this._input.offsetWidth;
         popover.style.setProperty('--popover-width', `${width}px`);
         popover.showPopover();
       } else {
@@ -104,7 +104,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   disabled = false;
 
   @query('#combobox-input')
-  private _inputElement!: HTMLInputElement;
+  private _input!: HTMLInputElement;
 
   @query('#combobox-popover')
   private _comboboxPopoverElement?: UUIPopoverContainerElement;
@@ -191,10 +191,23 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
   }
 
   protected getFormElement(): HTMLElement | undefined {
-    return this._inputElement;
+    return this._input;
   }
 
-  #onMouseDown = () => requestAnimationFrame(() => this._inputElement.focus());
+  async focus() {
+    await this.updateComplete;
+    this._input.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._input.blur();
+  }
+  async click() {
+    await this.updateComplete;
+    this._input.click();
+  }
+
+  #onMouseDown = () => requestAnimationFrame(() => this._input.focus());
 
   #onBlur = () =>
     requestAnimationFrame(() => {
@@ -240,7 +253,7 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.open = false;
     this.search = '';
     // Reset input(search-input) value:
-    this._inputElement.value = this._displayValue;
+    this._input.value = this._displayValue;
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
   };
 
@@ -268,9 +281,9 @@ export class UUIComboboxElement extends FormControlMixin(LitElement) {
     this.value = '';
     this.search = '';
     // Reset input(search-input) value:
-    this._inputElement.value = this._displayValue;
+    this._input.value = this._displayValue;
 
-    this._inputElement.focus();
+    this._input.focus();
 
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));

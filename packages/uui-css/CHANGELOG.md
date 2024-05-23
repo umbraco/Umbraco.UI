@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-css
+
+# [1.8.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.8.0-rc.0) (2024-04-05)
+
+### Bug Fixes
+
+- **uui-css:** do not import the lato font here as it means you cannot import only the custom properties without getting the font ([2b57abb](https://github.com/umbraco/Umbraco.UI/commit/2b57abbd1331092f02e05622db81862de587249e))
+
 ## [1.7.2](https://github.com/umbraco/Umbraco.UI/compare/v1.7.1...v1.7.2) (2024-03-18)
 
 ### Bug Fixes

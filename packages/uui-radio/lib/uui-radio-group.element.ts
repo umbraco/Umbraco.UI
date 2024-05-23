@@ -1,4 +1,4 @@
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -14,11 +14,12 @@ const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
 
 /**
- *  @element uui-radio-group
- *  @slot - slot for `<uui-radio>` elements or custom elements that extend from `UUIRadioElement`
+ * @element uui-radio-group
+ * @slot - slot for `<uui-radio>` elements or custom elements that extend from `UUIRadioElement`
+ * @extends UUIFormControlMixin
  */
 @defineElement('uui-radio-group')
-export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
+export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -35,14 +36,14 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   disabled = false;
 
   get value() {
-    return this._value;
+    return super.value;
   }
   set value(newValue) {
     super.value = newValue;
-    if (newValue === null || newValue === '') {
+    if (!newValue || newValue === '') {
       this._makeFirstEnabledFocusable();
     }
-    this._updateRadioElementsCheckedState(newValue);
+    this._updateRadioElementsCheckedState(newValue as string);
   }
 
   private _selected: number | null = null;
@@ -54,7 +55,7 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
 
     // Wait for the radio elements to be added to the dom before updating the checked state.
     this.updateComplete.then(() => {
-      this._updateRadioElementsCheckedState(this.value);
+      this._updateRadioElementsCheckedState(this.value as string);
     });
   }
 
@@ -66,14 +67,24 @@ export class UUIRadioGroupElement extends FormControlMixin(LitElement) {
   /**
    * This method enables <label for="..."> to focus the select
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     if (this._selected !== null) {
       this._radioElements[this._selected]?.focus();
     } else {
       this._findNextEnabledElement()?.focus();
     }
   }
-  click() {
+  async blur() {
+    await this.updateComplete;
+    if (this._selected !== null) {
+      this._radioElements[this._selected]?.blur();
+    } else {
+      this._findNextEnabledElement()?.blur();
+    }
+  }
+  async click() {
+    await this.updateComplete;
     if (this._selected !== null) {
       this._radioElements[this._selected]?.click();
     } else {

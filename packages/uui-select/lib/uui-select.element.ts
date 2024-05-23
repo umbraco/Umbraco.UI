@@ -1,4 +1,4 @@
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -31,10 +31,11 @@ declare global {
  * @cssprop --uui-select-selected-option-color - Color of the selected option
  * @cssprop --uui-select-outline-color - Outline color
  * @cssprop --uui-select-disabled-background-color - Background color when disabled
+ * @extends UUIFormControlMixin
  */
 // TODO: Consider if this should use child items instead of an array.
 @defineElement('uui-select')
-export class UUISelectElement extends FormControlMixin(LitElement) {
+export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   /**
    * Text with which component should be labeled
    * @type {string}
@@ -113,14 +114,24 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
   /**
    * This method enables <label for="..."> to focus the select
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._input.blur();
   }
   /**
    * This method enables <label for="..."> to open the select
    */
-  click() {
+  async click() {
+    await this.updateComplete;
     this._input.click();
+  }
+
+  protected getFormElement(): HTMLElement {
+    return this._input;
   }
 
   connectedCallback() {
@@ -173,10 +184,6 @@ export class UUISelectElement extends FormControlMixin(LitElement) {
         composed: false,
       }),
     );
-  }
-
-  protected getFormElement(): HTMLElement {
-    return this._input;
   }
 
   private _renderOption(

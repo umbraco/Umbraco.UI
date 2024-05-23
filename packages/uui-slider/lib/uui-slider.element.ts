@@ -1,5 +1,5 @@
 import { UUIHorizontalPulseKeyframes } from '@umbraco-ui/uui-base/lib/animations';
-import { FormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement, nothing, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -48,13 +48,13 @@ const GenerateStepArray = (start: number, stop: number, step: number) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
 /**
- *  @element uui-slider
- *  @description - Native `<input type="range">` wrapper.
- *  @fires UUISliderEvent#input on input
- *
+ * @element uui-slider
+ * @description - Native `<input type="range">` wrapper.
+ * @fires UUISliderEvent#input on input
+ * @extends UUIFormControlMixin
  */
 @defineElement('uui-slider')
-export class UUISliderElement extends FormControlMixin(LitElement) {
+export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -105,7 +105,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
    */
   @property({ type: String })
   get value() {
-    return this._value;
+    return super.value;
   }
 
   set value(newVal) {
@@ -113,7 +113,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       return;
     }
 
-    const oldVal = this._value;
+    const oldVal = super.value;
 
     let correctedValue = newVal ? parseFloat(newVal as string) : 0;
     correctedValue = Math.min(Math.max(correctedValue, this.min), this.max);
@@ -121,15 +121,8 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
       correctedValue = Math.round(correctedValue / this.step) * this.step;
     }
 
-    this._value = correctedValue.toString();
+    super.value = correctedValue.toString();
     this._calculateSliderPosition();
-    if (
-      'ElementInternals' in window &&
-      //@ts-ignore
-      'setFormValue' in window.ElementInternals.prototype
-    ) {
-      this._internals.setFormValue(this._value);
-    }
     this.requestUpdate('value', oldVal);
   }
 
@@ -168,10 +161,22 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
   }
 
   /**
-   * This method enables <label for="..."> to focus the input
+   * This method enables <label for="..."> to focus the select
    */
-  focus() {
+  async focus() {
+    await this.updateComplete;
     this._input.focus();
+  }
+  async blur() {
+    await this.updateComplete;
+    this._input.blur();
+  }
+  /**
+   * This method enables <label for="..."> to open the select
+   */
+  async click() {
+    await this.updateComplete;
+    this._input.click();
   }
 
   protected getFormElement(): HTMLElement {
@@ -242,7 +247,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
 
   private _calculateSliderPosition() {
     const ratio =
-      (parseFloat((this._value || '0') as string) - this.min) /
+      (parseFloat((super.value || '0') as string) - this.min) /
       (this.max - this.min);
     this._sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
   }
@@ -266,7 +271,7 @@ export class UUISliderElement extends FormControlMixin(LitElement) {
         type="range"
         min="${this.min}"
         max="${this.max}"
-        .value="${this.value as string}"
+        .value="${this.value}"
         aria-label="${this.label}"
         step="${+this.step}"
         ?disabled=${this.disabled}

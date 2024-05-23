@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-avatar-group",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,8 +30,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-avatar": "1.7.0",
-    "@umbraco-ui/uui-base": "1.7.0"
+    "@umbraco-ui/uui-avatar": "1.8.0",
+    "@umbraco-ui/uui-base": "1.8.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
