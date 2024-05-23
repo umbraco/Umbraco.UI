@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
+
+### Features
+
+- focus method for menu-item ([#789](https://github.com/umbraco/Umbraco.UI/issues/789)) ([86062ae](https://github.com/umbraco/Umbraco.UI/commit/86062ae020841b145edd81977a62728301e2d570))
+- menu items hide actions ([#796](https://github.com/umbraco/Umbraco.UI/issues/796)) ([9f07ae6](https://github.com/umbraco/Umbraco.UI/commit/9f07ae6b98881dc048b2c90710aaca8a38502cd9))
+
 # [1.8.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.0...v1.8.0-rc.1) (2024-04-11)
 
 ### Bug Fixes

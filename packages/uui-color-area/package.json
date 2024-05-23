@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-color-area",
-  "version": "1.8.0-rc.0",
+  "version": "1.8.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.8.0-rc.0",
+    "@umbraco-ui/uui-base": "1.8.0",
     "colord": "^2.9.3"
   },
   "scripts": {
