@@ -20,10 +20,10 @@ export class UUIBreadcrumbItemElement extends LitElement {
   /**
    * Specifies the link href.
    * @type {String}
-   * @default '#'
+   * @default undefined
    */
   @property()
-  href = '#';
+  href?: string;
 
   /**
    * Specifies if the element is the last item in the uui-breadcrumbs. Last item will not render as a link
@@ -35,8 +35,11 @@ export class UUIBreadcrumbItemElement extends LitElement {
   lastItem = false;
 
   renderLinkAndSeparator() {
-    return html`<a id="link" href=${this.href}><slot></slot></a
-      ><span part="separator"></span>`;
+    const item = this.href
+      ? html`<a id="link" href=${this.href}><slot></slot></a>`
+      : html`<span id="link"><slot></slot></span>`;
+
+    return html`${item}<span part="separator"></span>`;
   }
 
   renderCurrent() {
@@ -83,10 +86,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
-
-      #link {
-        cursor: pointer;
       }
     `,
   ];
