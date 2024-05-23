@@ -135,11 +135,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
           var(--uui-tab-padding-horizontal, var(--uui-size-5));
       }
 
-      :host(:not([active]):not([disabled])) #button:hover {
+      :host(:not([disabled])) #button:hover {
         color: var(--uui-tab-text-hover, var(--uui-color-default-emphasis));
       }
 
-      :host(:not([active]):not([disabled])) #button:active {
+      :host(:not([disabled])) #button:active {
         box-shadow:
           inset 0 2px 4px rgba(0, 0, 0, 0.15),
           0 1px 2px rgba(0, 0, 0, 0.05);
@@ -149,9 +149,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         color: var(--uui-tab-text-active, unset);
       }
 
-      :host([active]) #button {
-        cursor: default;
-      }
       :host([disabled]) #button {
         color: var(--uui-color-disabled-contrast);
         cursor: default;
@@ -162,9 +159,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         position: absolute;
         background-color: var(--uui-color-current);
         opacity: 0;
-        --transitionDuration: 120ms;
-        --barWidth: 4px;
-        --borderRadius: 3px;
       }
       :host([active]) #button::before {
         opacity: 1;
@@ -174,32 +168,32 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       :host([orientation='horizontal']) #button::before {
         left: auto;
         right: auto;
-        border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+        border-radius: var(--uui-border-radius) var(--uui-border-radius) 0 0;
         height: 0px;
         width: calc(100% - 15px);
         bottom: 0;
         transition:
-          opacity ease-in-out var(--transitionDuration),
-          height ease-in-out var(--transitionDuration);
+          opacity linear 120ms,
+          height ease-in-out 120ms;
       }
       :host([active][orientation='horizontal']) #button::before {
-        height: var(--barWidth);
+        height: 4px;
       }
 
       /* VERTICAL */
       :host([orientation='vertical']) #button::before {
         top: auto;
         bottom: auto;
-        border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+        border-radius: 0 var(--uui-border-radius) var(--uui-border-radius) 0;
         height: calc(100% - 12px);
         width: 0px;
         left: 0;
         transition:
-          opacity ease-in-out var(--transitionDuration),
-          width ease-in-out var(--transitionDuration);
+          opacity linear 120ms,
+          width ease-in-out 120ms;
       }
       :host([active][orientation='vertical']) #button::before {
-        width: var(--barWidth);
+        width: 4px;
       }
 
       #button:hover::before {
