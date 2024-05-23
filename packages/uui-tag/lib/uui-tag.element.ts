@@ -12,6 +12,9 @@ import {
  *  @description Tag component from Umbraco UI components library. Comes in one shape, but different looks and sizes
  *  @slot - slot for tag contents
  *  @cssprop --uui-tag-font-size - overwrite the default font-size for the tag.
+ *  @cssprop --uui-tag-padding - overwrite the default padding size for the tag.
+ *  @cssprop --uui-tag-border-radius - overwrite the default border-radius for the tag.
+ *  @cssprop --uui-tag-border-color - overwrite the default border color for the tag.
  */
 
 @defineElement('uui-tag')
@@ -45,11 +48,11 @@ export class UUITagElement extends LitElement {
         font-size: var(--uui-tag-font-size, var(--uui-type-small-size));
         font-weight: 700;
         line-height: 1;
-        padding: var(--uui-size-space-1) calc(var(--uui-size-space-1) + 0.5em);
+        padding: var(--uui-tag-padding, var(--uui-size-space-1) calc(var(--uui-size-space-1) + 0.5em));
         border-radius: 100px;
         user-select: none;
-        border-radius: var(--uui-size-4);
-        border: 1px solid transparent;
+        border-radius: var(--uui-tag-border-radius, var(--uui-size-4));
+        border: 1px solid var(--uui-tag-border-color, transparent);
       }
 
       slot {

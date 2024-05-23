@@ -26,10 +26,7 @@ const STEP_MIN_WIDTH = 24;
  * @extends UUIFormControlMixin
  */
 @defineElement('uui-range-slider')
-export class UUIRangeSliderElement extends UUIFormControlMixin<string>(
-  LitElement,
-  '',
-) {
+export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   static readonly formAssociated = true;
 
   /**
