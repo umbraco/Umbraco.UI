@@ -27,12 +27,14 @@ export class UUIFormValidationMessageElement extends LitElement {
     return this._for;
   }
   public set for(value: HTMLElement | string | null) {
-    let queriedElement = null;
+    let element = null;
     if (typeof value === 'string') {
       const scope = this.getRootNode();
-      queriedElement = (scope as DocumentFragment)?.getElementById(value);
+      element = (scope as DocumentFragment)?.getElementById(value);
+    } else if (value instanceof HTMLElement) {
+      element = value;
     }
-    const newScope = queriedElement || this;
+    const newScope = element ?? this;
     const oldScope = this._for;
 
     if (oldScope === newScope) {
