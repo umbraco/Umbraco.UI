@@ -113,6 +113,15 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     demandCustomElement(this, 'uui-loader-bar');
   }
 
+  async focus() {
+    await this.updateComplete;
+    this.shadowRoot
+      ?.querySelector<
+        HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement
+      >('#label-button')
+      ?.focus?.();
+  }
+
   private _labelButtonChanged = (label?: Element | undefined) => {
     this.selectableTarget = label || this;
   };
@@ -497,13 +506,14 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #actions-container {
         opacity: 0;
-        transition: opacity 120ms;
+        width: 0;
         grid-column-start: 3;
       }
       :host(:not([disabled])) #menu-item:hover #actions-container,
       :host(:not([disabled])) #menu-item:focus #actions-container,
       :host(:not([disabled])) #menu-item:focus-within #actions-container {
         opacity: 1;
+        width: auto;
       }
 
       #loader {

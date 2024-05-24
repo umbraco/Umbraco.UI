@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
+
+### Bug Fixes
+
+- Dont show a link when no href is supplied ([#797](https://github.com/umbraco/Umbraco.UI/issues/797)) ([658b6a6](https://github.com/umbraco/Umbraco.UI/commit/658b6a685e026fa4f7d201cc00a5ed2eb718f9ab))
+
+### Features
+
+- Add custom properties to uui-tag ([#791](https://github.com/umbraco/Umbraco.UI/issues/791)) ([46fde86](https://github.com/umbraco/Umbraco.UI/commit/46fde86c6f2e783e6ddd0c49b0e5a6688808df89))
+- Align FormControl implementation with latest from Backoffice Validation ([#788](https://github.com/umbraco/Umbraco.UI/issues/788)) ([0edfd0c](https://github.com/umbraco/Umbraco.UI/commit/0edfd0c4acfe29e7d108db83308baea8618d30b0))
+- focus method for menu-item ([#789](https://github.com/umbraco/Umbraco.UI/issues/789)) ([86062ae](https://github.com/umbraco/Umbraco.UI/commit/86062ae020841b145edd81977a62728301e2d570))
+- menu items hide actions ([#796](https://github.com/umbraco/Umbraco.UI/issues/796)) ([9f07ae6](https://github.com/umbraco/Umbraco.UI/commit/9f07ae6b98881dc048b2c90710aaca8a38502cd9))
+
 # [1.8.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.2...v1.8.0-rc.3) (2024-04-16)
 
 ### Bug Fixes

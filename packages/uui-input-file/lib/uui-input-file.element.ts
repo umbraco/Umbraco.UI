@@ -14,7 +14,7 @@ import { repeat } from 'lit/directives/repeat.js';
  * @extends UUIFormControlMixin
  */
 @defineElement('uui-input-file')
-export class UUIInputFileElement extends UUIFormControlMixin(LitElement, null) {
+export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
   @query('#dropzone')
   private _dropzone!: UUIFileDropzoneElement;
 

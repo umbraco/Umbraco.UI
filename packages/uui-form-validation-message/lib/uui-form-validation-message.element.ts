@@ -69,10 +69,7 @@ export class UUIFormValidationMessageElement extends LitElement {
     }
   }
 
-  private _messages = new Map<
-    UUIFormControlMixinInterface<unknown, unknown>,
-    string
-  >();
+  private _messages = new Map<UUIFormControlMixinInterface<unknown>, string>();
 
   private _onControlInvalid = (e: UUIFormControlEvent) => {
     const ctrl = (e as any).composedPath()[0];
