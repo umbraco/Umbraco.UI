@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -68,8 +68,8 @@
     "@umbraco-ui/uui-file-dropzone": "1.8.0",
     "@umbraco-ui/uui-file-preview": "1.8.0",
     "@umbraco-ui/uui-form": "1.8.0",
-    "@umbraco-ui/uui-form-layout-item": "1.8.0",
-    "@umbraco-ui/uui-form-validation-message": "1.8.0",
+    "@umbraco-ui/uui-form-layout-item": "1.8.1",
+    "@umbraco-ui/uui-form-validation-message": "1.8.1",
     "@umbraco-ui/uui-icon": "1.8.0",
     "@umbraco-ui/uui-icon-registry": "1.8.0",
     "@umbraco-ui/uui-icon-registry-essential": "1.8.0",
