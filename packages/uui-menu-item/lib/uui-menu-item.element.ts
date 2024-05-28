@@ -194,7 +194,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     return html`
       <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
-          ? html`<button id="caret-button" @click=${this._onCaretClicked}>
+          ? html`<button id="caret-button" aria-label="show child items" @click=${this._onCaretClicked}>
               <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}
