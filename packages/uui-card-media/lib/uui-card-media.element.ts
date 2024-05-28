@@ -174,6 +174,8 @@ export class UUICardMediaElement extends UUICardElement {
         font-size: var(--uui-type-small-size);
         box-sizing: border-box;
         padding: var(--uui-size-2) var(--uui-size-4);
+        text-align: left;
+        word-break: break-word;
       }
 
       :host([disabled]) #open-part {

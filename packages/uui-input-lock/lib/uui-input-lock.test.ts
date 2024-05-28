@@ -1,9 +1,10 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { UUIInputElement } from '@umbraco-ui/uui-input/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-button/lib';
 
 import { UUIInputLockElement } from './uui-input-lock.element';
+import { UUIInputLockEvent } from './UUIInputLockEvent';
 
 describe('UUIInputLockElement', () => {
   let element: UUIInputLockElement;
@@ -44,5 +45,22 @@ describe('UUIInputLockElement', () => {
     await expect(element.readonly).to.be.false;
     await toggle.click();
     await expect(element.readonly).to.be.true;
+  });
+
+  it('emits lock change event', async () => {
+    const listener = oneEvent(element, UUIInputLockEvent.LOCK_CHANGE, false);
+
+    const toggle = element.shadowRoot?.querySelector(
+      '#lock',
+    ) as HTMLButtonElement;
+    await toggle.click();
+
+    const event = await listener;
+
+    expect(event).to.exist;
+    expect(event.type).to.equal(UUIInputLockEvent.LOCK_CHANGE);
+    expect(event.bubbles).to.be.true;
+    expect(event.composed).to.be.false;
+    expect(event!.target).to.equal(element);
   });
 });

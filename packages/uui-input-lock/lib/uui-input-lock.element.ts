@@ -7,6 +7,7 @@ import {
   iconUnlock,
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { property } from 'lit/decorators.js';
+import { UUIInputLockEvent } from './UUIInputLockEvent';
 
 /**
  * @element uui-input-lock
@@ -37,6 +38,8 @@ export class UUIInputLockElement extends UUIInputElement {
 
   _onLockToggle() {
     this.readonly = this.locked = !this.locked;
+    this.pristine = false;
+    this.dispatchEvent(new UUIInputLockEvent(UUIInputLockEvent.LOCK_CHANGE));
   }
 
   renderIcon() {
