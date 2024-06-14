@@ -71,6 +71,15 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
   hideStepValues = false;
 
   /**
+   * Hides the value label on the thumb.
+   * @type {boolean}
+   * @attr 'hide-value-label'
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-value-label' })
+  hideValueLabel = false;
+
+  /**
    * This is a minimum value of the input.
    * @type {number}
    * @attr
@@ -285,7 +294,9 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
         <div id="track-inner" aria-hidden="true">
           <div id="thumb" style=${styleMap({ left: this._sliderPosition })}>
-            <div id="thumb-label">${this.value}</div>
+            ${this.hideValueLabel
+              ? null
+              : html`<div id="thumb-label">${this.value}</div>`}
           </div>
         </div>
       </div>
