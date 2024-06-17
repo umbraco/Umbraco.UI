@@ -386,8 +386,6 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
         background-color: var(--uui-color-surface);
         border: 2px solid var(--uui-color-selected);
-
-        transition: 120ms left ease;
       }
       :host([disabled]) #thumb {
         background-color: var(--uui-color-disabled);
