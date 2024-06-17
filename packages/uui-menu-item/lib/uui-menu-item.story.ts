@@ -29,6 +29,7 @@ export default {
     selectable: false,
     href: undefined,
     target: undefined,
+    rel: undefined,
     selectMode: undefined,
   },
   argTypes: {
@@ -326,7 +327,8 @@ export const WithIcon = (props: any) => html`
           ?active=${props.active}
           ?selectable=${props.selectable}
           href=${props.href}
-          target=${props.target}>
+          target=${props.target}
+          rel=${props.rel}>
           <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
         </uui-menu-item>
       `,
@@ -357,7 +359,8 @@ export const AnchorTag = (props: any) => html`
       ?active=${props.active}
       ?selectable=${props.selectable}
       href=${props.href}
-      target=${props.target}>
+      target=${props.target}
+      rel=${props.rel}>
       <uui-icon slot="icon" name="document"></uui-icon>
     </uui-menu-item>
   </uui-icon-registry-essential>
@@ -412,7 +415,8 @@ export const FlatStructure: Story = (props: any) => html`
       ?active=${props.active}
       ?selectable=${props.selectable}
       href=${props.href}
-      target=${props.target}>
+      target=${props.target}
+      rel=${props.rel}>
     </uui-menu-item>
   </uui-icon-registry-essential>
 `;

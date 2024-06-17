@@ -100,6 +100,10 @@ describe('UuiButton', () => {
     it('has a target property', () => {
       expect(element).to.have.property('target');
     });
+
+    it('has a rel property', () => {
+      expect(element).to.have.property('rel');
+    });
   });
 
   describe('template', () => {
@@ -249,13 +253,27 @@ describe('UuiButton', () => {
       expect(anchorElement.getAttribute('target')).to.be.equal('_self');
     });
 
-    it('when target is _blank rel is set.', async () => {
+    it('when target is _blank and rel is not defined rel attribute is set.', async () => {
       element.target = '_blank';
       await elementUpdated(element);
       expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
       expect(anchorElement.getAttribute('rel')).to.be.equal(
         'noopener noreferrer',
       );
+    });
+
+    it('when rel is applied to anchor tag.', async () => {
+      element.rel = 'noreferrer';
+      await elementUpdated(element);
+      expect(anchorElement.getAttribute('rel')).to.be.equal('noreferrer');
+    });
+
+    it('when target is _blank and rel is defined rel attribute is set.', async () => {
+      element.target = '_blank';
+      element.rel = 'noopener';
+      await elementUpdated(element);
+      expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
+      expect(anchorElement.getAttribute('rel')).to.be.equal('noopener');
     });
   });
 });
