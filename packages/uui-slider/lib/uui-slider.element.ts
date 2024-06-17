@@ -374,6 +374,9 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
       #thumb {
         position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         top: 2px;
         bottom: 0;
         left: 0;
@@ -394,9 +397,6 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
       #thumb:after {
         content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
         height: 9px;
         width: 9px;
         border-radius: 50%;
