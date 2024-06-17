@@ -35,7 +35,7 @@ export const Selectable: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch selectable></uui-color-slider>`,
+        code: `<uui-color-swatch selectable></uui-color-swatch>`,
       },
     },
   },
@@ -57,7 +57,7 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch disabled></uui-color-slider>`,
+        code: `<uui-color-swatch disabled></uui-color-swatch>`,
       },
     },
   },
@@ -72,7 +72,7 @@ export const DisabledSelected: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch disabled selectable selected></uui-color-slider>`,
+        code: `<uui-color-swatch disabled selectable selected></uui-color-swatch>`,
       },
     },
   },
@@ -87,7 +87,7 @@ export const WithLabel: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch label="This is the most beautiful color I've ever seen" show-label="true"></uui-color-slider>`,
+        code: `<uui-color-swatch label="This is the most beautiful color I've ever seen" show-label="true"></uui-color-swatch>`,
       },
     },
   },
@@ -101,7 +101,7 @@ export const DifferentColorThanValue: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch value="color1" color="green"></uui-color-slider>`,
+        code: `<uui-color-swatch value="color1" color="green"></uui-color-swatch>`,
       },
     },
   },
@@ -114,7 +114,7 @@ export const Transparent: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch color="rgba(53, 68, 177, 0.5)"></uui-color-slider>`,
+        code: `<uui-color-swatch color="rgba(53, 68, 177, 0.5)"></uui-color-swatch>`,
       },
     },
   },
