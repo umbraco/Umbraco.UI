@@ -61,6 +61,8 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
    */
   static readonly formAssociated = true;
 
+  #stepDecimalPlaces = 0;
+
   /**
    * Hides the numbers representing the value of each steps. Dots will still be visible
    * @type {boolean}
@@ -104,7 +106,16 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
    * @default 1
    */
   @property({ type: Number })
-  step = 1;
+  public get step() {
+    return this.#step;
+  }
+
+  public set step(value) {
+    this.#step = value;
+    this.#stepDecimalPlaces = (value.toString().split('.')[1] || []).length;
+  }
+
+  #step = 1;
 
   /**
    * This is a value property of the uui-slider.
@@ -126,11 +137,13 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
     let correctedValue = newVal ? parseFloat(newVal as string) : 0;
     correctedValue = Math.min(Math.max(correctedValue, this.min), this.max);
+
     if (this.step > 0) {
       correctedValue = Math.round(correctedValue / this.step) * this.step;
     }
 
-    super.value = correctedValue.toString();
+    super.value = correctedValue.toFixed(this.#stepDecimalPlaces).toString();
+
     this._calculateSliderPosition();
     this.requestUpdate('value', oldVal);
   }
