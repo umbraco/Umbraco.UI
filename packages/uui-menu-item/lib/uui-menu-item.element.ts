@@ -508,6 +508,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         opacity: 0;
         width: 0;
         grid-column-start: 3;
+        overflow: hidden;
       }
       :host(:not([disabled])) #menu-item:hover #actions-container,
       :host(:not([disabled])) #menu-item:focus #actions-container,
