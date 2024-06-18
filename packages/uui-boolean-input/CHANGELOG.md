@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
+
+### Bug Fixes
+
+- Hide the native input for boolean elements in firefox ([#808](https://github.com/umbraco/Umbraco.UI/issues/808)) ([81c0a95](https://github.com/umbraco/Umbraco.UI/commit/81c0a95a24b6df903f5382cb3b735cfa4a27f381))
+
 # [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
 
 **Note:** Version bump only for package @umbraco-ui/uui-boolean-input

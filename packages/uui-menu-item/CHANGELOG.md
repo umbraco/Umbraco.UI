@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
+
+### Bug Fixes
+
+- prevent overflow when not hovered ([#816](https://github.com/umbraco/Umbraco.UI/issues/816)) ([b3fcd2b](https://github.com/umbraco/Umbraco.UI/commit/b3fcd2b535ce3d7049739d13a6b56a9cc2036e8a))
+
 # [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
 
 ### Features
