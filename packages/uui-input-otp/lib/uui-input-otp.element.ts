@@ -124,7 +124,7 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
 
   constructor() {
     super();
-    this.addEventListener('paste', this.onPaste);
+    this.addEventListener('paste', this.onPaste.bind(this));
   }
 
   protected getFormElement(): HTMLElement | null | undefined {
