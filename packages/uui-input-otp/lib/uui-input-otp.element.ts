@@ -58,6 +58,12 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   length = 6;
 
   /**
+   * The template for the item label
+   */
+  @property({ type: String, attribute: false })
+  itemLabelTemplate = (index: number) => `Character number ${index + 1}`;
+
+  /**
    * Set to true to make this input readonly.
    * @attr
    * @default false
@@ -250,14 +256,14 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
     return html`
       <input
         class="otp-input"
+        type=${this._input}
         .value=${this._tokens[index] || ''}
         .placeholder=${this.placeholder.charAt(index) || ''}
-        type=${this._input}
-        inputmode=${this.inputMode}
-        .ariaLabel=${this.label}
+        .inputMode=${this.inputMode}
         ?readonly=${this.readonly}
         ?disabled=${this.disabled}
         ?autofocus=${this.autoFocus && index === 0}
+        aria-label=${this.itemLabelTemplate(index)}
         @input=${(e: InputEvent) => this.onInput(e, index)}
         @keydown=${this.onKeyDown} />
     `;
