@@ -142,7 +142,7 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   }
 
   protected getFormElement(): HTMLElement | null | undefined {
-    return this.shadowRoot?.querySelector('.otp-input');
+    return this;
   }
 
   protected onFocus(event: FocusEvent) {
