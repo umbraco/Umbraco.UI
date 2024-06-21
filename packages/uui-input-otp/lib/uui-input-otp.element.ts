@@ -92,13 +92,6 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   @property({ type: String, reflect: true })
   autocomplete?: string;
 
-  set value(value: string) {
-    this._tokens = value.split('');
-
-    super.value = value;
-    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
-  }
-
   /**
    * The number of characters in the input
    * @default 6
@@ -112,6 +105,13 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
 
   @state()
   _tokens: string[] = [];
+
+  set value(value: string) {
+    this._tokens = value.split('');
+
+    super.value = value;
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
+  }
 
   constructor() {
     super();
@@ -254,6 +254,7 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
         .placeholder=${this.placeholder.charAt(index) || ''}
         type=${this._input}
         inputmode=${this.inputMode}
+        .ariaLabel=${this.label}
         ?readonly=${this.readonly}
         ?disabled=${this.disabled}
         ?autofocus=${this.autoFocus && index === 0}
