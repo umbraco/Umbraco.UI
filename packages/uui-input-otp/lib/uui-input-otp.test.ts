@@ -111,42 +111,31 @@ describe('UUIInputOtpElement', () => {
     it('can distribute a value', async () => {
       element.value = '123456';
       await element.updateComplete;
-      expect(element.shadowRoot?.querySelectorAll('input')[0].value).to.equal(
-        '1',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[1].value).to.equal(
-        '2',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[2].value).to.equal(
-        '3',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[3].value).to.equal(
-        '4',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[4].value).to.equal(
-        '5',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[5].value).to.equal(
-        '6',
-      );
+      const inputs = element.shadowRoot?.querySelectorAll('input');
+      if (!inputs) {
+        throw new Error('inputs not found');
+      }
+      expect(inputs[0].value).to.equal('1');
+      expect(inputs[1].value).to.equal('2');
+      expect(inputs[2].value).to.equal('3');
+      expect(inputs[3].value).to.equal('4');
+      expect(inputs[4].value).to.equal('5');
+      expect(inputs[5].value).to.equal('6');
     });
 
     it('can distribute a value with a different length', async () => {
       element.length = 4;
       element.value = '123456';
       await element.updateComplete;
-      expect(element.shadowRoot?.querySelectorAll('input')[0].value).to.equal(
-        '1',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[1].value).to.equal(
-        '2',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[2].value).to.equal(
-        '3',
-      );
-      expect(element.shadowRoot?.querySelectorAll('input')[3].value).to.equal(
-        '4',
-      );
+
+      const inputs = element.shadowRoot?.querySelectorAll('input');
+      if (!inputs) {
+        throw new Error('inputs not found');
+      }
+      expect(inputs[0].value).to.equal('1');
+      expect(inputs[1].value).to.equal('2');
+      expect(inputs[2].value).to.equal('3');
+      expect(inputs[3].value).to.equal('4');
     });
   });
 });
