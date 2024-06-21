@@ -115,6 +115,7 @@ describe('UUIInputOtpElement', () => {
       if (!inputs) {
         throw new Error('inputs not found');
       }
+
       expect(inputs[0].value).to.equal('1');
       expect(inputs[1].value).to.equal('2');
       expect(inputs[2].value).to.equal('3');
@@ -132,6 +133,7 @@ describe('UUIInputOtpElement', () => {
       if (!inputs) {
         throw new Error('inputs not found');
       }
+
       expect(inputs[0].value).to.equal('1');
       expect(inputs[1].value).to.equal('2');
       expect(inputs[2].value).to.equal('3');
