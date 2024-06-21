@@ -106,6 +106,14 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   @property({ type: String, reflect: true })
   autocomplete?: string;
 
+  /**
+   * Min length validation message.
+   * @attr
+   * @default
+   */
+  @property({ type: String, attribute: 'minlength-message' })
+  minlengthMessage = 'This field need more characters';
+
   @state()
   _input: InputType = 'text';
 
@@ -125,6 +133,12 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   constructor() {
     super();
     this.addEventListener('paste', this.onPaste.bind(this));
+
+    this.addValidator(
+      'tooShort',
+      () => this.minlengthMessage,
+      () => !!this.length && String(this.value).length < this.length,
+    );
   }
 
   protected getFormElement(): HTMLElement | null | undefined {
