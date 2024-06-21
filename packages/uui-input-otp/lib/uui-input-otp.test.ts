@@ -5,7 +5,9 @@ describe('UUIInputOtpElement', () => {
   let element: UUIInputOtpElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-input-otp></uui-input-otp> `);
+    element = await fixture(html`
+      <uui-input-otp label="otp input"></uui-input-otp>
+    `);
   });
 
   it('is defined with its own instance', () => {
