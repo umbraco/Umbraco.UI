@@ -50,6 +50,14 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   }
 
   /**
+   * The number of characters in the input
+   * @default 6
+   * @attr
+   */
+  @property({ type: Number })
+  length = 6;
+
+  /**
    * Set to true to make this input readonly.
    * @attr
    * @default false
@@ -91,14 +99,6 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
    */
   @property({ type: String, reflect: true })
   autocomplete?: string;
-
-  /**
-   * The number of characters in the input
-   * @default 6
-   * @attr
-   */
-  @property({ type: Number })
-  length = 6;
 
   @state()
   _input: InputType = 'text';
