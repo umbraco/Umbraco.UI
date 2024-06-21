@@ -73,6 +73,12 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   @property({ type: Boolean, reflect: true, attribute: 'autofocus' })
   autoFocus = false;
 
+  /**
+   * Add a placeholder to the inputs in the group
+   * @remark The placeholder should be a string with the same length as the `length` attribute and will be distributed to each input in the group
+   * @attr
+   * @default ''
+   */
   @property()
   placeholder = '';
 
