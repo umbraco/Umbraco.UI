@@ -118,6 +118,9 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
     super.value = value;
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
+  get value() {
+    return super.value.toString();
+  }
 
   constructor() {
     super();
