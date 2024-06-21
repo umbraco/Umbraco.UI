@@ -85,12 +85,12 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   /**
    * The autocomplete attribute specifies whether or not an input field should have autocomplete enabled.
    * @remark Set the autocomplete attribute to "one-time-code" to enable autofill of one-time-code inputs
-   * @attr autocomplete
+   * @attr
    * @default ''
    * @type {string}
    */
-  @property({ type: String, reflect: true, attribute: 'autocomplete' })
-  autoComplete?: string;
+  @property({ type: String, reflect: true })
+  autocomplete?: string;
 
   set value(value: string) {
     this._tokens = value.split('');
