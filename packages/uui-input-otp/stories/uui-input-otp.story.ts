@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import './uui-input-otp.element';
-import type { UUIInputOtpElement } from './uui-input-otp.element';
+import '../lib/uui-input-otp.element';
+import type { UUIInputOtpElement } from '../lib/uui-input-otp.element';
 import readme from '../README.md?raw';
 
 const meta: Meta<UUIInputOtpElement> = {
   id: 'uui-input-otp',
-  title: 'Input Otp',
+  title: 'Inputs/Input Otp',
   component: 'uui-input-otp',
   parameters: {
     readme: { markdown: readme },
@@ -70,6 +70,20 @@ export const Error: Story = {
     docs: {
       source: {
         code: `<uui-input-otp error></uui-input-otp>`,
+      },
+    },
+  },
+};
+
+export const AutocompleteOtp: Story = {
+  name: 'Autocomplete OTP',
+  args: {
+    autocomplete: 'one-time-code',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-input-otp autocomplete="one-time-code"></uui-input-otp>`,
       },
     },
   },
