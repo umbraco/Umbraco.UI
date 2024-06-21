@@ -272,7 +272,7 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
     `;
   }
 
-  static styles = [
+  static readonly styles = [
     css`
       :host(:not([pristine]):invalid) .otp-input,
       :host(:not([pristine])) .otp-input:invalid,
