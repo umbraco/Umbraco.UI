@@ -78,7 +78,9 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
 
   set value(value: string) {
     this._tokens = value.split('');
-    this.requestUpdate('_tokens');
+
+    super.value = value;
+    this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
   }
 
   /**
@@ -116,7 +118,7 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
   protected onInput(event: InputEvent, index: number) {
     const target = event.target as HTMLInputElement;
     this._tokens[index] = target?.value;
-    this.#updateValue();
+    this.value = this._tokens.join('');
 
     if (event.inputType === 'deleteContentBackward') {
       this.moveToPrev(event);
@@ -181,8 +183,7 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
       const pastedCode = paste.substring(0, this.length + 1);
 
       if (!this.integerOnly || !isNaN(pastedCode as any)) {
-        this._tokens = pastedCode.split('');
-        this.#updateValue();
+        this.value = pastedCode;
       }
     }
 
@@ -227,14 +228,6 @@ export class UUIInputOtpElement extends UUIFormControlMixin(
     return prevElement.nodeName === 'INPUT'
       ? (prevElement as HTMLInputElement)
       : this.findPrevInput(prevElement);
-  }
-
-  #updateValue() {
-    const newValue = this._tokens.join('');
-    if (this.value !== newValue) {
-      this.value = newValue;
-      this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
-    }
   }
 
   protected renderInput(index: number) {
