@@ -62,7 +62,7 @@ export const Required: Story = {
   },
 };
 
-export const Error: Story = {
+export const WithError: Story = {
   args: {
     error: true,
   },
