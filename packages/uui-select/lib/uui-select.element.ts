@@ -62,6 +62,15 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   disabled = false;
 
   /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
+  /**
    * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
    * @type {boolean}
    * @attr
@@ -226,7 +235,16 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     `;
   }
 
+  private _getDisplayValue() {
+    return (
+      this.options.find(option => option.value === this.value)?.name ||
+      this.value
+    );
+  }
+
   render() {
+    if (this.readonly) return html`<span>${this._getDisplayValue()}</span>`;
+
     return html` <select
       id="native"
       aria-label=${this.label}
