@@ -17,6 +17,7 @@ export default {
     maxGap: undefined,
     value: '0,20',
     disabled: false,
+    readonly: false,
     error: false,
     hideStepValues: false,
     label: 'range',
@@ -41,6 +42,7 @@ const Template: Story = props => html`
       max-gap=${ifDefined(props.maxGap)}
       value=${ifDefined(props.value)}
       ?disabled=${props.disabled}
+      ?readonly=${props.readonly}
       ?error=${props.error}
       ?hide-step-values="${props.hideStepValues}"
       label="${props.label}"></uui-range-slider>
@@ -58,4 +60,9 @@ HiddenValues.args = {
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+};
+
+export const Readonly = Template.bind({});
+Readonly.args = {
+  readonly: true,
 };
