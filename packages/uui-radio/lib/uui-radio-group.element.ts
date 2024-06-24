@@ -35,6 +35,15 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
   get value() {
     return super.value;
   }
@@ -121,6 +130,10 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     this._radioElements?.forEach(el => (el.disabled = value));
   }
 
+  private _setReadonlyOnRadios(value: boolean) {
+    this._radioElements?.forEach(el => (el.readonly = value));
+  }
+
   private _handleSlotChange(e: Event) {
     e.stopPropagation();
     // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
@@ -152,8 +165,13 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     });
 
     this._setNameOnRadios(this.name);
+
     if (this.disabled) {
       this._setDisableOnRadios(true);
+    }
+
+    if (this.readonly) {
+      this._setReadonlyOnRadios(true);
     }
 
     const checkedRadios = this._radioElements.filter(el => el.checked === true);
@@ -172,13 +190,18 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     }
 
     if (checkedRadios.length === 1) {
-      this.value = checkedRadios[0].value;
-      this._selected = this._radioElements.indexOf(checkedRadios[0]);
-      if (checkedRadios[0].disabled === false) {
+      const firstCheckedRadio = checkedRadios[0];
+      this.value = firstCheckedRadio.value;
+      this._selected = this._radioElements.indexOf(firstCheckedRadio);
+
+      if (
+        firstCheckedRadio.disabled === false &&
+        firstCheckedRadio.readonly === false
+      ) {
         this._radioElements.forEach(el => {
           el.makeUnfocusable();
         });
-        checkedRadios[0].makeFocusable();
+        firstCheckedRadio.makeFocusable();
       } else {
         this._makeFirstEnabledFocusable();
       }
@@ -206,12 +229,16 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     let i = this._selected === null ? 0 : 1; //If we have something selected we will skip checking it self.
     while (i < len) {
       let checkIndex = (origin + i * direction) % len;
+      const radioElement = this._radioElements[checkIndex];
+
       if (checkIndex < 0) {
         checkIndex += len;
       }
-      if (this._radioElements[checkIndex].disabled === false) {
-        return this._radioElements[checkIndex];
+
+      if (radioElement.disabled === false && radioElement.readonly === false) {
+        return radioElement;
       }
+
       i++;
     }
     return null;
@@ -279,6 +306,10 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     super.updated(_changedProperties);
     if (_changedProperties.has('disabled')) {
       this._setDisableOnRadios(this.disabled);
+    }
+
+    if (_changedProperties.has('readonly')) {
+      this._setReadonlyOnRadios(this.readonly);
     }
 
     if (_changedProperties.has('name')) {
