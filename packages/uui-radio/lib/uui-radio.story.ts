@@ -69,12 +69,14 @@ Checked.parameters = {
 };
 
 export const RadioGroup: Story = () => html`
+  <h5>Group 1</h5>
   <uui-radio-group name="radioGroup">
     <uui-radio value="1">Option 1</uui-radio>
     <uui-radio value="2" disabled>Option 2</uui-radio>
     <uui-radio value="3">Option 3</uui-radio>
   </uui-radio-group>
 
+  <h5>Group 2</h5>
   <uui-radio-group name="f331672b-e6f3-4b73-8b44-67a51a24f296">
     <uui-radio
       value="Prolific - I live and breathe Umbraco."
@@ -114,12 +116,14 @@ RadioGroup.parameters = {
   docs: {
     source: {
       code: `
+<h5>Group 1</h5>
 <uui-radio-group name="radioGroup">
   <uui-radio value="1">Option 1</uui-radio>
   <uui-radio value="2" disabled>Option 2</uui-radio>
   <uui-radio value="3">Option 3</uui-radio>
 </uui-radio-group>
 
+<h5>Group 2</h5>
 <uui-radio-group name="f331672b-e6f3-4b73-8b44-67a51a24f296">
   <uui-radio
       value="Prolific - I live and breathe Umbraco."
