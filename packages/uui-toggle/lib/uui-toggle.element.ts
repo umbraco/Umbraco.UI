@@ -72,6 +72,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           var(--uui-toggle-border-color, var(--uui-color-border-standalone));
         font-size: calc(var(--uui-toggle-size) * 0.6);
       }
+
       label:hover input:not([disabled]) ~ #slider {
         border-color: var(
           --uui-toggle-border-color-hover,
@@ -82,6 +83,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           var(--uui-color-border)
         );
       }
+
       label:focus #slider {
         border-color: var(
           --uui-toggle-border-color-focus,
@@ -92,12 +94,15 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           var(--uui-color-surface-emphasis)
         );
       }
+
       input:checked ~ #slider {
         background-color: var(--uui-color-selected);
       }
+
       label:hover input:checked:not([disabled]) ~ #slider {
         background-color: var(--uui-color-selected-emphasis);
       }
+
       label:focus input:checked ~ #slider {
         background-color: var(--uui-color-selected-emphasis);
       }
@@ -123,6 +128,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         right: calc(var(--uui-toggle-size) * 0.5);
         color: var(--uui-color-interactive);
       }
+
       input:checked ~ #slider #icon-checked {
         color: var(--uui-color-selected-contrast);
       }
@@ -153,7 +159,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           var(--uui-color-focus);
       }
 
-      :host(:not([disabled])) label:active #slider::after {
+      :host(:not([disabled], [readonly])) label:active #slider::after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
       }
