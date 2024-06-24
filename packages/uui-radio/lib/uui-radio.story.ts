@@ -12,6 +12,7 @@ export default {
     label: 'label',
     checked: false,
     disabled: false,
+    readonly: false,
   },
   argTypes: {
     slot: { control: { type: 'text' } },
@@ -27,6 +28,7 @@ export const AAAOverview: Story = props =>
     .label=${props.label}
     .name=${props.name}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     ?checked=${props.checked}
     >${props.slot}</uui-radio
   >`;
@@ -45,6 +47,24 @@ Disabled.parameters = {
     source: {
       code: `
 <uui-radio value="1" disabled>Disabled</uui-radio>
+`,
+    },
+  },
+};
+
+export const Readonly: Story = props =>
+  html` <uui-radio value="1" ?readonly=${props.readonly}>Readonly</uui-radio>`;
+
+Readonly.args = {
+  readonly: true,
+};
+
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `
+<uui-radio value="1" readonly>Readonly</uui-radio>
 `,
     },
   },
