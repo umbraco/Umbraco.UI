@@ -158,6 +158,15 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
   disabled = false;
 
   /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
+  /**
    * Label to be used for aria-label and eventually as visual label
    * @type {string}
    * @attr
@@ -296,7 +305,8 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         .value="${this.value}"
         aria-label="${this.label}"
         step="${+this.step}"
-        ?disabled=${this.disabled}
+        ?disabled=${this.disabled || this.readonly}
+        ?readonly=${this.readonly}
         @input=${this._onInput}
         @change=${this._onChange} />
       <div id="track" aria-hidden="true">
@@ -362,6 +372,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       .track-step {
         fill: var(--uui-color-border);
       }
+
       input:hover ~ #track svg .track-step {
         fill: var(--uui-color-border-emphasis);
       }
@@ -402,6 +413,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         border-radius: 50%;
         background-color: var(--uui-color-selected);
       }
+
       :host([disabled]) #thumb:after {
         background-color: var(--uui-color-disabled);
       }
@@ -456,6 +468,16 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       }
       :host(:not([pristine]):invalid) #thumb:after {
         background-color: var(--uui-color-danger);
+      }
+
+      // readonly
+      :host([readonly]) #thumb {
+        background-color: var(--uui-color-disabled);
+        border-color: var(--uui-color-disabled-standalone);
+      }
+
+      :host([readonly]) #thumb-label {
+        opacity: 1;
       }
     `,
   ];
