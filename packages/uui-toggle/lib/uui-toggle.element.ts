@@ -60,6 +60,8 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         display: flex;
         align-items: center;
 
+        flex-shrink: 0;
+
         width: var(--uui-toggle-switch-width);
         height: var(--uui-toggle-size);
         border-radius: 100px;
