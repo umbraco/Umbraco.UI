@@ -7,7 +7,7 @@ import {
 } from '@umbraco-ui/uui-combobox-list/lib';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import {
   property,
   query,
@@ -102,6 +102,15 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
 
   @query('#combobox-input')
   private _input!: HTMLInputElement;
@@ -239,11 +248,13 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #onToggle = () => {
+    if (this.readonly) return;
     this.open = !this.open;
   };
 
   #onOpen = () => {
     if (this.open) return;
+    if (this.readonly) return;
     this.open = true;
   };
 
@@ -298,12 +309,13 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       .value=${this._displayValue}
       autocomplete="off"
       .disabled=${this.disabled}
+      .readonly=${this.readonly}
       popovertarget="combobox-popover"
       @click=${this.#onToggle}
       @input=${this.#onInput}
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
-      ${this.disabled ? '' : this.#renderClearButton()}
+      ${this.#renderClearButton()}
       <div id="expand-symbol-wrapper" slot="append">
         <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
       </div>
@@ -312,6 +324,9 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #renderClearButton = () => {
+    if (this.disabled) return nothing;
+    if (this.readonly) return nothing;
+
     return this.value || this.search
       ? html`<uui-button
           id="clear-button"
