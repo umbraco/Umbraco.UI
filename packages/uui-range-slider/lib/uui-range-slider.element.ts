@@ -778,7 +778,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         background-color: var(--color-hover);
       }
 
-      #inner-color-thumb:hover .color {
+      :host(:not([readonly])) #inner-color-thumb:hover .color {
         height: 5px;
         background-color: var(--color-hover);
       }
