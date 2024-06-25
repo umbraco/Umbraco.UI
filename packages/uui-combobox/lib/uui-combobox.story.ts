@@ -113,6 +113,7 @@ const Template: StoryFn = props => {
     valueMod,
     renderMod,
     disabled,
+    readonly,
     value,
   } = props;
 
@@ -131,6 +132,7 @@ const Template: StoryFn = props => {
       @search=${handleSearch}
       style="width: 250px"
       .disabled=${disabled}
+      .readonly=${readonly}
       .value=${value}>
       <uui-combobox-list>
         ${repeat(filter(options, search), (option: any, index: number) =>
@@ -192,6 +194,36 @@ Disabled.parameters = {
     source: {
       code: `
 <uui-combobox style="width: 250px" disabled>
+  <uui-combobox-list>
+    <uui-combobox-list-option style="padding: 8px">
+      apple
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      orange
+    </uui-combobox-list-option>
+    <uui-combobox-list-option style="padding: 8px">
+      lemon
+    </uui-combobox-list-option>
+    ...
+  </uui-combobox-list>
+</uui-combobox>
+  `,
+    },
+  },
+};
+
+export const Readonly: StoryFn = Template.bind({});
+Readonly.args = {
+  options: fruits,
+  filter: basicFilter,
+  readonly: true,
+  value: 'banana',
+};
+Readonly.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-combobox style="width: 250px" readonly>
   <uui-combobox-list>
     <uui-combobox-list-option style="padding: 8px">
       apple
