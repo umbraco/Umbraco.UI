@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-checkbox",
-  "version": "1.8.0",
+  "version": "1.8.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "1.8.0",
-    "@umbraco-ui/uui-boolean-input": "1.8.0",
+    "@umbraco-ui/uui-boolean-input": "1.8.2",
     "@umbraco-ui/uui-icon-registry-essential": "1.8.0"
   },
   "scripts": {

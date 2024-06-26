@@ -61,6 +61,8 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
    */
   static readonly formAssociated = true;
 
+  #stepDecimalPlaces = 0;
+
   /**
    * Hides the numbers representing the value of each steps. Dots will still be visible
    * @type {boolean}
@@ -69,6 +71,15 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, attribute: 'hide-step-values' })
   hideStepValues = false;
+
+  /**
+   * Hides the value label on the thumb.
+   * @type {boolean}
+   * @attr 'hide-value-label'
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-value-label' })
+  hideValueLabel = false;
 
   /**
    * This is a minimum value of the input.
@@ -95,7 +106,16 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
    * @default 1
    */
   @property({ type: Number })
-  step = 1;
+  public get step() {
+    return this.#step;
+  }
+
+  public set step(value) {
+    this.#step = value;
+    this.#stepDecimalPlaces = (value.toString().split('.')[1] || []).length;
+  }
+
+  #step = 1;
 
   /**
    * This is a value property of the uui-slider.
@@ -117,11 +137,13 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
     let correctedValue = newVal ? parseFloat(newVal as string) : 0;
     correctedValue = Math.min(Math.max(correctedValue, this.min), this.max);
+
     if (this.step > 0) {
       correctedValue = Math.round(correctedValue / this.step) * this.step;
     }
 
-    super.value = correctedValue.toString();
+    super.value = correctedValue.toFixed(this.#stepDecimalPlaces).toString();
+
     this._calculateSliderPosition();
     this.requestUpdate('value', oldVal);
   }
@@ -285,7 +307,9 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
         <div id="track-inner" aria-hidden="true">
           <div id="thumb" style=${styleMap({ left: this._sliderPosition })}>
-            <div id="thumb-label">${this.value}</div>
+            ${this.hideValueLabel
+              ? null
+              : html`<div id="thumb-label">${this.value}</div>`}
           </div>
         </div>
       </div>
@@ -350,6 +374,9 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
       #thumb {
         position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         top: 2px;
         bottom: 0;
         left: 0;
@@ -362,8 +389,6 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
         background-color: var(--uui-color-surface);
         border: 2px solid var(--uui-color-selected);
-
-        transition: 120ms left ease;
       }
       :host([disabled]) #thumb {
         background-color: var(--uui-color-disabled);
@@ -372,9 +397,6 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
       #thumb:after {
         content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
         height: 9px;
         width: 9px;
         border-radius: 50%;
