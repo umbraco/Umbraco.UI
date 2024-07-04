@@ -12,6 +12,9 @@ export type BlockTypeIcon = {
 
 /**
  * @element uui-card-block-type
+ * @slot - Default content.
+ * @slot tag - A slot for a tag
+ * @slot actions - A slot for actions
  */
 @defineElement('uui-card-block-type')
 export class UUICardBlockTypeElement extends UUICardElement {
