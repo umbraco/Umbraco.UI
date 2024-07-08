@@ -23,6 +23,7 @@ declare global {
  * @fires change - when the user changes value
  * @cssprop --uui-select-height - Height of the element
  * @cssprop --uui-select-font-size - Font size of the element
+ * @cssprop --uui-select-text-color - Color of the text
  * @cssprop --uui-select-padding-y - Padding on the y axis
  * @cssprop --uui-select-padding-x - Padding on the x axis
  * @cssprop --uui-select-border-color - Border color
@@ -30,6 +31,7 @@ declare global {
  * @cssprop --uui-select-selected-option-background-color - Background color of the selected option
  * @cssprop --uui-select-selected-option-color - Color of the selected option
  * @cssprop --uui-select-outline-color - Outline color
+ * @cssprop --uui-select-background-color - Background color
  * @cssprop --uui-select-disabled-background-color - Background color when disabled
  * @extends UUIFormControlMixin
  */
@@ -282,13 +284,17 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
         height: var(--uui-select-height, var(--uui-size-11));
         padding: var(--uui-select-padding-y, var(--uui-size-1))
           var(--uui-select-padding-x, var(--uui-size-2));
-        color: currentColor;
+        color: var(--uui-select-text-color, var(--uui-color-text));
         box-sizing: border-box;
         border-radius: 0;
         border: 1px solid
           var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;
         width: 100%;
+        background-color: var(
+          --uui-select-background-color,
+          var(--uui-color-surface)
+        );
       }
 
       #native:focus {
