@@ -33,10 +33,12 @@ const Template: Story = props => html`
     detail="${props.detail}"
     href="${props.href}"
     target="${props.target}"
+    rel="${props.rel}"
     ?selectable=${props.selectable}
     ?selectOnly=${props.selectOnly}
     ?error=${props.error}
-    ?disabled=${props.disabled}>
+    ?disabled=${props.disabled}
+    ?readonly=${props.readonly}>
     <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     <uui-action-bar slot="actions"
       ><uui-button label="delete"
@@ -195,6 +197,32 @@ Disabled.parameters = {
   <uui-action-bar slot="actions">
     <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
   </uui-action-bar>
+</uui-ref-node>
+    `,
+    },
+  },
+};
+
+export const Readonly: Story = props => html`
+  <uui-ref-node
+    ?readonly="${props.readonly}"
+    name="Rabbit Suit Product Page"
+    detail="path/to/nowhere">
+  </uui-ref-node>
+`;
+
+Readonly.args = {
+  readonly: true,
+};
+
+Readonly.parameters = {
+  docs: {
+    source: {
+      code: `
+<uui-ref-node
+  readonly
+  name="Rabbit Suit Product Page"
+  detail="path/to/nowhere">
 </uui-ref-node>
     `,
     },

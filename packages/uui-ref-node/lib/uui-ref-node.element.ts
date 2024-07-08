@@ -55,6 +55,15 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
+  /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -85,14 +94,18 @@ export class UUIRefNodeElement extends UUIRefElement {
 
   #renderContent() {
     return html`
-      <span id="icon">
-        <slot name="icon" @slotchange=${this.#onSlotIconChange}></slot>
-        ${this._iconSlotHasContent === false ? this.#renderFallbackIcon() : ''}
+      <span id="content">
+        <span id="icon">
+          <slot name="icon" @slotchange=${this.#onSlotIconChange}></slot>
+          ${this._iconSlotHasContent === false
+            ? this.#renderFallbackIcon()
+            : ''}
+        </span>
+        <div id="info">
+          <div id="name">${this.name}</div>
+          ${this.renderDetail()}
+        </div>
       </span>
-      <div id="info">
-        <div id="name">${this.name}</div>
-        ${this.renderDetail()}
-      </div>
     `;
   }
 
@@ -103,7 +116,10 @@ export class UUIRefNodeElement extends UUIRefElement {
       href=${ifDefined(!this.disabled ? this.href : undefined)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined,
+        this.rel ||
+          ifDefined(
+            this.target === '_blank' ? 'noopener noreferrer' : undefined,
+          ),
       )}>
       ${this.#renderContent()}
     </a>`;
@@ -125,7 +141,7 @@ export class UUIRefNodeElement extends UUIRefElement {
 
   public render() {
     return html`
-      ${this.href ? this.#renderLink() : this.#renderButton()}
+      ${this.#renderSomething()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
@@ -133,6 +149,14 @@ export class UUIRefNodeElement extends UUIRefElement {
       <slot name="tag"></slot>
       <slot name="actions" id="actions-container"></slot>
     `;
+  }
+
+  #renderSomething() {
+    if (this.readonly) {
+      return html`${this.#renderContent()}`;
+    } else {
+      return this.href ? this.#renderLink() : this.#renderButton();
+    }
   }
 
   static styles = [
@@ -143,15 +167,17 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding: calc(var(--uui-size-2) + 1px);
       }
 
-      #open-part {
-        text-decoration: none;
-        color: inherit;
+      #content {
         align-self: stretch;
         line-height: normal;
-
         display: flex;
         position: relative;
         align-items: center;
+      }
+
+      #open-part {
+        color: inherit;
+        text-decoration: none;
         cursor: pointer;
       }
 

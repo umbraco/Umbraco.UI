@@ -94,6 +94,15 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
   /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
+  /**
    * Sets the selection mode.
    * @type {string}
    * @attr
@@ -170,7 +179,10 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined,
+        this.rel ||
+          ifDefined(
+            this.target === '_blank' ? 'noopener noreferrer' : undefined,
+          ),
       )}
       @click=${this._onLabelClicked}
       ?disabled=${this.disabled}

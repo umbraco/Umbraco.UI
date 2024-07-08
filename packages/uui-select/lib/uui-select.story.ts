@@ -157,6 +157,27 @@ Disabled.parameters = {
   },
 };
 
+export const Readonly: Story = props =>
+  html`<uui-select
+    .options=${preselectedOptions}
+    label="Label"
+    .placeholder=${props.placeholder}
+    .readonly=${props.readonly}></uui-select>`;
+
+Readonly.args = {
+  readonly: true,
+};
+
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `
+<uui-select readonly></uui-select>`,
+    },
+  },
+};
+
 export const Error: Story = props =>
   html`<uui-select
     .options=${options}

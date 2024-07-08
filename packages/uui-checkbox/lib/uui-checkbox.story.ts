@@ -15,6 +15,7 @@ export default {
     label: 'label',
     labelPosition: 'right',
     disabled: false,
+    readonly: false,
     checked: false,
     '--uui-checkbox-size': '18px',
   },
@@ -42,6 +43,7 @@ export const AAAOverview: Story = props => html`
     .label=${props.label}
     .labelPosition=${props.labelPosition}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     ?checked=${props.checked}
     >${props.slot}</uui-checkbox
   >
@@ -154,6 +156,22 @@ Disabled.parameters = {
   docs: {
     source: {
       code: `<uui-checkbox label="Checkbox label" disabled></uui-checkbox>`,
+    },
+  },
+};
+
+export const Readonly: Story = props => html`
+  <uui-checkbox
+    ?readonly=${props.readonly}
+    .label=${'Readonly'}
+    checked></uui-checkbox>
+`;
+Readonly.args = { readonly: true };
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox label="Readonly" checked readonly></uui-checkbox>`,
     },
   },
 };

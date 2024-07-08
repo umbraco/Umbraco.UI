@@ -36,7 +36,8 @@ const Template: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${cardContent}
   </uui-card-user>
 `;

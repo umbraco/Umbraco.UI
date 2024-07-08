@@ -48,7 +48,8 @@ export const AAAOverview: Story = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
     ${cardContent}
   </uui-card-content-node>
