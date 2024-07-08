@@ -126,6 +126,15 @@ export class UUIButtonElement extends UUIFormControlMixin(
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
+  /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
   @query('#button')
   protected _button!: HTMLInputElement;
 
@@ -229,7 +238,10 @@ export class UUIButtonElement extends UUIFormControlMixin(
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
+              this.rel ||
+                ifDefined(
+                  this.target === '_blank' ? 'noopener noreferrer' : undefined,
+                ),
             )}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>

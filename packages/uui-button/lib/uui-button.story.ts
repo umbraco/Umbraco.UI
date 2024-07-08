@@ -17,6 +17,7 @@ export default {
   args: {
     href: undefined,
     target: undefined,
+    rel: undefined,
     look: 'default',
     color: 'default',
     type: undefined,
@@ -104,6 +105,7 @@ const Template: Story = props => {
       .state=${props.state}
       .href=${props.href}
       .target=${props.target}
+      .rel=${props.rel}
       look=${props.look}
       color=${props.color}
       label=${props.label}
@@ -339,6 +341,7 @@ export const AnchorTag = Template.bind({});
 AnchorTag.args = {
   href: 'https://www.umbraco.com',
   target: '_blank',
+  rel: 'noopener noreferrer',
   look: 'primary',
 };
 AnchorTag.parameters = {
@@ -349,7 +352,8 @@ AnchorTag.parameters = {
           look="primary"
           label="Open umbraco.com"
           href="http://www.umbraco.com"
-          target="_blank">
+          target="_blank"
+          rel="noopener noreferrer">
         </uui-button>
       `.strings,
     },

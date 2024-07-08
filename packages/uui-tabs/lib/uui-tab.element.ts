@@ -47,6 +47,15 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
   /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
+  /**
    * Set the visual orientation of this tab, this changes the look and placement of the active indication.
    * @type {string}
    * @attr
@@ -75,7 +84,10 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
+              this.rel ||
+                ifDefined(
+                  this.target === '_blank' ? 'noopener noreferrer' : undefined,
+                ),
             )}
             role="tab">
             <slot name="icon"></slot>

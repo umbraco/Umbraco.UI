@@ -55,6 +55,15 @@ export class UUICardElement extends SelectOnlyMixin(
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
+  /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
   // This is deprecated - use href instead
   protected handleOpenClick(e: Event) {
     if (this.disabled) return;

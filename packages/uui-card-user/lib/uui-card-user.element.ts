@@ -55,7 +55,10 @@ export class UUICardUserElement extends UUICardElement {
       href=${ifDefined(!this.disabled ? this.href : undefined)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined,
+        this.rel ||
+          ifDefined(
+            this.target === '_blank' ? 'noopener noreferrer' : undefined,
+          ),
       )}>
       <span>${this.name}</span>
     </a>`;

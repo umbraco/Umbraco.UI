@@ -56,6 +56,15 @@ export class UUIButtonInlineCreateElement extends LitElement {
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
+  /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
   private _onMouseMove(e: MouseEvent) {
     this._position = (this.vertical ? e.offsetY : e.offsetX) - 5;
   }
@@ -98,7 +107,10 @@ export class UUIButtonInlineCreateElement extends LitElement {
       href=${ifDefined(this.href)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined,
+        this.rel ||
+          ifDefined(
+            this.target === '_blank' ? 'noopener noreferrer' : undefined,
+          ),
       )}
       aria-label=${this.label ? this.label : 'create new element'}>
       ${this.#renderContent()}
