@@ -164,7 +164,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
             folders.push(directory);
           }
         }
-
+        // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
         readEntries(reader);
       });
     };
