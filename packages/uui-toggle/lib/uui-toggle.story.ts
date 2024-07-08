@@ -15,6 +15,7 @@ export default {
     label: 'label',
     labelPosition: 'right',
     disabled: false,
+    readonly: false,
     checked: false,
     '--uui-toggle-size': '18px',
     '--uui-toggle-switch-width': '36px',
@@ -38,6 +39,7 @@ export const AAAOverview: Story = props => html`
     .label=${props.label}
     .labelPosition=${props.labelPosition}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     ?checked=${props.checked}
     >${props.slot}</uui-toggle
   >
@@ -147,6 +149,19 @@ Disabled.parameters = {
     source: {
       code: `<uui-toggle disabled>Disabled</uui-toggle>
       <uui-toggle disabled checked>Disabled</uui-toggle>`,
+    },
+  },
+};
+
+export const Readonly: Story = props => html`
+  <uui-toggle ?readonly=${props.readonly} label="Readonly" checked></uui-toggle>
+`;
+Readonly.args = { readonly: true };
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `<uui-toggle readonly>Readonly</uui-toggle>`,
     },
   },
 };

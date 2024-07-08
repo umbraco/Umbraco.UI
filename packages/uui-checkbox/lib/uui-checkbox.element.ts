@@ -86,9 +86,11 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       input:checked:not([disabled]) + #ticker {
         border-color: var(--uui-color-selected);
       }
+
       label:hover input:checked:not([disabled]) + #ticker {
         border-color: var(--uui-color-selected-emphasis);
       }
+
       label:focus input:checked + #ticker {
         border-color: var(--uui-color-selected-emphasis);
       }
@@ -144,7 +146,10 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
           var(--uui-color-focus);
       }
 
-      :host(:not([disabled])) label:active input:checked + #ticker::before {
+      :host(:not([disabled], [readonly]))
+        label:active
+        input:checked
+        + #ticker::before {
         /** Stretch when mouse down */
         transform: scale(0.9);
       }

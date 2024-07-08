@@ -4,6 +4,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 /**
  * @element uui-form-validation-message
@@ -92,7 +93,10 @@ export class UUIFormValidationMessageElement extends LitElement {
     return html`
       <slot></slot>
       <div id="messages">
-        ${repeat(this._messages, item => html`<div>${item[1]}</div>`)}
+        ${repeat(
+          this._messages,
+          item => html`<div>${unsafeHTML(item[1])}</div>`,
+        )}
         <slot name="message"></slot>
       </div>
     `;

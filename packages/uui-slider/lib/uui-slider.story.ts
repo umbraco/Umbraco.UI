@@ -17,6 +17,7 @@ export default {
     hideValueLabel: false,
     value: 0,
     disabled: false,
+    readonly: false,
   },
   argTypes: {
     label: {
@@ -38,6 +39,7 @@ const Template: Story = props => html`
     min=${props.min}
     max=${props.max}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     .value=${props.value}
     .hideStepValues=${props.hideStepValues}
     .hideValueLabel=${props.hideValueLabel}></uui-slider>
@@ -71,4 +73,9 @@ HiddenValues.parameters = {
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+};
+
+export const Readonly = Template.bind({});
+Readonly.args = {
+  readonly: true,
 };

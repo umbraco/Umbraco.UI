@@ -85,6 +85,15 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
   @query('#input')
   protected _input!: HTMLInputElement;
 
@@ -176,7 +185,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
           id="input"
           type="checkbox"
           @change="${this._onInputChange}"
-          .disabled=${this.disabled}
+          .disabled=${this.disabled || this.readonly}
           .checked=${this.checked}
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
@@ -196,12 +205,16 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
         position: relative;
         cursor: pointer;
         user-select: none;
-
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
         justify-items: center;
         gap: var(--uui-size-3);
+      }
+
+      :host([readonly]) label {
+        cursor: text;
+        user-select: auto;
       }
 
       input {

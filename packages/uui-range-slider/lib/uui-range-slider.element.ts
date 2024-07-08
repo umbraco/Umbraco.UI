@@ -47,6 +47,15 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   disabled = false;
 
   /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
+  /**
    * Sets the minimum allowed value.
    * @type {number}
    * @attr min
@@ -488,6 +497,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   /** Mouse Event */
   private _onMouseDown = (e: MouseEvent) => {
     if (this.disabled) return;
+    if (this.readonly) return;
 
     const target = e.composedPath()[0];
     if (target === this._outerTrack) return;
@@ -554,6 +564,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   /** Input Events */
   private _onLowInput(e: Event) {
     if (this.disabled) e.preventDefault();
+    if (this.readonly) e.preventDefault();
+
     this._currentFocus = this._inputLow;
     const newValue = Number((e.target as HTMLInputElement).value);
 
@@ -563,6 +575,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   private _onHighInput(e: Event) {
     if (this.disabled) e.preventDefault();
+    if (this.readonly) e.preventDefault();
+
     this._currentFocus = this._inputHigh;
     const newValue = Number((e.target as HTMLInputElement).value);
 
@@ -675,7 +689,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         step=${this._step}
         .value=${this._lowInputValue.toString()}
         aria-label="${this.label} low-end value"
-        ?disabled="${this.disabled}"
+        ?disabled="${this.disabled || this.readonly}"
         @input=${this._onLowInput}
         @change=${this._onLowChange} />
       <input
@@ -687,7 +701,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         step="${this._step}"
         .value=${this._highInputValue.toString()}
         aria-label="${this.label} high-end value"
-        ?disabled="${this.disabled}"
+        ?disabled="${this.disabled || this.readonly}"
         @input=${this._onHighInput}
         @change=${this._onHighChange} />
     </div>`;
@@ -744,7 +758,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         z-index: ${Z_INDEX.CENTER};
       }
 
-      :host([disabled]) #inner-color-thumb {
+      :host([disabled]) #inner-color-thumb,
+      :host([readonly]) #inner-color-thumb {
         cursor: default;
       }
 
@@ -757,11 +772,13 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       #inner-color-thumb:focus .color {
         background-color: var(--color-focus);
       }
+
       #inner-color-thumb:hover .color,
       #inner-color-thumb .color.active {
         background-color: var(--color-hover);
       }
-      #inner-color-thumb:hover .color {
+
+      :host(:not([readonly])) #inner-color-thumb:hover .color {
         height: 5px;
         background-color: var(--color-hover);
       }
@@ -892,6 +909,10 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         color: var(--uui-palette-mine-grey);
       }
 
+      :host([readonly]) .thumb-values {
+        opacity: 1;
+      }
+
       #range-slider:hover .thumb-values {
         opacity: 1;
       }
@@ -914,7 +935,9 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
           inset 0 0 0 2px var(--color-interactive),
           inset 0 0 0 4px var(--uui-color-surface);
       }
-      :host([disabled]) input::-webkit-slider-thumb {
+
+      :host([disabled]) input::-webkit-slider-thumb,
+      :host([readonly]) input::-webkit-slider-thumb {
         cursor: default;
       }
 
@@ -958,7 +981,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
           inset 0 0 0 2px var(--color-interactive),
           inset 0 0 0 4px var(--uui-color-surface);
       }
-      :host([disabled]) input::-moz-range-thumb {
+      :host([disabled]) input::-moz-range-thumb,
+      :host([readonly]) input::-moz-range-thumb {
         cursor: default;
       }
 
