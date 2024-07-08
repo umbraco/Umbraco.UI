@@ -28,7 +28,8 @@ export const AAAOverview: Story = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}></uui-card-media>
+    target=${props.target}
+    rel=${props.rel}></uui-card-media>
 `;
 AAAOverview.storyName = 'Overview';
 

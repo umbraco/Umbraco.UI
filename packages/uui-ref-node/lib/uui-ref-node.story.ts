@@ -33,6 +33,7 @@ const Template: Story = props => html`
     detail="${props.detail}"
     href="${props.href}"
     target="${props.target}"
+    rel="${props.rel}"
     ?selectable=${props.selectable}
     ?selectOnly=${props.selectOnly}
     ?error=${props.error}

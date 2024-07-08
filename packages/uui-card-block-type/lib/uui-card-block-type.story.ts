@@ -51,7 +51,8 @@ export const AAAOverview: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;
@@ -77,7 +78,8 @@ export const Description: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;
@@ -102,7 +104,8 @@ export const Tag: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
     <uui-tag slot="tag" size="s" color="danger">Trashed</uui-tag>
   </uui-card-block-type>
@@ -126,7 +129,8 @@ export const Actions: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
 
     <uui-action-bar slot="actions">
@@ -154,7 +158,8 @@ export const Background: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;
@@ -179,7 +184,8 @@ export const Image: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     <img
       src="https://umbraco.com/media/v5gf3w2a/umbraco-toolkit-wide.svg"
       alt="" />
@@ -206,7 +212,8 @@ export const Error: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;
@@ -229,7 +236,8 @@ export const Selectable: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;
@@ -252,7 +260,8 @@ export const Selected: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;
@@ -275,7 +284,8 @@ export const Multiple: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon('rgba(0,0,0,0.5)')}
   </uui-card-block-type>
   <uui-card-block-type
@@ -287,7 +297,8 @@ export const Multiple: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon('red')}
   </uui-card-block-type>
   <uui-card-block-type
@@ -299,7 +310,8 @@ export const Multiple: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon('rgba(11, 229, 255, 0.5)')}
   </uui-card-block-type>
 `;
@@ -324,7 +336,8 @@ export const Disabled: StoryFn = props => html`
     ?error=${props.error}
     ?disabled=${props.disabled}
     href=${props.href}
-    target=${props.target}>
+    target=${props.target}
+    rel=${props.rel}>
     ${renderWandIcon()}
   </uui-card-block-type>
 `;

@@ -55,6 +55,15 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
+  /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public rel?: string;
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -107,7 +116,10 @@ export class UUIRefNodeElement extends UUIRefElement {
       href=${ifDefined(!this.disabled ? this.href : undefined)}
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
-        this.target === '_blank' ? 'noopener noreferrer' : undefined,
+        this.rel ||
+          ifDefined(
+            this.target === '_blank' ? 'noopener noreferrer' : undefined,
+          ),
       )}>
       ${this.#renderContent()}
     </a>`;
