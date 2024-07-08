@@ -81,7 +81,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
    * @type {string}
    * @default ''
    **/
-  @property() value = '';
+  @property() value?: string;
 
   /**
    * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA
@@ -179,7 +179,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     if (this.value) {
       this.setColor(this.value);
     } else {
-      this.setColor('#000');
+      this.setColor(undefined);
     }
 
     demandCustomElement(this, 'uui-icon');
@@ -297,9 +297,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
     if (target.value) {
       this.setColor(target.value);
-      target.value = this.value;
+      target.value = this.value ?? '';
     } else {
-      this.setColor('#000');
+      this.setColor(undefined);
     }
 
     event.stopPropagation();
@@ -311,10 +311,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         this.setColor(this.inputValue);
         this._swatches?.resetSelection();
 
-        this.inputValue = this.value;
+        this.inputValue = this.value ?? '';
         setTimeout(() => this._input.select());
       } else {
-        this.setColor('#000');
+        this.setColor(undefined);
       }
     }
   }
@@ -327,8 +327,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     if (target.value) {
       this.setColor(target.value);
     } else {
-      //reset to black
-      this.setColor('#000');
+      this.setColor(undefined);
     }
   }
 
@@ -359,7 +358,17 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       });
   }
 
-  setColor(colorString: string | HslaColor) {
+  setColor(colorString: string | HslaColor | undefined) {
+    if (!colorString) {
+      // Do not run sync values when undefined. Any good way to indicate our undefined value?
+      this.alpha = 0;
+      this.inputValue = this.getFormattedValue(this.format);
+
+      this.dispatchEvent(
+        new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
+      );
+      return true;
+    }
     const colord = new Colord(colorString);
 
     const { h, s, l, a } = colord.toHsl();
@@ -425,7 +434,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}>
         <uui-color-area
-          .value="${this.value}"
+          .value="${this.value ?? ''}"
           .hue="${Math.round(this.hue)}"
           ?disabled=${this.disabled}
           @change=${this.handleGridChange}>
@@ -529,7 +538,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
-    return html` <button
+    return html`<button
         type="button"
         part="trigger"
         aria-label="${this.label || 'Open Color picker'}"

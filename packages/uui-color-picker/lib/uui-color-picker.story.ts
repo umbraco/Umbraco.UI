@@ -46,6 +46,7 @@ const meta: Meta<UUIColorPickerElement> = {
     swatches: defaultSwatches,
     format: 'hex',
     size: 'medium',
+    value: '#000000',
   },
   argTypes: {
     format: {
@@ -76,6 +77,19 @@ export default meta;
 type Story = StoryObj<UUIColorPickerElement>;
 
 export const Overview: Story = {};
+
+export const UndefinedValue: Story = {
+  args: {
+    value: undefined,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-picker></uui-color-picker>`,
+      },
+    },
+  },
+};
 
 export const Inline: Story = {
   args: {
