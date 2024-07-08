@@ -1,8 +1,11 @@
 import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
-import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
+import {
+  UUIFileDropzoneElement,
+  UUIFileFolder,
+} from './uui-file-dropzone.element';
 
 export class UUIFileDropzoneEvent extends UUIEvent<
-  { files: File[] },
+  { files: File[]; folders: UUIFileFolder[] },
   UUIFileDropzoneElement
 > {
   public static readonly CHANGE: string = 'change';

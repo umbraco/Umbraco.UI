@@ -5,6 +5,12 @@ import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
+export interface UUIFileFolder {
+  folderName: string;
+  folders: UUIFileFolder[];
+  files: File[];
+}
+
 /**
  * @element uui-file-dropzone
  *  @fires {UUIFileDropzoneEvent} change - fires when the a file has been selected.
@@ -66,6 +72,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return this._accept;
   }
 
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'disallow-folder-upload',
+  })
+  public disallowFolderUpload: boolean = false;
+
   /**
    * Allows for multiple files to be selected.
    * @type {boolean}
@@ -97,59 +110,69 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     demandCustomElement(this, 'uui-symbol-file-dropzone');
   }
 
-  private async _getAllFileEntries(
-    dataTransferItemList: DataTransferItemList,
-  ): Promise<File[]> {
-    const fileEntries: File[] = [];
+  private async _getAllEntries(dataTransferItemList: DataTransferItemList) {
     // Use BFS to traverse entire directory/file structure
     const queue = [...dataTransferItemList];
 
-    while (queue.length > 0) {
-      const entry = queue.shift()!;
+    const folders: UUIFileFolder[] = [];
+    const files: File[] = [];
 
-      if (entry.kind === 'file') {
+    for (const entry of queue) {
+      if (entry.type) {
+        // Entry is a file
         const file = entry.getAsFile();
         if (!file) continue;
         if (this._isAccepted(file)) {
-          fileEntries.push(file);
+          files.push(file);
         }
-      } else if (entry.kind === 'directory') {
-        if ('webkitGetAsEntry' in entry === false) continue;
-        const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
-        queue.push(
-          ...(await this._readAllDirectoryEntries(directory.createReader())),
-        );
+      } else if (!entry.type && !this.disallowFolderUpload) {
+        // Entry is a directive. The entry kind is "file" for both files and directories which seems like a bug. The file type is empty however. Can we trust this?
+        if ('webkitGetAsEntry' in entry === true) {
+          const dir = entry.webkitGetAsEntry() as FileSystemDirectoryEntry;
+          folders.push(await this._mkdir(dir));
+        } else if ('getAsEntry' in entry === true) {
+          // non-WebKit browsers may rename webkitGetAsEntry to getAsEntry. MDN recommends looking for both.
+          //@ts-ignore
+          const dir = entry.getAsEntry() as FileSystemDirectoryEntry;
+          folders.push(await this._mkdir(dir));
+        }
       }
     }
-
-    return fileEntries;
+    return { files, folders };
   }
 
-  // Get all the entries (files or sub-directories) in a directory
-  // by calling readEntries until it returns empty array
-  private async _readAllDirectoryEntries(
-    directoryReader: FileSystemDirectoryReader,
-  ) {
-    const entries: any = [];
-    let readEntries: any = await this._readEntriesPromise(directoryReader);
-    while (readEntries.length > 0) {
-      entries.push(...readEntries);
-      readEntries = await this._readEntriesPromise(directoryReader);
-    }
-    return entries;
-  }
+  // Make directory structure
+  private async _mkdir(
+    entry: FileSystemDirectoryEntry,
+  ): Promise<UUIFileFolder> {
+    const reader = entry.createReader();
+    const folders: UUIFileFolder[] = [];
+    const files: File[] = [];
 
-  private async _readEntriesPromise(
-    directoryReader: FileSystemDirectoryReader,
-  ) {
-    return new Promise((resolve, reject) => {
-      try {
-        directoryReader.readEntries(resolve, reject);
-      } catch (err) {
-        console.log(err);
-        reject(err);
-      }
-    });
+    const readEntries = (reader: FileSystemDirectoryReader) => {
+      reader.readEntries(async entries => {
+        if (!entries.length) return;
+
+        for (const en of entries) {
+          if (en.isFile) {
+            const file = await this._getAsFile(en as FileSystemFileEntry);
+            if (this._isAccepted(file)) {
+              files.push(file);
+            }
+          } else if (en.isDirectory) {
+            const directory = await this._mkdir(en as FileSystemDirectoryEntry);
+            folders.push(directory);
+          }
+        }
+
+        readEntries(reader);
+      });
+    };
+
+    readEntries(reader);
+
+    const result: UUIFileFolder = { folderName: entry.name, folders, files };
+    return result;
   }
 
   private _isAccepted(file: File) {
@@ -184,6 +207,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return false;
   }
 
+  private async _getAsFile(fileEntry: FileSystemFileEntry): Promise<File> {
+    return new Promise((resolve, reject) => fileEntry.file(resolve, reject));
+  }
+
   private async _onDrop(e: DragEvent) {
     e.preventDefault();
     this._dropzone.classList.remove('hover');
@@ -191,15 +218,17 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const items = e.dataTransfer?.items;
 
     if (items) {
-      let result = await this._getAllFileEntries(items);
+      const fileSystemResult = await this._getAllEntries(items);
 
-      if (this.multiple === false && result.length) {
-        result = [result[0]];
+      if (this.multiple === false && fileSystemResult.files.length) {
+        fileSystemResult.files = [fileSystemResult.files[0]];
       }
+
+      this._getAllEntries(items);
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-          detail: { files: result },
+          detail: fileSystemResult,
         }),
       );
     }
