@@ -114,6 +114,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const files: File[] = [];
 
     for (const entry of queue) {
+      if (!entry || entry.kind !== 'file') continue;
+
       if (entry.type) {
         // Entry is a file
         const file = entry.getAsFile();
@@ -121,16 +123,20 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         if (this._isAccepted(file)) {
           files.push(file);
         }
-      } else if (!entry.type && !this.disallowFolderUpload) {
-        // Entry is a directive. The entry kind is "file" for both files and directories which seems like a bug. The file type is empty however. Can we trust this?
-        if ('webkitGetAsEntry' in entry === true) {
-          const dir = entry.webkitGetAsEntry() as FileSystemDirectoryEntry;
-          folders.push(await this._mkdir(dir));
-        } else if ('getAsEntry' in entry === true) {
+      } else if (!this.disallowFolderUpload) {
+        // Entry is a directory
+        let dir: FileSystemDirectoryEntry | null = null;
+
+        if ('webkitGetAsEntry' in entry) {
+          dir = entry.webkitGetAsEntry() as FileSystemDirectoryEntry;
+        } else if ('getAsEntry' in entry) {
           // non-WebKit browsers may rename webkitGetAsEntry to getAsEntry. MDN recommends looking for both.
-          //@ts-ignore
-          const dir = entry.getAsEntry() as FileSystemDirectoryEntry;
-          folders.push(await this._mkdir(dir));
+          dir = (entry as any).getAsEntry();
+        }
+
+        if (dir) {
+          const structure = await this._mkdir(dir);
+          folders.push(structure);
         }
       }
     }
@@ -146,26 +152,36 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const files: File[] = [];
 
     const readEntries = (reader: FileSystemDirectoryReader) => {
-      reader.readEntries(async entries => {
-        if (!entries.length) return;
-
-        for (const en of entries) {
-          if (en.isFile) {
-            const file = await this._getAsFile(en as FileSystemFileEntry);
-            if (this._isAccepted(file)) {
-              files.push(file);
-            }
-          } else if (en.isDirectory) {
-            const directory = await this._mkdir(en as FileSystemDirectoryEntry);
-            folders.push(directory);
+      return new Promise<void>((resolve, reject) => {
+        reader.readEntries(async entries => {
+          if (!entries.length) {
+            resolve();
+            return;
           }
-        }
-        // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
-        readEntries(reader);
+
+          for (const en of entries) {
+            if (en.isFile) {
+              const file = await this._getAsFile(en as FileSystemFileEntry);
+              if (this._isAccepted(file)) {
+                files.push(file);
+              }
+            } else if (en.isDirectory) {
+              const directory = await this._mkdir(
+                en as FileSystemDirectoryEntry,
+              );
+              folders.push(directory);
+            }
+          }
+
+          // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
+          readEntries(reader);
+
+          resolve();
+        }, reject);
       });
     };
 
-    readEntries(reader);
+    await readEntries(reader);
 
     const result: UUIFileFolder = { folderName: entry.name, folders, files };
     return result;
