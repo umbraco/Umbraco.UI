@@ -73,7 +73,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @state() private hue = 0;
   @state() private saturation = 0;
   @state() private lightness = 0;
-  @state() private alpha = 100;
+  @state() private alpha = 0;
   @state() private _colord: Colord = colord('hsl(0, 0%, 0%)');
 
   /**
@@ -185,8 +185,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    this.setColor(this.value);
 
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-icon-registry-essential');
