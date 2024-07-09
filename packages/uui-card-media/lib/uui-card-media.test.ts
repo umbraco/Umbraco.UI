@@ -8,7 +8,6 @@ import {
 import '@umbraco-ui/uui-symbol-folder/lib';
 import '@umbraco-ui/uui-symbol-file/lib';
 import { UUICardMediaElement } from './uui-card-media.element';
-import '.';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
@@ -19,6 +18,10 @@ describe('UUICardMediaElement', () => {
     element = await fixture(html`
       <uui-card-media name="Media item"></uui-card-media>
     `);
+  });
+
+  it('is defined with its own instance', () => {
+    expect(element).to.be.instanceOf(UUICardMediaElement);
   });
 
   it('passes the a11y audit', async () => {
