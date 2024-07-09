@@ -1,6 +1,11 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUIInputFileElement } from './uui-input-file.element';
-import '.';
+
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-file-dropzone/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-action-bar/lib';
+import '@umbraco-ui/uui-file-preview/lib';
 
 describe('UUIInputFileElement', () => {
   let element: UUIInputFileElement;

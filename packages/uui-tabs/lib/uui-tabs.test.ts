@@ -5,6 +5,7 @@ import { UUITabElement } from './uui-tab.element';
 
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-popover-container/lib';
+import '@umbraco-ui/uui-symbol-more/lib';
 
 describe('UuiTab', () => {
   let element: UUITabGroupElement;
