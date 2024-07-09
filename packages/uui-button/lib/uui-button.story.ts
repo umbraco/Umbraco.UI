@@ -108,9 +108,9 @@ const Template: Story = props => {
       .rel=${props.rel}
       look=${props.look}
       color=${props.color}
-      label=${props.label}
-      >${props.content}</uui-button
-    >
+      label=${props.label}>
+      ${props.slot}
+    </uui-button>
   `;
 };
 
