@@ -114,7 +114,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const files: File[] = [];
 
     for (const entry of queue) {
-      if (!entry || entry.kind !== 'file') continue;
+      if (entry?.kind !== 'file') continue;
 
       if (entry.type) {
         // Entry is a file
@@ -125,14 +125,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         }
       } else if (!this.disallowFolderUpload) {
         // Entry is a directory
-        let dir: FileSystemDirectoryEntry | null = null;
-
-        if ('webkitGetAsEntry' in entry) {
-          dir = entry.webkitGetAsEntry() as FileSystemDirectoryEntry;
-        } else if ('getAsEntry' in entry) {
-          // non-WebKit browsers may rename webkitGetAsEntry to getAsEntry. MDN recommends looking for both.
-          dir = (entry as any).getAsEntry();
-        }
+        const dir = this._getEntry(entry);
 
         if (dir) {
           const structure = await this._mkdir(dir);
@@ -141,6 +134,23 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       }
     }
     return { files, folders };
+  }
+
+  /**
+   * Get the directory entry from a DataTransferItem.
+   * @remark Supports both WebKit and non-WebKit browsers.
+   */
+  private _getEntry(entry: DataTransferItem): FileSystemDirectoryEntry | null {
+    let dir: FileSystemDirectoryEntry | null = null;
+
+    if ('webkitGetAsEntry' in entry) {
+      dir = entry.webkitGetAsEntry() as FileSystemDirectoryEntry;
+    } else if ('getAsEntry' in entry) {
+      // non-WebKit browsers may rename webkitGetAsEntry to getAsEntry. MDN recommends looking for both.
+      dir = (entry as any).getAsEntry();
+    }
+
+    return dir;
   }
 
   // Make directory structure
