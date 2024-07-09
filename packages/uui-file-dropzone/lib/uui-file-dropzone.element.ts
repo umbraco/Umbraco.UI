@@ -3,7 +3,14 @@ import { css, html, LitElement } from 'lit';
 import { query, property } from 'lit/decorators.js';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+
+import '@umbraco-ui/uui-symbol-file-dropzone/lib';
+
+export interface UUIFileFolder {
+  folderName: string;
+  folders: UUIFileFolder[];
+  files: File[];
+}
 
 /**
  * @element uui-file-dropzone
@@ -66,6 +73,13 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return this._accept;
   }
 
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'disallow-folder-upload',
+  })
+  public disallowFolderUpload: boolean = false;
+
   /**
    * Allows for multiple files to be selected.
    * @type {boolean}
@@ -92,64 +106,95 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('drop', this._onDrop, false);
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    demandCustomElement(this, 'uui-symbol-file-dropzone');
-  }
-
-  private async _getAllFileEntries(
-    dataTransferItemList: DataTransferItemList,
-  ): Promise<File[]> {
-    const fileEntries: File[] = [];
+  private async _getAllEntries(dataTransferItemList: DataTransferItemList) {
     // Use BFS to traverse entire directory/file structure
     const queue = [...dataTransferItemList];
 
-    while (queue.length > 0) {
-      const entry = queue.shift()!;
+    const folders: UUIFileFolder[] = [];
+    const files: File[] = [];
 
-      if (entry.kind === 'file') {
+    for (const entry of queue) {
+      if (entry?.kind !== 'file') continue;
+
+      if (entry.type) {
+        // Entry is a file
         const file = entry.getAsFile();
         if (!file) continue;
         if (this._isAccepted(file)) {
-          fileEntries.push(file);
+          files.push(file);
         }
-      } else if (entry.kind === 'directory') {
-        if ('webkitGetAsEntry' in entry === false) continue;
-        const directory = entry.webkitGetAsEntry()! as FileSystemDirectoryEntry;
-        queue.push(
-          ...(await this._readAllDirectoryEntries(directory.createReader())),
-        );
+      } else if (!this.disallowFolderUpload) {
+        // Entry is a directory
+        const dir = this._getEntry(entry);
+
+        if (dir) {
+          const structure = await this._mkdir(dir);
+          folders.push(structure);
+        }
       }
     }
-
-    return fileEntries;
+    return { files, folders };
   }
 
-  // Get all the entries (files or sub-directories) in a directory
-  // by calling readEntries until it returns empty array
-  private async _readAllDirectoryEntries(
-    directoryReader: FileSystemDirectoryReader,
-  ) {
-    const entries: any = [];
-    let readEntries: any = await this._readEntriesPromise(directoryReader);
-    while (readEntries.length > 0) {
-      entries.push(...readEntries);
-      readEntries = await this._readEntriesPromise(directoryReader);
+  /**
+   * Get the directory entry from a DataTransferItem.
+   * @remark Supports both WebKit and non-WebKit browsers.
+   */
+  private _getEntry(entry: DataTransferItem): FileSystemDirectoryEntry | null {
+    let dir: FileSystemDirectoryEntry | null = null;
+
+    if ('webkitGetAsEntry' in entry) {
+      dir = entry.webkitGetAsEntry() as FileSystemDirectoryEntry;
+    } else if ('getAsEntry' in entry) {
+      // non-WebKit browsers may rename webkitGetAsEntry to getAsEntry. MDN recommends looking for both.
+      dir = (entry as any).getAsEntry();
     }
-    return entries;
+
+    return dir;
   }
 
-  private async _readEntriesPromise(
-    directoryReader: FileSystemDirectoryReader,
-  ) {
-    return new Promise((resolve, reject) => {
-      try {
-        directoryReader.readEntries(resolve, reject);
-      } catch (err) {
-        console.log(err);
-        reject(err);
-      }
-    });
+  // Make directory structure
+  private async _mkdir(
+    entry: FileSystemDirectoryEntry,
+  ): Promise<UUIFileFolder> {
+    const reader = entry.createReader();
+    const folders: UUIFileFolder[] = [];
+    const files: File[] = [];
+
+    const readEntries = (reader: FileSystemDirectoryReader) => {
+      return new Promise<void>((resolve, reject) => {
+        reader.readEntries(async entries => {
+          if (!entries.length) {
+            resolve();
+            return;
+          }
+
+          for (const en of entries) {
+            if (en.isFile) {
+              const file = await this._getAsFile(en as FileSystemFileEntry);
+              if (this._isAccepted(file)) {
+                files.push(file);
+              }
+            } else if (en.isDirectory) {
+              const directory = await this._mkdir(
+                en as FileSystemDirectoryEntry,
+              );
+              folders.push(directory);
+            }
+          }
+
+          // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
+          readEntries(reader);
+
+          resolve();
+        }, reject);
+      });
+    };
+
+    await readEntries(reader);
+
+    const result: UUIFileFolder = { folderName: entry.name, folders, files };
+    return result;
   }
 
   private _isAccepted(file: File) {
@@ -184,6 +229,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return false;
   }
 
+  private async _getAsFile(fileEntry: FileSystemFileEntry): Promise<File> {
+    return new Promise((resolve, reject) => fileEntry.file(resolve, reject));
+  }
+
   private async _onDrop(e: DragEvent) {
     e.preventDefault();
     this._dropzone.classList.remove('hover');
@@ -191,15 +240,17 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const items = e.dataTransfer?.items;
 
     if (items) {
-      let result = await this._getAllFileEntries(items);
+      const fileSystemResult = await this._getAllEntries(items);
 
-      if (this.multiple === false && result.length) {
-        result = [result[0]];
+      if (this.multiple === false && fileSystemResult.files.length) {
+        fileSystemResult.files = [fileSystemResult.files[0]];
       }
+
+      this._getAllEntries(items);
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-          detail: { files: result },
+          detail: fileSystemResult,
         }),
       );
     }
