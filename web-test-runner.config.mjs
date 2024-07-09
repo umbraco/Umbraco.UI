@@ -1,6 +1,11 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
+const silencedLogs = [
+  'Lit is in dev mode.',
+  'Multiple versions of Lit loaded.',
+];
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   nodeResolve: true,
@@ -11,6 +16,14 @@ export default {
     playwrightLauncher({ product: 'firefox' }),
     playwrightLauncher({ product: 'webkit' }),
   ],
+  filterBrowserLogs(log) {
+    for (const arg of log.args) {
+      if (typeof arg === 'string' && silencedLogs.some(l => arg.includes(l))) {
+        return false;
+      }
+    }
+    return true;
+  },
   testRunnerHtml: testFramework =>
     `<html>
       <head>
