@@ -1,6 +1,9 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUIFilePreviewElement } from './uui-file-preview.element';
-import '.';
+
+import '@umbraco-ui/uui-symbol-file/lib';
+import '@umbraco-ui/uui-symbol-folder/lib';
+import '@umbraco-ui/uui-symbol-file-thumbnail/lib';
 
 describe('UUIFilePreviewElement', () => {
   let element: UUIFilePreviewElement;

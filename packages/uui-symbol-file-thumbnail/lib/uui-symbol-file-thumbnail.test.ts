@@ -1,6 +1,7 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUISymbolFileThumbnailElement } from './uui-symbol-file-thumbnail.element';
-import '.';
+
+import '@umbraco-ui/uui-icon/lib';
 
 describe('UUISymbolFileThumbnailElement', () => {
   let element: UUISymbolFileThumbnailElement;

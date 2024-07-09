@@ -14,6 +14,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-scroll-container/lib';
 import '@umbraco-ui/uui-input/lib';
 import '@umbraco-ui/uui-popover-container/lib';
+import '@umbraco-ui/uui-symbol-expand/lib';
 
 describe('UUIComboboxElement', () => {
   let element: UUIComboboxElement;
