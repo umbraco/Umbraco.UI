@@ -78,9 +78,9 @@ type Story = StoryObj<UUIColorPickerElement>;
 
 export const Overview: Story = {};
 
-export const UndefinedValue: Story = {
+export const EmptyValue: Story = {
   args: {
-    value: undefined,
+    value: '',
   },
   parameters: {
     docs: {

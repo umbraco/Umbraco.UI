@@ -64,10 +64,11 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  */
 @defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
-  @query('[part="input"]') _input!: UUIInputElement;
-  @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
-  @query('#swatches') _swatches!: UUIColorSwatchesElement;
+  @query('[part="input"]') private _input!: UUIInputElement;
+  @query('.color-picker__preview') private _previewButton!: HTMLButtonElement;
+  @query('#swatches') private _swatches!: UUIColorSwatchesElement;
 
+  @state() private _value: string = '';
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 0;
@@ -81,7 +82,16 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
    * @type {string}
    * @default ''
    **/
-  @property() value?: string;
+  @property()
+  set value(value: string) {
+    if (this.value !== value) {
+      this.setColor(value);
+    }
+    this._value = value;
+  }
+  get value(): string {
+    return this._value;
+  }
 
   /**
    * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA
@@ -176,11 +186,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   connectedCallback(): void {
     super.connectedCallback();
 
-    if (this.value) {
-      this.setColor(this.value);
-    } else {
-      this.setColor(undefined);
-    }
+    this.setColor(this.value);
 
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-icon-registry-essential');
@@ -291,31 +297,22 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   handleInputChange(event: CustomEvent) {
+    event.stopImmediatePropagation();
+
+    this.inputValue = this._input.value as string;
+    this.setColor(this.inputValue);
+
     this._swatches?.resetSelection();
-
-    const target = event.target as HTMLInputElement;
-
-    if (target.value) {
-      this.setColor(target.value);
-      target.value = this.value ?? '';
-    } else {
-      this.setColor(undefined);
-    }
-
-    event.stopPropagation();
   }
 
   handleInputKeyDown(event: KeyboardEvent) {
+    event.stopImmediatePropagation();
     if (event.key === 'Enter') {
-      if (this.inputValue) {
-        this.setColor(this.inputValue);
-        this._swatches?.resetSelection();
+      this.inputValue = this._input.value as string;
+      this.setColor(this.inputValue);
 
-        this.inputValue = this.value ?? '';
-        setTimeout(() => this._input.select());
-      } else {
-        this.setColor(undefined);
-      }
+      this._swatches?.resetSelection();
+      setTimeout(() => this._input.select());
     }
   }
 
@@ -323,12 +320,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     event.stopImmediatePropagation();
 
     const target = event.target as UUIColorSwatchElement;
-
-    if (target.value) {
-      this.setColor(target.value);
-    } else {
-      this.setColor(undefined);
-    }
+    this.setColor(target.value);
   }
 
   handleCopy() {
@@ -358,17 +350,18 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       });
   }
 
-  setColor(colorString: string | HslaColor | undefined) {
+  setColor(colorString: string | HslaColor) {
     if (!colorString) {
-      // Do not run sync values when undefined. Any good way to indicate our undefined value?
       this.alpha = 0;
-      this.inputValue = this.getFormattedValue(this.format);
-
-      this.dispatchEvent(
-        new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
-      );
+      if (colorString !== this.value) {
+        this._value = colorString;
+        this.dispatchEvent(
+          new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
+        );
+      }
       return true;
     }
+
     const colord = new Colord(colorString);
 
     const { h, s, l, a } = colord.toHsl();
@@ -392,6 +385,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(
       new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
     );
+
     return true;
   }
 
@@ -421,7 +415,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   private _syncValues() {
     this.inputValue = this.getFormattedValue(this.format);
-    this.value = this.inputValue;
+    this._value = this.inputValue;
   }
 
   private _renderColorPicker() {
