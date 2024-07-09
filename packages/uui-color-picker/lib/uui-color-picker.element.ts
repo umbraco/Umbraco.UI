@@ -428,7 +428,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}>
         <uui-color-area
-          .value="${this.value ?? ''}"
+          .value="${this.value}"
           .hue="${Math.round(this.hue)}"
           ?disabled=${this.disabled}
           @change=${this.handleGridChange}>
