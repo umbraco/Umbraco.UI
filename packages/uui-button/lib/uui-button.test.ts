@@ -119,6 +119,19 @@ describe('UuiButton', () => {
       const slot = element.shadowRoot!.querySelector('button')!;
       expect(slot).to.exist;
     });
+    it('label property is used when no default slot is provided', async () => {
+      const element = await fixture(
+        html` <uui-button label="My label"> &nbsp; </uui-button>`,
+      );
+      expect(element.shadowRoot?.textContent).to.include('My label');
+    });
+    it('default slot takes precedence over label property', async () => {
+      element.label = 'My label';
+      await elementUpdated(element);
+      const slot = element.shadowRoot!.querySelector('slot')!;
+      expect(slot.assignedNodes().length).to.equal(1);
+      expect(slot.assignedNodes()[0].textContent).to.equal('Hello uui-button');
+    });
   });
 
   describe('events', () => {
