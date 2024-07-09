@@ -298,20 +298,20 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   handleInputChange(event: CustomEvent) {
     event.stopImmediatePropagation();
+    this._swatches?.resetSelection();
 
     this.inputValue = this._input.value as string;
     this.setColor(this.inputValue);
-
-    this._swatches?.resetSelection();
   }
 
   handleInputKeyDown(event: KeyboardEvent) {
     event.stopImmediatePropagation();
     if (event.key === 'Enter') {
+      this._swatches?.resetSelection();
+
       this.inputValue = this._input.value as string;
       this.setColor(this.inputValue);
 
-      this._swatches?.resetSelection();
       setTimeout(() => this._input.select());
     }
   }
