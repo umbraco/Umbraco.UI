@@ -350,7 +350,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
-    if (!colorString && colorString !== this.value) {
+    if (colorString === this.value) return;
+
+    if (!colorString) {
       this.alpha = 0;
       this.inputValue = '';
       this._value = colorString;
