@@ -64,15 +64,17 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  */
 @defineElement('uui-color-picker')
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
-  @query('[part="input"]') _input!: UUIInputElement;
-  @query('.color-picker__preview') _previewButton!: HTMLButtonElement;
-  @query('#swatches') _swatches!: UUIColorSwatchesElement;
+  @query('[part="input"]') private _input!: UUIInputElement;
+  @query('.color-picker__preview') private _previewButton!: HTMLButtonElement;
+  @query('#swatches') private _swatches!: UUIColorSwatchesElement;
+
+  private _value: string = '';
 
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 0;
   @state() private lightness = 0;
-  @state() private alpha = 100;
+  @state() private alpha = 0;
   @state() private _colord: Colord = colord('hsl(0, 0%, 0%)');
 
   /**
@@ -81,7 +83,16 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
    * @type {string}
    * @default ''
    **/
-  @property() value = '';
+  @property()
+  set value(value: string) {
+    if (this.value !== value) {
+      this.setColor(value);
+    }
+    this._value = value;
+  }
+  get value(): string {
+    return this._value;
+  }
 
   /**
    * The format to use for the display value. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA
@@ -175,12 +186,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    if (this.value) {
-      this.setColor(this.value);
-    } else {
-      this.setColor('#000');
-    }
 
     demandCustomElement(this, 'uui-icon');
     demandCustomElement(this, 'uui-icon-registry-essential');
@@ -291,31 +296,22 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   handleInputChange(event: CustomEvent) {
+    event.stopImmediatePropagation();
     this._swatches?.resetSelection();
 
-    const target = event.target as HTMLInputElement;
-
-    if (target.value) {
-      this.setColor(target.value);
-      target.value = this.value;
-    } else {
-      this.setColor('#000');
-    }
-
-    event.stopPropagation();
+    this.inputValue = this._input.value as string;
+    this.setColor(this.inputValue);
   }
 
   handleInputKeyDown(event: KeyboardEvent) {
+    event.stopImmediatePropagation();
     if (event.key === 'Enter') {
-      if (this.inputValue) {
-        this.setColor(this.inputValue);
-        this._swatches?.resetSelection();
+      this._swatches?.resetSelection();
 
-        this.inputValue = this.value;
-        setTimeout(() => this._input.select());
-      } else {
-        this.setColor('#000');
-      }
+      this.inputValue = this._input.value as string;
+      this.setColor(this.inputValue);
+
+      setTimeout(() => this._input.select());
     }
   }
 
@@ -323,13 +319,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     event.stopImmediatePropagation();
 
     const target = event.target as UUIColorSwatchElement;
-
-    if (target.value) {
-      this.setColor(target.value);
-    } else {
-      //reset to black
-      this.setColor('#000');
-    }
+    this.setColor(target.value);
   }
 
   handleCopy() {
@@ -360,6 +350,20 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
+    if (colorString === this.value) return;
+
+    if (!colorString) {
+      this.alpha = 0;
+      this.inputValue = '';
+      this._value = colorString;
+
+      this.dispatchEvent(
+        new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
+      );
+
+      return true;
+    }
+
     const colord = new Colord(colorString);
 
     const { h, s, l, a } = colord.toHsl();
@@ -383,6 +387,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(
       new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
     );
+
     return true;
   }
 
@@ -412,7 +417,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   private _syncValues() {
     this.inputValue = this.getFormattedValue(this.format);
-    this.value = this.inputValue;
+    this._value = this.inputValue;
   }
 
   private _renderColorPicker() {
@@ -530,7 +535,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
-    return html` <button
+    return html`<button
         type="button"
         part="trigger"
         aria-label="${this.label || 'Open Color picker'}"
