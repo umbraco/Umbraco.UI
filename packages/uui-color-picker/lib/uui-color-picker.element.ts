@@ -68,7 +68,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @query('.color-picker__preview') private _previewButton!: HTMLButtonElement;
   @query('#swatches') private _swatches!: UUIColorSwatchesElement;
 
-  @state() private _value: string = '';
+  private _value: string = '';
+
   @state() private inputValue = '';
   @state() private hue = 0;
   @state() private saturation = 0;
@@ -349,14 +350,15 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   setColor(colorString: string | HslaColor) {
-    if (!colorString) {
+    if (!colorString && colorString !== this.value) {
       this.alpha = 0;
-      if (colorString !== this.value) {
-        this._value = colorString;
-        this.dispatchEvent(
-          new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
-        );
-      }
+      this.inputValue = '';
+      this._value = colorString;
+
+      this.dispatchEvent(
+        new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
+      );
+
       return true;
     }
 
