@@ -121,7 +121,7 @@ describe('UuiButton', () => {
     });
     it('label property is used when no default slot is provided', async () => {
       const element = await fixture(
-        html` <uui-button label="My label"> &nbsp; </uui-button>`,
+        html` <uui-button label="My label"></uui-button>`,
       );
       expect(element.shadowRoot?.textContent).to.include('My label');
     });

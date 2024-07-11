@@ -40,9 +40,9 @@ export const AAAOverview: Story = props => html`
     .labelPosition=${props.labelPosition}
     ?disabled=${props.disabled}
     ?readonly=${props.readonly}
-    ?checked=${props.checked}>
-    ${props.slot}
-  </uui-toggle>
+    ?checked=${props.checked}
+    >${props.slot}</uui-toggle
+  >
 `;
 AAAOverview.storyName = 'Overview';
 
