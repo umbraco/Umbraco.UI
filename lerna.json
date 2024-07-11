@@ -14,5 +14,5 @@
       "verifyAccess": false
     }
   },
-  "ignoreChanges": ["**/*.story.ts", "**/*.test.ts", "**/*.md", "!**/README.md"]
+  "ignoreChanges": ["**/*.story.ts", "**/*.test.ts", "**/CHANGELOG.md"]
 }
