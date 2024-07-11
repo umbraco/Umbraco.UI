@@ -45,7 +45,7 @@ npm i @umbraco-ui/uui-css
 
 ## Usage
 
-For a build system like _Vite_, the styling could be included like this if you want to control the styling and variables with the build system:
+For a build system like [Vite](https://vitejs.dev/), the styling could be included like this if you want to control the styling and variables with the build system:
 
 ```ts
 // app.ts
@@ -89,7 +89,7 @@ Using the custom properties:
 Full example:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <link
@@ -146,13 +146,6 @@ import { UUITextStyles } from '@umbraco-ui/uui-css';
 
 @customElement('my-element')
 export class MyElement extends LitElement {
-  static styles = [
-    UUITextStyles,
-    css`
-      /* your css goes here */
-    `,
-  ];
-
   render() {
     return html`
       <div class="uui-text">
@@ -160,6 +153,13 @@ export class MyElement extends LitElement {
       </div>
     `;
   }
+
+  static styles = [
+    UUITextStyles,
+    css`
+      /* your css goes here */
+    `,
+  ];
 }
 
 declare global {
