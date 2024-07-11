@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.0...v1.9.0-rc.1) (2024-07-11)
+
+### Bug Fixes
+
+- revert the function to calculate if a default slot is empty ([cea165e](https://github.com/umbraco/Umbraco.UI/commit/cea165e539348a0f8346c4c4f7ba1128e22eb831))
+
 # [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
 
 ### Bug Fixes
