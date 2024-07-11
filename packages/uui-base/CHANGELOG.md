@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Bug Fixes
+
+- ensure that empty text nodes do not make the label mixin think it is non-empty ([b0461b6](https://github.com/umbraco/Umbraco.UI/commit/b0461b6bbcc5413f7eb4e59d7f0bdfc4be1020ec))
+
 # [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
 
 ### Features

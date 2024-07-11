@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Bug Fixes
+
+- ensure that empty text nodes do not make the label mixin think it is non-empty ([b0461b6](https://github.com/umbraco/Umbraco.UI/commit/b0461b6bbcc5413f7eb4e59d7f0bdfc4be1020ec))
+- Hide the native input for boolean elements in firefox ([#808](https://github.com/umbraco/Umbraco.UI/issues/808)) ([bc31088](https://github.com/umbraco/Umbraco.UI/commit/bc310888ef68faf685e0f0c3ac05827381d5ddcd))
+- Hide the native input for boolean elements in firefox ([#808](https://github.com/umbraco/Umbraco.UI/issues/808)) ([81c0a95](https://github.com/umbraco/Umbraco.UI/commit/81c0a95a24b6df903f5382cb3b735cfa4a27f381))
+- prevent overflow when not hovered ([#816](https://github.com/umbraco/Umbraco.UI/issues/816)) ([3e3f22a](https://github.com/umbraco/Umbraco.UI/commit/3e3f22a9ae1e6110c71161bc226f4487a6176196))
+- prevent overflow when not hovered ([#816](https://github.com/umbraco/Umbraco.UI/issues/816)) ([b3fcd2b](https://github.com/umbraco/Umbraco.UI/commit/b3fcd2b535ce3d7049739d13a6b56a9cc2036e8a))
+- **uui-form-validation-message:** default renderer does not support raw HTML ([#835](https://github.com/umbraco/Umbraco.UI/issues/835)) ([4320539](https://github.com/umbraco/Umbraco.UI/commit/4320539dc3b327a1993042dedaef95d0b1bc4bd2))
+- **uui-input-lock:** the UUIInputLockEvent is not exported ([#836](https://github.com/umbraco/Umbraco.UI/issues/836)) ([43a7528](https://github.com/umbraco/Umbraco.UI/commit/43a7528b70620786de691572be8171553e086af5))
+
+### Features
+
+- add `rel` property to relevant elements to override default behavior ([#814](https://github.com/umbraco/Umbraco.UI/issues/814)) ([cf81c2d](https://github.com/umbraco/Umbraco.UI/commit/cf81c2d991b25eae7728bef2f6581d43e9367448))
+- add readonly mode ([23c6d2c](https://github.com/umbraco/Umbraco.UI/commit/23c6d2ccb9d28a1f0c66e142bcf1024384306c48))
+- dropzone should support folder upload ([#841](https://github.com/umbraco/Umbraco.UI/issues/841)) ([dc7594d](https://github.com/umbraco/Umbraco.UI/commit/dc7594d30112b390acb998a65eda84d7832af30d))
+- implement readonly for uui-combobox ([2b03861](https://github.com/umbraco/Umbraco.UI/commit/2b038610fd4bbc9635c3769d8d70fd11b962e13e))
+- implement readonly for uui-range-slider ([e720227](https://github.com/umbraco/Umbraco.UI/commit/e720227cc92f21d631bdaaadaafa9ecc03ff13da))
+- implement readonly mode for uui-ref-node ([d37861c](https://github.com/umbraco/Umbraco.UI/commit/d37861c759730fc40a7842bb4736735ba0454f22))
+- implement readonly state for uui-slider ([9379cc1](https://github.com/umbraco/Umbraco.UI/commit/9379cc17ea6d7327911fa6fd319767eb2b88c7dd))
+- readonly state for boolean base class ([78ebbdd](https://github.com/umbraco/Umbraco.UI/commit/78ebbdde6e8622e1048b760c4727e5f19a397ab1))
+- readonly state for checkbox ([5e3cbdc](https://github.com/umbraco/Umbraco.UI/commit/5e3cbdcc785aa9954a727d28af90f06d3ca1625c))
+- readonly state for toggle ([c7565b9](https://github.com/umbraco/Umbraco.UI/commit/c7565b91fc9d74ac105b91e6b9c1b7114187430f))
+- readonly state for uui-radio ([201917e](https://github.com/umbraco/Umbraco.UI/commit/201917e24a77ddbf2c0faaa884bae7b1204923c5))
+- readonly state for uui-radio-group ([6a5f636](https://github.com/umbraco/Umbraco.UI/commit/6a5f63667d1d9f274753e25305447a8f9c5d5d63))
+- **uui-color-picker:** allow the value to be empty ([#842](https://github.com/umbraco/Umbraco.UI/issues/842)) ([c45ac40](https://github.com/umbraco/Umbraco.UI/commit/c45ac4001a53f123804c2a11923e290e9ff5da10))
+- **uui-slider:** Hide label property + fix error for floating point numbers ([#813](https://github.com/umbraco/Umbraco.UI/issues/813)) ([bef030f](https://github.com/umbraco/Umbraco.UI/commit/bef030f70bc2b68ccf2c2074aa34c8fa18fea6e8))
+- **uui-slider:** Hide label property + fix error for floating point numbers ([#813](https://github.com/umbraco/Umbraco.UI/issues/813)) ([12bcd06](https://github.com/umbraco/Umbraco.UI/commit/12bcd06f978f0937b9d697c4c16f449779038b56))
+
 ## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 ### Bug Fixes

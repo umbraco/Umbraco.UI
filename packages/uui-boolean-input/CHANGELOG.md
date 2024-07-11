@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Bug Fixes
+
+- Hide the native input for boolean elements in firefox ([#808](https://github.com/umbraco/Umbraco.UI/issues/808)) ([bc31088](https://github.com/umbraco/Umbraco.UI/commit/bc310888ef68faf685e0f0c3ac05827381d5ddcd))
+
+### Features
+
+- readonly state for boolean base class ([78ebbdd](https://github.com/umbraco/Umbraco.UI/commit/78ebbdde6e8622e1048b760c4727e5f19a397ab1))
+
 ## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 ### Bug Fixes
