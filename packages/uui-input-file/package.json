@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input-file",
-  "version": "1.8.0",
+  "version": "1.9.0-rc.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,12 +30,12 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-action-bar": "1.8.0",
-    "@umbraco-ui/uui-base": "1.8.0",
-    "@umbraco-ui/uui-button": "1.8.0",
-    "@umbraco-ui/uui-file-dropzone": "1.8.0",
-    "@umbraco-ui/uui-icon": "1.8.0",
-    "@umbraco-ui/uui-icon-registry-essential": "1.8.0"
+    "@umbraco-ui/uui-action-bar": "1.9.0-rc.0",
+    "@umbraco-ui/uui-base": "1.9.0-rc.0",
+    "@umbraco-ui/uui-button": "1.9.0-rc.0",
+    "@umbraco-ui/uui-file-dropzone": "1.9.0-rc.0",
+    "@umbraco-ui/uui-icon": "1.9.0-rc.0",
+    "@umbraco-ui/uui-icon-registry-essential": "1.9.0-rc.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",

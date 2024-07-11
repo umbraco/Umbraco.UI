@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Features
+
+- implement readonly for uui-combobox ([2b03861](https://github.com/umbraco/Umbraco.UI/commit/2b038610fd4bbc9635c3769d8d70fd11b962e13e))
+
 # [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
 
 **Note:** Version bump only for package @umbraco-ui/uui-combobox

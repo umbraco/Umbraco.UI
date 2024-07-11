@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Features
+
+- readonly state for uui-radio ([201917e](https://github.com/umbraco/Umbraco.UI/commit/201917e24a77ddbf2c0faaa884bae7b1204923c5))
+- readonly state for uui-radio-group ([6a5f636](https://github.com/umbraco/Umbraco.UI/commit/6a5f63667d1d9f274753e25305447a8f9c5d5d63))
+
 # [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
 
 ### Features

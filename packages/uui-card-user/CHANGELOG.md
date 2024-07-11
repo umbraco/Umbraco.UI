@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Features
+
+- add `rel` property to relevant elements to override default behavior ([#814](https://github.com/umbraco/Umbraco.UI/issues/814)) ([cf81c2d](https://github.com/umbraco/Umbraco.UI/commit/cf81c2d991b25eae7728bef2f6581d43e9367448))
+
 # [1.8.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.0-rc.3...v1.8.0) (2024-05-23)
 
 **Note:** Version bump only for package @umbraco-ui/uui-card-user

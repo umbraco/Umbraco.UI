@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Features
+
+- implement readonly state for uui-slider ([9379cc1](https://github.com/umbraco/Umbraco.UI/commit/9379cc17ea6d7327911fa6fd319767eb2b88c7dd))
+- **uui-slider:** Hide label property + fix error for floating point numbers ([#813](https://github.com/umbraco/Umbraco.UI/issues/813)) ([bef030f](https://github.com/umbraco/Umbraco.UI/commit/bef030f70bc2b68ccf2c2074aa34c8fa18fea6e8))
+
 ## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 ### Features

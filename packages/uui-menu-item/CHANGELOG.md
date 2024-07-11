@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Bug Fixes
+
+- prevent overflow when not hovered ([#816](https://github.com/umbraco/Umbraco.UI/issues/816)) ([3e3f22a](https://github.com/umbraco/Umbraco.UI/commit/3e3f22a9ae1e6110c71161bc226f4487a6176196))
+
+### Features
+
+- add `rel` property to relevant elements to override default behavior ([#814](https://github.com/umbraco/Umbraco.UI/issues/814)) ([cf81c2d](https://github.com/umbraco/Umbraco.UI/commit/cf81c2d991b25eae7728bef2f6581d43e9367448))
+
 ## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 ### Bug Fixes

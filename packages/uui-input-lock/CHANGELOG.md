@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Bug Fixes
+
+- **uui-input-lock:** the UUIInputLockEvent is not exported ([#836](https://github.com/umbraco/Umbraco.UI/issues/836)) ([43a7528](https://github.com/umbraco/Umbraco.UI/commit/43a7528b70620786de691572be8171553e086af5))
+
 ## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input-lock

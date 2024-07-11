@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.9.0-rc.0) (2024-07-11)
+
+### Features
+
+- readonly state for checkbox ([5e3cbdc](https://github.com/umbraco/Umbraco.UI/commit/5e3cbdcc785aa9954a727d28af90f06d3ca1625c))
+
 ## [1.8.2](https://github.com/umbraco/Umbraco.UI/compare/v1.8.1...v1.8.2) (2024-06-18)
 
 **Note:** Version bump only for package @umbraco-ui/uui-checkbox
