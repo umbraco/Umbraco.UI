@@ -123,7 +123,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         if (this._isAccepted(file)) {
           files.push(file);
         }
-      } else if (!this.disallowFolderUpload) {
+      } else if (!this.disallowFolderUpload && this.multiple) {
         // Entry is a directory
         const dir = this._getEntry(entry);
 
@@ -133,6 +133,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         }
       }
     }
+
     return { files, folders };
   }
 
@@ -184,7 +185,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           }
 
           // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
-          readEntries(reader);
+          await readEntries(reader);
 
           resolve();
         }, reject);
@@ -215,12 +216,12 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       return true;
     }
 
-    for (const mimeType in this._acceptedMimeTypes) {
+    for (const mimeType of this._acceptedMimeTypes) {
       if (fileType === mimeType) {
         return true;
       } else if (
         mimeType.endsWith('/*') &&
-        fileType.startsWith(mimeType.replace('/*', ''))
+        fileType.startsWith(mimeType.replace('*', ''))
       ) {
         return true;
       }
@@ -244,9 +245,12 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       if (this.multiple === false && fileSystemResult.files.length) {
         fileSystemResult.files = [fileSystemResult.files[0]];
+        fileSystemResult.folders = [];
       }
 
-      this._getAllEntries(items);
+      if (!fileSystemResult.files.length && !fileSystemResult.folders.length) {
+        return;
+      }
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
@@ -274,9 +278,19 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   private _onFileInputChange() {
     const files = this._input.files ? Array.from(this._input.files) : [];
 
+    if (this.multiple === false && files.length > 1) {
+      files.splice(1, files.length - 1);
+    }
+
+    const allowedFiles = files.filter(file => this._isAccepted(file));
+
+    if (!allowedFiles.length) {
+      return;
+    }
+
     this.dispatchEvent(
       new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-        detail: { files: files },
+        detail: { files: allowedFiles, folders: [] },
       }),
     );
   }
