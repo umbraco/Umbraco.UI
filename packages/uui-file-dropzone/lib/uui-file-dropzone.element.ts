@@ -244,7 +244,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       if (this.multiple === false && fileSystemResult.files.length) {
         fileSystemResult.files = [fileSystemResult.files[0]];
-        fileSystemResult.folders = [];
       }
 
       this.dispatchEvent(
