@@ -123,7 +123,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         if (this._isAccepted(file)) {
           files.push(file);
         }
-      } else if (!this.disallowFolderUpload) {
+      } else if (!this.disallowFolderUpload && this.multiple) {
         // Entry is a directory
         const dir = this._getEntry(entry);
 
@@ -244,6 +244,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       if (this.multiple === false && fileSystemResult.files.length) {
         fileSystemResult.files = [fileSystemResult.files[0]];
+        fileSystemResult.folders = [];
       }
 
       this.dispatchEvent(
