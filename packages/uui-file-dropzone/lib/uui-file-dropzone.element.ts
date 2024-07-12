@@ -133,6 +133,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         }
       }
     }
+
     return { files, folders };
   }
 
@@ -247,6 +248,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         fileSystemResult.folders = [];
       }
 
+      if (!fileSystemResult.files.length && !fileSystemResult.folders.length) {
+        return;
+      }
+
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
           detail: fileSystemResult,
@@ -273,9 +278,19 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   private _onFileInputChange() {
     const files = this._input.files ? Array.from(this._input.files) : [];
 
+    if (this.multiple === false && files.length > 1) {
+      files.splice(1, files.length - 1);
+    }
+
+    const allowedFiles = files.filter(file => this._isAccepted(file));
+
+    if (!allowedFiles.length) {
+      return;
+    }
+
     this.dispatchEvent(
       new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-        detail: { files: files },
+        detail: { files: allowedFiles, folders: [] },
       }),
     );
   }
