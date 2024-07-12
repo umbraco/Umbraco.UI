@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-input-file",
-  "version": "1.9.0-rc.1",
+  "version": "1.9.0-rc.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -33,7 +33,7 @@
     "@umbraco-ui/uui-action-bar": "1.9.0-rc.1",
     "@umbraco-ui/uui-base": "1.9.0-rc.1",
     "@umbraco-ui/uui-button": "1.9.0-rc.1",
-    "@umbraco-ui/uui-file-dropzone": "1.9.0-rc.1",
+    "@umbraco-ui/uui-file-dropzone": "1.9.0-rc.2",
     "@umbraco-ui/uui-icon": "1.9.0-rc.1",
     "@umbraco-ui/uui-icon-registry-essential": "1.9.0-rc.1"
   },

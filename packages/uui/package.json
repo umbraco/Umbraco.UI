@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "1.9.0-rc.1",
+  "version": "1.9.0-rc.2",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -65,7 +65,7 @@
     "@umbraco-ui/uui-css": "1.9.0-rc.0",
     "@umbraco-ui/uui-dialog": "1.9.0-rc.1",
     "@umbraco-ui/uui-dialog-layout": "1.9.0-rc.1",
-    "@umbraco-ui/uui-file-dropzone": "1.9.0-rc.1",
+    "@umbraco-ui/uui-file-dropzone": "1.9.0-rc.2",
     "@umbraco-ui/uui-file-preview": "1.9.0-rc.1",
     "@umbraco-ui/uui-form": "1.9.0-rc.1",
     "@umbraco-ui/uui-form-layout-item": "1.9.0-rc.1",
@@ -74,7 +74,7 @@
     "@umbraco-ui/uui-icon-registry": "1.9.0-rc.1",
     "@umbraco-ui/uui-icon-registry-essential": "1.9.0-rc.1",
     "@umbraco-ui/uui-input": "1.9.0-rc.1",
-    "@umbraco-ui/uui-input-file": "1.9.0-rc.1",
+    "@umbraco-ui/uui-input-file": "1.9.0-rc.2",
     "@umbraco-ui/uui-input-lock": "1.9.0-rc.1",
     "@umbraco-ui/uui-input-password": "1.9.0-rc.1",
     "@umbraco-ui/uui-keyboard-shortcut": "1.9.0-rc.1",
