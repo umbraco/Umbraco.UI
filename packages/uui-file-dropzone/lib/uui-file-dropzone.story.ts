@@ -75,6 +75,19 @@ Accept.parameters = {
   },
 };
 
+export const DisallowFolderUpload = Template.bind({});
+DisallowFolderUpload.args = {
+  DisallowFolderUpload: true,
+};
+DisallowFolderUpload.parameters = {
+  docs: {
+    description: {
+      story:
+        'The disallow-folder-upload attribute prevents the user from uploading folders.',
+    },
+  },
+};
+
 export const BrowseFiles: StoryFn<UUIFileDropzoneElement> = props => {
   const handleBrowse = () => {
     const dropzone = document.getElementById(
