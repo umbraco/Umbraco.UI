@@ -8,7 +8,7 @@ import {
 import { UUICheckboxElement } from './uui-checkbox.element';
 import './index';
 
-describe('UuiToggle', () => {
+describe('UUICheckbox', () => {
   let element: UUICheckboxElement;
   let input: HTMLInputElement;
   let iconCheck: HTMLElement;

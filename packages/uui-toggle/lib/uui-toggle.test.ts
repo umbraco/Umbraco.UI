@@ -9,7 +9,7 @@ import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 
 import { UUIToggleElement } from './uui-toggle.element';
 
-describe('UuiToggle', () => {
+describe('UUIToggle', () => {
   let element: UUIToggleElement;
   let input: HTMLInputElement;
   beforeEach(async () => {

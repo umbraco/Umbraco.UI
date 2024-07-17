@@ -1,6 +1,6 @@
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import readme from '../README.md?raw';
 
@@ -28,7 +28,7 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props => html`
+export const AAAOverview: StoryFn = props => html`
   <uui-toggle
     style="--uui-toggle-size: ${props[
       '--uui-toggle-size'
@@ -61,7 +61,7 @@ AAAOverview.parameters = {
   },
 };
 
-export const Error: Story = props => html`
+export const Error: StoryFn = props => html`
   <uui-toggle ?error=${props.error} label="Error"></uui-toggle><br />
   <uui-toggle ?error=${props.error} label="Error checked" checked></uui-toggle
   ><br /><uui-toggle
@@ -88,7 +88,7 @@ Error.parameters = {
   },
 };
 
-export const WithSlottedLabel: Story = props => html`
+export const WithSlottedLabel: StoryFn = props => html`
   <uui-toggle label="Toggle label" ?checked=${props.checked} value="toggle"
     >Using <b>Slot</b> for displayed label</uui-toggle
   >
@@ -102,7 +102,7 @@ WithSlottedLabel.parameters = {
   },
 };
 
-export const LabelPosition: Story = props => html`
+export const LabelPosition: StoryFn = props => html`
   <div
     style="display: grid; grid-template-columns: repeat(4, 128px); align-items: center; justify-items: center">
     <uui-toggle
@@ -135,7 +135,7 @@ LabelPosition.parameters = {
   },
 };
 
-export const Disabled: Story = props => html`
+export const Disabled: StoryFn = props => html`
   <uui-toggle ?disabled=${props.disabled} label="Disabled"></uui-toggle>
   <uui-toggle
     ?disabled=${props.disabled}
@@ -153,7 +153,7 @@ Disabled.parameters = {
   },
 };
 
-export const Readonly: Story = props => html`
+export const Readonly: StoryFn = props => html`
   <uui-toggle ?readonly=${props.readonly} label="Readonly" checked></uui-toggle>
 `;
 Readonly.args = { readonly: true };
