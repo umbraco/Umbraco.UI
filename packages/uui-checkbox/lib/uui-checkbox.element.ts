@@ -25,7 +25,6 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="ticker">
-      ${this.indeterminate}
         <div id="icon-check">${this.indeterminate ? iconMinus : iconCheck}</div>
       </div>
     `;
