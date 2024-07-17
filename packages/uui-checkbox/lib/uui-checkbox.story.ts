@@ -60,12 +60,11 @@ AAAOverview.argTypes = {
   '--uui-checkbox-size': { control: { type: 'text' } },
 };
 
-export const Error: Story = props => html`
+export const Error: Story = props => html`<div style="display: flex; gap: 20px;">
   <uui-checkbox .label=${'Checkbox label'} ?error=${props.error}></uui-checkbox>
   <uui-checkbox
     ?error=${props.error}
     .label=${'Checkbox label'}
-    style="margin-left: 20px;"
     checked></uui-checkbox>
   <uui-checkbox
     disabled
@@ -75,8 +74,8 @@ export const Error: Story = props => html`
     ?error=${props.error}
     disabled
     .label=${'Checkbox label'}
-    style="margin-left: 20px;"
     checked></uui-checkbox>
+  </div>
 `;
 Error.args = { error: true };
 Error.parameters = {
