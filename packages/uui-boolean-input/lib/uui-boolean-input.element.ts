@@ -76,6 +76,15 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     this.requestUpdate('checked', oldValue);
   }
 
+   /**
+   * Indeterminate state for the input.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  indeterminate = false;
+
   /**
    * Disables the input.
    * @type {boolean}
@@ -167,6 +176,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     e.stopPropagation();
     this.pristine = false;
     this.checked = this._input.checked;
+    this.indeterminate = this._input.indeterminate;
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
   }
 
@@ -187,6 +197,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
           @change="${this._onInputChange}"
           .disabled=${this.disabled || this.readonly}
           .checked=${this.checked}
+          .indeterminate=${this.indeterminate}
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${this.label}
           role="${this.inputRole}" />
