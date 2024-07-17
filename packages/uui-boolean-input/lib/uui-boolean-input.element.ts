@@ -213,8 +213,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
       }
 
       :host([readonly]) label {
-        cursor: text;
-        user-select: auto;
+        cursor: default;
       }
 
       input {
@@ -238,7 +237,8 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
         flex-direction: column;
       }
 
-      :host([disabled]) .label {
+      :host([disabled]) label {
+        cursor: not-allowed;
         opacity: 0.5;
       }
     `,
