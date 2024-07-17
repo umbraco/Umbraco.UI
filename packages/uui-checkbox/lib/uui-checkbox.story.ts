@@ -180,7 +180,7 @@ export const Indeterminate: Story = props => html`
   <uui-checkbox
     ?indeterminate=${props.indeterminate}
     .label=${'Indeterminate'}
-    checked></uui-checkbox>
+  ></uui-checkbox>
 `;
 Indeterminate.args = { indeterminate: true };
 Indeterminate.parameters = {
