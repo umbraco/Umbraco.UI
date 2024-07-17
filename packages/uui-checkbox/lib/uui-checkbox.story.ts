@@ -187,7 +187,7 @@ Indeterminate.parameters = {
   controls: { include: ['indeterminate'] },
   docs: {
     source: {
-      code: `<uui-checkbox label="Indeterminate" checked indeterminate></uui-checkbox>`,
+      code: `<uui-checkbox label="Indeterminate" indeterminate></uui-checkbox>`,
     },
   },
 };
