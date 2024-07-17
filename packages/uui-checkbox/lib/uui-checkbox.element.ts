@@ -4,7 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/animations';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
-import { iconCheck, iconMinus } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import { iconCheck, iconSubtract } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html } from 'lit';
 
 /**
@@ -25,7 +25,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="ticker">
-        <div id="icon-check">${this.indeterminate ? iconMinus : iconCheck}</div>
+        <div id="icon-check">${this.indeterminate ? iconSubtract : iconCheck}</div>
       </div>
     `;
   }

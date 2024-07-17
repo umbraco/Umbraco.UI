@@ -17,7 +17,6 @@ export * from './iconForbidden';
 export * from './iconInfo';
 export * from './iconLink';
 export * from './iconLock';
-export * from './iconMinus';
 export * from './iconPause';
 export * from './iconPicture';
 export * from './iconPlay';
