@@ -1,6 +1,6 @@
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import readme from '../README.md?raw';
 
@@ -34,7 +34,7 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props => html`
+export const AAAOverview: StoryFn = props => html`
   <uui-checkbox
     style="--uui-checkbox-size: ${props['--uui-checkbox-size']}"
     .value=${props.value}
@@ -60,7 +60,7 @@ AAAOverview.argTypes = {
   '--uui-checkbox-size': { control: { type: 'text' } },
 };
 
-export const Error: Story = props => html`<div style="display: flex; gap: 20px;">
+export const Error: StoryFn = props => html`<div style="display: flex; gap: 20px;">
   <uui-checkbox .label=${'Checkbox label'} ?error=${props.error}></uui-checkbox>
   <uui-checkbox
     ?error=${props.error}
@@ -87,7 +87,7 @@ Error.parameters = {
   },
 };
 
-export const WithSlottedLabel: Story = props => html`
+export const WithSlottedLabel: StoryFn = props => html`
   <uui-checkbox
     .label=${'Checkbox label'}
     ?checked=${props.checked}
@@ -104,7 +104,7 @@ WithSlottedLabel.parameters = {
   },
 };
 
-export const LabelPosition: Story = props => html`
+export const LabelPosition: StoryFn = props => html`
   <div
     style="display: grid; grid-template-columns: repeat(4, 128px); align-items: center; justify-items: center">
     <uui-checkbox
@@ -139,7 +139,7 @@ LabelPosition.parameters = {
   },
 };
 
-export const Disabled: Story = props => html`
+export const Disabled: StoryFn = props => html`
   <uui-checkbox
     ?disabled=${props.disabled}
     .label=${'Checkbox label'}></uui-checkbox>
@@ -159,7 +159,7 @@ Disabled.parameters = {
   },
 };
 
-export const Readonly: Story = props => html`
+export const Readonly: StoryFn = props => html`
   <uui-checkbox
     ?readonly=${props.readonly}
     .label=${'Readonly'}
