@@ -49,13 +49,13 @@ export class UUIRadioElement extends LitElement {
     const oldValue = this._checked;
     this._checked = value;
     if (value === true) {
-      this.setAttribute('aria-checked', '');
+      this.setAttribute('aria-checked', 'true');
       if (!this.disabled) {
         this.setAttribute('tabindex', '0');
       }
     } else {
       this.setAttribute('tabindex', '-1');
-      this.removeAttribute('aria-checked');
+      this.setAttribute('aria-checked', 'false');
     }
     this.requestUpdate('checked', oldValue);
   }
@@ -122,7 +122,7 @@ export class UUIRadioElement extends LitElement {
   }
 
   /**
-   * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
+   * Call to uncheck the element. This method changes the tabindex and aria-checked attributes.
    * @method uncheck
    */
   public uncheck() {
@@ -160,11 +160,11 @@ export class UUIRadioElement extends LitElement {
     //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
     if (!this.hasAttribute('aria-checked'))
-      this.removeAttribute('aria-checked');
+      this.setAttribute('aria-checked', 'false');
   }
 
   render() {
-    return html` <label>
+    return html`<label>
       <input
         id="input"
         type="radio"
