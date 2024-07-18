@@ -193,12 +193,17 @@ export class UUIRadioElement extends LitElement {
       }
 
       label {
-        display: block;
+        position: relative;
         box-sizing: border-box;
+        user-select: none;
         display: flex;
         align-items: center;
         cursor: pointer;
         line-height: 18px;
+      }
+
+      :host([readonly]) label {
+        cursor: default;
       }
 
       #input {
@@ -267,7 +272,7 @@ export class UUIRadioElement extends LitElement {
       }
 
       :host([disabled]) label {
-        cursor: default;
+        cursor: not-allowed;
         opacity: 0.5;
       }
       :host([disabled]) .label {
