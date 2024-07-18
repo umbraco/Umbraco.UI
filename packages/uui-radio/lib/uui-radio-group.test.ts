@@ -14,7 +14,7 @@ const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
 };
 
-describe('UuiRadio', () => {
+describe('UUIRadio', () => {
   let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
   beforeEach(async () => {

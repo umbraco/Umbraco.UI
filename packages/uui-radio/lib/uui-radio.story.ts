@@ -1,6 +1,6 @@
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import readme from '../README.md?raw';
 
@@ -22,7 +22,7 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props =>
+export const AAAOverview: StoryFn = props =>
   html`<uui-radio
     .value=${props.value}
     .label=${props.label}
@@ -34,7 +34,7 @@ export const AAAOverview: Story = props =>
   >`;
 AAAOverview.storyName = 'Overview';
 
-export const Disabled: Story = props =>
+export const Disabled: StoryFn = props =>
   html` <uui-radio value="1" ?disabled=${props.disabled}>Disabled</uui-radio>`;
 
 Disabled.args = {
@@ -52,7 +52,7 @@ Disabled.parameters = {
   },
 };
 
-export const Readonly: Story = props =>
+export const Readonly: StoryFn = props =>
   html` <uui-radio value="1" ?readonly=${props.readonly}>Readonly</uui-radio>`;
 
 Readonly.args = {
@@ -70,7 +70,7 @@ Readonly.parameters = {
   },
 };
 
-export const Checked: Story = props =>
+export const Checked: StoryFn = props =>
   html` <uui-radio value="1" ?checked=${props.checked}>Checked</uui-radio>`;
 
 Checked.args = {
@@ -88,7 +88,7 @@ Checked.parameters = {
   },
 };
 
-export const RadioGroup: Story = () => html`
+export const RadioGroup: StoryFn = () => html`
   <h5>Group 1</h5>
   <uui-radio-group name="radioGroup">
     <uui-radio value="1">Option 1</uui-radio>
@@ -191,7 +191,7 @@ RadioGroup.parameters = {
   },
 };
 
-export const DisabledGroup: Story = props => html`
+export const DisabledGroup: StoryFn = props => html`
   <uui-radio-group .disabled=${props.disabled}>
     <uui-radio value="1">one</uui-radio>
     <uui-radio value="2" .checked=${props.checked}>two</uui-radio>
@@ -203,7 +203,7 @@ DisabledGroup.args = {
   disabled: true,
 };
 
-export const GroupWithStartValue: Story = props => html`
+export const GroupWithStartValue: StoryFn = props => html`
   <uui-radio-group value=${props.value}>
     <uui-radio value="1">one</uui-radio>
     <uui-radio value="2">two</uui-radio>
