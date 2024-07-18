@@ -22,8 +22,9 @@ export class UUIInputPasswordElement extends UUIInputElement {
   get type() {
     return this.passwordType;
   }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  set type(_newValue) {}
+  set type(newValue) {
+    this.passwordType = newValue;
+  }
 
   _onPasswordToggle() {
     if (this.passwordType === 'password') {
