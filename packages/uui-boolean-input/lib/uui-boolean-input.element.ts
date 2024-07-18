@@ -76,7 +76,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     this.requestUpdate('checked', oldValue);
   }
 
-   /**
+  /**
    * Indeterminate state for the input.
    * @type {boolean}
    * @attr
