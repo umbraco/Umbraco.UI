@@ -175,3 +175,18 @@ Readonly.parameters = {
     },
   },
 };
+
+export const Indeterminate: Story = props => html`
+  <uui-checkbox
+    ?indeterminate=${props.indeterminate}
+    .label=${'Indeterminate'}></uui-checkbox>
+`;
+Indeterminate.args = { indeterminate: true };
+Indeterminate.parameters = {
+  controls: { include: ['indeterminate'] },
+  docs: {
+    source: {
+      code: `<uui-checkbox label="Indeterminate" indeterminate></uui-checkbox>`,
+    },
+  },
+};
