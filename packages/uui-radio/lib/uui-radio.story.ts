@@ -196,7 +196,7 @@ export const DisabledGroup: Story = props => html`
     <uui-radio value="1">one</uui-radio>
     <uui-radio value="2" .checked=${props.checked}>two</uui-radio>
     <uui-radio value="3">three</uui-radio>
-    <uui-radio value="4">fou2r</uui-radio>
+    <uui-radio value="4">four</uui-radio>
   </uui-radio-group>
 `;
 DisabledGroup.args = {
