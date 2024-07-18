@@ -4,7 +4,10 @@ import {
 } from '@umbraco-ui/uui-base/lib/animations';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
-import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
+import {
+  iconCheck,
+  iconSubtract,
+} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html } from 'lit';
 
 /**
@@ -25,7 +28,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="ticker">
-        <div id="icon-check">${iconCheck}</div>
+        <div id="icon-check">
+          ${this.indeterminate ? iconSubtract : iconCheck}
+        </div>
       </div>
     `;
   }
@@ -83,15 +88,18 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
           var(--uui-color-surface-emphasis)
         );
       }
-      input:checked:not([disabled]) + #ticker {
+      input:checked:not([disabled]) + #ticker,
+      input:indeterminate:not([disabled]) + #ticker {
         border-color: var(--uui-color-selected);
       }
 
-      label:hover input:checked:not([disabled]) + #ticker {
+      label:hover input:checked:not([disabled]) + #ticker,
+      label:hover input:indeterminate:not([disabled]) + #ticker {
         border-color: var(--uui-color-selected-emphasis);
       }
 
-      label:focus input:checked + #ticker {
+      label:focus input:checked + #ticker,
+      label:focus input:indeterminate + #ticker {
         border-color: var(--uui-color-selected-emphasis);
       }
 
@@ -126,18 +134,22 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         transform: scale(0);
         opacity: 0;
       }
-      label:hover input:checked:not([disabled]) + #ticker::before {
+      label:hover input:checked:not([disabled]) + #ticker::before,
+      label:hover input:indeterminate:not([disabled]) + #ticker::before {
         background-color: var(--uui-color-selected-emphasis);
       }
 
-      input:checked + #ticker::before {
+      input:checked + #ticker::before,
+      input:indeterminate + #ticker::before {
         transform: scale(1);
         opacity: 1;
       }
-      input:checked + #ticker #icon-check {
+      input:checked + #ticker #icon-check,
+      input:indeterminate + #ticker #icon-check {
         opacity: 1;
       }
-      label:focus input:checked + #ticker {
+      label:focus input:checked + #ticker,
+      label:focus input:indeterminate + #ticker {
         background-color: var(--uui-color-selected-emphasis);
       }
 
@@ -154,15 +166,27 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         transform: scale(0.9);
       }
 
+      :host(:not([disabled], [readonly]))
+        label:active
+        input:indeterminate
+        + #ticker::before {
+        /** Stretch when mouse down */
+        transform: scale(0.9);
+      }
+
       :host(:not([pristine]):invalid) #ticker,
       :host(:not([pristine]):invalid) label:hover #ticker,
       :host(:not([pristine]):invalid) label:hover input:checked:not([disabled]) + #ticker,
+      :host(:not([pristine]):invalid) label:hover input:indeterminate:not([disabled]) + #ticker,
       :host(:not([pristine]):invalid) label:focus input:checked + #ticker,
+      :host(:not([pristine]):invalid) label:focus input:indeterminate + #ticker,
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) #ticker,
       :host(:not([pristine])[internals-invalid]) label:hover #ticker,
       :host(:not([pristine])[internals-invalid]) label:hover input:checked:not([disabled]) + #ticker,
-      :host(:not([pristine])[internals-invalid]) label:focus input:checked + #ticker {
+      :host(:not([pristine])[internals-invalid]) label:hover input:indeterminate:not([disabled]) + #ticker,
+      :host(:not([pristine])[internals-invalid]) label:focus input:checked + #ticker,
+      :host(:not([pristine])[internals-invalid]) label:focus input:indeterminate + #ticker {
         border: 1px solid var(--uui-color-danger-standalone);
       }
 
@@ -170,6 +194,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         background-color: var(--uui-color-disabled);
       }
       :host([disabled]) input:checked + #ticker {
+        background-color: var(--uui-color-disabled);
+      }
+      :host([disabled]) input:indeterminate + #ticker {
         background-color: var(--uui-color-disabled);
       }
       :host([disabled]) #ticker::before {
@@ -181,7 +208,8 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host([disabled]) label:active #ticker {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
-      :host([disabled]) input:checked + #ticker #icon-check {
+      :host([disabled]) input:checked + #ticker #icon-check,
+      :host([disabled]) input:indeterminate + #ticker #icon-check {
         color: var(--uui-color-disabled-contrast);
       }
     `,
