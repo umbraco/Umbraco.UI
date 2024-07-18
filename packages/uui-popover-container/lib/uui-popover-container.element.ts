@@ -73,7 +73,8 @@ export class UUIPopoverContainerElement extends LitElement {
 
   connectedCallback(): void {
     //TODO: Remove this polyfill when firefox supports the new popover API
-    !HTMLElement.prototype.hasOwnProperty('popover') && polyfill.bind(this)();
+    !Object.prototype.hasOwnProperty.call(HTMLElement, 'popover') &&
+      polyfill.bind(this)();
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
