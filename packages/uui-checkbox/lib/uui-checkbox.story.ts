@@ -180,26 +180,40 @@ Readonly.parameters = {
 export const Indeterminate: StoryFn = props =>  {
 
   const { label, name, initialValues, parent, options } = props;
+
   let values = initialValues;
+
+  let prevValues = options.map(opt => ({ ...opt, selected: initialValues.includes(opt.value) }));
+
+  //console.log('prevValues', prevValues);
 
   const handleOptionChange = (event: InputEvent) => {
     const target = event.target as HTMLInputElement;
     const eventValue = target.value;
-    const prevValues = values.includes(eventValue) ? values.filter(v => v !== eventValue) : values.concat(eventValue);
-    setValues(prevValues);
+    //const prevValues = options.filter(x => x.selected);
+
+    values = values.includes(eventValue) ? values.filter(v => v !== eventValue) : values.concat(eventValue);
+
+    //values = prevValues.includes(eventValue) ? prevValues.filter(v => v !== eventValue) : prevValues.concat(eventValue);
+    //setValues(prevValues);
   };
 
-  const handleParentChange = () => {
-    const prevValues =  values.length === options.length ? [] : options.map(option => option.value);
-    setValues(prevValues);
-  };
+  const handleParentChange = (event: InputEvent) => {
+    const target = event.target as HTMLInputElement;
 
-  const setValues = (vals) => {
-    values = vals;
+    const results = options.map(opt => ({ ...opt, selected: target.checked }));
+
+    prevValues = results.filter(x => x.selected);
+
+    values = prevValues.length === options.length ? options.map(option => option.value) : [];
+    //setValues(prevValues);
   };
 
   const someChecked = options.some(option => values.includes(option.value));
   const allChecked = options.every(option => values.includes(option.value));
+
+  console.log("someChecked", someChecked);
+  console.log("allChecked", allChecked);
 
   return html`
     <fieldset name=${name} style="border: none;">
