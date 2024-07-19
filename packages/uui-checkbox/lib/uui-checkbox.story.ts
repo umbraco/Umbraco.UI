@@ -185,16 +185,18 @@ export const Indeterminate: StoryFn = props =>  {
   const handleOptionChange = (event: InputEvent) => {
     const target = event.target as HTMLInputElement;
     const eventValue = target.value;
-    setValues(prevValues => prevValues.includes(eventValue) ? prevValues.filter(v => v !== eventValue) : prevValues.concat(eventValue));
+    const prevValues = values.includes(eventValue) ? values.filter(v => v !== eventValue) : values.concat(eventValue);
+    setValues(prevValues);
   };
 
   const handleParentChange = () => {
-    setValues(prevValues => prevValues.length === options.length ? [] : options.map(option => option.value));
+    const prevValues =  values.length === options.length ? [] : options.map(option => option.value);
+    setValues(prevValues);
   };
 
-  function setValues(prevValues) {
-    values = prevValues;
-  }
+  const setValues = (vals) => {
+    values = vals;
+  };
 
   const someChecked = options.some(option => values.includes(option.value));
   const allChecked = options.every(option => values.includes(option.value));
