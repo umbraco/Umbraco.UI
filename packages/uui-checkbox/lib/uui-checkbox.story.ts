@@ -177,12 +177,79 @@ Readonly.parameters = {
   },
 };
 
-export const Indeterminate: Story = props => html`
-  <uui-checkbox
-    ?indeterminate=${props.indeterminate}
-    .label=${'Indeterminate'}></uui-checkbox>
-`;
-Indeterminate.args = { indeterminate: true };
+export const Indeterminate: StoryFn = props =>  {
+
+  const { label, name, initialValues, parent, options } = props;
+  let values = initialValues;
+
+  const handleOptionChange = (event: InputEvent) => {
+    const target = event.target as HTMLInputElement;
+    const eventValue = target.value;
+    setValues(prevValues => prevValues.includes(eventValue) ? prevValues.filter(v => v !== eventValue) : prevValues.concat(eventValue));
+  };
+
+  const handleParentChange = () => {
+    setValues(prevValues => prevValues.length === options.length ? [] : options.map(option => option.value));
+  };
+
+  function setValues(prevValues) {
+    values = prevValues;
+  }
+
+  const someChecked = options.some(option => values.includes(option.value));
+  const allChecked = options.every(option => values.includes(option.value));
+
+  return html`
+    <fieldset name=${name} style="border: none;">
+      <legend>${label}</legend>
+      <uui-checkbox
+        value=${parent.value}
+        label=${parent.label}
+        @change=${handleParentChange}
+        name=${name}
+        ?indeterminate=${someChecked && !allChecked}
+        checked=${allChecked}
+      ></uui-checkbox>
+      <ul style="list-style: none; margin: 0;">
+        ${options.map((option) => html`
+          <li key=${option.label}>
+            <uui-checkbox
+              value=${option.value}
+              label=${option.label}
+              @change=${handleOptionChange}
+              name=${name}
+              checked=${values.includes(option.value)}
+            ></uui-checkbox>
+          </li>`
+        )}
+      </ul>
+    </fieldset>`;
+}
+
+Indeterminate.args = {
+  indeterminate: true,
+  label: 'Choose your favorite fruits',
+  name: 'indeterminate',
+  initialValues: ['mango'],
+  parent: {
+    label: 'All fruits',
+    value: 'all',
+  },
+  options: [
+    {
+      label: 'Apple',
+      value: 'apple',
+    },
+    {
+      label: 'Banana',
+      value: 'banana',
+    },
+    {
+      label: 'Mango',
+      value: 'mango',
+    },
+  ],
+ };
 Indeterminate.parameters = {
   controls: { include: ['indeterminate'] },
   docs: {
