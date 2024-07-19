@@ -214,7 +214,7 @@ export const Indeterminate: StoryFn = props =>  {
       ></uui-checkbox>
       <ul style="list-style: none; margin: 0;">
         ${options.map((option) => html`
-          <li key=${option.label}>
+          <li>
             <uui-checkbox
               value=${option.value}
               label=${option.label}
