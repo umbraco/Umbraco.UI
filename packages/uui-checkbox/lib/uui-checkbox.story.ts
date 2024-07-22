@@ -181,7 +181,10 @@ export const Indeterminate: StoryFn = props =>  {
 
   const { label, name, initialValues, parent, options } = props;
 
-  let values = initialValues;
+  let values = initialValues || [];
+
+  let someChecked = options.some(option => values.includes(option.value));
+  let allChecked = options.every(option => values.includes(option.value));
 
   let prevValues = options.map(opt => ({ ...opt, selected: initialValues.includes(opt.value) }));
 
@@ -194,8 +197,10 @@ export const Indeterminate: StoryFn = props =>  {
 
     values = values.includes(eventValue) ? values.filter(v => v !== eventValue) : values.concat(eventValue);
 
+    console.log('handleOptionChange values', values);
+
     //values = prevValues.includes(eventValue) ? prevValues.filter(v => v !== eventValue) : prevValues.concat(eventValue);
-    //setValues(prevValues);
+    setValues(values);
   };
 
   const handleParentChange = (event: InputEvent) => {
@@ -206,11 +211,18 @@ export const Indeterminate: StoryFn = props =>  {
     prevValues = results.filter(x => x.selected);
 
     values = prevValues.length === options.length ? options.map(option => option.value) : [];
-    //setValues(prevValues);
+
+    console.log('handleParentChange values', values);
+    setValues(values);
   };
 
-  const someChecked = options.some(option => values.includes(option.value));
-  const allChecked = options.every(option => values.includes(option.value));
+  const setValues = (values: string[]) => {
+    someChecked = values.length > 0;
+    allChecked = values.length === options.length;
+
+    console.log('setValues someChecked', someChecked);
+    console.log('setValues allChecked', allChecked);
+  };
 
   console.log("someChecked", someChecked);
   console.log("allChecked", allChecked);
@@ -224,7 +236,7 @@ export const Indeterminate: StoryFn = props =>  {
         @change=${handleParentChange}
         name=${name}
         ?indeterminate=${someChecked && !allChecked}
-        checked=${allChecked}
+        ?checked=${allChecked}
       ></uui-checkbox>
       <ul style="list-style: none; margin: 0;">
         ${options.map((option) => html`
@@ -234,8 +246,10 @@ export const Indeterminate: StoryFn = props =>  {
               label=${option.label}
               @change=${handleOptionChange}
               name=${name}
-              checked=${values.includes(option.value)}
+              ?checked=${values.includes(option.value)}
             ></uui-checkbox>
+            ${values}<br>
+            ${values.includes(option.value)}
           </li>`
         )}
       </ul>
