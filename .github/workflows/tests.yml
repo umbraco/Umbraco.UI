@@ -31,7 +31,8 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm run lint
-      - run: sudo npx playwright install-deps
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps
       - run: npm run test
 
   build:
