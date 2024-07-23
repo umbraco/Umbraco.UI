@@ -1,9 +1,7 @@
 import { css, html, LitElement } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
-
-const clamp = (num: number, min: number, max: number) =>
-  Math.min(Math.max(num, min), max);
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { clamp } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  *  @element uui-loader-bar
