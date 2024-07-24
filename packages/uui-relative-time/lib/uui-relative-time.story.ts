@@ -37,7 +37,11 @@ type Story = StoryObj<UUIRelativeTimeElement>;
 
 const Template: Story = {
   render: (args: any) => html`
-    <uui-relative-time datetime="${args.datetime}"
+    <uui-relative-time
+      datetime="${args.datetime}"
+      format="${args.format}"
+      tense="${args.tense}"
+      precision="${args.precision}"
       >February 16th, 2005</uui-relative-time
     >
   `,
