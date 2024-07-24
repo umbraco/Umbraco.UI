@@ -96,7 +96,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (this.#selected !== null) {
       this.#radioElements[this.#selected]?.focus();
     } else {
-      this.#getNextRadioElement()?.focus();
+      this.#findAdjacentRadioElement()?.focus();
     }
   }
   public async blur() {
@@ -104,7 +104,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (this.#selected !== null) {
       this.#radioElements[this.#selected]?.blur();
     } else {
-      this.#getNextRadioElement()?.blur();
+      this.#findAdjacentRadioElement()?.blur();
     }
   }
   public async click() {
@@ -112,7 +112,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (this.#selected !== null) {
       this.#radioElements[this.#selected]?.click();
     } else {
-      this.#getNextRadioElement()?.click();
+      this.#findAdjacentRadioElement()?.click();
     }
   }
 
@@ -176,7 +176,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
 
       case SPACE: {
         if (this.#selected === null) {
-          this.value = this.#getNextRadioElement(0)?.value as string;
+          this.value = this.#findAdjacentRadioElement(0)?.value as string;
           this.#fireChangeEvent();
         }
       }
@@ -269,7 +269,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     this.#radioElements?.forEach(el => (el.readonly = value));
   }
 
-  #getNextRadioElement(direction: number = 1): UUIRadioElement | null {
+  #findAdjacentRadioElement(direction: number = 1): UUIRadioElement | null {
     if (!this.#radioElements) return null;
 
     const origin = this.#selected || 0;
@@ -296,13 +296,13 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   #selectPreviousRadio() {
-    this.value = this.#getNextRadioElement(-1)?.value || '';
+    this.value = this.#findAdjacentRadioElement(-1)?.value || '';
     this.#radioElements[this.#selected || 0]?.focus();
     this.#fireChangeEvent();
   }
 
   #selectNextRadio() {
-    this.value = this.#getNextRadioElement()?.value || '';
+    this.value = this.#findAdjacentRadioElement()?.value || '';
     this.#radioElements[this.#selected || 0]?.focus();
     this.#fireChangeEvent();
   }
