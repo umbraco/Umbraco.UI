@@ -6,7 +6,9 @@ describe('UUIPopoverContainerElement', () => {
 
   beforeEach(async () => {
     element = await fixture(html`
-      <uui-popover-container></uui-popover-container>
+      <uui-popover-container id="my-popover">
+        Hello world
+      </uui-popover-container>
     `);
   });
 
@@ -16,5 +18,10 @@ describe('UUIPopoverContainerElement', () => {
 
   it('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
+  });
+
+  it('gets the popover attribute', async () => {
+    await element.updateComplete;
+    expect(element).to.have.attribute('popover');
   });
 });

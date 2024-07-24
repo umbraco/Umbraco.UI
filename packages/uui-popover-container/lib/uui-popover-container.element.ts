@@ -2,7 +2,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { polyfill } from './uui-popover-polyfill.js';
 
 export type PopoverContainerPlacement =
   | 'top'
@@ -72,10 +71,6 @@ export class UUIPopoverContainerElement extends LitElement {
   #scrollParents: Element[] = [];
 
   connectedCallback(): void {
-    //TODO: Remove this polyfill when firefox supports the new popover API
-    !Object.prototype.hasOwnProperty.call(HTMLElement, 'popover') &&
-      polyfill.bind(this)();
-
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
