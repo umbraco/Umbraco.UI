@@ -120,7 +120,6 @@ export class UUIRelativeTimeElement
       'month',
       'year',
       'time-zone-name',
-      'prefix',
       'threshold',
       'tense',
       'precision',
@@ -226,7 +225,7 @@ export class UUIRelativeTimeElement
       year: this.year,
       timeZoneName: this.timeZoneName,
     });
-    return `${this.prefix} ${formatter.format(date)}`.trim();
+    return `${formatter.format(date)}`.trim();
   }
 
   get second() {
