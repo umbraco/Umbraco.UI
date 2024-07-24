@@ -276,15 +276,19 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
       :host {
         position: relative;
       }
-      :host([error]) textarea {
-        border: 1px solid var(--uui-color-danger) !important;
-      }
+      :host([error]) textarea,
       :host([error]) textarea[disabled] {
         border: 1px solid var(--uui-color-danger) !important;
+      }
+      :host(:not([pristine]):invalid) textarea,
+      /* polyfill support */
+      :host(:not([pristine])[internals-invalid]) textarea {
+        border-color: var(--uui-color-danger);
       }
       :host([auto-height]) textarea {
         resize: none;
       }
+
       .label {
         display: inline-block;
         margin-bottom: var(--uui-size-1);
