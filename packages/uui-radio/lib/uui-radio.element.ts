@@ -62,20 +62,11 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   readonly = false;
 
-  focus() {
+  public focus() {
     this.inputElement.focus();
   }
-  click() {
+  public click() {
     this.inputElement.click();
-  }
-  private _onChange(e: Event) {
-    e.stopPropagation();
-    const checked = this.inputElement.checked;
-    this.checked = checked;
-    if (checked) {
-      this.focus();
-    }
-    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
   }
 
   /**
@@ -113,6 +104,16 @@ export class UUIRadioElement extends LitElement {
     }
   }
 
+  #onChange(e: Event) {
+    e.stopPropagation();
+    const checked = this.inputElement.checked;
+    this.checked = checked;
+    if (checked) {
+      this.focus();
+    }
+    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
+  }
+
   render() {
     return html` <label>
       <input
@@ -122,7 +123,7 @@ export class UUIRadioElement extends LitElement {
         value=${this.value}
         .checked=${this.checked}
         .disabled=${this.disabled || this.readonly}
-        @change=${this._onChange} />
+        @change=${this.#onChange} />
       <div id="button"></div>
       <div id="label">
         ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}
