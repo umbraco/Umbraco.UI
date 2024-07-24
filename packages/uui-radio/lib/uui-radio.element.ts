@@ -72,27 +72,12 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   readonly = false;
 
-  constructor() {
-    super();
-    this.addEventListener('mousedown', this.#hideFocusOutline);
-    this.addEventListener('blur', this.#showFocusOutline);
-  }
-
   focus() {
     this.inputElement.focus();
   }
   click() {
     this.inputElement.click();
   }
-
-  #showFocusOutline = () => {
-    this.style.setProperty('--uui-show-focus-outline', '1');
-  };
-
-  #hideFocusOutline = () => {
-    this.style.setProperty('--uui-show-focus-outline', '0');
-  };
-
   private _onChange(e: Event) {
     e.stopPropagation();
     const checked = this.inputElement.checked;
@@ -225,9 +210,8 @@ export class UUIRadioElement extends LitElement {
       :host(:focus) {
         outline: none;
       }
-      :host(:focus) #button {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      :host(:focus-within) input:focus-visible + #button {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       input:checked ~ #button::after {
