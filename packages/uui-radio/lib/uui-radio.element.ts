@@ -42,24 +42,7 @@ export class UUIRadioElement extends LitElement {
   public label = '';
 
   @property({ type: Boolean, reflect: true })
-  public get checked() {
-    return this._checked;
-  }
-  public set checked(value) {
-    const oldValue = this._checked;
-    this._checked = value;
-    if (value === true) {
-      this.setAttribute('aria-checked', '');
-      if (!this.disabled) {
-        this.setAttribute('tabindex', '0');
-      }
-    } else {
-      this.setAttribute('tabindex', '-1');
-      this.removeAttribute('aria-checked');
-    }
-    this.requestUpdate('checked', oldValue);
-  }
-  private _checked = false;
+  public checked = false;
 
   /**
    * Disables the input.
@@ -76,7 +59,6 @@ export class UUIRadioElement extends LitElement {
     this._disabled = newVal;
 
     this.setAttribute('aria-hidden', newVal ? 'true' : 'false');
-    this.setAttribute('tabindex', newVal ? '-1' : '0');
     this.requestUpdate('disabled', oldVal);
   }
   private _disabled = false;
@@ -122,7 +104,7 @@ export class UUIRadioElement extends LitElement {
   }
 
   /**
-   * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
+   * Call to uncheck the element
    * @method uncheck
    */
   public uncheck() {
@@ -142,25 +124,18 @@ export class UUIRadioElement extends LitElement {
    */
   public makeFocusable() {
     if (!this.disabled) {
-      this.setAttribute('tabindex', '0');
+      this.removeAttribute('tabindex');
+      // this.setAttribute('tabindex', '0');
     }
   }
   /**
-   * Call to make the element focusable, this sets tabindex to 0.
+   * Call to make the element focusable, this sets tabindex to -1.
    * @method makeUnfocusable
    */
   public makeUnfocusable() {
     if (!this.disabled) {
       this.setAttribute('tabindex', '-1');
     }
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
-    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
-    if (!this.hasAttribute('aria-checked'))
-      this.removeAttribute('aria-checked');
   }
 
   render() {
