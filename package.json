@@ -40,7 +40,7 @@
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
     "bootstrap": "lerna run --scope @umbraco-ui/uui-css clean && lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
     "check-updates": "npx ncu && npx lerna exec --no-bail -- npx ncu",
-    "prepare": "husky install",
+    "prepare": "husky",
     "new-package": "plop && npm i",
     "pack-all": "npm run build:prod && node ./scripts/pack-packages.js",
     "pack-all-no-build": "node ./scripts/pack-packages.js",
