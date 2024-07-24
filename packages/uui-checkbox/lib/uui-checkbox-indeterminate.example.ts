@@ -1,4 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUIBooleanInputEvent } from '@umbraco-ui/uui-boolean-input';
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -32,7 +33,7 @@ export default class UUICheckboxIndeterminateExample extends LitElement {
       values = this.options.map(option => option.value);
     }
     this.values = values;
-    this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
   }
 
   private _handleOptionChange(e: Event) {
@@ -45,7 +46,7 @@ export default class UUICheckboxIndeterminateExample extends LitElement {
       values = values.filter(v => v !== option.value);
     }
     this.values = values;
-    this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+    this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
   }
 
   render() {
