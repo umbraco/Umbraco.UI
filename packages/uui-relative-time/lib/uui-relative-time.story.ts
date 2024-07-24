@@ -7,7 +7,7 @@ import readme from '../README.md?raw';
 
 const meta: Meta<UUIRelativeTimeElement> = {
   id: 'uui-relative-time',
-  title: 'Relative Time',
+  title: 'Displays/Relative Time',
   component: 'uui-relative-time',
   parameters: {
     readme: { markdown: readme },
