@@ -61,6 +61,8 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     super();
     this.addEventListener('keydown', this._onKeydown);
     this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('focusin', this.#onFocusIn);
+    this.addEventListener('focusout', this.#onFocusOut);
 
     // Wait for the radio elements to be added to the dom before updating the checked state.
     this.updateComplete.then(() => {
@@ -72,6 +74,31 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
   }
+
+  #onFocusIn = (event: FocusEvent) => {
+    // Ensure only the selected radio element is focusable to improve tab navigation
+    // by skipping unselected radios and moving to the next radio group or focusable element.
+    this._radioElements?.forEach(el => {
+      if (el !== event.target) {
+        el.makeUnfocusable();
+      } else {
+        el.makeFocusable();
+      }
+    });
+  };
+
+  #onFocusOut = (event: FocusEvent) => {
+    // When a focus event is fired from a radio, check if the focus is still inside the radio group
+    if (this.contains(event.relatedTarget as Node)) return;
+
+    // If there is a selected radio element, no action is needed since only the selected radio should remain focusable
+    if (this._selected !== null) return;
+
+    // If focus has moved outside the radio group and no radio is selected, make all radio elements focusable again
+    this._radioElements?.forEach(el => {
+      el.makeFocusable();
+    });
+  };
 
   /**
    * This method enables <label for="..."> to focus the select
@@ -119,6 +146,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     this._radioElements.forEach((el, index) => {
       if (el.value === newValue) {
         el.checked = true;
+        el.makeFocusable();
         this._selected = index;
       } else {
         el.checked = false;
