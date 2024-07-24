@@ -20,7 +20,7 @@ const meta: Meta<UUIRelativeTimeElement> = {
 };
 
 const format = ['duration', 'relative', 'datetime'];
-const tense = ['auto', 'past', 'large'];
+const tense = ['auto', 'past', 'future'];
 const precision = [
   'year',
   'month',
