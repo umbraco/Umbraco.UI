@@ -219,6 +219,10 @@ Indeterminate.parameters = {
     include: ['values', 'parent', 'options', 'label'],
   },
   docs: {
+    description: {
+      story:
+        'A checkbox group with an indeterminate state. See the `UUICheckboxIndeterminateExample` component for more details.',
+    },
     source: {
       code: `<uui-checkbox label="Indeterminate" indeterminate></uui-checkbox>`,
     },
