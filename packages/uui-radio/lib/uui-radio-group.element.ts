@@ -222,7 +222,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
 
     const origin = this._selected || 0;
     const len = this._radioElements.length;
-    let i = this._selected === null ? 0 : 1; //If we have something selected we will skip checking it self.
+    let i = 1;
 
     // Helper function to handle wrapping correctly
     const wrapIndex = (index: number, length: number) => {
