@@ -176,7 +176,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
 
       case SPACE: {
         if (this.#selected === null) {
-          this.value = this.#getNextRadioElement()?.value as string;
+          this.value = this.#getNextRadioElement(0)?.value as string;
           this.#fireChangeEvent();
         }
       }
