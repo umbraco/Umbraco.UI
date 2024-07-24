@@ -225,7 +225,7 @@ Advanced.parameters = {
     source: {
       code: `
 Take a look at the source code for the advanced example:
-https://github.com/umbraco/Umbraco.UI/blob/dev/packages/uui-table/lib/uui-table-advanced-example.ts
+https://github.com/umbraco/Umbraco.UI/blob/v1/contrib/packages/uui-table/lib/uui-table-advanced-example.ts
       `,
     },
   },
