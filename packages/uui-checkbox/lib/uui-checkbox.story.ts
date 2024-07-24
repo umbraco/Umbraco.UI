@@ -1,6 +1,8 @@
 import '.';
+import './uui-checkbox-indeterminate.example.js';
 
 import { StoryFn } from '@storybook/web-components';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { html } from 'lit';
 import readme from '../README.md?raw';
 
@@ -31,7 +33,11 @@ export default {
         code: `<uui-checkbox label="Checkbox"></uui-checkbox>`,
       },
     },
+    actions: {
+      handles: ['change'],
+    },
   },
+  decorators: [withActions as any],
 };
 
 export const AAAOverview: StoryFn = props => html`
@@ -177,15 +183,46 @@ Readonly.parameters = {
   },
 };
 
-export const Indeterminate: Story = props => html`
-  <uui-checkbox
-    ?indeterminate=${props.indeterminate}
-    .label=${'Indeterminate'}></uui-checkbox>
-`;
-Indeterminate.args = { indeterminate: true };
+export const Indeterminate: StoryFn = props => {
+  return html` <uui-checkbox-indeterminate-example
+    .label=${props.label}
+    .parent=${props.parent}
+    .options=${props.options}
+    .values=${props.values}></uui-checkbox-indeterminate-example>`;
+};
+
+Indeterminate.args = {
+  label: 'Choose your favorite fruits',
+  values: ['mango'],
+  parent: {
+    label: 'All fruits',
+    value: 'all',
+  },
+  options: [
+    {
+      label: 'Apple',
+      value: 'apple',
+    },
+    {
+      label: 'Banana',
+      value: 'banana',
+    },
+    {
+      label: 'Mango',
+      value: 'mango',
+    },
+  ],
+};
+
 Indeterminate.parameters = {
-  controls: { include: ['indeterminate'] },
+  controls: {
+    include: ['values', 'parent', 'options', 'label'],
+  },
   docs: {
+    description: {
+      story:
+        'A checkbox group with an indeterminate state. See the `UUICheckboxIndeterminateExample` component for more details.',
+    },
     source: {
       code: `<uui-checkbox label="Indeterminate" indeterminate></uui-checkbox>`,
     },
