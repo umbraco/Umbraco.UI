@@ -51,15 +51,7 @@ export class UUIRadioElement extends LitElement {
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(newVal) {
-    const oldVal = this._disabled;
-    this._disabled = newVal;
-    this.requestUpdate('disabled', oldVal);
-  }
-  private _disabled = false;
+  public disabled = false;
 
   /**
    * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
