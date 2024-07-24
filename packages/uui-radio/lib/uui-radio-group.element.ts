@@ -221,19 +221,20 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   private _findNextEnabledElement(
     direction: number = 1,
   ): UUIRadioElement | null {
-    if (!this._radioElements) {
-      return null;
-    }
+    if (!this._radioElements) return null;
+
     const origin = this._selected || 0;
     const len = this._radioElements.length;
     let i = this._selected === null ? 0 : 1; //If we have something selected we will skip checking it self.
-    while (i < len) {
-      let checkIndex = (origin + i * direction) % len;
-      const radioElement = this._radioElements[checkIndex];
 
-      if (checkIndex < 0) {
-        checkIndex += len;
-      }
+    // Helper function to handle wrapping correctly
+    const wrapIndex = (index: number, length: number) => {
+      return ((index % length) + length) % length;
+    };
+
+    while (i < len) {
+      const checkIndex = wrapIndex(origin + i * direction, len);
+      const radioElement = this._radioElements[checkIndex];
 
       if (radioElement.disabled === false && radioElement.readonly === false) {
         return radioElement;
@@ -241,6 +242,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
 
       i++;
     }
+
     return null;
   }
 
