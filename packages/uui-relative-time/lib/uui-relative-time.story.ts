@@ -19,6 +19,19 @@ const meta: Meta<UUIRelativeTimeElement> = {
   },
 };
 
+const format = ['duration', 'relative', 'datetime'];
+const tense = ['auto', 'past', 'large'];
+const precision = [
+  'year',
+  'month',
+  'week',
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millisecond',
+];
+
 export default meta;
 type Story = StoryObj<UUIRelativeTimeElement>;
 
@@ -30,6 +43,18 @@ const Template: Story = {
   `,
   argTypes: {
     datetime: { control: 'date' },
+    tense: {
+      options: tense,
+      control: { type: 'select' },
+    },
+    format: {
+      options: format,
+      control: { type: 'select' },
+    },
+    precision: {
+      options: precision,
+      control: { type: 'select' },
+    },
   },
 };
 
