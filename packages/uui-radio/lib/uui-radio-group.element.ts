@@ -49,9 +49,6 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   }
   set value(newValue) {
     super.value = newValue;
-    if (!newValue || newValue === '') {
-      this._makeFirstEnabledFocusable();
-    }
     this._updateRadioElementsCheckedState(newValue as string);
   }
 
@@ -216,34 +213,6 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
         this,
       );
     }
-
-    if (checkedRadios.length === 1) {
-      const firstCheckedRadio = checkedRadios[0];
-      this.value = firstCheckedRadio.value;
-      this._selected = this._radioElements.indexOf(firstCheckedRadio);
-
-      if (
-        firstCheckedRadio.disabled === false &&
-        firstCheckedRadio.readonly === false
-      ) {
-        this._radioElements.forEach(el => {
-          el.makeUnfocusable();
-        });
-        firstCheckedRadio.makeFocusable();
-      } else {
-        this._makeFirstEnabledFocusable();
-      }
-    } else {
-      this._makeFirstEnabledFocusable();
-    }
-  }
-
-  private _makeFirstEnabledFocusable() {
-    this._selected = null;
-    this._radioElements?.forEach(el => {
-      el.makeUnfocusable();
-    });
-    this._findNextEnabledElement()?.makeFocusable();
   }
 
   private _findNextEnabledElement(
