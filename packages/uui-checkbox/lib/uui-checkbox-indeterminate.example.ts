@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { UUIBooleanInputEvent } from '@umbraco-ui/uui-boolean-input';
+import { UUIBooleanInputEvent } from '@umbraco-ui/uui-boolean-input/lib';
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
