@@ -18,7 +18,7 @@ import { UUIRadioEvent } from './UUIRadioEvent';
 @defineElement('uui-radio')
 export class UUIRadioElement extends LitElement {
   @query('#input')
-  private inputElement!: HTMLInputElement;
+  private _inputElement!: HTMLInputElement;
 
   /**
    * This is a name property of the `<uui-radio>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
@@ -63,10 +63,10 @@ export class UUIRadioElement extends LitElement {
   readonly = false;
 
   public focus() {
-    this.inputElement.focus();
+    this._inputElement.focus();
   }
   public click() {
-    this.inputElement.click();
+    this._inputElement.click();
   }
 
   /**
@@ -106,7 +106,7 @@ export class UUIRadioElement extends LitElement {
 
   #onChange(e: Event) {
     e.stopPropagation();
-    const checked = this.inputElement.checked;
+    const checked = this._inputElement.checked;
     this.checked = checked;
     if (checked) {
       this.focus();
