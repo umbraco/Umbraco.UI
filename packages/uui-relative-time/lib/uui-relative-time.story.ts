@@ -19,6 +19,20 @@ const meta: Meta<UUIRelativeTimeElement> = {
   },
 };
 
+const now = new Date();
+
+const yesterday = new Date();
+yesterday.setDate(now.getDate() - 1);
+
+const tomorrow = new Date();
+tomorrow.setDate(now.getDate() + 1);
+
+const daysAgo = new Date();
+daysAgo.setDate(now.getDate() - 15);
+
+const monthsAgo = new Date();
+monthsAgo.setMonth(now.getMonth() - 3);
+
 const format = ['duration', 'relative', 'datetime'];
 const tense = ['auto', 'past', 'future'];
 const precision = [
@@ -45,6 +59,12 @@ const Template: Story = {
       >February 16th, 2005</uui-relative-time
     >
   `,
+  args: {
+    datetime: '2005-02-16T16:30:00-08:00',
+    format: 'relative',
+    tense: 'auto',
+    precision: 'second',
+  },
   argTypes: {
     datetime: { control: 'date' },
     tense: {
@@ -65,4 +85,43 @@ const Template: Story = {
 export const Overview: Story = {
   ...Template,
   args: { datetime: '2005-02-16T16:30:00-08:00' },
+};
+
+export const Yesterday: Story = {
+  ...Template,
+  args: {
+    datetime: yesterday.toISOString(),
+    format: 'relative',
+    precision: 'day',
+    tense: 'past',
+  },
+};
+
+export const Tomorrow: Story = {
+  ...Template,
+  args: {
+    datetime: tomorrow.toISOString(),
+    format: 'relative',
+    precision: 'day',
+    tense: 'future',
+  },
+};
+
+export const DaysAgo: Story = {
+  ...Template,
+  args: {
+    datetime: daysAgo.toISOString(),
+    format: 'relative',
+    precision: 'day',
+    tense: 'past',
+  },
+};
+
+export const MonthsAgo: Story = {
+  ...Template,
+  args: {
+    datetime: monthsAgo.toISOString(),
+    format: 'relative',
+    tense: 'past',
+  },
 };
