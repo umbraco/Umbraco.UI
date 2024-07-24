@@ -37,7 +37,7 @@ export default {
       handles: ['change'],
     },
   },
-  decorators: [withActions],
+  decorators: [withActions as any],
 };
 
 export const AAAOverview: StoryFn = props => html`
