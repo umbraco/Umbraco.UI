@@ -1,5 +1,7 @@
 import '.';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '@umbraco-ui/uui-symbol-expand/lib';
+import '@umbraco-ui/uui-symbol-more/lib';
 
 import { Story } from '@storybook/web-components';
 import { html } from 'lit';
@@ -8,8 +10,6 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import readme from '../README.md?raw';
-import '@umbraco-ui/uui-symbol-expand/lib';
-import '@umbraco-ui/uui-symbol-more/lib';
 
 export default {
   title: 'Buttons/Menu Item',
@@ -31,6 +31,7 @@ export default {
     target: undefined,
     rel: undefined,
     selectMode: undefined,
+    caretLabel: 'Expand',
   },
   argTypes: {
     '--uui-menu-item-indent': { control: { type: 'text' } },
@@ -140,10 +141,13 @@ AAAOverview.parameters = {
   },
 };
 
-export const Nested = () => html`
+export const Nested = props => html`
   ${labelNames.map(
     (name: string) =>
-      html` <uui-menu-item label="${name}" has-children>
+      html` <uui-menu-item
+        label="${name}"
+        .caretLabel="${props.caretLabel}"
+        has-children>
         ${renderItems()}
       </uui-menu-item>`,
   )}
