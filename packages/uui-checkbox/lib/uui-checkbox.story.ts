@@ -1,6 +1,8 @@
 import '.';
+import './uui-checkbox-indeterminate.example.js';
 
 import { StoryFn } from '@storybook/web-components';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { html } from 'lit';
 import readme from '../README.md?raw';
 
@@ -31,7 +33,11 @@ export default {
         code: `<uui-checkbox label="Checkbox"></uui-checkbox>`,
       },
     },
+    actions: {
+      handles: ['change'],
+    },
   },
+  decorators: [withActions],
 };
 
 export const AAAOverview: StoryFn = props => html`
@@ -177,90 +183,17 @@ Readonly.parameters = {
   },
 };
 
-export const Indeterminate: StoryFn = props =>  {
-
-  const { label, name, initialValues, parent, options } = props;
-
-  let values = initialValues || [];
-
-  let someChecked = options.some(option => values.includes(option.value));
-  let allChecked = options.every(option => values.includes(option.value));
-
-  let prevValues = options.map(opt => ({ ...opt, selected: initialValues.includes(opt.value) }));
-
-  //console.log('prevValues', prevValues);
-
-  const handleOptionChange = (event: InputEvent) => {
-    const target = event.target as HTMLInputElement;
-    const eventValue = target.value;
-    //const prevValues = options.filter(x => x.selected);
-
-    values = values.includes(eventValue) ? values.filter(v => v !== eventValue) : values.concat(eventValue);
-
-    console.log('handleOptionChange values', values);
-
-    //values = prevValues.includes(eventValue) ? prevValues.filter(v => v !== eventValue) : prevValues.concat(eventValue);
-    setValues(values);
-  };
-
-  const handleParentChange = (event: InputEvent) => {
-    const target = event.target as HTMLInputElement;
-
-    const results = options.map(opt => ({ ...opt, selected: target.checked }));
-
-    prevValues = results.filter(x => x.selected);
-
-    values = prevValues.length === options.length ? options.map(option => option.value) : [];
-
-    console.log('handleParentChange values', values);
-    setValues(values);
-  };
-
-  const setValues = (values: string[]) => {
-    someChecked = values.length > 0;
-    allChecked = values.length === options.length;
-
-    console.log('setValues someChecked', someChecked);
-    console.log('setValues allChecked', allChecked);
-  };
-
-  console.log("someChecked", someChecked);
-  console.log("allChecked", allChecked);
-
-  return html`
-    <fieldset name=${name} style="border: none;">
-      <legend>${label}</legend>
-      <uui-checkbox
-        value=${parent.value}
-        label=${parent.label}
-        @change=${handleParentChange}
-        name=${name}
-        ?indeterminate=${someChecked && !allChecked}
-        ?checked=${allChecked}
-      ></uui-checkbox>
-      <ul style="list-style: none; margin: 0;">
-        ${options.map((option) => html`
-          <li>
-            <uui-checkbox
-              value=${option.value}
-              label=${option.label}
-              @change=${handleOptionChange}
-              name=${name}
-              ?checked=${values.includes(option.value)}
-            ></uui-checkbox>
-            ${values}<br>
-            ${values.includes(option.value)}
-          </li>`
-        )}
-      </ul>
-    </fieldset>`;
-}
+export const Indeterminate: StoryFn = props => {
+  return html` <uui-checkbox-indeterminate-example
+    .label=${props.label}
+    .parent=${props.parent}
+    .options=${props.options}
+    .values=${props.values}></uui-checkbox-indeterminate-example>`;
+};
 
 Indeterminate.args = {
-  indeterminate: true,
   label: 'Choose your favorite fruits',
-  name: 'indeterminate',
-  initialValues: ['mango'],
+  values: ['mango'],
   parent: {
     label: 'All fruits',
     value: 'all',
@@ -279,9 +212,12 @@ Indeterminate.args = {
       value: 'mango',
     },
   ],
- };
+};
+
 Indeterminate.parameters = {
-  controls: { include: ['indeterminate'] },
+  controls: {
+    include: ['values', 'parent', 'options', 'label'],
+  },
   docs: {
     source: {
       code: `<uui-checkbox label="Indeterminate" indeterminate></uui-checkbox>`,
