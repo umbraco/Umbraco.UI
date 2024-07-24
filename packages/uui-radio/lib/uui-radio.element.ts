@@ -57,8 +57,6 @@ export class UUIRadioElement extends LitElement {
   set disabled(newVal) {
     const oldVal = this._disabled;
     this._disabled = newVal;
-
-    this.setAttribute('aria-hidden', newVal ? 'true' : 'false');
     this.requestUpdate('disabled', oldVal);
   }
   private _disabled = false;
