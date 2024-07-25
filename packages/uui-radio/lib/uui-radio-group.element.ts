@@ -12,6 +12,7 @@ const ARROW_UP = 'ArrowUp';
 const ARROW_RIGHT = 'ArrowRight';
 const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
+const ENTER = 'Enter';
 
 /**
  * @element uui-radio-group
@@ -49,22 +50,21 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   }
   set value(newValue) {
     super.value = newValue;
-    if (!newValue || newValue === '') {
-      this._makeFirstEnabledFocusable();
-    }
-    this._updateRadioElementsCheckedState(newValue as string);
+    this.#updateRadioElementsCheckedState(newValue as string);
   }
 
-  private _selected: number | null = null;
+  #selected: number | null = null;
+  #radioElements: UUIRadioElement[] = [];
 
   constructor() {
     super();
-    this.addEventListener('keydown', this._onKeydown);
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeydown);
+    this.addEventListener('focusin', this.#onFocusIn);
+    this.addEventListener('focusout', this.#onFocusOut);
 
     // Wait for the radio elements to be added to the dom before updating the checked state.
     this.updateComplete.then(() => {
-      this._updateRadioElementsCheckedState(this.value as string);
+      this.#updateRadioElementsCheckedState(this.value as string);
     });
   }
 
@@ -73,111 +73,165 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
   }
 
+  updated(_changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(_changedProperties);
+    if (_changedProperties.has('disabled')) {
+      this.#setDisableOnRadios(this.disabled);
+    }
+
+    if (_changedProperties.has('readonly')) {
+      this.#setReadonlyOnRadios(this.readonly);
+    }
+
+    if (_changedProperties.has('name')) {
+      this.#setNameOnRadios(_changedProperties.get('name') as string);
+    }
+  }
+
   /**
    * This method enables <label for="..."> to focus the select
    */
-  async focus() {
+  public async focus() {
     await this.updateComplete;
-    if (this._selected !== null) {
-      this._radioElements[this._selected]?.focus();
+    if (this.#selected !== null) {
+      this.#radioElements[this.#selected]?.focus();
     } else {
-      this._findNextEnabledElement()?.focus();
+      this.#findAdjacentRadioElement(1, false)?.focus();
     }
   }
-  async blur() {
+  public async blur() {
     await this.updateComplete;
-    if (this._selected !== null) {
-      this._radioElements[this._selected]?.blur();
+    if (this.#selected !== null) {
+      this.#radioElements[this.#selected]?.blur();
     } else {
-      this._findNextEnabledElement()?.blur();
+      this.#findAdjacentRadioElement(1, false)?.blur();
     }
   }
-  async click() {
+  public async click() {
     await this.updateComplete;
-    if (this._selected !== null) {
-      this._radioElements[this._selected]?.click();
+    if (this.#selected !== null) {
+      this.#radioElements[this.#selected]?.click();
     } else {
-      this._findNextEnabledElement()?.click();
+      this.#findAdjacentRadioElement(1, false)?.click();
     }
   }
 
   protected getFormElement(): HTMLElement | undefined {
-    if (this._radioElements && this._selected) {
-      return this._radioElements[this._selected];
+    if (this.#radioElements && this.#selected) {
+      return this.#radioElements[this.#selected];
     }
     return undefined;
   }
 
-  private _radioElements: UUIRadioElement[] = [];
-  private _setNameOnRadios(name: string) {
-    this._radioElements?.forEach(el => (el.name = name));
-  }
-
-  private _updateRadioElementsCheckedState(
-    newValue: FormData | FormDataEntryValue,
-  ) {
-    this._radioElements.forEach((el, index) => {
-      if (el.value === newValue) {
-        el.checked = true;
-        this._selected = index;
+  #onFocusIn = (event: FocusEvent) => {
+    // Ensure only the selected radio element is focusable to improve tab navigation
+    // by skipping unselected radios and moving to the next radio group or focusable element.
+    this.#radioElements?.forEach(el => {
+      if (el !== event.target) {
+        el.makeUnfocusable();
       } else {
-        el.checked = false;
+        el.makeFocusable();
       }
     });
-  }
+  };
 
-  private _setDisableOnRadios(value: boolean) {
-    this._radioElements?.forEach(el => (el.disabled = value));
-  }
+  #onFocusOut = (event: FocusEvent) => {
+    // When a focus event is fired from a radio, check if the focus is still inside the radio group
+    if (this.contains(event.relatedTarget as Node)) return;
 
-  private _setReadonlyOnRadios(value: boolean) {
-    this._radioElements?.forEach(el => (el.readonly = value));
-  }
+    // If there is a selected radio element, no action is needed since only the selected radio should remain focusable
+    if (this.#selected !== null) return;
 
-  private _handleSlotChange(e: Event) {
+    // If focus has moved outside the radio group and no radio is selected, make all radio elements focusable again
+    this.#radioElements?.forEach(el => {
+      el.makeFocusable();
+    });
+  };
+
+  #onChildBlur = () => {
+    this.pristine = false;
+  };
+
+  #onSelectClick = (e: UUIRadioEvent) => {
+    if (e.target.checked === true) {
+      this.value = e.target.value;
+      this.#fireChangeEvent();
+    }
+  };
+
+  #onKeydown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case ARROW_LEFT:
+      case ARROW_UP: {
+        e.preventDefault();
+        this.#selectPreviousRadio();
+        break;
+      }
+      case ARROW_RIGHT:
+      case ARROW_DOWN: {
+        e.preventDefault();
+        this.#selectNextRadio();
+        break;
+      }
+
+      case SPACE: {
+        if (this.#selected === null) {
+          this.value = this.#findAdjacentRadioElement(1, false)
+            ?.value as string;
+          this.#fireChangeEvent();
+        }
+        break;
+      }
+
+      case ENTER:
+        this.submit();
+    }
+  };
+
+  #onSlotChange(e: Event) {
     e.stopPropagation();
     // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
 
-    this._radioElements?.forEach(el => {
+    this.#radioElements?.forEach(el => {
       el.removeEventListener(
         UUIRadioEvent.CHANGE,
         // @ts-ignore TODO: fix typescript error
-        this._handleSelectOnClick as EventHandlerNonNull,
+        this.#onSelectClick as EventHandlerNonNull,
       );
-      el.removeEventListener('blur', this._onChildBlur);
+      el.removeEventListener('blur', this.#onChildBlur);
     });
 
-    this._selected = null;
-    this._radioElements = (e.target as HTMLSlotElement)
+    this.#selected = null;
+    this.#radioElements = (e.target as HTMLSlotElement)
       .assignedElements({ flatten: true })
       .filter(el => el instanceof UUIRadioElement) as UUIRadioElement[];
 
     // Only continue if there are radio elements
-    if (this._radioElements.length === 0) return;
+    if (this.#radioElements.length === 0) return;
 
-    this._radioElements.forEach(el => {
+    this.#radioElements.forEach(el => {
       el.addEventListener(
         UUIRadioEvent.CHANGE,
         // @ts-ignore TODO: fix typescript error
-        this._handleSelectOnClick as EventHandlerNonNull,
+        this.#onSelectClick as EventHandlerNonNull,
       );
-      el.addEventListener('blur', this._onChildBlur);
+      el.addEventListener('blur', this.#onChildBlur);
     });
 
-    this._setNameOnRadios(this.name);
+    this.#setNameOnRadios(this.name);
 
     if (this.disabled) {
-      this._setDisableOnRadios(true);
+      this.#setDisableOnRadios(true);
     }
 
     if (this.readonly) {
-      this._setReadonlyOnRadios(true);
+      this.#setReadonlyOnRadios(true);
     }
 
-    const checkedRadios = this._radioElements.filter(el => el.checked === true);
+    const checkedRadios = this.#radioElements.filter(el => el.checked === true);
 
     if (checkedRadios.length > 1) {
-      this._radioElements.forEach(el => {
+      this.#radioElements.forEach(el => {
         el.checked = false;
       });
       this.value = '';
@@ -192,133 +246,84 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (checkedRadios.length === 1) {
       const firstCheckedRadio = checkedRadios[0];
       this.value = firstCheckedRadio.value;
-      this._selected = this._radioElements.indexOf(firstCheckedRadio);
+      this.#selected = this.#radioElements.indexOf(firstCheckedRadio);
+    }
+  }
 
-      if (
-        firstCheckedRadio.disabled === false &&
-        firstCheckedRadio.readonly === false
-      ) {
-        this._radioElements.forEach(el => {
-          el.makeUnfocusable();
-        });
-        firstCheckedRadio.makeFocusable();
+  #setNameOnRadios(name: string) {
+    this.#radioElements?.forEach(el => (el.name = name));
+  }
+
+  #updateRadioElementsCheckedState(newValue: FormData | FormDataEntryValue) {
+    const notChecked: Array<UUIRadioElement> = [];
+
+    this.#radioElements.forEach((el, index) => {
+      if (el.value === newValue) {
+        el.checked = true;
+        el.makeFocusable();
+        this.#selected = index;
       } else {
-        this._makeFirstEnabledFocusable();
+        el.checked = false;
+        notChecked.push(el);
       }
-    } else {
-      this._makeFirstEnabledFocusable();
-    }
-  }
-
-  private _makeFirstEnabledFocusable() {
-    this._selected = null;
-    this._radioElements?.forEach(el => {
-      el.makeUnfocusable();
     });
-    this._findNextEnabledElement()?.makeFocusable();
+
+    // If there is a selected radio, make all other radios unfocusable.
+    if (this.#selected !== null) {
+      notChecked.forEach(el => el.makeUnfocusable());
+    }
   }
 
-  private _findNextEnabledElement(
-    direction: number = 1,
+  #setDisableOnRadios(value: boolean) {
+    this.#radioElements?.forEach(el => (el.disabled = value));
+  }
+
+  #setReadonlyOnRadios(value: boolean) {
+    this.#radioElements?.forEach(el => (el.readonly = value));
+  }
+
+  #findAdjacentRadioElement(
+    direction = 1,
+    skipFirst = true,
   ): UUIRadioElement | null {
-    if (!this._radioElements) {
-      return null;
-    }
-    const origin = this._selected || 0;
-    const len = this._radioElements.length;
-    let i = this._selected === null ? 0 : 1; //If we have something selected we will skip checking it self.
-    while (i < len) {
-      let checkIndex = (origin + i * direction) % len;
-      const radioElement = this._radioElements[checkIndex];
+    if (!this.#radioElements || this.#radioElements.length === 0) return null;
 
-      if (checkIndex < 0) {
-        checkIndex += len;
+    const len = this.#radioElements.length;
+    let index = this.#selected ?? 0;
+
+    for (let i = 0; i < len + 1; i++) {
+      if (!skipFirst || i > 0) {
+        const radioElement = this.#radioElements[index];
+        if (!radioElement.disabled && !radioElement.readonly) {
+          return radioElement;
+        }
       }
 
-      if (radioElement.disabled === false && radioElement.readonly === false) {
-        return radioElement;
-      }
-
-      i++;
+      index = (index + direction + len) % len;
     }
+
     return null;
   }
 
-  private _selectPreviousElement() {
-    this.value = this._findNextEnabledElement(-1)?.value || '';
-    this._radioElements[this._selected || 0]?.focus();
-    this._fireChangeEvent();
+  #selectPreviousRadio() {
+    this.value = this.#findAdjacentRadioElement(-1)?.value ?? '';
+    this.#radioElements[this.#selected ?? 0]?.focus();
+    this.#fireChangeEvent();
   }
 
-  private _selectNextElement() {
-    this.value = this._findNextEnabledElement()?.value || '';
-    this._radioElements[this._selected || 0]?.focus();
-    this._fireChangeEvent();
+  #selectNextRadio() {
+    this.value = this.#findAdjacentRadioElement()?.value ?? '';
+    this.#radioElements[this.#selected ?? 0]?.focus();
+    this.#fireChangeEvent();
   }
 
-  private _onKeydown(e: KeyboardEvent) {
-    switch (e.key) {
-      case ARROW_LEFT:
-      case ARROW_UP: {
-        e.preventDefault();
-        this._selectPreviousElement();
-        break;
-      }
-      case ARROW_RIGHT:
-      case ARROW_DOWN: {
-        e.preventDefault();
-        this._selectNextElement();
-        break;
-      }
-
-      case SPACE: {
-        if (this._selected === null) {
-          this.value = this._findNextEnabledElement()?.value as string;
-          this._fireChangeEvent();
-        }
-      }
-    }
-  }
-
-  private _onKeypress(e: KeyboardEvent): void {
-    if (e.key == 'Enter') {
-      this.submit();
-    }
-  }
-
-  private _fireChangeEvent() {
+  #fireChangeEvent() {
     this.pristine = false;
     this.dispatchEvent(new UUIRadioGroupEvent(UUIRadioGroupEvent.CHANGE));
   }
 
-  private _onChildBlur = () => {
-    this.pristine = false;
-  };
-
-  private _handleSelectOnClick = (e: UUIRadioEvent) => {
-    if (e.target.checked === true) {
-      this.value = e.target.value;
-      this._fireChangeEvent();
-    }
-  };
-
-  updated(_changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(_changedProperties);
-    if (_changedProperties.has('disabled')) {
-      this._setDisableOnRadios(this.disabled);
-    }
-
-    if (_changedProperties.has('readonly')) {
-      this._setReadonlyOnRadios(this.readonly);
-    }
-
-    if (_changedProperties.has('name')) {
-      this._setNameOnRadios(_changedProperties.get('name') as string);
-    }
-  }
-
   render() {
-    return html` <slot @slotchange=${this._handleSlotChange}></slot> `;
+    return html` <slot @slotchange=${this.#onSlotChange}></slot> `;
   }
 
   static styles = [
