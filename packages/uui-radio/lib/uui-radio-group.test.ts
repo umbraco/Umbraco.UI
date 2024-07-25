@@ -195,7 +195,7 @@ describe('UuiRadioGroup in a Form', () => {
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
       const listener = oneEvent(formElement, 'submit', false);
-      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
       expect(event).to.exist;
