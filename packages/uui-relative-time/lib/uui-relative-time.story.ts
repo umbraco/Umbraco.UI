@@ -21,16 +21,16 @@ const meta: Meta<UUIRelativeTimeElement> = {
 
 const now = new Date();
 
-const yesterday = new Date();
+const yesterday = new Date(now);
 yesterday.setDate(now.getDate() - 1);
 
-const tomorrow = new Date();
+const tomorrow = new Date(now);
 tomorrow.setDate(now.getDate() + 1);
 
-const daysAgo = new Date();
+const daysAgo = new Date(now);
 daysAgo.setDate(now.getDate() - 15);
 
-const monthsAgo = new Date();
+const monthsAgo = new Date(now);
 monthsAgo.setMonth(now.getMonth() - 3);
 
 const format = ['duration', 'relative', 'datetime'];
@@ -102,8 +102,7 @@ export const Tomorrow: Story = {
   args: {
     datetime: tomorrow.toISOString(),
     format: 'relative',
-    precision: 'day',
-    tense: 'future',
+    tense: 'auto',
   },
 };
 
