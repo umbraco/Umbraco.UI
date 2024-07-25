@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
+
+### Bug Fixes
+
+- adds an `aria-label` to the caret button with a matching property ([fd699d5](https://github.com/umbraco/Umbraco.UI/commit/fd699d511f69f84d0847a79a391b98606c689f2e))
+- **uui-radio:** keyboard navigation does not work as intended ([#870](https://github.com/umbraco/Umbraco.UI/issues/870)) ([46e93ca](https://github.com/umbraco/Umbraco.UI/commit/46e93cad2c42044cecc22cef0e31f44daa3b1fb1))
+- **uui-textarea:** add danger border if the element is invalid ([b16d500](https://github.com/umbraco/Umbraco.UI/commit/b16d5009c2e8cea244e653b68a7527dd87bd9d65))
+
+### Features
+
+- Consistent cursor style for checkbox and radiobutton ([#857](https://github.com/umbraco/Umbraco.UI/issues/857)) ([70c4efe](https://github.com/umbraco/Umbraco.UI/commit/70c4efee842da28fabd424096dc5664bf6c84ee9))
+- Indeterminate state for boolean input and checkbox ([#856](https://github.com/umbraco/Umbraco.UI/issues/856)) ([74a6121](https://github.com/umbraco/Umbraco.UI/commit/74a61210aa6335dbc3f2fdc5d8e17470bd8ed5c3))
+- **uui-popover-container:** remove the Firefox popover polyfill ([#858](https://github.com/umbraco/Umbraco.UI/issues/858)) ([d26635f](https://github.com/umbraco/Umbraco.UI/commit/d26635f0851e32b875406e7f951cdc5660bd8baa))
+
 # [1.9.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.1...v1.9.0-rc.2) (2024-07-12)
 
 **Note:** Version bump only for package uui-monorepo
