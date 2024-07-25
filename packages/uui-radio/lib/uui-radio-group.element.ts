@@ -242,6 +242,12 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
         this,
       );
     }
+
+    if (checkedRadios.length === 1) {
+      const firstCheckedRadio = checkedRadios[0];
+      this.value = firstCheckedRadio.value;
+      this.#selected = this.#radioElements.indexOf(firstCheckedRadio);
+    }
   }
 
   #setNameOnRadios(name: string) {
