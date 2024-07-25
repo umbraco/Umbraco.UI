@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
+
+### Features
+
+- **uui-popover-container:** remove the Firefox popover polyfill ([#858](https://github.com/umbraco/Umbraco.UI/issues/858)) ([d26635f](https://github.com/umbraco/Umbraco.UI/commit/d26635f0851e32b875406e7f951cdc5660bd8baa))
+
 # [1.9.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.0...v1.9.0-rc.1) (2024-07-11)
 
 **Note:** Version bump only for package @umbraco-ui/uui-popover-container

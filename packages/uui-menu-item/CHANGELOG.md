@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
+
+### Bug Fixes
+
+- adds an `aria-label` to the caret button with a matching property ([fd699d5](https://github.com/umbraco/Umbraco.UI/commit/fd699d511f69f84d0847a79a391b98606c689f2e))
+
 # [1.9.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.0...v1.9.0-rc.1) (2024-07-11)
 
 **Note:** Version bump only for package @umbraco-ui/uui-menu-item
