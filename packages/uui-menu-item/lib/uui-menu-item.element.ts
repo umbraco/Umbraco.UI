@@ -111,6 +111,15 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @property({ type: String, attribute: 'select-mode', reflect: true })
   public selectMode?: 'highlight' | 'persisting';
 
+  /**
+   * Sets the aria-label for the caret button.
+   * @remark Only used when the menu item has children.
+   * @attr
+   * @default 'Reveal the underlying items'
+   */
+  @property({ type: String, attribute: 'caret-label' })
+  public caretLabel = 'Reveal the underlying items';
+
   @state()
   private iconSlotHasContent = false;
 
@@ -206,8 +215,13 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     return html`
       <div id="menu-item" aria-label="menuitem" role="menuitem">
         ${this.hasChildren
-          ? html`<button id="caret-button" @click=${this._onCaretClicked}>
-              <uui-symbol-expand ?open=${this.showChildren}></uui-symbol-expand>
+          ? html`<button
+              id="caret-button"
+              aria-label=${this.caretLabel}
+              @click=${this._onCaretClicked}>
+              <uui-symbol-expand
+                aria-hidden="true"
+                ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}
         ${this.href ? this._renderLabelAsAnchor() : this._renderLabelAsButton()}

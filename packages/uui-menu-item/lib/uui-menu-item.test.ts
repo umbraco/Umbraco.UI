@@ -28,6 +28,16 @@ describe('UUIMenuItemElement', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
+  it('passes the a11y audit with nesting', async () => {
+    element = await fixture(
+      html`<uui-menu-item label="menuitem" has-children>
+        <uui-menu-item label="sub-menuitem"></uui-menu-item>
+        <uui-menu-item label="sub-menuitem"></uui-menu-item>
+      </uui-menu-item>`,
+    );
+    await expect(element).shadowDom.to.be.accessible();
+  });
+
   describe('properties', () => {
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
