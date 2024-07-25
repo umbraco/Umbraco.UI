@@ -286,7 +286,7 @@ export class UUIRelativeTimeElement
   get month() {
     const format = this.format;
     let month = this.getAttribute('month');
-    if (month === '') return;
+    if (month === '') return undefined;
     month ??= format === 'datetime' ? this.formatStyle : 'short';
     if (
       month === 'numeric' ||
