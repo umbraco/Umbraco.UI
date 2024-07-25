@@ -255,6 +255,8 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   #updateRadioElementsCheckedState(newValue: FormData | FormDataEntryValue) {
+    const notChecked: Array<UUIRadioElement> = [];
+
     this.#radioElements.forEach((el, index) => {
       if (el.value === newValue) {
         el.checked = true;
@@ -262,8 +264,14 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
         this.#selected = index;
       } else {
         el.checked = false;
+        notChecked.push(el);
       }
     });
+
+    // If there is a selected radio, make all other radios unfocusable.
+    if (this.#selected !== null) {
+      notChecked.forEach(el => el.makeUnfocusable());
+    }
   }
 
   #setDisableOnRadios(value: boolean) {
