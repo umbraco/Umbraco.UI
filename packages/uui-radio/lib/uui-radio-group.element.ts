@@ -12,6 +12,7 @@ const ARROW_UP = 'ArrowUp';
 const ARROW_RIGHT = 'ArrowRight';
 const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
+const ENTER = 'Enter';
 
 /**
  * @element uui-radio-group
@@ -58,7 +59,6 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   constructor() {
     super();
     this.addEventListener('keydown', this.#onKeydown);
-    this.addEventListener('keypress', this.#onKeypress);
     this.addEventListener('focusin', this.#onFocusIn);
     this.addEventListener('focusout', this.#onFocusOut);
 
@@ -180,13 +180,11 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
             ?.value as string;
           this.#fireChangeEvent();
         }
+        break;
       }
-    }
-  };
 
-  #onKeypress = (e: KeyboardEvent) => {
-    if (e.key == 'Enter') {
-      this.submit();
+      case ENTER:
+        this.submit();
     }
   };
 
