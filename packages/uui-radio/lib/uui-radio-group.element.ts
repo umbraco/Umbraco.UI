@@ -96,7 +96,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (this.#selected !== null) {
       this.#radioElements[this.#selected]?.focus();
     } else {
-      this.#findAdjacentRadioElement()?.focus();
+      this.#findAdjacentRadioElement(1, false)?.focus();
     }
   }
   public async blur() {
@@ -104,7 +104,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (this.#selected !== null) {
       this.#radioElements[this.#selected]?.blur();
     } else {
-      this.#findAdjacentRadioElement()?.blur();
+      this.#findAdjacentRadioElement(1, false)?.blur();
     }
   }
   public async click() {
@@ -112,7 +112,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     if (this.#selected !== null) {
       this.#radioElements[this.#selected]?.click();
     } else {
-      this.#findAdjacentRadioElement()?.click();
+      this.#findAdjacentRadioElement(1, false)?.click();
     }
   }
 
@@ -176,7 +176,8 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
 
       case SPACE: {
         if (this.#selected === null) {
-          this.value = this.#findAdjacentRadioElement(0)?.value as string;
+          this.value = this.#findAdjacentRadioElement(1, false)
+            ?.value as string;
           this.#fireChangeEvent();
         }
       }
@@ -269,27 +270,24 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     this.#radioElements?.forEach(el => (el.readonly = value));
   }
 
-  #findAdjacentRadioElement(direction: number = 1): UUIRadioElement | null {
-    if (!this.#radioElements) return null;
+  #findAdjacentRadioElement(
+    direction = 1,
+    skipFirst = true,
+  ): UUIRadioElement | null {
+    if (!this.#radioElements || this.#radioElements.length === 0) return null;
 
-    const origin = this.#selected || 0;
     const len = this.#radioElements.length;
-    let i = 1;
+    let index = this.#selected ?? 0;
 
-    // Helper function to handle wrapping correctly
-    const wrapIndex = (index: number, length: number) => {
-      return ((index % length) + length) % length;
-    };
-
-    while (i < len) {
-      const checkIndex = wrapIndex(origin + i * direction, len);
-      const radioElement = this.#radioElements[checkIndex];
-
-      if (radioElement.disabled === false && radioElement.readonly === false) {
-        return radioElement;
+    for (let i = 0; i < len + 1; i++) {
+      if (!skipFirst || i > 0) {
+        const radioElement = this.#radioElements[index];
+        if (!radioElement.disabled && !radioElement.readonly) {
+          return radioElement;
+        }
       }
 
-      i++;
+      index = (index + direction + len) % len;
     }
 
     return null;
