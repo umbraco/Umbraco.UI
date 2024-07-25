@@ -298,14 +298,14 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   #selectPreviousRadio() {
-    this.value = this.#findAdjacentRadioElement(-1)?.value || '';
-    this.#radioElements[this.#selected || 0]?.focus();
+    this.value = this.#findAdjacentRadioElement(-1)?.value ?? '';
+    this.#radioElements[this.#selected ?? 0]?.focus();
     this.#fireChangeEvent();
   }
 
   #selectNextRadio() {
-    this.value = this.#findAdjacentRadioElement()?.value || '';
-    this.#radioElements[this.#selected || 0]?.focus();
+    this.value = this.#findAdjacentRadioElement()?.value ?? '';
+    this.#radioElements[this.#selected ?? 0]?.focus();
     this.#fireChangeEvent();
   }
 

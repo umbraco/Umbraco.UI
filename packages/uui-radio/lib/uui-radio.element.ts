@@ -91,7 +91,6 @@ export class UUIRadioElement extends LitElement {
   public makeFocusable() {
     if (!this.disabled) {
       this.removeAttribute('tabindex');
-      // this.setAttribute('tabindex', '0');
     }
   }
   /**
