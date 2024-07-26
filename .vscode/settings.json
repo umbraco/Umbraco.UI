@@ -8,5 +8,9 @@
     "svgs",
     "Umbraco"
   ],
-  "npm.enableRunFromFolder": true
+  "npm.enableRunFromFolder": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "umbraco",
+    "projectKey": "umbraco_Umbraco.UI"
+  }
 }
