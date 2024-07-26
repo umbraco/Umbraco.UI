@@ -209,7 +209,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
   static styles = [
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
       }
 
       label {
