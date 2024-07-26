@@ -31,6 +31,10 @@ export type InputType =
  * @slot append - for components to render to the right of the input.
  * @property {boolean} spellcheck - get/set native spellcheck attribute
  * @attribute spellcheck - native spellcheck attribute
+ * @property {string} value - get/set the value of the input
+ * @attribute value - get/set the value of the input
+ * @property {string} name - get/set the name of the input
+ * @attribute name - get/set the name of the input
  * @fires UUIInputEvent#change on change
  * @fires InputEvent#input on input
  * @fires KeyboardEvent#keyup on keyup
@@ -77,7 +81,7 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   /**
    * Minlength validation message.
-   * @attr
+   * @attr minlength-message
    * @default
    */
   @property({ type: String, attribute: 'minlength-message' })
@@ -104,7 +108,7 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   /**
    * Maxlength validation message.
-   * @attr
+   * @attr maxlength-message
    * @default
    */
   @property({ type: String, attribute: 'maxlength-message' })
@@ -158,7 +162,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   /**
    * Sets the input width to fit the value or placeholder if empty
    * @type {boolean}
-   * @attr
+   * @attr auto-width
    */
   @property({ type: Boolean, reflect: true, attribute: 'auto-width' })
   autoWidth = false;

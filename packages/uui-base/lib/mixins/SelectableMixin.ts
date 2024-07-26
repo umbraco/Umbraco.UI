@@ -6,8 +6,21 @@ import { UUISelectableEvent } from '../events/UUISelectableEvent';
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class SelectableMixinInterface extends LitElement {
+  /**
+   * Enable the ability to select this element.
+   * @attr
+   * @prop
+   * @type boolean
+   */
   selectable: boolean;
   deselectable: boolean;
+
+  /**
+   * Attribute applied when the element is selected.
+   * @attr
+   * @prop
+   * @type boolean
+   */
   selected: boolean;
   selectableTarget: EventTarget;
 }
