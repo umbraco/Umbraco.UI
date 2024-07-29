@@ -18,7 +18,7 @@ import { UUIRadioEvent } from './UUIRadioEvent';
 @defineElement('uui-radio')
 export class UUIRadioElement extends LitElement {
   @query('#input')
-  private inputElement!: HTMLInputElement;
+  private _inputElement!: HTMLInputElement;
 
   /**
    * This is a name property of the `<uui-radio>` component. It reflects the behaviour of the native `<input />` element and its name attribute.
@@ -42,24 +42,7 @@ export class UUIRadioElement extends LitElement {
   public label = '';
 
   @property({ type: Boolean, reflect: true })
-  public get checked() {
-    return this._checked;
-  }
-  public set checked(value) {
-    const oldValue = this._checked;
-    this._checked = value;
-    if (value === true) {
-      this.setAttribute('aria-checked', '');
-      if (!this.disabled) {
-        this.setAttribute('tabindex', '0');
-      }
-    } else {
-      this.setAttribute('tabindex', '-1');
-      this.removeAttribute('aria-checked');
-    }
-    this.requestUpdate('checked', oldValue);
-  }
-  private _checked = false;
+  public checked = false;
 
   /**
    * Disables the input.
@@ -68,18 +51,7 @@ export class UUIRadioElement extends LitElement {
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(newVal) {
-    const oldVal = this._disabled;
-    this._disabled = newVal;
-
-    this.setAttribute('aria-hidden', newVal ? 'true' : 'false');
-    this.setAttribute('tabindex', newVal ? '-1' : '0');
-    this.requestUpdate('disabled', oldVal);
-  }
-  private _disabled = false;
+  public disabled = false;
 
   /**
    * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
@@ -90,39 +62,15 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   readonly = false;
 
-  constructor() {
-    super();
-    this.addEventListener('mousedown', this.#hideFocusOutline);
-    this.addEventListener('blur', this.#showFocusOutline);
+  public focus() {
+    this._inputElement.focus();
   }
-
-  focus() {
-    this.inputElement.focus();
-  }
-  click() {
-    this.inputElement.click();
-  }
-
-  #showFocusOutline = () => {
-    this.style.setProperty('--uui-show-focus-outline', '1');
-  };
-
-  #hideFocusOutline = () => {
-    this.style.setProperty('--uui-show-focus-outline', '0');
-  };
-
-  private _onChange(e: Event) {
-    e.stopPropagation();
-    const checked = this.inputElement.checked;
-    this.checked = checked;
-    if (checked) {
-      this.focus();
-    }
-    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
+  public click() {
+    this._inputElement.click();
   }
 
   /**
-   * Call to uncheck the element. This method changes the tabindex and aria -checked attributes.
+   * Call to uncheck the element
    * @method uncheck
    */
   public uncheck() {
@@ -142,11 +90,11 @@ export class UUIRadioElement extends LitElement {
    */
   public makeFocusable() {
     if (!this.disabled) {
-      this.setAttribute('tabindex', '0');
+      this.removeAttribute('tabindex');
     }
   }
   /**
-   * Call to make the element focusable, this sets tabindex to 0.
+   * Call to make the element focusable, this sets tabindex to -1.
    * @method makeUnfocusable
    */
   public makeUnfocusable() {
@@ -155,12 +103,14 @@ export class UUIRadioElement extends LitElement {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    //if (!this.hasAttribute('role')) this.setAttribute('role', 'radio');
-    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '-1');
-    if (!this.hasAttribute('aria-checked'))
-      this.removeAttribute('aria-checked');
+  #onChange(e: Event) {
+    e.stopPropagation();
+    const checked = this._inputElement.checked;
+    this.checked = checked;
+    if (checked) {
+      this.focus();
+    }
+    this.dispatchEvent(new UUIRadioEvent(UUIRadioEvent.CHANGE));
   }
 
   render() {
@@ -172,7 +122,7 @@ export class UUIRadioElement extends LitElement {
         value=${this.value}
         .checked=${this.checked}
         .disabled=${this.disabled || this.readonly}
-        @change=${this._onChange} />
+        @change=${this.#onChange} />
       <div id="button"></div>
       <div id="label">
         ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}
@@ -250,9 +200,8 @@ export class UUIRadioElement extends LitElement {
       :host(:focus) {
         outline: none;
       }
-      :host(:focus) #button {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      :host(:focus-within) input:focus-visible + #button {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       input:checked ~ #button::after {

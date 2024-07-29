@@ -31,6 +31,8 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @slot - for default content
  *  @slot label - for label content
  *  @slot extra - for extra
+ *  @property {string} label - label to be used for aria-label and potentially as visual label for some components
+ *  @attribute label - label to be used for aria-label and potentially as visual label for some components
  *  @description - All-around button
  *  @cssprop --uui-button-height - overwrite the button height
  *  @cssprop --uui-button-border-width - overwrite the border width
@@ -52,7 +54,6 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
 @defineElement('uui-button')
 export class UUIButtonElement extends UUIFormControlMixin(
   LabelMixin('', PopoverTargetMixin(LitElement)),
-  undefined,
 ) {
   /**
    * Specifies the type of button
