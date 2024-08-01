@@ -217,7 +217,11 @@ export const Readonly: Story = {
 
 export const Error: Story = {
   render: props => html`
-    <uui-input .type=${props.type} .value=${props.value} ?error=${props.error}>
+    <uui-input
+      .type=${props.type}
+      .label=${props.label}
+      .value=${props.value}
+      ?error=${props.error}>
     </uui-input>
   `,
   args: { error: true, label: 'Error' },
