@@ -222,7 +222,7 @@ export class UUIRelativeTimeElement
   }
 
   set second(value: 'numeric' | '2-digit' | undefined) {
-    this.setAttribute('second', value || '');
+    this.setAttribute('second', value ?? '');
   }
 
   get minute() {
@@ -232,7 +232,7 @@ export class UUIRelativeTimeElement
   }
 
   set minute(value: 'numeric' | '2-digit' | undefined) {
-    this.setAttribute('minute', value || '');
+    this.setAttribute('minute', value ?? '');
   }
 
   get hour() {
@@ -242,7 +242,7 @@ export class UUIRelativeTimeElement
   }
 
   set hour(value: 'numeric' | '2-digit' | undefined) {
-    this.setAttribute('hour', value || '');
+    this.setAttribute('hour', value ?? '');
   }
 
   get weekday() {
@@ -256,7 +256,7 @@ export class UUIRelativeTimeElement
   }
 
   set weekday(value: 'short' | 'long' | 'narrow' | undefined) {
-    this.setAttribute('weekday', value || '');
+    this.setAttribute('weekday', value ?? '');
   }
 
   get day() {
@@ -267,7 +267,7 @@ export class UUIRelativeTimeElement
   }
 
   set day(value: 'numeric' | '2-digit' | undefined) {
-    this.setAttribute('day', value || '');
+    this.setAttribute('day', value ?? '');
   }
 
   get month() {
@@ -291,7 +291,7 @@ export class UUIRelativeTimeElement
   set month(
     value: 'numeric' | '2-digit' | 'short' | 'long' | 'narrow' | undefined,
   ) {
-    this.setAttribute('month', value || '');
+    this.setAttribute('month', value ?? '');
   }
 
   get year() {
@@ -309,7 +309,7 @@ export class UUIRelativeTimeElement
   }
 
   set year(value: 'numeric' | '2-digit' | undefined) {
-    this.setAttribute('year', value || '');
+    this.setAttribute('year', value ?? '');
   }
 
   get timeZoneName() {
@@ -337,7 +337,7 @@ export class UUIRelativeTimeElement
       | 'longGeneric'
       | undefined,
   ) {
-    this.setAttribute('time-zone-name', value || '');
+    this.setAttribute('time-zone-name', value ?? '');
   }
 
   get threshold(): string {
