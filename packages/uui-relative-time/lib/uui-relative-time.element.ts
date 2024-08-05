@@ -451,8 +451,8 @@ export class UUIRelativeTimeElement
 
   update() {
     const oldText: string =
-      this.#renderRoot.textContent || this.textContent || '';
-    const oldTitle: string = this.getAttribute('title') || '';
+      this.#renderRoot.textContent ?? this.textContent ?? '';
+    const oldTitle: string = this.getAttribute('title') ?? '';
     let newTitle: string = oldTitle;
     const date = this.date;
     if (typeof Intl === 'undefined' || !Intl.DateTimeFormat || !date) {
@@ -461,7 +461,7 @@ export class UUIRelativeTimeElement
     }
     const now = Date.now();
     if (!this.#customTitle) {
-      newTitle = this.#getFormattedTitle(date) || '';
+      newTitle = this.#getFormattedTitle(date) ?? '';
       if (newTitle && !this.noTitle) this.setAttribute('title', newTitle);
     }
 
