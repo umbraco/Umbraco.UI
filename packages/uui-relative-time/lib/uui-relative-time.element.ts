@@ -96,8 +96,8 @@ export class UUIRelativeTimeElement
 
   get #lang() {
     return (
-      this.closest('[lang]')?.getAttribute('lang') ||
-      this.ownerDocument.documentElement.getAttribute('lang') ||
+      this.closest('[lang]')?.getAttribute('lang') ??
+      this.ownerDocument.documentElement.getAttribute('lang') ??
       'default'
     );
   }
