@@ -61,7 +61,7 @@ export default class UUIDurationFormat {
 
   constructor(locale: string, options: DurationFormatOptions = {}) {
     let style = String(
-      options.style || 'short',
+      options.style ?? 'short',
     ) as DurationFormatResolvedOptions['style'];
     if (
       style !== 'long' &&
@@ -72,13 +72,13 @@ export default class UUIDurationFormat {
       style = 'short';
     let prevStyle: DurationFormatResolvedOptions['hours'] =
       style === 'digital' ? 'numeric' : style;
-    const hours = options.hours || prevStyle;
+    const hours = options.hours ?? prevStyle;
     prevStyle = hours === '2-digit' ? 'numeric' : hours;
-    const minutes = options.minutes || prevStyle;
+    const minutes = options.minutes ?? prevStyle;
     prevStyle = minutes === '2-digit' ? 'numeric' : minutes;
-    const seconds = options.seconds || prevStyle;
+    const seconds = options.seconds ?? prevStyle;
     prevStyle = seconds === '2-digit' ? 'numeric' : seconds;
-    const milliseconds = options.milliseconds || prevStyle;
+    const milliseconds = options.milliseconds ?? prevStyle;
     this.#options = {
       locale,
       style,
