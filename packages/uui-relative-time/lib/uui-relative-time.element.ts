@@ -49,7 +49,7 @@ const dateObserver = new (class {
     if (this.elements.has(element)) return;
     this.elements.add(element);
     const date = element.date;
-    if (date && date.getTime()) {
+    if (date?.getTime()) {
       const ms = getUnitFactor(element);
       const time = Date.now() + ms;
       if (time < this.time) {
