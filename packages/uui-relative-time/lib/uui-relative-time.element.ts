@@ -7,14 +7,12 @@ import {
   Unit,
   unitNames,
 } from '@umbraco-ui/uui-base/lib/utils';
-//import { css, html, LitElement } from 'lit';
 
 export type Format = 'duration' | 'relative' | 'datetime';
 export type FormatStyle = 'long' | 'short' | 'narrow';
 export type Tense = 'auto' | 'past' | 'future';
 
 const emptyDuration = new Duration();
-//const microEmptyDuration = new Duration(0, 0, 0, 0, 0, 1)
 
 export class UUIRelativeTimeUpdatedEvent extends Event {
   constructor(
@@ -153,14 +151,8 @@ export class UUIRelativeTimeElement
     if (format === 'datetime') return 'datetime';
     if (format === 'duration') return 'duration';
 
-    // elapsed is an alias for 'duration'
-    if (format === 'elapsed') return 'duration';
-    // 'micro' is an alias for 'duration'
-    if (format === 'micro') return 'duration';
-
-    // 'auto' is an alias for 'relative'
     if (
-      (format === 'auto' || format === 'relative') &&
+      format === 'relative' &&
       typeof Intl !== 'undefined' &&
       Intl.RelativeTimeFormat
     ) {
@@ -173,25 +165,20 @@ export class UUIRelativeTimeElement
 
   #getDurationFormat(duration: Duration): string {
     const locale = this.#lang;
-    //const format = this.format
     const style = this.formatStyle;
     const tense = this.tense;
-    const empty = emptyDuration;
-    /*if (format === 'micro') {
-      duration = roundToSingleUnit(duration)
-      empty = microEmptyDuration
-      if ((this.tense === 'past' && duration.sign !== -1) || (this.tense === 'future' && duration.sign !== 1)) {
-        duration = microEmptyDuration
-      }
-    } else*/ if (
+    if (
       (tense === 'past' && duration.sign !== -1) ||
       (tense === 'future' && duration.sign !== 1)
     ) {
-      duration = empty;
+      duration = emptyDuration;
     }
     const display = `${this.precision}sDisplay`;
     if (duration.blank) {
-      return empty.toLocaleString(locale, { style, [display]: 'always' });
+      return emptyDuration.toLocaleString(locale, {
+        style,
+        [display]: 'always',
+      });
     }
     return duration.abs().toLocaleString(locale, { style });
   }
@@ -376,7 +363,6 @@ export class UUIRelativeTimeElement
   get precision(): Unit {
     const precision = this.getAttribute('precision') as unknown as Unit;
     if (unitNames.includes(precision)) return precision;
-    //if (this.format === 'micro') return 'minute'
     return 'second';
   }
 
@@ -389,10 +375,7 @@ export class UUIRelativeTimeElement
     if (format === 'datetime') return 'datetime';
     if (format === 'relative') return 'relative';
     if (format === 'duration') return 'duration';
-    //if (format === 'micro') return 'micro'
-    //if (format === 'elapsed') return 'elapsed'
-    //return 'auto'
-    return 'duration';
+    return 'relative';
   }
 
   set format(value: Format) {
@@ -405,7 +388,6 @@ export class UUIRelativeTimeElement
     if (formatStyle === 'short') return 'short';
     if (formatStyle === 'narrow') return 'narrow';
     const format = this.format;
-    //if (format === 'elapsed' || format === 'micro') return 'narrow'
     if (format === 'datetime') return 'short';
     return 'long';
   }
