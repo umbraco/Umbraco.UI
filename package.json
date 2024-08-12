@@ -46,10 +46,11 @@
     "pack-all-no-build": "node ./scripts/pack-packages.js",
     "pack": "node ./scripts/pack-package.js",
     "chromatic": "npx chromatic --build-script-name storybook:build",
-    "storybook": "npm run bootstrap && npm run storybook:analyze && storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
     "storybook:build": "npm run bootstrap && npm run storybook:analyze && storybook build",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
-    "postinstall": "npm run bootstrap"
+    "postinstall": "npm run bootstrap",
+    "build-storybook": "storybook build"
   },
   "engines": {
     "node": ">=20.9 <21",
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.24.7",
+    "@chromatic-com/storybook": "^1.6.1",
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.7.0",
     "@lerna-lite/cli": "3.7.0",
@@ -69,6 +71,12 @@
     "@lerna-lite/version": "3.7.0",
     "@open-wc/testing": "4.0.0",
     "@rollup/plugin-node-resolve": "15.2.3",
+    "@storybook/addon-essentials": "^8.2.8",
+    "@storybook/addon-links": "^8.2.8",
+    "@storybook/blocks": "^8.2.8",
+    "@storybook/test": "^8.2.8",
+    "@storybook/web-components": "^8.2.8",
+    "@storybook/web-components-vite": "^8.2.8",
     "@types/chai": "4.3.12",
     "@types/eslint__js": "8.42.3",
     "@types/mocha": "^10.0.7",
@@ -85,6 +93,7 @@
     "eslint-plugin-lit": "1.14.0",
     "eslint-plugin-local-rules": "3.0.2",
     "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-wc": "2.1.0",
     "github-markdown-css": "5.6.1",
     "glob": "10.4.3",
@@ -116,6 +125,7 @@
     "rollup-plugin-import-css": "3.4.0",
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
+    "storybook": "^8.2.8",
     "tsc-files": "1.1.4",
     "turbo": "1.13.2",
     "typescript": "^5.4.5",
@@ -139,5 +149,10 @@
   "storybook": {
     "url": "https://v1-contrib--62189360eeb21b003ab2f4ad.chromatic.com/"
   },
-  "packageManager": "npm@9.5.1"
+  "packageManager": "npm@9.5.1",
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
 }
