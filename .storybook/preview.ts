@@ -27,6 +27,9 @@ function WebComponentFormatter(customElements) {
     .flatMap(module => module.declarations ?? [])
     .forEach(declaration => {
       declaration.attributes = [];
+      declaration.members = declaration.members?.filter(
+        member => member.privacy !== 'private' && !member.name.startsWith('_'),
+      );
     });
 }
 
