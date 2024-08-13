@@ -188,15 +188,15 @@ export class UUIButtonElement extends UUIFormControlMixin(
     this._togglePopover();
   }
 
-  private _resetStateTimeout?: number;
+  #resetStateTimeout?: number;
 
   // Reset the state after 2sec if it is 'success' or 'failed'.
   updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(changedProperties);
     if (changedProperties.has('state')) {
-      clearTimeout(this._resetStateTimeout);
+      clearTimeout(this.#resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
-        this._resetStateTimeout = setTimeout(
+        this.#resetStateTimeout = setTimeout(
           () => (this.state = undefined),
           2000,
         ) as any;
