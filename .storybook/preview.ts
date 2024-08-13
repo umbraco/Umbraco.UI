@@ -1,5 +1,9 @@
-import type { Preview } from '@storybook/web-components';
+import {
+  setCustomElementsManifest,
+  type Preview,
+} from '@storybook/web-components';
 import '../packages/uui-css/lib/uui-css.css';
+import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
 const preview: Preview = {
@@ -13,5 +17,16 @@ const preview: Preview = {
   },
   decorators: [story => html`<div class="uui-font; uui-text">${story()}</div>`],
 };
+
+WebComponentFormatter(customElements);
+setCustomElementsManifest(customElements);
+
+function WebComponentFormatter(customElements) {
+  (customElements.modules ?? [])
+    .flatMap(module => module.declarations ?? [])
+    .forEach(declaration => {
+      declaration.attributes = [];
+    });
+}
 
 export default preview;
