@@ -16,6 +16,7 @@ const preview: Preview = {
     },
   },
   decorators: [story => html`<div class="uui-font; uui-text">${story()}</div>`],
+  tags: ['autodocs'],
 };
 
 WebComponentFormatter(customElements);
