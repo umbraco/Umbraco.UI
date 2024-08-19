@@ -1,11 +1,18 @@
 import { html } from 'lit';
 import './uui-button.element';
+import '@umbraco-ui/uui-badge/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-loader-circle/lib';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
 
 const meta: Meta = {
   component: 'uui-button',
   title: 'Button',
+  args: {
+    label: 'Button',
+    look: 'primary',
+  },
   argTypes: {
     look: {
       control: {
@@ -53,25 +60,31 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const Primary: Story = {
+export const Default: Story = {};
+
+export const Disabled: Story = {
   args: {
-    look: 'primary',
-    label: 'Button',
+    disabled: true,
   },
 };
 
 export const Compact: Story = {
   args: {
-    look: 'primary',
-    label: 'Button',
     compact: true,
   },
 };
 
-export const Disabled: Story = {
+export const Anchor: Story = {
   args: {
-    look: 'primary',
-    label: 'Button',
-    disabled: true,
+    href: 'https://www.umbraco.com',
+  },
+};
+
+export const Badge: Story = {
+  render: args => {
+    return html`<uui-button ${spread(args)}>
+      <uui-badge color="danger">2</uui-badge>
+      Button
+    </uui-button> `;
   },
 };
