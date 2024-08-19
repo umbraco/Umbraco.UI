@@ -96,6 +96,6 @@ export const Sizing: Story = {
   render: args => {
     return html`<uui-button
       style="font-size: ${args.size}"
-      ${spread(args)}></uui-button>`;
+      ${spread(args, ['size'])}></uui-button>`;
   },
 };
