@@ -2,8 +2,10 @@ import { directive, Directive } from 'lit/directive.js';
 
 class UUIStoryBookSpreadDirective extends Directive {
   // TODO: We don't need the render method, but it's required by the Directive class
-  render(...props: Array<unknown>): unknown {
-    return this.render(...props);
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  render(props: object, excludeProps: string[] = []): unknown {
+    return this.render(props);
   }
   update(part: any, [props, excludeProps = []]: [any, string[]]): void {
     // Remove Storybooks onClick event from props
