@@ -4,7 +4,6 @@ import {
 } from '@storybook/web-components';
 import '../packages/uui-css/lib/uui-css.css';
 import customElements from '../custom-elements.json';
-import { html } from 'lit';
 
 const preview: Preview = {
   parameters: {
@@ -15,7 +14,6 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [story => html`<div class="uui-font; uui-text">${story()}</div>`],
   tags: ['autodocs'],
 };
 
