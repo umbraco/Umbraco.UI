@@ -88,3 +88,14 @@ export const Badge: Story = {
     </uui-button> `;
   },
 };
+
+export const Sizing: Story = {
+  args: {
+    size: '20px',
+  },
+  render: args => {
+    return html`<uui-button
+      style="font-size: ${args.size}"
+      ${spread(args)}></uui-button>`;
+  },
+};
