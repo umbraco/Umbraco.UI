@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import './uui-button.element';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from 'storyhelpers/spread-directive';
+import { spread } from '../../../storyhelpers/spread-directive';
 
 const meta: Meta = {
   component: 'uui-button',
