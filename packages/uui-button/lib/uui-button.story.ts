@@ -117,13 +117,6 @@ const Template: Story = props => {
 export const AAAOverview = Template.bind({});
 AAAOverview.storyName = 'Overview';
 AAAOverview.args = { label: 'Basic' };
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      type: 'dynamic',
-    },
-  },
-};
 
 export const Disabled = Template.bind({});
 Disabled.args = { label: 'Disabled', disabled: true, look: 'primary' };
