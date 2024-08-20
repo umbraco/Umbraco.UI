@@ -9,7 +9,7 @@ import { spread } from '../../../storyhelpers/spread-directive';
 
 const meta: Meta = {
   component: 'uui-button',
-  title: 'Button',
+  title: 'Buttons/Button',
   args: {
     label: 'Button',
     look: 'primary',

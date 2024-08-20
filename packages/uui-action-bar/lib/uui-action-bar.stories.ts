@@ -9,7 +9,7 @@ import { spread } from '../../../storyhelpers/spread-directive';
 
 const meta: Meta = {
   component: 'uui-action-bar',
-  title: 'Action Bar',
+  title: 'Buttons/Action Bar',
   args: {
     look: 'primary',
     color: 'default',
