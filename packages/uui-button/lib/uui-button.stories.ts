@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import './uui-button.element';
+import '.';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';

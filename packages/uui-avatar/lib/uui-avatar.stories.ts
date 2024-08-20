@@ -1,5 +1,5 @@
+import '.';
 import { html } from 'lit';
-import './uui-avatar.element';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
 
