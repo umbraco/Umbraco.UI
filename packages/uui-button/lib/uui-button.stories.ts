@@ -16,24 +16,16 @@ const meta: Meta = {
   },
   argTypes: {
     look: {
-      control: {
-        type: 'select',
-      },
       options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
     },
     color: {
-      control: {
-        type: 'select',
-      },
       options: ['default', 'positive', 'warning', 'danger'],
     },
     type: {
       options: ['button', 'submit', 'reset'],
-      control: { type: 'select' },
     },
     state: {
       options: [null, 'waiting', 'success', 'failed'],
-      control: { type: 'select' },
     },
     '--uui-button-height': { control: { type: 'text' } },
     '--uui-button-border-width': { control: { type: 'text' } },
