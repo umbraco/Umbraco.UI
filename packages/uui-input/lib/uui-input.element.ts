@@ -224,6 +224,10 @@ export class UUIInputElement extends UUIFormControlMixin(
       () => this.maxlengthMessage,
       () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
+
+    this.updateComplete.then(() => {
+      this.addFormControlElement(this._input);
+    });
   }
 
   private _onKeypress(e: KeyboardEvent): void {
