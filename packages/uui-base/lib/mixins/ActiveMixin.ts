@@ -4,6 +4,12 @@ import { property } from 'lit/decorators.js';
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class ActiveMixinInterface {
+  /**
+   * Set this boolean to true for then the related composition is sorted.
+   * @type {boolean}
+   * @attr
+   * @prop
+   */
   active: boolean;
 }
 

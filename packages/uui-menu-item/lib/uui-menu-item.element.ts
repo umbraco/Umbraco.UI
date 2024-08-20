@@ -23,12 +23,14 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
  *  @cssprop --uui-menu-item-color-active - text color when active
  *  @cssprop --uui-menu-item-background-color-disabled - background color when disabled
  *  @cssprop --uui-menu-item-color-disabled - text color when disabled
- *   @cssprop --uui-menu-item-background-color-selected - background color when selected
+ *  @cssprop --uui-menu-item-background-color-selected - background color when selected
  *  @cssprop --uui-menu-item-color-selected - text color when selected
  *  @cssprop --uui-menu-item-color-background-selected-hover - text color when selected
  *  @fires {UUIMenuItemEvent} show-children - fires when the expand icon is clicked to show nested menu items
  *  @fires {UUIMenuItemEvent} hide-children - fires when the expend icon is clicked to hide nested menu items
  *  @fires {UUIMenuItemEvent} click-label - fires when the label is clicked
+ *  @fires {UUISelectableEvent} selected - fires when the media card is selected
+ *  @fires {UUISelectableEvent} deselected - fires when the media card is deselected
  *  @slot - nested menu items go here
  *  @slot icon - icon area
  *  @slot actions - actions area
@@ -50,7 +52,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   /**
    * Controls if nested items should be shown.
    * @type {boolean}
-   * @attr
+   * @attr show-children
    * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'show-children' })
@@ -60,7 +62,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   /**
    * Shows/hides the caret.
    * @type {boolean}
-   * @attr
+   * @attr has-children
    * @default false
    */
   @property({ type: Boolean, attribute: 'has-children' })
@@ -105,7 +107,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   /**
    * Sets the selection mode.
    * @type {string}
-   * @attr
+   * @attr select-mode
    * @default undefined
    */
   @property({ type: String, attribute: 'select-mode', reflect: true })
@@ -114,7 +116,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   /**
    * Sets the aria-label for the caret button.
    * @remark Only used when the menu item has children.
-   * @attr
+   * @attr caret-label
    * @default 'Reveal the underlying items'
    */
   @property({ type: String, attribute: 'caret-label' })
