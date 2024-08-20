@@ -25,6 +25,7 @@ const cssProps: Partial<ArgTypes<Args>> = {
     control: { type: 'select' },
     options: ['left', 'center', 'right'],
   },
+  '--uui-button-transition': { control: { type: 'text' } },
 };
 
 const meta: Meta = {
@@ -107,6 +108,9 @@ export const Icon: Story = {
   },
 };
 
+/**
+ * The default button padding for a solo icon is generally too big, so please use the `compact` attribute.
+ */
 export const IconSolo: Story = {
   args: {
     compact: true,
@@ -181,7 +185,6 @@ export const LooksAndColors: Story = {
       str.charAt(0).toUpperCase() + str.slice(1);
 
     return html`
-      <h4>Looks and colors</h4>
       ${colors.map(
         color => html`
           <h5>${uppercaseFirstLetter(color)}</h5>
