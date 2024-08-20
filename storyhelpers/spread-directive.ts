@@ -37,7 +37,7 @@ class UUIStoryBookSpreadDirective extends Directive {
       }
 
       part.element[key] = props[key];
-      (part.element as HTMLElement).setAttribute(key, props[key]);
+      // (part.element as HTMLElement).setAttribute(key, props[key]); Not needed for now
     });
   }
 }
