@@ -131,8 +131,6 @@ export const Sizing: Story = {
 
 export const Loading: Story = {
   args: {
-    label: 'Button',
-    look: 'primary',
     state: 'waiting',
   },
 };
