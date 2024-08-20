@@ -5,39 +5,38 @@ import { directive, Directive } from 'lit/directive.js';
 
 class UUIStoryBookSpreadDirective extends Directive {
   // TODO: We don't need the render method, but it's required by the Directive class
-  render(
-    props: object,
-    cssProps: Partial<ArgTypes<Args>> = {},
-    excludeProps: string[] = [],
-  ): unknown {
+  render(props: object, excludeProps: string[] = []): unknown {
     return this.render(props);
   }
-  update(
-    part: any,
-    [props, cssProps = {}, excludeProps = []]: [
-      any,
-      Partial<ArgTypes<Args>>,
-      string[],
-    ],
-  ): void {
+  update(part: any, [props, excludeProps = []]: [any, string[]]): void {
     // Remove Storybooks onClick event from props
     delete props.onClick;
 
     const excludeSet = new Set(excludeProps);
-    const cssPropSet = new Set(Object.keys(cssProps));
 
     // Apply each property from props to the element
     Object.keys(props).forEach(key => {
       if (excludeSet.has(key)) return;
 
-      // Check if the property is a CSS property
-      if (cssPropSet.has(key)) {
+      // Check if the property is a CSS property (starts with --)
+      if (key.startsWith('--')) {
         (part.element as HTMLElement).style.setProperty(key, props[key]);
         return;
       }
 
       part.element[key] = props[key];
-      // (part.element as HTMLElement).setAttribute(key, props[key]); Not needed for now
+
+      // If the property is a boolean, toggle the attribute
+      if (typeof props[key] === 'boolean') {
+        if (props[key]) {
+          (part.element as HTMLElement).setAttribute(key, '');
+        } else {
+          (part.element as HTMLElement).removeAttribute(key);
+        }
+        return;
+      }
+
+      (part.element as HTMLElement).setAttribute(key, props[key]);
     });
   }
 }

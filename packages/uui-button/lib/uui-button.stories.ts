@@ -59,7 +59,7 @@ const meta: Meta = {
     ...cssProps,
   },
   render: args => {
-    return html`<uui-button ${spread(args, cssProps)}></uui-button>`;
+    return html`<uui-button ${spread(args)}></uui-button>`;
   },
 };
 
@@ -88,7 +88,7 @@ export const Anchor: Story = {
 
 export const Badge: Story = {
   render: args => {
-    return html`<uui-button ${spread(args, cssProps)}>
+    return html`<uui-button ${spread(args)}>
       <uui-badge color="danger">2</uui-badge>
       Button
     </uui-button> `;
@@ -99,7 +99,7 @@ export const Icon: Story = {
   render: args => {
     return html`
       <uui-icon-registry-essential>
-        <uui-button ${spread(args, cssProps)}>
+        <uui-button ${spread(args)}>
           <uui-icon name="favorite"></uui-icon>
           Button
         </uui-button>
@@ -118,7 +118,7 @@ export const IconSolo: Story = {
   render: args => {
     return html`
       <uui-icon-registry-essential>
-        <uui-button ${spread(args, cssProps)}>
+        <uui-button ${spread(args)}>
           <uui-icon name="favorite"></uui-icon>
         </uui-button>
       </uui-icon-registry-essential>
@@ -133,7 +133,7 @@ export const Sizing: Story = {
   render: args => {
     return html`<uui-button
       style="font-size: ${args['font-size']}"
-      ${spread(args, cssProps, ['font-size'])}></uui-button>`;
+      ${spread(args, ['font-size'])}></uui-button>`;
   },
 };
 
@@ -148,9 +148,7 @@ export const ContentAlign: Story = {
     '--uui-button-content-align': 'left',
   },
   render: args => {
-    return html`<uui-button
-      style="width: 400px"
-      ${spread(args, cssProps)}></uui-button>`;
+    return html`<uui-button style="width: 400px" ${spread(args)}></uui-button>`;
   },
 };
 
@@ -158,7 +156,7 @@ export const SlottedContent: Story = {
   render: args => {
     return html`
       <uui-icon-registry-essential>
-        <uui-button ${spread(args, cssProps)}>
+        <uui-button ${spread(args)}>
           <div
             style="display: flex; flex-direction: column; align-items: center; gap: 3px">
             <uui-icon name="settings"></uui-icon>
@@ -191,7 +189,7 @@ export const LooksAndColors: Story = {
             ${looks.map(
               look =>
                 html` <uui-button
-                  ${spread(args, cssProps, ['label', 'look', 'color'])}
+                  ${spread(args, ['label', 'look', 'color'])}
                   look=${look}
                   color=${color}
                   label=${uppercaseFirstLetter(look)}></uui-button>`,
