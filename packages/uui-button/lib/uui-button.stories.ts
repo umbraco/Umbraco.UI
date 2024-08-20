@@ -3,6 +3,7 @@ import './uui-button.element';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
+import '@umbraco-ui/uui-icon-registry-essential/lib';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
 
@@ -89,13 +90,49 @@ export const Badge: Story = {
   },
 };
 
+export const Icon: Story = {
+  render: args => {
+    return html`
+      <uui-icon-registry-essential>
+        <uui-button ${spread(args)}>
+          <uui-icon name="favorite"></uui-icon>
+          Button
+        </uui-button>
+      </uui-icon-registry-essential>
+    `;
+  },
+};
+
+export const IconSolo: Story = {
+  args: {
+    compact: true,
+  },
+  render: args => {
+    return html`
+      <uui-icon-registry-essential>
+        <uui-button ${spread(args)}>
+          <uui-icon name="favorite"></uui-icon>
+        </uui-button>
+      </uui-icon-registry-essential>
+    `;
+  },
+};
+
 export const Sizing: Story = {
   args: {
-    size: '20px',
+    'font-size': '20px',
   },
   render: args => {
     return html`<uui-button
-      style="font-size: ${args.size}"
-      ${spread(args, ['size'])}></uui-button>`;
+      style="font-size: ${args['font-size']}"
+      ${spread(args, ['font-size'])}></uui-button>`;
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    label: 'Button',
+    look: 'primary',
+    state: 'waiting',
   },
 };
