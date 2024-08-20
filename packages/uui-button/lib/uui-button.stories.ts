@@ -4,8 +4,28 @@ import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
+
+const cssProps: Partial<ArgTypes<Args>> = {
+  '--uui-button-height': { control: { type: 'text' } },
+  '--uui-button-border-width': { control: { type: 'text' } },
+  '--uui-button-border-color': { control: { type: 'color' } },
+  '--uui-button-border-radius': { control: { type: 'text' } },
+  '--uui-button-font-size': { control: { type: 'text' } },
+  '--uui-button-font-weight': { control: { type: 'text' } },
+  '--uui-button-background-color': { control: { type: 'color' } },
+  '--uui-button-background-color-hover': { control: { type: 'color' } },
+  '--uui-button-border-color-hover': { control: { type: 'color' } },
+  '--uui-button-contrast': { control: { type: 'color' } },
+  '--uui-button-contrast-hover': { control: { type: 'color' } },
+  '--uui-button-background-color-disabled': { control: { type: 'color' } },
+  '--uui-button-contrast-disabled': { control: { type: 'color' } },
+  '--uui-button-content-align': {
+    control: { type: 'select' },
+    options: ['left', 'center', 'right'],
+  },
+};
 
 const meta: Meta = {
   component: 'uui-button',
@@ -35,26 +55,10 @@ const meta: Meta = {
       options: [null, 'waiting', 'success', 'failed'],
       control: { type: 'select' },
     },
-    '--uui-button-height': { control: { type: 'text' } },
-    '--uui-button-border-width': { control: { type: 'text' } },
-    '--uui-button-border-color': { control: { type: 'color' } },
-    '--uui-button-border-radius': { control: { type: 'text' } },
-    '--uui-button-font-size': { control: { type: 'text' } },
-    '--uui-button-font-weight': { control: { type: 'text' } },
-    '--uui-button-background-color': { control: { type: 'color' } },
-    '--uui-button-background-color-hover': { control: { type: 'color' } },
-    '--uui-button-border-color-hover': { control: { type: 'color' } },
-    '--uui-button-contrast': { control: { type: 'color' } },
-    '--uui-button-contrast-hover': { control: { type: 'color' } },
-    '--uui-button-background-color-disabled': { control: { type: 'color' } },
-    '--uui-button-contrast-disabled': { control: { type: 'color' } },
-    '--uui-button-content-align': {
-      control: { type: 'select' },
-      options: ['left', 'center', 'right'],
-    },
+    ...cssProps,
   },
   render: args => {
-    return html`<uui-button ${spread(args)}></uui-button>`;
+    return html`<uui-button ${spread(args, cssProps)}></uui-button>`;
   },
 };
 
@@ -83,7 +87,7 @@ export const Anchor: Story = {
 
 export const Badge: Story = {
   render: args => {
-    return html`<uui-button ${spread(args)}>
+    return html`<uui-button ${spread(args, cssProps)}>
       <uui-badge color="danger">2</uui-badge>
       Button
     </uui-button> `;
@@ -94,7 +98,7 @@ export const Icon: Story = {
   render: args => {
     return html`
       <uui-icon-registry-essential>
-        <uui-button ${spread(args)}>
+        <uui-button ${spread(args, cssProps)}>
           <uui-icon name="favorite"></uui-icon>
           Button
         </uui-button>
@@ -110,7 +114,7 @@ export const IconSolo: Story = {
   render: args => {
     return html`
       <uui-icon-registry-essential>
-        <uui-button ${spread(args)}>
+        <uui-button ${spread(args, cssProps)}>
           <uui-icon name="favorite"></uui-icon>
         </uui-button>
       </uui-icon-registry-essential>
@@ -125,7 +129,7 @@ export const Sizing: Story = {
   render: args => {
     return html`<uui-button
       style="font-size: ${args['font-size']}"
-      ${spread(args, ['font-size'])}></uui-button>`;
+      ${spread(args, cssProps)}></uui-button>`;
   },
 };
 
