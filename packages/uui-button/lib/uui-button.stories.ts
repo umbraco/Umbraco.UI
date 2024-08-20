@@ -129,12 +129,76 @@ export const Sizing: Story = {
   render: args => {
     return html`<uui-button
       style="font-size: ${args['font-size']}"
-      ${spread(args, cssProps)}></uui-button>`;
+      ${spread(args, cssProps, ['font-size'])}></uui-button>`;
   },
 };
 
 export const Loading: Story = {
   args: {
     state: 'waiting',
+  },
+};
+
+export const ContentAlign: Story = {
+  args: {
+    '--uui-button-content-align': 'left',
+  },
+  render: args => {
+    return html`<uui-button
+      style="width: 400px"
+      ${spread(args, cssProps)}></uui-button>`;
+  },
+};
+
+export const SlottedContent: Story = {
+  render: args => {
+    return html`
+      <uui-icon-registry-essential>
+        <uui-button ${spread(args, cssProps)}>
+          <div
+            style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+            <uui-icon name="settings"></uui-icon>
+            Settings
+          </div>
+        </uui-button>
+      </uui-icon-registry-essential>
+    `;
+  },
+};
+
+export const LooksAndColors: Story = {
+  render: args => {
+    const looks = [
+      'default',
+      'primary',
+      'secondary',
+      'outline',
+      'placeholder',
+    ] as const;
+    const colors = ['default', 'positive', 'warning', 'danger'] as const;
+
+    const uppercaseFirstLetter = (str: string) =>
+      str.charAt(0).toUpperCase() + str.slice(1);
+
+    return html`
+      <h4>Looks and colors</h4>
+      ${colors.map(
+        color => html`
+          <h5>${uppercaseFirstLetter(color)}</h5>
+            ${looks.map(
+              look =>
+                html` <uui-button
+                  ${spread(args, cssProps, ['label', 'look', 'color'])}
+                  look=${look}
+                  color=${color}
+                  label=${uppercaseFirstLetter(look)}></uui-button>`,
+            )}
+          </div>
+        `,
+      )}
+    `;
+  },
+  parameters: {
+    controls: { exclude: ['label', 'look', 'color'] },
   },
 };
