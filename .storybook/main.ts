@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
+import { html } from 'lit';
 import { join, dirname } from 'path';
 
 /**

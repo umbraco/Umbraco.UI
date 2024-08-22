@@ -3,7 +3,6 @@ import '.';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
-import '@umbraco-ui/uui-icon-registry-essential/lib';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
 
@@ -86,12 +85,10 @@ export const Badge: Story = {
 export const Icon: Story = {
   render: args => {
     return html`
-      <uui-icon-registry-essential>
-        <uui-button ${spread(args)}>
-          <uui-icon name="favorite"></uui-icon>
-          Button
-        </uui-button>
-      </uui-icon-registry-essential>
+      <uui-button ${spread(args)}>
+        <uui-icon name="favorite"></uui-icon>
+        Button
+      </uui-button>
     `;
   },
 };
@@ -105,11 +102,9 @@ export const IconSolo: Story = {
   },
   render: args => {
     return html`
-      <uui-icon-registry-essential>
-        <uui-button ${spread(args)}>
-          <uui-icon name="favorite"></uui-icon>
-        </uui-button>
-      </uui-icon-registry-essential>
+      <uui-button ${spread(args)}>
+        <uui-icon name="favorite"></uui-icon>
+      </uui-button>
     `;
   },
 };
@@ -143,15 +138,13 @@ export const ContentAlign: Story = {
 export const SlottedContent: Story = {
   render: args => {
     return html`
-      <uui-icon-registry-essential>
-        <uui-button ${spread(args)}>
-          <div
-            style="display: flex; flex-direction: column; align-items: center; gap: 3px">
-            <uui-icon name="settings"></uui-icon>
-            Settings
-          </div>
-        </uui-button>
-      </uui-icon-registry-essential>
+      <uui-button ${spread(args)}>
+        <div
+          style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+          <uui-icon name="settings"></uui-icon>
+          Settings
+        </div>
+      </uui-button>
     `;
   },
 };

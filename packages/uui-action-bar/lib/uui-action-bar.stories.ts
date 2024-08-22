@@ -24,12 +24,6 @@ const meta: Meta = {
       options: ['default', 'positive', 'warning', 'danger'],
     },
   },
-  decorators: [
-    story =>
-      html`<uui-icon-registry-essential>
-        ${story()}
-      </uui-icon-registry-essential>`,
-  ],
 };
 
 export default meta;
