@@ -7,6 +7,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
 
 const meta: Meta = {
+  id: 'uui-button',
   component: 'uui-button',
   title: 'Buttons/Button',
   args: {

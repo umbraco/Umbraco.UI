@@ -6,6 +6,7 @@ import { spread } from '../../../storyhelpers/spread-directive';
 import '@umbraco-ui/uui-badge/lib';
 
 const meta: Meta = {
+  id: 'uui-avatar-group',
   component: 'uui-avatar-group',
   title: 'Displays/Avatar/Avatar Group',
   args: {

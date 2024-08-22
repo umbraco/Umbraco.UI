@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers/spread-directive';
 
 const meta: Meta = {
+  id: 'uui-badge',
   component: 'uui-badge',
   title: 'Displays/Badge',
   args: {
