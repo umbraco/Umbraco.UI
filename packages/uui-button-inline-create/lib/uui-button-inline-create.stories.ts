@@ -1,7 +1,6 @@
 import '.';
-import { html, nothing, TemplateResult } from 'lit';
+import { html, TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
 import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
 
 const meta: Meta = {
