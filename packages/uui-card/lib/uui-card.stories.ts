@@ -17,7 +17,7 @@ type Story = StoryObj;
  */
 export const Default: Story = {
   render: args => html`
-    <uui-card ${spread(args)} selectable>
+    <uui-card ${spread(args)}>
       <div>
         <p>
           This is an example of a simple card. It can be used to display

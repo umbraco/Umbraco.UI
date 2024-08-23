@@ -10,13 +10,16 @@ class UUIStoryBookSpreadDirective extends Directive {
   }
   update(part: any, [props, excludeProps = []]: [any, string[]]): void {
     // Remove Storybooks onClick event from props
-    delete props.onClick;
+    // delete props.onClick; // Not needed with the old component analyzer
 
     const excludeSet = new Set(excludeProps);
 
     // Apply each property from props to the element
     Object.keys(props).forEach(key => {
       if (excludeSet.has(key)) return;
+
+      // Remove all events from props
+      if (typeof props[key] === 'function') return;
 
       // Check if the property is a CSS property (starts with --)
       if (key.startsWith('--')) {
