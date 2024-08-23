@@ -48,7 +48,7 @@
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "npm run bootstrap && npm run storybook:analyze && storybook build",
-    "storybook:analyze": "custom-elements-manifest analyze --litelement --globs **/*.element.ts",
+    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "postinstall": "npm run bootstrap",
     "build-storybook": "storybook build"
   },
@@ -62,7 +62,6 @@
   "devDependencies": {
     "@babel/core": "7.24.7",
     "@chromatic-com/storybook": "^1.6.1",
-    "@custom-elements-manifest/analyzer": "^0.10.3",
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.7.0",
     "@lerna-lite/cli": "3.7.0",
@@ -133,7 +132,8 @@
     "typescript-eslint": "^7.16.1",
     "vite": "5.0.13",
     "vite-plugin-turbosnap": "^1.0.3",
-    "vite-tsconfig-paths": "4.3.2"
+    "vite-tsconfig-paths": "4.3.2",
+    "web-component-analyzer": "2.0.0"
   },
   "overrides": {
     "playwright": "^1.45.3"
