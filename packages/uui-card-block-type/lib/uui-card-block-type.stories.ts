@@ -17,6 +17,12 @@ const meta: Meta = {
     description: 'Description',
     slot: html`<uui-icon name="wand"></uui-icon>`,
   },
+  argTypes: {
+    background: { control: { type: 'color' } },
+    slot: { control: { disable: true } },
+    tag: { control: { disable: true } },
+    actions: { control: { disable: true } },
+  },
   // prettier-ignore
   render: args => html`
 <uui-card-block-type ${spread(args, ['slot', 'tag', 'actions'])}>
@@ -33,12 +39,6 @@ const meta: Meta = {
         ${Story()}
       </div>`,
   ],
-  argTypes: {
-    background: { control: { type: 'color' } },
-    slot: { control: { disable: true } },
-    tag: { control: { disable: true } },
-    actions: { control: { disable: true } },
-  },
 };
 
 export default meta;
