@@ -20,4 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+/**
+ * For styling options see the [Button](/docs/uui-button--docs) component.
+ */
 export const Default: Story = {};
