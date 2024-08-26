@@ -367,6 +367,7 @@ export class UUIPopoverContainerElement extends LitElement {
         background-color: none;
         background: none;
         overflow: visible;
+        color: var(--uui-color-text);
       }
     `,
   ];

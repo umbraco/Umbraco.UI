@@ -96,6 +96,7 @@ export class UUIModalElement extends LitElement {
         max-height: unset;
         border: none;
         background: none;
+        color: var(--uui-color-text);
       }
       dialog::backdrop {
         background: none;
