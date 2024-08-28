@@ -197,3 +197,25 @@ Selectable.parameters = {
     },
   },
 };
+
+export const Readonly: Story = props => html`
+  <uui-card-content-node ?readonly=${props.readonly} name="The card">
+    ${cardContent}
+  </uui-card-content-node>
+`;
+
+Readonly.args = {
+  readonly: true,
+};
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `
+<uui-card-content-node name="The card" readonly>
+  <!-- Content -->
+</uui-card-content-node>
+    `,
+    },
+  },
+};
