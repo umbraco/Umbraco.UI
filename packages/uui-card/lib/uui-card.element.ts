@@ -29,6 +29,15 @@ export class UUICardElement extends SelectOnlyMixin(
   disabled = false;
 
   /**
+   * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
+  /**
    * Set to true to highlight there is an error with this item.
    * @type {boolean}
    * @attr error
