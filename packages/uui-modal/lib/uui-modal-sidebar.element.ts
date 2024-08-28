@@ -104,7 +104,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
         max-width: min(800px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
       :host([size='small']) dialog {
-        max-width: min(400px, calc(100% - var(--uui-modal-sidebar-left-gap)));
+        max-width: min(500px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
     `,
   ];
