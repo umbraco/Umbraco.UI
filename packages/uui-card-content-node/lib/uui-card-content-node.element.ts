@@ -77,7 +77,7 @@ export class UUICardContentNodeElement extends UUICardElement {
 
   public render() {
     return html`
-      ${this.href ? this.#renderLink() : this.#renderButton()}
+      ${this.#renderName()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
@@ -85,6 +85,22 @@ export class UUICardContentNodeElement extends UUICardElement {
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
+  }
+
+  #renderName() {
+    if (this.readonly) {
+      return html`<div id="open-part">
+        <span id="icon">
+          <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+          ${this._iconSlotHasContent === false
+            ? this._renderFallbackIcon()
+            : ''}
+        </span>
+        <span id="name"> ${this.name} </span>
+      </div>`;
+    } else {
+      return this.href ? this.#renderLink() : this.#renderButton();
+    }
   }
 
   static styles = [
@@ -145,7 +161,8 @@ export class UUICardContentNodeElement extends UUICardElement {
         cursor: pointer;
       }
 
-      :host([disabled]) #open-part {
+      :host([disabled]) #open-part,
+      :host([readonly]) #open-part {
         pointer-events: none;
       }
 
