@@ -3,6 +3,9 @@
 import { Args, ArgTypes } from '@storybook/web-components';
 import { directive, Directive } from 'lit/directive.js';
 
+/**
+ * A directive that spreads the properties of an object onto an element while filtering out certain properties such as events and slots.
+ */
 class UUIStoryBookSpreadDirective extends Directive {
   // TODO: We don't need the render method, but it's required by the Directive class
   render(props: object, excludeProps: string[] = []): unknown {
@@ -20,6 +23,11 @@ class UUIStoryBookSpreadDirective extends Directive {
 
       // Remove all events from props
       if (typeof props[key] === 'function') return;
+
+      // Remove all slots from props
+      if (key.endsWith('slot')) {
+        return;
+      }
 
       // Check if the property is a CSS property (starts with --)
       if (key.startsWith('--')) {
@@ -44,5 +52,7 @@ class UUIStoryBookSpreadDirective extends Directive {
   }
 }
 
-// Export the directive so it can be used in the template
+/**
+ * A directive that spreads the properties of an object onto an element while filtering out certain properties such as events and slots.
+ */
 export const spread = directive(UUIStoryBookSpreadDirective);
