@@ -1,7 +1,7 @@
 import '.';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { renderSlots, spread } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-badge',
@@ -19,7 +19,7 @@ const meta: Meta = {
     },
   },
   render: args => {
-    return html`<uui-badge ${spread(args)}>${args.slot}</uui-badge>`;
+    return html`<uui-badge ${spread(args)}>${renderSlots(args)}</uui-badge>`;
   },
 };
 

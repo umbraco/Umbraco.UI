@@ -3,7 +3,7 @@ import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { spread, renderSlots } from '../../../storyhelpers';
 
 /**
  * For more styling options see the [base card](/docs/uui-card--docs) component.
@@ -23,9 +23,7 @@ const meta: Meta = {
   // prettier-ignore
   render: args => html`
 <uui-card-block-type ${spread(args)}>
-  ${args.slot}
-  ${args.tag}
-  ${args.actions}
+${renderSlots(args)}
 </uui-card-block-type>
   `,
   decorators: [
@@ -45,13 +43,16 @@ export const Default: Story = {};
 
 export const Tag: Story = {
   args: {
-    tag: html`<uui-tag slot="tag">Tag</uui-tag>`,
+    ['tag slot']: html`<uui-tag slot="tag">Tag</uui-tag>`,
   },
 };
 
 export const Actions: Story = {
   args: {
-    actions: html`<uui-button slot="actions" look="secondary" label="Remove"
+    ['actions slot']: html`<uui-button
+      slot="actions"
+      look="secondary"
+      label="Remove"
       >Remove</uui-button
     > `,
   },

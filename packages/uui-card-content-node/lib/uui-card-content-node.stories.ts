@@ -32,7 +32,7 @@ const meta: Meta = {
   // prettier-ignore
   render: args => html`
 <uui-card-content-node ${spread(args)}>
-${renderSlots([args.slot, args.tag, args.actions, args.icon])}
+${renderSlots(args)}
 </uui-card-content-node>
   `,
   decorators: [
@@ -52,13 +52,16 @@ export const Default: Story = {};
 
 export const Tag: Story = {
   args: {
-    tag: html`<uui-tag slot="tag">Tag</uui-tag>`,
+    ['tag slot']: html`<uui-tag slot="tag">Tag</uui-tag>`,
   },
 };
 
 export const Actions: Story = {
   args: {
-    actions: html`<uui-button slot="actions" look="secondary" label="Remove"
+    ['actions slot']: html`<uui-button
+      slot="actions"
+      look="secondary"
+      label="Remove"
       >Remove</uui-button
     >`,
   },
@@ -66,6 +69,6 @@ export const Actions: Story = {
 
 export const CustomIcon: Story = {
   args: {
-    icon: html`<uui-icon slot="icon" name="wand"></uui-icon>`,
+    ['icon slot']: html`<uui-icon slot="icon" name="wand"></uui-icon>`,
   },
 };

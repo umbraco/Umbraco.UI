@@ -1,7 +1,7 @@
 import '.';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { renderSlots, spread } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-card',
@@ -10,7 +10,11 @@ const meta: Meta = {
   args: {
     slot: 'This is an example of a simple card',
   },
-  render: args => html` <uui-card ${spread(args)}>${args.slot}</uui-card> `,
+  // prettier-ignore
+  render: args => html`
+<uui-card ${spread(args)}>
+${renderSlots(args)}
+</uui-card>`,
   decorators: [
     (Story: any) =>
       html`<div
