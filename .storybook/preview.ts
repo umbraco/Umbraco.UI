@@ -60,20 +60,23 @@ function WebComponentFormatter(customElements) {
     }
 
     // Find all names of properties
-    const propertyNames = (tag.properties || []).map(p => p.name);
+    // const propertyNames = (tag.properties || []).map(p => p.name);
 
     // Run through all slots to clean them up a bit
     for (let slot of tag.slots || []) {
       // Replace the name of the default slot so Storybook will show it
       if (typeof slot.name === 'string' && slot.name.length === 0) {
         slot.name = 'slot';
-      }
-
-      // If the slot has the same name as a property, then add the word 'slot' to the name
-      // Bug reported to Storybook here: https://github.com/storybookjs/storybook/issues/17733
-      if (propertyNames.includes(slot.name)) {
+      } else {
+        // Add slot to the name. This will allow us to filter out slots in various situations. Example the spread directive.
         slot.name = `${slot.name} slot`;
       }
+
+      // // If the slot has the same name as a property, then add the word 'slot' to the name
+      // // Bug reported to Storybook here: https://github.com/storybookjs/storybook/issues/17733
+      // if (propertyNames.includes(slot.name)) {
+      //   slot.name = `${slot.name} slot`;
+      // }
 
       // Set type of slots
       if (typeof slot.type === 'undefined' || slot.type.length === 0) {
