@@ -25,7 +25,7 @@ class UUIStoryBookSpreadDirective extends Directive {
       if (typeof props[key] === 'function') return;
 
       // Remove all slots from props
-      if (key.endsWith('slot')) {
+      if (key === 'slot' || key.endsWith(' slot')) {
         return;
       }
 
