@@ -10,7 +10,7 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent';
 //TODO maybe implement multiple selection
 
 /**
- *  Put uui-stacked-color-swatch elements inside this element to create a color swatch selector.
+ *  Put uui-color-swatch elements inside this element to create a color swatch selector.
  *  @element uui-color-swatches
  *  @slot - Default slot for content.
  *  @fires {UUIColorSwatchesEvent} change - Fires when a color swatch is selected.
@@ -34,7 +34,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   @queryAssignedElements({ selector: 'uui-color-swatch' })
-  swatches!: Array<UUIColorSwatchElement>;
+  private _swatches!: Array<UUIColorSwatchElement>;
 
   private __activeElement: UUIColorSwatchElement | undefined;
   private get _activeElement(): UUIColorSwatchElement | undefined {
@@ -74,8 +74,8 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   }
 
   private _handleSlotChange() {
-    if (!this.swatches || this.swatches.length === 0) return;
-    this.swatches.forEach(swatch => {
+    if (!this._swatches || this._swatches.length === 0) return;
+    this._swatches.forEach(swatch => {
       swatch.setAttribute('aria-checked', 'false');
       swatch.setAttribute('role', 'radio');
 
@@ -99,7 +99,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     const target = event.target as UUIColorSwatchElement;
     //react only to selectable events from UUI-Color-Swatch elements
     //? can I use instanceof here instead? that creates a dependency on the uui-color-swatch element
-    if (!this.swatches.includes(target)) return;
+    if (!this._swatches.includes(target)) return;
     if (this._selectedElement) {
       this._selectedElement.selected = false;
       this._selectedElement.active = false;
@@ -115,7 +115,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
 
   private _onDeselected = (event: Event) => {
     const target = event.target as UUIColorSwatchElement;
-    if (!this.swatches.includes(target)) return;
+    if (!this._swatches.includes(target)) return;
 
     if (this._activeElement === target) {
       this._activeElement = undefined;
@@ -137,7 +137,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
    * @memberof UUIColorSwatchesElement
    */
   resetSelection() {
-    this.swatches.forEach(swatch => {
+    this._swatches.forEach(swatch => {
       swatch.selected = false;
       swatch.active = false;
       swatch.selectable = !swatch.disabled;
