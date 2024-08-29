@@ -29,16 +29,9 @@ const meta: Meta = {
     name: 'Name',
     slot: cardContent,
   },
-  argTypes: {
-    // TODO see if we can globally disable slots and events
-    slot: { control: { disable: true } },
-    tag: { control: { disable: true } },
-    actions: { control: { disable: true } },
-    icon: { control: { disable: true } },
-  },
   // prettier-ignore
   render: args => html`
-<uui-card-content-node ${spread(args, ['slot', 'tag', 'actions', 'icon'])}>
+<uui-card-content-node ${spread(args)}>
 ${renderSlots([args.slot, args.tag, args.actions, args.icon])}
 </uui-card-content-node>
   `,

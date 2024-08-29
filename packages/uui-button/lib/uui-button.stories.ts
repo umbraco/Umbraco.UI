@@ -171,7 +171,7 @@ export const LooksAndColors: Story = {
             ${looks.map(
               look =>
                 html` <uui-button
-                  ${spread(args, ['label', 'look', 'color'])}
+                  ${spread(args)}
                   look=${look}
                   color=${color}
                   label=${uppercaseFirstLetter(look)}></uui-button>`,
@@ -180,8 +180,5 @@ export const LooksAndColors: Story = {
         `,
       )}
     `;
-  },
-  parameters: {
-    controls: { exclude: ['label', 'look', 'color'] },
   },
 };

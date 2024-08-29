@@ -10,9 +10,7 @@ const meta: Meta = {
   args: {
     slot: 'This is an example of a simple card',
   },
-  render: args => html`
-    <uui-card ${spread(args, ['slot'])}>${args.slot}</uui-card>
-  `,
+  render: args => html` <uui-card ${spread(args)}>${args.slot}</uui-card> `,
   decorators: [
     (Story: any) =>
       html`<div

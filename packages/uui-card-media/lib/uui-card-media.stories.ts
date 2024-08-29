@@ -20,7 +20,7 @@ const meta: Meta = {
   },
   // prettier-ignore
   render: args => html`
-<uui-card-media ${spread(args, ['slot', 'tag', 'actions'])}>
+<uui-card-media ${spread(args)}>
 ${renderSlots([args.slot, args.tag, args.actions])}
 </uui-card-media>
   `,

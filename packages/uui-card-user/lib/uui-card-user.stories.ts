@@ -22,7 +22,7 @@ const meta: Meta = {
   },
   // prettier-ignore
   render: args => html`
-<uui-card-user ${spread(args, ['slot', 'tag', 'actions'])}>
+<uui-card-user ${spread(args)}>
 ${renderSlots([args.slot, args.tag, args.actions])}
 </uui-card-user>
   `,
@@ -51,7 +51,7 @@ export const Avatar: Story = {
   },
   // prettier-ignore
   render: args => html`
-<uui-card-user ${spread(args, ['slot', 'tag', 'actions'])}>
+<uui-card-user ${spread(args)}>
   <uui-avatar
     slot="avatar"
     size="m"

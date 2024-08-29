@@ -19,13 +19,10 @@ const meta: Meta = {
   },
   argTypes: {
     background: { control: { type: 'color' } },
-    slot: { control: { disable: true } },
-    tag: { control: { disable: true } },
-    actions: { control: { disable: true } },
   },
   // prettier-ignore
   render: args => html`
-<uui-card-block-type ${spread(args, ['slot', 'tag', 'actions'])}>
+<uui-card-block-type ${spread(args)}>
   ${args.slot}
   ${args.tag}
   ${args.actions}

@@ -19,7 +19,7 @@ const meta: Meta = {
     },
   },
   render: args => {
-    return html`<uui-badge ${spread(args, ['slot'])}>${args.slot}</uui-badge>`;
+    return html`<uui-badge ${spread(args)}>${args.slot}</uui-badge>`;
   },
 };
 
@@ -49,7 +49,7 @@ export const Attention: Story = {
 export const Icon: Story = {
   ...Default,
   render: args => {
-    return html`<uui-badge ${spread(args, ['slot'])}>
+    return html`<uui-badge ${spread(args)}>
       <uui-icon name="favorite"></uui-icon>
     </uui-badge>`;
   },

@@ -17,8 +17,7 @@ const meta: Meta = {
     },
   },
   render: args => {
-    return html`<uui-box
-      ${spread(args, ['headline slot', 'header', 'header-actions', 'slot'])}>
+    return html`<uui-box ${spread(args)}>
       ${args['headline slot']
         ? html`<div slot="headline">${args['headline slot']}</div>`
         : nothing}
