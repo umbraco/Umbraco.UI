@@ -18,7 +18,9 @@ function renderSlots(
   if (Array.isArray(param)) {
     slots = param;
   } else {
-    const slotKeys = Object.keys(param).filter(key => key.endsWith('slot'));
+    const slotKeys = Object.keys(param).filter(
+      key => key === 'slot' || key.endsWith(' slot'),
+    );
     slots = slotKeys.map(key => param[key]);
   }
 
