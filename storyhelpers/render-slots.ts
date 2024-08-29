@@ -1,5 +1,8 @@
 import { html, nothing, TemplateResult } from 'lit';
 
+/**
+ * Render a list of slots, filtering out any null or undefined slots to prevent empty lines.
+ */
 export function renderSlots(
   slots: TemplateResult[],
 ): TemplateResult | typeof nothing {
