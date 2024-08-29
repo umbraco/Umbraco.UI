@@ -20,12 +20,10 @@ const meta: Meta = {
   argTypes: {
     background: { control: { type: 'color' } },
   },
-  // prettier-ignore
-  render: args => html`
-<uui-card-block-type ${spread(args)}>
-${renderSlots(args)}
-</uui-card-block-type>
-  `,
+  render: args =>
+    html`<uui-card-block-type ${spread(args)}
+      >${renderSlots(args)}</uui-card-block-type
+    >`,
   decorators: [
     (Story: any) =>
       html`<div
@@ -43,13 +41,13 @@ export const Default: Story = {};
 
 export const Tag: Story = {
   args: {
-    ['tag slot']: html`<uui-tag slot="tag">Tag</uui-tag>`,
+    'tag slot': html`<uui-tag slot="tag">Tag</uui-tag>`,
   },
 };
 
 export const Actions: Story = {
   args: {
-    ['actions slot']: html`<uui-button
+    'actions slot': html`<uui-button
       slot="actions"
       look="secondary"
       label="Remove"

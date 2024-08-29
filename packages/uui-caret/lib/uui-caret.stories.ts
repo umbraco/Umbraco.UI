@@ -1,7 +1,7 @@
 import '.';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { spread } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-caret',

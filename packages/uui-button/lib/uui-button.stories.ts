@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { spread, renderSlots } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-button',
@@ -47,7 +47,7 @@ const meta: Meta = {
     '--uui-button-transition': { control: { type: 'text' } },
   },
   render: args => {
-    return html`<uui-button ${spread(args)}></uui-button>`;
+    return html`<uui-button ${spread(args)}>${renderSlots(args)}</uui-button>`;
   },
 };
 
@@ -74,23 +74,26 @@ export const Anchor: Story = {
   },
 };
 
-export const Badge: Story = {
+const withSlots: Story = {
+  // prettier-ignore
   render: args => {
-    return html`<uui-button ${spread(args)}>
-      <uui-badge color="danger">2</uui-badge>
-      Button
-    </uui-button> `;
+    return html`
+<uui-button ${spread(args)}>
+  Button${renderSlots(args)}</uui-button>`;
+  },
+};
+
+export const Badge: Story = {
+  ...withSlots,
+  args: {
+    slot: html`<uui-badge color="danger">2</uui-badge>`,
   },
 };
 
 export const Icon: Story = {
-  render: args => {
-    return html`
-      <uui-button ${spread(args)}>
-        <uui-icon name="favorite"></uui-icon>
-        Button
-      </uui-button>
-    `;
+  ...withSlots,
+  args: {
+    slot: html`<uui-icon name="favorite"></uui-icon>`,
   },
 };
 
@@ -101,11 +104,12 @@ export const IconSolo: Story = {
   args: {
     compact: true,
   },
+  // prettier-ignore
   render: args => {
     return html`
-      <uui-button ${spread(args)}>
-        <uui-icon name="favorite"></uui-icon>
-      </uui-button>
+<uui-button ${spread(args)}>
+  <uui-icon name="favorite"></uui-icon>
+</uui-button>
     `;
   },
 };
@@ -137,15 +141,17 @@ export const ContentAlign: Story = {
 };
 
 export const SlottedContent: Story = {
+  ...withSlots,
+  // prettier-ignore
   render: args => {
     return html`
-      <uui-button ${spread(args)}>
-        <div
-          style="display: flex; flex-direction: column; align-items: center; gap: 3px">
-          <uui-icon name="settings"></uui-icon>
-          Settings
-        </div>
-      </uui-button>
+<uui-button ${spread(args)}>
+  <div
+    style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+    <uui-icon name="settings"></uui-icon>
+    Settings
+  </div>
+</uui-button>
     `;
   },
 };

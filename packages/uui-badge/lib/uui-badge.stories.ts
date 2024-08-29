@@ -18,6 +18,7 @@ const meta: Meta = {
       options: ['default', 'positive', 'warning', 'danger'],
     },
   },
+
   render: args => {
     return html`<uui-badge ${spread(args)}>${renderSlots(args)}</uui-badge>`;
   },
@@ -48,10 +49,8 @@ export const Attention: Story = {
 
 export const Icon: Story = {
   ...Default,
-  render: args => {
-    return html`<uui-badge ${spread(args)}>
-      <uui-icon name="favorite"></uui-icon>
-    </uui-badge>`;
+  args: {
+    slot: html`<uui-icon name="favorite"></uui-icon>`,
   },
 };
 

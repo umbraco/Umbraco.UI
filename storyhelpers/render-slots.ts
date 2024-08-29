@@ -5,7 +5,7 @@ import { html, nothing, TemplateResult } from 'lit';
  * Render a list of slots, filtering out any null or undefined slots to prevent empty lines.
  * Accepts an array of TemplateResults or an Args object. If an Args object is provided, it will render any properties that end with 'slot'.
  */
-
+// TODO: add a way to control the new lines. Eg exclude newlines: before, after, between as an array
 function renderSlots(args: Args): TemplateResult | typeof nothing;
 function renderSlots(
   param: TemplateResult[] | Args,
@@ -31,10 +31,11 @@ function renderSlots(
   }
 
   // Join slots with consistent formatting; no extra line breaks between them
-  // prettier-ignore
   const spacing = '  ';
   const formattedSlots = validSlots.map(
-    (slot, index) => html`${index === 0 ? '' : '\n'}${spacing}${slot}`,
+    (slot, index) =>
+      // eslint-disable-next-line lit/no-useless-template-literals
+      html`${'\n'}${spacing}${slot}${index === slots.length - 1 ? '\n' : ''}`,
   );
 
   // Return the combined template results

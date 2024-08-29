@@ -10,11 +10,8 @@ const meta: Meta = {
   args: {
     slot: 'This is an example of a simple card',
   },
-  // prettier-ignore
-  render: args => html`
-<uui-card ${spread(args)}>
-${renderSlots(args)}
-</uui-card>`,
+  render: args =>
+    html`<uui-card ${spread(args)}>${renderSlots(args)}</uui-card>`,
   decorators: [
     (Story: any) =>
       html`<div

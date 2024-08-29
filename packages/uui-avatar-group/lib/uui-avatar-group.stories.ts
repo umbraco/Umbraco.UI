@@ -1,7 +1,7 @@
 import '.';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { spread } from '../../../storyhelpers';
 
 import '@umbraco-ui/uui-badge/lib';
 

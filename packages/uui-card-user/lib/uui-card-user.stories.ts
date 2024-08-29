@@ -20,12 +20,8 @@ const meta: Meta = {
     name: 'John Rabbit',
     slot: cardContent,
   },
-  // prettier-ignore
-  render: args => html`
-<uui-card-user ${spread(args)}>
-${renderSlots([args.slot, args.tag, args.actions])}
-</uui-card-user>
-  `,
+  render: args =>
+    html`<uui-card-user ${spread(args)}>${renderSlots(args)}</uui-card-user>`,
   decorators: [
     (Story: any) =>
       html`<div
@@ -42,13 +38,6 @@ type Story = StoryObj;
 export const Default: Story = {};
 
 export const Avatar: Story = {
-  args: {
-    slot: html`<uui-avatar
-      slot="avatar"
-      size="m"
-      name="John Rabbit"
-      img-src="https://placedog.net/120/?random"></uui-avatar>`,
-  },
   // prettier-ignore
   render: args => html`
 <uui-card-user ${spread(args)}>
@@ -64,13 +53,16 @@ export const Avatar: Story = {
 
 export const Tag: Story = {
   args: {
-    tag: html`<uui-tag slot="tag">Tag</uui-tag>`,
+    'tag slot': html`<uui-tag slot="tag">Tag</uui-tag>`,
   },
 };
 
 export const Actions: Story = {
   args: {
-    actions: html`<uui-button slot="actions" look="secondary" label="Remove"
+    'actions slot': html`<uui-button
+      slot="actions"
+      look="secondary"
+      label="Remove"
       >Remove</uui-button
     >`,
   },

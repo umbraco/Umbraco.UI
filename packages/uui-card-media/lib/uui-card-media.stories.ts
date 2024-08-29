@@ -18,12 +18,8 @@ const meta: Meta = {
     name: 'The card',
     fileExt: 'jpg',
   },
-  // prettier-ignore
-  render: args => html`
-<uui-card-media ${spread(args)}>
-${renderSlots([args.slot, args.tag, args.actions])}
-</uui-card-media>
-  `,
+  render: args =>
+    html`<uui-card-media ${spread(args)}>${renderSlots(args)}</uui-card-media>`,
   decorators: [
     (Story: any) =>
       html`<div
@@ -38,6 +34,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+
 export const Folder: Story = {
   args: {
     fileExt: '',
@@ -46,13 +43,16 @@ export const Folder: Story = {
 
 export const Tag: Story = {
   args: {
-    tag: html`<uui-tag slot="tag">Tag</uui-tag>`,
+    'tag slot': html`<uui-tag slot="tag">Tag</uui-tag>`,
   },
 };
 
 export const Actions: Story = {
   args: {
-    actions: html`<uui-button slot="actions" look="secondary" label="Remove"
+    'actions slot': html`<uui-button
+      slot="actions"
+      look="secondary"
+      label="Remove"
       >Remove</uui-button
     >`,
   },

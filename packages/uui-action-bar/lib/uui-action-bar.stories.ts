@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { spread } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-action-bar',
@@ -12,7 +12,6 @@ const meta: Meta = {
   title: 'Buttons/Action Bar',
   args: {
     look: 'primary',
-    color: 'default',
   },
   argTypes: {
     look: {
@@ -30,26 +29,31 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
-  render: args => {
-    const buttons = ['copy', 'remove', 'delete'];
-    return html`<uui-action-bar>
-      ${buttons.map(
-        el =>
-          html`<uui-button ${spread(args)} label="${el}">
-            <uui-icon name="${el}"></uui-icon>
-          </uui-button>`,
-      )}
-    </uui-action-bar>`;
-  },
+  // prettier-ignore
+  render: args => html`
+<uui-action-bar>
+  <uui-button ${spread(args)} label="copy">
+    <uui-icon name="copy"></uui-icon>
+  </uui-button>
+  <uui-button ${spread(args)} label="remove">
+    <uui-icon name="remove"> </uui-icon>
+  </uui-button>
+  <uui-button ${spread(args)} label="delete">
+    <uui-icon name="delete"></uui-icon>
+  </uui-button>
+</uui-action-bar>
+  `,
 };
 
 export const Single: Story = {
+  // prettier-ignore
   render: args => {
-    return html`<uui-action-bar>
-      <uui-button ${spread(args)} label="trash">
-        <uui-icon name="delete"></uui-icon>
-      </uui-button>
-    </uui-action-bar>`;
+    return html`
+<uui-action-bar>
+  <uui-button ${spread(args)} label="trash">
+    <uui-icon name="delete"></uui-icon>
+  </uui-button>
+</uui-action-bar>`;
   },
 };
 

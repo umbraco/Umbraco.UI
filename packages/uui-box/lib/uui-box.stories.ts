@@ -1,7 +1,7 @@
 import '.';
 import { html, nothing } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { spread } from '../../../storyhelpers/spread-directive';
+import { spread } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-box',
@@ -9,6 +9,11 @@ const meta: Meta = {
   title: 'Layout/Box',
   args: {},
   argTypes: {
+    headline: {
+      control: {
+        type: 'text',
+      },
+    },
     headlineVariant: {
       control: {
         type: 'select',
@@ -21,11 +26,11 @@ const meta: Meta = {
       ${args['headline slot']
         ? html`<div slot="headline">${args['headline slot']}</div>`
         : nothing}
-      ${args['header']
-        ? html`<div slot="header">${args['header']}</div>`
+      ${args['header slot']
+        ? html`<div slot="header">${args['header slot']}</div>`
         : nothing}
-      ${args['header-actions']
-        ? html`<div slot="header-actions">${args['header-actions']}</div>`
+      ${args['header-actions slot']
+        ? html`<div slot="header-actions">${args['header-actions slot']}</div>`
         : nothing}
       ${args['slot']}
     </uui-box>`;
@@ -46,7 +51,7 @@ export const Slots: Story = {
   args: {
     slot: 'Default slot',
     'headline slot': 'Headline Slot',
-    header: 'Header Slot',
-    'header-actions': 'Header actions slot',
+    'header slot': 'Header Slot',
+    'header-actions slot': 'Header actions slot',
   },
 };
