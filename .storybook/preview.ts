@@ -59,6 +59,11 @@ function WebComponentFormatter(customElements) {
       }
     }
 
+    // add 'Event' to the name of all events
+    for (let event of tag.events || []) {
+      event.name = `${event.name} event`;
+    }
+
     // Find all names of properties
     // const propertyNames = (tag.properties || []).map(p => p.name);
 
