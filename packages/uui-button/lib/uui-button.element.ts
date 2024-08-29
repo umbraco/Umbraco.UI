@@ -57,7 +57,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
 ) {
   /**
    * Specifies the type of button
-   * @type { "submit" | "button" | "reset" }
+   * @type {"submit" | "button" | "reset"}
    * @attr
    * @default "button"
    */
