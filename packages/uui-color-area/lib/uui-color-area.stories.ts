@@ -10,7 +10,7 @@ const meta: Meta = {
   argTypes: {
     value: { control: 'color' },
   },
-  render: props => html`<uui-color-area ${spread(props)}></uui-color-area>`,
+  render: args => html`<uui-color-area ${spread(args)}></uui-color-area>`,
 };
 
 export default meta;

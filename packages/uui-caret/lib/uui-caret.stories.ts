@@ -7,7 +7,7 @@ const meta: Meta = {
   id: 'uui-caret',
   component: 'uui-caret',
   title: 'Symbols/Caret',
-  render: props => html`<uui-caret ${spread(props)}></uui-caret>`,
+  render: args => html`<uui-caret ${spread(args)}></uui-caret>`,
 };
 
 export default meta;
