@@ -14,6 +14,7 @@ import '@umbraco-ui/uui-avatar/lib';
 import { repeat } from 'lit/directives/repeat.js';
 import { useArgs } from '@storybook/preview-api';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
+import { until } from 'lit/directives/until.js';
 
 const fruits = [
   'apple',
@@ -73,15 +74,20 @@ const meta: Meta = {
       setValue(args);
     };
 
+    const renderFilteredOptions = async () => {
+      const filteredOptions = await args.filter(
+        args.options,
+        args.search ?? '',
+      );
+      return repeat(filteredOptions, args.listItemRenderer);
+    };
+
     return html`<uui-combobox
         ${spread(args, ['options', 'listItemRenderer', 'filter'])}
         @search=${onSearch}
         @change=${onSelect}>
         <uui-combobox-list>
-          ${repeat(
-            args.filter(args.options, args.search ?? ''),
-            args.listItemRenderer,
-          )}
+          ${until(renderFilteredOptions(), html`Searching...`)}
         </uui-combobox-list>
       </uui-combobox>
 
@@ -271,5 +277,28 @@ export const Countries: Story = {
       </uui-combobox>
 
       <span style="margin-left: 16px">Selected value: ${args.value}</span> `;
+  },
+};
+
+const fakeApi = (search: string) => {
+  if (search === '') return [];
+
+  return new Promise(resolve =>
+    setTimeout(() => {
+      const filteredData = fruits.filter(item =>
+        item.toLowerCase().includes(search.toLowerCase()),
+      );
+      resolve(filteredData);
+    }, 500),
+  );
+};
+
+export const Async: Story = {
+  args: {
+    async: true,
+    options: [],
+    filter: async (_options: any, search: string) => {
+      return await fakeApi(search);
+    },
   },
 };
