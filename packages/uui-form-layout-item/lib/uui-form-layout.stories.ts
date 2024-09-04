@@ -9,6 +9,9 @@ import '@umbraco-ui/uui-form/lib';
 import '@umbraco-ui/uui-label/lib';
 import '@umbraco-ui/uui-input/lib';
 
+// TODO: Figure out why we now need to import everything that every component uses
+import '@umbraco-ui/uui-form-validation-message/lib';
+
 const meta: Meta = {
   id: 'uui-form-layout-item',
   component: 'uui-form-layout-item',
