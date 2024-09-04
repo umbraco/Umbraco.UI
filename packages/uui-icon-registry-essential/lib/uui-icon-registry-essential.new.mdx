@@ -1,0 +1,21 @@
+import { Meta, Canvas, IconGallery, IconItem } from '@storybook/blocks';
+import * as icons from './svgs';
+
+<Meta title="Symbols/Icon Registry Essential" />
+
+# Icon Registry Essential
+
+<uui-icon-registry-essential>
+  <IconGallery>
+    {Object.entries(icons).map(([name]) => {
+      const processedName = name.replace('icon', '').toLowerCase();
+
+      return (
+        <IconItem name={processedName} key={processedName}>
+          <uui-icon name={processedName}></uui-icon>
+        </IconItem>
+      );
+    })}
+
+  </IconGallery>
+</uui-icon-registry-essential>
