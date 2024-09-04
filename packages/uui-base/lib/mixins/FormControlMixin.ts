@@ -207,7 +207,7 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
-      this.pristine = false;
+      this.setAttribute('pristine', '');
 
       this.addValidator(
         'valueMissing',
