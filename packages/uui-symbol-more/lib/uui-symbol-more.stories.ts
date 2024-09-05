@@ -1,0 +1,15 @@
+import '.';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+
+const meta: Meta = {
+  id: 'uui-symbol-more',
+  component: 'uui-symbol-more',
+  title: 'Symbols/More',
+  render: () => html`<uui-symbol-more></uui-symbol-more>`,
+};
+
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};
