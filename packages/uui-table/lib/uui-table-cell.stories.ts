@@ -1,7 +1,6 @@
 import '.';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
 import '@umbraco-ui/uui-input/lib';
 
