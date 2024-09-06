@@ -46,11 +46,10 @@
     "pack-all-no-build": "node ./scripts/pack-packages.js",
     "pack": "node ./scripts/pack-package.js",
     "chromatic": "npx chromatic --build-script-name storybook:build",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "npm run bootstrap && npm run storybook:analyze && storybook dev -p 6006",
     "storybook:build": "npm run bootstrap && npm run storybook:analyze && storybook build",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
-    "postinstall": "npm run bootstrap",
-    "build-storybook": "storybook build"
+    "postinstall": "npm run bootstrap"
   },
   "engines": {
     "node": ">=20.9 <21",
