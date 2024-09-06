@@ -1,5 +1,6 @@
 import '@umbraco-ui/uui-dialog-layout/lib';
 import '.';
+import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import './modal-example.element';

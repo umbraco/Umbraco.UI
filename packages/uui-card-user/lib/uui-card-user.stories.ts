@@ -1,4 +1,5 @@
 import '.';
+import readme from '../README.md?raw';
 import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-avatar/lib/index';

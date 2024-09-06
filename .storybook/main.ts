@@ -19,6 +19,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
+    '../storyhelpers/storybook-readme',
   ],
   framework: {
     name: getAbsolutePath('@storybook/web-components-vite'),

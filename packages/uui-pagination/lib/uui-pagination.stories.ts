@@ -1,4 +1,5 @@
 import '.';
+import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Args, Meta, StoryObj } from '@storybook/web-components';
 import { spread } from '../../../storyhelpers';

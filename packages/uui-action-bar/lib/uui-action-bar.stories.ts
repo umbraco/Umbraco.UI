@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import '.';
+import readme from '../README.md?raw';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
