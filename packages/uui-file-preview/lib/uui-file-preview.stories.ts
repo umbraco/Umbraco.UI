@@ -1,6 +1,6 @@
 import '.';
 import readme from '../README.md?raw';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { renderSlots, spread } from '../../../storyhelpers';
 

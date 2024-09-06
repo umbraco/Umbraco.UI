@@ -3,7 +3,6 @@ import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { renderSlots, spread } from '../../../storyhelpers';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   id: 'uui-tag',

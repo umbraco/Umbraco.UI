@@ -58,7 +58,7 @@ export const SlottedLabel: Story = {
 };
 
 export const Indeterminate: Story = {
-  render: args => {
+  render: () => {
     const fruits = ['apple', 'banana', 'mango'];
     const [value, setValue] = useState(['mango']);
 

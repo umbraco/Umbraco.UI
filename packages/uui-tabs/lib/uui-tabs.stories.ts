@@ -2,7 +2,6 @@ import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { useState } from '@storybook/preview-api';
 
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';

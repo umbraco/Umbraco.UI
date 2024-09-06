@@ -2,7 +2,7 @@ import '.';
 import readme from '../README.md?raw';
 import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
-import { html, nothing, TemplateResult } from 'lit';
+import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { spread, renderSlots } from '../../../storyhelpers';
 
