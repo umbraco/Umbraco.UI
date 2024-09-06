@@ -15,6 +15,11 @@ const meta: Meta = {
   },
   render: args =>
     html`<uui-checkbox ${spread(args)}>${renderSlots(args)}</uui-checkbox>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

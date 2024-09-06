@@ -26,6 +26,11 @@ const meta: Meta = {
     '--uui-tab-padding-horizontal': { control: { type: 'text' } },
     inlineStyles: { control: { type: 'text' } },
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

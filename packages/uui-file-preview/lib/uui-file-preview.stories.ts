@@ -20,6 +20,11 @@ const meta: Meta = {
     html`<uui-file-preview ${spread(args)}
       >${renderSlots(args)}</uui-file-preview
     >`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

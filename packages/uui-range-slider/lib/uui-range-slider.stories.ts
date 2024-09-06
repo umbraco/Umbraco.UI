@@ -16,6 +16,11 @@ const meta: Meta = {
     label: 'range',
   },
   render: args => html`<uui-range-slider ${spread(args)}></uui-range-slider>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

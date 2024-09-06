@@ -8,6 +8,11 @@ const meta: Meta = {
   id: 'uui-pagination',
   component: 'uui-pagination',
   title: 'Buttons/Pagination',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

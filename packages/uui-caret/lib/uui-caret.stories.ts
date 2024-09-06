@@ -9,6 +9,11 @@ const meta: Meta = {
   component: 'uui-caret',
   title: 'Symbols/Caret',
   render: args => html`<uui-caret ${spread(args)}></uui-caret>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

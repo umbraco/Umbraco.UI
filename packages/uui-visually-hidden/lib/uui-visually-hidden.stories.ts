@@ -7,6 +7,11 @@ const meta: Meta = {
   id: 'uui-visually-hidden',
   component: 'uui-visually-hidden',
   title: 'Displays/Visually Hidden',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

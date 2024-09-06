@@ -16,6 +16,11 @@ const meta: Meta = {
   },
   render: args =>
     html`<uui-input-lock ${spread(args)}>${renderSlots(args)}</uui-input-lock>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

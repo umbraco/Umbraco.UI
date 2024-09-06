@@ -36,6 +36,11 @@ const meta: Meta = {
       ${args['slot']}
     </uui-box>`;
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

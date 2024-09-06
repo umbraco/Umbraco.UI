@@ -8,6 +8,11 @@ const meta: Meta = {
   id: 'uui-button-inline-create',
   component: 'uui-button-inline-create',
   title: 'Buttons/Button Inline Create',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

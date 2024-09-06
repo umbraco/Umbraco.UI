@@ -23,6 +23,11 @@ const meta: Meta = {
   render: args => {
     return html`<uui-badge ${spread(args)}>${renderSlots(args)}</uui-badge>`;
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

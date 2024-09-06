@@ -50,6 +50,11 @@ const meta: Meta = {
   render: args => {
     return html`<uui-button ${spread(args)}>${renderSlots(args)}</uui-button>`;
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

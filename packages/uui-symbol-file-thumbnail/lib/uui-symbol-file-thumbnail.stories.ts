@@ -19,6 +19,11 @@ const meta: Meta = {
     story =>
       html`<div style="max-width: 300px; max-height: 300px">${story()}</div>`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

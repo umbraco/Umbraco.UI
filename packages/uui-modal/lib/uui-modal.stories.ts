@@ -9,6 +9,11 @@ const meta: Meta = {
   id: 'uui-modal',
   component: 'uui-modal',
   title: 'Layout/Modals',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

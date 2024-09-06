@@ -19,6 +19,11 @@ const meta: Meta = {
     '--uui-tag-border-color': { control: { type: 'text' } },
   },
   render: args => html`<uui-tag ${spread(args)}>${renderSlots(args)}</uui-tag>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

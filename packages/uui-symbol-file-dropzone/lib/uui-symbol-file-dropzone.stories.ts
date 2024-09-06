@@ -10,6 +10,11 @@ const meta: Meta = {
   title: 'Symbols/File Dropzone',
   render: args =>
     html`<uui-symbol-file-dropzone ${spread(args)}></uui-symbol-file-dropzone>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

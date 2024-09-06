@@ -25,6 +25,11 @@ const meta: Meta = {
         >${renderSlots(args)}</uui-toast-notification-layout
       ></uui-toast-notification
     >`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

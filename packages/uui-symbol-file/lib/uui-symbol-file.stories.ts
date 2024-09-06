@@ -13,6 +13,11 @@ const meta: Meta = {
   },
   render: args => html`<uui-symbol-file ${spread(args)}></uui-symbol-file>`,
   decorators: [story => html`<div style="width: 240px">${story()}</div>`],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

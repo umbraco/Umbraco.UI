@@ -33,6 +33,11 @@ const meta: Meta = {
     },
   },
   render: args => html`<uui-color-picker ${spread(args)}></uui-color-picker>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

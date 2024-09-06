@@ -22,6 +22,11 @@ const meta: Meta = {
     html`<uui-loader-circle
       style="color: ${args.color}; font-size: ${args['font-size']}"
       ${spread(args, ['color', 'font-size'])}></uui-loader-circle>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

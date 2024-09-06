@@ -32,6 +32,11 @@ const meta: Meta = {
   id: 'uui-form',
   component: 'uui-form',
   title: 'Inputs/Form/Form',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

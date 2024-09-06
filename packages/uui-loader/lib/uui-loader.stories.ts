@@ -11,6 +11,11 @@ const meta: Meta = {
     color: 'color: #006eff',
   },
   render: args => html`<uui-loader style="color: ${args.color}"></uui-loader>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

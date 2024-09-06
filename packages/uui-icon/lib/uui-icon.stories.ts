@@ -18,6 +18,11 @@ const meta: Meta = {
         ${renderSlots(args)}
       </uui-icon>
     </uui-icon-registry-essential>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

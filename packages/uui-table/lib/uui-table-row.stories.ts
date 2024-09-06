@@ -29,6 +29,11 @@ const meta: Meta = {
       </uui-table-row>
     </uui-table>
   `,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

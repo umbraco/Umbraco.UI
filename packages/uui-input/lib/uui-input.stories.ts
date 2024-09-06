@@ -34,6 +34,11 @@ const meta: Meta = {
       ],
     },
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

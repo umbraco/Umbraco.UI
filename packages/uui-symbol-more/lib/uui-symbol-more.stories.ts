@@ -8,6 +8,11 @@ const meta: Meta = {
   component: 'uui-symbol-more',
   title: 'Symbols/More',
   render: () => html`<uui-symbol-more></uui-symbol-more>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

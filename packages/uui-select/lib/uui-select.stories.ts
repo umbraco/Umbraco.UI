@@ -15,6 +15,9 @@ const meta: Meta = {
   },
   render: args => html`<uui-select ${spread(args)}></uui-select>`,
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     docs: {
       source: {
         format: false,

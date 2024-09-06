@@ -18,6 +18,11 @@ const meta: Meta = {
     '--uui-textarea-background-color': { control: { type: 'color' } },
   },
   render: args => html`<uui-textarea ${spread(args)}></uui-textarea>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

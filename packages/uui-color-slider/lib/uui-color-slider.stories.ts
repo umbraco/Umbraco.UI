@@ -15,6 +15,11 @@ const meta: Meta = {
     },
   },
   render: args => html`<uui-color-slider ${spread(args)}></uui-color-slider>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

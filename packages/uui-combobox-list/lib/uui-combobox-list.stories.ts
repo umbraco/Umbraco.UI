@@ -14,6 +14,11 @@ const meta: Meta = {
       <uui-combobox-list-option>orange</uui-combobox-list-option>
       <uui-combobox-list-option>lemon</uui-combobox-list-option>
     </uui-combobox-list>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

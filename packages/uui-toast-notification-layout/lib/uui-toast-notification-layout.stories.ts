@@ -15,6 +15,11 @@ const meta: Meta = {
   decorators: [
     (Story: any) => html`<div style="max-width:200px;">${Story()}</div>`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

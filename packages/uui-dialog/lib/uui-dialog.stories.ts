@@ -13,6 +13,11 @@ const meta: Meta = {
   title: 'Displays/Dialog/Dialog',
   render: args =>
     html`<uui-dialog ${spread(args)}>${renderSlots(args)}</uui-dialog>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

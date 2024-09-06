@@ -26,6 +26,11 @@ const meta: Meta = {
       <uui-avatar name="Jesper Møller Jensen"></uui-avatar>
     </uui-avatar-group>`;
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

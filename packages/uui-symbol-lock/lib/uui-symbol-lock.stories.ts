@@ -14,6 +14,11 @@ const meta: Meta = {
       @click=${(e: MouseEvent) => {
         (e.target as any).open = !(e.target as any).open;
       }}></uui-symbol-lock>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

@@ -21,6 +21,11 @@ const meta: Meta = {
     html`<uui-form-layout-item ${spread(args)}
       >${renderSlots(args)}</uui-form-layout-item
     >`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

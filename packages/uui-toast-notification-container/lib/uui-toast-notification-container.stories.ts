@@ -9,6 +9,11 @@ const meta: Meta = {
   id: 'uui-toast-notification-container',
   component: 'uui-toast-notification-container',
   title: 'Displays/Toast Notification/Toast Notification Container',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

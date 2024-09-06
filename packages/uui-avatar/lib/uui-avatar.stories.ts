@@ -16,6 +16,11 @@ const meta: Meta = {
   render: args => {
     return html`<uui-avatar ${spread(args)}></uui-avatar>`;
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

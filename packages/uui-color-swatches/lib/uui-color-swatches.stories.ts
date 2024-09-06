@@ -36,6 +36,11 @@ const meta: Meta = {
   })}
 </uui-color-swatches>
   `,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

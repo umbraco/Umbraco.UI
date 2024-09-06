@@ -12,6 +12,11 @@ const meta: Meta = {
     label: 'Label',
   },
   render: args => html`<uui-radio ${spread(args)}></uui-radio>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

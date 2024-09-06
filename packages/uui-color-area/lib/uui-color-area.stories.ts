@@ -12,6 +12,11 @@ const meta: Meta = {
     value: { control: 'color' },
   },
   render: args => html`<uui-color-area ${spread(args)}></uui-color-area>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

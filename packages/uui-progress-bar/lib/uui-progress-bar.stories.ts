@@ -9,6 +9,11 @@ const meta: Meta = {
   component: 'uui-progress-bar',
   title: 'Displays/Progress Bar',
   render: args => html`<uui-progress-bar ${spread(args)}></uui-progress-bar>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

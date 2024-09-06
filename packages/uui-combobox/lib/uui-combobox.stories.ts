@@ -57,6 +57,9 @@ const meta: Meta = {
       ),
   },
   parameters: {
+    readme: {
+      markdown: readme,
+    },
     controls: {
       exclude: ['listItemRenderer', 'filter'],
     },

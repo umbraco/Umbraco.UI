@@ -7,6 +7,11 @@ const meta: Meta = {
   id: 'uui-form-validation-message',
   component: 'uui-form-validation-message',
   title: 'Inputs/Form/Form Validation Message',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

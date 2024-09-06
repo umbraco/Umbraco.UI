@@ -7,6 +7,11 @@ const meta: Meta = {
   id: 'uui-scroll-container',
   component: 'uui-scroll-container',
   title: 'Displays/Scroll Container',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

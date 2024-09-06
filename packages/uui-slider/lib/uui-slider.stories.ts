@@ -24,6 +24,11 @@ const meta: Meta = {
     },
   },
   render: args => html`<uui-slider ${spread(args)}></uui-slider>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

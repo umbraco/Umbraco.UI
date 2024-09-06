@@ -34,6 +34,11 @@ const meta: Meta = {
       >${renderSlots(args)}</uui-menu-item
     >`,
   decorators: [story => html`<div style="max-width: 400px">${story()}</div>`],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

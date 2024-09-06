@@ -19,6 +19,11 @@ const meta: Meta = {
   component: 'uui-input-file',
   title: 'Inputs/Files/Input File',
   render: args => html`<uui-input-file ${spread(args)}></uui-input-file>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

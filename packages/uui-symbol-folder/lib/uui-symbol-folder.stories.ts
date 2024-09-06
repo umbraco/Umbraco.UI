@@ -8,6 +8,11 @@ const meta: Meta = {
   component: 'uui-symbol-folder',
   title: 'Symbols/Folder',
   render: () => html`<uui-symbol-folder></uui-symbol-folder>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

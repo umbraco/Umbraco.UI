@@ -19,6 +19,11 @@ const meta: Meta = {
     html`<uui-color-swatch ${spread(args)}
       >${renderSlots(args)}</uui-color-swatch
     >`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

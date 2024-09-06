@@ -21,6 +21,11 @@ const meta: Meta = {
       <uui-key>z</uui-key>
     </uui-keyboard-shortcut>
   `,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

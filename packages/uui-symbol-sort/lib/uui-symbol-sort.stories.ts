@@ -8,6 +8,11 @@ const meta: Meta = {
   id: 'uui-symbol-sort',
   component: 'uui-symbol-sort',
   title: 'Symbols/Sort',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

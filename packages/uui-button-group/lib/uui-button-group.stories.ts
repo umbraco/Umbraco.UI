@@ -15,6 +15,11 @@ const meta: Meta = {
       <uui-button look="primary" color="danger" label="Delete"></uui-button>
     </uui-button-group>
   `,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

@@ -18,6 +18,11 @@ const meta: Meta = {
     html`<uui-input-password ${spread(args)}
       >${renderSlots(args)}</uui-input-password
     >`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

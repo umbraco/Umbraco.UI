@@ -14,6 +14,11 @@ const meta: Meta = {
   id: 'uui-ref-list',
   component: 'uui-ref-list',
   title: 'Displays/Reference List',
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

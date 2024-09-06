@@ -17,6 +17,11 @@ const meta: Meta = {
   render: args =>
     html`<uui-label ${spread(args)}>${renderSlots(args)}</uui-label>
       <uui-input id="MyInput" label="My A11Y Label"></uui-input>`,
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

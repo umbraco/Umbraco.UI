@@ -24,6 +24,11 @@ const meta: Meta = {
         </div>
         ${Story()}`,
   ],
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

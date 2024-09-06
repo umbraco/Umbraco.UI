@@ -24,6 +24,11 @@ const meta: Meta = {
       options: ['default', 'positive', 'warning', 'danger'],
     },
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;

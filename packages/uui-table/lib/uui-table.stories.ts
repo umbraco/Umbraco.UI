@@ -18,6 +18,11 @@ const meta: Meta = {
     UUITableRow: 'uui-table-row',
     UUITableCell: 'uui-table-cell',
   },
+  parameters: {
+    readme: {
+      markdown: readme,
+    },
+  },
 };
 
 export default meta;
