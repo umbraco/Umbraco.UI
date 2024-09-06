@@ -80,13 +80,13 @@ export class UUIFormValidationMessageElement extends LitElement {
     } else {
       this._messages.delete(ctrl);
     }
-    this.requestUpdate();
+    this.requestUpdate('_messages');
   };
 
   private _onControlValid = (e: UUIFormControlEvent) => {
     const ctrl = (e as any).composedPath()[0];
     this._messages.delete(ctrl);
-    this.requestUpdate();
+    this.requestUpdate('_messages');
   };
 
   render() {

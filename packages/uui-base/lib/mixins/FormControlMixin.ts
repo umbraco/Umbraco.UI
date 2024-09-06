@@ -24,11 +24,25 @@ type FlagTypes =
   | 'badInput'
   | 'valid';
 
+const WeightedErrorFlagTypes = [
+  'customError',
+  'valueMissing',
+  'badInput',
+  'typeMismatch',
+  'patternMismatch',
+  'rangeOverflow',
+  'rangeUnderflow',
+  'stepMismatch',
+  'tooLong',
+  'tooShort',
+];
+
 // Acceptable as an internal interface/type, BUT if exposed externally this should be turned into a public class in a separate file.
 interface UUIFormControlValidatorConfig {
   flagKey: FlagTypes;
   getMessageMethod: () => string;
   checkMethod: () => boolean;
+  weight: number;
 }
 
 export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
@@ -294,13 +308,18 @@ export const UUIFormControlMixin = <
       getMessageMethod: () => string,
       checkMethod: () => boolean,
     ): UUIFormControlValidatorConfig {
-      const obj = {
+      const validator = {
         flagKey: flagKey,
         getMessageMethod: getMessageMethod,
         checkMethod: checkMethod,
+        weight: WeightedErrorFlagTypes.indexOf(flagKey),
       };
-      this.#validators.push(obj);
-      return obj;
+      this.#validators.push(validator);
+      // Sort validators based on the WeightedErrorFlagTypes order. [NL]
+      this.#validators.sort((a, b) =>
+        a.weight > b.weight ? 1 : b.weight > a.weight ? -1 : 0,
+      );
+      return validator;
     }
 
     protected removeValidator(validator: UUIFormControlValidatorConfig) {
@@ -365,28 +384,37 @@ export const UUIFormControlMixin = <
      */
     protected _runValidators() {
       this.#validity = {};
-      const messages: Set<string> = new Set();
+      //const messages: Set<string> = new Set();
+      let message: string | undefined = undefined;
       let innerFormControlEl: NativeFormControlElement | undefined = undefined;
 
-      // Loop through inner native form controls to adapt their validityState. [NL]
-      this.#formCtrlElements.forEach(formCtrlEl => {
-        let key: keyof ValidityState;
-        for (key in formCtrlEl.validity) {
-          if (key !== 'valid' && formCtrlEl.validity[key]) {
-            this.#validity[key] = true;
-            messages.add(formCtrlEl.validationMessage);
-            innerFormControlEl ??= formCtrlEl;
-          }
-        }
-      });
-
       // Loop through custom validators, currently its intentional to have them overwritten native validity. but might need to be reconsidered (This current way enables to overwrite with custom messages) [NL]
-      this.#validators.forEach(validator => {
+      this.#validators.some(validator => {
         if (validator.checkMethod()) {
           this.#validity[validator.flagKey] = true;
-          messages.add(validator.getMessageMethod());
+          //messages.add(validator.getMessageMethod());
+          message = validator.getMessageMethod();
+          return true;
         }
+        return false;
       });
+
+      if (!message) {
+        // Loop through inner native form controls to adapt their validityState. [NL]
+        this.#formCtrlElements.some(formCtrlEl => {
+          let key: keyof ValidityState;
+          for (key in formCtrlEl.validity) {
+            if (key !== 'valid' && formCtrlEl.validity[key]) {
+              this.#validity[key] = true;
+              //messages.add(formCtrlEl.validationMessage);
+              message = formCtrlEl.validationMessage;
+              innerFormControlEl ??= formCtrlEl;
+              return true;
+            }
+          }
+          return false;
+        });
+      }
 
       const hasError = Object.values(this.#validity).includes(true);
 
@@ -397,7 +425,8 @@ export const UUIFormControlMixin = <
       this._internals.setValidity(
         this.#validity,
         // Turn messages into an array and join them with a comma. [NL]:
-        [...messages].join(', '),
+        //[...messages].join(', '),
+        message,
         innerFormControlEl ?? this.getFormElement() ?? undefined,
       );
 
