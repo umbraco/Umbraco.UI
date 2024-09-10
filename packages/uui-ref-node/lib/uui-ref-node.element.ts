@@ -102,7 +102,7 @@ export class UUIRefNodeElement extends UUIRefElement {
             : ''}
         </span>
         <div id="info">
-          <div id="name">${this.name}</div>
+          <div id="name">${this.name}<slot name="name"></slot></div>
           ${this.renderDetail()}
         </div>
       </span>
