@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Features
+
+- Consistent cursor style for checkbox and radiobutton ([#857](https://github.com/umbraco/Umbraco.UI/issues/857)) ([e2e1011](https://github.com/umbraco/Umbraco.UI/commit/e2e101108a2ce8d4469396a4cfe34861977ad91c))
+- Indeterminate state for boolean input and checkbox ([#856](https://github.com/umbraco/Umbraco.UI/issues/856)) ([0692937](https://github.com/umbraco/Umbraco.UI/commit/0692937d992e99ff7e9b1c9bd33a1278f009c8b7))
+- readonly state for boolean base class ([2c5c5a3](https://github.com/umbraco/Umbraco.UI/commit/2c5c5a317630ea3e6ab34ea7f7368ed695c0f047))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 ### Features

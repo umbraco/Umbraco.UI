@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Features
+
+- implement readonly mode for uui-ref-node ([5c84cec](https://github.com/umbraco/Umbraco.UI/commit/5c84cecb3137077adca956fed8a4c3be0fc3f138))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-ref

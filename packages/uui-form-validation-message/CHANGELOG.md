@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Bug Fixes
+
+- **uui-form-validation-message:** default renderer does not support raw HTML ([#835](https://github.com/umbraco/Umbraco.UI/issues/835)) ([f57456d](https://github.com/umbraco/Umbraco.UI/commit/f57456dcd68ae88a62209ab12b6970b866edb49d))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-form-validation-message
