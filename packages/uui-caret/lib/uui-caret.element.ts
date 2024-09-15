@@ -25,8 +25,17 @@ export class UUICaretElement extends LitElement {
   }
 
   render() {
-    return html`<svg viewBox="0 0 512 512">
-      <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+    return html`<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="m4 9 8 8 8-8"></path>
     </svg>`;
   }
 
@@ -39,10 +48,8 @@ export class UUICaretElement extends LitElement {
       }
 
       svg {
-        fill: currentColor;
         transform-origin: 50% 50%;
-        transition: transform 280ms cubic-bezier(0.17, -0.88, 0.82, 1.84); /* Julia's beloved easing */
-      }
+        transition: transform 100ms cubic-bezier(0.1, 0, 0.9, 1);
 
       :host([open]) svg {
         transform: rotate(180deg);

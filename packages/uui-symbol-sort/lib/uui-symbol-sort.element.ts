@@ -19,14 +19,31 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
   public descending = false;
 
   render() {
-    return html`<svg
+    return html` <svg
         id="up"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512">
-        <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="m4 9 8 8 8-8"></path>
       </svg>
-      <svg id="down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path d="M 255.125 400.35 L 88.193 188.765 H 422.055 Z"></path>
+      <svg
+        id="down"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="m4 9 8 8 8-8"></path>
       </svg>`;
   }
 
@@ -35,9 +52,9 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
       :host {
         position: relative;
         display: inline-block;
-        width: 0.8em;
+        width: 0.9em;
         height: 1em;
-        vertical-align: middle;
+        //vertical-align: middle;
         pointer-events: none;
       }
 
@@ -45,29 +62,28 @@ export class UUISymbolSortElement extends ActiveMixin(LitElement) {
         position: absolute;
         left: 0;
         top: 50%;
-        width: 0.8em;
-        fill: currentColor;
+        width: 0.9em;
         transform-origin: 50% 50%;
         transition:
           transform 120ms ease-in-out,
           opacity 120ms,
           margin-top 240ms;
         opacity: 0;
-        margin-top: -0.5em;
+        margin-top: -8em;
       }
 
       #up {
         transform: rotate(180deg);
-        margin-top: -0.7em;
+        margin-top: -1.05em;
       }
       #down {
-        margin-top: -0.3em;
+        margin-top: -0.55em;
       }
       :host([active]) #up {
-        margin-top: calc(-0.5em - (0.2em * var(--uui-symbol-sort-hover, 0)));
+        margin-top: calc(-0.8em - (0.25em * var(--uui-symbol-sort-hover, 0)));
       }
       :host([active]) #down {
-        margin-top: calc(-0.5em + (0.2em * var(--uui-symbol-sort-hover, 0)));
+        margin-top: calc(-0.8em + (0.25em * var(--uui-symbol-sort-hover, 0)));
       }
 
       :host(:hover) {
