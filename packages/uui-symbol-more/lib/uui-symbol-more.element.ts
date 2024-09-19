@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, svg, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 /**
  * @element uui-symbol-more
@@ -6,16 +6,20 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 @defineElement('uui-symbol-more')
 export class UUISymbolMoreElement extends LitElement {
   render() {
-    return html`···`;
+    return svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <circle cx="17" cy="50" r="9"></circle>
+      <circle cx="50" cy="50" r="9"></circle>
+      <circle cx="83" cy="50" r="9"></circle>
+    </svg>`;
   }
 
   static styles = [
     css`
       :host {
         display: inline-block;
-        font-size: 1.48em;
-        line-height: 0.8em;
-        user-select: none;
+        vertical-align: bottom;
+        width: 1.15em;
+        height: 1.15em;
       }
     `,
   ];

@@ -103,13 +103,24 @@ export const MinMaxLength: Story = {
           minlength="3"
           maxlength="4"
           minlength-message="Minimum 3"
-          maxlength-message="Maximum 4"></uui-input>`,
+          maxlength-message="Maximum 4">
+        </uui-input>`,
       },
     },
   },
 };
 
 export const NumberInput: Story = {
+  render: props => html`
+    <uui-input
+      .type=${props.type}
+      .placeholder=${props.placeholder}
+      .step=${props.step}
+      .min=${props.min}
+      .max=${props.max}
+      .value=${props.value}>
+    </uui-input>
+  `,
   args: {
     placeholder: 'Input number',
     type: 'number',
@@ -135,6 +146,14 @@ export const NumberInput: Story = {
 };
 
 export const DateTimeLocal: Story = {
+  render: props => html`
+    <uui-input
+      .type=${props.type}
+      .min=${props.min}
+      .max=${props.max}
+      .value=${props.value}>
+    </uui-input>
+  `,
   args: {
     type: 'datetime-local',
     value: '2023-04-20T10:00',
@@ -147,7 +166,7 @@ export const DateTimeLocal: Story = {
     },
     docs: {
       source: {
-        code: ` <uui-input
+        code: `<uui-input
           type="datetime-local"
           min="2023-04-13T10:00"
           value="2023-04-20T10:00"
@@ -159,7 +178,14 @@ export const DateTimeLocal: Story = {
 };
 
 export const Disabled: Story = {
-  args: { disabled: true },
+  render: props => html`
+    <uui-input
+      .type=${props.type}
+      .value=${props.value}
+      ?disabled=${props.disabled}>
+    </uui-input>
+  `,
+  args: { disabled: true, value: 'Disabled' },
   parameters: {
     controls: { include: ['disabled', 'type', 'value'] },
     docs: {
@@ -170,7 +196,34 @@ export const Disabled: Story = {
   },
 };
 
+export const Readonly: Story = {
+  render: props => html`
+    <uui-input
+      .type=${props.type}
+      .value=${props.value}
+      ?readonly=${props.readonly}>
+    </uui-input>
+  `,
+  args: { readonly: true, value: 'Readonly' },
+  parameters: {
+    controls: { include: ['readonly', 'type', 'value'] },
+    docs: {
+      source: {
+        code: `<uui-input readonly></uui-input>`,
+      },
+    },
+  },
+};
+
 export const Error: Story = {
+  render: props => html`
+    <uui-input
+      .type=${props.type}
+      .label=${props.label}
+      .value=${props.value}
+      ?error=${props.error}>
+    </uui-input>
+  `,
   args: { error: true, label: 'Error' },
   parameters: {
     controls: { include: ['error', 'type', 'value'] },
@@ -334,10 +387,10 @@ export const AutoWidth: Story = {
         <uui-input
           slot="prepend"
           placeholder="Prepend auto-width"
-          ?auto-width=${props.autoWidth}></uui-input>
-        <uui-input
-          slot="append"
-          placeholder="Append auto-width false"></uui-input>
+          ?auto-width=${props.autoWidth}>
+        </uui-input>
+        <uui-input slot="append" placeholder="Append auto-width false">
+        </uui-input>
       </uui-input>
 
       <br /><br />
@@ -354,7 +407,8 @@ export const AutoWidth: Story = {
         style="--auto-width-text-margin-right: 50px"
         placeholder="--auto-width-text-margin-right: 50px"
         .value=${props.value}
-        ?auto-width=${props.autoWidth}></uui-input>`,
+        ?auto-width=${props.autoWidth}>
+      </uui-input>`,
   args: {
     autoWidth: true,
     placeholder: 'Start typing...',

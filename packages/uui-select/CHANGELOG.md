@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-select
+
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Features
+
+- add readonly mode ([bffe72b](https://github.com/umbraco/Umbraco.UI/commit/bffe72bfb1038978ed2a2c8c2fdc3361918b37ef))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-select

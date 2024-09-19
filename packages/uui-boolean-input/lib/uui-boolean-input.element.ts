@@ -252,6 +252,10 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
         cursor: not-allowed;
         opacity: 0.5;
       }
+
+      .label {
+        display: block;
+      }
     `,
   ];
 }

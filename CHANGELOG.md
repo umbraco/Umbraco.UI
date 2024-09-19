@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Bug Fixes
+
+- adds an `aria-label` to the caret button with a matching property ([03d22c1](https://github.com/umbraco/Umbraco.UI/commit/03d22c1ebdcac42d3bf507191870d30c31e4393c))
+- adds an `aria-label` to the caret button with a matching property ([fd699d5](https://github.com/umbraco/Umbraco.UI/commit/fd699d511f69f84d0847a79a391b98606c689f2e))
+- ensure that empty text nodes do not make the label mixin think it is non-empty ([ec197fc](https://github.com/umbraco/Umbraco.UI/commit/ec197fcd1455d7038c7b328a4ced44bf4ca9b8a8))
+- revert the function to calculate if a default slot is empty ([0f00e3e](https://github.com/umbraco/Umbraco.UI/commit/0f00e3efb786635ca60902270970216ca6630f80))
+- **uui-form-validation-message:** default renderer does not support raw HTML ([#835](https://github.com/umbraco/Umbraco.UI/issues/835)) ([f57456d](https://github.com/umbraco/Umbraco.UI/commit/f57456dcd68ae88a62209ab12b6970b866edb49d))
+- **uui-input-lock:** the UUIInputLockEvent is not exported ([#836](https://github.com/umbraco/Umbraco.UI/issues/836)) ([88d9358](https://github.com/umbraco/Umbraco.UI/commit/88d9358c457ebdeab0b6e862190cae58cd54b76c))
+- **uui-radio:** keyboard navigation does not work as intended ([#870](https://github.com/umbraco/Umbraco.UI/issues/870)) ([8a7d3d5](https://github.com/umbraco/Umbraco.UI/commit/8a7d3d5a40f360b5bb3314cc0cae66277151427b))
+- **uui-radio:** keyboard navigation does not work as intended ([#870](https://github.com/umbraco/Umbraco.UI/issues/870)) ([46e93ca](https://github.com/umbraco/Umbraco.UI/commit/46e93cad2c42044cecc22cef0e31f44daa3b1fb1))
+- **uui-textarea:** add danger border if the element is invalid ([286a605](https://github.com/umbraco/Umbraco.UI/commit/286a6051de35d87ad629c1af031258e930052c4c))
+- **uui-textarea:** add danger border if the element is invalid ([b16d500](https://github.com/umbraco/Umbraco.UI/commit/b16d5009c2e8cea244e653b68a7527dd87bd9d65))
+
+### Features
+
+- add `rel` property to relevant elements to override default behavior ([#814](https://github.com/umbraco/Umbraco.UI/issues/814)) ([f1978e0](https://github.com/umbraco/Umbraco.UI/commit/f1978e0808102990790881bebdc26fd74a8a6cfa))
+- add readonly mode ([bffe72b](https://github.com/umbraco/Umbraco.UI/commit/bffe72bfb1038978ed2a2c8c2fdc3361918b37ef))
+- Consistent cursor style for checkbox and radiobutton ([#857](https://github.com/umbraco/Umbraco.UI/issues/857)) ([e2e1011](https://github.com/umbraco/Umbraco.UI/commit/e2e101108a2ce8d4469396a4cfe34861977ad91c))
+- Consistent cursor style for checkbox and radiobutton ([#857](https://github.com/umbraco/Umbraco.UI/issues/857)) ([70c4efe](https://github.com/umbraco/Umbraco.UI/commit/70c4efee842da28fabd424096dc5664bf6c84ee9))
+- dropzone should support folder upload ([#841](https://github.com/umbraco/Umbraco.UI/issues/841)) ([ea8bf2a](https://github.com/umbraco/Umbraco.UI/commit/ea8bf2a9edad35038ac7267af42db193e9239d62))
+- implement readonly for uui-combobox ([1909b36](https://github.com/umbraco/Umbraco.UI/commit/1909b366e11d907a012102e161d35e6584465a8a))
+- implement readonly for uui-range-slider ([89bbf0d](https://github.com/umbraco/Umbraco.UI/commit/89bbf0d246607b8c84bf2513db5a93c25db225ea))
+- implement readonly mode for uui-ref-node ([5c84cec](https://github.com/umbraco/Umbraco.UI/commit/5c84cecb3137077adca956fed8a4c3be0fc3f138))
+- implement readonly state for uui-slider ([14d8f33](https://github.com/umbraco/Umbraco.UI/commit/14d8f337766d0a9085d96faaceb392ec52276045))
+- Indeterminate state for boolean input and checkbox ([#856](https://github.com/umbraco/Umbraco.UI/issues/856)) ([0692937](https://github.com/umbraco/Umbraco.UI/commit/0692937d992e99ff7e9b1c9bd33a1278f009c8b7))
+- Indeterminate state for boolean input and checkbox ([#856](https://github.com/umbraco/Umbraco.UI/issues/856)) ([74a6121](https://github.com/umbraco/Umbraco.UI/commit/74a61210aa6335dbc3f2fdc5d8e17470bd8ed5c3))
+- readonly state for boolean base class ([2c5c5a3](https://github.com/umbraco/Umbraco.UI/commit/2c5c5a317630ea3e6ab34ea7f7368ed695c0f047))
+- readonly state for checkbox ([c58e6bf](https://github.com/umbraco/Umbraco.UI/commit/c58e6bf321fc24344c6a5a765821ebb168e501ef))
+- readonly state for toggle ([86ab7b8](https://github.com/umbraco/Umbraco.UI/commit/86ab7b89cb0bb7060b522de16fe4eb62d767bd69))
+- readonly state for uui-radio ([c7efa01](https://github.com/umbraco/Umbraco.UI/commit/c7efa018251ad031e7099b4698a9e975d8f26951))
+- readonly state for uui-radio-group ([8d2e211](https://github.com/umbraco/Umbraco.UI/commit/8d2e2115bfc8c25fa10ec64f9b31937eab23e15c))
+- **uui-color-picker:** allow the value to be empty ([#842](https://github.com/umbraco/Umbraco.UI/issues/842)) ([c3663b0](https://github.com/umbraco/Umbraco.UI/commit/c3663b066bba677de79d624f30d894c1ee9c6661))
+- **uui-popover-container:** remove the Firefox popover polyfill ([#858](https://github.com/umbraco/Umbraco.UI/issues/858)) ([a8d87b5](https://github.com/umbraco/Umbraco.UI/commit/a8d87b50b1cc63f6adee32aa04134dfbb3f3af7c))
+- **uui-popover-container:** remove the Firefox popover polyfill ([#858](https://github.com/umbraco/Umbraco.UI/issues/858)) ([d26635f](https://github.com/umbraco/Umbraco.UI/commit/d26635f0851e32b875406e7f951cdc5660bd8baa))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 ### Bug Fixes
