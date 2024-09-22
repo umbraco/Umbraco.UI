@@ -12,6 +12,7 @@ const Z_INDEX = {
 };
 
 const THUMB_SIZE = 18;
+const TRACK_HEIGHT = 3;
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
 
@@ -642,7 +643,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
     return html`<div class="step-wrapper">
       <svg height="100%" width="100%">
-        <rect x="9" y="9" height="3" rx="2" />
+        <rect x="9" y="9" height="${TRACK_HEIGHT}" rx="2" />
         ${this._renderStepCircles(stepPositions)}
       </svg>
       ${this._renderStepValues(stepAmount)}
@@ -671,9 +672,9 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       const colorEnd = this._highInputValue - this._min;
 
       if (cx / trackValue >= colorStart && cx / trackValue <= colorEnd) {
-        return svg`<circle class="track-step filled" cx="${cx}" cy="5" r="4.5" />`;
+        return svg`<circle class="track-step filled" cx="${cx}" cy="${TRACK_HEIGHT * 2}" r="4.5" />`;
       } else {
-        return svg`<circle class="track-step regular" cx="${cx}" cy="5" r="4.5" />`;
+        return svg`<circle class="track-step regular" cx="${cx}" cy="${TRACK_HEIGHT * 2}" r="4.5" />`;
       }
     })}`;
   }
@@ -788,7 +789,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         position: absolute;
         inset-inline: 0;
         height: 3px;
-        transform: translateY(2px);
+        top: 50%;
         background-color: var(--color-interactive);
         transition: height 60ms;
       }
