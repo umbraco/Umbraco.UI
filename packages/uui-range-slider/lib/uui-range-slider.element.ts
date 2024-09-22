@@ -780,16 +780,18 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       :host(:not([readonly])) #inner-color-thumb:hover .color {
-        height: 5px;
+        height: ${TRACK_HEIGHT * 2}px;
         background-color: var(--color-hover);
+        transform: translateY(-${TRACK_HEIGHT / 2}px);
       }
 
       .color {
         user-select: none;
         position: absolute;
         inset-inline: 0;
-        height: 3px;
+        height: ${TRACK_HEIGHT}px;
         top: 50%;
+        transform: translateY(0);
         background-color: var(--color-interactive);
         transition: height 60ms;
       }
