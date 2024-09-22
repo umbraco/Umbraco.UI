@@ -80,22 +80,22 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private _handleClick(e: Event) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-
       if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
         this._toggleSelect();
       }
+
+      e.preventDefault();
+      e.stopImmediatePropagation();
     }
 
     private _handleSelectKeydown = (e: KeyboardEvent) => {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-
       if (this.selectableTarget === this) {
         if (e.key !== ' ' && e.key !== 'Enter') return;
         this._toggleSelect();
       }
+
+      e.preventDefault();
+      e.stopImmediatePropagation();
     };
 
     private _select() {
