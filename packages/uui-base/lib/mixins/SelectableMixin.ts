@@ -96,7 +96,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
       e.preventDefault();
       e.stopImmediatePropagation();
-    };
+    }
 
     private _select() {
       if (!this.selectable) return;
