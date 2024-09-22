@@ -51,12 +51,22 @@ export class UUIColorSwatchElement extends LabelMixin(
   private _color?: string;
 
   /**
-   * Determines if the options is disabled. If true the option can't be selected
-   *
+   * Sets the swatch to disabled.
+   * @type {boolean}
    * @attr
+   * @default false
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Sets the swatch to readonly mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
 
   /**
    * When true shows element label below the color checkbox
@@ -82,10 +92,13 @@ export class UUIColorSwatchElement extends LabelMixin(
   }
 
   willUpdate(changedProperties: Map<string, any>) {
-    if (changedProperties.has('disabled')) {
+    if (
+      changedProperties.has('disabled') ||
+      changedProperties.has('readonly')
+    ) {
       if (this.selectable) {
-        this.selectable = !this.disabled;
-        this.deselectable = !this.disabled;
+        this.selectable = !this.disabled && !this.readonly;
+        this.deselectable = !this.disabled && !this.readonly;
       }
     }
     if (
@@ -101,7 +114,8 @@ export class UUIColorSwatchElement extends LabelMixin(
       <button
         id="swatch"
         aria-label=${this.label}
-        aria-disabled="${this.disabled}"
+        aria-readonly="${this.readonly}"
+        ?disabled="${this.disabled}"
         title="${this.label}">
         <div class="color-swatch color-swatch--transparent-bg">
           <div
@@ -164,6 +178,10 @@ export class UUIColorSwatchElement extends LabelMixin(
       :host([disabled]) {
         cursor: not-allowed;
         opacity: 0.5;
+      }
+
+      :host([readonly]) {
+        cursor: default;
       }
 
       #swatch {

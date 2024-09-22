@@ -57,7 +57,7 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-color-swatch disabled></uui-color-swatch>`,
+        code: `<uui-color-swatch disabled selectable></uui-color-swatch>`,
       },
     },
   },
@@ -73,6 +73,35 @@ export const DisabledSelected: Story = {
     docs: {
       source: {
         code: `<uui-color-swatch disabled selectable selected></uui-color-swatch>`,
+      },
+    },
+  },
+};
+
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+    selectable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch readonly selectable></uui-color-swatch>`,
+      },
+    },
+  },
+};
+
+export const ReadonlySelected: Story = {
+  args: {
+    readonly: true,
+    selectable: true,
+    selected: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch readonly selectable selected></uui-color-swatch>`,
       },
     },
   },
