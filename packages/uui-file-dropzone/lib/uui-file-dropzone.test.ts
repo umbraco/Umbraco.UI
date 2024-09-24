@@ -1,4 +1,4 @@
-import { html, fixture, expect, aTimeout } from '@open-wc/testing';
+import { html, fixture, expect } from '@open-wc/testing';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 
@@ -8,7 +8,7 @@ function expectFileChangeEvent(
   numberOfFolders: number,
   done: Mocha.Done,
 ) {
-  element.addEventListener('change', e => {
+  return element.addEventListener('change', e => {
     const { files, folders } = (e as UUIFileDropzoneEvent).detail;
     expect(
       files.length,
@@ -18,7 +18,7 @@ function expectFileChangeEvent(
       folders.length,
       `There should be ${numberOfFolders} folder(s) uploaded`,
     ).to.equal(numberOfFolders);
-    done();
+    return done();
   });
 }
 
@@ -40,18 +40,21 @@ describe('UUIFileDropzoneElement', () => {
   });
 
   describe('drop files', async () => {
-    it('supports dropping a single file', done => {
-      aTimeout(5000);
+    it('supports dropping a single file', async done => {
       const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dataTransfer = new DataTransfer();
+      // Skip if browser does not support items
+      if ('items' in dataTransfer) {
+        dataTransfer.items.add(file1);
+        dataTransfer.items.add(file2);
 
-      dataTransfer.items.add(file1);
-      dataTransfer.items.add(file2);
+        expectFileChangeEvent(element, 1, 0, done);
 
-      expectFileChangeEvent(element, 1, 0, done);
-
-      element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
+        element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
+      } else {
+        done();
+      }
     });
 
     it('can drop multiple files', done => {
