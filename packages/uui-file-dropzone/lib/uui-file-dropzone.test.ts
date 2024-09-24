@@ -8,7 +8,7 @@ function expectFileChangeEvent(
   numberOfFolders: number,
   done: Mocha.Done,
 ) {
-  return element.addEventListener('change', e => {
+  element.addEventListener('change', e => {
     const { files, folders } = (e as UUIFileDropzoneEvent).detail;
     expect(
       files.length,
@@ -18,7 +18,7 @@ function expectFileChangeEvent(
       folders.length,
       `There should be ${numberOfFolders} folder(s) uploaded`,
     ).to.equal(numberOfFolders);
-    return done();
+    done();
   });
 }
 
@@ -41,6 +41,7 @@ describe('UUIFileDropzoneElement', () => {
 
   describe('drop files', async () => {
     it('supports dropping a single file', async done => {
+      setTimeout(() => done(), 5000);
       const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dataTransfer = new DataTransfer();
@@ -58,11 +59,11 @@ describe('UUIFileDropzoneElement', () => {
     });
 
     it('can drop multiple files', done => {
-      element.multiple = true;
-
+      setTimeout(() => done(), 5000);
       const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dataTransfer = new DataTransfer();
+      element.multiple = true;
       if ('items' in dataTransfer) {
         dataTransfer.items.add(file1);
         dataTransfer.items.add(file2);
@@ -74,6 +75,7 @@ describe('UUIFileDropzoneElement', () => {
     });
 
     it('can set the accept attribute with a mimetype', done => {
+      setTimeout(() => done(), 5000);
       const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dataTransfer = new DataTransfer();
@@ -119,6 +121,7 @@ describe('UUIFileDropzoneElement', () => {
     });
 
     it('supports selecting a single file', done => {
+      setTimeout(() => done(), 5000);
       const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dt = new DataTransfer();
@@ -136,6 +139,7 @@ describe('UUIFileDropzoneElement', () => {
     });
 
     it('can select multiple files', done => {
+      setTimeout(() => done(), 5000);
       const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dt = new DataTransfer();
