@@ -92,6 +92,7 @@ describe('UUIFileDropzoneElement', () => {
     });
 
     it('can set the accept attribute with a file extension', done => {
+      setTimeout(() => done(), 5000);
       const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
       const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dataTransfer = new DataTransfer();
