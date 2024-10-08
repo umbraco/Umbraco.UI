@@ -88,6 +88,10 @@ export const Disabled: Story = {
   args: { disabled: true },
 };
 
+export const Readonly: Story = {
+  args: { readonly: true, value: 'Readonly' },
+};
+
 export const Error: Story = {
   args: { error: true, label: 'Error' },
 };
