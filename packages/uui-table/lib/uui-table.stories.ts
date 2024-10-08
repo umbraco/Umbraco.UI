@@ -5,6 +5,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
 import '@umbraco-ui/uui-box/lib';
+import '@umbraco-ui/uui-symbol-sort/lib';
 import './uui-table-advanced-example.ts';
 
 const meta: Meta = {
