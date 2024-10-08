@@ -15,7 +15,7 @@ export class UUIBoxElement extends LitElement {
         color: var(--uui-color-text);
         font-size: 14px;
 
-        margin: -40px 0 0 -40px;
+        margin: -16px 0px 0px -16px;
         box-sizing: border-box;
       }
 
