@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-slider
+
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Features
+
+- implement readonly state for uui-slider ([14d8f33](https://github.com/umbraco/Umbraco.UI/commit/14d8f337766d0a9085d96faaceb392ec52276045))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-slider

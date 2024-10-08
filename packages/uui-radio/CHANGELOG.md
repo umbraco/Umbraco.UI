@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-radio
+
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Bug Fixes
+
+- **uui-radio:** keyboard navigation does not work as intended ([#870](https://github.com/umbraco/Umbraco.UI/issues/870)) ([8a7d3d5](https://github.com/umbraco/Umbraco.UI/commit/8a7d3d5a40f360b5bb3314cc0cae66277151427b))
+
+### Features
+
+- Consistent cursor style for checkbox and radiobutton ([#857](https://github.com/umbraco/Umbraco.UI/issues/857)) ([e2e1011](https://github.com/umbraco/Umbraco.UI/commit/e2e101108a2ce8d4469396a4cfe34861977ad91c))
+- readonly state for uui-radio ([c7efa01](https://github.com/umbraco/Umbraco.UI/commit/c7efa018251ad031e7099b4698a9e975d8f26951))
+- readonly state for uui-radio-group ([8d2e211](https://github.com/umbraco/Umbraco.UI/commit/8d2e2115bfc8c25fa10ec64f9b31937eab23e15c))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 ### Bug Fixes

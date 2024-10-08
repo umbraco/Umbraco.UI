@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Bug Fixes
+
+- ensure that empty text nodes do not make the label mixin think it is non-empty ([ec197fc](https://github.com/umbraco/Umbraco.UI/commit/ec197fcd1455d7038c7b328a4ced44bf4ca9b8a8))
+- revert the function to calculate if a default slot is empty ([0f00e3e](https://github.com/umbraco/Umbraco.UI/commit/0f00e3efb786635ca60902270970216ca6630f80))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-base

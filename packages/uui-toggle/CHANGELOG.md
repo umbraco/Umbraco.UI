@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-toggle
+
+# [1.10.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.10.0-rc.0) (2024-09-10)
+
+### Bug Fixes
+
+- revert the function to calculate if a default slot is empty ([0f00e3e](https://github.com/umbraco/Umbraco.UI/commit/0f00e3efb786635ca60902270970216ca6630f80))
+
+### Features
+
+- Consistent cursor style for checkbox and radiobutton ([#857](https://github.com/umbraco/Umbraco.UI/issues/857)) ([e2e1011](https://github.com/umbraco/Umbraco.UI/commit/e2e101108a2ce8d4469396a4cfe34861977ad91c))
+- readonly state for toggle ([86ab7b8](https://github.com/umbraco/Umbraco.UI/commit/86ab7b89cb0bb7060b522de16fe4eb62d767bd69))
+
 # [1.9.0](https://github.com/umbraco/Umbraco.UI/compare/v1.9.0-rc.2...v1.9.0) (2024-07-25)
 
 ### Features
