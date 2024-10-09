@@ -80,26 +80,15 @@ export const Anchor: Story = {
   },
 };
 
-const withSlots: Story = {
-  // prettier-ignore
-  render: args => {
-    return html`
-<uui-button ${spread(args)}>
-  Button${renderSlots(args)}</uui-button>`;
-  },
-};
-
 export const Badge: Story = {
-  ...withSlots,
   args: {
-    slot: html`<uui-badge color="danger">2</uui-badge>`,
+    slot: html`Button<uui-badge color="danger">2</uui-badge>`,
   },
 };
 
 export const Icon: Story = {
-  ...withSlots,
   args: {
-    slot: html`<uui-icon name="favorite"></uui-icon>`,
+    slot: html`Button <uui-icon name="favorite"></uui-icon>`,
   },
 };
 
@@ -109,14 +98,7 @@ export const Icon: Story = {
 export const IconSolo: Story = {
   args: {
     compact: true,
-  },
-  // prettier-ignore
-  render: args => {
-    return html`
-<uui-button ${spread(args)}>
-  <uui-icon name="favorite"></uui-icon>
-</uui-button>
-    `;
+    slot: html`<uui-icon name="favorite"></uui-icon>`,
   },
 };
 
@@ -147,18 +129,12 @@ export const ContentAlign: Story = {
 };
 
 export const SlottedContent: Story = {
-  ...withSlots,
-  // prettier-ignore
-  render: args => {
-    return html`
-<uui-button ${spread(args)}>
-  <div
-    style="display: flex; flex-direction: column; align-items: center; gap: 3px">
-    <uui-icon name="settings"></uui-icon>
-    Settings
-  </div>
-</uui-button>
-    `;
+  args: {
+    slot: html`<div
+      style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+      <uui-icon name="settings"></uui-icon>
+      Settings
+    </div>`,
   },
 };
 
