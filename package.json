@@ -70,6 +70,7 @@
     "@lerna-lite/version": "3.9.1",
     "@open-wc/testing": "4.0.0",
     "@rollup/plugin-node-resolve": "15.2.3",
+    "@storybook/addon-a11y": "^8.3.5",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/addon-links": "^8.3.5",
     "@storybook/blocks": "^8.3.5",
