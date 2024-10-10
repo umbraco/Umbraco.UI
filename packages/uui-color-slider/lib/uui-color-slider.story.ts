@@ -30,6 +30,14 @@ export const Default: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true,
+    value: 50,
+  },
+};
+
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+    value: 50,
   },
 };
 

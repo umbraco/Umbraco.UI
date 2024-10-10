@@ -84,12 +84,22 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   @property() value = 0;
 
   /**
-   * Disables the color slider.
+   * Sets the color slider to readonly mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
+  /**
+   * Sets the color slider to disabled.
    * @type {boolean}
    * @attr
    * @default false
    **/
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
 
   private container!: HTMLElement;
   private handle!: HTMLElement;
@@ -115,7 +125,8 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   }
 
   handleDrag(event: PointerEvent) {
-    if (this.disabled || !this.container || !this.handle) return;
+    if (this.disabled || this.readonly || !this.container || !this.handle)
+      return;
 
     const { width, height } = this.container.getBoundingClientRect();
 
@@ -140,7 +151,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   }
 
   handleClick(event: MouseEvent) {
-    if (this.disabled) return;
+    if (this.disabled || this.readonly) return;
 
     this.value = this.getValueFromMousePosition(event);
     this.syncValues();
@@ -258,7 +269,8 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         <span
           id="color-slider__handle"
           style="--current-value: ${this.cssPropCurrentValue}%;"
-          tabindex=${ifDefined(this.disabled ? undefined : '0')}></span>
+          tabindex=${ifDefined(this.disabled ? undefined : '0')}>
+        </span>
       </div>
       ${Math.round(this.value)}`;
   }
@@ -338,6 +350,14 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         user-select: none;
         pointer-events: none;
         opacity: 0.55;
+      }
+
+      :host([readonly]) {
+        cursor: default;
+      }
+
+      :host([readonly]) #color-slider {
+        pointer-events: none;
       }
 
       #color-slider__handle {
