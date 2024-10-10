@@ -58,6 +58,9 @@ export class UUIColorSwatchElement extends LabelMixin(
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  @property({ type: String, reflect: true })
+  group = undefined;
+
   /**
    * When true shows element label below the color checkbox
    *
