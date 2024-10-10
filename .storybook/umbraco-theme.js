@@ -1,34 +1,9 @@
 import { create } from '@storybook/theming';
 
 export default create({
-  // base: 'light',
-  // colorPrimary: '#1b264f',
-  // colorSecondary: '#3544b1',
-
-  // // UI
-  // appBg: '#f6f4f4',
-  // appContentBg: 'white',
-  // appBorderColor: '#e9e9eb',
-  // appBorderRadius: 4,
-
   // Typography
   fontBase: '"Lato", sans-serif',
   fontCode: 'monospace',
-
-  // // Text colors
-  // textColor: '#162335',
-  // textInverseColor: 'rgba(255,255,255,0.9)',
-
-  // // Toolbar default and active colors
-  // barTextColor: '#7e7e7e',
-  // barSelectedColor: '#3544b1',
-  // barBg: 'white',
-
-  // // Form colors
-  // inputBg: 'white',
-  // inputBorder: '#d8d7d9',
-  // inputTextColor: '#303033',
-  // inputBorderRadius: 4,
 
   brandTitle: 'Umbraco UI',
   brandUrl: 'https://github.com/umbraco/Umbraco.UI',
