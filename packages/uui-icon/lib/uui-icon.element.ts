@@ -121,16 +121,16 @@ export class UUIIconElement extends LitElement {
       if (this.fallback === null) {
         return html`<slot name="fallback"></slot>`;
       } else {
-        return unsafeHTML(this.fallback);
+        return html`${unsafeHTML(this.fallback)}`;
       }
     }
 
     if (this._nameSvg !== null) {
-      return unsafeHTML(this._nameSvg);
+      return html`${unsafeHTML(this._nameSvg)}`;
     }
 
     if (this.svg !== null) {
-      return unsafeHTML(this.svg);
+      return html`${unsafeHTML(this.svg)}`;
     }
 
     return html`<slot></slot>`;

@@ -1,61 +1,36 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
-import type { UUIColorSliderElement } from './uui-color-slider.element';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-import './uui-color-slider.element';
-
-const types = ['hue', 'opacity'];
-
-const meta: Meta<UUIColorSliderElement> = {
+const meta: Meta = {
   id: 'uui-color-slider',
-  title: 'Inputs/Color/Color Slider',
   component: 'uui-color-slider',
-  args: {
-    min: 0,
-    max: 100,
-    vertical: false,
-    disabled: false,
-    label: 'Color Slider',
-    precision: 1,
-    value: 0,
-    type: 'hue',
-    color: '',
-  },
+  title: 'Inputs/Color/Color Slider',
   argTypes: {
     type: {
-      options: types,
+      options: ['hue', 'opacity'],
       control: { type: 'select' },
     },
   },
+  render: args => html`<uui-color-slider ${spread(args)}></uui-color-slider>`,
   parameters: {
     readme: {
       markdown: readme,
-    },
-    docs: {
-      source: {
-        code: `<uui-color-slider></uui-color-slider>`,
-      },
     },
   },
 };
 
 export default meta;
+type Story = StoryObj;
 
-type Story = StoryObj<UUIColorSliderElement>;
-
-export const Overview: Story = {};
+export const Default: Story = {};
 
 export const Disabled: Story = {
   args: {
     disabled: true,
     value: 50,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-slider label="Slider label" disabled></uui-color-slider>`,
-      },
-    },
   },
 };
 
@@ -64,32 +39,17 @@ export const Readonly: Story = {
     readonly: true,
     value: 50,
   },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-slider label="Slider label" readonly></uui-color-slider>`,
-      },
-    },
-  },
 };
 
 export const Opacity: Story = {
   args: {
     type: 'opacity',
-    color: '#417505',
+    color: '#0075ff',
   },
 };
 
 export const Vertical: Story = {
   args: {
     vertical: true,
-  },
-};
-
-export const VerticalOpacity: Story = {
-  args: {
-    type: 'opacity',
-    vertical: true,
-    color: '#417505',
   },
 };

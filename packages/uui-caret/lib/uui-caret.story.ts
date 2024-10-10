@@ -1,24 +1,22 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
+const meta: Meta = {
   id: 'uui-caret',
-  title: 'Symbols/Caret',
   component: 'uui-caret',
+  title: 'Symbols/Caret',
+  render: args => html`<uui-caret ${spread(args)}></uui-caret>`,
   parameters: {
     readme: {
       markdown: readme,
     },
-    docs: {
-      source: {
-        code: `<uui-caret></uui-caret>`,
-      },
-    },
   },
 };
 
-export const Overview: Story = props =>
-  html` <uui-caret .open=${props.open}></uui-caret>`;
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};

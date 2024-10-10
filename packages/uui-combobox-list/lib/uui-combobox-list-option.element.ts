@@ -21,7 +21,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
 
   /**
    * Value of the option.
-   * @type { string }
+   * @type {string}
    * @attr
    * @default ""
    */
@@ -37,7 +37,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
 
   /**
    * A readable value.
-   * @type { string }
+   * @type {string}
    * @attr
    * @default ""
    */
@@ -55,7 +55,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
 
   /**
    * Determines if the options is disabled. If true the option can't be selected
-   * @type { boolean }
+   * @type {boolean}
    * @attr
    * @default false
    */

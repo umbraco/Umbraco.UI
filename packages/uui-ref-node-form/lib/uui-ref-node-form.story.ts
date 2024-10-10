@@ -1,225 +1,68 @@
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
-import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
-import './index';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
 
-export default {
+const meta: Meta = {
   id: 'uui-ref-node-form',
-  title: 'Displays/References/Form',
   component: 'uui-ref-node-form',
+  title: 'Displays/References/Form',
+  args: {
+    name: 'Newsletter Signup',
+    detail: 'Accept and signup for newsletter',
+  },
+  render: args =>
+    html`<uui-ref-node-form ${spread(args)}
+      >${renderSlots(args)}</uui-ref-node-form
+    >`,
+  decorators: [
+    (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
+  ],
   parameters: {
-    readme: { markdown: readme },
-  },
-};
-
-const Template: Story = props => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node-form
-      name="${props.name}"
-      detail="${props.detail}"
-      ?selectable=${props.selectable}
-      ?error=${props.error}
-      ?disabled=${props.disabled}>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node-form>
-  </div>
-`;
-
-export const AAAOverview = Template.bind({});
-AAAOverview.args = {
-  name: 'Newsletter Signup',
-  detail: 'Accept and signup for newsletter',
-};
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node-form
-  name="Newsletter Signup"
-  alias="Signup for newsletter">
-  <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
-  </uui-action-bar>
-</uui-ref-node-form>
-    `,
+    readme: {
+      markdown: readme,
     },
   },
 };
 
-export const CustomIcon: Story = () => html`
-  <uui-icon-registry-essential>
-    <div style="max-width: 420px;">
-      <uui-ref-node-data-type
-        name="Newsletter Signup"
-        detail="Signup for newsletter">
-        <uui-icon slot="icon" name="colorpicker"></uui-icon>
-        <uui-action-bar slot="actions">
-          <uui-button label="Remove">Remove</uui-button>
-        </uui-action-bar>
-      </uui-ref-node-data-type>
-    </div>
-  </uui-icon-registry-essential>
-`;
+export default meta;
+type Story = StoryObj;
 
-CustomIcon.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node-data-type
-  name="Newsletter Signup"
-  detail="Signup for newsletter">
-  <uui-icon slot="icon" name="colorpicker"></uui-icon>
-  <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
-  </uui-action-bar>
-</uui-ref-node-data-type>
-    `,
-    },
+export const Default: Story = {
+  args: {
+    'actions slot': html`<uui-action-bar slot="actions"
+      ><uui-button label="delete"
+        ><uui-icon name="delete"></uui-icon></uui-button
+    ></uui-action-bar>`,
+  },
+};
+export const CustomIcon: Story = {
+  args: {
+    'icon slot': html`<uui-icon slot="icon" name="colorpicker"></uui-icon>`,
   },
 };
 
-export const Standalone: Story = () => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node-form
-      standalone
-      name="Newsletter Signup"
-      detail="Signup for newsletter">
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node-form>
-  </div>
-`;
-
-Standalone.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node-form
-  standalone
-  name="Newsletter Signup"
-  detail="Signup for newsletter">
-  <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
-  </uui-action-bar>
-</uui-ref-node-form>
-    `,
-    },
+export const Standalone: Story = {
+  args: {
+    standalone: true,
   },
 };
 
-export const Selectable: Story = props => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node-form
-      ?selectable="${props.selectable}"
-      name="Newsletter Signup"
-      detail="Signup for newsletter">
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node-form>
-  </div>
-`;
-
-Selectable.args = {
-  selectable: true,
-};
-
-Selectable.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node-form
-  selectable
-  name="Newsletter Signup"
-  detail="Signup for newsletter">
-  <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
-  </uui-action-bar>
-</uui-ref-node-form>
-    `,
-    },
+export const Selectable: Story = {
+  args: {
+    selectable: true,
   },
 };
 
-export const Disabled: Story = props => html`
-  <div style="max-width: 420px;">
-    <uui-ref-node-form
-      ?disabled="${props.disabled}"
-      name="Newsletter Signup"
-      detail="Signup for newsletter">
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node-form>
-  </div>
-`;
-
-Disabled.args = {
-  disabled: true,
-};
-
-Disabled.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node-form
-  disabled
-  name="Newsletter Signup"
-  alias="Signup for newsletter">
-  <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
-  </uui-action-bar>
-</uui-ref-node-form>
-    `,
-    },
+export const Disabled: Story = {
+  args: {
+    disabled: true,
   },
 };
 
-const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
-export const Listed: Story = () => html`
-  <uui-ref-list style="max-width: 420px;">
-    ${listOfNodeNames.map(
-      name =>
-        html`<uui-ref-node-form name=${name} detail="Description here...">
-          <uui-action-bar slot="actions">
-            <uui-button label="Remove">Remove</uui-button>
-          </uui-action-bar>
-        </uui-ref-node-form>`,
-    )}
-  </uui-ref-list>
-`;
-
-Listed.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-list>
-
-  <uui-ref-node-form name="Form 1" detail="Description here...">
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node-form>
-
-  <uui-ref-node-form name="Form 2" detail="Description here...">
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node-form>
-
-  <uui-ref-node-form name="Form 3" detail="Description here...">
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node-form>
-
-</uui-ref-list>
-    `,
-    },
+export const Readonly: Story = {
+  args: {
+    readonly: true,
   },
 };

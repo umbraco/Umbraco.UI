@@ -1,35 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { UUIColorAreaElement } from './uui-color-area.element';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-import './uui-color-area.element';
-
-const meta: Meta<UUIColorAreaElement> = {
+const meta: Meta = {
   id: 'uui-color-area',
-  title: 'Inputs/Color/Color Area',
   component: 'uui-color-area',
+  title: 'Inputs/Color/Color Area',
   argTypes: {
     value: { control: 'color' },
   },
+  render: args => html`<uui-color-area ${spread(args)}></uui-color-area>`,
   parameters: {
     readme: {
       markdown: readme,
     },
-    docs: {
-      source: {
-        code: `<uui-color-area></uui-color-area>`,
-      },
-    },
-    actions: {
-      handles: ['change'],
-    },
   },
-  decorators: [withActions as any],
 };
 
 export default meta;
+type Story = StoryObj;
 
-type Story = StoryObj<UUIColorAreaElement>;
-
-export const Overview: Story = {};
+export const Default: Story = {};
