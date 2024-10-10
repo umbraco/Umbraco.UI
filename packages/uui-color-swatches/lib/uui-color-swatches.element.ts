@@ -34,7 +34,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   @queryAssignedElements({ selector: 'uui-color-swatch' })
-  private _swatches!: Array<UUIColorSwatchElement>;
+  private readonly _swatches!: Array<UUIColorSwatchElement>;
 
   private __activeElement: UUIColorSwatchElement | undefined;
   private get _activeElement(): UUIColorSwatchElement | undefined {
