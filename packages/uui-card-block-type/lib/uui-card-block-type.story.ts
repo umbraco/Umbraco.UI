@@ -50,6 +50,7 @@ export const AAAOverview: StoryFn = props => html`
     ?selected=${props.selected}
     ?error=${props.error}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     href=${props.href}
     target=${props.target}
     rel=${props.rel}>
@@ -349,6 +350,33 @@ Disabled.args = {
   selected: false,
   error: false,
   disabled: true,
+};
+
+export const Readonly: StoryFn = props => html`
+  <uui-card-block-type
+    name=${props.name}
+    description=${props.description}
+    background=${props.background}
+    ?selectable=${props.selectable}
+    ?selected=${props.selected}
+    ?error=${props.error}
+    ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
+    href=${props.href}
+    target=${props.target}
+    rel=${props.rel}>
+    ${renderWandIcon()}
+  </uui-card-block-type>
+`;
+
+Readonly.args = {
+  name: 'The Block Name',
+  description: 'This block seems to be readonly!',
+  selectable: false,
+  selected: false,
+  error: false,
+  disabled: false,
+  readonly: true,
 };
 
 export default meta;

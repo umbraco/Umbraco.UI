@@ -35,6 +35,7 @@ const Template: StoryFn = props => html`
     ?selected=${props.selected}
     ?error=${props.error}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     href=${props.href}
     target=${props.target}
     rel=${props.rel}>
@@ -51,6 +52,7 @@ AAAOverview.args = {
   selectOnly: false,
   error: false,
   disabled: false,
+  readonly: false,
 };
 
 export const Selectable: StoryFn = Template.bind({});
@@ -186,6 +188,23 @@ Tags.parameters = {
 <uui-card-user name="John Rabbit">
   <uui-avatar slot="avatar" size="m" name="John Rabbit" src="https://placedog.net/120/?random"></uui-avatar>
 
+  <!-- Content -->
+</uui-card-user>`,
+    },
+  },
+};
+
+export const Readonly: StoryFn = Template.bind({});
+Readonly.args = {
+  readonly: true,
+};
+
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `
+<uui-card-user name="John Rabbit" readonly>
   <!-- Content -->
 </uui-card-user>`,
     },

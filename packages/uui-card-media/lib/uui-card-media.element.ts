@@ -110,12 +110,20 @@ export class UUICardMediaElement extends UUICardElement {
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
-      ${this.href ? this.#renderLink() : this.#renderButton()}
+      ${this.#renderName()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
 
       <slot name="tag"></slot>
       <slot name="actions"></slot>`;
+  }
+
+  #renderName() {
+    if (this.readonly) {
+      return html`<div id="open-part"><span>${this.name}</span></div>`;
+    } else {
+      return this.href ? this.#renderLink() : this.#renderButton();
+    }
   }
 
   static styles = [
@@ -181,9 +189,9 @@ export class UUICardMediaElement extends UUICardElement {
         word-break: break-word;
       }
 
-      :host([disabled]) #open-part {
+      :host([disabled]) #open-part,
+      :host([readonly]) #open-part {
         pointer-events: none;
-        background: var(--uui-color-disabled);
         color: var(--uui-color-contrast-disabled);
       }
 

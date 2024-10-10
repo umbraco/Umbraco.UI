@@ -76,11 +76,19 @@ export class UUICardUserElement extends UUICardElement {
         name="avatar"
         id="avatar"
         @slotchange=${this._avatarSlotChanged}></slot>
-      ${this.href ? this.#renderLink() : this.#renderButton()}
+      ${this.#renderName()}
       <slot></slot>
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
+  }
+
+  #renderName() {
+    if (this.readonly) {
+      return html`<div id="open-part"><span>${this.name}</span></div>`;
+    } else {
+      return this.href ? this.#renderLink() : this.#renderButton();
+    }
   }
 
   static styles = [
@@ -144,7 +152,8 @@ export class UUICardUserElement extends UUICardElement {
         margin: 0 0 3px 0;
       }
 
-      :host([disabled]) #open-part {
+      :host([disabled]) #open-part,
+      :host([readonly]) #open-part {
         pointer-events: none;
       }
 

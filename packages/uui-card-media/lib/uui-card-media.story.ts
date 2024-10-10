@@ -27,6 +27,7 @@ export const AAAOverview: Story = props => html`
     ?selected=${props.selected}
     ?error=${props.error}
     ?disabled=${props.disabled}
+    ?readonly=${props.readonly}
     href=${props.href}
     target=${props.target}
     rel=${props.rel}></uui-card-media>
@@ -40,6 +41,7 @@ AAAOverview.args = {
   selected: false,
   error: false,
   disabled: false,
+  readonly: false,
 };
 
 export const File: Story = props => html`
@@ -188,6 +190,29 @@ Disabled.parameters = {
     source: {
       code: `
 <uui-card-media name="File name" disabled>
+  <img src="https://placedog.net/1447/?random" alt="" />
+</uui-card-media>
+`,
+    },
+  },
+};
+
+export const Readonly: Story = props => html`
+  <uui-card-media name="File name" ?readonly=${props.readonly}
+    ><img src="https://placedog.net/1447/?random" alt=""
+  /></uui-card-media>
+`;
+
+Readonly.args = {
+  readonly: true,
+};
+
+Readonly.parameters = {
+  controls: { include: ['readonly'] },
+  docs: {
+    source: {
+      code: `
+<uui-card-media name="File name" readonly>
   <img src="https://placedog.net/1447/?random" alt="" />
 </uui-card-media>
 `,

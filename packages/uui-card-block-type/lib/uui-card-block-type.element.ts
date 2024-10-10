@@ -46,8 +46,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
         style=${styleMap({ backgroundColor: this.background })}>
         <slot></slot>
       </div>
-      ${this.href ? this.#renderLink() : this.#renderButton()}
-
+      ${this.#renderContent()}
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
@@ -81,6 +80,16 @@ export class UUICardBlockTypeElement extends UUICardElement {
         <strong>${this.name}</strong><small>${this.description}</small>
       </a>
     `;
+  }
+
+  #renderContent() {
+    if (this.readonly) {
+      return html`<div id="open-part">
+        <strong>${this.name}</strong><small>${this.description}</small>
+      </div>`;
+    } else {
+      return html` ${this.href ? this.#renderLink() : this.#renderButton()} `;
+    }
   }
 
   static styles = [
@@ -133,6 +142,10 @@ export class UUICardBlockTypeElement extends UUICardElement {
         pointer-events: none;
         background: var(--uui-color-disabled);
         color: var(--uui-color-contrast-disabled);
+      }
+
+      :host([readonly]) #open-part {
+        pointer-events: none;
       }
 
       #open-part:hover strong {
