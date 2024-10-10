@@ -8,7 +8,7 @@
     "composite": true
   },
   "include": ["./**/*.ts"],
-  "exclude": ["./**/*.test.ts", "./**/*.story.ts", "./**/*.stories.ts"],
+  "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": [
     {
       "path": "../uui-avatar"
