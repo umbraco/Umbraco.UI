@@ -122,7 +122,7 @@
     "rimraf": "5.0.5",
     "rollup": "4.9.6",
     "rollup-plugin-esbuild": "6.1.1",
-    "rollup-plugin-import-css": "3.4.0",
+    "rollup-plugin-import-css": "3.5.4",
     "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
     "storybook": "^8.3.5",
