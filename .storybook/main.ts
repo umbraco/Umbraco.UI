@@ -16,6 +16,7 @@ const config: StorybookConfig = {
     '../packages/**/*.story.@(js|jsx|mjs|ts|tsx)',
     '../stories/**/*.story.@(js|jsx|mjs|ts|tsx)',
   ],
+  staticDirs: ['./images'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
