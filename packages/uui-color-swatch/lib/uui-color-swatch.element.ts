@@ -9,7 +9,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
- * Color swatch, can have label and be selectable.
+ * Color swatch, can have label and be selectable, disabled or readonly.
  *
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
@@ -66,7 +66,7 @@ export class UUIColorSwatchElement extends LabelMixin(
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  readonly = false;
+  readonly: boolean = false;
 
   /**
    * When true shows element label below the color checkbox
