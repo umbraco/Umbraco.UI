@@ -150,10 +150,5 @@
   "storybook": {
     "url": "https://v1-contrib--62189360eeb21b003ab2f4ad.chromatic.com/"
   },
-  "packageManager": "npm@9.5.1",
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
-  }
+  "packageManager": "npm@10.7.0"
 }
