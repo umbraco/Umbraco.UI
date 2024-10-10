@@ -59,7 +59,7 @@
     "lit": "^2.8.0"
   },
   "devDependencies": {
-    "@babel/core": "7.24.7",
+    "@babel/core": "7.25.2",
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.7.0",
     "@lerna-lite/cli": "3.9.1",
@@ -128,7 +128,7 @@
     "turbo": "1.13.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.16.1",
-    "vite": "5.0.13",
+    "vite": "5.4.7",
     "vite-plugin-turbosnap": "^1.0.3",
     "vite-tsconfig-paths": "4.3.2",
     "web-component-analyzer": "2.0.0"
