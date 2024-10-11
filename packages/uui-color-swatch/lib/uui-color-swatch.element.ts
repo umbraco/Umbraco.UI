@@ -114,7 +114,6 @@ export class UUIColorSwatchElement extends LabelMixin(
       <button
         id="swatch"
         aria-label=${this.label}
-        aria-readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         title="${this.label}">
         <div class="color-swatch color-swatch--transparent-bg">
