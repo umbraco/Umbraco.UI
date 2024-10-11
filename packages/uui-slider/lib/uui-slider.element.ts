@@ -364,7 +364,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         fill: var(--uui-color-border-emphasis);
       }
 
-      input:focus ~ #track svg {
+      input:focus ~ #track #thumb {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);
       }

@@ -1,23 +1,19 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
-  title: 'Inputs/Slider',
-  component: 'uui-slider',
+const meta: Meta = {
   id: 'uui-slider',
+  component: 'uui-slider',
+  title: 'Inputs/Slider',
   args: {
     min: -100,
     max: 100,
     step: 1,
     label: 'Slider label',
-    hideStepValues: false,
-    hideValueLabel: false,
     value: 0,
-    disabled: false,
-    readonly: false,
   },
   argTypes: {
     label: {
@@ -27,55 +23,36 @@ export default {
       control: { type: 'number' },
     },
   },
+  render: args => html`<uui-slider ${spread(args)}></uui-slider>`,
   parameters: {
-    readme: { markdown: readme },
-  },
-};
-
-const Template: Story = props => html`
-  <uui-slider
-    label=${props.label}
-    step=${props.step}
-    min=${props.min}
-    max=${props.max}
-    ?disabled=${props.disabled}
-    ?readonly=${props.readonly}
-    .value=${props.value}
-    .hideStepValues=${props.hideStepValues}
-    .hideValueLabel=${props.hideValueLabel}></uui-slider>
-`;
-
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-slider label="Slider label" step="1"></uui-slider>`,
+    readme: {
+      markdown: readme,
     },
   },
 };
 
-export const HiddenValues = Template.bind({});
-HiddenValues.args = {
-  hideStepValues: true,
-  min: 0,
-  max: 10,
-  step: 1,
-};
-HiddenValues.parameters = {
-  docs: {
-    source: {
-      code: `<uui-slider label="Slider label" step="100" hide-step-values></uui-slider>`,
-    },
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};
+
+export const HiddenValues: Story = {
+  args: {
+    hideStepValues: true,
+    min: 0,
+    max: 10,
+    step: 1,
   },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
 };
 
-export const Readonly = Template.bind({});
-Readonly.args = {
-  readonly: true,
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+  },
 };

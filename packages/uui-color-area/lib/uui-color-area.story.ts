@@ -1,14 +1,12 @@
-import type { Meta, StoryFn } from '@storybook/web-components';
-import { html } from 'lit';
-import { withActions } from '@storybook/addon-actions/decorator';
+import type { StoryFn, Meta, StoryObj } from '@storybook/web-components';
 import type { UUIColorAreaElement } from './uui-color-area.element';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import { spread } from '../../../storyhelpers';
 
-import './uui-color-area.element';
-
-const meta: Meta<UUIColorAreaElement> = {
+const meta: Meta = {
   id: 'uui-color-area',
-  title: 'Inputs/Color/Color Area',
   component: 'uui-color-area',
   args: {
     hue: 0,
@@ -20,26 +18,20 @@ const meta: Meta<UUIColorAreaElement> = {
     readonly: false,
     value: '',
   },
+  title: 'Inputs/Color/Color Area',
   argTypes: {
     value: { control: 'color' },
   },
+  render: args => html`<uui-color-area ${spread(args)}></uui-color-area>`,
   parameters: {
     readme: {
       markdown: readme,
     },
-    docs: {
-      source: {
-        code: `<uui-color-area></uui-color-area>`,
-      },
-    },
-    actions: {
-      handles: ['change'],
-    },
   },
-  decorators: [withActions as any],
 };
 
 export default meta;
+type Story = StoryObj;
 
 const Template: StoryFn<UUIColorAreaElement> = props => {
   return html`<uui-color-area
@@ -64,10 +56,10 @@ Disabled.args = {
 };
 
 Disabled.parameters = {
-  controls: { include: ['disbled'] },
+  controls: { include: ['disabled'] },
   docs: {
     source: {
-      code: `<uui-color-area disbled></uui-color-area>`,
+      code: `<uui-color-area disabled></uui-color-area>`,
     },
   },
 };
@@ -86,3 +78,4 @@ Readonly.parameters = {
     },
   },
 };
+export const Default: Story = {};

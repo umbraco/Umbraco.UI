@@ -1,11 +1,26 @@
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
 
-export default {
+const meta: Meta = {
   id: 'uui-card',
-  title: 'Displays/Cards/Card',
   component: 'uui-card',
+  title: 'Displays/Cards/Card',
+  args: {
+    slot: 'This is an example of a simple card',
+  },
+  render: args =>
+    html`<uui-card ${spread(args)}>${renderSlots(args)}</uui-card>`,
+  decorators: [
+    (Story: any) =>
+      html`<div
+        style="display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 300px));">
+        ${Story()}
+      </div>`,
+  ],
   parameters: {
     readme: {
       markdown: readme,
@@ -13,28 +28,25 @@ export default {
   },
 };
 
-const Template: Story = () => html`
-  <p>
-    Card is a Component that provides the basics for a Card component. This can
-    be extended in code to match a certain need.
-  </p>
+export default meta;
+type Story = StoryObj;
 
-  <uui-card selectable>
-    <h5 class="uui-h5">Context of the card<h5>
-  </uui-card>
-`;
+export const Default: Story = {};
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-import { UUICardElement } from '@umbraco-ui/uui-card/lib/uui-card.element;
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+};
 
-class MyCardElement extends UUICardElement {}
-    `,
-      language: 'js',
-    },
+export const Error: Story = {
+  args: {
+    error: true,
+  },
+};
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
   },
 };

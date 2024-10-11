@@ -4,8 +4,7 @@ import '@umbraco-ui/uui-table/lib';
 import readme from '../README.md?raw';
 
 // @ts-ignore-start
-// eslint-disable-next-line -- // @typescript-eslint/ban-ts-comment // @ts-ignore
-import customProperties from '../custom-properties.module.js'; // eslint-disable-line
+import customProperties from '../custom-properties.module.js';
 // @ts-ignore-end
 const properties = Object.keys(customProperties.customProperties).map(
   // @ts-ignore

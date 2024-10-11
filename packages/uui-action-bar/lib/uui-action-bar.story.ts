@@ -1,32 +1,26 @@
-import type { StoryFn } from '@storybook/web-components';
+import { html } from 'lit';
+import '.';
+import readme from '../README.md?raw';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
-import '@umbraco-ui/uui-icon-registry-essential/lib';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-import { html } from 'lit';
-
-import readme from '../README.md?raw';
-
-export default {
+const meta: Meta = {
   id: 'uui-action-bar',
-  title: 'Buttons/Action Bar',
   component: 'uui-action-bar',
+  title: 'Buttons/Action Bar',
   args: {
-    look: 'secondary',
-    color: 'default',
+    look: 'primary',
   },
   argTypes: {
     look: {
-      control: {
-        type: 'select',
-      },
+      control: { type: 'select' },
       options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
     },
     color: {
-      control: {
-        type: 'select',
-      },
+      control: { type: 'select' },
       options: ['default', 'positive', 'warning', 'danger'],
     },
   },
@@ -37,98 +31,69 @@ export default {
   },
 };
 
-const buttons = ['copy', 'remove', 'delete'];
+export default meta;
+type Story = StoryObj;
 
-export const AAAOverview: StoryFn = props => html`
-  <uui-icon-registry-essential>
-    <uui-action-bar
-      >${buttons.map(
-        el =>
-          html` <uui-button
-            label="${el}"
-            look="${props.look}"
-            color="${props.color}">
-            <uui-icon name="${el}"></uui-icon>
-          </uui-button>`,
-      )}
-    </uui-action-bar>
-  </uui-icon-registry-essential>
-`;
-
-AAAOverview.storyName = 'Overview';
-
-export const Single = () => {
-  const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-
-  return html`
-    <uui-icon-registry-essential>
-      ${looks.map(
-        look =>
-          html`<div
-            style="display: grid; grid-template-columns: repeat( auto-fill, 120px ); gap: 16px; margin-bottom: 32px">
-            <uui-action-bar style="justify-self: left;">
-              <uui-button label="Delete" .look="${look as any}">
-                <uui-icon name="delete"></uui-icon>
-              </uui-button>
-            </uui-action-bar>
-          </div> `,
-      )}
-    </uui-icon-registry-essential>
-  `;
+export const Default: Story = {
+  // prettier-ignore
+  render: args => html`
+<uui-action-bar>
+  <uui-button ${spread(args)} label="copy">
+    <uui-icon name="copy"></uui-icon>
+  </uui-button>
+  <uui-button ${spread(args)} label="remove">
+    <uui-icon name="remove"> </uui-icon>
+  </uui-button>
+  <uui-button ${spread(args)} label="delete">
+    <uui-icon name="delete"></uui-icon>
+  </uui-button>
+</uui-action-bar>
+  `,
 };
 
-export const LooksAndColors = () => {
-  const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-  const colors = ['default', 'positive', 'warning', 'danger'];
+export const Single: Story = {
+  // prettier-ignore
+  render: args => {
+    return html`
+<uui-action-bar>
+  <uui-button ${spread(args)} label="trash">
+    <uui-icon name="delete"></uui-icon>
+  </uui-button>
+</uui-action-bar>`;
+  },
+};
 
-  return html`
-    <uui-icon-registry-essential>
+export const LooksAndColors: Story = {
+  render: () => {
+    const buttons = ['copy', 'remove', 'delete'];
+    const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+    const colors = ['default', 'positive', 'warning', 'danger'];
+
+    const uppercaseFirstLetter = (str: string) =>
+      str.charAt(0).toUpperCase() + str.slice(1);
+
+    return html`
       ${colors.map(
-        color =>
-          html`<div
-            style="display: grid; grid-template-columns: repeat( auto-fill, 100px ); gap: 16px; margin-bottom: 32px">
-            ${looks.map(
-              look => html`
-                <uui-action-bar
-                  >${buttons.map(
-                    el =>
-                      html` <uui-button
-                        label="${el}"
-                        .look="${look as any}"
-                        .color="${color as any}">
-                        <uui-icon name="${el}"></uui-icon>
-                      </uui-button>`,
-                  )}
-                </uui-action-bar>
-              `,
-            )}
-          </div> `,
+        color => html`
+        <h5>${uppercaseFirstLetter(color)}</h5>
+          ${looks.map(
+            look => html`
+              <uui-action-bar
+                >${buttons.map(
+                  el =>
+                    html` <uui-button
+                      label="${el}"
+                      .look="${look as any}"
+                      .color="${color as any}">
+                      <uui-icon name="${el}"></uui-icon>
+                    </uui-button>`,
+                )}
+              </uui-action-bar>
+            `,
+          )}
+        </div>
+      `,
       )}
-    </uui-icon-registry-essential>
-  `;
-};
-
-LooksAndColors.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-icon-registry-essential>
-  <uui-action-bar>
-
-    <uui-button look="[look]" color="[color]" label="Copy">
-      <uui-icon name="copy"></uui-icon>
-    </uui-button>
-
-    <uui-button look="[look]" color="[color]" label="Remove">
-      <uui-icon name="remove"></uui-icon>
-    </uui-button>
-
-    <uui-button look="[look]" color="[color]" label="Delete">
-      <uui-icon name="delete"></uui-icon>
-    </uui-button>
-
-  </uui-action-bar>
-</uui-icon-registry-essential>`,
-    },
+    `;
   },
 };

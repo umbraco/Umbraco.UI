@@ -1,16 +1,15 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
-  title: 'Loaders/Loader Bar',
-  component: 'uui-loader-bar',
+const meta: Meta = {
   id: 'uui-loader-bar',
+  component: 'uui-loader-bar',
+  title: 'Loaders/Loader Bar',
   args: {
-    animationDuration: 1.5,
-    progress: 0,
+    color: '#006eff',
   },
   argTypes: {
     progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
@@ -18,54 +17,24 @@ export default {
       control: { type: 'number', min: 0, max: 100 },
     },
   },
+  render: args =>
+    html`<uui-loader-bar
+      style="color: ${args.color}"
+      ${spread(args, ['color'])}></uui-loader-bar>`,
   parameters: {
     readme: {
       markdown: readme,
     },
-    chromatic: { disableSnapshot: true },
   },
 };
 
-const Template: Story = props => html`
-  <uui-loader-bar
-    progress=${props.progress}
-    animationDuration=${props.animationDuration}
-    style=${props.color ? 'color: ' + props.color : ''}></uui-loader-bar>
-`;
+export default meta;
+type Story = StoryObj;
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-AAAOverview.args = { color: '' };
-AAAOverview.argTypes = {
-  color: { table: { category: 'Styles' } },
-};
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: '<uui-loader-bar animationDuration="1.5" style="color: black"></uui-loader-bar>',
-    },
-  },
-};
+export const Default: Story = {};
 
-export const Color = Template.bind({});
-Color.args = { color: 'blue' };
-Color.argTypes = {
-  color: { table: { category: 'Styles' } },
-};
-Color.parameters = {
-  docs: {
-    source: {
-      code: '<uui-loader-bar style="color: blue"></uui-loader-bar>',
-    },
-  },
-};
-
-export const Progress = Template.bind({});
-Progress.args = { progress: 75 };
-Progress.parameters = {
-  docs: {
-    source: {
-      code: '<uui-loader-bar progress="75"></uui-loader-bar>',
-    },
+export const Progress: Story = {
+  args: {
+    progress: 50,
   },
 };

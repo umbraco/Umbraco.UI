@@ -1,23 +1,22 @@
 import '.';
-import '@umbraco-ui/uui-checkbox/lib';
+import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
+
 import '@umbraco-ui/uui-input/lib';
 
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
-import readme from '../README.md?raw';
-
-export default {
+const meta: Meta = {
   id: 'uui-label',
-  title: 'Inputs/Label',
   component: 'uui-label',
+  title: 'Inputs/Label',
   args: {
     slot: 'Label',
+    for: 'MyInput',
   },
-  argTypes: {
-    slot: {
-      control: { type: 'text' },
-    },
-  },
+  render: args =>
+    html`<uui-label ${spread(args)}>${renderSlots(args)}</uui-label>
+      <uui-input id="MyInput" label="My A11Y Label"></uui-input>`,
   parameters: {
     readme: {
       markdown: readme,
@@ -25,63 +24,19 @@ export default {
   },
 };
 
-const Template: Story = props => html`
-  <uui-label ?disabled=${props.disabled} ?required=${props.required}
-    >${props.slot}</uui-label
-  >
-`;
+export default meta;
+type Story = StoryObj;
 
-export const AAAOverview = Template.bind({});
-AAAOverview.args = {
-  disabled: false,
-  required: false,
+export const Default: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
 };
-AAAOverview.storyName = 'Overview';
 
-export const ConnectWithFormControl: Story = () => html`
-<uui-label for="MyInput">My Label</uui-label>
-<uui-input id="MyInput" label="My A11Y Label"></uui-input>
-
-<br />
-<br />
-
-<uui-label for="MyCheckbox">My Label</uui-label>
-<uui-checkbox id="MyCheckbox" label="My A11Y Label">Option 1</uui-checkbox>
-
-<br />
-<br />
-
-<uui-label for="MyNativeInput">My Label</uui-label>
-<input type="text" id="MyNativeInput" label="My A11Y Label"></input>
-
-<br />
-<br />
-
-<uui-label for="MyToggle">My Label</uui-label>
-<uui-toggle id="MyToggle" label="My A11Y Label">Toggle this</uui-toggle>
-
-<br />
-<br />
-
-<uui-label for="MyTextArea">My Label</uui-label>
-<uui-textarea id="MyTextArea" label="My A11Y Label"></uui-textarea>
-
-<br />
-<br />
-
-<uui-label for="MySlider">My Label</uui-label>
-<uui-slider id="MySlider" label="My A11Y Label">My Slider label</uui-slider>
-
-<br />
-<br />
-
-<uui-label for="MySelect">My Label</uui-label>
-<uui-select id="MySelect" label="My A11Y Label" .options=${[
-  { name: 'Carrot', value: 'orange' },
-  { name: 'Cucumber', value: 'green' },
-  { name: 'Aubergine', value: 'purple', selected: true },
-  { name: 'Blueberry', value: 'Blue' },
-  { name: 'Banana', value: 'yellow' },
-  { name: 'Strawberry', value: 'red' },
-]}></uui-select>
-`;
+export const Required: Story = {
+  args: {
+    required: true,
+  },
+};

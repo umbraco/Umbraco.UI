@@ -1,36 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
-
-import './uui-symbol-expand.element';
-import type { UUISymbolExpandElement } from './uui-symbol-expand.element';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-const meta: Meta<UUISymbolExpandElement> = {
+const meta: Meta = {
   id: 'uui-symbol-expand',
-  title: 'Symbols/Expand',
   component: 'uui-symbol-expand',
+  title: 'Symbols/Expand',
+  render: args =>
+    html`<uui-symbol-expand
+      ${spread(args)}
+      @click=${(e: MouseEvent) => {
+        (e.target as any).open = !(e.target as any).open;
+      }}></uui-symbol-expand>`,
   parameters: {
-    readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<uui-symbol-expand></uui-symbol-expand>`,
-      },
+    readme: {
+      markdown: readme,
     },
-  },
-  args: {
-    open: false,
   },
 };
 
 export default meta;
-type Story = StoryObj<UUISymbolExpandElement>;
+type Story = StoryObj;
 
-export const Overview: Story = {
-  render: props =>
-    html`<uui-symbol-expand
-      ?open=${props.open}
-      @click=${(e: MouseEvent) => {
-        (e.target as any).open = !(e.target as any).open;
-      }}>
-    </uui-symbol-expand>`,
-};
+export const Default: Story = {};

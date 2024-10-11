@@ -26,7 +26,12 @@ export default [
   // Global ignores
   includeIgnoreFile(gitignorePath),
   {
-    ignores: ['**/*.{cjs,mjs,js}', 'vite.config.ts', 'stories/'],
+    ignores: [
+      '**/*.{cjs,mjs,js}',
+      'vite.config.ts',
+      'stories/',
+      '**/.storybook/**',
+    ],
   },
 
   // Global config
