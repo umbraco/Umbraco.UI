@@ -1,20 +1,20 @@
 import '.';
-
-import { Meta, Story } from '@storybook/web-components';
-import { html } from 'lit';
-import type { UUIBoxElement } from './uui-box.element';
-
 import readme from '../README.md?raw';
+import { html, nothing } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
-  title: 'Layout/Box',
-  component: 'uui-box',
+const meta: Meta = {
   id: 'uui-box',
-  args: {
-    headline: 'Headline',
-    headlineVariant: 'h5',
-  },
+  component: 'uui-box',
+  title: 'Layout/Box',
+  args: {},
   argTypes: {
+    headline: {
+      control: {
+        type: 'text',
+      },
+    },
     headlineVariant: {
       control: {
         type: 'select',
@@ -22,56 +22,42 @@ export default {
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     },
   },
+  render: args => {
+    return html`<uui-box ${spread(args)}>
+      ${args['headline slot']
+        ? html`<div slot="headline">${args['headline slot']}</div>`
+        : nothing}
+      ${args['header slot']
+        ? html`<div slot="header">${args['header slot']}</div>`
+        : nothing}
+      ${args['header-actions slot']
+        ? html`<div slot="header-actions">${args['header-actions slot']}</div>`
+        : nothing}
+      ${args['slot']}
+    </uui-box>`;
+  },
   parameters: {
     readme: {
       markdown: readme,
     },
   },
-} as Meta<UUIBoxElement>;
-
-const Template: Story = props => {
-  return html`
-    <uui-box
-      headline="${props.headline}"
-      headline-variant="${props.headlineVariant}">
-      <p>Some content of this box, appended in the default slot.</p>
-      <p>The headline is currently rendered as a ${props.headlineVariant}.</p>
-    </uui-box>
-  `;
 };
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      type: 'dynamic',
-    },
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
+  args: {
+    headline: 'Headline',
+    slot: 'Some content of this box, appended in the default slot.',
   },
 };
 
-export const Slots: Story = () => html`
-  <uui-box>
-    <uui-button slot="headline" look="placeholder" style="font-weight:inherit;"
-      >Headline slot</uui-button
-    >
-    <uui-button slot="header" look="placeholder">Header slot</uui-button>
-    <uui-button slot="header-actions" look="placeholder"
-      >Header actions slot</uui-button
-    >
-    <uui-button look="placeholder">Default slot</uui-button>
-  </uui-box>
-`;
-
-export const WithHeadlineVariant = Template.bind({});
-WithHeadlineVariant.args = { headline: 'H1 Headline', headerVariant: 'h1' };
-WithHeadlineVariant.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-box headline="H1 Headline" headline-variant="h1">
-  The headline is rendered as a H1.
-</uui-box>`,
-    },
+export const Slots: Story = {
+  args: {
+    slot: 'Default slot',
+    'headline slot': 'Headline Slot',
+    'header slot': 'Header Slot',
+    'header-actions slot': 'Header actions slot',
   },
 };

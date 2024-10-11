@@ -1,84 +1,68 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
 
-export default {
-  title: 'Displays/Tag',
-  component: 'uui-tag',
+const meta: Meta = {
   id: 'uui-tag',
+  component: 'uui-tag',
+  title: 'Displays/Tag',
   args: {
-    color: 'default',
-    look: 'primary',
-    fontSize: 12,
     slot: 'Hello',
   },
   argTypes: {
-    slot: { control: { type: 'text' } },
-    look: {
-      control: {
-        type: 'select',
-      },
-      options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
-    },
-    color: {
-      control: {
-        type: 'select',
-      },
-      options: ['default', 'positive', 'warning', 'danger'],
-    },
     '--uui-tag-font-size': { control: { type: 'text' } },
-    fontSize: { table: { category: 'Styles' } },
+    '--uui-tag-padding': { control: { type: 'text' } },
+    '--uui-tag-border-radius': { control: { type: 'text' } },
+    '--uui-tag-border-color': { control: { type: 'text' } },
   },
+  render: args => html`<uui-tag ${spread(args)}>${renderSlots(args)}</uui-tag>`,
   parameters: {
-    readme: { markdown: readme },
+    readme: {
+      markdown: readme,
+    },
   },
 };
 
-const Template: Story = props => html`
-  <uui-tag
-    color=${props.color}
-    .look=${props.look}
-    style="font-size: ${props.fontSize}px;"
-    >${props.slot}</uui-tag
-  >
-`;
+export default meta;
+type Story = StoryObj;
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
+export const Default: Story = {};
 
-export const Sizing: Story = props => html`
-  <uui-tag style="font-size:${props.fontSize}px;">${props.slot}</uui-tag>
-`;
-
-Sizing.parameters = {
-  controls: { include: ['fontSize', 'slot'] },
+export const Sizing: Story = {
+  args: {
+    '--uui-tag-font-size': '24px',
+  },
 };
 
-const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-const colors = ['default', 'positive', 'warning', 'danger'];
+export const LooksAndColors: Story = {
+  render: () => {
+    const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
+    const colors = ['default', 'positive', 'warning', 'danger'];
 
-function uppercaseFirstLetter(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
+    function uppercaseFirstLetter(s: string) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
 
-export const LooksAndColors: Story = () => html`
-  ${colors.map(
-    color => html`
-      <h5>${uppercaseFirstLetter(color)}</h5>
-      <div style="margin-bottom: 32px; display: flex; gap: 16px;">
-        ${looks.map(
-          look => html`
-            <uui-tag
-              .look=${look as any}
-              .color=${color as any}
-              style="margin-right:12px;"
-              >${uppercaseFirstLetter(look)}</uui-tag
-            >
-          `,
-        )}
-      </div>
-    `,
-  )}
-`;
+    return html`
+      ${colors.map(
+        color => html`
+          <h5>${uppercaseFirstLetter(color)}</h5>
+          <div style="margin-bottom: 32px; display: flex; gap: 16px;">
+            ${looks.map(
+              look => html`
+                <uui-tag
+                  .look=${look as any}
+                  .color=${color as any}
+                  style="margin-right:12px;"
+                  >${uppercaseFirstLetter(look)}</uui-tag
+                >
+              `,
+            )}
+          </div>
+        `,
+      )}
+    `;
+  },
+};

@@ -38,3 +38,5 @@ out-css
 
 # old source
 /src
+
+*storybook.log

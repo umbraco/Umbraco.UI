@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
-import type { UUIColorSwatchElement } from './uui-color-swatch.element';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
 
-import './uui-color-swatch.element';
-
-const meta: Meta<UUIColorSwatchElement> = {
+const meta: Meta = {
   id: 'uui-color-swatch',
-  title: 'Inputs/Color/Color Swatch',
   component: 'uui-color-swatch',
+  title: 'Inputs/Color/Color Swatch',
   args: {
     value: '#d0021b',
   },
@@ -15,6 +15,10 @@ const meta: Meta<UUIColorSwatchElement> = {
     value: { control: 'color' },
     color: { control: 'color' },
   },
+  render: args =>
+    html`<uui-color-swatch ${spread(args)}
+      >${renderSlots(args)}</uui-color-swatch
+    >`,
   parameters: {
     readme: {
       markdown: readme,
@@ -23,27 +27,19 @@ const meta: Meta<UUIColorSwatchElement> = {
 };
 
 export default meta;
+type Story = StoryObj;
 
-type Story = StoryObj<UUIColorSwatchElement>;
-
-export const Overview: Story = {};
+export const Default: Story = {};
 
 export const Selectable: Story = {
   args: {
     selectable: true,
   },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-swatch selectable></uui-color-swatch>`,
-      },
-    },
-  },
 };
 
 export const InvalidValue: Story = {
   args: {
-    value: 'askjhsdiusyhdiudhg',
+    value: 'alsdakjshd',
     label: 'Invalid color',
     showLabel: true,
   },
@@ -66,15 +62,7 @@ export const Disabled: Story = {
 export const DisabledSelected: Story = {
   args: {
     disabled: true,
-    selectable: true,
     selected: true,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-swatch disabled selectable selected></uui-color-swatch>`,
-      },
-    },
   },
 };
 
@@ -109,42 +97,20 @@ export const ReadonlySelected: Story = {
 
 export const WithLabel: Story = {
   args: {
-    label: "This is the most beautiful color I've ever seen",
+    label: 'Label',
     showLabel: true,
-    selectable: true,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-swatch label="This is the most beautiful color I've ever seen" show-label="true"></uui-color-swatch>`,
-      },
-    },
   },
 };
 
-export const DifferentColorThanValue: Story = {
+export const SlottedLabel: Story = {
   args: {
-    value: 'color1',
-    color: 'green',
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-swatch value="color1" color="green"></uui-color-swatch>`,
-      },
-    },
+    'label slot': html`<span slot="label">Slotted label</span>`,
+    showLabel: true,
   },
 };
 
 export const Transparent: Story = {
   args: {
-    color: 'rgba(53, 68, 177, 0.5)',
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-color-swatch color="rgba(53, 68, 177, 0.5)"></uui-color-swatch>`,
-      },
-    },
+    value: 'rgba(209, 2, 26, 0.4)',
   },
 };

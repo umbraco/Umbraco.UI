@@ -15,7 +15,7 @@ import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 export class UUIComboboxListElement extends LitElement {
   /**
    * Value of selected option.
-   * @type { FormDataEntryValue | FormData }
+   * @type {FormDataEntryValue | FormData}
    * @attr
    * @default ""
    */
@@ -35,7 +35,7 @@ export class UUIComboboxListElement extends LitElement {
 
   /**
    * A readable value to display to show the selected value.
-   * @type { string }
+   * @type {string}
    * @attr
    * @default ""
    */
@@ -45,7 +45,7 @@ export class UUIComboboxListElement extends LitElement {
   private _for?: HTMLElement;
   /**
    * provide another element of which keyboard navigation
-   * @type { HTMLElement }
+   * @type {HTMLElement}
    * @attr
    * @default this
    */

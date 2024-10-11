@@ -1,12 +1,26 @@
 import '.';
-
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
 
-export default {
-  title: 'Displays/Keyboard Shortcut',
-  component: 'uui-keyboard-shortcut',
+const meta: Meta = {
   id: 'uui-keyboard-shortcut',
+  component: 'uui-keyboard-shortcut',
+  title: 'Displays/Keyboard Shortcut',
+  args: {
+    label: 'Label',
+  },
+  render: () => html`
+    <uui-keyboard-shortcut>
+      <uui-key>ALT</uui-key>
+      +
+      <uui-key>shift</uui-key>
+      +
+      <uui-key>&#8593;</uui-key>
+      +
+      <uui-key>z</uui-key>
+    </uui-keyboard-shortcut>
+  `,
   parameters: {
     readme: {
       markdown: readme,
@@ -14,42 +28,7 @@ export default {
   },
 };
 
-export const AAAOverview = () => html` <uui-key>Enter</uui-key> `;
+export default meta;
+type Story = StoryObj;
 
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `<uui-key>Enter</uui-key>`,
-    },
-  },
-};
-
-export const KeyCombination = () => html`
-  <uui-keyboard-shortcut>
-    <uui-key>ALT</uui-key>
-    +
-    <uui-key>shift</uui-key>
-    +
-    <uui-key>&#8593;</uui-key>
-    +
-    <uui-key>z</uui-key>
-  </uui-keyboard-shortcut>
-`;
-
-KeyCombination.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-keyboard-shortcut>
-  <uui-key>ALT</uui-key>
-  +
-  <uui-key>shift</uui-key>
-  +
-  <uui-key>&#8593;</uui-key>
-  +
-  <uui-key>z</uui-key>
-</uui-keyboard-shortcut>`,
-    },
-  },
-};
+export const Default: Story = {};

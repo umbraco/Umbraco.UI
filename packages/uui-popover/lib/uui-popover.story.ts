@@ -1,6 +1,6 @@
 import '.';
 
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 
 import { UUIPopoverElement } from './uui-popover.element';
@@ -65,7 +65,7 @@ export default {
   },
 };
 
-export const AAAOverview: Story = props => {
+export const AAAOverview: StoryFn = props => {
   const handleClick = (e: MouseEvent) => {
     //@ts-ignore
     e.target.parentNode.open = !e.target.parentNode.open;
@@ -140,7 +140,7 @@ AAAOverview.play = () => {
   }
 };
 
-export const Nested: Story = props => {
+export const Nested: StoryFn = props => {
   const togglePopover = (id: string) => {
     let popover = document.querySelector(id) as UUIPopoverElement;
 
@@ -260,7 +260,7 @@ Nested.parameters = {
   },
 };
 
-export const Tooltip: Story = props => {
+export const Tooltip: StoryFn = props => {
   const mouseover = (id: string) => {
     const popover = document.querySelector(id) as UUIPopoverElement;
     popover.open = true;

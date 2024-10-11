@@ -1,279 +1,75 @@
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
-
-import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
 
-import './index';
 import '@umbraco-ui/uui-tag/lib';
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
-import '@umbraco-ui/uui-icon-registry-essential/lib';
 
-export default {
+const meta: Meta = {
   id: 'uui-ref-node',
-  title: 'Displays/References/Node',
   component: 'uui-ref-node',
+  title: 'Displays/References/Node',
+  args: {
+    name: 'Rabbit Suit Product Page',
+    detail: 'path/to/nowhere',
+    href: 'umbraco.com',
+  },
+  render: args =>
+    html`<uui-ref-node ${spread(args)}>${renderSlots(args)}</uui-ref-node>`,
   decorators: [
-    (Story: any) => html`
-      <uui-icon-registry-essential>
-        <div style="max-width: 420px;">${Story()}</div>
-      </uui-icon-registry-essential>
-    `,
+    (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
   parameters: {
-    readme: { markdown: readme },
+    readme: {
+      markdown: readme,
+    },
   },
 };
 
-const Template: Story = props => html`
-  <uui-ref-node
-    name="${props.name}"
-    detail="${props.detail}"
-    href="${props.href}"
-    target="${props.target}"
-    rel="${props.rel}"
-    ?selectable=${props.selectable}
-    ?selectOnly=${props.selectOnly}
-    ?error=${props.error}
-    ?disabled=${props.disabled}
-    ?readonly=${props.readonly}>
-    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
-    <uui-action-bar slot="actions"
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
+  args: {
+    'tag slot': html`<uui-tag size="s" slot="tag" color="positive"
+      >Published</uui-tag
+    >`,
+    'actions slot': html`<uui-action-bar slot="actions"
       ><uui-button label="delete"
         ><uui-icon name="delete"></uui-icon></uui-button
-    ></uui-action-bar>
-  </uui-ref-node>
-`;
-
-export const AAAOverview = Template.bind({});
-AAAOverview.args = {
-  name: 'Rabbit Suit Product Page',
-  detail: 'path/to/nowhere',
-  href: 'umbraco.com',
+    ></uui-action-bar>`,
+  },
 };
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
-  <uui-action-bar slot="actions"
-    ><uui-button><uui-icon name="delete"></uui-icon></uui-button
-  ></uui-action-bar>
-</uui-ref-node>
-    `,
-    },
+export const CustomIcon: Story = {
+  args: {
+    'icon slot': html`<uui-icon slot="icon" name="colorpicker"></uui-icon>`,
   },
 };
 
-export const CustomIcon: Story = () => html`
-  <uui-icon-registry-essential>
-    <uui-ref-node name="Rabbit Suit Product Page" detail="path/to/nowhere">
-      <uui-icon slot="icon" name="colorpicker"></uui-icon>
-      <uui-action-bar slot="actions">
-        <uui-button label="Remove">Remove</uui-button>
-      </uui-action-bar>
-    </uui-ref-node>
-  </uui-icon-registry-essential>
-`;
-
-CustomIcon.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-  <uui-icon slot="icon" name="colorpicker"></uui-icon>
-  <uui-action-bar slot="actions">
-    <uui-button label="Remove">Remove</uui-button>
-  </uui-action-bar>
-</uui-ref-node>
-    `,
-    },
+export const Standalone: Story = {
+  args: {
+    standalone: true,
   },
 };
 
-export const Standalone: Story = () => html`
-  <uui-ref-node
-    standalone
-    name="Rabbit Suit Product Page"
-    detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
-    <uui-action-bar slot="actions">
-      <uui-button type="button" label="Delete"
-        ><uui-icon name="delete"></uui-icon
-      ></uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-`;
-
-Standalone.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  standalone
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
-  <uui-action-bar slot="actions">
-    <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
-  </uui-action-bar>
-</uui-ref-node>
-    `,
-    },
+export const Selectable: Story = {
+  args: {
+    selectable: true,
   },
 };
 
-export const Selectable: Story = props => html`
-  <uui-ref-node
-    ?selectable="${props.selectable}"
-    name="Rabbit Suit Product Page"
-    detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
-    <uui-action-bar slot="actions">
-      <uui-button type="button" label="Delete"
-        ><uui-icon name="delete"></uui-icon
-      ></uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-`;
-
-Selectable.args = {
-  selectable: true,
-};
-
-Selectable.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  selectable
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
-  <uui-action-bar slot="actions">
-    <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
-  </uui-action-bar>
-</uui-ref-node>
-    `,
-    },
+export const Disabled: Story = {
+  args: {
+    disabled: true,
   },
 };
 
-export const Disabled: Story = props => html`
-  <uui-ref-node
-    ?disabled="${props.disabled}"
-    name="Rabbit Suit Product Page"
-    detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
-    <uui-action-bar slot="actions">
-      <uui-button type="button" label="Delete"
-        ><uui-icon name="delete"></uui-icon
-      ></uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-`;
-
-Disabled.args = {
-  disabled: true,
-};
-
-Disabled.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  disabled
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-  <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
-  <uui-action-bar slot="actions">
-    <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
-  </uui-action-bar>
-</uui-ref-node>
-    `,
-    },
-  },
-};
-
-export const Readonly: Story = props => html`
-  <uui-ref-node
-    ?readonly="${props.readonly}"
-    name="Rabbit Suit Product Page"
-    detail="path/to/nowhere">
-  </uui-ref-node>
-`;
-
-Readonly.args = {
-  readonly: true,
-};
-
-Readonly.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-node
-  readonly
-  name="Rabbit Suit Product Page"
-  detail="path/to/nowhere">
-</uui-ref-node>
-    `,
-    },
-  },
-};
-
-const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
-export const Listed: Story = () => html`
-  <uui-ref-list>
-    ${listOfNodeNames.map(
-      name =>
-        html`<uui-ref-node name=${name} detail="path/to/nowhere">
-          <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
-          <uui-action-bar slot="actions">
-            <uui-button type="button" label="Delete"
-              ><uui-icon name="delete"></uui-icon
-            ></uui-button>
-          </uui-action-bar>
-        </uui-ref-node>`,
-    )}
-  </uui-ref-list>
-`;
-
-Listed.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-list>
-
-  <uui-ref-node name="Node 1" detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
-    <uui-action-bar slot="actions">
-      <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-
-  <uui-ref-node name="Node 2" detail="path/to/nowhere">
-    <uui-tag size="s" slot="tag" color="positive" >Published</uui-tag>
-    <uui-action-bar slot="actions">
-      <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-
-  <uui-ref-node name="Node 3" detail="path/to/nowhere">
-    <uui-action-bar slot="actions">
-      <uui-button type="button" label="Delete"><uui-icon name="delete"></uui-icon></uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-
-</uui-ref-list>
-    `,
-    },
+export const Readonly: Story = {
+  args: {
+    readonly: true,
   },
 };

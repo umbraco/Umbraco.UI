@@ -43,7 +43,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * The search input.
-   * @type { string }
+   * @type {string}
    * @attr
    * @default ""
    */
@@ -60,7 +60,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * Specifies if the popover should be open.
-   * @type { boolean }
+   * @type {boolean}
    * @attr
    * @default false
    */
@@ -87,7 +87,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * Specifies the button label for the close button in mobile mode
-   * @type { string }
+   * @type {string}
    * @attr
    * @default "Close"
    */

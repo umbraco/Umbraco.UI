@@ -1,23 +1,21 @@
 import '.';
-
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
 
-export default {
-  title: 'Symbols/Folder',
-  component: 'uui-symbol-folder',
+const meta: Meta = {
   id: 'uui-symbol-folder',
+  component: 'uui-symbol-folder',
+  title: 'Symbols/Folder',
+  render: () => html`<uui-symbol-folder></uui-symbol-folder>`,
   parameters: {
-    readme: { markdown: readme },
-  },
-};
-
-export const Overview = () => html` <uui-symbol-folder></uui-symbol-folder> `;
-
-Overview.parameters = {
-  docs: {
-    source: {
-      code: '<uui-symbol-folder></uui-symbol-folder>',
+    readme: {
+      markdown: readme,
     },
   },
 };
+
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};
