@@ -48,6 +48,14 @@ export const InvalidValue: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+    selectable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch disabled selectable></uui-color-swatch>`,
+      },
+    },
   },
 };
 
@@ -58,7 +66,36 @@ export const DisabledSelected: Story = {
   },
 };
 
-export const Label: Story = {
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+    selectable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch readonly selectable></uui-color-swatch>`,
+      },
+    },
+  },
+};
+
+export const ReadonlySelected: Story = {
+  args: {
+    readonly: true,
+    selectable: true,
+    selected: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-color-swatch readonly selectable selected></uui-color-swatch>`,
+      },
+    },
+  },
+};
+
+export const WithLabel: Story = {
   args: {
     label: 'Label',
     showLabel: true,
