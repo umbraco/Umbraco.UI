@@ -60,6 +60,12 @@ export const Disabled: Story = {
   },
 };
 
+export const Readonly: Story = {
+  args: {
+    readonly: true,
+  },
+};
+
 export const ShowLabel: Story = {
   args: {
     showLabel: true,

@@ -26,12 +26,21 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   value = '';
 
   /**
-   * Disables the color swatches.
+   * Sets the swatches to disabled.
    * @type {boolean}
    * @attr
    * @default false
    **/
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  /**
+   * Sets the swatches to readonly mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly: boolean = false;
 
   @queryAssignedElements({ selector: 'uui-color-swatch' })
   private readonly _swatches!: Array<UUIColorSwatchElement>;
@@ -84,6 +93,10 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       } else {
         // For some reason the value it really wants the attribute to be set not the value. If value is set then it is not reflected properly. :cry:
         swatch.setAttribute('selectable', 'selectable');
+      }
+
+      if (this.readonly) {
+        swatch.setAttribute('readonly', '');
       }
 
       if (this.value !== '' && swatch.value === this.value) {
