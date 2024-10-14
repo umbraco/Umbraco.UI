@@ -57,6 +57,13 @@ export const Disabled: Story = {
   },
 };
 
+export const Formats: Story = {
+  args: {
+    format: 'hex',
+    inline: true,
+  },
+};
+
 export const Inline: Story = {
   args: {
     inline: true,
@@ -70,9 +77,8 @@ export const Opacity: Story = {
   },
 };
 
-export const Formats: Story = {
+export const Readonly: Story = {
   args: {
-    format: 'hex',
-    inline: true,
+    readonly: true,
   },
 };
