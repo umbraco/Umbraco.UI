@@ -519,7 +519,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         height: 100%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: end;
+        padding-inline-end: 3px;
         color: var(--uui-color-interactive);
       }
 
@@ -553,7 +554,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #icon {
         display: inline-flex;
-        font-size: 16px;
+        font-size: 15.66px;
         margin-right: var(--uui-size-2);
       }
 
