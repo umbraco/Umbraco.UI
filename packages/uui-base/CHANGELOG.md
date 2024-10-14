@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
+
+### Bug Fixes
+
+- **UUIFormControlMixin:** dont call setAttribute in the constructor ([#931](https://github.com/umbraco/Umbraco.UI/issues/931)) ([a7ca074](https://github.com/umbraco/Umbraco.UI/commit/a7ca074953759dc8a276bc80d57573b304f02582))
+
 # [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-base

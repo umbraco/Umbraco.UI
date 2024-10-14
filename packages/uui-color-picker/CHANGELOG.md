@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
+
+### Features
+
+- **uui-color-picker:** Add readonly for color picker component ([#933](https://github.com/umbraco/Umbraco.UI/issues/933)) ([871b7dd](https://github.com/umbraco/Umbraco.UI/commit/871b7dd8ece9dae40f799aa820c2cc47da57f982))
+
 # [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-picker
