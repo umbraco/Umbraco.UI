@@ -76,16 +76,27 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     constructor(...args: any[]) {
       super(...args);
       this.addEventListener('click', this._handleClick);
-      this.addEventListener('keydown', this.handleSelectKeydown);
+      this.addEventListener('keydown', this._handleSelectKeydown);
     }
 
-    private handleSelectKeydown = (e: KeyboardEvent) => {
-      //if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+    private _handleClick(e: Event) {
+      if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+        this._toggleSelect();
+      }
+
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
+    private _handleSelectKeydown = (e: KeyboardEvent) => {
       if (this.selectableTarget === this) {
         if (e.key !== ' ' && e.key !== 'Enter') return;
         this._toggleSelect();
       }
-    };
+
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
 
     private _select() {
       if (!this.selectable) return;
@@ -105,14 +116,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.selected = false;
     }
 
-    private _handleClick(e: Event) {
-      if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
-        this._toggleSelect();
-      }
-    }
-
     private _toggleSelect() {
-      // Only allow for select-interaction if selectable is true. Deselectable is ignorered in this case, we do not want a DX where only deselection is a possibility..
+      // Only allow for select-interaction if selectable is true. Deselectable is ignorered in this case, we do not want a DX where only deselection is a possibility.
       if (!this.selectable) return;
       if (this.deselectable === false) {
         this._select();
