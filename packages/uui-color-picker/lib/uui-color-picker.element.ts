@@ -589,6 +589,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         display: block;
         width: var(--uui-color-picker-width, 280px);
       }
+      :host > button {
+        cursor: pointer;
+      }
       uui-popover-container {
         width: inherit;
       }
