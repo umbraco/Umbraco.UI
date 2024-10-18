@@ -35,13 +35,27 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   args: {
-    disabled: false,
+    disabled: true,
+  },
+};
+
+export const DisabledChecked: Story = {
+  args: {
+    disabled: true,
+    checked: true,
   },
 };
 
 export const Readonly: Story = {
   args: {
-    readonly: false,
+    readonly: true,
+  },
+};
+
+export const ReadonlyChecked: Story = {
+  args: {
+    readonly: true,
+    checked: true,
   },
 };
 
