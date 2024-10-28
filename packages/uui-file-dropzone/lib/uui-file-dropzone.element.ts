@@ -116,7 +116,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     for (const entry of queue) {
       if (entry?.kind !== 'file') continue;
 
-      if (entry.type) {
+      const fileEntry = this._getEntry(entry);
+      if (!fileEntry) continue;
+
+      if (!fileEntry.isDirectory) {
         // Entry is a file
         const file = entry.getAsFile();
         if (!file) continue;
@@ -125,12 +128,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         }
       } else if (!this.disallowFolderUpload && this.multiple) {
         // Entry is a directory
-        const dir = this._getEntry(entry);
-
-        if (dir) {
-          const structure = await this._mkdir(dir);
-          folders.push(structure);
-        }
+        const structure = await this._mkdir(fileEntry);
+        folders.push(structure);
       }
     }
 

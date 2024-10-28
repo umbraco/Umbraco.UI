@@ -1,26 +1,22 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
-
-import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
 import readme from '../README.md?raw';
+import { html, TemplateResult } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
 
-export default {
+const meta: Meta = {
   id: 'uui-button-inline-create',
-  title: 'Buttons/Button Inline Create',
   component: 'uui-button-inline-create',
+  title: 'Buttons/Button Inline Create',
   parameters: {
     readme: {
       markdown: readme,
     },
-    docs: {
-      source: {
-        code: `<uui-button-inline-create></uui-button-inline-create>`,
-      },
-    },
   },
 };
+
+export default meta;
+type Story = StoryObj;
 
 const insertBox = (e: any) => {
   const div = document.createElement('div');
@@ -87,16 +83,37 @@ const createBoxes = (count: number, vertical = false) => {
   return boxes;
 };
 
-export const AAAOverview: Story = () =>
-  html` <h3>Hover between list items to show the button.</h3>
-    <div id="container" style="max-width: 500px; border: 1px solid grey">
+export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 1</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 2</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+  <div style="padding: 10px;">Item 3</div>
+  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
+</div>
+        `,
+      },
+    },
+  },
+  render: () => html`
+    <div>Hover between list items to show the button</div>
+    <div style="max-width: 500px; border: 1px solid grey">
       ${createBoxes(5)}
-    </div>`;
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
+    </div>
+  `,
+};
+
+export const Horizontal: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `
 <div>
   <uui-button-inline-create label="Create Item"></uui-button-inline-create>
   <div style="padding: 10px;">Item 1</div>
@@ -106,91 +123,14 @@ AAAOverview.parameters = {
   <div style="padding: 10px;">Item 3</div>
   <uui-button-inline-create label="Create Item"></uui-button-inline-create>
 </div>
-      `,
+        `,
+      },
     },
   },
-};
-
-export const Vertical: Story = () =>
-  html`<div id="container" style="max-width: 500px; border: 1px solid grey">
-    ${createBoxes(5)}
-  </div>`;
-
-Vertical.parameters = {
-  docs: {
-    source: {
-      code: `
-<div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 1</div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 2</div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 3</div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-</div>
-      `,
-    },
-  },
-};
-
-export const Horizontal: Story = () =>
-  html`<div id="container-vertical" style="display: flex">
-    ${createBoxes(5, true)}
-  </div>`;
-
-Horizontal.parameters = {
-  docs: {
-    source: {
-      code: `
-<div style="'display: grid; grid-template-columns: 1fr auto;">
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 1</div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 2</div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 3</div>
-  <uui-button-inline-create label="Create Item"></uui-button-inline-create>
-</div>
-      `,
-    },
-  },
-};
-
-export const Href: Story = () =>
-  html` <h3>Using HREF</h3>
-    <div id="container" style="max-width: 500px; border: 1px solid grey">
-      <uui-button-inline-create
-        href="#0"
-        label="Create Item"></uui-button-inline-create>
-      <div style="padding: 10px;">Item 1</div>
-      <uui-button-inline-create
-        href="#1"
-        label="Create Item"></uui-button-inline-create>
-      <div style="padding: 10px;">Item 2</div>
-      <uui-button-inline-create
-        href="#2"
-        label="Create Item"></uui-button-inline-create>
-      <div style="padding: 10px;">Item 3</div>
-      <uui-button-inline-create
-        href="#3"
-        label="Create Item"></uui-button-inline-create>
-    </div>`;
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<div>
-  <uui-button-inline-create href="#0" label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 1</div>
-  <uui-button-inline-create href="#1" label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 2</div>
-  <uui-button-inline-create href="#2" label="Create Item"></uui-button-inline-create>
-  <div style="padding: 10px;">Item 3</div>
-  <uui-button-inline-create href="#3" label="Create Item"></uui-button-inline-create>
-</div>
-      `,
-    },
-  },
+  render: () => html`
+    <div>Hover between list items to show the button</div>
+    <div style="display:flex; border: 1px solid grey; width: fit-content">
+      ${createBoxes(5, true)}
+    </div>
+  `,
 };

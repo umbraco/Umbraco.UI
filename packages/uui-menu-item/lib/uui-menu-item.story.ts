@@ -1,37 +1,23 @@
 import '.';
+import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryFn, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
+
+import { useState } from '@storybook/preview-api';
+
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import '@umbraco-ui/uui-symbol-expand/lib';
 import '@umbraco-ui/uui-symbol-more/lib';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
+import '@umbraco-ui/uui-loader-bar/lib';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import { UUIMenuItemElement } from './uui-menu-item.element';
-import { UUIMenuItemEvent } from './UUIMenuItemEvent';
-import readme from '../README.md?raw';
-
-export default {
-  title: 'Buttons/Menu Item',
-  component: 'uui-menu-item',
-  decorators: [
-    (story: any) => html` <div style="max-width: 500px;">${story()}</div> `,
-  ],
+const meta: Meta = {
   id: 'uui-menu-item',
+  component: 'uui-menu-item',
+  title: 'Buttons/Menu Item',
   args: {
     label: 'Menu Item 1',
-    loading: false,
-    disabled: false,
-    hasChildren: false,
-    showChildren: false,
-    selected: false,
-    active: false,
-    selectable: false,
-    href: undefined,
-    target: undefined,
-    rel: undefined,
-    selectMode: undefined,
-    caretLabel: 'Expand',
   },
   argTypes: {
     '--uui-menu-item-indent': { control: { type: 'text' } },
@@ -43,10 +29,20 @@ export default {
       options: ['persisting', 'highlight', undefined],
     },
   },
+  render: args =>
+    html`<uui-menu-item style=${ifDefined(args.style)} ${spread(args)}
+      >${renderSlots(args)}</uui-menu-item
+    >`,
+  decorators: [story => html`<div style="max-width: 400px">${story()}</div>`],
   parameters: {
-    readme: { markdown: readme },
+    readme: {
+      markdown: readme,
+    },
   },
 };
+
+export default meta;
+type Story = StoryObj;
 
 const labelNames = [
   'Content',
@@ -77,13 +73,6 @@ const MenuItems = [
     loading: false,
     badge: true,
   },
-  {
-    title:
-      'Menu Item 4 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9',
-    icon: 'document',
-    loading: false,
-    badge: false,
-  },
 ];
 
 const renderItems: any = (count = 5, iteration = 5) => {
@@ -109,366 +98,156 @@ const renderItems: any = (count = 5, iteration = 5) => {
   return elements;
 };
 
-export const AAAOverview: Story = (props: any) =>
-  html`<uui-menu-item
-    .label=${props.label}
-    ?loading=${props.loading}
-    ?disabled=${props.disabled}
-    ?has-children=${props.hasChildren}
-    ?show-children=${props.showChildren}
-    ?selected=${props.selected}
-    ?active=${props.active}
-    ?selectable=${props.selectable}
-    ?select-only=${props.selectOnly}>
-  </uui-menu-item>`;
-AAAOverview.storyName = 'Overview';
-AAAOverview.args = {
-  label: 'Menu Item 1',
-  loading: false,
-  disabled: false,
-  hasChildren: false,
-  showChildren: false,
-  selected: false,
-  selectOnly: false,
-  active: false,
-  selectable: false,
-};
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: html` <uui-menu-item label="Menu Item 1"></uui-menu-item> `.strings,
+export const Default: Story = {};
+
+export const Nested: Story = {
+  render: args => html`
+    ${labelNames.map(
+      (name: string) =>
+        html` <uui-menu-item
+          label="${name}"
+          .caretLabel="${args.caretLabel}"
+          has-children>
+          ${renderItems()}
+        </uui-menu-item>`,
+    )}
+  `,
+  parameters: {
+    docs: {
+      source: {
+        code: html`
+          <uui-menu-item label="Menu Item 1" has-children>
+            <uui-menu-item label="Nested Menu Item 1"></uui-menu-item>
+            <uui-menu-item label="Nested Menu Item 2"></uui-menu-item>
+          </uui-menu-item>
+        `.strings,
+      },
     },
   },
 };
 
-export const Nested = props => html`
-  ${labelNames.map(
-    (name: string) =>
-      html` <uui-menu-item
-        label="${name}"
-        .caretLabel="${props.caretLabel}"
-        has-children>
-        ${renderItems()}
-      </uui-menu-item>`,
-  )}
-`;
-Nested.parameters = {
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item label="Menu Item 1" has-children>
-          <uui-menu-item label="Nested Menu Item 1"></uui-menu-item>
-          <uui-menu-item label="Nested Menu Item 2"></uui-menu-item>
-        </uui-menu-item>
-      `.strings,
-    },
+export const Active: Story = {
+  render: () => {
+    const [activeIndex, setActiveIndex] = useState<Number>(1);
+
+    const onClick = (index: number) => {
+      setActiveIndex(index);
+    };
+
+    return html`
+      ${MenuItems.map(
+        (menuItem, index) =>
+          html`<uui-menu-item
+            ?active=${activeIndex === index}
+            label="${menuItem.title}"
+            @click-label=${() => onClick(index)}></uui-menu-item>`,
+      )}
+    `;
   },
 };
 
-let activeStoryActiveItem: UUIMenuItemElement | null = null;
-
-function activeStoryOnClick(e: UUIMenuItemEvent) {
-  if (activeStoryActiveItem) {
-    activeStoryActiveItem.active = false;
-  }
-
-  activeStoryActiveItem = e.target;
-  e.target.active = !e.target.active;
-}
-
-export const Active = () => html`
-  ${MenuItems.map(
-    menuItem =>
-      html`<uui-menu-item
-        label="${menuItem.title}"
-        @click-label=${activeStoryOnClick}></uui-menu-item>`,
-  )}
-`;
-Active.parameters = {
-  docs: {
-    source: {
-      code: html` <uui-menu-item label="Menu Item 2" active></uui-menu-item> `
-        .strings,
-    },
+export const Loading: Story = {
+  args: {
+    loading: true,
   },
 };
 
-export const Loading = () => html`
-  ${MenuItems.map(
-    menuItem =>
-      html`<uui-menu-item
-        label="${menuItem.title}"
-        ?loading=${menuItem.loading}></uui-menu-item>`,
-  )}
-`;
-Loading.parameters = {
-  docs: {
-    source: {
-      code: html` <uui-menu-item label="Menu Item 2" loading></uui-menu-item> `
-        .strings,
-    },
+export const Disabled: Story = {
+  args: {
+    disabled: true,
   },
 };
 
-let disabledStoryActiveItem: UUIMenuItemElement | null = null;
-
-function disabledStoryOnClick(e: UUIMenuItemEvent) {
-  if (disabledStoryActiveItem) {
-    disabledStoryActiveItem.active = false;
-  }
-
-  disabledStoryActiveItem = e.target;
-  e.target.active = !e.target.active;
-}
-
-export const Disabled = (props: any) => html`
-  ${MenuItems.map(
-    menuItem => html`
-      <uui-menu-item
-        @click-label=${disabledStoryOnClick}
-        label="${menuItem.title}"
-        ?disabled=${props.disabled}></uui-menu-item>
-    `,
-  )}
-`;
-Disabled.args = {
-  disabled: true,
-};
-Disabled.parameters = {
-  docs: {
-    source: {
-      code: html` <uui-menu-item label="Menu Item 2" disabled></uui-menu-item> `
-        .strings,
-    },
+export const Selectable: Story = {
+  args: {
+    selectable: true,
   },
 };
 
-export const WithActions = () => html`
-  ${MenuItems.map(
-    menuItem => html`
-      <uui-menu-item label="${menuItem.title}">
-        <uui-action-bar slot="actions">
-          <uui-button label="Open actions menu"
-            ><uui-symbol-more></uui-symbol-more
-          ></uui-button>
-        </uui-action-bar>
-      </uui-menu-item>
-    `,
-  )}
-`;
-WithActions.parameters = {
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item label="Menu Item 2">
-          <uui-action-bar slot="actions">
-            <uui-button label="Open actions menu"
-              ><uui-symbol-more></uui-symbol-more
-            ></uui-button>
-          </uui-action-bar>
-        </uui-menu-item>
-      `.strings,
-    },
+export const Anchor: Story = {
+  args: {
+    href: 'https://www.umbraco.com',
+    target: '_blank',
   },
 };
 
-export const WithBadge = () => html`
-  ${MenuItems.map(
-    menuItem => html`
-      <uui-menu-item label="${menuItem.title}">
-        ${menuItem.badge
-          ? html`<uui-badge slot="badge" color="warning">!</uui-badge>`
-          : ''}
-      </uui-menu-item>
-    `,
-  )}
-`;
-WithBadge.parameters = {
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item label="Menu Item 2">
-          <uui-badge slot="badge" color="warning">!</uui-badge>
-        </uui-menu-item>
-      `.strings,
-    },
+export const WithActions: Story = {
+  args: {
+    'actions slot': html`<uui-action-bar slot="actions">
+      <uui-button label="Open actions menu"
+        ><uui-symbol-more></uui-symbol-more
+      ></uui-button>
+    </uui-action-bar>`,
   },
 };
 
-export const Selectable = (props: any) => html`
-  ${MenuItems.map(
-    menuItem =>
-      html`<uui-menu-item
-        label="${menuItem.title}"
-        ?selectable=${props.selectable}></uui-menu-item>`,
-  )}
-`;
-Selectable.args = {
-  selectable: true,
-};
-Selectable.parameters = {
-  controls: { include: ['selectable'] },
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item label="Menu Item 2" selectable></uui-menu-item>
-      `.strings,
-    },
+export const WidthBadge: Story = {
+  args: {
+    'badge slot': html`<uui-badge slot="badge" color="warning">!</uui-badge>`,
   },
 };
 
-export const WithIcon = (props: any) => html`
-  <uui-icon-registry-essential>
+export const WithIcon: Story = {
+  args: {
+    'icon slot': html`<uui-icon slot="icon" name="favorite"></uui-icon>`,
+  },
+};
+
+export const ItemIndentation: Story = {
+  render: () => html`
     ${MenuItems.map(
-      menuItem => html`
+      (menuItem, i) => html`
         <uui-menu-item
-          label=${menuItem.title}
-          ?loading=${props.loading}
-          ?disabled=${props.disabled}
-          ?has-children=${props.hasChildren}
-          ?show-children=${props.showChildren}
-          ?selected=${props.selected}
-          ?active=${props.active}
-          ?selectable=${props.selectable}
-          href=${props.href}
-          target=${props.target}
-          rel=${props.rel}>
-          <uui-icon slot="icon" name=${menuItem.icon}></uui-icon>
+          label="${menuItem.title}"
+          style=${ifDefined(
+            i === 1 ? '--uui-menu-item-indent: 1;' : undefined,
+          )}>
         </uui-menu-item>
       `,
     )}
-  </uui-icon-registry-essential>
-`;
-WithIcon.parameters = {
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item label="Menu Item 1">
-          <uui-icon slot="icon" name="info"></uui-icon>
-        </uui-menu-item>
-      `.strings,
+  `,
+};
+
+export const FlatStructure: Story = {
+  args: {
+    style: '--uui-menu-item-flat-structure: 1;',
+  },
+};
+
+export const SelectMode: Story = {
+  args: {
+    selectable: true,
+    selectMode: 'persisting',
+  },
+  render: args =>
+    html`<uui-menu-item
+      label="Parent"
+      has-children
+      show-children
+      ?selectable=${args.selectable}
+      select-mode=${args.selectMode}>
+      ${MenuItems.map(
+        (menuItem, i) =>
+          html`<uui-menu-item
+            label="${menuItem.title}"
+            ?selected=${i == 1 ? true : false}
+            ?selectable=${args.selectable}
+            select-mode=${args.selectMode}></uui-menu-item>`,
+      )}
+    </uui-menu-item>`,
+  parameters: {
+    controls: {
+      include: ['selectable', 'selectMode'],
     },
-  },
-};
-
-export const AnchorTag = (props: any) => html`
-  <uui-icon-registry-essential>
-    <uui-menu-item
-      label=${props.label}
-      ?loading=${props.loading}
-      ?disabled=${props.disabled}
-      ?has-children=${props.hasChildren}
-      ?show-children=${props.showChildren}
-      ?selected=${props.selected}
-      ?active=${props.active}
-      ?selectable=${props.selectable}
-      href=${props.href}
-      target=${props.target}
-      rel=${props.rel}>
-      <uui-icon slot="icon" name="document"></uui-icon>
-    </uui-menu-item>
-  </uui-icon-registry-essential>
-`;
-AnchorTag.args = {
-  href: 'https://www.umbraco.com',
-  target: '_blank',
-};
-AnchorTag.parameters = {
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item
-          label="Menu Item 1"
-          href="http://www.umbraco.com"
-          target="_blank">
-        </uui-menu-item>
-      `.strings,
-    },
-  },
-};
-
-export const ItemIndentation: Story = () => html`
-  ${MenuItems.map(
-    (menuItem, i) => html`
-      <uui-menu-item
-        label="${menuItem.title}"
-        style="${ifDefined(i === 1 ? '--uui-menu-item-indent: 1' : '')}">
-      </uui-menu-item>
-    `,
-  )}
-`;
-
-ItemIndentation.parameters = {
-  docs: {
-    source: {
-      code: `<uui-menu-item label="Menu Item 1" style="--uui-menu-item-indent: 1"></uui-menu-item>`,
-    },
-  },
-};
-
-export const FlatStructure: Story = (props: any) => html`
-  <uui-icon-registry-essential>
-    <uui-menu-item
-      style="--uui-menu-item-flat-structure: 1"
-      label=${props.label}
-      ?loading=${props.loading}
-      ?disabled=${props.disabled}
-      ?has-children=${props.hasChildren}
-      ?show-children=${props.showChildren}
-      ?selected=${props.selected}
-      ?active=${props.active}
-      ?selectable=${props.selectable}
-      href=${props.href}
-      target=${props.target}
-      rel=${props.rel}>
-    </uui-menu-item>
-  </uui-icon-registry-essential>
-`;
-FlatStructure.parameters = {
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item
-          style="--uui-menu-item-flat-structure: 1"
-          label="Menu Item 1">
-        </uui-menu-item>
-      `.strings,
-    },
-  },
-};
-
-export const SelectMode = (props: any) =>
-  html`<uui-menu-item
-    label="Parent"
-    has-children
-    show-children
-    ?selectable=${props.selectable}
-    select-mode=${props.selectMode}>
-    ${MenuItems.map(
-      (menuItem, i) =>
-        html`<uui-menu-item
-          label="${menuItem.title}"
-          ?selected=${i == 1 ? true : false}
-          ?selectable=${props.selectable}
-          select-mode=${props.selectMode}></uui-menu-item>`,
-    )}
-  </uui-menu-item> `;
-SelectMode.args = {
-  selectable: true,
-  selectMode: 'highlight',
-};
-SelectMode.parameters = {
-  controls: {
-    include: ['selectable', 'selectMode'],
-  },
-  docs: {
-    source: {
-      code: html`
-        <uui-menu-item
-          label="Menu Item"
-          select-mode="highlight"
-          selectable></uui-menu-item>
-      `.strings,
+    docs: {
+      source: {
+        code: html`
+          <uui-menu-item
+            label="Menu Item"
+            select-mode="highlight"
+            selectable></uui-menu-item>
+        `.strings,
+      },
     },
   },
 };
@@ -502,7 +281,7 @@ const renderCombinationOfStates = (
 };
 // show combination of states: active, disabled, selected, selectable, select-mode
 // Notice, this implementation sets selectable to false in all cases of begin disabled.
-export const CombinationOfStates = () => html`
+export const CombinationOfStates: StoryFn = () => html`
   ${renderCombinationOfStates('Active', true, false, false, false, false)}
   ${renderCombinationOfStates('Disabled', false, true, false, false, false)}
   ${renderCombinationOfStates('Selected', false, false, true, false, false)}

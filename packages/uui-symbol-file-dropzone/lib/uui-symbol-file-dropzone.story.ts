@@ -1,26 +1,29 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
+const meta: Meta = {
   id: 'uui-symbol-file-dropzone',
-  title: 'Symbols/File Dropzone',
   component: 'uui-symbol-file-dropzone',
+  title: 'Symbols/File Dropzone',
+  render: args =>
+    html`<uui-symbol-file-dropzone ${spread(args)}></uui-symbol-file-dropzone>`,
   parameters: {
-    readme: { markdown: readme },
+    readme: {
+      markdown: readme,
+    },
   },
 };
 
-export const Overview: Story = props =>
-  html`<uui-symbol-file-dropzone
-    ?error=${props.error}></uui-symbol-file-dropzone>`;
+export default meta;
+type Story = StoryObj;
 
-export const Default = () => html`
-  <uui-symbol-file-dropzone></uui-symbol-file-dropzone>
-`;
+export const Default: Story = {};
 
-export const Error = () => html`
-  <uui-symbol-file-dropzone error></uui-symbol-file-dropzone>
-`;
+export const Error: Story = {
+  args: {
+    error: true,
+  },
+};

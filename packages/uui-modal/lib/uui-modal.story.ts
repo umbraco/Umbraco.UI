@@ -1,25 +1,24 @@
 import '@umbraco-ui/uui-dialog-layout/lib';
 import '.';
-
-import { StoryFn } from '@storybook/web-components';
-import { html } from 'lit';
-import './modal-example.element';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import './modal-example.element';
 
-export default {
+const meta: Meta = {
   id: 'uui-modal',
-  title: 'Layout/Modals',
   component: 'uui-modal',
+  title: 'Layout/Modals',
   parameters: {
-    readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<uui-modal></uui-modal>`,
-      },
+    readme: {
+      markdown: readme,
     },
   },
 };
 
-export const Overview: StoryFn = () => {
-  return html`<modal-example></modal-example>`;
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
+  render: () => html`<modal-example></modal-example>`,
 };

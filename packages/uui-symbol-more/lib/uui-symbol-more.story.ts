@@ -1,21 +1,21 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
 
-export default {
+const meta: Meta = {
   id: 'uui-symbol-more',
-  title: 'Symbols/More',
   component: 'uui-symbol-more',
+  title: 'Symbols/More',
+  render: () => html`<uui-symbol-more></uui-symbol-more>`,
   parameters: {
-    readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<uui-symbol-more></uui-symbol-more>`,
-      },
+    readme: {
+      markdown: readme,
     },
   },
 };
 
-export const Overview: Story = () => html` <uui-symbol-more></uui-symbol-more>`;
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};

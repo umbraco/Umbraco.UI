@@ -1,59 +1,44 @@
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
-import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
-import './index';
+import '.';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
+import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
-export default {
-  title: 'Displays/Reference List',
+// TODO: Figure out why we now need to import everything that every component uses
+import '@umbraco-ui/uui-action-bar/lib';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-ref-node/lib';
+
+const meta: Meta = {
+  id: 'uui-ref-list',
   component: 'uui-ref-list',
+  title: 'Displays/Reference List',
   parameters: {
-    readme: { markdown: readme },
+    readme: {
+      markdown: readme,
+    },
   },
 };
 
-const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
-const Template: Story = () => html`
-  <uui-ref-list style="max-width: 420px;">
-    ${listOfNodeNames.map(
-      name =>
-        html`<uui-ref-node name=${name} detail="path/to/nowhere">
-          <uui-action-bar slot="actions">
-            <uui-button label="Remove">Remove</uui-button>
-          </uui-action-bar>
-        </uui-ref-node>`,
-    )}
-  </uui-ref-list>
-`;
+export default meta;
+type Story = StoryObj;
 
-export const AAAOverview = Template.bind({});
-AAAOverview.storyName = 'Overview';
-AAAOverview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-ref-list>
+export const Default: Story = {
+  render: args => {
+    const listOfNodeNames: string[] = ArrayOfUmbracoWords(10);
 
-  <uui-ref-node name="Node 1" detail="path/to/nowhere">
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
+    console.log('args', listOfNodeNames);
 
-  <uui-ref-node name="Node 2" detail="path/to/nowhere">
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-
-  <uui-ref-node name="Node 3" detail="path/to/nowhere">
-    <uui-action-bar slot="actions">
-      <uui-button label="Remove">Remove</uui-button>
-    </uui-action-bar>
-  </uui-ref-node>
-
-</uui-ref-list>
-    `,
-    },
+    return html`<uui-ref-list ${spread(args)}>
+      ${listOfNodeNames.map(
+        name =>
+          html`<uui-ref-node name=${name} detail="path/to/nowhere">
+            <uui-action-bar slot="actions">
+              <uui-button label="Remove">Remove</uui-button>
+            </uui-action-bar>
+          </uui-ref-node>`,
+      )}
+    </uui-ref-list>`;
   },
 };

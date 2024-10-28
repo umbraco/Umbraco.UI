@@ -34,12 +34,12 @@ export class UUIBadgeElement extends LitElement {
 
   /**
    * Bring attention to this badge by applying a bounce animation.
-   * @type Boolean
+   * @type boolean
    * @attr
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  attention = false;
+  attention: boolean = false;
 
   render() {
     return html` <slot></slot> `;

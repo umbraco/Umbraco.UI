@@ -1,4 +1,4 @@
-import { Story } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 
 import '../auth-layout.example.ts';
@@ -10,11 +10,11 @@ export default {
   component: 'uui-new-user-password-example',
 };
 
-export const CreatePassword: Story = () => html`
+export const CreatePassword: StoryFn = () => html`
   <uui-new-user-password-example></uui-new-user-password-example>
 `;
 
-export const OnAPage: Story = () => html`
+export const OnAPage: StoryFn = () => html`
   <uui-auth-layout-example>
     <uui-new-user-password-example></uui-new-user-password-example>
   </uui-auth-layout-example>

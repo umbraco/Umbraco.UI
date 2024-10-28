@@ -138,7 +138,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @property({ type: Boolean, reflect: true }) inline = false;
 
   /**
-   * Disables the color picker.
+   * Sets the color picker to disabled.
    * @attr
    * @type {boolean}
    * @default false
@@ -152,6 +152,14 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
    * @default false
    **/
   @property({ type: Boolean }) opacity = false;
+
+  /**
+   * Sets the color picker to readonly mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true }) readonly = false;
 
   /**
    * By default, the value will be set in lowercase. Set this to true to set it in uppercase instead.
@@ -433,6 +441,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           .value="${this.value}"
           .hue="${Math.round(this.hue)}"
           ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
           @change=${this.handleGridChange}>
         </uui-color-area>
         <div class="color-picker__controls">
@@ -442,6 +451,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               class="hue-slider"
               .value=${Math.round(this.hue)}
               ?disabled=${this.disabled}
+              ?readonly=${this.readonly}
               @change=${this.handleHueChange}>
             </uui-color-slider>
             ${this.opacity
@@ -457,6 +467,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                       this.lightness,
                     )}
                     ?disabled=${this.disabled}
+                    ?readonly=${this.readonly}
                     @change=${this.handleAlphaChange}>
                   </uui-color-slider>
                 `
@@ -486,6 +497,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             spellcheck="false"
             .value=${live(this.inputValue)}
             ?disabled=${this.disabled}
+            ?readonly=${this.readonly}
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}>
           </uui-input>
@@ -503,7 +515,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             ${hasEyeDropper
               ? html`<uui-button
                   label="Select a color"
-                  ?disabled=${this.disabled}
+                  ?disabled=${this.disabled || this.readonly}
                   @click=${this.handleEyeDropper}
                   compact>
                   <uui-icon-registry-essential>
@@ -525,6 +537,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       class="color-picker__swatches"
       label="Swatches"
       ?disabled=${this.disabled}
+      ?readonly=${this.readonly}
       @change=${this.handleColorSwatchChange}>
       ${this.swatches.map(
         swatch =>

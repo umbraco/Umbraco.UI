@@ -1,25 +1,26 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
+const meta: Meta = {
   id: 'uui-progress-bar',
-  title: 'Displays/Progress Bar',
   component: 'uui-progress-bar',
-  args: {
-    progress: 25,
-  },
+  title: 'Displays/Progress Bar',
+  render: args => html`<uui-progress-bar ${spread(args)}></uui-progress-bar>`,
   parameters: {
-    readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<uui-progress-bar></uui-progress-bar>`,
-      },
+    readme: {
+      markdown: readme,
     },
   },
 };
 
-export const Overview: Story = props =>
-  html`<uui-progress-bar progress="${props.progress}"></uui-progress-bar>`;
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
+  args: {
+    progress: 50,
+  },
+};

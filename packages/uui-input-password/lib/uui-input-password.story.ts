@@ -1,36 +1,31 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { renderSlots, spread } from '../../../storyhelpers';
 
-export default {
+/**
+ * uui-input-password extends uui-input. See [uui-input](/docs/uui-input--docs) for more details.
+ */
+const meta: Meta = {
   id: 'uui-input-password',
-  title: 'Inputs/Input Password',
   component: 'uui-input-password',
+  title: 'Inputs/Input Password',
   args: {
-    value: '',
     label: 'Label',
   },
+  render: args =>
+    html`<uui-input-password ${spread(args)}
+      >${renderSlots(args)}</uui-input-password
+    >`,
   parameters: {
     readme: {
       markdown: readme,
     },
-    docs: {
-      source: {
-        code: `<uui-input-password></uui-input-password>`,
-      },
-    },
   },
 };
 
-export const AAAOverview: Story = props =>
-  html`<uui-input-password
-    .disabled=${props.disabled}
-    .error=${props.error}
-    .label=${props.label}
-    .name=${props.name}
-    .placeholder=${props.placeholder}
-    .value=${props.value}></uui-input-password>`;
+export default meta;
+type Story = StoryObj;
 
-AAAOverview.storyName = 'Overview';
+export const Default: Story = {};

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
+
+### Features
+
+- :bulb: add readonly property ([6baf2ab](https://github.com/umbraco/Umbraco.UI/commit/6baf2ab7270f8e5e342dbe7bd9c2d7ee08b61772))
+
 # [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-swatch

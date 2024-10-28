@@ -9,6 +9,7 @@ import { property } from 'lit/decorators.js';
 import { UUICardEvent } from './UUICardEvent';
 
 /**
+ *  Card is a Component that provides the basics for a Card component. This can be extended in code to match a certain need.
  *  @element uui-card
  *  @fires {UUICardEvent} open - fires when the card title is clicked.
  *  @description - Base card component to be extended by specific card elements.
