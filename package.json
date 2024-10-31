@@ -120,7 +120,7 @@
     "react-syntax-highlighter": "15.5.0",
     "remark-gfm": "3.0.1",
     "rimraf": "5.0.5",
-    "rollup": "4.9.6",
+    "rollup": "4.24.3",
     "rollup-plugin-esbuild": "6.1.1",
     "rollup-plugin-import-css": "3.5.5",
     "rollup-plugin-minify-html-literals": "1.2.6",
