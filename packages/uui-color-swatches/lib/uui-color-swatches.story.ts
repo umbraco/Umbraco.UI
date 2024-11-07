@@ -19,6 +19,7 @@ const meta: Meta = {
     swatches: swatchesColor,
   },
   argTypes: {
+    value: { control: { type: 'color' } },
     showLabel: { control: { type: 'boolean' } },
   },
   // prettier-ignore
