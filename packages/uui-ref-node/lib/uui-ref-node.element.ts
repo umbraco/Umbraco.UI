@@ -147,8 +147,10 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       <slot></slot>
       <slot name="tag"></slot>
+       <div id="actions-wrapper">
+         <slot name="actions" id="actions-container"></slot>
+       </div>
       <slot name="actions" id="actions-container"></slot>
-    `;
   }
 
   #renderSomething() {
@@ -226,6 +228,17 @@ export class UUIRefNodeElement extends UUIRefElement {
         color: var(--uui-color-disabled-contrast);
       }
     `,
+     css`
+       #actions-wrapper {
+         opacity: 0;
+         transition: opacity 120ms ease-in-out;
+       }
+       :host(:hover) #actions-wrapper,
+       :host(:focus-within) #actions-wrapper {
+         opacity: 1;
+       }
+     `,
+     css`
   ];
 }
 
