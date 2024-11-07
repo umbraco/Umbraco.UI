@@ -101,7 +101,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
   compact = false;
 
   /**
-   * Sets the state of the button. With waiting state a loader will show, the success state and fail states display icons. State is reset do default automatically after 3 seconds.
+   * Sets the state of the button. With waiting state a loader will show, the success and fail states display icons. State is automatically reset to the default after 3 seconds.
    * @type {undefined |'waiting' | 'success' | 'failed'}
    * @attr
    * @default undefined
