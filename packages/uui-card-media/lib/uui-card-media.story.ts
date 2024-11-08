@@ -1,196 +1,71 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import '@umbraco-ui/uui-tag/lib/index';
+import '@umbraco-ui/uui-button/lib/index';
+import '@umbraco-ui/uui-symbol-file/lib/index';
+import '@umbraco-ui/uui-symbol-folder/lib/index';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread, renderSlots } from '../../../storyhelpers';
 
-export default {
+/**
+ * For more styling options see the [base card](/docs/uui-card--docs) component.
+ */
+const meta: Meta = {
   id: 'uui-card-media',
-  title: 'Displays/Cards/Media',
   component: 'uui-card-media',
+  title: 'Displays/Cards/Media',
+  args: {
+    name: 'The card',
+    fileExt: 'jpg',
+  },
+  render: args =>
+    html`<uui-card-media ${spread(args)}>${renderSlots(args)}</uui-card-media>`,
+  decorators: [
+    (Story: any) =>
+      html`<div
+        style="display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 200px));">
+        ${Story()}
+      </div>`,
+  ],
   parameters: {
     readme: {
       markdown: readme,
     },
-    chromatic: { disableSnapshot: true },
-  },
-  decorators: [
-    (Story: any) => html`<div style="width: 200px;">${Story()}</div>`,
-  ],
-};
-
-export const AAAOverview: Story = props => html`
-  <uui-card-media
-    name=${props.name}
-    file-ext=${props.fileExt}
-    ?selectable=${props.selectable}
-    ?selected=${props.selected}
-    ?error=${props.error}
-    ?disabled=${props.disabled}
-    href=${props.href}
-    target=${props.target}
-    rel=${props.rel}></uui-card-media>
-`;
-AAAOverview.storyName = 'Overview';
-
-AAAOverview.args = {
-  name: 'The card',
-  fileExt: 'jpg',
-  selectable: false,
-  selected: false,
-  error: false,
-  disabled: false,
-};
-
-export const File: Story = props => html`
-  <uui-card-media name="File name" .fileExt=${props.fileExt}></uui-card-media>
-`;
-
-File.args = {
-  fileExt: 'txt',
-};
-
-File.parameters = {
-  controls: { include: ['fileExt'] },
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name" file-ext="txt"></uui-card-media>`,
-    },
   },
 };
 
-export const Tag: Story = () => html`
-  <uui-card-media name="File name">
-    <uui-tag slot="tag" size="s" color="danger">Trashed</uui-tag>
-    <img src="https://placedog.net/1447/?random" alt="" />
-  </uui-card-media>
-`;
-Tag.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name">
-  <uui-tag slot="tag" size="s" color="danger">Trashed</uui-tag>
-  <img src="https://placedog.net/1447/?random" alt="" />
-</uui-card-media>`,
-    },
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};
+
+export const Folder: Story = {
+  args: {
+    fileExt: '',
   },
 };
 
-export const Actions: Story = () => html`
-  <uui-card-media name="File name">
-    <uui-action-bar slot="actions">
-      <uui-button look="secondary" label="Remove">Remove</uui-button>
-    </uui-action-bar>
-    <img src="https://placedog.net/1447/?random" alt="" />
-  </uui-card-media>
-`;
-Actions.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name">
-  <uui-action-bar slot="actions">
-    <uui-button look="secondary" label="Remove">Remove</uui-button>
-  </uui-action-bar>
-
-  <img src="https://placedog.net/1447/?random" alt="" />
-</uui-card-media>`,
-    },
+export const Tag: Story = {
+  args: {
+    'tag slot': html`<uui-tag slot="tag">Tag</uui-tag>`,
   },
 };
 
-export const Folder: Story = () => html`
-  <uui-card-media name="Folder Name"></uui-card-media>
-`;
-Folder.parameters = {
-  docs: {
-    source: {
-      code: `<uui-card-media name="Folder Name"></uui-card-media>`,
-    },
+export const Actions: Story = {
+  args: {
+    'actions slot': html`<uui-button
+      slot="actions"
+      look="secondary"
+      label="Remove"
+      >Remove</uui-button
+    >`,
   },
 };
 
-export const Image: Story = () => html`
-  <uui-card-media name="File name">
-    <img src="https://placedog.net/1447/?random" alt="" />
-  </uui-card-media>
-`;
-
-Image.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name">
-  <img src="https://placedog.net/1447/?random" alt="" />
-</uui-card-media>`,
-    },
-  },
-};
-
-export const Error: Story = props => html`
-  <uui-card-media name="File name" ?error=${props.error}
-    ><img src="https://placedog.net/1447/?random" alt=""
-  /></uui-card-media>
-`;
-
-Error.args = {
-  error: true,
-};
-
-Error.parameters = {
-  controls: { include: ['error'] },
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name" error>
-  <img src="https://placedog.net/1447/?random" alt="" />
-</uui-card-media>`,
-    },
-  },
-};
-
-export const Selectable: Story = props => html`
-  <uui-card-media name="File name" ?selectable=${props.selectable}
-    ><img src="https://placedog.net/1447/?random" alt=""
-  /></uui-card-media>
-`;
-Selectable.args = {
-  selectable: true,
-};
-
-Selectable.parameters = {
-  controls: { include: ['selectable'] },
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name" selectable>
-  <img src="https://placedog.net/1447/?random" alt="" />
-</uui-card-media>`,
-    },
-  },
-};
-
-export const Disabled: Story = props => html`
-  <uui-card-media name="File name" ?disabled=${props.disabled}
-    ><img src="https://placedog.net/1447/?random" alt=""
-  /></uui-card-media>
-`;
-
-Disabled.args = {
-  disabled: true,
-};
-
-Disabled.parameters = {
-  controls: { include: ['disabled'] },
-  docs: {
-    source: {
-      code: `
-<uui-card-media name="File name" disabled>
-  <img src="https://placedog.net/1447/?random" alt="" />
-</uui-card-media>
-`,
-    },
+export const Image: Story = {
+  args: {
+    slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,
   },
 };

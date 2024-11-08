@@ -1,37 +1,39 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
+const meta: Meta = {
   id: 'uui-symbol-file-thumbnail',
-  title: 'Symbols/File Thumbnail',
   component: 'uui-symbol-file-thumbnail',
+  title: 'Symbols/File Thumbnail',
+  args: {
+    src: 'https://picsum.photos/300/200',
+    alt: 'Image alt',
+  },
+  render: args =>
+    html`<uui-symbol-file-thumbnail
+      ${spread(args)}></uui-symbol-file-thumbnail>`,
+  decorators: [
+    story =>
+      html`<div style="max-width: 300px; max-height: 300px">${story()}</div>`,
+  ],
   parameters: {
-    readme: { markdown: readme },
-    chromatic: { disableSnapshot: true },
+    readme: {
+      markdown: readme,
+    },
   },
 };
 
-export const Overview: Story = props =>
-  html`<uui-symbol-file-thumbnail
-    style="max-width: 300px; max-height: 300px"
-    src=${props.src}
-    alt=${props.alt}></uui-symbol-file-thumbnail>`;
+export default meta;
+type Story = StoryObj;
 
-Overview.args = {
-  src: 'https://picsum.photos/300/200',
-  alt: 'Image alt',
-};
+export const Default: Story = {};
 
-export const NoSource: Story = props =>
-  html`<uui-symbol-file-thumbnail
-    style="max-width: 300px; max-height: 300px"
-    src=${props.src}
-    alt=${props.alt}></uui-symbol-file-thumbnail>`;
-
-NoSource.args = {
-  src: '',
-  alt: 'Image alt',
+export const NoSource: Story = {
+  args: {
+    src: undefined,
+    alt: 'Image alt',
+  },
 };

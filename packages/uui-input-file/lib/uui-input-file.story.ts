@@ -1,23 +1,24 @@
-import '@umbraco-ui/uui-symbol-file-dropzone/lib';
-import '@umbraco-ui/uui-file-dropzone/lib';
+import '.';
+import readme from '../README.md?raw';
+import { html } from 'lit';
+import { action } from '@storybook/addon-actions';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
+
+// TODO: Figure out why we now need to import everything that every component uses
 import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-file-preview/lib';
-import '@umbraco-ui/uui-icon/lib';
-import '@umbraco-ui/uui-symbol-file-thumbnail/lib';
-import '@umbraco-ui/uui-symbol-file/lib';
-import '@umbraco-ui/uui-symbol-folder/lib';
+import '@umbraco-ui/uui-file-dropzone/lib';
 import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-symbol-file/lib';
+import '@umbraco-ui/uui-symbol-file-thumbnail/lib';
+import '@umbraco-ui/uui-symbol-folder/lib';
 
-import '.';
-
-import { StoryFn } from '@storybook/web-components';
-import { html } from 'lit';
-import readme from '../README.md?raw';
-
-export default {
+const meta: Meta = {
   id: 'uui-input-file',
-  title: 'Inputs/Files/Input File',
   component: 'uui-input-file',
+  title: 'Inputs/Files/Input File',
+  render: args => html`<uui-input-file ${spread(args)}></uui-input-file>`,
   parameters: {
     readme: {
       markdown: readme,
@@ -25,31 +26,20 @@ export default {
   },
 };
 
-export const AAAOverview: StoryFn = () =>
-  html`<uui-input-file name="input-file"></uui-input-file>`;
-AAAOverview.storyName = 'Overview';
+export default meta;
+type Story = StoryObj;
 
-export const Multiple: StoryFn = () =>
-  html`<uui-input-file name="input-file" multiple></uui-input-file>`;
+export const Default: Story = {};
 
-Multiple.parameters = {
-  docs: {
-    description: {
-      story:
-        'When the multiple attribute is specified, the file input allows the user to select more than one file.',
-    },
+export const Multiple: Story = {
+  args: {
+    multiple: true,
   },
 };
 
-export const Accept: StoryFn = () =>
-  html`<uui-input-file name="input-file" accept="image/*"></uui-input-file>`;
-
-Accept.parameters = {
-  docs: {
-    description: {
-      story:
-        'The accept attribute takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more information.',
-    },
+export const Accept: Story = {
+  args: {
+    accept: 'image/*',
   },
 };
 
@@ -66,25 +56,28 @@ const submit = (e: SubmitEvent) => {
 
   const data = formData.getAll('input-file');
   console.log('Files', data);
+  action('submit')(data);
 };
 
-export const Form: StoryFn = () => {
-  return html`
-    <form @submit=${submit}>
-      <uui-input-file name="input-file" multiple> </uui-input-file>
-      <uui-button
-        style="margin-top: 16px"
-        type="submit"
-        look="primary"
-        label="Submit"></uui-button>
-    </form>
-  `;
-};
-
-Form.parameters = {
-  docs: {
-    source: {
-      code: `
+export const Form: Story = {
+  render: () => {
+    return html`
+      <form @submit=${submit}>
+        Submitted files will be logged to the console and shown in the actions
+        tab.
+        <uui-input-file name="input-file" multiple> </uui-input-file>
+        <uui-button
+          style="margin-top: 16px"
+          type="submit"
+          look="primary"
+          label="Submit"></uui-button>
+      </form>
+    `;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
 const submit = (e) => {
   e.preventDefault();
   const formElement = e.target;
@@ -97,30 +90,31 @@ const submit = (e) => {
   <uui-input-file name="input-file" multiple></uui-input-file>
   <uui-button style="margin-top: 16px" type="submit" look="primary" label="Submit"></uui-button>
 </form>
-`,
+  `,
+      },
     },
   },
 };
 
-export const FormValidation: StoryFn = () => {
-  return html`
-    <uui-form>
-      <form @submit=${submit}>
-        <uui-form-layout-item>
-          <uui-label slot="label" required="">File</uui-label>
-          <uui-input-file name="input-file" required></uui-input-file>
-        </uui-form-layout-item>
+export const FormValidation: Story = {
+  render: () => {
+    return html`
+      <uui-form>
+        <form @submit=${submit}>
+          <uui-form-layout-item>
+            <uui-label slot="label" required="">File</uui-label>
+            <uui-input-file name="input-file" required></uui-input-file>
+          </uui-form-layout-item>
 
-        <uui-button type="submit" look="primary" label="Submit"></uui-button>
-      </form>
-    </uui-form>
-  `;
-};
-
-Form.parameters = {
-  docs: {
-    source: {
-      code: `
+          <uui-button type="submit" look="primary" label="Submit"></uui-button>
+        </form>
+      </uui-form>
+    `;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
 const submit = (e) => {
   e.preventDefault();
   const formElement = e.target;
@@ -145,44 +139,45 @@ const submit = (e) => {
     <uui-button type="submit" look="primary" label="Submit"></uui-button>
   </form>
 <uui-form>
-`,
+  `,
+      },
     },
   },
 };
 
-export const MultiplePrevalues: StoryFn = () => {
-  const init = async () => {
-    const imageUrl =
-      'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
+export const MultiplePrevalues: Story = {
+  render: () => {
+    const init = async () => {
+      const imageUrl =
+        'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
 
-    const response = await fetch(imageUrl);
-    const imageBlob = await response.blob();
+      const response = await fetch(imageUrl);
+      const imageBlob = await response.blob();
 
-    const file1 = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
-    const file2 = new File([imageBlob], 'File 2', { type: 'image/jpeg' });
+      const file1 = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+      const file2 = new File([imageBlob], 'File 2', { type: 'image/jpeg' });
 
-    const fileInput = document.getElementById(
-      'inputFileMultiplePreValues',
-    ) as any;
+      const fileInput = document.getElementById(
+        'inputFileMultiplePreValues',
+      ) as any;
 
-    const formData = new FormData();
-    formData.append('input-file', file1);
-    formData.append('input-file', file2);
-    fileInput.value = formData;
-  };
+      const formData = new FormData();
+      formData.append('input-file', file1);
+      formData.append('input-file', file2);
+      fileInput.value = formData;
+    };
 
-  init();
+    init();
 
-  return html`<uui-input-file
-    id="inputFileMultiplePreValues"
-    name="input-file"
-    multiple></uui-input-file>`;
-};
-
-MultiplePrevalues.parameters = {
-  docs: {
-    source: {
-      code: `
+    return html`<uui-input-file
+      id="inputFileMultiplePreValues"
+      name="input-file"
+      multiple></uui-input-file>`;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
 const init = async () => {
   const imageUrl =
     'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
@@ -206,38 +201,41 @@ const init = async () => {
 init();
 
 <uui-input-file id="inputFileMultiplePreValues" name="input-file" multiple></uui-input-file>
-`,
+  `,
+      },
     },
   },
 };
 
-export const SinglePrevalue: StoryFn = () => {
-  const init = async () => {
-    const imageUrl =
-      'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
+export const SinglePrevalue: Story = {
+  render: () => {
+    const init = async () => {
+      const imageUrl =
+        'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
 
-    const response = await fetch(imageUrl);
-    const imageBlob = await response.blob();
+      const response = await fetch(imageUrl);
+      const imageBlob = await response.blob();
 
-    const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
+      const file = new File([imageBlob], 'File 1', { type: 'image/jpeg' });
 
-    const fileInput = document.getElementById('inputFileSinglePrevalue') as any;
-    fileInput.value = file;
-  };
+      const fileInput = document.getElementById(
+        'inputFileSinglePrevalue',
+      ) as any;
+      fileInput.value = file;
+    };
 
-  init();
+    init();
 
-  return html`
-    <uui-input-file
-      id="inputFileSinglePrevalue"
-      name="input-file"></uui-input-file>
-  `;
-};
-
-SinglePrevalue.parameters = {
-  docs: {
-    source: {
-      code: `
+    return html`
+      <uui-input-file
+        id="inputFileSinglePrevalue"
+        name="input-file"></uui-input-file>
+    `;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
 const init = async () => {
   const imageUrl =
     'https://images.unsplash.com/photo-1650346910623-3a0d9ee1f2ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80';
@@ -254,7 +252,8 @@ const init = async () => {
 init();
 
 <uui-input-file id="inputFileSinglePrevalue" name="input-file"></uui-input-file>
-`,
+  `,
+      },
     },
   },
 };

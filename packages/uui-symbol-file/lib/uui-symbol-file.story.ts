@@ -1,28 +1,26 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { spread } from '../../../storyhelpers';
 
-export default {
-  title: 'Symbols/File',
-  component: 'uui-symbol-file',
+const meta: Meta = {
   id: 'uui-symbol-file',
-  parameters: {
-    readme: { markdown: readme },
+  component: 'uui-symbol-file',
+  title: 'Symbols/File',
+  args: {
+    type: 'pdf',
   },
-};
-
-export const Overview: Story = props =>
-  html`<div style="width: 240px">
-    <uui-symbol-file .type=${props.type}></uui-symbol-file>
-  </div>`;
-
-Overview.parameters = {
-  docs: {
-    source: {
-      code: '<uui-symbol-file type="pdf"></uui-symbol-file>',
+  render: args => html`<uui-symbol-file ${spread(args)}></uui-symbol-file>`,
+  decorators: [story => html`<div style="width: 240px">${story()}</div>`],
+  parameters: {
+    readme: {
+      markdown: readme,
     },
   },
 };
-Overview.args = { type: 'pdf' };
+
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {};

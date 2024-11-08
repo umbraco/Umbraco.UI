@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
+
+### Bug Fixes
+
+- **uui-slider:** Ensure track step dots are in center on track ([#919](https://github.com/umbraco/Umbraco.UI/issues/919)) ([9cd02f6](https://github.com/umbraco/Umbraco.UI/commit/9cd02f634b144674543a1497b2ac53952d89d90c))
+- **UUIFormControlMixin:** dont call setAttribute in the constructor ([#931](https://github.com/umbraco/Umbraco.UI/issues/931)) ([a7ca074](https://github.com/umbraco/Umbraco.UI/commit/a7ca074953759dc8a276bc80d57573b304f02582))
+
+### Features
+
+- :bulb: add readonly property ([6baf2ab](https://github.com/umbraco/Umbraco.UI/commit/6baf2ab7270f8e5e342dbe7bd9c2d7ee08b61772))
+- **uui-color-picker:** Add readonly for color picker component ([#933](https://github.com/umbraco/Umbraco.UI/issues/933)) ([871b7dd](https://github.com/umbraco/Umbraco.UI/commit/871b7dd8ece9dae40f799aa820c2cc47da57f982))
+- **uui-color-swatches:** Add readonly to color swatches component ([#932](https://github.com/umbraco/Umbraco.UI/issues/932)) ([e35daff](https://github.com/umbraco/Umbraco.UI/commit/e35dafffb00a11cee4b15ec3b3a5e6f744ebbd06))
+
+## [1.10.1](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0...v1.10.1) (2024-10-09)
+
+### Bug Fixes
+
+- **uui-slider:** Focus handle in slider instead of slider track itself ([#918](https://github.com/umbraco/Umbraco.UI/issues/918)) ([b3438a0](https://github.com/umbraco/Umbraco.UI/commit/b3438a07d28e945a1f98ebfd976d4f661222ed51))
+
 # [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
 
 **Note:** Version bump only for package uui-monorepo

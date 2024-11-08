@@ -1,37 +1,26 @@
+import '.';
+import readme from '../README.md?raw';
+import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import './uui-visually-hidden.element';
-import type { UUIVisuallyHiddenElement } from './uui-visually-hidden.element';
-import readme from '../README.md?raw';
-
-const meta: Meta<UUIVisuallyHiddenElement> = {
+const meta: Meta = {
   id: 'uui-visually-hidden',
-  title: 'Displays/Visually Hidden',
   component: 'uui-visually-hidden',
+  title: 'Displays/Visually Hidden',
   parameters: {
-    readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<uui-visually-hidden></uui-visually-hidden>`,
-      },
+    readme: {
+      markdown: readme,
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<UUIVisuallyHiddenElement>;
+type Story = StoryObj;
 
-export const Overview: Story = {};
-
-export const SkipNavigation: Story = {
-  args: {},
-  parameters: {
-    docs: {
-      source: {
-        code: `<uui-visually-hidden>
-  <a href="#">Skip to main content</a>
-</uui-visually-hidden>`,
-      },
-    },
-  },
+export const Default: Story = {
+  render: () =>
+    html` Press tab to focus hidden link
+      <uui-visually-hidden>
+        <a href="#">Skip to main content</a>
+      </uui-visually-hidden>`,
 };

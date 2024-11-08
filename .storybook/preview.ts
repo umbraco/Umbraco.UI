@@ -1,40 +1,41 @@
+import {
+  setCustomElementsManifest,
+  type Preview,
+} from '@storybook/web-components';
 import '../packages/uui-css/lib/uui-css.css';
-import 'element-internals-polyfill';
-
-import { setCustomElements } from '@storybook/web-components';
-
 import customElements from '../custom-elements.json';
+import { html } from 'lit';
 
-export const parameters = {
-  layout: 'padded',
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)/i,
-      date: /Date$/,
+import '@umbraco-ui/uui-icon-registry-essential/lib';
+
+const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+    docs: {
+      source: {
+        excludeDecorators: true,
+        format: 'html', // see storybook docs for more info on this format https://storybook.js.org/docs/api/doc-blocks/doc-block-source#format
+      },
     },
   },
-  docs: {
-    source: { state: 'open' },
-  },
-  options: {
-    method: 'alphabetical',
-    storySort: (a, b) => {
-      //NOTE: This has to be an inline function for some reason
-      if (a.title === 'Overview') {
-        return 0;
-      }
-      if (b.title === 'Overview') {
-        return 1;
-      }
-      return a.title > b.title;
+  tags: ['autodocs'],
+
+  decorators: [
+    story => {
+      return html`<uui-icon-registry-essential class="uui-font uui-text"
+        >${story()}</uui-icon-registry-essential
+      >`;
     },
-  },
+  ],
 };
 
 WebComponentFormatter(customElements);
-
-setCustomElements(customElements);
+setCustomElementsManifest(customElements);
 
 function WebComponentFormatter(customElements) {
   for (let tag of customElements.tags || []) {
@@ -59,19 +60,19 @@ function WebComponentFormatter(customElements) {
       }
     }
 
-    // Find all names of properties
-    const propertyNames = (tag.properties || []).map(p => p.name);
+    // add 'Event' to the name of all events
+    for (let event of tag.events || []) {
+      event.name = `${event.name} event`;
+    }
 
     // Run through all slots to clean them up a bit
     for (let slot of tag.slots || []) {
       // Replace the name of the default slot so Storybook will show it
       if (typeof slot.name === 'string' && slot.name.length === 0) {
         slot.name = 'slot';
-      }
-
-      // If the slot has the same name as a property, then add the word 'slot' to the name
-      // Bug reported to Storybook here: https://github.com/storybookjs/storybook/issues/17733
-      if (propertyNames.includes(slot.name)) {
+      } else {
+        // Add slot to the name. This will allow us to filter out slots in various situations. Example the spread directive.
+        // Bug reported to Storybook here: https://github.com/storybookjs/storybook/issues/17733
         slot.name = `${slot.name} slot`;
       }
 
@@ -84,3 +85,5 @@ function WebComponentFormatter(customElements) {
 
   return customElements;
 }
+
+export default preview;

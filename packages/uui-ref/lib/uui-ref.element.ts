@@ -190,7 +190,8 @@ export class UUIRefElement extends SelectOnlyMixin(
         opacity: 0;
         transition: opacity 120ms;
       }
-      :host(:hover) #actions-container {
+      :host(:hover) #actions-container,
+      :host(:focus-within) #actions-container {
         opacity: 1;
       }
 

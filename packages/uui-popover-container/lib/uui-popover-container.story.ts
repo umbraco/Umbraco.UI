@@ -1,18 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
-
-import './uui-popover-container.element';
-import '../../uui-button/lib/index';
-import '../../uui-box/lib/index';
-import type { UUIPopoverContainerElement } from './uui-popover-container.element';
+import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { UUIPopoverContainerElement } from '.';
 
 const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
-  title: 'Displays/Popover Container',
   component: 'uui-popover-container',
+  title: 'Displays/Popover Container',
   parameters: {
-    readme: { markdown: readme },
+    readme: {
+      markdown: readme,
+    },
   },
 };
 

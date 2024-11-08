@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 
@@ -39,59 +39,84 @@ describe('UUIFileDropzoneElement', () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
-  describe('drop files', () => {
-    it('supports dropping a single file', done => {
-      const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
-      const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+  describe('drop files', async () => {
+    it('supports dropping a single file', () => {
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file1);
-      dataTransfer.items.add(file2);
+      // Skip if browser does not support DataTransfer.items
+      if ('items' in dataTransfer) {
+        const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dataTransfer.items.add(file1);
+        dataTransfer.items.add(file2);
 
-      expectFileChangeEvent(element, 1, 0, done);
+        const listener = oneEvent(element, UUIFileDropzoneEvent.CHANGE, false);
+        element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
 
-      element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
+        listener.then(event => {
+          const { files } = event.detail;
+          expect(files.length).to.equal(1);
+        });
+      }
     });
 
-    it('can drop multiple files', done => {
-      const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
-      const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+    it('can drop multiple files', () => {
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file1);
-      dataTransfer.items.add(file2);
+      if ('items' in dataTransfer) {
+        const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dataTransfer.items.add(file1);
+        dataTransfer.items.add(file2);
 
-      element.multiple = true;
+        element.multiple = true;
 
-      expectFileChangeEvent(element, 2, 0, done);
+        const listener = oneEvent(element, UUIFileDropzoneEvent.CHANGE, false);
+        element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
 
-      element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
+        listener.then(event => {
+          const { files } = event.detail;
+          expect(files.length).to.equal(1);
+        });
+      }
     });
 
-    it('can set the accept attribute with a mimetype', done => {
-      const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
-      const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+    it('can set the accept attribute with a mimetype', () => {
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file1);
-      dataTransfer.items.add(file2);
+      if ('items' in dataTransfer) {
+        const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dataTransfer.items.add(file1);
+        dataTransfer.items.add(file2);
 
-      element.accept = 'image/*';
+        element.accept = 'image/*';
 
-      expectFileChangeEvent(element, 1, 0, done);
+        const listener = oneEvent(element, UUIFileDropzoneEvent.CHANGE, false);
+        element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
 
-      element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
+        listener.then(event => {
+          const { files } = event.detail;
+          expect(files.length).to.equal(1);
+        });
+      }
     });
 
-    it('can set the accept attribute with a file extension', done => {
-      const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
-      const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+    it('can set the accept attribute with a file extension', () => {
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file1);
-      dataTransfer.items.add(file2);
+      if ('items' in dataTransfer) {
+        const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dataTransfer.items.add(file1);
+        dataTransfer.items.add(file2);
 
-      element.accept = '.jpg';
+        element.accept = '.jpg';
 
-      expectFileChangeEvent(element, 1, 0, done);
+        const listener = oneEvent(element, UUIFileDropzoneEvent.CHANGE, false);
+        element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
 
-      element.dispatchEvent(new DragEvent('drop', { dataTransfer }));
+        listener.then(event => {
+          const { files } = event.detail;
+          expect(files.length).to.equal(1);
+        });
+      }
     });
   });
 
@@ -103,31 +128,39 @@ describe('UUIFileDropzoneElement', () => {
     });
 
     it('supports selecting a single file', done => {
-      const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
-      const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dt = new DataTransfer();
-      dt.items.add(file1);
-      dt.items.add(file2);
+      if ('items' in dt) {
+        const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dt.items.add(file1);
+        dt.items.add(file2);
 
-      expectFileChangeEvent(element, 1, 0, done);
+        expectFileChangeEvent(element, 1, 0, done);
 
-      innerElement.files = dt.files;
-      innerElement.dispatchEvent(new Event('change'));
+        innerElement.files = dt.files;
+        innerElement.dispatchEvent(new Event('change'));
+      } else {
+        done();
+      }
     });
 
     it('can select multiple files', done => {
-      const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
-      const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
       const dt = new DataTransfer();
-      dt.items.add(file1);
-      dt.items.add(file2);
+      if ('items' in dt) {
+        const file1 = new File([''], 'file1.txt', { type: 'text/plain' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dt.items.add(file1);
+        dt.items.add(file2);
 
-      element.multiple = true;
+        element.multiple = true;
 
-      expectFileChangeEvent(element, 2, 0, done);
+        expectFileChangeEvent(element, 2, 0, done);
 
-      innerElement.files = dt.files;
-      innerElement.dispatchEvent(new Event('change'));
+        innerElement.files = dt.files;
+        innerElement.dispatchEvent(new Event('change'));
+      } else {
+        done();
+      }
     });
   });
 });

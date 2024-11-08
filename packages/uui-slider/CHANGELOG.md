@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-slider
+
+## [1.10.1](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0...v1.10.1) (2024-10-09)
+
+### Bug Fixes
+
+- **uui-slider:** Focus handle in slider instead of slider track itself ([#918](https://github.com/umbraco/Umbraco.UI/issues/918)) ([b3438a0](https://github.com/umbraco/Umbraco.UI/commit/b3438a07d28e945a1f98ebfd976d4f661222ed51))
+
 # [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-slider

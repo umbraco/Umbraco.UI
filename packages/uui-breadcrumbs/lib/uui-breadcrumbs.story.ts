@@ -1,13 +1,18 @@
 import '.';
-
-import { Story } from '@storybook/web-components';
-import { html } from 'lit';
 import readme from '../README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
 
-export default {
-  title: 'Buttons/Breadcrumbs',
+const meta: Meta = {
   id: 'uui-breadcrumbs',
   component: 'uui-breadcrumbs',
+  title: 'Buttons/Breadcrumbs',
+  render: () =>
+    html`<uui-breadcrumbs>
+      <uui-breadcrumb-item href="#Home">Home</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Products">Products</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Cars">Cars</uui-breadcrumb-item>
+    </uui-breadcrumbs>`,
   parameters: {
     readme: {
       markdown: readme,
@@ -15,31 +20,7 @@ export default {
   },
 };
 
-const links = [
-  { name: 'Home', link: '#Home' },
-  { name: 'Products', link: '#Products' },
-  { name: 'Cars', link: '#Cars' },
-];
+export default meta;
+type Story = StoryObj;
 
-export const Overview: Story = () =>
-  html`<uui-breadcrumbs
-    >${links.map(
-      link =>
-        html`<uui-breadcrumb-item .href=${link.link}
-          >${link.name}</uui-breadcrumb-item
-        >`,
-    )}</uui-breadcrumbs
-  >`;
-
-Overview.parameters = {
-  docs: {
-    source: {
-      code: `
-<uui-breadcrumbs>
-  <uui-breadcrumb-item href="https://...">Item 1</uui-breadcrumb-item>
-  <uui-breadcrumb-item href="https://...">Item 2</uui-breadcrumb-item>
-  <uui-breadcrumb-item href="https://...">Item 3</uui-breadcrumb-item>
-</uui-breadcrumbs>`,
-    },
-  },
-};
+export const Default: Story = {};

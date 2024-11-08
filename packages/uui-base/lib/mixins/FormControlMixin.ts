@@ -180,7 +180,9 @@ export const UUIFormControlMixin = <
     public get pristine(): boolean {
       return this._pristine;
     }
-    private _pristine: boolean = true;
+    // Will be set to true instantly to trigger the setAttribute in the setter.
+    // This is to prevent an issue caused by using setAttribute in the constructor.
+    private _pristine: boolean = false;
 
     /**
      * Apply validation rule for requiring a value of this form control.
@@ -221,7 +223,7 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
-      this.setAttribute('pristine', '');
+      this.pristine = true;
 
       this.addValidator(
         'valueMissing',

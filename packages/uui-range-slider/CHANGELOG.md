@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
+
+### Bug Fixes
+
+- **uui-slider:** Ensure track step dots are in center on track ([#919](https://github.com/umbraco/Umbraco.UI/issues/919)) ([9cd02f6](https://github.com/umbraco/Umbraco.UI/commit/9cd02f634b144674543a1497b2ac53952d89d90c))
+
 # [1.10.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.0-rc.0...v1.10.0) (2024-09-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-range-slider

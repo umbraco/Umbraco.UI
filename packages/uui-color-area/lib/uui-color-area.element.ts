@@ -20,6 +20,24 @@ export class UUIColorAreaElement extends LitElement {
   @state() private isDraggingGridHandle = false;
 
   /**
+   * Sets the color area to disabled.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Sets the color area to readonly mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly = false;
+
+  /**
    * The current hue.
    * @attr
    * @type number
@@ -114,11 +132,9 @@ export class UUIColorAreaElement extends LitElement {
     }
   }
 
-  /** Disables the color area. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
-
   handleGridDrag(event: PointerEvent) {
-    if (this.disabled) return;
+    if (this.disabled || this.readonly) return;
+
     const grid = this.shadowRoot!.querySelector<HTMLElement>('.color-area')!;
     const handle = grid.querySelector<HTMLElement>('.color-area__handle')!;
     const { width, height } = grid.getBoundingClientRect();
@@ -270,6 +286,11 @@ export class UUIColorAreaElement extends LitElement {
         user-select: none;
         pointer-events: none;
         opacity: 0.55;
+      }
+
+      :host([readonly]) {
+        pointer-events: none;
+        cursor: default;
       }
 
       .color-area {
