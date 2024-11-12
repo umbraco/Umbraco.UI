@@ -39,14 +39,14 @@ export class UUIModalSidebarElement extends UUIModalElement {
     return this._dialogElement?.getBoundingClientRect().width ?? 0;
   }
 
-  _closeModal() {
+  forceClose() {
     if (this.isClosing) return;
 
     this.isClosing = true;
     this.style.setProperty('--uui-modal-offset', -this.#getWidth + 'px');
 
     setTimeout(() => {
-      super._closeModal();
+      super.forceClose();
     }, this.transitionDuration);
   }
 

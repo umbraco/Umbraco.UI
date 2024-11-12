@@ -75,7 +75,7 @@ export class UUIModalElement extends LitElement {
 
     if (closeEvent.defaultPrevented) return;
 
-    this._closeModal();
+    this.forceClose();
   };
 
   protected _openModal() {
@@ -84,7 +84,7 @@ export class UUIModalElement extends LitElement {
     this._dialogElement?.addEventListener('cancel', this.close);
   }
 
-  protected _closeModal() {
+  public forceClose() {
     this.isClosing = true;
     this.isOpen = false;
     this._dialogElement?.close();
