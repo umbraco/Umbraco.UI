@@ -1,7 +1,10 @@
 import { LitElement, css } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
+export const UUIModalOpenEvent = 'uui:modal-open';
 export const UUIModalCloseEvent = 'uui:modal-close';
+export const UUIModalCloseEndEvent = 'uui:modal-close-end';
+
 export class UUIModalElement extends LitElement {
   @query('dialog')
   protected _dialogElement?: HTMLDialogElement;
@@ -46,12 +49,17 @@ export class UUIModalElement extends LitElement {
     event?.preventDefault();
     event?.stopImmediatePropagation();
 
-    const openEvent = new CustomEvent('open', {
+    const openEvent = new CustomEvent(UUIModalOpenEvent, {
+      cancelable: true,
+    });
+    // TODO: get rid of 'open'-event sometime in the future. [NL]
+    const legacyOpenEvent = new CustomEvent('open', {
       cancelable: true,
     });
 
     this.dispatchEvent(openEvent);
-    if (openEvent.defaultPrevented) return;
+    this.dispatchEvent(legacyOpenEvent);
+    if (openEvent.defaultPrevented || legacyOpenEvent.defaultPrevented) return;
 
     this._openModal();
   };
@@ -81,7 +89,9 @@ export class UUIModalElement extends LitElement {
     this.isOpen = false;
     this._dialogElement?.close();
 
+    // TODO: get rid of 'close-end'-event sometime in the future. [NL]
     this.dispatchEvent(new CustomEvent('close-end'));
+    this.dispatchEvent(new CustomEvent(UUIModalCloseEndEvent));
 
     this.remove();
   }
