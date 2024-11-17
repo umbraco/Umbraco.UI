@@ -24,6 +24,15 @@ export class UUICardContentNodeElement extends UUICardElement {
   @property({ type: String })
   name = '';
 
+  /**
+   * Node details
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  detail = '';
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -41,18 +50,37 @@ export class UUICardContentNodeElement extends UUICardElement {
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 
+  protected renderDetail() {
+    return html`<small id="detail"
+        >${this.detail}<slot name="detail"></slot></small
+      ><slot id="default"></slot>`;
+  }
+
+  #renderContent() {
+    return html`
+      <span id="content">
+        <span id="item">
+          <span id="icon">
+            <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
+            ${this._iconSlotHasContent === false
+              ? this._renderFallbackIcon()
+              : ''}
+          </span>
+          <div id="name">${this.name}<slot name="name"></slot></div>
+        </span>
+        ${this.renderDetail()}
+      </span>
+    `;
+  }
+
   #renderButton() {
-    return html`<div
+    return html`<button
       id="open-part"
       tabindex=${this.disabled ? (nothing as any) : 0}
       @click=${this.handleOpenClick}
       @keydown=${this.handleOpenKeydown}>
-      <span id="icon">
-        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
-      </span>
-      <span id="name"> ${this.name} </span>
-    </div>`;
+      ${this.#renderContent()}
+    </button>`;
   }
 
   #renderLink() {
@@ -67,11 +95,7 @@ export class UUICardContentNodeElement extends UUICardElement {
             this.target === '_blank' ? 'noopener noreferrer' : undefined,
           ),
       )}>
-      <span id="icon">
-        <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
-        ${this._iconSlotHasContent === false ? this._renderFallbackIcon() : ''}
-      </span>
-      <span id="name"> ${this.name} </span>
+      ${this.#renderContent()}
     </a>`;
   }
 
@@ -81,7 +105,6 @@ export class UUICardContentNodeElement extends UUICardElement {
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
-      <slot></slot>
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
@@ -94,7 +117,6 @@ export class UUICardContentNodeElement extends UUICardElement {
         min-width: 250px;
         flex-direction: column;
         justify-content: space-between;
-        padding: var(--uui-size-3) var(--uui-size-4);
       }
 
       slot[name='tag'] {
@@ -132,30 +154,58 @@ export class UUICardContentNodeElement extends UUICardElement {
         line-height: calc(2 * var(--uui-size-3));
       }
 
-      #icon {
-        font-size: 1.2em;
-        margin-right: var(--uui-size-1);
-      }
-
       #open-part {
         display: flex;
         position: relative;
         font-weight: 700;
         align-items: center;
         cursor: pointer;
+        flex-grow: 1;
+        padding: var(--uui-size-space-4) var(--uui-size-space-5);
       }
 
-      :host([disabled]) #open-part {
+      #content {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #item {
+        position: relative;
+        display: flex;
+        align-self: stretch;
+        line-height: normal;
+        align-items: center;
+        margin-top: var(--uui-size-1);
+      }
+
+      #icon {
+        font-size: 1.2em;
+        margin-right: var(--uui-size-1);
+      }
+
+      :host([selectable]) #open-part {
+        flex-grow: 0;
+        padding: 0;
+        margin: var(--uui-size-space-4) var(--uui-size-space-5);
+      }
+
+      :host([disabled]) #name {
         pointer-events: none;
       }
 
-      #open-part:hover {
+      :host(:not([disabled])) #open-part:hover #icon {
+        color: var(--uui-color-interactive-emphasis);
+      }
+      :host(:not([disabled])) #open-part:hover #name {
         text-decoration: underline;
         color: var(--uui-color-interactive-emphasis);
       }
-
-      #name {
-        margin-top: 4px;
+      :host(:not([disabled])) #open-part:hover #detail {
+        color: var(--uui-color-interactive-emphasis);
+      }
+      :host(:not([disabled])) #open-part:hover #default {
+        color: var(--uui-color-interactive-emphasis);
       }
     `,
   ];

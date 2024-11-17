@@ -133,38 +133,91 @@ export class UUICardElement extends SelectOnlyMixin(
         border-radius: var(--uui-border-radius);
       }
 
+      button {
+        font-size: inherit;
+        font-family: inherit;
+        border: 0;
+        padding: 0;
+        background-color: transparent;
+        text-align: left;
+        color: var(--uui-color-text);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
       :host([selectable]) {
         cursor: pointer;
       }
-
-      :host([disabled]) {
-        background: var(--uui-color-disabled);
-        color: var(--uui-color-disabled-contrast);
+      :host([selectable]) #select-border {
+        position: absolute;
+        z-index: 2;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 120ms;
       }
-
-      :host([selectable])::after {
+      :host([selectable]) #select-border::after {
         content: '';
         position: absolute;
-        pointer-events: none;
-        inset: calc(var(--uui-card-border-width) * -1);
-        width: calc(100% + calc(var(--uui-card-border-width) * 2));
-        height: calc(100% + calc(var(--uui-card-border-width) * 2));
+        width: 100%;
+        height: 100%;
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid var(--uui-color-selected);
-        border-radius: calc(
-          var(--uui-border-radius) + var(--uui-card-border-width)
-        );
-        transition: opacity 100ms ease-out;
-        opacity: 0;
+        border: 2px solid var(--uui-color-selected);
+        border-radius: calc(var(--uui-border-radius) + 2px);
+        box-shadow:
+          0 0 4px 0 var(--uui-color-selected),
+          inset 0 0 2px 0 var(--uui-color-selected);
       }
-      :host([selectable]:hover)::after {
+      :host([selected]) #select-border {
+        opacity: 1;
+      }
+      :host([selectable]:not([selected]):hover) #select-border {
         opacity: 0.33;
       }
-      :host([selectable][selected]:hover)::after {
-        opacity: 0.66;
+      :host([selectable][selected]:hover) #select-border {
+        opacity: 0.8;
       }
-      :host([selectable][selected])::after {
+
+      :host([selectable]:not([selected])) #open-part:hover + #select-border {
+        opacity: 0;
+      }
+      :host([selectable][selected]) #open-part:hover + #select-border {
         opacity: 1;
+      }
+
+      :host([selectable]:not([selected]):hover) #select-border::after {
+        animation: not-selected--hover 1.2s infinite;
+      }
+      @keyframes not-selected--hover {
+        0%,
+        100% {
+          opacity: 0.66;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      :host([selectable][selected]:hover) #select-border::after {
+        animation: selected--hover 1.4s infinite;
+      }
+      @keyframes selected--hover {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.66;
+        }
+      }
+      :host([selectable]) #open-part:hover + #select-border::after {
+        animation: none;
       }
 
       :host([select-only]) *,
@@ -172,9 +225,9 @@ export class UUICardElement extends SelectOnlyMixin(
         pointer-events: none;
       }
 
-      a {
-        text-decoration: none;
-        color: inherit;
+      :host([disabled]) {
+        background: var(--uui-color-disabled);
+        color: var(--uui-color-disabled-contrast);
       }
     `,
   ];
