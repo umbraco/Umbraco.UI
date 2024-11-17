@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 
 /**
  *  @element uui-folder-symbol
@@ -24,7 +23,6 @@ export class UUISymbolFolderElement extends LitElement {
   }
 
   static styles = [
-    UUITextStyles,
     css`
       :host {
         display: block;
