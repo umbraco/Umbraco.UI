@@ -68,7 +68,7 @@ export class UUIRefNodeElement extends UUIRefElement {
   private _iconSlotHasContent = false;
 
   protected fallbackIcon =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M396.441 138.878l-83.997-83.993-7.331-7.333H105.702v416.701h298.071V146.214l-7.332-7.336zM130.74 439.217V72.591h141.613c37.201 0 19.274 88.18 19.274 88.18s86-20.901 87.104 18.534v259.912H130.74z"></path></svg>';
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M396.441 138.878l-83.997-83.993-7.331-7.333H105.702v416.701h298.071V146.214l-7.332-7.336zM130.74 439.217V72.591h141.613c37.201 0 19.274 88.18 19.274 88.18s86-20.901 87.104 18.534v259.912H130.74z"></path></svg>';
 
   connectedCallback() {
     super.connectedCallback();
@@ -141,17 +141,17 @@ export class UUIRefNodeElement extends UUIRefElement {
 
   public render() {
     return html`
-      ${this.#renderSomething()}
+      ${this.#renderOpenPart()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
       <slot></slot>
-      <slot name="tag"></slot>
+      <slot name="tag" id="tag-container"></slot>
       <slot name="actions" id="actions-container"></slot>
     `;
   }
 
-  #renderSomething() {
+  #renderOpenPart() {
     if (this.readonly) {
       return html`${this.#renderContent()}`;
     } else {
@@ -164,7 +164,7 @@ export class UUIRefNodeElement extends UUIRefElement {
     css`
       :host {
         min-width: 250px;
-        padding: calc(var(--uui-size-2) + 1px);
+        padding: 1px;
       }
 
       #content {
@@ -173,12 +173,15 @@ export class UUIRefNodeElement extends UUIRefElement {
         display: flex;
         position: relative;
         align-items: center;
+        margin: calc(var(--uui-size-2));
       }
 
       #open-part {
         color: inherit;
         text-decoration: none;
         cursor: pointer;
+        align-self: stretch;
+        display: flex;
       }
 
       #icon {
@@ -204,8 +207,13 @@ export class UUIRefNodeElement extends UUIRefElement {
         font-size: var(--uui-type-small-size);
       }
 
+      :host(:not([selectable])) #open-part {
+        flex-grow: 1;
+      }
+
       :host(:not([disabled])) #open-part:hover #icon {
         color: var(--uui-color-interactive-emphasis);
+        --uui-icon-color: var(--uui-color-interactive-emphasis);
       }
       :host(:not([disabled])) #open-part:hover #name {
         font-weight: 700;
@@ -218,6 +226,7 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       :host([disabled]) #icon {
         color: var(--uui-color-disabled-contrast);
+        --uui-icon-color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) #name {
         color: var(--uui-color-disabled-contrast);

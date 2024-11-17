@@ -186,7 +186,11 @@ export class UUIRefElement extends SelectOnlyMixin(
         --uui-button-height: calc(var(--uui-size-2) * 4);
         margin-right: var(--uui-size-2);
       }
+      #tag-container {
+        margin: calc(var(--uui-size-2));
+      }
       #actions-container {
+        margin: calc(var(--uui-size-2));
         opacity: 0;
         transition: opacity 120ms;
       }
@@ -208,8 +212,6 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       slot[name='tag'] {
-        flex-grow: 1;
-
         display: flex;
         justify-content: flex-end;
         align-items: center;
