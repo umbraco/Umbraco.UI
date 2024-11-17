@@ -179,6 +179,10 @@ export class UUIRefElement extends SelectOnlyMixin(
         text-align: left;
         color: var(--uui-color-text);
       }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
 
       slot[name='actions'] {
         display: flex;
@@ -195,6 +199,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         transition: opacity 120ms;
       }
       :host(:hover) #actions-container,
+      :host(:focus) #actions-container,
       :host(:focus-within) #actions-container {
         opacity: 1;
       }

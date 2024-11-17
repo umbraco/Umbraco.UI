@@ -173,7 +173,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         display: flex;
         position: relative;
         align-items: center;
-        margin: calc(var(--uui-size-2));
       }
 
       #open-part {
@@ -182,6 +181,8 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         align-self: stretch;
         display: flex;
+        flex-grow: 1;
+        padding: calc(var(--uui-size-2));
       }
 
       #icon {
@@ -207,15 +208,16 @@ export class UUIRefNodeElement extends UUIRefElement {
         font-size: var(--uui-type-small-size);
       }
 
-      :host(:not([selectable])) #open-part {
-        flex-grow: 1;
+      :host([selectable]) #open-part {
+        flex-grow: 0;
+        padding: 0;
+        margin: calc(var(--uui-size-2));
       }
 
       :host(:not([disabled])) #open-part:hover #icon {
         color: var(--uui-color-interactive-emphasis);
       }
       :host(:not([disabled])) #open-part:hover #name {
-        font-weight: 700;
         text-decoration: underline;
         color: var(--uui-color-interactive-emphasis);
       }
