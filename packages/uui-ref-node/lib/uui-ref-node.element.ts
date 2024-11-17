@@ -213,7 +213,6 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       :host(:not([disabled])) #open-part:hover #icon {
         color: var(--uui-color-interactive-emphasis);
-        --uui-icon-color: var(--uui-color-interactive-emphasis);
       }
       :host(:not([disabled])) #open-part:hover #name {
         font-weight: 700;
@@ -226,7 +225,6 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       :host([disabled]) #icon {
         color: var(--uui-color-disabled-contrast);
-        --uui-icon-color: var(--uui-color-disabled-contrast);
       }
       :host([disabled]) #name {
         color: var(--uui-color-disabled-contrast);
