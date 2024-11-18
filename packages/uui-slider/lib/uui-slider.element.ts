@@ -35,9 +35,7 @@ const RenderStepValues = (
       el =>
         html` <span
           ><span>
-            ${steps.length <= 20 && stepWidth >= STEP_MIN_WIDTH
-              ? el.toFixed(0)
-              : nothing}
+            ${steps.length <= 20 && stepWidth >= STEP_MIN_WIDTH ? el : nothing}
           </span></span
         >`,
     )}
@@ -45,7 +43,14 @@ const RenderStepValues = (
 };
 
 const GenerateStepArray = (start: number, stop: number, step: number) =>
-  Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
+  Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
+    Number((start + i * step).toFixed(CountDecimalPlaces(step))),
+  );
+
+const CountDecimalPlaces = (num: number) => {
+  const decimalIndex = num.toString().indexOf('.');
+  return decimalIndex >= 0 ? num.toString().length - decimalIndex - 1 : 0;
+};
 
 /**
  * @element uui-slider
