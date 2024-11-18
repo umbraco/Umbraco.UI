@@ -44,7 +44,7 @@ export class UUICardUserElement extends UUICardElement {
       tabindex=${this.disabled ? (nothing as any) : '0'}
       @click=${this.handleOpenClick}
       @keydown=${this.handleOpenKeydown}>
-      <span> ${this.name} </span>
+      ${this.#renderContent()}
     </div>`;
   }
 
@@ -60,24 +60,32 @@ export class UUICardUserElement extends UUICardElement {
             this.target === '_blank' ? 'noopener noreferrer' : undefined,
           ),
       )}>
-      <span>${this.name}</span>
+      ${this.#renderContent()}
     </a>`;
   }
 
-  public render() {
-    return html`
+  #renderContent() {
+    return html`<div id="content">
       ${this._avatarSlotHasContent
         ? nothing
         : html`<uui-avatar
-            id="avatar"
+            class="avatar"
             name=${this.name}
             size="m"></uui-avatar>`}
       <slot
         name="avatar"
-        id="avatar"
+        class="avatar"
         @slotchange=${this._avatarSlotChanged}></slot>
-      ${this.href ? this.#renderLink() : this.#renderButton()}
+      <span>${this.name}</span>
       <slot></slot>
+    </div>`;
+  }
+
+  public render() {
+    return html`
+      ${this.href ? this.#renderLink() : this.#renderButton()}
+      <!-- Select border must be right after #open-part -->
+      <div id="select-border"></div>
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
@@ -90,7 +98,6 @@ export class UUICardUserElement extends UUICardElement {
         min-width: 250px;
         flex-direction: column;
         justify-content: space-between;
-        padding: var(--uui-size-3);
         align-items: center;
       }
 
@@ -113,8 +120,8 @@ export class UUICardUserElement extends UUICardElement {
 
       slot[name='actions'] {
         position: absolute;
-        top: var(--uui-size-4);
-        right: var(--uui-size-4);
+        top: var(--uui-size-space-4);
+        right: var(--uui-size-space-4);
         display: flex;
         justify-content: right;
 
@@ -127,35 +134,44 @@ export class UUICardUserElement extends UUICardElement {
         opacity: 1;
       }
 
-      #avatar {
-        margin: var(--uui-size-3);
-      }
-
-      slot[name='icon']::slotted(*) {
-        font-size: 1.2em;
-      }
-
       #open-part {
-        display: flex;
-        position: relative;
-        font-weight: 700;
-        align-items: center;
         cursor: pointer;
-        margin: 0 0 3px 0;
+        width: 100%;
+        padding: var(--uui-size-space-5) var(--uui-size-space-4);
       }
 
       :host([disabled]) #open-part {
         pointer-events: none;
       }
 
-      #open-part > span {
-        vertical-align: center;
-        margin-top: 3px;
-      }
-
-      #open-part:hover {
+      #open-part:hover #content > span {
         text-decoration: underline;
         color: var(--uui-color-interactive-emphasis);
+      }
+
+      :host([selectable]) #open-part {
+        padding: 0;
+        margin: var(--uui-size-space-5) var(--uui-size-space-4);
+      }
+
+      #content {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        align-items: center;
+        margin: 0 0 3px 0;
+      }
+
+      #content > span {
+        vertical-align: center;
+        margin-top: 3px;
+        font-weight: 700;
+      }
+
+      .avatar {
+        font-size: 1.5em;
+        margin-top: var(--uui-size-space-1);
+        margin-bottom: var(--uui-size-space-2);
       }
     `,
   ];
