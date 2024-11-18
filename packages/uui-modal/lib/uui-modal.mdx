@@ -82,18 +82,18 @@ Example from the sidebar:
 
 All events from the modal base can be cancelled, thus preventing them from executing code, which enables you to customize the behavior.
 
-#### `open`
+#### `uui:modal-open`
 
 Dispatched on first render. This will set open to true and show the modal. Can be cancelled if you want to prevent the modal from opening. But then you'll have to manually call `_openModal()` when you want to open the modal.
 
-#### `close`
+#### `uui:modal-close`
 
-Dispatched when the modal is closed. Can be cancelled if you want to prevent the modal from closing. But then you'll have to manually call `_closeModal()` when you want to close the modal.
+Dispatched when the modal is closed. Can be cancelled if you want to prevent the modal from closing. But then you'll have to manually call `forceClose()` when you want to close the modal.
 This is used in the `uui-modal-sidebar` to wait for the animation to finish before removing the modal from the DOM.
 
-#### `close-end`
+#### `uui:modal-close-end`
 
-This event is triggered before removing the component from the DOM, either after animations or delays or when `_closeModal()` is manually invoked.
+This event is triggered before removing the component from the DOM, either after animations or delays or when `forceClose()` is manually invoked.
 
 ### CSS Variables
 
