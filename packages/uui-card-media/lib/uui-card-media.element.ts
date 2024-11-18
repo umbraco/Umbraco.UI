@@ -24,6 +24,15 @@ export class UUICardMediaElement extends UUICardElement {
   name = '';
 
   /**
+   * Media detail
+   * @type {string}
+   * @attr detail
+   * @default ''
+   */
+  @property({ type: String })
+  detail?: string;
+
+  /**
    * Media file extension, without "."
    * @type {string}
    * @attr file-ext
@@ -68,15 +77,7 @@ export class UUICardMediaElement extends UUICardElement {
         tabindex=${this.disabled ? (nothing as any) : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
-        <!--
-        TODO: Implement when pop-out is ready
-        <uui-icon
-          id="info-icon"
-          name="info"
-          style="color: currentColor">
-        </uui-icon>
-        -->
-        <span>${this.name}</span>
+        ${this.#renderContent()}
       </button>
     `;
   }
@@ -94,16 +95,20 @@ export class UUICardMediaElement extends UUICardElement {
               this.target === '_blank' ? 'noopener noreferrer' : undefined,
             ),
         )}>
-        <!--
-        TODO: Implement when pop-out is ready
-        <uui-icon
-          id="info-icon"
-          name="info"
-          style="color: currentColor">
-        </uui-icon>
-        -->
-        <span>${this.name}</span>
+        ${this.#renderContent()}
       </a>
+    `;
+  }
+
+  #renderContent() {
+    return html`
+      <div id="content">
+        <!--
+        TODO: Implement info box when pop-out is ready
+        -->
+        <span id="name">${this.name}</span>
+        ${this.detail}<slot name="detail"></slot>
+      </div>
     `;
   }
 
@@ -162,28 +167,18 @@ export class UUICardMediaElement extends UUICardElement {
 
       #open-part {
         position: absolute;
-        bottom: 0;
-        width: 100%;
-        background-color: var(--uui-color-surface);
+        z-index: 1;
+        inset: 0;
         color: var(--uui-color-interactive);
         border: none;
         cursor: pointer;
-        border-top: 1px solid var(--uui-color-divider);
-        border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-family: inherit;
-        font-size: var(--uui-type-small-size);
-        box-sizing: border-box;
-        padding: var(--uui-size-2) var(--uui-size-4);
-        text-align: left;
-        word-break: break-word;
+        flex-direction: column;
+        justify-content: flex-end;
       }
 
       :host([disabled]) #open-part {
         pointer-events: none;
-        background: var(--uui-color-disabled);
         color: var(--uui-color-contrast-disabled);
       }
 
@@ -197,6 +192,34 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 0;
       }
 
+      #content {
+        position: relative;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        font-family: inherit;
+        font-size: var(--uui-type-small-size);
+        box-sizing: border-box;
+        text-align: left;
+        word-break: break-word;
+        padding-top: var(--uui-size-space-3);
+      }
+
+      #content::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
+        background-color: var(--uui-color-surface);
+        pointer-events: none;
+        opacity: 0.96;
+      }
+
+      #name {
+        font-weight: 700;
+      }
+
       :host(
           [image]:not([image='']):hover,
           [image]:not([image='']):focus,
@@ -208,6 +231,18 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 1;
         transition-duration: 120ms;
         transition-delay: 0s;
+      }
+
+      :host([selectable]) #open-part {
+        inset: var(--uui-size-space-3) var(--uui-size-space-4);
+      }
+      :host(:not([selectable])) #content {
+        padding: var(--uui-size-space-3) var(--uui-size-space-4);
+      }
+      :host([selectable]) #content::before {
+        inset: calc(var(--uui-size-space-3) * -1)
+          calc(var(--uui-size-space-4) * -1);
+        top: 0;
       }
 
       /*
