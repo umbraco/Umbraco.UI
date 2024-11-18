@@ -195,7 +195,6 @@ export class UUICardContentNodeElement extends UUICardElement {
       }
 
       :host([selectable]) #open-part {
-        flex-grow: 0;
         padding: 0;
         margin: var(--uui-size-space-4) var(--uui-size-space-5);
       }
