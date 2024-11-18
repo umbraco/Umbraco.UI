@@ -76,7 +76,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     constructor(...args: any[]) {
       super(...args);
       this.addEventListener('click', this._handleClick);
-      this.addEventListener('keydown', this.handleSelectKeydown);
+      this.addEventListener('keypress', this.handleSelectKeydown);
     }
 
     private handleSelectKeydown = (e: KeyboardEvent) => {

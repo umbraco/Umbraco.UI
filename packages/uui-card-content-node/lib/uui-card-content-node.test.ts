@@ -99,8 +99,19 @@ describe('UUICardContentNodeElement', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUISelectableEvent.SELECTED, false);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
         element.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.SELECTED);
+        expect(element.selected).to.be.true;
+      });
+
+      it('can be selected with keyboard', async () => {
+        element.selectable = true;
+        await elementUpdated(element);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
+        element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUISelectableEvent.SELECTED);
@@ -113,11 +124,7 @@ describe('UUICardContentNodeElement', () => {
         element.selectable = true;
         element.selected = true;
         await elementUpdated(element);
-        const listener = oneEvent(
-          element,
-          UUISelectableEvent.DESELECTED,
-          false,
-        );
+        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
         element.click();
         const event = await listener;
         expect(event).to.exist;
