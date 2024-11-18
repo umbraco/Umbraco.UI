@@ -56,3 +56,12 @@ export const Readonly: Story = {
     readonly: true,
   },
 };
+
+export const DecimalValue: Story = {
+  args: {
+    min: 0,
+    max: 1,
+    step: 0.1,
+    value: 0.5,
+  },
+};
