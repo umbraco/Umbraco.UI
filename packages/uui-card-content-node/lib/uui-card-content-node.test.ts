@@ -111,7 +111,7 @@ describe('UUICardContentNodeElement', () => {
         element.selectable = true;
         await elementUpdated(element);
         const listener = oneEvent(element, UUISelectableEvent.SELECTED);
-        element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUISelectableEvent.SELECTED);
@@ -121,7 +121,7 @@ describe('UUICardContentNodeElement', () => {
           element,
           UUISelectableEvent.DESELECTED,
         );
-        element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+        element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         const event2 = await unselectedListener;
         expect(event2).to.exist;
         expect(event2.type).to.equal(UUISelectableEvent.DESELECTED);
