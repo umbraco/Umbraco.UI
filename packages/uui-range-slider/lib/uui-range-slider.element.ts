@@ -21,9 +21,6 @@ const CountDecimalPlaces = (num: number) => {
   return decimalIndex >= 0 ? num.toString().length - decimalIndex - 1 : 0;
 };
 
-const RoundToDecimalPlaces = (target: number, decimalPlaces: number) =>
-  Number(target.toFixed(decimalPlaces));
-
 // TODO: ability to focus on the range, to enable keyboard interaction to move the range.
 // TODO: Ability to click outside a range, to move the range if the maxGap has been reached.
 // TODO: .
@@ -634,18 +631,12 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
     return html`<div class="thumb-values">
       <span
         ><span
-          >${RoundToDecimalPlaces(
-            this._lowInputValue,
-            CountDecimalPlaces(this._step),
-          )}</span
+          >${this._lowInputValue.toFixed(CountDecimalPlaces(this._step))}</span
         ></span
       >
       <span
         ><span
-          >${RoundToDecimalPlaces(
-            this._highInputValue,
-            CountDecimalPlaces(this._step),
-          )}</span
+          >${this._highInputValue.toFixed(CountDecimalPlaces(this._step))}</span
         ></span
       >
     </div>`;
@@ -679,10 +670,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
     const stepValues = new Array(stepAmount + 1)
       .fill(this._step)
       .map(step =>
-        RoundToDecimalPlaces(
-          this._min + step * index++,
-          CountDecimalPlaces(this._step),
-        ),
+        (this._min + step * index++).toFixed(CountDecimalPlaces(this._step)),
       );
 
     return html`<div class="step-values">
