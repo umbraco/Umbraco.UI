@@ -267,7 +267,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.CHANGE));
   }
 
-  RenderTrackSteps() {
+  renderTrackSteps() {
     return svg`
   ${this._steps.map(el => {
     if (this._stepWidth >= STEP_MIN_WIDTH) {
@@ -281,7 +281,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 `;
   }
 
-  RenderStepValues() {
+  renderStepValues() {
     if (this.hideStepValues) return nothing;
 
     return html`<div id="step-values">
@@ -315,7 +315,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       <div id="track" aria-hidden="true">
         <svg height="100%" width="100%">
           <rect x="9" y="9" height="3" rx="2" />
-          ${this.RenderTrackSteps()}
+          ${this.renderTrackSteps()}
         </svg>
 
         <div id="track-inner" aria-hidden="true">
@@ -326,7 +326,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
           </div>
         </div>
       </div>
-      ${this.RenderStepValues()}
+      ${this.renderStepValues()}
     `;
   }
 
