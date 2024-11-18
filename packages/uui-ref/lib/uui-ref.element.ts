@@ -77,9 +77,11 @@ export class UUIRefElement extends SelectOnlyMixin(
         transition: --uui-card-before-opacity 120ms;
       }
 
-      :host(:focus) {
-        /** TODO: implement focus outline. */
-        outline-color: #6ab4f0;
+      :host([selectable]:focus-visible) {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-card-border-width);
+        outline-style: solid;
+        outline-offset: var(--uui-card-border-width);
       }
 
       :host([error]) {
@@ -182,6 +184,15 @@ export class UUIRefElement extends SelectOnlyMixin(
       a {
         text-decoration: none;
         color: inherit;
+      }
+
+      button:focus,
+      a:focus {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-card-border-width);
+        outline-style: solid;
+        outline-offset: var(--uui-card-border-width);
+        border-radius: var(--uui-border-radius);
       }
 
       slot[name='actions'] {

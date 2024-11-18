@@ -102,22 +102,16 @@ export class UUICardElement extends SelectOnlyMixin(
         transition: box-shadow 100ms ease-out;
       }
 
-      :host(*) {
-        /* TODO: implement globally shared outline style */
-        outline-color: var(--uui-color-focus);
-        outline-offset: 4px;
-      }
-
-      :host(*) * {
-        /* TODO: implement globally shared outline style */
-        outline-color: var(--uui-color-focus);
-      }
-
-      :host(:focus) {
+      :host([selectable]:focus-visible) {
         outline-color: var(--uui-color-focus);
         outline-width: var(--uui-card-border-width);
         outline-style: solid;
         outline-offset: var(--uui-card-border-width);
+      }
+
+      :host() * {
+        /* TODO: implement globally shared outline style */
+        outline-color: var(--uui-color-focus);
       }
 
       :host([error])::before {
@@ -146,6 +140,15 @@ export class UUICardElement extends SelectOnlyMixin(
       a {
         text-decoration: none;
         color: inherit;
+      }
+
+      button:focus,
+      a:focus {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-card-border-width);
+        outline-style: solid;
+        outline-offset: var(--uui-card-border-width);
+        border-radius: var(--uui-border-radius);
       }
 
       :host([selectable]) {
