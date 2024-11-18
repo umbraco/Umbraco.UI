@@ -360,6 +360,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
+        flex-grow: 1;
       }
 
       #auto {
