@@ -96,9 +96,6 @@ export class UUICardUserElement extends UUICardElement {
     css`
       :host {
         min-width: 250px;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
       }
 
       slot:not([name])::slotted(*) {
@@ -136,7 +133,7 @@ export class UUICardUserElement extends UUICardElement {
 
       #open-part {
         cursor: pointer;
-        width: 100%;
+        flex-grow: 1;
         padding: var(--uui-size-space-5) var(--uui-size-space-4);
       }
 
