@@ -188,7 +188,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeyDown);
   }
 
   /**
@@ -264,7 +264,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     this._stepWidth = this._calculateStepWidth();
   };
 
-  private _onKeypress(e: KeyboardEvent): void {
+  #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
       this.submit();
     }

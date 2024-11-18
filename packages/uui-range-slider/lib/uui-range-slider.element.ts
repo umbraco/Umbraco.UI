@@ -299,7 +299,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   constructor() {
     super();
     // Keyboard
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeyDown);
     // Mouse
     this.addEventListener('mousedown', this._onMouseDown);
     // Touch
@@ -447,7 +447,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   /** Events */
 
-  private _onKeypress = (e: KeyboardEvent) => {
+  #onKeyDown = (e: KeyboardEvent) => {
     if (e.key == 'Enter') {
       this.submit();
     }
