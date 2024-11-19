@@ -11,41 +11,13 @@ import { UUISliderEvent } from './UUISliderEvent';
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
 
-const RenderTrackSteps = (steps: number[], stepWidth: number) => {
-  return svg`
-  ${steps.map(el => {
-    if (stepWidth >= STEP_MIN_WIDTH) {
-      const x = Math.round(TRACK_PADDING + stepWidth * steps.indexOf(el));
-      return svg`<circle class="track-step" cx="${x}" cy="50%" r="4.5" />`;
-    }
-    return svg``;
-  })}
-`;
-};
-
-const RenderStepValues = (
-  steps: number[],
-  stepWidth: number,
-  hide: boolean,
-) => {
-  if (hide) return nothing;
-
-  return html`<div id="step-values">
-    ${steps.map(
-      el =>
-        html` <span
-          ><span>
-            ${steps.length <= 20 && stepWidth >= STEP_MIN_WIDTH
-              ? el.toFixed(0)
-              : nothing}
-          </span></span
-        >`,
-    )}
-  </div>`;
-};
-
 const GenerateStepArray = (start: number, stop: number, step: number) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
+
+const CountDecimalPlaces = (num: number) => {
+  const decimalIndex = num.toString().indexOf('.');
+  return decimalIndex >= 0 ? num.toString().length - decimalIndex - 1 : 0;
+};
 
 /**
  * @element uui-slider
@@ -188,7 +160,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeyDown);
   }
 
   /**
@@ -264,7 +236,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     this._stepWidth = this._calculateStepWidth();
   };
 
-  private _onKeypress(e: KeyboardEvent): void {
+  #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
       this.submit();
     }
@@ -295,6 +267,37 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     this.dispatchEvent(new UUISliderEvent(UUISliderEvent.CHANGE));
   }
 
+  renderTrackSteps() {
+    return svg`
+  ${this._steps.map(el => {
+    if (this._stepWidth >= STEP_MIN_WIDTH) {
+      const x = Math.round(
+        TRACK_PADDING + this._stepWidth * this._steps.indexOf(el),
+      );
+      return svg`<circle class="track-step" cx="${x}" cy="50%" r="4.5" />`;
+    }
+    return svg``;
+  })}
+`;
+  }
+
+  renderStepValues() {
+    if (this.hideStepValues) return nothing;
+
+    return html`<div id="step-values">
+      ${this._steps.map(
+        el =>
+          html` <span
+            ><span>
+              ${this._steps.length <= 20 && this._stepWidth >= STEP_MIN_WIDTH
+                ? el.toFixed(CountDecimalPlaces(this.step))
+                : nothing}
+            </span></span
+          >`,
+      )}
+    </div>`;
+  }
+
   render() {
     return html`
       <input
@@ -312,7 +315,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       <div id="track" aria-hidden="true">
         <svg height="100%" width="100%">
           <rect x="9" y="9" height="3" rx="2" />
-          ${RenderTrackSteps(this._steps, this._stepWidth)}
+          ${this.renderTrackSteps()}
         </svg>
 
         <div id="track-inner" aria-hidden="true">
@@ -323,7 +326,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
           </div>
         </div>
       </div>
-      ${RenderStepValues(this._steps, this._stepWidth, this.hideStepValues)}
+      ${this.renderStepValues()}
     `;
   }
 

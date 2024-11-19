@@ -73,7 +73,7 @@ describe('UuiSlider', () => {
   describe('events', () => {
     describe('change', () => {
       it('emits a change event when native input fires one', async () => {
-        const listener = oneEvent(element, UUISliderEvent.CHANGE, false);
+        const listener = oneEvent(element, UUISliderEvent.CHANGE);
 
         input.dispatchEvent(new Event('change'));
 
@@ -85,7 +85,7 @@ describe('UuiSlider', () => {
     });
     describe('input', () => {
       it('emits a input event when native input fires one', async () => {
-        const listener = oneEvent(element, UUISliderEvent.INPUT, false);
+        const listener = oneEvent(element, UUISliderEvent.INPUT);
 
         input.dispatchEvent(new Event('input'));
 
@@ -150,8 +150,8 @@ describe('UuiSlider in Form', () => {
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
-      const listener = oneEvent(formElement, 'submit', false);
-      element.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+      const listener = oneEvent(formElement, 'submit');
+      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
       expect(event).to.exist;
