@@ -86,7 +86,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
         composePath.indexOf(this.selectableTarget) === 0
       ) {
         if (this.selectableTarget === this) {
-          if (e.key !== ' ' && e.key !== 'Enter') return;
+          if (e.code !== 'Space' && e.code !== 'Enter') return;
           this._toggleSelect();
           e.preventDefault();
         }
