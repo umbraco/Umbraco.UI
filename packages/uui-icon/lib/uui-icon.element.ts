@@ -141,8 +141,8 @@ export class UUIIconElement extends LitElement {
       :host {
         display: inline-block;
         vertical-align: bottom;
-        width: 1.15em;
-        height: 1.15em;
+        width: 1.125em;
+        height: 1.125em;
       }
 
       :host svg,
