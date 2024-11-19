@@ -141,9 +141,11 @@ export class UUICardUserElement extends UUICardElement {
         pointer-events: none;
       }
 
+      #open-part:hover #content {
+        color: var(--uui-color-interactive-emphasis);
+      }
       #open-part:hover #content > span {
         text-decoration: underline;
-        color: var(--uui-color-interactive-emphasis);
       }
 
       :host([selectable]) #open-part {
