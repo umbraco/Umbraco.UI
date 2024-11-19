@@ -210,6 +210,7 @@ export class UUICardMediaElement extends UUICardElement {
         position: absolute;
         inset: 0;
         z-index: -1;
+        border-top: 1px solid var(--uui-color-divider);
         border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
         background-color: var(--uui-color-surface);
         pointer-events: none;
