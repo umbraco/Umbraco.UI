@@ -554,7 +554,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #icon {
         display: inline-flex;
-        font-size: 15.66px;
         margin-right: var(--uui-size-2);
       }
 
