@@ -114,14 +114,14 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
       this._value = 'on';
     }
     this.inputRole = inputRole;
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeyDown);
   }
 
   protected getFormElement(): HTMLInputElement {
     return this._input;
   }
 
-  private _onKeypress(e: KeyboardEvent): void {
+  #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
       this.submit();
     }
