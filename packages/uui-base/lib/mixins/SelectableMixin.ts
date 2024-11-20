@@ -112,7 +112,11 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private _handleClick(e: Event) {
-      if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+      const composePath = e.composedPath();
+      if (
+        (this._selectable || (this.deselectable && this.selected)) &&
+        composePath.indexOf(this.selectableTarget) === 0
+      ) {
         this._toggleSelect();
       }
     }
