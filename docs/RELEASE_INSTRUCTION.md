@@ -11,8 +11,8 @@
 1. Add the `ignore-for-release`-label to the PR.
 1. Wait for GitHub checks to pass.
 1. Github will post a comment with a test link to try out that the release works in Storybook. Please check that it works.
-1. Merge PR into main **using the rebase strategy** (very important so the history is not mangled) - this will trigger two actions - `Publish`, and `Azure Static Web Apps CI/CD`. The `Publish` workflow is responsible for publishing packages to NPM. It will only publish the packages that have higher version that previously published ones. The azure workflow will build and publish UI library Storybook.
-1. Rebase the `v1/main` branch with the `v1/contrib` branch by writing `git rebase -i origin/main` and then push the changes.
+1. Merge PR into main **using the Merge strategy** (very important so the history is not mangled) - this will trigger two actions - `Publish`, and `Azure Static Web Apps CI/CD`. The `Publish` workflow is responsible for publishing packages to NPM. It will only publish the packages that have higher version that previously published ones. The azure workflow will build and publish UI library Storybook.
+1. Merge the `v1/main` branch with the `v1/contrib` branch by writing `git merge origin/main` and then push the changes.
 1. Go to Github and [create a new release](https://github.com/umbraco/Umbraco.UI/releases/new).
    1. Using tags on the release, we want to target `vx.x.x` where "x.x.x" is the version number that the UUI package was bumped to during the release.
    1. Select the prevous version, in relation to your release, in `Previous tag` and press `Generate release notes`.
