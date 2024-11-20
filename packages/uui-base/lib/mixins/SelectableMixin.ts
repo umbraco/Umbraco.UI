@@ -75,11 +75,11 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     constructor(...args: any[]) {
       super(...args);
-      this.addEventListener('click', this._handleClick);
-      this.addEventListener('keydown', this.handleSelectKeydown);
+      this.addEventListener('click', this.#onClick);
+      this.addEventListener('keydown', this.#onKeydown);
     }
 
-    private handleSelectKeydown = (e: KeyboardEvent) => {
+    #onKeydown = (e: KeyboardEvent) => {
       const composePath = e.composedPath();
       if (
         (this._selectable || (this.deselectable && this.selected)) &&
@@ -87,13 +87,33 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       ) {
         if (this.selectableTarget === this) {
           if (e.code !== 'Space' && e.code !== 'Enter') return;
-          this._toggleSelect();
+          this.#toggleSelect();
           e.preventDefault();
         }
       }
     };
 
-    private _select() {
+    #onClick = (e: Event) => {
+      const composePath = e.composedPath();
+      if (
+        (this._selectable || (this.deselectable && this.selected)) &&
+        composePath.indexOf(this.selectableTarget) === 0
+      ) {
+        this.#toggleSelect();
+      }
+    };
+
+    #toggleSelect() {
+      // Only allow for select-interaction if selectable is true. Deselectable is ignored in this case, we do not want a DX where only deselection is a possibility..
+      if (!this.selectable) return;
+      if (this.deselectable === false) {
+        this.#select();
+      } else {
+        this.selected ? this.#deselect() : this.#select();
+      }
+    }
+
+    #select() {
       if (!this.selectable) return;
       const selectEvent = new UUISelectableEvent(UUISelectableEvent.SELECTED);
       this.dispatchEvent(selectEvent);
@@ -102,33 +122,13 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.selected = true;
     }
 
-    private _deselect() {
+    #deselect() {
       if (!this.deselectable) return;
       const selectEvent = new UUISelectableEvent(UUISelectableEvent.DESELECTED);
       this.dispatchEvent(selectEvent);
       if (selectEvent.defaultPrevented) return;
 
       this.selected = false;
-    }
-
-    private _handleClick(e: Event) {
-      const composePath = e.composedPath();
-      if (
-        (this._selectable || (this.deselectable && this.selected)) &&
-        composePath.indexOf(this.selectableTarget) === 0
-      ) {
-        this._toggleSelect();
-      }
-    }
-
-    private _toggleSelect() {
-      // Only allow for select-interaction if selectable is true. Deselectable is ignored in this case, we do not want a DX where only deselection is a possibility..
-      if (!this.selectable) return;
-      if (this.deselectable === false) {
-        this._select();
-      } else {
-        this.selected ? this._deselect() : this._select();
-      }
     }
   }
   // prettier-ignore
