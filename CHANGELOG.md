@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/umbraco/Umbraco.UI/compare/v1.11.0...v1.12.0) (2024-11-20)
+
+### Bug Fixes
+
+- Add pointer cursor to color picker button ([#936](https://github.com/umbraco/Umbraco.UI/issues/936)) ([86c4fce](https://github.com/umbraco/Umbraco.UI/commit/86c4fce113530f7bf95b4a738ae4f60a099de224))
+
+### Features
+
+- make actions container visible on focus-within ([#949](https://github.com/umbraco/Umbraco.UI/issues/949)) ([29cfe66](https://github.com/umbraco/Umbraco.UI/commit/29cfe66a2f6fd0d27f342ebd91b14f537be3c286))
+
 # [1.11.0](https://github.com/umbraco/Umbraco.UI/compare/v1.10.1...v1.11.0) (2024-10-14)
 
 ### Bug Fixes
