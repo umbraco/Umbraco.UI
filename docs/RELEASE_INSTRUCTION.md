@@ -1,9 +1,7 @@
 # UI Library Release workflow
 
-1. Create a new branch for the release. We need a good naming convention: `Release/<patch/minor/major>-<YYMMDD>` (example: `Release/Patch-220128`).
-1. **Important:** At this step it is essential to generate the release notes for the new release, because they are made by comparing the current changes with the previous release. Run the command `npm run lerna:changelog` to generate the release notes into the console and make a copy of them to use later for Github Releases. It is not possible to run later due to new tags.
-   1. You probably need to generate a Github token with the "repo" access for this. [Generate one on Github](https://github.com/settings/tokens/new) to do so.
-1. Review new release PR (either [on GitHub](https://github.com/umbraco/Umbraco.UI/compare/) or through `npm run lerna:diff`).
+1. Create a new branch for the release. We need a good naming convention: `release/<Version>` (example: `release/1.12.0`).
+1. Review new release PR (either [on GitHub](https://github.com/umbraco/Umbraco.UI/compare/)).
 1. Make a PR from the new branch to the `main` branch.
 1. Run `npm run lerna:version` and Lerna will suggest a version bump for each package.
 1. Review the new version numbers and accept with `y` and Lerna will now bump each package and update the local CHANGELOG.md file using descriptions from the conventional commits, Lerna will also reinstall NPM and generate a new lockfile.
