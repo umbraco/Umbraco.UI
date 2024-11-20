@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 
 /**
  *  @element uui-file-symbol
@@ -16,20 +17,30 @@ export class UUISymbolFileElement extends LitElement {
   type = '';
 
   render() {
-    return html`<svg
+    return html`
+      <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        width="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="0.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
         id="icon">
-        <path
-          d="M396.441 138.878l-83.997-83.993-7.331-7.333H105.702v416.701h298.071V146.214l-7.332-7.336zM130.74 439.217V72.591h141.613c37.201 0 19.274 88.18 19.274 88.18s86-20.901 87.104 18.534v259.912H130.74z" />
+        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
       </svg>
+
       ${this.type
-        ? html`<span id="file-type">${this.type.toUpperCase()}</span>`
-        : ''} `;
+        ? html`<small id="file-type" class="uui-small"
+            >${this.type.toUpperCase()}</small
+          >`
+        : ''}
+    `;
   }
 
   static styles = [
+    UUITextStyles,
     css`
       :host {
         position: relative;
@@ -38,8 +49,8 @@ export class UUISymbolFileElement extends LitElement {
 
       #file-type {
         position: absolute;
-        bottom: 24%;
-        left: 25.5%;
+        bottom: 20%;
+        left: 12%;
         margin-left: calc(var(--uui-size-3) * -1);
         padding: 0px var(--uui-size-3);
         font-weight: 700;
@@ -48,10 +59,12 @@ export class UUISymbolFileElement extends LitElement {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        border-radius: var(--uui-border-radius);
       }
 
       #icon {
-        fill: var(--uui-color-border-standalone);
+        width: 100%;
+        color: var(--uui-color-border-standalone);
       }
     `,
   ];

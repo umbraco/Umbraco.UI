@@ -212,7 +212,7 @@ export class UUIInputElement extends UUIFormControlMixin(
     this.addEventListener('blur', () => {
       this.style.setProperty('--uui-show-focus-outline', '');
     });
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeyDown);
 
     this.addValidator(
       'tooShort',
@@ -230,7 +230,7 @@ export class UUIInputElement extends UUIFormControlMixin(
     });
   }
 
-  private _onKeypress(e: KeyboardEvent): void {
+  #onKeyDown(e: KeyboardEvent): void {
     if (this.type !== 'color' && e.key == 'Enter') {
       this.submit();
     }
@@ -360,6 +360,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
+        flex-grow: 1;
       }
 
       #auto {

@@ -54,8 +54,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       const oldVal = this._selectable;
       this._selectable = newVal;
       // Potentially problematic as a component might need focus for another feature when not selectable:
-      if (!this.selectableTarget) {
-        // If not selectable target, then make it self selectable. (A selectable target should be made focusable by the component itself)
+      if (this.selectableTarget === this) {
+        // If the selectable target, then make it self selectable. (A different selectable target should be made focusable by the component itself)
         this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
       }
       this.requestUpdate('selectable', oldVal);
@@ -80,10 +80,16 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private handleSelectKeydown = (e: KeyboardEvent) => {
-      //if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
-      if (this.selectableTarget === this) {
-        if (e.key !== ' ' && e.key !== 'Enter') return;
-        this._toggleSelect();
+      const composePath = e.composedPath();
+      if (
+        (this._selectable || (this.deselectable && this.selected)) &&
+        composePath.indexOf(this.selectableTarget) === 0
+      ) {
+        if (this.selectableTarget === this) {
+          if (e.code !== 'Space' && e.code !== 'Enter') return;
+          this._toggleSelect();
+          e.preventDefault();
+        }
       }
     };
 
@@ -112,7 +118,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     private _toggleSelect() {
-      // Only allow for select-interaction if selectable is true. Deselectable is ignorered in this case, we do not want a DX where only deselection is a possibility..
+      // Only allow for select-interaction if selectable is true. Deselectable is ignored in this case, we do not want a DX where only deselection is a possibility..
       if (!this.selectable) return;
       if (this.deselectable === false) {
         this._select();

@@ -16,6 +16,11 @@ const TRACK_HEIGHT = 3;
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;
 
+const CountDecimalPlaces = (num: number) => {
+  const decimalIndex = num.toString().indexOf('.');
+  return decimalIndex >= 0 ? num.toString().length - decimalIndex - 1 : 0;
+};
+
 // TODO: ability to focus on the range, to enable keyboard interaction to move the range.
 // TODO: Ability to click outside a range, to move the range if the maxGap has been reached.
 // TODO: .
@@ -299,7 +304,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   constructor() {
     super();
     // Keyboard
-    this.addEventListener('keypress', this._onKeypress);
+    this.addEventListener('keydown', this.#onKeyDown);
     // Mouse
     this.addEventListener('mousedown', this._onMouseDown);
     // Touch
@@ -447,7 +452,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   /** Events */
 
-  private _onKeypress = (e: KeyboardEvent) => {
+  #onKeyDown = (e: KeyboardEvent) => {
     if (e.key == 'Enter') {
       this.submit();
     }
@@ -624,8 +629,16 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   private _renderThumbValues() {
     return html`<div class="thumb-values">
-      <span><span>${this._lowInputValue}</span></span>
-      <span><span>${this._highInputValue}</span></span>
+      <span
+        ><span
+          >${this._lowInputValue.toFixed(CountDecimalPlaces(this._step))}</span
+        ></span
+      >
+      <span
+        ><span
+          >${this._highInputValue.toFixed(CountDecimalPlaces(this._step))}</span
+        ></span
+      >
     </div>`;
   }
 
@@ -656,7 +669,9 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
     let index = 0;
     const stepValues = new Array(stepAmount + 1)
       .fill(this._step)
-      .map(step => this._min + step * index++);
+      .map(step =>
+        (this._min + step * index++).toFixed(CountDecimalPlaces(this._step)),
+      );
 
     return html`<div class="step-values">
       ${stepValues.map(value => html`<span><span>${value}</span></span>`)}

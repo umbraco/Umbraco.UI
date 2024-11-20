@@ -77,9 +77,11 @@ export class UUIRefElement extends SelectOnlyMixin(
         transition: --uui-card-before-opacity 120ms;
       }
 
-      :host(:focus) {
-        /** TODO: implement focus outline. */
-        outline-color: #6ab4f0;
+      :host([selectable]:focus-visible) {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-card-border-width);
+        outline-style: solid;
+        outline-offset: var(--uui-card-border-width);
       }
 
       :host([error]) {
@@ -179,6 +181,19 @@ export class UUIRefElement extends SelectOnlyMixin(
         text-align: left;
         color: var(--uui-color-text);
       }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      button:focus,
+      a:focus {
+        outline-color: var(--uui-color-focus);
+        outline-width: var(--uui-card-border-width);
+        outline-style: solid;
+        outline-offset: var(--uui-card-border-width);
+        border-radius: var(--uui-border-radius);
+      }
 
       slot[name='actions'] {
         display: flex;
@@ -186,11 +201,16 @@ export class UUIRefElement extends SelectOnlyMixin(
         --uui-button-height: calc(var(--uui-size-2) * 4);
         margin-right: var(--uui-size-2);
       }
+      #tag-container {
+        margin: calc(var(--uui-size-2));
+      }
       #actions-container {
+        margin: calc(var(--uui-size-2));
         opacity: 0;
         transition: opacity 120ms;
       }
       :host(:hover) #actions-container,
+      :host(:focus) #actions-container,
       :host(:focus-within) #actions-container {
         opacity: 1;
       }
@@ -208,8 +228,6 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       slot[name='tag'] {
-        flex-grow: 1;
-
         display: flex;
         justify-content: flex-end;
         align-items: center;

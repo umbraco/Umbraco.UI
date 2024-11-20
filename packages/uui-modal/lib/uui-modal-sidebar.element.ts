@@ -1,6 +1,6 @@
 import { css, html, PropertyValueMap } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIModalCloseEvent, UUIModalElement } from './uui-modal.element';
+import { UUIModalElement } from './uui-modal.element';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 export type UUIModalSidebarSize = 'small' | 'medium' | 'large' | 'full';
@@ -12,11 +12,6 @@ export class UUIModalSidebarElement extends UUIModalElement {
    */
   @property({ reflect: true })
   size: UUIModalSidebarSize = 'full';
-
-  constructor() {
-    super();
-    this.addEventListener(UUIModalCloseEvent, this.#onClose.bind(this));
-  }
 
   protected firstUpdated(
     _changedProperties: Map<string | number | symbol, unknown>,
@@ -44,16 +39,14 @@ export class UUIModalSidebarElement extends UUIModalElement {
     return this._dialogElement?.getBoundingClientRect().width ?? 0;
   }
 
-  #onClose(event: Event) {
-    event.preventDefault();
-
+  forceClose() {
     if (this.isClosing) return;
 
     this.isClosing = true;
     this.style.setProperty('--uui-modal-offset', -this.#getWidth + 'px');
 
     setTimeout(() => {
-      this._closeModal();
+      super.forceClose();
     }, this.transitionDuration);
   }
 

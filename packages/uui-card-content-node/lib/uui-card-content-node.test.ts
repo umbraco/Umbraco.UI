@@ -75,7 +75,7 @@ describe('UUICardContentNodeElement', () => {
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when info is clicked', async () => {
-        const listener = oneEvent(element, UUICardEvent.OPEN, false);
+        const listener = oneEvent(element, UUICardEvent.OPEN);
         const infoElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#open-part');
         infoElement?.click();
@@ -85,7 +85,7 @@ describe('UUICardContentNodeElement', () => {
       });
 
       it('emits a open event when icon is clicked', async () => {
-        const listener = oneEvent(element, UUICardEvent.OPEN, false);
+        const listener = oneEvent(element, UUICardEvent.OPEN);
         const iconElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#icon');
         iconElement?.click();
@@ -99,12 +99,33 @@ describe('UUICardContentNodeElement', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, UUISelectableEvent.SELECTED, false);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
         element.click();
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUISelectableEvent.SELECTED);
         expect(element.selected).to.be.true;
+      });
+
+      it('can be selected with keyboard', async () => {
+        element.selectable = true;
+        await elementUpdated(element);
+        const listener = oneEvent(element, UUISelectableEvent.SELECTED);
+        element.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUISelectableEvent.SELECTED);
+        expect(element.selected).to.be.true;
+
+        const unselectedListener = oneEvent(
+          element,
+          UUISelectableEvent.DESELECTED,
+        );
+        element.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }));
+        const event2 = await unselectedListener;
+        expect(event2).to.exist;
+        expect(event2.type).to.equal(UUISelectableEvent.DESELECTED);
+        expect(element.selected).to.be.false;
       });
     });
 
@@ -113,11 +134,7 @@ describe('UUICardContentNodeElement', () => {
         element.selectable = true;
         element.selected = true;
         await elementUpdated(element);
-        const listener = oneEvent(
-          element,
-          UUISelectableEvent.DESELECTED,
-          false,
-        );
+        const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
         element.click();
         const event = await listener;
         expect(event).to.exist;
