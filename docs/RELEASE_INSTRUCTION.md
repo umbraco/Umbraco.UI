@@ -18,6 +18,7 @@
    1. Select the prevous version, in relation to your release, in `Previous tag` and press `Generate release notes`.
    1. Check the generated release notes, see if PRs are in the right category, if not append labels to them and return to generate again.
 1. The UI Library has now been updated.
+1. Write an post on the UI Library Slack Channel evt. update Backoffice.
 
 ## How to clear tags
 
