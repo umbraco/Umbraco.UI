@@ -18,7 +18,7 @@
 }
 
 .uui-text h1,
-.uui-h1 {
+.uui-h1.uui-h1 {
   font-size: var(--uui-type-h1-size);
   line-height: var(--uui-size-layout-4);
   font-weight: 300;
@@ -38,7 +38,7 @@
 }
 
 .uui-text h2,
-.uui-h2 {
+.uui-h2.uui-h2 {
   font-size: var(--uui-type-h2-size);
   line-height: var(--uui-size-layout-3);
   font-weight: 300;
@@ -58,7 +58,7 @@
 }
 
 .uui-text h3,
-.uui-h3 {
+.uui-h3.uui-h3 {
   font-size: var(--uui-type-h3-size);
   line-height: var(--uui-size-large);
   font-weight: 300;
@@ -74,7 +74,7 @@
 }
 
 .uui-text h4,
-.uui-h4 {
+.uui-h4.uui-h4 {
   font-size: var(--uui-type-h4-size);
   line-height: 21px;
   font-weight: 400;
@@ -90,7 +90,7 @@
 }
 
 .uui-text h5,
-.uui-h5 {
+.uui-h5.uui-h5 {
   font-size: var(--uui-type-h5-size);
   line-height: inherit;
   font-weight: 700;
