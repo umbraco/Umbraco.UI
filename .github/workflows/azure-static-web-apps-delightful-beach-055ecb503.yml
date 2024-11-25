@@ -17,6 +17,7 @@ on:
       - 'v*/dev'
       - 'v*/contrib'
       - 'release/*'
+      - '!dependabot/**'
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
