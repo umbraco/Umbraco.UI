@@ -99,6 +99,35 @@ describe('UUICardMediaElement', () => {
         expect(event.type).to.equal(UUISelectableEvent.SELECTED);
         expect(element.selected).to.be.true;
       });
+      it('do react to a click event on performed in this way', async () => {
+        element.selectable = true;
+        await elementUpdated(element);
+        element.click();
+        await Promise.resolve();
+        expect(element.selected).to.be.true;
+      });
+      it('do not react to a click event on other parts', async () => {
+        element.selectable = true;
+        await elementUpdated(element);
+        const listener = oneEvent(element, UUICardEvent.OPEN);
+        element
+          .shadowRoot!.querySelector<HTMLAnchorElement>('#open-part')!
+          .click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUICardEvent.OPEN);
+        expect(element.selected).to.be.false;
+      });
+      it('do not react to a click event on other parts as href', async () => {
+        element.selectable = true;
+        element.href = '#hello';
+        await elementUpdated(element);
+        element
+          .shadowRoot!.querySelector<HTMLAnchorElement>('#open-part')!
+          .click();
+        await Promise.resolve();
+        expect(element.selected).to.be.false;
+      });
       it('can be selected with keyboard', async () => {
         element.selectable = true;
         await elementUpdated(element);
