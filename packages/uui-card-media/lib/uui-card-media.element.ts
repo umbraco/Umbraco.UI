@@ -139,6 +139,7 @@ export class UUICardMediaElement extends UUICardElement {
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
+        z-index: 2;
       }
 
       slot[name='actions'] {
@@ -147,7 +148,7 @@ export class UUICardMediaElement extends UUICardElement {
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
-
+        z-index: 2;
         opacity: 0;
         transition: opacity 120ms;
       }
