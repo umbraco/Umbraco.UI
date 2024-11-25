@@ -164,6 +164,7 @@ export class UUICardMediaElement extends UUICardElement {
         object-fit: cover;
         width: 100%;
         height: 100%;
+        /* TODO: remove temp 'pointer-events:none' fix when UUI 1.3 gets release. */
         pointer-events: none;
       }
 
