@@ -79,7 +79,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       this.addEventListener('keydown', this.#onKeydown);
     }
 
-    #onKeydown = (e: KeyboardEvent) => {
+    readonly #onKeydown = (e: KeyboardEvent) => {
       const composePath = e.composedPath();
       if (
         (this._selectable || (this.deselectable && this.selected)) &&
@@ -93,7 +93,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       }
     };
 
-    #onClick = (e: Event) => {
+    readonly #onClick = (e: Event) => {
       const composePath = e.composedPath();
       if (
         (this._selectable || (this.deselectable && this.selected)) &&
