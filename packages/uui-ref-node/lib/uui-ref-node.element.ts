@@ -210,10 +210,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding-left: var(--uui-size-2);
       }
 
-      #name {
-        font-weight: 700;
-      }
-
       #detail {
         font-size: var(--uui-type-small-size);
       }
