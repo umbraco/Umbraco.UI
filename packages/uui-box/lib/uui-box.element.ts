@@ -131,6 +131,7 @@ export class UUIBoxElement extends LitElement {
 
       #header {
         display: flex;
+        align-items: center;
         column-gap: var(--uui-size-space-5);
         border-bottom: 1px solid var(--uui-color-divider-standalone);
         padding: var(
