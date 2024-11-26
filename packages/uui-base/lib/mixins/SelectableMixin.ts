@@ -94,11 +94,17 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     };
 
     readonly #onClick = (e: Event) => {
-      const composePath = e.composedPath();
-      if (
-        (this._selectable || (this.deselectable && this.selected)) &&
-        composePath.indexOf(this.selectableTarget) === 0
-      ) {
+      const isSelectable =
+        this._selectable || (this.deselectable && this.selected);
+
+      if (isSelectable === false) return;
+
+      if (this.selectableTarget === this) {
+        // If target is this, then only allow selection if the click is on the element itself.
+        if (e.composedPath().indexOf(this.selectableTarget) === 0) {
+          this.#toggleSelect();
+        }
+      } else {
         this.#toggleSelect();
       }
     };
