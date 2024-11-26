@@ -113,15 +113,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
       if (isSelectable === false) return;
 
-      if (this.#selectableTarget === this) {
-        // If target is this, then only allow selection if the click is on the element itself.
-        if (e.composedPath().indexOf(this.#selectableTarget) === 0) {
-          if (e.type === 'keydown') {
-            e.preventDefault(); // Do not want the space key to trigger a page scroll.
-          }
-          this.#toggleSelect();
-        }
-      } else if (e.composedPath().indexOf(this.#selectableTarget) !== -1) {
+      if (e.composedPath().indexOf(this.#selectableTarget) !== -1) {
         if (e.type === 'keydown') {
           e.preventDefault(); // Do not want the space key to trigger a page scroll.
         }
