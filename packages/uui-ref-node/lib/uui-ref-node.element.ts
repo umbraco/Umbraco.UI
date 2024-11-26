@@ -178,18 +178,16 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       #content {
-        align-self: stretch;
-        line-height: normal;
         display: flex;
-        position: relative;
         align-items: center;
+        justify-content: center;
+        line-height: 1.2em;
       }
 
       #open-part {
         color: inherit;
         text-decoration: none;
         cursor: pointer;
-        align-self: stretch;
         display: flex;
         flex-grow: 1;
         padding: calc(var(--uui-size-2));
@@ -199,6 +197,9 @@ export class UUIRefNodeElement extends UUIRefElement {
         font-size: 1.2em;
         margin-left: var(--uui-size-2);
         margin-right: var(--uui-size-1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       #info {
