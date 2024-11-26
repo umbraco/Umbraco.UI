@@ -56,15 +56,11 @@ export class UUITableRowElement extends SelectOnlyMixin(
   private updateChildSelectOnly() {
     if (this.slotCellNodes) {
       this.slotCellNodes.forEach(el => {
-        if (this.elementIsTableCell(el)) {
+        if (el instanceof UUITableCellElement) {
           el.disableChildInteraction = this.selectOnly;
         }
       });
     }
-  }
-
-  private elementIsTableCell(element: unknown): element is UUITableCellElement {
-    return element instanceof UUITableCellElement;
   }
 
   render() {
