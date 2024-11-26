@@ -52,12 +52,14 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
     set selectable(newVal) {
       const oldVal = this._selectable;
+      if (oldVal === newVal) return;
       this._selectable = newVal;
+
       // Potentially problematic as a component might need focus for another feature when not selectable:
-      if (this.selectableTarget === this) {
-        // If the selectable target, then make it self selectable. (A different selectable target should be made focusable by the component itself)
-        this.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
-      }
+      //if (this.#selectableTarget === this) {
+      // If the selectable target, then make it self selectable. (A different selectable target should be made focusable by the component itself)
+      this.#selectableTarget.setAttribute('tabindex', `${newVal ? '0' : '-1'}`);
+      //}
       this.requestUpdate('selectable', oldVal);
     }
 
@@ -71,7 +73,28 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     @property({ type: Boolean, reflect: true })
     public selected = false;
 
-    protected selectableTarget: EventTarget = this;
+    #selectableTarget: Element = this;
+    protected get selectableTarget(): EventTarget {
+      return this.#selectableTarget;
+    }
+    protected set selectableTarget(target: EventTarget) {
+      const oldTarget = this.#selectableTarget;
+
+      oldTarget.removeAttribute('tabindex');
+      oldTarget.removeEventListener('click', this.#onClick);
+      oldTarget.removeEventListener(
+        'keydown',
+        this.#onKeydown as EventListener,
+      );
+
+      this.#selectableTarget = target as Element;
+      this.#selectableTarget.setAttribute(
+        'tabindex',
+        this._selectable ? '0' : '-1',
+      );
+      target.addEventListener('click', this.#onClick);
+      target.addEventListener('keydown', this.#onKeydown as EventListener);
+    }
 
     constructor(...args: any[]) {
       super(...args);
@@ -80,17 +103,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
 
     readonly #onKeydown = (e: KeyboardEvent) => {
-      const composePath = e.composedPath();
-      if (
-        (this._selectable || (this.deselectable && this.selected)) &&
-        composePath.indexOf(this.selectableTarget) === 0
-      ) {
-        if (this.selectableTarget === this) {
-          if (e.code !== 'Space' && e.code !== 'Enter') return;
-          this.#toggleSelect();
-          e.preventDefault();
-        }
-      }
+      if (e.code !== 'Space' && e.code !== 'Enter') return;
+      this.#onClick(e);
     };
 
     readonly #onClick = (e: Event) => {
@@ -99,12 +113,18 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
       if (isSelectable === false) return;
 
-      if (this.selectableTarget === this) {
+      if (this.#selectableTarget === this) {
         // If target is this, then only allow selection if the click is on the element itself.
-        if (e.composedPath().indexOf(this.selectableTarget) === 0) {
+        if (e.composedPath().indexOf(this.#selectableTarget) === 0) {
+          if (e.type === 'keydown') {
+            e.preventDefault(); // Do not want the space key to trigger a page scroll.
+          }
           this.#toggleSelect();
         }
-      } else if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
+      } else if (e.composedPath().indexOf(this.#selectableTarget) !== -1) {
+        if (e.type === 'keydown') {
+          e.preventDefault(); // Do not want the space key to trigger a page scroll.
+        }
         this.#toggleSelect();
       }
     };
