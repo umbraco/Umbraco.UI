@@ -104,7 +104,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
         if (e.composedPath().indexOf(this.selectableTarget) === 0) {
           this.#toggleSelect();
         }
-      } else {
+      } else if (e.composedPath().indexOf(this.selectableTarget) !== -1) {
         this.#toggleSelect();
       }
     };
