@@ -4,6 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUITableCellElement } from './uui-table-cell.element';
@@ -54,21 +55,30 @@ export class UUITableRowElement extends SelectOnlyMixin(
   }
 
   private updateChildSelectOnly() {
-    if (this.slotCellNodes) {
-      this.slotCellNodes.forEach(el => {
-        if (this.elementIsTableCell(el)) {
+    const slotCellNodes = this.slotCellNodes;
+    if (slotCellNodes) {
+      slotCellNodes.forEach(el => {
+        if (el instanceof UUITableCellElement) {
           el.disableChildInteraction = this.selectOnly;
         }
       });
     }
   }
 
-  private elementIsTableCell(element: unknown): element is UUITableCellElement {
-    return element instanceof UUITableCellElement;
+  #selectAreaChanged(selectArea?: Element | undefined) {
+    this.selectableTarget = selectArea || this;
   }
 
   render() {
-    return html` <slot @slotchanged=${this.updateChildSelectOnly}></slot> `;
+    return html`
+      <slot @slotchanged=${this.updateChildSelectOnly}></slot>
+      <div id="select-border" ${ref(this.#selectAreaChanged)}>
+        <div id="select-top"></div>
+        <div id="select-right"></div>
+        <div id="select-bottom"></div>
+        <div id="select-left"></div>
+      </div>
+    `;
   }
 
   static styles = [
@@ -79,20 +89,115 @@ export class UUITableRowElement extends SelectOnlyMixin(
         outline-offset: -3px;
       }
 
-      :host([selectable]) {
-        cursor: pointer;
-      }
-
       :host(:focus) {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);
       }
-      :host([selected]) {
-        outline: 2px solid
-          var(--uui-table-row-color-selected, var(--uui-color-selected));
+
+      :host([selectable]) #select-border {
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 120ms;
       }
-      :host([selected]:focus) {
-        outline-color: var(--uui-color-focus);
+      :host([selectable]) #select-border::after {
+        content: '';
+        position: absolute;
+        z-index: 20;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border: 2px solid var(--uui-color-selected);
+        border-radius: calc(var(--uui-border-radius) + 2px);
+        pointer-events: none;
+        box-shadow:
+          0 0 4px 0 var(--uui-color-selected),
+          inset 0 0 2px 0 var(--uui-color-selected);
+      }
+
+      :host([selectable]) #select-border #select-top,
+      :host([selectable]) #select-border #select-right,
+      :host([selectable]) #select-border #select-bottom,
+      :host([selectable]) #select-border #select-left {
+        position: absolute;
+        z-index: 2;
+        top: 1px;
+        left: 1px;
+        right: 1px;
+        bottom: 1px;
+        cursor: pointer;
+        pointer-events: auto;
+      }
+      :host([selectable]) #select-border #select-top {
+        height: var(--uui-size-space-3);
+        bottom: unset;
+      }
+      :host([selectable]) #select-border #select-right {
+        width: var(--uui-size-space-3);
+        left: unset;
+      }
+      :host([selectable]) #select-border #select-bottom {
+        height: var(--uui-size-space-3);
+        top: unset;
+      }
+      :host([selectable]) #select-border #select-left {
+        width: var(--uui-size-space-3);
+        right: unset;
+      }
+
+      :host([selected]) #select-border {
+        opacity: 1;
+      }
+      :host([selectable]:not([selected]):hover) #select-border {
+        opacity: 0.33;
+      }
+      :host([selectable][selected]:hover) #select-border {
+        opacity: 0.8;
+      }
+
+      :host([selectable]:not([selected])) #open-part:hover + #select-border {
+        opacity: 0;
+      }
+      :host([selectable][selected]) #open-part:hover + #select-border {
+        opacity: 1;
+      }
+
+      :host([selectable]:not([selected]):hover) #select-border::after {
+        animation: not-selected--hover 1.2s infinite;
+      }
+      @keyframes not-selected--hover {
+        0%,
+        100% {
+          opacity: 0.66;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      :host([selectable][selected]:hover) #select-border::after {
+        animation: selected--hover 1.4s infinite;
+      }
+      @keyframes selected--hover {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.66;
+        }
+      }
+      :host([selectable]) #open-part:hover + #select-border::after {
+        animation: none;
+      }
+
+      :host([select-only]) *,
+      :host([select-only]) ::slotted(*) {
+        pointer-events: none;
       }
     `,
   ];
