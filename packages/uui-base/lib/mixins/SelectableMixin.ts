@@ -104,7 +104,9 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     readonly #onKeydown = (e: KeyboardEvent) => {
       if (e.code !== 'Space' && e.code !== 'Enter') return;
-      this.#onClick(e);
+      if (e.composedPath().indexOf(this.#selectableTarget) === 0) {
+        this.#onClick(e);
+      }
     };
 
     readonly #onClick = (e: Event) => {
