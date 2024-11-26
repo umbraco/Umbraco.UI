@@ -95,6 +95,15 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     readonly #onClick = (e: Event) => {
       const composePath = e.composedPath();
+
+      if (
+        (this._selectable || (this.deselectable && this.selected)) &&
+        this.selectableTarget === this
+      ) {
+        this.#toggleSelect();
+        return;
+      }
+
       if (
         (this._selectable || (this.deselectable && this.selected)) &&
         composePath.indexOf(this.selectableTarget) === 0
