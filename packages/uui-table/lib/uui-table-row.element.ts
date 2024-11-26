@@ -71,7 +71,7 @@ export class UUITableRowElement extends SelectOnlyMixin(
 
   render() {
     return html`
-      <slot @slotchanged=${this.updateChildSelectOnly}></slot>
+      <slot id="open-part" @slotchanged=${this.updateChildSelectOnly}></slot>
       <div id="select-border" ${ref(this.#selectAreaChanged)}>
         <div id="select-top"></div>
         <div id="select-right"></div>
@@ -133,19 +133,19 @@ export class UUITableRowElement extends SelectOnlyMixin(
         pointer-events: auto;
       }
       :host([selectable]) #select-border #select-top {
-        height: var(--uui-size-space-3);
+        height: var(--uui-size-space-4);
         bottom: unset;
       }
       :host([selectable]) #select-border #select-right {
-        width: var(--uui-size-space-3);
+        width: var(--uui-size-space-4);
         left: unset;
       }
       :host([selectable]) #select-border #select-bottom {
-        height: var(--uui-size-space-3);
+        height: var(--uui-size-space-4);
         top: unset;
       }
       :host([selectable]) #select-border #select-left {
-        width: var(--uui-size-space-3);
+        width: var(--uui-size-space-4);
         right: unset;
       }
 
