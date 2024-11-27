@@ -1,7 +1,7 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIColorSwatchElement } from './uui-color-swatch.element';
 import { sendKeys } from '@web/test-runner-commands';
-import { UUITestMouse } from '@internal/test';
+import { UUITestMouse } from '../../../test/index';
 
 describe('UUIColorSwatchElement', () => {
   let element: UUIColorSwatchElement;

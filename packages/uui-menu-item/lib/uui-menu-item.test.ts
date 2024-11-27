@@ -10,7 +10,7 @@ import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
-import { UUITestMouse } from '@internal/test';
+import { UUITestMouse } from '../../../test/index';
 
 describe('UUIMenuItemElement', () => {
   describe('element', () => {
