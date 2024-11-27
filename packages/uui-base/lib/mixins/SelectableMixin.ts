@@ -95,6 +95,10 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     readonly #onClick = (e: Event) => {
       const composePath = e.composedPath();
+      const target = composePath[0] as HTMLElement;
+
+      if (target.tagName === 'A') return;
+
       const isSelectable =
         this._selectable || (this.deselectable && this.selected);
 
