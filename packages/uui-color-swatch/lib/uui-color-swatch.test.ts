@@ -1,6 +1,6 @@
 import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
 import { UUIColorSwatchElement } from './uui-color-swatch.element';
-import { sendMouse } from '@web/test-runner-commands';
+import { sendMouse, sendKeys } from '@web/test-runner-commands';
 
 describe('UUIColorSwatchElement', () => {
   let element: UUIColorSwatchElement;
@@ -52,6 +52,36 @@ describe('UUIColorSwatchElement', () => {
         type: 'click',
         position: [15, 15],
         button: 'left',
+      });
+      expect(element.selected).to.be.false;
+    });
+
+    it('can be selected with Space key', async () => {
+      await sendKeys({
+        press: 'Tab',
+      });
+      await sendKeys({
+        press: 'Space',
+      });
+      expect(element.selected).to.be.true;
+
+      await sendKeys({
+        press: 'Space',
+      });
+      expect(element.selected).to.be.false;
+    });
+
+    it('can be selected with Enter key', async () => {
+      await sendKeys({
+        press: 'Tab',
+      });
+      await sendKeys({
+        press: 'Enter',
+      });
+      expect(element.selected).to.be.true;
+
+      await sendKeys({
+        press: 'Enter',
       });
       expect(element.selected).to.be.false;
     });
