@@ -115,7 +115,26 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
       if (isSelectable === false) return;
 
-      if (e.composedPath().indexOf(this.#selectableTarget) !== -1) {
+      const composePath = e.composedPath();
+
+      if (this.#selectableTarget === this) {
+        // the selectableTarget is not specified which means we need to be selective about what we accept events from.
+        const isActionTag = composePath.some(el => {
+          const elementTagName = (el as HTMLElement).tagName;
+          return (
+            elementTagName === 'A' ||
+            elementTagName === 'BUTTON' ||
+            elementTagName === 'INPUT' ||
+            elementTagName === 'TEXTAREA' ||
+            elementTagName === 'SELECT'
+          );
+        });
+
+        // never select when clicking on a link or button
+        if (isActionTag) return;
+      }
+
+      if (composePath.indexOf(this.#selectableTarget) !== -1) {
         if (e.type === 'keydown') {
           e.preventDefault(); // Do not want the space key to trigger a page scroll.
         }

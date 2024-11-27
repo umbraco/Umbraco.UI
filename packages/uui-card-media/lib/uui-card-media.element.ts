@@ -94,8 +94,7 @@ export class UUICardMediaElement extends UUICardElement {
             ifDefined(
               this.target === '_blank' ? 'noopener noreferrer' : undefined,
             ),
-        )}
-        @click=${(e: MouseEvent) => e.stopPropagation()}>
+        )}>
         ${this.#renderContent()}
       </a>
     `;
@@ -121,9 +120,7 @@ export class UUICardMediaElement extends UUICardElement {
       <div id="select-border"></div>
 
       <slot name="tag"></slot>
-      <slot
-        name="actions"
-        @click=${(e: MouseEvent) => e.stopPropagation()}></slot>`;
+      <slot name="actions"></slot>`;
   }
 
   static styles = [
