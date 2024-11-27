@@ -10,6 +10,7 @@ import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
+import { sendMouse } from '@web/test-runner-commands';
 
 describe('UUIMenuItemElement', () => {
   let element: UUIMenuItemElement;
@@ -287,21 +288,33 @@ describe('UUIMenuItemElement', () => {
 
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
-      labelElement?.click();
+      await sendMouse({
+        type: 'click',
+        position: [75, 30],
+        button: 'left',
+      });
       expect(element.selected).to.be.true;
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
-      labelElement?.click();
+      await sendMouse({
+        type: 'click',
+        position: [75, 30],
+        button: 'left',
+      });
       expect(element.selected).to.be.false;
     });
 
     it('can be selected when selectable', async () => {
       element.disabled = true;
       await elementUpdated(element);
-      labelElement?.click();
+      await sendMouse({
+        type: 'click',
+        position: [75, 30],
+        button: 'left',
+      });
       expect(element.selected).to.be.false;
     });
 
@@ -339,21 +352,33 @@ describe('UUIMenuItemElement', () => {
 
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
-      labelElement?.click();
+      await sendMouse({
+        type: 'click',
+        position: [75, 30],
+        button: 'left',
+      });
       expect(element.selected).to.be.true;
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
-      labelElement?.click();
+      await sendMouse({
+        type: 'click',
+        position: [75, 30],
+        button: 'left',
+      });
       expect(element.selected).to.be.false;
     });
 
-    it('can be selected when selectable', async () => {
+    it('can not be selected when disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
-      labelElement?.click();
+      await sendMouse({
+        type: 'click',
+        position: [75, 30],
+        button: 'left',
+      });
       expect(element.selected).to.be.false;
     });
 
