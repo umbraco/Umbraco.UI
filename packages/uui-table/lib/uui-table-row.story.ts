@@ -23,7 +23,13 @@ const meta: Meta = {
         <uui-table-cell>
           <uui-input placeholder="Type your own thing"></uui-input>
         </uui-table-cell>
-        ${ArrayOfUmbracoWords(5).map(
+        <uui-table-cell>
+          <uui-button label="some button"></uui-button>
+        </uui-table-cell>
+        <uui-table-cell>
+          <a href="http://www.umbraco.com" target="_blank">Link</a>
+        </uui-table-cell>
+        ${ArrayOfUmbracoWords(3).map(
           el => html`<uui-table-cell>${el}</uui-table-cell>`,
         )}
       </uui-table-row>
