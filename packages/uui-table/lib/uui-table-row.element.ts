@@ -6,8 +6,6 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';
 
-import { UUITableCellElement } from './uui-table-cell.element';
-
 /**
  *  Table row element with option to set is as selectable. Parent for uui-table-cell. Must be a child of uui-table.
  *  @element uui-table-row
@@ -50,13 +48,15 @@ export class UUITableRowElement extends SelectOnlyMixin(
   private slotCellNodes?: unknown[];
 
   protected updated(changedProperties: Map<string | number | symbol, unknown>) {
-    if (changedProperties.has('selectOnly')) this.updateChildSelectOnly();
+    if (changedProperties.has('selectOnly')) {
+      this.updateChildSelectOnly();
+    }
   }
 
   private updateChildSelectOnly() {
     if (this.slotCellNodes) {
-      this.slotCellNodes.forEach(el => {
-        if (el instanceof UUITableCellElement) {
+      this.slotCellNodes.forEach((el: any) => {
+        if (el.disableChildInteraction !== undefined) {
           el.disableChildInteraction = this.selectOnly;
         }
       });
