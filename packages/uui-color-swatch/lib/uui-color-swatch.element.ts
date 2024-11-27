@@ -110,6 +110,10 @@ export class UUIColorSwatchElement extends LabelMixin(
     }
   }
 
+  focus(options?: FocusOptions | undefined): void {
+    (this.selectableTarget as HTMLElement | undefined)?.focus(options);
+  }
+
   #selectButtonChanged(button?: Element | undefined) {
     this.selectableTarget = button || this;
   }
