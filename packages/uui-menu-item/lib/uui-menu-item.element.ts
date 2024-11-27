@@ -163,10 +163,11 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     this.showChildren = !this.showChildren;
   };
 
-  private _onLabelClicked = () => {
+  #onLabelClicked() {
+    if (this.selectOnly) return;
     const event = new UUIMenuItemEvent(UUIMenuItemEvent.CLICK_LABEL);
     this.dispatchEvent(event);
-  };
+  }
 
   private _renderLabelInside() {
     return html` <slot
@@ -195,7 +196,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
             this.target === '_blank' ? 'noopener noreferrer' : undefined,
           ),
       )}
-      @click=${this._onLabelClicked}
+      @click=${this.#onLabelClicked}
       ?disabled=${this.disabled}
       aria-label="${this.label}">
       ${this._renderLabelInside()}
@@ -206,7 +207,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     return html` <button
       id="label-button"
       ${ref(this._labelButtonChanged)}
-      @click=${this._onLabelClicked}
+      @click=${this.#onLabelClicked}
       ?disabled=${this.disabled}
       aria-label="${this.label}">
       ${this._renderLabelInside()}
@@ -226,12 +227,12 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
                 ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}
-        ${this.href ? this._renderLabelAsAnchor() : this._renderLabelAsButton()}
+        ${this.href && this.selectOnly !== true && this.selectable !== true
+          ? this._renderLabelAsAnchor()
+          : this._renderLabelAsButton()}
 
         <div id="label-button-background"></div>
-        ${this.selectOnly === false
-          ? html`<slot id="actions-container" name="actions"></slot>`
-          : ''}
+        <slot id="actions-container" name="actions"></slot>
         ${this.loading
           ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
           : ''}

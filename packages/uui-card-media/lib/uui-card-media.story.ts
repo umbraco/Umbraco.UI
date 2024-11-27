@@ -64,6 +64,20 @@ export const Actions: Story = {
   },
 };
 
+export const Href: Story = {
+  args: {
+    'actions slot': html`<uui-button
+      slot="actions"
+      look="secondary"
+      label="Remove"
+      >Remove</uui-button
+    >`,
+    selectable: true,
+    href: 'https://umbraco.com',
+    target: '_blank',
+  },
+};
+
 export const Image: Story = {
   args: {
     slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,

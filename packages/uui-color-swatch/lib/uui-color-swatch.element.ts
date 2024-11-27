@@ -1,6 +1,7 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import {
   ActiveMixin,
@@ -109,10 +110,19 @@ export class UUIColorSwatchElement extends LabelMixin(
     }
   }
 
+  focus(options?: FocusOptions | undefined): void {
+    (this.selectableTarget as HTMLElement | undefined)?.focus(options);
+  }
+
+  #selectButtonChanged(button?: Element | undefined) {
+    this.selectableTarget = button || this;
+  }
+
   render() {
     return html`
       <button
         id="swatch"
+        ${ref(this.#selectButtonChanged)}
         aria-label=${this.label}
         ?disabled="${this.disabled}"
         title="${this.label}">

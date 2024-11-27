@@ -16,7 +16,6 @@ const meta: Meta = {
   args: {
     name: 'Rabbit Suit Product Page',
     detail: 'path/to/nowhere',
-    href: 'umbraco.com',
   },
   render: args =>
     html`<uui-ref-node ${spread(args)}>${renderSlots(args)}</uui-ref-node>`,
@@ -53,6 +52,13 @@ export const CustomIcon: Story = {
 export const Standalone: Story = {
   args: {
     standalone: true,
+  },
+};
+
+export const Href: Story = {
+  args: {
+    href: 'https://umbraco.com',
+    target: '_blank',
   },
 };
 
