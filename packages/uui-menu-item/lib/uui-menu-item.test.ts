@@ -90,7 +90,7 @@ describe('UUIMenuItemElement', () => {
 
   describe('events', () => {
     it('emits a click-label event when button is clicked', async () => {
-      const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL, false);
+      const listener = oneEvent(element, UUIMenuItemEvent.CLICK_LABEL);
 
       const buttonElement = element.shadowRoot!.querySelector(
         'button#label-button',
