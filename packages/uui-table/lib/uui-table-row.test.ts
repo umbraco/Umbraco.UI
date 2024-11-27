@@ -6,7 +6,7 @@ import {
   oneEvent,
 } from '@open-wc/testing';
 
-import './uui-table.element';
+import '.';
 import { UUITableRowElement } from './uui-table-row.element';
 
 describe('UuiTableRow', () => {
@@ -51,7 +51,7 @@ describe('UuiTableRow', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, 'selected', false);
+        const listener = oneEvent(element, 'selected');
         element.click();
         const event = await listener;
         expect(event).to.exist;
