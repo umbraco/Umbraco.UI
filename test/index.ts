@@ -11,8 +11,8 @@ export class UUITestMouse {
 
   #getCenterCoordinatesOfElement(element: HTMLElement): [number, number] {
     const position = element.getBoundingClientRect();
-    const centerOfElementX = position.left + position.width / 2;
-    const centerOfElementY = position.top + position.height / 2;
+    const centerOfElementX = Math.round(position.left + position.width / 2);
+    const centerOfElementY = Math.round(position.top + position.height / 2);
     return [centerOfElementX, centerOfElementY];
   }
 }
