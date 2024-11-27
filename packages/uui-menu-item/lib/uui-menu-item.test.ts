@@ -304,6 +304,71 @@ describe('UUIMenuItemElement', () => {
       labelElement?.click();
       expect(element.selected).to.be.false;
     });
+
+    it('can expand', async () => {
+      element.setAttribute('has-children', 'true');
+      await elementUpdated(element);
+      const listener = oneEvent(element, 'show-children');
+      const caretIconElement: HTMLElement | null =
+        element.shadowRoot!.querySelector('#caret-button');
+      caretIconElement?.click();
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('show-children');
+      expect(element.hasAttribute('show-children')).to.equal(true);
+    });
+  });
+
+  describe('selectable & selectOnly', () => {
+    let labelElement: HTMLElement | null;
+
+    beforeEach(async () => {
+      labelElement = element.shadowRoot!.querySelector('#label-button');
+      element.selectable = true;
+      element.selectOnly = true;
+    });
+
+    it('label element is defined', () => {
+      expect(labelElement).to.be.instanceOf(HTMLElement);
+    });
+
+    it('label is rendered as a button tag', async () => {
+      await elementUpdated(element);
+      expect(labelElement?.nodeName).to.be.equal('BUTTON');
+    });
+
+    it('can be selected when selectable', async () => {
+      await elementUpdated(element);
+      labelElement?.click();
+      expect(element.selected).to.be.true;
+    });
+
+    it('can not be selected when not selectable', async () => {
+      element.selectable = false;
+      await elementUpdated(element);
+      labelElement?.click();
+      expect(element.selected).to.be.false;
+    });
+
+    it('can be selected when selectable', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+      labelElement?.click();
+      expect(element.selected).to.be.false;
+    });
+
+    it('can expand', async () => {
+      element.setAttribute('has-children', 'true');
+      await elementUpdated(element);
+      const listener = oneEvent(element, 'show-children');
+      const caretIconElement: HTMLElement | null =
+        element.shadowRoot!.querySelector('#caret-button');
+      caretIconElement?.click();
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('show-children');
+      expect(element.hasAttribute('show-children')).to.equal(true);
+    });
   });
 
   describe('HREF', () => {

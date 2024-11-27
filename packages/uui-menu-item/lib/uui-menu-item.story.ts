@@ -163,6 +163,12 @@ export const Selectable: Story = {
     selectable: true,
   },
 };
+export const SelectOnly: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
+  },
+};
 
 export const Anchor: Story = {
   args: {
