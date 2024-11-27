@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
+
+### Bug Fixes
+
+- selectable mixin only be selective when selectabletarget is this ([#971](https://github.com/umbraco/Umbraco.UI/issues/971)) ([dc7a416](https://github.com/umbraco/Umbraco.UI/commit/dc7a4165cc7b4b09f6ad172e796c4cd54ee07eea))
+
 ## [1.12.1](https://github.com/umbraco/Umbraco.UI/compare/v1.12.0...v1.12.1) (2024-11-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-menu-item

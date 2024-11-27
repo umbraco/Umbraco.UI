@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-box",
-  "version": "1.12.1",
+  "version": "1.12.2",
   "license": "MIT",
   "description": "A box web component for grouping elements",
   "keywords": [
@@ -29,7 +29,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.12.1",
+    "@umbraco-ui/uui-base": "1.12.2",
     "@umbraco-ui/uui-css": "1.12.1"
   },
   "scripts": {

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
+
+### Bug Fixes
+
+- **uui-action-bar:** target any slotted element ([#964](https://github.com/umbraco/Umbraco.UI/issues/964)) ([03fe69c](https://github.com/umbraco/Umbraco.UI/commit/03fe69cef43863a2f21ee4bad2b14a5958640163))
+
 ## [1.12.1](https://github.com/umbraco/Umbraco.UI/compare/v1.12.0...v1.12.1) (2024-11-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-action-bar
