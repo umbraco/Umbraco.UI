@@ -307,7 +307,7 @@ describe('UUIMenuItemElement', () => {
       expect(element.selected).to.be.false;
     });
 
-    it('can be selected when selectable', async () => {
+    it('can not be selected when disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
       await sendMouse({
