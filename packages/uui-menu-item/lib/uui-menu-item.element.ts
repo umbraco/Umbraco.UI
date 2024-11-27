@@ -226,12 +226,12 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
                 ?open=${this.showChildren}></uui-symbol-expand>
             </button>`
           : ''}
-        ${this.href ? this._renderLabelAsAnchor() : this._renderLabelAsButton()}
+        ${this.href && !this.selectOnly
+          ? this._renderLabelAsAnchor()
+          : this._renderLabelAsButton()}
 
         <div id="label-button-background"></div>
-        ${this.selectOnly === false
-          ? html`<slot id="actions-container" name="actions"></slot>`
-          : ''}
+        <slot id="actions-container" name="actions"></slot>
         ${this.loading
           ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
           : ''}
