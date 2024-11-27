@@ -95,13 +95,13 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
 
     readonly #onClick = (e: Event) => {
       const composePath = e.composedPath();
-      const isAnchorTag = composePath.some(el => {
+      const isActionTag = composePath.some(el => {
         const element = el as HTMLElement;
-        return element.tagName === 'A';
+        return element.tagName === 'A' || element.tagName === 'BUTTON';
       });
 
-      // never select when clicking on a link
-      if (isAnchorTag) return;
+      // never select when clicking on a link or button
+      if (isActionTag) return;
 
       const isSelectable =
         this._selectable || (this.deselectable && this.selected);
