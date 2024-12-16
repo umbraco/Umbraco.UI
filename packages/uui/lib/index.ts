@@ -80,3 +80,5 @@ export * from '@umbraco-ui/uui-toast-notification-layout/lib';
 export * from '@umbraco-ui/uui-toast-notification/lib';
 export * from '@umbraco-ui/uui-toggle/lib';
 export * from '@umbraco-ui/uui-visually-hidden/lib';
+
+export * from '@umbraco-ui/uui-copy/lib/index.js';
