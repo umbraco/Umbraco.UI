@@ -27,5 +27,5 @@ import { UUICopyElement } from '@umbraco-ui/uui-copy';
 ## Usage
 
 ```html
-<uui-copy></uui-copy>
+<uui-copy value="I am copied to the clipboard"></uui-copy>
 ```

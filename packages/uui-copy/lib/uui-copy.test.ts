@@ -5,9 +5,7 @@ describe('UUICopyElement', () => {
   let element: UUICopyElement;
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <uui-copy></uui-copy> `
-    );
+    element = await fixture(html` <uui-copy></uui-copy> `);
   });
 
   it('is defined with its own instance', () => {
