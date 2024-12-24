@@ -24,6 +24,7 @@ export * from '@umbraco-ui/uui-color-swatch/lib';
 export * from '@umbraco-ui/uui-color-swatches/lib';
 export * from '@umbraco-ui/uui-combobox-list/lib';
 export * from '@umbraco-ui/uui-combobox/lib';
+export * from '@umbraco-ui/uui-copy/lib/index.js';
 export * from '@umbraco-ui/uui-dialog-layout/lib';
 export * from '@umbraco-ui/uui-dialog/lib';
 export * from '@umbraco-ui/uui-file-dropzone/lib';
@@ -80,5 +81,3 @@ export * from '@umbraco-ui/uui-toast-notification-layout/lib';
 export * from '@umbraco-ui/uui-toast-notification/lib';
 export * from '@umbraco-ui/uui-toggle/lib';
 export * from '@umbraco-ui/uui-visually-hidden/lib';
-
-export * from '@umbraco-ui/uui-copy/lib/index.js';
