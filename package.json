@@ -66,7 +66,7 @@
     "@lerna-lite/cli": "3.10.0",
     "@lerna-lite/exec": "3.10.0",
     "@lerna-lite/publish": "3.10.0",
-    "@lerna-lite/run": "3.10.0",
+    "@lerna-lite/run": "3.11.0",
     "@lerna-lite/version": "3.10.0",
     "@open-wc/testing": "4.0.0",
     "@rollup/plugin-node-resolve": "15.2.3",
