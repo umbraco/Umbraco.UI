@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import { UUICopyEvent } from './UUICopyEvent';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { LabelMixin } from '@umbraco-ui/uui-base';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
