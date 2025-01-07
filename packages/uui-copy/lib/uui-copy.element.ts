@@ -83,7 +83,7 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
   // Used to store the value that will be copied to the clipboard
   #valueToCopy = '';
 
-  #onClick = async (e: Event) => {
+  readonly #onClick = async (e: Event) => {
     const button = e.target as UUIButtonElement;
     button.state = 'waiting';
 
@@ -96,7 +96,7 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
       const el = document.getElementById(this.copyFrom);
       if (el) {
         console.log('Element found to copy from', el);
-        this.#valueToCopy = el.textContent || el.innerText || '';
+        this.#valueToCopy = el.textContent ?? el.innerText ?? '';
 
         // Override the value to copy ,if the element has a value property
         // Such as uui-input or uui-textarea or native inout elements
@@ -123,7 +123,6 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
     await navigator.clipboard
       .writeText(this.#valueToCopy)
       .then(() => {
-        //button.state = 'success';
         this.dispatchEvent(
           new UUICopyEvent(UUICopyEvent.COPIED, {
             detail: { text: this.#valueToCopy },
@@ -151,7 +150,7 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
     </uui-button>`;
   }
 
-  static styles = [
+  static readonly styles = [
     css`
       slot {
         pointer-events: none;
