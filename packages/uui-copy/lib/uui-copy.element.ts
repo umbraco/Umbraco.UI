@@ -9,7 +9,7 @@ import { UUICopyEvent } from './UUICopyEvent';
  * Inspired by shoelace.style copy button
  * @element uui-copy
  * @dependency uui-button
- * @dependancy uui-icon
+ * @dependency uui-icon
  * @fires {UUICopyEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
  * @fires {UUICopyEvent} copied - Fires when the content is copied to the clipboard
  * @slot - Use to replace the default content of 'Copy' and the copy icon
