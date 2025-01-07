@@ -4,6 +4,9 @@ import type { UUICopyElement } from './uui-copy.element';
 import readme from '../README.md?raw';
 import { html } from 'lit';
 import { UUICopyEvent } from './UUICopyEvent';
+import '@umbraco-ui/uui-button/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-loader-circle/lib';
 
 const meta: Meta<UUICopyElement> = {
   id: 'uui-copy',
