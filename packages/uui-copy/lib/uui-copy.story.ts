@@ -35,6 +35,22 @@ export const Overview: Story = {
   },
 };
 
+export const WithLabelSet: Story = {
+  name: 'Simple Copy with an A11y Label set',
+  args: {
+    value: 'Hey stop copying me 🥸',
+    disabled: false,
+    label: 'This is my A11y label I want',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-copy value="Hey stop copying me 🥸" label="This is my A11y label I want"></uui-copy>`,
+      },
+    },
+  },
+};
+
 export const Disabled: Story = {
   name: 'Disabled State',
   args: {

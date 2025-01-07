@@ -4,6 +4,7 @@ import { property } from 'lit/decorators.js';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import { UUICopyEvent } from './UUICopyEvent';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import { LabelMixin } from '@umbraco-ui/uui-base';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
@@ -15,7 +16,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
  * @slot - Use to replace the default content of 'Copy' and the copy icon
  */
 @defineElement('uui-copy')
-export class UUICopyElement extends LitElement {
+export class UUICopyElement extends LabelMixin('', LitElement) {
   /**
    * Set a string you wish to copy to the clipboard
    * @type {string}
@@ -30,7 +31,7 @@ export class UUICopyElement extends LitElement {
    * @attr
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean })
   disabled = false;
 
   /**
@@ -144,6 +145,7 @@ export class UUICopyElement extends LitElement {
       .look=${this.look}
       .disabled=${this.disabled}
       .compact=${this.compact}
+      .label=${this.label}
       @click=${this.#onClick}>
       <slot> <uui-icon name="copy"></uui-icon> Copy </slot>
     </uui-button>`;
