@@ -6,7 +6,6 @@ import { UUICopyEvent } from './UUICopyEvent';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
- * Inspired by shoelace.style copy button
  * @element uui-copy
  * @dependency uui-button
  * @dependency uui-icon
