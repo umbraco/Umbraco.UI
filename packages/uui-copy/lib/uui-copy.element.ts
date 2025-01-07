@@ -42,7 +42,7 @@ export class UUICopyElement extends LitElement {
    * @default ''
    * @example copy-from="element-id"
    */
-  @property({ type: String, reflect: true, attribute: 'copy-from' })
+  @property({ type: String, attribute: 'copy-from' })
   copyFrom = '';
 
   /**
@@ -51,7 +51,7 @@ export class UUICopyElement extends LitElement {
    * @attr
    * @default "default"
    */
-  @property({ reflect: true })
+  @property()
   look: 'default' | 'primary' | 'secondary' | 'outline' | 'placeholder' =
     'default';
 
@@ -61,7 +61,7 @@ export class UUICopyElement extends LitElement {
    * @attr
    * @default "default"
    */
-  @property({ reflect: true })
+  @property()
   color: 'default' | 'positive' | 'warning' | 'danger' = 'default';
 
   /**
@@ -70,7 +70,7 @@ export class UUICopyElement extends LitElement {
    * @attr
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean })
   compact = false;
 
   // Used to store the value that will be copied to the clipboard
