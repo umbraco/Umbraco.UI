@@ -3,6 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import { UUICopyEvent } from './UUICopyEvent';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
@@ -71,6 +72,12 @@ export class UUICopyElement extends LitElement {
    */
   @property({ type: Boolean })
   compact = false;
+
+  constructor() {
+    super();
+    demandCustomElement(this, 'uui-button');
+    demandCustomElement(this, 'uui-icon');
+  }
 
   // Used to store the value that will be copied to the clipboard
   #valueToCopy = '';
