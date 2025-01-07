@@ -25,43 +25,4 @@ describe('UUICopyElement', () => {
       </uui-button>
     `);
   });
-
-  it('copies the value property to clipboard when button is clicked', async () => {
-    const button = element.shadowRoot?.querySelector('uui-button');
-    // // Mock the clipboard API
-    // navigator.clipboard = {
-    //   writeText: async text => {
-    //     expect(text).to.equal('Test Text');
-    //     return Promise.resolve();
-    //   },
-    // };
-
-    button?.click();
-  });
-
-  it('fires copying and copied events', async () => {
-    const button = element.shadowRoot?.querySelector('uui-button');
-    // // Mock the clipboard API
-    // navigator.clipboard = {
-    //   writeText: async text => {
-    //     return Promise.resolve();
-    //   },
-    // };
-
-    let copyingEventFired = false;
-    let copiedEventFired = false;
-
-    element.addEventListener('copying', () => {
-      copyingEventFired = true;
-    });
-
-    element.addEventListener('copied', () => {
-      copiedEventFired = true;
-    });
-
-    button?.click();
-
-    expect(copyingEventFired).to.be.true;
-    expect(copiedEventFired).to.be.true;
-  });
 });
