@@ -122,12 +122,15 @@ export class UUICopyElement extends LitElement {
     await navigator.clipboard
       .writeText(this.#valueToCopy)
       .then(() => {
-        button.state = 'success';
+        //button.state = 'success';
         this.dispatchEvent(
           new UUICopyEvent(UUICopyEvent.COPIED, {
             detail: { text: this.#valueToCopy },
           }),
         );
+        setTimeout(() => {
+          button.state = 'success';
+        }, 2000);
       })
       .catch(err => {
         button.state = 'failed';
