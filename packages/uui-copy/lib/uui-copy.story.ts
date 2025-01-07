@@ -204,3 +204,18 @@ export const CopyFromInput: Story = {
     },
   },
 };
+
+export const AnimationDelay: Story = {
+  name: 'Animation Delay',
+  args: {
+    value: 'A long 3 second delay',
+    animationStateDelay: 3000,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<uui-copy value="A long 3 second delay" animation-state-delay="3000"></uui-copy>`,
+      },
+    },
+  },
+};

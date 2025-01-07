@@ -74,6 +74,15 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
   @property({ type: Boolean })
   compact = false;
 
+  /**
+   * The delay in milliseconds before the button returns to its default state after a successful copy
+   * @type {number}
+   * @attr
+   * @default 250
+   */
+  @property({ type: Number, attribute: 'animation-state-delay' })
+  animationStateDelay = 250;
+
   constructor() {
     super();
     demandCustomElement(this, 'uui-button');
@@ -130,7 +139,7 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
         );
         setTimeout(() => {
           button.state = 'success';
-        }, 2000);
+        }, this.animationStateDelay);
       })
       .catch(err => {
         button.state = 'failed';
