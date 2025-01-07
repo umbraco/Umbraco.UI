@@ -219,3 +219,25 @@ export const AnimationDelay: Story = {
     },
   },
 };
+
+export const WithDifferentIcon: Story = {
+  name: 'Different Icon',
+  args: {
+    value: 'I have used a different icon',
+  },
+  render: args => html`
+    <uui-copy .value=${args.value}>
+      <uui-icon name="clipboard"></uui-icon> Copy to Clipboard
+    </uui-copy>
+  `,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<uui-copy value="I have used a different icon">
+  <uui-icon name="clipboard"></uui-icon> Copy to Clipboard
+</uui-copy>`,
+      },
+    },
+  },
+};
