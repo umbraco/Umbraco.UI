@@ -97,7 +97,7 @@ export class UUICopyElement extends LitElement {
         console.log('Element found to copy from', el);
         this.#valueToCopy = el.textContent || el.innerText || '';
 
-        // Overrude the value to copy ,if the element has a value property
+        // Override the value to copy ,if the element has a value property
         // Such as uui-input or uui-textarea or native inout elements
         if ('value' in el) {
           console.log('This element has a value property', el);
