@@ -2,21 +2,21 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import { UUICopyEvent } from './UUICopyEvent';
+import { UUITextCopyButtonEvent } from './UUITextCopyButtonEvent';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
- * @element uui-copy
+ * @element uui-text-copy-button
  * @dependency uui-button
  * @dependency uui-icon
  * @fires {UUICopyEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
  * @fires {UUICopyEvent} copied - Fires when the content is copied to the clipboard
  * @slot - Use to replace the default content of 'Copy' and the copy icon
  */
-@defineElement('uui-copy')
-export class UUICopyElement extends LabelMixin('', LitElement) {
+@defineElement('uui-text-copy-button')
+export class UUITextCopyButtonElement extends LabelMixin('', LitElement) {
   /**
    * Set a string you wish to copy to the clipboard
    * @type {string}
@@ -120,9 +120,12 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
       }
     }
 
-    const beforeCopyEv = new UUICopyEvent(UUICopyEvent.COPYING, {
-      detail: { text: this.#valueToCopy },
-    });
+    const beforeCopyEv = new UUITextCopyButtonEvent(
+      UUITextCopyButtonEvent.COPYING,
+      {
+        detail: { text: this.#valueToCopy },
+      },
+    );
     this.dispatchEvent(beforeCopyEv);
 
     if (beforeCopyEv.detail.text != null) {
@@ -133,7 +136,7 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
       .writeText(this.#valueToCopy)
       .then(() => {
         this.dispatchEvent(
-          new UUICopyEvent(UUICopyEvent.COPIED, {
+          new UUITextCopyButtonEvent(UUITextCopyButtonEvent.COPIED, {
             detail: { text: this.#valueToCopy },
           }),
         );
@@ -170,6 +173,6 @@ export class UUICopyElement extends LabelMixin('', LitElement) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-copy': UUICopyElement;
+    'uui-text-copy-button': UUITextCopyButtonElement;
   }
 }
