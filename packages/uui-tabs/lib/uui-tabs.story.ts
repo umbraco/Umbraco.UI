@@ -232,7 +232,7 @@ export const CenterAlign: Story = {
   `,
 };
 
-export const RightAline: Story = {
+export const RightAlign: Story = {
   render: () => html`
     <div style="display: flex; justify-content: right">
       <uui-tab-group>
