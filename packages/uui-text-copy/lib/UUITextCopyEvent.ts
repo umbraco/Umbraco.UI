@@ -1,18 +1,18 @@
 import { UUIEvent } from '@umbraco-ui/uui-base/lib/events';
-import { UUITextCopyButtonElement } from './uui-text-copy-button.element';
+import { UUITextCopyElement } from './uui-text-copy.element';
 
-interface UUITextCopyButtonEventInit extends EventInit {
+interface UUITextCopyEventInit extends EventInit {
   detail?: { text: string };
 }
 
-export class UUITextCopyButtonEvent extends UUIEvent<
+export class UUITextCopyEvent extends UUIEvent<
   { text: string },
-  UUITextCopyButtonElement
+  UUITextCopyElement
 > {
   public static readonly COPIED: string = 'copied';
   public static readonly COPYING: string = 'copying';
 
-  constructor(evName: string, eventInit: UUITextCopyButtonEventInit = {}) {
+  constructor(evName: string, eventInit: UUITextCopyEventInit = {}) {
     super(evName, {
       ...{ bubbles: true },
       ...eventInit,

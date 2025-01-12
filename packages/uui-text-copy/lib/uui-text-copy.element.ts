@@ -1,22 +1,26 @@
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import { UUITextCopyButtonEvent } from './UUITextCopyButtonEvent';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
+import {
+  LabelMixin,
+  UUIInterfaceColor,
+  UUIInterfaceLook,
+} from '@umbraco-ui/uui-base';
+import { UUITextCopyEvent } from './UUITextCopyEvent';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
- * @element uui-text-copy-button
+ * @element uui-text-copy
  * @dependency uui-button
  * @dependency uui-icon
- * @fires {UUICopyEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
- * @fires {UUICopyEvent} copied - Fires when the content is copied to the clipboard
+ * @fires {UUITextCopyEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
+ * @fires {UUITextCopyEvent} copied - Fires when the content is copied to the clipboard
  * @slot - Use to replace the default content of 'Copy' and the copy icon
  */
-@defineElement('uui-text-copy-button')
-export class UUITextCopyButtonElement extends LabelMixin('', LitElement) {
+@defineElement('uui-text-copy')
+export class UUITextCopyElement extends LabelMixin('', LitElement) {
   /**
    * Set a string you wish to copy to the clipboard
    * @type {string}
@@ -53,17 +57,16 @@ export class UUITextCopyButtonElement extends LabelMixin('', LitElement) {
    * @default "default"
    */
   @property()
-  look: 'default' | 'primary' | 'secondary' | 'outline' | 'placeholder' =
-    'default';
+  look: UUIInterfaceLook = 'default';
 
   /**
-   * Changes the color of the button to one of the predefined, symbolic colors.
+   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
    * @type {"default" | "positive" | "warning" | "danger"}
    * @attr
    * @default "default"
    */
-  @property()
-  color: 'default' | 'positive' | 'warning' | 'danger' = 'default';
+  @property({ reflect: true })
+  color: UUIInterfaceColor = 'default';
 
   /**
    * Makes the left and right padding of the button narrower.
@@ -120,12 +123,9 @@ export class UUITextCopyButtonElement extends LabelMixin('', LitElement) {
       }
     }
 
-    const beforeCopyEv = new UUITextCopyButtonEvent(
-      UUITextCopyButtonEvent.COPYING,
-      {
-        detail: { text: this.#valueToCopy },
-      },
-    );
+    const beforeCopyEv = new UUITextCopyEvent(UUITextCopyEvent.COPYING, {
+      detail: { text: this.#valueToCopy },
+    });
     this.dispatchEvent(beforeCopyEv);
 
     if (beforeCopyEv.detail.text != null) {
@@ -136,7 +136,7 @@ export class UUITextCopyButtonElement extends LabelMixin('', LitElement) {
       .writeText(this.#valueToCopy)
       .then(() => {
         this.dispatchEvent(
-          new UUITextCopyButtonEvent(UUITextCopyButtonEvent.COPIED, {
+          new UUITextCopyEvent(UUITextCopyEvent.COPIED, {
             detail: { text: this.#valueToCopy },
           }),
         );
@@ -173,6 +173,6 @@ export class UUITextCopyButtonElement extends LabelMixin('', LitElement) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-text-copy-button': UUITextCopyButtonElement;
+    'uui-text-copy': UUITextCopyElement;
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-text-copy-button",
+  "name": "@umbraco-ui/uui-text-copy",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -8,13 +8,13 @@
     "Web components",
     "UI",
     "Lit",
-    "Copy"
+    "Text Copy"
   ],
-  "description": "Umbraco UI text copy button component",
+  "description": "Umbraco UI text-copy component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-text-copy-button"
+    "directory": "packages/uui-text-copy"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -40,5 +40,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-text-copy-button"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-text-copy"
 }

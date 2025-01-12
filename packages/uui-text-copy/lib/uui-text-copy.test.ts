@@ -1,17 +1,17 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUITextCopyButtonElement } from './uui-text-copy-button.element';
+import { UUITextCopyElement } from './uui-text-copy.element';
 
-describe('UUICopyElement', () => {
-  let element: UUITextCopyButtonElement;
+describe('UUITextCopyElement', () => {
+  let element: UUITextCopyElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-text-copy-button value="Oh hi there"></uui-text-copy-button>`,
+      html`<uui-text-copy value="Oh hi there"></uui-text-copy>`,
     );
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUITextCopyButtonElement);
+    expect(element).to.be.instanceOf(UUITextCopyElement);
   });
 
   it('passes the a11y audit', async () => {
