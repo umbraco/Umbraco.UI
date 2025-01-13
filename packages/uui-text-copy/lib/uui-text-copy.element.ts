@@ -3,11 +3,8 @@ import { property } from 'lit/decorators.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import {
-  LabelMixin,
-  UUIInterfaceColor,
-  UUIInterfaceLook,
-} from '@umbraco-ui/uui-base';
+import { UUIInterfaceColor, UUIInterfaceLook } from '@umbraco-ui/uui-base';
+import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { UUITextCopyEvent } from './UUITextCopyEvent';
 
 /**
