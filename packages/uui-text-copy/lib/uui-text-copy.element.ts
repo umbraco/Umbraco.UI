@@ -104,13 +104,11 @@ export class UUITextCopyElement extends LabelMixin('', LitElement) {
       // Try & find an element with the ID
       const el = document.getElementById(this.copyFrom);
       if (el) {
-        console.log('Element found to copy from', el);
         this.#valueToCopy = el.textContent ?? el.innerText ?? '';
 
         // Override the value to copy ,if the element has a value property
         // Such as uui-input or uui-textarea or native inout elements
         if ('value' in el) {
-          console.log('This element has a value property', el);
           this.#valueToCopy = (el as any).value;
         }
       } else {
