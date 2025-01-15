@@ -127,22 +127,20 @@ export class UUITextCopyElement extends LabelMixin('', LitElement) {
       this.#valueToCopy = beforeCopyEv.detail.text;
     }
 
-    await navigator.clipboard
-      .writeText(this.#valueToCopy)
-      .then(() => {
-        this.dispatchEvent(
-          new UUITextCopyEvent(UUITextCopyEvent.COPIED, {
-            detail: { text: this.#valueToCopy },
-          }),
-        );
-        setTimeout(() => {
-          button.state = 'success';
-        }, this.animationStateDelay);
-      })
-      .catch(err => {
-        button.state = 'failed';
-        console.error('Error copying to clipboard', err);
-      });
+    try {
+      await navigator.clipboard.writeText(this.#valueToCopy);
+      this.dispatchEvent(
+        new UUITextCopyEvent(UUITextCopyEvent.COPIED, {
+          detail: { text: this.#valueToCopy },
+        }),
+      );
+      setTimeout(() => {
+        button.state = 'success';
+      }, this.animationStateDelay);
+    } catch (err) {
+      button.state = 'failed';
+      console.error('Error copying to clipboard', err);
+    }
   };
 
   render() {
