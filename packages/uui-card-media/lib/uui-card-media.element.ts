@@ -62,11 +62,11 @@ export class UUICardMediaElement extends UUICardElement {
     if (this.hasPreview === true) return '';
 
     if (this.fileExt === '') {
-      return html`<uui-symbol-folder id="folder-symbol"></uui-symbol-folder>`;
+      return html`<uui-symbol-folder id="entity-symbol"></uui-symbol-folder>`;
     }
 
     return html`<uui-symbol-file
-      id="file-symbol"
+      id="entity-symbol"
       type="${this.fileExt}"></uui-symbol-file>`;
   }
 
@@ -107,7 +107,7 @@ export class UUICardMediaElement extends UUICardElement {
         TODO: Implement info box when pop-out is ready
         -->
         <span id="name">${this.name}</span>
-        ${this.detail}<slot name="detail"></slot>
+        <small>${this.detail}<slot name="detail"></slot></small>
       </div>
     `;
   }
@@ -126,11 +126,11 @@ export class UUICardMediaElement extends UUICardElement {
   static styles = [
     ...UUICardElement.styles,
     css`
-      #file-symbol,
-      #folder-symbol {
+      #entity-symbol {
         align-self: center;
-        margin: var(--uui-size-14);
-        width: 80%;
+        width: 60%;
+        margin-bottom: var(--uui-size-layout-1);
+        padding: var(--uui-size-space-6);
       }
 
       slot[name='tag'] {
@@ -185,8 +185,10 @@ export class UUICardMediaElement extends UUICardElement {
       }
 
       #open-part:hover {
-        text-decoration: underline;
         color: var(--uui-color-interactive-emphasis);
+      }
+      #open-part:hover #name {
+        text-decoration: underline;
       }
 
       :host([image]:not([image=''])) #open-part {

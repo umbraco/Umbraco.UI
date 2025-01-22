@@ -26,9 +26,8 @@ export class UUISymbolFolderElement extends LitElement {
     css`
       :host {
         display: block;
-        box-sizing: border-box;
         position: relative;
-        max-width: 100px;
+        box-sizing: border-box;
       }
 
       #icon {
