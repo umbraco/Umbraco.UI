@@ -202,7 +202,6 @@ export class UUICardMediaElement extends UUICardElement {
         width: 100%;
         align-items: center;
         font-family: inherit;
-        font-size: var(--uui-type-small-size);
         box-sizing: border-box;
         text-align: left;
         word-break: break-word;

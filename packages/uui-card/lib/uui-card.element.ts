@@ -3,6 +3,7 @@ import {
   SelectOnlyMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -87,6 +88,7 @@ export class UUICardElement extends SelectOnlyMixin(
   }
 
   static styles = [
+    UUITextStyles,
     css`
       :host {
         position: relative;

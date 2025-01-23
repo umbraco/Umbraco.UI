@@ -59,6 +59,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       <button
         id="open-part"
+        class="uui-text"
         tabindex=${this.disabled ? (nothing as any) : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
@@ -71,6 +72,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       <a
         id="open-part"
+        class="uui-text"
         tabindex=${this.disabled ? (nothing as any) : '0'}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}

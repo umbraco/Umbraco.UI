@@ -85,11 +85,12 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
       :host {
         position: relative;
         cursor: pointer;
-        margin: 0 4px;
+        margin: 1px var(--uui-size-2);
         border-radius: var(--uui-border-radius);
         outline: 2px solid transparent;
         outline-offset: -2px;
-        padding-left: 4px;
+        padding: var(--uui-size-1);
+        padding-left: var(--uui-size-2);
       }
 
       :host(:first-child) {
