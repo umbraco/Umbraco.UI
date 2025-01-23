@@ -57,10 +57,12 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       <button
         id="open-part"
+        class="uui-text"
         tabindex=${this.disabled ? (nothing as any) : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
-        <strong>${this.name}</strong><small>${this.description}</small>
+        <span id="name">${this.name}</span>
+        <small>${this.description}</small>
       </button>
     `;
   }
@@ -69,6 +71,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       <a
         id="open-part"
+        class="uui-text"
         tabindex=${this.disabled ? (nothing as any) : '0'}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
@@ -78,7 +81,8 @@ export class UUICardBlockTypeElement extends UUICardElement {
               this.target === '_blank' ? 'noopener noreferrer' : undefined,
             ),
         )}>
-        <strong>${this.name}</strong><small>${this.description}</small>
+        <span id="name">${this.name}</span>
+        <small>${this.description}</small>
       </a>
     `;
   }
@@ -121,12 +125,11 @@ export class UUICardBlockTypeElement extends UUICardElement {
         border-top: 1px solid var(--uui-color-divider);
         border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
         font-family: inherit;
-        font-size: var(--uui-type-small-size);
         box-sizing: border-box;
         padding: var(--uui-size-2) var(--uui-size-4);
         display: flex;
         flex-direction: column;
-        line-height: var(--uui-size-6);
+        line-height: normal;
       }
 
       :host([disabled]) #open-part {

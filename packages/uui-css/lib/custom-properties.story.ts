@@ -488,7 +488,7 @@ export const Sizing = () => html`
 //     <h5>Headline H5</h5>
 //     <br />
 //     <p>
-//       The default font-size is 15px, for a nice reading experience this conforms
+//       The default font-size is 14px, for a nice reading experience this conforms
 //       well with a line-height of 24px, which is our base-unit times 4.
 //     </p>
 //     <p>
