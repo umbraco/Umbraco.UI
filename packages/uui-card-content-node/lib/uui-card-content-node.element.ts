@@ -68,7 +68,7 @@ export class UUICardContentNodeElement extends UUICardElement {
 
   #renderContent() {
     return html`
-      <span id="content">
+      <span id="content" class="uui-text">
         <span id="item">
           <span id="icon">
             <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
@@ -167,7 +167,6 @@ export class UUICardContentNodeElement extends UUICardElement {
       #open-part {
         display: flex;
         position: relative;
-        font-weight: 700;
         align-items: center;
         cursor: pointer;
         flex-grow: 1;

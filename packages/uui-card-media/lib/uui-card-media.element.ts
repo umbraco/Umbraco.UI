@@ -102,12 +102,12 @@ export class UUICardMediaElement extends UUICardElement {
 
   #renderContent() {
     return html`
-      <div id="content">
+      <div id="content" class="uui-text">
         <!--
         TODO: Implement info box when pop-out is ready
         -->
         <span id="name">${this.name}</span>
-        <small>${this.detail}<slot name="detail"></slot></small>
+        <small id="detail">${this.detail}<slot name="detail"></slot></small>
       </div>
     `;
   }
@@ -221,8 +221,8 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 0.96;
       }
 
-      #name {
-        font-weight: 700;
+      #detail {
+        opacity: 0.6;
       }
 
       :host(
