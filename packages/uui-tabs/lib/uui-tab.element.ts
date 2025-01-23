@@ -182,7 +182,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         right: auto;
         border-radius: var(--uui-border-radius) var(--uui-border-radius) 0 0;
         height: 0px;
-        width: calc(100% - 15px);
+        width: calc(100% - 14px);
         bottom: 0;
         transition:
           opacity linear 120ms,

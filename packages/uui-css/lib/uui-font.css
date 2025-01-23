@@ -2,7 +2,7 @@
 
 .uui-font {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   line-height: calc(var(--uui-size-2) * 4);
   -webkit-font-smoothing: antialiased;
 }
