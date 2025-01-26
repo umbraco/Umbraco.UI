@@ -89,7 +89,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
                   this.target === '_blank' ? 'noopener noreferrer' : undefined,
                 ),
             )}
-            role="tab">
+            role="tab"
+            tabindex="0">
             <slot name="icon"></slot>
             ${this.renderLabel()}
             <slot name="extra"></slot>
@@ -100,7 +101,8 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
             type="button"
             id="button"
             ?disabled=${this.disabled}
-            role="tab">
+            role="tab"
+            tabindex="0">
             <slot name="icon"></slot>
             ${this.renderLabel()}
             <slot name="extra"></slot>
@@ -182,7 +184,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
         right: auto;
         border-radius: var(--uui-border-radius) var(--uui-border-radius) 0 0;
         height: 0px;
-        width: calc(100% - 14px);
+        width: calc(100% - 15px);
         bottom: 0;
         transition:
           opacity linear 120ms,
