@@ -116,7 +116,7 @@ export const Typography = () => html`
       class 'uui-lead' to a &#60;p&#62; element.
     </p>
     <p>
-      The default font-size is 15px, for a nice reading experience this conforms
+      The default font-size is 14px, for a nice reading experience this conforms
       well with a line-height of 24px, (base-unit * 4).
     </p>
 

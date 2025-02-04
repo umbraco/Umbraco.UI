@@ -280,7 +280,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
       #native {
         display: inline-block;
         font-family: inherit;
-        font-size: var(--uui-select-font-size, var(--uui-size-5));
+        font-size: var(--uui-select-font-size, inherit);
         height: var(--uui-select-height, var(--uui-size-11));
         padding: var(--uui-select-padding-y, var(--uui-size-1))
           var(--uui-select-padding-x, var(--uui-size-2));

@@ -139,8 +139,9 @@ export class UUIIconElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-block;
-        vertical-align: bottom;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 1.125em;
         height: 1.125em;
       }

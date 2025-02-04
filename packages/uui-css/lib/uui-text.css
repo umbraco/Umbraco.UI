@@ -12,8 +12,8 @@
 .uui-ol,
 .uui-text {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: calc(var(--uui-size-2) * 4);
+  font-size: 14px;
+  line-height: 21px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -114,6 +114,7 @@
 .uui-p-lead,
 .uui-text p.uui-lead {
   font-size: var(--uui-size-6);
+  line-height: var(--uui-size-8);
 }
 
 .uui-a,
@@ -135,14 +136,14 @@
 .uui-text small {
   display: inline-block;
   font-size: var(--uui-type-small-size);
-  line-height: calc(var(--uui-size-2) * 3);
-  margin-bottom: var(--uui-size-layout-1);
+  line-height: 18px;
 }
 
 .uui-quoteblock,
 .uui-text blockquote {
   float: right;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: inherit;
   font-weight: 700;
   font-style: italic;
   margin-top: 0;
@@ -150,7 +151,6 @@
   margin-right: -0.035em;
   max-width: 16em;
   quotes: '“' '”' '‘' '’';
-  line-height: inherit;
 }
 
 .uui-quoteblock:before,

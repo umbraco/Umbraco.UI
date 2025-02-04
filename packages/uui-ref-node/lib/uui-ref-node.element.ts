@@ -104,7 +104,7 @@ export class UUIRefNodeElement extends UUIRefElement {
 
   #renderContent() {
     return html`
-      <span id="content">
+      <span id="content" class="uui-text">
         <span id="icon">
           <slot name="icon" @slotchange=${this.#onSlotIconChange}></slot>
           ${this._iconSlotHasContent === false
@@ -122,6 +122,7 @@ export class UUIRefNodeElement extends UUIRefElement {
   #renderLink() {
     return html`<a
       id="open-part"
+      class="uui-text"
       tabindex=${this.disabled ? (nothing as any) : '0'}
       href=${ifDefined(!this.disabled ? this.href : undefined)}
       target=${ifDefined(this.target || undefined)}
@@ -140,6 +141,7 @@ export class UUIRefNodeElement extends UUIRefElement {
       <button
         type="button"
         id="open-part"
+        class="uui-text"
         tabindex="0"
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}
@@ -178,27 +180,27 @@ export class UUIRefNodeElement extends UUIRefElement {
       }
 
       #content {
-        align-self: stretch;
-        line-height: normal;
         display: flex;
-        position: relative;
         align-items: center;
+        justify-content: center;
+        line-height: 1.2em;
       }
 
       #open-part {
         color: inherit;
         text-decoration: none;
         cursor: pointer;
-        align-self: stretch;
         display: flex;
         flex-grow: 1;
-        padding: calc(var(--uui-size-2));
+        padding: calc(var(--uui-size-3));
       }
 
       #icon {
         font-size: 1.2em;
-        margin-left: var(--uui-size-2);
         margin-right: var(--uui-size-1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       #info {
@@ -210,12 +212,8 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding-left: var(--uui-size-2);
       }
 
-      #name {
-        font-weight: 700;
-      }
-
       #detail {
-        font-size: var(--uui-type-small-size);
+        opacity: 0.6;
       }
 
       :host([selectable]) #open-part {

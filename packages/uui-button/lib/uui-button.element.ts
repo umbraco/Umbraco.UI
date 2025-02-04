@@ -293,9 +293,12 @@ export class UUIButtonElement extends UUIFormControlMixin(
 
       .label {
         line-height: normal; /** needed to reset 'a > span' */
-        display: block;
         transition: opacity 120ms;
+        display: flex;
+        gap: var(--uui-size-1);
+        align-items: center;
       }
+
       :host([state]:not([state=''])) .label {
         opacity: 0;
       }
