@@ -59,9 +59,8 @@ export class UUITagElement extends LitElement {
       }
 
       slot {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: block;
+        align-content: center;
         margin: 2px;
       }
 
