@@ -14,7 +14,6 @@ export class UUITextCopyEvent extends UUIEvent<
 
   constructor(evName: string, eventInit: UUITextCopyEventInit = {}) {
     super(evName, {
-      ...{ bubbles: true },
       ...eventInit,
     });
   }
