@@ -431,7 +431,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       :host(:not([pristine]):invalid),
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) {
-        border-color: var(--uui-validation-color, var(--uui-color-danger));
+        border-color: var(--uui-color-invalid);
       }
 
       input {

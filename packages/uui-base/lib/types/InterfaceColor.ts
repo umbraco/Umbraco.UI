@@ -10,4 +10,5 @@ export type UUIInterfaceColor =
   | 'default'
   | 'positive'
   | 'warning'
-  | 'danger';
+  | 'danger'
+  | 'invalid';

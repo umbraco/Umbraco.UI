@@ -85,10 +85,10 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-color-danger);
+        border: 2px solid var(--uui-color-invalid);
         box-shadow:
-          0 0 4px 0 var(--uui-color-danger),
-          inset 0 0 2px 0 var(--uui-color-danger);
+          0 0 4px 0 var(--uui-color-invalid),
+          inset 0 0 2px 0 var(--uui-color-invalid);
       }
 
       :host([standalone]) {

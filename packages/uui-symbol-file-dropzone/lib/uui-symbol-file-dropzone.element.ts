@@ -46,7 +46,7 @@ export class UUISymbolFileDropzoneElement extends LitElement {
       }
 
       :host([error]) #upload-icon {
-        fill: var(--uui-color-danger);
+        fill: var(--uui-color-invalid);
       }
     `,
   ];

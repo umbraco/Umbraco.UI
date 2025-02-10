@@ -351,6 +351,11 @@ export class UUIToastNotificationElement extends LitElement {
         color: var(--uui-color-danger-contrast);
         border-color: var(--uui-color-danger-standalone);
       }
+      :host([color='invalid']) #toast > div {
+        background-color: var(--uui-color-invalid);
+        color: var(--uui-color-invalid-contrast);
+        border-color: var(--uui-color-invalid-standalone);
+      }
     `,
   ];
 }
