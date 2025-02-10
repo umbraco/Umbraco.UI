@@ -34,11 +34,11 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     return super.value;
   }
   set value(newValue) {
-    if (typeof newValue === 'string') {
-      this.#updateValue(newValue);
-    }
-
     super.value = newValue;
+
+    if (typeof newValue === 'string') {
+      this.#updateValue();
+    }
   }
 
   /**
@@ -166,7 +166,17 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.#phoneMediaQuery.removeEventListener('change', this.#onPhoneChange);
   }
 
-  protected async firstUpdated() {
+  #onSlotChange() {
+    if (this.#comboboxList) {
+      this.#comboboxList.removeEventListener(
+        UUIComboboxListEvent.CHANGE,
+        this.#onChange,
+      );
+      this.#comboboxList.removeEventListener(
+        UUIComboboxListEvent.INNER_SLOT_CHANGE,
+        this.#onInnerSlotChange,
+      );
+    }
     const list = this._comboboxListElements?.[0];
 
     if (list) {
@@ -178,21 +188,22 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       );
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.INNER_SLOT_CHANGE,
-        this.#onSlotChange,
+        this.#onInnerSlotChange,
       );
-
-      await this.updateComplete;
-      this.#updateValue(this.value);
     }
+
+    this.updateComplete.then(() => {
+      this.#updateValue();
+    });
   }
 
   #onPhoneChange = () => {
     this._isPhone = this.#phoneMediaQuery.matches;
   };
 
-  #updateValue(value: FormDataEntryValue | FormData) {
+  #updateValue() {
     if (this.#comboboxList) {
-      this.#comboboxList.value = value;
+      this.#comboboxList.value = this.value;
       requestAnimationFrame(
         () => (this._displayValue = this.#comboboxList.displayValue || ''),
       );
@@ -233,9 +244,9 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.#onOpen();
   };
 
-  #onSlotChange = () => {
+  #onInnerSlotChange = () => {
     if (this.value && this.value !== this.#comboboxList?.value) {
-      this.#updateValue(this.value);
+      this.#updateValue();
     }
   };
 
@@ -344,7 +355,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   #renderDropdown = () => {
     return html`<div id="dropdown">
       <uui-scroll-container tabindex="-1" id="scroll-container">
-        <slot></slot>
+        <slot @slotchange=${this.#onSlotChange}></slot>
       </uui-scroll-container>
     </div>`;
   };
