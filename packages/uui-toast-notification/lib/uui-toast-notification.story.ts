@@ -15,7 +15,7 @@ const meta: Meta = {
   },
   argTypes: {
     color: {
-      options: ['', 'default', 'positive', 'warning', 'danger'],
+      options: ['', 'default', 'positive', 'warning', 'danger', 'invalid'],
     },
     headline: { control: { type: 'text' } },
   },
@@ -42,7 +42,7 @@ export const Default: Story = {
   },
 };
 
-export const ErrorStyle: Story = {
+export const DangerStyle: Story = {
   args: {
     headline: 'Document could not be published!',
     slot: html`An error occurred while attempting to contact the server. Please
@@ -51,6 +51,17 @@ export const ErrorStyle: Story = {
         >Retry</uui-button
       >`,
     color: 'danger',
+  },
+};
+
+export const ErrorStyle: Story = {
+  args: {
+    headline: 'Document could not be published!',
+    slot: html`The data is not valid. Please correct data corrdingly.
+      <uui-button slot="actions" look="primary" color="invalid"
+        >Retry</uui-button
+      >`,
+    color: 'invalid',
   },
 };
 

@@ -80,6 +80,11 @@ export class UUITagElement extends LitElement {
         --color-contrast: var(--uui-color-warning-contrast);
       }
       :host([color='danger']) {
+        --color: var(--uui-color-danger);
+        --color-standalone: var(--uui-color-danger-standalone);
+        --color-contrast: var(--uui-color-danger-contrast);
+      }
+      :host([color='invalid']) {
         --color: var(--uui-color-invalid);
         --color-standalone: var(--uui-color-invalid-standalone);
         --color-contrast: var(--uui-color-invalid-contrast);

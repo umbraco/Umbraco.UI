@@ -6,6 +6,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
+import { UUIInterfaceColor } from '@umbraco-ui/uui-base';
 
 /**
  *  @element uui-toast-notification
@@ -20,12 +21,12 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 export class UUIToastNotificationElement extends LitElement {
   /**
    * Changes the color of the notification to one of the predefined, symbolic colors. Example: set this to danger to indicate errors.
-   * @type {'' | 'default' | 'positive' | 'warning' | 'danger'}
+   * @type {UUIInterfaceColor}
    * @attr
    * @default ""
    */
   @property({ reflect: true })
-  color: '' | 'default' | 'positive' | 'warning' | 'danger' = '';
+  color: UUIInterfaceColor = '';
 
   private _autoClose: number | null = null;
   /**

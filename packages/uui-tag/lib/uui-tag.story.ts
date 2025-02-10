@@ -39,7 +39,7 @@ export const Sizing: Story = {
 export const LooksAndColors: Story = {
   render: () => {
     const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-    const colors = ['default', 'positive', 'warning', 'danger'];
+    const colors = ['default', 'positive', 'warning', 'danger', 'invalid'];
 
     function uppercaseFirstLetter(s: string) {
       return s.charAt(0).toUpperCase() + s.slice(1);
