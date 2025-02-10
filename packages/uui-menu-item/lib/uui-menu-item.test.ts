@@ -10,7 +10,7 @@ import '@umbraco-ui/uui-loader-bar/lib';
 import { UUIMenuItemElement } from './uui-menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
-import { sendMouse } from '@web/test-runner-commands';
+import { UUITestMouse } from '../../../test/index';
 
 describe('UUIMenuItemElement', () => {
   describe('element', () => {
@@ -272,6 +272,7 @@ describe('UUIMenuItemElement', () => {
 
     describe('selectable', () => {
       let labelElement: HTMLElement | null;
+      const mouse = new UUITestMouse();
 
       beforeEach(async () => {
         labelElement = element.shadowRoot!.querySelector('#label-button');
@@ -289,33 +290,21 @@ describe('UUIMenuItemElement', () => {
 
       it('can be selected when selectable', async () => {
         await elementUpdated(element);
-        await sendMouse({
-          type: 'click',
-          position: [75, 30],
-          button: 'left',
-        });
+        await mouse.leftClick(element);
         expect(element.selected).to.be.true;
       });
 
       it('can not be selected when not selectable', async () => {
         element.selectable = false;
         await elementUpdated(element);
-        await sendMouse({
-          type: 'click',
-          position: [75, 30],
-          button: 'left',
-        });
+        await mouse.leftClick(element);
         expect(element.selected).to.be.false;
       });
 
       it('can not be selected when disabled', async () => {
         element.disabled = true;
         await elementUpdated(element);
-        await sendMouse({
-          type: 'click',
-          position: [75, 30],
-          button: 'left',
-        });
+        await mouse.leftClick(element);
         expect(element.selected).to.be.false;
       });
 
@@ -335,6 +324,7 @@ describe('UUIMenuItemElement', () => {
 
     describe('selectable & selectOnly', () => {
       let labelElement: HTMLElement | null;
+      const mouse = new UUITestMouse();
 
       beforeEach(async () => {
         labelElement = element.shadowRoot!.querySelector('#label-button');
@@ -353,33 +343,21 @@ describe('UUIMenuItemElement', () => {
 
       it('can be selected when selectable', async () => {
         await elementUpdated(element);
-        await sendMouse({
-          type: 'click',
-          position: [75, 30],
-          button: 'left',
-        });
+        await mouse.leftClick(element);
         expect(element.selected).to.be.true;
       });
 
       it('can not be selected when not selectable', async () => {
         element.selectable = false;
         await elementUpdated(element);
-        await sendMouse({
-          type: 'click',
-          position: [75, 30],
-          button: 'left',
-        });
+        await mouse.leftClick(element);
         expect(element.selected).to.be.false;
       });
 
       it('can not be selected when disabled', async () => {
         element.disabled = true;
         await elementUpdated(element);
-        await sendMouse({
-          type: 'click',
-          position: [75, 30],
-          button: 'left',
-        });
+        await mouse.leftClick(element);
         expect(element.selected).to.be.false;
       });
 
@@ -449,6 +427,92 @@ describe('UUIMenuItemElement', () => {
       await elementUpdated(element);
       expect(labelElement.getAttribute('target')).to.be.equal('_blank');
       expect(labelElement.getAttribute('rel')).to.be.equal('noopener');
+    });
+
+    describe('selectable', () => {
+      const mouse = new UUITestMouse();
+
+      beforeEach(async () => {
+        element.selectable = true;
+      });
+
+      it('can be selected when selectable', async () => {
+        await elementUpdated(element);
+        await mouse.leftClick(element);
+        expect(element.selected).to.be.true;
+      });
+
+      it('can not be selected when not selectable', async () => {
+        /* TODO: Figure out what should happen when selectable is false
+        Right now it navigates to the href
+        element.selectable = false;
+        await elementUpdated(element);
+        await mouse.leftClick(element);
+        expect(element.selected).to.be.false;
+        */
+      });
+
+      it('can not be selected when disabled', async () => {
+        element.disabled = true;
+        await elementUpdated(element);
+        await mouse.leftClick(element);
+        expect(element.selected).to.be.false;
+      });
+
+      it('can expand', async () => {
+        element.setAttribute('has-children', 'true');
+        await elementUpdated(element);
+        const listener = oneEvent(element, 'show-children');
+        const caretIconElement: HTMLElement | null =
+          element.shadowRoot!.querySelector('#caret-button');
+        caretIconElement?.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal('show-children');
+        expect(element.hasAttribute('show-children')).to.equal(true);
+      });
+    });
+
+    describe('selectable & selectOnly', () => {
+      const mouse = new UUITestMouse();
+
+      beforeEach(async () => {
+        element.selectable = true;
+        element.selectOnly = true;
+      });
+
+      it('can be selected when selectable', async () => {
+        await elementUpdated(element);
+        await mouse.leftClick(element);
+        expect(element.selected).to.be.true;
+      });
+
+      it('can not be selected when not selectable', async () => {
+        element.selectable = false;
+        await elementUpdated(element);
+        await mouse.leftClick(element);
+        expect(element.selected).to.be.false;
+      });
+
+      it('can not be selected when disabled', async () => {
+        element.disabled = true;
+        await elementUpdated(element);
+        await mouse.leftClick(element);
+        expect(element.selected).to.be.false;
+      });
+
+      it('can expand', async () => {
+        element.setAttribute('has-children', 'true');
+        await elementUpdated(element);
+        const listener = oneEvent(element, 'show-children');
+        const caretIconElement: HTMLElement | null =
+          element.shadowRoot!.querySelector('#caret-button');
+        caretIconElement?.click();
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal('show-children');
+        expect(element.hasAttribute('show-children')).to.equal(true);
+      });
     });
   });
 });

@@ -8,6 +8,7 @@ import {
 
 import '.';
 import { UUITableRowElement } from './uui-table-row.element';
+import { UUITestMouse } from '../../../test/index';
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;
@@ -58,6 +59,51 @@ describe('UuiTableRow', () => {
         expect(event.type).to.equal('selected');
         expect(element.selected).to.be.true;
       });
+    });
+  });
+
+  // TODO: add tests with different kinds of elements in the cells
+  describe('selectable', () => {
+    const mouse = new UUITestMouse();
+
+    beforeEach(async () => {
+      element.selectable = true;
+    });
+
+    it('can be selected when selectable', async () => {
+      await elementUpdated(element);
+      await mouse.leftClick(element);
+      expect(element.selected).to.be.true;
+    });
+
+    it('can not be selected when not selectable', async () => {
+      element.selectable = false;
+      await elementUpdated(element);
+      await mouse.leftClick(element);
+      expect(element.selected).to.be.false;
+    });
+  });
+
+  // TODO: add tests with different kinds of elements in the cells
+  describe('selectable & selectOnly', () => {
+    const mouse = new UUITestMouse();
+
+    beforeEach(async () => {
+      element.selectable = true;
+      element.selectOnly = true;
+    });
+
+    it('can be selected when selectable', async () => {
+      await elementUpdated(element);
+      await mouse.leftClick(element);
+      expect(element.selected).to.be.true;
+    });
+
+    it('can not be selected when not selectable', async () => {
+      element.selectable = false;
+      await elementUpdated(element);
+      await mouse.leftClick(element);
+      expect(element.selected).to.be.false;
     });
   });
 });

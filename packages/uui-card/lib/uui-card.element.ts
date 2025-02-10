@@ -142,6 +142,7 @@ export class UUICardElement extends SelectOnlyMixin(
       a {
         text-decoration: none;
         color: inherit;
+        line-height: initial;
       }
 
       button:focus,
