@@ -3,7 +3,6 @@ import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 export type BlockTypeIcon = {
   name?: string;
@@ -37,16 +36,19 @@ export class UUICardBlockTypeElement extends UUICardElement {
   description?: string;
 
   @property({ type: String, attribute: 'background' })
-  background?: string;
+  public get background(): string | undefined {
+    return undefined;
+  }
+  public set background(value: string | undefined) {
+    this.style.backgroundColor = value ?? '';
+  }
 
   render() {
     return html`
-      <div
-        id="portrait"
-        style=${styleMap({ backgroundColor: this.background })}>
-        <slot></slot>
-      </div>
+      ${this.#renderMedia()}
       ${this.href ? this.#renderLink() : this.#renderButton()}
+      <!-- Select border must be right after #open-part -->
+      <div id="select-border"></div>
 
       <slot name="tag"></slot>
       <slot name="actions"></slot>
@@ -61,8 +63,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
         tabindex=${this.disabled ? (nothing as any) : '0'}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
-        <span id="name">${this.name}</span>
-        <small>${this.description}</small>
+        ${this.#renderContent()}
       </button>
     `;
   }
@@ -81,9 +82,23 @@ export class UUICardBlockTypeElement extends UUICardElement {
               this.target === '_blank' ? 'noopener noreferrer' : undefined,
             ),
         )}>
-        <span id="name">${this.name}</span>
-        <small>${this.description}</small>
+        ${this.#renderContent()}
       </a>
+    `;
+  }
+
+  #renderMedia() {
+    return html`<div id="portrait">
+      <slot></slot>
+    </div> `;
+  }
+
+  #renderContent() {
+    return html`
+      <div id="content">
+        <span id="name">${this.name}</span>
+        <small>${this.description}<slot name="description"></slot></small>
+      </div></div>
     `;
   }
 
@@ -91,70 +106,16 @@ export class UUICardBlockTypeElement extends UUICardElement {
     ...UUICardElement.styles,
     css`
       :host {
-        flex-direction: column;
-        justify-content: flex-start;
-      }
-
-      :host(:hover) #info {
-        color: var(--uui-color-interactive-emphasis);
-      }
-
-      #portrait {
         background-color: var(--uui-color-surface-alt);
-        display: flex;
-        justify-content: center;
-        min-height: 150px;
-        max-height: 150px;
       }
 
-      slot:not([name])::slotted(*) {
-        align-self: center;
-        font-size: var(--uui-size-8);
-        border-radius: var(--uui-border-radius);
-        object-fit: cover;
-        max-width: 100%;
-        max-height: 100%;
-      }
-
-      #open-part {
-        text-align: left;
-        background-color: var(--uui-color-surface);
-        cursor: pointer;
-        color: var(--uui-color-interactive);
-        border: none;
-        border-top: 1px solid var(--uui-color-divider);
-        border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
-        font-family: inherit;
-        box-sizing: border-box;
-        padding: var(--uui-size-2) var(--uui-size-4);
-        display: flex;
-        flex-direction: column;
-        line-height: normal;
-      }
-
-      :host([disabled]) #open-part {
-        pointer-events: none;
-        background: var(--uui-color-disabled);
-        color: var(--uui-color-contrast-disabled);
-      }
-
-      #open-part:hover strong {
-        text-decoration: underline;
-      }
-      #open-part:hover {
-        color: var(--uui-color-interactive-emphasis);
-      }
-
-      :host([image]:not([image=''])) #open-part {
-        transition: opacity 0.5s 0.5s;
-        opacity: 0;
-      }
       slot[name='tag'] {
         position: absolute;
         top: var(--uui-size-4);
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
+        z-index: 2;
       }
 
       slot[name='actions'] {
@@ -163,10 +124,89 @@ export class UUICardBlockTypeElement extends UUICardElement {
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
-
+        z-index: 2;
         opacity: 0;
         transition: opacity 120ms;
       }
+      :host(:focus) slot[name='actions'],
+      :host(:focus-within) slot[name='actions'],
+      :host(:hover) slot[name='actions'] {
+        opacity: 1;
+      }
+
+      #portrait {
+        display: flex;
+        justify-content: center;
+        min-height: 150px;
+        max-height: 150px;
+        width: 100%;
+        margin-bottom: var(--uui-size-layout-2);
+      }
+
+      slot:not([name])::slotted(*) {
+        align-self: center;
+        border-radius: var(--uui-border-radius);
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+        font-size: var(--uui-size-8);
+      }
+
+      #open-part {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        color: var(--uui-color-interactive);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      :host([disabled]) #open-part {
+        pointer-events: none;
+        background: var(--uui-color-disabled);
+        color: var(--uui-color-contrast-disabled);
+      }
+
+      #open-part:hover {
+        color: var(--uui-color-interactive-emphasis);
+      }
+      #open-part:hover #name {
+        text-decoration: underline;
+      }
+
+      :host([image]:not([image=''])) #open-part {
+        transition: opacity 0.5s 0.5s;
+        opacity: 0;
+      }
+
+      #content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        font-family: inherit;
+        font-size: var(--uui-type-small-size);
+        box-sizing: border-box;
+        text-align: left;
+        word-break: break-word;
+        padding-top: var(--uui-size-space-3);
+      }
+
+      #content::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-top: 1px solid var(--uui-color-divider);
+        border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
+        background-color: var(--uui-color-surface);
+        pointer-events: none;
+        opacity: 0.96;
+      }
+
       :host(:focus) slot[name='actions'],
       :host(:focus-within) slot[name='actions'],
       :host(:hover) slot[name='actions'] {
@@ -184,6 +224,18 @@ export class UUICardBlockTypeElement extends UUICardElement {
         opacity: 1;
         transition-duration: 120ms;
         transition-delay: 0s;
+      }
+
+      :host([selectable]) #open-part {
+        inset: var(--uui-size-space-3) var(--uui-size-space-4);
+      }
+      :host(:not([selectable])) #content {
+        padding: var(--uui-size-space-3) var(--uui-size-space-4);
+      }
+      :host([selectable]) #content::before {
+        inset: calc(var(--uui-size-space-3) * -1)
+          calc(var(--uui-size-space-4) * -1);
+        top: 0;
       }
     `,
   ];

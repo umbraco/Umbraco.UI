@@ -45,6 +45,7 @@ export class UUISymbolFileElement extends LitElement {
       :host {
         position: relative;
         display: block;
+        box-sizing: border-box;
       }
 
       #file-type {
