@@ -25,10 +25,9 @@ export const drag = (
     // TouchEvent is not available in Firefox
     if ('TouchEvent' in window && event instanceof TouchEvent) {
       pointerEvent = event.touches[0];
-    } else if ( event instanceof PointerEvent ) {
+    } else if (event instanceof PointerEvent) {
       pointerEvent = event;
-    }
-    else {
+    } else {
       return;
     }
 
