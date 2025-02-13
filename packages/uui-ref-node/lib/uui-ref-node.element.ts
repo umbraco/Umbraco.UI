@@ -184,6 +184,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         align-items: center;
         justify-content: center;
         line-height: 1.2em;
+        padding: calc(var(--uui-size-3));
       }
 
       #open-part {
@@ -192,7 +193,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         display: flex;
         flex-grow: 1;
-        padding: calc(var(--uui-size-3));
       }
 
       #icon {
