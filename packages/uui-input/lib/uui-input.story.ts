@@ -33,6 +33,18 @@ const meta: Meta = {
         'wha',
       ],
     },
+    inputMode: {
+      options: [
+        'text',
+        'none',
+        'decimal',
+        'numeric',
+        'tel',
+        'search',
+        'email',
+        'url',
+      ],
+    },
   },
   parameters: {
     readme: {
