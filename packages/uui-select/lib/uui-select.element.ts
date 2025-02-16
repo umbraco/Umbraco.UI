@@ -199,7 +199,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     );
   }
 
-  private handleOpenKeydown(e: KeyboardEvent) {
+  private handleKeydown(e: KeyboardEvent) {
     if (this.readonly && e.key !== 'Tab') {
       e.preventDefault();
       e.stopPropagation();
@@ -252,7 +252,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
       id="native"
       aria-label=${this.label}
       @change=${this.setValue}
-      @keydown=${this.handleOpenKeydown}
+      @keydown=${this.handleKeydown}
       ?disabled=${this.disabled}
       aria-readonly=${this.readonly ? 'true' : 'false'}
       .name=${this.name}
