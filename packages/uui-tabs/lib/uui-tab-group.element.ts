@@ -77,8 +77,6 @@ export class UUITabGroupElement extends LitElement {
     demandCustomElement(this, 'uui-popover-container');
     demandCustomElement(this, 'uui-symbol-more');
 
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'tablist');
-
     await this.updateComplete;
     this.#resizeObserver.observe(this._mainElement);
   }
@@ -268,7 +266,7 @@ export class UUITabGroupElement extends LitElement {
   render() {
     return html`
       <div id="main">
-        <div id="grid">
+        <div id="grid" role="tablist">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
         <uui-button
@@ -284,7 +282,7 @@ export class UUITabGroupElement extends LitElement {
         id="popover-container"
         popover
         placement="bottom-end">
-        <div id="hidden-tabs-container">
+        <div id="hidden-tabs-container" role="tablist">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
         </div>
       </uui-popover-container>
