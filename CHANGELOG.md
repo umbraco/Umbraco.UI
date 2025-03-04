@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+### Bug Fixes
+
+- add role attribute to tablist elements for accessibility ([3bb8802](https://github.com/umbraco/Umbraco.UI/commit/3bb88026716d23bffac9f9e4d341506861f05a5a))
+- apply border radius to input, select, and textarea ([57abde0](https://github.com/umbraco/Umbraco.UI/commit/57abde0749cb0d43320e0ae8ea8b1f3b45a7925b))
+- drag.ts lint errors ([0f9b0f3](https://github.com/umbraco/Umbraco.UI/commit/0f9b0f3db251e8168ba7733485e50dcae5a37c3a))
+- lower table cell height to take up less space ([dd1bb25](https://github.com/umbraco/Umbraco.UI/commit/dd1bb257c5cd583517e1925ae8c02fb98832920f))
+- reference to TouchEvent which is not defined in Firefox ([#1001](https://github.com/umbraco/Umbraco.UI/issues/1001)) ([338ca32](https://github.com/umbraco/Umbraco.UI/commit/338ca32b3f68e13699c815096ecd63b9d3d3211b))
+- set svg width to 100% on UUIconElement ([23ceec8](https://github.com/umbraco/Umbraco.UI/commit/23ceec87c67d30de18b33f2ded21e7726b74d459))
+- **uui-symbol-more:** inherit current color ([#1025](https://github.com/umbraco/Umbraco.UI/issues/1025)) ([b299735](https://github.com/umbraco/Umbraco.UI/commit/b2997357d6ae677b25a7d27f2fe901c6280ae0e9))
+- vertical aligment uui-symbol-expand.element.ts ([#1010](https://github.com/umbraco/Umbraco.UI/issues/1010)) ([fb6d48e](https://github.com/umbraco/Umbraco.UI/commit/fb6d48ea68d75719484df7e15d2186e9a403e21a))
+
+### Features
+
+- Adds uui-button-copy-text ([#985](https://github.com/umbraco/Umbraco.UI/issues/985)) ([7641286](https://github.com/umbraco/Umbraco.UI/commit/764128623c45727b68684bad5cb281283d90c985))
+- New color 'invalid' ([#1009](https://github.com/umbraco/Umbraco.UI/issues/1009)) ([cd24246](https://github.com/umbraco/Umbraco.UI/commit/cd24246fe6af0e245570d082357e8432b58b2302))
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 ### Bug Fixes
