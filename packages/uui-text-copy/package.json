@@ -31,8 +31,7 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "1.12.2",
-    "@umbraco-ui/uui-button": "1.12.2",
-    "@umbraco-ui/uui-icon": "1.12.2"
+    "@umbraco-ui/uui-button": "1.12.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
