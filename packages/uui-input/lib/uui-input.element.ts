@@ -179,6 +179,7 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   /**
    * This property specifies the type of input that will be rendered.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types|MDN} for further information
    * @type {'text' | 'tel' | 'url' | 'email' | 'password' | 'date' | 'month' | 'week' | 'time' | 'datetime-local' | 'number' | 'color'}
    * @attr
    * @default text
