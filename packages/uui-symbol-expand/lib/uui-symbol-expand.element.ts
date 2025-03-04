@@ -33,7 +33,7 @@ export class UUISymbolExpandElement extends LitElement {
   static styles = [
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
         width: 12px;
         vertical-align: middle;
       }

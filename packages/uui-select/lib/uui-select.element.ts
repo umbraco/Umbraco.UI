@@ -286,7 +286,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
           var(--uui-select-padding-x, var(--uui-size-2));
         color: var(--uui-select-text-color, var(--uui-color-text));
         box-sizing: border-box;
-        border-radius: 0;
+        border-radius: var(--uui-border-radius);
         border: 1px solid
           var(--uui-select-border-color, var(--uui-color-border));
         transition: all 150ms ease;

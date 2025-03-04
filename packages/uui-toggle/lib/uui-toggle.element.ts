@@ -38,7 +38,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
 
   renderCheckbox() {
     return html`
-      <div id="slider">
+      <div id="toggle">
         <div id="icon-checked">${iconCheck}</div>
         <div id="icon-unchecked">${iconRemove}</div>
       </div>
@@ -54,7 +54,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         --uui-toggle-switch-width: calc(2 * var(--uui-toggle-size));
       }
 
-      #slider {
+      #toggle {
         position: relative;
         grid-area: 'input';
         display: flex;
@@ -75,7 +75,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         font-size: calc(var(--uui-toggle-size) * 0.6);
       }
 
-      label:hover input:not([disabled]) ~ #slider {
+      label:hover input:not([disabled]) ~ #toggle {
         border-color: var(
           --uui-toggle-border-color-hover,
           var(--uui-color-border-emphasis)
@@ -86,7 +86,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         );
       }
 
-      label:focus #slider {
+      label:focus #toggle {
         border-color: var(
           --uui-toggle-border-color-focus,
           var(--uui-color-focus)
@@ -97,15 +97,15 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         );
       }
 
-      input:checked ~ #slider {
+      input:checked ~ #toggle {
         background-color: var(--uui-color-selected);
       }
 
-      label:hover input:checked:not([disabled]) ~ #slider {
+      label:hover input:checked:not([disabled]) ~ #toggle {
         background-color: var(--uui-color-selected-emphasis);
       }
 
-      label:focus input:checked ~ #slider {
+      label:focus input:checked ~ #toggle {
         background-color: var(--uui-color-selected-emphasis);
       }
 
@@ -131,11 +131,11 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         color: var(--uui-color-interactive);
       }
 
-      input:checked ~ #slider #icon-checked {
+      input:checked ~ #toggle #icon-checked {
         color: var(--uui-color-selected-contrast);
       }
 
-      #slider::after {
+      #toggle::after {
         content: '';
         position: absolute;
         top: 2px;
@@ -151,45 +151,45 @@ export class UUIToggleElement extends UUIBooleanInputElement {
           background-color 120ms;
       }
 
-      input:checked ~ #slider::after {
+      input:checked ~ #toggle::after {
         left: calc(100% - 2px);
         transform: translateX(-100%);
       }
 
-      input:focus ~ #slider {
+      input:focus ~ #toggle {
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);
       }
 
-      :host(:not([disabled], [readonly])) label:active #slider::after {
+      :host(:not([disabled], [readonly])) label:active #toggle::after {
         /** Stretch when mouse down */
         width: calc(1.06 * var(--uui-toggle-size));
       }
 
-      :host([disabled]) #slider {
+      :host([disabled]) #toggle {
         background-color: var(--uui-color-disabled-standalone);
       }
-      :host([disabled]) input:checked ~ #slider {
+      :host([disabled]) input:checked ~ #toggle {
         background-color: var(--uui-color-disabled-contrast);
       }
-      :host([disabled]) #slider::after {
+      :host([disabled]) #toggle::after {
         background-color: var(--uui-color-disabled);
       }
-      :host([disabled]) #slider #icon-unchecked {
+      :host([disabled]) #toggle #icon-unchecked {
         color: var(--uui-color-disabled-contrast);
       }
-      :host([disabled]) label:active #slider {
+      :host([disabled]) label:active #toggle {
         animation: ${UUIHorizontalShakeAnimationValue};
       }
-      :host([disabled]) input:checked #slider #icon-checked {
+      :host([disabled]) input:checked #toggle #icon-checked {
         color: var(--uui-color-disabled-contrast);
       }
 
-      :host(:not([pristine]):invalid) #slider,
-      :host(:not([pristine]):invalid) label:hover #slider,
+      :host(:not([pristine]):invalid) #toggle,
+      :host(:not([pristine]):invalid) label:hover #toggle,
       /* polyfill support */
-      :host(:not([pristine])[internals-invalid]) #slider,
-      :host(:not([pristine])[internals-invalid]) label:hover #slider {
+      :host(:not([pristine])[internals-invalid]) #toggle,
+      :host(:not([pristine])[internals-invalid]) label:hover #toggle {
         border: 1px solid var(--uui-color-invalid-standalone);
       }
     `,

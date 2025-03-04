@@ -22,10 +22,13 @@ export const drag = (
     const offsetY = dims.top + defaultView.scrollY;
 
     let pointerEvent: PointerEvent | Touch;
-    if (event instanceof TouchEvent) {
+    // TouchEvent is not available in Firefox
+    if ('TouchEvent' in window && event instanceof TouchEvent) {
       pointerEvent = event.touches[0];
-    } else {
+    } else if (event instanceof PointerEvent) {
       pointerEvent = event;
+    } else {
+      return;
     }
 
     const x = pointerEvent.pageX - offsetX;

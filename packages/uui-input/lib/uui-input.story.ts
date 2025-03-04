@@ -30,7 +30,6 @@ const meta: Meta = {
         'datetime-local',
         'number',
         'color',
-        'wha',
       ],
     },
   },
