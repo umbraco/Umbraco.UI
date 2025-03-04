@@ -131,7 +131,7 @@
     "rollup-plugin-postcss": "4.0.2",
     "storybook": "8.6.3",
     "tsc-files": "1.1.4",
-    "turbo": "1.13.2",
+    "turbo": "2.4.4",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.16.1",
     "vite": "5.4.7",
@@ -154,5 +154,5 @@
   "storybook": {
     "url": "https://v1-contrib--62189360eeb21b003ab2f4ad.chromatic.com/"
   },
-  "packageManager": "npm@10.7.0"
+  "packageManager": "npm@11.1.0"
 }
