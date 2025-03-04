@@ -1,5 +1,5 @@
 {
-  "name": "@umbraco-ui/uui-text-copy",
+  "name": "@umbraco-ui/uui-button-copy-text",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [
@@ -10,11 +10,11 @@
     "Lit",
     "Text Copy"
   ],
-  "description": "Umbraco UI text-copy component",
+  "description": "Umbraco UI button text-copy component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
-    "directory": "packages/uui-text-copy"
+    "directory": "packages/uui-button-copy-text"
   },
   "bugs": {
     "url": "https://github.com/umbraco/Umbraco.UI/issues"
@@ -30,7 +30,9 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.12.2"
+    "@umbraco-ui/uui-base": "1.12.2",
+    "@umbraco-ui/uui-button": "1.12.2",
+    "@umbraco-ui/uui-icon": "1.12.2"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
@@ -40,5 +42,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://uui.umbraco.com/?path=/story/uui-text-copy"
+  "homepage": "https://uui.umbraco.com/?path=/story/uui-button-copy-text"
 }
