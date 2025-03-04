@@ -128,7 +128,7 @@ export const Nested: Story = {
 
 export const Active: Story = {
   render: () => {
-    const [activeIndex, setActiveIndex] = useState<Number>(1);
+    const [activeIndex, setActiveIndex] = useState<number>(1);
 
     const onClick = (index: number) => {
       setActiveIndex(index);
