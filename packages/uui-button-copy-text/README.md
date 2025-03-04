@@ -1,6 +1,6 @@
-# uui-text-copy
+# uui-button-copy-text
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-text-copy?logoColor=%231B264F)
+![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-copy-text?logoColor=%231B264F)
 
 Umbraco style text-copy component.
 
@@ -9,23 +9,23 @@ Umbraco style text-copy component.
 ### ES imports
 
 ```zsh
-npm i @umbraco-ui/uui-text-copy
+npm i @umbraco-ui/uui-button-copy-text
 ```
 
-Import the registration of `<uui-text-copy>` via:
+Import the registration of `<uui-button-copy-text>` via:
 
 ```javascript
-import '@umbraco-ui/uui-text-copy';
+import '@umbraco-ui/uui-button-copy-text';
 ```
 
-When looking to leverage the `UUITextCopyElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUIButtonCopyTextElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITextCopyElement } from '@umbraco-ui/uui-text-copy';
+import { UUIButtonCopyTextElement } from '@umbraco-ui/uui-button-copy-text';
 ```
 
 ## Usage
 
 ```html
-<uui-text-copy></uui-text-copy>
+<uui-button-copy-text></uui-button-copy-text>
 ```
