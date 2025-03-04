@@ -187,7 +187,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host(:not([pristine])[internals-invalid]) label:hover input:indeterminate:not([disabled]) + #ticker,
       :host(:not([pristine])[internals-invalid]) label:focus input:checked + #ticker,
       :host(:not([pristine])[internals-invalid]) label:focus input:indeterminate + #ticker {
-        border: 1px solid var(--uui-color-danger-standalone);
+        border: 1px solid var(--uui-color-invalid-standalone);
       }
 
       :host([disabled]) #ticker {
