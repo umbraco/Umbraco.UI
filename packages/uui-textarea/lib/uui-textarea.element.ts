@@ -330,7 +330,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         padding: var(--uui-size-2);
         border: 1px solid
           var(--uui-textarea-border-color, var(--uui-color-border)); /** Note: Specified border size is needed and hardcoded in autoUpdateHeight() */
-        border-radius: 0;
+        border-radius: var(--uui-border-radius);
         outline: none;
         min-height: var(--uui-textarea-min-height);
         max-height: var(--uui-textarea-max-height);

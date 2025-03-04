@@ -224,5 +224,13 @@ describe('UUIIconElement', () => {
     it('Child uui-icon passes the a11y audit', async () => {
       await expect(testElement.iconElement).shadowDom.to.be.accessible();
     });
+
+    it('svg has a size of 18px for both width and height', () => {
+      const svgElement =
+        testElement.iconElement.shadowRoot!.querySelector('svg')!;
+      const computedStyle = getComputedStyle(svgElement);
+      expect(computedStyle.width).to.equal('18px');
+      expect(computedStyle.height).to.equal('18px');
+    });
   });
 });
