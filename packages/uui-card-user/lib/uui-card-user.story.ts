@@ -55,6 +55,9 @@ export const Avatar: Story = {
   ${cardContent}
 </uui-card-user>
   `,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Tag: Story = {

@@ -1,5 +1,4 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
-import { html } from 'lit';
 import { join, dirname } from 'path';
 
 /**
@@ -16,7 +15,9 @@ const config: StorybookConfig = {
     '../packages/**/*.story.@(js|jsx|mjs|ts|tsx)',
     '../stories/**/*.story.@(js|jsx|mjs|ts|tsx)',
   ],
+
   staticDirs: ['./images'],
+
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
@@ -24,9 +25,14 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-a11y'),
     '../storyhelpers/storybook-readme',
   ],
+
   framework: {
     name: getAbsolutePath('@storybook/web-components-vite'),
     options: {},
+  },
+
+  docs: {
+    autodocs: true,
   },
 };
 export default config;

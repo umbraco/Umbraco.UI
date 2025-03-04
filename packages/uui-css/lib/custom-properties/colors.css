@@ -62,6 +62,11 @@
   --uui-color-danger-standalone: var(--uui-palette-maroon-flush-dark);
   --uui-color-danger-contrast: white;
 
+  --uui-color-invalid: var(--uui-palette-maroon-flush);
+  --uui-color-invalid-emphasis: var(--uui-palette-maroon-flush-light);
+  --uui-color-invalid-standalone: var(--uui-palette-maroon-flush-dark);
+  --uui-color-invalid-contrast: white;
+
   --uui-color-positive: var(--uui-palette-forest-green);
   --uui-color-positive-emphasis: var(--uui-palette-forest-green-light);
   --uui-color-positive-standalone: var(--uui-palette-forest-green-dark);

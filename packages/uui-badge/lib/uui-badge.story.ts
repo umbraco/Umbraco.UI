@@ -16,7 +16,7 @@ const meta: Meta = {
       options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
     },
     color: {
-      options: ['default', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger', 'invalid'],
     },
   },
 
@@ -63,7 +63,7 @@ export const Icon: Story = {
 export const LooksAndColors: Story = {
   render: () => {
     const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-    const colors = ['default', 'positive', 'warning', 'danger'];
+    const colors = ['default', 'positive', 'warning', 'danger', 'invalid'];
 
     const uppercaseFirstLetter = (str: string) =>
       str.charAt(0).toUpperCase() + str.slice(1);

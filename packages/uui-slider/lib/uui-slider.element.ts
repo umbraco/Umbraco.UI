@@ -467,10 +467,10 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       :host(:not([pristine]):invalid) #thumb {
-        border-color: var(--uui-color-danger-standalone);
+        border-color: var(--uui-color-invalid-standalone);
       }
       :host(:not([pristine]):invalid) #thumb:after {
-        background-color: var(--uui-color-danger);
+        background-color: var(--uui-color-invalid);
       }
 
       // readonly

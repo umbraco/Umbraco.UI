@@ -87,7 +87,7 @@ export class UUITableCellElement extends LitElement {
         height: var(--uui-table-cell-height, var(--uui-size-12));
         padding: var(
           --uui-table-cell-padding,
-          var(--uui-size-4) var(--uui-size-5)
+          var(--uui-size-3) var(--uui-size-5)
         );
         border-top: 1px solid var(--uui-color-border);
         vertical-align: middle;

@@ -435,6 +435,12 @@ export class UUIButtonElement extends UUIFormControlMixin(
         --color-emphasis: var(--uui-color-danger-emphasis);
         --color-contrast: var(--uui-color-danger-contrast);
       }
+      :host([color='invalid']) #button {
+        --color: var(--uui-color-invalid);
+        --color-standalone: var(--uui-color-invalid-standalone);
+        --color-emphasis: var(--uui-color-invalid-emphasis);
+        --color-contrast: var(--uui-color-invalid-contrast);
+      }
       :host([disabled]) #button {
         --color: var(--uui-color-disabled);
         --color-standalone: var(--uui-color-disabled-contrast);

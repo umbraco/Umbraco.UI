@@ -21,7 +21,7 @@ const meta: Meta = {
     },
     color: {
       control: { type: 'select' },
-      options: ['default', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger', 'invalid'],
     },
   },
   parameters: {
@@ -67,7 +67,7 @@ export const LooksAndColors: Story = {
   render: () => {
     const buttons = ['copy', 'remove', 'delete'];
     const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-    const colors = ['default', 'positive', 'warning', 'danger'];
+    const colors = ['default', 'positive', 'warning', 'danger', 'invalid'];
 
     const uppercaseFirstLetter = (str: string) =>
       str.charAt(0).toUpperCase() + str.slice(1);

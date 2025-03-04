@@ -17,6 +17,21 @@ describe('UuiTab', () => {
         <uui-tab label="Content">Content</uui-tab>
         <uui-tab label="Packages">Packages</uui-tab>
         <uui-tab label="Media" active>Media</uui-tab>
+        <uui-tab label="Content1">Content to force a more button</uui-tab>
+        <uui-tab label="Content2">Content to force a more button</uui-tab>
+        <uui-tab label="Content3">Content to force a more button</uui-tab>
+        <uui-tab label="Content4">Content to force a more button</uui-tab>
+        <uui-tab label="Content5">Content to force a more button</uui-tab>
+        <uui-tab label="Content6">Content to force a more button</uui-tab>
+        <uui-tab label="Content7">Content to force a more button</uui-tab>
+        <uui-tab label="Content8">Content to force a more button</uui-tab>
+        <uui-tab label="Content9">Content to force a more button</uui-tab>
+        <uui-tab label="Content10">Content to force a more button</uui-tab>
+        <uui-tab label="Content11">Content to force a more button</uui-tab>
+        <uui-tab label="Content12">Content to force a more button</uui-tab>
+        <uui-tab label="Content13">Content to force a more button</uui-tab>
+        <uui-tab label="Content14">Content to force a more button</uui-tab>
+        <uui-tab label="Content15">Content to force a more button</uui-tab>
       </uui-tab-group>
     `);
 
