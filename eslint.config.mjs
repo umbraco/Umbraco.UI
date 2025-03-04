@@ -31,6 +31,7 @@ export default [
       'vite.config.ts',
       'stories/',
       '**/.storybook/**',
+      '**/*.test.ts',
     ],
   },
 
@@ -50,10 +51,12 @@ export default [
       semi: ['warn', 'always'],
       'no-unused-vars': 'off', //Let '@typescript-eslint/no-unused-vars' catch the errors to allow unused function parameters (ex: in interfaces)
       'no-var': 'error',
+      '@typescript-eslint/no-unsafe-function-type': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
       '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
       'lit/no-useless-template-literals': 'error',

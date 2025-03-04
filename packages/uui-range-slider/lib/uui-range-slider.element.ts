@@ -41,7 +41,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
    * @attr
    */
   @property({ type: String })
-  label!: String;
+  label!: string;
 
   /**
    * Disables the input.
@@ -734,8 +734,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       :host([error]) {
-        --color-interactive: var(--uui-color-danger-standalone);
-        --color-hover: var(--uui-color-danger);
+        --color-interactive: var(--uui-color-invalid-standalone);
+        --color-hover: var(--uui-color-invalid);
       }
 
       #range-slider {
@@ -812,11 +812,11 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       :host([error]) .color {
-        background-color: var(--uui-color-danger-standalone);
+        background-color: var(--uui-color-invalid-standalone);
       }
       :host([error]) #inner-color-thumb:hover ~ .color,
       :host([error]) #inner-color-thumb:focus ~ .color {
-        background-color: var(--uui-color-danger-emphasis);
+        background-color: var(--uui-color-invalid-emphasis);
       }
 
       /** Steps */
@@ -844,7 +844,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       :host([error]) .track-step.filled {
-        fill: var(--uui-color-danger-emphasis);
+        fill: var(--uui-color-invalid-emphasis);
       }
 
       :host #inner-color-thumb.active ~ .step-wrapper .track-step.filled,

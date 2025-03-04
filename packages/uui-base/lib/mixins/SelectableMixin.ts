@@ -153,8 +153,10 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       if (!this.selectable) return;
       if (this.deselectable === false) {
         this.#select();
+      } else if (this.selected) {
+        this.#deselect();
       } else {
-        this.selected ? this.#deselect() : this.#select();
+        this.#select();
       }
     }
 

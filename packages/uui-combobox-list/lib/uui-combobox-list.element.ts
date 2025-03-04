@@ -210,12 +210,20 @@ export class UUIComboboxListElement extends LitElement {
     switch (e.key) {
       case 'ArrowUp':
         e.preventDefault();
-        e.ctrlKey ? this._moveIndex(-10) : this._moveIndex(-1);
+        if (e.ctrlKey) {
+          this._moveIndex(-10);
+        } else {
+          this._moveIndex(-1);
+        }
         break;
 
       case 'ArrowDown':
         e.preventDefault();
-        e.ctrlKey ? this._moveIndex(10) : this._moveIndex(1);
+        if (e.ctrlKey) {
+          this._moveIndex(10);
+        } else {
+          this._moveIndex(1);
+        }
 
         break;
 

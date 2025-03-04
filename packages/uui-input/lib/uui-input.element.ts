@@ -353,6 +353,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         );
         border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
+        border-radius: var(--uui-border-radius);
 
         --uui-button-height: 100%;
         --auto-width-text-margin-right: 0;
@@ -436,7 +437,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       :host(:not([pristine]):invalid),
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) {
-        border-color: var(--uui-color-danger);
+        border-color: var(--uui-color-invalid);
       }
 
       input {
@@ -444,7 +445,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         padding: var(--uui-size-1) var(--uui-size-space-3);
         font-size: inherit;
         color: inherit;
-        border-radius: 0;
+        border-radius: var(--uui-border-radius);
         box-sizing: border-box;
         border: none;
         background: none;

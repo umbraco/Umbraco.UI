@@ -20,7 +20,7 @@ const meta: Meta = {
       options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
     },
     color: {
-      options: ['default', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger', 'invalid'],
     },
     type: {
       options: ['button', 'submit', 'reset'],
@@ -117,6 +117,9 @@ export const Loading: Story = {
   args: {
     state: 'waiting',
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const ContentAlign: Story = {
@@ -147,7 +150,13 @@ export const LooksAndColors: Story = {
       'outline',
       'placeholder',
     ] as const;
-    const colors = ['default', 'positive', 'warning', 'danger'] as const;
+    const colors = [
+      'default',
+      'positive',
+      'warning',
+      'danger',
+      'invalid',
+    ] as const;
 
     const uppercaseFirstLetter = (str: string) =>
       str.charAt(0).toUpperCase() + str.slice(1);

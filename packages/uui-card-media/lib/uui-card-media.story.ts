@@ -82,4 +82,7 @@ export const Image: Story = {
   args: {
     slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };

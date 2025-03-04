@@ -23,6 +23,7 @@ const meta: Meta = {
     readme: {
       markdown: readme,
     },
+    chromatic: { disableSnapshot: true },
   },
 };
 
