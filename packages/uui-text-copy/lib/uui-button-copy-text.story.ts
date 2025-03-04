@@ -131,7 +131,7 @@ export const CopiedEvent: Story = {
     <uui-button-copy-text
       ${spread(args)}
       @copied=${(event: UUICopyTextEvent) => {
-        alert(`Copied text: ${event.detail.text}`);
+        alert(`Copied text: ${event.text}`);
       }}></uui-button-copy-text>
   `,
   parameters: {
@@ -141,7 +141,7 @@ export const CopiedEvent: Story = {
 <uui-button-copy-text text="Copy this text"></uui-button-copy-text>
 <script>
   document.querySelector('uui-button-copy-text').addEventListener('copied', (event) => {
-    alert(\`Copied text: \${event.detail.text}\`);
+    alert(\`Copied text: \${event.text}\`);
   });
 </script>
         `,
@@ -159,7 +159,7 @@ export const ModifyClipboardContent: Story = {
     <uui-button-copy-text
       ${spread(args)}
       @copying=${(event: UUICopyTextEvent) => {
-        event.detail.text += ' - Modified before copying';
+        event.text += ' - Modified before copying';
       }}></uui-button-copy-text>
   `,
   parameters: {
@@ -169,7 +169,7 @@ export const ModifyClipboardContent: Story = {
 <uui-button-copy-text text="Original text"></uui-button-copy-text>
 <script>
   document.querySelector('uui-button-copy-text').addEventListener('copying', (event) => {
-    event.detail.text += ' - Modified before copying';
+    event.text += ' - Modified before copying';
   });
 </script>
         `,

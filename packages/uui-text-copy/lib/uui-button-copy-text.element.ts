@@ -78,24 +78,19 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
       }
     }
 
-    const beforeCopyEv = new UUICopyTextEvent(UUICopyTextEvent.COPYING, {
-      detail: { text: valueToCopy },
-    });
+    const beforeCopyEv = new UUICopyTextEvent(UUICopyTextEvent.COPYING);
+    beforeCopyEv.text = valueToCopy;
     this.dispatchEvent(beforeCopyEv);
 
-    if (beforeCopyEv.detail.text != null) {
-      valueToCopy = beforeCopyEv.detail.text;
+    if (beforeCopyEv.text != null) {
+      valueToCopy = beforeCopyEv.text;
     }
 
     try {
       await navigator.clipboard.writeText(valueToCopy);
-      this.dispatchEvent(
-        new UUICopyTextEvent(UUICopyTextEvent.COPIED, {
-          detail: { text: valueToCopy },
-        }),
-      );
-      setTimeout(() => {
-        button.state = 'success';
+      const copiedEv = new UUICopyTextEvent(UUICopyTextEvent.COPIED);
+      copiedEv.text = valueToCopy;
+      this.dispatchEvent(copiedEv);
       }, this.animationStateDelay);
     } catch (err) {
       button.state = 'failed';
