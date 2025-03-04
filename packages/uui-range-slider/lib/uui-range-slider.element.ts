@@ -41,7 +41,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
    * @attr
    */
   @property({ type: String })
-  label!: String;
+  label!: string;
 
   /**
    * Disables the input.
