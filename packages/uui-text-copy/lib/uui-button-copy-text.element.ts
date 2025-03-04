@@ -45,6 +45,8 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
   @property({ type: Number, attribute: 'animation-state-delay' })
   animationStateDelay: number = 250;
 
+  #animationTimer?: any;
+
   constructor() {
     super();
     demandCustomElement(this, 'uui-icon');
@@ -52,9 +54,15 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
     this.addEventListener('click', this.#onClick);
   }
 
-  readonly #onClick = async (e: Event) => {
-    const button = e.target as UUIButtonElement;
-    button.state = 'waiting';
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    if (this.#animationTimer) {
+      clearTimeout(this.#animationTimer);
+    }
+  }
+
+  readonly #onClick = async () => {
+    this.state = 'waiting';
 
     // By default use the value property
     let valueToCopy = this.text;
@@ -73,7 +81,7 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
         }
       } else {
         console.error(`Element ID ${this.copyFrom} not found to copy from`);
-        button.state = 'failed';
+        this.state = 'failed';
         return;
       }
     }
@@ -91,9 +99,11 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
       const copiedEv = new UUICopyTextEvent(UUICopyTextEvent.COPIED);
       copiedEv.text = valueToCopy;
       this.dispatchEvent(copiedEv);
+      this.#animationTimer = setTimeout(() => {
+        this.state = 'success';
       }, this.animationStateDelay);
     } catch (err) {
-      button.state = 'failed';
+      this.state = 'failed';
       console.error('Error copying to clipboard', err);
     }
   };
