@@ -6,6 +6,7 @@ import '@umbraco-ui/uui-checkbox/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-progress-bar/lib';
 import '@umbraco-ui/uui-tag/lib';
+import '@umbraco-ui/uui-symbol-sort/lib';
 
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
@@ -15,7 +16,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 interface TableColumn {
   name: string;
-  sort: Function;
+  sort: (items: Array<TableItem>, desc: boolean) => Array<TableItem>;
 }
 
 interface TableItem {
@@ -224,9 +225,9 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       <uui-table-cell>${item.signUpDate}</uui-table-cell>
       <uui-table-cell>${item.email}</uui-table-cell>
       <uui-table-cell>
-        <uui-tag color="${item.newsletter ? 'positive' : 'secondary'}" size="s"
-          >${item.newsletter ? 'Yes' : 'No'}</uui-tag
-        >
+        <uui-tag color="${item.newsletter ? 'positive' : 'danger'}">
+          ${item.newsletter ? 'Yes' : 'No'}
+        </uui-tag>
       </uui-table-cell>
     </uui-table-row>`;
   };
