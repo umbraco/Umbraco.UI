@@ -64,12 +64,12 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
       // Try & find an element with the ID
       const el = document.getElementById(this.copyFrom);
       if (el) {
-        valueToCopy = el.textContent ?? el.innerText ?? '';
-
-        // Override the value to copy ,if the element has a value property
+        // Override the value to copy, if the element has a value property
         // Such as uui-input or uui-textarea or native inout elements
         if ('value' in el) {
           valueToCopy = (el as any).value;
+        } else {
+          valueToCopy = el.textContent ?? el.innerText ?? '';
         }
       } else {
         console.error(`Element ID ${this.copyFrom} not found to copy from`);
