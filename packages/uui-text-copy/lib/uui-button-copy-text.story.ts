@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 
-import './uui-text-copy.element';
-import type { UUITextCopyElement } from './uui-text-copy.element';
+import './uui-text-copy.element.js';
+import { UUICopyTextEvent } from './UUICopyTextEvent';
+import type { UUIButtonCopyTextElement } from './uui-button-copy-text.element.js';
 import readme from '../README.md?raw';
 
 // For the story to show the example of using inside an uui-input
@@ -11,12 +12,10 @@ import '@umbraco-ui/uui-input/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
 
-import { UUITextCopyEvent } from './UUITextCopyEvent';
-
-const meta: Meta<UUITextCopyElement> = {
-  id: 'uui-text-copy',
-  title: 'Buttons/Text Copy',
-  component: 'uui-text-copy',
+const meta: Meta<UUIButtonCopyTextElement> = {
+  id: 'uui-button-copy-text',
+  title: 'Buttons/Copy text',
+  component: 'uui-button-copy-text',
   parameters: {
     readme: { markdown: readme },
   },
@@ -38,7 +37,7 @@ const meta: Meta<UUITextCopyElement> = {
 };
 
 export default meta;
-type Story = StoryObj<UUITextCopyElement>;
+type Story = StoryObj<UUIButtonCopyTextElement>;
 
 export const Overview: Story = {
   name: 'Simple Copy',
@@ -48,7 +47,7 @@ export const Overview: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-text-copy value="Hey stop copying me 🥸"></uui-text-copy>`,
+        code: `<uui-button-copy-text value="Hey stop copying me 🥸"></uui-button-copy-text>`,
       },
     },
   },
@@ -64,7 +63,7 @@ export const WithLabelSet: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-text-copy value="Hey stop copying me 🥸" label="This is my A11y label I want"></uui-text-copy>`,
+        code: `<uui-button-copy-text value="Hey stop copying me 🥸" label="This is my A11y label I want"></uui-button-copy-text>`,
       },
     },
   },
@@ -79,7 +78,7 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<uui-text-copy value="You cannot copy this" disabled></uui-text-copy>`,
+        code: `<uui-button-copy-text value="You cannot copy this" disabled></uui-button-copy-text>`,
       },
     },
   },
@@ -91,12 +90,14 @@ export const CustomSlotContent: Story = {
     value: 'Custom slot content',
   },
   render: args => html`
-    <uui-text-copy .value=${args.value}> Custom Copy Text </uui-text-copy>
+    <uui-button-copy-text .value=${args.value}>
+      Custom Copy Text
+    </uui-button-copy-text>
   `,
   parameters: {
     docs: {
       source: {
-        code: `<uui-text-copy value="Custom slot content">Custom Copy Text</uui-text-copy>`,
+        code: `<uui-button-copy-text value="Custom slot content">Custom Copy Text</uui-button-copy-text>`,
       },
     },
   },
@@ -109,19 +110,11 @@ export const ColorAndLook: Story = {
     color: 'positive',
     look: 'primary',
   },
-  render: args => html`
-    <uui-text-copy
-      .value=${args.value}
-      .color=${args.color || 'default'}
-      .look=${args.look || 'default'}>
-      <uui-icon name="copy"></uui-icon> Copy
-    </uui-text-copy>
-  `,
   parameters: {
     docs: {
       source: {
         code: `
-<uui-text-copy value="I have the same look and color props as UUI-Button" color="positive" look="primary"></uui-text-copy>
+<uui-button-copy-text value="I have the same look and color props as UUI-Button" color="positive" look="primary"></uui-button-copy-text>
         `,
       },
     },
@@ -134,19 +127,19 @@ export const CopiedEvent: Story = {
     value: 'Copy this text',
   },
   render: args => html`
-    <uui-text-copy
+    <uui-button-copy-text
       .value=${args.value}
-      @copied=${(event: UUITextCopyEvent) => {
+      @copied=${(event: UUICopyTextEvent) => {
         alert(`Copied text: ${event.detail.text}`);
-      }}></uui-text-copy>
+      }}></uui-button-copy-text>
   `,
   parameters: {
     docs: {
       source: {
         code: `
-<uui-text-copy value="Copy this text"></uui-text-copy>
+<uui-button-copy-text value="Copy this text"></uui-button-copy-text>
 <script>
-  document.querySelector('uui-text-copy').addEventListener('copied', (event) => {
+  document.querySelector('uui-button-copy-text').addEventListener('copied', (event) => {
     alert(\`Copied text: \${event.detail.text}\`);
   });
 </script>
@@ -164,7 +157,7 @@ export const ModifyClipboardContent: Story = {
   render: args => html`
     <uui-text-copy
       .value=${args.value}
-      @copying=${(event: UUITextCopyEvent) => {
+      @copying=${(event: UUICopyTextEvent) => {
         event.detail.text += ' - Modified before copying';
       }}></uui-text-copy>
   `,
@@ -189,9 +182,6 @@ export const EmptyValueErrorState: Story = {
   args: {
     copyFrom: 'idSelectorDoesNotExist',
   },
-  render: args => html`
-    <uui-text-copy .copyFrom=${args.copyFrom}></uui-text-copy>
-  `,
   parameters: {
     docs: {
       source: {

@@ -1,2 +1,2 @@
-export * from './uui-text-copy.element';
-export * from './UUITextCopyEvent';
+export * from './uui-button-copy-text.element';
+export * from './UUICopyTextEvent';

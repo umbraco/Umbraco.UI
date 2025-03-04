@@ -5,19 +5,19 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import { UUIInterfaceColor, UUIInterfaceLook } from '@umbraco-ui/uui-base';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { UUITextCopyEvent } from './UUITextCopyEvent';
+import { UUICopyTextEvent } from './UUICopyTextEvent';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
- * @element uui-text-copy
+ * @element uui-button-copy-text
  * @dependency uui-button
  * @dependency uui-icon
  * @fires {UUITextCopyEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
  * @fires {UUITextCopyEvent} copied - Fires when the content is copied to the clipboard
  * @slot - Use to replace the default content of 'Copy' and the copy icon
  */
-@defineElement('uui-text-copy')
-export class UUITextCopyElement extends LabelMixin('', LitElement) {
+@defineElement('uui-button-copy-text')
+export class UUIButtonCopyTextElement extends LabelMixin('', LitElement) {
   /**
    * Set a string you wish to copy to the clipboard
    * @type {string}
@@ -118,7 +118,7 @@ export class UUITextCopyElement extends LabelMixin('', LitElement) {
       }
     }
 
-    const beforeCopyEv = new UUITextCopyEvent(UUITextCopyEvent.COPYING, {
+    const beforeCopyEv = new UUICopyTextEvent(UUICopyTextEvent.COPYING, {
       detail: { text: this.#valueToCopy },
     });
     this.dispatchEvent(beforeCopyEv);
@@ -130,7 +130,7 @@ export class UUITextCopyElement extends LabelMixin('', LitElement) {
     try {
       await navigator.clipboard.writeText(this.#valueToCopy);
       this.dispatchEvent(
-        new UUITextCopyEvent(UUITextCopyEvent.COPIED, {
+        new UUICopyTextEvent(UUICopyTextEvent.COPIED, {
           detail: { text: this.#valueToCopy },
         }),
       );
@@ -166,6 +166,6 @@ export class UUITextCopyElement extends LabelMixin('', LitElement) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-text-copy': UUITextCopyElement;
+    'uui-button-copy-text': UUIButtonCopyTextElement;
   }
 }
