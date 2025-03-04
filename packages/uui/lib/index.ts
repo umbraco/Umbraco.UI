@@ -9,6 +9,7 @@ export * from '@umbraco-ui/uui-box/lib';
 export * from '@umbraco-ui/uui-breadcrumbs/lib';
 export * from '@umbraco-ui/uui-button-group/lib';
 export * from '@umbraco-ui/uui-button-inline-create/lib';
+export * from '@umbraco-ui/uui-button-copy-text/lib';
 export * from '@umbraco-ui/uui-button/lib';
 export * from '@umbraco-ui/uui-card-block-type/lib';
 export * from '@umbraco-ui/uui-card-content-node/lib';
