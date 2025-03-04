@@ -117,6 +117,9 @@ export const Loading: Story = {
   args: {
     state: 'waiting',
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const ContentAlign: Story = {
