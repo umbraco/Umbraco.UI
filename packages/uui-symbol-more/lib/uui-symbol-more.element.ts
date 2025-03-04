@@ -21,6 +21,10 @@ export class UUISymbolMoreElement extends LitElement {
         width: 1.15em;
         height: 1.15em;
       }
+
+      svg {
+        fill: currentColor;
+      }
     `,
   ];
 }
