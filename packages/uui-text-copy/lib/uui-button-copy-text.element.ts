@@ -1,39 +1,28 @@
-import { css, html, LitElement } from 'lit';
+import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
-import { UUIInterfaceColor, UUIInterfaceLook } from '@umbraco-ui/uui-base';
-import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { UUICopyTextEvent } from './UUICopyTextEvent';
+import { UUICopyTextEvent } from './UUICopyTextEvent.js';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
  * @element uui-button-copy-text
  * @dependency uui-button
  * @dependency uui-icon
- * @fires {UUITextCopyEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
- * @fires {UUITextCopyEvent} copied - Fires when the content is copied to the clipboard
- * @slot - Use to replace the default content of 'Copy' and the copy icon
+ * @fires {UUICopyTextEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
+ * @fires {UUICopyTextEvent} copied - Fires when the content is copied to the clipboard
+ * @slot - Use to replace the default content of the copy icon
  */
 @defineElement('uui-button-copy-text')
-export class UUIButtonCopyTextElement extends LabelMixin('', LitElement) {
+export class UUIButtonCopyTextElement extends UUIButtonElement {
   /**
    * Set a string you wish to copy to the clipboard
    * @type {string}
    * @default ''
    */
   @property({ type: String })
-  value = '';
-
-  /**
-   * Disables the button
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean })
-  disabled = false;
+  text: string = '';
 
   /**
    * Copies the text content from another element by specifying the ID of the element
@@ -45,34 +34,7 @@ export class UUIButtonCopyTextElement extends LabelMixin('', LitElement) {
    * @example copy-from="element-id"
    */
   @property({ type: String, attribute: 'copy-from' })
-  copyFrom = '';
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks.
-   * @type {"default" | "primary" | "secondary" | "outline" | "placeholder"}
-   * @attr
-   * @default "default"
-   */
-  @property()
-  look: UUIInterfaceLook = 'default';
-
-  /**
-   * Changes the look of the button to one of the predefined, symbolic looks. For example - set this to positive if you want nice, green "confirm" button.
-   * @type {"default" | "positive" | "warning" | "danger"}
-   * @attr
-   * @default "default"
-   */
-  @property({ reflect: true })
-  color: UUIInterfaceColor = 'default';
-
-  /**
-   * Makes the left and right padding of the button narrower.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean })
-  compact = false;
+  copyFrom: string = '';
 
   /**
    * The delay in milliseconds before the button returns to its default state after a successful copy
@@ -81,35 +43,33 @@ export class UUIButtonCopyTextElement extends LabelMixin('', LitElement) {
    * @default 250
    */
   @property({ type: Number, attribute: 'animation-state-delay' })
-  animationStateDelay = 250;
+  animationStateDelay: number = 250;
 
   constructor() {
     super();
-    demandCustomElement(this, 'uui-button');
     demandCustomElement(this, 'uui-icon');
-  }
 
-  // Used to store the value that will be copied to the clipboard
-  #valueToCopy = '';
+    this.addEventListener('click', this.#onClick);
+  }
 
   readonly #onClick = async (e: Event) => {
     const button = e.target as UUIButtonElement;
     button.state = 'waiting';
 
     // By default use the value property
-    this.#valueToCopy = this.value;
+    let valueToCopy = this.text;
 
     // If copy-from is set use that instead
     if (this.copyFrom) {
       // Try & find an element with the ID
       const el = document.getElementById(this.copyFrom);
       if (el) {
-        this.#valueToCopy = el.textContent ?? el.innerText ?? '';
+        valueToCopy = el.textContent ?? el.innerText ?? '';
 
         // Override the value to copy ,if the element has a value property
         // Such as uui-input or uui-textarea or native inout elements
         if ('value' in el) {
-          this.#valueToCopy = (el as any).value;
+          valueToCopy = (el as any).value;
         }
       } else {
         console.error(`Element ID ${this.copyFrom} not found to copy from`);
@@ -119,19 +79,19 @@ export class UUIButtonCopyTextElement extends LabelMixin('', LitElement) {
     }
 
     const beforeCopyEv = new UUICopyTextEvent(UUICopyTextEvent.COPYING, {
-      detail: { text: this.#valueToCopy },
+      detail: { text: valueToCopy },
     });
     this.dispatchEvent(beforeCopyEv);
 
     if (beforeCopyEv.detail.text != null) {
-      this.#valueToCopy = beforeCopyEv.detail.text;
+      valueToCopy = beforeCopyEv.detail.text;
     }
 
     try {
-      await navigator.clipboard.writeText(this.#valueToCopy);
+      await navigator.clipboard.writeText(valueToCopy);
       this.dispatchEvent(
         new UUICopyTextEvent(UUICopyTextEvent.COPIED, {
-          detail: { text: this.#valueToCopy },
+          detail: { text: valueToCopy },
         }),
       );
       setTimeout(() => {
@@ -143,25 +103,15 @@ export class UUIButtonCopyTextElement extends LabelMixin('', LitElement) {
     }
   };
 
-  render() {
-    return html` <uui-button
-      .color=${this.color}
-      .look=${this.look}
-      .disabled=${this.disabled}
-      .compact=${this.compact}
-      .label=${this.label}
-      @click=${this.#onClick}>
-      <slot> <uui-icon name="copy"></uui-icon> Copy </slot>
-    </uui-button>`;
+  protected override renderLabel() {
+    return html`
+      <slot class="label">
+        <uui-icon name="copy"></uui-icon>
+      </slot>
+    `;
   }
 
-  static readonly styles = [
-    css`
-      slot {
-        pointer-events: none;
-      }
-    `,
-  ];
+  static override readonly styles = UUIButtonElement.styles;
 }
 
 declare global {

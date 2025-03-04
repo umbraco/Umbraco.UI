@@ -1,12 +1,15 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { UUIButtonCopyTextElement } from './uui-button-copy-text.element';
+import '@umbraco-ui/uui-icon/lib';
 
 describe('UUIButtonCopyTextElement', () => {
   let element: UUIButtonCopyTextElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html`<uui-button-copy-text value="Oh hi there"></uui-button-copy-text>`,
+      html`<uui-button-copy-text
+        text="Oh hi there"
+        label="Copy"></uui-button-copy-text>`,
     );
   });
 
@@ -19,8 +22,8 @@ describe('UUIButtonCopyTextElement', () => {
   });
 
   it('renders correctly', async () => {
-    expect(element).shadowDom.to.contain(
-      '<uui-icon name="copy"></uui-icon> Copy',
+    expect(element.shadowRoot?.innerHTML).to.contain(
+      '<uui-icon name="copy" aria-hidden="true"></uui-icon>',
     );
   });
 });
