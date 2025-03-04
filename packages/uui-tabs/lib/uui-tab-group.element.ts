@@ -145,9 +145,11 @@ export class UUITabGroupElement extends LitElement {
         el => el.active && el !== linkedElement,
       );
 
-      hasActiveHidden
-        ? this._moreButtonElement.classList.add('active-inside')
-        : this._moreButtonElement.classList.remove('active-inside');
+      if (hasActiveHidden) {
+        this._moreButtonElement.classList.add('active-inside');
+      } else {
+        this._moreButtonElement.classList.remove('active-inside');
+      }
     }
   };
 
@@ -250,9 +252,11 @@ export class UUITabGroupElement extends LitElement {
       this._moreButtonElement.style.display = '';
     }
 
-    hasActiveTabInDropdown
-      ? this._moreButtonElement.classList.add('active-inside')
-      : this._moreButtonElement.classList.remove('active-inside');
+    if (hasActiveTabInDropdown) {
+      this._moreButtonElement.classList.add('active-inside');
+    } else {
+      this._moreButtonElement.classList.remove('active-inside');
+    }
 
     this.requestUpdate();
   }
