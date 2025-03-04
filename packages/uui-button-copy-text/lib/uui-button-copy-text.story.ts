@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 
 import './uui-button-copy-text.element.js';
-import { UUICopyTextEvent } from './UUICopyTextEvent';
+import { UUICopyTextEvent } from './UUICopyTextEvent.js';
 import type { UUIButtonCopyTextElement } from './uui-button-copy-text.element.js';
 import readme from '../README.md?raw';
 import { renderSlots, spread } from '../../../storyhelpers/index.js';

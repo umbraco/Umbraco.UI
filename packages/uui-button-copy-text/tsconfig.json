@@ -3,15 +3,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../uui-button-copy-text/lib",
-    "rootDir": "../uui-button-copy-text/lib",
+    "outDir": "./lib",
+    "rootDir": "./lib",
     "composite": true
   },
-  "include": ["../uui-button-copy-text/**/*.ts"],
-  "exclude": [
-    "../uui-button-copy-text/**/*.test.ts",
-    "../uui-button-copy-text/**/*.story.ts"
-  ],
+  "include": ["./**/*.ts"],
+  "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": [
     {
       "path": "../uui-base"
