@@ -125,7 +125,7 @@ export class UUICardElement extends SelectOnlyMixin(
         height: 100%;
         z-index: 1;
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid var(--uui-color-danger);
+        border: var(--uui-card-border-width) solid var(--uui-color-invalid);
         border-radius: var(--uui-border-radius);
       }
 

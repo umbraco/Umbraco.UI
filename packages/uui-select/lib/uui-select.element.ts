@@ -334,11 +334,11 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       :host([error]) #native {
-        border: 1px solid var(--uui-color-danger-standalone);
+        border: 1px solid var(--uui-color-invalid-standalone);
       }
 
       :host([error]) #native[disabled] {
-        border: 1px solid var(--uui-color-danger-standalone);
+        border: 1px solid var(--uui-color-invalid-standalone);
       }
     `,
   ];

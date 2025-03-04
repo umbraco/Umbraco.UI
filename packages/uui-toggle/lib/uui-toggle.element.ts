@@ -190,7 +190,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) #toggle,
       :host(:not([pristine])[internals-invalid]) label:hover #toggle {
-        border: 1px solid var(--uui-color-danger-standalone);
+        border: 1px solid var(--uui-color-invalid-standalone);
       }
     `,
   ];
