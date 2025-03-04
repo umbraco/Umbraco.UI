@@ -12,6 +12,12 @@
   "references": [
     {
       "path": "../uui-base"
+    },
+    {
+      "path": "../uui-button"
+    },
+    {
+      "path": "../uui-icon"
     }
   ]
 }
