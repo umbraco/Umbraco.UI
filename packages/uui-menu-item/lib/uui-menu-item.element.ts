@@ -311,10 +311,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Disabled */
       :host([disabled]) #menu-item {
-        color: var(
-          --uui-menu-item-color-disabled,
-          var(--uui-color-disabled-contrast)
-        );
         background-color: var(
           --uui-menu-item-background-color-disabled,
           var(--uui-color-disabled)
@@ -467,6 +463,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       :host([disabled]) #label-button {
         cursor: default;
+        opacity: 0.4;
       }
 
       button {
