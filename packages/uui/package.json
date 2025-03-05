@@ -46,6 +46,7 @@
     "@umbraco-ui/uui-box": "1.12.2",
     "@umbraco-ui/uui-breadcrumbs": "1.12.2",
     "@umbraco-ui/uui-button": "1.12.2",
+    "@umbraco-ui/uui-button-copy-text": "1.12.2",
     "@umbraco-ui/uui-button-group": "1.12.2",
     "@umbraco-ui/uui-button-inline-create": "1.12.2",
     "@umbraco-ui/uui-card": "1.12.2",
