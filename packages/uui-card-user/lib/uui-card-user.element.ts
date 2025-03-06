@@ -159,12 +159,14 @@ export class UUICardUserElement extends UUICardElement {
         position: relative;
         align-items: center;
         margin: 0 0 3px 0;
+        height: 100%;
       }
 
       #content > span {
         vertical-align: center;
         margin-top: 3px;
         font-weight: 700;
+        overflow-wrap: anywhere;
       }
 
       .avatar {
