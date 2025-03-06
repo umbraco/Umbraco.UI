@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "1.13.0-rc.0",
+  "version": "1.13.0-rc.1",
   "license": "MIT",
   "description": "The full Umbraco UI Library. The package includes and registers all UUI Web Components.",
   "keywords": [
@@ -46,9 +46,9 @@
     "@umbraco-ui/uui-box": "1.13.0-rc.0",
     "@umbraco-ui/uui-breadcrumbs": "1.13.0-rc.0",
     "@umbraco-ui/uui-button": "1.13.0-rc.0",
+    "@umbraco-ui/uui-button-copy-text": "1.13.0-rc.0",
     "@umbraco-ui/uui-button-group": "1.13.0-rc.0",
     "@umbraco-ui/uui-button-inline-create": "1.13.0-rc.0",
-    "@umbraco-ui/uui-button-copy-text": "1.13.0-rc.0",
     "@umbraco-ui/uui-card": "1.13.0-rc.0",
     "@umbraco-ui/uui-card-block-type": "1.13.0-rc.0",
     "@umbraco-ui/uui-card-content-node": "1.13.0-rc.0",
