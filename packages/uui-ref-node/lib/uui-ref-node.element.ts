@@ -219,7 +219,6 @@ export class UUIRefNodeElement extends UUIRefElement {
       :host([selectable]) #open-part {
         flex-grow: 0;
         padding: 0;
-        margin: calc(var(--uui-size-2));
       }
 
       :host(:not([disabled])) #open-part:hover #icon {
