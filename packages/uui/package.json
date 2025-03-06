@@ -48,6 +48,7 @@
     "@umbraco-ui/uui-button": "1.13.0-rc.0",
     "@umbraco-ui/uui-button-group": "1.13.0-rc.0",
     "@umbraco-ui/uui-button-inline-create": "1.13.0-rc.0",
+    "@umbraco-ui/uui-button-copy-text": "1.13.0-rc.0",
     "@umbraco-ui/uui-card": "1.13.0-rc.0",
     "@umbraco-ui/uui-card-block-type": "1.13.0-rc.0",
     "@umbraco-ui/uui-card-content-node": "1.13.0-rc.0",
