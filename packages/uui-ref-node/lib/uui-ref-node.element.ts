@@ -184,7 +184,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         align-items: center;
         justify-content: center;
         line-height: 1.2em;
-        padding: calc(var(--uui-size-3));
+        padding: calc(var(--uui-size-2));
       }
 
       #open-part {
@@ -220,6 +220,10 @@ export class UUIRefNodeElement extends UUIRefElement {
         flex-grow: 0;
         padding: 0;
         margin: calc(var(--uui-size-2));
+
+        #content {
+          padding: 0;
+        }
       }
 
       :host(:not([disabled])) #open-part:hover #icon {
