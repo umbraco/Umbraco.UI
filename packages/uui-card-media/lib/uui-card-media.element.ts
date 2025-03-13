@@ -189,6 +189,9 @@ export class UUICardMediaElement extends UUICardElement {
       }
       #open-part:hover #name {
         text-decoration: underline;
+      }
+
+      #open-part #name {
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
