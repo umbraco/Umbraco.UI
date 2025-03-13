@@ -106,7 +106,7 @@ export class UUICardMediaElement extends UUICardElement {
         <!--
         TODO: Implement info box when pop-out is ready
         -->
-        <span id="name">${this.name}</span>
+        <span id="name" title="${this.name}">${this.name}</span>
         <small id="detail">${this.detail}<slot name="detail"></slot></small>
       </div>
     `;
@@ -189,6 +189,12 @@ export class UUICardMediaElement extends UUICardElement {
       }
       #open-part:hover #name {
         text-decoration: underline;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
       }
 
       :host([image]:not([image=''])) #open-part {
