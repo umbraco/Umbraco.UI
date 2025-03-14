@@ -76,7 +76,9 @@ export class UUICardContentNodeElement extends UUICardElement {
               ? this._renderFallbackIcon()
               : ''}
           </span>
-          <div id="name">${this.name}<slot name="name"></slot></div>
+          <div title="${this.name}" id="name">
+            ${this.name}<slot name="name"></slot>
+          </div>
         </span>
         ${this.renderDetail()}
       </span>
@@ -171,6 +173,14 @@ export class UUICardContentNodeElement extends UUICardElement {
         cursor: pointer;
         flex-grow: 1;
         padding: var(--uui-size-space-4) var(--uui-size-space-5);
+      }
+
+      #open-part #name {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       #content {
