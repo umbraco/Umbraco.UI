@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+### Bug Fixes
+
+- ensure `renderSlots()` return correctly tagged unsafe html ([6a1366e](https://github.com/umbraco/Umbraco.UI/commit/6a1366e439870ad60d39ce8f387a3f8530ed1ba7))
+- long media name hides the thumbnail ([#1042](https://github.com/umbraco/Umbraco.UI/issues/1042)) ([f049b67](https://github.com/umbraco/Umbraco.UI/commit/f049b674f626e47926a0efbce0fec4b2e1265a00))
+- Make disabled menu item button more clear ([#1034](https://github.com/umbraco/Umbraco.UI/issues/1034)) ([a7177be](https://github.com/umbraco/Umbraco.UI/commit/a7177bee01932062c2118fc7cd4d81c9b71326fd))
+- Remove extra margin on ref-node ([#1037](https://github.com/umbraco/Umbraco.UI/issues/1037)) ([#1038](https://github.com/umbraco/Umbraco.UI/issues/1038)) ([5718632](https://github.com/umbraco/Umbraco.UI/commit/57186329f83727439555c59b110e1deb4a980381))
+- **uui-card:** text overflow when user name is too long ([#1036](https://github.com/umbraco/Umbraco.UI/issues/1036)) ([e18d793](https://github.com/umbraco/Umbraco.UI/commit/e18d793772f7fb6af9b3ba8b8690f31854780b19))
+
 # [1.13.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.0...v1.13.0-rc.1) (2025-03-06)
 
 **Note:** Version bump only for package uui-monorepo

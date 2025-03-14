@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+### Bug Fixes
+
+- Remove extra margin on ref-node ([#1037](https://github.com/umbraco/Umbraco.UI/issues/1037)) ([#1038](https://github.com/umbraco/Umbraco.UI/issues/1038)) ([5718632](https://github.com/umbraco/Umbraco.UI/commit/57186329f83727439555c59b110e1deb4a980381))
+
 # [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
 
 **Note:** Version bump only for package @umbraco-ui/uui-ref-node
