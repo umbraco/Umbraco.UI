@@ -48,10 +48,11 @@ jobs:
         with:
           # pulls all commits (needed for chromatic to find baselines)
           fetch-depth: '0'
-      - name: Use Node.js 20
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
+          check-latest: true
           cache: 'npm'
       - name: Install dependencies
         run: npm install
