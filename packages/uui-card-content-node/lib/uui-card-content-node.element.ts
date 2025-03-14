@@ -181,6 +181,7 @@ export class UUICardContentNodeElement extends UUICardElement {
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        overflow-wrap: anywhere;
       }
 
       #content {
