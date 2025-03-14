@@ -463,7 +463,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       :host([disabled]) #label-button {
         cursor: default;
-        opacity: 0.4;
+        opacity: 0.55;
       }
 
       button {
