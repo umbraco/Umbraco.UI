@@ -57,7 +57,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Publish to Chromatic
-        uses: chromaui/action@v11
+        uses: chromaui/action@latest
         continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -66,3 +66,6 @@ jobs:
           exitOnceUploaded: true
           onlyChanged: true,
           untraced: '.storybook/images/**/*,storyhelpers/**/*'
+          autoAcceptChanges: 'v*/contrib'
+          externals: |
+            .storybook/images/**
