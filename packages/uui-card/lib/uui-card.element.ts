@@ -84,7 +84,8 @@ export class UUICardElement extends SelectOnlyMixin(
   }
 
   protected render() {
-    return html`<slot></slot>`;
+    return html`<slot></slot>
+      <div id="select-border"></div>`;
   }
 
   static styles = [
