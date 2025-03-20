@@ -76,7 +76,7 @@ export class UUICardUserElement extends UUICardElement {
         name="avatar"
         class="avatar"
         @slotchange=${this._avatarSlotChanged}></slot>
-      <span>${this.name}</span>
+      <span title="${this.name}">${this.name}</span>
       <slot></slot>
     </div>`;
   }
@@ -159,12 +159,19 @@ export class UUICardUserElement extends UUICardElement {
         position: relative;
         align-items: center;
         margin: 0 0 3px 0;
+        height: 100%;
       }
 
       #content > span {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
         vertical-align: center;
         margin-top: 3px;
         font-weight: 700;
+        overflow-wrap: anywhere;
       }
 
       .avatar {

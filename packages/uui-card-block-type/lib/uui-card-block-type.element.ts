@@ -96,8 +96,8 @@ export class UUICardBlockTypeElement extends UUICardElement {
   #renderContent() {
     return html`
       <div id="content">
-        <span id="name">${this.name}</span>
-        <small>${this.description}<slot name="description"></slot></small>
+        <span title="${this.name}" id="name">${this.name}</span>
+        <small title="${this.description}">${this.description}<slot name="description"></slot></small>
       </div></div>
     `;
   }
@@ -175,6 +175,15 @@ export class UUICardBlockTypeElement extends UUICardElement {
       }
       #open-part:hover #name {
         text-decoration: underline;
+      }
+      #open-part #name,
+      #open-part small {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
       }
 
       :host([image]:not([image=''])) #open-part {
