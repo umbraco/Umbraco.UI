@@ -38,13 +38,13 @@
       "path": "../uui-button"
     },
     {
+      "path": "../uui-button-copy-text"
+    },
+    {
       "path": "../uui-button-group"
     },
     {
       "path": "../uui-button-inline-create"
-    },
-    {
-      "path": "../uui-button-copy-text"
     },
     {
       "path": "../uui-card"

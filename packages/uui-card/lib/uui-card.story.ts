@@ -9,7 +9,7 @@ const meta: Meta = {
   component: 'uui-card',
   title: 'Displays/Cards/Card',
   args: {
-    slot: 'This is an example of a simple card',
+    slot: '<div style="margin: var(--uui-size-space-4)">This is an example of a simple card <a href="#link">with a link</a>.</div>',
   },
   render: args =>
     html`<uui-card ${spread(args)}>${renderSlots(args)}</uui-card>`,
