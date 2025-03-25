@@ -586,6 +586,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         --uui-look-outline-border: #ddd;
         --uui-look-outline-border-hover: #aaa;
         font-size: 0.8rem;
+        color: var(--uui-color-text);
         display: block;
         width: var(--uui-color-picker-width, 280px);
       }
@@ -597,9 +598,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
       .color-picker {
         width: 100%;
-        background-color: #fff;
+        background-color: var(--uui-color-surface);
         user-select: none;
-        border: solid 1px #e4e4e7;
+        border: solid 1px var(--uui-color-border);
       }
       .color-picker__user-input {
         display: flex;
@@ -705,7 +706,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       uui-color-swatches {
-        border-top: solid 1px #d4d4d8;
+        border-top: solid 1px var(--uui-color-border);
         padding: 0.75rem;
       }
 
