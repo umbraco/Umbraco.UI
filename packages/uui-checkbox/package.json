@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-checkbox",
-  "version": "1.13.0-rc.2",
+  "version": "1.13.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -33,9 +33,9 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.13.0-rc.2",
-    "@umbraco-ui/uui-boolean-input": "1.13.0-rc.2",
-    "@umbraco-ui/uui-icon-registry-essential": "1.13.0-rc.2"
+    "@umbraco-ui/uui-base": "1.13.0",
+    "@umbraco-ui/uui-boolean-input": "1.13.0",
+    "@umbraco-ui/uui-icon-registry-essential": "1.13.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
