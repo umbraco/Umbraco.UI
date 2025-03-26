@@ -38,6 +38,9 @@
       "path": "../uui-button"
     },
     {
+      "path": "../uui-button-copy-text"
+    },
+    {
       "path": "../uui-button-group"
     },
     {

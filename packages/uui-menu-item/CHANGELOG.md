@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-menu-item
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+### Bug Fixes
+
+- Make disabled menu item button more clear ([#1034](https://github.com/umbraco/Umbraco.UI/issues/1034)) ([a7177be](https://github.com/umbraco/Umbraco.UI/commit/a7177bee01932062c2118fc7cd4d81c9b71326fd))
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+**Note:** Version bump only for package @umbraco-ui/uui-menu-item
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 ### Bug Fixes
