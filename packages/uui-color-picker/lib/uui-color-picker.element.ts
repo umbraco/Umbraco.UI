@@ -642,7 +642,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         width: 100%;
         height: 100%;
         border-radius: inherit;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
         /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
         background-color: var(--preview-color);
       }
@@ -652,6 +651,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       .color-picker__transparent-bg {
+        border: 1px solid var(--uui-color-border);
         background-image: linear-gradient(
             45deg,
             var(--uui-palette-grey) 25%,
