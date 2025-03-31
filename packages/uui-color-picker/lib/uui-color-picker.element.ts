@@ -375,11 +375,12 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const colord = new Colord(colorString);
 
     const { h, s, l, a } = colord.toHsl();
+    console.log(colord.rgba, this.opacity);
 
     this.hue = h;
     this.saturation = s;
     this.lightness = l;
-    this.alpha = this.opacity ? a * 100 : 100;
+    this.alpha = this.opacity != undefined ? a * 100 : 100;
 
     const hslaColor = colorString as HslaColor;
 
@@ -395,7 +396,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(
       new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
     );
-
     return true;
   }
 
