@@ -86,8 +86,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
    * @default
    */
   @property({ type: String, attribute: 'minlength-message' })
-  minlengthMessage = 'This field need more characters';
-
+  minlengthMessage = '{0} characters left';
   /**
    * This is a maximum value of the input.
    * @type {number}
@@ -104,7 +103,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
    * @default
    */
   @property({ type: String, attribute: 'maxlength-message' })
-  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+  maxlengthMessage = 'Maximum {0} characters, {1} too many.';
 
   @query('#textarea')
   protected _textarea!: HTMLInputElement;
@@ -163,12 +162,21 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
     this.addValidator(
       'tooShort',
-      () => this.minlengthMessage,
+      () =>
+        this.formatString(
+          this.minlengthMessage,
+          this.minlength ? this.minlength - String(this.value).length : '',
+        ),
       () => !!this.minlength && (this.value as string).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
-      () => this.maxlengthMessage,
+      () =>
+        this.formatString(
+          this.maxlengthMessage,
+          this.maxlength ?? '',
+          this.maxlength ? String(this.value).length - this.maxlength : '',
+        ),
       () => !!this.maxlength && (this.value as string).length > this.maxlength,
     );
   }
@@ -184,6 +192,13 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         this.autoUpdateHeight();
       });
     }
+  }
+
+  formatString(str: string, ...values: (string | number)[]): string {
+    return str.replace(
+      /{(\d+)}/g,
+      (_, index) => values[index]?.toString() ?? '',
+    );
   }
 
   /**

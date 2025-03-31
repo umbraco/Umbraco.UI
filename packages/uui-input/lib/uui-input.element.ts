@@ -85,7 +85,7 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @default
    */
   @property({ type: String, attribute: 'minlength-message' })
-  minlengthMessage = 'This field need more characters';
+  minlengthMessage = '{0} characters left';
 
   /**
    * Sets the max value of the input.
@@ -112,7 +112,7 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @default
    */
   @property({ type: String, attribute: 'maxlength-message' })
-  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+  maxlengthMessage = 'Maximum {0} characters, {1} too many.';
 
   /**
    * Specifies the interval between legal numbers of the input
@@ -216,18 +216,34 @@ export class UUIInputElement extends UUIFormControlMixin(
 
     this.addValidator(
       'tooShort',
-      () => this.minlengthMessage,
+      () =>
+        this.formatString(
+          this.minlengthMessage,
+          this.minlength ? this.minlength - String(this.value).length : '',
+        ),
       () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
-      () => this.maxlengthMessage,
+      () =>
+        this.formatString(
+          this.maxlengthMessage,
+          this.maxlength ?? '',
+          this.maxlength ? String(this.value).length - this.maxlength : '',
+        ),
       () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
 
     this.updateComplete.then(() => {
       this.addFormControlElement(this._input);
     });
+  }
+
+  formatString(str: string, ...values: (string | number)[]): string {
+    return str.replace(
+      /{(\d+)}/g,
+      (_, index) => values[index]?.toString() ?? '',
+    );
   }
 
   #onKeyDown(e: KeyboardEvent): void {
