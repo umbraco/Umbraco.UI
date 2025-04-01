@@ -375,7 +375,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const colord = new Colord(colorString);
 
     const { h, s, l, a } = colord.toHsl();
-    console.log(colord.rgba, this.opacity);
 
     this.hue = h;
     this.saturation = s;
