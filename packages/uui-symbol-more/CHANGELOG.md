@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-symbol-more
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-symbol-more
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+### Bug Fixes
+
+- **uui-symbol-more:** inherit current color ([#1025](https://github.com/umbraco/Umbraco.UI/issues/1025)) ([b299735](https://github.com/umbraco/Umbraco.UI/commit/b2997357d6ae677b25a7d27f2fe901c6280ae0e9))
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-symbol-more

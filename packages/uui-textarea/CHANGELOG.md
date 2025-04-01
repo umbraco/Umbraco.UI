@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-textarea
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-textarea
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+### Bug Fixes
+
+- apply border radius to input, select, and textarea ([57abde0](https://github.com/umbraco/Umbraco.UI/commit/57abde0749cb0d43320e0ae8ea8b1f3b45a7925b))
+
+### Features
+
+- New color 'invalid' ([#1009](https://github.com/umbraco/Umbraco.UI/issues/1009)) ([cd24246](https://github.com/umbraco/Umbraco.UI/commit/cd24246fe6af0e245570d082357e8432b58b2302))
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-textarea
