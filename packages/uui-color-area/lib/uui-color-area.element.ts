@@ -115,7 +115,7 @@ export class UUIColorAreaElement extends LitElement {
       const parsed = colord(newVal);
 
       if (parsed.isValid()) {
-        const { h, l, a } = parsed.toHsl();
+        const { h, s, l, a } = parsed.toHsl();
 
         // Update hue from parsed color, but when color is black, value from hue slider may be different from zero.
         if (h !== 0) {
@@ -123,6 +123,7 @@ export class UUIColorAreaElement extends LitElement {
         }
 
         this.lightness = l;
+        this.saturation = s;
         this.brightness = this.getBrightness(l);
         this.alpha = a * 100;
       }
@@ -210,9 +211,8 @@ export class UUIColorAreaElement extends LitElement {
       l: this.lightness,
       a: this.alpha / 100,
     });
-
+    console.log(this.saturation);
     this._value = color.toRgbString();
-
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
@@ -226,10 +226,13 @@ export class UUIColorAreaElement extends LitElement {
     const color = colord(
       `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
     );
+
+    console.log(`hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`);
+
     if (!color.isValid()) {
       return '';
     }
-
+    console.log(color.toHex());
     return color.toHex();
   }
 
