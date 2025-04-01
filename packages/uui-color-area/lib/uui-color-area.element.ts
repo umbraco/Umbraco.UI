@@ -211,7 +211,7 @@ export class UUIColorAreaElement extends LitElement {
       l: this.lightness,
       a: this.alpha / 100,
     });
-    console.log(this.saturation);
+
     this._value = color.toRgbString();
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
@@ -227,12 +227,10 @@ export class UUIColorAreaElement extends LitElement {
       `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
     );
 
-    console.log(`hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`);
-
     if (!color.isValid()) {
       return '';
     }
-    console.log(color.toHex());
+
     return color.toHex();
   }
 
