@@ -71,8 +71,8 @@ export class UUIAvatarElement extends LitElement {
       return initials;
     }
 
-    const words = name.match(/(\w+)/g);
-
+    const matches = [...name.matchAll(/(?:^|\s)(.)/g)];
+    const words = matches.map(m => m[1]).join('');
     if (!words?.length) {
       return initials;
     }
