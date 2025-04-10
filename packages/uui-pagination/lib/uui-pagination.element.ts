@@ -126,6 +126,62 @@ export class UUIPaginationElement extends LitElement {
   @property({ reflect: true, attribute: 'aria-label' })
   ariaLabel = '';
 
+  private _firstLabel = 'First';
+  /**
+   * This property is used to generate the name of the first button
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  get firstLabel() {
+    return this._firstLabel;
+  }
+  set firstLabel(newValue: string) {
+    this._firstLabel = newValue;
+  }
+
+  private _previousLabel = 'Previous';
+  /**
+   * This property is used to generate the name of the previous button
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  get previousLabel() {
+    return this._previousLabel;
+  }
+  set previousLabel(newValue: string) {
+    this._previousLabel = newValue;
+  }
+
+  private _nextLabel = 'Next';
+  /**
+   * This property is used to generate the name of the next button
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  get nextLabel() {
+    return this._nextLabel;
+  }
+  set nextLabel(newValue: string) {
+    this._nextLabel = newValue;
+  }
+
+  private _lastLabel = 'Last';
+  /**
+   * This property is used to generate the name of the last button
+   * @type {string}
+   * @attr
+   */
+  @property({ type: String })
+  get lastLabel() {
+    return this._lastLabel;
+  }
+  set lastLabel(newValue: string) {
+    this._lastLabel = newValue;
+  }
+
   private _total = 100;
 
   /**
@@ -217,7 +273,7 @@ export class UUIPaginationElement extends LitElement {
       label="Go to first page"
       ?disabled=${this._current === 1}
       @click=${() => this.goToPage(1)}>
-      First
+      ${this.firstLabel}
     </uui-button>`;
   }
 
@@ -230,7 +286,7 @@ export class UUIPaginationElement extends LitElement {
       label="Go to previous page"
       ?disabled=${this._current === 1}
       @click=${this.goToPreviousPage}>
-      Previous
+      ${this.previousLabel}
     </uui-button>`;
   }
 
@@ -243,7 +299,7 @@ export class UUIPaginationElement extends LitElement {
       label="Go to next page"
       ?disabled=${this._current === this.total}
       @click=${this.goToNextPage}>
-      Next
+      ${this.nextLabel}
     </uui-button>`;
   }
 
@@ -257,7 +313,7 @@ export class UUIPaginationElement extends LitElement {
         label="Go to last page"
         ?disabled=${this.total === this._current}
         @click=${() => this.goToPage(this.total)}>
-        Last
+        ${this.lastLabel}
       </uui-button>
     `;
   }
