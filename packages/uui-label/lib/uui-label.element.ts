@@ -80,7 +80,7 @@ export class UUILabelElement extends LitElement {
       }
       #required {
         display: inline;
-        color: var(--uui-color-invalid);
+        color: var(--uui-color-danger);
         font-weight: 900;
       }
     `,
