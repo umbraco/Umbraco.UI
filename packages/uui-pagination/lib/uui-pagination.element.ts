@@ -126,61 +126,36 @@ export class UUIPaginationElement extends LitElement {
   @property({ reflect: true, attribute: 'aria-label' })
   ariaLabel = '';
 
-  private _firstLabel = 'First';
   /**
    * This property is used to generate the name of the first button
    * @type {string}
    * @attr
    */
   @property({ type: String })
-  get firstLabel() {
-    return this._firstLabel;
-  }
-  set firstLabel(newValue: string) {
-    this._firstLabel = newValue;
-  }
+  firstLabel: string = 'First';
 
-  private _previousLabel = 'Previous';
   /**
    * This property is used to generate the name of the previous button
    * @type {string}
    * @attr
    */
   @property({ type: String })
-  get previousLabel() {
-    return this._previousLabel;
-  }
-  set previousLabel(newValue: string) {
-    this._previousLabel = newValue;
-  }
+  previousLabel: string = 'Previous';
 
-  private _nextLabel = 'Next';
   /**
    * This property is used to generate the name of the next button
    * @type {string}
    * @attr
    */
   @property({ type: String })
-  get nextLabel() {
-    return this._nextLabel;
-  }
-  set nextLabel(newValue: string) {
-    this._nextLabel = newValue;
-  }
-
-  private _lastLabel = 'Last';
+  nextLabel: string = 'Next';
   /**
    * This property is used to generate the name of the last button
    * @type {string}
    * @attr
    */
   @property({ type: String })
-  get lastLabel() {
-    return this._lastLabel;
-  }
-  set lastLabel(newValue: string) {
-    this._lastLabel = newValue;
-  }
+  lastLabel: string = 'Last';
 
   private _total = 100;
 
@@ -270,11 +245,9 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       class="nav"
       role="listitem"
-      label="Go to first page"
+      label=${this.firstLabel}
       ?disabled=${this._current === 1}
-      @click=${() => this.goToPage(1)}>
-      ${this.firstLabel}
-    </uui-button>`;
+      @click=${() => this.goToPage(1)}></uui-button>`;
   }
 
   protected renderPrevious() {
@@ -283,11 +256,9 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       class="nav"
       role="listitem"
-      label="Go to previous page"
+      label=${this.previousLabel}
       ?disabled=${this._current === 1}
-      @click=${this.goToPreviousPage}>
-      ${this.previousLabel}
-    </uui-button>`;
+      @click=${this.goToPreviousPage}></uui-button>`;
   }
 
   protected renderNext() {
@@ -296,11 +267,9 @@ export class UUIPaginationElement extends LitElement {
       look="outline"
       role="listitem"
       class="nav"
-      label="Go to next page"
+      label=${this.nextLabel}
       ?disabled=${this._current === this.total}
-      @click=${this.goToNextPage}>
-      ${this.nextLabel}
-    </uui-button>`;
+      @click=${this.goToNextPage}></uui-button>`;
   }
 
   protected renderLast() {
@@ -310,11 +279,9 @@ export class UUIPaginationElement extends LitElement {
         look="outline"
         role="listitem"
         class="nav"
-        label="Go to last page"
+        label=${this.lastLabel}
         ?disabled=${this.total === this._current}
-        @click=${() => this.goToPage(this.total)}>
-        ${this.lastLabel}
-      </uui-button>
+        @click=${() => this.goToPage(this.total)}></uui-button>
     `;
   }
 
