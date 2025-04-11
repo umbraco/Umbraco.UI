@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { css, html, LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 /**
  *  Avatar for displaying users
@@ -43,19 +43,20 @@ export class UUIAvatarElement extends LitElement {
    * @default ''
    */
   @property({ type: String, reflect: true })
-  get name() {
-    return this._name;
-  }
-  set name(newVal) {
-    const oldValue = this._name;
-    this._name = newVal;
-    this.initials = this.createInitials(this._name);
-    this.requestUpdate('title', oldValue);
-  }
-  private _name = '';
+  name = '';
 
-  @state()
-  private initials = '';
+  /**
+   * Use this to override the initials generated from the name.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  initials?: string;
+
+  private get _initials() {
+    return this.initials?.substring(0, 3) || this.createInitials(this.name);
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -77,10 +78,10 @@ export class UUIAvatarElement extends LitElement {
       return initials;
     }
 
-    initials = words[0].substring(0, 1);
+    initials = words[0].charAt(0);
 
     if (words.length > 1) {
-      initials += words[words.length - 1].substring(0, 1);
+      initials += words[words.length - 1].charAt(0);
     }
 
     return initials.toUpperCase();
@@ -90,14 +91,14 @@ export class UUIAvatarElement extends LitElement {
     return html` <img
       src="${this.imgSrc}"
       srcset="${this.imgSrcset}"
-      alt="${this.initials}"
+      alt="${this._initials}"
       title="${this.name}" />`;
   }
 
   render() {
     return html`
       ${this.imgSrc ? this.renderImage() : ''}
-      ${!this.imgSrc ? this.initials : ''}
+      ${!this.imgSrc ? this._initials : ''}
       <slot></slot>
     `;
   }
