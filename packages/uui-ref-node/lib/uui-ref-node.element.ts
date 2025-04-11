@@ -181,6 +181,7 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       #content {
         display: flex;
+        flex-grow: 1;
         align-items: center;
         justify-content: center;
         line-height: 1.2em;
