@@ -59,6 +59,13 @@ export const Colors: Story = {
   },
 };
 
+export const Initials: Story = {
+  args: {
+    name: 'Umbraco HQ',
+    initials: 'AB',
+  },
+};
+
 /**
  * Slotted content might overflow, use the `overflow` attribute to hide overflow.
  */
