@@ -2,7 +2,7 @@ import {
   setCustomElementsManifest,
   type Preview,
 } from '@storybook/web-components';
-import '../packages/uui-css/lib/uui-css.css';
+import '../packages/uui-css/dist/uui-css.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
