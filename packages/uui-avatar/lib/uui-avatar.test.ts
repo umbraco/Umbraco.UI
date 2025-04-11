@@ -41,34 +41,77 @@ describe('UuiAvatar', () => {
     });
   });
 
-  it('renders an image when imgSrc is set', async () => {
-    const avatar = await fixture(
-      html`<uui-avatar img-src="${avatarSrc}" name="My Avatar"></uui-avatar>`,
-    );
-    expect(avatar).shadowDom.to.equal(
-      `<img alt="MA" src="${avatarSrc}" srcset="" title="My Avatar" /><slot></<slot>`,
-    );
-  });
+  describe('initials', () => {
+    it('renders an image when imgSrc is set', async () => {
+      const avatar = await fixture(
+        html`<uui-avatar img-src="${avatarSrc}" name="My Avatar"></uui-avatar>`,
+      );
+      expect(avatar).shadowDom.to.equal(
+        `<img alt="MA" src="${avatarSrc}" srcset="" title="My Avatar" /><slot></<slot>`,
+      );
+    });
 
-  it('renders an image with alt text when imgSrc and text is set', async () => {
-    const avatar = await fixture(
-      html`<uui-avatar img-src="${avatarSrc}" name="alt text"></uui-avatar>`,
-    );
-    expect(avatar).shadowDom.to.equal(
-      `<img alt="AT" src="${avatarSrc}" srcset="" title="alt text" /><slot></<slot>`,
-    );
-  });
+    it('renders an image with alt text when imgSrc and text is set', async () => {
+      const avatar = await fixture(
+        html`<uui-avatar img-src="${avatarSrc}" name="alt text"></uui-avatar>`,
+      );
+      expect(avatar).shadowDom.to.equal(
+        `<img alt="AT" src="${avatarSrc}" srcset="" title="alt text" /><slot></<slot>`,
+      );
+    });
 
-  it('shows the first initial when text is used and there is no image', async () => {
-    const avatar = await fixture(html`<uui-avatar name="First"></uui-avatar>`);
-    expect(avatar).shadowDom.to.equal('F<slot></<slot>');
-  });
+    it('shows the first initial when text is used and there is no image', async () => {
+      const avatar = await fixture(
+        html`<uui-avatar name="First"></uui-avatar>`,
+      );
+      expect(avatar).shadowDom.to.equal('F<slot></<slot>');
+    });
 
-  it('shows the first and last initial when text is used and there is no image', async () => {
-    const avatar = await fixture(
-      html`<uui-avatar name="First Second Last"></uui-avatar>`,
-    );
-    expect(avatar).shadowDom.to.equal('FL<slot></<slot>');
+    it('shows the first and last initial when text is used and there is no image', async () => {
+      element.name = 'First Second Last';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('FL<slot></<slot>');
+    });
+
+    it('supports unicode characters', async () => {
+      element.name = '👩‍💻';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('\ud83d<slot></<slot>');
+
+      element.name = '👩‍💻 👨‍💻';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('\ud83d\ud83d<slot></<slot>');
+    });
+
+    it('supports non-latin characters', async () => {
+      element.name = 'Привет Ša';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('ПŠ<slot></<slot>');
+
+      element.name = 'Привет';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('П<slot></<slot>');
+
+      element.name = 'UlŠa Mya';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('UM<slot></<slot>');
+
+      element.name = 'åse hylle';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('ÅH<slot></<slot>');
+    });
+
+    it('supports overriding initials', async () => {
+      element.initials = 'AB';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('AB<slot></<slot>');
+    });
+
+    it('shows a maximum of 3 characters', async () => {
+      element.initials = '1234';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('123<slot></<slot>');
+    });
   });
 
   it('passes the a11y audit', async () => {
