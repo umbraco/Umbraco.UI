@@ -131,31 +131,31 @@ export class UUIPaginationElement extends LitElement {
    * @type {string}
    * @attr
    */
-  @property({ type: String })
-  firstLabel: string = 'First';
+  @property()
+  firstLabel: string | (() => string) = 'First';
 
   /**
    * This property is used to generate the name of the previous button
    * @type {string}
    * @attr
    */
-  @property({ type: String })
-  previousLabel: string = 'Previous';
+  @property()
+  previousLabel: string | (() => string) = 'Previous';
 
   /**
    * This property is used to generate the name of the next button
    * @type {string}
    * @attr
    */
-  @property({ type: String })
-  nextLabel: string = 'Next';
+  @property()
+  nextLabel: string | (() => string) = 'Next';
   /**
    * This property is used to generate the name of the last button
    * @type {string}
    * @attr
    */
-  @property({ type: String })
-  lastLabel: string = 'Last';
+  @property()
+  lastLabel: string | (() => string) = 'Last';
 
   private _total = 100;
 
