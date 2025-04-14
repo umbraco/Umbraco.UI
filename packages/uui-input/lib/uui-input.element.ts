@@ -357,6 +357,8 @@ export class UUIInputElement extends UUIFormControlMixin(
         align-items: stretch;
         height: var(--uui-input-height, var(--uui-size-11));
         text-align: left;
+        color: var(--uui-color-text);
+        color-scheme: var(--uui-color-scheme, normal);
         box-sizing: border-box;
         background-color: var(
           --uui-input-background-color,

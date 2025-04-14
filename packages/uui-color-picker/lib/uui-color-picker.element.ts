@@ -586,6 +586,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         --uui-look-outline-border: #ddd;
         --uui-look-outline-border-hover: #aaa;
         font-size: 0.8rem;
+        color: var(--uui-color-text);
         display: block;
         width: var(--uui-color-picker-width, 280px);
       }
@@ -597,9 +598,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
       .color-picker {
         width: 100%;
-        background-color: #fff;
+        background-color: var(--uui-color-surface);
         user-select: none;
-        border: solid 1px #e4e4e7;
+        border: solid 1px var(--uui-color-border);
       }
       .color-picker__user-input {
         display: flex;
@@ -641,7 +642,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         width: 100%;
         height: 100%;
         border-radius: inherit;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
         /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
         background-color: var(--preview-color);
       }
@@ -651,6 +651,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       .color-picker__transparent-bg {
+        border: 1px solid var(--uui-color-border);
         background-image: linear-gradient(
             45deg,
             var(--uui-palette-grey) 25%,
@@ -705,7 +706,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       uui-color-swatches {
-        border-top: solid 1px #d4d4d8;
+        border-top: solid 1px var(--uui-color-border);
         padding: 0.75rem;
       }
 
