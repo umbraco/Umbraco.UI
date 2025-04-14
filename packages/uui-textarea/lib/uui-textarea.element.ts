@@ -81,12 +81,12 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * Minlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
-  @property({ type: String, attribute: 'minlength-message' })
-  minlengthMessage = '{0} characters left';
+  @property({ attribute: 'minlength-message' })
+  minlengthMessage: string | ((charsLeft: number) => string) = charsLeft =>
+    `${charsLeft} characters left`;
   /**
    * This is a maximum value of the input.
    * @type {number}
@@ -98,12 +98,14 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * Maxlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
-  @property({ type: String, attribute: 'maxlength-message' })
-  maxlengthMessage = 'Maximum {0} characters, {1} too many.';
+  @property({ attribute: 'maxlength-message' })
+  maxlengthMessage: string | ((max: number, current: number) => string) = (
+    max,
+    current,
+  ) => `Maximum ${max} characters, ${current} too many.`;
 
   @query('#textarea')
   protected _textarea!: HTMLInputElement;
@@ -162,21 +164,26 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
     this.addValidator(
       'tooShort',
-      () =>
-        this.formatString(
-          this.minlengthMessage,
-          this.minlength ? this.minlength - String(this.value).length : '',
-        ),
+      () => {
+        const label = this.minlengthMessage;
+        if (typeof label === 'function') {
+          return label(
+            this.minlength ? this.minlength - String(this.value).length : 0,
+          );
+        }
+        return label;
+      },
       () => !!this.minlength && (this.value as string).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
-      () =>
-        this.formatString(
-          this.maxlengthMessage,
-          this.maxlength ?? '',
-          this.maxlength ? String(this.value).length - this.maxlength : '',
-        ),
+      () => {
+        const label = this.maxlengthMessage;
+        if (typeof label === 'function') {
+          return label(this.maxlength ?? 0, String(this.value).length);
+        }
+        return label;
+      },
       () => !!this.maxlength && (this.value as string).length > this.maxlength,
     );
   }
