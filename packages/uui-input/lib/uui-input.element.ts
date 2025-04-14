@@ -248,13 +248,6 @@ export class UUIInputElement extends UUIFormControlMixin(
     });
   }
 
-  formatString(str: string, ...values: (string | number)[]): string {
-    return str.replace(
-      /{(\d+)}/g,
-      (_, index) => values[index]?.toString() ?? '',
-    );
-  }
-
   #onKeyDown(e: KeyboardEvent): void {
     if (this.type !== 'color' && e.key == 'Enter') {
       this.submit();

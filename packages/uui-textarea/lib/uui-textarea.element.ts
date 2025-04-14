@@ -201,13 +201,6 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
     }
   }
 
-  formatString(str: string, ...values: (string | number)[]): string {
-    return str.replace(
-      /{(\d+)}/g,
-      (_, index) => values[index]?.toString() ?? '',
-    );
-  }
-
   /**
    * This method enables <label for="..."> to focus the select
    */
