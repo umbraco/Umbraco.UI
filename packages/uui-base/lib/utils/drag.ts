@@ -26,7 +26,7 @@ export const drag = (
     if ('TouchEvent' in window && event instanceof TouchEvent) {
       pointerEvent = event.touches[0];
     } else if (event instanceof MouseEvent) {
-      // Some browsers seems to return PointerEvent instead of MouseEvent for click event.
+      // Some browsers seem to return PointerEvent instead of MouseEvent for click event.
       // We can use MouseEvent as PointerEvent inherits from MouseEvent.
       pointerEvent = event;
     } else {
