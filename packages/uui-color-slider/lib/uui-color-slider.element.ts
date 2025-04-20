@@ -14,7 +14,6 @@ import { UUIColorSliderEvent } from './UUIColorSliderEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
-//TODO implement saturation and lightness types for color slider
 export type UUIColorSliderType = 'hue' | 'opacity' | 'saturation' | 'lightness';
 
 /**
