@@ -14,7 +14,7 @@ import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
 //TODO implement saturation and lightness types for color slider
-export type UUIColorSliderType = 'hue' | 'opacity';
+export type UUIColorSliderType = 'hue' | 'opacity' | 'saturation' | 'lightness';
 
 /**
  *  @element uui-color-slider
@@ -107,12 +107,16 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('type')) {
       if (this.type === 'hue') {
-        this.max = 360;
-        this.precision = 1;
+        this.max = this.max ?? 360;
+      } else if (this.type === 'saturation') {
+        this.max = this.max ?? 100;
+      } else if (this.type === 'lightness') {
+        this.max = this.max ?? 100;
       } else if (this.type === 'opacity') {
-        this.max = 100;
-        this.precision = 1;
+        this.max = this.max ?? 100;
       }
+
+      this.precision = this.precision ?? 1;
     }
   }
 
