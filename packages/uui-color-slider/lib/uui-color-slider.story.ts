@@ -107,8 +107,6 @@ export const Advanced: Story = {
 
       const element = e.target as UUIColorSliderElement;
 
-      console.log('Slider changed', element.value);
-
       if (isNaN(element.value)) return;
 
       const newColor: HslaColor = {
@@ -137,8 +135,13 @@ export const Advanced: Story = {
       e.stopPropagation();
 
       const input = e.target as HTMLInputElement;
-      const newValue = parseFloat(input.value);
-      if (isNaN(newValue)) return;
+
+      let newValue = parseFloat(input.value);
+
+      if (isNaN(newValue)) {
+        newValue = 0;
+        input.value = '0';
+      }
 
       const newColor: HslaColor = {
         h: value.h,
