@@ -192,7 +192,7 @@ export const Advanced: Story = {
               .value=${slider.value}
               .min=${slider.min}
               .max=${slider.max}
-              .color=${slider.type === 'opacity'
+              .color=${slider.type !== 'hue'
                 ? getHexString(value.h, value.s, value.l)
                 : undefined}
               ?precision=${ifDefined(slider.precision)}
