@@ -28,6 +28,8 @@ export const drag = (
     } else if (event instanceof MouseEvent) {
       // Some browsers seem to return PointerEvent instead of MouseEvent for click event.
       // We can use MouseEvent as PointerEvent inherits from MouseEvent.
+      // Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=1675847
+      // Safari: https://bugs.webkit.org/show_bug.cgi?id=218665
       pointerEvent = event;
     } else {
       return;
