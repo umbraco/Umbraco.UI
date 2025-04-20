@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -117,6 +118,20 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       }
 
       this.precision = this.precision ?? 1;
+
+      if (this.color) {
+        const colord = new Colord(this.color);
+        const { h, s, l } = colord.toHsl();
+
+        const gradient =
+          this.type === 'saturation'
+            ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, 0%, ${l}%), hsl(${h}, 100%, ${l}%))`
+            : this.type === 'lightness'
+              ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`
+              : null;
+
+        this.style.setProperty('--uui-slider-background-image', gradient);
+      }
     }
   }
 

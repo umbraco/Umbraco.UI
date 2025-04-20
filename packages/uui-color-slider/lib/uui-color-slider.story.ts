@@ -18,7 +18,7 @@ const meta: Meta = {
   title: 'Inputs/Color/Color Slider',
   argTypes: {
     type: {
-      options: ['hue', 'opacity'],
+      options: ['hue', 'opacity', 'saturation', 'lightness'],
       control: { type: 'select' },
     },
   },
