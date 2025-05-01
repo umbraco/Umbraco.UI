@@ -2,8 +2,8 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import localRules from 'eslint-plugin-local-rules';
-import wcPlugin from 'eslint-plugin-wc';
-import litPlugin from 'eslint-plugin-lit';
+import * as wcPlugin from 'eslint-plugin-wc';
+import * as litPlugin from 'eslint-plugin-lit';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 import { includeIgnoreFile } from '@eslint/compat';
