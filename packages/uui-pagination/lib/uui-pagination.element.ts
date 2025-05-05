@@ -132,7 +132,7 @@ export class UUIPaginationElement extends LitElement {
    * @attr
    */
   @property()
-  firstLabel: string | (() => string) = 'First';
+  firstLabel: string = 'First';
 
   /**
    * This property is used to generate the name of the previous button
@@ -140,7 +140,7 @@ export class UUIPaginationElement extends LitElement {
    * @attr
    */
   @property()
-  previousLabel: string | (() => string) = 'Previous';
+  previousLabel: string = 'Previous';
 
   /**
    * This property is used to generate the name of the next button
@@ -148,14 +148,14 @@ export class UUIPaginationElement extends LitElement {
    * @attr
    */
   @property()
-  nextLabel: string | (() => string) = 'Next';
+  nextLabel: string = 'Next';
   /**
    * This property is used to generate the name of the last button
    * @type {string}
    * @attr
    */
   @property()
-  lastLabel: string | (() => string) = 'Last';
+  lastLabel: string = 'Last';
 
   private _total = 100;
 
