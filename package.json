@@ -67,7 +67,7 @@
     "@lerna-lite/exec": "3.12.3",
     "@lerna-lite/publish": "3.12.3",
     "@lerna-lite/run": "3.12.3",
-    "@lerna-lite/version": "3.12.3",
+    "@lerna-lite/version": "4.1.1",
     "@open-wc/testing": "4.0.0",
     "@rollup/plugin-node-resolve": "15.2.3",
     "@storybook/addon-a11y": "^8.6.12",
