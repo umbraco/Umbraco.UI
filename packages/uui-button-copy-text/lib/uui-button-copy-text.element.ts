@@ -73,7 +73,7 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
       const el = document.getElementById(this.copyFrom);
       if (el) {
         // Override the value to copy, if the element has a value property
-        // Such as uui-input or uui-textarea or native inout elements
+        // Such as uui-input or uui-textarea or native input elements
         if ('value' in el) {
           valueToCopy = (el as any).value;
         } else {

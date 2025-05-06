@@ -24,6 +24,16 @@ export type InputType =
   | 'number'
   | 'color';
 
+export type InputMode =
+  | 'text'
+  | 'none'
+  | 'decimal'
+  | 'numeric'
+  | 'tel'
+  | 'search'
+  | 'email'
+  | 'url';
+
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
@@ -169,7 +179,8 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   /**
    * This property specifies the type of input that will be rendered.
-   * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types|MDN} for further information
+   * @type {'text' | 'tel' | 'url' | 'email' | 'password' | 'date' | 'month' | 'week' | 'time' | 'datetime-local' | 'number' | 'color'}
    * @attr
    * @default text
    */
@@ -182,21 +193,22 @@ export class UUIInputElement extends UUIFormControlMixin(
   }
 
   /**
+   * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
+   * @type {'text' | 'none' | 'decimal' | 'number' | 'tel' | 'search' | 'email' | 'url'}
+   * @attr
+   * @default text
+   */
+  @property({ attribute: 'inputmode' })
+  inputMode: InputMode = 'text';
+
+  /**
    * Validates the input based on the Regex pattern
    * @type {string}
    * @attr
    */
   @property({ type: String })
   pattern?: string;
-
-  /**
-   * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
-   * @type {string}
-   * @attr
-   */
-  @property({ type: String })
-  inputMode = '';
 
   @query('#input')
   _input!: HTMLInputElement;

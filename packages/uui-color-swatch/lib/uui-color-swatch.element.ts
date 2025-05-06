@@ -129,7 +129,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         <div class="color-swatch color-swatch--transparent-bg">
           <div
             class="color-swatch__color"
-            style="background-color: var(--uui-swatch-color, ${this.color ??
+            style="background: var(--uui-swatch-color, ${this.color ??
             this.value})"></div>
           <div
             class="color-swatch__check"

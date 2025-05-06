@@ -32,6 +32,18 @@ const meta: Meta = {
         'color',
       ],
     },
+    inputMode: {
+      options: [
+        'text',
+        'none',
+        'decimal',
+        'numeric',
+        'tel',
+        'search',
+        'email',
+        'url',
+      ],
+    },
   },
   parameters: {
     readme: {
