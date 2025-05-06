@@ -5,14 +5,12 @@ on:
     branches:
       - main
       - production
-      - 'release/*'
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - production
-      - 'release/*'
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
