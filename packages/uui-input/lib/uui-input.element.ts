@@ -184,8 +184,13 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @attr
    * @default text
    */
-  @property({ attribute: 'type' })
-  type: InputType = 'text';
+  @property({ type: String })
+  get type(): InputType {
+    return this._type;
+  }
+  set type(value: InputType) {
+    this._type = value;
+  }
 
   /**
    * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
@@ -207,6 +212,8 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   @query('#input')
   _input!: HTMLInputElement;
+
+  private _type: InputType = 'text';
 
   constructor() {
     super();
