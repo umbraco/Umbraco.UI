@@ -144,5 +144,5 @@ See the rest of [the scripts here](docs/SCRIPTS.md).
 - 📥 Pull requests and 🌟 Stars are always welcome.
 - Read our [contributing guide](docs/CONTRIBUTING.md) to get started.
 - Please report bugs and feature requests in the [issue tracker](https://github.com/umbraco/Umbraco.UI/issues)
-- The main branch is the latest development branch. Please make your pull requests against this branch: `v1/contrib`
-  - You can see the latest features in the Storybook attached to this branch: [v1/contrib](https://delightful-beach-055ecb503-v1contrib.westeurope.azurestaticapps.net/)
+- The main branch is the latest development branch. Please make your pull requests against this branch: `main`
+  - You can see the latest features in the Storybook attached to this branch: [main](https://delightful-beach-055ecb503-main.westeurope.azurestaticapps.net/)
