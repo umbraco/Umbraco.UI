@@ -94,8 +94,9 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @attr minlength-message
    * @default
    */
-  @property({ type: String, attribute: 'minlength-message' })
-  minlengthMessage = 'This field need more characters';
+  @property({ attribute: 'minlength-message' })
+  minlengthMessage: string | ((charsLeft: number) => string) = charsLeft =>
+    `${charsLeft} characters left`;
 
   /**
    * Sets the max value of the input.
@@ -121,8 +122,11 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @attr maxlength-message
    * @default
    */
-  @property({ type: String, attribute: 'maxlength-message' })
-  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+  @property({ attribute: 'maxlength-message' })
+  maxlengthMessage: string | ((max: number, current: number) => string) = (
+    max,
+    current,
+  ) => `Maximum length exceeded (${current}/${max} characters)`;
 
   /**
    * Specifies the interval between legal numbers of the input
@@ -228,12 +232,26 @@ export class UUIInputElement extends UUIFormControlMixin(
 
     this.addValidator(
       'tooShort',
-      () => this.minlengthMessage,
+      () => {
+        const label = this.minlengthMessage;
+        if (typeof label === 'function') {
+          return label(
+            this.minlength ? this.minlength - String(this.value).length : 0,
+          );
+        }
+        return label;
+      },
       () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
-      () => this.maxlengthMessage,
+      () => {
+        const label = this.maxlengthMessage;
+        if (typeof label === 'function') {
+          return label(this.maxlength ?? 0, String(this.value).length);
+        }
+        return label;
+      },
       () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
 
