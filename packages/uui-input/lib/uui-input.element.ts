@@ -116,7 +116,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   maxlengthMessage: string | ((max: number, current: number) => string) = (
     max,
     current,
-  ) => `Maximum ${max} characters, ${current} too many.`;
+  ) => `Maximum length exceeded (${current}/${max} characters)`;
 
   /**
    * Specifies the interval between legal numbers of the input
