@@ -379,7 +379,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.hue = h;
     this.saturation = s;
     this.lightness = l;
-    this.alpha = this.opacity != undefined ? a * 100 : 100;
+    this.alpha = this.opacity ? a * 100 : 100; // Convert to 0-100 range, and set alpha to 100 if opacity is disabled
 
     const hslaColor = colorString as HslaColor;
 
