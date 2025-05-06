@@ -74,7 +74,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @state() private hue = 0;
   @state() private saturation = 0;
   @state() private lightness = 0;
-  @state() private alpha = 0;
+  @state() private alpha = 100;
   @state() private _colord: Colord = colord('hsl(0, 0%, 0%)');
 
   /**
@@ -361,7 +361,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     if (colorString === this.value) return;
 
     if (!colorString) {
-      this.alpha = 0;
+      this.alpha = 100;
       this.inputValue = '';
       this._value = colorString;
 
