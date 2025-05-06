@@ -16,12 +16,8 @@ on:
       - 'packages/*/lib/**'
       - 'packages/*/assets/**'
     branches-ignore:
-      - 'dependabot/**'
       - 'release/*'
-      - 'Release/*'
-      - 'main'
-      - 'v*/main'
-      - 'v*/release'
+      - 'production'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -66,6 +62,6 @@ jobs:
           exitOnceUploaded: true
           onlyChanged: true,
           untraced: '.storybook/images/**/*,storyhelpers/**/*'
-          autoAcceptChanges: 'v*/contrib'
+          autoAcceptChanges: 'main'
           externals: |
             .storybook/images/**
