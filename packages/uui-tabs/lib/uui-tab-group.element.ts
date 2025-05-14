@@ -31,7 +31,7 @@ export class UUITabGroupElement extends LitElement {
     flatten: true,
     selector: 'uui-tab, [uui-tab], [role=tab]',
   })
-  private _slottedNodes?: HTMLElement[];
+  private _slottedNodes?: UUITabElement[];
 
   /** Stores the current gap used in the breakpoints */
   #currentGap = 0;
@@ -49,7 +49,7 @@ export class UUITabGroupElement extends LitElement {
   })
   dropdownContentDirection: 'vertical' | 'horizontal' = 'vertical';
 
-  #tabElements: HTMLElement[] = [];
+  #tabElements: UUITabElement[] = [];
 
   #hiddenTabElements: UUITabElement[] = [];
   #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
@@ -64,13 +64,69 @@ export class UUITabGroupElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.#initialize();
+    this.addEventListener('keydown', this.#onKeyDown);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.#resizeObserver.unobserve(this);
+    this.#resizeObserver.unobserve(this._mainElement);
     this.#cleanupTabs();
+    this.removeEventListener('keydown', this.#onKeyDown);
   }
+
+  firstUpdated() {
+    // Set initial focus on the active tab or the first tab
+    const activeTab = this.#tabElements.find(tab => tab.active);
+    if (activeTab) {
+      this.#setFocus(activeTab);
+    } else if (this.#tabElements.length > 0) {
+      this.#setFocus(this.#tabElements[0]);
+    }
+  }
+
+  #setFocus(tab: UUITabElement | null) {
+    if (tab) {
+      (tab.shadowRoot?.querySelector('#button') as HTMLElement)?.focus();
+    }
+  }
+
+  #onKeyDown = (event: KeyboardEvent) => {
+    const tabs = this.#tabElements.filter(this.#isElementTabLike);
+    if (!tabs.length) return;
+
+    const currentIndex = tabs.findIndex(tab => tab.active === true);
+
+    let newIndex = -1;
+    switch (event.key) {
+      case 'ArrowRight':
+        newIndex = (currentIndex + 1) % tabs.length;
+        break;
+      case 'ArrowLeft':
+        newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        break;
+      case 'Home':
+        newIndex = 0;
+        break;
+      case 'End':
+        newIndex = tabs.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    if (newIndex !== -1) {
+      // Deactivate current tab
+      if (currentIndex !== -1) {
+        tabs[currentIndex].active = false;
+      }
+
+      const newTab = tabs[newIndex];
+      this.#setFocus(newTab);
+      newTab.active = true; // Activate new tab
+      this.#onTabClicked({ currentTarget: newTab } as any as MouseEvent);
+    }
+  };
 
   async #initialize() {
     demandCustomElement(this, 'uui-button');
@@ -104,8 +160,6 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #onSlotChange() {
-    this.#cleanupTabs();
-
     this.#setTabArray();
 
     this.#tabElements.forEach(el => {
@@ -269,7 +323,16 @@ export class UUITabGroupElement extends LitElement {
 
   render() {
     return html`
-      <div id="main">
+      <div
+        id="main"
+        tabindex="0"
+        @focus=${() => {
+          if (this.#tabElements.length > 0) {
+            this.#setFocus(
+              this.#tabElements.find(tab => tab.active) || this.#tabElements[0],
+            );
+          }
+        }}>
         <div id="grid" role="tablist">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
@@ -305,6 +368,7 @@ export class UUITabGroupElement extends LitElement {
         display: flex;
         justify-content: space-between;
         overflow: hidden;
+        outline: none;
       }
 
       #grid {

@@ -72,4 +72,125 @@ describe('UuiTab', () => {
   it('tab element passes the a11y audit', async () => {
     await expect(tabs[0]).shadowDom.to.be.accessible();
   });
+
+  it('focuses and activates next tab on ArrowRight', async () => {
+    element.focus(); // Focus the tab group
+    await element.updateComplete;
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'ArrowRight',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event);
+    await element.updateComplete;
+
+    expect(tabs[2].active).to.be.false;
+    expect(tabs[3].active).to.be.true;
+  });
+
+  it('focuses and activates previous tab on ArrowLeft', async () => {
+    element.focus();
+    await element.updateComplete;
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'ArrowLeft',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event);
+    await element.updateComplete;
+
+    expect(tabs[1].active).to.be.true;
+    expect(tabs[2].active).to.be.false;
+  });
+
+  it('focuses and activates first tab on Home', async () => {
+    element.focus();
+    await element.updateComplete;
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'Home',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event);
+    await element.updateComplete;
+
+    expect(tabs[0].active).to.be.true;
+    expect(tabs[2].active).to.be.false;
+  });
+
+  it('focuses and activates last tab on End', async () => {
+    element.focus();
+    await element.updateComplete;
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'End',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event);
+    await element.updateComplete;
+
+    expect(tabs[2].active).to.be.false;
+    expect(tabs[17].active).to.be.true;
+  });
+
+  it('wraps focus from last to first tab with ArrowRight', async () => {
+    element.focus();
+    await element.updateComplete;
+
+    // Set focus to last tab
+    const event = new KeyboardEvent('keydown', {
+      key: 'End',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event);
+    await element.updateComplete;
+
+    const event2 = new KeyboardEvent('keydown', {
+      key: 'ArrowRight',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event2);
+    await element.updateComplete;
+
+    expect(tabs[0].active).to.be.true;
+    expect(tabs[17].active).to.be.false;
+  });
+
+  it('wraps focus from first to last tab with ArrowLeft', async () => {
+    element.focus();
+    await element.updateComplete;
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'Home',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event);
+    await element.updateComplete;
+
+    const event2 = new KeyboardEvent('keydown', {
+      key: 'ArrowLeft',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event2);
+    await element.updateComplete;
+
+    expect(tabs[0].active).to.be.false;
+    expect(tabs[17].active).to.be.true;
+  });
 });
