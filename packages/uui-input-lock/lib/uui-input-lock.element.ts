@@ -67,7 +67,7 @@ export class UUIInputLockElement extends UUIInputElement {
     this.pristine = false;
     this.dispatchEvent(new UUIInputLockEvent(UUIInputLockEvent.LOCK_CHANGE));
     if (!this.locked) {
-      this.shadowRoot?.querySelector('input')?.focus();
+      this._input?.focus();
     }
   }
 
