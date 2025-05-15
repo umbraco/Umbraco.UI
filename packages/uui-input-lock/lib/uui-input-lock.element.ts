@@ -22,12 +22,12 @@ export class UUIInputLockElement extends UUIInputElement {
    * @default true
    */
   @property({ type: Boolean, reflect: true })
-  public get locked(): boolean {
-    return this.#locked;
-  }
   public set locked(lock: boolean) {
     this.#locked = lock;
     this.tabIndex = lock ? -1 : 0;
+  }
+  public get locked(): boolean {
+    return this.#locked;
   }
   #locked: boolean = true;
 
