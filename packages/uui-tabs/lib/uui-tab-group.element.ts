@@ -125,6 +125,16 @@ export class UUITabGroupElement extends LitElement {
       this.#setFocus(newTab);
       newTab.active = true; // Activate new tab
       this.#onTabClicked({ currentTarget: newTab } as any as MouseEvent);
+
+      // Check if there are any active tabs in the dropdown
+      const hasActiveHidden = this.#hiddenTabElements.some(
+        el => el.active && el !== newTab,
+      );
+      if (hasActiveHidden) {
+        this._popoverContainerElement.showPopover();
+      } else {
+        this._popoverContainerElement.hidePopover();
+      }
     }
   };
 

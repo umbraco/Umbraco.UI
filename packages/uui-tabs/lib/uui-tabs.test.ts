@@ -2,6 +2,7 @@ import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 
 import { UUITabGroupElement } from './uui-tab-group.element';
 import { UUITabElement } from './uui-tab.element';
+import { UUIPopOverContainer } from '@umbraco-ui/uui-popover-container/lib';
 
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-popover-container/lib';
@@ -10,6 +11,7 @@ import '@umbraco-ui/uui-symbol-more/lib';
 describe('UuiTab', () => {
   let element: UUITabGroupElement;
   let tabs: UUITabElement[];
+  let popoverContainer: UUIPopOverContainer;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -36,6 +38,9 @@ describe('UuiTab', () => {
     `);
 
     tabs = Array.from(element.querySelectorAll('uui-tab'));
+    popoverContainer = element.shadowRoot?.querySelector(
+      '#popover-container',
+    ) as UUIPopOverContainer;
   });
 
   it('is defined as its own instance', () => {
@@ -168,7 +173,7 @@ describe('UuiTab', () => {
     expect(tabs[17].active).to.be.false;
   });
 
-  it('wraps focus from first to last tab with ArrowLeft', async () => {
+  it('wraps focus from first to last tab with ArrowLeft and popmenu appears', async () => {
     element.focus();
     await element.updateComplete;
 
@@ -181,6 +186,7 @@ describe('UuiTab', () => {
     element.dispatchEvent(event);
     await element.updateComplete;
 
+    // Check we loop round and the popover appears
     const event2 = new KeyboardEvent('keydown', {
       key: 'ArrowLeft',
       bubbles: true,
@@ -192,5 +198,20 @@ describe('UuiTab', () => {
 
     expect(tabs[0].active).to.be.false;
     expect(tabs[17].active).to.be.true;
+    expect(popoverContainer.open).to.be.true;
+
+    // Check the popup is hidden when the ArrowRight key is pressed
+    const event3 = new KeyboardEvent('keydown', {
+      key: 'ArrowRight',
+      bubbles: true,
+      composed: true,
+    });
+
+    element.dispatchEvent(event3);
+    await element.updateComplete;
+
+    expect(tabs[0].active).to.be.true;
+    expect(tabs[17].active).to.be.false;
+    expect(popoverContainer.open).to.be.false;
   });
 });
