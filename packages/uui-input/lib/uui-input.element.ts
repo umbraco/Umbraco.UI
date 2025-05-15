@@ -214,6 +214,14 @@ export class UUIInputElement extends UUIFormControlMixin(
   @property({ type: String })
   pattern?: string;
 
+  /**
+   * Set the input tabindex, set this to `-1` to avoid tabbing into the input.
+   * @type {number}
+   * @attr
+   */
+  @property({ type: Number, reflect: false, attribute: 'tabindex' })
+  tabIndex: number = 0;
+
   @query('#input')
   _input!: HTMLInputElement;
 
@@ -349,6 +357,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       ?autofocus=${this.autofocus}
       ?required=${this.required}
       ?readonly=${this.readonly}
+      tabindex=${ifDefined(this.tabIndex)}
       @input=${this.onInput}
       @change=${this.onChange} />`;
   }

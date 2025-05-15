@@ -22,11 +22,37 @@ export class UUIInputLockElement extends UUIInputElement {
    * @default true
    */
   @property({ type: Boolean, reflect: true })
-  public locked: boolean = true;
+  public set locked(lock: boolean) {
+    this.#locked = lock;
+    this.tabIndex = lock ? -1 : 0;
+  }
+  public get locked(): boolean {
+    return this.#locked;
+  }
+  #locked: boolean = true;
+
+  /**
+   * Define the label for the unlock button.
+   * @type {string}
+   * @attr
+   * @default true
+   */
+  @property({ type: String, reflect: false, attribute: 'unlock-label' })
+  public unlockLabel: string = 'Unlock input';
+
+  /**
+   * Define the label for the lock button.
+   * @type {string}
+   * @attr
+   * @default true
+   */
+  @property({ type: String, reflect: false, attribute: 'lock-label' })
+  public lockLabel: string = 'Lock input';
 
   constructor() {
     super();
     this.readonly = true;
+    this.tabIndex = -1;
   }
 
   connectedCallback(): void {
@@ -40,6 +66,9 @@ export class UUIInputLockElement extends UUIInputElement {
     this.readonly = this.locked = !this.locked;
     this.pristine = false;
     this.dispatchEvent(new UUIInputLockEvent(UUIInputLockEvent.LOCK_CHANGE));
+    if (!this.locked) {
+      this._input?.focus();
+    }
   }
 
   renderIcon() {
@@ -56,7 +85,7 @@ export class UUIInputLockElement extends UUIInputElement {
       @click=${this._onLockToggle}
       compact
       id="lock"
-      label="${this.locked ? 'Unlock input' : 'Lock input'}">
+      label="${this.locked ? this.unlockLabel : this.lockLabel}">
       ${this.renderIcon()}
     </uui-button>`;
   }
