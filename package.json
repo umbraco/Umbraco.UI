@@ -47,7 +47,7 @@
     "pack": "node ./scripts/pack-package.js",
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "npm run bootstrap && npm run storybook:analyze && storybook dev -p 6006",
-    "storybook:build": "npm run bootstrap && npm run storybook:analyze && storybook build",
+    "storybook:build": "npm run storybook:analyze && storybook build",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "postinstall": "npm run bootstrap"
   },
