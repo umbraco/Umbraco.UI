@@ -23,13 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug lib folder
-        run: ls -l packages/uui-icon-registry-essential/lib
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: 'npm'
 
-      - name: Manual Storybook Build
-        run: |
-          npm install
-          npm run storybook:build
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build And Deploy
         id: builddeploy
