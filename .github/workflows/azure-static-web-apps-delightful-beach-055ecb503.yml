@@ -22,8 +22,16 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          submodules: true
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build And Deploy
         id: builddeploy
