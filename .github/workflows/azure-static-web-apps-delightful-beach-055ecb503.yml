@@ -27,7 +27,9 @@ jobs:
         run: ls -l packages/uui-icon-registry-essential/lib
 
       - name: Manual Storybook Build
-        run: npm run storybook:build
+        run: |
+          npm install
+          npm run storybook:build
 
       - name: Build And Deploy
         id: builddeploy
