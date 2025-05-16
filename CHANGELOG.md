@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- color picker dark theme ([#1057](https://github.com/umbraco/Umbraco.UI/issues/1057)) ([415ff32](https://github.com/umbraco/Umbraco.UI/commit/415ff322fc2524a4167d75f0689343bed5f49bc2))
+- Gave host "color" to make sure things like text in date picker are aligned with theme, as well as giving it a a color scheme option ([#1056](https://github.com/umbraco/Umbraco.UI/issues/1056)) ([49534c1](https://github.com/umbraco/Umbraco.UI/commit/49534c1517197ebc176f53d2d65907c38a8b3295))
+- selection on click in color area ([#1075](https://github.com/umbraco/Umbraco.UI/issues/1075)) ([517788b](https://github.com/umbraco/Umbraco.UI/commit/517788b976de37852fe5d4e111f63a460570b5d8))
+- Text character length validation should be more helpful ([#1060](https://github.com/umbraco/Umbraco.UI/issues/1060)) ([12cc5bc](https://github.com/umbraco/Umbraco.UI/commit/12cc5bcb2ab8c9b925bd811db0b25848df899a56))
+- typo in comment ([#1084](https://github.com/umbraco/Umbraco.UI/issues/1084)) ([b1751f0](https://github.com/umbraco/Umbraco.UI/commit/b1751f020743f644f6a9b730851574e62bc906b0))
+- **uui-color-picker:** alpha should default to 100 if there is no color string ([#1061](https://github.com/umbraco/Umbraco.UI/issues/1061)) ([dc445f3](https://github.com/umbraco/Umbraco.UI/commit/dc445f3de303d8b529759dedb9231e23e091efbf))
+
+### Features
+
+- adds an "initials" property ([601797f](https://github.com/umbraco/Umbraco.UI/commit/601797f03a469baa9e72b95363e916fade8561ee))
+- adds localization to uui-pagination ([#1069](https://github.com/umbraco/Umbraco.UI/issues/1069)) ([4c3bbfa](https://github.com/umbraco/Umbraco.UI/commit/4c3bbfa656678edc8adb2f82ee606fbc41ef1b0b))
+- Advanced color slider story ([#1076](https://github.com/umbraco/Umbraco.UI/issues/1076)) ([5a14b6a](https://github.com/umbraco/Umbraco.UI/commit/5a14b6a70781ee26628b1ff91320ef9f276d4cc0))
+- Allow color gradient in color swatch ([#1074](https://github.com/umbraco/Umbraco.UI/issues/1074)) ([df8b8b0](https://github.com/umbraco/Umbraco.UI/commit/df8b8b072374c46ca5485d18d307f133129e2a07))
+- Specific input mode similar to input type ([#1021](https://github.com/umbraco/Umbraco.UI/issues/1021)) ([f18414d](https://github.com/umbraco/Umbraco.UI/commit/f18414d12bbed4618bbb8b11eedd926c9ff27bf5))
+
 # [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
 
 ### Bug Fixes

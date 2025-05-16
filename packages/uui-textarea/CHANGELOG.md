@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- Text character length validation should be more helpful ([#1060](https://github.com/umbraco/Umbraco.UI/issues/1060)) ([12cc5bc](https://github.com/umbraco/Umbraco.UI/commit/12cc5bcb2ab8c9b925bd811db0b25848df899a56))
+
 # [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
 
 **Note:** Version bump only for package @umbraco-ui/uui-textarea

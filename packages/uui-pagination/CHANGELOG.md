@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Features
+
+- adds localization to uui-pagination ([#1069](https://github.com/umbraco/Umbraco.UI/issues/1069)) ([4c3bbfa](https://github.com/umbraco/Umbraco.UI/commit/4c3bbfa656678edc8adb2f82ee606fbc41ef1b0b))
+
 # [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
 
 **Note:** Version bump only for package @umbraco-ui/uui-pagination

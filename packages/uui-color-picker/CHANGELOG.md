@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- color picker dark theme ([#1057](https://github.com/umbraco/Umbraco.UI/issues/1057)) ([415ff32](https://github.com/umbraco/Umbraco.UI/commit/415ff322fc2524a4167d75f0689343bed5f49bc2))
+- **uui-color-picker:** alpha should default to 100 if there is no color string ([#1061](https://github.com/umbraco/Umbraco.UI/issues/1061)) ([dc445f3](https://github.com/umbraco/Umbraco.UI/commit/dc445f3de303d8b529759dedb9231e23e091efbf))
+
 # [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-picker
