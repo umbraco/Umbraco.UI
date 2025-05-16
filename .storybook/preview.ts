@@ -6,6 +6,8 @@ import '../packages/uui-css/dist/uui-css.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
+import '@umbraco-ui/uui-icon-registry-essential/lib';
+
 const preview: Preview = {
   parameters: {
     controls: {
