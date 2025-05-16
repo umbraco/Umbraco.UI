@@ -22,8 +22,12 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
+
+      - name: Debug lib folder
+        run: ls -l packages/uui-icon-registry-essential/lib
+
+      - name: Manual Storybook Build
+        run: npm run storybook:build
 
       - name: Build And Deploy
         id: builddeploy
