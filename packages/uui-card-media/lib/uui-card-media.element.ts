@@ -209,7 +209,7 @@ export class UUICardMediaElement extends UUICardElement {
         position: relative;
         display: flex;
         width: 100%;
-        align-items: center;
+        flex-direction: column;
         font-family: inherit;
         box-sizing: border-box;
         text-align: left;
