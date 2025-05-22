@@ -209,3 +209,17 @@ export const AutoWidth: Story = {
     placeholder: 'Start typing...',
   },
 };
+
+export const DataList: Story = {
+  args: {
+    autocomplete: 'off',
+    options: [
+      { name: 'Carrot', value: 'orange' },
+      { name: 'Cucumber', value: 'green' },
+      { name: 'Aubergine', value: 'purple' },
+      { name: 'Blueberry', value: 'Blue' },
+      { name: 'Banana', value: 'yellow' },
+      { name: 'Strawberry', value: 'red' },
+    ],
+  },
+};
