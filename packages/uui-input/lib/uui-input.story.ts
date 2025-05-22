@@ -222,4 +222,25 @@ export const DataList: Story = {
       { name: 'Strawberry', value: 'red' },
     ],
   },
+  parameters: {
+    docs: {
+      source: {
+        format: false,
+        language: 'jsx',
+        code: `
+// this is an example of array you need to pass to the input component
+const options: Array<Option> = [
+  { name: 'Carrot', value: 'orange' },
+  { name: 'Cucumber', value: 'green' },
+  { name: 'Aubergine', value: 'purple' },
+  { name: 'Blueberry', value: 'Blue' },
+  { name: 'Banana', value: 'yellow' },
+  { name: 'Strawberry', value: 'red' },
+];
+
+<uui-input .options=\${options}></uui-input>
+`,
+      },
+    },
+  },
 };
