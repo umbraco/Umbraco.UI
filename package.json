@@ -104,7 +104,7 @@
     "globals": "16.0.0",
     "husky": "9.1.7",
     "lint-staged": "15.5.0",
-    "npm-check-updates": "16.14.20",
+    "npm-check-updates": "18.0.1",
     "plop": "3.1.2",
     "postcss": "8.5.3",
     "postcss-advanced-variables": "5.0.0",
