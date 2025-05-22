@@ -478,7 +478,8 @@ export class UUIInputElement extends UUIFormControlMixin(
 
       input {
         font-family: inherit;
-        padding: var(--uui-size-1) var(--uui-size-space-3);
+        padding: 1px var(--uui-size-space-3) var(--uui-size-1)
+          var(--uui-size-space-3);
         font-size: inherit;
         color: inherit;
         border-radius: var(--uui-border-radius);
@@ -500,6 +501,13 @@ export class UUIInputElement extends UUIFormControlMixin(
         width: 30px;
         padding: 0;
         border: none;
+      }
+
+      slot[name='prepend'],
+      slot[name='append'] {
+        display: flex;
+        align-items: center;
+        line-height: 1;
       }
 
       ::slotted(uui-input),

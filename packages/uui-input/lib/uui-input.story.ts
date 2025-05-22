@@ -139,6 +139,15 @@ export const PrependAndAppend: Story = {
 
 export const PrependIcon: Story = {
   args: {
+    'prepend slot': html`<uui-icon
+      name="search"
+      slot="prepend"
+      style="padding-left:var(--uui-size-space-2)"></uui-icon>`,
+  },
+};
+
+export const PrependIconInDiv: Story = {
+  args: {
     'prepend slot': html`<div slot="prepend">
       <uui-icon name="search"></uui-icon>
     </div>`,
