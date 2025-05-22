@@ -199,7 +199,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       @selected=${() => this._selectRowHandler(item)}
       @deselected=${() => this._deselectRowHandler(item)}>
       <uui-table-cell>
-        <uui-icon name="wand" style="font-size: 20px;"></uui-icon>
+        <uui-icon name="wand"></uui-icon>
         <uui-checkbox
           @click=${(e: MouseEvent) => e.stopPropagation()}
           @change=${(event: Event) => this._selectHandler(event, item)}

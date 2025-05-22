@@ -65,7 +65,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
           : ''}
         <slot
           class="label"
-          style=${this._labelSlotHasContent ? '' : 'visibility: hidden'}
+          style=${this._labelSlotHasContent ? '' : 'display: none'}
           name=${labelSlotName ? labelSlotName : ''}
           @slotchange=${this.labelSlotChanged}></slot>
       `;
