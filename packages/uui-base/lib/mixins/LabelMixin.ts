@@ -37,7 +37,8 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     @property({ type: String })
     public label!: string;
 
-    firstUpdated() {
+    firstUpdated(_changedProperties: Map<string | number | symbol, unknown>) {
+      super.firstUpdated(_changedProperties);
       if (!this.label) {
         console.warn(this.tagName + ' needs a `label`', this);
       }
