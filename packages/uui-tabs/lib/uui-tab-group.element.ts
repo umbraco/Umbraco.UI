@@ -26,6 +26,7 @@ export class UUITabGroupElement extends LitElement {
   private _popoverContainerElement!: UUIPopoverContainerElement;
 
   @query('#main') private _mainElement!: HTMLElement;
+  @query('#grid') private _gridElement!: HTMLElement;
 
   @queryAssignedElements({
     flatten: true,
@@ -75,28 +76,31 @@ export class UUITabGroupElement extends LitElement {
   }
 
   firstUpdated() {
-    // Set initial focus on the active tab or the first tab
-    const activeTab = this.#tabElements.find(tab => tab.active);
-    if (activeTab) {
-      this.#setFocus(activeTab);
-    } else if (this.#tabElements.length > 0) {
-      this.#setFocus(this.#tabElements[0]);
-    }
+    this.#setInitialFocus();
   }
 
-  #setFocus(tab: UUITabElement | null) {
+  #setFocusable(tab: UUITabElement | null, focus: boolean = true) {
     if (tab) {
-      (tab.shadowRoot?.querySelector('#button') as HTMLElement)?.focus();
+      // Reset tabindex for all tabs
+      this.#tabElements.forEach(t => {
+        if (t === tab) {
+          t.setFocusable(focus);
+        } else {
+          t.removeFocusable();
+        }
+      });
     }
   }
 
   #onKeyDown = (event: KeyboardEvent) => {
-    const tabs = this.#tabElements.filter(this.#isElementTabLike);
+    const tabs = this.#tabElements;
     if (!tabs.length) return;
 
-    const currentIndex = tabs.findIndex(tab => tab.active === true);
+    const currentIndex = tabs.findIndex(tab => tab.hasFocus() === true);
 
     let newIndex = -1;
+    let trigger = false;
+
     switch (event.key) {
       case 'ArrowRight':
         newIndex = (currentIndex + 1) % tabs.length;
@@ -110,30 +114,25 @@ export class UUITabGroupElement extends LitElement {
       case 'End':
         newIndex = tabs.length - 1;
         break;
+      case ' ': // Space
+      case 'Enter':
+        newIndex = currentIndex;
+        trigger = true;
+        break;
+
       default:
         return;
     }
 
     event.preventDefault();
     if (newIndex !== -1) {
-      // Deactivate current tab
-      if (currentIndex !== -1) {
-        tabs[currentIndex].active = false;
-      }
-
       const newTab = tabs[newIndex];
-      this.#setFocus(newTab);
-      newTab.active = true; // Activate new tab
-      this.#onTabClicked({ currentTarget: newTab } as any as MouseEvent);
+      newTab.style.display = 'block';
+      this.#setFocusable(newTab, true);
+      this.#calculateBreakPoints();
 
-      // Check if there are any active tabs in the dropdown
-      const hasActiveHidden = this.#hiddenTabElements.some(
-        el => el.active && el !== newTab,
-      );
-      if (hasActiveHidden) {
-        this._popoverContainerElement.showPopover();
-      } else {
-        this._popoverContainerElement.hidePopover();
+      if (trigger) {
+        newTab.trigger();
       }
     }
   };
@@ -180,6 +179,8 @@ export class UUITabGroupElement extends LitElement {
       observer.observe(el);
       this.#tabResizeObservers.push(observer);
     });
+
+    this.#setInitialFocus();
   }
 
   #onTabClicked = (e: MouseEvent) => {
@@ -227,7 +228,6 @@ export class UUITabGroupElement extends LitElement {
     });
 
     // Whenever a tab is added or removed, we need to recalculate the breakpoints
-
     await this.updateComplete; // Wait for the tabs to be rendered
 
     const gapCSSVar = Number.parseFloat(
@@ -257,6 +257,13 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #updateCollapsibleTabs(containerWidth: number) {
+    this._gridElement.scrollLeft = 0;
+
+    // Reset translations for all tabs
+    this.#tabElements.forEach(tab => {
+      tab.style.transform = '';
+    });
+
     const moreButtonWidth = this._moreButtonElement.offsetWidth;
 
     const containerWithoutButtonWidth =
@@ -299,10 +306,40 @@ export class UUITabGroupElement extends LitElement {
 
         this.#hiddenTabElements.push(proxyTab);
 
-        tab.style.display = 'none';
         if (tab.active) {
           hasActiveTabInDropdown = true;
         }
+      }
+    }
+
+    const hiddenTabHasFocus = this.#tabElements.some(tab => {
+      return this.#hiddenTabElementsMap.get(tab) && tab.hasFocus();
+    });
+
+    this.#tabElements.forEach(tab => {
+      if (this.#hiddenTabElementsMap.get(tab)) {
+        tab.style.transform = hiddenTabHasFocus ? '' : 'translateX(2000%)';
+      }
+    });
+
+    // If a hidden tab has focus, make sure it is in view
+    if (hiddenTabHasFocus) {
+      const focusedTab = this.#tabElements.find(
+        tab => this.#hiddenTabElementsMap.get(tab) && tab.hasFocus(),
+      );
+      if (focusedTab) {
+        const containerRect = this._gridElement.getBoundingClientRect();
+        const focusedTabRect = focusedTab.getBoundingClientRect();
+        const focusedTabWidth = focusedTabRect.width;
+        const gridWidth = containerRect.width;
+
+        const desiredScrollLeft =
+          focusedTabRect.left - (gridWidth - focusedTabWidth);
+
+        this._gridElement.scrollLeft = Math.max(
+          this._gridElement.scrollLeft,
+          desiredScrollLeft,
+        );
       }
     }
 
@@ -331,18 +368,26 @@ export class UUITabGroupElement extends LitElement {
     );
   }
 
+  #setInitialFocus(): void {
+    // Set initial focus on the active, none hidden tab or the first tab
+    let initialTab: UUITabElement | undefined;
+
+    const activeTab = this.#tabElements.find(tab => tab.active);
+
+    if (activeTab && !this.#hiddenTabElementsMap.has(activeTab)) {
+      initialTab = activeTab;
+    } else if (this.#tabElements.length > 0) {
+      initialTab = this.#tabElements[0];
+    }
+
+    if (initialTab) {
+      this.#setFocusable(initialTab);
+    }
+  }
+
   render() {
     return html`
-      <div
-        id="main"
-        tabindex="0"
-        @focus=${() => {
-          if (this.#tabElements.length > 0) {
-            this.#setFocus(
-              this.#tabElements.find(tab => tab.active) || this.#tabElements[0],
-            );
-          }
-        }}>
+      <div id="main" @focus=${this.#setInitialFocus}>
         <div id="grid" role="tablist">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
@@ -351,6 +396,7 @@ export class UUITabGroupElement extends LitElement {
           style="display: none"
           id="more-button"
           label="More"
+          tabindex="-1"
           compact>
           <uui-symbol-more></uui-symbol-more>
         </uui-button>
@@ -359,7 +405,7 @@ export class UUITabGroupElement extends LitElement {
         id="popover-container"
         popover
         placement="bottom-end">
-        <div id="hidden-tabs-container" role="tablist">
+        <div id="hidden-tabs-container" tabindex="-1">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
         </div>
       </uui-popover-container>
