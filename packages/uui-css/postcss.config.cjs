@@ -2,7 +2,6 @@
 const config = {
   plugins: [
     require('postcss-advanced-variables'),
-    require('postcss-color-function'),
     require('postcss-url'),
     require('autoprefixer'),
   ],
