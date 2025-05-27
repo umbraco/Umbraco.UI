@@ -75,10 +75,6 @@ export class UUITabGroupElement extends LitElement {
     this.removeEventListener('keydown', this.#onKeyDown);
   }
 
-  firstUpdated() {
-    this.#setInitialFocus();
-  }
-
   #setFocusable(tab: UUITabElement | null, focus: boolean = true) {
     if (tab) {
       // Reset tabindex for all tabs
@@ -180,7 +176,7 @@ export class UUITabGroupElement extends LitElement {
       this.#tabResizeObservers.push(observer);
     });
 
-    this.#setInitialFocus();
+    this.#setInitialFocusable();
   }
 
   #onTabClicked = (e: MouseEvent) => {
@@ -368,7 +364,7 @@ export class UUITabGroupElement extends LitElement {
     );
   }
 
-  #setInitialFocus(): void {
+  #setInitialFocusable(): void {
     // Set initial focus on the active, none hidden tab or the first tab
     let initialTab: UUITabElement | undefined;
 
@@ -387,11 +383,12 @@ export class UUITabGroupElement extends LitElement {
 
   render() {
     return html`
-      <div id="main" @focus=${this.#setInitialFocus}>
+      <div id="main">
         <div id="grid" role="tablist">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
         <uui-button
+          aria-hidden="true"
           popovertarget="popover-container"
           style="display: none"
           id="more-button"
@@ -403,6 +400,7 @@ export class UUITabGroupElement extends LitElement {
       </div>
       <uui-popover-container
         id="popover-container"
+        aria-hidden="true"
         popover
         placement="bottom-end">
         <div id="hidden-tabs-container" tabindex="-1">
