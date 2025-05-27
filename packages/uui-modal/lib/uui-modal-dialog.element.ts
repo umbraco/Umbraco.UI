@@ -16,6 +16,7 @@ export class UUIModalDialogElement extends UUIModalElement {
     ...UUIModalElement.styles,
     css`
       :host {
+        outline: none;
         --uui-modal-dialog-background: var(--uui-color-surface);
       }
       dialog {

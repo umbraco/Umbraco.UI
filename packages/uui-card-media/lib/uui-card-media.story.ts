@@ -41,6 +41,12 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 
+export const WithDetail: Story = {
+  args: {
+    detail: 'The detail',
+  },
+};
+
 export const Folder: Story = {
   args: {
     fileExt: '',

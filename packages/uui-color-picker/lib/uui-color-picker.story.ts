@@ -73,6 +73,7 @@ export const Inline: Story = {
 export const Opacity: Story = {
   args: {
     opacity: true,
+    value: undefined,
     inline: true,
   },
 };

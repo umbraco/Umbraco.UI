@@ -37,8 +37,8 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     @property({ type: String })
     public label!: string;
 
-    connectedCallback() {
-      super.connectedCallback();
+    firstUpdated(_changedProperties: Map<string | number | symbol, unknown>) {
+      super.firstUpdated(_changedProperties);
       if (!this.label) {
         console.warn(this.tagName + ' needs a `label`', this);
       }
@@ -65,7 +65,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
           : ''}
         <slot
           class="label"
-          style=${this._labelSlotHasContent ? '' : 'visibility: hidden'}
+          style=${this._labelSlotHasContent ? '' : 'display: none'}
           name=${labelSlotName ? labelSlotName : ''}
           @slotchange=${this.labelSlotChanged}></slot>
       `;
