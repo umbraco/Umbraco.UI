@@ -388,7 +388,6 @@ export class UUITabGroupElement extends LitElement {
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
         <uui-button
-          aria-hidden="true"
           popovertarget="popover-container"
           style="display: none"
           id="more-button"
@@ -400,7 +399,6 @@ export class UUITabGroupElement extends LitElement {
       </div>
       <uui-popover-container
         id="popover-container"
-        aria-hidden="true"
         popover
         placement="bottom-end">
         <div id="hidden-tabs-container" tabindex="-1">
