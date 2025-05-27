@@ -64,10 +64,23 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   @property({ type: String, reflect: true })
   public orientation?: 'horizontal' | 'vertical' = 'horizontal';
 
+  #focus: boolean;
+
   constructor() {
     super();
     this.addEventListener('click', this.onHostClick);
+    this.addEventListener('focus', this.#onFocus);
+    this.addEventListener('blur', this.#onBlur);
+    this.#focus = false;
   }
+
+  #onFocus = () => {
+    this.#focus = true;
+  };
+
+  #onBlur = () => {
+    this.#focus = false;
+  };
 
   private onHostClick(e: MouseEvent) {
     if (this.disabled) {
@@ -136,7 +149,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
    */
   public hasFocus() {
     const button = this.shadowRoot?.querySelector('#button');
-    return document.activeElement === button || document.activeElement === this;
+    return (
+      this.#focus ||
+      document.activeElement === button ||
+      document.activeElement === this
+    );
   }
 
   render() {
