@@ -179,6 +179,14 @@ export const MultipleInputs: Story = {
   },
 };
 
+export const InputAlignment: Story = {
+  render: args =>
+    html`<uui-input ${spread(args)}>${renderSlots(args)}</uui-input>–<uui-input
+        ${spread(args)}
+        >${renderSlots(args)}</uui-input
+      >`,
+};
+
 export const AutoWidth: Story = {
   render: args =>
     html`<uui-input ${spread(args)}></uui-input>
