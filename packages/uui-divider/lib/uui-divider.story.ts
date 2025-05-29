@@ -11,7 +11,7 @@ const meta: Meta<UUIDividerElement> = {
   title: 'Displays/Divider',
   component: 'uui-divider',
   render: args =>
-    html`<uui-divider ${spread(args)}>${renderSlots(args)}</divider>`,
+    html`<uui-divider ${spread(args)}>${renderSlots(args)}</uui-divider>`,
   parameters: {
     readme: { markdown: readme },
     docs: {
