@@ -45,7 +45,7 @@ export class UUIDividerElement extends LitElement {
       :host([vertical]) {
         display: inline-block;
         height: 100%;
-        border-left: solid var(--uui-divider-border-width, 1px)
+        border-left: solid var(--uui-divider-width, 1px)
           var(--uui-divider-color, var(--uui-color-border));
         margin: 0 var(--uui-divider-spacing);
       }
