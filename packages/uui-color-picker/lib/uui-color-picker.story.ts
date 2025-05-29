@@ -83,3 +83,9 @@ export const Readonly: Story = {
     readonly: true,
   },
 };
+
+export const NoSwatches: Story = {
+  args: {
+    swatches: [],
+  },
+};
