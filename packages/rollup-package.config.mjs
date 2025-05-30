@@ -3,6 +3,8 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 import rollupPostcss from 'rollup-plugin-postcss';
+import postcssUrl from 'postcss-url';
+import postcssImport from 'postcss-import';
 import postcssCustomPropertiesFallback from '../scripts/postcss-custom-properties-fallback/plugin.mjs';
 import path from 'path';
 import processLitCSSPlugin from '../scripts/processLitCSSPlugin.mjs';
@@ -50,6 +52,11 @@ const createCSSFilesConfig = (cssFiles = []) => {
           rollupPostcss({
             plugins: [
               postcssCustomPropertiesFallback({ importFrom: properties }),
+              postcssImport({
+                plugins: [
+                  postcssUrl(), // This plugin is used to handle URLs in imported CSS files
+                ],
+              }),
             ],
             extract: path.resolve(`./dist/${name}.css`),
           }),
