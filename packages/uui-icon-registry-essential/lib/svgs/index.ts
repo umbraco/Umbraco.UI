@@ -10,6 +10,7 @@ export * from './iconCopy';
 export * from './iconDelete';
 export * from './iconDocument';
 export * from './iconDownload';
+export * from './iconDrag';
 export * from './iconEdit';
 export * from './iconFavorite';
 export * from './iconFolder';
