@@ -51,12 +51,12 @@ const createCSSFilesConfig = (cssFiles = []) => {
         plugins: [
           rollupPostcss({
             plugins: [
-              postcssCustomPropertiesFallback({ importFrom: properties }),
               postcssImport({
                 plugins: [
                   postcssUrl(), // This plugin is used to handle URLs in imported CSS files
                 ],
               }),
+              postcssCustomPropertiesFallback({ importFrom: properties }),
             ],
             extract: path.resolve(`./dist/${name}.css`),
           }),
