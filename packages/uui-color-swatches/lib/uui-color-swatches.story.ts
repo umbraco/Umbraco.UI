@@ -122,3 +122,9 @@ export const Gradient: Story = {
     value: 'lemon-twist',
   },
 };
+
+export const NoSwatches: Story = {
+  args: {
+    swatches: [],
+  },
+};

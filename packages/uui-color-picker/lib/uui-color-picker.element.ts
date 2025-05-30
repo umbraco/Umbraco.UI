@@ -530,7 +530,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderSwatches() {
-    if (!this.swatches) return nothing;
+    if (!this.swatches || this.swatches.length === 0) return nothing;
     return html`<uui-color-swatches
       id="swatches"
       class="color-picker__swatches"
