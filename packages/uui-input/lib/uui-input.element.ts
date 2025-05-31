@@ -508,6 +508,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         display: flex;
         align-items: center;
         line-height: 1;
+        height: 100%;
       }
 
       ::slotted(uui-input),

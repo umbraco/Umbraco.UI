@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.2...v1.14.0-rc.3) (2025-05-28)
+
+### Bug Fixes
+
+- Set height for input prepend/append slots ([#1113](https://github.com/umbraco/Umbraco.UI/issues/1113)) ([0681615](https://github.com/umbraco/Umbraco.UI/commit/0681615c576dcf4e1095b1334caf48c21d29edba))
+
 # [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input
