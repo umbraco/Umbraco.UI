@@ -233,4 +233,21 @@ describe('UuiTab', () => {
     expect(tabs[1].active).to.be.false;
     expect(window.location.hash).to.equal('#content');
   });
+
+  it('sets tabindex="0" on the first tab when no tab is active', async () => {
+    element = await fixture(html`
+      <uui-tab-group>
+        <uui-tab href="/" label="Content">Content</uui-tab>
+        <uui-tab label="Packages">Packages</uui-tab>
+        <uui-tab label="Media">Media</uui-tab>
+      </uui-tab-group>
+    `);
+
+    tabs = Array.from(element.querySelectorAll('uui-tab'));
+    const firstTabButton = tabs[0].shadowRoot?.querySelector(
+      '#button',
+    ) as HTMLButtonElement;
+
+    expect(firstTabButton.getAttribute('tabindex')).to.equal('0');
+  });
 });

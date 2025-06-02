@@ -164,7 +164,7 @@ export class UUITabGroupElement extends LitElement {
     this.#visibilityBreakpoints.length = 0;
   }
 
-  #onSlotChange() {
+  async #onSlotChange() {
     this.#setTabArray();
 
     this.#tabElements.forEach(el => {
@@ -176,7 +176,7 @@ export class UUITabGroupElement extends LitElement {
       this.#tabResizeObservers.push(observer);
     });
 
-    this.#setInitialFocusable();
+    await this.#setInitialFocusable();
   }
 
   #onTabClicked = (e: MouseEvent) => {
@@ -364,7 +364,7 @@ export class UUITabGroupElement extends LitElement {
     );
   }
 
-  #setInitialFocusable(): void {
+  async #setInitialFocusable(): Promise<void> {
     // Set initial focus on the active, none hidden tab or the first tab
     let initialTab: UUITabElement | undefined;
 
@@ -377,6 +377,7 @@ export class UUITabGroupElement extends LitElement {
     }
 
     if (initialTab) {
+      await initialTab.updateComplete;
       this.#setFocusable(initialTab);
     }
   }
