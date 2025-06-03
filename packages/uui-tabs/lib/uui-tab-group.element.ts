@@ -75,7 +75,7 @@ export class UUITabGroupElement extends LitElement {
     this.removeEventListener('keydown', this.#onKeyDown);
   }
 
-  #setFocusable(tab: UUITabElement | null, focus: boolean = true) {
+  #setFocusable(tab: UUITabElement | null, focus: boolean = false) {
     if (tab) {
       // Reset tabindex for all tabs
       this.#tabElements.forEach(t => {

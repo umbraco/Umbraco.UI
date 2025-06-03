@@ -74,7 +74,7 @@ describe('UuiTab', () => {
   });
 
   it('focuses and activates next tab on ArrowRight', async () => {
-    element.focus(); // Focus the tab group
+    tabs[2].setFocusable(true); // Focus the tab group
     await element.updateComplete;
 
     const event = new KeyboardEvent('keydown', {
@@ -91,7 +91,7 @@ describe('UuiTab', () => {
   });
 
   it('focuses and activates previous tab on ArrowLeft', async () => {
-    element.focus();
+    tabs[2].setFocusable(true);
     await element.updateComplete;
 
     const event = new KeyboardEvent('keydown', {
@@ -108,7 +108,7 @@ describe('UuiTab', () => {
   });
 
   it('focuses and activates first tab on Home', async () => {
-    element.focus();
+    tabs[2].setFocusable(true);
     await element.updateComplete;
 
     const event = new KeyboardEvent('keydown', {
@@ -125,7 +125,7 @@ describe('UuiTab', () => {
   });
 
   it('focuses and activates last tab on End', async () => {
-    element.focus();
+    tabs[2].focus();
     await element.updateComplete;
 
     const event = new KeyboardEvent('keydown', {
@@ -142,7 +142,7 @@ describe('UuiTab', () => {
   });
 
   it('wraps focus from last to first tab with ArrowRight', async () => {
-    element.focus();
+    tabs[2].setFocusable(true);
     await element.updateComplete;
 
     // Set focus to last tab
@@ -169,7 +169,7 @@ describe('UuiTab', () => {
   });
 
   it('activates the focused tab on Space or Enter', async () => {
-    element.focus();
+    tabs[2].setFocusable(true);
     await element.updateComplete;
 
     const event = new KeyboardEvent('keydown', {
@@ -234,10 +234,10 @@ describe('UuiTab', () => {
     expect(window.location.hash).to.equal('#content');
   });
 
-  it('sets tabindex="0" on the first tab when no tab is active', async () => {
+  it('does not focus the first tab on initialization, only sets tabindex="0"', async () => {
     element = await fixture(html`
       <uui-tab-group>
-        <uui-tab href="/" label="Content">Content</uui-tab>
+        <uui-tab label="Content">Content</uui-tab>
         <uui-tab label="Packages">Packages</uui-tab>
         <uui-tab label="Media">Media</uui-tab>
       </uui-tab-group>
@@ -248,6 +248,7 @@ describe('UuiTab', () => {
       '#button',
     ) as HTMLButtonElement;
 
-    expect(firstTabButton.getAttribute('tabindex')).to.equal('0');
+    expect(tabs[0].hasFocus()).to.be.false; // Assert that the button is not focused
+    expect(firstTabButton.getAttribute('tabindex')).to.equal('0'); // Assert that the tabindex is set to 0
   });
 });
