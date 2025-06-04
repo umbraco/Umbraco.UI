@@ -34,6 +34,11 @@ export type InputMode =
   | 'email'
   | 'url';
 
+export type InputDataListOption = {
+  name?: string;
+  value: string;
+};
+
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
@@ -163,6 +168,16 @@ export class UUIInputElement extends UUIFormControlMixin(
    */
   @property()
   placeholder = '';
+
+  /**
+   * An array of options to be rendered by the input's datalist. The option interface has 2 properties:
+   * `interface Option {
+    name: string;
+    value: string;
+  }`
+   */
+  @property({ type: Array, attribute: false })
+  options: Array<InputDataListOption> = [];
 
   /**
    * Defines the input autocomplete.
@@ -324,11 +339,26 @@ export class UUIInputElement extends UUIFormControlMixin(
     return html`<slot name="append"></slot>`;
   }
 
+  protected renderDataList() {
+    if (!this.options?.length) return;
+    return html`
+      <datalist id="options">
+        ${this.options.map(
+          option => html`
+            <option value=${option.value}>
+              ${option.name ?? option.value}
+            </option>
+          `,
+        )}
+      </datalist>
+    `;
+  }
+
   render() {
     return html`
       ${this.renderPrepend()}
       ${this.autoWidth ? this.renderInputWithAutoWidth() : this.renderInput()}
-      ${this.renderAppend()}
+      ${this.renderAppend()} ${this.renderDataList()}
     `;
   }
 
@@ -351,6 +381,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       spellcheck=${this.spellcheck}
       autocomplete=${ifDefined(this.autocomplete as any)}
       placeholder=${ifDefined(this.placeholder)}
+      list=${ifDefined(this.options?.length ? 'options' : undefined)}
       aria-label=${ifDefined(this.label)}
       inputmode=${ifDefined(this.inputMode)}
       ?disabled=${this.disabled}
@@ -363,7 +394,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   }
 
   private renderAutoWidthBackground() {
-    return html` <div id="auto" aria-hidden="true">${this.renderText()}</div>`;
+    return html`<div id="auto" aria-hidden="true">${this.renderText()}</div>`;
   }
 
   private renderText() {
