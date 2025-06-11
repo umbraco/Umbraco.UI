@@ -1,10 +1,10 @@
-module.exports = () => {
-  return {
-    plugins: {
-      'postcss-advanced-variables': {},
-      'postcss-color-function': {},
-      'postcss-url': {},
-      autoprefixer: {},
-    },
-  };
+/** @type {import('postcss-load-config').Config} */
+const config = {
+  plugins: [
+    require('postcss-advanced-variables'),
+    require('postcss-url'),
+    require('autoprefixer'),
+  ],
 };
+
+module.exports = config;

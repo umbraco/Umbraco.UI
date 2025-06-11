@@ -32,6 +32,18 @@ const meta: Meta = {
         'color',
       ],
     },
+    inputMode: {
+      options: [
+        'text',
+        'none',
+        'decimal',
+        'numeric',
+        'tel',
+        'search',
+        'email',
+        'url',
+      ],
+    },
   },
   parameters: {
     readme: {
@@ -127,6 +139,15 @@ export const PrependAndAppend: Story = {
 
 export const PrependIcon: Story = {
   args: {
+    'prepend slot': html`<uui-icon
+      name="search"
+      slot="prepend"
+      style="padding-left:var(--uui-size-space-2)"></uui-icon>`,
+  },
+};
+
+export const PrependIconInDiv: Story = {
+  args: {
     'prepend slot': html`<div slot="prepend">
       <uui-icon name="search"></uui-icon>
     </div>`,
@@ -156,6 +177,14 @@ export const MultipleInputs: Story = {
       style="width: 100px;">
     </uui-input>`,
   },
+};
+
+export const InputAlignment: Story = {
+  render: args =>
+    html`<uui-input ${spread(args)}>${renderSlots(args)}</uui-input>–<uui-input
+        ${spread(args)}
+        >${renderSlots(args)}</uui-input
+      >`,
 };
 
 export const AutoWidth: Story = {

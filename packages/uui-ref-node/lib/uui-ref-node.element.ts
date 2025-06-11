@@ -181,10 +181,10 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       #content {
         display: flex;
+        flex-grow: 1;
         align-items: center;
-        justify-content: center;
         line-height: 1.2em;
-        padding: calc(var(--uui-size-2));
+        padding: calc(var(--uui-size-3));
       }
 
       #open-part {
@@ -210,10 +210,12 @@ export class UUIRefNodeElement extends UUIRefElement {
         justify-content: center;
         height: 100%;
         padding-left: var(--uui-size-2);
+        margin-top: 1px;
       }
 
       #detail {
         opacity: 0.6;
+        line-height: 1.2em;
       }
 
       :host([selectable]) #open-part {

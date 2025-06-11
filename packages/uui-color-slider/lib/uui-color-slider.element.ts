@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { Colord } from 'colord';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -13,8 +14,7 @@ import { UUIColorSliderEvent } from './UUIColorSliderEvent';
 import { LabelMixin } from '@umbraco-ui/uui-base/lib/mixins';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
-//TODO implement saturation and lightness types for color slider
-export type UUIColorSliderType = 'hue' | 'opacity';
+export type UUIColorSliderType = 'hue' | 'opacity' | 'saturation' | 'lightness';
 
 /**
  *  @element uui-color-slider
@@ -107,11 +107,29 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('type')) {
       if (this.type === 'hue') {
-        this.max = 360;
-        this.precision = 1;
+        this.max = this.max ?? 360;
+      } else if (this.type === 'saturation') {
+        this.max = this.max ?? 100;
+      } else if (this.type === 'lightness') {
+        this.max = this.max ?? 100;
       } else if (this.type === 'opacity') {
-        this.max = 100;
-        this.precision = 1;
+        this.max = this.max ?? 100;
+      }
+
+      this.precision = this.precision ?? 1;
+
+      if (this.color) {
+        const colord = new Colord(this.color);
+        const { h, s, l } = colord.toHsl();
+
+        const gradient =
+          this.type === 'saturation'
+            ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, 0%, ${l}%), hsl(${h}, 100%, ${l}%))`
+            : this.type === 'lightness'
+              ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`
+              : null;
+
+        this.style.setProperty('--uui-slider-background-image', gradient);
       }
     }
   }

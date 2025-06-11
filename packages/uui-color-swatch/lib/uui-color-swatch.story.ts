@@ -114,3 +114,12 @@ export const Transparent: Story = {
     value: 'rgba(209, 2, 26, 0.4)',
   },
 };
+
+export const Gradient: Story = {
+  args: {
+    value: 'sun',
+    color: 'radial-gradient(orange, red)',
+    label: 'Sun',
+    showLabel: true,
+  },
+};

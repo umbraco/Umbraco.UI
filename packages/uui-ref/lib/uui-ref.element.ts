@@ -69,6 +69,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        font-size: var(--uui-font-size);
 
         box-sizing: border-box;
         border-radius: var(--uui-border-radius);

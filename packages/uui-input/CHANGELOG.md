@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.2...v1.14.0-rc.3) (2025-05-28)
+
+### Bug Fixes
+
+- Set height for input prepend/append slots ([#1113](https://github.com/umbraco/Umbraco.UI/issues/1113)) ([0681615](https://github.com/umbraco/Umbraco.UI/commit/0681615c576dcf4e1095b1334caf48c21d29edba))
+
+# [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- Gave host "color" to make sure things like text in date picker are aligned with theme, as well as giving it a a color scheme option ([#1056](https://github.com/umbraco/Umbraco.UI/issues/1056)) ([49534c1](https://github.com/umbraco/Umbraco.UI/commit/49534c1517197ebc176f53d2d65907c38a8b3295))
+- Text character length validation should be more helpful ([#1060](https://github.com/umbraco/Umbraco.UI/issues/1060)) ([12cc5bc](https://github.com/umbraco/Umbraco.UI/commit/12cc5bcb2ab8c9b925bd811db0b25848df899a56))
+
+### Features
+
+- Specific input mode similar to input type ([#1021](https://github.com/umbraco/Umbraco.UI/issues/1021)) ([f18414d](https://github.com/umbraco/Umbraco.UI/commit/f18414d12bbed4618bbb8b11eedd926c9ff27bf5))
+
 # [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input

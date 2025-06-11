@@ -60,6 +60,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
     ...UUIModalElement.styles,
     css`
       :host {
+        outline: none;
         --uui-modal-sidebar-left-gap: 24px;
         --uui-modal-sidebar-background: var(--uui-color-surface);
       }
