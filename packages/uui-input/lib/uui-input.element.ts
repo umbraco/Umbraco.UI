@@ -478,8 +478,7 @@ export class UUIInputElement extends UUIFormControlMixin(
 
       input {
         font-family: inherit;
-        padding: 1px var(--uui-size-space-3) var(--uui-size-1)
-          var(--uui-size-space-3);
+        padding: 1px var(--uui-size-space-3);
         font-size: inherit;
         color: inherit;
         border-radius: var(--uui-border-radius);
