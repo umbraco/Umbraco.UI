@@ -351,8 +351,14 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#scrollParents.push(document.body);
   }
 
+  #onSlotChange() {
+    requestAnimationFrame(() => {
+      this.#initUpdate();
+    });
+  }
+
   render() {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
   static styles = [
