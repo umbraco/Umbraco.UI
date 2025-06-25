@@ -84,7 +84,6 @@ export class UUIPopoverContainerElement extends LitElement {
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
 
-    // set up an observer that just logs the new width
     this.#sizeObserver = new ResizeObserver(entries => {
       const element = entries[0]; // should be only one
       const width = element.contentRect.width;
