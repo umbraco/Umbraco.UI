@@ -46,7 +46,6 @@ const meta: Meta = {
   component: 'uui-combobox',
   title: 'Inputs/Combobox',
   args: {
-    placeholder: 'Placeholder',
     options: fruits,
     listItemRenderer: (item: any) =>
       html`<uui-combobox-list-option value="${item}">
@@ -110,6 +109,12 @@ export const Default: Story = {
         sourceState: 'shown',
       },
     },
+  },
+};
+
+export const Placeholder: Story = {
+  args: {
+    placeholder: 'Placeholder',
   },
 };
 
