@@ -332,8 +332,8 @@ export class UUIPopoverContainerElement extends LitElement {
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
 
-    let el = this.#targetElement;
-    while ((el = el.parentElement as HTMLElement)) {
+    let el: HTMLElement | undefined | null = this.#targetElement;
+    while (el) {
       style = getComputedStyle(el);
 
       if (excludeStaticParent && style.position === 'static') {
@@ -346,6 +346,13 @@ export class UUIPopoverContainerElement extends LitElement {
       }
       if (style.position === 'fixed') {
         return;
+      }
+
+      if (el.parentElement) {
+        el = el.parentElement;
+      } else {
+        // If we had no parentElement, then check for shadow roots:
+        el = (el.getRootNode() as any)?.host;
       }
     }
     this.#scrollParents.push(document.body);
