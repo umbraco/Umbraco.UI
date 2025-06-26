@@ -46,6 +46,7 @@ const meta: Meta = {
   component: 'uui-combobox',
   title: 'Inputs/Combobox',
   args: {
+    placeholder: 'Placeholder',
     options: fruits,
     listItemRenderer: (item: any) =>
       html`<uui-combobox-list-option value="${item}">

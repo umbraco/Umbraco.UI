@@ -91,7 +91,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    * @attr
    * @default "Close"
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'close-label' })
   public closeLabel = 'Close';
 
   /**
@@ -111,6 +111,15 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, reflect: true })
   readonly = false;
+
+  /**
+   * Defines the input placeholder.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property()
+  placeholder = '';
 
   @query('#combobox-input')
   private _input!: HTMLInputElement;
@@ -318,6 +327,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       label="combobox-input"
       type="text"
       .value=${this._displayValue}
+      .placeholder=${this.placeholder}
       autocomplete="off"
       .disabled=${this.disabled}
       .readonly=${this.readonly}
