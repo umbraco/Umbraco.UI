@@ -69,6 +69,8 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #targetElement: HTMLElement | null = null;
   #scrollParents: Element[] = [];
+  #sizeObserver: ResizeObserver | null = null;
+  #size: { width: number; height: number } = { width: 0, height: 0 };
 
   connectedCallback(): void {
     if (!this.hasAttribute('popover')) {
@@ -77,12 +79,32 @@ export class UUIPopoverContainerElement extends LitElement {
 
     super.connectedCallback();
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
+
+    if (!this.#sizeObserver) {
+      this.#sizeObserver = new ResizeObserver(entries => {
+        const element = entries[0]; // should be only one
+        const width = element.contentRect.width;
+        const height = element.contentRect.height;
+
+        if (width === this.#size.width && height === this.#size.height) {
+          return; // no change
+        }
+
+        this.#size = { width, height };
+        this.#initUpdate();
+      });
+
+      // start listening for size changes
+      this.#sizeObserver.observe(this);
+    }
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
     this.#stopScrollListener();
+    this.#sizeObserver?.disconnect();
+    this.#sizeObserver = null;
   }
 
   #onBeforeToggle = (event: any) => {
