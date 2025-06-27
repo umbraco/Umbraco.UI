@@ -367,7 +367,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       slot="append"
       compact
       style="height: 100%;"
-      tab-index=${this.value || this.search ? '' : '-1'}
+      tabindex=${this.value || this.search ? '' : '-1'}
       class=${this.value || this.search ? 'visible' : ''}>
       <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
     </uui-button>`;
