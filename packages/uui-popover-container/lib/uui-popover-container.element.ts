@@ -1,6 +1,6 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 export type PopoverContainerPlacement =
@@ -79,26 +79,24 @@ export class UUIPopoverContainerElement extends LitElement {
 
     super.connectedCallback();
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
-  }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+    if (!this.#sizeObserver) {
+      this.#sizeObserver = new ResizeObserver(entries => {
+        const element = entries[0]; // should be only one
+        const width = element.contentRect.width;
+        const height = element.contentRect.height;
 
-    this.#sizeObserver = new ResizeObserver(entries => {
-      const element = entries[0]; // should be only one
-      const width = element.contentRect.width;
-      const height = element.contentRect.height;
+        if (width === this.#size.width && height === this.#size.height) {
+          return; // no change
+        }
 
-      if (width === this.#size.width && height === this.#size.height) {
-        return; // no change
-      }
+        this.#size = { width, height };
+        this.#initUpdate();
+      });
 
-      this.#size = { width, height };
-      this.#initUpdate();
-    });
-
-    // start listening for size changes
-    this.#sizeObserver.observe(this);
+      // start listening for size changes
+      this.#sizeObserver.observe(this);
+    }
   }
 
   disconnectedCallback(): void {
