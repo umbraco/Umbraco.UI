@@ -91,7 +91,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    * @attr
    * @default "Close"
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'close-label' })
   public closeLabel = 'Close';
 
   /**
@@ -104,6 +104,15 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   disabled = false;
 
   /**
+   * Removes the expand symbol.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: false, attribute: 'hide-expand-symbol' })
+  hideExpandSymbol = false;
+
+  /**
    * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
    * @type {boolean}
    * @attr
@@ -111,6 +120,15 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, reflect: true })
   readonly = false;
+
+  /**
+   * Defines the input placeholder.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property()
+  placeholder = '';
 
   @query('#combobox-input')
   private _input!: HTMLInputElement;
@@ -318,6 +336,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       label="combobox-input"
       type="text"
       .value=${this._displayValue}
+      .placeholder=${this.placeholder}
       autocomplete="off"
       .disabled=${this.disabled}
       .readonly=${this.readonly}
@@ -327,9 +346,11 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
       ${this.#renderClearButton()}
-      <div id="expand-symbol-wrapper" slot="append">
-        <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
-      </div>
+      ${this.hideExpandSymbol
+        ? nothing
+        : html`<div id="expand-symbol-wrapper" slot="append">
+            <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
+          </div>`}
       <slot name="input-append" slot="append"></slot>
     </uui-input>`;
   };
@@ -338,18 +359,18 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     if (this.disabled) return nothing;
     if (this.readonly) return nothing;
 
-    return this.value || this.search
-      ? html`<uui-button
-          id="clear-button"
-          @click=${this.#onClear}
-          @keydown=${this.#onClear}
-          label="clear"
-          slot="append"
-          compact
-          style="height: 100%;">
-          <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
-        </uui-button>`
-      : '';
+    return html`<uui-button
+      id="clear-button"
+      @click=${this.#onClear}
+      @keydown=${this.#onClear}
+      label="clear"
+      slot="append"
+      compact
+      style="height: 100%;"
+      tabindex=${this.value || this.search ? '' : '-1'}
+      class=${this.value || this.search ? 'visible' : ''}>
+      <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
+    </uui-button>`;
   };
 
   #renderDropdown = () => {
@@ -406,6 +427,17 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
         padding-right: var(--uui-size-space-3);
         display: flex;
         justify-content: center;
+      }
+
+      #clear-button {
+        opacity: 0;
+        transition: opacity 80ms;
+      }
+
+      :host(:not([disabled]):not([readonly]):focus-within)
+        #clear-button.visible,
+      :host(:not([disabled]):not([readonly]):hover) #clear-button.visible {
+        opacity: 1;
       }
 
       #dropdown {
