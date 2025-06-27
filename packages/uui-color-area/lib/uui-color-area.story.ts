@@ -1,4 +1,4 @@
-import type { StoryFn, Meta, StoryObj } from '@storybook/web-components';
+import type { StoryFn, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { UUIColorAreaElement } from './uui-color-area.element';
 import '.';
 import readme from '../README.md?raw';

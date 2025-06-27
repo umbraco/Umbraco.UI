@@ -22,11 +22,9 @@ const config: StorybookConfig = {
       },
     },
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
+    '@chromatic-com/storybook',
     '../storyhelpers/storybook-readme',
-    // TODO: Remove this when Chromatic supports this version of Storybook
-    // '@chromatic-com/storybook',
   ],
 
   framework: {

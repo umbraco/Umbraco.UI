@@ -1,4 +1,4 @@
-import { StoryFn } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
 import '@umbraco-ui/uui-tabs/lib';

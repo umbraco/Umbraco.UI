@@ -4,7 +4,7 @@ import readme from '../README.md?raw';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 const meta: Meta = {

@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 import { repeat } from 'lit/directives/repeat.js';
 

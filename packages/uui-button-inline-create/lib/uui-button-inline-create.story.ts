@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html, TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { GetRandomUmbracoWord } from '../../../storyhelpers/UmbracoWordGenerator';
 
 const meta: Meta = {

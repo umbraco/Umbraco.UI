@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 import '@umbraco-ui/uui-scroll-container/lib';
@@ -13,7 +13,7 @@ import '@umbraco-ui/uui-symbol-expand/lib';
 import '@umbraco-ui/uui-avatar/lib';
 
 import { repeat } from 'lit/directives/repeat.js';
-import { useArgs } from '@storybook/preview-api';
+import { useArgs } from 'storybook/preview-api';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
 import { until } from 'lit/directives/until.js';
 

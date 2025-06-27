@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import 'github-markdown-css/github-markdown.css';
 
-import { addons, types, useParameter } from '@storybook/manager-api';
-import { AddonPanel } from '@storybook/components';
+import { addons, types, useParameter } from 'storybook/manager-api';
+import { AddonPanel } from 'storybook/internal/components';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
