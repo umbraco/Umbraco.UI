@@ -1,6 +1,6 @@
 import '.';
 
-import { StoryFn } from '@storybook/web-components';
+import { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
 import { UUIPopoverElement } from './uui-popover.element';
