@@ -17,6 +17,7 @@ import {
   iconFavorite,
   iconFolder,
   iconForbidden,
+  iconDrag,
   iconInfo,
   iconLink,
   iconLock,
@@ -51,6 +52,7 @@ export class UUIIconRegistryEssential extends UUIIconRegistry {
     this.defineIcon('delete', iconDelete.strings[0]);
     this.defineIcon('document', iconDocument.strings[0]);
     this.defineIcon('download', iconDownload.strings[0]);
+    this.defineIcon('drag', iconDrag.strings[0]);
     this.defineIcon('edit', iconEdit.strings[0]);
     this.defineIcon('favorite', iconFavorite.strings[0]);
     this.defineIcon('folder', iconFolder.strings[0]);
