@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import './uui-drag-handle.element';
-import type { UUIDragHandleElement } from './uui-drag-handle.element';
+import './uui-symbol-drag.element';
+import type { UUIDragHandleElement } from './uui-symbol-drag.element';
 import readme from '../README.md?raw';
 
 const meta: Meta<UUIDragHandleElement> = {
-  id: 'uui-drag-handle',
+  id: 'uui-symbol-drag',
   title: 'Symbols/Drag Handle',
-  component: 'uui-drag-handle',
+  component: 'uui-symbol-drag',
   parameters: {
     readme: { markdown: readme },
     docs: {
       source: {
-        code: `<uui-drag-handle></uui-drag-handle>`,
+        code: `<uui-symbol-drag></uui-symbol-drag>`,
       },
     },
   },

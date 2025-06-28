@@ -4,9 +4,9 @@ import { css, html, LitElement } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
- * @element uui-drag-handle
+ * @element uui-symbol-drag
  */
-@defineElement('uui-drag-handle')
+@defineElement('uui-symbol-drag')
 export class UUIDragHandleElement extends LabelMixin('', LitElement) {
   render() {
     return html`<uui-icon
@@ -28,6 +28,6 @@ export class UUIDragHandleElement extends LabelMixin('', LitElement) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uui-drag-handle': UUIDragHandleElement;
+    'uui-symbol-drag': UUIDragHandleElement;
   }
 }

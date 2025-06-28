@@ -1,1 +1,1 @@
-export * from './uui-drag-handle.element';
+export * from './uui-symbol-drag.element';
