@@ -1,9 +1,9 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
-import { useState } from '@storybook/preview-api';
+import { useState } from 'storybook/preview-api';
 import { repeat } from 'lit/directives/repeat.js';
 
 const meta: Meta = {

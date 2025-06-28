@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+### Bug Fixes
+
+- line-height set to 1 on uui-button ([#1114](https://github.com/umbraco/Umbraco.UI/issues/1114)) ([9c528f0](https://github.com/umbraco/Umbraco.UI/commit/9c528f004686924ad9874c3b4f429c9c1a3126c4))
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+### Bug Fixes
+
+- installs postcss-import and postcss-url to ensure asset paths are correct ([04e5033](https://github.com/umbraco/Umbraco.UI/commit/04e503310b3a95043bd7df22395e4bdbc70b106c))
+
 # [1.14.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.2...v1.14.0-rc.3) (2025-05-28)
 
 ### Bug Fixes

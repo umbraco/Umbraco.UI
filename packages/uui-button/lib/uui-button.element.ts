@@ -251,6 +251,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
       : html`
           <button
             id="button"
+            type=${this.type}
             ?disabled=${this.disabled}
             aria-label=${ifDefined(this.label)}>
             ${this.renderState()} ${this.renderLabel()}
@@ -292,7 +293,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
       }
 
       .label {
-        line-height: normal; /** needed to reset 'a > span' */
+        line-height: 1; /** needed to reset 'a > span' */
         transition: opacity 120ms;
         display: flex;
         gap: var(--uui-size-1);

@@ -1,9 +1,9 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { UUIFileDropzoneElement, UUIFileDropzoneEvent } from '.';
 
 import '@umbraco-ui/uui-button/lib';

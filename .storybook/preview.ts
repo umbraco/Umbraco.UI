@@ -1,7 +1,7 @@
 import {
   setCustomElementsManifest,
   type Preview,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import '../packages/uui-css/dist/uui-css.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';

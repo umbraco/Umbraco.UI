@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 import '@umbraco-ui/uui-button-group/lib';
@@ -16,6 +16,25 @@ import '@umbraco-ui/uui-popover-container/lib';
 
 const formats = ['hex', 'rgb', 'hsl', 'hsv'];
 const sizes = ['small', 'medium', 'large'];
+
+const swatchesTransparent = [
+  'rgba(208, 2, 27, 0.5)',
+  'rgba(245, 166, 35, 0.5)',
+  'rgba(248, 231, 28, 0.5)',
+  'rgba(139, 87, 42, 0.5)',
+  'rgba(126, 211, 33, 0.5)',
+  'rgba(65, 117, 5, 0.5)',
+  'rgba(189, 16, 224, 0.5)',
+  'rgba(144, 19, 254, 0.5)',
+  'rgba(74, 144, 226, 0.5)',
+  'rgba(80, 227, 194, 0.5)',
+  'rgba(184, 233, 134, 0.5)',
+  'rgba(0, 0, 0, 0.5)',
+  'rgba(68, 68, 68, 0.5)',
+  'rgba(136, 136, 136, 0.5)',
+  'rgba(204, 204, 204, 0.5)',
+  'rgba(255, 255, 255, 0.5)',
+];
 
 const meta: Meta = {
   id: 'uui-color-picker',
@@ -81,5 +100,18 @@ export const Opacity: Story = {
 export const Readonly: Story = {
   args: {
     readonly: true,
+  },
+};
+
+export const NoSwatches: Story = {
+  args: {
+    swatches: [],
+  },
+};
+
+export const TransparentSwatches: Story = {
+  args: {
+    opacity: true,
+    swatches: swatchesTransparent,
   },
 };

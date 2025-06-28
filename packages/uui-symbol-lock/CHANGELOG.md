@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+**Note:** Version bump only for package @umbraco-ui/uui-symbol-lock
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-symbol-lock
+
 # [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
 
 **Note:** Version bump only for package @umbraco-ui/uui-symbol-lock
