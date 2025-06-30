@@ -70,8 +70,13 @@ export const Background: Story = {
 
 export const Image: Story = {
   args: {
-    slot: html`<img
-      src="https://umbraco.com/media/v5gf3w2a/umbraco-toolkit-wide.svg"
-      alt="" />`,
+    slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,
+  },
+};
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
   },
 };
