@@ -118,7 +118,7 @@ export class UUICardMediaElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
-
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>`;
   }
@@ -208,7 +208,6 @@ export class UUICardMediaElement extends UUICardElement {
       #content {
         position: relative;
         display: flex;
-        width: 100%;
         flex-direction: column;
         font-family: inherit;
         box-sizing: border-box;
