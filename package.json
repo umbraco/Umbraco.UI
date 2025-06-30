@@ -69,7 +69,7 @@
     "@lerna-lite/run": "4.1.2",
     "@lerna-lite/version": "4.1.2",
     "@open-wc/testing": "4.0.0",
-    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-node-resolve": "16.0.1",
     "@storybook/addon-a11y": "^9.0.13",
     "@storybook/addon-docs": "^9.0.13",
     "@storybook/addon-links": "^9.0.13",
