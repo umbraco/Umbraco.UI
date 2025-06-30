@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0...v1.14.1) (2025-06-30)
+
+### Bug Fixes
+
+- Recalculate popover position on lazy content ([#1129](https://github.com/umbraco/Umbraco.UI/issues/1129)) ([ae54fd9](https://github.com/umbraco/Umbraco.UI/commit/ae54fd98605702991c1c5f3921c9e8d639d877ae))
+
 # [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
 
 **Note:** Version bump only for package @umbraco-ui/uui-popover-container
