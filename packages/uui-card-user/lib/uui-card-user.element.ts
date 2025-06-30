@@ -87,6 +87,7 @@ export class UUICardUserElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
