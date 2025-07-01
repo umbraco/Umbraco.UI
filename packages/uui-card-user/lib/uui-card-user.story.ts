@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-avatar/lib/index';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 const cardContent = html`<div style="margin-bottom: 12px">Editors</div>

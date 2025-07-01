@@ -1,4 +1,4 @@
-import type { StoryFn } from '@storybook/web-components';
+import type { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
 import '@umbraco-ui/uui-symbol-expand/lib';

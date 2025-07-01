@@ -22,9 +22,8 @@ const config: StorybookConfig = {
       },
     },
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@chromatic-com/storybook',
     '@storybook/addon-a11y',
+    '@chromatic-com/storybook',
     '../storyhelpers/storybook-readme',
   ],
 

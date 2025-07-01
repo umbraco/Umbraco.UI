@@ -1,8 +1,8 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import { action } from '@storybook/addon-actions';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 // TODO: Figure out why we now need to import everything that every component uses

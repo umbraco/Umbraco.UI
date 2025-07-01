@@ -5,7 +5,7 @@ import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-symbol-file/lib/index';
 import '@umbraco-ui/uui-symbol-folder/lib/index';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 /**

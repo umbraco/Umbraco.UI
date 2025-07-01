@@ -69,6 +69,8 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #targetElement: HTMLElement | null = null;
   #scrollParents: Element[] = [];
+  #sizeObserver: ResizeObserver | null = null;
+  #size: { width: number; height: number } = { width: 0, height: 0 };
 
   connectedCallback(): void {
     if (!this.hasAttribute('popover')) {
@@ -77,12 +79,32 @@ export class UUIPopoverContainerElement extends LitElement {
 
     super.connectedCallback();
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
+
+    if (!this.#sizeObserver) {
+      this.#sizeObserver = new ResizeObserver(entries => {
+        const element = entries[0]; // should be only one
+        const width = element.contentRect.width;
+        const height = element.contentRect.height;
+
+        if (width === this.#size.width && height === this.#size.height) {
+          return; // no change
+        }
+
+        this.#size = { width, height };
+        this.#initUpdate();
+      });
+
+      // start listening for size changes
+      this.#sizeObserver.observe(this);
+    }
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
     this.#stopScrollListener();
+    this.#sizeObserver?.disconnect();
+    this.#sizeObserver = null;
   }
 
   #onBeforeToggle = (event: any) => {
@@ -332,8 +354,8 @@ export class UUIPopoverContainerElement extends LitElement {
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
 
-    let el = this.#targetElement;
-    while ((el = el.parentElement as HTMLElement)) {
+    let el: HTMLElement | undefined | null = this.#targetElement;
+    while (el) {
       style = getComputedStyle(el);
 
       if (excludeStaticParent && style.position === 'static') {
@@ -346,6 +368,13 @@ export class UUIPopoverContainerElement extends LitElement {
       }
       if (style.position === 'fixed') {
         return;
+      }
+
+      if (el.parentElement) {
+        el = el.parentElement;
+      } else {
+        // If we had no parentElement, then check for shadow roots:
+        el = (el.getRootNode() as any)?.host;
       }
     }
     this.#scrollParents.push(document.body);

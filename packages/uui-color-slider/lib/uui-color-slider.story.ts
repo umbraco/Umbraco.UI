@@ -3,8 +3,8 @@ import readme from '../README.md?raw';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { useState } from '@storybook/preview-api';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import { useState } from 'storybook/preview-api';
 import { spread } from '../../../storyhelpers';
 import { repeat } from 'lit/directives/repeat.js';
 

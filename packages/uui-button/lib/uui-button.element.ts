@@ -251,6 +251,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
       : html`
           <button
             id="button"
+            type=${this.type}
             ?disabled=${this.disabled}
             aria-label=${ifDefined(this.label)}>
             ${this.renderState()} ${this.renderLabel()}
