@@ -230,7 +230,7 @@ export const InsideShadowDOMScrollContainer: Story = {
   render: () => html`
     <div style="height: 500px; overflow: auto; outline: 1px solid black">
       <div
-        style="width: 300px; height: 300px; outline: 1px solid black; overflow: auto;">
+        style="position:static; width: 300px; height: 300px; outline: 1px solid black; overflow: auto;">
         <div style="height: 150px"></div>
         <uui-popover-container-shadowdomtester></uui-popover-container-shadowdomtester>
         <div style="height: 150px"></div>
