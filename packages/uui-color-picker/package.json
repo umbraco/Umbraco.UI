@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-color-picker",
-  "version": "1.14.1",
+  "version": "1.14.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@umbraco-ui/uui-base": "1.14.1",
-    "@umbraco-ui/uui-popover-container": "1.14.1",
+    "@umbraco-ui/uui-popover-container": "1.14.2",
     "colord": "^2.9.3"
   },
   "scripts": {
