@@ -15,7 +15,12 @@ import importCss from 'rollup-plugin-import-css';
 import properties from './uui-css/custom-properties.module.js'; // eslint-disable-line
 // @ts-ignore-end
 
-const esbuidOptions = { minify: true };
+const tsconfigPath = new URL('../tsconfig.json', import.meta.url).pathname;
+
+/**
+ * @type {import('rollup-plugin-esbuild').Options}
+ */
+const esbuildOptions = { tsconfig: tsconfigPath, target: 'es2022' }; // TODO: We have to specify the 'target' manually here, because the tsconfig is not used correctly by rollup-plugin-esbuild
 
 const rootDir = new URL('../', import.meta.url).pathname;
 
@@ -32,7 +37,7 @@ const createEsModulesConfig = (entryPoints = []) => {
         plugins: [
           nodeResolve({ rootDir }),
           importCss({ from: undefined }),
-          esbuild(),
+          esbuild(esbuildOptions),
           processLitCSSPlugin(),
         ],
       };
@@ -84,7 +89,10 @@ const createBundleConfig = (bundle, namespace) => {
           importCss(),
           processLitCSSPlugin(),
           minifyHTML.default(),
-          esbuild(esbuidOptions),
+          esbuild({
+            ...esbuildOptions,
+            minify: true,
+          }),
         ],
       }
     : undefined;
