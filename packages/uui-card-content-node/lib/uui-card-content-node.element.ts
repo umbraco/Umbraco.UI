@@ -116,7 +116,7 @@ export class UUICardContentNodeElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
-
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
@@ -225,6 +225,11 @@ export class UUICardContentNodeElement extends UUICardElement {
       }
       :host(:not([disabled])) #open-part:hover #default {
         color: var(--uui-color-interactive-emphasis);
+      }
+
+      #select-checkbox {
+        top: var(--uui-size-5);
+        left: var(--uui-size-6);
       }
     `,
   ];
