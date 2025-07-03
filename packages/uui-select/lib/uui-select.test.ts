@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { UUISelectElement } from './uui-select.element';
 
 const options: Array<Option> = [
-  { name: 'Carrot', value: 'orange', selected: true },
+  { name: 'Carrot', value: 'orange' },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },
   { name: 'Blueberry', value: 'Blue' },
