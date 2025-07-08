@@ -71,10 +71,11 @@ export class UUICardMediaElement extends UUICardElement {
   }
 
   #renderButton() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`
       <button
         id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         ${this.#renderContent()}
@@ -83,10 +84,11 @@ export class UUICardMediaElement extends UUICardElement {
   }
 
   #renderLink() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`
       <a
         id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
         rel=${ifDefined(

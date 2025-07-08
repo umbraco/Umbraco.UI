@@ -40,29 +40,35 @@ export class UUICardUserElement extends UUICardElement {
   }
 
   #renderButton() {
-    return html`<div
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : '0'}
-      @click=${this.handleOpenClick}
-      @keydown=${this.handleOpenKeydown}>
-      ${this.#renderContent()}
-    </div>`;
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    return html`
+      <div
+        id="open-part"
+        tabindex=${ifDefined(tabIndex)}
+        @click=${this.handleOpenClick}
+        @keydown=${this.handleOpenKeydown}>
+        ${this.#renderContent()}
+      </div>
+    `;
   }
 
   #renderLink() {
-    return html`<a
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : '0'}
-      href=${ifDefined(!this.disabled ? this.href : undefined)}
-      target=${ifDefined(this.target || undefined)}
-      rel=${ifDefined(
-        this.rel ||
-          ifDefined(
-            this.target === '_blank' ? 'noopener noreferrer' : undefined,
-          ),
-      )}>
-      ${this.#renderContent()}
-    </a>`;
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    return html`
+      <a
+        id="open-part"
+        tabindex=${ifDefined(tabIndex)}
+        href=${ifDefined(!this.disabled ? this.href : undefined)}
+        target=${ifDefined(this.target || undefined)}
+        rel=${ifDefined(
+          this.rel ||
+            ifDefined(
+              this.target === '_blank' ? 'noopener noreferrer' : undefined,
+            ),
+        )}>
+        ${this.#renderContent()}
+      </a>
+    `;
   }
 
   #renderContent() {
