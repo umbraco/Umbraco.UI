@@ -85,18 +85,14 @@ export class UUICardMediaElement extends UUICardElement {
 
   #renderLink() {
     const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
     return html`
       <a
         id="open-part"
         tabindex=${ifDefined(tabIndex)}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
-        rel=${ifDefined(
-          this.rel ||
-            ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
-            ),
-        )}>
+        rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}
       </a>
     `;
