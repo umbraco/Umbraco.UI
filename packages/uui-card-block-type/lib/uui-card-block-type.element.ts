@@ -49,18 +49,19 @@ export class UUICardBlockTypeElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
-
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
   }
 
   #renderButton() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`
       <button
         id="open-part"
         class="uui-text"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         ${this.#renderContent()}
@@ -69,19 +70,16 @@ export class UUICardBlockTypeElement extends UUICardElement {
   }
 
   #renderLink() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
     return html`
       <a
         id="open-part"
         class="uui-text"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
-        rel=${ifDefined(
-          this.rel ||
-            ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
-            ),
-        )}>
+        rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}
       </a>
     `;
@@ -97,7 +95,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       <div id="content">
         <span title="${this.name}" id="name">${this.name}</span>
-        <small title="${this.description}">${this.description}<slot name="description"></slot></small>
+        <small title="${ifDefined(this.description)}">${this.description}<slot name="description"></slot></small>
       </div></div>
     `;
   }

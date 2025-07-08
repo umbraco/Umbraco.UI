@@ -9,6 +9,8 @@ import { property } from 'lit/decorators.js';
 
 import { UUICardEvent } from './UUICardEvent';
 
+import '@umbraco-ui/uui-checkbox/lib';
+
 /**
  *  Card is a Component that provides the basics for a Card component. This can be extended in code to match a certain need.
  *  @element uui-card
@@ -81,6 +83,20 @@ export class UUICardElement extends SelectOnlyMixin(
     e.preventDefault();
     e.stopPropagation();
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
+  }
+
+  protected renderCheckbox() {
+    if (!this.selectable) return;
+    return html`
+      <uui-checkbox
+        id="select-checkbox"
+        label="select"
+        tabindex="-1"
+        ?checked=${this.selected}
+        @click=${(e: MouseEvent) => e.stopPropagation()}
+        @change=${() => this.click()}>
+      </uui-checkbox>
+    `;
   }
 
   protected render() {
@@ -235,6 +251,21 @@ export class UUICardElement extends SelectOnlyMixin(
       :host([disabled]) {
         background: var(--uui-color-disabled);
         color: var(--uui-color-disabled-contrast);
+      }
+
+      #select-checkbox {
+        position: absolute;
+        top: var(--uui-size-4);
+        left: var(--uui-size-4);
+        opacity: 0;
+        transition: opacity 120ms;
+        z-index: 3;
+      }
+      :host(:focus) #select-checkbox,
+      :host(:focus-within) #select-checkbox,
+      :host(:hover) #select-checkbox,
+      #select-checkbox[checked] {
+        opacity: 1;
       }
     `,
   ];

@@ -76,3 +76,16 @@ export const CustomIcon: Story = {
     'icon slot': html`<uui-icon slot="icon" name="wand"></uui-icon>`,
   },
 };
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+  },
+};
+
+export const OnlySelectable: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
+  },
+};
