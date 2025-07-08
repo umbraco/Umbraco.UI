@@ -95,7 +95,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       <div id="content">
         <span title="${this.name}" id="name">${this.name}</span>
-        <small title="${this.description}">${this.description}<slot name="description"></slot></small>
+        <small title="${ifDefined(this.description)}">${this.description}<slot name="description"></slot></small>
       </div></div>
     `;
   }

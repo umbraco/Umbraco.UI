@@ -68,20 +68,22 @@ export class UUICardUserElement extends UUICardElement {
   }
 
   #renderContent() {
-    return html`<div id="content">
-      ${this._avatarSlotHasContent
-        ? nothing
-        : html`<uui-avatar
-            class="avatar"
-            name=${this.name}
-            size="m"></uui-avatar>`}
-      <slot
-        name="avatar"
-        class="avatar"
-        @slotchange=${this._avatarSlotChanged}></slot>
-      <span title="${this.name}">${this.name}</span>
-      <slot></slot>
-    </div>`;
+    return html`
+      <div id="content">
+        ${this._avatarSlotHasContent
+          ? nothing
+          : html`<uui-avatar
+              class="avatar"
+              name=${this.name}
+              size="m"></uui-avatar>`}
+        <slot
+          name="avatar"
+          class="avatar"
+          @slotchange=${this._avatarSlotChanged}></slot>
+        <span title="${this.name}">${this.name}</span>
+        <slot></slot>
+      </div>
+    `;
   }
 
   public render() {
