@@ -91,6 +91,7 @@ export class UUICardElement extends SelectOnlyMixin(
       <uui-checkbox
         id="select-checkbox"
         label="select"
+        tabindex="-1"
         ?checked=${this.selected}
         @click=${(e: MouseEvent) => e.stopPropagation()}
         @change=${() => this.click()}>
