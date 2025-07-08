@@ -10,10 +10,11 @@ export class UUIPopoverContainerShadowDomTesterElement extends LitElement {
     return html`<div
         style="height: 500px; overflow: auto; outline: 1px solid black">
         <div
-          style="width: 300px; height: 300px; outline: 1px solid black; overflow: auto;">
+          style="position:relative; width: 300px; height: 300px; outline: 1px solid black; overflow: auto;">
           <div style="height: 150px"></div>
           <uui-button
             id="popover-button"
+            style="position: absolute; top: 50px; left: 50px;"
             popovertarget="popover-container"
             look="primary"
             label="Open popover">
@@ -28,7 +29,8 @@ export class UUIPopoverContainerShadowDomTesterElement extends LitElement {
         <div
           style="width: 100%; background-color: var(--uui-color-surface); max-width: 200px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
           <h3>Scroll!</h3>
-          Scrolling in any of the 2 boxes should trigger an update
+          Scrolling in any of the 2 boxes that are in a shadow-dom inside 2
+          boxes should trigger an update
         </div>
       </uui-popover-container>`;
   }

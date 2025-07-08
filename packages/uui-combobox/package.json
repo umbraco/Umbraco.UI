@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-combobox",
-  "version": "1.14.1",
+  "version": "1.14.2",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -34,7 +34,7 @@
     "@umbraco-ui/uui-button": "1.14.1",
     "@umbraco-ui/uui-combobox-list": "1.14.1",
     "@umbraco-ui/uui-icon": "1.14.1",
-    "@umbraco-ui/uui-popover-container": "1.14.1",
+    "@umbraco-ui/uui-popover-container": "1.14.2",
     "@umbraco-ui/uui-scroll-container": "1.14.1",
     "@umbraco-ui/uui-symbol-expand": "1.14.1"
   },
