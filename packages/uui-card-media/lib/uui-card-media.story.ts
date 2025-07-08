@@ -96,6 +96,12 @@ export const Image: Story = {
 export const Selectable: Story = {
   args: {
     selectable: true,
+  },
+};
+
+export const OnlySelectable: Story = {
+  args: {
+    selectable: true,
     selectOnly: true,
   },
 };
