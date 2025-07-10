@@ -20,6 +20,7 @@ describe('UUISelectElement', () => {
       html`<uui-select
         label="foo"
         name="bar"
+        .value="orange"
         .options=${options}></uui-select>`,
     );
     input = element.shadowRoot?.querySelector('#native');
@@ -67,7 +68,11 @@ describe('UUISelect in Form', () => {
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
-        <uui-select label="foo" name="bar" .options=${options}></uui-select>
+        <uui-select
+          label="foo"
+          name="bar"
+          .value="orange"
+          .options=${options}></uui-select>
       </form>`,
     );
     element = formElement.querySelector('uui-select') as any;
@@ -112,6 +117,7 @@ describe('UUISelect in Form', () => {
           <uui-select
             label="test label"
             name="test"
+            .value="orange"
             .options=${options}></uui-select>
         </form>`,
       );

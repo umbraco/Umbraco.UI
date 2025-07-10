@@ -52,7 +52,7 @@ const options: Array<Option> = [
   { name: 'Strawberry', value: 'red' },
 ];
 
-const preselectedValue: string = 'orange';
+const preselectedValue: string = 'purple';
 
 const groupedOptions: Array<Option> = options.map(option => {
   if (options.indexOf(option) <= 2) return { ...option, group: 'Vegetables' };
