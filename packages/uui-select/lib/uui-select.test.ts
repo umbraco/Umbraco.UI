@@ -11,6 +11,8 @@ const options: Array<Option> = [
   { name: 'Strawberry', value: 'red' },
 ];
 
+const selectdVaue: string = 'orange';
+
 describe('UUISelectElement', () => {
   let element: UUISelectElement;
   let input: HTMLSelectElement | null | undefined;
@@ -71,7 +73,7 @@ describe('UUISelect in Form', () => {
         <uui-select
           label="foo"
           name="bar"
-          .value="orange"
+          .value=${selectdVaue}
           .options=${options}></uui-select>
       </form>`,
     );
