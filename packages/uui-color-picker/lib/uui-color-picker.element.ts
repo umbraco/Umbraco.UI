@@ -428,6 +428,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderColorPicker() {
+    const previewColor = this.value
+      ? `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      : 'transparent';
     return html`
       <div
         class=${classMap({
@@ -478,11 +481,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             class="color-picker__preview color-picker__transparent-bg"
             title="Copy"
             aria-label="Copy"
-            style=${styleMap({
-              '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
-                this.lightness
-              }%, ${this.alpha / 100})`,
-            })}
+            style=${styleMap({ '--preview-color': previewColor })}
             @click=${this.handleCopy}></button>
         </div>
         <div class="color-picker__user-input" aria-live="polite">
@@ -547,6 +546,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
+    const previewColor = this.value
+      ? `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      : 'transparent';
     return html`<button
         type="button"
         part="trigger"
@@ -559,11 +561,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           'color-dropdown__trigger--large': this.size === 'large',
           'color-picker__transparent-bg': true,
         })}
-        style=${styleMap({
-          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
-            this.lightness
-          }%, ${this.alpha / 100})`,
-        })}
+        style=${styleMap({ '--preview-color': previewColor })}
         ?disabled=${this.disabled}
         aria-haspopup="true"
         aria-expanded="false"
