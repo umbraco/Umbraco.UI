@@ -255,3 +255,9 @@ export const Advanced: Story = {
     </div>`;
   },
 };
+
+export const HideValueLabel: Story = {
+  args: {
+    hideValueLabel: true,
+  },
+};

@@ -449,6 +449,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
             <uui-color-slider
+              hide-value-label
               label="hue"
               class="hue-slider"
               .value=${Math.round(this.hue)}
