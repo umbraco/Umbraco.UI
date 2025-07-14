@@ -107,7 +107,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
    * @attr 'hide-value-label'
    * @default false
    */
-  @property({ type: Boolean, attribute: 'hide-value-label' })
+  @property({ type: Boolean, attribute: 'hide-value-label', reflect: true })
   hideValueLabel = false;
 
   private container!: HTMLElement;
