@@ -81,7 +81,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
    * @attr
    * @default 0
    */
-  @property() value = 0;
+  @property({ type: Number }) value = 0;
 
   /**
    * Sets the color slider to readonly mode.
@@ -258,7 +258,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   }
 
   render() {
-    return html` <div
+    return html`<div
         part="slider"
         id="color-slider"
         role="slider"

@@ -72,6 +72,7 @@ export const Advanced: Story = {
         value: 0,
         min: 0,
         max: 360,
+        precision: 1,
       },
       {
         label: 'S',
@@ -80,6 +81,7 @@ export const Advanced: Story = {
         value: 100,
         min: 0,
         max: 100,
+        precision: 1,
       },
       {
         label: 'L',
@@ -88,6 +90,7 @@ export const Advanced: Story = {
         value: 50,
         min: 0,
         max: 100,
+        precision: 1,
       },
       {
         label: 'A',
@@ -192,10 +195,12 @@ export const Advanced: Story = {
               .value=${slider.value}
               .min=${slider.min}
               .max=${slider.max}
-              .color=${slider.type !== 'hue'
-                ? getHexString(value.h, value.s, value.l)
-                : undefined}
-              ?precision=${ifDefined(slider.precision)}
+              color=${ifDefined(
+                slider.type !== 'hue'
+                  ? getHexString(value.h, value.s, value.l)
+                  : undefined,
+              )}
+              .precision=${slider.precision}
               @change=${(e: Event) => handleSliderChange(e, slider)}
               style=${styleMap({
                 '--uui-slider-background-image':
