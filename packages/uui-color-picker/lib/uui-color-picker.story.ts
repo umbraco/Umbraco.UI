@@ -92,7 +92,7 @@ export const Inline: Story = {
 export const Opacity: Story = {
   args: {
     opacity: true,
-    value: undefined,
+    value: swatchesTransparent[8],
     inline: true,
   },
 };
@@ -100,6 +100,7 @@ export const Opacity: Story = {
 export const Readonly: Story = {
   args: {
     readonly: true,
+    value: 'rgb(75, 145, 226)',
   },
 };
 
