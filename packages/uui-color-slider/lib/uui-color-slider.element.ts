@@ -101,6 +101,15 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  /**
+   * Hides the value label under the slider.
+   * @type {boolean}
+   * @attr 'hide-value-label'
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-value-label' })
+  hideValueLabel = false;
+
   private container!: HTMLElement;
   private handle!: HTMLElement;
 
@@ -290,7 +299,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
           tabindex=${ifDefined(this.disabled ? undefined : '0')}>
         </span>
       </div>
-      ${Math.round(this.value)}`;
+      ${this.hideValueLabel ? null : Math.round(this.value)}`;
   }
 
   static styles = [
