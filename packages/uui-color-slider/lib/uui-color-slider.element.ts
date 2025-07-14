@@ -107,7 +107,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('type')) {
       if (this.type === 'hue') {
-        this.max = this.max ?? 360;
+        this.max = 360;
       } else if (this.type === 'saturation') {
         this.max = this.max ?? 100;
       } else if (this.type === 'lightness') {
