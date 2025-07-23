@@ -23,6 +23,12 @@ type Story = StoryObj<UUIInputColorElement>;
 
 export const Overview: Story = {};
 
+export const Empty: Story = {
+  args: {
+    value: '',
+  },
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,

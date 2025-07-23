@@ -25,15 +25,15 @@ export class UUIInputColorElement extends UUIInputElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    demandCustomElement(this, 'uui-swatch');
+    demandCustomElement(this, 'uui-color-swatch');
   }
 
   renderPrepend() {
-    return html`<uui-swatch
+    return html`<uui-color-swatch
       .disabled=${this.disabled}
       .readonly=${this.readonly}
       .value=${this.value}>
-    </uui-swatch>`;
+    </uui-color-swatch>`;
   }
 
   static styles = [...UUIInputElement.styles, css``];
