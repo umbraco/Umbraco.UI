@@ -11,7 +11,7 @@ import { property, state } from 'lit/decorators.js';
 @defineElement('uui-input-color')
 export class UUIInputColorElement extends UUIInputElement {
   @state()
-  private inputType: InputType = 'color';
+  private inputType: InputType = 'text';
 
   // this overrides the inherited type property, and moves the input's type handling to the passwordType state.
   @property()
@@ -22,6 +22,11 @@ export class UUIInputColorElement extends UUIInputElement {
     this.inputType = newValue;
   }
 
+  onChange(e: Event): void {
+    const target = e.target as HTMLInputElement;
+    this.value = target.value;
+  }
+
   connectedCallback(): void {
     super.connectedCallback();
 
@@ -29,24 +34,46 @@ export class UUIInputColorElement extends UUIInputElement {
   }
 
   renderPrepend() {
-    return html`<uui-color-swatch
-      .disabled=${this.disabled}
-      .readonly=${this.readonly}
-      .value=${this.value}>
-    </uui-color-swatch>`;
+    return html`<label id="color-picker">
+      <uui-color-swatch
+        ?disabled=${this.disabled}
+        ?readonly=${this.readonly}
+        .value=${this.value}>
+      </uui-color-swatch>
+      <input
+        type="color"
+        id="color-input"
+        .value="${this.value}"
+        ?disabled=${this.disabled}
+        ?readonly=${this.readonly}
+        aria-hidden="true" />
+    </label>`;
   }
 
-  static styles = [...UUIInputElement.styles, css``];
+  static styles = [
+    ...UUIInputElement.styles,
+    css`
+      :host {
+      }
 
-  /*render(){
-      return html`
-          <div class="color-wrapper">
-            <uui-input id="input" label="Value" placeholder="Value" required style="--uui-show-focus-outline: 0;">
-              <uui-color-swatch slot="prepend" label="" value="#"></uui-color-swatch>
-            </uui-input>
-            <input type="color" id="color" aria-hidden="true" value="">
-          </div>`;
-  }*/
+      #color-picker {
+        cursor: pointer;
+        position: relative;
+        border-right: var(--uui-input-border-width, 1px) solid
+          var(--uui-input-border-color, var(--uui-color-border));
+      }
+
+      #color-input {
+        visibility: hidden;
+        appearance: none;
+      }
+
+      uui-color-swatch {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+      }
+    `,
+  ];
 }
 
 declare global {
