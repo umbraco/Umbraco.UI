@@ -15,22 +15,22 @@ import { property, state } from 'lit/decorators.js';
 @defineElement('uui-input-password')
 export class UUIInputPasswordElement extends UUIInputElement {
   @state()
-  private passwordType: InputType = 'password';
+  private inputType: InputType = 'password';
 
   // this overrides the inherited type property, and moves the input's type handling to the passwordType state.
   @property()
   get type() {
-    return this.passwordType;
+    return this.inputType;
   }
   set type(newValue) {
-    this.passwordType = newValue;
+    this.inputType = newValue;
   }
 
   _onPasswordToggle() {
-    if (this.passwordType === 'password') {
-      this.passwordType = 'text';
+    if (this.inputType === 'password') {
+      this.inputType = 'text';
     } else {
-      this.passwordType = 'password';
+      this.inputType = 'password';
     }
   }
 
@@ -46,7 +46,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
   }
 
   renderIcon() {
-    return this.passwordType === 'password'
+    return this.inputType === 'password'
       ? html`<uui-icon name="see" .fallback=${iconSee.strings[0]}></uui-icon>`
       : html`<uui-icon
           name="unsee"
@@ -58,7 +58,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
       .disabled=${this.disabled}
       @click=${this._onPasswordToggle}
       compact
-      label="${this.passwordType === 'password'
+      label="${this.inputType === 'password'
         ? 'Show password'
         : 'Hide password'}"
       id="eye">
