@@ -4,7 +4,7 @@ import './uui-input-color.element';
 import type { UUIInputColorElement } from './uui-input-color.element';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import { renderSlots, spread } from '../../../storyhelpers';
+import { spread } from '../../../storyhelpers';
 
 /**
  * uui-input-color extends uui-input. See [uui-input](/docs/uui-input--docs) for more details.
@@ -13,13 +13,7 @@ const meta: Meta<UUIInputColorElement> = {
   id: 'uui-input-color',
   title: 'Inputs/Input Color',
   component: 'uui-input-color',
-  args: {
-    label: 'Label',
-  },
-  render: args =>
-    html`<uui-input-color ${spread(args)}
-      >${renderSlots(args)}</uui-input-color
-    >`,
+  render: args => html`<uui-input-color ${spread(args)}></uui-input-color>`,
   parameters: {
     readme: {
       markdown: readme,
@@ -35,6 +29,12 @@ export const Overview: Story = {};
 export const Empty: Story = {
   args: {
     value: '',
+  },
+};
+
+export const Color: Story = {
+  args: {
+    value: '#f00',
   },
 };
 

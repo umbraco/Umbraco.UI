@@ -2,7 +2,8 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html } from 'lit';
 import { InputType, UUIInputElement } from '@umbraco-ui/uui-input/lib';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
+import type { UUIColorPickerElement } from '@umbraco-ui/uui-color-picker/lib';
 
 /**
  * @element uui-input-color
@@ -13,7 +14,27 @@ export class UUIInputColorElement extends UUIInputElement {
   @state()
   private inputType: InputType = 'text';
 
-  // this overrides the inherited type property, and moves the input's type handling to the passwordType state.
+  @state()
+  private _valueHex = '';
+
+  @query('#color')
+  protected _colorPicker!: UUIColorPickerElement;
+
+  @property({ type: String })
+  public override set value(value: string) {
+    if (value.startsWith('#')) {
+      this._valueHex = value;
+      super.value = value.substring(1);
+    } else {
+      super.value = value;
+      this._valueHex = `#${value}`;
+    }
+  }
+  public override get value() {
+    return super.value as string;
+  }
+
+  // this overrides the inherited type property, and moves the input's type handling to the inputType state.
   @property()
   get type() {
     return this.inputType;
@@ -22,9 +43,13 @@ export class UUIInputColorElement extends UUIInputElement {
     this.inputType = newValue;
   }
 
-  onChange(e: Event): void {
-    const target = e.target as HTMLInputElement;
-    this.value = target.value;
+  #onColorClick() {
+    this._colorPicker.click();
+  }
+
+  #onColorChange(event: Event) {
+    event.stopPropagation();
+    this.value = this._colorPicker.value;
   }
 
   connectedCallback(): void {
@@ -34,20 +59,21 @@ export class UUIInputColorElement extends UUIInputElement {
   }
 
   renderPrepend() {
-    return html`<label id="color-picker">
+    return html`<div class="color-wrapper">
       <uui-color-swatch
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
-        .value=${this.value}>
-      </uui-color-swatch>
+        value=${this._valueHex}
+        @click=${this.#onColorClick}></uui-color-swatch>
       <input
         type="color"
-        id="color-input"
-        .value="${this.value}"
+        id="color"
+        value="${this.value}"
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
+        @change=${this.#onColorChange}
         aria-hidden="true" />
-    </label>`;
+    </div>`;
   }
 
   static styles = [
@@ -56,16 +82,21 @@ export class UUIInputColorElement extends UUIInputElement {
       :host {
       }
 
-      #color-picker {
+      .color-wrapper {
         cursor: pointer;
+        display: inline-flex;
         position: relative;
         border-right: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
       }
 
-      #color-input {
-        visibility: hidden;
+      input[type='color'] {
         appearance: none;
+        visibility: hidden;
+        width: 0px;
+        padding: 0;
+        margin: 0;
+        position: absolute;
       }
 
       uui-color-swatch {
