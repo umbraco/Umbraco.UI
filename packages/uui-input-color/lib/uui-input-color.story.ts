@@ -13,6 +13,9 @@ const meta: Meta<UUIInputColorElement> = {
   id: 'uui-input-color',
   title: 'Inputs/Input Color',
   component: 'uui-input-color',
+  args: {
+    label: 'Color',
+  },
   render: args => html`<uui-input-color ${spread(args)}></uui-input-color>`,
   parameters: {
     readme: {

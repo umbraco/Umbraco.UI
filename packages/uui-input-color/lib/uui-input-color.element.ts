@@ -68,22 +68,16 @@ export class UUIInputColorElement extends UUIInputElement {
       <input
         type="color"
         id="color"
-        value="${this.value}"
-        ?disabled=${this.disabled}
-        ?readonly=${this.readonly}
-        @change=${this.#onColorChange}
-        aria-hidden="true" />
+        aria-hidden="true"
+        value=${this.value}
+        @change=${this.#onColorChange} />
     </div>`;
   }
 
   static styles = [
     ...UUIInputElement.styles,
     css`
-      :host {
-      }
-
       .color-wrapper {
-        cursor: pointer;
         display: inline-flex;
         position: relative;
         border-right: var(--uui-input-border-width, 1px) solid
@@ -100,8 +94,13 @@ export class UUIInputColorElement extends UUIInputElement {
       }
 
       uui-color-swatch {
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
+        padding: var(--uui-size-1);
+      }
+
+      uui-color-swatch:focus-within {
+        outline: 2px solid var(--uui-color-selected);
+        outline-offset: 0;
+        border-radius: var(--uui-border-radius);
       }
     `,
   ];
