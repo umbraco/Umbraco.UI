@@ -11,6 +11,9 @@
   "exclude": ["./**/*.test.ts", "./**/*.story.ts"],
   "references": [
     {
+      "path": "../uui-color-swatch"
+    },
+    {
       "path": "../uui-base"
     }
   ]
