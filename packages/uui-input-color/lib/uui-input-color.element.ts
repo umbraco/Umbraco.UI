@@ -97,6 +97,11 @@ export class UUIInputColorElement extends UUIInputElement {
         padding: var(--uui-size-1);
       }
 
+      uui-color-swatch:not([disabled]),
+      uui-color-swatch:not([readonly]) {
+        cursor: pointer;
+      }
+
       uui-color-swatch:focus-within {
         outline: 2px solid var(--uui-color-selected);
         outline-offset: 0;
