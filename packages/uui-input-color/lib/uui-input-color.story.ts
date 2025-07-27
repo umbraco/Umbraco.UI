@@ -15,6 +15,7 @@ const meta: Meta<UUIInputColorElement> = {
   component: 'uui-input-color',
   args: {
     label: 'Color',
+    value: '#d0021b',
   },
   render: args => html`<uui-input-color ${spread(args)}></uui-input-color>`,
   parameters: {
@@ -32,12 +33,6 @@ export const Overview: Story = {};
 export const Empty: Story = {
   args: {
     value: '',
-  },
-};
-
-export const Color: Story = {
-  args: {
-    value: '#f00',
   },
 };
 
