@@ -44,6 +44,9 @@ export class UUIInputColorElement extends UUIInputElement {
   }
 
   #onColorClick() {
+    if (this.disabled || this.readonly) {
+      return;
+    }
     this._colorPicker.click();
   }
 
@@ -97,8 +100,7 @@ export class UUIInputColorElement extends UUIInputElement {
         padding: var(--uui-size-1);
       }
 
-      uui-color-swatch:not([disabled]),
-      uui-color-swatch:not([readonly]) {
+      uui-color-swatch:not([disabled], [readonly]) {
         cursor: pointer;
       }
 
