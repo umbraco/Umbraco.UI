@@ -30,6 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
+    "@umbraco-ui/uui-color-swatch": "1.14.1",
     "@umbraco-ui/uui-base": "1.14.1"
   },
   "scripts": {
