@@ -49,6 +49,13 @@ export const Readonly: Story = {
   },
 };
 
+export const Hue: Story = {
+  args: {
+    type: 'hue',
+    value: 180,
+  },
+};
+
 export const Opacity: Story = {
   args: {
     type: 'opacity',
@@ -56,9 +63,21 @@ export const Opacity: Story = {
   },
 };
 
-export const Vertical: Story = {
+export const OpacityMin50: Story = {
   args: {
-    vertical: true,
+    type: 'opacity',
+    color: '#0075ff',
+    min: 50,
+    value: 75,
+  },
+};
+
+export const OpacityMax50: Story = {
+  args: {
+    type: 'opacity',
+    color: '#0075ff',
+    max: 50,
+    value: 25,
   },
 };
 

@@ -121,6 +121,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       if (this.color) {
         const colord = new Colord(this.color);
         const { h, s, l } = colord.toHsl();
+        const { r, g, b } = colord.toRgb();
 
         const gradient =
           this.type === 'saturation'
@@ -129,7 +130,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
               ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`
               : null;
 
+        const hueColor =
+          this.type === 'opacity'
+            ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, transparent 0%, rgba(${r}, ${g}, ${b}, ${this.max}%) 100%)`
+            : null;
+
         this.style.setProperty('--uui-slider-background-image', gradient);
+        this.style.setProperty('--uui-slider-hue-color', hueColor);
       }
     }
   }
@@ -275,12 +282,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
           ? html`<div
               id="current-hue"
               style=${styleMap({
-                backgroundImage: `linear-gradient(to ${
-                  this.vertical ? 'top' : 'right'
-                },
-            transparent 0%,
-            ${this.color} 100%
-            )`,
+                backgroundImage: `var(--uui-slider-hue-color)`,
               })}></div>`
           : ''}
         <!-- <slot name="detail"> </slot> -->
