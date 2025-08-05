@@ -1,6 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["tsconfig.json", "package.json", "package-lock.json"],
+  "globalDependencies": [
+    "tsconfig.json",
+    "package.json",
+    "package-lock.json",
+    "src/rollup-package.config.mjs"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
