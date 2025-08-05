@@ -330,7 +330,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #renderInput = () => {
-    return html` <uui-input
+    return html`<uui-input
       slot="trigger"
       id="combobox-input"
       label="combobox-input"
@@ -383,7 +383,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
 
   render() {
     if (this._isPhone && this.open) {
-      return html` <div id="phone-wrapper">
+      return html`<div id="phone-wrapper">
         <uui-button label="close" look="primary" @click=${this.#onClose}>
           ${this.closeLabel}
         </uui-button>
@@ -405,7 +405,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   static styles = [
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
       }
 
       #combobox-input {
