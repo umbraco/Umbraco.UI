@@ -92,3 +92,16 @@ export const Image: Story = {
     chromatic: { disableSnapshot: true },
   },
 };
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+  },
+};
+
+export const OnlySelectable: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
+  },
+};
