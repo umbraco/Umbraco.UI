@@ -86,29 +86,31 @@ export class UUICardContentNodeElement extends UUICardElement {
   }
 
   #renderButton() {
-    return html`<button
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : 0}
-      @click=${this.handleOpenClick}
-      @keydown=${this.handleOpenKeydown}>
-      ${this.#renderContent()}
-    </button>`;
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    return html`
+      <button
+        id="open-part"
+        tabindex=${ifDefined(tabIndex)}
+        @click=${this.handleOpenClick}
+        @keydown=${this.handleOpenKeydown}>
+        ${this.#renderContent()}
+      </button>
+    `;
   }
 
   #renderLink() {
-    return html`<a
-      id="open-part"
-      tabindex=${this.disabled ? (nothing as any) : 0}
-      href=${ifDefined(!this.disabled ? this.href : undefined)}
-      target=${ifDefined(this.target || undefined)}
-      rel=${ifDefined(
-        this.rel ||
-          ifDefined(
-            this.target === '_blank' ? 'noopener noreferrer' : undefined,
-          ),
-      )}>
-      ${this.#renderContent()}
-    </a>`;
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
+    return html`
+      <a
+        id="open-part"
+        tabindex=${ifDefined(tabIndex)}
+        href=${ifDefined(!this.disabled ? this.href : undefined)}
+        target=${ifDefined(this.target || undefined)}
+        rel=${ifDefined(this.rel || rel)}>
+        ${this.#renderContent()}
+      </a>
+    `;
   }
 
   public render() {
@@ -116,7 +118,7 @@ export class UUICardContentNodeElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
-
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
@@ -225,6 +227,11 @@ export class UUICardContentNodeElement extends UUICardElement {
       }
       :host(:not([disabled])) #open-part:hover #default {
         color: var(--uui-color-interactive-emphasis);
+      }
+
+      #select-checkbox {
+        top: var(--uui-size-5);
+        left: var(--uui-size-6);
       }
     `,
   ];

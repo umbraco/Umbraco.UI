@@ -359,6 +359,7 @@ export class UUIPopoverContainerElement extends LitElement {
       style = getComputedStyle(el);
 
       if (excludeStaticParent && style.position === 'static') {
+        el = this.#getAncestorElement(el);
         continue;
       }
       if (
@@ -370,14 +371,18 @@ export class UUIPopoverContainerElement extends LitElement {
         return;
       }
 
-      if (el.parentElement) {
-        el = el.parentElement;
-      } else {
-        // If we had no parentElement, then check for shadow roots:
-        el = (el.getRootNode() as any)?.host;
-      }
+      el = this.#getAncestorElement(el);
     }
     this.#scrollParents.push(document.body);
+  }
+
+  #getAncestorElement(el: HTMLElement | null): HTMLElement | null {
+    if (el?.parentElement) {
+      return el.parentElement;
+    } else {
+      // If we had no parentElement, then check for shadow roots:
+      return (el?.getRootNode() as any)?.host;
+    }
   }
 
   render() {

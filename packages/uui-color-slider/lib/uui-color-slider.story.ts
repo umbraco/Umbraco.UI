@@ -49,6 +49,13 @@ export const Readonly: Story = {
   },
 };
 
+export const Hue: Story = {
+  args: {
+    type: 'hue',
+    value: 180,
+  },
+};
+
 export const Opacity: Story = {
   args: {
     type: 'opacity',
@@ -56,9 +63,21 @@ export const Opacity: Story = {
   },
 };
 
-export const Vertical: Story = {
+export const OpacityMin50: Story = {
   args: {
-    vertical: true,
+    type: 'opacity',
+    color: '#0075ff',
+    min: 50,
+    value: 75,
+  },
+};
+
+export const OpacityMax50: Story = {
+  args: {
+    type: 'opacity',
+    color: '#0075ff',
+    max: 50,
+    value: 25,
   },
 };
 
@@ -72,6 +91,7 @@ export const Advanced: Story = {
         value: 0,
         min: 0,
         max: 360,
+        precision: 1,
       },
       {
         label: 'S',
@@ -80,6 +100,7 @@ export const Advanced: Story = {
         value: 100,
         min: 0,
         max: 100,
+        precision: 1,
       },
       {
         label: 'L',
@@ -88,6 +109,7 @@ export const Advanced: Story = {
         value: 50,
         min: 0,
         max: 100,
+        precision: 1,
       },
       {
         label: 'A',
@@ -192,10 +214,12 @@ export const Advanced: Story = {
               .value=${slider.value}
               .min=${slider.min}
               .max=${slider.max}
-              .color=${slider.type !== 'hue'
-                ? getHexString(value.h, value.s, value.l)
-                : undefined}
-              ?precision=${ifDefined(slider.precision)}
+              color=${ifDefined(
+                slider.type !== 'hue'
+                  ? getHexString(value.h, value.s, value.l)
+                  : undefined,
+              )}
+              .precision=${slider.precision}
               @change=${(e: Event) => handleSliderChange(e, slider)}
               style=${styleMap({
                 '--uui-slider-background-image':
@@ -229,5 +253,11 @@ export const Advanced: Story = {
           style="width: 100%; height: 100%; background-color: hsla(${value.h}, ${value.s}%, ${value.l}%, ${value.a});"></div>
       </div>
     </div>`;
+  },
+};
+
+export const HideValueLabel: Story = {
+  args: {
+    hideValueLabel: true,
   },
 };

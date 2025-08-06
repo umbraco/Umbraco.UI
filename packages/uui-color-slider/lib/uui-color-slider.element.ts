@@ -81,7 +81,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
    * @attr
    * @default 0
    */
-  @property() value = 0;
+  @property({ type: Number }) value = 0;
 
   /**
    * Sets the color slider to readonly mode.
@@ -101,17 +101,26 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  /**
+   * Hides the value label under the slider.
+   * @type {boolean}
+   * @attr 'hide-value-label'
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'hide-value-label', reflect: true })
+  hideValueLabel = false;
+
   private container!: HTMLElement;
   private handle!: HTMLElement;
 
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('type')) {
       if (this.type === 'hue') {
-        this.max = this.max ?? 360;
+        this.max = 360;
       } else if (this.type === 'saturation') {
-        this.max = this.max ?? 100;
+        this.max = 100;
       } else if (this.type === 'lightness') {
-        this.max = this.max ?? 100;
+        this.max = 100;
       } else if (this.type === 'opacity') {
         this.max = this.max ?? 100;
       }
@@ -121,6 +130,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       if (this.color) {
         const colord = new Colord(this.color);
         const { h, s, l } = colord.toHsl();
+        const { r, g, b } = colord.toRgb();
 
         const gradient =
           this.type === 'saturation'
@@ -129,7 +139,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
               ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`
               : null;
 
+        const hueColor =
+          this.type === 'opacity'
+            ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, transparent 0%, rgba(${r}, ${g}, ${b}, ${this.max}%) 100%)`
+            : null;
+
         this.style.setProperty('--uui-slider-background-image', gradient);
+        this.style.setProperty('--uui-slider-hue-color', hueColor);
       }
     }
   }
@@ -258,7 +274,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   }
 
   render() {
-    return html` <div
+    return html`<div
         part="slider"
         id="color-slider"
         role="slider"
@@ -275,12 +291,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
           ? html`<div
               id="current-hue"
               style=${styleMap({
-                backgroundImage: `linear-gradient(to ${
-                  this.vertical ? 'top' : 'right'
-                },
-            transparent 0%,
-            ${this.color} 100%
-            )`,
+                backgroundImage: `var(--uui-slider-hue-color)`,
               })}></div>`
           : ''}
         <!-- <slot name="detail"> </slot> -->
@@ -290,7 +301,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
           tabindex=${ifDefined(this.disabled ? undefined : '0')}>
         </span>
       </div>
-      ${Math.round(this.value)}`;
+      ${this.hideValueLabel ? null : Math.round(this.value)}`;
   }
 
   static styles = [
