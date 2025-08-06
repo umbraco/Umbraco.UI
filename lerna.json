@@ -9,6 +9,7 @@
   "useWorkspaces": true,
   "includeMergedTags": true,
   "conventionalCommits": true,
+  "forcePublish": true,
   "command": {
     "publish": {
       "verifyAccess": false
