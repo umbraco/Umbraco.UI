@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.14.2...v1.15.0-rc.0) (2025-08-06)
+
+### Bug Fixes
+
+- **uui-color-picker:** sets preview color of empty value to transparent ([8aab968](https://github.com/umbraco/Umbraco/commit/8aab968bf33a91d6e6d0c8d325bd32f7137aaebf))
+- **uui-color-slider:** sets `max = 100` for `lightness` type ([d7aeb38](https://github.com/umbraco/Umbraco/commit/d7aeb38fef4c9eeed994b4381e4465393ede0c1d))
+- **uui-color-slider:** sets `max = 100` for `saturation` type ([66a0952](https://github.com/umbraco/Umbraco/commit/66a09523644bb93cb570c77d00ab1388b6a58e52))
+- **uui-color-slider:** sets `max = 360` for `hue` type ([b0acef4](https://github.com/umbraco/Umbraco/commit/b0acef420c7fc36ff8b6c0f9e587176440dc3de1))
+- **uui-combobox:** Change display to "inline-flex" ([b3320e3](https://github.com/umbraco/Umbraco/commit/b3320e35ba76ec55327d801eb846ad4f764a0858))
+
+### Features
+
+- Adjust color slider with min and max ([#1159](https://github.com/umbraco/Umbraco/issues/1159)) ([aa15fb6](https://github.com/umbraco/Umbraco/commit/aa15fb691051b695a5b93b1b95c92e12914f4285))
+- **uui-card:** Adds checkbox for selection ([#1138](https://github.com/umbraco/Umbraco/issues/1138)) ([d12a9e1](https://github.com/umbraco/Umbraco/commit/d12a9e1d256d2c8ac4922df68f21ccda539911c9))
+- **uui-color-slider:** adds `hideValueLabel` option ([da372bb](https://github.com/umbraco/Umbraco/commit/da372bbe82bd032a0445fcdd13c6bc8047e524bb))
+
 ## [1.14.2](https://github.com/umbraco/Umbraco/compare/v1.14.1...v1.14.2) (2025-07-03)
 
 **Note:** Version bump only for package uui-monorepo

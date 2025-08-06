@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-tabs",
-  "version": "1.14.2",
+  "version": "1.15.0-rc.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,10 +30,10 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.14.1",
-    "@umbraco-ui/uui-button": "1.14.1",
-    "@umbraco-ui/uui-popover-container": "1.14.2",
-    "@umbraco-ui/uui-symbol-more": "1.14.1"
+    "@umbraco-ui/uui-base": "1.15.0-rc.0",
+    "@umbraco-ui/uui-button": "1.15.0-rc.0",
+    "@umbraco-ui/uui-popover-container": "1.15.0-rc.0",
+    "@umbraco-ui/uui-symbol-more": "1.15.0-rc.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
