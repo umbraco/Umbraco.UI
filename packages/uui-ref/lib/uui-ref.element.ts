@@ -196,16 +196,16 @@ export class UUIRefElement extends SelectOnlyMixin(
         border-radius: var(--uui-border-radius);
       }
 
-      slot[name='actions'] {
+      slot[name='actions']::slotted(*:first-child) {
         display: flex;
         align-items: center;
         --uui-button-height: calc(var(--uui-size-2) * 4);
         margin-right: var(--uui-size-2);
       }
-      #tag-container {
+      #tag-container::slotted(*:first-child) {
         margin: calc(var(--uui-size-2));
       }
-      #actions-container {
+      #actions-container::slotted(*:first-child) {
         margin: calc(var(--uui-size-2));
         opacity: 0;
         transition: opacity 120ms;
@@ -228,7 +228,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         border-color: var(--uui-color-disabled-standalone);
       }
 
-      slot[name='tag'] {
+      slot[name='tag']::slotted(*:first-child) {
         display: flex;
         justify-content: flex-end;
         align-items: center;
