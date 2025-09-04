@@ -196,8 +196,11 @@ export class UUIRefElement extends SelectOnlyMixin(
         border-radius: var(--uui-border-radius);
       }
 
-      slot[name='actions']::slotted(*:first-child) {
+      slot[name='actions']::slotted(*) {
         --uui-button-height: calc(var(--uui-size-2) * 4);
+      }
+
+      slot[name='actions']::slotted(*:first-child) {
         margin-right: var(--uui-size-2);
       }
       slot[name='actions'] {
