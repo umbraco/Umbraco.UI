@@ -30,19 +30,21 @@ describe('UUIPopoverContainerElement', () => {
     it('should properly detect scroll parents in nested shadow DOM containers', async () => {
       // Create a test structure with nested shadow DOM and scroll containers
       const testContainer = await fixture(html`
-        <div style="height: 300px; overflow: auto;" id="outer-scroll">
-          <div style="height: 200px; overflow: auto;" id="inner-scroll">
-            <div style="height: 100px;"></div>
-            <uui-button id="trigger-button" popovertarget="test-popover"
-              >Open</uui-button
-            >
-            <div style="height: 400px;"></div>
+        <main>
+          <div style="height: 300px; overflow: auto;" id="outer-scroll">
+            <div style="height: 200px; overflow: auto;" id="inner-scroll">
+              <div style="height: 100px;"></div>
+              <uui-button id="trigger-button" popovertarget="test-popover"
+                >Open</uui-button
+              >
+              <div style="height: 400px;"></div>
+            </div>
+            <div style="height: 500px;"></div>
           </div>
-          <div style="height: 500px;"></div>
-        </div>
-        <uui-popover-container id="test-popover" popover>
-          Test content
-        </uui-popover-container>
+          <uui-popover-container id="test-popover" popover>
+            Test content
+          </uui-popover-container>
+        </main>
       `);
 
       const popover = testContainer.querySelector(
@@ -55,7 +57,7 @@ describe('UUIPopoverContainerElement', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
 
       // Access the private scroll parents array for testing
-      const scrollParents = (popover as any)['#scrollParents'];
+      const scrollParents = popover._getScrollParents();
 
       // Should find both scroll containers
       expect(scrollParents.length).to.be.greaterThan(0);
@@ -66,15 +68,17 @@ describe('UUIPopoverContainerElement', () => {
 
     it('should reset scroll parents when called multiple times', async () => {
       const testContainer = await fixture(html`
-        <div style="height: 300px; overflow: auto;" id="scroll-container">
-          <uui-button id="trigger-button" popovertarget="test-popover"
-            >Open</uui-button
-          >
-          <div style="height: 400px;"></div>
-        </div>
-        <uui-popover-container id="test-popover" popover>
-          Test content
-        </uui-popover-container>
+        <main>
+          <div style="height: 300px; overflow: auto;" id="scroll-container">
+            <uui-button id="trigger-button" popovertarget="test-popover"
+              >Open</uui-button
+            >
+            <div style="height: 400px;"></div>
+          </div>
+          <uui-popover-container id="test-popover" popover>
+            Test content
+          </uui-popover-container>
+        </main>
       `);
 
       const popover = testContainer.querySelector(
@@ -91,7 +95,7 @@ describe('UUIPopoverContainerElement', () => {
       button?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const scrollParents = (popover as any)['#scrollParents'];
+      const scrollParents = popover._getScrollParents();
 
       // Should not have duplicate entries
       const uniqueParents = [...new Set(scrollParents)];
