@@ -72,13 +72,19 @@ export class UUIPopoverContainerElement extends LitElement {
   #sizeObserver: ResizeObserver | null = null;
   #size: { width: number; height: number } = { width: 0, height: 0 };
 
+  constructor() {
+    super();
+
+    this.addEventListener('beforetoggle', this.#onBeforeToggle, {
+      passive: true,
+    });
+  }
+
   connectedCallback(): void {
+    super.connectedCallback();
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
-
-    super.connectedCallback();
-    this.addEventListener('beforetoggle', this.#onBeforeToggle);
 
     if (!this.#sizeObserver) {
       this.#sizeObserver = new ResizeObserver(entries => {
@@ -101,7 +107,6 @@ export class UUIPopoverContainerElement extends LitElement {
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.removeEventListener('beforetoggle', this.#onBeforeToggle);
     this.#stopScrollListener();
     this.#sizeObserver?.disconnect();
     this.#sizeObserver = null;
@@ -116,8 +121,6 @@ export class UUIPopoverContainerElement extends LitElement {
       this.id,
     );
 
-    this.#getScrollParents();
-
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
     this.#targetElement?.dispatchEvent(
@@ -131,16 +134,17 @@ export class UUIPopoverContainerElement extends LitElement {
       }),
     );
 
-    if (!this._open) {
+    if (this._open) {
+      this.#calculateScrollParents();
+
+      this.#startScrollListener();
+
+      requestAnimationFrame(() => {
+        this.#initUpdate();
+      });
+    } else {
       this.#stopScrollListener();
-      return;
     }
-
-    this.#startScrollListener();
-
-    requestAnimationFrame(() => {
-      this.#initUpdate();
-    });
   };
 
   #initUpdate = () => {
@@ -340,7 +344,17 @@ export class UUIPopoverContainerElement extends LitElement {
     document.removeEventListener('scroll', this.#initUpdate);
   }
 
-  #getScrollParents(): any {
+  /**
+   * @internal
+   */
+  _getScrollParents() {
+    return this.#scrollParents;
+  }
+
+  #calculateScrollParents(): void {
+    // Clear previous scroll parents to avoid duplicates
+    this.#scrollParents = [];
+
     if (!this.#targetElement) return;
 
     let style = getComputedStyle(this.#targetElement);
@@ -349,7 +363,7 @@ export class UUIPopoverContainerElement extends LitElement {
     }
 
     const includeHidden = false;
-    const excludeStaticParent = style.position === 'absolute';
+    let excludeStaticParent = style.position === 'absolute';
     const overflowRegex = includeHidden
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
@@ -362,6 +376,11 @@ export class UUIPopoverContainerElement extends LitElement {
         el = this.#getAncestorElement(el);
         continue;
       }
+
+      if (style.position !== 'static') {
+        excludeStaticParent = style.position === 'absolute';
+      }
+
       if (
         overflowRegex.test(style.overflow + style.overflowY + style.overflowX)
       ) {
@@ -379,10 +398,10 @@ export class UUIPopoverContainerElement extends LitElement {
   #getAncestorElement(el: HTMLElement | null): HTMLElement | null {
     if (el?.parentElement) {
       return el.parentElement;
-    } else {
-      // If we had no parentElement, then check for shadow roots:
-      return (el?.getRootNode() as any)?.host;
     }
+
+    // If we had no parentElement, then check for shadow roots:
+    return (el?.getRootNode() as any)?.host;
   }
 
   render() {
