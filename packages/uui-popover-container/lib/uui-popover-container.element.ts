@@ -116,8 +116,6 @@ export class UUIPopoverContainerElement extends LitElement {
       this.id,
     );
 
-    this.#getScrollParents();
-
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
     this.#targetElement?.dispatchEvent(
@@ -131,16 +129,17 @@ export class UUIPopoverContainerElement extends LitElement {
       }),
     );
 
-    if (!this._open) {
+    if (this._open) {
+      this.#getScrollParents();
+
+      this.#startScrollListener();
+
+      requestAnimationFrame(() => {
+        this.#initUpdate();
+      });
+    } else {
       this.#stopScrollListener();
-      return;
     }
-
-    this.#startScrollListener();
-
-    requestAnimationFrame(() => {
-      this.#initUpdate();
-    });
   };
 
   #initUpdate = () => {
