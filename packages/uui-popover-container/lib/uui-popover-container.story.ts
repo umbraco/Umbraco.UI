@@ -9,6 +9,28 @@ const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
   component: 'uui-popover-container',
   title: 'Displays/Popover Container',
+  argTypes: {
+    open: {
+      control: false,
+    },
+    placement: {
+      options: [
+        'auto',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
+      ],
+    },
+  },
   parameters: {
     readme: {
       markdown: readme,
@@ -31,28 +53,6 @@ export const Overview: Story = {
   args: {
     placement: 'bottom-start',
     margin: 0,
-  },
-  argTypes: {
-    open: {
-      control: false,
-    },
-    placement: {
-      options: [
-        'auto',
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
-    },
   },
   render: args => html`
     <uui-button
@@ -119,28 +119,6 @@ export const Tooltip: Story = {
     placement: 'bottom-start',
     margin: 0,
   },
-  argTypes: {
-    open: {
-      control: false,
-    },
-    placement: {
-      options: [
-        'auto',
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
-    },
-  },
   render: args => html`
     Sometimes words such as
     <b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b> needs
@@ -163,28 +141,6 @@ export const InsideScrollContainer: Story = {
   args: {
     placement: 'bottom-start',
     margin: 0,
-  },
-  argTypes: {
-    open: {
-      control: false,
-    },
-    placement: {
-      options: [
-        'auto',
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
-    },
   },
   render: args => html`
     <div style="height: 500px; overflow: auto; outline: 1px solid black">
@@ -222,15 +178,10 @@ export const InsideShadowDOMScrollContainer: Story = {
     placement: 'bottom-start',
     margin: 0,
   },
-  argTypes: {
-    open: {
-      control: false,
-    },
-  },
   render: () => html`
     <div style="height: 500px; overflow: auto; outline: 1px solid black">
       <div
-        style="position:static; width: 300px; height: 300px; outline: 1px solid black; overflow: auto;">
+        style="position:static; width: 300px; height: 300px; outline: 1px solid black; overflow: auto; margin:auto">
         <div style="height: 150px"></div>
         <uui-popover-container-shadowdomtester></uui-popover-container-shadowdomtester>
         <div style="height: 150px"></div>
