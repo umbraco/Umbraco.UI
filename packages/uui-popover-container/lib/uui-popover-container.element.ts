@@ -135,7 +135,7 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     if (this._open) {
-      this.#getScrollParents();
+      this.#calculateScrollParents();
 
       this.#startScrollListener();
 
@@ -344,7 +344,14 @@ export class UUIPopoverContainerElement extends LitElement {
     document.removeEventListener('scroll', this.#initUpdate);
   }
 
-  #getScrollParents(): void {
+  /**
+   * @internal
+   */
+  _getScrollParents() {
+    return this.#scrollParents;
+  }
+
+  #calculateScrollParents(): void {
     // Clear previous scroll parents to avoid duplicates
     this.#scrollParents = [];
 
