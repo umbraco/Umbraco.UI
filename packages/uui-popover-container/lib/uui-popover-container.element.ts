@@ -343,6 +343,9 @@ export class UUIPopoverContainerElement extends LitElement {
   #getScrollParents(): any {
     if (!this.#targetElement) return;
 
+    // Clear previous scroll parents to avoid duplicates
+    this.#scrollParents = [];
+
     let style = getComputedStyle(this.#targetElement);
     if (style.position === 'fixed') {
       return;

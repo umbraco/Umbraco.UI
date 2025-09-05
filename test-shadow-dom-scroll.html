@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Shadow DOM Scroll Test</title>
+    <style>
+      .scroll-container {
+        height: 200px;
+        width: 300px;
+        overflow: auto;
+        border: 2px solid red;
+        padding: 10px;
+      }
+      .inner-scroll {
+        height: 100px;
+        width: 200px;
+        overflow: auto;
+        border: 2px solid blue;
+        padding: 10px;
+      }
+      .spacer {
+        height: 400px;
+        background: linear-gradient(to bottom, #ccc, #eee);
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      // Import the component
+      import '/home/runner/work/Umbraco.UI/Umbraco.UI/packages/uui-popover-container/lib/index.js';
+      import '/home/runner/work/Umbraco.UI/Umbraco.UI/packages/uui-button/lib/index.js';
+
+      // Create a test component that replicates the issue
+      class TestShadowContainer extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: 'open' });
+          this.shadowRoot.innerHTML = `
+          <style>
+            .outer-scroll {
+              height: 400px;
+              width: 350px;
+              overflow: auto;
+              border: 2px solid red;
+              padding: 10px;
+            }
+            .inner-scroll {
+              height: 200px;
+              width: 250px;
+              overflow: auto;
+              border: 2px solid blue;
+              padding: 10px;
+            }
+            .spacer {
+              height: 600px;
+              background: linear-gradient(to bottom, #ccc, #eee);
+            }
+            .content {
+              height: 300px;
+              background: linear-gradient(to bottom, #aaf, #bbf);
+            }
+          </style>
+          <div class="outer-scroll">
+            <div style="height: 100px;">Top spacer</div>
+            <div class="inner-scroll">
+              <div style="height: 50px;">Inner top spacer</div>
+              <uui-button id="popover-button" popovertarget="test-popover">Open Popover</uui-button>
+              <div class="content">Inner content area</div>
+            </div>
+            <div class="spacer">Outer content area</div>
+          </div>
+          <uui-popover-container id="test-popover" popover placement="bottom-start">
+            <div style="background: white; padding: 20px; border: 1px solid black; border-radius: 4px;">
+              <h3>Test Popover</h3>
+              <p>This popover should track scrolling in both containers</p>
+            </div>
+          </uui-popover-container>
+        `;
+        }
+      }
+
+      customElements.define('test-shadow-container', TestShadowContainer);
+    </script>
+
+    <h1>Shadow DOM Scroll Parent Test</h1>
+    <p>
+      The button is inside a shadow DOM with nested scroll containers. The
+      popover should follow when scrolling either container.
+    </p>
+
+    <test-shadow-container></test-shadow-container>
+
+    <script>
+      // Add some debugging
+      document.addEventListener('DOMContentLoaded', () => {
+        const testElement = document.querySelector('test-shadow-container');
+        const shadowRoot = testElement.shadowRoot;
+        const popover = shadowRoot.querySelector('#test-popover');
+
+        // Log scroll parent detection
+        console.log('Popover element:', popover);
+
+        // Monitor scroll events
+        const outerScroll = shadowRoot.querySelector('.outer-scroll');
+        const innerScroll = shadowRoot.querySelector('.inner-scroll');
+
+        outerScroll.addEventListener('scroll', () => {
+          console.log('Outer scroll detected');
+        });
+
+        innerScroll.addEventListener('scroll', () => {
+          console.log('Inner scroll detected');
+        });
+
+        // Check if popover detects scroll parents correctly
+        setTimeout(() => {
+          if (popover.open) {
+            console.log(
+              'Popover scroll parents:',
+              popover._scrollParents || 'Not available',
+            );
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
