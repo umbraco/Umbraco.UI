@@ -6,6 +6,7 @@
   "exact": true,
   "noPush": true,
   "npmClient": "npm",
+  "useWorkspaces": true,
   "includeMergedTags": true,
   "conventionalCommits": true,
   "forcePublish": true,
