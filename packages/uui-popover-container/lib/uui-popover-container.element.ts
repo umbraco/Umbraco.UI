@@ -356,7 +356,7 @@ export class UUIPopoverContainerElement extends LitElement {
     }
 
     const includeHidden = false;
-    const excludeStaticParent = style.position === 'absolute';
+    let excludeStaticParent = style.position === 'absolute';
     const overflowRegex = includeHidden
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
@@ -369,6 +369,11 @@ export class UUIPopoverContainerElement extends LitElement {
         el = this.#getAncestorElement(el);
         continue;
       }
+
+      if (style.position !== 'static') {
+        excludeStaticParent = style.position === 'absolute';
+      }
+
       if (
         overflowRegex.test(style.overflow + style.overflowY + style.overflowX)
       ) {
@@ -386,10 +391,10 @@ export class UUIPopoverContainerElement extends LitElement {
   #getAncestorElement(el: HTMLElement | null): HTMLElement | null {
     if (el?.parentElement) {
       return el.parentElement;
-    } else {
-      // If we had no parentElement, then check for shadow roots:
-      return (el?.getRootNode() as any)?.host;
     }
+
+    // If we had no parentElement, then check for shadow roots:
+    return (el?.getRootNode() as any)?.host;
   }
 
   render() {
