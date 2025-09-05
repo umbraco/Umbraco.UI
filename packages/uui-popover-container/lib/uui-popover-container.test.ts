@@ -46,9 +46,10 @@ describe('UUIPopoverContainerElement', () => {
             <dummy-shadow-dom>
               <div style="height: 200px; overflow: auto;" id="inner-scroll">
                 <div style="height: 100px;"></div>
-                <uui-button id="trigger-button" popovertarget="test-popover"
-                  >Open</uui-button
-                >
+                <uui-button
+                  id="trigger-button"
+                  popovertarget="test-popover"
+                  label="Open"></uui-button>
                 <div style="height: 400px;"></div>
               </div>
             </dummy-shadow-dom>
@@ -72,8 +73,8 @@ describe('UUIPopoverContainerElement', () => {
       // Access the private scroll parents array for testing
       const scrollParents = popover._getScrollParents();
 
-      // Should find both scroll containers
-      expect(scrollParents.length).to.be.greaterThan(0);
+      // Should find all scroll containers
+      expect(scrollParents.length).to.be.equal(3); // outer-scroll, inner-scroll, document.body
 
       // Should include the document.body as the last element
       expect(scrollParents[scrollParents.length - 1]).to.equal(document.body);
@@ -86,9 +87,10 @@ describe('UUIPopoverContainerElement', () => {
           <div style="height: 300px; overflow: auto;" id="outer-scroll">
             <div style="position: absolute; top:0; left:0;" id="inner-scroll">
               <div style="height: 100px;"></div>
-              <uui-button id="trigger-button" popovertarget="test-popover"
-                >Open</uui-button
-              >
+              <uui-button
+                id="trigger-button"
+                popovertarget="test-popover"
+                label="Open"></uui-button>
               <div style="height: 400px;"></div>
             </div>
             <div style="height: 500px;"></div>
@@ -122,9 +124,10 @@ describe('UUIPopoverContainerElement', () => {
       const testContainer = await fixture(html`
         <main>
           <div style="height: 300px; overflow: auto;" id="scroll-container">
-            <uui-button id="trigger-button" popovertarget="test-popover"
-              >Open</uui-button
-            >
+            <uui-button
+              id="trigger-button"
+              popovertarget="test-popover"
+              label="Open"></uui-button>
             <div style="height: 400px;"></div>
           </div>
           <uui-popover-container id="test-popover" popover>
