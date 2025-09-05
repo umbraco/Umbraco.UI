@@ -9,6 +9,7 @@ export * from './iconColorPicker';
 export * from './iconCopy';
 export * from './iconDelete';
 export * from './iconDocument';
+export * from './iconDrag';
 export * from './iconDownload';
 export * from './iconEdit';
 export * from './iconFavorite';
