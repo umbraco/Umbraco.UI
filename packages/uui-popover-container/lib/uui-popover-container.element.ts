@@ -344,11 +344,11 @@ export class UUIPopoverContainerElement extends LitElement {
     document.removeEventListener('scroll', this.#initUpdate);
   }
 
-  #getScrollParents(): any {
-    if (!this.#targetElement) return;
-
+  #getScrollParents(): void {
     // Clear previous scroll parents to avoid duplicates
     this.#scrollParents = [];
+
+    if (!this.#targetElement) return;
 
     let style = getComputedStyle(this.#targetElement);
     if (style.position === 'fixed') {
