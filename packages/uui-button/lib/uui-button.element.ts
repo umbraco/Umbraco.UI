@@ -50,6 +50,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
  *  @cssprop --uui-button-transition - Add transition to the button. Default is none.
+ *  @cssprop --uui-focus-outline-color - overwrite the focus outline color
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends UUIFormControlMixin(
@@ -358,7 +359,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
       }
 
       #button:focus-visible {
-        outline: 2px solid var(--color-emphasis);
+        outline: 2px solid var(--uui-focus-outline-color, var(--color-emphasis));
       }
 
       button[disabled]:active,
