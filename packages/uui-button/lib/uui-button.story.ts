@@ -46,6 +46,7 @@ const meta: Meta = {
       options: ['left', 'center', 'right'],
     },
     '--uui-button-transition': { control: { type: 'text' } },
+    '--uui-focus-outline-color': { control: { type: 'color' } },
   },
   render: args => {
     return html`<uui-button ${spread(args)}>${renderSlots(args)}</uui-button>`;
