@@ -121,13 +121,13 @@ export class UUIToggleElement extends UUIBooleanInputElement {
 
       #icon-checked {
         margin-left: -0.5em;
-        left: calc(var(--uui-toggle-size) * 0.5);
+        left: calc((var(--uui-toggle-size) + 1px) * 0.5);
         color: var(--uui-color-interactive);
       }
 
       #icon-unchecked {
         margin-right: -0.5em;
-        right: calc(var(--uui-toggle-size) * 0.5);
+        right: calc((var(--uui-toggle-size)) + 1px) * 0.5);
         color: var(--uui-color-interactive);
       }
 
