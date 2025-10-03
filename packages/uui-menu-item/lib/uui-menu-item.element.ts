@@ -217,6 +217,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   render() {
     return html`
       <div id="menu-item" aria-label="menuitem" role="menuitem">
+        <div id="label-button-background"></div>
         ${this.hasChildren
           ? html`<button
               id="caret-button"
@@ -231,7 +232,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
           ? this._renderLabelAsAnchor()
           : this._renderLabelAsButton()}
 
-        <div id="label-button-background"></div>
         <slot id="actions-container" name="actions"></slot>
         ${this.loading
           ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
@@ -265,13 +265,10 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
 
       /** Not active, not selected, not disabled: */
+      /* Only when NOT active/selected/disabled/highlight … */
       :host(:not([active], [selected], [disabled], [select-mode='highlight']))
-        #menu-item
-        #label-button:hover
-        ~ #label-button-background,
-      :host(:not([active], [selected], [disabled]))
-        #menu-item
-        #caret-button:hover {
+        #menu-item:has(#label-button:hover)
+        #label-button-background {
         background-color: var(
           --uui-menu-item-background-color-hover,
           var(--uui-color-surface-emphasis)
@@ -480,7 +477,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: transparent;
         cursor: pointer;
         min-height: var(--uui-size-12);
-        z-index: 1;
+        //z-index: 1;
       }
 
       #label-button {
@@ -498,7 +495,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         text-decoration: none;
         color: currentColor;
         min-height: var(--uui-size-12);
-        z-index: 1;
+        //z-index: 1;
         font-weight: inherit;
       }
 
@@ -557,10 +554,16 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #badge {
         font-size: 12px;
+        //Why is this duplicated?
         --uui-badge-position: relative;
         --uui-badge-position: auto;
         display: block;
         margin-left: 6px;
+      }
+
+      #label-button ::slotted(uui-badge) {
+        position: relative;
+        z-index: 1;
       }
 
       /** Focus styling */
