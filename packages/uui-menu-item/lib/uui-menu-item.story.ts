@@ -145,7 +145,12 @@ export const CustomExpandSymbol: Story = {
     docs: {
       source: {
         code: html`
-          <uui-menu-item label="Menu Item 1" has-children>
+          <uui-menu-item
+            label="Menu Item 1"
+            has-children
+            .renderExpandSymbol=${() => {
+              return html`<uui-icon name="favorite"></uui-icon>`;
+            }}>
             <uui-menu-item label="Nested Menu Item 1"></uui-menu-item>
             <uui-menu-item label="Nested Menu Item 2"></uui-menu-item>
           </uui-menu-item>
