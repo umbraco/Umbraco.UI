@@ -24,7 +24,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: '0'
@@ -38,7 +38,7 @@ jobs:
             ${{ runner.os }}-cache-
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
           check-latest: true
