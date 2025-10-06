@@ -86,10 +86,7 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-color-invalid);
-        box-shadow:
-          0 0 4px 0 var(--uui-color-invalid),
-          inset 0 0 2px 0 var(--uui-color-invalid);
+        border: 1px solid var(--uui-color-invalid);
       }
 
       :host([standalone]) {
@@ -196,17 +193,24 @@ export class UUIRefElement extends SelectOnlyMixin(
         border-radius: var(--uui-border-radius);
       }
 
+      slot[name='actions']::slotted(*) {
+        --uui-button-height: calc(var(--uui-size-2) * 4);
+      }
+
+      slot[name='actions']::slotted(*:first-child) {
+        margin-right: var(--uui-size-2);
+      }
       slot[name='actions'] {
         display: flex;
         align-items: center;
-        --uui-button-height: calc(var(--uui-size-2) * 4);
-        margin-right: var(--uui-size-2);
       }
-      #tag-container {
+      #tag-container::slotted(*:first-child) {
+        margin: calc(var(--uui-size-2));
+      }
+      #actions-container::slotted(*:first-child) {
         margin: calc(var(--uui-size-2));
       }
       #actions-container {
-        margin: calc(var(--uui-size-2));
         opacity: 0;
         transition: opacity 120ms;
       }
