@@ -254,7 +254,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
     }
 
     return html`<uui-symbol-expand
-      .direction=${this.showChildren ? 'up' : 'down'}></uui-symbol-expand>`;
+      aria-hidden="true"
+      ?open=${this.showChildren}></uui-symbol-expand>`;
   }
 
   static styles = [
