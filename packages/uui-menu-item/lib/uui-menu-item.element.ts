@@ -297,7 +297,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
           var(--uui-color-current)
         );
       }
-      :host([active]) :has(#label-button:hover) #label-button-background,
+      :host([active])
+        #menu-item:has(#label-button:hover)
+        #label-button-background,
       :host([active]) #caret-button:hover {
         background-color: var(
           --uui-menu-item-background-color-active-hover,
@@ -332,7 +334,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
       /** Selected, not highlight mode */
       :host([selected]:not([select-mode='highlight'], [disabled]))
-        :has(#label-button:hover)
+        #menu-item:has(#label-button:hover)
         #label-button-background,
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #caret-button:hover {
@@ -344,8 +346,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** highlight mode, default */
       :host([select-mode='highlight']:not([disabled], [active], [selectable]))
-        #menu-item
-        :has(#label-button:hover)
+        #menu-item:has(#label-button:hover)
         #label-button-background {
         border-radius: var(--uui-border-radius);
         background-color: var(
@@ -363,8 +364,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** highlight mode, active & selected */
       :host([select-mode='highlight'][active][selected]:not([disabled]))
-        #menu-item
-        :has(#label-button:hover)
+        #menu-item:has(#label-button:hover)
         #label-button-background {
         border-radius: var(--uui-border-radius);
         background-color: var(
@@ -443,14 +443,12 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
 
       :host([select-mode='highlight'][selectable]:not([disabled]))
-        #menu-item
-        :has(#label-button:hover)
+        #menu-item:has(#label-button:hover)
         #label-button-background::after {
         opacity: 0.33;
       }
       :host([select-mode='highlight'][selected]:not([disabled]))
-        #menu-item
-        :has(#label-button:hover)
+        #menu-item:has(#label-button:hover)
         #label-button-background::after {
         opacity: 0.66;
       }
