@@ -137,6 +137,15 @@ export class UUIButtonElement extends UUIFormControlMixin(
   @property({ type: String })
   public rel?: string;
 
+  /**
+   * Set the rel attribute for an anchor tag, only used when using href.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property({ type: String })
+  public title: string = '';
+
   @query('#button')
   protected _button!: HTMLInputElement;
 
@@ -237,6 +246,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
           <a
             id="button"
             aria-label=${ifDefined(this.label)}
+            title=${ifDefined(this.title)}
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
@@ -254,7 +264,8 @@ export class UUIButtonElement extends UUIFormControlMixin(
             id="button"
             type=${this.type}
             ?disabled=${this.disabled}
-            aria-label=${ifDefined(this.label)}>
+            aria-label=${ifDefined(this.label)}
+            title=${ifDefined(this.title)}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>
           </button>
