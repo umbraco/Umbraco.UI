@@ -138,10 +138,10 @@ export class UUIButtonElement extends UUIFormControlMixin(
   public rel?: string;
 
   /**
-   * Set the rel attribute for an anchor tag, only used when using href.
+   * Sets the title attribute, which provides a tooltip for both button and anchor elements.
    * @type {string}
    * @attr
-   * @default undefined
+   * @default ''
    */
   @property({ type: String })
   public title: string = '';
