@@ -246,7 +246,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
           <a
             id="button"
             aria-label=${ifDefined(this.label)}
-            title=${ifDefined(this.title)}
+            title=${this.title}
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
@@ -265,7 +265,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
             type=${this.type}
             ?disabled=${this.disabled}
             aria-label=${ifDefined(this.label)}
-            title=${ifDefined(this.title)}>
+            title=${this.title}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>
           </button>
