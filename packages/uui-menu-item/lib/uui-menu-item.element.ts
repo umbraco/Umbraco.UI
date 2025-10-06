@@ -126,7 +126,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
    * Overwrite the expand symbol rendering, this replaces the Expand Symbol from UI Library.
    */
   @property({ attribute: false })
-  public renderExpandSymbol?: () => Element | TemplateResult<1>;
+  public renderExpandSymbol?: () => Element | TemplateResult<1> | undefined;
 
   @state()
   private iconSlotHasContent = false;
@@ -229,11 +229,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
               id="caret-button"
               aria-label=${this.caretLabel}
               @click=${this._onCaretClicked}>
-              ${this.renderExpandSymbol
-                ? this.renderExpandSymbol()
-                : html` <uui-symbol-expand
-                    aria-hidden="true"
-                    ?open=${this.showChildren}></uui-symbol-expand>`}
+              ${this.#renderExpandSymbol()}
             </button>`
           : ''}
         ${this.href && this.selectOnly !== true && this.selectable !== true
@@ -247,6 +243,18 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
+  }
+
+  #renderExpandSymbol() {
+    if (this.renderExpandSymbol) {
+      const result = this.renderExpandSymbol();
+      if (result) {
+        return result;
+      }
+    }
+
+    return html`<uui-symbol-expand
+      .direction=${this.showChildren ? 'up' : 'down'}></uui-symbol-expand>`;
   }
 
   static styles = [
