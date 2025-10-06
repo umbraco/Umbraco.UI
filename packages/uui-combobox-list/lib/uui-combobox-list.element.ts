@@ -242,7 +242,6 @@ export class UUIComboboxListElement extends LitElement {
       //Space key
       case ' ': {
         const el = e.target as HTMLInputElement;
-        console.log('FROM LIST', el.value);
         e.preventDefault();
         e.stopPropagation();
         this._getActiveElement?.click();
