@@ -19,6 +19,7 @@ export type PopoverContainerPlacement =
 
 /**
  * @element uui-popover-container
+ * @attr popover - Indicates that the element is a popover container
  */
 @defineElement('uui-popover-container')
 export class UUIPopoverContainerElement extends LitElement {
@@ -127,10 +128,7 @@ export class UUIPopoverContainerElement extends LitElement {
       new CustomEvent('uui-popover-before-toggle', {
         bubbles: false,
         composed: false,
-        detail: {
-          oldState: event.oldState,
-          newState: event.newState,
-        },
+        detail: { oldState: event.oldState, newState: event.newState },
       }),
     );
 

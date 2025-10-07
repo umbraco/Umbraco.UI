@@ -43,7 +43,7 @@ export default [
     languageOptions: {
       parserOptions: {
         project: './tsconfig.json',
-        tsconfigRootDir: './',
+        tsconfigRootDir: __dirname,
       },
       globals: globals.browser,
     },
