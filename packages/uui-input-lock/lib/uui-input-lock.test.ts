@@ -48,7 +48,7 @@ describe('UUIInputLockElement', () => {
   });
 
   it('emits lock change event', async () => {
-    const listener = oneEvent(element, UUIInputLockEvent.LOCK_CHANGE, false);
+    const listener = oneEvent(element, UUIInputLockEvent.LOCK_CHANGE);
 
     const toggle = element.shadowRoot?.querySelector(
       '#lock',

@@ -65,7 +65,7 @@ describe('UUIRefNodeElement', () => {
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when info is clicked', async () => {
-        const listener = oneEvent(element, 'open', false);
+        const listener = oneEvent(element, 'open');
         const infoElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#info');
         infoElement?.click();
@@ -75,7 +75,7 @@ describe('UUIRefNodeElement', () => {
       });
 
       it('emits a open event when icon is clicked', async () => {
-        const listener = oneEvent(element, 'open', false);
+        const listener = oneEvent(element, 'open');
         const iconElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#icon');
         iconElement?.click();
@@ -89,7 +89,7 @@ describe('UUIRefNodeElement', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
         await elementUpdated(element);
-        const listener = oneEvent(element, 'selected', false);
+        const listener = oneEvent(element, 'selected');
         element.click();
         const event = await listener;
         expect(event).to.exist;

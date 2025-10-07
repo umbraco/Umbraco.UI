@@ -20,11 +20,7 @@ const meta: Meta = {
     html`<uui-file-preview ${spread(args)}
       >${renderSlots(args)}</uui-file-preview
     >`,
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -82,12 +78,10 @@ export const Image: Story = {
       const response = await fetch(imageUrl);
       const imageBlob = await response.blob();
 
-      return {
-        file: new File([imageBlob], 'File 1', { type: 'image/jpeg' }),
-      };
+      return { file: new File([imageBlob], 'File 1', { type: 'image/jpeg' }) };
     },
   ],
-  render: (args, { loaded: { file } }) => {
+  render: (_args, { loaded: { file } }) => {
     setTimeout(() => {
       const imagePreview = document.getElementById(
         'imagePreview',

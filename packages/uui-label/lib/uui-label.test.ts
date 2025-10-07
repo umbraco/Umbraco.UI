@@ -52,7 +52,7 @@ describe('UUILabelElement', () => {
 
     describe('when label clicked', () => {
       it('sets focus on for-element', async () => {
-        const listener = oneEvent(inputEl, 'focus', false);
+        const listener = oneEvent(inputEl, 'focus');
 
         (scene.querySelector('uui-label') as any)?.click();
 
@@ -64,7 +64,7 @@ describe('UUILabelElement', () => {
 
       it('clicks the for-element', async () => {
         const inputEl = scene.querySelector('input')!;
-        const listener = oneEvent(inputEl, 'click', false);
+        const listener = oneEvent(inputEl, 'click');
 
         (scene.querySelector('uui-label') as any)?.click();
 
@@ -104,7 +104,7 @@ describe('UUILabelElement', () => {
     describe('when label clicked', () => {
       it('sets focus on for-element', async () => {
         const inputEl = scene.querySelector('input')!;
-        const listener = oneEvent(inputEl, 'focus', false);
+        const listener = oneEvent(inputEl, 'focus');
 
         (scene.querySelector('uui-label') as any)?.click();
 
@@ -116,7 +116,7 @@ describe('UUILabelElement', () => {
 
       it('clicks the for-element', async () => {
         const inputEl = scene.querySelector('input')!;
-        const listener = oneEvent(inputEl, 'click', false);
+        const listener = oneEvent(inputEl, 'click');
 
         (scene.querySelector('uui-label') as any)?.click();
 

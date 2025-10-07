@@ -1,6 +1,6 @@
 import { html, fixture, expect, aTimeout } from '@open-wc/testing';
 import { UUIPopoverContainerElement } from './uui-popover-container.element';
-import '@umbraco-ui/uui-button/lib';
+import { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 
 class DummyElementWithShadowDom extends HTMLElement {
   constructor() {
@@ -64,7 +64,8 @@ describe('UUIPopoverContainerElement', () => {
       const popover = testContainer.querySelector(
         '#test-popover',
       ) as UUIPopoverContainerElement;
-      const button = testContainer.querySelector('#trigger-button');
+      const button =
+        testContainer.querySelector<UUIButtonElement>('#trigger-button');
 
       // Trigger the popover open
       button?.click();
@@ -107,7 +108,8 @@ describe('UUIPopoverContainerElement', () => {
       const innerScroll = testContainer.querySelector(
         '#inner-scroll',
       ) as HTMLElement;
-      const button = testContainer.querySelector('#trigger-button');
+      const button =
+        testContainer.querySelector<UUIButtonElement>('#trigger-button');
 
       // Trigger the popover open
       button?.click();
@@ -139,7 +141,8 @@ describe('UUIPopoverContainerElement', () => {
       const popover = testContainer.querySelector(
         '#test-popover',
       ) as UUIPopoverContainerElement;
-      const button = testContainer.querySelector('#trigger-button');
+      const button =
+        testContainer.querySelector<UUIButtonElement>('#trigger-button');
 
       // Open and close the popover multiple times
       button?.click();

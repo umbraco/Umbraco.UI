@@ -90,7 +90,7 @@ describe('UUIComboboxElement', () => {
   describe('events', () => {
     describe('change', () => {
       it('emits an change event on selection change', async () => {
-        const listener = oneEvent(element, UUIComboboxEvent.CHANGE, false);
+        const listener = oneEvent(element, UUIComboboxEvent.CHANGE);
         const list = element.querySelector('uui-combobox-list');
 
         const option = list!.children![0] as any;
@@ -105,7 +105,7 @@ describe('UUIComboboxElement', () => {
 
     describe('input', () => {
       it('emits an input event on file change', async () => {
-        const listener = oneEvent(element, UUIComboboxEvent.SEARCH, false);
+        const listener = oneEvent(element, UUIComboboxEvent.SEARCH);
 
         element.search = 'new';
 

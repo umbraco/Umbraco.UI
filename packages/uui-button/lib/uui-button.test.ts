@@ -137,7 +137,7 @@ describe('UuiButton', () => {
   describe('events', () => {
     describe('click', async () => {
       it('emits a click event when native button fires one', async () => {
-        const listener = oneEvent(element, 'click', false);
+        const listener = oneEvent(element, 'click');
 
         button.click();
 

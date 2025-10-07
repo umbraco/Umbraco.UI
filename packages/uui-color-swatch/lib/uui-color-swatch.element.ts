@@ -251,11 +251,8 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       .color-swatch.color-swatch--transparent-bg {
-        background-image: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
+        background-image:
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);

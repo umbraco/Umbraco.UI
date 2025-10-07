@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, Meta, StoryObj } from '@storybook/web-components-vite';
 
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-icon-registry-essential/lib';
@@ -13,9 +13,7 @@ import '@umbraco-ui/uui-input/lib';
 const meta: Meta = {
   id: 'uui-tab-group',
   component: 'uui-tab-group',
-  subcomponents: {
-    UUITab: 'uui-tab',
-  },
+  subcomponents: { UUITab: 'uui-tab' },
   title: 'Buttons/Tabs',
   argTypes: {
     '--uui-tab-text': { control: { type: 'color' } },
@@ -25,17 +23,13 @@ const meta: Meta = {
     '--uui-tab-padding-horizontal': { control: { type: 'text' } },
     inlineStyles: { control: { type: 'text' } },
   },
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
 type Story = StoryObj;
 
-const filterStyles = args => {
+const filterStyles = (args: Args) => {
   const styles = Object.keys(args)
     .filter(key => key.startsWith('--uui-tab'))
     .map(key => `${key}: ${args[key]};`)
@@ -64,9 +58,7 @@ export const Default: Story = {
 
 export const WithBorders: Story = {
   ...Default,
-  args: {
-    '--uui-tab-divider': 'var(--uui-color-divider-standalone)',
-  },
+  args: { '--uui-tab-divider': 'var(--uui-color-divider-standalone)' },
 };
 
 export const UsingHref: Story = {
@@ -121,9 +113,7 @@ export const WithIcons: Story = {
 
 export const WithGap: Story = {
   ...Default,
-  args: {
-    inlineStyles: '--uui-tab-group-gap: 32px;',
-  },
+  args: { inlineStyles: '--uui-tab-group-gap: 32px;' },
 };
 
 export const Async: Story = {

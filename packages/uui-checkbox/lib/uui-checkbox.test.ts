@@ -80,7 +80,7 @@ describe('UUICheckbox', () => {
   describe('events', () => {
     describe('click', () => {
       it('emits a click event when clicked', async () => {
-        const listener = oneEvent(element, 'click', false);
+        const listener = oneEvent(element, 'click');
         element.click();
         const event = await listener;
         expect(event).to.exist;

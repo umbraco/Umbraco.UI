@@ -59,7 +59,7 @@ describe('UuiTab', () => {
   });
 
   it('it emits a click event', async () => {
-    const listener = oneEvent(element, 'click', false);
+    const listener = oneEvent(element, 'click');
     tabs[0].click();
     const ev = await listener;
     expect(ev.type).to.equal('click');

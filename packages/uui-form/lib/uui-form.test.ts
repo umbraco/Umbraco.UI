@@ -33,7 +33,7 @@ describe('UUIFormElement', () => {
   describe('events', () => {
     describe('submit', () => {
       it('emits a submit event when submitted', async () => {
-        const listener = oneEvent(formElement, 'submit', false);
+        const listener = oneEvent(formElement, 'submit');
 
         formElement.requestSubmit();
 
@@ -67,7 +67,7 @@ describe('UUIFormElement', () => {
     });
 
     it('has "submit-invalid" attribute if Form Control was invalid at submission.', async () => {
-      const listener = oneEvent(formElement, 'submit', false);
+      const listener = oneEvent(formElement, 'submit');
 
       formElement.requestSubmit();
 
@@ -78,7 +78,7 @@ describe('UUIFormElement', () => {
     });
 
     it('only has "submit-invalid" attribute if Form Control was invalid at submission.', async () => {
-      const listener = oneEvent(formElement, 'submit', false);
+      const listener = oneEvent(formElement, 'submit');
 
       input.value = 'something';
       formElement.requestSubmit();
@@ -88,14 +88,14 @@ describe('UUIFormElement', () => {
     });
 
     it('"submit-invalid" attribute is removed when form is re-validated and submitted.', async () => {
-      const listener = oneEvent(formElement, 'submit', false);
+      const listener = oneEvent(formElement, 'submit');
 
       formElement.requestSubmit();
 
       await listener;
       await expect(formElement.hasAttribute('submit-invalid')).to.be.true;
 
-      const listener2 = oneEvent(formElement, 'submit', false);
+      const listener2 = oneEvent(formElement, 'submit');
       input.value = 'something';
       formElement.requestSubmit();
 
