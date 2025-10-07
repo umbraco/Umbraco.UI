@@ -137,6 +137,15 @@ export class UUIButtonElement extends UUIFormControlMixin(
   @property({ type: String })
   public rel?: string;
 
+  /**
+   * Sets the title attribute, which provides a tooltip for both button and anchor elements.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  public title: string = '';
+
   @query('#button')
   protected _button!: HTMLInputElement;
 
@@ -237,6 +246,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
           <a
             id="button"
             aria-label=${ifDefined(this.label)}
+            title=${ifDefined(this.title === '' ? undefined : this.title)}
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
@@ -254,7 +264,8 @@ export class UUIButtonElement extends UUIFormControlMixin(
             id="button"
             type=${this.type}
             ?disabled=${this.disabled}
-            aria-label=${ifDefined(this.label)}>
+            aria-label=${ifDefined(this.label)}
+            title=${ifDefined(this.title === '' ? undefined : this.title)}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>
           </button>
