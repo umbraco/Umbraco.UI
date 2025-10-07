@@ -207,7 +207,7 @@ export class UUIComboboxListElement extends LitElement {
   private _onKeyDown = (e: KeyboardEvent) => {
     if (this._options.length <= 0) return;
 
-    switch (e.key) {
+    switch (e.code) {
       case 'ArrowUp':
         e.preventDefault();
         if (e.ctrlKey) {
@@ -235,6 +235,14 @@ export class UUIComboboxListElement extends LitElement {
 
       case 'Enter': {
         e.preventDefault();
+        this._getActiveElement?.click();
+        break;
+      }
+
+      //Space key
+      case 'Space': {
+        e.preventDefault();
+        e.stopPropagation();
         this._getActiveElement?.click();
         break;
       }
