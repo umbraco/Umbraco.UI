@@ -84,7 +84,7 @@ describe('UUIRadio', () => {
     });
 
     it('click does nothing when there is a checked radio', async () => {
-      const listener = oneEvent(element, UUIRadioGroupEvent.CHANGE);
+      const listener = oneEvent(element, UUIRadioGroupEvent.CHANGE, false);
       radios[2].click();
 
       const event = await listener;
@@ -183,7 +183,7 @@ describe('UuiRadioGroup in a Form', () => {
   });
 
   it('radio gets reset by form-reset', async () => {
-    const listener = oneEvent(element, UUIRadioGroupEvent.CHANGE);
+    const listener = oneEvent(element, UUIRadioGroupEvent.CHANGE, false);
     radios[1].click();
     await listener;
     formElement.reset();
@@ -194,7 +194,7 @@ describe('UuiRadioGroup in a Form', () => {
 
   describe('submit', () => {
     it('should submit when pressing enter', async () => {
-      const listener = oneEvent(formElement, 'submit');
+      const listener = oneEvent(formElement, 'submit', false);
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;

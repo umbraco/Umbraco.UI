@@ -75,7 +75,7 @@ describe('UUIBooleanInputElement', () => {
     expect(input?.checked).to.equal(true);
   });
   it('emits an change event when the input changes', async () => {
-    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE);
+    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE, false);
     label.click();
 
     const event = await listener;

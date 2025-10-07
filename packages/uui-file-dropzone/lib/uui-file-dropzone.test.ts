@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { UUIFileDropzoneElement } from './uui-file-dropzone.element';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
 
