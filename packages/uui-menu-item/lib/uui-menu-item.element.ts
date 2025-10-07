@@ -6,7 +6,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -122,6 +122,12 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @property({ type: String, attribute: 'caret-label' })
   public caretLabel = 'Reveal the underlying items';
 
+  /**
+   * Overwrite the expand symbol rendering, this replaces the Expand Symbol from UI Library.
+   */
+  @property({ attribute: false })
+  public renderExpandSymbol?: () => Element | TemplateResult<1> | undefined;
+
   @state()
   private iconSlotHasContent = false;
 
@@ -223,9 +229,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
               id="caret-button"
               aria-label=${this.caretLabel}
               @click=${this._onCaretClicked}>
-              <uui-symbol-expand
-                aria-hidden="true"
-                ?open=${this.showChildren}></uui-symbol-expand>
+              ${this.#renderExpandSymbol()}
             </button>`
           : ''}
         ${this.href && this.selectOnly !== true && this.selectable !== true
@@ -239,6 +243,19 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
+  }
+
+  #renderExpandSymbol() {
+    if (this.renderExpandSymbol) {
+      const result = this.renderExpandSymbol();
+      if (result) {
+        return result;
+      }
+    }
+
+    return html`<uui-symbol-expand
+      aria-hidden="true"
+      ?open=${this.showChildren}></uui-symbol-expand>`;
   }
 
   static styles = [
