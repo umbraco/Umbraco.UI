@@ -35,6 +35,7 @@ export * from '@umbraco-ui/uui-form/lib';
 export * from '@umbraco-ui/uui-icon-registry-essential/lib';
 export * from '@umbraco-ui/uui-icon-registry/lib';
 export * from '@umbraco-ui/uui-icon/lib';
+export * from '@umbraco-ui/uui-input-color/lib';
 export * from '@umbraco-ui/uui-input-file/lib';
 export * from '@umbraco-ui/uui-input-lock/lib';
 export * from '@umbraco-ui/uui-input-password/lib';
