@@ -62,6 +62,17 @@ export const Href: Story = {
   },
 };
 
+export const LongLink: Story = {
+  args: {
+    name: 'Example with very long link',
+    detail:
+      'https://www.example.com/search/results?page=12&sort=ascending&category=electronics&subcategory=smartphones&brand=Samsung&min_price=199.99&max_price=1499.99&availability=in_stock&rating=4_plus&discount=true&shipping=free&color=black%2Cwhite%2Cblue&features=5G%2Cwireless_charging%2Cwaterproof&seller=official_store&lang=en_US&currency=USD&ref=homepage_banner&utm_source=google&utm_medium=cpc&utm_campaign=fall_sale_2025&utm_term=smartphone_deals&utm_content=ad_variant_3&session_id=8a7b9c123f00456d87eabc990f12a345&user_id=anonymous_54b23ff89d12&timestamp=2025-10-12T16%3A45%3A30Z&tracking_code=XYZ123ABC789DEF456GHI',
+    'actions slot': html`<uui-action-bar slot="actions"
+      ><uui-button label="remove">Remove</uui-button></uui-action-bar
+    >`,
+  },
+};
+
 export const Selectable: Story = {
   args: {
     selectable: true,
