@@ -11,15 +11,14 @@ on:
 env:
   NODE_OPTIONS: --max_old_space_size=16384
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Environment variables available to all steps in the job to ensure provenance of the build
-    permissions:
-      contents: read
-      id-token: write
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -43,7 +42,9 @@ jobs:
           node-version-file: .nvmrc
           check-latest: true
           cache: 'npm'
-
+          registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm@latest
       - run: npm -v
       - run: npm install
 
@@ -60,3 +61,4 @@ jobs:
         run: npm run lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
