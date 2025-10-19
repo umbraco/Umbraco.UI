@@ -99,9 +99,15 @@ export class UUIColorSwatchElement extends LabelMixin(
     if (color.startsWith('#')) {
       this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
     } else if (color.startsWith('rgb')) {
-      const [r, g, b] = color.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
-      this._contrast =
-        this.#contrast(this.#rgbToHex(r, g, b)) === 'light' ? 'light' : 'dark';
+      const [r, g, b, a] = color.match(/[.\d]+/g)?.map(Number) ?? [0, 0, 0];
+      if (a <= 0.5) {
+        this._contrast = 'light';
+      } else {
+        this._contrast =
+          this.#contrast(this.#rgbToHex(r, g, b)) === 'light'
+            ? 'light'
+            : 'dark';
+      }
     }
   }
 
