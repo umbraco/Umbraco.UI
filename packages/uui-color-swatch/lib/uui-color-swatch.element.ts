@@ -98,6 +98,10 @@ export class UUIColorSwatchElement extends LabelMixin(
     const color = this.color ?? this.value;
     if (color.startsWith('#')) {
       this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
+    } else if (color.startsWith('rgb')) {
+      const [r, g, b] = color.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
+      this._contrast =
+        this.#contrast(this.#rgbToHex(r, g, b)) === 'light' ? 'light' : 'dark';
     }
   }
 
@@ -147,6 +151,9 @@ export class UUIColorSwatchElement extends LabelMixin(
 
     return [r, g, b];
   }
+
+  #rgbToHex = (r: number, g: number, b: number, hash: '#' | '' = ''): string =>
+    hash + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
 
   render() {
     return html`
