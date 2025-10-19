@@ -99,7 +99,7 @@ export const Default: Story = {};
 
 export const Preselected: Story = {
   args: {
-    value: '#417505',
+    value: swatches[3].value,
   },
 };
 
