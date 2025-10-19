@@ -250,6 +250,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         margin: 0;
         text-align: left;
         border-radius: 3px;
+        border: 1px solid #ccc;
       }
 
       :host(:not([selectable])) #swatch:focus {
@@ -291,6 +292,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 2px;
       }
 
       :host([show-label]) .color-swatch {
