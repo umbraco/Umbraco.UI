@@ -338,11 +338,13 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       .color-swatch.color-swatch--light .color-swatch__check {
-        filter: invert(0) brightness(0);
+        color: #000 !important;
+        filter: none;
       }
 
       .color-swatch.color-swatch--dark .color-swatch__check {
-        filter: invert(1) brightness(10);
+        color: #fff !important;
+        filter: none;
       }
 
       :host([selected]) .color-swatch__check {
