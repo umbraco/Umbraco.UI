@@ -6,9 +6,15 @@ import { spread } from '../../../storyhelpers';
 import { repeat } from 'lit/directives/repeat.js';
 
 const swatches = [
-  { label: 'Blood Orange', value: '#d0021b' },
-  { label: 'Avocado', value: '#417505' },
-  { label: 'Tufts Blue', value: '#4a90e2' },
+  { label: 'Black', value: '#060606' },
+  { label: 'Sunglow', value: '#fad634' },
+  { label: 'Spanish Pink', value: '#f5c1bc' },
+  { label: 'Violet Blue', value: '#3544b1' },
+  { label: 'Malibu', value: '#3879ff' },
+  { label: 'Maroon Flush', value: '#d42054' },
+  { label: 'Jungle Green', value: '#2bc37c' },
+  { label: 'Chamoisee', value: '#9d8057' },
+  { label: 'Dusty Grey', value: '#9b9b9b' },
 ];
 
 const gradients = [
