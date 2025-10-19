@@ -1,7 +1,8 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { ref } from 'lit/directives/ref.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { iconCheck } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import {
   ActiveMixin,
@@ -23,6 +24,9 @@ export class UUIColorSwatchElement extends LabelMixin(
   'label',
   SelectableMixin(ActiveMixin(LitElement)),
 ) {
+  @state()
+  private _contrast: 'dark' | 'light' | undefined = undefined;
+
   /**
    * Value of the swatch. This will become the color value if color is left undefined, see the property `color` for more details.
    */
@@ -90,6 +94,11 @@ export class UUIColorSwatchElement extends LabelMixin(
 
   firstUpdated() {
     this._setAriaAttributes();
+
+    const color = this.color ?? this.value;
+    if (color.startsWith('#')) {
+      this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
+    }
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -118,6 +127,27 @@ export class UUIColorSwatchElement extends LabelMixin(
     this.selectableTarget = button || this;
   }
 
+  #contrast(hex: string): string {
+    const rgb = this.#hexToRgb(hex);
+    const o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
+
+    return o <= 180 ? 'dark' : 'light';
+  }
+
+  #hexToRgb(hex: string): number[] {
+    hex = hex.startsWith('#') ? hex.slice(1) : hex;
+    if (hex.length === 3) {
+      hex = Array.from(hex).reduce((str, x) => str + x + x, ''); // 123 -> 112233
+    }
+
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return [r, g, b];
+  }
+
   render() {
     return html`
       <button
@@ -126,7 +156,12 @@ export class UUIColorSwatchElement extends LabelMixin(
         aria-label=${this.label}
         ?disabled="${this.disabled}"
         title="${this.label}">
-        <div class="color-swatch color-swatch--transparent-bg">
+        <div
+          class="color-swatch color-swatch--transparent-bg ${ifDefined(
+            this._contrast,
+          )
+            ? `color-swatch--${this._contrast}`
+            : ''}">
           <div
             class="color-swatch__color"
             style="background: var(--uui-swatch-color, ${this.color ??
@@ -251,8 +286,11 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       .color-swatch.color-swatch--transparent-bg {
-        background-image:
-          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
+        background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
@@ -284,6 +322,14 @@ export class UUIColorSwatchElement extends LabelMixin(
         filter: invert(1) grayscale(1) contrast(9);
         pointer-events: none;
         opacity: 0;
+      }
+
+      .color-swatch.color-swatch--light .color-swatch__check {
+        filter: invert(0) brightness(0);
+      }
+
+      .color-swatch.color-swatch--dark .color-swatch__check {
+        filter: invert(1) brightness(10);
       }
 
       :host([selected]) .color-swatch__check {
