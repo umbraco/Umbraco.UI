@@ -2,10 +2,17 @@ name: Tests
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the dev branch
+  # Triggers the workflow on push or pull request events but only for the main and release branches
+  push:
+    branches:
+      - main
+      - release/*
+
+  # Triggers the workflow on push or pull request events but only for the main and release branches
   pull_request:
-    branches-ignore:
-      - production
+    branches:
+      - main
+      - release/*
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Use Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           check-latest: true
@@ -43,7 +50,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-
       - name: Use Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           check-latest: true

@@ -298,16 +298,23 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #onKeyDown = (e: KeyboardEvent) => {
-    if (this.open === false && e.key === 'Enter') {
+    if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // TODO: could we avoid this.
       e.stopImmediatePropagation(); // TODO: could we avoid this.
     }
 
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
       this.#onOpen();
     }
 
-    if (e.key === 'Escape' || e.key === 'Enter') {
+    if (e.code === 'Space') {
+      if (this._isOpen) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      this.#onOpen();
+    }
+
+    if (e.code === 'Escape' || e.code === 'Enter') {
       this.#onClose();
     }
   };
