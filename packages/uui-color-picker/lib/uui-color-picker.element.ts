@@ -460,6 +460,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             ${this.opacity
               ? html`
                   <uui-color-slider
+                    hide-value-label
                     label="alpha"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
@@ -650,8 +651,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
       .color-picker__transparent-bg {
         border: 1px solid var(--uui-color-border);
-        background-image:
-          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
+        background-image: linear-gradient(
+            45deg,
+            var(--uui-palette-grey) 25%,
+            transparent 25%
+          ),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
