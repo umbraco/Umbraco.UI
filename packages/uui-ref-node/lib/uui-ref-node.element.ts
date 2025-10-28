@@ -163,6 +163,11 @@ export class UUIRefNodeElement extends UUIRefElement {
     `;
   }
 
+  public focus() {
+    const openPart = this.renderRoot.querySelector('#open-part') as HTMLElement;
+    openPart?.focus();
+  }
+
   #renderOpenPart() {
     if (this.readonly) {
       return html`${this.#renderContent()}`;
@@ -226,6 +231,10 @@ export class UUIRefNodeElement extends UUIRefElement {
         #content {
           padding: 0;
         }
+      }
+
+      .test {
+        border: red 10px;
       }
 
       :host(:not([disabled])) #open-part:hover #icon {

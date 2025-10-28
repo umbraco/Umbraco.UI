@@ -4,6 +4,11 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
+const setFocus = () => {
+  const refElement = document.querySelectorAll('#refNode');
+  refElement[0].focus();
+};
+
 const meta: Meta = {
   id: 'uui-ref-node-package',
   component: 'uui-ref-node-package',
@@ -66,4 +71,12 @@ export const Readonly: Story = {
   args: {
     readonly: true,
   },
+};
+
+export const Focus: Story = {
+  render: args =>
+    html`<uui-ref-node-package id="refNode" ${spread(args)}
+        >${renderSlots(args)}</uui-ref-node-package
+      >
+      <button @click=${() => setFocus()}>Set focus</button> `,
 };

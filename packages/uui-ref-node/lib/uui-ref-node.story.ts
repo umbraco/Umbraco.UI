@@ -9,6 +9,12 @@ import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 
+const setFocus = () => {
+  const refElement = document.querySelectorAll('#refNode');
+  console.log(refElement[0]);
+  refElement[0].focus();
+};
+
 const meta: Meta = {
   id: 'uui-ref-node',
   component: 'uui-ref-node',
@@ -78,4 +84,13 @@ export const Readonly: Story = {
   args: {
     readonly: true,
   },
+};
+
+export const Focus: Story = {
+  render: args =>
+    html`<uui-ref-node id="refNode" ${spread(args)}
+      >${renderSlots(args)}</uui-ref-node-package
+    >
+      <button @click=${() => setFocus()}>Set focus</button>
+    `,
 };
