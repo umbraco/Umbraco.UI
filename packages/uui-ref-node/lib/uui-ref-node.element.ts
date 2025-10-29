@@ -233,10 +233,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         }
       }
 
-      .test {
-        border: red 10px;
-      }
-
       :host(:not([disabled])) #open-part:hover #icon {
         color: var(--uui-color-interactive-emphasis);
       }
