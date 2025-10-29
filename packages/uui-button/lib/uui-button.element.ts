@@ -370,7 +370,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
       }
 
       #button:focus-visible {
-        outline: 2px solid var(--uui-focus-outline-color, var(--color-emphasis));
+        outline: 2px solid var(--uui-color-focus, var(--color-emphasis));
       }
 
       button[disabled]:active,

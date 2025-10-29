@@ -198,6 +198,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         display: flex;
         flex-grow: 1;
+        margin: 0 0 1px 0;
       }
 
       #icon {

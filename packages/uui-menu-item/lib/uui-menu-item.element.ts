@@ -584,7 +584,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         border-radius: calc(var(--uui-border-radius) - 1px);
         position: absolute;
         inset: 3px 3px 3px -5px;
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus, var(--color-emphasis));
       }
 
       :host([select-mode='highlight']) #caret-button:focus-visible {
@@ -597,7 +597,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         position: absolute;
         inset: 3px;
         border-radius: calc(var(--uui-border-radius) - 1px);
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus, var(--color-emphasis));
       }
 
       /** Slots */

@@ -70,6 +70,10 @@ export class UUIBreadcrumbItemElement extends LitElement {
         color: var(--uui-color-focus);
       }
 
+      a:focus-visible {
+        outline: 2px solid var(--uui-color-focus, var(--color-emphasis));
+      }
+
       [part='separator']::after {
         content: '/';
         speak: never;
