@@ -237,9 +237,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
           : this._renderLabelAsButton()}
 
         <slot id="actions-container" name="actions"></slot>
-        ${this.loading
-          ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
-          : ''}
+        <uui-loader-bar
+          id="loader"
+          class=${this.loading ? 'visible' : ''}></uui-loader-bar>
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
@@ -616,6 +616,16 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         align-items: center;
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
         margin-right: var(--uui-size-base-unit);
+      }
+
+      #loader {
+        opacity: 0;
+        transition: opacity 120ms ease-in 60ms;
+        pointer-events: none;
+      }
+
+      #loader.visible {
+        opacity: 1;
       }
     `,
   ];
