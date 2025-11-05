@@ -151,6 +151,7 @@ export class UUICardElement extends SelectOnlyMixin(
         font-family: inherit;
         border: 0;
         padding: 0;
+        margin: 0 0 1px 0;
         background-color: transparent;
         text-align: left;
         color: var(--uui-color-text);

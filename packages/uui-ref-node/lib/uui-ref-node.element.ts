@@ -187,6 +187,10 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding: 1px;
       }
 
+      #actions-container {
+        --uui-focus-outline-color: var(--uui-color-focus);
+      }
+
       #content {
         display: flex;
         flex-grow: 1;
@@ -201,6 +205,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         display: flex;
         flex-grow: 1;
+        margin: 0 0 1px 0;
       }
 
       #icon {

@@ -719,6 +719,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         flex: 1;
       }
 
+      button.color-picker__trigger:focus-visible {
+        outline: 2px solid var(--uui-color-focus);
+      }
+
       uui-color-area {
         width: 100%;
       }
