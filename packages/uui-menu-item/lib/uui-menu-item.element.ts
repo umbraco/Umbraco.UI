@@ -617,6 +617,17 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
         margin-right: var(--uui-size-base-unit);
       }
+
+      @keyframes fadeIn {
+        100% {
+          opacity: 1;
+        }
+      }
+
+      uui-loader-bar {
+        opacity: 0;
+        animation: fadeIn 120ms ease-in 60ms forwards;
+      }
     `,
   ];
 }
