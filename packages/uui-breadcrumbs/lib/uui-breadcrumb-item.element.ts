@@ -71,7 +71,8 @@ export class UUIBreadcrumbItemElement extends LitElement {
       }
 
       a:focus-visible {
-        outline: 2px solid var(--uui-color-focus, var(--color-emphasis));
+        border-radius: var(--uui-border-radius);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       [part='separator']::after {

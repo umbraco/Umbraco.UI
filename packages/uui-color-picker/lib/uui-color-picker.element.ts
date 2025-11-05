@@ -720,7 +720,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       button.color-picker__trigger:focus-visible {
-        outline: 2px solid var(--uui-color-focus, var(--color-emphasis));
+        outline: 2px solid var(--uui-color-focus);
       }
 
       uui-color-area {
