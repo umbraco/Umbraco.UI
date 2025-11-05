@@ -5,8 +5,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
 const setFocus = () => {
-  const refElement = document.querySelectorAll('#refNode');
-  refElement[0].focus();
+  document.getElementById('refNode')?.focus();
 };
 
 const meta: Meta = {

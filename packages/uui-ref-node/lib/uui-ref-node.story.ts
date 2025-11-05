@@ -10,9 +10,7 @@ import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 
 const setFocus = () => {
-  const refElement = document.querySelectorAll('#refNode');
-  console.log(refElement[0]);
-  refElement[0].focus();
+  document.getElementById('refNode')?.focus();
 };
 
 const meta: Meta = {
