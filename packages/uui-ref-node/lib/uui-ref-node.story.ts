@@ -59,10 +59,10 @@ export const Disabled: Story = { args: { disabled: true } };
 export const Readonly: Story = { args: { readonly: true } };
 
 export const Focus: Story = {
-  render: args =>
-    html`<uui-ref-node id="refNode" ${spread(args)}
-      >${renderSlots(args)}</uui-ref-node-package
-    >
-      <button @click=${() => setFocus()}>Set focus</button>
-    `,
+  render: args => html`
+    <uui-ref-node id="refNode" ${spread(args)}>
+      ${renderSlots(args)}
+    </uui-ref-node>
+    <button @click=${() => setFocus()}>Set focus</button>
+  `,
 };
