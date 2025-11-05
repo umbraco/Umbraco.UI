@@ -13,11 +13,7 @@ const meta: Meta = {
   id: 'uui-ref-node-package',
   component: 'uui-ref-node-package',
   title: 'Displays/References/Package',
-  args: {
-    name: 'Umbraco Starter Kit',
-    version: '1.1',
-    author: 'Umbraco HQ',
-  },
+  args: { name: 'Umbraco Starter Kit', version: '1.1', author: 'Umbraco HQ' },
   render: args =>
     html`<uui-ref-node-package ${spread(args)}
       >${renderSlots(args)}</uui-ref-node-package
@@ -25,11 +21,7 @@ const meta: Meta = {
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -49,29 +41,13 @@ export const CustomIcon: Story = {
   },
 };
 
-export const Standalone: Story = {
-  args: {
-    standalone: true,
-  },
-};
+export const Standalone: Story = { args: { standalone: true } };
 
-export const Selectable: Story = {
-  args: {
-    selectable: true,
-  },
-};
+export const Selectable: Story = { args: { selectable: true } };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-  },
-};
+export const Readonly: Story = { args: { readonly: true } };
 
 export const Focus: Story = {
   render: args =>

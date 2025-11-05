@@ -19,20 +19,13 @@ const meta: Meta = {
   id: 'uui-ref-node',
   component: 'uui-ref-node',
   title: 'Displays/References/Node',
-  args: {
-    name: 'Rabbit Suit Product Page',
-    detail: 'path/to/nowhere',
-  },
+  args: { name: 'Rabbit Suit Product Page', detail: 'path/to/nowhere' },
   render: args =>
     html`<uui-ref-node ${spread(args)}>${renderSlots(args)}</uui-ref-node>`,
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -55,36 +48,17 @@ export const CustomIcon: Story = {
   },
 };
 
-export const Standalone: Story = {
-  args: {
-    standalone: true,
-  },
-};
+export const Standalone: Story = { args: { standalone: true } };
 
 export const Href: Story = {
-  args: {
-    href: 'https://umbraco.com',
-    target: '_blank',
-  },
+  args: { href: 'https://umbraco.com', target: '_blank' },
 };
 
-export const Selectable: Story = {
-  args: {
-    selectable: true,
-  },
-};
+export const Selectable: Story = { args: { selectable: true } };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-  },
-};
+export const Readonly: Story = { args: { readonly: true } };
 
 export const Focus: Story = {
   render: args =>

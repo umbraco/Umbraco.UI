@@ -13,10 +13,7 @@ const meta: Meta = {
   id: 'uui-ref-node-document-type',
   component: 'uui-ref-node-document-type',
   title: 'Displays/References/Document Type',
-  args: {
-    name: 'Product Page',
-    alias: 'productPage',
-  },
+  args: { name: 'Product Page', alias: 'productPage' },
   render: args =>
     html`<uui-ref-node-document-type
       id="refNode"
@@ -28,11 +25,7 @@ const meta: Meta = {
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -52,29 +45,13 @@ export const CustomIcon: Story = {
   },
 };
 
-export const Standalone: Story = {
-  args: {
-    standalone: true,
-  },
-};
+export const Standalone: Story = { args: { standalone: true } };
 
-export const Selectable: Story = {
-  args: {
-    selectable: true,
-  },
-};
+export const Selectable: Story = { args: { selectable: true } };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-  },
-};
+export const Readonly: Story = { args: { readonly: true } };
 
 export const Focus: Story = {
   render: args =>
