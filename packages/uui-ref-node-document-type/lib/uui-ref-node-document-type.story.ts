@@ -13,13 +13,11 @@ const meta: Meta = {
   component: 'uui-ref-node-document-type',
   title: 'Displays/References/Document Type',
   args: { name: 'Product Page', alias: 'productPage' },
-  render: args =>
-    html`<uui-ref-node-document-type
-      id="refNode"
-      ${spread(args)}
-      @open=${() => onOpen()}
-      >${renderSlots(args)}</uui-ref-node-document-type
-    > `,
+  render: args => html`
+    <uui-ref-node-document-type id="refNode" ${spread(args)}>
+      ${renderSlots(args)}
+    </uui-ref-node-document-type>
+  `,
 
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
@@ -32,10 +30,13 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    'actions slot': html`<uui-action-bar slot="actions"
-      ><uui-button label="delete"
-        ><uui-icon name="delete"></uui-icon></uui-button
-    ></uui-action-bar>`,
+    'actions slot': html`
+      <uui-action-bar slot="actions">
+        <uui-button label="delete">
+          <uui-icon name="delete"></uui-icon>
+        </uui-button>
+      </uui-action-bar>
+    `,
   },
 };
 export const CustomIcon: Story = {

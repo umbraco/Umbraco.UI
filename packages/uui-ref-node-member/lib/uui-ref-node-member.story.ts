@@ -28,10 +28,13 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    'actions slot': html`<uui-action-bar slot="actions"
-      ><uui-button label="delete"
-        ><uui-icon name="delete"></uui-icon></uui-button
-    ></uui-action-bar>`,
+    'actions slot': html`
+      <uui-action-bar slot="actions">
+        <uui-button label="delete">
+          <uui-icon name="delete"></uui-icon>
+        </uui-button>
+      </uui-action-bar>
+    `,
   },
 };
 export const CustomIcon: Story = {
