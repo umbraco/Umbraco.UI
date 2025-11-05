@@ -4,10 +4,6 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
-const setFocus = () => {
-  document.getElementById('refNode')?.focus();
-};
-
 const meta: Meta = {
   id: 'uui-ref-node-package',
   component: 'uui-ref-node-package',
@@ -51,12 +47,16 @@ export const Selectable: Story = { args: { selectable: true } };
 export const Disabled: Story = { args: { disabled: true } };
 
 export const Readonly: Story = { args: { readonly: true } };
-
 export const Focus: Story = {
-  render: args => html`
-    <uui-ref-node-package id="refNode" ${spread(args)}>
-      ${renderSlots(args)}
-    </uui-ref-node-package>
-    <button @click=${() => setFocus()}>Set focus</button>
-  `,
+  args: { id: 'refNode' },
+  decorators: [
+    (Story: any) => html`
+      <div style="max-width: 420px;">
+        ${Story()}
+        <button @click=${() => document.getElementById('refNode')?.focus()}>
+          Set focus
+        </button>
+      </div>
+    `,
+  ],
 };
