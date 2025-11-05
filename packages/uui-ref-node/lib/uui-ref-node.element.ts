@@ -3,7 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-ref-node
@@ -64,6 +64,9 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   public rel?: string;
 
+  @query('#open-part')
+  protected _openPart?: HTMLInputElement;
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -84,6 +87,11 @@ export class UUIRefNodeElement extends UUIRefElement {
     super.connectedCallback();
 
     demandCustomElement(this, 'uui-icon');
+  }
+
+  async focus() {
+    await this.updateComplete;
+    this._openPart?.focus();
   }
 
   #onSlotIconChange(event: Event) {
@@ -163,11 +171,6 @@ export class UUIRefNodeElement extends UUIRefElement {
     `;
   }
 
-  public focus() {
-    const openPart = this.renderRoot.querySelector('#open-part') as HTMLElement;
-    openPart?.focus();
-  }
-
   #renderOpenPart() {
     if (this.readonly) {
       return html`${this.#renderContent()}`;
@@ -232,10 +235,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         #content {
           padding: 0;
         }
-      }
-
-      .test {
-        border: red 10px;
       }
 
       :host(:not([disabled])) #open-part:hover #icon {

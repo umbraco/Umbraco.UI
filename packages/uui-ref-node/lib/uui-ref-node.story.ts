@@ -9,30 +9,17 @@ import '@umbraco-ui/uui-action-bar/lib';
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-icon/lib';
 
-const setFocus = () => {
-  const refElement = document.querySelectorAll('#refNode');
-  console.log(refElement[0]);
-  refElement[0].focus();
-};
-
 const meta: Meta = {
   id: 'uui-ref-node',
   component: 'uui-ref-node',
   title: 'Displays/References/Node',
-  args: {
-    name: 'Rabbit Suit Product Page',
-    detail: 'path/to/nowhere',
-  },
+  args: { name: 'Rabbit Suit Product Page', detail: 'path/to/nowhere' },
   render: args =>
     html`<uui-ref-node ${spread(args)}>${renderSlots(args)}</uui-ref-node>`,
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -40,13 +27,16 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    'tag slot': html`<uui-tag size="s" slot="tag" color="positive"
-      >Published</uui-tag
-    >`,
-    'actions slot': html`<uui-action-bar slot="actions"
-      ><uui-button label="delete"
-        ><uui-icon name="delete"></uui-icon></uui-button
-    ></uui-action-bar>`,
+    'tag slot': html`
+      <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
+    `,
+    'actions slot': html`
+      <uui-action-bar slot="actions">
+        <uui-button label="delete">
+          <uui-icon name="delete"></uui-icon>
+        </uui-button>
+      </uui-action-bar>
+    `,
   },
 };
 export const CustomIcon: Story = {
@@ -55,42 +45,28 @@ export const CustomIcon: Story = {
   },
 };
 
-export const Standalone: Story = {
-  args: {
-    standalone: true,
-  },
-};
+export const Standalone: Story = { args: { standalone: true } };
 
 export const Href: Story = {
-  args: {
-    href: 'https://umbraco.com',
-    target: '_blank',
-  },
+  args: { href: 'https://umbraco.com', target: '_blank' },
 };
 
-export const Selectable: Story = {
-  args: {
-    selectable: true,
-  },
-};
+export const Selectable: Story = { args: { selectable: true } };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-  },
-};
+export const Readonly: Story = { args: { readonly: true } };
 
 export const Focus: Story = {
-  render: args =>
-    html`<uui-ref-node id="refNode" ${spread(args)}
-      >${renderSlots(args)}</uui-ref-node-package
-    >
-      <button @click=${() => setFocus()}>Set focus</button>
+  args: { id: 'refNode' },
+  decorators: [
+    (Story: any) => html`
+      <div style="max-width: 420px;">
+        ${Story()}
+        <button @click=${() => document.getElementById('refNode')?.focus()}>
+          Set focus
+        </button>
+      </div>
     `,
+  ],
 };
