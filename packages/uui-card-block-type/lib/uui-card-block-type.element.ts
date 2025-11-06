@@ -109,7 +109,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
 
       slot[name='tag'] {
         position: absolute;
-        top: var(--uui-size-4);
+        bottom: var(--uui-size-4);
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
