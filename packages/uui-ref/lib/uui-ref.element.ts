@@ -186,11 +186,9 @@ export class UUIRefElement extends SelectOnlyMixin(
 
       button:focus,
       a:focus {
-        outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-card-border-width);
-        outline-style: solid;
         outline-offset: var(--uui-card-border-width);
         border-radius: var(--uui-border-radius);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       slot[name='actions']::slotted(*) {

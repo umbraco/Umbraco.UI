@@ -584,7 +584,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         border-radius: calc(var(--uui-border-radius) - 1px);
         position: absolute;
         inset: 3px 3px 3px -5px;
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       :host([select-mode='highlight']) #caret-button:focus-visible {
@@ -597,7 +597,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         position: absolute;
         inset: 3px;
         border-radius: calc(var(--uui-border-radius) - 1px);
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       /** Slots */
@@ -616,6 +616,17 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         align-items: center;
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
         margin-right: var(--uui-size-base-unit);
+      }
+
+      @keyframes fadeIn {
+        100% {
+          opacity: 1;
+        }
+      }
+
+      uui-loader-bar {
+        opacity: 0;
+        animation: fadeIn 120ms ease-in 60ms forwards;
       }
     `,
   ];

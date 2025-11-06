@@ -143,22 +143,22 @@
     $malibu saturation(- 60%) blackness(+ 26%)
   ); */
 
-  $maroon-flush: #d42054;
+  $maroon-flush: #c31d4c;
   --uui-palette-maroon-flush: $maroon-flush;
   --uui-palette-maroon-flush-light: rgb(
-    226,
-    60,
-    107
+    223,
+    42,
+    93
   ); /* color($maroon-flush lightness(+ 8%)); */
   --uui-palette-maroon-flush-dark: rgb(
-    191,
-    33,
-    78
+    174,
+    30,
+    71
   ); /* color($maroon-flush blackness(+ 8%)); */
   --uui-palette-maroon-flush-dimmed: rgb(
-    133,
-    107,
-    114
+    122,
+    98,
+    104
   ); /* color(
     $maroon-flush saturation(- 62%) blackness(+ 2%)
   ); */

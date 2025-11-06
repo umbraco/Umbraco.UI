@@ -8,23 +8,16 @@ const meta: Meta = {
   id: 'uui-ref-node-package',
   component: 'uui-ref-node-package',
   title: 'Displays/References/Package',
-  args: {
-    name: 'Umbraco Starter Kit',
-    version: '1.1',
-    author: 'Umbraco HQ',
-  },
-  render: args =>
-    html`<uui-ref-node-package ${spread(args)}
-      >${renderSlots(args)}</uui-ref-node-package
-    >`,
+  args: { name: 'Umbraco Starter Kit', version: '1.1', author: 'Umbraco HQ' },
+  render: args => html`
+    <uui-ref-node-package ${spread(args)}>
+      ${renderSlots(args)}
+    </uui-ref-node-package>
+  `,
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -32,10 +25,13 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    'actions slot': html`<uui-action-bar slot="actions"
-      ><uui-button label="delete"
-        ><uui-icon name="delete"></uui-icon></uui-button
-    ></uui-action-bar>`,
+    'actions slot': html`
+      <uui-action-bar slot="actions">
+        <uui-button label="delete">
+          <uui-icon name="delete"></uui-icon>
+        </uui-button>
+      </uui-action-bar>
+    `,
   },
 };
 export const CustomIcon: Story = {
@@ -44,26 +40,23 @@ export const CustomIcon: Story = {
   },
 };
 
-export const Standalone: Story = {
-  args: {
-    standalone: true,
-  },
-};
+export const Standalone: Story = { args: { standalone: true } };
 
-export const Selectable: Story = {
-  args: {
-    selectable: true,
-  },
-};
+export const Selectable: Story = { args: { selectable: true } };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-  },
+export const Readonly: Story = { args: { readonly: true } };
+export const Focus: Story = {
+  args: { id: 'refNode' },
+  decorators: [
+    (Story: any) => html`
+      <div style="max-width: 420px;">
+        ${Story()}
+        <button @click=${() => document.getElementById('refNode')?.focus()}>
+          Set focus
+        </button>
+      </div>
+    `,
+  ],
 };
