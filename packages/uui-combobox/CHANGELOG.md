@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package @umbraco-ui/uui-combobox
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+### Features
+
+- **uui-combobox:** Add open functionality with space bar ([#1170](https://github.com/umbraco/Umbraco/issues/1170)) ([db5207c](https://github.com/umbraco/Umbraco/commit/db5207cc72b639a8cce04515446b0c122afbeb1f))
+
+### Reverts
+
+- Revert "chore: runs eslint --fix and adjusts tests based on new typings" ([33a6d62](https://github.com/umbraco/Umbraco/commit/33a6d62f834a5a40a38fff00bd2ac5b0f2ec0c11))
+
 # [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-combobox

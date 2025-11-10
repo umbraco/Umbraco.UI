@@ -298,7 +298,8 @@ export class UUIColorAreaElement extends LitElement {
         position: relative;
         height: 100%;
         width: 100%;
-        background-image: linear-gradient(
+        background-image:
+          linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0) 0%,
             rgba(0, 0, 0, 1) 100%

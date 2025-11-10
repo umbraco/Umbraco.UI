@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-card-media",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,10 +30,10 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.15.0",
-    "@umbraco-ui/uui-card": "1.15.0",
-    "@umbraco-ui/uui-symbol-file": "1.15.0",
-    "@umbraco-ui/uui-symbol-folder": "1.15.0"
+    "@umbraco-ui/uui-base": "1.16.0",
+    "@umbraco-ui/uui-card": "1.16.0",
+    "@umbraco-ui/uui-symbol-file": "1.16.0",
+    "@umbraco-ui/uui-symbol-folder": "1.16.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",

@@ -123,8 +123,12 @@ describe('UUIComboboxElement', () => {
 
   describe('keyboard navigation', () => {
     it('moves `active`-focus to second option on pressing the arrow down key', async () => {
-      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      element.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown' }),
+      );
+      element.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown' }),
+      );
 
       await elementUpdated(element);
 

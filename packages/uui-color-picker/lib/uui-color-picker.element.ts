@@ -650,11 +650,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
       .color-picker__transparent-bg {
         border: 1px solid var(--uui-color-border);
-        background-image: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
+        background-image:
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
@@ -720,6 +717,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         font-size: 0.85rem;
         box-sizing: content-box;
         flex: 1;
+      }
+
+      button.color-picker__trigger:focus-visible {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       uui-color-area {

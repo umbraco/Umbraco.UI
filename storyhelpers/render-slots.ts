@@ -35,7 +35,7 @@ function renderSlots(param: TemplateResult[] | Args) {
   const spacing = '  ';
 
   const stringSlots = validSlots.map(slot =>
-    typeof slot === 'string' ? slot : slot.strings?.[0] ?? '',
+    typeof slot === 'string' ? slot : (slot.strings?.[0] ?? ''),
   );
   const stringSlotsJoined = stringSlots.join('\n');
   const stringSlotsJoinedWithSpacing = stringSlotsJoined

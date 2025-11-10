@@ -115,8 +115,8 @@ export class UUICardUserElement extends UUICardElement {
 
       slot[name='tag'] {
         position: absolute;
-        top: 6px;
-        right: 6px;
+        bottom: var(--uui-size-space-4);
+        right: var(--uui-size-space-4);
         display: flex;
         justify-content: right;
       }
