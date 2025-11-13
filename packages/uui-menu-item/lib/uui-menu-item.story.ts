@@ -195,7 +195,18 @@ export const WidthBadge: Story = {
 
 export const WithIcon: Story = {
   args: {
+    selectable: true,
     'icon slot': html`<uui-icon slot="icon" name="favorite"></uui-icon>`,
+  },
+};
+
+export const WithColoredIcon: Story = {
+  args: {
+    selectable: true,
+    'icon slot': html`<uui-icon
+      slot="icon"
+      name="favorite"
+      style="--uui-icon-color: red"></uui-icon>`,
   },
 };
 
