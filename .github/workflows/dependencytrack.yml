@@ -37,7 +37,7 @@ jobs:
         run: |
           if [ -f ./sbom.xml ]; then
             curl --fail-with-body -v -i -w "\nHTTP Status: %{http_code}\n" \
-              -X POST "$DTRACK_API_URI" \
+              "$DTRACK_API_URI" \
               -H "X-Api-Key: $DTRACK_API_KEY" \
               -H "accept: application/json" \
               -H "Content-Type: multipart/form-data" \
