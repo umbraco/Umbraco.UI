@@ -6,9 +6,34 @@ import { spread } from '../../../storyhelpers';
 import { repeat } from 'lit/directives/repeat.js';
 
 const swatches = [
-  { label: 'Blood Orange', value: '#d0021b' },
-  { label: 'Avocado', value: '#417505' },
-  { label: 'Tufts Blue', value: '#4a90e2' },
+  { label: 'Black', value: '#060606' },
+  { label: 'Sunglow', value: '#fad634' },
+  { label: 'Spanish Pink', value: '#f5c1bc' },
+  { label: 'Violet Blue', value: '#3544b1' },
+  { label: 'Malibu', value: '#3879ff' },
+  { label: 'Maroon Flush', value: '#d42054' },
+  { label: 'Jungle Green', value: '#2bc37c' },
+  { label: 'Chamoisee', value: '#9d8057' },
+  { label: 'Dusty Grey', value: '#9b9b9b' },
+];
+
+const swatchesTransparent = [
+  'rgba(208, 2, 27, 0.5)',
+  'rgba(245, 166, 35, 0.5)',
+  'rgba(248, 231, 28, 0.5)',
+  'rgba(139, 87, 42, 0.5)',
+  'rgba(126, 211, 33, 0.5)',
+  'rgba(65, 117, 5, 0.5)',
+  'rgba(189, 16, 224, 0.5)',
+  'rgba(144, 19, 254, 0.5)',
+  'rgba(74, 144, 226, 0.5)',
+  'rgba(80, 227, 194, 0.5)',
+  'rgba(184, 233, 134, 0.5)',
+  'rgba(0, 0, 0, 0.5)',
+  'rgba(68, 68, 68, 0.5)',
+  'rgba(136, 136, 136, 0.5)',
+  'rgba(204, 204, 204, 0.5)',
+  'rgba(255, 255, 255, 0.5)',
 ];
 
 const gradients = [
@@ -93,7 +118,7 @@ export const Default: Story = {};
 
 export const Preselected: Story = {
   args: {
-    value: '#417505',
+    value: swatches[3].value,
   },
 };
 
@@ -120,6 +145,12 @@ export const Gradient: Story = {
     swatches: gradients,
     showLabel: true,
     value: 'lemon-twist',
+  },
+};
+
+export const Transparent: Story = {
+  args: {
+    swatches: swatchesTransparent,
   },
 };
 
