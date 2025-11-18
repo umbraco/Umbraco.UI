@@ -32,6 +32,7 @@ jobs:
       # Upload Node.js SBOM (if exists)
       - name: Upload Node.js SBOM to Dependency-Track
         env:
+          DTRACK_API_URI: ${{ vars.DTRACK_API_URI }}
           DTRACK_API_KEY: ${{ secrets.DTRACK_API_KEY }}
         run: |
           if [ -f ./sbom.xml ]; then
