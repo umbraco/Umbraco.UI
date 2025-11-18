@@ -121,7 +121,6 @@
     "rollup": "4.52.4",
     "rollup-plugin-esbuild": "6.2.1",
     "rollup-plugin-import-css": "3.5.5",
-    "rollup-plugin-minify-html-literals": "1.2.6",
     "rollup-plugin-postcss": "4.0.2",
     "storybook": "^10.0.8",
     "tsc-files": "1.1.4",
