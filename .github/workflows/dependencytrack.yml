@@ -21,6 +21,8 @@ jobs:
           check-latest: true
           cache: 'npm'
 
+      - run: npm install
+
       - name: Install CycloneDX Node.js CLI
         run: npm i -g @cyclonedx/cyclonedx-npm
 
