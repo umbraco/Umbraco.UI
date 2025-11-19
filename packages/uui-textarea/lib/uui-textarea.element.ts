@@ -105,7 +105,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   maxlengthMessage: string | ((max: number, current: number) => string) = (
     max,
     current,
-  ) => `Maximum ${max} characters, ${current} too many.`;
+  ) => `Maximum ${max} characters, ${current - max} too many.`;
 
   @query('#textarea')
   protected _textarea!: HTMLInputElement;
