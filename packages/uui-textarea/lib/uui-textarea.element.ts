@@ -102,10 +102,10 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
    * @default
    */
   @property({ attribute: 'maxlength-message' })
-  maxlengthMessage: string | ((max: number, exceeded: number) => string) = (
+  maxlengthMessage: string | ((max: number, current: number) => string) = (
     max,
-    exceeded,
-  ) => `Maximum ${max} characters, ${exceeded} too many.`;
+    current,
+  ) => `Maximum ${max} characters, ${current - max} too many.`;
 
   @query('#textarea')
   protected _textarea!: HTMLInputElement;
@@ -180,10 +180,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
       () => {
         const label = this.maxlengthMessage;
         if (typeof label === 'function') {
-          const max = this.maxlength ?? 0;
-          const currentLength = String(this.value).length;
-          const exceeded = currentLength - max;
-          return label(max, exceeded);
+          return label(this.maxlength ?? 0, String(this.value).length);
         }
         return label;
       },

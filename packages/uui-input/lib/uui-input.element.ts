@@ -123,10 +123,10 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @default
    */
   @property({ attribute: 'maxlength-message' })
-  maxlengthMessage: string | ((max: number, exceeded: number) => string) = (
+  maxlengthMessage: string | ((max: number, current: number) => string) = (
     max,
-    exceeded,
-  ) => `Maximum ${max} characters, ${exceeded} too many.`;
+    current,
+  ) => `Maximum ${max} characters, ${current - max} too many.`;
 
   /**
    * Specifies the interval between legal numbers of the input
@@ -256,10 +256,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       () => {
         const label = this.maxlengthMessage;
         if (typeof label === 'function') {
-          const max = this.maxlength ?? 0;
-          const currentLength = String(this.value).length;
-          const exceeded = currentLength - max;
-          return label(max, exceeded);
+          return label(this.maxlength ?? 0, String(this.value).length);
         }
         return label;
       },
