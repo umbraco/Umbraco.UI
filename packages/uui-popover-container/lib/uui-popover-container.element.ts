@@ -344,12 +344,14 @@ export class UUIPopoverContainerElement extends LitElement {
       el.addEventListener('scroll', this.#initUpdate, { passive: true });
     });
     document.addEventListener('scroll', this.#initUpdate, { passive: true });
+    window.addEventListener('resize', this.#initUpdate, { passive: true });
   }
   #stopScrollListener() {
     this.#scrollParents.forEach(el => {
       el.removeEventListener('scroll', this.#initUpdate);
     });
     document.removeEventListener('scroll', this.#initUpdate);
+    window.removeEventListener('resize', this.#initUpdate);
   }
 
   /**
