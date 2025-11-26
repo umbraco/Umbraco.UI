@@ -172,6 +172,21 @@ export class UUIPopoverContainerElement extends LitElement {
     const isEnd = this._actualPlacement.indexOf('-end') !== -1;
 
     const targetRect = this.#targetElement.getBoundingClientRect();
+
+    // Clamp left and top within screen bounds
+    // If the target leaves the screen, the popover follows.
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    if (isBottomPlacement) {
+      const availableSpaceBelow =
+        screenHeight - (targetRect.top + targetRect.height) - this.margin;
+      this.style.maxHeight = `${Math.max(100, availableSpaceBelow * 0.9)}px`;
+    } else if (isTopPlacement) {
+      const availableSpaceAbove = targetRect.top - this.margin;
+      this.style.maxHeight = `${Math.max(100, availableSpaceAbove * 0.9)}px`;
+    }
+
     const popoverRect = this.getBoundingClientRect();
 
     let top = 0;
@@ -225,11 +240,6 @@ export class UUIPopoverContainerElement extends LitElement {
         top = targetRect.top + targetRect.height / 2 - popoverRect.height / 2;
       }
     }
-
-    // Clamp left and top within screen bounds
-    // If the target leaves the screen, the popover follows.
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
 
     const topTargetVsScreenTop = Math.min(
       0,
@@ -417,7 +427,7 @@ export class UUIPopoverContainerElement extends LitElement {
         padding: 0;
         background-color: none;
         background: none;
-        overflow: visible;
+        overflow: auto;
         color: var(--uui-color-text);
       }
     `,
