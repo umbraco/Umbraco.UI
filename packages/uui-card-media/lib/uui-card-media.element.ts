@@ -113,6 +113,7 @@ export class UUICardMediaElement extends UUICardElement {
   public render() {
     return html` ${this.renderMedia()}
       <slot @slotchange=${this.queryPreviews}></slot>
+      <div id="name-wrapper" title="${this.name}"></div>
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
@@ -196,6 +197,13 @@ export class UUICardMediaElement extends UUICardElement {
         overflow: hidden;
         text-overflow: ellipsis;
         overflow-wrap: anywhere;
+      }
+
+      #name-wrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: auto;
+        z-index: 0;
       }
 
       :host([image]:not([image=''])) #open-part {
