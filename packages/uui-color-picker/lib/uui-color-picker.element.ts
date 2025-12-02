@@ -460,6 +460,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             ${this.opacity
               ? html`
                   <uui-color-slider
+                    hide-value-label
                     label="alpha"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
