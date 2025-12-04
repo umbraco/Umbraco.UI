@@ -14,6 +14,7 @@ import { UUIColorAreaEvent } from './UUIColorAreaEvent';
 /**
  * @element uui-color-area
  * @cssprop --uui-color-area-grid-handle-size - The size of the handle in the grid
+ * @cssprop --uui-color-area-border-radius - The border radius of the color area
  */
 @defineElement('uui-color-area')
 export class UUIColorAreaElement extends LitElement {
@@ -308,6 +309,10 @@ export class UUIColorAreaElement extends LitElement {
         box-sizing: border-box;
         cursor: crosshair;
         forced-color-adjust: none;
+        border-radius: var(
+          --uui-color-area-border-radius,
+          var(--uui-border-radius)
+        );
       }
       .color-area__handle {
         position: absolute;

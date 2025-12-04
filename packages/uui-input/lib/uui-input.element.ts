@@ -53,6 +53,7 @@ export type InputMode =
  * @cssprop --uui-input-background-color-disabled - Background color when disabled
  * @cssprop --uui-input-background-color-readonly - Background color when readonly
  * @cssprop --uui-input-border-width - Border width
+ * @cssprop --uui-input-border-radius - Border radius
  * @cssprop --uui-input-border-color - Border color
  * @cssprop --uui-input-border-color-hover - Border color on hover
  * @cssprop --uui-input-border-color-focus - Border color on focus
@@ -389,9 +390,10 @@ export class UUIInputElement extends UUIFormControlMixin(
         );
         border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
-        border-radius: var(--uui-border-radius);
+        border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
 
         --uui-button-height: 100%;
+        --uui-button-border-radius: var(--uui-border-radius);
         --auto-width-text-margin-right: 0;
         --auto-width-text-margin-left: 0;
       }

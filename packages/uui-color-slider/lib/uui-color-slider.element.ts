@@ -357,7 +357,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         background-image: var(--uui-slider-background-image);
         background-size: var(--uui-slider-background-size);
         background-position: var(--uui-slider-background-position);
-        border-radius: 3px;
+        border-radius: var(--uui-border-radius);
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
         width: 100%;
         height: var(--uui-slider-height);
