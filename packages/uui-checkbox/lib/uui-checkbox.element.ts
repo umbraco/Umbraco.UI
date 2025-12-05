@@ -7,7 +7,7 @@ import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
 import { css, html, svg } from 'lit';
 
 // Custom SVG for the checkbox, as this is smaller in size than the icon registry version: [NL]
-const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 6 11 17 5 12" /></svg>`;
+const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 10 17 4 12" /></svg>`;
 const subtract = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.25h14" /></svg>`;
 
 /**
@@ -108,6 +108,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         height: 1em;
         line-height: 0;
         transition:
+          transform 80ms ease-in-out,
           fill 120ms,
           opacity 120ms;
         color: var(--uui-color-selected-contrast);
@@ -126,9 +127,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         );
         background-color: var(--uui-color-selected);
         transition:
-          transform 120ms ease,
-          opacity 120ms,
-          background-color 120ms;
+          transform 80ms ease-in-out,
+          opacity 80ms,
+          background-color 80ms;
         transform: scale(0);
         opacity: 0;
       }
@@ -159,7 +160,8 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host(:not([disabled], [readonly]))
         label:active
         input:checked
-        + #ticker::before {
+        + #ticker
+        #icon-check {
         /** Stretch when mouse down */
         transform: scale(0.9);
       }
@@ -167,7 +169,8 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host(:not([disabled], [readonly]))
         label:active
         input:indeterminate
-        + #ticker::before {
+        + #ticker
+        #icon-check {
         /** Stretch when mouse down */
         transform: scale(0.9);
       }
