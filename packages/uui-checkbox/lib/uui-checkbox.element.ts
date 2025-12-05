@@ -4,11 +4,11 @@ import {
 } from '@umbraco-ui/uui-base/lib/animations';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
-import {
-  iconCheck,
-  iconSubtract,
-} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { css, html } from 'lit';
+import { css, html, svg } from 'lit';
+
+// Custom SVG for the checkbox, as this is smaller in size than the icon registry version: [NL]
+const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 6 11 17 5 12" /></svg>`;
+const subtract = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.25h14" /></svg>`;
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck
@@ -28,9 +28,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="ticker">
-        <div id="icon-check">
-          ${this.indeterminate ? iconSubtract : iconCheck}
-        </div>
+        <div id="icon-check">${this.indeterminate ? subtract : check}</div>
       </div>
     `;
   }
