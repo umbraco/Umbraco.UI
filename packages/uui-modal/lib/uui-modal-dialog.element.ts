@@ -25,7 +25,7 @@ export class UUIModalDialogElement extends UUIModalElement {
         max-height: 100%;
         border-radius: var(
           --uui-modal-dialog-border-radius,
-          calc(var(--uui-border-radius) * 4)
+          var(--uui-border-radius-3)
         );
         background: var(
           --uui-modal-dialog-background,

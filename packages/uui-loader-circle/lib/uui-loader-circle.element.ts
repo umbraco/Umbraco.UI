@@ -138,7 +138,7 @@ export class UUILoaderCircleElement extends LitElement {
       svg circle {
         fill: transparent;
         stroke: currentColor;
-        stroke-width: 6px;
+        stroke-width: 4px;
       }
 
       #bg {

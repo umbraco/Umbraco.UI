@@ -417,7 +417,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
 
       #combobox-input {
         width: 100%;
-        border-radius: var(--uui-size-1);
+        border-radius: var(--uui-border-radius);
       }
 
       #combobox-popover {

@@ -67,7 +67,8 @@ export class UUILoaderBarElement extends LitElement {
         position: relative;
         display: block;
         width: 100%;
-        height: 4px;
+        height: 2px;
+        border-radius: 1px;
         overflow: hidden;
         color: var(--uui-color-default);
       }

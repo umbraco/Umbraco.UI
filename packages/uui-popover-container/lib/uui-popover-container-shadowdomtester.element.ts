@@ -27,7 +27,7 @@ export class UUIPopoverContainerShadowDomTesterElement extends LitElement {
       </div>
       <uui-popover-container id="popover-container" popover>
         <div
-          style="width: 100%; background-color: var(--uui-color-surface); max-width: 200px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
+          style="width: 100%; background-color: var(--uui-color-surface); max-width: 200px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius-3); font-size: 0.9rem;">
           <h3>Scroll!</h3>
           Scrolling in any of the 2 boxes that are in a shadow-dom inside 2
           boxes should trigger an update

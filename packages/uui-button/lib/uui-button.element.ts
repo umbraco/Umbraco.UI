@@ -355,7 +355,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         border-style: solid;
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-border-radius)
+          var(--uui-border-radius-2)
         );
         cursor: pointer;
 

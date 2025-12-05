@@ -321,7 +321,7 @@
     204
   ); /* color($gravel saturation(- 82%) blackness(+ 6%)); */
 
-  $sand: #f3f3f5;
+  $sand: #f6f6f7;
   --uui-palette-sand: $sand;
   --uui-palette-sand-light: rgb(
     255,

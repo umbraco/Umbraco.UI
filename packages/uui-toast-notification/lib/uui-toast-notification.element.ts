@@ -304,7 +304,7 @@ export class UUIToastNotificationElement extends LitElement {
         padding: var(--uui-size-layout-1);
         padding-right: var(--uui-size-layout-1);
         padding-left: var(--uui-size-layout-3);
-        border-radius: calc(var(--uui-border-radius) * 2);
+        border-radius: var(--uui-border-radius-3);
 
         opacity: 0;
         transition: opacity
