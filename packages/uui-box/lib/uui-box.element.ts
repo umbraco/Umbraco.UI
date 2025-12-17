@@ -21,7 +21,7 @@ function slotHasContent(target: EventTarget | null): boolean {
  *  @cssprop --uui-box-header-padding - overwrite the header padding
  *  @cssprop --uui-box-default-padding - overwrite the box padding
  *  @cssprop --uui-box-box-shadow - overwrite the box shadow, default is var(--uui-shadow-depth-1)
- *  @cssprop --uui-box-border-radius - overwrite the box border-radius, default is var(--uui-border-radius)
+ *  @cssprop --uui-box-border-radius - overwrite the box border-radius, default is var(--uui-border-radius-3)
  *  @cssprop --uui-box-border-color - overwrites the box border colorm default is var(--uui-color-divider-standalone)
  */
 @defineElement('uui-box')
@@ -123,7 +123,7 @@ export class UUIBoxElement extends LitElement {
         display: block;
         border: 1px solid
           var(--uui-box-border-color, var(--uui-color-divider-standalone));
-        border-radius: var(--uui-box-border-radius, var(--uui-border-radius));
+        border-radius: var(--uui-box-border-radius, var(--uui-border-radius-3));
         background-color: var(--uui-color-surface);
       }
 

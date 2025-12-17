@@ -32,12 +32,12 @@ export class UUIButtonGroupElement extends LitElement {
       }
 
       ::slotted(*:first-child) {
-        --uui-button-border-radius: var(--uui-border-radius) 0 0
-          var(--uui-border-radius);
+        --uui-button-border-radius: var(--uui-border-radius-3) 0 0
+          var(--uui-border-radius-3);
       }
       ::slotted(*:last-child) {
-        --uui-button-border-radius: 0 var(--uui-border-radius)
-          var(--uui-border-radius) 0;
+        --uui-button-border-radius: 0 var(--uui-border-radius-3)
+          var(--uui-border-radius-3) 0;
       }
 
       ::slotted(*:hover) {

@@ -53,7 +53,7 @@
   --uui-border-radius: var(--uui-size-2);
   --uui-border-radius-1: var(--uui-size-2);
   --uui-border-radius-2: var(--uui-size-4);
-  --uui-border-radius-3: var(--uui-size-6);
+  --uui-border-radius-3: var(--uui-size-5);
 
   /** Typography */
   --uui-type-default-size: 14px;

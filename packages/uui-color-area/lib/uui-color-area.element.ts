@@ -311,7 +311,7 @@ export class UUIColorAreaElement extends LitElement {
         forced-color-adjust: none;
         border-radius: var(
           --uui-color-area-border-radius,
-          var(--uui-border-radius)
+          var(--uui-border-radius-2)
         );
       }
       .color-area__handle {
