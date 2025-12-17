@@ -103,23 +103,11 @@
     $space-cadet saturation(- 30%) lightness(+ 30%)
   ); */
 
-  $violet-blue: #3544b1;
+  $violet-blue: #283a97;
   --uui-palette-violet-blue: $violet-blue;
-  --uui-palette-violet-blue-light: rgb(
-    70,
-    86,
-    200
-  ); /* color($violet-blue lightness(+ 8%)); */
-  --uui-palette-violet-blue-dark: rgb(
-    54,
-    65,
-    156
-  ); /* color($violet-blue blackness(+ 8%)); */
-  --uui-palette-violet-blue-dimmed: rgb(
-    87,
-    87,
-    87
-  ); /* color(
+  --uui-palette-violet-blue-light: #2d42ab; /* color($violet-blue lightness(+ 8%)); */
+  --uui-palette-violet-blue-dark: #25358b; /* color($violet-blue blackness(+ 8%)); */
+  --uui-palette-violet-blue-dimmed: #2c3669; /* color(
     $violet-blue saturation(- 30%) blackness(+ 22%)
   ); */
 

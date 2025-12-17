@@ -45,9 +45,9 @@
   --uui-color-divider-emphasis: #bdbdbd;
 
   /* ----- COLORS -----  */
-  --uui-color-default: var(--uui-palette-space-cadet);
-  --uui-color-default-emphasis: var(--uui-palette-violet-blue);
-  --uui-color-default-standalone: var(--uui-palette-space-cadet-dark);
+  --uui-color-default: var(--uui-palette-violet-blue);
+  --uui-color-default-emphasis: var(--uui-palette-violet-blue-light);
+  --uui-color-default-standalone: var(--uui-palette-violet-blue-dark);
   --uui-color-default-contrast: #fff;
 
   --uui-color-warning: #fbd142;
