@@ -164,25 +164,10 @@ export const UUIFormControlMixin = <
      * @attr
      * @default true
      */
-    @property({ type: Boolean, reflect: true, attribute: 'pristine' })
-    public set pristine(value: boolean) {
-      if (this._pristine !== value) {
-        this._pristine = value;
-        // I have trouble with the reflect option on this one, maybe reflect does not work from mixins? [NL]
-        if (value) {
-          this.setAttribute('pristine', '');
-        } else {
-          this.removeAttribute('pristine');
-        }
-        this.#dispatchValidationState();
-      }
-    }
-    public get pristine(): boolean {
-      return this._pristine;
-    }
-    // Will be set to true instantly to trigger the setAttribute in the setter.
-    // This is to prevent an issue caused by using setAttribute in the constructor.
-    private _pristine: boolean = false;
+    @property({ type: Boolean, reflect: true })
+    pristine = true;
+
+    private _hasConnected = false;
 
     /**
      * Apply validation rule for requiring a value of this form control.
@@ -223,7 +208,6 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
-      this.pristine = true;
 
       this.addValidator(
         'valueMissing',
@@ -278,6 +262,13 @@ export const UUIFormControlMixin = <
       } else {
         this.focus();
       }
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+
+      this._hasConnected = true;
+      this.pristine = true;
     }
 
     disconnectedCallback(): void {
@@ -436,8 +427,8 @@ export const UUIFormControlMixin = <
     }
 
     #dispatchValidationState() {
-      // Do not fire validation events unless we are not pristine/'untouched'/not-in-validation-mode. [NL]
-      if (this._pristine === true) return;
+      if (!this._hasConnected) return;
+      if (this.pristine) return;
       if (this.#validity.valid) {
         this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
       } else {
