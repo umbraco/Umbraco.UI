@@ -23,7 +23,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const Overview: Story = {};
+export const Default: Story = {};
 
 export const Group: Story = {
   render: () => html`
@@ -38,8 +38,7 @@ export const Group: Story = {
     <uui-checkbox-group name="f331672b-e6f3-4b73-8b44-67a51a24f296">
       <uui-checkbox
         value="Prolific - I live and breathe Umbraco."
-        label="Prolific - I live and breathe Umbraco.">
-      </uui-checkbox>
+        label="Prolific - I live and breathe Umbraco."></uui-checkbox>
       <uui-checkbox
         value="Regular - I see a thing and I fix it. I see a person in need and I chat to them. I learn something new and I blog about it. I have an idea! I'm building a package!"
         label="Regular - I see a thing and I fix it. I see a person in need and I chat to them. I learn something new and I blog about it. I have an idea! I'm building a package!">
