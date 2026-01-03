@@ -7,12 +7,12 @@ import { UUICheckboxElement } from './../../uui-checkbox/lib/uui-checkbox.elemen
 import { UUICheckboxEvent } from './../../uui-checkbox/lib/UUICheckboxEvent';
 import { UUICheckboxGroupEvent } from './UUICheckboxGroupEvent';
 
-const ARROW_LEFT = 'ArrowLeft';
+/*const ARROW_LEFT = 'ArrowLeft';
 const ARROW_UP = 'ArrowUp';
 const ARROW_RIGHT = 'ArrowRight';
 const ARROW_DOWN = 'ArrowDown';
 const SPACE = ' ';
-const ENTER = 'Enter';
+const ENTER = 'Enter';*/
 
 /**
  * @element uui-checkbox-group
@@ -53,7 +53,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
   }
   set value(newValue) {
     super.value = newValue;
-    this.#updateCheckboxElementsCheckedState(newValue as string);
+    //this.#updateCheckboxElementsCheckedState(newValue as string);
   }
 
   #selected: number | null = null;
@@ -61,14 +61,14 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
 
   constructor() {
     super();
-    this.addEventListener('keydown', this.#onKeydown);
-    this.addEventListener('focusin', this.#onFocusIn);
-    this.addEventListener('focusout', this.#onFocusOut);
+    //this.addEventListener('keydown', this.#onKeydown);
+    //this.addEventListener('focusin', this.#onFocusIn);
+    //this.addEventListener('focusout', this.#onFocusOut);
 
-    // Wait for the radio elements to be added to the dom before updating the checked state.
-    this.updateComplete.then(() => {
+    // Wait for the checkbox elements to be added to the dom before updating the checked state.
+    /*this.updateComplete.then(() => {
       this.#updateCheckboxElementsCheckedState(this.value as string);
-    });
+    });*/
   }
 
   connectedCallback() {
@@ -126,7 +126,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     return undefined;
   }
 
-  #onFocusIn = (event: FocusEvent) => {
+  /*#onFocusIn = (event: FocusEvent) => {
     // Ensure only the selected checkbox element is focusable to improve tab navigation
     // by skipping unselected checkboxes and moving to the next checkbox group or focusable element.
     this.#checkboxElements?.forEach(el => {
@@ -149,7 +149,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     this.#checkboxElements?.forEach(el => {
       el.makeFocusable();
     });
-  };
+  };*/
 
   #onChildBlur = () => {
     this.pristine = false;
@@ -162,7 +162,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     }
   };
 
-  #onKeydown = (e: KeyboardEvent) => {
+  /*#onKeydown = (e: KeyboardEvent) => {
     switch (e.key) {
       case ARROW_LEFT:
       case ARROW_UP: {
@@ -189,7 +189,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
       case ENTER:
         this.submit();
     }
-  };
+  };*/
 
   #onSlotChange(e: Event) {
     e.stopPropagation();
@@ -236,7 +236,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     this.#checkboxElements?.forEach(el => (el.name = name));
   }
 
-  #updateCheckboxElementsCheckedState(newValue: FormData | FormDataEntryValue) {
+  /*#updateCheckboxElementsCheckedState(newValue: FormData | FormDataEntryValue) {
     const notChecked: Array<UUICheckboxElement> = [];
 
     this.#checkboxElements.forEach((el, index) => {
@@ -254,7 +254,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     if (this.#selected !== null) {
       notChecked.forEach(el => el.makeUnfocusable());
     }
-  }
+  }*/
 
   #setDisableOnCheckboxes(value: boolean) {
     this.#checkboxElements?.forEach(el => (el.disabled = value));
@@ -288,7 +288,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     return null;
   }
 
-  #selectPreviousCheckbox() {
+  /*#selectPreviousCheckbox() {
     this.value = this.#findAdjacentCheckboxElement(-1)?.value ?? '';
     this.#checkboxElements[this.#selected ?? 0]?.focus();
     this.#fireChangeEvent();
@@ -298,7 +298,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
     this.value = this.#findAdjacentCheckboxElement()?.value ?? '';
     this.#checkboxElements[this.#selected ?? 0]?.focus();
     this.#fireChangeEvent();
-  }
+  }*/
 
   #fireChangeEvent() {
     this.pristine = false;
