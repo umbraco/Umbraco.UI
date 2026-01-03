@@ -18,6 +18,7 @@ export * from '@umbraco-ui/uui-card-user/lib';
 export * from '@umbraco-ui/uui-card/lib';
 export * from '@umbraco-ui/uui-caret/lib';
 export * from '@umbraco-ui/uui-checkbox/lib';
+export * from '@umbraco-ui/uui-checkbox-group/lib';
 export * from '@umbraco-ui/uui-color-area/lib';
 export * from '@umbraco-ui/uui-color-picker/lib';
 export * from '@umbraco-ui/uui-color-slider/lib';
