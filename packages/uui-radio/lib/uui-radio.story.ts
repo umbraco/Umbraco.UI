@@ -80,8 +80,8 @@ export const RadioGroup: Story = {
         label="Social - I'm here for the people, the vibes, the good times. I would probably hang out with you all if I didn't work with the product.">
       </uui-radio>
       <uui-radio
-        value="Keen but irregular - I love contributing when I have time but time is short these days since the new ."
-        label="Keen but irregular - I love contributing when I have time but time is short these days since the new .">
+        value="Keen but irregular - I love contributing when I have time but time is short these days."
+        label="Keen but irregular - I love contributing when I have time but time is short these days.">
       </uui-radio>
       <uui-radio
         value="Shy - I would do more but I am not sure how welcome or valuable my experience is."
