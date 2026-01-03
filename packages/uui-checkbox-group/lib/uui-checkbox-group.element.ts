@@ -139,7 +139,7 @@ export class UUICheckboxGroupElement extends UUIFormControlMixin(
   };
 
   #onFocusOut = (event: FocusEvent) => {
-    // When a focus event is fired from a radio, check if the focus is still inside the radio group
+    // When a focus event is fired from a checkbox, check if the focus is still inside the checkbox group
     if (this.contains(event.relatedTarget as Node)) return;
 
     // If there is a selected checkbox element, no action is needed since only the selected checkbox should remain focusable
