@@ -7,7 +7,9 @@ export const getHexString = (
   lightness: number,
   alpha = 100,
 ) => {
-  const color = colord(`hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`);
+  const color = colord(
+    `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
+  );
 
   if (!color.isValid()) {
     return '';
