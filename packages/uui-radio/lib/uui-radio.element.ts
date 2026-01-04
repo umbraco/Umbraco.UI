@@ -79,7 +79,7 @@ export class UUIRadioElement extends LitElement {
 
   /**
    * Call to check the element.
-   * @method uncheck
+   * @method check
    */
   public check() {
     this.checked = true;
