@@ -37,7 +37,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
 
   /**
    * Call to check the element.
-   * @method uncheck
+   * @method check
    */
   public check() {
     this.checked = true;
