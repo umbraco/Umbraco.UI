@@ -7,6 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   drag,
   clamp,
+  getHexString,
   reverseNumberInRange,
 } from '@umbraco-ui/uui-base/lib/utils';
 

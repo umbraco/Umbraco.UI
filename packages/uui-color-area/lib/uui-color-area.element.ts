@@ -5,7 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { css, html, LitElement } from 'lit';
 
-import { drag, clamp } from '@umbraco-ui/uui-base/lib/utils';
+import { drag, clamp, getHexString } from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -216,24 +216,6 @@ export class UUIColorAreaElement extends LitElement {
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
-  /** Generates a hex string from HSL values. Hue must be 0-360. All other arguments must be 0-100. */
-  private getHexString(
-    hue: number,
-    saturation: number,
-    lightness: number,
-    alpha = 100,
-  ) {
-    const color = colord(
-      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
-    );
-
-    if (!color.isValid()) {
-      return '';
-    }
-
-    return color.toHex();
-  }
-
   render() {
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
@@ -243,7 +225,7 @@ export class UUIColorAreaElement extends LitElement {
         part="grid"
         class="color-area"
         style=${styleMap({
-          backgroundColor: this.getHexString(this.hue, 100, 50),
+          backgroundColor: getHexString(this.hue, 100, 50),
         })}
         @mousedown=${this.handleGridDrag}
         @touchstart=${this.handleGridDrag}>
@@ -256,7 +238,7 @@ export class UUIColorAreaElement extends LitElement {
           style=${styleMap({
             top: `${gridHandleY}%`,
             left: `${gridHandleX}%`,
-            backgroundColor: this.getHexString(
+            backgroundColor: getHexString(
               this.hue,
               this.saturation,
               this.lightness,
