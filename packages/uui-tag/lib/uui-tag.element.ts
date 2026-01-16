@@ -52,7 +52,6 @@ export class UUITagElement extends LitElement {
           --uui-tag-padding,
           var(--uui-size-space-1) calc(var(--uui-size-space-1) + 0.5em)
         );
-        border-radius: 100px;
         user-select: none;
         border-radius: var(--uui-tag-border-radius, var(--uui-size-4));
         border: 1px solid var(--uui-tag-border-color, transparent);

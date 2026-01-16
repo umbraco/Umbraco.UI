@@ -351,12 +351,16 @@ export class UUIPaginationElement extends LitElement {
         --uui-button-border-color-disabled: var(--uui-color-border-standalone);
       }
 
+      uui-button:hover {
+        z-index: 1;
+      }
+
       .page {
         min-width: 36px;
         max-width: 72px;
       }
       .page.active {
-        --uui-button-background-color: var(--uui-color-current);
+        z-index: 1;
       }
 
       .nav {
@@ -369,6 +373,10 @@ export class UUIPaginationElement extends LitElement {
 
       .active {
         pointer-events: none;
+        --uui-button-font-weight: 700;
+        --uui-button-contrast: var(--uui-color-selected);
+        --uui-button-border-color: var(--uui-color-selected);
+        --uui-button-border-width: 2px;
       }
     `,
   ];

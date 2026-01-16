@@ -290,7 +290,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
 
         text-align: center;
         font-size: var(--uui-button-font-size, inherit);
-        font-weight: var(--uui-button-font-weight, 500);
+        font-weight: var(--uui-button-font-weight, 400);
         transition:
           background-color 80ms,
           border-color 80ms,
@@ -355,7 +355,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         border-style: solid;
         border-radius: var(
           --uui-button-border-radius,
-          var(--uui-border-radius)
+          var(--uui-border-radius-3)
         );
         cursor: pointer;
 
@@ -498,7 +498,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         border-color: var(--uui-button-border-color, transparent);
 
         /* special for primary: */
-        font-weight: var(--uui-button-font-weight, 700);
+        font-weight: var(--uui-button-font-weight, 400);
       }
 
       :host([look='primary']:hover) #button {
@@ -533,7 +533,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         border-color: var(--uui-button-border-color, transparent);
 
         /* special for secondary: */
-        font-weight: var(--uui-button-font-weight, 700);
+        font-weight: var(--uui-button-font-weight, 400);
       }
       :host([look='secondary']:hover) #button {
         background-color: var(
@@ -562,7 +562,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         );
 
         /* special for outline: */
-        font-weight: var(--uui-button-font-weight, 700);
+        font-weight: var(--uui-button-font-weight, 400);
       }
       :host([look='outline']:not([disabled]):hover) #button {
         background-color: var(--uui-button-background-color-hover, transparent);

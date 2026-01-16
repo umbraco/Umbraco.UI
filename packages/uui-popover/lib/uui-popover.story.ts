@@ -30,10 +30,7 @@ export default {
       control: { type: 'select' },
     },
   },
-  args: {
-    placement: 'bottom',
-    margin: 8,
-  },
+  args: { placement: 'bottom', margin: 8 },
   parameters: {
     readme: { markdown: readme },
     docs: {
@@ -110,7 +107,7 @@ export const AAAOverview: StoryFn = props => {
           </uui-button>
           <div
             slot="popover"
-            style="display: flex; flex-direction: column; padding: 1rem; border-radius: 3px; width: 200px; background: white; box-shadow: var(--uui-shadow-depth-3)">
+            style="display: flex; flex-direction: column; padding: 1rem; border-radius: var(--uui-border-radius-3); width: 200px; background: white; box-shadow: var(--uui-shadow-depth-3)">
             <h3
               style="text-align: center; line-height: normal; margin-bottom: 0;">
               Popover
@@ -250,14 +247,8 @@ export const Nested: StoryFn = props => {
 };
 
 Nested.parameters = {
-  controls: {
-    include: ['placement', 'margin'],
-  },
-  docs: {
-    source: {
-      code: `See story code as example`,
-    },
-  },
+  controls: { include: ['placement', 'margin'] },
+  docs: { source: { code: `See story code as example` } },
 };
 
 export const Tooltip: StoryFn = props => {
@@ -296,7 +287,7 @@ export const Tooltip: StoryFn = props => {
               </b>
               <div
                 slot="popover"
-                style="position: relative; z-index: 1; padding: 1rem; border: 1px solid; border-radius: 4px; background: white; box-shadow: var(--uui-shadow-depth-3); white-space: nowrap">
+                style="position: relative; z-index: 1; padding: 1rem; border: 1px solid; border-radius: var(--uui-border-radius-3); background: white; box-shadow: var(--uui-shadow-depth-3); white-space: nowrap">
                 I am a tooltip!
               </div>
             </uui-popover>
@@ -318,7 +309,7 @@ export const Tooltip: StoryFn = props => {
               </b>
               <div
                 slot="popover"
-                style="z-index: 1; padding: 1rem; border: 1px solid; border-radius: 4px; background: white; box-shadow: var(--uui-shadow-depth-3); width: 200px">
+                style="z-index: 1; padding: 1rem; border: 1px solid; border-radius: var(--uui-border-radius-3); background: white; box-shadow: var(--uui-shadow-depth-3); width: 200px">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
                 nulla repellat reprehenderit? Explicabo autem dicta neque
                 voluptatem velit? Labore dicta perferendis laudantium ad unde
@@ -334,19 +325,11 @@ export const Tooltip: StoryFn = props => {
   `;
 };
 
-Tooltip.args = {
-  placement: 'auto',
-};
+Tooltip.args = { placement: 'auto' };
 
 Tooltip.parameters = {
-  controls: {
-    include: ['placement', 'margin'],
-  },
-  docs: {
-    source: {
-      code: `See story code as example`,
-    },
-  },
+  controls: { include: ['placement', 'margin'] },
+  docs: { source: { code: `See story code as example` } },
 };
 
 Tooltip.play = () => {
