@@ -66,7 +66,7 @@
     "@lerna-lite/cli": "4.9.2",
     "@lerna-lite/exec": "4.9.2",
     "@lerna-lite/publish": "4.9.2",
-    "@lerna-lite/run": "4.9.2",
+    "@lerna-lite/run": "4.11.1",
     "@lerna-lite/version": "4.9.2",
     "@open-wc/testing": "4.0.0",
     "@rollup/plugin-node-resolve": "16.0.3",
