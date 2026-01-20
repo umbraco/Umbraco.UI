@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Cache build setup
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-cache-${{ github.sha }}
