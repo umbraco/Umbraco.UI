@@ -248,6 +248,7 @@ export class UUIResponsiveContainerElement extends LitElement {
       <uui-button
         popovertarget="popover-container"
         style="display: none"
+        part="trigger"
         id="more-button"
         label="More"
         compact>
