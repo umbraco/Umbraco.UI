@@ -247,11 +247,13 @@ export class UUIResponsiveContainerElement extends LitElement {
     const moreButton = html`
       <uui-button
         popovertarget="popover-container"
-        id="more-button"
         style="display: none"
+        id="more-button"
         label="More"
         compact>
-        <uui-symbol-more></uui-symbol-more>
+        <slot name="trigger-content">
+          <uui-symbol-more></uui-symbol-more>
+        </slot>
       </uui-button>
     `;
 
