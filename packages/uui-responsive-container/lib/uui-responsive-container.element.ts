@@ -19,9 +19,7 @@ import '@umbraco-ui/uui-symbol-more/lib';
  */
 @defineElement('uui-responsive-container')
 export class UUIResponsiveContainerElement extends LitElement {
-  // === PART A: Query Elements ===
   // These help us find elements inside the component
-
   @query('#more-button')
   private _moreButtonElement!: UUIButtonElement;
 
@@ -45,9 +43,7 @@ export class UUIResponsiveContainerElement extends LitElement {
   @queryAssignedElements({ flatten: true })
   private _slottedNodes?: HTMLElement[];
 
-  // === PART B: Private Variables ===
   // These store the component's internal state
-
   #childElements: HTMLElement[] = []; // All child elements
   #hiddenElements: HTMLElement[] = []; // Elements in the dropdown
   #hiddenElementsMap: Map<HTMLElement, HTMLElement> = new Map();
@@ -57,9 +53,6 @@ export class UUIResponsiveContainerElement extends LitElement {
   #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
   #childResizeObservers: ResizeObserver[] = [];
   #breakPointCalculationInProgress = false;
-
-  // === PART C: Lifecycle Methods ===
-  // These run automatically at certain times
 
   connectedCallback() {
     super.connectedCallback();
@@ -82,22 +75,17 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.#resizeObserver.observe(this._mainElement);
   }
 
-  // === PART D: Resize Handling ===
   // This runs when the container size changes
-
   #onResize(entries: ResizeObserverEntry[]) {
     const newWidth = entries[0].contentBoxSize[0].inlineSize;
     this.#updateCollapsibleItems(newWidth);
   }
 
-  // === PART E: Slot Change Handling ===
   // This runs when children are added/removed
-
   #onSlotChange() {
     this.#cleanup();
     this.#childElements = this._slottedNodes ? [...this._slottedNodes] : [];
 
-    // Watch each child for size changes
     this.#childElements.forEach(el => {
       const observer = new ResizeObserver(
         this.#calculateBreakPoints.bind(this),
@@ -122,9 +110,7 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.#hiddenElementsMap.clear();
   }
 
-  // === PART F: Breakpoint Calculation ===
   // Calculate at what widths items should hide
-
   async #calculateBreakPoints() {
     if (this.#breakPointCalculationInProgress) return;
 
@@ -158,9 +144,7 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.#updateCollapsibleItems(this._mainElement.offsetWidth);
   }
 
-  // === PART G: Collapse/Show Logic ===
   // The main logic that shows/hides items
-
   #updateCollapsibleItems(containerWidth: number) {
     const moreButtonWidth = this._moreButtonElement?.offsetWidth || 40;
     const availableWidth = containerWidth - moreButtonWidth;
@@ -244,8 +228,6 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.requestUpdate();
   }
 
-  // === PART H: Click Handler ===
-
   #onItemClicked = (e: MouseEvent) => {
     const clickedElement = e.currentTarget as HTMLElement;
 
@@ -261,15 +243,12 @@ export class UUIResponsiveContainerElement extends LitElement {
     }
   };
 
-  // === PART I: Render Method ===
-  // What the component looks like
-
   render() {
     const moreButton = html`
       <uui-button
         popovertarget="popover-container"
-        style="display: none"
         id="more-button"
+        style="display: none"
         label="More"
         compact>
         <uui-symbol-more></uui-symbol-more>
@@ -294,9 +273,6 @@ export class UUIResponsiveContainerElement extends LitElement {
       </uui-popover-container>
     `;
   }
-
-  // === PART J: Styles ===
-  // How the component looks
 
   static styles = [
     css`
@@ -324,13 +300,11 @@ export class UUIResponsiveContainerElement extends LitElement {
         flex-shrink: 0;
       }
 
-      /* Button on the right (default) */
       :host([collapse='end']) #more-button,
       :host(:not([collapse])) #more-button {
         margin-left: var(--uui-responsive-container-gap, 8px);
       }
 
-      /* Button on the left */
       :host([collapse='start']) #more-button {
         margin-right: var(--uui-responsive-container-gap, 8px);
       }
@@ -349,7 +323,6 @@ export class UUIResponsiveContainerElement extends LitElement {
   ];
 }
 
-// Tell TypeScript about our component
 declare global {
   interface HTMLElementTagNameMap {
     'uui-responsive-container': UUIResponsiveContainerElement;
