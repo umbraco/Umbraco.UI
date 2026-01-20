@@ -569,6 +569,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: inline-flex;
         margin-right: var(--uui-size-2);
       }
+      :host([selected]:not([select-mode='highlight'], [disabled])) #icon {
+        --uui-icon-color-overwrite: currentColor;
+      }
 
       #badge {
         font-size: 12px;
