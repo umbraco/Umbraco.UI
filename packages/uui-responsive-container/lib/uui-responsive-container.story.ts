@@ -25,6 +25,11 @@ const meta: Meta = {
       control: { type: 'text' },
       description: 'Gap between items (e.g., "8px", "16px")',
     },
+    'slot="trigger-content"': {
+      control: { type: 'text' },
+      description:
+        'Custom content for the trigger button (default: three dots icon)',
+    },
   },
   parameters: {
     readme: { markdown: readme },
@@ -146,6 +151,123 @@ export const ClickActions: Story = {
       2. Click the "..." button to open the dropdown<br />
       3. Click any button in the dropdown<br />
       4. You should see an alert with the button's action! ✅
+    </p>
+  `,
+};
+
+export const CustomTrigger: Story = {
+  render: () => html`
+    <style>
+      .demo-section {
+        margin-bottom: 24px;
+        padding: 16px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+      }
+      .demo-section h3 {
+        margin-top: 0;
+        font-size: 14px;
+        color: #666;
+      }
+      .resize-container {
+        width: 400px;
+        border: 1px dashed #ccc;
+        padding: 8px;
+        resize: horizontal;
+        overflow: auto;
+        min-width: 200px;
+      }
+      .custom-trigger-text {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .custom-trigger-icon {
+        font-size: 18px;
+      }
+    </style>
+
+    <div class="demo-section">
+      <h3>Custom Icon Trigger</h3>
+      <div class="resize-container">
+        <uui-responsive-container>
+          <span slot="trigger-content" class="custom-trigger-icon">☰</span>
+
+          <uui-button look="primary">Save</uui-button>
+          <uui-button>Edit</uui-button>
+          <uui-button>Delete</uui-button>
+          <uui-button>Publish</uui-button>
+        </uui-responsive-container>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Text + Icon Combination</h3>
+      <div class="resize-container">
+        <uui-responsive-container>
+          <span slot="trigger-content" class="custom-trigger-text">
+            <span>More</span>
+            <span>⋮</span>
+          </span>
+
+          <uui-button look="primary">Save</uui-button>
+          <uui-button>Edit</uui-button>
+          <uui-button>Delete</uui-button>
+          <uui-button>Publish</uui-button>
+        </uui-responsive-container>
+      </div>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 16px;">
+      <strong>Custom Trigger Content:</strong><br />
+      Use <code>slot="trigger-content"</code> to customize what appears inside
+      the trigger button. You can use text, icons, images, or any custom
+      HTML/components!<br />
+      ↔ Drag the corners to resize and see the collapse behavior.
+    </p>
+  `,
+};
+
+export const CustomTriggerWithStyling: Story = {
+  render: () => html`
+    <style>
+      .styled-container::part(trigger) {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px;
+        border: none;
+      }
+      .styled-container::part(trigger):hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+      .styled-trigger-content {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+      }
+    </style>
+
+    <div
+      style="width: 400px; border: 1px dashed #ccc; padding: 8px; resize: horizontal; overflow: auto;">
+      <uui-responsive-container class="styled-container">
+        <span slot="trigger-content" class="styled-trigger-content">
+          <span>More</span>
+          <span>→</span>
+        </span>
+
+        <uui-button look="primary">Save</uui-button>
+        <uui-button>Edit</uui-button>
+        <uui-button>Delete</uui-button>
+        <uui-button>Publish</uui-button>
+        <uui-button>Share</uui-button>
+      </uui-responsive-container>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 16px;">
+      <strong>Combined Approach:</strong><br />
+      ✅ <code>::part(trigger)</code> styles the button container<br />
+      ✅ <code>slot="trigger-content"</code> customizes the content inside<br />
+      This gives you complete control over both appearance and content!
     </p>
   `,
 };
