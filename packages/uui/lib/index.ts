@@ -64,6 +64,7 @@ export * from '@umbraco-ui/uui-ref/lib';
 export * from '@umbraco-ui/uui-scroll-container/lib';
 export * from '@umbraco-ui/uui-select/lib';
 export * from '@umbraco-ui/uui-slider/lib';
+export * from '@umbraco-ui/uui-symbol-drag-handle/lib';
 export * from '@umbraco-ui/uui-symbol-expand/lib';
 export * from '@umbraco-ui/uui-symbol-file-dropzone/lib';
 export * from '@umbraco-ui/uui-symbol-file-thumbnail/lib';

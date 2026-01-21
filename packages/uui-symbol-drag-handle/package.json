@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-symbol-drag-handle",
-  "version": "0.0.0",
+  "version": "1.14.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -10,7 +10,7 @@
     "Lit",
     "Drag Handle"
   ],
-  "description": "Umbraco UI drag-handle component",
+  "description": "Umbraco UI symbol drag-handle component",
   "repository": {
     "type": "git",
     "url": "https://github.com/umbraco/Umbraco.UI.git",
@@ -30,7 +30,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.14.0-rc.1"
+    "@umbraco-ui/uui-base": "1.14.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",

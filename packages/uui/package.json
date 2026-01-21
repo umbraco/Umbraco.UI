@@ -103,6 +103,7 @@
     "@umbraco-ui/uui-scroll-container": "1.14.0",
     "@umbraco-ui/uui-select": "1.14.0",
     "@umbraco-ui/uui-slider": "1.14.0",
+    "@umbraco-ui/uui-symbol-drag-handle": "1.14.0",
     "@umbraco-ui/uui-symbol-expand": "1.14.0",
     "@umbraco-ui/uui-symbol-file": "1.14.0",
     "@umbraco-ui/uui-symbol-file-dropzone": "1.14.0",

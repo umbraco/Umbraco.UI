@@ -209,6 +209,9 @@
       "path": "../uui-slider"
     },
     {
+      "path": "../uui-symbol-drag-handle"
+    },
+    {
       "path": "../uui-symbol-expand"
     },
     {
