@@ -24,6 +24,7 @@ export class UUIInputLockElement extends UUIInputElement {
   @property({ type: Boolean, reflect: true })
   public set locked(lock: boolean) {
     this.#locked = lock;
+    this.readonly = lock;
     this.tabIndex = lock ? -1 : 0;
   }
   public get locked(): boolean {
@@ -63,7 +64,7 @@ export class UUIInputLockElement extends UUIInputElement {
   }
 
   _onLockToggle() {
-    this.readonly = this.locked = !this.locked;
+    this.locked = !this.locked;
     this.pristine = false;
     this.dispatchEvent(new UUIInputLockEvent(UUIInputLockEvent.LOCK_CHANGE));
     if (!this.locked) {
