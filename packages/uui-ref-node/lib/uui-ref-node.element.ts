@@ -3,7 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-ref-node
@@ -64,6 +64,9 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   public rel?: string;
 
+  @query('#open-part')
+  protected _openPart?: HTMLInputElement;
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -84,6 +87,11 @@ export class UUIRefNodeElement extends UUIRefElement {
     super.connectedCallback();
 
     demandCustomElement(this, 'uui-icon');
+  }
+
+  async focus() {
+    await this.updateComplete;
+    this._openPart?.focus();
   }
 
   #onSlotIconChange(event: Event) {
@@ -179,6 +187,10 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding: 1px;
       }
 
+      #actions-container {
+        --uui-focus-outline-color: var(--uui-color-focus);
+      }
+
       #content {
         display: flex;
         flex-grow: 1;
@@ -195,6 +207,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         display: flex;
         flex-grow: 1;
         width: calc(100%);
+        margin: 0 0 1px 0;
       }
 
       #icon {

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package @umbraco-ui/uui-ref
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+### Bug Fixes
+
+- wanted margin on uui-ref items slot ([#1175](https://github.com/umbraco/Umbraco/issues/1175)) ([6718d47](https://github.com/umbraco/Umbraco/commit/6718d47c8eb1235fee8d403cc1db71e05bc0a101))
+
 # [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
 
 **Note:** Version bump only for package @umbraco-ui/uui-ref

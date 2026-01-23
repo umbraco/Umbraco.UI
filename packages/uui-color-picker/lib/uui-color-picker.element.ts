@@ -460,6 +460,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             ${this.opacity
               ? html`
                   <uui-color-slider
+                    hide-value-label
                     label="alpha"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
@@ -717,6 +718,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         font-size: 0.85rem;
         box-sizing: content-box;
         flex: 1;
+      }
+
+      button.color-picker__trigger:focus-visible {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       uui-color-area {

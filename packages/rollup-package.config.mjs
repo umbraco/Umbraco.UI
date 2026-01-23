@@ -1,6 +1,5 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 import rollupPostcss from 'rollup-plugin-postcss';
 import postcssUrl from 'postcss-url';
@@ -88,7 +87,6 @@ const createBundleConfig = (bundle, namespace) => {
           nodeResolve({ rootDir }),
           importCss(),
           processLitCSSPlugin(),
-          minifyHTML.default(),
           esbuild({
             ...esbuildOptions,
             minify: true,

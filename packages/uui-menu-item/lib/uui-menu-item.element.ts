@@ -302,6 +302,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Active */
       :host([active]) #label-button,
+      :host([active]) #actions-container,
       :host([active]) #caret-button {
         color: var(
           --uui-menu-item-color-active,
@@ -335,6 +336,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       /** Selected */
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #label-button,
+      :host([selected]:not([select-mode='highlight'], [disabled]))
+        #actions-container,
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #caret-button {
         color: var(
@@ -394,6 +397,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #label-button,
+      :host([select-mode='highlight'][selected]:not([disabled]))
+        #menu-item
+        #actions-container,
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #caret-button {
@@ -563,6 +569,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: inline-flex;
         margin-right: var(--uui-size-2);
       }
+      :host([selected]:not([select-mode='highlight'], [disabled])) #icon {
+        --uui-icon-color-overwrite: currentColor;
+      }
 
       #badge {
         font-size: 12px;
@@ -584,7 +593,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         border-radius: calc(var(--uui-border-radius) - 1px);
         position: absolute;
         inset: 3px 3px 3px -5px;
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       :host([select-mode='highlight']) #caret-button:focus-visible {
@@ -597,7 +606,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         position: absolute;
         inset: 3px;
         border-radius: calc(var(--uui-border-radius) - 1px);
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       /** Slots */
@@ -616,6 +625,17 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         align-items: center;
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
         margin-right: var(--uui-size-base-unit);
+      }
+
+      @keyframes fadeIn {
+        100% {
+          opacity: 1;
+        }
+      }
+
+      uui-loader-bar {
+        opacity: 0;
+        animation: fadeIn 120ms ease-in 60ms forwards;
       }
     `,
   ];
