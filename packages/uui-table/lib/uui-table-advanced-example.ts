@@ -246,8 +246,9 @@ export class UUITableWithSelectionExampleElement extends LitElement {
             <uui-checkbox
               style="padding: var(--uui-size-4) var(--uui-size-5);"
               @change="${this._selectAllHandler}"
-              ?checked="${this._selection.length ===
-              this._items.length}"></uui-checkbox>
+              ?checked="${this._selection.length === this._items.length}"
+              ?indeterminate="${this._selection.length > 0 &&
+              this._selection.length < this._items.length}"></uui-checkbox>
           </uui-table-head-cell>
           ${this._columns.map(column => this.renderHeaderCellTemplate(column))}
         </uui-table-head>

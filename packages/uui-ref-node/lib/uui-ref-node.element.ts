@@ -197,6 +197,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         align-items: center;
         line-height: 1.2em;
         padding: calc(var(--uui-size-3));
+        width: calc(100% - 2 * var(--uui-size-3));
       }
 
       #open-part {
@@ -205,6 +206,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         display: flex;
         flex-grow: 1;
+        width: calc(100%);
         margin: 0 0 1px 0;
       }
 
@@ -223,12 +225,17 @@ export class UUIRefNodeElement extends UUIRefElement {
         justify-content: center;
         height: 100%;
         padding-left: var(--uui-size-2);
+        max-width: calc(100% - 2 * var(--uui-size-3) - var(--uui-size-2));
         margin-top: 1px;
       }
 
       #detail {
         opacity: 0.6;
         line-height: 1.2em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: calc(100%);
       }
 
       :host([selectable]) #open-part {
