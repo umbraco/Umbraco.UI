@@ -299,7 +299,7 @@ export class UUIResponsiveContainerElement extends LitElement {
 
       #items-container {
         display: flex;
-        gap: var(--uui-responsive-container-gap, 8px);
+        gap: var(--uui-responsive-container-gap, var(--uui-size-3));
         overflow: hidden;
         align-items: center;
       }
@@ -312,11 +312,11 @@ export class UUIResponsiveContainerElement extends LitElement {
 
       :host([collapse='end']) #more-button,
       :host(:not([collapse])) #more-button {
-        margin-left: var(--uui-responsive-container-gap, 8px);
+        margin-left: var(--uui-responsive-container-gap, var(--uui-size-3));
       }
 
       :host([collapse='start']) #more-button {
-        margin-right: var(--uui-responsive-container-gap, 8px);
+        margin-right: var(--uui-responsive-container-gap, var(--uui-size-3));
       }
 
       #dropdown-container {
