@@ -221,6 +221,21 @@ export const WithActions: Story = {
   },
 };
 
+export const SelectableWithActions: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
+    selected: true,
+    'actions slot': html`<uui-action-bar slot="actions">
+      <uui-button
+        style="--uui-button-contrast: currentColor;"
+        label="Open actions menu"
+        ><uui-symbol-more></uui-symbol-more
+      ></uui-button>
+    </uui-action-bar>`,
+  },
+};
+
 export const WidthBadge: Story = {
   args: {
     'badge slot': html`<uui-badge slot="badge" color="warning">!</uui-badge>`,
