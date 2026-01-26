@@ -77,6 +77,10 @@ export class UUIResponsiveContainerElement extends LitElement {
 
     await this.updateComplete;
     this.#resizeObserver.observe(this._mainElement);
+
+    requestAnimationFrame(() => {
+      this.#onSlotChange();
+    });
   }
 
   // This runs when the container size changes
