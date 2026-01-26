@@ -45,6 +45,7 @@ export class UUIBreadcrumbsElement extends LitElement {
   render() {
     return html`<uui-responsive-container
       id="breadcrumbs-list"
+      role="list"
       collapse="start">
       <span slot="trigger-content">
         <span class="ellipsis">…</span> <span class="separator">/</span>
