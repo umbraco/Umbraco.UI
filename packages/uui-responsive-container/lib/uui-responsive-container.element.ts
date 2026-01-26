@@ -54,13 +54,17 @@ export class UUIResponsiveContainerElement extends LitElement {
   #childResizeObservers: ResizeObserver[] = [];
   #breakPointCalculationInProgress = false;
 
+  #isConnected = false;
+
   connectedCallback() {
     super.connectedCallback();
+    this.#isConnected = true;
     this.#initialize();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.#isConnected = false;
     this.#resizeObserver.disconnect();
     this.#cleanup();
   }
@@ -83,6 +87,8 @@ export class UUIResponsiveContainerElement extends LitElement {
 
   // This runs when children are added/removed
   #onSlotChange() {
+    if (!this.#isConnected) return;
+
     this.#cleanup();
     this.#childElements = this._slottedNodes ? [...this._slottedNodes] : [];
 
