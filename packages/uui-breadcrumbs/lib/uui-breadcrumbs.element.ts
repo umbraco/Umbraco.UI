@@ -83,7 +83,7 @@ export class UUIBreadcrumbsElement extends LitElement {
 
       [slot='trigger-content'] .separator {
         color: var(--uui-color-border); /* Matches breadcrumb separator */
-        margin-left: 6px;
+        margin-left: var(--uui-size-2);
       }
     `,
   ];
