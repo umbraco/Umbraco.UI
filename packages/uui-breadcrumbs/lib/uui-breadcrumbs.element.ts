@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
-import '@umbraco-ui/uui-responsive-container/lib/uui-responsive-container.element.js';
+import '@umbraco-ui/uui-responsive-container/lib';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
