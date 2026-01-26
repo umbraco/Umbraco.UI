@@ -115,9 +115,6 @@ export class UUIResponsiveContainerElement extends LitElement {
     if (this.#breakPointCalculationInProgress) return;
 
     this.#breakPointCalculationInProgress = true;
-    requestAnimationFrame(() => {
-      this.#breakPointCalculationInProgress = false;
-    });
 
     await this.updateComplete;
 
@@ -142,6 +139,7 @@ export class UUIResponsiveContainerElement extends LitElement {
     this._mainElement.style.width = totalWidth - gap + tolerance + 'px';
 
     this.#updateCollapsibleItems(this._mainElement.offsetWidth);
+    this.#breakPointCalculationInProgress = false;
   }
 
   // The main logic that shows/hides items
