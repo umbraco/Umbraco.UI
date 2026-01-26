@@ -4,7 +4,7 @@ import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
 import '@umbraco-ui/uui-responsive-container/lib/uui-responsive-container.element.js';
-import { demandCustomElement } from '@umbraco-ui/uui-base';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * A breadcrumbs component to be used in combination with the uui-breadcrumb-item.
