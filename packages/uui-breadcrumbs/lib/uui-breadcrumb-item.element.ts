@@ -12,7 +12,6 @@ import { property } from 'lit/decorators.js';
 export class UUIBreadcrumbItemElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'listitem');
   }
 
   // TODO: ability for adding aria-label?
