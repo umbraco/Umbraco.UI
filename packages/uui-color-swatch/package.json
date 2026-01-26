@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-color-swatch",
-  "version": "1.17.0-rc.0",
+  "version": "1.17.0-rc.1",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,8 +30,8 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.17.0-rc.0",
-    "@umbraco-ui/uui-icon-registry-essential": "1.17.0-rc.0",
+    "@umbraco-ui/uui-base": "1.17.0-rc.1",
+    "@umbraco-ui/uui-icon-registry-essential": "1.17.0-rc.1",
     "colord": "^2.9.3"
   },
   "scripts": {
