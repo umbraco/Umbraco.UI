@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/@lerna-lite/cli/schemas/lerna-schema.json",
   "packages": ["packages/*"],
-  "version": "1.17.0-rc.2",
+  "version": "1.17.0-rc.3",
   "preid": "rc",
   "exact": true,
   "noPush": true,

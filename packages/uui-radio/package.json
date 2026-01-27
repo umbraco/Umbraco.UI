@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-radio",
-  "version": "1.17.0-rc.2",
+  "version": "1.17.0-rc.3",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -33,7 +33,7 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.17.0-rc.2"
+    "@umbraco-ui/uui-base": "1.17.0-rc.3"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build && rollup -c rollup.config.js",
