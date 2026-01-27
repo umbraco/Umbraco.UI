@@ -4,6 +4,10 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
+import '@umbraco-ui/uui-input-lock/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
+
 const meta: Meta = {
   id: 'uui-input',
   component: 'uui-input',
@@ -191,6 +195,11 @@ export const AutoWidth: Story = {
   render: args =>
     html`<uui-input ${spread(args)}></uui-input>
 
+      <uui-input
+        ${spread(args)}
+        style="max-width:240px"
+        placeholder="Max-width of 240px and auto-width"></uui-input>
+
       <uui-input ${spread(args)}>
         <uui-input
           slot="prepend"
@@ -199,6 +208,32 @@ export const AutoWidth: Story = {
         <uui-input
           slot="append"
           placeholder="Append auto-width false"></uui-input>
+      </uui-input>
+
+      <uui-input
+        ${spread(args)}
+        style="max-width:400px"
+        placeholder="max-width 400px">
+        <uui-input slot="prepend" placeholder="Prepend fixed width"></uui-input>
+        <uui-input
+          slot="append"
+          placeholder="Append auto-width false"
+          ?auto-width=${args.autoWidth}></uui-input>
+      </uui-input>
+
+      <uui-input-lock
+        placeholder="Pure input iwth lock for test"
+        auto-width
+        style="max-width:240px;"></uui-input-lock>
+
+      <uui-input
+        ${spread(args)}
+        style="max-width:400px"
+        placeholder="max-width 400px">
+        <uui-input-lock
+          slot="append"
+          placeholder="Append auto-width false"
+          ?auto-width=${args.autoWidth}></uui-input-lock>
       </uui-input>
 
       <uui-input
