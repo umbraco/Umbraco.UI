@@ -405,7 +405,8 @@ export class UUIInputElement extends UUIFormControlMixin(
         align-items: stretch;
         justify-content: center;
         flex-grow: 1;
-        max-width: 100%;
+        flex-shrink: 1;
+        min-width: 0;
       }
 
       #auto {
@@ -417,11 +418,6 @@ export class UUIInputElement extends UUIFormControlMixin(
         padding: 0 var(--uui-size-space-3);
         margin: 0 var(--auto-width-text-margin-right) 0
           var(--auto-width-text-margin-left);
-      }
-
-      :host([auto-width]) #input {
-        min-width: 10px;
-        width: 100%;
       }
 
       :host(:hover) {
@@ -488,8 +484,9 @@ export class UUIInputElement extends UUIFormControlMixin(
         box-sizing: border-box;
         border: none;
         background: none;
-        width: 100%;
         min-width: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
         height: inherit;
         text-align: inherit;
         outline: none;
