@@ -191,6 +191,11 @@ export const AutoWidth: Story = {
   render: args =>
     html`<uui-input ${spread(args)}></uui-input>
 
+      <uui-input
+        ${spread(args)}
+        style="max-width:240px"
+        placeholder="Max-width of 240px and auto-width"></uui-input>
+
       <uui-input ${spread(args)}>
         <uui-input
           slot="prepend"

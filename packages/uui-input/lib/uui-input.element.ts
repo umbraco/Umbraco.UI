@@ -333,7 +333,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   }
 
   private renderInputWithAutoWidth() {
-    return html`<div id="control">
+    return html`<div id="autoWidth">
       ${this.renderInput()}${this.renderAutoWidthBackground()}
     </div>`;
   }
@@ -391,18 +391,20 @@ export class UUIInputElement extends UUIFormControlMixin(
           var(--uui-input-border-color, var(--uui-color-border));
         border-radius: var(--uui-border-radius);
 
+        --uui-input-padding: 1px var(--uui-size-space-3);
         --uui-button-height: 100%;
         --auto-width-text-margin-right: 0;
         --auto-width-text-margin-left: 0;
       }
 
-      #control {
+      #autoWidth {
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
         flex-grow: 1;
+        max-width: 100%;
       }
 
       #auto {
@@ -417,8 +419,8 @@ export class UUIInputElement extends UUIFormControlMixin(
       }
 
       :host([auto-width]) #input {
-        width: 10px;
-        min-width: 100%;
+        min-width: 10px;
+        width: 100%;
       }
 
       :host(:hover) {
@@ -478,7 +480,7 @@ export class UUIInputElement extends UUIFormControlMixin(
 
       input {
         font-family: inherit;
-        padding: 1px var(--uui-size-space-3);
+        padding: var(--uui-input-padding);
         font-size: inherit;
         color: inherit;
         border-radius: var(--uui-border-radius);

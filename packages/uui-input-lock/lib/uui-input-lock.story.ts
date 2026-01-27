@@ -4,6 +4,9 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
+
 /**
  * uui-input-lock extends uui-input. See [uui-input](/docs/uui-input--docs) for more details.
  */
