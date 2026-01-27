@@ -30,3 +30,10 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+
+export const LockedWidth: Story = {
+  render: args =>
+    html`<uui-input-lock
+      ${spread(args)}
+      style="max-width:240px;"></uui-input-lock>`,
+};
