@@ -207,6 +207,17 @@ export const AutoWidth: Story = {
       </uui-input>
 
       <uui-input
+        ${spread(args)}
+        style="max-width:400px"
+        placeholder="max-width 400px">
+        <uui-input slot="prepend" placeholder="Prepend fixed width"></uui-input>
+        <uui-input
+          slot="append"
+          placeholder="Append auto-width false"
+          ?auto-width=${args.autoWidth}></uui-input>
+      </uui-input>
+
+      <uui-input
         ${spread(args, ['placeholder'])}
         style="--auto-width-text-margin-right: 50px"
         placeholder="--auto-width-text-margin-right: 50px"></uui-input>`,

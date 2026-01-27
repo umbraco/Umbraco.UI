@@ -390,6 +390,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
         border-radius: var(--uui-border-radius);
+        min-width: 0;
 
         --uui-input-padding: 1px var(--uui-size-space-3);
         --uui-button-height: 100%;
@@ -488,6 +489,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         border: none;
         background: none;
         width: 100%;
+        min-width: 0;
         height: inherit;
         text-align: inherit;
         outline: none;
@@ -510,6 +512,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         align-items: center;
         line-height: 1;
         height: 100%;
+        min-width: 0;
       }
 
       ::slotted(uui-input),
