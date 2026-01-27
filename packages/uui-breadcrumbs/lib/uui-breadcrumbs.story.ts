@@ -12,6 +12,12 @@ const meta: Meta = {
       <uui-breadcrumb-item href="#Home">Home</uui-breadcrumb-item>
       <uui-breadcrumb-item href="#Products">Products</uui-breadcrumb-item>
       <uui-breadcrumb-item href="#Cars">Cars</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Home">Home</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Products">Products</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Cars">Cars</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Home">Home</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Products">Products</uui-breadcrumb-item>
+      <uui-breadcrumb-item href="#Cars">Cars</uui-breadcrumb-item>
     </uui-breadcrumbs>`,
   parameters: {
     readme: {
