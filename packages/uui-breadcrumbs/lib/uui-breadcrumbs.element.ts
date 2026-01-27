@@ -3,6 +3,8 @@ import { css, html, LitElement } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUIBreadcrumbItemElement } from './uui-breadcrumb-item.element';
+import '@umbraco-ui/uui-responsive-container/lib';
+import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 
 /**
  * A breadcrumbs component to be used in combination with the uui-breadcrumb-item.
@@ -25,6 +27,8 @@ export class UUIBreadcrumbsElement extends LitElement {
     super.connectedCallback();
     this.setAttribute('aria-label', 'breadcrumb');
     this.setAttribute('role', 'navigation');
+
+    demandCustomElement(this, 'uui-responsive-container');
   }
 
   handleSlotChange() {
@@ -39,9 +43,14 @@ export class UUIBreadcrumbsElement extends LitElement {
   }
 
   render() {
-    return html`<ol id="breadcrumbs-list">
+    return html`<uui-responsive-container
+      id="breadcrumbs-list"
+      collapse="start">
+      <span slot="trigger-content">
+        <span class="ellipsis">…</span> <span class="separator">/</span>
+      </span>
       <slot @slotchange=${this.handleSlotChange}></slot>
-    </ol>`;
+    </uui-responsive-container>`;
   }
 
   static styles = [
@@ -58,6 +67,23 @@ export class UUIBreadcrumbsElement extends LitElement {
         margin-inline-start: 0px;
         margin-inline-end: 0px;
         padding-inline-start: 0px;
+      }
+      uui-responsive-container {
+        --uui-responsive-container-gap: 0;
+      }
+
+      /* Style the trigger content to match breadcrumb items */
+      [slot='trigger-content'] {
+        font-size: var(--uui-type-small-size);
+      }
+
+      [slot='trigger-content'] .ellipsis {
+        color: currentColor; /* Black/default text color */
+      }
+
+      [slot='trigger-content'] .separator {
+        color: var(--uui-color-border); /* Matches breadcrumb separator */
+        margin-left: var(--uui-size-2);
       }
     `,
   ];
