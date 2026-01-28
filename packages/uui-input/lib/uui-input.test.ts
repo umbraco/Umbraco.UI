@@ -158,6 +158,48 @@ describe('UuiInputElement', () => {
     input.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
   });
+
+  describe('text overflow', () => {
+    it('has text-overflow ellipsis applied to input element', async () => {
+      const computedStyle = window.getComputedStyle(input);
+      expect(computedStyle.textOverflow).to.equal('ellipsis');
+    });
+
+    it('applies ellipsis when text overflows in unfocused state', async () => {
+      // Set a long value that would overflow
+      element.value =
+        'This is a very long text that should overflow the input field and show ellipsis';
+      await elementUpdated(element);
+
+      const computedStyle = window.getComputedStyle(input);
+      expect(computedStyle.textOverflow).to.equal('ellipsis');
+    });
+
+    it('maintains ellipsis style when input gains focus', async () => {
+      element.value = 'Long text value that overflows';
+      await elementUpdated(element);
+
+      element.focus();
+      await elementUpdated(element);
+
+      const computedStyle = window.getComputedStyle(input);
+      expect(computedStyle.textOverflow).to.equal('ellipsis');
+    });
+
+    it('maintains ellipsis style when input loses focus', async () => {
+      element.value = 'Long text value that overflows';
+      await elementUpdated(element);
+
+      element.focus();
+      await elementUpdated(element);
+
+      element.blur();
+      await elementUpdated(element);
+
+      const computedStyle = window.getComputedStyle(input);
+      expect(computedStyle.textOverflow).to.equal('ellipsis');
+    });
+  });
 });
 
 describe('UuiInput with native label element', () => {
