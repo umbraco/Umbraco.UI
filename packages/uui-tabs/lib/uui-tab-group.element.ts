@@ -369,7 +369,7 @@ export class UUITabGroupElement extends LitElement {
         width: 100%;
         background-color: var(--uui-color-current);
         height: 0px;
-        border-radius: 3px 3px 0 0;
+        border-radius: var(--uui-border-radius) var(--uui-border-radius) 0 0;
         opacity: 0;
         transition:
           opacity ease-in 120ms,

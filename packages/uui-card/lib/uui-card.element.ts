@@ -113,8 +113,7 @@ export class UUICardElement extends SelectOnlyMixin(
         width: 100%;
         justify-content: center;
         box-sizing: border-box;
-        box-shadow: var(--uui-shadow-depth-1);
-        border-radius: var(--uui-border-radius);
+        border-radius: var(--uui-border-radius-2);
         min-height: var(--uui-layout-medium);
         background-color: var(--uui-color-surface);
         --uui-card-border-width: 3px;
@@ -143,7 +142,7 @@ export class UUICardElement extends SelectOnlyMixin(
         z-index: 1;
         box-sizing: border-box;
         border: var(--uui-card-border-width) solid var(--uui-color-invalid);
-        border-radius: var(--uui-border-radius);
+        border-radius: var(--uui-border-radius-2);
       }
 
       button {
@@ -169,7 +168,7 @@ export class UUICardElement extends SelectOnlyMixin(
         outline-width: var(--uui-card-border-width);
         outline-style: solid;
         outline-offset: var(--uui-card-border-width);
-        border-radius: var(--uui-border-radius);
+        border-radius: var(--uui-border-radius-2);
       }
 
       :host([selectable]) {
@@ -193,7 +192,7 @@ export class UUICardElement extends SelectOnlyMixin(
         height: 100%;
         box-sizing: border-box;
         border: 2px solid var(--uui-color-selected);
-        border-radius: calc(var(--uui-border-radius) + 2px);
+        border-radius: calc(var(--uui-border-radius-2) + 2px);
         box-shadow:
           0 0 4px 0 var(--uui-color-selected),
           inset 0 0 2px 0 var(--uui-color-selected);

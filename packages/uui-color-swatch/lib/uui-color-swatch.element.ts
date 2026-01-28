@@ -201,7 +201,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         padding: 0;
         margin: 0;
         text-align: left;
-        border-radius: 3px;
+        border-radius: var(--uui-size-4);
       }
 
       :host(:not([selectable])) #swatch:focus {
@@ -238,7 +238,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         position: relative;
         width: var(--uui-swatch-size, 25px);
         height: var(--uui-swatch-size, 25px);
-        border-radius: 3px;
+        border-radius: inherit;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -284,6 +284,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         filter: invert(1) grayscale(1) contrast(9);
         pointer-events: none;
         opacity: 0;
+        border-radius: inherit;
       }
 
       :host([selected]) .color-swatch__check {

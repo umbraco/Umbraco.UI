@@ -209,7 +209,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         <div style="display: flex; align-items: center;">
           <uui-avatar name="${item.name}" style="margin-right: 10px;">
           </uui-avatar>
-          <a style="font-weight: bold;" href="http://">${item.name}</a>
+          <a href="http://">${item.name}</a>
         </div>
       </uui-table-cell>
       <uui-table-cell>

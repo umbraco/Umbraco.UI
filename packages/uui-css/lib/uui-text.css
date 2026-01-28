@@ -21,7 +21,7 @@
 .uui-h1.uui-h1 {
   font-size: var(--uui-type-h1-size);
   line-height: var(--uui-size-layout-4);
-  font-weight: 300;
+  font-weight: 400;
   margin-left: -5px;
   margin-top: var(--uui-size-layout-1);
   margin-bottom: var(--uui-size-layout-1);
@@ -41,7 +41,7 @@
 .uui-h2.uui-h2 {
   font-size: var(--uui-type-h2-size);
   line-height: var(--uui-size-layout-3);
-  font-weight: 300;
+  font-weight: 400;
   margin-left: -3px;
   margin-top: var(--uui-size-layout-1);
   margin-bottom: var(--uui-size-layout-1);
@@ -61,7 +61,7 @@
 .uui-h3.uui-h3 {
   font-size: var(--uui-type-h3-size);
   line-height: var(--uui-size-large);
-  font-weight: 300;
+  font-weight: 400;
   margin-left: -2px;
   margin-top: var(--uui-size-layout-1);
   margin-bottom: var(--uui-size-layout-1);
@@ -93,7 +93,7 @@
 .uui-h5.uui-h5 {
   font-size: var(--uui-type-h5-size);
   line-height: inherit;
-  font-weight: 700;
+  font-weight: 400;
   margin-left: 0;
   margin-top: var(--uui-size-layout-1);
   margin-bottom: 0;
@@ -144,7 +144,7 @@
   float: right;
   font-size: 14px;
   line-height: inherit;
-  font-weight: 700;
+  font-weight: 400;
   font-style: italic;
   margin-top: 0;
   margin-bottom: var(--uui-size-layout-1);
