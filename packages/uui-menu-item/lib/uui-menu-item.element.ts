@@ -302,6 +302,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Active */
       :host([active]) #label-button,
+      :host([active]) #actions-container,
       :host([active]) #caret-button {
         color: var(
           --uui-menu-item-color-active,
@@ -335,6 +336,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       /** Selected */
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #label-button,
+      :host([selected]:not([select-mode='highlight'], [disabled]))
+        #actions-container,
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #caret-button {
         color: var(
@@ -394,6 +397,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #label-button,
+      :host([select-mode='highlight'][selected]:not([disabled]))
+        #menu-item
+        #actions-container,
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #caret-button {
