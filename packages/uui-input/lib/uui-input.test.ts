@@ -160,7 +160,7 @@ describe('UuiInputElement', () => {
   });
 
   describe('text overflow', () => {
-    it('has text-overflow ellipsis applied to input element', async () => {
+    it('has text-overflow ellipsis applied to input element', () => {
       const computedStyle = window.getComputedStyle(input);
       expect(computedStyle.textOverflow).to.equal('ellipsis');
     });
