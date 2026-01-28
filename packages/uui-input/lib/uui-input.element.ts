@@ -341,6 +341,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   renderInput() {
     return html`<input
       id="input"
+      size=${ifDefined(this.autoWidth ? '1' : undefined)}
       .type=${this.type}
       .value=${this.value as string}
       .name=${this.name}
