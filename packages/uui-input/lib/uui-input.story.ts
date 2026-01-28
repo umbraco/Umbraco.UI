@@ -221,19 +221,13 @@ export const AutoWidth: Story = {
           ?auto-width=${args.autoWidth}></uui-input>
       </uui-input>
 
-      <uui-input-lock
-        placeholder="Pure input iwth lock for test"
-        auto-width
-        style="max-width:240px;"></uui-input-lock>
+      <uui-input-lock placeholder="" auto-width></uui-input-lock>
 
       <uui-input
         ${spread(args)}
-        style="max-width:400px"
-        placeholder="max-width 400px">
-        <uui-input-lock
-          slot="append"
-          placeholder="Append auto-width false"
-          ?auto-width=${args.autoWidth}></uui-input-lock>
+        style="width:320px"
+        placeholder="Enter alias...">
+        <uui-input-lock slot="append" auto-width></uui-input-lock>
       </uui-input>
 
       <uui-input
