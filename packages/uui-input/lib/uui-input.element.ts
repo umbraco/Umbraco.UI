@@ -491,6 +491,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         height: inherit;
         text-align: inherit;
         outline: none;
+        text-overflow: ellipsis;
       }
 
       input[type='password']::-ms-reveal {
