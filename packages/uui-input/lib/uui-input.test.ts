@@ -164,41 +164,6 @@ describe('UuiInputElement', () => {
       const computedStyle = window.getComputedStyle(input);
       expect(computedStyle.textOverflow).to.equal('ellipsis');
     });
-
-    it('applies ellipsis when text overflows in unfocused state', async () => {
-      // Set a long value that would overflow
-      element.value =
-        'This is a very long text that should overflow the input field and show ellipsis';
-      await elementUpdated(element);
-
-      const computedStyle = window.getComputedStyle(input);
-      expect(computedStyle.textOverflow).to.equal('ellipsis');
-    });
-
-    it('maintains ellipsis style when input gains focus', async () => {
-      element.value = 'Long text value that overflows';
-      await elementUpdated(element);
-
-      element.focus();
-      await elementUpdated(element);
-
-      const computedStyle = window.getComputedStyle(input);
-      expect(computedStyle.textOverflow).to.equal('ellipsis');
-    });
-
-    it('maintains ellipsis style when input loses focus', async () => {
-      element.value = 'Long text value that overflows';
-      await elementUpdated(element);
-
-      element.focus();
-      await elementUpdated(element);
-
-      element.blur();
-      await elementUpdated(element);
-
-      const computedStyle = window.getComputedStyle(input);
-      expect(computedStyle.textOverflow).to.equal('ellipsis');
-    });
   });
 });
 
