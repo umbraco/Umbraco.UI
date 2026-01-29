@@ -150,6 +150,113 @@ describe('UuiInputElement', () => {
         expect(innerEvent.type).to.equal(UUIInputEvent.CHANGE);
         expect(innerEvent!.target).to.equal(innerElement);
       });
+
+      it('emits a change event when value changes and input loses focus (Safari fix)', async () => {
+        // Simulate Safari behavior where native change event doesn't fire
+        const listener = oneEvent(element, UUIInputEvent.CHANGE);
+
+        // Simulate user focusing the input
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+
+        // Simulate user typing
+        input.value = 'new value';
+        input.dispatchEvent(new Event('input'));
+        await elementUpdated(element);
+
+        // Simulate user blurring the input (without native change event)
+        input.dispatchEvent(new Event('blur'));
+
+        const event = await listener;
+        expect(event).to.exist;
+        expect(event.type).to.equal(UUIInputEvent.CHANGE);
+        expect(element.value).to.equal('new value');
+      });
+
+      it('does not emit change event on blur if value has not changed', async () => {
+        let changeEventCount = 0;
+        element.addEventListener(UUIInputEvent.CHANGE, () => {
+          changeEventCount++;
+        });
+
+        // Simulate user focusing the input
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+
+        // Don't change the value
+
+        // Simulate user blurring the input
+        input.dispatchEvent(new Event('blur'));
+        await elementUpdated(element);
+
+        // Wait a bit to ensure no event is fired
+        await sleep(50);
+
+        expect(changeEventCount).to.equal(0);
+      });
+
+      it('handles multiple focus/blur cycles correctly', async () => {
+        let changeEventCount = 0;
+        element.addEventListener(UUIInputEvent.CHANGE, () => {
+          changeEventCount++;
+        });
+
+        // First cycle - change value
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+        input.value = 'value1';
+        input.dispatchEvent(new Event('input'));
+        await elementUpdated(element);
+        input.dispatchEvent(new Event('blur'));
+        await elementUpdated(element);
+
+        expect(changeEventCount).to.equal(1);
+
+        // Second cycle - no change
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+        input.dispatchEvent(new Event('blur'));
+        await elementUpdated(element);
+
+        expect(changeEventCount).to.equal(1);
+
+        // Third cycle - change value again
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+        input.value = 'value2';
+        input.dispatchEvent(new Event('input'));
+        await elementUpdated(element);
+        input.dispatchEvent(new Event('blur'));
+        await elementUpdated(element);
+
+        expect(changeEventCount).to.equal(2);
+      });
+
+      it('does not emit duplicate change events when native change fires (non-Safari browsers)', async () => {
+        let changeEventCount = 0;
+        element.addEventListener(UUIInputEvent.CHANGE, () => {
+          changeEventCount++;
+        });
+
+        // Simulate typical browser behavior where native change event fires
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+
+        input.value = 'new value';
+        input.dispatchEvent(new Event('input'));
+        await elementUpdated(element);
+
+        // Native change event fires
+        input.dispatchEvent(new Event('change'));
+        await elementUpdated(element);
+
+        // Blur event fires after change
+        input.dispatchEvent(new Event('blur'));
+        await elementUpdated(element);
+
+        // Should only fire ONE change event (from native change, not from blur)
+        expect(changeEventCount).to.equal(1);
+      });
     });
   });
 
