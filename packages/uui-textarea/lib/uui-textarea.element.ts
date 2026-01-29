@@ -205,8 +205,8 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
     }
   }
 
-  override get value() {
-    return super.value;
+  override get value(): string {
+    return String(super.value);
   }
 
   connectedCallback() {
