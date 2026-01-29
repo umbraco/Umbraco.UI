@@ -271,6 +271,8 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   #onChange = () => {
     this.value = this.#comboboxList?.value || '';
     this.search = this.value ? this.search : '';
+    // Update display value immediately before closing
+    this._displayValue = this.#comboboxList?.displayValue || '';
 
     this.#onClose();
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
