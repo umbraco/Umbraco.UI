@@ -303,13 +303,14 @@ export const Countries: Story = {
 };
 
 const fakeApi = (search: string) => {
-  if (search === '') return [];
-
   return new Promise(resolve =>
     setTimeout(() => {
-      const filteredData = fruits.filter(item =>
-        item.toLowerCase().includes(search.toLowerCase()),
-      );
+      const filteredData =
+        search === ''
+          ? fruits
+          : fruits.filter(item =>
+              item.toLowerCase().includes(search.toLowerCase()),
+            );
       resolve(filteredData);
     }, 500),
   );

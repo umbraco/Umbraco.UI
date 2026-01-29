@@ -102,3 +102,79 @@ describe('UuiTextarea in Form', () => {
     await expect(formData.get('textarea')).to.be.equal('anotherValue');
   });
 });
+
+describe('UuiTextarea with auto-height', () => {
+  let element: UUITextareaElement;
+  let textarea: HTMLTextAreaElement;
+
+  beforeEach(async () => {
+    element = await fixture(html`
+      <uui-textarea
+        label="auto-height textarea"
+        auto-height
+        style="--uui-textarea-min-height: 50px; --uui-textarea-max-height: 300px;"></uui-textarea>
+    `);
+    textarea = element.shadowRoot?.querySelector(
+      'textarea',
+    ) as HTMLTextAreaElement;
+    await elementUpdated(element);
+  });
+
+  it('should update height when value is set programmatically', async () => {
+    // Set initial short value
+    element.value = 'Short text';
+    await elementUpdated(element);
+    // Wait for requestAnimationFrame to complete
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await elementUpdated(element);
+
+    const initialHeight = textarea.offsetHeight;
+
+    // Set a much longer value programmatically
+    element.value =
+      'This is a very long text\nwith multiple lines\nthat should cause\nthe textarea\nto grow\nin height\nautomatically\nwhen auto-height is enabled.\nLine 9\nLine 10\nLine 11\nLine 12';
+    await elementUpdated(element);
+    // Wait for requestAnimationFrame to complete
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await elementUpdated(element);
+
+    const updatedHeight = textarea.offsetHeight;
+
+    // The rendered height should have increased
+    expect(updatedHeight).to.be.greaterThan(initialHeight);
+    // The style.height should be set to a specific value by autoUpdateHeight
+    expect(textarea.style.height).to.not.equal('');
+  });
+
+  it('should update height when cleared programmatically', async () => {
+    // Set initial long value
+    element.value =
+      'This is a very long text\nwith multiple lines\nthat should cause\nthe textarea\nto grow\nin height\nautomatically\nwhen auto-height is enabled.\nLine 9\nLine 10\nLine 11\nLine 12';
+    await elementUpdated(element);
+    // Wait for requestAnimationFrame to complete
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await elementUpdated(element);
+
+    const initialHeight = textarea.offsetHeight;
+    const initialStyleHeight = textarea.style.height;
+    // After setting long text, style.height should be set
+    expect(initialStyleHeight).to.not.equal('');
+
+    // Clear the value programmatically
+    element.value = '';
+    await elementUpdated(element);
+    // Wait for requestAnimationFrame to complete
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await elementUpdated(element);
+
+    const updatedHeight = textarea.offsetHeight;
+
+    // The rendered height should have decreased
+    expect(updatedHeight).to.be.lessThan(initialHeight);
+    // After clearing, style.height may be removed or set to a smaller value
+    const finalStyleHeight = textarea.style.height;
+    expect(
+      finalStyleHeight === '' || parseInt(finalStyleHeight) < parseInt(initialStyleHeight)
+    ).to.be.true;
+  });
+});

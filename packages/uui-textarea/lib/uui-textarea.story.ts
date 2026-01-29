@@ -70,3 +70,59 @@ export const Error = {
     error: true,
   },
 };
+
+/**
+ * This story demonstrates that auto-height works when values are set programmatically.
+ * Click the buttons to see the textarea grow or shrink automatically.
+ */
+export const AutoHeightProgrammaticValue: Story = {
+  args: {
+    autoHeight: true,
+    '--uui-textarea-min-height': '50px',
+    '--uui-textarea-max-height': '300px',
+  },
+  render: args => {
+    const shortText = 'Short text';
+    const longText = `This is a very long text
+with multiple lines
+that should cause
+the textarea
+to grow
+in height
+automatically
+when auto-height is enabled.
+Line 9
+Line 10
+Line 11
+Line 12`;
+
+    return html`
+      <div>
+        <uui-textarea id="test-textarea" ${spread(args)}></uui-textarea>
+        <div style="margin-top: 10px;">
+          <button
+            @click=${() => {
+              const textareaElement = document.getElementById('test-textarea');
+              if (textareaElement) textareaElement.value = shortText;
+            }}>
+            Set Short Text
+          </button>
+          <button
+            @click=${() => {
+              const textareaElement = document.getElementById('test-textarea');
+              if (textareaElement) textareaElement.value = longText;
+            }}>
+            Set Long Text
+          </button>
+          <button
+            @click=${() => {
+              const textareaElement = document.getElementById('test-textarea');
+              if (textareaElement) textareaElement.value = '';
+            }}>
+            Clear
+          </button>
+        </div>
+      </div>
+    `;
+  },
+};
