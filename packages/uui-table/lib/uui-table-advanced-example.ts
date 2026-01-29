@@ -201,6 +201,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       <uui-table-cell>
         <uui-icon name="wand"></uui-icon>
         <uui-checkbox
+          label="Select ${item.name}"
           @click=${(e: MouseEvent) => e.stopPropagation()}
           @change=${(event: Event) => this._selectHandler(event, item)}
           ?checked="${this._isSelected(item.key)}"></uui-checkbox>
@@ -244,6 +245,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         <uui-table-head>
           <uui-table-head-cell style="--uui-table-cell-padding: 0">
             <uui-checkbox
+              label="Select all rows"
               style="padding: var(--uui-size-4) var(--uui-size-5);"
               @change="${this._selectAllHandler}"
               ?checked="${this._selection.length === this._items.length}"
