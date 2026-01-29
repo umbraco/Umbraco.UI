@@ -247,5 +247,37 @@ describe('UUIFileDropzoneElement', () => {
         done();
       }
     });
+
+    it('does not emit reject event when multiple=false and an accepted file is found', done => {
+      const dt = new DataTransfer();
+      if ('items' in dt) {
+        const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
+        const file2 = new File([''], 'file2.txt', { type: 'text/plain' });
+        dt.items.add(file1);
+        dt.items.add(file2);
+
+        element.accept = 'image/*';
+        element.multiple = false;
+
+        let rejectEventFired = false;
+
+        element.addEventListener('reject', () => {
+          rejectEventFired = true;
+        });
+
+        element.addEventListener('change', e => {
+          const { files } = (e as UUIFileDropzoneEvent).detail;
+          expect(files.length).to.equal(1);
+          expect(files[0].name).to.equal('file1.jpg');
+          expect(rejectEventFired).to.be.false;
+          done();
+        });
+
+        innerElement.files = dt.files;
+        innerElement.dispatchEvent(new Event('change'));
+      } else {
+        done();
+      }
+    });
   });
 });

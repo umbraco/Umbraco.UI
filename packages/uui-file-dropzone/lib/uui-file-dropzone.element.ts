@@ -14,7 +14,7 @@ export interface UUIFileFolder {
 
 /**
  * @element uui-file-dropzone
- *  @fires {UUIFileDropzoneEvent} change - fires when the a file has been selected.
+ *  @fires {UUIFileDropzoneEvent} change - fires when a file has been selected.
  *  @fires {UUIFileDropzoneEvent} reject - fires when files are rejected due to not matching the accept attribute.
  *  @slot - For the content of the dropzone
  *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
@@ -249,6 +249,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       if (this.multiple === false && fileSystemResult.files.length) {
         fileSystemResult.files = [fileSystemResult.files[0]];
         fileSystemResult.folders = [];
+        // When multiple is false and we have an accepted file, don't report rejections
+        fileSystemResult.rejectedFiles = [];
       }
 
       if (fileSystemResult.rejectedFiles.length > 0) {
@@ -299,7 +301,11 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const allowedFiles = files.filter(file => this._isAccepted(file));
     const rejectedFiles = files.filter(file => !this._isAccepted(file));
 
-    if (rejectedFiles.length > 0) {
+    // When multiple is false and we have an accepted file, don't report rejections
+    const shouldReportRejections =
+      rejectedFiles.length > 0 && (this.multiple || allowedFiles.length === 0);
+
+    if (shouldReportRejections) {
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.REJECT, {
           detail: { files: rejectedFiles, folders: [] },
