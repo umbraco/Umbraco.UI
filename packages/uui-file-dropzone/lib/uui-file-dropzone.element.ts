@@ -14,7 +14,7 @@ export interface UUIFileFolder {
 
 /**
  * @element uui-file-dropzone
- *  @fires {UUIFileDropzoneEvent} change - fires when a file has been selected. The event detail includes both accepted files and rejectedFiles (if any were rejected).
+ *  @fires {UUIFileDropzoneEvent} change - fires when a file has been selected. The event detail includes both accepted files and a rejectedFiles array, which is always provided and may be empty.
  *  @fires {UUIFileDropzoneEvent} reject - fires when files are rejected due to not matching the accept attribute.
  *  @slot - For the content of the dropzone
  *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
