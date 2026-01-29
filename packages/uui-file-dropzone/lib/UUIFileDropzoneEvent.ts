@@ -5,7 +5,7 @@ import {
 } from './uui-file-dropzone.element';
 
 export class UUIFileDropzoneEvent extends UUIEvent<
-  { files: File[]; folders: UUIFileFolder[]; rejectedFiles?: File[] },
+  { files: File[]; folders: UUIFileFolder[] },
   UUIFileDropzoneElement
 > {
   public static readonly CHANGE: string = 'change';

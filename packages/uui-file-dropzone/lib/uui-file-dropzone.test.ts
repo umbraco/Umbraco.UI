@@ -201,12 +201,9 @@ describe('UUIFileDropzoneElement', () => {
         let rejectEventFired = false;
 
         element.addEventListener('change', e => {
-          const { files, rejectedFiles } = (e as UUIFileDropzoneEvent).detail;
+          const { files } = (e as UUIFileDropzoneEvent).detail;
           expect(files.length).to.equal(1);
           expect(files[0].name).to.equal('file1.jpg');
-          expect(rejectedFiles).to.exist;
-          expect(rejectedFiles!.length).to.equal(1);
-          expect(rejectedFiles![0].name).to.equal('file2.txt');
           changeEventFired = true;
           if (changeEventFired && rejectEventFired) {
             done();
@@ -274,32 +271,6 @@ describe('UUIFileDropzoneElement', () => {
           expect(files.length).to.equal(1);
           expect(files[0].name).to.equal('file1.jpg');
           expect(rejectEventFired).to.be.false;
-          done();
-        });
-
-        innerElement.files = dt.files;
-        innerElement.dispatchEvent(new Event('change'));
-      } else {
-        done();
-      }
-    });
-
-    it('includes empty rejectedFiles array in change event when all files are accepted', done => {
-      const dt = new DataTransfer();
-      if ('items' in dt) {
-        const file1 = new File([''], 'file1.jpg', { type: 'image/jpeg' });
-        const file2 = new File([''], 'file2.png', { type: 'image/png' });
-        dt.items.add(file1);
-        dt.items.add(file2);
-
-        element.accept = 'image/*';
-        element.multiple = true;
-
-        element.addEventListener('change', e => {
-          const { files, rejectedFiles } = (e as UUIFileDropzoneEvent).detail;
-          expect(files.length).to.equal(2);
-          expect(rejectedFiles).to.exist;
-          expect(rejectedFiles!.length).to.equal(0);
           done();
         });
 
