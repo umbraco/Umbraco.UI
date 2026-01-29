@@ -231,6 +231,32 @@ describe('UuiInputElement', () => {
 
         expect(changeEventCount).to.equal(2);
       });
+
+      it('does not emit duplicate change events when native change fires (non-Safari browsers)', async () => {
+        let changeEventCount = 0;
+        element.addEventListener(UUIInputEvent.CHANGE, () => {
+          changeEventCount++;
+        });
+
+        // Simulate typical browser behavior where native change event fires
+        input.dispatchEvent(new Event('focus'));
+        await elementUpdated(element);
+
+        input.value = 'new value';
+        input.dispatchEvent(new Event('input'));
+        await elementUpdated(element);
+
+        // Native change event fires
+        input.dispatchEvent(new Event('change'));
+        await elementUpdated(element);
+
+        // Blur event fires after change
+        input.dispatchEvent(new Event('blur'));
+        await elementUpdated(element);
+
+        // Should only fire ONE change event (from native change, not from blur)
+        expect(changeEventCount).to.equal(1);
+      });
     });
   });
 
