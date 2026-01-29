@@ -37,6 +37,7 @@ export * from '@umbraco-ui/uui-icon-registry/lib';
 export * from '@umbraco-ui/uui-icon/lib';
 export * from '@umbraco-ui/uui-input-file/lib';
 export * from '@umbraco-ui/uui-input-lock/lib';
+export * from '@umbraco-ui/uui-input-otp/lib/index.js';
 export * from '@umbraco-ui/uui-input-password/lib';
 export * from '@umbraco-ui/uui-input/lib';
 export * from '@umbraco-ui/uui-keyboard-shortcut/lib';
