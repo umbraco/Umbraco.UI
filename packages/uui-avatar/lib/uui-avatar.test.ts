@@ -112,6 +112,46 @@ describe('UuiAvatar', () => {
       await element.updateComplete;
       expect(element).shadowDom.to.equal('123<slot></<slot>');
     });
+
+    it('handles names with parentheses correctly', async () => {
+      element.name = 'Henrik Christensen (HC)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HC<slot></<slot>');
+
+      element.name = 'Hans Christian Andersen (HCA)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HA<slot></<slot>');
+
+      element.name = 'H. C. Andersen';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HA<slot></<slot>');
+    });
+
+    it('handles names with special characters in parentheses', async () => {
+      element.name = 'John Doe (Admin)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('JD<slot></<slot>');
+
+      element.name = 'Jane Smith (CEO)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('JS<slot></<slot>');
+    });
+
+    it('handles names with only parentheses content', async () => {
+      element.name = '(Test)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('<slot></<slot>');
+    });
+
+    it('handles names with brackets and other special characters', async () => {
+      element.name = 'John [Admin] Doe';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('JD<slot></<slot>');
+
+      element.name = 'Alice @Company';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('A<slot></<slot>');
+    });
   });
 
   it('passes the a11y audit', async () => {

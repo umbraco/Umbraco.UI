@@ -72,16 +72,25 @@ export class UUIAvatarElement extends LitElement {
       return initials;
     }
 
-    const matches = [...name.matchAll(/(?:^|\s)(.)/g)];
-    const words = matches.map(m => m[1]).join('');
-    if (!words?.length) {
+    // Split by whitespace and filter out parts that don't start with valid characters
+    // This regex matches: letters (any script), numbers, emojis, and other non-punctuation characters
+    // It excludes special characters like parentheses, brackets, @ symbols, etc.
+    const nameParts = name
+      .split(/\s+/)
+      .filter(
+        part => part.length > 0 && !/^[^\p{L}\p{N}\p{Emoji}]/u.test(part),
+      );
+
+    if (nameParts.length === 0) {
       return initials;
     }
 
-    initials = words[0].charAt(0);
+    // Take first character of the first valid name part
+    initials = nameParts[0].charAt(0);
 
-    if (words.length > 1) {
-      initials += words[words.length - 1].charAt(0);
+    // If there's more than one valid name part, add the first character of the last valid name part
+    if (nameParts.length > 1) {
+      initials += nameParts[nameParts.length - 1].charAt(0);
     }
 
     return initials.toUpperCase();
