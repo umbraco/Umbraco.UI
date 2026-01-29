@@ -144,7 +144,6 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
 
   #comboboxList!: UUIComboboxListElement;
   #phoneMediaQuery!: MediaQueryList;
-  #isSelecting = false;
 
   @state()
   private _displayValue = '';
@@ -223,11 +222,9 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   #updateValue() {
     if (this.#comboboxList) {
       this.#comboboxList.value = this.value;
-      if (!this.#isSelecting) {
-        requestAnimationFrame(
-          () => (this._displayValue = this.#comboboxList.displayValue || ''),
-        );
-      }
+      requestAnimationFrame(
+        () => (this._displayValue = this.#comboboxList.displayValue || ''),
+      );
     }
   }
 
@@ -272,12 +269,8 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #onChange = () => {
-    this.#isSelecting = true;
     this.value = this.#comboboxList?.value || '';
     this.search = this.value ? this.search : '';
-    // Update display value immediately before closing
-    this._displayValue = this.#comboboxList?.displayValue || '';
-    this.#isSelecting = false;
 
     this.#onClose();
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
