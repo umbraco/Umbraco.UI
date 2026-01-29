@@ -113,7 +113,7 @@ describe('UuiAvatar', () => {
       expect(element).shadowDom.to.equal('123<slot></<slot>');
     });
 
-    it('handles names with parentheses correctly', async () => {
+    it('ignores parenthetical suffixes when generating initials', async () => {
       element.name = 'Henrik Christensen (HC)';
       await element.updateComplete;
       expect(element).shadowDom.to.equal('HC<slot></<slot>');
@@ -127,7 +127,7 @@ describe('UuiAvatar', () => {
       expect(element).shadowDom.to.equal('HA<slot></<slot>');
     });
 
-    it('handles names with special characters in parentheses', async () => {
+    it('ignores role descriptions in parentheses', async () => {
       element.name = 'John Doe (Admin)';
       await element.updateComplete;
       expect(element).shadowDom.to.equal('JD<slot></<slot>');

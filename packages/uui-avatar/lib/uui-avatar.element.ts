@@ -72,13 +72,15 @@ export class UUIAvatarElement extends LitElement {
       return initials;
     }
 
-    // Split by whitespace and filter out parts that don't start with valid characters
-    // This regex matches: letters (any script), numbers, emojis, and other non-punctuation characters
-    // It excludes special characters like parentheses, brackets, @ symbols, etc.
+    // Split by whitespace and filter out parts that start with special characters
+    // This filters out parts beginning with punctuation (like parentheses, brackets, @ symbols)
+    // while keeping parts that start with letters, numbers, or emojis
     const nameParts = name
       .split(/\s+/)
       .filter(
-        part => part.length > 0 && !/^[^\p{L}\p{N}\p{Emoji}]/u.test(part),
+        part =>
+          part.length > 0 &&
+          !/^[^\p{L}\p{N}\p{Extended_Pictographic}]/u.test(part),
       );
 
     if (nameParts.length === 0) {
