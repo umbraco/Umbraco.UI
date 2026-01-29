@@ -39,7 +39,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
   selectAllLabel: string = 'Select all rows';
 
   /**
-   * This property is used to generate the label for individual row checkboxes. 
+   * This property is used to generate the label for individual row checkboxes.
    * The item name will be appended. For example, with the default value "Select" and an item named "John Doe",
    * the resulting label will be "Select John Doe".
    * @type {string}

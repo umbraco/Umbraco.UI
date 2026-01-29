@@ -163,7 +163,8 @@ export const Advanced: Story = {
     },
     selectRowLabel: {
       name: 'Select Row Label',
-      description: 'Label for individual row checkboxes (item name will be appended)',
+      description:
+        'Label for individual row checkboxes (item name will be appended)',
       control: 'text',
     },
   },
