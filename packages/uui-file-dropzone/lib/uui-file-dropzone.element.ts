@@ -14,7 +14,8 @@ export interface UUIFileFolder {
 
 /**
  * @element uui-file-dropzone
- *  @fires {UUIFileDropzoneEvent} change - fires when the a file has been selected.
+ *  @fires {UUIFileDropzoneEvent} change - fires when a file has been selected.
+ *  @fires {UUIFileDropzoneEvent} reject - fires when files are rejected due to not matching the accept attribute.
  *  @slot - For the content of the dropzone
  *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
  */
@@ -106,12 +107,42 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('drop', this._onDrop, false);
   }
 
+  /**
+   * Process a single file entry and categorize it as accepted or rejected.
+   * @param entry - The data transfer item containing the file
+   * @param files - Array to store accepted files
+   * @param rejectedFiles - Array to store rejected files
+   */
+  private _processFileEntry(
+    entry: DataTransferItem,
+    files: File[],
+    rejectedFiles: File[],
+  ): void {
+    const file = entry.getAsFile();
+    if (!file) return;
+
+    if (this._isAccepted(file)) {
+      files.push(file);
+    } else {
+      rejectedFiles.push(file);
+    }
+  }
+
+  /**
+   * Check if folder upload should be processed based on component settings.
+   * @returns true if folder upload is allowed and multiple files are enabled
+   */
+  private _shouldProcessFolder(): boolean {
+    return !this.disallowFolderUpload && this.multiple;
+  }
+
   private async _getAllEntries(dataTransferItemList: DataTransferItemList) {
     // Use BFS to traverse entire directory/file structure
     const queue = [...dataTransferItemList];
 
     const folders: UUIFileFolder[] = [];
     const files: File[] = [];
+    const rejectedFiles: File[] = [];
 
     for (const entry of queue) {
       if (entry?.kind !== 'file') continue;
@@ -121,19 +152,15 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       if (!fileEntry.isDirectory) {
         // Entry is a file
-        const file = entry.getAsFile();
-        if (!file) continue;
-        if (this._isAccepted(file)) {
-          files.push(file);
-        }
-      } else if (!this.disallowFolderUpload && this.multiple) {
+        this._processFileEntry(entry, files, rejectedFiles);
+      } else if (this._shouldProcessFolder()) {
         // Entry is a directory
         const structure = await this._mkdir(fileEntry);
         folders.push(structure);
       }
     }
 
-    return { files, folders };
+    return { files, folders, rejectedFiles };
   }
 
   /**
@@ -153,6 +180,48 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return dir;
   }
 
+  // Process entries from a directory reader
+  private async _processEntries(
+    entries: FileSystemEntry[],
+    folders: UUIFileFolder[],
+    files: File[],
+  ): Promise<void> {
+    for (const en of entries) {
+      if (en.isFile) {
+        const file = await this._getAsFile(en as FileSystemFileEntry);
+        if (this._isAccepted(file)) {
+          files.push(file);
+        }
+      } else if (en.isDirectory) {
+        const directory = await this._mkdir(en as FileSystemDirectoryEntry);
+        folders.push(directory);
+      }
+    }
+  }
+
+  // Read entries from a directory reader recursively
+  private async _readAllEntries(
+    reader: FileSystemDirectoryReader,
+    folders: UUIFileFolder[],
+    files: File[],
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      reader.readEntries(async entries => {
+        if (!entries.length) {
+          resolve();
+          return;
+        }
+
+        await this._processEntries(entries, folders, files);
+
+        // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
+        await this._readAllEntries(reader, folders, files);
+
+        resolve();
+      }, reject);
+    });
+  }
+
   // Make directory structure
   private async _mkdir(
     entry: FileSystemDirectoryEntry,
@@ -161,37 +230,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const folders: UUIFileFolder[] = [];
     const files: File[] = [];
 
-    const readEntries = (reader: FileSystemDirectoryReader) => {
-      return new Promise<void>((resolve, reject) => {
-        reader.readEntries(async entries => {
-          if (!entries.length) {
-            resolve();
-            return;
-          }
-
-          for (const en of entries) {
-            if (en.isFile) {
-              const file = await this._getAsFile(en as FileSystemFileEntry);
-              if (this._isAccepted(file)) {
-                files.push(file);
-              }
-            } else if (en.isDirectory) {
-              const directory = await this._mkdir(
-                en as FileSystemDirectoryEntry,
-              );
-              folders.push(directory);
-            }
-          }
-
-          // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
-          await readEntries(reader);
-
-          resolve();
-        }, reject);
-      });
-    };
-
-    await readEntries(reader);
+    await this._readAllEntries(reader, folders, files);
 
     const result: UUIFileFolder = { folderName: entry.name, folders, files };
     return result;
@@ -245,6 +284,16 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       if (this.multiple === false && fileSystemResult.files.length) {
         fileSystemResult.files = [fileSystemResult.files[0]];
         fileSystemResult.folders = [];
+        // When multiple is false and we have an accepted file, don't report rejections
+        fileSystemResult.rejectedFiles = [];
+      }
+
+      if (fileSystemResult.rejectedFiles.length > 0) {
+        this.dispatchEvent(
+          new UUIFileDropzoneEvent(UUIFileDropzoneEvent.REJECT, {
+            detail: { files: fileSystemResult.rejectedFiles, folders: [] },
+          }),
+        );
       }
 
       if (!fileSystemResult.files.length && !fileSystemResult.folders.length) {
@@ -253,7 +302,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-          detail: fileSystemResult,
+          detail: {
+            files: fileSystemResult.files,
+            folders: fileSystemResult.folders,
+          },
         }),
       );
     }
@@ -282,6 +334,19 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
 
     const allowedFiles = files.filter(file => this._isAccepted(file));
+    const rejectedFiles = files.filter(file => !this._isAccepted(file));
+
+    // When multiple is false and we have an accepted file, don't report rejections
+    const shouldReportRejections =
+      rejectedFiles.length > 0 && (this.multiple || allowedFiles.length === 0);
+
+    if (shouldReportRejections) {
+      this.dispatchEvent(
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.REJECT, {
+          detail: { files: rejectedFiles, folders: [] },
+        }),
+      );
+    }
 
     if (!allowedFiles.length) {
       return;
@@ -289,7 +354,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
     this.dispatchEvent(
       new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-        detail: { files: allowedFiles, folders: [] },
+        detail: {
+          files: allowedFiles,
+          folders: [],
+        },
       }),
     );
   }
