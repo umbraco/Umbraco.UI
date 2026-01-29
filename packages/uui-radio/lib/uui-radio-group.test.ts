@@ -274,3 +274,58 @@ describe('UuiRadioGroup with start value', () => {
     expect(radios[3]).to.not.have.attribute('checked');
   });
 });
+
+describe('UUIRadio keyboard accessibility', () => {
+  let radio: UUIRadioElement;
+  beforeEach(async () => {
+    radio = await fixture(html`
+      <uui-radio value="test-value" label="Test Radio"></uui-radio>
+    `);
+  });
+
+  it('should check radio when Space key is pressed', async () => {
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.true;
+  });
+
+  it('should check radio when Enter key is pressed', async () => {
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.true;
+  });
+
+  it('should not respond to keyboard when disabled', async () => {
+    radio.disabled = true;
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+  });
+
+  it('should not respond to keyboard when readonly', async () => {
+    radio.readonly = true;
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+  });
+});

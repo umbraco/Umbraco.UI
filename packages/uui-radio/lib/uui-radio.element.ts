@@ -62,6 +62,20 @@ export class UUIRadioElement extends LitElement {
   @property({ type: Boolean, reflect: true })
   readonly = false;
 
+  constructor() {
+    super();
+    this.addEventListener('keydown', this.#onKeyDown);
+  }
+
+  #onKeyDown(e: KeyboardEvent): void {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      if (!this.disabled && !this.readonly) {
+        this._inputElement.click();
+      }
+    }
+  }
+
   public focus() {
     this._inputElement.focus();
   }
