@@ -107,7 +107,12 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('drop', this._onDrop, false);
   }
 
-  // Process a single file entry
+  /**
+   * Process a single file entry and categorize it as accepted or rejected.
+   * @param entry - The data transfer item containing the file
+   * @param files - Array to store accepted files
+   * @param rejectedFiles - Array to store rejected files
+   */
   private _processFileEntry(
     entry: DataTransferItem,
     files: File[],
@@ -123,7 +128,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
   }
 
-  // Check if folder upload is allowed
+  /**
+   * Check if folder upload should be processed based on component settings.
+   * @returns true if folder upload is allowed and multiple files are enabled
+   */
   private _shouldProcessFolder(): boolean {
     return !this.disallowFolderUpload && this.multiple;
   }
