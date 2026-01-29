@@ -31,7 +31,7 @@ interface TableItem {
 @defineElement('uui-table-with-selection-example')
 export class UUITableWithSelectionExampleElement extends LitElement {
   /**
-   * This property is used to set the label for the select all checkbox
+   * This property is used to generate the label for the select all checkbox
    * @type {string}
    * @attr
    */
@@ -39,7 +39,9 @@ export class UUITableWithSelectionExampleElement extends LitElement {
   selectAllLabel: string = 'Select all rows';
 
   /**
-   * This property is used to set the label for individual row checkboxes. The item name will be appended.
+   * This property is used to generate the label for individual row checkboxes. 
+   * The item name will be appended. For example, with the default value "Select" and an item named "John Doe",
+   * the resulting label will be "Select John Doe".
    * @type {string}
    * @attr
    */
