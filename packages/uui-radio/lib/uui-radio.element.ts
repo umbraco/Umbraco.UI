@@ -71,7 +71,7 @@ export class UUIRadioElement extends LitElement {
     if (e.key === ' ') {
       e.preventDefault();
       if (!this.disabled && !this.readonly) {
-        this._inputElement.click();
+        this._inputElement?.click();
       }
     }
   }
