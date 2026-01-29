@@ -68,7 +68,7 @@ export class UUIRadioElement extends LitElement {
   }
 
   #onKeyDown(e: KeyboardEvent): void {
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (e.key === ' ') {
       e.preventDefault();
       if (!this.disabled && !this.readonly) {
         this._inputElement.click();

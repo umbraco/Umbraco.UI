@@ -202,6 +202,18 @@ describe('UuiRadioGroup in a Form', () => {
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
+
+    it('should submit when pressing enter on an individual radio', async () => {
+      const listener = oneEvent(formElement, 'submit', false);
+      radios[0].dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+      );
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('submit');
+      expect(event!.target).to.equal(formElement);
+    });
   });
 });
 
@@ -288,16 +300,6 @@ describe('UUIRadio keyboard accessibility', () => {
 
     radio.focus();
     radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
-    await elementUpdated(radio);
-
-    expect(radio.checked).to.be.true;
-  });
-
-  it('should check radio when Enter key is pressed', async () => {
-    expect(radio.checked).to.be.false;
-
-    radio.focus();
-    radio.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
     await elementUpdated(radio);
 
     expect(radio.checked).to.be.true;
