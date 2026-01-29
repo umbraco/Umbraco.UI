@@ -128,7 +128,7 @@ describe('UuiTextarea with auto-height', () => {
     await new Promise(resolve => requestAnimationFrame(resolve));
     await elementUpdated(element);
 
-    const initialHeight = textarea.scrollHeight;
+    const initialHeight = textarea.offsetHeight;
 
     // Set a much longer value programmatically
     element.value =
@@ -138,10 +138,12 @@ describe('UuiTextarea with auto-height', () => {
     await new Promise(resolve => requestAnimationFrame(resolve));
     await elementUpdated(element);
 
-    const updatedHeight = textarea.scrollHeight;
+    const updatedHeight = textarea.offsetHeight;
 
-    // The height should have increased
+    // The rendered height should have increased
     expect(updatedHeight).to.be.greaterThan(initialHeight);
+    // The style.height should be set to a specific value by autoUpdateHeight
+    expect(textarea.style.height).to.not.equal('');
   });
 
   it('should update height when cleared programmatically', async () => {
@@ -153,7 +155,10 @@ describe('UuiTextarea with auto-height', () => {
     await new Promise(resolve => requestAnimationFrame(resolve));
     await elementUpdated(element);
 
-    const initialHeight = textarea.scrollHeight;
+    const initialHeight = textarea.offsetHeight;
+    const initialStyleHeight = textarea.style.height;
+    // After setting long text, style.height should be set
+    expect(initialStyleHeight).to.not.equal('');
 
     // Clear the value programmatically
     element.value = '';
@@ -162,9 +167,14 @@ describe('UuiTextarea with auto-height', () => {
     await new Promise(resolve => requestAnimationFrame(resolve));
     await elementUpdated(element);
 
-    const updatedHeight = textarea.scrollHeight;
+    const updatedHeight = textarea.offsetHeight;
 
-    // The height should have decreased
+    // The rendered height should have decreased
     expect(updatedHeight).to.be.lessThan(initialHeight);
+    // After clearing, style.height may be removed or set to a smaller value
+    const finalStyleHeight = textarea.style.height;
+    expect(
+      finalStyleHeight === '' || parseInt(finalStyleHeight) < parseInt(initialStyleHeight)
+    ).to.be.true;
   });
 });
