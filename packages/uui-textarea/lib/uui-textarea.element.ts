@@ -173,7 +173,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         }
         return label;
       },
-      () => !!this.minlength && (this.value as string).length < this.minlength,
+      () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
@@ -184,7 +184,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         }
         return label;
       },
-      () => !!this.maxlength && (this.value as string).length > this.maxlength,
+      () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
   }
 
@@ -290,7 +290,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         id="textarea"
         rows=${ifDefined(this.rows)}
         cols=${ifDefined(this.cols)}
-        .value=${this.value as string}
+        .value=${String(this.value)}
         .name=${this.name}
         wrap=${ifDefined(this.wrap)}
         placeholder=${this.placeholder}
