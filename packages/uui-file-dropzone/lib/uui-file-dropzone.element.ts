@@ -157,6 +157,48 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     return dir;
   }
 
+  // Process entries from a directory reader
+  private async _processEntries(
+    entries: FileSystemEntry[],
+    folders: UUIFileFolder[],
+    files: File[],
+  ): Promise<void> {
+    for (const en of entries) {
+      if (en.isFile) {
+        const file = await this._getAsFile(en as FileSystemFileEntry);
+        if (this._isAccepted(file)) {
+          files.push(file);
+        }
+      } else if (en.isDirectory) {
+        const directory = await this._mkdir(en as FileSystemDirectoryEntry);
+        folders.push(directory);
+      }
+    }
+  }
+
+  // Read entries from a directory reader recursively
+  private async _readAllEntries(
+    reader: FileSystemDirectoryReader,
+    folders: UUIFileFolder[],
+    files: File[],
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      reader.readEntries(async entries => {
+        if (!entries.length) {
+          resolve();
+          return;
+        }
+
+        await this._processEntries(entries, folders, files);
+
+        // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
+        await this._readAllEntries(reader, folders, files);
+
+        resolve();
+      }, reject);
+    });
+  }
+
   // Make directory structure
   private async _mkdir(
     entry: FileSystemDirectoryEntry,
@@ -165,37 +207,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     const folders: UUIFileFolder[] = [];
     const files: File[] = [];
 
-    const readEntries = (reader: FileSystemDirectoryReader) => {
-      return new Promise<void>((resolve, reject) => {
-        reader.readEntries(async entries => {
-          if (!entries.length) {
-            resolve();
-            return;
-          }
-
-          for (const en of entries) {
-            if (en.isFile) {
-              const file = await this._getAsFile(en as FileSystemFileEntry);
-              if (this._isAccepted(file)) {
-                files.push(file);
-              }
-            } else if (en.isDirectory) {
-              const directory = await this._mkdir(
-                en as FileSystemDirectoryEntry,
-              );
-              folders.push(directory);
-            }
-          }
-
-          // readEntries only reads up to 100 entries at a time. It is on purpose we call readEntries recursively.
-          await readEntries(reader);
-
-          resolve();
-        }, reject);
-      });
-    };
-
-    await readEntries(reader);
+    await this._readAllEntries(reader, folders, files);
 
     const result: UUIFileFolder = { folderName: entry.name, folders, files };
     return result;
