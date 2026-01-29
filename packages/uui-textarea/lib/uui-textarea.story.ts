@@ -102,22 +102,22 @@ Line 12`;
         <div style="margin-top: 10px;">
           <button
             @click=${() => {
-              const textarea = document.getElementById('test-textarea');
-              if (textarea) textarea.value = shortText;
+              const textareaElement = document.getElementById('test-textarea');
+              if (textareaElement) textareaElement.value = shortText;
             }}>
             Set Short Text
           </button>
           <button
             @click=${() => {
-              const textarea = document.getElementById('test-textarea');
-              if (textarea) textarea.value = longText;
+              const textareaElement = document.getElementById('test-textarea');
+              if (textareaElement) textareaElement.value = longText;
             }}>
             Set Long Text
           </button>
           <button
             @click=${() => {
-              const textarea = document.getElementById('test-textarea');
-              if (textarea) textarea.value = '';
+              const textareaElement = document.getElementById('test-textarea');
+              if (textareaElement) textareaElement.value = '';
             }}>
             Clear
           </button>
