@@ -173,7 +173,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         }
         return label;
       },
-      () => !!this.minlength && (this.value as string).length < this.minlength,
+      () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
@@ -184,8 +184,36 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         }
         return label;
       },
-      () => !!this.maxlength && (this.value as string).length > this.maxlength,
+      () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
+  }
+
+  /**
+   * Override value setter to trigger autoUpdateHeight when value changes
+   */
+  private _autoHeightRafId: number | null = null;
+
+  override set value(newValue: string) {
+    const oldValue = super.value;
+    super.value = newValue;
+    // If autoHeight is enabled and component is connected, update height
+    // Only trigger if the value actually changed
+    if (this.autoHeight && this.isConnected && oldValue !== newValue) {
+      // Cancel any previously scheduled height update to avoid redundant calls
+      if (this._autoHeightRafId !== null) {
+        cancelAnimationFrame(this._autoHeightRafId);
+      }
+      // Schedule height update after the DOM has been updated
+      // We use requestAnimationFrame to ensure the textarea's value has been updated in the DOM
+      this._autoHeightRafId = requestAnimationFrame(() => {
+        this._autoHeightRafId = null;
+        this.autoUpdateHeight();
+      });
+    }
+  }
+
+  override get value(): string {
+    return String(super.value);
   }
 
   connectedCallback() {
@@ -225,11 +253,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   private onInput(e: Event) {
-    this.value = (e.target as HTMLInputElement).value;
-
-    if (this.autoHeight) {
-      this.autoUpdateHeight();
-    }
+    this.value = (e.target as HTMLTextAreaElement).value;
 
     // TODO: Do we miss an input event?
     //this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
@@ -273,7 +297,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         id="textarea"
         rows=${ifDefined(this.rows)}
         cols=${ifDefined(this.cols)}
-        .value=${this.value as string}
+        .value=${String(this.value)}
         .name=${this.name}
         wrap=${ifDefined(this.wrap)}
         placeholder=${this.placeholder}
