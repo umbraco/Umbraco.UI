@@ -314,7 +314,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       this.#onOpen();
     }
 
-    if (e.code === 'Escape' || e.code === 'Enter') {
+    if (e.code === 'Escape') {
       this.#onClose();
     }
   };
