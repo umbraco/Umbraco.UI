@@ -15,6 +15,7 @@ export interface UUIFileFolder {
 /**
  * @element uui-file-dropzone
  *  @fires {UUIFileDropzoneEvent} change - fires when the a file has been selected.
+ *  @fires {UUIFileDropzoneEvent} reject - fires when files are rejected due to not matching the accept attribute.
  *  @slot - For the content of the dropzone
  *  @description - Dropzone for file upload. Supports native browsing and drag n drop.
  */
@@ -112,6 +113,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
     const folders: UUIFileFolder[] = [];
     const files: File[] = [];
+    const rejectedFiles: File[] = [];
 
     for (const entry of queue) {
       if (entry?.kind !== 'file') continue;
@@ -125,6 +127,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         if (!file) continue;
         if (this._isAccepted(file)) {
           files.push(file);
+        } else {
+          rejectedFiles.push(file);
         }
       } else if (!this.disallowFolderUpload && this.multiple) {
         // Entry is a directory
@@ -133,7 +137,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
       }
     }
 
-    return { files, folders };
+    return { files, folders, rejectedFiles };
   }
 
   /**
@@ -247,13 +251,24 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         fileSystemResult.folders = [];
       }
 
+      if (fileSystemResult.rejectedFiles.length > 0) {
+        this.dispatchEvent(
+          new UUIFileDropzoneEvent(UUIFileDropzoneEvent.REJECT, {
+            detail: { files: fileSystemResult.rejectedFiles, folders: [] },
+          }),
+        );
+      }
+
       if (!fileSystemResult.files.length && !fileSystemResult.folders.length) {
         return;
       }
 
       this.dispatchEvent(
         new UUIFileDropzoneEvent(UUIFileDropzoneEvent.CHANGE, {
-          detail: fileSystemResult,
+          detail: {
+            files: fileSystemResult.files,
+            folders: fileSystemResult.folders,
+          },
         }),
       );
     }
@@ -282,6 +297,15 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
 
     const allowedFiles = files.filter(file => this._isAccepted(file));
+    const rejectedFiles = files.filter(file => !this._isAccepted(file));
+
+    if (rejectedFiles.length > 0) {
+      this.dispatchEvent(
+        new UUIFileDropzoneEvent(UUIFileDropzoneEvent.REJECT, {
+          detail: { files: rejectedFiles, folders: [] },
+        }),
+      );
+    }
 
     if (!allowedFiles.length) {
       return;

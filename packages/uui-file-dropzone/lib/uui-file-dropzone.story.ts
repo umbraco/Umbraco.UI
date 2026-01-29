@@ -19,8 +19,8 @@ const meta: Meta = {
   decorators: [
     Story =>
       html`<div style="font-size: 12px; margin-bottom: 20px;">
-          Note: Dropzone logs dropped files in the console and the change event
-          can be seen in the actions tab.
+          Note: Dropzone logs dropped files in the console. The change and
+          reject events can be seen in the actions tab.
         </div>
         ${Story()}`,
   ],
@@ -42,8 +42,17 @@ const handleFileChange = (e: Event) => {
   action('change')(e.detail);
 };
 
+const handleFileReject = (e: Event) => {
+  if (!(e instanceof UUIFileDropzoneEvent)) {
+    return;
+  }
+  console.log('reject event.detail: ', e.detail);
+  action('reject')(e.detail);
+};
+
 // Attach event listener to the story to log the event
 document.addEventListener('change', handleFileChange);
+document.addEventListener('reject', handleFileReject);
 
 export const Default: Story = {};
 
@@ -62,6 +71,17 @@ export const Multiple: Story = {
 export const Accept: Story = {
   args: {
     accept: 'image/*',
+  },
+};
+
+/**
+ * When files are dropped or selected that don't match the accept attribute, a reject event is emitted with the rejected files.
+ * Try dropping or selecting non-image files (e.g., .txt, .pdf) to see the reject event in the actions tab.
+ */
+export const RejectEvent: Story = {
+  args: {
+    accept: 'image/*',
+    multiple: true,
   },
 };
 
@@ -93,6 +113,7 @@ export const BrowseFiles: Story = {
         ?multiple=${props.multiple}
         ?disallow-folder-upload=${props.disallowFolderUpload}
         @change=${handleFileChange}
+        @reject=${handleFileReject}
         label="Drop files here">
         Drop files here
         <uui-button
