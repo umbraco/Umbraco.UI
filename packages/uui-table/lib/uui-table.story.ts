@@ -151,6 +151,25 @@ export const InABox: Story = {
 };
 
 export const Advanced: Story = {
-  render: () =>
-    html`<uui-table-with-selection-example></uui-table-with-selection-example>`,
+  args: {
+    selectAllLabel: 'Select all rows',
+    selectRowLabel: 'Select',
+  },
+  argTypes: {
+    selectAllLabel: {
+      name: 'Select All Label',
+      description: 'Label for the select all checkbox',
+      control: 'text',
+    },
+    selectRowLabel: {
+      name: 'Select Row Label',
+      description:
+        'Label for individual row checkboxes (item name will be appended)',
+      control: 'text',
+    },
+  },
+  render: args =>
+    html`<uui-table-with-selection-example
+      select-all-label="${args.selectAllLabel}"
+      select-row-label="${args.selectRowLabel}"></uui-table-with-selection-example>`,
 };
