@@ -169,6 +169,7 @@ describe('UUIFileDropzoneElement', () => {
         dt.items.add(file2);
 
         element.accept = 'image/*';
+        element.multiple = true;
 
         element.addEventListener('reject', e => {
           const { files } = (e as UUIFileDropzoneEvent).detail;
