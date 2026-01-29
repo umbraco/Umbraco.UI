@@ -152,8 +152,6 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   @property({ type: String })
   wrap?: 'soft' | 'hard';
 
-  private _skipAutoHeightUpdate = false;
-
   constructor() {
     super();
 
@@ -191,19 +189,14 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   /**
-   * Override value setter to trigger autoUpdateHeight when value changes programmatically
+   * Override value setter to trigger autoUpdateHeight when value changes
    */
   override set value(newValue: string) {
     const oldValue = super.value;
     super.value = newValue;
     // If autoHeight is enabled and component is connected, update height
-    // Only trigger if the value actually changed and we're not skipping
-    if (
-      this.autoHeight &&
-      this.isConnected &&
-      oldValue !== newValue &&
-      !this._skipAutoHeightUpdate
-    ) {
+    // Only trigger if the value actually changed
+    if (this.autoHeight && this.isConnected && oldValue !== newValue) {
       // Schedule height update after the DOM has been updated
       // We use requestAnimationFrame to ensure the textarea's value has been updated in the DOM
       requestAnimationFrame(() => {
@@ -212,8 +205,8 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
     }
   }
 
-  override get value(): string {
-    return super.value as string;
+  override get value() {
+    return super.value;
   }
 
   connectedCallback() {
@@ -253,14 +246,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   private onInput(e: Event) {
-    // Skip auto-height update in setter since we'll handle it directly for immediate feedback
-    this._skipAutoHeightUpdate = true;
     this.value = (e.target as HTMLInputElement).value;
-    this._skipAutoHeightUpdate = false;
-
-    if (this.autoHeight) {
-      this.autoUpdateHeight();
-    }
 
     // TODO: Do we miss an input event?
     //this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
