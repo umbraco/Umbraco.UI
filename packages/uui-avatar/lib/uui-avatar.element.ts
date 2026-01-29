@@ -92,7 +92,7 @@ export class UUIAvatarElement extends LitElement {
 
     // If there's more than one valid name part, add the first character of the last valid name part
     if (nameParts.length > 1) {
-      initials += nameParts[nameParts.length - 1].charAt(0);
+      initials += nameParts.at(-1)!.charAt(0);
     }
 
     return initials.toUpperCase();
