@@ -107,6 +107,27 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     this.addEventListener('drop', this._onDrop, false);
   }
 
+  // Process a single file entry
+  private _processFileEntry(
+    entry: DataTransferItem,
+    files: File[],
+    rejectedFiles: File[],
+  ): void {
+    const file = entry.getAsFile();
+    if (!file) return;
+
+    if (this._isAccepted(file)) {
+      files.push(file);
+    } else {
+      rejectedFiles.push(file);
+    }
+  }
+
+  // Check if folder upload is allowed
+  private _shouldProcessFolder(): boolean {
+    return !this.disallowFolderUpload && this.multiple;
+  }
+
   private async _getAllEntries(dataTransferItemList: DataTransferItemList) {
     // Use BFS to traverse entire directory/file structure
     const queue = [...dataTransferItemList];
@@ -123,14 +144,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
       if (!fileEntry.isDirectory) {
         // Entry is a file
-        const file = entry.getAsFile();
-        if (!file) continue;
-        if (this._isAccepted(file)) {
-          files.push(file);
-        } else {
-          rejectedFiles.push(file);
-        }
-      } else if (!this.disallowFolderUpload && this.multiple) {
+        this._processFileEntry(entry, files, rejectedFiles);
+      } else if (this._shouldProcessFolder()) {
         // Entry is a directory
         const structure = await this._mkdir(fileEntry);
         folders.push(structure);
