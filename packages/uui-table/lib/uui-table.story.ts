@@ -169,6 +169,6 @@ export const Advanced: Story = {
   },
   render: args =>
     html`<uui-table-with-selection-example
-      select-all-label="${args.selectAllLabel || 'Select all rows'}"
-      select-row-label="${args.selectRowLabel || 'Select'}"></uui-table-with-selection-example>`,
+      select-all-label="${args.selectAllLabel}"
+      select-row-label="${args.selectRowLabel}"></uui-table-with-selection-example>`,
 };
