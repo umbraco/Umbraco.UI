@@ -73,16 +73,16 @@ describe('UuiAvatar', () => {
       expect(element).shadowDom.to.equal('FL<slot></<slot>');
     });
 
-    it('renders full emoji when name contains only emojis', async () => {
-      // Single emoji should render the full emoji
+    it('renders only first emoji when name contains only emojis', async () => {
+      // Single emoji should render the emoji
       element.name = '👩‍💻';
       await element.updateComplete;
       expect(element).shadowDom.to.equal('👩‍💻<slot></<slot>');
 
-      // Multiple emojis should render all
+      // Multiple emojis should render only the first one to avoid overflow
       element.name = '👩‍💻 👨‍💻';
       await element.updateComplete;
-      expect(element).shadowDom.to.equal('👩‍💻 👨‍💻<slot></<slot>');
+      expect(element).shadowDom.to.equal('👩‍💻<slot></<slot>');
 
       // Emoji prefix should be skipped when text names are present, using only valid name parts
       element.name = '🍿 Henrik Christensen (HC)';

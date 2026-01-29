@@ -82,12 +82,19 @@ export class UUIAvatarElement extends LitElement {
     // If no valid letter/number parts, check if we have emojis or other pictographic content
     if (nameParts.length === 0) {
       const trimmedName = name.trim();
-      // Only render full content if it contains emojis/pictographs, not just punctuation
+      // Only render content if it contains emojis/pictographs, not just punctuation
+      // Limit to the first emoji to avoid overflow in small avatars
       if (
         trimmedName.length > 0 &&
         /\p{Extended_Pictographic}/u.test(trimmedName)
       ) {
-        return trimmedName;
+        // Split by spaces and get the first part that contains an emoji
+        const parts = trimmedName.split(/\s+/);
+        for (const part of parts) {
+          if (/\p{Extended_Pictographic}/u.test(part)) {
+            return part;
+          }
+        }
       }
       return initials;
     }
