@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+### Bug Fixes
+
+- **uui-avatar:** Fix initials in avatar when name contains parentheses or emojis ([#1259](https://github.com/umbraco/Umbraco/issues/1259)) ([49bd73e](https://github.com/umbraco/Umbraco/commit/49bd73ecdf4d66fda84d2b33b656d441ede3fbdf))
+
 # [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-avatar

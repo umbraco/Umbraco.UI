@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+### Bug Fixes
+
+- **uui-combobox:** Fix keyboard selection in async combobox and add initial story data ([#1261](https://github.com/umbraco/Umbraco/issues/1261)) ([168d87d](https://github.com/umbraco/Umbraco/commit/168d87db4e9cc326a556b1e3d8550964bc9a8084))
+
 # [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-combobox

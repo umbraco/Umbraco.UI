@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+### Bug Fixes
+
+- Fix radiobutton keyboard accessibility ([#1263](https://github.com/umbraco/Umbraco/issues/1263)) ([1c2424c](https://github.com/umbraco/Umbraco/commit/1c2424c51a0178bf725c02247e7f8c536fd97861))
+
 # [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-radio
