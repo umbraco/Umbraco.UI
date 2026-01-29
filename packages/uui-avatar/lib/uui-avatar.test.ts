@@ -73,14 +73,21 @@ describe('UuiAvatar', () => {
       expect(element).shadowDom.to.equal('FL<slot></<slot>');
     });
 
-    it('supports unicode characters', async () => {
+    it('renders full emoji when name contains only emojis', async () => {
+      // Single emoji should render the full emoji
       element.name = '👩‍💻';
       await element.updateComplete;
-      expect(element).shadowDom.to.equal('\ud83d<slot></<slot>');
+      expect(element).shadowDom.to.equal('👩‍💻<slot></<slot>');
 
+      // Multiple emojis should render all
       element.name = '👩‍💻 👨‍💻';
       await element.updateComplete;
-      expect(element).shadowDom.to.equal('\ud83d\ud83d<slot></<slot>');
+      expect(element).shadowDom.to.equal('👩‍💻 👨‍💻<slot></<slot>');
+
+      // Emoji prefix should be skipped when text names are present, using only valid name parts
+      element.name = '🍿 Henrik Christensen (HC)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HC<slot></<slot>');
     });
 
     it('supports non-latin characters', async () => {
