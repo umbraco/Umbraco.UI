@@ -188,6 +188,24 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
     );
   }
 
+  /**
+   * Override value setter to trigger autoUpdateHeight when value changes programmatically
+   */
+  override set value(newValue: string) {
+    super.value = newValue;
+    // If autoHeight is enabled and component is connected, update height
+    if (this.autoHeight && this.isConnected) {
+      // Schedule height update after the DOM has been updated
+      requestAnimationFrame(() => {
+        this.autoUpdateHeight();
+      });
+    }
+  }
+
+  override get value(): string {
+    return super.value as string;
+  }
+
   connectedCallback() {
     super.connectedCallback();
     if (!this.label) {
