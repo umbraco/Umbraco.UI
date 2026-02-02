@@ -86,7 +86,7 @@
     "autoprefixer": "10.4.21",
     "chromatic": "13.3.5",
     "element-internals-polyfill": "3.0.2",
-    "esbuild": "0.25.10",
+    "esbuild": "0.27.2",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-lit": "2.1.1",
