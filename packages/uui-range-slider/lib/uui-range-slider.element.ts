@@ -752,7 +752,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         user-select: none;
         background-color: var(--uui-color-border-standalone);
         position: absolute;
-        height: 3px;
+        height: ${TRACK_HEIGHT}px;
         left: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
         right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
       }
@@ -829,7 +829,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       /** Steps */
       .step-wrapper {
         margin: 0 ${-1 * TRACK_PADDING}px;
-        height: 11px;
+        height: 10.5px;
         position: absolute;
         left: 0;
         right: 0;
@@ -864,6 +864,17 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         ~ .step-wrapper
         .track-step.filled {
         fill: var(--color-hover);
+      }
+
+      :host(:not([disabled]):not([readonly])):has(#inner-color-thumb:hover)
+        input::-moz-range-thumb {
+        border-color: var(--color-hover);
+        border-width: 4px;
+      }
+      :host(:not([disabled]):not([readonly])):has(#inner-color-thumb:hover)
+        input::-webkit-slider-thumb {
+        border-color: var(--color-hover);
+        border-width: 4px;
       }
 
       :host([disabled]) #range-slider .track-step.filled {
@@ -970,6 +981,9 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         overflow: visible;
         border: 3px solid var(--color-interactive);
         background-color: var(--uui-color-surface);
+        transition:
+          border-color 120ms,
+          border-width 120ms;
       }
 
       :host([disabled]) input::-webkit-slider-thumb,
@@ -980,6 +994,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       input:focus-within::-webkit-slider-thumb,
       input.focus::-webkit-slider-thumb {
         border-color: var(--color-focus);
+        outline: 2px solid var(--color-focus);
+        outline-offset: 1px;
       }
       :host(:not([disabled]):not([readonly]))
         input::-webkit-slider-thumb:hover {
@@ -1005,6 +1021,9 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         overflow: visible;
         border: 3px solid var(--color-interactive);
         background-color: var(--uui-color-surface);
+        transition:
+          border-color 120ms,
+          border-width 120ms;
       }
       :host([disabled]) input::-moz-range-thumb,
       :host([readonly]) input::-moz-range-thumb {
@@ -1014,6 +1033,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       input:focus-within::-moz-range-thumb,
       input.focus::-moz-range-thumb {
         border-color: var(--color-focus);
+        outline: 2px solid var(--color-focus);
+        outline-offset: 1px;
       }
       :host(:not([disabled]):not([readonly])) input::-moz-range-thumb:hover {
         border-color: var(--color-hover);
