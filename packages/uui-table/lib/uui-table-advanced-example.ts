@@ -10,7 +10,7 @@ import '@umbraco-ui/uui-symbol-sort/lib';
 
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
-import { state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
@@ -30,6 +30,24 @@ interface TableItem {
 
 @defineElement('uui-table-with-selection-example')
 export class UUITableWithSelectionExampleElement extends LitElement {
+  /**
+   * This property is used to generate the label for the select all checkbox
+   * @type {string}
+   * @attr
+   */
+  @property()
+  selectAllLabel: string = 'Select all rows';
+
+  /**
+   * This property is used to generate the label for individual row checkboxes.
+   * The item name will be appended. For example, with the default value "Select" and an item named "John Doe",
+   * the resulting label will be "Select John Doe".
+   * @type {string}
+   * @attr
+   */
+  @property()
+  selectRowLabel: string = 'Select';
+
   @state()
   private _columns: Array<TableColumn> = [];
 
@@ -201,6 +219,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       <uui-table-cell>
         <uui-icon name="wand"></uui-icon>
         <uui-checkbox
+          label="${this.selectRowLabel} ${item.name}"
           @click=${(e: MouseEvent) => e.stopPropagation()}
           @change=${(event: Event) => this._selectHandler(event, item)}
           ?checked="${this._isSelected(item.key)}"></uui-checkbox>
@@ -244,6 +263,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
         <uui-table-head>
           <uui-table-head-cell style="--uui-table-cell-padding: 0">
             <uui-checkbox
+              label="${this.selectAllLabel}"
               style="padding: var(--uui-size-4) var(--uui-size-5);"
               @change="${this._selectAllHandler}"
               ?checked="${this._selection.length === this._items.length}"

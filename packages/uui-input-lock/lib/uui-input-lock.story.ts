@@ -5,6 +5,9 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 import '@umbraco-ui/uui-button/lib/';
 
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
+
 /**
  * uui-input-lock extends uui-input. See [uui-input](/docs/uui-input--docs) for more details.
  */
@@ -28,3 +31,10 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+
+export const LockedWidth: Story = {
+  render: args =>
+    html`<uui-input-lock
+      ${spread(args)}
+      style="max-width:240px;"></uui-input-lock>`,
+};
