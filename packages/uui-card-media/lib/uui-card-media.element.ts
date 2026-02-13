@@ -158,7 +158,6 @@ export class UUICardMediaElement extends UUICardElement {
 
       slot:not([name])::slotted(*) {
         align-self: center;
-        border-radius: var(--uui-border-radius-2);
         object-fit: cover;
         width: 100%;
         height: 100%;

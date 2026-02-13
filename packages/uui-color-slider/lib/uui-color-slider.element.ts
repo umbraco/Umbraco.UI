@@ -415,7 +415,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       }
 
       #current-hue {
-        border-radius: 3px;
+        border-radius: var(--uui-border-radius);
         position: absolute;
         inset: 0 0 0 0;
       }
