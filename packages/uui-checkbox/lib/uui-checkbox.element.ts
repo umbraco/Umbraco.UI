@@ -106,7 +106,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         vertical-align: middle;
         width: 1em;
         height: 1em;
-        line-height: 0;
+        line-height: 1.3em;
         transition:
           transform 80ms ease-in-out,
           fill 120ms,
