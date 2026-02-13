@@ -50,9 +50,9 @@
   --uui-size-layout-6: 138px; /*--uui-size-46*/
 
   /** Other size props: */
-  --uui-border-radius: var(--uui-size-2);
+  --uui-border-radius: var(--uui-size-3);
   --uui-border-radius-1: var(--uui-size-2);
-  --uui-border-radius-2: var(--uui-size-4);
+  --uui-border-radius-2: var(--uui-size-3);
   --uui-border-radius-3: var(--uui-size-5);
 
   /** Typography */

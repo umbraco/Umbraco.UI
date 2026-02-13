@@ -54,7 +54,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         height: var(--uui-checkbox-size);
         border-radius: var(
           --uui-checkbox-border-radius,
-          var(--uui-border-radius)
+          var(--uui-border-radius-1)
         );
 
         color: var(--uui-toggle-color, var(--uui-color-selected-contrast));
@@ -123,7 +123,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         bottom: 0;
         right: 0;
         border-radius: calc(
-          var(--uui-checkbox-border-radius, var(--uui-border-radius)) * 0.5
+          var(--uui-checkbox-border-radius, var(--uui-border-radius-1))
         );
         background-color: var(--uui-color-selected);
         transition:
