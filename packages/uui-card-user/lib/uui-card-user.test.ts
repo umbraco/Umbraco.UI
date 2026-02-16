@@ -20,6 +20,10 @@ describe('UUICardUserElement', () => {
     element = await fixture(html`
       <uui-card-user name="John Rabbit"></uui-card-user>
     `);
+
+    // Wait for nested uui-avatar to fully render (avoids WebKit timeout on slow CI)
+    const avatar = element.shadowRoot!.querySelector('uui-avatar');
+    if (avatar) await avatar.updateComplete;
   });
 
   it('passes the a11y audit', async () => {

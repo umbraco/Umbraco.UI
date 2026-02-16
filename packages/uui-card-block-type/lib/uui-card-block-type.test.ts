@@ -21,7 +21,9 @@ describe('UUICardBlockTypeElement', () => {
     `);
   });
 
-  it('passes the a11y audit', async () => {
+  // Increase timeout for a11y audit which can be slow on WebKit CI
+  it('passes the a11y audit', async function () {
+    this.timeout(4000);
     await expect(element).shadowDom.to.be.accessible();
   });
 

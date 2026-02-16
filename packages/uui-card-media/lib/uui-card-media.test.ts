@@ -18,6 +18,10 @@ describe('UUICardMediaElement', () => {
     element = await fixture(html`
       <uui-card-media name="Media item"></uui-card-media>
     `);
+
+    // Wait for nested uui-symbol-folder to fully render (avoids WebKit timeout on slow CI)
+    const symbol = element.shadowRoot!.querySelector('uui-symbol-folder');
+    if (symbol) await symbol.updateComplete;
   });
 
   it('is defined with its own instance', () => {
