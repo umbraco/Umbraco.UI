@@ -158,6 +158,13 @@ describe('UuiInputElement', () => {
     input.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
   });
+
+  describe('text overflow', () => {
+    it('has text-overflow ellipsis applied to input element', () => {
+      const computedStyle = window.getComputedStyle(input);
+      expect(computedStyle.textOverflow).to.equal('ellipsis');
+    });
+  });
 });
 
 describe('UuiInput with native label element', () => {

@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+### Bug Fixes
+
+- Fix radiobutton keyboard accessibility ([#1263](https://github.com/umbraco/Umbraco/issues/1263)) ([1c2424c](https://github.com/umbraco/Umbraco/commit/1c2424c51a0178bf725c02247e7f8c536fd97861))
+- **uui-avatar:** Fix initials in avatar when name contains parentheses or emojis ([#1259](https://github.com/umbraco/Umbraco/issues/1259)) ([49bd73e](https://github.com/umbraco/Umbraco/commit/49bd73ecdf4d66fda84d2b33b656d441ede3fbdf))
+- **uui-combobox:** Fix keyboard selection in async combobox and add initial story data ([#1261](https://github.com/umbraco/Umbraco/issues/1261)) ([168d87d](https://github.com/umbraco/Umbraco/commit/168d87db4e9cc326a556b1e3d8550964bc9a8084))
+- **uui-input:** add text overflow ([#1256](https://github.com/umbraco/Umbraco/issues/1256)) ([280ce45](https://github.com/umbraco/Umbraco/commit/280ce450c6c76be8dd8ff3472112f3e3a59aad3b))
+- **uui-textarea:** auto-height not recalculating on programmatic value changes ([#1262](https://github.com/umbraco/Umbraco/issues/1262)) ([6f15e5c](https://github.com/umbraco/Umbraco/commit/6f15e5c3d10624e7bda166fb997b8ed5ab2b053b))
+
+### Features
+
+- Add file rejection events and reduce cognitive complexity ([#1258](https://github.com/umbraco/Umbraco/issues/1258)) ([74e74fc](https://github.com/umbraco/Umbraco/commit/74e74fc4b1e393c5bbf70c8b6aa6a73e69d5e3b1))
+
+# [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.3](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.2...v1.17.0-rc.3) (2026-01-27)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.2](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.1...v1.17.0-rc.2) (2026-01-27)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.1](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.0...v1.17.0-rc.1) (2026-01-26)
+
+**Note:** Version bump only for package uui-monorepo
+
 # [1.17.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.16.0...v1.17.0-rc.0) (2026-01-26)
 
 ### Bug Fixes

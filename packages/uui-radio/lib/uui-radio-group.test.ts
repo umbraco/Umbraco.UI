@@ -202,6 +202,18 @@ describe('UuiRadioGroup in a Form', () => {
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
+
+    it('should submit when pressing enter on an individual radio', async () => {
+      const listener = oneEvent(formElement, 'submit', false);
+      radios[0].dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+      );
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.type).to.equal('submit');
+      expect(event!.target).to.equal(formElement);
+    });
   });
 });
 
@@ -272,5 +284,50 @@ describe('UuiRadioGroup with start value', () => {
     expect(radios[1]).to.have.attribute('checked');
     expect(radios[2]).to.not.have.attribute('checked');
     expect(radios[3]).to.not.have.attribute('checked');
+  });
+});
+
+describe('UUIRadio keyboard accessibility', () => {
+  let radio: UUIRadioElement;
+  beforeEach(async () => {
+    radio = await fixture(html`
+      <uui-radio value="test-value" label="Test Radio"></uui-radio>
+    `);
+  });
+
+  it('should check radio when Space key is pressed', async () => {
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.true;
+  });
+
+  it('should not respond to keyboard when disabled', async () => {
+    radio.disabled = true;
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+  });
+
+  it('should not respond to keyboard when readonly', async () => {
+    radio.readonly = true;
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
+
+    radio.focus();
+    radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    await elementUpdated(radio);
+
+    expect(radio.checked).to.be.false;
   });
 });

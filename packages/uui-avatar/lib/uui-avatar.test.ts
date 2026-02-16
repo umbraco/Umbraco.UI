@@ -73,14 +73,21 @@ describe('UuiAvatar', () => {
       expect(element).shadowDom.to.equal('FL<slot></<slot>');
     });
 
-    it('supports unicode characters', async () => {
+    it('renders only first emoji when name contains only emojis', async () => {
+      // Single emoji should render the emoji
       element.name = '👩‍💻';
       await element.updateComplete;
-      expect(element).shadowDom.to.equal('\ud83d<slot></<slot>');
+      expect(element).shadowDom.to.equal('👩‍💻<slot></<slot>');
 
+      // Multiple emojis should render only the first one to avoid overflow
       element.name = '👩‍💻 👨‍💻';
       await element.updateComplete;
-      expect(element).shadowDom.to.equal('\ud83d\ud83d<slot></<slot>');
+      expect(element).shadowDom.to.equal('👩‍💻<slot></<slot>');
+
+      // Emoji prefix should be skipped when text names are present, using only valid name parts
+      element.name = '🍿 Henrik Christensen (HC)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HC<slot></<slot>');
     });
 
     it('supports non-latin characters', async () => {
@@ -111,6 +118,46 @@ describe('UuiAvatar', () => {
       element.initials = '1234';
       await element.updateComplete;
       expect(element).shadowDom.to.equal('123<slot></<slot>');
+    });
+
+    it('ignores parenthetical suffixes when generating initials', async () => {
+      element.name = 'Henrik Christensen (HC)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HC<slot></<slot>');
+
+      element.name = 'Hans Christian Andersen (HCA)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HA<slot></<slot>');
+
+      element.name = 'H. C. Andersen';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('HA<slot></<slot>');
+    });
+
+    it('ignores role descriptions in parentheses', async () => {
+      element.name = 'John Doe (Admin)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('JD<slot></<slot>');
+
+      element.name = 'Jane Smith (CEO)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('JS<slot></<slot>');
+    });
+
+    it('handles names with only parentheses content', async () => {
+      element.name = '(Test)';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('<slot></<slot>');
+    });
+
+    it('handles names with brackets and other special characters', async () => {
+      element.name = 'John [Admin] Doe';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('JD<slot></<slot>');
+
+      element.name = 'Alice @Company';
+      await element.updateComplete;
+      expect(element).shadowDom.to.equal('A<slot></<slot>');
     });
   });
 
