@@ -3,8 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib';
 import type { UUIPopoverContainerElement } from '@umbraco-ui/uui-popover-container/lib';
 import { css, html, LitElement } from 'lit';
-import { property, query, queryAssignedElements } from 'lit/decorators.js';
-import { repeat } from 'lit/directives/repeat.js';
+import { property, query, state } from 'lit/decorators.js';
 
 import '@umbraco-ui/uui-button/lib';
 import '@umbraco-ui/uui-popover-container/lib';
@@ -39,18 +38,15 @@ export class UUIResponsiveContainerElement extends LitElement {
   @property({ type: String, reflect: true })
   collapse: 'start' | 'end' = 'end';
 
-  // This gets all elements put inside the slot
-  @queryAssignedElements({ flatten: true })
-  private _slottedNodes?: HTMLElement[];
-
-  // These store the component's internal state
-  #childElements: HTMLElement[] = []; // All child elements
-  #hiddenElements: HTMLElement[] = []; // Elements in the dropdown
-  #hiddenElementsMap: Map<HTMLElement, HTMLElement> = new Map();
+  protected _childElements: HTMLElement[] = []; // All child elements
   #visibilityBreakpoints: number[] = []; // Width thresholds for each item
+
+  @state()
+  protected _visibleCount = 0;
 
   // ResizeObserver watches for size changes
   #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
+  #mutationObserver = new MutationObserver(this.#onChildrenChange.bind(this));
   #childResizeObservers: ResizeObserver[] = [];
   #breakPointCalculationInProgress = false;
 
@@ -66,7 +62,8 @@ export class UUIResponsiveContainerElement extends LitElement {
     super.disconnectedCallback();
     this.#isConnected = false;
     this.#resizeObserver.disconnect();
-    this.#cleanup();
+    this.#mutationObserver.disconnect();
+    this._cleanup();
   }
 
   async #initialize() {
@@ -78,9 +75,16 @@ export class UUIResponsiveContainerElement extends LitElement {
     await this.updateComplete;
     this.#resizeObserver.observe(this._mainElement);
 
-    requestAnimationFrame(() => {
-      this.#onSlotChange();
+    this.#mutationObserver.observe(this, {
+      childList: true,
+      subtree: false,
     });
+
+    this._scanChildren();
+  }
+
+  #onChildrenChange() {
+    this._scanChildren();
   }
 
   // This runs when the container size changes
@@ -89,35 +93,60 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.#updateCollapsibleItems(newWidth);
   }
 
-  // This runs when children are added/removed
-  #onSlotChange() {
+  protected _scanChildren() {
     if (!this.#isConnected) return;
 
-    this.#cleanup();
-    this.#childElements = this._slottedNodes ? [...this._slottedNodes] : [];
+    this._cleanup();
 
-    this.#childElements.forEach(el => {
+    // Get all direct children that are HTML elements, excluding reserved slots
+    const children = this._filterChildren();
+
+    // Assign each child a named slot: item-0, item-1, item-2...
+    children.forEach((child, index) => {
+      child.setAttribute('slot', `item-${index}`);
+    });
+
+    this._childElements = children;
+
+    // Set up resize observers for each child
+    children.forEach(child => {
+      this._onChildSetup(child);
+
       const observer = new ResizeObserver(
         this.#calculateBreakPoints.bind(this),
       );
-      observer.observe(el);
+      observer.observe(child);
       this.#childResizeObservers.push(observer);
     });
 
     this.#calculateBreakPoints();
   }
 
-  #cleanup() {
+  /**
+   * Returns the children that should be managed.
+   * Override in subclasses to filter for specific element types.
+   */
+  protected _filterChildren(): HTMLElement[] {
+    return Array.from(this.children).filter(
+      (child): child is HTMLElement =>
+        child instanceof HTMLElement &&
+        child.getAttribute('slot') !== 'trigger-content',
+    );
+  }
+
+  /**
+   * Called for each child during scanning.
+   * Override in subclasses to add per-child setup like event listeners.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected _onChildSetup(_child: HTMLElement): void {
+    // Base does nothing. Subclasses can override.
+  }
+
+  protected _cleanup() {
     this.#childResizeObservers.forEach(observer => observer.disconnect());
     this.#childResizeObservers = [];
     this.#visibilityBreakpoints = [];
-
-    // Clean up hidden elements
-    this.#hiddenElements.forEach(el => {
-      el.removeEventListener('click', this.#onItemClicked);
-    });
-    this.#hiddenElements = [];
-    this.#hiddenElementsMap.clear();
   }
 
   // Calculate at what widths items should hide
@@ -126,6 +155,8 @@ export class UUIResponsiveContainerElement extends LitElement {
 
     this.#breakPointCalculationInProgress = true;
 
+    // Show all items so we can measure them
+    this._visibleCount = this._childElements.length;
     await this.updateComplete;
 
     // Get the gap from CSS or use default
@@ -135,11 +166,11 @@ export class UUIResponsiveContainerElement extends LitElement {
     const gap = Number.isNaN(gapCSSVar) ? 8 : gapCSSVar;
 
     let totalWidth = 0;
+    this.#visibilityBreakpoints = [];
 
     // Calculate cumulative width for each item
-    for (let i = 0; i < this.#childElements.length; i++) {
-      this.#childElements[i].style.display = '';
-      totalWidth += this.#childElements[i].offsetWidth;
+    for (let i = 0; i < this._childElements.length; i++) {
+      totalWidth += this._childElements[i].offsetWidth;
       this.#visibilityBreakpoints[i] = totalWidth;
       totalWidth += gap;
     }
@@ -156,106 +187,85 @@ export class UUIResponsiveContainerElement extends LitElement {
   #updateCollapsibleItems(containerWidth: number) {
     const moreButtonWidth = this._moreButtonElement?.offsetWidth || 40;
     const availableWidth = containerWidth - moreButtonWidth;
-
-    // Clear previous hidden items
-    this.#hiddenElements.forEach(el => {
-      el.removeEventListener('click', this.#onItemClicked);
-    });
-    this.#hiddenElements = [];
-    this.#hiddenElementsMap.clear();
-
     const len = this.#visibilityBreakpoints.length;
 
+    let visibleCount = 0;
+
     if (this.collapse === 'end') {
-      // Collapse from the END (right side) - current behavior
+      // Collapse from the END: first N items visible, rest in dropdown
       for (let i = 0; i < len; i++) {
         const breakpoint = this.#visibilityBreakpoints[i];
-        const element = this.#childElements[i];
-
         // Last item: use full width (no more button needed if all fit)
-        const widthToCheck = i === len - 1 ? containerWidth : availableWidth;
+        const isLast = i === len - 1;
+        const widthToCheck = isLast ? containerWidth : availableWidth;
 
         if (breakpoint <= widthToCheck) {
-          element.style.display = '';
+          visibleCount = i + 1;
         } else {
-          element.style.display = 'none';
-          const clone = element.cloneNode(true) as HTMLElement;
-          clone.style.display = '';
-          clone.addEventListener('click', this.#onItemClicked);
-
-          // Link clone ↔ original (bidirectional)
-          this.#hiddenElementsMap.set(clone, element);
-          this.#hiddenElementsMap.set(element, clone);
-
-          this.#hiddenElements.push(clone);
+          break;
         }
       }
     } else {
-      // Collapse from the START (left side)
-      // Calculate total width of all items
+      // Collapse from the START: last N items visible, first ones in dropdown
       const totalWidth = this.#visibilityBreakpoints[len - 1] || 0;
 
-      for (let i = 0; i < len; i++) {
-        const element = this.#childElements[i];
-        // Width from this item to the end
+      for (let i = len - 1; i >= 0; i--) {
         const widthFromEnd =
           totalWidth - (i > 0 ? this.#visibilityBreakpoints[i - 1] : 0);
-
         // First visible item: use full width (no more button needed if all fit)
-        const isFirstPotentiallyVisible =
-          i === 0 || this.#childElements[i - 1].style.display === 'none';
-        const widthToCheck =
-          isFirstPotentiallyVisible && this.#hiddenElements.length === 0
-            ? containerWidth
-            : availableWidth;
+        const isAll = i === 0;
+        const widthToCheck = isAll ? containerWidth : availableWidth;
 
         if (widthFromEnd <= widthToCheck) {
-          element.style.display = '';
+          visibleCount = len - i;
         } else {
-          element.style.display = 'none';
-          const clone = element.cloneNode(true) as HTMLElement;
-          clone.style.display = '';
-          clone.addEventListener('click', this.#onItemClicked);
-
-          // Link clone ↔ original (bidirectional)
-          this.#hiddenElementsMap.set(clone, element);
-          this.#hiddenElementsMap.set(element, clone);
-          this.#hiddenElements.push(clone);
+          break;
         }
       }
     }
 
-    // Show/hide the "more" button
-    if (this.#hiddenElements.length === 0) {
-      this._moreButtonElement.style.display = 'none';
-      this._popoverContainerElement?.hidePopover();
-    } else {
-      this._moreButtonElement.style.display = '';
-    }
+    this._visibleCount = visibleCount;
 
-    this.requestUpdate();
+    // Hide popover if all items are visible
+    if (visibleCount === len) {
+      this._popoverContainerElement?.hidePopover();
+    }
   }
 
-  #onItemClicked = (e: MouseEvent) => {
-    const clickedElement = e.currentTarget as HTMLElement;
-
-    // Find the original element linked to this clone
-    const originalElement = this.#hiddenElementsMap.get(clickedElement);
-
-    if (originalElement) {
-      // Close the dropdown
-      this._popoverContainerElement?.hidePopover();
-
-      // Trigger click on the ORIGINAL element so its event handlers fire
-      originalElement.click();
-    }
-  };
-
   render() {
+    let visibleSlots;
+    let dropdownSlots;
+
+    if (this.collapse === 'end') {
+      // First _visibleCount items are visible, rest go to dropdown
+      visibleSlots = this._childElements
+        .slice(0, this._visibleCount)
+        .map((_, i) => html`<slot name="item-${i}"></slot>`);
+
+      dropdownSlots = this._childElements
+        .slice(this._visibleCount)
+        .map(
+          (_, i) => html`<slot name="item-${this._visibleCount + i}"></slot>`,
+        );
+    } else {
+      // Last _visibleCount items are visible, first ones go to dropdown
+      const hiddenCount = this._childElements.length - this._visibleCount;
+
+      dropdownSlots = this._childElements
+        .slice(0, hiddenCount)
+        .map((_, i) => html`<slot name="item-${i}"></slot>`);
+
+      visibleSlots = this._childElements
+        .slice(hiddenCount)
+        .map((_, i) => html`<slot name="item-${hiddenCount + i}"></slot>`);
+    }
+
+    const showMoreButton = dropdownSlots.length > 0;
+
     const moreButton = html`
       <uui-button
         popovertarget="popover-container"
-        style="display: none"
+        style=${showMoreButton ? '' : 'display: none'}
         id="more-button"
         label="More"
         compact>
@@ -268,18 +278,14 @@ export class UUIResponsiveContainerElement extends LitElement {
     return html`
       <div id="main">
         ${this.collapse === 'start' ? moreButton : ''}
-        <div id="items-container">
-          <slot @slotchange=${this.#onSlotChange}></slot>
-        </div>
+        <div id="items-container">${visibleSlots}</div>
         ${this.collapse === 'end' ? moreButton : ''}
       </div>
       <uui-popover-container
         id="popover-container"
         popover
         placement=${this.collapse === 'start' ? 'bottom-start' : 'bottom-end'}>
-        <div id="dropdown-container">
-          ${repeat(this.#hiddenElements, el => html`${el}`)}
-        </div>
+        <div id="dropdown-container">${dropdownSlots}</div>
       </uui-popover-container>
     `;
   }
@@ -328,6 +334,10 @@ export class UUIResponsiveContainerElement extends LitElement {
         overflow: hidden;
         padding: var(--uui-size-space-2);
         gap: var(--uui-size-space-1);
+      }
+
+      #dropdown-container ::slotted(*) {
+        width: 100%;
       }
     `,
   ];
