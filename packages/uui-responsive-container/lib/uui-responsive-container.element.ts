@@ -76,15 +76,18 @@ export class UUIResponsiveContainerElement extends LitElement {
     demandCustomElement(this, 'uui-symbol-more');
 
     await this.updateComplete;
+    if (!this.#isConnected) return;
     this.#resizeObserver.observe(this._mainElement);
 
     requestAnimationFrame(() => {
+      if (!this.#isConnected) return;
       this.#onSlotChange();
     });
   }
 
   // This runs when the container size changes
   #onResize(entries: ResizeObserverEntry[]) {
+    if (!this.#isConnected) return;
     const newWidth = entries[0].contentBoxSize[0].inlineSize;
     this.#updateCollapsibleItems(newWidth);
   }
@@ -122,6 +125,7 @@ export class UUIResponsiveContainerElement extends LitElement {
 
   // Calculate at what widths items should hide
   async #calculateBreakPoints() {
+    if (!this.#isConnected) return;
     if (this.#breakPointCalculationInProgress) return;
 
     this.#breakPointCalculationInProgress = true;

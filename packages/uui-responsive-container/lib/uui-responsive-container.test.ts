@@ -1,5 +1,4 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import '.';
 import { UUIResponsiveContainerElement } from './uui-responsive-container.element';
 
 describe('UuiResponsiveContainer', () => {
@@ -12,6 +11,10 @@ describe('UuiResponsiveContainer', () => {
         <button>Button 2</button>
       </uui-responsive-container>
     `);
+  });
+
+  afterEach(() => {
+    element?.remove();
   });
 
   it('is defined', () => {
