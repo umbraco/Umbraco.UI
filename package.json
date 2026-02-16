@@ -30,7 +30,7 @@
     "test:coverage": "web-test-runner --node-resolve --coverage",
     "test:coverage-for": "node ./scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
-    "build": "lerna run --scope @umbraco-ui/uui-css build && turbo run build",
+    "build": "turbo run build",
     "build:prod": "npm run clean && npm run build",
     "clean": "turbo run clean --parallel",
     "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes --pre-dist-tag prerelease",
@@ -38,7 +38,7 @@
     "lerna:version:rc": "npm run lerna:version -- --conventional-prerelease",
     "lerna:changelog": "npx lerna-changelog",
     "lerna:modify-package": "lerna exec -- node ../../scripts/modify-pkgjson.mjs",
-    "bootstrap": "lerna run --scope @umbraco-ui/uui-css clean && lerna run --scope @umbraco-ui/uui-css build && node ./scripts/generate-ts-config.js",
+    "test:scripts": "node --test scripts/**/*.test.mjs",
     "check-updates": "npx ncu && npx lerna exec --no-bail -- npx ncu",
     "prepare": "husky",
     "new-package": "plop && npm i",
@@ -46,10 +46,10 @@
     "pack-all-no-build": "node ./scripts/pack-packages.js",
     "pack": "node ./scripts/pack-package.js",
     "chromatic": "npx chromatic --build-script-name storybook:build",
-    "storybook": "npm run bootstrap && npm run storybook:analyze && storybook dev -p 6006",
+    "storybook": "npm run storybook:analyze && storybook dev -p 6006",
     "storybook:build": "npm run storybook:analyze && storybook build",
     "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
-    "postinstall": "npm run bootstrap"
+    "postinstall": "node ./scripts/generate-ts-config.js"
   },
   "engines": {
     "node": ">=22",
