@@ -120,8 +120,12 @@ export class UUIBoxElement extends LitElement {
     css`
       :host {
         display: block;
-        border: 1px solid
-          var(--uui-box-border-color, var(--uui-color-divider-standalone));
+        border-width: var(--uui-box-border-width, 1px);
+        border-style: solid;
+        border-color: var(
+          --uui-box-border-color,
+          var(--uui-color-divider-standalone)
+        );
         border-radius: var(--uui-box-border-radius, var(--uui-border-radius-3));
         background-color: var(--uui-color-surface);
       }
