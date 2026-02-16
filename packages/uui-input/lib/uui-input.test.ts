@@ -324,6 +324,7 @@ describe('UuiInput in Form', () => {
   describe('native validation', () => {
     describe('email', () => {
       beforeEach(async () => {
+        element.value = '';
         element.setAttribute('type', 'email');
         await elementUpdated(element);
       });
@@ -347,6 +348,7 @@ describe('UuiInput in Form', () => {
 
     describe('url', () => {
       beforeEach(async () => {
+        element.value = '';
         element.setAttribute('type', 'url');
         await elementUpdated(element);
       });
