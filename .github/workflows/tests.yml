@@ -36,7 +36,8 @@ jobs:
       - run: npm run lint
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
-      - run: npm run test
+      - run: npm test
+      - run: npm run test:scripts
 
   build:
     runs-on: ubuntu-latest
