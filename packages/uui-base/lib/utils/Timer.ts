@@ -5,7 +5,7 @@ export class Timer {
   private _remaining: number | null = null;
 
   constructor(
-    private _callback: Function,
+    private _callback: (...args: unknown[]) => void,
     duration: number,
   ) {
     this.setDuration(duration);
