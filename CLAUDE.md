@@ -75,7 +75,10 @@ Every component depends on `@umbraco-ui/uui-base`. Some depend on sibling compon
 ### Versioning & publishing
 
 - All packages share a **single version number** (lockstep via `forcePublish: true` in `lerna.json`). A release bumps all ~90 packages together.
-- Conventional commits drive changelog generation.
+- **Conventional commits are required** — Lerna uses them to generate changelogs. Format: `type(scope): description`
+  - Types: `feat`, `fix`, `build`, `docs`, `test`, `refactor`, `chore`
+  - Scope: package name without `uui-` prefix when targeting a specific component (e.g. `fix(combobox): ...`)
+  - `feat` triggers a minor version bump, `fix` triggers a patch bump
 - Publishing happens from CI on `v*` tags via `lerna publish from-package`.
 
 ### Local testing with the backoffice
