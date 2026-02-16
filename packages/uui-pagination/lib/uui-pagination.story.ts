@@ -4,6 +4,9 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
+import '@umbraco-ui/uui-button/lib/';
+import '@umbraco-ui/uui-button-group/lib/';
+
 const meta: Meta = {
   id: 'uui-pagination',
   component: 'uui-pagination',

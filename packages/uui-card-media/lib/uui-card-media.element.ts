@@ -158,7 +158,6 @@ export class UUICardMediaElement extends UUICardElement {
 
       slot:not([name])::slotted(*) {
         align-self: center;
-        border-radius: var(--uui-border-radius);
         object-fit: cover;
         width: 100%;
         height: 100%;
@@ -169,6 +168,7 @@ export class UUICardMediaElement extends UUICardElement {
         position: absolute;
         z-index: 1;
         inset: 0;
+        margin-bottom: 0;
         color: var(--uui-color-interactive);
         border: none;
         cursor: pointer;
@@ -220,7 +220,7 @@ export class UUICardMediaElement extends UUICardElement {
         inset: 0;
         z-index: -1;
         border-top: 1px solid var(--uui-color-divider);
-        border-radius: 0 0 var(--uui-border-radius) var(--uui-border-radius);
+        border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
         background-color: var(--uui-color-surface);
         pointer-events: none;
         opacity: 0.96;

@@ -28,7 +28,7 @@ export class UUIDialogElement extends LitElement {
         box-shadow: var(--uui-shadow-depth-5);
         border-radius: var(
           --uui-dialog-border-radius,
-          calc(var(--uui-border-radius) * 2)
+          var(--uui-border-radius-3)
         );
       }
     `,

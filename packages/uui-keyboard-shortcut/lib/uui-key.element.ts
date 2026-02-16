@@ -20,7 +20,7 @@ export class UUIKeyElement extends LitElement {
         font-family: inherit;
         font-size: var(--uui-type-small-size);
         color: var(--uui-color-text);
-        border-radius: 5px;
+        border-radius: var(--uui-border-radius);
         margin: 0px 5px;
         padding: 5px 7px;
         box-sizing: border-box;

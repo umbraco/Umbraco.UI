@@ -143,8 +143,7 @@ export class UUIAvatarElement extends LitElement {
         user-select: none;
         /* box-sizing: border-box; */
         aspect-ratio: 1;
-        background-color: var(--uui-palette-spanish-pink);
-        color: var(--uui-palette-space-cadet);
+        box-shadow: 0 0 0 1.5px var(--uui-color-border);
       }
 
       :host([overflow]) {

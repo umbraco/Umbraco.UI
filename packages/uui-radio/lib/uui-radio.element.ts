@@ -192,6 +192,7 @@ export class UUIRadioElement extends LitElement {
         margin-right: calc(var(--uui-size-2) * 2);
         position: relative;
         flex: 0 0 var(--uui-radio-button-size);
+        transition: border-color 120ms;
       }
 
       #button::after {
@@ -199,16 +200,20 @@ export class UUIRadioElement extends LitElement {
         width: calc(var(--uui-radio-button-size) / 2);
         height: calc(var(--uui-radio-button-size) / 2);
         background-color: var(--uui-color-selected);
+        opacity: 0.5;
         border-radius: 100%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
-        transition: all 0.15s ease-in-out;
+        transition:
+          transform 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 120ms,
+          background-color 120ms;
       }
 
-      :host(:hover) #button {
-        border: 1px solid var(--uui-color-border-emphasis);
+      :host(:not([disabled]):not([readonly]):hover) #button {
+        border-color: var(--uui-color-border-emphasis);
       }
 
       :host(:focus) {
@@ -218,20 +223,30 @@ export class UUIRadioElement extends LitElement {
         outline: 2px solid var(--uui-color-focus);
       }
 
-      input:checked ~ #button::after {
+      :host(:not([disabled]):not([readonly]):hover) input ~ #button::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.2;
+      }
+      :host(:not([disabled]):not([readonly]):active) input ~ #button::after {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+      input:checked ~ #button::after,
+      :host(:not([disabled]):not([readonly]):hover)
+        input:checked
+        ~ #button::after {
         transform: translate(-50%, -50%) scale(1);
       }
 
       input:checked ~ #button {
-        border: 1px solid var(--uui-color-selected);
+        border-color: var(--uui-color-selected);
+      }
+      input:checked ~ #button::after {
+        opacity: 1 !important;
       }
 
-      input:checked:hover ~ #button {
-        border: 1px solid var(--uui-color-selected-emphasis);
-      }
-
-      input:checked:hover ~ #button::after {
-        background-color: var(--uui-color-selected-emphasis);
+      :host(:not([disabled]):not([readonly]):hover) input:checked ~ #button {
+        border-color: var(--uui-color-selected-emphasis);
       }
 
       :host([disabled]) label {
@@ -243,11 +258,11 @@ export class UUIRadioElement extends LitElement {
       }
 
       :host([disabled]) input ~ #button {
-        border: 1px solid var(--uui-color-disabled-contrast);
+        border-color: var(--uui-color-disabled-contrast);
       }
 
       :host([disabled]) input:checked ~ #button {
-        border: 1px solid var(--uui-color-disabled-contrast);
+        border-color: var(--uui-color-disabled-contrast);
       }
 
       :host([disabled]) input:checked ~ #button::after {

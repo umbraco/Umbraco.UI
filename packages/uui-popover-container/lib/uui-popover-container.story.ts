@@ -10,9 +10,7 @@ const meta: Meta<UUIPopoverContainerElement> = {
   component: 'uui-popover-container',
   title: 'Displays/Popover Container',
   argTypes: {
-    open: {
-      control: false,
-    },
+    open: { control: false },
     placement: {
       options: [
         'auto',
@@ -31,11 +29,7 @@ const meta: Meta<UUIPopoverContainerElement> = {
       ],
     },
   },
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -50,10 +44,7 @@ export const Overview: Story = {
       inline: 'center',
     });
   },
-  args: {
-    placement: 'bottom-start',
-    margin: 0,
-  },
+  args: { placement: 'bottom-start', margin: 0 },
   render: args => html`
     <uui-button
       id="popover-button"
@@ -69,7 +60,7 @@ export const Overview: Story = {
       placement=${args.placement}
       margin=${args.margin}>
       <div
-        style="background-color: var(--uui-color-surface); max-width: 400px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-6); border-radius: var(--uui-border-radius);">
+        style="background-color: var(--uui-color-surface); max-width: 400px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-6); border-radius: var(--uui-border-radius-3);">
         <h3>This is my popover</h3>
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem,
@@ -90,7 +81,7 @@ export const Overview: Story = {
           placement=${args.placement}
           margin=${args.margin}>
           <div
-            style="background-color: var(--uui-color-surface); max-width: 400px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-6); border-radius: var(--uui-border-radius);">
+            style="background-color: var(--uui-color-surface); max-width: 400px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-6); border-radius: var(--uui-border-radius-3);">
             <h3>This is my second popover</h3>
             <p style="margin-bottom: 0;">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -115,10 +106,7 @@ export const Tooltip: Story = {
     tooltipElement?.addEventListener('mouseenter', () => popover.showPopover());
     tooltipElement?.addEventListener('mouseleave', () => popover.hidePopover());
   },
-  args: {
-    placement: 'bottom-start',
-    margin: 0,
-  },
+  args: { placement: 'bottom-start', margin: 0 },
   render: args => html`
     Sometimes words such as
     <b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b> needs
@@ -129,7 +117,7 @@ export const Tooltip: Story = {
       placement=${args.placement}
       margin=${args.margin}>
       <div
-        style="background-color: var(--uui-color-surface); max-width: 150px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
+        style="background-color: var(--uui-color-surface); max-width: 150px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius-3); font-size: 0.9rem;">
         A pleasant smell that frequently accompanies the first rain after a long
         period of warm, dry weather.
       </div>
@@ -138,10 +126,7 @@ export const Tooltip: Story = {
 };
 
 export const InsideScrollContainer: Story = {
-  args: {
-    placement: 'bottom-start',
-    margin: 0,
-  },
+  args: { placement: 'bottom-start', margin: 0 },
   render: args => html`
     <div style="height: 500px; overflow: auto; outline: 1px solid black">
       <div
@@ -165,7 +150,7 @@ export const InsideScrollContainer: Story = {
       placement=${args.placement}
       margin=${args.margin}>
       <div
-        style="width: 100%; background-color: var(--uui-color-surface); max-width: 200px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
+        style="width: 100%; background-color: var(--uui-color-surface); max-width: 200px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius-3); font-size: 0.9rem;">
         <h3>Scroll!</h3>
         Scrolling in any of the 2 boxes should trigger an update
       </div>
@@ -174,10 +159,7 @@ export const InsideScrollContainer: Story = {
 };
 
 export const InsideShadowDOMScrollContainer: Story = {
-  args: {
-    placement: 'bottom-start',
-    margin: 0,
-  },
+  args: { placement: 'bottom-start', margin: 0 },
   render: () => html`
     <div style="height: 500px; overflow: auto; outline: 1px solid black">
       <div

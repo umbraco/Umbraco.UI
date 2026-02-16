@@ -4,11 +4,11 @@ import {
 } from '@umbraco-ui/uui-base/lib/animations';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input/lib';
-import {
-  iconCheck,
-  iconSubtract,
-} from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
-import { css, html } from 'lit';
+import { css, html, svg } from 'lit';
+
+// Custom SVG for the checkbox, as this is smaller in size than the icon registry version: [NL]
+const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 10 17 4 12" /></svg>`;
+const subtract = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.25h14" /></svg>`;
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck
@@ -28,9 +28,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="ticker">
-        <div id="icon-check">
-          ${this.indeterminate ? iconSubtract : iconCheck}
-        </div>
+        <div id="icon-check">${this.indeterminate ? subtract : check}</div>
       </div>
     `;
   }
@@ -56,7 +54,7 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         height: var(--uui-checkbox-size);
         border-radius: var(
           --uui-checkbox-border-radius,
-          var(--uui-border-radius)
+          var(--uui-border-radius-1)
         );
 
         color: var(--uui-toggle-color, var(--uui-color-selected-contrast));
@@ -108,8 +106,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         vertical-align: middle;
         width: 1em;
         height: 1em;
-        line-height: 0;
+        line-height: 1.3em;
         transition:
+          transform 80ms ease-in-out,
           fill 120ms,
           opacity 120ms;
         color: var(--uui-color-selected-contrast);
@@ -124,13 +123,13 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         bottom: 0;
         right: 0;
         border-radius: calc(
-          var(--uui-checkbox-border-radius, var(--uui-border-radius)) * 0.5
+          var(--uui-checkbox-border-radius, var(--uui-border-radius-1))
         );
         background-color: var(--uui-color-selected);
         transition:
-          transform 120ms ease,
-          opacity 120ms,
-          background-color 120ms;
+          transform 80ms ease-in-out,
+          opacity 80ms,
+          background-color 80ms;
         transform: scale(0);
         opacity: 0;
       }
@@ -161,7 +160,8 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host(:not([disabled], [readonly]))
         label:active
         input:checked
-        + #ticker::before {
+        + #ticker
+        #icon-check {
         /** Stretch when mouse down */
         transform: scale(0.9);
       }
@@ -169,7 +169,8 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       :host(:not([disabled], [readonly]))
         label:active
         input:indeterminate
-        + #ticker::before {
+        + #ticker
+        #icon-check {
         /** Stretch when mouse down */
         transform: scale(0.9);
       }
