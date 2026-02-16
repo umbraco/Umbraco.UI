@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import * as postcss from 'postcss';
-import { parse } from 'postcss-values-parser';
 
 async function getCustomPropertiesFromCSSFile(from) {
   const css = await readFile(from); // eslint-disable-next-line no-unused-vars
@@ -22,7 +21,7 @@ function getCustomPropertiesFromObject(object) {
   );
 
   for (const key in customProperties) {
-    customProperties[key] = parse(String(customProperties[key])).nodes;
+    customProperties[key] = String(customProperties[key]);
   }
 
   return customProperties;
