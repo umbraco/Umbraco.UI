@@ -25,7 +25,7 @@
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" \"**/*.mjs\"  --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint",
     "format": "npm run format:eslint",
-    "test": "web-test-runner --coverage",
+    "test": "turbo run build --filter=@umbraco-ui/uui-css && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "test:coverage": "web-test-runner --node-resolve --coverage",
     "test:coverage-for": "node ./scripts/test-coverage-package.js",
