@@ -38,6 +38,12 @@ jobs:
         run: npx playwright install --with-deps
       - run: npm test
       - run: npm run test:scripts
+      - name: Check for uncommitted changes
+        run: |
+          git diff --name-only --exit-code || {
+            echo "::error::The files listed above were modified during CI. Run 'npm run build' locally and commit the updated files."
+            exit 1
+          }
 
   build:
     runs-on: ubuntu-latest
