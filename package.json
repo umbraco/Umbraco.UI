@@ -52,7 +52,7 @@
     "postinstall": "node ./scripts/generate-ts-config.js"
   },
   "engines": {
-    "node": ">=22",
+    "node": ">=24.13",
     "npm": ">=11"
   },
   "dependencies": {
