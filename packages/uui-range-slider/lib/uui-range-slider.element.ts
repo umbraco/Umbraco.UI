@@ -757,8 +757,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         right: ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
       }
 
-      :host(:not([disabled]:not([readonly])):hover) #inner-track,
-      :host(:not([disabled]:not([readonly])):active) #inner-track {
+      :host(:not([disabled]):not([readonly]):hover) #inner-track,
+      :host(:not([disabled]):not([readonly]):active) #inner-track {
         background-color: var(--uui-color-border-emphasis);
       }
 
