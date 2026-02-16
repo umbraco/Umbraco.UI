@@ -19,7 +19,13 @@ const browsers = isCI
 export default {
   nodeResolve: true,
   files: 'packages/**/*.test.ts',
-  plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
+  plugins: [
+    esbuildPlugin({
+      ts: true,
+      target: 'auto-always',
+      tsconfig: './tsconfig.json',
+    }),
+  ],
   browsers,
   filterBrowserLogs(log) {
     for (const arg of log.args) {
