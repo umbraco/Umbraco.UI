@@ -1,14 +1,26 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://turborepo.dev/schema.json",
   "globalDependencies": [
     "tsconfig.json",
     "package.json",
     "package-lock.json",
-    "src/rollup-package.config.mjs"
+    "packages/rollup-package.config.mjs",
+    "scripts/processLitCSSPlugin.mjs",
+    "scripts/postcss-custom-properties-fallback/plugin.mjs",
+    "packages/uui-css/custom-properties.module.js"
   ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.css",
+        "!lib/**/*.test.ts",
+        "!lib/**/*.story.ts",
+        "rollup.config.js",
+        "package.json",
+        "tsconfig.json"
+      ],
       "outputs": [
         "lib/**/*.js",
         "lib/**/*.d.ts",
