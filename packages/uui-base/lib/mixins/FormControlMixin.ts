@@ -424,13 +424,16 @@ export const UUIFormControlMixin = <
       this.#validity.valid = !hasError;
 
       // Transfer the new validityState to the ElementInternals. [NL]
-      this._internals.setValidity(
-        this.#validity,
-        // Turn messages into an array and join them with a comma. [NL]:
-        //[...messages].join(', '),
-        message,
-        innerFormControlEl ?? this.getFormElement() ?? undefined,
-      );
+      if (hasError) {
+        this._internals.setValidity(
+          this.#validity,
+          message ?? '',
+          innerFormControlEl ?? this.getFormElement() ?? undefined,
+        );
+      } else {
+        // When clearing validity, the anchor must not be provided per spec.
+        this._internals.setValidity({});
+      }
 
       this.#dispatchValidationState();
     }
