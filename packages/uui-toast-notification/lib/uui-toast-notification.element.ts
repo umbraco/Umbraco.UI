@@ -1,5 +1,5 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
+import { demandCustomElement, UUITimer } from '@umbraco-ui/uui-base/lib/utils';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html, LitElement } from 'lit';
@@ -43,7 +43,7 @@ export class UUIToastNotificationElement extends LitElement {
     this._autoClose = value;
     if (value !== null) {
       if (this._timer === null) {
-        this._timer = new Timer(this._onOpenTimerComplete, value);
+        this._timer = new UUITimer(this._onOpenTimerComplete, value);
       } else {
         this._timer.setDuration(value);
       }
@@ -91,7 +91,7 @@ export class UUIToastNotificationElement extends LitElement {
 
   @query('#toast')
   private _toastEl!: HTMLElement;
-  private _timer: Timer | null = null;
+  private _timer: UUITimer | null = null;
   private _pauseTimer: boolean = false;
 
   protected isOpen = false;
