@@ -27,7 +27,7 @@
     "lib/**/*.js"
   ],
   "peerDependencies": {
-    "lit": ">=2.8.0"
+    "lit": ">=3.0.0"
   },
   "scripts": {
     "build": "tsc --build && rollup -c rollup.config.js",
