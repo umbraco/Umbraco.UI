@@ -48,7 +48,7 @@ export const CacheCustomProperties = async masterCSSPath => {
       }
     }
 
-    let json = JSON.stringify(fileData);
+    let json = JSON.stringify(fileData, null, '\t');
 
     try {
       await fs.writeFile(
