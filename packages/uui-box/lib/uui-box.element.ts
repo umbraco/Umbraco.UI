@@ -20,7 +20,6 @@ function slotHasContent(target: EventTarget | null): boolean {
  *  @slot - area for the content of the box
  *  @cssprop --uui-box-header-padding - overwrite the header padding
  *  @cssprop --uui-box-default-padding - overwrite the box padding
- *  @cssprop --uui-box-box-shadow - overwrite the box shadow, default is var(--uui-shadow-depth-1)
  *  @cssprop --uui-box-border-radius - overwrite the box border-radius, default is var(--uui-border-radius-3)
  *  @cssprop --uui-box-border-color - overwrites the box border colorm default is var(--uui-color-divider-standalone)
  */
