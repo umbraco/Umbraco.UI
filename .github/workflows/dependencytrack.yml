@@ -3,9 +3,8 @@ name: Build and Upload SBOMs to Dependency-Track
 on:
   workflow_dispatch:
   push:
-    branches:
-      - production
-      - release/*
+    tags:
+      - 'v*'
 
 jobs:
   sbom:
