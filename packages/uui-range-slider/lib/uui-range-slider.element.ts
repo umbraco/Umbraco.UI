@@ -896,8 +896,8 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         color: var(--uui-color-disabled-contrast);
       }
 
-      :host(:not([disabled]:not([readonly])):hover) .step-values > span,
-      :host(:not([disabled]:not([readonly])):active) .step-values > span {
+      :host(:not([disabled]):not([readonly]):hover) .step-values > span,
+      :host(:not([disabled]):not([readonly]):active) .step-values > span {
         color: var(--uui-color-border-emphasis);
       }
 
