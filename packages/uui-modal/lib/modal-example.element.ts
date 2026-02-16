@@ -6,7 +6,7 @@ import { UUIModalElement } from './uui-modal.element';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 
 @defineElement('modal-example')
-export class ModalExampleElement extends LitElement {
+export class UUIModalExampleElement extends LitElement {
   @state()
   private _modals: TemplateResult<1>[] = [];
 
@@ -108,6 +108,6 @@ export class ModalExampleElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'modal-example': ModalExampleElement;
+    'modal-example': UUIModalExampleElement;
   }
 }

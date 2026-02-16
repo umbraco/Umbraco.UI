@@ -1,7 +1,10 @@
-import { SelectableMixinInterface } from '../mixins';
+import { UUISelectableMixinInterface } from '../mixins';
 import { UUIEvent } from './UUIEvent';
 
-export class UUISelectableEvent extends UUIEvent<{}, SelectableMixinInterface> {
+export class UUISelectableEvent extends UUIEvent<
+  {},
+  UUISelectableMixinInterface
+> {
   public static readonly SELECTED = 'selected';
   public static readonly DESELECTED = 'deselected';
 

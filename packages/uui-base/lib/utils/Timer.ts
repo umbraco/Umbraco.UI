@@ -1,11 +1,11 @@
-export class Timer {
+export class UUITimer {
   private _timerId: number | null = null;
   private _startTime!: number;
   private _duration!: number;
   private _remaining: number | null = null;
 
   constructor(
-    private _callback: Function,
+    private _callback: (...args: unknown[]) => void,
     duration: number,
   ) {
     this.setDuration(duration);
