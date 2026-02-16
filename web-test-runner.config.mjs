@@ -6,16 +6,21 @@ const silencedLogs = [
   'Multiple versions of Lit loaded.',
 ];
 
+const isCI = process.env.CI === 'true';
+const browsers = isCI
+  ? [
+      playwrightLauncher({ product: 'chromium' }),
+      playwrightLauncher({ product: 'firefox' }),
+      playwrightLauncher({ product: 'webkit' }),
+    ]
+  : [playwrightLauncher({ product: 'chromium' })];
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   nodeResolve: true,
   files: 'packages/**/*.test.ts',
   plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
-  browsers: [
-    playwrightLauncher({ product: 'chromium' }),
-    playwrightLauncher({ product: 'firefox' }),
-    playwrightLauncher({ product: 'webkit' }),
-  ],
+  browsers,
   filterBrowserLogs(log) {
     for (const arg of log.args) {
       if (typeof arg === 'string' && silencedLogs.some(l => arg.includes(l))) {
