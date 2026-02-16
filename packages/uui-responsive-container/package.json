@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-responsive-container",
-  "version": "1.17.0-rc.5",
+  "version": "1.17.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -30,11 +30,11 @@
     "custom-elements.json"
   ],
   "dependencies": {
-    "@umbraco-ui/uui-base": "1.17.0-rc.5",
-    "@umbraco-ui/uui-button": "1.17.0-rc.5",
-    "@umbraco-ui/uui-button-group": "1.17.0-rc.5",
-    "@umbraco-ui/uui-popover-container": "1.17.0-rc.5",
-    "@umbraco-ui/uui-symbol-more": "1.17.0-rc.5"
+    "@umbraco-ui/uui-base": "1.17.0",
+    "@umbraco-ui/uui-button": "1.17.0",
+    "@umbraco-ui/uui-button-group": "1.17.0",
+    "@umbraco-ui/uui-popover-container": "1.17.0",
+    "@umbraco-ui/uui-symbol-more": "1.17.0"
   },
   "scripts": {
     "build": "npm run analyze && tsc --build --force && rollup -c rollup.config.js",
