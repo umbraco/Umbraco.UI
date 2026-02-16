@@ -32,7 +32,7 @@ export default {
   testRunnerHtml: testFramework =>
     `<html>
       <head>
-        <link rel="stylesheet" href="/packages/uui-css/dist/uui-css.css">
+        <link rel="stylesheet" href="/packages/uui-css/lib/uui-css.css">
       </head>
       <body>
         <script type="module" src="${testFramework}"></script>
