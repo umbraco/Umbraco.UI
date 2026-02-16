@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export declare class LabelMixinInterface {
+export declare class UUILabelMixinInterface {
   /**
    * Label to be used for aria-label and potentially as visual label for some components
    * @type {string}
@@ -28,7 +28,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
   /**
    * Label mixin class containing the label functionality.
    */
-  class LabelMixinClass extends superClass {
+  class UUILabelMixinClass extends superClass {
     /**
      * Label to be used for aria-label and potentially as visual label for some components
      * @type {string}
@@ -71,5 +71,6 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
       `;
     }
   }
-  return LabelMixinClass as unknown as Constructor<LabelMixinInterface> & T;
+  return UUILabelMixinClass as unknown as Constructor<UUILabelMixinInterface> &
+    T;
 };

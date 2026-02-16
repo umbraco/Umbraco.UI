@@ -1,4 +1,4 @@
-export class Timer {
+export class UUITimer {
   private _timerId: number | null = null;
   private _startTime!: number;
   private _duration!: number;
