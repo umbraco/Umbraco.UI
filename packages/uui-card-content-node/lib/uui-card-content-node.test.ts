@@ -18,6 +18,11 @@ describe('UUICardContentNodeElement', () => {
     element = await fixture(html`
       <uui-card-content-node name="Content Node Name"></uui-card-content-node>
     `);
+    // Wait for nested uui-icon to fully render (avoids WebKit timeout on slow CI)
+    const icon = element.shadowRoot!.querySelector('uui-icon');
+    if (icon) {
+      await icon.updateComplete;
+    }
   });
 
   it('passes the a11y audit', async () => {
