@@ -342,6 +342,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   renderInput() {
     return html`<input
       id="input"
+      size=${ifDefined(this.autoWidth ? '1' : undefined)}
       .type=${this.type}
       .value=${this.value as string}
       .name=${this.name}
@@ -492,6 +493,7 @@ export class UUIInputElement extends UUIFormControlMixin(
         height: inherit;
         text-align: inherit;
         outline: none;
+        text-overflow: ellipsis;
       }
 
       input[type='password']::-ms-reveal {

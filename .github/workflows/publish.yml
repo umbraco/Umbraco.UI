@@ -2,8 +2,6 @@ name: Publish
 
 on:
   push:
-    branches:
-      - production
     tags:
       - 'v*.*.*'
 
