@@ -1,12 +1,12 @@
 export class UUIIconHost {
   public readonly promise: Promise<string>;
-  private readonly resolve!: Function;
-  public readonly reject!: Function;
+  private readonly resolve!: (value: string) => void;
+  public readonly reject!: (reason?: unknown) => void;
 
   constructor(svg?: string) {
     this.promise = new Promise<string>((resolveMethod, rejectMethod) => {
-      (this as any).resolve = resolveMethod; // Intentionally skipping type checking as we want to be able to set the method in this line.
-      (this as any).reject = rejectMethod; // Intentionally skipping type checking as we want to be able to set the method in this line.
+      (this as any).resolve = resolveMethod;
+      (this as any).reject = rejectMethod;
     });
 
     if (svg) {
