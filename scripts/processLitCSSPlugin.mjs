@@ -25,30 +25,30 @@ const filter = createFilter(options.include, options.exclude, {});
  * @returns {import('vite').PluginOption}
  */
 export default function () {
+  const configPromise = postcssConfig();
+  const fallbackPlugin = postcssCustomPropertiesFallback({
+    importFrom: customProperties,
+  });
+
   return {
     name: 'process-lit-postcss-esm',
 
     async transform(code, id) {
       if (filter(id)) {
-        const additionalPlugins = [
-          postcssCustomPropertiesFallback({ importFrom: customProperties }),
-        ];
-
         try {
-          return await postcssConfig().then(async ({ plugins }) => {
-            const result = await postcss([
-              ...plugins,
-              ...additionalPlugins,
-            ]).process(code, {
+          const { plugins } = await configPromise;
+          const result = await postcss([...plugins, fallbackPlugin]).process(
+            code,
+            {
               syntax: syntax,
               map: null, // provide source map if available
               from: undefined,
-            });
+            },
+          );
 
-            return {
-              code: result.content,
-            };
-          });
+          return {
+            code: result.content,
+          };
         } catch (e) {
           console.error(e);
         }
