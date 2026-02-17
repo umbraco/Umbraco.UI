@@ -71,8 +71,7 @@
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "npm run storybook:analyze && storybook dev -p 6006",
     "storybook:build": "npm run storybook:analyze && storybook build",
-    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
-    "postinstall": "node ./scripts/generate-ts-config.js"
+    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
   },
   "engines": {
     "node": ">=24.13",
@@ -156,9 +155,6 @@
     "lit": "^2.8.0",
     "playwright": "^1.45.3"
   },
-  "workspaces": [
-    "./packages/*"
-  ],
   "lint-staged": {
     "*.ts": "eslint --cache --fix",
     "*.element.ts": "tsc-files --project tsconfig.lint-staged.json",
