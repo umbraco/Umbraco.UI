@@ -146,12 +146,7 @@ export const UUIFormControlMixin = <
     set value(newValue: ValueType | DefaultValueType) {
       const oldValue = this.#value;
       this.#value = newValue;
-      if (
-        'ElementInternals' in window &&
-        'setFormValue' in window.ElementInternals.prototype
-      ) {
-        this._internals.setFormValue((this.#value as any) ?? null);
-      }
+      this._internals.setFormValue((this.#value as any) ?? null);
       this.requestUpdate('value', oldValue);
     }
 
