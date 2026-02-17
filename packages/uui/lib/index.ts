@@ -47,7 +47,6 @@ export * from '@umbraco-ui/uui-loader/lib';
 export * from '@umbraco-ui/uui-menu-item/lib';
 export * from '@umbraco-ui/uui-modal/lib';
 export * from '@umbraco-ui/uui-pagination/lib';
-export * from '@umbraco-ui/uui-popover/lib';
 export * from '@umbraco-ui/uui-popover-container/lib';
 export * from '@umbraco-ui/uui-progress-bar/lib';
 export * from '@umbraco-ui/uui-radio/lib';
