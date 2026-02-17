@@ -37,7 +37,7 @@ const preview: Preview = {
 WebComponentFormatter(customElements);
 setCustomElementsManifest(customElements);
 
-function WebComponentFormatter(customElements) {
+function WebComponentFormatter(customElements: Record<string, any>) {
   for (let tag of customElements.tags || []) {
     // Hide all attributes, since we only use props for storybook
     tag.attributes = [];
@@ -87,8 +87,6 @@ function WebComponentFormatter(customElements) {
       }
     }
   }
-
-  return customElements;
 }
 
 export default preview;
