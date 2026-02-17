@@ -60,6 +60,9 @@ function WebComponentFormatter(customElements: Record<string, any>) {
           ? 'color'
           : 'string';
       }
+      if (!cssProp.default) {
+        cssProp.default = "''";
+      }
     }
 
     // add 'Event' to the name of all events
