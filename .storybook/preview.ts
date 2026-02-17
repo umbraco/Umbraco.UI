@@ -2,7 +2,9 @@ import {
   setCustomElementsManifest,
   type Preview,
 } from '@storybook/web-components-vite';
-import '../src/styles/uui-css.css';
+import '../src/themes/light.css';
+import '../src/styles/uui-font.css';
+import '../src/styles/uui-text.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 

@@ -14,6 +14,7 @@
     },
     "./components/*": "./dist/components/*",
     "./internal/*": "./dist/internal/*",
+    "./themes/*": "./dist/themes/*",
     "./styles/*": "./dist/styles/*",
     "./icons/*": "./dist/icons/*"
   },
