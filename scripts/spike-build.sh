@@ -20,12 +20,9 @@ cp src/styles/*.css dist/styles/
 cp src/styles/custom-properties/*.css dist/styles/custom-properties/
 cp src/styles/typography/*.css dist/styles/typography/
 
-echo "==> Copying package.json..."
-cp dist/package.json dist/package.json 2>/dev/null || true
-
 echo "==> Build complete!"
 echo ""
 echo "dist/index.js  - ES module bundle ($(wc -c < dist/index.js | tr -d ' ') bytes)"
 echo "dist/**/*.d.ts - Type declarations ($(find dist -name '*.d.ts' | wc -l | tr -d ' ') files)"
 echo ""
-echo "To pack: cd dist && npm pack"
+echo "To pack: npm pack"

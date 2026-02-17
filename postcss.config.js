@@ -1,7 +1,5 @@
-module.exports = () => {
-  return {
-    plugins: {
-      'postcss-advanced-variables': {},
-    },
-  };
+export default {
+  plugins: {
+    'postcss-advanced-variables': {},
+  },
 };
