@@ -14,7 +14,8 @@
   src:
     local('LatoLatin Black'),
     local('LatoLatin-Black'),
-    url('../../assets/fonts/lato/LatoLatin-Black.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-Black.woff2?no-inline')
+      format('woff2');
   font-style: normal;
   font-display: swap;
   font-weight: 900;
@@ -27,7 +28,8 @@
   src:
     local('LatoLatin BlackItalic'),
     local('LatoLatin-BlackItalic'),
-    url('../../assets/fonts/lato/LatoLatin-BlackItalic.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-BlackItalic.woff2?no-inline')
+      format('woff2');
   font-style: italic;
   font-weight: 900;
   font-display: swap;
@@ -40,7 +42,8 @@
   src:
     local('LatoLatin Bold'),
     local('LatoLatin-Bold'),
-    url('../../assets/fonts/lato/LatoLatin-Bold.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-Bold.woff2?no-inline')
+      format('woff2');
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -53,7 +56,8 @@
   src:
     local('LatoLatin BoldItalic'),
     local('LatoLatin-BoldItalic'),
-    url('../../assets/fonts/lato/LatoLatin-BoldItalic.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-BoldItalic.woff2?no-inline')
+      format('woff2');
   font-style: italic;
   font-weight: 700;
   font-display: swap;
@@ -66,7 +70,8 @@
   src:
     local('LatoLatin Italic'),
     local('LatoLatin-Italic'),
-    url('../../assets/fonts/lato/LatoLatin-Italic.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-Italic.woff2?no-inline')
+      format('woff2');
   font-style: italic;
   font-weight: 400;
   font-display: swap;
@@ -79,7 +84,8 @@
   src:
     local('LatoLatin Regular'),
     local('LatoLatin-Regular'),
-    url('../../assets/fonts/lato/LatoLatin-Regular.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-Regular.woff2?no-inline')
+      format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -92,7 +98,8 @@
   src:
     local('LatoLatin Light'),
     local('LatoLatin-Light'),
-    url('../../assets/fonts/lato/LatoLatin-Light.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-Light.woff2?no-inline')
+      format('woff2');
   font-style: normal;
   font-weight: 300;
   font-display: swap;
@@ -105,7 +112,8 @@
   src:
     local('LatoLatin LightItalic'),
     local('LatoLatin-LightItalic'),
-    url('../../assets/fonts/lato/LatoLatin-LightItalic.woff2') format('woff2');
+    url('../../assets/fonts/lato/LatoLatin-LightItalic.woff2?no-inline')
+      format('woff2');
   font-style: italic;
   font-weight: 300;
   font-display: swap;
