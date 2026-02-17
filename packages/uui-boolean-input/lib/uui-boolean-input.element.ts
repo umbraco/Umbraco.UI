@@ -130,30 +130,6 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     this.checked = this.hasAttribute('checked');
   }
 
-  protected firstUpdated(
-    _changedProperties: Map<string | number | symbol, unknown>,
-  ): void {
-    super.firstUpdated(_changedProperties);
-
-    const labelEl = this.shadowRoot?.querySelector('label') as HTMLLabelElement;
-
-    // hide outline if mouse-interaction:
-    let hadMouseDown = false;
-    this._input.addEventListener('blur', () => {
-      if (hadMouseDown === false) {
-        this.style.setProperty('--uui-show-focus-outline', '1');
-      }
-      hadMouseDown = false;
-    });
-    labelEl.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-      hadMouseDown = true;
-    });
-    labelEl.addEventListener('mouseup', () => {
-      hadMouseDown = false;
-    });
-  }
-
   /**
    * This method enables <label for="..."> to focus the input
    */

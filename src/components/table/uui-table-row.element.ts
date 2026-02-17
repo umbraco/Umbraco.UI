@@ -15,22 +15,6 @@ export class UUITableRowElement extends SelectOnlyMixin(
 ) {
   constructor() {
     super();
-
-    // hide outline if mouse-interaction:
-    let hadMouseDown = false;
-    this.addEventListener('blur', () => {
-      if (hadMouseDown === false) {
-        this.style.setProperty('--uui-show-focus-outline', '1');
-      }
-      hadMouseDown = false;
-    });
-    this.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-      hadMouseDown = true;
-    });
-    this.addEventListener('mouseup', () => {
-      hadMouseDown = false;
-    });
   }
 
   connectedCallback() {
@@ -77,9 +61,8 @@ export class UUITableRowElement extends SelectOnlyMixin(
         cursor: pointer;
       }
 
-      :host(:focus) {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      :host(:focus-visible) {
+        outline: 2px solid var(--uui-color-focus);
       }
       :host([selected]) {
         outline: 2px solid

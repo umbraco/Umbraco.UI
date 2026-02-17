@@ -231,12 +231,6 @@ export class UUIInputElement extends UUIFormControlMixin(
   constructor() {
     super();
 
-    this.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-    });
-    this.addEventListener('blur', () => {
-      this.style.setProperty('--uui-show-focus-outline', '');
-    });
     this.addEventListener('keydown', this.#onKeyDown);
 
     this.addValidator(
@@ -438,8 +432,7 @@ export class UUIInputElement extends UUIFormControlMixin(
           --uui-input-border-color-focus,
           var(--uui-color-border-emphasis)
         );
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
       :host(:focus) {
         border-color: var(
