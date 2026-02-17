@@ -20,7 +20,7 @@
 /packages/**/lib/**/*.js
 **/*.js.map
 **/*.d.ts
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 /out-tsc/
 /packages/**/node_modules/
 /dist
