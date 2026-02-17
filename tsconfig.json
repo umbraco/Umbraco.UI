@@ -19,8 +19,7 @@
     "sourceMap": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": false,
-    "composite": true
+    "useDefineForClassFields": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts", "src/**/*.story.ts"]
