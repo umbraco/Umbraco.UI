@@ -11,19 +11,13 @@ import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
 import { UUICardContentNodeElement } from './uui-card-content-node.element';
 import '.';
 
-// TODO: Re-enable once Webkit CI timeout flakiness is resolved
-describe.skip('UUICardContentNodeElement', () => {
+describe('UUICardContentNodeElement', () => {
   let element: UUICardContentNodeElement;
 
   beforeEach(async () => {
     element = await fixture(html`
       <uui-card-content-node name="Content Node Name"></uui-card-content-node>
     `);
-    // Wait for nested uui-icon to fully render (avoids WebKit timeout on slow CI)
-    const icon = element.shadowRoot!.querySelector('uui-icon');
-    if (icon) {
-      await icon.updateComplete;
-    }
   });
 
   // TODO: a11y audit times out in Webkit CI due to nested uui-icon SVG rendering
