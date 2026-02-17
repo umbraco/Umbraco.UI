@@ -1,10 +1,9 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
-import remarkGfm from 'remark-gfm';
 import { fileURLToPath } from 'node:url';
+import { defineMain } from '@storybook/web-components-vite/node';
+import remarkGfm from 'remark-gfm';
 
-const config: StorybookConfig & {
-  managerEntries?: (entry?: string[]) => string[];
-} = {
+export default defineMain({
+  framework: '@storybook/web-components-vite',
   stories: [
     '../packages/**/*.mdx',
     '../packages/**/*.story.@(js|jsx|mjs|ts|tsx)',
@@ -27,22 +26,10 @@ const config: StorybookConfig & {
     '@storybook/addon-links',
     '@storybook/addon-a11y',
     '@chromatic-com/storybook',
+    fileURLToPath(
+      import.meta.resolve('../storyhelpers/storybook-readme/index.ts'),
+    ),
   ],
 
-  managerEntries(entry = []) {
-    return [
-      ...entry,
-      fileURLToPath(
-        import.meta.resolve('../storyhelpers/storybook-readme/manager.ts'),
-      ),
-    ];
-  },
-
-  framework: {
-    name: '@storybook/web-components-vite',
-    options: {},
-  },
-
   docs: {},
-};
-export default config;
+});
