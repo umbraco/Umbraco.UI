@@ -186,11 +186,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         case 'button':
           break;
         default:
-          if (this._internals.form.requestSubmit) {
-            this._internals.form.requestSubmit();
-          } else {
-            this._internals.form.dispatchEvent(new SubmitEvent('submit'));
-          }
+          this._internals.form.requestSubmit();
           break;
       }
     }

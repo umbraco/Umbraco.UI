@@ -62,9 +62,6 @@
       "path": "../uui-card-user"
     },
     {
-      "path": "../uui-caret"
-    },
-    {
       "path": "../uui-checkbox"
     },
     {
@@ -156,9 +153,6 @@
     },
     {
       "path": "../uui-pagination"
-    },
-    {
-      "path": "../uui-popover"
     },
     {
       "path": "../uui-popover-container"
