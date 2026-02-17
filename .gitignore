@@ -20,6 +20,7 @@
 /packages/**/lib/**/*.js
 **/*.js.map
 **/*.d.ts
+!src/vite-env.d.ts
 *.tsbuildinfo
 /out-tsc/
 /packages/**/node_modules/

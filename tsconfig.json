@@ -21,6 +21,5 @@
     "skipLibCheck": true,
     "useDefineForClassFields": false
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.story.ts"]
+  "include": ["src/**/*.ts"]
 }

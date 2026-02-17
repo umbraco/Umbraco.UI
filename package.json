@@ -54,7 +54,7 @@
     "test:watch": "web-test-runner --watch",
     "test:scripts": "node --test scripts/**/*.test.mjs",
     "dev": "npm run clean && npm run storybook",
-    "build": "vite build && tsc",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "clean": "rm -rf dist",
     "prepare": "husky",
     "chromatic": "npx chromatic --build-script-name storybook:build",
