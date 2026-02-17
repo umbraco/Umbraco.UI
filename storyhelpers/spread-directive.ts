@@ -31,7 +31,9 @@ class UUIStoryBookSpreadDirective extends Directive {
 
       // Check if the property is a CSS property (starts with --)
       if (key.startsWith('--')) {
-        (part.element as HTMLElement).style.setProperty(key, props[key]);
+        if (props[key] != null) {
+          (part.element as HTMLElement).style.setProperty(key, props[key]);
+        }
         return;
       }
 
