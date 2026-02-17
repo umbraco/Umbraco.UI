@@ -2,55 +2,49 @@ name: Publish
 
 on:
   push:
-    branches:
-      - main
-      - 'v*/main'
+    tags:
+      - 'v*.*.*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      sha:
-        description: The commit hash referring to the commit to check.
-        required: false
-      ref:
-        description: The head branch associated with the pull request.
-        required: false
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Environment variables available to all steps in the job to ensure provenance of the build
-    permissions:
-      contents: read
-      id-token: write
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: '0'
 
       - name: Cache build setup
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-cache-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-cache-
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version-file: .nvmrc
+          check-latest: true
           cache: 'npm'
-
+          registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm@latest
       - run: npm -v
       - run: npm install
 
@@ -67,3 +61,4 @@ jobs:
         run: npm run lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true

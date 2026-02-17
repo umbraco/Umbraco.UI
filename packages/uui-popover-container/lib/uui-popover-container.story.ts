@@ -1,13 +1,36 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { UUIPopoverContainerElement } from '.';
+import './uui-popover-container-shadowdomtester.element.js';
 
 const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
   component: 'uui-popover-container',
   title: 'Displays/Popover Container',
+  argTypes: {
+    open: {
+      control: false,
+    },
+    placement: {
+      options: [
+        'auto',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
+      ],
+    },
+  },
   parameters: {
     readme: {
       markdown: readme,
@@ -30,28 +53,6 @@ export const Overview: Story = {
   args: {
     placement: 'bottom-start',
     margin: 0,
-  },
-  argTypes: {
-    open: {
-      control: false,
-    },
-    placement: {
-      options: [
-        'auto',
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
-    },
   },
   render: args => html`
     <uui-button
@@ -118,28 +119,6 @@ export const Tooltip: Story = {
     placement: 'bottom-start',
     margin: 0,
   },
-  argTypes: {
-    open: {
-      control: false,
-    },
-    placement: {
-      options: [
-        'auto',
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
-    },
-  },
   render: args => html`
     Sometimes words such as
     <b id="tooltip-toggle" popovertarget="tooltip-popover">petrichor</b> needs
@@ -162,28 +141,6 @@ export const InsideScrollContainer: Story = {
   args: {
     placement: 'bottom-start',
     margin: 0,
-  },
-  argTypes: {
-    open: {
-      control: false,
-    },
-    placement: {
-      options: [
-        'auto',
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
-    },
   },
   render: args => html`
     <div style="height: 500px; overflow: auto; outline: 1px solid black">
@@ -213,5 +170,24 @@ export const InsideScrollContainer: Story = {
         Scrolling in any of the 2 boxes should trigger an update
       </div>
     </uui-popover-container>
+  `,
+};
+
+export const InsideShadowDOMScrollContainer: Story = {
+  args: {
+    placement: 'bottom-start',
+    margin: 0,
+  },
+  render: () => html`
+    <div style="height: 500px; overflow: auto; outline: 1px solid black">
+      <div
+        style="position:static; width: 300px; height: 300px; outline: 1px solid black; overflow: auto; margin:auto">
+        <div style="height: 150px"></div>
+        <uui-popover-container-shadowdomtester></uui-popover-container-shadowdomtester>
+        <div style="height: 150px"></div>
+        <div style="height: 150px"></div>
+      </div>
+      <div style="height: 400px"></div>
+    </div>
   `,
 };

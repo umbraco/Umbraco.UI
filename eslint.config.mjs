@@ -2,8 +2,8 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import localRules from 'eslint-plugin-local-rules';
-import wcPlugin from 'eslint-plugin-wc';
-import litPlugin from 'eslint-plugin-lit';
+import * as wcPlugin from 'eslint-plugin-wc';
+import * as litPlugin from 'eslint-plugin-lit';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 import { includeIgnoreFile } from '@eslint/compat';
@@ -31,6 +31,7 @@ export default [
       'vite.config.ts',
       'stories/',
       '**/.storybook/**',
+      '**/*.test.ts',
     ],
   },
 
@@ -42,7 +43,7 @@ export default [
     languageOptions: {
       parserOptions: {
         project: './tsconfig.json',
-        tsconfigRootDir: './',
+        tsconfigRootDir: __dirname,
       },
       globals: globals.browser,
     },
@@ -50,10 +51,12 @@ export default [
       semi: ['warn', 'always'],
       'no-unused-vars': 'off', //Let '@typescript-eslint/no-unused-vars' catch the errors to allow unused function parameters (ex: in interfaces)
       'no-var': 'error',
+      '@typescript-eslint/no-unsafe-function-type': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
       '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
       'lit/no-useless-template-literals': 'error',

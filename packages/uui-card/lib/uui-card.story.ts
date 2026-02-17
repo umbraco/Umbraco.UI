@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
 const meta: Meta = {
@@ -9,7 +9,7 @@ const meta: Meta = {
   component: 'uui-card',
   title: 'Displays/Cards/Card',
   args: {
-    slot: 'This is an example of a simple card',
+    slot: '<div style="margin: var(--uui-size-space-4)">This is an example of a simple card <a href="#link">with a link</a>.</div>',
   },
   render: args =>
     html`<uui-card ${spread(args)}>${renderSlots(args)}</uui-card>`,

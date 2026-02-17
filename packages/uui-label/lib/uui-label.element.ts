@@ -6,6 +6,7 @@ import { property } from 'lit/decorators.js';
  * Label element for Custom Element
  * @element uui-label
  * @slot - for the label text.
+ * @cssprop --uui-validation-color - Color property for the required asterisk.
  */
 @defineElement('uui-label')
 export class UUILabelElement extends LitElement {

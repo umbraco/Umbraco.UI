@@ -8,7 +8,8 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
  * @element uui-icon
  * @fires {UUIIconRequestEvent} icon_request - fires when the name property is defined to retrieve the icon source.
  * @description - Icon component for displaying icons.
- * @cssprop --uui-icon-color - overwrite the icon color.
+ * @cssprop --uui-icon-color - sets the color for the icon, if not set it will use the text color.
+ * @cssprop --uui-icon-color-overwrite - overwrite the icon color, once this is set the --uui-icon-color will be ignored.
  * @see UUIIconRegistryElement Ideally used together with a icon registry.
  */
 @defineElement('uui-icon')
@@ -139,6 +140,7 @@ export class UUIIconElement extends LitElement {
   static styles = [
     css`
       :host {
+        vertical-align: text-bottom;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -148,7 +150,11 @@ export class UUIIconElement extends LitElement {
 
       :host svg,
       ::slotted(svg) {
-        color: var(--uui-icon-color, currentColor);
+        color: var(
+          --uui-icon-color-overwrite,
+          var(--uui-icon-color, currentColor)
+        );
+        width: 100%;
       }
 
       :host-context(div[slot='prepend']) {

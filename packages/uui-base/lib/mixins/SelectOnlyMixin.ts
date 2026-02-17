@@ -1,9 +1,9 @@
 import { property } from 'lit/decorators.js';
-import { SelectableMixinInterface } from './SelectableMixin';
+import { UUISelectableMixinInterface } from './SelectableMixin';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export declare class SelectOnlyMixinInterface extends SelectableMixinInterface {
+export declare class UUISelectOnlyMixinInterface extends UUISelectableMixinInterface {
   selectOnly: boolean;
 }
 
@@ -15,11 +15,11 @@ export declare class SelectOnlyMixinInterface extends SelectableMixinInterface {
  * @mixin
  */
 export const SelectOnlyMixin = <
-  T extends Constructor<SelectableMixinInterface>,
+  T extends Constructor<UUISelectableMixinInterface>,
 >(
   superClass: T,
 ) => {
-  class SelectOnlyMixinClass extends superClass {
+  class UUISelectOnlyMixinClass extends superClass {
     private _selectOnly = false;
 
     /**
@@ -38,5 +38,8 @@ export const SelectOnlyMixin = <
     }
   }
   // prettier-ignore
-  return (SelectOnlyMixinClass as unknown) as Constructor<SelectOnlyMixinInterface> & T;
+  return (UUISelectOnlyMixinClass as unknown) as Constructor<UUISelectOnlyMixinInterface> & T;
 };
+
+/** @deprecated Use UUISelectOnlyMixinInterface instead */
+export type SelectOnlyMixinInterface = UUISelectOnlyMixinInterface;

@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.17.0-rc.3](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.2...v1.17.0-rc.3) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.17.0-rc.2](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.1...v1.17.0-rc.2) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.17.0-rc.1](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.0...v1.17.0-rc.1) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.17.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.16.0...v1.17.0-rc.0) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+### Reverts
+
+- Revert "chore: runs eslint --fix and adjusts tests based on new typings" ([33a6d62](https://github.com/umbraco/Umbraco/commit/33a6d62f834a5a40a38fff00bd2ac5b0f2ec0c11))
+
+# [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.15.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.14.2...v1.15.0-rc.0) (2025-08-06)
+
+### Bug Fixes
+
+- **uui-color-slider:** sets `max = 100` for `lightness` type ([d7aeb38](https://github.com/umbraco/Umbraco/commit/d7aeb38fef4c9eeed994b4381e4465393ede0c1d))
+- **uui-color-slider:** sets `max = 100` for `saturation` type ([66a0952](https://github.com/umbraco/Umbraco/commit/66a09523644bb93cb570c77d00ab1388b6a58e52))
+- **uui-color-slider:** sets `max = 360` for `hue` type ([b0acef4](https://github.com/umbraco/Umbraco/commit/b0acef420c7fc36ff8b6c0f9e587176440dc3de1))
+
+### Features
+
+- Adjust color slider with min and max ([#1159](https://github.com/umbraco/Umbraco/issues/1159)) ([aa15fb6](https://github.com/umbraco/Umbraco/commit/aa15fb691051b695a5b93b1b95c92e12914f4285))
+- **uui-color-slider:** adds `hideValueLabel` option ([da372bb](https://github.com/umbraco/Umbraco/commit/da372bbe82bd032a0445fcdd13c6bc8047e524bb))
+
+## [1.14.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0...v1.14.1) (2025-06-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Features
+
+- Advanced color slider story ([#1076](https://github.com/umbraco/Umbraco.UI/issues/1076)) ([5a14b6a](https://github.com/umbraco/Umbraco.UI/commit/5a14b6a70781ee26628b1ff91320ef9f276d4cc0))
+
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-slider
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-slider

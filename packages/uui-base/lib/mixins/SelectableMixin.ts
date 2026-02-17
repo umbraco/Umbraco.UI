@@ -5,7 +5,7 @@ import { UUISelectableEvent } from '../events/UUISelectableEvent';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export declare class SelectableMixinInterface extends LitElement {
+export declare class UUISelectableMixinInterface extends LitElement {
   /**
    * Enable the ability to select this element.
    * @attr
@@ -39,7 +39,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
    * @fires {UUISelectableEvent} selected - fires when the media card is selected
    * @fires {UUISelectableEvent} deselected - fires when the media card is deselected
    */
-  class SelectableMixinClass extends superClass {
+  class UUISelectableMixinClass extends superClass {
     private _selectable = false;
     /**
      * Enable the ability to select this element.
@@ -153,8 +153,10 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
       if (!this.selectable) return;
       if (this.deselectable === false) {
         this.#select();
+      } else if (this.selected) {
+        this.#deselect();
       } else {
-        this.selected ? this.#deselect() : this.#select();
+        this.#select();
       }
     }
 
@@ -177,5 +179,8 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
     }
   }
   // prettier-ignore
-  return (SelectableMixinClass as unknown) as Constructor<SelectableMixinInterface> & T;
+  return (UUISelectableMixinClass as unknown) as Constructor<UUISelectableMixinInterface> & T;
 };
+
+/** @deprecated Use UUISelectableMixinInterface instead */
+export type SelectableMixinInterface = UUISelectableMixinInterface;

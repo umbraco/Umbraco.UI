@@ -3,6 +3,103 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+### Bug Fixes
+
+- **uui-input:** add text overflow ([#1256](https://github.com/umbraco/Umbraco/issues/1256)) ([280ce45](https://github.com/umbraco/Umbraco/commit/280ce450c6c76be8dd8ff3472112f3e3a59aad3b))
+
+# [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.17.0-rc.3](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.2...v1.17.0-rc.3) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.17.0-rc.2](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.1...v1.17.0-rc.2) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.17.0-rc.1](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.0...v1.17.0-rc.1) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.17.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.16.0...v1.17.0-rc.0) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.15.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.14.2...v1.15.0-rc.0) (2025-08-06)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+## [1.14.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0...v1.14.1) (2025-06-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.2...v1.14.0-rc.3) (2025-05-28)
+
+### Bug Fixes
+
+- Set height for input prepend/append slots ([#1113](https://github.com/umbraco/Umbraco.UI/issues/1113)) ([0681615](https://github.com/umbraco/Umbraco.UI/commit/0681615c576dcf4e1095b1334caf48c21d29edba))
+
+# [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- Gave host "color" to make sure things like text in date picker are aligned with theme, as well as giving it a a color scheme option ([#1056](https://github.com/umbraco/Umbraco.UI/issues/1056)) ([49534c1](https://github.com/umbraco/Umbraco.UI/commit/49534c1517197ebc176f53d2d65907c38a8b3295))
+- Text character length validation should be more helpful ([#1060](https://github.com/umbraco/Umbraco.UI/issues/1060)) ([12cc5bc](https://github.com/umbraco/Umbraco.UI/commit/12cc5bcb2ab8c9b925bd811db0b25848df899a56))
+
+### Features
+
+- Specific input mode similar to input type ([#1021](https://github.com/umbraco/Umbraco.UI/issues/1021)) ([f18414d](https://github.com/umbraco/Umbraco.UI/commit/f18414d12bbed4618bbb8b11eedd926c9ff27bf5))
+
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-input
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+### Bug Fixes
+
+- apply border radius to input, select, and textarea ([57abde0](https://github.com/umbraco/Umbraco.UI/commit/57abde0749cb0d43320e0ae8ea8b1f3b45a7925b))
+
+### Features
+
+- New color 'invalid' ([#1009](https://github.com/umbraco/Umbraco.UI/issues/1009)) ([cd24246](https://github.com/umbraco/Umbraco.UI/commit/cd24246fe6af0e245570d082357e8432b58b2302))
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-input

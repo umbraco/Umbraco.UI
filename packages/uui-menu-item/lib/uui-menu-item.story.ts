@@ -1,10 +1,10 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryFn, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryFn, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
-import { useState } from '@storybook/preview-api';
+import { useState } from 'storybook/preview-api';
 
 import '@umbraco-ui/uui-icon-registry-essential/lib';
 import '@umbraco-ui/uui-symbol-expand/lib';
@@ -126,9 +126,43 @@ export const Nested: Story = {
   },
 };
 
+export const CustomExpandSymbol: Story = {
+  render: args => html`
+    ${labelNames.map(
+      (name: string) =>
+        html` <uui-menu-item
+          label="${name}"
+          .caretLabel="${args.caretLabel}"
+          .renderExpandSymbol=${() => {
+            return html`<uui-icon name="favorite"></uui-icon>`;
+          }}
+          has-children>
+          ${renderItems()}
+        </uui-menu-item>`,
+    )}
+  `,
+  parameters: {
+    docs: {
+      source: {
+        code: html`
+          <uui-menu-item
+            label="Menu Item 1"
+            has-children
+            .renderExpandSymbol=${() => {
+              return html`<uui-icon name="favorite"></uui-icon>`;
+            }}>
+            <uui-menu-item label="Nested Menu Item 1"></uui-menu-item>
+            <uui-menu-item label="Nested Menu Item 2"></uui-menu-item>
+          </uui-menu-item>
+        `.strings,
+      },
+    },
+  },
+};
+
 export const Active: Story = {
   render: () => {
-    const [activeIndex, setActiveIndex] = useState<Number>(1);
+    const [activeIndex, setActiveIndex] = useState<number>(1);
 
     const onClick = (index: number) => {
       setActiveIndex(index);
@@ -187,6 +221,21 @@ export const WithActions: Story = {
   },
 };
 
+export const SelectableWithActions: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
+    selected: true,
+    'actions slot': html`<uui-action-bar slot="actions">
+      <uui-button
+        style="--uui-button-contrast: currentColor;"
+        label="Open actions menu"
+        ><uui-symbol-more></uui-symbol-more
+      ></uui-button>
+    </uui-action-bar>`,
+  },
+};
+
 export const WidthBadge: Story = {
   args: {
     'badge slot': html`<uui-badge slot="badge" color="warning">!</uui-badge>`,
@@ -195,7 +244,18 @@ export const WidthBadge: Story = {
 
 export const WithIcon: Story = {
   args: {
+    selectable: true,
     'icon slot': html`<uui-icon slot="icon" name="favorite"></uui-icon>`,
+  },
+};
+
+export const WithColoredIcon: Story = {
+  args: {
+    selectable: true,
+    'icon slot': html`<uui-icon
+      slot="icon"
+      name="favorite"
+      style="--uui-icon-color: red"></uui-icon>`,
   },
 };
 

@@ -6,24 +6,26 @@ import {
   oneEvent,
 } from '@open-wc/testing';
 
-import '.';
+import './uui-table.element';
+import './uui-table-row.element';
+import './uui-table-cell.element';
 import { UUITableRowElement } from './uui-table-row.element';
-import { UUITestMouse } from '../../../test/index';
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;
   let tableElement: HTMLElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <uui-table-row>
-        <uui-table-cell>Cell 1</uui-table-cell>
-        <uui-table-cell>Cell 2</uui-table-cell>
-        <uui-table-cell>Cell 3</uui-table-cell>
-      </uui-table-row>
+    tableElement = await fixture(html`
+      <uui-table>
+        <uui-table-row>
+          <uui-table-cell>Cell 1</uui-table-cell>
+          <uui-table-cell>Cell 2</uui-table-cell>
+          <uui-table-cell>Cell 3</uui-table-cell>
+        </uui-table-row>
+      </uui-table>
     `);
-
-    tableElement = await fixture(html` <uui-table> ${element} </uui-table> `);
+    element = tableElement.querySelector('uui-table-row')!;
   });
 
   it('passes the a11y audit', async () => {
@@ -64,30 +66,26 @@ describe('UuiTableRow', () => {
 
   // TODO: add tests with different kinds of elements in the cells
   describe('selectable', () => {
-    const mouse = new UUITestMouse();
-
     beforeEach(async () => {
       element.selectable = true;
     });
 
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
-      await mouse.leftClick(element);
+      element.click();
       expect(element.selected).to.be.true;
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
-      await mouse.leftClick(element);
+      element.click();
       expect(element.selected).to.be.false;
     });
   });
 
   // TODO: add tests with different kinds of elements in the cells
   describe('selectable & selectOnly', () => {
-    const mouse = new UUITestMouse();
-
     beforeEach(async () => {
       element.selectable = true;
       element.selectOnly = true;
@@ -95,14 +93,14 @@ describe('UuiTableRow', () => {
 
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
-      await mouse.leftClick(element);
+      element.click();
       expect(element.selected).to.be.true;
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
-      await mouse.leftClick(element);
+      element.click();
       expect(element.selected).to.be.false;
     });
   });

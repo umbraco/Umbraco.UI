@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
 const meta: Meta = {
@@ -39,7 +39,7 @@ export const Sizing: Story = {
 export const LooksAndColors: Story = {
   render: () => {
     const looks = ['default', 'primary', 'secondary', 'outline', 'placeholder'];
-    const colors = ['default', 'positive', 'warning', 'danger'];
+    const colors = ['default', 'positive', 'warning', 'danger', 'invalid'];
 
     function uppercaseFirstLetter(s: string) {
       return s.charAt(0).toUpperCase() + s.slice(1);

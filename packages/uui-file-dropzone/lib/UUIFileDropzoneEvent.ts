@@ -9,6 +9,7 @@ export class UUIFileDropzoneEvent extends UUIEvent<
   UUIFileDropzoneElement
 > {
   public static readonly CHANGE: string = 'change';
+  public static readonly REJECT: string = 'reject';
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {

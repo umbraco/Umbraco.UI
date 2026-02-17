@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 import '@umbraco-ui/uui-badge/lib';
@@ -56,6 +56,13 @@ export const Colors: Story = {
         'background-color'
       ]}"
       ${spread(args, ['color', 'background-color'])}></uui-avatar>`;
+  },
+};
+
+export const Initials: Story = {
+  args: {
+    name: 'Umbraco HQ',
+    initials: 'AB',
   },
 };
 

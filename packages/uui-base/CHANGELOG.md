@@ -3,6 +3,91 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.17.0-rc.3](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.2...v1.17.0-rc.3) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.17.0-rc.2](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.1...v1.17.0-rc.2) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.17.0-rc.1](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.0...v1.17.0-rc.1) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.17.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.16.0...v1.17.0-rc.0) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.15.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.14.2...v1.15.0-rc.0) (2025-08-06)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+## [1.14.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0...v1.14.1) (2025-06-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- selection on click in color area ([#1075](https://github.com/umbraco/Umbraco.UI/issues/1075)) ([517788b](https://github.com/umbraco/Umbraco.UI/commit/517788b976de37852fe5d4e111f63a460570b5d8))
+
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-base
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+### Bug Fixes
+
+- drag.ts lint errors ([0f9b0f3](https://github.com/umbraco/Umbraco.UI/commit/0f9b0f3db251e8168ba7733485e50dcae5a37c3a))
+- reference to TouchEvent which is not defined in Firefox ([#1001](https://github.com/umbraco/Umbraco.UI/issues/1001)) ([338ca32](https://github.com/umbraco/Umbraco.UI/commit/338ca32b3f68e13699c815096ecd63b9d3d3211b))
+
+### Features
+
+- New color 'invalid' ([#1009](https://github.com/umbraco/Umbraco.UI/issues/1009)) ([cd24246](https://github.com/umbraco/Umbraco.UI/commit/cd24246fe6af0e245570d082357e8432b58b2302))
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 ### Bug Fixes

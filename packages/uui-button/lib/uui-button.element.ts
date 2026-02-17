@@ -50,6 +50,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
  *  @cssprop --uui-button-transition - Add transition to the button. Default is none.
+ *  @cssprop --uui-focus-outline-color - overwrite the focus outline color
  */
 @defineElement('uui-button')
 export class UUIButtonElement extends UUIFormControlMixin(
@@ -135,6 +136,15 @@ export class UUIButtonElement extends UUIFormControlMixin(
    */
   @property({ type: String })
   public rel?: string;
+
+  /**
+   * Sets the title attribute, which provides a tooltip for both button and anchor elements.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property({ type: String })
+  public title: string = '';
 
   @query('#button')
   protected _button!: HTMLInputElement;
@@ -236,6 +246,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
           <a
             id="button"
             aria-label=${ifDefined(this.label)}
+            title=${ifDefined(this.title === '' ? undefined : this.title)}
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
@@ -251,8 +262,10 @@ export class UUIButtonElement extends UUIFormControlMixin(
       : html`
           <button
             id="button"
+            type=${this.type}
             ?disabled=${this.disabled}
-            aria-label=${ifDefined(this.label)}>
+            aria-label=${ifDefined(this.label)}
+            title=${ifDefined(this.title === '' ? undefined : this.title)}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>
           </button>
@@ -292,7 +305,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
       }
 
       .label {
-        line-height: normal; /** needed to reset 'a > span' */
+        line-height: 1; /** needed to reset 'a > span' */
         transition: opacity 120ms;
         display: flex;
         gap: var(--uui-size-1);
@@ -357,7 +370,11 @@ export class UUIButtonElement extends UUIFormControlMixin(
       }
 
       #button:focus-visible {
-        outline: 2px solid var(--color-emphasis);
+        outline: 2px solid
+          var(
+            --uui-focus-outline-color,
+            var(--color-emphasis, var(--uui-color-focus))
+          );
       }
 
       button[disabled]:active,
@@ -434,6 +451,12 @@ export class UUIButtonElement extends UUIFormControlMixin(
         --color-standalone: var(--uui-color-danger-standalone);
         --color-emphasis: var(--uui-color-danger-emphasis);
         --color-contrast: var(--uui-color-danger-contrast);
+      }
+      :host([color='invalid']) #button {
+        --color: var(--uui-color-invalid);
+        --color-standalone: var(--uui-color-invalid-standalone);
+        --color-emphasis: var(--uui-color-invalid-emphasis);
+        --color-contrast: var(--uui-color-invalid-contrast);
       }
       :host([disabled]) #button {
         --color: var(--uui-color-disabled);

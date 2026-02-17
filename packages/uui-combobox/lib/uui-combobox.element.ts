@@ -34,11 +34,11 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     return super.value;
   }
   set value(newValue) {
-    if (typeof newValue === 'string') {
-      this.#updateValue(newValue);
-    }
-
     super.value = newValue;
+
+    if (typeof newValue === 'string') {
+      this.#updateValue();
+    }
   }
 
   /**
@@ -91,7 +91,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    * @attr
    * @default "Close"
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'close-label' })
   public closeLabel = 'Close';
 
   /**
@@ -104,6 +104,15 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   disabled = false;
 
   /**
+   * Removes the expand symbol.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: false, attribute: 'hide-expand-symbol' })
+  hideExpandSymbol = false;
+
+  /**
    * Sets the input to readonly mode, meaning value cannot be changed but still able to read and select its content.
    * @type {boolean}
    * @attr
@@ -111,6 +120,15 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, reflect: true })
   readonly = false;
+
+  /**
+   * Defines the input placeholder.
+   * @type {string}
+   * @attr
+   * @default ''
+   */
+  @property()
+  placeholder = '';
 
   @query('#combobox-input')
   private _input!: HTMLInputElement;
@@ -166,7 +184,17 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.#phoneMediaQuery.removeEventListener('change', this.#onPhoneChange);
   }
 
-  protected async firstUpdated() {
+  #onSlotChange() {
+    if (this.#comboboxList) {
+      this.#comboboxList.removeEventListener(
+        UUIComboboxListEvent.CHANGE,
+        this.#onChange,
+      );
+      this.#comboboxList.removeEventListener(
+        UUIComboboxListEvent.INNER_SLOT_CHANGE,
+        this.#onInnerSlotChange,
+      );
+    }
     const list = this._comboboxListElements?.[0];
 
     if (list) {
@@ -178,21 +206,22 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       );
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.INNER_SLOT_CHANGE,
-        this.#onSlotChange,
+        this.#onInnerSlotChange,
       );
-
-      await this.updateComplete;
-      this.#updateValue(this.value);
     }
+
+    this.updateComplete.then(() => {
+      this.#updateValue();
+    });
   }
 
   #onPhoneChange = () => {
     this._isPhone = this.#phoneMediaQuery.matches;
   };
 
-  #updateValue(value: FormDataEntryValue | FormData) {
+  #updateValue() {
     if (this.#comboboxList) {
-      this.#comboboxList.value = value;
+      this.#comboboxList.value = this.value;
       requestAnimationFrame(
         () => (this._displayValue = this.#comboboxList.displayValue || ''),
       );
@@ -233,9 +262,9 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.#onOpen();
   };
 
-  #onSlotChange = () => {
+  #onInnerSlotChange = () => {
     if (this.value && this.value !== this.#comboboxList?.value) {
-      this.#updateValue(this.value);
+      this.#updateValue();
     }
   };
 
@@ -269,16 +298,23 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #onKeyDown = (e: KeyboardEvent) => {
-    if (this.open === false && e.key === 'Enter') {
+    if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // TODO: could we avoid this.
       e.stopImmediatePropagation(); // TODO: could we avoid this.
     }
 
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
       this.#onOpen();
     }
 
-    if (e.key === 'Escape' || e.key === 'Enter') {
+    if (e.code === 'Space') {
+      if (this._isOpen) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      this.#onOpen();
+    }
+
+    if (e.code === 'Escape') {
       this.#onClose();
     }
   };
@@ -301,12 +337,13 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   #renderInput = () => {
-    return html` <uui-input
+    return html`<uui-input
       slot="trigger"
       id="combobox-input"
       label="combobox-input"
       type="text"
       .value=${this._displayValue}
+      .placeholder=${this.placeholder}
       autocomplete="off"
       .disabled=${this.disabled}
       .readonly=${this.readonly}
@@ -316,9 +353,11 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
       ${this.#renderClearButton()}
-      <div id="expand-symbol-wrapper" slot="append">
-        <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
-      </div>
+      ${this.hideExpandSymbol
+        ? nothing
+        : html`<div id="expand-symbol-wrapper" slot="append">
+            <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
+          </div>`}
       <slot name="input-append" slot="append"></slot>
     </uui-input>`;
   };
@@ -327,31 +366,31 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     if (this.disabled) return nothing;
     if (this.readonly) return nothing;
 
-    return this.value || this.search
-      ? html`<uui-button
-          id="clear-button"
-          @click=${this.#onClear}
-          @keydown=${this.#onClear}
-          label="clear"
-          slot="append"
-          compact
-          style="height: 100%;">
-          <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
-        </uui-button>`
-      : '';
+    return html`<uui-button
+      id="clear-button"
+      @click=${this.#onClear}
+      @keydown=${this.#onClear}
+      label="clear"
+      slot="append"
+      compact
+      style="height: 100%;"
+      tabindex=${this.value || this.search ? '' : '-1'}
+      class=${this.value || this.search ? 'visible' : ''}>
+      <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
+    </uui-button>`;
   };
 
   #renderDropdown = () => {
     return html`<div id="dropdown">
       <uui-scroll-container tabindex="-1" id="scroll-container">
-        <slot></slot>
+        <slot @slotchange=${this.#onSlotChange}></slot>
       </uui-scroll-container>
     </div>`;
   };
 
   render() {
     if (this._isPhone && this.open) {
-      return html` <div id="phone-wrapper">
+      return html`<div id="phone-wrapper">
         <uui-button label="close" look="primary" @click=${this.#onClose}>
           ${this.closeLabel}
         </uui-button>
@@ -373,7 +412,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   static styles = [
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
       }
 
       #combobox-input {
@@ -395,6 +434,17 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
         padding-right: var(--uui-size-space-3);
         display: flex;
         justify-content: center;
+      }
+
+      #clear-button {
+        opacity: 0;
+        transition: opacity 80ms;
+      }
+
+      :host(:not([disabled]):not([readonly]):focus-within)
+        #clear-button.visible,
+      :host(:not([disabled]):not([readonly]):hover) #clear-button.visible {
+        opacity: 1;
       }
 
       #dropdown {

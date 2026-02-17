@@ -6,7 +6,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -122,6 +122,12 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @property({ type: String, attribute: 'caret-label' })
   public caretLabel = 'Reveal the underlying items';
 
+  /**
+   * Overwrite the expand symbol rendering, this replaces the Expand Symbol from UI Library.
+   */
+  @property({ attribute: false })
+  public renderExpandSymbol?: () => Element | TemplateResult<1> | undefined;
+
   @state()
   private iconSlotHasContent = false;
 
@@ -217,21 +223,19 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   render() {
     return html`
       <div id="menu-item" aria-label="menuitem" role="menuitem">
+        <div id="label-button-background"></div>
         ${this.hasChildren
           ? html`<button
               id="caret-button"
               aria-label=${this.caretLabel}
               @click=${this._onCaretClicked}>
-              <uui-symbol-expand
-                aria-hidden="true"
-                ?open=${this.showChildren}></uui-symbol-expand>
+              ${this.#renderExpandSymbol()}
             </button>`
           : ''}
         ${this.href && this.selectOnly !== true && this.selectable !== true
           ? this._renderLabelAsAnchor()
           : this._renderLabelAsButton()}
 
-        <div id="label-button-background"></div>
         <slot id="actions-container" name="actions"></slot>
         ${this.loading
           ? html`<uui-loader-bar id="loader"></uui-loader-bar>`
@@ -239,6 +243,19 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       </div>
       ${this.showChildren ? html`<slot></slot>` : ''}
     `;
+  }
+
+  #renderExpandSymbol() {
+    if (this.renderExpandSymbol) {
+      const result = this.renderExpandSymbol();
+      if (result) {
+        return result;
+      }
+    }
+
+    return html`<uui-symbol-expand
+      aria-hidden="true"
+      ?open=${this.showChildren}></uui-symbol-expand>`;
   }
 
   static styles = [
@@ -266,12 +283,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Not active, not selected, not disabled: */
       :host(:not([active], [selected], [disabled], [select-mode='highlight']))
-        #menu-item
-        #label-button:hover
-        ~ #label-button-background,
-      :host(:not([active], [selected], [disabled]))
-        #menu-item
-        #caret-button:hover {
+        #menu-item:has(#label-button:hover)
+        #label-button-background {
         background-color: var(
           --uui-menu-item-background-color-hover,
           var(--uui-color-surface-emphasis)
@@ -289,6 +302,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Active */
       :host([active]) #label-button,
+      :host([active]) #actions-container,
       :host([active]) #caret-button {
         color: var(
           --uui-menu-item-color-active,
@@ -301,7 +315,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
           var(--uui-color-current)
         );
       }
-      :host([active]) #label-button:hover ~ #label-button-background,
+      :host([active])
+        #menu-item:has(#label-button:hover)
+        #label-button-background,
       :host([active]) #caret-button:hover {
         background-color: var(
           --uui-menu-item-background-color-active-hover,
@@ -311,10 +327,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** Disabled */
       :host([disabled]) #menu-item {
-        color: var(
-          --uui-menu-item-color-disabled,
-          var(--uui-color-disabled-contrast)
-        );
         background-color: var(
           --uui-menu-item-background-color-disabled,
           var(--uui-color-disabled)
@@ -324,6 +336,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       /** Selected */
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #label-button,
+      :host([selected]:not([select-mode='highlight'], [disabled]))
+        #actions-container,
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #caret-button {
         color: var(
@@ -340,8 +354,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
       /** Selected, not highlight mode */
       :host([selected]:not([select-mode='highlight'], [disabled]))
-        #label-button:hover
-        ~ #label-button-background,
+        #menu-item:has(#label-button:hover)
+        #label-button-background,
       :host([selected]:not([select-mode='highlight'], [disabled]))
         #caret-button:hover {
         background-color: var(
@@ -352,9 +366,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** highlight mode, default */
       :host([select-mode='highlight']:not([disabled], [active], [selectable]))
-        #menu-item
-        #label-button:hover
-        ~ #label-button-background {
+        #menu-item:has(#label-button:hover)
+        #label-button-background {
         border-radius: var(--uui-border-radius);
         background-color: var(
           --uui-menu-item-background-color-highlight,
@@ -371,9 +384,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       /** highlight mode, active & selected */
       :host([select-mode='highlight'][active][selected]:not([disabled]))
-        #menu-item
-        #label-button:hover
-        ~ #label-button-background {
+        #menu-item:has(#label-button:hover)
+        #label-button-background {
         border-radius: var(--uui-border-radius);
         background-color: var(
           --uui-menu-item-background-color-highlight-active-selected,
@@ -385,6 +397,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #label-button,
+      :host([select-mode='highlight'][selected]:not([disabled]))
+        #menu-item
+        #actions-container,
       :host([select-mode='highlight'][selected]:not([disabled]))
         #menu-item
         #caret-button {
@@ -451,15 +466,13 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       }
 
       :host([select-mode='highlight'][selectable]:not([disabled]))
-        #menu-item
-        #label-button:hover
-        ~ #label-button-background::after {
+        #menu-item:has(#label-button:hover)
+        #label-button-background::after {
         opacity: 0.33;
       }
       :host([select-mode='highlight'][selected]:not([disabled]))
-        #menu-item
-        #label-button:hover
-        ~ #label-button-background::after {
+        #menu-item:has(#label-button:hover)
+        #label-button-background::after {
         opacity: 0.66;
       }
 
@@ -467,6 +480,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       :host([disabled]) #label-button {
         cursor: default;
+        opacity: 0.5;
       }
 
       button {
@@ -483,7 +497,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         background-color: transparent;
         cursor: pointer;
         min-height: var(--uui-size-12);
-        z-index: 1;
       }
 
       #label-button {
@@ -501,7 +514,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         text-decoration: none;
         color: currentColor;
         min-height: var(--uui-size-12);
-        z-index: 1;
         font-weight: inherit;
       }
 
@@ -557,6 +569,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: inline-flex;
         margin-right: var(--uui-size-2);
       }
+      :host([selected]:not([select-mode='highlight'], [disabled])) #icon {
+        --uui-icon-color-overwrite: currentColor;
+      }
 
       #badge {
         font-size: 12px;
@@ -578,7 +593,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         border-radius: calc(var(--uui-border-radius) - 1px);
         position: absolute;
         inset: 3px 3px 3px -5px;
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       :host([select-mode='highlight']) #caret-button:focus-visible {
@@ -591,7 +606,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         position: absolute;
         inset: 3px;
         border-radius: calc(var(--uui-border-radius) - 1px);
-        border: 2px solid var(--uui-color-focus);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       /** Slots */
@@ -610,6 +625,17 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         align-items: center;
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
         margin-right: var(--uui-size-base-unit);
+      }
+
+      @keyframes fadeIn {
+        100% {
+          opacity: 1;
+        }
+      }
+
+      uui-loader-bar {
+        opacity: 0;
+        animation: fadeIn 120ms ease-in 60ms forwards;
       }
     `,
   ];

@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-avatar/lib/index';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 const cardContent = html`<div style="margin-bottom: 12px">Editors</div>
@@ -55,6 +55,9 @@ export const Avatar: Story = {
   ${cardContent}
 </uui-card-user>
   `,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Tag: Story = {
@@ -71,5 +74,18 @@ export const Actions: Story = {
       label="Remove"
       >Remove</uui-button
     >`,
+  },
+};
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+  },
+};
+
+export const OnlySelectable: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
   },
 };

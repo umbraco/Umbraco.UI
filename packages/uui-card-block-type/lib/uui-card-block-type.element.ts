@@ -49,18 +49,19 @@ export class UUICardBlockTypeElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
-
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>
     `;
   }
 
   #renderButton() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`
       <button
         id="open-part"
         class="uui-text"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         ${this.#renderContent()}
@@ -69,19 +70,16 @@ export class UUICardBlockTypeElement extends UUICardElement {
   }
 
   #renderLink() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
     return html`
       <a
         id="open-part"
         class="uui-text"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
-        rel=${ifDefined(
-          this.rel ||
-            ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
-            ),
-        )}>
+        rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}
       </a>
     `;
@@ -96,8 +94,8 @@ export class UUICardBlockTypeElement extends UUICardElement {
   #renderContent() {
     return html`
       <div id="content">
-        <span id="name">${this.name}</span>
-        <small>${this.description}<slot name="description"></slot></small>
+        <span title="${this.name}" id="name">${this.name}</span>
+        <small title="${ifDefined(this.description)}">${this.description}<slot name="description"></slot></small>
       </div></div>
     `;
   }
@@ -111,7 +109,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
 
       slot[name='tag'] {
         position: absolute;
-        top: var(--uui-size-4);
+        bottom: var(--uui-size-4);
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
@@ -175,6 +173,15 @@ export class UUICardBlockTypeElement extends UUICardElement {
       }
       #open-part:hover #name {
         text-decoration: underline;
+      }
+      #open-part #name,
+      #open-part small {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
       }
 
       :host([image]:not([image=''])) #open-part {

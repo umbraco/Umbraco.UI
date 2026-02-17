@@ -4,7 +4,7 @@ import readme from '../README.md?raw';
 import '@umbraco-ui/uui-badge/lib';
 import '@umbraco-ui/uui-icon/lib';
 import '@umbraco-ui/uui-loader-circle/lib';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 const meta: Meta = {
@@ -20,7 +20,7 @@ const meta: Meta = {
       options: ['default', 'primary', 'secondary', 'outline', 'placeholder'],
     },
     color: {
-      options: ['default', 'positive', 'warning', 'danger'],
+      options: ['default', 'positive', 'warning', 'danger', 'invalid'],
     },
     type: {
       options: ['button', 'submit', 'reset'],
@@ -46,6 +46,7 @@ const meta: Meta = {
       options: ['left', 'center', 'right'],
     },
     '--uui-button-transition': { control: { type: 'text' } },
+    '--uui-focus-outline-color': { control: { type: 'color' } },
   },
   render: args => {
     return html`<uui-button ${spread(args)}>${renderSlots(args)}</uui-button>`;
@@ -117,6 +118,9 @@ export const Loading: Story = {
   args: {
     state: 'waiting',
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const ContentAlign: Story = {
@@ -147,7 +151,13 @@ export const LooksAndColors: Story = {
       'outline',
       'placeholder',
     ] as const;
-    const colors = ['default', 'positive', 'warning', 'danger'] as const;
+    const colors = [
+      'default',
+      'positive',
+      'warning',
+      'danger',
+      'invalid',
+    ] as const;
 
     const uppercaseFirstLetter = (str: string) =>
       str.charAt(0).toUpperCase() + str.slice(1);

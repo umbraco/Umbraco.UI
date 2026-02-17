@@ -1,8 +1,8 @@
 import {
   setCustomElementsManifest,
   type Preview,
-} from '@storybook/web-components';
-import '../packages/uui-css/lib/uui-css.css';
+} from '@storybook/web-components-vite';
+import '../packages/uui-css/dist/uui-css.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
@@ -37,7 +37,7 @@ const preview: Preview = {
 WebComponentFormatter(customElements);
 setCustomElementsManifest(customElements);
 
-function WebComponentFormatter(customElements) {
+function WebComponentFormatter(customElements: Record<string, any>) {
   for (let tag of customElements.tags || []) {
     // Hide all attributes, since we only use props for storybook
     tag.attributes = [];
@@ -82,8 +82,6 @@ function WebComponentFormatter(customElements) {
       }
     }
   }
-
-  return customElements;
 }
 
 export default preview;

@@ -71,10 +71,11 @@ export class UUICardMediaElement extends UUICardElement {
   }
 
   #renderButton() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`
       <button
         id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         @click=${this.handleOpenClick}
         @keydown=${this.handleOpenKeydown}>
         ${this.#renderContent()}
@@ -83,18 +84,15 @@ export class UUICardMediaElement extends UUICardElement {
   }
 
   #renderLink() {
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
     return html`
       <a
         id="open-part"
-        tabindex=${this.disabled ? (nothing as any) : '0'}
+        tabindex=${ifDefined(tabIndex)}
         href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
-        rel=${ifDefined(
-          this.rel ||
-            ifDefined(
-              this.target === '_blank' ? 'noopener noreferrer' : undefined,
-            ),
-        )}>
+        rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}
       </a>
     `;
@@ -106,7 +104,7 @@ export class UUICardMediaElement extends UUICardElement {
         <!--
         TODO: Implement info box when pop-out is ready
         -->
-        <span id="name">${this.name}</span>
+        <span id="name" title="${this.name}">${this.name}</span>
         <small id="detail">${this.detail}<slot name="detail"></slot></small>
       </div>
     `;
@@ -118,7 +116,7 @@ export class UUICardMediaElement extends UUICardElement {
       ${this.href ? this.#renderLink() : this.#renderButton()}
       <!-- Select border must be right after .open-part -->
       <div id="select-border"></div>
-
+      ${this.selectable ? this.renderCheckbox() : nothing}
       <slot name="tag"></slot>
       <slot name="actions"></slot>`;
   }
@@ -135,7 +133,7 @@ export class UUICardMediaElement extends UUICardElement {
 
       slot[name='tag'] {
         position: absolute;
-        top: var(--uui-size-4);
+        bottom: var(--uui-size-2);
         right: var(--uui-size-4);
         display: flex;
         justify-content: right;
@@ -191,6 +189,15 @@ export class UUICardMediaElement extends UUICardElement {
         text-decoration: underline;
       }
 
+      #open-part #name {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
+      }
+
       :host([image]:not([image=''])) #open-part {
         transition: opacity 0.5s 0.5s;
         opacity: 0;
@@ -199,8 +206,7 @@ export class UUICardMediaElement extends UUICardElement {
       #content {
         position: relative;
         display: flex;
-        width: 100%;
-        align-items: center;
+        flex-direction: column;
         font-family: inherit;
         box-sizing: border-box;
         text-align: left;

@@ -74,7 +74,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @state() private hue = 0;
   @state() private saturation = 0;
   @state() private lightness = 0;
-  @state() private alpha = 0;
+  @state() private alpha = 100;
   @state() private _colord: Colord = colord('hsl(0, 0%, 0%)');
 
   /**
@@ -361,7 +361,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     if (colorString === this.value) return;
 
     if (!colorString) {
-      this.alpha = 0;
+      this.alpha = 100;
       this.inputValue = '';
       this._value = colorString;
 
@@ -379,7 +379,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.hue = h;
     this.saturation = s;
     this.lightness = l;
-    this.alpha = this.opacity ? a * 100 : 100;
+    this.alpha = this.opacity ? a * 100 : 100; // Convert to 0-100 range, and set alpha to 100 if opacity is disabled
 
     const hslaColor = colorString as HslaColor;
 
@@ -395,7 +395,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(
       new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
     );
-
     return true;
   }
 
@@ -429,6 +428,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderColorPicker() {
+    const previewColor = this.value
+      ? `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      : 'transparent';
     return html`
       <div
         class=${classMap({
@@ -447,6 +449,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
             <uui-color-slider
+              hide-value-label
               label="hue"
               class="hue-slider"
               .value=${Math.round(this.hue)}
@@ -457,6 +460,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             ${this.opacity
               ? html`
                   <uui-color-slider
+                    hide-value-label
                     label="alpha"
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
@@ -479,11 +483,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             class="color-picker__preview color-picker__transparent-bg"
             title="Copy"
             aria-label="Copy"
-            style=${styleMap({
-              '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
-                this.lightness
-              }%, ${this.alpha / 100})`,
-            })}
+            style=${styleMap({ '--preview-color': previewColor })}
             @click=${this.handleCopy}></button>
         </div>
         <div class="color-picker__user-input" aria-live="polite">
@@ -531,7 +531,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderSwatches() {
-    if (!this.swatches) return nothing;
+    if (!this.swatches?.length) return nothing;
     return html`<uui-color-swatches
       id="swatches"
       class="color-picker__swatches"
@@ -548,6 +548,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   }
 
   private _renderPreviewButton() {
+    const previewColor = this.value
+      ? `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      : 'transparent';
     return html`<button
         type="button"
         part="trigger"
@@ -560,11 +563,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           'color-dropdown__trigger--large': this.size === 'large',
           'color-picker__transparent-bg': true,
         })}
-        style=${styleMap({
-          '--preview-color': `hsla(${this.hue}deg, ${this.saturation}%, ${
-            this.lightness
-          }%, ${this.alpha / 100})`,
-        })}
+        style=${styleMap({ '--preview-color': previewColor })}
         ?disabled=${this.disabled}
         aria-haspopup="true"
         aria-expanded="false"
@@ -586,6 +585,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         --uui-look-outline-border: #ddd;
         --uui-look-outline-border-hover: #aaa;
         font-size: 0.8rem;
+        color: var(--uui-color-text);
         display: block;
         width: var(--uui-color-picker-width, 280px);
       }
@@ -597,9 +597,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
       .color-picker {
         width: 100%;
-        background-color: #fff;
+        background-color: var(--uui-color-surface);
         user-select: none;
-        border: solid 1px #e4e4e7;
+        border: solid 1px var(--uui-color-border);
       }
       .color-picker__user-input {
         display: flex;
@@ -641,7 +641,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         width: 100%;
         height: 100%;
         border-radius: inherit;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
         /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
         background-color: var(--preview-color);
       }
@@ -651,11 +650,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       .color-picker__transparent-bg {
-        background-image: linear-gradient(
-            45deg,
-            var(--uui-palette-grey) 25%,
-            transparent 25%
-          ),
+        border: 1px solid var(--uui-color-border);
+        background-image:
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
           linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
@@ -705,7 +702,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       uui-color-swatches {
-        border-top: solid 1px #d4d4d8;
+        border-top: solid 1px var(--uui-color-border);
         padding: 0.75rem;
       }
 
@@ -721,6 +718,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         font-size: 0.85rem;
         box-sizing: content-box;
         flex: 1;
+      }
+
+      button.color-picker__trigger:focus-visible {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       uui-color-area {

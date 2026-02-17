@@ -123,8 +123,12 @@ describe('UUIComboboxElement', () => {
 
   describe('keyboard navigation', () => {
     it('moves `active`-focus to second option on pressing the arrow down key', async () => {
-      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-      element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      element.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown' }),
+      );
+      element.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown' }),
+      );
 
       await elementUpdated(element);
 
@@ -132,6 +136,38 @@ describe('UUIComboboxElement', () => {
       const secondOption = list!.children![1] as any;
       expect(secondOption).to.exist;
       expect(secondOption.active).to.be.true;
+    });
+
+    it('selects active option when Enter key is pressed', async () => {
+      const listener = oneEvent(element, UUIComboboxEvent.CHANGE, false);
+
+      // Open the combobox
+      element.open = true;
+      await elementUpdated(element);
+
+      // Navigate down one position (starting from index 0, moves to index 1 which is value2)
+      element.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'ArrowDown',
+          code: 'ArrowDown',
+          bubbles: true,
+        }),
+      );
+
+      await elementUpdated(element);
+
+      // Press Enter to select
+      element.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Enter',
+          code: 'Enter',
+          bubbles: true,
+        }),
+      );
+
+      const event = await listener;
+      expect(event).to.exist;
+      expect(element.value).to.equal('value2');
     });
   });
 });

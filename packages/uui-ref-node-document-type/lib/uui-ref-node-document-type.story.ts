@@ -1,29 +1,24 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
 const meta: Meta = {
   id: 'uui-ref-node-document-type',
   component: 'uui-ref-node-document-type',
   title: 'Displays/References/Document Type',
-  args: {
-    name: 'Product Page',
-    alias: 'productPage',
-  },
-  render: args =>
-    html`<uui-ref-node-document-type ${spread(args)}
-      >${renderSlots(args)}</uui-ref-node-document-type
-    >`,
+  args: { name: 'Product Page', alias: 'productPage' },
+  render: args => html`
+    <uui-ref-node-document-type id="refNode" ${spread(args)}>
+      ${renderSlots(args)}
+    </uui-ref-node-document-type>
+  `,
+
   decorators: [
     (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
   ],
-  parameters: {
-    readme: {
-      markdown: readme,
-    },
-  },
+  parameters: { readme: { markdown: readme } },
 };
 
 export default meta;
@@ -31,10 +26,13 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    'actions slot': html`<uui-action-bar slot="actions"
-      ><uui-button label="delete"
-        ><uui-icon name="delete"></uui-icon></uui-button
-    ></uui-action-bar>`,
+    'actions slot': html`
+      <uui-action-bar slot="actions">
+        <uui-button label="delete">
+          <uui-icon name="delete"></uui-icon>
+        </uui-button>
+      </uui-action-bar>
+    `,
   },
 };
 export const CustomIcon: Story = {
@@ -43,26 +41,24 @@ export const CustomIcon: Story = {
   },
 };
 
-export const Standalone: Story = {
-  args: {
-    standalone: true,
-  },
-};
+export const Standalone: Story = { args: { standalone: true } };
 
-export const Selectable: Story = {
-  args: {
-    selectable: true,
-  },
-};
+export const Selectable: Story = { args: { selectable: true } };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Readonly: Story = {
-  args: {
-    readonly: true,
-  },
+export const Readonly: Story = { args: { readonly: true } };
+
+export const Focus: Story = {
+  args: { id: 'refNode' },
+  decorators: [
+    (Story: any) => html`
+      <div style="max-width: 420px;">
+        ${Story()}
+        <button @click=${() => document.getElementById('refNode')?.focus()}>
+          Set focus
+        </button>
+      </div>
+    `,
+  ],
 };

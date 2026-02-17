@@ -2,7 +2,7 @@ import '@umbraco-ui/uui-dialog-layout/lib';
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import './modal-example.element';
 
 const meta: Meta = {

@@ -115,6 +115,7 @@ export const InterfaceColors = () => {
     '--uui-color-positive',
     '--uui-color-warning',
     '--uui-color-danger',
+    '--uui-color-invalid',
     '--uui-color-disabled',
   ];
   const universal = ['--uui-color-header'];

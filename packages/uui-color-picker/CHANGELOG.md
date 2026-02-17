@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.17.0-rc.3](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.2...v1.17.0-rc.3) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.17.0-rc.2](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.1...v1.17.0-rc.2) (2026-01-27)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.17.0-rc.1](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.0...v1.17.0-rc.1) (2026-01-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.17.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.16.0...v1.17.0-rc.0) (2026-01-26)
+
+### Bug Fixes
+
+- Hide value label for opacity slider as well in color picker ([#1212](https://github.com/umbraco/Umbraco/issues/1212)) ([0d855e6](https://github.com/umbraco/Umbraco/commit/0d855e6203e9ea01c3b231ef55c37fcbddaf24c8))
+
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+### Reverts
+
+- Revert "chore: runs eslint --fix and adjusts tests based on new typings" ([33a6d62](https://github.com/umbraco/Umbraco/commit/33a6d62f834a5a40a38fff00bd2ac5b0f2ec0c11))
+
+# [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.15.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.14.2...v1.15.0-rc.0) (2025-08-06)
+
+### Bug Fixes
+
+- **uui-color-picker:** sets preview color of empty value to transparent ([8aab968](https://github.com/umbraco/Umbraco/commit/8aab968bf33a91d6e6d0c8d325bd32f7137aaebf))
+
+### Features
+
+- **uui-color-slider:** adds `hideValueLabel` option ([da372bb](https://github.com/umbraco/Umbraco/commit/da372bbe82bd032a0445fcdd13c6bc8047e524bb))
+
+## [1.14.2](https://github.com/umbraco/Umbraco/compare/v1.14.1...v1.14.2) (2025-07-03)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+## [1.14.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0...v1.14.1) (2025-06-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- color picker dark theme ([#1057](https://github.com/umbraco/Umbraco.UI/issues/1057)) ([415ff32](https://github.com/umbraco/Umbraco.UI/commit/415ff322fc2524a4167d75f0689343bed5f49bc2))
+- **uui-color-picker:** alpha should default to 100 if there is no color string ([#1061](https://github.com/umbraco/Umbraco.UI/issues/1061)) ([dc445f3](https://github.com/umbraco/Umbraco.UI/commit/dc445f3de303d8b529759dedb9231e23e091efbf))
+
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+**Note:** Version bump only for package @umbraco-ui/uui-color-picker
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-picker

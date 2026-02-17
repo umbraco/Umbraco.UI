@@ -5,7 +5,7 @@ import '@umbraco-ui/uui-button/lib/index';
 import '@umbraco-ui/uui-symbol-file/lib/index';
 import '@umbraco-ui/uui-symbol-folder/lib/index';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 /**
@@ -40,6 +40,12 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+
+export const WithDetail: Story = {
+  args: {
+    detail: 'The detail',
+  },
+};
 
 export const Folder: Story = {
   args: {
@@ -81,5 +87,21 @@ export const Href: Story = {
 export const Image: Story = {
   args: {
     slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+};
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+  },
+};
+
+export const OnlySelectable: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
   },
 };

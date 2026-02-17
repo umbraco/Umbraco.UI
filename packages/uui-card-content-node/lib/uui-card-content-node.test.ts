@@ -75,20 +75,22 @@ describe('UUICardContentNodeElement', () => {
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when info is clicked', async () => {
+        const infoElement =
+          element.shadowRoot!.querySelector<HTMLElement>('#open-part');
+        expect(infoElement).to.exist;
         const listener = oneEvent(element, UUICardEvent.OPEN);
-        const infoElement: HTMLElement | null =
-          element.shadowRoot!.querySelector('#open-part');
-        infoElement?.click();
+        infoElement!.click();
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUICardEvent.OPEN);
       });
 
       it('emits a open event when icon is clicked', async () => {
+        const iconElement =
+          element.shadowRoot!.querySelector<HTMLElement>('#icon');
+        expect(iconElement).to.exist;
         const listener = oneEvent(element, UUICardEvent.OPEN);
-        const iconElement: HTMLElement | null =
-          element.shadowRoot!.querySelector('#icon');
-        iconElement?.click();
+        iconElement!.click();
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUICardEvent.OPEN);

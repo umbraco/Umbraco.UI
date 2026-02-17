@@ -1,11 +1,12 @@
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { demandCustomElement, Timer } from '@umbraco-ui/uui-base/lib/utils';
+import { demandCustomElement, UUITimer } from '@umbraco-ui/uui-base/lib/utils';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { iconRemove } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
+import { UUIInterfaceColor } from '@umbraco-ui/uui-base';
 
 /**
  *  @element uui-toast-notification
@@ -20,12 +21,12 @@ import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
 export class UUIToastNotificationElement extends LitElement {
   /**
    * Changes the color of the notification to one of the predefined, symbolic colors. Example: set this to danger to indicate errors.
-   * @type {'' | 'default' | 'positive' | 'warning' | 'danger'}
+   * @type {UUIInterfaceColor}
    * @attr
    * @default ""
    */
   @property({ reflect: true })
-  color: '' | 'default' | 'positive' | 'warning' | 'danger' = '';
+  color: UUIInterfaceColor = '';
 
   private _autoClose: number | null = null;
   /**
@@ -42,7 +43,7 @@ export class UUIToastNotificationElement extends LitElement {
     this._autoClose = value;
     if (value !== null) {
       if (this._timer === null) {
-        this._timer = new Timer(this._onOpenTimerComplete, value);
+        this._timer = new UUITimer(this._onOpenTimerComplete, value);
       } else {
         this._timer.setDuration(value);
       }
@@ -90,7 +91,7 @@ export class UUIToastNotificationElement extends LitElement {
 
   @query('#toast')
   private _toastEl!: HTMLElement;
-  private _timer: Timer | null = null;
+  private _timer: UUITimer | null = null;
   private _pauseTimer: boolean = false;
 
   protected isOpen = false;
@@ -350,6 +351,11 @@ export class UUIToastNotificationElement extends LitElement {
         background-color: var(--uui-color-danger);
         color: var(--uui-color-danger-contrast);
         border-color: var(--uui-color-danger-standalone);
+      }
+      :host([color='invalid']) #toast > div {
+        background-color: var(--uui-color-invalid);
+        color: var(--uui-color-invalid-contrast);
+        border-color: var(--uui-color-invalid-standalone);
       }
     `,
   ];

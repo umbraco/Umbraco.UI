@@ -3,7 +3,7 @@ import { demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIRefElement } from '@umbraco-ui/uui-ref/lib';
 import { css, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 
 /**
  *  @element uui-ref-node
@@ -64,6 +64,9 @@ export class UUIRefNodeElement extends UUIRefElement {
   @property({ type: String })
   public rel?: string;
 
+  @query('#open-part')
+  protected _openPart?: HTMLInputElement;
+
   @state()
   private _iconSlotHasContent = false;
 
@@ -84,6 +87,11 @@ export class UUIRefNodeElement extends UUIRefElement {
     super.connectedCallback();
 
     demandCustomElement(this, 'uui-icon');
+  }
+
+  async focus() {
+    await this.updateComplete;
+    this._openPart?.focus();
   }
 
   #onSlotIconChange(event: Event) {
@@ -179,11 +187,17 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding: 1px;
       }
 
+      #actions-container {
+        --uui-focus-outline-color: var(--uui-color-focus);
+      }
+
       #content {
         display: flex;
+        flex-grow: 1;
         align-items: center;
-        justify-content: center;
         line-height: 1.2em;
+        padding: calc(var(--uui-size-3));
+        width: calc(100% - 2 * var(--uui-size-3));
       }
 
       #open-part {
@@ -192,7 +206,8 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         display: flex;
         flex-grow: 1;
-        padding: calc(var(--uui-size-3));
+        width: calc(100%);
+        margin: 0 0 1px 0;
       }
 
       #icon {
@@ -210,16 +225,27 @@ export class UUIRefNodeElement extends UUIRefElement {
         justify-content: center;
         height: 100%;
         padding-left: var(--uui-size-2);
+        max-width: calc(100% - 2 * var(--uui-size-3) - var(--uui-size-2));
+        margin-top: 1px;
       }
 
       #detail {
         opacity: 0.6;
+        line-height: 1.2em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: calc(100%);
       }
 
       :host([selectable]) #open-part {
         flex-grow: 0;
         padding: 0;
         margin: calc(var(--uui-size-2));
+
+        #content {
+          padding: 0;
+        }
       }
 
       :host(:not([disabled])) #open-part:hover #icon {

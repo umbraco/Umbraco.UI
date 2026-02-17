@@ -19,6 +19,7 @@ export type PopoverContainerPlacement =
 
 /**
  * @element uui-popover-container
+ * @attr popover - Indicates that the element is a popover container
  */
 @defineElement('uui-popover-container')
 export class UUIPopoverContainerElement extends LitElement {
@@ -69,20 +70,47 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #targetElement: HTMLElement | null = null;
   #scrollParents: Element[] = [];
+  #sizeObserver: ResizeObserver | null = null;
+  #size: { width: number; height: number } = { width: 0, height: 0 };
+
+  constructor() {
+    super();
+
+    this.addEventListener('beforetoggle', this.#onBeforeToggle, {
+      passive: true,
+    });
+  }
 
   connectedCallback(): void {
+    super.connectedCallback();
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
 
-    super.connectedCallback();
-    this.addEventListener('beforetoggle', this.#onBeforeToggle);
+    if (!this.#sizeObserver) {
+      this.#sizeObserver = new ResizeObserver(entries => {
+        const element = entries[0]; // should be only one
+        const width = element.contentRect.width;
+        const height = element.contentRect.height;
+
+        if (width === this.#size.width && height === this.#size.height) {
+          return; // no change
+        }
+
+        this.#size = { width, height };
+        this.#initUpdate();
+      });
+
+      // start listening for size changes
+      this.#sizeObserver.observe(this);
+    }
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.removeEventListener('beforetoggle', this.#onBeforeToggle);
     this.#stopScrollListener();
+    this.#sizeObserver?.disconnect();
+    this.#sizeObserver = null;
   }
 
   #onBeforeToggle = (event: any) => {
@@ -94,31 +122,27 @@ export class UUIPopoverContainerElement extends LitElement {
       this.id,
     );
 
-    this.#getScrollParents();
-
     // Dispatch a custom event that can be listened to by the popover target.
     // Mostly used for UUIButton.
     this.#targetElement?.dispatchEvent(
       new CustomEvent('uui-popover-before-toggle', {
         bubbles: false,
         composed: false,
-        detail: {
-          oldState: event.oldState,
-          newState: event.newState,
-        },
+        detail: { oldState: event.oldState, newState: event.newState },
       }),
     );
 
-    if (!this._open) {
+    if (this._open) {
+      this.#calculateScrollParents();
+
+      this.#startScrollListener();
+
+      requestAnimationFrame(() => {
+        this.#initUpdate();
+      });
+    } else {
       this.#stopScrollListener();
-      return;
     }
-
-    this.#startScrollListener();
-
-    requestAnimationFrame(() => {
-      this.#initUpdate();
-    });
   };
 
   #initUpdate = () => {
@@ -318,7 +342,17 @@ export class UUIPopoverContainerElement extends LitElement {
     document.removeEventListener('scroll', this.#initUpdate);
   }
 
-  #getScrollParents(): any {
+  /**
+   * @internal
+   */
+  _getScrollParents() {
+    return this.#scrollParents;
+  }
+
+  #calculateScrollParents(): void {
+    // Clear previous scroll parents to avoid duplicates
+    this.#scrollParents = [];
+
     if (!this.#targetElement) return;
 
     let style = getComputedStyle(this.#targetElement);
@@ -327,18 +361,24 @@ export class UUIPopoverContainerElement extends LitElement {
     }
 
     const includeHidden = false;
-    const excludeStaticParent = style.position === 'absolute';
+    let excludeStaticParent = style.position === 'absolute';
     const overflowRegex = includeHidden
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
 
-    let el = this.#targetElement;
-    while ((el = el.parentElement as HTMLElement)) {
+    let el: HTMLElement | undefined | null = this.#targetElement;
+    while (el) {
       style = getComputedStyle(el);
 
       if (excludeStaticParent && style.position === 'static') {
+        el = this.#getAncestorElement(el);
         continue;
       }
+
+      if (style.position !== 'static') {
+        excludeStaticParent = style.position === 'absolute';
+      }
+
       if (
         overflowRegex.test(style.overflow + style.overflowY + style.overflowX)
       ) {
@@ -347,8 +387,19 @@ export class UUIPopoverContainerElement extends LitElement {
       if (style.position === 'fixed') {
         return;
       }
+
+      el = this.#getAncestorElement(el);
     }
     this.#scrollParents.push(document.body);
+  }
+
+  #getAncestorElement(el: HTMLElement | null): HTMLElement | null {
+    if (el?.parentElement) {
+      return el.parentElement;
+    }
+
+    // If we had no parentElement, then check for shadow roots:
+    return (el?.getRootNode() as any)?.host;
   }
 
   render() {

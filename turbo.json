@@ -1,6 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "globalDependencies": [
+    "tsconfig.json",
+    "package.json",
+    "package-lock.json",
+    "src/rollup-package.config.mjs"
+  ],
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": [
@@ -9,16 +15,15 @@
         "dist/**",
         "custom-elements.json"
       ],
-      "outputMode": "errors-only"
+      "outputLogs": "errors-only"
     },
     "clean": {
       "cache": false,
-      "outputMode": "none"
+      "outputLogs": "none"
     },
     "analyze": {
       "inputs": ["lib/**/*.element.ts"],
       "outputs": ["custom-elements.json"]
     }
-  },
-  "globalDependencies": ["tsconfig.json", "package.json", "package-lock.json"]
+  }
 }

@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
 import '@umbraco-ui/uui-box/lib';
@@ -151,6 +151,25 @@ export const InABox: Story = {
 };
 
 export const Advanced: Story = {
-  render: () =>
-    html`<uui-table-with-selection-example></uui-table-with-selection-example>`,
+  args: {
+    selectAllLabel: 'Select all rows',
+    selectRowLabel: 'Select',
+  },
+  argTypes: {
+    selectAllLabel: {
+      name: 'Select All Label',
+      description: 'Label for the select all checkbox',
+      control: 'text',
+    },
+    selectRowLabel: {
+      name: 'Select Row Label',
+      description:
+        'Label for individual row checkboxes (item name will be appended)',
+      control: 'text',
+    },
+  },
+  render: args =>
+    html`<uui-table-with-selection-example
+      select-all-label="${args.selectAllLabel}"
+      select-row-label="${args.selectRowLabel}"></uui-table-with-selection-example>`,
 };

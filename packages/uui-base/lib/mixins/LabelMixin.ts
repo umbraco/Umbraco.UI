@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export declare class LabelMixinInterface {
+export declare class UUILabelMixinInterface {
   /**
    * Label to be used for aria-label and potentially as visual label for some components
    * @type {string}
@@ -28,7 +28,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
   /**
    * Label mixin class containing the label functionality.
    */
-  class LabelMixinClass extends superClass {
+  class UUILabelMixinClass extends superClass {
     /**
      * Label to be used for aria-label and potentially as visual label for some components
      * @type {string}
@@ -37,8 +37,8 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     @property({ type: String })
     public label!: string;
 
-    connectedCallback() {
-      super.connectedCallback();
+    firstUpdated(_changedProperties: Map<string | number | symbol, unknown>) {
+      super.firstUpdated(_changedProperties);
       if (!this.label) {
         console.warn(this.tagName + ' needs a `label`', this);
       }
@@ -65,11 +65,15 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
           : ''}
         <slot
           class="label"
-          style=${this._labelSlotHasContent ? '' : 'visibility: hidden'}
+          style=${this._labelSlotHasContent ? '' : 'display: none'}
           name=${labelSlotName ? labelSlotName : ''}
           @slotchange=${this.labelSlotChanged}></slot>
       `;
     }
   }
-  return LabelMixinClass as unknown as Constructor<LabelMixinInterface> & T;
+  return UUILabelMixinClass as unknown as Constructor<UUILabelMixinInterface> &
+    T;
 };
+
+/** @deprecated Use UUILabelMixinInterface instead */
+export type LabelMixinInterface = UUILabelMixinInterface;

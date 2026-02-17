@@ -4,33 +4,36 @@ on:
   push:
     branches:
       - main
-      - 'v*/main'
-      - 'v*/dev'
-      - 'v*/contrib'
-      - 'release/*'
+      - production
+      - release/*
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
-      - 'v*/main'
-      - 'v*/dev'
-      - 'v*/contrib'
-      - 'release/*'
-      - '!dependabot/**'
+      - production
+      - release/*
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed' && github.repository == github.event.pull_request.head.repo.full_name)
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          submodules: true
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build And Deploy
         id: builddeploy
@@ -45,11 +48,11 @@ jobs:
           app_build_command: 'npm run storybook:build'
           api_location: '' # Api source code path - optional
           output_location: '/storybook-static' # Built app content directory - optional
-          production_branch: 'v1/main' # Production branch
+          production_branch: 'production' # Production branch
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.repository == github.event.pull_request.head.repo.full_name
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:

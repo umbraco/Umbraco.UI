@@ -9,6 +9,7 @@ export * from '@umbraco-ui/uui-box/lib';
 export * from '@umbraco-ui/uui-breadcrumbs/lib';
 export * from '@umbraco-ui/uui-button-group/lib';
 export * from '@umbraco-ui/uui-button-inline-create/lib';
+export * from '@umbraco-ui/uui-button-copy-text/lib';
 export * from '@umbraco-ui/uui-button/lib';
 export * from '@umbraco-ui/uui-card-block-type/lib';
 export * from '@umbraco-ui/uui-card-content-node/lib';
@@ -80,3 +81,5 @@ export * from '@umbraco-ui/uui-toast-notification-layout/lib';
 export * from '@umbraco-ui/uui-toast-notification/lib';
 export * from '@umbraco-ui/uui-toggle/lib';
 export * from '@umbraco-ui/uui-visually-hidden/lib';
+
+export * from '@umbraco-ui/uui-responsive-container/lib/index.js';

@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "rootDirs": ["packages"],
-    "target": "esnext",
+    "target": "es2022",
     "module": "esnext",
     "noEmitOnError": true,
-    "lib": ["es2020", "dom", "dom.iterable"],
+    "lib": ["es2022", "dom", "dom.iterable"],
     "esModuleInterop": false,
     "declaration": true,
     "emitDeclarationOnly": true,
@@ -13,7 +13,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -24,7 +24,8 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "jsx": "react-jsx"
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

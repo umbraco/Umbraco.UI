@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui-css",
-  "version": "1.12.1",
+  "version": "1.17.0",
   "license": "MIT",
   "keywords": [
     "Umbraco",
@@ -34,7 +34,8 @@
   },
   "scripts": {
     "build": "npm run build:cssprops && tsc --build && rollup -c rollup.config.js",
-    "build:cssprops": "postcss lib/custom-properties.css --base lib/ --dir dist && npm run custom-properties-cache",
+    "build:cssprops": "npm run postcss:convert && npm run custom-properties-cache",
+    "postcss:convert": "postcss lib/custom-properties.css -o dist/custom-properties.css",
     "clean": "tsc --build --clean && rimraf -g dist lib/*.js lib/**/*.js *.tgz lib/**/*.d.ts custom-elements.json custom-properties.*",
     "analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json",
     "custom-properties-cache": "node ./scripts/update-custom-properties-cache.js"

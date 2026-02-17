@@ -57,9 +57,11 @@ export const CacheCustomProperties = async masterCSSPath => {
         'utf8',
       );
     } catch (err) {
-      console.error(err);
+      console.error('Error writing file', err);
+      process.exit(1);
     }
   } catch (err) {
-    console.error(err);
+    console.error('Error reading file', err);
+    process.exit(1);
   }
 };

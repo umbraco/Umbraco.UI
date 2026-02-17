@@ -94,7 +94,11 @@ export class UUIPopoverElement extends LitElement {
   set open(newValue) {
     const oldValue = this._open;
     this._open = newValue;
-    newValue ? this._openPopover() : this._closePopover();
+    if (newValue) {
+      this._openPopover();
+    } else {
+      this._closePopover();
+    }
     this.requestUpdate('open', oldValue);
   }
 
@@ -161,6 +165,9 @@ export class UUIPopoverElement extends LitElement {
   }
 
   private _getScrollParents(): any {
+    // Clear previous scroll parents to avoid duplicates
+    this._scrollParents = [];
+
     const hostElement = this.shadowRoot!.host;
     let style = getComputedStyle(hostElement);
     if (style.position === 'fixed') {
@@ -173,11 +180,12 @@ export class UUIPopoverElement extends LitElement {
       ? /(auto|scroll|hidden)/
       : /(auto|scroll)/;
 
-    let el = hostElement;
-    while ((el = el.parentElement as Element)) {
+    let el: Element | null = hostElement;
+    while (el) {
       style = getComputedStyle(el);
 
       if (excludeStaticParent && style.position === 'static') {
+        el = this._getAncestorElement(el);
         continue;
       }
       if (
@@ -188,8 +196,19 @@ export class UUIPopoverElement extends LitElement {
       if (style.position === 'fixed') {
         return;
       }
+
+      el = this._getAncestorElement(el);
     }
     this._scrollParents.push(document.body);
+  }
+
+  private _getAncestorElement(el: Element | null): Element | null {
+    if (el?.parentElement) {
+      return el.parentElement;
+    } else {
+      // If we had no parentElement, then check for shadow roots:
+      return (el?.getRootNode() as any)?.host;
+    }
   }
 
   private _createIntersectionObserver() {

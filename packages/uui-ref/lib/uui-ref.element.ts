@@ -69,6 +69,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        font-size: var(--uui-font-size);
 
         box-sizing: border-box;
         border-radius: var(--uui-border-radius);
@@ -85,10 +86,7 @@ export class UUIRefElement extends SelectOnlyMixin(
       }
 
       :host([error]) {
-        border: 2px solid var(--uui-color-danger);
-        box-shadow:
-          0 0 4px 0 var(--uui-color-danger),
-          inset 0 0 2px 0 var(--uui-color-danger);
+        border: 1px solid var(--uui-color-invalid);
       }
 
       :host([standalone]) {
@@ -188,24 +186,29 @@ export class UUIRefElement extends SelectOnlyMixin(
 
       button:focus,
       a:focus {
-        outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-card-border-width);
-        outline-style: solid;
         outline-offset: var(--uui-card-border-width);
         border-radius: var(--uui-border-radius);
+        outline: 2px solid var(--uui-color-focus);
       }
 
+      slot[name='actions']::slotted(*) {
+        --uui-button-height: calc(var(--uui-size-2) * 4);
+      }
+
+      slot[name='actions']::slotted(*:first-child) {
+        margin-right: var(--uui-size-2);
+      }
       slot[name='actions'] {
         display: flex;
         align-items: center;
-        --uui-button-height: calc(var(--uui-size-2) * 4);
-        margin-right: var(--uui-size-2);
       }
-      #tag-container {
+      #tag-container::slotted(*:first-child) {
+        margin: calc(var(--uui-size-2));
+      }
+      #actions-container::slotted(*:first-child) {
         margin: calc(var(--uui-size-2));
       }
       #actions-container {
-        margin: calc(var(--uui-size-2));
         opacity: 0;
         transition: opacity 120ms;
       }

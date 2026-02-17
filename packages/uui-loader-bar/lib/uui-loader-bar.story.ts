@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 const meta: Meta = {
@@ -25,6 +25,7 @@ const meta: Meta = {
     readme: {
       markdown: readme,
     },
+    chromatic: { disableSnapshot: true },
   },
 };
 

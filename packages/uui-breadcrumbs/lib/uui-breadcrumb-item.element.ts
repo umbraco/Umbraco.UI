@@ -12,7 +12,6 @@ import { property } from 'lit/decorators.js';
 export class UUIBreadcrumbItemElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'listitem');
   }
 
   // TODO: ability for adding aria-label?
@@ -68,6 +67,11 @@ export class UUIBreadcrumbItemElement extends LitElement {
       }
       a:focus {
         color: var(--uui-color-focus);
+      }
+
+      a:focus-visible {
+        border-radius: var(--uui-border-radius);
+        outline: 2px solid var(--uui-color-focus);
       }
 
       [part='separator']::after {

@@ -78,10 +78,11 @@ describe('UUICardMediaElement', () => {
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when open-part is clicked', async () => {
+        const infoElement =
+          element.shadowRoot!.querySelector<HTMLElement>('#open-part');
+        expect(infoElement).to.exist;
         const listener = oneEvent(element, UUICardEvent.OPEN);
-        const infoElement: HTMLElement | null =
-          element.shadowRoot!.querySelector('#open-part');
-        infoElement?.click();
+        infoElement!.click();
         const event = await listener;
         expect(event).to.exist;
         expect(event.type).to.equal(UUICardEvent.OPEN);

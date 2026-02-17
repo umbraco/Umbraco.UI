@@ -1,8 +1,12 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
+
+import '@umbraco-ui/uui-input-lock/lib';
+import '@umbraco-ui/uui-icon/lib';
+import '@umbraco-ui/uui-button/lib';
 
 const meta: Meta = {
   id: 'uui-input',
@@ -30,7 +34,18 @@ const meta: Meta = {
         'datetime-local',
         'number',
         'color',
-        'wha',
+      ],
+    },
+    inputMode: {
+      options: [
+        'text',
+        'none',
+        'decimal',
+        'numeric',
+        'tel',
+        'search',
+        'email',
+        'url',
       ],
     },
   },
@@ -128,6 +143,15 @@ export const PrependAndAppend: Story = {
 
 export const PrependIcon: Story = {
   args: {
+    'prepend slot': html`<uui-icon
+      name="search"
+      slot="prepend"
+      style="padding-left:var(--uui-size-space-2)"></uui-icon>`,
+  },
+};
+
+export const PrependIconInDiv: Story = {
+  args: {
     'prepend slot': html`<div slot="prepend">
       <uui-icon name="search"></uui-icon>
     </div>`,
@@ -159,9 +183,22 @@ export const MultipleInputs: Story = {
   },
 };
 
+export const InputAlignment: Story = {
+  render: args =>
+    html`<uui-input ${spread(args)}>${renderSlots(args)}</uui-input>–<uui-input
+        ${spread(args)}
+        >${renderSlots(args)}</uui-input
+      >`,
+};
+
 export const AutoWidth: Story = {
   render: args =>
     html`<uui-input ${spread(args)}></uui-input>
+
+      <uui-input
+        ${spread(args)}
+        style="max-width:240px"
+        placeholder="Max-width of 240px and auto-width"></uui-input>
 
       <uui-input ${spread(args)}>
         <uui-input
@@ -171,6 +208,26 @@ export const AutoWidth: Story = {
         <uui-input
           slot="append"
           placeholder="Append auto-width false"></uui-input>
+      </uui-input>
+
+      <uui-input
+        ${spread(args)}
+        style="max-width:400px"
+        placeholder="max-width 400px">
+        <uui-input slot="prepend" placeholder="Prepend fixed width"></uui-input>
+        <uui-input
+          slot="append"
+          placeholder="Append auto-width false"
+          ?auto-width=${args.autoWidth}></uui-input>
+      </uui-input>
+
+      <uui-input-lock placeholder="" auto-width></uui-input-lock>
+
+      <uui-input
+        ${spread(args)}
+        style="width:320px"
+        placeholder="Enter alias...">
+        <uui-input-lock slot="append" auto-width></uui-input-lock>
       </uui-input>
 
       <uui-input

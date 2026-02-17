@@ -16,12 +16,8 @@ on:
       - 'packages/*/lib/**'
       - 'packages/*/assets/**'
     branches-ignore:
-      - 'dependabot/**'
       - 'release/*'
-      - 'Release/*'
-      - 'main'
-      - 'v*/main'
-      - 'v*/release'
+      - 'production'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -39,24 +35,25 @@ env:
 # List of jobs
 jobs:
   chromatic-deployment:
-    if: github.repository_owner == 'Umbraco'
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.repository == github.event.pull_request.head.repo.full_name)
     # Operating System
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # pulls all commits (needed for chromatic to find baselines)
           fetch-depth: '0'
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version-file: .nvmrc
+          check-latest: true
           cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Publish to Chromatic
-        uses: chromaui/action@v11
+        uses: chromaui/action@latest
         continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -65,3 +62,6 @@ jobs:
           exitOnceUploaded: true
           onlyChanged: true,
           untraced: '.storybook/images/**/*,storyhelpers/**/*'
+          autoAcceptChanges: 'main'
+          externals: |
+            .storybook/images/**

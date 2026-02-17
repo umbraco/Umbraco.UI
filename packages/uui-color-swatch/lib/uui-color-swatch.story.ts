@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
 const meta: Meta = {
@@ -112,5 +112,14 @@ export const SlottedLabel: Story = {
 export const Transparent: Story = {
   args: {
     value: 'rgba(209, 2, 26, 0.4)',
+  },
+};
+
+export const Gradient: Story = {
+  args: {
+    value: 'sun',
+    color: 'radial-gradient(orange, red)',
+    label: 'Sun',
+    showLabel: true,
   },
 };

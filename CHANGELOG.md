@@ -3,6 +3,185 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.5](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.4...v1.17.0-rc.5) (2026-01-29)
+
+### Bug Fixes
+
+- Fix radiobutton keyboard accessibility ([#1263](https://github.com/umbraco/Umbraco/issues/1263)) ([1c2424c](https://github.com/umbraco/Umbraco/commit/1c2424c51a0178bf725c02247e7f8c536fd97861))
+- **uui-avatar:** Fix initials in avatar when name contains parentheses or emojis ([#1259](https://github.com/umbraco/Umbraco/issues/1259)) ([49bd73e](https://github.com/umbraco/Umbraco/commit/49bd73ecdf4d66fda84d2b33b656d441ede3fbdf))
+- **uui-combobox:** Fix keyboard selection in async combobox and add initial story data ([#1261](https://github.com/umbraco/Umbraco/issues/1261)) ([168d87d](https://github.com/umbraco/Umbraco/commit/168d87db4e9cc326a556b1e3d8550964bc9a8084))
+- **uui-input:** add text overflow ([#1256](https://github.com/umbraco/Umbraco/issues/1256)) ([280ce45](https://github.com/umbraco/Umbraco/commit/280ce450c6c76be8dd8ff3472112f3e3a59aad3b))
+- **uui-textarea:** auto-height not recalculating on programmatic value changes ([#1262](https://github.com/umbraco/Umbraco/issues/1262)) ([6f15e5c](https://github.com/umbraco/Umbraco/commit/6f15e5c3d10624e7bda166fb997b8ed5ab2b053b))
+
+### Features
+
+- Add file rejection events and reduce cognitive complexity ([#1258](https://github.com/umbraco/Umbraco/issues/1258)) ([74e74fc](https://github.com/umbraco/Umbraco/commit/74e74fc4b1e393c5bbf70c8b6aa6a73e69d5e3b1))
+
+# [1.17.0-rc.4](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.3...v1.17.0-rc.4) (2026-01-27)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.3](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.2...v1.17.0-rc.3) (2026-01-27)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.2](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.1...v1.17.0-rc.2) (2026-01-27)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.1](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.0...v1.17.0-rc.1) (2026-01-26)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.17.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.16.0...v1.17.0-rc.0) (2026-01-26)
+
+### Bug Fixes
+
+- Hide value label for opacity slider as well in color picker ([#1212](https://github.com/umbraco/Umbraco/issues/1212)) ([0d855e6](https://github.com/umbraco/Umbraco/commit/0d855e6203e9ea01c3b231ef55c37fcbddaf24c8))
+
+# [1.16.0](https://github.com/umbraco/Umbraco/compare/v1.16.0-rc.0...v1.16.0) (2025-10-17)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.16.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.15.0...v1.16.0-rc.0) (2025-10-07)
+
+### Bug Fixes
+
+- Adjust indent to compensate border ([#1185](https://github.com/umbraco/Umbraco/issues/1185)) ([6a1f27e](https://github.com/umbraco/Umbraco/commit/6a1f27e450e4e09055f886de8534a6ef52f70238))
+- makes the beforetoggle event listener passive and move to constructor ([f817422](https://github.com/umbraco/Umbraco/commit/f8174229b808a464d4917579fecfe2af748eed20))
+- only exclude static parents if the previous element was no static (recalculate every time) ([4d46b8d](https://github.com/umbraco/Umbraco/commit/4d46b8d53a6b1149298b3040f561316f17f43000))
+- only get scroll parents on open actions ([97f895d](https://github.com/umbraco/Umbraco/commit/97f895dfb14854cf8ea0242894c8075c074d44ba))
+- reset scroll parents every time the method is called ([a20d69b](https://github.com/umbraco/Umbraco/commit/a20d69b3ece20717a7ef0e38a90a115e7cebbc6b))
+- wanted margin on uui-ref items slot ([#1175](https://github.com/umbraco/Umbraco/issues/1175)) ([6718d47](https://github.com/umbraco/Umbraco/commit/6718d47c8eb1235fee8d403cc1db71e05bc0a101))
+
+### Features
+
+- **uui-combobox:** Add open functionality with space bar ([#1170](https://github.com/umbraco/Umbraco/issues/1170)) ([db5207c](https://github.com/umbraco/Umbraco/commit/db5207cc72b639a8cce04515446b0c122afbeb1f))
+
+### Reverts
+
+- Revert "chore: runs eslint --fix and adjusts tests based on new typings" ([33a6d62](https://github.com/umbraco/Umbraco/commit/33a6d62f834a5a40a38fff00bd2ac5b0f2ec0c11))
+
+# [1.15.0](https://github.com/umbraco/Umbraco/compare/v1.15.0-rc.0...v1.15.0) (2025-08-25)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.15.0-rc.0](https://github.com/umbraco/Umbraco/compare/v1.14.2...v1.15.0-rc.0) (2025-08-06)
+
+### Bug Fixes
+
+- **uui-color-picker:** sets preview color of empty value to transparent ([8aab968](https://github.com/umbraco/Umbraco/commit/8aab968bf33a91d6e6d0c8d325bd32f7137aaebf))
+- **uui-color-slider:** sets `max = 100` for `lightness` type ([d7aeb38](https://github.com/umbraco/Umbraco/commit/d7aeb38fef4c9eeed994b4381e4465393ede0c1d))
+- **uui-color-slider:** sets `max = 100` for `saturation` type ([66a0952](https://github.com/umbraco/Umbraco/commit/66a09523644bb93cb570c77d00ab1388b6a58e52))
+- **uui-color-slider:** sets `max = 360` for `hue` type ([b0acef4](https://github.com/umbraco/Umbraco/commit/b0acef420c7fc36ff8b6c0f9e587176440dc3de1))
+- **uui-combobox:** Change display to "inline-flex" ([b3320e3](https://github.com/umbraco/Umbraco/commit/b3320e35ba76ec55327d801eb846ad4f764a0858))
+
+### Features
+
+- Adjust color slider with min and max ([#1159](https://github.com/umbraco/Umbraco/issues/1159)) ([aa15fb6](https://github.com/umbraco/Umbraco/commit/aa15fb691051b695a5b93b1b95c92e12914f4285))
+- **uui-card:** Adds checkbox for selection ([#1138](https://github.com/umbraco/Umbraco/issues/1138)) ([d12a9e1](https://github.com/umbraco/Umbraco/commit/d12a9e1d256d2c8ac4922df68f21ccda539911c9))
+- **uui-color-slider:** adds `hideValueLabel` option ([da372bb](https://github.com/umbraco/Umbraco/commit/da372bbe82bd032a0445fcdd13c6bc8047e524bb))
+
+## [1.14.2](https://github.com/umbraco/Umbraco/compare/v1.14.1...v1.14.2) (2025-07-03)
+
+**Note:** Version bump only for package uui-monorepo
+
+## [1.14.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0...v1.14.1) (2025-06-30)
+
+### Bug Fixes
+
+- Recalculate popover position on lazy content ([#1129](https://github.com/umbraco/Umbraco.UI/issues/1129)) ([ae54fd9](https://github.com/umbraco/Umbraco.UI/commit/ae54fd98605702991c1c5f3921c9e8d639d877ae))
+- removes the @chromatic-com/storybook because it does not work currently ([6ac2f37](https://github.com/umbraco/Umbraco.UI/commit/6ac2f37bf62381aa0bc033ece8b292b23cbe9a20))
+
+# [1.14.0](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.4...v1.14.0) (2025-06-11)
+
+### Bug Fixes
+
+- line-height set to 1 on uui-button ([#1114](https://github.com/umbraco/Umbraco.UI/issues/1114)) ([9c528f0](https://github.com/umbraco/Umbraco.UI/commit/9c528f004686924ad9874c3b4f429c9c1a3126c4))
+
+# [1.14.0-rc.4](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.3...v1.14.0-rc.4) (2025-05-30)
+
+### Bug Fixes
+
+- installs postcss-import and postcss-url to ensure asset paths are correct ([04e5033](https://github.com/umbraco/Umbraco.UI/commit/04e503310b3a95043bd7df22395e4bdbc70b106c))
+
+# [1.14.0-rc.3](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.2...v1.14.0-rc.3) (2025-05-28)
+
+### Bug Fixes
+
+- Set height for input prepend/append slots ([#1113](https://github.com/umbraco/Umbraco.UI/issues/1113)) ([0681615](https://github.com/umbraco/Umbraco.UI/commit/0681615c576dcf4e1095b1334caf48c21d29edba))
+
+# [1.14.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.1...v1.14.0-rc.2) (2025-05-26)
+
+### Bug Fixes
+
+- replaces all color() variables with their true value ([cd6a4a5](https://github.com/umbraco/Umbraco.UI/commit/cd6a4a5337b918e1858919a31772694da31cdb0d))
+
+# [1.14.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.14.0-rc.0...v1.14.0-rc.1) (2025-05-23)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.14.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0...v1.14.0-rc.0) (2025-05-16)
+
+### Bug Fixes
+
+- color picker dark theme ([#1057](https://github.com/umbraco/Umbraco.UI/issues/1057)) ([415ff32](https://github.com/umbraco/Umbraco.UI/commit/415ff322fc2524a4167d75f0689343bed5f49bc2))
+- Gave host "color" to make sure things like text in date picker are aligned with theme, as well as giving it a a color scheme option ([#1056](https://github.com/umbraco/Umbraco.UI/issues/1056)) ([49534c1](https://github.com/umbraco/Umbraco.UI/commit/49534c1517197ebc176f53d2d65907c38a8b3295))
+- selection on click in color area ([#1075](https://github.com/umbraco/Umbraco.UI/issues/1075)) ([517788b](https://github.com/umbraco/Umbraco.UI/commit/517788b976de37852fe5d4e111f63a460570b5d8))
+- Text character length validation should be more helpful ([#1060](https://github.com/umbraco/Umbraco.UI/issues/1060)) ([12cc5bc](https://github.com/umbraco/Umbraco.UI/commit/12cc5bcb2ab8c9b925bd811db0b25848df899a56))
+- typo in comment ([#1084](https://github.com/umbraco/Umbraco.UI/issues/1084)) ([b1751f0](https://github.com/umbraco/Umbraco.UI/commit/b1751f020743f644f6a9b730851574e62bc906b0))
+- **uui-color-picker:** alpha should default to 100 if there is no color string ([#1061](https://github.com/umbraco/Umbraco.UI/issues/1061)) ([dc445f3](https://github.com/umbraco/Umbraco.UI/commit/dc445f3de303d8b529759dedb9231e23e091efbf))
+
+### Features
+
+- adds an "initials" property ([601797f](https://github.com/umbraco/Umbraco.UI/commit/601797f03a469baa9e72b95363e916fade8561ee))
+- adds localization to uui-pagination ([#1069](https://github.com/umbraco/Umbraco.UI/issues/1069)) ([4c3bbfa](https://github.com/umbraco/Umbraco.UI/commit/4c3bbfa656678edc8adb2f82ee606fbc41ef1b0b))
+- Advanced color slider story ([#1076](https://github.com/umbraco/Umbraco.UI/issues/1076)) ([5a14b6a](https://github.com/umbraco/Umbraco.UI/commit/5a14b6a70781ee26628b1ff91320ef9f276d4cc0))
+- Allow color gradient in color swatch ([#1074](https://github.com/umbraco/Umbraco.UI/issues/1074)) ([df8b8b0](https://github.com/umbraco/Umbraco.UI/commit/df8b8b072374c46ca5485d18d307f133129e2a07))
+- Specific input mode similar to input type ([#1021](https://github.com/umbraco/Umbraco.UI/issues/1021)) ([f18414d](https://github.com/umbraco/Umbraco.UI/commit/f18414d12bbed4618bbb8b11eedd926c9ff27bf5))
+
+# [1.13.0](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.2...v1.13.0) (2025-03-26)
+
+### Bug Fixes
+
+- make fallback select border ([#1048](https://github.com/umbraco/Umbraco.UI/issues/1048)) ([ba493b1](https://github.com/umbraco/Umbraco.UI/commit/ba493b175c03ffc180b939ba340373747d557a5a)), closes [#1037](https://github.com/umbraco/Umbraco.UI/issues/1037)
+
+# [1.13.0-rc.2](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.1...v1.13.0-rc.2) (2025-03-14)
+
+### Bug Fixes
+
+- ensure `renderSlots()` return correctly tagged unsafe html ([6a1366e](https://github.com/umbraco/Umbraco.UI/commit/6a1366e439870ad60d39ce8f387a3f8530ed1ba7))
+- long media name hides the thumbnail ([#1042](https://github.com/umbraco/Umbraco.UI/issues/1042)) ([f049b67](https://github.com/umbraco/Umbraco.UI/commit/f049b674f626e47926a0efbce0fec4b2e1265a00))
+- Make disabled menu item button more clear ([#1034](https://github.com/umbraco/Umbraco.UI/issues/1034)) ([a7177be](https://github.com/umbraco/Umbraco.UI/commit/a7177bee01932062c2118fc7cd4d81c9b71326fd))
+- Remove extra margin on ref-node ([#1037](https://github.com/umbraco/Umbraco.UI/issues/1037)) ([#1038](https://github.com/umbraco/Umbraco.UI/issues/1038)) ([5718632](https://github.com/umbraco/Umbraco.UI/commit/57186329f83727439555c59b110e1deb4a980381))
+- **uui-card:** text overflow when user name is too long ([#1036](https://github.com/umbraco/Umbraco.UI/issues/1036)) ([e18d793](https://github.com/umbraco/Umbraco.UI/commit/e18d793772f7fb6af9b3ba8b8690f31854780b19))
+
+# [1.13.0-rc.1](https://github.com/umbraco/Umbraco.UI/compare/v1.13.0-rc.0...v1.13.0-rc.1) (2025-03-06)
+
+**Note:** Version bump only for package uui-monorepo
+
+# [1.13.0-rc.0](https://github.com/umbraco/Umbraco.UI/compare/v1.12.2...v1.13.0-rc.0) (2025-03-04)
+
+### Bug Fixes
+
+- add role attribute to tablist elements for accessibility ([3bb8802](https://github.com/umbraco/Umbraco.UI/commit/3bb88026716d23bffac9f9e4d341506861f05a5a))
+- apply border radius to input, select, and textarea ([57abde0](https://github.com/umbraco/Umbraco.UI/commit/57abde0749cb0d43320e0ae8ea8b1f3b45a7925b))
+- drag.ts lint errors ([0f9b0f3](https://github.com/umbraco/Umbraco.UI/commit/0f9b0f3db251e8168ba7733485e50dcae5a37c3a))
+- lower table cell height to take up less space ([dd1bb25](https://github.com/umbraco/Umbraco.UI/commit/dd1bb257c5cd583517e1925ae8c02fb98832920f))
+- reference to TouchEvent which is not defined in Firefox ([#1001](https://github.com/umbraco/Umbraco.UI/issues/1001)) ([338ca32](https://github.com/umbraco/Umbraco.UI/commit/338ca32b3f68e13699c815096ecd63b9d3d3211b))
+- set svg width to 100% on UUIconElement ([23ceec8](https://github.com/umbraco/Umbraco.UI/commit/23ceec87c67d30de18b33f2ded21e7726b74d459))
+- **uui-symbol-more:** inherit current color ([#1025](https://github.com/umbraco/Umbraco.UI/issues/1025)) ([b299735](https://github.com/umbraco/Umbraco.UI/commit/b2997357d6ae677b25a7d27f2fe901c6280ae0e9))
+- vertical aligment uui-symbol-expand.element.ts ([#1010](https://github.com/umbraco/Umbraco.UI/issues/1010)) ([fb6d48e](https://github.com/umbraco/Umbraco.UI/commit/fb6d48ea68d75719484df7e15d2186e9a403e21a))
+
+### Features
+
+- Adds uui-button-copy-text ([#985](https://github.com/umbraco/Umbraco.UI/issues/985)) ([7641286](https://github.com/umbraco/Umbraco.UI/commit/764128623c45727b68684bad5cb281283d90c985))
+- New color 'invalid' ([#1009](https://github.com/umbraco/Umbraco.UI/issues/1009)) ([cd24246](https://github.com/umbraco/Umbraco.UI/commit/cd24246fe6af0e245570d082357e8432b58b2302))
+
 ## [1.12.2](https://github.com/umbraco/Umbraco.UI/compare/v1.12.1...v1.12.2) (2024-11-27)
 
 ### Bug Fixes

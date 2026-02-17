@@ -1,0 +1,53 @@
+name: Build and Upload SBOMs to Dependency-Track
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      # Node.js SBOM
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: 'npm'
+
+      - run: npm install
+
+      - name: Install CycloneDX Node.js CLI
+        run: npm i -g @cyclonedx/cyclonedx-npm
+
+      - name: Generate SBOM for Node.js (frontend)
+        run: npx @cyclonedx/cyclonedx-npm -o sbom.xml
+
+      # Upload Node.js SBOM (if exists)
+      - name: Upload Node.js SBOM to Dependency-Track
+        env:
+          DTRACK_API_URI: ${{ vars.DTRACK_API_URI }}
+          DTRACK_API_KEY: ${{ secrets.DTRACK_API_KEY }}
+        run: |
+          if [ -f ./sbom.xml ]; then
+            echo "Uploading to: $DTRACK_API_URI"
+            echo "Project: ${{ github.event.repository.name }}"
+            echo "Version: ${{ github.ref_name }}"
+            curl --fail-with-body -v -i -w "\nHTTP Status: %{http_code}\n" \
+              "$DTRACK_API_URI" \
+              -H "X-Api-Key: $DTRACK_API_KEY" \
+              -H "accept: application/json" \
+              -H "Content-Type: multipart/form-data" \
+              -F "autoCreate=true" \
+              -F "projectName=${{ github.event.repository.name }}" \
+              -F "projectVersion=${{ github.ref_name }}" \
+              -F "bom=@./sbom.xml"
+          else
+            echo "No frontend SBOM to upload."
+          fi

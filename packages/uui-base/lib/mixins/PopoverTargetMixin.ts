@@ -4,7 +4,7 @@ import { findAncestorByAttributeValue } from '../utils';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export declare class PopoverTargetMixinInterface {
+export declare class UUIPopoverTargetMixinInterface {
   /**
    * Set a popovertarget.
    * @type {string}
@@ -31,7 +31,7 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
   /**
    * Popover target mixin class containing the popover target functionality.
    */
-  class PopoverTargetMixinClass extends superClass {
+  class UUIPopoverTargetMixinClass extends superClass {
     /**
      * Set a popovertarget.
      * @type {string}
@@ -58,11 +58,13 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
       );
       if (!popoverContainerElement) return;
 
-      this.#popoverIsOpen
-        ? // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-          popoverContainerElement.hidePopover()
-        : // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
-          popoverContainerElement.showPopover();
+      if (this.#popoverIsOpen) {
+        // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
+        popoverContainerElement.hidePopover();
+      } else {
+        // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
+        popoverContainerElement.showPopover();
+      }
     };
 
     #popoverListener = (event: any) => {
@@ -72,6 +74,9 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
       });
     };
   }
-  return PopoverTargetMixinClass as unknown as Constructor<PopoverTargetMixinInterface> &
+  return UUIPopoverTargetMixinClass as unknown as Constructor<UUIPopoverTargetMixinInterface> &
     T;
 };
+
+/** @deprecated Use UUIPopoverTargetMixinInterface instead */
+export type PopoverTargetMixinInterface = UUIPopoverTargetMixinInterface;

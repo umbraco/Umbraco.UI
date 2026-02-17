@@ -1,7 +1,7 @@
 import '.';
 import readme from '../README.md?raw';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 import '@umbraco-ui/uui-scroll-container/lib';
@@ -13,24 +13,36 @@ import '@umbraco-ui/uui-symbol-expand/lib';
 import '@umbraco-ui/uui-avatar/lib';
 
 import { repeat } from 'lit/directives/repeat.js';
-import { useArgs } from '@storybook/preview-api';
+import { useArgs } from 'storybook/preview-api';
 import RegionsAndCountries from '../../../storyhelpers/RegionsAndCountries';
 import { until } from 'lit/directives/until.js';
 
 const fruits = [
   'apple',
-  'orange',
-  'lemon',
-  'melon',
-  'banana',
-  'pear',
-  'mango',
-  'plum',
-  'raspberry',
-  'kiwi',
+  'apricot',
   'avocado',
+  'banana',
+  'blackberry',
+  'blueberry',
+  'clementine',
   'coconut',
+  'fig',
   'grape',
+  'kiwi',
+  'lemon',
+  'mango',
+  'melon',
+  'orange',
+  'papaya',
+  'peach',
+  'pear',
+  'pineapple',
+  'plum',
+  'pomegranate',
+  'raspberry',
+  'strawberry',
+  'tangerine',
+  'watermelon',
 ];
 /**
  * Combobox does not have built in filtering, so you need to provide a list of options and filter them before adding them to the list.
@@ -109,6 +121,12 @@ export const Default: Story = {
         sourceState: 'shown',
       },
     },
+  },
+};
+
+export const Placeholder: Story = {
+  args: {
+    placeholder: 'Placeholder',
   },
 };
 
@@ -285,13 +303,14 @@ export const Countries: Story = {
 };
 
 const fakeApi = (search: string) => {
-  if (search === '') return [];
-
   return new Promise(resolve =>
     setTimeout(() => {
-      const filteredData = fruits.filter(item =>
-        item.toLowerCase().includes(search.toLowerCase()),
-      );
+      const filteredData =
+        search === ''
+          ? fruits
+          : fruits.filter(item =>
+              item.toLowerCase().includes(search.toLowerCase()),
+            );
       resolve(filteredData);
     }, 500),
   );

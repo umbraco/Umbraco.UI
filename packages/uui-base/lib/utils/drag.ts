@@ -25,10 +25,13 @@ export const drag = (
     // TouchEvent is not available in Firefox
     if ('TouchEvent' in window && event instanceof TouchEvent) {
       pointerEvent = event.touches[0];
-    } else if ( event instanceof PointerEvent ) {
+    } else if (event instanceof MouseEvent) {
+      // Some browsers seem to return PointerEvent instead of MouseEvent for click event.
+      // We can use MouseEvent as PointerEvent inherits from MouseEvent.
+      // Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=1675847
+      // Safari: https://bugs.webkit.org/show_bug.cgi?id=218665
       pointerEvent = event;
-    }
-    else {
+    } else {
       return;
     }
 

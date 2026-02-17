@@ -9,6 +9,8 @@ import { property } from 'lit/decorators.js';
 
 import { UUICardEvent } from './UUICardEvent';
 
+import '@umbraco-ui/uui-checkbox/lib';
+
 /**
  *  Card is a Component that provides the basics for a Card component. This can be extended in code to match a certain need.
  *  @element uui-card
@@ -83,8 +85,23 @@ export class UUICardElement extends SelectOnlyMixin(
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
 
+  protected renderCheckbox() {
+    if (!this.selectable) return;
+    return html`
+      <uui-checkbox
+        id="select-checkbox"
+        label="select"
+        tabindex="-1"
+        ?checked=${this.selected}
+        @click=${(e: MouseEvent) => e.stopPropagation()}
+        @change=${() => this.click()}>
+      </uui-checkbox>
+    `;
+  }
+
   protected render() {
-    return html`<slot></slot>`;
+    return html`<slot id="open-part"></slot>
+      <div id="select-border"></div>`;
   }
 
   static styles = [
@@ -125,7 +142,7 @@ export class UUICardElement extends SelectOnlyMixin(
         height: 100%;
         z-index: 1;
         box-sizing: border-box;
-        border: var(--uui-card-border-width) solid var(--uui-color-danger);
+        border: var(--uui-card-border-width) solid var(--uui-color-invalid);
         border-radius: var(--uui-border-radius);
       }
 
@@ -134,6 +151,7 @@ export class UUICardElement extends SelectOnlyMixin(
         font-family: inherit;
         border: 0;
         padding: 0;
+        margin: 0 0 1px 0;
         background-color: transparent;
         text-align: left;
         color: var(--uui-color-text);
@@ -234,6 +252,21 @@ export class UUICardElement extends SelectOnlyMixin(
       :host([disabled]) {
         background: var(--uui-color-disabled);
         color: var(--uui-color-disabled-contrast);
+      }
+
+      #select-checkbox {
+        position: absolute;
+        top: var(--uui-size-4);
+        left: var(--uui-size-4);
+        opacity: 0;
+        transition: opacity 120ms;
+        z-index: 3;
+      }
+      :host(:focus) #select-checkbox,
+      :host(:focus-within) #select-checkbox,
+      :host(:hover) #select-checkbox,
+      #select-checkbox[checked] {
+        opacity: 1;
       }
     `,
   ];

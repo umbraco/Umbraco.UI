@@ -31,6 +31,7 @@ If you want to develop a component or contribute to the repository go to ["Get s
 | [`<uui-button>`](packages/uui-button)                                             | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-button)                                             |
 | [`<uui-button-group>`](packages/uui-button-group)                                 | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-group?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-button-group)                                 |
 | [`<uui-button-inline-create>`](packages/uui-button-inline-create)                 | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-inline-create?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-button-inline-create)                 |
+| [`<uui-button-copy-text>`](packages/uui-button-copy-text)                         | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-copy-text?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-button-copy-text)                         |
 | [`<uui-card>`](packages/uui-card)                                                 | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card)                                                 |
 | [`<uui-card-content-node>`](packages/uui-card-content-node)                       | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-content-node?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card-content-node)                       |
 | [`<uui-card-media>`](packages/uui-card-media)                                     | [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-media?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card-media)                                     |
@@ -143,5 +144,5 @@ See the rest of [the scripts here](docs/SCRIPTS.md).
 - 📥 Pull requests and 🌟 Stars are always welcome.
 - Read our [contributing guide](docs/CONTRIBUTING.md) to get started.
 - Please report bugs and feature requests in the [issue tracker](https://github.com/umbraco/Umbraco.UI/issues)
-- The main branch is the latest development branch. Please make your pull requests against this branch: `v1/contrib`
-  - You can see the latest features in the Storybook attached to this branch: [v1/contrib](https://delightful-beach-055ecb503-v1contrib.westeurope.azurestaticapps.net/)
+- The main branch is the latest development branch. Please make your pull requests against this branch: `main`
+  - You can see the latest features in the Storybook attached to this branch: [main](https://delightful-beach-055ecb503-main.westeurope.azurestaticapps.net/)

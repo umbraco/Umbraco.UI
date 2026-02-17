@@ -1,0 +1,12 @@
+{
+  "name": "storybook-readme-addon",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./manager.ts",
+      "default": "./manager.ts"
+    },
+    "./manager": "./manager.ts"
+  }
+}

@@ -1,4 +1,4 @@
-export class Timer {
+export class UUITimer {
   private _timerId: number | null = null;
   private _startTime!: number;
   private _duration!: number;
@@ -63,3 +63,8 @@ export class Timer {
     this.pause();
   }
 }
+
+/** @deprecated Use UUITimer instead */
+export type Timer = UUITimer;
+/** @deprecated Use UUITimer instead */
+export const Timer = UUITimer;

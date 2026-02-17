@@ -1,32 +1,35 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
-import { html } from 'lit';
-import { join, dirname } from 'path';
+import { fileURLToPath } from 'node:url';
+import { defineMain } from '@storybook/web-components-vite/node';
+import remarkGfm from 'remark-gfm';
 
-/**
- * This function is used to resolve the absolute path of a package.
- * It is needed in projects that use Yarn PnP or are set up within a monorepo.
- */
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
-}
-
-const config: StorybookConfig = {
+export default defineMain({
+  framework: '@storybook/web-components-vite',
   stories: [
     '../packages/**/*.mdx',
     '../packages/**/*.story.@(js|jsx|mjs|ts|tsx)',
     '../stories/**/*.story.@(js|jsx|mjs|ts|tsx)',
   ],
+
   staticDirs: ['./images'],
+
   addons: [
-    getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-a11y'),
-    '../storyhelpers/storybook-readme',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
+    '@storybook/addon-links',
+    '@storybook/addon-a11y',
+    '@chromatic-com/storybook',
+    fileURLToPath(
+      import.meta.resolve('../storyhelpers/storybook-readme/index.ts'),
+    ),
   ],
-  framework: {
-    name: getAbsolutePath('@storybook/web-components-vite'),
-    options: {},
-  },
-};
-export default config;
+
+  docs: {},
+});

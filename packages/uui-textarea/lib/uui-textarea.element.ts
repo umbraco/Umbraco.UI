@@ -81,13 +81,12 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * Minlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
-  @property({ type: String, attribute: 'minlength-message' })
-  minlengthMessage = 'This field need more characters';
-
+  @property({ attribute: 'minlength-message' })
+  minlengthMessage: string | ((charsLeft: number) => string) = charsLeft =>
+    `${charsLeft} characters left`;
   /**
    * This is a maximum value of the input.
    * @type {number}
@@ -99,12 +98,14 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
   /**
    * Maxlength validation message.
-   * @type {boolean}
    * @attr
    * @default
    */
-  @property({ type: String, attribute: 'maxlength-message' })
-  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+  @property({ attribute: 'maxlength-message' })
+  maxlengthMessage: string | ((max: number, current: number) => string) = (
+    max,
+    current,
+  ) => `Maximum ${max} characters, ${current - max} too many.`;
 
   @query('#textarea')
   protected _textarea!: HTMLInputElement;
@@ -163,14 +164,56 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
 
     this.addValidator(
       'tooShort',
-      () => this.minlengthMessage,
-      () => !!this.minlength && (this.value as string).length < this.minlength,
+      () => {
+        const label = this.minlengthMessage;
+        if (typeof label === 'function') {
+          return label(
+            this.minlength ? this.minlength - String(this.value).length : 0,
+          );
+        }
+        return label;
+      },
+      () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
-      () => this.maxlengthMessage,
-      () => !!this.maxlength && (this.value as string).length > this.maxlength,
+      () => {
+        const label = this.maxlengthMessage;
+        if (typeof label === 'function') {
+          return label(this.maxlength ?? 0, String(this.value).length);
+        }
+        return label;
+      },
+      () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
+  }
+
+  /**
+   * Override value setter to trigger autoUpdateHeight when value changes
+   */
+  private _autoHeightRafId: number | null = null;
+
+  override set value(newValue: string) {
+    const oldValue = super.value;
+    super.value = newValue;
+    // If autoHeight is enabled and component is connected, update height
+    // Only trigger if the value actually changed
+    if (this.autoHeight && this.isConnected && oldValue !== newValue) {
+      // Cancel any previously scheduled height update to avoid redundant calls
+      if (this._autoHeightRafId !== null) {
+        cancelAnimationFrame(this._autoHeightRafId);
+      }
+      // Schedule height update after the DOM has been updated
+      // We use requestAnimationFrame to ensure the textarea's value has been updated in the DOM
+      this._autoHeightRafId = requestAnimationFrame(() => {
+        this._autoHeightRafId = null;
+        this.autoUpdateHeight();
+      });
+    }
+  }
+
+  override get value(): string {
+    return String(super.value);
   }
 
   connectedCallback() {
@@ -210,11 +253,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   private onInput(e: Event) {
-    this.value = (e.target as HTMLInputElement).value;
-
-    if (this.autoHeight) {
-      this.autoUpdateHeight();
-    }
+    this.value = (e.target as HTMLTextAreaElement).value;
 
     // TODO: Do we miss an input event?
     //this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
@@ -258,7 +297,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         id="textarea"
         rows=${ifDefined(this.rows)}
         cols=${ifDefined(this.cols)}
-        .value=${this.value as string}
+        .value=${String(this.value)}
         .name=${this.name}
         wrap=${ifDefined(this.wrap)}
         placeholder=${this.placeholder}
@@ -278,12 +317,12 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
       }
       :host([error]) textarea,
       :host([error]) textarea[disabled] {
-        border: 1px solid var(--uui-color-danger) !important;
+        border: 1px solid var(--uui-color-invalid) !important;
       }
       :host(:not([pristine]):invalid) textarea,
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) textarea {
-        border-color: var(--uui-color-danger);
+        border-color: var(--uui-color-invalid);
       }
       :host([auto-height]) textarea {
         resize: none;
@@ -330,7 +369,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         padding: var(--uui-size-2);
         border: 1px solid
           var(--uui-textarea-border-color, var(--uui-color-border)); /** Note: Specified border size is needed and hardcoded in autoUpdateHeight() */
-        border-radius: 0;
+        border-radius: var(--uui-border-radius);
         outline: none;
         min-height: var(--uui-textarea-min-height);
         max-height: var(--uui-textarea-max-height);

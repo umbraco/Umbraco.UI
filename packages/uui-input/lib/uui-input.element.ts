@@ -24,6 +24,16 @@ export type InputType =
   | 'number'
   | 'color';
 
+export type InputMode =
+  | 'text'
+  | 'none'
+  | 'decimal'
+  | 'numeric'
+  | 'tel'
+  | 'search'
+  | 'email'
+  | 'url';
+
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
@@ -84,8 +94,9 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @attr minlength-message
    * @default
    */
-  @property({ type: String, attribute: 'minlength-message' })
-  minlengthMessage = 'This field need more characters';
+  @property({ attribute: 'minlength-message' })
+  minlengthMessage: string | ((charsLeft: number) => string) = charsLeft =>
+    `${charsLeft} characters left`;
 
   /**
    * Sets the max value of the input.
@@ -111,8 +122,11 @@ export class UUIInputElement extends UUIFormControlMixin(
    * @attr maxlength-message
    * @default
    */
-  @property({ type: String, attribute: 'maxlength-message' })
-  maxlengthMessage = 'This field exceeds the allowed amount of characters';
+  @property({ attribute: 'maxlength-message' })
+  maxlengthMessage: string | ((max: number, current: number) => string) = (
+    max,
+    current,
+  ) => `Maximum ${max} characters, ${current - max} too many.`;
 
   /**
    * Specifies the interval between legal numbers of the input
@@ -169,7 +183,8 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   /**
    * This property specifies the type of input that will be rendered.
-   * @type {'text' | 'tel'| 'url'| 'email'| 'password'| 'date'| 'month'| 'week'| 'time'| 'datetime-local'| 'number'| 'color'}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types|MDN} for further information
+   * @type {'text' | 'tel' | 'url' | 'email' | 'password' | 'date' | 'month' | 'week' | 'time' | 'datetime-local' | 'number' | 'color'}
    * @attr
    * @default text
    */
@@ -182,6 +197,16 @@ export class UUIInputElement extends UUIFormControlMixin(
   }
 
   /**
+   * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
+   * @type {'text' | 'none' | 'decimal' | 'number' | 'tel' | 'search' | 'email' | 'url'}
+   * @attr
+   * @default text
+   */
+  @property({ attribute: 'inputmode' })
+  inputMode: InputMode = 'text';
+
+  /**
    * Validates the input based on the Regex pattern
    * @type {string}
    * @attr
@@ -190,13 +215,12 @@ export class UUIInputElement extends UUIFormControlMixin(
   pattern?: string;
 
   /**
-   * The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode|MDN} for further information
-   * @type {string}
+   * Set the input tabindex, set this to `-1` to avoid tabbing into the input.
+   * @type {number}
    * @attr
    */
-  @property({ type: String })
-  inputMode = '';
+  @property({ type: Number, reflect: false, attribute: 'tabindex' })
+  tabIndex: number = 0;
 
   @query('#input')
   _input!: HTMLInputElement;
@@ -216,12 +240,26 @@ export class UUIInputElement extends UUIFormControlMixin(
 
     this.addValidator(
       'tooShort',
-      () => this.minlengthMessage,
+      () => {
+        const label = this.minlengthMessage;
+        if (typeof label === 'function') {
+          return label(
+            this.minlength ? this.minlength - String(this.value).length : 0,
+          );
+        }
+        return label;
+      },
       () => !!this.minlength && String(this.value).length < this.minlength,
     );
     this.addValidator(
       'tooLong',
-      () => this.maxlengthMessage,
+      () => {
+        const label = this.maxlengthMessage;
+        if (typeof label === 'function') {
+          return label(this.maxlength ?? 0, String(this.value).length);
+        }
+        return label;
+      },
       () => !!this.maxlength && String(this.value).length > this.maxlength,
     );
 
@@ -295,7 +333,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   }
 
   private renderInputWithAutoWidth() {
-    return html`<div id="control">
+    return html`<div id="autoWidth">
       ${this.renderInput()}${this.renderAutoWidthBackground()}
     </div>`;
   }
@@ -303,6 +341,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   renderInput() {
     return html`<input
       id="input"
+      size=${ifDefined(this.autoWidth ? '1' : undefined)}
       .type=${this.type}
       .value=${this.value as string}
       .name=${this.name}
@@ -319,6 +358,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       ?autofocus=${this.autofocus}
       ?required=${this.required}
       ?readonly=${this.readonly}
+      tabindex=${ifDefined(this.tabIndex)}
       @input=${this.onInput}
       @change=${this.onChange} />`;
   }
@@ -341,6 +381,8 @@ export class UUIInputElement extends UUIFormControlMixin(
         align-items: stretch;
         height: var(--uui-input-height, var(--uui-size-11));
         text-align: left;
+        color: var(--uui-color-text);
+        color-scheme: var(--uui-color-scheme, normal);
         box-sizing: border-box;
         background-color: var(
           --uui-input-background-color,
@@ -348,19 +390,24 @@ export class UUIInputElement extends UUIFormControlMixin(
         );
         border: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
+        border-radius: var(--uui-border-radius);
+        min-width: 0;
 
+        --uui-input-padding: 1px var(--uui-size-space-3);
         --uui-button-height: 100%;
         --auto-width-text-margin-right: 0;
         --auto-width-text-margin-left: 0;
       }
 
-      #control {
+      #autoWidth {
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
         flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
       }
 
       #auto {
@@ -372,11 +419,6 @@ export class UUIInputElement extends UUIFormControlMixin(
         padding: 0 var(--uui-size-space-3);
         margin: 0 var(--auto-width-text-margin-right) 0
           var(--auto-width-text-margin-left);
-      }
-
-      :host([auto-width]) #input {
-        width: 10px;
-        min-width: 100%;
       }
 
       :host(:hover) {
@@ -431,22 +473,25 @@ export class UUIInputElement extends UUIFormControlMixin(
       :host(:not([pristine]):invalid),
       /* polyfill support */
       :host(:not([pristine])[internals-invalid]) {
-        border-color: var(--uui-color-danger);
+        border-color: var(--uui-color-invalid);
       }
 
       input {
         font-family: inherit;
-        padding: var(--uui-size-1) var(--uui-size-space-3);
+        padding: var(--uui-input-padding);
         font-size: inherit;
         color: inherit;
-        border-radius: 0;
+        border-radius: var(--uui-border-radius);
         box-sizing: border-box;
         border: none;
         background: none;
-        width: 100%;
+        min-width: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
         height: inherit;
         text-align: inherit;
         outline: none;
+        text-overflow: ellipsis;
       }
 
       input[type='password']::-ms-reveal {
@@ -458,6 +503,15 @@ export class UUIInputElement extends UUIFormControlMixin(
         width: 30px;
         padding: 0;
         border: none;
+      }
+
+      slot[name='prepend'],
+      slot[name='append'] {
+        display: flex;
+        align-items: center;
+        line-height: 1;
+        height: 100%;
+        min-width: 0;
       }
 
       ::slotted(uui-input),

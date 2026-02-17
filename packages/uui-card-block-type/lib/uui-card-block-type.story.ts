@@ -3,7 +3,7 @@ import readme from '../README.md?raw';
 import '@umbraco-ui/uui-tag/lib/index';
 import '@umbraco-ui/uui-button/lib/index';
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
 /**
@@ -70,8 +70,19 @@ export const Background: Story = {
 
 export const Image: Story = {
   args: {
-    slot: html`<img
-      src="https://umbraco.com/media/v5gf3w2a/umbraco-toolkit-wide.svg"
-      alt="" />`,
+    slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,
+  },
+};
+
+export const Selectable: Story = {
+  args: {
+    selectable: true,
+  },
+};
+
+export const OnlySelectable: Story = {
+  args: {
+    selectable: true,
+    selectOnly: true,
   },
 };
