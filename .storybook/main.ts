@@ -4,11 +4,7 @@ import remarkGfm from 'remark-gfm';
 
 export default defineMain({
   framework: '@storybook/web-components-vite',
-  stories: [
-    '../src/**/*.mdx',
-    '../src/**/*.story.@(js|jsx|mjs|ts|tsx)',
-    '../stories/**/*.story.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ['../src/**/*.mdx', '../src/**/*.story.@(js|jsx|mjs|ts|tsx)'],
 
   staticDirs: ['./images'],
 
