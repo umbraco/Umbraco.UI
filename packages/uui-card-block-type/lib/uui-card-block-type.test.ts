@@ -12,8 +12,7 @@ import '.';
 import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
 import { UUISelectableEvent } from '@umbraco-ui/uui-base/lib/events';
 
-// TODO: Re-enable once Webkit CI timeout flakiness is resolved
-describe.skip('UUICardBlockTypeElement', () => {
+describe('UUICardBlockTypeElement', () => {
   let element: UUICardBlockTypeElement;
 
   beforeEach(async () => {
@@ -22,7 +21,8 @@ describe.skip('UUICardBlockTypeElement', () => {
     `);
   });
 
-  it('passes the a11y audit', async () => {
+  // TODO: a11y audit times out in Webkit CI due to nested symbol SVG rendering
+  it.skip('passes the a11y audit', async () => {
     await expect(element).shadowDom.to.be.accessible();
   });
 
