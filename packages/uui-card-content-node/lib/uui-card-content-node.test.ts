@@ -11,7 +11,10 @@ import { UUICardEvent } from '@umbraco-ui/uui-card/lib';
 import { UUICardContentNodeElement } from './uui-card-content-node.element';
 import '.';
 
-describe('UUICardContentNodeElement', () => {
+describe('UUICardContentNodeElement', function () {
+  // WebKit on CI needs extra time for the nested uui-icon render.
+  this.timeout(5000);
+
   let element: UUICardContentNodeElement;
 
   beforeEach(async () => {
