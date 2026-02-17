@@ -1,5 +1,18 @@
-/*
-vite config is not useable in our setup. Config is defined in .storybook/main.js
-*/
 import { defineConfig } from 'vite';
-export default defineConfig({});
+import { resolve } from 'path';
+
+export default defineConfig({
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      formats: ['es'],
+      fileName: () => 'index.js',
+    },
+    outDir: 'dist',
+    rollupOptions: {
+      external: [/^lit/],
+    },
+    minify: false,
+    sourcemap: true,
+  },
+});
