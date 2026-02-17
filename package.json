@@ -22,7 +22,8 @@
     "dist/**/*.js",
     "dist/**/*.js.map",
     "dist/**/*.d.ts",
-    "dist/**/*.css"
+    "dist/**/*.css",
+    "dist/**/*.woff2"
   ],
   "repository": {
     "type": "git",
@@ -53,8 +54,7 @@
     "test:watch": "web-test-runner --watch",
     "test:scripts": "node --test scripts/**/*.test.mjs",
     "dev": "npm run clean && npm run storybook",
-    "build": "vite build && tsc && npm run build:css",
-    "build:css": "node scripts/copy-css.js",
+    "build": "vite build && tsc",
     "build:prod": "npm run clean && npm run build",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "prepare": "husky",
