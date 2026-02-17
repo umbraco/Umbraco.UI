@@ -23,7 +23,7 @@
 tsconfig.tsbuildinfo
 /out-tsc/
 /packages/**/node_modules/
-
+/dist
 
 custom-elements.json
 vscode-html-custom-data.json
@@ -35,8 +35,9 @@ out-css
 .eslintcache
 *.tgz
 .turbo
+.tsbuildinfo
 
-# old source
-/src
+# single-package spike: src/ tracked, dist/ stays ignored
+!/src
 
 *storybook.log
