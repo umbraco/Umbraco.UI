@@ -85,7 +85,6 @@
     "@web/test-runner-playwright": "0.11.1",
     "autoprefixer": "10.4.21",
     "chromatic": "15.1.0",
-    "element-internals-polyfill": "3.0.2",
     "esbuild": "0.27.2",
     "eslint": "10.0.0",
     "eslint-config-prettier": "10.1.8",
