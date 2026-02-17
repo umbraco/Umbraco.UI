@@ -59,10 +59,8 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
       if (!popoverContainerElement) return;
 
       if (this.#popoverIsOpen) {
-        // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
         popoverContainerElement.hidePopover();
       } else {
-        // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
         popoverContainerElement.showPopover();
       }
     };
