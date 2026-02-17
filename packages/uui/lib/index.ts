@@ -16,7 +16,6 @@ export * from '@umbraco-ui/uui-card-content-node/lib';
 export * from '@umbraco-ui/uui-card-media/lib';
 export * from '@umbraco-ui/uui-card-user/lib';
 export * from '@umbraco-ui/uui-card/lib';
-export * from '@umbraco-ui/uui-caret/lib';
 export * from '@umbraco-ui/uui-checkbox/lib';
 export * from '@umbraco-ui/uui-color-area/lib';
 export * from '@umbraco-ui/uui-color-picker/lib';
