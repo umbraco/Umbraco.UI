@@ -286,7 +286,6 @@ export class UUIPopoverContainerElement extends LitElement {
       left > screenWidth;
 
     if (isCompletelyOutsideScreen) {
-      // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
       this.hidePopover();
     }
 
