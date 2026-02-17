@@ -1,4 +1,5 @@
 import './index.js';
+import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
@@ -17,6 +18,9 @@ const meta: Meta = {
     html`<uui-input-password ${spread(args)}
       >${renderSlots(args)}</uui-input-password
     >`,
+  parameters: {
+    readme: { markdown: readme },
+  },
 };
 
 export default meta;

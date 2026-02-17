@@ -1,6 +1,7 @@
 import './index.js';
 import '../badge/index.js';
 import '../icon/index.js';
+import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
@@ -29,6 +30,9 @@ const meta: Meta = {
   },
   render: args => {
     return html`<uui-button ${spread(args)}>${renderSlots(args)}</uui-button>`;
+  },
+  parameters: {
+    readme: { markdown: readme },
   },
 };
 
