@@ -155,13 +155,6 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   constructor() {
     super();
 
-    this.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-    });
-    this.addEventListener('blur', () => {
-      this.style.setProperty('--uui-show-focus-outline', '');
-    });
-
     this.addValidator(
       'tooShort',
       () => {
@@ -388,9 +381,8 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
           var(--uui-color-border-emphasis)
         );
       }
-      textarea:focus {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      textarea:focus-visible {
+        outline: 2px solid var(--uui-color-focus);
       }
     `,
   ];

@@ -113,13 +113,6 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
 
   constructor() {
     super();
-
-    this.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-    });
-    this.addEventListener('blur', () => {
-      this.style.setProperty('--uui-show-focus-outline', '');
-    });
   }
 
   /**
@@ -297,8 +290,8 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
         );
       }
 
-      #native:focus {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+      #native:focus-visible {
+        outline: 2px solid
           var(--uui-select-outline-color, var(--uui-color-focus));
       }
 

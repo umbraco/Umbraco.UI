@@ -152,9 +152,8 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
         background-color: var(--uui-color-selected-emphasis);
       }
 
-      input:focus + #ticker {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      input:focus-visible + #ticker {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       :host(:not([disabled], [readonly]))

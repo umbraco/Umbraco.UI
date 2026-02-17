@@ -164,9 +164,8 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         transform: translateX(-100%);
       }
 
-      input:focus ~ #toggle {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      input:focus-visible ~ #toggle {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       :host(:not([disabled], [readonly])) label:active #toggle::after {

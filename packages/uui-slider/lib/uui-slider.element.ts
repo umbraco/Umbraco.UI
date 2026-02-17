@@ -154,12 +154,6 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
   constructor() {
     super();
-    this.addEventListener('mousedown', () => {
-      this.style.setProperty('--uui-show-focus-outline', '0');
-    });
-    this.addEventListener('blur', () => {
-      this.style.setProperty('--uui-show-focus-outline', '');
-    });
     this.addEventListener('keydown', this.#onKeyDown);
   }
 
@@ -368,9 +362,8 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         fill: var(--uui-color-border-emphasis);
       }
 
-      input:focus ~ #track #thumb {
-        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
-          var(--uui-color-focus);
+      input:focus-visible ~ #track #thumb {
+        outline: 2px solid var(--uui-color-focus);
       }
 
       .track-step {
