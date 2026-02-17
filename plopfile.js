@@ -1,6 +1,7 @@
-const { kebabCase } = require('lodash');
+import { kebabCase } from 'lodash';
+import { readFileSync } from 'node:fs';
 
-module.exports = function (plop) {
+export default function (plop) {
   // name of custom element tag
   plop.setPartial('tagnamePartial', 'uui-{{name}}');
   // name of LitElement class
@@ -14,7 +15,9 @@ module.exports = function (plop) {
   });
   // uui-base version
   plop.setHelper('uuiBaseVersion', function () {
-    const basePackageJson = require('./packages/uui-base/package.json');
+    const basePackageJson = JSON.parse(
+      readFileSync('./packages/uui-base/package.json', 'utf-8'),
+    );
     return basePackageJson.version;
   });
   // name used as title in storybook and documentation
@@ -87,4 +90,4 @@ module.exports = function (plop) {
       },
     ],
   });
-};
+}
