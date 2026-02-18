@@ -71,12 +71,10 @@ export class UUIIconRegistry {
    * @param iconName
    * @returns
    */
-  //@ts-ignore-start
   // eslint-disable-next-line
   protected acceptIcon(iconName: string): boolean {
     return false;
   }
-  //@ts-ignore-end
 
   public getIconNames(): string[] {
     return Object.keys(this.icons);
