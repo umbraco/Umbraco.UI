@@ -31,6 +31,10 @@ export default defineConfig({
     sourcemap: true,
   },
   experimental: {
+    // CSS files in subdirectories (e.g. themes/light.css) reference fonts
+    // via url(). Vite resolves these relative to the output root, but the
+    // CSS files are nested one level deep. This rewrites CSS asset URLs to
+    // use ../ so font paths resolve correctly from their actual location.
     renderBuiltUrl(filename, { hostType }) {
       if (hostType === 'css') {
         return '../' + filename;
