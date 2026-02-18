@@ -4,7 +4,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
-import '@umbraco-ui/uui-button';
+import '../button/uui-button.element';
 
 /**
  * Default dialog layout, used with the [uui-dialog](/docs/uui-dialog--docs) component

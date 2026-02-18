@@ -1,4 +1,4 @@
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { defineElement } from '../../internal/registration';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 

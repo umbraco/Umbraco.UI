@@ -14,4 +14,7 @@ export * from './components/icon-registry/index.js';
 export * from './components/icon-registry-essential/index.js';
 export * from './components/input/index.js';
 export * from './components/input-password/index.js';
+export * from './components/dialog/index.js';
+export * from './components/dialog-layout/index.js';
+export * from './components/table/index.js';
 export * from './icons/index.js';

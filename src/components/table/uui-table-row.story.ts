@@ -4,9 +4,9 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
-import '@umbraco-ui/uui-table';
-import '@umbraco-ui/uui-input';
-import '@umbraco-ui/uui-button';
+import '.';
+import '../input/uui-input.element';
+import '../button/uui-button.element';
 
 const meta: Meta = {
   id: 'uui-table-row',

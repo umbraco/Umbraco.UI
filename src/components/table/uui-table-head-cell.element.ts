@@ -1,4 +1,4 @@
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { defineElement } from '../../internal/registration';
 import { css } from 'lit';
 
 import { UUITableCellElement } from './uui-table-cell.element';

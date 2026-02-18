@@ -1,8 +1,5 @@
-import {
-  SelectableMixin,
-  SelectOnlyMixin,
-} from '@umbraco-ui/uui-base/lib/mixins';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { SelectableMixin, SelectOnlyMixin } from '../../internal/mixins';
+import { defineElement } from '../../internal/registration';
 import { css, html, LitElement } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';
 

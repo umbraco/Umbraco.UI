@@ -3,7 +3,7 @@ import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 
-import '@umbraco-ui/uui-input/lib';
+import '../input/uui-input.element';
 
 const meta: Meta = {
   id: 'uui-table-cell',
