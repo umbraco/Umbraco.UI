@@ -1,6 +1,6 @@
 # uui-badge
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-badge?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-badge)
+Badge component for displaying counts or status indicators.
 
 ### See it in action
 
@@ -8,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-bad
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-badge
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-badge>` via:
 
 ```javascript
-import '@umbraco-ui/uui-badge';
+import '@umbraco-ui/uui/components/badge/uui-badge.element.js';
 ```
 
 When looking to leverage the `UUIBadgeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBadgeElement } from '@umbraco-ui/uui-badge';
+import { UUIBadgeElement } from '@umbraco-ui/uui/components/badge/uui-badge.element.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

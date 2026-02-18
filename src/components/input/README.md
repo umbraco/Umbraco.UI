@@ -1,6 +1,6 @@
 # uui-input
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-input?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-input)
+Text input component with support for various input types, prepend/append slots, and form validation.
 
 ### See it in action
 
@@ -8,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-inp
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-input
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-input>` via:
 
 ```javascript
-import '@umbraco-ui/uui-input';
+import '@umbraco-ui/uui/components/input/uui-input.element.js';
 ```
 
 When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputElement } from '@umbraco-ui/uui-input';
+import { UUIInputElement } from '@umbraco-ui/uui/components/input/uui-input.element.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage
@@ -33,8 +37,4 @@ import { UUIInputElement } from '@umbraco-ui/uui-input';
   label="Username"
   type="text"
   placeholder="Enter your username..."></uui-input>
-<uui-input
-  label="Password"
-  type="password"
-  placeholder="Enter your password..."></uui-input>
 ```
