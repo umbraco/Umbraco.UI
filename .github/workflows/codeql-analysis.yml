@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - release/*
+      - v*/dev
   pull_request:
     # The branches below must be a subset of the branches above
     branches:
       - main
       - release/*
+      - v*/dev
   schedule:
     - cron: '39 20 * * 3'
 
