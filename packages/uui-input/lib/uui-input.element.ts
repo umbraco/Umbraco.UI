@@ -226,6 +226,8 @@ export class UUIInputElement extends UUIFormControlMixin(
   _input!: HTMLInputElement;
 
   private _type: InputType = 'text';
+  private _valueOnFocus: string = '';
+  private _changeEventFiredSinceFocus: boolean = false;
 
   constructor() {
     super();
@@ -312,8 +314,28 @@ export class UUIInputElement extends UUIFormControlMixin(
   protected onChange(e: Event) {
     e.stopPropagation();
     this.pristine = false;
+    this._changeEventFiredSinceFocus = true;
 
     this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
+  }
+
+  protected onFocus() {
+    // Store the value when the input receives focus
+    this._valueOnFocus = String(this.value || '');
+    this._changeEventFiredSinceFocus = false;
+  }
+
+  protected onBlur() {
+    // Check if the value has changed since focus
+    // This ensures change events are fired on Safari even when native change events don't fire
+    // Only fire if the native change event hasn't already fired to avoid duplicates
+    if (
+      !this._changeEventFiredSinceFocus &&
+      this._valueOnFocus !== this.value
+    ) {
+      this.pristine = false;
+      this.dispatchEvent(new UUIInputEvent(UUIInputEvent.CHANGE));
+    }
   }
 
   protected renderPrepend() {
@@ -360,7 +382,9 @@ export class UUIInputElement extends UUIFormControlMixin(
       ?readonly=${this.readonly}
       tabindex=${ifDefined(this.tabIndex)}
       @input=${this.onInput}
-      @change=${this.onChange} />`;
+      @change=${this.onChange}
+      @focus=${this.onFocus}
+      @blur=${this.onBlur} />`;
   }
 
   private renderAutoWidthBackground() {
