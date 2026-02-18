@@ -166,6 +166,8 @@ export const UUIFormControlMixin = <
 
     #value: ValueType | DefaultValueType =
       defaultValue as unknown as DefaultValueType;
+    #valueOnFocus: ValueType | DefaultValueType =
+      undefined as unknown as DefaultValueType;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     #validators: UUIFormControlValidatorConfig[] = [];
@@ -175,8 +177,16 @@ export const UUIFormControlMixin = <
       super(...args);
       this._internals = this.attachInternals();
 
+      this.addEventListener('focus', () => {
+        this.#valueOnFocus = this.value;
+      });
       this.addEventListener('blur', () => {
-        this.checkValidity();
+        if (this.#valueOnFocus !== this.value) {
+          this.checkValidity();
+        }
+        this.#valueOnFocus = undefined as unknown as
+          | ValueType
+          | DefaultValueType;
       });
     }
 
