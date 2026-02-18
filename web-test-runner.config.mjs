@@ -18,7 +18,7 @@ const browsers = isCI
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   nodeResolve: true,
-  files: 'packages/**/*.test.ts',
+  files: 'src/**/*.test.ts',
   plugins: [
     esbuildPlugin({
       ts: true,
@@ -38,7 +38,7 @@ export default {
   testRunnerHtml: testFramework =>
     `<html>
       <head>
-        <link rel="stylesheet" href="/packages/uui-css/dist/uui-css.css">
+        <link rel="stylesheet" href="/dist/themes/light.css">
       </head>
       <body>
         <script type="module" src="${testFramework}"></script>

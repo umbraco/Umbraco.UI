@@ -2,11 +2,13 @@ import {
   setCustomElementsManifest,
   type Preview,
 } from '@storybook/web-components-vite';
-import '../packages/uui-css/lib/uui-css.css';
+import '../src/themes/light.css';
+import '../src/styles/uui-font.css';
+import '../src/styles/uui-text.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
-import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '../src/components/icon-registry-essential/index.js';
 
 const preview: Preview = {
   parameters: {
