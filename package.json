@@ -132,7 +132,6 @@
     "rollup-plugin-postcss": "4.0.2",
     "storybook": "^10.2.8",
     "tsc-files": "1.1.4",
-    "turbo": "2.7.6",
     "typescript": "5.9.3",
     "typescript-eslint": "8.55.0",
     "vite": "7.3.1",
