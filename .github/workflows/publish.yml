@@ -7,6 +7,19 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      dist-tag:
+        description: 'npm dist-tag'
+        required: true
+        default: 'prerelease'
+        type: choice
+        options:
+          - prerelease
+          - nightly
+      version:
+        description: 'Base version for nightly (e.g. 2.0.0). Ignored for prerelease.'
+        required: false
+        type: string
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
@@ -17,12 +30,9 @@ permissions:
 
 jobs:
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v6
         with:
           # pulls all commits (needed for lerna / semantic release to correctly version)
@@ -57,8 +67,15 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
 
+      - name: Stamp nightly version
+        if: inputs.dist-tag == 'nightly' && inputs.version != ''
+        run: |
+          NIGHTLY_VERSION="${{ inputs.version }}-nightly.$(date +%Y%m%d)"
+          echo "Publishing nightly version: $NIGHTLY_VERSION"
+          npx lerna version "$NIGHTLY_VERSION" --no-git-tag-version --no-push --yes --force-publish
+
       - name: Publish package
-        run: npm run lerna:publish
+        run: npm run build:prod && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
