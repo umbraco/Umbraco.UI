@@ -76,16 +76,16 @@ Replace all `@umbraco-ui/*` imports with relative paths to `src/`.
 
 #### Sibling component imports → `../{name}/`
 
-| Old import                                      | New import                     |
-| ----------------------------------------------- | ------------------------------ |
-| `@umbraco-ui/uui-{name}/lib`                    | `../{name}`                    |
-| `@umbraco-ui/uui-{name}/lib/uui-{name}.element` | `../{name}/uui-{name}.element` |
+| Old import                                      | New import                        |
+| ----------------------------------------------- | --------------------------------- |
+| `@umbraco-ui/uui-{name}/lib`                    | `../{name}/index.js`              |
+| `@umbraco-ui/uui-{name}/lib/uui-{name}.element` | `../{name}/uui-{name}.element.js` |
 
 #### Icon imports
 
-| Old import                                         | New import    |
-| -------------------------------------------------- | ------------- |
-| `@umbraco-ui/uui-icon-registry-essential/lib/svgs` | `../../icons` |
+| Old import                                         | New import             |
+| -------------------------------------------------- | ---------------------- |
+| `@umbraco-ui/uui-icon-registry-essential/lib/svgs` | `../../icons/index.js` |
 
 ### 3. Fix imports in story files
 
@@ -195,11 +195,11 @@ New: `src/components/{name}/*.story.ts` → `../../../storyhelpers`
 
 ### `.js` extensions on imports
 
-The spike is inconsistent — some imports have `.js` extensions, some don't. This needs a single cleanup pass (deferred). During migration, match whatever the file currently uses. The build works either way because Vite resolves both.
+The spike is inconsistent — some imports have `.js` extensions, some don't. This needs a single cleanup pass (deferred). During migration, try to apply .js or index.js extensions consistently.
 
 ### `demandCustomElement` calls
 
-18 components use `demandCustomElement()` to warn if a sibling isn't registered. In the single-package model this is dead code since all components are always available. Removing these calls is deferred — they're harmless, just unnecessary.
+18 components use `demandCustomElement()` to warn if a sibling isn't registered. In the single-package model this is dead code since all components are always available. However, they may serve a purpose if someone were to import a single component directly from `src/components/{name}/` instead of the root barrel. But they are used inconsistently. If you come across a component that clearly uses another component without a `demandCustomElement` call, feel free to add it. On the contrary, if you see a `demandCustomElement` call for a component that isn't actually used, feel free to remove it. If you see an import of a component without a `demandCustomElement` call, feel free to add a TODO comment to add it later.
 
 ### `UUITextStyles` from uui-css
 
@@ -229,11 +229,9 @@ After all components are migrated:
 ## Post-migration tasks
 
 1. **Add .js extensions** consistently to all internal imports (single `sed` pass)
-2. **Remove `demandCustomElement`** calls from 18 components
-3. **Remove `workspaces`** from package.json if still present
-4. **Clean up `package.json`** scripts — remove any leftover monorepo scripts
-5. **Update `custom-elements` manifest** — `npm run analyze` regenerates it
-6. **Validate tree-shaking** (PBI #65023) — build backoffice with single package, compare bundle sizes
-7. **Create codemod** (PBI #65024) — automate consumer migration from `@umbraco-ui/uui-{name}` to `@umbraco-ui/uui`
-8. **Deprecate old packages** (PBI #65025) — publish final versions pointing to new package
-9. **Fix Chai assertion style** (Task #65184) — `to.exist` → `to.not.be.null` etc.
+2. **Clean up `package.json`** scripts — remove any leftover monorepo scripts
+3. **Update `custom-elements` manifest** — `npm run analyze` regenerates it
+4. **Validate tree-shaking** (PBI #65023) — build backoffice with single package, compare bundle sizes
+5. **Create codemod** (PBI #65024) — automate consumer migration from `@umbraco-ui/uui-{name}` to `@umbraco-ui/uui`
+6. **Deprecate old packages** (PBI #65025) — publish final versions pointing to new package
+7. **Fix Chai assertion style** (Task #65184) — `to.exist` → `to.be.not(null)` etc.
