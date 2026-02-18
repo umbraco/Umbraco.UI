@@ -174,7 +174,8 @@ describe('UuiTextarea with auto-height', () => {
     // After clearing, style.height may be removed or set to a smaller value
     const finalStyleHeight = textarea.style.height;
     expect(
-      finalStyleHeight === '' || parseInt(finalStyleHeight) < parseInt(initialStyleHeight)
+      finalStyleHeight === '' ||
+        parseInt(finalStyleHeight) < parseInt(initialStyleHeight),
     ).to.be.true;
   });
 });

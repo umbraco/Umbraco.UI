@@ -2,11 +2,13 @@ import {
   setCustomElementsManifest,
   type Preview,
 } from '@storybook/web-components-vite';
-import '../packages/uui-css/dist/uui-css.css';
+import '../src/themes/light.css';
+import '../src/styles/uui-font.css';
+import '../src/styles/uui-text.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
-import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '../src/components/icon-registry-essential/index.js';
 
 const preview: Preview = {
   parameters: {
@@ -54,9 +56,14 @@ function WebComponentFormatter(customElements: Record<string, any>) {
 
     // Run through all CSS Custom Properties and clean them a bit
     for (let cssProp of tag.cssProperties || []) {
-      // If the property does not have a type, set it to string
       if (!cssProp.type) {
-        cssProp.type = 'string';
+        // Match the color matcher regex from parameters.controls.matchers
+        cssProp.type = /(background|color)$/i.test(cssProp.name)
+          ? 'color'
+          : 'string';
+      }
+      if (!cssProp.default) {
+        cssProp.default = "''";
       }
     }
 

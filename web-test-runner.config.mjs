@@ -6,16 +6,27 @@ const silencedLogs = [
   'Multiple versions of Lit loaded.',
 ];
 
+const isCI = process.env.CI === 'true';
+const browsers = isCI
+  ? [
+      playwrightLauncher({ product: 'chromium' }),
+      playwrightLauncher({ product: 'firefox' }),
+      playwrightLauncher({ product: 'webkit' }),
+    ]
+  : [playwrightLauncher({ product: 'chromium' })];
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   nodeResolve: true,
-  files: 'packages/**/*.test.ts',
-  plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
-  browsers: [
-    playwrightLauncher({ product: 'chromium' }),
-    playwrightLauncher({ product: 'firefox' }),
-    playwrightLauncher({ product: 'webkit' }),
+  files: 'src/**/*.test.ts',
+  plugins: [
+    esbuildPlugin({
+      ts: true,
+      target: 'auto-always',
+      tsconfig: './tsconfig.json',
+    }),
   ],
+  browsers,
   filterBrowserLogs(log) {
     for (const arg of log.args) {
       if (typeof arg === 'string' && silencedLogs.some(l => arg.includes(l))) {
@@ -27,13 +38,10 @@ export default {
   testRunnerHtml: testFramework =>
     `<html>
       <head>
-        <link rel="stylesheet" href="/packages/uui-css/dist/uui-css.css">
+        <link rel="stylesheet" href="/dist/themes/light.css">
       </head>
       <body>
         <script type="module" src="${testFramework}"></script>
-        <script type="module">
-          import 'element-internals-polyfill';
-        </script>
       </body>
     </html>`,
 };

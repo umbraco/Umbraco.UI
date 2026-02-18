@@ -32,28 +32,44 @@ export class UUIScrollContainerElement extends LitElement {
     css`
       :host {
         display: block;
-        scrollbar-width: thin;
-        scrollbar-color: var(--uui-color-disabled-contrast)
-          var(--uui-color-surface);
         overflow-y: auto;
+        overflow-y: overlay;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        transition: scrollbar-color 120ms 640ms;
       }
 
       :host([enforce-scroll]) {
         overflow-y: scroll;
       }
+      :host([enforce-scroll]),
+      :host(:hover),
+      :host(:focus),
+      :host(:focus-within) {
+        scrollbar-color: var(--uui-color-disabled-contrast) transparent;
+        transition: scrollbar-color 60ms;
+      }
 
       :host::-webkit-scrollbar {
         width: 6px;
-        height: 6px; /* needed for horizontal scrollbar */
+        height: 6px;
       }
 
       :host::-webkit-scrollbar-track {
-        background: var(--uui-color-surface);
+        background: transparent;
         border-radius: 3px;
       }
+
       :host::-webkit-scrollbar-thumb {
-        background-color: var(--uui-color-disabled-contrast);
+        background-color: transparent;
         border-radius: 3px;
+      }
+
+      :host([enforce-scroll])::-webkit-scrollbar-thumb,
+      :host(:hover)::-webkit-scrollbar-thumb,
+      :host(:focus)::-webkit-scrollbar-thumb,
+      :host(:focus-within)::-webkit-scrollbar-thumb {
+        background-color: var(--uui-color-disabled-contrast);
       }
     `,
   ];

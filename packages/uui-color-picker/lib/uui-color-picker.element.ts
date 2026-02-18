@@ -500,30 +500,30 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             ?readonly=${this.readonly}
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}>
+            <uui-button-group slot="append">
+              ${!this.noFormatToggle
+                ? html`<uui-button
+                    label="Toggle color format"
+                    @click=${this.handleFormatToggle}
+                    class="color-picker__toggle-format"
+                    ?disabled=${this.disabled}
+                    compact>
+                    <span>${this.format}</span>
+                  </uui-button>`
+                : ''}
+              ${hasEyeDropper
+                ? html`<uui-button
+                    label="Select a color"
+                    ?disabled=${this.disabled || this.readonly}
+                    @click=${this.handleEyeDropper}
+                    compact>
+                    <uui-icon-registry-essential>
+                      <uui-icon name="colorpicker"></uui-icon>
+                    </uui-icon-registry-essential>
+                  </uui-button>`
+                : ''}
+            </uui-button-group>
           </uui-input>
-          <uui-button-group>
-            ${!this.noFormatToggle
-              ? html`<uui-button
-                  label="Toggle color format"
-                  @click=${this.handleFormatToggle}
-                  class="color-picker__toggle-format"
-                  ?disabled=${this.disabled}
-                  compact>
-                  <span>${this.format}</span>
-                </uui-button>`
-              : ''}
-            ${hasEyeDropper
-              ? html`<uui-button
-                  label="Select a color"
-                  ?disabled=${this.disabled || this.readonly}
-                  @click=${this.handleEyeDropper}
-                  compact>
-                  <uui-icon-registry-essential>
-                    <uui-icon name="colorpicker"></uui-icon>
-                  </uui-icon-registry-essential>
-                </uui-button>`
-              : ''}
-          </uui-button-group>
         </div>
         ${this._renderSwatches()}
       </div>
@@ -584,6 +584,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       :host {
         --uui-look-outline-border: #ddd;
         --uui-look-outline-border-hover: #aaa;
+        --uui-color-area-border-radius: var(--uui-border-radius-2)
+          var(--uui-border-radius-2) 0 0;
         font-size: 0.8rem;
         color: var(--uui-color-text);
         display: block;
@@ -600,15 +602,15 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         background-color: var(--uui-color-surface);
         user-select: none;
         border: solid 1px var(--uui-color-border);
+        border-radius: var(--uui-border-radius-2);
       }
       .color-picker__user-input {
         display: flex;
         padding: 0 0.75rem 0.75rem 0.75rem;
       }
       .color-picker__user-input uui-button {
-        border: var(--uui-input-border-width, 1px) solid
+        border-left: var(--uui-input-border-width, 1px) solid
           var(--uui-input-border-color, var(--uui-color-border));
-        border-left: none;
       }
       .color-picker__preview,
       .color-picker__trigger {
@@ -718,6 +720,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         font-size: 0.85rem;
         box-sizing: content-box;
         flex: 1;
+      }
+
+      uui-button-group {
+        height: 100%;
       }
 
       button.color-picker__trigger:focus-visible {

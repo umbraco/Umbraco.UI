@@ -9,7 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 // TODO: add a way to control the new lines. Eg exclude newlines: before, after, between as an array
 function renderSlots(args: Args): TemplateResult[] | typeof nothing;
 function renderSlots(param: TemplateResult[] | Args) {
-  let slots: TemplateResult[] = [];
+  let slots: TemplateResult[];
 
   // if param is array, set slots to param
   // if param is object, set slots to values of properties that end with 'slot'

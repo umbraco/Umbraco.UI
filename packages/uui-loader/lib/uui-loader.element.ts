@@ -25,9 +25,12 @@ export class UUILoaderElement extends LitElement {
         display: inline-block;
         width: var(--uui-size-2);
         height: var(--uui-size-2);
-        border: 2px solid currentColor;
+        border: 1px solid currentColor;
         border-radius: 100%;
-        animation: loaderAnimation 1.4s infinite;
+        animation: loaderAnimation 1.2s infinite;
+        transition:
+          transform 60ms cubic-bezier(0.68, -0.55, 0.265, 1.55),
+          background-color 60ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
       }
 
       div:nth-child(1n) {
@@ -44,7 +47,7 @@ export class UUILoaderElement extends LitElement {
 
       @keyframes loaderAnimation {
         0% {
-          transform: scale(0.5);
+          transform: scale(0.33);
           background-color: currentColor;
         }
         50% {
@@ -52,7 +55,7 @@ export class UUILoaderElement extends LitElement {
           background-color: transparent;
         }
         100% {
-          transform: scale(0.5);
+          transform: scale(0.33);
           background-color: currentColor;
         }
       }

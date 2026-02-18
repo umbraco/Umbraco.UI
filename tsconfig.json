@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "rootDirs": ["packages"],
     "target": "es2022",
     "module": "esnext",
-    "noEmitOnError": true,
     "lib": ["es2022", "dom", "dom.iterable"],
-    "esModuleInterop": false,
     "declaration": true,
     "emitDeclarationOnly": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -17,15 +16,10 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
     "sourceMap": true,
-    "inlineSources": true,
     "isolatedModules": true,
-    "baseUrl": ".",
-    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": false,
-    "jsx": "react-jsx"
+    "useDefineForClassFields": false
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["src/**/*.ts"]
 }

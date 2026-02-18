@@ -362,8 +362,9 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       #track svg rect {
         width: calc(100% - 18px);
         fill: var(--uui-color-border-standalone);
+        transition: fill 120ms;
       }
-      input:hover ~ #track svg rect {
+      :host(:not([disabled]):not([readonly])) input:hover ~ #track svg rect {
         fill: var(--uui-color-border-emphasis);
       }
 
@@ -376,7 +377,11 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         fill: var(--uui-color-border);
       }
 
-      input:hover ~ #track svg .track-step {
+      :host(:not([disabled]):not([readonly]))
+        input:hover
+        ~ #track
+        svg
+        .track-step {
         fill: var(--uui-color-border-emphasis);
       }
 
@@ -402,23 +407,11 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         box-sizing: border-box;
 
         background-color: var(--uui-color-surface);
-        border: 2px solid var(--uui-color-selected);
+        border: 3px solid var(--uui-color-selected);
       }
       :host([disabled]) #thumb {
         background-color: var(--uui-color-disabled);
         border-color: var(--uui-color-disabled-standalone);
-      }
-
-      #thumb:after {
-        content: '';
-        height: 9px;
-        width: 9px;
-        border-radius: 50%;
-        background-color: var(--uui-color-selected);
-      }
-
-      :host([disabled]) #thumb:after {
-        background-color: var(--uui-color-disabled);
       }
 
       #thumb-label {
@@ -436,13 +429,16 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
       }
 
       input:focus ~ #track #thumb-label,
-      input:hover ~ #track #thumb-label {
+      :host(:not([disabled]):not([readonly]))
+        input:hover
+        ~ #track
+        #thumb-label {
         opacity: 1;
       }
 
       #step-values {
         margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
-        margin-top: 6px;
+        margin-top: 3px;
         display: flex;
         align-items: flex-end;
         box-sizing: border-box;
@@ -452,6 +448,11 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
         flex-basis: 0;
         flex-grow: 1;
         color: var(--uui-color-disabled-contrast);
+      }
+
+      :host(:not([disabled]):not([readonly]):hover) #step-values > span,
+      :host(:not([disabled]):not([readonly]):active) #step-values > span {
+        color: var(--uui-color-border-emphasis);
       }
 
       #step-values > span > span {
@@ -468,9 +469,6 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
       :host(:not([pristine]):invalid) #thumb {
         border-color: var(--uui-color-invalid-standalone);
-      }
-      :host(:not([pristine]):invalid) #thumb:after {
-        background-color: var(--uui-color-invalid);
       }
 
       // readonly

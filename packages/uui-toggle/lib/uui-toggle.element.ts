@@ -100,6 +100,9 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       input:checked ~ #toggle {
         background-color: var(--uui-color-selected);
       }
+      input:checked ~ #toggle::after {
+        border-color: var(--uui-color-selected-standalone);
+      }
 
       label:hover input:checked:not([disabled]) ~ #toggle {
         background-color: var(--uui-color-selected-emphasis);
@@ -117,10 +120,13 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         height: 1em;
         line-height: 0;
         transition: color 120ms;
+        svg {
+          stroke-width: 2.5;
+        }
       }
 
       #icon-checked {
-        margin-left: -0.5em;
+        margin-left: -0.45em;
         left: calc((var(--uui-toggle-size) + 1px) * 0.5);
         color: var(--uui-color-interactive);
       }
@@ -138,12 +144,14 @@ export class UUIToggleElement extends UUIBooleanInputElement {
       #toggle::after {
         content: '';
         position: absolute;
-        top: 2px;
-        left: 2px;
-        width: calc(var(--uui-toggle-size) - 4px);
-        height: calc(var(--uui-toggle-size) - 4px);
+        top: 1px;
+        left: 1px;
+        width: calc(var(--uui-toggle-size) - 2px);
+        height: calc(var(--uui-toggle-size) - 2px);
         border-radius: 100px;
         background-color: var(--uui-color-selected-contrast);
+        border: 1px solid var(--uui-color-border-standalone);
+        box-sizing: border-box;
         transition:
           width 120ms ease,
           left 120ms ease,

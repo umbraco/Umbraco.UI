@@ -152,8 +152,9 @@ export const VeryWideContent: Story = {
 };
 
 export const EnforceScroll: Story = {
-  ...Default,
-  args: {
-    slot: 'Very little text, but has the enforce-scroll property\n(See with a dark background)',
-  },
+  render: () => html`
+    <uui-scroll-container enforce-scroll style="width:400px; height:400px;">
+      Very little text, but has the enforce-scroll attribute
+    </uui-scroll-container>
+  `,
 };
