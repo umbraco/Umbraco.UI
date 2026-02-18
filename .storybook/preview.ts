@@ -56,9 +56,14 @@ function WebComponentFormatter(customElements: Record<string, any>) {
 
     // Run through all CSS Custom Properties and clean them a bit
     for (let cssProp of tag.cssProperties || []) {
-      // If the property does not have a type, set it to string
       if (!cssProp.type) {
-        cssProp.type = 'string';
+        // Match the color matcher regex from parameters.controls.matchers
+        cssProp.type = /(background|color)$/i.test(cssProp.name)
+          ? 'color'
+          : 'string';
+      }
+      if (!cssProp.default) {
+        cssProp.default = "''";
       }
     }
 
