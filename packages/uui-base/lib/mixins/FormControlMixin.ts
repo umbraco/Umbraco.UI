@@ -389,7 +389,6 @@ export const UUIFormControlMixin = <
           for (key in formCtrlEl.validity) {
             if (key !== 'valid' && formCtrlEl.validity[key]) {
               this.#validity[key] = true;
-              //messages.add(formCtrlEl.validationMessage);
               message = formCtrlEl.validationMessage;
               innerFormControlEl ??= formCtrlEl;
               return true;
