@@ -18,12 +18,15 @@
     "./styles/*": "./dist/styles/*",
     "./icons/*": "./dist/icons/*"
   },
+  "customElements": "custom-elements.json",
   "files": [
     "dist/**/*.js",
     "dist/**/*.js.map",
     "dist/**/*.d.ts",
     "dist/**/*.css",
-    "dist/**/*.woff2"
+    "dist/**/*.woff2",
+    "custom-elements.json",
+    "vscode.html-custom-data.json"
   ],
   "repository": {
     "type": "git",
@@ -54,13 +57,13 @@
     "test:watch": "web-test-runner --watch",
     "test:scripts": "node --test scripts/**/*.test.mjs",
     "dev": "npm run clean && npm run storybook",
-    "build": "vite build && tsc -p tsconfig.build.json",
-    "clean": "rimraf dist",
+    "build": "vite build && tsc -p tsconfig.build.json && npm run analyze",
+    "clean": "rimraf dist custom-elements.json vscode.html-custom-data.json",
+    "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json && web-component-analyzer src/**/*.element.ts --format vscode --outFile vscode.html-custom-data.json",
     "prepare": "husky",
     "chromatic": "npx chromatic --build-script-name storybook:build",
-    "storybook": "npm run storybook:analyze && storybook dev -p 6006",
-    "storybook:build": "npm run storybook:analyze && storybook build",
-    "storybook:analyze": "web-component-analyzer **/*.element.ts --outFile custom-elements.json"
+    "storybook": "npm run analyze && storybook dev -p 6006",
+    "storybook:build": "npm run analyze && storybook build"
   },
   "engines": {
     "node": ">=24.13",
