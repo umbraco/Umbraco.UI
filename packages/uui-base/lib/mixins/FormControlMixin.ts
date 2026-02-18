@@ -57,12 +57,12 @@ export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
+  hasValue(): boolean;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
   setCustomValidity(error?: string): void;
-  submit(): void;
   pristine: boolean;
 }
 
@@ -85,19 +85,13 @@ export declare abstract class UUIFormControlMixinElement<ValueType>
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
+  hasValue(): boolean;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
   public setCustomValidity(error: string): void;
-  public submit(): void;
   pristine: boolean;
-
-  name: string;
-  required: boolean;
-  requiredMessage: string;
-  error: boolean;
-  errorMessage: string;
 }
 
 /**
@@ -122,15 +116,6 @@ export const UUIFormControlMixin = <
      * @type {boolean}
      */
     static readonly formAssociated = true;
-
-    /**
-     * This is a name property of the component.
-     * @type {string}
-     * @attr
-     * @default ''
-     */
-    @property({ type: String })
-    name = '';
 
     /**
      * Value of this form control.
@@ -179,35 +164,6 @@ export const UUIFormControlMixin = <
     // This is to prevent an issue caused by using setAttribute in the constructor.
     private _pristine: boolean = false;
 
-    /**
-     * Apply validation rule for requiring a value of this form control.
-     * @attr
-     * @default false
-     */
-    @property({ type: Boolean, reflect: true })
-    required = false;
-
-    /**
-     * Required validation message.
-     * @attr
-     */
-    @property({ type: String, attribute: 'required-message' })
-    requiredMessage = 'This field is required';
-
-    /**
-     * Apply custom error on this input.
-     * @attr
-     */
-    @property({ type: Boolean, reflect: true })
-    error = false;
-
-    /**
-     * Custom error message.
-     * @attr
-     */
-    @property({ type: String, attribute: 'error-message' })
-    errorMessage = 'This field is invalid';
-
     #value: ValueType | DefaultValueType =
       defaultValue as unknown as DefaultValueType;
     protected _internals: ElementInternals;
@@ -218,21 +174,8 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
-      this.pristine = true;
-
-      this.addValidator(
-        'valueMissing',
-        () => this.requiredMessage,
-        () => this.hasAttribute('required') && this.hasValue() === false,
-      );
-      this.addValidator(
-        'customError',
-        () => this.errorMessage,
-        () => this.error,
-      );
 
       this.addEventListener('blur', () => {
-        this.pristine = false;
         this.checkValidity();
       });
     }
@@ -286,21 +229,21 @@ export const UUIFormControlMixin = <
     }
 
     /**
-     * Add validator, to validate this Form Control.
+     * Add validation, to validate this Form Control.
      * See https://developer.mozilla.org/en-US/docs/Web/API/ValidityState for available Validator FlagTypes.
-     *
      * @example
      * this.addValidator(
      *  'tooLong',
      *  () => 'This input contains too many characters',
      *  () => this._value.length > 10
      * );
-     * @method hasValue
+     * @function addValidator
      * @param {FlagTypes} flagKey the type of validation.
      * @param {method} getMessageMethod method to retrieve relevant message. Is executed every time the validator is re-executed.
      * @param {method} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
+     * @returns {UmbFormControlValidatorConfig} - The added validator configuration.
      */
-    protected addValidator(
+    addValidator(
       flagKey: FlagTypes,
       getMessageMethod: () => string,
       checkMethod: () => boolean,
@@ -310,7 +253,7 @@ export const UUIFormControlMixin = <
         getMessageMethod: getMessageMethod,
         checkMethod: checkMethod,
         weight: WeightedErrorFlagTypes.indexOf(flagKey),
-      };
+      } satisfies UUIFormControlValidatorConfig;
       this.#validators.push(validator);
       // Sort validators based on the WeightedErrorFlagTypes order. [NL]
       this.#validators.sort((a, b) =>
@@ -326,24 +269,59 @@ export const UUIFormControlMixin = <
       }
     }
 
+    #runValidatorsCallback = () => this._runValidators;
+
     /**
      * @method addFormControlElement
      * @description Important notice if adding a native form control then ensure that its value and thereby validity is updated when value is changed from the outside.
      * @param element {NativeFormControlElement} - element to validate and include as part of this form association.
      */
     protected addFormControlElement(element: NativeFormControlElement) {
+      if (!element) {
+        throw new Error('Element is null or undefined');
+      }
+      if (!element.validity) {
+        console.log(element);
+        throw new Error('Element is not a Form Control');
+      }
+      if (this.#formCtrlElements.includes(element)) return;
       this.#formCtrlElements.push(element);
-      element.addEventListener(UUIFormControlEvent.INVALID, () => {
-        this._runValidators();
-      });
-      element.addEventListener(UUIFormControlEvent.VALID, () => {
-        this._runValidators();
-      });
+      element.addEventListener(
+        UUIFormControlEvent.INVALID,
+        this.#runValidatorsCallback,
+      );
+      element.addEventListener(
+        UUIFormControlEvent.VALID,
+        this.#runValidatorsCallback,
+      );
       // If we are in validationMode/'touched'/not-pristine then we need to validate this newly added control. [NL]
       if (this._pristine === false) {
         element.checkValidity();
         // I think we could just execute validators for the new control, but now lets just run al of it again. [NL]
         this._runValidators();
+      }
+    }
+
+    /**
+     * @function removeFormControlElement
+     * @param {NativeFormControlElement} element - element to remove as part of this form controls associated controls.
+     * @returns {void}
+     */
+    protected removeFormControlElement(element: NativeFormControlElement) {
+      const index = this.#formCtrlElements.indexOf(element);
+      if (index !== -1) {
+        this.#formCtrlElements.splice(index, 1);
+        element.removeEventListener(
+          UUIFormControlEvent.INVALID,
+          this.#runValidatorsCallback,
+        );
+        element.removeEventListener(
+          UUIFormControlEvent.VALID,
+          this.#runValidatorsCallback,
+        );
+        if (this._pristine === false) {
+          this._runValidators();
+        }
       }
     }
 
@@ -373,7 +351,7 @@ export const UUIFormControlMixin = <
 
     /**
      * @protected
-     * @method _runValidators
+     * @function _runValidators
      * @description Run all validators and set the validityState of this form control.
      * Run this method when you want to re-run all validators.
      * This can be relevant if you have a validators that is using values that is not triggering the Lit Updated Callback.
@@ -381,7 +359,6 @@ export const UUIFormControlMixin = <
      */
     protected _runValidators() {
       this.#validity = {};
-      //const messages: Set<string> = new Set();
       let message: string | undefined = undefined;
       let innerFormControlEl: NativeFormControlElement | undefined = undefined;
 
@@ -389,7 +366,6 @@ export const UUIFormControlMixin = <
       this.#validators.some(validator => {
         if (validator.checkMethod()) {
           this.#validity[validator.flagKey] = true;
-          //messages.add(validator.getMessageMethod());
           message = validator.getMessageMethod();
           return true;
         }
@@ -419,16 +395,11 @@ export const UUIFormControlMixin = <
       this.#validity.valid = !hasError;
 
       // Transfer the new validityState to the ElementInternals. [NL]
-      if (hasError) {
-        this._internals.setValidity(
-          this.#validity,
-          message ?? '',
-          innerFormControlEl ?? this.getFormElement() ?? undefined,
-        );
-      } else {
-        // When clearing validity, the anchor must not be provided per spec.
-        this._internals.setValidity({});
-      }
+      this._internals.setValidity(
+        this.#validity,
+        message,
+        innerFormControlEl ?? this.getFormElement() ?? undefined,
+      );
 
       this.#dispatchValidationState();
     }
@@ -453,10 +424,6 @@ export const UUIFormControlMixin = <
     #onFormSubmit = () => {
       this.pristine = false;
     };
-
-    public submit() {
-      this.#form?.requestSubmit();
-    }
 
     public formAssociatedCallback() {
       this.#removeFormListeners();
