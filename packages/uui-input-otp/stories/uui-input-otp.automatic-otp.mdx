@@ -1,0 +1,48 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
+
+import * as OtpStories from './uui-input-otp.story';
+
+<Meta title="Inputs/Input OTP/Automatic Code Input" />
+
+# OTP With Autocomplete
+
+The OTP input field can be used with an autocomplete feature. This feature is useful to utilise the browser's autocomplete feature to autofill the OTP code.
+
+## Usage
+
+First you need to configure the input field to autocomplete the OTP code. This can be done by setting the `autocomplete` attribute to `one-time-code`.
+
+<Canvas of={OtpStories.AutocompleteOtp} />
+
+This allows browsers that support the `one-time-code` autocomplete to autofill the OTP code. It is mostly used in Safari.
+
+Safari does not yet support the Web OTP API, so this is a workaround to autofill the OTP code.
+
+Other browsers that support the Web OTP API will not autofill the OTP code, as the Web OTP API is more secure than the `one-time-code` autocomplete.
+
+Therefore, we need to listen for Web OTP API events to autofill the OTP code in browsers that support it.
+We can add the following code to listen for the Web OTP API events:
+
+```js
+// Feature detect the Web OTP API
+if ('OTPCredential' in window) {
+  // Request the OTP credential
+  navigator.credentials
+    .get({
+      otp: { transport: ['sms'] }, // This can be 'sms' or other transports
+    })
+    .then(cred => {
+      // Locate the OTP input from before
+      const otpInput = document.getElementById('otp-input');
+
+      // Autofill the OTP input if the credential is available and the OTP input is found
+      if (cred && otpInput) {
+        this.otpInput.value = cred.id;
+      }
+    })
+    .catch(() => {
+      // optionally catch errors, which could mean the OTP retrieval has timed out
+      // in most cases, it is not necessary to handle this error
+    });
+}
+```
