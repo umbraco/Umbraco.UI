@@ -7,6 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   drag,
   clamp,
+  getHexString,
   reverseNumberInRange,
 } from '@umbraco-ui/uui-base/lib/utils';
 
@@ -297,7 +298,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         <!-- <slot name="detail"> </slot> -->
         <span
           id="color-slider__handle"
-          style="--current-value: ${this.cssPropCurrentValue}%;"
+          style=${styleMap({
+            '--current-value': `${this.cssPropCurrentValue}%`,
+            backgroundColor:
+              this.type === 'hue'
+                ? getHexString(Math.round(this.value), 100, 50)
+                : undefined,
+          })}
           tabindex=${ifDefined(this.disabled ? undefined : '0')}>
         </span>
       </div>
@@ -393,9 +400,11 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         height: var(--uui-slider-handle-size);
         background-color: white;
         border-radius: 50%;
+        border: solid 2px white;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
         margin-left: calc(var(--uui-slider-handle-size) / -2);
         left: var(--current-value, 0%);
+        box-sizing: inherit;
       }
 
       :host([vertical]) #color-slider__handle {

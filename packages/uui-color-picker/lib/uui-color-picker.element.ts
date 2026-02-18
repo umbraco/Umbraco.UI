@@ -9,7 +9,11 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 
-import { clamp, demandCustomElement } from '@umbraco-ui/uui-base/lib/utils';
+import {
+  clamp,
+  demandCustomElement,
+  getHexString,
+} from '@umbraco-ui/uui-base/lib/utils';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -405,23 +409,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     return this.uppercase ? string.toUpperCase() : string.toLowerCase();
   }
 
-  /** Generates a hex string from HSL values. Hue must be 0-360. All other arguments must be 0-100. */
-  private getHexString(
-    hue: number,
-    saturation: number,
-    lightness: number,
-    alpha = 100,
-  ) {
-    const color = colord(
-      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
-    );
-    if (!color.isValid()) {
-      return '';
-    }
-
-    return color.toHex();
-  }
-
   private _syncValues() {
     this.inputValue = this.getFormattedValue(this.format);
     this._value = this.inputValue;
@@ -465,7 +452,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     class="opacity-slider"
                     .value=${Math.round(this.alpha)}
                     type="opacity"
-                    .color=${this.getHexString(
+                    .color=${getHexString(
                       this.hue,
                       this.saturation,
                       this.lightness,
