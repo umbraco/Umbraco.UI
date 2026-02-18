@@ -93,11 +93,12 @@ export class UUIRadioElement extends LitElement {
 
   /**
    * Call to check the element.
-   * @method uncheck
+   * @method check
    */
   public check() {
     this.checked = true;
   }
+
   /**
    * Call to make the element focusable, this sets tabindex to 0.
    * @method makeFocusable
@@ -107,6 +108,7 @@ export class UUIRadioElement extends LitElement {
       this.removeAttribute('tabindex');
     }
   }
+
   /**
    * Call to make the element focusable, this sets tabindex to -1.
    * @method makeUnfocusable

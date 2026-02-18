@@ -48,9 +48,17 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     private _labelSlotHasContent = false;
 
     private labelSlotChanged(e: Event): void {
-      this._labelSlotHasContent =
-        (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length >
-        0;
+      const slot = e.target as HTMLSlotElement;
+
+      this._labelSlotHasContent = slot
+        .assignedNodes({ flatten: true })
+        .some(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) return true;
+          if (node.nodeType === Node.TEXT_NODE) {
+            return node.textContent?.trim().length;
+          }
+          return false;
+        });
     }
 
     /**

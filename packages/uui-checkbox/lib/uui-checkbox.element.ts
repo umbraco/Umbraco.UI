@@ -10,6 +10,8 @@ import {
 } from '@umbraco-ui/uui-icon-registry-essential/lib/svgs';
 import { css, html } from 'lit';
 
+//import { UUICheckboxEvent } from './UUICheckboxEvent';
+
 /**
  *  Umbraco checkbox, toggles between checked and uncheck
  *  @element uui-checkbox
@@ -24,6 +26,42 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
    * @type {boolean}
    */
   static readonly formAssociated = true;
+
+  /**
+   * Call to uncheck the element
+   * @method uncheck
+   */
+  public uncheck() {
+    this.checked = false;
+  }
+
+  /**
+   * Call to check the element.
+   * @method check
+   */
+  public check() {
+    this.checked = true;
+  }
+
+  /**
+   * Call to make the element focusable, this sets tabindex to 0.
+   * @method makeFocusable
+   */
+  public makeFocusable() {
+    if (!this.disabled) {
+      this.removeAttribute('tabindex');
+    }
+  }
+
+  /**
+   * Call to make the element focusable, this sets tabindex to -1.
+   * @method makeUnfocusable
+   */
+  public makeUnfocusable() {
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '-1');
+    }
+  }
 
   renderCheckbox() {
     return html`
