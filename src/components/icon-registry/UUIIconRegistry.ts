@@ -72,7 +72,7 @@ export class UUIIconRegistry {
    * @returns
    */
   // eslint-disable-next-line
-  protected acceptIcon(iconName: string): boolean {
+  protected acceptIcon(_iconName: string): boolean {
     return false;
   }
 
