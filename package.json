@@ -33,7 +33,6 @@
     "build": "lerna run --scope @umbraco-ui/uui-css build && turbo run build",
     "build:prod": "npm run clean && npm run build",
     "clean": "turbo run clean --parallel",
-    "lerna:publish": "npm run build:prod && npm whoami && lerna publish from-package --yes --pre-dist-tag prerelease",
     "lerna:version": "lerna version --sync-workspace-lock",
     "lerna:version:rc": "npm run lerna:version -- --conventional-prerelease",
     "lerna:changelog": "npx lerna-changelog",
