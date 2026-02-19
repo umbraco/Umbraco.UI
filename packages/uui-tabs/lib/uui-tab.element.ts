@@ -64,10 +64,23 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   @property({ type: String, reflect: true })
   public orientation?: 'horizontal' | 'vertical' = 'horizontal';
 
+  #focus: boolean;
+
   constructor() {
     super();
     this.addEventListener('click', this.onHostClick);
+    this.addEventListener('focus', this.#onFocus);
+    this.addEventListener('blur', this.#onBlur);
+    this.#focus = false;
   }
+
+  #onFocus = () => {
+    this.#focus = true;
+  };
+
+  #onBlur = () => {
+    this.#focus = false;
+  };
 
   private onHostClick(e: MouseEvent) {
     if (this.disabled) {
@@ -76,11 +89,80 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
     }
   }
 
+  public trigger() {
+    if (!this.disabled) {
+      if (this.href) {
+        // Find the anchor element within the tab's shadow DOM
+        const anchor = this.shadowRoot?.querySelector('a');
+
+        if (anchor) {
+          // Simulate a native click on the anchor element
+          const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            composed: true,
+          });
+
+          anchor.dispatchEvent(clickEvent);
+        }
+      } else {
+        this.dispatchEvent(
+          new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            composed: true,
+          }),
+        );
+      }
+    }
+  }
+
+  /**
+   * Set this tab to be in focusable.
+   *
+   * @param {boolean} setFocus - Optional. If `true`, explicitly sets focus on the button. Defaults to `false`.
+   */
+  public setFocusable(setFocus: boolean = false) {
+    const button: HTMLElement | null | undefined =
+      this.shadowRoot?.querySelector('#button');
+    if (setFocus) {
+      button?.focus();
+    }
+    button?.setAttribute('tabindex', '0');
+  }
+
+  /**
+   * Remove the ability to focus this tab.
+   */
+  public removeFocusable() {
+    const button = this.shadowRoot?.querySelector('#button');
+    button?.setAttribute('tabindex', '-1');
+  }
+
+  /**
+   * Returns true if the tab has focus.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  public hasFocus() {
+    const button = this.shadowRoot?.querySelector('#button');
+    return (
+      this.#focus ||
+      document.activeElement === button ||
+      document.activeElement === this
+    );
+  }
+
   render() {
     return this.href
       ? html`
           <a
             id="button"
+            tabindex="-1"
+            role="tab"
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
@@ -88,8 +170,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
                 ifDefined(
                   this.target === '_blank' ? 'noopener noreferrer' : undefined,
                 ),
-            )}
-            role="tab">
+            )}>
             <slot name="icon"></slot>
             ${this.renderLabel()}
             <slot name="extra"></slot>
@@ -100,6 +181,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
             type="button"
             id="button"
             ?disabled=${this.disabled}
+            tabindex="-1"
             role="tab">
             <slot name="icon"></slot>
             ${this.renderLabel()}
