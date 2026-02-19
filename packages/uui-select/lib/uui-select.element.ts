@@ -11,7 +11,6 @@ declare global {
     name: string;
     value: string;
     group?: string;
-    selected?: boolean;
     disabled?: boolean;
   }
 }
@@ -87,7 +86,6 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     name: string;
     value: string;
     group?: string;
-    selected?: boolean;
     disabled?: boolean;
   }`
    */
@@ -166,8 +164,6 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     if (changedProperties.has('options')) {
       this._extractGroups();
       this._values = this.options.map(option => option.value);
-      const selected = this.options.find(option => option.selected);
-      this.value = selected ? selected.value : '';
     }
 
     if (changedProperties.has('value')) {
@@ -193,13 +189,9 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   private _renderOption(
     name: string,
     value: string,
-    selected: boolean | undefined,
     disabled: boolean | undefined,
   ) {
-    return html`<option
-      value="${value}"
-      ?selected=${selected}
-      ?disabled=${disabled}>
+    return html`<option value="${value}" ?disabled=${disabled}>
       ${name}
     </option>`;
   }
@@ -217,12 +209,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
             )}>
             ${this.options.map(option =>
               option.group === group
-                ? this._renderOption(
-                    option.name,
-                    option.value,
-                    option.selected,
-                    option.disabled,
-                  )
+                ? this._renderOption(option.name, option.value, option.disabled)
                 : '',
             )}
           </optgroup>`,
@@ -252,12 +239,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
       ${this.options
         .filter(option => !option.group)
         .map(option =>
-          this._renderOption(
-            option.name,
-            option.value,
-            option.selected,
-            option.disabled,
-          ),
+          this._renderOption(option.name, option.value, option.disabled),
         )}
     </select>`;
   }
