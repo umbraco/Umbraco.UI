@@ -47,6 +47,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
     return html`
       ${this.#renderMedia()}
       ${this.href ? this.#renderLink() : this.#renderButton()}
+      <div id="name-wrapper" title="${this.name}"></div>
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
       ${this.selectable ? this.renderCheckbox() : nothing}
@@ -105,6 +106,13 @@ export class UUICardBlockTypeElement extends UUICardElement {
     css`
       :host {
         background-color: var(--uui-color-surface-alt);
+      }
+
+      #name-wrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: auto;
+        z-index: 0;
       }
 
       slot[name='tag'] {
