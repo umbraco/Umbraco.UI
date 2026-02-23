@@ -99,7 +99,7 @@
     "eslint-plugin-lit": "2.2.1",
     "eslint-plugin-local-rules": "3.0.2",
     "eslint-plugin-prettier": "5.5.5",
-    "eslint-plugin-storybook": "10.2.8",
+    "eslint-plugin-storybook": "10.2.10",
     "eslint-plugin-wc": "3.1.0",
     "github-markdown-css": "5.8.1",
     "globals": "17.3.0",
