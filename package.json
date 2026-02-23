@@ -76,7 +76,7 @@
     "@chromatic-com/storybook": "5.0.1",
     "@eslint/compat": "2.0.2",
     "@eslint/js": "10.0.1",
-    "@lerna-lite/cli": "4.11.0",
+    "@lerna-lite/cli": "4.11.3",
     "@lerna-lite/publish": "4.11.1",
     "@lerna-lite/version": "4.11.1",
     "@open-wc/testing": "4.0.0",
