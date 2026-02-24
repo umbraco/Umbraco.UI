@@ -89,6 +89,7 @@ export class UUICardUserElement extends UUICardElement {
   public render() {
     return html`
       ${this.href ? this.#renderLink() : this.#renderButton()}
+      <div id="name-wrapper" title="${this.name}"></div>
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
       ${this.selectable ? this.renderCheckbox() : nothing}
@@ -102,6 +103,13 @@ export class UUICardUserElement extends UUICardElement {
     css`
       :host {
         min-width: 250px;
+      }
+
+      #name-wrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: auto;
+        z-index: 0;
       }
 
       slot:not([name])::slotted(*) {

@@ -116,6 +116,7 @@ export class UUICardContentNodeElement extends UUICardElement {
   public render() {
     return html`
       ${this.href ? this.#renderLink() : this.#renderButton()}
+      <div id="name-wrapper" title="${this.name}"></div>
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
       ${this.selectable ? this.renderCheckbox() : nothing}
@@ -131,6 +132,13 @@ export class UUICardContentNodeElement extends UUICardElement {
         min-width: 250px;
         flex-direction: column;
         justify-content: space-between;
+      }
+
+      #name-wrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: auto;
+        z-index: 0;
       }
 
       slot[name='tag'] {
