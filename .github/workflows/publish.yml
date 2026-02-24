@@ -79,3 +79,13 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
+
+      - name: Update SonarCloud new code baseline
+        if: ${{ secrets.SONARCLOUD_TOKEN != '' }}
+        run: |
+          curl -s -X POST 'https://sonarcloud.io/api/settings/set' \
+            -H "Authorization: Bearer ${{ secrets.SONARCLOUD_TOKEN }}" \
+            -d 'component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period&value=previous_version'
+          curl -s -X POST 'https://sonarcloud.io/api/settings/set' \
+            -H "Authorization: Bearer ${{ secrets.SONARCLOUD_TOKEN }}" \
+            -d 'component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period.type&value=previous_version'
