@@ -39,7 +39,6 @@ jobs:
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
       - run: npm test
-      - run: npm run test:scripts
       - name: Check for uncommitted changes
         run: |
           git diff --name-only --exit-code || {

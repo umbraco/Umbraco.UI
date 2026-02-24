@@ -87,6 +87,36 @@ export const Loading: Story = {
   },
 };
 
+export const Sizing: Story = {
+  args: {
+    'font-size': '20px',
+  },
+  render: args => {
+    return html`<uui-button
+      style="font-size: ${args['font-size']}"
+      ${spread(args, ['font-size'])}></uui-button>`;
+  },
+};
+
+export const ContentAlign: Story = {
+  args: {
+    '--uui-button-content-align': 'left',
+  },
+  render: args => {
+    return html`<uui-button style="width: 400px" ${spread(args)}></uui-button>`;
+  },
+};
+
+export const SlottedContent: Story = {
+  args: {
+    slot: html`<div
+      style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+      <uui-icon name="settings"></uui-icon>
+      Settings
+    </div>`,
+  },
+};
+
 export const LooksAndColors: Story = {
   render: args => {
     const looks = [

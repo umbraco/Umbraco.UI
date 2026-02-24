@@ -19,7 +19,8 @@
     "sourceMap": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "types": ["vite/client"]
   },
   "include": ["src/**/*.ts"]
 }

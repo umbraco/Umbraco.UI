@@ -33,7 +33,7 @@ import {
   iconUnsee,
   iconWand,
   iconWrong,
-} from '../../icons/index.js';
+} from './svgs/index.js';
 
 export class UUIIconRegistryEssential extends UUIIconRegistry {
   constructor() {

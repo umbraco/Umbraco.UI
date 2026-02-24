@@ -75,7 +75,7 @@ jobs:
           npx lerna version "$NIGHTLY_VERSION" --no-git-tag-version --no-push --yes --force-publish
 
       - name: Publish package
-        run: npm run build:prod && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
+        run: npm run build && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true

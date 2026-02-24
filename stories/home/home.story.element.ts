@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { defineElement } from '../../src/internal/registration';
+import { UUITextStyles } from '../../src/styles';
 
 @defineElement('story-home')
 export class UUIBoxElement extends LitElement {

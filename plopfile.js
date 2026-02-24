@@ -1,33 +1,21 @@
-import { kebabCase } from 'lodash';
-import { readFileSync } from 'node:fs';
+const kebabCase = str =>
+  str
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase();
 
 export default function (plop) {
   // name of custom element tag
   plop.setPartial('tagnamePartial', 'uui-{{name}}');
   // name of LitElement class
   plop.setHelper('className', function (name) {
-    const camel = name.replace(/-([a-z])/g, g => {
-      return g[1].toUpperCase();
-    });
-    camel[0] = camel[0].toUpperCase();
-    const capitalized = camel.charAt(0).toUpperCase() + camel.substring(1);
-    return `UUI${capitalized}Element`;
-  });
-  // uui-base version
-  plop.setHelper('uuiBaseVersion', function () {
-    const basePackageJson = JSON.parse(
-      readFileSync('./packages/uui-base/package.json', 'utf-8'),
-    );
-    return basePackageJson.version;
+    const camel = name.replace(/-([a-z])/g, g => g[1].toUpperCase());
+    return `UUI${camel.charAt(0).toUpperCase() + camel.substring(1)}Element`;
   });
   // name used as title in storybook and documentation
   plop.setHelper('displayName', function (name) {
-    const camel = name.replace(/-([a-z])/g, g => {
-      return ` ${g[1].toUpperCase()}`;
-    });
-    camel[0] = camel[0].toUpperCase();
-    const capitalized = camel.charAt(0).toUpperCase() + camel.substring(1);
-    return capitalized;
+    const spaced = name.replace(/-([a-z])/g, g => ` ${g[1].toUpperCase()}`);
+    return spaced.charAt(0).toUpperCase() + spaced.substring(1);
   });
   plop.setGenerator('component', {
     description: 'application controller logic',
@@ -49,44 +37,34 @@ export default function (plop) {
     actions: [
       {
         type: 'add',
-        path: './packages/{{> tagnamePartial }}/lib/index.ts',
+        path: './src/components/{{> tagnamePartial }}/index.ts',
         templateFile: './templates/plop-templates/index.ts.hbs',
       },
       {
         type: 'add',
-        path: './packages/{{> tagnamePartial }}/lib/{{> tagnamePartial }}.element.ts',
+        path: './src/components/{{> tagnamePartial }}/{{> tagnamePartial }}.element.ts',
         templateFile: './templates/plop-templates/component.ts.hbs',
       },
       {
         type: 'add',
-        path: './packages/{{> tagnamePartial }}/lib/{{> tagnamePartial }}.test.ts',
+        path: './src/components/{{> tagnamePartial }}/{{> tagnamePartial }}.test.ts',
         templateFile: './templates/plop-templates/test.ts.hbs',
       },
       {
         type: 'add',
-        path: './packages/{{> tagnamePartial }}/lib/{{> tagnamePartial }}.story.ts',
+        path: './src/components/{{> tagnamePartial }}/{{> tagnamePartial }}.story.ts',
         templateFile: './templates/plop-templates/stories.ts.hbs',
       },
       {
         type: 'add',
-        path: './packages/{{> tagnamePartial }}/README.md',
+        path: './src/components/{{> tagnamePartial }}/README.md',
         templateFile: './templates/plop-templates/README.md.hbs',
       },
       {
-        type: 'add',
-        path: './packages/{{> tagnamePartial }}/rollup.config.js',
-        templateFile: './templates/plop-templates/rollup.config.hbs',
-      },
-      {
-        type: 'add',
-        path: './packages/{{> tagnamePartial }}/package.json',
-        templateFile: './templates/plop-templates/package.json.hbs',
-      },
-      {
         type: 'append',
-        path: './packages/uui/lib/index.ts',
+        path: './src/index.ts',
         template:
-          "export * from '@umbraco-ui/{{> tagnamePartial }}/lib/index.js';",
+          "export * from './components/{{> tagnamePartial }}/index.js';",
       },
     ],
   });

@@ -15,8 +15,7 @@
     "./components/*": "./dist/components/*",
     "./internal/*": "./dist/internal/*",
     "./themes/*": "./dist/themes/*",
-    "./styles/*": "./dist/styles/*",
-    "./icons/*": "./dist/icons/*"
+    "./styles/*": "./dist/styles/*"
   },
   "customElements": "custom-elements.json",
   "files": [
@@ -55,7 +54,7 @@
     "format": "npm run format:eslint",
     "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
-    "test:scripts": "node --test scripts/**/*.test.mjs",
+    "test:coverage-for": "node scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
     "build": "vite build && tsc -p tsconfig.build.json && npm run analyze",
     "clean": "rimraf dist custom-elements.json vscode.html-custom-data.json",
@@ -63,7 +62,8 @@
     "prepare": "husky",
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "npm run analyze && storybook dev -p 6006",
-    "storybook:build": "npm run analyze && storybook build"
+    "storybook:build": "npm run analyze && storybook build",
+    "new-component": "plop"
   },
   "engines": {
     "node": ">=24.13",
@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.0.1",
+    "colord": "^2.9.3",
     "@eslint/compat": "2.0.2",
     "@eslint/js": "10.0.1",
     "@lerna-lite/cli": "4.11.3",
