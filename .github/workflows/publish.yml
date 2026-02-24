@@ -81,11 +81,13 @@ jobs:
           NPM_CONFIG_PROVENANCE: true
 
       - name: Update SonarCloud new code baseline
-        if: ${{ secrets.SONARCLOUD_TOKEN != '' }}
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Setting SonarCloud new code baseline to version: $VERSION"
           curl -s -X POST 'https://sonarcloud.io/api/settings/set' \
             -H "Authorization: Bearer ${{ secrets.SONARCLOUD_TOKEN }}" \
-            -d 'component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period&value=previous_version'
+            -d "component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period&value=$VERSION"
           curl -s -X POST 'https://sonarcloud.io/api/settings/set' \
             -H "Authorization: Bearer ${{ secrets.SONARCLOUD_TOKEN }}" \
-            -d 'component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period.type&value=previous_version'
+            -d "component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period.type&value=version"
