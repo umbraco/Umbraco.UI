@@ -28,11 +28,13 @@ declare global {
  * @cssprop --uui-select-padding-x - Padding on the x axis
  * @cssprop --uui-select-border-color - Border color
  * @cssprop --uui-select-border-color-hover - Border color on hover
+ * @cssprop --uui-select-border-color-readonly - Border color when readonly
  * @cssprop --uui-select-selected-option-background-color - Background color of the selected option
  * @cssprop --uui-select-selected-option-color - Color of the selected option
  * @cssprop --uui-select-outline-color - Outline color
  * @cssprop --uui-select-background-color - Background color
- * @cssprop --uui-select-disabled-background-color - Background color when disabled
+ * @cssprop --uui-select-background-color-disabled - Background color when disabled
+ * @cssprop --uui-select-background-color-readonly - Background color when readonly
  * @extends UUIFormControlMixin
  */
 // TODO: Consider if this should use child items instead of an array.
@@ -190,6 +192,14 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     );
   }
 
+  private handleKeydown(e: KeyboardEvent) {
+    if (this.readonly && e.key !== 'Tab') {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+  }
+
   private _renderOption(
     name: string,
     value: string,
@@ -230,21 +240,14 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     `;
   }
 
-  private _getDisplayValue() {
-    return (
-      this.options.find(option => option.value === this.value)?.name ||
-      this.value
-    );
-  }
-
   render() {
-    if (this.readonly) return html`<span>${this._getDisplayValue()}</span>`;
-
     return html` <select
       id="native"
       aria-label=${this.label}
       @change=${this.setValue}
+      @keydown=${this.handleKeydown}
       ?disabled=${this.disabled}
+      aria-readonly=${this.readonly ? 'true' : 'false'}
       .name=${this.name}
       .value=${this.value as string}>
       <option disabled selected value="" hidden>${this.placeholder}</option>
@@ -298,8 +301,24 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
       #native[disabled] {
         cursor: not-allowed;
         background-color: var(
-          --uui-select-disabled-background-color,
+          --uui-select-background-color-disabled,
           var(--uui-color-disabled)
+        );
+        border-color: var(
+          --uui-select-border-color-disabled,
+          var(--uui-color-disabled)
+        );
+      }
+
+      #native[aria-readonly='true'] {
+        pointer-events: none;
+        background-color: var(
+          --uui-select-background-color-readonly,
+          var(--uui-color-disabled)
+        );
+        border-color: var(
+          --uui-select-border-color-readonly,
+          var(--uui-color-disabled-standalone)
         );
       }
 
