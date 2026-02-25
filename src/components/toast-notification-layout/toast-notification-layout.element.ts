@@ -21,7 +21,7 @@ export class UUIToastNotificationLayoutElement extends LitElement {
   @state()
   private _headlineSlotHasContent = false;
 
-  private _headlineSlotChanged = (e: Event) => {
+  private readonly _headlineSlotChanged = (e: Event) => {
     this._headlineSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
   };

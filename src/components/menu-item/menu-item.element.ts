@@ -147,16 +147,16 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       ?.focus?.();
   }
 
-  private _labelButtonChanged = (label?: Element | undefined) => {
+  private readonly _labelButtonChanged = (label?: Element | undefined) => {
     this.selectableTarget = label || this;
   };
 
-  private _iconSlotChanged = (e: any): void => {
+  private readonly _iconSlotChanged = (e: any): void => {
     this.iconSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
   };
 
-  private _onCaretClicked = () => {
+  private readonly _onCaretClicked = () => {
     const eventName = this.showChildren
       ? UUIMenuItemEvent.HIDE_CHILDREN
       : UUIMenuItemEvent.SHOW_CHILDREN;

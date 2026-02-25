@@ -39,7 +39,7 @@ export class UUITableCellElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'clip-text' })
   clipText = false;
 
-  private _observer = new ResizeObserver(() => {
+  private readonly _observer = new ResizeObserver(() => {
     this._detectOverflow();
   });
 

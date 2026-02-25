@@ -107,7 +107,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     });
   }
 
-  private _onSelected = (event: Event) => {
+  private readonly _onSelected = (event: Event) => {
     const target = event.target as UUIColorSwatchElement;
     //react only to selectable events from UUI-Color-Swatch elements
     //? can I use instanceof here instead? that creates a dependency on the uui-color-swatch element
@@ -125,7 +125,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     this.dispatchEvent(new UUIColorSwatchesEvent(UUIColorSwatchesEvent.CHANGE));
   };
 
-  private _onDeselected = (event: Event) => {
+  private readonly _onDeselected = (event: Event) => {
     const target = event.target as UUIColorSwatchElement;
     if (!this._swatches.includes(target)) return;
 

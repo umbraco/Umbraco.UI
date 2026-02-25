@@ -81,7 +81,7 @@ export class UUIToastNotificationElement extends LitElement {
     }
   }
 
-  private _onOpenTimerComplete = () => {
+  private readonly _onOpenTimerComplete = () => {
     if (this._open) {
       this.open = false;
     }

@@ -31,7 +31,7 @@ export class UUIFormLayoutItemElement extends LitElement {
   @state()
   private _labelSlotHasContent = false;
 
-  private _labelSlotChanged = (e: Event) => {
+  private readonly _labelSlotChanged = (e: Event) => {
     this._labelSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
   };
@@ -39,7 +39,7 @@ export class UUIFormLayoutItemElement extends LitElement {
   @state()
   private _descriptionSlotHasContent = false;
 
-  private _descriptionSlotChanged = (e: Event) => {
+  private readonly _descriptionSlotChanged = (e: Event) => {
     this._descriptionSlotHasContent =
       (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
   };

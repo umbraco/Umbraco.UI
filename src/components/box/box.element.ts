@@ -52,19 +52,19 @@ export class UUIBoxElement extends LitElement {
 
   @state()
   private _headlineSlotHasContent = false;
-  private _headlineSlotChanged = (e: Event) => {
+  private readonly _headlineSlotChanged = (e: Event) => {
     this._headlineSlotHasContent = slotHasContent(e.target);
   };
 
   @state()
   private _headerSlotHasContent = false;
-  private _headerSlotChanged = (e: Event) => {
+  private readonly _headerSlotChanged = (e: Event) => {
     this._headerSlotHasContent = slotHasContent(e.target);
   };
 
   @state()
   private _headerActionsSlotHasContent = false;
-  private _headerActionsSlotChanged = (e: Event) => {
+  private readonly _headerActionsSlotChanged = (e: Event) => {
     this._headerActionsSlotHasContent = slotHasContent(e.target);
   };
 

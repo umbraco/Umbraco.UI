@@ -33,7 +33,7 @@ export class UUILoaderCircleElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'show-progress' })
   showProgress = false;
 
-  private _resizeObserver = new ResizeObserver(() => this.onResize());
+  private readonly _resizeObserver = new ResizeObserver(() => this.onResize());
   private _isLarge = false;
 
   firstUpdated() {

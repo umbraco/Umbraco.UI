@@ -115,7 +115,7 @@ export class UUIComboboxListElement extends LitElement {
     }
   }
 
-  private _onSlotChange = () => {
+  private readonly _onSlotChange = () => {
     // Get index from first active, remove active from the rest.
     this.#updateActiveElement();
 
@@ -138,7 +138,7 @@ export class UUIComboboxListElement extends LitElement {
     }
   }
 
-  private _onSelected = (e: Event) => {
+  private readonly _onSelected = (e: Event) => {
     if (this._selectedElement) {
       this._selectedElement.selected = false;
       this._selectedElement.active = false;
@@ -151,7 +151,7 @@ export class UUIComboboxListElement extends LitElement {
 
     this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   };
-  private _onDeselected = (e: Event) => {
+  private readonly _onDeselected = (e: Event) => {
     const el = e.composedPath()[0] as UUIComboboxListOptionElement;
     if (this._selectedElement === el) {
       this.value = '';
@@ -176,7 +176,7 @@ export class UUIComboboxListElement extends LitElement {
     );
   }
 
-  private _moveIndex = (distance: number) => {
+  private readonly _moveIndex = (distance: number) => {
     const newIndex = Math.min(
       Math.max(this._getActiveIndex + distance, 0),
       this._options.length - 1,
@@ -202,7 +202,7 @@ export class UUIComboboxListElement extends LitElement {
     }
   }
 
-  private _onKeyDown = (e: KeyboardEvent) => {
+  private readonly _onKeyDown = (e: KeyboardEvent) => {
     if (this._options.length <= 0) return;
 
     switch (e.code) {

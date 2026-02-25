@@ -24,7 +24,7 @@ export class UUICardUserElement extends UUICardElement {
 
   @state()
   private _avatarSlotHasContent = false;
-  private _avatarSlotChanged = (e: Event) => {
+  private readonly _avatarSlotChanged = (e: Event) => {
     this._avatarSlotHasContent = slotHasContent(e.target);
   };
 

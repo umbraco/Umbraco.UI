@@ -457,7 +457,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   /** Touch Event */
-  private _onTouchStart = (e: TouchEvent) => {
+  private readonly _onTouchStart = (e: TouchEvent) => {
     if (this.disabled) return;
 
     const target = e.composedPath()[0];
@@ -486,11 +486,11 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
     }
   };
 
-  private _onTouchMove = (e: TouchEvent) => {
+  private readonly _onTouchMove = (e: TouchEvent) => {
     this._dragBothValuesByMousePos(e.touches[0].pageX);
   };
 
-  private _onTouchEnd = () => {
+  private readonly _onTouchEnd = () => {
     this._movement = false;
     this.onChanged();
     window.removeEventListener('touchend', this._onTouchEnd);
@@ -499,7 +499,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   };
 
   /** Mouse Event */
-  private _onMouseDown = (e: MouseEvent) => {
+  private readonly _onMouseDown = (e: MouseEvent) => {
     if (this.disabled) return;
     if (this.readonly) return;
 
@@ -527,12 +527,12 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
     }
   };
 
-  private _onMouseMove = (e: MouseEvent) => {
+  private readonly _onMouseMove = (e: MouseEvent) => {
     e.preventDefault();
     this._dragBothValuesByMousePos(e.pageX);
   };
 
-  private _onMouseUp = () => {
+  private readonly _onMouseUp = () => {
     this._movement = false;
     this.onChanged();
     window.removeEventListener('mouseup', this._onMouseUp);

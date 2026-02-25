@@ -106,7 +106,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
     this._dropzone.browse();
   }
 
-  private _updateFileWrappers = (data: Array<File>) => {
+  private readonly _updateFileWrappers = (data: Array<File>) => {
     let newFileWrappers: Array<File> = [];
 
     for (const file of data) {

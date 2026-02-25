@@ -22,7 +22,9 @@ const arrayOfNumbers = (start: number, stop: number) => {
  * @fires change - When clicked on the page button fires change event
  */
 export class UUIPaginationElement extends LitElement {
-  private _observer = new ResizeObserver(this._calculateRange.bind(this));
+  private readonly _observer = new ResizeObserver(
+    this._calculateRange.bind(this),
+  );
 
   connectedCallback() {
     super.connectedCallback();
