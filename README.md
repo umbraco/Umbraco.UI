@@ -105,6 +105,7 @@ npm install
 | ---------------------------------- | -------------------------------------------------- |
 | `npm run storybook`                | Start Storybook dev server on port 6006            |
 | `npm run build`                    | Build the library (Vite + TypeScript declarations) |
+| `npm run build:watch`              | Rebuild on source changes (no type declarations)   |
 | `npm run test`                     | Run all component tests with coverage              |
 | `npm run test:watch`               | Run tests in watch mode                            |
 | `npm run test:coverage-for button` | Run tests for a single component                   |
@@ -130,6 +131,10 @@ src/
 │   └── ...
 └── index.ts         # Barrel — re-exports everything
 ```
+
+### Testing locally in another project
+
+Use `npm link` and `build:watch` to test UUI changes live in a consuming project (e.g. the Umbraco backoffice). See the [npm link guide](docs/TESTING-WITH-NPM-LINK.md) for instructions.
 
 ### Branching model
 

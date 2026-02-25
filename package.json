@@ -57,6 +57,7 @@
     "test:coverage-for": "node scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
     "build": "vite build && tsc -p tsconfig.build.json && npm run analyze",
+    "build:watch": "vite build --watch",
     "clean": "rimraf dist custom-elements.json vscode.html-custom-data.json",
     "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json && web-component-analyzer src/**/*.element.ts --format vscode --outFile vscode.html-custom-data.json",
     "prepare": "husky",
