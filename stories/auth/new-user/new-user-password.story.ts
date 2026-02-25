@@ -8,8 +8,8 @@ import '../../../src/components/form-layout-item/form-layout-item.js';
 import '../../../src/components/input-password/input-password.js';
 import '../../../src/components/label/label.js';
 
-import '../auth-layout.example.ts';
-import './new-user-password.example.ts';
+import '../auth-layout.example.js';
+import './new-user-password.example.js';
 
 export default {
   id: 'new-user-password-example',

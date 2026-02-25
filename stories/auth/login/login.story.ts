@@ -10,8 +10,8 @@ import '../../../src/components/input/input.js';
 import '../../../src/components/input-password/input-password.js';
 import '../../../src/components/label/label.js';
 
-import '../auth-layout.example.ts';
-import './login.example.ts';
+import '../auth-layout.example.js';
+import './login.example.js';
 
 export default {
   id: 'login-example',

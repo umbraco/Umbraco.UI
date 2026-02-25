@@ -10,7 +10,7 @@ import '../../src/components/box/box.js';
 import '../../src/components/textarea/textarea.js';
 import '../../src/components/combobox-list/combobox-list.js';
 import '../../src/components/combobox/combobox.js';
-import './home.story.element.ts';
+import './home.story.element.js';
 
 export default {
   id: 'composite-home',

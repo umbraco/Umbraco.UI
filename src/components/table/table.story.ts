@@ -6,7 +6,7 @@ import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator'
 
 import '../box/box.js';
 import '../symbol-sort/symbol-sort.js';
-import './table-advanced-example.ts';
+import './table-advanced-example.js';
 
 const meta: Meta = {
   id: 'uui-table',

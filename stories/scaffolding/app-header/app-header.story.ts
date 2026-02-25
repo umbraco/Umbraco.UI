@@ -7,7 +7,7 @@ import '../../../src/components/symbol-more/symbol-more.js';
 import '../../../src/components/menu-item/menu-item.js';
 import '../../../src/components/avatar/avatar.js';
 
-import './app-header.example.ts';
+import './app-header.example.js';
 
 export default {
   id: 'app-header-example',
