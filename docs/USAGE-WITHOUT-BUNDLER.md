@@ -72,7 +72,7 @@ import '@umbraco-ui/uui/components/label/label.js';
 If you want all components registered at once:
 
 ```js
-import '@umbraco-ui/uui/index.js';
+import '@umbraco-ui/uui';
 ```
 
 Note: this will fetch all ~80 component modules, so cherry-picking is recommended for production.
