@@ -82,12 +82,31 @@ jobs:
 
       - name: Update SonarCloud new code baseline
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        continue-on-error: true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+          SONAR_PROJECT: ${{ vars.SONARCLOUD_PROJECT_KEY }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           echo "Setting SonarCloud new code baseline to version: $VERSION"
-          curl -s -X POST 'https://sonarcloud.io/api/settings/set' \
-            -H "Authorization: Bearer ${{ secrets.SONARCLOUD_TOKEN }}" \
-            -d "component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period&value=$VERSION"
-          curl -s -X POST 'https://sonarcloud.io/api/settings/set' \
-            -H "Authorization: Bearer ${{ secrets.SONARCLOUD_TOKEN }}" \
-            -d "component=${{ vars.SONARCLOUD_PROJECT_KEY }}&key=sonar.leak.period.type&value=version"
+
+          # Update project version for future analyses
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST 'https://sonarcloud.io/api/settings/set' \
+            -H "Authorization: Bearer $SONAR_TOKEN" \
+            -d "component=$SONAR_PROJECT&key=sonar.projectVersion&value=$VERSION")
+          echo "Set projectVersion: HTTP $HTTP_CODE"
+          [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ] || echo "::warning::Failed to set sonar.projectVersion (HTTP $HTTP_CODE)"
+
+          # Find the latest analysis and create a VERSION event
+          ANALYSIS_KEY=$(curl -s "https://sonarcloud.io/api/project_analyses/search?project=$SONAR_PROJECT&ps=1" \
+            -H "Authorization: Bearer $SONAR_TOKEN" | python3 -c "import json,sys; print(json.load(sys.stdin)['analyses'][0]['key'])")
+          echo "Latest analysis: $ANALYSIS_KEY"
+
+          if [ -n "$ANALYSIS_KEY" ]; then
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST 'https://sonarcloud.io/api/project_analyses/create_event' \
+              -H "Authorization: Bearer $SONAR_TOKEN" \
+              -d "analysis=$ANALYSIS_KEY&category=VERSION&name=$VERSION")
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            echo "Create VERSION event: HTTP $HTTP_CODE"
+            [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ] || echo "::warning::Failed to create VERSION event (HTTP $HTTP_CODE)"
+          fi
