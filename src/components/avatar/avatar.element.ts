@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
 
 /**
  *  Avatar for displaying users
@@ -118,8 +119,11 @@ export class UUIAvatarElement extends LitElement {
 
   render() {
     return html`
-      ${this.imgSrc ? this.renderImage() : ''}
-      ${!this.imgSrc ? this._initials : ''}
+      ${when(
+        this.imgSrc,
+        () => this.renderImage(),
+        () => this._initials,
+      )}
       <slot></slot>
     `;
   }
