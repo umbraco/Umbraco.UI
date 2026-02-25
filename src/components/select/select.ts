@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUISelectElement } from './select.element.js';
 
-export * from './select.element.js';
-export * from './UUISelectEvent.js';
-
-export default UUISelectElement;
-
 defineElement('uui-select', UUISelectElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-select': UUISelectElement;
   }
 }
+
+export * from './select.element.js';
+export * from './UUISelectEvent.js';
+export { UUISelectElement as default } from './select.element.js';

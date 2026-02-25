@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUISliderElement } from './slider.element.js';
 
-export * from './slider.element.js';
-export * from './UUISliderEvent.js';
-
-export default UUISliderElement;
-
 defineElement('uui-slider', UUISliderElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-slider': UUISliderElement;
   }
 }
+
+export * from './slider.element.js';
+export * from './UUISliderEvent.js';
+export { UUISliderElement as default } from './slider.element.js';

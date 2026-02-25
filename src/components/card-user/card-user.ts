@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUICardUserElement } from './card-user.element.js';
 
-export * from './card-user.element.js';
-
-export default UUICardUserElement;
-
 defineElement('uui-card-user', UUICardUserElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-card-user': UUICardUserElement;
   }
 }
+
+export * from './card-user.element.js';
+export { UUICardUserElement as default } from './card-user.element.js';

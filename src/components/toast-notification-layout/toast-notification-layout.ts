@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIToastNotificationLayoutElement } from './toast-notification-layout.element.js';
 
-export * from './toast-notification-layout.element.js';
-
-export default UUIToastNotificationLayoutElement;
-
 defineElement(
   'uui-toast-notification-layout',
   UUIToastNotificationLayoutElement,
@@ -15,3 +11,6 @@ declare global {
     'uui-toast-notification-layout': UUIToastNotificationLayoutElement;
   }
 }
+
+export * from './toast-notification-layout.element.js';
+export { UUIToastNotificationLayoutElement as default } from './toast-notification-layout.element.js';

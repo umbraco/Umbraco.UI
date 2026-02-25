@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIDialogElement } from './dialog.element.js';
 
-export * from './dialog.element.js';
-
-export default UUIDialogElement;
-
 defineElement('uui-dialog', UUIDialogElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-dialog': UUIDialogElement;
   }
 }
+
+export * from './dialog.element.js';
+export { UUIDialogElement as default } from './dialog.element.js';

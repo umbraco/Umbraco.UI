@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIRangeSliderElement } from './range-slider.element.js';
 
-export * from './range-slider.element.js';
-export * from './UUIRangeSliderEvent.js';
-
-export default UUIRangeSliderElement;
-
 defineElement('uui-range-slider', UUIRangeSliderElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-range-slider': UUIRangeSliderElement;
   }
 }
+
+export * from './range-slider.element.js';
+export * from './UUIRangeSliderEvent.js';
+export { UUIRangeSliderElement as default } from './range-slider.element.js';

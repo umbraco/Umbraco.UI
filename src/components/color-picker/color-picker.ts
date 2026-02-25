@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIColorPickerElement } from './color-picker.element.js';
 
-export * from './color-picker.element.js';
-export * from './UUIColorPickerEvent.js';
-
-export default UUIColorPickerElement;
-
 defineElement('uui-color-picker', UUIColorPickerElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-color-picker': UUIColorPickerElement;
   }
 }
+
+export * from './color-picker.element.js';
+export * from './UUIColorPickerEvent.js';
+export { UUIColorPickerElement as default } from './color-picker.element.js';

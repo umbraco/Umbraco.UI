@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUICheckboxElement } from './checkbox.element.js';
 
-export * from './checkbox.element.js';
-
-export default UUICheckboxElement;
-
 defineElement('uui-checkbox', UUICheckboxElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-checkbox': UUICheckboxElement;
   }
 }
+
+export * from './checkbox.element.js';
+export { UUICheckboxElement as default } from './checkbox.element.js';

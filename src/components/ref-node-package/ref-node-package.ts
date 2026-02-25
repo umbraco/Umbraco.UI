@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIRefNodePackageElement } from './ref-node-package.element.js';
 
-export * from './ref-node-package.element.js';
-
-export default UUIRefNodePackageElement;
-
 defineElement('uui-ref-node-package', UUIRefNodePackageElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-ref-node-package': UUIRefNodePackageElement;
   }
 }
+
+export * from './ref-node-package.element.js';
+export { UUIRefNodePackageElement as default } from './ref-node-package.element.js';

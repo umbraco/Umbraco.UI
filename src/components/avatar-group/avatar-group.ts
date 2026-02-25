@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIAvatarGroupElement } from './avatar-group.element.js';
 
-export * from './avatar-group.element.js';
-
-export default UUIAvatarGroupElement;
-
 defineElement('uui-avatar-group', UUIAvatarGroupElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-avatar-group': UUIAvatarGroupElement;
   }
 }
+
+export * from './avatar-group.element.js';
+export { UUIAvatarGroupElement as default } from './avatar-group.element.js';

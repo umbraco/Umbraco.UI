@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIVisuallyHiddenElement } from './visually-hidden.element.js';
 
-export * from './visually-hidden.element.js';
-
-export default UUIVisuallyHiddenElement;
-
 defineElement('uui-visually-hidden', UUIVisuallyHiddenElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-visually-hidden': UUIVisuallyHiddenElement;
   }
 }
+
+export * from './visually-hidden.element.js';
+export { UUIVisuallyHiddenElement as default } from './visually-hidden.element.js';

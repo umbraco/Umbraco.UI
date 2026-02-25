@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUILoaderCircleElement } from './loader-circle.element.js';
 
-export * from './loader-circle.element.js';
-
-export default UUILoaderCircleElement;
-
 defineElement('uui-loader-circle', UUILoaderCircleElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-loader-circle': UUILoaderCircleElement;
   }
 }
+
+export * from './loader-circle.element.js';
+export { UUILoaderCircleElement as default } from './loader-circle.element.js';

@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUILoaderElement } from './loader.element.js';
 
-export * from './loader.element.js';
-
-export default UUILoaderElement;
-
 defineElement('uui-loader', UUILoaderElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-loader': UUILoaderElement;
   }
 }
+
+export * from './loader.element.js';
+export { UUILoaderElement as default } from './loader.element.js';

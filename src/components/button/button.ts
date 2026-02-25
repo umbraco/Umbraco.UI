@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIButtonElement } from './button.element.js';
 
-export * from './button.element.js';
-
-export default UUIButtonElement;
-
 defineElement('uui-button', UUIButtonElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-button': UUIButtonElement;
   }
 }
+
+export * from './button.element.js';
+export { UUIButtonElement as default } from './button.element.js';

@@ -6,15 +6,6 @@ import { UUITableHeadElement } from './table-head.element.js';
 import { UUITableRowElement } from './table-row.element.js';
 import { UUITableElement } from './table.element.js';
 
-export * from './table-cell.element.js';
-export * from './table-column.element.js';
-export * from './table-head-cell.element.js';
-export * from './table-head.element.js';
-export * from './table-row.element.js';
-export * from './table.element.js';
-
-export default UUITableElement;
-
 defineElement('uui-table-cell', UUITableCellElement);
 defineElement('uui-table-column', UUITableColumnElement);
 defineElement('uui-table-head-cell', UUITableHeadCellElement);
@@ -32,3 +23,11 @@ declare global {
     'uui-table': UUITableElement;
   }
 }
+
+export * from './table-cell.element.js';
+export * from './table-column.element.js';
+export * from './table-head-cell.element.js';
+export * from './table-head.element.js';
+export * from './table-row.element.js';
+export * from './table.element.js';
+export { UUITableElement as default } from './table.element.js';

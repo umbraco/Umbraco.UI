@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUISymbolFileElement } from './symbol-file.element.js';
 
-export * from './symbol-file.element.js';
-
-export default UUISymbolFileElement;
-
 defineElement('uui-symbol-file', UUISymbolFileElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-symbol-file': UUISymbolFileElement;
   }
 }
+
+export * from './symbol-file.element.js';
+export { UUISymbolFileElement as default } from './symbol-file.element.js';

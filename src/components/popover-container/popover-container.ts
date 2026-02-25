@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIPopoverContainerElement } from './popover-container.element.js';
 
-export * from './popover-container.element.js';
-
-export default UUIPopoverContainerElement;
-
 defineElement('uui-popover-container', UUIPopoverContainerElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-popover-container': UUIPopoverContainerElement;
   }
 }
+
+export * from './popover-container.element.js';
+export { UUIPopoverContainerElement as default } from './popover-container.element.js';

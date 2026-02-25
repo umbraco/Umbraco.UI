@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIRefNodeDocumentTypeElement } from './ref-node-document-type.element.js';
 
-export * from './ref-node-document-type.element.js';
-
-export default UUIRefNodeDocumentTypeElement;
-
 defineElement('uui-ref-node-document-type', UUIRefNodeDocumentTypeElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-ref-node-document-type': UUIRefNodeDocumentTypeElement;
   }
 }
+
+export * from './ref-node-document-type.element.js';
+export { UUIRefNodeDocumentTypeElement as default } from './ref-node-document-type.element.js';

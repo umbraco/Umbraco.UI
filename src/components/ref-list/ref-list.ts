@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIRefListElement } from './ref-list.element.js';
 
-export * from './ref-list.element.js';
-
-export default UUIRefListElement;
-
 defineElement('uui-ref-list', UUIRefListElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-ref-list': UUIRefListElement;
   }
 }
+
+export * from './ref-list.element.js';
+export { UUIRefListElement as default } from './ref-list.element.js';

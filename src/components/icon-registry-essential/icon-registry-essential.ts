@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIIconRegistryEssentialElement } from './icon-registry-essential.element.js';
 
-export * from './icon-registry-essential.element.js';
-export * from './UUIIconRegistryEssential.js';
-
-export default UUIIconRegistryEssentialElement;
-
 defineElement('uui-icon-registry-essential', UUIIconRegistryEssentialElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-icon-registry-essential': UUIIconRegistryEssentialElement;
   }
 }
+
+export * from './icon-registry-essential.element.js';
+export * from './UUIIconRegistryEssential.js';
+export { UUIIconRegistryEssentialElement as default } from './icon-registry-essential.element.js';

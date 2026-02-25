@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIInputFileElement } from './input-file.element.js';
 
-export * from './input-file.element.js';
-
-export default UUIInputFileElement;
-
 defineElement('uui-input-file', UUIInputFileElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-input-file': UUIInputFileElement;
   }
 }
+
+export * from './input-file.element.js';
+export { UUIInputFileElement as default } from './input-file.element.js';

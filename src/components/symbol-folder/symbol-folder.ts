@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUISymbolFolderElement } from './symbol-folder.element.js';
 
-export * from './symbol-folder.element.js';
-
-export default UUISymbolFolderElement;
-
 defineElement('uui-symbol-folder', UUISymbolFolderElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-symbol-folder': UUISymbolFolderElement;
   }
 }
+
+export * from './symbol-folder.element.js';
+export { UUISymbolFolderElement as default } from './symbol-folder.element.js';

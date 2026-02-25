@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIPaginationElement } from './pagination.element.js';
 
-export * from './pagination.element.js';
-export * from './UUIPaginationEvent.js';
-
-export default UUIPaginationElement;
-
 defineElement('uui-pagination', UUIPaginationElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-pagination': UUIPaginationElement;
   }
 }
+
+export * from './pagination.element.js';
+export * from './UUIPaginationEvent.js';
+export { UUIPaginationElement as default } from './pagination.element.js';

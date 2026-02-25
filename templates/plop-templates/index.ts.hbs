@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { {{className name}} } from './{{name}}.element.js';
 
-export * from './{{name}}.element.js';
-
-export default {{className name}};
-
 defineElement('{{> tagnamePartial }}', {{className name}});
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     '{{> tagnamePartial }}': {{className name}};
   }
 }
+
+export * from './{{name}}.element.js';
+export { {{className name}} as default } from './{{name}}.element.js';

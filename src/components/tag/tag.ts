@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUITagElement } from './tag.element.js';
 
-export * from './tag.element.js';
-
-export default UUITagElement;
-
 defineElement('uui-tag', UUITagElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-tag': UUITagElement;
   }
 }
+
+export * from './tag.element.js';
+export { UUITagElement as default } from './tag.element.js';

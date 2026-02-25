@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIScrollContainerElement } from './scroll-container.element.js';
 
-export * from './scroll-container.element.js';
-
-export default UUIScrollContainerElement;
-
 defineElement('uui-scroll-container', UUIScrollContainerElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-scroll-container': UUIScrollContainerElement;
   }
 }
+
+export * from './scroll-container.element.js';
+export { UUIScrollContainerElement as default } from './scroll-container.element.js';

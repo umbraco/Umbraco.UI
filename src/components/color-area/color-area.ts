@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIColorAreaElement } from './color-area.element.js';
 
-export * from './color-area.element.js';
-export * from './UUIColorAreaEvent.js';
-
-export default UUIColorAreaElement;
-
 defineElement('uui-color-area', UUIColorAreaElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-color-area': UUIColorAreaElement;
   }
 }
+
+export * from './color-area.element.js';
+export * from './UUIColorAreaEvent.js';
+export { UUIColorAreaElement as default } from './color-area.element.js';

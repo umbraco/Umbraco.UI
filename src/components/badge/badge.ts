@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIBadgeElement } from './badge.element.js';
 
-export * from './badge.element.js';
-
-export default UUIBadgeElement;
-
 defineElement('uui-badge', UUIBadgeElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-badge': UUIBadgeElement;
   }
 }
+
+export * from './badge.element.js';
+export { UUIBadgeElement as default } from './badge.element.js';

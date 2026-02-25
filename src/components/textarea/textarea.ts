@@ -1,11 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUITextareaElement } from './textarea.element.js';
 
-export * from './textarea.element.js';
-export * from './UUITextareaEvent.js';
-
-export default UUITextareaElement;
-
 defineElement('uui-textarea', UUITextareaElement);
 
 declare global {
@@ -13,3 +8,7 @@ declare global {
     'uui-textarea': UUITextareaElement;
   }
 }
+
+export * from './textarea.element.js';
+export * from './UUITextareaEvent.js';
+export { UUITextareaElement as default } from './textarea.element.js';

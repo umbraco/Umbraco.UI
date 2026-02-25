@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIResponsiveContainerElement } from './responsive-container.element.js';
 
-export * from './responsive-container.element.js';
-
-export default UUIResponsiveContainerElement;
-
 defineElement('uui-responsive-container', UUIResponsiveContainerElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-responsive-container': UUIResponsiveContainerElement;
   }
 }
+
+export * from './responsive-container.element.js';
+export { UUIResponsiveContainerElement as default } from './responsive-container.element.js';

@@ -1,10 +1,6 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIFormElement } from './form.element.js';
 
-export * from './form.element.js';
-
-export default UUIFormElement;
-
 defineElement('uui-form', UUIFormElement);
 
 declare global {
@@ -12,3 +8,6 @@ declare global {
     'uui-form': UUIFormElement;
   }
 }
+
+export * from './form.element.js';
+export { UUIFormElement as default } from './form.element.js';
