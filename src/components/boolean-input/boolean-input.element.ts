@@ -59,11 +59,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     const oldValue = this._checked;
     this._checked = newVal;
     this._internals.setFormValue(
-      this._checked && this.name !== ''
-        ? this._value
-          ? this._value
-          : 'on'
-        : null,
+      this._checked && this.name !== '' ? this._value || 'on' : null,
     );
     this.requestUpdate('checked', oldValue);
   }
