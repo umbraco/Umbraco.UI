@@ -2,7 +2,7 @@
 
 # [Umbraco UI Library](https://uui.umbraco.com/)
 
-[![Build](https://github.com/umbraco/Umbraco.UI/actions/workflows/tests.yml/badge.svg)](https://github.com/umbraco/Umbraco.UI/actions/workflows/tests.yml) [![Storybook build](https://github.com/umbraco/Umbraco.UI/actions/workflows/azure-static-web-apps-delightful-beach-055ecb503.yml/badge.svg)](https://github.com/umbraco/Umbraco.UI/actions/workflows/azure-static-web-apps-delightful-beach-055ecb503.yml) [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+[![Build](https://github.com/umbraco/Umbraco.UI/actions/workflows/tests.yml/badge.svg)](https://github.com/umbraco/Umbraco.UI/actions/workflows/tests.yml) [![Storybook build](https://github.com/umbraco/Umbraco.UI/actions/workflows/azure-static-web-apps-delightful-beach-055ecb503.yml/badge.svg)](https://github.com/umbraco/Umbraco.UI/actions/workflows/azure-static-web-apps-delightful-beach-055ecb503.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=umbraco_Umbraco.UI&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=umbraco_Umbraco.UI) [![npm](https://img.shields.io/npm/v/@umbraco-ui/uui?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
 The Umbraco UI Library is a collection of web components for building [Umbraco CMS](https://umbraco.com/) style interfaces. Built with [Lit](https://lit.dev/) and TypeScript, the library provides 80+ components — buttons, inputs, dialogs, cards, tables, and more.
 
