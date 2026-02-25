@@ -1,4 +1,13 @@
+import { globSync } from 'node:fs';
 import { defineConfig } from 'vite';
+
+// Rollup's preserveModules drops pure re-export facades, so we add all
+// barrel files as explicit entry points to guarantee they appear in dist/.
+const barrelEntries = Object.fromEntries(
+  globSync('src/**/index.ts')
+    .filter(f => !f.includes('internal/test'))
+    .map(f => [f.replace(/^src\//, '').replace(/\.ts$/, ''), f]),
+);
 
 export default defineConfig({
   base: './',
@@ -6,7 +15,7 @@ export default defineConfig({
     outDir: 'dist',
     lib: {
       entry: {
-        index: 'src/index.ts',
+        ...barrelEntries,
         'themes/light': 'src/themes/light.css',
         'themes/dark': 'src/themes/dark.css',
         'styles/uui-font': 'src/styles/uui-font.css',
