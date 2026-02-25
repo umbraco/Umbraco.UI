@@ -52,10 +52,7 @@ const options: Array<Option> = [
   { name: 'Strawberry', value: 'red' },
 ];
 
-const preselectedOptions: Array<Option> = options.map(option => {
-  if (option.name === 'Aubergine') return { ...option, selected: true };
-  return option;
-});
+const preselectedValue: string = 'purple';
 
 const groupedOptions: Array<Option> = options.map(option => {
   if (options.indexOf(option) <= 2) return { ...option, group: 'Vegetables' };
@@ -70,8 +67,9 @@ export const Default: Story = {
 
 export const Preselected: Story = {
   args: {
-    options: preselectedOptions,
+    options: options,
     label: 'Preselected',
+    value: preselectedValue,
   },
   parameters: {
     controls: { include: ['placeholder'] },
@@ -86,7 +84,7 @@ export const Preselected: Story = {
 const options: Array<Option> = [
 { name: 'Carrot', value: 'orange' },
 { name: 'Cucumber', value: 'green' },
-{ name: 'Aubergine', value: 'purple', selected: true },
+{ name: 'Aubergine', value: 'purple' },
 { name: 'Blueberry', value: 'Blue' },
 { name: 'Banana', value: 'yellow' },
 { name: 'Strawberry', value: 'red' },
@@ -161,7 +159,8 @@ export const Readonly: Story = {
   args: {
     readonly: true,
     label: 'Label',
-    options: preselectedOptions,
+    options: options,
+    value: preselectedValue,
   },
   parameters: {
     docs: {

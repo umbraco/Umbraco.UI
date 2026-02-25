@@ -3,13 +3,15 @@ import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { UUISelectElement } from './uui-select.element';
 
 const options: Array<Option> = [
-  { name: 'Carrot', value: 'orange', selected: true },
+  { name: 'Carrot', value: 'orange' },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },
   { name: 'Blueberry', value: 'Blue' },
   { name: 'Banana', value: 'yellow' },
   { name: 'Strawberry', value: 'red' },
 ];
+
+const selectdVaue: string = 'orange';
 
 describe('UUISelectElement', () => {
   let element: UUISelectElement;
@@ -20,6 +22,7 @@ describe('UUISelectElement', () => {
       html`<uui-select
         label="foo"
         name="bar"
+        .value="orange"
         .options=${options}></uui-select>`,
     );
     input = element.shadowRoot?.querySelector('#native');
@@ -67,7 +70,11 @@ describe('UUISelect in Form', () => {
   beforeEach(async () => {
     formElement = await fixture(
       html` <form>
-        <uui-select label="foo" name="bar" .options=${options}></uui-select>
+        <uui-select
+          label="foo"
+          name="bar"
+          .value=${selectdVaue}
+          .options=${options}></uui-select>
       </form>`,
     );
     element = formElement.querySelector('uui-select') as any;
@@ -112,6 +119,7 @@ describe('UUISelect in Form', () => {
           <uui-select
             label="test label"
             name="test"
+            .value="orange"
             .options=${options}></uui-select>
         </form>`,
       );
