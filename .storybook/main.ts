@@ -32,4 +32,16 @@ export default defineMain({
   ],
 
   docs: {},
+
+  viteFinal(config) {
+    // Storybook's builder-vite hardcodes base: './' which causes the
+    // modulepreload polyfill to resolve "assets/foo.js" relative to the JS
+    // module URL (/assets/), producing /assets/assets/foo.js (404).
+    // Disable the polyfill — native <link rel="modulepreload"> still works.
+    config.build = {
+      ...config.build,
+      modulePreload: false,
+    };
+    return config;
+  },
 });
