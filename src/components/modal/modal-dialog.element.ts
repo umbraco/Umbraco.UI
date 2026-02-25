@@ -9,7 +9,7 @@ export class UUIModalDialogElement extends UUIModalElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUIModalElement.styles,
     css`
       :host {

@@ -252,7 +252,7 @@ export class UUIToastNotificationElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     UUITextStyles,
     css`
       :host {

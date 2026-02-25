@@ -7,7 +7,7 @@ export class UUIRefListElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: block;

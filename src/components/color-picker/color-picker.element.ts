@@ -578,7 +578,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       : this._renderPreviewButton();
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         --uui-look-outline-border: #ddd;

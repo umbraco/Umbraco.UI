@@ -96,7 +96,7 @@ export class UUIModalElement extends LitElement {
     this.remove();
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       dialog {
         display: block;

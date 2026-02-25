@@ -86,7 +86,7 @@ export class UUIInputLockElement extends UUIInputElement {
     </uui-button>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUIInputElement.styles,
     css`
       #lock {

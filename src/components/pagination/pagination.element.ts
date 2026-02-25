@@ -337,7 +337,7 @@ export class UUIPaginationElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       uui-button-group {
         width: 100%;

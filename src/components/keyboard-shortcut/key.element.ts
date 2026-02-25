@@ -10,7 +10,7 @@ export class UUIKeyElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         background: var(--uui-color-surface);

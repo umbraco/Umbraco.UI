@@ -80,7 +80,7 @@ export class UUILoaderCircleElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         vertical-align: middle;

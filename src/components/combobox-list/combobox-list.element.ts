@@ -260,7 +260,7 @@ export class UUIComboboxListElement extends LitElement {
     return html` <slot @slotchange=${this._onSlotChange}></slot> `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: flex;

@@ -100,7 +100,7 @@ export class UUIFormValidationMessageElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       #messages {
         color: var(--uui-color-invalid-standalone);

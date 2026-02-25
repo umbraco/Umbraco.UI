@@ -135,7 +135,7 @@ export class UUIIconElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         vertical-align: text-bottom;

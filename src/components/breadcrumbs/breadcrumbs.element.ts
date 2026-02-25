@@ -51,7 +51,7 @@ export class UUIBreadcrumbsElement extends LitElement {
     </uui-responsive-container>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: flex;

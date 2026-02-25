@@ -43,7 +43,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUIBooleanInputElement.styles,
     UUIHorizontalShakeKeyframes,
     css`

@@ -163,7 +163,7 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     return html`<slot @slotchange=${this._handleSlotChange}></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: flex;

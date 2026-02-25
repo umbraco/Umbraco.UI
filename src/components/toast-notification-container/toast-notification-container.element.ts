@@ -135,7 +135,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
     return html` <slot @slotchange=${this.onSlotChanged}></slot> `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: absolute;

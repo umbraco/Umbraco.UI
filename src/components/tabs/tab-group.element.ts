@@ -291,7 +291,7 @@ export class UUITabGroupElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         min-width: 0;

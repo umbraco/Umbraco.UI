@@ -722,7 +722,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   /** Style */
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         --color-interactive: var(--uui-color-selected);

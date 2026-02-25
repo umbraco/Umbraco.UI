@@ -66,7 +66,7 @@ export class UUIFormLayoutItemElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

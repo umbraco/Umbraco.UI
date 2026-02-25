@@ -324,7 +324,7 @@ export class UUIRadioGroupElement extends UUIFormControlMixin(LitElement, '') {
     return html` <slot @slotchange=${this.#onSlotChange}></slot> `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-block;

@@ -78,7 +78,7 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

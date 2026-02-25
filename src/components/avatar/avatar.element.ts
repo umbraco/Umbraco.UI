@@ -128,7 +128,7 @@ export class UUIAvatarElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-flex;

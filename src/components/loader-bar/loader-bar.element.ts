@@ -59,7 +59,7 @@ export class UUILoaderBarElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

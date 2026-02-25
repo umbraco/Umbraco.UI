@@ -243,7 +243,7 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         width: 100%;

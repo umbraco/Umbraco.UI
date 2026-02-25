@@ -5,7 +5,7 @@ import { css, LitElement } from 'lit';
  *  @element uui-table-column
  */
 export class UUITableColumnElement extends LitElement {
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: table-column;

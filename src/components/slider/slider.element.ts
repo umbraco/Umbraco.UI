@@ -322,7 +322,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     UUIHorizontalPulseKeyframes,
     nativeInputStyles,
     css`

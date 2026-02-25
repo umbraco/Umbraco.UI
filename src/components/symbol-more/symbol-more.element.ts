@@ -11,7 +11,7 @@ export class UUISymbolMoreElement extends LitElement {
     </svg>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-block;

@@ -268,7 +268,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         `;
   }
 
-  static styles = [
+  static override readonly styles = [
     UUIHorizontalShakeKeyframes,
     css`
       :host {

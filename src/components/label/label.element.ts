@@ -65,7 +65,7 @@ export class UUILabelElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         font-weight: 700;

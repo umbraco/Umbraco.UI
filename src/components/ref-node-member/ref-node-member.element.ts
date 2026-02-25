@@ -36,5 +36,5 @@ export class UUIRefNodeMemberElement extends UUIRefNodeElement {
     ></small>`;
   }
 
-  static styles = [...UUIRefNodeElement.styles];
+  static override readonly styles = [...UUIRefNodeElement.styles];
 }

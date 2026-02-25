@@ -403,7 +403,7 @@ export class UUIPopoverContainerElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         margin: 0;

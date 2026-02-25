@@ -67,7 +67,7 @@ export class UUIDialogLayoutElement extends LitElement {
     ${this.renderActions()} `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: block;

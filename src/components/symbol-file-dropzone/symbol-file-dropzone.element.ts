@@ -26,7 +26,7 @@ export class UUISymbolFileDropzoneElement extends LitElement {
     </svg> `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: flex;

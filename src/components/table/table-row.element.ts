@@ -46,7 +46,7 @@ export class UUITableRowElement extends SelectOnlyMixin(
     return html` <slot @slotchanged=${this.updateChildSelectOnly}></slot> `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: table-row;

@@ -67,7 +67,7 @@ export class UUIAvatarGroupElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-flex;

@@ -37,7 +37,7 @@ export class UUIProgressBarElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         width: 100%;

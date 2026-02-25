@@ -12,7 +12,7 @@ export class UUILoaderElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         color: var(--uui-color-default);

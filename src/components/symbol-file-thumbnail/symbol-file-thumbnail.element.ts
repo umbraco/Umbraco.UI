@@ -40,7 +40,7 @@ export class UUISymbolFileThumbnailElement extends LitElement {
           .fallback=${iconPicture.strings[0]}></uui-icon>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: block;

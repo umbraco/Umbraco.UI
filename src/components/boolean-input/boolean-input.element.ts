@@ -174,7 +174,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-block;

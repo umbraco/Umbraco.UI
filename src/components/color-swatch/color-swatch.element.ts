@@ -148,7 +148,7 @@ export class UUIColorSwatchElement extends LabelMixin(
     </div>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

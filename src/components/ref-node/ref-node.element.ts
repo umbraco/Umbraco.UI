@@ -177,7 +177,7 @@ export class UUIRefNodeElement extends UUIRefElement {
     }
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUIRefElement.styles,
     css`
       :host {

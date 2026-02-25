@@ -270,7 +270,7 @@ export class UUIColorAreaElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-block;

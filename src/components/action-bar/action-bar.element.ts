@@ -6,7 +6,7 @@ import { css } from 'lit';
  *  @description - Extends button group to hold buttons with icons that represent actions.
  */
 export class UUIActionBarElement extends UUIButtonGroupElement {
-  static styles = [
+  static override readonly styles = [
     ...UUIButtonGroupElement.styles,
     css`
       ::slotted(*) {

@@ -10,7 +10,7 @@ export class UUIDialogElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

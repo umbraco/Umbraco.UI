@@ -405,7 +405,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     }
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-flex;

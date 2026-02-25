@@ -54,7 +54,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
     </dialog>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUIModalElement.styles,
     css`
       :host {

@@ -99,7 +99,7 @@ export class UUICardElement extends SelectOnlyMixin(
       <div id="select-border"></div>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     UUITextStyles,
     css`
       :host {

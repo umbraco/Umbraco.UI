@@ -10,7 +10,7 @@ export class UUIButtonGroupElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-flex;

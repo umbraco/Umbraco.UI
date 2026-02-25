@@ -378,7 +378,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       #dropzone {
         display: flex;

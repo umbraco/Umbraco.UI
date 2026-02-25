@@ -92,7 +92,7 @@ export class UUICardUserElement extends UUICardElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUICardElement.styles,
     css`
       :host {

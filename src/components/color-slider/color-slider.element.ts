@@ -298,7 +298,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       ${this.hideValueLabel ? null : Math.round(this.value)}`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         --uui-slider-height: 15px;

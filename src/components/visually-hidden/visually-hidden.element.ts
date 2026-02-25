@@ -8,7 +8,7 @@ export class UUIVisuallyHiddenElement extends LitElement {
     return html`<slot></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host(:not(:focus-within)) {
         position: absolute !important;

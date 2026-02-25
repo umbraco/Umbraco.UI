@@ -77,7 +77,7 @@ export class UUITableCellElement extends LitElement {
     return html` <slot @slotchange=${this._detectOverflow}></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

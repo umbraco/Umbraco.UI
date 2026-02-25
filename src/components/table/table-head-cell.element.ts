@@ -12,7 +12,7 @@ export class UUITableHeadCellElement extends UUITableCellElement {
     this.setAttribute('role', 'columnheader');
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUITableCellElement.styles,
     css`
       :host {

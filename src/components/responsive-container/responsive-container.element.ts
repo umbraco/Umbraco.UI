@@ -286,7 +286,7 @@ export class UUIResponsiveContainerElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: flex;

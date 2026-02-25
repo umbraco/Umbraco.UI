@@ -260,7 +260,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
     </select>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         display: inline-block;

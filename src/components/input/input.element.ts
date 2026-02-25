@@ -366,7 +366,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       : this.placeholder}`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

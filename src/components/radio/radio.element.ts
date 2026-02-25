@@ -142,7 +142,7 @@ export class UUIRadioElement extends LitElement {
     </label>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     UUIHorizontalShakeKeyframes,
     css`
       :host {

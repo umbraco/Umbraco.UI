@@ -94,7 +94,7 @@ export class UUIModalExampleElement extends LitElement {
     return html` ${this.#renderButtons()}
       <uui-modal-container>${this._modals}</uui-modal-container>`;
   }
-  static styles = css`
+  static override readonly styles = css`
     .sidebar-buttons {
       margin-top: auto;
       display: flex;

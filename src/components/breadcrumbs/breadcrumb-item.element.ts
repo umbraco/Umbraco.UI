@@ -49,7 +49,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
       : this.renderLinkAndSeparator()}`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         font-size: var(--uui-type-small-size);

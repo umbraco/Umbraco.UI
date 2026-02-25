@@ -43,7 +43,7 @@ export class UUIBadgeElement extends LitElement {
     return html` <slot></slot> `;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: var(--uui-badge-position, absolute);

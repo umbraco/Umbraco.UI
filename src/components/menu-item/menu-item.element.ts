@@ -257,7 +257,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       ?open=${this.showChildren}></uui-symbol-expand>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         box-sizing: border-box;

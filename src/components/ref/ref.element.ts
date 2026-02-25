@@ -56,7 +56,7 @@ export class UUIRefElement extends SelectOnlyMixin(
     this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
   }
 
-  static styles = [
+  static override readonly styles = [
     css`
       :host {
         position: relative;

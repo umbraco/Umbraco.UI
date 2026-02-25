@@ -131,7 +131,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
     return this.href ? this.#renderLink() : this.#renderButton();
   }
 
-  static styles = [
+  static override readonly styles = [
     UUIBlinkKeyframes,
     css`
       :host {

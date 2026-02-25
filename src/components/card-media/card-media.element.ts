@@ -119,7 +119,7 @@ export class UUICardMediaElement extends UUICardElement {
       <slot name="actions"></slot>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUICardElement.styles,
     css`
       #entity-symbol {

@@ -62,7 +62,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
     </uui-button>`;
   }
 
-  static styles = [
+  static override readonly styles = [
     ...UUIInputElement.styles,
     css`
       #eye {
