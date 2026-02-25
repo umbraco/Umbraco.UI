@@ -27,7 +27,7 @@ cd ~/Projects/Umbraco.UI
 npm run clean && npm run build
 ```
 
-This produces the `dist/` directory that consumers will resolve.
+This produces the `dist/` directory that consumers will resolve, including `.d.ts` type declarations. You must run a full build at least once before using `build:watch`, which only emits `.js` files.
 
 ### 2. Register the link
 
@@ -89,6 +89,17 @@ npm install
 ```
 
 ## Troubleshooting
+
+### "Could not find a declaration file" / implicit `any` types
+
+`build:watch` only emits `.js` files — it skips `tsc`, so no `.d.ts` declarations are generated. Run a full build first:
+
+```bash
+npm run build        # generates dist/*.d.ts (once)
+npm run build:watch  # then iterate with watch mode
+```
+
+The declarations persist in `dist/` across watch rebuilds since Vite only overwrites `.js` files. You only need to re-run the full build if you change public API signatures (new exports, renamed types, etc.).
 
 ### "Module not found" after linking
 
