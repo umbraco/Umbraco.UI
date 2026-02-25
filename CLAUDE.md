@@ -121,14 +121,12 @@ export class UUIButtonElement extends UUIFormControlMixin(
 ) { ... }
 ```
 
-**Element registration** — each component folder has a **registration file** (`{name}.ts`) that imports the pure class and registers it:
+**Element registration** — each component folder has a **registration file** (`{name}.ts`) that imports the pure class and registers it. Structure: imports → side effects → types → exports:
 
 ```typescript
 // button/button.ts — registration file (has side effects)
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIButtonElement } from './button.element.js';
-
-export * from './button.element.js';
 
 defineElement('uui-button', UUIButtonElement);
 
@@ -137,6 +135,9 @@ declare global {
     'uui-button': UUIButtonElement;
   }
 }
+
+export * from './button.element.js';
+export { UUIButtonElement as default } from './button.element.js';
 ```
 
 ```typescript
@@ -172,7 +173,7 @@ export class UUIButtonElement extends ... { }
 
 ## Linting & Formatting
 
-- **ESLint** v9 flat config (`eslint.config.mjs`) with `typescript-eslint`, `eslint-plugin-lit`, `eslint-plugin-wc`, Prettier integration
+- **ESLint** v9 flat config (`eslint.config.js`) with `typescript-eslint`, `eslint-plugin-lit`, `eslint-plugin-wc`, Prettier integration
 - **Prettier**: single quotes, 2-space indent, `arrowParens: avoid`, `bracketSameLine: true`
 - **Pre-commit hook** (Husky + lint-staged): runs ESLint, type-check on `*.element.ts`, Prettier
 

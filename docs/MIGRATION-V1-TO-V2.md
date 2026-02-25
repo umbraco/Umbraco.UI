@@ -63,10 +63,10 @@ npm install @umbraco-ui/uui@latest
 
 ```diff
 - import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
-+ import { UUIButtonElement } from '@umbraco-ui/uui/components/button/index.js';
++ import { UUIButtonElement } from '@umbraco-ui/uui/components/button/button.js';
 
 - import type { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';
-+ import type { UUIButtonElement } from '@umbraco-ui/uui/components/button/index.js';
++ import type { UUIButtonElement } from '@umbraco-ui/uui/components/button/button.js';
 ```
 
 #### Foundation imports (uui-base)

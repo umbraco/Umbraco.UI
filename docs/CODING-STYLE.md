@@ -30,12 +30,12 @@ button/
 
 ### Registration file anatomy
 
+Structure: imports → side effects → types → exports.
+
 ```typescript
 // button/button.ts
 import { defineElement } from '../../internal/registration/index.js';
 import { UUIButtonElement } from './button.element.js';
-
-export * from './button.element.js';
 
 defineElement('uui-button', UUIButtonElement);
 
@@ -44,9 +44,12 @@ declare global {
     'uui-button': UUIButtonElement;
   }
 }
+
+export * from './button.element.js';
+export { UUIButtonElement as default } from './button.element.js';
 ```
 
-For multi-element folders (e.g. `table/` with 6 elements), one registration file imports and registers all sibling elements.
+For multi-element folders (e.g. `table/` with 6 elements), one registration file imports and registers all sibling elements. The primary element (matching the folder name) is the default export.
 
 ### `defineElement` function
 
@@ -62,3 +65,4 @@ Both are defensive — they check for a valid element name and skip registration
 - **Within a component folder**: import from the `.element` file for the class, or from the registration file for side effects
 - **Cross-component imports**: import from the registration file (`../button/button.js`) to ensure the element is registered
 - **Test files**: must import the registration file at the top (e.g. `import './button.js';`)
+- **Type-only imports**: use `import type` for imports used only in type positions (enforced by `@typescript-eslint/consistent-type-imports`)

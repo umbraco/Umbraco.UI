@@ -1,15 +1,15 @@
 import type { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
-import '../../src/components/symbol-expand/index.js';
-import '../../src/components/loader-bar/index.js';
-import '../../src/components/button/index.js';
-import '../../src/components/input/index.js';
-import '../../src/components/scroll-container/index.js';
-import '../../src/components/box/index.js';
-import '../../src/components/textarea/index.js';
-import '../../src/components/combobox-list/index.js';
-import '../../src/components/combobox/index.js';
+import '../../src/components/symbol-expand/symbol-expand.js';
+import '../../src/components/loader-bar/loader-bar.js';
+import '../../src/components/button/button.js';
+import '../../src/components/input/input.js';
+import '../../src/components/scroll-container/scroll-container.js';
+import '../../src/components/box/box.js';
+import '../../src/components/textarea/textarea.js';
+import '../../src/components/combobox-list/combobox-list.js';
+import '../../src/components/combobox/combobox.js';
 import './home.story.element.ts';
 
 export default {
