@@ -9,13 +9,13 @@ import {
   PopoverTargetMixin,
 } from '../../internal/mixins/index.js';
 import { iconCheck, iconWrong } from '../icon-registry-essential/svgs/index.js';
-import { css, html, LitElement, nothing, TemplateResult } from 'lit';
-import { property, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import {
+import type {
   UUIInterfaceColor,
   UUIInterfaceLook,
 } from '../../internal/types/index.js';
+import { css, html, LitElement, nothing, TemplateResult } from 'lit';
+import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
