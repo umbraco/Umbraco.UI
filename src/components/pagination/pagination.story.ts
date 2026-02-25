@@ -4,8 +4,8 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
-import '../button/index.js/';
-import '../button-group/index.js/';
+import '../button/button.js';
+import '../button-group/button-group.js';
 
 const meta: Meta = {
   id: 'uui-pagination',
