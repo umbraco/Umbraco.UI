@@ -18,7 +18,7 @@ describe('UuiBreadcrumbItem', () => {
     `);
 
     const link = element.shadowRoot!.querySelector('a')!;
-    expect(link).to.exist;
+    expect(link).to.not.equal(null);
   });
 
   it('is a span if last item', async () => {
@@ -26,7 +26,7 @@ describe('UuiBreadcrumbItem', () => {
       <uui-breadcrumb-item last-item>One</uui-breadcrumb-item>
     `);
     const span = element.shadowRoot!.querySelector('span')!;
-    expect(span).to.exist;
+    expect(span).to.not.equal(null);
   });
 
   it('is a span if no href', async () => {
@@ -34,6 +34,6 @@ describe('UuiBreadcrumbItem', () => {
       <uui-breadcrumb-item>One</uui-breadcrumb-item>
     `);
     const span = element.shadowRoot!.querySelector('span')!;
-    expect(span).to.exist;
+    expect(span).to.not.equal(null);
   });
 });

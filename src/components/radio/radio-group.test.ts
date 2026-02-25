@@ -89,15 +89,15 @@ describe('UUIRadio', () => {
       radios[2].click();
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal(UUIRadioGroupEvent.CHANGE);
 
-      expect(radios[2].checked).to.be.true;
+      expect(radios[2].checked).to.equal(true);
       expect(element.value).to.equal(radios[2].value);
 
       // Click method on radio-group should then do nothing.
       element.click();
-      expect(radios[2].checked).to.be.true;
+      expect(radios[2].checked).to.equal(true);
       expect(element.value).to.equal(radios[2].value);
     });
   });
@@ -199,7 +199,7 @@ describe('UuiRadioGroup in a Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
@@ -211,7 +211,7 @@ describe('UuiRadioGroup in a Form', () => {
       );
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
@@ -297,38 +297,38 @@ describe('UUIRadio keyboard accessibility', () => {
   });
 
   it('should check radio when Space key is pressed', async () => {
-    expect(radio.checked).to.be.false;
+    expect(radio.checked).to.equal(false);
 
     radio.focus();
     radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
     await elementUpdated(radio);
 
-    expect(radio.checked).to.be.true;
+    expect(radio.checked).to.equal(true);
   });
 
   it('should not respond to keyboard when disabled', async () => {
     radio.disabled = true;
     await elementUpdated(radio);
 
-    expect(radio.checked).to.be.false;
+    expect(radio.checked).to.equal(false);
 
     radio.focus();
     radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
     await elementUpdated(radio);
 
-    expect(radio.checked).to.be.false;
+    expect(radio.checked).to.equal(false);
   });
 
   it('should not respond to keyboard when readonly', async () => {
     radio.readonly = true;
     await elementUpdated(radio);
 
-    expect(radio.checked).to.be.false;
+    expect(radio.checked).to.equal(false);
 
     radio.focus();
     radio.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
     await elementUpdated(radio);
 
-    expect(radio.checked).to.be.false;
+    expect(radio.checked).to.equal(false);
   });
 });

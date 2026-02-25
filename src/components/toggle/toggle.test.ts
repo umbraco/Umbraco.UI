@@ -26,7 +26,7 @@ describe('UUIToggle', () => {
   });
 
   it('has input element', () => {
-    expect(input).to.exist;
+    expect(input).to.not.equal(null);
   });
 
   it('passes the a11y audit', async () => {
@@ -57,7 +57,7 @@ describe('UUIToggle', () => {
     it('disable property set input to disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
-      expect(input.disabled).to.be.true;
+      expect(input.disabled).to.equal(true);
     });
   });
 
@@ -75,9 +75,9 @@ describe('UUIToggle', () => {
       expect(element).to.have.property('click').that.is.a('function');
     });
     it('click method changes value', async () => {
-      expect(element.checked).not.to.be.true;
+      expect(element.checked).not.to.equal(true);
       await element.click();
-      expect(element.checked).to.be.true;
+      expect(element.checked).to.equal(true);
     });
   });
 
@@ -87,7 +87,7 @@ describe('UUIToggle', () => {
         const listener = oneEvent(element, 'click', false);
         element.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('click');
       });
     });

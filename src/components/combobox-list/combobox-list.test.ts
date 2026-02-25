@@ -45,7 +45,7 @@ describe('UUIComboboxListElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
   describe('events', () => {
@@ -56,7 +56,7 @@ describe('UUIComboboxListElement', () => {
         const listener = oneEvent(element, UUIComboboxListEvent.CHANGE, false);
         element.value = 'new';
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIComboboxListEvent.CHANGE);
       });
       */
@@ -98,7 +98,7 @@ describe('UUIComboboxListElement', () => {
     describe('template', () => {
       it('renders a default slot', () => {
         const slot = element.shadowRoot!.querySelector('slot')!;
-        expect(slot).to.exist;
+        expect(slot).to.not.equal(null);
       });
     });
   });

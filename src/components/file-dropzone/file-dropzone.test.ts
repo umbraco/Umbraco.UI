@@ -271,7 +271,7 @@ describe('UUIFileDropzoneElement', () => {
           const { files } = (e as UUIFileDropzoneEvent).detail;
           expect(files.length).to.equal(1);
           expect(files[0].name).to.equal('file1.jpg');
-          expect(rejectEventFired).to.be.false;
+          expect(rejectEventFired).to.equal(false);
           done();
         });
 

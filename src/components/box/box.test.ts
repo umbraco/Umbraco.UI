@@ -60,24 +60,24 @@ describe('UUIBox', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an headline slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=headline]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders a header slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=header]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders a header-actions slot', () => {
       const slot = element.shadowRoot!.querySelector(
         'slot[name=header-actions',
       )!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders specified headline tag when headlineVariant is set', async () => {

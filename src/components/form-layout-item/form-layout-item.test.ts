@@ -30,17 +30,17 @@ describe('UUIFormLayoutItemElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot:not([name])')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an label slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=label]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an message slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=message]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 });

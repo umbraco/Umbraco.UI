@@ -30,21 +30,21 @@ describe('UUIColorSwatchElement', () => {
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
       await mouse.leftClick(element);
-      expect(element.selected).to.be.true;
+      expect(element.selected).to.equal(true);
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
       await mouse.leftClick(element);
-      expect(element.selected).to.be.false;
+      expect(element.selected).to.equal(false);
     });
 
     it('cant be selected when disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
       await mouse.leftClick(element);
-      expect(element.selected).to.be.false;
+      expect(element.selected).to.equal(false);
     });
 
     /* TODO: temp commented out as they are flaky in webkit
@@ -55,12 +55,12 @@ describe('UUIColorSwatchElement', () => {
       await sendKeys({
         press: 'Space',
       });
-      expect(element.selected).to.be.true;
+      expect(element.selected).to.equal(true);
 
       await sendKeys({
         press: 'Space',
       });
-      expect(element.selected).to.be.false;
+      expect(element.selected).to.equal(false);
     });
 
     it('can be selected with Enter key', async () => {
@@ -70,12 +70,12 @@ describe('UUIColorSwatchElement', () => {
       await sendKeys({
         press: 'Enter',
       });
-      expect(element.selected).to.be.true;
+      expect(element.selected).to.equal(true);
 
       await sendKeys({
         press: 'Enter',
       });
-      expect(element.selected).to.be.false;
+      expect(element.selected).to.equal(false);
     });
     */
   });

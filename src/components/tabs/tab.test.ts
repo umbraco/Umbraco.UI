@@ -43,24 +43,24 @@ describe('UuiTab', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a icon slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=icon]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a extra slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=extra]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a button', () => {
       const slot = element.shadowRoot!.querySelector('button')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a anchor tag when href is defined', () => {
       element.setAttribute('href', 'https://www.umbraco.com');
       const slot = element.shadowRoot!.querySelector('button')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
