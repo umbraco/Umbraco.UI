@@ -4,6 +4,8 @@ import { UUIInputElement } from './input.element.js';
 export * from './input.element.js';
 export * from './UUIInputEvent.js';
 
+export default UUIInputElement;
+
 defineElement('uui-input', UUIInputElement);
 
 declare global {

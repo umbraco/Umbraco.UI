@@ -1,6 +1,7 @@
 import { demandCustomElement } from '../../internal/utils/index.js';
 import { iconSee, iconUnsee } from '../icon-registry-essential/svgs/index.js';
-import { InputType, UUIInputElement } from '../input/input.js';
+import type { InputType } from '../input/input.js';
+import { UUIInputElement } from '../input/input.js';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

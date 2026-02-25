@@ -1,6 +1,6 @@
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
-import { UUIFileDropzoneElement } from '../file-dropzone/file-dropzone.js';
+import type { UUIFileDropzoneElement } from '../file-dropzone/file-dropzone.js';
 import { UUIFormControlMixin } from '../../internal/mixins';
 import { demandCustomElement } from '../../internal/utils';
 import { iconDelete } from '../icon-registry-essential/svgs/index.js';

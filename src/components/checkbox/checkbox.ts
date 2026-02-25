@@ -3,6 +3,8 @@ import { UUICheckboxElement } from './checkbox.element.js';
 
 export * from './checkbox.element.js';
 
+export default UUICheckboxElement;
+
 defineElement('uui-checkbox', UUICheckboxElement);
 
 declare global {

@@ -3,6 +3,8 @@ import { UUIToastNotificationLayoutElement } from './toast-notification-layout.e
 
 export * from './toast-notification-layout.element.js';
 
+export default UUIToastNotificationLayoutElement;
+
 defineElement(
   'uui-toast-notification-layout',
   UUIToastNotificationLayoutElement,

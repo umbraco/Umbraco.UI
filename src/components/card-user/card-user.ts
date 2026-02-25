@@ -3,6 +3,8 @@ import { UUICardUserElement } from './card-user.element.js';
 
 export * from './card-user.element.js';
 
+export default UUICardUserElement;
+
 defineElement('uui-card-user', UUICardUserElement);
 
 declare global {

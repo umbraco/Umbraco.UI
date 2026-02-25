@@ -3,6 +3,8 @@ import { UUIColorSwatchElement } from './color-swatch.element.js';
 
 export * from './color-swatch.element.js';
 
+export default UUIColorSwatchElement;
+
 defineElement('uui-color-swatch', UUIColorSwatchElement);
 
 declare global {

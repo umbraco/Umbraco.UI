@@ -37,34 +37,33 @@ export default function (plop) {
     actions: [
       {
         type: 'add',
-        path: './src/components/{{> tagnamePartial }}/index.ts',
+        path: './src/components/{{name}}/{{name}}.ts',
         templateFile: './templates/plop-templates/index.ts.hbs',
       },
       {
         type: 'add',
-        path: './src/components/{{> tagnamePartial }}/{{> tagnamePartial }}.element.ts',
+        path: './src/components/{{name}}/{{name}}.element.ts',
         templateFile: './templates/plop-templates/component.ts.hbs',
       },
       {
         type: 'add',
-        path: './src/components/{{> tagnamePartial }}/{{> tagnamePartial }}.test.ts',
+        path: './src/components/{{name}}/{{name}}.test.ts',
         templateFile: './templates/plop-templates/test.ts.hbs',
       },
       {
         type: 'add',
-        path: './src/components/{{> tagnamePartial }}/{{> tagnamePartial }}.story.ts',
+        path: './src/components/{{name}}/{{name}}.story.ts',
         templateFile: './templates/plop-templates/stories.ts.hbs',
       },
       {
         type: 'add',
-        path: './src/components/{{> tagnamePartial }}/README.md',
+        path: './src/components/{{name}}/README.md',
         templateFile: './templates/plop-templates/README.md.hbs',
       },
       {
         type: 'append',
         path: './src/index.ts',
-        template:
-          "export * from './components/{{> tagnamePartial }}/index.js';",
+        template: "export * from './components/{{name}}/{{name}}.js';",
       },
     ],
   });

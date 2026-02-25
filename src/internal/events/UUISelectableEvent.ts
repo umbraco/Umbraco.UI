@@ -1,4 +1,4 @@
-import { UUISelectableMixinInterface } from '../mixins';
+import type { UUISelectableMixinInterface } from '../mixins';
 import { UUIEvent } from './UUIEvent';
 
 export class UUISelectableEvent extends UUIEvent<

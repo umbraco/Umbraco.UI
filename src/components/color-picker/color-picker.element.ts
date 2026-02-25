@@ -1,5 +1,6 @@
 import { LitElement, html, css, nothing } from 'lit';
-import { Colord, colord, extend, HslaColor } from 'colord';
+import type { HslaColor } from 'colord';
+import { Colord, colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 
 extend([namesPlugin]);

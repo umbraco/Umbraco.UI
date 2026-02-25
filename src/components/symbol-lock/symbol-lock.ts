@@ -3,6 +3,8 @@ import { UUISymbolLockElement } from './symbol-lock.element.js';
 
 export * from './symbol-lock.element.js';
 
+export default UUISymbolLockElement;
+
 defineElement('uui-symbol-lock', UUISymbolLockElement);
 
 declare global {

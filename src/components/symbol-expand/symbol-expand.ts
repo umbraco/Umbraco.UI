@@ -3,6 +3,8 @@ import { UUISymbolExpandElement } from './symbol-expand.element.js';
 
 export * from './symbol-expand.element.js';
 
+export default UUISymbolExpandElement;
+
 defineElement('uui-symbol-expand', UUISymbolExpandElement);
 
 declare global {

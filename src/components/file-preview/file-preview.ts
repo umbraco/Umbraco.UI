@@ -4,6 +4,8 @@ import { UUIFilePreviewElement } from './file-preview.element.js';
 export * from './file-preview.element.js';
 export * from './UUIFileSize.js';
 
+export default UUIFilePreviewElement;
+
 defineElement('uui-file-preview', UUIFilePreviewElement);
 
 declare global {

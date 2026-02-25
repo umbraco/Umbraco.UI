@@ -1,9 +1,7 @@
 import { UUIFormControlMixin } from '../../internal/mixins';
 import { demandCustomElement } from '../../internal/utils';
-import {
-  UUIComboboxListElement,
-  UUIComboboxListEvent,
-} from '../combobox-list/combobox-list.js';
+import type { UUIComboboxListElement } from '../combobox-list/combobox-list.js';
+import { UUIComboboxListEvent } from '../combobox-list/combobox-list.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
 import type { UUIPopoverContainerElement } from '../popover-container/popover-container.js';
 import { css, html, LitElement, nothing } from 'lit';

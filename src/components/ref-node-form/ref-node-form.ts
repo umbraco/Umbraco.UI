@@ -3,6 +3,8 @@ import { UUIRefNodeFormElement } from './ref-node-form.element.js';
 
 export * from './ref-node-form.element.js';
 
+export default UUIRefNodeFormElement;
+
 defineElement('uui-ref-node-form', UUIRefNodeFormElement);
 
 declare global {

@@ -3,6 +3,8 @@ import { UUIDialogLayoutElement } from './dialog-layout.element.js';
 
 export * from './dialog-layout.element.js';
 
+export default UUIDialogLayoutElement;
+
 defineElement('uui-dialog-layout', UUIDialogLayoutElement);
 
 declare global {

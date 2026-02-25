@@ -1,4 +1,5 @@
-import { css, html, PropertyValueMap } from 'lit';
+import type { PropertyValueMap } from 'lit';
+import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { UUIModalElement } from './modal.element';
 export type UUIModalSidebarSize = 'small' | 'medium' | 'large' | 'full';

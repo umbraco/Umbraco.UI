@@ -3,6 +3,8 @@ import { UUILoaderElement } from './loader.element.js';
 
 export * from './loader.element.js';
 
+export default UUILoaderElement;
+
 defineElement('uui-loader', UUILoaderElement);
 
 declare global {

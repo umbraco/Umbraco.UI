@@ -3,6 +3,8 @@ import { UUISymbolMoreElement } from './symbol-more.element.js';
 
 export * from './symbol-more.element.js';
 
+export default UUISymbolMoreElement;
+
 defineElement('uui-symbol-more', UUISymbolMoreElement);
 
 declare global {

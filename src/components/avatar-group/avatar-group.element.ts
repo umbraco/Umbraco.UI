@@ -1,4 +1,4 @@
-import { UUIAvatarElement } from '../avatar/avatar.js';
+import type { UUIAvatarElement } from '../avatar/avatar.js';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 

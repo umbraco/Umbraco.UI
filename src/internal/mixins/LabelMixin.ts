@@ -1,4 +1,5 @@
-import { html, LitElement, TemplateResult } from 'lit';
+import type { LitElement, TemplateResult } from 'lit';
+import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;

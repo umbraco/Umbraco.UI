@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { UUISelectableEvent } from '../../internal/events';
-import { UUIComboboxListOptionElement } from './combobox-list-option.element';
+import type { UUIComboboxListOptionElement } from './combobox-list-option.element';
 import { UUIComboboxListEvent } from './UUIComboboxListEvent';
 
 /**

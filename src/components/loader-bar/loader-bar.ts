@@ -3,6 +3,8 @@ import { UUILoaderBarElement } from './loader-bar.element.js';
 
 export * from './loader-bar.element.js';
 
+export default UUILoaderBarElement;
+
 defineElement('uui-loader-bar', UUILoaderBarElement);
 
 declare global {

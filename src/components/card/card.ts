@@ -4,6 +4,8 @@ import { UUICardElement } from './card.element.js';
 export * from './card.element.js';
 export * from './UUICardEvent.js';
 
+export default UUICardElement;
+
 defineElement('uui-card', UUICardElement);
 
 declare global {

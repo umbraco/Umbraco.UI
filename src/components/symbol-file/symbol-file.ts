@@ -3,6 +3,8 @@ import { UUISymbolFileElement } from './symbol-file.element.js';
 
 export * from './symbol-file.element.js';
 
+export default UUISymbolFileElement;
+
 defineElement('uui-symbol-file', UUISymbolFileElement);
 
 declare global {

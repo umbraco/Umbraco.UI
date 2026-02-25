@@ -4,6 +4,8 @@ import { UUIColorAreaElement } from './color-area.element.js';
 export * from './color-area.element.js';
 export * from './UUIColorAreaEvent.js';
 
+export default UUIColorAreaElement;
+
 defineElement('uui-color-area', UUIColorAreaElement);
 
 declare global {

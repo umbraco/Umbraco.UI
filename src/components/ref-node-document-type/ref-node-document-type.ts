@@ -3,6 +3,8 @@ import { UUIRefNodeDocumentTypeElement } from './ref-node-document-type.element.
 
 export * from './ref-node-document-type.element.js';
 
+export default UUIRefNodeDocumentTypeElement;
+
 defineElement('uui-ref-node-document-type', UUIRefNodeDocumentTypeElement);
 
 declare global {

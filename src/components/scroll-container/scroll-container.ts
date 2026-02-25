@@ -3,6 +3,8 @@ import { UUIScrollContainerElement } from './scroll-container.element.js';
 
 export * from './scroll-container.element.js';
 
+export default UUIScrollContainerElement;
+
 defineElement('uui-scroll-container', UUIScrollContainerElement);
 
 declare global {

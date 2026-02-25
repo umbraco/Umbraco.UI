@@ -4,6 +4,8 @@ import { UUIRangeSliderElement } from './range-slider.element.js';
 export * from './range-slider.element.js';
 export * from './UUIRangeSliderEvent.js';
 
+export default UUIRangeSliderElement;
+
 defineElement('uui-range-slider', UUIRangeSliderElement);
 
 declare global {

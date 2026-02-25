@@ -1,4 +1,4 @@
-import { UUIButtonElement } from '../button/button.js';
+import type { UUIButtonElement } from '../button/button.js';
 import { demandCustomElement } from '../../internal/utils';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';

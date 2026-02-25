@@ -6,6 +6,8 @@ export * from './combobox-list-option.element.js';
 export * from './combobox-list.element.js';
 export * from './UUIComboboxListEvent.js';
 
+export default UUIComboboxListElement;
+
 defineElement('uui-combobox-list-option', UUIComboboxListOptionElement);
 defineElement('uui-combobox-list', UUIComboboxListElement);
 

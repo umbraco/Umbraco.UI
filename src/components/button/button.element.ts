@@ -13,7 +13,8 @@ import type {
   UUIInterfaceColor,
   UUIInterfaceLook,
 } from '../../internal/types/index.js';
-import { css, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 

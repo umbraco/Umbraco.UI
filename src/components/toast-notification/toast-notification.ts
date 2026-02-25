@@ -4,6 +4,8 @@ import { UUIToastNotificationElement } from './toast-notification.element.js';
 export * from './toast-notification.element.js';
 export * from './UUIToastNotificationEvent.js';
 
+export default UUIToastNotificationElement;
+
 defineElement('uui-toast-notification', UUIToastNotificationElement);
 
 declare global {

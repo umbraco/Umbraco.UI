@@ -3,6 +3,8 @@ import { UUISymbolSortElement } from './symbol-sort.element.js';
 
 export * from './symbol-sort.element.js';
 
+export default UUISymbolSortElement;
+
 defineElement('uui-symbol-sort', UUISymbolSortElement);
 
 declare global {

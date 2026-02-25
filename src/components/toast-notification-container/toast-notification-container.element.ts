@@ -1,7 +1,5 @@
-import {
-  UUIToastNotificationElement,
-  UUIToastNotificationEvent,
-} from '../toast-notification/toast-notification.js';
+import type { UUIToastNotificationElement } from '../toast-notification/toast-notification.js';
+import { UUIToastNotificationEvent } from '../toast-notification/toast-notification.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 

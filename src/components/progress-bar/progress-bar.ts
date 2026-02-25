@@ -3,6 +3,8 @@ import { UUIProgressBarElement } from './progress-bar.element.js';
 
 export * from './progress-bar.element.js';
 
+export default UUIProgressBarElement;
+
 defineElement('uui-progress-bar', UUIProgressBarElement);
 
 declare global {

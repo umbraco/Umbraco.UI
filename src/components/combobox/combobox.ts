@@ -4,6 +4,8 @@ import { UUIComboboxElement } from './combobox.element.js';
 export * from './combobox.element.js';
 export * from './UUIComboboxEvent.js';
 
+export default UUIComboboxElement;
+
 defineElement('uui-combobox', UUIComboboxElement);
 
 declare global {

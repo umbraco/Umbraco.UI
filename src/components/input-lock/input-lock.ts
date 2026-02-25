@@ -4,6 +4,8 @@ import { UUIInputLockElement } from './input-lock.element.js';
 export * from './input-lock.element.js';
 export * from './UUIInputLockEvent.js';
 
+export default UUIInputLockElement;
+
 defineElement('uui-input-lock', UUIInputLockElement);
 
 declare global {

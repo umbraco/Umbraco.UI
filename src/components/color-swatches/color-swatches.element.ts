@@ -1,6 +1,7 @@
 import { UUISelectableEvent } from '../../internal/events';
 import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.js';
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import type { PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import { LabelMixin } from '../../internal/mixins';

@@ -3,6 +3,8 @@ import { UUIFormLayoutItemElement } from './form-layout-item.element.js';
 
 export * from './form-layout-item.element.js';
 
+export default UUIFormLayoutItemElement;
+
 defineElement('uui-form-layout-item', UUIFormLayoutItemElement);
 
 declare global {

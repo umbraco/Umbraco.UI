@@ -1,9 +1,10 @@
-import { LitElement, css, html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { LitElement, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { defineElement } from '../../internal/registration/index.js';
 import './modal-container';
 import { ref, createRef } from 'lit/directives/ref.js';
-import { UUIModalElement } from './modal.element';
+import type { UUIModalElement } from './modal.element';
 
 @defineElement('modal-example')
 export class UUIModalExampleElement extends LitElement {

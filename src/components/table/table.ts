@@ -13,6 +13,8 @@ export * from './table-head.element.js';
 export * from './table-row.element.js';
 export * from './table.element.js';
 
+export default UUITableElement;
+
 defineElement('uui-table-cell', UUITableCellElement);
 defineElement('uui-table-column', UUITableColumnElement);
 defineElement('uui-table-head-cell', UUITableHeadCellElement);

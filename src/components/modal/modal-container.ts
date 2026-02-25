@@ -1,4 +1,5 @@
-import { LitElement, PropertyValueMap, css, html } from 'lit';
+import type { PropertyValueMap } from 'lit';
+import { LitElement, css, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { UUIModalSidebarElement } from './modal-sidebar.element';
 import { UUIModalCloseEvent, UUIModalElement } from './modal.element';

@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUIInterfaceColor, UUIInterfaceLook } from '../../internal/types';
+import type { UUIInterfaceColor, UUIInterfaceLook } from '../../internal/types';
 
 /**
  *

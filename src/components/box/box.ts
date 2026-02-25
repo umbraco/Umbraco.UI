@@ -3,6 +3,8 @@ import { UUIBoxElement } from './box.element.js';
 
 export * from './box.element.js';
 
+export default UUIBoxElement;
+
 defineElement('uui-box', UUIBoxElement);
 
 declare global {

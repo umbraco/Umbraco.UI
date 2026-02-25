@@ -3,6 +3,8 @@ import { UUISymbolFileThumbnailElement } from './symbol-file-thumbnail.element.j
 
 export * from './symbol-file-thumbnail.element.js';
 
+export default UUISymbolFileThumbnailElement;
+
 defineElement('uui-symbol-file-thumbnail', UUISymbolFileThumbnailElement);
 
 declare global {

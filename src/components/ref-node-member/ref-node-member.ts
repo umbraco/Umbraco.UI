@@ -3,6 +3,8 @@ import { UUIRefNodeMemberElement } from './ref-node-member.element.js';
 
 export * from './ref-node-member.element.js';
 
+export default UUIRefNodeMemberElement;
+
 defineElement('uui-ref-node-member', UUIRefNodeMemberElement);
 
 declare global {

@@ -7,6 +7,8 @@ export * from './tab.element.js';
 export * from './UUITabEvent.js';
 export * from './UUITabGroupEvent.js';
 
+export default UUITabGroupElement;
+
 defineElement('uui-tab-group', UUITabGroupElement);
 defineElement('uui-tab', UUITabElement);
 

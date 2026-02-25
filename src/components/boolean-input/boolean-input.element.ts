@@ -1,5 +1,6 @@
 import { UUIFormControlMixin, LabelMixin } from '../../internal/mixins';
-import { css, html, LitElement, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';

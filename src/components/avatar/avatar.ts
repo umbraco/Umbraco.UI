@@ -3,6 +3,8 @@ import { UUIAvatarElement } from './avatar.element.js';
 
 export * from './avatar.element.js';
 
+export default UUIAvatarElement;
+
 defineElement('uui-avatar', UUIAvatarElement);
 
 declare global {

@@ -5,6 +5,8 @@ import { UUIBreadcrumbsElement } from './breadcrumbs.element.js';
 export * from './breadcrumb-item.element.js';
 export * from './breadcrumbs.element.js';
 
+export default UUIBreadcrumbsElement;
+
 defineElement('uui-breadcrumb-item', UUIBreadcrumbItemElement);
 defineElement('uui-breadcrumbs', UUIBreadcrumbsElement);
 

@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events/index.js';
-import { UUIInputElement } from './input.element';
+import type { UUIInputElement } from './input.element';
 
 export class UUIInputEvent extends UUIEvent<{}, UUIInputElement> {
   public static readonly CHANGE: string = 'change';

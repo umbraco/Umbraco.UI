@@ -5,7 +5,8 @@ import {
   SelectOnlyMixin,
 } from '../../internal/mixins';
 import { demandCustomElement } from '../../internal/utils';
-import { css, html, LitElement, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

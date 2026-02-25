@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIInputLockElement } from './input-lock.element';
+import type { UUIInputLockElement } from './input-lock.element';
 
 export class UUIInputLockEvent extends UUIEvent<{}, UUIInputLockElement> {
   public static readonly LOCK_CHANGE: string = 'lock-change';

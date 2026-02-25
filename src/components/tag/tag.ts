@@ -3,6 +3,8 @@ import { UUITagElement } from './tag.element.js';
 
 export * from './tag.element.js';
 
+export default UUITagElement;
+
 defineElement('uui-tag', UUITagElement);
 
 declare global {

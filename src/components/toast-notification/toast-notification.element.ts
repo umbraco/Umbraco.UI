@@ -5,7 +5,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
-import { UUIInterfaceColor } from '../../internal';
+import type { UUIInterfaceColor } from '../../internal';
 
 /**
  *  @element uui-toast-notification

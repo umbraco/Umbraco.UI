@@ -4,6 +4,8 @@ import { UUISliderElement } from './slider.element.js';
 export * from './slider.element.js';
 export * from './UUISliderEvent.js';
 
+export default UUISliderElement;
+
 defineElement('uui-slider', UUISliderElement);
 
 declare global {

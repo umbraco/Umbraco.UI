@@ -3,6 +3,8 @@ import { UUIRefListElement } from './ref-list.element.js';
 
 export * from './ref-list.element.js';
 
+export default UUIRefListElement;
+
 defineElement('uui-ref-list', UUIRefListElement);
 
 declare global {

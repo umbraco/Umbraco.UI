@@ -7,6 +7,8 @@ export * from './radio.element.js';
 export * from './UUIRadioEvent.js';
 export * from './UUIRadioGroupEvent.js';
 
+export default UUIRadioElement;
+
 defineElement('uui-radio-group', UUIRadioGroupElement);
 defineElement('uui-radio', UUIRadioElement);
 
