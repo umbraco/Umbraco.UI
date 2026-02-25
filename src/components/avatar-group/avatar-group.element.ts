@@ -13,7 +13,7 @@ export class UUIAvatarGroupElement extends LitElement {
     selector: 'uui-avatar, [uui-avatar]',
     flatten: true,
   })
-  private _avatarNodes?: UUIAvatarElement[];
+  private readonly _avatarNodes?: UUIAvatarElement[];
 
   @state()
   private _avatarArray: UUIAvatarElement[] = [];
@@ -37,7 +37,7 @@ export class UUIAvatarGroupElement extends LitElement {
   }
 
   private _setAvatarArray() {
-    this._avatarArray = this._avatarNodes ? this._avatarNodes : [];
+    this._avatarArray = this._avatarNodes ?? [];
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
