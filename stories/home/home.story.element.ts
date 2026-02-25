@@ -4,7 +4,7 @@ import { UUITextStyles } from '../../src/styles';
 
 @defineElement('story-home')
 export class UUIBoxElement extends LitElement {
-  static styles = [
+  static override readonly styles = [
     UUITextStyles,
     css`
       #app {
