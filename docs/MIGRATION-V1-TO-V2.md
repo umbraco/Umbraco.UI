@@ -8,17 +8,17 @@ In v2, everything is published as a **single package**: `@umbraco-ui/uui`. Compo
 
 ### Architecture changes
 
-|                   | v1                                                                                  | v2                                                                               |
-| ----------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **Package**       | 84 separate `@umbraco-ui/uui-*` packages                                            | Single `@umbraco-ui/uui` package                                                 |
-| **Install**       | `npm install @umbraco-ui/uui-button`                                                | `npm install @umbraco-ui/uui`                                                    |
-| **Import**        | `import '@umbraco-ui/uui-button';`                                                  | `import '@umbraco-ui/uui/components/button/index.js';`                           |
-| **Deep import**   | `import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';` | `import { UUIButtonElement } from '@umbraco-ui/uui/components/button/index.js';` |
-| **Bundle import** | `import '@umbraco-ui/uui';`                                                         | `import '@umbraco-ui/uui';` (unchanged)                                          |
-| **Foundation**    | `@umbraco-ui/uui-base`                                                              | `@umbraco-ui/uui` (re-exported from root)                                        |
-| **CSS**           | `@umbraco-ui/uui-css`                                                               | `@umbraco-ui/uui` (re-exported from root)                                        |
-| **Build**         | Rollup per package, orchestrated by Turbo                                           | Single Vite build                                                                |
-| **Lit**           | ^2.8.0                                                                              | ^3.0.0                                                                           |
+|                   | v1                                                                                  | v2                                                                                |
+| ----------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Package**       | 84 separate `@umbraco-ui/uui-*` packages                                            | Single `@umbraco-ui/uui` package                                                  |
+| **Install**       | `npm install @umbraco-ui/uui-button`                                                | `npm install @umbraco-ui/uui`                                                     |
+| **Import**        | `import '@umbraco-ui/uui-button';`                                                  | `import '@umbraco-ui/uui/components/button/button.js';`                           |
+| **Deep import**   | `import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';` | `import { UUIButtonElement } from '@umbraco-ui/uui/components/button/button.js';` |
+| **Bundle import** | `import '@umbraco-ui/uui';`                                                         | `import '@umbraco-ui/uui';` (unchanged)                                           |
+| **Foundation**    | `@umbraco-ui/uui-base`                                                              | `@umbraco-ui/uui` (re-exported from root)                                         |
+| **CSS**           | `@umbraco-ui/uui-css`                                                               | `@umbraco-ui/uui` (re-exported from root)                                         |
+| **Build**         | Rollup per package, orchestrated by Turbo                                           | Single Vite build                                                                 |
+| **Lit**           | ^2.8.0                                                                              | ^3.0.0                                                                            |
 
 ### Removed components
 
@@ -53,10 +53,10 @@ npm install @umbraco-ui/uui@latest
 
 ```diff
 - import '@umbraco-ui/uui-button';
-+ import '@umbraco-ui/uui/components/button/index.js';
++ import '@umbraco-ui/uui/components/button/button.js';
 
 - import '@umbraco-ui/uui-input';
-+ import '@umbraco-ui/uui/components/input/index.js';
++ import '@umbraco-ui/uui/components/input/input.js';
 ```
 
 #### Class and type imports
@@ -125,7 +125,7 @@ The general pattern for translating v1 imports to v2:
 
 | v1 pattern                           | v2 pattern                                    |
 | ------------------------------------ | --------------------------------------------- |
-| `@umbraco-ui/uui-{name}`             | `@umbraco-ui/uui/components/{name}/index.js`  |
+| `@umbraco-ui/uui-{name}`             | `@umbraco-ui/uui/components/{name}/{name}.js` |
 | `@umbraco-ui/uui-{name}/lib/{file}`  | `@umbraco-ui/uui/components/{name}/{file}.js` |
 | `@umbraco-ui/uui-base`               | `@umbraco-ui/uui`                             |
 | `@umbraco-ui/uui-base/lib/{subpath}` | `@umbraco-ui/uui`                             |

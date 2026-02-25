@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIColorSliderElement } from './uui-color-slider.element';
+import { UUIColorSliderElement } from './color-slider.element';
 
 export class UUIColorSliderEvent extends UUIEvent<{}, UUIColorSliderElement> {
   public static readonly CHANGE = 'change';

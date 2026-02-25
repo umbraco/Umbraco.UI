@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIRangeSliderElement } from './uui-range-slider.element';
+import { UUIRangeSliderElement } from './range-slider.element';
 
 export class UUIRangeSliderEvent extends UUIEvent<{}, UUIRangeSliderElement> {
   public static readonly INPUT = 'input';

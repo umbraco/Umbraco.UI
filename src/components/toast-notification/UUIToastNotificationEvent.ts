@@ -1,6 +1,6 @@
 import { UUIEvent } from '../../internal/events';
 
-import { UUIToastNotificationElement } from './uui-toast-notification.element';
+import { UUIToastNotificationElement } from './toast-notification.element';
 
 export class UUIToastNotificationEvent extends UUIEvent<
   {},

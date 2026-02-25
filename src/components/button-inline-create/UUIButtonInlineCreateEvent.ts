@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIButtonInlineCreateElement } from './uui-button-inline-create.element';
+import { UUIButtonInlineCreateElement } from './button-inline-create.element';
 
 export class UUIButtonInlineCreateEvent extends UUIEvent<
   {},

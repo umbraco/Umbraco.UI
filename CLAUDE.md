@@ -54,14 +54,14 @@ In v1, UUI was a monorepo of ~84 separate npm packages (`@umbraco-ui/uui-button`
 
 In v2, everything lives under a **single `@umbraco-ui/uui` package** with one Vite build. Components are individual ES modules for tree-shaking. See [MIGRATION-V1-TO-V2.md](docs/MIGRATION-V1-TO-V2.md) for the full migration guide.
 
-|             | v1                                 | v2                                                     |
-| ----------- | ---------------------------------- | ------------------------------------------------------ |
-| Packages    | ~84 separate `@umbraco-ui/uui-*`   | Single `@umbraco-ui/uui`                               |
-| Import      | `import '@umbraco-ui/uui-button';` | `import '@umbraco-ui/uui/components/button/index.js';` |
-| Foundation  | `@umbraco-ui/uui-base/lib/...`     | `src/internal/...` (re-exported from root)             |
-| CSS/Styles  | `@umbraco-ui/uui-css/lib/...`      | `src/styles/...` (re-exported from root)               |
-| Build       | Rollup per package + Turbo         | Single Vite build                                      |
-| Lit version | ^2.8.0                             | ^3.0.0                                                 |
+|             | v1                                 | v2                                                      |
+| ----------- | ---------------------------------- | ------------------------------------------------------- |
+| Packages    | ~84 separate `@umbraco-ui/uui-*`   | Single `@umbraco-ui/uui`                                |
+| Import      | `import '@umbraco-ui/uui-button';` | `import '@umbraco-ui/uui/components/button/button.js';` |
+| Foundation  | `@umbraco-ui/uui-base/lib/...`     | `src/internal/...` (re-exported from root)              |
+| CSS/Styles  | `@umbraco-ui/uui-css/lib/...`      | `src/styles/...` (re-exported from root)                |
+| Build       | Rollup per package + Turbo         | Single Vite build                                       |
+| Lit version | ^2.8.0                             | ^3.0.0                                                  |
 
 ### Project structure
 
@@ -73,10 +73,10 @@ src/
 ├── themes/          # Light and dark theme CSS
 ├── components/      # 80 component directories
 │   ├── button/
-│   │   ├── index.ts                # Public exports (barrel)
-│   │   ├── uui-button.element.ts   # Component class
-│   │   ├── uui-button.test.ts      # Tests
-│   │   ├── uui-button.story.ts     # Storybook story
+│   │   ├── button.ts              # Registration file (re-exports + defineElement call)
+│   │   ├── button.element.ts      # Pure component class (no side effects)
+│   │   ├── button.test.ts         # Tests
+│   │   ├── button.story.ts        # Storybook story
 │   │   └── README.md
 │   └── ...
 └── index.ts         # Root barrel — re-exports everything
@@ -121,14 +121,30 @@ export class UUIButtonElement extends UUIFormControlMixin(
 ) { ... }
 ```
 
-**Element registration** — use `@defineElement` decorator (not `customElements.define`):
+**Element registration** — each component folder has a **registration file** (`{name}.ts`) that imports the pure class and registers it:
 
 ```typescript
+// button/button.ts — registration file (has side effects)
 import { defineElement } from '../../internal/registration/index.js';
+import { UUIButtonElement } from './button.element.js';
 
-@defineElement('uui-button')
+export * from './button.element.js';
+
+defineElement('uui-button', UUIButtonElement);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-button': UUIButtonElement;
+  }
+}
+```
+
+```typescript
+// button/button.element.ts — pure class (no side effects, no registration)
 export class UUIButtonElement extends ... { }
 ```
+
+`defineElement` supports both direct call and decorator syntax. Direct calls are used in registration files; the decorator is only used for standalone example elements.
 
 **Events** — custom events extend `UUIEvent` from `internal/` for type safety.
 
@@ -150,7 +166,8 @@ export class UUIButtonElement extends ... { }
 
 - **Web Test Runner** + @open-wc/testing (Mocha + Chai), runs in Chromium, Firefox, WebKit via Playwright
 - Config: `web-test-runner.config.mjs`
-- Tests live alongside components: `src/components/{name}/uui-{name}.test.ts`
+- Tests live alongside components: `src/components/{name}/{name}.test.ts`
+- Tests must import the registration file (e.g. `import './{name}.js';`) to register elements
 - Accessibility testing via `expect(element).to.be.accessible()`
 
 ## Linting & Formatting

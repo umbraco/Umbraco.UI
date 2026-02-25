@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIRadioGroupElement } from './uui-radio-group.element';
+import { UUIRadioGroupElement } from './radio-group.element';
 
 export class UUIRadioGroupEvent extends UUIEvent<{}, UUIRadioGroupElement> {
   public static readonly CHANGE = 'change';

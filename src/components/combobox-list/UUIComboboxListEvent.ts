@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIComboboxListElement } from './uui-combobox-list.element';
+import { UUIComboboxListElement } from './combobox-list.element';
 
 export class UUIComboboxListEvent extends UUIEvent<UUIComboboxListElement> {
   public static readonly CHANGE: string = 'change';

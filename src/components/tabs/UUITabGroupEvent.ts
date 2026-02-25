@@ -1,4 +1,4 @@
-import { UUITabGroupElement } from './uui-tab-group.element';
+import { UUITabGroupElement } from './tab-group.element';
 import { UUIEvent } from '../../internal/events';
 
 type DetailType = {};
