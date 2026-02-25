@@ -1,4 +1,4 @@
-import { UUIFormControlMixinInterface } from '../mixins';
+import type { UUIFormControlMixinInterface } from '../mixins';
 import { UUIEvent } from './UUIEvent';
 
 export class UUIFormControlEvent extends UUIEvent<

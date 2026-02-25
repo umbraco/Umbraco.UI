@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIButtonCopyTextElement } from './uui-button-copy-text.element';
+import type { UUIButtonCopyTextElement } from './button-copy-text.element';
 
 export class UUICopyTextEvent extends UUIEvent<
   { text: string },

@@ -1,6 +1,6 @@
 import { UUIEvent } from '../../internal/events';
 
-import { UUIColorPickerElement } from './uui-color-picker.element';
+import type { UUIColorPickerElement } from './color-picker.element';
 
 export class UUIColorPickerChangeEvent extends UUIEvent<
   {},

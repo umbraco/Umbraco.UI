@@ -38,7 +38,7 @@ You can use UUI components directly in the browser without a build step by setti
 
     <script type="module">
       // Import only the components you need
-      import '@umbraco-ui/uui/components/button/index.js';
+      import '@umbraco-ui/uui/components/button/button.js';
     </script>
   </body>
 </html>
@@ -59,12 +59,12 @@ Import only what you use to keep page loads fast:
 
 ```js
 // Just a button
-import '@umbraco-ui/uui/components/button/index.js';
+import '@umbraco-ui/uui/components/button/button.js';
 
 // A form with validation
-import '@umbraco-ui/uui/components/form/index.js';
-import '@umbraco-ui/uui/components/input/index.js';
-import '@umbraco-ui/uui/components/label/index.js';
+import '@umbraco-ui/uui/components/form/form.js';
+import '@umbraco-ui/uui/components/input/input.js';
+import '@umbraco-ui/uui/components/label/label.js';
 ```
 
 ## Loading everything
@@ -72,7 +72,7 @@ import '@umbraco-ui/uui/components/label/index.js';
 If you want all components registered at once:
 
 ```js
-import '@umbraco-ui/uui/index.js';
+import '@umbraco-ui/uui';
 ```
 
 Note: this will fetch all ~80 component modules, so cherry-picking is recommended for production.

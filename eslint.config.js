@@ -63,6 +63,10 @@ export default [
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
       '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
+      '@typescript-eslint/consistent-type-imports': [
+        'warn',
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+      ],
       'lit/no-useless-template-literals': 'error',
       'lit/prefer-nothing': 'error',
       'no-restricted-syntax': [

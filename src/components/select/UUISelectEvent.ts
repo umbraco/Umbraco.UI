@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUISelectElement } from './uui-select.element';
+import type { UUISelectElement } from './select.element';
 
 export class UUISelectEvent extends UUIEvent<{}, UUISelectElement> {
   public static readonly CHANGE = 'change';

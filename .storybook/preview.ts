@@ -8,7 +8,7 @@ import '../src/styles/uui-text.css';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
-import '../src/components/icon-registry-essential/index.js';
+import '../src/components/icon-registry-essential/icon-registry-essential.js';
 
 const preview: Preview = {
   parameters: {

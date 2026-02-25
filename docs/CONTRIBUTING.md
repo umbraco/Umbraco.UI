@@ -39,7 +39,7 @@ Before you submit a new PR, make sure you run `npm run test`. PR must pass all t
 
 Please follow the [pull request template](../.github/pull_request_template.md) when submitting a pull request!
 
-> NOTE: Although the latest released version of Umbraco UI corresponds to the `main` branch, then development happens in the `dev` branch. If you submit a PR, branch off `dev` and target your PR to `dev`.
+> NOTE: Development happens on the `main` branch. If you submit a PR, branch off `main` and target your PR to `main`.
 
 ## Development Guide
 
@@ -49,8 +49,7 @@ Using Typescript is mandatory when contributing to this repository, although it 
 
 ### How to get started
 
-1. Make sure you have the recommended version of node.js and npm installed
-   1. Currently we use node.js v18.16.0 and npm v9.5.0
+1. Make sure you have the recommended version of node.js and npm installed (see `.nvmrc` and `engines` in `package.json`)
 2. Run `npm install`
 3. Run `npm run storybook` to start the storybook server, which we also use for development
 
@@ -58,30 +57,27 @@ Using Typescript is mandatory when contributing to this repository, although it 
 
 You can create a new component and that way contribute to the UI library. But before you do that, go to the [`./src/components`](https://github.com/umbraco/Umbraco.UI/tree/dev/src/components) and check if it's not already there. Components from that folder are very much WIP will be gradually moved to packages. You may also look for an inspiration in this [components list](COMPONENTS.md), where you can check what component is in what stage.
 
-#### Package anatomy
+#### Component anatomy
 
-Each component is a separate npm package and has a fixed file structure that looks as follows:
+Each component lives in its own folder under `src/components/` with a fixed file structure:
 
-- packages
-  - new-component-name
-    - lib
-      - index.ts
-      - new-component-name.element.ts
-      - new-component-name.test.ts
-      - new-component-name.story.ts
-    - package.json
-    - README.md
-    - rollup.config.js
-    - tsconfig.json
+```
+src/components/
+  new-component/
+    new-component.ts              # Registration file (defineElement + exports)
+    new-component.element.ts      # Pure component class
+    new-component.test.ts         # Tests
+    new-component.story.ts        # Storybook story
+    README.md
+```
 
 To scaffold these files run:
 
 ```sh
-npm run new-package
-npm i
+npm run new-component
 ```
 
-`tsconfig.json` file is generated automatically when the `postinstall` script runs.
+See [CODING-STYLE.md](CODING-STYLE.md) for details on the registration file pattern.
 
 ### Properties and attributes
 
@@ -109,7 +105,7 @@ Each property you create should be documented with a jsdoc snippet. You can see 
 - Elements shouldn’t depend on TagNames - their own or children - instead use :host or this and use classes/id’s for selection
 - Elements always use a shadow-root (shadowDOM - for encapsulation)
 - Styles should have as simple rules as possible
-- UI-events should be unique types that extend from our UUIEvent (see `uui-base` package) (for typing reasons)
+- UI-events should be unique types that extend from our UUIEvent (see `src/internal/events`) (for typing reasons)
 - When applicable, elements should follow [aria accessibility patterns](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)
 
 ### Before a new element can me merged

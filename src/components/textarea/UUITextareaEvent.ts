@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUITextareaElement } from './uui-textarea.element';
+import type { UUITextareaElement } from './textarea.element';
 
 export class UUITextareaEvent extends UUIEvent<{}, UUITextareaElement> {
   public static readonly CHANGE: string = 'change';

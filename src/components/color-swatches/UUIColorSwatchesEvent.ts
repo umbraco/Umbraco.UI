@@ -1,6 +1,6 @@
 import { UUIEvent } from '../../internal/events';
 
-import { UUIColorSwatchElement } from '../color-swatch/uui-color-swatch.element.js';
+import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.element.js';
 
 export class UUIColorSwatchesEvent extends UUIEvent<{}, UUIColorSwatchElement> {
   public static readonly CHANGE = 'change';

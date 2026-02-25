@@ -1,5 +1,5 @@
 import { UUIEvent } from '../../internal/events';
-import { UUIMenuItemElement } from './uui-menu-item.element';
+import type { UUIMenuItemElement } from './menu-item.element';
 
 export class UUIMenuItemEvent extends UUIEvent<{}, UUIMenuItemElement> {
   public static readonly SHOW_CHILDREN = 'show-children';

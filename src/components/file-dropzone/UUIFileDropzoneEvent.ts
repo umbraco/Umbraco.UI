@@ -1,8 +1,8 @@
 import { UUIEvent } from '../../internal/events';
-import {
+import type {
   UUIFileDropzoneElement,
   UUIFileFolder,
-} from './uui-file-dropzone.element';
+} from './file-dropzone.element';
 
 export class UUIFileDropzoneEvent extends UUIEvent<
   { files: File[]; folders: UUIFileFolder[] },

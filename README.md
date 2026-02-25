@@ -23,8 +23,8 @@ npm install @umbraco-ui/uui
 Each component is a separate ES module. Import only the components you use — your bundler will tree-shake the rest:
 
 ```js
-import '@umbraco-ui/uui/components/button/index.js';
-import '@umbraco-ui/uui/components/input/index.js';
+import '@umbraco-ui/uui/components/button/button.js';
+import '@umbraco-ui/uui/components/input/input.js';
 ```
 
 ```html

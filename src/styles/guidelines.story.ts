@@ -1,9 +1,9 @@
 import { html } from 'lit';
 
-import '../components/dialog/uui-dialog.element';
-import '../components/dialog-layout/uui-dialog-layout.element';
-import '../components/button/uui-button.element';
-import '../components/icon-registry-essential/uui-icon-registry-essential.element';
+import '../components/dialog/dialog.js';
+import '../components/dialog-layout/dialog-layout.js';
+import '../components/button/button.js';
+import '../components/icon-registry-essential/icon-registry-essential.js';
 
 export default {
   title: 'Design/Style Guide',

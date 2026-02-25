@@ -1,0 +1,229 @@
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import { html } from 'lit';
+import './responsive-container.element';
+import type { UUIResponsiveContainerElement } from './responsive-container.element';
+import readme from './README.md?raw';
+
+// Import button so it's available in stories
+import '../button/button.js';
+import '../button-group/button-group.js';
+
+const meta: Meta = {
+  id: 'uui-responsive-container',
+  title: 'Layout/Responsive Container',
+  component: 'uui-responsive-container',
+  args: {
+    collapse: 'end',
+  },
+  argTypes: {
+    collapse: {
+      control: 'select',
+      options: ['end', 'start'],
+      description: 'Which side items collapse from',
+    },
+    '--uui-responsive-container-gap': {
+      control: { type: 'text' },
+      description: 'Gap between items (e.g., "8px", "16px")',
+    },
+    'slot="trigger-content"': {
+      control: { type: 'text' },
+      description:
+        'Custom content for the trigger button (default: three dots icon)',
+    },
+  },
+  parameters: {
+    readme: { markdown: readme },
+    docs: {
+      description: {
+        component:
+          'A responsive container that automatically collapses overflowing children into a "more" dropdown menu. ' +
+          'When there is not enough horizontal space, items are hidden and accessible via a popover triggered by a "..." button. ' +
+          'Supports collapsing from either the start (left) or end (right) of the container.',
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<UUIResponsiveContainerElement>;
+
+export const Overview: Story = {
+  render: () => html`
+    <div
+      style="width: 100%; border: 1px dashed #ccc; padding: 8px; resize: horizontal; overflow: auto;">
+      <uui-responsive-container>
+        <!-- Primary action -->
+        <uui-button look="primary">Save</uui-button>
+
+        <!-- Secondary actions -->
+        <uui-button look="secondary">Edit</uui-button>
+        <uui-button look="outline">Preview</uui-button>
+
+        <!-- Button group for related actions -->
+        <uui-button-group>
+          <uui-button look="primary" label="Button 1"></uui-button>
+          <uui-button
+            look="secondary"
+            color="positive"
+            label="Save"></uui-button>
+          <uui-button look="primary" color="danger" label="Delete"></uui-button>
+        </uui-button-group>
+
+        <!-- Colored buttons -->
+        <uui-button look="primary" color="positive">Publish</uui-button>
+        <uui-button look="primary" color="warning">Unpublish</uui-button>
+        <uui-button look="primary" color="danger">Delete</uui-button>
+
+        <!-- Another button group -->
+        <uui-button-group>
+          <uui-button look="outline">Undo</uui-button>
+          <uui-button look="outline">Redo</uui-button>
+        </uui-button-group>
+      </uui-responsive-container>
+    </div>
+    <p style="color: #666; font-size: 12px;">
+      ↔ Drag the corner to resize and see the collapse behavior
+    </p>
+  `,
+};
+
+export const CollapseFromEnd: Story = {
+  render: () => html`
+    <div
+      style="width: 400px; border: 1px dashed #ccc; padding: 8px; resize: horizontal; overflow: auto;">
+      <uui-responsive-container collapse="end">
+        <uui-button look="primary">First</uui-button>
+        <uui-button>Second</uui-button>
+        <uui-button>Third</uui-button>
+        <uui-button>Fourth</uui-button>
+        <uui-button>Fifth</uui-button>
+      </uui-responsive-container>
+    </div>
+    <p style="color: #666; font-size: 12px;">
+      collapse="end" - Items collapse from the right (default)
+    </p>
+  `,
+};
+
+export const CollapseFromStart: Story = {
+  render: () => html`
+    <div
+      style="width: 400px; border: 1px dashed #ccc; padding: 8px; resize: horizontal; overflow: auto;">
+      <uui-responsive-container collapse="start">
+        <uui-button>First</uui-button>
+        <uui-button>Second</uui-button>
+        <uui-button>Third</uui-button>
+        <uui-button>Fourth</uui-button>
+        <uui-button look="primary">Fifth</uui-button>
+      </uui-responsive-container>
+    </div>
+    <p style="color: #666; font-size: 12px;">
+      collapse="start" - Items collapse from the left, keeping rightmost items
+      visible
+    </p>
+  `,
+};
+
+// Helper functions for click handlers
+const handleSave = () => alert('💾 Save clicked!');
+const handleEdit = () => alert('✏️ Edit clicked!');
+const handleDelete = () => alert('🗑️ Delete clicked!');
+const handlePublish = () => alert('🚀 Publish clicked!');
+const handleShare = () => alert('📤 Share clicked!');
+const handleExport = () => alert('📦 Export clicked!');
+
+export const ClickActions: Story = {
+  render: () => html`
+    <div
+      style="width: 350px; border: 1px dashed #ccc; padding: 8px; resize: horizontal; overflow: auto;">
+      <uui-responsive-container>
+        <uui-button look="primary" @click=${handleSave}>Save</uui-button>
+        <uui-button @click=${handleEdit}>Edit</uui-button>
+        <uui-button @click=${handleDelete}>Delete</uui-button>
+        <uui-button @click=${handlePublish}>Publish</uui-button>
+        <uui-button @click=${handleShare}>Share</uui-button>
+        <uui-button @click=${handleExport}>Export</uui-button>
+      </uui-responsive-container>
+    </div>
+    <p style="color: #666; font-size: 12px; margin-top: 16px;">
+      <strong>Test instructions:</strong><br />
+      1. Resize the container to make some buttons collapse into the dropdown<br />
+      2. Click the "..." button to open the dropdown<br />
+      3. Click any button in the dropdown<br />
+      4. You should see an alert with the button's action! ✅
+    </p>
+  `,
+};
+
+export const CustomTrigger: Story = {
+  render: () => html`
+    <style>
+      .demo-section {
+        margin-bottom: 24px;
+        padding: 16px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+      }
+      .demo-section h3 {
+        margin-top: 0;
+        font-size: 14px;
+        color: #666;
+      }
+      .resize-container {
+        width: 400px;
+        border: 1px dashed #ccc;
+        padding: 8px;
+        resize: horizontal;
+        overflow: auto;
+        min-width: 200px;
+      }
+      .custom-trigger-text {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .custom-trigger-icon {
+        font-size: 18px;
+      }
+    </style>
+
+    <div class="demo-section">
+      <h3>Custom Icon Trigger</h3>
+      <div class="resize-container">
+        <uui-responsive-container>
+          <span slot="trigger-content" class="custom-trigger-icon">☰</span>
+
+          <uui-button look="primary">Save</uui-button>
+          <uui-button>Edit</uui-button>
+          <uui-button>Delete</uui-button>
+          <uui-button>Publish</uui-button>
+        </uui-responsive-container>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Text + Icon Combination</h3>
+      <div class="resize-container">
+        <uui-responsive-container>
+          <span slot="trigger-content" class="custom-trigger-text">
+            <span>More</span>
+            <span>⋮</span>
+          </span>
+
+          <uui-button look="primary">Save</uui-button>
+          <uui-button>Edit</uui-button>
+          <uui-button>Delete</uui-button>
+          <uui-button>Publish</uui-button>
+        </uui-responsive-container>
+      </div>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 16px;">
+      <strong>Custom Trigger Content:</strong><br />
+      Use <code>slot="trigger-content"</code> to customize what appears inside
+      the trigger button. You can use text, icons, images, or any custom
+      HTML/components!<br />
+      ↔ Drag the corners to resize and see the collapse behavior.
+    </p>
+  `,
+};
