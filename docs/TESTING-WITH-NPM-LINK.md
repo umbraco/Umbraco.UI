@@ -27,7 +27,7 @@ cd ~/Projects/Umbraco.UI
 npm run clean && npm run build
 ```
 
-This produces the `dist/` directory that consumers will resolve, including `.d.ts` type declarations. You must run a full build at least once before using `build:watch`, which only emits `.js` files.
+This produces the `dist/` directory that consumers will resolve, including `.d.ts` type declarations and the custom elements manifest. For iterating, `build:watch` is faster (see step 6).
 
 ### 2. Register the link
 
@@ -75,7 +75,7 @@ npm run build:watch
 npm run dev
 ```
 
-`build:watch` runs `vite build --watch`, which incrementally rebuilds `dist/` on source changes. The symlink means the backoffice Vite dev server sees the updated files and triggers HMR. No type declarations are emitted in watch mode — run a full `npm run build` when you need `.d.ts` files.
+`build:watch` generates type declarations once (via `tsc`), then enters Vite watch mode which incrementally rebuilds `dist/` on source changes. The symlink means the backoffice Vite dev server sees the updated files and triggers HMR. Subsequent watch rebuilds preserve the `.d.ts` files (`--emptyOutDir false`).
 
 For one-off changes, `npm run build` works too. No need to re-run `npm link` after rebuilding — the symlink is already in place.
 
@@ -92,14 +92,13 @@ npm install
 
 ### "Could not find a declaration file" / implicit `any` types
 
-`build:watch` only emits `.js` files — it skips `tsc`, so no `.d.ts` declarations are generated. Run a full build first:
+`build:watch` runs `tsc` once at startup, so declarations should be present. If they're missing, the initial `tsc` step may have failed — check the terminal output for TypeScript errors. You can also regenerate them manually:
 
 ```bash
-npm run build        # generates dist/*.d.ts (once)
-npm run build:watch  # then iterate with watch mode
+tsc -p tsconfig.build.json
 ```
 
-The declarations persist in `dist/` across watch rebuilds since Vite only overwrites `.js` files. You only need to re-run the full build if you change public API signatures (new exports, renamed types, etc.).
+If you change public API signatures (new exports, renamed types, etc.) while watch mode is running, you'll need to restart `build:watch` to regenerate the `.d.ts` files.
 
 ### "Module not found" after linking
 
