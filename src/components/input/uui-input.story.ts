@@ -110,11 +110,113 @@ export const PrependAndAppend: Story = {
   },
 };
 
+export const PatternAndInputmode: Story = {
+  args: {
+    placeholder: 'Enter email',
+    inputMode: 'email',
+    pattern: '[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-.]+',
+    errorMessage: 'Not an email',
+  },
+};
+
+export const MinMaxLength: Story = {
+  args: {
+    minlength: 3,
+    maxlength: 4,
+    minlengthMessage: 'Minimum 3',
+    maxlengthMessage: 'Maximum 4',
+  },
+};
+
+export const DateTimeLocal: Story = {
+  args: {
+    type: 'datetime-local',
+    value: '2023-04-20T10:00',
+    min: '2023-04-13T10:00',
+    max: '2023-04-28T16:00',
+  },
+};
+
 export const PrependIcon: Story = {
   args: {
     'prepend slot': html`<uui-icon
       name="search"
       slot="prepend"
       style="padding-left:var(--uui-size-space-2)"></uui-icon>`,
+  },
+};
+
+export const PrependIconInDiv: Story = {
+  args: {
+    'prepend slot': html`<div slot="prepend">
+      <uui-icon name="search"></uui-icon>
+    </div>`,
+  },
+};
+
+export const AppendIcon: Story = {
+  args: {
+    'append slot': html`
+      <div slot="append">
+        <uui-icon name="delete"></uui-icon>
+      </div>
+    `,
+  },
+};
+
+export const MultipleInputs: Story = {
+  args: {
+    'prepend slot': html`<uui-input
+      slot="prepend"
+      placeholder="+45"
+      style="text-align: right; width: 68px;">
+    </uui-input>`,
+    'append slot': html`<uui-input
+      slot="append"
+      placeholder="(extra)"
+      style="width: 100px;">
+    </uui-input>`,
+  },
+};
+
+export const InputAlignment: Story = {
+  render: args =>
+    html`<uui-input ${spread(args)}>${renderSlots(args)}</uui-input>–<uui-input
+        ${spread(args)}
+        >${renderSlots(args)}</uui-input
+      >`,
+};
+
+export const AutoWidth: Story = {
+  render: args =>
+    html`<uui-input ${spread(args)}></uui-input>
+
+      <uui-input
+        ${spread(args)}
+        style="max-width:240px"
+        placeholder="Max-width of 240px and auto-width"></uui-input>
+
+      <uui-input ${spread(args)}>
+        <uui-input
+          slot="prepend"
+          placeholder="Prepend auto-width"
+          ?auto-width=${args.autoWidth}></uui-input>
+        <uui-input
+          slot="append"
+          placeholder="Append auto-width false"></uui-input>
+      </uui-input>
+
+      <uui-input
+        ${spread(args)}
+        style="max-width:400px"
+        placeholder="max-width 400px">
+        <uui-input slot="prepend" placeholder="Prepend fixed width"></uui-input>
+        <uui-input
+          slot="append"
+          placeholder="Append auto-width false"
+          ?auto-width=${args.autoWidth}></uui-input>
+      </uui-input>`,
+  args: {
+    autoWidth: true,
   },
 };

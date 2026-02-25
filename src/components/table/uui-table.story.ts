@@ -4,10 +4,9 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
-// TODO: re-enable when uui-box and uui-symbol-sort are migrated
-// import '@umbraco-ui/uui-box/lib';
-// import '@umbraco-ui/uui-symbol-sort/lib';
-// import './uui-table-advanced-example.ts';
+import '../box/index.js';
+import '../symbol-sort/index.js';
+import './uui-table-advanced-example.ts';
 
 const meta: Meta = {
   id: 'uui-table',

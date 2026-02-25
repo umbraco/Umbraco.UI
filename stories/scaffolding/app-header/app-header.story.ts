@@ -1,11 +1,11 @@
 import { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
-import '@umbraco-ui/uui-tabs/lib';
-import '@umbraco-ui/uui-icon-registry-essential/lib';
-import '@umbraco-ui/uui-symbol-more/lib';
-import '@umbraco-ui/uui-menu-item/lib';
-import '@umbraco-ui/uui-avatar/lib';
+import '../../../src/components/tabs/index.js';
+import '../../../src/components/icon-registry-essential/index.js';
+import '../../../src/components/symbol-more/index.js';
+import '../../../src/components/menu-item/index.js';
+import '../../../src/components/avatar/index.js';
 
 import './app-header.example.ts';
 

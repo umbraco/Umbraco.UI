@@ -9,7 +9,7 @@ import {
   PopoverTargetMixin,
 } from '../../internal/mixins/index.js';
 import { defineElement } from '../../internal/registration/index.js';
-import { iconCheck, iconWrong } from '../../icons/index.js';
+import { iconCheck, iconWrong } from '../icon-registry-essential/svgs/index.js';
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

@@ -3,4 +3,5 @@ import umbracoTheme from './umbraco-theme';
 
 addons.setConfig({
   theme: umbracoTheme,
+  panelPosition: 'right',
 });
