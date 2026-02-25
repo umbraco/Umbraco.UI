@@ -1,7 +1,7 @@
 /* UUI Dark Theme — color overrides */
 @import './light.css';
 
-.uui-theme-dark {
+:root {
   /* ----- STATES -----  */
   --uui-color-selected: #2a72b6;
   --uui-color-selected-emphasis: #3385d1;
