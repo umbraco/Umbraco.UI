@@ -148,7 +148,7 @@ export class UUIColorAreaElement extends LitElement {
     drag(grid, {
       onMove: (x, y) => {
         // check if coordinates are not NaN (can happen when dragging outside of the grid)
-        if (isNaN(x) || isNaN(y)) return;
+        if (Number.isNaN(x) || Number.isNaN(y)) return;
 
         this.saturation = clamp((x / width) * 100, 0, 100);
         this.brightness = clamp(100 - (y / height) * 100, 0, 100);

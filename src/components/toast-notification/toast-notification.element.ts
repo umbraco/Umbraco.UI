@@ -135,7 +135,7 @@ export class UUIToastNotificationElement extends LitElement {
 
   private _getAnimationDuration(): number {
     return (
-      parseInt(
+      Number.parseInt(
         getComputedStyle(this).getPropertyValue(
           '--uui-toast-notification-animation-duration',
         ),

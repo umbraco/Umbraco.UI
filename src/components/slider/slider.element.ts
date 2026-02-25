@@ -105,7 +105,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
     const oldVal = super.value;
 
-    let correctedValue = newVal ? parseFloat(newVal as string) : 0;
+    let correctedValue = newVal ? Number.parseFloat(newVal as string) : 0;
     correctedValue = Math.min(Math.max(correctedValue, this.min), this.max);
 
     if (this.step > 0) {
@@ -242,7 +242,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
   private _calculateSliderPosition() {
     const ratio =
-      (parseFloat((super.value || '0') as string) - this.min) /
+      (Number.parseFloat((super.value || '0') as string) - this.min) /
       (this.max - this.min);
     this._sliderPosition = `${Math.floor(ratio * 100000) / 1000}%`;
   }
