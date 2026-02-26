@@ -1,0 +1,9 @@
+{
+  "migrations": [
+    {
+      "version": "2.0.0",
+      "title": "UUI v2 single-package migration",
+      "transforms": ["v2.0.0/update-imports"]
+    }
+  ]
+}

@@ -6,6 +6,7 @@
 
 ## npm
 /node_modules/
+/codemod/node_modules/
 /npm-debug.log
 
 ## testing
