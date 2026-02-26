@@ -64,7 +64,8 @@
     "chromatic": "npx chromatic --build-script-name storybook:build",
     "storybook": "npm run analyze && storybook dev -p 6006",
     "storybook:build": "npm run analyze && storybook build",
-    "new-component": "plop"
+    "new-component": "plop",
+    "test:codemod": "node --test scripts/codemods/test.mjs"
   },
   "engines": {
     "node": ">=24.13",
@@ -107,6 +108,7 @@
     "github-markdown-css": "5.8.1",
     "globals": "17.3.0",
     "husky": "9.1.7",
+    "jscodeshift": "^17.3.0",
     "lint-staged": "16.1.2",
     "plop": "4.0.5",
     "prettier": "3.8.1",

@@ -27,19 +27,23 @@ These deprecated components were removed in v2:
 - `uui-caret` — replaced by `uui-symbol-expand`
 - `uui-popover` — replaced by `uui-popover-container` (native Popover API)
 
-## Automated migration
+## Automated import migration
 
-Use the `@umbraco-ui/codemod` package to automatically rewrite your imports:
+A [jscodeshift](https://github.com/facebook/jscodeshift) transform is included in this repo to rewrite imports automatically. It handles component imports, foundation/CSS imports, re-exports, and dynamic `import()` calls.
 
 ```bash
-# Dry-run (preview changes without applying)
-npx @umbraco-ui/codemod --target 2.0.0 ./src
+# Download the transform
+curl -sLO https://raw.githubusercontent.com/umbraco/Umbraco.UI/main/scripts/codemods/v2.0.0/update-imports.ts
+
+# Dry-run (preview without writing)
+npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx ./src
 
 # Apply changes
-npx @umbraco-ui/codemod --target 2.0.0 --write ./src
-```
+npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx --no-dry ./src
 
-This handles component imports, foundation/CSS imports, re-exports, and dynamic `import()` calls. See the [codemod README](../codemod/README.md) for full details.
+# Clean up
+rm update-imports.ts
+```
 
 After running the codemod, follow the remaining manual steps below (dependency cleanup, theme references, removed components, Lit upgrade).
 
