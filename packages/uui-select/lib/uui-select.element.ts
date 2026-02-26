@@ -34,6 +34,7 @@ declare global {
  * @cssprop --uui-select-outline-color - Outline color
  * @cssprop --uui-select-background-color - Background color
  * @cssprop --uui-select-background-color-disabled - Background color when disabled
+ * @cssprop --uui-select-disabled-background-color - [deprecated] Previous name for --uui-select-background-color-disabled (background color when disabled)
  * @cssprop --uui-select-background-color-readonly - Background color when readonly
  * @extends UUIFormControlMixin
  */
