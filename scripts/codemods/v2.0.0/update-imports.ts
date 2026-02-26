@@ -187,6 +187,52 @@ export default function transform(
       }
     });
 
+  // --- Path-based references (string literals in configs, template literals in HTML) ---
+  // Handles e.g. vite-plugin-static-copy targets and <link> tags in Lit templates.
+
+  const PATH_REPLACEMENTS: [RegExp, string][] = [
+    [/@umbraco-ui\/uui-css\/dist\/uui-css\.css/g, '@umbraco-ui/uui/dist/themes/light.css'],
+    [/@umbraco-ui\/uui-css\/assets\/fonts\//g, '@umbraco-ui/uui/dist/assets/fonts/'],
+  ];
+
+  function rewritePaths(value: string): string | null {
+    let result = value;
+    let changed = false;
+    for (const [pattern, replacement] of PATH_REPLACEMENTS) {
+      // Reset lastIndex for global regexps
+      pattern.lastIndex = 0;
+      const next = result.replace(pattern, replacement);
+      if (next !== result) {
+        changed = true;
+        result = next;
+      }
+    }
+    return changed ? result : null;
+  }
+
+  // String literals (e.g. vite config paths)
+  root.find(j.StringLiteral).forEach(path => {
+    const rewritten = rewritePaths(path.node.value);
+    if (rewritten !== null) {
+      path.node.value = rewritten;
+    }
+  });
+
+  // Template literal quasis (e.g. html`<link href="...">`)
+  root.find(j.TemplateLiteral).forEach(path => {
+    for (const quasi of path.node.quasis) {
+      const rawRewritten = rewritePaths(quasi.value.raw);
+      if (rawRewritten !== null) {
+        quasi.value.raw = rawRewritten;
+        // Keep cooked in sync
+        const cookedRewritten = rewritePaths(quasi.value.cooked || '');
+        if (cookedRewritten !== null) {
+          quasi.value.cooked = cookedRewritten;
+        }
+      }
+    }
+  });
+
   // Print warnings to stderr
   for (const warning of warnings) {
     console.warn(`\u26a0\ufe0f  ${fileInfo.path}: ${warning}`);

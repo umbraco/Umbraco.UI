@@ -38,3 +38,12 @@ import '@umbraco-ui/uui-caret';
 
 // Non-UUI import — should be left alone
 import { html } from 'lit';
+
+// CSS dist path in a config-style string literal
+const cssPath = 'node_modules/@umbraco-ui/uui-css/dist/uui-css.css';
+
+// Font assets path
+const fontPath = 'node_modules/@umbraco-ui/uui-css/assets/fonts/*';
+
+// Template literal with <link> tag
+const tpl = html`<link rel="stylesheet" href="node_modules/@umbraco-ui/uui-css/dist/uui-css.css" />`;
