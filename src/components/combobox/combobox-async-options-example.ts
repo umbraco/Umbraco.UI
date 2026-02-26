@@ -1,4 +1,4 @@
-import { defineElement } from '../../internal/registration';
+import { defineElement } from '../../internal/registration/index.js';
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

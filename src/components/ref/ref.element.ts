@@ -1,7 +1,10 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { SelectableMixin, SelectOnlyMixin } from '../../internal/mixins';
-import { UUIRefEvent } from './UUIRefEvent';
+import {
+  SelectableMixin,
+  SelectOnlyMixin,
+} from '../../internal/mixins/index.js';
+import { UUIRefEvent } from './UUIRefEvent.js';
 
 /**
  *  @element uui-ref

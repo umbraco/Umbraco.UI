@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { UUISelectableEvent } from '../events/UUISelectableEvent';
+import { UUISelectableEvent } from '../events/UUISelectableEvent.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 

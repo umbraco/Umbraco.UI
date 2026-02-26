@@ -1,6 +1,6 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { findAncestorByAttributeValue } from '../utils';
+import { findAncestorByAttributeValue } from '../utils/index.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 

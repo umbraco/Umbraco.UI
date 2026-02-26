@@ -1,7 +1,7 @@
 import { LitElement, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUITextStyles } from '../../styles';
-import type { UUIInterfaceHeading } from '../../internal';
+import { UUITextStyles } from '../../styles/index.js';
+import type { UUIInterfaceHeading } from '../../internal/index.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 function slotHasContent(target: EventTarget | null): boolean {

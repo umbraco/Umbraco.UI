@@ -1,7 +1,7 @@
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
-} from '../../internal/animations';
+} from '../../internal/animations/index.js';
 import { UUIBooleanInputElement } from '../boolean-input/boolean-input.js';
 import {
   iconCheck,

@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-import { UUITableCellElement } from './table-cell.element';
+import { UUITableCellElement } from './table-cell.element.js';
 
 /**
  * Child element of uui-table-head. Use it there.

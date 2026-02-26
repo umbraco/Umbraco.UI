@@ -1,5 +1,5 @@
-import { UUIFormControlEvent } from '../../internal/events';
-import type { UUIFormControlMixinInterface } from '../../internal/mixins';
+import { UUIFormControlEvent } from '../../internal/events/index.js';
+import type { UUIFormControlMixinInterface } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

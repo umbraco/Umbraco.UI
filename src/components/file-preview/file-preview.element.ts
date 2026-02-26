@@ -1,8 +1,8 @@
 import { property, state } from 'lit/decorators.js';
-import { UUIFileSize } from './UUIFileSize';
+import { UUIFileSize } from './UUIFileSize.js';
 
 import { css, html, LitElement } from 'lit';
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 
 /**
  *  @element uui-file-preview

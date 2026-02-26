@@ -1,8 +1,8 @@
 import type { PropertyValueMap } from 'lit';
 import { LitElement, css, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { UUIModalSidebarElement } from './modal-sidebar.element';
-import { UUIModalCloseEvent, UUIModalElement } from './modal.element';
+import { UUIModalSidebarElement } from './modal-sidebar.element.js';
+import { UUIModalCloseEvent, UUIModalElement } from './modal.element.js';
 export class UUIModalContainerElement extends LitElement {
   @query('slot')
   modalSlot?: HTMLSlotElement;

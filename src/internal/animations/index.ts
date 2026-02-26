@@ -1,3 +1,3 @@
-export * from './uui-blink';
-export * from './uui-pulse';
-export * from './uui-shake';
+export * from './uui-blink.js';
+export * from './uui-pulse.js';
+export * from './uui-shake.js';

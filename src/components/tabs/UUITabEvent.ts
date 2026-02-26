@@ -1,5 +1,5 @@
-import type { UUITabElement } from './tab.element';
-import { UUIEvent } from '../../internal/events';
+import type { UUITabElement } from './tab.element.js';
+import { UUIEvent } from '../../internal/events/index.js';
 
 type DetailType = {};
 

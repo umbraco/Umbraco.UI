@@ -1,9 +1,9 @@
 import type { UUIButtonElement } from '../button/button.js';
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
 
-import { UUIPaginationEvent } from './UUIPaginationEvent';
+import { UUIPaginationEvent } from './UUIPaginationEvent.js';
 
 //this is how wide the button gets when it has 3 digits inside.
 const PAGE_BUTTON_MAX_WIDTH = 45;

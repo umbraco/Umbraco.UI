@@ -1,4 +1,7 @@
-import { SelectableMixin, SelectOnlyMixin } from '../../internal/mixins';
+import {
+  SelectableMixin,
+  SelectOnlyMixin,
+} from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';
 

@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import { UUIButtonElement } from '../button/button.js';
 import { UUICopyTextEvent } from './UUICopyTextEvent.js';
 

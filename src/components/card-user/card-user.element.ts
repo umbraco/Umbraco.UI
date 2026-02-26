@@ -1,4 +1,7 @@
-import { demandCustomElement, slotHasContent } from '../../internal/utils';
+import {
+  demandCustomElement,
+  slotHasContent,
+} from '../../internal/utils/index.js';
 import { UUICardElement } from '../card/card.js';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';

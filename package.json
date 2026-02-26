@@ -75,7 +75,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.0.1",
-    "colord": "^2.9.3",
     "@eslint/compat": "2.0.2",
     "@eslint/js": "10.0.1",
     "@lerna-lite/cli": "4.11.3",
@@ -96,8 +95,10 @@
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.1",
     "chromatic": "^15.2.0",
+    "colord": "^2.9.3",
     "eslint": "10.0.2",
     "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-lit": "2.2.1",
     "eslint-plugin-local-rules": "3.0.2",
     "eslint-plugin-prettier": "5.5.5",

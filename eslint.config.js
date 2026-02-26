@@ -4,6 +4,7 @@ import tseslint from 'typescript-eslint';
 import localRules from 'eslint-plugin-local-rules';
 import * as wcPlugin from 'eslint-plugin-wc';
 import * as litPlugin from 'eslint-plugin-lit';
+import importPlugin from 'eslint-plugin-import';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 import { includeIgnoreFile } from '@eslint/compat';
@@ -20,6 +21,7 @@ export default [
   ...tseslint.configs.recommended,
   wcPlugin.configs['flat/recommended'],
   litPlugin.configs['flat/recommended'],
+  importPlugin.flatConfigs.recommended,
   localRules.configs['all-warn'],
   eslintPluginPrettierRecommended,
 
@@ -51,7 +53,15 @@ export default [
       },
       globals: globals.browser,
     },
+    settings: {
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts'],
+      },
+    },
     rules: {
+      'import/extensions': ['error', 'always', { ignorePackages: true }],
+      'import/no-unresolved': 'off', // TypeScript handles resolution; .js→.ts remapping causes false positives
+      'import/named': 'off', // TypeScript handles this
       semi: ['warn', 'always'],
       'no-unused-vars': 'off', //Let '@typescript-eslint/no-unused-vars' catch the errors to allow unused function parameters (ex: in interfaces)
       'no-var': 'error',

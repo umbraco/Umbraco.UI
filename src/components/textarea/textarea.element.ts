@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { UUITextareaEvent } from './UUITextareaEvent';
-import { UUIFormControlMixin } from '../../internal/mixins';
+import { UUITextareaEvent } from './UUITextareaEvent.js';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**

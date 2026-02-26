@@ -1,5 +1,5 @@
 import { css, html } from 'lit';
-import { UUIModalElement } from './modal.element';
+import { UUIModalElement } from './modal.element.js';
 export class UUIModalDialogElement extends UUIModalElement {
   render() {
     return html`

@@ -4,11 +4,11 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { css, html, LitElement } from 'lit';
 
-import { drag, clamp } from '../../internal/utils';
+import { drag, clamp } from '../../internal/utils/index.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { UUIColorAreaEvent } from './UUIColorAreaEvent';
+import { UUIColorAreaEvent } from './UUIColorAreaEvent.js';
 
 /**
  * @element uui-color-area

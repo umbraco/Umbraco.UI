@@ -1,4 +1,4 @@
-import { UUITextStyles } from '../../styles';
+import { UUITextStyles } from '../../styles/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

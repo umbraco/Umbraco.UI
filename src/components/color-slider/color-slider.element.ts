@@ -3,10 +3,14 @@ import { Colord } from 'colord';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { drag, clamp, reverseNumberInRange } from '../../internal/utils';
+import {
+  drag,
+  clamp,
+  reverseNumberInRange,
+} from '../../internal/utils/index.js';
 
-import { UUIColorSliderEvent } from './UUIColorSliderEvent';
-import { LabelMixin } from '../../internal/mixins';
+import { UUIColorSliderEvent } from './UUIColorSliderEvent.js';
+import { LabelMixin } from '../../internal/mixins/index.js';
 
 export type UUIColorSliderOrientation = 'horizontal' | 'vertical';
 export type UUIColorSliderType = 'hue' | 'opacity' | 'saturation' | 'lightness';

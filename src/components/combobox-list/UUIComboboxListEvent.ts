@@ -1,5 +1,5 @@
-import { UUIEvent } from '../../internal/events';
-import type { UUIComboboxListElement } from './combobox-list.element';
+import { UUIEvent } from '../../internal/events/index.js';
+import type { UUIComboboxListElement } from './combobox-list.element.js';
 
 export class UUIComboboxListEvent extends UUIEvent<UUIComboboxListElement> {
   public static readonly CHANGE: string = 'change';

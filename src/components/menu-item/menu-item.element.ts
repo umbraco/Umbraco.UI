@@ -3,15 +3,15 @@ import {
   LabelMixin,
   SelectableMixin,
   SelectOnlyMixin,
-} from '../../internal/mixins';
-import { demandCustomElement } from '../../internal/utils';
+} from '../../internal/mixins/index.js';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import type { TemplateResult } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import { UUIMenuItemEvent } from './UUIMenuItemEvent';
+import { UUIMenuItemEvent } from './UUIMenuItemEvent.js';
 
 /**
  *  @element uui-menu-item

@@ -1,11 +1,11 @@
 import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
-} from '../../internal/animations';
+} from '../../internal/animations/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
-import { UUIRadioEvent } from './UUIRadioEvent';
+import { UUIRadioEvent } from './UUIRadioEvent.js';
 
 /**
  *  @element uui-radio

@@ -1,8 +1,8 @@
 import { css, html, LitElement, svg } from 'lit';
-import { UUIFormControlMixin } from '../../internal/mixins';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
 import { property, query, state } from 'lit/decorators.js';
-import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
-import { clamp } from '../../internal/utils';
+import { UUIRangeSliderEvent } from './UUIRangeSliderEvent.js';
+import { clamp } from '../../internal/utils/index.js';
 
 const Z_INDEX = {
   TOP: 3,

@@ -1,8 +1,8 @@
-import { UUIFormControlMixin } from '../../internal/mixins';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
-import { UUISelectEvent } from './UUISelectEvent';
+import { UUISelectEvent } from './UUISelectEvent.js';
 
 // TODO: Dont set a global interface, we should expose a 'local' interface.
 declare global {

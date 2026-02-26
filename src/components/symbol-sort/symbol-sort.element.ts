@@ -1,4 +1,4 @@
-import { ActiveMixin } from '../../internal/mixins';
+import { ActiveMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 

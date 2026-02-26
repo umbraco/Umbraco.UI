@@ -6,7 +6,7 @@ import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
-} from '../../internal/mixins';
+} from '../../internal/mixins/index.js';
 
 /**
  * Color swatch, can have label and be selectable, disabled or readonly.

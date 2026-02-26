@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { clamp } from '../../internal/utils';
+import { clamp } from '../../internal/utils/index.js';
 
 /**
  *  @element uui-loader-bar

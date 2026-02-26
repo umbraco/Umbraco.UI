@@ -1,11 +1,11 @@
-import { UUISelectableEvent } from '../../internal/events';
+import { UUISelectableEvent } from '../../internal/events/index.js';
 import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.js';
 import type { PropertyValueMap } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 
-import { LabelMixin } from '../../internal/mixins';
-import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent';
+import { LabelMixin } from '../../internal/mixins/index.js';
+import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent.js';
 
 //TODO maybe implement multiple selection
 

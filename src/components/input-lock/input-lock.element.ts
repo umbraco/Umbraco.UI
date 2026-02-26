@@ -1,9 +1,9 @@
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html } from 'lit';
 import { UUIInputElement } from '../input/input.js';
 import { iconLock, iconUnlock } from '../icon-registry-essential/svgs/index.js';
 import { property } from 'lit/decorators.js';
-import { UUIInputLockEvent } from './UUIInputLockEvent';
+import { UUIInputLockEvent } from './UUIInputLockEvent.js';
 
 /**
  * @element uui-input-lock

@@ -1,10 +1,10 @@
-import { UUIFormControlMixin } from '../../internal/mixins';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { UUIRadioElement } from './radio.element';
-import { UUIRadioEvent } from './UUIRadioEvent';
-import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
+import { UUIRadioElement } from './radio.element.js';
+import { UUIRadioEvent } from './UUIRadioEvent.js';
+import { UUIRadioGroupEvent } from './UUIRadioGroupEvent.js';
 
 const ARROW_LEFT = 'ArrowLeft';
 const ARROW_UP = 'ArrowUp';
