@@ -35,7 +35,7 @@ export default [
       '**/.storybook/**',
       '**/*.test.ts',
       '**/*.story.ts',
-      'packages/',
+      'scripts/',
       'storyhelpers/',
       'test/',
     ],
