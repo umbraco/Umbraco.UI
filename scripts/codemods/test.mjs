@@ -82,17 +82,17 @@ describe('v2.0.0/update-imports', async () => {
 
   it('leaves barrel import alone', () => {
     const input = `import '@umbraco-ui/uui';`;
-    assert.equal(applyTransform(transform, input), input);
+    assert.equal(applyTransform(transform, input), undefined);
   });
 
   it('leaves non-UUI imports alone', () => {
     const input = `import { html } from 'lit';`;
-    assert.equal(applyTransform(transform, input), input);
+    assert.equal(applyTransform(transform, input), undefined);
   });
 
   it('does not transform removed components', () => {
     const out = applyTransform(transform, `import '@umbraco-ui/uui-caret';`);
-    assert.ok(out.includes(`'@umbraco-ui/uui-caret'`));
+    assert.equal(out, undefined);
   });
 
   it('rewrites uui-css dist path in string literal', () => {

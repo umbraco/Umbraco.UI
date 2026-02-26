@@ -61,6 +61,7 @@ export default function transform(
   const j = api.jscodeshift;
   const root = j(fileInfo.source);
   const warnings: string[] = [];
+  let hasChanges = false;
 
   // --- Import declarations (including `import type`) ---
 
@@ -109,6 +110,7 @@ export default function transform(
 
     // Mutate in-place so recast preserves the original AST node
     group.first.node.source.value = target;
+    hasChanges = true;
 
     // Merge and deduplicate specifiers
     if (group.specifiers && group.specifiers.length > 0) {
@@ -151,6 +153,7 @@ export default function transform(
       if (result.warning) warnings.push(result.warning);
       if (result.target) {
         path.node.source!.value = result.target;
+        hasChanges = true;
       }
     });
 
@@ -162,6 +165,7 @@ export default function transform(
     if (result.warning) warnings.push(result.warning);
     if (result.target) {
       path.node.source.value = result.target;
+      hasChanges = true;
     }
   });
 
@@ -187,6 +191,7 @@ export default function transform(
       if (result.warning) warnings.push(result.warning);
       if (result.target) {
         arg.value = result.target;
+        hasChanges = true;
       }
     });
 
@@ -216,6 +221,7 @@ export default function transform(
     const rewritten = rewritePaths(path.node.value);
     if (rewritten !== null) {
       path.node.value = rewritten;
+      hasChanges = true;
     }
   });
 
@@ -225,6 +231,7 @@ export default function transform(
       const rawRewritten = rewritePaths(quasi.value.raw);
       if (rawRewritten !== null) {
         quasi.value.raw = rawRewritten;
+        hasChanges = true;
         // Keep cooked in sync (cooked is null for invalid escape sequences)
         if (quasi.value.cooked != null) {
           const cookedRewritten = rewritePaths(quasi.value.cooked);
@@ -241,5 +248,6 @@ export default function transform(
     console.warn(`\u26a0\ufe0f  ${fileInfo.path}: ${warning}`);
   }
 
+  if (!hasChanges) return undefined;
   return root.toSource({ quote: 'single' });
 }
