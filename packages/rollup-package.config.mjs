@@ -1,5 +1,6 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 import { readPackageJson } from '../scripts/modify-pkgjson.mjs';
 import rollupPostcss from 'rollup-plugin-postcss';
 import postcssUrl from 'postcss-url';
@@ -35,6 +36,7 @@ const createEsModulesConfig = (entryPoints = []) => {
         external: [/^lit/, /^@umbraco-ui/],
         plugins: [
           nodeResolve({ rootDir }),
+          json(),
           importCss({ from: undefined }),
           esbuild(esbuildOptions),
           processLitCSSPlugin(),

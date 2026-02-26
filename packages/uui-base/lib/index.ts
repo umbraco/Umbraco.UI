@@ -4,3 +4,4 @@ export * from './mixins';
 export * from './registration';
 export * from './types';
 export * from './utils';
+export * from './version';
