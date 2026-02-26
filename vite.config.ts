@@ -1,6 +1,15 @@
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 
+const isCI = process.env.CI === 'true';
+const browserInstances = isCI
+  ? [
+      { browser: 'chromium' as const },
+      { browser: 'firefox' as const },
+      { browser: 'webkit' as const },
+    ]
+  : [{ browser: 'chromium' as const }];
+
 export default defineConfig({
   build: {
     outDir: 'dist',
@@ -44,7 +53,7 @@ export default defineConfig({
     browser: {
       enabled: true,
       provider: playwright(),
-      instances: [{ browser: 'chromium' }],
+      instances: browserInstances,
       headless: true,
     },
     setupFiles: ['./vitest.setup.ts'],
