@@ -57,6 +57,8 @@ export default defineConfig({
       headless: true,
     },
     setupFiles: ['./vitest.setup.ts'],
+    onConsoleLog: (log: string) =>
+      log.includes('Lit is in dev mode') ? false : undefined,
     deps: {
       optimizer: {
         web: {
