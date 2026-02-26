@@ -309,7 +309,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
         cursor: not-allowed;
         background-color: var(
           --uui-select-background-color-disabled,
-          var(--uui-color-disabled)
+          var(--uui-select-disabled-background-color, var(--uui-color-disabled))
         );
         border-color: var(
           --uui-select-border-color-disabled,
