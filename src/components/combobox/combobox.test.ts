@@ -1,11 +1,7 @@
 import './combobox.js';
-import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import { UUIComboboxElement } from './combobox.element';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import { UUIComboboxListOptionElement } from '../combobox-list/combobox-list.js';
@@ -17,11 +13,18 @@ import '../input/input.js';
 import '../popover-container/popover-container.js';
 import '../symbol-expand/symbol-expand.js';
 
+/** Helper: one-shot event listener as a Promise. */
+function oneEvent(el: EventTarget, event: string): Promise<Event> {
+  return new Promise(resolve => {
+    el.addEventListener(event, resolve, { once: true });
+  });
+}
+
 describe('UUIComboboxElement', () => {
   let element: UUIComboboxElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-combobox>
         <div slot="prepend"></div>
         <div slot="append"></div>
@@ -37,76 +40,78 @@ describe('UUIComboboxElement', () => {
             displayValue="value3"></uui-combobox-list-option>
         </uui-combobox-list>
       </uui-combobox>
-    `);
+    `).container.querySelector('uui-combobox')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIComboboxElement);
+    expect(element).toBeInstanceOf(UUIComboboxElement);
   });
 
   it('defines uui-combobox-list-option as its own instance', () => {
-    expect(element.querySelector('uui-combobox-list-option')).to.be.instanceOf(
+    expect(element.querySelector('uui-combobox-list-option')).toBeInstanceOf(
       UUIComboboxListOptionElement,
     );
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('properties', () => {
     it('has a search property', () => {
-      expect(element).to.have.property('search');
+      expect(element).toHaveProperty('search');
     });
     it('has an open property', () => {
-      expect(element).to.have.property('open');
+      expect(element).toHaveProperty('open');
     });
     it('has a value property', () => {
-      expect(element).to.have.property('value');
+      expect(element).toHaveProperty('value');
     });
     it('has a disabled property', () => {
-      expect(element).to.have.property('disabled');
+      expect(element).toHaveProperty('disabled');
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
     it('renders a prepend slot', () => {
       const slot = element.shadowRoot!.querySelector(
         'slot[name=input-prepend]',
       )!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
     it('renders a append slot', () => {
       const slot = element.shadowRoot!.querySelector(
         'slot[name=input-append]',
       )!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 
   describe('events', () => {
     describe('change', () => {
       it('emits an change event on selection change', async () => {
-        const listener = oneEvent(element, UUIComboboxEvent.CHANGE, false);
+        const listener = oneEvent(element, UUIComboboxEvent.CHANGE);
         const list = element.querySelector('uui-combobox-list');
 
         const option = list!.children![0] as any;
-        expect(option).to.not.equal(null);
+        expect(option).not.toBe(null);
         option.click();
 
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal(UUIComboboxEvent.CHANGE);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe(UUIComboboxEvent.CHANGE);
       });
     });
 
     describe('input', () => {
       it('emits an input event on file change', async () => {
-        const listener = oneEvent(element, UUIComboboxEvent.SEARCH, false);
+        const listener = oneEvent(element, UUIComboboxEvent.SEARCH);
 
         element.search = 'new';
 
@@ -116,8 +121,8 @@ describe('UUIComboboxElement', () => {
           .dispatchEvent(new Event('input'));
 
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal(UUIComboboxEvent.SEARCH);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe(UUIComboboxEvent.SEARCH);
       });
     });
   });
@@ -131,20 +136,20 @@ describe('UUIComboboxElement', () => {
         new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown' }),
       );
 
-      await elementUpdated(element);
+      await element.updateComplete;
 
       const list = element.querySelector('uui-combobox-list');
       const secondOption = list!.children![1] as any;
-      expect(secondOption).to.not.equal(null);
-      expect(secondOption.active).to.equal(true);
+      expect(secondOption).not.toBe(null);
+      expect(secondOption.active).toBe(true);
     });
 
     it('selects active option when Enter key is pressed', async () => {
-      const listener = oneEvent(element, UUIComboboxEvent.CHANGE, false);
+      const listener = oneEvent(element, UUIComboboxEvent.CHANGE);
 
       // Open the combobox
       element.open = true;
-      await elementUpdated(element);
+      await element.updateComplete;
 
       // Navigate down one position (starting from index 0, moves to index 1 which is value2)
       element.dispatchEvent(
@@ -155,7 +160,7 @@ describe('UUIComboboxElement', () => {
         }),
       );
 
-      await elementUpdated(element);
+      await element.updateComplete;
 
       // Press Enter to select
       element.dispatchEvent(
@@ -167,8 +172,8 @@ describe('UUIComboboxElement', () => {
       );
 
       const event = await listener;
-      expect(event).to.not.equal(null);
-      expect(element.value).to.equal('value2');
+      expect(event).not.toBe(null);
+      expect(element.value).toBe('value2');
     });
   });
 });

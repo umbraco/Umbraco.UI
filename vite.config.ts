@@ -40,10 +40,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    include: [
-      'src/components/button/button.test.ts',
-      'src/components/input/input.test.ts',
-    ],
+    include: ['src/**/*.test.ts'],
     browser: {
       enabled: true,
       provider: playwright(),
@@ -60,6 +57,12 @@ export default defineConfig({
             'lit',
             'lit/decorators.js',
             'lit/directives/if-defined.js',
+            'lit/directives/ref.js',
+            'lit/directives/repeat.js',
+            'lit/directives/style-map.js',
+            'lit/directives/unsafe-html.js',
+            'lit/directives/when.js',
+            'lit/static-html.js',
           ],
         },
       },

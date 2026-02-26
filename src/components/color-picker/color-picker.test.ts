@@ -1,5 +1,7 @@
 import './color-picker.js';
-import { html, fixture, expect } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import { UUIColorPickerElement } from './color-picker.element';
 
 import '../icon/icon.js';
@@ -17,16 +19,18 @@ describe('UUIColorPickerElement', () => {
   let element: UUIColorPickerElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-color-picker label="Color picker"></uui-color-picker>
-    `);
+    `).container.querySelector('uui-color-picker')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIColorPickerElement);
+    expect(element).toBeInstanceOf(UUIColorPickerElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 });

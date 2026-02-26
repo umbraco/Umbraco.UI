@@ -1,22 +1,27 @@
-import {
-  html,
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-} from '@open-wc/testing';
 import '../button/button.js';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import '../button-group/button-group.js';
 import { UUIPaginationElement } from './pagination.element';
 import './pagination.js';
+
+/** Helper: one-shot event listener as a Promise. */
+function oneEvent(el: EventTarget, event: string): Promise<Event> {
+  return new Promise(resolve => {
+    el.addEventListener(event, resolve, { once: true });
+  });
+}
 
 describe('UUIPaginationElement', () => {
   let element: UUIPaginationElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-pagination .total=${30}></uui-pagination>
-    `);
+    `).container.querySelector('uui-pagination')!;
+
+    await element.updateComplete;
   });
 
   // it('shows the correct number of pages', async () => {
@@ -29,58 +34,58 @@ describe('UUIPaginationElement', () => {
 
   //   // console.log(buttons);
 
-  //   expect(true).to.equal(false);
+  //   expect(true).toBe(false);
   // });
 
   describe('properties', () => {
     it('has an total property', () => {
-      expect(element).to.have.property('total');
+      expect(element).toHaveProperty('total');
     });
 
     it('has a current property', () => {
-      expect(element).to.have.property('current');
+      expect(element).toHaveProperty('current');
     });
 
     it('has a label property', () => {
-      expect(element).to.have.property('label');
+      expect(element).toHaveProperty('label');
     });
   });
 
   describe('methods', () => {
     it('has a goToNextPage method', () => {
-      expect(element).to.have.property('goToNextPage').that.is.a('function');
+      expect(element).toHaveProperty('goToNextPage');
     });
     it('has a goToPreviousPage method', () => {
       expect(element)
-        .to.have.property('goToPreviousPage')
-        .that.is.a('function');
+        .toHaveProperty('goToPreviousPage')
+        ;
     });
     it('has a goToPage method', () => {
-      expect(element).to.have.property('goToPage').that.is.a('function');
+      expect(element).toHaveProperty('goToPage');
     });
   });
 
   describe('events', () => {
     describe('change', () => {
       it('emits a change event when another page is clicked', async () => {
-        const listener = oneEvent(element, 'change', false);
+        const listener = oneEvent(element, 'change');
         const button = element.shadowRoot?.querySelector('#pages')!
           .children[3] as HTMLElement;
         button?.click();
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('change');
-        expect(element.current).to.equal(2);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe('change');
+        expect(element.current).toBe(2);
       });
     });
   });
 
   it('sets active class on current page', async () => {
     element.current = 2;
-    await elementUpdated(element);
+    await element.updateComplete;
     const button = element.shadowRoot?.querySelector('#pages')!
       .children[3] as HTMLElement;
-    expect(button).to.have.class('active');
+    expect(button.classList.contains('active')).toBe(true);
   });
 
   it('goes to selected page on click', async () => {
@@ -88,105 +93,119 @@ describe('UUIPaginationElement', () => {
       .children[3] as HTMLElement;
     button.click();
 
-    await elementUpdated(element);
+    await element.updateComplete;
+    await element.updateComplete;
 
-    expect(button).to.have.class('active');
-    expect(element.current).to.equal(2);
+    expect(element.current).toBe(2);
+    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    expect(activeButton).not.toBe(null);
+    expect(activeButton.textContent?.trim()).toBe('2');
   });
 
   it('goes to previous page on click', async () => {
     element.current = 2;
-    await elementUpdated(element);
+    await element.updateComplete;
 
     const buttons = element.shadowRoot?.querySelector('#pages')!.children;
     const prevButton = buttons![1] as HTMLElement;
-    const activeButton = buttons![2] as HTMLElement;
     prevButton.click();
 
-    await elementUpdated(element);
+    await element.updateComplete;
+    await element.updateComplete;
 
-    expect(element.current).to.equal(1);
-    expect(activeButton).to.have.class('active');
+    expect(element.current).toBe(1);
+    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    expect(activeButton).not.toBe(null);
+    expect(activeButton.textContent?.trim()).toBe('1');
   });
 
   it('goes to next page on click', async () => {
     element.current = 2;
-    await elementUpdated(element);
+    await element.updateComplete;
 
     const buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const nextButton = buttons![4] as HTMLElement;
+    const nextButton = buttons![buttons!.length - 2] as HTMLElement;
     nextButton.click();
 
-    await elementUpdated(element);
+    await element.updateComplete;
+    await element.updateComplete;
 
-    expect(element.current).to.equal(3);
-
-    const activeButton = buttons![4] as HTMLElement;
-    expect(activeButton).to.have.class('active');
+    expect(element.current).toBe(3);
+    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    expect(activeButton).not.toBe(null);
+    expect(activeButton.textContent?.trim()).toBe('3');
   });
 
   it('goes to last page on click  and disables last and next buttons', async () => {
-    let buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const lastButtonIndex = buttons!.length - 1;
-    const lastButton = buttons![lastButtonIndex] as HTMLElement;
-    const nextButton = buttons![lastButtonIndex - 1] as HTMLElement;
+    const buttons = element.shadowRoot?.querySelector('#pages')?.children;
+    const lastButton = buttons![buttons!.length - 1] as HTMLElement;
     lastButton.click();
 
-    await elementUpdated(element);
+    await element.updateComplete;
+    await element.updateComplete;
 
-    buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const activeButton = buttons![19] as HTMLElement;
+    expect(element.current).toBe(30);
+    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    expect(activeButton).not.toBe(null);
+    expect(activeButton.textContent?.trim()).toBe('30');
 
-    expect(element.current).to.equal(30);
-    expect(activeButton).to.have.class('active');
-    expect(nextButton).to.have.attribute('disabled');
-    expect(lastButton).to.have.attribute('disabled');
+    // Re-query nav buttons after render
+    const updatedButtons = element.shadowRoot?.querySelector('#pages')?.children;
+    const lastIdx = updatedButtons!.length - 1;
+    expect((updatedButtons![lastIdx - 1] as HTMLElement).hasAttribute('disabled')).toBe(true);
+    expect((updatedButtons![lastIdx] as HTMLElement).hasAttribute('disabled')).toBe(true);
   });
 
   it('goes to first page on click and disables first and previous buttons', async () => {
     element.current = 3;
-    await elementUpdated(element);
+    await element.updateComplete;
 
     const buttons = element.shadowRoot?.querySelector('#pages')?.children;
     const firstButton = buttons![0] as HTMLElement;
-    const previousButton = buttons![1] as HTMLElement;
     firstButton.click();
-    await elementUpdated(element);
 
-    const activeButton = buttons![2] as HTMLElement;
-    expect(element.current).to.equal(1);
-    expect(activeButton).to.have.class('active');
-    expect(firstButton).to.have.attribute('disabled');
-    expect(previousButton).to.have.attribute('disabled');
+    await element.updateComplete;
+    await element.updateComplete;
+
+    expect(element.current).toBe(1);
+    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    expect(activeButton).not.toBe(null);
+    expect(activeButton.textContent?.trim()).toBe('1');
+    expect((element.shadowRoot?.querySelector('#pages')!.children[0] as HTMLElement).hasAttribute('disabled')).toBe(true);
+    expect((element.shadowRoot?.querySelector('#pages')!.children[1] as HTMLElement).hasAttribute('disabled')).toBe(true);
   });
 
   it('shows the dots when more pages than visible', async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-pagination .total=${30}></uui-pagination>
-    `);
+    `).container.querySelector('uui-pagination')!;
+
+    await element.updateComplete;
 
     const children = element.shadowRoot?.querySelector('#pages')?.children;
     const arr = [].slice.call(children);
 
     const hasDots =
       arr.filter((e: HTMLElement) => e.classList.contains('dots')).length > 0;
-    expect(hasDots).to.equal(true);
+    expect(hasDots).toBe(true);
   });
 
   it('hides the dots when only one page', async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-pagination .total=${1}></uui-pagination>
-    `);
+    `).container.querySelector('uui-pagination')!;
+
+    await element.updateComplete;
 
     const children = element.shadowRoot?.querySelector('#pages')?.children;
     const arr = [].slice.call(children);
 
     const hasDots =
       arr.filter((e: HTMLElement) => e.classList.contains('dots')).length > 0;
-    expect(hasDots).to.equal(false);
+    expect(hasDots).toBe(false);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 });

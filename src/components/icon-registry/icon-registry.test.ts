@@ -1,8 +1,10 @@
 import './icon-registry.js';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import '../icon/icon.js';
 import './icon-registry.element';
 
-import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import type { UUIIconElement } from '../icon/icon.element';
 
 import type { UUIIconRegistryElement } from './icon-registry.element';
@@ -15,23 +17,25 @@ describe('UUIIconRegistryElement', () => {
   let element: UUIIconRegistryElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-icon-registry></uui-icon-registry> `);
+    element = render(html` <uui-icon-registry></uui-icon-registry> `).container.querySelector('uui-icon-registry')!;
+
+    await element.updateComplete;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 
   describe('properties', () => {
     it('has a registry property', () => {
-      expect(element).to.have.property('registry');
+      expect(element).toHaveProperty('registry');
     });
   });
 
@@ -40,21 +44,23 @@ describe('UUIIconRegistryElement', () => {
     let iconElement: UUIIconElement;
 
     beforeEach(async () => {
-      registryElement = await fixture(
-        html`<uui-icon-registry></uui-icon-registry>`,
-      );
+      registryElement = render(html`<uui-icon-registry></uui-icon-registry>`).container.querySelector('uui-icon-registry')!;
+
+      await registryElement.updateComplete;
       registryElement.registry.defineIcon('myCustomIcon', myCustomSVGData);
 
-      iconElement = await fixture(html`
+      iconElement = render(html`
         <uui-icon name="myCustomIcon"></uui-icon>
-      `);
+      `).container.querySelector('uui-icon')!;
+
+      await iconElement.updateComplete;
       registryElement.appendChild(iconElement);
 
-      await elementUpdated(iconElement);
+      await iconElement.updateComplete;
     });
 
     it('Child uui-icon retrieves the right SVG data through shadow-dom', () => {
-      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.not.equal(null);
+      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).not.toBe(null);
     });
   });
 
@@ -78,20 +84,22 @@ describe('UUIIconRegistryElement', () => {
     let iconElement: UUIIconElement;
 
     beforeEach(async () => {
-      registryElement = await fixture(
-        html`<uui-icon-registry></uui-icon-registry>`,
-      );
+      registryElement = render(html`<uui-icon-registry></uui-icon-registry>`).container.querySelector('uui-icon-registry')!;
+
+      await registryElement.updateComplete;
       registryElement.registry = new MyCustomIconRegistry();
 
-      iconElement = await fixture(html`
+      iconElement = render(html`
         <uui-icon name="myCustomIcon"></uui-icon>
-      `);
+      `).container.querySelector('uui-icon')!;
+
+      await iconElement.updateComplete;
       registryElement.appendChild(iconElement);
     });
 
     it('Child uui-icon retrieves the custom SVG data', async () => {
-      await elementUpdated(iconElement);
-      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.not.equal(null);
+      await iconElement.updateComplete;
+      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).not.toBe(null);
     });
   });
 });

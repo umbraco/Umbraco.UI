@@ -1,5 +1,7 @@
 import './modal.js';
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import {
   UUIModalDialogElement,
   UUIModalSidebarElement,
@@ -8,21 +10,30 @@ import {
   UUIModalCloseEndEvent,
 } from './modal.js';
 
+/** Helper: one-shot event listener as a Promise. */
+function oneEvent(el: EventTarget, event: string): Promise<Event> {
+  return new Promise(resolve => {
+    el.addEventListener(event, resolve, { once: true });
+  });
+}
+
 describe('UUIModalContainerElement', () => {
   let element: UUIModalContainerElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-modal-container></uui-modal-container>
-    `);
+    `).container.querySelector('uui-modal-container')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIModalContainerElement);
+    expect(element).toBeInstanceOf(UUIModalContainerElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 });
 
@@ -30,15 +41,17 @@ describe('UUIModalDialogElement', () => {
   let element: UUIModalDialogElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-modal-dialog></uui-modal-dialog> `);
+    element = render(html` <uui-modal-dialog></uui-modal-dialog> `).container.querySelector('uui-modal-dialog')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIModalDialogElement);
+    expect(element).toBeInstanceOf(UUIModalDialogElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 });
 
@@ -46,65 +59,67 @@ describe('UUIModalSidebarElement', () => {
   let element: UUIModalSidebarElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-modal-sidebar></uui-modal-sidebar> `);
+    element = render(html` <uui-modal-sidebar></uui-modal-sidebar> `).container.querySelector('uui-modal-sidebar')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIModalSidebarElement);
+    expect(element).toBeInstanceOf(UUIModalSidebarElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('properties', () => {
     it('has a size property', () => {
-      expect(element).to.have.property('size');
+      expect(element).toHaveProperty('size');
     });
 
     it('has a index property', () => {
-      expect(element).to.have.property('index');
+      expect(element).toHaveProperty('index');
     });
 
     it('has a uniqueIndex property', () => {
-      expect(element).to.have.property('uniqueIndex');
+      expect(element).toHaveProperty('uniqueIndex');
     });
 
     it('has a transitionDuration property', () => {
-      expect(element).to.have.property('transitionDuration');
+      expect(element).toHaveProperty('transitionDuration');
     });
   });
 
   it('can close', async () => {
-    expect(element.isOpen).to.equal(true);
+    expect(element.isOpen).toBe(true);
 
     const listener = oneEvent(element, UUIModalCloseEvent);
 
     element.close();
 
     const event = await listener;
-    expect(event).to.not.equal(null);
+    expect(event).not.toBe(null);
 
     const endListener = oneEvent(element, UUIModalCloseEndEvent);
 
     const endEvent = await endListener;
-    expect(endEvent).to.not.equal(null);
+    expect(endEvent).not.toBe(null);
 
-    expect(element.isOpen).to.equal(false);
+    expect(element.isOpen).toBe(false);
   });
 
   it('can have a prevented close', async () => {
-    expect(element.isOpen).to.equal(true);
+    expect(element.isOpen).toBe(true);
 
-    expect(element.isClosing).to.equal(false);
+    expect(element.isClosing).toBe(false);
     element.addEventListener(UUIModalCloseEvent, e => e.preventDefault());
     const closeListener = oneEvent(element, UUIModalCloseEvent);
     element.close();
 
     const closeEvent = await closeListener;
-    expect(closeEvent).to.not.equal(null);
+    expect(closeEvent).not.toBe(null);
 
-    expect(element.isClosing).to.equal(false);
-    expect(element.isOpen).to.equal(true);
+    expect(element.isClosing).toBe(false);
+    expect(element.isOpen).toBe(true);
   });
 });
