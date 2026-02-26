@@ -13,6 +13,7 @@
 
 ## temp folders
 /.tmp/
+/.claude/
 
 # build
 /_site/
