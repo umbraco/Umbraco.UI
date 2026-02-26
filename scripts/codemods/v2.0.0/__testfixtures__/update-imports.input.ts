@@ -43,7 +43,8 @@ import { html } from 'lit';
 const cssPath = 'node_modules/@umbraco-ui/uui-css/dist/uui-css.css';
 
 // Font assets path
-const fontPath = 'node_modules/@umbraco-ui/uui-css/assets/fonts/*';
+const fontDir = 'node_modules/@umbraco-ui/uui-css/assets/fonts';
+const fontGlob = 'node_modules/@umbraco-ui/uui-css/assets/fonts/*';
 
 // Template literal with <link> tag
 const tpl = html`<link rel="stylesheet" href="node_modules/@umbraco-ui/uui-css/dist/uui-css.css" />`;

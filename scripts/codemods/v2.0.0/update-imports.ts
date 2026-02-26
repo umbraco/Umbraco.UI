@@ -192,7 +192,7 @@ export default function transform(
 
   const PATH_REPLACEMENTS: [RegExp, string][] = [
     [/@umbraco-ui\/uui-css\/dist\/uui-css\.css/g, '@umbraco-ui/uui/dist/themes/light.css'],
-    [/@umbraco-ui\/uui-css\/assets\/fonts\//g, '@umbraco-ui/uui/dist/assets/fonts/'],
+    [/@umbraco-ui\/uui-css\/assets\/fonts/g, '@umbraco-ui/uui/dist/assets/fonts'],
   ];
 
   function rewritePaths(value: string): string | null {
