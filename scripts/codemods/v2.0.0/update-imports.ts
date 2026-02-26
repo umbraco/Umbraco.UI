@@ -17,9 +17,8 @@ function mapSource(source: string): MapResult {
   }
 
   // Match @umbraco-ui/uui-{name} with optional /lib/{file} (strip trailing .js)
-  const match = source.match(
-    /^@umbraco-ui\/uui-([^/]+?)(?:\/lib\/(.+?)(?:\.js)?)?$/,
-  );
+  const match =
+    /^@umbraco-ui\/uui-([^/]+?)(?:\/lib\/(.+?)(?:\.js)?)?$/.exec(source);
   if (!match) return { target: null };
 
   const [, name, libFile] = match;
@@ -116,13 +115,15 @@ export default function transform(
       const seen = new Set<string>();
       const unique = group.specifiers.filter(s => {
         if (!s) return false;
-        const imported =
-          s.type === 'ImportDefaultSpecifier'
-            ? 'default'
-            : s.type === 'ImportNamespaceSpecifier'
-              ? '*'
-              : (s as any).imported?.name || (s as any).local?.name;
-        const local = (s as any).local?.name || imported;
+        let imported: string;
+        if (s.type === 'ImportDefaultSpecifier') {
+          imported = 'default';
+        } else if (s.type === 'ImportNamespaceSpecifier') {
+          imported = '*';
+        } else {
+          imported = s.imported.name || s.local.name;
+        }
+        const local = s.local.name;
         const key = `${imported}:${local}`;
         if (seen.has(key)) return false;
         seen.add(key);
@@ -173,19 +174,19 @@ export default function transform(
       const arg = path.node.arguments[0];
       if (!arg) return;
 
-      const source =
-        arg.type === 'StringLiteral'
-          ? arg.value
-          : arg.type === 'Literal' && typeof arg.value === 'string'
-            ? arg.value
-            : null;
+      let source: string | null = null;
+      if (arg.type === 'StringLiteral') {
+        source = arg.value;
+      } else if (arg.type === 'Literal' && typeof arg.value === 'string') {
+        source = arg.value;
+      }
 
       if (!source) return;
 
       const result = mapSource(source);
       if (result.warning) warnings.push(result.warning);
       if (result.target) {
-        (arg as any).value = result.target;
+        arg.value = result.target;
       }
     });
 
