@@ -76,35 +76,35 @@ describe('UUIModalSidebarElement', () => {
   });
 
   it('can close', async () => {
-    expect(element.isOpen).to.be.true;
+    expect(element.isOpen).to.equal(true);
 
     const listener = oneEvent(element, UUIModalCloseEvent);
 
     element.close();
 
     const event = await listener;
-    expect(event).to.exist;
+    expect(event).to.not.equal(null);
 
     const endListener = oneEvent(element, UUIModalCloseEndEvent);
 
     const endEvent = await endListener;
-    expect(endEvent).to.exist;
+    expect(endEvent).to.not.equal(null);
 
-    expect(element.isOpen).to.be.false;
+    expect(element.isOpen).to.equal(false);
   });
 
   it('can have a prevented close', async () => {
-    expect(element.isOpen).to.be.true;
+    expect(element.isOpen).to.equal(true);
 
-    expect(element.isClosing).to.be.false;
+    expect(element.isClosing).to.equal(false);
     element.addEventListener(UUIModalCloseEvent, e => e.preventDefault());
     const closeListener = oneEvent(element, UUIModalCloseEvent);
     element.close();
 
     const closeEvent = await closeListener;
-    expect(closeEvent).to.exist;
+    expect(closeEvent).to.not.equal(null);
 
-    expect(element.isClosing).to.be.false;
-    expect(element.isOpen).to.be.true;
+    expect(element.isClosing).to.equal(false);
+    expect(element.isOpen).to.equal(true);
   });
 });

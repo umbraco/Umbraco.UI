@@ -37,7 +37,7 @@ describe('UuiTable', () => {
 
   it('renders a slot', () => {
     const slot = table.shadowRoot!.querySelector('slot');
-    expect(slot).to.exist;
+    expect(slot).to.not.equal(null);
   });
 
   it('CELL: detects overflow', async () => {
@@ -57,7 +57,7 @@ describe('UuiTable', () => {
     const row = slot?.assignedElements()[4] as UUITableRowElement;
     row.click();
     await elementUpdated(row);
-    expect(row.selected).to.be.true;
+    expect(row.selected).to.equal(true);
   });
 
   it('ROW: Clicking on row without selectable should do nothing', async () => {
@@ -65,7 +65,7 @@ describe('UuiTable', () => {
     const row = slot?.assignedElements()[5] as UUITableRowElement;
     row.click();
     await elementUpdated(row);
-    expect(row.selected).to.be.false;
+    expect(row.selected).to.equal(false);
   });
 
   it('passes the a11y audit', async () => {

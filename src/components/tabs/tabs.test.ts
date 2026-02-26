@@ -49,14 +49,14 @@ describe('UuiTab', () => {
 
   it('it selects an item', () => {
     tabs[1].click();
-    expect(tabs[0].active).to.be.false;
-    expect(tabs[1].active).to.be.true;
-    expect(tabs[2].active).to.be.false;
+    expect(tabs[0].active).to.equal(false);
+    expect(tabs[1].active).to.equal(true);
+    expect(tabs[2].active).to.equal(false);
 
     tabs[2].click();
-    expect(tabs[0].active).to.be.false;
-    expect(tabs[1].active).to.be.false;
-    expect(tabs[2].active).to.be.true;
+    expect(tabs[0].active).to.equal(false);
+    expect(tabs[1].active).to.equal(false);
+    expect(tabs[2].active).to.equal(true);
   });
 
   it('it emits a click event', async () => {

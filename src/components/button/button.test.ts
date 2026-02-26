@@ -36,7 +36,7 @@ describe('UuiButton', () => {
 
   it('renders a slot', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.exist;
+    expect(slot).to.not.equal(null);
   });
 
   it('passes the a11y audit', async () => {
@@ -108,15 +108,15 @@ describe('UuiButton', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a extra slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=extra]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a button', () => {
       const slot = element.shadowRoot!.querySelector('button')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('label property is used when no default slot is provided', async () => {
       const element = await fixture(
@@ -141,7 +141,7 @@ describe('UuiButton', () => {
         button.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('click');
         expect(event!.target).to.equal(element);
       });

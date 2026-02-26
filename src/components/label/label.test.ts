@@ -31,7 +31,7 @@ describe('UUILabelElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -57,7 +57,7 @@ describe('UUILabelElement', () => {
         (scene.querySelector('uui-label') as any)?.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('focus');
         expect(document.activeElement).to.equal(inputEl);
       });
@@ -69,7 +69,7 @@ describe('UUILabelElement', () => {
         (scene.querySelector('uui-label') as any)?.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('click');
       });
     });
@@ -109,7 +109,7 @@ describe('UUILabelElement', () => {
         (scene.querySelector('uui-label') as any)?.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('focus');
         expect(document.activeElement).to.equal(inputEl);
       });
@@ -121,7 +121,7 @@ describe('UUILabelElement', () => {
         (scene.querySelector('uui-label') as any)?.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('click');
       });
     });

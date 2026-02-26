@@ -41,7 +41,7 @@ describe('UUITextareaElement', () => {
   it('test that disable works', async () => {
     element.disabled = true;
     await elementUpdated(element);
-    expect(textarea.disabled).to.be.true;
+    expect(textarea.disabled).to.equal(true);
   });
 
   it('changes the value to the textarea value when textarea event is emitted', async () => {
@@ -176,6 +176,6 @@ describe('UuiTextarea with auto-height', () => {
     expect(
       finalStyleHeight === '' ||
         parseInt(finalStyleHeight) < parseInt(initialStyleHeight),
-    ).to.be.true;
+    ).to.equal(true);
   });
 });

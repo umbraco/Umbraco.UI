@@ -22,15 +22,15 @@ describe('UUIDialogLayoutElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a headline slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name="headline"]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a actions slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name="actions"]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 

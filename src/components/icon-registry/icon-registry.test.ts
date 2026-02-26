@@ -25,7 +25,7 @@ describe('UUIIconRegistryElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -54,7 +54,7 @@ describe('UUIIconRegistryElement', () => {
     });
 
     it('Child uui-icon retrieves the right SVG data through shadow-dom', () => {
-      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.exist;
+      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.not.equal(null);
     });
   });
 
@@ -91,7 +91,7 @@ describe('UUIIconRegistryElement', () => {
 
     it('Child uui-icon retrieves the custom SVG data', async () => {
       await elementUpdated(iconElement);
-      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.exist;
+      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).to.not.equal(null);
     });
   });
 });

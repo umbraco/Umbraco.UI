@@ -45,13 +45,13 @@ describe('UUIBooleanInputElement', () => {
   });
 
   it('component element exists', () => {
-    expect(element).to.exist;
+    expect(element).to.not.equal(null);
   });
   it('input exists', () => {
-    expect(input).to.exist;
+    expect(input).to.not.equal(null);
   });
   it('label exists', () => {
-    expect(label).to.exist;
+    expect(label).to.not.equal(null);
   });
 
   it('has internals', () => {
@@ -83,10 +83,10 @@ describe('UUIBooleanInputElement', () => {
     label.click();
 
     const event = await listener;
-    expect(event).to.exist;
+    expect(event).to.not.equal(null);
     expect(event.type).to.equal(UUIBooleanInputEvent.CHANGE);
-    expect(event.bubbles).to.be.true;
-    expect(event.composed).to.be.false;
+    expect(event.bubbles).to.equal(true);
+    expect(event.composed).to.equal(false);
     expect(event!.target).to.equal(element);
   });
 });
@@ -136,7 +136,7 @@ describe('BooleanInputBaseElement in a Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
@@ -159,23 +159,23 @@ describe('BooleanInputBaseElement in a Form', () => {
       });
 
       it('sets element to invalid when value is empty', async () => {
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
       });
 
       it('sets element to valid when it has a value', async () => {
         element.checked = true;
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
 
       it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.be.false;
+        expect(formElement.checkValidity()).to.equal(false);
       });
 
       it('sets the form to valid when it has a value', async () => {
         element.checked = true;
         await elementUpdated(element);
-        expect(formElement.checkValidity()).to.be.true;
+        expect(formElement.checkValidity()).to.equal(true);
       });
     });
 
@@ -186,23 +186,23 @@ describe('BooleanInputBaseElement in a Form', () => {
       });
 
       it('sets element to invalid when it has a custom error attribute', async () => {
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
       });
 
       it('sets element to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
 
       it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.be.false;
+        expect(formElement.checkValidity()).to.equal(false);
       });
 
       it('sets the form to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
         await elementUpdated(element);
-        expect(formElement.checkValidity()).to.be.true;
+        expect(formElement.checkValidity()).to.equal(true);
       });
     });
   });

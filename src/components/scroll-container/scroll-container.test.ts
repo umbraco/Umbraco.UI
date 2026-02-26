@@ -132,6 +132,6 @@ describe('properties', () => {
   it('enforceScroll property set', async () => {
     element.enforceScroll = true;
     await elementUpdated(element);
-    expect(element.enforceScroll).to.be.true;
+    expect(element.enforceScroll).to.equal(true);
   });
 });

@@ -35,7 +35,7 @@ describe('UUIIconElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     //fallback slot first appears if name didn't pick up an icon from a icon registry.
     // therefor this is tested further below.
@@ -65,7 +65,7 @@ describe('UUIIconElement', () => {
         );
         element.name = 'test';
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIIconRequestEvent.ICON_REQUEST);
         expect(event.detail.iconName).to.equal('test');
       });
@@ -80,7 +80,7 @@ describe('UUIIconElement', () => {
     });
 
     it('contains svg of icon', () => {
-      expect(element.shadowRoot!.querySelector('#TestIcon')).to.exist;
+      expect(element.shadowRoot!.querySelector('#TestIcon')).to.not.equal(null);
     });
 
     it('passes the a11y audit', async () => {
@@ -98,7 +98,7 @@ describe('UUIIconElement', () => {
     });
 
     it('contains svg of icon', () => {
-      expect(element.shadowRoot!.querySelector('#TestFallbackIcon')).to.exist;
+      expect(element.shadowRoot!.querySelector('#TestFallbackIcon')).to.not.equal(null);
     });
 
     it('passes the a11y audit', async () => {
@@ -124,7 +124,7 @@ describe('UUIIconElement', () => {
 
     it('renders a fallback slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name="fallback"]')!;
-      expect(slot).not.to.exist;
+      expect(slot).to.equal(null);
     });
 
     it('passes the a11y audit', async () => {
@@ -149,7 +149,7 @@ describe('UUIIconElement', () => {
 
     it('renders a fallback slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name="fallback"]');
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('passes the a11y audit', async () => {
@@ -176,7 +176,7 @@ describe('UUIIconElement', () => {
     });
 
     it('Child uui-icon retrieves icon of registry', () => {
-      expect(iconElement.shadowRoot!.querySelector('#TestIcon')).to.exist;
+      expect(iconElement.shadowRoot!.querySelector('#TestIcon')).to.not.equal(null);
     });
   });
 
@@ -215,8 +215,8 @@ describe('UUIIconElement', () => {
     });
 
     it('Child uui-icon retrieves the right SVG data through shadow-dom', () => {
-      expect(testElement).to.exist;
-      expect(testElement.iconElement).to.exist;
+      expect(testElement).to.not.equal(null);
+      expect(testElement.iconElement).to.not.equal(null);
       expect(testElement.iconElement).to.have.property('name');
       expect(testElement.iconElement.shadowRoot!.querySelector('#TestIcon')).to
         .exist;

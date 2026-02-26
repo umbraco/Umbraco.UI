@@ -76,24 +76,24 @@ describe('UuiInputElement', () => {
     it('disable property set input to disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
-      expect(input.disabled).to.be.true;
+      expect(input.disabled).to.equal(true);
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders a prepend slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=prepend]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an append slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=append]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -103,7 +103,7 @@ describe('UuiInputElement', () => {
         const listener = oneEvent(element, 'focus');
         element.focus();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('focus');
       });
     });
@@ -114,10 +114,10 @@ describe('UuiInputElement', () => {
         input.dispatchEvent(new Event('change'));
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIInputEvent.CHANGE);
-        expect(event.bubbles).to.be.true;
-        expect(event.composed).to.be.false;
+        expect(event.bubbles).to.equal(true);
+        expect(event.composed).to.equal(false);
         expect(event!.target).to.equal(element);
       });
       it('change event bubbles up to a parent element', async () => {
@@ -144,10 +144,10 @@ describe('UuiInputElement', () => {
         const innerEvent = await innerListener;
         await Promise.resolve();
 
-        expect(outerEventTriggered).to.be.true;
-        expect(innerElement).to.exist;
-        expect(innerElementInput).to.exist;
-        expect(innerEvent).to.exist;
+        expect(outerEventTriggered).to.equal(true);
+        expect(innerElement).to.not.equal(null);
+        expect(innerElementInput).to.not.equal(null);
+        expect(innerEvent).to.not.equal(null);
         expect(innerEvent.type).to.equal(UUIInputEvent.CHANGE);
         expect(innerEvent!.target).to.equal(innerElement);
       });
@@ -216,7 +216,7 @@ describe('UuiInput in Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
@@ -235,7 +235,7 @@ describe('UuiInput in Form', () => {
 
       await sleep(100);
 
-      expect(isFulfilled).to.be.false;
+      expect(isFulfilled).to.equal(false);
     });
   });
 
@@ -248,23 +248,23 @@ describe('UuiInput in Form', () => {
       });
 
       it('sets element to invalid when value is empty', async () => {
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
       });
 
       it('sets element to valid when it has a value', async () => {
         element.value = 'new value';
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
 
       it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.be.false;
+        expect(formElement.checkValidity()).to.equal(false);
       });
 
       it('sets the form to valid when it has a value', async () => {
         element.value = 'new value';
         await elementUpdated(element);
-        expect(formElement.checkValidity()).to.be.true;
+        expect(formElement.checkValidity()).to.equal(true);
       });
     });
 
@@ -275,23 +275,23 @@ describe('UuiInput in Form', () => {
       });
 
       it('sets element to invalid when it has a custom error attribute', async () => {
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
       });
 
       it('sets element to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
 
       it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.be.false;
+        expect(formElement.checkValidity()).to.equal(false);
       });
 
       it('sets the form to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
         await elementUpdated(element);
-        expect(formElement.checkValidity()).to.be.true;
+        expect(formElement.checkValidity()).to.equal(true);
       });
     });
 
@@ -299,25 +299,25 @@ describe('UuiInput in Form', () => {
       it('sets element to invalid when it sets custom validity', async () => {
         const validationMessage = 'custom error';
         element.setCustomValidity(validationMessage);
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
         expect(element.validationMessage).to.equal(validationMessage);
       });
 
       it('sets the form to invalid when value is empty', async () => {
         element.setCustomValidity('custom error');
-        expect(formElement.checkValidity()).to.be.false;
+        expect(formElement.checkValidity()).to.equal(false);
       });
 
       it('sets element to valid when it sets custom validity to an empty string', async () => {
         const validationMessage = '';
         element.setCustomValidity(validationMessage);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
         expect(element.validationMessage).to.equal(validationMessage);
       });
 
       it('sets the form to valid when it doesnt have custom validity', async () => {
         element.setCustomValidity('');
-        expect(formElement.checkValidity()).to.be.true;
+        expect(formElement.checkValidity()).to.equal(true);
       });
     });
   });
@@ -331,19 +331,19 @@ describe('UuiInput in Form', () => {
       });
 
       it('sets element to valid when value is empty', async () => {
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
 
       it('email element is invalid when it has a none compliant value', async () => {
         element.value = 'new value';
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
       });
 
       it('email element is valid when it has a email value', async () => {
         element.value = 'my@email.com';
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
     });
 
@@ -355,19 +355,19 @@ describe('UuiInput in Form', () => {
       });
 
       it('sets element to valid when value is empty', async () => {
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
 
       it('url element is invalid when it has a none compliant value', async () => {
         element.value = 'new value';
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.false;
+        expect(element.checkValidity()).to.equal(false);
       });
 
       it('url element is valid when it has a email value', async () => {
         element.value = 'http://umbraco.com';
         await elementUpdated(element);
-        expect(element.checkValidity()).to.be.true;
+        expect(element.checkValidity()).to.equal(true);
       });
     });
   });

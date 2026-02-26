@@ -29,7 +29,7 @@ describe('UUIPaginationElement', () => {
 
   //   // console.log(buttons);
 
-  //   expect(true).to.be.false;
+  //   expect(true).to.equal(false);
   // });
 
   describe('properties', () => {
@@ -68,7 +68,7 @@ describe('UUIPaginationElement', () => {
           .children[3] as HTMLElement;
         button?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('change');
         expect(element.current).to.equal(2);
       });
@@ -170,7 +170,7 @@ describe('UUIPaginationElement', () => {
 
     const hasDots =
       arr.filter((e: HTMLElement) => e.classList.contains('dots')).length > 0;
-    expect(hasDots).to.be.true;
+    expect(hasDots).to.equal(true);
   });
 
   it('hides the dots when only one page', async () => {
@@ -183,7 +183,7 @@ describe('UUIPaginationElement', () => {
 
     const hasDots =
       arr.filter((e: HTMLElement) => e.classList.contains('dots')).length > 0;
-    expect(hasDots).to.be.false;
+    expect(hasDots).to.equal(false);
   });
 
   it('passes the a11y audit', async () => {

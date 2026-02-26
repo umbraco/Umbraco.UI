@@ -32,12 +32,12 @@ describe('UUIFormValidationMessageElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot:not([name])')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an message slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=message]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -109,12 +109,12 @@ describe('UUIFormValidationMessageElement', () => {
             validationEl.shadowRoot!.querySelector('#messages')!;
           const regex = /MyRequiredMessage/;
 
-          expect(regex.test(messagesCon.innerHTML)).to.be.true;
+          expect(regex.test(messagesCon.innerHTML)).to.equal(true);
         });
       });
 
       const regex = /MyRequiredMessage/;
-      expect(regex.test(messagesCon.innerHTML)).to.be.true;
+      expect(regex.test(messagesCon.innerHTML)).to.equal(true);
     });
   });
 });

@@ -47,22 +47,22 @@ describe('UUIRefNodeUserElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an icon slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=icon]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders a tag slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=tag]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an actions slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -74,7 +74,7 @@ describe('UUIRefNodeUserElement', () => {
           element.shadowRoot!.querySelector('#info');
         infoElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('open');
       });
 
@@ -84,7 +84,7 @@ describe('UUIRefNodeUserElement', () => {
           element.shadowRoot!.querySelector('#icon');
         iconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('open');
       });
     });
@@ -96,9 +96,9 @@ describe('UUIRefNodeUserElement', () => {
         const listener = oneEvent(element, 'selected', false);
         element.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('selected');
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
     });
   });

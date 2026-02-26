@@ -10,7 +10,7 @@ describe('UuiTag', () => {
 
   it('renders a slot', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.exist;
+    expect(slot).to.not.equal(null);
   });
 
   it('passes the a11y audit', async () => {
@@ -26,7 +26,7 @@ describe('UuiTag', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 });

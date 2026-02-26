@@ -37,7 +37,7 @@ describe('UuiSlider', () => {
     it('disable property set input to disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
-      expect(input.disabled).to.be.true;
+      expect(input.disabled).to.equal(true);
     });
 
     it('has a value property', () => {
@@ -78,7 +78,7 @@ describe('UuiSlider', () => {
         input.dispatchEvent(new Event('change'));
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUISliderEvent.CHANGE);
         expect(event!.target).to.equal(element);
       });
@@ -90,7 +90,7 @@ describe('UuiSlider', () => {
         input.dispatchEvent(new Event('input'));
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUISliderEvent.INPUT);
         expect(event!.target).to.equal(element);
       });
@@ -154,7 +154,7 @@ describe('UuiSlider in Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });
