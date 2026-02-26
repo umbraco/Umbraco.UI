@@ -1,14 +1,9 @@
 import './input.js';
-import {
-  elementUpdated,
-  expect,
-  fixture,
-  html,
-  oneEvent,
-} from '@open-wc/testing';
-
-import { UUIInputElement } from './input.element';
-import { UUIInputEvent } from './UUIInputEvent';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
+import { UUIInputElement } from './input.element.js';
+import { UUIInputEvent } from './UUIInputEvent.js';
 
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
@@ -18,82 +13,91 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/** Helper: one-shot event listener as a Promise. */
+function oneEvent(el: EventTarget, event: string): Promise<Event> {
+  return new Promise(resolve => {
+    el.addEventListener(event, resolve, { once: true });
+  });
+}
+
 describe('UuiInputElement', () => {
   let element: UUIInputElement;
   let input: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-input label="label"></uui-input> `);
+    const screen = render(html`<uui-input label="label"></uui-input>`);
+    element = screen.container.querySelector('uui-input')!;
+    await element.updateComplete;
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIInputElement);
+    expect(element).toBeInstanceOf(UUIInputElement);
   });
 
   describe('properties', () => {
     it('has a name property', () => {
-      expect(element).to.have.property('name');
+      expect(element).toHaveProperty('name');
     });
     it('has a type property', () => {
-      expect(element).to.have.property('type');
+      expect(element).toHaveProperty('type');
     });
     it('has a value property', () => {
-      expect(element).to.have.property('value');
+      expect(element).toHaveProperty('value');
     });
     it('has a placeholder property', () => {
-      expect(element).to.have.property('placeholder');
+      expect(element).toHaveProperty('placeholder');
     });
     it('has a disabled property', () => {
-      expect(element).to.have.property('disabled');
+      expect(element).toHaveProperty('disabled');
     });
     it('has a readonly property', () => {
-      expect(element).to.have.property('readonly');
+      expect(element).toHaveProperty('readonly');
     });
     it('has a error property', () => {
-      expect(element).to.have.property('error');
+      expect(element).toHaveProperty('error');
     });
     it('has a errorMessage property', () => {
-      expect(element).to.have.property('errorMessage');
+      expect(element).toHaveProperty('errorMessage');
     });
     it('has a required property', () => {
-      expect(element).to.have.property('required');
+      expect(element).toHaveProperty('required');
     });
     it('has a requiredMessage property', () => {
-      expect(element).to.have.property('requiredMessage');
+      expect(element).toHaveProperty('requiredMessage');
     });
     it('has a autocomplete property', () => {
-      expect(element).to.have.property('autocomplete');
+      expect(element).toHaveProperty('autocomplete');
     });
     it('has a autoWidth property', () => {
-      expect(element).to.have.property('autoWidth');
+      expect(element).toHaveProperty('autoWidth');
     });
 
     it('disable property set input to disabled', async () => {
       element.disabled = true;
-      await elementUpdated(element);
-      expect(input.disabled).to.equal(true);
+      await element.updateComplete;
+      expect(input.disabled).toBe(true);
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBeNull();
     });
 
     it('renders a prepend slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=prepend]')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBeNull();
     });
 
     it('renders an append slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=append]')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBeNull();
     });
   });
 
@@ -103,8 +107,8 @@ describe('UuiInputElement', () => {
         const listener = oneEvent(element, 'focus');
         element.focus();
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('focus');
+        expect(event).not.toBeNull();
+        expect(event.type).toBe('focus');
       });
     });
     describe('change', () => {
@@ -114,28 +118,31 @@ describe('UuiInputElement', () => {
         input.dispatchEvent(new Event('change'));
 
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal(UUIInputEvent.CHANGE);
-        expect(event.bubbles).to.equal(true);
-        expect(event.composed).to.equal(false);
-        expect(event!.target).to.equal(element);
+        expect(event).not.toBeNull();
+        expect(event.type).toBe(UUIInputEvent.CHANGE);
+        expect(event.bubbles).toBe(true);
+        expect(event.composed).toBe(false);
+        expect(event.target).toBe(element);
       });
       it('change event bubbles up to a parent element', async () => {
-        const outerElement = await fixture(html`
+        const screen = render(html`
           <uui-input label="label" id="outer">
             <uui-input label="label" id="inner" slot="prepend"></uui-input>
           </uui-input>
         `);
 
-        const innerElement = outerElement.querySelector('#inner');
+        const outerElement = screen.container.querySelector('#outer')!;
+        const innerElement =
+          screen.container.querySelector('#inner') as UUIInputElement;
+        await innerElement.updateComplete;
         let outerEventTriggered = false;
 
-        const innerElementInput = innerElement!.shadowRoot?.querySelector(
+        const innerElementInput = innerElement.shadowRoot?.querySelector(
           'input',
         ) as HTMLInputElement;
 
-        const innerListener = oneEvent(innerElement!, UUIInputEvent.CHANGE);
-        outerElement!.addEventListener(UUIInputEvent.CHANGE, () => {
+        const innerListener = oneEvent(innerElement, UUIInputEvent.CHANGE);
+        outerElement.addEventListener(UUIInputEvent.CHANGE, () => {
           outerEventTriggered = true;
         });
 
@@ -144,70 +151,71 @@ describe('UuiInputElement', () => {
         const innerEvent = await innerListener;
         await Promise.resolve();
 
-        expect(outerEventTriggered).to.equal(true);
-        expect(innerElement).to.not.equal(null);
-        expect(innerElementInput).to.not.equal(null);
-        expect(innerEvent).to.not.equal(null);
-        expect(innerEvent.type).to.equal(UUIInputEvent.CHANGE);
-        expect(innerEvent!.target).to.equal(innerElement);
+        expect(outerEventTriggered).toBe(true);
+        expect(innerElement).not.toBeNull();
+        expect(innerElementInput).not.toBeNull();
+        expect(innerEvent).not.toBeNull();
+        expect(innerEvent.type).toBe(UUIInputEvent.CHANGE);
+        expect(innerEvent.target).toBe(innerElement);
       });
     });
   });
 
-  it('changes the value to the input value when input event is emitted', async () => {
+  it('changes the value to the input value when input event is emitted', () => {
     input.value = 'test value';
     input.dispatchEvent(new Event('input'));
-    expect(element.value).to.equal('test value');
+    expect(element.value).toBe('test value');
   });
 
   describe('text overflow', () => {
     it('has text-overflow ellipsis applied to input element', () => {
       const computedStyle = window.getComputedStyle(input);
-      expect(computedStyle.textOverflow).to.equal('ellipsis');
+      expect(computedStyle.textOverflow).toBe('ellipsis');
     });
   });
 });
 
 describe('UuiInput with native label element', () => {
-  let dom: Element;
-  beforeEach(async () => {
-    dom = await fixture(html`
-      <label for="test">Input</label>
-      <uui-input id="test" label="a input label"></uui-input>
-    `);
-  });
-
   it('passes the a11y audit', async () => {
-    await expect(dom).shadowDom.to.be.accessible();
+    const screen = render(html`
+      <div>
+        <label for="test">Input</label>
+        <uui-input id="test" label="a input label"></uui-input>
+      </div>
+    `);
+    const wrapper = screen.container.querySelector('div')!;
+    expect(await axeRun(wrapper)).toHaveNoViolations();
   });
 });
 
 describe('UuiInput in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUIInputElement;
-  beforeEach(async () => {
-    formElement = await fixture(html`
+
+  beforeEach(() => {
+    const screen = render(html`
       <form @submit=${preventSubmit}>
         <uui-input label="a input label" name="input" value="Hello uui-input">
         </uui-input>
       </form>
     `);
+    formElement = screen.container.querySelector('form')!;
     element = formElement.querySelector('uui-input') as UUIInputElement;
   });
 
-  it('value is correct', async () => {
-    await expect(element.value).to.be.equal('Hello uui-input');
+  it('value is correct', () => {
+    expect(element.value).toBe('Hello uui-input');
   });
 
-  it('form output', async () => {
+  it('form output', () => {
     const formData = new FormData(formElement);
-    await expect(formData.get('input')).to.be.equal('Hello uui-input');
+    expect(formData.get('input')).toBe('Hello uui-input');
   });
 
-  it('change value and check output', async () => {
+  it('change value and check output', () => {
     element.value = 'anotherValue';
     const formData = new FormData(formElement);
-    await expect(formData.get('input')).to.be.equal('anotherValue');
+    expect(formData.get('input')).toBe('anotherValue');
   });
 
   describe('submit', () => {
@@ -216,14 +224,14 @@ describe('UuiInput in Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.not.equal(null);
-      expect(event.type).to.equal('submit');
-      expect(event!.target).to.equal(formElement);
+      expect(event).not.toBeNull();
+      expect(event.type).toBe('submit');
+      expect(event.target).toBe(formElement);
     });
 
     it('should not submit if type=color', async () => {
       element.type = 'color';
-      await elementUpdated(element);
+      await element.updateComplete;
 
       let isFulfilled = false;
 
@@ -235,7 +243,7 @@ describe('UuiInput in Form', () => {
 
       await sleep(100);
 
-      expect(isFulfilled).to.equal(false);
+      expect(isFulfilled).toBe(false);
     });
   });
 
@@ -244,80 +252,80 @@ describe('UuiInput in Form', () => {
       beforeEach(async () => {
         element.setAttribute('required', 'true');
         element.value = '';
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
-      it('sets element to invalid when value is empty', async () => {
-        expect(element.checkValidity()).to.equal(false);
+      it('sets element to invalid when value is empty', () => {
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('sets element to valid when it has a value', async () => {
         element.value = 'new value';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
 
-      it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.equal(false);
+      it('sets the form to invalid when value is empty', () => {
+        expect(formElement.checkValidity()).toBe(false);
       });
 
       it('sets the form to valid when it has a value', async () => {
         element.value = 'new value';
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
 
     describe('custom error though attributes', () => {
       beforeEach(async () => {
         element.setAttribute('error', 'true');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
-      it('sets element to invalid when it has a custom error attribute', async () => {
-        expect(element.checkValidity()).to.equal(false);
+      it('sets element to invalid when it has a custom error attribute', () => {
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('sets element to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
 
-      it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.equal(false);
+      it('sets the form to invalid when value is empty', () => {
+        expect(formElement.checkValidity()).toBe(false);
       });
 
       it('sets the form to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
 
     describe('custom error through setCustomValidity', () => {
-      it('sets element to invalid when it sets custom validity', async () => {
+      it('sets element to invalid when it sets custom validity', () => {
         const validationMessage = 'custom error';
         element.setCustomValidity(validationMessage);
-        expect(element.checkValidity()).to.equal(false);
-        expect(element.validationMessage).to.equal(validationMessage);
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validationMessage).toBe(validationMessage);
       });
 
-      it('sets the form to invalid when value is empty', async () => {
+      it('sets the form to invalid when value is empty', () => {
         element.setCustomValidity('custom error');
-        expect(formElement.checkValidity()).to.equal(false);
+        expect(formElement.checkValidity()).toBe(false);
       });
 
-      it('sets element to valid when it sets custom validity to an empty string', async () => {
+      it('sets element to valid when it sets custom validity to an empty string', () => {
         const validationMessage = '';
         element.setCustomValidity(validationMessage);
-        expect(element.checkValidity()).to.equal(true);
-        expect(element.validationMessage).to.equal(validationMessage);
+        expect(element.checkValidity()).toBe(true);
+        expect(element.validationMessage).toBe(validationMessage);
       });
 
-      it('sets the form to valid when it doesnt have custom validity', async () => {
+      it('sets the form to valid when it doesnt have custom validity', () => {
         element.setCustomValidity('');
-        expect(formElement.checkValidity()).to.equal(true);
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
   });
@@ -327,23 +335,23 @@ describe('UuiInput in Form', () => {
       beforeEach(async () => {
         element.value = '';
         element.setAttribute('type', 'email');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
-      it('sets element to valid when value is empty', async () => {
-        expect(element.checkValidity()).to.equal(true);
+      it('sets element to valid when value is empty', () => {
+        expect(element.checkValidity()).toBe(true);
       });
 
       it('email element is invalid when it has a none compliant value', async () => {
         element.value = 'new value';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(false);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('email element is valid when it has a email value', async () => {
         element.value = 'my@email.com';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
     });
 
@@ -351,23 +359,23 @@ describe('UuiInput in Form', () => {
       beforeEach(async () => {
         element.value = '';
         element.setAttribute('type', 'url');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
-      it('sets element to valid when value is empty', async () => {
-        expect(element.checkValidity()).to.equal(true);
+      it('sets element to valid when value is empty', () => {
+        expect(element.checkValidity()).toBe(true);
       });
 
       it('url element is invalid when it has a none compliant value', async () => {
         element.value = 'new value';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(false);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('url element is valid when it has a email value', async () => {
         element.value = 'http://umbraco.com';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
     });
   });

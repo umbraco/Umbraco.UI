@@ -20,7 +20,7 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "useDefineForClassFields": false,
-    "types": ["vite/client", "mocha", "chai"]
+    "types": ["vite/client", "vitest/globals", "vitest/browser"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "vitest.setup.ts", "vite.config.ts"]
 }

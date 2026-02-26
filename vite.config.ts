@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
   build: {
@@ -30,15 +31,38 @@ export default defineConfig({
     sourcemap: true,
   },
   experimental: {
-    // CSS files in subdirectories (e.g. themes/light.css) reference fonts
-    // via url(). Vite resolves these relative to the output root, but the
-    // CSS files are nested one level deep. This rewrites CSS asset URLs to
-    // use ../ so font paths resolve correctly from their actual location.
     renderBuiltUrl(filename, { hostType }) {
       if (hostType === 'css') {
         return '../' + filename;
       }
       return filename;
+    },
+  },
+  test: {
+    globals: true,
+    include: [
+      'src/components/button/button.test.ts',
+      'src/components/input/input.test.ts',
+    ],
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
+      headless: true,
+    },
+    setupFiles: ['./vitest.setup.ts'],
+    deps: {
+      optimizer: {
+        web: {
+          include: [
+            'vitest-browser-lit',
+            'axe-core',
+            'lit',
+            'lit/decorators.js',
+            'lit/directives/if-defined.js',
+          ],
+        },
+      },
     },
   },
 });

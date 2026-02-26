@@ -21,7 +21,13 @@ You can use UUI components directly in the browser without a build step by setti
     <script type="importmap">
       {
         "imports": {
-          "lit": "https://esm.run/lit",
+          "lit": "https://cdn.jsdelivr.net/npm/lit/+esm",
+          "lit/": "https://cdn.jsdelivr.net/npm/lit/",
+          "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element/+esm",
+          "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element/",
+          "lit-element/": "https://cdn.jsdelivr.net/npm/lit-element/",
+          "lit-html": "https://cdn.jsdelivr.net/npm/lit-html/+esm",
+          "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html/",
           "@umbraco-ui/uui/": "https://cdn.jsdelivr.net/npm/@umbraco-ui/uui@2/dist/"
         }
       }

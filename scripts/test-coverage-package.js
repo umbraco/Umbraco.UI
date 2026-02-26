@@ -4,6 +4,6 @@ const packageName = process.argv[2];
 console.log('Test coverage for package: ' + packageName);
 
 execSync(
-  `web-test-runner "src/components/${packageName}/**/*.test.ts" --node-resolve --coverage`,
+  `vitest run "src/components/${packageName}" --coverage`,
   { stdio: 'inherit' },
 );
