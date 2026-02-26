@@ -108,7 +108,7 @@ export default function transform(
   for (const [key, group] of mergeGroups) {
     const target = key.split('::')[0];
 
-    // Update source on the first import (mutate to preserve quote style)
+    // Mutate in-place so recast preserves the original AST node
     group.first.node.source.value = target;
 
     // Merge and deduplicate specifiers
@@ -116,14 +116,16 @@ export default function transform(
       const seen = new Set<string>();
       const unique = group.specifiers.filter(s => {
         if (!s) return false;
-        const name =
+        const imported =
           s.type === 'ImportDefaultSpecifier'
             ? 'default'
             : s.type === 'ImportNamespaceSpecifier'
               ? '*'
               : (s as any).imported?.name || (s as any).local?.name;
-        if (seen.has(name)) return false;
-        seen.add(name);
+        const local = (s as any).local?.name || imported;
+        const key = `${imported}:${local}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
         return true;
       });
       group.first.node.specifiers = unique;
@@ -199,8 +201,6 @@ export default function transform(
     let result = value;
     let changed = false;
     for (const [pattern, replacement] of PATH_REPLACEMENTS) {
-      // Reset lastIndex for global regexps
-      pattern.lastIndex = 0;
       const next = result.replace(pattern, replacement);
       if (next !== result) {
         changed = true;
@@ -224,18 +224,19 @@ export default function transform(
       const rawRewritten = rewritePaths(quasi.value.raw);
       if (rawRewritten !== null) {
         quasi.value.raw = rawRewritten;
-        // Keep cooked in sync
-        const cookedRewritten = rewritePaths(quasi.value.cooked || '');
-        if (cookedRewritten !== null) {
-          quasi.value.cooked = cookedRewritten;
+        // Keep cooked in sync (cooked is null for invalid escape sequences)
+        if (quasi.value.cooked != null) {
+          const cookedRewritten = rewritePaths(quasi.value.cooked);
+          if (cookedRewritten !== null) {
+            quasi.value.cooked = cookedRewritten;
+          }
         }
       }
     }
   });
 
   // Print warnings to stderr (deduplicated)
-  const uniqueWarnings = Array.from(new Set(warnings));
-  for (const warning of uniqueWarnings) {
+  for (const warning of new Set(warnings)) {
     console.warn(`\u26a0\ufe0f  ${fileInfo.path}: ${warning}`);
   }
 
