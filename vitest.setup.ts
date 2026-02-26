@@ -30,7 +30,8 @@ expect.extend({
 });
 
 declare module 'vitest' {
-  interface Assertion {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface Assertion<T = any> {
     toHaveNoViolations(): void;
   }
   interface AsymmetricMatchersContaining {

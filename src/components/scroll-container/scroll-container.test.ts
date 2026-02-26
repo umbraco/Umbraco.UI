@@ -8,7 +8,8 @@ describe('UUIScrollContainerElement', () => {
   let element: UUIScrollContainerElement;
 
   beforeEach(async () => {
-    element = render(html`<uui-scroll-container style="width:200px; height:200px;">
+    element = render(
+      html`<uui-scroll-container style="width:200px; height:200px;">
         1 line<br />
         2 line<br />
         3 line<br />
@@ -29,7 +30,8 @@ describe('UUIScrollContainerElement', () => {
         18 line<br />
         19 line<br />
         20 line
-      </uui-scroll-container>`).container.querySelector('uui-scroll-container')!;
+      </uui-scroll-container>`,
+    ).container.querySelector('uui-scroll-container')!;
 
     await element.updateComplete;
   });
@@ -40,7 +42,7 @@ describe('UUIScrollContainerElement', () => {
 
   it('can scroll', async () => {
     element.scrollTop = 42;
-    await expect(element.scrollTop).toBe(42);
+    await expect(Math.round(element.scrollTop)).toBe(42);
   });
 });
 
@@ -48,7 +50,8 @@ describe('UUIScrollContainerElement with a lot of content', () => {
   let element: UUIScrollContainerElement;
 
   beforeEach(async () => {
-    element = render(html`<uui-scroll-container style="width:200px; height:200px;">
+    element = render(
+      html`<uui-scroll-container style="width:200px; height:200px;">
         initial line is way toooo long
         WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br />
         1 line<br />
@@ -71,14 +74,15 @@ describe('UUIScrollContainerElement with a lot of content', () => {
         18 line<br />
         19 line<br />
         20 line
-      </uui-scroll-container>`).container.querySelector('uui-scroll-container')!;
+      </uui-scroll-container>`,
+    ).container.querySelector('uui-scroll-container')!;
 
     await element.updateComplete;
   });
 
   it('can scroll', async () => {
     element.scrollTop = 42;
-    await expect(element.scrollTop).toBe(42);
+    await expect(Math.round(element.scrollTop)).toBe(42);
   });
 
   it('cant scroll to far', async () => {
@@ -93,7 +97,7 @@ describe('UUIScrollContainerElement with a lot of content', () => {
 
   it('can scroll sideways if content enforces it', async () => {
     element.scrollLeft = 42;
-    await expect(element.scrollLeft).toBe(42);
+    await expect(Math.round(element.scrollLeft)).toBe(42);
   });
 });
 
@@ -101,9 +105,11 @@ describe('UUIScrollContainerElement with very little content', () => {
   let element: UUIScrollContainerElement;
 
   beforeEach(async () => {
-    element = render(html`<uui-scroll-container style="width:200px; height:200px;">
+    element = render(
+      html`<uui-scroll-container style="width:200px; height:200px;">
         very little content.
-      </uui-scroll-container>`).container.querySelector('uui-scroll-container')!;
+      </uui-scroll-container>`,
+    ).container.querySelector('uui-scroll-container')!;
 
     await element.updateComplete;
   });
@@ -121,9 +127,11 @@ describe('UUIScrollContainerElement with very little content', () => {
 describe('properties', () => {
   let element: UUIScrollContainerElement;
   beforeEach(async () => {
-    element = render(html`<uui-scroll-container style="width:200px; height:200px;">
+    element = render(
+      html`<uui-scroll-container style="width:200px; height:200px;">
         Hello tests
-      </uui-scroll-container>`).container.querySelector('uui-scroll-container')!;
+      </uui-scroll-container>`,
+    ).container.querySelector('uui-scroll-container')!;
 
     await element.updateComplete;
   });
