@@ -36,10 +36,10 @@ A [jscodeshift](https://github.com/facebook/jscodeshift) transform is included i
 curl -sLO https://raw.githubusercontent.com/umbraco/Umbraco.UI/main/scripts/codemods/v2.0.0/update-imports.ts
 
 # Dry-run (preview without writing)
-npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx -d ./src
+npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx --ignore-pattern='**/node_modules/**' -d ./src
 
 # Apply changes
-npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx ./src
+npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx --ignore-pattern='**/node_modules/**' ./src
 
 # Clean up
 rm update-imports.ts
