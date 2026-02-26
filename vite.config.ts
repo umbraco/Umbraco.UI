@@ -57,8 +57,12 @@ export default defineConfig({
       headless: true,
     },
     setupFiles: ['./vitest.setup.ts'],
-    onConsoleLog: (log: string) =>
-      log.includes('Lit is in dev mode') ? false : undefined,
+    onConsoleLog: (log: string) => {
+      if (log.includes('Lit is in dev mode')) return false;
+      if (log.includes('Multiple versions of Umbraco UI')) return false;
+      if (log.includes('Multiple instances of Umbraco UI')) return false;
+      return undefined;
+    },
     deps: {
       optimizer: {
         web: {
