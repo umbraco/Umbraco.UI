@@ -6,6 +6,8 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 const silencedLogs = [
   'Lit is in dev mode.',
   'Multiple versions of Lit loaded.',
+  'Multiple versions of Umbraco UI detected',
+  'Multiple instances of Umbraco UI',
 ];
 
 const isCI = process.env.CI === 'true';
@@ -56,6 +58,7 @@ export default {
     cssInlinePlugin(),
     esbuildPlugin({
       ts: true,
+      json: true,
       target: 'auto-always',
       tsconfig: './tsconfig.json',
     }),
