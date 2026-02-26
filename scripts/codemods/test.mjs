@@ -94,4 +94,26 @@ describe('v2.0.0/update-imports', async () => {
     const out = applyTransform(transform, `import '@umbraco-ui/uui-caret';`);
     assert.ok(out.includes(`'@umbraco-ui/uui-caret'`));
   });
+
+  it('rewrites uui-css dist path in string literal', () => {
+    const out = applyTransform(
+      transform,
+      `const p = 'node_modules/@umbraco-ui/uui-css/dist/uui-css.css';`,
+    );
+    assert.ok(out.includes('@umbraco-ui/uui/dist/themes/light.css'));
+  });
+
+  it('rewrites uui-css font path in string literal', () => {
+    const out = applyTransform(
+      transform,
+      `const p = 'node_modules/@umbraco-ui/uui-css/assets/fonts/*';`,
+    );
+    assert.ok(out.includes('@umbraco-ui/uui/dist/assets/fonts/*'));
+  });
+
+  it('rewrites paths inside template literals', () => {
+    const input = 'const t = html`<link href="node_modules/@umbraco-ui/uui-css/dist/uui-css.css">`;';
+    const out = applyTransform(transform, input);
+    assert.ok(out.includes('@umbraco-ui/uui/dist/themes/light.css'));
+  });
 });
