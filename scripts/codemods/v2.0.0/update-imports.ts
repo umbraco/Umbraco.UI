@@ -233,8 +233,9 @@ export default function transform(
     }
   });
 
-  // Print warnings to stderr
-  for (const warning of warnings) {
+  // Print warnings to stderr (deduplicated)
+  const uniqueWarnings = Array.from(new Set(warnings));
+  for (const warning of uniqueWarnings) {
     console.warn(`\u26a0\ufe0f  ${fileInfo.path}: ${warning}`);
   }
 
