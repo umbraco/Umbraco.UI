@@ -29,7 +29,7 @@ These deprecated components were removed in v2:
 
 ## Automated import migration
 
-A [jscodeshift](https://github.com/facebook/jscodeshift) transform is included in this repo to rewrite imports automatically. It handles component imports, foundation/CSS imports, re-exports, and dynamic `import()` calls.
+A [jscodeshift](https://github.com/facebook/jscodeshift) transform is included in this repo to rewrite imports automatically. It handles component imports, foundation/CSS imports, re-exports, dynamic `import()` calls, and path-based references to `uui-css` dist/assets in config files.
 
 ```bash
 # Download the transform
@@ -45,7 +45,14 @@ npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx --n
 rm update-imports.ts
 ```
 
-After running the codemod, follow the remaining manual steps below (dependency cleanup, theme references, removed components, Lit upgrade).
+The codemod only processes JS/TS files. If you reference `uui-css.css` in HTML files (e.g. `<link>` tags), update those manually:
+
+```diff
+- <link rel="stylesheet" href="./path/to/uui-css.css" />
++ <link rel="stylesheet" href="./path/to/light.css" />
+```
+
+After running the codemod, follow the remaining manual steps below (dependency cleanup, removed components, Lit upgrade).
 
 ## Step-by-step migration
 
