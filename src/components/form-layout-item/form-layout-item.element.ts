@@ -1,4 +1,4 @@
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

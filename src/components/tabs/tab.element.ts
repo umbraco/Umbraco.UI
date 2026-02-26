@@ -1,4 +1,4 @@
-import { ActiveMixin, LabelMixin } from '../../internal/mixins';
+import { ActiveMixin, LabelMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

@@ -1,4 +1,4 @@
-import { UUIEvent } from '../../internal/events';
+import { UUIEvent } from '../../internal/events/index.js';
 
 import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.element.js';
 

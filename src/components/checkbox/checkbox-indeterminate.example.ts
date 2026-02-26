@@ -1,4 +1,4 @@
-import { defineElement } from '../../internal/registration';
+import { defineElement } from '../../internal/registration/index.js';
 import { UUIBooleanInputEvent } from '../boolean-input/boolean-input.js';
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';

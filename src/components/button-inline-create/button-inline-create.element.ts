@@ -1,13 +1,13 @@
 import {
   UUIBlinkAnimationValue,
   UUIBlinkKeyframes,
-} from '../../internal/animations';
+} from '../../internal/animations/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent';
+import { UUIButtonInlineCreateEvent } from './UUIButtonInlineCreateEvent.js';
 
 /**
  *  @element uui-button-inline-create

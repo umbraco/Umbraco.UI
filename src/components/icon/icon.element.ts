@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { UUIIconRequestEvent } from './UUIIconRequestEvent';
+import { UUIIconRequestEvent } from './UUIIconRequestEvent.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 /**

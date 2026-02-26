@@ -1,5 +1,5 @@
-import { UUIEvent } from '../../internal/events';
-import type { UUIColorAreaElement } from './color-area.element';
+import { UUIEvent } from '../../internal/events/index.js';
+import type { UUIColorAreaElement } from './color-area.element.js';
 
 export class UUIColorAreaEvent extends UUIEvent<{}, UUIColorAreaElement> {
   public static readonly CHANGE = 'change';

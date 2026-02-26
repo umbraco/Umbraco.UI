@@ -1,11 +1,11 @@
-import { UUIHorizontalPulseKeyframes } from '../../internal/animations';
-import { UUIFormControlMixin } from '../../internal/mixins';
+import { UUIHorizontalPulseKeyframes } from '../../internal/animations/index.js';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement, nothing, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { nativeInputStyles } from './native-input.styles';
-import { UUISliderEvent } from './UUISliderEvent';
+import { nativeInputStyles } from './native-input.styles.js';
+import { UUISliderEvent } from './UUISliderEvent.js';
 
 const TRACK_PADDING = 12;
 const STEP_MIN_WIDTH = 24;

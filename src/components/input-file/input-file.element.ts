@@ -1,8 +1,8 @@
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
 import type { UUIFileDropzoneElement } from '../file-dropzone/file-dropzone.js';
-import { UUIFormControlMixin } from '../../internal/mixins';
-import { demandCustomElement } from '../../internal/utils';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import { iconDelete } from '../icon-registry-essential/svgs/index.js';
 import { repeat } from 'lit/directives/repeat.js';
 

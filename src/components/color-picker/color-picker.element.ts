@@ -9,7 +9,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 
-import { clamp, demandCustomElement } from '../../internal/utils';
+import { clamp, demandCustomElement } from '../../internal/utils/index.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -31,8 +31,8 @@ import type {
 import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.js';
 
 import type { UUIInputElement } from '../input/input.js';
-import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent';
-import { LabelMixin } from '../../internal/mixins';
+import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent.js';
+import { LabelMixin } from '../../internal/mixins/index.js';
 
 const hasEyeDropper = 'EyeDropper' in window;
 

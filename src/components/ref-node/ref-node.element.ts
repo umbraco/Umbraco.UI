@@ -1,4 +1,4 @@
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIRefElement } from '../ref/ref.js';
 import { css, html, nothing } from 'lit';

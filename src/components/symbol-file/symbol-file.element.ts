@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UUITextStyles } from '../../styles';
+import { UUITextStyles } from '../../styles/index.js';
 
 /**
  *  @element uui-file-symbol

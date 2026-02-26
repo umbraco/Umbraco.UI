@@ -1,5 +1,5 @@
-import { UUIEvent } from '../../internal/events';
-import type { UUIPaginationElement } from './pagination.element';
+import { UUIEvent } from '../../internal/events/index.js';
+import type { UUIPaginationElement } from './pagination.element.js';
 
 export class UUIPaginationEvent extends UUIEvent<{}, UUIPaginationElement> {
   public static readonly CHANGE = 'change';

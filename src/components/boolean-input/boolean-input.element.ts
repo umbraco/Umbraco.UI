@@ -1,9 +1,12 @@
-import { UUIFormControlMixin, LabelMixin } from '../../internal/mixins';
+import {
+  UUIFormControlMixin,
+  LabelMixin,
+} from '../../internal/mixins/index.js';
 import type { TemplateResult } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
-import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
+import { UUIBooleanInputEvent } from './UUIBooleanInputEvent.js';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
 

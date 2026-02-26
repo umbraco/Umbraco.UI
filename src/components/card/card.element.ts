@@ -1,9 +1,12 @@
-import { SelectableMixin, SelectOnlyMixin } from '../../internal/mixins';
-import { UUITextStyles } from '../../styles';
+import {
+  SelectableMixin,
+  SelectOnlyMixin,
+} from '../../internal/mixins/index.js';
+import { UUITextStyles } from '../../styles/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { UUICardEvent } from './UUICardEvent';
+import { UUICardEvent } from './UUICardEvent.js';
 
 import '../checkbox/checkbox.js';
 

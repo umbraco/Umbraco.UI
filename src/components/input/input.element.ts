@@ -6,7 +6,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import { UUIInputEvent } from './UUIInputEvent';
+import { UUIInputEvent } from './UUIInputEvent.js';
 
 export type InputType =
   | 'text'

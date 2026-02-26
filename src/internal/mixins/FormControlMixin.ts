@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { UUIFormControlEvent } from '../events';
+import { UUIFormControlEvent } from '../events/index.js';
 
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 

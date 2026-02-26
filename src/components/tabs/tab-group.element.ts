@@ -1,11 +1,11 @@
-import { demandCustomElement } from '../../internal/utils';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import type { UUIButtonElement } from '../button/button.js';
 import type { UUIPopoverContainerElement } from '../popover-container/popover-container.js';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { UUITabElement } from './tab.element';
+import type { UUITabElement } from './tab.element.js';
 
 /**
  * @element uui-tab-group

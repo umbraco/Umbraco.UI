@@ -1,5 +1,5 @@
-import { UUIFormControlMixin } from '../../internal/mixins';
-import { demandCustomElement } from '../../internal/utils';
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { demandCustomElement } from '../../internal/utils/index.js';
 import type { UUIComboboxListElement } from '../combobox-list/combobox-list.js';
 import { UUIComboboxListEvent } from '../combobox-list/combobox-list.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
@@ -12,7 +12,7 @@ import {
   state,
 } from 'lit/decorators.js';
 
-import { UUIComboboxEvent } from './UUIComboboxEvent';
+import { UUIComboboxEvent } from './UUIComboboxEvent.js';
 
 /**
  * @element uui-combobox

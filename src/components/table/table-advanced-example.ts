@@ -8,11 +8,11 @@ import '../progress-bar/progress-bar.js';
 import '../tag/tag.js';
 import '../symbol-sort/symbol-sort.js';
 
-import { UUITextStyles } from '../../styles';
+import { UUITextStyles } from '../../styles/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-import { defineElement } from '../../internal/registration';
+import { defineElement } from '../../internal/registration/index.js';
 
 interface TableColumn {
   name: string;

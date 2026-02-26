@@ -1,5 +1,5 @@
-import { UUIEvent } from '../../internal/events';
-import type { UUISliderElement } from './slider.element';
+import { UUIEvent } from '../../internal/events/index.js';
+import type { UUISliderElement } from './slider.element.js';
 
 export class UUISliderEvent extends UUIEvent<{}, UUISliderElement> {
   public static readonly INPUT = 'input';

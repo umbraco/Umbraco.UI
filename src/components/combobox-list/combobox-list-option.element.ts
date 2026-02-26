@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { ActiveMixin, SelectableMixin } from '../../internal/mixins';
+import { ActiveMixin, SelectableMixin } from '../../internal/mixins/index.js';
 
 /**
  * @element uui-combobox-list-option

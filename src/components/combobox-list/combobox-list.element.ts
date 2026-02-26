@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import { UUISelectableEvent } from '../../internal/events';
-import type { UUIComboboxListOptionElement } from './combobox-list-option.element';
-import { UUIComboboxListEvent } from './UUIComboboxListEvent';
+import { UUISelectableEvent } from '../../internal/events/index.js';
+import type { UUIComboboxListOptionElement } from './combobox-list-option.element.js';
+import { UUIComboboxListEvent } from './UUIComboboxListEvent.js';
 
 /**
  * @element uui-combobox-list

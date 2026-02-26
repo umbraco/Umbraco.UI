@@ -1,5 +1,5 @@
-import { UUIEvent } from '../../internal/events';
-import type { UUIComboboxElement } from './combobox.element';
+import { UUIEvent } from '../../internal/events/index.js';
+import type { UUIComboboxElement } from './combobox.element.js';
 
 export class UUIComboboxEvent extends UUIEvent<UUIComboboxElement> {
   public static readonly SEARCH: string = 'search';

@@ -1,11 +1,11 @@
-import { demandCustomElement, UUITimer } from '../../internal/utils';
-import { UUITextStyles } from '../../styles';
+import { demandCustomElement, UUITimer } from '../../internal/utils/index.js';
+import { UUITextStyles } from '../../styles/index.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
-import { UUIToastNotificationEvent } from './UUIToastNotificationEvent';
-import type { UUIInterfaceColor } from '../../internal';
+import { UUIToastNotificationEvent } from './UUIToastNotificationEvent.js';
+import type { UUIInterfaceColor } from '../../internal/index.js';
 
 /**
  *  @element uui-toast-notification

@@ -1,3 +1,3 @@
-export * from './InterfaceLook';
-export * from './InterfaceColor';
-export * from './InterfaceHeading';
+export * from './InterfaceLook.js';
+export * from './InterfaceColor.js';
+export * from './InterfaceHeading.js';

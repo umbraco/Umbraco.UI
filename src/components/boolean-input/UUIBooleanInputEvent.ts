@@ -1,5 +1,5 @@
-import { UUIEvent } from '../../internal/events';
-import type { UUIBooleanInputElement } from './boolean-input.element';
+import { UUIEvent } from '../../internal/events/index.js';
+import type { UUIBooleanInputElement } from './boolean-input.element.js';
 
 export class UUIBooleanInputEvent extends UUIEvent<{}, UUIBooleanInputElement> {
   public static readonly CHANGE: string = 'change';
