@@ -72,19 +72,19 @@ describe('UUIComboboxElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a prepend slot', () => {
       const slot = element.shadowRoot!.querySelector(
         'slot[name=input-prepend]',
       )!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
     it('renders a append slot', () => {
       const slot = element.shadowRoot!.querySelector(
         'slot[name=input-append]',
       )!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -95,11 +95,11 @@ describe('UUIComboboxElement', () => {
         const list = element.querySelector('uui-combobox-list');
 
         const option = list!.children![0] as any;
-        expect(option).to.exist;
+        expect(option).to.not.equal(null);
         option.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIComboboxEvent.CHANGE);
       });
     });
@@ -116,7 +116,7 @@ describe('UUIComboboxElement', () => {
           .dispatchEvent(new Event('input'));
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIComboboxEvent.SEARCH);
       });
     });
@@ -135,8 +135,8 @@ describe('UUIComboboxElement', () => {
 
       const list = element.querySelector('uui-combobox-list');
       const secondOption = list!.children![1] as any;
-      expect(secondOption).to.exist;
-      expect(secondOption.active).to.be.true;
+      expect(secondOption).to.not.equal(null);
+      expect(secondOption.active).to.equal(true);
     });
 
     it('selects active option when Enter key is pressed', async () => {
@@ -167,7 +167,7 @@ describe('UUIComboboxElement', () => {
       );
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(element.value).to.equal('value2');
     });
   });

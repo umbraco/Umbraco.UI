@@ -33,7 +33,7 @@ describe('UUIIconRegistryEssentialElement', () => {
     });
 
     it('Child uui-icon retrieved some SVG data', () => {
-      expect(iconElement.shadowRoot!.querySelector('svg')).to.exist;
+      expect(iconElement.shadowRoot!.querySelector('svg')).to.not.equal(null);
     });
   });
 });

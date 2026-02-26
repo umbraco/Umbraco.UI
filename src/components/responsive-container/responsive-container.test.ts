@@ -24,17 +24,17 @@ describe('UuiResponsiveContainer', () => {
 
   it('renders a slot for content', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.exist;
+    expect(slot).to.not.equal(null);
   });
 
   it('has a more button', () => {
     const moreButton = element.shadowRoot!.querySelector('#more-button');
-    expect(moreButton).to.exist;
+    expect(moreButton).to.not.equal(null);
   });
 
   it('has a popover container', () => {
     const popover = element.shadowRoot!.querySelector('#popover-container');
-    expect(popover).to.exist;
+    expect(popover).to.not.equal(null);
   });
 
   it('passes the a11y audit', async () => {
@@ -43,12 +43,12 @@ describe('UuiResponsiveContainer', () => {
   it('has an items container', () => {
     const itemsContainer =
       element.shadowRoot!.querySelector('#items-container');
-    expect(itemsContainer).to.exist;
+    expect(itemsContainer).to.not.equal(null);
   });
 
   it('has a main container', () => {
     const main = element.shadowRoot!.querySelector('#main');
-    expect(main).to.exist;
+    expect(main).to.not.equal(null);
   });
 
   describe('collapse property', () => {

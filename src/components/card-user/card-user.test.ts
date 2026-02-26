@@ -55,22 +55,22 @@ describe('UUICardUserElement', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders a tag slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=tag]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an actions slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
 
     it('renders an avatar slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=avatar]')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -79,11 +79,11 @@ describe('UUICardUserElement', () => {
       it('emits a open event when open-part is clicked', async () => {
         const infoElement =
           element.shadowRoot!.querySelector<HTMLElement>('#open-part');
-        expect(infoElement).to.exist;
+        expect(infoElement).to.not.equal(null);
         const listener = oneEvent(element, UUICardEvent.OPEN);
         infoElement!.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUICardEvent.OPEN);
       });
     });
@@ -95,9 +95,9 @@ describe('UUICardUserElement', () => {
         const listener = oneEvent(element, UUISelectableEvent.SELECTED);
         element.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUISelectableEvent.SELECTED);
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
 
       it('can be selected with keyboard', async () => {
@@ -107,9 +107,9 @@ describe('UUICardUserElement', () => {
         const listener = oneEvent(element, UUISelectableEvent.SELECTED);
         element.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUISelectableEvent.SELECTED);
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
 
         const unselectedListener = oneEvent(
           element,
@@ -117,9 +117,9 @@ describe('UUICardUserElement', () => {
         );
         element.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }));
         const event2 = await unselectedListener;
-        expect(event2).to.exist;
+        expect(event2).to.not.equal(null);
         expect(event2.type).to.equal(UUISelectableEvent.DESELECTED);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
     });
 
@@ -131,9 +131,9 @@ describe('UUICardUserElement', () => {
         const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
         element.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUISelectableEvent.DESELECTED);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
     });
   });

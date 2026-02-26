@@ -26,9 +26,9 @@ describe('UUIFormElement', () => {
   });
 
   it('set novalidate attribute on form-element', async () => {
-    await expect(formElement.hasAttribute('novalidate')).to.be.true;
-    await expect(formElement.getAttribute('novalidate')).to.not.be.null;
-    await expect(formElement.getAttribute('novalidate')).to.be.empty;
+    await expect(formElement.hasAttribute('novalidate')).to.equal(true);
+    await expect(formElement.getAttribute('novalidate')).to.not.equal(null);
+    await expect(formElement.getAttribute('novalidate')).to.equal('');
   });
 
   describe('events', () => {
@@ -39,7 +39,7 @@ describe('UUIFormElement', () => {
         formElement.requestSubmit();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('submit');
         expect(event!.target).to.equal(formElement);
       });
@@ -64,7 +64,7 @@ describe('UUIFormElement', () => {
     });
 
     it('does not have "submit-invalid" attribute before submission.', async () => {
-      await expect(formElement.hasAttribute('submit-invalid')).to.be.false;
+      await expect(formElement.hasAttribute('submit-invalid')).to.equal(false);
     });
 
     it('has "submit-invalid" attribute if Form Control was invalid at submission.', async () => {
@@ -73,9 +73,9 @@ describe('UUIFormElement', () => {
       formElement.requestSubmit();
 
       await listener;
-      await expect(formElement.hasAttribute('submit-invalid')).to.be.true;
-      await expect(formElement.getAttribute('submit-invalid')).to.not.be.null;
-      await expect(formElement.getAttribute('submit-invalid')).to.be.empty;
+      await expect(formElement.hasAttribute('submit-invalid')).to.equal(true);
+      await expect(formElement.getAttribute('submit-invalid')).to.not.equal(null);
+      await expect(formElement.getAttribute('submit-invalid')).to.equal('');
     });
 
     it('only has "submit-invalid" attribute if Form Control was invalid at submission.', async () => {
@@ -85,7 +85,7 @@ describe('UUIFormElement', () => {
       formElement.requestSubmit();
 
       await listener;
-      await expect(formElement.hasAttribute('submit-invalid')).to.be.false;
+      await expect(formElement.hasAttribute('submit-invalid')).to.equal(false);
     });
 
     it('"submit-invalid" attribute is removed when form is re-validated and submitted.', async () => {
@@ -94,14 +94,14 @@ describe('UUIFormElement', () => {
       formElement.requestSubmit();
 
       await listener;
-      await expect(formElement.hasAttribute('submit-invalid')).to.be.true;
+      await expect(formElement.hasAttribute('submit-invalid')).to.equal(true);
 
       const listener2 = oneEvent(formElement, 'submit', false);
       input.value = 'something';
       formElement.requestSubmit();
 
       await listener2;
-      await expect(formElement.hasAttribute('submit-invalid')).to.be.false;
+      await expect(formElement.hasAttribute('submit-invalid')).to.equal(false);
     });
   });
 });

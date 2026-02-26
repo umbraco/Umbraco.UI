@@ -46,7 +46,7 @@ describe('UuiTableRow', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 
@@ -58,9 +58,9 @@ describe('UuiTableRow', () => {
         const listener = oneEvent(element, 'selected');
         element.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('selected');
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
     });
   });
@@ -74,14 +74,14 @@ describe('UuiTableRow', () => {
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
       element.click();
-      expect(element.selected).to.be.true;
+      expect(element.selected).to.equal(true);
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
       element.click();
-      expect(element.selected).to.be.false;
+      expect(element.selected).to.equal(false);
     });
   });
 
@@ -95,14 +95,14 @@ describe('UuiTableRow', () => {
     it('can be selected when selectable', async () => {
       await elementUpdated(element);
       element.click();
-      expect(element.selected).to.be.true;
+      expect(element.selected).to.equal(true);
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
       await elementUpdated(element);
       element.click();
-      expect(element.selected).to.be.false;
+      expect(element.selected).to.equal(false);
     });
   });
 });

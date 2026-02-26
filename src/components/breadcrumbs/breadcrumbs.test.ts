@@ -19,13 +19,13 @@ describe('UuiBreadcrumbs', () => {
 
   it('renders a slot', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.exist;
+    expect(slot).to.not.equal(null);
   });
 
   it('sets the last element', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
     const breadcrumb = slot.assignedElements()[2] as UUIBreadcrumbItemElement;
-    expect(breadcrumb.lastItem).to.be.true;
+    expect(breadcrumb.lastItem).to.equal(true);
     expect(breadcrumb.getAttribute('aria-current')).to.equal('page');
   });
 

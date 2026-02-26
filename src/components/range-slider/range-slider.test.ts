@@ -46,8 +46,8 @@ describe('UUIRangeSliderElement', () => {
     it('disable property set input to disabled', async () => {
       element.disabled = true;
       await elementUpdated(element);
-      expect(inputLow.disabled).to.be.true;
-      expect(inputHigh.disabled).to.be.true;
+      expect(inputLow.disabled).to.equal(true);
+      expect(inputHigh.disabled).to.equal(true);
     });
 
     it('has a label property', () => {
@@ -82,7 +82,7 @@ describe('UUIRangeSliderElement', () => {
         const listener = oneEvent(element, UUIRangeSliderEvent.CHANGE);
         inputLow.dispatchEvent(new Event('change'));
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIRangeSliderEvent.CHANGE);
         expect(event!.target).to.equal(element);
       });
@@ -90,7 +90,7 @@ describe('UUIRangeSliderElement', () => {
         const listener = oneEvent(element, UUIRangeSliderEvent.CHANGE);
         inputHigh.dispatchEvent(new Event('change'));
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIRangeSliderEvent.CHANGE);
         expect(event!.target).to.equal(element);
       });
@@ -100,7 +100,7 @@ describe('UUIRangeSliderElement', () => {
         const listener = oneEvent(element, UUIRangeSliderEvent.INPUT);
         inputLow.dispatchEvent(new Event('input'));
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIRangeSliderEvent.INPUT);
         expect(event!.target).to.equal(element);
       });
@@ -108,7 +108,7 @@ describe('UUIRangeSliderElement', () => {
         const listener = oneEvent(element, UUIRangeSliderEvent.INPUT);
         inputHigh.dispatchEvent(new Event('input'));
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIRangeSliderEvent.INPUT);
         expect(event!.target).to.equal(element);
       });
@@ -169,7 +169,7 @@ describe('UUIRangeSlider in a form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.exist;
+      expect(event).to.not.equal(null);
       expect(event.type).to.equal('submit');
       expect(event!.target).to.equal(formElement);
     });

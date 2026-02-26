@@ -98,14 +98,14 @@ describe('UUIMenuItemElement', () => {
         const buttonElement = element.shadowRoot!.querySelector(
           'button#label-button',
         ) as HTMLButtonElement;
-        expect(buttonElement).to.exist;
+        expect(buttonElement).to.not.equal(null);
         buttonElement.click();
 
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal(UUIMenuItemEvent.CLICK_LABEL);
-        expect(event.bubbles).to.be.false;
-        expect(event.composed).to.be.false;
+        expect(event.bubbles).to.equal(false);
+        expect(event.composed).to.equal(false);
         expect(event!.target).to.equal(element);
       });
 
@@ -122,9 +122,9 @@ describe('UUIMenuItemElement', () => {
           const listener = oneEvent(element, UUISelectableEvent.SELECTED);
           labelElement.click();
           const event = await listener;
-          expect(event).to.exist;
+          expect(event).to.not.equal(null);
           expect(event.type).to.equal(UUISelectableEvent.SELECTED);
-          expect(element.selected).to.be.false;
+          expect(element.selected).to.equal(false);
         });
       });
 
@@ -142,9 +142,9 @@ describe('UUIMenuItemElement', () => {
           const listener = oneEvent(element, UUISelectableEvent.DESELECTED);
           labelElement.click();
           const event = await listener;
-          expect(event).to.exist;
+          expect(event).to.not.equal(null);
           expect(event.type).to.equal(UUISelectableEvent.DESELECTED);
-          expect(element.selected).to.be.true;
+          expect(element.selected).to.equal(true);
         });
       });
 
@@ -158,9 +158,9 @@ describe('UUIMenuItemElement', () => {
           const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
           labelElement.click();
           const event = await listener;
-          expect(event).to.exist;
+          expect(event).to.not.equal(null);
           expect(event.type).to.equal(UUIMenuItemEvent.SHOW_CHILDREN);
-          expect(element.showChildren).to.be.true;
+          expect(element.showChildren).to.equal(true);
         });
         it('emits a cancelable show-children event when expanded', async () => {
           element.hasChildren = true;
@@ -174,9 +174,9 @@ describe('UUIMenuItemElement', () => {
           const listener = oneEvent(element, UUIMenuItemEvent.SHOW_CHILDREN);
           labelElement.click();
           const event = await listener;
-          expect(event).to.exist;
+          expect(event).to.not.equal(null);
           expect(event.type).to.equal(UUIMenuItemEvent.SHOW_CHILDREN);
-          expect(element.showChildren).to.be.false;
+          expect(element.showChildren).to.equal(false);
         });
       });
 
@@ -191,9 +191,9 @@ describe('UUIMenuItemElement', () => {
           const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
           labelElement.click();
           const event = await listener;
-          expect(event).to.exist;
+          expect(event).to.not.equal(null);
           expect(event.type).to.equal(UUIMenuItemEvent.HIDE_CHILDREN);
-          expect(element.showChildren).to.be.false;
+          expect(element.showChildren).to.equal(false);
         });
         it('emits a cancelable hide-children event when collapsed', async () => {
           element.hasChildren = true;
@@ -208,9 +208,9 @@ describe('UUIMenuItemElement', () => {
           const listener = oneEvent(element, UUIMenuItemEvent.HIDE_CHILDREN);
           labelElement.click();
           const event = await listener;
-          expect(event).to.exist;
+          expect(event).to.not.equal(null);
           expect(event.type).to.equal(UUIMenuItemEvent.HIDE_CHILDREN);
-          expect(element.showChildren).to.be.true;
+          expect(element.showChildren).to.equal(true);
         });
       });
     });
@@ -218,27 +218,27 @@ describe('UUIMenuItemElement', () => {
     describe('template', () => {
       it('renders a default slot', () => {
         const slot = element.shadowRoot!.querySelector('slot')!;
-        expect(slot).to.exist;
+        expect(slot).to.not.equal(null);
       });
 
       it('renders an icon slot', () => {
         const slot = element.shadowRoot!.querySelector('slot[name=icon]')!;
-        expect(slot).to.exist;
+        expect(slot).to.not.equal(null);
       });
 
       it('renders an actions slot', () => {
         const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
-        expect(slot).to.exist;
+        expect(slot).to.not.equal(null);
       });
 
       it('renders a button', () => {
         const slot = element.shadowRoot!.querySelector('button')!;
-        expect(slot).to.exist;
+        expect(slot).to.not.equal(null);
       });
       it('renders a anchor tag when href is defined', () => {
         element.setAttribute('href', 'https://www.umbraco.com');
         const slot = element.shadowRoot!.querySelector('button')!;
-        expect(slot).to.exist;
+        expect(slot).to.not.equal(null);
       });
     });
 
@@ -251,7 +251,7 @@ describe('UUIMenuItemElement', () => {
           element.shadowRoot!.querySelector('#caret-button');
         caretIconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('show-children');
         expect(element.hasAttribute('show-children')).to.equal(true);
       });
@@ -265,7 +265,7 @@ describe('UUIMenuItemElement', () => {
           element.shadowRoot!.querySelector('#caret-button');
         caretIconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('hide-children');
         expect(element.hasAttribute('show-children')).to.equal(false);
       });
@@ -292,21 +292,21 @@ describe('UUIMenuItemElement', () => {
       it('can be selected when selectable', async () => {
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
 
       it('can not be selected when not selectable', async () => {
         element.selectable = false;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can not be selected when disabled', async () => {
         element.disabled = true;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can expand', async () => {
@@ -317,7 +317,7 @@ describe('UUIMenuItemElement', () => {
           element.shadowRoot!.querySelector('#caret-button');
         caretIconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('show-children');
         expect(element.hasAttribute('show-children')).to.equal(true);
       });
@@ -345,21 +345,21 @@ describe('UUIMenuItemElement', () => {
       it('can be selected when selectable', async () => {
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
 
       it('can not be selected when not selectable', async () => {
         element.selectable = false;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can not be selected when disabled', async () => {
         element.disabled = true;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can expand', async () => {
@@ -370,7 +370,7 @@ describe('UUIMenuItemElement', () => {
           element.shadowRoot!.querySelector('#caret-button');
         caretIconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('show-children');
         expect(element.hasAttribute('show-children')).to.equal(true);
       });
@@ -440,7 +440,7 @@ describe('UUIMenuItemElement', () => {
       it('can be selected when selectable', async () => {
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
 
       it('can not be selected when not selectable', async () => {
@@ -449,7 +449,7 @@ describe('UUIMenuItemElement', () => {
         element.selectable = false;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
         */
       });
 
@@ -457,7 +457,7 @@ describe('UUIMenuItemElement', () => {
         element.disabled = true;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can expand', async () => {
@@ -468,7 +468,7 @@ describe('UUIMenuItemElement', () => {
           element.shadowRoot!.querySelector('#caret-button');
         caretIconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('show-children');
         expect(element.hasAttribute('show-children')).to.equal(true);
       });
@@ -485,21 +485,21 @@ describe('UUIMenuItemElement', () => {
       it('can be selected when selectable', async () => {
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.true;
+        expect(element.selected).to.equal(true);
       });
 
       it('can not be selected when not selectable', async () => {
         element.selectable = false;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can not be selected when disabled', async () => {
         element.disabled = true;
         await elementUpdated(element);
         await mouse.leftClick(element);
-        expect(element.selected).to.be.false;
+        expect(element.selected).to.equal(false);
       });
 
       it('can expand', async () => {
@@ -510,7 +510,7 @@ describe('UUIMenuItemElement', () => {
           element.shadowRoot!.querySelector('#caret-button');
         caretIconElement?.click();
         const event = await listener;
-        expect(event).to.exist;
+        expect(event).to.not.equal(null);
         expect(event.type).to.equal('show-children');
         expect(element.hasAttribute('show-children')).to.equal(true);
       });

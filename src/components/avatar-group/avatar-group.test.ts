@@ -10,7 +10,7 @@ describe('UuiAvatarGroup', () => {
 
   it('renders a slot', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.exist;
+    expect(slot).to.not.equal(null);
   });
 
   it('renders correct numbers of avatars', async () => {
@@ -41,7 +41,7 @@ describe('UuiAvatarGroup', () => {
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.exist;
+      expect(slot).to.not.equal(null);
     });
   });
 });
@@ -68,7 +68,8 @@ describe('UuiAvatarGroup Limit', async () => {
 
   it('Shows the limit text when there are more avatars than the set limit', () => {
     const small = avatarGroup.shadowRoot!.querySelector('small');
-    expect(small).to.exist.and.have.text('+2');
+    expect(small).to.not.equal(null);
+    expect(small).to.have.text('+2');
   });
 
   it('Does not show limit text when not set', async () => {
@@ -80,6 +81,6 @@ describe('UuiAvatarGroup Limit', async () => {
     );
 
     const small = avatarGroup.shadowRoot!.querySelector('small');
-    expect(small).to.not.exist;
+    expect(small).to.equal(null);
   });
 });
