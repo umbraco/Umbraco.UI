@@ -20,7 +20,7 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "useDefineForClassFields": false,
-    "types": ["vite/client"]
+    "types": ["vite/client", "mocha", "chai"]
   },
   "include": ["src/**/*.ts"]
 }
