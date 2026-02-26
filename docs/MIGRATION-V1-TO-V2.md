@@ -27,6 +27,22 @@ These deprecated components were removed in v2:
 - `uui-caret` — replaced by `uui-symbol-expand`
 - `uui-popover` — replaced by `uui-popover-container` (native Popover API)
 
+## Automated migration
+
+Use the `@umbraco-ui/codemod` package to automatically rewrite your imports:
+
+```bash
+# Dry-run (preview changes without applying)
+npx @umbraco-ui/codemod --target 2.0.0 ./src
+
+# Apply changes
+npx @umbraco-ui/codemod --target 2.0.0 --write ./src
+```
+
+This handles component imports, foundation/CSS imports, re-exports, and dynamic `import()` calls. See the [codemod README](../codemod/README.md) for full details.
+
+After running the codemod, follow the remaining manual steps below (dependency cleanup, theme references, removed components, Lit upgrade).
+
 ## Step-by-step migration
 
 ### 1. Update your dependencies
