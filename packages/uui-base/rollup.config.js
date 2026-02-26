@@ -9,5 +9,6 @@ export default UUIProdConfig({
     'types/index',
     'registration/index',
     'utils/index',
+    'version',
   ],
 });
