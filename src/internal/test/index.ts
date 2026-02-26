@@ -1,4 +1,4 @@
-import { userEvent } from '@vitest/browser/context';
+import { userEvent } from 'vitest/browser';
 
 export class UUITestMouse {
   leftClick(targetElement: HTMLElement) {
