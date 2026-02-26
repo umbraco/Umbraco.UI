@@ -29,6 +29,7 @@ declare global {
  * @cssprop --uui-select-border-color - Border color
  * @cssprop --uui-select-border-color-hover - Border color on hover
  * @cssprop --uui-select-border-color-readonly - Border color when readonly
+ * @cssprop --uui-select-border-color-disabled - Border color when disabled
  * @cssprop --uui-select-selected-option-background-color - Background color of the selected option
  * @cssprop --uui-select-selected-option-color - Color of the selected option
  * @cssprop --uui-select-outline-color - Outline color
