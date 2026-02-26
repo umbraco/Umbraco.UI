@@ -126,10 +126,8 @@
     "web-component-analyzer": "2.0.0"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --cache --fix",
-      "tsc-files --project tsconfig.lint-staged.json"
-    ],
+    "*.ts": "eslint --cache --fix",
+    "*.element.ts": "tsc-files --project tsconfig.lint-staged.json",
     "*": "prettier --ignore-unknown --write"
   },
   "storybook": {
