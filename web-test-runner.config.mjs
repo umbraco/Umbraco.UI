@@ -4,13 +4,15 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 const silencedLogs = [
   'Lit is in dev mode.',
   'Multiple versions of Lit loaded.',
+  'Multiple versions of Umbraco UI detected',
+  'Multiple instances of Umbraco UI',
 ];
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   nodeResolve: true,
   files: 'packages/**/*.test.ts',
-  plugins: [esbuildPlugin({ ts: true, target: 'auto-always' })],
+  plugins: [esbuildPlugin({ ts: true, json: true, target: 'auto-always' })],
   browsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),

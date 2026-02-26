@@ -1,11 +1,15 @@
 import { version } from '../package.json';
 
+declare global {
+  var __uuiVersions: string[] | undefined;
+}
+
 export const UUI_VERSION = version;
 
-(globalThis as any).__uuiVersions ??= [];
-(globalThis as any).__uuiVersions.push(UUI_VERSION);
+globalThis.__uuiVersions ??= [];
+globalThis.__uuiVersions.push(UUI_VERSION);
 
-const versions: string[] = (globalThis as any).__uuiVersions;
+const versions = globalThis.__uuiVersions;
 if (versions.length > 1) {
   const unique = [...new Set(versions)];
   if (unique.length > 1) {
