@@ -1,6 +1,8 @@
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { ref } from 'lit/directives/ref.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { iconCheck } from '../icon-registry-essential/svgs/index.js';
 import {
   ActiveMixin,
@@ -21,6 +23,9 @@ export class UUIColorSwatchElement extends LabelMixin(
   'label',
   SelectableMixin(ActiveMixin(LitElement)),
 ) {
+  @state()
+  private _contrast: 'dark' | 'light' | undefined = undefined;
+
   /**
    * Value of the swatch. This will become the color value if color is left undefined, see the property `color` for more details.
    */
@@ -88,6 +93,21 @@ export class UUIColorSwatchElement extends LabelMixin(
 
   firstUpdated() {
     this._setAriaAttributes();
+
+    const color = this.color ?? this.value;
+    if (color.startsWith('#')) {
+      this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
+    } else if (color.startsWith('rgb')) {
+      const [r, g, b, a] = color.match(/[.\d]+/g)?.map(Number) ?? [0, 0, 0];
+      if (a <= 0.5) {
+        this._contrast = 'light';
+      } else {
+        this._contrast =
+          this.#contrast(this.#rgbToHex(r, g, b)) === 'light'
+            ? 'light'
+            : 'dark';
+      }
+    }
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -116,7 +136,41 @@ export class UUIColorSwatchElement extends LabelMixin(
     this.selectableTarget = button || this;
   }
 
+  #contrast(hex: string): string {
+    const rgb = this.#hexToRgb(hex);
+    const o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
+
+    return o <= 180 ? 'dark' : 'light';
+  }
+
+  #hexToRgb(hex: string): number[] {
+    hex = hex.startsWith('#') ? hex.slice(1) : hex;
+    if (hex.length === 3) {
+      hex = Array.from(hex).reduce((str, x) => str + x + x, ''); // 123 -> 112233
+    }
+
+    const bigint = Number.parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return [r, g, b];
+  }
+
+  readonly #rgbToHex = (
+    r: number,
+    g: number,
+    b: number,
+    hash: '#' | '' = '',
+  ): string => hash + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+
   render() {
+    const classes = {
+      [`color-swatch--${this._contrast}`]: this._contrast !== undefined,
+    };
+    const styles = {
+      color: `var(--uui-swatch-color, ${this.color ?? this.value})`,
+    };
     return html`
       <button
         id="swatch"
@@ -124,14 +178,12 @@ export class UUIColorSwatchElement extends LabelMixin(
         aria-label=${this.label}
         ?disabled="${this.disabled}"
         title="${this.label}">
-        <div class="color-swatch color-swatch--transparent-bg">
-          <div
-            class="color-swatch__color"
-            style="background: var(--uui-swatch-color, ${this.color ??
-            this.value})"></div>
-          <div
-            class="color-swatch__check"
-            style="color: var(--uui-swatch-color, ${this.color ?? this.value})">
+        <div
+          class="color-swatch color-swatch--transparent-bg ${classMap(
+            classes,
+          )}">
+          <div class="color-swatch__color" style=${styleMap(styles)}></div>
+          <div class="color-swatch__check" style=${styleMap(styles)}>
             ${iconCheck}
           </div>
         </div>
@@ -199,6 +251,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         padding: 0;
         margin: 0;
         text-align: left;
+        border: 1px solid #ccc;
         border-radius: var(--uui-size-4);
       }
 
@@ -241,6 +294,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 2px;
       }
 
       :host([show-label]) .color-swatch {
@@ -283,6 +337,16 @@ export class UUIColorSwatchElement extends LabelMixin(
         pointer-events: none;
         opacity: 0;
         border-radius: inherit;
+      }
+
+      .color-swatch.color-swatch--light .color-swatch__check {
+        color: #000 !important;
+        filter: none;
+      }
+
+      .color-swatch.color-swatch--dark .color-swatch__check {
+        color: #fff !important;
+        filter: none;
       }
 
       :host([selected]) .color-swatch__check {
