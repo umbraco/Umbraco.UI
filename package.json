@@ -1,7 +1,7 @@
 {
   "name": "@umbraco-ui/uui",
   "version": "2.0.0-alpha",
-  "description": "The Umbraco UI Library — web components for the Umbraco backoffice.",
+  "description": "The Umbraco UI Library \u2014 web components for the Umbraco backoffice.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -72,7 +72,8 @@
     "npm": ">=11"
   },
   "dependencies": {
-    "lit": "^3.0.0"
+    "lit": "^3.0.0",
+    "colord": "^2.9.3"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.0.1",
@@ -96,7 +97,6 @@
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.1",
     "chromatic": "^15.2.0",
-    "colord": "^2.9.3",
     "eslint": "10.0.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "^2.32.0",
