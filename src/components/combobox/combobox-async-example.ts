@@ -38,7 +38,9 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
   @state()
   _filterValue: string = '';
 
-  private _fetchData = async (searchParam: string): Promise<Array<Fruit>> => {
+  private readonly _fetchData = async (
+    searchParam: string,
+  ): Promise<Array<Fruit>> => {
     this._loading = true;
     return await new Promise(res =>
       setTimeout(() => {
@@ -54,7 +56,7 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
     );
   };
 
-  private _handleSearch = async (e: any) => {
+  private readonly _handleSearch = async (e: any) => {
     this._filterValue = e.target.search;
     const response = await this._fetchData(this._filterValue);
     this._options = [...response];

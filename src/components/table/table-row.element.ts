@@ -27,7 +27,7 @@ export class UUITableRowElement extends SelectOnlyMixin(
     flatten: true,
     selector: 'uui-table-cell, [uui-table-cell], [role=cell]',
   })
-  private slotCellNodes?: unknown[];
+  private readonly slotCellNodes?: unknown[];
 
   protected updated(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('selectOnly')) {

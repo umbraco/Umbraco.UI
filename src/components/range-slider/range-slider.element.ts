@@ -283,19 +283,19 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   /** Elements */
 
   @query('#range-slider')
-  private _outerTrack!: HTMLElement;
+  private readonly _outerTrack!: HTMLElement;
 
   @query('#inputLow')
-  private _inputLow!: HTMLInputElement;
+  private readonly _inputLow!: HTMLInputElement;
 
   @query('#inputHigh')
-  private _inputHigh!: HTMLInputElement;
+  private readonly _inputHigh!: HTMLInputElement;
 
   @query('.color')
-  private _innerColor!: HTMLElement;
+  private readonly _innerColor!: HTMLElement;
 
   @query('#inner-color-thumb')
-  private _innerColorThumb!: HTMLElement;
+  private readonly _innerColorThumb!: HTMLElement;
 
   /** Constructor and Validator */
 

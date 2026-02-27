@@ -1,12 +1,14 @@
 import './button-group.js';
-import { html, fixture, expect } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import { UUIButtonGroupElement } from './button-group.element';
 import '../button/button.js';
 
 describe('UuiButtonGroup', () => {
   let element: UUIButtonGroupElement;
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-button-group
         ><uui-button label="My label">Hello uui-button</uui-button
         ><uui-button label="My label">Hello uui-button</uui-button
@@ -14,19 +16,21 @@ describe('UuiButtonGroup', () => {
           >Hello uui-button</uui-button
         ></uui-button-group
       >
-    `);
+    `).container.querySelector('uui-button-group')!;
+
+    await element.updateComplete;
   });
 
   it('is defined', () => {
-    expect(element).to.be.instanceOf(UUIButtonGroupElement);
+    expect(element).toBeInstanceOf(UUIButtonGroupElement);
   });
 
   it('renders a slot', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.not.equal(null);
+    expect(slot).not.toBe(null);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 });

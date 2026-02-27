@@ -1,50 +1,48 @@
 import './button.js';
-import {
-  elementUpdated,
-  expect,
-  fixture,
-  html,
-  oneEvent,
-} from '@open-wc/testing';
-import { UUIInterfaceColorValues } from '../../internal/types/InterfaceColor';
-import { UUIInterfaceLookValues } from '../../internal/types/InterfaceLook';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { page } from 'vitest/browser';
 
-import { UUIButtonElement } from './button.element';
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
+import { UUIInterfaceColorValues } from '../../internal/types/InterfaceColor.js';
+import { UUIInterfaceLookValues } from '../../internal/types/InterfaceLook.js';
+import { UUIButtonElement } from './button.element.js';
 
 describe('UuiButton', () => {
   let formElement: HTMLFormElement;
   let inputElement: HTMLInputElement;
   let element: UUIButtonElement;
-  let button: HTMLButtonElement;
 
-  beforeEach(async () => {
-    formElement = await fixture(html`
+  beforeEach(() => {
+    const screen = render(html`
       <form action="">
         <input type="text" name="test" value="" />
         <uui-button label="My label">Hello uui-button</uui-button>
       </form>
     `);
 
-    inputElement = formElement.querySelector('input') as any;
-    element = formElement.querySelector('uui-button') as any;
-    button = element.shadowRoot!.querySelector('button') as any;
+    formElement = screen.container.querySelector('form')!;
+    inputElement = formElement.querySelector('input')!;
+    element = formElement.querySelector('uui-button')!;
   });
 
   it('is defined', () => {
-    expect(element).to.be.instanceOf(UUIButtonElement);
+    expect(element).toBeInstanceOf(UUIButtonElement);
   });
 
-  it('renders a slot', () => {
-    const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.not.equal(null);
+  it('renders a button inside shadow DOM', async () => {
+    await expect
+      .element(page.elementLocator(element).getByRole('button'))
+      .toBeInTheDocument();
   });
 
-  it('passes the a11y audit', async () => {
+  it('passes the a11y audit', { timeout: 30000 }, async () => {
     for (const color of UUIInterfaceColorValues) {
       for (const look of UUIInterfaceLookValues) {
         for (const disabled of [true, false]) {
-          element = await fixture(
-            html` <uui-button
+          const screen = render(
+            html`<uui-button
               label="Continue"
               .disabled=${disabled}
               .look=${look}
@@ -52,98 +50,98 @@ describe('UuiButton', () => {
               Continue
             </uui-button>`,
           );
-          await expect(element).to.be.accessible();
+          const el = screen.container.querySelector('uui-button')!;
+          expect(await axeRun(el)).toHaveNoViolations();
         }
       }
     }
-  }).timeout(30000);
+  });
 
   describe('properties', () => {
     it('has a label property', () => {
-      expect(element).to.have.property('label');
+      expect(element).toHaveProperty('label');
     });
 
     it('has a type property', () => {
-      expect(element).to.have.property('type');
+      expect(element).toHaveProperty('type');
     });
     it('type property defaults to "button"', () => {
-      expect(element.type).to.equal('button');
+      expect(element.type).toBe('button');
     });
 
     it('has a disable property', () => {
-      expect(element).to.have.property('disabled');
+      expect(element).toHaveProperty('disabled');
     });
     it('disable property defaults to false', () => {
-      expect(element.disabled).to.false;
+      expect(element.disabled).toBe(false);
     });
 
     it('has a look property', () => {
-      expect(element).to.have.property('look');
+      expect(element).toHaveProperty('look');
     });
 
     it('has a compact property', () => {
-      expect(element).to.have.property('compact');
+      expect(element).toHaveProperty('compact');
     });
     it('compact property defaults to false', () => {
-      expect(element.compact).to.false;
+      expect(element.compact).toBe(false);
     });
 
     it('has a state property', () => {
-      expect(element).to.have.property('state');
+      expect(element).toHaveProperty('state');
     });
 
     it('has a href property', () => {
-      expect(element).to.have.property('href');
+      expect(element).toHaveProperty('href');
     });
 
     it('has a target property', () => {
-      expect(element).to.have.property('target');
+      expect(element).toHaveProperty('target');
     });
 
     it('has a rel property', () => {
-      expect(element).to.have.property('rel');
+      expect(element).toHaveProperty('rel');
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBeNull();
     });
     it('renders a extra slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=extra]')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBeNull();
     });
     it('renders a button', () => {
-      const slot = element.shadowRoot!.querySelector('button')!;
-      expect(slot).to.not.equal(null);
+      const btn = element.shadowRoot!.querySelector('button')!;
+      expect(btn).not.toBeNull();
     });
     it('label property is used when no default slot is provided', async () => {
-      const element = await fixture(
-        html` <uui-button label="My label"></uui-button>`,
-      );
-      expect(element.shadowRoot?.textContent).to.include('My label');
+      const screen = render(html`<uui-button label="My label"></uui-button>`);
+      await expect.element(screen.getByText('My label')).toBeInTheDocument();
     });
     it('default slot takes precedence over label property', async () => {
       element.label = 'My label';
-      await elementUpdated(element);
+      await element.updateComplete;
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot.assignedNodes().length).to.equal(1);
-      expect(slot.assignedNodes()[0].textContent).to.equal('Hello uui-button');
+      expect(slot.assignedNodes().length).toBe(1);
+      expect(slot.assignedNodes()[0].textContent).toBe('Hello uui-button');
     });
   });
 
   describe('events', () => {
-    describe('click', async () => {
+    describe('click', () => {
       it('emits a click event when native button fires one', async () => {
-        const listener = oneEvent(element, 'click', false);
+        const button = element.shadowRoot!.querySelector('button')!;
+        const listener = oneEvent(element, 'click');
 
         button.click();
 
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('click');
-        expect(event!.target).to.equal(element);
+        expect(event).not.toBeNull();
+        expect(event.type).toBe('click');
+        expect(event.target).toBe(element);
       });
     });
   });
@@ -151,7 +149,7 @@ describe('UuiButton', () => {
   describe('submit', () => {
     let wasSubmitted: boolean;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       wasSubmitted = false;
 
       formElement.addEventListener('submit', event => {
@@ -160,21 +158,22 @@ describe('UuiButton', () => {
       });
     });
 
-    it('does not submit a form by default', async () => {
-      await element.click();
-      expect(wasSubmitted).to.false;
+    it('does not submit a form by default', () => {
+      element.click();
+      expect(wasSubmitted).toBe(false);
     });
 
     it('can submit a form when type is submit', async () => {
       element.setAttribute('type', 'submit');
+      await element.updateComplete;
       await element.click();
-      expect(wasSubmitted).to.true;
+      expect(wasSubmitted).toBe(true);
     });
 
-    it('does not submit when disabled', async () => {
+    it('does not submit when disabled', () => {
       element.disabled = true;
-      await element.click();
-      expect(wasSubmitted).to.false;
+      element.click();
+      expect(wasSubmitted).toBe(false);
     });
   });
 
@@ -183,6 +182,7 @@ describe('UuiButton', () => {
 
     beforeEach(async () => {
       element.setAttribute('type', 'reset');
+      await element.updateComplete;
       inputElement.value = 'Test value';
 
       wasReset = false;
@@ -194,20 +194,20 @@ describe('UuiButton', () => {
 
     it('can reset a form when type is reset', async () => {
       await element.click();
-      expect(wasReset).to.true;
+      expect(wasReset).toBe(true);
 
       const formData = new FormData(formElement);
-      expect(formData.get('test')).to.equal('');
+      expect(formData.get('test')).toBe('');
     });
 
-    it('does not reset when disabled', async () => {
+    it('does not reset when disabled', () => {
       element.disabled = true;
 
-      await element.click();
-      expect(wasReset).to.false;
+      element.click();
+      expect(wasReset).toBe(false);
 
       const formData = new FormData(formElement);
-      expect(formData.get('test')).to.equal('Test value');
+      expect(formData.get('test')).toBe('Test value');
     });
   });
 
@@ -217,6 +217,7 @@ describe('UuiButton', () => {
     beforeEach(async () => {
       wasClicked = false;
       element.setAttribute('type', 'button');
+      await element.updateComplete;
 
       element.addEventListener('click', () => {
         wasClicked = true;
@@ -225,13 +226,13 @@ describe('UuiButton', () => {
 
     it('dispatches click event when type is button', async () => {
       await element.click();
-      expect(wasClicked).to.true;
+      expect(wasClicked).toBe(true);
     });
 
-    it('does not click when disabled', async () => {
+    it('does not click when disabled', () => {
       element.disabled = true;
-      await element.click();
-      expect(wasClicked).to.false;
+      element.click();
+      expect(wasClicked).toBe(false);
     });
   });
 
@@ -240,52 +241,52 @@ describe('UuiButton', () => {
     let element: UUIButtonElement;
 
     beforeEach(async () => {
-      element = await fixture(
+      const screen = render(
         html`<uui-button
           label="menuitem"
           href="https://www.umbraco.com"></uui-button>`,
       );
+      element = screen.container.querySelector('uui-button')!;
+      await element.updateComplete;
       anchorElement = element.shadowRoot!.querySelector(
         '#button',
       ) as HTMLElement;
     });
 
     it('anchor element is defined', () => {
-      expect(anchorElement).to.be.instanceOf(HTMLElement);
+      expect(anchorElement).toBeInstanceOf(HTMLElement);
     });
 
     it('label is rendered as an anchor tag', async () => {
-      await elementUpdated(element);
-      expect(anchorElement.nodeName).to.be.equal('A');
+      await element.updateComplete;
+      expect(anchorElement.nodeName).toBe('A');
     });
 
     it('target is applied to anchor tag', async () => {
       element.target = '_self';
-      await elementUpdated(element);
-      expect(anchorElement.getAttribute('target')).to.be.equal('_self');
+      await element.updateComplete;
+      expect(anchorElement.getAttribute('target')).toBe('_self');
     });
 
     it('when target is _blank and rel is not defined rel attribute is set.', async () => {
       element.target = '_blank';
-      await elementUpdated(element);
-      expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
-      expect(anchorElement.getAttribute('rel')).to.be.equal(
-        'noopener noreferrer',
-      );
+      await element.updateComplete;
+      expect(anchorElement.getAttribute('target')).toBe('_blank');
+      expect(anchorElement.getAttribute('rel')).toBe('noopener noreferrer');
     });
 
     it('when rel is applied to anchor tag.', async () => {
       element.rel = 'noreferrer';
-      await elementUpdated(element);
-      expect(anchorElement.getAttribute('rel')).to.be.equal('noreferrer');
+      await element.updateComplete;
+      expect(anchorElement.getAttribute('rel')).toBe('noreferrer');
     });
 
     it('when target is _blank and rel is defined rel attribute is set.', async () => {
       element.target = '_blank';
       element.rel = 'noopener';
-      await elementUpdated(element);
-      expect(anchorElement.getAttribute('target')).to.be.equal('_blank');
-      expect(anchorElement.getAttribute('rel')).to.be.equal('noopener');
+      await element.updateComplete;
+      expect(anchorElement.getAttribute('target')).toBe('_blank');
+      expect(anchorElement.getAttribute('rel')).toBe('noopener');
     });
   });
 });

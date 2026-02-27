@@ -16,7 +16,7 @@ import { UUIRadioEvent } from './UUIRadioEvent.js';
  */
 export class UUIRadioElement extends LitElement {
   @query('#input')
-  private _inputElement!: HTMLInputElement;
+  private readonly _inputElement!: HTMLInputElement;
 
   /**
    * This is a name property of the `<uui-radio>` component. It reflects the behaviour of the native `<input />` element and its name attribute.

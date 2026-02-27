@@ -91,7 +91,7 @@ export class UUIToastNotificationElement extends LitElement {
   };
 
   @query('#toast')
-  private _toastEl!: HTMLElement;
+  private readonly _toastEl!: HTMLElement;
   private _timer: UUITimer | null = null;
   private _pauseTimer: boolean = false;
 

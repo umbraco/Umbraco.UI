@@ -1,32 +1,36 @@
-import { html, fixture, expect } from '@open-wc/testing';
 import { UUITagElement } from './tag.element';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import './tag.js';
 
 describe('UuiTag', () => {
   let element: UUITagElement;
   beforeEach(async () => {
-    element = await fixture(html` <uui-tag>Tag description</uui-tag> `);
+    element = render(html` <uui-tag>Tag description</uui-tag> `).container.querySelector('uui-tag')!;
+
+    await element.updateComplete;
   });
 
   it('renders a slot', () => {
     const slot = element.shadowRoot!.querySelector('slot')!;
-    expect(slot).to.not.equal(null);
+    expect(slot).not.toBe(null);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('properties', () => {
     it('has a color property', () => {
-      expect(element).to.have.property('color');
+      expect(element).toHaveProperty('color');
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 });

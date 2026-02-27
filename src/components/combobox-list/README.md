@@ -21,7 +21,10 @@ import '@umbraco-ui/uui/components/combobox-list/combobox-list.js';
 When looking to leverage the `UUIComboboxListOptionElement` and `UUIComboboxListElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIComboboxListOptionElement, UUIComboboxListElement } from '@umbraco-ui/uui/components/combobox-list/combobox-list.js';
+import {
+  UUIComboboxListOptionElement,
+  UUIComboboxListElement,
+} from '@umbraco-ui/uui/components/combobox-list/combobox-list.js';
 ```
 
 Alternatively, if you have already imported the full library, the element will be registered automatically:

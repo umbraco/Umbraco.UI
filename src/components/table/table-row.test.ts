@@ -1,11 +1,9 @@
 import './table.js';
-import {
-  elementUpdated,
-  expect,
-  fixture,
-  html,
-  oneEvent,
-} from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import './table.element';
 import './table-row.element';
@@ -17,7 +15,7 @@ describe('UuiTableRow', () => {
   let tableElement: HTMLElement;
 
   beforeEach(async () => {
-    tableElement = await fixture(html`
+    tableElement = render(html`
       <uui-table>
         <uui-table-row>
           <uui-table-cell>Cell 1</uui-table-cell>
@@ -25,28 +23,30 @@ describe('UuiTableRow', () => {
           <uui-table-cell>Cell 3</uui-table-cell>
         </uui-table-row>
       </uui-table>
-    `);
+    `).container.querySelector('uui-table')!;
+
+    await tableElement.updateComplete;
     element = tableElement.querySelector('uui-table-row')!;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(tableElement).shadowDom.to.be.accessible();
+    expect(await axeRun(tableElement)).toHaveNoViolations();
   });
 
   it('is defined as its own instance', () => {
-    expect(element).to.be.instanceOf(UUITableRowElement);
+    expect(element).toBeInstanceOf(UUITableRowElement);
   });
 
   describe('properties', () => {
     it('has an selectable property', () => {
-      expect(element).to.have.property('selectable');
+      expect(element).toHaveProperty('selectable');
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 
@@ -54,13 +54,13 @@ describe('UuiTableRow', () => {
     describe('selectable', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
-        await elementUpdated(element);
+        await element.updateComplete;
         const listener = oneEvent(element, 'selected');
         element.click();
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('selected');
-        expect(element.selected).to.equal(true);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe('selected');
+        expect(element.selected).toBe(true);
       });
     });
   });
@@ -72,16 +72,16 @@ describe('UuiTableRow', () => {
     });
 
     it('can be selected when selectable', async () => {
-      await elementUpdated(element);
+      await element.updateComplete;
       element.click();
-      expect(element.selected).to.equal(true);
+      expect(element.selected).toBe(true);
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
-      await elementUpdated(element);
+      await element.updateComplete;
       element.click();
-      expect(element.selected).to.equal(false);
+      expect(element.selected).toBe(false);
     });
   });
 
@@ -93,16 +93,16 @@ describe('UuiTableRow', () => {
     });
 
     it('can be selected when selectable', async () => {
-      await elementUpdated(element);
+      await element.updateComplete;
       element.click();
-      expect(element.selected).to.equal(true);
+      expect(element.selected).toBe(true);
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
-      await elementUpdated(element);
+      await element.updateComplete;
       element.click();
-      expect(element.selected).to.equal(false);
+      expect(element.selected).toBe(false);
     });
   });
 });

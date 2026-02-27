@@ -106,7 +106,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   ) => `Maximum ${max} characters, ${current - max} too many.`;
 
   @query('#textarea')
-  protected _textarea!: HTMLInputElement;
+  protected readonly _textarea!: HTMLInputElement;
 
   /**
    * Enables automatic height adjustment. The height will be confined within the min and max height if defined.

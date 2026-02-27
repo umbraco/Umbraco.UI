@@ -1,4 +1,10 @@
-import type { API, FileInfo, Options, ASTPath, ImportDeclaration } from 'jscodeshift';
+import type {
+  API,
+  FileInfo,
+  Options,
+  ASTPath,
+  ImportDeclaration,
+} from 'jscodeshift';
 
 const REMOVED_COMPONENTS: Record<string, string> = {
   'uui-caret': 'uui-symbol-expand',
@@ -17,8 +23,9 @@ function mapSource(source: string): MapResult {
   }
 
   // Match @umbraco-ui/uui-{name} with optional /lib/{file} (strip trailing .js)
-  const match =
-    /^@umbraco-ui\/uui-([^/]+?)(?:\/lib\/(.+?)(?:\.js)?)?$/.exec(source);
+  const match = /^@umbraco-ui\/uui-([^/]+?)(?:\/lib\/(.+?)(?:\.js)?)?$/.exec(
+    source,
+  );
   if (!match) return { target: null };
 
   const [, name, libFile] = match;
@@ -172,35 +179,39 @@ export default function transform(
   // --- Dynamic imports: import('...') ---
   // tsx parser: CallExpression with callee.type === 'Import'
 
-  root
-    .find(j.CallExpression, { callee: { type: 'Import' } })
-    .forEach(path => {
-      const arg = path.node.arguments[0];
-      if (!arg) return;
+  root.find(j.CallExpression, { callee: { type: 'Import' } }).forEach(path => {
+    const arg = path.node.arguments[0];
+    if (!arg) return;
 
-      let source: string | null = null;
-      if (arg.type === 'StringLiteral') {
-        source = arg.value;
-      } else if (arg.type === 'Literal' && typeof arg.value === 'string') {
-        source = arg.value;
-      }
+    let source: string | null = null;
+    if (arg.type === 'StringLiteral') {
+      source = arg.value;
+    } else if (arg.type === 'Literal' && typeof arg.value === 'string') {
+      source = arg.value;
+    }
 
-      if (!source) return;
+    if (!source) return;
 
-      const result = mapSource(source);
-      if (result.warning) warnings.push(result.warning);
-      if (result.target) {
-        arg.value = result.target;
-        hasChanges = true;
-      }
-    });
+    const result = mapSource(source);
+    if (result.warning) warnings.push(result.warning);
+    if (result.target) {
+      arg.value = result.target;
+      hasChanges = true;
+    }
+  });
 
   // --- Path-based references (string literals in configs, template literals in HTML) ---
   // Handles e.g. vite-plugin-static-copy targets and <link> tags in Lit templates.
 
   const PATH_REPLACEMENTS: [RegExp, string][] = [
-    [/@umbraco-ui\/uui-css\/dist\/uui-css\.css/g, '@umbraco-ui/uui/dist/themes/light.css'],
-    [/@umbraco-ui\/uui-css\/assets\/fonts/g, '@umbraco-ui/uui/dist/assets/fonts'],
+    [
+      /@umbraco-ui\/uui-css\/dist\/uui-css\.css/g,
+      '@umbraco-ui/uui/dist/themes/light.css',
+    ],
+    [
+      /@umbraco-ui\/uui-css\/assets\/fonts/g,
+      '@umbraco-ui/uui/dist/assets/fonts',
+    ],
   ];
 
   function rewritePaths(value: string): string | null {

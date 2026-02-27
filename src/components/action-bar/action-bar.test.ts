@@ -1,5 +1,7 @@
 import './action-bar.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 
 import { UUIActionBarElement } from './action-bar.element';
 
@@ -7,21 +9,23 @@ describe('UUIActionBarElement', () => {
   let element: UUIActionBarElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-action-bar></uui-action-bar> `);
+    element = render(html` <uui-action-bar></uui-action-bar> `).container.querySelector('uui-action-bar')!;
+
+    await element.updateComplete;
   });
 
   it('is defined', () => {
-    expect(element).to.be.instanceOf(UUIActionBarElement);
+    expect(element).toBeInstanceOf(UUIActionBarElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 });

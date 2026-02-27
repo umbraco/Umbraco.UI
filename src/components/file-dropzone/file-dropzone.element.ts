@@ -20,10 +20,10 @@ export interface UUIFileFolder {
  */
 export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   @query('#input')
-  private _input!: HTMLInputElement;
+  private readonly _input!: HTMLInputElement;
 
   @query('#dropzone')
-  private _dropzone!: HTMLElement;
+  private readonly _dropzone!: HTMLElement;
 
   private _acceptedFileExtensions: string[] = [];
   private _acceptedMimeTypes: string[] = [];

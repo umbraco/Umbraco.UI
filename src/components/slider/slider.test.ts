@@ -1,12 +1,9 @@
 import './slider.js';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
 
-import {
-  elementUpdated,
-  expect,
-  fixture,
-  html,
-  oneEvent,
-} from '@open-wc/testing';
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import { UUISliderElement } from './slider.element';
 import { UUISliderEvent } from './UUISliderEvent';
@@ -20,54 +17,56 @@ describe('UuiSlider', () => {
   let input: HTMLInputElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-slider label="a slider label"></uui-slider>
-    `);
+    `).container.querySelector('uui-slider')!;
+
+    await element.updateComplete;
     input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('properties', () => {
     it('has a disabled property', () => {
-      expect(element).to.have.property('disabled');
+      expect(element).toHaveProperty('disabled');
     });
     it('disable property set input to disabled', async () => {
       element.disabled = true;
-      await elementUpdated(element);
-      expect(input.disabled).to.equal(true);
+      await element.updateComplete;
+      expect(input.disabled).toBe(true);
     });
 
     it('has a value property', () => {
-      expect(element).to.have.property('value');
+      expect(element).toHaveProperty('value');
     });
     it('has a label property', () => {
-      expect(element).to.have.property('label');
+      expect(element).toHaveProperty('label');
     });
     it('has a min property', () => {
-      expect(element).to.have.property('min');
+      expect(element).toHaveProperty('min');
     });
     it('has a max property', () => {
-      expect(element).to.have.property('max');
+      expect(element).toHaveProperty('max');
     });
     it('has a step property', () => {
-      expect(element).to.have.property('step');
+      expect(element).toHaveProperty('step');
     });
     it('has a hideStepValues property', () => {
-      expect(element).to.have.property('hideStepValues');
+      expect(element).toHaveProperty('hideStepValues');
     });
   });
 
   describe('methods', () => {
     it('has a focus method', () => {
-      expect(element).to.have.property('focus').that.is.a('function');
+      expect(element).toHaveProperty('focus');
     });
     it('focus method sets focus', async () => {
-      expect(document.activeElement).not.to.equal(element);
+      expect(document.activeElement).not.toBe(element);
       await element.focus();
-      expect(document.activeElement).to.equal(element);
+      expect(document.activeElement).toBe(element);
     });
   });
   describe('events', () => {
@@ -78,9 +77,9 @@ describe('UuiSlider', () => {
         input.dispatchEvent(new Event('change'));
 
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal(UUISliderEvent.CHANGE);
-        expect(event!.target).to.equal(element);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe(UUISliderEvent.CHANGE);
+        expect(event!.target).toBe(element);
       });
     });
     describe('input', () => {
@@ -90,9 +89,9 @@ describe('UuiSlider', () => {
         input.dispatchEvent(new Event('input'));
 
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal(UUISliderEvent.INPUT);
-        expect(event!.target).to.equal(element);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe(UUISliderEvent.INPUT);
+        expect(event!.target).toBe(element);
       });
     });
   });
@@ -100,20 +99,22 @@ describe('UuiSlider', () => {
   it('changes the value to the input value when input event is emitted', async () => {
     input.value = '10';
     input.dispatchEvent(new Event('input'));
-    expect(element.value).to.equal('10');
+    expect(element.value).toBe('10');
   });
 });
 
 describe('UuiTextfield with steps', () => {
   let dom: Element;
   beforeEach(async () => {
-    dom = await fixture(html`
+    dom = render(html`
       <uui-slider id="test" label="a slider label" step="1"></uui-slider>
-    `);
+    `).container.querySelector('uui-slider')!;
+
+    await dom.updateComplete;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(dom).shadowDom.to.be.accessible();
+    expect(await axeRun(dom)).toHaveNoViolations();
   });
 });
 
@@ -121,7 +122,7 @@ describe('UuiSlider in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUISliderElement;
   beforeEach(async () => {
-    formElement = await fixture(
+    formElement = render(
       html` <form @submit=${preventSubmit}>
         <uui-slider
           label="a slideruui-slider label"
@@ -129,23 +130,23 @@ describe('UuiSlider in Form', () => {
           value="28"
           step="1"></uui-slider>
       </form>`,
-    );
+    ).container.querySelector('form')!;
     element = formElement.querySelector('uui-slider') as any;
   });
 
   it('value is correct', async () => {
-    await expect(element.value).to.be.equal('28');
+    await expect(element.value).toBe('28');
   });
 
   it('form output', async () => {
     const formData = new FormData(formElement);
-    await expect(formData.get('slider')).to.be.equal('28');
+    await expect(formData.get('slider')).toBe('28');
   });
 
   it('change value and check output', async () => {
     element.value = '90';
     const formData = new FormData(formElement);
-    await expect(formData.get('slider')).to.be.equal('90');
+    await expect(formData.get('slider')).toBe('90');
   });
 
   describe('submit', () => {
@@ -154,9 +155,9 @@ describe('UuiSlider in Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.not.equal(null);
-      expect(event.type).to.equal('submit');
-      expect(event!.target).to.equal(formElement);
+      expect(event).not.toBe(null);
+      expect(event.type).toBe('submit');
+      expect(event!.target).toBe(formElement);
     });
   });
 });

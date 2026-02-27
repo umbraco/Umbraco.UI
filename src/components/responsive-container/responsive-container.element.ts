@@ -18,13 +18,13 @@ import '../symbol-more/symbol-more.js';
 export class UUIResponsiveContainerElement extends LitElement {
   // These help us find elements inside the component
   @query('#more-button')
-  private _moreButtonElement!: UUIButtonElement;
+  private readonly _moreButtonElement!: UUIButtonElement;
 
   @query('#popover-container')
-  private _popoverContainerElement!: UUIPopoverContainerElement;
+  private readonly _popoverContainerElement!: UUIPopoverContainerElement;
 
   @query('#main')
-  private _mainElement!: HTMLElement;
+  private readonly _mainElement!: HTMLElement;
 
   /**
    * Controls which side items collapse from.
@@ -38,7 +38,7 @@ export class UUIResponsiveContainerElement extends LitElement {
 
   // This gets all elements put inside the slot
   @queryAssignedElements({ flatten: true })
-  private _slottedNodes?: HTMLElement[];
+  private readonly _slottedNodes?: HTMLElement[];
 
   // These store the component's internal state
   #childElements: HTMLElement[] = []; // All child elements

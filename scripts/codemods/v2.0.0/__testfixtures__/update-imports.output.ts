@@ -40,4 +40,6 @@ const fontDir = 'node_modules/@umbraco-ui/uui/dist/assets/fonts';
 const fontGlob = 'node_modules/@umbraco-ui/uui/dist/assets/fonts/*';
 
 // Template literal with <link> tag
-const tpl = html`<link rel="stylesheet" href="node_modules/@umbraco-ui/uui/dist/themes/light.css" />`;
+const tpl = html`<link
+  rel="stylesheet"
+  href="node_modules/@umbraco-ui/uui/dist/themes/light.css" />`;

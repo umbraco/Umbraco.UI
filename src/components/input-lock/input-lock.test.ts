@@ -1,5 +1,9 @@
 import './input-lock.js';
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIInputElement } from '../input/input.js';
 import '../icon/icon.js';
 import '../button/button.js';
@@ -11,45 +15,47 @@ describe('UUIInputLockElement', () => {
   let element: UUIInputLockElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-input-lock label="Input label"></uui-input-lock>
-    `);
+    `).container.querySelector('uui-input-lock')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIInputLockElement);
+    expect(element).toBeInstanceOf(UUIInputLockElement);
   });
 
   it('inherits from uui-input', () => {
-    expect(element).to.be.instanceOf(UUIInputElement);
+    expect(element).toBeInstanceOf(UUIInputElement);
   });
 
   it('passes the a11y audit', async () => {
     // Only verify that the color contrast is good when its not locked.
     element.locked = false;
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('properties', () => {
     it('has a locked property', () => {
-      expect(element).to.have.property('name');
+      expect(element).toHaveProperty('name');
     });
   });
 
   it('correctly toggles lock', async () => {
     // Awaits has an effect even though your IDE might say otherwise.
-    await expect(element.readonly).to.equal(true);
+    await expect(element.readonly).toBe(true);
     const toggle = element.shadowRoot?.querySelector(
       '#lock',
     ) as HTMLButtonElement;
     await toggle.click();
-    await expect(element.readonly).to.equal(false);
+    await expect(element.readonly).toBe(false);
     await toggle.click();
-    await expect(element.readonly).to.equal(true);
+    await expect(element.readonly).toBe(true);
   });
 
   it('emits lock change event', async () => {
-    const listener = oneEvent(element, UUIInputLockEvent.LOCK_CHANGE, false);
+    const listener = oneEvent(element, UUIInputLockEvent.LOCK_CHANGE);
 
     const toggle = element.shadowRoot?.querySelector(
       '#lock',
@@ -58,10 +64,10 @@ describe('UUIInputLockElement', () => {
 
     const event = await listener;
 
-    expect(event).to.not.equal(null);
-    expect(event.type).to.equal(UUIInputLockEvent.LOCK_CHANGE);
-    expect(event.bubbles).to.equal(true);
-    expect(event.composed).to.equal(false);
-    expect(event!.target).to.equal(element);
+    expect(event).not.toBe(null);
+    expect(event.type).toBe(UUIInputLockEvent.LOCK_CHANGE);
+    expect(event.bubbles).toBe(true);
+    expect(event.composed).toBe(false);
+    expect(event!.target).toBe(element);
   });
 });

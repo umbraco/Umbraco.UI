@@ -1,4 +1,6 @@
 import './boolean-input.js';
+import { render } from 'vitest-browser-lit';
+import { unsafeStatic, html as staticHtml } from 'lit/static-html.js';
 /* eslint-disable lit/no-invalid-html */
 /* eslint-disable lit/binding-positions */
 import {
@@ -6,16 +8,15 @@ import {
   UUIBooleanInputElement,
 } from './boolean-input.js';
 
-import {
-  defineCE,
-  elementUpdated,
-  expect,
-  fixture,
-  html,
-  oneEvent,
-  unsafeStatic,
-} from '@open-wc/testing';
 import { html as litHTMLLiteral } from 'lit';
+import { oneEvent } from '../../internal/test/index.js';
+
+let __defineCECounter = 0;
+function defineCE(klass: CustomElementConstructor): string {
+  const name = `test-${__defineCECounter++}-${Date.now()}`;
+  customElements.define(name, klass);
+  return name;
+}
 
 const tagName = defineCE(
   class BooleanInputTestElement extends UUIBooleanInputElement {
@@ -39,55 +40,58 @@ describe('UUIBooleanInputElement', () => {
   let label: HTMLLabelElement;
   let input: HTMLInputElement | null | undefined;
   beforeEach(async () => {
-    element = await fixture(html`<${tag} label="test label"></${tag}>`);
+    element = render(
+      staticHtml`<${tag} label="test label"></${tag}>`,
+    ).container.querySelector(tagName)!;
+    await element.updateComplete;
     input = element.shadowRoot?.querySelector('#input');
     label = element.shadowRoot?.querySelector('label') as HTMLLabelElement;
   });
 
   it('component element exists', () => {
-    expect(element).to.not.equal(null);
+    expect(element).not.toBe(null);
   });
   it('input exists', () => {
-    expect(input).to.not.equal(null);
+    expect(input).not.toBe(null);
   });
   it('label exists', () => {
-    expect(label).to.not.equal(null);
+    expect(label).not.toBe(null);
   });
 
   it('has internals', () => {
-    expect(element).to.have.property('_internals');
+    expect(element).toHaveProperty('_internals');
   });
 
   it('has default value equal to on', () => {
-    expect(element.value).to.be.equal('on');
+    expect(element.value).toBe('on');
   });
 
   it('can be checked', () => {
     element.checked = true;
-    expect(element.checked).to.be.equal(true);
+    expect(element.checked).toBe(true);
   });
 
   it('if disabled, disables the native input', async () => {
     element.disabled = true;
-    await elementUpdated(element);
-    expect(input?.disabled).to.equal(true);
+    await element.updateComplete;
+    expect(input?.disabled).toBe(true);
   });
 
   it('if checked, checks the native input', async () => {
     element.checked = true;
-    await elementUpdated(element);
-    expect(input?.checked).to.equal(true);
+    await element.updateComplete;
+    expect(input?.checked).toBe(true);
   });
   it('emits an change event when the input changes', async () => {
-    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE, false);
+    const listener = oneEvent(element, UUIBooleanInputEvent.CHANGE);
     label.click();
 
     const event = await listener;
-    expect(event).to.not.equal(null);
-    expect(event.type).to.equal(UUIBooleanInputEvent.CHANGE);
-    expect(event.bubbles).to.equal(true);
-    expect(event.composed).to.equal(false);
-    expect(event!.target).to.equal(element);
+    expect(event).not.toBe(null);
+    expect(event.type).toBe(UUIBooleanInputEvent.CHANGE);
+    expect(event.bubbles).toBe(true);
+    expect(event.composed).toBe(false);
+    expect(event!.target).toBe(element);
   });
 });
 
@@ -95,39 +99,38 @@ describe('BooleanInputBaseElement in a Form', () => {
   let formElement: HTMLFormElement;
   let element: any;
   beforeEach(async () => {
-    formElement = await fixture(
-      html`<form @submit=${preventSubmit}><${tag} name="test" value="testValue"
-      label="test label"></${tag}></form>`,
-    );
+    formElement =
+      render(staticHtml`<form @submit=${preventSubmit}><${tag} name="test" value="testValue"
+      label="test label"></${tag}></form>`).container.querySelector('form')!;
     element = formElement.firstChild;
   });
 
   it('the form property on element internals is equal the form element', () => {
-    expect(element._internals.form).to.be.equal(formElement);
+    expect(element._internals.form).toBe(formElement);
   });
   it('form output is null if element not checked', () => {
     const formData = new FormData(formElement);
-    expect(formData.get(`${element.name}`)).to.be.equal(null);
+    expect(formData.get(`${element.name}`)).toBe(null);
   });
 
   it('form output is equal to value if element is checked and has a value attribute', () => {
     element.checked = true;
     const formData = new FormData(formElement);
-    expect(formData.get(`${element.name}`)).to.be.equal('testValue');
+    expect(formData.get(`${element.name}`)).toBe('testValue');
   });
 
   it('if element has value attribute form value should be the same', () => {
     element.value = 'bike';
     element.checked = true;
     const formData = new FormData(formElement);
-    expect(formData.get(`test`)).to.equal('bike');
+    expect(formData.get(`test`)).toBe('bike');
   });
 
   it('if no value is provided and the element is checked the formValue should be on', () => {
     element.value = '';
     element.checked = true;
     const formData = new FormData(formElement);
-    expect(formData.get(`test`)).to.equal('on');
+    expect(formData.get(`test`)).toBe('on');
   });
 
   describe('submit', () => {
@@ -136,9 +139,9 @@ describe('BooleanInputBaseElement in a Form', () => {
       element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       const event = await listener;
-      expect(event).to.not.equal(null);
-      expect(event.type).to.equal('submit');
-      expect(event!.target).to.equal(formElement);
+      expect(event).not.toBe(null);
+      expect(event.type).toBe('submit');
+      expect(event!.target).toBe(formElement);
     });
   });
 
@@ -146,63 +149,63 @@ describe('BooleanInputBaseElement in a Form', () => {
     let formElement: HTMLFormElement;
     let element: any;
     beforeEach(async () => {
-      formElement = await fixture(
-        html`<form><${tag} label="test label" name="test"></${tag}></form>`,
-      );
+      formElement = render(
+        staticHtml`<form><${tag} label="test label" name="test"></${tag}></form>`,
+      ).container.querySelector('form')!;
       element = formElement.firstChild;
     });
 
     describe('required', () => {
       beforeEach(async () => {
         element.setAttribute('required', 'true');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
       it('sets element to invalid when value is empty', async () => {
-        expect(element.checkValidity()).to.equal(false);
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('sets element to valid when it has a value', async () => {
         element.checked = true;
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
 
       it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.equal(false);
+        expect(formElement.checkValidity()).toBe(false);
       });
 
       it('sets the form to valid when it has a value', async () => {
         element.checked = true;
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
 
     describe('custom error', () => {
       beforeEach(async () => {
         element.setAttribute('error', 'true');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
       it('sets element to invalid when it has a custom error attribute', async () => {
-        expect(element.checkValidity()).to.equal(false);
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('sets element to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
 
       it('sets the form to invalid when value is empty', async () => {
-        expect(formElement.checkValidity()).to.equal(false);
+        expect(formElement.checkValidity()).toBe(false);
       });
 
       it('sets the form to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
   });
@@ -212,9 +215,9 @@ describe('element in a Form with no attributes', () => {
   let formElement: HTMLFormElement;
   let element: any;
   beforeEach(async () => {
-    formElement = await fixture(
-      html`<form><${tag} label="test label" name="test"></${tag}></form>`,
-    );
+    formElement = render(
+      staticHtml`<form><${tag} label="test label" name="test"></${tag}></form>`,
+    ).container.querySelector('form')!;
     element = formElement.firstChild;
   });
 
@@ -228,13 +231,13 @@ describe('element in a Form with no attributes', () => {
       formDataKeys.push(key);
     });
 
-    expect(formDataKeys.length).to.equal(0);
+    expect(formDataKeys.length).toBe(0);
   });
 
   it('form value is on if not specified with attribute', async () => {
     element.name = 'test';
     element.checked = true;
     const formData = new FormData(formElement);
-    expect(formData.get(`${element.name}`)).to.equal('on');
+    expect(formData.get(`${element.name}`)).toBe('on');
   });
 });

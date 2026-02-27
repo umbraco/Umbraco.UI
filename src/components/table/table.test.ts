@@ -1,6 +1,7 @@
 import './table.js';
-
-import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 
 import { UUITableCellElement } from './table-cell.element';
 import { UUITableRowElement } from './table-row.element';
@@ -9,7 +10,7 @@ import { UUITableElement } from './table.element';
 describe('UuiTable', () => {
   let table: UUITableElement;
   beforeEach(async () => {
-    table = await fixture(html`
+    table = render(html`
       <uui-table
         aria-label="Random Umbraco Words"
         aria-describedby="table-decription">
@@ -32,12 +33,14 @@ describe('UuiTable', () => {
           <uui-table-cell>Hello long text 3</uui-table-cell>
         </uui-table-row>
       </uui-table>
-    `);
+    `).container.querySelector('uui-table')!;
+
+    await table.updateComplete;
   });
 
   it('renders a slot', () => {
     const slot = table.shadowRoot!.querySelector('slot');
-    expect(slot).to.not.equal(null);
+    expect(slot).not.toBe(null);
   });
 
   it('CELL: detects overflow', async () => {
@@ -47,28 +50,28 @@ describe('UuiTable', () => {
       .shadowRoot!.querySelector('slot')
       ?.assignedElements()[2] as UUITableCellElement;
     cell.setAttribute('clip-text', 'true');
-    await elementUpdated(cell);
-    expect(cell).to.have.attribute('title', 'Hello long text 3');
-    expect(cell.title).to.equal('Hello long text 3');
+    await cell.updateComplete;
+    expect(cell.getAttribute('title')).toBe('Hello long text 3');
+    expect(cell.title).toBe('Hello long text 3');
   });
 
   it('ROW: Adds selected attribute when clicked', async () => {
     const slot = table.shadowRoot!.querySelector('slot');
     const row = slot?.assignedElements()[4] as UUITableRowElement;
     row.click();
-    await elementUpdated(row);
-    expect(row.selected).to.equal(true);
+    await row.updateComplete;
+    expect(row.selected).toBe(true);
   });
 
   it('ROW: Clicking on row without selectable should do nothing', async () => {
     const slot = table.shadowRoot!.querySelector('slot');
     const row = slot?.assignedElements()[5] as UUITableRowElement;
     row.click();
-    await elementUpdated(row);
-    expect(row.selected).to.equal(false);
+    await row.updateComplete;
+    expect(row.selected).toBe(false);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(table).shadowDom.to.be.accessible();
+    expect(await axeRun(table)).toHaveNoViolations();
   });
 });
