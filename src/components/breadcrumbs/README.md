@@ -1,32 +1,31 @@
 # uui-breadcrumbs
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-breadcrumbs?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-breadcrumbs)
-
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-breadcrumbs--docs)
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-breadcrumbs
+npm i @umbraco-ui/uui
 ```
 
-Import the registration of `<uui-breadcrumbs>`, `<uui-breadcrumb-item>` via:
+Import the registration of `<uui-breadcrumb-item>` and `<uui-breadcrumbs>` via:
 
 ```javascript
-import '@umbraco-ui/uui-breadcrumbs';
+import '@umbraco-ui/uui/components/breadcrumbs/breadcrumbs.js';
 ```
 
-When looking to leverage the `UUIBreadcrumbsElement` or `UUIBreadcrumbItemElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUIBreadcrumbItemElement` and `UUIBreadcrumbsElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import {
-  UUIBreadcrumbsElement,
-  UUIBreadcrumbItemElement,
-} from '@umbraco-ui/uui-breadcrumbs';
+import { UUIBreadcrumbItemElement, UUIBreadcrumbsElement } from '@umbraco-ui/uui/components/breadcrumbs/breadcrumbs.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

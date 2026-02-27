@@ -1,27 +1,33 @@
 # uui-card-block-type
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-block-type?logoColor=%231B264F)
-
 Umbraco style card-block-type component.
+
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-card-block-type--docs)
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-card-block-type
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-card-block-type>` via:
 
 ```javascript
-import '@umbraco-ui/uui-card-block-type';
+import '@umbraco-ui/uui/components/card-block-type/card-block-type.js';
 ```
 
 When looking to leverage the `UUICardBlockTypeElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardBlockTypeElement } from '@umbraco-ui/uui-card-block-type';
+import { UUICardBlockTypeElement } from '@umbraco-ui/uui/components/card-block-type/card-block-type.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

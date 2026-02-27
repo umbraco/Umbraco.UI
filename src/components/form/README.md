@@ -1,7 +1,5 @@
 # uui-form
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-form?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-form)
-
 Umbraco style form component.
 
 ### See it in action
@@ -10,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-for
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-form
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-form>` via:
 
 ```javascript
-import '@umbraco-ui/uui-form/lib';
+import '@umbraco-ui/uui/components/form/form.js';
 ```
 
 When looking to leverage the `UUIFormElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIFormElement } from '@umbraco-ui/uui-form/lib';
+import { UUIFormElement } from '@umbraco-ui/uui/components/form/form.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

@@ -1,7 +1,5 @@
 # uui-action-bar
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-action-bar?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-action-bar)
-
 Umbraco style action-bar component.
 
 ### See it in action
@@ -10,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-act
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-action-bar
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-action-bar>` via:
 
 ```javascript
-import '@umbraco-ui/uui-action-bar';
+import '@umbraco-ui/uui/components/action-bar/action-bar.js';
 ```
 
 When looking to leverage the `UUIActionBarElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIActionBarElement } from '@umbraco-ui/uui-action-bar';
+import { UUIActionBarElement } from '@umbraco-ui/uui/components/action-bar/action-bar.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

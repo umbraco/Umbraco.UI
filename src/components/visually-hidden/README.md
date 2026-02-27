@@ -1,7 +1,5 @@
 # uui-visually-hidden
 
-![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-visually-hidden?logoColor=%231B264F)
-
 Umbraco style visually-hidden component.
 
 The visually hidden utility makes content accessible to assistive devices without displaying it on the screen.
@@ -12,24 +10,32 @@ According to [The A11Y Project](https://www.a11yproject.com/posts/how-to-hide-co
 
 Since visually hidden content can receive focus when tabbing, the element will become visible when something inside receives focus. This behavior is intentional, as sighted keyboard user won’t be able to determine where the focus indicator is without it.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-visually-hidden--docs)
+
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-visually-hidden
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-visually-hidden>` via:
 
 ```javascript
-import '@umbraco-ui/uui-visually-hidden';
+import '@umbraco-ui/uui/components/visually-hidden/visually-hidden.js';
 ```
 
 When looking to leverage the `UUIVisuallyHiddenElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIVisuallyHiddenElement } from '@umbraco-ui/uui-visually-hidden';
+import { UUIVisuallyHiddenElement } from '@umbraco-ui/uui/components/visually-hidden/visually-hidden.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

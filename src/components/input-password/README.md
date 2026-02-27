@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui
 Import the registration of `<uui-input-password>` via:
 
 ```javascript
-import '@umbraco-ui/uui/components/input-password/uui-input-password.element.js';
+import '@umbraco-ui/uui/components/input-password/input-password.js';
 ```
 
 When looking to leverage the `UUIInputPasswordElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputPasswordElement } from '@umbraco-ui/uui/components/input-password/uui-input-password.element.js';
+import { UUIInputPasswordElement } from '@umbraco-ui/uui/components/input-password/input-password.js';
 ```
 
 Alternatively, if you have already imported the full library, the element will be registered automatically:

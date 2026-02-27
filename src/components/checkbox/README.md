@@ -1,29 +1,31 @@
 # uui-checkbox
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-checkbox?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-checkbox)
-
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-checkbox--docs)
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-checkbox
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-checkbox>` via:
 
 ```javascript
-import '@umbraco-ui/uui-checkbox';
+import '@umbraco-ui/uui/components/checkbox/checkbox.js';
 ```
 
 When looking to leverage the `UUICheckboxElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICheckboxElement } from '@umbraco-ui/uui-checkbox';
+import { UUICheckboxElement } from '@umbraco-ui/uui/components/checkbox/checkbox.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage
