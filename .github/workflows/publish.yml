@@ -2,35 +2,44 @@ name: Publish
 
 on:
   push:
-    branches:
-      - production
+    tags:
+      - 'v*.*.*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      dist-tag:
+        description: 'npm dist-tag'
+        required: true
+        default: 'prerelease'
+        type: choice
+        options:
+          - prerelease
+          - nightly
+      version:
+        description: 'Base version for nightly (e.g. 2.0.0). Ignored for prerelease.'
+        required: false
+        type: string
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Environment variables available to all steps in the job to ensure provenance of the build
-    permissions:
-      contents: read
-      id-token: write
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: '0'
 
       - name: Cache build setup
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-cache-${{ github.sha }}
@@ -38,12 +47,14 @@ jobs:
             ${{ runner.os }}-cache-
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           check-latest: true
           cache: 'npm'
-
+          registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm@latest
       - run: npm -v
       - run: npm install
 
@@ -56,7 +67,46 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
 
+      - name: Stamp nightly version
+        if: inputs.dist-tag == 'nightly' && inputs.version != ''
+        run: |
+          NIGHTLY_VERSION="${{ inputs.version }}-nightly.$(date +%Y%m%d)"
+          echo "Publishing nightly version: $NIGHTLY_VERSION"
+          npx lerna version "$NIGHTLY_VERSION" --no-git-tag-version --no-push --yes --force-publish
+
       - name: Publish package
-        run: npm run lerna:publish
+        run: npm run build && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
         env:
           NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
+
+      - name: Update SonarCloud new code baseline
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        continue-on-error: true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+          SONAR_PROJECT: ${{ vars.SONARCLOUD_PROJECT_KEY }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Setting SonarCloud new code baseline to version: $VERSION"
+
+          # Update project version for future analyses
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST 'https://sonarcloud.io/api/settings/set' \
+            -H "Authorization: Bearer $SONAR_TOKEN" \
+            -d "component=$SONAR_PROJECT&key=sonar.projectVersion&value=$VERSION")
+          echo "Set projectVersion: HTTP $HTTP_CODE"
+          [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ] || echo "::warning::Failed to set sonar.projectVersion (HTTP $HTTP_CODE)"
+
+          # Find the latest analysis and create a VERSION event
+          ANALYSIS_KEY=$(curl -s "https://sonarcloud.io/api/project_analyses/search?project=$SONAR_PROJECT&ps=1" \
+            -H "Authorization: Bearer $SONAR_TOKEN" | python3 -c "import json,sys; print(json.load(sys.stdin)['analyses'][0]['key'])")
+          echo "Latest analysis: $ANALYSIS_KEY"
+
+          if [ -n "$ANALYSIS_KEY" ]; then
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST 'https://sonarcloud.io/api/project_analyses/create_event' \
+              -H "Authorization: Bearer $SONAR_TOKEN" \
+              -d "analysis=$ANALYSIS_KEY&category=VERSION&name=$VERSION")
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            echo "Create VERSION event: HTTP $HTTP_CODE"
+            [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ] || echo "::warning::Failed to create VERSION event (HTTP $HTTP_CODE)"
+          fi

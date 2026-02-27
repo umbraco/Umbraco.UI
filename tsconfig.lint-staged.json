@@ -1,8 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "rootDir": ".",
     "emitDeclarationOnly": false,
     "noEmit": true
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts", "stories/**/*.ts", "storyhelpers/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }

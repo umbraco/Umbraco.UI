@@ -1,0 +1,92 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Symbols/Icon Registry" />
+
+# Icon Registry
+
+## Usage
+
+```jsx
+const icons = { 'myCustomIcon': '<svg>...</svg>' };
+
+<uui-icon-registry .icons="${icons}">
+  <uui-icon name="myCustomIcon"></uui-icon>
+</uui-icon-registry>
+```
+
+## Custom element
+
+```jsx
+import { UUIIconRegistryElement } from '@umbraco-ui/uui/components/icon-registry/uui-icon-registry.element.js';
+
+const icon = '<svg>..</svg>';
+
+class MyIconRegistryElement extends UUIIconRegistryElement {
+  constructor() {
+    super();
+    this.registry.defineIcon('myCustomIcon', icon);
+  }
+}
+
+customElements.define('my-icon-registry', MyIconRegistryElement);
+```
+
+## Provide Dynamic Custom Icon Registry
+
+Icon Registry Element is a element that provides a Icon Registry. The Element
+holds a empty icon registry pr. default. This registry can be access or
+replaced to provide icons of your interest. This example shows how to build a
+custom icon registry that provides an icon loaded externally
+
+```jsx
+class MyCustomIconRegistry extends UUIIconRegistry {
+  acceptIcon(iconName) {
+    if (iconName === 'myPrefix:myIcon') {
+      const icon = this.provideIcon(iconName);
+      // Load SVG and set it on this icon-object:
+      icon.svg = '<svg>...</svg>';
+      return true;
+    }
+    return false;
+  }
+}
+
+class MyIconRegistryElement extends UUIIconRegistryElement {
+  constructor() {
+    super();
+    this.registry = new MyCustomIconRegistry();
+  }
+}
+
+customElements.define('my-icon-registry', MyIconRegistryElement);
+
+<my-icon-registry>
+  <uui-icon name="myPrefix:myIcon"></uui-icon>
+</my-icon-registry>;
+```
+
+## Attach Icon Registry To A Custom Element
+
+Icon Registry is a element that provides a Icon Registry. The Element holds a
+empty icon registry pr. default. This registry can be access or replaced to
+provide icons of your interest. This example shows how to build a custom icon
+registry that provides an icon loaded externally
+
+```jsx
+class MyCustomElement extends HTMLElement {
+
+  private _registry: UUIIconRegistry = new UUIIconRegistry();
+
+  constructor() {
+    super();
+    this._registry.defineIcon('myCustomIcon', '<svg>..</svg>');
+    this._registry.attach(this);
+  }
+}
+
+customElements.define('my-custom-element', MyCustomElement);
+
+<my-custom-element>
+  <uui-icon name="myCustomIcon"></uui-icon>
+</my-custom-element>
+```

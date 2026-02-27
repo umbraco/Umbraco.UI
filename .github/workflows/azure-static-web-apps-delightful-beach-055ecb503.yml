@@ -5,26 +5,28 @@ on:
     branches:
       - main
       - production
+      - v*/dev
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - production
+      - v*/dev
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
 
 jobs:
   build_and_deploy_job:
-    if: github.actor != 'dependabot[bot]' && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed'))
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed' && github.repository == github.event.pull_request.head.repo.full_name)
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           check-latest: true
@@ -50,7 +52,7 @@ jobs:
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.repository == github.event.pull_request.head.repo.full_name
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
