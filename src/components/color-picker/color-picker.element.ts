@@ -75,7 +75,8 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  */
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @query('[part="input"]') private readonly _input!: UUIInputElement;
-  @query('.color-picker__preview') private readonly _previewButton!: HTMLButtonElement;
+  @query('.color-picker__preview')
+  private readonly _previewButton!: HTMLButtonElement;
   @query('#swatches') private readonly _swatches!: UUIColorSwatchesElement;
 
   private _value: string = '';
