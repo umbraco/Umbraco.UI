@@ -107,7 +107,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   private _values: string[] = [];
 
   @query('#native')
-  protected _input!: HTMLSelectElement;
+  protected readonly _input!: HTMLSelectElement;
 
   constructor() {
     super();

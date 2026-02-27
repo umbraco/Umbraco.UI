@@ -66,13 +66,13 @@ export class UUIComboboxListElement extends LitElement {
     flatten: true,
     selector: 'uui-combobox-list-option:not([disabled])',
   })
-  private _options!: UUIComboboxListOptionElement[];
+  private readonly _options!: UUIComboboxListOptionElement[];
 
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-combobox-list-option[active]',
   })
-  private _activeOptions!: UUIComboboxListOptionElement[];
+  private readonly _activeOptions!: UUIComboboxListOptionElement[];
 
   @state()
   private _value: FormDataEntryValue | FormData = '';

@@ -7,7 +7,7 @@ export const UUIModalCloseEndEvent = 'uui:modal-close-end';
 
 export class UUIModalElement extends LitElement {
   @query('dialog')
-  protected _dialogElement?: HTMLDialogElement;
+  protected readonly _dialogElement?: HTMLDialogElement;
 
   @property({ type: Boolean, reflect: true, attribute: 'is-open' })
   isOpen = false;

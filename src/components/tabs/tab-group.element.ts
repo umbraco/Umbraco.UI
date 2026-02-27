@@ -21,18 +21,18 @@ import '../popover-container/popover-container.js';
  */
 export class UUITabGroupElement extends LitElement {
   @query('#more-button')
-  private _moreButtonElement!: UUIButtonElement;
+  private readonly _moreButtonElement!: UUIButtonElement;
 
   @query('#popover-container')
-  private _popoverContainerElement!: UUIPopoverContainerElement;
+  private readonly _popoverContainerElement!: UUIPopoverContainerElement;
 
-  @query('#main') private _mainElement!: HTMLElement;
+  @query('#main') private readonly _mainElement!: HTMLElement;
 
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-tab, [uui-tab], [role=tab]',
   })
-  private _slottedNodes?: HTMLElement[];
+  private readonly _slottedNodes?: HTMLElement[];
 
   /** Stores the current gap used in the breakpoints */
   #currentGap = 0;

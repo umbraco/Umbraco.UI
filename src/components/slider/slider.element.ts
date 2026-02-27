@@ -145,10 +145,10 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
   public label!: string;
 
   @query('#input')
-  private _input!: HTMLInputElement;
+  private readonly _input!: HTMLInputElement;
 
   @query('#track')
-  private _track!: HTMLElement;
+  private readonly _track!: HTMLElement;
 
   constructor() {
     super();
