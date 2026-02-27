@@ -1,18 +1,13 @@
 import './radio.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import { UUIRadioGroupElement } from './radio-group.element';
 import { UUIRadioElement } from './radio.element';
 import { UUIRadioGroupEvent } from './UUIRadioGroupEvent';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
@@ -164,13 +159,15 @@ describe('UuiRadioGroup in a Form', () => {
   let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
   beforeEach(async () => {
-    formElement = render(html` <form @submit=${preventSubmit} action="">
+    formElement = render(
+      html` <form @submit=${preventSubmit} action="">
         <uui-radio-group name="Test">
           <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
           <uui-radio value="Value 2" label="Option 2"></uui-radio>
           <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
         </uui-radio-group>
-      </form>`).container.querySelector('form')!;
+      </form>`,
+    ).container.querySelector('form')!;
     element = formElement.querySelector('uui-radio-group') as any;
     radios = Array.from(element.querySelectorAll('uui-radio'));
   });
@@ -227,7 +224,8 @@ describe('UuiRadioGroup when multiple radio childs are checked', () => {
   let formElement: HTMLFormElement;
   let element: UUIRadioGroupElement;
   beforeEach(async () => {
-    formElement = render(html` <form action="">
+    formElement = render(
+      html` <form action="">
         <uui-radio-group name="Test">
           <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
           <uui-radio value="Value 2" label="Option 2" checked></uui-radio>
@@ -235,7 +233,8 @@ describe('UuiRadioGroup when multiple radio childs are checked', () => {
             >Option 3</uui-radio
           >
         </uui-radio-group>
-      </form>`).container.querySelector('form')!;
+      </form>`,
+    ).container.querySelector('form')!;
     element = formElement.querySelector('uui-radio-group') as any;
   });
 
@@ -250,13 +249,15 @@ describe('UuiRadioGroup when one radio child radio is checked', () => {
   let element: UUIRadioGroupElement;
   let radios: UUIRadioElement[];
   beforeEach(async () => {
-    formElement = render(html` <form action="">
+    formElement = render(
+      html` <form action="">
         <uui-radio-group name="Test">
           <uui-radio value="Value 1" label="Option 1">Option 1</uui-radio>
           <uui-radio value="Value 2" label="Option 2" checked></uui-radio>
           <uui-radio value="Value 3" label="Option 3">Option 3</uui-radio>
         </uui-radio-group>
-      </form>`).container.querySelector('form')!;
+      </form>`,
+    ).container.querySelector('form')!;
     element = formElement.querySelector('uui-radio-group') as any;
     radios = Array.from(element.querySelectorAll('uui-radio'));
   });
@@ -271,12 +272,14 @@ describe('UuiRadioGroup with start value', () => {
   let radioGroup: UUIRadioGroupElement;
   let radios: Array<UUIRadioElement>;
   beforeEach(async () => {
-    radioGroup = render(html` <uui-radio-group value="2">
+    radioGroup = render(
+      html` <uui-radio-group value="2">
         <uui-radio value="1">one</uui-radio>
         <uui-radio value="2">two</uui-radio>
         <uui-radio value="3">three</uui-radio>
         <uui-radio value="4">four</uui-radio>
-      </uui-radio-group>`).container.querySelector('uui-radio-group')!;
+      </uui-radio-group>`,
+    ).container.querySelector('uui-radio-group')!;
 
     await radioGroup.updateComplete;
     radios = Array.from(radioGroup.querySelectorAll('uui-radio'));

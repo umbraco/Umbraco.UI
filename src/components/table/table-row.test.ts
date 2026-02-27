@@ -1,19 +1,14 @@
 import './table.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import './table.element';
 import './table-row.element';
 import './table-cell.element';
 import { UUITableRowElement } from './table-row.element';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UuiTableRow', () => {
   let element: UUITableRowElement;

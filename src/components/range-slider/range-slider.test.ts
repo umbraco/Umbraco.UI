@@ -1,17 +1,12 @@
 import './range-slider.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import { UUIRangeSliderElement } from './range-slider.element';
 import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
@@ -23,7 +18,9 @@ describe('UUIRangeSliderElement', () => {
   let inputHigh: HTMLInputElement;
 
   beforeEach(async () => {
-    element = render(html`<uui-range-slider min="10" max="100"></uui-range-slider>`).container.querySelector('uui-range-slider')!;
+    element = render(
+      html`<uui-range-slider min="10" max="100"></uui-range-slider>`,
+    ).container.querySelector('uui-range-slider')!;
 
     await element.updateComplete;
     inputLow = element.shadowRoot?.querySelector(
@@ -136,7 +133,8 @@ describe('UUIRangeSlider in a form', () => {
   let formElement: HTMLFormElement;
   let element: UUIRangeSliderElement;
   beforeEach(async () => {
-    formElement = render(html`<form @submit=${preventSubmit}>
+    formElement = render(
+      html`<form @submit=${preventSubmit}>
         <uui-range-slider
           label="ranger-danger slider label"
           value="10,90"
@@ -145,7 +143,8 @@ describe('UUIRangeSlider in a form', () => {
           min-gap="10"
           step="5"
           name="slider"></uui-range-slider>
-      </form>`).container.querySelector('form')!;
+      </form>`,
+    ).container.querySelector('form')!;
     element = formElement.querySelector('uui-range-slider') as any;
   });
 

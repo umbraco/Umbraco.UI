@@ -2,17 +2,12 @@ import './button.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
 import { page } from 'vitest/browser';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIInterfaceColorValues } from '../../internal/types/InterfaceColor.js';
 import { UUIInterfaceLookValues } from '../../internal/types/InterfaceLook.js';
 import { UUIButtonElement } from './button.element.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UuiButton', () => {
   let formElement: HTMLFormElement;
@@ -123,12 +118,8 @@ describe('UuiButton', () => {
       expect(btn).not.toBeNull();
     });
     it('label property is used when no default slot is provided', async () => {
-      const screen = render(
-        html`<uui-button label="My label"></uui-button>`,
-      );
-      await expect
-        .element(screen.getByText('My label'))
-        .toBeInTheDocument();
+      const screen = render(html`<uui-button label="My label"></uui-button>`);
+      await expect.element(screen.getByText('My label')).toBeInTheDocument();
     });
     it('default slot takes precedence over label property', async () => {
       element.label = 'My label';

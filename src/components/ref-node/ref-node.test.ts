@@ -1,22 +1,19 @@
 import '../icon/icon.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIRefNodeElement } from './ref-node.element';
 import './ref-node.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUIRefNodeElement', () => {
   let element: UUIRefNodeElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-ref-node name="Node" detail="Detail"></uui-ref-node>`).container.querySelector('uui-ref-node')!;
+    element = render(
+      html` <uui-ref-node name="Node" detail="Detail"></uui-ref-node>`,
+    ).container.querySelector('uui-ref-node')!;
 
     await element.updateComplete;
   });

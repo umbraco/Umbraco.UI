@@ -1,21 +1,16 @@
 import './icon.js';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import '../icon-registry/icon-registry.js';
 import './icon.element';
 
 import type { UUIIconRegistryElement } from '../icon-registry/icon-registry.element';
-import { LitElement, html} from 'lit';
+import { LitElement, html } from 'lit';
 
 import type { UUIIconElement } from './icon.element';
 import { UUIIconRequestEvent } from './UUIIconRequestEvent';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 const TEST_SVG =
   '<svg xmlns="http://www.w3.org/2000/svg" id="TestIcon" viewBox="0 0 512 512"></svg>';
@@ -27,7 +22,9 @@ describe('UUIIconElement', () => {
   let element: UUIIconElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-icon></uui-icon>`).container.querySelector('uui-icon')!;
+    element = render(html` <uui-icon></uui-icon>`).container.querySelector(
+      'uui-icon',
+    )!;
 
     await element.updateComplete;
   });
@@ -62,10 +59,7 @@ describe('UUIIconElement', () => {
   describe('events', () => {
     describe('ICON_REQUEST', () => {
       it('emits a icon request event when name is set', async () => {
-        const listener = oneEvent(
-          element,
-          UUIIconRequestEvent.ICON_REQUEST,
-        );
+        const listener = oneEvent(element, UUIIconRequestEvent.ICON_REQUEST);
         element.name = 'test';
         const event = await listener;
         expect(event).not.toBe(null);
@@ -79,7 +73,9 @@ describe('UUIIconElement', () => {
     let element: UUIIconElement;
 
     beforeEach(async () => {
-      element = render(html` <uui-icon .svg=${TEST_SVG}></uui-icon> `).container.querySelector('uui-icon')!;
+      element = render(html`
+        <uui-icon .svg=${TEST_SVG}></uui-icon>
+      `).container.querySelector('uui-icon')!;
 
       await element.updateComplete;
     });
@@ -105,7 +101,9 @@ describe('UUIIconElement', () => {
     });
 
     it('contains svg of icon', () => {
-      expect(element.shadowRoot!.querySelector('#TestFallbackIcon')).not.toBe(null);
+      expect(element.shadowRoot!.querySelector('#TestFallbackIcon')).not.toBe(
+        null,
+      );
     });
 
     it('passes the a11y audit', async () => {
@@ -216,12 +214,16 @@ describe('UUIIconElement', () => {
     let testElement: TestShadowDOMElement;
 
     beforeEach(async () => {
-      registryElement = render(html`<uui-icon-registry></uui-icon-registry>`).container.querySelector('uui-icon-registry')!;
+      registryElement = render(
+        html`<uui-icon-registry></uui-icon-registry>`,
+      ).container.querySelector('uui-icon-registry')!;
 
       await registryElement.updateComplete;
       registryElement.registry.defineIcon('testIcon', TEST_SVG);
 
-      testElement = render(html`<uui-test-shadow-dom></uui-test-shadow-dom>`).container.querySelector('uui-test-shadow-dom')!;
+      testElement = render(
+        html`<uui-test-shadow-dom></uui-test-shadow-dom>`,
+      ).container.querySelector('uui-test-shadow-dom')!;
 
       await testElement.updateComplete;
       registryElement.appendChild(testElement);
@@ -233,7 +235,9 @@ describe('UUIIconElement', () => {
       expect(testElement).not.toBe(null);
       expect(testElement.iconElement).not.toBe(null);
       expect(testElement.iconElement).toHaveProperty('name');
-      expect(testElement.iconElement.shadowRoot!.querySelector('#TestIcon')).toBeDefined();
+      expect(
+        testElement.iconElement.shadowRoot!.querySelector('#TestIcon'),
+      ).toBeDefined();
     });
 
     it('Child uui-icon passes the a11y audit', async () => {

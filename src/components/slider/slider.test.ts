@@ -1,17 +1,12 @@
 import './slider.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import { UUISliderElement } from './slider.element';
 import { UUISliderEvent } from './UUISliderEvent';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
@@ -127,13 +122,15 @@ describe('UuiSlider in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUISliderElement;
   beforeEach(async () => {
-    formElement = render(html` <form @submit=${preventSubmit}>
+    formElement = render(
+      html` <form @submit=${preventSubmit}>
         <uui-slider
           label="a slideruui-slider label"
           name="slider"
           value="28"
           step="1"></uui-slider>
-      </form>`).container.querySelector('form')!;
+      </form>`,
+    ).container.querySelector('form')!;
     element = formElement.querySelector('uui-slider') as any;
   });
 

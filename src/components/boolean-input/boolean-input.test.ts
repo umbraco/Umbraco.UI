@@ -9,19 +9,13 @@ import {
 } from './boolean-input.js';
 
 import { html as litHTMLLiteral } from 'lit';
+import { oneEvent } from '../../internal/test/index.js';
 
 let __defineCECounter = 0;
 function defineCE(klass: CustomElementConstructor): string {
   const name = `test-${__defineCECounter++}-${Date.now()}`;
   customElements.define(name, klass);
   return name;
-}
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
 }
 
 const tagName = defineCE(
@@ -46,7 +40,9 @@ describe('UUIBooleanInputElement', () => {
   let label: HTMLLabelElement;
   let input: HTMLInputElement | null | undefined;
   beforeEach(async () => {
-    element = render(staticHtml`<${tag} label="test label"></${tag}>`).container.querySelector(tagName)!;
+    element = render(
+      staticHtml`<${tag} label="test label"></${tag}>`,
+    ).container.querySelector(tagName)!;
     await element.updateComplete;
     input = element.shadowRoot?.querySelector('#input');
     label = element.shadowRoot?.querySelector('label') as HTMLLabelElement;
@@ -103,7 +99,8 @@ describe('BooleanInputBaseElement in a Form', () => {
   let formElement: HTMLFormElement;
   let element: any;
   beforeEach(async () => {
-    formElement = render(staticHtml`<form @submit=${preventSubmit}><${tag} name="test" value="testValue"
+    formElement =
+      render(staticHtml`<form @submit=${preventSubmit}><${tag} name="test" value="testValue"
       label="test label"></${tag}></form>`).container.querySelector('form')!;
     element = formElement.firstChild;
   });
@@ -152,7 +149,9 @@ describe('BooleanInputBaseElement in a Form', () => {
     let formElement: HTMLFormElement;
     let element: any;
     beforeEach(async () => {
-      formElement = render(staticHtml`<form><${tag} label="test label" name="test"></${tag}></form>`).container.querySelector('form')!;
+      formElement = render(
+        staticHtml`<form><${tag} label="test label" name="test"></${tag}></form>`,
+      ).container.querySelector('form')!;
       element = formElement.firstChild;
     });
 
@@ -216,7 +215,9 @@ describe('element in a Form with no attributes', () => {
   let formElement: HTMLFormElement;
   let element: any;
   beforeEach(async () => {
-    formElement = render(staticHtml`<form><${tag} label="test label" name="test"></${tag}></form>`).container.querySelector('form')!;
+    formElement = render(
+      staticHtml`<form><${tag} label="test label" name="test"></${tag}></form>`,
+    ).container.querySelector('form')!;
     element = formElement.firstChild;
   });
 

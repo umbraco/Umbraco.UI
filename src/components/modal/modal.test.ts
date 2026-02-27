@@ -1,7 +1,9 @@
 import './modal.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import {
   UUIModalDialogElement,
   UUIModalSidebarElement,
@@ -9,13 +11,6 @@ import {
   UUIModalCloseEvent,
   UUIModalCloseEndEvent,
 } from './modal.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUIModalContainerElement', () => {
   let element: UUIModalContainerElement;
@@ -41,7 +36,9 @@ describe('UUIModalDialogElement', () => {
   let element: UUIModalDialogElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-modal-dialog></uui-modal-dialog> `).container.querySelector('uui-modal-dialog')!;
+    element = render(html`
+      <uui-modal-dialog></uui-modal-dialog>
+    `).container.querySelector('uui-modal-dialog')!;
 
     await element.updateComplete;
   });
@@ -59,7 +56,9 @@ describe('UUIModalSidebarElement', () => {
   let element: UUIModalSidebarElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-modal-sidebar></uui-modal-sidebar> `).container.querySelector('uui-modal-sidebar')!;
+    element = render(html`
+      <uui-modal-sidebar></uui-modal-sidebar>
+    `).container.querySelector('uui-modal-sidebar')!;
 
     await element.updateComplete;
   });

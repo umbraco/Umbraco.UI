@@ -1,20 +1,15 @@
 import './card-user.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import '../avatar/avatar.js';
 import { UUISelectableEvent } from '../../internal/events';
 import { UUICardEvent } from '../card/card.js';
 
 import { UUICardUserElement } from './card-user.element';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUICardUserElement', () => {
   let element: UUICardUserElement;

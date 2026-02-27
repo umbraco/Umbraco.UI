@@ -1,22 +1,19 @@
 import '../icon/icon.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIRefNodeDataTypeElement } from './ref-node-data-type.element';
 import './ref-node-data-type.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUIRefNodeDataTypeElement', () => {
   let element: UUIRefNodeDataTypeElement;
 
   beforeEach(async () => {
-    element = render(html`<uui-ref-node-data-type name="Data Type"></uui-ref-node-data-type>`).container.querySelector('uui-ref-node-data-type')!;
+    element = render(
+      html`<uui-ref-node-data-type name="Data Type"></uui-ref-node-data-type>`,
+    ).container.querySelector('uui-ref-node-data-type')!;
 
     await element.updateComplete;
   });

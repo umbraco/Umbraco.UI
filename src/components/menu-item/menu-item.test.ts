@@ -1,7 +1,9 @@
 import './menu-item.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import '../symbol-expand/symbol-expand.js';
 import '../loader-bar/loader-bar.js';
 import { UUIMenuItemElement } from './menu-item.element';
@@ -9,19 +11,14 @@ import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUISelectableEvent } from '../../internal/events';
 import { UUITestMouse } from '../../internal/test/index';
 
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
-
 describe('UUIMenuItemElement', () => {
   describe('element', () => {
     let element: UUIMenuItemElement;
 
     beforeEach(async () => {
-      element = render(html`<uui-menu-item label="menuitem"></uui-menu-item>`).container.querySelector('uui-menu-item')!;
+      element = render(
+        html`<uui-menu-item label="menuitem"></uui-menu-item>`,
+      ).container.querySelector('uui-menu-item')!;
 
       await element.updateComplete;
     });
@@ -35,10 +32,12 @@ describe('UUIMenuItemElement', () => {
     });
 
     it('passes the a11y audit with nesting', async () => {
-      element = render(html`<uui-menu-item label="menuitem" has-children>
+      element = render(
+        html`<uui-menu-item label="menuitem" has-children>
           <uui-menu-item label="sub-menuitem"></uui-menu-item>
           <uui-menu-item label="sub-menuitem"></uui-menu-item>
-        </uui-menu-item>`).container.querySelector('uui-menu-item')!;
+        </uui-menu-item>`,
+      ).container.querySelector('uui-menu-item')!;
 
       await element.updateComplete;
       expect(await axeRun(element)).toHaveNoViolations();
@@ -385,9 +384,11 @@ describe('UUIMenuItemElement', () => {
     let element: UUIMenuItemElement;
 
     beforeEach(async () => {
-      element = render(html`<uui-menu-item
+      element = render(
+        html`<uui-menu-item
           label="menuitem"
-          href="https://www.umbraco.com"></uui-menu-item>`).container.querySelector('uui-menu-item')!;
+          href="https://www.umbraco.com"></uui-menu-item>`,
+      ).container.querySelector('uui-menu-item')!;
 
       await element.updateComplete;
       labelElement = element.shadowRoot!.querySelector(
@@ -414,9 +415,7 @@ describe('UUIMenuItemElement', () => {
       element.target = '_blank';
       await element.updateComplete;
       expect(labelElement.getAttribute('target')).toBe('_blank');
-      expect(labelElement.getAttribute('rel')).toBe(
-        'noopener noreferrer',
-      );
+      expect(labelElement.getAttribute('rel')).toBe('noopener noreferrer');
     });
 
     it('when rel is applied to anchor tag.', async () => {

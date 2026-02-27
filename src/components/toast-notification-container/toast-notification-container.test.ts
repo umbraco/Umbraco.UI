@@ -1,7 +1,9 @@
 import './toast-notification-container.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import '../button/button.js';
 import '../icon/icon.js';
 
@@ -11,13 +13,6 @@ import {
 } from '../toast-notification/toast-notification.js';
 
 import { UUIToastNotificationContainerElement } from './toast-notification-container.element';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));

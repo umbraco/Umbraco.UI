@@ -1,7 +1,9 @@
 import './input.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIInputElement } from './input.element.js';
 import { UUIInputEvent } from './UUIInputEvent.js';
 
@@ -11,13 +13,6 @@ const preventSubmit = (e: SubmitEvent) => {
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
 }
 
 describe('UuiInputElement', () => {
@@ -132,8 +127,9 @@ describe('UuiInputElement', () => {
         `);
 
         const outerElement = screen.container.querySelector('#outer')!;
-        const innerElement =
-          screen.container.querySelector('#inner') as UUIInputElement;
+        const innerElement = screen.container.querySelector(
+          '#inner',
+        ) as UUIInputElement;
         await innerElement.updateComplete;
         let outerEventTriggered = false;
 

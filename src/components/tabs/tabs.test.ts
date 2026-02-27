@@ -1,7 +1,9 @@
 import './tabs.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import { UUITabGroupElement } from './tab-group.element';
 import { UUITabElement } from './tab.element';
@@ -9,13 +11,6 @@ import { UUITabElement } from './tab.element';
 import '../button/button.js';
 import '../popover-container/popover-container.js';
 import '../symbol-more/symbol-more.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UuiTab', () => {
   let element: UUITabGroupElement;

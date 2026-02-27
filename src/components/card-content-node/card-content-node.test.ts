@@ -1,18 +1,13 @@
 import '../icon/icon.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUISelectableEvent } from '../../internal/events';
 import { UUICardEvent } from '../card/card.js';
 import { UUICardContentNodeElement } from './card-content-node.element';
 import './card-content-node.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUICardContentNodeElement', () => {
   let element: UUICardContentNodeElement;

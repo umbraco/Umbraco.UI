@@ -1,16 +1,11 @@
 import '../icon/icon.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIRefNodePackageElement } from './ref-node-package.element';
 import './ref-node-package.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUIRefNodePackageElement', () => {
   let element: UUIRefNodePackageElement;

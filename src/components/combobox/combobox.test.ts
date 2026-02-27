@@ -1,7 +1,9 @@
 import './combobox.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIComboboxElement } from './combobox.element';
 import { UUIComboboxEvent } from './UUIComboboxEvent';
 import { UUIComboboxListOptionElement } from '../combobox-list/combobox-list.js';
@@ -12,13 +14,6 @@ import '../scroll-container/scroll-container.js';
 import '../input/input.js';
 import '../popover-container/popover-container.js';
 import '../symbol-expand/symbol-expand.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUIComboboxElement', () => {
   let element: UUIComboboxElement;

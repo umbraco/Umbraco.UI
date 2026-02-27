@@ -1,15 +1,10 @@
 import './form.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
-import { axeRun } from '../../internal/test/a11y.js';
-import { UUIFormElement } from './form.element';
 
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
+import { UUIFormElement } from './form.element';
 
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
@@ -20,7 +15,9 @@ describe('UUIFormElement', () => {
   let formElement: HTMLFormElement;
 
   beforeEach(async () => {
-    element = render(html`<uui-form><form @submit=${preventSubmit}></form></uui-form>`).container.querySelector('uui-form')!;
+    element = render(
+      html`<uui-form><form @submit=${preventSubmit}></form></uui-form>`,
+    ).container.querySelector('uui-form')!;
 
     await element.updateComplete;
     formElement = element.getFormElement()!;

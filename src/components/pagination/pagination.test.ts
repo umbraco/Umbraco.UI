@@ -1,17 +1,12 @@
 import '../button/button.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import '../button-group/button-group.js';
 import { UUIPaginationElement } from './pagination.element';
 import './pagination.js';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 describe('UUIPaginationElement', () => {
   let element: UUIPaginationElement;
@@ -56,9 +51,7 @@ describe('UUIPaginationElement', () => {
       expect(element).toHaveProperty('goToNextPage');
     });
     it('has a goToPreviousPage method', () => {
-      expect(element)
-        .toHaveProperty('goToPreviousPage')
-        ;
+      expect(element).toHaveProperty('goToPreviousPage');
     });
     it('has a goToPage method', () => {
       expect(element).toHaveProperty('goToPage');
@@ -97,7 +90,9 @@ describe('UUIPaginationElement', () => {
     await element.updateComplete;
 
     expect(element.current).toBe(2);
-    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    const activeButton = element.shadowRoot?.querySelector(
+      '.active',
+    ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('2');
   });
@@ -114,7 +109,9 @@ describe('UUIPaginationElement', () => {
     await element.updateComplete;
 
     expect(element.current).toBe(1);
-    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    const activeButton = element.shadowRoot?.querySelector(
+      '.active',
+    ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('1');
   });
@@ -131,7 +128,9 @@ describe('UUIPaginationElement', () => {
     await element.updateComplete;
 
     expect(element.current).toBe(3);
-    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    const activeButton = element.shadowRoot?.querySelector(
+      '.active',
+    ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('3');
   });
@@ -145,15 +144,22 @@ describe('UUIPaginationElement', () => {
     await element.updateComplete;
 
     expect(element.current).toBe(30);
-    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    const activeButton = element.shadowRoot?.querySelector(
+      '.active',
+    ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('30');
 
     // Re-query nav buttons after render
-    const updatedButtons = element.shadowRoot?.querySelector('#pages')?.children;
+    const updatedButtons =
+      element.shadowRoot?.querySelector('#pages')?.children;
     const lastIdx = updatedButtons!.length - 1;
-    expect((updatedButtons![lastIdx - 1] as HTMLElement).hasAttribute('disabled')).toBe(true);
-    expect((updatedButtons![lastIdx] as HTMLElement).hasAttribute('disabled')).toBe(true);
+    expect(
+      (updatedButtons![lastIdx - 1] as HTMLElement).hasAttribute('disabled'),
+    ).toBe(true);
+    expect(
+      (updatedButtons![lastIdx] as HTMLElement).hasAttribute('disabled'),
+    ).toBe(true);
   });
 
   it('goes to first page on click and disables first and previous buttons', async () => {
@@ -168,11 +174,21 @@ describe('UUIPaginationElement', () => {
     await element.updateComplete;
 
     expect(element.current).toBe(1);
-    const activeButton = element.shadowRoot?.querySelector('.active') as HTMLElement;
+    const activeButton = element.shadowRoot?.querySelector(
+      '.active',
+    ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('1');
-    expect((element.shadowRoot?.querySelector('#pages')!.children[0] as HTMLElement).hasAttribute('disabled')).toBe(true);
-    expect((element.shadowRoot?.querySelector('#pages')!.children[1] as HTMLElement).hasAttribute('disabled')).toBe(true);
+    expect(
+      (
+        element.shadowRoot?.querySelector('#pages')!.children[0] as HTMLElement
+      ).hasAttribute('disabled'),
+    ).toBe(true);
+    expect(
+      (
+        element.shadowRoot?.querySelector('#pages')!.children[1] as HTMLElement
+      ).hasAttribute('disabled'),
+    ).toBe(true);
   });
 
   it('shows the dots when more pages than visible', async () => {

@@ -1,16 +1,11 @@
 import './file-dropzone.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+
 import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIFileDropzoneElement } from './file-dropzone.element';
 import { UUIFileDropzoneEvent } from './UUIFileDropzoneEvent';
-
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
 
 function expectFileChangeEvent(
   element: UUIFileDropzoneElement,

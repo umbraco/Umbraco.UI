@@ -1,21 +1,18 @@
 import { UUILabelElement } from './label.element';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
-import { axeRun } from '../../internal/test/a11y.js';
-import './label.js';
 
-/** Helper: one-shot event listener as a Promise. */
-function oneEvent(el: EventTarget, event: string): Promise<Event> {
-  return new Promise(resolve => {
-    el.addEventListener(event, resolve, { once: true });
-  });
-}
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
+import './label.js';
 
 describe('UUILabelElement', () => {
   let element: UUILabelElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-label>Visual label</uui-label> `).container.querySelector('uui-label')!;
+    element = render(html`
+      <uui-label>Visual label</uui-label>
+    `).container.querySelector('uui-label')!;
 
     await element.updateComplete;
   });
@@ -45,10 +42,12 @@ describe('UUILabelElement', () => {
     let inputEl: HTMLInputElement;
 
     beforeEach(async () => {
-      scene = render(html`<div>
+      scene = render(
+        html`<div>
           <uui-label for="MyInput">Visual label</uui-label
           ><input id="MyInput" />
-        </div>`).container.querySelector('div')!;
+        </div>`,
+      ).container.querySelector('div')!;
       await scene.updateComplete;
       inputEl = scene.querySelector('input') as HTMLInputElement;
     });
@@ -96,9 +95,11 @@ describe('UUILabelElement', () => {
 
     beforeEach(async () => {
       forElement = document.createElement('input')!;
-      scene = render(html`<div>
+      scene = render(
+        html`<div>
           <uui-label .for=${forElement}>Visual label</uui-label>${forElement}
-        </div>`).container.querySelector('div')!;
+        </div>`,
+      ).container.querySelector('div')!;
       await scene.updateComplete;
     });
 
