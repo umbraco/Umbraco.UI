@@ -1,7 +1,7 @@
 {
   "name": "@umbraco-ui/uui",
   "version": "2.0.0-alpha",
-  "description": "The Umbraco UI Library \u2014 web components for the Umbraco backoffice.",
+  "description": "The Umbraco UI Library - web components for the Umbraco backoffice.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
