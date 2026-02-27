@@ -47,6 +47,25 @@ UUI's published `dist/` directory preserves the module structure, so each compon
 
 The browser fetches only the modules you actually import, so you get automatic tree-shaking without a bundler.
 
+## Color components
+
+The color components (`uui-color-picker`, `uui-color-area`, `uui-color-slider`, `uui-color-swatches-palette`) depend on [`colord`](https://www.npmjs.com/package/colord). If you use any of these, add `colord` to your import map:
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "lit": "https://esm.run/lit",
+      "colord": "https://esm.run/colord",
+      "colord/": "https://esm.run/colord/",
+      "@umbraco-ui/uui/": "https://cdn.jsdelivr.net/npm/@umbraco-ui/uui@2/dist/"
+    }
+  }
+</script>
+```
+
+Bundler users do not need to do anything — `colord` is installed automatically as a dependency.
+
 ## Cherry-picking components
 
 Import only what you use to keep page loads fast:
