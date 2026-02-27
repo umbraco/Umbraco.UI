@@ -103,10 +103,10 @@ export class UUIPaginationElement extends LitElement {
   }
 
   @queryAll('uui-button.nav')
-  private _navButtons!: Array<UUIButtonElement>;
+  private readonly _navButtons!: Array<UUIButtonElement>;
 
   @query('#pages')
-  private _pagesGroup!: any;
+  private readonly _pagesGroup!: any;
 
   /**
    * This property is used to generate a proper `aria-label`. It will be announced by screen reader as: "<<this.label>>. Current page: <<this.current>>"

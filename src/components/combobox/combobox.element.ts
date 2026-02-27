@@ -133,16 +133,16 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   placeholder = '';
 
   @query('#combobox-input')
-  private _input!: HTMLInputElement;
+  private readonly _input!: HTMLInputElement;
 
   @query('#combobox-popover')
-  private _comboboxPopoverElement?: UUIPopoverContainerElement;
+  private readonly _comboboxPopoverElement?: UUIPopoverContainerElement;
 
   @queryAssignedElements({
     flatten: true,
     selector: 'uui-combobox-list',
   })
-  private _comboboxListElements?: UUIComboboxListElement[];
+  private readonly _comboboxListElements?: UUIComboboxListElement[];
 
   #comboboxList!: UUIComboboxListElement;
   #phoneMediaQuery!: MediaQueryList;

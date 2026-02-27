@@ -222,7 +222,7 @@ export class UUIInputElement extends UUIFormControlMixin(
   tabIndex: number = 0;
 
   @query('#input')
-  _input!: HTMLInputElement;
+  readonly _input!: HTMLInputElement;
 
   private _type: InputType = 'text';
 
