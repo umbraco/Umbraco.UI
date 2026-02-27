@@ -36,6 +36,7 @@ export * from './components/responsive-container/responsive-container.js';
 export * from './components/scroll-container/scroll-container.js';
 export * from './components/select/select.js';
 export * from './components/slider/slider.js';
+export * from './components/symbol-drag-handle/symbol-drag-handle.js';
 export * from './components/symbol-expand/symbol-expand.js';
 export * from './components/symbol-file/symbol-file.js';
 export * from './components/symbol-folder/symbol-folder.js';
