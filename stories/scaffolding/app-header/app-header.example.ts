@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { UUITextStyles } from '../../../src/styles';
 
 @customElement('uui-app-header-example')
 export class UUIAppHeaderExample extends LitElement {

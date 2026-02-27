@@ -79,8 +79,7 @@ export const UmbracoWords: Readonly<string[]> = [
 ];
 
 const randomWordGenerator = (function* GenerateRandomWord() {
-  for (let i = 0; i <= UmbracoWords.length; i++) {
-    if (i === UmbracoWords.length) i = 0;
+  for (let i = 0; ; i = (i + 1) % UmbracoWords.length) {
     yield UmbracoWords[i];
   }
 })();
@@ -94,5 +93,5 @@ export function GetRandomUmbracoWord(): string {
 }
 
 export function ArrayOfUmbracoWords(arrayLength: number): string[] {
-  return [...Array(arrayLength)].map(() => GetRandomUmbracoWord());
+  return [...new Array(arrayLength)].map(() => GetRandomUmbracoWord());
 }

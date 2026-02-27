@@ -1,0 +1,47 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { UUI_VERSION } from '../src/internal/version';
+import * as ButtonStories from '../src/components/button/button.story';
+
+<Meta title="Introduction" />
+
+# Umbraco UI Library <small>v{UUI_VERSION}</small>
+
+Welcome to the **Umbraco UI (UUI)** component library — a collection of 80+ reusable web components built with [Lit](https://lit.dev/).
+
+## Installation
+
+```bash
+npm install @umbraco-ui/uui
+```
+
+## Usage
+
+Import individual components for tree-shaking:
+
+```js
+import '@umbraco-ui/uui/components/button/button.js';
+```
+
+Or import everything:
+
+```js
+import '@umbraco-ui/uui';
+```
+
+Then choose a theme:
+
+```html
+<link rel="stylesheet" href="@umbraco-ui/uui/themes/light.css" />
+<!-- or -->
+<link rel="stylesheet" href="@umbraco-ui/uui/themes/dark.css" />
+```
+
+Now use the components in your HTML:
+
+<Canvas of={ButtonStories.LooksAndColors} />
+
+## Links
+
+- [GitHub Repository](https://github.com/umbraco/Umbraco.UI)
+- [npm Package](https://www.npmjs.com/package/@umbraco-ui/uui)
+- [Migration Guide (v1 → v2)](https://github.com/umbraco/Umbraco.UI/blob/main/docs/MIGRATION-V1-TO-V2.md)

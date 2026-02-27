@@ -5,12 +5,14 @@ on:
     branches:
       - main
       - production
+      - v*/dev
   # This is how azure builds staging environments
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - production
+      - v*/dev
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
@@ -21,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Use Node.js
         uses: actions/setup-node@v6

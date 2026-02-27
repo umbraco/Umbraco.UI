@@ -1,20 +1,20 @@
 import type { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
-import '@umbraco-ui/uui-symbol-expand/lib';
-import '@umbraco-ui/uui-loader-bar/lib';
-import '@umbraco-ui/uui-button/lib';
-import '@umbraco-ui/uui-input/lib';
-import '@umbraco-ui/uui-scroll-container/lib';
-import '@umbraco-ui/uui-box/lib';
-import '@umbraco-ui/uui-textarea/lib';
-import '@umbraco-ui/uui-combobox-list/lib';
-import '@umbraco-ui/uui-combobox/lib';
-import './home.story.element.ts';
+import '../../src/components/symbol-expand/symbol-expand.js';
+import '../../src/components/loader-bar/loader-bar.js';
+import '../../src/components/button/button.js';
+import '../../src/components/input/input.js';
+import '../../src/components/scroll-container/scroll-container.js';
+import '../../src/components/box/box.js';
+import '../../src/components/textarea/textarea.js';
+import '../../src/components/combobox-list/combobox-list.js';
+import '../../src/components/combobox/combobox.js';
+import './home.story.element.js';
 
 export default {
   id: 'composite-home',
-  title: 'A-Composite/Home',
+  title: 'Examples/Home',
   component: '',
 };
 
