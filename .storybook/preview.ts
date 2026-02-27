@@ -12,6 +12,11 @@ import '../src/components/icon-registry-essential/icon-registry-essential.js';
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ['Introduction', '*', 'Examples'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
