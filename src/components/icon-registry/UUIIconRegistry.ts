@@ -27,7 +27,7 @@ export class UUIIconRegistry {
     );
   }
 
-  private _onIconRequest = (event: UUIIconRequestEvent) => {
+  private readonly _onIconRequest = (event: UUIIconRequestEvent) => {
     const icon = this.getIcon(event.detail.iconName);
     if (icon !== null) {
       event.acceptRequest(icon);

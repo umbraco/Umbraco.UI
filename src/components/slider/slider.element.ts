@@ -224,7 +224,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
     );
   }
 
-  private onWindowResize = () => {
+  private readonly onWindowResize = () => {
     this._stepWidth = this._calculateStepWidth();
   };
 

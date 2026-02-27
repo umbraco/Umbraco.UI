@@ -78,13 +78,13 @@ export class UUIToastNotificationContainerElement extends LitElement {
     _modal.open = false;
   }
 
-  private onToastClosed = (e: UUIToastNotificationEvent) => {
+  private readonly onToastClosed = (e: UUIToastNotificationEvent) => {
     this.removeToast(e.target);
   };
 
   private _toasts: UUIToastNotificationElement[] = [];
 
-  private onSlotChanged = (event: any) => {
+  private readonly onSlotChanged = (event: any) => {
     const existingModals = [...this._toasts];
 
     this._toasts = event.target

@@ -41,7 +41,7 @@ export class UUIComboboxAsyncOptionsExampleElement extends LitElement {
     this._fetchData();
   }
 
-  private _fetchData = async () => {
+  private readonly _fetchData = async () => {
     const response = await getFruits();
     this._options = [...response];
   };
