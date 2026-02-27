@@ -3,9 +3,10 @@ import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
 import { axeRun } from '../../internal/test/a11y.js';
 
+import type { UUISelectOption } from './select.element';
 import { UUISelectElement } from './select.element';
 
-const options: Array<Option> = [
+const options: Array<UUISelectOption> = [
   { name: 'Carrot', value: 'orange', selected: true },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },

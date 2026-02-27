@@ -130,7 +130,17 @@ import '@umbraco-ui/uui';
 + <link rel="stylesheet" href="node_modules/@umbraco-ui/uui/dist/themes/light.css" />
 ```
 
-### 4. Handle removed components
+### 4. Renamed types
+
+The global `Option` interface (previously declared by `uui-select`) has been replaced with an exported `UUISelectOption` interface. The type shape is unchanged, so existing code will continue to work at runtime. If you reference `Option` as a type annotation, TypeScript will prompt you to add the import:
+
+```diff
+- const options: Array<Option> = [{ name: 'A', value: 'a' }];
++ import type { UUISelectOption } from '@umbraco-ui/uui/components/select/select.element.js';
++ const options: Array<UUISelectOption> = [{ name: 'A', value: 'a' }];
+```
+
+### 5. Handle removed components
 
 If you used `uui-caret` or `uui-popover`, replace them:
 
@@ -142,7 +152,7 @@ If you used `uui-caret` or `uui-popover`, replace them:
 + <uui-popover-container ...>
 ```
 
-### 5. Update Lit to v3
+### 6. Update Lit to v3
 
 UUI v2 requires Lit ^3.0.0. If your project uses Lit 2, follow the [Lit 2 to 3 upgrade guide](https://lit.dev/docs/releases/upgrade/#lit-2x-to-3.0).
 

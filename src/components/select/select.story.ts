@@ -3,6 +3,7 @@ import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
+import type { UUISelectOption } from './select.element.js';
 
 const meta: Meta = {
   id: 'uui-select',
@@ -26,7 +27,7 @@ const meta: Meta = {
 <uui-select placeholder="Select an option"></uui-select>
 
 // this is an example of array you need to pass to the select component to print the options
-const options: Array<Option> = [
+const options: Array<UUISelectOption> = [
   { name: 'Carrot', value: 'orange' },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },
@@ -43,7 +44,7 @@ const options: Array<Option> = [
 export default meta;
 type Story = StoryObj;
 
-const options: Array<Option> = [
+const options: Array<UUISelectOption> = [
   { name: 'Carrot', value: 'orange' },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },
@@ -52,12 +53,12 @@ const options: Array<Option> = [
   { name: 'Strawberry', value: 'red' },
 ];
 
-const preselectedOptions: Array<Option> = options.map(option => {
+const preselectedOptions: Array<UUISelectOption> = options.map(option => {
   if (option.name === 'Aubergine') return { ...option, selected: true };
   return option;
 });
 
-const groupedOptions: Array<Option> = options.map(option => {
+const groupedOptions: Array<UUISelectOption> = options.map(option => {
   if (options.indexOf(option) <= 2) return { ...option, group: 'Vegetables' };
   return { ...option, group: 'Fruits' };
 });
@@ -83,7 +84,7 @@ export const Preselected: Story = {
 <uui-select placeholder="Select an option"></uui-select>
 
 //this is an example of array you need to pass to the select component to print the options
-const options: Array<Option> = [
+const options: Array<UUISelectOption> = [
 { name: 'Carrot', value: 'orange' },
 { name: 'Cucumber', value: 'green' },
 { name: 'Aubergine', value: 'purple', selected: true },
@@ -112,7 +113,7 @@ export const Groups: Story = {
 <uui-select placeholder="Select an option"></uui-select>
 
 //this is an example of array you need to pass to the select component to print the options
-const options: Array<Option> = [
+const options: Array<UUISelectOption> = [
 { name: 'Carrot', value: 'orange', group: 'Vegetables' },
 { name: 'Cucumber', value: 'green', group: 'Vegetables' },
 { name: 'Aubergine', value: 'purple', group: 'Vegetables' },

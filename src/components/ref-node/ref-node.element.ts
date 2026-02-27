@@ -64,7 +64,7 @@ export class UUIRefNodeElement extends UUIRefElement {
   public rel?: string;
 
   @query('#open-part')
-  protected _openPart?: HTMLInputElement;
+  protected readonly _openPart?: HTMLInputElement;
 
   @state()
   private _iconSlotHasContent = false;

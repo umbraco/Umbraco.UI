@@ -145,7 +145,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
   public title: string = '';
 
   @query('#button')
-  protected _button!: HTMLInputElement;
+  protected readonly _button!: HTMLInputElement;
 
   constructor() {
     super();

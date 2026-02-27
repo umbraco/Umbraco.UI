@@ -14,7 +14,7 @@ export class UUIBreadcrumbsElement extends LitElement {
     flatten: true,
     selector: 'uui-breadcrumb-item, [uui-breadcrumb-item], [role=listitem]',
   })
-  private slotNodes!: HTMLElement[];
+  private readonly slotNodes!: HTMLElement[];
 
   private elementIsBreadcrumbItem(el: unknown): el is UUIBreadcrumbItemElement {
     return el instanceof UUIBreadcrumbItemElement;

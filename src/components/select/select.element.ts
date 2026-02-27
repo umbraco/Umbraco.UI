@@ -4,15 +4,12 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { UUISelectEvent } from './UUISelectEvent.js';
 
-// TODO: Dont set a global interface, we should expose a 'local' interface.
-declare global {
-  interface Option {
-    name: string;
-    value: string;
-    group?: string;
-    selected?: boolean;
-    disabled?: boolean;
-  }
+export interface UUISelectOption {
+  name: string;
+  value: string;
+  group?: string;
+  selected?: boolean;
+  disabled?: boolean;
 }
 
 /**
@@ -80,8 +77,8 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   error = false;
 
   /**
-   * An array of options to be rendered by the element. If you want the element The option interface has up to 5 properties:
-   * `interface Option {
+   * An array of options to be rendered by the element. The option interface has up to 5 properties:
+   * `interface UUISelectOption {
     name: string;
     value: string;
     group?: string;
@@ -90,7 +87,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   }`
    */
   @property({ type: Array, attribute: false })
-  options: Option[] = [];
+  options: UUISelectOption[] = [];
 
   @state()
   private _groups: string[] = [];
@@ -107,7 +104,7 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   private _values: string[] = [];
 
   @query('#native')
-  protected _input!: HTMLSelectElement;
+  protected readonly _input!: HTMLSelectElement;
 
   constructor() {
     super();

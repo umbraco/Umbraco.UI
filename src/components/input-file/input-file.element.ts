@@ -19,10 +19,10 @@ import '../file-dropzone/file-dropzone.js';
  */
 export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
   @query('#dropzone')
-  private _dropzone!: UUIFileDropzoneElement;
+  private readonly _dropzone!: UUIFileDropzoneElement;
 
   @query('#dropzone')
-  private _dropZone: UUIFileDropzoneElement | undefined;
+  private readonly _dropZone: UUIFileDropzoneElement | undefined;
 
   /**
    * Accepted filetypes. Will allow all types if empty.
