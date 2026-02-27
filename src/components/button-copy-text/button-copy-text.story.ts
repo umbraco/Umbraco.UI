@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
-import './button-copy-text.element.js';
+import './button-copy-text.js';
 import { UUICopyTextEvent } from './UUICopyTextEvent.js';
 import type { UUIButtonCopyTextElement } from './button-copy-text.element.js';
 import readme from './README.md?raw';
