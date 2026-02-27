@@ -74,7 +74,9 @@ describe('UUIFormElement', () => {
 
       await listener;
       await expect(formElement.hasAttribute('submit-invalid')).to.equal(true);
-      await expect(formElement.getAttribute('submit-invalid')).to.not.equal(null);
+      await expect(formElement.getAttribute('submit-invalid')).to.not.equal(
+        null,
+      );
       await expect(formElement.getAttribute('submit-invalid')).to.equal('');
     });
 

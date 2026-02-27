@@ -28,11 +28,21 @@ describe('v2.0.0/update-imports', async () => {
 
   it('transforms fixture correctly', () => {
     const input = readFileSync(
-      resolve(__dirname, 'v2.0.0', '__testfixtures__', 'update-imports.input.ts'),
+      resolve(
+        __dirname,
+        'v2.0.0',
+        '__testfixtures__',
+        'update-imports.input.ts',
+      ),
       'utf-8',
     );
     const expected = readFileSync(
-      resolve(__dirname, 'v2.0.0', '__testfixtures__', 'update-imports.output.ts'),
+      resolve(
+        __dirname,
+        'v2.0.0',
+        '__testfixtures__',
+        'update-imports.output.ts',
+      ),
       'utf-8',
     );
     assert.equal(applyTransform(transform, input).trim(), expected.trim());
@@ -48,7 +58,9 @@ describe('v2.0.0/update-imports', async () => {
       transform,
       `import { UUIButtonElement } from '@umbraco-ui/uui-button/lib/uui-button.element';`,
     );
-    assert.ok(out.includes(`'@umbraco-ui/uui/components/button/button.element.js'`));
+    assert.ok(
+      out.includes(`'@umbraco-ui/uui/components/button/button.element.js'`),
+    );
   });
 
   it('maps uui-base to barrel', () => {
@@ -112,7 +124,8 @@ describe('v2.0.0/update-imports', async () => {
   });
 
   it('rewrites paths inside template literals', () => {
-    const input = 'const t = html`<link href="node_modules/@umbraco-ui/uui-css/dist/uui-css.css">`;';
+    const input =
+      'const t = html`<link href="node_modules/@umbraco-ui/uui-css/dist/uui-css.css">`;';
     const out = applyTransform(transform, input);
     assert.ok(out.includes('@umbraco-ui/uui/dist/themes/light.css'));
   });
