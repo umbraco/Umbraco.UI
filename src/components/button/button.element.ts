@@ -2,7 +2,6 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../internal/animations/index.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 import {
   UUIFormControlMixin,
   LabelMixin,
@@ -17,6 +16,9 @@ import type { TemplateResult } from 'lit';
 import { css, html, LitElement, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+
+import '../icon/icon.js';
+import '../loader-circle/loader-circle.js';
 
 export type UUIButtonState = undefined | 'waiting' | 'success' | 'failed';
 
@@ -214,17 +216,14 @@ export class UUIButtonElement extends UUIFormControlMixin(
     let element: TemplateResult;
     switch (this.state) {
       case 'waiting':
-        demandCustomElement(this, 'uui-loader-circle');
         element = html`<uui-loader-circle id="loader"></uui-loader-circle>`;
         break;
       case 'success':
-        demandCustomElement(this, 'uui-icon');
         element = html`<uui-icon
           name="check"
           .fallback=${iconCheck.strings[0]}></uui-icon>`;
         break;
       case 'failed':
-        demandCustomElement(this, 'uui-icon');
         element = html`<uui-icon
           name="wrong"
           .fallback=${iconWrong.strings[0]}></uui-icon>`;

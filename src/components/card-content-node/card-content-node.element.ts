@@ -1,8 +1,9 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { UUICardElement } from '../card/card.js';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+
+import '../icon/icon.js';
 
 /**
  *  @element uui-card-content-node
@@ -54,7 +55,6 @@ export class UUICardContentNodeElement extends UUICardElement {
   }
 
   private _renderFallbackIcon() {
-    demandCustomElement(this, 'uui-icon');
     return html`<uui-icon .svg="${this.fallbackIcon}"></uui-icon>`;
   }
 

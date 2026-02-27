@@ -1,11 +1,10 @@
-import {
-  demandCustomElement,
-  slotHasContent,
-} from '../../internal/utils/index.js';
+import { slotHasContent } from '../../internal/utils/index.js';
 import { UUICardElement } from '../card/card.js';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+
+import '../avatar/avatar.js';
 
 /**
  *  @element uui-card-user
@@ -33,8 +32,6 @@ export class UUICardUserElement extends UUICardElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-avatar');
   }
 
   #renderButton() {
