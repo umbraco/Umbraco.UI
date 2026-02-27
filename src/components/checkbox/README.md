@@ -1,5 +1,7 @@
 # uui-checkbox
 
+Checkbox input component with checked, indeterminate, and disabled states.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-checkbox--docs)

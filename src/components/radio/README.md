@@ -1,5 +1,7 @@
 # uui-radio
 
+Radio button and radio group components for single-selection form inputs.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-radio--docs)

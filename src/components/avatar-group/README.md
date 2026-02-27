@@ -1,5 +1,7 @@
 # uui-avatar-group
 
+Container for grouping multiple avatars with an optional limit to show overflow count.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-avatar-group--docs)

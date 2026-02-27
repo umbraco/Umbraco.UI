@@ -1,5 +1,7 @@
 # uui-box
 
+Layout container with optional header, headline, and action slots for grouping content.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-box--docs)

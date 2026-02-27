@@ -1,5 +1,7 @@
 # uui-table
 
+Table component with semantic row, cell, head, and column elements.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-table--docs)
