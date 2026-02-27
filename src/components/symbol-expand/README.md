@@ -1,7 +1,5 @@
 # uui-symbol-expand
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-expand?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-symbol-expand)
-
 Umbraco style expand symbol component.
 
 ### See it in action
@@ -10,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-sym
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-symbol-expand
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-symbol-expand>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-expand';
+import '@umbraco-ui/uui/components/symbol-expand/symbol-expand.js';
 ```
 
 When looking to leverage the `UUISymbolExpandElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISymbolExpandElement } from '@umbraco-ui/uui-symbol-expand';
+import { UUISymbolExpandElement } from '@umbraco-ui/uui/components/symbol-expand/symbol-expand.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage
