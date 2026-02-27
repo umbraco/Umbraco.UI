@@ -105,6 +105,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
       this._value = 'on';
     }
     this.inputRole = inputRole;
+
+    this._validationProperties.add('checked');
+
     this.addEventListener('keydown', this.#onKeyDown);
   }
 
