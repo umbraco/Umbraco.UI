@@ -18,9 +18,12 @@
     "./styles/*": "./dist/styles/*"
   },
   "sideEffects": [
-    "./dist/components/*/!(*.element).js",
-    "./dist/index.js",
-    "./dist/internal/version.js"
+    "dist/components/*/!(*.element).js",
+    "dist/index.js",
+    "dist/internal/version.js",
+    "src/components/*/!(*.element).ts",
+    "src/index.ts",
+    "src/internal/version.ts"
   ],
   "customElements": "custom-elements.json",
   "files": [
@@ -87,10 +90,10 @@
     "@lerna-lite/cli": "4.11.3",
     "@lerna-lite/publish": "4.11.3",
     "@lerna-lite/version": "4.11.3",
-    "@storybook/addon-a11y": "^10.2.12",
-    "@storybook/addon-docs": "^10.2.12",
-    "@storybook/addon-links": "^10.2.12",
-    "@storybook/web-components-vite": "^10.2.12",
+    "@storybook/addon-a11y": "^10.2.13",
+    "@storybook/addon-docs": "^10.2.13",
+    "@storybook/addon-links": "^10.2.13",
+    "@storybook/web-components-vite": "^10.2.13",
     "@testing-library/dom": "10.4.1",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.1",
@@ -104,7 +107,7 @@
     "eslint-plugin-lit": "2.2.1",
     "eslint-plugin-local-rules": "3.0.2",
     "eslint-plugin-prettier": "5.5.5",
-    "eslint-plugin-storybook": "10.2.12",
+    "eslint-plugin-storybook": "10.2.13",
     "eslint-plugin-wc": "3.1.0",
     "github-markdown-css": "5.8.1",
     "globals": "17.3.0",
@@ -120,7 +123,7 @@
     "react-syntax-highlighter": "16.1.0",
     "remark-gfm": "4.0.1",
     "rimraf": "6.1.3",
-    "storybook": "^10.2.12",
+    "storybook": "^10.2.13",
     "tsc-files": "1.1.4",
     "typescript": "5.9.3",
     "typescript-eslint": "8.55.0",
