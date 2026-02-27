@@ -1,5 +1,5 @@
-/* UUI Dark Theme — color overrides */
-@import './light.css';
+/* UUI Dark Theme — base foundations + dark color tokens */
+@import './base.css';
 
 :root {
   /* ----- STATES -----  */
