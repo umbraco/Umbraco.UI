@@ -122,10 +122,10 @@ src/
 ├── themes/          # Light and dark theme CSS
 ├── components/      # 80 component directories
 │   ├── button/
-│   │   ├── index.ts
-│   │   ├── uui-button.element.ts
-│   │   ├── uui-button.test.ts
-│   │   ├── uui-button.story.ts
+│   │   ├── button.ts
+│   │   ├── button.element.ts
+│   │   ├── button.test.ts
+│   │   ├── button.story.ts
 │   │   └── README.md
 │   ├── input/
 │   └── ...
