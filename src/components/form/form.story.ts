@@ -16,6 +16,7 @@ import '../combobox/combobox.js';
 import '../combobox-list/combobox-list.js';
 import '../textarea/textarea.js';
 import '../select/select.js';
+import type { UUISelectOption } from '../select/select.element.js';
 
 // TODO: Figure out why we now need to import everything that every component uses
 
@@ -64,7 +65,7 @@ const _onSubmit = (e: SubmitEvent) => {
   }
 };
 
-const options: Array<Option> = [
+const options: Array<UUISelectOption> = [
   { name: 'Carrot', value: 'orange', selected: true },
   { name: 'Cucumber', value: 'green' },
   { name: 'Aubergine', value: 'purple' },
