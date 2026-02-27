@@ -42,3 +42,4 @@ out-css
 !/src
 
 *storybook.log
+__screenshots__/
