@@ -1,6 +1,6 @@
 # uui-tabs
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-tabs?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-tabs)
+Tab group and tab components for organizing content into switchable panels.
 
 ### See it in action
 
@@ -8,22 +8,29 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-tab
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-tabs
+npm i @umbraco-ui/uui
 ```
 
-Import the registration of `<uui-tab-group>`, `<uui-tab>` via:
+Import the registration of `<uui-tab-group>` and `<uui-tab>` via:
 
 ```javascript
-import '@umbraco-ui/uui-tabs';
+import '@umbraco-ui/uui/components/tabs/tabs.js';
 ```
 
-When looking to leverage the `UUITabGroupElement`, `UUITabElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUITabGroupElement` and `UUITabElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUITabGroupElement, UUITabElement } from '@umbraco-ui/uui-tabs';
+import {
+  UUITabGroupElement,
+  UUITabElement,
+} from '@umbraco-ui/uui/components/tabs/tabs.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

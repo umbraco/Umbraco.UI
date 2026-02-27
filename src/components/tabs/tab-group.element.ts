@@ -1,4 +1,3 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import type { UUIButtonElement } from '../button/button.js';
 import type { UUIPopoverContainerElement } from '../popover-container/popover-container.js';
 import { css, html, LitElement } from 'lit';
@@ -6,6 +5,10 @@ import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import type { UUITabElement } from './tab.element.js';
+
+import '../button/button.js';
+import '../symbol-more/symbol-more.js';
+import '../popover-container/popover-container.js';
 
 /**
  * @element uui-tab-group
@@ -71,10 +74,6 @@ export class UUITabGroupElement extends LitElement {
   }
 
   async #initialize() {
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-popover-container');
-    demandCustomElement(this, 'uui-symbol-more');
-
     await this.updateComplete;
     this.#resizeObserver.observe(this._mainElement);
   }

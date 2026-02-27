@@ -10,6 +10,7 @@ export * from './iconCopy.js';
 export * from './iconDelete.js';
 export * from './iconDocument.js';
 export * from './iconDownload.js';
+export * from './iconDrag.js';
 export * from './iconEdit.js';
 export * from './iconFavorite.js';
 export * from './iconFolder.js';

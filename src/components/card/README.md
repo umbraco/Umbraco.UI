@@ -1,6 +1,6 @@
 # uui-card
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card)
+Base card component with selection, error states, and optional link or button interactions.
 
 ### See it in action
 
@@ -8,16 +8,32 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-car
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-card
+npm i @umbraco-ui/uui
+```
+
+Import the registration of `<uui-card>` via:
+
+```javascript
+import '@umbraco-ui/uui/components/card/card.js';
+```
+
+When looking to leverage the `UUICardElement` base class as a type and/or for extension purposes, do so via:
+
+```javascript
+import { UUICardElement } from '@umbraco-ui/uui/components/card/card.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage
 
 ```javascript
-import { UUICardElement } from '@umbraco-ui/uui-card';
+import { UUICardElement } from '@umbraco-ui/uui/components/card/card.js';
 
 class MyCardElement extends UUICardElement {}
 ```

@@ -1,31 +1,37 @@
 # uui-card-user
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-card-user?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-card-user)
+User card variant displaying avatar, name, and optional tag and action slots.
 
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-card-user--docs)
 
-## Usage
+## Installation
 
 ```zsh
-npm i @umbraco-ui/uui-card-user
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-card-user>` via:
 
 ```javascript
-import '@umbraco-ui/uui-card-user';
+import '@umbraco-ui/uui/components/card-user/card-user.js';
 ```
 
 When looking to leverage the `UUICardUserElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUICardUserElement } from '@umbraco-ui/uui-card-user';
+import { UUICardUserElement } from '@umbraco-ui/uui/components/card-user/card-user.js';
 ```
 
-## Example
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
+```
+
+## Usage
 
 ```html
-INSERT EXAMPLE
+<uui-card-user name="John Doe"></uui-card-user>
 ```

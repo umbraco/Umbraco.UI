@@ -1,6 +1,6 @@
 # uui-button-group
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-button-group?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-button-group)
+Container for grouping buttons with merged borders and flex layout.
 
 ### See it in action
 
@@ -8,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-but
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-button-group
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-button-group>` via:
 
 ```javascript
-import '@umbraco-ui/uui-button-group';
+import '@umbraco-ui/uui/components/button-group/button-group.js';
 ```
 
 When looking to leverage the `UUIButtonGroupElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIButtonGroupElement } from '@umbraco-ui/uui-button-group';
+import { UUIButtonGroupElement } from '@umbraco-ui/uui/components/button-group/button-group.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

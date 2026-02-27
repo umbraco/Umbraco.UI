@@ -1,7 +1,5 @@
 # uui-toast-notification-layout
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-toast-notification-layout?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-toast-notification-layout)
-
 Umbraco style toast-notification-layout component.
 
 ### See it in action
@@ -10,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-toa
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-toast-notification-layout
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-toast-notification-layout>` via:
 
 ```javascript
-import '@umbraco-ui/uui-toast-notification-layout';
+import '@umbraco-ui/uui/components/toast-notification-layout/toast-notification-layout.js';
 ```
 
 When looking to leverage the `UUIToastNotificationLayoutElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIToastNotificationLayoutElement } from '@umbraco-ui/uui-toast-notification-layout';
+import { UUIToastNotificationLayoutElement } from '@umbraco-ui/uui/components/toast-notification-layout/toast-notification-layout.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

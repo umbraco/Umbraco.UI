@@ -1,35 +1,25 @@
 # uui-boolean-input
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-boolean-input?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-boolean-input)
-
-Umbraco style boolean-input component.
+Base class for boolean input components such as `<uui-checkbox>` and `<uui-toggle>`.
 
 ### See it in action
 
-Preview the component on [Storybook](https://uui.umbraco.com/?path=/story/uui-boolean-input)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-boolean-input--docs)
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-boolean-input
-```
-
-Import the registration of `<uui-boolean-input>` via:
-
-```javascript
-import '@umbraco-ui/uui-boolean-input';
+npm i @umbraco-ui/uui
 ```
 
 When looking to leverage the `UUIBooleanInputElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBooleanInputElement } from '@umbraco-ui/uui-boolean-input';
+import { UUIBooleanInputElement } from '@umbraco-ui/uui/components/boolean-input/boolean-input.js';
 ```
 
-## Usage
+Alternatively, if you have already imported the full library:
 
-```html
-<uui-boolean-input></uui-boolean-input>
+```javascript
+import '@umbraco-ui/uui';
 ```

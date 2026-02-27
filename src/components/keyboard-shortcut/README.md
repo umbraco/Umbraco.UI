@@ -1,6 +1,6 @@
 # uui-keyboard-shortcut
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-keyboard-shortcut?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-keyboard-shortcut)
+Visual representation of keyboard shortcut key sequences.
 
 ### See it in action
 
@@ -8,22 +8,29 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-key
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-keyboard-shortcut
+npm i @umbraco-ui/uui
 ```
 
-Import the registration of `<uui-keyboard-shortcut>` via:
+Import the registration of `<uui-key>` and `<uui-keyboard-shortcut>` via:
 
 ```javascript
-import '@umbraco-ui/uui-keyboard-shortcut';
+import '@umbraco-ui/uui/components/keyboard-shortcut/keyboard-shortcut.js';
 ```
 
-When looking to leverage the `UUIKeyboardShortcutElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUIKeyElement` and `UUIKeyboardShortcutElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIKeyboardShortcutElement } from '@umbraco-ui/uui-keyboard-shortcut';
+import {
+  UUIKeyElement,
+  UUIKeyboardShortcutElement,
+} from '@umbraco-ui/uui/components/keyboard-shortcut/keyboard-shortcut.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

@@ -1,7 +1,5 @@
 # uui-select
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-select?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-select)
-
 Umbraco style select component.
 
 ### See it in action
@@ -10,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-sel
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-select
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-select>` via:
 
 ```javascript
-import '@umbraco-ui/uui-select';
+import '@umbraco-ui/uui/components/select/select.js';
 ```
 
 When looking to leverage the `UUISelectElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUISelectElement } from '@umbraco-ui/uui-select';
+import { UUISelectElement } from '@umbraco-ui/uui/components/select/select.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

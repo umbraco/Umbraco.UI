@@ -1,38 +1,37 @@
 # uui-symbol-file
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-symbol-file?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-symbol-file)
+File icon symbol with optional file type extension display.
 
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-symbol-file--docs)
 
-## Usage
+## Installation
 
 ```zsh
-npm i @umbraco-ui/uui-symbol-file
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-symbol-file>` via:
 
 ```javascript
-import '@umbraco-ui/uui-symbol-file';
+import '@umbraco-ui/uui/components/symbol-file/symbol-file.js';
 ```
 
-When looking to leverage the `UUIInputElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUISymbolFileElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIInputElement } from '@umbraco-ui/uui-symbol-file';
+import { UUISymbolFileElement } from '@umbraco-ui/uui/components/symbol-file/symbol-file.js';
 ```
 
-## Example
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
+```
+
+## Usage
 
 ```html
-<uui-symbol-file
-  label="Username"
-  type="text"
-  placeholder="Enter your username..."></uui-symbol-file>
-<uui-symbol-file
-  label="Password"
-  type="password"
-  placeholder="Enter your password..."></uui-symbol-file>
+<uui-symbol-file type="pdf"></uui-symbol-file>
 ```

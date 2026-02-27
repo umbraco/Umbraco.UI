@@ -1,9 +1,11 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html } from 'lit';
 import { UUIInputElement } from '../input/input.js';
 import { iconLock, iconUnlock } from '../icon-registry-essential/svgs/index.js';
 import { property } from 'lit/decorators.js';
 import { UUIInputLockEvent } from './UUIInputLockEvent.js';
+
+import '../icon/icon.js';
+import '../button/button.js';
 
 /**
  * @element uui-input-lock
@@ -49,13 +51,6 @@ export class UUIInputLockElement extends UUIInputElement {
     super();
     this.readonly = true;
     this.tabIndex = -1;
-  }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    demandCustomElement(this, 'uui-icon');
-    demandCustomElement(this, 'uui-button');
   }
 
   _onLockToggle() {

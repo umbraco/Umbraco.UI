@@ -1,5 +1,4 @@
 import { UUIFormControlMixin } from '../../internal/mixins/index.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 import type { UUIComboboxListElement } from '../combobox-list/combobox-list.js';
 import { UUIComboboxListEvent } from '../combobox-list/combobox-list.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
@@ -13,6 +12,13 @@ import {
 } from 'lit/decorators.js';
 
 import { UUIComboboxEvent } from './UUIComboboxEvent.js';
+
+import '../input/input.js';
+import '../symbol-expand/symbol-expand.js';
+import '../button/button.js';
+import '../icon/icon.js';
+import '../scroll-container/scroll-container.js';
+import '../popover-container/popover-container.js';
 
 /**
  * @element uui-combobox
@@ -162,14 +168,6 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.#phoneMediaQuery = window.matchMedia('(max-width: 600px)');
     this.#onPhoneChange();
     this.#phoneMediaQuery.addEventListener('change', this.#onPhoneChange);
-
-    demandCustomElement(this, 'uui-icon');
-    demandCustomElement(this, 'uui-input');
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-combobox-list');
-    demandCustomElement(this, 'uui-scroll-container');
-    demandCustomElement(this, 'uui-popover-container');
-    demandCustomElement(this, 'uui-symbol-expand');
   }
 
   disconnectedCallback(): void {

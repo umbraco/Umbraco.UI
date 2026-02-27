@@ -2,17 +2,35 @@
 
 A responsive container that automatically collapses overflowing children into a dropdown menu.
 
+### See it in action
+
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-responsive-container--docs)
+
 ## Installation
 
 ```zsh
-npm i @umbraco-ui/uui-responsive-container
+npm i @umbraco-ui/uui
+```
+
+Import the registration of `<uui-responsive-container>` via:
+
+```javascript
+import '@umbraco-ui/uui/components/responsive-container/responsive-container.js';
+```
+
+When looking to leverage the `UUIResponsiveContainerElement` base class as a type and/or for extension purposes, do so via:
+
+```javascript
+import { UUIResponsiveContainerElement } from '@umbraco-ui/uui/components/responsive-container/responsive-container.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage
-
-```javascript
-import '@umbraco-ui/uui-responsive-container';
-```
 
 ```html
 <uui-responsive-container>

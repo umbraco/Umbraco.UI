@@ -1,7 +1,5 @@
 # uui-scroll-container
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-scroll-container?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-scroll-container)
-
 Umbraco style scroll-container component.
 
 ### See it in action
@@ -10,22 +8,26 @@ Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-scr
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-scroll-container
+npm i @umbraco-ui/uui
 ```
 
 Import the registration of `<uui-scroll-container>` via:
 
 ```javascript
-import '@umbraco-ui/uui-scroll-container';
+import '@umbraco-ui/uui/components/scroll-container/scroll-container.js';
 ```
 
 When looking to leverage the `UUIScrollContainerElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIScrollContainerElement } from '@umbraco-ui/uui-scroll-container';
+import { UUIScrollContainerElement } from '@umbraco-ui/uui/components/scroll-container/scroll-container.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

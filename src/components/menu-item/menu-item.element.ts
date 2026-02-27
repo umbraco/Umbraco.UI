@@ -4,7 +4,6 @@ import {
   SelectableMixin,
   SelectOnlyMixin,
 } from '../../internal/mixins/index.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 import type { TemplateResult } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -12,6 +11,9 @@ import { ref } from 'lit/directives/ref.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIMenuItemEvent } from './UUIMenuItemEvent.js';
+
+import '../loader-bar/loader-bar.js';
+import '../symbol-expand/symbol-expand.js';
 
 /**
  *  @element uui-menu-item
@@ -133,9 +135,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
-
-    demandCustomElement(this, 'uui-symbol-expand');
-    demandCustomElement(this, 'uui-loader-bar');
   }
 
   async focus() {

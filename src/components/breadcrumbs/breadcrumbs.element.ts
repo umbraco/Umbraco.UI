@@ -3,7 +3,6 @@ import { queryAssignedElements } from 'lit/decorators.js';
 
 import { UUIBreadcrumbItemElement } from './breadcrumb-item.element.js';
 import '../responsive-container/responsive-container.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 
 /**
  * A breadcrumbs component to be used in combination with the uui-breadcrumb-item.
@@ -25,8 +24,6 @@ export class UUIBreadcrumbsElement extends LitElement {
     super.connectedCallback();
     this.setAttribute('aria-label', 'breadcrumb');
     this.setAttribute('role', 'navigation');
-
-    demandCustomElement(this, 'uui-responsive-container');
   }
 
   handleSlotChange() {
