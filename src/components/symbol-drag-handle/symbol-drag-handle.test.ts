@@ -1,5 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { UUISymbolDragHandleElement } from './symbol-drag-handle.element';
+import { UUISymbolDragHandleElement } from './symbol-drag-handle.js';
 
 describe('UUIDragHandleElement', () => {
   let element: UUISymbolDragHandleElement;
