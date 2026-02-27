@@ -1,0 +1,6 @@
+/* UUI Base Theme — shared foundations (fonts, sizes, spacing, palette) */
+@import '../styles/typography/lato.css';
+@import '../styles/custom-properties/sizes.css';
+@import '../styles/custom-properties/shadow.css';
+@import '../styles/custom-properties/palette.css';
+@import '../styles/custom-properties/fonts.css';
