@@ -149,7 +149,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       hex = Array.from(hex).reduce((str, x) => str + x + x, ''); // 123 -> 112233
     }
 
-    const bigint = parseInt(hex, 16);
+    const bigint = Number.parseInt(hex, 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
     const b = bigint & 255;
@@ -157,8 +157,12 @@ export class UUIColorSwatchElement extends LabelMixin(
     return [r, g, b];
   }
 
-  #rgbToHex = (r: number, g: number, b: number, hash: '#' | '' = ''): string =>
-    hash + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+  readonly #rgbToHex = (
+    r: number,
+    g: number,
+    b: number,
+    hash: '#' | '' = '',
+  ): string => hash + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
 
   render() {
     const classes = {
