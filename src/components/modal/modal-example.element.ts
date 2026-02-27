@@ -6,6 +6,11 @@ import './modal-container.js';
 import { ref, createRef } from 'lit/directives/ref.js';
 import type { UUIModalElement } from './modal.element.js';
 
+import './modal.js';
+import '../dialog-layout/dialog-layout.js';
+import '../button/button.js';
+import '../box/box.js';
+
 @defineElement('modal-example')
 export class UUIModalExampleElement extends LitElement {
   @state()

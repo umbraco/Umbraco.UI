@@ -1,6 +1,7 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+
+import '../form-validation-message/form-validation-message.js';
 
 // TODO: Make sure validation messages can be seen for the whole Form Item. Make them follow the screen if form controls are taller than available screen height.
 
@@ -24,8 +25,6 @@ export class UUIFormLayoutItemElement extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-form-validation-message');
   }
 
   @state()

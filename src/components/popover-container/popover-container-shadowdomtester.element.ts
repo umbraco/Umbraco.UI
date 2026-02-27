@@ -1,6 +1,9 @@
 import { html, LitElement } from 'lit';
 import { defineElement } from '../../internal/registration/index.js';
 
+import '../button/button.js';
+import './popover-container.js';
+
 /**
  * @element uui-popover-container-shadowdomtester
  */

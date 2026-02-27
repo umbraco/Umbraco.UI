@@ -1,8 +1,10 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { UUICardElement } from '../card/card.js';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+
+import '../symbol-folder/symbol-folder.js';
+import '../symbol-file/symbol-file.js';
 
 /**
  *  @element uui-card-media
@@ -44,9 +46,6 @@ export class UUICardMediaElement extends UUICardElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-symbol-folder');
-    demandCustomElement(this, 'uui-symbol-file');
   }
 
   private queryPreviews(e: Event): void {
