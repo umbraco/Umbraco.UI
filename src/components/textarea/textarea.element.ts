@@ -153,6 +153,11 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
   constructor() {
     super();
 
+    this._validationProperties.add('minlength');
+    this._validationProperties.add('maxlength');
+    this._validationProperties.add('minlengthMessage');
+    this._validationProperties.add('maxlengthMessage');
+
     this.addValidator(
       'tooShort',
       () => {

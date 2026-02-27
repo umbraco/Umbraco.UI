@@ -21,7 +21,6 @@ type FlagTypes =
   | 'tooShort'
   | 'typeMismatch'
   | 'valueMissing'
-  | 'badInput'
   | 'valid';
 
 const WeightedErrorFlagTypes = [
@@ -71,6 +70,7 @@ export declare abstract class UUIFormControlMixinElement<ValueType>
   implements UUIFormControlMixinInterface<ValueType>
 {
   protected _internals: ElementInternals;
+  protected _validationProperties: Set<PropertyKey>;
   protected _runValidators(): void;
   addValidator: (
     flagKey: FlagTypes,
@@ -219,6 +219,19 @@ export const UUIFormControlMixin = <
     #form: HTMLFormElement | null = null;
     #validators: UUIFormControlValidatorConfig[] = [];
     #formCtrlElements: NativeFormControlElement[] = [];
+
+    /**
+     * Set of property names that should trigger re-validation when changed.
+     * Subclasses should add their validation-relevant properties to this set in their constructor.
+     * @protected
+     */
+    protected _validationProperties: Set<PropertyKey> = new Set([
+      'value',
+      'required',
+      'requiredMessage',
+      'error',
+      'errorMessage',
+    ]);
 
     constructor(...args: any[]) {
       super(...args);
@@ -452,7 +465,12 @@ export const UUIFormControlMixin = <
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
-      this._runValidators();
+      for (const key of changedProperties.keys()) {
+        if (this._validationProperties.has(key)) {
+          this._runValidators();
+          break;
+        }
+      }
     }
 
     #onFormSubmit = () => {

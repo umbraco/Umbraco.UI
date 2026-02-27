@@ -229,6 +229,16 @@ export class UUIInputElement extends UUIFormControlMixin(
   constructor() {
     super();
 
+    this._validationProperties.add('min');
+    this._validationProperties.add('max');
+    this._validationProperties.add('minlength');
+    this._validationProperties.add('maxlength');
+    this._validationProperties.add('minlengthMessage');
+    this._validationProperties.add('maxlengthMessage');
+    this._validationProperties.add('type');
+    this._validationProperties.add('pattern');
+    this._validationProperties.add('step');
+
     this.addEventListener('keydown', this.#onKeyDown);
 
     this.addValidator(
