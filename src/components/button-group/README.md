@@ -1,5 +1,7 @@
 # uui-button-group
 
+Container for grouping buttons with merged borders and flex layout.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-button-group--docs)

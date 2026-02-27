@@ -1,5 +1,7 @@
 # uui-avatar
 
+Avatar component for displaying user initials or images with automatic initial generation.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-avatar--docs)

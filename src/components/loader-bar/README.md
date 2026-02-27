@@ -1,5 +1,7 @@
 # uui-loader-bar
 
+Linear progress indicator with optional progress value and looping animation.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-loader-bar--docs)

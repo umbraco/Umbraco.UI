@@ -1,5 +1,7 @@
 # uui-breadcrumbs
 
+Navigation component displaying a breadcrumb trail with responsive collapse support.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-breadcrumbs--docs)

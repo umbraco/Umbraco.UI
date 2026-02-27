@@ -1,5 +1,7 @@
 # uui-card-user
 
+User card variant displaying avatar, name, and optional tag and action slots.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-card-user--docs)

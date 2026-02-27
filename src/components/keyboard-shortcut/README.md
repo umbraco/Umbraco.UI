@@ -1,5 +1,7 @@
 # uui-keyboard-shortcut
 
+Visual representation of keyboard shortcut key sequences.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-keyboard-shortcut--docs)

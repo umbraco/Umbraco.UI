@@ -1,5 +1,7 @@
 # uui-symbol-file
 
+File icon symbol with optional file type extension display.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-symbol-file--docs)

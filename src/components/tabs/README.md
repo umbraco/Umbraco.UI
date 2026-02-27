@@ -1,5 +1,7 @@
 # uui-tabs
 
+Tab group and tab components for organizing content into switchable panels.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-tabs--docs)

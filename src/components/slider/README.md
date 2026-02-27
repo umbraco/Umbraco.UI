@@ -1,5 +1,7 @@
 # uui-slider
 
+Range input component with customizable min, max, steps, and optional value label.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-slider--docs)

@@ -1,5 +1,7 @@
 # uui-loader-circle
 
+Circular progress indicator with optional progress display on larger sizes.
+
 ### See it in action
 
 Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-loader-circle--docs)
