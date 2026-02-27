@@ -129,10 +129,6 @@ export class UUIToastNotificationElement extends LitElement {
     });
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   private _getAnimationDuration(): number {
     return (
       Number.parseInt(

@@ -28,10 +28,6 @@ export class UUISymbolFileThumbnailElement extends LitElement {
   @property({ type: String })
   alt: string = '';
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   render() {
     return this.src
       ? html`<img src=${this.src} alt=${this.alt} />`

@@ -202,10 +202,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     '#fff',
   ];
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;

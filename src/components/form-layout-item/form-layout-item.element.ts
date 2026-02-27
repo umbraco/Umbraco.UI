@@ -23,10 +23,6 @@ export class UUIFormLayoutItemElement extends LitElement {
   @property({ type: String })
   description: string | null = null;
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   @state()
   private _labelSlotHasContent = false;
 

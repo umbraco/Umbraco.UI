@@ -53,10 +53,6 @@ export class UUIInputLockElement extends UUIInputElement {
     this.tabIndex = -1;
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   _onLockToggle() {
     this.locked = !this.locked;
     this.pristine = false;
