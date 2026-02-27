@@ -19,7 +19,8 @@
   },
   "sideEffects": [
     "./dist/components/*/!(*.element).js",
-    "./dist/index.js"
+    "./dist/index.js",
+    "./dist/internal/version.js"
   ],
   "customElements": "custom-elements.json",
   "files": [
