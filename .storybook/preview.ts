@@ -17,12 +17,6 @@ const preview: Preview = {
         order: ['Introduction', '*', 'Examples'],
       },
     },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
     docs: {
       source: {
         excludeDecorators: true,
