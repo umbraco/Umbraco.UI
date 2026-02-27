@@ -1,6 +1,12 @@
 import './ref.js';
-import { expect, defineCE } from '@open-wc/testing';
 import { UUIRefElement } from './ref.element';
+
+let __defineCECounter = 0;
+function defineCE(klass: CustomElementConstructor): string {
+  const name = `test-${__defineCECounter++}-${Date.now()}`;
+  customElements.define(name, klass);
+  return name;
+}
 
 describe('UUIRefListElement', () => {
   let element: any;
@@ -12,11 +18,11 @@ describe('UUIRefListElement', () => {
 
   describe('properties', () => {
     it('has an error property', () => {
-      expect(element).to.have.property('error');
+      expect(element).toHaveProperty('error');
     });
 
     it('has a disabled property', () => {
-      expect(element).to.have.property('disabled');
+      expect(element).toHaveProperty('disabled');
     });
   });
 });

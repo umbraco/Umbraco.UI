@@ -1,22 +1,26 @@
-import { html, fixture, expect } from '@open-wc/testing';
 import { UUIDialogElement } from './dialog.element';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import './dialog.js';
 
 describe('UUIDialogElement', () => {
   let element: UUIDialogElement;
 
   beforeEach(async () => {
-    element = await fixture(html` <uui-dialog></uui-dialog> `);
+    element = render(html` <uui-dialog></uui-dialog> `).container.querySelector('uui-dialog')!;
+
+    await element.updateComplete;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 });

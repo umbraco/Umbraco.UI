@@ -1,11 +1,9 @@
-import {
-  html,
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
 import '../icon/icon.js';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 import { UUIRefNodeDocumentTypeElement } from './ref-node-document-type.element';
 import './ref-node-document-type.js';
 
@@ -13,93 +11,95 @@ describe('UUIRefNodeDocumentTypeElement', () => {
   let element: UUIRefNodeDocumentTypeElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-ref-node-document-type
         name="Document Type"></uui-ref-node-document-type>
-    `);
+    `).container.querySelector('uui-ref-node-document-type')!;
+
+    await element.updateComplete;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('properties', () => {
     it('has an error property', () => {
-      expect(element).to.have.property('error');
+      expect(element).toHaveProperty('error');
     });
 
     it('has a disabled property', () => {
-      expect(element).to.have.property('disabled');
+      expect(element).toHaveProperty('disabled');
     });
 
     it('has a name property', () => {
-      expect(element).to.have.property('name');
+      expect(element).toHaveProperty('name');
     });
 
     it('has a detail property', () => {
-      expect(element).to.have.property('detail');
+      expect(element).toHaveProperty('detail');
     });
 
     it('has an alias property', () => {
-      expect(element).to.have.property('alias');
+      expect(element).toHaveProperty('alias');
     });
   });
 
   describe('template', () => {
     it('renders a default slot', () => {
       const slot = element.shadowRoot!.querySelector('slot')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
 
     it('renders an icon slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=icon]')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
 
     it('renders a tag slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=tag]')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
 
     it('renders an actions slot', () => {
       const slot = element.shadowRoot!.querySelector('slot[name=actions]')!;
-      expect(slot).to.not.equal(null);
+      expect(slot).not.toBe(null);
     });
   });
 
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when info is clicked', async () => {
-        const listener = oneEvent(element, 'open', false);
+        const listener = oneEvent(element, 'open');
         const infoElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#info');
         infoElement?.click();
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('open');
+        expect(event).not.toBe(null);
+        expect(event.type).toBe('open');
       });
 
       it('emits a open event when icon is clicked', async () => {
-        const listener = oneEvent(element, 'open', false);
+        const listener = oneEvent(element, 'open');
         const iconElement: HTMLElement | null =
           element.shadowRoot!.querySelector('#icon');
         iconElement?.click();
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('open');
+        expect(event).not.toBe(null);
+        expect(event.type).toBe('open');
       });
     });
 
     describe('selectable', () => {
       it('emits a selected event when selectable', async () => {
         element.selectable = true;
-        await elementUpdated(element);
-        const listener = oneEvent(element, 'selected', false);
+        await element.updateComplete;
+        const listener = oneEvent(element, 'selected');
         element.click();
         const event = await listener;
-        expect(event).to.not.equal(null);
-        expect(event.type).to.equal('selected');
-        expect(element.selected).to.equal(true);
+        expect(event).not.toBe(null);
+        expect(event.type).toBe('selected');
+        expect(element.selected).toBe(true);
       });
     });
   });

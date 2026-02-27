@@ -21,7 +21,10 @@ import '@umbraco-ui/uui/components/breadcrumbs/breadcrumbs.js';
 When looking to leverage the `UUIBreadcrumbItemElement` and `UUIBreadcrumbsElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIBreadcrumbItemElement, UUIBreadcrumbsElement } from '@umbraco-ui/uui/components/breadcrumbs/breadcrumbs.js';
+import {
+  UUIBreadcrumbItemElement,
+  UUIBreadcrumbsElement,
+} from '@umbraco-ui/uui/components/breadcrumbs/breadcrumbs.js';
 ```
 
 Alternatively, if you have already imported the full library, the element will be registered automatically:

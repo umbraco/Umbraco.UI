@@ -1,5 +1,7 @@
 import './color-swatch.js';
-import { html, fixture, expect, elementUpdated } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import { UUIColorSwatchElement } from './color-swatch.element';
 import { UUITestMouse } from '../../internal/test/index';
 
@@ -7,17 +9,19 @@ describe('UUIColorSwatchElement', () => {
   let element: UUIColorSwatchElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-color-swatch label="Color swatch"></uui-color-swatch>
-    `);
+    `).container.querySelector('uui-color-swatch')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIColorSwatchElement);
+    expect(element).toBeInstanceOf(UUIColorSwatchElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   describe('selectable', () => {
@@ -28,23 +32,23 @@ describe('UUIColorSwatchElement', () => {
     });
 
     it('can be selected when selectable', async () => {
-      await elementUpdated(element);
+      await element.updateComplete;
       await mouse.leftClick(element);
-      expect(element.selected).to.equal(true);
+      expect(element.selected).toBe(true);
     });
 
     it('can not be selected when not selectable', async () => {
       element.selectable = false;
-      await elementUpdated(element);
+      await element.updateComplete;
       await mouse.leftClick(element);
-      expect(element.selected).to.equal(false);
+      expect(element.selected).toBe(false);
     });
 
     it('cant be selected when disabled', async () => {
       element.disabled = true;
-      await elementUpdated(element);
+      await element.updateComplete;
       await mouse.leftClick(element);
-      expect(element.selected).to.equal(false);
+      expect(element.selected).toBe(false);
     });
 
     /* TODO: temp commented out as they are flaky in webkit
@@ -55,12 +59,12 @@ describe('UUIColorSwatchElement', () => {
       await sendKeys({
         press: 'Space',
       });
-      expect(element.selected).to.equal(true);
+      expect(element.selected).toBe(true);
 
       await sendKeys({
         press: 'Space',
       });
-      expect(element.selected).to.equal(false);
+      expect(element.selected).toBe(false);
     });
 
     it('can be selected with Enter key', async () => {
@@ -70,12 +74,12 @@ describe('UUIColorSwatchElement', () => {
       await sendKeys({
         press: 'Enter',
       });
-      expect(element.selected).to.equal(true);
+      expect(element.selected).toBe(true);
 
       await sendKeys({
         press: 'Enter',
       });
-      expect(element.selected).to.equal(false);
+      expect(element.selected).toBe(false);
     });
     */
   });

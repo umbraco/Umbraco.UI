@@ -1,18 +1,14 @@
-import { sendMouse } from '@web/test-runner-commands';
+import { userEvent } from 'vitest/browser';
 
 export class UUITestMouse {
   leftClick(targetElement: HTMLElement) {
-    return sendMouse({
-      type: 'click',
-      position: this.#getCenterCoordinatesOfElement(targetElement),
-      button: 'left',
-    });
+    return userEvent.click(targetElement);
   }
+}
 
-  #getCenterCoordinatesOfElement(element: HTMLElement): [number, number] {
-    const position = element.getBoundingClientRect();
-    const centerOfElementX = Math.round(position.left + position.width / 2);
-    const centerOfElementY = Math.round(position.top + position.height / 2);
-    return [centerOfElementX, centerOfElementY];
-  }
+/** One-shot event listener as a Promise. */
+export function oneEvent(el: EventTarget, event: string): Promise<Event> {
+  return new Promise(resolve => {
+    el.addEventListener(event, resolve, { once: true });
+  });
 }

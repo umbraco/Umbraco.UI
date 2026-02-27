@@ -1,5 +1,9 @@
 import './tabs.js';
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+
+import { axeRun } from '../../internal/test/a11y.js';
+import { oneEvent } from '../../internal/test/index.js';
 
 import { UUITabGroupElement } from './tab-group.element';
 import { UUITabElement } from './tab.element';
@@ -13,7 +17,7 @@ describe('UuiTab', () => {
   let tabs: UUITabElement[];
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-tab-group>
         <uui-tab label="Content">Content</uui-tab>
         <uui-tab label="Packages">Packages</uui-tab>
@@ -34,43 +38,45 @@ describe('UuiTab', () => {
         <uui-tab label="Content14">Content to force a more button</uui-tab>
         <uui-tab label="Content15">Content to force a more button</uui-tab>
       </uui-tab-group>
-    `);
+    `).container.querySelector('uui-tab-group')!;
+
+    await element.updateComplete;
 
     tabs = Array.from(element.querySelectorAll('uui-tab'));
   });
 
   it('is defined as its own instance', () => {
-    expect(element).to.be.instanceOf(UUITabGroupElement);
+    expect(element).toBeInstanceOf(UUITabGroupElement);
   });
 
   it('tab element defined as its own instance', () => {
-    expect(tabs[0]).to.be.instanceOf(UUITabElement);
+    expect(tabs[0]).toBeInstanceOf(UUITabElement);
   });
 
   it('it selects an item', () => {
     tabs[1].click();
-    expect(tabs[0].active).to.equal(false);
-    expect(tabs[1].active).to.equal(true);
-    expect(tabs[2].active).to.equal(false);
+    expect(tabs[0].active).toBe(false);
+    expect(tabs[1].active).toBe(true);
+    expect(tabs[2].active).toBe(false);
 
     tabs[2].click();
-    expect(tabs[0].active).to.equal(false);
-    expect(tabs[1].active).to.equal(false);
-    expect(tabs[2].active).to.equal(true);
+    expect(tabs[0].active).toBe(false);
+    expect(tabs[1].active).toBe(false);
+    expect(tabs[2].active).toBe(true);
   });
 
   it('it emits a click event', async () => {
-    const listener = oneEvent(element, 'click', false);
+    const listener = oneEvent(element, 'click');
     tabs[0].click();
     const ev = await listener;
-    expect(ev.type).to.equal('click');
+    expect(ev.type).toBe('click');
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   it('tab element passes the a11y audit', async () => {
-    await expect(tabs[0]).shadowDom.to.be.accessible();
+    expect(await axeRun(tabs[0])).toHaveNoViolations();
   });
 });

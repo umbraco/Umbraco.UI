@@ -1,7 +1,13 @@
 import './popover-container.js';
-import { html, fixture, expect, aTimeout } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import { UUIPopoverContainerElement } from './popover-container.element';
 import '../button/button.js';
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 class DummyElementWithShadowDom extends HTMLElement {
   constructor() {
@@ -18,30 +24,32 @@ describe('UUIPopoverContainerElement', () => {
   let element: UUIPopoverContainerElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-popover-container id="my-popover">
         Hello world
       </uui-popover-container>
-    `);
+    `).container.querySelector('uui-popover-container')!;
+
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIPopoverContainerElement);
+    expect(element).toBeInstanceOf(UUIPopoverContainerElement);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   it('gets the popover attribute', async () => {
     await element.updateComplete;
-    expect(element).to.have.attribute('popover');
+    expect(element.hasAttribute('popover')).toBe(true);
   });
 
   describe('scroll parent detection', () => {
     it('should properly detect scroll parents in nested shadow DOM containers', async () => {
       // Create a test structure with nested shadow DOM and scroll containers
-      const testContainer = await fixture(html`
+      const testContainer = render(html`
         <main>
           <div style="height: 300px; overflow: auto;" id="outer-scroll">
             <dummy-shadow-dom>
@@ -60,7 +68,7 @@ describe('UUIPopoverContainerElement', () => {
             Test content
           </uui-popover-container>
         </main>
-      `);
+      `).container.querySelector('main')!;
 
       const popover = testContainer.querySelector(
         '#test-popover',
@@ -69,21 +77,21 @@ describe('UUIPopoverContainerElement', () => {
 
       // Trigger the popover open
       button?.click();
-      await aTimeout(100);
+      await sleep(100);
 
       // Access the private scroll parents array for testing
       const scrollParents = popover._getScrollParents();
 
       // Should find all scroll containers
-      expect(scrollParents.length).to.be.equal(3); // outer-scroll, inner-scroll, document.body
+      expect(scrollParents.length).toBe(3); // outer-scroll, inner-scroll, document.body
 
       // Should include the document.body as the last element
-      expect(scrollParents[scrollParents.length - 1]).to.equal(document.body);
+      expect(scrollParents[scrollParents.length - 1]).toBe(document.body);
     });
 
     it('should ignore scroll parents with position: absolute', async () => {
       // Create a test structure with nested shadow DOM and scroll containers
-      const testContainer = await fixture(html`
+      const testContainer = render(html`
         <main>
           <div style="height: 300px; overflow: auto;" id="outer-scroll">
             <div style="position: absolute; top:0; left:0;" id="inner-scroll">
@@ -100,7 +108,7 @@ describe('UUIPopoverContainerElement', () => {
             Test content
           </uui-popover-container>
         </main>
-      `);
+      `).container.querySelector('main')!;
 
       const popover = testContainer.querySelector(
         '#test-popover',
@@ -112,17 +120,17 @@ describe('UUIPopoverContainerElement', () => {
 
       // Trigger the popover open
       button?.click();
-      await aTimeout(100);
+      await sleep(100);
 
       // Access the private scroll parents array for testing
       const scrollParents = popover._getScrollParents();
 
       // Should not contain the inner scroll since it's position: absolute
-      expect(scrollParents).to.not.include(innerScroll);
+      expect(scrollParents).not.toContain(innerScroll);
     });
 
     it('should reset scroll parents when called multiple times', async () => {
-      const testContainer = await fixture(html`
+      const testContainer = render(html`
         <main>
           <div style="height: 300px; overflow: auto;" id="scroll-container">
             <uui-button
@@ -135,7 +143,7 @@ describe('UUIPopoverContainerElement', () => {
             Test content
           </uui-popover-container>
         </main>
-      `);
+      `).container.querySelector('main')!;
 
       const popover = testContainer.querySelector(
         '#test-popover',
@@ -144,18 +152,18 @@ describe('UUIPopoverContainerElement', () => {
 
       // Open and close the popover multiple times
       button?.click();
-      await aTimeout(50);
+      await sleep(50);
       popover.hidePopover();
-      await aTimeout(50);
+      await sleep(50);
 
       button?.click();
-      await aTimeout(50);
+      await sleep(50);
 
       const scrollParents = popover._getScrollParents();
 
       // Should not have duplicate entries
       const uniqueParents = [...new Set(scrollParents)];
-      expect(scrollParents.length).to.equal(uniqueParents.length);
+      expect(scrollParents.length).toBe(uniqueParents.length);
     });
   });
 });

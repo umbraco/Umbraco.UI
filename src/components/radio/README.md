@@ -21,7 +21,10 @@ import '@umbraco-ui/uui/components/radio/radio.js';
 When looking to leverage the `UUIRadioGroupElement` and `UUIRadioElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIRadioGroupElement, UUIRadioElement } from '@umbraco-ui/uui/components/radio/radio.js';
+import {
+  UUIRadioGroupElement,
+  UUIRadioElement,
+} from '@umbraco-ui/uui/components/radio/radio.js';
 ```
 
 Alternatively, if you have already imported the full library, the element will be registered automatically:

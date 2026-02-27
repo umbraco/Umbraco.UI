@@ -1,39 +1,46 @@
 import './breadcrumbs.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
 
 import { UUIBreadcrumbItemElement } from './breadcrumb-item.element';
 
 describe('UuiBreadcrumbItem', () => {
   it('is defined', async () => {
-    const element = await fixture<UUIBreadcrumbItemElement>(html`
+    const element = render(html`
       <uui-breadcrumb-item>One</uui-breadcrumb-item>
-    `);
+    `).container.querySelector('uui-breadcrumb-item')!;
+    await element.updateComplete;
 
-    expect(element).to.be.instanceOf(UUIBreadcrumbItemElement);
+    expect(element).toBeInstanceOf(UUIBreadcrumbItemElement);
   });
 
   it('is a link if not last item', async () => {
-    const element = await fixture<UUIBreadcrumbItemElement>(html`
+    const element = render(html`
       <uui-breadcrumb-item href="/test">One</uui-breadcrumb-item>
-    `);
+    `).container.querySelector('uui-breadcrumb-item')!;
+    await element.updateComplete;
 
     const link = element.shadowRoot!.querySelector('a')!;
-    expect(link).to.not.equal(null);
+    expect(link).not.toBe(null);
   });
 
   it('is a span if last item', async () => {
-    const element = await fixture<UUIBreadcrumbItemElement>(html`
+    const element = render(html`
       <uui-breadcrumb-item last-item>One</uui-breadcrumb-item>
-    `);
+    `).container.querySelector('uui-breadcrumb-item')!;
+    await element.updateComplete;
+
     const span = element.shadowRoot!.querySelector('span')!;
-    expect(span).to.not.equal(null);
+    expect(span).not.toBe(null);
   });
 
   it('is a span if no href', async () => {
-    const element = await fixture<UUIBreadcrumbItemElement>(html`
+    const element = render(html`
       <uui-breadcrumb-item>One</uui-breadcrumb-item>
-    `);
+    `).container.querySelector('uui-breadcrumb-item')!;
+    await element.updateComplete;
+
     const span = element.shadowRoot!.querySelector('span')!;
-    expect(span).to.not.equal(null);
+    expect(span).not.toBe(null);
   });
 });

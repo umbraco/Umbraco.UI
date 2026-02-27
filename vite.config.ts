@@ -1,4 +1,14 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
+
+const isCI = process.env.CI === 'true';
+const browserInstances = isCI
+  ? [
+      { browser: 'chromium' as const },
+      { browser: 'firefox' as const },
+      { browser: 'webkit' as const },
+    ]
+  : [{ browser: 'chromium' as const }];
 
 export default defineConfig({
   build: {
@@ -30,15 +40,47 @@ export default defineConfig({
     sourcemap: true,
   },
   experimental: {
-    // CSS files in subdirectories (e.g. themes/light.css) reference fonts
-    // via url(). Vite resolves these relative to the output root, but the
-    // CSS files are nested one level deep. This rewrites CSS asset URLs to
-    // use ../ so font paths resolve correctly from their actual location.
     renderBuiltUrl(filename, { hostType }) {
       if (hostType === 'css') {
         return '../' + filename;
       }
       return filename;
+    },
+  },
+  test: {
+    globals: true,
+    include: ['src/**/*.test.ts'],
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      instances: browserInstances,
+      headless: true,
+    },
+    setupFiles: ['./vitest.setup.ts'],
+    onConsoleLog: (log: string) => {
+      if (log.includes('Lit is in dev mode')) return false;
+      if (log.includes('Multiple versions of Umbraco UI')) return false;
+      if (log.includes('Multiple instances of Umbraco UI')) return false;
+      return undefined;
+    },
+    deps: {
+      optimizer: {
+        web: {
+          include: [
+            'vitest-browser-lit',
+            'axe-core',
+            'lit',
+            'lit/decorators.js',
+            'lit/directives/if-defined.js',
+            'lit/directives/ref.js',
+            'lit/directives/repeat.js',
+            'lit/directives/style-map.js',
+            'lit/directives/unsafe-html.js',
+            'lit/directives/when.js',
+            'lit/static-html.js',
+          ],
+        },
+      },
     },
   },
 });

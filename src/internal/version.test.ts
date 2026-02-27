@@ -1,11 +1,9 @@
-import { expect } from '@open-wc/testing';
-
 describe('version', () => {
   let originalWarn: typeof console.warn;
   let originalVersions: string[] | undefined;
   let warnCalls: string[];
 
-  before(() => {
+  beforeAll(() => {
     // Capture and restore global state
     originalVersions = (globalThis as any).__uuiVersions;
 
@@ -20,26 +18,26 @@ describe('version', () => {
     };
   });
 
-  after(() => {
+  afterAll(() => {
     console.warn = originalWarn;
     (globalThis as any).__uuiVersions = originalVersions;
   });
 
   it('exports UUI_VERSION as a semver string', async () => {
     const { UUI_VERSION } = await import('./version.js');
-    expect(UUI_VERSION).to.be.a('string');
-    expect(UUI_VERSION).to.match(/^\d+\.\d+\.\d+/);
+    expect(typeof UUI_VERSION).toBe('string');
+    expect(UUI_VERSION).toMatch(/^\d+\.\d+\.\d+/);
   });
 
   it('registers version on globalThis.__uuiVersions', async () => {
     const { UUI_VERSION } = await import('./version.js');
     const versions: string[] = (globalThis as any).__uuiVersions;
-    expect(versions).to.be.an('array');
-    expect(versions).to.include(UUI_VERSION);
+    expect(Array.isArray(versions)).toBe(true);
+    expect(versions).toContain(UUI_VERSION);
   });
 
   it('warns when multiple different versions are detected', () => {
-    expect(warnCalls.length).to.be.greaterThan(0);
-    expect(warnCalls[0]).to.include('Multiple versions of Umbraco UI detected');
+    expect(warnCalls.length).toBeGreaterThan(0);
+    expect(warnCalls[0]).toContain('Multiple versions of Umbraco UI detected');
   });
 });

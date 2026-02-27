@@ -21,7 +21,10 @@ import '@umbraco-ui/uui/components/keyboard-shortcut/keyboard-shortcut.js';
 When looking to leverage the `UUIKeyElement` and `UUIKeyboardShortcutElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIKeyElement, UUIKeyboardShortcutElement } from '@umbraco-ui/uui/components/keyboard-shortcut/keyboard-shortcut.js';
+import {
+  UUIKeyElement,
+  UUIKeyboardShortcutElement,
+} from '@umbraco-ui/uui/components/keyboard-shortcut/keyboard-shortcut.js';
 ```
 
 Alternatively, if you have already imported the full library, the element will be registered automatically:

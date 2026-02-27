@@ -1,5 +1,7 @@
 import './input-password.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 import '../icon/icon.js';
 import '../button/button.js';
 import '../input/input.js';
@@ -11,21 +13,23 @@ describe('UUIInputPasswordElement', () => {
   let element: UUIInputPasswordElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    element = render(html`
       <uui-input-password label="label"></uui-input-password>
-    `);
+    `).container.querySelector('uui-input-password')!;
+
+    await element.updateComplete;
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUIInputPasswordElement);
+    expect(element).toBeInstanceOf(UUIInputPasswordElement);
   });
 
   it('inherits from uui-input', () => {
-    expect(element).to.be.instanceOf(UUIInputElement);
+    expect(element).toBeInstanceOf(UUIInputElement);
   });
 
   it('correctly toggles password type', async () => {
@@ -35,6 +39,6 @@ describe('UUIInputPasswordElement', () => {
       '#eye',
     ) as HTMLButtonElement;
     await toggle.click();
-    await expect(element.type).to.equal('text');
+    await expect(element.type).toBe('text');
   });
 });

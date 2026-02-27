@@ -1,5 +1,7 @@
 import './select.js';
-import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
 
 import type { UUISelectOption } from './select.element';
 import { UUISelectElement } from './select.element';
@@ -18,45 +20,45 @@ describe('UUISelectElement', () => {
   let input: HTMLSelectElement | null | undefined;
 
   beforeEach(async () => {
-    element = await fixture(
-      html`<uui-select
+    element = render(html`<uui-select
         label="foo"
         name="bar"
-        .options=${options}></uui-select>`,
-    );
+        .options=${options}></uui-select>`).container.querySelector('uui-select')!;
+
+    await element.updateComplete;
     input = element.shadowRoot?.querySelector('#native');
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf(UUISelectElement);
+    expect(element).toBeInstanceOf(UUISelectElement);
   });
 
   it('has internals', () => {
-    expect(element).to.have.property('_internals');
+    expect(element).toHaveProperty('_internals');
   });
 
   it('input exists', () => {
-    expect(input).to.not.equal(null);
+    expect(input).not.toBe(null);
   });
 
   it('if disabled, disables the native input', async () => {
     element.disabled = true;
-    await elementUpdated(element);
-    expect(input?.disabled).to.equal(true);
+    await element.updateComplete;
+    expect(input?.disabled).toBe(true);
   });
 
   describe('methods', () => {
     it('has a focus method', () => {
-      expect(element).to.have.property('focus').that.is.a('function');
+      expect(element).toHaveProperty('focus');
     });
     it('focus method sets focus', async () => {
-      expect(document.activeElement).not.to.equal(element);
+      expect(document.activeElement).not.toBe(element);
       await element.focus();
-      expect(document.activeElement).to.equal(element);
+      expect(document.activeElement).toBe(element);
     });
   });
 });
@@ -67,108 +69,105 @@ describe('UUISelect in Form', () => {
   let select: HTMLSelectElement;
 
   beforeEach(async () => {
-    formElement = await fixture(
-      html` <form>
+    formElement = render(html` <form>
         <uui-select label="foo" name="bar" .options=${options}></uui-select>
-      </form>`,
-    );
+      </form>`).container.querySelector('form')!;
     element = formElement.querySelector('uui-select') as any;
+    await element.updateComplete;
     select = element.shadowRoot?.querySelector('select') as HTMLSelectElement;
   });
 
   it('value is correct', () => {
-    expect(element.value).to.be.equal('orange');
+    expect(element.value).toBe('orange');
   });
 
   it('if value is set to a string that is not in the options array the value is empty string', async () => {
     element.value = 'something silly';
-    await elementUpdated(element);
+    await element.updateComplete;
     const formData = new FormData(formElement);
-    expect(element.value).to.be.equal('');
-    expect(formData.get('bar')).to.be.equal('');
+    expect(element.value).toBe('');
+    expect(formData.get('bar')).toBe('');
   });
 
   it('form output', () => {
     const formData = new FormData(formElement);
-    expect(formData.get('bar')).to.be.equal('orange');
+    expect(formData.get('bar')).toBe('orange');
   });
 
   it('change value and check output', () => {
     element.value = 'purple';
     const formData = new FormData(formElement);
-    expect(formData.get('bar')).to.be.equal('purple');
+    expect(formData.get('bar')).toBe('purple');
   });
 
   it('can be disabled', async () => {
     element.disabled = true;
-    await elementUpdated(element);
-    expect(select.disabled).to.equal(true);
+    await element.updateComplete;
+    expect(select.disabled).toBe(true);
   });
 
   describe('validation', () => {
     let formElement: HTMLFormElement;
     let element: UUISelectElement;
     beforeEach(async () => {
-      formElement = await fixture(
-        html`<form>
+      formElement = render(html`<form>
           <uui-select
             label="test label"
             name="test"
             .options=${options}></uui-select>
-        </form>`,
-      );
+        </form>`).container.querySelector('form')!;
       element = formElement.querySelector('uui-select') as UUISelectElement;
     });
 
     describe('required', () => {
       beforeEach(async () => {
         element.setAttribute('required', 'true');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
       it('sets element to invalid when value is empty', async () => {
         element.value = '';
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(false);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('sets element to valid when it has a value', async () => {
         element.value = options[0].value;
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
 
       it('sets the form to valid when it has a value', async () => {
         element.value = options[0].value;
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
 
     describe('custom error', () => {
       beforeEach(async () => {
         element.setAttribute('error', 'true');
-        await elementUpdated(element);
+        await element.updateComplete;
       });
 
       it('sets element to invalid when it has a custom error attribute', () => {
-        expect(element.checkValidity()).to.equal(false);
+        expect(element.checkValidity()).toBe(false);
       });
 
       it('sets element to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(element.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
       });
 
       it('sets the form to invalid when value is empty', () => {
-        expect(formElement.checkValidity()).to.equal(false);
+        expect(formElement.checkValidity()).toBe(false);
       });
 
       it('sets the form to valid when it doesnt have a custom error attribute', async () => {
         element.removeAttribute('error');
-        await elementUpdated(element);
-        expect(formElement.checkValidity()).to.equal(true);
+        await element.updateComplete;
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
   });

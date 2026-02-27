@@ -36,8 +36,8 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run build
-      - name: Install Playwright dependencies
-        run: npx playwright install --with-deps
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
       - run: npm test
       - name: Check for uncommitted changes
         run: |
