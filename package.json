@@ -17,6 +17,10 @@
     "./themes/*": "./dist/themes/*",
     "./styles/*": "./dist/styles/*"
   },
+  "sideEffects": [
+    "./dist/components/*/!(*.element).js",
+    "./dist/index.js"
+  ],
   "customElements": "custom-elements.json",
   "files": [
     "dist/**/*.js",
