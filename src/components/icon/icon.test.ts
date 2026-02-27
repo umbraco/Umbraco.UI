@@ -98,7 +98,9 @@ describe('UUIIconElement', () => {
     });
 
     it('contains svg of icon', () => {
-      expect(element.shadowRoot!.querySelector('#TestFallbackIcon')).to.not.equal(null);
+      expect(
+        element.shadowRoot!.querySelector('#TestFallbackIcon'),
+      ).to.not.equal(null);
     });
 
     it('passes the a11y audit', async () => {
@@ -176,7 +178,9 @@ describe('UUIIconElement', () => {
     });
 
     it('Child uui-icon retrieves icon of registry', () => {
-      expect(iconElement.shadowRoot!.querySelector('#TestIcon')).to.not.equal(null);
+      expect(iconElement.shadowRoot!.querySelector('#TestIcon')).to.not.equal(
+        null,
+      );
     });
   });
 
