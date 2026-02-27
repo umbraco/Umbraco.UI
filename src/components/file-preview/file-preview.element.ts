@@ -97,10 +97,6 @@ export class UUIFilePreviewElement extends LitElement {
     }
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   private _openSource() {
     window.open(this._url, '_blank');
   }

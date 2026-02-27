@@ -44,10 +44,6 @@ export class UUICardMediaElement extends UUICardElement {
   @state()
   protected hasPreview = false;
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   private queryPreviews(e: Event): void {
     this.hasPreview =
       (e.composedPath()[0] as HTMLSlotElement).assignedElements({

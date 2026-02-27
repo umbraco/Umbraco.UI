@@ -30,10 +30,6 @@ export class UUICardUserElement extends UUICardElement {
     this._avatarSlotHasContent = slotHasContent(e.target);
   };
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   #renderButton() {
     const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`

@@ -72,10 +72,6 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
     this.addEventListener('drop', () => this._setShowDropzone(false));
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   protected getFormElement(): HTMLElement {
     return this._dropZone! as HTMLElement;
   }

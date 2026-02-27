@@ -82,10 +82,6 @@ export class UUIRefNodeElement extends UUIRefElement {
     <path d="M14 2v4a2 2 0 0 0 2 2h4" />
   </svg>`;
 
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
   async focus() {
     await this.updateComplete;
     this._openPart?.focus();
