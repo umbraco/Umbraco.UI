@@ -1,4 +1,3 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import type { UUIButtonElement } from '../button/button.js';
 import type { UUIPopoverContainerElement } from '../popover-container/popover-container.js';
 import { css, html, LitElement } from 'lit';
@@ -68,11 +67,6 @@ export class UUIResponsiveContainerElement extends LitElement {
   }
 
   async #initialize() {
-    // Make sure required components are loaded
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-popover-container');
-    demandCustomElement(this, 'uui-symbol-more');
-
     await this.updateComplete;
     if (!this.#isConnected) return;
     this.#resizeObserver.observe(this._mainElement);

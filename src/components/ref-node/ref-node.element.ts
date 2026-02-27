@@ -1,8 +1,9 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { UUIRefElement } from '../ref/ref.js';
 import { css, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+
+import '../icon/icon.js';
 
 /**
  *  @element uui-ref-node
@@ -83,8 +84,6 @@ export class UUIRefNodeElement extends UUIRefElement {
 
   connectedCallback() {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-icon');
   }
 
   async focus() {

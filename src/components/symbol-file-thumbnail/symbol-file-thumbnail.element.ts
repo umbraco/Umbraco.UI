@@ -1,8 +1,9 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { iconPicture } from '../icon-registry-essential/svgs/index.js';
+
+import '../icon/icon.js';
 
 /**
  * @element uui-symbol-file-thumbnail
@@ -29,7 +30,6 @@ export class UUISymbolFileThumbnailElement extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    demandCustomElement(this, 'uui-icon');
   }
 
   render() {

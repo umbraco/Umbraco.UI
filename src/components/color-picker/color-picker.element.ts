@@ -9,7 +9,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 
-import { clamp, demandCustomElement } from '../../internal/utils/index.js';
+import { clamp } from '../../internal/utils/index.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -33,6 +33,17 @@ import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.js';
 import type { UUIInputElement } from '../input/input.js';
 import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent.js';
 import { LabelMixin } from '../../internal/mixins/index.js';
+
+import '../color-area/color-area.js';
+import '../color-slider/color-slider.js';
+import '../input/input.js';
+import '../button-group/button-group.js';
+import '../button/button.js';
+import '../icon-registry-essential/icon-registry-essential.js';
+import '../icon/icon.js';
+import '../color-swatches/color-swatches.js';
+import '../color-swatch/color-swatch.js';
+import '../popover-container/popover-container.js';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
@@ -193,17 +204,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-icon');
-    demandCustomElement(this, 'uui-icon-registry-essential');
-    demandCustomElement(this, 'uui-input');
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-button-group');
-    demandCustomElement(this, 'uui-color-swatches');
-    demandCustomElement(this, 'uui-color-swatch');
-    demandCustomElement(this, 'uui-color-area');
-    demandCustomElement(this, 'uui-color-slider');
-    demandCustomElement(this, 'uui-popover-container');
   }
 
   /** Returns the current value as a string in the specified format. */
