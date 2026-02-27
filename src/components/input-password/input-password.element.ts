@@ -1,9 +1,11 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { iconSee, iconUnsee } from '../icon-registry-essential/svgs/index.js';
 import type { InputType } from '../input/input.js';
 import { UUIInputElement } from '../input/input.js';
 import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+
+import '../icon/icon.js';
+import '../button/button.js';
 
 /**
  * @element uui-input-password
@@ -32,9 +34,6 @@ export class UUIInputPasswordElement extends UUIInputElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    demandCustomElement(this, 'uui-icon');
-    demandCustomElement(this, 'uui-button');
 
     if (!this.hasAttribute('spellcheck')) {
       this.spellcheck = false;

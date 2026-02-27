@@ -2,9 +2,14 @@ import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
 import type { UUIFileDropzoneElement } from '../file-dropzone/file-dropzone.js';
 import { UUIFormControlMixin } from '../../internal/mixins/index.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { iconDelete } from '../icon-registry-essential/svgs/index.js';
 import { repeat } from 'lit/directives/repeat.js';
+
+import '../file-preview/file-preview.js';
+import '../action-bar/action-bar.js';
+import '../button/button.js';
+import '../icon/icon.js';
+import '../file-dropzone/file-dropzone.js';
 
 // TODO: Missing change event, when files are changed.
 /**
@@ -65,15 +70,6 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
     this.addEventListener('dragenter', () => this._setShowDropzone(true));
     this.addEventListener('dragleave', () => this._setShowDropzone(false));
     this.addEventListener('drop', () => this._setShowDropzone(false));
-  }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-    demandCustomElement(this, 'uui-icon');
-    demandCustomElement(this, 'uui-file-dropzone');
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-action-bar');
-    demandCustomElement(this, 'uui-file-preview');
   }
 
   protected getFormElement(): HTMLElement {

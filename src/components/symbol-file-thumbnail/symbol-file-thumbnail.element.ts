@@ -1,8 +1,10 @@
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
 
 import { iconPicture } from '../icon-registry-essential/svgs/index.js';
+
+import '../icon/icon.js';
 
 /**
  * @element uui-symbol-file-thumbnail
@@ -27,17 +29,32 @@ export class UUISymbolFileThumbnailElement extends LitElement {
   @property({ type: String })
   alt: string = '';
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    demandCustomElement(this, 'uui-icon');
+  @state()
+  private _imageError = false;
+
+  protected override willUpdate(changed: Map<string, unknown>) {
+    if (changed.has('src')) {
+      this._imageError = false;
+    }
   }
 
   render() {
-    return this.src
-      ? html`<img src=${this.src} alt=${this.alt} />`
-      : html`<uui-icon
+    return when(
+      this.src && !this._imageError,
+      () =>
+        html`<img
+          src=${this.src}
+          alt=${this.alt}
+          @error=${this.#onImageError} />`,
+      () =>
+        html`<uui-icon
           name="picture"
-          .fallback=${iconPicture.strings[0]}></uui-icon>`;
+          .fallback=${iconPicture.strings[0]}></uui-icon>`,
+    );
+  }
+
+  #onImageError() {
+    this._imageError = true;
   }
 
   static override readonly styles = [

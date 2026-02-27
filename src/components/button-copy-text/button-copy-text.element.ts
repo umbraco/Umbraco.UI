@@ -1,8 +1,9 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { UUIButtonElement } from '../button/button.js';
 import { UUICopyTextEvent } from './UUICopyTextEvent.js';
+
+import '../icon/icon.js';
 
 /**
  * @summary A button to trigger text content to be copied to the clipboard
@@ -47,8 +48,6 @@ export class UUIButtonCopyTextElement extends UUIButtonElement {
 
   constructor() {
     super();
-    demandCustomElement(this, 'uui-icon');
-
     this.addEventListener('click', this.#onClick);
   }
 

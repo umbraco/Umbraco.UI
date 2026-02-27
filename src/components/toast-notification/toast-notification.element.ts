@@ -1,4 +1,4 @@
-import { demandCustomElement, UUITimer } from '../../internal/utils/index.js';
+import { UUITimer } from '../../internal/utils/index.js';
 import { UUITextStyles } from '../../styles/index.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
 import { css, html, LitElement } from 'lit';
@@ -6,6 +6,9 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { UUIToastNotificationEvent } from './UUIToastNotificationEvent.js';
 import type { UUIInterfaceColor } from '../../internal/index.js';
+
+import '../button/button.js';
+import '../icon/icon.js';
 
 /**
  *  @element uui-toast-notification
@@ -124,13 +127,6 @@ export class UUIToastNotificationElement extends LitElement {
         this.open = false;
       }
     });
-  }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-icon');
   }
 
   private _getAnimationDuration(): number {

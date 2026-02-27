@@ -1,9 +1,11 @@
 import type { UUIButtonElement } from '../button/button.js';
-import { demandCustomElement } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, query, queryAll, state } from 'lit/decorators.js';
 
 import { UUIPaginationEvent } from './UUIPaginationEvent.js';
+
+import '../button/button.js';
+import '../button-group/button-group.js';
 
 //this is how wide the button gets when it has 3 digits inside.
 const PAGE_BUTTON_MAX_WIDTH = 45;
@@ -30,9 +32,6 @@ export class UUIPaginationElement extends LitElement {
     super.connectedCallback();
     if (!this.hasAttribute('role')) this.setAttribute('role', 'navigation');
     this._visiblePages = this._generateVisiblePages(this.current);
-
-    demandCustomElement(this, 'uui-button');
-    demandCustomElement(this, 'uui-button-group');
   }
 
   disconnectedCallback() {

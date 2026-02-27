@@ -2,7 +2,10 @@ import { property, state } from 'lit/decorators.js';
 import { UUIFileSize } from './UUIFileSize.js';
 
 import { css, html, LitElement } from 'lit';
-import { demandCustomElement } from '../../internal/utils/index.js';
+
+import '../symbol-folder/symbol-folder.js';
+import '../symbol-file-thumbnail/symbol-file-thumbnail.js';
+import '../symbol-file/symbol-file.js';
 
 /**
  *  @element uui-file-preview
@@ -92,14 +95,6 @@ export class UUIFilePreviewElement extends LitElement {
 
       this.requestUpdate('file', oldValue);
     }
-  }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    demandCustomElement(this, 'uui-symbol-file-thumbnail');
-    demandCustomElement(this, 'uui-symbol-folder');
-    demandCustomElement(this, 'uui-symbol-file');
   }
 
   private _openSource() {
