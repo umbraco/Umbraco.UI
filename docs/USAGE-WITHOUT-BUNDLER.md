@@ -49,7 +49,7 @@ The browser fetches only the modules you actually import, so you get automatic t
 
 ## Color components
 
-The color components (`uui-color-picker`, `uui-color-area`, `uui-color-slider`, `uui-color-swatches-palette`) depend on [`colord`](https://www.npmjs.com/package/colord). If you use any of these, add `colord` to your import map:
+The color components (`uui-color-picker`, `uui-color-area`, `uui-color-slider`) depend on [`colord`](https://www.npmjs.com/package/colord). If you use any of these, add `colord` to your import map:
 
 ```html
 <script type="importmap">
