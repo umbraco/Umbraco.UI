@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { Colord } from 'colord';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -7,6 +6,8 @@ import {
   drag,
   clamp,
   reverseNumberInRange,
+  parseColor,
+  hslaToRgb,
 } from '../../internal/utils/index.js';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvent.js';
@@ -128,9 +129,10 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   }
 
   #updateGradients() {
-    const colord = new Colord(this.color);
-    const { h, s, l } = colord.toHsl();
-    const { r, g, b } = colord.toRgb();
+    const parsed = parseColor(this.color);
+    if (!parsed) return;
+    const { h, s, l } = parsed;
+    const { r, g, b } = hslaToRgb(h, s, l);
     const direction = this.vertical ? 'top' : 'right';
 
     const gradients: Record<string, string | null> = {
