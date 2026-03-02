@@ -64,6 +64,7 @@ export class UUITimer {
   }
 
   private readonly _onComplete = () => {
+    this._timerId = null;
     this._remaining = null;
     this._callback();
   };

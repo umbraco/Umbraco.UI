@@ -116,4 +116,30 @@ describe('UUITimer', () => {
       expect(callback).toHaveBeenCalledOnce();
     });
   });
+
+  describe('setDuration after completion', () => {
+    it('does not re-fire the callback', () => {
+      const timer = new UUITimer(callback, 1000);
+      timer.start();
+      vi.advanceTimersByTime(1000);
+      expect(callback).toHaveBeenCalledOnce();
+
+      // Changing duration after completion should not trigger another callback
+      timer.setDuration(500);
+      vi.advanceTimersByTime(1000);
+      expect(callback).toHaveBeenCalledOnce();
+    });
+
+    it('can be restarted after completion with new duration', () => {
+      const timer = new UUITimer(callback, 1000);
+      timer.start();
+      vi.advanceTimersByTime(1000);
+      expect(callback).toHaveBeenCalledOnce();
+
+      timer.setDuration(500);
+      timer.start();
+      vi.advanceTimersByTime(500);
+      expect(callback).toHaveBeenCalledTimes(2);
+    });
+  });
 });
