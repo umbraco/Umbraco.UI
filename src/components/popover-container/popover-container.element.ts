@@ -111,7 +111,7 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#sizeObserver = null;
   }
 
-  #onBeforeToggle = (event: any) => {
+  readonly #onBeforeToggle = (event: any) => {
     this._open = event.newState === 'open';
 
     this.#targetElement = findAncestorByAttributeValue(
@@ -143,7 +143,7 @@ export class UUIPopoverContainerElement extends LitElement {
     }
   };
 
-  #initUpdate = () => {
+  readonly #initUpdate = () => {
     if (!this._open) return;
 
     this._actualPlacement = this._placement;
@@ -153,7 +153,7 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#updatePosition(3);
   };
 
-  #updatePosition = (iteration: number) => {
+  readonly #updatePosition = (iteration: number) => {
     this.#updatePadding();
 
     // Iterations makes sure that we don't overflow the stack.
@@ -285,7 +285,7 @@ export class UUIPopoverContainerElement extends LitElement {
     return { top: topClamped, left: leftClamped };
   }
 
-  #updatePadding = () => {
+  readonly #updatePadding = () => {
     const oppositeSides: Record<string, string> = {
       top: 'bottom',
       bottom: 'top',

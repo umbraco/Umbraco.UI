@@ -65,7 +65,7 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
       }
     };
 
-    #popoverListener = (event: any) => {
+    readonly #popoverListener = (event: any) => {
       // Wait for the click event to finish before updating the popover state
       requestAnimationFrame(() => {
         this.#popoverIsOpen = event.detail.newState === 'open';

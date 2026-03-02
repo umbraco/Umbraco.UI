@@ -43,11 +43,11 @@ export class UUIResponsiveContainerElement extends LitElement {
   // These store the component's internal state
   #childElements: HTMLElement[] = []; // All child elements
   #hiddenElements: HTMLElement[] = []; // Elements in the dropdown
-  #hiddenElementsMap: Map<HTMLElement, HTMLElement> = new Map();
+  readonly #hiddenElementsMap: Map<HTMLElement, HTMLElement> = new Map();
   #visibilityBreakpoints: number[] = []; // Width thresholds for each item
 
   // ResizeObserver watches for size changes
-  #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
+  readonly #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
   #childResizeObservers: ResizeObserver[] = [];
   #breakPointCalculationInProgress = false;
 
@@ -233,7 +233,7 @@ export class UUIResponsiveContainerElement extends LitElement {
     }
   }
 
-  #onItemClicked = (e: MouseEvent) => {
+  readonly #onItemClicked = (e: MouseEvent) => {
     const clickedElement = e.currentTarget as HTMLElement;
 
     // Find the original element linked to this clone

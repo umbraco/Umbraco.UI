@@ -53,12 +53,12 @@ export class UUITabGroupElement extends LitElement {
   #tabElements: HTMLElement[] = [];
 
   #hiddenTabElements: UUITabElement[] = [];
-  #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
+  readonly #hiddenTabElementsMap: Map<UUITabElement, UUITabElement> = new Map();
 
   #visibilityBreakpoints: number[] = [];
 
-  #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
-  #tabResizeObservers: ResizeObserver[] = [];
+  readonly #resizeObserver = new ResizeObserver(this.#onResize.bind(this));
+  readonly #tabResizeObservers: ResizeObserver[] = [];
 
   #breakPointCalculationInProgress = false;
 
@@ -115,7 +115,7 @@ export class UUITabGroupElement extends LitElement {
     });
   }
 
-  #onTabClicked = (e: MouseEvent) => {
+  readonly #onTabClicked = (e: MouseEvent) => {
     const selectedElement = e.currentTarget as HTMLElement;
     if (this.#isElementTabLike(selectedElement)) {
       selectedElement.active = true;

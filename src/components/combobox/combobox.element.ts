@@ -209,7 +209,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     });
   }
 
-  #onPhoneChange = () => {
+  readonly #onPhoneChange = () => {
     this._isPhone = this.#phoneMediaQuery.matches;
   };
 
@@ -239,16 +239,17 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this._input.click();
   }
 
-  #onMouseDown = () => requestAnimationFrame(() => this._input.focus());
+  readonly #onMouseDown = () =>
+    requestAnimationFrame(() => this._input.focus());
 
-  #onBlur = () =>
+  readonly #onBlur = () =>
     requestAnimationFrame(() => {
       if (!this.shadowRoot?.activeElement) {
         this.#onClose();
       }
     });
 
-  #onInput = (e: any) => {
+  readonly #onInput = (e: any) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.search = e.target.value;
@@ -256,13 +257,13 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.#onOpen();
   };
 
-  #onInnerSlotChange = () => {
+  readonly #onInnerSlotChange = () => {
     if (this.value && this.value !== this.#comboboxList?.value) {
       this.#updateValue();
     }
   };
 
-  #onChange = () => {
+  readonly #onChange = () => {
     this.value = this.#comboboxList?.value || '';
     this.search = this.value ? this.search : '';
 
@@ -270,18 +271,18 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
-  #onToggle = () => {
+  readonly #onToggle = () => {
     if (this.readonly) return;
     this.open = !this.open;
   };
 
-  #onOpen = () => {
+  readonly #onOpen = () => {
     if (this.open) return;
     if (this.readonly) return;
     this.open = true;
   };
 
-  #onClose = () => {
+  readonly #onClose = () => {
     if (!this.open) return;
 
     this.open = false;
@@ -291,7 +292,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
   };
 
-  #onKeyDown = (e: KeyboardEvent) => {
+  readonly #onKeyDown = (e: KeyboardEvent) => {
     if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // TODO: could we avoid this.
       e.stopImmediatePropagation(); // TODO: could we avoid this.
@@ -313,7 +314,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     }
   };
 
-  #onClear = (e: any) => {
+  readonly #onClear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
     e.preventDefault(); // TODO: could we avoid this.
@@ -330,7 +331,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
-  #renderInput = () => {
+  readonly #renderInput = () => {
     return html`<uui-input
       slot="trigger"
       id="combobox-input"
@@ -356,7 +357,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     </uui-input>`;
   };
 
-  #renderClearButton = () => {
+  readonly #renderClearButton = () => {
     if (this.disabled) return nothing;
     if (this.readonly) return nothing;
 
@@ -374,7 +375,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     </uui-button>`;
   };
 
-  #renderDropdown = () => {
+  readonly #renderDropdown = () => {
     return html`<div id="dropdown">
       <uui-scroll-container tabindex="-1" id="scroll-container">
         <slot @slotchange=${this.#onSlotChange}></slot>
