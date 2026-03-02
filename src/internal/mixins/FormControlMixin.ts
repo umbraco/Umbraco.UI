@@ -180,6 +180,8 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
+      // Sets pristine to true, this will ensure that an attribute gets set to represent the state.
+      this.pristine = true;
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
