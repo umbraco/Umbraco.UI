@@ -58,18 +58,18 @@ export class UUIFilePreviewElement extends LitElement {
   @state()
   private _isDirectory: boolean = false;
 
-  @state()
-  private _file?: File;
+  #file?: File;
 
   @state()
   private _isImage?: boolean;
 
   @property({ attribute: false })
   public get file() {
-    return this._file;
+    return this.#file;
   }
   public set file(newValue) {
     if (newValue instanceof File) {
+      this.#file = newValue;
       this._name = newValue.name.split('.')[0];
       this._extension = newValue.name.split('.')[1];
       this._isDirectory = false;
@@ -81,8 +81,6 @@ export class UUIFilePreviewElement extends LitElement {
           this._src = result;
         });
       }
-
-      this._file = newValue;
     }
   }
 
