@@ -24,7 +24,7 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: [/^lit/, /^colord/],
+      external: [/^lit/],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',

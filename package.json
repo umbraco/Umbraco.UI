@@ -81,7 +81,6 @@
     "npm": ">=11"
   },
   "dependencies": {
-    "colord": "^2.9.3",
     "lit": "^3.0.0"
   },
   "devDependencies": {
