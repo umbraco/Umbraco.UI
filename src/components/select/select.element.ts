@@ -1,4 +1,4 @@
-import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
@@ -31,8 +31,10 @@ export interface UUISelectOption {
  * @cssprop --uui-select-disabled-background-color - Background color when disabled
  * @extends UUIFormControlMixin
  */
-// TODO: Consider if this should use child items instead of an array.
-export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
+export class UUISelectElement extends UUIFormControlWithBasicsMixin(
+  LitElement,
+  '',
+) {
   /**
    * Text with which component should be labeled
    * @type {string}
@@ -66,15 +68,6 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, reflect: true })
   readonly = false;
-
-  /**
-   * Set to true if the component should have an error state.Property is reflected to the corresponding attribute.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
 
   /**
    * An array of options to be rendered by the element. The option interface has up to 5 properties:

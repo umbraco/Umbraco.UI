@@ -3,9 +3,9 @@ import {
   UUIHorizontalShakeKeyframes,
 } from '../../internal/animations/index.js';
 import {
-  UUIFormControlMixin,
   LabelMixin,
   PopoverTargetMixin,
+  UUIFormControlWithBasicsMixin,
 } from '../../internal/mixins/index.js';
 import { iconCheck, iconWrong } from '../icon-registry-essential/svgs/index.js';
 import type {
@@ -51,7 +51,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-transition - Add transition to the button. Default is none.
  *  @cssprop --uui-focus-outline-color - overwrite the focus outline color
  */
-export class UUIButtonElement extends UUIFormControlMixin(
+export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
   LabelMixin('', PopoverTargetMixin(LitElement)),
 ) {
   /**
@@ -184,11 +184,7 @@ export class UUIButtonElement extends UUIFormControlMixin(
         case 'button':
           break;
         default:
-          if (this._internals.form.requestSubmit) {
-            this._internals.form.requestSubmit();
-          } else {
-            this._internals.form.dispatchEvent(new SubmitEvent('submit'));
-          }
+          this.submit();
           break;
       }
     }

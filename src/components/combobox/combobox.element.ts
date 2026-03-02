@@ -1,4 +1,4 @@
-import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import type { UUIComboboxListElement } from '../combobox-list/combobox-list.js';
 import { UUIComboboxListEvent } from '../combobox-list/combobox-list.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
@@ -30,17 +30,20 @@ import '../popover-container/popover-container.js';
  * @cssprop --uui-dropdown-width - overwrite the dropdown width
  * @description - Filterable combobox
  */
-export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
+export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
+  LitElement,
+  '',
+) {
   @property({ attribute: 'value', reflect: true })
-  get value() {
-    return super.value;
-  }
   set value(newValue) {
     super.value = newValue;
 
     if (typeof newValue === 'string') {
       this.#updateValue();
     }
+  }
+  get value() {
+    return super.value;
   }
 
   /**
@@ -50,14 +53,14 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    * @default ""
    */
   @property({ type: String })
-  public get search() {
-    return this._search;
-  }
   public set search(newValue) {
     if (this.search === newValue) return;
     const oldValue = this._search;
     this._search = newValue;
     this.requestUpdate('search', oldValue);
+  }
+  public get search() {
+    return this._search;
   }
 
   /**
@@ -67,9 +70,6 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
    * @default false
    */
   @property({ type: Boolean })
-  public get open() {
-    return this._isOpen;
-  }
   public set open(newValue: boolean) {
     const oldValue = newValue;
     this._isOpen = newValue;
@@ -85,6 +85,9 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     }
 
     this.requestUpdate('open', oldValue);
+  }
+  public get open() {
+    return this._isOpen;
   }
 
   /**

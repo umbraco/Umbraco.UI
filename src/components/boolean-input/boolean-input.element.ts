@@ -1,5 +1,5 @@
 import {
-  UUIFormControlMixin,
+  UUIFormControlWithBasicsMixin,
   LabelMixin,
 } from '../../internal/mixins/index.js';
 import type { TemplateResult } from 'lit';
@@ -16,7 +16,7 @@ type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
  * @fires UUIBooleanInputEvent#change on change
  * @abstract
  */
-export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
+export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMixin(
   LabelMixin('', LitElement),
   '',
 ) {
