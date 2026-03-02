@@ -10,7 +10,6 @@ import '../symbol-file-thumbnail/symbol-file-thumbnail.js';
 import '../symbol-folder/symbol-folder.js';
 import '../symbol-file/symbol-file.js';
 
-import { UUIFilePreviewElement } from './file-preview.js';
 
 const meta: Meta = {
   id: 'uui-file-preview',
@@ -32,16 +31,10 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: () => {
-    setTimeout(() => {
-      const file = new File(['file'], 'File 1.txt', { type: 'text/plain' });
-      const filePreview = document.getElementById(
-        'filePreview',
-      ) as UUIFilePreviewElement;
-      filePreview.file = file;
-    });
+    const file = new File(['file'], 'File 1.txt', { type: 'text/plain' });
 
     return html`
-      <uui-file-preview id="filePreview">
+      <uui-file-preview .file=${file}>
         <uui-action-bar slot="actions">
           <uui-button color="danger">
             <uui-icon name="delete"></uui-icon>
@@ -88,15 +81,8 @@ export const Image: Story = {
     },
   ],
   render: (args, { loaded: { file } }) => {
-    setTimeout(() => {
-      const imagePreview = document.getElementById(
-        'imagePreview',
-      ) as UUIFilePreviewElement;
-      imagePreview.file = file;
-    });
-
     return html`
-      <uui-file-preview id="imagePreview">
+      <uui-file-preview .file=${file}>
         <uui-action-bar slot="actions">
           <uui-button color="danger">
             <uui-icon name="delete"></uui-icon>

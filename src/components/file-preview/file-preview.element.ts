@@ -13,156 +13,81 @@ import '../symbol-file/symbol-file.js';
  *  @description - A file preview with file size.
  */
 export class UUIFilePreviewElement extends LitElement {
-  /**
-   * Name of the file.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @state()
-  private _name: string = '';
+  #file?: File;
 
-  /**
-   * Link to the source of the file. Applied on the file name.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @state()
-  private readonly _url: string = '';
-
-  /**
-   * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @state()
-  private _extension: string = '';
-
-  /**
-   * Source of a thumbnail to be displayed as the file symbol. Often used for images and video thumbnails.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
   @state()
   private _src: string = '';
 
-  /**
-   * Size of the file in bytes. It will be formatted to a more readable format.
-   * @type {number}
-   * @attr
-   * @default 0
-   */
-  @state()
-  private _size: number = 0;
-
-  /**
-   * Dertermines if a folder symbol should be used instead of file symbol.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @state()
-  private _isDirectory: boolean = false;
-
-  @state()
-  private readonly _file?: File;
-
-  @state()
-  private _isImage?: boolean;
-
   @property({ attribute: false })
   public get file() {
-    return this._file;
+    return this.#file;
   }
   public set file(newValue) {
-    const oldValue = this._file;
-
     if (newValue instanceof File) {
-      this._name = newValue.name.split('.')[0];
-      this._extension = newValue.name.split('.')[1];
-      this._isDirectory = false;
-      this._size = newValue.size;
+      this.#file = newValue;
+      this._src = '';
 
-      if (this._isFileAnImage(newValue)) {
-        this._isImage = true;
-        this._getThumbnail(newValue).then(result => {
-          this._src = result;
-        });
+      if (this.#isImage(newValue)) {
+        this.#loadThumbnail(newValue);
       }
 
-      this.requestUpdate('file', oldValue);
+      this.requestUpdate();
     }
   }
 
-  private _openSource() {
-    window.open(this._url, '_blank');
+  #isImage(file: File) {
+    return file.type.split('/')[0] === 'image';
   }
 
-  private _fileTypeTemplate() {
-    if (this._isDirectory) {
-      return html`<uui-symbol-folder id="file-symbol"></uui-symbol-folder>`;
-    }
-    if (this._isImage) {
+  #loadThumbnail(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this._src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  #renderFileSymbol() {
+    if (this.#file && this.#isImage(this.#file)) {
+      const name = this.#file.name.split('.')[0];
       return html`<uui-symbol-file-thumbnail
         .src=${this._src}
-        .alt=${this._name}
+        .alt=${name}
         id="file-symbol"></uui-symbol-file-thumbnail>`;
     }
 
+    const extension = this.#file?.name.split('.')[1] ?? '';
     return html`<uui-symbol-file
       id="file-symbol"
-      .type=${this._extension}></uui-symbol-file>`;
+      .type=${extension}></uui-symbol-file>`;
   }
 
-  private _renderLongName() {
+  #renderName() {
+    const name = this.#file?.name.split('.')[0] ?? '';
     const endCharCount = 6;
-    const nameStart = this._name.substring(0, this._name.length - endCharCount);
-    const nameEnd = this._name.substring(
-      this._name.length - endCharCount,
-      this._name.length,
-    );
-    //TODO Fix keyboard event listener
+    const nameStart = name.substring(0, name.length - endCharCount);
+    const nameEnd = name.substring(name.length - endCharCount, name.length);
     return html`
-      <span
-        id="file-name"
-        class=${this._url ? 'has-source' : ''}
-        @click=${() => (this._url ? this._openSource() : '')}
-        @keydown=${() => ''}>
+      <span id="file-name">
         <span id="file-name-start">${nameStart}</span>
         <span id="file-name-end">${nameEnd}</span>
       </span>
     `;
   }
 
-  private _isFileAnImage(file: File) {
-    return file ? file['type'].split('/')[0] === 'image' : false;
-  }
-
-  private async _getThumbnail(file: File): Promise<any> {
-    return await new Promise<any>(resolve => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-    });
+  #renderSize() {
+    const size = this.#file?.size ?? 0;
+    if (!size) return '';
+    return html`${UUIFileSize.humanFileSize(size, true)}`;
   }
 
   render() {
     return html`
       <slot id="actions" name="actions"></slot>
-      ${this._fileTypeTemplate()}
+      ${this.#renderFileSymbol()}
       <div id="file-info">
-        ${this._renderLongName()}
-        <span id="file-size">
-          ${this._size && !this._isDirectory
-            ? html`${UUIFileSize.humanFileSize(this._size, true)}`
-            : ''}
-        </span>
+        ${this.#renderName()}
+        <span id="file-size">${this.#renderSize()}</span>
       </div>
     `;
   }
@@ -230,11 +155,6 @@ export class UUIFilePreviewElement extends LitElement {
 
       #file-size {
         opacity: 0.6;
-      }
-
-      .has-source:hover {
-        text-decoration: underline;
-        cursor: pointer;
       }
     `,
   ];

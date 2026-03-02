@@ -53,7 +53,9 @@ export class UUIToastNotificationContainerElement extends LitElement {
    */
   public removeToast(toast?: UUIToastNotificationElement) {
     if (!toast) {
-      toast = this._toasts.at(-1)!;
+      const last = this._toasts.at(-1);
+      if (!last) return;
+      toast = last;
     } else if (!this._toasts.includes(toast)) {
       console.warn(
         'Toast-notification',

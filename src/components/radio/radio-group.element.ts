@@ -94,26 +94,26 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
    */
   public async focus() {
     await this.updateComplete;
-    if (this.#selected !== null) {
-      this.#radioElements[this.#selected]?.focus();
-    } else {
+    if (this.#selected === null) {
       this.#findAdjacentRadioElement(1, false)?.focus();
+    } else {
+      this.#radioElements[this.#selected]?.focus();
     }
   }
   public async blur() {
     await this.updateComplete;
-    if (this.#selected !== null) {
-      this.#radioElements[this.#selected]?.blur();
-    } else {
+    if (this.#selected === null) {
       this.#findAdjacentRadioElement(1, false)?.blur();
+    } else {
+      this.#radioElements[this.#selected]?.blur();
     }
   }
   public async click() {
     await this.updateComplete;
-    if (this.#selected !== null) {
-      this.#radioElements[this.#selected]?.click();
-    } else {
+    if (this.#selected === null) {
       this.#findAdjacentRadioElement(1, false)?.click();
+    } else {
+      this.#radioElements[this.#selected]?.click();
     }
   }
 
@@ -128,10 +128,10 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     // Ensure only the selected radio element is focusable to improve tab navigation
     // by skipping unselected radios and moving to the next radio group or focusable element.
     this.#radioElements?.forEach(el => {
-      if (el !== event.target) {
-        el.makeUnfocusable();
-      } else {
+      if (el === event.target) {
         el.makeFocusable();
+      } else {
+        el.makeUnfocusable();
       }
     });
   };
