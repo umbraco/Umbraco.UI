@@ -35,7 +35,7 @@ export class UUIModalContainerElement extends LitElement {
     );
   }
 
-  #onSlotChange = () => {
+  readonly #onSlotChange = () => {
     const existingModals = this._modals ?? [];
 
     this._modals =
@@ -72,7 +72,7 @@ export class UUIModalContainerElement extends LitElement {
     this.#updateSidebars();
   };
 
-  #onCloseModalClose = (event: Event) => {
+  readonly #onCloseModalClose = (event: Event) => {
     event.stopImmediatePropagation();
 
     event.target?.removeEventListener(

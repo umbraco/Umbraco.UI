@@ -5,7 +5,7 @@ export class UUITimer {
   private _remaining: number | null = null;
 
   constructor(
-    private _callback: (...args: unknown[]) => void,
+    private readonly _callback: (...args: unknown[]) => void,
     duration: number,
   ) {
     this.setDuration(duration);
@@ -54,7 +54,7 @@ export class UUITimer {
     this._timerId = window.setTimeout(this._onComplete, this._remaining);
   }
 
-  private _onComplete = () => {
+  private readonly _onComplete = () => {
     this._remaining = null;
     this._callback();
   };
