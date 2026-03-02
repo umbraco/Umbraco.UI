@@ -116,11 +116,10 @@ describe('UuiTableRow', () => {
     it('selects the row when cell contains interactive elements', async () => {
       await element.updateComplete;
       const cell = element.querySelector('uui-table-cell')!;
+      expect(cell.hasAttribute('disable-child-interaction')).toBe(true);
       const button = document.createElement('button');
       button.textContent = 'Click me';
       cell.appendChild(button);
-      // With selectOnly, child interaction is disabled via CSS pointer-events: none,
-      // so clicks land on the row itself
       element.click();
       expect(element.selected).toBe(true);
     });

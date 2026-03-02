@@ -448,7 +448,11 @@ describe('UUIMenuItemElement', () => {
       it('can not be selected when not selectable', async () => {
         element.selectable = false;
         await element.updateComplete;
-        element.click();
+        const label = element.shadowRoot!.querySelector(
+          '#label-button',
+        ) as HTMLElement;
+        label.addEventListener('click', e => e.preventDefault());
+        await mouse.leftClick(label);
         expect(element.selected).toBe(false);
       });
 
