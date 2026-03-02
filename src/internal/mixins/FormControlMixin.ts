@@ -124,9 +124,6 @@ export const UUIFormControlMixin = <
      * @default ''
      */
     @property() // Do not 'reflect' as the attribute is used as fallback.
-    get value(): ValueType | DefaultValueType {
-      return this.#value;
-    }
     set value(newValue: ValueType | DefaultValueType) {
       const oldValue = this.#value;
       this.#value = newValue;
@@ -137,6 +134,9 @@ export const UUIFormControlMixin = <
         this._internals.setFormValue((this.#value as any) ?? null);
       }
       this.requestUpdate('value', oldValue);
+    }
+    get value(): ValueType | DefaultValueType {
+      return this.#value;
     }
 
     // Validation
