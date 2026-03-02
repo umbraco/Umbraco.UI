@@ -256,6 +256,30 @@ describe('UUIFileDropzoneElement', () => {
       }
     });
 
+    it('does not accept a MIME type that only shares a prefix with a wildcard category (e.g. image2/png should not match image/*)', async () => {
+      const dt = new DataTransfer();
+      if ('items' in dt) {
+        const file1 = new File([''], 'file1.png', { type: 'image2/png' });
+        dt.items.add(file1);
+
+        element.accept = 'image/*';
+
+        const pending = new Promise<void>(resolve => {
+          element.addEventListener('reject', e => {
+            const { files } = (e as UUIFileDropzoneEvent).detail;
+            expect(files.length).toBe(1);
+            expect(files[0].name).toBe('file1.png');
+            resolve();
+          });
+        });
+
+        innerElement.files = dt.files;
+        innerElement.dispatchEvent(new Event('change'));
+
+        await pending;
+      }
+    });
+
     it('does not emit reject event when multiple=false and an accepted file is found', async () => {
       const dt = new DataTransfer();
       if ('items' in dt) {

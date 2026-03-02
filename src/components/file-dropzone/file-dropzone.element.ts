@@ -257,7 +257,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
         return true;
       } else if (
         mimeType.endsWith('/*') &&
-        fileType.startsWith(mimeType.slice(0, -2))
+        fileType.startsWith(mimeType.slice(0, -1))
       ) {
         return true;
       }
