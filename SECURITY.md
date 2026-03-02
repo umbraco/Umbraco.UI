@@ -21,6 +21,6 @@ Patches are usually targeted at the latest minor of a particular major. Critical
 
 Please report any vulnerabilities to security@umbraco.dk
 
-Read more about [How to report a vulnerability]([https://umbraco.com/about-us/trust-center/security-and-umbraco/how-to-report-a-vulnerability-in-umbraco/](https://umbraco.com/trust-center/security-and-umbraco/how-to-report-a-vulnerability-in-umbraco/)).
+Read more about [How to report a vulnerability](https://umbraco.com/trust-center/security-and-umbraco/how-to-report-a-vulnerability-in-umbraco/).
 
 You can expect to hear back from us within 48 hours.
