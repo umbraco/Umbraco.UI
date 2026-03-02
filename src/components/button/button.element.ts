@@ -242,9 +242,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
               this.rel ||
-                ifDefined(
-                  this.target === '_blank' ? 'noopener noreferrer' : undefined,
-                ),
+                (this.target === '_blank' ? 'noopener noreferrer' : undefined),
             )}>
             ${this.renderState()} ${this.renderLabel()}
             <slot name="extra"></slot>

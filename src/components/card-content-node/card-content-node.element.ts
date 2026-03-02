@@ -84,7 +84,12 @@ export class UUICardContentNodeElement extends UUICardElement {
   }
 
   #renderButton() {
-    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    let tabIndex: number | undefined;
+    if (this.disabled) {
+      tabIndex = undefined;
+    } else {
+      tabIndex = this.selectOnly ? -1 : 0;
+    }
     return html`
       <button
         id="open-part"
@@ -97,7 +102,12 @@ export class UUICardContentNodeElement extends UUICardElement {
   }
 
   #renderLink() {
-    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
+    let tabIndex: number | undefined;
+    if (this.disabled) {
+      tabIndex = undefined;
+    } else {
+      tabIndex = this.selectOnly ? -1 : 0;
+    }
     const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
     return html`
       <a

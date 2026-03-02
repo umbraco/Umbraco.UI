@@ -255,14 +255,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   }
 
   get cssPropCurrentValue() {
-    return this.value === 0
-      ? this.vertical
-        ? 100
-        : 0
-      : 100 /
-          (this.vertical
-            ? this.max / reverseNumberInRange(this.value, this.min, this.max)
-            : this.max / this.value);
+    if (this.value === 0) {
+      return this.vertical ? 100 : 0;
+    }
+    const ratio = this.vertical
+      ? this.max / reverseNumberInRange(this.value, this.min, this.max)
+      : this.max / this.value;
+    return 100 / ratio;
   }
 
   render() {

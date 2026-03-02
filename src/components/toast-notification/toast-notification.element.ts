@@ -163,7 +163,7 @@ export class UUIToastNotificationElement extends LitElement {
           new UUIToastNotificationEvent(UUIToastNotificationEvent.OPENING),
         );
 
-        this._animationTimeout = window.setTimeout(() => {
+        this._animationTimeout = globalThis.setTimeout(() => {
           if (this.isOpen === true) {
             this.style.height = 'auto';
             this._animate = false;
@@ -211,7 +211,7 @@ export class UUIToastNotificationElement extends LitElement {
           this.style.height = '0';
         });
 
-        this._animationTimeout = window.setTimeout(() => {
+        this._animationTimeout = globalThis.setTimeout(() => {
           if (this.isOpen === false) {
             this._animate = false;
 

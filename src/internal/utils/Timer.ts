@@ -34,7 +34,7 @@ export class UUITimer {
 
   public pause() {
     if (this._timerId !== null) {
-      window.clearTimeout(this._timerId);
+      globalThis.clearTimeout(this._timerId);
       this._timerId = null;
       if (this._remaining !== null) {
         this._remaining -= Date.now() - this._startTime;
@@ -44,12 +44,12 @@ export class UUITimer {
 
   public resume() {
     if (this._timerId !== null) {
-      window.clearTimeout(this._timerId);
+      globalThis.clearTimeout(this._timerId);
     }
     this._remaining ??= this._duration;
 
     this._startTime = Date.now();
-    this._timerId = window.setTimeout(this._onComplete, this._remaining);
+    this._timerId = globalThis.setTimeout(this._onComplete, this._remaining);
   }
 
   private readonly _onComplete = () => {

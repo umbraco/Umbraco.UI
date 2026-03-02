@@ -307,14 +307,13 @@ export class UUIPopoverContainerElement extends LitElement {
 
   #flipPlacement() {
     const [direction, position] = this._actualPlacement.split('-');
-    const oppositeDirection =
-      direction === 'top'
-        ? 'bottom'
-        : direction === 'bottom'
-          ? 'top'
-          : direction === 'left'
-            ? 'right'
-            : 'left';
+    const opposites: Record<string, string> = {
+      top: 'bottom',
+      bottom: 'top',
+      left: 'right',
+      right: 'left',
+    };
+    const oppositeDirection = opposites[direction] ?? direction;
     this._actualPlacement =
       `${oppositeDirection}-${position}` as PopoverContainerPlacement;
   }
