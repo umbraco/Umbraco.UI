@@ -230,9 +230,6 @@ export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
 
   private onInput(e: Event) {
     this.value = (e.target as HTMLTextAreaElement).value;
-
-    // TODO: Do we miss an input event?
-    //this.dispatchEvent(new UUITextareaEvent(UUITextareaEvent.INPUT));
   }
 
   private onChange(e: Event) {
