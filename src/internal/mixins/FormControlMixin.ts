@@ -385,7 +385,6 @@ export const UUIFormControlMixin = <
      */
     protected _runValidators() {
       this.#validity = {};
-      //const messages: Set<string> = new Set();
       let message: string | undefined = undefined;
       let innerFormControlEl: NativeFormControlElement | undefined = undefined;
 
@@ -393,7 +392,6 @@ export const UUIFormControlMixin = <
       this.#validators.some(validator => {
         if (validator.checkMethod()) {
           this.#validity[validator.flagKey] = true;
-          //messages.add(validator.getMessageMethod());
           message = validator.getMessageMethod();
           return true;
         }
@@ -407,7 +405,6 @@ export const UUIFormControlMixin = <
           for (key in formCtrlEl.validity) {
             if (key !== 'valid' && formCtrlEl.validity[key]) {
               this.#validity[key] = true;
-              //messages.add(formCtrlEl.validationMessage);
               message = formCtrlEl.validationMessage;
               innerFormControlEl ??= formCtrlEl;
               return true;

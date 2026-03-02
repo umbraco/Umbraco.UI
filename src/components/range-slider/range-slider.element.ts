@@ -268,7 +268,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   protected getFormElement(): HTMLInputElement {
-    return this._currentFocus ? this._currentFocus : this._inputLow;
+    return this._currentFocus ?? this._inputLow;
   }
 
   async focus() {

@@ -53,7 +53,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
    */
   public removeToast(toast?: UUIToastNotificationElement) {
     if (!toast) {
-      toast = this._toasts[this._toasts.length - 1];
+      toast = this._toasts.at(-1)!;
     } else if (this._toasts.indexOf(toast) === -1) {
       console.warn(
         'Toast-notification',
@@ -71,11 +71,10 @@ export class UUIToastNotificationContainerElement extends LitElement {
    * @param  {UUIToastNotificationElement} toast The toast element to close and remove
    */
   public closeToast(modal?: UUIToastNotificationElement) {
-    let _modal = modal;
-    if (!_modal) {
-      _modal = this._toasts[this._toasts.length - 1];
+    const _modal = modal ?? this._toasts.at(-1);
+    if (_modal) {
+      _modal.open = false;
     }
-    _modal.open = false;
   }
 
   private readonly onToastClosed = (e: UUIToastNotificationEvent) => {

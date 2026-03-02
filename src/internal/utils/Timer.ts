@@ -46,9 +46,7 @@ export class UUITimer {
     if (this._timerId !== null) {
       window.clearTimeout(this._timerId);
     }
-    if (this._remaining === null) {
-      this._remaining = this._duration;
-    }
+    this._remaining ??= this._duration;
 
     this._startTime = Date.now();
     this._timerId = window.setTimeout(this._onComplete, this._remaining);

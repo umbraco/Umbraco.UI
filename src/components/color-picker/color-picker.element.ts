@@ -13,22 +13,14 @@ import { clamp } from '../../internal/utils/index.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type {
-  UUIColorAreaElement,
-  UUIColorAreaEvent,
-} from '../color-area/color-area.js';
+import type { UUIColorAreaEvent } from '../color-area/color-area.js';
 
-import type {
-  UUIColorSliderElement,
-  UUIColorSliderEvent,
-} from '../color-slider/color-slider.js';
+import type { UUIColorSliderEvent } from '../color-slider/color-slider.js';
 
 import type {
   UUIColorSwatchesElement,
   UUIColorSwatchesEvent,
 } from '../color-swatches/color-swatches.js';
-
-import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.js';
 
 import type { UUIInputElement } from '../input/input.js';
 import { UUIColorPickerChangeEvent } from './UUIColorPickerEvent.js';
@@ -230,7 +222,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       case 'hsv':
         return this.setLetterCase(`hsv(${h}, ${s}%, ${l}%)`);
       case 'hsva':
-        return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`); //this._colord.toHsvString();
+        return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`);
       default:
         return '';
     }
@@ -259,7 +251,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     event.stopPropagation();
     this._swatches?.resetSelection();
 
-    const element = event.target as UUIColorSliderElement;
+    const element = event.target;
 
     const newColor: HslaColor = {
       h: this.hue,
@@ -273,7 +265,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   handleHueChange(event: UUIColorSliderEvent) {
     event.stopPropagation();
     this._swatches?.resetSelection();
-    const element = event.target as UUIColorSliderElement;
+    const element = event.target;
 
     const newColor: HslaColor = {
       h: element.value,
@@ -287,7 +279,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   handleGridChange(event: UUIColorAreaEvent) {
     event.stopPropagation();
     this._swatches?.resetSelection();
-    const element = event.target as UUIColorAreaElement;
+    const element = event.target;
 
     const newColor: HslaColor = {
       h: this.hue,
@@ -322,7 +314,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   handleColorSwatchChange(event: UUIColorSwatchesEvent) {
     event.stopImmediatePropagation();
 
-    const target = event.target as UUIColorSwatchElement;
+    const target = event.target;
     this.setColor(target.value);
   }
 
@@ -380,7 +372,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const hslaColor = colorString as HslaColor;
 
     // Workaround as hue isn't correct after changing hue slider, but Colord parse hue value as zero when color is black.
-    if (hslaColor && hslaColor.h) {
+    if (hslaColor?.h) {
       this.hue = hslaColor.h;
     }
 

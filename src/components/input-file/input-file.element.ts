@@ -58,7 +58,6 @@ export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
 
     if (newValue instanceof File) {
       this._updateFileWrappers([newValue]);
-      return;
     }
   }
 

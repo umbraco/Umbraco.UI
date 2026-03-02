@@ -185,7 +185,7 @@ export class UUITabGroupElement extends LitElement {
   }
 
   #setTabArray() {
-    this.#tabElements = this._slottedNodes ? this._slottedNodes : [];
+    this.#tabElements = this._slottedNodes ?? [];
     this.#calculateBreakPoints();
   }
 

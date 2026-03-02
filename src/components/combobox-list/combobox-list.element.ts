@@ -85,9 +85,7 @@ export class UUIComboboxListElement extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this._for) {
-      this._for = this;
-    }
+    this._for ??= this;
 
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
     this.addEventListener(UUISelectableEvent.DESELECTED, this._onDeselected);

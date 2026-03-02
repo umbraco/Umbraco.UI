@@ -61,7 +61,7 @@ export class UUIModalContainerElement extends LitElement {
 
     this._sidebars = this._modals.filter(
       el => el instanceof UUIModalSidebarElement,
-    ) as Array<UUIModalSidebarElement>;
+    );
 
     if (this._modals.length === 0) {
       this.removeAttribute('backdrop');
