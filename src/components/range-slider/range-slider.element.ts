@@ -374,6 +374,10 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       );
     }
 
+    this._runGapChecks();
+  }
+
+  private _runGapChecks() {
     if (this._minGap && this._minGap < this._step) {
       this._minGap = undefined;
       console.warn(
@@ -381,7 +385,6 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
       );
     }
 
-    // Gaps
     if (this._minGap && this._maxGap && this._minGap > this._maxGap) {
       this._minGap = undefined;
       this._maxGap = undefined;

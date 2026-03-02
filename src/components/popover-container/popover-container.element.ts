@@ -161,122 +161,26 @@ export class UUIPopoverContainerElement extends LitElement {
     iteration--;
     if (this.#targetElement === null) return;
 
-    const isTopPlacement = this._actualPlacement.indexOf('top') !== -1;
-    const isBottomPlacement = this._actualPlacement.indexOf('bottom') !== -1;
-    const isLeftPlacement = this._actualPlacement.indexOf('left') !== -1;
-    const isRightPlacement = this._actualPlacement.indexOf('right') !== -1;
-
-    const isStart = this._actualPlacement.indexOf('-start') !== -1;
-    const isEnd = this._actualPlacement.indexOf('-end') !== -1;
-
     const targetRect = this.#targetElement.getBoundingClientRect();
     const popoverRect = this.getBoundingClientRect();
 
-    let top = 0;
-    let left = 0;
-
-    if (isBottomPlacement) {
-      top = targetRect.top + targetRect.height;
-      if (isStart) {
-        left = targetRect.left;
-      }
-      if (isEnd) {
-        left = targetRect.left + targetRect.width - popoverRect.width;
-      }
-      if (!isStart && !isEnd) {
-        left = targetRect.left + targetRect.width / 2 - popoverRect.width / 2;
-      }
-    }
-    if (isTopPlacement) {
-      top = targetRect.top - popoverRect.height;
-      if (isStart) {
-        left = targetRect.left;
-      }
-      if (isEnd) {
-        left = targetRect.left + targetRect.width - popoverRect.width;
-      }
-      if (!isStart && !isEnd) {
-        left = targetRect.left + targetRect.width / 2 - popoverRect.width / 2;
-      }
-    }
-    if (isLeftPlacement) {
-      left = targetRect.left - popoverRect.width;
-      if (isStart) {
-        top = targetRect.top;
-      }
-      if (isEnd) {
-        top = targetRect.top + targetRect.height - popoverRect.height;
-      }
-      if (!isStart && !isEnd) {
-        top = targetRect.top + targetRect.height / 2 - popoverRect.height / 2;
-      }
-    }
-    if (isRightPlacement) {
-      left = targetRect.left + targetRect.width;
-      if (isStart) {
-        top = targetRect.top;
-      }
-      if (isEnd) {
-        top = targetRect.top + targetRect.height - popoverRect.height;
-      }
-      if (!isStart && !isEnd) {
-        top = targetRect.top + targetRect.height / 2 - popoverRect.height / 2;
-      }
-    }
-
-    // Clamp left and top within screen bounds
-    // If the target leaves the screen, the popover follows.
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    const topTargetVsScreenTop = Math.min(
-      0,
-      targetRect.top + targetRect.height,
-    );
-    const topTargetVsScreenBottom = Math.max(
-      Math.min(top, screenHeight - popoverRect.height),
-      targetRect.top - popoverRect.height,
+    let { top, left } = this.#calculateAlignedPosition(targetRect, popoverRect);
+    const result = this.#clampAndFlip(
+      top,
+      left,
+      targetRect,
+      popoverRect,
+      iteration,
     );
 
-    const topClamp = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
-    // if we're currently in a top or bottom placement and the popover is outside the screen, and we have more iterations left.
-    // Then flip the placement to opposite side
-    if (
-      topClamp !== top &&
-      (isTopPlacement || isBottomPlacement) &&
-      iteration > 0
-    ) {
-      this.#flipPlacement();
-      this.#updatePosition(iteration);
-      return;
-    }
+    if (result === null) return; // flipped and recursed
 
-    top = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
-
-    const leftTargetVsScreenLeft = Math.min(
-      0,
-      targetRect.left + targetRect.width,
-    );
-    const leftTargetVsScreenRight = Math.max(
-      Math.min(left, screenWidth - popoverRect.width),
-      targetRect.left - popoverRect.width,
-    );
-
-    const leftClamp = Math.max(leftTargetVsScreenLeft, leftTargetVsScreenRight);
-    // if we're currently in a left or right placement and the popover is outside the screen, and we have more iterations left.
-    // Then flip the placement to opposite side
-    if (
-      leftClamp !== left &&
-      (isLeftPlacement || isRightPlacement) &&
-      iteration > 0
-    ) {
-      this.#flipPlacement();
-      this.#updatePosition(iteration);
-      return;
-    }
-    left = leftClamp;
+    top = result.top;
+    left = result.left;
 
     // Detect if the popover is completely outside the screen on any side
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
     const isCompletelyOutsideScreen =
       top + popoverRect.height < 0 ||
       top > screenHeight ||
@@ -291,6 +195,95 @@ export class UUIPopoverContainerElement extends LitElement {
     this.style.transform = `translate(${left}px, ${top}px)`;
     this.style.opacity = '1';
   };
+
+  #calculateAlignedPosition(targetRect: DOMRect, popoverRect: DOMRect) {
+    const isStart = this._actualPlacement.indexOf('-start') !== -1;
+    const isEnd = this._actualPlacement.indexOf('-end') !== -1;
+
+    // Alignment along the cross-axis
+    const align = (pos: number, targetSize: number, popoverSize: number) => {
+      if (isStart) return pos;
+      if (isEnd) return pos + targetSize - popoverSize;
+      return pos + targetSize / 2 - popoverSize / 2;
+    };
+
+    const side = this._actualPlacement.split('-')[0];
+
+    // For top/bottom: top is determined by placement, left by alignment
+    // For left/right: left is determined by placement, top by alignment
+    const positions: Record<string, { top: number; left: number }> = {
+      bottom: {
+        top: targetRect.top + targetRect.height,
+        left: align(targetRect.left, targetRect.width, popoverRect.width),
+      },
+      top: {
+        top: targetRect.top - popoverRect.height,
+        left: align(targetRect.left, targetRect.width, popoverRect.width),
+      },
+      left: {
+        top: align(targetRect.top, targetRect.height, popoverRect.height),
+        left: targetRect.left - popoverRect.width,
+      },
+      right: {
+        top: align(targetRect.top, targetRect.height, popoverRect.height),
+        left: targetRect.left + targetRect.width,
+      },
+    };
+
+    return positions[side] ?? { top: 0, left: 0 };
+  }
+
+  #clampAndFlip(
+    top: number,
+    left: number,
+    targetRect: DOMRect,
+    popoverRect: DOMRect,
+    iteration: number,
+  ): { top: number; left: number } | null {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const side = this._actualPlacement.split('-')[0];
+    const isVertical = side === 'top' || side === 'bottom';
+
+    // Vertical clamping
+    const topTargetVsScreenTop = Math.min(
+      0,
+      targetRect.top + targetRect.height,
+    );
+    const topTargetVsScreenBottom = Math.max(
+      Math.min(top, screenHeight - popoverRect.height),
+      targetRect.top - popoverRect.height,
+    );
+    const topClamped = Math.max(topTargetVsScreenTop, topTargetVsScreenBottom);
+
+    if (topClamped !== top && isVertical && iteration > 0) {
+      this.#flipPlacement();
+      this.#updatePosition(iteration);
+      return null;
+    }
+
+    // Horizontal clamping
+    const leftTargetVsScreenLeft = Math.min(
+      0,
+      targetRect.left + targetRect.width,
+    );
+    const leftTargetVsScreenRight = Math.max(
+      Math.min(left, screenWidth - popoverRect.width),
+      targetRect.left - popoverRect.width,
+    );
+    const leftClamped = Math.max(
+      leftTargetVsScreenLeft,
+      leftTargetVsScreenRight,
+    );
+
+    if (leftClamped !== left && !isVertical && iteration > 0) {
+      this.#flipPlacement();
+      this.#updatePosition(iteration);
+      return null;
+    }
+
+    return { top: topClamped, left: leftClamped };
+  }
 
   #updatePadding = () => {
     const oppositeSides: Record<string, string> = {

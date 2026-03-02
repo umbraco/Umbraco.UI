@@ -21,7 +21,6 @@ type FlagTypes =
   | 'tooShort'
   | 'typeMismatch'
   | 'valueMissing'
-  | 'badInput'
   | 'valid';
 
 const WeightedErrorFlagTypes = [
