@@ -31,7 +31,6 @@ export interface UUISelectOption {
  * @cssprop --uui-select-disabled-background-color - Background color when disabled
  * @extends UUIFormControlMixin
  */
-// TODO: Consider if this should use child items instead of an array.
 export class UUISelectElement extends UUIFormControlWithBasicsMixin(
   LitElement,
   '',

@@ -1,5 +1,5 @@
 import { UUIHorizontalPulseKeyframes } from '../../internal/animations/index.js';
-import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement, nothing, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -24,7 +24,10 @@ const CountDecimalPlaces = (num: number) => {
  * @fires UUISliderEvent#input on input
  * @extends UUIFormControlMixin
  */
-export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
+export class UUISliderElement extends UUIFormControlWithBasicsMixin(
+  LitElement,
+  '',
+) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -230,7 +233,7 @@ export class UUISliderElement extends UUIFormControlMixin(LitElement, '') {
 
   #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
-      this._internals.form?.requestSubmit();
+      this.submit();
     }
   }
 

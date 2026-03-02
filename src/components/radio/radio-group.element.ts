@@ -185,7 +185,8 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
       }
 
       case ENTER:
-        this._internals.form?.requestSubmit();
+        this.submit();
+        break;
     }
   };
 

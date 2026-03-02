@@ -263,7 +263,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
 
   #onKeyDown(e: KeyboardEvent): void {
     if (this.type !== 'color' && e.key == 'Enter') {
-      this._internals.form?.requestSubmit();
+      this.submit();
     }
   }
 

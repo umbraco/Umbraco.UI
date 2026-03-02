@@ -114,7 +114,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
 
   #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
-      this._internals.form?.requestSubmit();
+      this.submit();
     }
   }
 

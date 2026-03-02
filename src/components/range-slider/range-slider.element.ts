@@ -1,5 +1,5 @@
 import { css, html, LitElement, svg } from 'lit';
-import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import { property, query, state } from 'lit/decorators.js';
 import { UUIRangeSliderEvent } from './UUIRangeSliderEvent.js';
 import { clamp } from '../../internal/utils/index.js';
@@ -29,7 +29,10 @@ const CountDecimalPlaces = (num: number) => {
  * @fires UUIRangeSliderEvent#change on change
  * @extends UUIFormControlMixin
  */
-export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
+export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
+  LitElement,
+  '',
+) {
   static readonly formAssociated = true;
 
   /**
@@ -450,7 +453,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   readonly #onKeyDown = (e: KeyboardEvent) => {
     if (e.key == 'Enter') {
-      this._internals.form?.requestSubmit();
+      this.submit();
     }
   };
 
