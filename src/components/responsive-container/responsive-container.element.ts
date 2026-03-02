@@ -160,65 +160,10 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.#hiddenElements = [];
     this.#hiddenElementsMap.clear();
 
-    const len = this.#visibilityBreakpoints.length;
-
     if (this.collapse === 'end') {
-      // Collapse from the END (right side) - current behavior
-      for (let i = 0; i < len; i++) {
-        const breakpoint = this.#visibilityBreakpoints[i];
-        const element = this.#childElements[i];
-
-        // Last item: use full width (no more button needed if all fit)
-        const widthToCheck = i === len - 1 ? containerWidth : availableWidth;
-
-        if (breakpoint <= widthToCheck) {
-          element.style.display = '';
-        } else {
-          element.style.display = 'none';
-          const clone = element.cloneNode(true) as HTMLElement;
-          clone.style.display = '';
-          clone.addEventListener('click', this.#onItemClicked);
-
-          // Link clone ↔ original (bidirectional)
-          this.#hiddenElementsMap.set(clone, element);
-          this.#hiddenElementsMap.set(element, clone);
-
-          this.#hiddenElements.push(clone);
-        }
-      }
+      this.#collapseFromEnd(containerWidth, availableWidth);
     } else {
-      // Collapse from the START (left side)
-      // Calculate total width of all items
-      const totalWidth = this.#visibilityBreakpoints[len - 1] || 0;
-
-      for (let i = 0; i < len; i++) {
-        const element = this.#childElements[i];
-        // Width from this item to the end
-        const widthFromEnd =
-          totalWidth - (i > 0 ? this.#visibilityBreakpoints[i - 1] : 0);
-
-        // First visible item: use full width (no more button needed if all fit)
-        const isFirstPotentiallyVisible =
-          i === 0 || this.#childElements[i - 1].style.display === 'none';
-        const widthToCheck =
-          isFirstPotentiallyVisible && this.#hiddenElements.length === 0
-            ? containerWidth
-            : availableWidth;
-
-        if (widthFromEnd <= widthToCheck) {
-          element.style.display = '';
-        } else {
-          element.style.display = 'none';
-          const clone = element.cloneNode(true) as HTMLElement;
-          clone.style.display = '';
-          clone.addEventListener('click', this.#onItemClicked);
-
-          // Link clone ↔ original (bidirectional)
-          this.#hiddenElementsMap.set(clone, element);
-          this.#hiddenElementsMap.set(element, clone);
-          this.#hiddenElements.push(clone);
-        }
-      }
+      this.#collapseFromStart(containerWidth, availableWidth);
     }
 
     // Show/hide the "more" button
@@ -230,6 +175,62 @@ export class UUIResponsiveContainerElement extends LitElement {
     }
 
     this.requestUpdate();
+  }
+
+  #hideElement(element: HTMLElement) {
+    element.style.display = 'none';
+    const clone = element.cloneNode(true) as HTMLElement;
+    clone.style.display = '';
+    clone.addEventListener('click', this.#onItemClicked);
+
+    // Link clone ↔ original (bidirectional)
+    this.#hiddenElementsMap.set(clone, element);
+    this.#hiddenElementsMap.set(element, clone);
+    this.#hiddenElements.push(clone);
+  }
+
+  #collapseFromEnd(containerWidth: number, availableWidth: number) {
+    const len = this.#visibilityBreakpoints.length;
+
+    for (let i = 0; i < len; i++) {
+      const breakpoint = this.#visibilityBreakpoints[i];
+      const element = this.#childElements[i];
+
+      // Last item: use full width (no more button needed if all fit)
+      const widthToCheck = i === len - 1 ? containerWidth : availableWidth;
+
+      if (breakpoint <= widthToCheck) {
+        element.style.display = '';
+      } else {
+        this.#hideElement(element);
+      }
+    }
+  }
+
+  #collapseFromStart(containerWidth: number, availableWidth: number) {
+    const len = this.#visibilityBreakpoints.length;
+    const totalWidth = this.#visibilityBreakpoints[len - 1] || 0;
+
+    for (let i = 0; i < len; i++) {
+      const element = this.#childElements[i];
+      // Width from this item to the end
+      const widthFromEnd =
+        totalWidth - (i > 0 ? this.#visibilityBreakpoints[i - 1] : 0);
+
+      // First visible item: use full width (no more button needed if all fit)
+      const isFirstPotentiallyVisible =
+        i === 0 || this.#childElements[i - 1].style.display === 'none';
+      const widthToCheck =
+        isFirstPotentiallyVisible && this.#hiddenElements.length === 0
+          ? containerWidth
+          : availableWidth;
+
+      if (widthFromEnd <= widthToCheck) {
+        element.style.display = '';
+      } else {
+        this.#hideElement(element);
+      }
+    }
   }
 
   #onItemClicked = (e: MouseEvent) => {

@@ -113,39 +113,41 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
 
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('type')) {
-      if (this.type === 'hue') {
-        this.max = 360;
-      } else if (this.type === 'saturation') {
-        this.max = 100;
-      } else if (this.type === 'lightness') {
-        this.max = 100;
-      } else if (this.type === 'opacity') {
-        this.max = this.max ?? 100;
-      }
-
+      const typeMaxValues: Record<string, number> = {
+        hue: 360,
+        saturation: 100,
+        lightness: 100,
+      };
+      this.max = typeMaxValues[this.type] ?? this.max ?? 100;
       this.precision = this.precision ?? 1;
 
       if (this.color) {
-        const colord = new Colord(this.color);
-        const { h, s, l } = colord.toHsl();
-        const { r, g, b } = colord.toRgb();
-
-        const gradient =
-          this.type === 'saturation'
-            ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, 0%, ${l}%), hsl(${h}, 100%, ${l}%))`
-            : this.type === 'lightness'
-              ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`
-              : null;
-
-        const hueColor =
-          this.type === 'opacity'
-            ? `linear-gradient(to ${this.vertical ? 'top' : 'right'}, transparent 0%, rgba(${r}, ${g}, ${b}, ${this.max}%) 100%)`
-            : null;
-
-        this.style.setProperty('--uui-slider-background-image', gradient);
-        this.style.setProperty('--uui-slider-hue-color', hueColor);
+        this.#updateGradients();
       }
     }
+  }
+
+  #updateGradients() {
+    const colord = new Colord(this.color);
+    const { h, s, l } = colord.toHsl();
+    const { r, g, b } = colord.toRgb();
+    const direction = this.vertical ? 'top' : 'right';
+
+    const gradients: Record<string, string | null> = {
+      saturation: `linear-gradient(to ${direction}, hsl(${h}, 0%, ${l}%), hsl(${h}, 100%, ${l}%))`,
+      lightness: `linear-gradient(to ${direction}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`,
+    };
+
+    const hueColor =
+      this.type === 'opacity'
+        ? `linear-gradient(to ${direction}, transparent 0%, rgba(${r}, ${g}, ${b}, ${this.max}%) 100%)`
+        : null;
+
+    this.style.setProperty(
+      '--uui-slider-background-image',
+      gradients[this.type] ?? null,
+    );
+    this.style.setProperty('--uui-slider-hue-color', hueColor);
   }
 
   firstUpdated() {
