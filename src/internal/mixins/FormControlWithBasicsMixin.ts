@@ -5,7 +5,6 @@ import {
 } from './FormControlMixin.js';
 import { property } from 'lit/decorators.js';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 
 export interface UUIFormControlWithBasicsMixinElement<
@@ -16,6 +15,10 @@ export interface UUIFormControlWithBasicsMixinElement<
   requiredMessage: string;
   error: boolean;
   errorMessage: string;
+  /**
+   * Submits the form that this element is a part of. If the element is not part of a form, or if the form has no submit button, this method does nothing.
+   */
+  submit(): void;
 }
 /**
  * The mixin allows a custom element to participate in HTML forms.
@@ -31,11 +34,14 @@ export const UUIFormControlWithBasicsMixin = <
   superClass: T,
   defaultValue?: DefaultValueType,
 ) => {
-  abstract class UUIFormControlWithBasicsMixinClass extends UUIFormControlMixin<
-    ValueType,
-    T,
-    DefaultValueType
-  >(superClass, defaultValue) {
+  abstract class UUIFormControlWithBasicsMixinClass
+    extends UUIFormControlMixin<ValueType, T, DefaultValueType>(
+      superClass,
+      defaultValue,
+    )
+    implements
+      UUIFormControlWithBasicsMixinElement<ValueType | DefaultValueType>
+  {
     /**
      * This is a name property of the component.
      * @type {string}
@@ -87,6 +93,13 @@ export const UUIFormControlWithBasicsMixin = <
         () => this.errorMessage,
         () => this.error,
       );
+    }
+
+    /**
+     * Submits the form that this element is a part of. If the element is not part of a form, or if the form has no submit button, this method does nothing.
+     */
+    submit() {
+      this._internals.form?.requestSubmit();
     }
   }
 
