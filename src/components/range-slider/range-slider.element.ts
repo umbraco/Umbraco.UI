@@ -22,7 +22,6 @@ const CountDecimalPlaces = (num: number) => {
 
 // TODO: ability to focus on the range, to enable keyboard interaction to move the range.
 // TODO: Ability to click outside a range, to move the range if the maxGap has been reached.
-// TODO: .
 /**
  * @element uui-range-slider
  * @description - Range slider with two handles. Use uui-slider for a single handle.

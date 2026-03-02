@@ -6,7 +6,6 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
 
-/* TODO: we should make some kind of component for this data layout */
 // prettier-ignore
 const cardContent = html`<ul style="list-style: none; padding-inline-start: 0px; margin: 0;">
     <li><span style="font-weight: 700">Created:</span> Yesterday</li>

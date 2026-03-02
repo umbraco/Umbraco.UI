@@ -94,9 +94,6 @@ export class UUICardMediaElement extends UUICardElement {
   #renderContent() {
     return html`
       <div id="content" class="uui-text">
-        <!--
-        TODO: Implement info box when pop-out is ready
-        -->
         <span id="name" title="${this.name}">${this.name}</span>
         <small id="detail">${this.detail}<slot name="detail"></slot></small>
       </div>
