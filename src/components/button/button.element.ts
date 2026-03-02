@@ -238,7 +238,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
             id="button"
             aria-label=${ifDefined(this.label)}
             title=${ifDefined(this.title === '' ? undefined : this.title)}
-            href=${ifDefined(!this.disabled ? this.href : undefined)}
+            href=${ifDefined(this.disabled ? undefined : this.href)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
               this.rel ||

@@ -79,7 +79,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       ? html`
           <a
             id="button"
-            href=${ifDefined(!this.disabled ? this.href : undefined)}
+            href=${ifDefined(this.disabled ? undefined : this.href)}
             target=${ifDefined(this.target || undefined)}
             rel=${ifDefined(
               this.rel ||

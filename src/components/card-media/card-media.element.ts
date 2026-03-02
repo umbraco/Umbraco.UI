@@ -93,7 +93,7 @@ export class UUICardMediaElement extends UUICardElement {
       <a
         id="open-part"
         tabindex=${ifDefined(tabIndex)}
-        href=${ifDefined(!this.disabled ? this.href : undefined)}
+        href=${ifDefined(this.disabled ? undefined : this.href)}
         target=${ifDefined(this.target || undefined)}
         rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}

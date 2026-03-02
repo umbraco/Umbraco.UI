@@ -487,16 +487,16 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}>
             <uui-button-group slot="append">
-              ${!this.noFormatToggle
-                ? html`<uui-button
+              ${this.noFormatToggle
+                ? ''
+                : html`<uui-button
                     label="Toggle color format"
                     @click=${this.handleFormatToggle}
                     class="color-picker__toggle-format"
                     ?disabled=${this.disabled}
                     compact>
                     <span>${this.format}</span>
-                  </uui-button>`
-                : ''}
+                  </uui-button>`}
               ${hasEyeDropper
                 ? html`<uui-button
                     label="Select a color"

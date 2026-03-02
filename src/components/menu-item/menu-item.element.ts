@@ -196,9 +196,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
         this.rel ||
-          ifDefined(
-            this.target === '_blank' ? 'noopener noreferrer' : undefined,
-          ),
+          (this.target === '_blank' ? 'noopener noreferrer' : undefined),
       )}
       @click=${this.#onLabelClicked}
       ?disabled=${this.disabled}

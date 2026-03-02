@@ -85,7 +85,7 @@ export class UUICardBlockTypeElement extends UUICardElement {
         id="open-part"
         class="uui-text"
         tabindex=${ifDefined(tabIndex)}
-        href=${ifDefined(!this.disabled ? this.href : undefined)}
+        href=${ifDefined(this.disabled ? undefined : this.href)}
         target=${ifDefined(this.target || undefined)}
         rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}

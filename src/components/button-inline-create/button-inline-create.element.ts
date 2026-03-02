@@ -106,9 +106,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
       target=${ifDefined(this.target || undefined)}
       rel=${ifDefined(
         this.rel ||
-          ifDefined(
-            this.target === '_blank' ? 'noopener noreferrer' : undefined,
-          ),
+          (this.target === '_blank' ? 'noopener noreferrer' : undefined),
       )}
       aria-label=${this.label ? this.label : 'create new element'}>
       ${this.#renderContent()}
