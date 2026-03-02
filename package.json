@@ -73,15 +73,16 @@
     "storybook": "npm run analyze && storybook dev -p 6006",
     "storybook:build": "npm run analyze && storybook build",
     "new-component": "plop",
-    "test:codemod": "node --test scripts/codemods/test.mjs"
+    "test:codemod": "node --test scripts/codemods/test.mjs",
+    "vendor": "node scripts/vendor-culori.js"
   },
   "engines": {
     "node": ">=24.13",
     "npm": ">=11"
   },
   "dependencies": {
-    "lit": "^3.0.0",
-    "colord": "^2.9.3"
+    "colord": "^2.9.3",
+    "lit": "^3.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.0.1",
@@ -101,6 +102,7 @@
     "@vitest/browser-playwright": "^4.0.18",
     "axe-core": "^4.11.1",
     "chromatic": "^15.2.0",
+    "culori": "^4.0.2",
     "eslint": "10.0.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "^2.32.0",
