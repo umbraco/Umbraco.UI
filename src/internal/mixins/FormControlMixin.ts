@@ -255,7 +255,7 @@ export const UUIFormControlMixin = <
      * @param {FlagTypes} flagKey the type of validation.
      * @param {method} getMessageMethod method to retrieve relevant message. Is executed every time the validator is re-executed.
      * @param {method} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
-     * @returns {UmbFormControlValidatorConfig} - The added validator configuration.
+     * @returns {UUIFormControlValidatorConfig} - The added validator configuration.
      */
     addValidator(
       flagKey: FlagTypes,

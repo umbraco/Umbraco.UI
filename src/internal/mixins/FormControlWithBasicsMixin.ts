@@ -5,6 +5,7 @@ import {
 } from './FormControlMixin.js';
 import { property } from 'lit/decorators.js';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 
 export interface UUIFormControlWithBasicsMixinElement<
@@ -73,7 +74,7 @@ export const UUIFormControlWithBasicsMixin = <
     @property({ type: String, attribute: 'error-message' })
     errorMessage = 'This field is invalid';
 
-    constructor(...args: any[]) {
+    constructor(...args: unknown[]) {
       super(...args);
 
       this.addValidator(
