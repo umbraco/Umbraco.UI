@@ -452,7 +452,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   #onKeyDown = (e: KeyboardEvent) => {
     if (e.key == 'Enter') {
-      this.submit();
+      this._internals.form?.requestSubmit();
     }
   };
 

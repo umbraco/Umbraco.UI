@@ -1,7 +1,7 @@
 import { property, query, state } from 'lit/decorators.js';
 import { css, html, LitElement, nothing } from 'lit';
 import type { UUIFileDropzoneElement } from '../file-dropzone/file-dropzone.js';
-import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import { iconDelete } from '../icon-registry-essential/svgs/index.js';
 import { repeat } from 'lit/directives/repeat.js';
 
@@ -17,7 +17,9 @@ import '../file-dropzone/file-dropzone.js';
  * @description - A form associated file input that supports multiple files.
  * @extends UUIFormControlMixin
  */
-export class UUIInputFileElement extends UUIFormControlMixin(LitElement) {
+export class UUIInputFileElement extends UUIFormControlWithBasicsMixin(
+  LitElement,
+) {
   @query('#dropzone')
   private readonly _dropzone!: UUIFileDropzoneElement;
 

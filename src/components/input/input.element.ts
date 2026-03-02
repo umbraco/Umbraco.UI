@@ -1,5 +1,5 @@
 import {
-  UUIFormControlMixin,
+  UUIFormControlWithBasicsMixin,
   LabelMixin,
 } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
@@ -59,7 +59,7 @@ export type InputMode =
  * @cssprop --uui-input-border-color-disabled - Border color when disabled
  * @cssprop --uui-input-border-color-readonly - Border color when readonly
  */
-export class UUIInputElement extends UUIFormControlMixin(
+export class UUIInputElement extends UUIFormControlWithBasicsMixin(
   LabelMixin('', LitElement),
   '',
 ) {
@@ -263,7 +263,7 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   #onKeyDown(e: KeyboardEvent): void {
     if (this.type !== 'color' && e.key == 'Enter') {
-      this.submit();
+      this._internals.form?.requestSubmit();
     }
   }
 

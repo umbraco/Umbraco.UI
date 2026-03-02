@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { UUITextareaEvent } from './UUITextareaEvent.js';
-import { UUIFormControlMixin } from '../../internal/mixins/index.js';
+import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
@@ -16,7 +16,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @extends UUIFormControlMixin
  */
 
-export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
+export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
+  LitElement,
+  '',
+) {
   /**
    * This is a static class field indicating that the element is can be used inside a native form and participate in its events. It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.  Read more about form controls here https://web.dev/more-capable-form-controls/
    * @type {boolean}
@@ -49,24 +52,6 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: Boolean, reflect: true })
   readonly = false;
-
-  /**
-   * This is a name property of the `<uui-textarea>` component. It reflects the behaviour of the native `<textarea>` element and its name attribute.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  @property({ type: String })
-  name = '';
-
-  /**
-   * Set to true if the component should have an error state. Property is reflected to the corresponding attribute.
-   * @type {boolean}
-   * @attr
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  error = false;
 
   /**
    * This is a minimum value of the input.
