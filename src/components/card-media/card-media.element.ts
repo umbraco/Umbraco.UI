@@ -64,7 +64,7 @@ export class UUICardMediaElement extends UUICardElement {
   }
 
   #renderButton() {
-    const tabIndex = this.disabled ? undefined : this.selectOnly ? -1 : 0;
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     return html`
       <button
         id="open-part"
@@ -77,13 +77,13 @@ export class UUICardMediaElement extends UUICardElement {
   }
 
   #renderLink() {
-    const tabIndex = this.disabled ? undefined : this.selectOnly ? -1 : 0;
+    const tabIndex = !this.disabled ? (this.selectOnly ? -1 : 0) : undefined;
     const rel = this.target === '_blank' ? 'noopener noreferrer' : undefined;
     return html`
       <a
         id="open-part"
         tabindex=${ifDefined(tabIndex)}
-        href=${ifDefined(this.disabled ? undefined : this.href)}
+        href=${ifDefined(!this.disabled ? this.href : undefined)}
         target=${ifDefined(this.target || undefined)}
         rel=${ifDefined(this.rel || rel)}>
         ${this.#renderContent()}
