@@ -296,7 +296,6 @@ export const UUIFormControlMixin = <
         throw new Error('Element is null or undefined');
       }
       if (!element.validity) {
-        console.log(element);
         throw new Error('Element is not a Form Control');
       }
       if (this.#formCtrlElements.includes(element)) return;
