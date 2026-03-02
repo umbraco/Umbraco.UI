@@ -28,7 +28,7 @@ export class UUIBreadcrumbsElement extends LitElement {
 
   handleSlotChange() {
     if (this.slotNodes.length > 0) {
-      const lastItem = this.slotNodes[this.slotNodes.length - 1];
+      const lastItem = this.slotNodes.at(-1)!;
       lastItem.setAttribute('aria-current', 'page');
 
       if (this.elementIsBreadcrumbItem(lastItem)) {
