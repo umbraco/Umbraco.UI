@@ -1,15 +1,17 @@
 import { LitElement, html, css, nothing } from 'lit';
-import type { HslaColor } from 'colord';
-import { Colord, colord, extend } from 'colord';
-import namesPlugin from 'colord/plugins/names';
-
-extend([namesPlugin]);
-
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 
-import { hslaToHex } from '../../internal/utils/index.js';
+import {
+  parseColor,
+  hslaToRgb,
+  hslaToRgbString,
+  hslaToHslString,
+  hslaToHsv,
+  hslaToHex,
+  type HslaColor,
+} from '../../internal/utils/index.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -76,7 +78,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @state() private saturation = 0;
   @state() private lightness = 0;
   @state() private alpha = 100;
-  @state() private _colord: Colord = colord('hsl(0, 0%, 0%)');
+  @state() private _color: HslaColor = { h: 0, s: 0, l: 0, a: 1 };
 
   /**
    * The current color.
@@ -196,13 +198,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;
-    const hexa = this._colord.toHex();
+    const { h, s, l, a } = this._color;
+    const hexa = hslaToHex(h, s, l, a * 100);
     const hex = hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa;
-
-    const { r, g, b } = this._colord.toRgb();
-    const { h, s, l } = this._colord.toHsl();
-    const { v } = this._colord.toHsv();
-    const a = this._colord.alpha();
+    const { r, g, b } = hslaToRgb(h, s, l);
+    const { v } = hslaToHsv(h, s, l);
 
     switch (formatToUse) {
       case 'hex':
@@ -212,11 +212,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       case 'rgb':
         return this.setLetterCase(`rgb(${r}, ${g}, ${b})`);
       case 'rgba':
-        return this.setLetterCase(this._colord.toRgbString());
+        return this.setLetterCase(hslaToRgbString(h, s, l, a));
       case 'hsl':
         return this.setLetterCase(`hsl(${h}, ${s}%, ${l}%)`);
       case 'hsla':
-        return this.setLetterCase(this._colord.toHslString());
+        return this.setLetterCase(hslaToHslString(h, s, l, a));
       case 'hsv':
         return this.setLetterCase(`hsv(${h}, ${s}%, ${l}%)`);
       case 'hsva':
@@ -346,23 +346,22 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       return true;
     }
 
-    const colord = new Colord(colorString);
+    const parsed = parseColor(colorString);
+    if (!parsed) return false;
 
-    const { h, s, l, a } = colord.toHsl();
+    const { h, s, l, a } = parsed;
 
     this.hue = h;
     this.saturation = s;
     this.lightness = l;
     this.alpha = this.opacity ? a * 100 : 100; // Convert to 0-100 range, and set alpha to 100 if opacity is disabled
 
-    const hslaColor = colorString as HslaColor;
-
-    // Workaround as hue isn't correct after changing hue slider, but Colord parse hue value as zero when color is black.
-    if (hslaColor?.h) {
-      this.hue = hslaColor.h;
+    // Workaround as hue isn't correct after changing hue slider, but parseColor returns hue as zero when color is black.
+    if (typeof colorString !== 'string' && colorString.h) {
+      this.hue = colorString.h;
     }
 
-    this._colord = colord;
+    this._color = { h: this.hue, s, l, a };
 
     this._syncValues();
 
