@@ -5,7 +5,7 @@ export class UUIIconRequestEvent extends UUIEvent<{ iconName: string }> {
 
   public icon: Promise<string> | null = null;
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       composed: true,

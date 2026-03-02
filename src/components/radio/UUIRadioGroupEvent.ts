@@ -4,7 +4,7 @@ import type { UUIRadioGroupElement } from './radio-group.element.js';
 export class UUIRadioGroupEvent extends UUIEvent<{}, UUIRadioGroupElement> {
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       ...eventInit,

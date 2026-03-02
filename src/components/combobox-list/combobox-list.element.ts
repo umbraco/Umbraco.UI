@@ -124,8 +124,8 @@ export class UUIComboboxListElement extends LitElement {
   };
 
   #updateActiveElement() {
-    for (let i = 0; i < this._activeOptions.length; i++) {
-      this._activeOptions[i].active = false;
+    for (const option of this._activeOptions) {
+      option.active = false;
     }
 
     const activeElement = this._getActiveElement;

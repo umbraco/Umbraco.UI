@@ -106,10 +106,6 @@ export class UUISelectElement extends UUIFormControlMixin(LitElement, '') {
   @query('#native')
   protected readonly _input!: HTMLSelectElement;
 
-  constructor() {
-    super();
-  }
-
   /**
    * This method enables <label for="..."> to focus the select
    */

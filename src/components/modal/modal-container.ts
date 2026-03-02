@@ -144,7 +144,7 @@ export class UUIModalContainerElement extends LitElement {
             ?.getBoundingClientRect().width ?? 0;
         const distance =
           currentWidth + sidebarOffset + this.sidebarGap - nextWidth;
-        sidebarOffset = distance > 0 ? distance : 0;
+        sidebarOffset = Math.max(distance, 0);
       }
     });
   }

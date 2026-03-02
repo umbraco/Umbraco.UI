@@ -63,7 +63,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
       );
       return;
     }
-    this.removeChild(toast);
+    toast.remove();
   }
 
   /**

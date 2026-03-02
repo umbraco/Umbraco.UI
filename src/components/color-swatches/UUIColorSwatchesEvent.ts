@@ -5,7 +5,7 @@ import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.element
 export class UUIColorSwatchesEvent extends UUIEvent<{}, UUIColorSwatchElement> {
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       ...eventInit,

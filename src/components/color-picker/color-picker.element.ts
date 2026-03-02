@@ -39,9 +39,7 @@ import '../popover-container/popover-container.js';
 
 const hasEyeDropper = 'EyeDropper' in window;
 
-interface EyeDropperConstructor {
-  new (): EyeDropperInterface;
-}
+type EyeDropperConstructor = new () => EyeDropperInterface;
 
 interface EyeDropperInterface {
   open: () => Promise<{ sRGBHex: string }>;

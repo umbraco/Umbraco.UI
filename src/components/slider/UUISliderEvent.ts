@@ -5,7 +5,7 @@ export class UUISliderEvent extends UUIEvent<{}, UUISliderElement> {
   public static readonly INPUT = 'input';
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       ...eventInit,

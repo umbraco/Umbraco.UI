@@ -218,9 +218,7 @@ export class UUIToastNotificationElement extends LitElement {
             this.dispatchEvent(
               new UUIToastNotificationEvent(UUIToastNotificationEvent.CLOSED),
             );
-            if (this.parentNode) {
-              this.parentNode.removeChild(this);
-            }
+            this.remove();
           }
         }, this._getAnimationDuration());
       });

@@ -8,7 +8,7 @@ export class UUISelectableEvent extends UUIEvent<
   public static readonly SELECTED = 'selected';
   public static readonly DESELECTED = 'deselected';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       cancelable: true,

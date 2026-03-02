@@ -5,7 +5,7 @@ export class UUIComboboxListEvent extends UUIEvent<UUIComboboxListElement> {
   public static readonly CHANGE: string = 'change';
   public static readonly INNER_SLOT_CHANGE: string = 'inner-slot-change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       ...eventInit,

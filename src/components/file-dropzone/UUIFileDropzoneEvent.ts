@@ -11,7 +11,7 @@ export class UUIFileDropzoneEvent extends UUIEvent<
   public static readonly CHANGE: string = 'change';
   public static readonly REJECT: string = 'reject';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
       bubbles: true,
       ...eventInit,
