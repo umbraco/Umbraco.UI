@@ -7,6 +7,9 @@ import { property } from 'lit/decorators.js';
 
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 
+/**
+ * @internal
+ */
 export interface UUIFormControlWithBasicsMixinElement<
   ValueType,
 > extends UUIFormControlMixinElement<ValueType> {
@@ -25,6 +28,7 @@ export interface UUIFormControlWithBasicsMixinElement<
  *
  * @param {Object} superClass - superclass to be extended.
  * @mixin
+ * @internal
  */
 export const UUIFormControlWithBasicsMixin = <
   ValueType = FormDataEntryValue | FormData,
@@ -34,6 +38,9 @@ export const UUIFormControlWithBasicsMixin = <
   superClass: T,
   defaultValue?: DefaultValueType,
 ) => {
+  /**
+   * @internal
+   */
   abstract class UUIFormControlWithBasicsMixinClass
     extends UUIFormControlMixin<ValueType, T, DefaultValueType>(
       superClass,
