@@ -13,7 +13,9 @@
 
 ## temp folders
 /.tmp/
-/.claude/
+/.claude/*
+!/.claude/settings.json
+!/.claude/hooks/
 
 # build
 /_site/
