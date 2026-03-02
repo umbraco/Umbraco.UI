@@ -6,7 +6,6 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
  * Render a list of slots, filtering out any null or undefined slots to prevent empty lines.
  * Accepts an array of TemplateResults or an Args object. If an Args object is provided, it will render any properties that end with 'slot'.
  */
-// TODO: add a way to control the new lines. Eg exclude newlines: before, after, between as an array
 function renderSlots(args: Args): TemplateResult[] | typeof nothing;
 function renderSlots(param: TemplateResult[] | Args) {
   let slots: TemplateResult[];
