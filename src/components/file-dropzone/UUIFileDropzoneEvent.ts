@@ -13,7 +13,7 @@ export class UUIFileDropzoneEvent extends UUIEvent<
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

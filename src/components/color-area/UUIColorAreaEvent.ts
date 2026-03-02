@@ -6,7 +6,7 @@ export class UUIColorAreaEvent extends UUIEvent<{}, UUIColorAreaElement> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

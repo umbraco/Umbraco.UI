@@ -6,7 +6,7 @@ export class UUIRadioGroupEvent extends UUIEvent<{}, UUIRadioGroupElement> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

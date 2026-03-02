@@ -10,7 +10,8 @@ export class UUISelectableEvent extends UUIEvent<
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true, cancelable: true },
+      bubbles: true,
+      cancelable: true,
       ...eventInit,
     });
   }

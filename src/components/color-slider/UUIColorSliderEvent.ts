@@ -6,7 +6,7 @@ export class UUIColorSliderEvent extends UUIEvent<{}, UUIColorSliderElement> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

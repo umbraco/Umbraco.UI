@@ -7,7 +7,7 @@ export class UUIRangeSliderEvent extends UUIEvent<{}, UUIRangeSliderElement> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

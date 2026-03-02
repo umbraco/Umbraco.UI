@@ -6,7 +6,7 @@ export class UUISelectEvent extends UUIEvent<{}, UUISelectElement> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

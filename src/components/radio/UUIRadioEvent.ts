@@ -6,7 +6,7 @@ export class UUIRadioEvent extends UUIEvent<{}, UUIRadioElement> {
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

@@ -9,7 +9,8 @@ export class UUIButtonInlineCreateEvent extends UUIEvent<
 
   constructor(evName: string, eventInit: any | null = {}) {
     super(evName, {
-      ...{ bubbles: true, composed: true },
+      bubbles: true,
+      composed: true,
       ...eventInit,
     });
   }
