@@ -297,8 +297,8 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
 
   readonly #onKeyDown = (e: KeyboardEvent) => {
     if (this.open === false && e.code === 'Enter') {
-      e.preventDefault(); // TODO: could we avoid this.
-      e.stopImmediatePropagation(); // TODO: could we avoid this.
+      e.preventDefault(); // Prevent form submission when combobox is closed
+      e.stopImmediatePropagation(); // Don't let list handle Enter when closed
     }
 
     if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
@@ -320,8 +320,8 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   readonly #onClear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
-    e.preventDefault(); // TODO: could we avoid this.
-    e.stopImmediatePropagation(); // TODO: could we avoid this.
+    e.preventDefault(); // Prevent form submission from clear button
+    e.stopImmediatePropagation(); // Don't let list handle Enter after clearing
 
     this.value = '';
     this.search = '';
