@@ -153,9 +153,10 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     this.pristine = false;
   };
 
-  readonly #onSelectClick = (e: UUIRadioEvent) => {
-    if (e.target.checked === true) {
-      this.value = e.target.value;
+  readonly #onSelectClick = (e: Event) => {
+    const target = e.target as UUIRadioElement;
+    if (target.checked === true) {
+      this.value = target.value;
       this.#fireChangeEvent();
     }
   };
@@ -193,11 +194,7 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
   #onSlotChange(e: Event) {
     e.stopPropagation();
     this.#radioElements?.forEach(el => {
-      el.removeEventListener(
-        UUIRadioEvent.CHANGE,
-        // @ts-ignore TODO: fix typescript error
-        this.#onSelectClick as EventHandlerNonNull,
-      );
+      el.removeEventListener(UUIRadioEvent.CHANGE, this.#onSelectClick);
       el.removeEventListener('blur', this.#onChildBlur);
     });
 
@@ -210,11 +207,7 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     if (this.#radioElements.length === 0) return;
 
     this.#radioElements.forEach(el => {
-      el.addEventListener(
-        UUIRadioEvent.CHANGE,
-        // @ts-ignore TODO: fix typescript error
-        this.#onSelectClick as EventHandlerNonNull,
-      );
+      el.addEventListener(UUIRadioEvent.CHANGE, this.#onSelectClick);
       el.addEventListener('blur', this.#onChildBlur);
     });
 
