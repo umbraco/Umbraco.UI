@@ -28,7 +28,7 @@ const data: Array<Fruit> = [
 ];
 
 async function getFruits() {
-  return Promise.resolve(data);
+  return data;
 }
 
 @defineElement('uui-combobox-async-options-example')

@@ -71,7 +71,7 @@ export class UUIIconRegistry {
    * @param iconName
    * @returns
    */
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected acceptIcon(_iconName: string): boolean {
     return false;
   }
