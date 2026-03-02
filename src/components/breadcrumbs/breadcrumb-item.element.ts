@@ -12,8 +12,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
     super.connectedCallback();
   }
 
-  // TODO: ability for adding aria-label?
-
   /**
    * Specifies the link href.
    * @type {String}

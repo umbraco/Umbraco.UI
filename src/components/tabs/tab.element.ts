@@ -214,7 +214,6 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       }
 
       slot.label {
-        /* TODO: Find a better selector */
         text-align: center;
         display: flex;
         width: 100%;

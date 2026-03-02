@@ -59,7 +59,6 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
   @property({ type: Boolean, reflect: true, attribute: 'show-children' })
   public showChildren = false;
 
-  // TODO: Should this be a getter that just checks on its own if there is any children?
   /**
    * Shows/hides the caret.
    * @type {boolean}

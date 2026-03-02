@@ -52,7 +52,6 @@ export class UUIRefElement extends SelectOnlyMixin(
     this.dispatchEvent(new UUIRefEvent(UUIRefEvent.OPEN));
   }
   protected handleOpenKeydown(e: KeyboardEvent) {
-    // TODO: Is it correct to both be able to open by space and enter? We to investigate, i would think that enter was the only option.
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
