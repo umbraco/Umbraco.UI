@@ -284,7 +284,7 @@ export const UUIFormControlMixin = <
       }
     }
 
-    #runValidatorsCallback = () => this._runValidators();
+    readonly #runValidatorsCallback = () => this._runValidators();
 
     /**
      * @method addFormControlElement
