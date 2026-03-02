@@ -117,6 +117,8 @@ export function hslaToHsv(
 /**
  * Generate a hex string from HSLA values.
  * Hue: 0–360, saturation/lightness: 0–100, alpha: 0–100 (default 100).
+ * Note: alpha uses 0–100 scale (matching the component's `alpha` property)
+ * unlike `hslaToRgbString`/`hslaToHslString` which use 0–1.
  * Returns 6-digit hex when fully opaque, 8-digit when alpha < 100.
  * Returns empty string on invalid input.
  */
@@ -126,7 +128,7 @@ export function hslaToHex(
   lightness: number,
   alpha = 100,
 ): string {
-  if (isNaN(hue) || isNaN(saturation) || isNaN(lightness)) return '';
+  if (isNaN(hue) || isNaN(saturation) || isNaN(lightness) || isNaN(alpha)) return '';
   const color = {
     mode: 'hsl' as const,
     h: hue,
@@ -165,7 +167,7 @@ export function hslaToHslString(
   return a < 1 ? `hsla(${h}, ${s}%, ${l}%, ${a})` : `hsl(${h}, ${s}%, ${l}%)`;
 }
 
-// ─── Unchanged from #1325 ─────────────────────────────────────────────────────
+// ─── HSL/HSV math helpers ─────────────────────────────────────────────────────
 
 /** Converts HSL lightness to HSB brightness given a saturation value. */
 export function brightnessFromLightness(

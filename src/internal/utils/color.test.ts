@@ -124,6 +124,9 @@ describe('hslaToHex', () => {
   it('returns empty string for invalid input', () => {
     expect(hslaToHex(NaN, 100, 50)).toBe('');
   });
+  it('returns empty string when alpha is NaN', () => {
+    expect(hslaToHex(0, 100, 50, NaN)).toBe('');
+  });
 });
 
 describe('hslaToRgbString', () => {
