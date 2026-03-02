@@ -140,7 +140,25 @@ The global `Option` interface (previously declared by `uui-select`) has been rep
 + const options: Array<UUISelectOption> = [{ name: 'A', value: 'a' }];
 ```
 
-### 5. Handle removed components
+### 5. Removed public methods on color components
+
+The `getBrightness()` and `getLightness()` methods have been removed from `UUIColorAreaElement` and `UUIColorPickerElement`. These were HSB↔HSL conversion helpers that have been moved to shared utility functions.
+
+If you were calling these methods on a component instance, use the standalone functions instead:
+
+```diff
+- const brightness = colorArea.getBrightness(lightness);
++ import { brightnessFromLightness } from '@umbraco-ui/uui';
++ const brightness = brightnessFromLightness(saturation, lightness);
+
+- const lightness = colorArea.getLightness(brightness);
++ import { lightnessFromBrightness } from '@umbraco-ui/uui';
++ const lightness = lightnessFromBrightness(saturation, brightness);
+```
+
+Note: the shared functions require an explicit `saturation` parameter (the old methods used `this.saturation` implicitly).
+
+### 6. Handle removed components
 
 If you used `uui-caret` or `uui-popover`, replace them:
 
@@ -152,7 +170,7 @@ If you used `uui-caret` or `uui-popover`, replace them:
 + <uui-popover-container ...>
 ```
 
-### 6. Update Lit to v3
+### 7. Update Lit to v3
 
 UUI v2 requires Lit ^3.0.0. If your project uses Lit 2, follow the [Lit 2 to 3 upgrade guide](https://lit.dev/docs/releases/upgrade/#lit-2x-to-3.0).
 
