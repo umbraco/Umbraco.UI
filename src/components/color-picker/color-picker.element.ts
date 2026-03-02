@@ -218,7 +218,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       case 'hsla':
         return this.setLetterCase(hslaToHslString(h, s, l, a));
       case 'hsv':
-        return this.setLetterCase(`hsv(${h}, ${s}%, ${l}%)`);
+        return this.setLetterCase(`hsv(${h}, ${s}%, ${v}%)`);
       case 'hsva':
         return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`);
       default:
@@ -338,6 +338,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       this.alpha = 100;
       this.inputValue = '';
       this._value = colorString;
+      this._color = { h: 0, s: 0, l: 0, a: 1 };
 
       this.dispatchEvent(
         new UUIColorPickerChangeEvent(UUIColorPickerChangeEvent.CHANGE),
