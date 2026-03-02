@@ -81,6 +81,8 @@ export class UUIFilePreviewElement extends LitElement {
           this._src = result;
         });
       }
+
+      this.requestUpdate('file');
     }
   }
 
