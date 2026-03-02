@@ -52,7 +52,6 @@ export class UUIModalElement extends LitElement {
     const openEvent = new CustomEvent(UUIModalOpenEvent, {
       cancelable: true,
     });
-    // TODO: get rid of legacy 'open'-event sometime in the future. [NL]
     const legacyOpenEvent = new CustomEvent('open', {
       cancelable: true,
     });
@@ -89,7 +88,6 @@ export class UUIModalElement extends LitElement {
     this.isOpen = false;
     this._dialogElement?.close();
 
-    // TODO: get rid of legacy 'close-end'-event sometime in the future. [NL]
     this.dispatchEvent(new CustomEvent('close-end'));
     this.dispatchEvent(new CustomEvent(UUIModalCloseEndEvent));
 
