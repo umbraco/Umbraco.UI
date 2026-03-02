@@ -12,10 +12,21 @@ export class UUITimer {
   }
 
   public setDuration(duration: number) {
+    const oldDuration = this._duration;
     this._duration = duration;
-    // TODO: Should calculate true offset of _remaining
+
     if (this._timerId !== null) {
-      this.restart();
+      // Adjust remaining proportionally: if 40% elapsed at old duration,
+      // keep 60% remaining at new duration
+      const elapsed = Date.now() - this._startTime;
+      const oldRemaining = (this._remaining ?? oldDuration) - elapsed;
+      const ratio = oldDuration > 0 ? oldRemaining / oldDuration : 1;
+      this._remaining = Math.max(0, ratio * duration);
+      this.resume();
+    } else if (this._remaining !== null) {
+      // Paused: adjust remaining proportionally
+      const ratio = oldDuration > 0 ? this._remaining / oldDuration : 1;
+      this._remaining = Math.max(0, ratio * duration);
     }
   }
 
@@ -53,6 +64,7 @@ export class UUITimer {
   }
 
   private readonly _onComplete = () => {
+    this._timerId = null;
     this._remaining = null;
     this._callback();
   };
