@@ -146,27 +146,18 @@ export const UUIFormControlMixin = <
      * Determines wether the form control has been touched or interacted with, this determines wether the validation-status of this form control should be made visible.
      * @type {boolean}
      * @attr
-     * @default true
+     * @default
      */
-    @property({ type: Boolean, reflect: true, attribute: 'pristine' })
+    @property({ type: Boolean, reflect: true })
     public set pristine(value: boolean) {
       if (this._pristine !== value) {
         this._pristine = value;
-        // I have trouble with the reflect option on this one, maybe reflect does not work from mixins? [NL]
-        if (value) {
-          this.setAttribute('pristine', '');
-        } else {
-          this.removeAttribute('pristine');
-        }
-        this.#dispatchValidationState();
       }
     }
     public get pristine(): boolean {
       return this._pristine;
     }
-    // Will be set to true instantly to trigger the setAttribute in the setter.
-    // This is to prevent an issue caused by using setAttribute in the constructor.
-    private _pristine: boolean = false;
+    private _pristine: boolean = true;
 
     #value: ValueType | DefaultValueType =
       defaultValue as unknown as DefaultValueType;
@@ -180,8 +171,6 @@ export const UUIFormControlMixin = <
     constructor(...args: any[]) {
       super(...args);
       this._internals = this.attachInternals();
-      // Sets pristine to true, this will ensure that an attribute gets set to represent the state.
-      this.pristine = true;
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
