@@ -75,33 +75,30 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
   }
 
   render() {
-    return this.href
-      ? html`
-          <a
-            id="button"
-            href=${ifDefined(this.disabled ? undefined : this.href)}
-            target=${ifDefined(this.target || undefined)}
-            rel=${ifDefined(
-              this.rel ||
-                (this.target === '_blank' ? 'noopener noreferrer' : undefined),
-            )}
-            role="tab">
-            <slot name="icon"></slot>
-            ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </a>
-        `
-      : html`
-          <button
-            type="button"
-            id="button"
-            ?disabled=${this.disabled}
-            role="tab">
-            <slot name="icon"></slot>
-            ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </button>
-        `;
+    if (this.href) {
+      const rel =
+        this.rel ||
+        (this.target === '_blank' ? 'noopener noreferrer' : undefined);
+      return html`
+        <a
+          id="button"
+          href=${ifDefined(this.disabled ? undefined : this.href)}
+          target=${ifDefined(this.target || undefined)}
+          rel=${ifDefined(rel)}
+          role="tab">
+          <slot name="icon"></slot>
+          ${this.renderLabel()}
+          <slot name="extra"></slot>
+        </a>
+      `;
+    }
+    return html`
+      <button type="button" id="button" ?disabled=${this.disabled} role="tab">
+        <slot name="icon"></slot>
+        ${this.renderLabel()}
+        <slot name="extra"></slot>
+      </button>
+    `;
   }
 
   static override readonly styles = [
