@@ -25,8 +25,7 @@ describe('UUICardMediaElement', () => {
     expect(element).toBeInstanceOf(UUICardMediaElement);
   });
 
-  // TODO: a11y audit times out in Webkit CI due to nested symbol SVG rendering
-  it.skip('passes the a11y audit', async () => {
+  it('passes the a11y audit', async () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 

@@ -65,7 +65,6 @@ describe('UuiTableRow', () => {
     });
   });
 
-  // TODO: add tests with different kinds of elements in the cells
   describe('selectable', () => {
     beforeEach(async () => {
       element.selectable = true;
@@ -83,9 +82,18 @@ describe('UuiTableRow', () => {
       element.click();
       expect(element.selected).toBe(false);
     });
+
+    it('does not select when clicking a child button in a cell', async () => {
+      await element.updateComplete;
+      const cell = element.querySelector('uui-table-cell')!;
+      const button = document.createElement('button');
+      button.textContent = 'Click me';
+      cell.appendChild(button);
+      button.click();
+      expect(element.selected).toBe(false);
+    });
   });
 
-  // TODO: add tests with different kinds of elements in the cells
   describe('selectable & selectOnly', () => {
     beforeEach(async () => {
       element.selectable = true;
@@ -103,6 +111,18 @@ describe('UuiTableRow', () => {
       await element.updateComplete;
       element.click();
       expect(element.selected).toBe(false);
+    });
+
+    it('selects the row when cell contains interactive elements', async () => {
+      await element.updateComplete;
+      const cell = element.querySelector('uui-table-cell')!;
+      const button = document.createElement('button');
+      button.textContent = 'Click me';
+      cell.appendChild(button);
+      // With selectOnly, child interaction is disabled via CSS pointer-events: none,
+      // so clicks land on the row itself
+      element.click();
+      expect(element.selected).toBe(true);
     });
   });
 });
