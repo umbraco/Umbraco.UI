@@ -52,7 +52,6 @@ export class UUIPaginationElement extends LitElement {
   }
 
   protected updateLabel() {
-    // TODO: make translatable:
     this.ariaLabel = `${this.label || 'Pagination navigation'}. Current page: ${
       this.current
     }.`;
@@ -120,7 +119,6 @@ export class UUIPaginationElement extends LitElement {
   @property()
   label = '';
 
-  // TODO: Handle localization
   /**
    * With this property you can overwrite aria-label.
    * @type {string}
