@@ -8,7 +8,8 @@ import { useState } from 'storybook/preview-api';
 import { spread } from '../../../storyhelpers';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { colord, HslaColor } from 'colord';
+import type { HslaColor } from 'colord';
+import { hslaToHex } from '../../internal/utils/index.js';
 
 import type { UUIColorSliderElement } from '../color-slider/color-slider.js';
 
@@ -187,23 +188,6 @@ export const Advanced: Story = {
       setValue({ h: newColor.h, s: newColor.s, l: newColor.l, a: newColor.a });
     }
 
-    /** Generates a hex string from HSL values. Hue must be 0-360. All other arguments must be 0-100. */
-    function getHexString(
-      hue: number,
-      saturation: number,
-      lightness: number,
-      alpha = 100,
-    ) {
-      const color = colord(
-        `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha / 100})`,
-      );
-      if (!color.isValid()) {
-        return '';
-      }
-
-      return color.toHex();
-    }
-
     return html` <div style="display: flex; gap: 20px;">
       <div style="display: flex; flex-direction: column; gap: 10px;">
         ${repeat(sliders, (slider: any) => {
@@ -216,7 +200,7 @@ export const Advanced: Story = {
               .max=${slider.max}
               color=${ifDefined(
                 slider.type !== 'hue'
-                  ? getHexString(value.h, value.s, value.l)
+                  ? hslaToHex(value.h, value.s, value.l)
                   : undefined,
               )}
               .precision=${slider.precision}
