@@ -23,12 +23,6 @@ export class UUIFilePreviewElement extends LitElement {
   private _name: string = '';
 
   /**
-   * Link to the source of the file. Applied on the file name.
-   * @type {string}
-   * @attr
-   * @default ''
-   */
-  /**
    * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
    * @type {string}
    * @attr
