@@ -69,8 +69,6 @@ export class UUIFilePreviewElement extends LitElement {
     return this._file;
   }
   public set file(newValue) {
-    const oldValue = this._file;
-
     if (newValue instanceof File) {
       this._name = newValue.name.split('.')[0];
       this._extension = newValue.name.split('.')[1];
@@ -85,7 +83,6 @@ export class UUIFilePreviewElement extends LitElement {
       }
 
       this._file = newValue;
-      this.requestUpdate('file', oldValue);
     }
   }
 
