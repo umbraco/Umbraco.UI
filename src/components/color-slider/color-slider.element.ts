@@ -194,21 +194,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
   handleKeyDown(event: KeyboardEvent) {
     const increment = event.shiftKey ? 10 : 1;
 
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
       event.preventDefault();
       this.value = clamp(this.value - increment, this.min, this.max);
       this.syncValues();
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
       event.preventDefault();
       this.value = clamp(this.value + increment, this.min, this.max);
-      this.syncValues();
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      this.value = clamp(this.value + increment, this.min, this.max);
-      this.syncValues();
-    } else if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      this.value = clamp(this.value - increment, this.min, this.max);
       this.syncValues();
     } else if (event.key === 'Home') {
       event.preventDefault();

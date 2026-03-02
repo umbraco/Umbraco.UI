@@ -197,8 +197,8 @@ export class UUIPopoverContainerElement extends LitElement {
   };
 
   #calculateAlignedPosition(targetRect: DOMRect, popoverRect: DOMRect) {
-    const isStart = this._actualPlacement.indexOf('-start') !== -1;
-    const isEnd = this._actualPlacement.indexOf('-end') !== -1;
+    const isStart = this._actualPlacement.includes('-start');
+    const isEnd = this._actualPlacement.includes('-end');
 
     // Alignment along the cross-axis
     const align = (pos: number, targetSize: number, popoverSize: number) => {

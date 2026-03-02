@@ -192,8 +192,7 @@ export class UUITabGroupElement extends LitElement {
   #updateCollapsibleTabs(containerWidth: number) {
     const moreButtonWidth = this._moreButtonElement.offsetWidth;
 
-    const containerWithoutButtonWidth =
-      containerWidth - (moreButtonWidth ? moreButtonWidth : 0);
+    const containerWithoutButtonWidth = containerWidth - (moreButtonWidth || 0);
 
     // Do the update
     // Reset the hidden tabs
