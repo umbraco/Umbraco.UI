@@ -97,7 +97,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   @query('#input')
   protected readonly _input!: HTMLInputElement;
 
-  private inputRole: 'checkbox' | 'switch';
+  private readonly inputRole: 'checkbox' | 'switch';
 
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();

@@ -8,9 +8,9 @@ export class UUIColorPickerChangeEvent extends UUIEvent<
 > {
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

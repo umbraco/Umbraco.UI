@@ -63,7 +63,9 @@ export class UUIIconRegistry {
    * @param {string} iconName the name of the icon to be provided.
    */
   protected provideIcon(iconName: string): UUIIconHost {
-    return (this.icons[iconName] = new UUIIconHost());
+    const icon = new UUIIconHost();
+    this.icons[iconName] = icon;
+    return icon;
   }
 
   /**

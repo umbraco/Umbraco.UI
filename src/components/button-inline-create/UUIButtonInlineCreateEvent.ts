@@ -7,9 +7,10 @@ export class UUIButtonInlineCreateEvent extends UUIEvent<
 > {
   public static readonly CLICK: string = 'click';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true, composed: true },
+      bubbles: true,
+      composed: true,
       ...eventInit,
     });
   }

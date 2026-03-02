@@ -446,13 +446,14 @@ describe('UUIMenuItemElement', () => {
       });
 
       it('can not be selected when not selectable', async () => {
-        /* TODO: Figure out what should happen when selectable is false
-        Right now it navigates to the href
         element.selectable = false;
         await element.updateComplete;
-        await mouse.leftClick(element);
+        const label = element.shadowRoot!.querySelector(
+          '#label-button',
+        ) as HTMLElement;
+        label.addEventListener('click', e => e.preventDefault());
+        await mouse.leftClick(label);
         expect(element.selected).toBe(false);
-        */
       });
 
       it('can not be selected when disabled', async () => {

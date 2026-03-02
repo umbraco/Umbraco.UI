@@ -22,7 +22,6 @@ const CountDecimalPlaces = (num: number) => {
 
 // TODO: ability to focus on the range, to enable keyboard interaction to move the range.
 // TODO: Ability to click outside a range, to move the range if the maxGap has been reached.
-// TODO: .
 /**
  * @element uui-range-slider
  * @description - Range slider with two handles. Use uui-slider for a single handle.
@@ -193,9 +192,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
     low = clamp(
       low,
       this.maxGap
-        ? this._highInputValue - this.maxGap > this.min
-          ? this._highInputValue - this.maxGap
-          : this.min
+        ? Math.max(this._highInputValue - this.maxGap, this.min)
         : this.min,
       this.minGap
         ? this._highInputValue - this.minGap
@@ -212,9 +209,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
         ? this._lowInputValue + this.minGap
         : this._lowInputValue + this.step,
       this.maxGap
-        ? this.maxGap + this._lowInputValue < this.max
-          ? this.maxGap + this._lowInputValue
-          : this.max
+        ? Math.min(this.maxGap + this._lowInputValue, this.max)
         : this.max,
     );
     this.setValue(this._lowInputValue, high);
@@ -268,7 +263,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
   }
 
   protected getFormElement(): HTMLInputElement {
-    return this._currentFocus ? this._currentFocus : this._inputLow;
+    return this._currentFocus ?? this._inputLow;
   }
 
   async focus() {
@@ -453,7 +448,7 @@ export class UUIRangeSliderElement extends UUIFormControlMixin(LitElement, '') {
 
   /** Events */
 
-  #onKeyDown = (e: KeyboardEvent) => {
+  readonly #onKeyDown = (e: KeyboardEvent) => {
     if (e.key == 'Enter') {
       this._internals.form?.requestSubmit();
     }

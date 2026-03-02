@@ -1,6 +1,7 @@
 import './color-swatch.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+import { userEvent } from 'vitest/browser';
 import { axeRun } from '../../internal/test/a11y.js';
 import { UUIColorSwatchElement } from './color-swatch.element';
 import { UUITestMouse } from '../../internal/test/index';
@@ -51,36 +52,22 @@ describe('UUIColorSwatchElement', () => {
       expect(element.selected).toBe(false);
     });
 
-    /* TODO: temp commented out as they are flaky in webkit
     it('can be selected with Space key', async () => {
-      await sendKeys({
-        press: 'Tab',
-      });
-      await sendKeys({
-        press: 'Space',
-      });
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
       expect(element.selected).toBe(true);
 
-      await sendKeys({
-        press: 'Space',
-      });
+      await userEvent.keyboard('{Space}');
       expect(element.selected).toBe(false);
     });
 
     it('can be selected with Enter key', async () => {
-      await sendKeys({
-        press: 'Tab',
-      });
-      await sendKeys({
-        press: 'Enter',
-      });
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter}');
       expect(element.selected).toBe(true);
 
-      await sendKeys({
-        press: 'Enter',
-      });
+      await userEvent.keyboard('{Enter}');
       expect(element.selected).toBe(false);
     });
-    */
   });
 });

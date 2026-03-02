@@ -10,7 +10,6 @@ import '../form/form.js';
 import '../label/label.js';
 import '../input/input.js';
 
-// TODO: Figure out why we now need to import everything that every component uses
 import '../form-validation-message/form-validation-message.js';
 
 const meta: Meta = {

@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-nocheck
-import { Args, ArgTypes } from '@storybook/web-components';
 import { directive, Directive } from 'lit/directive.js';
 
 /**

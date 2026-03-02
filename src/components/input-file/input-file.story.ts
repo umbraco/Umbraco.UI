@@ -5,7 +5,6 @@ import { action } from 'storybook/actions';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
-// TODO: Figure out why we now need to import everything that every component uses
 import '../action-bar/action-bar.js';
 import '../file-preview/file-preview.js';
 import '../file-dropzone/file-dropzone.js';

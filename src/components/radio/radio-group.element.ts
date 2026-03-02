@@ -124,7 +124,7 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     return undefined;
   }
 
-  #onFocusIn = (event: FocusEvent) => {
+  readonly #onFocusIn = (event: FocusEvent) => {
     // Ensure only the selected radio element is focusable to improve tab navigation
     // by skipping unselected radios and moving to the next radio group or focusable element.
     this.#radioElements?.forEach(el => {
@@ -136,7 +136,7 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     });
   };
 
-  #onFocusOut = (event: FocusEvent) => {
+  readonly #onFocusOut = (event: FocusEvent) => {
     // When a focus event is fired from a radio, check if the focus is still inside the radio group
     if (this.contains(event.relatedTarget as Node)) return;
 
@@ -149,18 +149,18 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     });
   };
 
-  #onChildBlur = () => {
+  readonly #onChildBlur = () => {
     this.pristine = false;
   };
 
-  #onSelectClick = (e: UUIRadioEvent) => {
+  readonly #onSelectClick = (e: UUIRadioEvent) => {
     if (e.target.checked === true) {
       this.value = e.target.value;
       this.#fireChangeEvent();
     }
   };
 
-  #onKeydown = (e: KeyboardEvent) => {
+  readonly #onKeydown = (e: KeyboardEvent) => {
     switch (e.key) {
       case ARROW_LEFT:
       case ARROW_UP: {

@@ -5,7 +5,6 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 import { ArrayOfUmbracoWords } from '../../../storyhelpers/UmbracoWordGenerator';
 
-// TODO: Figure out why we now need to import everything that every component uses
 import '../action-bar/action-bar.js';
 import '../button/button.js';
 import '../ref-node/ref-node.js';

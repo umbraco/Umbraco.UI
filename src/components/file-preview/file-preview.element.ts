@@ -29,7 +29,7 @@ export class UUIFilePreviewElement extends LitElement {
    * @default ''
    */
   @state()
-  private _url: string = '';
+  private readonly _url: string = '';
 
   /**
    * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
@@ -68,7 +68,7 @@ export class UUIFilePreviewElement extends LitElement {
   private _isDirectory: boolean = false;
 
   @state()
-  private _file?: File;
+  private readonly _file?: File;
 
   @state()
   private _isImage?: boolean;

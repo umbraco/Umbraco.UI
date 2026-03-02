@@ -4,9 +4,9 @@ import type { UUISelectElement } from './select.element.js';
 export class UUISelectEvent extends UUIEvent<{}, UUISelectElement> {
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

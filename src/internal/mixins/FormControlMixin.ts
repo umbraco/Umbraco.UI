@@ -165,8 +165,8 @@ export const UUIFormControlMixin = <
       undefined as unknown as DefaultValueType;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
-    #validators: UUIFormControlValidatorConfig[] = [];
-    #formCtrlElements: NativeFormControlElement[] = [];
+    readonly #validators: UUIFormControlValidatorConfig[] = [];
+    readonly #formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
@@ -424,7 +424,7 @@ export const UUIFormControlMixin = <
       this._runValidators();
     }
 
-    #onFormSubmit = () => {
+    readonly #onFormSubmit = () => {
       this.pristine = false;
     };
 

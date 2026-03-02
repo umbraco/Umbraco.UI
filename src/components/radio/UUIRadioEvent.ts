@@ -4,9 +4,9 @@ import type { UUIRadioElement } from './radio.element.js';
 export class UUIRadioEvent extends UUIEvent<{}, UUIRadioElement> {
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

@@ -278,7 +278,7 @@ export class UUITableWithSelectionExampleElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static readonly styles = [
     UUITextStyles,
     css`
       uui-table-row uui-checkbox {

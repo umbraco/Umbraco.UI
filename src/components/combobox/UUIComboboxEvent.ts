@@ -5,9 +5,9 @@ export class UUIComboboxEvent extends UUIEvent<UUIComboboxElement> {
   public static readonly SEARCH: string = 'search';
   public static readonly CHANGE: string = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

@@ -19,7 +19,7 @@ export class UUIFormElement extends LitElement {
 
     const formElements = (event.target as HTMLSlotElement)
       .assignedNodes({ flatten: true })
-      .filter(x => x instanceof HTMLFormElement) as HTMLFormElement[];
+      .filter(x => x instanceof HTMLFormElement);
     this._formElement = formElements.length > 0 ? formElements[0] : null;
 
     if (this._formElement) {

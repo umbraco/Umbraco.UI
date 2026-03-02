@@ -253,11 +253,10 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
     }
 
     for (const mimeType of this._acceptedMimeTypes) {
-      if (fileType === mimeType) {
-        return true;
-      } else if (
-        mimeType.endsWith('/*') &&
-        fileType.startsWith(mimeType.replace('*', ''))
+      if (
+        fileType === mimeType ||
+        (mimeType.endsWith('/*') &&
+          fileType.startsWith(mimeType.replace('*', '')))
       ) {
         return true;
       }

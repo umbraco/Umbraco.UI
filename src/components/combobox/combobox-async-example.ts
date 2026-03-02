@@ -93,7 +93,7 @@ export class UUIComboboxAsyncExampleElement extends LitElement {
     `;
   }
 
-  static styles = [
+  static readonly styles = [
     css`
       #loader {
         position: absolute;

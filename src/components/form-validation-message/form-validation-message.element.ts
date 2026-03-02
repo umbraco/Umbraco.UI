@@ -63,9 +63,7 @@ export class UUIFormValidationMessageElement extends LitElement {
 
   constructor() {
     super();
-    if (this.for === null) {
-      this.for = this;
-    }
+    this.for ??= this;
   }
 
   private readonly _messages = new Map<

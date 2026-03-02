@@ -60,7 +60,6 @@ export class UUIInputFileElement extends UUIFormControlWithBasicsMixin(
 
     if (newValue instanceof File) {
       this._updateFileWrappers([newValue]);
-      return;
     }
   }
 

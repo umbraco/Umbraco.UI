@@ -14,7 +14,7 @@ import '../box/box.js';
 @defineElement('modal-example')
 export class UUIModalExampleElement extends LitElement {
   @state()
-  private _modals: TemplateResult<1>[] = [];
+  private readonly _modals: TemplateResult<1>[] = [];
 
   #addDialog() {
     const modalRef = createRef<UUIModalElement>();

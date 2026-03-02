@@ -5,9 +5,9 @@ export class UUIInputEvent extends UUIEvent<{}, UUIInputElement> {
   public static readonly CHANGE: string = 'change';
   public static readonly INPUT: string = 'input';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

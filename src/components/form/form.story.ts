@@ -18,8 +18,6 @@ import '../textarea/textarea.js';
 import '../select/select.js';
 import type { UUISelectOption } from '../select/select.element.js';
 
-// TODO: Figure out why we now need to import everything that every component uses
-
 //For combobox:
 import '../popover-container/popover-container.js';
 import '../symbol-expand/symbol-expand.js';

@@ -93,5 +93,5 @@ export function GetRandomUmbracoWord(): string {
 }
 
 export function ArrayOfUmbracoWords(arrayLength: number): string[] {
-  return [...new Array(arrayLength)].map(() => GetRandomUmbracoWord());
+  return Array.from({ length: arrayLength }, () => GetRandomUmbracoWord());
 }

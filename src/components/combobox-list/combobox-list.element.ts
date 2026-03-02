@@ -85,9 +85,7 @@ export class UUIComboboxListElement extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this._for) {
-      this._for = this;
-    }
+    this._for ??= this;
 
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
     this.addEventListener(UUISelectableEvent.DESELECTED, this._onDeselected);
@@ -126,8 +124,8 @@ export class UUIComboboxListElement extends LitElement {
   };
 
   #updateActiveElement() {
-    for (let i = 0; i < this._activeOptions.length; i++) {
-      this._activeOptions[i].active = false;
+    for (const option of this._activeOptions) {
+      option.active = false;
     }
 
     const activeElement = this._getActiveElement;

@@ -53,8 +53,8 @@ export class UUIToastNotificationContainerElement extends LitElement {
    */
   public removeToast(toast?: UUIToastNotificationElement) {
     if (!toast) {
-      toast = this._toasts[this._toasts.length - 1];
-    } else if (this._toasts.indexOf(toast) === -1) {
+      toast = this._toasts.at(-1)!;
+    } else if (!this._toasts.includes(toast)) {
       console.warn(
         'Toast-notification',
         toast,
@@ -63,7 +63,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
       );
       return;
     }
-    this.removeChild(toast);
+    toast.remove();
   }
 
   /**
@@ -71,11 +71,10 @@ export class UUIToastNotificationContainerElement extends LitElement {
    * @param  {UUIToastNotificationElement} toast The toast element to close and remove
    */
   public closeToast(modal?: UUIToastNotificationElement) {
-    let _modal = modal;
-    if (!_modal) {
-      _modal = this._toasts[this._toasts.length - 1];
+    const _modal = modal ?? this._toasts.at(-1);
+    if (_modal) {
+      _modal.open = false;
     }
-    _modal.open = false;
   }
 
   private readonly onToastClosed = (e: UUIToastNotificationEvent) => {
@@ -94,7 +93,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
       ) as UUIToastNotificationElement[];
 
     const oldToasts = existingModals.filter(
-      modal => this._toasts.indexOf(modal) === -1,
+      modal => !this._toasts.includes(modal),
     );
     oldToasts.forEach(toast => {
       toast.removeEventListener(
@@ -108,7 +107,7 @@ export class UUIToastNotificationContainerElement extends LitElement {
     });
 
     const newToasts = this._toasts.filter(
-      modal => existingModals.indexOf(modal) === -1,
+      modal => !existingModals.includes(modal),
     );
     newToasts.forEach(toast => {
       toast.addEventListener(

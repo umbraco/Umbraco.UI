@@ -7,8 +7,6 @@ import { property, queryAssignedElements } from 'lit/decorators.js';
 import { LabelMixin } from '../../internal/mixins/index.js';
 import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent.js';
 
-//TODO maybe implement multiple selection
-
 /**
  *  Put uui-color-swatch elements inside this element to create a color swatch selector.
  *  @element uui-color-swatches

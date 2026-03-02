@@ -5,9 +5,9 @@ export class UUIFormControlEvent extends UUIEvent<
   {},
   UUIFormControlMixinInterface<unknown>
 > {
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

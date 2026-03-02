@@ -4,9 +4,9 @@ import type { UUIPaginationElement } from './pagination.element.js';
 export class UUIPaginationEvent extends UUIEvent<{}, UUIPaginationElement> {
   public static readonly CHANGE = 'change';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true },
+      bubbles: true,
       ...eventInit,
     });
   }

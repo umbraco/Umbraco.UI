@@ -35,7 +35,7 @@ export class UUIModalContainerElement extends LitElement {
     );
   }
 
-  #onSlotChange = () => {
+  readonly #onSlotChange = () => {
     const existingModals = this._modals ?? [];
 
     this._modals =
@@ -46,14 +46,14 @@ export class UUIModalContainerElement extends LitElement {
         ) as Array<UUIModalElement>) ?? [];
 
     const oldModals = existingModals.filter(
-      modal => this._modals!.indexOf(modal) === -1,
+      modal => !this._modals!.includes(modal),
     );
     oldModals.forEach(modal =>
       modal.removeEventListener(UUIModalCloseEvent, this.#onCloseModalClose),
     );
 
     const newModals = this._modals.filter(
-      modal => existingModals.indexOf(modal) === -1,
+      modal => !existingModals.includes(modal),
     );
     newModals.forEach(modal =>
       modal.addEventListener(UUIModalCloseEvent, this.#onCloseModalClose),
@@ -61,7 +61,7 @@ export class UUIModalContainerElement extends LitElement {
 
     this._sidebars = this._modals.filter(
       el => el instanceof UUIModalSidebarElement,
-    ) as Array<UUIModalSidebarElement>;
+    );
 
     if (this._modals.length === 0) {
       this.removeAttribute('backdrop');
@@ -72,7 +72,7 @@ export class UUIModalContainerElement extends LitElement {
     this.#updateSidebars();
   };
 
-  #onCloseModalClose = (event: Event) => {
+  readonly #onCloseModalClose = (event: Event) => {
     event.stopImmediatePropagation();
 
     event.target?.removeEventListener(
@@ -144,7 +144,7 @@ export class UUIModalContainerElement extends LitElement {
             ?.getBoundingClientRect().width ?? 0;
         const distance =
           currentWidth + sidebarOffset + this.sidebarGap - nextWidth;
-        sidebarOffset = distance > 0 ? distance : 0;
+        sidebarOffset = Math.max(distance, 0);
       }
     });
   }
@@ -152,7 +152,7 @@ export class UUIModalContainerElement extends LitElement {
   render() {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
-  static styles = css`
+  static readonly styles = css`
     :host {
       position: fixed;
       --uui-modal-color-backdrop: rgba(0, 0, 0, 0.5);

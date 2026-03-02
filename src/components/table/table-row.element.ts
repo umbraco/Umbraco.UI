@@ -14,10 +14,6 @@ import { queryAssignedElements } from 'lit/decorators.js';
 export class UUITableRowElement extends SelectOnlyMixin(
   SelectableMixin(LitElement),
 ) {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     super.connectedCallback();
     this.setAttribute('role', 'row');
