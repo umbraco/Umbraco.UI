@@ -20,8 +20,7 @@ describe('UUICardContentNodeElement', () => {
     await element.updateComplete;
   });
 
-  // TODO: a11y audit times out in Webkit CI due to nested uui-icon SVG rendering
-  it.skip('passes the a11y audit', async () => {
+  it('passes the a11y audit', async () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
