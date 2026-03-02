@@ -201,16 +201,11 @@ export class UUIPopoverContainerElement extends LitElement {
     const isEnd = this._actualPlacement.indexOf('-end') !== -1;
 
     // Alignment along the cross-axis
-    const alignStart = (pos: number) => pos;
-    const alignEnd = (pos: number, targetSize: number, popoverSize: number) =>
-      pos + targetSize - popoverSize;
-    const alignCenter = (
-      pos: number,
-      targetSize: number,
-      popoverSize: number,
-    ) => pos + targetSize / 2 - popoverSize / 2;
-
-    const align = isStart ? alignStart : isEnd ? alignEnd : alignCenter;
+    const align = (pos: number, targetSize: number, popoverSize: number) => {
+      if (isStart) return pos;
+      if (isEnd) return pos + targetSize - popoverSize;
+      return pos + targetSize / 2 - popoverSize / 2;
+    };
 
     const side = this._actualPlacement.split('-')[0];
 
