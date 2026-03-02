@@ -28,9 +28,6 @@ export class UUIFilePreviewElement extends LitElement {
    * @attr
    * @default ''
    */
-  @state()
-  private readonly _url: string = '';
-
   /**
    * File extension. Will be shown in the square on the file symbol. If a thumbnail is provided, then that will show instead.
    * @type {string}
@@ -68,7 +65,7 @@ export class UUIFilePreviewElement extends LitElement {
   private _isDirectory: boolean = false;
 
   @state()
-  private readonly _file?: File;
+  private _file?: File;
 
   @state()
   private _isImage?: boolean;
@@ -93,12 +90,9 @@ export class UUIFilePreviewElement extends LitElement {
         });
       }
 
+      this._file = newValue;
       this.requestUpdate('file', oldValue);
     }
-  }
-
-  private _openSource() {
-    window.open(this._url, '_blank');
   }
 
   private _fileTypeTemplate() {
@@ -124,13 +118,8 @@ export class UUIFilePreviewElement extends LitElement {
       this._name.length - endCharCount,
       this._name.length,
     );
-    //TODO Fix keyboard event listener
     return html`
-      <span
-        id="file-name"
-        class=${this._url ? 'has-source' : ''}
-        @click=${() => (this._url ? this._openSource() : '')}
-        @keydown=${() => ''}>
+      <span id="file-name">
         <span id="file-name-start">${nameStart}</span>
         <span id="file-name-end">${nameEnd}</span>
       </span>
@@ -230,11 +219,6 @@ export class UUIFilePreviewElement extends LitElement {
 
       #file-size {
         opacity: 0.6;
-      }
-
-      .has-source:hover {
-        text-decoration: underline;
-        cursor: pointer;
       }
     `,
   ];

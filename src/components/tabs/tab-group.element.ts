@@ -84,10 +84,10 @@ export class UUITabGroupElement extends LitElement {
       this.style.getPropertyValue('--uui-tab-group-gap'),
     );
     const newGap = Number.isNaN(gapCSSVar) ? 0 : gapCSSVar;
-    if (newGap !== this.#currentGap) {
-      this.#calculateBreakPoints();
-    } else {
+    if (newGap === this.#currentGap) {
       this.#updateCollapsibleTabs(entries[0].contentBoxSize[0].inlineSize);
+    } else {
+      this.#calculateBreakPoints();
     }
   }
 

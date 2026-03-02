@@ -42,7 +42,10 @@ export class UUIToastNotificationElement extends LitElement {
   }
   public set autoClose(value: number | null) {
     this._autoClose = value;
-    if (value !== null) {
+    if (value === null) {
+      this._timer?.destroy();
+      this._timer = null;
+    } else {
       if (this._timer === null) {
         this._timer = new UUITimer(this._onOpenTimerComplete, value);
       } else {
@@ -55,9 +58,6 @@ export class UUIToastNotificationElement extends LitElement {
       ) {
         this._timer.start();
       }
-    } else {
-      this._timer?.destroy();
-      this._timer = null;
     }
   }
 
