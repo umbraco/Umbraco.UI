@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import type { LitElement } from 'lit';
 import {
   UUIFormControlMixin,
   type UUIFormControlMixinElement,
@@ -7,8 +7,10 @@ import { property } from 'lit/decorators.js';
 
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 
-export interface UUIFormControlWithBasicsMixinElement<ValueType>
-  extends UUIFormControlMixinElement<ValueType> {
+export interface UUIFormControlWithBasicsMixinElement<
+  ValueType,
+> extends UUIFormControlMixinElement<ValueType> {
+  name: string;
   required: boolean;
   requiredMessage: string;
   error: boolean;
@@ -33,6 +35,15 @@ export const UUIFormControlWithBasicsMixin = <
     T,
     DefaultValueType
   >(superClass, defaultValue) {
+    /**
+     * This is a name property of the component.
+     * @type {string}
+     * @attr
+     * @default ''
+     */
+    @property({ type: String })
+    name = '';
+
     /**
      * Apply validation rule for requiring a value of this form control.
      * @attr
