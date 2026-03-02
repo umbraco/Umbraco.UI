@@ -127,7 +127,6 @@ export class UUIColorAreaElement extends LitElement {
         this.alpha = a * 100;
       }
     } catch (e) {
-      // TODO: Should we log this?
       console.error('Something went wrong parsing the color string.', e);
     }
   }

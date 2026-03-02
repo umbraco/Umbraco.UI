@@ -25,7 +25,6 @@ export class UUIModalSidebarElement extends UUIModalElement {
     super.updated(_changedProperties);
 
     // if we've reached over X layers of sidebars, hide for better performance.
-    // TODO: We could instead hide the sidebars when out of the viewport, but this is a good start.
     if (this.uniqueIndex > 10) {
       this.setAttribute('hide', '');
     } else {

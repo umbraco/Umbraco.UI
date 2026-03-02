@@ -192,8 +192,6 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
 
   #onSlotChange(e: Event) {
     e.stopPropagation();
-    // TODO: make sure to diff new and old ones to only add and remove event listeners on relevant elements.
-
     this.#radioElements?.forEach(el => {
       el.removeEventListener(
         UUIRadioEvent.CHANGE,
