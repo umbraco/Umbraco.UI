@@ -1,4 +1,3 @@
-import { colord } from 'colord';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -10,6 +9,8 @@ import {
   hslaToHex,
   brightnessFromLightness,
   lightnessFromBrightness,
+  parseColor,
+  hslaToRgbString,
 } from '../../internal/utils/index.js';
 
 import { styleMap } from 'lit/directives/style-map.js';
@@ -116,10 +117,10 @@ export class UUIColorAreaElement extends LitElement {
     this.requestUpdate('value', oldVal);
 
     try {
-      const parsed = colord(newVal);
+      const parsed = parseColor(newVal);
 
-      if (parsed.isValid()) {
-        const { h, s, l, a } = parsed.toHsl();
+      if (parsed) {
+        const { h, s, l, a } = parsed;
 
         // Update hue from parsed color, but when color is black, value from hue slider may be different from zero.
         if (h !== 0) {
@@ -205,14 +206,7 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   syncValues() {
-    const color = colord({
-      h: this.hue,
-      s: this.saturation,
-      l: this.lightness,
-      a: this.alpha / 100,
-    });
-
-    this._value = color.toRgbString();
+    this._value = hslaToRgbString(this.hue, this.saturation, this.lightness, this.alpha / 100);
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 
