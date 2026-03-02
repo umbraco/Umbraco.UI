@@ -261,9 +261,7 @@ export const UUIFormControlMixin = <
       } satisfies UUIFormControlValidatorConfig;
       this.#validators.push(validator);
       // Sort validators based on the WeightedErrorFlagTypes order. [NL]
-      this.#validators.sort((a, b) =>
-        a.weight > b.weight ? 1 : b.weight > a.weight ? -1 : 0,
-      );
+      this.#validators.sort((a, b) => a.weight - b.weight);
       return validator;
     }
 

@@ -192,29 +192,25 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
 
   protected setValueLow(low: number) {
     // Clamp value to ensure it fits within its restrictions
-    low = clamp(
-      low,
-      this.maxGap
-        ? Math.max(this._highInputValue - this.maxGap, this.min)
-        : this.min,
-      this.minGap
-        ? this._highInputValue - this.minGap
-        : this._highInputValue - this.step,
-    );
+    const clampMin = this.maxGap
+      ? Math.max(this._highInputValue - this.maxGap, this.min)
+      : this.min;
+    const clampMax = this.minGap
+      ? this._highInputValue - this.minGap
+      : this._highInputValue - this.step;
+    low = clamp(low, clampMin, clampMax);
     this.setValue(low, this._highInputValue);
   }
 
   protected setValueHigh(high: number) {
     // Clamp value to ensure it fits within its restrictions
-    high = clamp(
-      high,
-      this.minGap
-        ? this._lowInputValue + this.minGap
-        : this._lowInputValue + this.step,
-      this.maxGap
-        ? Math.min(this.maxGap + this._lowInputValue, this.max)
-        : this.max,
-    );
+    const clampMin = this.minGap
+      ? this._lowInputValue + this.minGap
+      : this._lowInputValue + this.step;
+    const clampMax = this.maxGap
+      ? Math.min(this.maxGap + this._lowInputValue, this.max)
+      : this.max;
+    high = clamp(high, clampMin, clampMax);
     this.setValue(this._lowInputValue, high);
   }
 

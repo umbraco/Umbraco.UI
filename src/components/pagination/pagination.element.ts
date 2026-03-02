@@ -80,19 +80,23 @@ export class UUIPaginationElement extends LitElement {
   }
 
   private _generateVisiblePages(current: number) {
-    const start =
-      current < this._range
-        ? 1
-        : current < this.total - this._range
-          ? current - this._range
-          : this.total - this._range * 2;
+    let start: number;
+    if (current < this._range) {
+      start = 1;
+    } else if (current < this.total - this._range) {
+      start = current - this._range;
+    } else {
+      start = this.total - this._range * 2;
+    }
 
-    const stop =
-      current <= this._range
-        ? this._range * 2 + 1
-        : current < this.total - this._range
-          ? current + this._range
-          : this.total;
+    let stop: number;
+    if (current <= this._range) {
+      stop = this._range * 2 + 1;
+    } else if (current < this.total - this._range) {
+      stop = current + this._range;
+    } else {
+      stop = this.total;
+    }
 
     const pages = arrayOfNumbers(
       limit(start, 1, this.total),

@@ -232,35 +232,34 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
   }
 
   render() {
-    return this.href
-      ? html`
-          <a
-            id="button"
-            aria-label=${ifDefined(this.label)}
-            title=${ifDefined(this.title === '' ? undefined : this.title)}
-            href=${ifDefined(!this.disabled ? this.href : undefined)}
-            target=${ifDefined(this.target || undefined)}
-            rel=${ifDefined(
-              this.rel ||
-                ifDefined(
-                  this.target === '_blank' ? 'noopener noreferrer' : undefined,
-                ),
-            )}>
-            ${this.renderState()} ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </a>
-        `
-      : html`
-          <button
-            id="button"
-            type=${this.type}
-            ?disabled=${this.disabled}
-            aria-label=${ifDefined(this.label)}
-            title=${ifDefined(this.title === '' ? undefined : this.title)}>
-            ${this.renderState()} ${this.renderLabel()}
-            <slot name="extra"></slot>
-          </button>
-        `;
+    if (this.href) {
+      const rel =
+        this.rel ||
+        (this.target === '_blank' ? 'noopener noreferrer' : undefined);
+      return html`
+        <a
+          id="button"
+          aria-label=${ifDefined(this.label)}
+          title=${ifDefined(this.title === '' ? undefined : this.title)}
+          href=${ifDefined(this.disabled ? undefined : this.href)}
+          target=${ifDefined(this.target || undefined)}
+          rel=${ifDefined(rel)}>
+          ${this.renderState()} ${this.renderLabel()}
+          <slot name="extra"></slot>
+        </a>
+      `;
+    }
+    return html`
+      <button
+        id="button"
+        type=${this.type}
+        ?disabled=${this.disabled}
+        aria-label=${ifDefined(this.label)}
+        title=${ifDefined(this.title === '' ? undefined : this.title)}>
+        ${this.renderState()} ${this.renderLabel()}
+        <slot name="extra"></slot>
+      </button>
+    `;
   }
 
   static override readonly styles = [

@@ -49,7 +49,7 @@ function register(
     return;
   }
 
-  if (!window.customElements.get(name)) {
-    window.customElements.define(name, constructor, options);
+  if (!customElements.get(name)) {
+    customElements.define(name, constructor, options);
   }
 }
