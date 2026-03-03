@@ -3,41 +3,26 @@
 
 :root {
   /* ----- STATES -----  */
-  --uui-color-selected: var(--uui-palette-violet-blue, #3544b1);
-  --uui-color-selected-emphasis: var(
-    --uui-palette-violet-blue-light,
-    rgb(70, 86, 200)
-  );
-  --uui-color-selected-standalone: var(
-    --uui-palette-violet-blue-dark,
-    rgb(54, 65, 156)
-  );
+  --uui-color-selected: var(--uui-palette-violet-blue);
+  --uui-color-selected-emphasis: var(--uui-palette-violet-blue-light);
+  --uui-color-selected-standalone: var(--uui-palette-violet-blue-dark);
   --uui-color-selected-contrast: #fff;
 
-  --uui-color-current: var(--uui-palette-spanish-pink, #f5c1bc);
-  --uui-color-current-emphasis: var(
-    --uui-palette-spanish-pink-light,
-    rgb(248, 214, 211)
-  );
-  --uui-color-current-standalone: var(
-    --uui-palette-spanish-pink-dark,
-    rgb(232, 192, 189)
-  );
-  --uui-color-current-contrast: var(--uui-palette-space-cadet, #1b264f);
+  --uui-color-current: var(--uui-palette-spanish-pink);
+  --uui-color-current-emphasis: var(--uui-palette-spanish-pink-light);
+  --uui-color-current-standalone: var(--uui-palette-spanish-pink-dark);
+  --uui-color-current-contrast: var(--uui-palette-space-cadet);
 
   /* ----- UNIVERSAL -----  */
-  --uui-color-header-surface: var(--uui-palette-space-cadet, #1b264f);
+  --uui-color-header-surface: var(--uui-palette-space-cadet);
   --uui-color-header-contrast: #fff;
   --uui-color-header-contrast-emphasis: #fff;
 
-  --uui-color-focus: var(--uui-palette-malibu, #3879ff);
+  --uui-color-focus: var(--uui-palette-malibu);
 
-  --uui-color-disabled: var(--uui-palette-sand, #f3f3f5);
-  --uui-color-disabled-standalone: var(
-    --uui-palette-sand-dark,
-    rgb(226, 226, 226)
-  );
-  --uui-color-disabled-contrast: var(--uui-palette-grey, #c4c4c4);
+  --uui-color-disabled: var(--uui-palette-sand);
+  --uui-color-disabled-standalone: var(--uui-palette-sand-dark);
+  --uui-color-disabled-contrast: var(--uui-palette-grey);
 
   /* ----- SURFACE -----  */
   --uui-color-surface: #fff;
@@ -46,11 +31,11 @@
 
   --uui-color-background: #fff;
 
-  --uui-color-text: var(--uui-palette-black, #060606);
-  --uui-color-text-alt: var(--uui-palette-dune-black, #2e2b29);
+  --uui-color-text: var(--uui-palette-black);
+  --uui-color-text-alt: var(--uui-palette-dune-black);
 
-  --uui-color-interactive: var(--uui-palette-space-cadet, #1b264f);
-  --uui-color-interactive-emphasis: var(--uui-palette-violet-blue, #3544b1);
+  --uui-color-interactive: var(--uui-palette-space-cadet);
+  --uui-color-interactive-emphasis: var(--uui-palette-violet-blue);
 
   --uui-color-border: #000;
   --uui-color-border-standalone: #000;
@@ -61,12 +46,9 @@
   --uui-color-divider-emphasis: #000;
 
   /* ----- COLORS -----  */
-  --uui-color-default: var(--uui-palette-space-cadet, #1b264f);
-  --uui-color-default-emphasis: var(--uui-palette-violet-blue, #3544b1);
-  --uui-color-default-standalone: var(
-    --uui-palette-space-cadet-dark,
-    rgb(28, 35, 59)
-  );
+  --uui-color-default: var(--uui-palette-space-cadet);
+  --uui-color-default-emphasis: var(--uui-palette-violet-blue);
+  --uui-color-default-standalone: var(--uui-palette-space-cadet-dark);
   --uui-color-default-contrast: #fff;
 
   --uui-color-warning: #ffd621;
@@ -90,9 +72,9 @@
   --uui-color-positive-contrast: #fff;
 
   /* ----- SHADOWS -----  */
-  --uui-shadow-depth-1: 0 0 0px 1px black;
-  --uui-shadow-depth-2: 0 0 0px 1px black;
-  --uui-shadow-depth-3: 0 0 0px 1px black;
-  --uui-shadow-depth-4: 0 0 0px 1px black;
-  --uui-shadow-depth-5: 0 0 0px 1px black;
+  --uui-shadow-depth-1: 0 0 0px 1px #000;
+  --uui-shadow-depth-2: 0 0 0px 1px #000;
+  --uui-shadow-depth-3: 0 0 0px 1px #000;
+  --uui-shadow-depth-4: 0 0 0px 1px #000;
+  --uui-shadow-depth-5: 0 0 0px 1px #000;
 }
