@@ -73,7 +73,9 @@
     "storybook": "npm run analyze && storybook dev -p 6006",
     "storybook:build": "npm run analyze && storybook build",
     "new-component": "plop",
-    "test:codemod": "node --test scripts/codemods/test.mjs"
+    "test:codemod": "node --test scripts/codemods/test.mjs",
+    "lerna:version": "lerna version --conventional-commits",
+    "lerna:version:rc": "npm run lerna:version -- --conventional-prerelease"
   },
   "engines": {
     "node": ">=24.13",
