@@ -46,6 +46,64 @@ describe('UUIColorSwatchElement', () => {
     });
   });
 
+  describe('contrast class', () => {
+    it('adds color-swatch--dark class for dark hex color', async () => {
+      element.value = '#000000';
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--dark')).toBe(true);
+    });
+
+    it('adds color-swatch--light class for light hex color', async () => {
+      element.value = '#ffffff';
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--light')).toBe(true);
+    });
+
+    it('updates contrast class when value changes', async () => {
+      element.value = '#000000';
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--dark')).toBe(true);
+
+      element.value = '#ffffff';
+      await element.updateComplete;
+      expect(swatch.classList.contains('color-swatch--dark')).toBe(false);
+      expect(swatch.classList.contains('color-swatch--light')).toBe(true);
+    });
+
+    it('adds color-swatch--dark class for dark rgb color', async () => {
+      element.value = 'rgb(0 0 0 / 1)';
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--dark')).toBe(true);
+    });
+
+    it('adds color-swatch--light class when rgb alpha is <= 0.5', async () => {
+      element.value = 'rgb(0 0 0 / 0.3)';
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--light')).toBe(true);
+    });
+
+    it('adds no contrast class for unsupported formats (gradients)', async () => {
+      element.color = 'linear-gradient(red, blue)';
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--dark')).toBe(false);
+      expect(swatch.classList.contains('color-swatch--light')).toBe(false);
+    });
+
+    it('uses color prop instead of value for contrast when both set', async () => {
+      element.value = '#000000'; // dark
+      element.color = '#ffffff'; // light — color takes precedence
+      await element.updateComplete;
+      const swatch = element.shadowRoot!.querySelector('.color-swatch')!;
+      expect(swatch.classList.contains('color-swatch--light')).toBe(true);
+    });
+  });
+
   describe('selectable', () => {
     const mouse = new UUITestMouse();
 
