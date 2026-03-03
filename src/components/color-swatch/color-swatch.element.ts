@@ -93,21 +93,6 @@ export class UUIColorSwatchElement extends LabelMixin(
 
   firstUpdated() {
     this._setAriaAttributes();
-
-    const color = this.color ?? this.value;
-    if (color.startsWith('#')) {
-      this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
-    } else if (color.startsWith('rgb')) {
-      const [r, g, b, a] = color.match(/[.\d]+/g)?.map(Number) ?? [0, 0, 0];
-      if (a <= 0.5) {
-        this._contrast = 'light';
-      } else {
-        this._contrast =
-          this.#contrast(this.#rgbToHex(r, g, b)) === 'light'
-            ? 'light'
-            : 'dark';
-      }
-    }
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -125,6 +110,28 @@ export class UUIColorSwatchElement extends LabelMixin(
       changedProperties.has('selected')
     ) {
       this._setAriaAttributes();
+    }
+    if (changedProperties.has('value') || changedProperties.has('color')) {
+      this.#computeContrast();
+    }
+  }
+
+  #computeContrast() {
+    const color = this.color ?? this.value;
+    if (color.startsWith('#')) {
+      this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
+    } else if (color.startsWith('rgb')) {
+      const [r, g, b, a] = color.match(/[.\d]+/g)?.map(Number) ?? [0, 0, 0];
+      if (a <= 0.5) {
+        this._contrast = 'light';
+      } else {
+        this._contrast =
+          this.#contrast(this.#rgbToHex(r, g, b)) === 'light'
+            ? 'light'
+            : 'dark';
+      }
+    } else {
+      this._contrast = undefined;
     }
   }
 
@@ -168,9 +175,7 @@ export class UUIColorSwatchElement extends LabelMixin(
     const classes = {
       [`color-swatch--${this._contrast}`]: this._contrast !== undefined,
     };
-    const styles = {
-      color: `var(--uui-swatch-color, ${this.color ?? this.value})`,
-    };
+    const colorStr = `var(--uui-swatch-color, ${this.color ?? this.value})`;
     return html`
       <button
         id="swatch"
@@ -182,8 +187,12 @@ export class UUIColorSwatchElement extends LabelMixin(
           class="color-swatch color-swatch--transparent-bg ${classMap(
             classes,
           )}">
-          <div class="color-swatch__color" style=${styleMap(styles)}></div>
-          <div class="color-swatch__check" style=${styleMap(styles)}>
+          <div
+            class="color-swatch__color"
+            style=${styleMap({ background: colorStr })}></div>
+          <div
+            class="color-swatch__check"
+            style=${styleMap({ color: colorStr })}>
             ${iconCheck}
           </div>
         </div>

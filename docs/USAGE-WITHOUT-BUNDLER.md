@@ -17,11 +17,12 @@ You can use UUI components directly in the browser without a build step by setti
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui@2/dist/themes/light.css" />
 
-    <!-- Import map: tell the browser where to find Lit and UUI -->
+    <!-- Import map: tell the browser where to find Lit, culori, and UUI -->
     <script type="importmap">
       {
         "imports": {
           "lit": "https://esm.run/lit",
+          "culori": "https://esm.run/culori",
           "@umbraco-ui/uui/": "https://cdn.jsdelivr.net/npm/@umbraco-ui/uui@2/dist/"
         }
       }
@@ -42,29 +43,11 @@ You can use UUI components directly in the browser without a build step by setti
 
 UUI's published `dist/` directory preserves the module structure, so each component is available as an individual ES module. The import map resolves:
 
-- **`lit`** and its sub-packages from jsdelivr (UUI's only runtime dependency)
+- **`lit`** and its sub-packages from esm.run
+- **`culori`** from esm.run — used internally by the color picker components
 - **`@umbraco-ui/uui/`** pointing to the `dist/` directory on jsdelivr
 
 The browser fetches only the modules you actually import, so you get automatic tree-shaking without a bundler.
-
-## Color components
-
-The color components (`uui-color-picker`, `uui-color-area`, `uui-color-slider`) depend on [`colord`](https://www.npmjs.com/package/colord). If you use any of these, add `colord` to your import map:
-
-```html
-<script type="importmap">
-  {
-    "imports": {
-      "lit": "https://esm.run/lit",
-      "colord": "https://esm.run/colord",
-      "colord/": "https://esm.run/colord/",
-      "@umbraco-ui/uui/": "https://cdn.jsdelivr.net/npm/@umbraco-ui/uui@2/dist/"
-    }
-  }
-</script>
-```
-
-Bundler users do not need to do anything — `colord` is installed automatically as a dependency.
 
 ## Cherry-picking components
 

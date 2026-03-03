@@ -8,7 +8,7 @@ import { useState } from 'storybook/preview-api';
 import { spread } from '../../../storyhelpers';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { HslaColor } from 'colord';
+import type { HslaColor } from '../../internal/utils/color.js';
 import { hslaToHex } from '../../internal/utils/index.js';
 
 import type { UUIColorSliderElement } from '../color-slider/color-slider.js';

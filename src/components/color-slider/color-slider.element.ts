@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { Colord } from 'colord';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -7,6 +6,8 @@ import {
   drag,
   clamp,
   reverseNumberInRange,
+  parseColor,
+  hslaToRgb,
 } from '../../internal/utils/index.js';
 
 import { UUIColorSliderEvent } from './UUIColorSliderEvent.js';
@@ -117,30 +118,34 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         hue: 360,
         saturation: 100,
         lightness: 100,
+        opacity: 100,
       };
-      this.max = typeMaxValues[this.type] ?? this.max ?? 100;
-      this.precision = this.precision ?? 1;
+      this.max = typeMaxValues[this.type] ?? this.max;
+    }
 
-      if (this.color) {
-        this.#updateGradients();
-      }
+    if (
+      (changedProperties.has('type') || changedProperties.has('color')) &&
+      this.color
+    ) {
+      this.#updateGradients();
     }
   }
 
   #updateGradients() {
-    const colord = new Colord(this.color);
-    const { h, s, l } = colord.toHsl();
-    const { r, g, b } = colord.toRgb();
+    const parsed = parseColor(this.color);
+    if (!parsed) return;
+    const { h, s, l } = parsed;
+    const { r, g, b } = hslaToRgb(h, s, l);
     const direction = this.vertical ? 'top' : 'right';
 
     const gradients: Record<string, string | null> = {
-      saturation: `linear-gradient(to ${direction}, hsl(${h}, 0%, ${l}%), hsl(${h}, 100%, ${l}%))`,
-      lightness: `linear-gradient(to ${direction}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`,
+      saturation: `linear-gradient(to ${direction}, hsl(${h} 0% ${l}%), hsl(${h} 100% ${l}%))`,
+      lightness: `linear-gradient(to ${direction}, hsl(${h} ${s}% 0%), hsl(${h} ${s}% 100%))`,
     };
 
     const hueColor =
       this.type === 'opacity'
-        ? `linear-gradient(to ${direction}, transparent 0%, rgba(${r}, ${g}, ${b}, ${this.max}%) 100%)`
+        ? `linear-gradient(to ${direction}, transparent 0%, rgb(${r} ${g} ${b}) 100%)`
         : null;
 
     this.style.setProperty(
