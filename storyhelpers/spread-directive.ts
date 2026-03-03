@@ -5,7 +5,6 @@ import { directive, Directive } from 'lit/directive.js';
  * A directive that spreads the properties of an object onto an element while filtering out certain properties such as events and slots.
  */
 class UUIStoryBookSpreadDirective extends Directive {
-  // TODO: We don't need the render method, but it's required by the Directive class
   render(props: object, excludeProps: string[] = []): unknown {
     return this.render(props);
   }
