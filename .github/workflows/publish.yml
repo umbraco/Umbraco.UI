@@ -58,15 +58,6 @@ jobs:
       - run: npm -v
       - run: npm install
 
-      - name: Authenticate with Registry
-        run: |
-          echo "@umbraco-ui:registry=https://registry.npmjs.org/" > .npmrc
-          echo "registry=https://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
-          npm whoami
-        env:
-          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
-
       - name: Stamp nightly version
         if: inputs.dist-tag == 'nightly' && inputs.version != ''
         run: |
@@ -75,9 +66,8 @@ jobs:
           npx lerna version "$NIGHTLY_VERSION" --no-git-tag-version --no-push --yes --force-publish
 
       - name: Publish package
-        run: npm run build && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
+        run: npm run build && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
         env:
-          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Update SonarCloud new code baseline
