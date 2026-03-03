@@ -1,6 +1,6 @@
 {
   "name": "@umbraco-ui/uui",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "The Umbraco UI Library - web components for the Umbraco backoffice.",
   "license": "MIT",
   "type": "module",

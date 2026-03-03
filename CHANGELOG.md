@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-alpha.1](https://github.com/umbraco/Umbraco/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2026-03-03)
+
+### Bug Fixes
+
+- **theme:** include uui-font and uui-text classes in base theme ([#1329](https://github.com/umbraco/Umbraco/issues/1329)) ([eef9107](https://github.com/umbraco/Umbraco/commit/eef91079e9636e49aae0cc24c82487fc428d277c))
+- **theme:** update dark theme colors from CMS ([d99e548](https://github.com/umbraco/Umbraco/commit/d99e548df5dada23ca564a5dc0c707dc90456ef0)), closes [#316dca](https://github.com/umbraco/Umbraco/issues/316dca) [#eeeeef](https://github.com/umbraco/Umbraco/issues/eeeeef)
+
+### Features
+
+- **theme:** add high-contrast theme ([#1328](https://github.com/umbraco/Umbraco/issues/1328)) ([1ba62a0](https://github.com/umbraco/Umbraco/commit/1ba62a065ebe3a3267b28ceba40a080b5d82a80b)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+
+# [2.0.0-alpha.1](https://github.com/umbraco/Umbraco/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2026-03-03)
+
+### Bug Fixes
+
+- **theme:** include uui-font and uui-text classes in base theme ([#1329](https://github.com/umbraco/Umbraco/issues/1329)) ([eef9107](https://github.com/umbraco/Umbraco/commit/eef91079e9636e49aae0cc24c82487fc428d277c))
+- **theme:** update dark theme colors from CMS ([d99e548](https://github.com/umbraco/Umbraco/commit/d99e548df5dada23ca564a5dc0c707dc90456ef0)), closes [#316dca](https://github.com/umbraco/Umbraco/issues/316dca) [#eeeeef](https://github.com/umbraco/Umbraco/issues/eeeeef)
+
+### Features
+
+- **theme:** add high-contrast theme ([#1328](https://github.com/umbraco/Umbraco/issues/1328)) ([1ba62a0](https://github.com/umbraco/Umbraco/commit/1ba62a065ebe3a3267b28ceba40a080b5d82a80b)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+
 # [2.0.0-alpha.0](https://github.com/umbraco/Umbraco/compare/v1.17.0...v2.0.0-alpha.0) (2026-03-03)
 
 - fix(select)!: replace global Option interface with exported UUISelectOption ([ac2596f](https://github.com/umbraco/Umbraco/commit/ac2596f83ce1e4e0a509447a133699a4d700e1a2))
