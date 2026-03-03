@@ -27,7 +27,7 @@ jobs:
         run: npm i -g @cyclonedx/cyclonedx-npm
 
       - name: Generate SBOM for Node.js (frontend)
-        run: npx @cyclonedx/cyclonedx-npm -o sbom.xml
+        run: cyclonedx-npm --package-lock-only --omit=dev -o sbom.xml
 
       # Upload Node.js SBOM (if exists)
       - name: Upload Node.js SBOM to Dependency-Track

@@ -71,7 +71,7 @@ jobs:
           NPM_CONFIG_PROVENANCE: true
 
       - name: Update SonarCloud new code baseline
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')
         continue-on-error: true
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
