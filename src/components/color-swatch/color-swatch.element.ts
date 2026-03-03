@@ -168,9 +168,7 @@ export class UUIColorSwatchElement extends LabelMixin(
     const classes = {
       [`color-swatch--${this._contrast}`]: this._contrast !== undefined,
     };
-    const styles = {
-      color: `var(--uui-swatch-color, ${this.color ?? this.value})`,
-    };
+    const colorStr = `var(--uui-swatch-color, ${this.color ?? this.value})`;
     return html`
       <button
         id="swatch"
@@ -182,8 +180,12 @@ export class UUIColorSwatchElement extends LabelMixin(
           class="color-swatch color-swatch--transparent-bg ${classMap(
             classes,
           )}">
-          <div class="color-swatch__color" style=${styleMap(styles)}></div>
-          <div class="color-swatch__check" style=${styleMap(styles)}>
+          <div
+            class="color-swatch__color"
+            style=${styleMap({ background: colorStr })}></div>
+          <div
+            class="color-swatch__check"
+            style=${styleMap({ color: colorStr })}>
             ${iconCheck}
           </div>
         </div>

@@ -25,6 +25,27 @@ describe('UUIColorSwatchElement', () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
+  describe('color rendering', () => {
+    it('applies value as background on the color div', async () => {
+      element.value = '#ff0000';
+      await element.updateComplete;
+      const colorDiv = element.shadowRoot!.querySelector<HTMLElement>(
+        '.color-swatch__color',
+      )!;
+      expect(colorDiv.style.background).toContain('#ff0000');
+    });
+
+    it('applies color prop as background when provided', async () => {
+      element.value = 'sun';
+      element.color = 'radial-gradient(orange, red)';
+      await element.updateComplete;
+      const colorDiv = element.shadowRoot!.querySelector<HTMLElement>(
+        '.color-swatch__color',
+      )!;
+      expect(colorDiv.style.background).toContain('radial-gradient');
+    });
+  });
+
   describe('selectable', () => {
     const mouse = new UUITestMouse();
 
