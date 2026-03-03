@@ -89,6 +89,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
         })}>
         <svg
           id="plus-icon"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512">
           <path
