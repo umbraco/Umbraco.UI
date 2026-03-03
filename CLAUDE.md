@@ -89,7 +89,7 @@ stories/             # Compound/example Storybook stories (auth, scaffolding, ho
 - **TypeScript** (`tsc -p tsconfig.build.json`) generates declaration files
 - **Lit** and **culori** are the only runtime dependencies and are externalized (not bundled)
 - Output: `dist/` directory with ES modules, source maps, and `.d.ts` files
-- Config: `vite.config.ts`
+- Config: `vite.config.ts` — serves double duty as both build config and Vitest config
 
 ### Package exports
 
@@ -165,11 +165,17 @@ export class UUIButtonElement extends ... { }
 
 ## Testing
 
-- **Web Test Runner** + @open-wc/testing (Mocha + Chai), runs in Chromium, Firefox, WebKit via Playwright
-- Config: `web-test-runner.config.mjs`
+- **Vitest** + `vitest-browser-lit` + `@vitest/browser-playwright`, runs in Chromium locally and Chromium/Firefox/WebKit on CI
+- Config: `vite.config.ts` (combined with build config — `test:` section)
 - Tests live alongside components: `src/components/{name}/{name}.test.ts`
 - Tests must import the registration file (e.g. `import './{name}.js';`) to register elements
-- Accessibility testing via `expect(element).to.be.accessible()`
+- Render elements with `render` from `vitest-browser-lit`, not `fixture` from @open-wc
+- Accessibility testing via `axeRun` from `../../internal/test/a11y.js`:
+  ```typescript
+  import { axeRun } from '../../internal/test/a11y.js';
+  expect(await axeRun(element)).toHaveNoViolations();
+  ```
+- User interaction via `userEvent` from `vitest/browser`
 
 ## Linting & Formatting
 
