@@ -74,7 +74,7 @@
     "storybook:build": "npm run analyze && storybook build",
     "new-component": "plop",
     "test:codemod": "node --test scripts/codemods/test.js",
-    "lerna:version": "lerna version --conventional-commits",
+    "lerna:version": "lerna version --conventional-commits --sync-workspace-lock",
     "lerna:version:rc": "npm run lerna:version -- --conventional-prerelease"
   },
   "engines": {
