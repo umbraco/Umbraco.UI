@@ -1,4 +1,4 @@
-import { parse, converter, formatHex, formatHex8 } from 'culori';
+import { parse, converter, formatHex, formatHex8, formatCss } from 'culori';
 import { clamp } from './math.js';
 
 // ─── Culori converters (created once, reused) ─────────────────────────────────
@@ -142,8 +142,8 @@ export function hslaToHex(
 }
 
 /**
- * Format HSLA as a CSS rgb()/rgba() string with comma syntax.
- * Alpha: 0–1. Omits alpha channel when a === 1.
+ * Format HSLA as a CSS rgb() string (modern space-separated syntax).
+ * Alpha: 0–1. Includes `/ a` only when a < 1.
  */
 export function hslaToRgbString(
   h: number,
@@ -152,12 +152,12 @@ export function hslaToRgbString(
   a: number,
 ): string {
   const { r, g, b } = hslaToRgb(h, s, l);
-  return a < 1 ? `rgba(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})`;
+  return a < 1 ? `rgb(${r} ${g} ${b} / ${a})` : `rgb(${r} ${g} ${b})`;
 }
 
 /**
- * Format HSLA as a CSS hsl()/hsla() string with comma syntax.
- * Alpha: 0–1. Omits alpha channel when a === 1.
+ * Format HSLA as a CSS hsl() string (modern space-separated syntax).
+ * Alpha: 0–1. Includes `/ a` only when a < 1.
  */
 export function hslaToHslString(
   h: number,
@@ -165,7 +165,7 @@ export function hslaToHslString(
   l: number,
   a: number,
 ): string {
-  return a < 1 ? `hsla(${h}, ${s}%, ${l}%, ${a})` : `hsl(${h}, ${s}%, ${l}%)`;
+  return formatCss({ mode: 'hsl', h, s: s / 100, l: l / 100, alpha: a }) ?? '';
 }
 
 // ─── HSL/HSV math helpers ─────────────────────────────────────────────────────

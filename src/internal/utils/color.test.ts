@@ -130,20 +130,20 @@ describe('hslaToHex', () => {
 });
 
 describe('hslaToRgbString', () => {
-  it('returns rgb() with commas when alpha is 1', () => {
-    expect(hslaToRgbString(0, 100, 50, 1)).toBe('rgb(255, 0, 0)');
+  it('returns rgb() without alpha when alpha is 1', () => {
+    expect(hslaToRgbString(0, 100, 50, 1)).toBe('rgb(255 0 0)');
   });
-  it('returns rgba() with commas when alpha < 1', () => {
-    expect(hslaToRgbString(0, 100, 50, 0.5)).toBe('rgba(255, 0, 0, 0.5)');
+  it('returns rgb() with slash alpha when alpha < 1', () => {
+    expect(hslaToRgbString(0, 100, 50, 0.5)).toBe('rgb(255 0 0 / 0.5)');
   });
 });
 
 describe('hslaToHslString', () => {
-  it('returns hsl() with commas when alpha is 1', () => {
-    expect(hslaToHslString(0, 100, 50, 1)).toBe('hsl(0, 100%, 50%)');
+  it('returns hsl() without alpha when alpha is 1', () => {
+    expect(hslaToHslString(0, 100, 50, 1)).toBe('hsl(0 100% 50%)');
   });
-  it('returns hsla() with commas when alpha < 1', () => {
-    expect(hslaToHslString(120, 50, 60, 0.8)).toBe('hsla(120, 50%, 60%, 0.8)');
+  it('returns hsl() with slash alpha when alpha < 1', () => {
+    expect(hslaToHslString(120, 50, 60, 0.8)).toBe('hsl(120 50% 60% / 0.8)');
   });
 });
 
