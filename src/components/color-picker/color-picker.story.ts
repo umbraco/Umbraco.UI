@@ -3,6 +3,7 @@ import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
+import { useState } from 'storybook/preview-api';
 
 import '../button-group/button-group.js';
 import '../button/button.js';
@@ -13,6 +14,7 @@ import '../color-swatches/color-swatches.js';
 import '../icon/icon.js';
 import '../input/input.js';
 import '../popover-container/popover-container.js';
+import type { UUIColorPickerElement } from './color-picker.element.js';
 
 const formats = ['hex', 'rgb', 'hsl', 'hsv'];
 const sizes = ['small', 'medium', 'large'];
@@ -114,5 +116,38 @@ export const TransparentSwatches: Story = {
   args: {
     opacity: true,
     swatches: swatchesTransparent,
+  },
+};
+
+export const Interactive: Story = {
+  render: () => {
+    const [value, setValue] = useState('#4b91e2');
+
+    function handleChange(e: Event) {
+      setValue((e.target as UUIColorPickerElement).value);
+    }
+
+    return html`
+      <div style="display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;">
+        <uui-color-picker
+          inline
+          value="#4b91e2"
+          @change=${handleChange}></uui-color-picker>
+        <div style="font-family: monospace; font-size: 13px; padding-top: 4px; min-width: 220px;">
+          <div style="font-weight: bold; margin-bottom: 10px; font-size: 14px;">
+            Emitted value
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #f5f5f5; border-radius: 4px; margin-bottom: 16px;">
+            <div
+              style="width: 20px; height: 20px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.2); background: ${value}; flex-shrink: 0;"></div>
+            <code>${value || '(empty)'}</code>
+          </div>
+          <div style="color: #888; font-size: 12px; line-height: 1.6;">
+            Switch the format selector in the picker<br />to see different output string formats.
+          </div>
+        </div>
+      </div>
+    `;
   },
 };
