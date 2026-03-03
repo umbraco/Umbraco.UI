@@ -87,7 +87,7 @@ stories/             # Compound/example Storybook stories (auth, scaffolding, ho
 
 - **Vite** builds the library with `preserveModules` (each source file → one output file)
 - **TypeScript** (`tsc -p tsconfig.build.json`) generates declaration files
-- **Lit** is the only runtime dependency and is externalized (not bundled)
+- **Lit** and **culori** are the only runtime dependencies and are externalized (not bundled)
 - Output: `dist/` directory with ES modules, source maps, and `.d.ts` files
 - Config: `vite.config.ts`
 
