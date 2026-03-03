@@ -51,24 +51,7 @@ Each component has its own README in [`src/components/{name}/`](src/components/)
 
 ## Documentation
 
-### Guides
-
-| Document                                                 | Description                                                                    |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| [Migration v1 to v2](docs/MIGRATION-V1-TO-V2.md)         | Moving from the multi-package monorepo to the single `@umbraco-ui/uui` package |
-| [Usage without a bundler](docs/USAGE-WITHOUT-BUNDLER.md) | Using UUI via import maps and CDN                                              |
-| [Testing with npm link](docs/TESTING-WITH-NPM-LINK.md)   | Live-testing local UUI changes in a consuming project                          |
-
-### Development references
-
-| Document                                            | Description                                                |
-| --------------------------------------------------- | ---------------------------------------------------------- |
-| [Contributing](docs/CONTRIBUTING.md)                | How to contribute, PR guidelines, and code ownership       |
-| [Coding style](docs/CODING-STYLE.md)                | Component file structure, naming conventions, and patterns |
-| [Scripts](docs/SCRIPTS.md)                          | Full reference for all npm scripts                         |
-| [Events](docs/EVENTS.md)                            | Custom event types, bubbling, and composed behavior        |
-| [Component list](docs/COMPONENTS.md)                | All components with status                                 |
-| [Release instructions](docs/RELEASE_INSTRUCTION.md) | Publishing workflow for maintainers                        |
+See [docs/](docs/) for the full documentation index.
 
 ## Development
 

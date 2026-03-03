@@ -20,6 +20,10 @@ In v2, everything is published as a **single package**: `@umbraco-ui/uui`. Compo
 | **Build**         | Rollup per package, orchestrated by Turbo                                           | Single Vite build                                                                 |
 | **Lit**           | ^2.8.0                                                                              | ^3.0.0                                                                            |
 
+### New exports
+
+v2 exports `UUI_VERSION` (the package version string) and registers itself in `globalThis.__uuiVersions` for multi-instance detection. See [EXPORTS.md](EXPORTS.md) for details.
+
 ### Removed components
 
 These deprecated components were removed in v2:
@@ -178,14 +182,14 @@ v1 bundled [colord](https://github.com/omgovich/colord) internally. v2 uses [cul
 
 **Color output format change:** `uui-color-picker` and `uui-color-area` both now emit values using modern CSS space-separated syntax. The alpha channel is always included (even when fully opaque). If you were parsing the emitted value string, update your expectations:
 
-| Component | Format | v1 output | v2 output |
-|-----------|--------|-----------|-----------|
-| `uui-color-picker` | `rgb` | `rgb(255, 0, 0)` | `rgb(255 0 0 / 1)` |
-| `uui-color-picker` | `rgba` | `rgba(255, 0, 0, 0.5)` | `rgb(255 0 0 / 0.5)` |
-| `uui-color-picker` | `hsl` | `hsl(0, 100%, 50%)` | `hsl(0 100% 50% / 1)` |
-| `uui-color-picker` | `hsla` | `hsla(0, 100%, 50%, 0.8)` | `hsl(0 100% 50% / 0.8)` |
-| `uui-color-picker` | `hex` / `hexa` / `hsv` / `hsva` | unchanged | unchanged |
-| `uui-color-area` | (always rgb) | `rgb(255, 0, 0)` / `rgba(255, 0, 0, 0.5)` | `rgb(255 0 0 / 1)` / `rgb(255 0 0 / 0.5)` |
+| Component          | Format                          | v1 output                                 | v2 output                                 |
+| ------------------ | ------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| `uui-color-picker` | `rgb`                           | `rgb(255, 0, 0)`                          | `rgb(255 0 0 / 1)`                        |
+| `uui-color-picker` | `rgba`                          | `rgba(255, 0, 0, 0.5)`                    | `rgb(255 0 0 / 0.5)`                      |
+| `uui-color-picker` | `hsl`                           | `hsl(0, 100%, 50%)`                       | `hsl(0 100% 50% / 1)`                     |
+| `uui-color-picker` | `hsla`                          | `hsla(0, 100%, 50%, 0.8)`                 | `hsl(0 100% 50% / 0.8)`                   |
+| `uui-color-picker` | `hex` / `hexa` / `hsv` / `hsva` | unchanged                                 | unchanged                                 |
+| `uui-color-area`   | (always rgb)                    | `rgb(255, 0, 0)` / `rgba(255, 0, 0, 0.5)` | `rgb(255 0 0 / 1)` / `rgb(255 0 0 / 0.5)` |
 
 Both old and new formats are valid CSS. Any CSS parser (or `parseColor` from UUI itself) will accept either.
 
