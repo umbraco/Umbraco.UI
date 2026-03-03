@@ -30,12 +30,20 @@ import '@umbraco-ui/uui/components/input/input.js';
 
 Or register everything at once with `import '@umbraco-ui/uui';`.
 
-Include a theme for CSS custom properties:
+Include a theme for CSS custom properties and typography:
 
 ```html
 <link
   rel="stylesheet"
   href="node_modules/@umbraco-ui/uui/dist/themes/light.css" />
+```
+
+Apply the `uui-font` and `uui-text` classes to the element that should carry UUI typography (typically `<body>`):
+
+```html
+<body class="uui-font uui-text">
+  ...
+</body>
 ```
 
 No bundler? Use UUI directly in the browser via [import maps](docs/USAGE-WITHOUT-BUNDLER.md).
