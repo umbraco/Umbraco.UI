@@ -6,6 +6,7 @@
 | --------------------------------------------------- | ------------------------------------------------------------------------------ |
 | [Migration v1 to v2](MIGRATION-V1-TO-V2.md)         | Moving from the multi-package monorepo to the single `@umbraco-ui/uui` package |
 | [Usage without a bundler](USAGE-WITHOUT-BUNDLER.md) | Using UUI via import maps and CDN                                              |
+| [Theming](THEMING.md)                               | Loading themes, automatic dark mode, and manual theme switching                |
 | [Exports reference](EXPORTS.md)                     | Public non-component exports: version, utilities                               |
 
 ## For contributors
