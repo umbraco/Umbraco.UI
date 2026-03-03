@@ -18,6 +18,7 @@ export default defineConfig({
         index: 'src/index.ts',
         'themes/light': 'src/themes/light.css',
         'themes/dark': 'src/themes/dark.css',
+        'themes/high-contrast': 'src/themes/high-contrast.css',
         'styles/uui-font': 'src/styles/uui-font.css',
         'styles/uui-text': 'src/styles/uui-text.css',
       },
