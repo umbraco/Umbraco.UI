@@ -1,0 +1,65 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changes: ${{ steps.check.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: '0'
+
+      - name: Check for changes in the last 24 hours
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          else
+            CHANGES=$(git log --since="24 hours ago" --oneline | wc -l | tr -d ' ')
+            echo "Changes in last 24h: $CHANGES"
+            echo "has-changes=$([ "$CHANGES" -gt 0 ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
+          fi
+
+  publish:
+    needs: check
+    if: needs.check.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max_old_space_size=16384
+    permissions:
+      id-token: write # Required for OIDC
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: '0'
+
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Stamp nightly version
+        run: |
+          BASE_VERSION=$(node -p "require('./package.json').version.replace(/-.*$/, '')")
+          NIGHTLY_VERSION="${BASE_VERSION}-nightly.$(date +%Y%m%d)"
+          echo "Publishing nightly: $NIGHTLY_VERSION"
+          npx lerna version "$NIGHTLY_VERSION" --no-git-tag-version --no-push --yes --force-publish
+
+      - name: Publish package
+        run: npm run build && lerna publish from-package --yes --pre-dist-tag nightly
+        env:
+          NPM_CONFIG_PROVENANCE: true
