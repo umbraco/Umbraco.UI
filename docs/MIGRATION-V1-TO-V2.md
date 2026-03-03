@@ -176,7 +176,7 @@ v1 bundled [colord](https://github.com/omgovich/colord) internally. v2 uses [cul
   }
 ```
 
-**Color output format change:** the color picker's `value` output now uses modern CSS space-separated syntax for all formats. If you were parsing the emitted value string, update your expectations:
+**Color output format change:** the color picker's `value` output now uses modern CSS space-separated syntax for `rgb`, `rgba`, `hsl`, and `hsla` formats. If you were parsing the emitted value string, update your expectations:
 
 | Format | v1 output | v2 output |
 |--------|-----------|-----------|

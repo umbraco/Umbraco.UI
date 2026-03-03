@@ -148,4 +148,9 @@ describe('hslaToHsv', () => {
   it('preserves hue', () => {
     expect(hslaToHsv(240, 100, 50).h).toBe(240);
   });
+  it('returns HSV saturation distinct from HSL saturation for mid-range colors', () => {
+    // hsl(0, 50%, 50%) → HSL s=50, but HSV s≈67, HSV v=75
+    // Ensures callers use the returned HSV s (not the HSL s) for hsv() output
+    expect(hslaToHsv(0, 50, 50)).toEqual({ h: 0, s: 67, v: 75 });
+  });
 });

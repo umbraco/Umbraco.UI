@@ -33,4 +33,24 @@ describe('UUIColorPickerElement', () => {
   it('passes the a11y audit', async () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
+
+  describe('HSV format', () => {
+    it('uses HSV saturation, not HSL saturation', async () => {
+      // hsl(0, 50%, 50%) has HSL s=50 but HSV s≈67 — a bug that passed HSL s would output 50%
+      element.setColor({ h: 0, s: 50, l: 50, a: 1 });
+      await element.updateComplete;
+      const formatted = element.getFormattedValue('hsv');
+      expect(formatted).toBe('hsv(0, 67%, 75%)');
+    });
+  });
+
+  describe('float precision', () => {
+    it('rounds saturation and lightness to integers in formatted output', async () => {
+      // Simulates a value produced by the color area with raw float coordinates
+      element.setColor('hsl(353, 74.70982142857143%, 30.571292986188617%)');
+      await element.updateComplete;
+      const formatted = element.getFormattedValue('hsl');
+      expect(formatted).not.toMatch(/\d+\.\d+%/);
+    });
+  });
 });

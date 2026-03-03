@@ -21,8 +21,8 @@ export type HslaColor = { h: number; s: number; l: number; a: number };
  * Parse any supported color value into an HslaColor.
  *
  * Accepts: hex (#rgb, #rgba, #rrggbb, #rrggbbaa), rgb(), rgba(), hsl(), hsla(),
- * hsv(), hsva(), all CSS named colors (including 'transparent'), and HslaColor
- * objects (passed through unchanged).
+ * hsv(h, s%, v%) / hsva(h, s%, v%, a) (comma-separated), all CSS named colors
+ * (including 'transparent'), and HslaColor objects (passed through unchanged).
  *
  * Returns null for unrecognised input.
  */
@@ -50,7 +50,7 @@ export function parseColor(input: string | HslaColor): HslaColor | null {
   };
 }
 
-/** Parse hsv(h, s%, v%) and hsva(h, s%, v%, a) strings. */
+/** Parse comma-separated hsv(h, s%, v%) and hsva(h, s%, v%, a) strings. */
 function parseHsv(value: string): HslaColor | null {
   const m =
     /^hsva?\(\s*([\d.]+),\s*([\d.]+)%,\s*([\d.]+)%(?:,\s*([\d.]+))?\s*\)$/i.exec(

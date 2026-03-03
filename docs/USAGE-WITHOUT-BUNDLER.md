@@ -43,8 +43,8 @@ You can use UUI components directly in the browser without a build step by setti
 
 UUI's published `dist/` directory preserves the module structure, so each component is available as an individual ES module. The import map resolves:
 
-- **`lit`** and its sub-packages from jsdelivr
-- **`culori`** — used internally by the color picker components
+- **`lit`** and its sub-packages from esm.run
+- **`culori`** from esm.run — used internally by the color picker components
 - **`@umbraco-ui/uui/`** pointing to the `dist/` directory on jsdelivr
 
 The browser fetches only the modules you actually import, so you get automatic tree-shaking without a bundler.

@@ -118,6 +118,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         hue: 360,
         saturation: 100,
         lightness: 100,
+        opacity: 100,
       };
       this.max = typeMaxValues[this.type] ?? this.max ?? 100;
       this.precision = this.precision ?? 1;

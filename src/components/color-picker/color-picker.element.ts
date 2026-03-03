@@ -200,7 +200,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const hexa = hslaToHex(h, s, l, a * 100);
     const hex = hexa.length > 7 ? hexa.substring(0, hexa.length - 2) : hexa;
     const { r, g, b } = hslaToRgb(h, s, l);
-    const { v } = hslaToHsv(h, s, l);
+    const { s: sv, v } = hslaToHsv(h, s, l);
 
     switch (formatToUse) {
       case 'hex':
@@ -214,9 +214,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       case 'hsla':
         return this.setLetterCase(`hsl(${h} ${s}% ${l}% / ${a})`);
       case 'hsv':
-        return this.setLetterCase(`hsv(${h}, ${s}%, ${v}%)`);
+        return this.setLetterCase(`hsv(${h}, ${sv}%, ${v}%)`);
       case 'hsva':
-        return this.setLetterCase(`hsva(${h}, ${s}%, ${v}%, ${a})`);
+        return this.setLetterCase(`hsva(${h}, ${sv}%, ${v}%, ${a})`);
       default:
         return '';
     }
@@ -353,8 +353,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     const { h, s, l, a } = parsed;
 
     this.hue = h;
-    this.saturation = s;
-    this.lightness = l;
+    this.saturation = Math.round(s);
+    this.lightness = Math.round(l);
     this.alpha = this.opacity ? a * 100 : 100; // Convert to 0-100 range, and set alpha to 100 if opacity is disabled
 
     // Workaround as hue isn't correct after changing hue slider, but parseColor returns hue as zero when color is black.
@@ -362,7 +362,12 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       this.hue = colorString.h;
     }
 
-    this._color = { h: this.hue, s, l, a: this.opacity ? a : 1 };
+    this._color = {
+      h: this.hue,
+      s: this.saturation,
+      l: this.lightness,
+      a: this.opacity ? a : 1,
+    };
 
     this._syncValues();
 
