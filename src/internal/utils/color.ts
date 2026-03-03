@@ -52,18 +52,19 @@ export function parseColor(input: string | HslaColor): HslaColor | null {
 
 /** Parse hsv(h, s%, v%) and hsva(h, s%, v%, a) strings. */
 function parseHsv(value: string): HslaColor | null {
-  const m = value.match(
-    /^hsva?\(\s*([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%(?:\s*,\s*([\d.]+))?\s*\)$/i,
-  );
+  const m =
+    /^hsva?\(\s*([\d.]+),\s*([\d.]+)%,\s*([\d.]+)%(?:,\s*([\d.]+))?\s*\)$/i.exec(
+      value,
+    );
   if (!m) return null;
 
   // Convert HSV → HSL via culori
   const hsvColor = {
     mode: 'hsv' as const,
-    h: parseFloat(m[1]),
-    s: parseFloat(m[2]) / 100,
-    v: parseFloat(m[3]) / 100,
-    alpha: m[4] !== undefined ? parseFloat(m[4]) : 1,
+    h: Number.parseFloat(m[1]),
+    s: Number.parseFloat(m[2]) / 100,
+    v: Number.parseFloat(m[3]) / 100,
+    alpha: m[4] === undefined ? 1 : Number.parseFloat(m[4]),
   };
 
   const hsl = toHsl(hsvColor);
@@ -128,7 +129,12 @@ export function hslaToHex(
   lightness: number,
   alpha = 100,
 ): string {
-  if (isNaN(hue) || isNaN(saturation) || isNaN(lightness) || isNaN(alpha))
+  if (
+    Number.isNaN(hue) ||
+    Number.isNaN(saturation) ||
+    Number.isNaN(lightness) ||
+    Number.isNaN(alpha)
+  )
     return '';
   const color = {
     mode: 'hsl' as const,
