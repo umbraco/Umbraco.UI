@@ -4,7 +4,6 @@ import {
   hslaToRgb,
   hslaToHex,
   hslaToRgbString,
-  hslaToHslString,
   hslaToHsv,
   type HslaColor,
 } from './color.js';
@@ -130,20 +129,9 @@ describe('hslaToHex', () => {
 });
 
 describe('hslaToRgbString', () => {
-  it('returns rgb() without alpha when alpha is 1', () => {
-    expect(hslaToRgbString(0, 100, 50, 1)).toBe('rgb(255 0 0)');
-  });
-  it('returns rgb() with slash alpha when alpha < 1', () => {
+  it('always includes alpha in rgb()', () => {
+    expect(hslaToRgbString(0, 100, 50, 1)).toBe('rgb(255 0 0 / 1)');
     expect(hslaToRgbString(0, 100, 50, 0.5)).toBe('rgb(255 0 0 / 0.5)');
-  });
-});
-
-describe('hslaToHslString', () => {
-  it('returns hsl() without alpha when alpha is 1', () => {
-    expect(hslaToHslString(0, 100, 50, 1)).toBe('hsl(0 100% 50%)');
-  });
-  it('returns hsl() with slash alpha when alpha < 1', () => {
-    expect(hslaToHslString(120, 50, 60, 0.8)).toBe('hsl(120 50% 60% / 0.8)');
   });
 });
 

@@ -158,7 +158,44 @@ If you were calling these methods on a component instance, use the standalone fu
 
 Note: the shared functions require an explicit `saturation` parameter (the old methods used `this.saturation` implicitly).
 
-### 6. Handle removed components
+### 6. Color picker: colord replaced by culori
+
+v1 bundled [colord](https://github.com/omgovich/colord) internally. v2 uses [culori](https://github.com/Evercoder/culori) instead, which is an external dependency.
+
+**For bundler users:** nothing to do — `culori` is listed as a `dependency` of `@umbraco-ui/uui` and is installed automatically.
+
+**For import-map / bundler-free users:** add a `culori` entry to your import map:
+
+```diff
+  {
+    "imports": {
+      "lit": "https://esm.run/lit",
++     "culori": "https://esm.run/culori",
+      "@umbraco-ui/uui/": "https://cdn.jsdelivr.net/npm/@umbraco-ui/uui@2/dist/"
+    }
+  }
+```
+
+**Color output format change:** the color picker's `value` output now uses modern CSS space-separated syntax for all formats. If you were parsing the emitted value string, update your expectations:
+
+| Format | v1 output | v2 output |
+|--------|-----------|-----------|
+| `rgb` | `rgb(255, 0, 0)` | `rgb(255 0 0 / 1)` |
+| `rgba` | `rgba(255, 0, 0, 0.5)` | `rgb(255 0 0 / 0.5)` |
+| `hsl` | `hsl(0, 100%, 50%)` | `hsl(0 100% 50% / 1)` |
+| `hsla` | `hsla(0, 100%, 50%, 0.8)` | `hsl(0 100% 50% / 0.8)` |
+| `hex` / `hexa` / `hsv` / `hsva` | unchanged | unchanged |
+
+Both old and new formats are valid CSS. Any CSS parser (or `parseColor` from UUI itself) will accept either.
+
+**`HslaColor` type:** if you imported `HslaColor` from `colord`, use UUI's own export instead:
+
+```diff
+- import type { HslaColor } from 'colord';
++ import type { HslaColor } from '@umbraco-ui/uui';
+```
+
+### 7. Handle removed components
 
 If you used `uui-caret` or `uui-popover`, replace them:
 
@@ -170,7 +207,7 @@ If you used `uui-caret` or `uui-popover`, replace them:
 + <uui-popover-container ...>
 ```
 
-### 7. Update Lit to v3
+### 8. Update Lit to v3
 
 UUI v2 requires Lit ^3.0.0. If your project uses Lit 2, follow the [Lit 2 to 3 upgrade guide](https://lit.dev/docs/releases/upgrade/#lit-2x-to-3.0).
 

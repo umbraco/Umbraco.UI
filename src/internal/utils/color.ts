@@ -1,4 +1,4 @@
-import { parse, converter, formatHex, formatHex8, formatCss } from 'culori';
+import { parse, converter, formatHex, formatHex8 } from 'culori';
 import { clamp } from './math.js';
 
 // ─── Culori converters (created once, reused) ─────────────────────────────────
@@ -118,7 +118,7 @@ export function hslaToHsv(
  * Generate a hex string from HSLA values.
  * Hue: 0–360, saturation/lightness: 0–100, alpha: 0–100 (default 100).
  * Note: alpha uses 0–100 scale (matching the component's `alpha` property)
- * unlike `hslaToRgbString`/`hslaToHslString` which use 0–1.
+ * unlike `hslaToRgbString` which uses 0–1.
  * Returns 6-digit hex when fully opaque, 8-digit when alpha < 100.
  * Returns empty string on invalid input.
  */
@@ -143,7 +143,6 @@ export function hslaToHex(
 
 /**
  * Format HSLA as a CSS rgb() string (modern space-separated syntax).
- * Alpha: 0–1. Includes `/ a` only when a < 1.
  */
 export function hslaToRgbString(
   h: number,
@@ -152,20 +151,7 @@ export function hslaToRgbString(
   a: number,
 ): string {
   const { r, g, b } = hslaToRgb(h, s, l);
-  return a < 1 ? `rgb(${r} ${g} ${b} / ${a})` : `rgb(${r} ${g} ${b})`;
-}
-
-/**
- * Format HSLA as a CSS hsl() string (modern space-separated syntax).
- * Alpha: 0–1. Includes `/ a` only when a < 1.
- */
-export function hslaToHslString(
-  h: number,
-  s: number,
-  l: number,
-  a: number,
-): string {
-  return formatCss({ mode: 'hsl', h, s: s / 100, l: l / 100, alpha: a }) ?? '';
+  return `rgb(${r} ${g} ${b} / ${a})`;
 }
 
 // ─── HSL/HSV math helpers ─────────────────────────────────────────────────────
