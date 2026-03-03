@@ -206,7 +206,12 @@ export class UUIColorAreaElement extends LitElement {
   }
 
   syncValues() {
-    this._value = hslaToRgbString(this.hue, this.saturation, this.lightness, this.alpha / 100);
+    this._value = hslaToRgbString(
+      this.hue,
+      this.saturation,
+      this.lightness,
+      this.alpha / 100,
+    );
     this.dispatchEvent(new UUIColorAreaEvent(UUIColorAreaEvent.CHANGE));
   }
 

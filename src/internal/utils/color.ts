@@ -1,4 +1,4 @@
-import { parse, converter, formatHex, formatHex8 } from '../vendor/culori.js';
+import { parse, converter, formatHex, formatHex8 } from 'culori';
 import { clamp } from './math.js';
 
 // ─── Culori converters (created once, reused) ─────────────────────────────────
@@ -128,7 +128,8 @@ export function hslaToHex(
   lightness: number,
   alpha = 100,
 ): string {
-  if (isNaN(hue) || isNaN(saturation) || isNaN(lightness) || isNaN(alpha)) return '';
+  if (isNaN(hue) || isNaN(saturation) || isNaN(lightness) || isNaN(alpha))
+    return '';
   const color = {
     mode: 'hsl' as const,
     h: hue,
