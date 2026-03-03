@@ -45,9 +45,9 @@ npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx --i
 # Apply changes
 npx jscodeshift -t update-imports.ts --parser tsx --extensions=ts,tsx,js,jsx --ignore-pattern='**/node_modules/**' ./src
 
-# If your project uses TypeScript 5 standard decorators (not experimentalDecorators),
+# If your project uses experimentalDecorators (TypeScript legacy decorators),
 # add --parser-config to tell Babel which decorator syntax to expect:
-npx jscodeshift -t update-imports.ts --parser tsx --parser-config '{"plugins":[["decorators",{"version":"2023-11"}]]}' --extensions=ts,tsx,js,jsx --ignore-pattern='**/node_modules/**' ./src
+npx jscodeshift -t update-imports.ts --parser tsx --parser-config '{"plugins":[["decorators",{"version":"legacy"}]]}' --extensions=ts,tsx,js,jsx --ignore-pattern='**/node_modules/**' ./src
 
 # Clean up
 rm update-imports.ts
