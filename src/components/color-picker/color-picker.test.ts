@@ -53,4 +53,20 @@ describe('UUIColorPickerElement', () => {
       expect(formatted).not.toMatch(/\d+\.\d+%/);
     });
   });
+
+  describe('value setter', () => {
+    it('updates value when a valid color is set', async () => {
+      element.value = '#ff0000';
+      await element.updateComplete;
+      expect(element.value).toBe('#ff0000');
+    });
+
+    it('does not update value when an unparseable string is set', async () => {
+      element.value = '#ff0000';
+      await element.updateComplete;
+      element.value = 'not-a-color';
+      await element.updateComplete;
+      expect(element.value).toBe('#ff0000');
+    });
+  });
 });

@@ -43,7 +43,7 @@ export function parseColor(input: string | HslaColor): HslaColor | null {
   if (!hsl) return null;
 
   return {
-    h: Math.round(hsl.h ?? 0),
+    h: Math.round(hsl.h ?? 0) % 360,
     s: Math.round((hsl.s ?? 0) * 100),
     l: Math.round((hsl.l ?? 0) * 100),
     a: hsl.alpha ?? 1,
@@ -71,7 +71,7 @@ function parseHsv(value: string): HslaColor | null {
   if (!hsl) return null;
 
   return {
-    h: Math.round(hsl.h ?? 0),
+    h: Math.round(hsl.h ?? 0) % 360,
     s: Math.round((hsl.s ?? 0) * 100),
     l: Math.round((hsl.l ?? 0) * 100),
     a: hsl.alpha ?? 1,

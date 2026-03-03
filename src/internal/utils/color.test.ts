@@ -5,6 +5,8 @@ import {
   hslaToHex,
   hslaToRgbString,
   hslaToHsv,
+  brightnessFromLightness,
+  lightnessFromBrightness,
   type HslaColor,
 } from './color.js';
 
@@ -92,6 +94,20 @@ describe('parseColor', () => {
       expect(parseColor('not a color')).toBeNull();
     });
   });
+
+  describe('hue boundary', () => {
+    it('hue is always < 360 (never returns 360 due to rounding)', () => {
+      // Hue 360 === 0 in CSS; ensure we always normalise to [0, 360)
+      const colors = ['#ff0000', 'red', 'hsl(359, 100%, 50%)', 'hsl(0, 100%, 50%)', '#ffffff', 'blue'];
+      for (const c of colors) {
+        const result = parseColor(c);
+        if (result) {
+          expect(result.h).toBeGreaterThanOrEqual(0);
+          expect(result.h).toBeLessThan(360);
+        }
+      }
+    });
+  });
 });
 
 describe('hslaToRgb', () => {
@@ -132,6 +148,38 @@ describe('hslaToRgbString', () => {
   it('always includes alpha in rgb()', () => {
     expect(hslaToRgbString(0, 100, 50, 1)).toBe('rgb(255 0 0 / 1)');
     expect(hslaToRgbString(0, 100, 50, 0.5)).toBe('rgb(255 0 0 / 0.5)');
+  });
+});
+
+describe('brightnessFromLightness', () => {
+  it('fully saturated color at 50% lightness → 100% brightness', () => {
+    expect(brightnessFromLightness(100, 50)).toBe(100);
+  });
+  it('fully saturated color at 25% lightness → 50% brightness', () => {
+    expect(brightnessFromLightness(100, 25)).toBe(50);
+  });
+  it('clamps to 0 at lightness 0', () => {
+    expect(brightnessFromLightness(100, 0)).toBe(0);
+  });
+  it('clamps to 100 at maximum', () => {
+    expect(brightnessFromLightness(100, 100)).toBe(100);
+  });
+});
+
+describe('lightnessFromBrightness', () => {
+  it('fully saturated color at 100% brightness → 50% lightness', () => {
+    expect(lightnessFromBrightness(100, 100)).toBe(50);
+  });
+  it('fully saturated color at 50% brightness → 25% lightness', () => {
+    expect(lightnessFromBrightness(100, 50)).toBe(25);
+  });
+  it('returns 0 at brightness 0', () => {
+    expect(lightnessFromBrightness(100, 0)).toBe(0);
+  });
+  it('round-trips with brightnessFromLightness', () => {
+    const lightness = 35;
+    const brightness = brightnessFromLightness(100, lightness);
+    expect(lightnessFromBrightness(100, brightness)).toBeCloseTo(lightness, 0);
   });
 });
 

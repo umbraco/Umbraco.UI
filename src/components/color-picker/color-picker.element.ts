@@ -87,7 +87,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @property()
   set value(value: string) {
     if (this.value !== value) {
-      this.setColor(value);
+      if (!this.setColor(value)) return;
     }
     this._value = value;
   }
