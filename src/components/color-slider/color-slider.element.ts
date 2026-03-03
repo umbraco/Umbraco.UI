@@ -121,10 +121,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
       };
       this.max = typeMaxValues[this.type] ?? this.max ?? 100;
       this.precision = this.precision ?? 1;
+    }
 
-      if (this.color) {
-        this.#updateGradients();
-      }
+    if (
+      (changedProperties.has('type') || changedProperties.has('color')) &&
+      this.color
+    ) {
+      this.#updateGradients();
     }
   }
 
@@ -136,13 +139,13 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     const direction = this.vertical ? 'top' : 'right';
 
     const gradients: Record<string, string | null> = {
-      saturation: `linear-gradient(to ${direction}, hsl(${h}, 0%, ${l}%), hsl(${h}, 100%, ${l}%))`,
-      lightness: `linear-gradient(to ${direction}, hsl(${h}, ${s}%, 0%), hsl(${h}, ${s}%, 100%))`,
+      saturation: `linear-gradient(to ${direction}, hsl(${h} 0% ${l}%), hsl(${h} 100% ${l}%))`,
+      lightness: `linear-gradient(to ${direction}, hsl(${h} ${s}% 0%), hsl(${h} ${s}% 100%))`,
     };
 
     const hueColor =
       this.type === 'opacity'
-        ? `linear-gradient(to ${direction}, transparent 0%, rgba(${r}, ${g}, ${b}, ${this.max}%) 100%)`
+        ? `linear-gradient(to ${direction}, transparent 0%, rgb(${r} ${g} ${b}) 100%)`
         : null;
 
     this.style.setProperty(

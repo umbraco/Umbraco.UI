@@ -6,8 +6,6 @@ import { live } from 'lit/directives/live.js';
 import {
   parseColor,
   hslaToRgb,
-  hslaToRgbString,
-  hslaToHslString,
   hslaToHsv,
   hslaToHex,
   type HslaColor,
@@ -210,13 +208,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       case 'hexa':
         return this.setLetterCase(hexa);
       case 'rgb':
-        return this.setLetterCase(`rgb(${r}, ${g}, ${b})`);
       case 'rgba':
-        return this.setLetterCase(hslaToRgbString(h, s, l, a));
+        return this.setLetterCase(`rgb(${r} ${g} ${b} / ${a})`);
       case 'hsl':
-        return this.setLetterCase(`hsl(${h}, ${s}%, ${l}%)`);
       case 'hsla':
-        return this.setLetterCase(hslaToHslString(h, s, l, a));
+        return this.setLetterCase(`hsl(${h} ${s}% ${l}% / ${a})`);
       case 'hsv':
         return this.setLetterCase(`hsv(${h}, ${s}%, ${v}%)`);
       case 'hsva':
@@ -308,11 +304,15 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     navigator.clipboard.writeText(this._input.value as string).then(() => {
       // Show copied animation
       this._previewButton.classList.add('color-picker__preview-color--copied');
-      this._previewButton.addEventListener('animationend', () => {
-        this._previewButton.classList.remove(
-          'color-picker__preview-color--copied',
-        );
-      });
+      this._previewButton.addEventListener(
+        'animationend',
+        () => {
+          this._previewButton.classList.remove(
+            'color-picker__preview-color--copied',
+          );
+        },
+        { once: true },
+      );
     });
   }
 
@@ -362,7 +362,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       this.hue = colorString.h;
     }
 
-    this._color = { h: this.hue, s, l, a };
+    this._color = { h: this.hue, s, l, a: this.opacity ? a : 1 };
 
     this._syncValues();
 
@@ -386,7 +386,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   private _renderColorPicker() {
     const previewColor = this.value
-      ? `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      ? `hsl(${this.hue} ${this.saturation}% ${this.lightness}% / ${this.alpha / 100})`
       : 'transparent';
     return html`
       <div
@@ -506,7 +506,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   private _renderPreviewButton() {
     const previewColor = this.value
-      ? `hsla(${this.hue}deg, ${this.saturation}%, ${this.lightness}%, ${this.alpha / 100})`
+      ? `hsl(${this.hue} ${this.saturation}% ${this.lightness}% / ${this.alpha / 100})`
       : 'transparent';
     return html`<button
         type="button"
