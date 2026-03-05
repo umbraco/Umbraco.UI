@@ -248,6 +248,9 @@ export class UUIButtonElement extends UUIFormControlMixin(
             aria-label=${ifDefined(
               this.getAttribute('aria-label') || this.label || undefined,
             )}
+            aria-labelledby=${ifDefined(
+              this.getAttribute('aria-labelledby') || undefined,
+            )}
             title=${ifDefined(this.title === '' ? undefined : this.title)}
             href=${ifDefined(!this.disabled ? this.href : undefined)}
             target=${ifDefined(this.target || undefined)}
@@ -268,6 +271,9 @@ export class UUIButtonElement extends UUIFormControlMixin(
             ?disabled=${this.disabled}
             aria-label=${ifDefined(
               this.getAttribute('aria-label') || this.label || undefined,
+            )}
+            aria-labelledby=${ifDefined(
+              this.getAttribute('aria-labelledby') || undefined,
             )}
             title=${ifDefined(this.title === '' ? undefined : this.title)}>
             ${this.renderState()} ${this.renderLabel()}
