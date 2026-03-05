@@ -169,6 +169,27 @@ describe('UuiInputElement', () => {
       expect(computedStyle.textOverflow).toBe('ellipsis');
     });
   });
+
+  describe('ElementInternals ARIA', () => {
+    it('exposes accessible name via ElementInternals on host', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaLabel).toBe('label');
+    });
+
+    it('inner input has aria-label forwarded from label prop', () => {
+      expect(input.getAttribute('aria-label')).toBe('label');
+    });
+
+    it('inner input has aria-label forwarded from aria-label attr', async () => {
+      const { container } = render(
+        html`<uui-input aria-label="Search field"></uui-input>`,
+      );
+      const el = container.querySelector('uui-input') as UUIInputElement;
+      await el.updateComplete;
+      const inner = el.shadowRoot!.querySelector('input')!;
+      expect(inner.getAttribute('aria-label')).toBe('Search field');
+    });
+  });
 });
 
 describe('UuiInput with native label element', () => {
