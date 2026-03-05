@@ -170,7 +170,10 @@ export const UUIFormControlMixin = <
 
     constructor(...args: any[]) {
       super(...args);
-      this._internals = this.attachInternals();
+      // LabelMixin may have already called attachInternals() — reuse it if so
+      if (!this._internals) {
+        this._internals = this.attachInternals();
+      }
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
