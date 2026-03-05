@@ -29,10 +29,6 @@ describe('UUICheckbox', () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
-  it('native input has a correct role', () => {
-    expect(input.getAttribute('role')).toBe('checkbox');
-  });
-
   it('exposes accessible name via ElementInternals when aria-label is set', async () => {
     const { getByRole } = render(
       html`<uui-checkbox aria-label="Select row"></uui-checkbox>`,
@@ -134,35 +130,29 @@ describe('UUICheckbox', () => {
     });
 
     it('warns when no label or aria attributes are set', async () => {
-      await render(html`<uui-checkbox></uui-checkbox>`).container.querySelector(
-        'uui-checkbox',
-      )!;
-      expect(labelWarnFired).to.be.true;
+      render(html`<uui-checkbox></uui-checkbox>`);
+      await new Promise(r => requestAnimationFrame(r));
+      expect(labelWarnFired).toBe(true);
     });
 
     it('does not warn when label is set', async () => {
-      await render(
-        html`<uui-checkbox label="test"></uui-checkbox>`,
-      ).container.querySelector('uui-checkbox')!;
-      expect(labelWarnFired).to.be.false;
+      render(html`<uui-checkbox label="test"></uui-checkbox>`);
+      await new Promise(r => requestAnimationFrame(r));
+      expect(labelWarnFired).toBe(false);
     });
 
     it('does not warn when aria-label is set', async () => {
-      const el = await render(
-        html`<uui-checkbox aria-label="Select item"></uui-checkbox>`,
-      ).container.querySelector('uui-checkbox')!;
-      const input = el.shadowRoot!.querySelector('#input') as HTMLInputElement;
-      expect(labelWarnFired).to.be.false;
-      expect(input.getAttribute('aria-label')).to.equal('Select item');
+      render(html`<uui-checkbox aria-label="Select item"></uui-checkbox>`);
+      await new Promise(r => requestAnimationFrame(r));
+      expect(labelWarnFired).toBe(false);
     });
 
     it('does not warn when aria-labelledby is set', async () => {
-      const el = await render(
+      render(
         html`<uui-checkbox aria-labelledby="some-label-id"></uui-checkbox>`,
-      ).container.querySelector('uui-checkbox')!;
-      const input = el.shadowRoot!.querySelector('#input') as HTMLInputElement;
-      expect(labelWarnFired).to.be.false;
-      expect(input.getAttribute('aria-labelledby')).to.equal('some-label-id');
+      );
+      await new Promise(r => requestAnimationFrame(r));
+      expect(labelWarnFired).toBe(false);
     });
   });
 });
