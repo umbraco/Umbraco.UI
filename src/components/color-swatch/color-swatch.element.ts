@@ -83,16 +83,16 @@ export class UUIColorSwatchElement extends LabelMixin(
 
   constructor() {
     super();
-    this.addEventListener('click', this._setAriaAttributes);
+    this._internals.role = 'radio';
+    this.addEventListener('click', this._syncAriaChecked);
   }
 
-  private _setAriaAttributes() {
-    if (this.selectable)
-      this.setAttribute('aria-checked', this.selected.toString());
+  private _syncAriaChecked() {
+    if (this.selectable) this._internals.ariaChecked = this.selected.toString();
   }
 
   firstUpdated() {
-    this._setAriaAttributes();
+    this._syncAriaChecked();
   }
 
   willUpdate(changedProperties: Map<string, any>) {
@@ -109,7 +109,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       changedProperties.has('selectable') ||
       changedProperties.has('selected')
     ) {
-      this._setAriaAttributes();
+      this._syncAriaChecked();
     }
     if (changedProperties.has('value') || changedProperties.has('color')) {
       this.#computeContrast();
@@ -180,7 +180,6 @@ export class UUIColorSwatchElement extends LabelMixin(
       <button
         id="swatch"
         ${ref(this.#selectButtonChanged)}
-        aria-label=${this.label}
         ?disabled="${this.disabled}"
         title="${this.label}">
         <div
