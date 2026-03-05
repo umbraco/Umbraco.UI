@@ -5,6 +5,7 @@ import {
 import type { TemplateResult } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent.js';
 
@@ -166,7 +167,12 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
           .checked=${this.checked}
           .indeterminate=${this.indeterminate}
           aria-checked="${this.checked ? 'true' : 'false'}"
-          aria-label=${this.label}
+          aria-label=${ifDefined(
+            this.getAttribute('aria-label') || this.label || undefined,
+          )}
+          aria-labelledby=${ifDefined(
+            this.getAttribute('aria-labelledby') || undefined,
+          )}
           role="${this.inputRole}" />
         ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
