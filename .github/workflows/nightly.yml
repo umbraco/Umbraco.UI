@@ -52,14 +52,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Stamp nightly version
-        run: |
-          BASE_VERSION=$(node -p "require('./package.json').version.replace(/-.*$/, '')")
-          NIGHTLY_VERSION="${BASE_VERSION}-nightly.$(date +%Y%m%d)"
-          echo "Publishing nightly: $NIGHTLY_VERSION"
-          npx lerna version "$NIGHTLY_VERSION" --no-git-tag-version --no-push --yes --force-publish
-
-      - name: Publish package
-        run: npm run build && lerna publish from-package --yes --pre-dist-tag nightly
+      - name: Build and publish nightly
+        run: npm run build && lerna publish --canary --preid nightly --dist-tag nightly --yes
         env:
           NPM_CONFIG_PROVENANCE: true
