@@ -2,11 +2,9 @@ import {
   UUIFormControlWithBasicsMixin,
   LabelMixin,
 } from '../../internal/mixins/index.js';
-import type { TemplateResult } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent.js';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -98,14 +96,12 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   @query('#input')
   protected readonly _input!: HTMLInputElement;
 
-  private readonly inputRole: 'checkbox' | 'switch';
-
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();
     if (this._value === '') {
       this._value = 'on';
     }
-    this.inputRole = inputRole;
+    this._internals.role = inputRole;
     this.addEventListener('keydown', this.#onKeyDown);
   }
 
@@ -154,6 +150,11 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
    * @abstract
    * @method
    */
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    this._internals.ariaChecked = this.checked ? 'true' : 'false';
+  }
+
   protected abstract renderCheckbox(): TemplateResult;
 
   render() {
@@ -166,14 +167,8 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
           .disabled=${this.disabled || this.readonly}
           .checked=${this.checked}
           .indeterminate=${this.indeterminate}
-          aria-checked="${this.checked ? 'true' : 'false'}"
-          aria-label=${ifDefined(
-            this.getAttribute('aria-label') || this.label || undefined,
-          )}
-          aria-labelledby=${ifDefined(
-            this.getAttribute('aria-labelledby') || undefined,
-          )}
-          role="${this.inputRole}" />
+          aria-hidden="true"
+          tabindex="-1" />
         ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
     `;

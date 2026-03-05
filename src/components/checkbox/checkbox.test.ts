@@ -29,13 +29,31 @@ describe('UUICheckbox', () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
+  it('host element has checkbox role via ElementInternals', () => {
+    const internals = (element as any)._internals as ElementInternals;
+    expect(internals.role).toBe('checkbox');
+  });
+
+  it('inner input is hidden from accessibility tree', () => {
+    const inner = element.shadowRoot!.querySelector(
+      '#input',
+    ) as HTMLInputElement;
+    expect(inner.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('exposes accessible name via ElementInternals when label is set', () => {
+    const internals = (element as any)._internals as ElementInternals;
+    expect(internals.ariaLabel).toBe('test label');
+  });
+
   it('exposes accessible name via ElementInternals when aria-label is set', async () => {
-    const { getByRole } = render(
+    const { container } = render(
       html`<uui-checkbox aria-label="Select row"></uui-checkbox>`,
     );
-    await expect
-      .element(getByRole('checkbox', { name: 'Select row' }))
-      .toBeInTheDocument();
+    const el = container.querySelector('uui-checkbox') as UUICheckboxElement;
+    await el.updateComplete;
+    const internals = (el as any)._internals as ElementInternals;
+    expect(internals.ariaLabel).toBe('Select row');
   });
 
   describe('properties', () => {

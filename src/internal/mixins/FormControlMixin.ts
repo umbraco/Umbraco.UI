@@ -163,7 +163,7 @@ export const UUIFormControlMixin = <
       defaultValue as unknown as DefaultValueType;
     #valueOnFocus: ValueType | DefaultValueType =
       undefined as unknown as DefaultValueType;
-    protected _internals: ElementInternals;
+    protected _internals!: ElementInternals;
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
     readonly #formCtrlElements: NativeFormControlElement[] = [];
