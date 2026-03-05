@@ -125,28 +125,32 @@ describe('UUICheckbox', () => {
     });
 
     it('warns when no label or aria attributes are set', async () => {
-      await fixture(html`<uui-checkbox></uui-checkbox>`);
+      await render(html`<uui-checkbox></uui-checkbox>`).container.querySelector(
+        'uui-checkbox',
+      )!;
       expect(labelWarnFired).to.be.true;
     });
 
     it('does not warn when label is set', async () => {
-      await fixture(html`<uui-checkbox label="test"></uui-checkbox>`);
+      await render(
+        html`<uui-checkbox label="test"></uui-checkbox>`,
+      ).container.querySelector('uui-checkbox')!;
       expect(labelWarnFired).to.be.false;
     });
 
     it('does not warn when aria-label is set', async () => {
-      const el = await fixture<UUICheckboxElement>(
+      const el = await render(
         html`<uui-checkbox aria-label="Select item"></uui-checkbox>`,
-      );
+      ).container.querySelector('uui-checkbox')!;
       const input = el.shadowRoot!.querySelector('#input') as HTMLInputElement;
       expect(labelWarnFired).to.be.false;
       expect(input.getAttribute('aria-label')).to.equal('Select item');
     });
 
     it('does not warn when aria-labelledby is set', async () => {
-      const el = await fixture<UUICheckboxElement>(
+      const el = await render(
         html`<uui-checkbox aria-labelledby="some-label-id"></uui-checkbox>`,
-      );
+      ).container.querySelector('uui-checkbox')!;
       const input = el.shadowRoot!.querySelector('#input') as HTMLInputElement;
       expect(labelWarnFired).to.be.false;
       expect(input.getAttribute('aria-labelledby')).to.equal('some-label-id');
