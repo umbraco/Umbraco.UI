@@ -12,6 +12,7 @@ export declare class UUILabelMixinInterface {
    * @attr
    */
   label: string;
+  protected _internals: ElementInternals;
   protected renderLabel(): TemplateResult;
 }
 

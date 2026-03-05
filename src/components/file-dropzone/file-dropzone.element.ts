@@ -371,7 +371,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           accept=${this.accept}
           ?multiple=${this.multiple}
           @change=${this._onFileInputChange}
-          aria-label="${this.label}" />
+          aria-hidden="true" />
         <slot></slot>
       </div>
     `;

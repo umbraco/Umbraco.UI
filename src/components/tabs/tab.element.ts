@@ -1,6 +1,7 @@
 import { ActiveMixin, LabelMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
@@ -64,7 +65,15 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
 
   constructor() {
     super();
+    this._internals.role = 'tab';
     this.addEventListener('click', this.onHostClick);
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    if (changedProperties.has('href')) {
+      this._internals.role = this.href ? 'link' : 'tab';
+    }
   }
 
   private onHostClick(e: MouseEvent) {
@@ -82,10 +91,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       return html`
         <a
           id="button"
+          aria-hidden="true"
+          tabindex="-1"
           href=${ifDefined(this.disabled ? undefined : this.href)}
           target=${ifDefined(this.target || undefined)}
-          rel=${ifDefined(rel)}
-          role="tab">
+          rel=${ifDefined(rel)}>
           <slot name="icon"></slot>
           ${this.renderLabel()}
           <slot name="extra"></slot>
@@ -93,7 +103,12 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       `;
     }
     return html`
-      <button type="button" id="button" ?disabled=${this.disabled} role="tab">
+      <button
+        type="button"
+        id="button"
+        ?disabled=${this.disabled}
+        aria-hidden="true"
+        tabindex="-1">
         <slot name="icon"></slot>
         ${this.renderLabel()}
         <slot name="extra"></slot>
