@@ -102,4 +102,45 @@ describe('UUICheckbox', () => {
     await elementUpdated(element);
     expect(window.getComputedStyle(iconCheck as Element).opacity).to.equal('1');
   });
+
+  describe('label warning', () => {
+    let originalWarn: typeof console.warn;
+    let warnCalled: boolean;
+
+    beforeEach(() => {
+      warnCalled = false;
+      originalWarn = console.warn;
+      console.warn = () => {
+        warnCalled = true;
+      };
+    });
+
+    afterEach(() => {
+      console.warn = originalWarn;
+    });
+
+    it('warns when no label or aria attributes are set', async () => {
+      await fixture(html`<uui-checkbox></uui-checkbox>`);
+      expect(warnCalled).to.be.true;
+    });
+
+    it('does not warn when label is set', async () => {
+      await fixture(html`<uui-checkbox label="test"></uui-checkbox>`);
+      expect(warnCalled).to.be.false;
+    });
+
+    it('does not warn when aria-label is set', async () => {
+      await fixture(
+        html`<uui-checkbox aria-label="Select item"></uui-checkbox>`,
+      );
+      expect(warnCalled).to.be.false;
+    });
+
+    it('does not warn when aria-labelledby is set', async () => {
+      await fixture(
+        html`<uui-checkbox aria-labelledby="some-label-id"></uui-checkbox>`,
+      );
+      expect(warnCalled).to.be.false;
+    });
+  });
 });
