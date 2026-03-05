@@ -105,13 +105,18 @@ describe('UUICheckbox', () => {
 
   describe('label warning', () => {
     let originalWarn: typeof console.warn;
-    let warnCalled: boolean;
+    let labelWarnFired: boolean;
 
     beforeEach(() => {
-      warnCalled = false;
+      labelWarnFired = false;
       originalWarn = console.warn;
-      console.warn = () => {
-        warnCalled = true;
+      console.warn = (...args: unknown[]) => {
+        if (
+          typeof args[0] === 'string' &&
+          args[0].includes('needs a `label`')
+        ) {
+          labelWarnFired = true;
+        }
       };
     });
 
@@ -121,26 +126,30 @@ describe('UUICheckbox', () => {
 
     it('warns when no label or aria attributes are set', async () => {
       await fixture(html`<uui-checkbox></uui-checkbox>`);
-      expect(warnCalled).to.be.true;
+      expect(labelWarnFired).to.be.true;
     });
 
     it('does not warn when label is set', async () => {
       await fixture(html`<uui-checkbox label="test"></uui-checkbox>`);
-      expect(warnCalled).to.be.false;
+      expect(labelWarnFired).to.be.false;
     });
 
     it('does not warn when aria-label is set', async () => {
-      await fixture(
+      const el = await fixture<UUICheckboxElement>(
         html`<uui-checkbox aria-label="Select item"></uui-checkbox>`,
       );
-      expect(warnCalled).to.be.false;
+      const input = el.shadowRoot!.querySelector('#input') as HTMLInputElement;
+      expect(labelWarnFired).to.be.false;
+      expect(input.getAttribute('aria-label')).to.equal('Select item');
     });
 
     it('does not warn when aria-labelledby is set', async () => {
-      await fixture(
+      const el = await fixture<UUICheckboxElement>(
         html`<uui-checkbox aria-labelledby="some-label-id"></uui-checkbox>`,
       );
-      expect(warnCalled).to.be.false;
+      const input = el.shadowRoot!.querySelector('#input') as HTMLInputElement;
+      expect(labelWarnFired).to.be.false;
+      expect(input.getAttribute('aria-labelledby')).to.equal('some-label-id');
     });
   });
 });
