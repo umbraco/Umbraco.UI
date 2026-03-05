@@ -33,6 +33,15 @@ describe('UUICheckbox', () => {
     expect(input.getAttribute('role')).toBe('checkbox');
   });
 
+  it('exposes accessible name via ElementInternals when aria-label is set', async () => {
+    const { getByRole } = render(
+      html`<uui-checkbox aria-label="Select row"></uui-checkbox>`,
+    );
+    await expect
+      .element(getByRole('checkbox', { name: 'Select row' }))
+      .toBeInTheDocument();
+  });
+
   describe('properties', () => {
     it('has a name property', () => {
       expect(element).toHaveProperty('name');
