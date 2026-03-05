@@ -192,6 +192,45 @@ describe('UUIColorSliderElement', () => {
     });
   });
 
+  describe('hue handle background color', () => {
+    let handle: HTMLElement;
+
+    beforeEach(async () => {
+      handle = element.shadowRoot!.querySelector<HTMLElement>(
+        '#color-slider__handle',
+      )!;
+    });
+
+    it('sets a background color on the handle when type is hue', async () => {
+      element.type = 'hue';
+      element.value = 120;
+      await element.updateComplete;
+      expect(handle.style.backgroundColor).toBeTruthy();
+    });
+
+    it('does not set a background color on the handle for non-hue types', async () => {
+      element.type = 'opacity';
+      element.value = 50;
+      await element.updateComplete;
+      expect(handle.style.backgroundColor).toBe('');
+    });
+
+    it('updates handle background color as hue value changes', async () => {
+      element.type = 'hue';
+      element.value = 0;
+      await element.updateComplete;
+      const colorAt0 = handle.style.backgroundColor;
+
+      element.value = 180;
+      await element.updateComplete;
+      const colorAt180 = handle.style.backgroundColor;
+
+      expect(colorAt0).toBeTruthy();
+      expect(colorAt180).toBeTruthy();
+      expect(colorAt0).not.toBe(colorAt180);
+    });
+  });
+
   describe('change event', () => {
     it('fires change event when value changes via keyboard', async () => {
       element.value = 50;
