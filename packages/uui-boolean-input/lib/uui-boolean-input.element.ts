@@ -4,6 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent';
 
@@ -199,7 +200,12 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
           .checked=${this.checked}
           .indeterminate=${this.indeterminate}
           aria-checked="${this.checked ? 'true' : 'false'}"
-          aria-label=${this.label}
+          aria-label=${ifDefined(
+            this.getAttribute('aria-label') || this.label || undefined,
+          )}
+          aria-labelledby=${ifDefined(
+            this.getAttribute('aria-labelledby') || undefined,
+          )}
           role="${this.inputRole}" />
         ${this.renderCheckbox()} ${this.renderLabel()}
       </label>

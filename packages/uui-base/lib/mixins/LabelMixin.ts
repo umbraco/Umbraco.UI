@@ -37,9 +37,30 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     @property({ type: String })
     public label!: string;
 
+    private _ariaObserver: MutationObserver | undefined;
+
+    connectedCallback() {
+      super.connectedCallback();
+      this._ariaObserver = new MutationObserver(() => this.requestUpdate());
+      this._ariaObserver.observe(this, {
+        attributes: true,
+        attributeFilter: ['aria-label', 'aria-labelledby'],
+      });
+    }
+
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      this._ariaObserver?.disconnect();
+      this._ariaObserver = undefined;
+    }
+
     firstUpdated(_changedProperties: Map<string | number | symbol, unknown>) {
       super.firstUpdated(_changedProperties);
-      if (!this.label) {
+      if (
+        !this.label &&
+        !this.getAttribute('aria-label') &&
+        !this.getAttribute('aria-labelledby')
+      ) {
         console.warn(this.tagName + ' needs a `label`', this);
       }
     }

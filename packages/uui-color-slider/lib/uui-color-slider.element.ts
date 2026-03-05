@@ -278,7 +278,12 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
         part="slider"
         id="color-slider"
         role="slider"
-        aria-label="${this.label}"
+        aria-label=${ifDefined(
+          this.getAttribute('aria-label') || this.label || undefined,
+        )}
+        aria-labelledby=${ifDefined(
+          this.getAttribute('aria-labelledby') || undefined,
+        )}
         aria-orientation="${this.vertical ? 'vertical' : 'horizontal'}"
         aria-valuemin="${Math.round(this.min)}"
         aria-valuemax="${Math.round(this.max)}"
