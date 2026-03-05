@@ -201,7 +201,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlMixin(
           .indeterminate=${this.indeterminate}
           aria-checked="${this.checked ? 'true' : 'false'}"
           aria-label=${ifDefined(
-            this.label || this.getAttribute('aria-label') || undefined,
+            this.getAttribute('aria-label') || this.label || undefined,
           )}
           aria-labelledby=${ifDefined(
             this.getAttribute('aria-labelledby') || undefined,

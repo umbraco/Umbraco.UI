@@ -352,7 +352,12 @@ export class UUIInputElement extends UUIFormControlMixin(
       spellcheck=${this.spellcheck}
       autocomplete=${ifDefined(this.autocomplete as any)}
       placeholder=${ifDefined(this.placeholder)}
-      aria-label=${ifDefined(this.label)}
+      aria-label=${ifDefined(
+        this.getAttribute('aria-label') || this.label || undefined,
+      )}
+      aria-labelledby=${ifDefined(
+        this.getAttribute('aria-labelledby') || undefined,
+      )}
       inputmode=${ifDefined(this.inputMode)}
       ?disabled=${this.disabled}
       ?autofocus=${this.autofocus}
