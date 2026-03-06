@@ -131,9 +131,10 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   /**
    * This method enables <label for="..."> to focus the input
    */
-  async focus() {
-    await this.updateComplete;
-    this._input.focus();
+  focus(options?: FocusOptions) {
+    // Focus the HOST so screen readers announce the ARIA role/checked state
+    // set via ElementInternals rather than the aria-hidden inner <input>.
+    super.focus(options);
   }
   async click() {
     await this.updateComplete;
@@ -146,6 +147,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
     this.checked = this._input.checked;
     this.indeterminate = this._input.indeterminate;
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
+    // The label-wrapped <input> receives focus on click; redirect to HOST so
+    // the screen reader announces the correct role and checked state.
+    this.focus();
   }
 
   /**
