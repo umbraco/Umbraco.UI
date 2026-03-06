@@ -241,6 +241,7 @@ export class UUIRadioElement extends LabelMixin('', LitElement) {
       :host(:focus) {
         outline: none;
       }
+      :host(:focus-visible) #button,
       :host(:focus-within) input:focus-visible + #button {
         outline: 2px solid var(--uui-color-focus);
       }
