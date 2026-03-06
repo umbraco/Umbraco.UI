@@ -65,6 +65,10 @@ export class UUIRadioElement extends LabelMixin('', LitElement) {
     super();
     this._internals.role = 'radio';
     this.addEventListener('keydown', this.#onKeyDown);
+    // Explicit tabindex="-1" makes the host programmatically focusable even
+    // before makeFocusable() is called.  Without this attribute, super.focus()
+    // silently does nothing on elements that are not natively focusable.
+    this.tabIndex = -1;
   }
 
   updated(changedProperties: PropertyValues) {
@@ -81,8 +85,11 @@ export class UUIRadioElement extends LabelMixin('', LitElement) {
     }
   }
 
-  public focus() {
-    this._inputElement.focus();
+  public focus(options?: FocusOptions) {
+    // Focus the HOST so screen readers announce the ARIA semantics set via
+    // ElementInternals (role, ariaSetSize, ariaPosInSet).  Focusing the inner
+    // aria-hidden <input> directly loses that context.
+    super.focus(options);
   }
   public click() {
     this._inputElement.click();
