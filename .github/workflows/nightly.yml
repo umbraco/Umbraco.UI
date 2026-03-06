@@ -55,4 +55,5 @@ jobs:
       - name: Build and publish nightly
         run: npm run build && lerna publish --canary --preid nightly --dist-tag nightly --yes
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
