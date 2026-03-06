@@ -72,7 +72,8 @@ Since the host now owns the ARIA role and accessible name, the inner native elem
 ```
 
 - `aria-hidden="true"` removes the element from the AT tree so screen readers do not announce it twice (once for the host, once for the inner element)
-- `tabindex="-1"` removes it from the browser's natural tab order; `delegatesFocus` handles getting focus there
+- `tabindex="-1"` removes it from the sequential tab order, keeping the host itself as the Tab stop (via `tabIndex = 0` on the host)
+- `delegatesFocus: false` is set on the shadow root for these components so that Tab lands directly on the host element, which carries the ARIA role and label; keyboard activation (Space/Enter) is forwarded to the inner element via `keydown` handlers on the host
 
 ## attachInternals() can only be called once
 

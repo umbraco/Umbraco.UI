@@ -1,6 +1,6 @@
 import { ActiveMixin, LabelMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import type { PropertyValues } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
@@ -18,6 +18,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
  */
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
+  @query('#button')
+  private readonly _btn!: HTMLElement;
+
   /**
    * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
    * @type {boolean}
@@ -67,7 +70,15 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
     super();
     this._internals.role = 'tab';
     this.addEventListener('click', this.onHostClick);
+    this.addEventListener('keydown', this.#onKeyDown);
     this.tabIndex = 0;
+  }
+
+  #onKeyDown(e: KeyboardEvent) {
+    if ((e.key === ' ' || e.key === 'Enter') && !this.disabled) {
+      e.preventDefault();
+      this._btn.click();
+    }
   }
 
   updated(changedProperties: PropertyValues) {
@@ -119,6 +130,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       </button>
     `;
   }
+
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
 
   static override readonly styles = [
     css`

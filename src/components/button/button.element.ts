@@ -151,7 +151,15 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
     super();
     this._internals.role = 'button';
     this.addEventListener('click', this._onHostClick);
+    this.addEventListener('keydown', this.#onKeyDown);
     this.tabIndex = 0;
+  }
+
+  #onKeyDown(e: KeyboardEvent) {
+    if ((e.key === ' ' || e.key === 'Enter') && !this.disabled) {
+      e.preventDefault();
+      this._button.click();
+    }
   }
 
   protected getFormElement(): HTMLElement {
@@ -271,6 +279,11 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
       </button>
     `;
   }
+
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
 
   static override readonly styles = [
     UUIHorizontalShakeKeyframes,

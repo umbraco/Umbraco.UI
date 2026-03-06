@@ -113,6 +113,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
       this.submit();
+    } else if (e.key === ' ' && !this.disabled && !this.readonly) {
+      e.preventDefault();
+      this._input.click();
     }
   }
 
@@ -177,6 +180,11 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
       </label>
     `;
   }
+
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
 
   static override readonly styles = [
     css`

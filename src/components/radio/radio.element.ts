@@ -151,6 +151,11 @@ export class UUIRadioElement extends LabelMixin('', LitElement) {
     </label>`;
   }
 
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
+
   static override readonly styles = [
     UUIHorizontalShakeKeyframes,
     css`
