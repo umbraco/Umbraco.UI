@@ -31,7 +31,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
    * Label mixin class containing the label functionality.
    */
   class UUILabelMixinClass extends superClass {
-    static shadowRootOptions: ShadowRootInit = {
+    static readonly shadowRootOptions: ShadowRootInit = {
       ...(superClass as any).shadowRootOptions,
       delegatesFocus: true,
     };
