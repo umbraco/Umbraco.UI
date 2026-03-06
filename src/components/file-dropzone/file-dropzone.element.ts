@@ -98,6 +98,8 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   constructor() {
     super();
+    this._internals.role = 'button';
+    this.tabIndex = 0;
 
     this.addEventListener('dragenter', this._onDragEnter, false);
     this.addEventListener('dragleave', this._onDragLeave, false);
@@ -371,7 +373,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
           accept=${this.accept}
           ?multiple=${this.multiple}
           @change=${this._onFileInputChange}
-          aria-label="${this.label}" />
+          aria-hidden="true" />
         <slot></slot>
       </div>
     `;

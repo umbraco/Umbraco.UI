@@ -2,11 +2,9 @@ import {
   UUIFormControlWithBasicsMixin,
   LabelMixin,
 } from '../../internal/mixins/index.js';
-import type { TemplateResult } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent.js';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -98,15 +96,14 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   @query('#input')
   protected readonly _input!: HTMLInputElement;
 
-  private readonly inputRole: 'checkbox' | 'switch';
-
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();
     if (this._value === '') {
       this._value = 'on';
     }
-    this.inputRole = inputRole;
+    this._internals.role = inputRole;
     this.addEventListener('keydown', this.#onKeyDown);
+    this.tabIndex = 0;
   }
 
   protected getFormElement(): HTMLInputElement {
@@ -116,6 +113,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
       this.submit();
+    } else if (e.key === ' ' && !this.disabled && !this.readonly) {
+      e.preventDefault();
+      this._input.click();
     }
   }
 
@@ -131,9 +131,10 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   /**
    * This method enables <label for="..."> to focus the input
    */
-  async focus() {
-    await this.updateComplete;
-    this._input.focus();
+  focus(options?: FocusOptions) {
+    // Focus the HOST so screen readers announce the ARIA role/checked state
+    // set via ElementInternals rather than the aria-hidden inner <input>.
+    super.focus(options);
   }
   async click() {
     await this.updateComplete;
@@ -146,6 +147,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
     this.checked = this._input.checked;
     this.indeterminate = this._input.indeterminate;
     this.dispatchEvent(new UUIBooleanInputEvent(UUIBooleanInputEvent.CHANGE));
+    // The label-wrapped <input> receives focus on click; redirect to HOST so
+    // the screen reader announces the correct role and checked state.
+    this.focus();
   }
 
   /**
@@ -154,6 +158,14 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
    * @abstract
    * @method
    */
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    this._internals.ariaChecked = this.checked ? 'true' : 'false';
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
+  }
+
   protected abstract renderCheckbox(): TemplateResult;
 
   render() {
@@ -166,18 +178,17 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
           .disabled=${this.disabled || this.readonly}
           .checked=${this.checked}
           .indeterminate=${this.indeterminate}
-          aria-checked="${this.checked ? 'true' : 'false'}"
-          aria-label=${ifDefined(
-            this.getAttribute('aria-label') || this.label || undefined,
-          )}
-          aria-labelledby=${ifDefined(
-            this.getAttribute('aria-labelledby') || undefined,
-          )}
-          role="${this.inputRole}" />
+          aria-hidden="true"
+          tabindex="-1" />
         ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
     `;
   }
+
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
 
   static override readonly styles = [
     css`

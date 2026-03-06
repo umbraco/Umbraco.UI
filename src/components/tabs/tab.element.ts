@@ -1,6 +1,7 @@
 import { ActiveMixin, LabelMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
@@ -17,6 +18,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-tab-padding-horizontal - Define the tab horizontal padding
  */
 export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
+  @query('#button')
+  private readonly _btn!: HTMLElement;
+
   /**
    * Reflects the disabled state of the element. True if tab is disabled. Change this to switch the state programmatically.
    * @type {boolean}
@@ -64,7 +68,27 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
 
   constructor() {
     super();
+    this._internals.role = 'tab';
     this.addEventListener('click', this.onHostClick);
+    this.addEventListener('keydown', this.#onKeyDown);
+    this.tabIndex = 0;
+  }
+
+  #onKeyDown(e: KeyboardEvent) {
+    if ((e.key === ' ' || e.key === 'Enter') && !this.disabled) {
+      e.preventDefault();
+      this._btn.click();
+    }
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    if (changedProperties.has('href')) {
+      this._internals.role = this.href ? 'link' : 'tab';
+    }
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
   }
 
   private onHostClick(e: MouseEvent) {
@@ -82,10 +106,11 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       return html`
         <a
           id="button"
+          aria-hidden="true"
+          tabindex="-1"
           href=${ifDefined(this.disabled ? undefined : this.href)}
           target=${ifDefined(this.target || undefined)}
-          rel=${ifDefined(rel)}
-          role="tab">
+          rel=${ifDefined(rel)}>
           <slot name="icon"></slot>
           ${this.renderLabel()}
           <slot name="extra"></slot>
@@ -93,13 +118,23 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
       `;
     }
     return html`
-      <button type="button" id="button" ?disabled=${this.disabled} role="tab">
+      <button
+        type="button"
+        id="button"
+        ?disabled=${this.disabled}
+        aria-hidden="true"
+        tabindex="-1">
         <slot name="icon"></slot>
         ${this.renderLabel()}
         <slot name="extra"></slot>
       </button>
     `;
   }
+
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
 
   static override readonly styles = [
     css`

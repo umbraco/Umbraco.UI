@@ -228,6 +228,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
+    this._internals.role = 'none';
 
     this.addEventListener('keydown', this.#onKeyDown);
 
