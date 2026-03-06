@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/umbraco/Umbraco/compare/v1.17.0...v1.17.1) (2026-03-06)
+
+### Bug Fixes
+
+- **uui-base:** deprecates any class without `UUI`-prefix ([#1272](https://github.com/umbraco/Umbraco/issues/1272)) ([5ed4048](https://github.com/umbraco/Umbraco/commit/5ed40481d9e58afdfa92ed96ac7cb90f4d466ae6))
+
 # [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-toast-notification

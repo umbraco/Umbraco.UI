@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/umbraco/Umbraco/compare/v1.17.0...v1.17.1) (2026-03-06)
+
+### Bug Fixes
+
+- **checkbox:** suppress label warning when aria-label or aria-labelledby is set ([#1333](https://github.com/umbraco/Umbraco/issues/1333)) ([2e54176](https://github.com/umbraco/Umbraco/commit/2e54176a049d3124b69a18721b24089182bf636a)), closes [#1332](https://github.com/umbraco/Umbraco/issues/1332) [#input](https://github.com/umbraco/Umbraco/issues/input) [#input](https://github.com/umbraco/Umbraco/issues/input)
+
 # [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-color-slider

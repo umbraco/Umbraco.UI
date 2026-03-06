@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/umbraco/Umbraco/compare/v1.17.0...v1.17.1) (2026-03-06)
+
+### Bug Fixes
+
+- **card:** assert shadow DOM elements exist before clicking in tests ([91fc639](https://github.com/umbraco/Umbraco/commit/91fc639d4428bb74635402df964854b9a416b3a1))
+
 # [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
 
 **Note:** Version bump only for package @umbraco-ui/uui-card-content-node

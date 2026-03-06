@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/umbraco/Umbraco/compare/v1.17.0...v1.17.1) (2026-03-06)
+
+### Bug Fixes
+
+- adds storybook 10 typings and fixes import of readme plugin ([a1add75](https://github.com/umbraco/Umbraco/commit/a1add75251387c119cba871fef556bfca16348c8))
+- **card:** assert shadow DOM elements exist before clicking in tests ([91fc639](https://github.com/umbraco/Umbraco/commit/91fc639d4428bb74635402df964854b9a416b3a1))
+- **checkbox:** suppress label warning when aria-label or aria-labelledby is set ([#1333](https://github.com/umbraco/Umbraco/issues/1333)) ([2e54176](https://github.com/umbraco/Umbraco/commit/2e54176a049d3124b69a18721b24089182bf636a)), closes [#1332](https://github.com/umbraco/Umbraco/issues/1332) [#input](https://github.com/umbraco/Umbraco/issues/input) [#input](https://github.com/umbraco/Umbraco/issues/input)
+- **ci:** trigger dependency-track workflow on version tags instead of branches ([8a4b8af](https://github.com/umbraco/Umbraco/commit/8a4b8afd1a58ebf2e7f01a63203ee24d0cccb2a5))
+- fixes typings for storybook ([f092f9b](https://github.com/umbraco/Umbraco/commit/f092f9b279584f5cedf63b2c1de11b81840642c9))
+- **responsive-container:** guard against stale ResizeObserver callbacks ([0c9a8f3](https://github.com/umbraco/Umbraco/commit/0c9a8f3b5542a88dc0c612cef19e4d249ea45251)), closes [#isConnected](https://github.com/umbraco/Umbraco/issues/isConnected)
+- **uui-base:** deprecates any class without `UUI`-prefix ([#1272](https://github.com/umbraco/Umbraco/issues/1272)) ([5ed4048](https://github.com/umbraco/Umbraco/commit/5ed40481d9e58afdfa92ed96ac7cb90f4d466ae6))
+
+### Features
+
+- **base:** add runtime multi-version detection ([#1301](https://github.com/umbraco/Umbraco/issues/1301)) ([0665280](https://github.com/umbraco/Umbraco/commit/06652800ed52171985e8dffc5a98e731ec45daf1))
+
 # [1.17.0](https://github.com/umbraco/Umbraco/compare/v1.17.0-rc.5...v1.17.0) (2026-02-16)
 
 **Note:** Version bump only for package uui-monorepo
