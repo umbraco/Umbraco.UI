@@ -122,6 +122,16 @@ export class UUIRadioElement extends LabelMixin('', LitElement) {
     }
   }
 
+  /**
+   * Set the group size and position via ElementInternals so AT reads them
+   * without exposing HTML attributes that axe would validate against the role.
+   * @method setGroupInfo
+   */
+  public setGroupInfo(setSize: number, posInSet: number) {
+    this._internals.ariaSetSize = String(setSize);
+    this._internals.ariaPosInSet = String(posInSet);
+  }
+
   #onChange(e: Event) {
     e.stopPropagation();
     const checked = this._inputElement.checked;

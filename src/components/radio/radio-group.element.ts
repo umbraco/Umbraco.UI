@@ -204,8 +204,7 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
 
     const total = this.#radioElements.length;
     this.#radioElements.forEach((el, index) => {
-      el.setAttribute('aria-setsize', String(total));
-      el.setAttribute('aria-posinset', String(index + 1));
+      el.setGroupInfo(total, index + 1);
       el.addEventListener(UUIRadioEvent.CHANGE, this.#onSelectClick);
       el.addEventListener('blur', this.#onChildBlur);
     });
@@ -239,6 +238,9 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
       const firstCheckedRadio = checkedRadios[0];
       this.value = firstCheckedRadio.value;
       this.#selected = this.#radioElements.indexOf(firstCheckedRadio);
+    } else {
+      // No checked radio — ensure the first non-disabled radio is a Tab stop
+      this.#radioElements.find(el => !el.disabled)?.makeFocusable();
     }
   }
 
