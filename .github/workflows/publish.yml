@@ -59,16 +59,12 @@ jobs:
       - run: npm install
 
       - name: Authenticate with Registry
-        run: |
-          echo "@umbraco-ui:registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-          npm whoami
+        run: npm whoami
         env:
-          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
 
       - name: Publish package
         run: npm run build:prod && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
         env:
-          NPM_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
