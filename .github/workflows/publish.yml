@@ -7,19 +7,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      dist-tag:
-        description: 'npm dist-tag'
-        required: true
-        default: 'prerelease'
-        type: choice
-        options:
-          - prerelease
-          - nightly
-      version:
-        description: 'Base version for nightly (e.g. 2.0.0). Ignored for prerelease.'
-        required: false
-        type: string
 
 env:
   NODE_OPTIONS: --max_old_space_size=16384
@@ -64,7 +51,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
 
       - name: Publish package
-        run: npm run build:prod && npm whoami && lerna publish from-package --yes --pre-dist-tag ${{ inputs.dist-tag || 'prerelease' }}
+        run: npm run build:prod && npm whoami && lerna publish from-package --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true

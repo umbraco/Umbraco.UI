@@ -2,6 +2,7 @@
   "$schema": "node_modules/@lerna-lite/cli/schemas/lerna-schema.json",
   "version": "1.17.1",
   "preid": "rc",
+  "preDistTag": "prerelease",
   "exact": true,
   "noPush": true,
   "npmClient": "npm",
