@@ -68,9 +68,6 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
   private _handleSlotChange() {
     if (!this._swatches || this._swatches.length === 0) return;
     this._swatches.forEach(swatch => {
-      swatch.setAttribute('aria-checked', 'false');
-      swatch.setAttribute('role', 'radio');
-
       if (this.disabled) {
         swatch.setAttribute('disabled', '');
       } else {
@@ -84,7 +81,6 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
 
       if (this.value !== '' && swatch.value === this.value) {
         swatch.selected = true;
-        swatch.setAttribute('aria-checked', 'true');
         this._selectedElement = swatch;
         this._activeElement = this._selectedElement;
       }

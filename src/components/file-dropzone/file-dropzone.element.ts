@@ -98,6 +98,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
 
   constructor() {
     super();
+    this._internals.role = 'button';
 
     this.addEventListener('dragenter', this._onDragEnter, false);
     this.addEventListener('dragleave', this._onDragLeave, false);

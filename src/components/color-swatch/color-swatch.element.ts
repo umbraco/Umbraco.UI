@@ -88,7 +88,7 @@ export class UUIColorSwatchElement extends LabelMixin(
   }
 
   private _syncAriaChecked() {
-    if (this.selectable) this._internals.ariaChecked = this.selected.toString();
+    this._internals.ariaChecked = this.selected.toString();
   }
 
   firstUpdated() {
