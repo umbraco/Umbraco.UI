@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What is this?
 
-Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript**. It provides 80+ reusable UI components (`<uui-button>`, `<uui-input>`, `<uui-table>`, etc.) published as a single npm package: `@umbraco-ui/uui`.
+Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript**. It provides 81+ reusable UI components (`<uui-button>`, `<uui-input>`, `<uui-table>`, etc.) published as a single npm package: `@umbraco-ui/uui`.
 
 ## Common Commands
 
@@ -42,9 +42,9 @@ npm run new-component
 
 ## Branching Model
 
-- **`main`** — primary development branch, PR target
-- **`production`** — published snapshot, serves Storybook at uui.umbraco.com
-- **`release/*`** — intermediary releases (RCs)
+- **`main`** (default) — v2 development branch (current: 2.x alpha), PR target for v2 work and community contributions.
+- **`v1/dev`** — v1 maintenance branch (latest: v1.17.1)
+- **`production`** — latest stable release, also the home for the Storybook at uui.umbraco.com (currently v1.17.1)
 
 ## Architecture (v2 — single package)
 
@@ -70,7 +70,7 @@ src/
 ├── internal/        # Foundation: mixins, events, types, registration (was uui-base)
 ├── styles/          # CSS custom properties, text styles (was uui-css)
 ├── internal/test/   # Test utilities (UUITestMouse)
-├── themes/          # Light and dark theme CSS
+├── themes/          # Light, dark, and high-contrast theme CSS
 ├── components/      # 80 component directories
 │   ├── button/
 │   │   ├── button.ts              # Registration file (re-exports + defineElement call)
@@ -101,13 +101,15 @@ The `package.json` `exports` field exposes:
 
 ### Versioning & publishing
 
-- Single version in root `package.json`
+- Single version in root `package.json` and `lerna.json` (kept in sync)
 - **Lerna-Lite** handles changelog generation and npm publishing
 - **Conventional commits are required**: `type(scope): description`
   - Types: `feat`, `fix`, `build`, `docs`, `test`, `refactor`, `chore`
   - Scope: component name without `uui-` prefix (e.g. `fix(combobox): ...`)
   - `feat` triggers a minor bump, `fix` triggers a patch bump
 - Publishing happens from CI on `v*` tags via `lerna publish from-package`
+- Pre-release versions use `preid: "rc"` and publish to `prerelease` dist-tag
+- Current: `2.0.0-alpha.1` on `main`; v1 latest: `1.17.1` on `v1/dev`
 
 ## Component Architecture
 
@@ -165,8 +167,9 @@ export class UUIButtonElement extends ... { }
 
 ## Testing
 
-- **Vitest** + `vitest-browser-lit` + `@vitest/browser-playwright`, runs in Chromium locally and Chromium/Firefox/WebKit on CI
+- **Vitest 4.x** + `vitest-browser-lit` + `@vitest/browser-playwright`, runs in Chromium locally and Chromium/Firefox/WebKit on CI
 - Config: `vite.config.ts` (combined with build config — `test:` section)
+- Setup file: `vitest.setup.ts` — registers the `toHaveNoViolations` custom matcher globally
 - Tests live alongside components: `src/components/{name}/{name}.test.ts`
 - Tests must import the registration file (e.g. `import './{name}.js';`) to register elements
 - Render elements with `render` from `vitest-browser-lit`, not `fixture` from @open-wc
