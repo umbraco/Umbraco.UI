@@ -2,8 +2,10 @@ import {
   UUIHorizontalShakeAnimationValue,
   UUIHorizontalShakeKeyframes,
 } from '../../internal/animations/index.js';
+import { LabelMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 
 import { UUIRadioEvent } from './UUIRadioEvent.js';
 
@@ -14,7 +16,7 @@ import { UUIRadioEvent } from './UUIRadioEvent.js';
  *  @cssprop --uui-radio-button-size - Sets the size of the radio button.
  *  @fires change - on input change
  */
-export class UUIRadioElement extends LitElement {
+export class UUIRadioElement extends LabelMixin('', LitElement) {
   @query('#input')
   private readonly _inputElement!: HTMLInputElement;
 
@@ -36,7 +38,6 @@ export class UUIRadioElement extends LitElement {
   @property({ type: String })
   public value = '';
 
-  @property({ type: String })
   public label = '';
 
   @property({ type: Boolean, reflect: true })
@@ -62,7 +63,13 @@ export class UUIRadioElement extends LitElement {
 
   constructor() {
     super();
+    this._internals.role = 'radio';
     this.addEventListener('keydown', this.#onKeyDown);
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    this._internals.ariaChecked = this.checked ? 'true' : 'false';
   }
 
   #onKeyDown(e: KeyboardEvent): void {
@@ -134,7 +141,9 @@ export class UUIRadioElement extends LitElement {
         value=${this.value}
         .checked=${this.checked}
         .disabled=${this.disabled || this.readonly}
-        @change=${this.#onChange} />
+        @change=${this.#onChange}
+        aria-hidden="true"
+        tabindex="-1" />
       <div id="button"></div>
       <div id="label">
         ${this.label ? html`<span>${this.label}</span>` : html`<slot></slot>`}

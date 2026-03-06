@@ -122,6 +122,11 @@ export class UUISelectElement extends UUIFormControlWithBasicsMixin(
     return this._input;
   }
 
+  constructor() {
+    super();
+    this._internals.role = 'none';
+  }
+
   connectedCallback() {
     super.connectedCallback();
     if (!this.label) {

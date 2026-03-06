@@ -64,6 +64,11 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  * @fires {UUIColorPickerChangeEvent} change - Fired when the color changes
  */
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
+  constructor() {
+    super();
+    this._internals.role = 'group';
+  }
+
   @query('[part="input"]') private readonly _input!: UUIInputElement;
   @query('.color-picker__preview')
   private readonly _previewButton!: HTMLButtonElement;

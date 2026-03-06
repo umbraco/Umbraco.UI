@@ -103,6 +103,7 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
     }
     this._internals.role = inputRole;
     this.addEventListener('keydown', this.#onKeyDown);
+    this.tabIndex = 0;
   }
 
   protected getFormElement(): HTMLInputElement {
@@ -153,6 +154,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
     this._internals.ariaChecked = this.checked ? 'true' : 'false';
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
   }
 
   protected abstract renderCheckbox(): TemplateResult;

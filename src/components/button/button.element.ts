@@ -151,6 +151,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
     super();
     this._internals.role = 'button';
     this.addEventListener('click', this._onHostClick);
+    this.tabIndex = 0;
   }
 
   protected getFormElement(): HTMLElement {
@@ -200,6 +201,9 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
     super.updated(changedProperties);
     if (changedProperties.has('href')) {
       this._internals.role = this.href ? 'link' : 'button';
+    }
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
     }
     if (changedProperties.has('state')) {
       clearTimeout(this.#resetStateTimeout);

@@ -67,12 +67,16 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
     super();
     this._internals.role = 'tab';
     this.addEventListener('click', this.onHostClick);
+    this.tabIndex = 0;
   }
 
   updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
     if (changedProperties.has('href')) {
       this._internals.role = this.href ? 'link' : 'tab';
+    }
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
     }
   }
 
