@@ -109,16 +109,16 @@ export class UUIRadioElement extends LabelMixin('', LitElement) {
    */
   public makeFocusable() {
     if (!this.disabled) {
-      this.removeAttribute('tabindex');
+      this.tabIndex = 0;
     }
   }
   /**
-   * Call to make the element focusable, this sets tabindex to -1.
+   * Call to make the element unfocusable, this sets tabindex to -1.
    * @method makeUnfocusable
    */
   public makeUnfocusable() {
     if (!this.disabled) {
-      this.setAttribute('tabindex', '-1');
+      this.tabIndex = -1;
     }
   }
 
