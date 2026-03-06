@@ -39,4 +39,4 @@ out-css
 # old source
 /src
 
-*storybook.log
+*storybook.log.claude/
