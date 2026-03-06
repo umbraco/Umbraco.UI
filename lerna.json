@@ -8,10 +8,5 @@
   "includeMergedTags": true,
   "conventionalCommits": true,
   "forcePublish": true,
-  "command": {
-    "publish": {
-      "verifyAccess": false
-    }
-  },
   "ignoreChanges": ["**/*.story.ts", "**/*.test.ts", "**/CHANGELOG.md"]
 }
