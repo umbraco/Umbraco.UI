@@ -150,7 +150,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   /**
-   * Get the directory entry from a DataTransferItem.
+   * Get the filesystem entry (file or directory) from a DataTransferItem.
    * @remark Supports both WebKit and non-WebKit browsers.
    */
   private _getEntry(entry: DataTransferItem): FileSystemEntry | null {
