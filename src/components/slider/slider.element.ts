@@ -155,6 +155,7 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
+    this._internals.role = 'none';
     this.addEventListener('keydown', this.#onKeyDown);
   }
 

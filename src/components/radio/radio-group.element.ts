@@ -59,6 +59,7 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
+    this._internals.role = 'radiogroup';
     this.addEventListener('keydown', this.#onKeydown);
     this.addEventListener('focusin', this.#onFocusIn);
     this.addEventListener('focusout', this.#onFocusOut);
@@ -67,11 +68,6 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     this.updateComplete.then(() => {
       this.#updateRadioElementsCheckedState(this.value as string);
     });
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.hasAttribute('role')) this.setAttribute('role', 'radiogroup');
   }
 
   updated(_changedProperties: Map<string | number | symbol, unknown>) {
@@ -206,7 +202,9 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
     // Only continue if there are radio elements
     if (this.#radioElements.length === 0) return;
 
-    this.#radioElements.forEach(el => {
+    const total = this.#radioElements.length;
+    this.#radioElements.forEach((el, index) => {
+      el.setGroupInfo(total, index + 1);
       el.addEventListener(UUIRadioEvent.CHANGE, this.#onSelectClick);
       el.addEventListener('blur', this.#onChildBlur);
     });
@@ -240,6 +238,9 @@ export class UUIRadioGroupElement extends UUIFormControlWithBasicsMixin(
       const firstCheckedRadio = checkedRadios[0];
       this.value = firstCheckedRadio.value;
       this.#selected = this.#radioElements.indexOf(firstCheckedRadio);
+    } else {
+      // No checked radio — ensure the first non-disabled radio is a Tab stop
+      this.#radioElements.find(el => !el.disabled)?.makeFocusable();
     }
   }
 
