@@ -45,6 +45,11 @@ jobs:
       - run: npm -v
       - run: npm install
 
+      - name: Authenticate with Registry
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
+
       - name: Publish package
         run: npm run build:prod && lerna publish from-package --yes
         env:
