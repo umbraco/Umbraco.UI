@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.2](/compare/v1.17.1...v1.17.2) (2026-03-09)
+
+### Bug Fixes
+
+- **uui-file-dropzone:** fix multi-folder drop losing all but first folder (#1339) d15cac0, closes #1339
+
 ## [1.17.1](https://github.com/umbraco/Umbraco/compare/v1.17.0...v1.17.1) (2026-03-06)
 
 ### Bug Fixes
