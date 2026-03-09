@@ -34,11 +34,11 @@ describe('UUICheckbox', () => {
     expect(internals.role).toBe('checkbox');
   });
 
-  it('inner input is hidden from accessibility tree', () => {
+  it('inner input is visible to accessibility tree', () => {
     const inner = element.shadowRoot!.querySelector(
       '#input',
     ) as HTMLInputElement;
-    expect(inner.getAttribute('aria-hidden')).toBe('true');
+    expect(inner.getAttribute('aria-hidden')).toBeNull();
   });
 
   it('exposes accessible name via ElementInternals when label is set', () => {

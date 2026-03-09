@@ -398,7 +398,7 @@ export const UUIFormControlMixin = <
       // https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#valid
       this.#validity.valid = !hasError;
 
-      this._internals.ariaInvalid = hasError ? 'true' : 'false';
+      this._internals.ariaInvalid = hasError && !this.pristine ? 'true' : null;
 
       // Transfer the new validityState to the ElementInternals. [NL]
       this._internals.setValidity(
