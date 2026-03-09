@@ -40,3 +40,4 @@ out-css
 /src
 
 *storybook.log.claude/
+.claude/
