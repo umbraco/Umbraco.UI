@@ -281,4 +281,68 @@ describe('UUIFileDropzoneElement', () => {
       }
     });
   });
+
+  describe('_processRootEntries', () => {
+    function mockFileEntry(
+      name: string,
+      type = 'text/plain',
+    ): FileSystemFileEntry {
+      return {
+        isFile: true,
+        isDirectory: false,
+        name,
+        file: (cb: (f: File) => void) => cb(new File([''], name, { type })),
+      } as unknown as FileSystemFileEntry;
+    }
+
+    function mockFolderEntry(name: string): FileSystemDirectoryEntry {
+      return {
+        isFile: false,
+        isDirectory: true,
+        name,
+        createReader: () => ({
+          readEntries: (cb: (entries: FileSystemEntry[]) => void) => cb([]),
+        }),
+      } as unknown as FileSystemDirectoryEntry;
+    }
+
+    it('returns all folders when multiple=true', async () => {
+      element.multiple = true;
+      const result = await (element as any)._processRootEntries([
+        mockFolderEntry('folderA'),
+        mockFolderEntry('folderB'),
+      ]);
+      expect(result.folders.length).to.equal(2);
+      expect(result.folders[0].folderName).to.equal('folderA');
+      expect(result.folders[1].folderName).to.equal('folderB');
+    });
+
+    it('skips folders when multiple=false', async () => {
+      element.multiple = false;
+      const result = await (element as any)._processRootEntries([
+        mockFolderEntry('folderA'),
+      ]);
+      expect(result.folders.length).to.equal(0);
+    });
+
+    it('returns all accepted files', async () => {
+      const result = await (element as any)._processRootEntries([
+        mockFileEntry('a.txt'),
+        mockFileEntry('b.txt'),
+      ]);
+      expect(result.files.length).to.equal(2);
+    });
+
+    it('separates accepted and rejected files by mime type', async () => {
+      element.accept = 'image/*';
+      const result = await (element as any)._processRootEntries([
+        mockFileEntry('photo.jpg', 'image/jpeg'),
+        mockFileEntry('doc.txt', 'text/plain'),
+      ]);
+      expect(result.files.length).to.equal(1);
+      expect(result.files[0].name).to.equal('photo.jpg');
+      expect(result.rejectedFiles.length).to.equal(1);
+      expect(result.rejectedFiles[0].name).to.equal('doc.txt');
+    });
+  });
 });

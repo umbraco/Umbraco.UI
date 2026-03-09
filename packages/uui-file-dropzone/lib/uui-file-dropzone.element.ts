@@ -108,27 +108,6 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   /**
-   * Process a single file entry and categorize it as accepted or rejected.
-   * @param entry - The data transfer item containing the file
-   * @param files - Array to store accepted files
-   * @param rejectedFiles - Array to store rejected files
-   */
-  private _processFileEntry(
-    entry: DataTransferItem,
-    files: File[],
-    rejectedFiles: File[],
-  ): void {
-    const file = entry.getAsFile();
-    if (!file) return;
-
-    if (this._isAccepted(file)) {
-      files.push(file);
-    } else {
-      rejectedFiles.push(file);
-    }
-  }
-
-  /**
    * Check if folder upload should be processed based on component settings.
    * @returns true if folder upload is allowed and multiple files are enabled
    */
@@ -137,26 +116,33 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
   }
 
   private async _getAllEntries(dataTransferItemList: DataTransferItemList) {
-    // Use BFS to traverse entire directory/file structure
-    const queue = [...dataTransferItemList];
+    // Phase 1: Extract ALL FileSystemEntry refs synchronously.
+    // DataTransferItem.webkitGetAsEntry() returns null after the first await
+    // because the browser expires the drag data store. FileSystemEntry objects
+    // obtained here remain valid indefinitely.
+    const rootEntries = [...dataTransferItemList]
+      .filter(item => item?.kind === 'file')
+      .map(item => this._getEntry(item))
+      .filter((entry): entry is FileSystemEntry => entry !== null);
 
+    return this._processRootEntries(rootEntries);
+  }
+
+  private async _processRootEntries(rootEntries: FileSystemEntry[]) {
     const folders: UUIFileFolder[] = [];
     const files: File[] = [];
     const rejectedFiles: File[] = [];
 
-    for (const entry of queue) {
-      if (entry?.kind !== 'file') continue;
-
-      const fileEntry = this._getEntry(entry);
-      if (!fileEntry) continue;
-
-      if (!fileEntry.isDirectory) {
-        // Entry is a file
-        this._processFileEntry(entry, files, rejectedFiles);
+    for (const entry of rootEntries) {
+      if (!entry.isDirectory) {
+        const file = await this._getAsFile(entry as FileSystemFileEntry);
+        if (this._isAccepted(file)) {
+          files.push(file);
+        } else {
+          rejectedFiles.push(file);
+        }
       } else if (this._shouldProcessFolder()) {
-        // Entry is a directory
-        const structure = await this._mkdir(fileEntry);
-        folders.push(structure);
+        folders.push(await this._mkdir(entry as FileSystemDirectoryEntry));
       }
     }
 
@@ -167,7 +153,7 @@ export class UUIFileDropzoneElement extends LabelMixin('', LitElement) {
    * Get the directory entry from a DataTransferItem.
    * @remark Supports both WebKit and non-WebKit browsers.
    */
-  private _getEntry(entry: DataTransferItem): FileSystemDirectoryEntry | null {
+  private _getEntry(entry: DataTransferItem): FileSystemEntry | null {
     let dir: FileSystemDirectoryEntry | null = null;
 
     if ('webkitGetAsEntry' in entry) {
