@@ -290,4 +290,70 @@ describe('UUIFileDropzoneElement', () => {
       }
     });
   });
+
+  describe('_processRootEntries', () => {
+    // Creates a minimal FileSystemFileEntry mock whose .file() yields a real File
+    function mockFileEntry(
+      name: string,
+      type = 'text/plain',
+    ): FileSystemFileEntry {
+      return {
+        isFile: true,
+        isDirectory: false,
+        name,
+        file: (cb: (f: File) => void) => cb(new File([''], name, { type })),
+      } as unknown as FileSystemFileEntry;
+    }
+
+    // Creates a minimal FileSystemDirectoryEntry mock with no children
+    function mockFolderEntry(name: string): FileSystemDirectoryEntry {
+      return {
+        isFile: false,
+        isDirectory: true,
+        name,
+        createReader: () => ({
+          readEntries: (cb: (entries: FileSystemEntry[]) => void) => cb([]),
+        }),
+      } as unknown as FileSystemDirectoryEntry;
+    }
+
+    it('returns all folders when multiple=true', async () => {
+      element.multiple = true;
+      const result = await (element as any)._processRootEntries([
+        mockFolderEntry('folderA'),
+        mockFolderEntry('folderB'),
+      ]);
+      expect(result.folders.length, 'should return 2 folders').toBe(2);
+      expect(result.folders[0].folderName).toBe('folderA');
+      expect(result.folders[1].folderName).toBe('folderB');
+    });
+
+    it('skips folders when multiple=false', async () => {
+      element.multiple = false;
+      const result = await (element as any)._processRootEntries([
+        mockFolderEntry('folderA'),
+      ]);
+      expect(result.folders.length).toBe(0);
+    });
+
+    it('returns all accepted files', async () => {
+      const result = await (element as any)._processRootEntries([
+        mockFileEntry('a.txt'),
+        mockFileEntry('b.txt'),
+      ]);
+      expect(result.files.length).toBe(2);
+    });
+
+    it('separates accepted and rejected files by mime type', async () => {
+      element.accept = 'image/*';
+      const result = await (element as any)._processRootEntries([
+        mockFileEntry('photo.jpg', 'image/jpeg'),
+        mockFileEntry('doc.txt', 'text/plain'),
+      ]);
+      expect(result.files.length).toBe(1);
+      expect(result.files[0].name).toBe('photo.jpg');
+      expect(result.rejectedFiles.length).toBe(1);
+      expect(result.rejectedFiles[0].name).toBe('doc.txt');
+    });
+  });
 });
