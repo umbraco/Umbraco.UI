@@ -14,14 +14,21 @@ import {
  * The `attributes` field is `protected` and `readonly` to allow subclasses to extend the list of
  * managed attributes without replacing the base implementation. Each entry must have a `name` and `value`
  * that together signal to a password manager that it should ignore the element.
+ *
+ * To add support for additional password managers, subclass and redeclare `attributes` with the
+ * full list (base entries + any new ones):
  * @example
  * ```ts
- * class UUIDisableExtraPasswordManagersDirective extends UUIDisablePasswordManagersDirective {
+ * class MyDirective extends UUIDisablePasswordManagersDirective {
  *   protected override readonly attributes = [
- *     ...super.prototype.attributes, // include base list
- *     { name: 'data-custom-ignore', value: 'true' },
+ *     { name: 'data-1p-ignore', value: '' },
+ *     { name: 'data-bwignore', value: '' },
+ *     { name: 'data-form-type', value: 'other' },
+ *     { name: 'data-lpignore', value: 'true' },
+ *     { name: 'data-custom-ignore', value: 'true' }, // additional manager
  *   ];
  * }
+ * export const myDisablePasswordManagers = directive(MyDirective);
  * ```
  */
 export class UUIDisablePasswordManagersDirective extends Directive {
@@ -38,7 +45,7 @@ export class UUIDisablePasswordManagersDirective extends Directive {
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
-    if (partInfo.type != PartType.ELEMENT) {
+    if (partInfo.type !== PartType.ELEMENT) {
       throw new Error(
         'The `uuiDisablePasswordManagers` directive can only be used in element parts',
       );
