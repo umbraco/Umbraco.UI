@@ -3,7 +3,6 @@ import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
-import { uuiDisablePasswordManagers } from '@umbraco-ui/uui-base/lib/directives';
 import { UUITextareaEvent } from './UUITextareaEvent';
 
 /**
@@ -152,12 +151,6 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
    */
   @property({ type: String })
   wrap?: 'soft' | 'hard';
-
-  /**
-   * Disables password managers from interacting with the input.
-   */
-  @property({ type: Boolean, attribute: 'disable-password-managers' })
-  disablePasswordManagers = false;
 
   constructor() {
     super();
@@ -312,8 +305,7 @@ export class UUITextareaElement extends UUIFormControlMixin(LitElement, '') {
         .disabled=${this.disabled}
         ?readonly=${this.readonly}
         @input=${this.onInput}
-        @change=${this.onChange}
-        ${this.disablePasswordManagers ? uuiDisablePasswordManagers() : ''}>
+        @change=${this.onChange}>
       </textarea>
     `;
   }

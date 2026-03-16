@@ -162,13 +162,31 @@ describe('UuiInputElement', () => {
     expect(element.value).to.equal('test value');
   });
 
-  it('disables password managers from interacting with the input when disablePasswordManagers is true', async () => {
+  it('does not have password manager attributes by default', () => {
+    expect(input.hasAttribute('data-1p-ignore')).to.be.false;
+    expect(input.hasAttribute('data-bwignore')).to.be.false;
+    expect(input.hasAttribute('data-form-type')).to.be.false;
+    expect(input.hasAttribute('data-lpignore')).to.be.false;
+  });
+
+  it('applies password manager ignore attributes when disablePasswordManagers is true', async () => {
     element.disablePasswordManagers = true;
     await elementUpdated(element);
     expect(input.getAttribute('data-1p-ignore')).to.equal('');
     expect(input.getAttribute('data-bwignore')).to.equal('');
     expect(input.getAttribute('data-form-type')).to.equal('other');
     expect(input.getAttribute('data-lpignore')).to.equal('true');
+  });
+
+  it('removes password manager ignore attributes when disablePasswordManagers is toggled back to false', async () => {
+    element.disablePasswordManagers = true;
+    await elementUpdated(element);
+    element.disablePasswordManagers = false;
+    await elementUpdated(element);
+    expect(input.hasAttribute('data-1p-ignore')).to.be.false;
+    expect(input.hasAttribute('data-bwignore')).to.be.false;
+    expect(input.hasAttribute('data-form-type')).to.be.false;
+    expect(input.hasAttribute('data-lpignore')).to.be.false;
   });
 
   describe('text overflow', () => {

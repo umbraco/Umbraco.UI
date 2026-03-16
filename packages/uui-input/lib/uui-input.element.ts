@@ -225,6 +225,9 @@ export class UUIInputElement extends UUIFormControlMixin(
 
   /**
    * Disables password managers from interacting with the input.
+   * @type {boolean}
+   * @attr disable-password-managers
+   * @default false
    */
   @property({ type: Boolean, attribute: 'disable-password-managers' })
   disablePasswordManagers = false;
@@ -373,7 +376,7 @@ export class UUIInputElement extends UUIFormControlMixin(
       tabindex=${ifDefined(this.tabIndex)}
       @input=${this.onInput}
       @change=${this.onChange}
-      ${this.disablePasswordManagers ? uuiDisablePasswordManagers() : ''} />`;
+      ${uuiDisablePasswordManagers(this.disablePasswordManagers)} />`;
   }
 
   private renderAutoWidthBackground() {

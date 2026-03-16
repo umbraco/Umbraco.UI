@@ -1,12 +1,35 @@
 import { noChange, nothing } from 'lit';
 import type { ElementPart } from 'lit';
-import { directive, Directive, PartInfo, PartType } from 'lit/directive.js';
+import {
+  directive,
+  Directive,
+  type DirectiveParameters,
+  PartInfo,
+  PartType,
+} from 'lit/directive.js';
 
 /**
- * The directive applies attributes to disable known and commonly used password managers on the given element.
+ * The directive applies or removes attributes to disable known and commonly used password managers on the given element.
+ *
+ * The `attributes` field is `protected` and `readonly` to allow subclasses to extend the list of
+ * managed attributes without replacing the base implementation. Each entry must have a `name` and `value`
+ * that together signal to a password manager that it should ignore the element.
+ * @example
+ * ```ts
+ * class UUIDisableExtraPasswordManagersDirective extends UUIDisablePasswordManagersDirective {
+ *   protected override readonly attributes = [
+ *     ...super.prototype.attributes, // include base list
+ *     { name: 'data-custom-ignore', value: 'true' },
+ *   ];
+ * }
+ * ```
  */
-class UUIDisablePasswordManagersDirective extends Directive {
-  protected attributes = [
+export class UUIDisablePasswordManagersDirective extends Directive {
+  /**
+   * The list of attributes to apply or remove on the target element.
+   * Override this in a subclass to extend support for additional password managers.
+   */
+  protected readonly attributes = [
     { name: 'data-1p-ignore', value: '' }, // 1Password
     { name: 'data-bwignore', value: '' }, // Bitwarden
     { name: 'data-form-type', value: 'other' }, // Dashlane
@@ -17,36 +40,47 @@ class UUIDisablePasswordManagersDirective extends Directive {
     super(partInfo);
     if (partInfo.type != PartType.ELEMENT) {
       throw new Error(
-        'The `uuiIgnorePasswordManagers` directive can only be used in element parts',
+        'The `uuiDisablePasswordManagers` directive can only be used in element parts',
       );
     }
   }
 
   /**
-   * The directive does not render any content, it only applies attributes to the element. Therefore, it returns `nothing` and `noChange` in the update method to prevent any unnecessary DOM updates.
+   * The directive does not render any content.
    * @returns `nothing` to indicate that the directive does not render any content.
    */
-  override render() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  override render(_enabled: boolean) {
     return nothing;
   }
 
   /**
-   * Applies the password manager ignore attributes to the element. This method is called whenever the directive is used in a template. It iterates over the predefined attributes and sets them on the element using `setAttribute`. After applying the attributes, it returns `noChange` to indicate that no further updates are needed for this part.
-   * @param part - The part of the template where the directive is applied, which is expected to be an element part.
+   * Applies or removes password manager ignore attributes on the element depending on `enabled`.
+   * Calling with `false` removes all managed attributes so toggling the property is fully reversible.
+   * @param part - The element part where the directive is applied.
+   * @param enabled - When `true`, sets the ignore attributes; when `false`, removes them.
    * @returns `noChange` to indicate that no further updates are needed for this part.
    */
-  override update(part: ElementPart) {
+  override update(part: ElementPart, [enabled]: DirectiveParameters<this>) {
     this.attributes.forEach(attr => {
-      part.element.setAttribute(attr.name, attr.value);
+      if (enabled) {
+        part.element.setAttribute(attr.name, attr.value);
+      } else {
+        part.element.removeAttribute(attr.name);
+      }
     });
     return noChange;
   }
 }
 
 /**
- * A Lit directive which applies attributes to disable known and commonly used password managers on an element.
- * Currently, it supports disabling 1Password, Bitwarden, Dashlane, and LastPass by setting the appropriate attributes that these password managers recognize to exclude the element from their functionality.
- * @example html`<div ${uuiDisablePasswordManagers()}></div>`
+ * A Lit directive which applies or removes attributes to disable known and commonly used password managers on an element.
+ * Currently supports 1Password, Bitwarden, Dashlane, and LastPass.
+ *
+ * Pass `true` to suppress password manager behaviour; pass `false` (or toggle back) to restore it.
+ * The directive is fully reversible: switching from `true` to `false` removes all managed attributes.
+ *
+ * @example html`<input ${uuiDisablePasswordManagers(this.disablePasswordManagers)} />`
  */
 export const uuiDisablePasswordManagers = directive(
   UUIDisablePasswordManagersDirective,
