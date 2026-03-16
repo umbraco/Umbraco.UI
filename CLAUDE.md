@@ -6,6 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript**. It provides 90+ reusable UI components (`<uui-button>`, `<uui-input>`, `<uui-table>`, etc.) consumed by the Umbraco CMS backoffice via npm packages (`@umbraco-ui/*`).
 
+> **This repo has two active major versions on separate branches:**
+>
+> - **v1** (`v1/dev`) — multi-package monorepo under `packages/`, Lit 2.x, `@open-wc/testing`. Latest: 1.17.x. PRs target `v1/dev`.
+> - **v2** (`main`) — single-package under `src/`, Lit 3.x, Vitest. Latest: 2.0.0-alpha. PRs target `main`.
+>
+> The docs below describe **v1**. `v1/contrib` no longer exists — do not use it.
+
 ## Common Commands
 
 ```bash
@@ -42,9 +49,16 @@ npm run new-package
 
 ## Branching Model
 
-- **`main`** — primary development branch, PR target
+### v1 (this branch)
+
+- **`v1/dev`** — v1 development branch, PR target for v1 work
+- **`v1/feature/*`**, **`v1/bugfix/*`**, **`v1/improvement/*`** — feature/fix branches, format: `v{major}/{type}/{description}`
 - **`production`** — published snapshot, serves Storybook at uui.umbraco.com
-- **`release/*`** — intermediary releases (RCs)
+
+### v2 (main)
+
+- **`main`** — v2 development branch, PR target for v2 work
+- **`production`** — shared published snapshot
 
 ## Monorepo Structure
 
@@ -151,13 +165,14 @@ export class UUIButtonElement extends ... { }
 - Turbo handles task orchestration and caching (`turbo.json`)
 - `uui-css` must build before everything else (handled by the `build` script)
 
-## Testing
+## Testing (v1)
 
 - **Web Test Runner** + **@open-wc/testing** (Mocha + Chai)
 - Browsers: Chromium, Firefox, WebKit (via Playwright)
 - Config: `web-test-runner.config.mjs`
 - Tests live alongside components: `uui-{name}.test.ts`
 - Accessibility testing via `expect(element).to.be.accessible()`
+- **Do NOT use Vitest** — that is v2 only
 
 ## Linting & Formatting
 
@@ -165,10 +180,10 @@ export class UUIButtonElement extends ... { }
 - **Prettier**: single quotes, 2-space indent, `arrowParens: avoid`, `bracketSameLine: true`
 - **Pre-commit hook** (Husky + lint-staged): runs ESLint, type-check on `*.element.ts`, Prettier
 
-## Runtime Requirements
+## Runtime Requirements (v1)
 
 - Node >= 22, npm >= 11 (see `.nvmrc` and `engines` in package.json)
-- Lit ^2.8.0 (pinned)
+- Lit **^2.8.0** (pinned — v2 uses Lit 3.x)
 - Target: ES2022
 
 ## Development Philosophy
