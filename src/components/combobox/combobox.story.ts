@@ -325,3 +325,42 @@ export const Async: Story = {
     },
   },
 };
+
+export const Multiple: Story = {
+  args: {
+    multiple: true,
+  },
+  render: args => {
+    const [, setSearch] = useArgs();
+    const [, setValue] = useArgs();
+
+    const onSearch = (e: any) => {
+      args.search = e.target.search;
+      setSearch(args);
+    };
+
+    const onChange = (e: any) => {
+      args.value = e.target.value;
+      setValue(args);
+    };
+
+    const renderFilteredOptions = async () => {
+      const filteredOptions = await args.filter(
+        args.options,
+        args.search ?? '',
+      );
+      return repeat(filteredOptions, args.listItemRenderer);
+    };
+
+    return html`<uui-combobox
+        ${spread(args, ['options', 'listItemRenderer', 'filter'])}
+        @search=${onSearch}
+        @change=${onChange}>
+        <uui-combobox-list>
+          ${until(renderFilteredOptions(), html`Searching...`)}
+        </uui-combobox-list>
+      </uui-combobox>
+
+      <div style="margin-top: 16px"><b>Selected value:</b> ${args.value}</div>`;
+  },
+};
