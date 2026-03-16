@@ -3,6 +3,7 @@ import {
   LabelMixin,
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { uuiDisablePasswordManagers } from '@umbraco-ui/uui-base/lib/directives';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -222,6 +223,12 @@ export class UUIInputElement extends UUIFormControlMixin(
   @property({ type: Number, reflect: false, attribute: 'tabindex' })
   tabIndex: number = 0;
 
+  /**
+   * Disables password managers from interacting with the input.
+   */
+  @property({ type: Boolean, attribute: 'disable-password-managers' })
+  disablePasswordManagers = false;
+
   @query('#input')
   _input!: HTMLInputElement;
 
@@ -365,7 +372,8 @@ export class UUIInputElement extends UUIFormControlMixin(
       ?readonly=${this.readonly}
       tabindex=${ifDefined(this.tabIndex)}
       @input=${this.onInput}
-      @change=${this.onChange} />`;
+      @change=${this.onChange}
+      ${this.disablePasswordManagers ? uuiDisablePasswordManagers() : ''} />`;
   }
 
   private renderAutoWidthBackground() {

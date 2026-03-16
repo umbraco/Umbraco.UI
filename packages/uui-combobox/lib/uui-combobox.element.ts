@@ -130,6 +130,12 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
   @property()
   placeholder = '';
 
+  /**
+   * Disables password managers from interacting with the input.
+   */
+  @property({ type: Boolean, attribute: 'disable-password-managers' })
+  disablePasswordManagers = false;
+
   @query('#combobox-input')
   private _input!: HTMLInputElement;
 
@@ -347,6 +353,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       autocomplete="off"
       .disabled=${this.disabled}
       .readonly=${this.readonly}
+      .disablePasswordManagers=${this.disablePasswordManagers}
       popovertarget="combobox-popover"
       @click=${this.#onToggle}
       @input=${this.#onInput}

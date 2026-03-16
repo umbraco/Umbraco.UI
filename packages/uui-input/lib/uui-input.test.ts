@@ -71,6 +71,9 @@ describe('UuiInputElement', () => {
     it('has a autoWidth property', () => {
       expect(element).to.have.property('autoWidth');
     });
+    it('has a disablePasswordManagers property', () => {
+      expect(element).to.have.property('disablePasswordManagers');
+    });
 
     it('disable property set input to disabled', async () => {
       element.disabled = true;
@@ -157,6 +160,15 @@ describe('UuiInputElement', () => {
     input.value = 'test value';
     input.dispatchEvent(new Event('input'));
     expect(element.value).to.equal('test value');
+  });
+
+  it('disables password managers from interacting with the input when disablePasswordManagers is true', async () => {
+    element.disablePasswordManagers = true;
+    await elementUpdated(element);
+    expect(input.getAttribute('data-1p-ignore')).to.equal('');
+    expect(input.getAttribute('data-bwignore')).to.equal('');
+    expect(input.getAttribute('data-form-type')).to.equal('other');
+    expect(input.getAttribute('data-lpignore')).to.equal('true');
   });
 
   describe('text overflow', () => {

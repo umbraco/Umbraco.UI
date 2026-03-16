@@ -246,3 +246,11 @@ export const AutoWidth: Story = {
     placeholder: 'Start typing...',
   },
 };
+
+export const DisablePasswordManagers: Story = {
+  args: {
+    type: 'password',
+    disablePasswordManagers: true,
+    placeholder: 'Disable password managers',
+  },
+};
