@@ -293,6 +293,10 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
         displayValue: list.selectedDisplayValues[i] || val,
       }));
       this.value = list.selectedValues.join(',');
+
+      this.search = '';
+      this._input.value = '';
+      this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     } else {
       this.value = list.value || '';
       this.search = this.value ? this.search : '';
