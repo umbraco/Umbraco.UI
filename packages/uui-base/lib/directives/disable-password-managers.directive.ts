@@ -36,12 +36,13 @@ export class UUIDisablePasswordManagersDirective extends Directive {
    * The list of attributes to apply or remove on the target element.
    * Override this in a subclass to extend support for additional password managers.
    */
-  protected readonly attributes = [
-    { name: 'data-1p-ignore', value: '' }, // 1Password
-    { name: 'data-bwignore', value: '' }, // Bitwarden
-    { name: 'data-form-type', value: 'other' }, // Dashlane
-    { name: 'data-lpignore', value: 'true' }, // LastPass
-  ];
+  protected readonly attributes: ReadonlyArray<{ name: string; value: string }> =
+    Object.freeze([
+      { name: 'data-1p-ignore', value: '' }, // 1Password
+      { name: 'data-bwignore', value: '' }, // Bitwarden
+      { name: 'data-form-type', value: 'other' }, // Dashlane
+      { name: 'data-lpignore', value: 'true' }, // LastPass
+    ]);
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
