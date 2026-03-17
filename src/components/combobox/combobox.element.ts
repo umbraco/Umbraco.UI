@@ -327,6 +327,16 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   };
 
   readonly #onKeyDown = (e: KeyboardEvent) => {
+    if (
+      e.code === 'Backspace' &&
+      this.multiple &&
+      this._selectedItems.length > 0 &&
+      this.search === ''
+    ) {
+      const lastItem = this._selectedItems[this._selectedItems.length - 1];
+      this.#onRemoveTag(e, lastItem.value);
+      return;
+    }
     if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // Prevent form submission when combobox is closed
       e.stopImmediatePropagation(); // Don't let list handle Enter when closed
