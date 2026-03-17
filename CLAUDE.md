@@ -6,6 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript**. It provides 81+ reusable UI components (`<uui-button>`, `<uui-input>`, `<uui-table>`, etc.) published as a single npm package: `@umbraco-ui/uui`.
 
+> **This repo has two active major versions on separate branches:**
+>
+> - **v1** (`v1/dev`) — multi-package monorepo under `packages/`, Lit 2.x, `@open-wc/testing`. Latest: 1.17.x. PRs target `v1/dev`.
+> - **v2** (`main`) — single-package under `src/`, Lit 3.x, Vitest. Latest: 2.0.0-alpha. PRs target `main`.
+>
+> The docs below describe **v1**. `v1/contrib` no longer exists — do not use it.
+
 ## Common Commands
 
 ```bash
@@ -186,7 +193,7 @@ export class UUIButtonElement extends ... { }
 - **Prettier**: single quotes, 2-space indent, `arrowParens: avoid`, `bracketSameLine: true`
 - **Pre-commit hook** (Husky + lint-staged): runs ESLint, type-check on `*.element.ts`, Prettier
 
-## Runtime Requirements
+## Runtime Requirements (v1)
 
 - Node >= 24.13, npm >= 11 (see `.nvmrc` and `engines` in package.json)
 - Lit ^3.0.0
