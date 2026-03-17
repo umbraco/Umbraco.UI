@@ -4,6 +4,7 @@ export default UUIProdConfig({
   entryPoints: [
     'index',
     'animations/index',
+    'directives/index',
     'events/index',
     'mixins/index',
     'types/index',

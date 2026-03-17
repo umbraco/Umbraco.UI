@@ -66,6 +66,41 @@ describe('UUIComboboxElement', () => {
     it('has a disabled property', () => {
       expect(element).to.have.property('disabled');
     });
+    it('has a disablePasswordManagers property', () => {
+      expect(element).to.have.property('disablePasswordManagers');
+    });
+  });
+
+  describe('disablePasswordManagers', () => {
+    let innerInput: HTMLInputElement;
+
+    beforeEach(() => {
+      const uuiInput = element.shadowRoot!.querySelector('uui-input')!;
+      innerInput = uuiInput.shadowRoot!.querySelector('input')!;
+    });
+
+    it('does not apply password manager attributes by default', () => {
+      expect(innerInput.hasAttribute('data-1p-ignore')).to.be.false;
+      expect(innerInput.hasAttribute('data-lpignore')).to.be.false;
+    });
+
+    it('delegates disablePasswordManagers to the inner uui-input', async () => {
+      element.disablePasswordManagers = true;
+      await elementUpdated(element);
+      expect(innerInput.getAttribute('data-1p-ignore')).to.equal('');
+      expect(innerInput.getAttribute('data-bwignore')).to.equal('');
+      expect(innerInput.getAttribute('data-form-type')).to.equal('other');
+      expect(innerInput.getAttribute('data-lpignore')).to.equal('true');
+    });
+
+    it('removes password manager attributes when toggled back to false', async () => {
+      element.disablePasswordManagers = true;
+      await elementUpdated(element);
+      element.disablePasswordManagers = false;
+      await elementUpdated(element);
+      expect(innerInput.hasAttribute('data-1p-ignore')).to.be.false;
+      expect(innerInput.hasAttribute('data-lpignore')).to.be.false;
+    });
   });
 
   describe('template', () => {

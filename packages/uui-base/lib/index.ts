@@ -1,4 +1,5 @@
 export * from './animations';
+export * from './directives';
 export * from './events';
 export * from './mixins';
 export * from './registration';

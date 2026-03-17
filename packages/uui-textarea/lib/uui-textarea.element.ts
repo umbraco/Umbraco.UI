@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { property, query } from 'lit/decorators.js';
-import { UUITextareaEvent } from './UUITextareaEvent';
-import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+import { UUIFormControlMixin } from '@umbraco-ui/uui-base/lib/mixins';
+import { UUITextareaEvent } from './UUITextareaEvent';
 
 /**
  * @element uui-textarea
