@@ -408,7 +408,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
       ${this.#renderSelectedTags()} ${this.#renderClearButton()}
-      ${this.hideExpandSymbol
+      ${this.hideExpandSymbol || this.multiple
         ? nothing
         : html`<div id="expand-symbol-wrapper" slot="append">
             <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
@@ -586,6 +586,11 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
 
       #selected-tags uui-button {
         font-size: 10px;
+      }
+
+      :host([multiple]) #combobox-input {
+        --uui-input-height: auto;
+        min-height: var(--uui-size-11);
       }
     `,
   ];
