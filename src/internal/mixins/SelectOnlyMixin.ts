@@ -1,5 +1,5 @@
 import { property } from 'lit/decorators.js';
-import { UUISelectableMixinInterface } from './SelectableMixin.js';
+import type { UUISelectableMixinInterface } from './SelectableMixin.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
