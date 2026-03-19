@@ -149,6 +149,10 @@ export class UUIComboboxListElement extends LitElement {
     // Get index from first active, remove active from the rest.
     this.#updateActiveElement();
 
+    for (const option of this._options) {
+      option.multiple = this.multiple;
+    }
+
     this._updateSelection();
     this.dispatchEvent(
       new UUIComboboxListEvent(UUIComboboxListEvent.INNER_SLOT_CHANGE),
