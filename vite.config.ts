@@ -24,7 +24,7 @@ export default defineConfig({
       },
       formats: ['es'],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [/^lit/, /^culori/],
       output: {
         preserveModules: true,
