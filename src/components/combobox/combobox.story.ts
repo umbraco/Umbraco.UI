@@ -348,6 +348,7 @@ export const Multiple: Story = {
     };
 
     return html`<uui-combobox
+        style="width: 450px;"
         ${spread(args, ['options', 'listItemRenderer', 'filter'])}
         @search=${onSearch}>
         <uui-combobox-list>

@@ -430,6 +430,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   readonly #renderClearButton = () => {
     if (this.disabled) return nothing;
     if (this.readonly) return nothing;
+    if (this.multiple) return nothing;
 
     return html`<uui-button
       id="clear-button"
@@ -452,22 +453,20 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   readonly #renderSelectedTags = () => {
     if (this._selectedItems.length === 0) return nothing;
 
-    return html`<div id="selected-tags" slot="prepend">
-      ${this._selectedItems.map(
-        item =>
-          html`<uui-tag look="secondary">
-            ${item.displayValue}
-            <uui-button
-              compact
-              label="Remove ${item.displayValue}"
-              @click=${(e: Event) => this.#onRemoveTag(e, item.value)}>
-              <uui-icon
-                name="remove"
-                .fallback=${iconRemove.strings[0]}></uui-icon>
-            </uui-button>
-          </uui-tag>`,
-      )}
-    </div>`;
+    return html` ${this._selectedItems.map(
+      item =>
+        html`<uui-tag look="secondary">
+          ${item.displayValue}
+          <uui-button
+            compact
+            label="Remove ${item.displayValue}"
+            @click=${(e: Event) => this.#onRemoveTag(e, item.value)}>
+            <uui-icon
+              name="remove"
+              .fallback=${iconRemove.strings[0]}></uui-icon>
+          </uui-button>
+        </uui-tag>`,
+    )}`;
   };
 
   readonly #renderDropdown = () => {
@@ -581,26 +580,18 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
         max-height: unset;
       }
 
-      #selected-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-        padding: 4px;
+      :host([multiple]) #combobox-input {
+        --uui-input-height: auto;
+        min-height: var(--uui-size-11);
       }
-
-      #selected-tags uui-tag {
+      :host([multiple]) uui-tag {
         display: inline-flex;
         align-items: center;
         gap: 2px;
       }
 
-      #selected-tags uui-button {
+      :host([multiple]) uui-tag uui-button {
         font-size: 10px;
-      }
-
-      :host([multiple]) #combobox-input {
-        --uui-input-height: auto;
-        min-height: var(--uui-size-11);
       }
     `,
   ];
