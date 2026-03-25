@@ -3,12 +3,13 @@ import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 
 const componentEntries = Object.fromEntries(
-  (globSync('src/components/*/*.ts') as string[])
-    .filter(f => {
+  [
+    'src/components/index.ts',
+    ...(globSync('src/components/*/*.ts') as string[]).filter(f => {
       const parts = f.split('/');
       return parts.at(-1)!.replace('.ts', '') === parts.at(-2)!;
-    })
-    .map(f => [f.replace(/^src\//, '').replace(/\.ts$/, ''), f]),
+    }),
+  ].map(f => [f.replace(/^src\//, '').replace(/\.ts$/, ''), f]),
 );
 
 const isCI = process.env.CI === 'true';
