@@ -38,6 +38,7 @@ export default defineConfig({
     },
     rolldownOptions: {
       external: [/^lit/, /^culori/],
+      treeshake: { moduleSideEffects: true },
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
