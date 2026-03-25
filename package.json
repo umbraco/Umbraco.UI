@@ -20,6 +20,7 @@
   "sideEffects": [
     "!dist/components/**/*.element.js",
     "!dist/internal/index.js",
+    "!dist/styles/index.js",
     "dist/**/*.js"
   ],
   "customElements": "custom-elements.json",
