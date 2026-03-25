@@ -91,7 +91,7 @@
     "@eslint/js": "10.0.1",
     "@lerna-lite/cli": "4.11.3",
     "@lerna-lite/publish": "4.11.3",
-    "@lerna-lite/version": "4.11.3",
+    "@lerna-lite/version": "4.11.5",
     "@storybook/addon-a11y": "^10.2.15",
     "@storybook/addon-docs": "^10.2.15",
     "@storybook/addon-links": "^10.2.15",
