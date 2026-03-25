@@ -163,14 +163,17 @@ export const UUIFormControlMixin = <
       defaultValue as unknown as DefaultValueType;
     #valueOnFocus: ValueType | DefaultValueType =
       undefined as unknown as DefaultValueType;
-    protected _internals: ElementInternals;
+    protected _internals!: ElementInternals;
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
     readonly #formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
-      this._internals = this.attachInternals();
+      // LabelMixin may have already called attachInternals() — reuse it if so
+      if (!this._internals) {
+        this._internals = this.attachInternals();
+      }
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
@@ -394,6 +397,8 @@ export const UUIFormControlMixin = <
 
       // https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#valid
       this.#validity.valid = !hasError;
+
+      this._internals.ariaInvalid = hasError && !this.pristine ? 'true' : null;
 
       // Transfer the new validityState to the ElementInternals. [NL]
       this._internals.setValidity(

@@ -2,11 +2,9 @@ import {
   UUIFormControlWithBasicsMixin,
   LabelMixin,
 } from '../../internal/mixins/index.js';
-import type { TemplateResult } from 'lit';
-import { css, html, LitElement } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-
 import { UUIBooleanInputEvent } from './UUIBooleanInputEvent.js';
 
 type LabelPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -98,15 +96,17 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   @query('#input')
   protected readonly _input!: HTMLInputElement;
 
-  private readonly inputRole: 'checkbox' | 'switch';
+  private _inputRole: 'checkbox' | 'switch' = 'checkbox';
 
   constructor(inputRole: 'checkbox' | 'switch' = 'checkbox') {
     super();
     if (this._value === '') {
       this._value = 'on';
     }
-    this.inputRole = inputRole;
+    this._inputRole = inputRole;
+    this._internals.role = inputRole;
     this.addEventListener('keydown', this.#onKeyDown);
+    this.tabIndex = 0;
   }
 
   protected getFormElement(): HTMLInputElement {
@@ -116,6 +116,9 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
   #onKeyDown(e: KeyboardEvent): void {
     if (e.key == 'Enter') {
       this.submit();
+    } else if (e.key === ' ' && !this.disabled && !this.readonly) {
+      e.preventDefault();
+      this._input.click();
     }
   }
 
@@ -154,6 +157,21 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
    * @abstract
    * @method
    */
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    this._internals.ariaChecked = this.checked ? 'true' : 'false';
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
+    if (this._input) {
+      if (!this.validity.valid && !this.pristine) {
+        this._input.setAttribute('aria-invalid', 'true');
+      } else {
+        this._input.removeAttribute('aria-invalid');
+      }
+    }
+  }
+
   protected abstract renderCheckbox(): TemplateResult;
 
   render() {
@@ -162,18 +180,12 @@ export abstract class UUIBooleanInputElement extends UUIFormControlWithBasicsMix
         <input
           id="input"
           type="checkbox"
+          role=${this._inputRole === 'switch' ? 'switch' : nothing}
+          aria-checked=${this.checked ? 'true' : 'false'}
           @change="${this._onInputChange}"
           .disabled=${this.disabled || this.readonly}
           .checked=${this.checked}
-          .indeterminate=${this.indeterminate}
-          aria-checked="${this.checked ? 'true' : 'false'}"
-          aria-label=${ifDefined(
-            this.getAttribute('aria-label') || this.label || undefined,
-          )}
-          aria-labelledby=${ifDefined(
-            this.getAttribute('aria-labelledby') || undefined,
-          )}
-          role="${this.inputRole}" />
+          .indeterminate=${this.indeterminate} />
         ${this.renderCheckbox()} ${this.renderLabel()}
       </label>
     `;
