@@ -2,6 +2,12 @@ import { globSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 
+// Explicit entry points for every component registration file and the components barrel.
+// Registration files follow the naming convention {name}/{name}.ts (e.g. button/button.ts),
+// which distinguishes them from button.element.ts, button.story.ts, and button.test.ts.
+// These entries are required so Rolldown preserves the exports of each registration file —
+// without them, Rolldown strips re-exports it considers redundant (since the element class is
+// also reachable via button.element.js), breaking the cherry-pick import pattern.
 const componentEntries = Object.fromEntries(
   [
     'src/components/index.ts',
