@@ -1,5 +1,15 @@
+import { globSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
+
+const componentEntries = Object.fromEntries(
+  (globSync('src/components/*/*.ts') as string[])
+    .filter(f => {
+      const parts = f.split('/');
+      return parts.at(-1)!.replace('.ts', '') === parts.at(-2)!;
+    })
+    .map(f => [f.replace(/^src\//, '').replace(/\.ts$/, ''), f]),
+);
 
 const isCI = process.env.CI === 'true';
 const browserInstances = isCI
@@ -16,6 +26,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: 'src/index.ts',
+        ...componentEntries,
         'themes/light': 'src/themes/light.css',
         'themes/dark': 'src/themes/dark.css',
         'themes/high-contrast': 'src/themes/high-contrast.css',

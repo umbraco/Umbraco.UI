@@ -18,12 +18,12 @@
     "./styles/*": "./dist/styles/*"
   },
   "sideEffects": [
-    "dist/components/*/!(*.element).js",
-    "dist/index.js",
-    "dist/internal/version.js",
-    "src/components/*/!(*.element).ts",
-    "src/index.ts",
-    "src/internal/version.ts"
+    "!dist/components/**/*.element.js",
+    "!dist/internal/index.js",
+    "!src/components/**/*.element.ts",
+    "!src/internal/index.ts",
+    "dist/**/*.js",
+    "src/**/*.ts"
   ],
   "customElements": "custom-elements.json",
   "files": [
