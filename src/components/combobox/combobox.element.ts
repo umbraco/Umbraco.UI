@@ -1,5 +1,8 @@
 import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
-import type { UUIComboboxListElement } from '../combobox-list/combobox-list.js';
+import type {
+  UUIComboboxListElement,
+  UUIComboboxListOptionElement,
+} from '../combobox-list/combobox-list.js';
 import { UUIComboboxListEvent } from '../combobox-list/combobox-list.js';
 import { iconRemove } from '../icon-registry-essential/svgs/index.js';
 import type { UUIPopoverContainerElement } from '../popover-container/popover-container.js';
@@ -19,6 +22,7 @@ import '../button/button.js';
 import '../icon/icon.js';
 import '../scroll-container/scroll-container.js';
 import '../popover-container/popover-container.js';
+import '../tag/tag.js';
 
 /**
  * @element uui-combobox
@@ -109,6 +113,15 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   disabled = false;
 
   /**
+   * Enables multiple selection mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  multiple = false;
+
+  /**
    * Removes the expand symbol.
    * @type {boolean}
    * @attr
@@ -162,6 +175,9 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   @state()
   private _isOpen = false;
 
+  @state()
+  private _selectedItems: Array<{ value: string; displayValue: string }> = [];
+
   connectedCallback(): void {
     super.connectedCallback();
 
@@ -197,6 +213,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
     if (list) {
       this.#comboboxList = list;
       this.#comboboxList.for = this;
+      this.#comboboxList.multiple = this.multiple;
       this.#comboboxList.addEventListener(
         UUIComboboxListEvent.CHANGE,
         this.#onChange,
@@ -267,10 +284,24 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   };
 
   readonly #onChange = () => {
-    this.value = this.#comboboxList?.value || '';
-    this.search = this.value ? this.search : '';
+    const list = this.#comboboxList;
+    if (!list) return;
 
-    this.#onClose();
+    if (list.multiple) {
+      this._selectedItems = list.selectedValues.map((val, i) => ({
+        value: val,
+        displayValue: list.selectedDisplayValues[i] || val,
+      }));
+      this.value = list.selectedValues.join(',');
+
+      this.search = '';
+      this._input.value = '';
+      this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
+    } else {
+      this.value = list.value || '';
+      this.search = this.value ? this.search : '';
+      this.#onClose();
+    }
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
   };
 
@@ -296,6 +327,16 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   };
 
   readonly #onKeyDown = (e: KeyboardEvent) => {
+    if (
+      e.code === 'Backspace' &&
+      this.multiple &&
+      this._selectedItems.length > 0 &&
+      this.search === ''
+    ) {
+      const lastItem = this._selectedItems[this._selectedItems.length - 1];
+      this.#onRemoveTag(e, lastItem.value);
+      return;
+    }
     if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // Prevent form submission when combobox is closed
       e.stopImmediatePropagation(); // Don't let list handle Enter when closed
@@ -320,18 +361,44 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   readonly #onClear = (e: any) => {
     if (e.key && e.key !== 'Enter') return;
 
-    e.preventDefault(); // Prevent form submission from clear button
-    e.stopImmediatePropagation(); // Don't let list handle Enter after clearing
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const list = this.#comboboxList;
+    if (list?.multiple) {
+      // Deselect all options
+      for (const el of list.querySelectorAll<UUIComboboxListOptionElement>(
+        'uui-combobox-list-option[selected]',
+      )) {
+        el.selected = false;
+      }
+      list.resetSelection();
+      this._selectedItems = [];
+    }
 
     this.value = '';
     this.search = '';
-    // Reset input(search-input) value:
     this._input.value = this._displayValue;
 
     this._input.focus();
 
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.SEARCH));
     this.dispatchEvent(new UUIComboboxEvent(UUIComboboxEvent.CHANGE));
+  };
+
+  readonly #onRemoveTag = (e: Event, value: string) => {
+    e.stopPropagation(); // Don't let this trigger the input click/toggle
+
+    const list = this.#comboboxList;
+    if (!list) return;
+
+    const options = list.querySelectorAll('uui-combobox-list-option');
+    for (const option of options) {
+      if (option.value === value && option.selected) {
+        option.click(); // Triggers SelectableMixin's toggle → fires DESELECTED → list updates arrays
+        break;
+      }
+    }
   };
 
   readonly #renderInput = () => {
@@ -350,8 +417,8 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
       @input=${this.#onInput}
       @keydown=${this.#onKeyDown}>
       <slot name="input-prepend" slot="prepend"></slot>
-      ${this.#renderClearButton()}
-      ${this.hideExpandSymbol
+      ${this.#renderSelectedTags()} ${this.#renderClearButton()}
+      ${this.hideExpandSymbol || this.multiple
         ? nothing
         : html`<div id="expand-symbol-wrapper" slot="append">
             <uui-symbol-expand .open=${this._isOpen}></uui-symbol-expand>
@@ -363,6 +430,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
   readonly #renderClearButton = () => {
     if (this.disabled) return nothing;
     if (this.readonly) return nothing;
+    if (this.multiple) return nothing;
 
     return html`<uui-button
       id="clear-button"
@@ -372,10 +440,33 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
       slot="append"
       compact
       style="height: 100%;"
-      tabindex=${this.value || this.search ? '' : '-1'}
-      class=${this.value || this.search ? 'visible' : ''}>
+      tabindex=${this.value || this.search || this._selectedItems.length > 0
+        ? ''
+        : '-1'}
+      class=${this.value || this.search || this._selectedItems.length > 0
+        ? 'visible'
+        : ''}>
       <uui-icon name="remove" .fallback=${iconRemove.strings[0]}></uui-icon>
     </uui-button>`;
+  };
+
+  readonly #renderSelectedTags = () => {
+    if (this._selectedItems.length === 0) return nothing;
+
+    return html` ${this._selectedItems.map(
+      item =>
+        html`<uui-tag look="secondary">
+          ${item.displayValue}
+          <uui-button
+            compact
+            label="Remove ${item.displayValue}"
+            @click=${(e: Event) => this.#onRemoveTag(e, item.value)}>
+            <uui-icon
+              name="remove"
+              .fallback=${iconRemove.strings[0]}></uui-icon>
+          </uui-button>
+        </uui-tag>`,
+    )}`;
   };
 
   readonly #renderDropdown = () => {
@@ -487,6 +578,20 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
 
       #phone-wrapper #scroll-container {
         max-height: unset;
+      }
+
+      :host([multiple]) #combobox-input {
+        --uui-input-height: auto;
+        min-height: var(--uui-size-11);
+      }
+      :host([multiple]) uui-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      :host([multiple]) uui-tag uui-button {
+        font-size: 10px;
       }
     `,
   ];
