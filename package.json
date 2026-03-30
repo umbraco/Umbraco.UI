@@ -18,12 +18,10 @@
     "./styles/*": "./dist/styles/*"
   },
   "sideEffects": [
-    "dist/components/*/!(*.element).js",
-    "dist/index.js",
-    "dist/internal/version.js",
-    "src/components/*/!(*.element).ts",
-    "src/index.ts",
-    "src/internal/version.ts"
+    "!dist/components/**/*.element.js",
+    "!dist/internal/index.js",
+    "!dist/styles/index.js",
+    "dist/**/*.js"
   ],
   "customElements": "custom-elements.json",
   "files": [
@@ -65,6 +63,7 @@
     "test:coverage-for": "node scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
     "build": "vite build && tsc -p tsconfig.build.json && npm run analyze",
+    "verify-build": "node scripts/verify-build.js",
     "build:watch": "tsc -p tsconfig.build.json && vite build --watch --emptyOutDir false",
     "clean": "rimraf dist custom-elements.json vscode.html-custom-data.json",
     "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json && web-component-analyzer src/**/*.element.ts --format vscode --outFile vscode.html-custom-data.json",
@@ -100,8 +99,8 @@
     "@types/culori": "^4.0.1",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.1",
-    "@vitest/browser": "^4.0.18",
-    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/browser": "^4.1.0",
+    "@vitest/browser-playwright": "^4.1.0",
     "axe-core": "^4.11.1",
     "chromatic": "^15.2.0",
     "eslint": "10.0.3",
@@ -130,8 +129,8 @@
     "tsc-files": "1.1.4",
     "typescript": "5.9.3",
     "typescript-eslint": "8.56.1",
-    "vite": "7.3.1",
-    "vitest": "^4.0.18",
+    "vite": "^8.0.2",
+    "vitest": "^4.1.0",
     "vitest-browser-lit": "^1.0.1",
     "web-component-analyzer": "2.0.0"
   },

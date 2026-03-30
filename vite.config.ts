@@ -1,5 +1,22 @@
+import { globSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
+
+// Explicit entry points for every component registration file and the components barrel.
+// Registration files follow the naming convention {name}/{name}.ts (e.g. button/button.ts),
+// which distinguishes them from button.element.ts, button.story.ts, and button.test.ts.
+// These entries are required so Rolldown preserves the exports of each registration file —
+// without them, Rolldown strips re-exports it considers redundant (since the element class is
+// also reachable via button.element.js), breaking the cherry-pick import pattern.
+const componentEntries = Object.fromEntries(
+  [
+    'src/components/index.ts',
+    ...(globSync('src/components/*/*.ts') as string[]).filter(f => {
+      const parts = f.split('/');
+      return parts.at(-1)!.replace('.ts', '') === parts.at(-2)!;
+    }),
+  ].map(f => [f.replace(/^src\//, '').replace(/\.ts$/, ''), f]),
+);
 
 const isCI = process.env.CI === 'true';
 const browserInstances = isCI
@@ -16,6 +33,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: 'src/index.ts',
+        ...componentEntries,
         'themes/light': 'src/themes/light.css',
         'themes/dark': 'src/themes/dark.css',
         'themes/high-contrast': 'src/themes/high-contrast.css',
@@ -24,8 +42,9 @@ export default defineConfig({
       },
       formats: ['es'],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [/^lit/, /^culori/],
+      treeshake: { moduleSideEffects: true },
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
