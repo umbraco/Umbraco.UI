@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import {
@@ -112,6 +113,19 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
 
   private container!: HTMLElement;
   private handle!: HTMLElement;
+
+  constructor() {
+    super();
+    this._internals.role = 'slider';
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    this._internals.ariaValueMin = String(Math.round(this.min));
+    this._internals.ariaValueMax = String(Math.round(this.max));
+    this._internals.ariaValueNow = String(Math.round(this.value));
+    this._internals.ariaOrientation = this.vertical ? 'vertical' : 'horizontal';
+  }
 
   willUpdate(changedProperties: Map<string, any>) {
     if (changedProperties.has('type')) {
@@ -274,17 +288,7 @@ export class UUIColorSliderElement extends LabelMixin('label', LitElement) {
     return html`<div
         part="slider"
         id="color-slider"
-        role="slider"
-        aria-label=${ifDefined(
-          this.getAttribute('aria-label') || this.label || undefined,
-        )}
-        aria-labelledby=${ifDefined(
-          this.getAttribute('aria-labelledby') || undefined,
-        )}
-        aria-orientation="${this.vertical ? 'vertical' : 'horizontal'}"
-        aria-valuemin="${Math.round(this.min)}"
-        aria-valuemax="${Math.round(this.max)}"
-        aria-valuenow="${Math.round(this.value)}"
+        role="presentation"
         @click=${this.handleClick}
         @mousedown=${this.handleDrag}
         @touchstart=${this.handleDrag}
