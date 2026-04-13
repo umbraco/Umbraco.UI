@@ -33,3 +33,14 @@ export const Disabled: Story = {
       <uui-combobox-list-option>lemon</uui-combobox-list-option>
     </uui-combobox-list>`,
 };
+
+export const Multiple: Story = {
+  render: args =>
+    html`<uui-combobox-list ${spread(args)} multiple>
+      <uui-combobox-list-option>apple</uui-combobox-list-option>
+      <uui-combobox-list-option>orange</uui-combobox-list-option>
+      <uui-combobox-list-option>lemon</uui-combobox-list-option>
+      <uui-combobox-list-option>banana</uui-combobox-list-option>
+      <uui-combobox-list-option>kiwi</uui-combobox-list-option>
+    </uui-combobox-list>`,
+};

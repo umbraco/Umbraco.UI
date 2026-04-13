@@ -40,6 +40,9 @@ export class UUIComboboxListElement extends LitElement {
   @property({ type: String })
   public displayValue = '';
 
+  @property({ type: Boolean, reflect: true })
+  multiple = false;
+
   private _for?: HTMLElement;
   /**
    * provide another element of which keyboard navigation
@@ -82,6 +85,25 @@ export class UUIComboboxListElement extends LitElement {
 
   private _selectedElement: UUIComboboxListOptionElement | undefined;
 
+  @state()
+  private _selectedValues: string[] = [];
+  private _selectedElements: UUIComboboxListOptionElement[] = [];
+  /**
+   * Array of selected option values. Only relevant when multiple is true.
+   * @type {string[]}
+   */
+  public get selectedValues(): string[] {
+    return this._selectedValues;
+  }
+
+  /**
+   * Array of display values for selected options. Only relevant when multiple is true.
+   * @type {string[]}
+   */
+  public get selectedDisplayValues(): string[] {
+    return this._selectedElements.map(el => el.displayValue || el.value || '');
+  }
+
   connectedCallback(): void {
     super.connectedCallback();
 
@@ -100,15 +122,25 @@ export class UUIComboboxListElement extends LitElement {
   }
 
   private _updateSelection() {
-    this.displayValue = '';
-
-    // Ensure the right items are selected.
-    for (const option of this._options) {
-      if (option.value === this._value) {
-        this.displayValue = option.displayValue || '';
-        option.selected = true;
-      } else {
-        option.selected = false;
+    if (this.multiple) {
+      for (const option of this._options) {
+        if (this._selectedValues.includes(option.value)) {
+          option.selected = true;
+          option.deselectable = true;
+        }
+      }
+      this._selectedElements = this._options.filter(opt =>
+        this._selectedValues.includes(opt.value),
+      );
+    } else {
+      this.displayValue = '';
+      for (const option of this._options) {
+        if (option.value === this._value) {
+          this.displayValue = option.displayValue || '';
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
       }
     }
   }
@@ -116,6 +148,10 @@ export class UUIComboboxListElement extends LitElement {
   private readonly _onSlotChange = () => {
     // Get index from first active, remove active from the rest.
     this.#updateActiveElement();
+
+    for (const option of this._options) {
+      option.multiple = this.multiple;
+    }
 
     this._updateSelection();
     this.dispatchEvent(
@@ -137,26 +173,52 @@ export class UUIComboboxListElement extends LitElement {
   }
 
   private readonly _onSelected = (e: Event) => {
-    if (this._selectedElement) {
-      this._selectedElement.selected = false;
-      this._selectedElement.active = false;
-      this._selectedElement = undefined;
-    }
-    this._selectedElement = e.composedPath()[0] as UUIComboboxListOptionElement;
+    const option = e.composedPath()[0] as UUIComboboxListOptionElement;
 
-    this.value = this._selectedElement.value || '';
-    this.displayValue = this._selectedElement.displayValue || '';
+    if (this.multiple) {
+      // Allow this option to be toggled off on next click
+      option.deselectable = true;
+      // Add to array
+      this._selectedElements.push(option);
+      this._selectedValues = [...this._selectedValues, option.value || ''];
+    } else {
+      // Existing single-select logic
+      if (this._selectedElement) {
+        this._selectedElement.selected = false;
+        this._selectedElement.active = false;
+        this._selectedElement = undefined;
+      }
+      this._selectedElement = option;
+      this.value = option.value || '';
+      this.displayValue = option.displayValue || '';
+    }
 
     this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   };
+
   private readonly _onDeselected = (e: Event) => {
     const el = e.composedPath()[0] as UUIComboboxListOptionElement;
-    if (this._selectedElement === el) {
-      this.value = '';
-      this.displayValue = '';
-      this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
+    if (this.multiple) {
+      // Remove from arrays
+      this._selectedElements = this._selectedElements.filter(opt => opt !== el);
+      this._selectedValues = this._selectedValues.filter(
+        v => v !== (el.value || ''),
+      );
+    } else {
+      // Existing single-select logic
+      if (this._selectedElement === el) {
+        this.value = '';
+        this.displayValue = '';
+      }
     }
+
+    this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
   };
+
+  public resetSelection() {
+    this._selectedValues = [];
+    this._selectedElements = [];
+  }
 
   private get _getActiveIndex(): number {
     if (this._activeElementValue === null) return -1;
