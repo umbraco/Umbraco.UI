@@ -1,1 +1,13 @@
-export * from './{{> tagnamePartial }}.element';
+import { defineElement } from '../../internal/registration/index.js';
+import { {{className name}} } from './{{name}}.element.js';
+
+defineElement('{{> tagnamePartial }}', {{className name}});
+
+declare global {
+  interface HTMLElementTagNameMap {
+    '{{> tagnamePartial }}': {{className name}};
+  }
+}
+
+export * from './{{name}}.element.js';
+export { {{className name}} as default } from './{{name}}.element.js';

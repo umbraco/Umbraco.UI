@@ -1,4 +1,5 @@
-import { html, LitElement, TemplateResult } from 'lit';
+import type { LitElement, TemplateResult } from 'lit';
+import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -37,9 +38,30 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
     @property({ type: String })
     public label!: string;
 
+    private _ariaObserver: MutationObserver | undefined;
+
+    connectedCallback() {
+      super.connectedCallback();
+      this._ariaObserver = new MutationObserver(() => this.requestUpdate());
+      this._ariaObserver.observe(this, {
+        attributes: true,
+        attributeFilter: ['aria-label', 'aria-labelledby'],
+      });
+    }
+
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      this._ariaObserver?.disconnect();
+      this._ariaObserver = undefined;
+    }
+
     firstUpdated(_changedProperties: Map<string | number | symbol, unknown>) {
       super.firstUpdated(_changedProperties);
-      if (!this.label) {
+      if (
+        !this.label &&
+        !this.getAttribute('aria-label') &&
+        !this.getAttribute('aria-labelledby')
+      ) {
         console.warn(this.tagName + ' needs a `label`', this);
       }
     }
@@ -66,7 +88,7 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
         <slot
           class="label"
           style=${this._labelSlotHasContent ? '' : 'display: none'}
-          name=${labelSlotName ? labelSlotName : ''}
+          name=${labelSlotName || ''}
           @slotchange=${this.labelSlotChanged}></slot>
       `;
     }

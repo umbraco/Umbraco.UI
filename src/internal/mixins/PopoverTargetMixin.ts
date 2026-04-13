@@ -1,6 +1,6 @@
-import { LitElement } from 'lit';
+import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { findAncestorByAttributeValue } from '../utils';
+import { findAncestorByAttributeValue } from '../utils/index.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
@@ -65,7 +65,7 @@ export const PopoverTargetMixin = <T extends Constructor<LitElement>>(
       }
     };
 
-    #popoverListener = (event: any) => {
+    readonly #popoverListener = (event: any) => {
       // Wait for the click event to finish before updating the popover state
       requestAnimationFrame(() => {
         this.#popoverIsOpen = event.detail.newState === 'open';

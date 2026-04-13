@@ -1,0 +1,80 @@
+/* UUI High Contrast Theme — base foundations + high contrast color tokens */
+@import './base.css';
+
+:root {
+  /* ----- STATES -----  */
+  --uui-color-selected: var(--uui-palette-violet-blue);
+  --uui-color-selected-emphasis: var(--uui-palette-violet-blue-light);
+  --uui-color-selected-standalone: var(--uui-palette-violet-blue-dark);
+  --uui-color-selected-contrast: #fff;
+
+  --uui-color-current: var(--uui-palette-spanish-pink);
+  --uui-color-current-emphasis: var(--uui-palette-spanish-pink-light);
+  --uui-color-current-standalone: var(--uui-palette-spanish-pink-dark);
+  --uui-color-current-contrast: var(--uui-palette-space-cadet);
+
+  /* ----- UNIVERSAL -----  */
+  --uui-color-header-surface: var(--uui-palette-space-cadet);
+  --uui-color-header-contrast: #fff;
+  --uui-color-header-contrast-emphasis: #fff;
+
+  --uui-color-focus: var(--uui-palette-malibu);
+
+  --uui-color-disabled: var(--uui-palette-sand);
+  --uui-color-disabled-standalone: var(--uui-palette-sand-dark);
+  --uui-color-disabled-contrast: var(--uui-palette-grey);
+
+  /* ----- SURFACE -----  */
+  --uui-color-surface: #fff;
+  --uui-color-surface-alt: #fff;
+  --uui-color-surface-emphasis: #dadada;
+
+  --uui-color-background: #fff;
+
+  --uui-color-text: var(--uui-palette-black);
+  --uui-color-text-alt: var(--uui-palette-dune-black);
+
+  --uui-color-interactive: var(--uui-palette-space-cadet);
+  --uui-color-interactive-emphasis: var(--uui-palette-violet-blue);
+
+  --uui-color-border: #000;
+  --uui-color-border-standalone: #000;
+  --uui-color-border-emphasis: #000;
+
+  --uui-color-divider: #000;
+  --uui-color-divider-standalone: #000;
+  --uui-color-divider-emphasis: #000;
+
+  /* ----- COLORS -----  */
+  --uui-color-default: var(--uui-palette-space-cadet);
+  --uui-color-default-emphasis: var(--uui-palette-violet-blue);
+  --uui-color-default-standalone: var(--uui-palette-space-cadet-dark);
+  --uui-color-default-contrast: #fff;
+
+  --uui-color-warning: #ffd621;
+  --uui-color-warning-emphasis: #ffdc41;
+  --uui-color-warning-standalone: #ffdd43;
+  --uui-color-warning-contrast: #000;
+
+  --uui-color-danger: #c60239;
+  --uui-color-danger-emphasis: #da114a;
+  --uui-color-danger-standalone: #d0003b;
+  --uui-color-danger-contrast: white;
+
+  --uui-color-invalid: #c60239;
+  --uui-color-invalid-emphasis: #da114a;
+  --uui-color-invalid-standalone: #d0003b;
+  --uui-color-invalid-contrast: white;
+
+  --uui-color-positive: #0d8844;
+  --uui-color-positive-emphasis: #159c52;
+  --uui-color-positive-standalone: #1cae5e;
+  --uui-color-positive-contrast: #fff;
+
+  /* ----- SHADOWS -----  */
+  --uui-shadow-depth-1: 0 0 0px 1px #000;
+  --uui-shadow-depth-2: 0 0 0px 1px #000;
+  --uui-shadow-depth-3: 0 0 0px 1px #000;
+  --uui-shadow-depth-4: 0 0 0px 1px #000;
+  --uui-shadow-depth-5: 0 0 0px 1px #000;
+}

@@ -11,10 +11,7 @@ on:
       - 'package-lock.json'
       - '.github/workflows/chromatic.yml'
       - '.storybook/**'
-      - '!packages/uui/**'
-      - 'packages/*/package.json'
-      - 'packages/*/lib/**'
-      - 'packages/*/assets/**'
+      - 'src/**'
     branches-ignore:
       - 'release/*'
       - 'production'

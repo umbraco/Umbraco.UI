@@ -1,3 +1,3 @@
-export * from './UUIEvent';
-export * from './UUIFormControlEvent';
-export * from './UUISelectableEvent';
+export * from './UUIEvent.js';
+export * from './UUIFormControlEvent.js';
+export * from './UUISelectableEvent.js';

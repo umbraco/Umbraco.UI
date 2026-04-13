@@ -1,19 +1,14 @@
 {
   "$schema": "node_modules/@lerna-lite/cli/schemas/lerna-schema.json",
-  "packages": ["packages/*"],
-  "version": "1.17.0",
+  "packages": ["."],
+  "version": "2.0.0-alpha.1",
   "preid": "rc",
+  "preDistTag": "prerelease",
   "exact": true,
   "noPush": true,
   "npmClient": "npm",
-  "useWorkspaces": true,
   "includeMergedTags": true,
   "conventionalCommits": true,
   "forcePublish": true,
-  "command": {
-    "publish": {
-      "verifyAccess": false
-    }
-  },
   "ignoreChanges": ["**/*.story.ts", "**/*.test.ts", "**/CHANGELOG.md"]
 }

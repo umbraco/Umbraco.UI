@@ -1,11 +1,7 @@
 import { html, svg } from 'lit';
 
-import '../components/table/uui-table.element.js';
-import '../components/table/uui-table-head.element.js';
-import '../components/table/uui-table-head-cell.element.js';
-import '../components/table/uui-table-row.element.js';
-import '../components/table/uui-table-cell.element.js';
-import '../components/button/uui-button.element.js';
+import '../components/table/table.js';
+import '../components/button/button.js';
 
 // Import CSS files as raw text so we can parse custom properties at runtime
 import paletteCSS from './custom-properties/palette.css?raw';

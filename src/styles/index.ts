@@ -1,1 +1,1 @@
-export * from './uui-text.styles';
+export * from './uui-text.styles.js';

@@ -15,13 +15,13 @@ npm i @umbraco-ui/uui
 Import the registration of `<uui-button>` via:
 
 ```javascript
-import '@umbraco-ui/uui/components/button/uui-button.element.js';
+import '@umbraco-ui/uui/components/button/button.js';
 ```
 
 When looking to leverage the `UUIButtonElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
-import { UUIButtonElement } from '@umbraco-ui/uui/components/button/uui-button.element.js';
+import { UUIButtonElement } from '@umbraco-ui/uui/components/button/button.js';
 ```
 
 Alternatively, if you have already imported the full library, the element will be registered automatically:

@@ -1,21 +1,54 @@
+/// <reference types="vite/client" />
 import {
   setCustomElementsManifest,
   type Preview,
 } from '@storybook/web-components-vite';
-import '../src/themes/light.css';
-import '../src/styles/uui-font.css';
-import '../src/styles/uui-text.css';
+import lightCss from '../src/themes/light.css?inline';
+import darkCss from '../src/themes/dark.css?inline';
+import highContrastCss from '../src/themes/high-contrast.css?inline';
 import customElements from '../custom-elements.json';
 import { html } from 'lit';
 
-import '../src/components/icon-registry-essential/index.js';
+import '../src/components/icon-registry-essential/icon-registry-essential.js';
+
+const themes: Record<string, string> = {
+  light: lightCss,
+  dark: darkCss,
+  'high-contrast': highContrastCss,
+};
+
+let themeStyleEl: HTMLStyleElement | null = null;
+
+function applyTheme(theme: string) {
+  if (!themeStyleEl) {
+    themeStyleEl = document.createElement('style');
+    themeStyleEl.id = 'uui-theme';
+    document.head.appendChild(themeStyleEl);
+  }
+  themeStyleEl.textContent = themes[theme] ?? lightCss;
+}
+
+export const globalTypes = {
+  theme: {
+    name: 'Theme',
+    defaultValue: 'light',
+    toolbar: {
+      icon: 'paintbrush',
+      items: [
+        { value: 'light', title: 'Light' },
+        { value: 'dark', title: 'Dark' },
+        { value: 'high-contrast', title: 'High Contrast' },
+      ],
+      dynamicTitle: true,
+    },
+  },
+};
 
 const preview: Preview = {
   parameters: {
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
+    options: {
+      storySort: {
+        order: ['Introduction', '*', 'Examples'],
       },
     },
     docs: {
@@ -28,6 +61,10 @@ const preview: Preview = {
   tags: ['autodocs'],
 
   decorators: [
+    (story, context) => {
+      applyTheme(context.globals['theme'] ?? 'light');
+      return story();
+    },
     story => {
       return html`<uui-icon-registry-essential class="uui-font uui-text"
         >${story()}</uui-icon-registry-essential

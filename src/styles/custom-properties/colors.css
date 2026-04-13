@@ -1,6 +1,4 @@
 :root {
-  font-family: 'Roboto', sans-serif;
-
   /* ----- STATES -----  */
   --uui-color-selected: var(--uui-palette-violet-blue);
   --uui-color-selected-emphasis: var(--uui-palette-violet-blue-light);

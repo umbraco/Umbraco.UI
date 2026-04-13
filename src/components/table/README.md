@@ -1,36 +1,40 @@
 # uui-table
 
-[![npm](https://img.shields.io/npm/v/@umbraco-ui/uui-table?logoColor=%231B264F)](https://www.npmjs.com/package/@umbraco-ui/uui-table)
+Table component with semantic row, cell, head, and column elements.
 
 ### See it in action
 
-Preview the component on [Storybook](hhttps://uui.umbraco.com/?path=/docs/uui-table--docs)
+Preview the component on [Storybook](https://uui.umbraco.com/?path=/docs/uui-table--docs)
 
 ## Installation
 
-### ES imports
-
 ```zsh
-npm i @umbraco-ui/uui-table
+npm i @umbraco-ui/uui
 ```
 
-Import the registration of `<uui-table>`, `<uui-table-row>`, `<uui-table-cell>`, `<uui-table-head>`, `<uui-table-head-cell>`, `<uui-table-column>` via:
+Import the registration of `<uui-table-cell>`, `<uui-table-column>`, `<uui-table-head-cell>`, `<uui-table-head>`, `<uui-table-row>` and `<uui-table>` via:
 
 ```javascript
-import '@umbraco-ui/uui-table';
+import '@umbraco-ui/uui/components/table/table.js';
 ```
 
-When looking to leverage the `UUITableElement`, `UUITableRowElement`, `UUITableCellElement`, `UUITableHeadElement`, `UUITableHeadCellElement`, `UUITableColumnElement` base class as a type and/or for extension purposes, do so via:
+When looking to leverage the `UUITableCellElement`, `UUITableColumnElement`, `UUITableHeadCellElement`, `UUITableHeadElement`, `UUITableRowElement` and `UUITableElement` base class as a type and/or for extension purposes, do so via:
 
 ```javascript
 import {
-  UUITableElement,
-  UUITableRowElement,
   UUITableCellElement,
-  UUITableHeadElement,
-  UUITableHeadCellElement,
   UUITableColumnElement,
-} from '@umbraco-ui/uui-table';
+  UUITableHeadCellElement,
+  UUITableHeadElement,
+  UUITableRowElement,
+  UUITableElement,
+} from '@umbraco-ui/uui/components/table/table.js';
+```
+
+Alternatively, if you have already imported the full library, the element will be registered automatically:
+
+```javascript
+import '@umbraco-ui/uui';
 ```
 
 ## Usage

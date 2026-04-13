@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
+import { UUITextStyles } from '../../../src/styles';
 
 @customElement('uui-reset-password-example')
 export class UUIResetPasswordExample extends LitElement {
