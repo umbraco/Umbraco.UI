@@ -67,6 +67,37 @@ describe('UuiTab', () => {
     });
   });
 
+  describe('ElementInternals ARIA', () => {
+    it('host has role "tab" via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('tab');
+    });
+
+    it('inner button is hidden from accessibility tree', () => {
+      const btn = element.shadowRoot!.querySelector('button')!;
+      expect(btn.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('exposes accessible name via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaLabel).toBe('My label');
+    });
+
+    it('role switches to "link" when href is set', async () => {
+      element.href = 'https://umbraco.com';
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('link');
+    });
+
+    it('inner anchor is hidden from accessibility tree when href is set', async () => {
+      element.href = 'https://umbraco.com';
+      await element.updateComplete;
+      const anchor = element.shadowRoot!.querySelector('a')!;
+      expect(anchor.getAttribute('aria-hidden')).toBe('true');
+    });
+  });
+
   describe('click', () => {
     let wasClicked: boolean;
 
@@ -94,9 +125,11 @@ describe('UuiTab', () => {
     let element: UUITabElement;
 
     beforeEach(async () => {
-      element = render(html`<uui-tab
+      element = render(
+        html`<uui-tab
           label="menuitem"
-          href="https://www.umbraco.com"></uui-tab>`).container.querySelector('uui-tab')!;
+          href="https://www.umbraco.com"></uui-tab>`,
+      ).container.querySelector('uui-tab')!;
 
       await element.updateComplete;
       anchorElement = element.shadowRoot!.querySelector(
@@ -122,9 +155,7 @@ describe('UuiTab', () => {
       element.target = '_blank';
       await element.updateComplete;
       expect(anchorElement.getAttribute('target')).toBe('_blank');
-      expect(anchorElement.getAttribute('rel')).toBe(
-        'noopener noreferrer',
-      );
+      expect(anchorElement.getAttribute('rel')).toBe('noopener noreferrer');
     });
 
     it('when rel is applied to anchor tag.', async () => {

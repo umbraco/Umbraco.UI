@@ -33,8 +33,9 @@ describe('UUIToggle', () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
-  it('native input has a correct role', () => {
-    expect(input.getAttribute('role')).toBe('switch');
+  it('host has role "switch" via ElementInternals', () => {
+    const internals = (element as any)._internals as ElementInternals;
+    expect(internals.role).toBe('switch');
   });
 
   describe('properties', () => {
