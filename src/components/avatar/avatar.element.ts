@@ -111,6 +111,7 @@ export class UUIAvatarElement extends LitElement {
 
   private renderImage() {
     return html` <img
+      decoding="async"
       src="${this.imgSrc}"
       srcset="${this.imgSrcset}"
       alt="${this._initials}"
