@@ -134,13 +134,14 @@ export class UUIModalContainerElement extends LitElement {
 
         //TODO: is there a better way to get the width of the sidebar?
         const currentWidth =
-          sidebar.shadowRoot?.querySelector('dialog')?.getBoundingClientRect()
-            .width ?? 0;
+          sidebar.shadowRoot
+            ?.querySelector('[popover]')
+            ?.getBoundingClientRect().width ?? 0;
 
         //TODO: is there a better way to get the width of the sidebar?
         const nextWidth =
           nextSidebar?.shadowRoot
-            ?.querySelector('dialog')
+            ?.querySelector('[popover]')
             ?.getBoundingClientRect().width ?? 0;
         const distance =
           currentWidth + sidebarOffset + this.sidebarGap - nextWidth;
