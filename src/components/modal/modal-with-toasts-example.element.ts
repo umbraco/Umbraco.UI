@@ -24,7 +24,7 @@ export class UUIModalWithToastsExampleElement extends LitElement {
   private _dialogCounter = 0;
   private _messageCounter = 0;
 
-  private _onModalOpen = () => {
+  private readonly _onModalOpen = () => {
     const panel = this.shadowRoot?.getElementById('ai-chat-panel');
     if (panel?.matches(':popover-open')) {
       panel.hidePopover();

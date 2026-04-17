@@ -100,13 +100,13 @@ export class UUIModalElement extends LitElement {
     this.remove();
   }
 
-  private _onKeydown = (e: KeyboardEvent) => {
+  private readonly _onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && this.index === 0) {
       this.close();
     }
   };
 
-  private _onFocusTrap = (e: FocusEvent) => {
+  private readonly _onFocusTrap = (e: FocusEvent) => {
     if (this.index !== 0) return;
     if (!this._popoverElement?.contains(e.target as Node)) {
       this._popoverElement?.focus();
