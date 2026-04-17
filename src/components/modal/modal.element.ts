@@ -139,6 +139,10 @@ export class UUIModalElement extends LitElement {
       }
       :host([index='0']) [popover]::after {
         opacity: 0;
+        pointer-events: none;
+      }
+      :host(:not([index='0'])) [popover]::after {
+        pointer-events: auto;
       }
     `,
   ];

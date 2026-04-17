@@ -170,5 +170,9 @@ export class UUIModalContainerElement extends LitElement {
     :host([backdrop])::after {
       opacity: 1;
     }
+    :host([backdrop])::after {
+      opacity: 1;
+      pointer-events: auto;
+    }
   `;
 }
