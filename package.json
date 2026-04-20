@@ -103,7 +103,7 @@
     "@vitest/browser": "^4.0.18",
     "@vitest/browser-playwright": "^4.0.18",
     "axe-core": "^4.11.1",
-    "chromatic": "^15.2.0",
+    "chromatic": "^16.3.0",
     "eslint": "10.0.3",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "^2.32.0",
