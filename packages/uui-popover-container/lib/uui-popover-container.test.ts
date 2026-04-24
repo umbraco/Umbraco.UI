@@ -157,4 +157,80 @@ describe('UUIPopoverContainerElement', () => {
       expect(scrollParents.length).to.equal(uniqueParents.length);
     });
   });
+
+  describe('available height CSS custom property', () => {
+    it('should set --uui-popover-container-available-height when opened', async () => {
+      const testContainer = await fixture(html`
+        <main>
+          <uui-button
+            id="trigger-button"
+            popovertarget="test-popover"
+            label="Open"></uui-button>
+          <uui-popover-container
+            id="test-popover"
+            popover
+            placement="bottom-start">
+            <div>Content</div>
+          </uui-popover-container>
+        </main>
+      `);
+
+      const popover = testContainer.querySelector(
+        '#test-popover',
+      ) as UUIPopoverContainerElement;
+      const button = testContainer.querySelector('#trigger-button');
+
+      // Before opening, the property should not be set
+      expect(
+        popover.style.getPropertyValue(
+          '--uui-popover-container-available-height',
+        ),
+      ).to.equal('');
+
+      // Open the popover
+      button?.click();
+      await aTimeout(100);
+
+      // After opening, the property should be set to a pixel value
+      const value = popover.style.getPropertyValue(
+        '--uui-popover-container-available-height',
+      );
+      expect(value).to.match(/^\d+(\.\d+)?px$/);
+
+      // The value should be a positive number
+      const numericValue = parseFloat(value);
+      expect(numericValue).to.be.greaterThan(0);
+    });
+
+    it('should update --uui-popover-container-available-height with margin', async () => {
+      const testContainer = await fixture(html`
+        <main>
+          <uui-button
+            id="trigger-button"
+            popovertarget="test-popover"
+            label="Open"></uui-button>
+          <uui-popover-container
+            id="test-popover"
+            popover
+            placement="bottom-start"
+            margin="16">
+            <div>Content</div>
+          </uui-popover-container>
+        </main>
+      `);
+
+      const popover = testContainer.querySelector(
+        '#test-popover',
+      ) as UUIPopoverContainerElement;
+      const button = testContainer.querySelector('#trigger-button');
+
+      button?.click();
+      await aTimeout(100);
+
+      const value = popover.style.getPropertyValue(
+        '--uui-popover-container-available-height',
+      );
+      expect(value).to.match(/^\d+(\.\d+)?px$/);
+    });
+  });
 });

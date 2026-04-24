@@ -1,4 +1,6 @@
 import '.';
+import '@umbraco-ui/uui-menu-item/lib';
+import '@umbraco-ui/uui-symbol-expand/lib';
 import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
@@ -189,5 +191,46 @@ export const InsideShadowDOMScrollContainer: Story = {
       </div>
       <div style="height: 400px"></div>
     </div>
+  `,
+};
+
+export const ScrollableDropdown: Story = {
+  args: {
+    placement: 'bottom-start',
+    margin: 8,
+  },
+  render: args => html`
+    <p>
+      This story demonstrates using
+      <code>--uui-popover-container-available-height</code> to constrain a
+      scroll container inside the popover to the available viewport space.
+    </p>
+    <uui-button
+      id="popover-button"
+      popovertarget="popover-container"
+      look="primary"
+      label="Create">
+      Create
+      <uui-symbol-expand></uui-symbol-expand>
+    </uui-button>
+    <uui-popover-container
+      id="popover-container"
+      popover
+      placement=${args.placement}
+      margin=${args.margin}>
+      <div
+        style="background-color: var(--uui-color-surface); box-shadow: var(--uui-shadow-depth-4); border-radius: var(--uui-border-radius); width: 250px;">
+        <div
+          style="max-height: var(--uui-popover-container-available-height, 70vh); overflow-y: auto;">
+          ${Array.from(
+            { length: 30 },
+            (_, i) => html`
+              <uui-menu-item label=${'Document Type ' + (i + 1)}>
+              </uui-menu-item>
+            `,
+          )}
+        </div>
+      </div>
+    </uui-popover-container>
   `,
 };
