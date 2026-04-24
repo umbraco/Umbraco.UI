@@ -20,6 +20,7 @@ export type PopoverContainerPlacement =
 /**
  * @element uui-popover-container
  * @attr popover - Indicates that the element is a popover container
+ * @cssprop --uui-popover-container-available-height - The available height from the target element to the viewport edge in the popover's growth direction. Updated each time the popover is positioned. Useful for constraining scroll containers inside the popover.
  */
 @defineElement('uui-popover-container')
 export class UUIPopoverContainerElement extends LitElement {
@@ -289,6 +290,19 @@ export class UUIPopoverContainerElement extends LitElement {
       // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
       this.hidePopover();
     }
+
+    // Calculate the available height from the final position to the edge of
+    // the viewport (in the direction the popover grows) and expose it as a
+    // CSS custom property so slotted content can constrain scroll containers.
+    const availableHeight = isTopPlacement
+      ? targetRect.top - this.margin
+      : isBottomPlacement
+        ? screenHeight - (targetRect.top + targetRect.height) - this.margin
+        : screenHeight;
+    this.style.setProperty(
+      '--uui-popover-container-available-height',
+      `${Math.max(availableHeight, 0)}px`,
+    );
 
     // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
