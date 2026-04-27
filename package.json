@@ -90,7 +90,7 @@
     "@eslint/compat": "2.0.2",
     "@eslint/js": "10.0.1",
     "@lerna-lite/cli": "4.11.3",
-    "@lerna-lite/publish": "4.11.3",
+    "@lerna-lite/publish": "5.2.0",
     "@lerna-lite/version": "4.11.3",
     "@storybook/addon-a11y": "^10.2.15",
     "@storybook/addon-docs": "^10.2.15",
