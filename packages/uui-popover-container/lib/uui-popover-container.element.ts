@@ -143,6 +143,7 @@ export class UUIPopoverContainerElement extends LitElement {
       });
     } else {
       this.#stopScrollListener();
+      this.style.removeProperty('--uui-popover-container-available-height');
     }
   };
 
@@ -289,16 +290,17 @@ export class UUIPopoverContainerElement extends LitElement {
     if (isCompletelyOutsideScreen) {
       // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
       this.hidePopover();
+      return;
     }
 
     // Calculate the available height from the final position to the edge of
     // the viewport (in the direction the popover grows) and expose it as a
     // CSS custom property so slotted content can constrain scroll containers.
     const availableHeight = isTopPlacement
-      ? targetRect.top - this.margin
+      ? targetRect.top - 2 * this.margin
       : isBottomPlacement
-        ? screenHeight - (targetRect.top + targetRect.height) - this.margin
-        : screenHeight;
+        ? screenHeight - (targetRect.top + targetRect.height) - 2 * this.margin
+        : screenHeight - targetRect.top - this.margin;
     this.style.setProperty(
       '--uui-popover-container-available-height',
       `${Math.max(availableHeight, 0)}px`,

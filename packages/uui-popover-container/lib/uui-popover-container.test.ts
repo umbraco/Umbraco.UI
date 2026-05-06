@@ -202,35 +202,55 @@ describe('UUIPopoverContainerElement', () => {
       expect(numericValue).to.be.greaterThan(0);
     });
 
-    it('should update --uui-popover-container-available-height with margin', async () => {
-      const testContainer = await fixture(html`
-        <main>
+    it('should subtract margin from --uui-popover-container-available-height', async () => {
+      const margin = 16;
+
+      const container = await fixture(html`
+        <main style="position:relative; height:500px;">
           <uui-button
-            id="trigger-button"
-            popovertarget="test-popover"
-            label="Open"></uui-button>
+            id="btn1"
+            popovertarget="p1"
+            label="Open"
+            style="position:absolute; top:50px; left:0;"></uui-button>
           <uui-popover-container
-            id="test-popover"
+            id="p1"
             popover
             placement="bottom-start"
-            margin="16">
+            margin="0">
+            <div>Content</div>
+          </uui-popover-container>
+          <uui-button
+            id="btn2"
+            popovertarget="p2"
+            label="Open"
+            style="position:absolute; top:50px; left:150px;"></uui-button>
+          <uui-popover-container
+            id="p2"
+            popover
+            placement="bottom-start"
+            margin="${margin}">
             <div>Content</div>
           </uui-popover-container>
         </main>
       `);
 
-      const popover = testContainer.querySelector(
-        '#test-popover',
-      ) as UUIPopoverContainerElement;
-      const button = testContainer.querySelector('#trigger-button');
-
-      button?.click();
+      container.querySelector('#btn1')?.click();
       await aTimeout(100);
-
-      const value = popover.style.getPropertyValue(
-        '--uui-popover-container-available-height',
+      const withoutMargin = parseFloat(
+        (
+          container.querySelector('#p1') as UUIPopoverContainerElement
+        ).style.getPropertyValue('--uui-popover-container-available-height'),
       );
-      expect(value).to.match(/^\d+(\.\d+)?px$/);
+
+      container.querySelector('#btn2')?.click();
+      await aTimeout(100);
+      const withMargin = parseFloat(
+        (
+          container.querySelector('#p2') as UUIPopoverContainerElement
+        ).style.getPropertyValue('--uui-popover-container-available-height'),
+      );
+
+      expect(withMargin).to.equal(withoutMargin - 2 * margin);
     });
   });
 });
