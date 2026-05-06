@@ -235,14 +235,6 @@ export class UUIComboboxListElement extends LitElement {
         break;
       }
 
-      //Space key
-      case 'Space': {
-        e.preventDefault();
-        e.stopPropagation();
-        this._getActiveElement?.click();
-        break;
-      }
-
       case 'End': {
         e.preventDefault();
         this._goToIndex(this._options.length - 1);
