@@ -301,6 +301,7 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
     if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // TODO: could we avoid this.
       e.stopImmediatePropagation(); // TODO: could we avoid this.
+      this.#onOpen();
     }
 
     if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
