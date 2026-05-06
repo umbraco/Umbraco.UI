@@ -299,7 +299,8 @@ export class UUIPopoverContainerElement extends LitElement {
     const availableHeight = isTopPlacement
       ? targetRect.top - 2 * this.margin
       : isBottomPlacement
-        ? screenHeight - (targetRect.top + targetRect.height) - 2 * this.margin
+        ? // margin once for the popover's own padding, once for a safe edge buffer
+          screenHeight - (targetRect.top + targetRect.height) - 2 * this.margin
         : screenHeight - targetRect.top - this.margin;
     this.style.setProperty(
       '--uui-popover-container-available-height',
