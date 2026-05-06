@@ -307,13 +307,6 @@ export class UUIComboboxElement extends UUIFormControlMixin(LitElement, '') {
       this.#onOpen();
     }
 
-    if (e.code === 'Space') {
-      if (this._isOpen) return;
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      this.#onOpen();
-    }
-
     if (e.code === 'Escape') {
       this.#onClose();
     }
