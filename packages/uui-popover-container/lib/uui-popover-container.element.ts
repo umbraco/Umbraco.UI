@@ -430,11 +430,15 @@ export class UUIPopoverContainerElement extends LitElement {
         padding: 0;
         background-color: none;
         background: none;
-        overflow: auto;
+        overflow: clip;
         color: var(--uui-color-text);
         box-shadow: var(--uui-shadow-depth-4);
         border-radius: var(--uui-border-radius);
+      }
+      slot {
+        display: block;
         max-height: var(--_available-height, none);
+        overflow-y: auto;
         scrollbar-width: thin;
       }
     `,
