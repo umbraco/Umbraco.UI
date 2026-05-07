@@ -159,7 +159,7 @@ describe('UUIPopoverContainerElement', () => {
   });
 
   describe('available height CSS custom property', () => {
-    it('should set --uui-popover-container-available-height when opened', async () => {
+    it('should set --_available-height when opened', async () => {
       const testContainer = await fixture(html`
         <main>
           <uui-button
@@ -180,29 +180,21 @@ describe('UUIPopoverContainerElement', () => {
       ) as UUIPopoverContainerElement;
       const button = testContainer.querySelector('#trigger-button');
 
-      // Before opening, the property should not be set
-      expect(
-        popover.style.getPropertyValue(
-          '--uui-popover-container-available-height',
-        ),
-      ).to.equal('');
+      expect(popover.style.getPropertyValue('--_available-height')).to.equal(
+        '',
+      );
 
-      // Open the popover
       button?.click();
       await aTimeout(100);
 
-      // After opening, the property should be set to a pixel value
-      const value = popover.style.getPropertyValue(
-        '--uui-popover-container-available-height',
-      );
+      const value = popover.style.getPropertyValue('--_available-height');
       expect(value).to.match(/^\d+(\.\d+)?px$/);
 
-      // The value should be a positive number
       const numericValue = parseFloat(value);
       expect(numericValue).to.be.greaterThan(0);
     });
 
-    it('should subtract margin from --uui-popover-container-available-height', async () => {
+    it('should subtract margin from --_available-height', async () => {
       const margin = 16;
 
       const container = await fixture(html`
@@ -239,7 +231,7 @@ describe('UUIPopoverContainerElement', () => {
       const withoutMargin = parseFloat(
         (
           container.querySelector('#p1') as UUIPopoverContainerElement
-        ).style.getPropertyValue('--uui-popover-container-available-height'),
+        ).style.getPropertyValue('--_available-height'),
       );
 
       container.querySelector('#btn2')?.click();
@@ -247,7 +239,7 @@ describe('UUIPopoverContainerElement', () => {
       const withMargin = parseFloat(
         (
           container.querySelector('#p2') as UUIPopoverContainerElement
-        ).style.getPropertyValue('--uui-popover-container-available-height'),
+        ).style.getPropertyValue('--_available-height'),
       );
 
       expect(withMargin).to.equal(withoutMargin - 2 * margin);
