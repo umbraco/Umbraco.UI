@@ -4,12 +4,13 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { UUICardEvent } from './UUICardEvent';
 
 import '@umbraco-ui/uui-checkbox/lib';
+import '@umbraco-ui/uui-symbol-expand/lib';
 
 /**
  *  Card is a Component that provides the basics for a Card component. This can be extended in code to match a certain need.
@@ -68,6 +69,15 @@ export class UUICardElement extends SelectOnlyMixin(
   @property({ type: String })
   public rel?: string;
 
+  /**
+   * Set to true to indicate this item has children.
+   * @type {boolean}
+   * @attr has-children
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'has-children' })
+  hasChildren = false;
+
   // This is deprecated - use href instead
   protected handleOpenClick(e: Event) {
     if (this.disabled) return;
@@ -100,8 +110,15 @@ export class UUICardElement extends SelectOnlyMixin(
   }
 
   protected render() {
-    return html`<slot id="open-part"></slot>
-      <div id="select-border"></div>`;
+    return html`
+      <slot name="icon"></slot> <slot id="open-part"></slot>
+      <div id="select-border"></div>
+      ${this.hasChildren
+        ? html`<uui-symbol-expand
+            id="children-indicator"
+            aria-hidden="true"></uui-symbol-expand>`
+        : nothing}
+    `;
   }
 
   static styles = [
@@ -267,6 +284,22 @@ export class UUICardElement extends SelectOnlyMixin(
       :host(:hover) #select-checkbox,
       #select-checkbox[checked] {
         opacity: 1;
+      }
+
+      #children-indicator {
+        margin-left: auto;
+        align-self: center;
+        opacity: 0.5;
+        padding-right: var(--uui-size-space-3);
+      }
+
+      slot[name='icon'] {
+        display: flex;
+        align-items: center;
+        padding-left: var(--uui-size-space-4);
+      }
+      :host([active]) {
+        background-color: var(--uui-color-current, #f5c1bc);
       }
     `,
   ];

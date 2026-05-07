@@ -4,6 +4,8 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
+import '@umbraco-ui/uui-icon-registry-essential/lib';
+
 const meta: Meta = {
   id: 'uui-card',
   component: 'uui-card',
@@ -49,4 +51,41 @@ export const Selectable: Story = {
   args: {
     selectable: true,
   },
+};
+
+export const HasChildren: Story = {
+  args: {
+    hasChildren: true,
+  },
+};
+
+export const TreeView: Story = {
+  render: () => html`
+    <div
+      style="display: flex; flex-direction: column; gap: var(--uui-size-space-3);">
+      <uui-card has-children active>
+        <uui-icon slot="icon" name="document"></uui-icon>
+        <div style="margin: var(--uui-size-space-4)">Item 1</div>
+      </uui-card>
+      <uui-card has-children>
+        <uui-icon slot="icon" name="document"></uui-icon>
+        <div style="margin: var(--uui-size-space-4)">Item 2</div>
+      </uui-card>
+      <uui-card>
+        <uui-icon slot="icon" name="document"></uui-icon>
+        <div style="margin: var(--uui-size-space-4)">Item 3</div>
+      </uui-card>
+      <uui-card>
+        <uui-icon slot="icon" name="document"></uui-icon>
+        <div style="margin: var(--uui-size-space-4)">Item 4</div>
+      </uui-card>
+      <uui-card>
+        <uui-icon slot="icon" name="document"></uui-icon>
+        <div style="margin: var(--uui-size-space-4)">Item 5</div>
+      </uui-card>
+      <uui-card>
+        <div style="margin: var(--uui-size-space-4)">Item 6</div>
+      </uui-card>
+    </div>
+  `,
 };
