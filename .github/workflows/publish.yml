@@ -40,9 +40,6 @@ jobs:
           check-latest: true
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
-      - name: Update npm
-        run: npm install -g npm@latest
-      - run: npm -v
       - run: npm install
 
       - name: Authenticate with Registry
