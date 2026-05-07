@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](/compare/v1.17.2...v1.17.3) (2026-05-07)
+
+### Bug Fixes
+
+- space key no longer triggers selection or opens dropdown (#1372) 471268f, closes #1372
+
 ## [1.17.2](/compare/v1.17.1...v1.17.2) (2026-03-09)
 
 **Note:** Version bump only for package @umbraco-ui/uui-combobox
