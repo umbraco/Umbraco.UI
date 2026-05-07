@@ -19,8 +19,7 @@ export type PopoverContainerPlacement =
 
 /**
  * @element uui-popover-container
- * @attr popover - Indicates that the element is a popover container
- * @cssprop --uui-popover-container-available-height - The available height from the target element to the viewport edge in the popover's growth direction. Updated each time the popover is positioned. Useful for constraining scroll containers inside the popover.
+ * @attr popover - Indicates that the element is a popover containers
  */
 @defineElement('uui-popover-container')
 export class UUIPopoverContainerElement extends LitElement {
@@ -143,7 +142,7 @@ export class UUIPopoverContainerElement extends LitElement {
       });
     } else {
       this.#stopScrollListener();
-      this.style.removeProperty('--uui-popover-container-available-height');
+      this.style.removeProperty('--_available-height');
     }
   };
 
@@ -293,9 +292,7 @@ export class UUIPopoverContainerElement extends LitElement {
       return;
     }
 
-    // Calculate the available height from the final position to the edge of
-    // the viewport (in the direction the popover grows) and expose it as a
-    // CSS custom property so slotted content can constrain scroll containers.
+    // Constrain the slot height to the available space in the popover's growth direction.
     const availableHeight = isTopPlacement
       ? targetRect.top - 2 * this.margin
       : isBottomPlacement
@@ -303,7 +300,7 @@ export class UUIPopoverContainerElement extends LitElement {
           screenHeight - (targetRect.top + targetRect.height) - 2 * this.margin
         : screenHeight - targetRect.top - this.margin;
     this.style.setProperty(
-      '--uui-popover-container-available-height',
+      '--_available-height',
       `${Math.max(availableHeight, 0)}px`,
     );
 
@@ -430,12 +427,15 @@ export class UUIPopoverContainerElement extends LitElement {
         width: fit-content;
         height: fit-content;
         border: none;
-        border-radius: 0;
         padding: 0;
         background-color: none;
         background: none;
-        overflow: visible;
+        overflow: auto;
         color: var(--uui-color-text);
+        box-shadow: var(--uui-shadow-depth-4);
+        border-radius: var(--uui-border-radius);
+        max-height: var(--_available-height, none);
+        scrollbar-width: thin;
       }
     `,
   ];

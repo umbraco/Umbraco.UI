@@ -201,9 +201,8 @@ export const ScrollableDropdown: Story = {
   },
   render: args => html`
     <p>
-      This story demonstrates using
-      <code>--uui-popover-container-available-height</code> to constrain a
-      scroll container inside the popover to the available viewport space.
+      When the popover content exceeds the available viewport space, it
+      automatically becomes scrollable. No extra CSS needed.
     </p>
     <uui-button
       id="popover-button"
@@ -218,18 +217,13 @@ export const ScrollableDropdown: Story = {
       popover
       placement=${args.placement}
       margin=${args.margin}>
-      <div
-        style="background-color: var(--uui-color-surface); box-shadow: var(--uui-shadow-depth-4); border-radius: var(--uui-border-radius); width: 250px;">
-        <div
-          style="max-height: var(--uui-popover-container-available-height, 70vh); overflow-y: auto;">
-          ${Array.from(
-            { length: 30 },
-            (_, i) => html`
-              <uui-menu-item label=${'Document Type ' + (i + 1)}>
-              </uui-menu-item>
-            `,
-          )}
-        </div>
+      <div style="background-color: var(--uui-color-surface); width: 250px;">
+        ${Array.from(
+          { length: 30 },
+          (_, i) =>
+            html`<uui-menu-item
+              label=${'Document Type ' + (i + 1)}></uui-menu-item>`,
+        )}
       </div>
     </uui-popover-container>
   `,
