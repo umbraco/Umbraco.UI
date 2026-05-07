@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.28.5",
-    "@chromatic-com/storybook": "5.0.1",
+    "@chromatic-com/storybook": "5.1.2",
     "@eslint/compat": "2.0.1",
     "@eslint/js": "9.39.2",
     "@lerna-lite/cli": "5.2.1",
@@ -84,7 +84,7 @@
     "@web/test-runner-commands": "0.9.0",
     "@web/test-runner-playwright": "0.11.1",
     "autoprefixer": "10.4.21",
-    "chromatic": "15.1.0",
+    "chromatic": "16.9.0",
     "element-internals-polyfill": "3.0.2",
     "esbuild": "0.27.2",
     "eslint": "9.39.2",
