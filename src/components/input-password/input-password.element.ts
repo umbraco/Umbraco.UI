@@ -65,9 +65,7 @@ export class UUIInputPasswordElement extends UUIInputElement {
     ...UUIInputElement.styles,
     css`
       #eye {
-        height: 100%;
         margin-left: -6px;
-        --uui-button-border-width: 0;
       }
 
       #clear:hover {

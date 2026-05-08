@@ -522,6 +522,12 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         height: 100%;
         --uui-input-border-width: 0;
       }
+
+      uui-button,
+      ::slotted(uui-button) {
+        height: 100%;
+        --uui-button-border-width: 0;
+      }
     `,
   ];
 }
