@@ -3,6 +3,8 @@ import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import '@umbraco-ui/uui-scroll-container/lib';
+
 export type PopoverContainerPlacement =
   | 'top'
   | 'top-start'
@@ -19,7 +21,7 @@ export type PopoverContainerPlacement =
 
 /**
  * @element uui-popover-container
- * @attr popover - Indicates that the element is a popover container
+ * @attr popover - Indicates that the element is a popover containers
  */
 @defineElement('uui-popover-container')
 export class UUIPopoverContainerElement extends LitElement {
@@ -142,6 +144,7 @@ export class UUIPopoverContainerElement extends LitElement {
       });
     } else {
       this.#stopScrollListener();
+      this.style.removeProperty('--_available-height');
     }
   };
 
@@ -288,7 +291,20 @@ export class UUIPopoverContainerElement extends LitElement {
     if (isCompletelyOutsideScreen) {
       // @ts-ignore - This is part of the new popover API, but typescript doesn't recognize it yet.
       this.hidePopover();
+      return;
     }
+
+    // Constrain the slot height to the available space in the popover's growth direction.
+    const availableHeight = isTopPlacement
+      ? targetRect.top - 2 * this.margin
+      : isBottomPlacement
+        ? // margin once for the popover's own padding, once for a safe edge buffer
+          screenHeight - (targetRect.top + targetRect.height) - 2 * this.margin
+        : screenHeight - targetRect.top - this.margin;
+    this.style.setProperty(
+      '--_available-height',
+      `${Math.max(availableHeight, 0)}px`,
+    );
 
     // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
@@ -310,9 +326,9 @@ export class UUIPopoverContainerElement extends LitElement {
     // capitalize the side
     side = side.charAt(0).toUpperCase() + side.slice(1);
 
-    const paddingSide = `padding${side}`;
-    this.style.padding = '0';
-    (this.style as any)[paddingSide] = `${this.margin}px`;
+    const marginSide = `margin${side}`;
+    this.style.margin = '0';
+    (this.style as any)[marginSide] = `${this.margin}px`;
   };
 
   #flipPlacement() {
@@ -403,7 +419,7 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`<uui-scroll-container><slot></slot></uui-scroll-container>`;
   }
 
   static styles = [
@@ -413,12 +429,16 @@ export class UUIPopoverContainerElement extends LitElement {
         width: fit-content;
         height: fit-content;
         border: none;
-        border-radius: 0;
         padding: 0;
         background-color: none;
         background: none;
-        overflow: visible;
         color: var(--uui-color-text);
+        box-shadow: var(--uui-shadow-depth-4);
+        border-radius: var(--uui-border-radius);
+      }
+
+      uui-scroll-container {
+        max-height: var(--_available-height, none);
       }
     `,
   ];

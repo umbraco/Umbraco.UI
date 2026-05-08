@@ -1,4 +1,6 @@
 import '.';
+import '@umbraco-ui/uui-menu-item/lib';
+import '@umbraco-ui/uui-symbol-expand/lib';
 import readme from '../README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
@@ -189,5 +191,40 @@ export const InsideShadowDOMScrollContainer: Story = {
       </div>
       <div style="height: 400px"></div>
     </div>
+  `,
+};
+
+export const ScrollableDropdown: Story = {
+  args: {
+    placement: 'bottom-start',
+    margin: 8,
+  },
+  render: args => html`
+    <p>
+      When the popover content exceeds the available viewport space, it
+      automatically becomes scrollable. No extra CSS needed.
+    </p>
+    <uui-button
+      id="popover-button"
+      popovertarget="popover-container"
+      look="primary"
+      label="Create">
+      Create
+      <uui-symbol-expand></uui-symbol-expand>
+    </uui-button>
+    <uui-popover-container
+      id="popover-container"
+      popover
+      placement=${args.placement}
+      margin=${args.margin}>
+      <div style="background-color: var(--uui-color-surface); width: 250px;">
+        ${Array.from(
+          { length: 30 },
+          (_, i) =>
+            html`<uui-menu-item
+              label=${'Document Type ' + (i + 1)}></uui-menu-item>`,
+        )}
+      </div>
+    </uui-popover-container>
   `,
 };
