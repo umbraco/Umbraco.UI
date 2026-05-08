@@ -23,11 +23,14 @@ export class UUILoaderElement extends LitElement {
         width: var(--uui-size-2);
         height: var(--uui-size-2);
         border: 1px solid currentColor;
+        box-shadow: 0 0 0 0.33px currentColor;
         border-radius: 100%;
+        opacity: 0;
         animation: loaderAnimation 1.2s infinite;
         transition:
-          transform 60ms cubic-bezier(0.68, -0.55, 0.265, 1.55),
-          background-color 60ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          transform 60ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          opacity 60ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          filter 60ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
 
       div:nth-child(1n) {
@@ -46,14 +49,28 @@ export class UUILoaderElement extends LitElement {
         0% {
           transform: scale(0.33);
           background-color: currentColor;
+          filter: blur(1.5px);
+          opacity: 0.25;
+        }
+        33% {
+          transform: scale(1);
+          background-color: transparent;
+          filter: blur(0px);
+
+          opacity: 1;
         }
         50% {
           transform: scale(1);
           background-color: transparent;
+          filter: blur(0px);
+
+          opacity: 0.9;
         }
         100% {
           transform: scale(0.33);
           background-color: currentColor;
+          filter: blur(1.5px);
+          opacity: 0.25;
         }
       }
     `,
