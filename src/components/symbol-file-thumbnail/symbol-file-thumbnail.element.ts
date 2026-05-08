@@ -43,6 +43,7 @@ export class UUISymbolFileThumbnailElement extends LitElement {
       this.src && !this._imageError,
       () =>
         html`<img
+          decoding="async"
           src=${this.src}
           alt=${this.alt}
           @error=${this.#onImageError} />`,

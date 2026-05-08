@@ -62,8 +62,8 @@ export default function (plop) {
       },
       {
         type: 'append',
-        path: './src/index.ts',
-        template: "export * from './components/{{name}}/{{name}}.js';",
+        path: './src/components/index.ts',
+        template: "export * from './{{name}}/{{name}}.js';",
       },
     ],
   });

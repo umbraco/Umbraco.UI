@@ -340,16 +340,11 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
     if (this.open === false && e.code === 'Enter') {
       e.preventDefault(); // Prevent form submission when combobox is closed
       e.stopImmediatePropagation(); // Don't let list handle Enter when closed
-    }
 
-    if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
       this.#onOpen();
     }
 
-    if (e.code === 'Space') {
-      if (this._isOpen) return;
-      e.preventDefault();
-      e.stopImmediatePropagation();
+    if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
       this.#onOpen();
     }
 
