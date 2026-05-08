@@ -517,6 +517,8 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         min-width: 0;
       }
 
+      uui-input,
+      uui-input-lock,
       ::slotted(uui-input),
       ::slotted(uui-input-lock) {
         height: 100%;
