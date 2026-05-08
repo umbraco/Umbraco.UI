@@ -244,5 +244,37 @@ describe('UUIPopoverContainerElement', () => {
 
       expect(withMargin).to.equal(withoutMargin - 2 * margin);
     });
+
+    it('should apply --_available-height to uui-scroll-container', async () => {
+      const testContainer = await fixture(html`
+        <main>
+          <uui-button
+            id="trigger-button"
+            popovertarget="test-popover"
+            label="Open"></uui-button>
+          <uui-popover-container
+            id="test-popover"
+            popover
+            placement="bottom-start">
+            <div>Content</div>
+          </uui-popover-container>
+        </main>
+      `);
+
+      const popover = testContainer.querySelector(
+        '#test-popover',
+      ) as UUIPopoverContainerElement;
+
+      testContainer.querySelector('#trigger-button')?.click();
+      await aTimeout(100);
+
+      const scrollContainer = popover.shadowRoot?.querySelector(
+        'uui-scroll-container',
+      ) as HTMLElement;
+
+      const maxHeight = getComputedStyle(scrollContainer).maxHeight;
+      expect(maxHeight).to.not.equal('none');
+      expect(maxHeight).to.not.equal('');
+    });
   });
 });
