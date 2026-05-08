@@ -18,8 +18,12 @@ export class UUITableHeadElement extends LitElement {
   static override readonly styles = [
     css`
       :host {
+        position: sticky;
         display: table-header-group;
         font-weight: bold;
+        top: 0;
+        z-index: 1;
+        background-color: var(--uui-color-surface, #fff);
       }
     `,
   ];
