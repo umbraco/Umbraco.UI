@@ -7,7 +7,7 @@
   --uui-shadow-depth-3:
     rgba(0, 0, 0, 0.1) 0px 6px 16px 0, rgba(0, 0, 0, 0.1) 0 0 2px 0;
   --uui-shadow-depth-4:
-    rgba(0, 0, 0, 0.2) 0px 9px 21px 0, rgba(0, 0, 0, 0.18) 0 0 3px 0;
+    rgba(0, 0, 0, 0.2) 0px 9px 20px 0, rgba(0, 0, 0, 0.18) 0 0 3px 0;
   --uui-shadow-depth-5:
-    rgba(0, 0, 0, 0.3) 0px 19px 38px 0, rgba(0, 0, 0, 0.22) 0 0 12px 0;
+    rgba(0, 0, 0, 0.3) 0px 12px 24px 0, rgba(0, 0, 0, 0.22) 0 0 4px 0;
 }
