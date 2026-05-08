@@ -3,6 +3,8 @@ import { findAncestorByAttributeValue } from '@umbraco-ui/uui-base/lib/utils';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import '@umbraco-ui/uui-scroll-container/lib';
+
 export type PopoverContainerPlacement =
   | 'top'
   | 'top-start'
@@ -417,7 +419,7 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`<uui-scroll-container><slot></slot></uui-scroll-container>`;
   }
 
   static styles = [
@@ -430,16 +432,13 @@ export class UUIPopoverContainerElement extends LitElement {
         padding: 0;
         background-color: none;
         background: none;
-        overflow: clip;
         color: var(--uui-color-text);
         box-shadow: var(--uui-shadow-depth-4);
         border-radius: var(--uui-border-radius);
       }
-      slot {
-        display: block;
+
+      uui-scroll-container {
         max-height: var(--_available-height, none);
-        overflow-y: auto;
-        scrollbar-width: thin;
       }
     `,
   ];
