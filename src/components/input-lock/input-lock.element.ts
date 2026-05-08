@@ -91,6 +91,7 @@ export class UUIInputLockElement extends UUIInputElement {
         --uui-button-padding-left-factor: 0.75;
         --uui-button-padding-right-factor: 0.75;
         font-size: 12px;
+        --uui-button-border-width: 0;
       }
 
       :host([locked]) #input {
