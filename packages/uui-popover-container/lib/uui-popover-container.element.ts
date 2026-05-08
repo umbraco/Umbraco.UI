@@ -326,9 +326,9 @@ export class UUIPopoverContainerElement extends LitElement {
     // capitalize the side
     side = side.charAt(0).toUpperCase() + side.slice(1);
 
-    const paddingSide = `padding${side}`;
-    this.style.padding = '0';
-    (this.style as any)[paddingSide] = `${this.margin}px`;
+    const marginSide = `margin${side}`;
+    this.style.margin = '0';
+    (this.style as any)[marginSide] = `${this.margin}px`;
   };
 
   #flipPlacement() {
