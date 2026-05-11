@@ -36,7 +36,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
   renderLinkAndSeparator() {
     const item = this.href
       ? html`<a id="link" href=${this.href}><slot></slot></a>`
-      : html`<span id="link"><slot></slot></span>`;
+      : html`<a id="link" tabindex="0"><slot></slot></a>`;
 
     return html`${item}<span part="separator"></span>`;
   }
@@ -61,6 +61,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
       a,
       a:visited {
         color: currentColor;
+        cursor: pointer;
       }
       a:hover {
         color: var(--uui-color-interactive-emphasis);
