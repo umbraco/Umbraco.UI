@@ -244,7 +244,6 @@ export class UUIPaginationElement extends LitElement {
     return html`<uui-button
       compact
       class="nav"
-      role="listitem"
       label=${this.firstLabel}
       ?disabled=${this._current === 1}
       @click=${() => this.goToPage(1)}></uui-button>`;
@@ -254,7 +253,6 @@ export class UUIPaginationElement extends LitElement {
     return html`<uui-button
       compact
       class="nav"
-      role="listitem"
       label=${this.previousLabel}
       ?disabled=${this._current === 1}
       @click=${this.goToPreviousPage}></uui-button>`;
@@ -263,7 +261,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderNext() {
     return html`<uui-button
       compact
-      role="listitem"
       class="nav"
       label=${this.nextLabel}
       ?disabled=${this._current === this.total}
@@ -274,7 +271,6 @@ export class UUIPaginationElement extends LitElement {
     return html`
       <uui-button
         compact
-        role="listitem"
         class="nav"
         label=${this.lastLabel}
         ?disabled=${this.total === this._current}
@@ -334,9 +330,9 @@ export class UUIPaginationElement extends LitElement {
       <uui-button-group role="list" id="pages">
         ${this.renderLeftDots()}
         ${this._visiblePages.map(
-        page =>
-          this.renderPage(page)
-      )}
+          page =>
+            this.renderPage(page)
+        )}
         ${this.renderRightDots()}
       </uui-button-group>
       ${this.renderNavigationRight()}
