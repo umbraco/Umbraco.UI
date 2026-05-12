@@ -105,6 +105,15 @@ export class UUICardBlockTypeElement extends UUICardElement {
         background-color: var(--uui-color-surface-alt);
       }
 
+      slot:not([name]) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        overflow: clip;
+        border-radius: calc(var(--uui-border-radius-2) - 1px);
+      }
+
       slot[name='tag'] {
         position: absolute;
         bottom: var(--uui-size-4);
@@ -141,7 +150,6 @@ export class UUICardBlockTypeElement extends UUICardElement {
 
       slot:not([name])::slotted(*) {
         align-self: center;
-        border-radius: var(--uui-border-radius-2);
         object-fit: cover;
         max-width: 100%;
         max-height: 100%;
@@ -207,7 +215,8 @@ export class UUICardBlockTypeElement extends UUICardElement {
         inset: 0;
         z-index: -1;
         border-top: 1px solid var(--uui-color-divider);
-        border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
+        border-radius: 0 0 calc(var(--uui-border-radius-2) - 1px)
+          calc(var(--uui-border-radius-2) - 1px);
         background-color: var(--uui-color-surface);
         pointer-events: none;
         opacity: 0.96;
