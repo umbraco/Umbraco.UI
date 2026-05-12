@@ -18,10 +18,10 @@
     "./styles/*": "./dist/styles/*"
   },
   "sideEffects": [
-    "dist/components/*/!(*.element).js",
+    "dist/components/**/*.js",
     "dist/index.js",
     "dist/internal/version.js",
-    "src/components/*/!(*.element).ts",
+    "src/components/**/*.ts",
     "src/index.ts",
     "src/internal/version.ts"
   ],
