@@ -15,7 +15,7 @@
   --uui-color-disabled-contrast: var(--uui-palette-grey);
 
   /* ----- UNIVERSAL -----  */
-  --uui-color-header-surface: var(--uui-palette-violet-blue);
+  --uui-color-header-surface: var(--uui-palette-space-cadet);
   --uui-color-header-contrast: rgba(255, 255, 255, 0.8);
   --uui-color-header-contrast-emphasis: #fff;
 
