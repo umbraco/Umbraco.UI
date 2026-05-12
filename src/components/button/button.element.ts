@@ -488,10 +488,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
       :host(:not([disabled]):hover) #button {
         background-color: var(--uui-button-background-color-hover, transparent);
         color: var(--uui-button-contrast-hover, var(--color-standalone));
-        border-color: var(
-          --uui-button-border-color-hover,
-          var(--uui-color-border)
-        );
+        border-color: var(--uui-button-border-color-hover, transparent);
       }
       :host([disabled]) #button {
         background-color: var(
