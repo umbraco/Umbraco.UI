@@ -366,8 +366,8 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
         box-shadow: none;
 
         transition:
-          background-color,
-          color,
+          background-color 60ms,
+          color 60ms,
           border-color 60ms;
       }
 
