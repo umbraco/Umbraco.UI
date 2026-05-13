@@ -137,6 +137,7 @@ export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
+    this._internals.role = 'none';
 
     this.addValidator(
       'tooShort',

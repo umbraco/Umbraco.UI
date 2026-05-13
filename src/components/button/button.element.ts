@@ -149,7 +149,17 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
+    this._internals.role = 'button';
     this.addEventListener('click', this._onHostClick);
+    this.addEventListener('keydown', this.#onKeyDown);
+    this.tabIndex = 0;
+  }
+
+  #onKeyDown(e: KeyboardEvent) {
+    if ((e.key === ' ' || e.key === 'Enter') && !this.disabled) {
+      e.preventDefault();
+      this._button.click();
+    }
   }
 
   protected getFormElement(): HTMLElement {
@@ -197,6 +207,12 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
   // Reset the state after 2sec if it is 'success' or 'failed'.
   updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(changedProperties);
+    if (changedProperties.has('href')) {
+      this._internals.role = this.href ? 'link' : 'button';
+    }
+    if (changedProperties.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
     if (changedProperties.has('state')) {
       clearTimeout(this.#resetStateTimeout);
       if (this.state === 'success' || this.state === 'failed') {
@@ -239,12 +255,8 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
       return html`
         <a
           id="button"
-          aria-label=${ifDefined(
-            this.getAttribute('aria-label') || this.label || undefined,
-          )}
-          aria-labelledby=${ifDefined(
-            this.getAttribute('aria-labelledby') || undefined,
-          )}
+          aria-hidden="true"
+          tabindex="-1"
           title=${ifDefined(this.title === '' ? undefined : this.title)}
           href=${ifDefined(this.disabled ? undefined : this.href)}
           target=${ifDefined(this.target || undefined)}
@@ -259,18 +271,19 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
         id="button"
         type=${this.type}
         ?disabled=${this.disabled}
-        aria-label=${ifDefined(
-          this.getAttribute('aria-label') || this.label || undefined,
-        )}
-        aria-labelledby=${ifDefined(
-          this.getAttribute('aria-labelledby') || undefined,
-        )}
+        aria-hidden="true"
+        tabindex="-1"
         title=${ifDefined(this.title === '' ? undefined : this.title)}>
         ${this.renderState()} ${this.renderLabel()}
         <slot name="extra"></slot>
       </button>
     `;
   }
+
+  static override readonly shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: false,
+  };
 
   static override readonly styles = [
     UUIHorizontalShakeKeyframes,

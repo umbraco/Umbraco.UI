@@ -62,6 +62,14 @@ export class UUITabGroupElement extends LitElement {
 
   #breakPointCalculationInProgress = false;
 
+  protected _internals: ElementInternals;
+
+  constructor() {
+    super();
+    this._internals = this.attachInternals();
+    this._internals.role = 'tablist';
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.#initialize();
@@ -266,7 +274,7 @@ export class UUITabGroupElement extends LitElement {
   render() {
     return html`
       <div id="main">
-        <div id="grid" role="tablist">
+        <div id="grid">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
         <uui-button
@@ -282,7 +290,7 @@ export class UUITabGroupElement extends LitElement {
         id="popover-container"
         popover
         placement="bottom-end">
-        <div id="hidden-tabs-container" role="tablist">
+        <div id="hidden-tabs-container">
           ${repeat(this.#hiddenTabElements, el => html`${el}`)}
         </div>
       </uui-popover-container>

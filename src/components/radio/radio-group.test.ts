@@ -106,6 +106,21 @@ describe('UUIRadio', () => {
     radios[1].click();
     expect(element.value).toBe(radios[1].value);
   });
+
+  describe('Tab navigation', () => {
+    it('first radio has tabIndex 0 when no radio is pre-selected', () => {
+      expect(radios[0].tabIndex).toBe(0);
+    });
+
+    it('non-first radios start with tabIndex -1 when no radio is pre-selected', () => {
+      expect(radios[1].tabIndex).toBe(-1);
+      expect(radios[2].tabIndex).toBe(-1);
+    });
+
+    it('radio shadow root has delegatesFocus false', () => {
+      expect(radios[0].shadowRoot?.delegatesFocus).toBe(false);
+    });
+  });
 });
 
 describe('UuiRadioGroup value', () => {

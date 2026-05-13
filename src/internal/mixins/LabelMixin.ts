@@ -1,4 +1,4 @@
-import type { LitElement, TemplateResult } from 'lit';
+import type { LitElement, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -12,6 +12,7 @@ export declare class UUILabelMixinInterface {
    * @attr
    */
   label: string;
+  protected _internals: ElementInternals;
   protected renderLabel(): TemplateResult;
 }
 
@@ -30,6 +31,11 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
    * Label mixin class containing the label functionality.
    */
   class UUILabelMixinClass extends superClass {
+    static readonly shadowRootOptions: ShadowRootInit = {
+      ...(superClass as any).shadowRootOptions,
+      delegatesFocus: true,
+    };
+
     /**
      * Label to be used for aria-label and potentially as visual label for some components
      * @type {string}
@@ -37,6 +43,8 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
      */
     @property({ type: String })
     public label!: string;
+
+    protected _internals: ElementInternals = this.attachInternals();
 
     private _ariaObserver: MutationObserver | undefined;
 
@@ -64,6 +72,12 @@ export const LabelMixin = <T extends Constructor<LitElement>>(
       ) {
         console.warn(this.tagName + ' needs a `label`', this);
       }
+    }
+
+    updated(_changedProperties: PropertyValues) {
+      super.updated(_changedProperties);
+      this._internals.ariaLabel =
+        this.getAttribute('aria-label') || this.label || null;
     }
 
     @state()

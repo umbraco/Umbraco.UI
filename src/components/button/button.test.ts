@@ -32,9 +32,48 @@ describe('UuiButton', () => {
   });
 
   it('renders a button inside shadow DOM', async () => {
-    await expect
-      .element(page.elementLocator(element).getByRole('button'))
-      .toBeInTheDocument();
+    const btn = element.shadowRoot!.querySelector('button');
+    expect(btn).not.toBeNull();
+  });
+
+  describe('ElementInternals ARIA', () => {
+    it('host has role "button" via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('button');
+    });
+
+    it('inner button is hidden from accessibility tree', () => {
+      const btn = element.shadowRoot!.querySelector('button')!;
+      expect(btn.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('exposes accessible name via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaLabel).toBe('My label');
+    });
+
+    it('role switches to "link" when href is set', async () => {
+      element.href = 'https://umbraco.com';
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('link');
+    });
+
+    it('inner anchor is hidden from accessibility tree when href is set', async () => {
+      element.href = 'https://umbraco.com';
+      await element.updateComplete;
+      const anchor = element.shadowRoot!.querySelector('a')!;
+      expect(anchor.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('role reverts to "button" when href is removed', async () => {
+      element.href = 'https://umbraco.com';
+      await element.updateComplete;
+      element.href = undefined;
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('button');
+    });
   });
 
   it('passes the a11y audit', { timeout: 30000 }, async () => {

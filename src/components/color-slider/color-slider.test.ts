@@ -24,6 +24,48 @@ describe('UUIColorSliderElement', () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
+  describe('ElementInternals ARIA', () => {
+    it('host has role "slider" via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('slider');
+    });
+
+    it('exposes ariaValueMin via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaValueMin).toBe('0');
+    });
+
+    it('exposes ariaValueMax via ElementInternals', () => {
+      element.type = 'hue';
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaValueMax).toBe('360');
+    });
+
+    it('exposes ariaValueNow via ElementInternals', async () => {
+      element.value = 42;
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaValueNow).toBe('42');
+    });
+
+    it('exposes ariaOrientation as horizontal by default', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaOrientation).toBe('horizontal');
+    });
+
+    it('exposes ariaOrientation as vertical when vertical=true', async () => {
+      element.vertical = true;
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaOrientation).toBe('vertical');
+    });
+
+    it('exposes accessible name via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaLabel).toBe('Color slider');
+    });
+  });
+
   describe('type → max mapping', () => {
     it('sets max to 360 for hue type', async () => {
       element.type = 'hue';
