@@ -43,6 +43,7 @@ export class UUIResponsiveContainerElement extends LitElement {
   // These store the component's internal state
   #childElements: HTMLElement[] = []; // All child elements
   #hiddenElements: HTMLElement[] = []; // Elements in the dropdown
+  #clonedElements: HTMLElement[] = []; // Clones of hidden elements for the dropdown
   readonly #hiddenElementsMap: Map<HTMLElement, HTMLElement> = new Map();
   #visibilityBreakpoints: number[] = []; // Width thresholds for each item
 
@@ -69,7 +70,7 @@ export class UUIResponsiveContainerElement extends LitElement {
   async #initialize() {
     await this.updateComplete;
     if (!this.#isConnected) return;
-    this.#resizeObserver.observe(this._mainElement);
+    this.#resizeObserver.observe(this);
 
     requestAnimationFrame(() => {
       if (!this.#isConnected) return;
@@ -108,9 +109,10 @@ export class UUIResponsiveContainerElement extends LitElement {
     this.#visibilityBreakpoints = [];
 
     // Clean up hidden elements
-    this.#hiddenElements.forEach(el => {
+    this.#clonedElements.forEach(el => {
       el.removeEventListener('click', this.#onItemClicked);
     });
+    this.#clonedElements = [];
     this.#hiddenElements = [];
     this.#hiddenElementsMap.clear();
   }
@@ -144,7 +146,7 @@ export class UUIResponsiveContainerElement extends LitElement {
     const tolerance = 2;
     this._mainElement.style.width = totalWidth - gap + tolerance + 'px';
 
-    this.#updateCollapsibleItems(this._mainElement.offsetWidth);
+    this.#updateCollapsibleItems(this.offsetWidth);
     this.#breakPointCalculationInProgress = false;
   }
 
@@ -154,10 +156,12 @@ export class UUIResponsiveContainerElement extends LitElement {
     const availableWidth = containerWidth - moreButtonWidth;
 
     // Clear previous hidden items
-    this.#hiddenElements.forEach(el => {
-      el.removeEventListener('click', this.#onItemClicked);
-    });
     this.#hiddenElements = [];
+    this.#clonedElements.forEach(el =>
+      el.removeEventListener('click', this.#onItemClicked),
+    );
+    this.#clonedElements = [];
+    this._popoverContainerElement?.hidePopover();
     this.#hiddenElementsMap.clear();
 
     if (this.collapse === 'end') {
@@ -179,14 +183,7 @@ export class UUIResponsiveContainerElement extends LitElement {
 
   #hideElement(element: HTMLElement) {
     element.style.display = 'none';
-    const clone = element.cloneNode(true) as HTMLElement;
-    clone.style.display = '';
-    clone.addEventListener('click', this.#onItemClicked);
-
-    // Link clone ↔ original (bidirectional)
-    this.#hiddenElementsMap.set(clone, element);
-    this.#hiddenElementsMap.set(element, clone);
-    this.#hiddenElements.push(clone);
+    this.#hiddenElements.push(element);
   }
 
   #collapseFromEnd(containerWidth: number, availableWidth: number) {
@@ -248,6 +245,30 @@ export class UUIResponsiveContainerElement extends LitElement {
     }
   };
 
+  #onPopoverToggle(e: ToggleEvent) {
+    if (e.newState === 'open') {
+      this.#buildDropdownItems();
+    }
+  }
+
+  #buildDropdownItems() {
+    // Clear old clones
+    this.#clonedElements.forEach(el =>
+      el.removeEventListener('click', this.#onItemClicked),
+    );
+    this.#clonedElements = [];
+    this.#hiddenElementsMap.clear();
+
+    for (const original of this.#hiddenElements) {
+      const clone = original.cloneNode(true) as HTMLElement;
+      clone.style.display = '';
+      clone.addEventListener('click', this.#onItemClicked);
+      this.#hiddenElementsMap.set(clone, original);
+      this.#clonedElements.push(clone);
+    }
+    this.requestUpdate();
+  }
+
   render() {
     const moreButton = html`
       <uui-button
@@ -273,9 +294,10 @@ export class UUIResponsiveContainerElement extends LitElement {
       <uui-popover-container
         id="popover-container"
         popover
+        @beforetoggle=${this.#onPopoverToggle}
         placement=${this.collapse === 'start' ? 'bottom-start' : 'bottom-end'}>
         <div id="dropdown-container">
-          ${repeat(this.#hiddenElements, el => html`${el}`)}
+          ${repeat(this.#clonedElements, el => html`${el}`)}
         </div>
       </uui-popover-container>
     `;
