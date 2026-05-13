@@ -40,19 +40,20 @@ export class UUIProgressBarElement extends LitElement {
   static override readonly styles = [
     css`
       :host {
-        width: 100%;
-        height: 4px;
         position: relative;
-        overflow: hidden;
-        background: var(--uui-color-surface-alt);
-        border-radius: 100px;
         display: inline-block;
+        width: 100%;
+        height: 3px;
+        overflow: clip;
+        background: var(--uui-color-surface-alt);
+        border-radius: 2px;
       }
 
       #bar {
         transition: width 250ms ease;
         background: var(--uui-color-positive);
         height: 100%;
+        border-radius: 2px;
         width: 0%;
       }
     `,

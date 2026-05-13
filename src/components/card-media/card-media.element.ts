@@ -121,6 +121,12 @@ export class UUICardMediaElement extends UUICardElement {
         padding: var(--uui-size-space-6);
       }
 
+      slot:not([name]) {
+        display: block;
+        overflow: clip;
+        border-radius: calc(var(--uui-border-radius-2) - 1px);
+      }
+
       slot[name='tag'] {
         position: absolute;
         bottom: var(--uui-size-2);
@@ -132,8 +138,8 @@ export class UUICardMediaElement extends UUICardElement {
 
       slot[name='actions'] {
         position: absolute;
-        top: var(--uui-size-4);
-        right: var(--uui-size-4);
+        top: var(--uui-size-space-3);
+        right: var(--uui-size-space-3);
         display: flex;
         justify-content: right;
         z-index: 2;
@@ -210,7 +216,8 @@ export class UUICardMediaElement extends UUICardElement {
         inset: 0;
         z-index: -1;
         border-top: 1px solid var(--uui-color-divider);
-        border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
+        border-radius: 0 0 calc(var(--uui-border-radius-2) - 1px)
+          calc(var(--uui-border-radius-2) - 1px);
         background-color: var(--uui-color-surface);
         pointer-events: none;
         opacity: 0.96;

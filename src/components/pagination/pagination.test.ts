@@ -11,18 +11,24 @@ import './pagination.js';
 describe('UUIPaginationElement', () => {
   let element: UUIPaginationElement;
 
-  const pageButton = (n: number) =>
-    element.shadowRoot!.querySelector(
-      `uui-button[label="Go to page ${n}"]`,
-    ) as HTMLElement;
-
+  // The shadow DOM has nav buttons (first/previous/next/last) as siblings of
+  // #pages, and #pages contains page buttons interspersed with dots when the
+  // visible range doesn't reach the first/last page. Query by semantic class
+  // rather than child index so the tests don't break on layout changes.
   const navButtons = () =>
-    element.shadowRoot!.querySelectorAll<HTMLElement>('uui-button.nav');
+    Array.from(
+      element.shadowRoot?.querySelectorAll<HTMLElement>('uui-button.nav') ?? [],
+    );
+  const firstNavButton = () => navButtons()[0];
+  const previousNavButton = () => navButtons()[1];
+  const nextNavButton = () => navButtons()[2];
+  const lastNavButton = () => navButtons()[3];
 
-  const firstNav = () => navButtons()[0];
-  const previousNav = () => navButtons()[1];
-  const nextNav = () => navButtons()[2];
-  const lastNav = () => navButtons()[3];
+  const pageButton = (page: number) =>
+    Array.from(
+      element.shadowRoot?.querySelectorAll<HTMLElement>('uui-button.page') ??
+        [],
+    ).find(b => b.textContent?.trim() === String(page));
 
   beforeEach(async () => {
     element = render(html`
@@ -75,7 +81,7 @@ describe('UUIPaginationElement', () => {
     describe('change', () => {
       it('emits a change event when another page is clicked', async () => {
         const listener = oneEvent(element, 'change');
-        pageButton(2).click();
+        pageButton(2)?.click();
         const event = await listener;
         expect(event).not.toBe(null);
         expect(event.type).toBe('change');
@@ -87,11 +93,11 @@ describe('UUIPaginationElement', () => {
   it('sets active class on current page', async () => {
     element.current = 2;
     await element.updateComplete;
-    expect(pageButton(2).classList.contains('active')).toBe(true);
+    expect(pageButton(2)?.classList.contains('active')).toBe(true);
   });
 
   it('goes to selected page on click', async () => {
-    pageButton(2).click();
+    pageButton(2)!.click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -108,7 +114,7 @@ describe('UUIPaginationElement', () => {
     element.current = 2;
     await element.updateComplete;
 
-    previousNav().click();
+    previousNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -125,7 +131,7 @@ describe('UUIPaginationElement', () => {
     element.current = 2;
     await element.updateComplete;
 
-    nextNav().click();
+    nextNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -139,7 +145,7 @@ describe('UUIPaginationElement', () => {
   });
 
   it('goes to last page on click  and disables last and next buttons', async () => {
-    lastNav().click();
+    lastNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -151,15 +157,15 @@ describe('UUIPaginationElement', () => {
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('30');
 
-    expect(nextNav().hasAttribute('disabled')).toBe(true);
-    expect(lastNav().hasAttribute('disabled')).toBe(true);
+    expect(nextNavButton().hasAttribute('disabled')).toBe(true);
+    expect(lastNavButton().hasAttribute('disabled')).toBe(true);
   });
 
   it('goes to first page on click and disables first and previous buttons', async () => {
     element.current = 3;
     await element.updateComplete;
 
-    firstNav().click();
+    firstNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -170,8 +176,8 @@ describe('UUIPaginationElement', () => {
     ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('1');
-    expect(firstNav().hasAttribute('disabled')).toBe(true);
-    expect(previousNav().hasAttribute('disabled')).toBe(true);
+    expect(firstNavButton().hasAttribute('disabled')).toBe(true);
+    expect(previousNavButton().hasAttribute('disabled')).toBe(true);
   });
 
   it('shows the dots when more pages than visible', async () => {
