@@ -320,7 +320,10 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
   render() {
     return html`
       ${this.renderPrepend()}
-      ${this.autoWidth ? this.renderInputWithAutoWidth() : this.renderInput()}
+      <div id="inner">
+        <slot></slot>
+        ${this.autoWidth ? this.renderInputWithAutoWidth() : this.renderInput()}
+      </div>
       ${this.renderAppend()}
     `;
   }
@@ -495,6 +498,8 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         outline: none;
         text-overflow: ellipsis;
         line-height: 1;
+        flex: 1 1 auto;
+        min-width: 60px;
       }
 
       input[type='password']::-ms-reveal {
@@ -529,6 +534,16 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
       ::slotted(uui-button) {
         height: 100%;
         --uui-button-border-width: 0;
+      }
+      
+      #inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 2px;
       }
     `,
   ];
