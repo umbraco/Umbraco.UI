@@ -535,7 +535,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         height: 100%;
         --uui-button-border-width: 0;
       }
-      
+
       #inner {
         display: flex;
         flex-wrap: wrap;
