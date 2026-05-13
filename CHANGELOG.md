@@ -9,6 +9,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
 
+# [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
+
+### Reverts
+
+- "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
+
 # [2.0.0-rc.0](/compare/v1.17.3...v2.0.0-rc.0) (2026-05-13)
 
 ### Bug Fixes
