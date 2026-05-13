@@ -6,8 +6,8 @@ export const UUIModalCloseEvent = 'uui:modal-close';
 export const UUIModalCloseEndEvent = 'uui:modal-close-end';
 
 export class UUIModalElement extends LitElement {
-  @query('[popover]')
-  protected readonly _popoverElement?: HTMLElement;
+  @query('dialog')
+  protected readonly _dialogElement?: HTMLDialogElement;
 
   @property({ type: Boolean, reflect: true, attribute: 'is-open' })
   isOpen = false;
@@ -79,20 +79,14 @@ export class UUIModalElement extends LitElement {
 
   protected _openModal() {
     this.isOpen = true;
-    this._popoverElement?.showPopover();
-    if (!this._popoverElement?.hasAttribute('tabindex')) {
-      this._popoverElement?.setAttribute('tabindex', '-1');
-    }
-    document.addEventListener('keydown', this._onKeydown);
-    document.addEventListener('focus', this._onFocusTrap, true);
+    this._dialogElement?.showModal();
+    this._dialogElement?.addEventListener('cancel', this.close);
   }
 
   public forceClose() {
     this.isClosing = true;
     this.isOpen = false;
-    this._popoverElement?.hidePopover();
-    document.removeEventListener('keydown', this._onKeydown);
-    document.removeEventListener('focus', this._onFocusTrap, true);
+    this._dialogElement?.close();
 
     this.dispatchEvent(new CustomEvent('close-end'));
     this.dispatchEvent(new CustomEvent(UUIModalCloseEndEvent));
@@ -100,24 +94,9 @@ export class UUIModalElement extends LitElement {
     this.remove();
   }
 
-  private readonly _onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && this.index === 0) {
-      this.close();
-    }
-  };
-
-  private readonly _onFocusTrap = (e: FocusEvent) => {
-    if (this.index !== 0) return;
-    if (!this._popoverElement?.contains(e.target as Node)) {
-      this._popoverElement?.focus();
-    }
-  };
-
   static override readonly styles = [
     css`
-      [popover] {
-        position: fixed;
-        inset: 0;
+      dialog {
         display: block;
         margin: 0;
         padding: 0;
@@ -127,7 +106,11 @@ export class UUIModalElement extends LitElement {
         background: none;
         color: var(--uui-color-text);
       }
-      [popover]::after {
+      dialog::backdrop {
+        background: none;
+        opacity: 0;
+      }
+      dialog::after {
         content: '';
         position: absolute;
         inset: 0;
@@ -137,12 +120,8 @@ export class UUIModalElement extends LitElement {
         transition: opacity var(--uui-modal-transition-duration, 250ms);
         z-index: 1;
       }
-      :host([index='0']) [popover]::after {
+      :host([index='0']) dialog::after {
         opacity: 0;
-        pointer-events: none;
-      }
-      :host(:not([index='0'])) [popover]::after {
-        pointer-events: auto;
       }
     `,
   ];

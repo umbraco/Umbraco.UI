@@ -33,7 +33,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
   }
 
   get #getWidth() {
-    return this._popoverElement?.getBoundingClientRect().width ?? 0;
+    return this._dialogElement?.getBoundingClientRect().width ?? 0;
   }
 
   forceClose() {
@@ -48,13 +48,9 @@ export class UUIModalSidebarElement extends UUIModalElement {
   }
 
   render() {
-    return html`<div
-      popover="manual"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Dialog">
+    return html`<dialog>
       <slot></slot>
-    </div>`;
+    </dialog>`;
   }
 
   static override readonly styles = [
@@ -70,7 +66,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
           --uui-modal-sidebar-left-gap: 64px;
         }
       }
-      [popover] {
+      dialog {
         height: 100%;
         width: 100%;
         box-sizing: border-box;
@@ -83,22 +79,22 @@ export class UUIModalSidebarElement extends UUIModalElement {
           var(--uui-color-surface)
         );
       }
-      :host([index='0']) [popover] {
+      :host([index='0']) dialog {
         box-shadow: var(--uui-shadow-depth-5);
       }
-      :host(:not([index='0'])) [popover] {
+      :host(:not([index='0'])) dialog {
         outline: 1px solid rgba(0, 0, 0, 0.1);
       }
-      :host([hide]) [popover] {
+      :host([hide]) dialog {
         display: none;
       }
-      :host([size='large']) [popover] {
+      :host([size='large']) dialog {
         max-width: min(1200px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
-      :host([size='medium']) [popover] {
+      :host([size='medium']) dialog {
         max-width: min(800px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
-      :host([size='small']) [popover] {
+      :host([size='small']) dialog {
         max-width: min(500px, calc(100% - var(--uui-modal-sidebar-left-gap)));
       }
     `,
