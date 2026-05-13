@@ -348,6 +348,7 @@ export class UUIPaginationElement extends LitElement {
       }
       uui-button-group {
         flex-grow: 1;
+        justify-content: center;
       }
 
       uui-button-group uui-button {
