@@ -4,6 +4,7 @@ import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import './modal-example.element';
+import './modal-with-toasts-example.element';
 
 const meta: Meta = {
   id: 'uui-modal',
@@ -21,4 +22,8 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: () => html`<modal-example></modal-example>`,
+};
+
+export const ModalWithOverlays: Story = {
+  render: () => html`<modal-with-toasts-example></modal-with-toasts-example>`,
 };

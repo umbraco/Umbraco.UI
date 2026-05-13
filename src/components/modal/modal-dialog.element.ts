@@ -3,9 +3,9 @@ import { UUIModalElement } from './modal.element.js';
 export class UUIModalDialogElement extends UUIModalElement {
   render() {
     return html`
-      <dialog>
+      <div popover="manual" role="dialog" aria-modal="true" aria-label="Dialog">
         <slot></slot>
-      </dialog>
+      </div>
     `;
   }
 
@@ -16,7 +16,7 @@ export class UUIModalDialogElement extends UUIModalElement {
         outline: none;
         --uui-modal-dialog-background: var(--uui-color-surface);
       }
-      dialog {
+      [popover] {
         margin: auto;
         max-width: 100%;
         max-height: 100%;
@@ -29,10 +29,10 @@ export class UUIModalDialogElement extends UUIModalElement {
           var(--uui-color-surface)
         );
       }
-      :host([index='0']) dialog {
+      :host([index='0']) [popover] {
         box-shadow: var(--uui-shadow-depth-5);
       }
-      :host(:not([index='0'])) dialog {
+      :host(:not([index='0'])) [popover] {
         outline: 1px solid rgba(0, 0, 0, 0.1);
       }
     `,
