@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ActiveMixin, SelectableMixin } from '../../internal/mixins/index.js';
 
@@ -16,6 +16,9 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
   private _disabled = false;
 
   @state() _displayValue = '';
+
+  @property({ type: Boolean, reflect: true })
+  multiple = false;
 
   /**
    * Value of the option.
@@ -75,7 +78,8 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`${this.multiple ? html`<span id="checkbox"></span>` : nothing}
+      <slot></slot>`;
   }
 
   static override readonly styles = [
@@ -140,18 +144,51 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
         outline-color: var(--uui-color-focus);
       }
 
-      :host([selected]) {
+      :host([selected]:not([multiple])) {
         color: var(--uui-color-selected-contrast);
         background-color: var(--uui-color-selected);
       }
 
-      :host([selected]:hover) {
+      :host([selected]:not([multiple]):hover) {
         color: var(--uui-color-selected-contrast);
         background-color: var(--uui-color-selected-emphasis);
       }
       :host([selected][disabled]) {
         color: var(--uui-color-disabled-contrast);
         background-color: var(--uui-color-disabled);
+      }
+
+      #checkbox {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        border: 2px solid var(--uui-color-border-standalone);
+        border-radius: 3px;
+        margin-right: var(--uui-size-2);
+        vertical-align: middle;
+        box-sizing: border-box;
+        position: relative;
+      }
+
+      :host([selected]) #checkbox {
+        background-color: var(--uui-color-selected);
+        border-color: var(--uui-color-selected);
+      }
+
+      :host([selected]) #checkbox::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 2px;
+        margin: auto;
+        width: 4px;
+        height: 8px;
+        border: solid var(--uui-color-selected-contrast);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
       }
     `,
   ];
