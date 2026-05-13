@@ -33,10 +33,22 @@ export class UUIBreadcrumbItemElement extends LitElement {
   @property({ type: Boolean, attribute: 'last-item' })
   lastItem = false;
 
+  private _onKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      (e.currentTarget as HTMLElement).click();
+    }
+  }
+
   renderLinkAndSeparator() {
     const item = this.href
       ? html`<a id="link" href=${this.href}><slot></slot></a>`
-      : html`<span id="link"><slot></slot></span>`;
+      : html`<span
+          id="link"
+          tabindex="0"
+          role="link"
+          @keydown=${this._onKeydown}
+          ><slot></slot
+        ></span>`;
 
     return html`${item}<span part="separator"></span>`;
   }
@@ -59,17 +71,23 @@ export class UUIBreadcrumbItemElement extends LitElement {
       }
 
       a,
-      a:visited {
+      a:visited,
+      span#link {
         color: currentColor;
+        cursor: pointer;
+        text-decoration: underline;
       }
-      a:hover {
+      a:hover,
+      span#link:hover {
         color: var(--uui-color-interactive-emphasis);
       }
-      a:focus {
+      a:focus,
+      span#link:focus {
         color: var(--uui-color-focus);
       }
 
-      a:focus-visible {
+      a:focus-visible,
+      span#link:focus-visible {
         border-radius: var(--uui-border-radius);
         outline: 2px solid var(--uui-color-focus);
       }
