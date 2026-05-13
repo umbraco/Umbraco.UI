@@ -426,3 +426,35 @@ export const Dialog = () => html`
     <br />
   </article>
 `;
+
+export const Shadows = () => html`
+  <article style="max-width:580px;">
+    <div
+      style="display:block; border-bottom: 1px solid var(--uui-color-cocoa-black); padding-top: var(--uui-size-layout-5); margin-bottom:var(--uui-size-layout-3); padding-bottom:var(--uui-size-layout-1);">
+      <h1>Shadows Style Guide</h1>
+      <p class="uui-lead">
+        Shadows convey elevation and hierarchy. Use them sparingly to lift
+        elements off the surface and indicate their relative depth.
+      </p>
+      <p>
+        Five shadow depths are available as CSS custom properties, ranging from
+        subtle (depth 1) to prominent (depth 5).
+      </p>
+    </div>
+
+    <div
+      style="display:flex; gap:var(--uui-size-layout-2); flex-wrap:wrap; padding:var(--uui-size-layout-3) var(--uui-size-layout-1);">
+      ${[1, 2, 3, 4, 5].map(
+        depth => html`
+          <div
+            style="display:flex; flex-direction:column; align-items:center; gap:var(--uui-size-space-3);">
+            <div
+              style="width:80px; height:80px; border-radius:var(--uui-border-radius); background:var(--uui-color-surface); box-shadow:var(--uui-shadow-depth-${depth});"></div>
+            <small>Depth ${depth}</small>
+            <code style="font-size:11px;">--uui-shadow-depth-${depth}</code>
+          </div>
+        `,
+      )}
+    </div>
+  </article>
+`;

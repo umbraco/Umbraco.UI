@@ -116,12 +116,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
       #ticker::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
+        inset: 0;
         border-radius: calc(
-          var(--uui-checkbox-border-radius, var(--uui-border-radius-1))
+          var(--uui-checkbox-border-radius, var(--uui-border-radius-1)) - 1.5px
         );
         background-color: var(--uui-color-selected);
         transition:

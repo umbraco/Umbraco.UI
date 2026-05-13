@@ -11,6 +11,25 @@ import './pagination.js';
 describe('UUIPaginationElement', () => {
   let element: UUIPaginationElement;
 
+  // The shadow DOM has nav buttons (first/previous/next/last) as siblings of
+  // #pages, and #pages contains page buttons interspersed with dots when the
+  // visible range doesn't reach the first/last page. Query by semantic class
+  // rather than child index so the tests don't break on layout changes.
+  const navButtons = () =>
+    Array.from(
+      element.shadowRoot?.querySelectorAll<HTMLElement>('uui-button.nav') ?? [],
+    );
+  const firstNavButton = () => navButtons()[0];
+  const previousNavButton = () => navButtons()[1];
+  const nextNavButton = () => navButtons()[2];
+  const lastNavButton = () => navButtons()[3];
+
+  const pageButton = (page: number) =>
+    Array.from(
+      element.shadowRoot?.querySelectorAll<HTMLElement>('uui-button.page') ??
+        [],
+    ).find(b => b.textContent?.trim() === String(page));
+
   beforeEach(async () => {
     element = render(html`
       <uui-pagination .total=${30}></uui-pagination>
@@ -62,9 +81,7 @@ describe('UUIPaginationElement', () => {
     describe('change', () => {
       it('emits a change event when another page is clicked', async () => {
         const listener = oneEvent(element, 'change');
-        const button = element.shadowRoot?.querySelector('#pages')!
-          .children[3] as HTMLElement;
-        button?.click();
+        pageButton(2)?.click();
         const event = await listener;
         expect(event).not.toBe(null);
         expect(event.type).toBe('change');
@@ -76,15 +93,11 @@ describe('UUIPaginationElement', () => {
   it('sets active class on current page', async () => {
     element.current = 2;
     await element.updateComplete;
-    const button = element.shadowRoot?.querySelector('#pages')!
-      .children[3] as HTMLElement;
-    expect(button.classList.contains('active')).toBe(true);
+    expect(pageButton(2)?.classList.contains('active')).toBe(true);
   });
 
   it('goes to selected page on click', async () => {
-    const button = element.shadowRoot?.querySelector('#pages')!
-      .children[3] as HTMLElement;
-    button.click();
+    pageButton(2)!.click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -101,9 +114,7 @@ describe('UUIPaginationElement', () => {
     element.current = 2;
     await element.updateComplete;
 
-    const buttons = element.shadowRoot?.querySelector('#pages')!.children;
-    const prevButton = buttons![1] as HTMLElement;
-    prevButton.click();
+    previousNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -120,9 +131,7 @@ describe('UUIPaginationElement', () => {
     element.current = 2;
     await element.updateComplete;
 
-    const buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const nextButton = buttons![buttons!.length - 2] as HTMLElement;
-    nextButton.click();
+    nextNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -136,9 +145,7 @@ describe('UUIPaginationElement', () => {
   });
 
   it('goes to last page on click  and disables last and next buttons', async () => {
-    const buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const lastButton = buttons![buttons!.length - 1] as HTMLElement;
-    lastButton.click();
+    lastNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -150,25 +157,15 @@ describe('UUIPaginationElement', () => {
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('30');
 
-    // Re-query nav buttons after render
-    const updatedButtons =
-      element.shadowRoot?.querySelector('#pages')?.children;
-    const lastIdx = updatedButtons!.length - 1;
-    expect(
-      (updatedButtons![lastIdx - 1] as HTMLElement).hasAttribute('disabled'),
-    ).toBe(true);
-    expect(
-      (updatedButtons![lastIdx] as HTMLElement).hasAttribute('disabled'),
-    ).toBe(true);
+    expect(nextNavButton().hasAttribute('disabled')).toBe(true);
+    expect(lastNavButton().hasAttribute('disabled')).toBe(true);
   });
 
   it('goes to first page on click and disables first and previous buttons', async () => {
     element.current = 3;
     await element.updateComplete;
 
-    const buttons = element.shadowRoot?.querySelector('#pages')?.children;
-    const firstButton = buttons![0] as HTMLElement;
-    firstButton.click();
+    firstNavButton().click();
 
     await element.updateComplete;
     await element.updateComplete;
@@ -179,16 +176,8 @@ describe('UUIPaginationElement', () => {
     ) as HTMLElement;
     expect(activeButton).not.toBe(null);
     expect(activeButton.textContent?.trim()).toBe('1');
-    expect(
-      (
-        element.shadowRoot?.querySelector('#pages')!.children[0] as HTMLElement
-      ).hasAttribute('disabled'),
-    ).toBe(true);
-    expect(
-      (
-        element.shadowRoot?.querySelector('#pages')!.children[1] as HTMLElement
-      ).hasAttribute('disabled'),
-    ).toBe(true);
+    expect(firstNavButton().hasAttribute('disabled')).toBe(true);
+    expect(previousNavButton().hasAttribute('disabled')).toBe(true);
   });
 
   it('shows the dots when more pages than visible', async () => {

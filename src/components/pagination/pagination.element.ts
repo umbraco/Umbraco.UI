@@ -74,7 +74,7 @@ export class UUIPaginationElement extends LitElement {
     // divide remaining width by max-width of page button (when it has 3 digits), then divide by 2 to get the range.
     // Range is number of buttons visible on either "side" of current pag button. So, if range === 5 we shall see 11 buttons in total - 5 before the current page and 5 after. This is why we divide by 2.
     const range = rangeBaseWidth / PAGE_BUTTON_MAX_WIDTH / 2;
-    this._range = Math.max(1, Math.floor(range));
+    this._range = Math.max(0, Math.floor(range));
     this._visiblePages = this._generateVisiblePages(this.current);
   }
 
@@ -243,9 +243,7 @@ export class UUIPaginationElement extends LitElement {
   protected renderFirst() {
     return html`<uui-button
       compact
-      look="outline"
       class="nav"
-      role="listitem"
       label=${this.firstLabel}
       ?disabled=${this._current === 1}
       @click=${() => this.goToPage(1)}></uui-button>`;
@@ -254,9 +252,7 @@ export class UUIPaginationElement extends LitElement {
   protected renderPrevious() {
     return html`<uui-button
       compact
-      look="outline"
       class="nav"
-      role="listitem"
       label=${this.previousLabel}
       ?disabled=${this._current === 1}
       @click=${this.goToPreviousPage}></uui-button>`;
@@ -265,8 +261,6 @@ export class UUIPaginationElement extends LitElement {
   protected renderNext() {
     return html`<uui-button
       compact
-      look="outline"
-      role="listitem"
       class="nav"
       label=${this.nextLabel}
       ?disabled=${this._current === this.total}
@@ -277,8 +271,6 @@ export class UUIPaginationElement extends LitElement {
     return html`
       <uui-button
         compact
-        look="outline"
-        role="listitem"
         class="nav"
         label=${this.lastLabel}
         ?disabled=${this.total === this._current}
@@ -295,7 +287,7 @@ export class UUIPaginationElement extends LitElement {
       class="dots"
       label="More pages"
       >...</uui-button
-    > `;
+    >`;
   }
 
   protected renderPage(page: number) {
@@ -315,44 +307,56 @@ export class UUIPaginationElement extends LitElement {
     </uui-button>`;
   }
 
-  protected renderNavigationLeft() {
-    return html` ${this.renderFirst()} ${this.renderPrevious()}
-    ${this._visiblePages.includes(1) ? '' : this.renderDots()}`;
+  protected renderLeftDots() {
+    return html` ${this._visiblePages.includes(1) ? '' : this.renderDots()}`;
   }
-
-  protected renderNavigationRight() {
+  protected renderRightDots() {
     return html`${this._visiblePages.includes(this.total)
       ? ''
-      : this.renderDots()}
-    ${this.renderNext()} ${this.renderLast()}`;
+      : this.renderDots()}`;
+  }
+
+  protected renderNavigationLeft() {
+    return html` ${this.renderFirst()} ${this.renderPrevious()}`;
+  }
+  protected renderNavigationRight() {
+    return html` ${this.renderNext()} ${this.renderLast()}`;
   }
 
   render() {
     // prettier-ignore
-    return html`<uui-button-group role="list" id="pages">
+    return html`
       ${this.renderNavigationLeft()}
-      ${this._visiblePages.map(
-      page =>
-        this.renderPage(page)
-    )}
+      <uui-button-group role="list" id="pages">
+        ${this.renderLeftDots()}
+        ${this._visiblePages.map(
+          page =>
+            this.renderPage(page)
+        )}
+        ${this.renderRightDots()}
+      </uui-button-group>
       ${this.renderNavigationRight()}
-    </uui-button-group>
     `;
   }
 
   static override readonly styles = [
     css`
-      uui-button-group {
+      :host {
+        display: inline-flex;
         width: 100%;
+        gap: 1px;
+      }
+      uui-button-group {
+        flex-grow: 1;
       }
 
-      uui-button {
+      uui-button-group uui-button {
         --uui-button-border-color: var(--uui-color-border-standalone);
         --uui-button-border-color-hover: var(--uui-color-interactive-emphasis);
         --uui-button-border-color-disabled: var(--uui-color-border-standalone);
       }
 
-      uui-button:hover {
+      uui-button-group uui-button:hover {
         z-index: 1;
       }
 
@@ -370,6 +374,8 @@ export class UUIPaginationElement extends LitElement {
 
       .dots {
         pointer-events: none;
+        min-width: 36px;
+        max-width: 72px;
       }
 
       .active {

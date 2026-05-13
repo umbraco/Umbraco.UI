@@ -10,13 +10,13 @@
 
   --uui-palette-sunglow: #fad634;
   --uui-palette-sunglow-light: rgb(251, 224, 101);
-  --uui-palette-sunglow-dark: rgb(224, 193, 51);
+  --uui-palette-sunglow-dark: #a17700;
   --uui-palette-sunglow-dimmed: rgb(166, 160, 133);
 
-  --uui-palette-spanish-pink: #f5c1bc;
-  --uui-palette-spanish-pink-light: rgb(248, 214, 211);
-  --uui-palette-spanish-pink-dark: rgb(232, 192, 189);
-  --uui-palette-spanish-pink-dimmed: rgb(219, 212, 212);
+  --uui-palette-spanish-pink: #ffe8e6;
+  --uui-palette-spanish-pink-light: #ffeceb;
+  --uui-palette-spanish-pink-dark: #ffe2e0;
+  --uui-palette-spanish-pink-dimmed: #fae6e5;
 
   --uui-palette-gunmetal: #162335;
   --uui-palette-gunmetal-light: rgb(35, 55, 83);
@@ -38,8 +38,8 @@
   --uui-palette-malibu-dark: rgb(56, 116, 235);
   --uui-palette-malibu-dimmed: rgb(115, 120, 130);
 
-  --uui-palette-maroon-flush: #c31d4c;
-  --uui-palette-maroon-flush-light: rgb(223, 42, 93);
+  --uui-palette-maroon-flush: #df2a5d;
+  --uui-palette-maroon-flush-light: #ec275f;
   --uui-palette-maroon-flush-dark: rgb(174, 30, 71);
   --uui-palette-maroon-flush-dimmed: rgb(122, 98, 104);
 
@@ -83,7 +83,7 @@
   --uui-palette-gravel-dark: rgb(200, 200, 200);
   --uui-palette-gravel-dimmed: rgb(204, 204, 204);
 
-  --uui-palette-sand: #f6f6f7;
+  --uui-palette-sand: #f7f7f8;
   --uui-palette-sand-light: rgb(255, 255, 255);
   --uui-palette-sand-dark: rgb(226, 226, 226);
   --uui-palette-sand-dimmed: rgb(231, 231, 231);
