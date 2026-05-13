@@ -394,7 +394,8 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
         min-width: 0;
 
-        --uui-input-padding: 1px var(--uui-size-space-3);
+        --uui-input-padding: 1px var(--uui-size-space-3) 3px
+          var(--uui-size-space-3);
         --uui-button-height: 100%;
         --uui-button-border-radius: var(
           --uui-input-border-radius,
@@ -496,6 +497,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         text-align: inherit;
         outline: none;
         text-overflow: ellipsis;
+        line-height: 1;
         flex: 1 1 auto;
         min-width: 60px;
       }
@@ -520,10 +522,18 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         min-width: 0;
       }
 
+      uui-input,
+      uui-input-lock,
       ::slotted(uui-input),
       ::slotted(uui-input-lock) {
         height: 100%;
         --uui-input-border-width: 0;
+      }
+
+      uui-button,
+      ::slotted(uui-button) {
+        height: 100%;
+        --uui-button-border-width: 0;
       }
 
       #inner {

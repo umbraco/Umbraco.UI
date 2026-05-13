@@ -48,7 +48,6 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @cssprop --uui-button-contrast-hover - overwrite the text color for hover state
  *  @cssprop --uui-button-contrast-disabled - overwrite the text color for disabled state
  *  @cssprop --uui-button-content-align - Overwrite justify-content alignment. Possible values: 'left', 'right', 'center'.
- *  @cssprop --uui-button-transition - Add transition to the button. Default is none.
  *  @cssprop --uui-focus-outline-color - overwrite the focus outline color
  */
 export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
@@ -366,7 +365,10 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
 
         box-shadow: none;
 
-        transition: var(--uui-button-transition, none);
+        transition:
+          background-color 60ms,
+          color 60ms,
+          border-color 60ms;
       }
 
       #button:focus-visible {
@@ -429,6 +431,15 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
 
       /** Button color attribute: */
       #button {
+        --color: var(--uui-color-interactive);
+        --color-standalone: var(--uui-color-interactive);
+        --color-emphasis: var(--uui-color-interactive-emphasis);
+        --color-contrast: var(--uui-color-interactive-contrast);
+      }
+      /* PRIMARY — DEFAULT */
+      :host([look='primary']:not([color])) #button,
+      :host([look='primary'][color='']) #button,
+      :host([look='primary'][color='default']) #button {
         --color: var(--uui-color-default);
         --color-standalone: var(--uui-color-default-standalone);
         --color-emphasis: var(--uui-color-default-emphasis);
@@ -475,10 +486,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
         border-color: var(--uui-button-border-color, transparent);
       }
       :host(:not([disabled]):hover) #button {
-        background-color: var(
-          --uui-button-background-color-hover,
-          var(--uui-color-surface-emphasis)
-        );
+        background-color: var(--uui-button-background-color-hover, transparent);
         color: var(--uui-button-contrast-hover, var(--color-standalone));
         border-color: var(--uui-button-border-color-hover, transparent);
       }
@@ -496,9 +504,8 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
         background-color: var(--uui-button-background-color, var(--color));
         color: var(--uui-button-contrast, var(--color-contrast));
         border-color: var(--uui-button-border-color, transparent);
-
-        /* special for primary: */
-        font-weight: var(--uui-button-font-weight, 400);
+        /** makes font slightly bolder */
+        text-shadow: 0 0 currentColor;
       }
 
       :host([look='primary']:hover) #button {
@@ -523,6 +530,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
         color: var(--uui-button-contrast-disabled, var(--color-contrast));
         border-color: var(--uui-button-border-color-disabled, var(--color));
       }
+
       /* SECONDARY */
       :host([look='secondary']) #button {
         background-color: var(
@@ -531,9 +539,8 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
         );
         color: var(--uui-button-contrast, var(--color-standalone));
         border-color: var(--uui-button-border-color, transparent);
-
-        /* special for secondary: */
-        font-weight: var(--uui-button-font-weight, 400);
+        /** makes font slightly bolder */
+        text-shadow: 0 0 currentColor;
       }
       :host([look='secondary']:hover) #button {
         background-color: var(
@@ -560,9 +567,6 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
           --uui-button-border-color,
           var(--uui-color-border-standalone)
         );
-
-        /* special for outline: */
-        font-weight: var(--uui-button-font-weight, 400);
       }
       :host([look='outline']:not([disabled]):hover) #button {
         background-color: var(--uui-button-background-color-hover, transparent);

@@ -90,17 +90,18 @@ export class UUITagElement extends LitElement {
       :host {
         background-color: var(--uui-color-surface);
         color: var(--color-standalone);
-        border-color: transparent;
       }
       :host([look='primary']) {
         background-color: var(--color);
         color: var(--color-contrast);
-        border-color: transparent;
       }
       :host([look='secondary']) {
         background-color: var(--uui-color-surface-alt);
         color: var(--color-standalone);
-        border-color: transparent;
+        border-color: var(
+          --uui-tag-border-color,
+          var(--uui-color-divider-standalone)
+        );
       }
       :host([look='outline']) {
         background-color: transparent;

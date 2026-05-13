@@ -114,8 +114,8 @@ export class UUICardUserElement extends UUICardElement {
 
       slot[name='actions'] {
         position: absolute;
-        top: var(--uui-size-space-4);
-        right: var(--uui-size-space-4);
+        top: var(--uui-size-space-3);
+        right: var(--uui-size-space-3);
         display: flex;
         justify-content: right;
 

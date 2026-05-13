@@ -66,11 +66,15 @@ export class UUIToggleElement extends UUIBooleanInputElement {
 
         background-color: var(
           --uui-toggle-background-color,
-          var(--uui-color-border)
+          var(--uui-color-divider-standalone)
         );
         border: 1px solid
           var(--uui-toggle-border-color, var(--uui-color-border-standalone));
         font-size: calc(var(--uui-toggle-size) * 0.6);
+
+        transition:
+          background-color 60ms,
+          border-color 60ms;
       }
 
       label:hover input:not([disabled]) ~ #toggle {
@@ -80,7 +84,7 @@ export class UUIToggleElement extends UUIBooleanInputElement {
         );
         background-color: var(
           --uui-toggle-background-color-hover,
-          var(--uui-color-border)
+          var(--uui-color-divider)
         );
       }
 

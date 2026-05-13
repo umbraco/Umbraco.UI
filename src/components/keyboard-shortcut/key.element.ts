@@ -13,6 +13,12 @@ export class UUIKeyElement extends LitElement {
   static override readonly styles = [
     css`
       :host {
+        display: inline-flex;
+        line-height: 1;
+        justify-content: center;
+        flex-direction: column;
+        height: 2em;
+
         background: var(--uui-color-surface);
         border: 1px solid var(--uui-color-border);
         font-family: inherit;
@@ -20,7 +26,7 @@ export class UUIKeyElement extends LitElement {
         color: var(--uui-color-text);
         border-radius: var(--uui-border-radius);
         margin: 0px 5px;
-        padding: 5px 7px;
+        padding: 0px 6px;
         box-sizing: border-box;
         user-select: none;
         text-transform: lowercase;

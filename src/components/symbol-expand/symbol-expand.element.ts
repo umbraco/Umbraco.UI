@@ -39,7 +39,7 @@ export class UUISymbolExpandElement extends LitElement {
       svg {
         transform: rotate(-90deg);
         transform-origin: 50% 50%;
-        transition: transform 100ms cubic-bezier(0.1, 0, 0.9, 1);
+        transition: transform 240ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
         width: 100%;
         height: 100%;
       }

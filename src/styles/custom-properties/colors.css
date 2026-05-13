@@ -31,8 +31,9 @@
   --uui-color-text: var(--uui-palette-black);
   --uui-color-text-alt: var(--uui-palette-dune-black);
 
-  --uui-color-interactive: var(--uui-palette-violet-blue);
+  --uui-color-interactive: var(--uui-palette-space-cadet);
   --uui-color-interactive-emphasis: var(--uui-palette-violet-blue-light);
+  --uui-color-interactive-contrast: #fff;
 
   --uui-color-border: #d8d7d9;
   --uui-color-border-standalone: #c2c2c2;
@@ -48,9 +49,9 @@
   --uui-color-default-standalone: var(--uui-palette-violet-blue-dark);
   --uui-color-default-contrast: #fff;
 
-  --uui-color-warning: #fbd142;
+  --uui-color-warning: var(--uui-palette-sunglow);
   --uui-color-warning-emphasis: var(--uui-palette-sunglow-light);
-  --uui-color-warning-standalone: #a17700;
+  --uui-color-warning-standalone: var(--uui-palette-sunglow-dark);
   --uui-color-warning-contrast: #000;
   /* --uui-color-warning: var(--uui-palette-sunglow); Contrast not high enough */
   /* --uui-color-warning-standalone: var(--uui-palette-sunglow-dark); Contrast not high enough */
