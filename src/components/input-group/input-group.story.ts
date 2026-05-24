@@ -26,6 +26,11 @@ export const WithInput: Story = {
     html`<uui-input-group ${spread(args)}
       >${renderSlots(args)}</uui-input-group
     >`,
+  args: {
+    'default slot': html`<uui-input
+      type="text"
+      placeholder="Enter text..."></uui-input>`,
+  },
 };
 
 export const WithSelect: Story = {

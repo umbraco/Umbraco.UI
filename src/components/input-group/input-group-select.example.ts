@@ -1,8 +1,11 @@
 import { defineElement } from '../../internal/registration/index.js';
 import { html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
-
 import type { UUISelectOption } from '../select/select.element.js';
+
+import '../input-group/input-group.element.js';
+import '../input-group-addon/input-group-addon.element.js';
+import '../select/select.element.js';
 
 const options: Array<UUISelectOption> = [
   { name: '🐰 Rabbit', value: 'rabbit' },
