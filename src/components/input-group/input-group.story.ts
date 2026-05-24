@@ -7,7 +7,7 @@ import { spread } from '../../../storyhelpers';
 const meta: Meta = {
   id: 'uui-input-group',
   component: 'uui-input-group',
-  title: 'Input Group',
+  title: 'Inputs/Input Group',
   render: args => html`<uui-input-group ${spread(args)}></uui-input-group>`,
   parameters: {
     readme: { markdown: readme },

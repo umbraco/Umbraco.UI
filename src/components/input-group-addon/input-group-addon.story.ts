@@ -7,7 +7,7 @@ import { spread } from '../../../storyhelpers';
 const meta: Meta = {
   id: 'uui-input-group-addon',
   component: 'uui-input-group-addon',
-  title: 'Input Group Addon',
+  title: 'Inputs/Input Group Addon',
   render: args =>
     html`<uui-input-group-addon ${spread(args)}></uui-input-group-addon>`,
   parameters: {
