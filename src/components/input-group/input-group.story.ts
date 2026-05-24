@@ -3,6 +3,7 @@ import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
+import type { UUISelectOption } from './select.element.js';
 
 const meta: Meta = {
   id: 'uui-input-group',
@@ -17,6 +18,15 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+const options: Array<UUISelectOption> = [
+  { name: 'Carrot', value: 'orange' },
+  { name: 'Cucumber', value: 'green' },
+  { name: 'Aubergine', value: 'purple' },
+  { name: 'Blueberry', value: 'Blue' },
+  { name: 'Banana', value: 'yellow' },
+  { name: 'Strawberry', value: 'red' },
+];
+
 export const Default: Story = {};
 
 export const WithInput: Story = {
@@ -24,6 +34,18 @@ export const WithInput: Story = {
     html`<uui-input-group ${spread(args)}
       >${renderSlots(args)}</uui-input-group
     >`,
+};
+
+export const WithSelect: Story = {
+  render: args => html`
+    <uui-input-group ${spread(args)}> ${renderSlots(args)} </uui-input-group>
+  `,
+  args: {
+    'prepend slot': html`
+      <uui-input-group-addon slot="prepend"> Fruit </uui-input-group-addon>
+    `,
+    'default slot': html` <uui-select .options=${options}></uui-select> `,
+  },
 };
 
 export const PrependAndAppend: Story = {

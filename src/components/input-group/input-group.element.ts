@@ -36,5 +36,11 @@ export class UUIInputGroupElement extends LitElement {
       border-radius: 0 var(--uui-input-border-radius, var(--uui-border-radius))
         var(--uui-input-border-radius, var(--uui-border-radius)) 0;
     }
+
+    ::slotted(uui-input-group-addon) ~ uui-input,
+    ::slotted(uui-input-group-addon) ~ uui-select {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   `;
 }
