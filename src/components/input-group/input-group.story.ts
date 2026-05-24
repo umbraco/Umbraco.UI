@@ -19,18 +19,26 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 
+export const WithInput: Story = {
+  render: args =>
+    html`<uui-input-group ${spread(args)}
+      >${renderSlots(args)}</uui-input-group
+    >`,
+};
+
 export const PrependAndAppend: Story = {
   render: args =>
     html`<uui-input-group ${spread(args)}
       >${renderSlots(args)}</uui-input-group
     >`,
   args: {
-    'prepend slot': html`<uui-input-group-addon slot="prepend"
-      >umbraco@</uui-input-group-addon
-    >`,
-    'append slot': html` <uui-input-group-addon slot="append"
-      >.com</uui-input-group-addon
-    >`,
+    'prepend slot': html`
+      <uui-input-group-addon slot="prepend"> umbraco@ </uui-input-group-addon>
+    `,
+    'default slot': html` <uui-input></uui-input> `,
+    'append slot': html`
+      <uui-input-group-addon slot="append"> .com </uui-input-group-addon>
+    `,
   },
 };
 

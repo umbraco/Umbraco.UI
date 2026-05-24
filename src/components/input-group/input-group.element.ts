@@ -22,5 +22,19 @@ export class UUIInputGroupElement extends LitElement {
     ::slotted(uui-select) {
       flex: 1;
     }
+
+    ::slotted(uui-input-group-addon:first-child) {
+      border-radius: var(--uui-input-border-radius, var(--uui-border-radius)) 0
+        0 var(--uui-input-border-radius, var(--uui-border-radius));
+    }
+
+    ::slotted(uui-input) {
+      border-radius: 0;
+    }
+
+    ::slotted(uui-input-group-addon:last-child) {
+      border-radius: 0 var(--uui-input-border-radius, var(--uui-border-radius))
+        var(--uui-input-border-radius, var(--uui-border-radius)) 0;
+    }
   `;
 }

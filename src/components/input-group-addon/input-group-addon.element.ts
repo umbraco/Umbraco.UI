@@ -13,11 +13,12 @@ export class UUIInputGroupAddonElement extends LitElement {
       :host {
         padding-inline: var(--uui-size-space-4);
         background: var(--uui-color-surface-alt);
-        border-left: 1px solid var(--uui-color-border);
+        border: 1px solid var(--uui-color-border);
         color: var(--uui-color-text);
         font-size: var(--uui-type-small-size);
-        display: flex;
+        display: inline-flex;
         align-items: center;
+        height: 100%;
       }
     `,
   ];

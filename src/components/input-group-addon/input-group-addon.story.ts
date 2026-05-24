@@ -19,3 +19,8 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+
+export const Email: Story = {
+  render: args =>
+    html`<uui-input-group-addon ${spread(args)}>@</uui-input-group-addon>`,
+};
