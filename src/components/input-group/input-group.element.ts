@@ -18,7 +18,8 @@ export class UUIInputGroupElement extends LitElement {
       align-items: stretch;
     }
 
-    ::slotted(uui-input) {
+    ::slotted(uui-input),
+    ::slotted(uui-select) {
       flex: 1;
     }
   `;

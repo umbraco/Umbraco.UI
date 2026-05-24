@@ -5,13 +5,19 @@ import { css, html, LitElement } from 'lit';
  */
 export class UUIInputGroupAddonElement extends LitElement {
   render() {
-    return html` Markup goes here `;
+    return html`<slot></slot>`;
   }
 
   static styles = [
     css`
       :host {
-        /* Styles goes here */
+        padding-inline: var(--uui-size-space-4);
+        background: var(--uui-color-surface-alt);
+        border-left: 1px solid var(--uui-color-border);
+        color: var(--uui-color-text);
+        font-size: var(--uui-type-small-size);
+        display: flex;
+        align-items: center;
       }
     `,
   ];
