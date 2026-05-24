@@ -14,6 +14,7 @@ export class UUIInputGroupElement extends LitElement {
 
   static styles = css`
     :host {
+      position: relative;
       display: flex;
       align-items: stretch;
     }
@@ -23,24 +24,37 @@ export class UUIInputGroupElement extends LitElement {
       flex: 1;
     }
 
+    /* default: input has full rounding */
+    ::slotted(uui-input),
+    ::slotted(uui-select) {
+      border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
+    }
+
+    /* if addon is FIRST, next input loses LEFT radius */
+    ::slotted(uui-input-group-addon:first-child) + ::slotted(uui-input),
+    ::slotted(uui-input-group-addon:first-child) + ::slotted(uui-select) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    /* if addon is LAST, previous input loses RIGHT radius */
+    ::slotted(uui-input:last-of-type),
+    ::slotted(uui-select:last-of-type) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /* addon styling */
+    ::slotted(uui-button:first-child),
     ::slotted(uui-input-group-addon:first-child) {
       border-radius: var(--uui-input-border-radius, var(--uui-border-radius)) 0
         0 var(--uui-input-border-radius, var(--uui-border-radius));
     }
 
-    ::slotted(uui-input) {
-      border-radius: 0;
-    }
-
+    ::slotted(uui-button:last-child),
     ::slotted(uui-input-group-addon:last-child) {
       border-radius: 0 var(--uui-input-border-radius, var(--uui-border-radius))
         var(--uui-input-border-radius, var(--uui-border-radius)) 0;
-    }
-
-    ::slotted(uui-input-group-addon) ~ uui-input,
-    ::slotted(uui-input-group-addon) ~ uui-select {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
     }
   `;
 }
