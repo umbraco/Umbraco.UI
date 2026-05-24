@@ -15,20 +15,19 @@ const options: Array<UUISelectOption> = [
 @defineElement('uui-input-group-select-example')
 export class UUIInputGroupSelectExample extends LitElement {
   @state()
-  private value = 'orange';
+  private value = 'unicorn';
 
   private readonly emojiMap: Record<string, string> = {
-    orange: '🥕',
-    green: '🥒',
-    purple: '🍆',
-    yellow: '🍌',
-    red: '🍓',
+    rabbit: '🐰',
+    giraffe: '🦒',
+    shark: '🦈',
+    unicorn: '🦄',
   };
 
   render() {
     return html`<uui-input-group>
       <uui-input-group-addon slot="prepend">
-        ${this.emojiMap[this.value] ?? '🍎'}
+        ${this.emojiMap[this.value] ?? ''}
       </uui-input-group-addon>
       <uui-select
         .options=${options}
