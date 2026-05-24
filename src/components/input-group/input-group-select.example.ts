@@ -5,11 +5,10 @@ import { state } from 'lit/decorators.js';
 import type { UUISelectOption } from '../select/select.element.js';
 
 const options: Array<UUISelectOption> = [
-  { name: '🥕 Carrot', value: 'orange' },
-  { name: '🥒 Cucumber', value: 'green' },
-  { name: '🍆 Aubergine', value: 'purple' },
-  { name: '🍌 Banana', value: 'yellow' },
-  { name: '🍓 Strawberry', value: 'red' },
+  { name: '🐰 Rabbit', value: 'rabbit' },
+  { name: '🦒 Giraffe', value: 'giraffe' },
+  { name: '🦈 Shark', value: 'shark' },
+  { name: '🦄 Unicorn', value: 'unicorn' },
 ];
 
 @defineElement('uui-input-group-select-example')
