@@ -33,8 +33,7 @@ export class UUIInputGroupSelectExample extends LitElement {
       <uui-select
         .options=${options}
         .value=${this.value}
-        @change=${this.#onChange}>
-      </uui-select>
+        @change=${this.#onChange}></uui-select>
     </uui-input-group>`;
   }
 
