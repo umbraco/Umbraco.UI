@@ -3,7 +3,8 @@ import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
-import type { UUISelectOption } from '../select/select.element.js';
+
+import './input-group-select.example.js';
 
 const meta: Meta = {
   id: 'uui-input-group',
@@ -18,15 +19,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const options: Array<UUISelectOption> = [
-  { name: 'Carrot', value: 'orange' },
-  { name: 'Cucumber', value: 'green' },
-  { name: 'Aubergine', value: 'purple' },
-  { name: 'Blueberry', value: 'Blue' },
-  { name: 'Banana', value: 'yellow' },
-  { name: 'Strawberry', value: 'red' },
-];
-
 export const Default: Story = {};
 
 export const WithInput: Story = {
@@ -37,17 +29,8 @@ export const WithInput: Story = {
 };
 
 export const WithSelect: Story = {
-  render: args => html`
-    <uui-input-group ${spread(args)}>${renderSlots(args)}</uui-input-group>
-  `,
-  args: {
-    'prepend slot': html`
-      <uui-input-group-addon slot="prepend">Fruit</uui-input-group-addon>
-    `,
-    'default slot': html`<uui-select
-      .options=${options}
-      placeholder="Select an option"></uui-select>`,
-  },
+  render: () =>
+    html`<uui-input-group-select-example></uui-input-group-select-example>`,
 };
 
 export const WithButton: Story = {
@@ -70,7 +53,7 @@ export const WithSwatch: Story = {
   `,
   args: {
     'prepend slot': html`
-      <uui-swatch color="red" slot="prepend"></uui-swatch>
+      <uui-color-swatch color="#ff0000" slot="prepend"></uui-color-swatch>
     `,
     'default slot': html`<uui-input type="text"></uui-input>`,
   },
