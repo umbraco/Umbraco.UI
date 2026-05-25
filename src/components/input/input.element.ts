@@ -395,7 +395,8 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         min-width: 0;
         overflow: hidden;
 
-        --uui-input-padding: var(--uui-size-space-1) var(--uui-size-space-3);
+        --uui-input-padding: var(--uui-size-space-1) var(--uui-size-space-3)
+          var(--uui-size-space-2) var(--uui-size-space-3);
         --uui-button-height: 100%;
         --uui-button-border-radius: var(
           --uui-input-border-radius,
