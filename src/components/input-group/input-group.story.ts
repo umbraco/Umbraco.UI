@@ -7,7 +7,7 @@ import { useState } from 'storybook/preview-api';
 import type { UUISelectOption } from '../select/select.element.js';
 
 import './input-group-select.example.js';
-import '../select/select.element.js';
+import '../select/select.js';
 
 const meta: Meta = {
   id: 'uui-input-group',
