@@ -29,7 +29,7 @@ export class UUIInputGroupSelectExample extends LitElement {
 
   render() {
     return html`<uui-input-group>
-      <uui-input-group-addon slot="prepend">
+      <uui-input-group-addon>
         ${this.emojiMap[this.value] ?? ''}</uui-input-group-addon
       ><uui-select
         .options=${options}

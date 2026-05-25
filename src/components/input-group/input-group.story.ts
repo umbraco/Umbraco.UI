@@ -3,8 +3,11 @@ import readme from './README.md?raw';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
+import { useState } from 'storybook/preview-api';
+import type { UUISelectOption } from '../select/select.element.js';
 
 import './input-group-select.example.js';
+import '../select/select.element.js';
 
 const meta: Meta = {
   id: 'uui-input-group',
@@ -54,49 +57,96 @@ export const WithSelect: Story = {
 
 export const WithButton: Story = {
   render: args => html`
-    <uui-input-group ${spread(args)}>${renderSlots(args)}</uui-input-group>
+    <uui-input-group ${spread(args)}>
+      <uui-input type="search" placeholder="Enter search term..."></uui-input>
+      <uui-button look="primary">Search</uui-button>
+    </uui-input-group>
   `,
-  args: {
-    'append slot': html`
-      <uui-button look="primary" slot="append">Search</uui-button>
-    `,
-    'default slot': html`<uui-input
-      type="search"
-      placeholder="Enter search term..."></uui-input>`,
-  },
 };
 
 export const WithSwatch: Story = {
   render: args => html`
-    <uui-input-group ${spread(args)}>${renderSlots(args)}</uui-input-group>
+    <uui-input-group ${spread(args)}>
+      <uui-color-swatch color="#ff0000"></uui-color-swatch>
+      <uui-input type="text"></uui-input>
+    </uui-input-group>
   `,
-  args: {
-    'prepend slot': html`
-      <uui-color-swatch color="#ff0000" slot="prepend"></uui-color-swatch>
-    `,
-    'default slot': html`<uui-input type="text"></uui-input>`,
-  },
 };
 
 export const PrependAndAppend: Story = {
   render: args =>
-    html`<uui-input-group ${spread(args)}
-      >${renderSlots(args)}</uui-input-group
-    >`,
-  args: {
-    'prepend slot': html`
-      <uui-input-group-addon slot="prepend">https://</uui-input-group-addon>
-    `,
-    'default slot': html` <uui-input></uui-input> `,
-    'append slot': html`
-      <uui-input-group-addon slot="append">.com</uui-input-group-addon>
-    `,
-  },
+    html`<uui-input-group ${spread(args)}>
+      <uui-input-group-addon>https://</uui-input-group-addon>
+      <uui-input></uui-input>
+      <uui-input-group-addon>.com</uui-input-group-addon>
+    </uui-input-group>`,
 };
 
-export const Append: Story = {
+export const DateAndTime: Story = {
   render: args =>
-    html`<uui-input-group ${spread(args)}
-      >${renderSlots(args)}</uui-input-group
-    >`,
+    html`<uui-input-group ${spread(args)}>
+      <uui-input-group-addon>
+        <uui-icon name="icon-calendar"></uui-icon>
+      </uui-input-group-addon>
+      <uui-input type="date"></uui-input>
+      <uui-input-group-addon>
+        <uui-icon name="icon-clock"></uui-icon>
+      </uui-input-group-addon>
+      <uui-input type="time"></uui-input>
+    </uui-input-group>`,
+};
+
+export const URLBuilder: Story = {
+  render: args =>
+    html`<uui-input-group ${spread(args)}>
+      <uui-input-group-addon>https://</uui-input-group-addon>
+      <uui-input placeholder="your-domain"></uui-input>
+      <uui-input-group-addon>.com</uui-input-group-addon>
+      <uui-input-group-addon>
+        <uui-icon name="icon-globe"></uui-icon>
+      </uui-input-group-addon>
+    </uui-input-group>`,
+};
+
+export const PhoneInputWithCountryCode = {
+  render: () => {
+    const countries: Array<UUISelectOption> = [
+      { name: '+45 (Denmark)', value: 'dk' },
+      { name: '+46 (Sweden)', value: 'se' },
+      { name: '+47 (Norway)', value: 'no' },
+      { name: '+49 (Germany)', value: 'de' },
+      { name: '+1 (United States)', value: 'us' },
+    ];
+
+    const countryMeta: Record<string, { code: string; flag: string }> = {
+      dk: { code: '+45', flag: '🇩🇰' },
+      se: { code: '+46', flag: '🇸🇪' },
+      no: { code: '+47', flag: '🇳🇴' },
+      de: { code: '+49', flag: '🇩🇪' },
+      us: { code: '+1', flag: '🇺🇸' },
+    };
+
+    const [selectedValue, setSelectedValue] = useState('dk');
+
+    const selectedCountry =
+      countries.find(c => c.value === selectedValue) ?? countries[0];
+
+    const meta = countryMeta[selectedCountry.value as string];
+
+    return html`
+      <uui-input-group>
+        <uui-input-group-addon>
+          <span>${meta.flag}</span>
+        </uui-input-group-addon>
+
+        <uui-select
+          .options=${countries}
+          .value=${selectedValue}
+          @change=${(e: CustomEvent) => {
+            setSelectedValue(e.detail.value);
+          }}></uui-select>
+        <uui-input placeholder="Phone number"></uui-input>
+      </uui-input-group>
+    `;
+  },
 };

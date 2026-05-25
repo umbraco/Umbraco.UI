@@ -5,11 +5,7 @@ import { css, html, LitElement } from 'lit';
  */
 export class UUIInputGroupElement extends LitElement {
   render() {
-    return html`
-      <slot name="prepend"></slot>
-      <slot></slot>
-      <slot name="append"></slot>
-    `;
+    return html`<slot></slot>`;
   }
 
   static styles = css`
@@ -19,42 +15,65 @@ export class UUIInputGroupElement extends LitElement {
       align-items: stretch;
     }
 
+    /* =========================
+     INPUT / SELECT
+     ========================= */
+
     ::slotted(uui-input),
     ::slotted(uui-select) {
       flex: 1;
-    }
-
-    /* default: input has full rounding */
-    ::slotted(uui-input),
-    ::slotted(uui-select) {
       border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
     }
 
-    /* if addon is FIRST, next input loses LEFT radius */
-    ::slotted(uui-input-group-addon:first-child) + ::slotted(uui-input),
-    ::slotted(uui-input-group-addon:first-child) + ::slotted(uui-select) {
+    /* remove left radius if not first */
+    ::slotted(uui-input:not(:first-child)),
+    ::slotted(uui-select:not(:first-child)) {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
 
-    /* if addon is LAST, previous input loses RIGHT radius */
-    ::slotted(uui-input:last-of-type),
-    ::slotted(uui-select:last-of-type) {
+    /* remove right radius if not last */
+    ::slotted(uui-input:not(:last-child)),
+    ::slotted(uui-select:not(:last-child)) {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    /* addon styling */
-    ::slotted(uui-button:first-child),
-    ::slotted(uui-input-group-addon:first-child) {
-      border-radius: var(--uui-input-border-radius, var(--uui-border-radius)) 0
-        0 var(--uui-input-border-radius, var(--uui-border-radius));
+    /* =========================
+     ADDONS
+     ========================= */
+
+    ::slotted(uui-input-group-addon),
+    ::slotted(uui-button) {
+      border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
     }
 
-    ::slotted(uui-button:last-child),
-    ::slotted(uui-input-group-addon:last-child) {
-      border-radius: 0 var(--uui-input-border-radius, var(--uui-border-radius))
-        var(--uui-input-border-radius, var(--uui-border-radius)) 0;
+    /* not first addon → remove LEFT border + radius */
+    ::slotted(uui-input-group-addon:not(:first-child)),
+    ::slotted(uui-button:not(:first-child)) {
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    /* not last addon → remove RIGHT border + radius */
+    ::slotted(uui-input-group-addon:not(:last-child)),
+    ::slotted(uui-button:not(:last-child)) {
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /* middle addons fully square */
+    ::slotted(uui-input-group-addon:not(:first-child):not(:last-child)),
+    ::slotted(uui-button:not(:first-child):not(:last-child)) {
+      border-radius: 0;
+    }
+
+    /* layout */
+    ::slotted(uui-input),
+    ::slotted(uui-select) {
+      flex: 1;
     }
   `;
 }

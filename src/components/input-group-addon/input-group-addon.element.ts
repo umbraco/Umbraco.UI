@@ -28,6 +28,7 @@ export class UUIInputGroupAddonElement extends LitElement {
         min-height: var(--uui-input-group-addon-height, var(--uui-size-11));
         max-height: 100%;
         height: 100%;
+        box-sizing: border-box;
       }
     `,
   ];
