@@ -393,6 +393,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
           var(--uui-input-border-color, var(--uui-color-border));
         border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
         min-width: 0;
+        overflow: hidden;
 
         --uui-input-padding: 1px var(--uui-size-space-3) 3px
           var(--uui-size-space-3);
