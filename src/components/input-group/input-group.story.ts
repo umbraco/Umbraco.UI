@@ -36,6 +36,20 @@ export const WithInput: Story = {
 export const WithSelect: Story = {
   render: () =>
     html`<uui-input-group-select-example></uui-input-group-select-example>`,
+  parameters: {
+    docs: {
+      source: {
+        code: `
+  <uui-input-group>
+    <uui-input-group-addon slot="prepend">
+      🦄
+    </uui-input-group-addon>
+    <uui-select></uui-select>
+  </uui-input-group>
+          `,
+      },
+    },
+  },
 };
 
 export const WithButton: Story = {
