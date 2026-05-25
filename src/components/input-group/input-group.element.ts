@@ -22,6 +22,7 @@ export class UUIInputGroupElement extends LitElement {
     ::slotted(uui-input),
     ::slotted(uui-select) {
       flex: 1;
+      z-index: 1;
       border-radius: var(--uui-input-border-radius, var(--uui-border-radius));
     }
 
