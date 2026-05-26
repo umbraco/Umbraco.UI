@@ -120,6 +120,21 @@ export class UUITabGroupElement extends LitElement {
 
   #onTabClicked = (e: MouseEvent) => {
     const selectedElement = e.currentTarget as HTMLElement;
+
+    // If hidden, forward to the original — external listeners fire there
+    if (
+      selectedElement.classList.contains('hidden-tab') &&
+      this.#isElementTabLike(selectedElement)
+    ) {
+      const original = this.#hiddenTabElementsMap.get(selectedElement);
+      if (original) {
+        original.click();
+        this._moreButtonElement.classList.add('active-inside');
+        this._popoverContainerElement.hidePopover();
+      }
+      return;
+    }
+
     if (this.#isElementTabLike(selectedElement)) {
       selectedElement.active = true;
       const linkedElement = this.#hiddenTabElementsMap.get(selectedElement);
