@@ -32,7 +32,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
    * @attr
    * @default undefined
    */
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   public href?: string;
 
   /**
@@ -41,7 +41,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
    * @attr
    * @default undefined
    */
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   public target?: '_blank' | '_parent' | '_self' | '_top';
 
   /**
@@ -50,7 +50,7 @@ export class UUITabElement extends ActiveMixin(LabelMixin('', LitElement)) {
    * @attr
    * @default undefined
    */
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   public rel?: string;
 
   /**
