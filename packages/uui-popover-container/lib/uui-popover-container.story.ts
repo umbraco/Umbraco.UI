@@ -6,6 +6,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { UUIPopoverContainerElement } from '.';
 import './uui-popover-container-shadowdomtester.element.js';
+import './uui-popover-container-nestedslottester.element.js';
 
 const meta: Meta<UUIPopoverContainerElement> = {
   id: 'uui-popover-container',
@@ -191,6 +192,43 @@ export const InsideShadowDOMScrollContainer: Story = {
       </div>
       <div style="height: 400px"></div>
     </div>
+  `,
+};
+
+export const DeeplyNestedSlottedScrollContainers: Story = {
+  args: {
+    placement: 'bottom-start',
+    margin: 0,
+  },
+  render: args => html`
+    <p style="max-width: 420px; font-size: 0.9rem; margin-bottom: 1rem;">
+      Each box (blue → orange → green) is a separate component with a scroll
+      container in its shadow root. Open the popover, then scroll any box — the
+      popover should follow the button.
+    </p>
+    <uui-popover-container-scroll-level-1>
+      <uui-popover-container-scroll-level-2>
+        <uui-popover-container-scroll-level-3>
+          <uui-button
+            popovertarget="popover-container-nested"
+            look="primary"
+            label="Open popover">
+            Open popover
+          </uui-button>
+          <uui-popover-container
+            id="popover-container-nested"
+            popover
+            placement=${args.placement}
+            margin=${args.margin}>
+            <div
+              style="background-color: var(--uui-color-surface); max-width: 200px; box-shadow: var(--uui-shadow-depth-4); padding: var(--uui-size-space-4); border-radius: var(--uui-border-radius); font-size: 0.9rem;">
+              Scroll the blue, orange, or green box — the popover should stay
+              anchored to the button.
+            </div>
+          </uui-popover-container>
+        </uui-popover-container-scroll-level-3>
+      </uui-popover-container-scroll-level-2>
+    </uui-popover-container-scroll-level-1>
   `,
 };
 
