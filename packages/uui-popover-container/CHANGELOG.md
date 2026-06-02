@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](/compare/v1.17.3...v1.18.0) (2026-06-02)
+
+### Bug Fixes
+
+- follow trigger when slotted into shadow-root scroll containers (#1398) 555ad10, closes #1398
+
+### Features
+
+- **popover-container:** expose available height as CSS custom property ce35d94
+
 ## [1.17.3](/compare/v1.17.2...v1.17.3) (2026-05-07)
 
 **Note:** Version bump only for package @umbraco-ui/uui-popover-container

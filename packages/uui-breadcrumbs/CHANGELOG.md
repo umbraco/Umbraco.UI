@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](/compare/v1.17.3...v1.18.0) (2026-06-02)
+
+### Features
+
+- **breadcrumbs:** make breadcrumb items without href interactive (#1379) c0530ce, closes #1379
+
 ## [1.17.3](/compare/v1.17.2...v1.17.3) (2026-05-07)
 
 **Note:** Version bump only for package @umbraco-ui/uui-breadcrumbs
