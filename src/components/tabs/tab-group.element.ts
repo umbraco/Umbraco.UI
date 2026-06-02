@@ -135,6 +135,7 @@ export class UUITabGroupElement extends LitElement {
         this._moreButtonElement.classList.add('active-inside');
         this._popoverContainerElement.hidePopover();
       }
+      return;
     }
 
     if (this.#isElementTabLike(selectedElement)) {

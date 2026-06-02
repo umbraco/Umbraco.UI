@@ -2,6 +2,8 @@ import { findAncestorByAttributeValue } from '../../internal/utils/index.js';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import '../scroll-container/scroll-container.js';
+
 export type PopoverContainerPlacement =
   | 'top'
   | 'top-start'
@@ -140,6 +142,7 @@ export class UUIPopoverContainerElement extends LitElement {
       });
     } else {
       this.#stopScrollListener();
+      this.style.removeProperty('--_available-height');
     }
   };
 
@@ -189,7 +192,26 @@ export class UUIPopoverContainerElement extends LitElement {
 
     if (isCompletelyOutsideScreen) {
       this.hidePopover();
+      return;
     }
+
+    // Constrain the slot height to the available space in the popover's growth direction.
+    const isTopPlacement = this._actualPlacement.startsWith('top');
+    const isBottomPlacement = this._actualPlacement.startsWith('bottom');
+    let availableHeight: number;
+    if (isTopPlacement) {
+      availableHeight = targetRect.top - 2 * this.margin;
+    } else if (isBottomPlacement) {
+      // margin once for the popover's own padding, once for a safe edge buffer
+      availableHeight =
+        screenHeight - (targetRect.top + targetRect.height) - 2 * this.margin;
+    } else {
+      availableHeight = screenHeight - targetRect.top - this.margin;
+    }
+    this.style.setProperty(
+      '--_available-height',
+      `${Math.max(availableHeight, 0)}px`,
+    );
 
     // Set the popover's position
     this.style.transform = `translate(${left}px, ${top}px)`;
@@ -300,9 +322,9 @@ export class UUIPopoverContainerElement extends LitElement {
     // capitalize the side
     side = side.charAt(0).toUpperCase() + side.slice(1);
 
-    const paddingSide = `padding${side}`;
-    this.style.padding = '0';
-    (this.style as any)[paddingSide] = `${this.margin}px`;
+    const marginSide = `margin${side}`;
+    this.style.margin = '0';
+    (this.style as any)[marginSide] = `${this.margin}px`;
   };
 
   #flipPlacement() {
@@ -395,7 +417,7 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`<uui-scroll-container><slot></slot></uui-scroll-container>`;
   }
 
   static override readonly styles = [
@@ -405,12 +427,16 @@ export class UUIPopoverContainerElement extends LitElement {
         width: fit-content;
         height: fit-content;
         border: none;
-        border-radius: 0;
         padding: 0;
         background-color: none;
         background: none;
-        overflow: visible;
         color: var(--uui-color-text);
+        box-shadow: var(--uui-shadow-depth-4);
+        border-radius: var(--uui-border-radius);
+      }
+
+      uui-scroll-container {
+        max-height: var(--_available-height, none);
       }
     `,
   ];
