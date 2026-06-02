@@ -194,12 +194,13 @@ describe('UUIPopoverContainerElement', () => {
       expect(popover.style.getPropertyValue('--_available-height')).toBe('');
 
       button?.click();
-      await sleep(100);
+      await expect
+        .poll(() => popover.style.getPropertyValue('--_available-height'))
+        .toMatch(/^\d+(\.\d+)?px$/);
 
-      const value = popover.style.getPropertyValue('--_available-height');
-      expect(value).toMatch(/^\d+(\.\d+)?px$/);
-
-      const numericValue = parseFloat(value);
+      const numericValue = parseFloat(
+        popover.style.getPropertyValue('--_available-height'),
+      );
       expect(numericValue).toBeGreaterThan(0);
     });
 
@@ -235,20 +236,23 @@ describe('UUIPopoverContainerElement', () => {
         </main>
       `).container.querySelector('main')!;
 
-      (container.querySelector('#btn1') as HTMLElement)?.click();
-      await sleep(100);
+      const p1 = container.querySelector('#p1') as UUIPopoverContainerElement;
+      const p2 = container.querySelector('#p2') as UUIPopoverContainerElement;
+
+      (container.querySelector('#btn1') as HTMLElement).click();
+      await expect
+        .poll(() => p1.style.getPropertyValue('--_available-height'))
+        .toMatch(/px$/);
       const withoutMargin = parseFloat(
-        (
-          container.querySelector('#p1') as UUIPopoverContainerElement
-        ).style.getPropertyValue('--_available-height'),
+        p1.style.getPropertyValue('--_available-height'),
       );
 
-      (container.querySelector('#btn2') as HTMLElement)?.click();
-      await sleep(100);
+      (container.querySelector('#btn2') as HTMLElement).click();
+      await expect
+        .poll(() => p2.style.getPropertyValue('--_available-height'))
+        .toMatch(/px$/);
       const withMargin = parseFloat(
-        (
-          container.querySelector('#p2') as UUIPopoverContainerElement
-        ).style.getPropertyValue('--_available-height'),
+        p2.style.getPropertyValue('--_available-height'),
       );
 
       expect(withMargin).toBe(withoutMargin - 2 * margin);
@@ -275,15 +279,17 @@ describe('UUIPopoverContainerElement', () => {
       ) as UUIPopoverContainerElement;
 
       (testContainer.querySelector('#trigger-button') as HTMLElement)?.click();
-      await sleep(100);
 
-      const scrollContainer = popover.shadowRoot?.querySelector(
-        'uui-scroll-container',
-      ) as HTMLElement;
-
-      const maxHeight = getComputedStyle(scrollContainer).maxHeight;
-      expect(maxHeight).not.toBe('none');
-      expect(maxHeight).not.toBe('');
+      await expect
+        .poll(() => {
+          const scrollContainer = popover.shadowRoot?.querySelector(
+            'uui-scroll-container',
+          );
+          return scrollContainer
+            ? getComputedStyle(scrollContainer).maxHeight
+            : '';
+        })
+        .toMatch(/px$/);
     });
   });
 });
