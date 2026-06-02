@@ -23,8 +23,8 @@ export class UUITableElement extends LitElement {
         display: table;
         width: 100%;
         background-color: var(--uui-color-surface);
-        cursor: default;
 
+        overflow: clip;
         border-radius: var(--uui-border-radius-3);
         border-width: var(--uui-box-border-width, 1px);
         border-style: solid;

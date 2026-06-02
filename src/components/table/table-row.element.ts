@@ -50,8 +50,8 @@ export class UUITableRowElement extends SelectOnlyMixin(
       :host {
         display: table-row;
         position: relative;
-        outline-offset: -3px;
-        border-radius: var(--uui-border-radius);
+        outline-offset: -4px;
+        border-radius: var(--uui-border-radius-3);
       }
 
       :host([selectable]) {
