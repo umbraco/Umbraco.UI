@@ -83,7 +83,7 @@ describe('UUIPopoverContainerElement', () => {
       const scrollParents = popover._getScrollParents();
 
       // Should find all scroll containers
-      expect(scrollParents.length).toBe(3); // outer-scroll, inner-scroll, document.body
+      expect(scrollParents.length).toBe(4); // inner-scroll, scrollable-div, outer-scroll, document.body
 
       // Should include the document.body as the last element
       expect(scrollParents[scrollParents.length - 1]).toBe(document.body);

@@ -383,6 +383,9 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   #getAncestorElement(el: HTMLElement | null): HTMLElement | null {
+    if (el?.assignedSlot) {
+      return el.assignedSlot;
+    }
     if (el?.parentElement) {
       return el.parentElement;
     }
