@@ -245,3 +245,43 @@ export const RightAlign: Story = {
     </div>
   `,
 };
+
+export const CollapsedTabClickForwarding: Story = {
+  render: () => {
+    const updateLog = (msg: string) => {
+      const el = document.getElementById('proxy-log');
+      if (el) el.textContent = msg;
+    };
+
+    requestAnimationFrame(() => {
+      document
+        .querySelectorAll<HTMLElement>('#proxy-demo uui-tab')
+        .forEach(tab => {
+          tab.addEventListener('click', () => {
+            updateLog(`Original tab clicked: "${tab.getAttribute('label')}"`);
+          });
+        });
+    });
+
+    return html`
+      <div
+        id="proxy-demo"
+        style="max-width: 250px; display: flex; flex-direction: column; gap: 8px;">
+        <uui-tab-group>
+          <uui-tab label="Content">Content</uui-tab>
+          <uui-tab label="Packages">Packages</uui-tab>
+          <uui-tab label="Media">Media</uui-tab>
+          <uui-tab label="Settings">Settings</uui-tab>
+          <uui-tab label="Translations">Translations</uui-tab>
+          <uui-tab label="Users">Users</uui-tab>
+        </uui-tab-group>
+        <p
+          id="proxy-log"
+          style="font-size: 0.875rem; color: var(--uui-color-text-alt); margin: 0">
+          Click a tab from the "more" dropdown — the log here confirms the click
+          reached the original (hidden) tab element.
+        </p>
+      </div>
+    `;
+  },
+};
