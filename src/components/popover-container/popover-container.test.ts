@@ -83,7 +83,7 @@ describe('UUIPopoverContainerElement', () => {
       const scrollParents = popover._getScrollParents();
 
       // Should find all scroll containers
-      expect(scrollParents.length).toBe(3); // outer-scroll, inner-scroll, document.body
+      expect(scrollParents.length).toBe(4); // inner-scroll, scrollable-div, outer-scroll, document.body
 
       // Should include the document.body as the last element
       expect(scrollParents[scrollParents.length - 1]).toBe(document.body);
@@ -164,6 +164,132 @@ describe('UUIPopoverContainerElement', () => {
       // Should not have duplicate entries
       const uniqueParents = [...new Set(scrollParents)];
       expect(scrollParents.length).toBe(uniqueParents.length);
+    });
+  });
+
+  describe('available height CSS custom property', () => {
+    it('should set --_available-height when opened', async () => {
+      const testContainer = render(html`
+        <main>
+          <uui-button
+            id="trigger-button"
+            popovertarget="test-popover"
+            label="Open"></uui-button>
+          <uui-popover-container
+            id="test-popover"
+            popover
+            placement="bottom-start">
+            <div>Content</div>
+          </uui-popover-container>
+        </main>
+      `).container.querySelector('main')!;
+
+      const popover = testContainer.querySelector(
+        '#test-popover',
+      ) as UUIPopoverContainerElement;
+      const button = testContainer.querySelector(
+        '#trigger-button',
+      ) as HTMLElement;
+
+      expect(popover.style.getPropertyValue('--_available-height')).toBe('');
+
+      button?.click();
+      await expect
+        .poll(() => popover.style.getPropertyValue('--_available-height'))
+        .toMatch(/^\d+(\.\d+)?px$/);
+
+      const numericValue = parseFloat(
+        popover.style.getPropertyValue('--_available-height'),
+      );
+      expect(numericValue).toBeGreaterThan(0);
+    });
+
+    it('should subtract margin from --_available-height', async () => {
+      const margin = 16;
+
+      const container = render(html`
+        <main style="position:relative; height:500px;">
+          <uui-button
+            id="btn1"
+            popovertarget="p1"
+            label="Open"
+            style="position:absolute; top:50px; left:0;"></uui-button>
+          <uui-popover-container
+            id="p1"
+            popover
+            placement="bottom-start"
+            margin="0">
+            <div>Content</div>
+          </uui-popover-container>
+          <uui-button
+            id="btn2"
+            popovertarget="p2"
+            label="Open"
+            style="position:absolute; top:50px; left:150px;"></uui-button>
+          <uui-popover-container
+            id="p2"
+            popover
+            placement="bottom-start"
+            margin="${margin}">
+            <div>Content</div>
+          </uui-popover-container>
+        </main>
+      `).container.querySelector('main')!;
+
+      const p1 = container.querySelector('#p1') as UUIPopoverContainerElement;
+      const p2 = container.querySelector('#p2') as UUIPopoverContainerElement;
+
+      (container.querySelector('#btn1') as HTMLElement).click();
+      await expect
+        .poll(() => p1.style.getPropertyValue('--_available-height'))
+        .toMatch(/px$/);
+      const withoutMargin = parseFloat(
+        p1.style.getPropertyValue('--_available-height'),
+      );
+
+      (container.querySelector('#btn2') as HTMLElement).click();
+      await expect
+        .poll(() => p2.style.getPropertyValue('--_available-height'))
+        .toMatch(/px$/);
+      const withMargin = parseFloat(
+        p2.style.getPropertyValue('--_available-height'),
+      );
+
+      expect(withMargin).toBe(withoutMargin - 2 * margin);
+    });
+
+    it('should apply --_available-height to uui-scroll-container', async () => {
+      const testContainer = render(html`
+        <main>
+          <uui-button
+            id="trigger-button"
+            popovertarget="test-popover"
+            label="Open"></uui-button>
+          <uui-popover-container
+            id="test-popover"
+            popover
+            placement="bottom-start">
+            <div>Content</div>
+          </uui-popover-container>
+        </main>
+      `).container.querySelector('main')!;
+
+      const popover = testContainer.querySelector(
+        '#test-popover',
+      ) as UUIPopoverContainerElement;
+
+      (testContainer.querySelector('#trigger-button') as HTMLElement)?.click();
+
+      await expect
+        .poll(() => {
+          const scrollContainer = popover.shadowRoot?.querySelector(
+            'uui-scroll-container',
+          );
+          return scrollContainer
+            ? getComputedStyle(scrollContainer).maxHeight
+            : '';
+        })
+        .toMatch(/px$/);
     });
   });
 });
