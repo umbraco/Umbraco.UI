@@ -7,6 +7,7 @@ import '@umbraco-ui/uui-symbol-folder/lib/index';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
+import '@umbraco-ui/uui-icon/lib/index';
 
 /**
  * For more styling options see the [base card](/docs/uui-card--docs) component.
@@ -104,4 +105,12 @@ export const OnlySelectable: Story = {
     selectable: true,
     selectOnly: true,
   },
+};
+
+export const WithIconActiveAndChildren: Story = {
+  render: () => html`
+    <uui-card-media name="The card" file-ext="jpg" active has-children>
+      <uui-icon slot="icon" name="picture"></uui-icon>
+    </uui-card-media>
+  `,
 };
