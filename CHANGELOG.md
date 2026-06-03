@@ -3,6 +3,435 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-rc.2](/compare/v1.18.0...v2.0.0-rc.2) (2026-06-03)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href (#1384) 8aa8f0f, closes #1384
+
+### Reverts
+
+- Revert "docs(changelog): de-duplicate 2.0.0-rc.1 entry" c996f3b
+
+# [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
+
+### Reverts
+
+- "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
+
+# [2.0.0-rc.0](/compare/v1.17.3...v2.0.0-rc.0) (2026-05-13)
+
+### Bug Fixes
+
+- **build:** replace extglob sideEffects patterns with standard globs e2c79ad
+- **build:** update plop test template for v2 testing stack 5f61fe1
+- **ci:** use lerna --canary for nightly releases to avoid dirty working tree f0c6033
+- **color-slider:** show hue color on slider handle (#1331) 4f1df3d, closes #1331 #1244
+- **responsive-container:** observe host element for resize detection and delay dropdown cloning (#1359) 90cfd93, closes #1359
+
+### Features
+
+- **build:** extract src/components/index.ts barrel for components a116f26
+- **combobox:** refactor to support multi-selection. (#1348) cf2bb61, closes #1348
+- **modal:** replace showModal with popover API for top-layer flexibility (#1363) 31ee3b4, closes #1363
+- **storybook:** add runtime theme switcher (#1330) f075ece, closes #1330
+- UUI V2 Backoffice finetunes for v18 (#1378) 0243194, closes #1378
+
+# [2.0.0-alpha.1](/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2026-03-03)
+
+### Bug Fixes
+
+- **theme:** include uui-font and uui-text classes in base theme (#1329) eef9107, closes #1329
+- **theme:** update dark theme colors from CMS d99e548, closes #316dca #eeeeef
+
+### Features
+
+- **theme:** add high-contrast theme (#1328) 1ba62a0, closes #1328
+
+# [2.0.0-alpha.0](/compare/v1.17.0...v2.0.0-alpha.0) (2026-03-03)
+
+- fix(select)!: replace global Option interface with exported UUISelectOption ac2596f
+- feat!: replace --uui-show-focus-outline JS with :focus-visible CSS 2c1bc07
+- feat(base)!: remove element-internals-polyfill (#1281) 6c30deb, closes #1281
+- feat(caret)!: remove deprecated uui-caret component (#1279) 50707b2, closes #1279
+- feat(popover)!: remove deprecated uui-popover component (#1280) 2ad31d8, closes #1280
+- feat(base)!: remove deprecated non-UUI-prefixed class aliases (#1276) 89d95a9, closes #1276
+
+### Bug Fixes
+
+- **a11y:** Add aria-hidden attribute to svg icon when creating a new element (#1326) 09b8125, closes #1326
+- add .js extensions to all relative imports and enforce via ESLint 356c45c
+- add readonly to 3 @state() members incorrectly accepted as false positives (S2933) 0d5a0cc
+- add readonly to never-reassigned class members (S2933) (#1320) 43b76c1, closes #1320
+- add sideEffects field for proper tree-shaking (#1308) 240ddb1, closes #1308
+- adds export of new component 518ebc3
+- **avatar:** use Lit when() directive instead of negated condition 326cdfd
+- **base,icon-registry:** replace unsafe Function type with explicit signatures (#1273) c27b8f7, closes #1273
+- **base:** clear ElementInternals validity without anchor per spec ade70e3
+- **base:** remove @ts-ignore for Popover API e0c833a
+- **breadcrumbs:** use .at(-1) instead of [length - 1] (S7755) f308ff1
+- **button-copy-text:** import registration file in story 690e68f
+- **button:** remove requestSubmit fallback (#1283) a23389d, closes #1283
+- **card:** assert shadow DOM elements exist before clicking in tests 7f50c11
+- **ci:** use project_analyses API for SonarCloud version events 8e2e4d7
+- **ci:** use specific version for SonarCloud new code baseline 8e3af5b
+- **codemod:** address review feedback from Copilot 76d0335
+- **codemod:** address SonarQube code smells 677caa7
+- **codemod:** match font path without trailing slash 13cc828
+- **codemod:** skip files with no UUI imports to prevent formatting noise c79e514
+- Color swatch contrast (#1207) 0712624, closes #1207
+- **color-picker:** correct hsv format output, reset \_color on empty value afaf054
+- **color-picker:** externalize colord dependency (#1309) 1caf034, closes #1309
+- **color-picker:** round s/l to integers; fix HSV saturation in getFormattedValue c0572ae
+- **color-slider,color-picker:** fix pre-existing CSS syntax and reactivity bugs 145c7b3, closes #updateGradients
+- **color-swatch:** restore background style on color div 003163b
+- **color:** add alpha NaN guard, clarify alpha convention in JSDoc 7f7aa72
+- **color:** address SonarQube issues in color utilities (S7773, S6594, S5843, S7735) e51834e
+- **color:** fix slider dead code, fix swatch contrast reactivity, add tests 5ddfd41
+- **color:** normalise hue to [0,360); guard value setter against parse failure 8a4f1f8
+- correct README imports in migrated story files ac343d2
+- **css:** resolve uui-css.css import for test runner b18daec
+- **css:** resolve uui-text.css import for Storybook dc2e62c
+- format color-picker query property to satisfy prettier line length de3f244
+- format combobox-async-example to satisfy prettier line length d4de3c0
+- include src/ patterns in sideEffects for Storybook builds 442671c
+- **popover-container:** replace nested ternary with if/else (S3358) 6a47d48
+- **radio-group:** remove @ts-ignore by widening event listener type f91a7b9, closes #onSelectClick
+- remove dead assignment and use new Array() in UmbracoWordGenerator 8331629
+- remove unnecessary object/array spread in 22 files (S7747) 8234b4b
+- resolve 16 SonarCloud issues across 10 files 132579c
+- resolve 20 SonarCloud issues across 11 files 89635fe
+- resolve 34 SonarCloud issues across 32 files 8958fa5
+- resolve 6 test TODOs across 5 components (#1321) 612284b, closes #1321 #label-button
+- resolve 7 SonarCloud issues on main branch (#1318) 89ccd24, closes #1318
+- resolve remaining S7735 issues and fix file-preview/toast-container bugs (#1323) de7bdb9, closes #1323 #private #private #file #file
+- resolve S7764, S7735, and S3358 SonarCloud issues across 19 files (#1322) 46616ff, closes #1322
+- **responsive-container:** guard against stale ResizeObserver callbacks f94664a, closes #isConnected
+- **storybook:** add default value for CSS custom properties in manifest 7595ef7
+- **storybook:** use color type for CSS custom properties matching color pattern 3c57342
+- **storyhelpers:** guard against undefined CSS custom property values 292a2ae
+- **symbol-file-thumbnail:** fall back to icon when image fails to load 555d029
+- **test:** replace property-based Chai assertions with function calls (#1295) a3aae06, closes #1295 AB#65184
+- **themes:** extract shared foundations into base.css (#1311) 98c1f47, closes #1311
+- **timer:** adjust remaining proportionally when duration changes (#1324) 4847e8e, closes #1324
+- use Number.isNaN, Number.parseFloat, Number.parseInt over globals 798e588
+
+### Features
+
+- `uui-symbol-drag-handle` component (#1118) 73fffad, closes #1118
+- add @umbraco-ui/codemod package for automated v1→v2 migration (AB#65024) a445420, closes AB#65024
+- add jscodeshift codemod for v1→v2 import migration (AB#65024) 1eda56a, closes AB#65024
+- add runtime version detection and duplicate-load warnings (#1302) e84194c, closes #1302
+- add Storybook support for src/ components 8432df1, closes AB#65021
+- **codemod:** rewrite uui-css dist paths and <link> tags 93a89f0
+- **color-picker,color-swatch:** add interactive Storybook stories 96baa05
+- **color:** implement color utilities backed by culori ddda203
+- **css:** introduce themes/ directory with light and dark theme f77c2c5
+- **Form Control:** V2 based on Backoffice version (#1287) c53b9c8, closes #1287 #runValidatorsCallback
+- migrate dialog, dialog-layout, table and add design stories 94a99d7
+- port release/2.0 changes (lit v3, FormControlMixin fix, input tests) 268201e
+- single-package architecture spike (AB#65021) 731b142, closes AB#65021
+- update build tool dependencies to latest major versions (#1275) ae9491b, closes #1275
+- update eslint to v10 (#1278) bdb1292, closes #1278
+- Update general styling attributes for UI Library 2.0 (#1237) 9b5e28e, closes #1237
+- update lit to v3 c0a62a9
+
+### Performance Improvements
+
+- hoist PostCSS config resolution in processLitCSSPlugin 09feed2
+
+### BREAKING CHANGES
+
+- The global `Option` interface is removed. Consumers must
+  import `UUISelectOption` from the select component instead.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The --uui-show-focus-outline CSS custom property is
+  no longer used. Consumers who relied on it to control focus outline
+  visibility should use :focus-visible in their styles instead.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The element-internals-polyfill is no longer
+  bundled or guarded for. Consumers targeting browsers without
+  native ElementInternals support must provide their own polyfill.
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The @umbraco-ui/uui-caret package and <uui-caret>
+  element have been removed. Use <uui-symbol-expand> for expansion
+  toggles or <uui-symbol-sort> for sort indicators instead.
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The @umbraco-ui/uui-popover package, <uui-popover>
+  element, and UUIPopoverEvent have been removed. Use
+  <uui-popover-container> with the native Popover API instead.
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- All mixin interfaces, internal class names, and utility
+  classes now use the UUI prefix consistently. The deprecated aliases for
+  the old names have been removed:
+
+* ActiveMixinInterface → UUIActiveMixinInterface
+* LabelMixinInterface → UUILabelMixinInterface
+* PopoverTargetMixinInterface → UUIPopoverTargetMixinInterface
+* SelectableMixinInterface → UUISelectableMixinInterface
+* SelectOnlyMixinInterface → UUISelectOnlyMixinInterface
+* Timer → UUITimer
+* ModalExampleElement → UUIModalExampleElement
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- All mixin interfaces, internal class names, and utility
+  classes now use the UUI prefix consistently. The deprecated aliases for
+  the old names have been removed:
+
+* ActiveMixinInterface → UUIActiveMixinInterface
+* LabelMixinInterface → UUILabelMixinInterface
+* PopoverTargetMixinInterface → UUIPopoverTargetMixinInterface
+* SelectableMixinInterface → UUISelectableMixinInterface
+* SelectOnlyMixinInterface → UUISelectOnlyMixinInterface
+* Timer → UUITimer
+* ModalExampleElement → UUIModalExampleElement
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- feat: update eslint to v10
+
+Update ESLint ecosystem to v10 with compatible plugin versions:
+
+- eslint: 9.39.2 -> 10.0.0
+- @eslint/js: 9.39.2 -> 10.0.1
+- @eslint/compat: 2.0.1 -> 2.0.2
+- globals: 16.4.0 -> 17.3.0
+- typescript-eslint: 8.53.1 -> 8.55.0
+- eslint-plugin-lit: 2.1.1 -> 2.2.1
+- eslint-plugin-wc: 3.0.2 -> 3.1.0
+
+Fix no-useless-assignment error in storyhelpers/render-slots.ts
+introduced by eslint:recommended expansion in v10.
+
+No config changes needed — flat config works as-is.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- test(card-block-type): skip flaky Webkit CI test suite
+
+The fixture() call times out on Webkit in CI due to slow nested
+element rendering. Tests pass on Chromium and Firefox.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+# [2.0.0-rc.2](/compare/v1.18.0...v2.0.0-rc.2) (2026-06-03)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href (#1384) 8aa8f0f, closes #1384
+
+### Reverts
+
+- Revert "docs(changelog): de-duplicate 2.0.0-rc.1 entry" c996f3b
+
+# [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
+
+### Reverts
+
+- "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
+
+# [2.0.0-rc.0](/compare/v1.17.3...v2.0.0-rc.0) (2026-05-13)
+
+### Bug Fixes
+
+- **build:** replace extglob sideEffects patterns with standard globs e2c79ad
+- **build:** update plop test template for v2 testing stack 5f61fe1
+- **ci:** use lerna --canary for nightly releases to avoid dirty working tree f0c6033
+- **color-slider:** show hue color on slider handle (#1331) 4f1df3d, closes #1331 #1244
+- **responsive-container:** observe host element for resize detection and delay dropdown cloning (#1359) 90cfd93, closes #1359
+
+### Features
+
+- **build:** extract src/components/index.ts barrel for components a116f26
+- **combobox:** refactor to support multi-selection. (#1348) cf2bb61, closes #1348
+- **modal:** replace showModal with popover API for top-layer flexibility (#1363) 31ee3b4, closes #1363
+- **storybook:** add runtime theme switcher (#1330) f075ece, closes #1330
+- UUI V2 Backoffice finetunes for v18 (#1378) 0243194, closes #1378
+
+# [2.0.0-alpha.1](/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2026-03-03)
+
+### Bug Fixes
+
+- **theme:** include uui-font and uui-text classes in base theme (#1329) eef9107, closes #1329
+- **theme:** update dark theme colors from CMS d99e548, closes #316dca #eeeeef
+
+### Features
+
+- **theme:** add high-contrast theme (#1328) 1ba62a0, closes #1328
+
+# [2.0.0-alpha.0](/compare/v1.17.0...v2.0.0-alpha.0) (2026-03-03)
+
+- fix(select)!: replace global Option interface with exported UUISelectOption ac2596f
+- feat!: replace --uui-show-focus-outline JS with :focus-visible CSS 2c1bc07
+- feat(base)!: remove element-internals-polyfill (#1281) 6c30deb, closes #1281
+- feat(caret)!: remove deprecated uui-caret component (#1279) 50707b2, closes #1279
+- feat(popover)!: remove deprecated uui-popover component (#1280) 2ad31d8, closes #1280
+
+### Bug Fixes
+
+- **a11y:** Add aria-hidden attribute to svg icon when creating a new element (#1326) 09b8125, closes #1326
+- add .js extensions to all relative imports and enforce via ESLint 356c45c
+- add readonly to 3 @state() members incorrectly accepted as false positives (S2933) 0d5a0cc
+- add readonly to never-reassigned class members (S2933) (#1320) 43b76c1, closes #1320
+- add sideEffects field for proper tree-shaking (#1308) 240ddb1, closes #1308
+- adds export of new component 518ebc3
+- **avatar:** use Lit when() directive instead of negated condition 326cdfd
+- **base,icon-registry:** replace unsafe Function type with explicit signatures (#1273) c27b8f7, closes #1273
+- **base:** clear ElementInternals validity without anchor per spec ade70e3
+- **base:** remove @ts-ignore for Popover API e0c833a
+- **breadcrumbs:** use .at(-1) instead of [length - 1] (S7755) f308ff1
+- **button-copy-text:** import registration file in story 690e68f
+- **button:** remove requestSubmit fallback (#1283) a23389d, closes #1283
+- **card:** assert shadow DOM elements exist before clicking in tests 7f50c11
+- **ci:** use project_analyses API for SonarCloud version events 8e2e4d7
+- **ci:** use specific version for SonarCloud new code baseline 8e3af5b
+- **codemod:** address review feedback from Copilot 76d0335
+- **codemod:** address SonarQube code smells 677caa7
+- **codemod:** match font path without trailing slash 13cc828
+- **codemod:** skip files with no UUI imports to prevent formatting noise c79e514
+- Color swatch contrast (#1207) 0712624, closes #1207
+- **color-picker:** correct hsv format output, reset \_color on empty value afaf054
+- **color-picker:** externalize colord dependency (#1309) 1caf034, closes #1309
+- **color-picker:** round s/l to integers; fix HSV saturation in getFormattedValue c0572ae
+- **color-slider,color-picker:** fix pre-existing CSS syntax and reactivity bugs 145c7b3, closes #updateGradients
+- **color-swatch:** restore background style on color div 003163b
+- **color:** add alpha NaN guard, clarify alpha convention in JSDoc 7f7aa72
+- **color:** address SonarQube issues in color utilities (S7773, S6594, S5843, S7735) e51834e
+- **color:** fix slider dead code, fix swatch contrast reactivity, add tests 5ddfd41
+- **color:** normalise hue to [0,360); guard value setter against parse failure 8a4f1f8
+- correct README imports in migrated story files ac343d2
+- **css:** resolve uui-css.css import for test runner b18daec
+- **css:** resolve uui-text.css import for Storybook dc2e62c
+- format color-picker query property to satisfy prettier line length de3f244
+- format combobox-async-example to satisfy prettier line length d4de3c0
+- include src/ patterns in sideEffects for Storybook builds 442671c
+- **popover-container:** replace nested ternary with if/else (S3358) 6a47d48
+- **radio-group:** remove @ts-ignore by widening event listener type f91a7b9, closes #onSelectClick
+- remove dead assignment and use new Array() in UmbracoWordGenerator 8331629
+- remove unnecessary object/array spread in 22 files (S7747) 8234b4b
+- resolve 16 SonarCloud issues across 10 files 132579c
+- resolve 20 SonarCloud issues across 11 files 89635fe
+- resolve 34 SonarCloud issues across 32 files 8958fa5
+- resolve 6 test TODOs across 5 components (#1321) 612284b, closes #1321 #label-button
+- resolve 7 SonarCloud issues on main branch (#1318) 89ccd24, closes #1318
+- resolve remaining S7735 issues and fix file-preview/toast-container bugs (#1323) de7bdb9, closes #1323 #private #private #file #file
+- resolve S7764, S7735, and S3358 SonarCloud issues across 19 files (#1322) 46616ff, closes #1322
+- **responsive-container:** guard against stale ResizeObserver callbacks f94664a, closes #isConnected
+- **storybook:** add default value for CSS custom properties in manifest 7595ef7
+- **storybook:** use color type for CSS custom properties matching color pattern 3c57342
+- **storyhelpers:** guard against undefined CSS custom property values 292a2ae
+- **symbol-file-thumbnail:** fall back to icon when image fails to load 555d029
+- **test:** replace property-based Chai assertions with function calls (#1295) a3aae06, closes #1295 AB#65184
+- **themes:** extract shared foundations into base.css (#1311) 98c1f47, closes #1311
+- **timer:** adjust remaining proportionally when duration changes (#1324) 4847e8e, closes #1324
+- use Number.isNaN, Number.parseFloat, Number.parseInt over globals 798e588
+
+### Features
+
+- `uui-symbol-drag-handle` component (#1118) 73fffad, closes #1118
+- add @umbraco-ui/codemod package for automated v1→v2 migration (AB#65024) a445420, closes AB#65024
+- add jscodeshift codemod for v1→v2 import migration (AB#65024) 1eda56a, closes AB#65024
+- add runtime version detection and duplicate-load warnings (#1302) e84194c, closes #1302
+- add Storybook support for src/ components 8432df1, closes AB#65021
+- **codemod:** rewrite uui-css dist paths and <link> tags 93a89f0
+- **color-picker,color-swatch:** add interactive Storybook stories 96baa05
+- **color:** implement color utilities backed by culori ddda203
+- **css:** introduce themes/ directory with light and dark theme f77c2c5
+- **Form Control:** V2 based on Backoffice version (#1287) c53b9c8, closes #1287 #runValidatorsCallback
+- migrate dialog, dialog-layout, table and add design stories 94a99d7
+- port release/2.0 changes (lit v3, FormControlMixin fix, input tests) 268201e
+- single-package architecture spike (AB#65021) 731b142, closes AB#65021
+- update build tool dependencies to latest major versions (#1275) ae9491b, closes #1275
+- update eslint to v10 (#1278) bdb1292, closes #1278
+- Update general styling attributes for UI Library 2.0 (#1237) 9b5e28e, closes #1237
+- update lit to v3 c0a62a9
+
+### Performance Improvements
+
+- hoist PostCSS config resolution in processLitCSSPlugin 09feed2
+
+### BREAKING CHANGES
+
+- The global `Option` interface is removed. Consumers must
+  import `UUISelectOption` from the select component instead.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The --uui-show-focus-outline CSS custom property is
+  no longer used. Consumers who relied on it to control focus outline
+  visibility should use :focus-visible in their styles instead.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The element-internals-polyfill is no longer
+  bundled or guarded for. Consumers targeting browsers without
+  native ElementInternals support must provide their own polyfill.
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The @umbraco-ui/uui-caret package and <uui-caret>
+  element have been removed. Use <uui-symbol-expand> for expansion
+  toggles or <uui-symbol-sort> for sort indicators instead.
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- The @umbraco-ui/uui-popover package, <uui-popover>
+  element, and UUIPopoverEvent have been removed. Use
+  <uui-popover-container> with the native Popover API instead.
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>
+
+- All mixin interfaces, internal class names, and utility
+  classes now use the UUI prefix consistently. The deprecated aliases for
+  the old names have been removed:
+
+* ActiveMixinInterface → UUIActiveMixinInterface
+* LabelMixinInterface → UUILabelMixinInterface
+* PopoverTargetMixinInterface → UUIPopoverTargetMixinInterface
+* SelectableMixinInterface → UUISelectableMixinInterface
+* SelectOnlyMixinInterface → UUISelectOnlyMixinInterface
+* Timer → UUITimer
+* ModalExampleElement → UUIModalExampleElement
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- feat: update eslint to v10
+
+Update ESLint ecosystem to v10 with compatible plugin versions:
+
+- eslint: 9.39.2 -> 10.0.0
+- @eslint/js: 9.39.2 -> 10.0.1
+- @eslint/compat: 2.0.1 -> 2.0.2
+- globals: 16.4.0 -> 17.3.0
+- typescript-eslint: 8.53.1 -> 8.55.0
+- eslint-plugin-lit: 2.1.1 -> 2.2.1
+- eslint-plugin-wc: 3.0.2 -> 3.1.0
+
+Fix no-useless-assignment error in storyhelpers/render-slots.ts
+introduced by eslint:recommended expansion in v10.
+
+No config changes needed — flat config works as-is.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+- test(card-block-type): skip flaky Webkit CI test suite
+
+The fixture() call times out on Webkit in CI due to slow nested
+element rendering. Tests pass on Chromium and Firefox.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
 # [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
 
 ### Reverts
