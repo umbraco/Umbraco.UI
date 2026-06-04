@@ -89,3 +89,11 @@ export const OnlySelectable: Story = {
     selectOnly: true,
   },
 };
+
+export const WithChildrenAndIcon: Story = {
+  args: {
+    hasChildren: true,
+    selectable: true,
+    'icon slot': html`<uui-icon slot="icon" name="wand"></uui-icon>`,
+  },
+};

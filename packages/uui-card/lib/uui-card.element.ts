@@ -4,7 +4,7 @@ import {
 } from '@umbraco-ui/uui-base/lib/mixins';
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { css, html, LitElement, nothing } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { UUICardEvent } from './UUICardEvent';
@@ -117,13 +117,8 @@ export class UUICardElement extends SelectOnlyMixin(
 
   protected render() {
     return html`
-      <slot name="icon"></slot> <slot id="open-part"></slot>
+      <slot id="open-part"></slot>
       <div id="select-border"></div>
-      ${this.hasChildren
-        ? html`<uui-symbol-expand
-            id="children-indicator"
-            aria-hidden="true"></uui-symbol-expand>`
-        : nothing}
     `;
   }
 
@@ -292,18 +287,6 @@ export class UUICardElement extends SelectOnlyMixin(
         opacity: 1;
       }
 
-      #children-indicator {
-        margin-left: auto;
-        align-self: center;
-        opacity: 0.5;
-        padding-right: var(--uui-size-space-3);
-      }
-
-      slot[name='icon'] {
-        display: flex;
-        align-items: center;
-        padding-left: var(--uui-size-space-4);
-      }
       :host([active]) {
         background-color: var(--uui-color-current, #f5c1bc);
       }

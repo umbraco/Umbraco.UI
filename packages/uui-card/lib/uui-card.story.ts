@@ -52,9 +52,3 @@ export const Selectable: Story = {
     selectable: true,
   },
 };
-
-export const HasChildren: Story = {
-  args: {
-    hasChildren: true,
-  },
-};

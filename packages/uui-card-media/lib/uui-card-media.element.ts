@@ -228,12 +228,8 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 0.5;
         flex-shrink: 0;
         margin-left: calc(
-          (var(--uui-size-space-1) - var(--uui-size-space-2)) * -1
+          (var(--uui-size-space-1) - var(--uui-size-space-1)) * -1
         );
-      }
-
-      slot[name='icon'] {
-        padding-left: 0;
       }
 
       :host([image]:not([image=''])) #open-part {
@@ -266,7 +262,7 @@ export class UUICardMediaElement extends UUICardElement {
 
       #icon {
         display: inline-flex;
-        margin-right: var(--uui-size-2);
+        margin-right: var(--uui-size-1);
       }
 
       #detail {

@@ -4,6 +4,7 @@ import { UUICardElement } from '@umbraco-ui/uui-card/lib';
 import { css, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import '@umbraco-ui/uui-symbol-expand/lib';
 
 /**
  *  @element uui-card-content-node
@@ -70,6 +71,11 @@ export class UUICardContentNodeElement extends UUICardElement {
     return html`
       <span id="content" class="uui-text">
         <span id="item">
+          ${this.hasChildren
+            ? html`<uui-symbol-expand
+                id="children-indicator"
+                aria-hidden="true"></uui-symbol-expand>`
+            : nothing}
           <span id="icon">
             <slot name="icon" @slotchange=${this._onSlotIconChange}></slot>
             ${this._iconSlotHasContent === false
@@ -203,7 +209,14 @@ export class UUICardContentNodeElement extends UUICardElement {
 
       #icon {
         font-size: 1.2em;
-        margin-right: var(--uui-size-1);
+        margin-right: var(--uui-size-2);
+        transition: opacity 120ms;
+      }
+
+      :host([selectable]:not([has-children]):hover) #icon,
+      :host([selectable]:not([has-children]):focus-within) #icon,
+      :host([selectable]:not([has-children])[selected]) #icon {
+        opacity: 0;
       }
 
       :host([selectable]) #open-part {
@@ -232,6 +245,12 @@ export class UUICardContentNodeElement extends UUICardElement {
       #select-checkbox {
         top: var(--uui-size-5);
         left: var(--uui-size-6);
+      }
+
+      #children-indicator {
+        opacity: 0.5;
+        flex-shrink: 0;
+        margin-right: var(--uui-size-space-2);
       }
     `,
   ];
