@@ -95,6 +95,12 @@ export class UUICardElement extends SelectOnlyMixin(
     this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
   }
 
+  protected handleOpenDblClick(e: Event) {
+    if (this.disabled) return;
+    e.stopPropagation();
+    this.dispatchEvent(new UUICardEvent(UUICardEvent.OPEN));
+  }
+
   protected renderCheckbox() {
     if (!this.selectable) return;
     return html`

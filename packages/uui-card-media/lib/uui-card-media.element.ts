@@ -87,6 +87,7 @@ export class UUICardMediaElement extends UUICardElement {
         id="open-part"
         tabindex=${ifDefined(tabIndex)}
         @click=${this.handleOpenClick}
+        @dblclick=${this.handleOpenDblClick}
         @keydown=${this.handleOpenKeydown}>
         ${this.#renderContent()}
       </button>
@@ -112,17 +113,17 @@ export class UUICardMediaElement extends UUICardElement {
     return html`
       <div id="content" class="uui-text">
         <span id="name" title="${this.name}">
+          ${this.hasChildren
+            ? html`<uui-symbol-expand
+                id="children-indicator"
+                aria-hidden="true"></uui-symbol-expand>`
+            : nothing}
           <slot
             name="icon"
             id="icon"
             style=${this._iconSlotHasContent ? '' : 'display: none;'}
             @slotchange=${this._iconSlotChanged}></slot
           ><span class="label">${this.name}</span>
-          ${this.hasChildren
-            ? html`<uui-symbol-expand
-                id="children-indicator"
-                aria-hidden="true"></uui-symbol-expand>`
-            : nothing}
         </span>
         <small id="detail">${this.detail}<slot name="detail"></slot></small>
       </div>
@@ -224,9 +225,15 @@ export class UUICardMediaElement extends UUICardElement {
       }
 
       #children-indicator {
-        margin-left: auto;
         opacity: 0.5;
         flex-shrink: 0;
+        margin-left: calc(
+          (var(--uui-size-space-1) - var(--uui-size-space-2)) * -1
+        );
+      }
+
+      slot[name='icon'] {
+        padding-left: 0;
       }
 
       :host([image]:not([image=''])) #open-part {
@@ -297,6 +304,7 @@ export class UUICardMediaElement extends UUICardElement {
 
       :host([active]) #content::before {
         background-color: var(--uui-color-current);
+        bottom: -1px;
       }
 
       /*
