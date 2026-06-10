@@ -121,6 +121,12 @@ export class UUITabGroupElement extends LitElement {
   #onTabClicked = (e: MouseEvent) => {
     const selectedElement = e.currentTarget as HTMLElement;
 
+    // Don't switch active tabs when a href is being opened in a new browser tab
+    const isCtrlClick = e.ctrlKey || e.metaKey;
+    if (this.#isElementHrefLike(selectedElement) && isCtrlClick) {
+      return;
+    }
+
     // If hidden, forward to the original — external listeners fire there
     if (
       selectedElement.classList.contains('hidden-tab') &&
@@ -279,6 +285,15 @@ export class UUITabGroupElement extends LitElement {
   #isElementTabLike(el: any): el is UUITabElement {
     return (
       typeof el === 'object' && 'active' in el && typeof el.active === 'boolean'
+    );
+  }
+
+  #isElementHrefLike(el: any): el is UUITabElement {
+    return (
+      typeof el === 'object' &&
+      'href' in el &&
+      typeof el.href === 'string' &&
+      el.href
     );
   }
 
