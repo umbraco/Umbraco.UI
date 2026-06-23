@@ -13,10 +13,10 @@
 1. Merge the `production` back into the `main` branch by writing `git merge origin/production` when on the `main` branch, and then push the changes. (This way we ensure that the `main` branch is always up to date with the latest release and accompanying release notes).
 1. Go to Github and [create a new release](https://github.com/umbraco/Umbraco.UI/releases/new).
    1. Using tags on the release, we want to target `vx.x.x` where "x.x.x" is the version number that the UUI package was bumped to during the release.
-   1. Select the prevous version, in relation to your release, in `Previous tag` and press `Generate release notes`.
+   1. Select the previous version, in relation to your release, in `Previous tag` and press `Generate release notes`.
    1. Check the generated release notes, see if PRs are in the right category, if not append labels to them and return to generate again.
 1. The UI Library has now been updated.
-1. Write an post on the UI Library Slack Channel.
+1. Write a post on the UI Library Slack Channel.
 1. Consider when to update the Backoffice.
 
 ## How to clear tags
