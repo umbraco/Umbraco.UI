@@ -16,6 +16,7 @@
    1. Select the previous version, in relation to your release, in `Previous tag` and press `Generate release notes`.
    1. Check the generated release notes, see if PRs are in the right category, if not append labels to them and return to generate again.
 1. The UI Library has now been updated.
+1. **Only if this is a new _major_ version** (e.g. `3.0.0`): re-anchor the SonarCloud New Code baseline by creating a `VERSION` event — see _"SonarCloud version & New Code baseline"_ in [CLAUDE.md](../CLAUDE.md). Minor/patch releases need nothing here.
 1. Write a post on the UI Library Slack Channel.
 1. Consider when to update the Backoffice.
 

@@ -118,26 +118,27 @@ The `package.json` `exports` field exposes:
 - Pre-release versions use `preid: "rc"` and publish to `prerelease` dist-tag
 - Current: `2.0.0-alpha.1` on `main`; v1 latest: `1.17.1` on `v1/dev`
 
-#### Bumping the SonarCloud version (manual, per release)
+#### SonarCloud version & New Code baseline (act ONLY at major releases)
 
-SonarCloud (project `umbraco_Umbraco.UI`) uses **Automatic Analysis**, which **ignores** the `sonar.projectVersion` setting and simply **carries forward the last `VERSION` event**. The New Code definition is **"Previous version"**, so the new-code baseline only advances when a new `VERSION` event is created. The old publish-workflow step that did this was removed (it used an expiring user PAT and 401'd on every release). **So after each real release (e.g. `2.1.0`, `3.0.0`) someone must create the version event by hand**, or the gate will start counting everything since the previous release as "new code".
+SonarCloud (project `umbraco_Umbraco.UI`) uses **Automatic Analysis**, which **ignores** the `sonar.projectVersion` setting and simply **carries forward the last `VERSION` event**. New Code is set to **"Previous version"**, so the new-code baseline sits at the last version change and stays there until a new `VERSION` event is created.
 
-Steps (run **after** the release's analysis has run on `main`):
+**The `VERSION` event marks a tracking epoch, not the npm version.** The v1→v2 migration fixed hundreds of issues, and we want to track quality across the **entire v2 line**. So:
+
+- **During the v2 line (2.0.0 → 2.x): do nothing.** Autoscan carries `2.0.0` forward, the baseline stays pinned at the v1→v2 cut, and any regression introduced anywhere in 2.x shows up as "new code". Do **not** bump per minor/patch release — that would march the baseline forward and stop catching earlier-in-2.x regressions. (Expect the SonarCloud version label to read `2.0.0` even when npm is at e.g. 2.4.0 — intentional.)
+- **Only when cutting the next major (`3.0.0`, `4.0.0`, …):** create a new `VERSION` event so the baseline re-anchors at that major's cut.
+
+Steps for a major cut — run **after** the new major's first `main` analysis, with a SonarCloud **user token that has "Administer"** on the project (analysis/scoped-org tokens canNOT call `create_event`; user PATs expire ~60–90 days, so mint a fresh one: My Account > Security > Generate Token):
 
 ```bash
-# Needs a SonarCloud USER token with "Administer" on the project
-# (analysis/scoped-org tokens canNOT call create_event). User PATs expire
-# (~60–90 days), so generate a fresh one at release time:
-# My Account > Security > Generate Token.
-SONAR_TOKEN=...   # paste fresh token
-VERSION=2.1.0     # the version just released
+SONAR_TOKEN=...   # fresh Administer user token
+VERSION=3.0.0     # the new MAJOR just released
 
 # 1. Get the latest main-branch analysis key
 KEY=$(curl -s -H "Authorization: Bearer $SONAR_TOKEN" \
   "https://sonarcloud.io/api/project_analyses/search?project=umbraco_Umbraco.UI&ps=1" \
   | python3 -c "import json,sys;print(json.load(sys.stdin)['analyses'][0]['key'])")
 
-# 2. Create the VERSION event (this is what advances "Previous version")
+# 2. Create the VERSION event (re-anchors "Previous version" at the major cut)
 curl -s -X POST -H "Authorization: Bearer $SONAR_TOKEN" \
   --data-urlencode "analysis=$KEY" \
   --data-urlencode "category=VERSION" \
@@ -145,7 +146,7 @@ curl -s -X POST -H "Authorization: Bearer $SONAR_TOKEN" \
   "https://sonarcloud.io/api/project_analyses/create_event"
 ```
 
-The next analysis then anchors new code at this release boundary and the quality gate reflects only post-release changes. (Alternative if this manual step is unwanted: change the New Code definition to "Number of days" or "Reference branch", which needs no version management.)
+(Alternative if even the per-major step is unwanted: switch New Code to "Number of days" or "Reference branch" — needs no version management, but you lose the "track the whole major line" behaviour.)
 
 ## Component Architecture
 
