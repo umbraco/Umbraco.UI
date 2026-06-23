@@ -19,7 +19,6 @@
   font-style: normal;
   font-display: swap;
   font-weight: 900;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-BlackItalic */
@@ -33,7 +32,6 @@
   font-style: italic;
   font-weight: 900;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-Bold */
@@ -47,7 +45,6 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-BoldItalic */
@@ -61,7 +58,6 @@
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-Italic */
@@ -75,7 +71,6 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-Regular */
@@ -89,7 +84,6 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-Light */
@@ -103,7 +97,6 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
 
 /* Webfont: LatoLatin-LightItalic */
@@ -117,5 +110,4 @@
   font-style: italic;
   font-weight: 300;
   font-display: swap;
-  text-rendering: optimizeLegibility;
 }
