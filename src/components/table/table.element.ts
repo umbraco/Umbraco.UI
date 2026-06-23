@@ -14,13 +14,15 @@ export class UUITableElement extends LitElement {
   }
 
   render() {
-    return html`<slot></slot>`;
+    return html`<div>
+      <slot></slot>
+    </div>`;
   }
 
   static override readonly styles = [
     css`
       :host {
-        display: table;
+        display: block;
         width: 100%;
         background-color: var(--uui-color-surface);
 
@@ -29,6 +31,11 @@ export class UUITableElement extends LitElement {
         border-width: var(--uui-box-border-width, 1px);
         border-style: solid;
         border-color: var(--uui-color-divider-standalone);
+      }
+
+      div {
+        display: table;
+        width: 100%;
       }
     `,
   ];
