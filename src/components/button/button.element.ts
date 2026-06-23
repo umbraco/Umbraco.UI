@@ -148,7 +148,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
-    this.addEventListener('click', this._onHostClick);
+    this.addEventListener('click', this._onHostClick, { capture: true });
   }
 
   protected getFormElement(): HTMLElement {
