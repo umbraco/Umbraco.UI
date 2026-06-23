@@ -1,7 +1,7 @@
 # UI Library Release workflow
 
 1. Create a new branch for the release. We need a good naming convention: `release/<Version>` (example: `release/1.12.0`).
-1. Review new release PR (either [on GitHub](https://github.com/umbraco/Umbraco.UI/compare/)).
+1. Review the new release PR [on GitHub](https://github.com/umbraco/Umbraco.UI/compare/).
 1. Run `npm run lerna:version` and Lerna will suggest a version bump for the `@umbraco-ui/uui` package.
 1. Review the new version number and accept with `y` and Lerna will now bump the package version and update the local CHANGELOG.md file using descriptions from the conventional commits, Lerna will also reinstall NPM and generate a new lockfile.
 1. Push all the changes to your release branch.
