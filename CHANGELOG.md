@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.1](/compare/v1.18.0...v1.18.1) (2026-06-23)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href for v1 (#1404) 6de84e0, closes #1404
+
 # [1.18.0](/compare/v1.17.3...v1.18.0) (2026-06-02)
 
 ### Bug Fixes
