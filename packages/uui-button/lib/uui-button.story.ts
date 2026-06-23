@@ -69,6 +69,28 @@ export const Disabled: Story = {
   },
 };
 
+export const DisabledClickTest: Story = {
+  render: () => {
+    const handleClick = () => {
+      alert('Button was clicked!');
+    };
+    return html`
+      <div style="display: flex; gap: 1rem;">
+        <uui-button
+          label="Disabled"
+          look="primary"
+          disabled
+          @click=${handleClick}>
+          Disabled (no alert)
+        </uui-button>
+        <uui-button label="Enabled" look="primary" @click=${handleClick}>
+          Enabled (shows alert)
+        </uui-button>
+      </div>
+    `;
+  },
+};
+
 export const Compact: Story = {
   args: {
     compact: true,
