@@ -118,6 +118,35 @@ The `package.json` `exports` field exposes:
 - Pre-release versions use `preid: "rc"` and publish to `prerelease` dist-tag
 - Current: `2.0.0-alpha.1` on `main`; v1 latest: `1.17.1` on `v1/dev`
 
+#### Bumping the SonarCloud version (manual, per release)
+
+SonarCloud (project `umbraco_Umbraco.UI`) uses **Automatic Analysis**, which **ignores** the `sonar.projectVersion` setting and simply **carries forward the last `VERSION` event**. The New Code definition is **"Previous version"**, so the new-code baseline only advances when a new `VERSION` event is created. The old publish-workflow step that did this was removed (it used an expiring user PAT and 401'd on every release). **So after each real release (e.g. `2.1.0`, `3.0.0`) someone must create the version event by hand**, or the gate will start counting everything since the previous release as "new code".
+
+Steps (run **after** the release's analysis has run on `main`):
+
+```bash
+# Needs a SonarCloud USER token with "Administer" on the project
+# (analysis/scoped-org tokens canNOT call create_event). User PATs expire
+# (~60–90 days), so generate a fresh one at release time:
+# My Account > Security > Generate Token.
+SONAR_TOKEN=...   # paste fresh token
+VERSION=2.1.0     # the version just released
+
+# 1. Get the latest main-branch analysis key
+KEY=$(curl -s -H "Authorization: Bearer $SONAR_TOKEN" \
+  "https://sonarcloud.io/api/project_analyses/search?project=umbraco_Umbraco.UI&ps=1" \
+  | python3 -c "import json,sys;print(json.load(sys.stdin)['analyses'][0]['key'])")
+
+# 2. Create the VERSION event (this is what advances "Previous version")
+curl -s -X POST -H "Authorization: Bearer $SONAR_TOKEN" \
+  --data-urlencode "analysis=$KEY" \
+  --data-urlencode "category=VERSION" \
+  --data-urlencode "name=$VERSION" \
+  "https://sonarcloud.io/api/project_analyses/create_event"
+```
+
+The next analysis then anchors new code at this release boundary and the quality gate reflects only post-release changes. (Alternative if this manual step is unwanted: change the New Code definition to "Number of days" or "Reference branch", which needs no version management.)
+
 ## Component Architecture
 
 ### Key patterns
