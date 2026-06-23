@@ -1,20 +1,23 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import { {{className name}} } from './{{> tagnamePartial}}.element';
+import './{{name}}.js';
+import { html } from 'lit';
+import { render } from 'vitest-browser-lit';
+import { axeRun } from '../../internal/test/a11y.js';
+import { {{className name}} } from './{{name}}.element';
 
 describe('{{className name}}', () => {
   let element: {{className name}};
 
   beforeEach(async () => {
-    element = await fixture(
-      html` <{{> tagnamePartial}}></{{> tagnamePartial}}> `
-    );
+    element = render(html`<{{> tagnamePartial}}></{{> tagnamePartial}}>`)
+      .container.querySelector('{{> tagnamePartial}}')!;
+    await element.updateComplete;
   });
 
   it('is defined with its own instance', () => {
-    expect(element).to.be.instanceOf({{className name}});
+    expect(element).toBeInstanceOf({{className name}});
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    expect(await axeRun(element)).toHaveNoViolations();
   });
 });

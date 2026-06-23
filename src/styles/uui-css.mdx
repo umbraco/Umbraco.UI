@@ -1,0 +1,51 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design/Css" />
+
+# CSS
+
+## Themes
+
+Import a theme to load all design tokens (custom properties) and font faces:
+
+```js
+import '@umbraco-ui/uui/themes/light.css';
+```
+
+Available themes:
+
+- **themes/light.css** — Light theme (default). Loads all design tokens and Lato font faces.
+- **themes/dark.css** — Dark theme. Extends light theme with dark color overrides. Apply via the `.uui-theme-dark` class.
+
+## Utility styles
+
+- **styles/uui-font.css** — use the `.uui-font` class to declare the Umbraco typography base (font-family, size, line-height).
+- **styles/uui-text.css** — use the `.uui-text` class to style headings, paragraphs, lists, etc. Must be used together with `.uui-font`.
+
+## Usage
+
+```html
+<div class="uui-text">
+  <h1>Hello uui-css!</h1>
+  <p>
+    This component will now use the styling from uui-text because the root of
+    the component has the uui-text class.
+  </p>
+  <p style="background: var(--uui-color-surface-alt);">
+    this paragraph uses a custom property from the uui custom properties to set
+    its background color.
+  </p>
+</div>
+```
+
+<div className="uui-text">
+  <h1>Hello uui-css!</h1>
+  <p>
+    This component will now use the styling from uui-text because the root of
+    the component has the uui-text class.
+  </p>
+  <p style={{ background: 'var(--uui-color-surface-alt)' }}>
+    this paragraph uses a custom property from the uui custom properties to set
+    its background color.
+  </p>
+</div>

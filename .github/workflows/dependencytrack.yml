@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to report to Dependency-Track (e.g. 1.16.0)'
+        description: 'Version to report to Dependency-Track (e.g. 2.0.0-alpha.0)'
         required: true
         type: string
   push:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Node.js SBOM
       - name: Install CycloneDX Node.js CLI

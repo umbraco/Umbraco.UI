@@ -1,24 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import './{{name}}.js';
+import readme from './README.md?raw';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import { spread } from '../../../storyhelpers';
 
-import './{{> tagnamePartial}}.element';
-import type { {{className name}} } from './{{> tagnamePartial}}.element';
-import readme from '../README.md?raw';
-
-const meta: Meta<{{className name}}> = {
+const meta: Meta = {
   id: '{{> tagnamePartial}}',
-  title: '{{displayName name}}',
   component: '{{> tagnamePartial}}',
+  title: '{{displayName name}}',
+  render: args =>
+    html`<{{> tagnamePartial}} ${spread(args)}></{{> tagnamePartial}}>`,
   parameters: {
     readme: { markdown: readme },
-    docs: {
-      source: {
-        code: `<{{> tagnamePartial}}></{{> tagnamePartial}}>`,
-      },
-    },
   },
 };
 
 export default meta;
-type Story = StoryObj<{{className name}}>;
+type Story = StoryObj;
 
-export const Overview: Story = {};
+export const Default: Story = {};

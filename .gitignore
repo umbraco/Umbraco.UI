@@ -13,6 +13,9 @@
 
 ## temp folders
 /.tmp/
+/.claude/*
+!/.claude/settings.json
+!/.claude/hooks/
 
 # build
 /_site/
@@ -20,14 +23,14 @@
 /packages/**/lib/**/*.js
 **/*.js.map
 **/*.d.ts
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 /out-tsc/
 /packages/**/node_modules/
-
+/dist
 
 custom-elements.json
-vscode-html-custom-data.json
-/packages/uui-css/custom-properties.*
+vscode.html-custom-data.json
+/packages/uui-css/custom-properties.css
 storybook-static
 debug.log
 out-css
@@ -35,9 +38,10 @@ out-css
 .eslintcache
 *.tgz
 .turbo
+.tsbuildinfo
 
-# old source
-/src
+# single-package spike: src/ tracked, dist/ stays ignored
+!/src
 
-*storybook.log.claude/
-.claude/
+*storybook.log
+__screenshots__/
