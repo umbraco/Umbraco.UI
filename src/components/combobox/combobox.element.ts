@@ -333,8 +333,8 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
       this._selectedItems.length > 0 &&
       this.search === ''
     ) {
-      const lastItem = this._selectedItems[this._selectedItems.length - 1];
-      this.#onRemoveTag(e, lastItem.value);
+      const lastItem = this._selectedItems.at(-1);
+      if (lastItem) this.#onRemoveTag(e, lastItem.value);
       return;
     }
     if (this.open === false && e.code === 'Enter') {
