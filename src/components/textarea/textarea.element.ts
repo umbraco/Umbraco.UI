@@ -12,7 +12,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @cssprop --uui-textarea-min-height - Sets the minimum height of the textarea
  * @cssprop --uui-textarea-max-height - Sets the maximum height of the textarea
  * @cssprop {color} --uui-textarea-background-color - Sets the background color of the textarea
+ * @cssprop {color} --uui-textarea-border-color-hover - Sets the border color of the textarea when hovered
  * @cssprop --uui-textarea-font-size - Overwrites the default font size
+ * @cssprop --uui-textarea-padding - Overwrites the default padding
  * @extends UUIFormControlMixin
  */
 
@@ -287,6 +289,7 @@ export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
     css`
       :host {
         position: relative;
+        --uui-textarea-padding: var(--uui-size-2) var(--uui-size-3);
       }
       :host([error]) textarea,
       :host([error]) textarea[disabled] {
@@ -340,6 +343,7 @@ export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
         max-width: 100%;
         font-size: inherit;
         padding: var(--uui-size-2);
+        padding: var(--uui-textarea-padding);
         border: 1px solid
           var(--uui-textarea-border-color, var(--uui-color-border)); /** Note: Specified border size is needed and hardcoded in autoUpdateHeight() */
         border-radius: var(--uui-border-radius);
@@ -351,10 +355,15 @@ export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
           var(--uui-color-surface)
         );
       }
-      :host(:hover)
-        textarea:not([readonly]):not([disabled])
-        :host(:focus-within)
-        textarea,
+
+      :host(:hover) textarea:not([disabled]) {
+        border-color: var(
+          --uui-textarea-border-color-hover,
+          var(--uui-color-border-standalone)
+        );
+      }
+
+      :host(:focus-within) textarea,
       :host(:focus) textarea {
         border-color: var(
           --uui-textarea-border-color,
