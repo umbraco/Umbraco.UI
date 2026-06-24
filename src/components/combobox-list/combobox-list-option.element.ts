@@ -78,8 +78,10 @@ export class UUIComboboxListOptionElement extends SelectableMixin(
   }
 
   render() {
-    return html`${this.multiple ? html`<span id="checkbox"></span>` : nothing}
-      <slot></slot>`;
+    const checkbox = this.multiple
+      ? html`<span id="checkbox"></span>`
+      : nothing;
+    return html`${checkbox} <slot></slot>`;
   }
 
   static override readonly styles = [

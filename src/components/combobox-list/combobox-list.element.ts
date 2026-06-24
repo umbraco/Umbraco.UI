@@ -204,12 +204,10 @@ export class UUIComboboxListElement extends LitElement {
       this._selectedValues = this._selectedValues.filter(
         v => v !== (el.value || ''),
       );
-    } else {
+    } else if (this._selectedElement === el) {
       // Existing single-select logic
-      if (this._selectedElement === el) {
-        this.value = '';
-        this.displayValue = '';
-      }
+      this.value = '';
+      this.displayValue = '';
     }
 
     this.dispatchEvent(new UUIComboboxListEvent(UUIComboboxListEvent.CHANGE));
