@@ -272,8 +272,11 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host(:not([show-label])) #swatch {
-        /* Keep unlabeled swatches fully rounded regardless of component border radius. */
-        border-radius: 50%;
+        /* Keep unlabeled swatches fully rounded using size + margins. */
+        border-radius: max(
+          var(--uui-swatch-border-radius),
+          calc((var(--uui-swatch-size, 25px) + 4px) / 2)
+        );
       }
 
       :host(:not([selectable])) #swatch:focus {
@@ -296,7 +299,13 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host(:not([show-label])[selectable]) #swatch::after {
-        border-radius: 50%;
+        border-radius: calc(
+          max(
+              var(--uui-swatch-border-radius),
+              calc((var(--uui-swatch-size, 25px) + 4px) / 2)
+            ) +
+            var(--uui-swatch-border-width, 1px)
+        );
       }
 
       :host([selectable]:not([disabled]):hover) #swatch::after {
