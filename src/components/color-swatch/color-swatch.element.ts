@@ -327,9 +327,33 @@ export class UUIColorSwatchElement extends LabelMixin(
       .color-swatch__color {
         width: 100%;
         height: 100%;
+        position: relative;
+        overflow: hidden;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
         box-sizing: border-box;
+      }
+
+      :host([readonly]:not([disabled])) .color-swatch__color::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(
+            -45deg,
+            transparent calc(50% - 2px),
+            rgba(0, 0, 0, 0.5) calc(50% - 2px),
+            rgba(0, 0, 0, 0.5) calc(50% - 1px),
+            transparent calc(50% - 1px)
+          ),
+          linear-gradient(
+            -45deg,
+            transparent calc(50% + 1px),
+            rgba(255, 255, 255, 0.5) calc(50% + 1px),
+            rgba(255, 255, 255, 0.5) calc(50% + 2px),
+            transparent calc(50% + 2px)
+          );
       }
 
       :host([show-label]) .color-swatch__color {
