@@ -16,6 +16,7 @@ import {
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
+ * @cssprop --uui-swatch-border-radius - The border radius of the swatch.
  * @cssprop --uui-swatch-color - The color of the swatch.
  * @slot label - Default slot for the label.
  */
@@ -212,7 +213,9 @@ export class UUIColorSwatchElement extends LabelMixin(
   static override readonly styles = [
     css`
       :host {
-        --_uui-swatch-inner-border-radius: calc(var(--uui-size-4, 12px) - 2px);
+        --uui-swatch-border-radius: calc(
+          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
+        );
         position: relative;
         display: inline-flex;
         align-items: center;
@@ -262,8 +265,15 @@ export class UUIColorSwatchElement extends LabelMixin(
         margin: 0;
         text-align: left;
         border: 1px solid #ccc;
-        border-radius: var(--uui-size-4);
+        border-radius: calc(
+          var(--uui-swatch-border-radius) - var(--uui-swatch-border-width, 1px)
+        );
         overflow: hidden;
+      }
+
+      :host(:not([show-label])) #swatch {
+        /* Keep unlabeled swatches fully rounded regardless of component border radius. */
+        border-radius: 50%;
       }
 
       :host(:not([selectable])) #swatch:focus {
@@ -280,12 +290,15 @@ export class UUIColorSwatchElement extends LabelMixin(
         box-sizing: border-box;
         border: var(--uui-swatch-border-width, 2px) solid
           var(--uui-color-selected);
-        border-radius: calc(
-          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
-        );
+        border-radius: var(--uui-swatch-border-radius);
         transition: opacity 100ms ease-out;
         opacity: 0;
       }
+
+      :host(:not([show-label])[selectable]) #swatch::after {
+        border-radius: 50%;
+      }
+
       :host([selectable]:not([disabled]):hover) #swatch::after {
         opacity: 0.33;
       }
@@ -335,8 +348,8 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host([show-label]) .color-swatch__color {
-        border-radius: var(--_uui-swatch-inner-border-radius)
-          var(--_uui-swatch-inner-border-radius) 0 0;
+        border-radius: calc(var(--uui-swatch-border-radius) - 2px)
+          calc(var(--uui-swatch-border-radius) - 2px) 0 0;
       }
 
       .color-swatch__check {
@@ -380,8 +393,19 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
         background: white;
         border-top: 1px solid var(--uui-color-border);
-        border-radius: 0 0 var(--_uui-swatch-inner-border-radius)
-          var(--_uui-swatch-inner-border-radius);
+        border-radius: 0 0
+          calc(
+            var(--uui-swatch-border-radius) - var(
+                --uui-swatch-border-width,
+                1px
+              )
+          )
+          calc(
+            var(--uui-swatch-border-radius) - var(
+                --uui-swatch-border-width,
+                1px
+              )
+          );
         font-size: var(--uui-size-4, 12px);
       }
 
