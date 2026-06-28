@@ -16,7 +16,7 @@ import {
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
- * @cssprop --uui-swatch-color - The width of the border.
+ * @cssprop --uui-swatch-color - The color of the swatch.
  * @slot label - Default slot for the label.
  */
 export class UUIColorSwatchElement extends LabelMixin(
