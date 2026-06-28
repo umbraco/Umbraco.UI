@@ -263,6 +263,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         text-align: left;
         border: 1px solid #ccc;
         border-radius: var(--uui-size-4);
+        overflow: hidden;
       }
 
       :host(:not([selectable])) #swatch:focus {
