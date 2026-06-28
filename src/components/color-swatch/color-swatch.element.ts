@@ -268,7 +268,6 @@ export class UUIColorSwatchElement extends LabelMixin(
         border-radius: calc(
           var(--uui-swatch-border-radius) - var(--uui-swatch-border-width, 1px)
         );
-        overflow: hidden;
       }
 
       :host(:not([show-label])) #swatch {
