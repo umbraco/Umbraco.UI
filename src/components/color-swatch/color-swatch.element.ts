@@ -343,15 +343,15 @@ export class UUIColorSwatchElement extends LabelMixin(
           linear-gradient(
             -45deg,
             transparent calc(50% - 2px),
-            rgba(0, 0, 0, 0.5) calc(50% - 2px),
-            rgba(0, 0, 0, 0.5) calc(50% - 1px),
+            rgba(0, 0, 0, 0.25) calc(50% - 2px),
+            rgba(0, 0, 0, 0.25) calc(50% - 1px),
             transparent calc(50% - 1px)
           ),
           linear-gradient(
             -45deg,
             transparent calc(50% + 1px),
-            rgba(255, 255, 255, 0.5) calc(50% + 1px),
-            rgba(255, 255, 255, 0.5) calc(50% + 2px),
+            rgba(255, 255, 255, 0.25) calc(50% + 1px),
+            rgba(255, 255, 255, 0.25) calc(50% + 2px),
             transparent calc(50% + 2px)
           );
       }
