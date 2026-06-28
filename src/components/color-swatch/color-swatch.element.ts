@@ -326,10 +326,10 @@ export class UUIColorSwatchElement extends LabelMixin(
           -5px -5px,
           5px 5px;
       }
+
       .color-swatch__color {
         width: 100%;
         height: 100%;
-        border: 1px solid transparent;
         border-radius: inherit;
         box-sizing: border-box;
       }
