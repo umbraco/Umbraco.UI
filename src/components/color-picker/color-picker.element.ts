@@ -558,6 +558,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
       uui-popover-container {
         width: inherit;
+        overflow: visible;
+      }
+
+      uui-popover-container::part(scroll-container) {
+        overflow: visible;
       }
       .color-picker {
         width: 100%;

@@ -417,7 +417,9 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   render() {
-    return html`<uui-scroll-container><slot></slot></uui-scroll-container>`;
+    return html`<uui-scroll-container part="scroll-container"
+      ><slot></slot
+    ></uui-scroll-container>`;
   }
 
   static override readonly styles = [
