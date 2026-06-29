@@ -232,6 +232,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        flex-shrink: 0;
       }
     `,
   ];
