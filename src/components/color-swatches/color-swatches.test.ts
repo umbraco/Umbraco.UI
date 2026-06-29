@@ -24,4 +24,20 @@ describe('UUIColorSwatchesElement', () => {
   it('passes the a11y audit', async () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
+
+  describe('ElementInternals ARIA', () => {
+    it('host has role "radiogroup" via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('radiogroup');
+    });
+
+    it('exposes accessible name via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaLabel).toBe('Color swatches');
+    });
+
+    it('host does not have a role attribute set directly', () => {
+      expect(element.getAttribute('role')).toBeNull();
+    });
+  });
 });

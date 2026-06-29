@@ -1,6 +1,5 @@
 import { UUISelectableEvent } from '../../internal/events/index.js';
 import type { UUIColorSwatchElement } from '../color-swatch/color-swatch.js';
-import type { PropertyValueMap } from 'lit';
 import { css, html, LitElement } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 
@@ -61,30 +60,14 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
 
   constructor() {
     super();
+    this._internals.role = 'radiogroup';
     this.addEventListener(UUISelectableEvent.SELECTED, this._onSelected);
     this.addEventListener(UUISelectableEvent.DESELECTED, this._onDeselected);
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.setAttribute('role', 'radiogroup');
-    this.setAttribute('aria-label', this.label);
-  }
-
-  protected willUpdate(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
-  ): void {
-    if (_changedProperties.has('label')) {
-      this.setAttribute('aria-label', this.label);
-    }
   }
 
   private _handleSlotChange() {
     if (!this._swatches || this._swatches.length === 0) return;
     this._swatches.forEach(swatch => {
-      swatch.setAttribute('aria-checked', 'false');
-      swatch.setAttribute('role', 'radio');
-
       if (this.disabled) {
         swatch.setAttribute('disabled', '');
       } else {
@@ -98,7 +81,6 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
 
       if (this.value !== '' && swatch.value === this.value) {
         swatch.selected = true;
-        swatch.setAttribute('aria-checked', 'true');
         this._selectedElement = swatch;
         this._activeElement = this._selectedElement;
       }

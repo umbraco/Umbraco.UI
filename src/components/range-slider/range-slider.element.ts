@@ -295,6 +295,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
+    this._internals.role = 'none';
     // Keyboard
     this.addEventListener('keydown', this.#onKeyDown);
     // Mouse

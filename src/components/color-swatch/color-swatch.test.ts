@@ -25,6 +25,39 @@ describe('UUIColorSwatchElement', () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
 
+  describe('ElementInternals ARIA', () => {
+    it('host has role "radio" via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.role).toBe('radio');
+    });
+
+    it('exposes accessible name via ElementInternals', () => {
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaLabel).toBe('Color swatch');
+    });
+
+    it('inner button has no aria-label attribute', () => {
+      const btn = element.shadowRoot!.querySelector('button')!;
+      expect(btn.hasAttribute('aria-label')).toBe(false);
+    });
+
+    it('exposes ariaChecked via internals when selected', async () => {
+      element.selectable = true;
+      element.selected = true;
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaChecked).toBe('true');
+    });
+
+    it('exposes ariaChecked=false via internals when not selected', async () => {
+      element.selectable = true;
+      element.selected = false;
+      await element.updateComplete;
+      const internals = (element as any)._internals as ElementInternals;
+      expect(internals.ariaChecked).toBe('false');
+    });
+  });
+
   describe('color rendering', () => {
     it('applies value as background on the color div', async () => {
       element.value = '#ff0000';
