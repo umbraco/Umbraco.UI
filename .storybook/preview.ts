@@ -28,6 +28,31 @@ function applyTheme(theme: string) {
   themeStyleEl.textContent = themes[theme] ?? lightCss;
 }
 
+let outlineHandlingScript: HTMLScriptElement | null = null;
+
+function applyOutlineHandling() {
+  if (!outlineHandlingScript) {
+    outlineHandlingScript = document.createElement('script');
+    outlineHandlingScript.textContent = `
+      let hadMouseDown = false;
+    this.addEventListener('focusout', () => {
+      if (hadMouseDown === false) {
+        document.body.style.setProperty('--uui-show-focus-outline', '1');
+      }
+      hadMouseDown = false;
+    });
+    this.addEventListener('mousedown', () => {
+      document.body.style.setProperty('--uui-show-focus-outline', '0');
+      hadMouseDown = true;
+    });
+    this.addEventListener('mouseup', () => {
+      hadMouseDown = false;
+    });
+    `;
+    document.head.appendChild(outlineHandlingScript);
+  }
+}
+
 export const globalTypes = {
   theme: {
     name: 'Theme',
@@ -63,6 +88,7 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       applyTheme(context.globals['theme'] ?? 'light');
+      applyOutlineHandling();
       return story();
     },
     story => {
