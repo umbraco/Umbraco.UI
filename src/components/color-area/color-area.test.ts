@@ -9,9 +9,9 @@ describe('UUIColorAreaElement', () => {
   let element: UUIColorAreaElement;
 
   beforeEach(async () => {
-    element = render(
-      html` <uui-color-area></uui-color-area> `,
-    ).container.querySelector('uui-color-area')!;
+    element = render(html`
+      <uui-color-area></uui-color-area>
+    `).container.querySelector('uui-color-area')!;
 
     await element.updateComplete;
   });
@@ -25,6 +25,18 @@ describe('UUIColorAreaElement', () => {
   });
 
   describe('value setter', () => {
+    it('does not overwrite drag state while dragging', async () => {
+      (element as any).isDraggingGridHandle = true;
+      element.saturation = 62;
+      element.brightness = 41;
+
+      element.value = '#00ff00';
+      await element.updateComplete;
+
+      expect(element.saturation).toBe(62);
+      expect(element.brightness).toBe(41);
+    });
+
     it('parses hex color and updates saturation', async () => {
       element.value = '#00ff00'; // green: h=120, s=100, l=50
       await element.updateComplete;
