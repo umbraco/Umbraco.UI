@@ -439,7 +439,8 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
           --uui-input-border-color-focus,
           var(--uui-color-border-emphasis)
         );
-        outline: 2px solid var(--uui-color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
       :host(:focus) {
         border-color: var(

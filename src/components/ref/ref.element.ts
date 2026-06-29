@@ -185,7 +185,8 @@ export class UUIRefElement extends SelectOnlyMixin(
       a:focus {
         outline-offset: var(--uui-card-border-width);
         border-radius: var(--uui-border-radius);
-        outline: 2px solid var(--uui-color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
 
       slot[name='actions']::slotted(*) {
@@ -231,6 +232,7 @@ export class UUIRefElement extends SelectOnlyMixin(
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        flex-shrink: 0;
       }
     `,
   ];
