@@ -59,6 +59,9 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#initUpdate();
   }
 
+  @property({ type: Boolean, reflect: true, attribute: 'no-scroll' })
+  noScroll = false;
+
   @state()
   _placement: PopoverContainerPlacement = 'bottom-start';
 
@@ -417,9 +420,10 @@ export class UUIPopoverContainerElement extends LitElement {
   }
 
   render() {
-    return html`<uui-scroll-container part="scroll-container"
-      ><slot></slot
-    ></uui-scroll-container>`;
+    if (this.noScroll) {
+      return html`<slot></slot>`;
+    }
+    return html`<uui-scroll-container><slot></slot></uui-scroll-container>`;
   }
 
   static override readonly styles = [
@@ -435,6 +439,9 @@ export class UUIPopoverContainerElement extends LitElement {
         color: var(--uui-color-text);
         box-shadow: var(--uui-shadow-depth-4);
         border-radius: var(--uui-border-radius);
+      }
+      :host([no-scroll]) {
+        overflow: visible;
       }
 
       uui-scroll-container {

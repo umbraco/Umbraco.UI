@@ -530,7 +530,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         aria-haspopup="true"
         aria-expanded="false"
         popovertarget="color-picker-popover"></button>
-      <uui-popover-container id="color-picker-popover">
+      <uui-popover-container id="color-picker-popover" no-scroll>
         ${this._renderColorPicker()}
       </uui-popover-container>`;
   }
@@ -558,11 +558,6 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
       uui-popover-container {
         width: inherit;
-        overflow: visible;
-      }
-
-      uui-popover-container::part(scroll-container) {
-        overflow: visible;
       }
       .color-picker {
         width: 100%;
