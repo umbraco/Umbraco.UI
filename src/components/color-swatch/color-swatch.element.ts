@@ -1,15 +1,16 @@
 import { property, state } from 'lit/decorators.js';
-import { css, html, LitElement, nothing } from 'lit';
+import { css, html, LitElement, nothing, svg } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { iconCheck } from '../icon-registry-essential/svgs/index.js';
 import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
 } from '../../internal/mixins/index.js';
 
+// Custom SVG for the checkbox, as this is smaller in size than the icon registry version: [NL]
+const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 10 17 4 12" /></svg>`;
 /**
  * Color swatch, can have label and be selectable, disabled or readonly.
  *
@@ -193,7 +194,7 @@ export class UUIColorSwatchElement extends LabelMixin(
           <div
             class="color-swatch__check"
             style=${styleMap({ color: colorStr })}>
-            ${iconCheck}
+            ${check}
           </div>
         </div>
         ${this._renderWithLabel()}
@@ -217,7 +218,6 @@ export class UUIColorSwatchElement extends LabelMixin(
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
-        transition: box-shadow 100ms ease-out;
         flex-direction: column;
       }
 
@@ -245,7 +245,6 @@ export class UUIColorSwatchElement extends LabelMixin(
 
       :host([disabled]) {
         cursor: not-allowed;
-        opacity: 0.5;
       }
 
       :host([readonly]) {
@@ -260,12 +259,24 @@ export class UUIColorSwatchElement extends LabelMixin(
         padding: 0;
         margin: 0;
         text-align: left;
-        border: 1px solid #ccc;
-        border-radius: var(--uui-size-4);
+        border-radius: var(--uui-border-radius-2);
+        overflow: hidden;
+      }
+      :host(:not([show-label])) #swatch {
+        border-radius: var(--uui-size-5);
+        border: 1px solid var(--uui-color-border);
       }
 
       :host(:not([selectable])) #swatch:focus {
         outline: none;
+      }
+
+      :host([readonly]) #swatch,
+      :host([disabled]) #swatch {
+        background-color: var(--uui-color-disabled-standalone);
+      }
+      :host([readonly]:not([disabled]):hover) #swatch {
+        background-color: var(--uui-color-disabled);
       }
 
       :host([selectable]) #swatch::after {
@@ -279,10 +290,13 @@ export class UUIColorSwatchElement extends LabelMixin(
         border: var(--uui-swatch-border-width, 2px) solid
           var(--uui-color-selected);
         border-radius: calc(
-          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
+          var(--uui-size-5) + var(--uui-swatch-border-width, 1px)
         );
         transition: opacity 100ms ease-out;
         opacity: 0;
+      }
+      :host([selectable][show-label]) #swatch::after {
+        border-radius: var(--uui-border-radius-2);
       }
       :host([selectable]:not([disabled]):hover) #swatch::after {
         opacity: 0.33;
@@ -309,6 +323,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       :host([show-label]) .color-swatch {
         width: 120px;
         height: 50px;
+        margin: 0;
       }
 
       .color-swatch.color-swatch--transparent-bg {
@@ -334,30 +349,25 @@ export class UUIColorSwatchElement extends LabelMixin(
         box-sizing: border-box;
       }
 
-      :host([readonly]:not([disabled])) .color-swatch__color::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background-image:
-          linear-gradient(
-            -45deg,
-            transparent calc(50% - 2px),
-            rgba(0, 0, 0, 0.25) calc(50% - 2px),
-            rgba(0, 0, 0, 0.25) calc(50% - 1px),
-            transparent calc(50% - 1px)
-          ),
-          linear-gradient(
-            -45deg,
-            transparent calc(50% + 1px),
-            rgba(255, 255, 255, 0.25) calc(50% + 1px),
-            rgba(255, 255, 255, 0.25) calc(50% + 2px),
-            transparent calc(50% + 2px)
-          );
+      :host([show-label]) .color-swatch__color {
+        border-radius: var(--uui-border-radius-2) var(--uui-border-radius-2) 0 0;
+      }
+      :host([show-label][selectable][selected]:not([disabled]))
+        .color-swatch__color {
+        border-top: 2px solid rgba(255, 255, 255, 0.25);
+        border-left: 2px solid rgba(255, 255, 255, 0.25);
+        border-right: 2px solid rgba(255, 255, 255, 0.25);
       }
 
-      :host([show-label]) .color-swatch__color {
-        border-radius: 3px 3px 0 0;
+      :host([readonly]:not([disabled])) .color-swatch__color {
+        border-color: transparent;
+      }
+      :host([disabled]) .color-swatch__color {
+        opacity: 0.6;
+      }
+      :host([disabled]) .color-swatch.color-swatch--transparent-bg {
+        background-image: none;
+        background-color: var(--uui-color-border-standalone);
       }
 
       .color-swatch__check {
@@ -400,7 +410,8 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
         background: white;
         border: 1px solid var(--uui-color-border);
-        border-radius: 0 0 3px 3px;
+        border-top: none;
+        border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
         font-size: var(--uui-size-4, 12px);
       }
 
