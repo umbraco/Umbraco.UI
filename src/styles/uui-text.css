@@ -1,0 +1,191 @@
+.uui-h1,
+.uui-h2,
+.uui-h3,
+.uui-h4,
+.uui-h5,
+.uui-a,
+.uui-p,
+.uui-p-lead,
+.uui-small,
+.uui-quoteblock,
+.uui-ul,
+.uui-ol,
+.uui-text {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.uui-text h1,
+.uui-h1.uui-h1 {
+  font-size: var(--uui-type-h1-size);
+  line-height: var(--uui-size-layout-4);
+  font-weight: 400;
+  margin-left: -5px;
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}
+.uui-text p + h1,
+.uui-text p + .uui-h1 {
+  margin-top: var(--uui-size-layout-4);
+}
+.uui-text h1.--no-top-margin,
+.uui-text h1:first-child,
+.uui-h1.--no-top-margin,
+.uui-h1:first-child {
+  margin-top: 0;
+}
+
+.uui-text h2,
+.uui-h2.uui-h2 {
+  font-size: var(--uui-type-h2-size);
+  line-height: var(--uui-size-layout-3);
+  font-weight: 400;
+  margin-left: -3px;
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}
+.uui-text p + h2,
+.uui-text p + .uui-h2 {
+  margin-top: var(--uui-size-layout-3);
+}
+.uui-text h2.--no-top-margin,
+.uui-text h2:first-child,
+.uui-h2.--no-top-margin,
+.uui-h2:first-child {
+  margin-top: 0;
+}
+
+.uui-text h3,
+.uui-h3.uui-h3 {
+  font-size: var(--uui-type-h3-size);
+  line-height: var(--uui-size-large);
+  font-weight: 400;
+  margin-left: -2px;
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}
+.uui-text h3.--no-top-margin,
+.uui-text h3:first-child,
+.uui-h3.--no-top-margin,
+.uui-h3:first-child {
+  margin-top: 0;
+}
+
+.uui-text h4,
+.uui-h4.uui-h4 {
+  font-size: var(--uui-type-h4-size);
+  line-height: 21px;
+  font-weight: 400;
+  margin-left: -1px;
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}
+.uui-text h4.--no-top-margin,
+.uui-text h4:first-child,
+.uui-h4.--no-top-margin,
+.uui-h4:first-child {
+  margin-top: 0;
+}
+
+.uui-text h5,
+.uui-h5.uui-h5 {
+  font-size: var(--uui-type-h5-size);
+  line-height: inherit;
+  font-weight: 400;
+  margin-left: 0;
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: 0;
+}
+
+.uui-text h5.--no-top-margin,
+.uui-text h5:first-child,
+.uui-h5.--no-top-margin,
+.uui-h5:first-child {
+  margin-top: 0;
+}
+
+.uui-p,
+.uui-text p {
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}
+.uui-p-lead,
+.uui-text p.uui-lead {
+  font-size: var(--uui-size-6);
+  line-height: var(--uui-size-8);
+}
+
+.uui-a,
+.uui-text a {
+  color: var(--uui-color-interactive);
+}
+
+.uui-a:link,
+.uui-a:active .uui-text a:link,
+.uui-text a:active {
+  color: var(--uui-color-interactive);
+}
+.uui-a:hover,
+.uui-text a:hover {
+  color: var(--uui-color-interactive-emphasis);
+}
+
+.uui-small,
+.uui-text small {
+  display: inline-block;
+  font-size: var(--uui-type-small-size);
+  line-height: 18px;
+}
+
+.uui-quoteblock,
+.uui-text blockquote {
+  float: right;
+  font-size: 14px;
+  line-height: inherit;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 0;
+  margin-bottom: var(--uui-size-layout-1);
+  margin-right: -0.035em;
+  max-width: 16em;
+  quotes: '“' '”' '‘' '’';
+}
+
+.uui-quoteblock:before,
+.uui-text blockquote:before {
+  content: open-quote;
+  margin-left: -0.4em;
+  margin-right: 0.08em;
+  vertical-align: bottom;
+  font-weight: 400;
+  font-size: 2em;
+}
+
+.uui-quoteblock:after,
+.uui-text blockquote:after {
+  content: close-quote;
+  margin-left: 0.04em;
+  margin-right: -0.4em;
+  vertical-align: bottom;
+  font-weight: 400;
+  font-size: 2em;
+  margin-bottom: -2px;
+  display: inline-block;
+}
+
+.uui-ul,
+.uui-text ul {
+  list-style-type: square;
+  padding-left: var(--uui-size-layout-1);
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}
+
+.uui-ol,
+.uui-text ol {
+  padding-left: var(--uui-size-layout-1);
+  margin-top: var(--uui-size-layout-1);
+  margin-bottom: var(--uui-size-layout-1);
+}

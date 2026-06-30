@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What is this?
 
-Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript**. It provides 90+ reusable UI components (`<uui-button>`, `<uui-input>`, `<uui-table>`, etc.) consumed by the Umbraco CMS backoffice via npm packages (`@umbraco-ui/*`).
+Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript**. It provides 81+ reusable UI components (`<uui-button>`, `<uui-input>`, `<uui-table>`, etc.) published as a single npm package: `@umbraco-ui/uui`.
 
 > **This repo has two active major versions on separate branches:**
 >
@@ -16,26 +16,26 @@ Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript*
 ## Common Commands
 
 ```bash
-# Install dependencies (also runs bootstrap + generates per-package tsconfigs)
+# Install dependencies
 npm install
 
 # Development — starts Storybook on port 6006
 npm run storybook
 
-# Build all packages (builds uui-css first, then all others via Turbo)
+# Build (Vite + TypeScript declarations + custom-elements.json)
 npm run build
 
-# Full clean + build
-npm run build:prod
+# Clean + build
+npm run clean && npm run build
 
-# Run all tests with coverage
+# Run all component tests with coverage (browser-based)
 npm run test
 
 # Watch mode for tests
 npm run test:watch
 
-# Test a single package (use folder name, e.g. "uui-button")
-npm run test:coverage-for uui-button
+# Test a single component (use folder name, e.g. "button")
+npm run test:coverage-for button
 
 # Lint
 npm run lint
@@ -44,88 +44,115 @@ npm run lint
 npm run format
 
 # Scaffold a new component (interactive prompts)
-npm run new-package
+npm run new-component
 ```
 
 ## Branching Model
 
-### v1 (this branch)
+- **`main`** (default) — v2 development branch (current: 2.x alpha), PR target for v2 work and community contributions.
+- **`v1/dev`** — v1 maintenance branch (latest: v1.17.1)
+- **`production`** — latest stable release, also the home for the Storybook at uui.umbraco.com (currently v1.17.1)
 
-- **`v1/dev`** — v1 development branch, PR target for v1 work
-- **`v1/feature/*`**, **`v1/bugfix/*`**, **`v1/improvement/*`** — feature/fix branches, format: `v{major}/{type}/{description}`
-- **`production`** — published snapshot, serves Storybook at uui.umbraco.com
+## Architecture (v2 — single package)
 
-### v2 (main)
+### What changed from v1
 
-- **`main`** — v2 development branch, PR target for v2 work
-- **`production`** — shared published snapshot
+In v1, UUI was a monorepo of ~84 separate npm packages (`@umbraco-ui/uui-button`, `@umbraco-ui/uui-base`, etc.), each with its own `package.json`, Rollup config, and npm version. Build was orchestrated by Turbo + Lerna-Lite.
 
-## Monorepo Structure
+In v2, everything lives under a **single `@umbraco-ui/uui` package** with one Vite build. Components are individual ES modules for tree-shaking. See [MIGRATION-V1-TO-V2.md](docs/MIGRATION-V1-TO-V2.md) for the full migration guide.
 
-This is an npm workspaces monorepo orchestrated by **Turbo** (build) and **Lerna-Lite** (versioning/publishing).
+|             | v1                                 | v2                                                      |
+| ----------- | ---------------------------------- | ------------------------------------------------------- |
+| Packages    | ~84 separate `@umbraco-ui/uui-*`   | Single `@umbraco-ui/uui`                                |
+| Import      | `import '@umbraco-ui/uui-button';` | `import '@umbraco-ui/uui/components/button/button.js';` |
+| Foundation  | `@umbraco-ui/uui-base/lib/...`     | `src/internal/...` (re-exported from root)              |
+| CSS/Styles  | `@umbraco-ui/uui-css/lib/...`      | `src/styles/...` (re-exported from root)                |
+| Build       | Rollup per package + Turbo         | Single Vite build                                       |
+| Lit version | ^2.8.0                             | ^3.0.0                                                  |
+
+### Project structure
 
 ```
-packages/
-├── uui-base/          # Foundation: mixins, events, types, registration utilities
-├── uui-css/           # Design system CSS custom properties (must build first)
-├── uui/               # Bundle package — re-exports all components
-├── uui-button/        # Individual component packages (90+)
-├── uui-input/
-└── ...
+src/
+├── internal/        # Foundation: mixins, events, types, registration (was uui-base)
+├── styles/          # CSS custom properties, text styles (was uui-css)
+├── internal/test/   # Test utilities (UUITestMouse)
+├── themes/          # Light, dark, and high-contrast theme CSS
+├── components/      # 80 component directories
+│   ├── button/
+│   │   ├── button.ts              # Registration file (re-exports + defineElement call)
+│   │   ├── button.element.ts      # Pure component class (no side effects)
+│   │   ├── button.test.ts         # Tests
+│   │   ├── button.story.ts        # Storybook story
+│   │   └── README.md
+│   └── ...
+└── index.ts         # Root barrel — re-exports everything
+stories/             # Compound/example Storybook stories (auth, scaffolding, home)
 ```
 
-### Package dependency chain
+### Build system
 
-`uui-css` → `uui-base` → individual components → `uui` (bundle)
+- **Vite** builds the library with `preserveModules` (each source file → one output file)
+- **TypeScript** (`tsc -p tsconfig.build.json`) generates declaration files
+- **Lit** and **culori** are the only runtime dependencies and are externalized (not bundled)
+- Output: `dist/` directory with ES modules, source maps, and `.d.ts` files
+- Config: `vite.config.ts` — serves double duty as both build config and Vitest config
 
-Every component depends on `@umbraco-ui/uui-base`. Some depend on sibling components. The `uui` bundle re-exports everything.
+### Package exports
 
-### Build orchestration
+The `package.json` `exports` field exposes:
 
-- **uui-css** is always built first (via Lerna scope) because Storybook and other packages depend on its output. It's also built during `postinstall`/`bootstrap` so it's available immediately after `npm install`.
-- **Turbo** then builds all remaining packages in parallel, respecting the dependency graph (`dependsOn: ["^build"]`).
-- Per-package **tsconfig.json** files are currently auto-generated by the `bootstrap` script (runs on `postinstall`). Ideally these should be checked in so TypeScript/IDE support works immediately after cloning without needing `npm install` first.
+- `.` → `dist/index.js` (all components)
+- `./components/*` → `dist/components/*` (cherry-pick)
+- `./internal/*`, `./styles/*`, `./themes/*`
 
 ### Versioning & publishing
 
-- All packages share a **single version number** (lockstep via `forcePublish: true` in `lerna.json`). A release bumps all ~90 packages together.
-- **Conventional commits are required** — Lerna uses them to generate changelogs. Format: `type(scope): description`
+- Single version in root `package.json` and `lerna.json` (kept in sync)
+- **Lerna-Lite** handles changelog generation and npm publishing
+- **Conventional commits are required**: `type(scope): description`
   - Types: `feat`, `fix`, `build`, `docs`, `test`, `refactor`, `chore`
-  - Scope: package name without `uui-` prefix when targeting a specific component (e.g. `fix(combobox): ...`)
-  - `feat` triggers a minor version bump, `fix` triggers a patch bump
-- Publishing happens from CI on `v*` tags via `lerna publish from-package`.
+  - Scope: component name without `uui-` prefix (e.g. `fix(combobox): ...`)
+  - `feat` triggers a minor bump, `fix` triggers a patch bump
+- Publishing happens from CI on `v*` tags via `lerna publish from-package`
+- Pre-release versions use `preid: "rc"` and publish to `prerelease` dist-tag
+- Current: `2.0.0-alpha.1` on `main`; v1 latest: `1.17.1` on `v1/dev`
 
-### Local testing with the backoffice
+#### SonarCloud version & New Code baseline (act ONLY at major releases)
 
-The backoffice consumes UUI via published npm packages. To test local changes before publishing:
+SonarCloud (project `umbraco_Umbraco.UI`) uses **Automatic Analysis**, which **ignores** the `sonar.projectVersion` setting and simply **carries forward the last `VERSION` event**. New Code is set to **"Previous version"**, so the new-code baseline sits at the last version change and stays there until a new `VERSION` event is created.
+
+**The `VERSION` event marks a tracking epoch, not the npm version.** The v1→v2 migration fixed hundreds of issues, and we want to track quality across the **entire v2 line**. So:
+
+- **During the v2 line (2.0.0 → 2.x): do nothing.** Autoscan carries `2.0.0` forward, the baseline stays pinned at the v1→v2 cut, and any regression introduced anywhere in 2.x shows up as "new code". Do **not** bump per minor/patch release — that would march the baseline forward and stop catching earlier-in-2.x regressions. (Expect the SonarCloud version label to read `2.0.0` even when npm is at e.g. 2.4.0 — intentional.)
+- **Only when cutting the next major (`3.0.0`, `4.0.0`, …):** create a new `VERSION` event so the baseline re-anchors at that major's cut.
+
+Steps for a major cut — run **after** the new major's first `main` analysis, with a SonarCloud **user token that has "Administer"** on the project (analysis/scoped-org tokens canNOT call `create_event`; user PATs expire ~60–90 days, so mint a fresh one: My Account > Security > Generate Token):
 
 ```bash
-npm run pack-all          # Build + pack all packages as tarballs
-npm run pack-all-no-build # Pack without rebuilding (if already built)
-npm run pack              # Pack a single package
+SONAR_TOKEN=...   # fresh Administer user token
+VERSION=3.0.0     # the new MAJOR just released
+
+# 1. Get the latest main-branch analysis key
+KEY=$(curl -s -H "Authorization: Bearer $SONAR_TOKEN" \
+  "https://sonarcloud.io/api/project_analyses/search?project=umbraco_Umbraco.UI&ps=1" \
+  | python3 -c "import json,sys;print(json.load(sys.stdin)['analyses'][0]['key'])")
+
+# 2. Create the VERSION event (re-anchors "Previous version" at the major cut)
+curl -s -X POST -H "Authorization: Bearer $SONAR_TOKEN" \
+  --data-urlencode "analysis=$KEY" \
+  --data-urlencode "category=VERSION" \
+  --data-urlencode "name=$VERSION" \
+  "https://sonarcloud.io/api/project_analyses/create_event"
 ```
 
-Install the resulting `.tgz` files in the consuming project.
+(Alternative if even the per-major step is unwanted: switch New Code to "Number of days" or "Reference branch" — needs no version management, but you lose the "track the whole major line" behaviour.)
 
 ## Component Architecture
 
-### File structure per package
-
-```
-packages/uui-{name}/
-├── lib/
-│   ├── index.ts                    # Public exports
-│   ├── uui-{name}.element.ts      # Component class
-│   ├── uui-{name}.test.ts         # Tests
-│   └── uui-{name}.story.ts        # Storybook story
-├── package.json
-├── rollup.config.js                # Imports shared config from packages/rollup-package.config.mjs
-└── tsconfig.json                   # Auto-generated by bootstrap
-```
-
 ### Key patterns
 
-**Mixin composition** — components compose behavior via mixins from `uui-base`:
+**Mixin composition** — components compose behavior via mixins from `internal/`:
 
 ```typescript
 export class UUIButtonElement extends UUIFormControlMixin(
@@ -133,22 +160,39 @@ export class UUIButtonElement extends UUIFormControlMixin(
 ) { ... }
 ```
 
-**Element registration** — use `@defineElement` decorator (not `customElements.define`):
+**Element registration** — each component folder has a **registration file** (`{name}.ts`) that imports the pure class and registers it. Structure: imports → side effects → types → exports:
 
 ```typescript
-import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
+// button/button.ts — registration file (has side effects)
+import { defineElement } from '../../internal/registration/index.js';
+import { UUIButtonElement } from './button.element.js';
 
-@defineElement('uui-button')
+defineElement('uui-button', UUIButtonElement);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uui-button': UUIButtonElement;
+  }
+}
+
+export * from './button.element.js';
+export { UUIButtonElement as default } from './button.element.js';
+```
+
+```typescript
+// button/button.element.ts — pure class (no side effects, no registration)
 export class UUIButtonElement extends ... { }
 ```
 
-**Events** — custom events extend `UUIEvent` from `uui-base` for type safety.
+`defineElement` supports both direct call and decorator syntax. Direct calls are used in registration files; the decorator is only used for standalone example elements.
+
+**Events** — custom events extend `UUIEvent` from `internal/` for type safety.
 
 **CSS custom properties** — components expose styling via `--uui-*` variables.
 
 **Shadow DOM** — all components use shadow DOM for encapsulation.
 
-### Component rules (from CONTRIBUTING.md)
+### Component rules
 
 - Element name prefixed with `uui-`, class named `UUI{PascalCase}Element`
 - Attribute reflection only for styling, not state
@@ -158,32 +202,31 @@ export class UUIButtonElement extends ... { }
 - Tests must pass, including basic accessibility tests
 - Must have a Storybook story
 
-## Build System
+## Testing
 
-- **TypeScript** → `tsc --build` (declaration only) → **Rollup** + esbuild (ES2022 output)
-- Shared Rollup config: `packages/rollup-package.config.mjs`
-- Turbo handles task orchestration and caching (`turbo.json`)
-- `uui-css` must build before everything else (handled by the `build` script)
-
-## Testing (v1)
-
-- **Web Test Runner** + **@open-wc/testing** (Mocha + Chai)
-- Browsers: Chromium, Firefox, WebKit (via Playwright)
-- Config: `web-test-runner.config.mjs`
-- Tests live alongside components: `uui-{name}.test.ts`
-- Accessibility testing via `expect(element).to.be.accessible()`
-- **Do NOT use Vitest** — that is v2 only
+- **Vitest 4.x** + `vitest-browser-lit` + `@vitest/browser-playwright`, runs in Chromium locally and Chromium/Firefox/WebKit on CI
+- Config: `vite.config.ts` (combined with build config — `test:` section)
+- Setup file: `vitest.setup.ts` — registers the `toHaveNoViolations` custom matcher globally
+- Tests live alongside components: `src/components/{name}/{name}.test.ts`
+- Tests must import the registration file (e.g. `import './{name}.js';`) to register elements
+- Render elements with `render` from `vitest-browser-lit`, not `fixture` from @open-wc
+- Accessibility testing via `axeRun` from `../../internal/test/a11y.js`:
+  ```typescript
+  import { axeRun } from '../../internal/test/a11y.js';
+  expect(await axeRun(element)).toHaveNoViolations();
+  ```
+- User interaction via `userEvent` from `vitest/browser`
 
 ## Linting & Formatting
 
-- **ESLint** v9 flat config (`eslint.config.mjs`) with `typescript-eslint`, `eslint-plugin-lit`, `eslint-plugin-wc`, Prettier integration
+- **ESLint** v9 flat config (`eslint.config.js`) with `typescript-eslint`, `eslint-plugin-lit`, `eslint-plugin-wc`, Prettier integration
 - **Prettier**: single quotes, 2-space indent, `arrowParens: avoid`, `bracketSameLine: true`
 - **Pre-commit hook** (Husky + lint-staged): runs ESLint, type-check on `*.element.ts`, Prettier
 
 ## Runtime Requirements (v1)
 
-- Node >= 22, npm >= 11 (see `.nvmrc` and `engines` in package.json)
-- Lit **^2.8.0** (pinned — v2 uses Lit 3.x)
+- Node >= 24.13, npm >= 11 (see `.nvmrc` and `engines` in package.json)
+- Lit ^3.0.0
 - Target: ES2022
 
 ## Development Philosophy
