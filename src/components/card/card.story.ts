@@ -33,6 +33,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+export const Active: Story = {
+  args: {
+    active: true,
+  },
+};
+
 export const Default: Story = {};
 
 export const Disabled: Story = {
