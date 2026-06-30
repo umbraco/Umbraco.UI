@@ -108,9 +108,23 @@ export const OnlySelectable: Story = {
 };
 
 export const WithIconActiveAndChildren: Story = {
+  args: {
+    hasChildren: true,
+    'icon slot': html`<uui-icon slot="icon" name="picture"></uui-icon>`,
+  },
+};
+
+export const FolderAndItem: Story = {
   render: () => html`
-    <uui-card-media name="The card" file-ext="jpg" active has-children>
-      <uui-icon slot="icon" name="picture"></uui-icon>
-    </uui-card-media>
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 200px)); gap: 10px;"
+      selectable>
+      <uui-card-media name="The folder" is-folder has-children selectable>
+        <uui-icon slot="icon" name="picture"></uui-icon>
+      </uui-card-media>
+      <uui-card-media name="The card" file-ext="jpg" selectable select-only>
+        <uui-icon slot="icon" name="picture"></uui-icon
+      ></uui-card-media>
+    </div>
   `,
 };

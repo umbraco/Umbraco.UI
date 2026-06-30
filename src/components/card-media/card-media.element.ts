@@ -107,9 +107,7 @@ export class UUICardMediaElement extends UUICardElement {
       <div id="content" class="uui-text">
         <span id="name" title="${this.name}">
           ${this.hasChildren
-            ? html`<uui-symbol-expand
-                id="children-indicator"
-                aria-hidden="true"></uui-symbol-expand>`
+            ? html`<uui-symbol-expand aria-hidden="true"></uui-symbol-expand>`
             : nothing}
           <slot
             name="icon"
@@ -221,14 +219,6 @@ export class UUICardMediaElement extends UUICardElement {
         overflow: hidden;
         text-overflow: ellipsis;
         overflow-wrap: anywhere;
-      }
-
-      #children-indicator {
-        opacity: 0.5;
-        flex-shrink: 0;
-        margin-left: calc(
-          (var(--uui-size-space-1) - var(--uui-size-space-1)) * -1
-        );
       }
 
       :host([image]:not([image=''])) #open-part {

@@ -71,7 +71,7 @@ export class UUICardContentNodeElement extends UUICardElement {
         <span id="item">
           ${this.hasChildren
             ? html`<uui-symbol-expand
-                id="children-indicator"
+                id="has-children"
                 aria-hidden="true"></uui-symbol-expand>`
             : nothing}
           <span id="icon">
@@ -211,9 +211,9 @@ export class UUICardContentNodeElement extends UUICardElement {
         transition: opacity 120ms;
       }
 
-      :host([selectable]:not([has-children]):hover) #icon,
-      :host([selectable]:not([has-children]):focus-within) #icon,
-      :host([selectable]:not([has-children])[selected]) #icon {
+      :host([selectable]:hover) #icon,
+      :host([selectable]:focus-within) #icon,
+      :host([selectable][selected]) #icon {
         opacity: 0;
       }
 
@@ -245,10 +245,9 @@ export class UUICardContentNodeElement extends UUICardElement {
         left: var(--uui-size-6);
       }
 
-      #children-indicator {
-        opacity: 0.5;
-        flex-shrink: 0;
-        margin-right: var(--uui-size-space-2);
+      #has-children {
+        position: absolute;
+        left: calc((var(--uui-size-4) * -1) - 1px);
       }
     `,
   ];
