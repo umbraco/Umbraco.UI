@@ -2,14 +2,13 @@
 
 ## Supported Versions
 
-| Version | Supported                                                |
-| ------- | -------------------------------------------------------- |
-| v2      | 🔨 In development (expected release June 2026)           |
-| v1      | :white_check_mark: Yes (security phase when v2 launches) |
-| < 1.0   | :x:                                                      |
+| Version     | Supported                                   |
+| ----------- | ------------------------------------------- |
+| v2          | 🔨 In development (expected release June 2026)                           |
+| v1          | :white_check_mark: Yes (security phase when v2 launches)    |
+| < 1.0       | :x:                                         |
 
 ## Security Phase
-
 After the “Support” phase, the release will go into a “Security” phase. From here on, we will only fix security issues.
 
 At the end of the Security phase, the major is considered End Of Life (EOL), and we no longer recommend using it.

@@ -8,9 +8,7 @@ describe('UUIRefListElement', () => {
   let element: UUIRefListElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-ref-list></uui-ref-list>
-    `).container.querySelector('uui-ref-list')!;
+    element = render(html` <uui-ref-list></uui-ref-list> `).container.querySelector('uui-ref-list')!;
 
     await element.updateComplete;
   });

@@ -20,12 +20,10 @@ describe('UUISelectElement', () => {
   let input: HTMLSelectElement | null | undefined;
 
   beforeEach(async () => {
-    element = render(
-      html`<uui-select
+    element = render(html`<uui-select
         label="foo"
         name="bar"
-        .options=${options}></uui-select>`,
-    ).container.querySelector('uui-select')!;
+        .options=${options}></uui-select>`).container.querySelector('uui-select')!;
 
     await element.updateComplete;
     input = element.shadowRoot?.querySelector('#native');
@@ -71,11 +69,9 @@ describe('UUISelect in Form', () => {
   let select: HTMLSelectElement;
 
   beforeEach(async () => {
-    formElement = render(
-      html` <form>
+    formElement = render(html` <form>
         <uui-select label="foo" name="bar" .options=${options}></uui-select>
-      </form>`,
-    ).container.querySelector('form')!;
+      </form>`).container.querySelector('form')!;
     element = formElement.querySelector('uui-select') as any;
     await element.updateComplete;
     select = element.shadowRoot?.querySelector('select') as HTMLSelectElement;
@@ -114,14 +110,12 @@ describe('UUISelect in Form', () => {
     let formElement: HTMLFormElement;
     let element: UUISelectElement;
     beforeEach(async () => {
-      formElement = render(
-        html`<form>
+      formElement = render(html`<form>
           <uui-select
             label="test label"
             name="test"
             .options=${options}></uui-select>
-        </form>`,
-      ).container.querySelector('form')!;
+        </form>`).container.querySelector('form')!;
       element = formElement.querySelector('uui-select') as UUISelectElement;
     });
 

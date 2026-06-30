@@ -8,9 +8,7 @@ import './keyboard-shortcut.js';
 describe('UUIKey', () => {
   let element: UUIKeyElement;
   beforeEach(async () => {
-    element = render(html`<uui-key>ESC</uui-key> `).container.querySelector(
-      'uui-key',
-    )!;
+    element = render(html`<uui-key>ESC</uui-key> `).container.querySelector('uui-key')!;
 
     await element.updateComplete;
   });

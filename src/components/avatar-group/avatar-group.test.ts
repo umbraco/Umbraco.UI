@@ -7,9 +7,7 @@ import { UUIAvatarGroupElement } from './avatar-group.element';
 describe('UuiAvatarGroup', () => {
   let element: UUIAvatarGroupElement;
   beforeEach(async () => {
-    element = render(
-      html`<uui-avatar-group></uui-avatar-group>`,
-    ).container.querySelector('uui-avatar-group')!;
+    element = render(html`<uui-avatar-group></uui-avatar-group>`).container.querySelector('uui-avatar-group')!;
 
     await element.updateComplete;
   });
@@ -57,14 +55,12 @@ describe('UuiAvatarGroup', () => {
 describe('UuiAvatarGroup Limit', async () => {
   let avatarGroup: UUIAvatarGroupElement;
   beforeEach(async () => {
-    avatarGroup = render(
-      html` <uui-avatar-group .limit="${2}">
+    avatarGroup = render(html` <uui-avatar-group .limit="${2}">
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
-      </uui-avatar-group>`,
-    ).container.querySelector('uui-avatar-group')!;
+      </uui-avatar-group>`).container.querySelector('uui-avatar-group')!;
 
     await avatarGroup.updateComplete;
   });
@@ -83,12 +79,10 @@ describe('UuiAvatarGroup Limit', async () => {
   });
 
   it('Does not show limit text when not set', async () => {
-    avatarGroup = render(
-      html` <uui-avatar-group>
+    avatarGroup = render(html` <uui-avatar-group>
         <uui-avatar name="First Last"></uui-avatar>
         <uui-avatar name="First Last"></uui-avatar>
-      </uui-avatar-group>`,
-    ).container.querySelector('uui-avatar-group')!;
+      </uui-avatar-group>`).container.querySelector('uui-avatar-group')!;
 
     await avatarGroup.updateComplete;
 

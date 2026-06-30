@@ -23,9 +23,7 @@ describe('UuiAvatar', () => {
   let element: UUIAvatarElement;
 
   beforeEach(async () => {
-    element = render(
-      html`<uui-avatar name="My Avatar"></uui-avatar>`,
-    ).container.querySelector('uui-avatar')!;
+    element = render(html`<uui-avatar name="My Avatar"></uui-avatar>`).container.querySelector('uui-avatar')!;
 
     await element.updateComplete;
   });
@@ -61,9 +59,7 @@ describe('UuiAvatar', () => {
 
   describe('initials', () => {
     it('renders an image when imgSrc is set', async () => {
-      const avatar = render(
-        html`<uui-avatar img-src="${avatarSrc}" name="My Avatar"></uui-avatar>`,
-      ).container.querySelector('uui-avatar')!;
+      const avatar = render(html`<uui-avatar img-src="${avatarSrc}" name="My Avatar"></uui-avatar>`).container.querySelector('uui-avatar')!;
       await avatar.updateComplete;
 
       const img = avatar.shadowRoot!.querySelector('img');
@@ -73,9 +69,7 @@ describe('UuiAvatar', () => {
     });
 
     it('renders an image with alt text when imgSrc and text is set', async () => {
-      const avatar = render(
-        html`<uui-avatar img-src="${avatarSrc}" name="alt text"></uui-avatar>`,
-      ).container.querySelector('uui-avatar')!;
+      const avatar = render(html`<uui-avatar img-src="${avatarSrc}" name="alt text"></uui-avatar>`).container.querySelector('uui-avatar')!;
       await avatar.updateComplete;
 
       const img = avatar.shadowRoot!.querySelector('img');
@@ -84,9 +78,7 @@ describe('UuiAvatar', () => {
     });
 
     it('shows the first initial when text is used and there is no image', async () => {
-      const avatar = render(
-        html`<uui-avatar name="First"></uui-avatar>`,
-      ).container.querySelector('uui-avatar')!;
+      const avatar = render(html`<uui-avatar name="First"></uui-avatar>`).container.querySelector('uui-avatar')!;
       await avatar.updateComplete;
 
       expect(getShadowText(avatar)).toBe('F');

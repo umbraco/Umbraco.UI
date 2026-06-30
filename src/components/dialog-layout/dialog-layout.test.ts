@@ -8,9 +8,7 @@ describe('UUIDialogLayoutElement', () => {
   let element: UUIDialogLayoutElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-dialog-layout></uui-dialog-layout>
-    `).container.querySelector('uui-dialog-layout')!;
+    element = render(html` <uui-dialog-layout></uui-dialog-layout> `).container.querySelector('uui-dialog-layout')!;
 
     await element.updateComplete;
   });

@@ -9,9 +9,7 @@ import { UUIInterfaceHeadingValues } from '../../internal/types';
 describe('UUIBox', () => {
   let element: UUIBoxElement;
   beforeEach(async () => {
-    element = render(
-      html` <uui-box headline="headline"> Main </uui-box>`,
-    ).container.querySelector('uui-box')!;
+    element = render(html` <uui-box headline="headline"> Main </uui-box>`).container.querySelector('uui-box')!;
 
     await element.updateComplete;
   });
@@ -22,13 +20,11 @@ describe('UUIBox', () => {
 
   it('passes the a11y audit', async () => {
     for (const headlineVariant of UUIInterfaceHeadingValues) {
-      element = render(
-        html` <uui-box
+      element = render(html` <uui-box
           headline="headline"
           .headlineVariant="${headlineVariant}">
           Main
-        </uui-box>`,
-      ).container.querySelector('uui-box')!;
+        </uui-box>`).container.querySelector('uui-box')!;
 
       await element.updateComplete;
       expect(await axeRun(element)).toHaveNoViolations();
@@ -48,11 +44,9 @@ describe('UUIBox', () => {
     let wrapper: HTMLDivElement;
     let element: UUIBoxElement;
     beforeEach(async () => {
-      wrapper = render(
-        html`<div style="--uui-box-default-padding:1337px;">
+      wrapper = render(html`<div style="--uui-box-default-padding:1337px;">
           <uui-box headline="headline"> Main </uui-box>
-        </div>`,
-      ).container.querySelector('div')! as HTMLDivElement;
+        </div>`).container.querySelector('div')! as HTMLDivElement;
       element = wrapper.querySelector('uui-box')!;
     });
     it('allows for --uui-box-default-padding to be defined outside the scope.', () => {
@@ -87,11 +81,9 @@ describe('UUIBox', () => {
     });
 
     it('renders specified headline tag when headlineVariant is set', async () => {
-      element = render(
-        html` <uui-box headline="headline" headline-variant="h2"
+      element = render(html` <uui-box headline="headline" headline-variant="h2"
           >Main</uui-box
-        >`,
-      ).container.querySelector('uui-box')!;
+        >`).container.querySelector('uui-box')!;
 
       await element.updateComplete;
 
@@ -108,12 +100,10 @@ describe('UUIBox', () => {
   describe('UUIBox', () => {
     let element: UUIBoxElement;
     beforeEach(async () => {
-      element = render(
-        html` <uui-box>
+      element = render(html` <uui-box>
           <div slot="header">Something in the header</div>
           Main
-        </uui-box>`,
-      ).container.querySelector('uui-box')!;
+        </uui-box>`).container.querySelector('uui-box')!;
 
       await element.updateComplete;
     });

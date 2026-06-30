@@ -10,6 +10,7 @@ import '../symbol-file-thumbnail/symbol-file-thumbnail.js';
 import '../symbol-folder/symbol-folder.js';
 import '../symbol-file/symbol-file.js';
 
+
 const meta: Meta = {
   id: 'uui-file-preview',
   component: 'uui-file-preview',

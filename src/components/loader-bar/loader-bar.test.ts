@@ -7,9 +7,7 @@ import './loader-bar.js';
 describe('UuiTextfield with steps', () => {
   let element: UUILoaderBarElement;
   beforeEach(async () => {
-    element = render(html`
-      <uui-loader-bar></uui-loader-bar>
-    `).container.querySelector('uui-loader-bar')!;
+    element = render(html` <uui-loader-bar></uui-loader-bar> `).container.querySelector('uui-loader-bar')!;
 
     await element.updateComplete;
   });

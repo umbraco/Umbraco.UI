@@ -27,11 +27,9 @@ describe('UUIIconRegistryEssentialElement', () => {
     let iconElement: UUIIconElement;
 
     beforeEach(async () => {
-      registryElement = render(
-        html`<uui-icon-registry-essential
+      registryElement = render(html`<uui-icon-registry-essential
           ><uui-icon name="check"></uui-icon
-        ></uui-icon-registry-essential>`,
-      ).container.querySelector('uui-icon-registry-essential')!;
+        ></uui-icon-registry-essential>`).container.querySelector('uui-icon-registry-essential')!;
 
       await registryElement.updateComplete;
 

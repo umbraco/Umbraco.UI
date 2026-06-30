@@ -9,9 +9,7 @@ describe('UUIActionBarElement', () => {
   let element: UUIActionBarElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-action-bar></uui-action-bar>
-    `).container.querySelector('uui-action-bar')!;
+    element = render(html` <uui-action-bar></uui-action-bar> `).container.querySelector('uui-action-bar')!;
 
     await element.updateComplete;
   });

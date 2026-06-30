@@ -82,14 +82,12 @@ describe('UuiTextarea in Form', () => {
   let formElement: HTMLFormElement;
   let element: UUITextareaElement;
   beforeEach(async () => {
-    formElement = render(
-      html` <form>
+    formElement = render(html` <form>
         <uui-textarea
           label="a textarea label"
           name="textarea"
           value="Hello uui-textarea"></uui-textarea>
-      </form>`,
-    ).container.querySelector('form')!;
+      </form>`).container.querySelector('form')!;
     element = formElement.querySelector('uui-textarea') as any;
   });
 
