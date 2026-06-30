@@ -7,7 +7,7 @@ import '../symbol-folder/symbol-folder.js';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
-import '@umbraco-ui/uui-icon/lib/index';
+import '../icon/icon.js';
 
 /**
  * For more styling options see the [base card](/docs/uui-card--docs) component.

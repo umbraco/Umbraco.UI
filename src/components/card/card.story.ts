@@ -4,7 +4,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
-import '@umbraco-ui/uui-icon-registry-essential/lib';
+import '../icon-registry-essential/icon-registry-essential.js';
 
 const meta: Meta = {
   id: 'uui-card',
