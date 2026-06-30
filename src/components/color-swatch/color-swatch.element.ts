@@ -303,7 +303,6 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 2px;
       }
 
       :host([show-label]) .color-swatch {
@@ -333,7 +332,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host([show-label]) .color-swatch__color {
-        border-radius: 3px 3px 0 0;
+        border-radius: var(--uui-size-4) var(--uui-size-4) 0 0;
       }
 
       .color-swatch__check {
@@ -375,9 +374,12 @@ export class UUIColorSwatchElement extends LabelMixin(
         display: flex;
         flex-direction: column;
         background: white;
-        border: 1px solid var(--uui-color-border);
-        border-radius: 0 0 3px 3px;
+        border-radius: 0 0 var(--uui-size-4) var(--uui-size-4);
         font-size: var(--uui-size-4, 12px);
+        border: 0;
+        border-top-width: 1px;
+        border-color: var(--uui-color-border);
+        border-style: solid;
       }
 
       .color-swatch__label strong {
