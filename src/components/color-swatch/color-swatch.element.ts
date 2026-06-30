@@ -242,6 +242,10 @@ export class UUIColorSwatchElement extends LabelMixin(
         cursor: pointer;
       }
 
+      :host(:not([selectable]):not([readonly]):not([disabled])) #swatch {
+        cursor: pointer;
+      }
+
       :host([disabled]) {
         cursor: not-allowed;
       }
@@ -269,13 +273,13 @@ export class UUIColorSwatchElement extends LabelMixin(
       :host(:not([selectable])) #swatch:focus {
         outline: none;
       }
+      :host(:not([selectable]):not([readonly]):not([disabled])) #swatch:hover {
+        border-color: var(--uui-color-border-standalone);
+      }
 
       :host([readonly]) #swatch,
       :host([disabled]) #swatch {
         background-color: var(--uui-color-disabled-standalone);
-      }
-      :host([readonly]:not([disabled]):hover) #swatch {
-        background-color: var(--uui-color-disabled);
       }
 
       :host([selectable]) #swatch::after {
@@ -351,11 +355,14 @@ export class UUIColorSwatchElement extends LabelMixin(
       :host([show-label]) .color-swatch__color {
         border-radius: var(--uui-border-radius-2) var(--uui-border-radius-2) 0 0;
       }
-      :host([show-label][selectable][selected]:not([disabled]))
+      :host([show-label][selectable][selected]:not([disabled]):not([readonly]))
         .color-swatch__color {
         border-top: 2px solid rgba(255, 255, 255, 0.25);
         border-left: 2px solid rgba(255, 255, 255, 0.25);
         border-right: 2px solid rgba(255, 255, 255, 0.25);
+      }
+      :host([show-label][readonly]:not([disabled])) .color-swatch__color {
+        border: 2px solid var(--uui-color-border-standalone);
       }
 
       :host([readonly]:not([disabled])) .color-swatch__color {
@@ -416,6 +423,16 @@ export class UUIColorSwatchElement extends LabelMixin(
         border-top: none;
         border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
         font-size: var(--uui-size-4, 12px);
+      }
+
+      :host(:not([selectable]):not([readonly]):not([disabled]))
+        .color-swatch__label {
+        color: var(--uui-color-interactive);
+      }
+      :host(:not([selectable]):not([readonly]):not([disabled]):hover)
+        .color-swatch__label {
+        color: var(--uui-color-interactive-emphasis);
+        border-color: var(--uui-color-border-standalone);
       }
 
       .color-swatch__label strong {
