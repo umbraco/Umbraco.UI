@@ -116,6 +116,10 @@ export class UUIColorAreaElement extends LitElement {
     this._value = newVal;
     this.requestUpdate('value', oldVal);
 
+    // Avoid re-parsing parent-provided formatted values during active drag.
+    // This prevents tiny precision shifts that can make the handle appear to jump.
+    if (this.isDraggingGridHandle) return;
+
     try {
       const parsed = parseColor(newVal);
 

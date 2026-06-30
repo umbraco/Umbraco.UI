@@ -352,14 +352,14 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
     const { h, s, l, a } = parsed;
 
-    this.hue = h;
+    this.hue = Math.round(h);
     this.saturation = Math.round(s);
     this.lightness = Math.round(l);
     this.alpha = this.opacity ? a * 100 : 100; // Convert to 0-100 range, and set alpha to 100 if opacity is disabled
 
     // Workaround as hue isn't correct after changing hue slider, but parseColor returns hue as zero when color is black.
     if (typeof colorString !== 'string' && colorString.h) {
-      this.hue = colorString.h;
+      this.hue = Math.round(colorString.h);
     }
 
     this._color = {
@@ -530,7 +530,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         aria-haspopup="true"
         aria-expanded="false"
         popovertarget="color-picker-popover"></button>
-      <uui-popover-container id="color-picker-popover">
+      <uui-popover-container id="color-picker-popover" no-scroll>
         ${this._renderColorPicker()}
       </uui-popover-container>`;
   }
@@ -689,7 +689,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       }
 
       button.color-picker__trigger:focus-visible {
-        outline: 2px solid var(--uui-color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
 
       uui-color-area {

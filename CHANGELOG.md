@@ -3,11 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
+# [2.0.0](/compare/v1.18.1...v2.0.0) (2026-06-23)
+
+### Bug Fixes
+
+- **uui-table:** wrapper element for proper styling on windows (#1408) 0b93d9e, closes #1408
+
+# [2.0.0-rc.2](/compare/v1.18.0...v2.0.0-rc.2) (2026-06-03)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href (#1384) 8aa8f0f, closes #1384
 
 ### Reverts
 
-- "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
+- Revert "docs(changelog): de-duplicate 2.0.0-rc.1 entry" c996f3b
 
 # [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
 
@@ -221,6 +231,28 @@ element rendering. Tests pass on Chromium and Firefox.
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 
+# [2.0.0](/compare/v1.18.1...v2.0.0) (2026-06-23)
+
+### Bug Fixes
+
+- **uui-table:** wrapper element for proper styling on windows (#1408) 0b93d9e, closes #1408
+
+# [2.0.0-rc.2](/compare/v1.18.0...v2.0.0-rc.2) (2026-06-03)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href (#1384) 8aa8f0f, closes #1384
+
+### Reverts
+
+- Revert "docs(changelog): de-duplicate 2.0.0-rc.1 entry" c996f3b
+
+# [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
+
+### Reverts
+
+- "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
+
 # [2.0.0-rc.0](/compare/v1.17.3...v2.0.0-rc.0) (2026-05-13)
 
 ### Bug Fixes
@@ -411,6 +443,40 @@ The fixture() call times out on Webkit in CI due to slow nested
 element rendering. Tests pass on Chromium and Firefox.
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+# [2.0.0-rc.2](/compare/v1.18.0...v2.0.0-rc.2) (2026-06-03)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href (#1384) 8aa8f0f, closes #1384
+
+### Reverts
+
+- Revert "docs(changelog): de-duplicate 2.0.0-rc.1 entry" c996f3b
+
+# [2.0.0-rc.1](/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2026-05-13)
+
+### Reverts
+
+- "feat(modal): replace showModal with popover API for top-layer flexibility (#1363)" 55c9863, closes #1363
+
+# [2.0.0-rc.0](/compare/v1.17.3...v2.0.0-rc.0) (2026-05-13)
+
+### Bug Fixes
+
+- **build:** replace extglob sideEffects patterns with standard globs e2c79ad
+- **build:** update plop test template for v2 testing stack 5f61fe1
+- **ci:** use lerna --canary for nightly releases to avoid dirty working tree f0c6033
+- **color-slider:** show hue color on slider handle (#1331) 4f1df3d, closes #1331 #1244
+- **responsive-container:** observe host element for resize detection and delay dropdown cloning (#1359) 90cfd93, closes #1359
+
+### Features
+
+- **build:** extract src/components/index.ts barrel for components a116f26
+- **combobox:** refactor to support multi-selection. (#1348) cf2bb61, closes #1348
+- **modal:** replace showModal with popover API for top-layer flexibility (#1363) 31ee3b4, closes #1363
+- **storybook:** add runtime theme switcher (#1330) f075ece, closes #1330
+- UUI V2 Backoffice finetunes for v18 (#1378) 0243194, closes #1378
 
 # [2.0.0-alpha.1](https://github.com/umbraco/Umbraco/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2026-03-03)
 
@@ -606,6 +672,12 @@ The fixture() call times out on Webkit in CI due to slow nested
 element rendering. Tests pass on Chromium and Firefox.
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+# [1.18.1](/compare/v1.18.0...v1.18.1) (2026-06-23)
+
+### Bug Fixes
+
+- **UUITabGroup:** Prevent active tab switching when ctrl clicking on a tab with a href for v1 (#1404) 6de84e0, closes #1404
 
 # [1.18.0](/compare/v1.17.3...v1.18.0) (2026-06-02)
 

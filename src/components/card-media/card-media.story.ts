@@ -7,6 +7,7 @@ import '../symbol-folder/symbol-folder.js';
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread, renderSlots } from '../../../storyhelpers';
+import '../icon/icon.js';
 
 /**
  * For more styling options see the [base card](/docs/uui-card--docs) component.
@@ -18,6 +19,7 @@ const meta: Meta = {
   args: {
     name: 'The card',
     fileExt: 'jpg',
+    active: false,
   },
   render: args =>
     html`<uui-card-media ${spread(args)}>${renderSlots(args)}</uui-card-media>`,
@@ -93,6 +95,12 @@ export const Image: Story = {
   },
 };
 
+export const Active: Story = {
+  args: {
+    active: true,
+  },
+};
+
 export const Selectable: Story = {
   args: {
     selectable: true,
@@ -104,4 +112,26 @@ export const OnlySelectable: Story = {
     selectable: true,
     selectOnly: true,
   },
+};
+
+export const WithIconActiveAndChildren: Story = {
+  args: {
+    hasChildren: true,
+    'icon slot': html`<uui-icon slot="icon" name="picture"></uui-icon>`,
+  },
+};
+
+export const FolderAndItem: Story = {
+  render: () => html`
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 200px)); gap: 10px;"
+      selectable>
+      <uui-card-media name="The folder" is-folder has-children selectable>
+        <uui-icon slot="icon" name="picture"></uui-icon>
+      </uui-card-media>
+      <uui-card-media name="The card" file-ext="jpg" selectable select-only>
+        <uui-icon slot="icon" name="picture"></uui-icon
+      ></uui-card-media>
+    </div>
+  `,
 };

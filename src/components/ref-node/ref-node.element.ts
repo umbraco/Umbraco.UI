@@ -197,7 +197,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         cursor: pointer;
         display: flex;
         flex-grow: 1;
-        width: calc(100%);
+        min-width: 0;
         margin: 0 0 1px 0;
       }
 
@@ -215,6 +215,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         align-items: start;
         justify-content: center;
         height: 100%;
+        min-width: 0;
         padding-left: var(--uui-size-2);
         max-width: calc(100% - 2 * var(--uui-size-3) - var(--uui-size-2));
         margin-top: 1px;
@@ -223,6 +224,13 @@ export class UUIRefNodeElement extends UUIRefElement {
       #detail {
         opacity: 0.6;
         line-height: 1.2em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: calc(100%);
+      }
+
+      #name {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;

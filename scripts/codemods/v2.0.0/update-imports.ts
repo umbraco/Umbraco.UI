@@ -184,9 +184,10 @@ export default function transform(
     if (!arg) return;
 
     let source: string | null = null;
-    if (arg.type === 'StringLiteral') {
-      source = arg.value;
-    } else if (arg.type === 'Literal' && typeof arg.value === 'string') {
+    if (
+      (arg.type === 'StringLiteral' || arg.type === 'Literal') &&
+      typeof arg.value === 'string'
+    ) {
       source = arg.value;
     }
 

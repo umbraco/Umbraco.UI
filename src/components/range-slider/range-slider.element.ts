@@ -828,7 +828,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
         position: absolute;
         left: 0;
         right: 0;
-        top: -10px;
+        top: -9px;
       }
 
       /** Step circles */
@@ -989,7 +989,8 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
       input:focus-within::-webkit-slider-thumb,
       input.focus::-webkit-slider-thumb {
         border-color: var(--color-focus);
-        outline: 2px solid var(--color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
         outline-offset: 1px;
       }
       :host(:not([disabled]):not([readonly]))
@@ -1028,7 +1029,8 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
       input:focus-within::-moz-range-thumb,
       input.focus::-moz-range-thumb {
         border-color: var(--color-focus);
-        outline: 2px solid var(--color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
         outline-offset: 1px;
       }
       :host(:not([disabled]):not([readonly])) input::-moz-range-thumb:hover {

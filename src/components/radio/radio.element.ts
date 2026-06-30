@@ -218,7 +218,8 @@ export class UUIRadioElement extends LitElement {
         outline: none;
       }
       :host(:focus-within) input:focus-visible + #button {
-        outline: 2px solid var(--uui-color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
 
       :host(:not([disabled]):not([readonly]):hover) input ~ #button::after {

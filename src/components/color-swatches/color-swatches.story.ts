@@ -7,6 +7,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 const swatches = [
   { label: 'Black', value: '#060606' },
+  { label: 'White', value: '#ffffff' },
   { label: 'Sunglow', value: '#fad634' },
   { label: 'Spanish Pink', value: '#f5c1bc' },
   { label: 'Violet Blue', value: '#3544b1' },
@@ -99,7 +100,10 @@ const meta: Meta = {
     label="${label}"
     .showLabel=${args.showLabel}
     .color="${color}"
-    .value=${value}>
+    .value=${value}
+    .readonly=${args.readonly}
+    .disabled=${args.disabled}
+    .selected=${args.value === value}>
   </uui-color-swatch>`;
   })}
 </uui-color-swatches>

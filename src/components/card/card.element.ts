@@ -66,6 +66,15 @@ export class UUICardElement extends SelectOnlyMixin(
   @property({ type: String })
   public rel?: string;
 
+  /**
+   * Set to true to indicate this item has children.
+   * @type {boolean}
+   * @attr has-children
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'has-children' })
+  hasChildren = false;
+
   // This is deprecated - use href instead
   protected handleOpenClick(e: Event) {
     if (this.disabled) return;
@@ -98,8 +107,10 @@ export class UUICardElement extends SelectOnlyMixin(
   }
 
   protected render() {
-    return html`<slot id="open-part"></slot>
-      <div id="select-border"></div>`;
+    return html`
+      <slot id="open-part"></slot>
+      <div id="select-border"></div>
+    `;
   }
 
   static override readonly styles = [
@@ -265,6 +276,10 @@ export class UUICardElement extends SelectOnlyMixin(
       :host(:hover) #select-checkbox,
       #select-checkbox[checked] {
         opacity: 1;
+      }
+
+      :host([active]) {
+        background-color: var(--uui-color-current);
       }
     `,
   ];

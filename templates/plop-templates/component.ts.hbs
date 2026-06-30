@@ -3,18 +3,19 @@ import { css, html, LitElement } from 'lit';
 /**
  * @element {{> tagnamePartial }}
  */
-export class {{className name}} extends LitElement {
-      static styles = [
-    css`
-      :host {
-        /* Styles goes here */
-      }
-    `,
-  ];
+export class {{className name}} extends LitElement {    
 
-    render(){
+    render() {
         return html`
             Markup goes here
         `;
     }
+
+    static styles = [
+      css`
+        :host {
+          /* Styles goes here */
+        }
+      `,
+    ];
 }
