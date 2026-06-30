@@ -828,7 +828,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
         position: absolute;
         left: 0;
         right: 0;
-        top: -10px;
+        top: -9px;
       }
 
       /** Step circles */

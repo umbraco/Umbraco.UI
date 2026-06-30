@@ -234,6 +234,47 @@ describe('UuiButton', () => {
       element.click();
       expect(wasClicked).toBe(false);
     });
+
+    it('does not fire click handler when disabled and handler is added via template', async () => {
+      let templateHandlerCalled = false;
+
+      const screen = render(
+        html`<uui-button
+          label="Test"
+          disabled
+          @click=${() => {
+            templateHandlerCalled = true;
+          }}>
+          Click me
+        </uui-button>`,
+      );
+
+      const disabledButton = screen.container.querySelector('uui-button')!;
+      const innerButton = disabledButton.shadowRoot!.querySelector('#button');
+      innerButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+      expect(templateHandlerCalled).toBe(false);
+    });
+
+    it('does not fire click handler when disabled and clicked directly on host', async () => {
+      let templateHandlerCalled = false;
+
+      const screen = render(
+        html`<uui-button
+          label="Test"
+          disabled
+          @click=${() => {
+            templateHandlerCalled = true;
+          }}>
+          Click me
+        </uui-button>`,
+      );
+
+      const disabledButton = screen.container.querySelector('uui-button')!;
+      disabledButton.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+      expect(templateHandlerCalled).toBe(false);
+    });
   });
 
   describe('HREF', () => {

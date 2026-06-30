@@ -70,7 +70,7 @@ export const DisabledSelected: Story = {
 export const Readonly: Story = {
   args: {
     readonly: true,
-    selectable: true,
+    selectable: false,
   },
   parameters: {
     docs: {
@@ -145,7 +145,8 @@ export const Palette: Story = {
     const [selected, setSelected] = useState<string | null>(null);
 
     return html`
-      <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
+      <div
+        style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
         ${palette.map(
           ({ value, label }) => html`
             <uui-color-swatch
