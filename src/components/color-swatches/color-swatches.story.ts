@@ -99,7 +99,10 @@ const meta: Meta = {
     label="${label}"
     .showLabel=${args.showLabel}
     .color="${color}"
-    .value=${value}>
+    .value=${value}
+    .readonly=${args.readonly}
+    .disabled=${args.disabled}
+    .selected=${args.value === value}>
   </uui-color-swatch>`;
   })}
 </uui-color-swatches>
