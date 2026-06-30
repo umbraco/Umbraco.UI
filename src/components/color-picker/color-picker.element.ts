@@ -530,7 +530,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         aria-haspopup="true"
         aria-expanded="false"
         popovertarget="color-picker-popover"></button>
-      <uui-popover-container id="color-picker-popover">
+      <uui-popover-container id="color-picker-popover" no-scroll>
         ${this._renderColorPicker()}
       </uui-popover-container>`;
   }
