@@ -20,6 +20,7 @@ const meta: Meta = {
   args: {
     name: 'John Rabbit',
     slot: cardContent,
+    active: false,
   },
   render: args =>
     html`<uui-card-user ${spread(args)}>${renderSlots(args)}</uui-card-user>`,
@@ -74,6 +75,12 @@ export const Actions: Story = {
       label="Remove"
       >Remove</uui-button
     >`,
+  },
+};
+
+export const Active: Story = {
+  args: {
+    active: true,
   },
 };
 

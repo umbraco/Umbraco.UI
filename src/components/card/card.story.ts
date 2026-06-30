@@ -4,6 +4,8 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { renderSlots, spread } from '../../../storyhelpers';
 
+import '../icon-registry-essential/icon-registry-essential.js';
+
 const meta: Meta = {
   id: 'uui-card',
   component: 'uui-card',
@@ -30,6 +32,12 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+export const Active: Story = {
+  args: {
+    active: true,
+  },
+};
 
 export const Default: Story = {};
 

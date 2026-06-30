@@ -28,6 +28,7 @@ const meta: Meta = {
   args: {
     name: 'Name',
     slot: cardContent,
+    active: false,
   },
   render: args =>
     html`<uui-card-content-node ${spread(args)}
@@ -76,6 +77,12 @@ export const CustomIcon: Story = {
   },
 };
 
+export const Active: Story = {
+  args: {
+    active: true,
+  },
+};
+
 export const Selectable: Story = {
   args: {
     selectable: true,
@@ -86,5 +93,13 @@ export const OnlySelectable: Story = {
   args: {
     selectable: true,
     selectOnly: true,
+  },
+};
+
+export const WithChildrenAndIcon: Story = {
+  args: {
+    hasChildren: true,
+    selectable: true,
+    'icon slot': html`<uui-icon slot="icon" name="wand"></uui-icon>`,
   },
 };

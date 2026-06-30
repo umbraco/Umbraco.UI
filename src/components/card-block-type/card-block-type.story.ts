@@ -16,6 +16,7 @@ const meta: Meta = {
   args: {
     name: 'Name',
     description: 'Description',
+    active: false,
     slot: html`<uui-icon name="wand"></uui-icon>`,
   },
   argTypes: {
@@ -71,6 +72,12 @@ export const Background: Story = {
 export const Image: Story = {
   args: {
     slot: html`<img src="https://placedog.net/1447/?random" alt="" />`,
+  },
+};
+
+export const Active: Story = {
+  args: {
+    active: true,
   },
 };
 
