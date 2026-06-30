@@ -80,7 +80,6 @@ export class UUICardMediaElement extends UUICardElement {
         id="open-part"
         tabindex=${ifDefined(tabIndex)}
         @click=${this.handleOpenClick}
-        @dblclick=${this.handleOpenDblClick}
         @keydown=${this.handleOpenKeydown}>
         ${this.#renderContent()}
       </button>
