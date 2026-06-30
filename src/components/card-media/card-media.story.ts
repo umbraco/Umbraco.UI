@@ -19,6 +19,7 @@ const meta: Meta = {
   args: {
     name: 'The card',
     fileExt: 'jpg',
+    active: false,
   },
   render: args =>
     html`<uui-card-media ${spread(args)}>${renderSlots(args)}</uui-card-media>`,
@@ -91,6 +92,12 @@ export const Image: Story = {
   },
   parameters: {
     chromatic: { disableSnapshot: true },
+  },
+};
+
+export const Active: Story = {
+  args: {
+    active: true,
   },
 };
 

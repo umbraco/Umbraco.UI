@@ -28,6 +28,7 @@ const meta: Meta = {
   args: {
     name: 'Name',
     slot: cardContent,
+    active: false,
   },
   render: args =>
     html`<uui-card-content-node ${spread(args)}
@@ -73,6 +74,12 @@ export const Actions: Story = {
 export const CustomIcon: Story = {
   args: {
     'icon slot': html`<uui-icon slot="icon" name="wand"></uui-icon>`,
+  },
+};
+
+export const Active: Story = {
+  args: {
+    active: true,
   },
 };
 
