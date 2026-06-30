@@ -9,7 +9,6 @@ import { property } from 'lit/decorators.js';
 import { UUICardEvent } from './UUICardEvent.js';
 
 import '../checkbox/checkbox.js';
-import '../symbol-expand/symbol-expand.js';
 
 /**
  *  Card is a Component that provides the basics for a Card component. This can be extended in code to match a certain need.
