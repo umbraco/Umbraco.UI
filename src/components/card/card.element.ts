@@ -279,7 +279,7 @@ export class UUICardElement extends SelectOnlyMixin(
       }
 
       :host([active]) {
-        background-color: var(--uui-color-current, var(--uui-color-surface));
+        background-color: var(--uui-color-current);
       }
     `,
   ];
