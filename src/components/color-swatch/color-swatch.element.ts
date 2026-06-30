@@ -1,5 +1,5 @@
 import { property, state } from 'lit/decorators.js';
-import { css, html, LitElement, nothing, svg } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -8,9 +8,8 @@ import {
   LabelMixin,
   SelectableMixin,
 } from '../../internal/mixins/index.js';
+import { iconCheck } from '../icon-registry-essential/svgs/iconCheck.js';
 
-// Custom SVG for the checkbox, as this is smaller in size than the icon registry version: [NL]
-const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 10 17 4 12" /></svg>`;
 /**
  * Color swatch, can have label and be selectable, disabled or readonly.
  *
@@ -194,7 +193,7 @@ export class UUIColorSwatchElement extends LabelMixin(
           <div
             class="color-swatch__check"
             style=${styleMap({ color: colorStr })}>
-            ${check}
+            ${iconCheck}
           </div>
         </div>
         ${this._renderWithLabel()}
@@ -394,6 +393,10 @@ export class UUIColorSwatchElement extends LabelMixin(
 
       :host([selected]) .color-swatch__check {
         opacity: 1;
+      }
+
+      .color-swatch__check > svg {
+        stroke-width: 2.5;
       }
 
       slot[name='label']::slotted(*),

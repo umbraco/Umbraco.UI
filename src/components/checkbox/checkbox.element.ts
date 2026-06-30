@@ -3,11 +3,11 @@ import {
   UUIHorizontalShakeKeyframes,
 } from '../../internal/animations/index.js';
 import { UUIBooleanInputElement } from '../boolean-input/boolean-input.js';
-import { css, html, svg } from 'lit';
-
-// Custom SVG for the checkbox, as this is smaller in size than the icon registry version: [NL]
-const check = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 10 17 4 12" /></svg>`;
-const subtract = svg`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.25h14" /></svg>`;
+import { css, html } from 'lit';
+import {
+  iconCheck,
+  iconSubtract,
+} from '../icon-registry-essential/svgs/index.js';
 
 /**
  *  Umbraco checkbox, toggles between checked and uncheck
@@ -26,7 +26,9 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
   renderCheckbox() {
     return html`
       <div id="ticker">
-        <div id="icon-check">${this.indeterminate ? subtract : check}</div>
+        <div id="icon-check">
+          ${this.indeterminate ? iconSubtract : iconCheck}
+        </div>
       </div>
     `;
   }
@@ -111,6 +113,10 @@ export class UUICheckboxElement extends UUIBooleanInputElement {
           opacity 120ms;
         color: var(--uui-color-selected-contrast);
         opacity: 0;
+      }
+
+      #icon-check > svg {
+        stroke-width: 2.5;
       }
 
       #ticker::before {
