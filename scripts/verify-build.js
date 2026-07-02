@@ -45,7 +45,7 @@ assert(existsSync('dist/themes/dark.css'), 'dist/themes/dark.css exists');
 // ---------------------------------------------------------------------------
 console.log('\n--- dist/index.js side-effect reachability ---');
 const indexJs = readFileSync('dist/index.js', 'utf8');
-const indexBareImports = indexJs.match(/^import "[^"]+";$/gm) || [];
+const indexBareImports = indexJs.match(/^import ['"][^'"]+['"];$/gm) || [];
 
 // Rolldown resolves the internal/styles re-export chains into direct named
 // imports (which still execute those modules), but the components barrel must
@@ -55,7 +55,7 @@ assert(
   'bare-imports components/index.js (component registration chain)',
 );
 assert(
-  /import .*"\.\/internal\/version\.js"/.test(indexJs),
+  /import .*['"]\.\/internal\/version\.js['"]/.test(indexJs),
   'imports internal/version.js (version-tracking side effect executes)',
 );
 
@@ -64,7 +64,7 @@ assert(
 // ---------------------------------------------------------------------------
 console.log('\n--- dist/components/index.js bare imports ---');
 const compIndexJs = readFileSync('dist/components/index.js', 'utf8');
-const compBareImports = compIndexJs.match(/^import "[^"]+";$/gm) || [];
+const compBareImports = compIndexJs.match(/^import ['"][^'"]+['"];$/gm) || [];
 const compElementBareImports = compBareImports.filter(i =>
   i.includes('.element.'),
 );
@@ -108,7 +108,7 @@ assert(
   'does NOT call defineElement',
 );
 assert(
-  buttonElementJs.includes('from "lit"'),
+  /from ['"]lit['"]/.test(buttonElementJs),
   'imports from "lit" (externalized, not inlined)',
 );
 
