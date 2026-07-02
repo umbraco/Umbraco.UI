@@ -11,4 +11,3 @@ declare global {
 
 export * from './toast-notification.element.js';
 export * from './UUIToastNotificationEvent.js';
-export { UUIToastNotificationElement as default } from './toast-notification.element.js';

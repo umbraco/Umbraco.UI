@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './scroll-container.element.js';
-export { UUIScrollContainerElement as default } from './scroll-container.element.js';

@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './form-layout-item.element.js';
-export { UUIFormLayoutItemElement as default } from './form-layout-item.element.js';

@@ -11,4 +11,3 @@ declare global {
 
 export * from './color-picker.element.js';
 export * from './UUIColorPickerEvent.js';
-export { UUIColorPickerElement as default } from './color-picker.element.js';

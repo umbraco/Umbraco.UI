@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './tag.element.js';
-export { UUITagElement as default } from './tag.element.js';

@@ -11,4 +11,3 @@ declare global {
 
 export * from './input-lock.element.js';
 export * from './UUIInputLockEvent.js';
-export { UUIInputLockElement as default } from './input-lock.element.js';

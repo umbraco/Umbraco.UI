@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './ref-node-form.element.js';
-export { UUIRefNodeFormElement as default } from './ref-node-form.element.js';

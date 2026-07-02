@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './box.element.js';
-export { UUIBoxElement as default } from './box.element.js';

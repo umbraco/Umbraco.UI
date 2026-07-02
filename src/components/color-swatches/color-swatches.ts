@@ -11,4 +11,3 @@ declare global {
 
 export * from './color-swatches.element.js';
 export * from './UUIColorSwatchesEvent.js';
-export { UUIColorSwatchesElement as default } from './color-swatches.element.js';

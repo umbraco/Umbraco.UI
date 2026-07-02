@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './avatar.element.js';
-export { UUIAvatarElement as default } from './avatar.element.js';

@@ -15,4 +15,3 @@ declare global {
 export * from './combobox-list-option.element.js';
 export * from './combobox-list.element.js';
 export * from './UUIComboboxListEvent.js';
-export { UUIComboboxListElement as default } from './combobox-list.element.js';

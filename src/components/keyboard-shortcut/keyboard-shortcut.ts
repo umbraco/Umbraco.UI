@@ -14,4 +14,3 @@ declare global {
 
 export * from './key.element.js';
 export * from './keyboard-shortcut.element.js';
-export { UUIKeyboardShortcutElement as default } from './keyboard-shortcut.element.js';

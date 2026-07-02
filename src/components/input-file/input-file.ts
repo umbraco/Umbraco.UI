@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './input-file.element.js';
-export { UUIInputFileElement as default } from './input-file.element.js';

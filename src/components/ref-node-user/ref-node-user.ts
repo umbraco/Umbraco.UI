@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './ref-node-user.element.js';
-export { UUIRefNodeUserElement as default } from './ref-node-user.element.js';

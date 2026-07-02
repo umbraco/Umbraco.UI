@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './dialog-layout.element.js';
-export { UUIDialogLayoutElement as default } from './dialog-layout.element.js';

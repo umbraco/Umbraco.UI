@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './card-user.element.js';
-export { UUICardUserElement as default } from './card-user.element.js';

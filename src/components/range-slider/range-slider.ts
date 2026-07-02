@@ -11,4 +11,3 @@ declare global {
 
 export * from './range-slider.element.js';
 export * from './UUIRangeSliderEvent.js';
-export { UUIRangeSliderElement as default } from './range-slider.element.js';

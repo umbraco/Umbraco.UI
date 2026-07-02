@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-drag-handle.element.js';
-export { UUISymbolDragHandleElement as default } from './symbol-drag-handle.element.js';

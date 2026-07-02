@@ -11,4 +11,3 @@ declare global {
 
 export * from './input.element.js';
 export * from './UUIInputEvent.js';
-export { UUIInputElement as default } from './input.element.js';
