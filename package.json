@@ -147,5 +147,5 @@
   "storybook": {
     "url": "https://uui.umbraco.com"
   },
-  "packageManager": "npm@11.1.0"
+  "packageManager": "npm@11.18.0"
 }
