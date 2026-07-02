@@ -11,4 +11,3 @@ declare global {
 
 export * from './icon-registry-essential.element.js';
 export * from './UUIIconRegistryEssential.js';
-export { UUIIconRegistryEssentialElement as default } from './icon-registry-essential.element.js';

@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './toggle.element.js';
-export { UUIToggleElement as default } from './toggle.element.js';

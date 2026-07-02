@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './input-password.element.js';
-export { UUIInputPasswordElement as default } from './input-password.element.js';

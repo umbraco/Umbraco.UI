@@ -11,4 +11,3 @@ declare global {
 
 export * from './textarea.element.js';
 export * from './UUITextareaEvent.js';
-export { UUITextareaElement as default } from './textarea.element.js';

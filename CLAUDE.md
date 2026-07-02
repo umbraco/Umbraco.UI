@@ -176,7 +176,6 @@ declare global {
 }
 
 export * from './button.element.js';
-export { UUIButtonElement as default } from './button.element.js';
 ```
 
 ```typescript

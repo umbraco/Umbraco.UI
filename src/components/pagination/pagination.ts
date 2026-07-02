@@ -11,4 +11,3 @@ declare global {
 
 export * from './pagination.element.js';
 export * from './UUIPaginationEvent.js';
-export { UUIPaginationElement as default } from './pagination.element.js';

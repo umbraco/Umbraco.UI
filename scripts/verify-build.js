@@ -90,8 +90,8 @@ assert(
   'exports UUIButtonElement',
 );
 assert(
-  buttonJs.includes('UUIButtonElement as default'),
-  'exports UUIButtonElement as default (Rolldown drops default re-exports from non-entry modules)',
+  !buttonJs.includes('as default'),
+  'no default re-export (registration files export named only; Rolldown would drop default re-exports from non-entry modules anyway)',
 );
 
 // ---------------------------------------------------------------------------

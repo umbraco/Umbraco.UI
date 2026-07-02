@@ -11,4 +11,3 @@ declare global {
 
 export * from './ref.element.js';
 export * from './UUIRefEvent.js';
-export { UUIRefElement as default } from './ref.element.js';
