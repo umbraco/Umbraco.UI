@@ -1,5 +1,22 @@
+import { globSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
+
+// Explicit entry points for every component registration file and the components barrel.
+// Registration files follow the naming convention {name}/{name}.ts (e.g. button/button.ts),
+// which distinguishes them from button.element.ts, button.story.ts, and button.test.ts.
+// They are public entry points via package.json#exports ("./components/*"), and Rolldown
+// only preserves the full export surface (notably the default re-export) of explicit
+// entries — without these, the cherry-pick default import pattern breaks.
+const componentEntries = Object.fromEntries(
+  [
+    'src/components/index.ts',
+    ...(globSync('src/components/*/*.ts') as string[]).filter(f => {
+      const parts = f.split('/');
+      return parts.at(-1)!.replace('.ts', '') === parts.at(-2)!;
+    }),
+  ].map(f => [f.replace(/^src\//, '').replace(/\.ts$/, ''), f]),
+);
 
 const isCI = process.env.CI === 'true';
 const browserInstances = isCI
@@ -16,6 +33,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: 'src/index.ts',
+        ...componentEntries,
         'themes/light': 'src/themes/light.css',
         'themes/dark': 'src/themes/dark.css',
         'themes/high-contrast': 'src/themes/high-contrast.css',
@@ -24,11 +42,17 @@ export default defineConfig({
       },
       formats: ['es'],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [/^lit/, /^culori/],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
+        // Vite 8 (Rolldown) keeps import queries (e.g. uui-text.css?inline) in
+        // preserved module file names, producing files with '?' that are invalid
+        // on Windows and resolve as query strings over HTTP. Strip the query like
+        // Rollup did, and the \0 prefix of virtual module ids (not allowed on disk).
+        entryFileNames: (chunk: { name: string }) =>
+          `${chunk.name.split('?')[0].replace(/\0/g, '_')}.js`,
         assetFileNames: assetInfo => {
           if (assetInfo.names?.[0]?.endsWith('.css')) return '[name].[ext]';
           return 'assets/fonts/[name].[ext]';

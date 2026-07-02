@@ -65,6 +65,7 @@
     "test:coverage-for": "node scripts/test-coverage-package.js",
     "dev": "npm run clean && npm run storybook",
     "build": "vite build && tsc -p tsconfig.build.json && npm run analyze",
+    "verify-build": "node scripts/verify-build.js",
     "build:watch": "tsc -p tsconfig.build.json && vite build --watch --emptyOutDir false",
     "clean": "rimraf dist custom-elements.json vscode.html-custom-data.json",
     "analyze": "web-component-analyzer src/**/*.element.ts --outFile custom-elements.json && web-component-analyzer src/**/*.element.ts --format vscode --outFile vscode.html-custom-data.json",
@@ -130,7 +131,7 @@
     "tsc-files": "1.1.4",
     "typescript": "6.0.3",
     "typescript-eslint": "8.56.1",
-    "vite": "7.3.2",
+    "vite": "8.1.3",
     "vitest": "^4.1.6",
     "vitest-browser-lit": "^1.0.1",
     "web-component-analyzer": "2.0.0"
