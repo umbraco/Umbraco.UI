@@ -167,6 +167,8 @@ export const UUIFormControlMixin = <
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
     readonly #formCtrlElements: NativeFormControlElement[] = [];
+    #lastValidityFlag: string = '';
+    #lastValidationMessage: string | undefined = undefined;
 
     constructor(...args: any[]) {
       super(...args);
@@ -390,10 +392,25 @@ export const UUIFormControlMixin = <
         });
       }
 
-      const hasError = Object.values(this.#validity).includes(true);
+      // Determine the failing flag (if any) for cache comparison.
+      const failingFlag = Object.keys(this.#validity).find(
+        key => this.#validity[key] === true,
+      );
+      const currentFlag = failingFlag ?? '';
+      const hasError = currentFlag !== '';
 
       // https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#valid
       this.#validity.valid = !hasError;
+
+      // Skip expensive DOM + event operations if result is unchanged.
+      if (
+        currentFlag === this.#lastValidityFlag &&
+        message === this.#lastValidationMessage
+      ) {
+        return;
+      }
+      this.#lastValidityFlag = currentFlag;
+      this.#lastValidationMessage = message;
 
       // Transfer the new validityState to the ElementInternals. [NL]
       this._internals.setValidity(
