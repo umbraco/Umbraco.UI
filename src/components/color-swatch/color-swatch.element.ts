@@ -220,6 +220,10 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
       }
 
+      :host([show-label]) {
+        width: 120px;
+      }
+
       :host(*),
       * {
         /* TODO: implement globally shared outline style */
@@ -268,6 +272,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         text-align: left;
         border-radius: var(--uui-border-radius-2);
         overflow: hidden;
+        width: 100%;
       }
       :host(:not([show-label])) #swatch {
         border-radius: var(--uui-size-5);
@@ -328,7 +333,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host([show-label]) .color-swatch {
-        width: 120px;
+        width: 100%;
         height: 50px;
         margin: 0;
       }
@@ -421,7 +426,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       .color-swatch__label {
-        max-width: 120px;
+        width: 100%;
         box-sizing: border-box;
         padding: var(--uui-size-space-1) var(--uui-size-space-2);
         line-height: 1.5;
