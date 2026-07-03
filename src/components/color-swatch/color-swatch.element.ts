@@ -233,9 +233,13 @@ export class UUIColorSwatchElement extends LabelMixin(
 
       :host(:focus:not([disabled])) #swatch {
         outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-swatch-border-width, 1px);
+        outline-width: 2px;
         outline-style: solid;
         outline-offset: var(--uui-swatch-border-width, 1px);
+      }
+
+      :host([selected]:focus:not([disabled])) #swatch {
+        outline-offset: 2px;
       }
 
       :host([selectable]) #swatch {
@@ -347,16 +351,21 @@ export class UUIColorSwatchElement extends LabelMixin(
         height: 100%;
         position: relative;
         overflow: hidden;
+        border-radius: inherit;
+      }
+      .color-swatch__color::after {
+        content: '';
+        position: absolute;
+        inset: 0;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
-        box-sizing: border-box;
       }
 
       :host([show-label]) .color-swatch__color {
         border-radius: var(--uui-border-radius-2) var(--uui-border-radius-2) 0 0;
       }
       :host([show-label][selectable][selected]:not([disabled]):not([readonly]))
-        .color-swatch__color {
+        .color-swatch__color::after {
         border-top: 2px solid rgba(255, 255, 255, 0.25);
         border-left: 2px solid rgba(255, 255, 255, 0.25);
         border-right: 2px solid rgba(255, 255, 255, 0.25);
