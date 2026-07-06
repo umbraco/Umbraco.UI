@@ -10,10 +10,14 @@ import {
   UUIFormControlWithBasicsMixin,
 } from './index.js';
 
-const tagName = 'test-form-control-mixin';
+let __defineCECounter = 0;
+function defineCE(klass: CustomElementConstructor): string {
+  const name = `test-${__defineCECounter++}-${Date.now()}`;
+  customElements.define(name, klass);
+  return name;
+}
 
-customElements.define(
-  tagName,
+const tagName = defineCE(
   class FormControlMixinTestElement extends UUIFormControlMixin(
     LitElement,
     '',
