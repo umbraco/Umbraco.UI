@@ -375,7 +375,8 @@ export class UUIColorSwatchElement extends LabelMixin(
         border-left: 2px solid rgba(255, 255, 255, 0.25);
         border-right: 2px solid rgba(255, 255, 255, 0.25);
       }
-      :host([show-label][readonly]:not([disabled])) .color-swatch__color {
+      :host([show-label][readonly]:not([disabled]))
+        .color-swatch__color::after {
         border: 2px solid var(--uui-color-border-standalone);
       }
 
