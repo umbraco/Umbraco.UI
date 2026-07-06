@@ -16,7 +16,7 @@ import { iconCheck } from '../icon-registry-essential/svgs/iconCheck.js';
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
- * @cssprop --uui-swatch-color - The width of the border.
+ * @cssprop --uui-swatch-color - The color of the swatch.
  * @slot label - Default slot for the label.
  */
 export class UUIColorSwatchElement extends LabelMixin(
@@ -220,6 +220,10 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
       }
 
+      :host([show-label]) {
+        width: 120px;
+      }
+
       :host(*),
       * {
         /* TODO: implement globally shared outline style */
@@ -233,9 +237,13 @@ export class UUIColorSwatchElement extends LabelMixin(
 
       :host(:focus:not([disabled])) #swatch {
         outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-swatch-border-width, 1px);
+        outline-width: 2px;
         outline-style: solid;
         outline-offset: var(--uui-swatch-border-width, 1px);
+      }
+
+      :host([selected]:focus:not([disabled])) #swatch {
+        outline-offset: 2px;
       }
 
       :host([selectable]) #swatch {
@@ -264,6 +272,7 @@ export class UUIColorSwatchElement extends LabelMixin(
         text-align: left;
         border-radius: var(--uui-border-radius-2);
         overflow: hidden;
+        width: 100%;
       }
       :host(:not([show-label])) #swatch {
         border-radius: var(--uui-size-5);
@@ -324,7 +333,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host([show-label]) .color-swatch {
-        width: 120px;
+        width: 100%;
         height: 50px;
         margin: 0;
       }
@@ -347,21 +356,27 @@ export class UUIColorSwatchElement extends LabelMixin(
         height: 100%;
         position: relative;
         overflow: hidden;
+        border-radius: inherit;
+      }
+      .color-swatch__color::after {
+        content: '';
+        position: absolute;
+        inset: 0;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
-        box-sizing: border-box;
       }
 
       :host([show-label]) .color-swatch__color {
         border-radius: var(--uui-border-radius-2) var(--uui-border-radius-2) 0 0;
       }
       :host([show-label][selectable][selected]:not([disabled]):not([readonly]))
-        .color-swatch__color {
+        .color-swatch__color::after {
         border-top: 2px solid rgba(255, 255, 255, 0.25);
         border-left: 2px solid rgba(255, 255, 255, 0.25);
         border-right: 2px solid rgba(255, 255, 255, 0.25);
       }
-      :host([show-label][readonly]:not([disabled])) .color-swatch__color {
+      :host([show-label][readonly]:not([disabled]))
+        .color-swatch__color::after {
         border: 2px solid var(--uui-color-border-standalone);
       }
 
@@ -412,7 +427,7 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       .color-swatch__label {
-        max-width: 120px;
+        width: 100%;
         box-sizing: border-box;
         padding: var(--uui-size-space-1) var(--uui-size-space-2);
         line-height: 1.5;
