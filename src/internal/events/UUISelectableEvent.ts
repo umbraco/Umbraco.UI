@@ -1,5 +1,5 @@
-import { UUISelectableMixinInterface } from '../mixins';
-import { UUIEvent } from './UUIEvent';
+import type { UUISelectableMixinInterface } from '../mixins/index.js';
+import { UUIEvent } from './UUIEvent.js';
 
 export class UUISelectableEvent extends UUIEvent<
   {},
@@ -8,9 +8,10 @@ export class UUISelectableEvent extends UUIEvent<
   public static readonly SELECTED = 'selected';
   public static readonly DESELECTED = 'deselected';
 
-  constructor(evName: string, eventInit: any | null = {}) {
+  constructor(evName: string, eventInit: any = {}) {
     super(evName, {
-      ...{ bubbles: true, cancelable: true },
+      bubbles: true,
+      cancelable: true,
       ...eventInit,
     });
   }

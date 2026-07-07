@@ -1,0 +1,170 @@
+import type { UUIToastNotificationElement } from '../toast-notification/toast-notification.js';
+import { UUIToastNotificationEvent } from '../toast-notification/toast-notification.js';
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
+
+/**
+ * @element uui-toast-notification-container
+ * @slot - slot for toast layout/content
+ * @attr {boolean} [bottom-up] - set the toast container to grow from bottom to top.
+ * @attr {boolean} [left-align] - set the toast container to align to the left.
+ * @attr {number} [auto-close] - set the auto close timer for all toasts in the container.
+ */
+export class UUIToastNotificationContainerElement extends LitElement {
+  /**
+   * Set an auto-close timer, the timer will be paused on mouse-hover.
+   * @type number | null
+   * @attr
+   * @default null
+   */
+  @property({ type: Number, reflect: true, attribute: 'auto-close' })
+  private _autoClose: number | null = null;
+  public get autoClose(): number | null {
+    return this._autoClose;
+  }
+  public set autoClose(value: number | null) {
+    this._autoClose = value;
+    this._toasts?.forEach(el => (el.autoClose = value));
+  }
+
+  private _autoClosePause = false;
+
+  /**
+   * pause all auto close timer, including later coming.
+   */
+  public pauseAutoClose = () => {
+    this._autoClosePause = true;
+    this._toasts?.forEach(el => el.pauseAutoClose());
+  };
+  /**
+   * resume the auto close timers.
+   */
+  public resumeAutoClose = () => {
+    // Only reset autoClose if we have it and if one of the children does not have focus.
+    if (this.matches(':focus-within:not(:focus)') === false) {
+      this._autoClosePause = false;
+      this._toasts?.forEach(el => el.resumeAutoClose());
+    }
+  };
+
+  /**
+   * Instantly remove a toast element.
+   * @param  {UUIToastNotificationElement} toast The toast element to remove
+   */
+  public removeToast(toast?: UUIToastNotificationElement) {
+    if (!toast) {
+      const last = this._toasts.at(-1);
+      if (!last) return;
+      toast = last;
+    } else if (!this._toasts.includes(toast)) {
+      console.warn(
+        'Toast-notification',
+        toast,
+        'could not be removed as it is not a child of this toast-notification-container',
+        this,
+      );
+      return;
+    }
+    toast.remove();
+  }
+
+  /**
+   * Close a toast element, this will animate out and then be removed.
+   * @param  {UUIToastNotificationElement} toast The toast element to close and remove
+   */
+  public closeToast(modal?: UUIToastNotificationElement) {
+    const _modal = modal ?? this._toasts.at(-1);
+    if (_modal) {
+      _modal.open = false;
+    }
+  }
+
+  private readonly onToastClosed = (e: UUIToastNotificationEvent) => {
+    this.removeToast(e.target);
+  };
+
+  private _toasts: UUIToastNotificationElement[] = [];
+
+  private readonly onSlotChanged = (event: any) => {
+    const existingModals = [...this._toasts];
+
+    this._toasts = event.target
+      .assignedElements({ flatten: true })
+      .filter(
+        (e: Node) => e.nodeName === 'UUI-TOAST-NOTIFICATION',
+      ) as UUIToastNotificationElement[];
+
+    const oldToasts = existingModals.filter(
+      modal => !this._toasts.includes(modal),
+    );
+    oldToasts.forEach(toast => {
+      toast.removeEventListener(
+        UUIToastNotificationEvent.CLOSED,
+        this.onToastClosed as any,
+      );
+      toast.removeEventListener('mouseenter', this.pauseAutoClose);
+      toast.removeEventListener('mouseleave', this.resumeAutoClose);
+      toast.removeEventListener('focus', this.pauseAutoClose);
+      toast.removeEventListener('blur', this.resumeAutoClose);
+    });
+
+    const newToasts = this._toasts.filter(
+      modal => !existingModals.includes(modal),
+    );
+    newToasts.forEach(toast => {
+      toast.addEventListener(
+        UUIToastNotificationEvent.CLOSED,
+        this.onToastClosed as any,
+      );
+
+      toast.addEventListener('mouseenter', this.pauseAutoClose);
+      toast.addEventListener('mouseleave', this.resumeAutoClose);
+      toast.addEventListener('focus', this.pauseAutoClose);
+      toast.addEventListener('blur', this.resumeAutoClose);
+
+      if (this._autoClose) {
+        toast.autoClose = this._autoClose;
+      }
+      if (this._autoClosePause === true) {
+        toast.pauseAutoClose();
+      }
+      toast.open = true;
+    });
+  };
+
+  render() {
+    return html` <slot @slotchange=${this.onSlotChanged}></slot> `;
+  }
+
+  static override readonly styles = [
+    css`
+      :host {
+        position: absolute;
+        overflow: hidden;
+        max-width: 100%;
+        height: 100%;
+
+        pointer-events: none;
+        box-sizing: border-box;
+      }
+
+      slot {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+
+        height: 100%;
+        box-sizing: border-box;
+
+        padding-top: var(--uui-size-space-1);
+        padding-bottom: var(--uui-size-space-1);
+      }
+      :host([bottom-up]) slot {
+        justify-content: end;
+      }
+      :host([left-align]) slot {
+        align-items: start;
+      }
+    `,
+  ];
+}

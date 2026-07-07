@@ -2,104 +2,68 @@
 
 ## `lint:eslint`
 
-Lints the projects files with esLint.
+Lints the project files with ESLint.
 
 ## `format:eslint`
 
-Formats the project files with esLint.
+Formats the project files with ESLint.
 
 ## `lint:prettier`
 
-Lints the project files with prettier.
+Lints the project files with Prettier.
 
 ## `format:prettier`
 
-Formats the project files with prettier.
+Formats the project files with Prettier.
 
 ## `lint`
 
-Lints with both esLint and prettier.
+Lints with both ESLint and Prettier.
 
 ## `format`
 
-Formats with both esLint and prettier. Runs before each commit.
-
-## `storybook`
-
-Serves UI Library Storybook.
-
-## `storybook:build`
-
-Builds the storybook.
-
-## `storybook:analyze`
-
-Creates or updates the custom-elements.json file. Run to update the docs in storybook after adding documentation.
+Formats with both ESLint and Prettier. Runs before each commit via Husky + lint-staged.
 
 ## `test`
 
-Run test.
+Run all component tests with coverage (browser-based via Web Test Runner).
 
 ## `test:watch`
 
 Run tests in watch mode.
 
+## `test:coverage-for`
+
+Run tests for a single component by folder name, e.g. `npm run test:coverage-for button`.
+
+## `dev`
+
+Alias for `storybook`.
+
 ## `build`
 
-Build each package.
+Build the library (Vite + TypeScript declarations + custom-elements.json).
 
-## `build:css`
+## `build:watch`
 
-Run postcss on the main stylesheet
-
-## `build:prod`
-
-Build for production. Clean the build files, lint, run tests, build each package separately.
+Run TypeScript declarations once, then enter Vite watch mode for incremental rebuilds. Useful with `npm link` for live development against a consuming project.
 
 ## `clean`
 
-Clean build artifacts in every package.
+Remove build artifacts (`dist/`, `custom-elements.json`, `vscode.html-custom-data.json`).
 
-## `lerna:publish`
+## `analyze`
 
-For automation use only.
+Generate `custom-elements.json` and `vscode.html-custom-data.json` from component source files. Run after adding or updating JSDoc documentation.
 
-## `lerna:version`
+## `storybook`
 
-Bumps the versions of all the packages that have changed before. Cleans the package-lock.json and runs npm install to update the dependencies everywhere. Package-lock.json has to be committed after this script makes it's own commit, otherwise the auto-build and publishing will fail. Before running use `npm run diff` to see all the changes in the packages. Think carefully about wether you're introducing a breaking change. When in doubt follow the [semver spec](https://semver.org/). This script is for HQ use only, PRs that bump components versions will be rejected.
+Serve the Storybook dev server on port 6006.
 
-## `diff`
+## `storybook:build`
 
-Diff the packages with the last published version.
+Build the Storybook for static deployment.
 
-## `lerna-fix`
+## `new-component`
 
-Remove the lerna artifacts (`gitHead` field) from package.json of each component if publish script fails.
-
-## `lerna:modify-package`
-
-Add, modify or remove a filed in each package.json. Takes following args:
-
-1: action type `'add' | 'remove'`
-2: key
-3: value (mandatory if you're adding or modifying the field)
-
-Running this will add a homepage field to the package.json in every component. It it is already there it will change its value.
-
-```zsh
-npm run lerna:modify-package add homepage https://github.com
-```
-
-This will remove the homepage field from the package.json in each package.
-
-```zsh
-npm run lerna:modify-package remove homepage
-```
-
-## `bootstrap`
-
-Generate `tsconfig` for each package.
-
-## `new-package`
-
-Scaffolds files for new components.
+Scaffold a new component (interactive prompts). Creates the registration file, element class, test, story, and README under `src/components/`.

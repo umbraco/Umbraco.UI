@@ -19,7 +19,8 @@
     "sourceMap": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "types": ["vite/client", "vitest/globals", "vitest/browser"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "vitest.setup.ts", "vite.config.ts"]
 }

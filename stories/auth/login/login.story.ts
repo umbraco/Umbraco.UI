@@ -1,8 +1,17 @@
 import { StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
-import '../auth-layout.example.ts';
-import './login.example.ts';
+import '../../../src/components/box/box.js';
+import '../../../src/components/button/button.js';
+import '../../../src/components/checkbox/checkbox.js';
+import '../../../src/components/form/form.js';
+import '../../../src/components/form-layout-item/form-layout-item.js';
+import '../../../src/components/input/input.js';
+import '../../../src/components/input-password/input-password.js';
+import '../../../src/components/label/label.js';
+
+import '../auth-layout.example.js';
+import './login.example.js';
 
 export default {
   id: 'login-example',

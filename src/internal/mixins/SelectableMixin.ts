@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { UUISelectableEvent } from '../events/UUISelectableEvent';
+import { UUISelectableEvent } from '../events/UUISelectableEvent.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
@@ -140,7 +140,7 @@ export const SelectableMixin = <T extends Constructor<LitElement>>(
         if (isActionTag) return;
       }
 
-      if (composePath.indexOf(this.#selectableTarget) !== -1) {
+      if (composePath.includes(this.#selectableTarget)) {
         if (e.type === 'keydown') {
           e.preventDefault(); // Do not want the space key to trigger a page scroll.
         }

@@ -13,6 +13,9 @@
 
 ## temp folders
 /.tmp/
+/.claude/*
+!/.claude/settings.json
+!/.claude/hooks/
 
 # build
 /_site/
@@ -20,7 +23,6 @@
 /packages/**/lib/**/*.js
 **/*.js.map
 **/*.d.ts
-!src/vite-env.d.ts
 *.tsbuildinfo
 /out-tsc/
 /packages/**/node_modules/
@@ -42,3 +44,4 @@ out-css
 !/src
 
 *storybook.log
+__screenshots__/

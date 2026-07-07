@@ -2,7 +2,16 @@ name: Build and Upload SBOMs to Dependency-Track
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to report to Dependency-Track (e.g. 2.0.0-alpha.0)'
+        required: true
+        type: string
+  pull_request:
   push:
+    branches:
+      - v1/dev
+      - main
     tags:
       - 'v*.*.*'
 
@@ -11,26 +20,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
-      # Node.js SBOM
-      - name: Use Node.js
-        uses: actions/setup-node@v6
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
         with:
-          node-version-file: .nvmrc
-          check-latest: true
-          cache: 'npm'
+          dotnet-version: '10.0.x'
 
-      - run: npm install
+      # Install fresh every build so the latest central license-override rules apply.
+      - name: Install Umbraco SBOM tool
+        run: dotnet tool install -g Umbraco.Internal.Sbom
 
-      - name: Install CycloneDX Node.js CLI
-        run: npm i -g @cyclonedx/cyclonedx-npm
+      # Runs on every trigger (PRs included) and acts as the license-policy gate:
+      # copyleft/commercial packages fail the build (exit 50). npm ecosystem is
+      # autodetected from the root package-lock.json (covers all workspaces).
+      # Exit 10 = success-with-warnings (unresolved/unknown licenses); it must NOT
+      # fail CI, so we tolerate it and surface a warning.
+      - name: Generate SBOM (enforces license policy)
+        run: |
+          umbraco-sbom . --output-file ./sbom.xml || code=$?
+          code=${code:-0}
+          if [ "$code" -eq 10 ]; then
+            echo "::warning::SBOM generated with unresolved/unknown licenses (exit 10) — treated as success"
+          elif [ "$code" -ne 0 ]; then
+            echo "::error::umbraco-sbom failed with exit code $code"
+            exit "$code"
+          fi
 
-      - name: Generate SBOM for Node.js (frontend)
-        run: npx @cyclonedx/cyclonedx-npm -o sbom.xml
-
-      # Upload Node.js SBOM (if exists)
-      - name: Upload Node.js SBOM to Dependency-Track
+      # Upload only on release tags or manual dispatch — never on PRs/branch pushes.
+      - name: Upload SBOM to Dependency-Track
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
         env:
           DTRACK_API_URI: ${{ vars.DTRACK_API_URI }}
           DTRACK_API_KEY: ${{ secrets.DTRACK_API_KEY }}
@@ -38,7 +57,7 @@ jobs:
           if [ -f ./sbom.xml ]; then
             echo "Uploading to: $DTRACK_API_URI"
             echo "Project: ${{ github.event.repository.name }}"
-            echo "Version: ${{ github.ref_name }}"
+            echo "Version: ${{ inputs.version || github.ref_name }}"
             curl --fail-with-body -v -i -w "\nHTTP Status: %{http_code}\n" \
               "$DTRACK_API_URI" \
               -H "X-Api-Key: $DTRACK_API_KEY" \
@@ -46,7 +65,7 @@ jobs:
               -H "Content-Type: multipart/form-data" \
               -F "autoCreate=true" \
               -F "projectName=${{ github.event.repository.name }}" \
-              -F "projectVersion=${{ github.ref_name }}" \
+              -F "projectVersion=${{ inputs.version || github.ref_name }}" \
               -F "bom=@./sbom.xml"
           else
             echo "No frontend SBOM to upload."

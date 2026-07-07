@@ -1,9 +1,9 @@
 import { html } from 'lit';
 
-import '../components/dialog/uui-dialog.element';
-import '../components/dialog-layout/uui-dialog-layout.element';
-import '../components/button/uui-button.element';
-import '../components/icon-registry-essential/uui-icon-registry-essential.element';
+import '../components/dialog/dialog.js';
+import '../components/dialog-layout/dialog-layout.js';
+import '../components/button/button.js';
+import '../components/icon-registry-essential/icon-registry-essential.js';
 
 export default {
   title: 'Design/Style Guide',
@@ -424,5 +424,37 @@ export const Dialog = () => html`
       conclude a relation between the Bold text and the action.<br />
     </p>
     <br />
+  </article>
+`;
+
+export const Shadows = () => html`
+  <article style="max-width:580px;">
+    <div
+      style="display:block; border-bottom: 1px solid var(--uui-color-cocoa-black); padding-top: var(--uui-size-layout-5); margin-bottom:var(--uui-size-layout-3); padding-bottom:var(--uui-size-layout-1);">
+      <h1>Shadows Style Guide</h1>
+      <p class="uui-lead">
+        Shadows convey elevation and hierarchy. Use them sparingly to lift
+        elements off the surface and indicate their relative depth.
+      </p>
+      <p>
+        Five shadow depths are available as CSS custom properties, ranging from
+        subtle (depth 1) to prominent (depth 5).
+      </p>
+    </div>
+
+    <div
+      style="display:flex; gap:var(--uui-size-layout-2); flex-wrap:wrap; padding:var(--uui-size-layout-3) var(--uui-size-layout-1);">
+      ${[1, 2, 3, 4, 5].map(
+        depth => html`
+          <div
+            style="display:flex; flex-direction:column; align-items:center; gap:var(--uui-size-space-3);">
+            <div
+              style="width:80px; height:80px; border-radius:var(--uui-border-radius); background:var(--uui-color-surface); box-shadow:var(--uui-shadow-depth-${depth});"></div>
+            <small>Depth ${depth}</small>
+            <code style="font-size:11px;">--uui-shadow-depth-${depth}</code>
+          </div>
+        `,
+      )}
+    </div>
   </article>
 `;

@@ -1,0 +1,461 @@
+import { property, state } from 'lit/decorators.js';
+import { css, html, LitElement, nothing } from 'lit';
+import { ref } from 'lit/directives/ref.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import {
+  ActiveMixin,
+  LabelMixin,
+  SelectableMixin,
+} from '../../internal/mixins/index.js';
+import { iconCheck } from '../icon-registry-essential/svgs/iconCheck.js';
+
+/**
+ * Color swatch, can have label and be selectable, disabled or readonly.
+ *
+ * @element uui-color-swatch
+ * @cssprop --uui-swatch-size - The size of the swatch.
+ * @cssprop --uui-swatch-border-width - The width of the border.
+ * @cssprop --uui-swatch-color - The color of the swatch.
+ * @slot label - Default slot for the label.
+ */
+export class UUIColorSwatchElement extends LabelMixin(
+  'label',
+  SelectableMixin(ActiveMixin(LitElement)),
+) {
+  @state()
+  private _contrast: 'dark' | 'light' | undefined = undefined;
+
+  /**
+   * Value of the swatch. This will become the color value if color is left undefined, see the property `color` for more details.
+   */
+  @property()
+  get value(): string {
+    return this._value ?? '';
+  }
+  set value(newValue: string) {
+    const oldValue = this._value;
+    this._value = newValue;
+    this.requestUpdate('value', oldValue);
+  }
+  private _value?: string;
+
+  /**
+   * Color of the swatch. Should be a valid hex, hexa, rgb, rgba, hsl or hsla string. Should fulfill this [css spec](https://www.w3.org/TR/css-color-4/#color-type). If not provided element will look at its text content.
+   */
+  @property()
+  get color(): string | undefined {
+    return this._color;
+  }
+  set color(newValue: string) {
+    const oldValue = this._color;
+    this._color = newValue;
+    this.requestUpdate('color', oldValue);
+  }
+  private _color?: string;
+
+  /**
+   * Sets the swatch to disabled.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Sets the swatch to readonly mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  readonly: boolean = false;
+
+  /**
+   * When true shows element label below the color checkbox
+   *
+   * @attr
+   * @memberof UUIColorSwatchElement
+   */
+  @property({ type: Boolean, attribute: 'show-label', reflect: true })
+  showLabel = false;
+
+  constructor() {
+    super();
+    this.addEventListener('click', this._setAriaAttributes);
+  }
+
+  private _setAriaAttributes() {
+    if (this.selectable)
+      this.setAttribute('aria-checked', this.selected.toString());
+  }
+
+  firstUpdated() {
+    this._setAriaAttributes();
+  }
+
+  willUpdate(changedProperties: Map<string, any>) {
+    if (
+      changedProperties.has('disabled') ||
+      changedProperties.has('readonly')
+    ) {
+      if (this.selectable) {
+        this.selectable = !this.disabled && !this.readonly;
+        this.deselectable = !this.disabled && !this.readonly;
+      }
+    }
+    if (
+      changedProperties.has('selectable') ||
+      changedProperties.has('selected')
+    ) {
+      this._setAriaAttributes();
+    }
+    if (changedProperties.has('value') || changedProperties.has('color')) {
+      this.#computeContrast();
+    }
+  }
+
+  #computeContrast() {
+    const color = this.color ?? this.value;
+    if (color.startsWith('#')) {
+      this._contrast = this.#contrast(color) === 'light' ? 'light' : 'dark';
+    } else if (color.startsWith('rgb')) {
+      const [r, g, b, a] = color.match(/[.\d]+/g)?.map(Number) ?? [0, 0, 0];
+      if (a <= 0.5) {
+        this._contrast = 'light';
+      } else {
+        this._contrast =
+          this.#contrast(this.#rgbToHex(r, g, b)) === 'light'
+            ? 'light'
+            : 'dark';
+      }
+    } else {
+      this._contrast = undefined;
+    }
+  }
+
+  focus(options?: FocusOptions | undefined): void {
+    (this.selectableTarget as HTMLElement | undefined)?.focus(options);
+  }
+
+  #selectButtonChanged(button?: Element | undefined) {
+    this.selectableTarget = button || this;
+  }
+
+  #contrast(hex: string): string {
+    const rgb = this.#hexToRgb(hex);
+    const o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
+
+    return o <= 180 ? 'dark' : 'light';
+  }
+
+  #hexToRgb(hex: string): number[] {
+    hex = hex.startsWith('#') ? hex.slice(1) : hex;
+    if (hex.length === 3) {
+      hex = Array.from(hex).reduce((str, x) => str + x + x, ''); // 123 -> 112233
+    }
+
+    const bigint = Number.parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return [r, g, b];
+  }
+
+  readonly #rgbToHex = (
+    r: number,
+    g: number,
+    b: number,
+    hash: '#' | '' = '',
+  ): string => hash + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+
+  render() {
+    const classes = {
+      [`color-swatch--${this._contrast}`]: this._contrast !== undefined,
+    };
+    const colorStr = `var(--uui-swatch-color, ${this.color ?? this.value})`;
+    return html`
+      <button
+        id="swatch"
+        ${ref(this.#selectButtonChanged)}
+        aria-label=${this.label}
+        ?disabled="${this.disabled}"
+        title="${this.label}">
+        <div
+          class="color-swatch color-swatch--transparent-bg ${classMap(
+            classes,
+          )}">
+          <div
+            class="color-swatch__color"
+            style=${styleMap({ background: colorStr })}></div>
+          <div
+            class="color-swatch__check"
+            style=${styleMap({ color: colorStr })}>
+            ${iconCheck}
+          </div>
+        </div>
+        ${this._renderWithLabel()}
+      </button>
+    `;
+  }
+
+  private _renderWithLabel() {
+    if (!this.showLabel) return nothing;
+    return html`<div class="color-swatch__label">
+      <strong>${this.renderLabel()}</strong>
+      ${this.value}
+    </div>`;
+  }
+
+  static override readonly styles = [
+    css`
+      :host {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        flex-direction: column;
+      }
+
+      :host([show-label]) {
+        width: 120px;
+      }
+
+      :host(*),
+      * {
+        /* TODO: implement globally shared outline style */
+        outline-color: var(--uui-color-focus);
+        outline-offset: 4px;
+      }
+
+      :host(:focus-within:not([disabled])) {
+        outline: none;
+      }
+
+      :host(:focus:not([disabled])) #swatch {
+        outline-color: var(--uui-color-focus);
+        outline-width: 2px;
+        outline-style: solid;
+        outline-offset: var(--uui-swatch-border-width, 1px);
+      }
+
+      :host([selected]:focus:not([disabled])) #swatch {
+        outline-offset: 2px;
+      }
+
+      :host([selectable]) #swatch {
+        cursor: pointer;
+      }
+
+      :host(:not([selectable]):not([readonly]):not([disabled])) #swatch {
+        cursor: pointer;
+      }
+
+      :host([disabled]) {
+        cursor: not-allowed;
+      }
+
+      :host([readonly]) {
+        cursor: default;
+      }
+
+      #swatch {
+        cursor: inherit;
+        outline: none;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        border-radius: var(--uui-border-radius-2);
+        overflow: hidden;
+        width: 100%;
+      }
+      :host(:not([show-label])) #swatch {
+        border-radius: var(--uui-size-5);
+        border: 1px solid var(--uui-color-border);
+      }
+
+      :host(:not([selectable])) #swatch:focus {
+        outline: none;
+      }
+      :host(:not([selectable]):not([readonly]):not([disabled])) #swatch:hover {
+        border-color: var(--uui-color-border-standalone);
+      }
+
+      :host([readonly]) #swatch,
+      :host([disabled]) #swatch {
+        background-color: var(--uui-color-disabled-standalone);
+      }
+
+      :host([selectable]) #swatch::after {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        inset: calc(var(--uui-swatch-border-width, 1px) * -1);
+        width: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
+        height: calc(100% + calc(var(--uui-swatch-border-width, 1px) * 2));
+        box-sizing: border-box;
+        border: var(--uui-swatch-border-width, 2px) solid
+          var(--uui-color-selected);
+        border-radius: calc(
+          var(--uui-size-5) + var(--uui-swatch-border-width, 1px)
+        );
+        transition: opacity 100ms ease-out;
+        opacity: 0;
+      }
+      :host([selectable][show-label]) #swatch::after {
+        border-radius: var(--uui-border-radius-2);
+      }
+      :host([selectable]:not([disabled]):hover) #swatch::after {
+        opacity: 0.33;
+      }
+      :host([selectable][selected]:not([disabled]):hover) #swatch::after {
+        opacity: 0.66;
+      }
+      :host([selectable][selected]:not([disabled])) #swatch::after {
+        opacity: 1;
+      }
+
+      .color-swatch {
+        position: relative;
+        width: var(--uui-swatch-size, 25px);
+        height: var(--uui-swatch-size, 25px);
+        border-radius: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2px;
+      }
+
+      :host([show-label]) .color-swatch {
+        width: 100%;
+        height: 50px;
+        margin: 0;
+      }
+
+      .color-swatch.color-swatch--transparent-bg {
+        background-image:
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, transparent 75%, var(--uui-palette-grey) 75%),
+          linear-gradient(45deg, var(--uui-palette-grey) 25%, transparent 25%);
+        background-size: 10px 10px;
+        background-position:
+          0 0,
+          0 0,
+          -5px -5px,
+          5px 5px;
+      }
+      .color-swatch__color {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: inherit;
+      }
+      .color-swatch__color::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: inherit;
+      }
+
+      :host([show-label]) .color-swatch__color {
+        border-radius: var(--uui-border-radius-2) var(--uui-border-radius-2) 0 0;
+      }
+      :host([show-label][selectable][selected]:not([disabled]):not([readonly]))
+        .color-swatch__color::after {
+        border-top: 2px solid rgba(255, 255, 255, 0.25);
+        border-left: 2px solid rgba(255, 255, 255, 0.25);
+        border-right: 2px solid rgba(255, 255, 255, 0.25);
+      }
+      :host([show-label][readonly]:not([disabled]))
+        .color-swatch__color::after {
+        border: 2px solid var(--uui-color-border-standalone);
+      }
+
+      :host([readonly]:not([disabled])) .color-swatch__color {
+        border-color: transparent;
+      }
+      :host([disabled]) .color-swatch__color {
+        opacity: 0.6;
+      }
+      :host([disabled]) .color-swatch.color-swatch--transparent-bg {
+        background-image: none;
+        background-color: var(--uui-color-border-standalone);
+      }
+
+      .color-swatch__check {
+        position: absolute;
+        vertical-align: middle;
+        width: calc(var(--uui-swatch-size, 25px) / 2);
+        height: calc(var(--uui-swatch-size, 25px) / 2);
+        line-height: 0;
+        filter: invert(1) grayscale(1) contrast(9);
+        pointer-events: none;
+        opacity: 0;
+        border-radius: inherit;
+      }
+
+      .color-swatch.color-swatch--light .color-swatch__check {
+        color: #000 !important;
+        filter: none;
+      }
+
+      .color-swatch.color-swatch--dark .color-swatch__check {
+        color: #fff !important;
+        filter: none;
+      }
+
+      :host([selected]) .color-swatch__check {
+        opacity: 1;
+      }
+
+      .color-swatch__check > svg {
+        stroke-width: 2.5;
+      }
+
+      slot[name='label']::slotted(*),
+      .label {
+        font-size: var(--uui-size-4);
+      }
+
+      .color-swatch__label {
+        width: 100%;
+        box-sizing: border-box;
+        padding: var(--uui-size-space-1) var(--uui-size-space-2);
+        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border: 1px solid var(--uui-color-border);
+        border-top: none;
+        border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
+        font-size: var(--uui-size-4, 12px);
+      }
+
+      :host(:not([selectable]):not([readonly]):not([disabled]))
+        .color-swatch__label {
+        color: var(--uui-color-interactive);
+      }
+      :host(:not([selectable]):not([readonly]):not([disabled]):hover)
+        .color-swatch__label {
+        color: var(--uui-color-interactive-emphasis);
+        border-color: var(--uui-color-border-standalone);
+      }
+
+      .color-swatch__label strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-sizing: border-box;
+      }
+    `,
+  ];
+}

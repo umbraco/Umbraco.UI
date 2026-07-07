@@ -27,7 +27,7 @@ export class UUIIconRegistry {
     );
   }
 
-  private _onIconRequest = (event: UUIIconRequestEvent) => {
+  private readonly _onIconRequest = (event: UUIIconRequestEvent) => {
     const icon = this.getIcon(event.detail.iconName);
     if (icon !== null) {
       event.acceptRequest(icon);
@@ -63,7 +63,9 @@ export class UUIIconRegistry {
    * @param {string} iconName the name of the icon to be provided.
    */
   protected provideIcon(iconName: string): UUIIconHost {
-    return (this.icons[iconName] = new UUIIconHost());
+    const icon = new UUIIconHost();
+    this.icons[iconName] = icon;
+    return icon;
   }
 
   /**
@@ -71,7 +73,7 @@ export class UUIIconRegistry {
    * @param iconName
    * @returns
    */
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected acceptIcon(_iconName: string): boolean {
     return false;
   }
