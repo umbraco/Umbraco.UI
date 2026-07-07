@@ -176,13 +176,28 @@ export const UUIFormControlMixin = <
         this.#valueOnFocus = this.value;
       });
       this.addEventListener('blur', () => {
-        if (this.#valueOnFocus !== this.value) {
+        if (!this._compareValueForChange(this.#valueOnFocus, this.value)) {
           this.checkValidity();
         }
         this.#valueOnFocus = undefined as unknown as
           | ValueType
           | DefaultValueType;
       });
+    }
+
+    /**
+     * @method _compareValueForChange
+     * @description This method is used to determine if the value has changed on blur, if it has then the validity of this form control will be checked.
+     * If you have a complex value type, then you should override this method to provide a custom comparison.
+     * @param from {ValueType | DefaultValueType}
+     * @param to {ValueType | DefaultValueType}
+     * @returns {boolean} - true if the value has changed, false if not.
+     */
+    protected _compareValueForChange(
+      from: ValueType | DefaultValueType,
+      to: ValueType | DefaultValueType,
+    ): boolean {
+      return from === to;
     }
 
     /**
