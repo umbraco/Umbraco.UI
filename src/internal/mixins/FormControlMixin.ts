@@ -44,7 +44,9 @@ interface UUIFormControlValidatorConfig {
   weight: number;
 }
 
-export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
+export interface UUIFormControlBaseMixinInterface<
+  ValueType,
+> extends LitElement {
   addValidator: (
     flagKey: FlagTypes,
     getMessageMethod: () => string,
@@ -65,9 +67,9 @@ export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
   pristine: boolean;
 }
 
-export declare abstract class UUIFormControlMixinElement<ValueType>
+export declare abstract class UUIFormControlBaseMixinElement<ValueType>
   extends LitElement
-  implements UUIFormControlMixinInterface<ValueType>
+  implements UUIFormControlBaseMixinInterface<ValueType>
 {
   protected _internals: ElementInternals;
   protected _runValidators(): void;
@@ -99,7 +101,7 @@ export declare abstract class UUIFormControlMixinElement<ValueType>
  * @param {Object} superClass - superclass to be extended.
  * @mixin
  */
-export const UUIFormControlMixin = <
+export const UUIFormControlBaseMixin = <
   ValueType = FormDataEntryValue | FormData,
   T extends HTMLElementConstructor<LitElement> = typeof LitElement,
   DefaultValueType = undefined,
@@ -107,7 +109,7 @@ export const UUIFormControlMixin = <
   superClass: T,
   defaultValue?: DefaultValueType,
 ) => {
-  abstract class UUIFormControlMixinClass extends superClass {
+  abstract class UUIFormControlBaseMixinClass extends superClass {
     /**
      * This is a static class field indicating that the element is can be used inside a native form and participate in its events.
      * It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.
@@ -471,8 +473,8 @@ export const UUIFormControlMixin = <
       return this._internals?.validationMessage;
     }
   }
-  return UUIFormControlMixinClass as unknown as HTMLElementConstructor<
-    UUIFormControlMixinElement<ValueType | DefaultValueType>
+  return UUIFormControlBaseMixinClass as unknown as HTMLElementConstructor<
+    UUIFormControlBaseMixinElement<ValueType | DefaultValueType>
   > &
     T;
 };

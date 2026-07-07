@@ -1,5 +1,5 @@
 import { UUIFormControlEvent } from '../../internal/events/index.js';
-import type { UUIFormControlMixinInterface } from '../../internal/mixins/index.js';
+import type { UUIFormControlBaseMixinInterface } from '../../internal/mixins/index.js';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -67,7 +67,7 @@ export class UUIFormValidationMessageElement extends LitElement {
   }
 
   private readonly _messages = new Map<
-    UUIFormControlMixinInterface<unknown>,
+    UUIFormControlBaseMixinInterface<unknown>,
     string
   >();
 
