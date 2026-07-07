@@ -165,7 +165,7 @@ export const UUIFormControlBaseMixin = <
       defaultValue as unknown as DefaultValueType;
     #valueOnFocus: ValueType | DefaultValueType | undefined = undefined;
     // A state to capture late edits to the value after focus has been lost, so we can trigger validation for late value changes. [NL]
-    #hadFocus?: boolean;
+    #hadFocus = false;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
