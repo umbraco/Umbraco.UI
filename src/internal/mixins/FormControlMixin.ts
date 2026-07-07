@@ -163,8 +163,9 @@ export const UUIFormControlBaseMixin = <
 
     #value: ValueType | DefaultValueType =
       defaultValue as unknown as DefaultValueType;
-    #valueOnFocus: ValueType | DefaultValueType =
-      undefined as unknown as DefaultValueType;
+    #valueOnFocus: ValueType | DefaultValueType | undefined = undefined;
+    // A state to capture late edits to the value after focus has been lost, so we can trigger validation for late value changes. [NL]
+    #hadFocus = false;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
@@ -176,14 +177,16 @@ export const UUIFormControlBaseMixin = <
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
+        this.#hadFocus = false;
       });
       this.addEventListener('blur', () => {
-        if (this.#valueOnFocus !== this.value) {
-          this.checkValidity();
+        if (this.pristine) {
+          this.#hadFocus = true;
+          if (this.#valueOnFocus !== this.value) {
+            this.checkValidity();
+          }
         }
-        this.#valueOnFocus = undefined as unknown as
-          | ValueType
-          | DefaultValueType;
+        this.#valueOnFocus = undefined;
       });
     }
 
@@ -419,9 +422,17 @@ export const UUIFormControlBaseMixin = <
       }
     }
 
-    updated(changedProperties: Map<string | number | symbol, unknown>) {
+    override updated(
+      changedProperties: Map<string | number | symbol, unknown>,
+    ) {
       super.updated(changedProperties);
-      this._runValidators();
+      // If still pristine and the control has been blurred while pristine, a later value change should trigger validation (e.g. value changed after blur). [NL]
+      if (this.pristine && this.#hadFocus && changedProperties.has('value')) {
+        // checkValidity will set pristine to false for itself and all connected form controls and then run validators, so we skip _runValidators() below. [NL]
+        this.checkValidity();
+      } else {
+        this._runValidators();
+      }
     }
 
     readonly #onFormSubmit = () => {
@@ -441,7 +452,9 @@ export const UUIFormControlBaseMixin = <
     }
     public formResetCallback() {
       this.pristine = true;
+      this.#hadFocus = false;
       this.value = this.getInitialValue() ?? this.getDefaultValue();
+      this.#valueOnFocus = undefined;
     }
 
     protected getDefaultValue(): DefaultValueType {
