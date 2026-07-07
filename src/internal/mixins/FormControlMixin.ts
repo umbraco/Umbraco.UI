@@ -165,6 +165,8 @@ export const UUIFormControlBaseMixin = <
       defaultValue as unknown as DefaultValueType;
     #valueOnFocus: ValueType | DefaultValueType =
       undefined as unknown as DefaultValueType;
+    // A state to capture late edits to the value after focus has been lost, so we can trigger validation for late value changes. [NL]
+    #hadFocus?: boolean;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
@@ -178,8 +180,11 @@ export const UUIFormControlBaseMixin = <
         this.#valueOnFocus = this.value;
       });
       this.addEventListener('blur', () => {
-        if (this.#valueOnFocus !== this.value) {
-          this.checkValidity();
+        if (this.pristine) {
+          this.#hadFocus = true;
+          if (this.#valueOnFocus !== this.value) {
+            this.checkValidity();
+          }
         }
         this.#valueOnFocus = undefined as unknown as
           | ValueType
@@ -421,6 +426,10 @@ export const UUIFormControlBaseMixin = <
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {
       super.updated(changedProperties);
+      // If still pristine and the input had focus and the value has changed, then we need to check validity, as the value might have been changed after focus was left. [NL]
+      if (this.pristine && this.#hadFocus && changedProperties.has('value')) {
+        this.checkValidity();
+      }
       this._runValidators();
     }
 
