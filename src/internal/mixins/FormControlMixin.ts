@@ -176,7 +176,10 @@ export const UUIFormControlMixin = <
         this.#valueOnFocus = this.value;
       });
       this.addEventListener('blur', () => {
-        if (!this._compareValueForChange(this.#valueOnFocus, this.value)) {
+        if (
+          this._pristine === true &&
+          !this._compareValueForChange(this.#valueOnFocus, this.value)
+        ) {
           this.checkValidity();
         }
         this.#valueOnFocus = undefined as unknown as
