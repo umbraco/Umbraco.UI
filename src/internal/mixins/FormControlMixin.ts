@@ -426,9 +426,9 @@ export const UUIFormControlBaseMixin = <
       changedProperties: Map<string | number | symbol, unknown>,
     ) {
       super.updated(changedProperties);
-      // If still pristine and the input had focus and the value has changed, then we need to check validity, as the value might have been changed after focus was left. [NL]
+      // If still pristine and the control has been blurred while pristine, a later value change should trigger validation (e.g. value changed after blur). [NL]
       if (this.pristine && this.#hadFocus && changedProperties.has('value')) {
-        // checkValidity will set pristine to false for it self and all connected form controls and then run validators, hence not running _runValidators() below. [NL]
+        // checkValidity will set pristine to false for itself and all connected form controls and then run validators, so we skip _runValidators() below. [NL]
         this.checkValidity();
       } else {
         this._runValidators();
