@@ -8,9 +8,7 @@ describe('UUISymbolLockElement', () => {
   let element: UUISymbolLockElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-symbol-lock></uui-symbol-lock>
-    `).container.querySelector('uui-symbol-lock')!;
+    element = render(html` <uui-symbol-lock></uui-symbol-lock> `).container.querySelector('uui-symbol-lock')!;
 
     await element.updateComplete;
   });

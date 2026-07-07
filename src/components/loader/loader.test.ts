@@ -7,9 +7,7 @@ import './loader.js';
 describe('UuiLoader', () => {
   let element: UUILoaderElement;
   beforeEach(async () => {
-    element = render(html` <uui-loader></uui-loader> `).container.querySelector(
-      'uui-loader',
-    )!;
+    element = render(html` <uui-loader></uui-loader> `).container.querySelector('uui-loader')!;
 
     await element.updateComplete;
   });

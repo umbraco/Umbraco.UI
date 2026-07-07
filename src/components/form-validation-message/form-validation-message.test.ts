@@ -12,9 +12,7 @@ describe('UUIFormValidationMessageElement', () => {
   let element: UUIFormValidationMessageElement;
 
   beforeEach(async () => {
-    element = render(
-      html` <uui-form-validation-message></uui-form-validation-message>`,
-    ).container.querySelector('uui-form-validation-message')!;
+    element = render(html` <uui-form-validation-message></uui-form-validation-message>`).container.querySelector('uui-form-validation-message')!;
 
     await element.updateComplete;
   });
@@ -114,7 +112,8 @@ describe('UUIFormValidationMessageElement', () => {
       await input.updateComplete;
       await validationEl.updateComplete;
 
-      const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
+      const messagesCon =
+        validationEl.shadowRoot!.querySelector('#messages')!;
       const regex = /MyRequiredMessage/;
 
       expect(regex.test(messagesCon.innerHTML)).toBe(true);

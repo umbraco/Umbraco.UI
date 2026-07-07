@@ -17,9 +17,7 @@ describe('UUIIconRegistryElement', () => {
   let element: UUIIconRegistryElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-icon-registry></uui-icon-registry>
-    `).container.querySelector('uui-icon-registry')!;
+    element = render(html` <uui-icon-registry></uui-icon-registry> `).container.querySelector('uui-icon-registry')!;
 
     await element.updateComplete;
   });
@@ -46,9 +44,7 @@ describe('UUIIconRegistryElement', () => {
     let iconElement: UUIIconElement;
 
     beforeEach(async () => {
-      registryElement = render(
-        html`<uui-icon-registry></uui-icon-registry>`,
-      ).container.querySelector('uui-icon-registry')!;
+      registryElement = render(html`<uui-icon-registry></uui-icon-registry>`).container.querySelector('uui-icon-registry')!;
 
       await registryElement.updateComplete;
       registryElement.registry.defineIcon('myCustomIcon', myCustomSVGData);
@@ -64,9 +60,7 @@ describe('UUIIconRegistryElement', () => {
     });
 
     it('Child uui-icon retrieves the right SVG data through shadow-dom', () => {
-      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).not.toBe(
-        null,
-      );
+      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).not.toBe(null);
     });
   });
 
@@ -90,9 +84,7 @@ describe('UUIIconRegistryElement', () => {
     let iconElement: UUIIconElement;
 
     beforeEach(async () => {
-      registryElement = render(
-        html`<uui-icon-registry></uui-icon-registry>`,
-      ).container.querySelector('uui-icon-registry')!;
+      registryElement = render(html`<uui-icon-registry></uui-icon-registry>`).container.querySelector('uui-icon-registry')!;
 
       await registryElement.updateComplete;
       registryElement.registry = new MyCustomIconRegistry();
@@ -107,9 +99,7 @@ describe('UUIIconRegistryElement', () => {
 
     it('Child uui-icon retrieves the custom SVG data', async () => {
       await iconElement.updateComplete;
-      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).not.toBe(
-        null,
-      );
+      expect(iconElement.shadowRoot!.querySelector('#MyCustomIcon')).not.toBe(null);
     });
   });
 });

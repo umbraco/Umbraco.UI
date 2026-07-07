@@ -7,9 +7,7 @@ import './tag.js';
 describe('UuiTag', () => {
   let element: UUITagElement;
   beforeEach(async () => {
-    element = render(html`
-      <uui-tag>Tag description</uui-tag>
-    `).container.querySelector('uui-tag')!;
+    element = render(html` <uui-tag>Tag description</uui-tag> `).container.querySelector('uui-tag')!;
 
     await element.updateComplete;
   });

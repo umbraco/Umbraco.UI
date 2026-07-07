@@ -8,9 +8,7 @@ describe('UUISymbolSortElement', () => {
   let element: UUISymbolSortElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-symbol-sort></uui-symbol-sort>
-    `).container.querySelector('uui-symbol-sort')!;
+    element = render(html` <uui-symbol-sort></uui-symbol-sort> `).container.querySelector('uui-symbol-sort')!;
 
     await element.updateComplete;
   });

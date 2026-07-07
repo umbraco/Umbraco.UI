@@ -94,11 +94,9 @@ describe('UuiTab', () => {
     let element: UUITabElement;
 
     beforeEach(async () => {
-      element = render(
-        html`<uui-tab
+      element = render(html`<uui-tab
           label="menuitem"
-          href="https://www.umbraco.com"></uui-tab>`,
-      ).container.querySelector('uui-tab')!;
+          href="https://www.umbraco.com"></uui-tab>`).container.querySelector('uui-tab')!;
 
       await element.updateComplete;
       anchorElement = element.shadowRoot!.querySelector(
@@ -124,7 +122,9 @@ describe('UuiTab', () => {
       element.target = '_blank';
       await element.updateComplete;
       expect(anchorElement.getAttribute('target')).toBe('_blank');
-      expect(anchorElement.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(anchorElement.getAttribute('rel')).toBe(
+        'noopener noreferrer',
+      );
     });
 
     it('when rel is applied to anchor tag.', async () => {

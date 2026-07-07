@@ -8,9 +8,7 @@ describe('UUISymbolExpandElement', () => {
   let element: UUISymbolExpandElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-symbol-expand></uui-symbol-expand>
-    `).container.querySelector('uui-symbol-expand')!;
+    element = render(html` <uui-symbol-expand></uui-symbol-expand> `).container.querySelector('uui-symbol-expand')!;
 
     await element.updateComplete;
   });

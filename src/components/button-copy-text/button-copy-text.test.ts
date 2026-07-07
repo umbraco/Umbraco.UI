@@ -9,11 +9,9 @@ describe('UUIButtonCopyTextElement', () => {
   let element: UUIButtonCopyTextElement;
 
   beforeEach(async () => {
-    element = render(
-      html`<uui-button-copy-text
+    element = render(html`<uui-button-copy-text
         text="Oh hi there"
-        label="Copy"></uui-button-copy-text>`,
-    ).container.querySelector('uui-button-copy-text')!;
+        label="Copy"></uui-button-copy-text>`).container.querySelector('uui-button-copy-text')!;
 
     await element.updateComplete;
   });

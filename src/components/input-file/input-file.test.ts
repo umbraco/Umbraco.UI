@@ -14,9 +14,7 @@ describe('UUIInputFileElement', () => {
   let element: UUIInputFileElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-input-file></uui-input-file>
-    `).container.querySelector('uui-input-file')!;
+    element = render(html` <uui-input-file></uui-input-file> `).container.querySelector('uui-input-file')!;
 
     await element.updateComplete;
   });

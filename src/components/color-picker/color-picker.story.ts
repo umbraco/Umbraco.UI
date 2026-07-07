@@ -128,14 +128,12 @@ export const Interactive: Story = {
     }
 
     return html`
-      <div
-        style="display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;">
         <uui-color-picker
           inline
           value="#4b91e2"
           @change=${handleChange}></uui-color-picker>
-        <div
-          style="font-family: monospace; font-size: 13px; padding-top: 4px; min-width: 220px;">
+        <div style="font-family: monospace; font-size: 13px; padding-top: 4px; min-width: 220px;">
           <div style="font-weight: bold; margin-bottom: 10px; font-size: 14px;">
             Emitted value
           </div>
@@ -146,8 +144,7 @@ export const Interactive: Story = {
             <code>${value || '(empty)'}</code>
           </div>
           <div style="color: #888; font-size: 12px; line-height: 1.6;">
-            Switch the format selector in the picker<br />to see different
-            output string formats.
+            Switch the format selector in the picker<br />to see different output string formats.
           </div>
         </div>
       </div>

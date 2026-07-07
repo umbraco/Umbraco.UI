@@ -8,9 +8,7 @@ describe('UUIDialogElement', () => {
   let element: UUIDialogElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-dialog></uui-dialog> `).container.querySelector(
-      'uui-dialog',
-    )!;
+    element = render(html` <uui-dialog></uui-dialog> `).container.querySelector('uui-dialog')!;
 
     await element.updateComplete;
   });

@@ -8,9 +8,7 @@ describe('UUISymbolMoreElement', () => {
   let element: UUISymbolMoreElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-symbol-more></uui-symbol-more>
-    `).container.querySelector('uui-symbol-more')!;
+    element = render(html` <uui-symbol-more></uui-symbol-more> `).container.querySelector('uui-symbol-more')!;
 
     await element.updateComplete;
   });

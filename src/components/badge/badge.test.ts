@@ -8,9 +8,7 @@ import type { UUIBadgeElement } from './badge.element';
 describe('UuiBadge', () => {
   let element: UUIBadgeElement;
   beforeEach(async () => {
-    element = render(html`
-      <uui-badge>Hello uui-button</uui-badge>
-    `).container.querySelector('uui-badge')!;
+    element = render(html` <uui-badge>Hello uui-button</uui-badge> `).container.querySelector('uui-badge')!;
 
     await element.updateComplete;
   });

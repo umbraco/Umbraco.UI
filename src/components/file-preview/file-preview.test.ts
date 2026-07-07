@@ -12,9 +12,7 @@ describe('UUIFilePreviewElement', () => {
   let element: UUIFilePreviewElement;
 
   beforeEach(async () => {
-    element = render(html`
-      <uui-file-preview></uui-file-preview>
-    `).container.querySelector('uui-file-preview')!;
+    element = render(html` <uui-file-preview></uui-file-preview> `).container.querySelector('uui-file-preview')!;
 
     await element.updateComplete;
   });

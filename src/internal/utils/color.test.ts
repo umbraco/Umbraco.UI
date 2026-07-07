@@ -29,62 +29,32 @@ describe('parseColor', () => {
 
   describe('rgb strings', () => {
     it('parses rgb()', () => {
-      expect(parseColor('rgb(255, 0, 0)')).toEqual({
-        h: 0,
-        s: 100,
-        l: 50,
-        a: 1,
-      });
+      expect(parseColor('rgb(255, 0, 0)')).toEqual({ h: 0, s: 100, l: 50, a: 1 });
     });
     it('parses rgba() with alpha', () => {
-      expect(parseColor('rgba(255, 0, 0, 0.5)')).toEqual({
-        h: 0,
-        s: 100,
-        l: 50,
-        a: 0.5,
-      });
+      expect(parseColor('rgba(255, 0, 0, 0.5)')).toEqual({ h: 0, s: 100, l: 50, a: 0.5 });
     });
     it('parses black', () => {
       expect(parseColor('rgb(0, 0, 0)')).toEqual({ h: 0, s: 0, l: 0, a: 1 });
     });
     it('parses white', () => {
-      expect(parseColor('rgb(255, 255, 255)')).toEqual({
-        h: 0,
-        s: 0,
-        l: 100,
-        a: 1,
-      });
+      expect(parseColor('rgb(255, 255, 255)')).toEqual({ h: 0, s: 0, l: 100, a: 1 });
     });
   });
 
   describe('hsl strings', () => {
     it('parses hsl()', () => {
-      expect(parseColor('hsl(0, 100%, 50%)')).toEqual({
-        h: 0,
-        s: 100,
-        l: 50,
-        a: 1,
-      });
+      expect(parseColor('hsl(0, 100%, 50%)')).toEqual({ h: 0, s: 100, l: 50, a: 1 });
     });
     it('parses hsla() with alpha', () => {
-      expect(parseColor('hsla(120, 50%, 60%, 0.8)')).toEqual({
-        h: 120,
-        s: 50,
-        l: 60,
-        a: 0.8,
-      });
+      expect(parseColor('hsla(120, 50%, 60%, 0.8)')).toEqual({ h: 120, s: 50, l: 60, a: 0.8 });
     });
   });
 
   describe('hsv strings', () => {
     it('parses hsv() and converts to HSL', () => {
       // hsv(0, 100%, 100%) = fully saturated red = hsl(0, 100%, 50%)
-      expect(parseColor('hsv(0, 100%, 100%)')).toEqual({
-        h: 0,
-        s: 100,
-        l: 50,
-        a: 1,
-      });
+      expect(parseColor('hsv(0, 100%, 100%)')).toEqual({ h: 0, s: 100, l: 50, a: 1 });
     });
     it('parses hsv(0, 0%, 0%) as black', () => {
       expect(parseColor('hsv(0, 0%, 0%)')).toEqual({ h: 0, s: 0, l: 0, a: 1 });
@@ -128,14 +98,7 @@ describe('parseColor', () => {
   describe('hue boundary', () => {
     it('hue is always < 360 (never returns 360 due to rounding)', () => {
       // Hue 360 === 0 in CSS; ensure we always normalise to [0, 360)
-      const colors = [
-        '#ff0000',
-        'red',
-        'hsl(359, 100%, 50%)',
-        'hsl(0, 100%, 50%)',
-        '#ffffff',
-        'blue',
-      ];
+      const colors = ['#ff0000', 'red', 'hsl(359, 100%, 50%)', 'hsl(0, 100%, 50%)', '#ffffff', 'blue'];
       for (const c of colors) {
         const result = parseColor(c);
         if (result) {
