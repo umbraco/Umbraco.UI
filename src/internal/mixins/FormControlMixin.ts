@@ -163,8 +163,7 @@ export const UUIFormControlBaseMixin = <
 
     #value: ValueType | DefaultValueType =
       defaultValue as unknown as DefaultValueType;
-    #valueOnFocus: ValueType | DefaultValueType =
-      undefined as unknown as DefaultValueType;
+    #valueOnFocus: ValueType | DefaultValueType | undefined = undefined;
     // A state to capture late edits to the value after focus has been lost, so we can trigger validation for late value changes. [NL]
     #hadFocus?: boolean;
     protected _internals: ElementInternals;
@@ -178,6 +177,7 @@ export const UUIFormControlBaseMixin = <
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
+        this.#hadFocus = false;
       });
       this.addEventListener('blur', () => {
         if (this.pristine) {
@@ -186,9 +186,7 @@ export const UUIFormControlBaseMixin = <
             this.checkValidity();
           }
         }
-        this.#valueOnFocus = undefined as unknown as
-          | ValueType
-          | DefaultValueType;
+        this.#valueOnFocus = undefined;
       });
     }
 
@@ -424,13 +422,17 @@ export const UUIFormControlBaseMixin = <
       }
     }
 
-    updated(changedProperties: Map<string | number | symbol, unknown>) {
+    override updated(
+      changedProperties: Map<string | number | symbol, unknown>,
+    ) {
       super.updated(changedProperties);
       // If still pristine and the input had focus and the value has changed, then we need to check validity, as the value might have been changed after focus was left. [NL]
       if (this.pristine && this.#hadFocus && changedProperties.has('value')) {
+        // checkValidity will set pristine to false for it self and all connected form controls and then run validators, hence not running _runValidators() below. [NL]
         this.checkValidity();
+      } else {
+        this._runValidators();
       }
-      this._runValidators();
     }
 
     readonly #onFormSubmit = () => {
@@ -450,7 +452,9 @@ export const UUIFormControlBaseMixin = <
     }
     public formResetCallback() {
       this.pristine = true;
+      this.#hadFocus = false;
       this.value = this.getInitialValue() ?? this.getDefaultValue();
+      this.#valueOnFocus = undefined;
     }
 
     protected getDefaultValue(): DefaultValueType {
