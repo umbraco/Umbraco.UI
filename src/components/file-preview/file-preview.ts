@@ -11,4 +11,3 @@ declare global {
 
 export * from './file-preview.element.js';
 export * from './UUIFileSize.js';
-export { UUIFilePreviewElement as default } from './file-preview.element.js';

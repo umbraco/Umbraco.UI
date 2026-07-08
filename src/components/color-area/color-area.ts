@@ -11,4 +11,3 @@ declare global {
 
 export * from './color-area.element.js';
 export * from './UUIColorAreaEvent.js';
-export { UUIColorAreaElement as default } from './color-area.element.js';

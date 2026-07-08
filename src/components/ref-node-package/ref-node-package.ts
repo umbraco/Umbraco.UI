@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './ref-node-package.element.js';
-export { UUIRefNodePackageElement as default } from './ref-node-package.element.js';

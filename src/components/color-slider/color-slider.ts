@@ -11,4 +11,3 @@ declare global {
 
 export * from './color-slider.element.js';
 export * from './UUIColorSliderEvent.js';
-export { UUIColorSliderElement as default } from './color-slider.element.js';

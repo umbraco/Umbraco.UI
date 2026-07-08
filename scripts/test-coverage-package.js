@@ -1,13 +1,22 @@
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const packageName = process.argv[2];
+const componentsDir = 'src/components';
+const requested = process.argv[2];
 
-// Validate against the component folder naming convention as a first guard.
-if (!packageName || !/^[a-z0-9][a-z0-9-]*$/.test(packageName)) {
+// Resolve the requested name against the actual component folders and use the
+// matched directory name (from the filesystem, not the CLI input) downstream,
+// so untrusted CLI input never reaches the child process.
+const packageName = readdirSync(componentsDir, { withFileTypes: true })
+  .filter(entry => entry.isDirectory())
+  .map(entry => entry.name)
+  .find(name => name === requested);
+
+if (!packageName) {
   console.error(
-    `Invalid package name: "${packageName}". Expected a component folder name (lowercase letters, digits and hyphens).`,
+    `Unknown component: "${requested}". Expected one of the folders in ${componentsDir}/.`,
   );
   process.exit(1);
 }
@@ -15,8 +24,7 @@ if (!packageName || !/^[a-z0-9][a-z0-9-]*$/.test(packageName)) {
 console.log('Test coverage for package: ' + packageName);
 
 // Run vitest without a shell: invoke node directly on vitest's CLI entry and
-// pass the path as a discrete argument, so the CLI input can never be parsed
-// as an OS command.
+// pass the path as a discrete argument array.
 const require = createRequire(import.meta.url);
 const vitestBin = join(
   dirname(require.resolve('vitest/package.json')),
@@ -25,6 +33,6 @@ const vitestBin = join(
 
 execFileSync(
   process.execPath,
-  [vitestBin, 'run', `src/components/${packageName}`, '--coverage'],
+  [vitestBin, 'run', join(componentsDir, packageName), '--coverage'],
   { stdio: 'inherit' },
 );

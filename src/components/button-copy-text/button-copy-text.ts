@@ -11,4 +11,3 @@ declare global {
 
 export * from './button-copy-text.element.js';
 export * from './UUICopyTextEvent.js';
-export { UUIButtonCopyTextElement as default } from './button-copy-text.element.js';

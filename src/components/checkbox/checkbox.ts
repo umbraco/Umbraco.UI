@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './checkbox.element.js';
-export { UUICheckboxElement as default } from './checkbox.element.js';

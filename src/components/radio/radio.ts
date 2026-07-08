@@ -16,4 +16,3 @@ export * from './radio-group.element.js';
 export * from './radio.element.js';
 export * from './UUIRadioEvent.js';
 export * from './UUIRadioGroupEvent.js';
-export { UUIRadioElement as default } from './radio.element.js';

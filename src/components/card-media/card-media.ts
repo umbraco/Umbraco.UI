@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './card-media.element.js';
-export { UUICardMediaElement as default } from './card-media.element.js';

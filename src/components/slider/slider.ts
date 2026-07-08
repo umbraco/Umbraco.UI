@@ -11,4 +11,3 @@ declare global {
 
 export * from './slider.element.js';
 export * from './UUISliderEvent.js';
-export { UUISliderElement as default } from './slider.element.js';

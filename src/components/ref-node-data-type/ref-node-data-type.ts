@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './ref-node-data-type.element.js';
-export { UUIRefNodeDataTypeElement as default } from './ref-node-data-type.element.js';

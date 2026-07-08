@@ -57,6 +57,14 @@ describe('UuiSlider', () => {
     it('has a hideStepValues property', () => {
       expect(element).toHaveProperty('hideStepValues');
     });
+    it('has an autocomplete property', () => {
+      expect(element).toHaveProperty('autocomplete');
+    });
+    it('forwards the autocomplete property to the native input', async () => {
+      element.autocomplete = 'off';
+      await element.updateComplete;
+      expect(input.getAttribute('autocomplete')).toBe('off');
+    });
   });
 
   describe('methods', () => {

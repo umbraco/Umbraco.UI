@@ -3,12 +3,12 @@ import { css, html, LitElement, nothing } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { iconCheck } from '../icon-registry-essential/svgs/index.js';
 import {
   ActiveMixin,
   LabelMixin,
   SelectableMixin,
 } from '../../internal/mixins/index.js';
+import { iconCheck } from '../icon-registry-essential/svgs/iconCheck.js';
 
 /**
  * Color swatch, can have label and be selectable, disabled or readonly.
@@ -16,7 +16,7 @@ import {
  * @element uui-color-swatch
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
- * @cssprop --uui-swatch-color - The width of the border.
+ * @cssprop --uui-swatch-color - The color of the swatch.
  * @slot label - Default slot for the label.
  */
 export class UUIColorSwatchElement extends LabelMixin(
@@ -217,8 +217,11 @@ export class UUIColorSwatchElement extends LabelMixin(
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
-        transition: box-shadow 100ms ease-out;
         flex-direction: column;
+      }
+
+      :host([show-label]) {
+        width: 120px;
       }
 
       :host(*),
@@ -234,18 +237,25 @@ export class UUIColorSwatchElement extends LabelMixin(
 
       :host(:focus:not([disabled])) #swatch {
         outline-color: var(--uui-color-focus);
-        outline-width: var(--uui-swatch-border-width, 1px);
+        outline-width: 2px;
         outline-style: solid;
         outline-offset: var(--uui-swatch-border-width, 1px);
+      }
+
+      :host([selected]:focus:not([disabled])) #swatch {
+        outline-offset: 2px;
       }
 
       :host([selectable]) #swatch {
         cursor: pointer;
       }
 
+      :host(:not([selectable]):not([readonly]):not([disabled])) #swatch {
+        cursor: pointer;
+      }
+
       :host([disabled]) {
         cursor: not-allowed;
-        opacity: 0.5;
       }
 
       :host([readonly]) {
@@ -260,12 +270,25 @@ export class UUIColorSwatchElement extends LabelMixin(
         padding: 0;
         margin: 0;
         text-align: left;
-        border: 1px solid #ccc;
-        border-radius: var(--uui-size-4);
+        border-radius: var(--uui-border-radius-2);
+        overflow: hidden;
+        width: 100%;
+      }
+      :host(:not([show-label])) #swatch {
+        border-radius: var(--uui-size-5);
+        border: 1px solid var(--uui-color-border);
       }
 
       :host(:not([selectable])) #swatch:focus {
         outline: none;
+      }
+      :host(:not([selectable]):not([readonly]):not([disabled])) #swatch:hover {
+        border-color: var(--uui-color-border-standalone);
+      }
+
+      :host([readonly]) #swatch,
+      :host([disabled]) #swatch {
+        background-color: var(--uui-color-disabled-standalone);
       }
 
       :host([selectable]) #swatch::after {
@@ -279,10 +302,13 @@ export class UUIColorSwatchElement extends LabelMixin(
         border: var(--uui-swatch-border-width, 2px) solid
           var(--uui-color-selected);
         border-radius: calc(
-          var(--uui-border-radius) + var(--uui-swatch-border-width, 1px)
+          var(--uui-size-5) + var(--uui-swatch-border-width, 1px)
         );
         transition: opacity 100ms ease-out;
         opacity: 0;
+      }
+      :host([selectable][show-label]) #swatch::after {
+        border-radius: var(--uui-border-radius-2);
       }
       :host([selectable]:not([disabled]):hover) #swatch::after {
         opacity: 0.33;
@@ -307,8 +333,9 @@ export class UUIColorSwatchElement extends LabelMixin(
       }
 
       :host([show-label]) .color-swatch {
-        width: 120px;
+        width: 100%;
         height: 50px;
+        margin: 0;
       }
 
       .color-swatch.color-swatch--transparent-bg {
@@ -327,13 +354,41 @@ export class UUIColorSwatchElement extends LabelMixin(
       .color-swatch__color {
         width: 100%;
         height: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: inherit;
+      }
+      .color-swatch__color::after {
+        content: '';
+        position: absolute;
+        inset: 0;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: inherit;
-        box-sizing: border-box;
       }
 
       :host([show-label]) .color-swatch__color {
-        border-radius: 3px 3px 0 0;
+        border-radius: var(--uui-border-radius-2) var(--uui-border-radius-2) 0 0;
+      }
+      :host([show-label][selectable][selected]:not([disabled]):not([readonly]))
+        .color-swatch__color::after {
+        border-top: 2px solid rgba(255, 255, 255, 0.25);
+        border-left: 2px solid rgba(255, 255, 255, 0.25);
+        border-right: 2px solid rgba(255, 255, 255, 0.25);
+      }
+      :host([show-label][readonly]:not([disabled]))
+        .color-swatch__color::after {
+        border: 2px solid var(--uui-color-border-standalone);
+      }
+
+      :host([readonly]:not([disabled])) .color-swatch__color {
+        border-color: transparent;
+      }
+      :host([disabled]) .color-swatch__color {
+        opacity: 0.6;
+      }
+      :host([disabled]) .color-swatch.color-swatch--transparent-bg {
+        background-image: none;
+        background-color: var(--uui-color-border-standalone);
       }
 
       .color-swatch__check {
@@ -362,13 +417,17 @@ export class UUIColorSwatchElement extends LabelMixin(
         opacity: 1;
       }
 
+      .color-swatch__check > svg {
+        stroke-width: 2.5;
+      }
+
       slot[name='label']::slotted(*),
       .label {
         font-size: var(--uui-size-4);
       }
 
       .color-swatch__label {
-        max-width: 120px;
+        width: 100%;
         box-sizing: border-box;
         padding: var(--uui-size-space-1) var(--uui-size-space-2);
         line-height: 1.5;
@@ -376,8 +435,19 @@ export class UUIColorSwatchElement extends LabelMixin(
         flex-direction: column;
         background: white;
         border: 1px solid var(--uui-color-border);
-        border-radius: 0 0 3px 3px;
+        border-top: none;
+        border-radius: 0 0 var(--uui-border-radius-2) var(--uui-border-radius-2);
         font-size: var(--uui-size-4, 12px);
+      }
+
+      :host(:not([selectable]):not([readonly]):not([disabled]))
+        .color-swatch__label {
+        color: var(--uui-color-interactive);
+      }
+      :host(:not([selectable]):not([readonly]):not([disabled]):hover)
+        .color-swatch__label {
+        color: var(--uui-color-interactive-emphasis);
+        border-color: var(--uui-color-border-standalone);
       }
 
       .color-swatch__label strong {

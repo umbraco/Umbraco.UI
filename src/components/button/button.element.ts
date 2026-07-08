@@ -148,7 +148,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
 
   constructor() {
     super();
-    this.addEventListener('click', this._onHostClick);
+    this.addEventListener('click', this._onHostClick, { capture: true });
   }
 
   protected getFormElement(): HTMLElement {
@@ -372,7 +372,7 @@ export class UUIButtonElement extends UUIFormControlWithBasicsMixin(
       }
 
       #button:focus-visible {
-        outline: 2px solid
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(
             --uui-focus-outline-color,
             var(--color-emphasis, var(--uui-color-focus))

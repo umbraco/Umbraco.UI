@@ -9,9 +9,9 @@ Umbraco.UI (UUI) is a web component library built with **Lit** and **TypeScript*
 > **This repo has two active major versions on separate branches:**
 >
 > - **v1** (`v1/dev`) — multi-package monorepo under `packages/`, Lit 2.x, `@open-wc/testing`. Latest: 1.17.x. PRs target `v1/dev`.
-> - **v2** (`main`) — single-package under `src/`, Lit 3.x, Vitest. Latest: 2.0.0-alpha. PRs target `main`.
+> - **v2** (`main`) — single-package under `src/`, Lit 3.x, Vitest. Latest: 2.0.0. PRs target `main`.
 >
-> The docs below describe **v1**. `v1/contrib` no longer exists — do not use it.
+> The docs below describe **v2**. `v1/contrib` no longer exists — do not use it.
 
 ## Common Commands
 
@@ -24,6 +24,9 @@ npm run storybook
 
 # Build (Vite + TypeScript declarations + custom-elements.json)
 npm run build
+
+# Verify the dist output shape after a build (also runs in CI)
+npm run verify-build
 
 # Clean + build
 npm run clean && npm run build
@@ -49,7 +52,7 @@ npm run new-component
 
 ## Branching Model
 
-- **`main`** (default) — v2 development branch (current: 2.x alpha), PR target for v2 work and community contributions.
+- **`main`** (default) — v2 development branch (current: 2.x), PR target for v2 work and community contributions.
 - **`v1/dev`** — v1 maintenance branch (latest: v1.17.1)
 - **`production`** — latest stable release, also the home for the Storybook at uui.umbraco.com (currently v1.17.1)
 
@@ -92,7 +95,8 @@ stories/             # Compound/example Storybook stories (auth, scaffolding, ho
 
 ### Build system
 
-- **Vite** builds the library with `preserveModules` (each source file → one output file)
+- **Vite 8** (Rolldown) builds the library with `preserveModules` (each source file → one output file). An `entryFileNames` override in `vite.config.ts` strips import queries (e.g. `?inline`) from preserved-module file names — Rolldown would otherwise emit files with `?` in the name.
+- **`npm run verify-build`** asserts the dist output shape after a build (registration chain intact, named exports only, lit externalized, valid file names). Runs in CI after the build step.
 - **TypeScript** (`tsc -p tsconfig.build.json`) generates declaration files
 - **Lit** and **culori** are the only runtime dependencies and are externalized (not bundled)
 - Output: `dist/` directory with ES modules, source maps, and `.d.ts` files
@@ -116,7 +120,7 @@ The `package.json` `exports` field exposes:
   - `feat` triggers a minor bump, `fix` triggers a patch bump
 - Publishing happens from CI on `v*` tags via `lerna publish from-package`
 - Pre-release versions use `preid: "rc"` and publish to `prerelease` dist-tag
-- Current: `2.0.0-alpha.1` on `main`; v1 latest: `1.17.1` on `v1/dev`
+- Current: `2.0.0` on `main`; v1 latest: `1.17.1` on `v1/dev`
 
 #### SonarCloud version & New Code baseline (act ONLY at major releases)
 
@@ -176,13 +180,14 @@ declare global {
 }
 
 export * from './button.element.js';
-export { UUIButtonElement as default } from './button.element.js';
 ```
 
 ```typescript
 // button/button.element.ts — pure class (no side effects, no registration)
 export class UUIButtonElement extends ... { }
 ```
+
+Registration files export **named only** — do not add `export { X as default }`. Default re-exports were removed in 2.x: they were undocumented, and Rolldown drops default re-exports from non-entry preserved modules anyway (`verify-build` guards against reintroduction).
 
 `defineElement` supports both direct call and decorator syntax. Direct calls are used in registration files; the decorator is only used for standalone example elements.
 

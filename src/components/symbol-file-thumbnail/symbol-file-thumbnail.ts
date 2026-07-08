@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-file-thumbnail.element.js';
-export { UUISymbolFileThumbnailElement as default } from './symbol-file-thumbnail.element.js';

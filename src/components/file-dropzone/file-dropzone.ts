@@ -11,4 +11,3 @@ declare global {
 
 export * from './file-dropzone.element.js';
 export * from './UUIFileDropzoneEvent.js';
-export { UUIFileDropzoneElement as default } from './file-dropzone.element.js';

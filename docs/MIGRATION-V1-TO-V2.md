@@ -148,7 +148,18 @@ The global `Option` interface (previously declared by `uui-select`) has been rep
 + const options: Array<UUISelectOption> = [{ name: 'A', value: 'a' }];
 ```
 
-### 5. Removed public methods on color components
+### 5. Form control mixins
+
+`UUIFormControlMixin` keeps its v1 surface: `name`, `required`, `requiredMessage`, `error`, `errorMessage`, `submit()` and the built-in `valueMissing`/`customError` validators are all still there. Classes extending `UUIFormControlMixin(...)` migrate without changes (only the import path changes, see step 2).
+
+v2 additionally splits the mixin in two:
+
+- `UUIFormControlBaseMixin` — the lean core (form association, `value`, `pristine`, validator machinery) without the basics above. New in v2; use it when your component wants full control over its own properties and validators.
+- `UUIFormControlWithBasicsMixin` — an alias of `UUIFormControlMixin` (base + the basics).
+
+The lean base's types are exported as `UUIFormControlBaseMixinElement`/`UUIFormControlBaseMixinInterface`; the `UUIFormControlMixinElement`/`UUIFormControlMixinInterface` names keep describing the full v1 surface.
+
+### 6. Removed public methods on color components
 
 The `getBrightness()` and `getLightness()` methods have been removed from `UUIColorAreaElement` and `UUIColorPickerElement`. These were HSB↔HSL conversion helpers that have been moved to shared utility functions.
 
@@ -166,7 +177,7 @@ If you were calling these methods on a component instance, use the standalone fu
 
 Note: the shared functions require an explicit `saturation` parameter (the old methods used `this.saturation` implicitly).
 
-### 6. Color picker: colord replaced by culori
+### 7. Color picker: colord replaced by culori
 
 v1 bundled [colord](https://github.com/omgovich/colord) internally. v2 uses [culori](https://github.com/Evercoder/culori) instead, which is an external dependency.
 
@@ -204,7 +215,7 @@ Both old and new formats are valid CSS. Any CSS parser (or `parseColor` from UUI
 + import type { HslaColor } from '@umbraco-ui/uui';
 ```
 
-### 7. Handle removed components
+### 8. Handle removed components
 
 If you used `uui-caret` or `uui-popover`, replace them:
 
@@ -216,7 +227,7 @@ If you used `uui-caret` or `uui-popover`, replace them:
 + <uui-popover-container ...>
 ```
 
-### 8. Update Lit to v3
+### 9. Update Lit to v3
 
 UUI v2 requires Lit ^3.0.0. If your project uses Lit 2, follow the [Lit 2 to 3 upgrade guide](https://lit.dev/docs/releases/upgrade/#lit-2x-to-3.0).
 

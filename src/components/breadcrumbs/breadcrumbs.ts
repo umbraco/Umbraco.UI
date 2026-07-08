@@ -14,4 +14,3 @@ declare global {
 
 export * from './breadcrumb-item.element.js';
 export * from './breadcrumbs.element.js';
-export { UUIBreadcrumbsElement as default } from './breadcrumbs.element.js';

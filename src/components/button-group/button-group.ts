@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './button-group.element.js';
-export { UUIButtonGroupElement as default } from './button-group.element.js';

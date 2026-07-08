@@ -3,6 +3,7 @@ import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
 import { css, html, LitElement, nothing, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { nativeInputStyles } from './native-input.styles.js';
 import { UUISliderEvent } from './UUISliderEvent.js';
@@ -146,6 +147,15 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
    */
   @property({ type: String })
   public label!: string;
+
+  /**
+   * Defines the autocomplete attribute, forwarded to the native input. A slider rarely wants autofill; set to "off" to discourage password managers from attaching to it.
+   * @type {string}
+   * @attr
+   * @default undefined
+   */
+  @property()
+  autocomplete?: string;
 
   @query('#input')
   private readonly _input!: HTMLInputElement;
@@ -302,6 +312,7 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
         max="${this.max}"
         .value="${this.value}"
         aria-label="${this.label}"
+        autocomplete=${ifDefined(this.autocomplete as any)}
         step="${+this.step}"
         ?disabled=${this.disabled || this.readonly}
         ?readonly=${this.readonly}
@@ -364,7 +375,8 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
       }
 
       input:focus-visible ~ #track #thumb {
-        outline: 2px solid var(--uui-color-focus);
+        outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
+          var(--uui-color-focus);
       }
 
       .track-step {

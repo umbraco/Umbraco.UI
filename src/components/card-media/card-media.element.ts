@@ -5,6 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import '../symbol-folder/symbol-folder.js';
 import '../symbol-file/symbol-file.js';
+import '../symbol-expand/symbol-expand.js';
 
 /**
  *  @element uui-card-media
@@ -12,6 +13,7 @@ import '../symbol-file/symbol-file.js';
  *  @slot tag - slot for the tag with support for `<uui-tag>` elements
  *  @slot actions - slot for the actions with support for the `<uui-action-bar>` element
  *  @slot - slot for the default content area
+ *  @slot icon - slot for the icon with support for `<uui-icon>` elements
  */
 export class UUICardMediaElement extends UUICardElement {
   /**
@@ -40,6 +42,14 @@ export class UUICardMediaElement extends UUICardElement {
    */
   @property({ type: String, attribute: 'file-ext' })
   fileExt = '';
+
+  @state()
+  private _iconSlotHasContent = false;
+
+  private _iconSlotChanged = (e: Event): void => {
+    this._iconSlotHasContent =
+      (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+  };
 
   @state()
   protected hasPreview = false;
@@ -94,7 +104,17 @@ export class UUICardMediaElement extends UUICardElement {
   #renderContent() {
     return html`
       <div id="content" class="uui-text">
-        <span id="name" title="${this.name}">${this.name}</span>
+        <span id="name" title="${this.name}">
+          ${this.hasChildren
+            ? html`<uui-symbol-expand aria-hidden="true"></uui-symbol-expand>`
+            : nothing}
+          <slot
+            name="icon"
+            id="icon"
+            style=${this._iconSlotHasContent ? '' : 'display: none;'}
+            @slotchange=${this._iconSlotChanged}></slot
+          ><span class="label">${this.name}</span>
+        </span>
         <small id="detail">${this.detail}<slot name="detail"></slot></small>
       </div>
     `;
@@ -186,6 +206,12 @@ export class UUICardMediaElement extends UUICardElement {
       }
 
       #open-part #name {
+        display: flex;
+        align-items: center;
+        gap: var(--uui-size-space-1);
+      }
+
+      #open-part #name .label {
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -223,6 +249,11 @@ export class UUICardMediaElement extends UUICardElement {
         opacity: 0.96;
       }
 
+      #icon {
+        display: inline-flex;
+        margin-right: var(--uui-size-1);
+      }
+
       #detail {
         opacity: 0.6;
       }
@@ -250,6 +281,15 @@ export class UUICardMediaElement extends UUICardElement {
         inset: calc(var(--uui-size-space-3) * -1)
           calc(var(--uui-size-space-4) * -1);
         top: 0;
+      }
+
+      :host([active]) {
+        background-color: var(--uui-color-surface);
+      }
+
+      :host([active]) #content::before {
+        background-color: var(--uui-color-current);
+        bottom: -1px;
       }
 
       /*

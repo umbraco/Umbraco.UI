@@ -45,6 +45,31 @@ describe('UUIColorPickerElement', () => {
   });
 
   describe('float precision', () => {
+    it('stores hue as an integer in component state', async () => {
+      element.setColor({ h: 120.6, s: 50, l: 40, a: 1 });
+      await element.updateComplete;
+
+      expect((element as any).hue).toBe(121);
+    });
+
+    it('rounds hue to integer in HSL formatted output', async () => {
+      element.setColor({ h: 120.6, s: 50, l: 40, a: 1 });
+      await element.updateComplete;
+      const formatted = element.getFormattedValue('hsl');
+
+      expect(formatted).toMatch(/^hsl\(121\s/);
+      expect(formatted).not.toMatch(/^hsl\(\d+\.\d+/);
+    });
+
+    it('rounds hue to integer in HSV formatted output', async () => {
+      element.setColor({ h: 120.6, s: 50, l: 40, a: 1 });
+      await element.updateComplete;
+      const formatted = element.getFormattedValue('hsv');
+
+      expect(formatted).toMatch(/^hsv\(121,/);
+      expect(formatted).not.toMatch(/^hsv\(\d+\.\d+/);
+    });
+
     it('rounds saturation and lightness to integers in formatted output', async () => {
       // Simulates a value produced by the color area with raw float coordinates
       element.setColor('hsl(353, 74.70982142857143%, 30.571292986188617%)');

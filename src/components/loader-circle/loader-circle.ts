@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './loader-circle.element.js';
-export { UUILoaderCircleElement as default } from './loader-circle.element.js';

@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './form.element.js';
-export { UUIFormElement as default } from './form.element.js';
