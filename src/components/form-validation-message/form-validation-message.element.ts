@@ -71,7 +71,10 @@ export class UUIFormValidationMessageElement extends LitElement {
     string
   >();
 
-  // Controls only dispatch validation events while they are not pristine, so a control going back to pristine (e.g. on form reset) would leave its message behind. The `pristine` property is reflected, so we observe the attribute on the controls we currently show messages for and remove them when they become pristine again. [JOV]
+  // Controls only dispatch validation events while they are not pristine, so a control going
+  // back to pristine (e.g. on form reset) would leave its message behind. The `pristine`
+  // property is reflected, so we observe the attribute on controls we currently show
+  // messages for and remove them when they become pristine again.
   private readonly _pristineObserver = new MutationObserver(entries => {
     let changed = false;
     for (const entry of entries) {
