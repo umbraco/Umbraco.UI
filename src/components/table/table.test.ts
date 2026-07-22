@@ -71,6 +71,29 @@ describe('UuiTable', () => {
     expect(row.selected).toBe(false);
   });
 
+  it('does not render wider than its container (box-sizing)', async () => {
+    // Regression: the host sets `width: 100%` and a 1px border, so without
+    // `box-sizing: border-box` the border is added outside the width and the
+    // element renders 2px wider than its container.
+    const wrapper = render(html`
+      <div style="width: 400px; padding: 0; border: 0">
+        <uui-table>
+          <uui-table-head>
+            <uui-table-head-cell>A</uui-table-head-cell>
+            <uui-table-head-cell>B</uui-table-head-cell>
+          </uui-table-head>
+          <uui-table-row>
+            <uui-table-cell>1</uui-table-cell>
+            <uui-table-cell>2</uui-table-cell>
+          </uui-table-row>
+        </uui-table>
+      </div>
+    `).container.firstElementChild as HTMLElement;
+    const constrained = wrapper.querySelector('uui-table') as UUITableElement;
+    await constrained.updateComplete;
+    expect(constrained.offsetWidth).toBe(wrapper.clientWidth);
+  });
+
   it('passes the a11y audit', async () => {
     expect(await axeRun(table)).toHaveNoViolations();
   });
