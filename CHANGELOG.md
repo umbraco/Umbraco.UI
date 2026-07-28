@@ -9,12 +9,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - **uui-table:** add box-sizing: border-box so width:100% + border doesn't overflow ([d87fa29](https://github.com/umbraco/Umbraco.UI/commit/d87fa29c569427f419c90fc0c573dbdc4696218d))
 
-## [2.0.2](https://github.com/umbraco/Umbraco.UI/compare/v2.0.1...v2.0.2) (2026-07-28)
-
-### Bug Fixes
-
-- **uui-table:** add box-sizing: border-box so width:100% + border doesn't overflow ([d87fa29](https://github.com/umbraco/Umbraco.UI/commit/d87fa29c569427f419c90fc0c573dbdc4696218d))
-
 ## [2.0.1](https://github.com/umbraco/Umbraco.UI/compare/v2.0.0...v2.0.1) (2026-07-08)
 
 ### Bug Fixes
