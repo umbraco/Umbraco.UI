@@ -5,6 +5,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { spread } from '../../../storyhelpers';
 
 import '../badge/badge.js';
+import '../avatar/avatar.js';
 
 const names = [
   'Mads Rasmussen',
