@@ -79,3 +79,4 @@ export * from './file-preview/file-preview.js';
 export * from './input-file/input-file.js';
 export * from './combobox/combobox.js';
 export * from './color-picker/color-picker.js';
+export * from './split-button/split-button.js';
