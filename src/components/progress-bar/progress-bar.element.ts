@@ -63,8 +63,9 @@ export class UUIProgressBarElement extends LitElement {
 
   render() {
     return html`
-      <progress
+      <div
         id="bar"
+        role="progressbar"
         aria-label=${ifDefined(
           this.getAttribute('aria-label') || this.label || undefined,
         )}
@@ -76,7 +77,7 @@ export class UUIProgressBarElement extends LitElement {
         aria-valuenow=${this._progress}
         value=${this._progress}
         max=${this._max}
-        style=${styleMap(this._getProgressStyle())}></progress>
+        style=${styleMap(this._getProgressStyle())}></div>
     `;
   }
 
