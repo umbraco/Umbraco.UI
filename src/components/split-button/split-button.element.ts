@@ -1,12 +1,16 @@
 import { css, html, LitElement } from 'lit';
-import type { UUIInterfaceColor, UUIInterfaceLook } from '../../internal/types';
 import { eventOptions, property, query } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
+
+import type { UUIInterfaceColor, UUIInterfaceLook } from '../../internal/types/index.js';
 import type {
   PopoverContainerPlacement,
   UUIPopoverContainerElement,
-} from '../popover-container/popover-container';
-import { when } from 'lit/directives/when.js';
+} from '../popover-container/popover-container.js';
 
+import '../button/button.js';
+import '../symbol-expand/symbol-expand.js';
+import '../popover-container/popover-container.js';
 /**
  * @element uui-split-button
  */
