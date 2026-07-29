@@ -75,8 +75,6 @@ export class UUIProgressBarElement extends LitElement {
         aria-valuemin="0"
         aria-valuemax=${this._max}
         aria-valuenow=${this._progress}
-        value=${this._progress}
-        max=${this._max}
         style=${styleMap(this._getProgressStyle())}></div>
     `;
   }
