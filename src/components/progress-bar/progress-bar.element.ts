@@ -11,6 +11,7 @@ const clamp = (num: number, min: number, max: number) =>
  */
 export class UUIProgressBarElement extends LitElement {
   private _progress = 0;
+  private _max = 100;
 
   /**
    * Accessible label for the progress bar.
@@ -20,6 +21,24 @@ export class UUIProgressBarElement extends LitElement {
    */
   @property({ type: String })
   label?: string;
+
+  /**
+   * Maximum value of the progress bar.
+   * @type {number}
+   * @attr max
+   * @default 100
+   */
+  @property({ type: Number })
+  get max() {
+    return this._max;
+  }
+
+  set max(newVal) {
+    const oldVal = this._max;
+    this._max = Math.max(newVal, 1);
+    this._progress = clamp(this._progress, 0, this._max);
+    this.requestUpdate('max', oldVal);
+  }
 
   /**
    * Set this to a number between 0 and 100 to reflect the progress of some operation.
@@ -34,12 +53,12 @@ export class UUIProgressBarElement extends LitElement {
 
   set progress(newVal) {
     const oldVal = this._progress;
-    this._progress = clamp(newVal, 0, 100);
+    this._progress = clamp(newVal, 0, this._max);
     this.requestUpdate('progress', oldVal);
   }
 
   private _getProgressStyle() {
-    return { width: `${this._progress}%` };
+    return { width: `${(this._progress / this._max) * 100}%` };
   }
 
   render() {
@@ -53,10 +72,10 @@ export class UUIProgressBarElement extends LitElement {
           this.getAttribute('aria-labelledby') || undefined,
         )}
         aria-valuemin="0"
-        aria-valuemax="100"
+        aria-valuemax=${this._max}
         aria-valuenow=${this._progress}
         value=${this._progress}
-        max="100"
+        max=${this._max}
         style=${styleMap(this._getProgressStyle())}></progress>
     `;
   }
