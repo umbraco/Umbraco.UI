@@ -6,6 +6,14 @@ import { spread } from '../../../storyhelpers';
 
 import '../badge/badge.js';
 
+const names = [
+  'Mads Rasmussen',
+  'Niels Lyngsø',
+  'Jacob Overgaard',
+  'Lee Kelleher',
+  'Matt Brailsford',
+];
+
 const meta: Meta = {
   id: 'uui-avatar-group',
   component: 'uui-avatar-group',
@@ -20,10 +28,9 @@ const meta: Meta = {
     return html`<uui-avatar-group
       style="font-size: ${args['font-size']};"
       ${spread(args)}>
-      <uui-avatar name="Mads Rasmussen"></uui-avatar>
-      <uui-avatar name="Niels Lyngsø"></uui-avatar>
-      <uui-avatar name="Jacob Overgaard"></uui-avatar>
-      <uui-avatar name="Jesper Møller Jensen"></uui-avatar>
+      ${names
+        .slice(0, 4)
+        .map(name => html`<uui-avatar name=${name}></uui-avatar>`)}
     </uui-avatar-group>`;
   },
   parameters: {
@@ -53,5 +60,42 @@ export const Border: Story = {
 export const Limit: Story = {
   args: {
     limit: 3,
+  },
+};
+
+const randomColor = () => {
+  const hue = Math.floor(Math.random() * 360);
+  return `hsl(${hue} 65% 45%)`;
+};
+
+export const Color: Story = {
+  render: args => {
+    return html`<uui-avatar-group
+      style="font-size: ${args['font-size']};"
+      ${spread(args)}>
+      ${names.map(
+        name =>
+          html`<uui-avatar
+            name=${name}
+            style="color: white; background-color: ${randomColor()}"></uui-avatar>`,
+      )}
+    </uui-avatar-group>`;
+  },
+};
+
+export const Image: Story = {
+  render: args => {
+    const imageIndexes = [0, 1, 2, 3, 4];
+
+    return html`<uui-avatar-group
+      style="font-size: ${args['font-size']};"
+      ${spread(args)}>
+      ${imageIndexes.map(
+        index =>
+          html`<uui-avatar
+            name=${`Avatar ${index + 1}`}
+            img-src=${`https://i.pravatar.cc/150?img=${index}`}></uui-avatar>`,
+      )}
+    </uui-avatar-group>`;
   },
 };
