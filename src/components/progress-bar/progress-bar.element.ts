@@ -41,7 +41,7 @@ export class UUIProgressBarElement extends LitElement {
   }
 
   /**
-   * Set this to a number between 0 and 100 to reflect the progress of some operation.
+   * Set this to a number between 0 and `max` to reflect the progress of some operation.
    * @type {number}
    * @attr
    * @default 0
