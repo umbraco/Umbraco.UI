@@ -9,7 +9,7 @@ describe('UUIProgressBarElement', () => {
 
   beforeEach(async () => {
     element = render(html`
-      <uui-progress-bar></uui-progress-bar>
+      <uui-progress-bar label="Progress"></uui-progress-bar>
     `).container.querySelector('uui-progress-bar')!;
 
     await element.updateComplete;
