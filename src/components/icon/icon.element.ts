@@ -154,14 +154,6 @@ export class UUIIconElement extends LitElement {
         );
         width: 100%;
       }
-
-      :host-context(div[slot='prepend']) {
-        margin-left: var(--uui-size-2, 6px);
-      }
-
-      :host-context(div[slot='append']) {
-        margin-right: var(--uui-size-2, 6px);
-      }
     `,
   ];
 }
