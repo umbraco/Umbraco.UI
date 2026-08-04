@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './card-block-type.element.js';
-export { UUICardBlockTypeElement as default } from './card-block-type.element.js';

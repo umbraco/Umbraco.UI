@@ -1,7 +1,8 @@
 import type { LitElement } from 'lit';
 import {
-  UUIFormControlMixin,
-  type UUIFormControlMixinElement,
+  UUIFormControlBaseMixin,
+  type UUIFormControlBaseMixinElement,
+  type UUIFormControlBaseMixinInterface,
 } from './FormControlMixin.js';
 import { property } from 'lit/decorators.js';
 
@@ -10,9 +11,21 @@ type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 /**
  * @internal
  */
+export interface UUIFormControlWithBasicsMixinInterface<
+  ValueType,
+> extends UUIFormControlBaseMixinInterface<ValueType> {
+  /**
+   * Submits the form that this element is a part of. If the element is not part of a form, or if the form has no submit button, this method does nothing.
+   */
+  submit(): void;
+}
+
+/**
+ * @internal
+ */
 export interface UUIFormControlWithBasicsMixinElement<
   ValueType,
-> extends UUIFormControlMixinElement<ValueType> {
+> extends UUIFormControlBaseMixinElement<ValueType> {
   name: string;
   required: boolean;
   requiredMessage: string;
@@ -42,7 +55,7 @@ export const UUIFormControlWithBasicsMixin = <
    * @internal
    */
   abstract class UUIFormControlWithBasicsMixinClass
-    extends UUIFormControlMixin<ValueType, T, DefaultValueType>(
+    extends UUIFormControlBaseMixin<ValueType, T, DefaultValueType>(
       superClass,
       defaultValue,
     )
@@ -114,4 +127,17 @@ export const UUIFormControlWithBasicsMixin = <
     UUIFormControlWithBasicsMixinElement<ValueType | DefaultValueType>
   > &
     T;
+};
+
+/**
+ * The v1 names for this mixin and its types. `UUIFormControlMixin` has the
+ * same surface as it had in v1 (`name`, `required`, `requiredMessage`,
+ * `error`, `errorMessage`, `submit()` and the built-in `valueMissing` and
+ * `customError` validators). The lean core it builds on is exported as
+ * `UUIFormControlBaseMixin`.
+ */
+export {
+  UUIFormControlWithBasicsMixin as UUIFormControlMixin,
+  type UUIFormControlWithBasicsMixinElement as UUIFormControlMixinElement,
+  type UUIFormControlWithBasicsMixinInterface as UUIFormControlMixinInterface,
 };

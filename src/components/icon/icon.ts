@@ -11,4 +11,3 @@ declare global {
 
 export * from './icon.element.js';
 export * from './UUIIconRequestEvent.js';
-export { UUIIconElement as default } from './icon.element.js';

@@ -16,4 +16,3 @@ export * from './tab-group.element.js';
 export * from './tab.element.js';
 export * from './UUITabEvent.js';
 export * from './UUITabGroupEvent.js';
-export { UUITabGroupElement as default } from './tab-group.element.js';

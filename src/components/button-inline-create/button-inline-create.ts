@@ -11,4 +11,3 @@ declare global {
 
 export * from './button-inline-create.element.js';
 export * from './UUIButtonInlineCreateEvent.js';
-export { UUIButtonInlineCreateElement as default } from './button-inline-create.element.js';

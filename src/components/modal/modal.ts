@@ -19,4 +19,3 @@ export * from './modal-dialog.element.js';
 export * from './modal-sidebar.element.js';
 export * from './modal.element.js';
 export * from './modal-container.js';
-export { UUIModalElement as default } from './modal.element.js';

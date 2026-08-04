@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './label.element.js';
-export { UUILabelElement as default } from './label.element.js';

@@ -5,3 +5,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 # FormControlMixin
 
 FormControlMixin can be used to make a web component part of a form.
+
+There are two flavours:
+
+- **`UUIFormControlMixin`** — the full mixin, matching the v1 surface. Adds `name`, `required`, `requiredMessage`, `error`, `errorMessage`, `submit()` and the built-in `valueMissing` and `customError` validators on top of the base. Also exported as `UUIFormControlWithBasicsMixin` — the two names are the same mixin.
+- **`UUIFormControlBaseMixin`** — the lean core: form association, `value`, `pristine` and the validator machinery, without the basics above. Use this when your component needs full control over its own properties and validators.

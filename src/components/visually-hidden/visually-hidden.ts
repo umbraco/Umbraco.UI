@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './visually-hidden.element.js';
-export { UUIVisuallyHiddenElement as default } from './visually-hidden.element.js';

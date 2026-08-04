@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './action-bar.element.js';
-export { UUIActionBarElement as default } from './action-bar.element.js';

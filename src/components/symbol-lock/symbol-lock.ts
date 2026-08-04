@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-lock.element.js';
-export { UUISymbolLockElement as default } from './symbol-lock.element.js';

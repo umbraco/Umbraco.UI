@@ -44,7 +44,9 @@ interface UUIFormControlValidatorConfig {
   weight: number;
 }
 
-export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
+export interface UUIFormControlBaseMixinInterface<
+  ValueType,
+> extends LitElement {
   addValidator: (
     flagKey: FlagTypes,
     getMessageMethod: () => string,
@@ -65,9 +67,9 @@ export interface UUIFormControlMixinInterface<ValueType> extends LitElement {
   pristine: boolean;
 }
 
-export declare abstract class UUIFormControlMixinElement<ValueType>
+export declare abstract class UUIFormControlBaseMixinElement<ValueType>
   extends LitElement
-  implements UUIFormControlMixinInterface<ValueType>
+  implements UUIFormControlBaseMixinInterface<ValueType>
 {
   protected _internals: ElementInternals;
   protected _runValidators(): void;
@@ -99,7 +101,7 @@ export declare abstract class UUIFormControlMixinElement<ValueType>
  * @param {Object} superClass - superclass to be extended.
  * @mixin
  */
-export const UUIFormControlMixin = <
+export const UUIFormControlBaseMixin = <
   ValueType = FormDataEntryValue | FormData,
   T extends HTMLElementConstructor<LitElement> = typeof LitElement,
   DefaultValueType = undefined,
@@ -107,7 +109,7 @@ export const UUIFormControlMixin = <
   superClass: T,
   defaultValue?: DefaultValueType,
 ) => {
-  abstract class UUIFormControlMixinClass extends superClass {
+  abstract class UUIFormControlBaseMixinClass extends superClass {
     /**
      * This is a static class field indicating that the element is can be used inside a native form and participate in its events.
      * It may require a polyfill, check support here https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/attachInternals.
@@ -161,8 +163,9 @@ export const UUIFormControlMixin = <
 
     #value: ValueType | DefaultValueType =
       defaultValue as unknown as DefaultValueType;
-    #valueOnFocus: ValueType | DefaultValueType =
-      undefined as unknown as DefaultValueType;
+    #valueOnFocus: ValueType | DefaultValueType | undefined = undefined;
+    // A state to capture late edits to the value after focus has been lost, so we can trigger validation for late value changes. [NL]
+    #hadFocus = false;
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
@@ -174,14 +177,16 @@ export const UUIFormControlMixin = <
 
       this.addEventListener('focus', () => {
         this.#valueOnFocus = this.value;
+        this.#hadFocus = false;
       });
       this.addEventListener('blur', () => {
-        if (this.#valueOnFocus !== this.value) {
-          this.checkValidity();
+        if (this.pristine) {
+          this.#hadFocus = true;
+          if (this.#valueOnFocus !== this.value) {
+            this.checkValidity();
+          }
         }
-        this.#valueOnFocus = undefined as unknown as
-          | ValueType
-          | DefaultValueType;
+        this.#valueOnFocus = undefined;
       });
     }
 
@@ -417,9 +422,17 @@ export const UUIFormControlMixin = <
       }
     }
 
-    updated(changedProperties: Map<string | number | symbol, unknown>) {
+    override updated(
+      changedProperties: Map<string | number | symbol, unknown>,
+    ) {
       super.updated(changedProperties);
-      this._runValidators();
+      // If still pristine and the control has been blurred while pristine, a later value change should trigger validation (e.g. value changed after blur). [NL]
+      if (this.pristine && this.#hadFocus && changedProperties.has('value')) {
+        // checkValidity will set pristine to false for itself and all connected form controls and then run validators, so we skip _runValidators() below. [NL]
+        this.checkValidity();
+      } else {
+        this._runValidators();
+      }
     }
 
     readonly #onFormSubmit = () => {
@@ -439,7 +452,9 @@ export const UUIFormControlMixin = <
     }
     public formResetCallback() {
       this.pristine = true;
+      this.#hadFocus = false;
       this.value = this.getInitialValue() ?? this.getDefaultValue();
+      this.#valueOnFocus = undefined;
     }
 
     protected getDefaultValue(): DefaultValueType {
@@ -471,8 +486,8 @@ export const UUIFormControlMixin = <
       return this._internals?.validationMessage;
     }
   }
-  return UUIFormControlMixinClass as unknown as HTMLElementConstructor<
-    UUIFormControlMixinElement<ValueType | DefaultValueType>
+  return UUIFormControlBaseMixinClass as unknown as HTMLElementConstructor<
+    UUIFormControlBaseMixinElement<ValueType | DefaultValueType>
   > &
     T;
 };

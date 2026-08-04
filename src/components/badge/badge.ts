@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './badge.element.js';
-export { UUIBadgeElement as default } from './badge.element.js';

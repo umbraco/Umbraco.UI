@@ -11,4 +11,3 @@ declare global {
 
 export * from './menu-item.element.js';
 export * from './UUIMenuItemEvent.js';
-export { UUIMenuItemElement as default } from './menu-item.element.js';

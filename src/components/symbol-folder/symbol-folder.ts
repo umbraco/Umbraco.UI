@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-folder.element.js';
-export { UUISymbolFolderElement as default } from './symbol-folder.element.js';

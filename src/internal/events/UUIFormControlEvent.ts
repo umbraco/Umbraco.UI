@@ -1,9 +1,9 @@
-import type { UUIFormControlMixinInterface } from '../mixins/index.js';
+import type { UUIFormControlBaseMixinInterface } from '../mixins/index.js';
 import { UUIEvent } from './UUIEvent.js';
 
 export class UUIFormControlEvent extends UUIEvent<
   {},
-  UUIFormControlMixinInterface<unknown>
+  UUIFormControlBaseMixinInterface<unknown>
 > {
   constructor(evName: string, eventInit: any = {}) {
     super(evName, {

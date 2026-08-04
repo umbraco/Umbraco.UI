@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-file-dropzone.element.js';
-export { UUISymbolFileDropzoneElement as default } from './symbol-file-dropzone.element.js';

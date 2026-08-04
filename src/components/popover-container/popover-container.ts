@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './popover-container.element.js';
-export { UUIPopoverContainerElement as default } from './popover-container.element.js';

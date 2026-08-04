@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-more.element.js';
-export { UUISymbolMoreElement as default } from './symbol-more.element.js';

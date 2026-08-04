@@ -11,4 +11,3 @@ declare global {
 
 export * from './select.element.js';
 export * from './UUISelectEvent.js';
-export { UUISelectElement as default } from './select.element.js';

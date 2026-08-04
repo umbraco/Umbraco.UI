@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './loader-bar.element.js';
-export { UUILoaderBarElement as default } from './loader-bar.element.js';

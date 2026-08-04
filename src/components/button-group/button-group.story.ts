@@ -29,3 +29,11 @@ type Story = StoryObj;
  * For styling options see the [Button](/docs/uui-button--docs) component.
  */
 export const Default: Story = {};
+
+export const SingleButton: Story = {
+  render: () => html`
+    <uui-button-group>
+      <uui-button look="primary" label="Button 1"></uui-button>
+    </uui-button-group>
+  `,
+};

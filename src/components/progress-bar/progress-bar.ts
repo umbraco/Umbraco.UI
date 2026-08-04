@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './progress-bar.element.js';
-export { UUIProgressBarElement as default } from './progress-bar.element.js';

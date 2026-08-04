@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './ref-list.element.js';
-export { UUIRefListElement as default } from './ref-list.element.js';

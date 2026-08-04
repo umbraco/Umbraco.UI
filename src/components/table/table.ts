@@ -30,4 +30,3 @@ export * from './table-head-cell.element.js';
 export * from './table-head.element.js';
 export * from './table-row.element.js';
 export * from './table.element.js';
-export { UUITableElement as default } from './table.element.js';

@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './symbol-sort.element.js';
-export { UUISymbolSortElement as default } from './symbol-sort.element.js';

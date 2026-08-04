@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './card-content-node.element.js';
-export { UUICardContentNodeElement as default } from './card-content-node.element.js';

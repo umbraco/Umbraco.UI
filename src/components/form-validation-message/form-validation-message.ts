@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './form-validation-message.element.js';
-export { UUIFormValidationMessageElement as default } from './form-validation-message.element.js';

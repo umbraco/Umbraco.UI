@@ -10,4 +10,3 @@ declare global {
 }
 
 export * from './responsive-container.element.js';
-export { UUIResponsiveContainerElement as default } from './responsive-container.element.js';

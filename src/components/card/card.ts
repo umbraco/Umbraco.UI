@@ -11,4 +11,3 @@ declare global {
 
 export * from './card.element.js';
 export * from './UUICardEvent.js';
-export { UUICardElement as default } from './card.element.js';
