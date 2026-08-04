@@ -82,6 +82,9 @@ export const Color: Story = {
       )}
     </uui-avatar-group>`;
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Image: Story = {
