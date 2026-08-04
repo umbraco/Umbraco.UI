@@ -35,7 +35,8 @@ export class UUIProgressBarElement extends LitElement {
 
   set max(newVal) {
     const oldVal = this._max;
-    this._max = Math.max(newVal, 1);
+    const next = Number.isFinite(newVal) ? newVal : 1;
+    this._max = Math.max(next, 1);
     this._progress = clamp(this._progress, 0, this._max);
     this.requestUpdate('max', oldVal);
   }
