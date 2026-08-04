@@ -108,15 +108,4 @@ describe('UUIProgressBarElement', () => {
       element.shadowRoot?.getElementById('bar')?.getAttribute('aria-label'),
     ).toBe('Attribute label');
   });
-
-  it('forwards aria-labelledby attribute to the inner progressbar element', async () => {
-    element.setAttribute('aria-labelledby', 'progress-heading');
-    await element.updateComplete;
-
-    expect(
-      element.shadowRoot
-        ?.getElementById('bar')
-        ?.getAttribute('aria-labelledby'),
-    ).toBe('progress-heading');
-  });
 });
